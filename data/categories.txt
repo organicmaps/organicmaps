@@ -224,7 +224,7 @@ be:АЗС|3бензін|3дызель|4паліва|газ
 bg:Гориво|Бензиностанция
 ca:Benzinera
 cs:2Čerpací stanice|Benzinová pumpa|benzinka
-cy:Tanwydd|3petrol|4diesel|disel|nwy
+cy:Tanwydd|3petrol|4diesel|disel
 da:Benzin|brændstof
 de:3Tankstelle|4Benzin|4Diesel|4Sprit
 el:Βενζινάδικο|Υγρά Καύσιμα
@@ -1610,7 +1610,7 @@ be:Тэлекамунікацыйная крама
 bg:Магазин за телекомуникации
 ca:Botiga de telecomunicacions
 cs:Telekomunikační obchod
-cy:Siop telathrebu
+cy:Siop delathrebu|telathrebu
 da:Butik for telekommunikation
 de:Geschäft für Telekommunikation
 el:Κατάστημα τηλεπικοινωνιών
@@ -2003,7 +2003,7 @@ be:Гаспадарчы|будаўнічы|гаспадарчая крама|б�
 bg:НСС|строителни материали|железария|строителен маркет
 ca:Ferreteria
 cs:Železářství|domácí potřeby
-cy:4Nwyddau Haearn|4DIY|offer|siop galedwedd|gwella'r cartref
+cy:4Nwyddau Haearn|DIY|offer|siop nwyddau haearn|gwella'r cartref
 da:Isenkræmmer|Byggemarked
 de:5Eisenwarengeschäft|3Baumarkt|4Heimwerkermarkt|Eisenwarenhandlung
 el:Είδη κιγκαλερίας|DIY|κάν'το μόνος σου|κατάστημα|κατάστημα υλικού
@@ -2942,7 +2942,7 @@ shop-caravan|@category_rv|@shop
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Аўтадом|Продаж аўтадамоў
 ca:Venda de caravanas|venda de autocaravanas|venda de motorhomes
-cy:2Delwriaeth carafanau|4Carafanau|cartrefi modur
+cy:2Gwerthwr carafanau|4Carafanau|cartrefi modur
 de:5Wohnmobilhändler|5Wohnwagenhändler
 es:Venta de caravanas|venta de autocaravanas|venta de motorhomes
 et:Haagiselamute müük
@@ -2962,7 +2962,7 @@ be:4Аўтасалон|Машыны
 bg:Майстор|автомонтьор|автосалон
 ca:Venda de cotxes|concesionari
 cs:Obchod s auty
-cy:3Delwriaeth Geir|gwerthwr ceir|garej
+cy:3Gwerthwr Ceir|delwriaeth ceir|garej
 da:Bilforhandler
 de:4Autohaus|Autohändler
 el:Αντιπροσωπεία αυτοκινήτων|κατάστημα
@@ -7312,7 +7312,7 @@ en:Pharmacy|4drugstore|apothecary|4dispensary|U+1F489|U+1F48A
 ar:متجر أدوية|صيدلية
 bg:Аптека|дрогерия|лекарства
 ca:Farmàcia
-cy:Fferyllfa|4fferyllydd|siop cemist|4cemist
+cy:Fferyllfa|4fferyllydd|siop gemist|4cemist
 de:Apotheke|Drogerie
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
 en-AU:4Chemist|pharmacist
@@ -8856,7 +8856,7 @@ en:Suburb|district|quarter|neighbourhood|neighborhood|residential area
 ar:حي سكني|ضاحية|الحي|منطقة سكنية
 bg:Район|микрорайон|окръг|квартал|предградие|съседство
 cs:Předměstí|městská část|městská zóna|čtvrť|sousedství|obytná oblast
-cy:Maestref|ardal|chwarter|cymdogaeth|ardal breswyl
+cy:Maestref|ardal|rhandir|cymdogaeth|ardal breswyl
 da:Forstad|distrikt|kvarter|nabolag|boligområde
 de:Stadtteil|stadtviertel|wohnviertel|wohnbezirk|siedlung|wohngebiet
 el:Προάστιο|συνοικία|γειτονιά|οικιστική περιοχή
@@ -9781,7 +9781,7 @@ ar:مصفف شعر|حلاق
 be:4Цырулья|цырульнік|цырульня
 bg:подстрижка|фризьор|салон|красота|маникюр|педикюр|стилист
 cs:4Kadeřnictví|4holičství
-cy:3Siop Trin Gwallt|salon gwallt|barbwr|torri gwallt|trin gwallt|lliwio gwallt
+cy:3Siop Drin Gwallt|salon gwallt|barbwr|torri gwallt|trin gwallt|lliwio gwallt
 da:3Frisør
 de:3Friseur|Frisiersalon|Frisör|4Coiffeur
 el:Κομμωτής
@@ -11509,7 +11509,7 @@ be:Чатыры квадраты
 bg:Четири квадрата
 ca:5Quatre quadrats
 cs:Čtyři čtverce
-cy:Pedwar Sgwâr|4 sgwâr
+cy:Pedwar Sgwâr
 da:Fire firkanter
 de:Vier-Felder-Ball|Vier Quadrate
 el:Τέσσερα τετράγωνα
@@ -12942,7 +12942,7 @@ ar:موقع البيت المتنقل
 be:4Аўтакемпінг|4кемпінг для аўтадамоў|4стаянка для аўтадамоў
 bg:4къмпинг|4стоянка|каравана|паркинг
 cs:Kemp pro obytné přívěsy
-cy:2Parc Carafanau|4Safle Carafanau|maes carafannau
+cy:2Parc Carafanau|4Safle Carafanau|maes carafanau
 da:5Autocamperplads|husvogn
 de:4Wohnmobilstellplatz|Wohnmobilpark|Wohnwagenstellplatz|Wohnwagenplatz|Campingplatz
 el:Χώρος για τροχόσπιτα|Χώρος για οχήματα RV
@@ -13023,7 +13023,7 @@ zh-Hant:辦公室|1辦事處
 
 office-architect
 en:4Architect|architecture office|architect office
-cy:4Pensaer|swyddfa pensaer|pensaernïaeth
+cy:4Pensaer|swyddfa bensaer|pensaernïaeth
 de:Architekt|Architekturbüro
 es:Arquitecto|Estudio de arquitectura
 fr:Architecte|Cabinet d'architecte
@@ -14312,7 +14312,7 @@ ar:إنترنت لا سلكي|وايفاي
 be:WiFi|Wi-Fi
 bg:WiFi|Wi-Fi
 cs:Wi-Fi|wiFi
-cy:Di-wifr|WiFi|Wi-Fi
+cy:Wi-Fi|WiFi|di-wifr
 da:WiFi|Wi-Fi
 de:WLAN|WiFi|Wi-Fi
 el:WiFi|Wi-Fi
@@ -15157,13 +15157,13 @@ zh-Hant:自行車充電|自行車充電站
 
 amenity-charging_station-motorcar|@charging_station
 en:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint
-cy:2Gwefrydd EV|gwefru EV|4gwefru ceir|3gwefrydd car|trydan|3Tesla|Ionity|ChargePoint
 en-GB:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint|Pod Point
 ar:3شاحن سيارة|شحن سيارة كهربائية
 be:4Зарадка для электрамабіляў|4станцыя зарадкі электрамабіляў|MALANKA|МАЛАНКА|evika|эвіка
 bg:зарядна станция за електромобили|зареждане на кола
 ca:carregador de cotxe|electrolinera
 cs:nabíječka pro elektromobily|3auto nabíječka
+cy:2Gwefrydd EV|gwefru EV|4gwefru ceir|3gwefrydd car|trydan|3Tesla|Ionity|ChargePoint
 da:Elbil opladning|billadestander
 de:4E-Ladestation|ladesäule|4auto laden|stromtankstelle|enBW|ionity|allego|kfz-Ladestation
 el:φόρτιση ηλεκτρικού αυτοκινήτου|φορτιστής αυτοκινήτου
@@ -15508,7 +15508,7 @@ en:4Chemist|Pharmacist
 ar:متجر كيماويات
 bg:4Битова химия|химик
 cs:4Drogerie
-cy:4Cemist|Fferyllydd|siop cemist
+cy:4Cemist|Fferyllydd|siop gemist
 da:Materialist
 de:4Drogerie
 el:Χημικά προϊόντα|φαρμακείο
@@ -18689,7 +18689,7 @@ en:4Motorcycle|motorcycle shop
 ar:متجر دراجات نارية
 bg:4Мотоциклети|мотори
 cs:Prodejna motocyklů
-cy:4Beic modur|siop beiciau modur
+cy:4Beic modur|siop feiciau modur
 da:4Motorcykelforhandler
 de:4Motorradladen
 el:Κατάστημα μοτοσυκλετών
@@ -21231,7 +21231,7 @@ be:Крама ложкаў
 bg:Магазин за легла|легло
 ca:Botiga de llits
 cs:Prodejna postelí
-cy:Gwelyau|matresi|gobenyddion|cwiltiau|siop gwelyau
+cy:Gwelyau|matresi|gobenyddion|cwiltiau|siop welyau
 da:Senge butik|sengebutik
 de:Bettengeschäft
 el:Κατάστημα κρεβατιών
@@ -21433,7 +21433,7 @@ zh-Hant:煤氣庫
 
 shop-games|@shop
 en:Games Shop|Board games|Tabletop games
-cy:Siop Gemau|gemau bwrdd
+cy:Siop Emau|gemau bwrdd|gemau
 de:Spielegeschäft|Brettspiele
 es:Tienda de juegos|Juegos de mesa
 fr:Boutique de jeux|Jeux de société
@@ -22091,7 +22091,7 @@ be:4Кальянная
 bg:4Наргиле бар
 ca:4Bar de xixa
 cs:4Shisha bar
-cy:4Lolfa Hwca|4Bar shisha
+cy:4Lolfa Shisha|4Bar shisha|hwca
 da:4Vandpibecafé
 de:4Shisha-Bar
 el:4Ναργιλέ μπαρ
