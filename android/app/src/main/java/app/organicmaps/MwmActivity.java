@@ -500,6 +500,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
     mSearchPageViewModel = new ViewModelProvider(this).get(SearchPageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(this).get(MapButtonsViewModel.class);
+    TrackRecordingService.isRecording().observe(this, recording -> {
+      // Recording can be stopped from the notification, tear down the UI when it happens.
+      if (!recording && Boolean.TRUE.equals(mMapButtonsViewModel.getTrackRecorderState().getValue()))
+        stopTrackRecording();
+    });
     // We don't need to manually handle removing the observers it follows the activity lifecycle
     mMapButtonsViewModel.getBottomButtonsHeight().observe(this, this::onMapBottomButtonsHeightChange);
     mMapButtonsViewModel.getLayoutMode().observe(this, this::initNavigationButtons);
@@ -924,12 +929,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onNewIntent(intent);
     if (mMapController.isRenderingActive())
       processIntent();
-    if (intent.getAction() != null && intent.getAction().equals(TrackRecordingService.STOP_TRACK_RECORDING))
-    {
-      // closes the bottom sheet in case it is opened to deal with updates of track recording status in bottom sheet.
-      closeBottomSheet(MAIN_MENU_ID);
-      toggleTrackRecordingPP();
-    }
   }
 
   @CallSuper
@@ -1976,8 +1975,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       final int offsetX = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right;
       updateCompassOffset(offsetY, offsetX);
     }
-    TrackRecordingService.stopService(getApplicationContext());
+    // Reset the state before stopping the service: its observer re-enters this method while the state is on.
     mMapButtonsViewModel.setTrackRecorderState(false);
+    TrackRecordingService.stopService(getApplicationContext());
+    closeBottomSheet(MAIN_MENU_ID);
     if (mPlacePageViewModel.getMapObject().getValue() != null
         && mPlacePageViewModel.getMapObject().getValue().isTrackRecording())
       closePlacePage();
@@ -1985,11 +1986,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void saveAndStopTrackRecording()
   {
-    // we are detaching the listener before saving the track to stop getting updates and fetching data from wrong
-    // mapObject
-    TrackRecorder.nativeSetTrackRecordingStatsListener(null);
-    if (!TrackRecorder.nativeIsTrackRecordingEmpty())
-      TrackRecorder.nativeSaveTrackRecordingWithName("");
+    TrackRecorder.saveAndStop();
     stopTrackRecording();
   }
 
