@@ -21,8 +21,6 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
-#include <chrono>
-#include <future>
 #include <memory>
 #include <set>
 #include <vector>
@@ -295,37 +293,32 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeHasSomethingToUp
   return osm::Editor::Instance().HaveMapEditsOrNotesToUpload();
 }
 
-JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token,
-                                                                          jstring appVersion, jstring appId)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token,
+                                                                          jstring appVersion, jstring appId,
+                                                                          jobject listener)
 {
   using osm::Editor;
 
-  // The wait below is bounded, so the completion callback may outlive this frame. Share the promise
-  // with the callback instead of keeping it on the stack. This non-empty callback is called exactly
-  // once when UploadChanges returns Started.
-  auto const promise = std::make_shared<std::promise<Editor::UploadResult>>();
-  auto future = promise->get_future();
+  auto const notify = [jListener = jni::make_global_ref(listener)](Editor::UploadResult result)
+  {
+    JNIEnv * env = jni::GetEnv();
+    env->CallVoidMethod(*jListener, jni::GetMethodID(env, *jListener, "onUploadComplete", "(I)V"),
+                        static_cast<jint>(result));
+    jni::HandleJavaException(env);
+  };
 
   switch (Editor::Instance().UploadChanges(
       jni::ToNativeString(env, token),
       {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
        {"bundle_id", jni::ToNativeString(env, appId)}},
-      [promise](Editor::UploadResult result) { promise->set_value(result); }))
+      notify))
   {
   case Editor::UploadStart::Started: break;
-  // Returning NothingToUpload while a previous upload is running would make the worker finish even
-  // though its outcome is still unknown. Report an error so that the worker retries instead.
-  case Editor::UploadStart::AlreadyUploading: return static_cast<jint>(Editor::UploadResult::Error);
-  case Editor::UploadStart::NothingToUpload: return static_cast<jint>(Editor::UploadResult::NothingToUpload);
+  // The outcome of the upload already in flight is unknown here, so report an error to make the
+  // worker retry rather than finish successfully.
+  case Editor::UploadStart::AlreadyUploading: notify(Editor::UploadResult::Error); break;
+  case Editor::UploadStart::NothingToUpload: notify(Editor::UploadResult::NothingToUpload); break;
   }
-
-  if (future.wait_for(std::chrono::minutes(5)) == std::future_status::timeout)
-  {
-    // Reported as an error so that the caller reschedules, but the upload itself keeps running.
-    LOG(LWARNING, ("Timed out waiting for the OSM upload, it continues in background."));
-    return static_cast<jint>(Editor::UploadResult::Error);
-  }
-  return static_cast<jint>(future.get());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclass clazz)
