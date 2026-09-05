@@ -368,6 +368,11 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   self.bm.SetAllCategoriesVisibility(isVisible);
 }
 
+- (void)setTrack:(MWMTrackID)trackId isVisible:(BOOL)isVisible
+{
+  GetFramework().SetTrackVisibility(trackId, isVisible);
+}
+
 - (void)deleteCategory:(MWMMarkGroupID)groupId
 {
   self.bm.GetEditSession().DeleteBmCategory(groupId, false /* move to the Trash */);

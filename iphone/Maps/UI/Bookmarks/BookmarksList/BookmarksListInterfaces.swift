@@ -34,7 +34,7 @@ protocol IBookmarksSectionViewModel: IBookmarksListSectionViewModel {
 }
 
 protocol ITracksSectionViewModel: IBookmarksListSectionViewModel {
-  var tracks: [IBookmarksListItemViewModel] { get }
+  var tracks: [ITrackViewModel] { get }
 }
 
 protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
@@ -48,6 +48,11 @@ protocol IBookmarksListItemViewModel {
   var subtitle: String { get }
   var image: UIImage { get }
   var colorDidTapAction: ((_ anchor: UIView?) -> Void)? { get }
+}
+
+protocol ITrackViewModel: IBookmarksListItemViewModel {
+  var isVisible: Bool { get }
+  var visibilityDidTapAction: () -> Void { get }
 }
 
 protocol ISubgroupViewModel {
@@ -114,6 +119,7 @@ protocol IBookmarksListInteractor {
   func viewBookmarkOnMap(_ bookmarkId: MWMMarkID)
   func viewTrackOnMap(_ trackId: MWMTrackID)
   func setGroup(_ groupId: MWMMarkGroupID, visible: Bool)
+  func setTrack(_ trackId: MWMTrackID, visible: Bool)
   func sort(_ sortingType: BookmarksListSortingType,
             location: CLLocation?,
             completion: @escaping ([BookmarksSection]) -> Void)

@@ -91,6 +91,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId;
 - (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible;
 - (void)setUserCategoriesVisible:(BOOL)isVisible;
+- (void)setTrack:(MWMTrackID)trackId isVisible:(BOOL)isVisible;
 - (void)deleteCategory:(MWMMarkGroupID)groupId;
 - (BOOL)checkCategoryName:(NSString *)name;
 - (BOOL)hasCategory:(MWMMarkGroupID)groupId;

@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "Vaihda väri";
 
+/* Text for the hiding track. */
+"hide_track" = "Piilota reitti";
+
+/* Text for the showing track. */
+"show_track" = "Näytä reitti";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Kartta";
 

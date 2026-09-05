@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "Szín módosítása";
 
+/* Text for the hiding track. */
+"hide_track" = "Nyomvonal elrejtése";
+
+/* Text for the showing track. */
+"show_track" = "Nyomvonal megjelenítése";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Térkép";
 

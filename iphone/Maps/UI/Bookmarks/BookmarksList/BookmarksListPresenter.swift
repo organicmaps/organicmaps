@@ -51,14 +51,7 @@ final class BookmarksListPresenter {
 
   private func setDefaultSections() {
     var sections: [IBookmarksListSectionViewModel] = []
-    let tracks = bookmarkGroup.tracks.map { track in
-      TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)), colorDidTap: { anchor in
-        self.view?.showColorPicker(anchor: anchor, currentColor: track.trackColor) { color in
-          self.interactor.setColor(color, for: [.track(track.trackId)])
-          self.reload()
-        }
-      })
-    }
+    let tracks = bookmarkGroup.tracks.map { makeTrackViewModel($0) }
     if !tracks.isEmpty {
       sections.append(TracksSectionViewModel(tracks: tracks))
     }
@@ -98,6 +91,20 @@ final class BookmarksListPresenter {
         }
       })
     }
+  }
+
+  private func makeTrackViewModel(_ track: Track) -> TrackViewModel {
+    TrackViewModel(track,
+                   formattedDistance: formatDistance(Double(track.trackLengthMeters)),
+                   colorDidTap: { [weak self] anchor in
+                     self?.view?.showColorPicker(anchor: anchor, currentColor: track.trackColor) { color in
+                       self?.interactor.setColor(color, for: [.track(track.trackId)])
+                       self?.reload()
+                     }
+                   },
+                   visibilityDidTap: { [weak self] in
+                     self?.toggleTrackVisibility(trackId: track.trackId, isVisible: track.isVisible)
+                   })
   }
 
   private func formatDistance(_ distance: Double) -> String {
@@ -190,6 +197,11 @@ final class BookmarksListPresenter {
     router.viewOnMap(bookmarkGroup)
   }
 
+  private func toggleTrackVisibility(trackId: MWMTrackID, isVisible: Bool) {
+    interactor.setTrack(trackId, visible: !isVisible)
+    reload()
+  }
+
   private func sort(_ sortingType: BookmarksListSortingType) {
     let location = LocationManager.lastLocation()
     // A by-distance sort without a position yields no sections, and the interactor drops that result, so the
@@ -199,24 +211,20 @@ final class BookmarksListPresenter {
       return
     }
 
+    // The core keeps the completion alive and calls it after the screen is gone, so a dead
+    // presenter must bail out instead of falling through to fatalError() below.
     interactor.sort(sortingType, location: location) { [weak self] sortedSections in
+      guard let self else { return }
       let sections = sortedSections.map { bookmarksSection -> IBookmarksListSectionViewModel in
-        if let bookmarks = bookmarksSection.bookmarks, let self = self {
+        if let bookmarks = bookmarksSection.bookmarks {
           return BookmarksSectionViewModel(title: bookmarksSection.sectionName, bookmarks: self.mapBookmarks(bookmarks))
         }
-        if let tracks = bookmarksSection.tracks, let self = self {
-          return TracksSectionViewModel(tracks: tracks.map { track in
-            TrackViewModel(track, formattedDistance: self.formatDistance(Double(track.trackLengthMeters)), colorDidTap: { anchor in
-              self.view?.showColorPicker(anchor: anchor, currentColor: track.trackColor) { color in
-                self.interactor.setColor(color, for: [.track(track.trackId)])
-                self.reload()
-              }
-            })
-          })
+        if let tracks = bookmarksSection.tracks {
+          return TracksSectionViewModel(tracks: tracks.map { self.makeTrackViewModel($0) })
         }
         fatalError()
       }
-      self?.view?.setSections(sections)
+      self.view?.setSections(sections)
     }
   }
 }
@@ -450,25 +458,32 @@ private struct BookmarkViewModel: IBookmarksListItemViewModel {
   }
 }
 
-private struct TrackViewModel: IBookmarksListItemViewModel {
+private struct TrackViewModel: ITrackViewModel {
   let trackId: MWMTrackID
   let name: String
   let subtitle: String
+  let isVisible: Bool
   var itemId: BookmarksListItemId { .track(trackId) }
   var image: UIImage {
     circleImageForColor(trackColor, frameSize: 22)
   }
 
   var colorDidTapAction: ((_ anchor: UIView?) -> Void)?
+  let visibilityDidTapAction: () -> Void
 
   private let trackColor: UIColor
 
-  init(_ track: Track, formattedDistance: String, colorDidTap: ((_ anchor: UIView?) -> Void)?) {
+  init(_ track: Track,
+       formattedDistance: String,
+       colorDidTap: ((_ anchor: UIView?) -> Void)?,
+       visibilityDidTap: @escaping () -> Void) {
     trackId = track.trackId
     name = track.trackName
     subtitle = "\(L("length")) \(formattedDistance)"
+    isVisible = track.isVisible
     trackColor = track.trackColor
     colorDidTapAction = colorDidTap
+    visibilityDidTapAction = visibilityDidTap
   }
 }
 
@@ -499,7 +514,7 @@ private struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
 }
 
 private struct TracksSectionViewModel: ITracksSectionViewModel {
-  let tracks: [IBookmarksListItemViewModel]
+  let tracks: [ITrackViewModel]
 }
 
 private struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {
