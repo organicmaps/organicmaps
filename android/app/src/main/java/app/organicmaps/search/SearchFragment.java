@@ -264,11 +264,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     // closed sheet, so the row would re-expand off-screen.
     final boolean picking = Boolean.TRUE.equals(mSearchPreviouslyEnabled) && !mToolbarController.hasQuery()
                          && controller.isWaitingPoiPick();
-    // The core keeps a single my-position mark, so adding it to a second slot pulls it out of the one it
-    // already holds (RoutingManager::AddRoutePoint), silently emptying that one. Hide the shortcut instead.
-    // Only while the row stays: dropping it as the row collapses makes the remaining one jump left.
+    // Only while the row stays: dropping the shortcut as the row collapses makes the remaining one jump left.
     if (picking)
-      UiUtils.showIf(hasUsableMyPosition() && !controller.hasMyPositionRoutePoint(), mYourLocation);
+      UiUtils.showIf(hasUsableMyPosition(), mYourLocation);
     animatePickerActions(picking);
     final RouteMarkType pickType = controller.getWaitingPoiPickType();
     mToolbarController.setHint(

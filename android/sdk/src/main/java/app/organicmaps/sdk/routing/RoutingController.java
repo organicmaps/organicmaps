@@ -700,14 +700,6 @@ public class RoutingController
     return mPendingPoiPick;
   }
 
-  public boolean hasMyPositionRoutePoint()
-  {
-    for (RouteMarkData point : Framework.nativeGetRoutePoints())
-      if (point.mIsMyPosition)
-        return true;
-    return false;
-  }
-
   public BuildState getBuildState()
   {
     return mBuildState;
