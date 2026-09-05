@@ -40,11 +40,28 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   private static final int TYPE_WALK = 0;
   private static final int TYPE_RIDE = 1;
   private static final int TYPE_INTERMEDIATE = 2;
+  // The route's destination, appended after the legs so the timeline ends somewhere rather than on a walk.
+  private static final int TYPE_DESTINATION = 3;
 
   @NonNull
   private final List<TransitStepInfo> mItems = new ArrayList<>();
   @NonNull
   private final Set<Integer> mExpanded = new HashSet<>();
+  // Where the route ends. Null while unknown, and then no closing row is drawn.
+  @Nullable
+  private String mDestination;
+
+  /** The place the route ends at, drawn as the timeline's final row. */
+  public void setDestination(@Nullable String destination)
+  {
+    mDestination = destination;
+    notifyDataSetChanged();
+  }
+
+  private boolean hasDestinationRow()
+  {
+    return mDestination != null && !mDestination.isEmpty();
+  }
 
   public void setItems(@NonNull List<TransitStepInfo> items)
   {
@@ -64,6 +81,8 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   @Override
   public int getItemViewType(int position)
   {
+    if (position == mItems.size())
+      return TYPE_DESTINATION;
     return switch (mItems.get(position).getType())
     {
       case PEDESTRIAN -> TYPE_WALK;
@@ -77,6 +96,8 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+    if (viewType == TYPE_DESTINATION)
+      return new DestinationViewHolder(inflater.inflate(R.layout.item_transit_details_destination, parent, false));
     if (viewType == TYPE_WALK)
       return new WalkViewHolder(inflater.inflate(R.layout.item_transit_details_walk, parent, false));
     if (viewType == TYPE_INTERMEDIATE)
@@ -101,6 +122,12 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
   {
+    if (holder instanceof DestinationViewHolder)
+    {
+      ((DestinationViewHolder) holder).bind(mDestination);
+      return;
+    }
+
     TransitStepInfo info = mItems.get(position);
     if (holder instanceof WalkViewHolder)
       ((WalkViewHolder) holder).bind(info);
@@ -132,7 +159,25 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   @Override
   public int getItemCount()
   {
-    return mItems.size();
+    return mItems.size() + (hasDestinationRow() ? 1 : 0);
+  }
+
+  static class DestinationViewHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private final TextView mName;
+
+    DestinationViewHolder(@NonNull View itemView)
+    {
+      super(itemView);
+      mName = itemView.findViewById(R.id.destination_name);
+    }
+
+    void bind(@Nullable String destination)
+    {
+      mName.setText(
+          itemView.getContext().getString(R.string.transit_arrive_at, destination == null ? "" : destination));
+    }
   }
 
   static class WalkViewHolder extends RecyclerView.ViewHolder
@@ -282,7 +327,8 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       barLp.topMargin = isTransfer ? 0 : marginHalf;
       mLineBar.setLayoutParams(barLp);
       ViewGroup.MarginLayoutParams summaryLp = (ViewGroup.MarginLayoutParams) mSummaryRow.getLayoutParams();
-      summaryLp.topMargin = isTransfer ? 0 : marginHalf;
+      summaryLp.topMargin =
+          isTransfer ? 0 : ctx.getResources().getDimensionPixelSize(R.dimen.transit_details_badge_top_margin);
       mSummaryRow.setLayoutParams(summaryLp);
 
       if (nextIsRide)
