@@ -308,38 +308,6 @@
     <string name="enable_location_services">Veuillez activer les services de localisation</string>
     <string name="save">Sauvegarder</string>
     <string name="create">créer</string>
-    <!-- red color -->
-    <string name="red">Rouge</string>
-    <!-- yellow color -->
-    <string name="yellow">Jaune</string>
-    <!-- blue color -->
-    <string name="blue">Bleu</string>
-    <!-- green color -->
-    <string name="green">Vert</string>
-    <!-- purple color -->
-    <string name="purple">Violet</string>
-    <!-- orange color -->
-    <string name="orange">Orange</string>
-    <!-- brown color -->
-    <string name="brown">Marron</string>
-    <!-- pink color -->
-    <string name="pink">Rose</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Pourpre foncé</string>
-    <!-- light blue color -->
-    <string name="light_blue">Bleu ciel</string>
-    <!-- cyan color -->
-    <string name="cyan">Cyan</string>
-    <!-- teal color -->
-    <string name="teal">Émeraude</string>
-    <!-- lime color -->
-    <string name="lime">Vert citron</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Orange foncé</string>
-    <!-- gray color -->
-    <string name="gray">Gris</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Gris-bleu</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Apparence</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -422,7 +390,6 @@
     <string name="twentyfour_seven">24/24 et 7/7</string>
     <string name="day_off_today">Fermé aujourd\'hui</string>
     <string name="day_off">Fermé</string>
-    <string name="today">Aujourd\'hui</string>
     <string name="opens_in">Ouvert dans %s</string>
     <string name="closes_in">Fermé dans %s</string>
     <string name="closed">Fermé</string>
@@ -465,7 +432,6 @@
     <string name="downloader_no_space_title">Espace insuffisant</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Veuillez supprimer les données inutiles</string>
-    <string name="editor_login_error_dialog">Erreur de connexion.</string>
     <string name="editor_profile_changes">Modifications vérifiées</string>
     <string name="editor_focus_map_on_location">Déplacer la carte pour placer la croix à l\'emplacement du lieu ou de l\'entreprise.</string>
     <string name="editor_edit_place_title">Modification</string>
@@ -571,12 +537,9 @@
     <string name="prefs_languages_information_off_link">Pour plus d’informations, veuillez consulter ce guide.</string>
     <string name="transliteration_title">Translittéré en alphabet latin</string>
     <string name="learn_more">En savoir plus</string>
-    <string name="planning_route_manage_route">Gérer l’itinéraire</string>
-    <string name="button_plan">Planifier</string>
     <string name="placepage_remove_stop">Supprimer l\'arrêt</string>
     <string name="placepage_add_stop">Ajouter un arrêt</string>
     <string name="drag_to_reorder">Réorganiser</string>
-    <string name="saved">Enregistré</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Connectez-vous à OpenStreetMap pour télécharger automatiquement toutes vos modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.</string>
     <string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
@@ -676,8 +639,6 @@
     <string name="avoid_motorways">Éviter les autoroutes</string>
     <string name="unable_to_calc_alert_title">Impossible de calculer l\'itinéraire</string>
     <string name="unable_to_calc_alert_subtitle">Un tracé n\'a pu être établi. Cela peut être causé par les options choisies ou des données OpenStreetMap incomplètes. Merci de modifier vos options et de réessayer.</string>
-    <string name="define_to_avoid_btn">Définissez les routes à éviter</string>
-    <string name="change_driving_options_btn">Paramètres d\'itinéraire activés</string>
     <string name="toll_road">Route à péage</string>
     <string name="unpaved_road">Routes non revêtues</string>
     <string name="ferry_crossing">Traversées en ferry</string>
@@ -762,8 +723,6 @@
     <string name="elevation_profile_min_elevation">Min. élévation</string>
     <string name="elevation_profile_max_elevation">Max. élévation</string>
     <string name="elevation_profile_difficulty">Difficulté</string>
-    <string name="elevation_profile_distance">Distance :</string>
-    <string name="elevation_profile_time">Temps :</string>
     <string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
     <string name="downloader_loading_ios">Téléchargement</string>
     <string name="download_map_title">Télécharger la carte générale du monde</string>
@@ -868,21 +827,11 @@
     <string name="stop_track_recording">Arrêter l\'enregistrement de la trace</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Enregistrement de la trace</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Arrêter sans enregistrer</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuer l\'enregistrement</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Sauvegarder dans les signets et parcours ?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">L\'itinéraire est vide - il n\'y a rien à sauvegarder</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Impossible d\'afficher la boîte de dialogue de sélection des dossiers car aucune application appropriée n\'est installée sur votre appareil. Veuillez installer une application de gestion de fichiers et réessayer.</string>
     <string name="choose_color">Choisir la couleur</string>
     <string name="edit_track">Modifier le trace</string>
     <string name="uri_open_location_failed">Aucune application installée ne permet d\'ouvrir l\'emplacement</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto pendant la navigation</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Suivre le système</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -909,10 +858,6 @@
     <string name="show_track">Afficher le tracé</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Connexion avec mot de passe</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Se connecter à l\'aide d\'un navigateur</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Récemment utilisées</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

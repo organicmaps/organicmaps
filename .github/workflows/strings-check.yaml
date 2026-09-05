@@ -1,0 +1,57 @@
+name: Validate translation strings
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
+  pull_request:
+    paths:
+      - .github/workflows/strings-check.yaml  # Run check on self change
+      - data/strings/strings.txt
+      - data/strings/types_strings.txt
+      - data/strings/sound.txt
+      - data/sound-strings/**
+      - libs/**
+      - qt/**
+      - android/**
+      - iphone/**
+      - tools/python/validate_translation_keys*.py
+      - tools/unix/strings_validate_*.sh
+      - tools/unix/generate_localizations.sh
+      - tools/python/twine  # Twine submodule bump changes both validation and generation
+
+jobs:
+  validate-translation-strings:
+    name: Validate translation strings
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Twine submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init -- tools/python/twine
+
+      - name: Validate string files
+        shell: bash
+        run: tools/unix/strings_validate_format.sh
+
+      - name: Run translation key matcher unit tests
+        shell: bash
+        run: python3 tools/python/validate_translation_keys_test.py
+
+      - name: Validate translation keys
+        shell: bash
+        run: tools/unix/strings_validate_keys.sh
+
+      - name: Verify generated localization files
+        shell: bash
+        run: |
+          tools/unix/generate_localizations.sh
+          # Staging first so that files the generator adds count as a difference too.
+          git add -A
+          git diff --cached --exit-code

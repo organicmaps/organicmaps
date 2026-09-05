@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Блакітна-шэры";
 
-/* place preview title */
-"info" = "Інфармацыя";
-
 /* Prints version number in About dialog */
 "version" = "Версія Organic Maps: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Даныя пра заторы недаступны";
 "enable_logging" = "Уключыць вядзенне журнала";
 "transliteration_title" = "Транслітарацыя лацінкай";
-"planning_route_manage_route" = "Кіраваць маршрутам";
-"button_plan" = "Пракласці";
 "placepage_remove_stop" = "Выдаліць прыпынак";
 "placepage_add_stop" = "Дадаць прыпынак";
-"saved" = "Захавана";
 "error_enter_correct_name" = "Увядзіце правільную назву";
 "bookmark_lists" = "Спісы";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Пазбягаць аўтамагістраляў";
 "unable_to_calc_alert_title" = "Немагчыма пракласці маршрут";
 "unable_to_calc_alert_subtitle" = "Не ўдалося пракласці маршрут. Магчыма гэта звязана з наладамі пракладвання маршрутаў або няпоўнымі данымі OpenStreetMap. Змяніце налады і паспрабуйце зноў.";
-"define_to_avoid_btn" = "Вызначыць, якіх дарог пазбягаць";
-"change_driving_options_btn" = "Налады пракладвання маршрутаў уключаны";
 "toll_road" = "Платная дарога";
 "unpaved_road" = "Грунтавая дарога";
 "ferry_crossing" = "Паромная пераправа";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Памылка пракладання маршрута";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Прыбыццё ў %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.";
 "editor_done_dialog_1" = "Вы змянілі мапу свету. Не хавайце гэта! Раскажыце сябрам і рэдагуйце разам.";
@@ -813,7 +802,6 @@
 "please_note" = "Звярніце ўвагу";
 "migration_download_error_dialog" = "Памылка спампоўкі";
 "editor_add_select_category" = "Выбраць катэгорыю";
-"editor_add_select_category_popular_subtitle" = "Папулярныя";
 "editor_add_select_category_all_subtitle" = "Усе катэгорыі";
 "whatsnew_editor_message_1" = "Стварайце на карце новыя месцы і рэдагуйце наяўныя прама ў праграме.";
 "dialog_incorrect_feature_position" = "Змяніце месцазнаходжанне";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Для паказу інфармацыі пра рух трэба абнавіць праграмы.";
 "log_file_size" = "Памер файла журнала: %@";
-"planning_route_remove_title" = "Перацягніце сюды, каб выдаліць";
 "placepage_replace_stop" = "Замяніць прыпынак";
-"start_from_my_position" = "Пачаць ад";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Калі ласка, увайдзіце ў OpenStreetMap, каб аўтаматычна загрузіць усе вашыя праўкі мапы. Даведайцеся больш";
@@ -882,7 +868,6 @@
 "bottom" = "Знізу";
 "trip_start" = "Паехалі";
 "pick_destination" = "Пункт прызначэння";
-"follow_my_position" = "Па цэнтры";
 "search_results" = "Вынікі пошуку";
 "then_turn" = "Потым";
 "redirect_route_alert" = "Хочаце перапракласці маршрут?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Дзякуй за выкарыстанне нашых мап, створаных супольнасцю!";
-
-/* App tip #01 */
-"app_tip_01" = "Дзякуючы вашым ахвяраванням і падтрымцы мы можам стварыць лепшыя мапы ў свеце!";
-
-/* App tip #02 */
-"app_tip_02" = "Вам падабаецца наша праграма? Калі ласка, ахвяруйце, каб падтрымаць яе распрацоўку. Яшчэ не падабаецца? Напішыце чаму, і мы гэта выправім!";
-
-/* App tip #03 */
-"app_tip_03" = "Калі вы ведаеце распрацоўшчыка праграмнага забеспячэння, вы можаце папрасіць яго рэалізаваць неабходную вам функцыю.";
-
-/* App tip #04 */
-"app_tip_04" = "Націсніце ў любое месца на карце, каб што-небудзь выбраць. Выкарыстоўвайце працяглае націсканне, каб схаваць або зноў паказаць інтэрфейс.";
-
-/* App tip #05 */
-"app_tip_05" = "А вы ведалі, што сваё месцазнаходжанне на карце можна выбраць?";
-
-/* App tip #06 */
-"app_tip_06" = "Вы можаце дапамагчы перакласці нашу праграму на вашу мову.";
-
-/* App tip #07 */
-"app_tip_07" = "Наша праграма распрацавана некалькімі энтузіястамі і супольнасцю.";
-
-/* App tip #08 */
-"app_tip_08" = "Вы можаце лёгка выпраўляць і палепшаць даныя мапы.";
-
-/* App tip #09 */
-"app_tip_09" = "Наша галоўная мэта - ствараць хуткія, арыентаваныя на прыватнасць і простыя ў выкарыстанні мапы, якія вам спадабаюцца.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Вы выкарыстоўваеце Organic Maps на экране тэлефона";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрут пусты - няма чаго захоўваць";
-"edit_track" = "Рэдагаваць маршрут";
-"elevation_profile_diff_level" = "Узровень складанасці";
-"elevation_profile_diff_level_easy" = "Лёгкі";
-"elevation_profile_diff_level_moderate" = "Сярэдні";
-"elevation_profile_diff_level_hard" = "Цяжкі";
 "downloader_updating_ios" = "Абнаўленне";
 
 /* Autoupdate dialog on start */

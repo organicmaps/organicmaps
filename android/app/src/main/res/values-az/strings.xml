@@ -308,38 +308,6 @@
     <string name="enable_location_services">Zəhmət olmasa məkan xidmətlərini aktivləşdirin</string>
     <string name="save">Yadda saxla</string>
     <string name="create">yaratmaq</string>
-    <!-- red color -->
-    <string name="red">Qırmızı</string>
-    <!-- yellow color -->
-    <string name="yellow">Sarı</string>
-    <!-- blue color -->
-    <string name="blue">Mavi</string>
-    <!-- green color -->
-    <string name="green">Yaşıl</string>
-    <!-- purple color -->
-    <string name="purple">Bənövşəyi</string>
-    <!-- orange color -->
-    <string name="orange">Narıncı</string>
-    <!-- brown color -->
-    <string name="brown">Qəhvəyi</string>
-    <!-- pink color -->
-    <string name="pink">Çəhrayı</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tünd bənövşəyi</string>
-    <!-- light blue color -->
-    <string name="light_blue">Açıq mavi</string>
-    <!-- cyan color -->
-    <string name="cyan">Göy-yaşıl</string>
-    <!-- teal color -->
-    <string name="teal">Dəniz mavisi</string>
-    <!-- lime color -->
-    <string name="lime">Limon rəngi</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tünd narıncı</string>
-    <!-- gray color -->
-    <string name="gray">Boz</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Mavi-boz</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Görünüş</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -422,7 +390,6 @@
     <string name="twentyfour_seven">7/24</string>
     <string name="day_off_today">Bu gün bağlıdır</string>
     <string name="day_off">Bağlı</string>
-    <string name="today">Bu gün</string>
     <string name="opens_in">%s sonra açılır</string>
     <string name="closes_in">%s sonra bağlanır</string>
     <string name="closed">Bağlı</string>
@@ -465,7 +432,6 @@
     <string name="downloader_no_space_title">Kifayət qədər yer yoxdur</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Zəhmət olmasa lazımsız məlumatları silin</string>
-    <string name="editor_login_error_dialog">Giriş xətası</string>
     <string name="editor_profile_changes">Təsdiqlənmiş Dəyişikliklər</string>
     <string name="editor_focus_map_on_location">Xaç işarəsini yer və ya biznesin yerinə qoymaq üçün xəritəni dartın.</string>
     <string name="editor_edit_place_title">Redaktə</string>
@@ -571,12 +537,9 @@
     <string name="prefs_languages_information_off_link">Əlavə məlumat üçün bu təlimatı nəzərdən keçirin.</string>
     <string name="transliteration_title">Latın transliterasiyası</string>
     <string name="learn_more">Daha ətraflı</string>
-    <string name="planning_route_manage_route">Marşrutu idarə et</string>
-    <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Kəsmə nöqtəsini silin</string>
     <string name="placepage_add_stop">Dayanacaq nöqtəsini əlavə edin</string>
     <string name="drag_to_reorder">Yenidən sırala</string>
-    <string name="saved">Yadda saxlanıldı</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun. <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a> ətraflı məlumat əldə edin.</string>
     <string name="dialog_error_storage_title">Yaddaş giriş problemi</string>
@@ -672,8 +635,6 @@
     <string name="avoid_motorways">Magistral yoldan çəkinin</string>
     <string name="unable_to_calc_alert_title">Marşrutu hesablamaq mümkün deyil</string>
     <string name="unable_to_calc_alert_subtitle">Təəssüf ki, seçdiyiniz seçimlərə görə marşrut tapa bilmədik. Seçimləri dəyişdirin və yenidən cəhd edin</string>
-    <string name="define_to_avoid_btn">Qarşısını almaq üçün yolları müəyyənləşdirin</string>
-    <string name="change_driving_options_btn">Sürmə seçimləri aktiv edildi</string>
     <string name="toll_road">Ücrətli yol</string>
     <string name="unpaved_road">Asfaltsız yol</string>
     <string name="ferry_crossing">Bərə keçidi</string>
@@ -758,8 +719,6 @@
     <string name="elevation_profile_min_elevation">Min. hündürlük</string>
     <string name="elevation_profile_max_elevation">Maks. hündürlük</string>
     <string name="elevation_profile_difficulty">Çətinlik</string>
-    <string name="elevation_profile_distance">Məsafə:</string>
-    <string name="elevation_profile_time">Müddət:</string>
     <string name="isolines_toast_zooms_1_10">İzohipləri görmək üçün xəritəni böyüdün</string>
     <string name="downloader_loading_ios">Endirilir</string>
     <string name="download_map_title">Dünya xəritəsini yükləyin</string>
@@ -858,21 +817,11 @@
     <string name="stop_track_recording">Marşrut qeydini dayandır</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Marşrut yazısı</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Saxlamadan dayandırın</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Qeyd etməyə davam et</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Əlfəcinlər və qeydlərə yadda saxla?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Marşrut boşdur - saxlamaq üçün heç nə yoxdur</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Qovluq seçimi dialoqunu göstərmək mümkün deyil, çünki cihazınızda uyğun proqram quraşdırılmayıb. Lütfən, fayl meneceri proqramı quraşdırın və yenidən cəhd edin</string>
     <string name="choose_color">Rəngi seçin</string>
     <string name="edit_track">Marşrutu redaktə edin</string>
     <string name="uri_open_location_failed">Məkanı aça biləcək proqram quraşdırılmayıb</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Naviqasiyada avtomatik</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Sistemə uyğun</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -899,10 +848,6 @@
     <string name="show_track">İzi göstər</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Şifrə ilə giriş</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Brauzerdən istifadə edərək giriş</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Son istifadə olunan</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

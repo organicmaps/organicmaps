@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "青灰色";
 
-/* place preview title */
-"info" = "情報";
-
 /* Prints version number in About dialog */
 "version" = "Organic Mapsバージョン: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "交通データは利用できません";
 "enable_logging" = "ログを有効化";
 "transliteration_title" = "ラテン文字への翻字";
-"planning_route_manage_route" = "ルートを編集";
-"button_plan" = "プラン";
 "placepage_remove_stop" = "停留所を削除";
 "placepage_add_stop" = "中間地点を追加";
-"saved" = "保存";
 "error_enter_correct_name" = "正しい名前を入力してください";
 "bookmark_lists" = "リスト";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "高速道路を避ける";
 "unable_to_calc_alert_title" = "ルートを計算できません";
 "unable_to_calc_alert_subtitle" = "ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。";
-"define_to_avoid_btn" = "迂回ルートを設定する";
-"change_driving_options_btn" = "経路オプションは有効になっています";
 "toll_road" = "有料道路";
 "unpaved_road" = "未舗装道路";
 "ferry_crossing" = "フェリー";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "ルート検索に失敗";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "到着予測: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。";
 "editor_done_dialog_1" = "世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。";
@@ -813,7 +802,6 @@
 "please_note" = "ご注意ください";
 "migration_download_error_dialog" = "ダウンロードエラー";
 "editor_add_select_category" = "カテゴリを選択";
-"editor_add_select_category_popular_subtitle" = "人気";
 "editor_add_select_category_all_subtitle" = "全てのカテゴリ";
 "whatsnew_editor_message_1" = "アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。";
 "dialog_incorrect_feature_position" = "位置を変更してください";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "交通データを表示するには、アプリケーションをアップデートする必要があります。";
 "log_file_size" = "ログファイルのサイズ: %@";
-"planning_route_remove_title" = "ここにドラッグして削除";
 "placepage_replace_stop" = "リプレースストップ";
-"start_from_my_position" = "出発地";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは";
@@ -882,7 +868,6 @@
 "bottom" = "ボトム";
 "trip_start" = "出発";
 "pick_destination" = "目的地";
-"follow_my_position" = "リセンター";
 "search_results" = "検索結果";
 "then_turn" = "その後";
 "redirect_route_alert" = "ルートを再計算しますか?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/JA:参加する";
 
-/* App Tip #00 */
-"app_tip_00" = "私たちのコミュニティが作った地図をご利用いただき、ありがとうございます！";
-
-/* App tip #01 */
-"app_tip_01" = "あなたの寄付とサポートがあれば、世界で最高の地図を作成できます。";
-
-/* App tip #02 */
-"app_tip_02" = "私たちのアプリは気に入っていますか? 開発をサポートするために寄付をお願いします！ まだ気に入らないですか？ お知らせください。修正させていただきます。";
-
-/* App tip #03 */
-"app_tip_03" = "ソフトウェア開発者を知っている場合は、必要な機能を実装するように依頼できます。";
-
-/* App tip #04 */
-"app_tip_04" = "地図上の任意の場所をタップして、何かを選択します。ロングタップでインターフェイスを非表示にしたり、表示したりできます。";
-
-/* App tip #05 */
-"app_tip_05" = "地図上で現在地を選択できることをご存知ですか?";
-
-/* App tip #06 */
-"app_tip_06" = "私たちのアプリをあなたの言語に翻訳するのを手伝ってください。";
-
-/* App tip #07 */
-"app_tip_07" = "私たちのアプリは数人の愛好家とコミュニティによって開発されました。";
-
-/* App tip #08 */
-"app_tip_08" = "地図データを簡単に修正および改善できます。";
-
-/* App tip #09 */
-"app_tip_09" = "私たちの主な目標は、ユーザーに気に入っていただける、プライバシーを重視した使いやすいマップを高速に構築することです。";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "端末の画面でOrganic Mapsを使用している";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "ルートが空です - 保存するものがありません";
-"edit_track" = "ルートを編集";
-"elevation_profile_diff_level" = "難易度";
-"elevation_profile_diff_level_easy" = "簡単";
-"elevation_profile_diff_level_moderate" = "普通";
-"elevation_profile_diff_level_hard" = "困難";
 "downloader_updating_ios" = "更新中";
 
 /* Autoupdate dialog on start */

@@ -308,38 +308,6 @@
     <string name="enable_location_services">Tafadhali wezesha Huduma za Mahali</string>
     <string name="save">Hifadhi</string>
     <string name="create">unda</string>
-    <!-- red color -->
-    <string name="red">Nyekundu</string>
-    <!-- yellow color -->
-    <string name="yellow">Ujani</string>
-    <!-- blue color -->
-    <string name="blue">Bulu</string>
-    <!-- green color -->
-    <string name="green">Kijani</string>
-    <!-- purple color -->
-    <string name="purple">Zambarau</string>
-    <!-- orange color -->
-    <string name="orange">Rangi ya machungwa</string>
-    <!-- brown color -->
-    <string name="brown">Kijivu</string>
-    <!-- pink color -->
-    <string name="pink">Rangi ya waridi</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Zambarau Iliyoiva</string>
-    <!-- light blue color -->
-    <string name="light_blue">Buluu Hafifu</string>
-    <!-- cyan color -->
-    <string name="cyan">Siani</string>
-    <!-- teal color -->
-    <string name="teal">Teal</string>
-    <!-- lime color -->
-    <string name="lime">Chokaa</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Chungwa Iliyokoza</string>
-    <!-- gray color -->
-    <string name="gray">Kijivu</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Kijivu Buluu</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Muonekano</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -422,7 +390,6 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Imefungwa leo</string>
     <string name="day_off">Imefungwa</string>
-    <string name="today">Leo</string>
     <string name="opens_in">Inafunguka katika %s</string>
     <string name="closes_in">Inakaribia kwa %s</string>
     <string name="closed">Imefungwa</string>
@@ -465,7 +432,6 @@
     <string name="downloader_no_space_title">Hakuna nafasi ya kutosha</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Tafadhali futa data yoyote isiyo ya lazima</string>
-    <string name="editor_login_error_dialog">Hitilafu ya kuingia.</string>
     <string name="editor_profile_changes">Mabadiliko yaliyothibitishwa</string>
     <string name="editor_focus_map_on_location">Buruta ramani ili kuweka msalaba katika eneo la mahali au biashara.</string>
     <string name="editor_edit_place_title">Uhariri</string>
@@ -569,12 +535,9 @@
     <string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
     <string name="learn_more">Jua mengi zaidi</string>
-    <string name="planning_route_manage_route">Dhibiti njia ya kufuata</string>
-    <string name="button_plan">Panga</string>
     <string name="placepage_remove_stop">Ondoa eneo la kusimama</string>
     <string name="placepage_add_stop">Ongeza eneo la kusimama</string>
     <string name="drag_to_reorder">Panga upya</string>
-    <string name="saved">Imehifadhiwa</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi <a href="https://github.com/organicmaps/organicmaps/issues/6144">hapa</a>.</string>
     <string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
@@ -669,8 +632,6 @@
     <string name="avoid_motorways">Epuka barabara</string>
     <string name="unable_to_calc_alert_title">Haiwezi kukokotoa njia</string>
     <string name="unable_to_calc_alert_subtitle">Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena</string>
-    <string name="define_to_avoid_btn">Fafanua njia za kuziepuka</string>
-    <string name="change_driving_options_btn">Machaguo ya njia yamewezeshwa</string>
     <string name="toll_road">Barabara ya kulipia</string>
     <string name="unpaved_road">Barabara ya vumbi</string>
     <string name="ferry_crossing">Kivuko cha feri</string>
@@ -749,8 +710,6 @@
     <string name="elevation_profile_min_elevation">Min. mwinuko</string>
     <string name="elevation_profile_max_elevation">Max. mwinuko</string>
     <string name="elevation_profile_difficulty">Ugumu</string>
-    <string name="elevation_profile_distance">Umbali:</string>
-    <string name="elevation_profile_time">Muda:</string>
     <string name="isolines_toast_zooms_1_10">Vuta karibu kutalii mistari ya kontua</string>
     <string name="downloader_loading_ios">Inapakua</string>
     <string name="download_map_title">Pakua ramani ya muhtasari wa dunia</string>
@@ -845,21 +804,11 @@
     <string name="stop_track_recording">Acha kurekodi</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Kurekodi njia</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Acha bila kuhifadhi</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Endelea kurekodi</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Ungependa kuhifadhi katika alama na njia?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Njia ni tupu - hakuna cha kuhifadhi</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Haiwezi kuonyesha kidirisha cha kuchagua folda kwa sababu hakuna programu inayofaa iliyosakinishwa kwenye kifaa chako. Tafadhali sakinisha programu ya kidhibiti faili na ujaribu tena</string>
     <string name="choose_color">Chagua Rangi</string>
     <string name="edit_track">Hariri Njia</string>
     <string name="uri_open_location_failed">Hakuna Programu iliyosakinishwa inayoweza kufungua eneo</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Urambazaji otomatiki</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Fuata mfumo</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -886,10 +835,6 @@
     <string name="show_track">Onyesha njia</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Ingia kwa nenosiri</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Ingia kwa kutumia kivinjari</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Iliyotumiwa Hivi Karibuni</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

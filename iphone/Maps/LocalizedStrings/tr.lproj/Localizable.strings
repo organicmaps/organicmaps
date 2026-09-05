@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Mavi Gri";
 
-/* place preview title */
-"info" = "Bilgi";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps sürümü: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
 "enable_logging" = "Günlüğü etkinleştir";
 "transliteration_title" = "Latin alfabesine çevir";
-"planning_route_manage_route" = "Rotayı yönet";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Durağı Kaldır";
 "placepage_add_stop" = "Ara nokta ekle";
-"saved" = "Kaydedildi";
 "error_enter_correct_name" = "Lütfen doğru ad girin";
 "bookmark_lists" = "Listeler";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Otobandan kaçın";
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
 "unable_to_calc_alert_subtitle" = "Rota bulunamadı. Bunun nedeni, belirlediğiniz seçenekler ya da eksik OpenStreetMap verisi olabilir. Lütfen rota seçeneklerinizi değiştirin ve yeniden deneyin.";
-"define_to_avoid_btn" = "Kaçınılması gereken yolları tanımlayın";
-"change_driving_options_btn" = "Sürüş seçenekleri etkinleştirildi";
 "toll_road" = "Paralı yol";
 "unpaved_road" = "Asfaltsız yol";
 "ferry_crossing" = "Vapur geçişi";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Rota Planlaması Başarısız";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Varış: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.";
 "editor_done_dialog_1" = "Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.";
@@ -813,7 +802,6 @@
 "please_note" = "Lütfen dikkat";
 "migration_download_error_dialog" = "İndirme hatası";
 "editor_add_select_category" = "Kategori seç";
-"editor_add_select_category_popular_subtitle" = "Popüler";
 "editor_add_select_category_all_subtitle" = "Tüm kategoriler";
 "whatsnew_editor_message_1" = "Doğrudan uygulamadan haritaya yeni yerler ekleyin ve var olan yerleri düzenleyin.";
 "dialog_incorrect_feature_position" = "Konumu değiştir";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.";
 "log_file_size" = "Günlük dosyası boyutu: %@";
-"planning_route_remove_title" = "Kaldırmak için buraya sürükleyin";
 "placepage_replace_stop" = "Durağı Değiştir";
-"start_from_my_position" = "Buradan başla";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap'e giriş yapın. Daha fazla bilgi";
@@ -882,7 +868,6 @@
 "bottom" = "Alt";
 "trip_start" = "Haydi gidelim";
 "pick_destination" = "Hedef";
-"follow_my_position" = "Yeniden ortala";
 "search_results" = "Arama sonuçları";
 "then_turn" = "Sonra";
 "redirect_route_alert" = "Yeniden bir rota oluşturmak ister misiniz?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
 
-/* App Tip #00 */
-"app_tip_00" = "Toplulukça oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!";
-
-/* App tip #01 */
-"app_tip_01" = "Bağışlarınız ve desteğinizle dünyanın en iyi haritalar uygulamasını oluşturabiliriz!";
-
-/* App tip #02 */
-"app_tip_02" = "Uygulamamızı beğendiniz mi? Geliştirmemizi desteklemek için lütfen bağış yapın! Henüz beğenmediniz mi? Lütfen beğenmediğiniz şeyleri bize bildirin, düzelteceğiz!";
-
-/* App tip #03 */
-"app_tip_03" = "Yazılım geliştirici tanıyorsanız, ondan gereksindiğiniz bir özelliği uygulamaya eklemesini isteyebilirsiniz.";
-
-/* App tip #04 */
-"app_tip_04" = "Herhangi bir şeyi seçmek için haritaya dokunun. Uzun dokunarak arayüz gizlenip gösterilebilir.";
-
-/* App tip #05 */
-"app_tip_05" = "Haritada şu anki konumunuzu seçebileceğinizi biliyor musunuz?";
-
-/* App tip #06 */
-"app_tip_06" = "Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.";
-
-/* App tip #07 */
-"app_tip_07" = "Uygulamamız birkaç teknoloji tutkunu ve toplulukça geliştirilmiştir.";
-
-/* App tip #08 */
-"app_tip_08" = "Harita verilerini kolayca düzeltebilir ve iyileştirebilirsiniz.";
-
-/* App tip #09 */
-"app_tip_09" = "Temel amacımız hızlı, gizlilik odaklı, kullanımı kolay, seveceğiniz bir harita uygulaması oluşturmaktır.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Artık Organic Maps'i telefon ekranında kullanıyorsunuz";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "İz boş - kaydedilecek bir şey yok";
-"edit_track" = "İzi Düzenle";
-"elevation_profile_diff_level" = "Zorluk seviyesi";
-"elevation_profile_diff_level_easy" = "Kolay";
-"elevation_profile_diff_level_moderate" = "Orta";
-"elevation_profile_diff_level_hard" = "Zor";
 "downloader_updating_ios" = "Güncelleniyor";
 
 /* Autoupdate dialog on start */
