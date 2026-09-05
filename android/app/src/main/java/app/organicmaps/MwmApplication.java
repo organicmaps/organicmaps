@@ -136,6 +136,12 @@ public class MwmApplication extends Application implements Application.ActivityL
     // bridge is present; the initial publish corrects stale state left by a force-killed session.
     RoutingController.get().addNavigationStateListener(WearBridge::publishNavigating);
     WearBridge.publishNavigating(RoutingController.get().isNavigating());
+    // Navigation can end in the background (notification, Android Auto, arrival). The routing state owner
+    // covers every trigger, including a stop when NavigationService was never started.
+    RoutingController.get().addNavigationStateListener(navigating -> {
+      if (!navigating)
+        onNavigationOrRecordingStopped();
+    });
     TrackRecordingService.createNotificationChannel(this);
 
     registerActivityLifecycleCallbacks(this);
