@@ -17,7 +17,7 @@
 "kilometres" = "Kilometer";
 
 /* Choose measurement on first launch alert - choose imperial system button */
-"miles" = "Mile";
+"miles" = "Engelska mil";
 
 /* Update maps later button text */
 "later" = "Senare";
@@ -58,7 +58,7 @@
 "bookmarks" = "Bokmärken";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
-"bookmarks_and_tracks" = "Bokmärken och rutter";
+"bookmarks_and_tracks" = "Bokmärken och spår";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adress";
@@ -202,7 +202,7 @@
 "done" = "Klar";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Rutter";
+"tracks_title" = "Spår";
 
 /* Length of track in cell that describes route */
 "length" = "Längd";
@@ -256,7 +256,7 @@
 "pref_tts_street_names_title" = "Läs upp gatunamn";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att läsas upp.";
+"pref_tts_street_names_description" = "När funktionen är aktiverad läses namnet på gatan eller avfarten som du ska svänga in på upp.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Röstspråk";
@@ -265,7 +265,7 @@
 "pref_tts_download_voices_description" = "För att hämta en röst med högre kvalitet, öppna appen Inställningar och gå till Hjälpmedel → VoiceOver → Tal → Röst.";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testa röstinstruktioner (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Testa röstinstruktioner (TTS, text-till-tal)";
 "pref_map_auto_zoom" = "Automatisk zoom";
 "placepage_distance" = "Avstånd";
 "search_show_on_map" = "Visa på kartan";
@@ -319,7 +319,7 @@
 "downloader_delete_map_while_routing_dialog" = "Avsluta navigering för att radera kartan.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Rutter kan endast skapas om de finns inom en enda kart-region.";
+"routing_failed_cross_mwm_building" = "Rutter kan endast skapas om de helt ryms inom kartan för en enda region.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Ladda ner kartan";
@@ -334,7 +334,7 @@
 "routing_download_maps_along" = "Ladda ned kartor längs vägen";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Navigering kräver att alla kartor från din position till destinationen är nerladdade och uppdaterade.";
+"routing_requires_all_map" = "För att skapa en rutt måste alla kartor från din position till destinationen laddas ned eller uppdateras.";
 "save" = "Spara";
 "create" = "skapa";
 
@@ -384,7 +384,7 @@
 "gray" = "Grå";
 
 /* blue gray color */
-"blue_gray" = "Ljusblå grå";
+"blue_gray" = "Blågrå";
 
 /* place preview title */
 "info" = "Info";
@@ -442,7 +442,7 @@
 "dialog_routing_disclaimer_priority" = "– Vägförhållanden, trafikregler och vägskyltar alltid ska prioriteras över navigeringsråden;";
 "dialog_routing_disclaimer_precision" = "– Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen på;";
 "dialog_routing_disclaimer_recommendations" = "– Föreslagna vägar endast är rekommendationer;";
-"dialog_routing_disclaimer_borders" = "– Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser.";
+"dialog_routing_disclaimer_borders" = "– Var försiktig med rutter i gränsområden: rutter som skapas av appen kan ibland korsa landsgränser på otillåtna platser.";
 "dialog_routing_disclaimer_beware" = "Var uppmärksam och kör säkert på vägarna!";
 "dialog_routing_check_gps" = "Kontrollera GPS-signal";
 "dialog_routing_error_location_not_found" = "Kan inte skapa rutt. Nuvarande GPS-koordinater går inte att läsa.";
@@ -460,12 +460,12 @@
 "dialog_routing_change_intermediate" = "Det går inte att hitta mellanliggande punkt.";
 "dialog_routing_intermediate_not_determined" = "Justera din mellanliggande punkt.";
 "dialog_routing_system_error" = "Systemfel";
-"dialog_routing_application_error" = "Kan inte hitta rutt pga ett programfel.";
+"dialog_routing_application_error" = "Det går inte att skapa rutten på grund av ett programfel.";
 "dialog_routing_try_again" = "Försök igen";
 "dialog_routing_download_and_build_cross_route" = "Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?";
 "dialog_routing_download_cross_route" = "Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.";
 "dialog_routing_download_files" = "Ladda ned nödvändiga filer";
-"dialog_routing_download_and_update_all" = "Ladda ned och uppdatera all kart- och väginformation längs den beräknade sträckan för att hitta en rutt.";
+"dialog_routing_download_and_update_all" = "Ladda ned eller uppdatera alla kartor längs den beräknade sträckan för att beräkna en rutt.";
 
 
 /********** Strings for downloading map from search **********/
@@ -834,7 +834,7 @@
 "location_services_disabled_on_device_2" = "2. Välj Sekretess";
 "location_services_disabled_on_device_3" = "3. Välj Platstjänster";
 "location_services_disabled_on_device_4" = "4. Aktivera platstjänster";
-"location_services_disabled_on_device_additional_message" = "Eller fortsätt använda Organic Maps utan Plats";
+"location_services_disabled_on_device_additional_message" = "Eller fortsätt använda Organic Maps utan platsåtkomst";
 "book_button" = "Boka";
 "placepage_call_button" = "Ring";
 "placepage_bookmark_name_hint" = "Bokmärkesnamn";
@@ -844,9 +844,9 @@
 "refresh" = "Uppdatera";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Stäng av inspelningen av din senaste rutt?";
+"recent_track_background_dialog_title" = "Stäng av inspelningen av din senaste resväg?";
 "off_recent_track_background_button" = "Avaktivera";
-"recent_track_background_dialog_message" = "Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
+"recent_track_background_dialog_message" = "Organic Maps använder din plats i bakgrunden för att spela in din senaste resväg.";
 "general_settings" = "Allmänna inställningar";
 
 /* "traffic" as in road congestion */
@@ -888,13 +888,13 @@
 "redirect_route_alert" = "Vill du räkna om rutten?";
 "keyboard_availability_alert" = "Tangentbordet är inte tillgängligt vid körning";
 "dialog_routing_change_start_carplay" = "Det gick inte att hitta en rutt från nuvarande plats";
-"dialog_routing_change_end_carplay" = "Det går inte att hitta en rutt till målet. Välj en annan";
+"dialog_routing_change_end_carplay" = "Det går inte att hitta en rutt till destinationen. Välj en annan slutpunkt.";
 "dialog_routing_check_gps_carplay" = "Ingen GPS-signal. Flytta dig till ett öppet område";
-"dialog_routing_unable_locate_route_carplay" = "Det går inte att hitta en rutt. Välj andra punkter";
-"dialog_routing_download_files_carplay" = "För att hitta en rutt, ladda ner saknade kartor på din enhet";
+"dialog_routing_unable_locate_route_carplay" = "Det går inte att skapa en rutt. Välj andra ruttpunkter.";
+"dialog_routing_download_files_carplay" = "Ladda ned de kartor som saknas på enheten för att skapa en rutt.";
 "dialog_routing_system_error_carplay" = "Ett fel uppstod. Starta om appen";
 "dialog_routing_rebuild_from_current_location_carplay" = "Rutten kommer att räknas om från din nuvarande plats";
-"dialog_routing_rebuild_for_vehicle_carplay" = "Rutten kommer att ändras till bil";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Rutten ändras till en bilrutt.";
 "not_all_shown_bookmarks_carplay" = "Alla bokmärken visas inte";
 "switch_to_phone_bookmarks_carplay" = "Växla till telefonen för att se alla bokmärken";
 "speedcams_alert_title_carplay_1" = "Fartkameror";
@@ -937,9 +937,9 @@
 
 /* Action that clears the multi-selection in a bookmark list. */
 "deselect_all" = "Avmarkera alla";
-"transit_not_found" = "Tunnelbanenavigering är ännu inte tillgängligt i denna region";
-"dialog_pedestrian_route_is_long_header" = "Tunnelbanerutt hittades inte";
-"dialog_pedestrian_route_is_long_message" = "Välj ruttens start- eller mål närmare en tunnelbanestation";
+"transit_not_found" = "Tunnelbanenavigering är ännu inte tillgänglig i den här regionen";
+"dialog_pedestrian_route_is_long_header" = "Ingen tunnelbanerutt hittades";
+"dialog_pedestrian_route_is_long_message" = "Välj en start- eller slutpunkt närmare en tunnelbanestation.";
 "button_layer_isolines" = "Terräng";
 "isolines_activation_error_dialog" = "Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område";
 "isolines_location_error_dialog" = "Höjdkurvor är ännu inte tillgängliga i det här området";
@@ -966,7 +966,7 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* App Tip #00 */
-"app_tip_00" = "Tack för att du använder våra community-byggda kartor!";
+"app_tip_00" = "Tack för att du använder våra kartor, skapade av gemenskapen!";
 
 /* App tip #01 */
 "app_tip_01" = "Med dina donationer och stöd kan vi skapa de bästa kartorna i världen!";
@@ -987,7 +987,7 @@
 "app_tip_06" = "Du kan hjälpa till att översätta vår app till ditt språk.";
 
 /* App tip #07 */
-"app_tip_07" = "Vår app är utvecklad av ett fåtal entusiaster och communityn.";
+"app_tip_07" = "Vår app utvecklas av några entusiaster tillsammans med gemenskapen.";
 
 /* App tip #08 */
 "app_tip_08" = "Du kan enkelt fixa och förbättra kartdata.";
@@ -1069,7 +1069,7 @@
 "move" = "Flytta";
 
 /* edit track screen title */
-"track_title" = "Rutt";
+"track_title" = "Spår";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Ändra färg";
@@ -1078,7 +1078,7 @@
 "map" = "Karta";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "Vill du skicka en felrapport till utvecklarna?\nVi förlitar oss på våra användare eftersom organiska kartor inte samlar in någon felinformation automatiskt. Tack på förhand för att du stöder Organic Maps!";
+"bugreport_alert_message" = "Vill du skicka en felrapport till utvecklarna?\nOrganic Maps samlar inte automatiskt in någon felinformation, så vi är beroende av våra användares rapporter. Tack för att du stöder Organic Maps!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Aktivera iCloud-synkronisering";
@@ -1155,7 +1155,7 @@
 "km" = "km";
 
 /* abbreviation for mile(s) */
-"mi" = "mile";
+"mi" = "mi";
 
 /* A unit of measure */
 "ft" = "fot";

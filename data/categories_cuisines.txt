@@ -192,6 +192,7 @@ ru:Чай с шариками
 es:Té de burbujas
 eu:Burbuila tea
 hi:बुलबुले वाली चाय
+sv:Bubble tea|boba-te
 uk:Бульбашковий чай
 be:Чай з бурбалкамі
 zh-Hans:珍珠奶茶
