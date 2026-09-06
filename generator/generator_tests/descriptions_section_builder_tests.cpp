@@ -78,19 +78,13 @@ public:
 
   void MakePath() const
   {
-    std::string trueAnswer = "/wikiDir/en.wikipedia.org/wiki/Helsinki_Olympic_Stadium";
-    {
-      std::string const wikiDir = "/wikiDir/";
-      std::string const wikiUrl = "http://en.wikipedia.org/wiki/Helsinki_Olympic_Stadium/";
-      auto const answer = DescriptionsCollector::MakePathForWikipedia(wikiDir, wikiUrl);
-      TEST_EQUAL(trueAnswer, answer, ());
-    }
-    {
-      std::string const wikiDir = "/wikiDir";
-      std::string const wikiUrl = "https://en.wikipedia.org/wiki/Helsinki_Olympic_Stadium";
-      auto const answer = DescriptionsCollector::MakePathForWikipedia(wikiDir, wikiUrl);
-      TEST_EQUAL(trueAnswer, answer, ());
-    }
+    // Only the scheme and trailing slash stripping is under test; the directory is joined with the
+    // native separator.
+    std::string const page = "en.wikipedia.org/wiki/Helsinki_Olympic_Stadium";
+    TEST_EQUAL(DescriptionsCollector::MakePathForWikipedia("/wikiDir/", "http://" + page + "/"),
+               base::JoinPath("/wikiDir/", page), ());
+    TEST_EQUAL(DescriptionsCollector::MakePathForWikipedia("/wikiDir", "https://" + page),
+               base::JoinPath("/wikiDir", page), ());
   }
 
   void FindPageAndFill() const
