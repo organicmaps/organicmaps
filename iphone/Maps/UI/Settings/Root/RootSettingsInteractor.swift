@@ -3,10 +3,14 @@ final class RootSettingsInteractor {
 
   private let settings: Settings.Type
   private var iCloudSynchronizationState: SynchronizationManagerState?
+  private var fileLoggingStateObserver: NSObjectProtocol?
   private var isObserving = false
 
   deinit {
     iCloudSynchronizaionManager.shared.removeObserver(self)
+    if let fileLoggingStateObserver {
+      NotificationCenter.default.removeObserver(fileLoggingStateObserver)
+    }
   }
 
   init(settings: Settings.Type = Settings.self) {
@@ -50,8 +54,13 @@ final class RootSettingsInteractor {
       return
     }
 
-    setSetting(setting, enabled: enabled)
-    updateSettings()
+    let error = setSetting(setting, enabled: enabled)
+    // Force the reconfiguration: a setter that fails or normalizes the value leaves the view model
+    // unchanged, and the switch would keep the position the user just moved it to.
+    updateSettings(reconfiguredItems: [setting])
+    if let error {
+      presenter?.presentFileLoggingError(error)
+    }
   }
 
   func confirmICloudSynchronization() {
@@ -104,6 +113,16 @@ final class RootSettingsInteractor {
       self?.iCloudSynchronizationState = state
       self?.updateSettings()
     }
+    fileLoggingStateObserver = NotificationCenter.default.addObserver(
+      forName: Logger.fileLoggingStateDidChangeNotification,
+      object: nil,
+      queue: .main
+    ) { [weak self] notification in
+      if let error = notification.object as? NSError {
+        self?.presenter?.presentFileLoggingError(error)
+      }
+      self?.updateSettings(reconfiguredItems: [.logging])
+    }
   }
 
   private func updateSettings(reconfiguredItems: [RootSettings] = [], animatingDifferences: Bool = true) {
@@ -140,7 +159,8 @@ final class RootSettingsInteractor {
     !settings.isPowerManagementMaximum()
   }
 
-  private func setSetting(_ setting: RootSettings, enabled: Bool) {
+  @discardableResult
+  private func setSetting(_ setting: RootSettings, enabled: Bool) -> Error? {
     switch setting {
     case .zoomButtons:
       settings.setZoomButtonsEnabled(enabled)
@@ -157,7 +177,7 @@ final class RootSettingsInteractor {
     case .iCloud:
       settings.setICLoudSynchronizationEnabled(enabled)
     case .logging:
-      settings.setFileLoggingEnabled(enabled)
+      return settings.setFileLoggingEnabled(enabled)
     case .perspectiveView:
       settings.setPerspectiveViewEnabled(enabled)
     case .autoZoom:
@@ -178,6 +198,7 @@ final class RootSettingsInteractor {
          .routingOptions:
       break
     }
+    return nil
   }
 
   private func canBackupBookmarks() -> Bool {
