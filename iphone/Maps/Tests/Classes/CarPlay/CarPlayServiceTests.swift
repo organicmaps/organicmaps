@@ -12,6 +12,9 @@ final class CarPlayServiceTests: XCTestCase {
 
   override func tearDown() {
     carPlayService = nil
+    // The search engine is a process-wide singleton; leave it as the tests found it.
+    Search.clear()
+    Search.setSearchMode(.everywhere)
     super.tearDown()
   }
 
@@ -41,6 +44,58 @@ final class CarPlayServiceTests: XCTestCase {
 
     XCTAssertEqual(estimates.distanceRemaining, Measurement<UnitLength>(value: 25.2, unit: .kilometers))
     XCTAssertEqual(estimates.timeRemaining, 100)
+  }
+
+  func testEmptySearchCompletesImmediately() {
+    let searchService = CarPlaySearchService()
+    var completionCount = 0
+
+    searchService.searchText("", forInputLocale: "en") { results in
+      XCTAssertEqual(results?.isEmpty, true)
+      completionCount += 1
+    }
+
+    XCTAssertEqual(completionCount, 1)
+  }
+
+  func testSupersededSearchIsCompletedWithoutResults() {
+    let searchService = CarPlaySearchService()
+    var completionCount = 0
+
+    searchService.searchText("query", forInputLocale: "en") { results in
+      XCTAssertNil(results, "A superseded request must be distinguishable from an empty result set.")
+      completionCount += 1
+    }
+    searchService.searchText("", forInputLocale: "en") { _ in }
+
+    XCTAssertEqual(completionCount, 1, "A superseded request must still be completed.")
+  }
+
+  /// MWMSearch is shared with the phone UI: its newer query cancels a CarPlay request and completes with
+  /// results of its own.
+  func testSearchReplacedByAnotherQueryIsCompletedWithoutResults() {
+    let searchService = CarPlaySearchService()
+    var completionCount = 0
+
+    searchService.searchText("query", forInputLocale: "en") { results in
+      XCTAssertNil(results, "Results of another query must not be reported.")
+      completionCount += 1
+    }
+    Search.searchQuery(SearchQuery("another query", source: .typedText))
+    (searchService as? MWMSearchObserver)?.onSearchCompleted?()
+
+    XCTAssertEqual(completionCount, 1)
+  }
+
+  /// `MWMSearch` reports completion only for everywhere-searches, so a CarPlay request must switch
+  /// the shared mode; the phone UI leaves it at viewport, where the handler would never run.
+  func testSearchSwitchesSharedModeToEverywhere() {
+    Search.setSearchMode(.viewport)
+    let searchService = CarPlaySearchService()
+
+    searchService.searchText("query", forInputLocale: "en") { _ in }
+
+    XCTAssertEqual(Search.searchMode(), .everywhere)
   }
 
   /// A pan button moves the viewport, so the map moves the opposite way.
