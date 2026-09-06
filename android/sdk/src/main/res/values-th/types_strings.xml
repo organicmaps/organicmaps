@@ -387,6 +387,8 @@
     <string name="type.highway.pedestrian.bridge">สะพาน</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">อุโมงค์</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">จุดขึ้นลง</string>
     <string name="type.highway.primary">ถนน</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">สะพาน</string>
@@ -705,6 +707,8 @@
     <string name="type.power.substation">สถานีไฟฟ้า</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">เสาไฟฟ้า</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">จุดขึ้นลง</string>
     <string name="type.railway.disused.tunnel">อุโมงค์รถไฟเลิกใช้</string>
     <string name="type.railway.funicular">รถกระเช้าไฟฟ้า</string>
     <string name="type.railway.halt">สถานีรถไฟ</string>

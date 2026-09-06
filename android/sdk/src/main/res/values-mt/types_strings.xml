@@ -4,6 +4,10 @@
     <!-- SECTION: Types: Recycling -->
     <string name="type.cuisine.uzbek">Użbeka</string>
 
+    <!-- SECTION: Types: Roads -->
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Pjattaforma</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.man_made.ceremonial_gate">Bieb ċerimonjali</string>
     <string name="type.leisure.track">Korsa sportiva</string>
@@ -11,6 +15,8 @@
     <string name="type.natural.hill">Għolja</string>
     <string name="type.natural.arch">Arka tal-blat</string>
     <string name="type.natural.volcano.active">Volkan attiv</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Pjattaforma</string>
     <string name="type.railway.disused.tunnel">Mina tal-ferrovija mitluqa</string>
     <string name="type.shop.leather">Ħanut tal-oġġetti tal-ġilda</string>
     <string name="type.shop.religion">Ħanut tal-oġġetti reliġjużi</string>

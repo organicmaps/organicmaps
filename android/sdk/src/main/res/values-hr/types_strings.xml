@@ -80,7 +80,8 @@
     <string name="type.healthcare.laboratory">Medicinski laboratorij</string>
 
     <!-- SECTION: Types: Roads -->
-    <string name="type.highway.platform">Platforma</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Peron</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.man_made.ceremonial_gate">Ceremonijalna vrata</string>
@@ -103,7 +104,8 @@
     <string name="type.power.plant.hydro">Hidroelektrana</string>
     <string name="type.power.plant.solar">Solarna elektrana</string>
     <string name="type.power.plant.wind">Vjetroelektrana</string>
-    <string name="type.public_transport.platform">Platforma</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Peron</string>
     <string name="type.railway">Željeznica</string>
     <string name="type.railway.disused.tunnel">Nekorišteni željeznički tunel</string>
     <string name="type.railway.rail">Željeznica</string>

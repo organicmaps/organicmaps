@@ -335,6 +335,8 @@
     <string name="type.highway.pedestrian.bridge">Мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Тунел</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Перон</string>
     <string name="type.highway.primary">Главен път</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Мост</string>
@@ -605,6 +607,8 @@
     <string name="type.power.plant.hydro">Водноелектрическа централа</string>
     <string name="type.power.plant.solar">Слънчева електроцентрала</string>
     <string name="type.power.plant.wind">Вятърна електроцентрала</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Перон</string>
     <string name="type.railway.disused.tunnel">Неизползван железопътен тунел</string>
     <string name="type.railway.funicular">Фуникуляр</string>
     <string name="type.railway.rail.highspeed">Високоскоростна железница</string>

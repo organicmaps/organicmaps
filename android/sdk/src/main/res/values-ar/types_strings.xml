@@ -449,7 +449,8 @@
     <string name="type.highway.pedestrian.bridge">جسر</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">نفق</string>
-    <string name="type.highway.platform">منصة</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">رصيف الركوب</string>
     <string name="type.highway.primary">شارع رئيسي</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">جسر</string>
@@ -837,7 +838,8 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">عمود خدمات</string>
     <string name="type.public_transport">النقل العام</string>
-    <string name="type.public_transport.platform">منصة</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">رصيف الركوب</string>
     <string name="type.railway">سكك حديدية</string>
     <string name="type.railway.abandoned">سكك حديدية مهجورة</string>
     <string name="type.railway.abandoned.bridge">جسر سكة حديد مهجور</string>

@@ -394,6 +394,8 @@
     <string name="type.highway.pedestrian.bridge">Bru</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Perrong</string>
     <string name="type.highway.primary">Hovedvei</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Bru</string>
@@ -710,6 +712,8 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Strømmast</string>
     <string name="type.public_transport">Offentlig transport</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Perrong</string>
     <string name="type.railway">Jernbane</string>
     <string name="type.railway.disused.tunnel">Nedlagt jernbanetunnel</string>
     <string name="type.railway.funicular">Kabelbane</string>

@@ -447,7 +447,8 @@
     <string name="type.highway.pedestrian.bridge">Հետիոտնային կամուրջ</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Հետիոտնային թունել</string>
-    <string name="type.highway.platform">Հարթակ</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Կառամատույց</string>
     <string name="type.highway.primary">Առաջնային ճանապարհ</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Կամուրջ</string>
@@ -840,7 +841,8 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Հասարակական տրանսպորտ</string>
-    <string name="type.public_transport.platform">Հարթակ</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Կառամատույց</string>
     <string name="type.railway">Երկաթուղի</string>
     <string name="type.railway.abandoned">Լքված երկաթուղի</string>
     <string name="type.railway.abandoned.bridge">Լքված երկաթուղային կամուրջ</string>

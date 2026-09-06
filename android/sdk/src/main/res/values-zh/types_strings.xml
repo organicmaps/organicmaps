@@ -449,7 +449,8 @@
     <string name="type.highway.pedestrian.bridge">人行天桥</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">人行隧道</string>
-    <string name="type.highway.platform">公共交通站台</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">站台</string>
     <string name="type.highway.primary">主要道路</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">桥</string>
@@ -842,7 +843,8 @@
     <string name="type.psurface.unpaved_bad">未铺装路面—较差</string>
     <string name="type.psurface.unpaved_good">未铺装路面—良好</string>
     <string name="type.public_transport">公共交通要素</string>
-    <string name="type.public_transport.platform">公共交通站台</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">站台</string>
     <string name="type.railway">铁路</string>
     <string name="type.railway.abandoned">铁路遗迹</string>
     <string name="type.railway.abandoned.bridge">铁路遗迹</string>

@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Pont de vianants</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel de vianants</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
     <string name="type.highway.platform">Andana</string>
     <string name="type.highway.primary">Carretera primària</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -839,6 +840,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Transport públic</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
     <string name="type.public_transport.platform">Andana</string>
     <string name="type.railway">Ferrocarril</string>
     <string name="type.railway.abandoned">Ferrocarril abandonat</string>

@@ -488,7 +488,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel";
-"type.highway.platform" = "Plataforma de transporte público";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Plataforma";
 "type.highway.primary" = "Estrada primária";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -976,7 +978,9 @@
 "type.psurface.unpaved_bad" = "Superfície não pavimentada ruim";
 "type.psurface.unpaved_good" = "Superfície não pavimentada boa";
 "type.public_transport" = "Transporte público";
-"type.public_transport.platform" = "Plataforma de transporte público";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Plataforma";
 "type.railway" = "Ferrovia";
 "type.railway.abandoned" = "Ferrovia abandonada";
 "type.railway.abandoned.bridge" = "Ponte de Ferrovia abandonada";

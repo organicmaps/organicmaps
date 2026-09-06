@@ -488,7 +488,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Σήραγγα πεζών";
-"type.highway.platform" = "Πλατφόρμα";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Αποβάθρα";
 "type.highway.primary" = "Πρωτεύων δρόμος";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -976,7 +978,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Δημόσια συγκοινωνία";
-"type.public_transport.platform" = "Πλατφόρμα";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Αποβάθρα";
 "type.railway" = "Σιδηρόδρομος";
 "type.railway.abandoned" = "Εγκαταλελειμμένος σιδηρόδρομος";
 "type.railway.abandoned.bridge" = "Εγκαταλελειμμένη σιδηροδρομική γέφυρα";

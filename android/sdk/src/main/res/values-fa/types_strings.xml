@@ -383,6 +383,7 @@
     <string name="type.highway.pedestrian.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">تونل</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
     <string name="type.highway.platform">سکو</string>
     <string name="type.highway.primary">جاده</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -741,6 +742,7 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">تیر چراغ برق</string>
     <string name="type.public_transport">حمل و نقل عمومی</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
     <string name="type.public_transport.platform">سکو</string>
     <string name="type.railway">راه‌آهن</string>
     <string name="type.railway.abandoned">راه اهن متروکه</string>

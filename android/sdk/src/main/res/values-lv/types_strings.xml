@@ -43,6 +43,8 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Tunelis</string>
     <string name="type.highway.bus_stop">Pietura</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Perons</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.man_made.ceremonial_gate">Ceremonijas vārti</string>
@@ -65,6 +67,8 @@
     <string name="type.place.sea">Jūra</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Pilsētas apgabals</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Perons</string>
     <string name="type.railway.disused.tunnel">Slēgts dzelzceļa tunelis</string>
     <string name="type.shop.hearing_aids">Dzirdes aparātu veikals</string>
     <string name="type.shop.leather">Ādas izstrādājumu veikals</string>
