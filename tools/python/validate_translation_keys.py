@@ -21,6 +21,8 @@ import os
 import re
 import sys
 from pathlib import Path
+from dataclasses import dataclass
+from collections import ChainMap
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -56,15 +58,23 @@ _IOS_PLIST_TITLE_RE = re.compile(
 )
 _XML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
 
+# Each time a string key is found in source code it's saved as `SourceReference` instance
+@dataclass
+class SourceReference:
+    filename: str
+    line_number: int
 
 def _regex_matcher(*regexes):
     """Build a matcher that returns the union of all regex capture groups."""
 
-    def match(text):
-        keys = set()
+    def match(text) -> dict[str, int]:
+        references = {}
         for regex in regexes:
-            keys.update(regex.findall(text))
-        return keys
+            m:Match = None
+            for m in regex.finditer(text):
+                line_number = text[:m.start()].count("\n")
+                references[m.group(1)] = line_number
+        return references
 
     return match
 
@@ -72,33 +82,49 @@ def _regex_matcher(*regexes):
 def _xml_matcher(*regexes):
     match = _regex_matcher(*regexes)
 
-    def match_xml(text):
+    def match_xml(text) -> dict[str, int]:
         return match(_XML_COMMENT_RE.sub("", text))
 
     return match_xml
 
 
-def _core_source_matcher(text):
-    keys = set(_CORE_RE.findall(text))
-    keys.update(_category_source_matcher(text))
-    for call_args in _CORE_BUNDLE_CALL_RE.findall(text):
-        keys.update(_CORE_LITERAL_RE.findall(call_args))
-    return keys
+def _core_source_matcher(text) -> dict[str, int]:
+    references = {}
+
+    m:Match = None
+    for m in _CORE_RE.finditer(text):
+        line_number = text[:m.start()].count("\n")
+        references[m.group(1)] = line_number
+
+    references.update(_category_source_matcher(text))
+    for m in _CORE_BUNDLE_CALL_RE.finditer(text):
+        call_args = m.group(1)
+        line_number = text[:m.start()].count("\n")
+        references.update({k: line_number for k in _CORE_LITERAL_RE.findall(call_args) })
+    return references
 
 
-def _category_source_matcher(text):
-    keys = set()
-    for category_list in _CATEGORY_LIST_RE.findall(text):
-        keys.update(_CORE_LITERAL_RE.findall(category_list))
-    return keys
+def _category_source_matcher(text) -> dict[str, int]:
+    references = {}
+    m:Match = None
+    for m in _CATEGORY_LIST_RE.finditer(text):
+        category_list = m.group(1)
+        line_number = text[:m.start()].count("\n")
+        references.update({k:line_number for k in _CORE_LITERAL_RE.findall(category_list)})
+    return references
 
 
 def _ios_source_matcher(text):
-    keys = set()
-    for call_args in _IOS_L_CALL_RE.findall(text):
-        keys.update(_IOS_LITERAL_RE.findall(call_args))
-    keys.update(_IOS_NS_RE.findall(text))
-    return keys
+    references = {}
+    for m in _IOS_L_CALL_RE.finditer(text):
+        call_args = m.group(1)
+        line_number = text[:m.start()].count("\n")
+        references.update({k: line_number for k in _IOS_LITERAL_RE.findall(call_args)})
+    
+    for m in _IOS_NS_RE.finditer(text):
+        line_number = text[:m.start()].count("\n")
+        references[m.group(1)] = line_number
+    return references
 
 
 def _raise_os_error(error):
@@ -158,9 +184,9 @@ _STRICT_SCANNERS = {
 }
 
 
-def scan_referenced_keys(root, scanners):
-    """Return keys referenced under root, excluding generated build trees."""
-    keys = set()
+def scan_referenced_keys(root, scanners) -> dict[str, SourceReference]:
+    """Return dictionary {keys: source_reference} for keys referenced under root, excluding generated build trees."""
+    references = {}
     for directory, subdirectories, filenames in os.walk(root, onerror=_raise_os_error):
         subdirectories[:] = [name for name in subdirectories if name != "build"]
         for filename in filenames:
@@ -176,13 +202,15 @@ def scan_referenced_keys(root, scanners):
             with open(path, "r", encoding="utf-8") as source:
                 text = source.read()
             for matcher in matchers:
-                keys.update(matcher(text))
-    return keys
+                # Matcher generates dict {key: line_number} and doesn't know about filename
+                # Rebuild dict to {ket: SourceReferences}
+                references.update({key: SourceReference(path, line_number) for (key, line_number) in matcher(text).items()})
+    return references
 
 
-def scan_all(scanners):
-    """Return {scanner name: keys referenced by the source trees it covers}."""
-    referenced = {name: set() for name in scanners}
+def scan_all(scanners) -> dict[str, dict[str, SourceReference]]:
+    """Return {scanner_name: {keys: source_reference} }."""
+    referenced = {name: dict() for name in scanners}
     for name, relative_root in _ROOTS:
         if name in scanners:
             referenced[name] |= scan_referenced_keys(
@@ -191,16 +219,16 @@ def scan_all(scanners):
     return referenced
 
 
-def scan_apple_targets(core_referenced):
+def scan_apple_targets(core_referenced) -> dict[str, dict[str, SourceReference]]:
     """Return references grouped by the Apple tag that generates their resource."""
-    referenced = {tag: set() for tag in _APPLE_TARGETS}
+    referenced = {tag: {} for tag in _APPLE_TARGETS}
     for tag, relative_root, scanners in _APPLE_TARGET_ROOTS:
         referenced[tag] |= scan_referenced_keys(_REPO_ROOT / relative_root, scanners)
     referenced["apple-maps"] |= core_referenced
     return referenced
 
 
-def find_overtagged(tags_by_key, referenced):
+def find_overtagged(tags_by_key, referenced) -> list[str]:
     """Return "key (android)" for every Android tag with no app or core reference."""
     overtagged = []
     for key, tags in tags_by_key.items():
@@ -214,7 +242,7 @@ def find_overtagged(tags_by_key, referenced):
     return sorted(overtagged)
 
 
-def find_undertagged(tags_by_key, referenced, core_referenced):
+def find_undertagged(tags_by_key, referenced, core_referenced) -> list[str]:
     """Return "key (android)" for every required Android tag that is absent.
 
     Such a key is missing from that platform's generated resources, so the lookup
@@ -223,13 +251,13 @@ def find_undertagged(tags_by_key, referenced, core_referenced):
     """
     undertagged = []
     for platform, prefix in _PLATFORM_TAG_PREFIXES.items():
-        for key in (referenced[platform] | core_referenced) & set(tags_by_key):
+        for key in (referenced[platform].keys() | core_referenced.keys()) & set(tags_by_key):
             if not any(tag.startswith(prefix) for tag in tags_by_key[key]):
                 undertagged.append(f"{key} ({platform})")
     return sorted(undertagged)
 
 
-def find_overtagged_targets(tags_by_key, referenced_by_tag):
+def find_overtagged_targets(tags_by_key, referenced_by_tag) -> list[str]:
     """Return "key (tag)" for every exact target tag with no reference."""
     return sorted(
         f"{key} ({tag})"
@@ -249,13 +277,24 @@ def find_undertagged_targets(tags_by_key, referenced_by_tag):
     )
 
 
-def report(problem, keys):
+def report(problem: str, keys: set[str]) -> int:
     """Print the offending keys, if any, and return the number of failed checks."""
     if not keys:
         return 0
     print(f"Found {len(keys)} translation keys {problem}:")
     print("- ", end="")
     print(*keys, sep="\n- ")
+    return 1
+
+
+def report_references(problem: str, keys: set[str], source_refs: dict[str, SourceReference]) -> int:
+    """Print the offending keys with source references, if any, and return the number of failed checks."""
+    if not keys:
+        return 0
+    print(f"Found {len(keys)} translation keys {problem}:")
+    for k in keys:
+        ref = source_refs[k]
+        print(f"- {k} at {ref.filename}:{ref.line_number+1}")
     return 1
 
 
@@ -298,10 +337,11 @@ def main():
         "referenced by an Apple target their tags leave out",
         find_undertagged_targets(tags_by_key, apple_referenced),
     )
-    strict = set().union(*strict_referenced.values())
-    failures += report(
+    strict = ChainMap(*strict_referenced.values()) # Merge all dictionaries into one
+    failures += report_references(
         "referenced in code but missing from strings.txt",
-        sorted(strict - set(tags_by_key)),
+        sorted(strict.keys() - set(tags_by_key)),
+        strict,
     )
     if failures:
         return 1
