@@ -29,4 +29,12 @@ class OpeinigHoursLocalization: NSObject, IOpeningHoursLocalization {
   var dayOffString: String {
     L("day_off_today")
   }
+
+  var noonString: String {
+    L("noon")
+  }
+
+  var midnightString: String {
+    L("midnight")
+  }
 }

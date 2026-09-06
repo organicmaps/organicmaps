@@ -80,6 +80,7 @@
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED0C360F2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */; };
 		ED0E8FBF2FC4752400A4C91D /* UILabel+OneLineScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */; };
+		ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
 		ED2487962FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2487952FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift */; };
 		ED24879E2FD9B82600E8F7F0 /* ExpandableTextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED24879D2FD9B82600E8F7F0 /* ExpandableTextContainer.swift */; };
@@ -939,6 +940,7 @@
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDescriptionHTMLDocumentBuilder.swift; sourceTree = "<group>"; };
 		ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+OneLineScaling.swift"; sourceTree = "<group>"; };
+		ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
 		ED2487952FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverListSelectorBuilder.swift; sourceTree = "<group>"; };
 		ED24879D2FD9B82600E8F7F0 /* ExpandableTextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextContainer.swift; sourceTree = "<group>"; };
@@ -2192,6 +2194,7 @@
 		E79F77A472014212B40FDE97 /* PlacePageTests */ = {
 			isa = PBXGroup;
 			children = (
+				ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */,
 				4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */,
 			);
 			path = PlacePageTests;
@@ -5006,6 +5009,7 @@
 			files = (
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
+				ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */,
 				EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */,
 				EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */,
 				ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */,
