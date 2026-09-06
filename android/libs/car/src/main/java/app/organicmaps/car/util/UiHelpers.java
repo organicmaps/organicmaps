@@ -133,7 +133,8 @@ public final class UiHelpers
         builder.setTitle(context.getString(R.string.twentyfour_seven));
       else
       {
-        final String shifts = timetables[0].formatOpenShifts(", ");
+        final String shifts = timetables[0].formatOpenShifts(", ", context.getString(R.string.noon),
+                                                             context.getString(R.string.midnight));
         // A day fully covered by breaks has no open shift; the place is closed.
         builder.setTitle(shifts.isEmpty() ? context.getString(R.string.day_off_today) : shifts);
       }
@@ -152,7 +153,8 @@ public final class UiHelpers
           if (tt.isFullday)
             openTime = Utils.unCapitalize(context.getString(R.string.editor_time_allday));
           else
-            openTime = tt.formatOpenShifts(", ");
+            openTime =
+                tt.formatOpenShifts(", ", context.getString(R.string.noon), context.getString(R.string.midnight));
 
           // A day fully covered by breaks has no open shift; the place is closed today.
           if (openTime.isEmpty())
