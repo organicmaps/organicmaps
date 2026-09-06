@@ -154,17 +154,17 @@ final class MapTemplateBuilder {
   // MARK: - CPMapButton builder
 
   private class func buildMapButton(type: MapButtonType, action: ((CPMapButton) -> Void)?) -> CPMapButton {
-    let button = CPMapButton(handler: action)
-    switch type {
-    case .startPanning:
-      button.image = UIImage.btnCarplayPanLight
-    case .zoomIn:
-      button.image = UIImage.btnZoomIn
-    case .zoomOut:
-      button.image = UIImage.btnZoomOut
-    case .recenter:
-      button.image = UIImage.btnGetPosition
+    let (image, focusedImage): (UIImage, UIImage) = switch type {
+    // Panning has no highlighted artwork, so it keeps the same image when focused.
+    case .startPanning: (.btnCarplayPanLight, .btnCarplayPanLight)
+    case .zoomIn: (.btnZoomIn, .btnZoomInHighlighted)
+    case .zoomOut: (.btnZoomOut, .btnZoomOutHighlighted)
+    case .recenter: (.btnGetPosition, .btnGetPositionHighlighted)
     }
+    let button = CPMapButton(handler: action)
+    // Original rendering keeps the artwork's own contrast; CarPlay tints template images on focus.
+    button.image = image.withRenderingMode(.alwaysOriginal)
+    button.focusedImage = focusedImage.withRenderingMode(.alwaysOriginal)
     return button
   }
 
