@@ -27,7 +27,7 @@ using MwmTopCityGeoIds = std::unordered_map<CountryId, base::GeoObjectId>;
 using MwmTopCountryGeoIds = std::unordered_map<CountryId, std::vector<base::GeoObjectId>>;
 
 /// @note Android code relies that kInvalidCountryId is an empty string!
-storage::CountryId constexpr kInvalidCountryId;
+inline constexpr char kInvalidCountryId[] = "";
 
 inline bool IsCountryIdValid(CountryId const & countryId)
 {

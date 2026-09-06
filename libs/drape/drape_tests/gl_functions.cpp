@@ -313,6 +313,31 @@ uint32_t GLFunctions::glCheckFramebufferStatus()
   return MOCK_CALL(glCheckFramebufferStatus());
 }
 
+void GLFunctions::glGenRenderbuffer(uint32_t * renderbuffer)
+{
+  return MOCK_CALL(glGenRenderbuffer(renderbuffer));
+}
+
+void GLFunctions::glDeleteRenderbuffer(uint32_t * renderbuffer)
+{
+  return MOCK_CALL(glDeleteRenderbuffer(renderbuffer));
+}
+
+void GLFunctions::glBindRenderbuffer(uint32_t renderbuffer)
+{
+  return MOCK_CALL(glBindRenderbuffer(renderbuffer));
+}
+
+void GLFunctions::glRenderbufferStorage(glConst format, uint32_t width, uint32_t height)
+{
+  return MOCK_CALL(glRenderbufferStorage(format, width, height));
+}
+
+void GLFunctions::glFramebufferRenderbuffer(glConst attachment, uint32_t renderbuffer)
+{
+  return MOCK_CALL(glFramebufferRenderbuffer(attachment, renderbuffer));
+}
+
 void CheckGLError(base::SrcPoint const & /*srcPt*/) {}
 
 void GLFunctions::glEnable(glConst mode) {}

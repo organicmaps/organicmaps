@@ -69,7 +69,9 @@ endif()
 
 # Global compile options for all configurations.
 if (MSVC)
-  add_compile_options(/utf-8)
+  add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/utf-8>)
+  add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/bigobj>)
+  add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/fp:fast>)
   add_link_options(/INCREMENTAL:NO)
 else()
   add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>)

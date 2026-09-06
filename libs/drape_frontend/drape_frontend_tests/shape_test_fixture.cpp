@@ -69,9 +69,9 @@ void ShapeTestFixture::ReleaseGLResources()
 
   if (m_fbo != 0)
   {
-    glDeleteFramebuffers(1, &m_fbo);
-    glDeleteRenderbuffers(1, &m_colorRbo);
-    glDeleteRenderbuffers(1, &m_depthRbo);
+    GLFunctions::glDeleteFramebuffer(&m_fbo);
+    GLFunctions::glDeleteRenderbuffer(&m_colorRbo);
+    GLFunctions::glDeleteRenderbuffer(&m_depthRbo);
     m_fbo = 0;
   }
 
@@ -93,20 +93,20 @@ bool ShapeTestFixture::Init(uint32_t width, uint32_t height)
   auto const contextRef = make_ref(m_context);
 
   // Create FBO for offscreen rendering.
-  glGenFramebuffers(1, &m_fbo);
-  glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+  GLFunctions::glGenFramebuffer(&m_fbo);
+  GLFunctions::glBindFramebuffer(m_fbo);
 
-  glGenRenderbuffers(1, &m_colorRbo);
-  glBindRenderbuffer(GL_RENDERBUFFER, m_colorRbo);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, width, height);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_colorRbo);
+  GLFunctions::glGenRenderbuffer(&m_colorRbo);
+  GLFunctions::glBindRenderbuffer(m_colorRbo);
+  GLFunctions::glRenderbufferStorage(GL_RGBA8, width, height);
+  GLFunctions::glFramebufferRenderbuffer(GL_COLOR_ATTACHMENT0, m_colorRbo);
 
-  glGenRenderbuffers(1, &m_depthRbo);
-  glBindRenderbuffer(GL_RENDERBUFFER, m_depthRbo);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthRbo);
+  GLFunctions::glGenRenderbuffer(&m_depthRbo);
+  GLFunctions::glBindRenderbuffer(m_depthRbo);
+  GLFunctions::glRenderbufferStorage(GL_DEPTH_COMPONENT24, width, height);
+  GLFunctions::glFramebufferRenderbuffer(GL_DEPTH_ATTACHMENT, m_depthRbo);
 
-  if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+  if (GLFunctions::glCheckFramebufferStatus() != GL_FRAMEBUFFER_COMPLETE)
   {
     LOG(LWARNING, ("FBO incomplete, skipping visual test"));
     return false;
@@ -169,7 +169,7 @@ void ShapeTestFixture::Render()
 {
   auto const contextRef = make_ref(m_context);
 
-  glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+  GLFunctions::glBindFramebuffer(m_fbo);
   m_context->SetClearColor(dp::Color::White());
   m_context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit, 0);
 

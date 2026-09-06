@@ -9,10 +9,10 @@ namespace df
 {
 using ColorConstant = std::string_view;
 
-std::string constexpr kTransitColorPrefix = "transit_";
-std::string constexpr kTransitTextPrefix = "text_";
+inline std::string const kTransitColorPrefix = "transit_";
+inline std::string const kTransitTextPrefix = "text_";
 // constexpr doesn't compile on Android now
-std::string const kTransitLineColorPrefix = kTransitColorPrefix + "line_";
+inline std::string const kTransitLineColorPrefix = kTransitColorPrefix + "line_";
 std::string const kTransitTextColorPrefix = kTransitColorPrefix + kTransitTextPrefix;
 
 dp::Color GetColorConstant(ColorConstant const & constant);

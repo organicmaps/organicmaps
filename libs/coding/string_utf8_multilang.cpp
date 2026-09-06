@@ -100,7 +100,7 @@ constexpr bool IsServiceLang(std::string_view const lang)
          lang == kLanguages[StringUtf8Multilang::kOldNameCode].m_code;
 }
 
-StringUtf8Multilang::Languages constexpr allLanguages = [] consteval
+StringUtf8Multilang::Languages const allLanguages = []
 {
   StringUtf8Multilang::Languages langs;
   std::ranges::copy_if(kLanguages, std::back_inserter(langs), [](StringUtf8Multilang::Lang const & lang)
@@ -108,7 +108,7 @@ StringUtf8Multilang::Languages constexpr allLanguages = [] consteval
   return langs;
 }();
 
-StringUtf8Multilang::Languages constexpr languagesWithoutService = [] consteval
+StringUtf8Multilang::Languages const languagesWithoutService = []
 {
   StringUtf8Multilang::Languages langs;
   std::ranges::copy_if(allLanguages, std::back_inserter(langs),

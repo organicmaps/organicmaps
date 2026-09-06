@@ -45,6 +45,10 @@ target_link_libraries(${PROJECT_NAME}
     pugixml
 )
 
+if (PLATFORM_WIN)
+  set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD OFF)
+endif()
+
 omim_add_tool_subdirectory(openlr_match_quality)
 omim_add_tool_subdirectory(openlr_stat)
 

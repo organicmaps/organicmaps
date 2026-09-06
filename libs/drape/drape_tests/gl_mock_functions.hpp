@@ -96,6 +96,13 @@ public:
   MOCK_METHOD2(glFramebufferTexture2D, void(glConst attachment, glConst texture));
   MOCK_METHOD0(glCheckFramebufferStatus, uint32_t());
 
+  // Renderbuffers
+  MOCK_METHOD1(glGenRenderbuffer, void(uint32_t * renderbuffer));
+  MOCK_METHOD1(glDeleteRenderbuffer, void(uint32_t * renderbuffer));
+  MOCK_METHOD1(glBindRenderbuffer, void(uint32_t renderbuffer));
+  MOCK_METHOD3(glRenderbufferStorage, void(glConst format, uint32_t width, uint32_t height));
+  MOCK_METHOD2(glFramebufferRenderbuffer, void(glConst attachment, uint32_t renderbuffer));
+
   MOCK_METHOD1(glCullFace, void(glConst));
   MOCK_METHOD1(glFrontFace, void(glConst));
 

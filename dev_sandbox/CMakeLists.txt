@@ -115,7 +115,7 @@ function(copy_resources)
   execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER})
   foreach(file ${ARGN})
     execute_process(
-      COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
+      COMMAND "${CMAKE_COMMAND}" -E copy "${DATA_DIR}/${file}" "${RESOURCES_FOLDER}"
       COMMAND_ERROR_IS_FATAL ANY
     )
   endforeach()

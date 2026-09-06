@@ -13,9 +13,9 @@
       "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
-      "name": "ci-flags",
+      "name": "ci-flags-g1",
       "hidden": true,
-      "cacheVariables": {
+      "environment": {
         "CMAKE_C_FLAGS": "-g1",
         "CMAKE_CXX_FLAGS": "-g1"
       }
@@ -84,7 +84,14 @@
       "description": "Mirrors the Ninja CI leg: flat build/ dir, -g1 debug info. Pass -DCMAKE_BUILD_TYPE on top.",
       "inherits": [
         "base",
-        "ci-flags"
+        "ci-flags-g1"
+      ],
+      "binaryDir": "${sourceDir}/build"
+    },
+    {
+      "name": "ci-windows",
+      "inherits": [
+        "base"
       ],
       "binaryDir": "${sourceDir}/build"
     },
@@ -94,7 +101,7 @@
       "description": "Mirrors the Xcode CI leg. Multi-config: choose Debug/Release at build/test time.",
       "inherits": [
         "xcode",
-        "ci-flags"
+        "ci-flags-g1"
       ],
       "binaryDir": "${sourceDir}/build-xcode"
     }
@@ -123,6 +130,10 @@
     {
       "name": "ci",
       "configurePreset": "ci"
+    },
+    {
+      "name": "ci-windows",
+      "configurePreset": "ci-windows"
     },
     {
       "name": "xcode",
@@ -196,6 +207,16 @@
       "name": "ci-drape",
       "inherits": "drape-tests",
       "configurePreset": "ci"
+    },
+    {
+      "name": "ci-windows",
+      "inherits": "omim-tests",
+      "configurePreset": "ci-windows"
+    },
+    {
+      "name": "ci-drape-windows",
+      "inherits": "drape-tests",
+      "configurePreset": "ci-windows"
     },
     {
       "name": "ci-xcode",

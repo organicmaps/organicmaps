@@ -158,6 +158,13 @@ public:
   static void glBindFramebuffer(uint32_t fbo);
   static void glFramebufferTexture2D(glConst attachment, glConst texture);
   static uint32_t glCheckFramebufferStatus();
+
+  // Renderbuffer support
+  static void glGenRenderbuffer(uint32_t * renderbuffer);
+  static void glDeleteRenderbuffer(uint32_t * renderbuffer);
+  static void glBindRenderbuffer(uint32_t renderbuffer);
+  static void glRenderbufferStorage(glConst format, uint32_t width, uint32_t height);
+  static void glFramebufferRenderbuffer(glConst attachment, uint32_t renderbuffer);
 };
 
 void CheckGLError(base::SrcPoint const & src);

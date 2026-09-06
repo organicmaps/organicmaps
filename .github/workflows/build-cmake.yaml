@@ -64,6 +64,13 @@ jobs:
             cc: clang
             cxx: clang++
             developer-dir: /Applications/Xcode_26.5.app/Contents/Developer
+
+          - os: windows-2025-vs2026
+            cc: cl.exe
+            cxx: cl.exe
+            cmake-preset: ci-windows
+            cmake-preset-drape: ci-drape-windows
+
         exclude:
           - environment: { unity: OFF }
             cmake-build-type: Release
@@ -113,6 +120,13 @@ jobs:
           brew install qt@6
           pip3 install tornado --break-system-packages
 
+      - name: Install Qt
+        if: ${{ runner.os == 'Windows' }}
+        uses: jurplel/install-qt-action@v4
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: ${{ runner.os == 'Windows' }}
+
       - name: Configure ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
@@ -125,6 +139,7 @@ jobs:
           save: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Configure cmake
+        shell: bash
         env:
           CC: ${{ matrix.environment.cc }}
           CXX: ${{ matrix.environment.cxx }}
@@ -132,7 +147,7 @@ jobs:
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
           UNITY_BUILD: ${{ matrix.environment.unity || 'ON' }}
         run: |
-          cmake --preset ci \
+          cmake --preset ${{ matrix.environment.cmake-preset || 'ci' }} \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
             -DCMAKE_UNITY_BUILD=${UNITY_BUILD}
 
@@ -147,10 +162,11 @@ jobs:
       # dev_sandbox is a part of the default target anyway, so nothing is wasted.
       - name: Check dev_sandbox is not skipped (macOS)
         if: ${{ runner.os == 'macOS' }}
-        run: cmake --build --preset ci --target dev_sandbox
+        run: cmake --build --preset ${{ matrix.environment.cmake-preset || 'ci' }} --target dev_sandbox
 
       - name: Compile
-        run: cmake --build --preset ci
+        shell: bash
+        run: cmake --build --preset ${{ matrix.environment.cmake-preset || 'ci' }}
 
       - name: Prepare testing environment (Linux)
         if: ${{ runner.os == 'Linux' }}
@@ -176,11 +192,13 @@ jobs:
       #     the offline part of that coverage lives in storage_tests
       - name: Run tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        run: ctest --preset ci -j$(nproc --all)
+        shell: bash
+        run: ctest --preset ${{ matrix.environment.cmake-preset || 'ci' }} -j$(nproc --all)
 
       # Run drape tests separately. They require offscreen rendering support.
       # The "ci-drape" test preset sets QT_QPA_PLATFORM=offscreen; setting it
       # globally breaks network tests on macOS.
       - name: Run drape tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        run: ctest --preset ci-drape --verbose
+        shell: bash
+        run: ctest --preset ${{ matrix.environment.cmake-preset-drape || 'ci-drape' }} --verbose

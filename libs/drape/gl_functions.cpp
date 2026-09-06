@@ -125,6 +125,13 @@ typedef void(DP_APIENTRY * TglFramebufferTexture2DFn)(GLenum target, GLenum atta
                                                       GLuint texture, GLint level);
 typedef GLenum(DP_APIENTRY * TglCheckFramebufferStatusFn)(GLenum target);
 
+typedef void(DP_APIENTRY * TglGenRenderbuffersFn)(GLsizei n, GLuint * renderbuffers);
+typedef void(DP_APIENTRY * TglDeleteRenderbuffersFn)(GLsizei n, GLuint const * renderbuffers);
+typedef void(DP_APIENTRY * TglBindRenderbufferFn)(GLenum target, GLuint id);
+typedef void(DP_APIENTRY * TglRenderbufferStorageFn)(GLenum target, GLenum format, GLsizei width, GLsizei height);
+typedef void(DP_APIENTRY * TglFramebufferRenderbufferFn)(GLenum target, GLenum attachment, GLenum renderbuffertarget,
+                                                         GLuint renderbuffer);
+
 typedef GLubyte const *(DP_APIENTRY * TglGetStringiFn)(GLenum name, GLuint index);
 
 typedef void(DP_APIENTRY * TglTexImage3DFn)(GLenum target, GLint level, GLint internalformat, GLsizei width,
@@ -210,6 +217,13 @@ TglDeleteFramebuffersFn glDeleteFramebuffersFn = nullptr;
 TglBindFramebufferFn glBindFramebufferFn = nullptr;
 TglFramebufferTexture2DFn glFramebufferTexture2DFn = nullptr;
 TglCheckFramebufferStatusFn glCheckFramebufferStatusFn = nullptr;
+
+/// Renderbuffers
+TglGenRenderbuffersFn glGenRenderbuffersFn = nullptr;
+TglDeleteRenderbuffersFn glDeleteRenderbuffersFn = nullptr;
+TglBindRenderbufferFn glBindRenderbufferFn = nullptr;
+TglRenderbufferStorageFn glRenderbufferStorageFn = nullptr;
+TglFramebufferRenderbufferFn glFramebufferRenderbufferFn = nullptr;
 
 TglGetStringiFn glGetStringiFn = nullptr;
 
@@ -387,6 +401,13 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
   glBindFramebufferFn = LOAD_GL_FUNC(TglBindFramebufferFn, glBindFramebuffer);
   glFramebufferTexture2DFn = LOAD_GL_FUNC(TglFramebufferTexture2DFn, glFramebufferTexture2D);
   glCheckFramebufferStatusFn = LOAD_GL_FUNC(TglCheckFramebufferStatusFn, glCheckFramebufferStatus);
+
+  /// Renderbuffer
+  glGenRenderbuffersFn = LOAD_GL_FUNC(TglGenRenderbuffersFn, glGenRenderbuffers);
+  glDeleteRenderbuffersFn = LOAD_GL_FUNC(TglDeleteRenderbuffersFn, glDeleteRenderbuffers);
+  glBindRenderbufferFn = LOAD_GL_FUNC(TglBindRenderbufferFn, glBindRenderbuffer);
+  glRenderbufferStorageFn = LOAD_GL_FUNC(TglRenderbufferStorageFn, glRenderbufferStorage);
+  glFramebufferRenderbufferFn = LOAD_GL_FUNC(TglFramebufferRenderbufferFn, glFramebufferRenderbuffer);
 }
 
 bool GLFunctions::glHasExtension(std::string const & name)
@@ -1091,6 +1112,41 @@ uint32_t GLFunctions::glCheckFramebufferStatus()
   uint32_t const result = glCheckFramebufferStatusFn(GL_FRAMEBUFFER);
   GLCHECKCALL();
   return result;
+}
+
+void GLFunctions::glGenRenderbuffer(uint32_t * renderbuffer)
+{
+  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  ASSERT(glGenRenderbuffersFn != nullptr, ());
+  GLCHECK(glGenRenderbuffersFn(1, renderbuffer));
+}
+
+void GLFunctions::glDeleteRenderbuffer(uint32_t * renderbuffer)
+{
+  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  ASSERT(glDeleteRenderbuffersFn != nullptr, ());
+  GLCHECK(glDeleteRenderbuffersFn(1, renderbuffer));
+}
+
+void GLFunctions::glBindRenderbuffer(uint32_t renderbuffer)
+{
+  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  ASSERT(glBindRenderbufferFn != nullptr, ());
+  GLCHECK(glBindRenderbufferFn(GL_RENDERBUFFER, renderbuffer));
+}
+
+void GLFunctions::glRenderbufferStorage(glConst format, uint32_t width, uint32_t height)
+{
+  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  ASSERT(glRenderbufferStorageFn != nullptr, ());
+  GLCHECK(glRenderbufferStorageFn(GL_RENDERBUFFER, format, width, height));
+}
+
+void GLFunctions::glFramebufferRenderbuffer(glConst attachment, uint32_t renderbuffer)
+{
+  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  ASSERT(glFramebufferRenderbufferFn != nullptr, ());
+  GLCHECK(glFramebufferRenderbufferFn(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, renderbuffer));
 }
 
 void GLFunctions::glLineWidth(uint32_t value)

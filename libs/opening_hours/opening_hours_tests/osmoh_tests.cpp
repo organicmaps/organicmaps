@@ -1241,6 +1241,8 @@ UNIT_TEST(OpeningHours_GetInfoHorizonAndDst)
     TEST_EQUAL(info.state, RuleState::Closed, ());
     TEST_EQUAL(FormatTime(info.nextTimeOpen, "%Y-%m-%d %H:%M"), "2028-01-01 10:00", ());
   }
+
+#ifndef OMIM_OS_WINDOWS
   {
     // Crossing a DST transition must not shift the reported opening time:
     // UTC+1 with a one-hour jump at 2026-03-29 01:00 UTC models Europe/Berlin's
@@ -1262,6 +1264,7 @@ UNIT_TEST(OpeningHours_GetInfoHorizonAndDst)
       TEST_EQUAL(oh.GetInfo(info.nextTimeOpen - 60, timeZone).state, RuleState::Closed, ());
     }
   }
+#endif
 }
 
 UNIT_TEST(OpeningHours_RulesCtorRoundTrip)

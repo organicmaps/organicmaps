@@ -1,13 +1,15 @@
 #include <gtest/gtest.h>
 #include <iomanip>
 
+#include "std/target_os.hpp"
+
 #include "timezone/serdes.hpp"
 
 using namespace om::tz;
 
 namespace
 {
-constexpr TimeZone kZeroTz{.generation_year_offset = 0, .base_offset = 64, .dst_delta = 0, .transitions = {}};
+TimeZone const kZeroTz{.generation_year_offset = 0, .base_offset = 64, .dst_delta = 0, .transitions = {}};
 
 time_t CreateTime(int const year, int const month, int const day, int const hour, int const minute, int const second)
 {
@@ -20,7 +22,11 @@ time_t CreateTime(int const year, int const month, int const day, int const hour
   tm_time.tm_sec = second;
   tm_time.tm_isdst = -1;
 
+#ifndef OMIM_OS_WINDOWS
   return timegm(&tm_time);
+#else
+  return _mkgmtime(&tm_time);
+#endif
 }
 
 std::string TimeToString(time_t const t)
@@ -43,7 +49,7 @@ TEST(TimeZoneConvert, ShoudNotChangeTimeWhenEqualTimeZones)
 
 TEST(TimeZoneConvert, ShoudAdd1Hour)
 {
-  constexpr TimeZone dstTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
+  TimeZone const dstTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
 
   {
     time_t const srcTime = CreateTime(2026, 12, 13, 21, 18, 16);
@@ -63,7 +69,7 @@ TEST(TimeZoneConvert, ShoudAdd1Hour)
 
 TEST(TimeZoneConvert, ShoudDecrease1Hour)
 {
-  constexpr TimeZone srcTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
+  TimeZone const srcTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
 
   {
     time_t const srcTime = CreateTime(2026, 12, 13, 22, 18, 16);
@@ -133,10 +139,10 @@ TEST(TimeZoneConvert, ShouldApplyDst)
 TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
 {
   // Source timezone: -2:30 (minutes = -150), no DST
-  constexpr TimeZone srcTz{.generation_year_offset = 0,
-                           .base_offset = 54,  // -2:30 hours
-                           .dst_delta = 0,
-                           .transitions = {}};
+  TimeZone const srcTz{.generation_year_offset = 0,
+                       .base_offset = 54,  // -2:30 hours
+                       .dst_delta = 0,
+                       .transitions = {}};
 
   // Destination timezone: +8:00, DST +60 minutes
   TimeZone const dstTz{.generation_year_offset = 0,
