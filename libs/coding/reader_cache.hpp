@@ -11,7 +11,9 @@
 #include <string>
 #include <vector>
 
-namespace impl
+// Header-specific name: a global namespace called impl breaks MSVC unity builds, which resolve the
+// impl member templates of boost::mp11 against it.
+namespace reader_cache_impl
 {
 template <bool Enable>
 struct ReaderCacheStats
@@ -41,7 +43,7 @@ struct ReaderCacheStats<true>
   base::AverageStats<uint32_t> m_ReadSize;
   base::AverageStats<uint32_t> m_CacheHit;
 };
-}  // namespace impl
+}  // namespace reader_cache_impl
 
 template <class ReaderT, bool bStats = false>
 class ReaderCache
@@ -98,5 +100,5 @@ private:
 
   base::Cache<uint64_t, std::vector<char>> m_Cache;
   uint32_t const m_LogPageSize;
-  impl::ReaderCacheStats<bStats> m_Stats;
+  reader_cache_impl::ReaderCacheStats<bStats> m_Stats;
 };
