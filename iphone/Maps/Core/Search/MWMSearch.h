@@ -48,6 +48,7 @@ NS_SWIFT_NAME(Search)
 
 + (NSUInteger)suggestionsCount;
 + (NSUInteger)resultsCount;
++ (NSString *)query;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
