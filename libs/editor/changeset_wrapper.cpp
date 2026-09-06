@@ -29,6 +29,8 @@ bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
   return osmFt.child("tag");
 }
 
+constexpr char const * kDefaultChangesetComment = "Editing objects with Organic Maps";
+
 std::string_view constexpr kVowels = "aeiouy";
 
 std::string_view constexpr kMainTags[] = {"amenity",   "shop",    "tourism", "historic", "craft",
@@ -101,22 +103,46 @@ namespace osm
 ChangesetWrapper::ChangesetWrapper(std::string const & keySecret, ServerApi06::KeyValueTags comments) noexcept
   : m_changesetComments(std::move(comments))
   , m_api(OsmOAuth::ServerAuth(keySecret))
-{}
+{
+  // Finish() replaces it with the detailed description. Setting it upfront leaves an interrupted
+  // upload with a labelled changeset instead of a bare one.
+  m_changesetComments.emplace("comment", kDefaultChangesetComment);
+}
 
 ChangesetWrapper::~ChangesetWrapper()
 {
-  if (m_changesetId)
+  // Best effort for early returns only, a no-op after an explicit Finish().
+  Finish();
+}
+
+void ChangesetWrapper::Finish()
+{
+  if (m_changesetId == kInvalidChangesetId)
+    return;
+
+  // Attempt everything below exactly once: a retry from the destructor would only add another
+  // network timeout to the time the upload takes to report itself finished.
+  auto const changesetId = m_changesetId;
+  m_changesetId = kInvalidChangesetId;
+
+  try
   {
-    try
-    {
-      m_changesetComments["comment"] = GetDescription();
-      m_api.UpdateChangeSet(m_changesetId, m_changesetComments);
-      m_api.CloseChangeSet(m_changesetId);
-    }
-    catch (std::exception const & ex)
-    {
-      LOG(LWARNING, (ex.what()));
-    }
+    m_changesetComments["comment"] = GetDescription();
+    m_api.UpdateChangeSet(changesetId, m_changesetComments);
+  }
+  catch (std::exception const & ex)
+  {
+    LOG(LWARNING, ("Failed to update changeset", changesetId, "description:", ex.what()));
+  }
+
+  // Close in any case: a changeset left open blocks the next one and expires only in an hour.
+  try
+  {
+    m_api.CloseChangeSet(changesetId);
+  }
+  catch (std::exception const & ex)
+  {
+    LOG(LWARNING, ("Failed to close changeset", changesetId, ":", ex.what()));
   }
 }
 

@@ -1,6 +1,7 @@
 project(editor_tests)
 
 set(SRC
+  changeset_wrapper_test.cpp
   config_loader_test.cpp
   editor_config_test.cpp
   editor_notes_test.cpp
