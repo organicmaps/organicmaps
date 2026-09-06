@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <limits>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <type_traits>
 #include <unordered_map>

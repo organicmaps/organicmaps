@@ -23,6 +23,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
+#include "base/timer.hpp"
 
 #include <cstring>
 #include <functional>
