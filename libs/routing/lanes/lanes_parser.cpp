@@ -1,5 +1,7 @@
 #include "lanes_parser.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <algorithm>
 #include <ranges>
 
@@ -67,8 +69,10 @@ LanesInfo ParseLanes(std::string_view lanesString)
       for (auto && laneWay : laneInfo | std::views::split(';'))
       {
         auto way = LaneWay::None;
-        auto && laneWayProcessed = laneWay | std::views::filter([](char const c) { return !std::isspace(c); }) |
-                                   std::views::transform([](char const c) { return std::tolower(c); });
+        // Not <cctype>: its functions have undefined behavior for the non-ASCII bytes of UTF-8 text.
+        auto && laneWayProcessed = laneWay |
+                                   std::views::filter([](char const c) { return !strings::IsASCIISpace(c); }) |
+                                   std::views::transform([](char const c) { return strings::AsciiToLower(c); });
         if (!ParseSingleLane(laneWayProcessed, way))
           return {};
         lane.laneWays.Add(way);
