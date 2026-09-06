@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <style name="MwmTheme.DialogFragment.Fullscreen" parent="Theme.AppCompat.DayNight">
+  <style
+    name="MwmTheme.DialogFragment.Fullscreen"
+    parent="Theme.AppCompat.DayNight">
     <item name="colorControlNormal">@color/text_dark_hint</item>
     <item name="android:textColorHint">@color/text_light_hint</item>
   </style>
@@ -8,7 +10,9 @@
   <!-- API 21-22 dark: match ?cardBackground so the status bar blends with the toolbar.
        Overridden on API 23+ dark by values-night-v23/themes.xml (identical value there,
        but needed because -night out-precedes -v23 during resource resolution). -->
-  <style name="MwmTheme.DialogFragment.Fullscreen.Opaque" parent="MwmTheme.DialogFragment.Fullscreen">
+  <style
+    name="MwmTheme.DialogFragment.Fullscreen.Opaque"
+    parent="MwmTheme.DialogFragment.Fullscreen">
     <item name="android:windowTranslucentStatus">false</item>
     <item name="android:windowSoftInputMode">adjustResize</item>
     <item name="android:statusBarColor">?cardBackground</item>

@@ -8,7 +8,7 @@
         android:duration="@android:integer/config_shortAnimTime"
         android:propertyName="translationZ"
         android:valueTo="@dimen/margin_half_plus_eight"
-        android:valueType="floatType"/>
+        android:valueType="floatType" />
     </set>
   </item>
   <item>
@@ -17,7 +17,7 @@
         android:duration="@android:integer/config_shortAnimTime"
         android:propertyName="translationZ"
         android:valueTo="0"
-        android:valueType="floatType"/>
+        android:valueType="floatType" />
     </set>
   </item>
 </selector>

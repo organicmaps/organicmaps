@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical">
@@ -9,14 +8,14 @@
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/MwmWidget.ToolbarTheme.DownButton"/>
+    android:theme="@style/MwmWidget.ToolbarTheme.DownButton" />
 
   <View
     android:layout_width="match_parent"
     android:layout_height="@dimen/action_bar_extended_height"
-    android:background="?colorPrimary"/>
+    android:background="?colorPrimary" />
   <FrameLayout
     style="@style/MwmWidget.FrameLayout.Elevation"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content" />
 </LinearLayout>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-  xmlns:tools="http://schemas.android.com/tools"
-  style="@style/MwmWidget.Floating"
+<FrameLayout xmlns:tools="http://schemas.android.com/tools"
   xmlns:android="http://schemas.android.com/apk/res/android"
+  style="@style/MwmWidget.Floating"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?windowBackgroundForced">
@@ -21,11 +20,11 @@
       android:background="@android:color/transparent"
       android:elevation="@dimen/dp_0"
       android:orientation="vertical">
-        <include
-          android:id="@+id/toolbar"
-          layout="@layout/toolbar_with_search_no_elevation"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
+      <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_with_search_no_elevation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     </LinearLayout>
     <!-- Tabs -->
     <LinearLayout
@@ -97,8 +96,7 @@
       <FrameLayout
         android:id="@+id/download_suggest_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
     </FrameLayout>
   </LinearLayout>
 </FrameLayout>
-

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
@@ -15,12 +14,12 @@
     android:paddingEnd="@dimen/margin_base_plus"
     android:textAppearance="@style/MwmTextAppearance.Body2"
     android:visibility="gone"
-    tools:visibility="visible"/>
+    tools:visibility="visible" />
 
   <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="?dividerHorizontal"/>
+    android:background="?dividerHorizontal" />
 
   <!-- Outer FrameLayout must NOT be removed -->
   <FrameLayout
@@ -31,11 +30,11 @@
     <include
       layout="@layout/item_missed_map"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content" />
   </FrameLayout>
 
   <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="?dividerHorizontal"/>
+    android:background="?dividerHorizontal" />
 </LinearLayout>

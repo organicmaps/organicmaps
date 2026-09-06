@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -27,14 +26,14 @@
       android:padding="@dimen/margin_base"
       tools:ignore="ScrollViewSize">
       <TextView
-          android:id="@+id/textView2"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/margin_half"
-          android:fontFamily="@string/robotoMedium"
-          android:text="@string/login_to_make_edits_visible"
-          android:textAppearance="@style/MwmTextAppearance.Body2"
-          android:textColor="?android:textColorPrimary" />
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_half"
+        android:fontFamily="@string/robotoMedium"
+        android:text="@string/login_to_make_edits_visible"
+        android:textAppearance="@style/MwmTextAppearance.Body2"
+        android:textColor="?android:textColorPrimary" />
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

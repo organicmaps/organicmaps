@@ -1,10 +1,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
   <item>
     <shape android:shape="oval">
-      <solid android:color="@color/black_4"/>
+      <solid android:color="@color/black_4" />
       <size
         android:height="40dp"
-        android:width="40dp"/>
+        android:width="40dp" />
     </shape>
   </item>
   <item
@@ -12,5 +12,5 @@
     android:left="@dimen/margin_half"
     android:right="@dimen/margin_half"
     android:top="@dimen/margin_half"
-    android:bottom="@dimen/margin_half"/>
+    android:bottom="@dimen/margin_half" />
 </layer-list>

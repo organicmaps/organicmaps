@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:orientation="vertical"
   android:layout_width="match_parent"
@@ -19,18 +18,18 @@
     <TextView
       android:id="@+id/tv__title"
       style="@style/MwmWidget.StackedButtonsDialogTitle"
-      tools:text="Use mobile internet to show detailed information?"/>
+      tools:text="Use mobile internet to show detailed information?" />
 
     <TextView
       android:id="@+id/tv__message"
       style="@style/MwmWidget.StackedButtonsDialogMessage"
-      tools:text="Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews."/>
+      tools:text="Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews." />
   </LinearLayout>
 
   <TextView
     android:id="@+id/btn__positive"
     style="@style/MwmWidget.Button.StackedButtonsDialog"
-    tools:text="Use Always"/>
+    tools:text="Use Always" />
 
   <LinearLayout
     android:orientation="horizontal"
@@ -41,12 +40,12 @@
       style="@style/MwmWidget.Button.StackedButtonsDialog"
       android:layout_weight="1"
       android:gravity="start|center_vertical"
-      tools:text="Only Today"/>
+      tools:text="Only Today" />
 
     <TextView
       android:id="@+id/btn__negative"
       style="@style/MwmWidget.Button.StackedButtonsDialog"
       android:layout_weight="1"
-      tools:text="Do not Use Today"/>
+      tools:text="Do not Use Today" />
   </LinearLayout>
 </LinearLayout>

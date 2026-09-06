@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
@@ -112,26 +111,26 @@
       app:singleLineTitle="false"
       android:summary="@string/enable_keep_screen_on_description"
       android:defaultValue="false"
-      android:order="17"/>
+      android:order="17" />
     <SwitchPreferenceCompat
       android:key="@string/pref_show_on_lock_screen"
       android:title="@string/enable_show_on_lock_screen"
       app:singleLineTitle="false"
       android:summary="@string/enable_show_on_lock_screen_description"
       android:defaultValue="true"
-      android:order="18"/>
+      android:order="18" />
     <Preference
       android:key="@string/pref_map_locale"
       android:title="@string/change_map_locale"
       app:singleLineTitle="false"
       android:persistent="false"
-        android:order="19"/>
+      android:order="19" />
     <Preference
       android:key="@string/pref_bg_tiles_screen"
       android:title="@string/pref_bg_tiles_title"
       app:singleLineTitle="false"
       android:persistent="false"
-      android:order="20"/>
+      android:order="20" />
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory
@@ -167,7 +166,9 @@
       <intent
         android:targetClass="app.organicmaps.settings.DrivingOptionsActivity"
         android:targetPackage="@string/app_id">
-        <extra android:name="from" android:value="settings" />
+        <extra
+          android:name="from"
+          android:value="settings" />
       </intent>
     </PreferenceScreen>
   </androidx.preference.PreferenceCategory>

@@ -7,10 +7,10 @@
 
   <application>
     <service
-        android:name=".NavigationService"
-        android:enabled="true"
-        android:exported="false"
-        android:foregroundServiceType="location|mediaPlayback"
-        android:stopWithTask="false" />
+      android:name=".NavigationService"
+      android:enabled="true"
+      android:exported="false"
+      android:foregroundServiceType="location|mediaPlayback"
+      android:stopWithTask="false" />
   </application>
 </manifest>

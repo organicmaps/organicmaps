@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   style="@style/MwmWidget.Editor.CardView"
   android:layout_marginBottom="@dimen/margin_half"
@@ -26,18 +25,18 @@
         <TextView
           android:id="@+id/tv__day"
           style="@style/MwmWidget.Editor.DayText"
-          tools:text="Su"/>
+          tools:text="Su" />
 
         <CheckBox
           android:id="@+id/chb__day"
-          style="@style/MwmWidget.Editor.DayCheckBox"/>
+          style="@style/MwmWidget.Editor.DayCheckBox" />
 
       </LinearLayout>
 
       <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.5" />
 
       <LinearLayout
         android:id="@+id/day2"
@@ -47,12 +46,12 @@
         <TextView
           android:id="@id/tv__day"
           style="@style/MwmWidget.Editor.DayText"
-          tools:text="Mo"/>
+          tools:text="Mo" />
 
         <CheckBox
           android:id="@id/chb__day"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+          android:layout_height="wrap_content" />
 
       </LinearLayout>
 
@@ -64,12 +63,12 @@
         <TextView
           android:id="@id/tv__day"
           style="@style/MwmWidget.Editor.DayText"
-          tools:text="Tu"/>
+          tools:text="Tu" />
 
         <CheckBox
           android:id="@id/chb__day"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+          android:layout_height="wrap_content" />
 
       </LinearLayout>
 
@@ -81,12 +80,12 @@
         <TextView
           android:id="@id/tv__day"
           style="@style/MwmWidget.Editor.DayText"
-          tools:text="We"/>
+          tools:text="We" />
 
         <CheckBox
           android:id="@id/chb__day"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+          android:layout_height="wrap_content" />
 
       </LinearLayout>
 
@@ -98,12 +97,12 @@
         <TextView
           android:id="@id/tv__day"
           style="@style/MwmWidget.Editor.DayText"
-          tools:text="Th"/>
+          tools:text="Th" />
 
         <CheckBox
           android:id="@id/chb__day"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+          android:layout_height="wrap_content" />
 
       </LinearLayout>
 
@@ -115,19 +114,19 @@
         <TextView
           android:id="@id/tv__day"
           style="@style/MwmWidget.Editor.DayText"
-          tools:text="Fr"/>
+          tools:text="Fr" />
 
         <CheckBox
           android:id="@id/chb__day"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+          android:layout_height="wrap_content" />
 
       </LinearLayout>
 
       <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.5" />
 
       <LinearLayout
         android:id="@+id/day7"
@@ -136,12 +135,12 @@
         <TextView
           android:id="@id/tv__day"
           style="@style/MwmWidget.Editor.DayText"
-          tools:text="Sa"/>
+          tools:text="Sa" />
 
         <CheckBox
           android:id="@id/chb__day"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+          android:layout_height="wrap_content" />
 
       </LinearLayout>
 
@@ -150,7 +149,7 @@
     <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
-      android:background="?dividerHorizontal"/>
+      android:background="?dividerHorizontal" />
 
     <LinearLayout
       android:id="@+id/allday"
@@ -167,12 +166,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/editor_time_allday"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1" />
 
       <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/sw__allday"
         android:layout_width="48dp"
-        android:layout_height="48dp"/>
+        android:layout_height="48dp" />
 
     </LinearLayout>
 
@@ -187,7 +186,7 @@
       <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?dividerHorizontal"/>
+        android:background="?dividerHorizontal" />
 
       <LinearLayout
         android:id="@+id/time_open_close"
@@ -211,14 +210,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_eighth"
             android:text="@string/editor_time_open"
-            android:textAppearance="@style/MwmTextAppearance.Body3"/>
+            android:textAppearance="@style/MwmTextAppearance.Body3" />
 
           <TextView
             android:id="@+id/tv__time_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/MwmTextAppearance.Title"
-            tools:text="09:00"/>
+            tools:text="09:00" />
 
         </LinearLayout>
 
@@ -236,14 +235,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_eighth"
             android:text="@string/editor_time_close"
-            android:textAppearance="@style/MwmTextAppearance.Body3"/>
+            android:textAppearance="@style/MwmTextAppearance.Body3" />
 
           <TextView
             android:id="@+id/tv__time_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/MwmTextAppearance.Title"
-            tools:text="16:00"/>
+            tools:text="16:00" />
 
         </LinearLayout>
 
@@ -252,14 +251,13 @@
       <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?dividerHorizontal"/>
-
+        android:background="?dividerHorizontal" />
 
       <LinearLayout
         android:id="@+id/closed_host"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
       <TextView
         android:id="@+id/tv__add_closed"
@@ -270,7 +268,7 @@
         android:text="@string/editor_time_add_closed"
         android:textAllCaps="true"
         android:textAppearance="@style/MwmTextAppearance.Body1"
-        android:textColor="?colorAccent"/>
+        android:textColor="?colorAccent" />
 
     </LinearLayout>
 
@@ -283,7 +281,7 @@
       android:text="@string/editor_time_delete"
       android:textAllCaps="true"
       android:textAppearance="@style/MwmTextAppearance.Body1"
-      android:textColor="@color/base_red"/>
+      android:textColor="@color/base_red" />
 
   </LinearLayout>
 

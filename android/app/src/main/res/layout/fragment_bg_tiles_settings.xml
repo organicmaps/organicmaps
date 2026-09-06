@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -28,15 +27,15 @@
         android:layout_weight="1"
         android:text="@string/pref_bg_tiles_title"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimary"/>
+        android:textColor="?android:attr/textColorPrimary" />
       <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/bg_tiles_enabled"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:padding="@dimen/margin_half_double_plus"/>
+        android:padding="@dimen/margin_half_double_plus" />
     </LinearLayout>
 
-    <include layout="@layout/list_divider"/>
+    <include layout="@layout/list_divider" />
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -51,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="@string/pref_bg_tiles_url_title"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimary"/>
+        android:textColor="?android:attr/textColorPrimary" />
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/bg_tiles_url_input"
         style="@style/MwmWidget.Editor.CustomTextInput"
@@ -64,11 +63,11 @@
           tools:ignore="HardcodedText"
           android:importantForAutofill="no"
           android:inputType="textUri"
-          android:singleLine="true"/>
+          android:singleLine="true" />
       </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
-    <include layout="@layout/list_divider"/>
+    <include layout="@layout/list_divider" />
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -88,13 +87,13 @@
           android:layout_weight="1"
           android:text="@string/pref_bg_tiles_size_title"
           android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="?android:attr/textColorPrimary"/>
+          android:textColor="?android:attr/textColorPrimary" />
         <TextView
           android:id="@+id/bg_tiles_size_value"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="?android:attr/textColorSecondary"/>
+          android:textColor="?android:attr/textColorSecondary" />
       </LinearLayout>
       <com.google.android.material.slider.Slider
         android:id="@+id/bg_tiles_size"
@@ -105,10 +104,10 @@
         android:layout_marginEnd="@dimen/margin_half"
         android:stepSize="1"
         android:valueFrom="1"
-        android:valueTo="1000"/>
+        android:valueTo="1000" />
     </LinearLayout>
 
-    <include layout="@layout/list_divider"/>
+    <include layout="@layout/list_divider" />
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -128,13 +127,13 @@
           android:layout_weight="1"
           android:text="@string/pref_bg_tiles_opacity_title"
           android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="?android:attr/textColorPrimary"/>
+          android:textColor="?android:attr/textColorPrimary" />
         <TextView
           android:id="@+id/bg_tiles_opacity_value"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="?android:attr/textColorSecondary"/>
+          android:textColor="?android:attr/textColorSecondary" />
       </LinearLayout>
       <com.google.android.material.slider.Slider
         android:id="@+id/bg_tiles_opacity"
@@ -145,10 +144,10 @@
         android:layout_marginEnd="@dimen/margin_half"
         android:stepSize="1"
         android:valueFrom="0"
-        android:valueTo="100"/>
+        android:valueTo="100" />
     </LinearLayout>
 
-    <include layout="@layout/list_divider"/>
+    <include layout="@layout/list_divider" />
 
     <TextView
       android:layout_width="match_parent"
@@ -156,7 +155,7 @@
       android:padding="@dimen/margin_base"
       android:text="@string/pref_bg_tiles_disclaimer"
       android:textAppearance="?android:attr/textAppearanceSmall"
-      android:textColor="?android:attr/textColorSecondary"/>
+      android:textColor="?android:attr/textColorSecondary" />
 
   </LinearLayout>
 </androidx.core.widget.NestedScrollView>

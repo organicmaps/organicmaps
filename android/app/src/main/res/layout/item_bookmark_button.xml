@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:orientation="horizontal"
@@ -26,5 +25,5 @@
     tools:text="Some text should go here"
     android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:textColor="?colorAccent"/>
+    android:textColor="?colorAccent" />
 </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/height_item_oneline"
@@ -14,7 +13,7 @@
     android:id="@+id/selected"
     android:layout_width="48dp"
     android:layout_height="48dp"
-    android:layout_marginEnd="@dimen/margin_double"/>
+    android:layout_marginEnd="@dimen/margin_double" />
 
   <TextView
     android:id="@+id/cuisine"

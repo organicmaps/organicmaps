@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_opening_hours_item"
   style="@style/PlacePageOpeningHoursItem"
@@ -13,7 +12,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="0.4"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    tools:text="Mo-Fr"/>
+    tools:text="Mo-Fr" />
 
   <TextView
     android:id="@+id/tv__opening_hours_time"
@@ -22,6 +21,6 @@
     android:layout_weight="0.6"
     android:textAlignment="viewStart"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    tools:text="09:00—13:00"/>
+    tools:text="09:00—13:00" />
 
 </LinearLayout>
