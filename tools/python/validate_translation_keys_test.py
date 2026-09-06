@@ -11,26 +11,26 @@ import validate_translation_keys as v
 
 class CoreMatcherTest(unittest.TestCase):
     def test_get_localized_string(self):
-        self.assertEqual(v._core_source_matcher('GetLocalizedString("foo")'), {"foo"})
+        self.assertEqual(v._core_source_matcher('GetLocalizedString("foo")'), {"foo":0})
 
     def test_two_calls_one_line(self):
         line = '{GetLocalizedString("ft"), GetLocalizedString("miles_per_hour")}'
-        self.assertEqual(v._core_source_matcher(line), {"ft", "miles_per_hour"})
+        self.assertEqual(v._core_source_matcher(line), {"ft":0, "miles_per_hour":0})
 
     def test_multiline_call(self):
         self.assertEqual(
-            v._core_source_matcher('GetLocalizedString(\n    "baz")'), {"baz"}
+            v._core_source_matcher('GetLocalizedString(\n    "baz")'), {"baz":0}
         )
 
     def test_strings_bundle_literal(self):
         self.assertEqual(
             v._core_source_matcher('bundle.GetString("core_my_places")'),
-            {"core_my_places"},
+            {"core_my_places":0},
         )
 
     def test_strings_bundle_ternary(self):
         line = 'bundle.GetString(isEntrance ? "core_entrance" : "core_exit")'
-        self.assertEqual(v._core_source_matcher(line), {"core_entrance", "core_exit"})
+        self.assertEqual(v._core_source_matcher(line), {"core_entrance":0, "core_exit":0})
 
     def test_category_literals(self):
         line = (
@@ -38,7 +38,7 @@ class CoreMatcherTest(unittest.TestCase):
             'm_keys = {"category_eat", "category_hotel"};}'
         )
         self.assertEqual(
-            v._core_source_matcher(line), {"category_eat", "category_hotel"}
+            v._core_source_matcher(line), {"category_eat":0, "category_hotel":0}
         )
 
     def test_category_matcher(self):
@@ -47,35 +47,35 @@ class CoreMatcherTest(unittest.TestCase):
             'm_keys = {"category_eat", "category_hotel"};}'
         )
         self.assertEqual(
-            v._category_source_matcher(line), {"category_eat", "category_hotel"}
+            v._category_source_matcher(line), {"category_eat":0, "category_hotel":0}
         )
 
     def test_unrelated_keys_member_is_ignored(self):
         line = 'Widget::Widget() {m_keys = {"not_a_translation", "also_not"};}'
-        self.assertEqual(v._category_source_matcher(line), set())
+        self.assertEqual(v._category_source_matcher(line), {})
 
     def test_unrelated_category_literal_is_ignored(self):
-        self.assertEqual(v._core_source_matcher('Check("category_old")'), set())
+        self.assertEqual(v._core_source_matcher('Check("category_old")'), {})
 
     def test_dynamic_key_not_captured(self):
-        self.assertEqual(v._core_source_matcher("GetLocalizedString(reasonKey)"), set())
+        self.assertEqual(v._core_source_matcher("GetLocalizedString(reasonKey)"), {})
 
 
 class IosMatcherTest(unittest.TestCase):
     def test_swift_and_objc_literal(self):
-        self.assertEqual(v._ios_source_matcher('L("a")'), {"a"})
-        self.assertEqual(v._ios_source_matcher('L(@"b")'), {"b"})
+        self.assertEqual(v._ios_source_matcher('L("a")'), {"a":0})
+        self.assertEqual(v._ios_source_matcher('L(@"b")'), {"b":0})
 
     def test_ternary_swift(self):
         line = 'L(category.isVisible ? "hide_from_map" : "zoom_to_country")'
         self.assertEqual(
-            v._ios_source_matcher(line), {"hide_from_map", "zoom_to_country"}
+            v._ios_source_matcher(line), {"hide_from_map": 0, "zoom_to_country": 0}
         )
 
     def test_ternary_objc(self):
         line = 'L(isApplying ? @"downloader_applying" : @"downloader_process")'
         self.assertEqual(
-            v._ios_source_matcher(line), {"downloader_applying", "downloader_process"}
+            v._ios_source_matcher(line), {"downloader_applying": 0, "downloader_process": 0}
         )
 
     def test_two_calls_one_line(self):
@@ -85,17 +85,18 @@ class IosMatcherTest(unittest.TestCase):
         )
         self.assertEqual(
             v._ios_source_matcher(line),
-            {"not_all_shown_bookmarks_carplay", "switch_to_phone_bookmarks_carplay"},
+            {"not_all_shown_bookmarks_carplay": 0,
+             "switch_to_phone_bookmarks_carplay": 0},
         )
 
     def test_nslocalizedstring_comment_not_captured(self):
         self.assertEqual(
             v._ios_source_matcher('NSLocalizedString(@"real_key", @"comment")'),
-            {"real_key"},
+            {"real_key": 0},
         )
 
     def test_url_is_not_an_l_call(self):
-        self.assertEqual(v._ios_source_matcher('let u = URL(string: "https")'), set())
+        self.assertEqual(v._ios_source_matcher('let u = URL(string: "https")'), {})
 
 
 class AndroidMatcherTest(unittest.TestCase):
@@ -103,26 +104,26 @@ class AndroidMatcherTest(unittest.TestCase):
         match = v._regex_matcher(v._ANDROID_R_RE)
         self.assertEqual(
             match("context.getString(R.string.color_picker_hex_label)"),
-            {"color_picker_hex_label"},
+            {"color_picker_hex_label":0},
         )
-        self.assertEqual(match("R.plurals.count"), {"count"})
+        self.assertEqual(match("R.plurals.count"), {"count":0})
 
     def test_android_framework_resource_is_ignored(self):
         match = v._regex_matcher(v._ANDROID_R_RE)
-        self.assertEqual(match("android.R.string.ok"), set())
+        self.assertEqual(match("android.R.string.ok"), {})
 
     def test_r_string_ternary_both_branches(self):
         match = v._regex_matcher(v._ANDROID_R_RE)
-        self.assertEqual(match("getString(b ? R.string.x : R.string.y)"), {"x", "y"})
+        self.assertEqual(match("getString(b ? R.string.x : R.string.y)"), {"x":0, "y":0})
 
     def test_xml_string_refs(self):
         match = v._xml_matcher(v._ANDROID_XML_RE)
-        self.assertEqual(match('android:text="@string/foo"'), {"foo"})
-        self.assertEqual(match("@plurals/bar"), {"bar"})
+        self.assertEqual(match('android:text="@string/foo"'), {"foo":0})
+        self.assertEqual(match("@plurals/bar"), {"bar":0})
 
     def test_xml_comments_are_ignored(self):
         match = v._xml_matcher(v._ANDROID_XML_RE)
-        self.assertEqual(match('<!-- android:text="@string/unused" -->'), set())
+        self.assertEqual(match('<!-- android:text="@string/unused" -->'), {})
 
 
 class PlistAndXibMatcherTest(unittest.TestCase):
@@ -130,29 +131,29 @@ class PlistAndXibMatcherTest(unittest.TestCase):
         match = v._xml_matcher(v._IOS_PLIST_KEY_RE)
         self.assertEqual(
             match("<key>NSLocationWhenInUseUsageDescription</key>"),
-            {"NSLocationWhenInUseUsageDescription"},
+            {"NSLocationWhenInUseUsageDescription": 0},
         )
 
     def test_plist_unrelated_key_is_ignored(self):
         match = v._xml_matcher(v._IOS_PLIST_KEY_RE)
-        self.assertEqual(match("<key>CFBundleDisplayName</key>"), set())
+        self.assertEqual(match("<key>CFBundleDisplayName</key>"), {})
 
     def test_plist_title_value(self):
         match = v._xml_matcher(v._IOS_PLIST_TITLE_RE)
         self.assertEqual(
             match("<key>UIApplicationShortcutItemTitle</key>\n<string>route</string>"),
-            {"route"},
+            {"route": 0},
         )
 
     def test_xib_localized_value(self):
         match = v._xml_matcher(v._IOS_XML_RE)
         attribute = '<userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="some_key"/>'
-        self.assertEqual(match(attribute), {"some_key"})
+        self.assertEqual(match(attribute), {"some_key": 0})
 
     def test_xib_unrelated_value_is_ignored(self):
         match = v._xml_matcher(v._IOS_XML_RE)
         self.assertEqual(
-            match('<constraint firstAttribute="width" value="42"/>'), set()
+            match('<constraint firstAttribute="width" value="42"/>'), {}
         )
 
 
@@ -175,8 +176,8 @@ class ScanTreeTest(unittest.TestCase):
             with open(os.path.join(directory, "ignore.txt"), "w") as source:
                 source.write("@string/ignored_extension\n")
 
-            keys = v.scan_referenced_keys(directory, v._SCANNERS["android"])
-        self.assertEqual(keys, {"kotlin_key", "xml_key"})
+            references = v.scan_referenced_keys(directory, v._SCANNERS["android"])
+        self.assertEqual(references.keys(), {"kotlin_key", "xml_key"})
 
     def test_read_errors_fail_the_scan(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -208,7 +209,7 @@ class StrictMatcherTest(unittest.TestCase):
         keys = set()
         for extensions, matcher in v._STRICT_SCANNERS[scanner_name]:
             if extension in extensions:
-                keys |= matcher(text)
+                keys |= matcher(text).keys()
         return keys
 
     def test_core_accepts_only_the_localization_accessor(self):
@@ -245,7 +246,11 @@ class StrictMatcherTest(unittest.TestCase):
 class TagCoverageTest(unittest.TestCase):
     @staticmethod
     def _referenced(core=(), android=(), ios=()):
-        return {"core": set(core), "android": set(android), "ios": set(ios)}
+        return {
+            "core": {c: v.SourceReference("core", i) for (i,c) in enumerate(core)},
+            "android": {a: v.SourceReference("android", i) for(i, a) in enumerate(android)},
+            "ios": {ios: v.SourceReference("ios", i) for (i, ios) in enumerate(ios)},
+        }
 
     def test_android_reference_justifies_android_tag(self):
         referenced = self._referenced(android=["k"])
@@ -270,7 +275,7 @@ class TagCoverageTest(unittest.TestCase):
         referenced = self._referenced(android=["k"])
         self.assertEqual(
             v.find_undertagged(
-                {"k": {"android-app", "apple-maps"}}, referenced, set()
+                {"k": {"android-app", "apple-maps"}}, referenced, {}
             ),
             [],
         )
@@ -278,18 +283,20 @@ class TagCoverageTest(unittest.TestCase):
     def test_android_reference_without_android_tag(self):
         referenced = self._referenced(android=["k"])
         self.assertEqual(
-            v.find_undertagged({"k": {"apple-maps"}}, referenced, set()),
+            v.find_undertagged({"k": {"apple-maps"}}, referenced, {}),
             ["k (android)"],
         )
 
     def test_conservative_core_reference_alone_demands_no_tag(self):
         referenced = self._referenced(core=["core_k"])
-        self.assertEqual(v.find_undertagged({"core_k": set()}, referenced, set()), [])
+        self.assertEqual(v.find_undertagged({"core_k": {}}, referenced, {}), [])
 
     def test_strict_core_reference_demands_android_tag(self):
         referenced = self._referenced(core=["core_k"])
         self.assertEqual(
-            v.find_undertagged({"core_k": {"apple-maps"}}, referenced, {"core_k"}),
+            v.find_undertagged({"core_k": {"apple-maps": v.SourceReference("maps", 0)}},
+                               referenced,
+                               {"core_k": v.SourceReference("core", 1)}),
             ["core_k (android)"],
         )
 
@@ -298,9 +305,9 @@ class TargetTagCoverageTest(unittest.TestCase):
     @staticmethod
     def _referenced(maps=(), chart=(), infoplist=()):
         return {
-            "apple-maps": set(maps),
-            "apple-chart": set(chart),
-            "apple-infoplist": set(infoplist),
+            "apple-maps": {m: v.SourceReference("maps", i) for (i,m) in enumerate(maps)},
+            "apple-chart": {c: v.SourceReference("chart", i) for(i, c) in enumerate(chart)},
+            "apple-infoplist": {info: v.SourceReference("chart", i) for (i, info) in enumerate(infoplist)},
         }
 
     def test_exact_target_tags(self):
