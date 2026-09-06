@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Ma zárva";
 "day_off" = "Zárva";
+"midnight" = "Éjfél";
+"noon" = "Dél";
 "today" = "Ma";
 "opens_in" = "Kinyit %@ múlva";
 "closes_in" = "Bezár %@ múlva";

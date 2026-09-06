@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Täna suletud";
 "day_off" = "Suletud";
+"midnight" = "Kesköö";
+"noon" = "Keskpäev";
 "today" = "Täna";
 "opens_in" = "Avatakse %@ jooksul";
 "closes_in" = "Suletakse %@ jooksul";

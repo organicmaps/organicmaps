@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">ngày và đêm</string>
     <string name="day_off_today">Nghỉ hôm nay</string>
     <string name="day_off">Ngày nghỉ</string>
+    <string name="midnight">Nửa đêm</string>
+    <string name="noon">Trưa</string>
     <string name="today">Hôm nay</string>
     <string name="opens_in">Mở trong %s</string>
     <string name="closes_in">Đóng trong %s</string>

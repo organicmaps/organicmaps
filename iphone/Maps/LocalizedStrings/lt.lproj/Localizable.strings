@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24×7";
 "day_off_today" = "Šiandien uždaryta";
 "day_off" = "Uždaryta";
+"midnight" = "Vidurnaktis";
+"noon" = "Vidurdienis";
 "today" = "Šiandien";
 "opens_in" = "Atsidaro už %@";
 "closes_in" = "Užsidaro už %@";

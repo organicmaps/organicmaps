@@ -68,6 +68,8 @@
     <string name="editor_time_open">Avoinna</string>
     <string name="twentyfour_seven">Päivin ja öin</string>
     <string name="day_off_today">Suljettu tänään</string>
+    <string name="midnight">Keskiyö</string>
+    <string name="noon">Keskipäivä</string>
     <string name="opens_in">Avautuu %s kuluttua</string>
     <string name="closes_in">Sulkeutuu %s kuluttua</string>
     <string name="closed">Suljettu</string>

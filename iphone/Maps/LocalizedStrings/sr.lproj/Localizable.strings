@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Данас не ради";
 "day_off" = "Затворено";
+"midnight" = "Поноћ";
+"noon" = "Подне";
 "today" = "Данас";
 "opens_in" = "Отвара се за %@";
 "closes_in" = "Затвара се за %@";

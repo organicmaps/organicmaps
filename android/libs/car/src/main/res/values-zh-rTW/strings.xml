@@ -68,6 +68,8 @@
     <string name="editor_time_open">營業中</string>
     <string name="twentyfour_seven">24/7 全天候營業</string>
     <string name="day_off_today">今天不營業</string>
+    <string name="midnight">午夜</string>
+    <string name="noon">中午</string>
     <string name="opens_in">將於 %s 後開業</string>
     <string name="closes_in">將於 %s 後歇業</string>
     <string name="closed">已停止營業</string>

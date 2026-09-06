@@ -68,6 +68,8 @@
     <string name="editor_time_open">Hapur</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Mbyllur sot</string>
+    <string name="midnight">Mesnatë</string>
+    <string name="noon">Mesditë</string>
     <string name="opens_in">Hapet në %s</string>
     <string name="closes_in">Mbyllet në %s</string>
     <string name="closed">Mbyllur</string>

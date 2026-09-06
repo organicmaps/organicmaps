@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "ປິດມື້ນີ້";
 "day_off" = "ປິດ";
+"midnight" = "ທ່ຽງຄືນ";
+"noon" = "ທ່ຽງວັນ";
 "today" = "ມື້ນີ້";
 "opens_in" = "ຈະເປີດໃນອີກ %@";
 "closes_in" = "ຈະປິດໃນອີກ %@";

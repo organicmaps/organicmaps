@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Avui és tancat";
 "day_off" = "Tancat";
+"midnight" = "Mitjanit";
+"noon" = "Migdia";
 "today" = "Avui";
 "opens_in" = "Obre en %@";
 "closes_in" = "Tanca en %@";

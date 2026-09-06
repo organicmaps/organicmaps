@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Imefungwa leo";
 "day_off" = "Imefungwa";
+"midnight" = "Usiku wa manane";
+"noon" = "Adhuhuri";
 "today" = "Leo";
 "opens_in" = "Inafunguka katika %@";
 "closes_in" = "Inakaribia kwa %@";

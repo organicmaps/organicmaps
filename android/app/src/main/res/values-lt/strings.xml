@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24×7</string>
     <string name="day_off_today">Šiandien uždaryta</string>
     <string name="day_off">Uždaryta</string>
+    <string name="midnight">Vidurnaktis</string>
+    <string name="noon">Vidurdienis</string>
     <string name="today">Šiandien</string>
     <string name="opens_in">Atsidaro už %s</string>
     <string name="closes_in">Užsidaro už %s</string>

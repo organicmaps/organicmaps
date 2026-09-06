@@ -68,6 +68,8 @@
     <string name="editor_time_open">Fungua</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Imefungwa leo</string>
+    <string name="midnight">Usiku wa manane</string>
+    <string name="noon">Adhuhuri</string>
     <string name="opens_in">Inafunguka katika %s</string>
     <string name="closes_in">Inakaribia kwa %s</string>
     <string name="closed">Imefungwa</string>

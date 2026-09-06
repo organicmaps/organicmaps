@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Vandaag gesloten";
 "day_off" = "Gesloten";
+"midnight" = "Middernacht";
+"noon" = "Middaguur";
 "today" = "Vandaag";
 "opens_in" = "Opent over %@";
 "closes_in" = "Sluit over %@";

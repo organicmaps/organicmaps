@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Gaur atseden eguna";
 "day_off" = "Itxita";
+"midnight" = "Gauerdia";
+"noon" = "Eguerdia";
 "today" = "Gaur";
 "opens_in" = "%@ barru irekiko da";
 "closes_in" = "%@ barru itxiko da";

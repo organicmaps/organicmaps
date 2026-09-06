@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Šodien slēgts";
 "day_off" = "Slēgts";
+"midnight" = "Pusnakts";
+"noon" = "Pusdienlaiks";
 "today" = "Šodien";
 "opens_in" = "Atveras pēc %@";
 "closes_in" = "Slēgts pēc %@";

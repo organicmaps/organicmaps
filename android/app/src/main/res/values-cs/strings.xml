@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">Nonstop</string>
     <string name="day_off_today">Dnes zavřeno</string>
     <string name="day_off">Zavřeno</string>
+    <string name="midnight">Půlnoc</string>
+    <string name="noon">Poledne</string>
     <string name="today">Dnes</string>
     <string name="opens_in">Otevírá za %s</string>
     <string name="closes_in">Zavírá za %s</string>

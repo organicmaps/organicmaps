@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">siang dan malam</string>
     <string name="day_off_today">Tutup hari ini</string>
     <string name="day_off">Tutup</string>
+    <string name="midnight">Tengah malam</string>
+    <string name="noon">Tengah hari</string>
     <string name="today">Hari ini</string>
     <string name="opens_in">Dibuka dalam %s</string>
     <string name="closes_in">Ditutup dalam %s</string>

@@ -68,6 +68,8 @@
     <string name="editor_time_open">Obert</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Avui és tancat</string>
+    <string name="midnight">Mitjanit</string>
+    <string name="noon">Migdia</string>
     <string name="opens_in">Obre en %s</string>
     <string name="closes_in">Tanca en %s</string>
     <string name="closed">Tancat</string>

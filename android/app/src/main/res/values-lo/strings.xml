@@ -376,6 +376,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">ປິດມື້ນີ້</string>
     <string name="day_off">ປິດ</string>
+    <string name="midnight">ທ່ຽງຄືນ</string>
+    <string name="noon">ທ່ຽງວັນ</string>
     <string name="today">ມື້ນີ້</string>
     <string name="opens_in">ຈະເປີດໃນອີກ %s</string>
     <string name="closes_in">ຈະປິດໃນອີກ %s</string>

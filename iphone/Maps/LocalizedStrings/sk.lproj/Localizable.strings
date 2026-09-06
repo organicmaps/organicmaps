@@ -519,6 +519,8 @@
 "twentyfour_seven" = "Deň a noc";
 "day_off_today" = "Dnes deň voľna";
 "day_off" = "Zatvorené";
+"midnight" = "Polnoc";
+"noon" = "Poludnie";
 "today" = "Dnes";
 "opens_in" = "Otvoria o %@";
 "closes_in" = "Zatvoria o %@";

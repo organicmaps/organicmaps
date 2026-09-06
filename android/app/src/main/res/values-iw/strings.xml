@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">סגור היום</string>
     <string name="day_off">סגור</string>
+    <string name="midnight">חצות</string>
+    <string name="noon">צהריים</string>
     <string name="today">היום</string>
     <string name="opens_in">נפתח עוד %s</string>
     <string name="closes_in">נסגר עוד %s</string>

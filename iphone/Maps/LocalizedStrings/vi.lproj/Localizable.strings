@@ -519,6 +519,8 @@
 "twentyfour_seven" = "ngày và đêm";
 "day_off_today" = "Nghỉ hôm nay";
 "day_off" = "Ngày nghỉ";
+"midnight" = "Nửa đêm";
+"noon" = "Trưa";
 "today" = "Hôm nay";
 "opens_in" = "Mở trong %@";
 "closes_in" = "Đóng trong %@";

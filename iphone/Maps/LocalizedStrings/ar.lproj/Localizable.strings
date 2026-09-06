@@ -519,6 +519,8 @@
 "twentyfour_seven" = "٢٤/٧(ليلاً ونهاراً)";
 "day_off_today" = "مغلق اليوم";
 "day_off" = "مغلق";
+"midnight" = "منتصف الليل";
+"noon" = "الظهر";
 "today" = "اليوم";
 "opens_in" = "يفتح بعد %@";
 "closes_in" = "يغلق في غضون %@";

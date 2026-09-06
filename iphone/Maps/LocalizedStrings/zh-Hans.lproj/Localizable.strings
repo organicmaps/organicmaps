@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7 全天候营业";
 "day_off_today" = "今天不营业";
 "day_off" = "不营业";
+"midnight" = "午夜";
+"noon" = "中午";
 "today" = "今天";
 "opens_in" = "将于 %@ 后营业";
 "closes_in" = "将于 %@ 后不营业";

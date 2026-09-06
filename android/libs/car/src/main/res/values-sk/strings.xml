@@ -68,6 +68,8 @@
     <string name="editor_time_open">Otvorené</string>
     <string name="twentyfour_seven">Deň a noc</string>
     <string name="day_off_today">Dnes deň voľna</string>
+    <string name="midnight">Polnoc</string>
+    <string name="noon">Poludnie</string>
     <string name="opens_in">Otvoria o %s</string>
     <string name="closes_in">Zatvoria o %s</string>
     <string name="closed">Zatvorené</string>

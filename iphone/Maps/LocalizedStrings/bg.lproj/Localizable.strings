@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24 часа";
 "day_off_today" = "Затворено днес";
 "day_off" = "Затворено";
+"midnight" = "Полунощ";
+"noon" = "Пладне";
 "today" = "Днес";
 "opens_in" = "Отваря се в %@";
 "closes_in" = "Приключва в %@";

@@ -519,6 +519,8 @@
 "twentyfour_seven" = "Dag og natt";
 "day_off_today" = "Fridag i dag";
 "day_off" = "Fridag";
+"midnight" = "Midnatt";
+"noon" = "Midt på dagen";
 "today" = "I dag";
 "opens_in" = "Åpner om %@";
 "closes_in" = "Stenger om %@";

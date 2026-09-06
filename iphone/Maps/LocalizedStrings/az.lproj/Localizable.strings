@@ -519,6 +519,8 @@
 "twentyfour_seven" = "7/24";
 "day_off_today" = "Bu gün bağlıdır";
 "day_off" = "Bağlı";
+"midnight" = "Gecəyarı";
+"noon" = "Günorta";
 "today" = "Bu gün";
 "opens_in" = "%@ sonra açılır";
 "closes_in" = "%@ sonra bağlanır";
