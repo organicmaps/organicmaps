@@ -133,7 +133,8 @@ public:
   /// @returns true if a feature was uploaded to osm.
   bool IsFeatureUploaded(MwmId const & mwmId, uint32_t index) const;
 
-  /// Marks feature as "deleted" from MwM file.
+  /// Removes a feature created by the user, or marks an existing OSM feature to be deleted on the
+  /// next upload. In both cases the feature is no longer shown on the map.
   void DeleteFeature(FeatureID const & fid);
 
   /// @returns empty object if feature wasn't edited.
@@ -191,7 +192,7 @@ private:
   struct UploadInfo
   {
     time_t m_uploadAttemptTimestamp = base::INVALID_TIME_STAMP;
-    /// Is empty if upload has never occurred or one of k* constants above otherwise.
+    /// Empty if the upload has never happened, otherwise one of the k* constants in osm_editor.cpp.
     std::string m_uploadStatus;
     std::string m_uploadError;
   };
@@ -204,7 +205,7 @@ private:
     std::string m_street;
     time_t m_modificationTimestamp = base::INVALID_TIME_STAMP;
     time_t m_uploadAttemptTimestamp = base::INVALID_TIME_STAMP;
-    /// Is empty if upload has never occurred or one of k* constants above otherwise.
+    /// Empty if the upload has never happened, otherwise one of the k* constants in osm_editor.cpp.
     std::string m_uploadStatus;
     std::string m_uploadError;
   };
@@ -230,7 +231,9 @@ private:
   /// @returns pointer to m_features[id][index] if exists, nullptr otherwise.
   static FeatureTypeInfo const * GetFeatureTypeInfo(FeaturesContainer const & features, MwmId const & mwmId,
                                                     uint32_t index);
-  void SaveUploadedInformation(FeatureID const & fid, UploadInfo const & fromUploader);
+  /// Applies the result of an upload attempt, unless a new operation has superseded the uploaded
+  /// one in the meantime.
+  void SaveUploadedInformation(FeatureID const & fid, FeatureStatus uploadedStatus, UploadInfo const & fromUploader);
 
   void MarkFeatureWithStatus(FeaturesContainer & editableFeatures, FeatureID const & fid, FeatureStatus status);
 
