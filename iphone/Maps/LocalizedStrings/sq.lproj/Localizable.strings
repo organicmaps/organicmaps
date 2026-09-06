@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Mbyllur sot";
 "day_off" = "Mbyllur";
+"midnight" = "Mesnatë";
+"noon" = "Mesditë";
 "today" = "Sot";
 "opens_in" = "Hapet në %@";
 "closes_in" = "Mbyllet në %@";

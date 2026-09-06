@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Այսօր փակ է";
 "day_off" = "Փակ է";
+"midnight" = "Կեսգիշեր";
+"noon" = "Կեսօր";
 "today" = "Այսօր";
 "opens_in" = "Բացվում է %@";
 "closes_in" = "Փակվում է %@";

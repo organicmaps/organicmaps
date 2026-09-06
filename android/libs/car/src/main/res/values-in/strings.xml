@@ -68,6 +68,8 @@
     <string name="editor_time_open">Buka</string>
     <string name="twentyfour_seven">siang dan malam</string>
     <string name="day_off_today">Tutup hari ini</string>
+    <string name="midnight">Tengah malam</string>
+    <string name="noon">Tengah hari</string>
     <string name="opens_in">Dibuka dalam %s</string>
     <string name="closes_in">Ditutup dalam %s</string>
     <string name="closed">Tutup</string>

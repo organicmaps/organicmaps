@@ -68,6 +68,8 @@
     <string name="editor_time_open">営業中</string>
     <string name="twentyfour_seven">昼と夜</string>
     <string name="day_off_today">本日終業</string>
+    <string name="midnight">午前0時</string>
+    <string name="noon">正午</string>
     <string name="opens_in">あと %s に営業</string>
     <string name="closes_in">あと %s に閉店</string>
     <string name="closed">閉店</string>

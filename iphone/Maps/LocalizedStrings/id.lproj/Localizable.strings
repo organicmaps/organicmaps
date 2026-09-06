@@ -519,6 +519,8 @@
 "twentyfour_seven" = "siang dan malam";
 "day_off_today" = "Tutup hari ini";
 "day_off" = "Tutup";
+"midnight" = "Tengah malam";
+"noon" = "Tengah hari";
 "today" = "Hari ini";
 "opens_in" = "Dibuka dalam %@";
 "closes_in" = "Ditutup dalam %@";

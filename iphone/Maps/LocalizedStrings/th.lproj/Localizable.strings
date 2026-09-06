@@ -519,6 +519,8 @@
 "twentyfour_seven" = "ทั้งกลางวันและกลางคืน";
 "day_off_today" = "วันนี้ปิด";
 "day_off" = "ปิด";
+"midnight" = "เที่ยงคืน";
+"noon" = "เที่ยงวัน";
 "today" = "วันนี้";
 "opens_in" = "เปิดใน %@";
 "closes_in" = "ปิดใน %@";

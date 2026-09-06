@@ -68,6 +68,8 @@
     <string name="editor_time_open">Отворено</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Данас не ради</string>
+    <string name="midnight">Поноћ</string>
+    <string name="noon">Подне</string>
     <string name="opens_in">Отвара се за %s</string>
     <string name="closes_in">Затвара се за %s</string>
     <string name="closed">Затворено</string>

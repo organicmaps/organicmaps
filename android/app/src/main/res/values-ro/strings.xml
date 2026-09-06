@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Închis astăzi</string>
     <string name="day_off">Închis</string>
+    <string name="midnight">Miezul nopții</string>
+    <string name="noon">Amiază</string>
     <string name="today">Azi</string>
     <string name="opens_in">Deschide în %s</string>
     <string name="closes_in">Închide în %s</string>

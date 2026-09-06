@@ -519,6 +519,8 @@
 "twentyfour_seven" = "شبانه روزی";
 "day_off_today" = "امروز تعطیل است";
 "day_off" = "تعطیل است";
+"midnight" = "نیمه‌شب";
+"noon" = "ظهر";
 "today" = "امروز";
 "opens_in" = "در %@ باز می‌شود";
 "closes_in" = "در %@ بسته می‌شود";

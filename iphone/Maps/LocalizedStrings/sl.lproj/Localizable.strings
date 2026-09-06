@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Danes zaprto";
 "day_off" = "Zaprto";
+"midnight" = "Polnoč";
+"noon" = "Poldne";
 "today" = "Danes";
 "opens_in" = "Odpira se čez %@";
 "closes_in" = "Zapira se čez %@";

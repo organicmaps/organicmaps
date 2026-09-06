@@ -68,6 +68,8 @@
     <string name="editor_time_open">Բաց է</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Այսօր փակ է</string>
+    <string name="midnight">Կեսգիշեր</string>
+    <string name="noon">Կեսօր</string>
     <string name="opens_in">Բացվում է %s</string>
     <string name="closes_in">Փակվում է %s</string>
     <string name="closed">Փակ է</string>

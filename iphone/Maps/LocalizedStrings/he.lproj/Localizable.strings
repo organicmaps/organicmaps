@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "סגור היום";
 "day_off" = "סגור";
+"midnight" = "חצות";
+"noon" = "צהריים";
 "today" = "היום";
 "opens_in" = "נפתח עוד %@";
 "closes_in" = "נסגר עוד %@";

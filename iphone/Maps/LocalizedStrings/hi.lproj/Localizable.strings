@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "आज बंद";
 "day_off" = "बंद";
+"midnight" = "मध्यरात्रि";
+"noon" = "मध्याह्न";
 "today" = "आज";
 "opens_in" = "%@ में खुल जाएगा";
 "closes_in" = "%@ में बंद हो जाता है";

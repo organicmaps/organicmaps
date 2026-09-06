@@ -68,6 +68,8 @@
     <string name="editor_time_open">Open</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Vandaag gesloten</string>
+    <string name="midnight">Middernacht</string>
+    <string name="noon">Middaguur</string>
     <string name="opens_in">Opent over %s</string>
     <string name="closes_in">Sluit over %s</string>
     <string name="closed">Gesloten</string>

@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Dziś nieczynne";
 "day_off" = "Nieczynne";
+"midnight" = "Północ";
+"noon" = "Południe";
 "today" = "Dzisiaj";
 "opens_in" = "Otwarcie za %@";
 "closes_in" = "Zamknięcie za %@";

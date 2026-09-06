@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Closed today";
 "day_off" = "Closed";
+"midnight" = "Medianueche";
+"noon" = "Mediudía";
 "today" = "Güei";
 "opens_in" = "Opens in %@";
 "closes_in" = "Closes in %@";

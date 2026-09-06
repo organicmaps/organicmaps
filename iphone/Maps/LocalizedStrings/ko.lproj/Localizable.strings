@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24 시간";
 "day_off_today" = "오늘 영업 종료됨";
 "day_off" = "종료됨";
+"midnight" = "자정";
+"noon" = "정오";
 "today" = "오늘";
 "opens_in" = "%@에서 열립니다";
 "closes_in" = "%@로 마감";

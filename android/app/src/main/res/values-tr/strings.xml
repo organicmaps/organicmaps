@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">7/24</string>
     <string name="day_off_today">Bugün kapalı</string>
     <string name="day_off">Kapalı</string>
+    <string name="midnight">Gece yarısı</string>
+    <string name="noon">Öğle</string>
     <string name="today">Bugün</string>
     <string name="opens_in">%s sonra açılıyor</string>
     <string name="closes_in">%s sonra kapanıyor</string>

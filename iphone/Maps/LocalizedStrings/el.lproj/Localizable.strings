@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Κλειστό σήμερα";
 "day_off" = "Κλειστό";
+"midnight" = "Μεσάνυχτα";
+"noon" = "Μεσημέρι";
 "today" = "Σήμερα";
 "opens_in" = "Ανοίγει σε %@";
 "closes_in" = "Κλείνει σε %@";

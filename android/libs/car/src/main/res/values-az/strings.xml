@@ -68,6 +68,8 @@
     <string name="editor_time_open">Açıq</string>
     <string name="twentyfour_seven">7/24</string>
     <string name="day_off_today">Bu gün bağlıdır</string>
+    <string name="midnight">Gecəyarı</string>
+    <string name="noon">Günorta</string>
     <string name="opens_in">%s sonra açılır</string>
     <string name="closes_in">%s sonra bağlanır</string>
     <string name="closed">Bağlı</string>

@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Magħluq illum";
 "day_off" = "Magħluq";
+"midnight" = "Nofsillejl";
+"noon" = "Nofsinhar";
 "today" = "Illum";
 "opens_in" = "Jiftaħ f’ %@";
 "closes_in" = "Jagħlaq f’ %@";

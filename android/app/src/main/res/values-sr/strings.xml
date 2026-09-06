@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Данас не ради</string>
     <string name="day_off">Затворено</string>
+    <string name="midnight">Поноћ</string>
+    <string name="noon">Подне</string>
     <string name="today">Данас</string>
     <string name="opens_in">Отвара се за %s</string>
     <string name="closes_in">Затвара се за %s</string>

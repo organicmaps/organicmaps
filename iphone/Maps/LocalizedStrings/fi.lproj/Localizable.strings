@@ -519,6 +519,8 @@
 "twentyfour_seven" = "Päivin ja öin";
 "day_off_today" = "Suljettu tänään";
 "day_off" = "Suljettu";
+"midnight" = "Keskiyö";
+"noon" = "Keskipäivä";
 "today" = "Tänään";
 "opens_in" = "Avautuu %@ kuluttua";
 "closes_in" = "Sulkeutuu %@ kuluttua";

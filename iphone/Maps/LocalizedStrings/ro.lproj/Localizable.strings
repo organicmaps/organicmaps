@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Închis astăzi";
 "day_off" = "Închis";
+"midnight" = "Miezul nopții";
+"noon" = "Amiază";
 "today" = "Azi";
 "opens_in" = "Deschide în %@";
 "closes_in" = "Închide în %@";

@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Сёння закрыта";
 "day_off" = "Закрыта";
+"midnight" = "Поўнач";
+"noon" = "Поўдзень";
 "today" = "Сёння";
 "opens_in" = "Адчыняецца праз %@";
 "closes_in" = "Зачыняецца праз %@";

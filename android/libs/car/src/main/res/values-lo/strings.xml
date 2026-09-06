@@ -52,6 +52,8 @@
     <string name="editor_time_open">ເປີດ</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">ປິດມື້ນີ້</string>
+    <string name="midnight">ທ່ຽງຄືນ</string>
+    <string name="noon">ທ່ຽງວັນ</string>
     <string name="opens_in">ຈະເປີດໃນອີກ %s</string>
     <string name="closes_in">ຈະປິດໃນອີກ %s</string>
     <string name="closed">ປິດ</string>

@@ -68,6 +68,8 @@
     <string name="editor_time_open">Atsidaro</string>
     <string name="twentyfour_seven">24×7</string>
     <string name="day_off_today">Šiandien uždaryta</string>
+    <string name="midnight">Vidurnaktis</string>
+    <string name="noon">Vidurdienis</string>
     <string name="opens_in">Atsidaro už %s</string>
     <string name="closes_in">Užsidaro už %s</string>
     <string name="closed">Uždaryta</string>

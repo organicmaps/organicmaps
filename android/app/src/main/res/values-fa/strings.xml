@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">شبانه روزی</string>
     <string name="day_off_today">امروز تعطیل است</string>
     <string name="day_off">تعطیل است</string>
+    <string name="midnight">نیمه‌شب</string>
+    <string name="noon">ظهر</string>
     <string name="today">امروز</string>
     <string name="opens_in">در %s باز می‌شود</string>
     <string name="closes_in">در %s بسته می‌شود</string>

@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Lokað í dag";
 "day_off" = "Lokað";
+"midnight" = "Miðnætti";
+"noon" = "Hádegi";
 "today" = "Í dag";
 "opens_in" = "Opnar eftir %@";
 "closes_in" = "Lokar eftir %@";

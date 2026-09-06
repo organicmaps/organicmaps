@@ -68,6 +68,8 @@
     <string name="editor_time_open">Åbent</string>
     <string name="twentyfour_seven">Døgnet rundt</string>
     <string name="day_off_today">Lukket i dag</string>
+    <string name="midnight">Midnat</string>
+    <string name="noon">Middag</string>
     <string name="opens_in">Åbner om %s</string>
     <string name="closes_in">Lukker om %s</string>
     <string name="closed">Lukket</string>
