@@ -98,6 +98,26 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(Search.searchMode(), .everywhere)
   }
 
+  func testEveryMapButtonHasAFocusedImage() {
+    let template = CPMapTemplate()
+
+    func assertMapButtonsAreComplete(_ context: String) {
+      XCTAssertFalse(template.mapButtons.isEmpty, context)
+      for button in template.mapButtons {
+        XCTAssertNotNil(button.image, context)
+        XCTAssertNotNil(button.focusedImage, context)
+      }
+    }
+
+    // `.follow` and `.notFollow` between them produce all four `MapButtonType` values.
+    for positionMode in [MWMMyPositionMode.follow, .notFollow] {
+      MapTemplateBuilder.setupMapButtons(template, positionMode: positionMode)
+      assertMapButtonsAreComplete("position mode \(positionMode.rawValue)")
+    }
+    MapTemplateBuilder.configurePanUI(template)
+    assertMapButtonsAreComplete("panning interface")
+  }
+
   /// A pan button moves the viewport, so the map moves the opposite way.
   /// FrameworkHelper.moveMap uses an upward-positive vertical axis, unlike UIKit.
   func testPanDirectionOffset() {
