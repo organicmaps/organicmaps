@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
     <string name="day_off_today">วันนี้ปิด</string>
     <string name="day_off">ปิด</string>
+    <string name="midnight">เที่ยงคืน</string>
+    <string name="noon">เที่ยงวัน</string>
     <string name="today">วันนี้</string>
     <string name="opens_in">เปิดใน %s</string>
     <string name="closes_in">ปิดใน %s</string>

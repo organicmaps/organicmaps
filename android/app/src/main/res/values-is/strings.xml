@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Lokað í dag</string>
     <string name="day_off">Lokað</string>
+    <string name="midnight">Miðnætti</string>
+    <string name="noon">Hádegi</string>
     <string name="today">Í dag</string>
     <string name="opens_in">Opnar eftir %s</string>
     <string name="closes_in">Lokar eftir %s</string>

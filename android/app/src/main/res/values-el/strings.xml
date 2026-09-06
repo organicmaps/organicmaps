@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Κλειστό σήμερα</string>
     <string name="day_off">Κλειστό</string>
+    <string name="midnight">Μεσάνυχτα</string>
+    <string name="noon">Μεσημέρι</string>
     <string name="today">Σήμερα</string>
     <string name="opens_in">Ανοίγει σε %s</string>
     <string name="closes_in">Κλείνει σε %s</string>

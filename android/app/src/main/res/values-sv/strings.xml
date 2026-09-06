@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">Dygnet runt</string>
     <string name="day_off_today">Stängt idag</string>
     <string name="day_off">Stängt</string>
+    <string name="midnight">Midnatt</string>
+    <string name="noon">Middag</string>
     <string name="today">Idag</string>
     <string name="opens_in">Öppnar om %s</string>
     <string name="closes_in">Stänger om %s</string>

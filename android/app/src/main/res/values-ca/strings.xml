@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Avui és tancat</string>
     <string name="day_off">Tancat</string>
+    <string name="midnight">Mitjanit</string>
+    <string name="noon">Migdia</string>
     <string name="today">Avui</string>
     <string name="opens_in">Obre en %s</string>
     <string name="closes_in">Tanca en %s</string>
