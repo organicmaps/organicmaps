@@ -74,6 +74,8 @@ UNIT_CLASS_TEST(VisualParamsFixture, EditorNotes_UseSelectionPointNotFeatureCent
   // Looser tolerance: the note round-trips through XML.
   TEST_ALMOST_EQUAL_ABS(notes.GetNotesForTests().front().m_point, mercator::ToLatLon(tapPoint), 1e-4, ());
 
+  // Windows cannot delete the map while it is still registered, i.e. open.
+  frm.DeregisterAllMaps();
   platform::CountryIndexes::DeleteFromDisk(country);
   country.DeleteFromDisk(MapFileType::Map);
 }
@@ -119,6 +121,8 @@ UNIT_CLASS_TEST(VisualParamsFixture, EditorNotes_UseSelectionPointForExplicitFea
   TEST_EQUAL(notes.GetNotesForTests().size(), 1, ());
   TEST_ALMOST_EQUAL_ABS(notes.GetNotesForTests().front().m_point, mercator::ToLatLon(tapPoint), 1e-4, ());
 
+  // Windows cannot delete the map while it is still registered, i.e. open.
+  frm.DeregisterAllMaps();
   platform::CountryIndexes::DeleteFromDisk(country);
   country.DeleteFromDisk(MapFileType::Map);
 }
