@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Yaya Tüneli";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Peron";
 "type.highway.primary" = "Ana Yol";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -984,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Toplu Taşıma";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Peron";
 "type.railway" = "Demiryolu";
 "type.railway.abandoned" = "Terk Edilmiş Demir Yolu";
 "type.railway.abandoned.bridge" = "Terk Edilmiş Demir Yolu Köprüsü";
@@ -1008,7 +1012,7 @@
 "type.railway.narrow_gauge" = "Dar Hat Rayı";
 "type.railway.narrow_gauge.bridge" = "Dar Hat Rayı Köprüsü";
 "type.railway.narrow_gauge.tunnel" = "Dar Hat Rayı Tüneli";
-"type.railway.platform" = "Demir Yolu Platformu";
+"type.railway.platform" = "Demiryolu peronu";
 "type.railway.preserved" = "Korunmuş Ray";
 "type.railway.preserved.bridge" = "Korunmuş Ray Köprüsü";
 "type.railway.preserved.tunnel" = "Korunmuş Ray Tüneli";

@@ -414,7 +414,8 @@
     <string name="type.highway.pedestrian.bridge">橋</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">トンネル</string>
-    <string name="type.highway.platform">公共交通機関のプラットホーム</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">乗り場</string>
     <string name="type.highway.primary">ストリート</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">橋</string>
@@ -788,7 +789,8 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">電柱</string>
     <string name="type.public_transport">公共交通機関</string>
-    <string name="type.public_transport.platform">公共交通機関のプラットホーム</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">乗り場</string>
     <string name="type.railway">鉄道</string>
     <string name="type.railway.abandoned">廃線</string>
     <string name="type.railway.abandoned.bridge">廃線(橋)</string>
