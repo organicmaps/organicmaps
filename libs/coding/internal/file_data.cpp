@@ -296,8 +296,9 @@ bool CopyFileX(std::string const & fOld, std::string const & fNew)
 
   try
   {
-    ifs.open(fOld.c_str());
-    ofs.open(fNew.c_str());
+    // Binary mode: text mode translates line endings and stops at Ctrl-Z on Windows.
+    ifs.open(fOld.c_str(), std::ios::binary);
+    ofs.open(fNew.c_str(), std::ios::binary);
 
     // If source file is empty - make empty dest file without any errors.
     if (IsEOF(ifs))
