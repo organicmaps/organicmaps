@@ -167,7 +167,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     if (schedule.timetable.isFullday)
       return res.getString(R.string.editor_time_allday);
 
-    final String shifts = schedule.timetable.formatOpenShifts("\n");
+    final String shifts =
+        schedule.timetable.formatOpenShifts("\n", res.getString(R.string.noon), res.getString(R.string.midnight));
     return shifts.isEmpty() ? res.getString(R.string.day_off) : shifts;
   }
 
