@@ -134,7 +134,8 @@ void CrossBorderGraphSerializer::Serialize(CrossBorderGraph const & graph, Sink 
   {
     WriteVarUint(sink, segId);
 
-    WriteVarUint(sink, static_cast<uint64_t>(std::lround(seg.m_weight * kDouble2Int)));
+    // llround: the value does not fit into the 32-bit long of Windows.
+    WriteVarUint(sink, static_cast<uint64_t>(std::llround(seg.m_weight * kDouble2Int)));
 
     writeSegEnding(seg.m_start);
     writeSegEnding(seg.m_end);
