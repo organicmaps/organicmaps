@@ -278,6 +278,11 @@ BOOL HandleIOSDebugCommand(NSString * query)
   return [MWMSearch manager].itemsIndex.count;
 }
 
++ (NSString *)query
+{
+  return @([MWMSearch manager]->m_query.c_str());
+}
+
 - (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner
 {
   auto const resultsCount = self->m_everywhereResults.GetCount();
