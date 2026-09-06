@@ -92,6 +92,7 @@ jobs:
       #   routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
       #   world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
       #   routing_benchmarks, routing_quality_tests, search_quality_tests - benchmarks, not pass/fail tests
+      #   osm_auth_tests - runs in the regular CMake workflow's GCC 14 and macOS Debug legs
       #   storage_integration_tests - downloads real maps from planet.organicmaps.app (~28 min, ~690 MB);
       #     the offline part of that coverage lives in storage_tests
       - name: Run tests
