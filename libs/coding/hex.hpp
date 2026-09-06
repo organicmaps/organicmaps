@@ -7,11 +7,11 @@
 #include <string>
 #include <type_traits>
 
-namespace impl
+namespace hex_impl
 {
 void ToHexRaw(void const * src, size_t size, void * dst);
 bool FromHexRaw(void const * src, size_t size, void * dst);
-}  // namespace impl
+}  // namespace hex_impl
 
 inline std::string ToHex(void const * ptr, size_t size)
 {
@@ -20,7 +20,7 @@ inline std::string ToHex(void const * ptr, size_t size)
     return result;
 
   result.resize(size * 2);
-  ::impl::ToHexRaw(ptr, size, &result[0]);
+  ::hex_impl::ToHexRaw(ptr, size, &result[0]);
 
   return result;
 }
@@ -81,7 +81,7 @@ inline std::string FromHex(std::string_view s)
 
   std::string result;
   result.resize(s.size() / 2);
-  if (!::impl::FromHexRaw(s.data(), s.size(), result.data()))
+  if (!::hex_impl::FromHexRaw(s.data(), s.size(), result.data()))
     return {};
 
   return result;

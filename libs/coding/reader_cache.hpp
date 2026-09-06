@@ -9,39 +9,8 @@
 #include <cstring>
 #include <sstream>
 #include <string>
+#include <type_traits>
 #include <vector>
-
-namespace impl
-{
-template <bool Enable>
-struct ReaderCacheStats
-{
-  std::string GetStatsStr(uint32_t, uint32_t) const { return ""; }
-  base::NoopStats<uint32_t> m_ReadSize;
-  base::NoopStats<uint32_t> m_CacheHit;
-};
-
-template <>
-struct ReaderCacheStats<true>
-{
-  std::string GetStatsStr(uint32_t logPageSize, uint32_t pageCount) const
-  {
-    std::ostringstream out;
-    out << "LogPageSize: " << logPageSize << " PageCount: " << pageCount;
-    out << " ReadSize(" << m_ReadSize.ToString() << ")";
-    out << " CacheHit(" << m_CacheHit.ToString() << ")";
-    double const bytesAsked = m_ReadSize.GetAverage() * m_ReadSize.GetCount();
-    double const callsMade = (1.0 - m_CacheHit.GetAverage()) * m_CacheHit.GetCount();
-    double const bytesRead = callsMade * (1 << logPageSize);
-    out << " RatioBytesRead: " << (bytesRead + 1) / (bytesAsked + 1);
-    out << " RatioCallsMade: " << (callsMade + 1) / (m_ReadSize.GetCount() + 1);
-    return out.str();
-  }
-
-  base::AverageStats<uint32_t> m_ReadSize;
-  base::AverageStats<uint32_t> m_CacheHit;
-};
-}  // namespace impl
 
 template <class ReaderT, bool bStats = false>
 class ReaderCache
@@ -54,7 +23,7 @@ public:
     if (size == 0)
       return;
     ASSERT_LESS_OR_EQUAL(pos + size, reader.Size(), (pos, size, reader.Size()));
-    m_Stats.m_ReadSize(static_cast<uint32_t>(size));
+    m_ReadSize(static_cast<uint32_t>(size));
     char * pDst = static_cast<char *>(p);
     uint64_t pageNum = pos >> m_LogPageSize;
     size_t const firstPageOffset = static_cast<size_t>(pos - (pageNum << m_LogPageSize));
@@ -76,7 +45,23 @@ public:
     }
   }
 
-  std::string GetStatsStr() const { return m_Stats.GetStatsStr(m_LogPageSize, m_Cache.GetCacheSize()); }
+  std::string GetStatsStr() const
+  {
+    if constexpr (bStats)
+    {
+      std::ostringstream out;
+      out << "LogPageSize: " << m_LogPageSize << " PageCount: " << m_Cache.GetCacheSize();
+      out << " ReadSize(" << m_ReadSize.ToString() << ")";
+      out << " CacheHit(" << m_CacheHit.ToString() << ")";
+      double const bytesAsked = m_ReadSize.GetAverage() * m_ReadSize.GetCount();
+      double const callsMade = (1.0 - m_CacheHit.GetAverage()) * m_CacheHit.GetCount();
+      double const bytesRead = callsMade * (1 << m_LogPageSize);
+      out << " RatioBytesRead: " << (bytesRead + 1) / (bytesAsked + 1);
+      out << " RatioCallsMade: " << (callsMade + 1) / (m_ReadSize.GetCount() + 1);
+      return out.str();
+    }
+    return {};
+  }
 
 private:
   inline size_t PageSize() const { return 1 << m_LogPageSize; }
@@ -85,7 +70,7 @@ private:
   {
     bool cached;
     std::vector<char> & v = m_Cache.Find(pageNum, cached);
-    m_Stats.m_CacheHit(cached ? 1 : 0);
+    m_CacheHit(cached ? 1 : 0);
     if (!cached)
     {
       if (v.empty())
@@ -96,7 +81,10 @@ private:
     return &v[0];
   }
 
+  using StatsT = std::conditional_t<bStats, base::AverageStats<uint32_t>, base::NoopStats<uint32_t>>;
+
   base::Cache<uint64_t, std::vector<char>> m_Cache;
   uint32_t const m_LogPageSize;
-  impl::ReaderCacheStats<bStats> m_Stats;
+  StatsT m_ReadSize;
+  StatsT m_CacheHit;
 };
