@@ -5,8 +5,7 @@
 #import "SwiftBridge.h"
 
 @interface MWMCarPlaySearchService () <MWMSearchObserver>
-@property(strong, nonatomic, nullable) void (^completionHandler)
-    (NSArray<MWMCarPlaySearchResultObject *> * searchResults);
+@property(copy, nonatomic, nullable) MWMCarPlaySearchCompletion completionHandler;
 @property(strong, nonatomic, nullable) NSString * lastQuery;
 @property(strong, nonatomic, nullable) NSString * inputLocale;
 @property(strong, nonatomic, readwrite) NSArray<MWMCarPlaySearchResultObject *> * lastResults;
@@ -28,15 +27,40 @@
 
 - (void)searchText:(NSString *)text
        forInputLocale:(NSString *)inputLocale
-    completionHandler:(void (^)(NSArray<MWMCarPlaySearchResultObject *> * searchResults))completionHandler
+    completionHandler:(MWMCarPlaySearchCompletion)completionHandler
 {
+  [self completePendingRequestWithResults:nil];
+
+  self.lastResults = @[];
+  // Cancels the search in flight and empties the query, so the mode switch below starts nothing.
+  [MWMSearch clear];
+  if (text.length == 0)
+  {
+    completionHandler(@[]);
+    return;
+  }
+
   self.lastQuery = text;
   self.inputLocale = inputLocale;
-  self.lastResults = @[];
+
+  // MWMSearch is shared with the phone UI, which leaves the mode at viewport, where a search never
+  // reports completion.
+  [MWMSearch setSearchMode:SearchModeEverywhere];
   self.completionHandler = completionHandler;
+
   /// @todo Didn't find pure category request in CarPlay.
   SearchQuery * query = [[SearchQuery alloc] init:text locale:inputLocale source:SearchTextSourceTypedText];
   [MWMSearch searchQuery:query];
+}
+
+// Resets the handler before invoking it, since the handler may start another search of its own.
+- (void)completePendingRequestWithResults:(nullable NSArray<MWMCarPlaySearchResultObject *> *)results
+{
+  MWMCarPlaySearchCompletion const completionHandler = self.completionHandler;
+  if (completionHandler == nil)
+    return;
+  self.completionHandler = nil;
+  completionHandler(results);
 }
 
 - (void)saveLastQuery
@@ -54,9 +78,15 @@
 
 - (void)onSearchCompleted
 {
-  void (^completionHandler)(NSArray<MWMCarPlaySearchResultObject *> * searchResults) = self.completionHandler;
-  if (completionHandler == nil)
+  if (self.completionHandler == nil)
     return;
+
+  // A newer query from the phone UI has cancelled ours, and the results are its own.
+  if (![[MWMSearch query] isEqualToString:self.lastQuery])
+  {
+    [self completePendingRequestWithResults:nil];
+    return;
+  }
 
   NSMutableArray<MWMCarPlaySearchResultObject *> * results = [NSMutableArray array];
   NSInteger count = [MWMSearch resultsCount];
@@ -68,8 +98,7 @@
   }
 
   self.lastResults = results;
-  completionHandler(results);
-  self.completionHandler = nil;
+  [self completePendingRequestWithResults:results];
 }
 
 @end
