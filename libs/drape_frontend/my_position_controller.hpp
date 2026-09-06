@@ -17,6 +17,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <optional>
 
 namespace df
 {
@@ -195,7 +196,10 @@ private:
 
   m2::RectD m_pixelRect;
   m2::RectD m_visiblePixelRect;
-  double m_positionRoutingOffsetY;
+  // Bottom offset in device pixels as reported by the UI, std::nullopt for the default one.
+  // Scale-dependent parts are applied in GetRoutingRotationPixelCenter(), because the visual scale
+  // can change at runtime (e.g. when the map moves to a car display).
+  std::optional<int> m_routingOffsetY;
 
   bool m_isDirtyViewport;
   bool m_isDirtyAutoZoom;
