@@ -48,8 +48,7 @@ UNIT_TEST(Cancellable_Smoke)
 UNIT_TEST(Cancellable_Deadline)
 {
   Cancellable cancellable;
-  chrono::steady_clock::duration kTimeout = chrono::milliseconds(20);
-  cancellable.SetDeadline(chrono::steady_clock::now() + kTimeout);
+  constexpr auto kTimeout = chrono::milliseconds(20);
 
   promise<void> syncPromise;
   auto syncFuture = syncPromise.get_future();
@@ -58,6 +57,8 @@ UNIT_TEST(Cancellable_Deadline)
 
   auto const fn = [&]
   {
+    // Set the deadline once the thread runs, otherwise a slow thread start leaves too few iterations.
+    cancellable.SetDeadline(chrono::steady_clock::now() + kTimeout);
     while (true)
     {
       if (cancellable.IsCancelled())
