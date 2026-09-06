@@ -18,6 +18,9 @@ from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
 from socketserver import ThreadingMixIn
 from ResponseProvider import Payload
+from ResponseProvider import TRUNCATED_BODY_SENT
+from ResponseProvider import TRUNCATED_BODY_URL
+from ResponseProvider import truncated_body_head
 from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
 from threading import Timer
@@ -150,9 +153,8 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
 
     def init_vars(self):
         self.response_provider = ResponseProvider(self)
-        # Every request must extend the server's lifespan. Previously only
-        # do_POST reset the timer, so long GET-only test runs could die at
-        # the LIFESPAN boundary on slow CI.
+        # Every request extends the server's lifespan so long GET-only test runs
+        # cannot reach the LIFESPAN boundary on slow CI.
         self.server.reset_selfdestruct_timer()
 
 
@@ -181,7 +183,17 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
     def do_GET(self):
         headers = self.prepare_headers()
         self.init_vars()
+        if self.path == TRUNCATED_BODY_URL:
+            self.send_truncated_body()
+            return
         self.dispatch_response(self.response_provider.response_for_url_and_headers(self.path, headers))
+
+
+    def send_truncated_body(self):
+        # Bypasses dispatch_response so that Content-Length can lie about the size.
+        self.wfile.write(truncated_body_head() + b"x" * TRUNCATED_BODY_SENT)
+        self.wfile.flush()
+        self.close_connection = True
 
 
     def prepare_headers(self):

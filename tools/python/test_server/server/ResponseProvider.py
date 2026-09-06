@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import gzip
 import jsons
 import logging
 import os
@@ -34,6 +35,27 @@ def synthetic_mwm_content(file_name):
     # content[i] == (i + seed) % 256, built by tiling one period instead of per-byte.
     period = bytes((i + seed) % 256 for i in range(256))
     return (period * (size // 256 + 1))[:size]
+
+
+# A response cut short mid-body: the status line and headers promise
+# TRUNCATED_BODY_ADVERTISED bytes, only TRUNCATED_BODY_SENT are written, then the
+# connection is closed. Both server implementations serve it directly instead of
+# through a Payload, which always sends a truthful Content-Length.
+TRUNCATED_BODY_URL = "/unit_tests/truncated_body"
+TRUNCATED_BODY_ADVERTISED = 1000
+TRUNCATED_BODY_SENT = 50
+
+# Qt reports decompression failures as UnknownContentError after receiving the
+# HTTP status. The body is corrupt but its Content-Length is truthful.
+CORRUPT_GZIP_URL = "/unit_tests/corrupt_gzip"
+_corrupt_gzip_body = bytearray(gzip.compress(b"complete response body" * 100, mtime=0))
+_corrupt_gzip_body[len(_corrupt_gzip_body) // 2] ^= 0xff
+CORRUPT_GZIP_BODY = bytes(_corrupt_gzip_body)
+
+
+def truncated_body_head():
+    return ("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n"
+            "Content-Length: {}\r\n\r\n".format(TRUNCATED_BODY_ADVERTISED)).encode()
 
 
 class Payload:
@@ -186,6 +208,8 @@ class ResponseProvider:
                 "/unit_tests/echo_headers": self.echo_headers,
                 "/unit_tests/echo_cookies": self.echo_cookies,
                 "/unit_tests/timeout": self.test_timeout,
+                CORRUPT_GZIP_URL: self.test_corrupt_gzip,
+                "/unit_tests/400": self.test_400,
                 "/unit_tests/500": self.test_500,
                 "/unit_tests/403": self.test_403,
                 "/unit_tests/redirect_to_1txt": self.test_redirect_to_1txt,
@@ -357,6 +381,12 @@ class ResponseProvider:
         import time
         time.sleep(3)
         return Payload("should not reach")
+
+    def test_corrupt_gzip(self):
+        return Payload(CORRUPT_GZIP_BODY, 200, {"Content-Encoding": "gzip"})
+
+    def test_400(self):
+        return Payload("Bad Request", response_code=400)
 
     def test_500(self):
         return Payload("Internal Server Error", response_code=500)

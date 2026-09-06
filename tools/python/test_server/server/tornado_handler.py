@@ -1,6 +1,9 @@
 from __future__ import print_function
 
 from ResponseProvider import Payload
+from ResponseProvider import TRUNCATED_BODY_SENT
+from ResponseProvider import TRUNCATED_BODY_URL
+from ResponseProvider import truncated_body_head
 from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
 from threading import Timer
@@ -57,8 +60,19 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
 
 
     def get(self, param):
+        if self.request.path == TRUNCATED_BODY_URL:
+            self.send_truncated_body()
+            return
         self.dispatch_response(self.response_provider.response_for_url_and_headers(self.request.uri, self.headers))
-        
+
+
+    def send_truncated_body(self):
+        # Detaches the stream so that Tornado's Content-Length accounting, which
+        # would refuse to send fewer bytes than advertised, is out of the way.
+        stream = self.detach()
+        stream.write(truncated_body_head() + b"x" * TRUNCATED_BODY_SENT).add_done_callback(
+            lambda _: stream.close())
+
 
     def post(self, param):
         payload = self.response_provider.response_for_url_and_headers(self.request.uri, self.headers)
