@@ -40,7 +40,7 @@ UNIT_TEST(Downloader_GetFilePathByUrl)
   }
 
   TEST_EQUAL(downloader::GetFilePathByUrl("/maps/220314/Belarus_Brest Region.mwm"),
-             base::JoinPath(GetPlatform().WritableDir(), "220314/Belarus_Brest Region.mwm.ready"), ());
+             base::JoinPath(GetPlatform().WritableDir(), "220314", "Belarus_Brest Region.mwm.ready"), ());
 }
 
 UNIT_TEST(Downloader_IsUrlSupported)
