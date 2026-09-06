@@ -6,10 +6,13 @@
 
 #include "base/logging.hpp"
 
+#include <chrono>
+#include <cstdint>
 #include <ctime>
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <utility>
 
 namespace
 {
@@ -26,6 +29,30 @@ osmoh::RuleState StateAt(std::string const & oh, int y, int mo, int d, int h, in
 {
   auto const month = static_cast<osmoh::MonthDay::Month>(mo);
   return OpeningHours(oh).GetInfo(platform::tests_support::GetUnixtimeByDate(y, month, d, h, mi)).state;
+}
+
+// A zone with a fixed offset and no DST transitions; base_offset counts
+// 15-minute steps from -16:00 (see om::tz::TimeZone::GetBaseOffset).
+om::tz::TimeZone FixedZone(int hoursEastOfUtc)
+{
+  om::tz::TimeZone tz;
+  tz.base_offset = static_cast<uint8_t>(64 + hoursEastOfUtc * 4);
+  return tz;
+}
+
+// Absolute instant of a local wall-clock hour in a fixed-offset zone.
+time_t LocalInstant(int y, unsigned mo, unsigned d, int hour, int hoursEastOfUtc)
+{
+  using namespace std::chrono;
+  auto const days = sys_days{year{y} / month{mo} / day{d}}.time_since_epoch().count();
+  return static_cast<time_t>(days * 86400 + (hour - hoursEastOfUtc) * 3600);
+}
+
+// Local wall-clock (hour, minute) of an absolute instant in a fixed-offset zone.
+std::pair<int, int> LocalHM(time_t t, int hoursEastOfUtc)
+{
+  int64_t const secondsOfDay = (static_cast<int64_t>(t) + hoursEastOfUtc * 3600) % 86400;
+  return {static_cast<int>(secondsOfDay / 3600), static_cast<int>((secondsOfDay % 3600) / 60)};
 }
 }  // namespace
 
@@ -104,6 +131,65 @@ UNIT_TEST(OpeningHours_ClosedValue)
   TEST_EQUAL(StateAt("closed", 2026, 7, 6, 12, 0), osmoh::RuleState::Closed, ());
   TEST_EQUAL(StateAt("off", 2026, 7, 6, 12, 0), osmoh::RuleState::Closed, ());
   TEST_EQUAL(StateAt("24/7", 2026, 7, 6, 12, 0), osmoh::RuleState::Open, ());
+}
+
+// With a POI coordinate, sun events (sunrise/sunset/dawn/dusk) resolve to the
+// real local times instead of the fixed fallback (dawn 06:00, sunrise 07:00,
+// sunset 19:00, dusk 20:00).
+UNIT_TEST(OpeningHours_SunEvents_RealLocalTimes)
+{
+  // Golden reference (opening-hours-rs localization tests): Paris (48.87, 2.29)
+  // on 2020-06-01 -> sunrise 05:51, sunset 21:46 in local time (CEST, UTC+2).
+  ms::LatLon const paris(48.87, 2.29);
+  int constexpr kParisJune = 2;  // hours east of UTC
+  auto const parisTz = FixedZone(kParisJune);
+
+  // "09:00-sunset" at midday: open, closing at the real sunset (21:46), not 19:00.
+  {
+    OpeningHours const oh("09:00-sunset");
+    time_t const now = LocalInstant(2020, 6, 1, 12, kParisJune);
+
+    auto const withCoord = oh.GetInfo(now, parisTz, paris);
+    TEST_EQUAL(withCoord.state, osmoh::RuleState::Open, ());
+    auto const [closeH, closeM] = LocalHM(withCoord.nextTimeClosed, kParisJune);
+    TEST_EQUAL(closeH, 21, (closeM));
+    TEST_EQUAL(closeM, 46, (closeH));
+
+    // Without a coordinate the fixed 19:00 sunset fallback still applies.
+    auto const noCoord = oh.GetInfo(now, parisTz);
+    auto const [fallbackH, fallbackM] = LocalHM(noCoord.nextTimeClosed, kParisJune);
+    TEST_EQUAL(fallbackH, 19, (fallbackM));
+    TEST_EQUAL(fallbackM, 0, (fallbackH));
+
+    // The real sunset is strictly later than the fixed fallback.
+    TEST_GREATER(withCoord.nextTimeClosed, noCoord.nextTimeClosed, ());
+  }
+
+  // "sunrise-sunset" before dawn: closed, opening at the real sunrise (05:51).
+  {
+    OpeningHours const oh("sunrise-sunset");
+    time_t const early = LocalInstant(2020, 6, 1, 4, kParisJune);
+
+    auto const info = oh.GetInfo(early, parisTz, paris);
+    TEST_EQUAL(info.state, osmoh::RuleState::Closed, ());
+    auto const [openH, openM] = LocalHM(info.nextTimeOpen, kParisJune);
+    TEST_EQUAL(openH, 5, (openM));
+    TEST_EQUAL(openM, 51, (openH));
+  }
+}
+
+// Above the polar circle a sun event may not happen at all. That branch is only
+// reachable with a coordinate (the fixed fallback always yields a time), and it
+// hands control to the evaluator's seasonal substitution.
+UNIT_TEST(OpeningHours_SunEvents_PolarDayNight)
+{
+  ms::LatLon const tromso(69.65, 18.96);
+  OpeningHours const oh("sunrise-sunset");
+
+  // Polar day: the sun never sets, so the place stays open at night.
+  TEST_EQUAL(oh.GetInfo(LocalInstant(2020, 6, 21, 2, 2), FixedZone(2), tromso).state, osmoh::RuleState::Open, ());
+  // Polar night: the sun never rises, so the place stays closed at midday.
+  TEST_EQUAL(oh.GetInfo(LocalInstant(2020, 12, 21, 12, 1), FixedZone(1), tromso).state, osmoh::RuleState::Closed, ());
 }
 
 // Parse coverage over a real-world OSM corpus ("count|value" per line, copied
