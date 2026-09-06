@@ -397,6 +397,8 @@
     <string name="type.highway.pedestrian.bridge">Pod</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Tunel</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Peron</string>
     <string name="type.highway.primary">Stradă</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Pod</string>
@@ -721,6 +723,8 @@
     <string name="type.power.substation">Stație subterană</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Stâlp de electricitate</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Peron</string>
     <string name="type.railway">Cale ferată</string>
     <string name="type.railway.disused.tunnel">Tunel feroviar dezafectat</string>
     <string name="type.railway.funicular">Funicular</string>

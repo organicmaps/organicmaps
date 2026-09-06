@@ -449,7 +449,8 @@
     <string name="type.highway.pedestrian.bridge">Urë këmbësorësh</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Tunel këmbësorësh</string>
-    <string name="type.highway.platform">Platformë</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Peron</string>
     <string name="type.highway.primary">Rrugë kryesore</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Urë</string>
@@ -842,7 +843,8 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">Shtyllë utilitare</string>
     <string name="type.public_transport">Transport Publik</string>
-    <string name="type.public_transport.platform">Platformë</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Peron</string>
     <string name="type.railway">Hekurudhë</string>
     <string name="type.railway.abandoned">Hekurudhë e braktisur</string>
     <string name="type.railway.abandoned.bridge">Urë hekurudhore e braktisur</string>
@@ -866,7 +868,7 @@
     <string name="type.railway.narrow_gauge">Hekurudhë me binarë të ngushtë</string>
     <string name="type.railway.narrow_gauge.bridge">Urë hekurudhore e ngushtë</string>
     <string name="type.railway.narrow_gauge.tunnel">Tunel hekurudhor i ngushtë</string>
-    <string name="type.railway.platform">Platformë hekurudhore</string>
+    <string name="type.railway.platform">Peron hekurudhor</string>
     <string name="type.railway.preserved">Hekurudhë e ruajtur</string>
     <string name="type.railway.preserved.bridge">Urë hekurudhore e ruajtur</string>
     <string name="type.railway.preserved.tunnel">Tunel hekurudhor i ruajtur</string>

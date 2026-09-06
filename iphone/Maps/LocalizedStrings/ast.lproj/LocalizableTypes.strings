@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Túnel peonil";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Andén";
 "type.highway.primary" = "Primary Road";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -984,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Tresporte públicu";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Andén";
 "type.railway" = "Railway";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Ponte ferroviaria abandonada";
@@ -1008,7 +1012,7 @@
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
-"type.railway.platform" = "Railway Platform";
+"type.railway.platform" = "Andén de ferrocarril";
 "type.railway.preserved" = "Preserved Rail";
 "type.railway.preserved.bridge" = "Ponte ferroviaria conservada";
 "type.railway.preserved.tunnel" = "Túnel ferroviariu conserváu";
