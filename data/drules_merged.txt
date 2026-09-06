@@ -992,6 +992,12 @@ type amenity-bench
     symbol name=bench-m priority=-9980
     caption primary[height=10 color=c066 dy=1 optional] priority=-10000
 type amenity-bicycle_parking
+  z15
+    symbol name=bicycle-parking-m priority=250
+    caption primary[height=10 color=c066 dy=1 optional] priority=-9750
+  z16
+    symbol name=bicycle-parking-m priority=250
+    caption primary[height=10 color=c066 dy=1 optional] priority=-9750
   z17
     symbol name=bicycle-parking-m priority=250
     caption primary[height=10 color=c066 dy=1 optional] priority=-9750
@@ -1005,6 +1011,12 @@ type amenity-bicycle_parking
     symbol name=bicycle-parking-m priority=250
     caption primary[height=10 color=c066 dy=1 optional] priority=-9750
 type amenity-bicycle_parking-covered
+  z15
+    symbol name=bicycle-parking-covered-m priority=250
+    caption primary[height=10 color=c066 dy=1 optional] priority=-9750
+  z16
+    symbol name=bicycle-parking-covered-m priority=250
+    caption primary[height=10 color=c066 dy=1 optional] priority=-9750
   z17
     symbol name=bicycle-parking-covered-m priority=250
     caption primary[height=10 color=c066 dy=1 optional] priority=-9750
@@ -1018,6 +1030,15 @@ type amenity-bicycle_parking-covered
     symbol name=bicycle-parking-covered-m priority=250
     caption primary[height=10 color=c066 dy=1 optional] priority=-9750
 type amenity-bicycle_rental
+  z14
+    symbol name=bicycle-rental-m priority=2600
+    caption primary[height=10 color=c066 dy=1 optional] priority=-7400
+  z15
+    symbol name=bicycle-rental-m priority=2600
+    caption primary[height=10 color=c066 dy=1 optional] priority=-7400
+  z16
+    symbol name=bicycle-rental-m priority=2600
+    caption primary[height=10 color=c066 dy=1 optional] priority=-7400
   z17
     symbol name=bicycle-rental-m priority=2600
     caption primary[height=10 color=c066 dy=1 optional] priority=-7400
@@ -1031,6 +1052,10 @@ type amenity-bicycle_rental
     symbol name=bicycle-rental-m priority=2600
     caption primary[height=11 color=c066 dy=1 optional] priority=-7400
 type amenity-bicycle_rental-shop
+  z14
+    symbol name=shop-rental-bicycle-m priority=2600
+  z15
+    symbol name=shop-rental-bicycle-m priority=2600
   z16
     symbol name=shop-rental-bicycle-m priority=2600
   z17
@@ -1046,6 +1071,15 @@ type amenity-bicycle_rental-shop
     symbol name=shop-rental-bicycle-m priority=2600
     caption primary[height=11 color=c066 dy=1 optional] priority=-7400
 type amenity-bicycle_repair_station
+  z14
+    symbol name=bicycle-repair-station-m priority=2500
+    caption primary[height=10 color=c066 dy=1 optional] priority=-7500
+  z15
+    symbol name=bicycle-repair-station-m priority=2500
+    caption primary[height=10 color=c066 dy=1 optional] priority=-7500
+  z16
+    symbol name=bicycle-repair-station-m priority=2500
+    caption primary[height=10 color=c066 dy=1 optional] priority=-7500
   z17
     symbol name=bicycle-repair-station-m priority=2500
     caption primary[height=10 color=c066 dy=1 optional] priority=-7500
@@ -1337,6 +1371,12 @@ type amenity-community_centre
     symbol name=community-m priority=4300 min_distance=24
     caption primary[height=10 color=c066 dy=1 optional] priority=-5700
 type amenity-compressed_air
+  z15
+    symbol name=compressed_air-m priority=1200
+  z16
+    symbol name=compressed_air-m priority=1200
+  z17
+    symbol name=compressed_air-m priority=1200
   z18
     symbol name=compressed_air-m priority=1200
   z19
@@ -21529,6 +21569,12 @@ type shop-beverages
     symbol name=alcohol-m priority=2400 min_distance=24
     caption primary[height=10 color=c066 dy=1 optional] priority=-7600
 type shop-bicycle
+  z14
+    symbol name=shop-bicycle-m priority=1600 min_distance=10
+    caption primary[height=10 color=c066 dy=1 optional] priority=-8400
+  z15
+    symbol name=shop-bicycle-m priority=1600 min_distance=10
+    caption primary[height=10 color=c066 dy=1 optional] priority=-8400
   z16
     symbol name=shop-bicycle-m priority=1600 min_distance=10
     caption primary[height=10 color=c066 dy=1 optional] priority=-8400
