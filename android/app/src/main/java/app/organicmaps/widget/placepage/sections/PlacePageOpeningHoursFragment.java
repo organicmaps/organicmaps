@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
@@ -315,7 +316,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     {
       String descriptionString;
 
-      if (ohInfo.nextTimeClosed == OpeningHoursInfo.TIME_NEVER) // Will stay open forever
+      if (ohInfo.nextTimeClosed == OpeningHoursInfo.TIME_NEVER) // No upcoming closing found.
         descriptionString = "";
       else
       {
@@ -341,9 +342,16 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     else // ohInfo.state == OpeningHoursInfo.RuleState.Closed
     {
       String descriptionString;
+      // "Closed now" implies a known later reopening; without one (opening_hours=off/closed,
+      // an expired date range) use the plain "Closed".
+      @StringRes
+      int indicatorStringRes = R.string.closed_now;
 
-      if (ohInfo.nextTimeOpen == OpeningHoursInfo.TIME_NEVER) // Will stay closed forever
+      if (ohInfo.nextTimeOpen == OpeningHoursInfo.TIME_NEVER) // No upcoming opening found.
+      {
         descriptionString = "";
+        indicatorStringRes = R.string.closed;
+      }
       else
       {
         final long timeLeftMinutes = (ohInfo.nextTimeOpen - currentTime) / 60;
@@ -376,7 +384,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
           descriptionString = "";
       }
 
-      UiUtils.setTextAndShow(mTvSchedulePreviewOpenIndicator, getString(R.string.closed_now));
+      UiUtils.setTextAndShow(mTvSchedulePreviewOpenIndicator, getString(indicatorStringRes));
       mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_red));
 
       UiUtils.setTextAndHideIfEmpty(mTvSchedulePreviewDescription, descriptionString);

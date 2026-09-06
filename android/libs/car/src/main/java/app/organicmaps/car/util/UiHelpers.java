@@ -21,6 +21,7 @@ import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.editor.OpeningHours;
+import app.organicmaps.sdk.editor.data.OpeningHoursInfo;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationState;
@@ -126,7 +127,17 @@ public final class UiHelpers
         new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_operating_hours)).build());
 
     if (isEmptyTT)
-      builder.setTitle(ohStr);
+    {
+      // Values with no time table (opening_hours=off/closed, an expired date range) still evaluate:
+      // show the plain "Closed" when no upcoming opening is known instead of the raw expression.
+      final OpeningHoursInfo ohInfo =
+          OpeningHours.nativeGetOpeningHoursInfoFromString(ohStr, System.currentTimeMillis() / 1000);
+      if (ohInfo != null && ohInfo.state == OpeningHoursInfo.RuleState.Closed
+          && ohInfo.nextTimeOpen == OpeningHoursInfo.TIME_NEVER)
+        builder.setTitle(context.getString(R.string.closed));
+      else
+        builder.setTitle(ohStr);
+    }
     else if (timetables[0].isFullWeek())
     {
       if (timetables[0].isFullday)

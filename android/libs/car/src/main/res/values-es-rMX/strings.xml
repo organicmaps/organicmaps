@@ -30,7 +30,6 @@
     <string name="search_not_found">Lo siento, no se han encontrado resultados.</string>
     <string name="search_history_text">Ver tus búsquedas recientes.</string>
     <string name="p2p_start">Inicio</string>
-    <string name="editor_time_open">Abrir</string>
     <string name="big_font">Aumentar el tamaño de las etiquetas de los mapas</string>
     <string name="transliteration_title">Transliterar al alfabeto latino</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
