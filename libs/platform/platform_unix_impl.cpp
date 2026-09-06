@@ -3,10 +3,13 @@
 
 #include "base/logging.hpp"
 
+#include <algorithm>
+#include <cerrno>
 #include <memory>
 #include <regex>
 
 #include <dirent.h>
+#include <sys/resource.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -148,6 +151,32 @@ void EnumerateFilesByRegExp(std::string const & directory, std::string const & r
     if (std::regex_search(name.begin(), name.end(), exp))
       res.push_back(name);
   });
+}
+
+void SetMaxOpenFileLimit()
+{
+  // Search and routing keep many mwm sections open at the same time, while some platforms are very
+  // conservative by default (iOS starts with only 256 allowed open files).
+  // Do not raise the limit to the hard one: it is RLIM_INFINITY on Apple platforms, and a huge
+  // value slows down or breaks the code that iterates over all possible descriptors.
+  rlim_t constexpr kMaxOpenFiles = 8192;
+
+  struct rlimit limit;
+  if (getrlimit(RLIMIT_NOFILE, &limit) != 0)
+  {
+    LOG(LWARNING, ("getrlimit(RLIMIT_NOFILE) has failed with errno", errno));
+    return;
+  }
+
+  if (limit.rlim_cur >= kMaxOpenFiles)
+    return;
+
+  rlim_t const oldLimit = limit.rlim_cur;
+  limit.rlim_cur = std::min(kMaxOpenFiles, limit.rlim_max);
+  if (setrlimit(RLIMIT_NOFILE, &limit) != 0)
+    LOG(LWARNING, ("setrlimit(RLIMIT_NOFILE,", limit.rlim_cur, ") has failed with errno", errno));
+  else
+    LOG(LINFO, ("Increased the open files limit from", oldLimit, "to", limit.rlim_cur));
 }
 
 }  // namespace pl

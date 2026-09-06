@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/platform_unix_impl.hpp"
 
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
@@ -9,6 +10,8 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
+
+#include "std/target_os.hpp"
 
 #include <algorithm>
 #include <atomic>
@@ -19,6 +22,10 @@
 #include <thread>
 #include <utility>
 #include <vector>
+
+#ifndef OMIM_OS_WINDOWS
+#include <sys/resource.h>
+#endif
 
 #include "defines.hpp"
 
@@ -386,3 +393,23 @@ UNIT_TEST(GetFileCreationTime_GetFileModificationTime_MissingFile)
   TEST_EQUAL(Platform::GetFileCreationTime(missing), 0, ());
   TEST_EQUAL(Platform::GetFileModificationTime(missing), 0, ());
 }
+
+#ifndef OMIM_OS_WINDOWS
+UNIT_TEST(SetMaxOpenFileLimit)
+{
+  struct rlimit original;
+  TEST_EQUAL(getrlimit(RLIMIT_NOFILE, &original), 0, ());
+  SCOPE_GUARD(restoreLimit, [&original]() { setrlimit(RLIMIT_NOFILE, &original); });
+
+  struct rlimit lowered = original;
+  lowered.rlim_cur = 64;
+  TEST_EQUAL(setrlimit(RLIMIT_NOFILE, &lowered), 0, ());
+
+  pl::SetMaxOpenFileLimit();
+
+  struct rlimit raised;
+  TEST_EQUAL(getrlimit(RLIMIT_NOFILE, &raised), 0, ());
+  TEST_GREATER(raised.rlim_cur, lowered.rlim_cur, ());
+  TEST_LESS_OR_EQUAL(raised.rlim_cur, original.rlim_max, ());
+}
+#endif
