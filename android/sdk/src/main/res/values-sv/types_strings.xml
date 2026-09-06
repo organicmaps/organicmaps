@@ -450,7 +450,8 @@
     <string name="type.highway.pedestrian.bridge">Gångbro</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Gångtunnel</string>
-    <string name="type.highway.platform">Perrong</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Påstigningsplats</string>
     <string name="type.highway.primary">Primärväg</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Bro</string>
@@ -843,7 +844,8 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">Ledningsstolpe</string>
     <string name="type.public_transport">Kollektivtrafik</string>
-    <string name="type.public_transport.platform">Perrong</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Påstigningsplats</string>
     <string name="type.railway">Järnväg</string>
     <string name="type.railway.abandoned">Nedlagd järnväg</string>
     <string name="type.railway.abandoned.bridge">Nedlagd järnvägsbro</string>

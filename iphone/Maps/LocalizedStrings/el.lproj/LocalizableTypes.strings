@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Σήραγγα πεζών";
-"type.highway.platform" = "Πλατφόρμα";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Αποβάθρα";
 "type.highway.primary" = "Πρωτεύων δρόμος";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -984,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Δημόσια συγκοινωνία";
-"type.public_transport.platform" = "Πλατφόρμα";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Αποβάθρα";
 "type.railway" = "Σιδηρόδρομος";
 "type.railway.abandoned" = "Εγκαταλελειμμένος σιδηρόδρομος";
 "type.railway.abandoned.bridge" = "Εγκαταλελειμμένη σιδηροδρομική γέφυρα";
@@ -1008,7 +1012,7 @@
 "type.railway.narrow_gauge" = "Σιδηρόδρομος στενού εύρους";
 "type.railway.narrow_gauge.bridge" = "Σιδηροδρομική γέφυρα στενής γραμμής";
 "type.railway.narrow_gauge.tunnel" = "Σήραγγα σιδηρόδρομου στενού εύρους";
-"type.railway.platform" = "Σιδηροδρομική πλατφόρμα";
+"type.railway.platform" = "Σιδηροδρομική αποβάθρα";
 "type.railway.preserved" = "Διατηρητέος σιδηρόδρομος";
 "type.railway.preserved.bridge" = "Γέφυρα διατηρητέου σιδηρόδρομου";
 "type.railway.preserved.tunnel" = "Σήραγγα διατηρητέου σιδηρόδρομου";

@@ -450,7 +450,8 @@
     <string name="type.highway.pedestrian.bridge">Puente peatonal</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Túnel peatonal</string>
-    <string name="type.highway.platform">Plataforma</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Andén</string>
     <string name="type.highway.primary">Carretera principal</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Puente</string>
@@ -848,7 +849,8 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Transporte público</string>
-    <string name="type.public_transport.platform">Plataforma</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Andén</string>
     <string name="type.railway">Vía férrea</string>
     <string name="type.railway.abandoned">Vía férrea abandonada</string>
     <string name="type.railway.abandoned.bridge">Puente ferroviario abandonado</string>

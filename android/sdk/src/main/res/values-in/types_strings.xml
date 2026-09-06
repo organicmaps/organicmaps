@@ -381,6 +381,8 @@
     <string name="type.highway.pedestrian.bridge">Menjembatani</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Terowongan</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Peron</string>
     <string name="type.highway.primary">Jalan</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Menjembatani</string>
@@ -700,6 +702,8 @@
     <string name="type.power.substation">Stasiun bawah tanah</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Menara listrik</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Peron</string>
     <string name="type.railway.disused.tunnel">Terowongan kereta api nonaktif</string>
     <string name="type.railway.funicular">Kereta gantung</string>
     <string name="type.railway.halt">Rel kereta api</string>
