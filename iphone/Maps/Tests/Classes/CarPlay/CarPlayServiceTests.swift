@@ -118,6 +118,23 @@ final class CarPlayServiceTests: XCTestCase {
     assertMapButtonsAreComplete("panning interface")
   }
 
+  /// CarPlay sends a focused image only in the variant it is given, so it must be resolved for the car's traits.
+  func testFocusedImageFollowsTheCarTraits() {
+    /// The traits of a CarPlay window, whose idiom the universal artwork must still match.
+    func carTraits(_ style: UIUserInterfaceStyle) -> UITraitCollection {
+      UITraitCollection(traitsFrom: [.current,
+                                     UITraitCollection(userInterfaceIdiom: .carPlay),
+                                     UITraitCollection(userInterfaceStyle: style)])
+    }
+    let light = MapTemplateBuilder.resolveFocusedImage(.btnCarplayZoomInFocused, for: carTraits(.light))
+    let dark = MapTemplateBuilder.resolveFocusedImage(.btnCarplayZoomInFocused, for: carTraits(.dark))
+
+    XCTAssertEqual(light.traitCollection.userInterfaceStyle, .light)
+    XCTAssertEqual(dark.traitCollection.userInterfaceStyle, .dark)
+    XCTAssertNotEqual(light.pngData(), dark.pngData())
+    XCTAssertEqual(dark.renderingMode, .alwaysOriginal)
+  }
+
   /// A pan button moves the viewport, so the map moves the opposite way.
   /// FrameworkHelper.moveMap uses an upward-positive vertical axis, unlike UIKit.
   func testPanDirectionOffset() {

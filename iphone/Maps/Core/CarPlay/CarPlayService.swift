@@ -650,6 +650,23 @@ final class CarPlayService: NSObject {
     return .unspecified
   }
 
+  /// Template controls, such as map buttons, follow the car's appearance and screen, which the window traits carry.
+  /// The map follows contentStyle instead: the car's map style, which "Always Show Dark Maps" keeps dark.
+  var templateTraitCollection: UITraitCollection {
+    window?.traitCollection ?? .current
+  }
+
+  /// Rebuilds the map buttons, whose focused images are resolved for the car's appearance.
+  func updateMapButtonsAppearance() {
+    // The trip finished alert hides all the buttons.
+    guard let rootMapTemplate, !rootMapTemplate.mapButtons.isEmpty else { return }
+    if rootMapTemplate.isPanningInterfaceVisible {
+      MapTemplateBuilder.configurePanUI(rootMapTemplate)
+    } else {
+      MapTemplateBuilder.setupMapButtons(rootMapTemplate, positionMode: currentPositionMode)
+    }
+  }
+
   private func updateContentStyle(_ contentStyle: CPContentStyle) {
     rootTemplateStyle = contentStyle == .dark ? .dark : .light
     // Update the current map style in accordance with the CarPlay content theme.

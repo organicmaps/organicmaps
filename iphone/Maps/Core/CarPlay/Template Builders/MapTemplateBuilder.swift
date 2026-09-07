@@ -155,17 +155,23 @@ final class MapTemplateBuilder {
 
   private class func buildMapButton(type: MapButtonType, action: ((CPMapButton) -> Void)?) -> CPMapButton {
     let (image, focusedImage): (UIImage, UIImage) = switch type {
-    // Panning has no highlighted artwork, so it keeps the same image when focused.
-    case .startPanning: (.btnCarplayPanLight, .btnCarplayPanLight)
-    case .zoomIn: (.btnZoomIn, .btnZoomInHighlighted)
-    case .zoomOut: (.btnZoomOut, .btnZoomOutHighlighted)
-    case .recenter: (.btnGetPosition, .btnGetPositionHighlighted)
+    case .startPanning: (.btnCarplayPan, .btnCarplayPanFocused)
+    case .zoomIn: (.btnZoomIn, .btnCarplayZoomInFocused)
+    case .zoomOut: (.btnZoomOut, .btnCarplayZoomOutFocused)
+    case .recenter: (.btnGetPosition, .btnCarplayGetPositionFocused)
     }
     let button = CPMapButton(handler: action)
-    // Original rendering keeps the artwork's own contrast; CarPlay tints template images on focus.
+    // Original rendering keeps the artwork's own contrast; CarPlay would otherwise tint both states.
+    // The focused variants swap the disc and glyph colours so the button stands out when selected.
     button.image = image.withRenderingMode(.alwaysOriginal)
-    button.focusedImage = focusedImage.withRenderingMode(.alwaysOriginal)
+    button.focusedImage = resolveFocusedImage(focusedImage, for: CarPlayService.shared.templateTraitCollection)
     return button
+  }
+
+  /// CarPlay sends the image of a map button in both appearances, but the focused image only as given,
+  /// so it must be resolved for the car: CarPlayService rebuilds the buttons when its appearance changes.
+  class func resolveFocusedImage(_ image: UIImage, for traits: UITraitCollection) -> UIImage {
+    (image.imageAsset?.image(with: traits) ?? image).withRenderingMode(.alwaysOriginal)
   }
 
   // MARK: - CPBarButton builder
