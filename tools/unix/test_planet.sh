@@ -19,7 +19,6 @@ TARGET="$(cd "${TARGET:-$1}"; pwd)"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
 DELTA_WITH=
-BOOKING_THRESHOLD=20
 [ $# -gt 1 -a -d "${2-}" ] && DELTA_WITH="$2"
 
 source "$SCRIPT_PATH/find_generator_tool.sh"
@@ -103,13 +102,6 @@ if [ -n "$DELTA_WITH" ]; then
     fi
   done
   rm "$TMPBASE"_*
-fi
-
-# Step 3.3: check booking hotels count in new .mwm files
-if [ -n "$DELTA_WITH" ]; then
-  echo
-  echo '### BOOKING HOTELS COUNT DIFFERENCE'
-  python "$OMIM_PATH/tools/python/mwm/mwm_feature_compare.py" -n "$TARGET" -o "$DELTA_WITH" -f "sponsored-booking" -t $BOOKING_THRESHOLD
 fi
 
 # Step 4: run integration tests

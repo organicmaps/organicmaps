@@ -2,16 +2,12 @@ import datetime
 import logging
 import os
 import re
-from collections import Counter
 from collections import namedtuple
 from enum import Enum
 from pathlib import Path
 from typing import List
-from typing import Tuple
-from typing import Union
 
 import maps_generator.generator.env as env
-from maps_generator.generator.stages import get_stage_type
 from maps_generator.utils.algo import parse_timedelta
 
 
@@ -54,14 +50,9 @@ class Log:
         self.path = Path(path)
         self.name = self.path.stem
 
-        self.is_stage_log = False
-        self.is_mwm_log = False
-        try:
-            get_stage_type(self.name)
-            self.is_stage_log = True
-        except AttributeError:
-            if self.name in env.COUNTRIES_NAMES or self.name in env.WORLDS_NAMES:
-                self.is_mwm_log = True
+        self.is_mwm_log = (
+            self.name in env.COUNTRIES_NAMES or self.name in env.WORLDS_NAMES
+        )
 
         self.lines = self._parse_lines()
 
@@ -209,33 +200,3 @@ def normalize_logs(llogs: List[LogStage]) -> List[LogStage]:
             buckets[log.name] = len(normalized_logs) - 1
 
     return normalized_logs
-
-
-def count_levels(logs: Union[List[LogLine], LogStage]) -> Counter:
-    if isinstance(logs, list):
-        return Counter(log.level for log in logs)
-
-    if isinstance(logs, LogStage):
-        return count_levels(logs.lines)
-
-    assert False, f"Type {type(logs)} is unsupported."
-
-
-def find_and_parse(
-    logs: Union[List[LogLine], LogStage], pattern: Union[str, type(re.compile(""))],
-) -> List[Tuple[dict, str]]:
-    if isinstance(pattern, str):
-        pattern = re.compile(pattern, FLAGS)
-
-    if isinstance(logs, list):
-        found = []
-        for log in logs:
-            m = pattern.match(log.message)
-            if m:
-                found.append((m.groupdict(), log))
-        return found
-
-    if isinstance(logs, LogStage):
-        return find_and_parse(logs.lines, pattern)
-
-    assert False, f"Type {type(logs)} is unsupported."

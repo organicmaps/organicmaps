@@ -180,7 +180,7 @@ def outer_stage(stage: Type[Stage]) -> Type[Stage]:
             log_handler = create_file_handler(logfile)
             logger.addHandler(log_handler)
             # This message is used as an anchor for parsing logs.
-            # See maps_generator/checks/logs/logs_reader.py STAGE_START_MSG_PATTERN
+            # See maps_generator/generator/logs_reader.py STAGE_START_MSG_PATTERN
             logger.info(f"Stage {name}: start ...")
             t = time.time()
             try:
@@ -200,7 +200,7 @@ def outer_stage(stage: Type[Stage]) -> Type[Stage]:
             finally:
                 d = time.time() - t
                 # This message is used as an anchor for parsing logs.
-                # See maps_generator/checks/logs/logs_reader.py STAGE_FINISH_MSG_PATTERN
+                # See maps_generator/generator/logs_reader.py STAGE_FINISH_MSG_PATTERN
                 logger.info(
                     f"Stage {name}: finished in {str(datetime.timedelta(seconds=d))}"
                 )
@@ -261,14 +261,14 @@ def country_stage_log(stage: Type[Stage]) -> Type[Stage]:
 
             _logger, log_handler = countries_meta[country]["logger"]
             # This message is used as an anchor for parsing logs.
-            # See maps_generator/checks/logs/logs_reader.py STAGE_START_MSG_PATTERN
+            # See maps_generator/generator/logs_reader.py STAGE_START_MSG_PATTERN
             _logger.info(f"Stage {name}: start ...")
             t = time.time()
             env.set_subprocess_out(log_handler.stream, country)
             method(obj, env, country, *args, logger=_logger, **kwargs)
             d = time.time() - t
             # This message is used as an anchor for parsing logs.
-            # See maps_generator/checks/logs/logs_reader.py STAGE_FINISH_MSG_PATTERN
+            # See maps_generator/generator/logs_reader.py STAGE_FINISH_MSG_PATTERN
             _logger.info(
                 f"Stage {name}: finished in {str(datetime.timedelta(seconds=d))}"
             )

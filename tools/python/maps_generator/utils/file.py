@@ -5,6 +5,7 @@ import logging
 import os
 import shutil
 from functools import partial
+from html.parser import HTMLParser
 from multiprocessing.pool import ThreadPool
 from typing import AnyStr
 from typing import Dict
@@ -16,7 +17,6 @@ from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 import requests
-from bs4 import BeautifulSoup
 from requests_file import FileAdapter
 
 from maps_generator.utils.md5 import check_md5
@@ -113,6 +113,20 @@ def is_dir(url) -> bool:
     return url.endswith("/")
 
 
+class _LinkExtractor(HTMLParser):
+    """Collects href values of <a> tags, e.g. from an HTML directory listing."""
+
+    def __init__(self):
+        super().__init__()
+        self.hrefs = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "a":
+            self.hrefs.extend(
+                value for name, value in attrs if name == "href" and value
+            )
+
+
 def find_files(url) -> List[AnyStr]:
     def files_list_file_scheme(path, results=None):
         if results is None:
@@ -130,11 +144,9 @@ def find_files(url) -> List[AnyStr]:
         if results is None:
             results = []
 
-        page = requests.get(url).content
-        bs = BeautifulSoup(page, "html.parser")
-        links = bs.findAll("a", href=True)
-        for link in links:
-            href = link["href"]
+        extractor = _LinkExtractor()
+        extractor.feed(requests.get(url).text)
+        for href in extractor.hrefs:
             if href == "./" or href == "../":
                 continue
 
