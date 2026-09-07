@@ -38,6 +38,25 @@ public enum MapStyle
     nativeMark(mapStyle.value);
   }
 
+  /**
+   * Stores the platform's light/dark choice in the core, which combines it with the active family
+   * (vehicle / outdoors / default) to resolve the concrete map style. Storing only, no apply.
+   */
+  public static void setNightMode(boolean nightMode)
+  {
+    nativeSetNightMode(nightMode);
+  }
+
+  /**
+   * Resolves the map style for the current routing/outdoors mode. Both the family (vehicle / outdoors
+   * / default) and the darkness come from the core; push the latter via {@link #setNightMode}.
+   */
+  @NonNull
+  public static MapStyle resolveForMode()
+  {
+    return valueOf(nativeResolveForMode());
+  }
+
   @NonNull
   public static MapStyle valueOf(int value)
   {
@@ -56,4 +75,8 @@ public enum MapStyle
   private static native int nativeGet();
 
   private static native void nativeMark(int mapStyle);
+
+  private static native int nativeResolveForMode();
+
+  private static native void nativeSetNightMode(boolean nightMode);
 }
