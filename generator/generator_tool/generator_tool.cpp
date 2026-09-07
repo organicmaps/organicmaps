@@ -27,7 +27,6 @@
 #include "generator/statistics.hpp"
 #include "generator/traffic_generator.hpp"
 #include "generator/transit_generator.hpp"
-#include "generator/transit_generator_experimental.hpp"
 #include "generator/unpack_mwm.hpp"
 #include "generator/utils.hpp"
 #include "generator/wiki_url_dumper.hpp"
@@ -111,9 +110,6 @@ DEFINE_string(addresses_path, "", "Path to addresses directory. If set, adds add
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
 DEFINE_bool(make_cross_mwm, false, "Make section for cross mwm routing (for dynamic indexed routing).");
 DEFINE_bool(make_transit_cross_mwm, false, "Make section for cross mwm transit routing.");
-DEFINE_bool(make_transit_cross_mwm_experimental, false,
-            "Experimental parameter. If set the new version of transit cross-mwm section will be "
-            "generated. Makes section for cross mwm transit routing.");
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
@@ -122,9 +118,6 @@ DEFINE_string(world_roads_path, "",
               "section with these roads in World.mwm. The roads may be used to identify which mwm "
               "files are touched by an arbitrary route.");
 DEFINE_string(transit_path, "", "Path to directory with transit graphs in json.");
-DEFINE_string(transit_path_experimental, "",
-              "Experimental parameter. If set the new version of transit section will be "
-              "generated. Path to directory with json generated from GTFS.");
 DEFINE_bool(generate_cameras, false, "Generate section with speed cameras info.");
 DEFINE_bool(make_city_roads, false,
             "Calculates which roads lie inside cities and makes a section with ids of these roads.");
@@ -283,8 +276,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   // Load mwm tree only if we need it
   std::unique_ptr<storage::CountryParentGetter> countryParentGetter;
   if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
-      FLAGS_make_transit_cross_mwm_experimental || !FLAGS_uk_postcodes_dataset.empty() ||
-      !FLAGS_us_postcodes_dataset.empty())
+      !FLAGS_uk_postcodes_dataset.empty() || !FLAGS_us_postcodes_dataset.empty())
   {
     countryParentGetter = std::make_unique<storage::CountryParentGetter>();
   }
@@ -406,17 +398,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(dataFile, FLAGS_srtm_path);
 
-    transit::experimental::EdgeIdToFeatureId transitEdgeFeatureIds;
-
-    if (!FLAGS_transit_path_experimental.empty())
-    {
-      transitEdgeFeatureIds =
-          transit::experimental::BuildTransit(path, country, osmToFeatureFilename, FLAGS_transit_path_experimental);
-    }
-    else if (!FLAGS_transit_path.empty())
-    {
+    if (!FLAGS_transit_path.empty())
       routing::transit::BuildTransit(path, country, osmToFeatureFilename, FLAGS_transit_path);
-    }
 
     if (FLAGS_generate_cameras)
     {
@@ -488,7 +471,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       }
     }
 
-    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm || FLAGS_make_transit_cross_mwm_experimental)
+    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)
     {
       if (!countryParentGetter)
       {
@@ -504,19 +487,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
                                     osmToFeatureFilename);
       }
 
-      if (FLAGS_make_transit_cross_mwm_experimental)
-      {
-        if (!transitEdgeFeatureIds.empty())
-        {
-          BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter, transitEdgeFeatureIds,
-                                      true /* experimentalTransit */);
-        }
-      }
-      else if (FLAGS_make_transit_cross_mwm)
-      {
-        BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter, transitEdgeFeatureIds,
-                                    false /* experimentalTransit */);
-      }
+      if (FLAGS_make_transit_cross_mwm)
+        BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter);
     }
 
     // Check !generate_popular_places to avoid mixing, generate_popular_places stage uses the same wiki flags.

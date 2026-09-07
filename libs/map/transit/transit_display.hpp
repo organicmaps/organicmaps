@@ -114,7 +114,7 @@ struct SubrouteParams
 {
   std::string m_lastColor;
   m2::PointD m_lastDir;
-  ::transit::TransitId m_lastLineId = ::transit::kInvalidTransitId;
+  routing::transit::LineId m_lastLineId = routing::transit::kInvalidLineId;
   df::SubrouteMarker m_marker;
   TransitMarkInfo m_transitMarkInfo;
   TransitType m_transitType = TransitType::Pedestrian;
@@ -125,11 +125,14 @@ struct SubrouteParams
 
 struct SubrouteSegmentParams
 {
-  SubrouteSegmentParams(routing::TransitInfo const & transitInfo) : m_transitInfo(transitInfo) {}
+  SubrouteSegmentParams(routing::TransitInfo const & transitInfo, TransitDisplayInfo const & displayInfo)
+    : m_transitInfo(transitInfo)
+    , m_displayInfo(displayInfo)
+  {}
   int m_time = 0;
   double m_distance = 0.0;
-  routing::TransitInfo m_transitInfo;
-  TransitDisplayInfo m_displayInfo;
+  routing::TransitInfo const & m_transitInfo;
+  TransitDisplayInfo const & m_displayInfo;
   MwmSet::MwmId m_mwmId;
 };
 
@@ -152,14 +155,9 @@ private:
   using StopId = routing::transit::StopId;
   void AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
                                 SubrouteSegmentParams & ssp, StopId legBoardId, StopId legAlightId);
-  void AddEdgePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
-                            SubrouteSegmentParams & ssp);
 
   void AddGateSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
                                 SubrouteSegmentParams & ssp);
-
-  void AddGatePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
-                            SubrouteSegmentParams & ssp);
 
   void CollectTransitDisplayInfo(std::vector<routing::RouteSegment> const & segments,
                                  TransitDisplayInfos & transitDisplayInfos);

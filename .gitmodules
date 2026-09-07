@@ -10,10 +10,6 @@
   path = 3party/Vulkan-Headers
   url = https://github.com/KhronosGroup/Vulkan-Headers.git
   branch = main
-[submodule "3party/just_gtfs"]
-  path = 3party/just_gtfs
-  url = https://github.com/organicmaps/just_gtfs.git
-  branch = for-usage-as-submodule
 [submodule "3party/expat"]
   path = 3party/expat
   url = https://github.com/libexpat/libexpat.git
