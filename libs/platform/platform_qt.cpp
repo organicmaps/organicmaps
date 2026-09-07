@@ -58,7 +58,7 @@ Platform::EError Platform::MkDir(std::string const & dirName)
     return Platform::ERR_OK;
   // mkdir failed: most commonly because the directory already exists. QDir::mkdir() doesn't
   // expose errno, so re-check to map this benign case to ERR_FILE_ALREADY_EXISTS (which
-  // MkDirRecursively/MkDirChecked tolerate) instead of a misleading ERR_UNKNOWN.
+  // MkDirChecked tolerates) instead of a misleading ERR_UNKNOWN.
   if (QDir().exists(dirName.c_str()))
     return Platform::ERR_FILE_ALREADY_EXISTS;
   LOG(LWARNING, ("Can't create directory:", dirName));
