@@ -57,6 +57,11 @@ public final class OpeningHours
    */
   public static native boolean nativeIsTimetableStringValid(String source);
 
+  /**
+   * Evaluates the schedule of the currently shown place page in the POI's own time zone.
+   * The schedule and the time zone are both read from the place page so that they cannot describe
+   * different POIs.
+   */
   @Nullable
-  public static native OpeningHoursInfo nativeGetOpeningHoursInfoFromString(String source, long currentTime);
+  public static native OpeningHoursInfo nativeGetPlacePageOpeningHoursInfo(long currentTime);
 }

@@ -1,5 +1,6 @@
 #import "PlacePageInfoData+Core.h"
 
+#import "OpeningHours+Core.h"
 #import "OpeningHours.h"
 #import "PlacePagePhone.h"
 #import "PlacePageRoute.h"
@@ -71,7 +72,9 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
       {
       case MetadataID::FMD_OPEN_HOURS:
         _openingHoursString = ToNSString(value);
-        _openingHours = [[OpeningHours alloc] initWithRawString:_openingHoursString localization:localization];
+        _openingHours = [[OpeningHours alloc] initWithRawString:_openingHoursString
+                                                   localization:localization
+                                                       timeZone:rawData.GetTimeZone()];
         break;
       case MetadataID::FMD_PHONE_NUMBER:
       {

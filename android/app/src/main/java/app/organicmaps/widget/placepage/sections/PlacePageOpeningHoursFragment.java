@@ -93,7 +93,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     resetWeeklyViewState();
 
     final boolean noOhString = ohStr.isEmpty();
-    final OpeningHoursInfo ohInfo = getOpeningHoursInfoFromString(ohStr);
+    final OpeningHoursInfo ohInfo = OpeningHours.nativeGetPlacePageOpeningHoursInfo(System.currentTimeMillis() / 1000L);
     final boolean isEmptyTT = timetables == null || timetables.length == 0;
 
     refreshSchedulePreview(ohInfo);
@@ -285,12 +285,6 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mDropdownContent.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
                              View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
     return mDropdownContent.getMeasuredHeight();
-  }
-
-  private OpeningHoursInfo getOpeningHoursInfoFromString(String ohStr)
-  {
-    final long currentTime = System.currentTimeMillis() / 1000L;
-    return OpeningHours.nativeGetOpeningHoursInfoFromString(ohStr, currentTime);
   }
 
   private void refreshSchedulePreview(OpeningHoursInfo ohInfo)

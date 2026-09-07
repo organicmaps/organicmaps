@@ -1,5 +1,6 @@
 #include <jni.h>
 
+#include "app/organicmaps/sdk/Framework.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 
@@ -337,25 +338,31 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OpeningHours_nativeIsTimetabl
   return source.empty() || osmoh::OpeningHours(source).IsValid();
 }
 
-JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetOpeningHoursInfoFromString(JNIEnv * env,
-                                                                                                   jclass clazz,
-                                                                                                   jstring jSource,
-                                                                                                   jlong jCurrentTime)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetPlacePageOpeningHoursInfo(JNIEnv * env,
+                                                                                                  jclass clazz,
+                                                                                                  jlong jCurrentTime)
 {
   using namespace osmoh;
 
-  std::string const source = jni::ToNativeString(env, jSource);
+  if (!frm()->HasPlacePageInfo())
+    return nullptr;
+
+  // The schedule and the time zone must describe the same POI, hence both are taken from the
+  // currently shown place page instead of accepting the schedule as an argument.
+  auto const & placePage = g_framework->GetPlacePageInfo();
+  auto const source = placePage.GetOpeningHours();
+  if (source.empty())
+    return nullptr;
+
   OpeningHours const oh(source);
+  if (!oh.IsValid())
+    return nullptr;
 
-  if (!source.empty() && oh.IsValid())
-  {
-    OpeningHours::InfoT info = oh.GetInfo(static_cast<time_t>(jCurrentTime));
-    if (info.state == RuleState::Unknown)
-      return nullptr;
-    return JavaOpeningHoursInfo(env, info.state, oh.IsTwentyFourHours(), info.nextTimeOpen, info.nextTimeClosed);
-  }
-
-  return nullptr;
+  // Evaluate in the POI's local time zone, not the device's, see issue #1642.
+  OpeningHours::InfoT const info = oh.GetInfo(static_cast<time_t>(jCurrentTime), placePage.GetTimeZone());
+  if (info.state == RuleState::Unknown)
+    return nullptr;
+  return JavaOpeningHoursInfo(env, info.state, oh.IsTwentyFourHours(), info.nextTimeOpen, info.nextTimeClosed);
 }
 
 }  // extern "C"
