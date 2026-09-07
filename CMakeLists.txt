@@ -71,6 +71,11 @@ endif()
 if (MSVC)
   add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/utf-8>)
   add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/bigobj>)
+  # The XML parsers throw from expat callbacks through XML_Parse. With CMake's default /EHsc MSVC
+  # assumes that extern "C" functions never throw and may skip the catch blocks (seen in Release
+  # builds); /EHs drops that assumption. Rewritten rather than appended: cl warns about overriding
+  # /EHsc otherwise.
+  string(REPLACE "/EHsc" "/EHs" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   add_link_options(/INCREMENTAL:NO)
 else()
   add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>)
