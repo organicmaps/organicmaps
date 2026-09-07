@@ -209,8 +209,6 @@ set(SRC
   traffic_generator.hpp
   transit_generator.cpp
   transit_generator.hpp
-  transit_generator_experimental.cpp
-  transit_generator_experimental.hpp
   translator.cpp
   translator.hpp
   translator_coastline.cpp

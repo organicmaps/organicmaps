@@ -526,8 +526,9 @@ void GraphData::ReadHeader(NonOwningReaderSource & src)
 {
   FixedSizeDeserializer<NonOwningReaderSource> numberDeserializer(src);
   numberDeserializer(m_header);
+  CHECK_EQUAL(m_header.m_version, kTransitVersion, ("Unsupported", TRANSIT_FILE_TAG, "section version."));
   CHECK_EQUAL(src.Pos(), m_header.m_stopsOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
-  CHECK(m_header.IsValid(), ());
+  CHECK(m_header.IsValid(), (m_header));
 }
 
 void GraphData::ReadStops(NonOwningReaderSource & src)

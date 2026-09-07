@@ -1,5 +1,4 @@
 #include "transit/transit_types.hpp"
-#include "transit/transit_version.hpp"
 
 namespace
 {
@@ -28,7 +27,7 @@ TransitHeader::TransitHeader(uint16_t version, uint32_t stopsOffset, uint32_t ga
 
 void TransitHeader::Reset()
 {
-  m_version = static_cast<uint16_t>(::transit::TransitVersion::OnlySubway);
+  m_version = kTransitVersion;
   m_reserve = 0;
   m_stopsOffset = 0;
   m_gatesOffset = 0;

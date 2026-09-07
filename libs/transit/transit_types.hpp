@@ -9,6 +9,7 @@
 #include "base/visitor.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <limits>
 #include <string>
 #include <vector>
@@ -17,6 +18,9 @@ namespace routing
 {
 namespace transit
 {
+// V1 transit section (TRANSIT_FILE_TAG, routing::transit::GraphData): OSM route-relation transit.
+uint16_t constexpr kTransitVersion = 0;
+
 using Anchor = uint8_t;
 using FeatureId = uint32_t;
 using LineId = uint32_t;
