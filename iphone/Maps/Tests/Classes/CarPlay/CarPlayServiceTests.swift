@@ -21,12 +21,17 @@ final class CarPlayServiceTests: XCTestCase {
                               targetUnitsIndex: 1, // km
                               distanceToTurn: 0.5,
                               turnUnitsIndex: 0, // m
+                              currentStreetName: "Bahdanoviča Street",
                               streetName: "Niamiha",
+                              nextStreetName: "Internacyjanalnaja Street",
+                              turnDirection: .left,
+                              nextTurnDirection: .right,
                               turnImageName: nil,
                               nextTurnImageName: nil,
                               speedMps: 40.5,
                               speedLimitMps: 60,
-                              roundExitNumber: 0)
+                              roundExitNumber: 0,
+                              isLeftHandTraffic: false)
     let estimates = carPlayService.createEstimates(routeInfo: routeInfo)
 
     guard let estimates else {

@@ -10,9 +10,55 @@
 
 #include <CoreApi/Framework.h>
 
+#include "geometry/mercator.hpp"
+#include "indexer/feature_meta.hpp"
+#include "platform/country_file.hpp"
+#include "storage/country_info_getter.hpp"
+
+namespace
+{
+MWMRouteTurnDirection RouteTurnDirection(routing::turns::CarDirection turn)
+{
+  using namespace routing::turns;
+  switch (turn)
+  {
+  case CarDirection::None:
+  case CarDirection::Count: return MWMRouteTurnDirectionNone;
+  case CarDirection::GoStraight: return MWMRouteTurnDirectionStraight;
+  case CarDirection::TurnRight: return MWMRouteTurnDirectionRight;
+  case CarDirection::TurnSharpRight: return MWMRouteTurnDirectionSharpRight;
+  case CarDirection::TurnSlightRight: return MWMRouteTurnDirectionSlightRight;
+  case CarDirection::TurnLeft: return MWMRouteTurnDirectionLeft;
+  case CarDirection::TurnSharpLeft: return MWMRouteTurnDirectionSharpLeft;
+  case CarDirection::TurnSlightLeft: return MWMRouteTurnDirectionSlightLeft;
+  case CarDirection::UTurnLeft: return MWMRouteTurnDirectionUTurnLeft;
+  case CarDirection::UTurnRight: return MWMRouteTurnDirectionUTurnRight;
+  case CarDirection::EnterRoundAbout: return MWMRouteTurnDirectionEnterRoundabout;
+  case CarDirection::LeaveRoundAbout: return MWMRouteTurnDirectionLeaveRoundabout;
+  case CarDirection::StayOnRoundAbout: return MWMRouteTurnDirectionStayOnRoundabout;
+  case CarDirection::StartAtEndOfStreet: return MWMRouteTurnDirectionStartAtEndOfStreet;
+  case CarDirection::ReachedYourDestination: return MWMRouteTurnDirectionDestination;
+  case CarDirection::ExitHighwayToLeft: return MWMRouteTurnDirectionExitHighwayLeft;
+  case CarDirection::ExitHighwayToRight: return MWMRouteTurnDirectionExitHighwayRight;
+  }
+  return MWMRouteTurnDirectionNone;
+}
+
+bool IsLeftHandTraffic(storage::CountryId const & countryId)
+{
+  auto & framework = GetFramework();
+  auto const mwmId = framework.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(countryId));
+  auto const & info = mwmId.GetInfo();
+  return info && info->GetRegionData().Get(feature::RegionData::RD_DRIVING) == "l";
+}
+}  // namespace
+
 @interface MWMRoutingManager () <MWMFrameworkRouteBuilderObserver, MWMLocationObserver>
 @property(nonatomic, readonly) RoutingManager & rm;
 @property(strong, nonatomic) NSHashTable<id<MWMRoutingManagerListener>> * listeners;
+@property(nonatomic) storage::CountryInfoGetterBase::RegionId trafficRegionId;
+@property(nonatomic) BOOL isLeftHandTraffic;
+@property(strong, nonatomic) CLLocation * trafficSideLocation;
 @end
 
 @implementation MWMRoutingManager
@@ -31,6 +77,7 @@
   if (self)
   {
     self.listeners = [NSHashTable<id<MWMRoutingManagerListener>> weakObjectsHashTable];
+    self.trafficRegionId = storage::CountryInfoGetterBase::kInvalidId;
     [MWMFrameworkListener addObserver:self];
     [MWMLocationManager addObserver:self];
   }
@@ -93,6 +140,7 @@
   if (!info.IsValid())
     return nil;
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  [self updateTrafficSideAtLocation:lastLocation];
   double speedMps = 0;
   if (lastLocation && lastLocation.speed >= 0)
     speedMps = lastLocation.speed;
@@ -104,19 +152,33 @@
     roundExitNumber = info.m_exitNum;
   }
 
-  MWMRouteInfo * objCInfo =
-      [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
-                                  targetDistance:info.m_distToTarget.GetDistance()
-                                targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
-                                  distanceToTurn:info.m_distToTurn.GetDistance()
-                                  turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
-                                      streetName:@(info.m_nextStreetName.c_str())
-                                   turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
-                               nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
-                                        speedMps:speedMps
-                                   speedLimitMps:info.m_speedLimitMps
-                                 roundExitNumber:roundExitNumber];
-  return objCInfo;
+  auto nextTurnDirection = routing::turns::CarDirection::None;
+  if (info.m_nextTurn != routing::turns::CarDirection::None)
+  {
+    // m_nextTurn controls when the "then" maneuver is shown, but its cached direction can lag behind the route.
+    auto const * route = self.rm.RoutingSession().GetRoute();
+    double distanceToNextTurnMeters = 0.0;
+    routing::turns::TurnItem nextTurn;
+    if (route && route->GetNextTurn(distanceToNextTurnMeters, nextTurn))
+      nextTurnDirection = nextTurn.m_turn;
+  }
+
+  return [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
+                                     targetDistance:info.m_distToTarget.GetDistance()
+                                   targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
+                                     distanceToTurn:info.m_distToTurn.GetDistance()
+                                     turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
+                                  currentStreetName:@(info.m_currentStreetName.c_str())
+                                         streetName:@(info.m_nextStreetName.c_str())
+                                     nextStreetName:@(info.m_nextNextStreetName.c_str())
+                                      turnDirection:RouteTurnDirection(info.m_turn)
+                                  nextTurnDirection:RouteTurnDirection(nextTurnDirection)
+                                      turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
+                                  nextTurnImageName:[self turnImageName:nextTurnDirection isPrimary:NO]
+                                           speedMps:speedMps
+                                      speedLimitMps:info.m_speedLimitMps
+                                    roundExitNumber:roundExitNumber
+                                  isLeftHandTraffic:self.isLeftHandTraffic];
 }
 
 - (MWMRouterType)type
@@ -282,6 +344,35 @@
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
   for (id<MWMRoutingManagerListener> object in objects)
     [object didLocationUpdate:turnNotifications];
+}
+
+- (void)updateTrafficSideAtLocation:(CLLocation *)location
+{
+  if (!location)
+    return;
+  if ([self.trafficSideLocation isEqual:location])
+    return;
+  self.trafficSideLocation = location;
+
+  auto & countryInfoGetter = GetFramework().GetCountryInfoGetter();
+  auto const coordinate = location.coordinate;
+  auto const position = mercator::FromLatLon(coordinate.latitude, coordinate.longitude);
+  if (self.trafficRegionId != storage::CountryInfoGetterBase::kInvalidId &&
+      countryInfoGetter.BelongsToAnyRegion(position, {self.trafficRegionId}))
+  {
+    return;
+  }
+
+  auto const countryId = countryInfoGetter.GetRegionCountryId(position);
+  if (countryId.empty())
+  {
+    self.trafficRegionId = storage::CountryInfoGetterBase::kInvalidId;
+    self.isLeftHandTraffic = NO;
+    return;
+  }
+
+  self.trafficRegionId = countryInfoGetter.GetRegionId(countryId);
+  self.isLeftHandTraffic = IsLeftHandTraffic(countryId);
 }
 
 - (NSString *)turnImageName:(routing::turns::CarDirection)turn isPrimary:(BOOL)isPrimary
