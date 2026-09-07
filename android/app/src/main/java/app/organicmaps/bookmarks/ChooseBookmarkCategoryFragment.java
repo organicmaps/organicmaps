@@ -45,17 +45,24 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
   {
     final long checkedId = requireArguments().getLong(CATEGORY_ID);
-    // getCategories() is a live view that is re-sorted on every change; snapshot it so indices stay valid.
+    // getCategories() is a live view re-sorted on every change; snapshot it before reordering below.
     final List<BookmarkCategory> categories = new ArrayList<>(BookmarkManager.INSTANCE.getCategories());
 
-    final String[] names = new String[categories.size()];
+    // AlertController scrolls the checked row to the top, hiding every list above it. Keep it first instead.
     int checkedItem = -1;
     for (int i = 0; i < categories.size(); i++)
     {
-      names[i] = categories.get(i).getName();
       if (categories.get(i).getId() == checkedId)
-        checkedItem = i;
+      {
+        categories.add(0, categories.remove(i));
+        checkedItem = 0;
+        break;
+      }
     }
+
+    final String[] names = new String[categories.size()];
+    for (int i = 0; i < categories.size(); i++)
+      names[i] = categories.get(i).getName();
 
     final AlertDialog dialog =
         new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
