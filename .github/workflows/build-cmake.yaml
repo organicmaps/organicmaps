@@ -64,6 +64,11 @@ jobs:
             cc: clang
             cxx: clang++
             developer-dir: /Applications/Xcode_26.5.app/Contents/Developer
+
+          - os: windows-2025-vs2026
+            cc: cl.exe
+            cxx: cl.exe
+            cmake-preset-suffix: -windows
         exclude:
           - environment: { unity: OFF }
             cmake-build-type: Release
@@ -72,8 +77,15 @@ jobs:
 
     runs-on: ${{ matrix.environment.os }}
 
+    # Windows defaults to PowerShell, keep the same shell syntax everywhere.
+    defaults:
+      run:
+        shell: bash
+
     env:
       DEVELOPER_DIR: ${{ matrix.environment.developer-dir }}
+      PRESET: ci${{ matrix.environment.cmake-preset-suffix || '' }}
+      PRESET_DRAPE: ci-drape${{ matrix.environment.cmake-preset-suffix || '' }}
 
     steps:
       - name: Free disk space by removing .NET, Android and Haskell
@@ -113,6 +125,18 @@ jobs:
           brew install qt@6
           pip3 install tornado --break-system-packages
 
+      - name: Install Qt (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.*'
+          modules: qtpositioning
+          cache: true
+
+      - name: Set up MSVC environment (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        uses: ilammy/msvc-dev-cmd@v1
+
       - name: Configure ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
@@ -132,13 +156,13 @@ jobs:
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
           UNITY_BUILD: ${{ matrix.environment.unity || 'ON' }}
         run: |
-          cmake --preset ci \
+          cmake --preset $PRESET \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
             -DCMAKE_UNITY_BUILD=${UNITY_BUILD}
 
-      # Surface gcc/clang warnings and errors as inline annotations on the PR diff.
+      # Surface compiler warnings and errors as inline annotations on the PR diff.
       - name: Enable inline compiler annotations
-        run: echo "::add-matcher::.github/problem-matchers/gcc.json"
+        run: echo "::add-matcher::.github/problem-matchers/${{ runner.os == 'Windows' && 'msvc' || 'gcc' }}.json"
 
       # dev_sandbox is skipped with a warning when the Metal toolchain is
       # unavailable (see dev_sandbox/CMakeLists.txt). Ask for the target
@@ -147,10 +171,10 @@ jobs:
       # dev_sandbox is a part of the default target anyway, so nothing is wasted.
       - name: Check dev_sandbox is not skipped (macOS)
         if: ${{ runner.os == 'macOS' }}
-        run: cmake --build --preset ci --target dev_sandbox
+        run: cmake --build --preset $PRESET --target dev_sandbox
 
       - name: Compile
-        run: cmake --build --preset ci
+        run: cmake --build --preset $PRESET
 
       - name: Prepare testing environment (Linux)
         if: ${{ runner.os == 'Linux' }}
@@ -176,11 +200,11 @@ jobs:
       #     the offline part of that coverage lives in storage_tests
       - name: Run tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        run: ctest --preset ci -j$(nproc --all)
+        run: ctest --preset $PRESET -j$(nproc --all)
 
       # Run drape tests separately. They require offscreen rendering support.
-      # The "ci-drape" test preset sets QT_QPA_PLATFORM=offscreen; setting it
+      # The drape test presets set QT_QPA_PLATFORM=offscreen; setting it
       # globally breaks network tests on macOS.
       - name: Run drape tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        run: ctest --preset ci-drape --verbose
+        run: ctest --preset $PRESET_DRAPE --verbose

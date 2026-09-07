@@ -178,9 +178,9 @@ LD_PRELOAD=/usr/lib64/libGL.so.1 ./OMaps                  # Fedora/RHEL
 
 ### Windows
 
-Native Windows builds of Organic Maps are not actively maintained, but building on Windows is still possible. Some parts of the build system may require updates, and there is ongoing work on the [windows](https://github.com/organicmaps/organicmaps/tree/windows) branch. Contributions are welcome.
+Native Windows builds are compiled and unit-tested by CI with MSVC (see the `windows-2025-vs2026` leg in `.github/workflows/build-cmake.yaml` and the `ci-windows` presets in `CMakePresets.json`). Contributions are welcome.
 
-You'll need to have python3, cmake, ninja, and QT6 in the PATH, and Visual Studio 2022 or Visual Studio 2022 Build Tools installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
+You'll need to have python3, cmake, ninja, and Qt 6 in the PATH, and Visual Studio 2022 or newer (or its Build Tools) installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
 
 However, it is possible to use the WSL (Windows Subsystem for Linux) to run GUI applications.
 
