@@ -32,7 +32,7 @@ on:
       - xcode/**
 
 env:
-  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+  JAVA_HOME: /usr/lib/jvm/temurin-21-jdk-amd64  # Java 21 is required by Android Gradle plugin lint
 
 jobs:
   android-google-beta:
