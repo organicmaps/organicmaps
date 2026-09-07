@@ -9,6 +9,7 @@
 
 #include "std/windows.hpp"
 
+#include <cstdio>
 #include <functional>
 
 #include <direct.h>
@@ -54,6 +55,17 @@ std::unique_ptr<Socket> CreateSocket()
 
 Platform::Platform()
 {
+  // See pl::SetMaxOpenFileLimit() for the rationale. 8192 is the maximum accepted by _setmaxstdio().
+  int constexpr kMaxOpenFiles = 8192;
+  int const oldLimit = ::_getmaxstdio();
+  if (oldLimit < kMaxOpenFiles)
+  {
+    if (::_setmaxstdio(kMaxOpenFiles) == kMaxOpenFiles)
+      LOG(LINFO, ("Increased the open files limit from", oldLimit, "to", kMaxOpenFiles));
+    else
+      LOG(LWARNING, ("_setmaxstdio(", kMaxOpenFiles, ") has failed"));
+  }
+
   std::string path;
   CHECK(GetPathToBinary(path), ("Can't get path to binary"));
 

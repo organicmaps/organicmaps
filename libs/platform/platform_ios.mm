@@ -31,6 +31,8 @@
 
 Platform::Platform()
 {
+  pl::SetMaxOpenFileLimit();
+
   m_isTablet = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad;
 
   NSBundle * bundle = NSBundle.mainBundle;

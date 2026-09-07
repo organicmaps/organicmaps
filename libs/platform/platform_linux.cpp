@@ -2,6 +2,7 @@
 #include "private.h"
 
 #include "platform/gui_thread.hpp"
+#include "platform/platform_unix_impl.hpp"
 #include "platform/socket.hpp"
 
 #include "base/exception.hpp"
@@ -76,6 +77,8 @@ std::unique_ptr<Socket> CreateSocket()
 
 Platform::Platform()
 {
+  pl::SetMaxOpenFileLimit();
+
   using base::JoinPath;
   // Current executable's path with a trailing slash.
   auto const execDir = GetExecutableDir();
