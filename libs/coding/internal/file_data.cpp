@@ -19,6 +19,8 @@
 #include <vector>
 
 #ifdef OMIM_OS_WINDOWS
+#include "std/windows.hpp"
+
 #include <io.h>
 #else
 #include <unistd.h>  // ftruncate
@@ -210,15 +212,22 @@ bool DeleteFileX(std::string const & fName)
 
 bool RenameFileX(std::string const & fOld, std::string const & fNew)
 {
+#ifdef OMIM_OS_WINDOWS
+  // rename() does not replace an existing destination on Windows.
+  if (::MoveFileExA(fOld.c_str(), fNew.c_str(), MOVEFILE_REPLACE_EXISTING))
+    return true;
+  LOG(LWARNING, ("Can't rename file", fOld, "to", fNew, "- error", ::GetLastError()));
+  return false;
+#else
   int res = rename(fOld.c_str(), fNew.c_str());
   return CheckFileOperationResult(res, fOld);
+#endif
 }
 
 bool MoveFileX(std::string const & fOld, std::string const & fNew)
 {
   // Try to rename the file first.
-  int res = rename(fOld.c_str(), fNew.c_str());
-  if (res == 0)
+  if (RenameFileX(fOld, fNew))
     return true;
 
   // Otherwise perform the full move.
