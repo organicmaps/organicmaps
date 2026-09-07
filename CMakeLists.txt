@@ -1,5 +1,14 @@
 cmake_minimum_required(VERSION 3.22.1)
 
+# Let CMAKE_MSVC_DEBUG_INFORMATION_FORMAT choose between /Zi and /Z7, and keep the debug info inside the
+# object files: ccache cannot cache /Zi compilations, which write PDBs.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  if (NOT CMAKE_MSVC_DEBUG_INFORMATION_FORMAT)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
+  endif()
+endif()
+
 project(omim C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
