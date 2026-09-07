@@ -1,5 +1,5 @@
-# Set default behaviour, in case users don't have core.autocrlf set.
-* text=auto
+# Every text file is checked out with LF line endings, tests compare fixtures byte for byte.
+* text=auto eol=lf
 
 # Explicitly declare text files we want to always be normalized and converted 
 # to native line endings on checkout.
@@ -31,6 +31,7 @@
 # Declare files that will always have CRLF line endings on checkout.
 *.dsp    text eol=crlf
 *.dsw    text eol=crlf
+*.bat    text eol=crlf
 
 # Binary files which doesn't need any normalization
 *.bin     binary
