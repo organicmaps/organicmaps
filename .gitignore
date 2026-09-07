@@ -105,3 +105,8 @@ CMakeUserPresets.json
 /screenshots/
 /keywords/
 /iphone/metadata/**/keywords.txt
+
+# Local agent instructions and plans.
+/CLAUDE.local.md
+/AGENTS.override.md
+/plans
