@@ -100,22 +100,6 @@ constexpr bool IsServiceLang(std::string_view const lang)
          lang == kLanguages[StringUtf8Multilang::kOldNameCode].m_code;
 }
 
-StringUtf8Multilang::Languages constexpr allLanguages = [] consteval
-{
-  StringUtf8Multilang::Languages langs;
-  std::ranges::copy_if(kLanguages, std::back_inserter(langs), [](StringUtf8Multilang::Lang const & lang)
-  { return lang.m_code != StringUtf8Multilang::kReservedLang; });
-  return langs;
-}();
-
-StringUtf8Multilang::Languages constexpr languagesWithoutService = [] consteval
-{
-  StringUtf8Multilang::Languages langs;
-  std::ranges::copy_if(allLanguages, std::back_inserter(langs),
-                       [](StringUtf8Multilang::Lang const & lang) { return !IsServiceLang(lang.m_code); });
-  return langs;
-}();
-
 // Compile-time perfect hash table for O(1) language code lookup.
 constexpr uint32_t LangHash(std::string_view s)
 {
@@ -180,6 +164,23 @@ bool StringUtf8Multilang::IsServiceLang(std::string_view const lang)
 
 StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages(bool includeServiceLangs)
 {
+  // Not constexpr: MSVC's debug std::vector allocates its iterator-checking proxy even in constant
+  // evaluation, so a buffer_vector cannot be a constexpr variable there. Function-local statics keep
+  // the lists usable from other static initializers, e.g. in mwm_viewer.
+  static Languages const allLanguages = []
+  {
+    Languages langs;
+    std::ranges::copy_if(kLanguages, std::back_inserter(langs),
+                         [](Lang const & lang) { return lang.m_code != kReservedLang; });
+    return langs;
+  }();
+  static Languages const languagesWithoutService = []
+  {
+    Languages langs;
+    std::ranges::copy_if(allLanguages, std::back_inserter(langs),
+                         [](Lang const & lang) { return !::IsServiceLang(lang.m_code); });
+    return langs;
+  }();
   return includeServiceLangs ? allLanguages : languagesWithoutService;
 }
 

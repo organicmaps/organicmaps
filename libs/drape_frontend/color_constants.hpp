@@ -4,16 +4,17 @@
 
 #include <map>
 #include <string>
+#include <string_view>
 
 namespace df
 {
 using ColorConstant = std::string_view;
 
-std::string constexpr kTransitColorPrefix = "transit_";
-std::string constexpr kTransitTextPrefix = "text_";
-// constexpr doesn't compile on Android now
-std::string const kTransitLineColorPrefix = kTransitColorPrefix + "line_";
-std::string const kTransitTextColorPrefix = kTransitColorPrefix + kTransitTextPrefix;
+std::string_view constexpr kTransitColorPrefix = "transit_";
+std::string_view constexpr kTransitLineColorPrefix = "transit_line_";
+std::string_view constexpr kTransitTextColorPrefix = "transit_text_";
+static_assert(kTransitLineColorPrefix.starts_with(kTransitColorPrefix));
+static_assert(kTransitTextColorPrefix.starts_with(kTransitColorPrefix));
 
 dp::Color GetColorConstant(ColorConstant const & constant);
 

@@ -38,10 +38,10 @@ namespace transit
 ColorPicker::ColorPicker()
 {
   df::LoadTransitColors();
-  // We need only colors for route polylines, not for text. So we skip items like
-  // 'transit_text_navy' and work only with items like 'transit_navy'.
+  // Only the route polyline colors are needed: the 'transit_text_*' items are skipped and the
+  // 'transit_line_*' ones are kept.
   for (auto const & [name, color] : df::GetTransitClearColors())
-    if (name.find(df::kTransitTextPrefix) == std::string::npos)
+    if (!name.starts_with(df::kTransitTextColorPrefix))
       m_drapeClearColors.emplace(name, color);
 }
 
