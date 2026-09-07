@@ -3,6 +3,8 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "routing/ruler_router.hpp"
+
 #include "storage/routing_helpers.hpp"
 
 #include "platform/gui_thread.hpp"
@@ -890,5 +892,94 @@ UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
   TEST_EQUAL(passedPoint->GetId(), passedId, ());
   TEST(passedPoint->IsPassed(), ());
   TEST(!passedPoint->IsVisible(), ());
+}
+UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
+{
+  class Delegate final : public RoutingManager::Delegate
+  {
+  public:
+    void OnRouteFollow(routing::RouterType) override {}
+  } delegate;
+  class Router final : public routing::IRouter
+  {
+  public:
+    std::string GetName() const override { return "route choices test"; }
+    void ClearState() override {}
+    void SetGuides(routing::GuidesTracks &&) override {}
+    bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, routing::EdgeProj &) override
+    {
+      return false;
+    }
+    routing::RouterResultCode CalculateRoute(routing::Checkpoints const & checkpoints, m2::PointD const & direction,
+                                             bool adjust, bool alternatives, routing::RouterDelegate const & delegate,
+                                             routing::RoutesResult & result) override
+    {
+      if (++m_calls == 2)
+        return routing::RouterResultCode::RouteNotFound;
+      auto const code = static_cast<routing::IRouter &>(m_ruler).CalculateRoute(checkpoints, direction, adjust,
+                                                                                alternatives, delegate, result);
+      auto alternative = result.GetActive();
+      alternative.SetDiffMidpoint({2, 5});
+      result.m_routes.emplace_back(std::move(alternative));
+      return code;
+    }
+
+  private:
+    routing::RulerRouter m_ruler;
+    size_t m_calls = 0;
+  };
+
+  auto & platform = GetPlatform();
+  auto gui = std::make_unique<TestGuiThread>();
+  auto * guiThread = gui.get();
+  platform.SetGuiThread(std::move(gui));
+  SCOPE_GUARD(restoreGui, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
+  BookmarkManager bookmarks(BookmarkManager::Callbacks([]() -> StringsBundle const &
+  {
+    static StringsBundle const bundle;
+    return bundle;
+  }, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr));
+  RoutingManager manager(RoutingManager::Callbacks(nullptr, nullptr, nullptr, nullptr, nullptr), delegate);
+  manager.SetBookmarkManager(&bookmarks);
+  auto & session = manager.RoutingSession();
+  session.SetRouter(std::make_unique<Router>(), nullptr);
+  bool built = false;
+  session.SetRoutingCallbacks([&built](routing::RoutesResult const &, routing::RouterResultCode) { built = true; },
+                              nullptr, nullptr, nullptr);
+  session.BuildRoute(routing::Checkpoints({1, 2}, {5, 6}), routing::RouterDelegate::kNoTimeout);
+  while (!built)
+    guiThread->RunNext();
+  TEST(session.SwapActiveAlternative(1), ());
+  {
+    auto edit = bookmarks.GetEditSession();
+    edit.CreateUserMark<RouteAltMark>({1, 2});
+    edit.CreateUserMark<RouteAltMark>({2, 5});
+  }
+  TEST_EQUAL(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).size(), 2, ());
+
+  bool failed = false;
+  session.RebuildRoute({1, 2}, [](routing::RoutesResult const &, routing::RouterResultCode) {}, nullptr,
+                       [&failed](routing::RouterResultCode) { failed = true; }, routing::RouterDelegate::kNoTimeout,
+                       routing::SessionState::RouteRebuilding, false);
+  TEST(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).empty(),
+       ("Unavailable controls must disappear immediately."));
+  session.RouteCall([](routing::RoutesResult const & result)
+  {
+    TEST_EQUAL(result.m_routes.size(), 1, ());
+    TEST_EQUAL(result.m_activeIdx, 0, ());
+    TEST_EQUAL(result.GetActive().GetDiffMidpoint(), std::optional<m2::PointD>({2, 5}),
+               ("The selected route must be retained."));
+  });
+  while (!failed)
+    guiThread->RunNext();
+  TEST(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).empty(), ());
+
+  bool recovered = false;
+  session.RebuildRoute({1, 2}, [&recovered](routing::RoutesResult const &, routing::RouterResultCode) {
+    recovered = true;
+  }, nullptr, nullptr, routing::RouterDelegate::kNoTimeout, routing::SessionState::RouteRebuilding, false);
+  while (!recovered)
+    guiThread->RunNext();
+  TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
 }
 }  // namespace routing_manager_tests
