@@ -64,6 +64,19 @@ UNIT_TEST(FileData_ApiSmoke)
   TEST(base::GetFileSize(name2, sz), ());
   TEST_EQUAL(sz, size, ());
 
+  // Renaming over an existing file replaces it on every platform.
+  MakeFile(name1, 3 /* size */, 'x');
+  TEST(base::RenameFileX(name1, name2), ());
+  TEST(!base::GetFileSize(name1, sz), ());
+  TEST(base::GetFileSize(name2, sz), ());
+  TEST_EQUAL(sz, 3, ());
+
+  MakeFile(name1, 4 /* size */, 'y');
+  TEST(base::MoveFileX(name1, name2), ());
+  TEST(!base::GetFileSize(name1, sz), ());
+  TEST(base::GetFileSize(name2, sz), ());
+  TEST_EQUAL(sz, 4, ());
+
   TEST(base::DeleteFileX(name2), ());
 
   TEST(!base::GetFileSize(name2, sz), ());
@@ -213,7 +226,6 @@ UNIT_TEST(EmptyFile)
 
   // Do copy.
   TEST(CopyFileX(name, copy), ());
-  // TEST(!RenameFileX(name, copy), ());
 
   // Delete copy file and rename name -> copy.
   TEST(DeleteFileX(copy), ());
