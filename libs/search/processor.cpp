@@ -100,7 +100,7 @@ bool EatFid(std::string & s, uint32_t & fid)
     return false;
 
   size_t i = 0;
-  while (i < s.size() && isdigit(s[i]))
+  while (i < s.size() && strings::IsASCIIDigit(s[i]))
     ++i;
 
   auto const prefix = s.substr(0, i);
@@ -139,7 +139,7 @@ bool EatVersion(std::string & s, uint32_t & version)
 {
   TrimLeadingSpaces(s);
 
-  if (!s.empty() && s.front() == '0' && (s.size() == 1 || !isdigit(s[1])))
+  if (!s.empty() && s.front() == '0' && (s.size() == 1 || !strings::IsASCIIDigit(s[1])))
   {
     version = 0;
     s.erase(0, 1);
@@ -147,8 +147,8 @@ bool EatVersion(std::string & s, uint32_t & version)
   }
 
   size_t constexpr kVersionLength = 6;
-  if (s.size() >= kVersionLength && std::all_of(s.begin(), s.begin() + kVersionLength, ::isdigit) &&
-      (s.size() == kVersionLength || !isdigit(s[kVersionLength])))
+  if (s.size() >= kVersionLength && std::all_of(s.begin(), s.begin() + kVersionLength, &strings::IsASCIIDigit<char>) &&
+      (s.size() == kVersionLength || !strings::IsASCIIDigit(s[kVersionLength])))
   {
     VERIFY(strings::to_uint(s.substr(0, kVersionLength), version), ());
     s.erase(0, kVersionLength);
