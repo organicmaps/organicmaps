@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Diddymu</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Chwilio</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Ar hyn o bryd mae pob Gwasanaeth Lleoliad ar gyfer y ddyfais neu\'r rhaglen hon wedi\'i analluogi. Galluogwch nhw yn y Gosodiadau.</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Methodd y lawrlwythiad</string>
+    <string name="close">Cau</string>
+    <string name="download">Lawrlwytho</string>
+    <string name="download_resources">Cyn i chi ddechrau defnyddio\'r ap, lawrlwythwch fap trosolwg y byd i\'ch dyfais.\nBydd yn defnyddio %s o storfa.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Nodau Tudalen</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Gosodiadau</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Ble i fwyta</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Nwyddau groser</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Tanwydd</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parcio</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Gwesty</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Toiled</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Carafanio</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Data OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Modd Nos</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Diffodd</string>
+    <!-- Generic «On» string -->
+    <string name="on">Ymlaen</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Awtomatig</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Adeiladau 3D</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
+    <string name="pref_tts_unavailable">Ddim Ar Gael</string>
+    <!-- Text in menu -->
+    <string name="help">Cymorth</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Mapiau</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Lawrlwytho map</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Ail-geisio</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Categorïau</string>
+    <string name="search_not_found">Wps, ni chanfuwyd unrhyw ganlyniadau.</string>
+    <string name="search_history_text">Gweld eich chwiliadau diweddar.</string>
+    <string name="p2p_start">Dechrau</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Drwy\'r Dydd (24 awr)</string>
+    <string name="editor_time_open">Ar Agor</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Ar gau heddiw</string>
+    <string name="opens_in">Yn agor mewn %s</string>
+    <string name="closes_in">Yn cau mewn %s</string>
+    <string name="closed">Ar Gau</string>
+    <string name="minute">mun</string>
+    <string name="big_font">Cynyddu maint ar gyfer labeli map</string>
+    <string name="transliteration_title">Trosi i\'r wyddor Ladin</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Lawrlwythwr map</string>
+    <string name="driving_options_title">Opsiynau llwybro</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Osgoi tollau</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Osgoi ffyrdd heb eu palmantu</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Osgoi fferïau</string>
+    <string name="avoid_motorways">Osgoi traffyrdd</string>
+    <string name="unable_to_calc_alert_title">Methu cyfrifo llwybr</string>
+    <string name="trip_finished">Rydych chi wedi cyrraedd!</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Trefnu nodau tudalen</string>
+    <!-- Android -->
+    <string name="by_default">Yn ddiofyn</string>
+    <!-- Android -->
+    <string name="by_type">Yn ôl math</string>
+    <!-- Android -->
+    <string name="by_distance">Yn ôl pellter</string>
+    <!-- Android -->
+    <string name="by_date">Yn ôl dyddiad</string>
+    <!-- Android -->
+    <string name="by_name">Yn ôl enw</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Wrthi\'n lawrlwytho</string>
+    <string name="download_map_title">Lawrlwythwch fap trosolwg y byd</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Mae angen caniatâd lleoliad ar Organic Maps yn Android Auto i weithio\'n effeithiol</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Rhoi Caniatadau</string>
+</resources>

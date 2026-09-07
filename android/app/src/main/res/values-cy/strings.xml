@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Yn ôl</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Diddymu</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Dileu</string>
+    <string name="download_maps">Lawrlwytho Mapiau</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">Methodd y lawrlwythiad. Tapiwch i geisio eto.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Yn lawrlwytho…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Cilomedrau</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Milltiroedd</string>
+    <!-- Update maps later button text -->
+    <string name="later">Nes ymlaen</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Chwilio</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Chwilio Map</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Ar hyn o bryd mae pob Gwasanaeth Lleoliad ar gyfer y ddyfais neu\'r rhaglen hon wedi\'i analluogi. Galluogwch nhw yn y Gosodiadau.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Cywirdeb Cyfyngedig</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">I sicrhau llywio cywir, galluogwch Leoliad Manwl Gywir yn y gosodiadau.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Dangos ar y map</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Methodd y lawrlwythiad</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Ceisio Eto</string>
+    <string name="about_menu_title">Ynglŷn ag Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">Am ddim i bawb, wedi\'i wneud gyda chariad</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Dim hysbysebion, dim olrhain, dim casglu data</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Dim draenio batri, yn gweithio all-lein</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Cyflym, minimalaidd, wedi\'i ddatblygu gan y gymuned</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Rhaglen cod agored wedi\'i chreu gan selogion a gwirfoddolwyr.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Gosodiadau Lleoliad</string>
+    <string name="close">Cau</string>
+    <string name="unsupported_phone">Mae\'r ap angen cyflymiad caledwedd OpenGL. Yn anffodus, nid yw eich dyfais yn cael ei chefnogi.</string>
+    <string name="download">Lawrlwytho</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Datgysylltwch y cebl USB neu mewnosodwch gerdyn cof i ddefnyddio Organic Maps</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Rhyddhewch rywfaint o le ar y cerdyn SD/storfa USB yn gyntaf er mwyn defnyddio\'r ap</string>
+    <string name="download_resources">Cyn i chi ddechrau defnyddio\'r ap, lawrlwythwch fap trosolwg y byd i\'ch dyfais.\nBydd yn defnyddio %s o storfa.</string>
+    <string name="download_resources_continue">Mynd i\'r Map</string>
+    <string name="downloading_country_can_proceed">Yn lawrlwytho %s. Gallwch nawr symud ymlaen i\'r map.</string>
+    <string name="download_country_ask">Lawrlwytho %s?</string>
+    <string name="update_country_ask">Diweddaru %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Oedi</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Parhau</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">Methodd lawrlwytho %s</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Ychwanegu Rhestr Newydd</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Enw\'r rhestr nodau tudalen</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Nodau Tudalen</string>
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
+    <string name="bookmarks_and_tracks">Nodau Tudalen a Thraciau</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Enw</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Cyfeiriad</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Rhestr</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Gosodiadau</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Cadw mapiau i</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Dewiswch y ffolder i lawrlwytho mapiau iddo.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Mapiau wedi\'u Lawrlwytho</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s yn rhydd o %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Symud mapiau?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Gwall wrth symud ffeiliau map</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">Gall hyn gymryd sawl munud.\nArhoswch…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Unedau mesur</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Dewiswch rhwng milltiroedd a chilomedrau</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Ble i fwyta</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Nwyddau groser</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Trafnidiaeth</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Tanwydd</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parcio</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Siopa</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">Ail-law</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Gwesty</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Golygfeydd</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! Also a bookmarks list group header when sorting by type. -->
+    <string name="category_entertainment">Adloniant</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">Peiriant Arian Parod</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Bywyd Nos</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Gwyliau teuluol</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Banc</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Fferyllfa</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Ysbyty</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Toiled</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Post</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Heddlu</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Ailgylchu</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! Also a bookmarks list group header when sorting by type. -->
+    <string name="category_water">Dŵr</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Carafanio</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Nodiadau</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Rhannwyd nodau tudalen Organic Maps gyda chi</string>
+    <string name="share_bookmarks_email_body">Helo!\n\nWedi\'u hatodi mae fy nodau tudalen; agorwch nhw yn Organic Maps. Os nad oes gennych chi\'r ap gallwch ei lawrlwytho yma: https://omaps.app/get?kmz\n\nMwynhewch deithio gydag Organic Maps!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Llwytho Nodau Tudalen</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Llwythwyd nodau tudalen yn llwyddiannus! Gallwch ddod o hyd iddynt ar y map neu ar sgrin Rheolwr Nodau Tudalen.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">Methwyd llwytho\'r nodau tudalen. Mae\'n bosibl bod y ffeil wedi\'i llygru neu\'n ddiffygiol.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">Nid yw\'r math o ffeil yn cael ei adnabod gan yr ap:\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Methwyd agor ffeil %1$s\n\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Golygu</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Nid yw eich lleoliad wedi\'i bennu eto</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Mae\'n ddrwg gennym, mae gosodiadau Storio Mapiau wedi\'u hanalluogi ar hyn o bryd.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">Mae lawrlwytho mapiau yn digwydd nawr.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Rhannu</string>
+    <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
+    <string name="share_place_subject">%1$s ar Organic Maps</string>
+    <!-- Email subject when sharing a place that has no name or address. -->
+    <string name="share_place_subject_default">Lle ar Organic Maps</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">E-bostio</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">Wedi\'i gopïo i\'r clipfwrdd: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">Gorffen</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Data OpenStreetMap: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">Ydych chi\'n siŵr eich bod chi eisiau allgofnodi o\'ch cyfrif OpenStreetMap?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Traciau</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">Hyd</string>
+    <string name="share_my_location">Rhannu Fy Lleoliad</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Gosodiadau cyffredinol</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Gwybodaeth</string>
+    <string name="prefs_group_route">Llywio</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">Botymau “+” a “-” ar y map</string>
+    <string name="pref_zoom_summary">Arddangos ar y map</string>
+    <string name="pref_auto_night_in_navigation_title">Arddull nos wrth lywio yn y tywyllwch</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Modd Nos</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Diffodd</string>
+    <!-- Generic «On» string -->
+    <string name="on">Ymlaen</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Awtomatig</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">Golwg persbectif</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Adeiladau 3D</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">Mae adeiladau 3D wedi\'u hanalluogi yn y modd arbed pŵer</string>
+    <!-- Settings: title of the satellite imagery (custom raster tiles) screen -->
+    <string name="pref_bg_tiles_title">Delweddau Lloeren</string>
+    <!-- Settings «Satellite Imagery»: title of the tile server URL input field -->
+    <string name="pref_bg_tiles_url_title">URL y Gweinydd</string>
+    <!-- Settings «Satellite Imagery»: shown under the Server URL field when its value is malformed (must start with http(s):// and contain the {z}/{x}/{y} placeholders) -->
+    <string name="pref_bg_tiles_url_error">Rhowch URL dilys sy\'n cynnwys {z}/{x}/{y}</string>
+    <!-- Settings «Satellite Imagery»: title of the on-disk tile cache size limit (in megabytes) -->
+    <string name="pref_bg_tiles_size_title">Maint y storfa (MB)</string>
+    <!-- Settings «Satellite Imagery»: opacity of vector area objects drawn over the imagery (0% hides them) -->
+    <string name="pref_bg_tiles_opacity_title">Anhryloywder gwrthrychau\'r ardal</string>
+    <!-- Settings «Satellite Imagery»: legal note that the user is responsible for the custom tile source they configure -->
+    <string name="pref_bg_tiles_disclaimer">Chi sy\'n darparu ffynonellau teils personol. Defnyddiwch y gwasanaethau rydych chi\'n cael mynediad atynt yn unig. Rydych chi\'n gyfrifol am briodoli, telerau trwydded, allweddi API, cwotâu, a therfynau defnydd.</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">Cyfarwyddiadau Llais</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Dweud Enwau Strydoedd</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">Pan fydd wedi\'i alluogi, bydd enw\'r stryd neu\'r allanfa i droi iddi yn cael ei lefaru\'n uchel.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">Iaith y Llais</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Profi Cyfarwyddiadau Llais (TTS, Testun-i-Leferydd)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Gwiriwch y lefel sain neu osodiadau Testun-i-Leferydd y system os nad ydych chi\'n clywed y llais nawr.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle. Also used as a CarToast in Android Auto when the user taps the muted voice icon. -->
+    <string name="pref_tts_unavailable">Ddim Ar Gael</string>
+    <string name="pref_map_auto_zoom">Chwyddo awtomatig</string>
+    <string name="placepage_distance">Pellter</string>
+    <string name="search_show_on_map">Gweld ar y map</string>
+    <!-- Menu button -->
+    <string name="menu">Dewislen</string>
+    <!-- Text in menu -->
+    <string name="website">Gwefan</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">Newyddion</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Adborth</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">Rhoi sgôr i\'r ap</string>
+    <!-- Text in menu -->
+    <string name="help">Cymorth</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">Cwestiynau Cyffredin</string>
+    <!-- Button in the main menu -->
+    <string name="donate">Cyfrannu</string>
+    <string name="already_donated">Wedi cyfrannu eisoes</string>
+    <string name="remind_me_later">Atgoffwch fi\'n ddiweddarach</string>
+    <string name="support_organic_maps">Cefnogi Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">Cefnogi\'r prosiect</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">Hawlfraint</string>
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
+    <string name="report_a_bug">Rhoi gwybod am fyg</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">Gwella cyfeiriad y saeth trwy symud y ffôn mewn ffigur wyth i galibro\'r cwmpawd.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">Symudwch y ffôn mewn ffigur wyth i galibro\'r cwmpawd a thrwsio cyfeiriad y saeth ar y map.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">Tapiwch yn hir ar y map eto i weld y rhyngwyneb</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">Diweddaru Popeth</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">Diddymu Popeth</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">Wedi\'i Lawrlwytho</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">Wedi\'i Giwio</string>
+    <string name="downloader_near_me_subtitle">Gerllaw</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Mapiau</string>
+    <string name="downloader_download_all_button">Lawrlwytho Popeth</string>
+    <string name="downloader_downloading">Wrthi\'n Lawrlwytho:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">I ddileu map, stopiwch lywio.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Lawrlwytho map</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Ail-geisio</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">Dileu Map</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Diweddaru Map</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Gwasanaethau Lleoliad Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Canfod eich lleoliad bras yn gyflym trwy ddefnyddio Bluetooth, WiFi, neu rwydwaith symudol</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">Dim digon o le</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">Galluogwch Wasanaethau Lleoliad</string>
+    <string name="save">Cadw</string>
+    <string name="create">creu</string>
+    <!-- red color -->
+    <string name="red">Coch</string>
+    <!-- yellow color -->
+    <string name="yellow">Melyn</string>
+    <!-- blue color -->
+    <string name="blue">Glas</string>
+    <!-- green color -->
+    <string name="green">Gwyrdd</string>
+    <!-- purple color -->
+    <string name="purple">Porffor</string>
+    <!-- orange color -->
+    <string name="orange">Oren</string>
+    <!-- brown color -->
+    <string name="brown">Brown</string>
+    <!-- pink color -->
+    <string name="pink">Pinc</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Porffor Dwfn</string>
+    <!-- light blue color -->
+    <string name="light_blue">Glas Golau</string>
+    <!-- cyan color -->
+    <string name="cyan">Gwyrddlas</string>
+    <!-- teal color -->
+    <string name="teal">Gwyrddlas Tywyll</string>
+    <!-- lime color -->
+    <string name="lime">Leim</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Oren Dwfn</string>
+    <!-- gray color -->
+    <string name="gray">Llwyd</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Glas Llwyd</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Ymddangosiad</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Golau</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Tywyll</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Golau o wawr hyd fachlud</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Rhowch fapiau am ddim heb hysbysebion i filiynau o ddefnyddwyr!</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">Wrth ddilyn y llwybr, cofiwch:</string>
+    <string name="dialog_routing_disclaimer_priority">— Mae amodau ffyrdd, cyfreithiau traffig ac arwyddion ffyrdd bob amser yn cael blaenoriaeth dros awgrymiadau llywio;</string>
+    <string name="dialog_routing_disclaimer_precision">— Efallai bod y map yn anghywir, ac efallai nad y llwybr a awgrymir yw\'r ffordd fwyaf effeithiol o gyrraedd pen y daith bob amser;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Dim ond argymhellion yw\'r llwybrau a awgrymir;</string>
+    <string name="dialog_routing_disclaimer_borders">— Byddwch yn ofalus gyda llwybrau mewn parthau ffiniol: gall y llwybrau a grëwyd gan yr ap groesi ffiniau gwlad mewn mannau anawdurdodedig weithiau.</string>
+    <string name="dialog_routing_disclaimer_beware">Byddwch yn effro ac yn ddiogel ar y ffyrdd!</string>
+    <string name="dialog_routing_location_turn_wifi">Gwiriwch eich signal GPS. Bydd galluogi Wi-Fi yn gwella cywirdeb eich lleoliad.</string>
+    <string name="dialog_routing_system_error">Gwall system</string>
+    <string name="not_now">Ddim Nawr</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">I ddechrau chwilio a chreu llwybrau, lawrlwythwch y map. Ar ôl hynny ni fydd angen cysylltiad Rhyngrwyd arnoch mwyach.</string>
+    <string name="search_select_map">Dewis Map</string>
+    <!-- «Show» context menu -->
+    <string name="show">Dangos</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">Cuddio</string>
+    <string name="categories">Categorïau</string>
+    <string name="history">Hanes</string>
+    <string name="search_not_found">Wps, ni chanfuwyd unrhyw ganlyniadau.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">Lawrlwythwch y rhanbarth lle rydych chi\'n chwilio neu geisiwch ychwanegu enw tref/pentref cyfagos.</string>
+    <string name="search_history_title">Hanes Chwilio</string>
+    <string name="search_history_text">Gweld eich chwiliadau diweddar.</string>
+    <string name="clear_search">Clirio Hanes Chwilio</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wicipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Erthygl o wikipedia.org</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Comin Wicimedia</string>
+    <string name="p2p_your_location">Eich Lleoliad</string>
+    <string name="p2p_start">Dechrau</string>
+    <string name="p2p_from_here">Llwybr o</string>
+    <string name="p2p_to_here">Llwybr i</string>
+    <string name="p2p_only_from_current">Dim ond o\'ch lleoliad presennol y mae llywio ar gael.</string>
+    <string name="p2p_reroute_from_current">Ydych chi eisiau cynllunio llwybr o\'ch lleoliad presennol?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Nesaf</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">O</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">I</string>
+    <string name="editor_time_add">Ychwanegu Amserlen</string>
+    <string name="editor_time_delete">Dileu Amserlen</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Drwy\'r Dydd (24 awr)</string>
+    <string name="editor_time_open">Ar Agor</string>
+    <string name="editor_time_close">Ar Gau</string>
+    <string name="editor_time_add_closed">Ychwanegu Oriau Ar Gau</string>
+    <string name="editor_time_title">Oriau Busnes</string>
+    <string name="editor_time_advanced">Modd Uwch</string>
+    <string name="editor_time_simple">Modd Syml</string>
+    <string name="editor_hours_closed">Oriau Ar Gau</string>
+    <string name="editor_example_values">Enghreifftiau o Werthoedd</string>
+    <string name="editor_correct_mistake">Cywiro camgymeriad</string>
+    <string name="editor_add_select_location">Dewis Lleoliad</string>
+    <string name="editor_report_problem_desription_1">Disgrifiwch y broblem yn fanwl fel y gall cymuned OpenStreetMap ei thrwsio.</string>
+    <string name="editor_report_problem_desription_2">Neu gwnewch hynny eich hun yn https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">Anfon</string>
+    <string name="editor_report_problem_title">Problem</string>
+    <string name="editor_report_problem_no_place_title">Nid yw\'r lle hwn yn bodoli</string>
+    <string name="editor_report_problem_under_construction_title">Ar gau ar gyfer cynnal a chadw</string>
+    <string name="editor_report_problem_duplicate_place_title">Lleoliad dyblyg</string>
+    <string name="autodownload">Lawrlwytho mapiau\'n awtomatig</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Bob Dydd</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Ar gau heddiw</string>
+    <string name="day_off">Ar gau</string>
+    <string name="today">Heddiw</string>
+    <string name="opens_in">Yn agor mewn %s</string>
+    <string name="closes_in">Yn cau mewn %s</string>
+    <string name="closed">Ar Gau</string>
+    <string name="edit_opening_hours">Golygu oriau busnes</string>
+    <string name="no_osm_account">Does gennych chi ddim cyfrif OpenStreetMap?</string>
+    <string name="register_at_openstreetmap">Cofrestru yn OpenStreetMap</string>
+    <string name="login">Mewngofnodi</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">Heb fewngofnodi</string>
+    <string name="login_osm">Mewngofnodi i OpenStreetMap</string>
+    <string name="password">Cyfrinair</string>
+    <string name="forgot_password">Wedi anghofio\'ch cyfrinair?</string>
+    <string name="logout">Allgofnodi</string>
+    <string name="edit_place">Golygu Lle</string>
+    <string name="add_language">Ychwanegu iaith</string>
+    <string name="street">Stryd</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">Rhif adeilad</string>
+    <string name="details">Manylion</string>
+    <string name="social_media">Cyfryngau Cymdeithasol</string>
+    <string name="building">Adeilad</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">Ychwanegu stryd</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Rhowch enw stryd</string>
+    <string name="choose_language">Dewiswch iaith</string>
+    <string name="choose_street">Dewiswch stryd</string>
+    <string name="cuisine">Bwyd</string>
+    <string name="select_cuisine">Dewis bwyd</string>
+    <!-- login text field -->
+    <string name="email_or_username">E-bost neu enw defnyddiwr</string>
+    <string name="editor_add_phone">Ychwanegu Ffôn</string>
+    <string name="level">Llawr</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Lefel: %s</string>
+    <string name="downloader_delete_map_dialog">Bydd eich holl olygiadau map yn cael eu dileu gyda\'r map.</string>
+    <string name="downloader_update_maps">Diweddaru Mapiau</string>
+    <string name="downloader_search_field_hint">Chwilio am fap</string>
+    <string name="common_check_internet_connection_dialog">Gwnewch yn siŵr bod eich dyfais wedi\'i chysylltu â\'r Rhyngrwyd.</string>
+    <string name="downloader_no_space_title">Dim digon o le</string>
+    <!-- Message shown when there is not enough space to download maps -->
+    <string name="downloader_no_space_message">Dilëwch unrhyw ddata diangen</string>
+    <string name="editor_login_error_dialog">Gwall mewngofnodi.</string>
+    <string name="editor_profile_changes">Newidiadau wedi\'u Gwirio</string>
+    <string name="editor_focus_map_on_location">Llusgwch y map i osod y groes yn lleoliad y lle neu\'r busnes.</string>
+    <string name="editor_edit_place_title">Golygu</string>
+    <string name="editor_add_place_title">Ychwanegu</string>
+    <string name="editor_edit_place_name_hint">Enw\'r lle</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">Fel y mae wedi\'i ysgrifennu yn yr iaith leol</string>
+    <string name="editor_edit_place_category_title">Categori</string>
+    <string name="detailed_problem_description">Disgrifiad manwl o\'r broblem</string>
+    <string name="editor_report_problem_other_title">Problem wahanol</string>
+    <string name="placepage_add_business_button">Ychwanegu busnes</string>
+    <string name="message_invalid_feature_position">Ni ellir dod o hyd i unrhyw wrthrych yma</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Data OpenStreetMap a grëwyd gan y gymuned ar %s. Dysgwch fwy am sut i olygu a diweddaru\'r map yn OpenStreetMap.org</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">Mae OpenStreetMap.org (OSM) yn brosiect cymunedol i adeiladu map agored ac am ddim. Dyma brif ffynhonnell data map mewn Organic Maps ac mae\'n gweithio\'n debyg i Wicipedia. Gallwch ychwanegu neu olygu lleoedd a byddant ar gael i filiynau o ddefnyddwyr ledled y byd.\nYmunwch â\'r gymuned a helpwch i wneud map gwell i bawb!</string>
+    <string name="login_to_make_edits_visible">Crëwch gyfrif OpenStreetMap neu mewngofnodwch i gyhoeddi eich golygiadau map i\'r byd.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d o %2$d</string>
+    <string name="download_over_mobile_header">Lawrlwytho dros gysylltiad rhwydwaith symudol?</string>
+    <string name="download_over_mobile_message">Gallai hyn fod yn sylweddol ddrud gyda rhai cynlluniau neu os ydych chi\'n crwydro.</string>
+    <string name="error_enter_correct_house_number">Rhowch rif adeilad dilys</string>
+    <string name="editor_storey_number">Nifer y lloriau (uchafswm o %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">Rhaid i nifer y lloriau fod yn %d neu lai</string>
+    <string name="editor_zip_code">Cod Post</string>
+    <string name="error_enter_correct_zip_code">Rhowch god post dilys</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Nodyn i wirfoddolwyr OpenStreetMap (dewisol)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Disgrifiwch wallau ar y map neu bethau na ellir eu golygu gydag Organic Maps</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Mae eich golygiadau\'n cael eu huwchlwytho i\'r gronfa ddata gyhoeddus <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Peidiwch ag ychwanegu gwybodaeth bersonol na gwybodaeth hawlfraint.</string>
+    <string name="editor_more_about_osm">Mwy am OpenStreetMap</string>
+    <string name="editor_osm_history">Eich hanes golygu</string>
+    <string name="editor_osm_notes">Eich nodiadau data map</string>
+    <string name="editor_operator">Gweithredwr</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
+    <string name="operator">Gweithredwr: %s</string>
+    <string name="editor_category_unsuitable_title">Allwch chi ddim dod o hyd i gategori addas?</string>
+    <string name="editor_category_unsuitable_text">Mae Organic Maps yn caniatáu ychwanegu categorïau pwynt syml yn unig, sy\'n golygu dim trefi, ffyrdd, llynnoedd, amlinelliadau adeiladau, ac ati. Ychwanegwch y categorïau o\'r fath yn uniongyrchol at <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Edrychwch ar ein <a href="https://organicmaps.app/faq/editing/advanced-map-editing">canllaw</a> am gyfarwyddiadau manwl cam wrth gam.</string>
+    <string name="downloader_no_downloaded_maps_title">Nid ydych wedi lawrlwytho unrhyw fapiau</string>
+    <string name="downloader_no_downloaded_maps_message">Lawrlwythwch fapiau i chwilio a llywio all-lein.</string>
+    <string name="current_location_unknown_error_title">Mae\'r lleoliad presennol yn anhysbys.</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/awr</string>
+    <string name="miles_per_hour">mya</string>
+    <string name="hour">awr</string>
+    <string name="minute">mun</string>
+    <string name="day">d</string>
+    <string name="second">eil</string>
+    <string name="placepage_more_button">Mwy</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="placepage_edit_bookmark_button">Golygu Nod Tudalen</string>
+    <string name="placepage_personal_notes_hint">Nodiadau personol (testun neu html)</string>
+    <string name="editor_comment_hint">Sylw…</string>
+    <string name="editor_reset_edits_message">Gwaredu pob newid lleol?</string>
+    <string name="editor_reset_edits_button">Gwaredu</string>
+    <string name="editor_remove_place_message">Dileu\'r lle a ychwanegwyd?</string>
+    <string name="editor_remove_place_button">Dileu</string>
+    <string name="editor_place_doesnt_exist">Nid yw\'r lle yn bodoli</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Nodwch y rheswm dros ddileu\'r lle</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">Rhowch rif ffôn dilys</string>
+    <string name="error_enter_correct_web">Rhowch gyfeiriad gwe dilys</string>
+    <string name="error_enter_correct_email">Rhowch e-bost dilys</string>
+    <string name="error_enter_correct_facebook_page">Rhowch gyfeiriad gwe, cyfrif neu enw tudalen Facebook dilys</string>
+    <string name="error_enter_correct_instagram_page">Rhowch enw defnyddiwr neu gyfeiriad gwe Instagram dilys</string>
+    <string name="error_enter_correct_twitter_page">Rhowch enw defnyddiwr neu gyfeiriad gwe Twitter dilys</string>
+    <string name="error_enter_correct_vk_page">Rhowch enw defnyddiwr neu gyfeiriad gwe VK dilys</string>
+    <string name="error_enter_correct_line_page">Rhowch enw LINE neu gyfeiriad gwe dilys</string>
+    <string name="placepage_add_place_button">Ychwanegu Lle at OpenStreetMap</string>
+    <string name="osm_note_hint">Neu, fel arall, gadewch nodyn i gymuned OpenStreetMap fel y gall rhywun arall ychwanegu neu drwsio lle yma.</string>
+    <string name="osm_note_toast">Anfonir nodyn at OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">Ydych chi eisiau ei anfon at bob defnyddiwr?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">Gwnewch yn siŵr nad ydych wedi nodi unrhyw ddata preifat na phersonol.</string>
+    <string name="editor_share_to_all_dialog_message_2">Bydd golygyddion OpenStreetMap yn gwirio\'r newidiadau ac yn cysylltu â chi os oes ganddynt unrhyw gwestiynau.</string>
+    <string name="navigation_stop_button">Stopio</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">Recordio\'r trac</string>
+    <!-- For the first routing -->
+    <string name="accept">Derbyn</string>
+    <!-- For the first routing -->
+    <string name="decline">Gwrthod</string>
+    <string name="mobile_data_dialog">Defnyddio rhyngrwyd symudol i ddangos gwybodaeth fanwl?</string>
+    <string name="mobile_data_option_always">Defnyddio Bob Amser</string>
+    <string name="mobile_data_option_today">Heddiw yn Unig</string>
+    <string name="mobile_data_option_not_today">Peidio â Defnyddio Heddiw</string>
+    <string name="mobile_data">Rhyngrwyd Symudol</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">Mae angen rhyngrwyd symudol ar gyfer hysbysiadau diweddaru mapiau ac uwchlwytho golygiadau.</string>
+    <string name="mobile_data_option_never">Peidio byth â Defnyddio</string>
+    <string name="mobile_data_option_ask">Gofyn Bob Amser</string>
+    <string name="big_font">Cynyddu maint ar gyfer labeli map</string>
+    <string name="enable_logging">Galluogi logio</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">Adborth Cyffredinol</string>
+    <string name="prefs_languages_information">Rydym yn defnyddio TTS system ar gyfer cyfarwyddiadau llais. Mae llawer o ddyfeisiau Android yn defnyddio Google TTS, gallwch ei lawrlwytho neu ei ddiweddaru o Google Play</string>
+    <string name="prefs_languages_information_off">Ar gyfer rhai ieithoedd, bydd angen i chi osod syntheseisydd lleferydd neu becyn iaith ychwanegol o\'r siop apiau (Google Play, Galaxy Store, App Gallery, FDroid).\nAgorwch osodiadau eich dyfais → Iaith a mewnbwn → Lleferydd → Allbwn testun i leferydd.\nYma gallwch reoli gosodiadau ar gyfer syntheseisydd lleferydd (er enghraifft, lawrlwytho pecyn iaith ar gyfer defnydd all-lein) a dewis peiriant testun-i-leferydd arall.</string>
+    <string name="prefs_languages_information_off_link">Am ragor o wybodaeth, gwiriwch y canllaw hwn.</string>
+    <string name="transliteration_title">Trosi i\'r wyddor Ladin</string>
+    <string name="learn_more">Dysgu mwy</string>
+    <string name="planning_route_manage_route">Rheoli Llwybr</string>
+    <string name="button_plan">Cynllunio</string>
+    <string name="placepage_remove_stop">Dileu Pwynt Aros</string>
+    <string name="placepage_add_stop">Ychwanegu Pwynt Aros</string>
+    <string name="drag_to_reorder">Aildrefnu</string>
+    <string name="saved">Wedi\'i Gadw</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Mewngofnodwch i OpenStreetMap i uwchlwytho\'ch holl olygiadau map yn awtomatig. Dysgu mwy <a href="https://github.com/organicmaps/organicmaps/issues/6144">yma</a>.</string>
+    <string name="dialog_error_storage_title">Problem mynediad i\'r storfa</string>
+    <string name="dialog_error_storage_message">Nid yw\'r storfa allanol yn hygyrch. Efallai bod y cerdyn SD wedi\'i dynnu, wedi\'i ddifrodi, neu mae\'r system ffeiliau yn ddarllen yn unig. Gwiriwch eich cerdyn SD neu cysylltwch â ni yn support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">Efelychu storfa wael</string>
+    <string name="error_enter_correct_name">Rhowch enw cywir</string>
+    <string name="bookmark_lists">Rhestrau</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Cuddio popeth</string>
+    <string name="bookmark_lists_show_all">Dangos popeth</string>
+    <plurals name="bookmarks_places">
+        <item quantity="zero">Dim nodau tudalen</item>
+        <item quantity="one">%d nod tudalen</item>
+        <item quantity="two">%d nod tudalen</item>
+        <item quantity="few">%d nod tudalen</item>
+        <item quantity="many">%d nod tudalen</item>
+        <item quantity="other">%d nod tudalen</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">Creu rhestr newydd</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Mewnforio Nodau Tudalen a Thraciau</string>
+    <string name="bookmarks_error_message_share_general">Methu rhannu oherwydd gwall yn y rhaglen</string>
+    <string name="bookmarks_error_title_share_empty">Gwall rhannu</string>
+    <string name="bookmarks_error_message_share_empty">Methu rhannu rhestr wag</string>
+    <string name="bookmarks_error_title_empty_list_name">Ni all yr enw fod yn wag</string>
+    <string name="bookmarks_error_message_empty_list_name">Rhowch enw\'r rhestr</string>
+    <string name="bookmarks_new_list_hint">Rhestr newydd</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Mae\'r enw hwn eisoes wedi\'i gymryd</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Dewiswch enw arall</string>
+    <string name="please_wait">Arhoswch…</string>
+    <string name="phone_number">Rhif ffôn</string>
+    <string name="profile">Proffil OpenStreetMap</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="zero">Ni chanfuwyd unrhyw ffeiliau.</item>
+        <item quantity="one">Cafwyd hyd i %d ffeil. Gallwch ei gweld ar ôl ei throsi.</item>
+        <item quantity="two">Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</item>
+        <item quantity="few">Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</item>
+        <item quantity="many">Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</item>
+        <item quantity="other">Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</item>
+    </plurals>
+    <string name="restore">Adfer</string>
+    <plurals name="tracks">
+        <item quantity="zero">Dim traciau</item>
+        <item quantity="one">%d trac</item>
+        <item quantity="two">%d drac</item>
+        <item quantity="few">%d thrac</item>
+        <item quantity="many">%d thrac</item>
+        <item quantity="other">%d trac</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">Preifatrwydd</string>
+    <string name="privacy_policy">Polisi preifatrwydd</string>
+    <string name="terms_of_use">Telerau defnydd</string>
+    <string name="button_layer_traffic">Traffig</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Heicio</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Beicio</string>
+    <!-- Map layers menu: toggle button for the satellite imagery layer -->
+    <string name="button_layer_satellite">Lloeren</string>
+    <string name="button_layer_subway">Trên Tanddaearol</string>
+    <string name="layers_title">Arddulliau a Haenau Map</string>
+    <string name="bookmarks_empty_list_title">Mae\'r rhestr hon yn wag</string>
+    <string name="bookmarks_empty_list_message">I ychwanegu nod tudalen, tapiwch le ar y map ac yna tapiwch yr eicon seren</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
+    <string name="change_all_bookmarks_color">Newid lliw pob nod tudalen</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Newid lliw pob trac</string>
+    <string name="category_desc_more">…mwy</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
+    <string name="export_file">Allforio KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
+    <string name="export_file_gpx">Allforio GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Allforio GeoJSON</string>
+    <string name="delete_list">Dileu rhestr</string>
+    <string name="speedcams_alert_title">Camerâu cyflymder</string>
+    <string name="place_description_title">Disgrifiad o\'r Lle</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Lawrlwythwr map</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Rhybuddio os ydych chi\'n goryrru</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Rhybuddio bob amser</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Peidio byth â rhybuddio</string>
+    <string name="power_managment_title">Modd arbed pŵer</string>
+    <string name="power_managment_description">Ceisio lleihau\'r defnydd o bŵer ar draul rhai nodweddion.</string>
+    <string name="power_managment_setting_never">Byth</string>
+    <string name="power_managment_setting_auto">Pan fydd y batri\'n isel</string>
+    <string name="power_managment_setting_manual_max">Bob amser</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Enwau nodau tudalen ar y map</string>
+    <string name="bookmarks_text_placement_description">Os oes gormod o nodau tudalen, gall dangos eu henwau ar y map arafu\'r ap.</string>
+    <string name="show_to_the_right">Dangos i\'r dde</string>
+    <string name="show_at_the_bottom">Dangos ar y gwaelod</string>
+    <string name="enable_logging_warning_message">Galluogwch yr opsiwn hwn dros dro i gofnodi ac anfon logiau diagnostig manwl am eich problem atom ni â llaw gan ddefnyddio \"Rhoi gwybod am fyg\" yn y blwch deialog Cymorth. Gall logiau gynnwys gwybodaeth am leoliad.</string>
+    <string name="driving_options_title">Opsiynau llwybro</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Osgoi tollau</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Osgoi ffyrdd heb eu palmantu</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Osgoi fferïau</string>
+    <string name="avoid_motorways">Osgoi traffyrdd</string>
+    <string name="unable_to_calc_alert_title">Methu cyfrifo llwybr</string>
+    <string name="unable_to_calc_alert_subtitle">Ni ellid dod o hyd i lwybr. Gall hyn fod wedi\'i achosi gan eich opsiynau llwybro neu ddata OpenStreetMap anghyflawn. Newidiwch eich opsiynau llwybro a cheisiwch eto.</string>
+    <string name="define_to_avoid_btn">Diffinio ffyrdd i\'w hosgoi</string>
+    <string name="change_driving_options_btn">Opsiynau llwybro wedi\'u galluogi</string>
+    <string name="toll_road">Ffordd doll</string>
+    <string name="unpaved_road">Ffordd heb ei phalmantu</string>
+    <string name="ferry_crossing">Croesfan fferi</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_steps">Grisiau</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_gate">Giât</string>
+    <!-- Route warning shown on the map for this obstacle type. -->
+    <string name="road_warning_lift_gate">Giât Godi</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Ie</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">Na</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Ie</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">Na</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
+    <string name="capacity">Capasiti: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
+    <string name="network">Rhwydwaith: %s</string>
+    <string name="trip_finished">Rydych chi wedi cyrraedd!</string>
+    <string name="ok">Iawn</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Trefnu…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Trefnu nodau tudalen</string>
+    <!-- Android -->
+    <string name="by_default">Yn ddiofyn</string>
+    <!-- Android -->
+    <string name="by_type">Yn ôl math</string>
+    <!-- Android -->
+    <string name="by_distance">Yn ôl pellter</string>
+    <!-- Android -->
+    <string name="by_date">Yn ôl dyddiad</string>
+    <!-- Android -->
+    <string name="by_name">Yn ôl enw</string>
+    <string name="week_ago_sorttype">Wythnos yn ôl</string>
+    <string name="month_ago_sorttype">Mis yn ôl</string>
+    <string name="moremonth_ago_sorttype">Mwy na mis yn ôl</string>
+    <string name="moreyear_ago_sorttype">Mwy na blwyddyn yn ôl</string>
+    <string name="near_me_sorttype">Gerllaw</string>
+    <string name="others_sorttype">Eraill</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Ar gau nawr</string>
+    <string name="opens_tomorrow_at">Yn agor yfory am %s</string>
+    <string name="opens_dayoftheweek_at">Yn agor %1$s am %2$s</string>
+    <string name="opens_at">Yn agor am %s</string>
+    <string name="closes_at">Yn cau am %s</string>
+    <string name="editor_add_select_category_all_subtitle">Pob Categori</string>
+    <string name="placepage_replace_stop">Disodli Pwynt Aros</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">Bwyd</string>
+    <string name="tourist_places">Golygfeydd</string>
+    <string name="museums">Amgueddfeydd</string>
+    <string name="parks">Parciau</string>
+    <string name="swim_places">Nofio</string>
+    <string name="mountains">Mynyddoedd</string>
+    <string name="animals">Anifeiliaid</string>
+    <string name="hotels">Gwestai</string>
+    <string name="buildings">Adeiladau</string>
+    <string name="money">Arian</string>
+    <string name="shops">Siopau</string>
+    <string name="parkings">Parcio</string>
+    <string name="fuel_places">Gorsafoedd Petrol</string>
+    <string name="medicine">Meddygaeth</string>
+    <string name="search_in_the_list">Chwilio yn y rhestr</string>
+    <string name="religious_places">Mannau crefyddol</string>
+    <!-- Button that starts multi-selection in a bookmark list. -->
+    <string name="select">Dewis</string>
+    <!-- Action that selects every bookmark and track in a bookmark list. -->
+    <string name="select_all">Dewis Popeth</string>
+    <!-- Action that clears the multi-selection in a bookmark list. -->
+    <string name="deselect_all">Dad-ddewis Popeth</string>
+    <string name="select_list">Dewis rhestr</string>
+    <string name="button_layer_isolines">Llinellau Cyfuchlin</string>
+    <string name="isolines_activation_error_dialog">Mae actifadu llinellau cyfuchlin yn gofyn am lawrlwytho data map ar gyfer yr ardal hon</string>
+    <string name="isolines_location_error_dialog">Nid yw llinellau cyfuchlin ar gael yn yr ardal hon eto</string>
+    <string name="elevation_profile_ascent">Esgyniad</string>
+    <string name="elevation_profile_descent">Disgyniad</string>
+    <string name="elevation_profile_min_elevation">Uchder isaf</string>
+    <string name="elevation_profile_max_elevation">Uchder uchaf</string>
+    <string name="elevation_profile_difficulty">Anhawster</string>
+    <string name="elevation_profile_distance">Pell.:</string>
+    <string name="elevation_profile_time">Amser:</string>
+    <string name="isolines_toast_zooms_1_10">Chwyddwch i mewn i archwilio\'r llinellau cyfuchlin</string>
+    <string name="downloader_loading_ios">Wrthi\'n lawrlwytho</string>
+    <string name="download_map_title">Lawrlwythwch fap trosolwg y byd</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Methu creu ffolder a symud ffeiliau ar gof mewnol y ddyfais neu\'r cerdyn SD</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Gwall disg</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Methiant cysylltiad</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Datgysylltwch y cebl USB</string>
+    <string name="enable_keep_screen_on">Cadwch y sgrin ymlaen</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Pan fydd wedi\'i alluogi, bydd y sgrin bob amser ymlaen wrth arddangos y map.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Dangos ar y sgrin gloi</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Pan fydd wedi\'i alluogi, bydd yr ap yn gweithio ar y sgrin gloi hyd yn oed pan fydd y ddyfais wedi\'i chloi.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Iaith y map</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">Data map o OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/cy/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">Diolch i chi am ddefnyddio ein mapiau a adeiladwyd gan y gymuned!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">Gyda\'ch rhoddion a\'ch cefnogaeth, gallwn greu\'r mapiau gorau yn y byd!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">Ydych chi\'n hoffi ein ap? Cyfrannwch i gefnogi\'r datblygiad! Ddim yn ei hoffi eto? Rhowch wybod i ni pam, a byddwn yn ei drwsio!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">Os ydych chi\'n adnabod datblygydd meddalwedd, gallwch ofyn iddo neu iddi weithredu nodwedd sydd ei hangen arnoch.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Tapiwch unrhyw le ar y map i ddewis unrhyw beth. Defnyddir tap hir i guddio a dangos y rhyngwyneb.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">Oeddech chi\'n gwybod y gellir dewis eich lleoliad presennol ar y map?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">Gallwch chi helpu i gyfieithu ein ap i\'ch iaith.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">Mae ein ap wedi\'i ddatblygu gan ychydig o selogion a\'r gymuned.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">Gallwch chi drwsio a gwella data\'r map yn hawdd.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">Ein prif nod yw creu mapiau cyflym, hawdd eu defnyddio sy\'n parchu eich preifatrwydd ac y byddwch yn eu caru.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">Rydych chi nawr yn defnyddio Organic Maps ar sgrin y ffôn</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Rydych chi nawr yn defnyddio Organic Maps ar sgrin y car</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">Rydych chi wedi\'ch cysylltu ag Android Auto</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">Parhewch ar y ffôn</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">I sgrin y car</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Mae angen mynediad at leoliad ar Organic Maps. Pan fydd yn ddiogel, gwiriwch yr hysbysiad ar eich ffôn.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Mae angen eich caniatâd ar yr ap hwn</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Rhoi Caniatadau</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">Yr awyr agored</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">Nid yw\'r porwr gwe ar gael</string>
+    <string name="volume">Lefel sain</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">Allforio\'r holl nodau tudalen a thraciau</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">Gosodiadau system synthesis lleferydd</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">Ni chanfuwyd gosodiadau synthesis lleferydd. Ydych chi\'n siŵr bod eich dyfais yn ei gefnogi?</string>
+    <string name="drive_through">Gyrru trwodd</string>
+    <string name="clear_the_search">Clirio\'r chwiliad</string>
+    <!-- Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
+    <string name="zoom_in">Chwyddo i mewn</string>
+    <!-- Accessibility text for the zoom-out button on the map and visible title for the CarPlay dashboard button. Keep it short. -->
+    <string name="zoom_out">Chwyddo allan</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">Dolen y Ddewislen</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">Gweld y Ddewislen</string>
+    <!-- To indicate if the place proposed self service… -->
+    <string name="self_service">Hunanwasanaeth</string>
+    <string name="select_option">Dewis opsiwn</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">Seddi awyr agored</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">Ar gyfer y llywio mwyaf cywir, rydym yn argymell analluogi modd arbed pŵer yng ngosodiadau batri\'r ffôn.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">Recordio Trac</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Stopio Recordio Trac</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Recordio Trac</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Stopio Heb Gadw</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">Parhau i Recordio</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Cadw i Nodau Tudalen a Thraciau?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Mae\'r trac yn wag - dim i\'w gadw</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">Methu dangos deialog dewis ffolder oherwydd nad oes ap addas wedi\'i osod ar eich dyfais. Gosodwch ap rheoli ffeiliau a cheisiwch eto.</string>
+    <string name="choose_color">Dewis Lliw</string>
+    <string name="edit_track">Golygu Trac</string>
+    <string name="uri_open_location_failed">Dim ap wedi\'i osod a all agor y lleoliad</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Awtomatig wrth lywio</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Dilyn y system</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Rhannu Trac</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Dileu %s?</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Symud</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Newid Lliw</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Cuddio trac</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Dangos trac</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Mewngofnodi gyda chyfrinair</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Mewngofnodi gan ddefnyddio Porwr</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Defnyddiwyd yn ddiweddar</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Newidiwyd lliw\'r nodau tudalen</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Newidiwyd lliw\'r traciau</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Sbectrwm</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Llithryddion</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">COCH</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">GWYRDD</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">GLAS</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Lliw Heics sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Grid</string>
+    <!-- Accessibility label for the voice-search mic button in the search bar -->
+    <string name="voice_search">Chwilio â llais</string>
+</resources>
