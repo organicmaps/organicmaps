@@ -62,7 +62,7 @@ public:
   void SetGuides(GuidesTracks && /* guides */) override {}
 
   RouterResultCode CalculateRoute(Checkpoints const & /* checkpoints */, m2::PointD const & /* startDirection */,
-                                  bool /* adjust */, RouterDelegate const & /* delegate */,
+                                  bool /* adjust */, bool /* needAlternatives */, RouterDelegate const & /* delegate */,
                                   RoutesResult & result) override
   {
     ++m_buildCount;
@@ -75,6 +75,24 @@ public:
   {
     return false;
   }
+};
+
+// Router recording whether the session asked for alternative routes.
+class AlternativesFlagRouter : public DummyRouter
+{
+public:
+  AlternativesFlagRouter(size_t & buildCounter, vector<bool> & flags) : DummyRouter(buildCounter), m_flags(flags) {}
+
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection, bool adjust,
+                                  bool needAlternatives, RouterDelegate const & delegate,
+                                  RoutesResult & result) override
+  {
+    m_flags.push_back(needAlternatives);
+    return DummyRouter::CalculateRoute(checkpoints, startDirection, adjust, needAlternatives, delegate, result);
+  }
+
+private:
+  vector<bool> & m_flags;
 };
 
 // Router which every next call of CalculateRoute() method return different return codes.
@@ -92,7 +110,7 @@ public:
   void SetGuides(GuidesTracks && /* guides */) override {}
 
   RouterResultCode CalculateRoute(Checkpoints const & /* checkpoints */, m2::PointD const & /* startDirection */,
-                                  bool /* adjust */, RouterDelegate const & /* delegate */,
+                                  bool /* adjust */, bool /* needAlternatives */, RouterDelegate const & /* delegate */,
                                   RoutesResult & result) override
   {
     TEST_LESS(m_returnCodesIdx, m_returnCodes.size(), ());
@@ -608,5 +626,37 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
     vector<double> const latitudes = {0.003, 0.0035, 0.004};
     TestMovingByUpdatingLat(sessionStateTest, latitudes, info, *m_session);
   }
+}
+
+// Alternatives are drawn only outside navigation (RoutingManager::InsertRoute), so a rebuild in
+// follow mode must not pay for computing them.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativesSkippedWhileFollowing)
+{
+  size_t counter = 0;
+  vector<bool> flags;
+
+  TimedSignal builtSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&builtSignal, &counter, &flags, this]()
+  {
+    InitRoutingSession();
+    m_session->SetRouter(make_unique<AlternativesFlagRouter>(counter, flags), nullptr);
+    m_session->SetRoutingCallbacks([&builtSignal](RoutesResult const &, RouterResultCode) {
+      builtSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(builtSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+  TEST_EQUAL(flags, vector<bool>({true}), ("The initial build computes alternatives."));
+
+  TimedSignal rebuiltSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&rebuiltSignal, this]()
+  {
+    TEST(m_session->EnableFollowMode(), ());
+    m_session->RebuildRoute(kTestRoute.front(), [&rebuiltSignal](RoutesResult const &, RouterResultCode)
+    { rebuiltSignal.Signal(); }, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                            RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+  });
+  TEST(rebuiltSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST_EQUAL(flags, vector<bool>({true, false}), ("A rebuild while navigating skips alternatives."));
 }
 }  // namespace routing_session_test
