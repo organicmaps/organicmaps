@@ -8590,18 +8590,29 @@ type railway-monorail
     line width=2 color=c171 join=round cap=round priority=260
 type railway-monorail-bridge
   z14
+    line width=3 color=c134 join=round cap=butt priority=110
     line width=1 color=c174 join=round cap=butt priority=260
   z15
+    line width=3.4 color=c134 join=round cap=butt priority=110
     line width=1.2 color=c171 join=round cap=butt priority=260
   z16
+    line width=3.4 color=c134 join=round cap=butt priority=110
     line width=1.2 color=c171 join=round cap=round priority=260
   z17
+    line width=6 color=c133 join=round cap=butt priority=100
+    line width=5 color=c134 join=round cap=butt priority=110
     line width=2 color=c171 join=round cap=round priority=260
   z18
+    line width=6 color=c133 join=round cap=butt priority=100
+    line width=5 color=c134 join=round cap=butt priority=110
     line width=2 color=c171 join=round cap=round priority=260
   z19
+    line width=6 color=c133 join=round cap=butt priority=100
+    line width=5 color=c134 join=round cap=butt priority=110
     line width=2 color=c171 join=round cap=round priority=260
   z20
+    line width=6 color=c133 join=round cap=butt priority=100
+    line width=5 color=c134 join=round cap=butt priority=110
     line width=2 color=c171 join=round cap=round priority=260
 type railway-monorail-tunnel
   z14
@@ -8633,16 +8644,26 @@ type railway-narrow_gauge
     line width=2 color=c171 join=round cap=round priority=260
 type railway-narrow_gauge-bridge
   z15
+    line width=3.4 color=c134 join=round cap=butt priority=110
     line width=1.2 color=c171 join=round cap=butt priority=260
   z16
+    line width=3.4 color=c134 join=round cap=butt priority=110
     line width=1.2 color=c171 join=round cap=round priority=260
   z17
+    line width=6 color=c133 join=round cap=butt priority=100
+    line width=5 color=c134 join=round cap=butt priority=110
     line width=2 color=c171 join=round cap=round priority=260
   z18
+    line width=6 color=c133 join=round cap=butt priority=100
+    line width=5 color=c134 join=round cap=butt priority=110
     line width=2 color=c171 join=round cap=round priority=260
   z19
+    line width=6 color=c133 join=round cap=butt priority=100
+    line width=5 color=c134 join=round cap=butt priority=110
     line width=2 color=c171 join=round cap=round priority=260
   z20
+    line width=6 color=c133 join=round cap=butt priority=100
+    line width=5 color=c134 join=round cap=butt priority=110
     line width=2 color=c171 join=round cap=round priority=260
 type railway-narrow_gauge-tunnel
   z15
@@ -14076,18 +14097,27 @@ type railway-tram
     line width=6.4 color=c181 join=round cap=butt dash=[1.5,19] priority=260
 type railway-tram-bridge
   z16
+    line width=2.7 color=c134 join=round cap=butt priority=110
     line width=0.85 color=c181 join=round cap=round priority=270
     line width=1.5 color=c181 join=round cap=butt dash=[0.8,12] priority=260
   z17
+    line width=5 color=c133 join=round cap=butt priority=100
+    line width=4 color=c134 join=round cap=butt priority=110
     line width=1.5 color=c181 join=round cap=round priority=270
     line width=3 color=c181 join=round cap=butt dash=[1.15,14] priority=260
   z18
+    line width=6.1 color=c133 join=round cap=butt priority=100
+    line width=5.1 color=c134 join=round cap=butt priority=110
     line width=1.8 color=c181 join=round cap=round priority=270
     line width=4.1 color=c181 join=round cap=butt dash=[1.25,16] priority=260
   z19
+    line width=8.4 color=c133 join=round cap=butt priority=100
+    line width=7.4 color=c134 join=round cap=butt priority=110
     line width=2 color=c181 join=round cap=round priority=270
     line width=6.4 color=c181 join=round cap=butt dash=[1.5,19] priority=260
   z20
+    line width=8.4 color=c133 join=round cap=butt priority=100
+    line width=7.4 color=c134 join=round cap=butt priority=110
     line width=2 color=c181 join=round cap=round priority=270
     line width=6.4 color=c181 join=round cap=butt dash=[1.5,19] priority=260
 type railway-tram-tunnel
