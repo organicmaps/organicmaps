@@ -89,6 +89,18 @@
       "binaryDir": "${sourceDir}/build"
     },
     {
+      "name": "ci-windows",
+      "displayName": "CI (Windows)",
+      "description": "Mirrors the Windows CI leg: flat build/ dir. Pass -DCMAKE_BUILD_TYPE on top.",
+      "inherits": "base",
+      "binaryDir": "${sourceDir}/build",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
       "name": "ci-xcode",
       "displayName": "CI (Xcode)",
       "description": "Mirrors the Xcode CI leg. Multi-config: choose Debug/Release at build/test time.",
@@ -123,6 +135,10 @@
     {
       "name": "ci",
       "configurePreset": "ci"
+    },
+    {
+      "name": "ci-windows",
+      "configurePreset": "ci-windows"
     },
     {
       "name": "xcode",
@@ -196,6 +212,16 @@
       "name": "ci-drape",
       "inherits": "drape-tests",
       "configurePreset": "ci"
+    },
+    {
+      "name": "ci-windows",
+      "inherits": "omim-tests",
+      "configurePreset": "ci-windows"
+    },
+    {
+      "name": "ci-drape-windows",
+      "inherits": "drape-tests",
+      "configurePreset": "ci-windows"
     },
     {
       "name": "ci-xcode",

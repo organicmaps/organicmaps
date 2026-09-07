@@ -124,6 +124,9 @@ void FakeMapFilesDownloader::OnFileDownloaded(QueuedCountry const & queuedCountr
   auto const country = queuedCountry;
   m_queue.PopFront();
 
+  // Close the file before the storage renames it, Windows refuses to rename open files.
+  m_writer.reset();
+
   m_taskRunner.PostTask([country, status]() { country.OnDownloadFinished(status); });
 
   if (!m_queue.IsEmpty())

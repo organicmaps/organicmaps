@@ -12,70 +12,70 @@ namespace
 // Note that it's not feasible to increase the number of languages here due to current encoding (6 bit to
 // store language code).
 std::array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> constexpr kLanguages = {
-    {{"default", "Name in local language", {"Any-Latin"}},
+    {{"default", "Name in local language", "Any-Latin"},
      {"en", "English", {}},
      {"ja", "日本語", {}},
      {"fr", "Français", {}},
-     {"ko_rm", "Korean (Romanized)", {"Korean-Latin/BGN"}},
-     {"ar", "العربية", {"Any-Latin"}},
+     {"ko_rm", "Korean (Romanized)", "Korean-Latin/BGN"},
+     {"ar", "العربية", "Any-Latin"},
      {"de", "Deutsch", {}},
-     {"int_name", "International (Latin)", {"Any-Latin"}},
-     {"ru", "Русский", {"Russian-Latin/BGN"}},
+     {"int_name", "International (Latin)", "Any-Latin"},
+     {"ru", "Русский", "Russian-Latin/BGN"},
      {"sv", "Svenska", {}},
-     {"zh", "中文", {"Any-Latin"}},
+     {"zh", "中文", "Any-Latin"},
      {"fi", "Suomi", {}},
-     {"be", "Беларуская", {"Belarusian-Latin/BGN"}},
-     {"ka", "ქართული", {"Georgian-Latin"}},
-     {"ko", "한국어", {"Hangul-Latin/BGN"}},
-     {"he", "עברית", {"Hebrew-Latin"}},
+     {"be", "Беларуская", "Belarusian-Latin/BGN"},
+     {"ka", "ქართული", "Georgian-Latin"},
+     {"ko", "한국어", "Hangul-Latin/BGN"},
+     {"he", "עברית", "Hebrew-Latin"},
      {"nl", "Nederlands", {}},
      {"ga", "Gaeilge", {}},
-     {"ja_rm", "Japanese (Romanized)", {"Any-Latin"}},
-     {"el", "Ελληνικά", {"Greek-Latin"}},
+     {"ja_rm", "Japanese (Romanized)", "Any-Latin"},
+     {"el", "Ελληνικά", "Greek-Latin"},
      {"it", "Italiano", {}},
      {"es", "Español", {}},
-     {"zh_pinyin", "Chinese (Pinyin)", {"Any-Latin"}},
+     {"zh_pinyin", "Chinese (Pinyin)", "Any-Latin"},
      {"th", "ไทย", {}},  // Thai-Latin
      {"cy", "Cymraeg", {}},
-     {"sr", "Српски", {"Serbian-Latin/BGN"}},
-     {"uk", "Українська", {"Ukrainian-Latin/BGN"}},
+     {"sr", "Српски", "Serbian-Latin/BGN"},
+     {"uk", "Українська", "Ukrainian-Latin/BGN"},
      {"ca", "Català", {}},
      {"hu", "Magyar", {}},
      {StringUtf8Multilang::kReservedLang /* hsb */, "", {}},
      {"eu", "Euskara", {}},
-     {"fa", "فارسی", {"Any-Latin"}},
+     {"fa", "فارسی", "Any-Latin"},
      {StringUtf8Multilang::kReservedLang /* br */, "", {}},
      {"pl", "Polski", {}},
-     {"hy", "Հայերէն", {"Armenian-Latin"}},
+     {"hy", "Հայերէն", "Armenian-Latin"},
      {StringUtf8Multilang::kReservedLang /* kn */, "", {}},
      {"sl", "Slovenščina", {}},
      {"ro", "Română", {}},
      {"sq", "Shqip", {}},
-     {"am", "አማርኛ", {"Amharic-Latin/BGN"}},
+     {"am", "አማርኛ", "Amharic-Latin/BGN"},
      {"no", "Norsk", {}},  // Was "fy" before December 2018.
      {"cs", "Čeština", {}},
      {"id", "Bahasa Indonesia", {}},  // Was "gd" before December 2018.
      {"sk", "Slovenčina", {}},
      {"af", "Afrikaans", {}},
-     {"ja_kana", "日本語(カタカナ)", {"Katakana-Latin", "Hiragana-Latin"}},
+     {"ja_kana", "日本語(カタカナ)", "Katakana-Latin;Hiragana-Latin"},
      {StringUtf8Multilang::kReservedLang /* lb */, "", {}},
      {"pt", "Português", {}},
      {"hr", "Hrvatski", {}},
      {"da", "Dansk", {}},  // Was "fur" before December 2018.
      {"vi", "Tiếng Việt", {}},
      {"tr", "Türkçe", {}},
-     {"bg", "Български", {"Bulgarian-Latin/BGN"}},
-     {"alt_name", "Alternative name", {"Any-Latin"}},  // Was "eo" before December 2018.
+     {"bg", "Български", "Bulgarian-Latin/BGN"},
+     {"alt_name", "Alternative name", "Any-Latin"},  // Was "eo" before December 2018.
      {"lt", "Lietuvių", {}},
-     {"old_name", "Old/Previous name", {"Any-Latin"}},  // Was "la" before December 2018.
-     {"kk", "Қазақ", {"Kazakh-Latin/BGN"}},
-     {"mr", "मराठी", {"Any-Latin"}},  // Was kReservedLang "gsw" before March 2022
+     {"old_name", "Old/Previous name", "Any-Latin"},  // Was "la" before December 2018.
+     {"kk", "Қазақ", "Kazakh-Latin/BGN"},
+     {"mr", "मराठी", "Any-Latin"},  // Was kReservedLang "gsw" before March 2022
      {"et", "Eesti", {}},
-     {"ku", "Kurdish", {"Any-Latin"}},
-     {"mn", "Mongolian", {"Mongolian-Latin/BGN"}},
-     {"mk", "Македонски", {"Macedonian-Latin/BGN"}},
+     {"ku", "Kurdish", "Any-Latin"},
+     {"mn", "Mongolian", "Mongolian-Latin/BGN"},
+     {"mk", "Македонски", "Macedonian-Latin/BGN"},
      {"lv", "Latviešu", {}},
-     {"hi", "हिन्दी", {"Any-Latin"}}}};
+     {"hi", "हिन्दी", "Any-Latin"}}};
 
 static_assert(kLanguages.size() == StringUtf8Multilang::kMaxSupportedLanguages,
               "With current encoding we are limited to 64 languages max. And we need kLanguages.size()"
@@ -99,22 +99,6 @@ constexpr bool IsServiceLang(std::string_view const lang)
          lang == kLanguages[StringUtf8Multilang::kAltNameCode].m_code ||
          lang == kLanguages[StringUtf8Multilang::kOldNameCode].m_code;
 }
-
-StringUtf8Multilang::Languages constexpr allLanguages = [] consteval
-{
-  StringUtf8Multilang::Languages langs;
-  std::ranges::copy_if(kLanguages, std::back_inserter(langs), [](StringUtf8Multilang::Lang const & lang)
-  { return lang.m_code != StringUtf8Multilang::kReservedLang; });
-  return langs;
-}();
-
-StringUtf8Multilang::Languages constexpr languagesWithoutService = [] consteval
-{
-  StringUtf8Multilang::Languages langs;
-  std::ranges::copy_if(allLanguages, std::back_inserter(langs),
-                       [](StringUtf8Multilang::Lang const & lang) { return !IsServiceLang(lang.m_code); });
-  return langs;
-}();
 
 // Compile-time perfect hash table for O(1) language code lookup.
 constexpr uint32_t LangHash(std::string_view s)
@@ -180,6 +164,23 @@ bool StringUtf8Multilang::IsServiceLang(std::string_view const lang)
 
 StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages(bool includeServiceLangs)
 {
+  // Not constexpr: MSVC's debug std::vector allocates its iterator-checking proxy even in constant
+  // evaluation, so a buffer_vector cannot be a constexpr variable there. Function-local statics keep
+  // the lists usable from other static initializers, e.g. in mwm_viewer.
+  static Languages const allLanguages = []
+  {
+    Languages langs;
+    std::ranges::copy_if(kLanguages, std::back_inserter(langs),
+                         [](Lang const & lang) { return lang.m_code != kReservedLang; });
+    return langs;
+  }();
+  static Languages const languagesWithoutService = []
+  {
+    Languages langs;
+    std::ranges::copy_if(allLanguages, std::back_inserter(langs),
+                         [](Lang const & lang) { return !::IsServiceLang(lang.m_code); });
+    return langs;
+  }();
   return includeServiceLangs ? allLanguages : languagesWithoutService;
 }
 

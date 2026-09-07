@@ -41,17 +41,29 @@ std::string GetNameFromFullPathWithoutExt(std::string path)
   return path;
 }
 
+// Windows accepts forward slashes too, and CMake or URL derived paths use them.
+bool IsSeparator(char c)
+{
+#ifdef OMIM_OS_WINDOWS
+  return c == '/' || c == '\\';
+#else
+  return c == '/';
+#endif
+}
+
 std::string GetDirectory(std::string const & name)
 {
-  auto const sep = GetNativeSeparator();
-  size_t const sepSize = sizeof(sep);
-
-  std::string::size_type i = name.rfind(sep);
-  if (i == std::string::npos)
+  // Index right after the last separator.
+  std::string::size_type i = name.size();
+  while (i > 0 && !IsSeparator(name[i - 1]))
+    --i;
+  if (i == 0)
     return ".";
-  while (i > sepSize && (name[i - sepSize] == sep))
-    i -= sepSize;
-  return name.substr(0, i ? i : sepSize);
+  // Skip the run of separators before the file name, but keep a leading one.
+  --i;
+  while (i > 0 && IsSeparator(name[i - 1]))
+    --i;
+  return name.substr(0, i ? i : 1);
 }
 
 std::string::value_type GetNativeSeparator()
@@ -65,10 +77,8 @@ std::string::value_type GetNativeSeparator()
 
 std::string AddSlashIfNeeded(std::string const & path)
 {
-  auto const sep = GetNativeSeparator();
-  std::string::size_type const pos = path.rfind(sep);
-  if (pos != std::string::npos && pos + sizeof(sep) == path.size())
+  if (!path.empty() && IsSeparator(path.back()))
     return path;
-  return path + sep;
+  return path + GetNativeSeparator();
 }
 }  // namespace base

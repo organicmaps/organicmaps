@@ -53,7 +53,8 @@ class StringUtf8Multilang
 public:
   struct Lang
   {
-    using TransliteratorsList = std::initializer_list<std::string_view>;
+    /// ICU transliterator id to Latin, several steps are separated by ';'. Empty if there is none.
+    using TransliteratorsList = std::string_view;
 
     /// OSM language code (e.g. for name:en it's "en" part).
     std::string_view m_code;

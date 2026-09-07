@@ -2,7 +2,7 @@
 
 #include "base/assert.hpp"
 
-namespace impl
+namespace hex_impl
 {
 static char const kToHexTable[] = "0123456789ABCDEF";
 
@@ -54,4 +54,4 @@ bool FromHexRaw(void const * src, size_t size, void * dst)
   }
   return true;
 }
-}  // namespace impl
+}  // namespace hex_impl

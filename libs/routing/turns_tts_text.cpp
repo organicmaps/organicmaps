@@ -7,14 +7,37 @@
 
 #include "base/string_utils.hpp"
 
+#include <initializer_list>
 #include <regex>
 #include <string>
+#include <string_view>
 
 namespace routing::turns::sound
 {
-
 namespace
 {
+// Expands the positional %N$s placeholders of the sound-string templates, everything else is copied
+// verbatim. Not printf: MSVC has no positional arguments, and a translated template is not a
+// trustworthy format string.
+std::string FormatPositional(std::string_view format, std::initializer_list<std::string_view> args)
+{
+  std::string out;
+  out.reserve(format.size() + 64);
+  for (size_t i = 0; i < format.size(); ++i)
+  {
+    if (format[i] == '%' && i + 3 < format.size() && strings::IsASCIIDigit(format[i + 1]) && format[i + 2] == '$' &&
+        format[i + 3] == 's')
+    {
+      size_t const index = static_cast<size_t>(format[i + 1] - '1');
+      if (index < args.size())
+        out += *(args.begin() + index);
+      i += 3;
+      continue;
+    }
+    out += format[i];
+  }
+  return out;
+}
 
 template <class TIter>
 std::string DistToTextId(TIter begin, TIter end, uint32_t dist)
@@ -218,14 +241,12 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
       }
     }
 
-    char ttsOut[1024];
-    std::snprintf(ttsOut, std::size(ttsOut), distDirOntoStreetStr.c_str(),
-                  distStr.c_str(),    // in 100 feet
-                  dirStr.c_str(),     // turn right / take exit
-                  ontoStr.c_str(),    // onto / null
-                  streetOut.c_str(),  // Main Street / 543:: M4: Queens Parkway, London
-                  dirVerb.c_str()     // (optional "turn right" verb)
-    );
+    std::string const ttsOut =
+        FormatPositional(distDirOntoStreetStr, {distStr,    // in 100 feet
+                                                dirStr,     // turn right / take exit
+                                                ontoStr,    // onto / null
+                                                streetOut,  // Main Street / 543:: M4: Queens Parkway, London
+                                                dirVerb});  // (optional "turn right" verb)
 
     // remove floating punctuation
     static std::regex const rP(" [,\\.:;]+ ");

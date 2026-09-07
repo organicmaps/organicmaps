@@ -59,7 +59,7 @@ UNIT_TEST(LocalCountryFile_Smoke)
   CountryFile countryFile("TestCountry", 1 /* size */, "hash");
   LocalCountryFile localFile("/test-dir", countryFile, 150309);
 
-  TEST_EQUAL("/test-dir/TestCountry" DATA_FILE_EXTENSION, localFile.GetPath(MapFileType::Map), ());
+  TEST_EQUAL(base::JoinPath("/test-dir", "TestCountry" DATA_FILE_EXTENSION), localFile.GetPath(MapFileType::Map), ());
 
   // Not synced with disk yet.
   TEST(!localFile.HasFiles(), ());

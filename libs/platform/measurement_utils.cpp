@@ -214,8 +214,10 @@ std::string FormatOsmLink(double lat, double lon, int zoom)
 
   // Same as (lon + 180) / 360 * 1UL << 32, but without warnings.
   double constexpr factor = (1 << 30) / 90.0;
-  auto const x = static_cast<uint32_t>(std::lround((lon + 180.0) * factor));
-  auto const y = static_cast<uint32_t>(std::lround((lat + 90.0) * factor * 2.0));
+  // llround: the values do not fit into the 32-bit long of Windows. The uint64_t step keeps the wrap
+  // around at the antimeridian (2^32 at lon == 180) defined.
+  auto const x = static_cast<uint32_t>(static_cast<uint64_t>(std::llround((lon + 180.0) * factor)));
+  auto const y = static_cast<uint32_t>(static_cast<uint64_t>(std::llround((lat + 90.0) * factor * 2.0)));
   uint64_t const code = bits::BitwiseMerge(y, x);
   std::string osmUrl = "https://osm.org/go/";
 

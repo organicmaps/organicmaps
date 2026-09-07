@@ -1,8 +1,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
-#include "unicode/uchar.h"
 
 #include <string>
+
+#include <unicode/uchar.h>
 
 namespace routing::turns::sound
 {

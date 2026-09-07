@@ -3,6 +3,7 @@
 #include "drape_frontend/map_shape.hpp"
 
 #include "drape/batcher.hpp"
+#include "drape/framebuffer.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/render_state.hpp"
 #include "drape/texture_manager.hpp"
@@ -58,9 +59,7 @@ private:
 
   uint32_t m_width = 0;
   uint32_t m_height = 0;
-  uint32_t m_fbo = 0;
-  uint32_t m_colorRbo = 0;
-  uint32_t m_depthRbo = 0;
+  drape_ptr<dp::Framebuffer> m_framebuffer;
 
   std::unique_ptr<dp::GraphicsContext> m_context;
   std::unique_ptr<dp::TextureManager> m_texMng;

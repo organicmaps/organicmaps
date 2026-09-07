@@ -1,5 +1,14 @@
 cmake_minimum_required(VERSION 3.22.1)
 
+# Let CMAKE_MSVC_DEBUG_INFORMATION_FORMAT choose between /Zi and /Z7, and keep the debug info inside the
+# object files: ccache cannot cache /Zi compilations, which write PDBs.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  if (NOT CMAKE_MSVC_DEBUG_INFORMATION_FORMAT)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
+  endif()
+endif()
+
 project(omim C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -69,7 +78,13 @@ endif()
 
 # Global compile options for all configurations.
 if (MSVC)
-  add_compile_options(/utf-8)
+  add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/utf-8>)
+  add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/bigobj>)
+  # The XML parsers throw from expat callbacks through XML_Parse. With CMake's default /EHsc MSVC
+  # assumes that extern "C" functions never throw and may skip the catch blocks (seen in Release
+  # builds); /EHs drops that assumption. Rewritten rather than appended: cl warns about overriding
+  # /EHsc otherwise.
+  string(REPLACE "/EHsc" "/EHs" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   add_link_options(/INCREMENTAL:NO)
 else()
   add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>)

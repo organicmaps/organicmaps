@@ -39,15 +39,16 @@ void TestFilesPresence(MwmsInfo const & mwmsInfo, initializer_list<string> const
 
 UNIT_TEST(MwmSetSmokeTest)
 {
-  TestMwmSet mwmSet;
-  MwmsInfo mwmsInfo;
-
   ScopedMwm mwm0("0.mwm");
   ScopedMwm mwm1("1.mwm");
   ScopedMwm mwm2("2.mwm");
   ScopedMwm mwm3("3.mwm");
   ScopedMwm mwm4("4.mwm");
   ScopedMwm mwm5("5.mwm");
+
+  // Destroyed before the files: Windows cannot delete maps that are still open.
+  TestMwmSet mwmSet;
+  MwmsInfo mwmsInfo;
 
   UNUSED_VALUE(mwmSet.Register(LocalCountryFile::MakeForTesting("0")));
   UNUSED_VALUE(mwmSet.Register(LocalCountryFile::MakeForTesting("1")));

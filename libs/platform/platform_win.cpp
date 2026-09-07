@@ -1,3 +1,4 @@
+#include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 #include "platform/socket.hpp"
 
