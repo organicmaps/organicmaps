@@ -24,6 +24,7 @@ using namespace std::placeholders;
 namespace
 {
 std::string_view constexpr kLocationStateMode = "LastLocationStateMode";
+std::string_view constexpr kRoutingOrientation = "LastRoutingOrientation";
 std::string_view constexpr kLastEnterBackground = "LastEnterBackground";
 }  // namespace
 
@@ -70,6 +71,10 @@ DrapeEngine::DrapeEngine(Params && params)
       mode = Follow;
   }
 
+  // Use heading-up when no routing orientation has been stored.
+  MapOrientation routingOrientation = MapOrientation::HeadingUp;
+  (void)Get(kRoutingOrientation, routingOrientation);
+
   if (!Get(kLastEnterBackground, m_startBackgroundTime))
     m_startBackgroundTime = base::Timer::LocalTime();
 
@@ -88,9 +93,11 @@ DrapeEngine::DrapeEngine(Params && params)
   //  effects.push_back(PostprocessRenderer::Antialiasing);
   //}
 
-  MyPositionController::Params mpParams(mode, base::Timer::LocalTime() - m_startBackgroundTime, params.m_hints,
-                                        params.m_isRoutingActive, params.m_isAutozoomEnabled,
-                                        std::bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2));
+  MyPositionController::Params mpParams(mode, routingOrientation, base::Timer::LocalTime() - m_startBackgroundTime,
+                                        params.m_hints, params.m_isRoutingActive, params.m_isAutozoomEnabled,
+                                        std::bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2),
+                                        [](location::MapOrientation orientation)
+  { settings::Set(kRoutingOrientation, orientation); });
 
   FrontendRenderer::Params frParams(
       params.m_apiVersion, make_ref(m_threadCommutator), params.m_factory, make_ref(m_textureManager),

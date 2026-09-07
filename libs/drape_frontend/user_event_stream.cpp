@@ -370,6 +370,11 @@ bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
       ResetAnimations(Animation::Type::Parallel, kParallelFollowAnim);
     }
 
+    // The scale is accepted: notify right away so that a competing viewport update
+    // (e.g. the routing auto zoom) cannot cancel the started animation.
+    if (m_listener)
+      m_listener->OnAnimatedScaleStarted();
+
     m2::PointD glbScaleCenter = m_navigator.PtoG(m_navigator.P3dtoP(scaleCenter));
     if (m_listener)
       m_listener->CorrectGlobalScalePoint(glbScaleCenter);
