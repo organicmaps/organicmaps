@@ -420,8 +420,8 @@ void IndexRouter::SetGuides(GuidesTracks && guides)
 }
 
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                             bool adjustToPrevRoute, RouterDelegate const & delegate,
-                                             RoutesResult & result)
+                                             bool adjustToPrevRoute, bool needAlternatives,
+                                             RouterDelegate const & delegate, RoutesResult & result)
 {
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
@@ -463,8 +463,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       // transit gets a less-walking / fewer-transfers alternative (e.g. a direct bus instead of
       // subway + walk).
       double const altMaxDistanceM = m_vehicleType == VehicleType::Car ? 300'000.0 : 100'000.0;
-      if ((code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) && !delegate.IsCancelled() &&
-          mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
+      if (needAlternatives && (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) &&
+          !delegate.IsCancelled() && mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
       {
         // Save the Normal route's adjust-cache; the alternative computation would overwrite it.
         auto savedLastRoute = std::move(m_lastRoute);

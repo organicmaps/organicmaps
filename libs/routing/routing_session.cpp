@@ -91,8 +91,10 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
   checkpoints.SetPointFrom(startPoint);
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, DoReadyCallback(*this, readyCallback),
-                           needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
+  // RoutingManager::InsertRoute draws alternatives only outside navigation, don't pay for them.
+  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
+                           DoReadyCallback(*this, readyCallback), needMoreMapsCallback, removeRouteCallback,
+                           m_progressCallback, timeoutSec);
 }
 
 m2::PointD RoutingSession::GetStartPoint() const
