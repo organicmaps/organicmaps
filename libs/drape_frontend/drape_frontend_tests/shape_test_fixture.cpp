@@ -67,13 +67,7 @@ void ShapeTestFixture::ReleaseGLResources()
   m_texMng.reset();
   m_progMng.reset();
 
-  if (m_fbo != 0)
-  {
-    glDeleteFramebuffers(1, &m_fbo);
-    glDeleteRenderbuffers(1, &m_colorRbo);
-    glDeleteRenderbuffers(1, &m_depthRbo);
-    m_fbo = 0;
-  }
+  m_framebuffer.reset();
 
   m_context.reset();
 }
@@ -92,23 +86,14 @@ bool ShapeTestFixture::Init(uint32_t width, uint32_t height)
   m_context = std::move(ctx);
   auto const contextRef = make_ref(m_context);
 
-  // Create FBO for offscreen rendering.
-  glGenFramebuffers(1, &m_fbo);
-  glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-
-  glGenRenderbuffers(1, &m_colorRbo);
-  glBindRenderbuffer(GL_RENDERBUFFER, m_colorRbo);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, width, height);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_colorRbo);
-
-  glGenRenderbuffers(1, &m_depthRbo);
-  glBindRenderbuffer(GL_RENDERBUFFER, m_depthRbo);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthRbo);
-
-  if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+  // Offscreen render target: the same RGBA8 color plus depth framebuffer FrontendRenderer draws into.
+  m_framebuffer =
+      make_unique_dp<dp::Framebuffer>(dp::TextureFormat::RGBA8, true /* depthEnabled */, false /* stencilEnabled */);
+  m_framebuffer->SetSize(contextRef, width, height);
+  if (!m_framebuffer->IsSupported())
   {
     LOG(LWARNING, ("FBO incomplete, skipping visual test"));
+    ReleaseGLResources();
     return false;
   }
 
@@ -169,7 +154,7 @@ void ShapeTestFixture::Render()
 {
   auto const contextRef = make_ref(m_context);
 
-  glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+  m_framebuffer->Bind();
   m_context->SetClearColor(dp::Color::White());
   m_context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit, 0);
 
