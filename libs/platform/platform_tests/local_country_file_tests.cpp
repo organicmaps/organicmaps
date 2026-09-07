@@ -50,6 +50,7 @@ UNIT_TEST(LocalCountryFile_ParseVersion)
   TEST(!ParseVersion("150309 ", version), ());
   TEST(!ParseVersion(" 150309", version), ());
   TEST(!ParseVersion("-150309", version), ());
+  TEST(!ParseVersion("12\xC3\xA9", version), ());
   TEST(!ParseVersion("just string", version), ());
 }
 
