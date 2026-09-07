@@ -96,12 +96,8 @@ set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
 function(copy_resources)
-  execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER})
   foreach(file ${ARGN})
-    execute_process(
-      COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
-      COMMAND_ERROR_IS_FATAL ANY
-    )
+    file(COPY ${DATA_DIR}/${file} DESTINATION ${RESOURCES_FOLDER})
   endforeach()
 endfunction()
 
@@ -143,18 +139,8 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
 endif()
 
 if (PLATFORM_MAC)
-  if (BUILD_DESIGNER)
-    execute_process(
-        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/designer.icns ${RESOURCES_FOLDER}
-    )
-  else ()
-    execute_process(
-        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/mac.icns ${RESOURCES_FOLDER}
-    )
-  endif ()
-endif()
+  file(COPY ${PROJECT_SOURCE_DIR}/res/mac/${BUNDLE_ICON} DESTINATION ${RESOURCES_FOLDER})
 
-if (PLATFORM_MAC)
   if (NOT APP_VERSION)
     set(BUNDLE_VERSION "UNKNOWN")
   else()
