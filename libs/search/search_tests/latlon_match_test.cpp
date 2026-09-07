@@ -227,6 +227,12 @@ UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
   TestAlmostEqual(lat, 37.0077027777778);
   TestAlmostEqual(lon, -8.94488611111111);
 
+  TEST(!MatchLatLonDegree("37 00 27.73 N08 56 41.59 W", lat, lon), ());
+
+  TEST(MatchLatLonDegree("N 1,5 2 E 3,5 4", lat, lon), ());
+  TestAlmostEqual(lat, 1.5333333333333334);
+  TestAlmostEqual(lon, 3.566666666666667);
+
   TEST(MatchLatLonDegree("37 00 27.73 s 08 56 41.59 e", lat, lon), ());
   TestAlmostEqual(lat, -37.0077027777778);
   TestAlmostEqual(lon, 8.94488611111111);
@@ -258,6 +264,7 @@ UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
   TEST(!MatchLatLonDegree("91 0 0 N 1 2 3 E", lat, lon), ());
   TEST(!MatchLatLonDegree("1 2 3 N 181 0 0 E", lat, lon), ());
   TEST(!MatchLatLonDegree("1 2 3 N 180 0 1 E", lat, lon), ());
+  TEST(!MatchLatLonDegree("1.5.5 N 2.5.5 E", lat, lon), ());
   TEST(!MatchLatLonDegree("1 -2 3 N 4 5 6 E", lat, lon), ());
   TEST(!MatchLatLonDegree("-nan 2 3 N 4 5 6 E", lat, lon), ());
   TEST(!MatchLatLonDegree("1 2 -3 N 4 5 6 E", lat, lon), ());

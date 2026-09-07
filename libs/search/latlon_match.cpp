@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cmath>
 #include <cstdlib>
 #include <cstring>
 #include <iterator>
@@ -168,10 +167,10 @@ bool IsCardinalDirection(char c)
   return c != 0 && strchr("NnSsEeWw", c) != nullptr;
 }
 
-// strtod("nan") succeeds, and NaN would pass a plain range comparison.
+// strtod("nan") and strtod("inf") succeed, but NaN fails the >= comparison and infinity fails one of the bounds.
 bool IsValidDMSPart(double value, double maxValue)
 {
-  return std::isfinite(value) && value >= 0.0 && value <= maxValue;
+  return value >= 0.0 && value <= maxValue;
 }
 
 struct Coordinate
@@ -192,7 +191,7 @@ bool MatchDMSWithDirection(char const *& s, Coordinate & coordinate)
   if (IsCardinalDirection(*s))
   {
     direction = *s++;
-    SkipSpaces(s);
+    SkipSpaces(s);  // EatDouble reads a comma decimal mark only when the digits start at s.
   }
 
   std::array<double, 3> parts = {};
@@ -267,7 +266,8 @@ namespace search
 {
 bool MatchLatLonDegree(std::string const & query, double & lat, double & lon)
 {
-  // The general parser treats every number without a DMS symbol as degrees.
+  // Disjoint from the general parser below, which stops at two symbol-less numbers ("too many degree values"),
+  // so it never sees a "D M [S]" pair.
   if (MatchSpaceSeparatedDMS(query, lat, lon))
     return true;
 
