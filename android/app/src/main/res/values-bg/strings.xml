@@ -901,6 +901,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Показване на маршрут</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. -->
+    <string name="you">Вие</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Влизане с парола</string>
