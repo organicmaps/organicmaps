@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/lanes/lane_info.hpp"
+#include "routing/route_adjustment_context.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
@@ -306,6 +307,12 @@ public:
   // A route is "valid" (for display purposes) when it has at least one segment and a starting subroute.
   bool IsValid() const { return !m_routeSegments.empty() && !m_subrouteAttrs.empty(); }
 
+  RouteAdjustmentContextPtr const & GetAdjustmentContext() const { return m_adjustmentContext; }
+  void SetAdjustmentContext(RouteAdjustmentContextPtr adjustmentContext)
+  {
+    m_adjustmentContext = std::move(adjustmentContext);
+  }
+
   /// \returns The midpoint of the longest divergence span — used to place the ETA balloon
   /// where the alt actually differs from |origin| — or nullopt if the route fails the threshold (equal).
   /// Diff is measured by real road-segment feature identity (suitable for road vehicles).
@@ -408,6 +415,9 @@ protected:
 
   // Pivot for the alternative-route ETA balloon — midpoint of the longest segment span.
   std::optional<m2::PointD> m_diffMidpoint;
+
+  // Immutable router-specific state for adjusting this exact route variant.
+  RouteAdjustmentContextPtr m_adjustmentContext;
 };
 
 /// \brief A RouteBase that the user is actively following: adds the matched position on the polyline,
@@ -422,7 +432,12 @@ public:
 
   /// \brief Promote an alternative (RouteBase) to a followed Route. The base's segments and their start
   /// point are used to (re)build the FollowedPolyline for follow-time matching.
-  explicit Route(RouteBase const & base) : RouteBase(base) { RebuildFollowedPolyline(); }
+  explicit Route(RouteBase const & base) : RouteBase(base)
+  {
+    // Adjustment state belongs to the retained result variant, not its followed UI copy.
+    m_adjustmentContext.reset();
+    RebuildFollowedPolyline();
+  }
 
   Route(Route const & rhs) = default;
 
@@ -566,12 +581,19 @@ public:
   RoutesResult() = default;
   RoutesResult(std::string routerName, uint64_t routesId) : m_routerName(std::move(routerName)), m_routesId(routesId) {}
 
-  void MakeFrom(std::string name, Route && route)
+  void MakeFrom(std::string name, Route && route, RouteAdjustmentContextPtr adjustmentContext = {})
   {
     m_routerName = std::move(name);
     m_routes.clear();
+    route.SetAdjustmentContext(std::move(adjustmentContext));
     m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
     m_activeIdx = 0;
+  }
+
+  void AddAlternative(Route && route, RouteAdjustmentContextPtr adjustmentContext)
+  {
+    route.SetAdjustmentContext(std::move(adjustmentContext));
+    m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
   }
 
   bool IsValid() const { return !m_routes.empty() && m_routes[m_activeIdx].IsValid(); }
@@ -586,6 +608,14 @@ public:
   {
     ASSERT_LESS(m_activeIdx, m_routes.size(), ());
     return m_routes[m_activeIdx];
+  }
+
+  RouteAdjustmentContextPtr GetActiveAdjustmentContext() const { return GetActive().GetAdjustmentContext(); }
+
+  void ClearAdjustmentContexts()
+  {
+    for (auto & route : m_routes)
+      route.SetAdjustmentContext({});
   }
 
   std::vector<RouteBase> m_routes;

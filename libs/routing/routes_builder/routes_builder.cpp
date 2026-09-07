@@ -296,7 +296,7 @@ RoutesBuilder::Result RoutesBuilder::Processor::operator()(Params const & params
   {
     m_delegate->SetTimeout(params.m_timeoutSeconds);
     base::Timer timer;
-    resultCode = m_router->CalculateRoute(params.m_checkpoints, m2::PointD::Zero(), false /* adjustToPrevRoute */,
+    resultCode = m_router->CalculateRoute(params.m_checkpoints, m2::PointD::Zero(), nullptr /* adjustmentContext */,
                                           *m_delegate, routesResult);
 
     if (resultCode != RouterResultCode::NoError)

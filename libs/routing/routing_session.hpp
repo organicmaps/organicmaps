@@ -177,6 +177,7 @@ private:
   void AssignRoute(std::shared_ptr<RoutesResult> const & result, RouterResultCode e);
   /// RemoveRoute() removes m_route and resets route attributes (m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
+  void ClearRouterState();
   void RebuildRouteOnTrafficUpdate();
 
   void PassCheckpoints();

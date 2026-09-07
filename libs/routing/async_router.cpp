@@ -4,6 +4,7 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/scope_guard.hpp"
 #include "base/timer.hpp"
 
 #include <functional>
@@ -75,7 +76,12 @@ void AsyncRouter::RouterDelegateProxy::Cancel()
 bool AsyncRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                               EdgeProj & proj)
 {
-  /// @todo No need to put a lock_guard at first glance. May be wrong ..
+  lock_guard ul(m_guard);
+  // The road graph caches are calculation scratch state and cannot be read while CalculateRoute
+  // fills and clears them on the routing thread.
+  if (!m_router || m_isCalculating)
+    return false;
+
   return m_router->FindClosestProjectionToRoad(point, direction, radius, proj);
 }
 
@@ -156,7 +162,8 @@ void AsyncRouter::SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<
   m_absentRegionsFinder = std::move(finder);
 }
 
-void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction, bool adjustToPrevRoute,
+void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
+                                 RouteAdjustmentContextPtr adjustmentContext,
                                  ReadyCallbackOwnership const & readyCallback,
                                  NeedMoreMapsCallback const & needMoreMapsCallback,
                                  RemoveRouteCallback const & removeRouteCallback,
@@ -166,7 +173,7 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
   m_checkpoints = checkpoints;
   m_startDirection = direction;
-  m_adjustToPrevRoute = adjustToPrevRoute;
+  m_adjustmentContext = std::move(adjustmentContext);
 
   ResetDelegate();
 
@@ -191,13 +198,6 @@ void AsyncRouter::ClearState()
   m_threadCondVar.notify_one();
 
   ResetDelegate();
-}
-
-void AsyncRouter::SwapAltRouteToActive()
-{
-  lock_guard ul(m_guard);
-  if (m_router)
-    m_router->SwapAltRouteToActive();
 }
 
 // static
@@ -271,7 +271,7 @@ void AsyncRouter::CalculateRoute()
   Checkpoints checkpoints;
   std::shared_ptr<RouterDelegateProxy> delegateProxy;
   m2::PointD startDirection;
-  bool adjustToPrevRoute = false;
+  RouteAdjustmentContextPtr adjustmentContext;
   std::shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
   std::shared_ptr<IRouter> router;
   uint64_t routeId = 0;
@@ -291,7 +291,7 @@ void AsyncRouter::CalculateRoute()
 
     checkpoints = m_checkpoints;
     startDirection = m_startDirection;
-    adjustToPrevRoute = m_adjustToPrevRoute;
+    adjustmentContext = std::move(m_adjustmentContext);
     delegateProxy = m_delegateProxy;
     router = m_router;
     absentRegionsFinder = m_absentRegionsFinder;
@@ -299,6 +299,7 @@ void AsyncRouter::CalculateRoute()
     routerName = router->GetName();
     router->SetGuides(std::move(m_guides));
     m_guides.clear();
+    m_isCalculating = true;
   }
 
   auto result = std::make_shared<RoutesResult>(router->GetName(), routeId);
@@ -309,6 +310,12 @@ void AsyncRouter::CalculateRoute()
 
   try
   {
+    SCOPE_GUARD(routerIdle, [&]
+    {
+      lock_guard ul(m_guard);
+      m_isCalculating = false;
+    });
+
     LOG(LINFO, ("Calculating the route of direct length", checkpoints.GetSummaryLengthBetweenPointsMeters(),
                 "m. checkpoints:", checkpoints, "startDirection:", startDirection, "router name:", router->GetName()));
 
@@ -319,7 +326,7 @@ void AsyncRouter::CalculateRoute()
     if (code == RouterResultCode::NoError)
     {
       code =
-          router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegateProxy->GetDelegate(), *result);
+          router->CalculateRoute(checkpoints, startDirection, adjustmentContext, delegateProxy->GetDelegate(), *result);
     }
 
     router->SetGuides({});
