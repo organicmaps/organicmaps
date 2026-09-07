@@ -165,7 +165,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     @Override
     public void onProgress(String countryId, long localSize, long remoteSize)
     {
-      mProgress.setProgressCompat((int) localSize, true);
+      // Permille: the fused map+terrain byte counts overflow an int progress range.
+      if (remoteSize > 0)
+        mProgress.setProgressCompat((int) (localSize * 1000 / remoteSize), true);
     }
   };
 
@@ -381,7 +383,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         CountryItem item = CountryItem.fill(mCurrentCountry);
         UiUtils.hide(mChbDownloadCountry);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
-        mProgress.setMax((int) item.totalSize);
+        mProgress.setMax(1000);
         mProgress.setProgressCompat(0, true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);

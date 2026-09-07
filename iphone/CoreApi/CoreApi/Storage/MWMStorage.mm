@@ -168,14 +168,11 @@ using namespace storage;
 - (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error
 {
   auto & s = GetFramework().GetStorage();
-
-  MwmSize requiredSize = 0;
+  storage::CountriesVec countries;
+  countries.reserve(countryIds.count);
   for (NSString * countryId in countryIds)
-  {
-    NodeAttrs nodeAttrs;
-    GetFramework().GetStorage().GetNodeAttrs(countryId.UTF8String, nodeAttrs);
-    requiredSize += nodeAttrs.m_mwmSize;
-  }
+    countries.emplace_back(countryId.UTF8String);
+  MwmSize const requiredSize = s.GetDownloadSize(countries);
 
   if (storage::IsEnoughSpaceForDownload(requiredSize))
   {

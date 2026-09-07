@@ -29,10 +29,7 @@ bool IsEnoughSpaceForDownload(MwmSize mwmSize)
 
 bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & storage)
 {
-  NodeAttrs nodeAttrs;
-  storage.GetNodeAttrs(countryId, nodeAttrs);
-
-  return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize);
+  return IsEnoughSpaceForDownload(storage.GetDownloadSize({countryId}));
 }
 
 bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage)

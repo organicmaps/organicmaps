@@ -757,7 +757,6 @@
     <string name="deselect_all">Zrušit výběr</string>
     <string name="select_list">Vybrat seznam</string>
     <string name="button_layer_isolines">Terén</string>
-    <string name="isolines_activation_error_dialog">Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti</string>
     <string name="isolines_location_error_dialog">Topografická vrstva není v této oblasti ještě dostupná</string>
     <string name="elevation_profile_ascent">Stoupání</string>
     <string name="elevation_profile_descent">Klesání</string>

@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Geen metroroute gevonden";
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
 "button_layer_isolines" = "Contourlijnen";
-"isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden";
 "isolines_location_error_dialog" = "Hoogtelijnen zijn nog niet beschikbaar in deze regio";
 "elevation_profile_ascent" = "Stijging";
 "elevation_profile_descent" = "Daling";

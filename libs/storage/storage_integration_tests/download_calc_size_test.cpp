@@ -35,6 +35,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadingTests_CalcOverallProgress)
   CountriesVec const kTestCountries = {"Kiribati", "Tokelau", "Niue", "Palau", "Pitcairn Islands"};
 
   Storage s;
+  s.DisableTerrainForTesting();
 
   s.SetDownloadingServersForTesting({storage::kTestWebServer});
   auto baseProgress = s.GetOverallProgress(kTestCountries);

@@ -17,6 +17,7 @@ import app.organicmaps.R;
 import app.organicmaps.adapter.DisabledChildSimpleExpandableListAdapter;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.Utils;
@@ -139,16 +140,14 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   private ExpandableListAdapter buildAdapter()
   {
     List<Map<String, String>> countries = new ArrayList<>();
-    long size = 0;
-
     for (CountryItem item : mMissingMaps)
     {
       Map<String, String> data = new HashMap<>();
       data.put(COUNTRY_NAME, item.name);
       countries.add(data);
-
-      size += item.totalSize;
     }
+
+    final long size = MapManager.nativeGetDownloadSize(mMapsArray);
 
     Map<String, String> group = new HashMap<>();
     group.put(GROUP_NAME, getString(R.string.downloader_status_maps) + " (" + mMissingMaps.size() + ") ");

@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Մետրոյի երթուղի չի գտնվել";
 "dialog_pedestrian_route_is_long_message" = "Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ";
 "button_layer_isolines" = "Հորիզոնականներ";
-"isolines_activation_error_dialog" = "Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները";
 "isolines_location_error_dialog" = "Հորիզոնականները դեռ հասանելի չեն այս տարածքում";
 "elevation_profile_ascent" = "Վերելք";
 "elevation_profile_descent" = "Վայրէջք";

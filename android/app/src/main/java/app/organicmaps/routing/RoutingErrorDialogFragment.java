@@ -18,6 +18,7 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.util.UiUtils;
 
@@ -102,14 +103,13 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
       return;
     }
 
-    long size = 0;
-    for (CountryItem country : mMissingMaps)
-    {
-      if (country.status != CountryItem.STATUS_PROGRESS && country.status != CountryItem.STATUS_APPLYING)
-      {
-        size += country.totalSize;
-      }
-    }
+    final String[] countries =
+        mMissingMaps.stream()
+            .filter(country
+                    -> country.status != CountryItem.STATUS_PROGRESS && country.status != CountryItem.STATUS_APPLYING)
+            .map(country -> country.id)
+            .toArray(String[] ::new);
+    final long size = MapManager.nativeGetDownloadSize(countries);
 
     MapManagerHelper.warnOn3g(requireActivity(), size, () -> {
       // The mobile-data confirmation may outlive this dialog fragment.

@@ -13,7 +13,11 @@ namespace storage
 {
 int64_t const FakeMapFilesDownloader::kBlockSize;
 
-FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner) : m_timestamp(0), m_taskRunner(taskRunner)
+FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner,
+                                               std::vector<downloader::DownloadStatus> statuses)
+  : m_timestamp(0)
+  , m_taskRunner(taskRunner)
+  , m_statuses(std::move(statuses))
 {
   SetServersList({"http://test-url/"});
 }
@@ -67,6 +71,16 @@ QueueInterface const & FakeMapFilesDownloader::GetQueue() const
 void FakeMapFilesDownloader::Download()
 {
   auto const & queuedCountry = m_queue.GetFirstCountry();
+  if (!m_statuses.empty())
+  {
+    auto const status = m_statuses.front();
+    m_statuses.erase(m_statuses.begin());
+    if (status != downloader::DownloadStatus::Completed)
+    {
+      OnFileDownloaded(queuedCountry, status);
+      return;
+    }
+  }
   if (!IsDownloadingAllowed())
   {
     OnFileDownloaded(queuedCountry, downloader::DownloadStatus::Failed);

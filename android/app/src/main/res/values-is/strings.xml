@@ -754,7 +754,6 @@
     <string name="deselect_all">Afvelja allt</string>
     <string name="select_list">Veldu lista</string>
     <string name="button_layer_isolines">Hæðarlínur</string>
-    <string name="isolines_activation_error_dialog">Til að virkja hæðarlínur þarf að sækja kortagögn fyrir þetta svæði</string>
     <string name="isolines_location_error_dialog">Hæðarlínur eru ennþá ekki tiltækar á þessu svæði</string>
     <string name="elevation_profile_ascent">Hækkun</string>
     <string name="elevation_profile_descent">Lækkun</string>

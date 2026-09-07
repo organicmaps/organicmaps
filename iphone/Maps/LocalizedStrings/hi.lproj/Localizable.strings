@@ -941,8 +941,7 @@
 "dialog_pedestrian_route_is_long_header" = "सबवे मार्ग नहीं मिला";
 "dialog_pedestrian_route_is_long_message" = "कृपया सबवे स्टेशन के निकट प्रारंभ या समाप्ति बिंदु चुनें";
 "button_layer_isolines" = "रूप रेखा लाइंस";
-"isolines_activation_error_dialog" = "कॉन्टूर लाइनों को सक्रिय करने के लिए इस क्षेत्र का नक्शा डेटा डाउनलोड करना आवश्यक है।";
-"isolines_location_error_dialog" = "इस क्षेत्र में समरेखीय रेखाएँ अभी उपलब्ध नहीं हैं";
+"isolines_location_error_dialog" = "इस क्षेत्र में समोच्च रेखाएँ अभी उपलब्ध नहीं हैं";
 "elevation_profile_ascent" = "चढ़ाई";
 "elevation_profile_descent" = "उतरान";
 "elevation_profile_min_elevation" = "न्यूनतम ऊँचाई";

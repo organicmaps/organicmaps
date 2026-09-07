@@ -760,7 +760,6 @@
     <string name="deselect_all">Зняць вылучэнне</string>
     <string name="select_list">Выбраць спіс</string>
     <string name="button_layer_isolines">Рэльеф</string>
-    <string name="isolines_activation_error_dialog">Каб задзейнічаць лініі рэльефу, трэба абнавіць мапу гэтага рэгіёна</string>
     <string name="isolines_location_error_dialog">Для гэтага рэгіёна мапы рэльефу яшчэ недаступны</string>
     <string name="elevation_profile_ascent">Пад\'ём</string>
     <string name="elevation_profile_descent">Спуск</string>

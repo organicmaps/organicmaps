@@ -239,6 +239,7 @@ static void UpdateItem(JNIEnv * env, jobject item, storage::NodeAttrs const & at
   }
 
   env->SetFloatField(item, ciBuilder.m_Progress, percentage);
+
   env->SetLongField(item, ciBuilder.m_DownloadedBytes, attrs.m_downloadingProgress.m_bytesDownloaded);
   env->SetLongField(item, ciBuilder.m_BytesToDownload, attrs.m_downloadingProgress.m_bytesTotal);
 }
@@ -298,10 +299,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeListItems(JN
 JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass, jobject item)
 {
   auto const & ciBuilder = CountryItemBuilder::Instance(env);
-  jstring id = static_cast<jstring>(env->GetObjectField(item, ciBuilder.m_Id));
+  jni::TScopedLocalRef const id(env, env->GetObjectField(item, ciBuilder.m_Id));
+  auto const countryId = jni::ToNativeString(env, static_cast<jstring>(id.get()));
 
   storage::NodeAttrs attrs;
-  GetStorage().GetNodeAttrs(jni::ToNativeString(env, id), attrs);
+  GetStorage().GetNodeAttrs(countryId, attrs);
 
   UpdateItem(env, item, attrs);
 }
@@ -528,6 +530,21 @@ JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOverallPr
     res = static_cast<jint>(progress.m_bytesDownloaded * kMaxProgressWithoutDiffs / progress.m_bytesTotal);
 
   return res;
+}
+
+// static long nativeGetDownloadSize(String[] countries);
+JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetDownloadSize(JNIEnv * env, jclass clazz,
+                                                                                     jobjectArray jcountries)
+{
+  int const size = env->GetArrayLength(jcountries);
+  storage::CountriesVec countries;
+  countries.reserve(size);
+  for (int i = 0; i < size; ++i)
+  {
+    jni::TScopedLocalRef const item(env, env->GetObjectArrayElement(jcountries, i));
+    countries.push_back(jni::ToNativeString(env, static_cast<jstring>(item.get())));
+  }
+  return static_cast<jlong>(GetStorage().GetDownloadSize(countries));
 }
 
 // static boolean nativeIsAutoretryFailed();

@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Не е открит маршрут за метро";
 "dialog_pedestrian_route_is_long_message" = "Моля, изберете начална или крайна точка по-близо до метростанция";
 "button_layer_isolines" = "Терен";
-"isolines_activation_error_dialog" = "За да активирате и използвате топографския слой, моля, актуализирайте или изтеглете картата на района";
 "isolines_location_error_dialog" = "Топографският слой все още не е наличен в тази област";
 "elevation_profile_ascent" = "Изкачване";
 "elevation_profile_descent" = "Спускане";

@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "T-bane rute ikke funnet";
 "dialog_pedestrian_route_is_long_message" = "Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon";
 "button_layer_isolines" = "Høyder";
-"isolines_activation_error_dialog" = "For å bruke høydekurver oppdater eller last opp kartet til nødvendig område";
 "isolines_location_error_dialog" = "Høydekurver er ikke tilgjengelige i dette området ennå";
 "elevation_profile_ascent" = "Stigning";
 "elevation_profile_descent" = "Nedstigning";

@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Metro maršrutas nerastas";
 "dialog_pedestrian_route_is_long_message" = "Pasirinkite pradžios ar pabaigos tašką, esančius arčiau metro stotelės";
 "button_layer_isolines" = "Reljefas";
-"isolines_activation_error_dialog" = "Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti reljefo sluoksnį";
 "isolines_location_error_dialog" = "Reljefo sluoksnis šiai vietovei dar neprieinamas";
 "elevation_profile_ascent" = "Pakilimas";
 "elevation_profile_descent" = "Nusileidimas";

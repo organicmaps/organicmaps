@@ -28,6 +28,7 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
+#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -466,6 +467,9 @@ void InitStorage(Storage & storage, TaskRunner & runner, Storage::UpdateCallback
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
   // Disable because of FakeMapFilesDownloader.
   storage.SetEnabledIntegrityValidationForTesting(false);
+  // The map download tests must not bundle the terrain (DownloadNode does): the fake
+  // downloaders would produce terrain files and the landing needs the platform threads.
+  storage.DisableTerrainForTesting();
 }
 
 class StorageTest
@@ -1426,6 +1430,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
   // Disable because of FakeMapFilesDownloader.
   storage.SetEnabledIntegrityValidationForTesting(false);
+  storage.DisableTerrainForTesting();
   storage.DownloadNode(nodeId);
   runner.Run();
 

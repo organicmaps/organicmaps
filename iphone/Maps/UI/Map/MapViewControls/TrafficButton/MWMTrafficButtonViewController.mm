@@ -38,6 +38,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 @property(nonatomic) NSLayoutConstraint * topOffset;
 @property(nonatomic) NSLayoutConstraint * leftOffset;
 @property(nonatomic) CGRect availableArea;
+@property(nonatomic) MWMMapOverlayIsolinesState lastHandledIsolinesState;
 
 @end
 
@@ -142,6 +143,11 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (void)handleIsolinesState:(MWMMapOverlayIsolinesState)state
 {
+  // applyTheme re-derives the state on every theme/overlay poke: the hints must fire
+  // on the actual transitions only, or they would stack over an unchanged NoData.
+  if (state == self.lastHandledIsolinesState)
+    return;
+  self.lastHandledIsolinesState = state;
   switch (state)
   {
   case MWMMapOverlayIsolinesStateDisabled: break;
@@ -149,13 +155,10 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     if (![MWMMapOverlayManager isolinesVisible])
       [Toast showWithText:L(@"isolines_toast_zooms_1_10")];
     break;
-  case MWMMapOverlayIsolinesStateExpiredData:
-    [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_activation_error_dialog")];
-    [MWMMapOverlayManager setIsoLinesEnabled:NO];
-    break;
   case MWMMapOverlayIsolinesStateNoData:
-    [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_location_error_dialog")];
-    [MWMMapOverlayManager setIsoLinesEnabled:NO];
+    // Keep the layer enabled: the state recovers by itself once the viewport gets the
+    // coverage. A passive toast, like on Android, does not block the map.
+    [Toast showWithText:L(@"isolines_location_error_dialog")];
     break;
   }
 }
@@ -167,6 +170,10 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
   // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
   [iv stopAnimating];
+  // The transition gate must see the layer going off, or the next NoData after a
+  // re-enable would read as a repeat and the alerts would stay silent.
+  if (![MWMMapOverlayManager isoLinesEnabled])
+    self.lastHandledIsolinesState = MWMMapOverlayIsolinesStateDisabled;
   if ([MWMMapOverlayManager trafficEnabled])
   {
     [self handleTrafficState:[MWMMapOverlayManager trafficState]];

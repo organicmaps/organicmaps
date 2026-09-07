@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "Njia ya chini kwa chini haipatikani";
 "dialog_pedestrian_route_is_long_message" = "Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini";
 "button_layer_isolines" = "Topografia";
-"isolines_activation_error_dialog" = "Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo";
 "isolines_location_error_dialog" = "Mistari ya mwinuko bado haipatikani katika eneo hili";
 "elevation_profile_ascent" = "Upandaji";
 "elevation_profile_descent" = "Ushukaji";

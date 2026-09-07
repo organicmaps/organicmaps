@@ -116,7 +116,7 @@ class BottomPanel
       if (showButton)
       {
         final int status = MapManager.nativeGetStatus(root);
-        // Hide FAB when all maps are already downloaded - nothing new to download.
+        // Hide FAB when the fused map and terrain data is complete.
         showFab = myMapsMode && status != STATUS_DONE;
         switch (status)
         {

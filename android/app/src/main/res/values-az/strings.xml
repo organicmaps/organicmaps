@@ -751,7 +751,6 @@
     <string name="deselect_all">Seçimi ləğv et</string>
     <string name="select_list">Siyahı seçin</string>
     <string name="button_layer_isolines">Ərazi</string>
-    <string name="isolines_activation_error_dialog">Ərazi qatını aktivləşdirmək və istifadə etmək üçün xəritəni yeniləyin və ya endirin</string>
     <string name="isolines_location_error_dialog">Bu bölgədə relyef təbəqəsi hələ mövcud deyil</string>
     <string name="elevation_profile_ascent">Qalxmaq</string>
     <string name="elevation_profile_descent">Eniş</string>

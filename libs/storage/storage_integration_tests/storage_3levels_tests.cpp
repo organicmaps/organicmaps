@@ -34,6 +34,7 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_3levels_Test)
   Platform & platform = GetPlatform();
 
   Storage storage;
+  storage.DisableTerrainForTesting();
   std::string const version = std::to_string(storage.GetCurrentDataVersion());
 
   CountryId country = "Germany";

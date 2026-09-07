@@ -941,7 +941,6 @@
 "dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";
 "button_layer_isolines" = "Corbes de nivell";
-"isolines_activation_error_dialog" = "Per a activar i usar la capa topogràfica, actualitzeu o baixeu el mapa de l’àrea";
 "isolines_location_error_dialog" = "La capa topogràfica encara no és disponible en aquesta àrea";
 "elevation_profile_ascent" = "Ascens";
 "elevation_profile_descent" = "Descens";
