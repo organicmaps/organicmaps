@@ -346,7 +346,7 @@
     <string name="downloader_no_downloaded_maps_message">Baixe mapas para pesquisar locais e usar navegação offline.</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Mais informações</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Anotações pessoais (texto ou html)</string>
     <string name="editor_comment_hint">Comentar…</string>

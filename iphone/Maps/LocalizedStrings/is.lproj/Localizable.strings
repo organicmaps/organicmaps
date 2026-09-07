@@ -602,9 +602,6 @@
 "day" = "d";
 "second" = "sek";
 "placepage_more_button" = "Meira";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Breyta bókamerki";
 "placepage_personal_notes_hint" = "Persónulegir minnispunktar (texti eða html)";
 "editor_comment_hint" = "Athugasemd…";
 "editor_reset_edits_message" = "Henda öllum staðværum breytingum?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Veldu staðsetningarþjónustur";
 "location_services_disabled_on_device_4" = "4. Kveiktu á staðsetningarþjónustum";
 "location_services_disabled_on_device_additional_message" = "Eða haltu áfram að nota Organic Maps án staðsetningar";
-"book_button" = "Bóka";
 "placepage_call_button" = "Hringja";
 "placepage_bookmark_name_hint" = "Heiti bókamerkis";
 "placepage_delete_bookmark_button" = "Eyða bókamerki";

@@ -602,9 +602,6 @@
 "day" = "روز";
 "second" = "ثانیه";
 "placepage_more_button" = "بیشتر";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "ویرایش نشانک‌ها";
 "placepage_personal_notes_hint" = "یادداشت های شخصی (متن یا html)";
 "editor_comment_hint" = "دیدگاه…";
 "editor_reset_edits_message" = "آیا تغییرات محلی را نادیده می گیرید؟";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Location Services را انتخاب کنید";
 "location_services_disabled_on_device_4" = "4. Location Services را روشن کنید";
 "location_services_disabled_on_device_additional_message" = "یا به استفاده از Organic Maps بدون موقعیت مکانی ادامه دهید";
-"book_button" = "رزرو";
 "placepage_call_button" = "تماس";
 "placepage_bookmark_name_hint" = "نام نشانک";
 "placepage_delete_bookmark_button" = "حذف نشانه";

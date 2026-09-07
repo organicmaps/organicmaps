@@ -602,9 +602,6 @@
 "day" = "g";
 "second" = "sn";
 "placepage_more_button" = "Diğer";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Yer İmini Düzenle";
 "placepage_personal_notes_hint" = "Kişisel notlar (metin veya html)";
 "editor_comment_hint" = "Yorum…";
 "editor_reset_edits_message" = "Tüm yerel değişiklikler sıfırlansın mı?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Konum Servisleri'ni seçin";
 "location_services_disabled_on_device_4" = "4. Konum Servislerini Açın";
 "location_services_disabled_on_device_additional_message" = "Veya Konum olmadan Organic Maps kullanmaya devam edin";
-"book_button" = "Rezervasyon";
 "placepage_call_button" = "Ara";
 "placepage_bookmark_name_hint" = "Yer İmi Adı";
 "placepage_delete_bookmark_button" = "Yer İmini Sil";

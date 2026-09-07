@@ -518,7 +518,7 @@
     <string name="day">д</string>
     <string name="second">с</string>
     <string name="placepage_more_button">Ще</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Редагувати мітку</string>
     <string name="placepage_personal_notes_hint">Примітка (текст чи html)</string>
     <string name="editor_comment_hint">Коментар…</string>

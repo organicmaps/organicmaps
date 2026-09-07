@@ -602,9 +602,6 @@
 "day" = "日";
 "second" = "秒";
 "placepage_more_button" = "さらに詳しく";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "ブックマークを編集";
 "placepage_personal_notes_hint" = "パーソナルメモ（テキストまたはHTML）";
 "editor_comment_hint" = "コメント…";
 "editor_reset_edits_message" = "ローカル編集をすべてリセットしますか?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3.位置情報サービスを選択する";
 "location_services_disabled_on_device_4" = "4.位置情報サービスをオンにする";
 "location_services_disabled_on_device_additional_message" = "または、位置情報を使用せずにOrganic Mapsを引き続きご利用ください";
-"book_button" = "予約";
 "placepage_call_button" = "電話をかける";
 "placepage_bookmark_name_hint" = "ブックマーク名";
 "placepage_delete_bookmark_button" = "ブックマークを削除";

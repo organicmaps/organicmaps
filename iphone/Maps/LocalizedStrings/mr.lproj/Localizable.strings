@@ -602,9 +602,6 @@
 "day" = "दि";
 "second" = "सेकंद";
 "placepage_more_button" = "अधिक";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "खूणपत्र संपादित करा";
 "placepage_personal_notes_hint" = "वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)";
 "editor_comment_hint" = "टिप्पणी…";
 "editor_reset_edits_message" = "सर्व स्थानिक बदल टाकून द्यायचे?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. स्थान सेवा निवडा";
 "location_services_disabled_on_device_4" = "4. स्थान सेवा चालू करा";
 "location_services_disabled_on_device_additional_message" = "किंवा स्थानशिवाय Organic Maps वापरणे सुरू ठेवा";
-"book_button" = "पुस्तक";
 "placepage_call_button" = "फोन करा";
 "placepage_bookmark_name_hint" = "खूणपत्राचे नाव";
 "placepage_delete_bookmark_button" = "खूणपत्र पुसा";

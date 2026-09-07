@@ -44,7 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString * osmDescription;
 @property(nonatomic, readonly, nullable) PlacePageTrackData * trackData;
 @property(nonatomic, readonly, nullable) MWMMapNodeAttributes * mapNodeAttributes;
-@property(nonatomic, readonly, nullable) NSString * bookingSearchUrl;
 @property(nonatomic, readonly) BOOL isMyPosition;
 @property(nonatomic, readonly) BOOL isPreviewPlus;
 @property(nonatomic, readonly) BOOL isRoutePoint;

@@ -602,9 +602,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Aktar";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Editja l-Bookmark";
 "placepage_personal_notes_hint" = "Noti personali (kitba jew html)";
 "editor_comment_hint" = "Kumment…";
 "editor_reset_edits_message" = "Armi l-bidliet lokali kollha?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Agħżel Servizzi tal-Post";
 "location_services_disabled_on_device_4" = "4. Ixgħel is-Servizzi tal-Post";
 "location_services_disabled_on_device_additional_message" = "Jew kompli tuża Organic Maps mingħajr il-pożizzjoni";
-"book_button" = "Ktieb";
 "placepage_call_button" = "Sejħa";
 "placepage_bookmark_name_hint" = "Isem tal-marka tal-paġna";
 "placepage_delete_bookmark_button" = "Ħassar il-marka tal-paġna";

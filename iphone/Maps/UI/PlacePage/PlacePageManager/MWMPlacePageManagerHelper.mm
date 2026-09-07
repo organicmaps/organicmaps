@@ -46,8 +46,6 @@
 - (void)removeTrack:(PlacePageData *)data;
 - (void)editBookmark:(PlacePageData *)data;
 - (void)editTrack:(PlacePageData *)data;
-- (void)searchBookingHotels:(PlacePageData *)data;
-- (void)book:(PlacePageData *)data;
 - (void)routeFrom:(PlacePageData *)data;
 - (void)routeTo:(PlacePageData *)data;
 - (void)routeAddStop:(PlacePageData *)data;
@@ -214,16 +212,6 @@
 + (void)editTrack:(PlacePageData *)data
 {
   [[MWMMapViewControlsManager manager].placePageManager editTrack:data];
-}
-
-+ (void)searchBookingHotels:(PlacePageData *)data
-{
-  [[MWMMapViewControlsManager manager].placePageManager searchBookingHotels:data];
-}
-
-+ (void)book:(PlacePageData *)data
-{
-  [[MWMMapViewControlsManager manager].placePageManager book:data];
 }
 
 + (void)routeFrom:(PlacePageData *)data

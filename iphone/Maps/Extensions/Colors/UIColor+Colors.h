@@ -22,8 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)whitePrimaryTextHighlighted NS_SWIFT_UNAVAILABLE("Use UIColor.whitePrimaryTextHighlighted");
 + (UIColor *)whiteHintText NS_SWIFT_UNAVAILABLE("Use UIColor.whiteHintText");
 + (UIColor *)blackOpaque NS_SWIFT_UNAVAILABLE("Use UIColor.blackOpaque");
-+ (UIColor *)bookingBackground NS_SWIFT_UNAVAILABLE("Use UIColor.bookingBackground");
-+ (UIColor *)opentableBackground NS_SWIFT_UNAVAILABLE("Use UIColor.opentableBackground");
 
 @end
 

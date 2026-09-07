@@ -602,9 +602,6 @@
 "day" = "Μέρα";
 "second" = "δ";
 "placepage_more_button" = "Περισσότερα";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Επεξεργασία αγαπημένου";
 "placepage_personal_notes_hint" = "Προσωπικές σημειώσεις (κείμενο ή html)";
 "editor_comment_hint" = "Σχόλιο…";
 "editor_reset_edits_message" = "Απόρριψη όλων των τοπικών αλλαγών;";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Επιλέξτε Υπηρεσίες τοποθεσίας";
 "location_services_disabled_on_device_4" = "4. Ενεργοποιήστε τις Υπηρεσίες τοποθεσίας";
 "location_services_disabled_on_device_additional_message" = "Ή συνεχίστε να χρησιμοποιείτε το Organic Maps χωρίς Τοποθεσία";
-"book_button" = "Κράτηση";
 "placepage_call_button" = "Κλήση";
 "placepage_bookmark_name_hint" = "Όνομα αγαπημένου";
 "placepage_delete_bookmark_button" = "Διαγραφή αγαπημένου";

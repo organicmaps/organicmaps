@@ -518,7 +518,7 @@
     <string name="day">일</string>
     <string name="second">초</string>
     <string name="placepage_more_button">자세히</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
     <string name="placepage_personal_notes_hint">개인 메모 (글자 혹은 html)</string>
     <string name="editor_comment_hint">설명…</string>

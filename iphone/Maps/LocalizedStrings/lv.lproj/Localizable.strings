@@ -602,9 +602,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Vairāk";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Grāmatzīmes labošana";
 "placepage_personal_notes_hint" = "Personīgi pieraksti (teksts vai HTML)";
 "editor_comment_hint" = "Komentārs…";
 "editor_reset_edits_message" = "Vai izmest visas lokāli saglabātās izmaiņas?";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Atlasiet atrašanās vietas pakalpojumus";
 "location_services_disabled_on_device_4" = "4. Ieslēdziet atrašanāš vietas noteikšanas pakalpojumus";
 "location_services_disabled_on_device_additional_message" = "Vai turpiniet izmantot „Organic Maps“ bez vietas";
-"book_button" = "Rezervēt";
 "placepage_call_button" = "Zvanīt";
 "placepage_bookmark_name_hint" = "Grāmatzīmes nosaukums";
 "placepage_delete_bookmark_button" = "Dzēst grāmatzīmi";

@@ -602,9 +602,6 @@
 "day" = "օ";
 "second" = "վ";
 "placepage_more_button" = "Ավելին";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Խմբագրել էջանիշը";
 "placepage_personal_notes_hint" = "Անձնական նշումներ (տեքստ կամ html)";
 "editor_comment_hint" = "Մեկնաբանություն…";
 "editor_reset_edits_message" = "Չեղարկե՞լ բոլոր տեղական փոփոխությունները:";
@@ -835,7 +832,6 @@
 "location_services_disabled_on_device_3" = "3. Ընտրեք Տեղորոշման ծառայություններ";
 "location_services_disabled_on_device_4" = "4. Միացրեք Տեղորոշման ծառայությունները";
 "location_services_disabled_on_device_additional_message" = "Կամ շարունակեք օգտագործել Organic Maps-ն առանց տեղորոշման";
-"book_button" = "Ամրագրել";
 "placepage_call_button" = "Զանգել";
 "placepage_bookmark_name_hint" = "Էջանիշի անունը";
 "placepage_delete_bookmark_button" = "Ջնջել էջանիշը";

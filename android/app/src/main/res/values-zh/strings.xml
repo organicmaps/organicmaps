@@ -518,7 +518,7 @@
     <string name="day">天</string>
     <string name="second">秒</string>
     <string name="placepage_more_button">更多</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">编辑书签</string>
     <string name="placepage_personal_notes_hint">个人备注（文字或 html）</string>
     <string name="editor_comment_hint">备注…</string>
