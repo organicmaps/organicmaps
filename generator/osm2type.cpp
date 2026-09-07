@@ -11,6 +11,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/osm_value_format.hpp"
 
 #include "platform/platform.hpp"
 
@@ -869,40 +870,17 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   p->AddTag("_path_grade", DeterminePathGrade(p));
 
   string const kCuisineKey = "cuisine";
-  auto cuisines = p->GetTag(kCuisineKey);
+  auto const cuisines = p->GetTag(kCuisineKey);
   if (!cuisines.empty())
   {
-    strings::MakeLowerCaseInplace(cuisines);
-    strings::SimpleTokenizer iter(cuisines, ",;");
-    auto const collapse = [](char c, string & str)
-    {
-      auto const comparator = [c](char lhs, char rhs) { return lhs == rhs && lhs == c; };
-      str.erase(unique(str.begin(), str.end(), comparator), str.end());
-    };
-
     bool first = true;
-    while (iter)
+    // The editor has to normalize an edited cuisine the same way, or it cannot tell which token of
+    // the raw OSM value the user was looking at.
+    strings::Tokenize(cuisines, ",;", [&](std::string_view token)
     {
-      string normalized(*iter);
-      strings::Trim(normalized, " ");
-      collapse(' ', normalized);
-      replace(normalized.begin(), normalized.end(), ' ', '_');
-
+      auto const normalized = osm::NormalizeCuisineToken(string{token});
       if (normalized.empty())
-      {
-        ++iter;
-        continue;
-      }
-
-      // Avoid duplication for some cuisines.
-      if (normalized == "bbq" || normalized == "barbeque")
-        normalized = "barbecue";
-      else if (normalized == "doughnut")
-        normalized = "donut";
-      else if (normalized == "steak")
-        normalized = "steak_house";
-      else if (normalized == "coffee")
-        normalized = "coffee_shop";
+        return;
 
       if (first)
         p->UpdateTag(kCuisineKey, normalized);
@@ -910,8 +888,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
         p->AddTag(kCuisineKey, normalized);
 
       first = false;
-      ++iter;
-    }
+    });
   }
 
   string const kAerodromeTypeKey = "aerodrome:type";
