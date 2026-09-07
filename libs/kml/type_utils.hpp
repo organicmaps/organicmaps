@@ -7,7 +7,6 @@
 #include <map>
 #include <set>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 namespace feature
@@ -35,7 +34,8 @@ public:
 
 using TrackGeometry = std::vector<geometry::PointWithAltitude>;
 
-using LocalizableString = std::unordered_map<int8_t, std::string>;
+// Ordered: the language order decides the KML element and KMB string table order.
+using LocalizableString = std::map<int8_t, std::string>;
 using LocalizableStringSubIndex = std::map<int8_t, uint32_t>;
 using LocalizableStringIndex = std::vector<LocalizableStringSubIndex>;
 using Properties = std::map<std::string, std::string>;
