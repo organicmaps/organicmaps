@@ -10,6 +10,7 @@ set(SRC
   opening_hours_ui_test.cpp
   osm_editor_test.cpp
   osm_editor_test.hpp
+  osm_tag_policy_test.cpp
   ui2oh_test.cpp
   xml_feature_test.cpp
 )

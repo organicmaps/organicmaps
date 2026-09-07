@@ -131,6 +131,15 @@ std::vector<pugi::xml_node> GetPrioritizedTypes(pugi::xml_node const & node)
 }
 }  // namespace
 
+std::vector<feature::Metadata::EType> GetEditableMetadataFields()
+{
+  std::vector<feature::Metadata::EType> fields;
+  fields.reserve(kNamesToFMD.size());
+  for (auto const & [name, type] : kNamesToFMD)
+    fields.push_back(type);
+  return fields;
+}
+
 bool EditorConfig::GetTypeDescription(std::vector<std::string> classificatorTypes,
                                       TypeAggregatedDescription & outDesc) const
 {
