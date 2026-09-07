@@ -2,7 +2,9 @@
 
 #include "routing/routing_tests/tools.hpp"
 
+#include "routing/dummy_world_graph.hpp"
 #include "routing/route.hpp"
+#include "routing/route_adjustment_context.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_helpers.hpp"
@@ -14,6 +16,7 @@
 #include "base/logging.hpp"
 
 #include <chrono>
+#include <future>
 #include <initializer_list>
 #include <memory>
 #include <mutex>
@@ -42,16 +45,29 @@ auto const kRouteBuildingMaxDuration = seconds(30);
 
 void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns = kTestTurnsReachOnly);
 
+RouteAdjustmentContextPtr MakeAdjustmentContext()
+{
+  DummyWorldGraph graph;
+  FakeEnding const ending;
+  IndexGraphStarter starter(ending, ending, 0 /* fakeNumerationStart */, false /* strictForward */, graph);
+  return make_shared<RouteAdjustmentContext>(
+      make_unique<SegmentedRoute>(m2::PointD::Zero(), m2::PointD::Zero(), vector<Route::SubrouteAttrs>{}),
+      make_unique<FakeEdgesContainer>(std::move(starter)));
+}
+
 // Simple router. It returns route given to him on creation.
 class DummyRouter : public IRouter
 {
 private:
   Route m_route;
   size_t & m_buildCount;
+  RouteAdjustmentContextPtr m_resultContext;
 
 public:
-  DummyRouter(size_t & buildCounter, vector<turns::TurnItem> const & turns = kTestTurnsReachOnly)
+  DummyRouter(size_t & buildCounter, vector<turns::TurnItem> const & turns = kTestTurnsReachOnly,
+              RouteAdjustmentContextPtr resultContext = nullptr)
     : m_buildCount(buildCounter)
+    , m_resultContext(std::move(resultContext))
   {
     m_route.SetGeometry(kTestRoute.begin(), kTestRoute.end());
     if (!turns.empty())
@@ -63,11 +79,12 @@ public:
   void SetGuides(GuidesTracks && /* guides */) override {}
 
   RouterResultCode CalculateRoute(Checkpoints const & /* checkpoints */, m2::PointD const & /* startDirection */,
-                                  bool /* adjust */, bool /* needAlternatives */, RouterDelegate const & /* delegate */,
+                                  RouteAdjustmentContextPtr const & /* adjustmentContext */,
+                                  bool /* needAlternatives */, RouterDelegate const & /* delegate */,
                                   RoutesResult & result) override
   {
     ++m_buildCount;
-    result.MakeFrom(GetName(), Route(m_route));
+    result.MakeFrom(GetName(), Route(m_route), m_resultContext);
     return RouterResultCode::NoError;
   }
 
@@ -84,53 +101,53 @@ class AlternativesFlagRouter : public DummyRouter
 public:
   AlternativesFlagRouter(size_t & buildCounter, vector<bool> & flags) : DummyRouter(buildCounter), m_flags(flags) {}
 
-  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection, bool adjust,
-                                  bool needAlternatives, RouterDelegate const & delegate,
-                                  RoutesResult & result) override
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                                  RouteAdjustmentContextPtr const & adjustmentContext, bool needAlternatives,
+                                  RouterDelegate const & delegate, RoutesResult & result) override
   {
     m_flags.push_back(needAlternatives);
-    return DummyRouter::CalculateRoute(checkpoints, startDirection, adjust, needAlternatives, delegate, result);
+    return DummyRouter::CalculateRoute(checkpoints, startDirection, adjustmentContext, needAlternatives, delegate,
+                                       result);
   }
 
 private:
   vector<bool> & m_flags;
 };
 
-// Router returning two route variants and counting the "user picked the other one" notifications.
-class AltRoutesRouter : public IRouter
+// Returns two variants on the first build and reports which variant's context the rebuild receives.
+class AdjustmentContextRouter final : public DummyRouter
 {
 public:
-  explicit AltRoutesRouter(size_t & swapCount) : m_swapCount(swapCount) {}
+  AdjustmentContextRouter(std::shared_ptr<size_t> buildCounter,
+                          std::shared_ptr<std::promise<RouteAdjustmentContext const *>> selectedContext,
+                          RouteAdjustmentContextPtr activeContext, RouteAdjustmentContextPtr alternativeContext)
+    : DummyRouter(*buildCounter, kTestTurnsReachOnly, activeContext)
+    , m_buildCounter(std::move(buildCounter))
+    , m_selectedContext(std::move(selectedContext))
+    , m_alternativeContext(std::move(alternativeContext))
+  {}
 
-  string GetName() const override { return "alt routes"; }
-  void ClearState() override {}
-  void SetGuides(GuidesTracks && /* guides */) override {}
-  void SwapAltRouteToActive() override { ++m_swapCount; }
-
-  RouterResultCode CalculateRoute(Checkpoints const & /* checkpoints */, m2::PointD const & /* startDirection */,
-                                  bool /* adjust */, bool /* needAlternatives */, RouterDelegate const & /* delegate */,
-                                  RoutesResult & result) override
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                                  RouteAdjustmentContextPtr const & adjustmentContext, bool needAlternatives,
+                                  RouterDelegate const & delegate, RoutesResult & result) override
   {
-    Route active;
-    active.SetGeometry(kTestRoute.begin(), kTestRoute.end());
-    FillSubroutesInfo(active);
-    result.MakeFrom(GetName(), std::move(active));
+    auto const code =
+        DummyRouter::CalculateRoute(checkpoints, startDirection, adjustmentContext, needAlternatives, delegate, result);
+    if (adjustmentContext)
+    {
+      m_selectedContext->set_value(adjustmentContext.get());
+      return code;
+    }
 
-    Route alt;
-    alt.SetGeometry(kTestAltRoute.begin(), kTestAltRoute.end());
-    FillSubroutesInfo(alt);
-    result.m_routes.emplace_back(std::move(static_cast<RouteBase &>(alt)));
-    return RouterResultCode::NoError;
-  }
-
-  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
-                                   EdgeProj & proj) override
-  {
-    return false;
+    auto alternative = result.GetActive();
+    result.AddAlternative(std::move(alternative), m_alternativeContext);
+    return code;
   }
 
 private:
-  size_t & m_swapCount;
+  std::shared_ptr<size_t> m_buildCounter;
+  std::shared_ptr<std::promise<RouteAdjustmentContext const *>> m_selectedContext;
+  RouteAdjustmentContextPtr m_alternativeContext;
 };
 
 // Router which every next call of CalculateRoute() method return different return codes.
@@ -148,14 +165,15 @@ public:
   void SetGuides(GuidesTracks && /* guides */) override {}
 
   RouterResultCode CalculateRoute(Checkpoints const & /* checkpoints */, m2::PointD const & /* startDirection */,
-                                  bool /* adjust */, bool /* needAlternatives */, RouterDelegate const & /* delegate */,
+                                  RouteAdjustmentContextPtr const & /* adjustmentContext */,
+                                  bool /* needAlternatives */, RouterDelegate const & /* delegate */,
                                   RoutesResult & result) override
   {
     TEST_LESS(m_returnCodesIdx, m_returnCodes.size(), ());
     Route route;
     route.SetGeometry(m_route.begin(), m_route.end());
     FillSubroutesInfo(route);
-    result.MakeFrom(GetName(), std::move(route));
+    result.MakeFrom(GetName(), std::move(route), nullptr /* adjustmentContext */);
     return m_returnCodes[m_returnCodesIdx++];
   }
 
@@ -586,6 +604,47 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest
   TEST(checkTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route checking timeout."));
 }
 
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSelectedAdjustmentContext)
+{
+  auto built = make_shared<TimedSignal>();
+  auto buildCount = make_shared<size_t>(0);
+  auto selectedContext = make_shared<promise<RouteAdjustmentContext const *>>();
+  auto selectedContextFuture = selectedContext->get_future();
+  auto activeContext = MakeAdjustmentContext();
+  auto alternativeContext = MakeAdjustmentContext();
+
+  GetPlatform().RunTask(Platform::Thread::Gui,
+                        [this, built, buildCount, selectedContext, activeContext, alternativeContext]
+  {
+    InitRoutingSession();
+    m_session->SetRouter(
+        make_unique<AdjustmentContextRouter>(buildCount, selectedContext, activeContext, alternativeContext), nullptr);
+    m_session->SetRoutingCallbacks([built](RoutesResult const &, RouterResultCode) {
+      built->Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(built->WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+
+  auto rebuilt = make_shared<TimedSignal>();
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, rebuilt]
+  {
+    TEST(m_session->SwapActiveAlternative(1), ());
+    TEST(!m_session->SwapActiveAlternative(1), ());
+    TEST(m_session->SwapActiveAlternative(0), ());
+    TEST(m_session->SwapActiveAlternative(1), ());
+    m_session->RebuildRoute(kTestRoute.front(), [rebuilt](RoutesResult const &, RouterResultCode)
+    { rebuilt->Signal(); }, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                            RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+  });
+
+  TEST(selectedContextFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready,
+       ("The selected route context was not used."));
+  TEST_EQUAL(selectedContextFuture.get(), alternativeContext.get(), ());
+  TEST(rebuilt->WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST_EQUAL(*buildCount, 2, ());
+}
+
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
 {
   vector<m2::PointD> const kRoute = {{0.0, 0.001}, {0.0, 0.002}, {0.0, 0.003}, {0.0, 0.004}};
@@ -698,41 +757,4 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativesSkippedWhi
   TEST_EQUAL(flags, vector<bool>({true, false}), ("A rebuild while navigating skips alternatives."));
 }
 
-// Picking an alternative route must reach the router: IndexRouter remembers the chosen variant
-// there and keeps its weights on the next rebuild.
-// https://github.com/organicmaps/organicmaps/issues/13205
-UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSwapActiveAlternative)
-{
-  TimedSignal builtSignal;
-  size_t swapCount = 0;
-
-  GetPlatform().RunTask(Platform::Thread::Gui, [&builtSignal, &swapCount, this]()
-  {
-    InitRoutingSession();
-    m_session->SetRouter(make_unique<AltRoutesRouter>(swapCount), nullptr);
-    m_session->SetRoutingCallbacks([&builtSignal](RoutesResult const &, RouterResultCode) {
-      builtSignal.Signal();
-    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
-    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
-  });
-  TEST(builtSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
-
-  TimedSignal swappedSignal;
-  GetPlatform().RunTask(Platform::Thread::Gui, [&swappedSignal, &swapCount, this]()
-  {
-    TEST(m_session->SwapActiveAlternative(1), ());
-    TEST_EQUAL(swapCount, 1, ());
-
-    // Picking the route which is already active changes nothing.
-    TEST(!m_session->SwapActiveAlternative(1), ());
-    TEST_EQUAL(swapCount, 1, ());
-
-    // Switching back is forwarded just the same.
-    TEST(m_session->SwapActiveAlternative(0), ());
-    TEST_EQUAL(swapCount, 2, ());
-
-    swappedSignal.Signal();
-  });
-  TEST(swappedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative was not swapped."));
-}
 }  // namespace routing_session_test

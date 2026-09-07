@@ -77,8 +77,8 @@ bool AsyncRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::Poin
                                               EdgeProj & proj)
 {
   lock_guard ul(m_guard);
-  // Calculations mutate the road graph caches. GPS updates can return the session to OnRoute
-  // before a rebuild finishes, so guard projection by worker activity, not session state.
+  // The road graph caches are calculation scratch state and cannot be read while CalculateRoute
+  // fills and clears them on the routing thread.
   if (!m_router || m_isCalculating)
     return false;
 
@@ -160,11 +160,11 @@ void AsyncRouter::SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<
 
   m_router = std::move(router);
   m_absentRegionsFinder = std::move(finder);
-  m_cachedRoutesId = 0;
 }
 
-void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction, bool adjustToPrevRoute,
-                                 bool needAlternatives, ReadyCallbackOwnership const & readyCallback,
+void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
+                                 RouteAdjustmentContextPtr adjustmentContext, bool needAlternatives,
+                                 ReadyCallbackOwnership const & readyCallback,
                                  NeedMoreMapsCallback const & needMoreMapsCallback,
                                  RemoveRouteCallback const & removeRouteCallback,
                                  ProgressCallback const & progressCallback, uint32_t timeoutSec)
@@ -173,9 +173,8 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
   m_checkpoints = checkpoints;
   m_startDirection = direction;
-  m_adjustToPrevRoute = adjustToPrevRoute;
+  m_adjustmentContext = std::move(adjustmentContext);
   m_needAlternatives = needAlternatives;
-  m_cachedRoutesId = 0;
 
   ResetDelegate();
 
@@ -197,23 +196,9 @@ void AsyncRouter::ClearState()
   lock_guard ul(m_guard);
 
   m_clearState = true;
-  m_cachedRoutesId = 0;
   m_threadCondVar.notify_one();
 
   ResetDelegate();
-}
-
-bool AsyncRouter::SwapAltRouteToActive(uint64_t routesId)
-{
-  lock_guard ul(m_guard);
-  // Requests invalidate the generation before the worker can touch its caches. Only a successful
-  // completion republishes it together with the idle state.
-  if (!m_router || routesId == 0 || routesId != m_cachedRoutesId)
-    return false;
-
-  ASSERT(!m_isCalculating, ());
-  m_router->SwapAltRouteToActive();
-  return true;
 }
 
 // static
@@ -287,7 +272,7 @@ void AsyncRouter::CalculateRoute()
   Checkpoints checkpoints;
   std::shared_ptr<RouterDelegateProxy> delegateProxy;
   m2::PointD startDirection;
-  bool adjustToPrevRoute = false;
+  RouteAdjustmentContextPtr adjustmentContext;
   bool needAlternatives = true;
   std::shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
   std::shared_ptr<IRouter> router;
@@ -308,7 +293,7 @@ void AsyncRouter::CalculateRoute()
 
     checkpoints = m_checkpoints;
     startDirection = m_startDirection;
-    adjustToPrevRoute = m_adjustToPrevRoute;
+    adjustmentContext = std::move(m_adjustmentContext);
     needAlternatives = m_needAlternatives;
     delegateProxy = m_delegateProxy;
     router = m_router;
@@ -328,15 +313,9 @@ void AsyncRouter::CalculateRoute()
 
   try
   {
-    bool completed = false;
-    // Publish the cache generation together with the idle state. A failed or superseded request
-    // cannot safely associate the old displayed alternatives with the router's current caches.
     SCOPE_GUARD(routerIdle, [&]
     {
       lock_guard ul(m_guard);
-      bool const cacheIsValid = completed && code == RouterResultCode::NoError && result->IsValid() &&
-                                m_delegateProxy == delegateProxy && !m_clearState;
-      m_cachedRoutesId = cacheIsValid ? routeId : 0;
       m_isCalculating = false;
     });
 
@@ -349,7 +328,7 @@ void AsyncRouter::CalculateRoute()
 
     if (code == RouterResultCode::NoError)
     {
-      code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, needAlternatives,
+      code = router->CalculateRoute(checkpoints, startDirection, adjustmentContext, needAlternatives,
                                     delegateProxy->GetDelegate(), *result);
     }
 
@@ -358,7 +337,6 @@ void AsyncRouter::CalculateRoute()
     LogCode(code, elapsedSec);
     if (result->IsValid())
       LOG(LINFO, ("ETA:", result->GetActive().GetTotalTimeSec(), "sec."));
-    completed = true;
   }
   catch (RootException const & e)
   {

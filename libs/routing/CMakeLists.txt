@@ -130,6 +130,7 @@ set(SRC
   road_point.hpp
   route.cpp
   route.hpp
+  route_adjustment_context.hpp
   route_point.hpp
   route_weight.cpp
   route_weight.hpp

@@ -36,25 +36,23 @@ public:
   ///
   /// @param checkpoints start, finish and intermadiate points
   /// @param direction start direction for routers with high cost of the turnarounds
-  /// @param adjustToPrevRoute adjust route to the previous one if possible
-  /// @param needAlternatives compute alternative routes; false while navigating, they aren't drawn
+  /// @param adjustmentContext state returned with the route selected for adjustment; null requests
+  ///                          a full route calculation
+  /// @param needAlternatives compute alternative routes; false while navigating
   /// @param readyCallback function to return routing result
   /// @param progressCallback function to update the router progress
   /// @param timeoutSec timeout to cancel routing. 0 is infinity.
   // @TODO(bykoianko) Gather |readyCallback|, |needMoreMapsCallback| and |removeRouteCallback|
   // to one delegate. No need to add |progressCallback| to the delegate.
-  void CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction, bool adjustToPrevRoute,
-                      bool needAlternatives, ReadyCallbackOwnership const & readyCallback,
-                      NeedMoreMapsCallback const & needMoreMapsCallback,
+  void CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
+                      RouteAdjustmentContextPtr adjustmentContext, bool needAlternatives,
+                      ReadyCallbackOwnership const & readyCallback, NeedMoreMapsCallback const & needMoreMapsCallback,
                       RemoveRouteCallback const & removeRouteCallback, ProgressCallback const & progressCallback,
                       uint32_t timeoutSec = RouterDelegate::kNoTimeout);
 
   void SetGuidesTracks(GuidesTracks && guides);
   /// Interrupt routing and clear buffers
   void ClearState();
-  /// Forward to the underlying IRouter. See IRouter::SwapAltRouteToActive.
-  /// Refuses pending/running calculations and result IDs that do not match the cached adjustment state.
-  bool SwapAltRouteToActive(uint64_t routesId);
 
   bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                    EdgeProj & proj);
@@ -114,13 +112,10 @@ private:
   GuidesTracks m_guides;
 
   m2::PointD m_startDirection = m2::PointD::Zero();
-  bool m_adjustToPrevRoute = false;
+  RouteAdjustmentContextPtr m_adjustmentContext;
   bool m_needAlternatives = true;
   /// True while the routing thread has exclusive ownership of the router for a calculation request.
   bool m_isCalculating = false;
-  /// Id of the valid result represented by the router's adjustment caches. Requests and state
-  /// clearing invalidate it immediately; only successful completion can publish a nonzero id.
-  uint64_t m_cachedRoutesId = 0;
   std::shared_ptr<RouterDelegateProxy> m_delegateProxy;
   std::shared_ptr<AbsentRegionsFinder> m_absentRegionsFinder;
   std::shared_ptr<IRouter> m_router;

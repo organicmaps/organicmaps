@@ -3,6 +3,8 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -895,6 +897,8 @@ UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
 }
 UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
 {
+  Platform::ThreadRunner runner;
+  df::VisualParams::Init(1.0, 256);
   class Delegate final : public RoutingManager::Delegate
   {
   public:
@@ -911,16 +915,17 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
       return false;
     }
     routing::RouterResultCode CalculateRoute(routing::Checkpoints const & checkpoints, m2::PointD const & direction,
-                                             bool adjust, bool alternatives, routing::RouterDelegate const & delegate,
+                                             routing::RouteAdjustmentContextPtr const & adjustmentContext,
+                                             bool alternatives, routing::RouterDelegate const & delegate,
                                              routing::RoutesResult & result) override
     {
       if (++m_calls == 2)
         return routing::RouterResultCode::RouteNotFound;
-      auto const code = static_cast<routing::IRouter &>(m_ruler).CalculateRoute(checkpoints, direction, adjust,
-                                                                                alternatives, delegate, result);
+      auto const code = static_cast<routing::IRouter &>(m_ruler).CalculateRoute(
+          checkpoints, direction, adjustmentContext, alternatives, delegate, result);
       auto alternative = result.GetActive();
       alternative.SetDiffMidpoint({2, 5});
-      result.m_routes.emplace_back(std::move(alternative));
+      result.AddAlternative(std::move(alternative), nullptr /* adjustmentContext */);
       return code;
     }
 

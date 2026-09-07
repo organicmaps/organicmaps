@@ -83,15 +83,9 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_router, ());
-  // Rebuilds replace adjustment caches, so the retained result must expose only the followed
-  // variant until a new result supplies usable alternatives.
+  // Keep the followed variant while rebuilding; alternatives are hidden until a new result arrives.
   if (m_lastResult && m_lastResult->m_routes.size() > 1)
-  {
-    if (m_lastResult->m_activeIdx != 0)
-      m_lastResult->m_routes.front() = std::move(m_lastResult->GetActive());
-    m_lastResult->m_routes.resize(1);
-    m_lastResult->m_activeIdx = 0;
-  }
+    m_lastResult->KeepOnlyActive();
   SetState(routeRebuildingState);
 
   ++m_routingRebuildCount;
@@ -100,8 +94,11 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
+  RouteAdjustmentContextPtr adjustmentContext;
+  if (adjustToPrevRoute && m_lastResult)
+    adjustmentContext = m_lastResult->GetActiveAdjustmentContext();
   // RoutingManager::InsertRoute draws alternatives only outside navigation, don't pay for them.
-  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
+  m_router->CalculateRoute(checkpoints, direction, std::move(adjustmentContext), !m_isFollowing /* needAlternatives */,
                            [this, readyCallback](std::shared_ptr<RoutesResult> const & result, RouterResultCode code)
   {
     AssignRoute(result, code);
@@ -576,10 +573,6 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
   if (!m_lastResult || idx >= m_lastResult->m_routes.size() || idx == m_lastResult->m_activeIdx)
     return false;
 
-  // Validate the cache generation before changing the GUI-owned selection.
-  if (!m_router || !m_router->SwapAltRouteToActive(m_lastResult->m_routesId))
-    return false;
-
   m_lastResult->m_activeIdx = idx;
   // Promote the newly-active RouteBase to a followed Route, preserving the session's routing settings.
   auto route = std::make_shared<Route>(m_lastResult->GetActive());
@@ -605,7 +598,7 @@ void RoutingSession::AssignRouteForTesting(Route && route, RouterResultCode e)
 {
   auto result = std::make_shared<RoutesResult>();
   if (route.IsValid())
-    result->m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
+    result->MakeFrom({} /* routerName */, std::move(route), nullptr /* adjustmentContext */);
   AssignRoute(result, e);
 }
 
