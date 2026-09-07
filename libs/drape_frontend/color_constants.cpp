@@ -34,6 +34,9 @@ struct TransitColorsJson
 namespace
 {
 std::string const kTransitColorFileName = "transit_colors.txt";
+std::string_view constexpr kTransitColorPrefix = "transit_";
+static_assert(kTransitLineColorPrefix.starts_with(kTransitColorPrefix));
+static_assert(kTransitTextColorPrefix.starts_with(kTransitColorPrefix));
 
 class TransitColorsHolder
 {
@@ -130,12 +133,12 @@ TransitColorsHolder & TransitColors()
 
 std::string GetTransitColorName(ColorConstant const & localName)
 {
-  return kTransitLineColorPrefix + std::string(localName);
+  return std::string(kTransitLineColorPrefix).append(localName);
 }
 
 std::string GetTransitTextColorName(ColorConstant const & localName)
 {
-  return kTransitTextColorPrefix + std::string(localName);
+  return std::string(kTransitTextColorPrefix).append(localName);
 }
 
 bool IsTransitColor(ColorConstant const & constant)
