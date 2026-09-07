@@ -650,6 +650,22 @@ final class CarPlayService: NSObject {
     return .unspecified
   }
 
+  /// CarPlay draws template controls, such as map buttons, in the car's appearance, not in its map style.
+  var templateInterfaceStyle: UIUserInterfaceStyle {
+    window?.traitCollection.userInterfaceStyle ?? .unspecified
+  }
+
+  /// Rebuilds the map buttons, whose focused images are resolved for the car's appearance.
+  func updateMapButtonsAppearance() {
+    // The trip finished alert hides all the buttons.
+    guard let rootMapTemplate, !rootMapTemplate.mapButtons.isEmpty else { return }
+    if rootMapTemplate.isPanningInterfaceVisible {
+      MapTemplateBuilder.configurePanUI(rootMapTemplate)
+    } else {
+      MapTemplateBuilder.setupMapButtons(rootMapTemplate, positionMode: currentPositionMode)
+    }
+  }
+
   private func updateContentStyle(_ contentStyle: CPContentStyle) {
     rootTemplateStyle = contentStyle == .dark ? .dark : .light
     // Update the current map style in accordance with the CarPlay content theme.
