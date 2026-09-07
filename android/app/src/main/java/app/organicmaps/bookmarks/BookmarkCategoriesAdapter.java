@@ -19,6 +19,8 @@ import java.util.List;
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<RecyclerView.ViewHolder>
 {
   private final static int HEADER_POSITION = 0;
+  /** Add, import and export, in that order, always at the end of the list. */
+  private final static int ACTION_COUNT = 3;
   private final static int TYPE_ACTION_HEADER = 0;
   private final static int TYPE_CATEGORY_ITEM = 1;
   private final static int TYPE_ACTION_ADD = 2;
@@ -82,6 +84,8 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     case TYPE_ACTION_ADD ->
     {
       View item = inflater.inflate(R.layout.item_bookmark_button, parent, false);
+      final RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) item.getLayoutParams();
+      lp.topMargin = parent.getResources().getDimensionPixelSize(R.dimen.margin_base);
       item.setOnClickListener(v -> {
         if (mCategoryListCallback != null)
           mCategoryListCallback.onAddButtonClick();
@@ -121,6 +125,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
       headerViewHolder.setAction(mMassOperationAction, BookmarkManager.INSTANCE.areAllCategoriesInvisible());
       headerViewHolder.getText().setText(R.string.bookmark_lists);
+      headerViewHolder.setSkipDivider(true);
     }
     case TYPE_CATEGORY_ITEM ->
     {
@@ -134,24 +139,28 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       categoryHolder.setVisibilityListener(visibilityListener);
       CategoryItemMoreClickListener moreClickListener = new CategoryItemMoreClickListener(categoryHolder);
       categoryHolder.setMoreButtonClickListener(moreClickListener);
+      categoryHolder.bindCardPosition(position == HEADER_POSITION + 1, position == getLastCategoryPosition());
     }
     case TYPE_ACTION_ADD ->
     {
       Holders.GeneralViewHolder generalViewHolder = (Holders.GeneralViewHolder) holder;
       generalViewHolder.getImage().setImageResource(R.drawable.ic_add_list);
       generalViewHolder.getText().setText(R.string.bookmarks_create_new_group);
+      generalViewHolder.bindCardPosition(true, false);
     }
     case TYPE_ACTION_IMPORT ->
     {
       Holders.GeneralViewHolder generalViewHolder = (Holders.GeneralViewHolder) holder;
       generalViewHolder.getImage().setImageResource(R.drawable.ic_import);
       generalViewHolder.getText().setText(R.string.bookmarks_import);
+      generalViewHolder.bindCardPosition(false, false);
     }
     case TYPE_ACTION_EXPORT_ALL_AS_KMZ ->
     {
       Holders.GeneralViewHolder generalViewHolder = (Holders.GeneralViewHolder) holder;
       generalViewHolder.getImage().setImageResource(R.drawable.ic_export);
       generalViewHolder.getText().setText(R.string.bookmarks_export);
+      generalViewHolder.bindCardPosition(false, true);
     }
     default -> throw new AssertionError("Invalid item type: " + type);
     }
@@ -165,24 +174,30 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
      * - TYPE_ACTION_HEADER              = 0
      * - TYPE_CATEGORY_ITEM 0            = 1
      * - TYPE_CATEGORY_ITEM n            = n + 1
-     * - TYPE_ACTION_ADD                 = count - 3
-     * - TYPE_ACTION_IMPORT              = count - 2
-     * - TYPE_ACTION_EXPORT_ALL_AS_KMZ   = count - 1
+     * - TYPE_ACTION_ADD                 = count - ACTION_COUNT
+     * - TYPE_ACTION_IMPORT              = count - ACTION_COUNT + 1
+     * - TYPE_ACTION_EXPORT_ALL_AS_KMZ   = count - ACTION_COUNT + 2
      */
 
     if (position == 0)
       return TYPE_ACTION_HEADER;
 
-    if (position == getItemCount() - 3)
+    if (position == getItemCount() - ACTION_COUNT)
       return TYPE_ACTION_ADD;
 
-    if (position == getItemCount() - 2)
+    if (position == getItemCount() - ACTION_COUNT + 1)
       return TYPE_ACTION_IMPORT;
 
-    if (position == getItemCount() - 1)
+    if (position == getItemCount() - ACTION_COUNT + 2)
       return TYPE_ACTION_EXPORT_ALL_AS_KMZ;
 
     return TYPE_CATEGORY_ITEM;
+  }
+
+  /** The last category sits right above the first action row. */
+  private int getLastCategoryPosition()
+  {
+    return getItemCount() - ACTION_COUNT - 1;
   }
 
   private int toCategoryPosition(int adapterPosition)
@@ -201,7 +216,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     int count = super.getItemCount();
     if (count == 0)
       return 0;
-    return 1 /* header */ + count + 1 /* add button */ + 1 /* import button */ + 1 /* export button */;
+    return 1 /* header */ + count + ACTION_COUNT;
   }
 
   private class LongClickListener implements View.OnLongClickListener

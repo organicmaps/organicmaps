@@ -7,6 +7,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +37,30 @@ import app.organicmaps.widget.recycler.RecyclerLongClickListener;
 
 public class Holders
 {
+  /**
+   * The visibility eye reads as an action, like the one of a track row, so its checked state must stay out of
+   * the announcement: "Hide" together with "checked" reads as if hiding were already on.
+   */
+  @NonNull
+  private static final AccessibilityDelegateCompat sActionSemanticsDelegate = new AccessibilityDelegateCompat() {
+    @Override
+    public void onInitializeAccessibilityNodeInfo(@NonNull View host, @NonNull AccessibilityNodeInfoCompat info)
+    {
+      super.onInitializeAccessibilityNodeInfo(host, info);
+      info.setCheckable(false);
+      info.setClassName(Button.class.getName());
+    }
+  };
+
+  /**
+   * Must run on every bind: RecyclerView restores the delegate it saved on bind when a holder goes to the pool.
+   */
+  private static void bindVisibilityAccessibility(@NonNull CheckBox marker, boolean visible)
+  {
+    marker.setContentDescription(marker.getContext().getString(visible ? R.string.hide : R.string.show));
+    ViewCompat.setAccessibilityDelegate(marker, sActionSemanticsDelegate);
+  }
+
   /**
    * In selection mode the row itself is the only touch target, which is also why the colour circle never opens
    * its picker there. Making a child non-clickable is not enough: a pressed row dispatches the state down, so a
@@ -95,7 +120,7 @@ public class Holders
     }
   }
 
-  public static class GeneralViewHolder extends RecyclerView.ViewHolder implements DividerBehavior
+  public static class GeneralViewHolder extends CardViewHolderBase
   {
     @NonNull
     private final TextView mText;
@@ -119,12 +144,6 @@ public class Holders
     public ImageView getImage()
     {
       return mImage;
-    }
-
-    @Override
-    public boolean useFullWidthDivider()
-    {
-      return true;
     }
   }
 
@@ -179,12 +198,6 @@ public class Holders
     public boolean skipDivider()
     {
       return mSkipDivider;
-    }
-
-    @Override
-    public boolean useFullWidthDivider()
-    {
-      return true;
     }
 
     public interface HeaderAction
@@ -256,12 +269,6 @@ public class Holders
     {
       super(root);
       mSize = root.findViewById(R.id.size);
-    }
-
-    @Override
-    public boolean useFullWidthDivider()
-    {
-      return false;
     }
 
     protected void setSize()
@@ -339,6 +346,7 @@ public class Holders
     void setVisibilityState(boolean visible)
     {
       mVisibilityMarker.setChecked(visible);
+      bindVisibilityAccessibility(mVisibilityMarker, visible);
     }
 
     void setVisibilityListener(@Nullable View.OnClickListener listener)
@@ -372,6 +380,7 @@ public class Holders
     void setVisibilityState(boolean visible)
     {
       mVisibilityMarker.setChecked(visible);
+      bindVisibilityAccessibility(mVisibilityMarker, visible);
     }
 
     void setVisibilityListener(@Nullable View.OnClickListener listener)
@@ -455,12 +464,6 @@ public class Holders
           listener.onLongItemClick(v, getBindingAdapterPosition());
         return true;
       });
-    }
-
-    @Override
-    public boolean useFullWidthDivider()
-    {
-      return false;
     }
   }
 

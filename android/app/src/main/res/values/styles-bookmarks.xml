@@ -18,29 +18,6 @@
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
-    <!-- The list sits on a ?cardBackground sheet, so the toolbar continues that surface instead of
-         cutting it with the branded ?colorPrimary bar. -->
-    <style name="MwmWidget.Toolbar.BookmarkList" parent="">
-        <item name="android:background">?cardBackground</item>
-        <item name="android:elevation">0dp</item>
-        <item name="android:displayOptions">homeAsUp|showTitle</item>
-        <item name="contentInsetStart">0dp</item>
-        <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
-        <item name="titleTextColor">?android:textColorPrimary</item>
-    </style>
-
-    <style name="ThemeOverlay.Mwm.BookmarkListToolbar" parent="ThemeOverlay.MaterialComponents">
-        <item name="android:gravity">center_vertical</item>
-        <item name="colorControlNormal">?android:textColorPrimary</item>
-        <item name="iconTint">?android:textColorPrimary</item>
-        <item name="actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>
-        <item name="actionMenuTextAppearance">@style/MwmTextAppearance.Body1</item>
-        <!-- The shared search controls are drawn on this surface, not on the branded bar, so their white
-             defaults would be invisible. The back arrow inside them stays hidden here, see showBackButton(). -->
-        <item name="searchToolbarTextAppearance">@style/MwmTextAppearance.Toolbar.SearchSheet</item>
-        <item name="searchToolbarEndIconTint">?android:textColorSecondary</item>
-    </style>
-
     <style name="BookmarkSelectionAction" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:layout_width">0dp</item>
         <!-- Fills the bar, so the ripple spans its full height even when a neighbour wraps to two lines. -->
@@ -70,6 +47,18 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:paddingStart">@dimen/margin_base</item>
         <item name="android:paddingEnd">@dimen/margin_half</item>
+        <item name="android:paddingTop">@dimen/margin_half</item>
+        <item name="android:paddingBottom">@dimen/margin_half</item>
+    </style>
+
+    <style name="BookmarkListRow.VisibilityCheckbox" parent="">
+        <item name="android:layout_width">@dimen/margin_double_plus</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/margin_half</item>
+        <item name="android:background">@null</item>
+        <item name="android:button">@drawable/button_visibility_row_inset</item>
+        <item name="android:buttonTint">?accentColorSelector</item>
     </style>
 
     <style name="BookmarkListRow.Checkbox" parent="">
