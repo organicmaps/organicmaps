@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Sūtīt</string>
     <string name="editor_report_problem_title">Problēma</string>
     <string name="editor_report_problem_no_place_title">Vieta nepastāv</string>
-    <string name="editor_report_problem_under_construction_title">Aizvērts uz remonta laiku</string>
-    <string name="editor_report_problem_duplicate_place_title">Vieta dublējas</string>
     <string name="autodownload">Automātiska karšu lejupielāde</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ik dienu</string>

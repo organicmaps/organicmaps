@@ -278,8 +278,6 @@
     <string name="editor_report_problem_desription_1">Por favor, descreva o problema em detalhes para que a comunidade OpenStreetMap possa corrigir o erro.</string>
     <string name="editor_report_problem_desription_2">Ou faça-o você mesmo em https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_no_place_title">Esse lugar não existe</string>
-    <string name="editor_report_problem_under_construction_title">Fechado para manutenção</string>
-    <string name="editor_report_problem_duplicate_place_title">Lugar duplicado</string>
     <string name="autodownload">Download automático</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="edit_opening_hours">Editar horário comercial</string>

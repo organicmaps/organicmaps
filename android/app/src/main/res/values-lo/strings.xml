@@ -368,8 +368,6 @@
     <string name="editor_report_problem_send_button">ສົ່ງ</string>
     <string name="editor_report_problem_title">ບັນຫາ</string>
     <string name="editor_report_problem_no_place_title">ສະຖານທີ່ນີ້ບໍ່ມີຢູ່ແທ້</string>
-    <string name="editor_report_problem_under_construction_title">ປິດເພື່ອປັບປຸງ</string>
-    <string name="editor_report_problem_duplicate_place_title">ສະຖານທີ່ຊ້ຳຊ້ອນ</string>
     <string name="autodownload">ດາວໂຫລດແຜນທີ່ອັດຕະໂນມັດ</string>
     <!-- Place Page opening hours text -->
     <string name="daily">ທຸກມື້</string>

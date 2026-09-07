@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Send</string>
     <string name="editor_report_problem_title">Problem</string>
     <string name="editor_report_problem_no_place_title">Stedet findes ikke</string>
-    <string name="editor_report_problem_under_construction_title">Lukket for vedligeholdelse</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplikeret sted</string>
     <string name="autodownload">Download kort automatisk</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Daglig</string>

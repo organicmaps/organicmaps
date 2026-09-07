@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Ուղարկել</string>
     <string name="editor_report_problem_title">Խնդիր</string>
     <string name="editor_report_problem_no_place_title">Այս վայրը գոյություն չունի</string>
-    <string name="editor_report_problem_under_construction_title">Փակ է վերանորոգման համար</string>
-    <string name="editor_report_problem_duplicate_place_title">Կրկնվող վայր</string>
     <string name="autodownload">Քարտեզների ավտոմատ ներբեռնում</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ամեն օր</string>

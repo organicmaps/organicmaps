@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Senda</string>
     <string name="editor_report_problem_title">Vandamál</string>
     <string name="editor_report_problem_no_place_title">Þessi staður er ekki til</string>
-    <string name="editor_report_problem_under_construction_title">Lokað vegna viðhalds</string>
-    <string name="editor_report_problem_duplicate_place_title">Tvítekinn staður</string>
     <string name="autodownload">Sækja kort sjálfvirkt</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Daglega</string>

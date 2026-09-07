@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Pošlji</string>
     <string name="editor_report_problem_title">Težava</string>
     <string name="editor_report_problem_no_place_title">To mesto ne obstaja</string>
-    <string name="editor_report_problem_under_construction_title">Zaprto zaradi vzdrževanja</string>
-    <string name="editor_report_problem_duplicate_place_title">Dvojnik mesta</string>
     <string name="autodownload">Samodejni prenos zemljevidov</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Dnevno</string>

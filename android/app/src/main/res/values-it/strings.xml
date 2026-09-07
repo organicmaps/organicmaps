@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Invia</string>
     <string name="editor_report_problem_title">Problema</string>
     <string name="editor_report_problem_no_place_title">Questo luogo non esiste</string>
-    <string name="editor_report_problem_under_construction_title">Chiuso per manutenzione</string>
-    <string name="editor_report_problem_duplicate_place_title">Luogo duplicato</string>
     <string name="autodownload">Scaricamento automatico</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Tutti i giorni</string>

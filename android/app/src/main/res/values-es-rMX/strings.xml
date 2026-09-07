@@ -202,7 +202,6 @@
     <string name="editor_report_problem_desription_2">O hazlo tú mismo en https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_title">Edición</string>
     <string name="editor_report_problem_no_place_title">Este lugar no existe</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplicar lugar</string>
     <string name="autodownload">Descarga automática de mapas</string>
     <string name="edit_opening_hours">Editar el horario comercial</string>
     <string name="no_osm_account">¿No tienes cuenta en OpenStreetMap?</string>

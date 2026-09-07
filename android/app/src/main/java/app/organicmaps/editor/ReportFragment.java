@@ -44,8 +44,6 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
     mSave.setOnClickListener(this);
     mSimpleProblems = view.findViewById(R.id.ll__problems);
     mSimpleProblems.findViewById(R.id.problem_not_exist).setOnClickListener(this);
-    //    mSimpleProblems.findViewById(R.id.problem_closed_repair).setOnClickListener(this);
-    //    mSimpleProblems.findViewById(R.id.problem_duplicated_place).setOnClickListener(this);
     mSimpleProblems.findViewById(R.id.problem_other).setOnClickListener(this);
     mAdvancedProblem = view.findViewById(R.id.ll__other_problem);
     mProblemInput = mAdvancedProblem.findViewById(R.id.input);

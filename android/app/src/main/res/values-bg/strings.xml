@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">Изпращане</string>
     <string name="editor_report_problem_title">Проблем</string>
     <string name="editor_report_problem_no_place_title">Мястото не съществува</string>
-    <string name="editor_report_problem_under_construction_title">Затворено за ремонт</string>
-    <string name="editor_report_problem_duplicate_place_title">Дубликат</string>
     <string name="autodownload">Автоматично изтегляне</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ежедневно</string>

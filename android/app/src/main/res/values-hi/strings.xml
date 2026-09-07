@@ -414,8 +414,6 @@
     <string name="editor_report_problem_send_button">भेजें</string>
     <string name="editor_report_problem_title">समस्या</string>
     <string name="editor_report_problem_no_place_title">यह स्थान मौजूद नहीं है</string>
-    <string name="editor_report_problem_under_construction_title">रखरखाव के लिए बंद</string>
-    <string name="editor_report_problem_duplicate_place_title">डुप्लिकेट स्थान</string>
     <string name="autodownload">मानचित्र स्वतः डाउनलोड करें</string>
     <!-- Place Page opening hours text -->
     <string name="daily">दैनिक</string>
