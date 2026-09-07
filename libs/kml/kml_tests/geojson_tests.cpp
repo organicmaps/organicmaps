@@ -11,6 +11,8 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include <limits>
+
 namespace geojson_tests
 {
 kml::FileData GenerateKmlFileData();
@@ -914,6 +916,36 @@ UNIT_TEST(GeoJson_Parse_Elevation)
   TEST_EQUAL(flat.m_tracksData.size(), 1, ());
   for (auto const & pt : flat.m_tracksData[0].m_geometry.m_lines[0])
     TEST_EQUAL(pt.GetAltitude(), geometry::kInvalidAltitude, ());
+
+  // A Z coordinate on a rejected position does not turn surviving 2D positions into sea-level points.
+  std::string_view constexpr inputInvalidPositionZ = R"({
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {},
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [[8.0, 47.0], [181.0, 47.1, 100], [8.2, 47.2]]
+    }
+  }]
+})";
+  auto const invalidPositionZ = LoadGeojsonFromString(inputInvalidPositionZ);
+  TEST_EQUAL(invalidPositionZ.m_tracksData.size(), 1, ());
+  for (auto const & pt : invalidPositionZ.m_tracksData[0].m_geometry.m_lines[0])
+    TEST_EQUAL(pt.GetAltitude(), geometry::kInvalidAltitude, ());
+
+  std::string_view constexpr inputExtremeZ = R"({
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {},
+    "geometry": {"type": "LineString", "coordinates": [[8.0, 47.0, 1e300], [8.1, 47.1, -1e300]]}
+  }]
+})";
+  auto const extremeZ = LoadGeojsonFromString(inputExtremeZ);
+  auto const & extremeLine = extremeZ.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(extremeLine[0].GetAltitude(), std::numeric_limits<geometry::Altitude>::max(), ());
+  TEST_EQUAL(extremeLine[1].GetAltitude(), geometry::kInvalidAltitude + 1, ());
 }
 
 UNIT_TEST(GeoJson_Writer_Elevation_Mixed)
@@ -1086,6 +1118,108 @@ UNIT_TEST(GeoJson_Parse_Timestamps_CountMismatch)
   kml::FileData const data = LoadGeojsonFromString(input);
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());
+}
+
+UNIT_TEST(GeoJson_Parse_Timestamps_OutOfRangeNumber)
+{
+  std::string_view constexpr input = R"({
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {"coordTimes": [1e300, -1e300]},
+    "geometry": {"type": "LineString", "coordinates": [[8.0, 47.0], [8.1, 47.1]]}
+  }]
+})";
+
+  auto const data = LoadGeojsonFromString(input);
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());
+}
+
+UNIT_TEST(GeoJson_Parse_InvalidCoordinates)
+{
+  // Positions shorter than [lon, lat] or outside the WGS84 range are skipped: such a point does not
+  // become a bookmark, such a line vertex is dropped together with its timestamp.
+  std::string_view constexpr input = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {"type": "Feature", "properties": {"name": "empty"}, "geometry": {"type": "Point", "coordinates": []}},
+    {"type": "Feature", "properties": {"name": "short"}, "geometry": {"type": "Point", "coordinates": [8.0]}},
+    {"type": "Feature", "properties": {"name": "far"}, "geometry": {"type": "Point", "coordinates": [1e300, 47.0]}},
+    {"type": "Feature", "properties": {"name": "north"}, "geometry": {"type": "Point", "coordinates": [8.0, 91.0]}},
+    {"type": "Feature", "properties": {"name": "ok"}, "geometry": {"type": "Point", "coordinates": [8.0, 47.0]}},
+    {
+      "type": "Feature",
+      "properties": {
+        "coordTimes": ["2026-05-31T12:34:56Z", "2026-05-31T12:35:01Z", "2026-05-31T12:35:06Z", "2026-05-31T12:35:11Z"]
+      },
+      "geometry": {"type": "LineString", "coordinates": [[8.0, 47.0], [181.0, 47.1], [8.2], [8.3, 47.3]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "all invalid"},
+      "geometry": {"type": "LineString", "coordinates": [[181.0, 47.0], [182.0, 47.1]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "one survivor"},
+      "geometry": {"type": "LineString", "coordinates": [[8.0, 47.0], [181.0, 47.1]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "mismatched timestamps",
+        "coordTimes": ["2026-05-31T12:34:56Z", "2026-05-31T12:35:01Z", "2026-05-31T12:35:06Z", "2026-05-31T12:35:11Z"]
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [[8.0, 47.0], [181.0, 47.1], [8.2, 47.2], [8.3, 47.3], [8.4, 47.4]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "multi",
+        "coordTimes": [
+          ["2026-05-31T12:40:00Z", "2026-05-31T12:40:05Z"],
+          ["2026-05-31T12:41:00Z", "2026-05-31T12:41:05Z", "2026-05-31T12:41:10Z"]
+        ]
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [[181.0, 47.0], [182.0, 47.1]],
+          [[8.0, 47.0], [181.0, 47.1], [8.2, 47.2]]
+        ]
+      }
+    }
+  ]
+})";
+
+  kml::FileData const data = LoadGeojsonFromString(input);
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData[0].m_name), "ok", ());
+  TEST_EQUAL(data.m_bookmarksData[0].m_point, mercator::FromLatLon(47.0, 8.0), ());
+
+  TEST_EQUAL(data.m_tracksData.size(), 3, ());
+  auto const & geometry = data.m_tracksData[0].m_geometry;
+  kml::TrackGeometry const expectedLine = {{mercator::FromLatLon(47.0, 8.0), geometry::kInvalidAltitude},
+                                           {mercator::FromLatLon(47.3, 8.3), geometry::kInvalidAltitude}};
+  TEST_EQUAL(geometry.m_lines, std::vector<kml::TrackGeometry>{expectedLine}, ());
+  kml::MultiGeometry::TimeT const expectedTimes = {base::StringToTimestamp("2026-05-31T12:34:56Z"),
+                                                   base::StringToTimestamp("2026-05-31T12:35:11Z")};
+  TEST_EQUAL(geometry.m_timestamps, std::vector<kml::MultiGeometry::TimeT>{expectedTimes}, ());
+
+  auto const & mismatch = data.m_tracksData[1].m_geometry;
+  TEST_EQUAL(mismatch.m_lines[0].size(), 4, ());
+  TEST(!mismatch.HasTimestamps(), ());
+
+  auto const & multi = data.m_tracksData[2].m_geometry;
+  TEST_EQUAL(multi.m_lines.size(), 1, ());
+  TEST_EQUAL(multi.m_lines[0].size(), 2, ());
+  kml::MultiGeometry::TimeT const expectedMultiTimes = {base::StringToTimestamp("2026-05-31T12:41:00Z"),
+                                                        base::StringToTimestamp("2026-05-31T12:41:10Z")};
+  TEST_EQUAL(multi.m_timestamps, std::vector<kml::MultiGeometry::TimeT>{expectedMultiTimes}, ());
 }
 
 UNIT_TEST(GeoJson_Parse_Timestamps_MultiLine)

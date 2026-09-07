@@ -2,8 +2,13 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+
+#include <algorithm>
+#include <cmath>
+#include <limits>
 
 namespace kml
 {
@@ -40,6 +45,24 @@ bool LineHasAltitude(TrackGeometry const & line)
     auto const alt = pt.GetAltitude();
     return alt != geometry::kInvalidAltitude && alt != geometry::kDefaultAltitudeMeters;
   });
+}
+
+// math::is_finite() is not redundant: this TU is compiled with -ffast-math (unlike the one defining
+// it), where the compiler assumes there are no NaNs and mercator::ValidLat(NaN) is true in Release.
+bool IsValidLatLon(double lat, double lon)
+{
+  return math::is_finite(lat) && math::is_finite(lon) && mercator::ValidLat(lat) && mercator::ValidLon(lon);
+}
+
+geometry::Altitude ToAltitude(double altitude)
+{
+  // Also rejects NaN, which has no representable value and would make the conversion below undefined.
+  if (!math::is_finite(altitude))
+    return geometry::kInvalidAltitude;
+
+  double constexpr kMinAltitude = geometry::kInvalidAltitude + 1.0;
+  double constexpr kMaxAltitude = std::numeric_limits<geometry::Altitude>::max();
+  return static_cast<geometry::Altitude>(std::clamp(std::round(altitude), kMinAltitude, kMaxAltitude));
 }
 
 void SaveStringWithCDATA(Writer & writer, std::string_view s)
