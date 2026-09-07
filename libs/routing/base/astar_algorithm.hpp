@@ -179,7 +179,8 @@ public:
   template <typename P>
   Result FindPath(P & params, RoutingResult<Vertex, Weight> & result) const;
 
-  /// Fetch routes until \a emitter returns false.
+  /// Fetch routes until \a emitter returns true or the search is exhausted.
+  /// The same route may be emitted more than once, the emitter is expected to filter duplicates.
   template <class P, class Emitter>
   Result FindPathBidirectionalEx(P & params, Emitter && emitter) const;
 
@@ -534,6 +535,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
   auto & backwardParents = backward.GetParents();
 
   bool foundAnyPath = false;
+  bool foundAnyPathEver = false;
   Weight bestPathReducedLength = kZeroDistance;
   Weight bestPathRealLength = kZeroDistance;
 
@@ -550,31 +552,32 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
   BidirectionalStepContext * cur = &forward;
   BidirectionalStepContext * nxt = &backward;
 
-  auto const EmitResult = [cur, nxt, &bestPathRealLength, &emitter]()
+  auto const EmitResult = [&forward, &backward, &bestPathRealLength, &emitter]()
   {
     // No problem if length check fails, but we still emit the result.
     // Happens with "transit" route because of length, haven't seen with regular car route.
     // ASSERT(params.m_checkLengthCallback(bestPathRealLength), ());
 
     RoutingResult<Vertex, Weight> result;
-    ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent, result.m_path);
+    ReconstructPathBidirectional(forward.bestVertex, backward.bestVertex, forward.parent, backward.parent,
+                                 result.m_path);
     result.m_distance = bestPathRealLength;
-    if (!cur->forward)
-      reverse(result.m_path.begin(), result.m_path.end());
-
     return emitter(std::move(result));
   };
 
   typename Graph::EdgeListT adj;
 
-  // It is not necessary to check emptiness for both queues here
-  // because if we have not found a path by the time one of the
-  // queues is exhausted, we never will.
+  // Before the first result, exhausting either queue proves that there is no path. If the emitter requests more
+  // results, the remaining wave may still find alternatives by meeting vertices already visited by the exhausted
+  // wave, so continue until both queues are empty.
   uint32_t steps = 0;
   PeriodicPollCancellable periodicCancellable(params.m_cancellable);
 
-  while (!cur->queue.empty() && !nxt->queue.empty())
+  while (!forward.queue.empty() || !backward.queue.empty())
   {
+    if (!foundAnyPathEver && (forward.queue.empty() || backward.queue.empty()))
+      break;
+
     ++steps;
 
     if (periodicCancellable.IsCancelled())
@@ -583,11 +586,11 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
     if (steps % kQueueSwitchPeriod == 0)
       std::swap(cur, nxt);
 
+    if (cur->queue.empty())
+      std::swap(cur, nxt);
+
     if (foundAnyPath)
     {
-      auto const curTop = cur->TopDistance();
-      auto const nxtTop = nxt->TopDistance();
-
       // The intuition behind this is that we cannot obtain a path shorter
       // than the left side of the inequality because that is how any path we find
       // will look like (see comment for curPathReducedLength below).
@@ -599,7 +602,8 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
       // several top states in a priority queue may have equal reduced path lengths and
       // different real path lengths.
 
-      if (curTop + nxtTop >= bestPathReducedLength - epsilon)
+      // With no opposite frontier, emit immediately so that later, possibly longer candidates can be considered.
+      if (nxt->queue.empty() || cur->TopDistance() + nxt->TopDistance() >= bestPathReducedLength - epsilon)
       {
         if (EmitResult())
           return Result::OK;
@@ -666,7 +670,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
           bestPathRealLength += cur->pS - pV;
           bestPathRealLength += nxt->pS - nxt->ConsistentHeuristic(stateW.vertex);
 
-          foundAnyPath = true;
+          foundAnyPath = foundAnyPathEver = true;
           cur->bestVertex = stateV.vertex;
           nxt->bestVertex = stateW.vertex;
         }
@@ -678,12 +682,9 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
   }
 
   if (foundAnyPath)
-  {
     (void)EmitResult();
-    return Result::OK;
-  }
 
-  return Result::NoPath;
+  return foundAnyPathEver ? Result::OK : Result::NoPath;
 }
 
 template <typename Vertex, typename Edge, typename Weight>
