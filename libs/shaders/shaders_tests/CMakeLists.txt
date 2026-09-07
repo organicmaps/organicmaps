@@ -3,9 +3,13 @@ project(shaders_tests)
 set(SRC
   gl_shaders_desktop_compile_tests.cpp
   gl_program_params_tests.cpp
-  # Mobile compilation test takes much more time than others, so it should be the last.
-  gl_shaders_mobile_compile_test.cpp
 )
+
+# The mobile compilation test runs the compilers bundled in tools/shaders_compiler, which exist for
+# Linux and macOS only. It takes much more time than the other tests, so it should be the last.
+if (PLATFORM_LINUX OR PLATFORM_MAC)
+  list(APPEND SRC gl_shaders_mobile_compile_test.cpp)
+endif()
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 

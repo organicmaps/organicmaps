@@ -25,6 +25,14 @@
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
+#ifdef OMIM_OS_WINDOWS
+#include "std/windows.hpp"
+
+#include <crtdbg.h>
+#include <cstdio>
+#include <cstdlib>
+#endif
+
 #ifndef OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
 #include "platform/platform.hpp"
 #endif
@@ -170,6 +178,27 @@ int main(int argc, char * argv[])
 #else
   UNUSED_VALUE(argc);
   UNUSED_VALUE(argv);
+#endif
+
+#ifdef OMIM_OS_WINDOWS
+  // Report crashes and CRT assertions on stderr and abort instead of blocking on a dialog box,
+  // otherwise a failing test hangs unattended runs until the ctest timeout.
+  if (!IsDebuggerPresent())
+  {
+    SetErrorMode(GetErrorMode() | SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
+    _set_error_mode(_OUT_TO_STDERR);
+    _set_abort_behavior(_WRITE_ABORT_MSG, _WRITE_ABORT_MSG | _CALL_REPORTFAULT);
+    // Debug CRT assertions and errors fail fast: the default report modes either show a dialog or return
+    // and let the test continue on corrupted state.
+    _CrtSetReportHook([](int reportType, char * message, int * /* returnValue */) -> int
+    {
+      if (reportType == _CRT_WARN)
+        return FALSE;  // Default processing, e.g. for leak reports.
+      std::fputs(message, stderr);
+      std::fflush(stderr);
+      std::_Exit(EXIT_FAILURE);  // Not abort(): its own report would re-enter this hook.
+    });
+  }
 #endif
 
   base::ScopedLogLevelChanger const infoLogLevel(LINFO);
