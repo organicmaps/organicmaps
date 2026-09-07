@@ -41,7 +41,7 @@ public:
 
     Route route;
     route.SetGeometry(checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend());
-    result.MakeFrom(GetName(), std::move(route));
+    result.MakeFrom(GetName(), std::move(route), nullptr /* adjustmentContext */);
     return RouterResultCode::NoError;
   }
 

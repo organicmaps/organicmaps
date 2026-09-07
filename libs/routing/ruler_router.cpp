@@ -94,7 +94,7 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   }
 
   route.SetGeometry(routeGeometry.begin(), routeGeometry.end());
-  result.MakeFrom(GetName(), std::move(route));
+  result.MakeFrom(GetName(), std::move(route), nullptr /* adjustmentContext */);
 
   return RouterResultCode::NoError;
 }

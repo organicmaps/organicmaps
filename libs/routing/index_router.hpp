@@ -107,25 +107,6 @@ public:
   }
 
 private:
-  class AdjustmentContext final : public RouteAdjustmentContext
-  {
-  public:
-    AdjustmentContext(std::unique_ptr<SegmentedRoute> route, std::unique_ptr<FakeEdgesContainer> fakeEdges)
-      : m_route(std::move(route))
-      , m_fakeEdges(std::move(fakeEdges))
-    {}
-
-    SegmentedRoute const & GetRoute() const { return *m_route; }
-    FakeEdgesContainer const & GetFakeEdges() const { return *m_fakeEdges; }
-
-  private:
-    std::unique_ptr<SegmentedRoute> const m_route;
-    std::unique_ptr<FakeEdgesContainer> const m_fakeEdges;
-  };
-
-  // Lightweight cleanup run at the end of every CalculateRoute invocation.
-  void ClearRouteCalculationState();
-
   RouterResultCode CalculateSubrouteJointsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
                                                std::shared_ptr<AStarProgress> const & progress,
                                                std::vector<Segment> & subroute);
@@ -146,7 +127,7 @@ private:
                                      bool guidesActive = false);
 
   RouterResultCode AdjustRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                               AdjustmentContext const & adjustmentContext, RouterDelegate const & delegate,
+                               RouteAdjustmentContext const & adjustmentContext, RouterDelegate const & delegate,
                                Route & route);
 
   std::unique_ptr<WorldGraph> MakeWorldGraph();

@@ -2,7 +2,6 @@
 
 #include "routing/checkpoints.hpp"
 #include "routing/road_graph.hpp"
-#include "routing/route_adjustment_context.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
 
@@ -10,11 +9,14 @@
 
 #include <functional>
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
 namespace routing
 {
+class RouteAdjustmentContext;
+using RouteAdjustmentContextPtr = std::shared_ptr<RouteAdjustmentContext const>;
 
 using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
 

@@ -15,6 +15,7 @@
 #include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/route.hpp"
+#include "routing/route_adjustment_context.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
@@ -351,16 +352,11 @@ std::unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
   return worldGraph;
 }
 
-void IndexRouter::ClearRouteCalculationState()
+void IndexRouter::ClearState()
 {
   m_roadGraph.ClearState();
   m_directionsEngine->Clear();
   m_dataSource.FreeHandles();
-}
-
-void IndexRouter::ClearState()
-{
-  ClearRouteCalculationState();
 }
 
 bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
@@ -422,10 +418,9 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
-    SCOPE_GUARD(featureRoadGraphClear, [this] { ClearRouteCalculationState(); });
+    SCOPE_GUARD(featureRoadGraphClear, [this] { ClearState(); });
 
-    auto const previous = std::dynamic_pointer_cast<AdjustmentContext const>(adjustmentContext);
-    ASSERT(!adjustmentContext || previous, ("Unexpected route adjustment context for", GetName()));
+    auto const previous = adjustmentContext.get();
     bool doCalculate = true;
     if (previous && finalPoint == previous->GetRoute().GetFinish())
     {
@@ -437,8 +432,12 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         if (code != RouterResultCode::RouteNotFound)
         {
           doCalculate = false;
-          if (code == RouterResultCode::NoError)
+          if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)
+          {
+            // AdjustRoute intentionally reuses the full build's state. Successive adjustments
+            // therefore keep a stable baseline instead of chaining from earlier adjustments.
             routeAdjustmentContext = adjustmentContext;
+          }
         }
         else
           LOG(LWARNING,
@@ -816,7 +815,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
     segmentedRoute->AddStep(segment, mercator::FromLatLon(starter->GetPoint(segment, true /* front */)));
 
   auto fakeEdges = std::make_unique<FakeEdgesContainer>(std::move(*starter));
-  adjustmentContext = std::make_shared<AdjustmentContext>(std::move(segmentedRoute), std::move(fakeEdges));
+  adjustmentContext = std::make_shared<RouteAdjustmentContext>(std::move(segmentedRoute), std::move(fakeEdges));
 
   return RouterResultCode::NoError;
 }
@@ -1153,8 +1152,8 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
 }
 
 RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                          AdjustmentContext const & adjustmentContext, RouterDelegate const & delegate,
-                                          Route & route)
+                                          RouteAdjustmentContext const & adjustmentContext,
+                                          RouterDelegate const & delegate, Route & route)
 {
   base::Timer timer;
   TrafficStash::Guard guard(m_trafficStash);

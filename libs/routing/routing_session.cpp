@@ -64,7 +64,7 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeou
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_router, ());
   m_checkpoints = checkpoints;
-  ClearRouterState();
+  m_router->ClearState();
 
   m_isFollowing = false;
   m_routingRebuildCount = -1;  // -1 for the first rebuild.
@@ -130,13 +130,6 @@ void RoutingSession::RemoveRoute()
   m_speedCameraManager.SetRoute(m_route);
 }
 
-void RoutingSession::ClearRouterState()
-{
-  if (m_lastResult)
-    m_lastResult->ClearAdjustmentContexts();
-  m_router->ClearState();
-}
-
 void RoutingSession::RebuildRouteOnTrafficUpdate()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -160,7 +153,7 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
     }
 
     // Cancel current route building.
-    ClearRouterState();
+    m_router->ClearState();
   }
 
   RebuildRoute(startPoint, m_rebuildReadyCallback, nullptr /* needMoreMapsCallback */,
@@ -236,7 +229,7 @@ void RoutingSession::Reset()
 
   RemoveRoute();
   SetState(SessionState::NoValidRoute);
-  ClearRouterState();
+  m_router->ClearState();
 
   m_passedDistanceOnRouteMeters = 0.0;
   m_isFollowing = false;
@@ -609,7 +602,7 @@ void RoutingSession::AssignRouteForTesting(Route && route, RouterResultCode e)
 {
   auto result = std::make_shared<RoutesResult>();
   if (route.IsValid())
-    result->m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
+    result->MakeFrom({} /* routerName */, std::move(route), nullptr /* adjustmentContext */);
   AssignRoute(result, e);
 }
 

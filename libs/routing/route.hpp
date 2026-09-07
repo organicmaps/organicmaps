@@ -1,7 +1,6 @@
 #pragma once
 
 #include "routing/lanes/lane_info.hpp"
-#include "routing/route_adjustment_context.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
@@ -36,6 +35,9 @@ class RouteMatchingInfo;
 
 namespace routing
 {
+class RouteAdjustmentContext;
+using RouteAdjustmentContextPtr = std::shared_ptr<RouteAdjustmentContext const>;
+
 using SubrouteUid = uint64_t;
 SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 
@@ -307,12 +309,6 @@ public:
   // A route is "valid" (for display purposes) when it has at least one segment and a starting subroute.
   bool IsValid() const { return !m_routeSegments.empty() && !m_subrouteAttrs.empty(); }
 
-  RouteAdjustmentContextPtr const & GetAdjustmentContext() const { return m_adjustmentContext; }
-  void SetAdjustmentContext(RouteAdjustmentContextPtr adjustmentContext)
-  {
-    m_adjustmentContext = std::move(adjustmentContext);
-  }
-
   /// \returns The midpoint of the longest divergence span — used to place the ETA balloon
   /// where the alt actually differs from |origin| — or nullopt if the route fails the threshold (equal).
   /// Diff is measured by real road-segment feature identity (suitable for road vehicles).
@@ -415,9 +411,6 @@ protected:
 
   // Pivot for the alternative-route ETA balloon — midpoint of the longest segment span.
   std::optional<m2::PointD> m_diffMidpoint;
-
-  // Immutable router-specific state for adjusting this exact route variant.
-  RouteAdjustmentContextPtr m_adjustmentContext;
 };
 
 /// \brief A RouteBase that the user is actively following: adds the matched position on the polyline,
@@ -432,12 +425,7 @@ public:
 
   /// \brief Promote an alternative (RouteBase) to a followed Route. The base's segments and their start
   /// point are used to (re)build the FollowedPolyline for follow-time matching.
-  explicit Route(RouteBase const & base) : RouteBase(base)
-  {
-    // Adjustment state belongs to the retained result variant, not its followed UI copy.
-    m_adjustmentContext.reset();
-    RebuildFollowedPolyline();
-  }
+  explicit Route(RouteBase const & base) : RouteBase(base) { RebuildFollowedPolyline(); }
 
   Route(Route const & rhs) = default;
 
@@ -581,41 +569,48 @@ public:
   RoutesResult() = default;
   RoutesResult(std::string routerName, uint64_t routesId) : m_routerName(std::move(routerName)), m_routesId(routesId) {}
 
-  void MakeFrom(std::string name, Route && route, RouteAdjustmentContextPtr adjustmentContext = {})
+  void MakeFrom(std::string name, RouteBase && route, RouteAdjustmentContextPtr adjustmentContext)
   {
     m_routerName = std::move(name);
     m_routes.clear();
-    route.SetAdjustmentContext(std::move(adjustmentContext));
-    m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
+    m_adjustmentContexts.clear();
+    m_routes.emplace_back(std::move(route));
+    m_adjustmentContexts.emplace_back(std::move(adjustmentContext));
     m_activeIdx = 0;
   }
 
-  void AddAlternative(Route && route, RouteAdjustmentContextPtr adjustmentContext)
+  void AddAlternative(RouteBase && route, RouteAdjustmentContextPtr adjustmentContext)
   {
-    route.SetAdjustmentContext(std::move(adjustmentContext));
-    m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
+    AssertConsistent();
+    m_routes.emplace_back(std::move(route));
+    m_adjustmentContexts.emplace_back(std::move(adjustmentContext));
   }
 
-  bool IsValid() const { return !m_routes.empty() && m_routes[m_activeIdx].IsValid(); }
+  bool IsValid() const
+  {
+    AssertConsistent();
+    return m_activeIdx < m_routes.size() && m_routes[m_activeIdx].IsValid();
+  }
 
   RouteBase & GetActive()
   {
+    AssertConsistent();
     ASSERT_LESS(m_activeIdx, m_routes.size(), ());
     return m_routes[m_activeIdx];
   }
 
   RouteBase const & GetActive() const
   {
+    AssertConsistent();
     ASSERT_LESS(m_activeIdx, m_routes.size(), ());
     return m_routes[m_activeIdx];
   }
 
-  RouteAdjustmentContextPtr GetActiveAdjustmentContext() const { return GetActive().GetAdjustmentContext(); }
-
-  void ClearAdjustmentContexts()
+  RouteAdjustmentContextPtr const & GetActiveAdjustmentContext() const
   {
-    for (auto & route : m_routes)
-      route.SetAdjustmentContext({});
+    AssertConsistent();
+    ASSERT_LESS(m_activeIdx, m_adjustmentContexts.size(), ());
+    return m_adjustmentContexts[m_activeIdx];
   }
 
   std::vector<RouteBase> m_routes;
@@ -623,6 +618,12 @@ public:
   std::string m_routerName;
   // Session-unique id, shared by all alternatives in this result.
   uint64_t m_routesId = 0;
+
+private:
+  void AssertConsistent() const { ASSERT_EQUAL(m_routes.size(), m_adjustmentContexts.size(), ()); }
+
+  // Keep router state out of RouteBase so display/following copies cannot retain it accidentally.
+  std::vector<RouteAdjustmentContextPtr> m_adjustmentContexts;
 };
 
 /// \returns true if |turn| is not equal to turns::CarDirection::None or
