@@ -249,8 +249,9 @@ void RankerResult::FillDetails(FeatureType & ft, bool isBuilding, bool isHotel)
     if (OpeningHours const oh{openHours}; oh.IsValid())
     {
       time_t now = time(nullptr);
-      auto const & ftTimezone = ft.GetID().m_mwmId.GetInfo()->GetRegionData().GetTimeZone();
-      auto const info = oh.GetInfo(now, ftTimezone);
+      auto const & regionData = ft.GetID().m_mwmId.GetInfo()->GetRegionData();
+      // The region's public holidays let `PH` selectors match (no holidays => never).
+      auto const info = oh.GetInfo(now, regionData.GetTimeZone(), regionData.GetPublicHolidays());
       if (info.state != RuleState::Unknown)
       {
         // In else case value is osm::Unknown, it's set in preview's constructor.

@@ -253,7 +253,118 @@ void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
   std::string value(Get(RegionData::Type::RD_PUBLIC_HOLIDAYS));
   value.push_back(month);
   value.push_back(offset);
-  Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, std::move(value));
+  // RegionData::Set() writes only into an empty slot, which would drop every holiday but the first.
+  MetadataBase::Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, std::move(value));
+}
+
+namespace
+{
+namespace chrono = std::chrono;
+
+// Gregorian Easter Sunday (Anonymous Gregorian / Meeus-Jones-Butcher algorithm).
+chrono::sys_days GregorianEaster(int year)
+{
+  int const a = year % 19;
+  int const b = year / 100;
+  int const c = year % 100;
+  int const d = b / 4;
+  int const e = b % 4;
+  int const f = (b + 8) / 25;
+  int const g = (b - f + 1) / 3;
+  int const h = (19 * a + b - d - g + 15) % 30;
+  int const i = c / 4;
+  int const k = c % 4;
+  int const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  int const m = (a + 11 * h + 22 * l) / 451;
+  auto const month = static_cast<unsigned>((h + l - 7 * m + 114) / 31);
+  auto const day = static_cast<unsigned>((h + l - 7 * m + 114) % 31) + 1;
+  return chrono::sys_days{chrono::year{year} / chrono::month{month} / chrono::day{day}};
+}
+
+// Orthodox (Julian) Easter Sunday, expressed in the Gregorian calendar.
+chrono::sys_days OrthodoxEaster(int year)
+{
+  int const a = year % 4;
+  int const b = year % 7;
+  int const c = year % 19;
+  int const d = (19 * c + 15) % 30;
+  int const e = (2 * a + 4 * b - d + 34) % 7;
+  auto const month = static_cast<unsigned>((d + e + 114) / 31);  // Julian: 3=Mar, 4=Apr
+  auto const day = static_cast<unsigned>((d + e + 114) % 31) + 1;
+  chrono::sys_days const julian{chrono::year{year} / chrono::month{month} / chrono::day{day}};
+  // Julian -> Gregorian offset: 13 days in 1900..2099, 14 from 2100, and so on.
+  int const shift = year / 100 - year / 400 - 2;
+  return julian + chrono::days{shift};
+}
+
+// Victoria Day (Canada): the Monday preceding May 25.
+chrono::sys_days VictoriaDay(int year)
+{
+  chrono::sys_days const may25{chrono::year{year} / chrono::May / chrono::day{25}};
+  int const sinceMonday = static_cast<int>((chrono::weekday{may25} - chrono::Monday).count());  // 0..6
+  int const back = sinceMonday == 0 ? 7 : sinceMonday;  // strictly preceding Monday
+  return may25 - chrono::days{back};
+}
+
+// Canada Day: July 1, moved to July 2 when it falls on a Sunday (Holidays Act).
+chrono::sys_days CanadaDay(int year)
+{
+  chrono::sys_days const july1{chrono::year{year} / chrono::July / chrono::day{1}};
+  return chrono::weekday{july1} == chrono::Sunday ? july1 + chrono::days{1} : july1;
+}
+}  // namespace
+
+RegionData::PublicHolidaysT RegionData::GetPublicHolidays(int yearFrom, int yearTo) const
+{
+  PublicHolidaysT result;
+  std::string_view const raw = Get(RegionData::Type::RD_PUBLIC_HOLIDAYS);
+  if (raw.empty())
+    return result;
+
+  for (int year = yearFrom; year <= yearTo; ++year)
+  {
+    // Each holiday is a (reference, offset) byte pair, @see ReadPublicHoliday.
+    for (size_t i = 0; i + 1 < raw.size(); i += 2)
+    {
+      int const ref = static_cast<int8_t>(raw[i]);
+      int const offset = static_cast<int8_t>(raw[i + 1]);
+
+      chrono::year_month_day ymd;
+      if (ref >= 1 && ref <= 12)
+      {
+        // Fixed date: reference is the month, offset holds the day of the month.
+        ymd =
+            chrono::year{year} / chrono::month{static_cast<unsigned>(ref)} / chrono::day{static_cast<unsigned>(offset)};
+      }
+      else
+      {
+        chrono::sys_days base;
+        switch (ref)
+        {
+        case PH_EASTER: base = GregorianEaster(year); break;
+        case PH_ORTHODOX_EASTER: base = OrthodoxEaster(year); break;
+        case PH_VICTORIA_DAY: base = VictoriaDay(year); break;
+        case PH_CANADA_DAY: base = CanadaDay(year); break;
+        default: continue;  // Unknown reference, skip.
+        }
+        ymd = chrono::year_month_day{base + chrono::days{offset}};
+      }
+
+      if (ymd.ok())
+        result.push_back(ymd);
+    }
+  }
+  return result;
+}
+
+void RegionData::LoadPublicHolidays()
+{
+  // osmoh::OpeningHours::GetInfo() scans kScanDays (about 400) days ahead from now,
+  // and the POI-local date is a day off UTC at most; [year - 1, year + 2] covers that
+  // from any instant of the current year, so one expansion lasts the whole session.
+  int const year =
+      static_cast<int>(chrono::year_month_day{chrono::floor<chrono::days>(chrono::system_clock::now())}.year());
+  m_publicHolidays = GetPublicHolidays(year - 1, year + 2);
 }
 
 void RegionData::LoadTimeZone()

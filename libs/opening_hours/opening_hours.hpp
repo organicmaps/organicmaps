@@ -29,6 +29,7 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <span>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -732,6 +733,11 @@ inline std::string DebugPrint(RuleState state)
   return "Unknown";
 }
 
+// Public-holiday calendar days (local dates) used to evaluate `PH` selectors.
+// Empty => `PH` never matches (unchanged default behavior). Callers expand a
+// region's holidays for the relevant years, see feature::RegionData::GetPublicHolidays.
+using PublicHolidays = std::span<std::chrono::year_month_day const>;
+
 class OpeningHours
 {
 public:
@@ -751,7 +757,16 @@ public:
     time_t nextTimeClosed;
   };
 
-  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  // GetInfo() looks at least this many days ahead for the next transition (longer
+  // for rules pinned to explicit years). Holidays outside the supplied dates simply
+  // do not match, so callers should cover the surrounding years.
+  static constexpr int kScanDays = 400;
+
+  // `timeZone` evaluates in the POI's zone (device-local if empty). `publicHolidays`
+  // are the region's holiday dates so `PH` selectors match; empty keeps the previous
+  // behavior where `PH` never matches.
+  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt,
+                PublicHolidays publicHolidays = {}) const;
 
   bool IsValid() const;
 
