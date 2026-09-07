@@ -81,6 +81,15 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_router, ());
+  // Rebuilds replace adjustment caches, so the retained result must expose only the followed
+  // variant until a new result supplies usable alternatives.
+  if (m_lastResult && m_lastResult->m_routes.size() > 1)
+  {
+    if (m_lastResult->m_activeIdx != 0)
+      m_lastResult->m_routes.front() = std::move(m_lastResult->GetActive());
+    m_lastResult->m_routes.resize(1);
+    m_lastResult->m_activeIdx = 0;
+  }
   SetState(routeRebuildingState);
 
   ++m_routingRebuildCount;
@@ -89,24 +98,19 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
-  // Use old-style callback construction, because lambda constructs buggy function on Android
-  // (callback param isn't captured by value).
   // RoutingManager::InsertRoute draws alternatives only outside navigation, don't pay for them.
   m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
-                           DoReadyCallback(*this, readyCallback), needMoreMapsCallback, removeRouteCallback,
-                           m_progressCallback, timeoutSec);
+                           [this, readyCallback](std::shared_ptr<RoutesResult> const & result, RouterResultCode code)
+  {
+    AssignRoute(result, code);
+    readyCallback(result ? *result : RoutesResult{}, code);
+  }, needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
 }
 
 m2::PointD RoutingSession::GetEndPoint() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return m_checkpoints.GetFinish();
-}
-
-void RoutingSession::DoReadyCallback::operator()(std::shared_ptr<RoutesResult> const & result, RouterResultCode e)
-{
-  m_rs.AssignRoute(result, e);
-  m_callback(result ? *result : RoutesResult{}, e);
 }
 
 void RoutingSession::RemoveRoute()
@@ -570,6 +574,10 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
   if (!m_lastResult || idx >= m_lastResult->m_routes.size() || idx == m_lastResult->m_activeIdx)
     return false;
 
+  // Validate the cache generation before changing the GUI-owned selection.
+  if (!m_router || !m_router->SwapAltRouteToActive(m_lastResult->m_routesId))
+    return false;
+
   m_lastResult->m_activeIdx = idx;
   // Promote the newly-active RouteBase to a followed Route, preserving the session's routing settings.
   auto route = std::make_shared<Route>(m_lastResult->GetActive());
@@ -588,8 +596,6 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
 
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);
-  if (m_router)
-    m_router->SwapAltRouteToActive();
   return true;
 }
 

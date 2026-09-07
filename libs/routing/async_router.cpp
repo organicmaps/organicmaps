@@ -4,6 +4,7 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/scope_guard.hpp"
 #include "base/timer.hpp"
 
 #include <functional>
@@ -75,7 +76,13 @@ void AsyncRouter::RouterDelegateProxy::Cancel()
 bool AsyncRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                               EdgeProj & proj)
 {
-  /// @todo No need to put a lock_guard at first glance. May be wrong ..
+  lock_guard ul(m_guard);
+  // IndexRouter::FindClosestProjectionToRoad reads the road graph caches that CalculateRoute fills
+  // and clears on the routing thread, so refuse rather than read them from under it. The caller
+  // only snaps the position marker to a road, and it is off route anyway while a rebuild runs.
+  if (!m_router || m_isCalculating)
+    return false;
+
   return m_router->FindClosestProjectionToRoad(point, direction, radius, proj);
 }
 
@@ -154,6 +161,7 @@ void AsyncRouter::SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<
 
   m_router = std::move(router);
   m_absentRegionsFinder = std::move(finder);
+  m_cachedRoutesId = 0;
 }
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction, bool adjustToPrevRoute,
@@ -168,6 +176,7 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
   m_startDirection = direction;
   m_adjustToPrevRoute = adjustToPrevRoute;
   m_needAlternatives = needAlternatives;
+  m_cachedRoutesId = 0;
 
   ResetDelegate();
 
@@ -189,16 +198,23 @@ void AsyncRouter::ClearState()
   lock_guard ul(m_guard);
 
   m_clearState = true;
+  m_cachedRoutesId = 0;
   m_threadCondVar.notify_one();
 
   ResetDelegate();
 }
 
-void AsyncRouter::SwapAltRouteToActive()
+bool AsyncRouter::SwapAltRouteToActive(uint64_t routesId)
 {
   lock_guard ul(m_guard);
-  if (m_router)
-    m_router->SwapAltRouteToActive();
+  // Requests invalidate the generation before the worker can touch its caches. Only a successful
+  // completion republishes it together with the idle state.
+  if (!m_router || routesId == 0 || routesId != m_cachedRoutesId)
+    return false;
+
+  ASSERT(!m_isCalculating, ());
+  m_router->SwapAltRouteToActive();
+  return true;
 }
 
 // static
@@ -294,6 +310,7 @@ void AsyncRouter::CalculateRoute()
     checkpoints = m_checkpoints;
     startDirection = m_startDirection;
     adjustToPrevRoute = m_adjustToPrevRoute;
+    needAlternatives = m_needAlternatives;
     delegateProxy = m_delegateProxy;
     router = m_router;
     absentRegionsFinder = m_absentRegionsFinder;
@@ -301,7 +318,7 @@ void AsyncRouter::CalculateRoute()
     routerName = router->GetName();
     router->SetGuides(std::move(m_guides));
     m_guides.clear();
-    needAlternatives = m_needAlternatives;
+    m_isCalculating = true;
   }
 
   auto result = std::make_shared<RoutesResult>(router->GetName(), routeId);
@@ -312,6 +329,19 @@ void AsyncRouter::CalculateRoute()
 
   try
   {
+    bool completed = false;
+    // Publish the cache generation together with the idle state. A failed or superseded request
+    // cannot safely associate the old displayed alternatives with the router's current caches.
+    SCOPE_GUARD(routerIdle, [&]
+    {
+      lock_guard ul(m_guard);
+      bool const isCurrentResult =
+          m_router == router && m_delegateProxy == delegateProxy && !m_clearState && !m_hasRequest;
+      bool const succeeded = code == RouterResultCode::NoError;
+      m_cachedRoutesId = completed && isCurrentResult && succeeded && result->IsValid() ? routeId : 0;
+      m_isCalculating = false;
+    });
+
     LOG(LINFO, ("Calculating the route of direct length", checkpoints.GetSummaryLengthBetweenPointsMeters(),
                 "m. checkpoints:", checkpoints, "startDirection:", startDirection, "router name:", router->GetName()));
 
@@ -330,6 +360,7 @@ void AsyncRouter::CalculateRoute()
     LogCode(code, elapsedSec);
     if (result->IsValid())
       LOG(LINFO, ("ETA:", result->GetActive().GetTotalTimeSec(), "sec."));
+    completed = true;
   }
   catch (RootException const & e)
   {
