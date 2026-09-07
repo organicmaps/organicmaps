@@ -11,7 +11,13 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/stl_helpers.hpp"
+
+#include <algorithm>
 #include <limits>
+#include <set>
+#include <string>
+#include <vector>
 
 namespace route_test
 {
@@ -159,6 +165,36 @@ UNIT_TEST(GermanyToTallinCrossMwmRoute)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(48.397416, 16.515289), {0.0, 0.0},
                                    FromLatLon(59.437214, 24.745355), 1650000.);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/13346
+UNIT_TEST(Canada_Lethbridge_Inuvik_NoBacktrack)
+{
+  std::set<std::string> const mwmNames = {
+      "Canada_Alberta_Edmonton",
+      "Canada_Alberta_North",
+      "Canada_Alberta_South",
+      "Canada_British Columbia_Central",
+      "Canada_British Columbia_Far_North",
+      "Canada_British Columbia_North",
+      "Canada_British Columbia_Northeast",
+      "Canada_Northwest Territories_North",
+      "Canada_Yukon_North",
+      "Canada_Yukon_Whitehorse",
+  };
+
+  // Keep the complete dataset on disk and register only the maps needed for this route in a dedicated router.
+  std::vector<LocalCountryFile> localFiles;
+  GetAllLocalFiles(localFiles);
+  base::EraseIf(localFiles,
+                [&mwmNames](LocalCountryFile const & file) { return !mwmNames.contains(file.GetCountryName()); });
+  TEST_EQUAL(localFiles.size(), mwmNames.size(), (mwmNames));
+  std::sort(localFiles.begin(), localFiles.end(), [](LocalCountryFile const & lhs, LocalCountryFile const & rhs)
+  { return lhs.GetCountryName() < rhs.GetCountryName(); });
+
+  VehicleRouterComponents components(localFiles, VehicleType::Car);
+  CalculateRouteAndTestRouteLength(components, FromLatLon(49.6956, -112.8451), {0., 0.}, FromLatLon(68.3607, -133.7230),
+                                   3'717'609, 0.05);
 }
 
 UNIT_TEST(Russia_Moscow_Leningradskiy39RepublicOfSouthAfricaCapeTownCenterRouteTest)

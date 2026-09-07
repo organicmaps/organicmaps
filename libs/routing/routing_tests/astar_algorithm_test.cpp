@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <map>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -50,6 +51,42 @@ UNIT_TEST(AStarAlgorithm_Sample)
   vector<unsigned> const expectedRoute = {0, 1, 2, 3, 4};
 
   TestAStar(graph, expectedRoute, 23);
+}
+
+UNIT_TEST(AStarAlgorithm_BidirectionalMultipleRoutesAfterQueueExhaustion)
+{
+  UndirectedGraph graph;
+
+  // The forward wave exhausts this small graph before the periodic direction switch. The backward wave must still
+  // run after the first route is emitted to discover the second route.
+  graph.AddEdge(0, 1, 1);
+  graph.AddEdge(1, 4, 1);
+  graph.AddEdge(0, 2, 1);
+  graph.AddEdge(2, 3, 1);
+  graph.AddEdge(3, 4, 1);
+
+  Algorithm algo;
+  Algorithm::ParamsForTests<> params(graph, 0u /* startVertex */, 4u /* finishVertex */);
+
+  set<vector<unsigned>> routes;
+  auto const result = algo.FindPathBidirectionalEx(params, [&routes](RoutingResult<unsigned, double> && route)
+  {
+    // Different meeting points may reconstruct the same route.
+    routes.insert(std::move(route.m_path));
+    return routes.size() == 2;
+  });
+
+  TEST_EQUAL(result, Algorithm::Result::OK, ());
+  TEST_EQUAL(routes, (set<vector<unsigned>>{{0, 1, 4}, {0, 2, 3, 4}}), ());
+
+  routes.clear();
+  auto const exhaustiveResult = algo.FindPathBidirectionalEx(params, [&routes](RoutingResult<unsigned, double> && route)
+  {
+    routes.insert(std::move(route.m_path));
+    return false;
+  });
+  TEST_EQUAL(exhaustiveResult, Algorithm::Result::OK, ());
+  TEST_EQUAL(routes, (set<vector<unsigned>>{{0, 1, 4}, {0, 2, 3, 4}}), ());
 }
 
 UNIT_TEST(AStarAlgorithm_CheckLength)
