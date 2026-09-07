@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/drape_diagnostics.hpp"
+#include "drape/drape_global.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 
@@ -10,7 +11,6 @@
 #include "base/timer.hpp"
 
 #include <chrono>
-#include <drape/drape_global.hpp>
 #include <map>
 #include <memory>
 #include <mutex>
