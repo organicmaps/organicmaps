@@ -12,8 +12,11 @@ protocol CarPlayRouterListener: AnyObject {
 
 @objc(MWMCarPlayRouter)
 final class CarPlayRouter: NSObject {
+  private static let initialManeuverRepublishDelay: TimeInterval = 0.5
+
   private let listenerContainer: ListenerContainer<CarPlayRouterListener>
   private var routeSession: CPNavigationSession?
+  private var registeredManeuvers = [CPManeuver]()
   private var initialSpeedCamSettings: SpeedCameraManagerMode
   private var isRoutingPresentationActive = false
   var currentTrip: CPTrip? {
@@ -212,7 +215,7 @@ final class CarPlayRouter: NSObject {
 // MARK: - Navigation session management
 
 extension CarPlayRouter {
-  func startNavigationSession(forTrip trip: CPTrip, template: CPMapTemplate) {
+  func startNavigationSession(forTrip trip: CPTrip, template: CPMapTemplate, isRestoring: Bool = false) {
     guard routeSession == nil else {
       let errorMessage = "Route session is already running."
       LOG(.error, errorMessage)
@@ -221,10 +224,12 @@ extension CarPlayRouter {
     }
     LOG(.info, "Starting a new navigation session")
     routeSession = template.startNavigationSession(for: trip)
-    routeSession?.pauseTrip(for: .loading, description: nil)
-    updateUpcomingManeuvers()
+    resetNavigationMetadata()
+    if isRestoring {
+      scheduleInitialManeuverRepublish()
+    }
     RoutingManager.routingManager.setOnNewTurnCallback { [weak self] in
-      self?.updateUpcomingManeuvers()
+      self?.advanceToNextManeuver()
     }
   }
 
@@ -232,6 +237,7 @@ extension CarPlayRouter {
     LOG(.info, "Сancelling navigation session")
     routeSession?.cancelTrip()
     routeSession = nil
+    registeredManeuvers.removeAll()
     RoutingManager.routingManager.resetOnNewTurnCallback()
   }
 
@@ -245,37 +251,117 @@ extension CarPlayRouter {
     LOG(.info, "Finishing trip")
     routeSession?.finishTrip()
     routeSession = nil
+    registeredManeuvers.removeAll()
     completeRouteAndRemovePoints()
     RoutingManager.routingManager.resetOnNewTurnCallback()
   }
 
-  func updateUpcomingManeuvers() {
-    let maneuvers = createUpcomingManeuvers()
-    routeSession?.upcomingManeuvers = maneuvers
-  }
-
-  func updateEstimates() {
-    guard let routeSession = routeSession,
-          let routeInfo = RoutingManager.routingManager.routeInfo,
-          let primaryManeuver = routeSession.upcomingManeuvers.first,
-          let estimates = createEstimates(routeInfo)
+  func updateUpcomingManeuvers(reusingPrimaryManeuver primaryManeuver: CPManeuver? = nil) {
+    guard let routeSession,
+          let routeInfo = RoutingManager.routingManager.routeInfo
     else {
       return
     }
-    routeSession.updateEstimates(estimates, for: primaryManeuver)
+
+    let maneuvers = createUpcomingManeuvers(routeInfo: routeInfo, primaryManeuver: primaryManeuver)
+    if #available(iOS 17.4, *) {
+      let newManeuvers = primaryManeuver == nil ? maneuvers : Array(maneuvers.dropFirst())
+      if !newManeuvers.isEmpty {
+        routeSession.add(newManeuvers)
+      }
+    }
+    registeredManeuvers = maneuvers
+    routeSession.upcomingManeuvers = maneuvers
+    if #available(iOS 17.4, *) {
+      updateCurrentNavigationMetadata(routeSession: routeSession, routeInfo: routeInfo)
+    }
   }
 
-  private func createEstimates(_ routeInfo: RouteInfo) -> CPTravelEstimates? {
+  func updateEstimates(_ routeInfo: RouteInfo) {
+    guard let routeSession = routeSession,
+          let primaryManeuver = registeredManeuvers.first
+    else {
+      return
+    }
+    routeSession.updateEstimates(createEstimates(routeInfo), for: primaryManeuver)
+    if #available(iOS 17.4, *) {
+      updateCurrentNavigationMetadata(routeSession: routeSession, routeInfo: routeInfo)
+    }
+  }
+
+  private func createEstimates(_ routeInfo: RouteInfo) -> CPTravelEstimates {
     let measurement = Measurement(value: routeInfo.distanceToTurn, unit: routeInfo.turnUnits)
     return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: 0.0)
   }
 
-  private func createUpcomingManeuvers() -> [CPManeuver] {
-    guard let routeInfo = RoutingManager.routingManager.routeInfo else {
-      return []
+  @available(iOS 17.4, *)
+  private func replaceNavigationMetadata(routeInfo: RouteInfo) {
+    guard let routeSession else { return }
+
+    let maneuvers = createUpcomingManeuvers(routeInfo: routeInfo)
+
+    let tripEstimates = CPTravelEstimates(
+      distanceRemaining: Measurement(value: routeInfo.targetDistance, unit: routeInfo.targetUnits),
+      timeRemaining: routeInfo.timeToTarget
+    )
+    // CPRouteInformation requires a current lane guidance even when the app has no lane data.
+    let emptyLaneGuidance = CPLaneGuidance()
+    emptyLaneGuidance.lanes = []
+    emptyLaneGuidance.instructionVariants = maneuvers[0].instructionVariants
+    let routeInformation = CPRouteInformation(
+      maneuvers: maneuvers,
+      laneGuidances: [],
+      currentManeuvers: maneuvers,
+      currentLaneGuidance: emptyLaneGuidance,
+      trip: tripEstimates,
+      maneuverTravelEstimates: createEstimates(routeInfo)
+    )
+
+    routeSession.pauseTrip(for: .rerouting, description: nil)
+    routeSession.resumeTrip(updatedRouteInformation: routeInformation)
+    registeredManeuvers = maneuvers
+    routeSession.upcomingManeuvers = maneuvers
+    updateCurrentNavigationMetadata(routeSession: routeSession, routeInfo: routeInfo)
+  }
+
+  private func resetNavigationMetadata() {
+    registeredManeuvers.removeAll()
+    updateUpcomingManeuvers()
+  }
+
+  private func advanceToNextManeuver() {
+    // Reuse the already registered secondary maneuver when it becomes primary to avoid adding it twice.
+    let nextManeuver = registeredManeuvers.count > 1 ? registeredManeuvers[1] : nil
+    updateUpcomingManeuvers(reusingPrimaryManeuver: nextManeuver)
+  }
+
+  private func scheduleInitialManeuverRepublish() {
+    guard let routeSession else { return }
+    // Even after the root template is installed, a restored session's initial maneuvers
+    // may not be picked up by the instrument cluster. Republish them once after session setup.
+    DispatchQueue.main.asyncAfter(deadline: .now() + Self.initialManeuverRepublishDelay) { [weak self, weak routeSession] in
+      guard let self, let routeSession,
+            self.routeSession === routeSession,
+            !self.registeredManeuvers.isEmpty
+      else {
+        return
+      }
+      routeSession.upcomingManeuvers = self.registeredManeuvers
     }
-    var maneuvers = [CPManeuver]()
-    let primaryManeuver = CPManeuver()
+  }
+
+  @available(iOS 17.4, *)
+  private func updateCurrentNavigationMetadata(routeSession: CPNavigationSession, routeInfo: RouteInfo) {
+    routeSession.currentRoadNameVariants = routeInfo.currentStreetName.isEmpty ? [] : [routeInfo.currentStreetName]
+
+    let distanceMeters = Measurement(value: routeInfo.distanceToTurn, unit: routeInfo.turnUnits)
+      .converted(to: .meters).value
+    routeSession.maneuverState = CarPlayManeuverMapper.maneuverState(distanceToTurnMeters: distanceMeters)
+  }
+
+  private func createUpcomingManeuvers(routeInfo: RouteInfo,
+                                       primaryManeuver: CPManeuver? = nil) -> [CPManeuver] {
+    let primaryManeuver = primaryManeuver ?? CPManeuver()
     primaryManeuver.userInfo = CPConstants.Maneuvers.primary
     var instructionVariant = routeInfo.streetName
     if routeInfo.roundExitNumber != 0 {
@@ -286,25 +372,40 @@ extension CarPlayRouter {
       instructionVariant = instructionVariant.isEmpty ? exitNumber : (exitNumber + ", " + instructionVariant)
     }
     primaryManeuver.instructionVariants = [instructionVariant]
+    primaryManeuver.symbolImage = nil
+    primaryManeuver.dashboardSymbolImage = nil
     if let imageName = routeInfo.turnImageName,
        let symbol = UIImage(named: imageName) {
       primaryManeuver.symbolImage = symbol.withRenderingMode(.alwaysOriginal)
       primaryManeuver.dashboardSymbolImage = symbol.withRenderingMode(.alwaysTemplate)
     }
-    if let estimates = createEstimates(routeInfo) {
-      primaryManeuver.initialTravelEstimates = estimates
+    primaryManeuver.initialTravelEstimates = createEstimates(routeInfo)
+    if #available(iOS 17.4, *) {
+      CarPlayManeuverMapper.configure(primaryManeuver,
+                                      direction: routeInfo.turnDirection,
+                                      roadName: routeInfo.streetName,
+                                      roundaboutExitNumber: routeInfo.roundExitNumber)
+      primaryManeuver.trafficSide = routeInfo.isLeftHandTraffic ? .left : .right
     }
-    maneuvers.append(primaryManeuver)
-    if let imageName = routeInfo.nextTurnImageName,
-       let symbol = UIImage(named: imageName) {
-      let secondaryManeuver = CPManeuver()
-      secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
-      secondaryManeuver.instructionVariants = [L("then_turn")]
-      secondaryManeuver.symbolImage = symbol.withRenderingMode(.alwaysOriginal) // always white on green
-      secondaryManeuver.dashboardSymbolImage = symbol.withRenderingMode(.alwaysTemplate) // black/white on transparent
-      maneuvers.append(secondaryManeuver)
+
+    guard let imageName = routeInfo.nextTurnImageName,
+          let symbol = UIImage(named: imageName)
+    else {
+      return [primaryManeuver]
     }
-    return maneuvers
+
+    let secondaryManeuver = CPManeuver()
+    secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
+    secondaryManeuver.instructionVariants = [L("then_turn")]
+    secondaryManeuver.symbolImage = symbol.withRenderingMode(.alwaysOriginal) // always white on green
+    secondaryManeuver.dashboardSymbolImage = symbol.withRenderingMode(.alwaysTemplate) // black/white on transparent
+    if #available(iOS 17.4, *) {
+      CarPlayManeuverMapper.configure(secondaryManeuver,
+                                      direction: routeInfo.nextTurnDirection,
+                                      roadName: routeInfo.nextStreetName)
+      secondaryManeuver.trafficSide = routeInfo.isLeftHandTraffic ? .left : .right
+    }
+    return [primaryManeuver, secondaryManeuver]
   }
 
   func createTrip(startPoint: MWMRoutePoint, endPoint: MWMRoutePoint, routeInfo: RouteInfo? = nil) -> CPTrip {
@@ -360,10 +461,14 @@ extension CarPlayRouter: RoutingManagerListener {
                               trip: trip)
           }
         } else {
+          if #available(iOS 17.4, *) {
+            replaceNavigationMetadata(routeInfo: info)
+          } else {
+            resetNavigationMetadata()
+          }
           listenerContainer.forEach {
             $0.didUpdateRouteInfo(info, forTrip: trip)
           }
-          updateUpcomingManeuvers()
         }
       }
     default:
