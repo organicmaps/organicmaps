@@ -7,7 +7,6 @@
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
 
@@ -16,6 +15,8 @@
 #include <cstring>
 #include <exception>
 #include <fstream>
+#include <sstream>
+#include <thread>
 #include <vector>
 
 #ifdef OMIM_OS_WINDOWS
@@ -234,7 +235,10 @@ bool MoveFileX(std::string const & fOld, std::string const & fNew)
 bool WriteToTempAndRenameToFile(std::string const & dest, std::function<bool(std::string const &)> const & write,
                                 std::string const & tmp)
 {
-  std::string const tmpFileName = tmp.empty() ? dest + ".tmp" + strings::to_string(std::this_thread::get_id()) : tmp;
+  // std::thread_id can only be printed using ostream.
+  std::ostringstream tmpSuffix;
+  tmpSuffix << std::this_thread::get_id();
+  std::string const tmpFileName = tmp.empty() ? dest + ".tmp" + tmpSuffix.str() : tmp;
   if (!write(tmpFileName))
   {
     LOG(LERROR, ("Can't write to", tmpFileName));
