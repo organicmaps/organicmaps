@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "Badilisha rangi";
 
+/* Text for the hiding track. */
+"hide_track" = "Ficha njia";
+
+/* Text for the showing track. */
+"show_track" = "Onyesha njia";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Ramani";
 

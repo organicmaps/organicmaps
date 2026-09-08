@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "เปลี่ยนสี";
 
+/* Text for the hiding track. */
+"hide_track" = "ซ่อนเส้นทาง";
+
+/* Text for the showing track. */
+"show_track" = "แสดงเส้นทาง";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "แผนที่";
 

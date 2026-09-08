@@ -41711,7 +41711,7 @@ zh-Hant = 更改顏色
 
 [hide_track]
 comment = Text for the hiding track.
-tags = android-app
+tags = android-app,apple-maps
 en = Hide track
 af = Versteek roete
 ar = إخفاء المسار
@@ -41758,7 +41758,7 @@ zh-Hant = 隱藏軌跡
 
 [show_track]
 comment = Text for the showing track.
-tags = android-app
+tags = android-app,apple-maps
 en = Show track
 af = Wys roete
 ar = عرض المسار
