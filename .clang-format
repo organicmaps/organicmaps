@@ -60,6 +60,8 @@ TabWidth: 2
 ---
 Language: Java
 AllowShortFunctionsOnASingleLine: Empty
+BraceWrapping:
+  SplitEmptyRecord: true
 
 ---
 Language: ObjC
