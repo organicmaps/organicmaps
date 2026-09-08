@@ -70,7 +70,6 @@
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="fev-4l-MY3" secondAttribute="trailing" constant="4" id="rqB-DG-k9N"/>
                 </constraints>
             </tableViewCellContentView>
-            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
             </userDefinedRuntimeAttributes>

@@ -1,5 +1,7 @@
 extension UITableView {
   @objc override func applyTheme() {
+    // Separators use UIKit's automatic leading inset and reach the cell's trailing edge app-wide.
+    separatorInset = UIEdgeInsets(top: 0, left: UITableView.automaticDimension, bottom: 0, right: 0)
     if styleName.isEmpty {
       setStyle(.tableView)
     }
