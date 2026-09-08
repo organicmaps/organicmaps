@@ -60,6 +60,10 @@ TabWidth: 2
 ---
 Language: Java
 AllowShortFunctionsOnASingleLine: Empty
+BraceWrapping:
+  # Unlike C++, empty Java types stay multiline: clang-format 23.1.1 collapses
+  # empty interfaces and records to {} with the inherited false, 23.1.0 does not.
+  SplitEmptyRecord: true
 
 ---
 Language: ObjC
