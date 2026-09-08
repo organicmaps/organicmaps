@@ -21,5 +21,5 @@ class PlacePageDialogUser : public PlacePageDialogCommon
   Q_OBJECT
 
 public:
-  PlacePageDialogUser(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info);
+  PlacePageDialogUser(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info, const QList<QAction *> &actions);
 };
