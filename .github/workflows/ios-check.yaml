@@ -21,7 +21,6 @@ on:
       - docs/**
       - generator/**
       - iphone/metadata/**
-      - packaging/**
       - platform/*_android*
       - platform/*_linux*
       - platform/*_mac*
