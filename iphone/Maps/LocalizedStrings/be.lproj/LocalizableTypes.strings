@@ -488,6 +488,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Тунэль";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
 "type.highway.platform" = "Платформа";
 "type.highway.primary" = "Галоўная дарога";
 
@@ -976,6 +978,8 @@
 "type.psurface.unpaved_bad" = "паверхня-небрукаваная_дрэнная";
 "type.psurface.unpaved_good" = "паверхня-небрукаваная_добрая";
 "type.public_transport" = "Грамадскі транспарт";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
 "type.public_transport.platform" = "Платформа";
 "type.railway" = "Чыгунка";
 "type.railway.abandoned" = "Закінутая чыгунка";

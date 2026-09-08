@@ -488,7 +488,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "نفق";
-"type.highway.platform" = "منصة";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "رصيف الركوب";
 "type.highway.primary" = "شارع رئيسي";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -976,7 +978,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "النقل العام";
-"type.public_transport.platform" = "منصة";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "رصيف الركوب";
 "type.railway" = "سكك حديدية";
 "type.railway.abandoned" = "سكك حديدية مهجورة";
 "type.railway.abandoned.bridge" = "جسر سكة حديد مهجور";

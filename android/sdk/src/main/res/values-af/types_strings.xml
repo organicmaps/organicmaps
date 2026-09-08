@@ -416,7 +416,8 @@
     <string name="type.highway.pedestrian.bridge">Voetgangerbrug</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Voetgangertonnel</string>
-    <string name="type.highway.platform">Platform</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Opstapplek</string>
     <string name="type.highway.primary">Primêre pad</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Brug</string>
@@ -787,7 +788,8 @@
     <string name="type.psurface.unpaved_bad">Ongeteer</string>
     <string name="type.psurface.unpaved_good">Ongeteer</string>
     <string name="type.public_transport">Openbare vervoer</string>
-    <string name="type.public_transport.platform">Platform</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Opstapplek</string>
     <string name="type.railway">Spoorweg</string>
     <string name="type.railway.abandoned">Verlate treinspoor</string>
     <string name="type.railway.abandoned.bridge">Verlate treintonnel</string>

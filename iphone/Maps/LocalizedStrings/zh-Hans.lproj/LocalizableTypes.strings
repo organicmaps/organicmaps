@@ -488,7 +488,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "人行隧道";
-"type.highway.platform" = "公共交通站台";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "站台";
 "type.highway.primary" = "主要道路";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -976,7 +978,9 @@
 "type.psurface.unpaved_bad" = "未铺装路面—较差";
 "type.psurface.unpaved_good" = "未铺装路面—良好";
 "type.public_transport" = "公共交通要素";
-"type.public_transport.platform" = "公共交通站台";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "站台";
 "type.railway" = "铁路";
 "type.railway.abandoned" = "铁路遗迹";
 "type.railway.abandoned.bridge" = "铁路遗迹";

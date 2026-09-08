@@ -347,6 +347,7 @@
     <string name="type.highway.pedestrian.bridge">पादचारी पूल</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">पादचारी बोगदा</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
     <string name="type.highway.platform">फलाट</string>
     <string name="type.highway.primary">प्राथमिक मार्ग</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -712,6 +713,7 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">विद्युत मनोरा</string>
     <string name="type.public_transport">सार्वजनिक वाहतूक</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
     <string name="type.public_transport.platform">फलाट</string>
     <string name="type.railway">रेल्वे</string>
     <string name="type.railway.construction">रेल्वेचे बांधकाम</string>

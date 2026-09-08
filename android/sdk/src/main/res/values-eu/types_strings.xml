@@ -443,6 +443,8 @@
     <string name="type.highway.pedestrian.bridge">Oinezkoen zubia</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Oinezkoen tunela</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Nasa</string>
     <string name="type.highway.primary">Errepide nagusia</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Zubia</string>
@@ -799,6 +801,8 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Zutabe elektrikoa</string>
     <string name="type.public_transport">Garraio publikoa</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Nasa</string>
     <string name="type.railway.disused.tunnel">Erabilerarik gabeko trenbide-tunela</string>
     <string name="type.railway.funicular">Funikularra</string>
     <string name="type.railway.halt">Tren geltokian</string>

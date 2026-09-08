@@ -488,7 +488,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Pedestrian Tunnel";
-"type.highway.platform" = "रेलवे प्लेटफार्म";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "प्लेटफ़ॉर्म";
 "type.highway.primary" = "प्राथमिक सड़क";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -976,7 +978,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "रेलवे प्लेटफार्म";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "प्लेटफ़ॉर्म";
 "type.railway" = "रेल";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";

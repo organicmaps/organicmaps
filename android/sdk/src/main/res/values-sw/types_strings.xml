@@ -176,6 +176,8 @@
     <string name="type.highway.pedestrian.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Mtaro</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Eneo la kupandia</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -401,6 +403,8 @@
     <string name="type.power.plant.hydro">Kiwanda cha umeme wa maji</string>
     <string name="type.power.plant.solar">Kiwanda cha nishati ya jua</string>
     <string name="type.power.plant.wind">Kiwanda cha nguvu cha upepo</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Eneo la kupandia</string>
     <string name="type.railway.disused.tunnel">Handaki la reli lisilotumika</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.level_crossing">Tambuka Reli</string>

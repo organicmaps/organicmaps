@@ -291,7 +291,8 @@
     <string name="type.highway.path.horse">पथ</string>
     <string name="type.highway.pedestrian">पैदल यात्रीयों की सड़क</string>
     <string name="type.highway.pedestrian.area">पैदल यात्रीयों की सड़क</string>
-    <string name="type.highway.platform">रेलवे प्लेटफार्म</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">प्लेटफ़ॉर्म</string>
     <string name="type.highway.primary">प्राथमिक सड़क</string>
     <string name="type.highway.primary_link">प्राथमिक सड़क</string>
     <string name="type.highway.raceway">दौड़ का मैदान</string>
@@ -480,7 +481,8 @@
     <string name="type.power.substation">विद्युत उपकेंद्र</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">संचरण स्तम्भ</string>
-    <string name="type.public_transport.platform">रेलवे प्लेटफार्म</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">प्लेटफ़ॉर्म</string>
     <string name="type.railway">रेल</string>
     <string name="type.railway.disused.tunnel">अप्रयुक्त रेलवे सुरंग</string>
     <string name="type.railway.funicular">रज्जुरेल</string>

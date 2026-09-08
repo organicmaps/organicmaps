@@ -488,7 +488,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "ອຸມົງຄົນຍ່າງ";
-"type.highway.platform" = "ຊານຊາລາ";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "ບ່ອນຂຶ້ນລົງ";
 "type.highway.primary" = "ທາງຫຼັກ";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -976,7 +978,9 @@
 "type.psurface.unpaved_bad" = "ພື້ນຜິວບໍ່ໄດ້ປູຢາງສະພາບບໍ່ດີ";
 "type.psurface.unpaved_good" = "ພື້ນຜິວບໍ່ໄດ້ປູຢາງສະພາບດີ";
 "type.public_transport" = "ຂົນສົ່ງສາທາລະນະ";
-"type.public_transport.platform" = "ຊານຊາລາ";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "ບ່ອນຂຶ້ນລົງ";
 "type.railway" = "ທາງລົດໄຟ";
 "type.railway.abandoned" = "ທາງລົດໄຟຮ້າງ";
 "type.railway.abandoned.bridge" = "ຂົວທາງລົດໄຟຮ້າງ";

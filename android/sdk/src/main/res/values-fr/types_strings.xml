@@ -449,7 +449,8 @@
     <string name="type.highway.pedestrian.bridge">Pont</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
-    <string name="type.highway.platform">Quai de transport en commun</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Quai</string>
     <string name="type.highway.primary">Rue</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Pont</string>
@@ -842,7 +843,8 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Transport en commun</string>
-    <string name="type.public_transport.platform">Quai de transport en commun</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Quai</string>
     <string name="type.railway">Chemin de fer</string>
     <string name="type.railway.abandoned">Chemin de fer abandonné</string>
     <string name="type.railway.abandoned.bridge">Chemin de fer abandonné</string>
