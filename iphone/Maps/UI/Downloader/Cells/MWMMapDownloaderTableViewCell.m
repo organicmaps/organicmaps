@@ -29,6 +29,12 @@
   [self addGestureRecognizer:lpGR];
 }
 
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  [self alignSeparatorWithView:self.title];
+}
+
 - (void)prepareForReuse
 {
   [super prepareForReuse];

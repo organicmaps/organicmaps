@@ -35,8 +35,8 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="2ia-hi-UhQ" secondAttribute="bottom" id="3LS-kF-koO"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2ia-hi-UhQ" secondAttribute="trailing" id="Xvt-xX-QwP"/>
-                <constraint firstItem="2ia-hi-UhQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fEc-XL-6gs"/>
+                <constraint firstAttribute="trailing" secondItem="2ia-hi-UhQ" secondAttribute="trailing" id="Xvt-xX-QwP"/>
+                <constraint firstItem="2ia-hi-UhQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fEc-XL-6gs"/>
                 <constraint firstItem="2ia-hi-UhQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="zOH-o1-384"/>
             </constraints>
             <point key="canvasLocation" x="10" y="54"/>

@@ -78,7 +78,6 @@
                     <constraint firstItem="3NQ-tT-U9b" firstAttribute="centerY" secondItem="rFT-0r-5zy" secondAttribute="centerY" id="zd3-Ex-VJY"/>
                 </constraints>
             </tableViewCellContentView>
-            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
             </userDefinedRuntimeAttributes>

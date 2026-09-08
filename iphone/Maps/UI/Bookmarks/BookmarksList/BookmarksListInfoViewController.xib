@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="25084" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="25084" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="25061"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -112,15 +113,16 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="226-gO-8GN" secondAttribute="trailing" constant="20" id="Bc0-zj-luu"/>
+                                <constraint firstItem="hDR-sA-fe1" firstAttribute="trailing" secondItem="226-gO-8GN" secondAttribute="trailing" constant="20" id="Bc0-zj-luu"/>
                                 <constraint firstItem="ixf-Ba-3Fe" firstAttribute="leading" secondItem="TFR-Qj-pUF" secondAttribute="trailing" constant="8" id="9jE-YY-ZE7"/>
                                 <constraint firstItem="ixf-Ba-3Fe" firstAttribute="top" secondItem="TFR-Qj-pUF" secondAttribute="top" id="aPt-h4-3s1"/>
                                 <constraint firstItem="ixf-Ba-3Fe" firstAttribute="bottom" secondItem="TFR-Qj-pUF" secondAttribute="bottom" id="Uc4-1t-Kb8"/>
-                                <constraint firstAttribute="trailing" secondItem="ixf-Ba-3Fe" secondAttribute="trailing" id="Z5s-ln-YsX"/>
-                                <constraint firstItem="226-gO-8GN" firstAttribute="leading" secondItem="jGS-bD-wyb" secondAttribute="leading" constant="20" id="CBz-2b-FdW"/>
+                                <constraint firstItem="hDR-sA-fe1" firstAttribute="trailing" secondItem="ixf-Ba-3Fe" secondAttribute="trailing" id="Z5s-ln-YsX"/>
+                                <constraint firstItem="226-gO-8GN" firstAttribute="leading" secondItem="hDR-sA-fe1" secondAttribute="leading" constant="20" id="CBz-2b-FdW"/>
                                 <constraint firstAttribute="bottom" secondItem="226-gO-8GN" secondAttribute="bottom" id="eCj-gO-9cQ"/>
                                 <constraint firstItem="226-gO-8GN" firstAttribute="top" secondItem="jGS-bD-wyb" secondAttribute="top" id="wIb-n9-mts"/>
                             </constraints>
+                            <viewLayoutGuide key="safeArea" id="hDR-sA-fe1"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5d-oU-wVm">
                             <rect key="frame" x="0.0" y="339" width="375" height="1"/>
