@@ -8,12 +8,12 @@
 #include "qt/place_page_dialog_user.hpp"
 #include "qt/popup_menu_holder.hpp"
 #include "qt/preferences_dialog.hpp"
+#include "qt/qml/forwarding_quickwidget.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
 #include "qt/search_panel.hpp"
-#include "qt/qml/forwarding_quickwidget.hpp"
 
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
