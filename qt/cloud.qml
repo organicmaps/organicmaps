@@ -171,11 +171,11 @@ Item {
                 }
 
                 Item {
-                    implicitWidth: 1
+                    implicitWidth: close.implicitWidth
                     implicitHeight: close.implicitHeight
 
                     Item {
-                        implicitWidth: column.implicitWidth - innerColumn.implicitWidth
+                        implicitWidth: column.implicitWidth - innerColumn.implicitWidth + pane.rightPadding
 
                         ToolButton {
                             id: close
