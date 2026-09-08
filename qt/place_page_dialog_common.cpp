@@ -48,14 +48,14 @@ int32_t SavedCoordinateFormat()
 }  // namespace
 
 PlacePageDialogCommon::PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * drawWidget,
-                                             place_page::Info const & info)
+                                             place_page::Info const & info, const QList<QAction *> &actions)
   : QWidget(parent)
   , m_drawWidget(drawWidget)
 {
   QVBoxLayout * layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
 
-  layout->addWidget(place_page_dialog::createActionToolBar(this, drawWidget, info));
+  layout->addWidget(place_page_dialog::createActionToolBar(this, drawWidget, info, actions));
 
   QScrollArea * scrollArea = new QScrollArea(this);
   scrollArea->setWidgetResizable(true);
@@ -71,43 +71,12 @@ PlacePageDialogCommon::PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * 
 
 namespace place_page_dialog
 {
-QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info)
+QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info, const QList<QAction *> &actions)
 {
   QToolBar * toolBar = new QToolBar(parent);
   toolBar->setIconSize(QSize(20, 20));
 
-  m2::PointD const mercator = info.GetMercator();
-
-  QAction * fromAction = toolBar->addAction(QIcon(":/navig64/point-start.png"), qt::Tr("p2p_from_here"));
-  fromAction->setToolTip(qt::Tr("p2p_from_here"));
-  QObject::connect(fromAction, &QAction::triggered, parent,
-                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Start, mercator); });
-
-  QAction * stopAction = toolBar->addAction(QIcon(":/navig64/point-intermediate.png"), qt::Tr("placepage_add_stop"));
-  stopAction->setToolTip(qt::Tr("placepage_add_stop"));
-  QObject::connect(stopAction, &QAction::triggered, parent,
-                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Intermediate, mercator); });
-
-  QAction * toAction = toolBar->addAction(QIcon(":/navig64/point-finish.png"), qt::Tr("p2p_to_here"));
-  toAction->setToolTip(qt::Tr("p2p_to_here"));
-  QObject::connect(toAction, &QAction::triggered, parent,
-                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Finish, mercator); });
-
-  if (info.IsTrack())
-  {
-    kml::TrackId const trackId = info.GetTrackId();
-    QAction * alongAction = toolBar->addAction(qt::Tr("route_along_track"));
-    QObject::connect(alongAction, &QAction::triggered, parent,
-                     [drawWidget, trackId] { drawWidget->RouteAlongTrack(trackId); });
-  }
-
-  if (info.ShouldShowEditPlace())
-  {
-    FeatureID const featureId = info.GetID();
-    QAction * editAction = toolBar->addAction(qt::Tr("edit_place"));
-    QObject::connect(editAction, &QAction::triggered, parent,
-                     [drawWidget, featureId] { drawWidget->EditPlace(featureId); });
-  }
+  toolBar->addActions(actions);
 
   // Share: copy the omaps.app link or the full text, or start an email with the location. The core
   // builds the same payload the mobile apps share. Tracks are shared as a file on mobile, and a

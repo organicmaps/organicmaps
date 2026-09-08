@@ -842,6 +842,15 @@ void MainWindow::CreatePlacePagePanel()
     if (!visible)
       GetFramework().DeactivateMapSelection();
   });
+
+  m_fromAction = new QAction(QIcon(":/navig64/point-start.png"), Tr("p2p_from_here"), this);
+  m_fromAction->setToolTip(Tr("p2p_from_here"));
+  m_stopAction = new QAction(QIcon(":/navig64/point-intermediate.png"), Tr("placepage_add_stop"), this);
+  m_stopAction->setToolTip(Tr("placepage_add_stop"));
+  m_toAction = new QAction(QIcon(":/navig64/point-finish.png"), Tr("p2p_to_here"), this);
+  m_toAction->setToolTip(Tr("p2p_to_here"));
+  m_alongAction = new QAction(Tr("route_along_track"), this);
+  m_editAction = new QAction(Tr("edit_place"), this);
 }
 
 void MainWindow::DeactivateMapSelection() const
@@ -885,6 +894,41 @@ void MainWindow::ShowPlacePage(place_page::Info const & info)
   m_level = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_LEVEL)));
   m_atm = info.HasAtm();
 
+  m2::PointD const mercator = info.GetMercator();
+  m_fromAction->disconnect();
+  QObject::connect(m_fromAction, &QAction::triggered,
+                   [this, mercator] { m_pDrawWidget->RoutePointFromPlace(RouteMarkType::Start, mercator); });
+  m_stopAction->disconnect();
+  QObject::connect(m_stopAction, &QAction::triggered,
+                   [this, mercator] { m_pDrawWidget->RoutePointFromPlace(RouteMarkType::Intermediate, mercator); });
+  m_toAction->disconnect();
+  QObject::connect(m_toAction, &QAction::triggered,
+                   [this, mercator] { m_pDrawWidget->RoutePointFromPlace(RouteMarkType::Finish, mercator); });
+
+  if (info.IsTrack())
+  {
+    kml::TrackId const trackId = info.GetTrackId();
+    m_alongAction->disconnect();
+    QObject::connect(m_alongAction, &QAction::triggered, [this, trackId] { m_pDrawWidget->RouteAlongTrack(trackId); });
+    m_alongAction->setVisible(true);
+  }
+  else
+  {
+    m_alongAction->setVisible(false);
+  }
+
+  if (info.ShouldShowEditPlace())
+  {
+    m_editAction->disconnect();
+    FeatureID const featureId = info.GetID();
+    QObject::connect(m_editAction, &QAction::triggered, [this, featureId] { m_pDrawWidget->EditPlace(featureId); });
+    m_editAction->setVisible(true);
+  }
+  else
+  {
+    m_editAction->setVisible(false);
+  }
+
   emit infoChanged();
 
   if (width() > height())
@@ -894,8 +938,12 @@ void MainWindow::ShowPlacePage(place_page::Info const & info)
     bool developerMode = false;
     settings::TryGet(settings::kDeveloperMode, developerMode);
 
-      QWidget * widget = developerMode ? static_cast<QWidget *>(new PlacePageDialogDeveloper(dock, m_pDrawWidget, info))
-                                   : static_cast<QWidget *>(new PlacePageDialogUser(dock, m_pDrawWidget, info));
+    QWidget * widget =
+        developerMode
+            ? static_cast<QWidget *>(new PlacePageDialogDeveloper(
+                  dock, m_pDrawWidget, info, {m_fromAction, m_stopAction, m_toAction, m_alongAction, m_editAction}))
+            : static_cast<QWidget *>(new PlacePageDialogUser(
+                  dock, m_pDrawWidget, info, {m_fromAction, m_stopAction, m_toAction, m_alongAction, m_editAction}));
 
     QString title = Tr("placepage_title");
     if (info.IsBookmark())
