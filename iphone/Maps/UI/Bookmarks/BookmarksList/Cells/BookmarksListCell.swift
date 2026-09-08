@@ -60,6 +60,11 @@ final class BookmarksListCell: MWMTableViewCell {
     updateEditingState()
   }
 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    alignSeparator(with: labelsContainerView)
+  }
+
   override func willTransition(to state: UITableViewCell.StateMask) {
     super.willTransition(to: state)
     isShowingEditControl = state.contains(.showingEditControl)
@@ -166,8 +171,6 @@ final class BookmarksListCell: MWMTableViewCell {
       bottom: 0,
       trailing: trailingButton.isHidden ? Constants.horizontalInset : 0
     )
-    let separatorLeftInset = leadingButton.isHidden ? Constants.horizontalInset : Constants.leadingButtonWidth
-    separatorInset = UIEdgeInsets(top: 0, left: separatorLeftInset, bottom: 0, right: 0)
   }
 }
 

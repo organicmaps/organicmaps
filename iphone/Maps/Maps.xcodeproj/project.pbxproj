@@ -114,7 +114,7 @@
 		F0A0B0012FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A0B0002FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift */; };
 		ED82C4FD2F90180300FA103D /* BookmarksListCellStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A82F90180300FA103D /* BookmarksListCellStrategy.swift */; };
 		ED82C4FE2F90180300FA103D /* BookmarksListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A92F90180300FA103D /* BookmarksListSectionHeader.swift */; };
-		ED82C4FF2F90180300FA103D /* SubgroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2AB2F90180300FA103D /* SubgroupCell.swift */; };
+		ED82C4FF2F90180300FA103D /* BookmarksListSubgroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2AB2F90180300FA103D /* BookmarksListSubgroupCell.swift */; };
 		ED82C5002F90180300FA103D /* BookmarksListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2AE2F90180300FA103D /* BookmarksListBuilder.swift */; };
 		ED82C5012F90180300FA103D /* BookmarksListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2AF2F90180300FA103D /* BookmarksListInfoViewController.swift */; };
 		ED82C5022F90180300FA103D /* BookmarksListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2B12F90180300FA103D /* BookmarksListInteractor.swift */; };
@@ -381,7 +381,7 @@
 		ED82C61C2F90180300FA103D /* DefaultTranslationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4ED2F90180300FA103D /* DefaultTranslationController.swift */; };
 		ED82C61D2F90180300FA103D /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2992F90180300FA103D /* MWMAutoupdateController.xib */; };
 		ED82C61F2F90180300FA103D /* BookmarksListSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2AA2F90180300FA103D /* BookmarksListSectionHeader.xib */; };
-		ED82C6202F90180300FA103D /* SubgroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2AC2F90180300FA103D /* SubgroupCell.xib */; };
+		ED82C6202F90180300FA103D /* BookmarksListSubgroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2AC2F90180300FA103D /* BookmarksListSubgroupCell.xib */; };
 		ED82C6212F90180300FA103D /* BookmarksListInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2B02F90180300FA103D /* BookmarksListInfoViewController.xib */; };
 		ED82C6222F90180300FA103D /* BookmarksListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2B62F90180300FA103D /* BookmarksListViewController.xib */; };
 		ED82C6242F90180300FA103D /* BMCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C2BC2F90180300FA103D /* BMCViewController.xib */; };
@@ -592,6 +592,7 @@
 		ED82C8022F90186900FA103D /* UINavigationItem+StyleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D12F90186900FA103D /* UINavigationItem+StyleStyle.swift */; };
 		ED82C8032F90186900FA103D /* UINib+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D22F90186900FA103D /* UINib+Init.swift */; };
 		ED82C8042F90186900FA103D /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D32F90186900FA103D /* UITableView+Cells.swift */; };
+		0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */; };
 		ED82C8052F90186900FA103D /* UITableView+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D42F90186900FA103D /* UITableView+Updates.swift */; };
 		ED82C8062F90186900FA103D /* UITextField+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D62F90186900FA103D /* UITextField+RuntimeAttributes.m */; };
 		ED82C8072F90186900FA103D /* UITextView+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D82F90186900FA103D /* UITextView+RuntimeAttributes.m */; };
@@ -975,8 +976,8 @@
 		ED82C2A82F90180300FA103D /* BookmarksListCellStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCellStrategy.swift; sourceTree = "<group>"; };
 		ED82C2A92F90180300FA103D /* BookmarksListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSectionHeader.swift; sourceTree = "<group>"; };
 		ED82C2AA2F90180300FA103D /* BookmarksListSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListSectionHeader.xib; sourceTree = "<group>"; };
-		ED82C2AB2F90180300FA103D /* SubgroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgroupCell.swift; sourceTree = "<group>"; };
-		ED82C2AC2F90180300FA103D /* SubgroupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubgroupCell.xib; sourceTree = "<group>"; };
+		ED82C2AB2F90180300FA103D /* BookmarksListSubgroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSubgroupCell.swift; sourceTree = "<group>"; };
+		ED82C2AC2F90180300FA103D /* BookmarksListSubgroupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListSubgroupCell.xib; sourceTree = "<group>"; };
 		ED82C2AE2F90180300FA103D /* BookmarksListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListBuilder.swift; sourceTree = "<group>"; };
 		ED82C2AF2F90180300FA103D /* BookmarksListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListInfoViewController.swift; sourceTree = "<group>"; };
 		ED82C2B02F90180300FA103D /* BookmarksListInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListInfoViewController.xib; sourceTree = "<group>"; };
@@ -1621,6 +1622,7 @@
 		ED82C7D12F90186900FA103D /* UINavigationItem+StyleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+StyleStyle.swift"; sourceTree = "<group>"; };
 		ED82C7D22F90186900FA103D /* UINib+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Init.swift"; sourceTree = "<group>"; };
 		ED82C7D32F90186900FA103D /* UITableView+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Cells.swift"; sourceTree = "<group>"; };
+		0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+SeparatorInset.swift"; sourceTree = "<group>"; };
 		ED82C7D42F90186900FA103D /* UITableView+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Updates.swift"; sourceTree = "<group>"; };
 		ED82C7D52F90186900FA103D /* UITextField+RuntimeAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		ED82C7D62F90186900FA103D /* UITextField+RuntimeAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+RuntimeAttributes.m"; sourceTree = "<group>"; };
@@ -2247,8 +2249,8 @@
 				ED82C2A82F90180300FA103D /* BookmarksListCellStrategy.swift */,
 				ED82C2A92F90180300FA103D /* BookmarksListSectionHeader.swift */,
 				ED82C2AA2F90180300FA103D /* BookmarksListSectionHeader.xib */,
-				ED82C2AB2F90180300FA103D /* SubgroupCell.swift */,
-				ED82C2AC2F90180300FA103D /* SubgroupCell.xib */,
+				ED82C2AB2F90180300FA103D /* BookmarksListSubgroupCell.swift */,
+				ED82C2AC2F90180300FA103D /* BookmarksListSubgroupCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3987,6 +3989,7 @@
 				ED82C7D12F90186900FA103D /* UINavigationItem+StyleStyle.swift */,
 				ED82C7D22F90186900FA103D /* UINib+Init.swift */,
 				ED82C7D32F90186900FA103D /* UITableView+Cells.swift */,
+				0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */,
 				ED82C7D42F90186900FA103D /* UITableView+Updates.swift */,
 				ED82C7D52F90186900FA103D /* UITextField+RuntimeAttributes.h */,
 				ED82C7D62F90186900FA103D /* UITextField+RuntimeAttributes.m */,
@@ -4379,7 +4382,7 @@
 				DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */,
 				ED82C61D2F90180300FA103D /* MWMAutoupdateController.xib in Resources */,
 				ED82C61F2F90180300FA103D /* BookmarksListSectionHeader.xib in Resources */,
-				ED82C6202F90180300FA103D /* SubgroupCell.xib in Resources */,
+				ED82C6202F90180300FA103D /* BookmarksListSubgroupCell.xib in Resources */,
 				ED82C6212F90180300FA103D /* BookmarksListInfoViewController.xib in Resources */,
 				ED82C6222F90180300FA103D /* BookmarksListViewController.xib in Resources */,
 				ED82C6242F90180300FA103D /* BMCViewController.xib in Resources */,
@@ -4514,7 +4517,7 @@
 				F0A0B0012FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift in Sources */,
 				ED82C4FD2F90180300FA103D /* BookmarksListCellStrategy.swift in Sources */,
 				ED82C4FE2F90180300FA103D /* BookmarksListSectionHeader.swift in Sources */,
-				ED82C4FF2F90180300FA103D /* SubgroupCell.swift in Sources */,
+				ED82C4FF2F90180300FA103D /* BookmarksListSubgroupCell.swift in Sources */,
 				ED82C5002F90180300FA103D /* BookmarksListBuilder.swift in Sources */,
 				ED82C5012F90180300FA103D /* BookmarksListInfoViewController.swift in Sources */,
 				ED82C5022F90180300FA103D /* BookmarksListInteractor.swift in Sources */,
@@ -4921,6 +4924,7 @@
 				ED82C8022F90186900FA103D /* UINavigationItem+StyleStyle.swift in Sources */,
 				ED82C8032F90186900FA103D /* UINib+Init.swift in Sources */,
 				ED82C8042F90186900FA103D /* UITableView+Cells.swift in Sources */,
+				0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */,
 				ED82C8052F90186900FA103D /* UITableView+Updates.swift in Sources */,
 				ED82C8202F90186900FA103D /* MWMKeyboard.m in Sources */,
 				ED82C8212F90186900FA103D /* Common.swift in Sources */,
