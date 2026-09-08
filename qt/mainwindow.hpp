@@ -139,6 +139,7 @@ public:
   void HidePlacePage();
 
   Q_INVOKABLE QAction * getMyPositionAction() const { return m_pMyPositionAction; }
+  Q_INVOKABLE void DeactivateMapSelection() const;
 
 protected:
   Framework & GetFramework() const;

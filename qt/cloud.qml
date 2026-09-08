@@ -74,6 +74,9 @@ Item {
                 cloud.requestPaint();
                 console.log("Position Mode changed to " + mode);
             }
+            function onInfoChanged() {
+                pane.visible = root.height > root.width + 50;
+            }
         }
 
         states: [
@@ -141,7 +144,7 @@ Item {
 
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        visible: innerColumn.implicitHeight
+        visible: false
         topPadding: 0
 
         Column {
@@ -179,6 +182,8 @@ Item {
 
                             anchors.right: parent.right
                             text: "\u2715"
+
+                            onClicked: {pane.visible = false; root.map.DeactivateMapSelection()}
                         }
                     }
                 }
