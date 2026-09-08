@@ -844,6 +844,11 @@ void MainWindow::CreatePlacePagePanel()
   });
 }
 
+void MainWindow::DeactivateMapSelection() const
+{
+  GetFramework().DeactivateMapSelection();
+}
+
 void MainWindow::ShowPlacePage(place_page::Info const & info)
 {
   m_title = QString::fromStdString(info.GetTitle());
@@ -881,26 +886,29 @@ void MainWindow::ShowPlacePage(place_page::Info const & info)
   m_atm = info.HasAtm();
 
   emit infoChanged();
-{
-  QDockWidget * dock = m_Docks[kPlacePageDock];
 
-  bool developerMode = false;
-  settings::TryGet(settings::kDeveloperMode, developerMode);
+  if (width() > height())
+  {
+    QDockWidget * dock = m_Docks[kPlacePageDock];
 
-  QWidget * widget = developerMode ? static_cast<QWidget *>(new PlacePageDialogDeveloper(dock, m_pDrawWidget, info))
+    bool developerMode = false;
+    settings::TryGet(settings::kDeveloperMode, developerMode);
+
+      QWidget * widget = developerMode ? static_cast<QWidget *>(new PlacePageDialogDeveloper(dock, m_pDrawWidget, info))
                                    : static_cast<QWidget *>(new PlacePageDialogUser(dock, m_pDrawWidget, info));
 
-  QString title = Tr("placepage_title");
-  if (info.IsBookmark())
-    title = developerMode ? Tr("bookmark_title_with_type").arg(title) : Tr("placepage_bookmarked_title");
-  else if (info.IsTrack())
-    title = Tr("track_title_with_type").arg(title);
-  dock->setWindowTitle(title);
+    QString title = Tr("placepage_title");
+    if (info.IsBookmark())
+      title = developerMode ? Tr("bookmark_title_with_type").arg(title) : Tr("placepage_bookmarked_title");
+    else if (info.IsTrack())
+      title = Tr("track_title_with_type").arg(title);
+    dock->setWindowTitle(title);
 
-  // setWidget takes ownership and deletes the previous widget.
-  dock->setWidget(widget);
-  dock->show();
-  dock->raise();
+    // setWidget takes ownership and deletes the previous widget.
+    dock->setWidget(widget);
+    dock->show();
+    dock->raise();
+  }
 }
 
 void MainWindow::HidePlacePage()
