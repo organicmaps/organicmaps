@@ -13,8 +13,8 @@
 #include <string>
 
 PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, qt::DrawWidget * drawWidget,
-                                                   place_page::Info const & info)
-  : PlacePageDialogCommon(parent, drawWidget, info)
+                                                   place_page::Info const & info, const QList<QAction *> &actions)
+  : PlacePageDialogCommon(parent, drawWidget, info, actions)
 {
   using namespace place_page_dialog;
   QVBoxLayout * contentLayout = GetContentLayout();

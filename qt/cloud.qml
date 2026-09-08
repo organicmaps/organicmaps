@@ -337,16 +337,35 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 ToolButton {
-                    text: qsTr("Route From")
+                    ToolTip.text: qsTr("Route From")
+                    ToolTip.visible: hovered
+                    onClicked: {root.map.fromAction.trigger(); pane.visible = false}
+                    icon.source: "qrc:/navig64/point-start.png"
+                    icon.color: "transparent"
                 }
                 ToolButton {
-                    text: qsTr("Add Stop")
+                    ToolTip.text: qsTr("Add Stop")
+                    ToolTip.visible: hovered
+                    onClicked: {root.map.stopAction.trigger(); pane.visible = false}
+                    icon.source: "qrc:/navig64/point-intermediate.png"
+                    icon.color: "transparent"
                 }
                 ToolButton {
-                    text: qsTr("Route To")
+                    ToolTip.text: qsTr("Route To")
+                    ToolTip.visible: hovered
+                    onClicked: {root.map.toAction.trigger(); pane.visible = false}
+                    icon.source: "qrc:/navig64/point-finish.png"
+                    icon.color: "transparent"
                 }
-                Button {
+                ToolButton {
+                    text: qsTr("Route Along Track")
+                    onClicked: {root.map.alongAction.trigger(); pane.visible = false}
+                    visible: root.map.alongAction.visible
+                }
+                ToolButton {
                     text: qsTr("Edit Place")
+                    onClicked: {root.map.editAction.trigger(); pane.visible = false}
+                    visible: root.map.editAction.visible
                 }
             }
         }

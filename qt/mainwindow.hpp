@@ -75,6 +75,12 @@ private:
   QAction * m_pSearchAction = nullptr;
   QAction * m_rulerAction = nullptr;
 
+  QAction * m_fromAction = nullptr;
+  QAction * m_stopAction = nullptr;
+  QAction * m_toAction = nullptr;
+  QAction * m_alongAction = nullptr;
+  QAction * m_editAction = nullptr;
+
   enum LayerType : uint8_t
   {
     /// @todo Uncomment when we will integrate a traffic provider.
@@ -124,6 +130,12 @@ private:
   Q_PROPERTY(QString vk MEMBER m_vk NOTIFY infoChanged)
   Q_PROPERTY(QString line MEMBER m_line NOTIFY infoChanged)
   Q_PROPERTY(QString level MEMBER m_level NOTIFY infoChanged)
+
+  Q_PROPERTY(QAction * fromAction MEMBER m_fromAction)
+  Q_PROPERTY(QAction * stopAction MEMBER m_stopAction)
+  Q_PROPERTY(QAction * toAction MEMBER m_toAction)
+  Q_PROPERTY(QAction * alongAction MEMBER m_alongAction NOTIFY infoChanged)
+  Q_PROPERTY(QAction * editAction MEMBER m_editAction NOTIFY infoChanged)
 
 public:
   MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry

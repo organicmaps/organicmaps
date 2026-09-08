@@ -40,14 +40,14 @@ int32_t SavedCoordinateFormat()
 }  // namespace
 
 PlacePageDialogCommon::PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * drawWidget,
-                                             place_page::Info const & info)
+                                             place_page::Info const & info, const QList<QAction *> &actions)
   : QWidget(parent)
   , m_drawWidget(drawWidget)
 {
   QVBoxLayout * layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
 
-  layout->addWidget(place_page_dialog::createActionToolBar(this, drawWidget, info));
+  layout->addWidget(place_page_dialog::createActionToolBar(this, drawWidget, info, actions));
 
   QScrollArea * scrollArea = new QScrollArea(this);
   scrollArea->setWidgetResizable(true);
@@ -63,43 +63,12 @@ PlacePageDialogCommon::PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * 
 
 namespace place_page_dialog
 {
-QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info)
+QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info, const QList<QAction *> &actions)
 {
   QToolBar * toolBar = new QToolBar(parent);
   toolBar->setIconSize(QSize(20, 20));
 
-  m2::PointD const mercator = info.GetMercator();
-
-  QAction * fromAction = toolBar->addAction(QIcon(":/navig64/point-start.png"), "Route From");
-  fromAction->setToolTip("Route From");
-  QObject::connect(fromAction, &QAction::triggered, parent,
-                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Start, mercator); });
-
-  QAction * stopAction = toolBar->addAction(QIcon(":/navig64/point-intermediate.png"), "Add Stop");
-  stopAction->setToolTip("Add Stop");
-  QObject::connect(stopAction, &QAction::triggered, parent,
-                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Intermediate, mercator); });
-
-  QAction * toAction = toolBar->addAction(QIcon(":/navig64/point-finish.png"), "Route To");
-  toAction->setToolTip("Route To");
-  QObject::connect(toAction, &QAction::triggered, parent,
-                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Finish, mercator); });
-
-  if (info.IsTrack())
-  {
-    kml::TrackId const trackId = info.GetTrackId();
-    QAction * alongAction = toolBar->addAction("Route Along Track");
-    QObject::connect(alongAction, &QAction::triggered, parent,
-                     [drawWidget, trackId] { drawWidget->RouteAlongTrack(trackId); });
-  }
-
-  if (info.ShouldShowEditPlace())
-  {
-    FeatureID const featureId = info.GetID();
-    QAction * editAction = toolBar->addAction("Edit Place");
-    QObject::connect(editAction, &QAction::triggered, parent,
-                     [drawWidget, featureId] { drawWidget->EditPlace(featureId); });
-  }
+  toolBar->addActions(actions);
 
   return toolBar;
 }
