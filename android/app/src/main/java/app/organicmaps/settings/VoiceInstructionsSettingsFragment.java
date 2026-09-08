@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
@@ -322,8 +323,18 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   {
     final int volumeInt = (int) (volume * 100);
     mTtsVolume.setValue(volumeInt);
-    mTtsVolume.setSummary(Integer.toString(volumeInt));
+    mTtsVolume.setSummary(getTtsVolumeSummary(volume, volumeInt));
     TtsPlayer.INSTANCE.setVolume(volume);
+  }
+
+  @NonNull
+  private static String getTtsVolumeSummary(final float volume, final int volumeInt)
+  {
+    if (volumeInt <= 100)
+      return volumeInt + "%";
+
+    final float gainDb = TtsPlayer.getBoostGainDb(volume);
+    return String.format(Locale.US, "+%.1f dB", gainDb);
   }
 
   private void updateGoogleTtsInfoSummary(@StringRes int textResId)
