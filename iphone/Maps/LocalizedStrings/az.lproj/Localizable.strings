@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "Rəng dəyişdirin";
 
+/* Text for the hiding track. */
+"hide_track" = "İzi gizlədin";
+
+/* Text for the showing track. */
+"show_track" = "İzi göstər";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Xəritə";
 

@@ -1074,6 +1074,12 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "تغییر رنگ";
 
+/* Text for the hiding track. */
+"hide_track" = "مخفی کردن مسیر";
+
+/* Text for the showing track. */
+"show_track" = "نمایش مسیر";
+
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "نقشه";
 

@@ -1,5 +1,5 @@
-/// A list cell with a fixed layout: an optional leading icon button, a title/subtitle block and a
-/// trailing icon button.
+/// A list cell with a fixed layout: an optional leading icon button, a title/subtitle block and up
+/// to two trailing icon buttons.
 ///
 /// `UITableViewCell`'s built-in layout is deliberately not used. Its system accessories
 /// (`accessoryType = .detailButton`) resize with the content size category while custom icons do
@@ -12,6 +12,10 @@ final class BookmarksListCell: MWMTableViewCell {
   private enum Constants {
     static let leadingButtonWidth: CGFloat = 52
     static let trailingButtonWidth: CGFloat = 52
+    static let innerTrailingButtonWidth: CGFloat = 36
+    /// The inner slot is narrower than the 44pt minimum touch target, so it claims the difference
+    /// from the side that faces the labels.
+    static let innerTrailingButtonTouchInset: CGFloat = 8
     static let minimumHeight: CGFloat = 48
     static let verticalInset: CGFloat = 12
     static let horizontalInset: CGFloat = 16
@@ -25,6 +29,7 @@ final class BookmarksListCell: MWMTableViewCell {
   private let labelsStackView = UIStackView()
   private let titleLabel = UILabel()
   private let subtitleLabel = UILabel()
+  private let innerTrailingButton = IconButton(frame: .zero)
   private let trailingButton = IconButton(frame: .zero)
 
   private var isShowingEditControl = false
@@ -48,7 +53,7 @@ final class BookmarksListCell: MWMTableViewCell {
     subtitleLabel.text = configuration.subtitle
     subtitleLabel.isHidden = configuration.subtitle?.isEmpty ?? true
     applyLeadingItem(configuration.leadingItem)
-    apply(configuration.trailingButton, to: trailingButton)
+    applyTrailingButtons(configuration.trailingButtons)
     updateEditingState()
   }
 
@@ -96,9 +101,13 @@ final class BookmarksListCell: MWMTableViewCell {
     contentStackView.isLayoutMarginsRelativeArrangement = true
     contentStackView.addArrangedSubview(leadingButton)
     contentStackView.addArrangedSubview(labelsContainerView)
+    contentStackView.addArrangedSubview(innerTrailingButton)
     contentStackView.addArrangedSubview(trailingButton)
-    // The leading button's width already includes the padding around its icon.
+    // The leading button's width already includes the padding around its icon, and the two trailing
+    // buttons form a single column.
     contentStackView.setCustomSpacing(0, after: leadingButton)
+    contentStackView.setCustomSpacing(0, after: innerTrailingButton)
+    innerTrailingButton.touchInset = Constants.innerTrailingButtonTouchInset
     contentView.addSubview(contentStackView)
     contentView.shouldGroupAccessibilityChildren = true
 
@@ -129,6 +138,7 @@ final class BookmarksListCell: MWMTableViewCell {
                                               constant: -Constants.verticalInset),
 
       leadingButton.widthAnchor.constraint(equalToConstant: Constants.leadingButtonWidth),
+      innerTrailingButton.widthAnchor.constraint(equalToConstant: Constants.innerTrailingButtonWidth),
       trailingButton.widthAnchor.constraint(equalToConstant: Constants.trailingButtonWidth),
     ])
   }
@@ -147,6 +157,20 @@ final class BookmarksListCell: MWMTableViewCell {
     }
   }
 
+  private func applyTrailingButtons(_ buttons: Configuration.TrailingButtons) {
+    switch buttons {
+    case .none:
+      apply(nil, to: innerTrailingButton)
+      apply(nil, to: trailingButton)
+    case .one(let button):
+      apply(nil, to: innerTrailingButton)
+      apply(button, to: trailingButton)
+    case .two(let inner, let edge):
+      apply(inner, to: innerTrailingButton)
+      apply(edge, to: trailingButton)
+    }
+  }
+
   private func apply(_ configuration: Configuration.TrailingButton?, to button: IconButton) {
     button.setImage(configuration?.image, for: .normal)
     button.tintColor = configuration?.tintColor
@@ -155,10 +179,11 @@ final class BookmarksListCell: MWMTableViewCell {
   }
 
   private func updateEditingState() {
-    // Multiple selection is the only state that removes the button: a visible control that does
+    // Multiple selection is the only state that removes the buttons: a visible control that does
     // nothing is still announced by VoiceOver. Swipe actions are deliberately excluded — UIKit turns
-    // `isEditing` on for them too, and dropping the button there would re-wrap the labels mid-swipe,
+    // `isEditing` on for them too, and dropping the buttons there would re-wrap the labels mid-swipe,
     // while a system accessory keeps the row's layout untouched.
+    innerTrailingButton.isHidden = isShowingEditControl || innerTrailingButton.action == nil
     trailingButton.isHidden = isShowingEditControl || trailingButton.action == nil
     leadingButton.isUserInteractionEnabled = !isEditing && leadingButton.action != nil
     updateInsets()
@@ -180,6 +205,10 @@ final class BookmarksListCell: MWMTableViewCell {
 private final class IconButton: UIButton {
   var action: ((UIView) -> Void)?
 
+  /// Extra touch area on both sides. The neighbouring button is later in `subviews` and therefore
+  /// wins the overlap, so the button only really gains the side that faces the labels.
+  var touchInset: CGFloat = 0
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     addTarget(self, action: #selector(onTap), for: .touchUpInside)
@@ -188,6 +217,10 @@ private final class IconButton: UIButton {
   @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  override func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
+    bounds.insetBy(dx: -touchInset, dy: 0).contains(point)
   }
 
   @objc private func onTap() {
