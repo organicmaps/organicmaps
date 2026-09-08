@@ -18,6 +18,8 @@
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 
+#include "indexer/validate_and_format_contacts.hpp"
+
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
@@ -862,6 +864,42 @@ void MainWindow::CreatePlacePagePanel()
 }
 
 void MainWindow::ShowPlacePage(place_page::Info const & info)
+{
+  m_title = QString::fromStdString(info.GetTitle());
+  m_subTitle = QString::fromStdString(info.GetSubtitle());
+  m_address = QString::fromStdString(info.GetSecondarySubtitle());
+  m_bookmark = info.IsBookmark();
+  m_wikipedia = QString::fromStdString(feature::Metadata::ToWikiURL(
+      std::string(info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA))));
+  m_wikimedia = QString::fromStdString(feature::Metadata::ToWikimediaCommonsURL(
+      std::string(info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS))));
+  m_description = QString::fromStdString(place_page_dialog_user::getShortDescription(info.GetWikiDescription()));
+  m_openingHours = QString::fromStdString(std::string(info.GetOpeningHours()));
+  m_cuisines = QString::fromStdString(info.FormatCuisines());
+  m_phone = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_PHONE_NUMBER)));
+  m_operator = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_OPERATOR)));
+  m_wifi = info.HasWifi();
+  m_website = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_WEBSITE)));
+  m_email = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_EMAIL)));
+
+  auto addSocialNetworkWidget = [&info](QString & member, feature::Metadata::EType const eType)
+  {
+    if (auto item = info.GetMetadata(eType); !item.empty())
+      member = QString::fromStdString("<a href='" + osm::socialContactToURL(eType, std::string(item)) + "'>" +
+                                      std::string(item) + "</a>");
+    else
+      member.clear();
+  };
+  addSocialNetworkWidget(m_facebook, feature::Metadata::EType::FMD_CONTACT_FACEBOOK);
+  addSocialNetworkWidget(m_instagram, feature::Metadata::EType::FMD_CONTACT_INSTAGRAM);
+  addSocialNetworkWidget(m_twitter, feature::Metadata::EType::FMD_CONTACT_TWITTER);
+  addSocialNetworkWidget(m_vk, feature::Metadata::EType::FMD_CONTACT_VK);
+  addSocialNetworkWidget(m_line, feature::Metadata::EType::FMD_CONTACT_LINE);
+
+  m_level = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_LEVEL)));
+  m_atm = info.HasAtm();
+
+  emit infoChanged();
 {
   QDockWidget * dock = m_Docks[kPlacePageDock];
 

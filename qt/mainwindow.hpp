@@ -51,8 +51,13 @@ public:
 
 signals:
   void positionModeChanged(location::EMyPositionMode mode);
+  void infoChanged();
 
 private:
+  QString m_title, m_subTitle, m_address, m_wikipedia, m_wikimedia, m_description, m_openingHours, m_cuisines, m_phone,
+      m_operator, m_website, m_email, m_facebook, m_instagram, m_twitter, m_vk, m_line, m_level;
+  bool m_bookmark = false, m_atm = false, m_wifi = false;
+
   DrawWidget * m_pDrawWidget = nullptr;
   std::array<QDockWidget *, kDockCount> m_Docks;
 
@@ -97,6 +102,28 @@ private:
   Q_OBJECT
   QML_ELEMENT
   QML_UNCREATABLE("")
+
+  Q_PROPERTY(QString title MEMBER m_title NOTIFY infoChanged)
+  Q_PROPERTY(QString subTitle MEMBER m_subTitle NOTIFY infoChanged)
+  Q_PROPERTY(QString address MEMBER m_address NOTIFY infoChanged)
+  Q_PROPERTY(bool bookmark MEMBER m_bookmark NOTIFY infoChanged)
+  Q_PROPERTY(QString wikipedia MEMBER m_wikipedia NOTIFY infoChanged)
+  Q_PROPERTY(QString wikimedia MEMBER m_wikimedia NOTIFY infoChanged)
+  Q_PROPERTY(QString description MEMBER m_description NOTIFY infoChanged)
+  Q_PROPERTY(QString openingHours MEMBER m_openingHours NOTIFY infoChanged)
+  Q_PROPERTY(QString cuisines MEMBER m_cuisines NOTIFY infoChanged)
+  Q_PROPERTY(QString phone MEMBER m_phone NOTIFY infoChanged)
+  Q_PROPERTY(QString operator MEMBER m_operator NOTIFY infoChanged)
+  Q_PROPERTY(bool atm MEMBER m_atm NOTIFY infoChanged)
+  Q_PROPERTY(bool wifi MEMBER m_wifi NOTIFY infoChanged)
+  Q_PROPERTY(QString website MEMBER m_website NOTIFY infoChanged)
+  Q_PROPERTY(QString email MEMBER m_email NOTIFY infoChanged)
+  Q_PROPERTY(QString facebook MEMBER m_facebook NOTIFY infoChanged)
+  Q_PROPERTY(QString instagram MEMBER m_instagram NOTIFY infoChanged)
+  Q_PROPERTY(QString twitter MEMBER m_twitter NOTIFY infoChanged)
+  Q_PROPERTY(QString vk MEMBER m_vk NOTIFY infoChanged)
+  Q_PROPERTY(QString line MEMBER m_line NOTIFY infoChanged)
+  Q_PROPERTY(QString level MEMBER m_level NOTIFY infoChanged)
 
 public:
   MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry

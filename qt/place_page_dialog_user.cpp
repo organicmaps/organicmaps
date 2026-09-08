@@ -23,7 +23,7 @@
 
 #include <string>
 
-namespace
+namespace place_page_dialog_user
 {
 static int constexpr kMaxLengthOfPlacePageDescription = 500;
 
@@ -42,7 +42,10 @@ std::string getShortDescription(std::string const & description)
 
   return std::string(view);
 }
+}  // namespace place_page_dialog_user
 
+namespace
+{
 std::string_view stripSchemeFromURI(std::string_view uri)
 {
   for (std::string_view prefix : {"https://", "http://"})
@@ -163,7 +166,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * draw
     // Description
     if (auto const & description = info.GetWikiDescription(); !description.empty())
     {
-      auto descriptionShort = getShortDescription(description);
+      auto descriptionShort = place_page_dialog_user::getShortDescription(description);
 
       QLabel * value = new QLabel(QString::fromStdString(descriptionShort));
       value->setWordWrap(true);
