@@ -35,8 +35,16 @@ class NavigationController(
     private val bottomSheet: View = ViewCompat.requireViewById(frame, R.id.nav_bottom_sheet)
     private val navigationBarBackground: View = ViewCompat.requireViewById(frame, R.id.nav_bottom_sheet_nav_bar)
     private val minStartMargin = dimen(activity, R.dimen.nav_side_margin_min)
+    private val navFramePadding = dimen(activity, R.dimen.nav_frame_padding)
+
+    // Vertical space the speed limit sign takes in the top-end corner, including its bottom margin.
+    private val speedLimitSlot = dimen(activity, R.dimen.nav_speed_limit_size) + dimen(activity, R.dimen.margin_half)
     private val mapButtonsViewModel = ViewModelProvider(activity)[MapButtonsViewModel::class.java]
     private val navMenu = NavMenu(activity, this, onMenuSizeChangedListener)
+
+    // Landscape phone only: the sign sits in the top-end corner shared with the track-recording
+    // FAB, so the FAB has to give way while a limit is shown.
+    private val isSpeedLimitTopEnd = activity.resources.getBoolean(R.bool.nav_speed_limit_top_end)
 
     // True only for the edge-to-edge portrait phone layout (full-width card + full-width sheet);
     // landscape and tablets use a fixed-width floating card. Single source for every width/inset
@@ -47,8 +55,7 @@ class NavigationController(
         ViewCompat.setOnApplyWindowInsetsListener(frame) { _, insets -> applyNavInsets(insets) }
 
         // Push the FAB below the nav header; only the full-width card overlaps it, so only there
-        // does the FAB track the card height.
-        val navFramePadding = dimen(frame.context, R.dimen.nav_frame_padding)
+        // does the FAB track the card height (in landscape the speed limit sign does, see below).
         mapButtonsViewModel.setTopButtonsMarginTop(navFramePadding)
         if (isFullWidthCard) {
             maneuverView.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
@@ -65,12 +72,18 @@ class NavigationController(
         val isRtl = topFrame.layoutDirection == View.LAYOUT_DIRECTION_RTL
         val sideInset = if (isRtl) insets.right else insets.left
         val startMargin = if (isFullWidthCard) sideInset else maxOf(minStartMargin, sideInset)
+        // The full-width card spans both parent edges, so an end padding would shrink it; the
+        // floating card layouts only need the opposite cutout cleared for the top-end speed limit.
+        val endInset = if (isRtl) insets.left else insets.right
+        val endPadding = if (isFullWidthCard) 0 else endInset
 
         // Full-width portrait card fills behind the status bar: no frame top padding; the card
         // takes the status-bar inset as internal padding (background up, content below).
         val framePaddingTop = if (isFullWidthCard) 0 else insets.top
-        if (topFrame.paddingStart != startMargin || topFrame.paddingTop != framePaddingTop) {
-            topFrame.setPaddingRelative(startMargin, framePaddingTop, 0, 0)
+        if (topFrame.paddingStart != startMargin || topFrame.paddingTop != framePaddingTop ||
+            topFrame.paddingEnd != endPadding
+        ) {
+            topFrame.setPaddingRelative(startMargin, framePaddingTop, endPadding, 0)
         }
         // Clear only the status bar (matches the scrim), not the full safe inset — a tall cutout gaps.
         val statusBarTop = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars()).top
@@ -156,5 +169,11 @@ class NavigationController(
         val location = MwmApplication.from(frame.context).locationHelper.savedLocation
         val speedLimitExceeded = location != null && info.speedLimitMps > 0 && info.speedLimitMps < location.speed
         speedLimit.setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded)
+
+        // The sign collapses itself when there is no limit, so keep the FAB in step with it.
+        if (isSpeedLimitTopEnd) {
+            val slot = if (speedLimit.visibility == View.VISIBLE) speedLimitSlot else 0
+            mapButtonsViewModel.setTopButtonsMarginTop(navFramePadding + slot)
+        }
     }
 }

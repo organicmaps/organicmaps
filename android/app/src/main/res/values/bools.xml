@@ -4,4 +4,6 @@
        status bar. Single source for both the card/sheet layout branch (NavigationController) and
        the white status-bar icons over the green card (MwmActivity). -->
   <bool name="nav_full_width_card">true</bool>
+
+  <bool name="nav_speed_limit_top_end">false</bool>
 </resources>
