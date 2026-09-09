@@ -24,6 +24,10 @@ object WearNavigationDataMapCodec {
         val modeName = dataMap.getString(WearNavigationData.KEY_MODE) ?: return null
 
         val mode = WearNavigationMode.entries.find { it.name == modeName } ?: return null
-        return WearNavigationState.of(mode)
+
+        return when (mode) {
+            WearNavigationMode.NORMAL -> WearNavigationState.normal()
+            WearNavigationMode.NAVIGATION -> WearNavigationState.navigation()
+        }
     }
 }
