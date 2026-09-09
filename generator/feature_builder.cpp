@@ -568,7 +568,8 @@ void FeatureBuilder::SetName(int8_t lang, std::string_view name)
 std::string_view FeatureBuilder::GetName(int8_t lang) const
 {
   std::string_view sv;
-  CHECK(m_params.name.GetString(lang, sv) != sv.empty(), ());
+  bool const found = m_params.name.GetString(lang, sv);
+  CHECK_EQUAL(found, !sv.empty(), ());
   return sv;
 }
 
