@@ -270,7 +270,7 @@ UNIT_TEST(MkDirRecursively)
   CHECK(Platform::RmDirRecursively(workPath), ());
 }
 
-// Regression guard for a TOCTOU race in Platform::MkDir: when several threads (mimicking the
+// Regression guard for the TOCTOU race in directory creation: when several threads (mimicking the
 // parallel ctest binaries that all create ~/.config/OMaps on a fresh runner) create the same
 // not-yet-existing directory at once, every MkDirRecursively call must succeed instead of one
 // failing because a peer won the create. The race window is tiny, so hammer it across many

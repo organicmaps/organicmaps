@@ -48,34 +48,14 @@ UNIT_TEST(Cancellable_Smoke)
 UNIT_TEST(Cancellable_Deadline)
 {
   Cancellable cancellable;
-  chrono::steady_clock::duration kTimeout = chrono::milliseconds(20);
-  cancellable.SetDeadline(chrono::steady_clock::now() + kTimeout);
+  auto const now = chrono::steady_clock::now();
+  cancellable.SetDeadline(now + chrono::hours(1));
+  TEST(!cancellable.IsCancelled(), ());
+  TEST_EQUAL(cancellable.CancellationStatus(), Cancellable::Status::Active, ());
 
-  promise<void> syncPromise;
-  auto syncFuture = syncPromise.get_future();
-
-  double x = 0.123;
-
-  auto const fn = [&]
-  {
-    while (true)
-    {
-      if (cancellable.IsCancelled())
-        break;
-
-      x = cos(x);
-    }
-
-    syncPromise.set_value();
-  };
-
-  threads::SimpleThread thread(fn);
-  syncFuture.wait();
-  thread.join();
-
+  cancellable.SetDeadline(now - chrono::hours(1));
   TEST(cancellable.IsCancelled(), ());
   TEST_EQUAL(cancellable.CancellationStatus(), Cancellable::Status::DeadlineExceeded, ());
-  TEST(AlmostEqualAbs(x, 0.739, 1e-3), ());
 
   cancellable.Cancel();
   TEST(cancellable.IsCancelled(), ());

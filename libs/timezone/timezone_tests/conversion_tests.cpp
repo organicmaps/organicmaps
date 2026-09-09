@@ -3,24 +3,18 @@
 
 #include "timezone/serdes.hpp"
 
+#include "base/timegm.hpp"
+
 using namespace om::tz;
 
 namespace
 {
-constexpr TimeZone kZeroTz{.generation_year_offset = 0, .base_offset = 64, .dst_delta = 0, .transitions = {}};
+// Not constexpr: MSVC's debug std::vector allocates its checked-iterator proxy during constant evaluation.
+TimeZone const kZeroTz{.generation_year_offset = 0, .base_offset = 64, .dst_delta = 0, .transitions = {}};
 
 time_t CreateTime(int const year, int const month, int const day, int const hour, int const minute, int const second)
 {
-  std::tm tm_time{};
-  tm_time.tm_year = year - 1900;  // tm_year is years since 1900
-  tm_time.tm_mon = month - 1;     // tm_mon is 0-based
-  tm_time.tm_mday = day;
-  tm_time.tm_hour = hour;
-  tm_time.tm_min = minute;
-  tm_time.tm_sec = second;
-  tm_time.tm_isdst = -1;
-
-  return timegm(&tm_time);
+  return base::TimeGM(year, month, day, hour, minute, second);
 }
 
 std::string TimeToString(time_t const t)
@@ -43,7 +37,7 @@ TEST(TimeZoneConvert, ShoudNotChangeTimeWhenEqualTimeZones)
 
 TEST(TimeZoneConvert, ShoudAdd1Hour)
 {
-  constexpr TimeZone dstTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
+  TimeZone const dstTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
 
   {
     time_t const srcTime = CreateTime(2026, 12, 13, 21, 18, 16);
@@ -63,7 +57,7 @@ TEST(TimeZoneConvert, ShoudAdd1Hour)
 
 TEST(TimeZoneConvert, ShoudDecrease1Hour)
 {
-  constexpr TimeZone srcTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
+  TimeZone const srcTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
 
   {
     time_t const srcTime = CreateTime(2026, 12, 13, 22, 18, 16);
@@ -133,10 +127,10 @@ TEST(TimeZoneConvert, ShouldApplyDst)
 TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
 {
   // Source timezone: -2:30 (minutes = -150), no DST
-  constexpr TimeZone srcTz{.generation_year_offset = 0,
-                           .base_offset = 54,  // -2:30 hours
-                           .dst_delta = 0,
-                           .transitions = {}};
+  TimeZone const srcTz{.generation_year_offset = 0,
+                       .base_offset = 54,  // -2:30 hours
+                       .dst_delta = 0,
+                       .transitions = {}};
 
   // Destination timezone: +8:00, DST +60 minutes
   TimeZone const dstTz{.generation_year_offset = 0,

@@ -813,7 +813,7 @@ UNIT_TEST(Bookmarks_IllegalFileName)
 UNIT_TEST(Bookmarks_UniqueFileName)
 {
   string const BASE = "SomeUniqueFileName";
-  string const FILEBASE = "./" + BASE;
+  string const FILEBASE = base::JoinPath(".", BASE);
   string const FILENAME = FILEBASE + string{kKmlExtension};
 
   {
@@ -2321,8 +2321,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
   BookmarkManager::KMLDataCollection kmlDataCollection;
   kmlDataCollection.emplace_back(filePath, LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml));
 
-  FileWriter w(filePath);
-  w.Write(kmlDataCollection.data(), kmlDataCollection.size());
+  // Closed before the manager moves the file, Windows refuses to move open files.
+  FileWriter(filePath).Write(kmlString, std::strlen(kmlString));
 
   TEST(kmlDataCollection.back().second, ());
   bmManager.CreateCategories(std::move(kmlDataCollection));
