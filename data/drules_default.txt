@@ -211,19 +211,19 @@ colors:
   c207 #80E53935 #80B71C1C
   c208 #00E53935 #00B71C1C
   c209 #00E3E1D2 #000F0F0F
-  c210 #004499BB #00004A59
-  c211 #007F7F7F #006E6E6E
-  c212 #00FCEC7E #0028281A
-  c213 #00AEC26B #00383E19
-  c214 #00AABF65 #00363D19
-  c215 #00D1CDA7 #002F2C19
-  c216 #00DDD9B0 #0024220F
-  c217 #00D7D3AC #00292814
-  c218 #4DD1CDA7 #4D2F2C19
-  c219 #33D1CDA7 #332F2C19
-  c220 #4DE3E1D2 #4D0F0F0F
-  c221 #99CFD5A8 #991F2310
-  c222 #00D9D2BF #00302A2A
+  c210 #007F7F7F #006E6E6E
+  c211 #00FCEC7E #0028281A
+  c212 #00AEC26B #00383E19
+  c213 #00AABF65 #00363D19
+  c214 #00D1CDA7 #002F2C19
+  c215 #00DDD9B0 #0024220F
+  c216 #00D7D3AC #00292814
+  c217 #4DD1CDA7 #4D2F2C19
+  c218 #33D1CDA7 #332F2C19
+  c219 #4DE3E1D2 #4D0F0F0F
+  c220 #99CFD5A8 #991F2310
+  c221 #00D9D2BF #00302A2A
+  c222 #004499BB #00004A59
   c223 #998C5826 #997D4F23
   c224 #808C5826 #807D4F23
   c225 #00EEE5B2 #00191007
@@ -9720,51 +9720,15 @@ type landuse-religious
     area color=c209 priority=-1950
   z20
     area color=c209 priority=-1950
-type landuse-reservoir
-  z10 if "bbox_area>=4000000"
-    caption primary[height=9 color=c210] priority=6650
-  z11 if "bbox_area>=4000000"
-    caption primary[height=9 color=c210] priority=6650
-  z12 if "bbox_area>=4000000"
-    area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
-  z12 if "bbox_area<4000000"
-    area color=c091 priority=-980
-  z13 if "bbox_area>=4000000"
-    area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
-  z13 if "bbox_area<4000000"
-    area color=c091 priority=-980
-  z14
-    area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=6650
-  z15
-    area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=6650
-  z16
-    area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
-  z17
-    area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
-  z18
-    area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
-  z19
-    area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
-  z20
-    area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
 type landuse-residential
   z17
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=120
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=120
   z18
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=120
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=120
   z19
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=120
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=120
   z20
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=120
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=120
 type landuse-retail
   z15
     area color=c095 priority=-1830
@@ -9891,35 +9855,35 @@ type leisure-amusement_arcade
     caption primary[height=10 color=c082 dy=1 optional] priority=-9500
 type leisure-beach_resort
   z10
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z11
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z12
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z13
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z14
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z15
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z16
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     symbol name=beach-m priority=3300
     caption primary[height=10 color=c082 dy=1 optional] priority=-6700
   z17
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     symbol name=beach-m priority=3300
     caption primary[height=11 color=c082 dy=1 optional] priority=-6700
   z18
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     symbol name=beach-m priority=3300
     caption primary[height=11 color=c082 dy=1 optional] priority=-6700
   z19
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     symbol name=beach-m priority=3300
     caption primary[height=11 color=c082 dy=1 optional] priority=-6700
   z20
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     symbol name=beach-m priority=3300
     caption primary[height=11 color=c082 dy=1 optional] priority=-6700
 type leisure-bird_hide
@@ -10044,41 +10008,41 @@ type leisure-garden
   z13
     area color=c094 priority=-1930
   z14
-    area color=c213 priority=-1930
+    area color=c212 priority=-1930
   z15
     area color=c205 priority=-1930
   z16 if "name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
     symbol name=garden-outline-m priority=2450 min_distance=8
     caption primary[height=11 color=c130 stroke=c206 dy=1 optional] secondary[height=10 color=c130 stroke=c206 dy=1 optional] priority=-7550
   z16 if "!name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
   z17 if "name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
     symbol name=garden-outline-m priority=2450 min_distance=8
     caption primary[height=12 color=c130 stroke=c206 dy=1 optional] secondary[height=10 color=c130 stroke=c206 dy=1 optional] priority=-7550
   z17 if "!name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
   z18 if "name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
     symbol name=garden-outline-m priority=2450 min_distance=8
     caption primary[height=13 color=c130 stroke=c206 dy=1 optional] secondary[height=11 color=c130 stroke=c206 dy=1 optional] priority=-7550
   z18 if "!name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
     symbol name=garden-m priority=2450
   z19 if "name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
     symbol name=garden-outline-m priority=2450 min_distance=8
     caption primary[height=13 color=c130 stroke=c206 dy=1 optional] secondary[height=11 color=c130 stroke=c206 dy=1 optional] priority=-7550
   z19 if "!name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
     symbol name=garden-m priority=2450
   z20 if "name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
     symbol name=garden-outline-m priority=2450 min_distance=8
     caption primary[height=13 color=c130 stroke=c206 dy=1 optional] secondary[height=11 color=c130 stroke=c206 dy=1 optional] priority=-7550
   z20 if "!name"
-    area color=c214 priority=-1930
+    area color=c213 priority=-1930
     symbol name=garden-m priority=2450
 type leisure-garden-residential
   z12
@@ -10479,44 +10443,44 @@ type leisure-picnic_table
     caption primary[height=10 color=c082 dy=1 optional] priority=-8800
 type leisure-pitch
   z15
-    area color=c215 priority=-1920
+    area color=c214 priority=-1920
   z16
-    area color=c215 priority=-1920
+    area color=c214 priority=-1920
   z17
-    area color=c215 priority=-1920
+    area color=c214 priority=-1920
     symbol name=pitch-m priority=850 min_distance=10
     caption primary[height=10 color=c082 dy=1 optional] priority=-9150
   z18
-    area color=c215 priority=-1920
+    area color=c214 priority=-1920
     symbol name=pitch-m priority=850 min_distance=10
     caption primary[height=10 color=c082 dy=1 optional] priority=-9150
   z19
-    area color=c215 priority=-1920
+    area color=c214 priority=-1920
     symbol name=pitch-m priority=850 min_distance=10
     caption primary[height=10 color=c082 dy=1 optional] priority=-9150
   z20
-    area color=c215 priority=-1920
+    area color=c214 priority=-1920
     symbol name=pitch-m priority=850 min_distance=10
     caption primary[height=10 color=c082 dy=1 optional] priority=-9150
 type leisure-playground
   z15
-    area color=c215 priority=-1800
+    area color=c214 priority=-1800
   z16
-    area color=c215 priority=-1800
+    area color=c214 priority=-1800
   z17
-    area color=c215 priority=-1800
+    area color=c214 priority=-1800
     symbol name=playground-m priority=1500 min_distance=10
     caption primary[height=11 color=c082 dy=1 optional] priority=-8500
   z18
-    area color=c215 priority=-1800
+    area color=c214 priority=-1800
     symbol name=playground-m priority=1500 min_distance=10
     caption primary[height=11 color=c082 dy=1 optional] priority=-8500
   z19
-    area color=c215 priority=-1800
+    area color=c214 priority=-1800
     symbol name=playground-m priority=1500 min_distance=10
     caption primary[height=11 color=c082 dy=1 optional] priority=-8500
   z20
-    area color=c215 priority=-1800
+    area color=c214 priority=-1800
     symbol name=playground-m priority=1500 min_distance=10
     caption primary[height=11 color=c082 dy=1 optional] priority=-8500
 type leisure-recreation_ground
@@ -10581,23 +10545,23 @@ type leisure-slipway
     caption primary[height=10 color=c082 dy=1 optional] priority=-9880
 type leisure-sports_centre
   z15
-    area color=c216 priority=-1810
+    area color=c215 priority=-1810
   z16
-    area color=c216 priority=-1810
+    area color=c215 priority=-1810
   z17
-    area color=c216 priority=-1810
+    area color=c215 priority=-1810
     symbol name=pitch-m priority=1250 min_distance=10
     caption primary[height=10 color=c082 dy=1 optional] priority=-8750
   z18
-    area color=c216 priority=-1810
+    area color=c215 priority=-1810
     symbol name=pitch-m priority=1250 min_distance=10
     caption primary[height=10 color=c082 dy=1 optional] priority=-8750
   z19
-    area color=c216 priority=-1810
+    area color=c215 priority=-1810
     symbol name=pitch-m priority=1250 min_distance=10
     caption primary[height=10 color=c082 dy=1 optional] priority=-8750
   z20
-    area color=c216 priority=-1810
+    area color=c215 priority=-1810
     symbol name=pitch-m priority=1250 min_distance=10
     caption primary[height=10 color=c082 dy=1 optional] priority=-8750
 type leisure-sports_hall
@@ -10621,27 +10585,27 @@ type leisure-stadium
     symbol name=stadium-s priority=5100 min_distance=16
     caption primary[height=10 color=c082 dy=1 optional] priority=-4900
   z15
-    area color=c217 priority=-1750
+    area color=c216 priority=-1750
     symbol name=stadium-m priority=5100 min_distance=8
     caption primary[height=10 color=c082 dy=1 optional] priority=-4900
   z16
-    area color=c217 priority=-1750
+    area color=c216 priority=-1750
     symbol name=stadium-m priority=5100 min_distance=8
     caption primary[height=10 color=c082 dy=1 optional] priority=-4900
   z17
-    area color=c217 priority=-1750
+    area color=c216 priority=-1750
     symbol name=stadium-m priority=5100 min_distance=8
     caption primary[height=10 color=c082 dy=1 optional] priority=-4900
   z18
-    area color=c217 priority=-1750
+    area color=c216 priority=-1750
     symbol name=stadium-m priority=5100 min_distance=8
     caption primary[height=10 color=c082 dy=1 optional] priority=-4900
   z19
-    area color=c217 priority=-1750
+    area color=c216 priority=-1750
     symbol name=stadium-m priority=5100 min_distance=8
     caption primary[height=10 color=c082 dy=1 optional] priority=-4900
   z20
-    area color=c217 priority=-1750
+    area color=c216 priority=-1750
     symbol name=stadium-m priority=5100 min_distance=8
     caption primary[height=10 color=c082 dy=1 optional] priority=-4900
 type leisure-swimming_pool
@@ -10696,39 +10660,39 @@ type leisure-swimming_pool-private
     caption primary[height=10 color=c082 dy=1 optional] priority=-9900
 type leisure-track
   z15
-    line width=1.5 color=c218 join=round cap=butt priority=160
+    line width=1.5 color=c217 join=round cap=butt priority=160
   z16
-    line width=1.8 color=c218 join=round cap=round priority=160
+    line width=1.8 color=c217 join=round cap=round priority=160
     caption primary[height=9 color=c142 stroke=c087] priority=120
   z17
-    line width=3 color=c219 join=round cap=round priority=160
+    line width=3 color=c218 join=round cap=round priority=160
     caption primary[height=9 color=c142 stroke=c087 dy=1] priority=120
   z18
-    line width=3 color=c219 join=round cap=round priority=160
+    line width=3 color=c218 join=round cap=round priority=160
     caption primary[height=10 color=c142 stroke=c087 dy=1] priority=120
   z19
-    line width=4 color=c219 join=round cap=round priority=160
+    line width=4 color=c218 join=round cap=round priority=160
     caption primary[height=10 color=c142 stroke=c087 dy=1] priority=120
   z20
-    line width=4 color=c219 join=round cap=round priority=160
+    line width=4 color=c218 join=round cap=round priority=160
     caption primary[height=10 color=c142 stroke=c087 dy=1] priority=120
 type leisure-track-area
   z15
-    area color=c215 priority=-1840
+    area color=c214 priority=-1840
   z16
-    area color=c215 priority=-1840
+    area color=c214 priority=-1840
     caption primary[height=9 color=c142 stroke=c087] priority=120
   z17
-    area color=c215 priority=-1840
+    area color=c214 priority=-1840
     caption primary[height=9 color=c142 stroke=c087 dy=1] priority=120
   z18
-    area color=c215 priority=-1840
+    area color=c214 priority=-1840
     caption primary[height=10 color=c142 stroke=c087 dy=1] priority=120
   z19
-    area color=c215 priority=-1840
+    area color=c214 priority=-1840
     caption primary[height=10 color=c142 stroke=c087 dy=1] priority=120
   z20
-    area color=c215 priority=-1840
+    area color=c214 priority=-1840
     caption primary[height=10 color=c142 stroke=c087 dy=1] priority=120
 type leisure-water_park
   z16
@@ -10757,28 +10721,28 @@ type man_made-breakwater
   z13
     area color=c209 priority=30
   z14
-    line width=1.5 color=c220 join=round cap=butt priority=30
+    line width=1.5 color=c219 join=round cap=butt priority=30
     area color=c209 priority=30
   z15
-    line width=2 color=c220 join=round cap=butt priority=30
+    line width=2 color=c219 join=round cap=butt priority=30
     area color=c209 priority=30
   z16
-    line width=3 color=c220 join=round cap=round priority=30
+    line width=3 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
   z17
-    line width=4.5 color=c220 join=round cap=round priority=30
+    line width=4.5 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
     caption primary[height=10 color=c082] priority=700
   z18
-    line width=6 color=c220 join=round cap=round priority=30
+    line width=6 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
     caption primary[height=10 color=c082] priority=700
   z19
-    line width=8 color=c220 join=round cap=round priority=30
+    line width=8 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
     caption primary[height=10 color=c082] priority=700
   z20
-    line width=8 color=c220 join=round cap=round priority=30
+    line width=8 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
     caption primary[height=10 color=c082] priority=700
 type man_made-bridge
@@ -10895,19 +10859,19 @@ type man_made-cross
     caption primary[height=11 color=c082 dy=1 optional] priority=-8450
 type man_made-cutline
   z14
-    line width=1 color=c221 join=round cap=butt priority=80
+    line width=1 color=c220 join=round cap=butt priority=80
   z15
-    line width=1.5 color=c221 join=round cap=butt priority=80
+    line width=1.5 color=c220 join=round cap=butt priority=80
   z16
-    line width=2 color=c221 join=round cap=round priority=80
+    line width=2 color=c220 join=round cap=round priority=80
   z17
-    line width=3 color=c221 join=round cap=round priority=80
+    line width=3 color=c220 join=round cap=round priority=80
   z18
-    line width=4.5 color=c221 join=round cap=round priority=80
+    line width=4.5 color=c220 join=round cap=round priority=80
   z19
-    line width=6 color=c221 join=round cap=round priority=80
+    line width=6 color=c220 join=round cap=round priority=80
   z20
-    line width=6 color=c221 join=round cap=round priority=80
+    line width=6 color=c220 join=round cap=round priority=80
 type man_made-embankment
   z16
     line width=3.5 color=c105 join=round cap=round dash=[4,2,2,1.5] priority=100
@@ -11048,28 +11012,28 @@ type man_made-pier
   z13
     area color=c209 priority=30
   z14
-    line width=1.5 color=c220 join=round cap=butt priority=30
+    line width=1.5 color=c219 join=round cap=butt priority=30
     area color=c209 priority=30
   z15
-    line width=2 color=c220 join=round cap=butt priority=30
+    line width=2 color=c219 join=round cap=butt priority=30
     area color=c209 priority=30
   z16
-    line width=3 color=c220 join=round cap=round priority=30
+    line width=3 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
   z17
-    line width=4.5 color=c220 join=round cap=round priority=30
+    line width=4.5 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
     caption primary[height=10 color=c082] priority=700
   z18
-    line width=6 color=c220 join=round cap=round priority=30
+    line width=6 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
     caption primary[height=10 color=c082] priority=700
   z19
-    line width=8 color=c220 join=round cap=round priority=30
+    line width=8 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
     caption primary[height=10 color=c082] priority=700
   z20
-    line width=8 color=c220 join=round cap=round priority=30
+    line width=8 color=c219 join=round cap=round priority=30
     area color=c209 priority=30
     caption primary[height=10 color=c082] priority=700
 type man_made-silo
@@ -11267,131 +11231,131 @@ type natural-arch
     caption primary[height=10 color=c082 dy=1 optional] priority=-5350
 type natural-bare_rock
   z12
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
   z13
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
   z14
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
     caption primary[height=10 color=c082 dy=1] priority=3250
   z15
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
     caption primary[height=10 color=c082 dy=1] priority=3250
   z16
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
     caption primary[height=10 color=c082 dy=1] priority=3250
   z17
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
     caption primary[height=10 color=c082 dy=1] priority=3250
   z18
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
     caption primary[height=10 color=c082 dy=1] priority=3250
   z19
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
     caption primary[height=10 color=c082 dy=1] priority=3250
   z20
-    area color=c222 priority=-1920
+    area color=c221 priority=-1920
     caption primary[height=10 color=c082 dy=1] priority=3250
 type natural-bay
   z14
-    caption primary[height=10 color=c210] priority=3250
+    caption primary[height=10 color=c222] priority=3250
   z15
-    caption primary[height=10 color=c210] priority=3250
+    caption primary[height=10 color=c222] priority=3250
   z16
-    caption primary[height=11 color=c210] priority=3250
+    caption primary[height=11 color=c222] priority=3250
   z17
-    caption primary[height=11 color=c210] priority=3250
+    caption primary[height=11 color=c222] priority=3250
   z18
-    caption primary[height=11 color=c210] priority=3250
+    caption primary[height=11 color=c222] priority=3250
   z19
-    caption primary[height=11 color=c210] priority=3250
+    caption primary[height=11 color=c222] priority=3250
   z20
-    caption primary[height=11 color=c210] priority=3250
+    caption primary[height=11 color=c222] priority=3250
 type natural-beach
   z10
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z11
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z12
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z13
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z14
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z15
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082] priority=3250
   z16
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z17
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z18
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z19
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z20
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
 type natural-beach-gravel
   z10
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z11
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z12
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z13
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z14
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z15
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082] priority=3250
   z16
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z17
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z18
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z19
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z20
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
 type natural-beach-sand
   z10
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z11
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z12
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z13
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z14
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
   z15
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082] priority=3250
   z16
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z17
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z18
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z19
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
   z20
-    area color=c212 priority=-1970
+    area color=c211 priority=-1970
     caption primary[height=10 color=c082 dy=1] priority=3250
 type natural-cape
   z14
@@ -11899,37 +11863,37 @@ type natural-spring-drinking_water_no
 type natural-strait
   z13
     line width=0.7 color=c229 join=round cap=butt priority=-990
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z14
     line width=1 color=c229 join=round cap=butt priority=-990
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z15
     line width=1.6 color=c229 join=round cap=butt priority=-990
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z16
     line width=1.6 color=c229 join=round cap=round priority=-990
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z17
     line width=1.6 color=c229 join=round cap=round priority=-990
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z18
     line width=1.6 color=c229 join=round cap=round priority=-990
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z19
     line width=1.6 color=c229 join=round cap=round priority=-990
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z20
     line width=1.6 color=c229 join=round cap=round priority=-990
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
 type natural-tree_row
   z17
-    line width=6 color=c214 join=round cap=round priority=-995
+    line width=6 color=c213 join=round cap=round priority=-995
   z18
-    line width=8 color=c214 join=round cap=round priority=-995
+    line width=8 color=c213 join=round cap=round priority=-995
   z19
-    line width=10 color=c214 join=round cap=round priority=-995
+    line width=10 color=c213 join=round cap=round priority=-995
   z20
-    line width=10 color=c214 join=round cap=round priority=-995
+    line width=10 color=c213 join=round cap=round priority=-995
 type natural-volcano
   z12
     symbol name=volcano-s priority=5400
@@ -12005,45 +11969,45 @@ type natural-water
     area color=c091 priority=-980
   z10 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z10 if "bbox_area<4000000"
     area color=c091 priority=-980
   z11 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z11 if "bbox_area<4000000"
     area color=c091 priority=-980
   z12 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z12 if "bbox_area<4000000"
     area color=c091 priority=-980
   z13 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z13 if "bbox_area<4000000"
     area color=c091 priority=-980
   z14
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z15
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z16
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z17
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z18
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z19
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z20
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
 type natural-water-basin
   z1
     area color=c091 priority=-980
@@ -12065,45 +12029,45 @@ type natural-water-basin
     area color=c091 priority=-980
   z10 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=2900
+    caption primary[height=9 color=c222] priority=2900
   z10 if "bbox_area<4000000"
     area color=c091 priority=-980
   z11 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=2900
+    caption primary[height=9 color=c222] priority=2900
   z11 if "bbox_area<4000000"
     area color=c091 priority=-980
   z12 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=2900
+    caption primary[height=9 color=c222] priority=2900
   z12 if "bbox_area<4000000"
     area color=c091 priority=-980
   z13 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=2900
+    caption primary[height=9 color=c222] priority=2900
   z13 if "bbox_area<4000000"
     area color=c091 priority=-980
   z14
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=2900
+    caption primary[height=10 color=c222] priority=2900
   z15
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=2900
+    caption primary[height=10 color=c222] priority=2900
   z16
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z17
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z18
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z19
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z20
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
 type natural-water-ditch
   z13 if "bbox_area>=4000000"
     area color=c230 priority=-980
@@ -12117,16 +12081,16 @@ type natural-water-ditch
     area color=c230 priority=-980
   z17
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z18
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z19
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z20
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
 type natural-water-drain
   z13 if "bbox_area>=4000000"
     area color=c230 priority=-980
@@ -12140,16 +12104,16 @@ type natural-water-drain
     area color=c230 priority=-980
   z17
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z18
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z19
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z20
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
 type natural-water-lake
   z1
     area color=c091 priority=-980
@@ -12167,51 +12131,51 @@ type natural-water-lake
     area color=c091 priority=-980
   z8
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z9
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z10 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z10 if "bbox_area<4000000"
     area color=c091 priority=-980
   z11 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z11 if "bbox_area<4000000"
     area color=c091 priority=-980
   z12 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z12 if "bbox_area<4000000"
     area color=c091 priority=-980
   z13 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z13 if "bbox_area<4000000"
     area color=c091 priority=-980
   z14
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=6650
+    caption primary[height=10 color=c222] priority=6650
   z15
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=6650
+    caption primary[height=10 color=c222] priority=6650
   z16
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
   z17
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
   z18
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
   z19
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
   z20
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
 type natural-water-lock
   z1
     area color=c091 priority=-980
@@ -12233,45 +12197,45 @@ type natural-water-lock
     area color=c091 priority=-980
   z10 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=2900
+    caption primary[height=9 color=c222] priority=2900
   z10 if "bbox_area<4000000"
     area color=c091 priority=-980
   z11 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=2900
+    caption primary[height=9 color=c222] priority=2900
   z11 if "bbox_area<4000000"
     area color=c091 priority=-980
   z12 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=2900
+    caption primary[height=9 color=c222] priority=2900
   z12 if "bbox_area<4000000"
     area color=c091 priority=-980
   z13 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=2900
+    caption primary[height=9 color=c222] priority=2900
   z13 if "bbox_area<4000000"
     area color=c091 priority=-980
   z14
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=2900
+    caption primary[height=10 color=c222] priority=2900
   z15
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=2900
+    caption primary[height=10 color=c222] priority=2900
   z16
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z17
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z18
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z19
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z20
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
 type natural-water-moat
   z1
     area color=c091 priority=-980
@@ -12315,16 +12279,16 @@ type natural-water-moat
     area color=c091 priority=-980
   z17
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z18
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z19
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z20
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
 type natural-water-pond
   z1
     area color=c091 priority=-980
@@ -12346,45 +12310,45 @@ type natural-water-pond
     area color=c091 priority=-980
   z10 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z10 if "bbox_area<4000000"
     area color=c091 priority=-980
   z11 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z11 if "bbox_area<4000000"
     area color=c091 priority=-980
   z12 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z12 if "bbox_area<4000000"
     area color=c091 priority=-980
   z13 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z13 if "bbox_area<4000000"
     area color=c091 priority=-980
   z14
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z15
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z16
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z17
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z18
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z19
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z20
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
 type natural-water-reservoir
   z1
     area color=c091 priority=-980
@@ -12406,45 +12370,45 @@ type natural-water-reservoir
     area color=c091 priority=-980
   z10 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z10 if "bbox_area<4000000"
     area color=c091 priority=-980
   z11 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z11 if "bbox_area<4000000"
     area color=c091 priority=-980
   z12 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z12 if "bbox_area<4000000"
     area color=c091 priority=-980
   z13 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=6650
+    caption primary[height=9 color=c222] priority=6650
   z13 if "bbox_area<4000000"
     area color=c091 priority=-980
   z14
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=6650
+    caption primary[height=10 color=c222] priority=6650
   z15
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=6650
+    caption primary[height=10 color=c222] priority=6650
   z16
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
   z17
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
   z18
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
   z19
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
   z20
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=6650
+    caption primary[height=11 color=c222] priority=6650
 type natural-water-river
   z1
     area color=c091 priority=-980
@@ -12466,45 +12430,45 @@ type natural-water-river
     area color=c091 priority=-980
   z10 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z10 if "bbox_area<4000000"
     area color=c091 priority=-980
   z11 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z11 if "bbox_area<4000000"
     area color=c091 priority=-980
   z12 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z12 if "bbox_area<4000000"
     area color=c091 priority=-980
   z13 if "bbox_area>=4000000"
     area color=c091 priority=-980
-    caption primary[height=9 color=c210] priority=3150
+    caption primary[height=9 color=c222] priority=3150
   z13 if "bbox_area<4000000"
     area color=c091 priority=-980
   z14
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z15
     area color=c091 priority=-980
-    caption primary[height=10 color=c210] priority=3150
+    caption primary[height=10 color=c222] priority=3150
   z16
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z17
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z18
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z19
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
   z20
     area color=c091 priority=-980
-    caption primary[height=11 color=c210] priority=3150
+    caption primary[height=11 color=c222] priority=3150
 type natural-water-tunnel
   z15
     area color=c231 priority=-980
@@ -12535,16 +12499,16 @@ type natural-water-wastewater
     area color=c230 priority=-980
   z17
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z18
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z19
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
   z20
     area color=c230 priority=-980
-    caption primary[height=11 color=c210] priority=2900
+    caption primary[height=11 color=c222] priority=2900
 type natural-wetland
   z11
     area color=c232 priority=40
@@ -12558,19 +12522,19 @@ type natural-wetland
     area color=c232 priority=40
   z16
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z17
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z18
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z19
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z20
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
 type natural-wetland-bog
   z11
     area color=c232 priority=40
@@ -12584,19 +12548,19 @@ type natural-wetland-bog
     area color=c232 priority=40
   z16
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z17
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z18
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z19
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z20
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
 type natural-wetland-marsh
   z11
     area color=c232 priority=40
@@ -12610,19 +12574,19 @@ type natural-wetland-marsh
     area color=c232 priority=40
   z16
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z17
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z18
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z19
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
   z20
     area color=c232 priority=40
-    caption primary[height=11 color=c210] priority=1800
+    caption primary[height=11 color=c222] priority=1800
 type office
   z18
     symbol name=office-m priority=470
@@ -13513,19 +13477,19 @@ type place-country
     caption primary[height=21 color=c251] secondary[height=19 color=c251 dy=1] priority=7600
 type place-farm
   z14
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z15
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z16
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z17
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z18
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z19
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z20
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
 type place-hamlet
   z13
     caption primary[height=11 color=c099 stroke=c250] priority=5750
@@ -13545,29 +13509,29 @@ type place-hamlet
     caption primary[height=11 color=c099 stroke=c250] priority=5750
 type place-island
   z9
-    caption primary[height=8 color=c211] priority=7150
+    caption primary[height=8 color=c210] priority=7150
   z10
-    caption primary[height=8 color=c211] priority=7150
+    caption primary[height=8 color=c210] priority=7150
   z11
-    caption primary[height=8 color=c211] priority=7150
+    caption primary[height=8 color=c210] priority=7150
   z12
-    caption primary[height=9 color=c211] priority=7150
+    caption primary[height=9 color=c210] priority=7150
   z13
-    caption primary[height=9 color=c211] priority=7150
+    caption primary[height=9 color=c210] priority=7150
   z14
-    caption primary[height=10 color=c211] priority=7150
+    caption primary[height=10 color=c210] priority=7150
   z15
-    caption primary[height=10 color=c211] priority=7150
+    caption primary[height=10 color=c210] priority=7150
   z16
-    caption primary[height=12 color=c211] priority=7150
+    caption primary[height=12 color=c210] priority=7150
   z17
-    caption primary[height=12 color=c211] priority=7150
+    caption primary[height=12 color=c210] priority=7150
   z18
-    caption primary[height=12 color=c211] priority=7150
+    caption primary[height=12 color=c210] priority=7150
   z19
-    caption primary[height=12 color=c211] priority=7150
+    caption primary[height=12 color=c210] priority=7150
   z20
-    caption primary[height=12 color=c211] priority=7150
+    caption primary[height=12 color=c210] priority=7150
 type place-islet
   z10
     area color=c209 priority=-1980
@@ -13579,167 +13543,167 @@ type place-islet
     area color=c209 priority=-1980
   z14
     area color=c209 priority=-1980
-    caption primary[height=10 color=c211] priority=4500
+    caption primary[height=10 color=c210] priority=4500
   z15
     area color=c209 priority=-1980
-    caption primary[height=10 color=c211] priority=4500
+    caption primary[height=10 color=c210] priority=4500
   z16
     area color=c209 priority=-1980
-    caption primary[height=12 color=c211] priority=4500
+    caption primary[height=12 color=c210] priority=4500
   z17
     area color=c209 priority=-1980
-    caption primary[height=12 color=c211] priority=4500
+    caption primary[height=12 color=c210] priority=4500
   z18
     area color=c209 priority=-1980
-    caption primary[height=12 color=c211] priority=4500
+    caption primary[height=12 color=c210] priority=4500
   z19
     area color=c209 priority=-1980
-    caption primary[height=12 color=c211] priority=4500
+    caption primary[height=12 color=c210] priority=4500
   z20
     area color=c209 priority=-1980
-    caption primary[height=12 color=c211] priority=4500
+    caption primary[height=12 color=c210] priority=4500
 type place-isolated_dwelling
   z14
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z15
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z16
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z17
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z18
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z19
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z20
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
 type place-locality
   z13
-    caption primary[height=10 color=c211] secondary[height=9 color=c211 dy=1] priority=5700
+    caption primary[height=10 color=c210] secondary[height=9 color=c210 dy=1] priority=5700
   z14
-    caption primary[height=10 color=c211] secondary[height=9 color=c211 dy=1] priority=5700
+    caption primary[height=10 color=c210] secondary[height=9 color=c210 dy=1] priority=5700
   z15
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z16
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z17
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z18
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z19
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z20
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
 type place-neighbourhood
   z13
-    caption primary[height=10 color=c211] secondary[height=9 color=c211 dy=1] priority=5700
+    caption primary[height=10 color=c210] secondary[height=9 color=c210 dy=1] priority=5700
   z14
-    caption primary[height=10 color=c211] secondary[height=9 color=c211 dy=1] priority=5700
+    caption primary[height=10 color=c210] secondary[height=9 color=c210 dy=1] priority=5700
   z15
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z16
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z17
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z18
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z19
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
   z20
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5700
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5700
 type place-ocean
   z1
-    caption primary[height=14 color=c210] priority=7650
+    caption primary[height=14 color=c222] priority=7650
   z2
-    caption primary[height=14 color=c210] priority=7650
+    caption primary[height=14 color=c222] priority=7650
   z3
-    caption primary[height=15 color=c210] priority=7650
+    caption primary[height=15 color=c222] priority=7650
   z4
-    caption primary[height=16 color=c210] priority=7650
+    caption primary[height=16 color=c222] priority=7650
   z5
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z6
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z7
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z8
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z9
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z10
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z11
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z12
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z13
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z14
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z15
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z16
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z17
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z18
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z19
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
   z20
-    caption primary[height=18 color=c210] priority=7650
+    caption primary[height=18 color=c222] priority=7650
 type place-quarter
   z13
-    caption primary[height=11 color=c211] secondary[height=9 color=c211 dy=1] priority=5750
+    caption primary[height=11 color=c210] secondary[height=9 color=c210 dy=1] priority=5750
   z14
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=5750
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=5750
   z15
-    caption primary[height=14 color=c211] secondary[height=12 color=c211 dy=1] priority=5750
+    caption primary[height=14 color=c210] secondary[height=12 color=c210 dy=1] priority=5750
   z16
-    caption primary[height=14 color=c211] secondary[height=12 color=c211 dy=1] priority=5750
+    caption primary[height=14 color=c210] secondary[height=12 color=c210 dy=1] priority=5750
   z17
-    caption primary[height=14 color=c211] secondary[height=12 color=c211 dy=1] priority=5750
+    caption primary[height=14 color=c210] secondary[height=12 color=c210 dy=1] priority=5750
   z18
-    caption primary[height=14 color=c211] secondary[height=12 color=c211 dy=1] priority=5750
+    caption primary[height=14 color=c210] secondary[height=12 color=c210 dy=1] priority=5750
   z19
-    caption primary[height=14 color=c211] secondary[height=12 color=c211 dy=1] priority=5750
+    caption primary[height=14 color=c210] secondary[height=12 color=c210 dy=1] priority=5750
   z20
-    caption primary[height=14 color=c211] secondary[height=12 color=c211 dy=1] priority=5750
+    caption primary[height=14 color=c210] secondary[height=12 color=c210 dy=1] priority=5750
 type place-sea
   z4
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z5
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z6
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z7
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z8
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z9
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z10
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z11
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z12
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z13
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z14
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z15
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z16
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z17
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z18
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z19
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
   z20
-    caption primary[height=12 color=c210] priority=7450
+    caption primary[height=12 color=c222] priority=7450
 type place-square
   z16
     caption primary[height=11 color=c099 stroke=c206] priority=5050
@@ -13777,15 +13741,15 @@ type place-state-major
     caption primary[height=12 color=c251] secondary[height=11 color=c251 dy=1] priority=7300
 type place-suburb
   z10
-    caption primary[height=9 color=c211] priority=7050
+    caption primary[height=9 color=c210] priority=7050
   z11
-    caption primary[height=10 color=c211] priority=7050
+    caption primary[height=10 color=c210] priority=7050
   z12
-    caption primary[height=11 color=c211] priority=7050
+    caption primary[height=11 color=c210] priority=7050
   z13
-    caption primary[height=12 color=c211] secondary[height=10 color=c211 dy=1] priority=7050
+    caption primary[height=12 color=c210] secondary[height=10 color=c210 dy=1] priority=7050
   z14
-    caption primary[height=14 color=c211] secondary[height=12 color=c211 dy=1] priority=7050
+    caption primary[height=14 color=c210] secondary[height=12 color=c210 dy=1] priority=7050
 type place-town
   z8 if "population>=40000"
     caption primary[height=10 color=c099] secondary[height=9 color=c099 dy=1] priority=7100
@@ -20109,37 +20073,37 @@ type route-ferry
     line width=1 color=c268 join=bevel cap=butt dash=[5.4,2.7] priority=80
   z10
     line width=1 color=c268 join=bevel cap=butt dash=[5.4,2.7] priority=80
-    path_text primary[height=9 color=c210] priority=6200
+    path_text primary[height=9 color=c222] priority=6200
   z11
     line width=1 color=c268 join=bevel cap=butt dash=[5.4,2.7] priority=80
-    path_text primary[height=9 color=c210] priority=6200
+    path_text primary[height=9 color=c222] priority=6200
   z12
     line width=1 color=c268 join=bevel cap=butt dash=[5.4,2.7] priority=80
-    path_text primary[height=9 color=c210] priority=6200
+    path_text primary[height=9 color=c222] priority=6200
   z13
     line width=1 color=c268 join=round cap=butt dash=[5.4,2.7] priority=80
-    path_text primary[height=9 color=c210] priority=6200
+    path_text primary[height=9 color=c222] priority=6200
   z14
     line width=1 color=c268 join=round cap=butt dash=[5.4,2.7] priority=80
-    path_text primary[height=9 color=c210] priority=6200
+    path_text primary[height=9 color=c222] priority=6200
   z15
     line width=1 color=c268 join=round cap=butt dash=[5.4,2.7] priority=80
-    path_text primary[height=9 color=c210] priority=6200
+    path_text primary[height=9 color=c222] priority=6200
   z16
     line width=1 color=c268 join=round cap=round dash=[5.4,2.7] priority=80
-    path_text primary[height=9 color=c210] priority=6200
+    path_text primary[height=9 color=c222] priority=6200
   z17
     line width=1 color=c268 join=round cap=round dash=[5.4,2.7] priority=80
-    path_text primary[height=10 color=c210] priority=6200
+    path_text primary[height=10 color=c222] priority=6200
   z18
     line width=1 color=c268 join=round cap=round dash=[5.4,2.7] priority=80
-    path_text primary[height=10 color=c210] priority=6200
+    path_text primary[height=10 color=c222] priority=6200
   z19
     line width=1 color=c268 join=round cap=round dash=[5.4,2.7] priority=80
-    path_text primary[height=10 color=c210] priority=6200
+    path_text primary[height=10 color=c222] priority=6200
   z20
     line width=1 color=c268 join=round cap=round dash=[5.4,2.7] priority=80
-    path_text primary[height=10 color=c210] priority=6200
+    path_text primary[height=10 color=c222] priority=6200
 type shop
   z18
     symbol name=shop-m priority=470 min_distance=10
@@ -23214,28 +23178,28 @@ type waterway-access_point
 type waterway-canal
   z13
     line width=0.7 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z14
     line width=1 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z15
     line width=1.6 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z16
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z17
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z18
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z19
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z20
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
 type waterway-dam
   z14
     line width=1.5 color=c269 join=round cap=butt priority=30
@@ -23342,28 +23306,28 @@ type waterway-drain
 type waterway-fish_pass
   z13
     line width=0.7 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z14
     line width=1 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z15
     line width=1.6 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z16
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z17
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z18
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z19
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z20
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
 type waterway-lock_gate
   z16
     symbol name=dot-m priority=700
@@ -23380,109 +23344,109 @@ type waterway-river
     line width=1 color=c229 join=bevel cap=butt priority=-990
   z11
     line width=1.2 color=c229 join=bevel cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=3150
+    path_text primary[height=10 color=c222] priority=3150
   z12
     line width=1.2 color=c229 join=bevel cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=3150
+    path_text primary[height=10 color=c222] priority=3150
   z13
     line width=1.6 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=3150
+    path_text primary[height=10 color=c222] priority=3150
   z14
     line width=1.8 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=3150
+    path_text primary[height=10 color=c222] priority=3150
   z15
     line width=2.2 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=12 color=c210] priority=3150
+    path_text primary[height=12 color=c222] priority=3150
   z16
     line width=2.2 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=3150
+    path_text primary[height=12 color=c222] priority=3150
   z17
     line width=2.2 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=3150
+    path_text primary[height=12 color=c222] priority=3150
   z18
     line width=2.2 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=3150
+    path_text primary[height=12 color=c222] priority=3150
   z19
     line width=2.2 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=3150
+    path_text primary[height=12 color=c222] priority=3150
   z20
     line width=2.2 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=3150
+    path_text primary[height=12 color=c222] priority=3150
 type waterway-stream
   z13
     line width=0.7 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z14
     line width=1 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z15
     line width=1.6 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z16
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z17
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z18
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z19
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z20
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
 type waterway-stream-ephemeral
   z13
     line width=0.7 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z14
     line width=1 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z15
     line width=1.6 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z16
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z17
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z18
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z19
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z20
     line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
 type waterway-stream-intermittent
   z13
     line width=0.7 color=c229 join=round cap=butt dash=[2.7,2.7] priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z14
     line width=1 color=c229 join=round cap=butt dash=[2.7,2.7] priority=-990
-    path_text primary[height=10 color=c210] priority=2900
+    path_text primary[height=10 color=c222] priority=2900
   z15
     line width=1.4 color=c229 join=round cap=butt dash=[4.95,4.95] priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z16
     line width=1.4 color=c229 join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z17
     line width=1.4 color=c229 join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=11 color=c210] priority=2900
+    path_text primary[height=11 color=c222] priority=2900
   z18
     line width=1.4 color=c229 join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z19
     line width=1.4 color=c229 join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
   z20
     line width=1.4 color=c229 join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=12 color=c210] priority=2900
+    path_text primary[height=12 color=c222] priority=2900
 type waterway-waterfall
   z13
     symbol name=waterfall-s priority=5800

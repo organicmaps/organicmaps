@@ -10311,42 +10311,6 @@ type landuse-religious
     area color=c185 priority=-1950
   z20
     area color=c185 priority=-1950
-type landuse-reservoir
-  z10 if "bbox_area>=4000000"
-    caption primary[height=9 color=c093] priority=6650
-  z11 if "bbox_area>=4000000"
-    caption primary[height=9 color=c093] priority=6650
-  z12 if "bbox_area>=4000000"
-    area color=c080 priority=-980
-    caption primary[height=9 color=c093] priority=6650
-  z12 if "bbox_area<4000000"
-    area color=c080 priority=-980
-  z13 if "bbox_area>=4000000"
-    area color=c080 priority=-980
-    caption primary[height=9 color=c093] priority=6650
-  z13 if "bbox_area<4000000"
-    area color=c080 priority=-980
-  z14
-    area color=c080 priority=-980
-    caption primary[height=10 color=c093] priority=6650
-  z15
-    area color=c080 priority=-980
-    caption primary[height=10 color=c093] priority=6650
-  z16
-    area color=c080 priority=-980
-    caption primary[height=11 color=c093] priority=6650
-  z17
-    area color=c080 priority=-980
-    caption primary[height=11 color=c093] priority=6650
-  z18
-    area color=c080 priority=-980
-    caption primary[height=11 color=c093] priority=6650
-  z19
-    area color=c080 priority=-980
-    caption primary[height=11 color=c093] priority=6650
-  z20
-    area color=c080 priority=-980
-    caption primary[height=11 color=c093] priority=6650
 type landuse-residential
   z17
     caption primary[height=12 color=c186] secondary[height=10 color=c186 dy=1] priority=120
