@@ -27,8 +27,8 @@
     <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
       android:id="@+id/nav_speed_limit"
       style="@style/MwmWidget.SpeedLimit"
-      android:layout_width="60dp"
-      android:layout_height="60dp"
+      android:layout_width="@dimen/nav_speed_limit_size"
+      android:layout_height="@dimen/nav_speed_limit_size"
       android:layout_margin="@dimen/margin_half"
       app:layout_constraintStart_toStartOf="@id/maneuver_view"
       app:layout_constraintTop_toBottomOf="@id/maneuver_view"/>
