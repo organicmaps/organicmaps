@@ -675,7 +675,6 @@ world  +
         railway  -
         recreation_ground  -
         religious  -
-        reservoir  -
         residential  -
         retail  -
         salt_pond  -

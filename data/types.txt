@@ -49,7 +49,7 @@ highway|track
 *barrier|fence
 *natural|water|lake
 *highway|footway|crossing
-mapswithme
+natural|water|river
 *highway|path|bicycle
 *landuse|meadow
 *highway|living_street
@@ -59,7 +59,7 @@ mapswithme
 *highway|steps
 *waterway|ditch
 *amenity|restaurant
-*landuse|reservoir
+natural|water|reservoir
 highway|track
 *amenity|bench
 *railway|rail|branch
