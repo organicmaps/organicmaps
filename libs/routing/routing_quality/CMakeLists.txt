@@ -12,7 +12,7 @@ target_link_libraries(${PROJECT_NAME}
     routes_builder
 )
 
-add_subdirectory(api)
+omim_add_tool_subdirectory(api)
 omim_add_tool_subdirectory(routing_quality_tool)
 
-omim_add_test_subdirectory(routing_quality_tests)
+omim_add_integration_test_subdirectory(routing_quality_tests)

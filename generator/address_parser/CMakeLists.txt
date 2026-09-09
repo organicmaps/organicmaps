@@ -12,11 +12,13 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 target_link_libraries(${PROJECT_NAME} PUBLIC generator)
 
 
-omim_add_executable(address_parser_tool parser_tool.cpp)
-target_link_libraries(address_parser_tool
-  PRIVATE
-    ${PROJECT_NAME}
-    gflags::gflags
-)
+if (NOT SKIP_TOOLS)
+  omim_add_executable(address_parser_tool parser_tool.cpp)
+  target_link_libraries(address_parser_tool
+    PRIVATE
+      ${PROJECT_NAME}
+      gflags::gflags
+  )
+endif()
 
 omim_add_test_subdirectory(address_parser_tests)
