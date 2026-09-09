@@ -10,7 +10,11 @@
 # - primary title tag (usually "name")
 # - secondary title tag (usually "int_name")
 # - type id, sequential starting from 1
-# - optional: a replacement type for a deprecated one
+# - optional: a replacement type for a deprecated one.
+#   It only remaps the old type id when reading already built maps. A deprecated row (an "x" above,
+#   or any non-empty last column in the short format, no matter how the type is named) is excluded
+#   from the classificator, so its selectors never match OSM tags anymore: converting the tags
+#   themselves needs a replaced_tags.txt rule.
 # A "mandatory" mapcss selector like [fee?] or [fee] matches all tag values except [fee=no],
 # a "forbidden" selector like [!oneway] matches [oneway=no] only or absence of this tag.
 # If first 2 (1 for short types like "building") components of pre-matched types are the same,
@@ -119,7 +123,7 @@ barrier|fence;49;
 natural|water|lake;[natural=water][water=lake];;name;int_name;50;
 # ~3M usages. TODO: consolidate all other footway=link/etc. values into highway-footway-minor.
 highway|footway|crossing;[highway=footway][footway=crossing];;name;int_name;51;
-deprecated:waterway|riverbank:05.2024;52;x
+deprecated:waterway|riverbank:05.2024;52;natural|water|river
 # 600k+ usages.
 highway|path|bicycle;[highway=path][bicycle=designated];;;;53;
 landuse|meadow;54;
@@ -131,8 +135,7 @@ highway|motorway;58;
 highway|steps;59;
 waterway|ditch;60;
 amenity|restaurant;61;
-# TODO: deprecated, 250k, replace with natural=water + water=reservoir?
-landuse|reservoir;62;
+deprecated:landuse|reservoir:09.2026;62;natural|water|reservoir
 deprecated:highway|track|grade5:04.2024;[highway=track][tracktype=grade5];x;name;int_name;63;highway|track
 amenity|bench;64;
 # Branch railway lines include ordinary railway=rail w/o any specific usage= or service=, ~500k usages.

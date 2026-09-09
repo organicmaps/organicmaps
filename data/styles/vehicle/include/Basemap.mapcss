@@ -193,7 +193,6 @@ area|z0-[natural=water],
 area|z0-[waterway=dock],
 area|z0-[landuse=salt_pond],
 area|z12-[landuse=basin],
-area|z12-[landuse=reservoir],
 {fill-opacity: 1;}
 
 area|z11-[natural=wetland],
@@ -212,7 +211,6 @@ area|z0-[natural=water][!tunnel],
 area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
 area|z12-[landuse=basin],
-area|z12-[landuse=reservoir],
 area|z13-[leisure=swimming_pool],
 {fill-color: @water;}
 

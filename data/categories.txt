@@ -12359,44 +12359,45 @@ zh-Hans:湖|水
 zh-Hant:湖泊|湖
 
 # Do not add the "water" search term
-natural-water-reservoir|landuse-reservoir|@waterbody
+natural-water-reservoir|@waterbody
 en:5Reservoir
 ar:خزان
 be:5Вадасховішча
-bg:5Резервоар
-cs:Nádrž|voda
+bg:5Резервоар|язовир
+cs:Nádrž|přehradní nádrž
 da:5Reservoir|vandreservoir
-de:5Reservoir|wasserfläche
+de:5Reservoir|Stausee
 el:Δεξαμενή|ταμιευτήρας
 es:5Reservorio|embalse
 et:Reservuaar|veehoidla
 eu:Urtegia|arroa
-fa:مخزن|آب
+fa:مخزن
 fi:Tekojärvi|patoallas|säiliö|vesiallas
 fr:5Réservoir
 he:מאגר|מאגר מים
 hu:5Rezervoár|víztározó|tározó
-id:Waduk|air
+id:Waduk
 it:Bacino idrico|invaso|serbatoio|bacino
 ja:貯水池
 ko:저수지
 lt:5Vandens rezervuaras|5tvenkinynas|vandens saugykla|rezervuaras
 lv:5Rezervuārs
-mr:जलाशय|पाणी
-nb:5Reservoar|vann
+mr:जलाशय
+nb:5Reservoar
 nl:5Reservoir
-pl:5Zbiornik|woda
-pt:5Reservatório|água
-ro:5Rezervor|apă
-ru:5Водохранилище|водоём
-sk:Nádrž|voda
+pl:5Zbiornik|zbiornik wodny
+pt:5Reservatório
+ro:5Rezervor|lac de acumulare
+ru:5Водохранилище
+sk:Nádrž|priehradná nádrž
 sl:5Rezervoar|akumulacijsko jezero|zadrževalnik
-sv:5Reservoar|vatten
+sr:Акумулационо језеро|akumulaciono jezero|резервоар
+sv:5Reservoar
 sw:Hifadhi
-th:อ่างเก็บน้ำ|น้ำ
-tr:5Rezervuar|su
-uk:5Водосховище|водоймище
-vi:Hồ chứa|nước
+th:อ่างเก็บน้ำ
+tr:5Rezervuar
+uk:5Водосховище
+vi:Hồ chứa
 zh-Hans:水库
 zh-Hant:水庫
 

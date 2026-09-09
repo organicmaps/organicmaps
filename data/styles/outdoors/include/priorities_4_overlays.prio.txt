@@ -106,7 +106,6 @@ boundary-protected_area-6                           # icon z10-17 (also has capt
 leisure-nature_reserve                              # icon z10-17 and caption z9 (also has caption(optional) z11-17, area z8-17)
 === 6700
 
-landuse-reservoir                                   # caption z10- (also has area z12-)
 natural-water-lake                                  # caption z8- (also has area z1-)
 natural-water-reservoir                             # caption z10- (also has area z1-)
 === 6650

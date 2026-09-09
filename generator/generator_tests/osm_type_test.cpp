@@ -1750,6 +1750,31 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cliff)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_DeprecatedWaterTags)
+{
+  using Type = std::vector<std::string>;
+  std::vector<std::pair<std::vector<Type>, Tags>> const conversions = {
+      {{{"natural", "water", "lake"}}, {{"natural", "lake"}}},
+      {{{"natural", "water", "pond"}}, {{"natural", "pond"}}},
+      {{{"landuse", "salt_pond"}}, {{"natural", "salt_pond"}}},
+      {{{"natural", "water", "river"}}, {{"waterway", "riverbank"}}},
+      {{{"natural", "water", "reservoir"}}, {{"landuse", "reservoir"}}},
+      // Legacy and canonical tagging together must not duplicate the type.
+      {{{"natural", "water", "lake"}}, {{"natural", "lake"}, {"water", "lake"}}},
+      {{{"natural", "water", "reservoir"}}, {{"landuse", "reservoir"}, {"natural", "water"}, {"water", "reservoir"}}},
+      // The injected natural=water must not overwrite another landcover type.
+      {{{"natural", "water", "reservoir"}, {"landuse", "forest"}}, {{"landuse", "reservoir"}, {"natural", "wood"}}},
+  };
+
+  for (auto const & [types, tags] : conversions)
+  {
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), types.size(), (tags, params));
+    for (auto const & type : types)
+      TEST(params.IsTypeExist(GetType(type)), (tags, params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
 {
   {
@@ -2400,7 +2425,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"landuse", "quarry"},
       {"landuse", "railway"},
       {"landuse", "recreation_ground"},
-      {"landuse", "reservoir"},
       {"landuse", "residential"},
       {"landuse", "salt_pond"},
       {"landuse", "village_green"},

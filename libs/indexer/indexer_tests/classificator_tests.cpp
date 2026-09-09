@@ -104,4 +104,19 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_StableIndex)
   TEST_NOT_EQUAL(type, c.GetTypeForIndex(356 - 1), ());  // Restored underground-fee
   TEST_EQUAL(type, c.GetTypeForIndex(357 - 1), ());
 }
+
+UNIT_CLASS_TEST(TestWithClassificator, Classificator_LegacyWaterTypes)
+{
+  // waterway=riverbank and landuse=reservoir are deprecated in mapcss-mapping.csv with a replacement,
+  // so their indices in old maps must resolve to the canonical natural=water subtypes.
+  Classificator const & c = classif();
+
+  uint32_t const river = c.GetTypeByPath({"natural", "water", "river"});
+  TEST_EQUAL(river, c.GetTypeForIndex(52 - 1), ());
+  TEST_EQUAL(c.GetIndexForType(river), 149 - 1, ());
+
+  uint32_t const reservoir = c.GetTypeByPath({"natural", "water", "reservoir"});
+  TEST_EQUAL(reservoir, c.GetTypeForIndex(62 - 1), ());
+  TEST_EQUAL(c.GetIndexForType(reservoir), 148 - 1, ());
+}
 }  // namespace classificator_tests

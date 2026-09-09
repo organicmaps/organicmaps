@@ -249,7 +249,7 @@ UNIT_TEST(Classificator_AreaPriority)
           //{"waterway", "river"}, {"waterway", "stream"}, {"natural", "strait"}, {"waterway", "ditch"},
           // 0 - water areas
           {"natural", "water"},
-          {"landuse", "reservoir"},
+          {"natural", "water", "reservoir"},
           {"natural", "water", "river"},
           {"waterway", "dock"},
           // ? - hatching fills @todo: absent in vehicle style, need to test main style only

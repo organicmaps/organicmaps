@@ -187,7 +187,6 @@ place-village                                       # caption z11-
 railway-station                                     # icon z12- (also has caption(optional) z13-)
 === 3000
 
-landuse-reservoir                                   # caption z10- (also has area z12-)
 natural-water-lake                                  # caption z10- (also has area z1-)
 natural-water-reservoir                             # caption z10- (also has area z1-)
 === 2950
