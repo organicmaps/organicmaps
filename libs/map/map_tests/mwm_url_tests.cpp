@@ -489,6 +489,39 @@ UNIT_TEST(RouteApiLegacyAllowsCommonAppAndCenterParams)
   TEST_EQUAL(test.GetGlobalBackUrl(), "", ());
 }
 
+UNIT_TEST(RouteApiLegacyIgnoresParametersOutsideTheSequence)
+{
+  ParsedMapApi api(
+      "om://route?type=ignored&saddr=ignored&sll=1,1&sll=9,9&saddr=A&dll=2,2&daddr=B&type=vehicle"
+      "&saddr=ignored&type=unknown&sll=3,3");
+  TEST_EQUAL(api.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(api.GetRoutePoints().size(), 2, ());
+  TEST_EQUAL(api.GetRoutePoints()[0].m_org, mercator::FromLatLon(1, 1), ());
+  TEST_EQUAL(api.GetRoutePoints()[0].m_name, "A", ());
+  TEST_EQUAL(api.GetRoutePoints()[1].m_name, "B", ());
+  TEST_EQUAL(api.GetRoutingType(), "vehicle", ());
+}
+
+UNIT_TEST(RouteApiV2RepeatedFieldsUseLastValue)
+{
+  ParsedMapApi api(
+      "om://v2/dir?destination=bad&destination=4,4&origin=bad&origin=1,1&mode=bad&travelmode=walk"
+      "&origin_heading=bad&origin_heading=90&waypoints=bad&waypoints=2,2|3,3"
+      "&waypoint_names=ignored&waypoint_names=A|B&waypoint_callbacks=ignored"
+      "&waypoint_callbacks=app%3A%2F%2Fa|app%3A%2F%2Fb");
+  TEST_EQUAL(api.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(api.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(api.GetRoutePoints()[1].m_name, "A", ());
+  TEST_EQUAL(api.GetRoutePoints()[2].m_name, "B", ());
+  TEST_EQUAL(api.GetRoutePoints()[1].m_callback, "app://a", ());
+  TEST_EQUAL(api.GetRoutePoints()[2].m_callback, "app://b", ());
+  TEST_EQUAL(api.GetRoutingType(), "pedestrian", ());
+
+  ParsedMapApi empty("om://v2/dir?destination=4,4&waypoints=2,2&waypoints=");
+  TEST_EQUAL(empty.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(empty.GetRoutePoints().size(), 2, ());
+}
+
 UNIT_TEST(SearchApiSmoke)
 {
   string const urlString =
@@ -986,6 +1019,24 @@ UNIT_TEST(GlobalBackUrl)
     ParsedMapApi api("mwm://map?ll=1,2&n=PointName&backurl=%E6%88%91%E6%84%9Bmapswithme");
     TEST_EQUAL(api.GetGlobalBackUrl(), "我愛mapswithme://", ());
   }
+}
+
+UNIT_TEST(LegacyBackUrlPolicy)
+{
+  ParsedMapApi api("om://map?ll=1,2&backurl=app%3A%2F%2Fback");
+  TEST(api.HasLegacyBackUrl(), ());
+  api.ClearGlobalBackUrl();
+  TEST(!api.HasLegacyBackUrl(), ());
+
+  // A map's version query does not turn it into the path-based v2 route API.
+  TEST_EQUAL(api.SetUrlAndParse("om://map?v=2&ll=1,2&backurl=app%3A%2F%2Fback"), UrlType::Map, ());
+  TEST(api.HasLegacyBackUrl(), ());
+  TEST_EQUAL(api.SetUrlAndParse("https://omaps.app/v2/nav?destination=1,2&callback=app%3A%2F%2Fback"), UrlType::Route,
+             ());
+  TEST(!api.HasLegacyBackUrl(), ());
+  TEST_EQUAL(api.GetGlobalBackUrl(), "app://back", ());
+  api.Reset();
+  TEST(!api.HasLegacyBackUrl(), ());
 }
 
 UNIT_TEST(VersionTest)

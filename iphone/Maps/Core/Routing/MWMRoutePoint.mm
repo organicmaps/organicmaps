@@ -71,27 +71,6 @@ NSString * NormalizeSubtitle(NSString * subtitle)
   return self;
 }
 
-- (instancetype)initWithURLSchemeRoutePoint:(url_scheme::RoutePoint const &)point
-                                       type:(MWMRoutePointType)type
-                          intermediateIndex:(size_t)intermediateIndex
-{
-  self = [super init];
-  if (self)
-  {
-    _point = point.m_org;
-    _title = NormalizeTitle(point.m_isMyPosition && point.m_name.empty() ? L(@"core_my_position")
-                                                                      : @(point.m_name.c_str()),
-                            _point);
-    _subtitle = @"";
-    _callback = @(point.m_callback.c_str());
-    _isMyPosition = point.m_isMyPosition;
-    _type = type;
-    _intermediateIndex = intermediateIndex;
-
-    [self validatePoint];
-  }
-  return self;
-}
 
 - (instancetype)initWithRouteMarkData:(RouteMarkData const &)point
 {

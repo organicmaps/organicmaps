@@ -4,6 +4,7 @@
   private(set) var isLaunchedByDeepLink = false
   private(set) var hasPendingColdLaunchDeepLink = false
   private(set) var url: URL?
+  private var featureHighlightData: DeepLinkInAppFeatureHighlightData?
 
   override private init() {
     super.init()
@@ -49,6 +50,7 @@
     isLaunchedByDeepLink = false
     hasPendingColdLaunchDeepLink = false
     url = nil
+    featureHighlightData = nil
   }
 
   func getBackUrl() -> String? {
@@ -60,10 +62,10 @@
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
-    guard isLaunchedByDeepLink, let url else { return nil }
-    // Highlight the feature once. The URL itself is cleared by reset() when the link is done.
+    let data = featureHighlightData
+    featureHighlightData = nil
     isLaunchedByDeepLink = false
-    return DeepLinkInAppFeatureHighlightData(DeepLinkParser.parseAndSetApiURL(url))
+    return data
   }
 
   func handleDeepLinkAndReset() -> Bool {
@@ -136,18 +138,17 @@
       url = omURL
     }
 
-    // TODO(AB): Rewrite API so iOS and Android will call only one C++ method to clear/set API state.
-    // This call is also required for DeepLinkParser.showMap, and it also clears old API points...
     let urlType = DeepLinkParser.parseAndSetApiURL(url)
+    // Menus consume a snapshot; opening them must not reparse a link and rearm its return callback.
+    featureHighlightData = (urlType == .menu || urlType == .settings) ? DeepLinkInAppFeatureHighlightData(urlType) : nil
     LOG(.info, "URL type: \(urlType)")
     switch urlType {
     case .route:
-      if let adapter = DeepLinkRouteStrategyAdapter() {
-        MWMRouter.buildApiRoute(with: adapter.type, startRouteNavigation: adapter.startRouteNavigation)
-        MapsAppDelegate.theApp().showMap()
-        return true
-      }
-      return false
+      CarPlayService.shared.prepareForRouteOnPhone()
+      let adapter = DeepLinkRouteStrategyAdapter()
+      MWMRouter.buildApiRoute(with: adapter.type, startRouteNavigation: adapter.startRouteNavigation)
+      MapsAppDelegate.theApp().showMap()
+      return true
     case .map:
       DeepLinkParser.executeMapApiRequest()
       MapsAppDelegate.theApp().showMap()

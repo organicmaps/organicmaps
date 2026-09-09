@@ -340,6 +340,46 @@ jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info)
   return env->NewObject(clazz, ctorId, static_cast<jint>(info.GetRouteMarkType()), info.GetIntermediateIndex());
 }
 
+std::vector<RouteMarkData> ToNativeRouteMarkDataArray(JNIEnv * env, jobjectArray points)
+{
+  CHECK(points, ());
+  auto const count = env->GetArrayLength(points);
+  CHECK_GREATER_OR_EQUAL(count, 2, ());
+  CHECK_LESS_OR_EQUAL(count, static_cast<jsize>(RoutePointsLayout::kMaxRoutePointsCount), ());
+  static jclass const clazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteMarkData");
+  static jfieldID const title = env->GetFieldID(clazz, "mTitle", "Ljava/lang/String;");
+  static jfieldID const subtitle = env->GetFieldID(clazz, "mSubtitle", "Ljava/lang/String;");
+  static jfieldID const callback = env->GetFieldID(clazz, "mCallback", "Ljava/lang/String;");
+  static jfieldID const myPosition = env->GetFieldID(clazz, "mIsMyPosition", "Z");
+  static jfieldID const passed = env->GetFieldID(clazz, "mIsPassed", "Z");
+  static jfieldID const lat = env->GetFieldID(clazz, "mLat", "D");
+  static jfieldID const lon = env->GetFieldID(clazz, "mLon", "D");
+  CHECK(title && subtitle && callback && myPosition && passed && lat && lon, (jni::DescribeException()));
+
+  std::vector<RouteMarkData> result;
+  result.reserve(count);
+  for (jsize i = 0; i < count; ++i)
+  {
+    jni::TScopedLocalRef const point(env, env->GetObjectArrayElement(points, i));
+    CHECK(point.get(), ());
+    auto const readString = [&](jfieldID field)
+    {
+      jni::ScopedLocalRef<jstring> const value(env, static_cast<jstring>(env->GetObjectField(point.get(), field)));
+      return value.get() ? jni::ToNativeString(env, value.get()) : std::string{};
+    };
+    RouteMarkData data;
+    data.m_title = readString(title);
+    data.m_subTitle = readString(subtitle);
+    data.m_callback = readString(callback);
+    data.m_isMyPosition = env->GetBooleanField(point.get(), myPosition);
+    data.m_isPassed = env->GetBooleanField(point.get(), passed);
+    data.m_position =
+        mercator::FromLatLon(env->GetDoubleField(point.get(), lat), env->GetDoubleField(point.get(), lon));
+    result.push_back(std::move(data));
+  }
+  return result;
+}
+
 jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> const & points)
 {
   using namespace jni;
