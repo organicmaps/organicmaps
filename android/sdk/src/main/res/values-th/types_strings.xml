@@ -549,7 +549,6 @@
     <string name="type.landuse.grass">สนามหญ้า</string>
     <string name="type.landuse.landfill">พื้นที่ฝังกลบ</string>
     <string name="type.landuse.railway">ที่ก่อสร้างทางรถไฟ</string>
-    <string name="type.landuse.reservoir">น้ำ</string>
     <string name="type.landuse.residential">เขตที่อยู่อาศัย</string>
     <string name="type.leisure.dog_park">สถานที่พาสุนัขเดินเล่น</string>
     <string name="type.leisure.fitness_centre">ฟิตเนสเซ็นเตอร์</string>

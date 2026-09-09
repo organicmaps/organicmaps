@@ -611,7 +611,6 @@
     <string name="type.landuse.quarry">Pedreira</string>
     <string name="type.landuse.railway">Área ferroviária</string>
     <string name="type.landuse.recreation_ground">Área de lazer</string>
-    <string name="type.landuse.reservoir">Água</string>
     <string name="type.landuse.residential">Área residencial</string>
     <string name="type.landuse.retail">Área de retalho</string>
     <string name="type.landuse.salt_pond">Salinas</string>

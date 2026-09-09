@@ -555,7 +555,6 @@
     <string name="type.landuse.grass">Plen</string>
     <string name="type.landuse.landfill">Land-deponi</string>
     <string name="type.landuse.railway">Jernbaneområde</string>
-    <string name="type.landuse.reservoir">Vann</string>
     <string name="type.leisure.dog_park">Hundeområde</string>
     <string name="type.leisure.fitness_centre">Treningssenter</string>
     <string name="type.leisure.fitness_station">Treningsstasjon</string>

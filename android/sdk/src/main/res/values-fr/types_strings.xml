@@ -636,7 +636,6 @@
     <string name="type.landuse.quarry">Carrières</string>
     <string name="type.landuse.railway">Installations ferroviaires</string>
     <string name="type.landuse.recreation_ground">Aire de jeux</string>
-    <string name="type.landuse.reservoir">Bassin de retenue</string>
     <string name="type.landuse.residential">Zone résidentielle</string>
     <string name="type.landuse.retail">Zone commerciale</string>
     <string name="type.landuse.salt_pond">Marais salants</string>

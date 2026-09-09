@@ -634,7 +634,6 @@
     <string name="type.landuse.quarry">ໂຮງໂມ້ຫີນ</string>
     <string name="type.landuse.railway">ພື້ນທີ່ທາງລົດໄຟ</string>
     <string name="type.landuse.recreation_ground">ສະຖານທີ່ພັກຜ່ອນ</string>
-    <string name="type.landuse.reservoir">ອ່າງເກັບນໍ້າ</string>
     <string name="type.landuse.residential">ເຂດທີ່ພັກອາໄສ</string>
     <string name="type.landuse.retail">ເຂດຂາຍຍ່ອຍ</string>
     <string name="type.landuse.salt_pond">ນາເກືອ</string>

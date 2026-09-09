@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Quarry";
 "type.landuse.railway" = "Railway Premises";
 "type.landuse.recreation_ground" = "Recreation Ground";
-"type.landuse.reservoir" = "Reservoir";
 "type.landuse.residential" = "Residential Area";
 "type.landuse.retail" = "Retail Area";
 "type.landuse.salt_pond" = "Salt Pond";
@@ -870,7 +869,7 @@
 "type.natural.water.lake" = "Езеро";
 "type.natural.water.lock" = "Заключваща камера";
 "type.natural.water.pond" = "Езерце";
-"type.natural.water.reservoir" = "Резервоар";
+"type.natural.water.reservoir" = "Язовир";
 "type.natural.water.basin" = "Резервоар";
 "type.natural.water.river" = "Река";
 "type.natural.land" = "Суша";

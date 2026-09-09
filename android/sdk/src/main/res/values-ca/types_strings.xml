@@ -633,7 +633,6 @@
     <string name="type.landuse.quarry">Pedrera</string>
     <string name="type.landuse.railway">Instal·lacions ferroviàries</string>
     <string name="type.landuse.recreation_ground">Zona recreativa</string>
-    <string name="type.landuse.reservoir">Embassament</string>
     <string name="type.landuse.residential">Zona residencial</string>
     <string name="type.landuse.retail">Zona comercial</string>
     <string name="type.landuse.salt_pond">Estany salat</string>

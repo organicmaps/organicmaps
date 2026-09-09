@@ -614,7 +614,6 @@
     <string name="type.landuse.quarry">Lom</string>
     <string name="type.landuse.railway">Priestory železnice</string>
     <string name="type.landuse.recreation_ground">Priestranstvo na rekreáciu</string>
-    <string name="type.landuse.reservoir">Voda</string>
     <string name="type.landuse.residential">Obytná zóna</string>
     <string name="type.landuse.retail">Obchodná zóna</string>
     <string name="type.landuse.salt_pond">Salina</string>
@@ -711,7 +710,7 @@
     <string name="type.natural.water.lake">Jazero</string>
     <string name="type.natural.water.lock">Plavebná komora</string>
     <string name="type.natural.water.pond">Rybník</string>
-    <string name="type.natural.water.reservoir">Nádrž</string>
+    <string name="type.natural.water.reservoir">Priehradná nádrž</string>
     <string name="type.natural.water.basin">Vodná nádrž</string>
     <string name="type.natural.water.river">Rieka</string>
     <string name="type.natural.land">Pôda</string>

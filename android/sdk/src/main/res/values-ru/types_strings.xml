@@ -636,7 +636,6 @@
     <string name="type.landuse.quarry">Карьер</string>
     <string name="type.landuse.railway">Железнодорожные сооружения</string>
     <string name="type.landuse.recreation_ground">База отдыха</string>
-    <string name="type.landuse.reservoir">Водоём</string>
     <string name="type.landuse.residential">Жилая зона</string>
     <string name="type.landuse.retail">Зона торговли</string>
     <string name="type.landuse.salt_pond">Соляной пруд</string>

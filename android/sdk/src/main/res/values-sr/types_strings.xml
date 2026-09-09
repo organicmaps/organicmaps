@@ -630,7 +630,6 @@
     <string name="type.landuse.quarry">Каменолом</string>
     <string name="type.landuse.railway">Железничке просторије</string>
     <string name="type.landuse.recreation_ground">Простор за рекреацију</string>
-    <string name="type.landuse.reservoir">Вештачко језеро</string>
     <string name="type.landuse.residential">Стамбена зона</string>
     <string name="type.landuse.retail">Пословна зона</string>
     <string name="type.landuse.salt_pond">Слано језеро</string>
@@ -733,7 +732,7 @@
     <string name="type.natural.water.lake">Језеро</string>
     <string name="type.natural.water.lock">Преводница</string>
     <string name="type.natural.water.pond">Језерце</string>
-    <string name="type.natural.water.reservoir">Резервоар</string>
+    <string name="type.natural.water.reservoir">Акумулационо језеро</string>
     <string name="type.natural.water.basin">Природни базен</string>
     <string name="type.natural.water.river">Река</string>
     <string name="type.natural.land">Земљиште</string>

@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Карьер";
 "type.landuse.railway" = "Железнодорожные сооружения";
 "type.landuse.recreation_ground" = "База отдыха";
-"type.landuse.reservoir" = "Водоём";
 "type.landuse.residential" = "Жилая зона";
 "type.landuse.retail" = "Зона торговли";
 "type.landuse.salt_pond" = "Соляной пруд";

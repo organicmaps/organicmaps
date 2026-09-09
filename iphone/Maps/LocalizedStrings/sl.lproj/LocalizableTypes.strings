@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Kamnolom";
 "type.landuse.railway" = "Železniško območje";
 "type.landuse.recreation_ground" = "Rekreacijsko območje";
-"type.landuse.reservoir" = "Zadrževalnik";
 "type.landuse.residential" = "Stanovanjsko območje";
 "type.landuse.retail" = "Trgovsko območje";
 "type.landuse.salt_pond" = "Solni bazen";

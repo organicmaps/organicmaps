@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Cantera";
 "type.landuse.railway" = "Instalaciones ferroviarias";
 "type.landuse.recreation_ground" = "Área recreativa";
-"type.landuse.reservoir" = "Embalse";
 "type.landuse.residential" = "Zona residencial";
 "type.landuse.retail" = "Zona comercial";
 "type.landuse.salt_pond" = "Salina";

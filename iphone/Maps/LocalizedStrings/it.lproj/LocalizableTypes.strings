@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Cava";
 "type.landuse.railway" = "Impianti ferroviari";
 "type.landuse.recreation_ground" = "Area divertimento";
-"type.landuse.reservoir" = "Bacino";
 "type.landuse.residential" = "Area residentiale";
 "type.landuse.retail" = "Area commerciale";
 "type.landuse.salt_pond" = "Salina";
@@ -870,7 +869,7 @@
 "type.natural.water.lake" = "Lago";
 "type.natural.water.lock" = "Camera di blocco";
 "type.natural.water.pond" = "Stagno";
-"type.natural.water.reservoir" = "Serbatoio";
+"type.natural.water.reservoir" = "Bacino idrico";
 "type.natural.water.basin" = "Bacino d'acqua";
 "type.natural.water.river" = "Fiume";
 "type.natural.land" = "Terra";

@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Quarry";
 "type.landuse.railway" = "Instalații feroviare";
 "type.landuse.recreation_ground" = "Recreation Ground";
-"type.landuse.reservoir" = "Apă";
 "type.landuse.residential" = "Residential Area";
 "type.landuse.retail" = "Retail Area";
 "type.landuse.salt_pond" = "Salt Pond";
@@ -870,7 +869,7 @@
 "type.natural.water.lake" = "Lac";
 "type.natural.water.lock" = "Camera de blocare";
 "type.natural.water.pond" = "Heleșteu";
-"type.natural.water.reservoir" = "Rezervor";
+"type.natural.water.reservoir" = "Lac de acumulare";
 "type.natural.water.basin" = "Bazin de apă";
 "type.natural.water.river" = "Râu";
 "type.natural.land" = "Teren";

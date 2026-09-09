@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "矿场";
 "type.landuse.railway" = "铁路用地";
 "type.landuse.recreation_ground" = "娱乐场地";
-"type.landuse.reservoir" = "水库";
 "type.landuse.residential" = "住宅区";
 "type.landuse.retail" = "零售区";
 "type.landuse.salt_pond" = "盐田";
