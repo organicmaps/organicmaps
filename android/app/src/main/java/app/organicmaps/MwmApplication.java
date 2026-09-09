@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
@@ -58,12 +57,6 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   @Nullable
   private WeakReference<Activity> mTopActivity;
-
-  // Latest-only buffer for a stop callback that arrived while no activity was
-  // visible: opening several caller apps in a row is pointless because only the
-  // last one would win the foreground, so older pending callbacks are dropped.
-  @Nullable
-  private String mPendingRoutePointCallback;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -154,27 +147,21 @@ public class MwmApplication extends Application implements Application.ActivityL
     ThemeSwitcher.INSTANCE.initialize(this);
     return mOrganicMaps.init(() -> {
       ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
-      Framework.nativeSetRoutePointCallbackListener(this::openRoutePointCallback);
+      updateRoutePointCallbackListener();
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
       if (onComplete != null)
         onComplete.run();
     });
   }
 
-  private void openRoutePointCallback(@NonNull String callback)
+  private void updateRoutePointCallbackListener()
   {
-    if (TextUtils.isEmpty(callback))
+    if (!mOrganicMaps.arePlatformAndCoreInitialized())
       return;
-
     final Activity topActivity = getTopActivity();
-    if (topActivity == null)
-    {
-      Logger.w(TAG, "Route point callback is deferred because no activity is visible");
-      mPendingRoutePointCallback = callback;
-      return;
-    }
-
-    openRoutePointCallback(topActivity, callback);
+    // The core keeps the latest stop callback while no foreground activity can open it.
+    Framework.nativeSetRoutePointCallbackListener(
+        topActivity == null ? null : callback -> openRoutePointCallback(topActivity, callback));
   }
 
   private static void openRoutePointCallback(@NonNull Activity activity, @NonNull String callback)
@@ -182,16 +169,6 @@ public class MwmApplication extends Application implements Application.ActivityL
     final boolean launched = Utils.openUri(activity, Uri.parse(callback), null);
     if (launched && activity instanceof MwmActivity)
       ((MwmActivity) activity).skipParsedBackUrlOnNextStop();
-  }
-
-  private void flushPendingRoutePointCallback(@NonNull Activity activity)
-  {
-    if (mPendingRoutePointCallback == null)
-      return;
-
-    final String callback = mPendingRoutePointCallback;
-    mPendingRoutePointCallback = null;
-    openRoutePointCallback(activity, callback);
   }
 
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
@@ -223,14 +200,18 @@ public class MwmApplication extends Application implements Application.ActivityL
     Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), activity);
     getSensorHelper().setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
     mTopActivity = new WeakReference<>(activity);
-    flushPendingRoutePointCallback(activity);
+    updateRoutePointCallbackListener();
   }
 
   @Override
   public void onActivityPaused(@NonNull Activity activity)
   {
     Logger.d(TAG, "activity = " + activity);
-    mTopActivity = null;
+    if (getTopActivity() == activity)
+    {
+      mTopActivity = null;
+      updateRoutePointCallbackListener();
+    }
   }
 
   @Override

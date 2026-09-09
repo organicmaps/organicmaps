@@ -15,6 +15,30 @@ final class CarPlayServiceTests: XCTestCase {
     super.tearDown()
   }
 
+  func testPhoneSelectionTransfersFromEitherCarDisplay() {
+    for display in [CarPlayMapDisplay.mainCarPlay, .dashboardCarPlay] {
+      var ownership = CarPlayMapOwnershipState()
+      ownership.didAttach(to: display)
+      let availability = CarPlayMapAvailability(isDeviceConnected: true,
+                                                isMainCarPlayConnected: true,
+                                                isDashboardConnected: true,
+                                                activeCarPlayDisplay: display)
+      ownership.selectPhone()
+      XCTAssertEqual(ownership.desiredDisplay(for: availability), .device)
+    }
+  }
+
+  func testPhoneSelectionSurvivesDeferredPhoneSceneConnection() {
+    var ownership = CarPlayMapOwnershipState()
+    ownership.didAttach(to: .mainCarPlay)
+    var availability = CarPlayMapAvailability(isMainCarPlayConnected: true)
+    ownership.selectPhone()
+    // The map can stay in the car until the phone scene is ready without losing the selection.
+    XCTAssertEqual(ownership.desiredDisplay(for: availability), .mainCarPlay)
+    availability.isDeviceConnected = true
+    XCTAssertEqual(ownership.desiredDisplay(for: availability), .device)
+  }
+
   func testCreateEstimates() {
     let routeInfo = RouteInfo(timeToTarget: 100,
                               targetDistance: 25.2,

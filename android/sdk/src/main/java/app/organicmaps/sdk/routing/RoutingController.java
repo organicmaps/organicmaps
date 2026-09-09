@@ -139,13 +139,6 @@ public class RoutingController
     mLastBuildProgress = 100;
     if (mContainer != null)
       mContainer.onBuiltRoute();
-    if (mStartNavigationAfterBuild
-        && (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS))
-    {
-      mStartNavigationAfterBuild = false;
-      if (mContainer != null)
-        mContainer.onRouteReadyToAutoStart();
-    }
   }
 
   private final RoutingProgressListener mRoutingProgressListener = progress ->
@@ -157,7 +150,7 @@ public class RoutingController
   private final RoutingLoadPointsListener mRoutingLoadPointsListener = success ->
   {
     if (success)
-      prepare(getStartPoint(), getEndPoint());
+      rebuildLastRoute();
   };
 
   public static RoutingController get()
@@ -171,6 +164,13 @@ public class RoutingController
       return;
 
     mContainsCachedResult = false;
+
+    if (mStartNavigationAfterBuild
+        && (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS))
+    {
+      mStartNavigationAfterBuild = false;
+      mContainer.onRouteReadyToAutoStart();
+    }
 
     if (isDrivingOptionsBuildError())
       mContainer.onDrivingOptionsWarning();
@@ -318,6 +318,8 @@ public class RoutingController
 
   private void build()
   {
+    mStartNavigationAfterBuild = false;
+    mContainsCachedResult = false;
     Framework.nativeRemoveRoute();
 
     Logger.d(TAG, "build");
@@ -366,9 +368,11 @@ public class RoutingController
 
   public void rebuildLastRoute()
   {
-    setState(State.NONE);
+    mStartNavigationAfterBuild = false;
+    mContainsCachedResult = false;
+    setState(State.PREPARE);
     setBuildState(BuildState.NONE);
-    prepare(getStartPoint(), getEndPoint());
+    startPlanning(getStartPoint(), getEndPoint());
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
@@ -816,53 +820,15 @@ public class RoutingController
   @SuppressWarnings("Duplicates")
   public boolean setStartPoint(@Nullable MapObject point)
   {
-    final boolean result = setStartPointInternal(point);
+    final boolean result = setEndpoint(RouteMarkType.Start, point);
     finalizePendingPoiPick();
     return result;
-  }
-
-  private boolean setStartPointInternal(@Nullable MapObject point)
-  {
-    Logger.d(TAG, "setStartPoint");
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    boolean isSamePoint = MapObject.same(startPoint, point);
-    if (point != null)
-    {
-      applyRemovingIntermediatePointsTransaction();
-      addRoutePoint(RouteMarkType.Start, point);
-      startPoint = getStartPoint();
-    }
-
-    if (isSamePoint)
-    {
-      Logger.d(TAG, "setStartPoint: skip the same starting point");
-      return false;
-    }
-
-    if (point != null && point.sameAs(endPoint))
-    {
-      if (startPoint == null)
-      {
-        Logger.d(TAG, "setStartPoint: skip because starting point is empty");
-        return false;
-      }
-
-      Logger.d(TAG, "setStartPoint: swap with end point");
-      endPoint = startPoint;
-    }
-
-    startPoint = point;
-    setPointsInternal(startPoint, endPoint);
-    checkAndBuildRoute();
-    return true;
   }
 
   /**
    * Sets ending point.
    * <ul>
    *   <li>If {@code point} is the same as starting point &mdash; swap points if ending point is set, skip otherwise.
-   *   <li>Set starting point to MyPosition if it was not set before.
    * </ul>
    * Route starts to build if both points were set.
    *
@@ -871,41 +837,30 @@ public class RoutingController
   @SuppressWarnings("Duplicates")
   public boolean setEndPoint(@Nullable MapObject point)
   {
-    final boolean result = setEndPointInternal(point);
+    final boolean result = setEndpoint(RouteMarkType.Finish, point);
     finalizePendingPoiPick();
     return result;
   }
 
-  private boolean setEndPointInternal(@Nullable MapObject point)
+  private boolean setEndpoint(@NonNull RouteMarkType type, @Nullable MapObject point)
   {
-    Logger.d(TAG, "setEndPoint");
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    boolean isSamePoint = MapObject.same(endPoint, point);
-    if (point != null)
-    {
-      applyRemovingIntermediatePointsTransaction();
-
-      addRoutePoint(RouteMarkType.Finish, point);
-      endPoint = getEndPoint();
-    }
-
-    if (isSamePoint)
+    final MapObject current = getStartOrEndPointByType(type);
+    if (point == null || MapObject.same(current, point))
       return false;
-
-    if (point != null && point.sameAs(startPoint))
+    final MapObject opposite = type == RouteMarkType.Start ? getEndPoint() : getStartPoint();
+    if (point.sameAs(opposite))
     {
-      if (endPoint == null)
+      if (current == null)
         return false;
-
-      startPoint = endPoint;
+      swapPoints();
+      return true;
     }
-
-    endPoint = point;
-    setPointsInternal(startPoint, endPoint);
+    applyRemovingIntermediatePointsTransaction();
+    addRoutePoint(type, point);
     checkAndBuildRoute();
     return true;
   }
+
   private static void replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int replaceStopIndex)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
@@ -955,13 +910,12 @@ public class RoutingController
   {
     Logger.d(TAG, "swapPoints");
 
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    MapObject point = startPoint;
-    startPoint = endPoint;
-    endPoint = point;
-
-    setPointsInternal(startPoint, endPoint);
+    applyRemovingIntermediatePointsTransaction();
+    final int count = Framework.nativeGetRoutePoints().length;
+    if (count < 2)
+      return;
+    Framework.nativeMoveRoutePoint(0, count - 1);
+    Framework.nativeMoveRoutePoint(count - 2, 0);
     checkAndBuildRoute();
     if (mContainer != null)
       mContainer.updateMenu();

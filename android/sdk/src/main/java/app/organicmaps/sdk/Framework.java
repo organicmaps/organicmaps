@@ -197,6 +197,7 @@ public class Framework
   @Size(2)
   public static native double[] nativeGetParsedCenterLatLon();
   public static native @Nullable String nativeGetParsedBackUrl();
+  public static native boolean nativeHasLegacyBackUrl();
 
   /// One-shot back URL consumption, see ParsedMapApi::ClearGlobalBackUrl().
   public static native void nativeClearParsedBackUrl();
@@ -280,17 +281,7 @@ public class Framework
 
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
-  public static void addRoutePoint(RouteMarkData point)
-  {
-    addRoutePoint(point, true);
-  }
-
-  public static void addRoutePoint(RouteMarkData point, boolean reorderIntermediatePoints)
-  {
-    Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mCallback, point.mPointType,
-                                  point.mIntermediateIndex, point.mIsMyPosition, point.mLat, point.mLon,
-                                  reorderIntermediatePoints);
-  }
+  public static native void nativeReplaceRoutePoints(@NonNull RouteMarkData[] points);
 
   public static native void nativeAddRoutePoint(String title, String subtitle, String callback,
                                                 @NonNull RouteMarkType markType, int intermediateIndex,

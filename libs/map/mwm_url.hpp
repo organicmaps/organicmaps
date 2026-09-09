@@ -7,6 +7,10 @@
 #include <vector>
 
 class Framework;
+namespace url
+{
+class Url;
+}
 
 namespace url_scheme
 {
@@ -48,7 +52,7 @@ struct InAppFeatureHighlightRequest
   InAppFeatureType m_feature = InAppFeatureType::None;
 };
 
-/// Handles [mapswithme|mwm|mapsme]://map|route|search?params - everything related to displaying info on a map
+/// Parses supported map, route, navigation, search, and app-action deep links.
 class ParsedMapApi
 {
 public:
@@ -70,8 +74,9 @@ public:
   UrlType SetUrlAndParse(std::string const & url);
   UrlType GetRequestType() const { return m_requestType; }
   std::string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
-  // The back URL is a one-shot "return to the caller app" action: platforms clear it
-  // after the first successful launch so later app switches don't relaunch the caller.
+  // Only the legacy map API's backurl supports automatic return on Android.
+  bool HasLegacyBackUrl() const { return m_requestType == UrlType::Map && !m_globalBackUrl.empty(); }
+  // Platforms consume the parsed back URL after a successful return launch.
   void ClearGlobalBackUrl() { m_globalBackUrl.clear(); }
   std::string const & GetAppName() const { return m_appName; }
   ms::LatLon GetCenterLatLon() const { return m_centerLatLon; }
@@ -80,9 +85,7 @@ public:
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
   void ExecuteMapApiRequest(Framework & fm) const;
-  /// Materializes the parsed itinerary as route marks (preserving URL order, or letting
-  /// the optimizer reorder the stops) and starts the route build. Platforms drive only
-  /// their UI state around this call: router type, planning screen, auto-start on ready.
+  /// Sets the router, replaces the itinerary, and builds it. Platforms drive planning UI and auto-start.
   void ExecuteRouteApiRequest(Framework & fm) const;
 
   // Unit test only.
@@ -149,8 +152,8 @@ public:
 
 private:
   void ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder);
-  void ParseRouteParam(std::string const & key, std::string const & value, size_t & legacyRouteParamIndex,
-                       bool & legacyRouteTypeSeen, bool & usesLegacySyntax, bool & correctOrder);
+  void ParseRouteParam(std::string const & key, std::string const & value, size_t & paramIndex);
+  bool ParseRouteV2(url::Url const & url);
   void ParseSearchParam(std::string const & key, std::string const & value);
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);

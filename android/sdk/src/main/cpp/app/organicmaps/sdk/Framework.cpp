@@ -823,27 +823,11 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeParseAndSetApiUrl(JNIEnv
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)
 {
-  using namespace url_scheme;
-  static jclass const pointClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/RoutePoint");
-  // Java signature : RoutePoint(double lat, double lon, String name)
-  static jmethodID const pointConstructor = jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;)V");
-
   static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedRoutingData");
-  // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType, boolean startRouteNavigation)
-  static jmethodID const routeDataConstructor =
-      jni::GetConstructorID(env, routeDataClazz, "([Lapp/organicmaps/sdk/api/RoutePoint;IZ)V");
-
-  auto const & routingData = frm()->GetParsedRoutingData();
-  jobjectArray points =
-      jni::ToJavaArray(env, pointClazz, routingData.m_points, [](JNIEnv * env, RoutePoint const & point)
-  {
-    jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
-    return env->NewObject(pointClazz, pointConstructor, mercator::YToLat(point.m_org.y),
-                          mercator::XToLon(point.m_org.x), name.get());
-  });
-
-  return env->NewObject(routeDataClazz, routeDataConstructor, points, static_cast<jint>(routingData.m_type),
-                        static_cast<jboolean>(routingData.m_startRouteNavigation));
+  static jmethodID const ctor = jni::GetConstructorID(env, routeDataClazz, "(IZ)V");
+  auto const data = frm()->GetParsedRoutingData();
+  return env->NewObject(routeDataClazz, ctor, static_cast<jint>(data.m_type),
+                        static_cast<jboolean>(data.m_startRouteNavigation));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeExecuteRouteApiRequest(JNIEnv *, jclass)
@@ -924,6 +908,11 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetParsedBackUrl(JNIE
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearParsedBackUrl(JNIEnv *, jclass)
 {
   frm()->ClearParsedBackUrl();
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeHasLegacyBackUrl(JNIEnv *, jclass)
+{
+  return frm()->GetApiDataHolder().HasLegacyBackUrl();
 }
 
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jclass)
@@ -1487,6 +1476,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveRoutePoints();
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoints(JNIEnv * env, jclass, jobjectArray points)
+{
+  frm()->GetRoutingManager().ReplaceRoutePoints(routing_jni::ToNativeRouteMarkDataArray(env, points));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,

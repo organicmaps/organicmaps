@@ -1009,15 +1009,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mSkipParsedBackUrlOnStop)
       mSkipParsedBackUrlOnStop = false;
-    // Returning to the caller is a one-shot action for the moment the user leaves the
-    // app; while navigation is running, leaving (screen lock, app switch) is a normal
-    // part of the session, so keep the back URL for the stop after navigation ends.
-    else if (!RoutingController.get().isNavigating())
-    {
-      final String backUrl = Framework.nativeGetParsedBackUrl();
-      if (!TextUtils.isEmpty(backUrl) && Utils.openUri(this, Uri.parse(backUrl), null))
-        Framework.nativeClearParsedBackUrl();
-    }
+    // Preserve legacy map backurl behavior. V2 route callbacks require an explicit return action.
+    else if (!RoutingController.get().isNavigating() && Framework.nativeHasLegacyBackUrl())
+      Utils.returnToCaller(this);
   }
 
   void skipParsedBackUrlOnNextStop()
@@ -2052,6 +2046,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (id.equals(MAIN_MENU_ID))
     {
       ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+      if (!TextUtils.isEmpty(Framework.nativeGetParsedBackUrl()))
+        items.add(new MenuBottomSheetItem(R.string.back, R.drawable.ic_arrow_back, () -> Utils.returnToCaller(this)));
       items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus,
                                         this::onAddPlaceOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.download_maps, R.drawable.ic_download, getDownloadMapsCounter(),

@@ -16,8 +16,6 @@
 
 #include "drape_frontend/visual_params.hpp"
 
-#include "platform/localization.hpp"
-
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
@@ -222,194 +220,9 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
     // => check for well-known API methods first.
     if (type == "v2" && (url.GetPath() == route_v2::kPathDir || url.GetPath() == route_v2::kPathNav))
     {
-      using namespace route_v2;
-
-      m_version = 2;
-      // Whether the caller asked to navigate (vs. just preview). For a nav request the
-      // start is forced to the current position after parsing, once we know whether an
-      // explicit origin was supplied (so we can warn that it is ignored).
-      bool navRequested = url.GetPath() == kPathNav;
-      m_routingType = route::kRouteTypeVehicle;
-
-      RoutePoint origin;
-      RoutePoint destination;
-      struct WaypointWithRawIndex
-      {
-        size_t m_rawIndex = 0;
-        RoutePoint m_point;
-      };
-      std::vector<WaypointWithRawIndex> waypoints;
-      std::vector<std::string> waypointNames;
-      std::vector<std::string> waypointCallbacks;
-      bool originProvided = false;
-      bool originFound = false;
-      bool destinationFound = false;
-      bool correctParams = true;
-
-      // url::Url decodes values, so an encoded "%7C" separator is normalized to '|' and splits
-      // exactly like a raw '|' (both forms are accepted); a literal '|' inside a value is not
-      // representable directly (double-encode it as "%257C"). Empty list items are kept by
-      // ParseCSVRow so waypoint names/callbacks stay aligned with their waypoint by index.
-      // The fragment is stripped because url::Url parses query and fragment params together,
-      // and v2 ignores the fragment.
-      std::string const queryUrl = normalizedUrl.substr(0, normalizedUrl.find('#'));
-      url::Url{queryUrl}.ForEachParam([&](auto const & key, auto const & value)
-      {
-        if (key == kOrigin)
-        {
-          originProvided = true;
-          if (IsRouteCurrentLocation(value))
-          {
-            origin.m_org = m2::PointD::Zero();
-            origin.m_isMyPosition = true;
-            originFound = true;
-          }
-          else
-          {
-            originFound = ParseRoutePoint(key, value, origin);
-          }
-        }
-        else if (key == kOriginName)
-        {
-          origin.m_name = value;
-        }
-        else if (key == kOriginCallback)
-        {
-          // Reserved: stored but never opened, because the route start is departed
-          // from, never "passed" like a stop (see docs/API.md).
-          origin.m_callback = value;
-        }
-        else if (key == kOriginHeading)
-        {
-          if (!ParseOriginHeading(value, m_startDirection))
-          {
-            LOG(LWARNING, ("Incorrect origin heading:", value));
-            correctParams = false;
-          }
-        }
-        else if (key == kDestination)
-        {
-          destinationFound = ParseRoutePoint(key, value, destination);
-          correctParams = correctParams && destinationFound;
-        }
-        else if (key == kDestinationName)
-        {
-          destination.m_name = value;
-        }
-        else if (key == kDestinationCallback)
-        {
-          destination.m_callback = value;
-        }
-        else if (key == kWaypoints)
-        {
-          std::vector<std::string> waypointTokens;
-          strings::ParseCSVRow(value, '|', waypointTokens);
-          size_t rawIndex = 0;
-          for (auto const & waypoint : waypointTokens)
-          {
-            if (waypoint.empty())
-            {
-              ++rawIndex;
-              continue;
-            }
-
-            RoutePoint point;
-            if (ParseRoutePoint(key, waypoint, point))
-              waypoints.push_back({rawIndex, std::move(point)});
-            else
-              correctParams = false;
-            ++rawIndex;
-          }
-        }
-        else if (key == kWaypointNames)
-        {
-          strings::ParseCSVRow(value, '|', waypointNames);
-        }
-        else if (key == kWaypointCallbacks)
-        {
-          strings::ParseCSVRow(value, '|', waypointCallbacks);
-        }
-        else if (key == kMode || key == kTravelMode)
-        {
-          if (!ParseRouteMode(value, m_routingType))
-          {
-            LOG(LWARNING, ("Incorrect route mode:", value));
-            correctParams = false;
-          }
-        }
-        else if (key == kDirAction)
-        {
-          if (value == "navigate")
-            navRequested = true;
-          else
-            LOG(LWARNING, ("Route API v2 parameter is parsed but not applied yet:", key, value));
-        }
-        else if (key == kOptimize)
-        {
-          m_optimizeRoutePoints = ParseBool(value);
-        }
-        else if (key == kRefName)
-        {
-          m_appName = value;
-        }
-        else if (key == kCallback)
-        {
-          m_globalBackUrl = value;
-        }
-        else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
-        {
-          LOG(LWARNING, ("Route API v2 parameter is parsed but not applied yet:", key, value));
-        }
-        else
-        {
-          LOG(LWARNING, ("Unsupported Route API v2 parameter:", key, value));
-        }
-      });
-
-      // origin is the start point for /v2/dir, so a malformed value is an error.
-      // /v2/nav ignores origin (it is optional and reserved as a future hint), so a
-      // malformed value there is dropped rather than failing the whole request.
-      if (!navRequested && originProvided && !originFound)
-        correctParams = false;
-
-      if (!correctParams || !destinationFound)
-        return m_requestType = UrlType::Incorrect;
-
-      if (waypoints.size() > RoutePointsLayout::kMaxIntermediatePointsCount)
-      {
-        LOG(LWARNING, ("Route API v2 has too many waypoints:", waypoints.size()));
-        return m_requestType = UrlType::Incorrect;
-      }
-
-      if (navRequested)
-      {
-        // Navigation always starts from the current position ("navigate to these
-        // places starting from me"). An explicit origin is optional here and
-        // currently ignored, but accepted (not rejected) and reserved as a possible
-        // future routing hint. Keep its name as a departure label and its reserved
-        // callback (see kOriginCallback above).
-        if (originFound)
-          LOG(LINFO, ("Route API v2: origin accepted but ignored for /v2/nav; routing from current position"));
-        origin.m_org = m2::PointD::Zero();
-        origin.m_isMyPosition = true;
-      }
-      else if (!originFound)
-        origin.m_isMyPosition = true;
-      m_startRouteNavigation = navRequested;
-      m_routePoints.push_back(std::move(origin));
-
-      for (auto & waypoint : waypoints)
-      {
-        size_t const i = waypoint.m_rawIndex;
-        if (i < waypointNames.size())
-          waypoint.m_point.m_name = waypointNames[i];
-        if (i < waypointCallbacks.size())
-          waypoint.m_point.m_callback = waypointCallbacks[i];
-        m_routePoints.push_back(std::move(waypoint.m_point));
-      }
-      m_routePoints.push_back(std::move(destination));
-
-      return m_requestType = UrlType::Route;
+      // Fragments are not route parameters; the general URL parser also supports fragment parameters.
+      url::Url const queryUrl{normalizedUrl.substr(0, normalizedUrl.find('#'))};
+      return m_requestType = ParseRouteV2(queryUrl) ? UrlType::Route : UrlType::Incorrect;
     }
     else if (type == "map")
     {
@@ -424,26 +237,10 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
     }
     else if (type == "route")
     {
-      m_routePoints.clear();
-      // Keep the legacy route parser strict and separate from the v2 /v2/dir and /v2/nav
-      // parser. This lets v2 evolve without changing legacy validation semantics.
-      size_t legacyRouteParamIndex = 0;
-      bool legacyRouteTypeSeen = false;
-      bool usesLegacySyntax = false;
-      bool correctOrder = true;
-      url.ForEachParam([&legacyRouteParamIndex, &legacyRouteTypeSeen, &usesLegacySyntax, &correctOrder, this](
-                           auto const & key, auto const & value)
-      { ParseRouteParam(key, value, legacyRouteParamIndex, legacyRouteTypeSeen, usesLegacySyntax, correctOrder); });
-
-      // A non-legacy URL never reaches legacyRouteParamIndex == 4, so the index check below
-      // already enforces that at least one legacy parameter was seen.
-      if (!correctOrder || m_routingType.empty())
-        return m_requestType = UrlType::Incorrect;
-
-      if (legacyRouteParamIndex != 4 || !legacyRouteTypeSeen || m_routePoints.size() != 2)
-        return m_requestType = UrlType::Incorrect;
-
-      return m_requestType = UrlType::Route;
+      size_t paramIndex = 0;
+      url.ForEachParam([this, &paramIndex](auto const & key, auto const & value)
+      { ParseRouteParam(key, value, paramIndex); });
+      return m_requestType = paramIndex == 5 ? UrlType::Route : UrlType::Incorrect;
     }
     else if (type == "search")
     {
@@ -640,94 +437,129 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
   }
 }
 
-void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value, size_t & legacyRouteParamIndex,
-                                   bool & legacyRouteTypeSeen, bool & usesLegacySyntax, bool & correctOrder)
+void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value, size_t & paramIndex)
 {
   using namespace route;
-
-  auto parseRouteLatLon = [this](std::string const & key, std::string const & value)
-  {
-    double lat = 0.0;
-    double lon = 0.0;
-    if (!ParseLatLon(key, value, lat, lon))
-    {
-      LOG(LWARNING, ("Incorrect route lat/lon:", key, value));
-      return false;
-    }
-
-    RoutePoint p;
-    p.m_org = mercator::FromLatLon(lat, lon);
-    m_routePoints.push_back(p);
-    return true;
-  };
-
-  if (key == kRouteType)
-  {
-    std::string const lowerValue = strings::MakeLowerCase(value);
-    if (lowerValue == kRouteTypePedestrian || lowerValue == kRouteTypeVehicle || lowerValue == kRouteTypeBicycle ||
-        lowerValue == kRouteTypeTransit)
-    {
-      m_routingType = lowerValue;
-      if (usesLegacySyntax)
-      {
-        if (legacyRouteParamIndex == 4)
-          legacyRouteTypeSeen = true;
-        else
-          correctOrder = false;
-      }
-    }
-    else
-    {
-      LOG(LWARNING, ("Incorrect routing type:", value));
-      correctOrder = false;
-    }
-    return;
-  }
-
   if (key == kVersion)
   {
     if (!strings::to_int(value, m_version))
       m_version = 0;
     return;
   }
+  ParseCommonParam(key, value);
 
-  std::array<std::string_view, 4> constexpr kLegacyRouteParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName};
-  bool const isLegacyParam = key == kSourceLatLon || key == kSourceName || key == kDestLatLon || key == kDestName;
-  if (!isLegacyParam)
-  {
-    ParseCommonParam(key, value);
+  // Legacy links consume this sequence and ignore parameters outside it, including trailing duplicates.
+  constexpr std::array<std::string_view, 5> kParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
+  if (paramIndex == kParams.size() || key != kParams[paramIndex])
     return;
-  }
 
-  if (legacyRouteTypeSeen || legacyRouteParamIndex >= kLegacyRouteParams.size() ||
-      key != kLegacyRouteParams[legacyRouteParamIndex])
-  {
-    correctOrder = false;
-    return;
-  }
-
-  // Keep the old two-point format strict: existing integrations may depend on
-  // invalid legacy links being rejected rather than silently reordered.
-  usesLegacySyntax = true;
   if (key == kSourceLatLon || key == kDestLatLon)
   {
-    if (!parseRouteLatLon(key, value))
-    {
-      correctOrder = false;
+    RoutePoint point;
+    if (!ParseRoutePoint(key, value, point))
       return;
-    }
+    m_routePoints.push_back(std::move(point));
   }
-  else if (m_routePoints.empty())
+  else if (key == kRouteType)
   {
-    correctOrder = false;
-    return;
+    auto const type = strings::MakeLowerCase(value);
+    if (type != kRouteTypeVehicle && type != kRouteTypePedestrian && type != kRouteTypeBicycle &&
+        type != kRouteTypeTransit)
+      return;
+    m_routingType = type;
   }
   else
-  {
     m_routePoints.back().m_name = value;
-  }
+  ++paramIndex;
+}
 
-  ++legacyRouteParamIndex;
+bool ParsedMapApi::ParseRouteV2(url::Url const & url)
+{
+  using namespace route_v2;
+  m_version = 2;
+  std::string origin = std::string(kOriginCurrentLocation);
+  std::string destination;
+  std::string mode = "drive";
+  std::string heading;
+  bool hasHeading = false;
+  std::string dirAction;
+  RoutePoint start, finish;
+  std::vector<std::string> waypoints, names, callbacks;
+
+  // Values are decoded once by Url. Split on decoded pipes, retaining empty slots for aligned metadata.
+  // Collect before validating so every recognized field consistently uses its last occurrence.
+  url.ForEachParam([&](auto const & key, auto const & value)
+  {
+    if (key == kOrigin)
+      origin = value;
+    else if (key == kDestination)
+      destination = value;
+    else if (key == kOriginName)
+      start.m_name = value;
+    else if (key == kDestinationName)
+      finish.m_name = value;
+    else if (key == kOriginCallback)
+      start.m_callback = value;
+    else if (key == kDestinationCallback)
+      finish.m_callback = value;
+    else if (key == kOriginHeading)
+    {
+      heading = value;
+      hasHeading = true;
+    }
+    else if (key == kMode || key == kTravelMode)
+      mode = value;
+    else if (key == kWaypoints)
+      strings::ParseCSVRow(value, '|', waypoints);
+    else if (key == kWaypointNames)
+      strings::ParseCSVRow(value, '|', names);
+    else if (key == kWaypointCallbacks)
+      strings::ParseCSVRow(value, '|', callbacks);
+    else if (key == kDirAction)
+      dirAction = value;
+    else if (key == kOptimize)
+      m_optimizeRoutePoints = ParseBool(value);
+    else if (key == kRefName)
+      m_appName = value;
+    else if (key == kCallback)
+      m_globalBackUrl = value;
+    else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
+      LOG(LWARNING, ("Route API v2 parameter is not applied:", key, value));
+    else
+      LOG(LWARNING, ("Unsupported Route API v2 parameter:", key, value));
+  });
+
+  if (!dirAction.empty() && dirAction != "navigate")
+    LOG(LWARNING, ("Unsupported route action:", dirAction));
+  m_startRouteNavigation = url.GetPath() == kPathNav || dirAction == "navigate";
+  if (!ParseRouteMode(mode, m_routingType) || !ParseRoutePoint(std::string(kDestination), destination, finish))
+    return false;
+  if (hasHeading && !ParseOriginHeading(heading, m_startDirection))
+    return false;
+
+  // Navigation starts at the user's position; explicit origins only affect previews.
+  if (m_startRouteNavigation || IsRouteCurrentLocation(origin))
+    start.m_isMyPosition = true;
+  else if (!ParseRoutePoint(std::string(kOrigin), origin, start))
+    return false;
+  m_routePoints.push_back(std::move(start));
+  for (size_t i = 0; i < waypoints.size(); ++i)
+  {
+    if (waypoints[i].empty())
+      continue;
+    if (m_routePoints.size() > RoutePointsLayout::kMaxIntermediatePointsCount)
+      return false;
+    RoutePoint point;
+    if (!ParseRoutePoint(std::string(kWaypoints), waypoints[i], point))
+      return false;
+    if (i < names.size())
+      point.m_name = std::move(names[i]);
+    if (i < callbacks.size())
+      point.m_callback = std::move(callbacks[i]);
+    m_routePoints.push_back(std::move(point));
+  }
+  m_routePoints.push_back(std::move(finish));
+  return true;
 }
 
 void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const & value)
@@ -857,50 +689,23 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
 void ParsedMapApi::ExecuteRouteApiRequest(Framework & fm) const
 {
   CHECK_EQUAL(m_requestType, UrlType::Route, ("Must be a Route API request"));
-  CHECK_GREATER_OR_EQUAL(m_routePoints.size(), 2, ("Route API request must have start and finish points"));
-
-  auto & rm = fm.GetRoutingManager();
-  rm.RemoveRoutePoints();
-
-  auto const makeMark = [](RoutePoint const & point, RouteMarkType type, size_t intermediateIndex)
+  CHECK_GREATER_OR_EQUAL(m_routePoints.size(), 2, ());
+  std::vector<RouteMarkData> points;
+  points.reserve(m_routePoints.size());
+  for (auto const & point : m_routePoints)
   {
     RouteMarkData data;
-    // The route-plan UI shows the title verbatim, so localize the implicit
-    // "my position" start instead of leaving it blank.
-    data.m_title =
-        point.m_isMyPosition && point.m_name.empty() ? platform::GetLocalizedString("core_my_position") : point.m_name;
-    // origin_callback is reserved (see docs/API.md): the start is departed from, never
-    // "passed" like a stop, so it must never become an executable callback. Keeping it off
-    // the Start mark makes that invariant structural instead of relying on the passed
-    // checkpoint index never being 0.
-    if (type != RouteMarkType::Start)
-      data.m_callback = point.m_callback;
-    data.m_pointType = type;
-    data.m_intermediateIndex = intermediateIndex;
+    data.m_title = point.m_name;
     data.m_isMyPosition = point.m_isMyPosition;
     data.m_position = point.m_org;
-    return data;
-  };
-
-  size_t const count = m_routePoints.size();
-  bool const optimize = m_optimizeRoutePoints;
-  rm.AddRoutePoint(makeMark(m_routePoints.front(), RouteMarkType::Start, 0), optimize);
-  if (optimize)
-  {
-    // ReorderIntermediatePoints() treats the intermediate with the lowest index as the
-    // newly added one, so the finish must exist before the intermediates are inserted
-    // one by one at index 0, each optimized against the points placed so far.
-    rm.AddRoutePoint(makeMark(m_routePoints.back(), RouteMarkType::Finish, 0), optimize);
-    for (size_t i = 1; i + 1 < count; ++i)
-      rm.AddRoutePoint(makeMark(m_routePoints[i], RouteMarkType::Intermediate, 0), optimize);
+    data.m_callback = point.m_callback;
+    points.push_back(std::move(data));
   }
-  else
-  {
-    for (size_t i = 1; i + 1 < count; ++i)
-      rm.AddRoutePoint(makeMark(m_routePoints[i], RouteMarkType::Intermediate, i - 1), optimize);
-    rm.AddRoutePoint(makeMark(m_routePoints.back(), RouteMarkType::Finish, 0), optimize);
-  }
-
+  // origin_callback is reserved, not an executable stop callback.
+  points.front().m_callback.clear();
+  auto & rm = fm.GetRoutingManager();
+  rm.SetRouter(routing::FromString(m_routingType));
+  rm.ReplaceRoutePoints(std::move(points), m_optimizeRoutePoints);
   rm.BuildRoute(routing::RouterDelegate::kNoTimeout, m_startDirection);
 }
 

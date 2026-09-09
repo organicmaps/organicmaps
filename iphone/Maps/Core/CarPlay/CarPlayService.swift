@@ -180,6 +180,18 @@ final class CarPlayService: NSObject {
     updateMapPlacement()
   }
 
+  func prepareForRouteOnPhone() {
+    guard isCarplayActivated else { return }
+    // Retire the car trip without rebuilding it during the ownership transfer.
+    router?.cancelNavigationSession()
+    router?.previewTrip = nil
+    preparedToPreviewTrips = []
+    mapState.selectPhone()
+    updateMapPlacement()
+    // A cold phone scene may not be attached yet. Subscribe before a synchronous build error can arrive.
+    updateRoutingPresentation(for: .device)
+  }
+
   func openMainCarPlay() {
     activateMainCarPlay()
     guard let dashboardScene, let url = Constants.openCarPlayURL else { return }
@@ -694,7 +706,9 @@ final class CarPlayService: NSObject {
       if success {
         restoreCarPlayTemplateUI()
         updatePhoneModeAlert()
-        router?.startNavigationSession(forTrip: trip, template: mapTemplate, isRestoring: true)
+        if routingOwner == .carPlay, router?.previewTrip === trip {
+          router?.startNavigationSession(forTrip: trip, template: mapTemplate, isRestoring: true)
+        }
       } else if error == nil {
         LOG(.warning, "CarPlay failed to install the navigation root template")
       }

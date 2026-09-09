@@ -297,7 +297,21 @@ final class NavigationControlView: SolidTouchView {
 
   @IBAction
   private func settingsButtonAction(_: Any) {
-    delegate.settingsButtonDidTap()
+    guard DeepLinkHandler.shared.getBackUrl() != nil else {
+      delegate.settingsButtonDidTap()
+      return
+    }
+    let menu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    menu.addAction(UIAlertAction(title: L("settings"), style: .default) { [weak self] _ in
+      self?.delegate.settingsButtonDidTap()
+    })
+    menu.addAction(UIAlertAction(title: L("back"), style: .default) { _ in
+      MapViewController.shared()?.goBack()
+    })
+    menu.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+    menu.popoverPresentationController?.sourceView = settingsButton
+    menu.popoverPresentationController?.sourceRect = settingsButton.bounds
+    MapViewController.shared()?.present(menu, animated: true)
   }
 
   @IBAction

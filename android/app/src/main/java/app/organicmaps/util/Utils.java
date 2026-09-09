@@ -38,6 +38,7 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.Distance;
@@ -253,6 +254,13 @@ public class Utils
   private static boolean isHttpOrHttpsScheme(@NonNull String url)
   {
     return url.startsWith("http://") || url.startsWith("https://");
+  }
+
+  public static void returnToCaller(@NonNull Context context)
+  {
+    final String backUrl = Framework.nativeGetParsedBackUrl();
+    if (!TextUtils.isEmpty(backUrl) && openUri(context, Uri.parse(backUrl), null))
+      Framework.nativeClearParsedBackUrl();
   }
 
   // subject is optional (could be an empty string).

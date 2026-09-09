@@ -615,13 +615,6 @@ public:
   // only what their UI needs around that call.
   struct ParsedRoutingData
   {
-    ParsedRoutingData(std::vector<url_scheme::RoutePoint> const & points, routing::RouterType type,
-                      bool startRouteNavigation)
-      : m_points(points)
-      , m_type(type)
-      , m_startRouteNavigation(startRouteNavigation)
-    {}
-    std::vector<url_scheme::RoutePoint> m_points;
     routing::RouterType m_type;
     bool m_startRouteNavigation = false;
   };

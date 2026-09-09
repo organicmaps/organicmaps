@@ -62,19 +62,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     // Make sure that the new route contains at least 2 points (start and destination).
     Assert.debug(newRoutePoints.size() >= 2, "There must be at least two route points");
 
-    // Remove all existing route points.
-    Framework.nativeRemoveRoutePoints();
-
-    // First, add the destination point.
-    Framework.addRoutePoint(newRoutePoints.get(newRoutePoints.size() - 1));
-
-    // Secondly, add the starting point.
-    Framework.addRoutePoint(newRoutePoints.get(0));
-
-    // And then, add all intermediate points (with no reordering).
-    for (int pos = 1; pos < newRoutePoints.size() - 1; pos++)
-      Framework.addRoutePoint(newRoutePoints.get(pos), false);
-    // Launch route planning.
+    Framework.nativeReplaceRoutePoints(newRoutePoints.toArray(new RouteMarkData[0]));
     RoutingController.get().launchPlanning();
   }
 
