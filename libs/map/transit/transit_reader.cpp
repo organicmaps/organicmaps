@@ -11,6 +11,7 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/reader.hpp"
@@ -208,7 +209,7 @@ void ReadTransitTask::Do()
     if (featureInfo.m_isGate)
     {
       // TODO(pastk): there should be a simpler way to just get a symbol name.
-      df::Stylist stylist(ft, 19, 0, false /* forceOutdoorStyle */);
+      df::Stylist stylist(ft, 19, 0, GetStyleReader().GetCurrentStyle());
       if (stylist.m_symbolRule != nullptr)
         featureInfo.m_gateSymbolName = stylist.m_symbolRule->name;
     }

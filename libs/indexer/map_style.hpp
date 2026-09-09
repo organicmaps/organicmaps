@@ -1,6 +1,8 @@
 #pragma once
 
+#include <optional>
 #include <string>
+#include <string_view>
 
 enum MapStyle
 {
@@ -11,10 +13,19 @@ enum MapStyle
   MapStyleVehicleDark = 4,
   MapStyleOutdoorsLight = 5,
   MapStyleOutdoorsDark = 6,
+  MapStyleCyclingLight = 7,
+  MapStyleCyclingDark = 8,
   // Add new map style here
 
   // Specifies number of MapStyle enum values, must be last
   MapStyleCount
+};
+
+enum class MapStyleMode
+{
+  Default,
+  Outdoors,
+  Cycling,
 };
 
 extern MapStyle const kDefaultMapStyle;
@@ -23,5 +34,9 @@ extern MapStyle MapStyleFromSettings(std::string const & str);
 extern std::string MapStyleToString(MapStyle mapStyle);
 extern std::string DebugPrint(MapStyle mapStyle);
 extern bool MapStyleIsDark(MapStyle mapStyle);
+extern MapStyleMode GetMapStyleMode(MapStyle mapStyle);
+extern MapStyle GetMapStyleForMode(MapStyleMode mode, bool dark);
+extern std::optional<MapStyleMode> MapStyleModeFromSettings(std::string_view str);
+extern std::string_view MapStyleModeToString(MapStyleMode mode);
 extern MapStyle GetDarkMapStyleVariant(MapStyle mapStyle);
 extern MapStyle GetLightMapStyleVariant(MapStyle mapStyle);

@@ -1,6 +1,7 @@
 #pragma once
 #include "drape/rainbow_colors.hpp"
 
+#include "indexer/map_style.hpp"
 #include "indexer/route_relation.hpp"
 
 #include <string>
@@ -12,17 +13,29 @@ namespace df
 struct RelationsDrawSettings
 {
   static std::string_view constexpr kHikingEnabledKey = "HikingEnabled";
-  static std::string_view constexpr kCyclingEnabledKey = "CyclingEnabled";
 
   bool hiking : 1 = false;
   bool cycling : 1 = false;
   bool PT : 1 = false;
+  bool dark : 1 = false;
 
-  void Load();
+  void Load(MapStyle style);
 
   bool IsEmpty() const { return !hiking && !cycling && !PT; }
+  bool MatchHiking(feature::RouteRelationBase::Type type) const;
+  bool MatchCycling(feature::RouteRelationBase::Type type) const;
   bool MatchHikingOrCycling(feature::RouteRelationBase::Type type) const;
 };
+
+struct ActiveHikingCyclingRoutes
+{
+  bool m_hiking = false;
+  bool m_cycling = false;
+
+  bool IsEmpty() const { return !m_hiking && !m_cycling; }
+};
+
+MapStyle GetMapStyleForRoute(MapStyle currentStyle, ActiveHikingCyclingRoutes const & routes);
 
 class RelationsDrawInfo
 {
@@ -37,7 +50,7 @@ public:
 
   explicit RelationsDrawInfo(RelationsDrawSettings const & sett) : m_sett(sett) {}
 
-  bool HasHikingOrCycling(FeatureType & ft) const;
+  ActiveHikingCyclingRoutes GetActiveHikingCyclingRoutes(FeatureType & ft) const;
   void Init(FeatureType & ft);
 
   template <class FnT>

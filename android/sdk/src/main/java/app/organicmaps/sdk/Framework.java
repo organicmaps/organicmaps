@@ -350,6 +350,8 @@ public class Framework
   public static native void nativeSetCyclingLayerEnabled(boolean enabled);
   public static native boolean nativeIsCyclingLayerEnabled();
 
+  public static native int nativeGetMapStyleForCurrentMode(boolean dark);
+
   public static native boolean nativeNeedUpdateForRoutes();
 
   @NonNull

@@ -130,7 +130,6 @@ private:
 };
 
 RulesHolder & GetCurrentRules();
-RulesHolder & GetOutdoorRules();
 // Accessor for a specific style's holder; used by the loader to fill a family without changing the
 // global current style.
 RulesHolder & GetRules(MapStyle mapStyle);
