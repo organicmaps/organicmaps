@@ -23,10 +23,10 @@ import app.organicmaps.util.Utils;
 /**
  * Self-contained navigation maneuver card.
  *
- * Top to bottom: a header row (distance on the left, turn arrow or lane strip on the right), the
- * street name, and a full-width bottom band with the maneuver after this one (see
- * {@link RoutingInfo#hasNextNextTurn()}). Children are clipped to the rounded background so the
- * band follows the card's bottom corners.
+ * Top to bottom: a header row (turn arrow on the left, distance and street name stacked beside
+ * it), the lane strip when lane guidance is available, and a full-width bottom band with the
+ * maneuver after this one (see {@link RoutingInfo#hasNextNextTurn()}). Children are clipped to
+ * the rounded background so the band follows the card's bottom corners.
  *
  * Call {@link #updateVehicle} or {@link #updatePedestrian} each navigation tick.
  */
@@ -80,10 +80,9 @@ public class ManeuverView extends LinearLayout
   public void updateVehicle(@NonNull RoutingInfo info)
   {
     mLanes.setLanes(info.lanes, info.lanesTrimmedLeft, info.lanesTrimmedRight);
-    final boolean lanesVisible = info.lanes != null && info.lanes.length > 0;
-    UiUtils.showIf(!lanesVisible, mTurnImage);
-    if (!lanesVisible)
-      mTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
+    // The lane strip stands below the maneuver, as on Android Auto - the arrow stays visible.
+    UiUtils.showIf(info.lanes != null && info.lanes.length > 0, mLanes);
+    mTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
 
     // Skip the band when the second maneuver keeps the same street name — repeating it is noise.
     final boolean showNextNextTurn = info.hasNextNextTurn() && !TextUtils.equals(info.nextNextStreet, info.nextStreet);
@@ -102,7 +101,7 @@ public class ManeuverView extends LinearLayout
   public void updatePedestrian(@NonNull RoutingInfo info)
   {
     mLanes.setLanes(null);
-    UiUtils.show(mTurnImage);
+    UiUtils.hide(mLanes);
     mTurnImage.setImageResource(info.pedestrianDirection.getTurnRes());
     UiUtils.hide(mNextNextTurnFrame);
     updateCommon(info);
