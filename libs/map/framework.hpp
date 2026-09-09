@@ -591,7 +591,9 @@ public:
   void Scroll(double distanceX, double distanceY);
 
   void Rotate(double azimuth, bool isAnim);
-  void Rotate(double delta);
+  void BeginTransformGesture();
+  void RotateBy(double deltaRadians, m2::PointD const & pixelPoint);
+  void EndTransformGesture();
 
   void TouchEvent(df::TouchEvent const & touch);
 

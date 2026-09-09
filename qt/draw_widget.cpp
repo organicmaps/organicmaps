@@ -194,18 +194,15 @@ void DrawWidget::initializeGL()
 
 bool DrawWidget::event(QEvent * event)
 {
-#if !defined(OMIM_OS_LINUX)
-  return MapWidget::event(event);
-#else
-  // TouchScreen
+#if defined(OMIM_OS_LINUX)
+  // Raw QTouchEvent handling is enabled only on Linux. macOS trackpads use QNativeGestureEvent
+  // because their touch sequences do not satisfy UserEventStream's invariants.
   if (auto dfTouchEventType = qtTouchEventTypeToDfTouchEventType(event->type());
       dfTouchEventType != df::TouchEvent::TOUCH_NONE)
   {
     event->accept();
-    QTouchEvent const * qtTouchEvent = dynamic_cast<QTouchEvent const *>(event);
+    auto const * qtTouchEvent = static_cast<QTouchEvent const *>(event);
     df::TouchEvent dfTouchEvent;
-    // The SetTouchType hast to be set even if `qtTouchEvent->points()` is empty
-    // which theoretically can happen in case of `QEvent::TouchCancel`
     dfTouchEvent.SetTouchType(dfTouchEventType);
 
     int64_t i = 0;
@@ -224,9 +221,8 @@ bool DrawWidget::event(QEvent * event)
     m_framework.TouchEvent(dfTouchEvent);
     return true;
   }
-  // Everything else
-  return MapWidget::event(event);
 #endif
+  return MapWidget::event(event);
 }
 
 void DrawWidget::mousePressEvent(QMouseEvent * e)

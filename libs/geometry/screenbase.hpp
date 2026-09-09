@@ -43,7 +43,6 @@ public:
   double GetAngle() const { return m_Angle.val(); }
   ang::AngleD GetAngleD() const { return m_Angle; }
   void SetAngle(double angle);
-  void AddAngleDelta(double angle);
 
   m2::PointD const & GetOrg() const { return m_Org; }
 
