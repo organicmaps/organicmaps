@@ -136,6 +136,7 @@ private:
   Q_PROPERTY(QAction * toAction MEMBER m_toAction)
   Q_PROPERTY(QAction * alongAction MEMBER m_alongAction NOTIFY infoChanged)
   Q_PROPERTY(QAction * editAction MEMBER m_editAction NOTIFY infoChanged)
+  Q_PROPERTY(QAction * myPositionAction MEMBER m_pMyPositionAction)
 
 public:
   MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry
@@ -150,7 +151,6 @@ public:
   void ShowPlacePage(place_page::Info const & info);
   void HidePlacePage();
 
-  Q_INVOKABLE QAction * getMyPositionAction() const { return m_pMyPositionAction; }
   Q_INVOKABLE void DeactivateMapSelection() const;
 
 protected:
