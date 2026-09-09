@@ -636,7 +636,6 @@
     <string name="type.landuse.quarry">Taş Ocağı</string>
     <string name="type.landuse.railway">Demiryolu Tesisleri</string>
     <string name="type.landuse.recreation_ground">Dinlenme Alanı</string>
-    <string name="type.landuse.reservoir">Su</string>
     <string name="type.landuse.residential">Yerleşim Alanı</string>
     <string name="type.landuse.retail">Perakende Satış Alanı</string>
     <string name="type.landuse.salt_pond">Tuzla</string>

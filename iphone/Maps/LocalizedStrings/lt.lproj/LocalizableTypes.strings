@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Karjeras";
 "type.landuse.railway" = "Geležinkelio teritorija";
 "type.landuse.recreation_ground" = "Poilsio zona";
-"type.landuse.reservoir" = "Rezervuaras";
 "type.landuse.residential" = "Gyvenamoji zona";
 "type.landuse.retail" = "Prekybos zona";
 "type.landuse.salt_pond" = "Druskos tvenkinys";

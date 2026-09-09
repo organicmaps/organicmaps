@@ -548,7 +548,6 @@
     <string name="type.landuse.grass">잔디</string>
     <string name="type.landuse.landfill">쓰레기 매립지</string>
     <string name="type.landuse.railway">차량 기지</string>
-    <string name="type.landuse.reservoir">저수지</string>
     <string name="type.leisure.dog_park">애완견 지역</string>
     <string name="type.leisure.fitness_centre">피트니스센터</string>
     <string name="type.leisure.fitness_station">피트니스 스테이션</string>

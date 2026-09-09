@@ -636,7 +636,6 @@
     <string name="type.landuse.quarry">Cava</string>
     <string name="type.landuse.railway">Impianti ferroviari</string>
     <string name="type.landuse.recreation_ground">Area divertimento</string>
-    <string name="type.landuse.reservoir">Bacino</string>
     <string name="type.landuse.residential">Area residentiale</string>
     <string name="type.landuse.retail">Area commerciale</string>
     <string name="type.landuse.salt_pond">Salina</string>
@@ -742,7 +741,7 @@
     <string name="type.natural.water.lake">Lago</string>
     <string name="type.natural.water.lock">Camera di blocco</string>
     <string name="type.natural.water.pond">Stagno</string>
-    <string name="type.natural.water.reservoir">Serbatoio</string>
+    <string name="type.natural.water.reservoir">Bacino idrico</string>
     <string name="type.natural.water.basin">Bacino d\'acqua</string>
     <string name="type.natural.water.river">Fiume</string>
     <string name="type.natural.land">Terra</string>

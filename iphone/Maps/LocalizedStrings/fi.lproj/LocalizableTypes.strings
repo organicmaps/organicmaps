@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Louhos";
 "type.landuse.railway" = "Rautatierakennukset";
 "type.landuse.recreation_ground" = "Virkistysalue";
-"type.landuse.reservoir" = "Vesiallas";
 "type.landuse.residential" = "Asuinalue";
 "type.landuse.retail" = "Kauppa-alue";
 "type.landuse.salt_pond" = "Suolalampi";
@@ -870,7 +869,7 @@
 "type.natural.water.lake" = "Järvi";
 "type.natural.water.lock" = "Lukko kammio";
 "type.natural.water.pond" = "Lampi";
-"type.natural.water.reservoir" = "Säiliö";
+"type.natural.water.reservoir" = "Tekojärvi";
 "type.natural.water.basin" = "Vesisäiliö";
 "type.natural.water.river" = "Joki";
 "type.natural.land" = "Maa";

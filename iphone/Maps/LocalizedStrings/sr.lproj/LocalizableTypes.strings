@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Каменолом";
 "type.landuse.railway" = "Железничке просторије";
 "type.landuse.recreation_ground" = "Простор за рекреацију";
-"type.landuse.reservoir" = "Вештачко језеро";
 "type.landuse.residential" = "Стамбена зона";
 "type.landuse.retail" = "Пословна зона";
 "type.landuse.salt_pond" = "Слано језеро";
@@ -870,7 +869,7 @@
 "type.natural.water.lake" = "Језеро";
 "type.natural.water.lock" = "Преводница";
 "type.natural.water.pond" = "Језерце";
-"type.natural.water.reservoir" = "Резервоар";
+"type.natural.water.reservoir" = "Акумулационо језеро";
 "type.natural.water.basin" = "Природни базен";
 "type.natural.water.river" = "Река";
 "type.natural.land" = "Земљиште";

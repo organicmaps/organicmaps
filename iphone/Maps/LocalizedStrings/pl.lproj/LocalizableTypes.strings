@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Kamieniołom";
 "type.landuse.railway" = "Obiekty kolejowe";
 "type.landuse.recreation_ground" = "Teren rekreacyjny";
-"type.landuse.reservoir" = "Woda";
 "type.landuse.residential" = "Tereny zamieszkania";
 "type.landuse.retail" = "Obszar handlu";
 "type.landuse.salt_pond" = "Słone jezioro";
@@ -870,7 +869,7 @@
 "type.natural.water.lake" = "Jezioro";
 "type.natural.water.lock" = "Komora zamka";
 "type.natural.water.pond" = "Staw";
-"type.natural.water.reservoir" = "Zbiornik";
+"type.natural.water.reservoir" = "Zbiornik wodny";
 "type.natural.water.basin" = "Zbiornik";
 "type.natural.water.river" = "Rzeka";
 "type.natural.land" = "Grunt";

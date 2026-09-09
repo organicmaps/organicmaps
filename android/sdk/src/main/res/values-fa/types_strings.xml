@@ -557,7 +557,6 @@
     <string name="type.landuse.grass">چمن زار</string>
     <string name="type.landuse.landfill">دفن گاه زباله</string>
     <string name="type.landuse.railway">محدوده راه آهن</string>
-    <string name="type.landuse.reservoir">اب</string>
     <string name="type.landuse.salt_pond">نمک‌زار</string>
     <string name="type.leisure.dog_park">محدوده مخصوص سگ</string>
     <string name="type.leisure.fitness_centre">باشگاه بدنسازی</string>

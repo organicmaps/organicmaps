@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Steengroeve";
 "type.landuse.railway" = "Spoorwegfaciliteiten";
 "type.landuse.recreation_ground" = "Recreatiezone";
-"type.landuse.reservoir" = "Reservoir";
 "type.landuse.residential" = "Woonwijk";
 "type.landuse.retail" = "Detailhandel";
 "type.landuse.salt_pond" = "Zoutpoel";

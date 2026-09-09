@@ -625,7 +625,6 @@
     <string name="type.landuse.quarry">מחצבה</string>
     <string name="type.landuse.railway">שטחי רכבת</string>
     <string name="type.landuse.recreation_ground">אזור מיועד לבילוי</string>
-    <string name="type.landuse.reservoir">מאגר</string>
     <string name="type.landuse.residential">אזור מגורים</string>
     <string name="type.landuse.retail">אזור קמעונאות</string>
     <string name="type.landuse.salt_pond">בריכת מלח</string>

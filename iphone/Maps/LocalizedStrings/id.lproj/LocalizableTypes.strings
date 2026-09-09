@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Quarry";
 "type.landuse.railway" = "Stasiun kereta api";
 "type.landuse.recreation_ground" = "Recreation Ground";
-"type.landuse.reservoir" = "Air";
 "type.landuse.residential" = "Residential Area";
 "type.landuse.retail" = "Retail Area";
 "type.landuse.salt_pond" = "Salt Pond";

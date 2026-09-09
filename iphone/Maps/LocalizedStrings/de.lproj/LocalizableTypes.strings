@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Steinbruch";
 "type.landuse.railway" = "Eisenbahnanlagen";
 "type.landuse.recreation_ground" = "Erholungsgebiet";
-"type.landuse.reservoir" = "Wasserfläche";
 "type.landuse.residential" = "Wohngebiet";
 "type.landuse.retail" = "Einzelhandelsgebiet";
 "type.landuse.salt_pond" = "Saline";
@@ -870,7 +869,7 @@
 "type.natural.water.lake" = "See";
 "type.natural.water.lock" = "Schleusenkammer";
 "type.natural.water.pond" = "Teich";
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Stausee";
 "type.natural.water.basin" = "Wasserbecken";
 "type.natural.water.river" = "Fluss";
 "type.natural.land" = "Land";

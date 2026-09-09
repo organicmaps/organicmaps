@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Steengroef";
 "type.landuse.railway" = "Spoorwegfasiliteite";
 "type.landuse.recreation_ground" = "Ontspanningsone";
-"type.landuse.reservoir" = "Reservoir";
 "type.landuse.residential" = "Woongebied";
 "type.landuse.retail" = "Handelsgebied";
 "type.landuse.salt_pond" = "Soutpoel";

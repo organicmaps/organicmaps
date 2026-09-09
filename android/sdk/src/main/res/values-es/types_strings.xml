@@ -636,7 +636,6 @@
     <string name="type.landuse.quarry">Cantera</string>
     <string name="type.landuse.railway">Instalaciones ferroviarias</string>
     <string name="type.landuse.recreation_ground">Área recreativa</string>
-    <string name="type.landuse.reservoir">Embalse</string>
     <string name="type.landuse.residential">Zona residencial</string>
     <string name="type.landuse.retail">Zona comercial</string>
     <string name="type.landuse.salt_pond">Salina</string>

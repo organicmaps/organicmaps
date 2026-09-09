@@ -559,7 +559,6 @@
     <string name="type.landuse.grass">Gazon</string>
     <string name="type.landuse.landfill">Gunoiște</string>
     <string name="type.landuse.railway">Instalații feroviare</string>
-    <string name="type.landuse.reservoir">Apă</string>
     <string name="type.leisure.dog_park">Loc de plimbare a câinilor</string>
     <string name="type.leisure.fitness_centre">Centru fitness</string>
     <string name="type.leisure.fitness_station">Sală de fitness</string>
@@ -634,7 +633,7 @@
     <string name="type.natural.water.lake">Lac</string>
     <string name="type.natural.water.lock">Camera de blocare</string>
     <string name="type.natural.water.pond">Heleșteu</string>
-    <string name="type.natural.water.reservoir">Rezervor</string>
+    <string name="type.natural.water.reservoir">Lac de acumulare</string>
     <string name="type.natural.water.basin">Bazin de apă</string>
     <string name="type.natural.water.river">Râu</string>
     <string name="type.natural.land">Teren</string>

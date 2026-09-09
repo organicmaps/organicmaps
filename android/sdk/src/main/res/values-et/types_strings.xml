@@ -636,7 +636,6 @@
     <string name="type.landuse.quarry">Karjäär</string>
     <string name="type.landuse.railway">Raudteekoridor</string>
     <string name="type.landuse.recreation_ground">Puhkeala</string>
-    <string name="type.landuse.reservoir">Veehoidla</string>
     <string name="type.landuse.residential">Elamuala</string>
     <string name="type.landuse.retail">Jaekaubandusala</string>
     <string name="type.landuse.salt_pond">Soolatiik</string>

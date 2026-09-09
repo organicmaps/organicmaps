@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Lom";
 "type.landuse.railway" = "Areál železnice";
 "type.landuse.recreation_ground" = "Rekreační areál";
-"type.landuse.reservoir" = "Voda";
 "type.landuse.residential" = "Obytná oblast";
 "type.landuse.retail" = "Nákupní oblast";
 "type.landuse.salt_pond" = "Solné jezírko";
@@ -870,7 +869,7 @@
 "type.natural.water.lake" = "Jezero";
 "type.natural.water.lock" = "Zámková komora";
 "type.natural.water.pond" = "Rybník";
-"type.natural.water.reservoir" = "Nádrž";
+"type.natural.water.reservoir" = "Přehradní nádrž";
 "type.natural.water.basin" = "Vodní nádrž";
 "type.natural.water.river" = "Řeka";
 "type.natural.land" = "Země";

@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Karjäär";
 "type.landuse.railway" = "Raudteekoridor";
 "type.landuse.recreation_ground" = "Puhkeala";
-"type.landuse.reservoir" = "Veehoidla";
 "type.landuse.residential" = "Elamuala";
 "type.landuse.retail" = "Jaekaubandusala";
 "type.landuse.salt_pond" = "Soolatiik";

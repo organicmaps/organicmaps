@@ -636,7 +636,6 @@
     <string name="type.landuse.quarry">Steinbruch</string>
     <string name="type.landuse.railway">Eisenbahnanlagen</string>
     <string name="type.landuse.recreation_ground">Erholungsgebiet</string>
-    <string name="type.landuse.reservoir">Wasserfläche</string>
     <string name="type.landuse.residential">Wohngebiet</string>
     <string name="type.landuse.retail">Einzelhandelsgebiet</string>
     <string name="type.landuse.salt_pond">Saline</string>
@@ -742,7 +741,7 @@
     <string name="type.natural.water.lake">See</string>
     <string name="type.natural.water.lock">Schleusenkammer</string>
     <string name="type.natural.water.pond">Teich</string>
-    <string name="type.natural.water.reservoir">Reservoir</string>
+    <string name="type.natural.water.reservoir">Stausee</string>
     <string name="type.natural.water.basin">Wasserbecken</string>
     <string name="type.natural.water.river">Fluss</string>
     <string name="type.natural.land">Land</string>

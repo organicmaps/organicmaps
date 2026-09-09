@@ -616,7 +616,6 @@
     <string name="type.landuse.quarry">Louhos</string>
     <string name="type.landuse.railway">Rautatierakennukset</string>
     <string name="type.landuse.recreation_ground">Virkistysalue</string>
-    <string name="type.landuse.reservoir">Vesiallas</string>
     <string name="type.landuse.residential">Asuinalue</string>
     <string name="type.landuse.retail">Kauppa-alue</string>
     <string name="type.landuse.salt_pond">Suolalampi</string>
@@ -701,7 +700,7 @@
     <string name="type.natural.water.lake">Järvi</string>
     <string name="type.natural.water.lock">Lukko kammio</string>
     <string name="type.natural.water.pond">Lampi</string>
-    <string name="type.natural.water.reservoir">Säiliö</string>
+    <string name="type.natural.water.reservoir">Tekojärvi</string>
     <string name="type.natural.water.basin">Vesisäiliö</string>
     <string name="type.natural.water.river">Joki</string>
     <string name="type.natural.land">Maa</string>

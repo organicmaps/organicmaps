@@ -620,7 +620,6 @@
     <string name="type.landuse.quarry">Stenbrott</string>
     <string name="type.landuse.railway">Järnvägsfaciliteter</string>
     <string name="type.landuse.recreation_ground">Strövområde</string>
-    <string name="type.landuse.reservoir">Vatten</string>
     <string name="type.landuse.residential">Bostadsområde</string>
     <string name="type.landuse.retail">Detaljhandelsområde</string>
     <string name="type.landuse.salt_pond">Saltsjö</string>

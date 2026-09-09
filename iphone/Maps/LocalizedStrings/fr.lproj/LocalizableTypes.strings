@@ -751,7 +751,6 @@
 "type.landuse.quarry" = "Carrières";
 "type.landuse.railway" = "Installations ferroviaires";
 "type.landuse.recreation_ground" = "Aire de jeux";
-"type.landuse.reservoir" = "Bassin de retenue";
 "type.landuse.residential" = "Zone résidentielle";
 "type.landuse.retail" = "Zone commerciale";
 "type.landuse.salt_pond" = "Marais salants";
