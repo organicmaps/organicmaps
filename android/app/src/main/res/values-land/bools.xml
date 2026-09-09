@@ -3,4 +3,6 @@
   <!-- Landscape phone: the card is a fixed-width floating card over the light map, so keep the
        fixed-width sheet layout and dark status-bar icons. -->
   <bool name="nav_full_width_card">false</bool>
+
+  <bool name="nav_speed_limit_top_end">true</bool>
 </resources>

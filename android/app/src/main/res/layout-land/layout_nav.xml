@@ -24,11 +24,11 @@
     <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
       android:id="@+id/nav_speed_limit"
       style="@style/MwmWidget.SpeedLimit"
-      android:layout_width="60dp"
-      android:layout_height="60dp"
-      android:layout_marginStart="@dimen/margin_half"
-      app:layout_constraintStart_toEndOf="@id/maneuver_view"
-      app:layout_constraintTop_toTopOf="@id/maneuver_view"/>
+      android:layout_width="@dimen/nav_speed_limit_size"
+      android:layout_height="@dimen/nav_speed_limit_size"
+      android:layout_margin="@dimen/margin_half"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.coordinatorlayout.widget.CoordinatorLayout
