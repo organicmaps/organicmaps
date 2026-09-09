@@ -40,6 +40,16 @@ static CGFloat const kMaxEstimatedTableViewCellHeight = 100.0;
   return UITableViewAutomaticDimension;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section
+{
+  return kMaxEstimatedTableViewCellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section
+{
+  return kMaxEstimatedTableViewCellHeight;
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
