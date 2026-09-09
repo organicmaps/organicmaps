@@ -23,11 +23,12 @@ namespace http_client_test
 using namespace platform;
 using std::string;
 
-// Reads through a temporary: Windows cannot delete a file that is still open.
-string ReadFile(string const & path)
+// Reads through a temporary before deleting because Windows cannot delete an open file.
+string ReadAndDeleteFile(string const & path)
 {
   string data;
   FileReader(path).ReadAsString(data);
+  TEST(base::DeleteFileX(path), (path));
   return data;
 }
 
@@ -454,12 +455,8 @@ UNIT_TEST(HttpClient_ReceivedFile_Success)
     // When writing to file, m_serverResponse should be empty.
     TEST(result.m_serverResponse.empty(), ());
   }
-  // Verify file contents.
-  {
-    auto const data = ReadFile(filePath);
-    TEST_EQUAL(data, "Test1", ());
-  }
-  base::DeleteFileX(filePath);
+  auto const data = ReadAndDeleteFile(filePath);
+  TEST_EQUAL(data, "Test1", ());
 }
 
 UNIT_TEST(HttpClient_ReceivedFile_InvalidPath)
@@ -500,13 +497,10 @@ UNIT_TEST(HttpClient_ReceivedFile_WithProgress)
     TEST_EQUAL(result.m_errorCode, 200, ());
     TEST(result.m_serverResponse.empty(), ());
   }
-  {
-    auto const data = ReadFile(filePath);
-    TEST_EQUAL(data.size(), expectedBody.size(), ());
-    TEST_EQUAL(data, expectedBody, ());
-  }
+  auto const data = ReadAndDeleteFile(filePath);
+  TEST_EQUAL(data.size(), expectedBody.size(), ());
+  TEST_EQUAL(data, expectedBody, ());
   TEST(progressCalled.load(std::memory_order_acquire), ());
-  base::DeleteFileX(filePath);
 }
 
 UNIT_TEST(HttpClient_ReceivedFile_WithProgress_InvalidPath)
@@ -1034,11 +1028,8 @@ UNIT_TEST(HttpClient_RangeRequest_WithReceivedFile)
     TEST_EQUAL(result.m_errorCode, 206, ());
     TEST(result.m_serverResponse.empty(), ());
   }
-  {
-    auto const data = ReadFile(filePath);
-    TEST_EQUAL(static_cast<int64_t>(data.size()), 100, ());
-  }
-  base::DeleteFileX(filePath);
+  auto const data = ReadAndDeleteFile(filePath);
+  TEST_EQUAL(static_cast<int64_t>(data.size()), 100, ());
 }
 
 // =====================================================================
@@ -1090,11 +1081,8 @@ UNIT_TEST(HttpClient_Post_BodyData_ResponseToFile)
     // Response went to file — m_serverResponse must NOT contain stale request body.
     TEST(result.m_serverResponse.empty(), (result.m_serverResponse));
   }
-  {
-    auto const data = ReadFile(filePath);
-    TEST_EQUAL(data, body, ());
-  }
-  base::DeleteFileX(filePath);
+  auto const data = ReadAndDeleteFile(filePath);
+  TEST_EQUAL(data, body, ());
 }
 
 // =====================================================================
@@ -1167,7 +1155,7 @@ UNIT_TEST(HttpClient_Segment_Success_NonZeroOffset)
   TEST_EQUAL(result.m_errorCode, 206, ());
   TEST(result.m_serverResponse.empty(), ("segment mode must leave m_serverResponse empty"));
 
-  auto const data = ReadFile(path);
+  auto const data = ReadAndDeleteFile(path);
   TEST_EQUAL(static_cast<int64_t>(data.size()), kSegmentTestTotalSize, ());
   for (int64_t i = 0; i < kSegmentTestTotalSize; ++i)
   {
@@ -1175,7 +1163,6 @@ UNIT_TEST(HttpClient_Segment_Success_NonZeroOffset)
     uint8_t const expected = (i >= offset && i < offset + bytes) ? ExpectedSegmentByte(i) : 0xAB;
     TEST_EQUAL(got, expected, ("byte at", i));
   }
-  base::DeleteFileX(path);
 }
 
 UNIT_TEST(HttpClient_Segment_Success_OpenEndedRange)
@@ -1195,10 +1182,9 @@ UNIT_TEST(HttpClient_Segment_Success_OpenEndedRange)
   TEST(result.m_success, ("errorCode:", result.m_errorCode));
   TEST_EQUAL(result.m_errorCode, 206, ());
 
-  auto const data = ReadFile(path);
+  auto const data = ReadAndDeleteFile(path);
   for (int64_t i = offset; i < kSegmentTestTotalSize; ++i)
     TEST_EQUAL(static_cast<uint8_t>(data[i]), ExpectedSegmentByte(i), ("byte at", i));
-  base::DeleteFileX(path);
 }
 
 UNIT_TEST(HttpClient_Segment_WrongExpectedTotal)
@@ -1217,10 +1203,9 @@ UNIT_TEST(HttpClient_Segment_WrongExpectedTotal)
   TEST_EQUAL(result.m_errorCode, HttpClient::kInconsistentFileSize, ());
 
   // File must be unchanged (sentinel bytes preserved).
-  auto const data = ReadFile(path);
+  auto const data = ReadAndDeleteFile(path);
   for (size_t i = 0; i < data.size(); ++i)
     TEST_EQUAL(static_cast<uint8_t>(data[i]), 0xEF, ("byte at", i));
-  base::DeleteFileX(path);
 }
 
 UNIT_TEST(HttpClient_Segment_IgnoredRange_Returns200)
@@ -1238,10 +1223,9 @@ UNIT_TEST(HttpClient_Segment_IgnoredRange_Returns200)
   TEST_EQUAL(result.m_errorCode, HttpClient::kInconsistentFileSize, ());
 
   // File untouched.
-  auto const data = ReadFile(path);
+  auto const data = ReadAndDeleteFile(path);
   for (size_t i = 0; i < data.size(); ++i)
     TEST_EQUAL(static_cast<uint8_t>(data[i]), 0x11, ("byte at", i));
-  base::DeleteFileX(path);
 }
 
 UNIT_TEST(HttpClient_Segment_MissingContentRange)
@@ -1257,10 +1241,9 @@ UNIT_TEST(HttpClient_Segment_MissingContentRange)
   TEST(!result.m_success, ());
   TEST_EQUAL(result.m_errorCode, HttpClient::kInconsistentFileSize, ());
 
-  auto const data = ReadFile(path);
+  auto const data = ReadAndDeleteFile(path);
   for (size_t i = 0; i < data.size(); ++i)
     TEST_EQUAL(static_cast<uint8_t>(data[i]), 0x22, ("byte at", i));
-  base::DeleteFileX(path);
 }
 
 UNIT_TEST(HttpClient_Segment_ShortBody)
@@ -1314,10 +1297,9 @@ UNIT_TEST(HttpClient_Segment_UnknownTotal_Rejected)
   TEST_EQUAL(result.m_errorCode, HttpClient::kInconsistentFileSize, ());
 
   // File untouched — no bytes written before validation failure.
-  auto const data = ReadFile(path);
+  auto const data = ReadAndDeleteFile(path);
   for (size_t i = 0; i < data.size(); ++i)
     TEST_EQUAL(static_cast<uint8_t>(data[i]), 0x66, ("byte at", i));
-  base::DeleteFileX(path);
 }
 
 UNIT_TEST(HttpClient_Segment_404_PreservesHttpCode)
@@ -1366,9 +1348,8 @@ UNIT_TEST(HttpClient_Segment_NoSegment_ExistingBehaviorUnchanged)
   TEST_EQUAL(result.m_errorCode, 200, ());
   TEST(result.m_serverResponse.empty(), ());
 
-  auto const data = ReadFile(path);
+  auto const data = ReadAndDeleteFile(path);
   TEST_EQUAL(data, "Test1", ());
-  base::DeleteFileX(path);
 }
 
 }  // namespace http_client_test

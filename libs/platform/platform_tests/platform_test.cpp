@@ -270,11 +270,11 @@ UNIT_TEST(MkDirRecursively)
   CHECK(Platform::RmDirRecursively(workPath), ());
 }
 
-// Regression guard for a TOCTOU race in directory creation (now inside create_directories): when
-// several threads (mimicking the parallel ctest binaries that all create ~/.config/OMaps on a fresh
-// runner) create the same not-yet-existing directory at once, every MkDirRecursively call must
-// succeed instead of one failing because a peer won the create. The race window is tiny, so hammer
-// it across many iterations with fresh, deep paths.
+// Regression guard for the TOCTOU race in directory creation: when several threads (mimicking the
+// parallel ctest binaries that all create ~/.config/OMaps on a fresh runner) create the same
+// not-yet-existing directory at once, every MkDirRecursively call must succeed instead of one
+// failing because a peer won the create. The race window is tiny, so hammer it across many
+// iterations with fresh, deep paths.
 UNIT_TEST(MkDirRecursively_Concurrent)
 {
   auto const workPath = base::JoinPath(GetPlatform().WritableDir(), "MkDirRecursivelyConcurrent");

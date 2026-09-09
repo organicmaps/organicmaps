@@ -5,21 +5,23 @@ set(SRC
   gl_program_params_tests.cpp
 )
 
+omim_add_test(${PROJECT_NAME} ${SRC})
+
 # The mobile compilation test runs the compilers bundled in tools/shaders_compiler, which exist for
 # Linux and macOS only. It takes much more time than the other tests, so it should be the last.
 if (PLATFORM_LINUX OR PLATFORM_MAC)
-  list(APPEND SRC gl_shaders_mobile_compile_test.cpp)
+  target_sources(${PROJECT_NAME}
+    PRIVATE
+      gl_shaders_mobile_compile_test.cpp
+  )
+
+  # The compilers are only executed, never written to, so run them from the source tree regardless
+  # of the test's working directory.
+  target_compile_definitions(${PROJECT_NAME}
+    PRIVATE
+      OMIM_SHADERS_COMPILERS_DIR="${OMIM_ROOT}/tools/shaders_compiler"
+  )
 endif()
-
-omim_add_test(${PROJECT_NAME} ${SRC})
-
-# External GLSL compilers used by gl_shaders_mobile_compile_test. They are only executed, never
-# written to, so the test runs them right from the source tree, no matter which directory it is
-# started from.
-target_compile_definitions(${PROJECT_NAME}
-  PRIVATE
-    OMIM_SHADERS_COMPILERS_DIR="${OMIM_ROOT}/tools/shaders_compiler"
-)
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE

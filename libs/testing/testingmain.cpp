@@ -181,8 +181,8 @@ int main(int argc, char * argv[])
 #endif
 
 #ifdef OMIM_OS_WINDOWS
-  // Report crashes and CRT assertions on stderr and abort instead of blocking on a dialog box,
-  // otherwise a failing test hangs unattended runs until the ctest timeout.
+  // Suppress Windows crash dialogs, route abort and Debug CRT reports to stderr, and terminate
+  // failed tests instead of hanging unattended runs until the ctest timeout.
   if (!IsDebuggerPresent())
   {
     SetErrorMode(GetErrorMode() | SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
