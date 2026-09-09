@@ -321,7 +321,9 @@ int main(int const argc, char const ** const argv)
   classificator::Load();
 
   FrozenDataSource dataSource;
-  dataSource.RegisterMap(platform::LocalCountryFile{mwmPath.parent_path(), platform::CountryFile(mwmPath.stem()), 0});
+  auto const mwmDirectory = mwmPath.parent_path();
+  dataSource.RegisterMap(platform::LocalCountryFile{mwmDirectory.empty() ? "." : mwmDirectory.string(),
+                                                    platform::CountryFile(mwmPath.stem().string()), 0});
   std::vector<std::shared_ptr<MwmInfo>> mwmInfos;
   dataSource.GetMwmsInfo(mwmInfos);
   Processor doProcess(dataSource);
