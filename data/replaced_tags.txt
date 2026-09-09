@@ -91,6 +91,14 @@ natural=forest    : natural=wood
 natural=shrubbery : natural=scrub
 cliff=yes         : natural=cliff
 
+# Deprecated water tagging. No 'u' flag: it would overwrite an existing natural=* tag,
+# e.g. landuse=reservoir + natural=wood would lose its forest type.
+natural=lake       : natural=water, water=lake
+natural=pond       : natural=water, water=pond
+natural=salt_pond  : landuse=salt_pond
+waterway=riverbank : natural=water, water=river
+landuse=reservoir  : natural=water, water=reservoir
+
 desert=sand : desert=erg
 desert=yes : desert=erg
 desert=semi_arid : desert=erg
