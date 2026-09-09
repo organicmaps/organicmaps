@@ -268,22 +268,11 @@ public class Framework
 
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
-  public static void addRoutePoint(RouteMarkData point)
-  {
-    addRoutePoint(point, true);
-  }
-
-  public static void addRoutePoint(RouteMarkData point, boolean reorderIntermediatePoints)
-  {
-    Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIntermediateIndex,
-                                  point.mIsMyPosition, point.mLat, point.mLon, reorderIntermediatePoints);
-  }
+  public static native void nativeReplaceRoutePoints(@NonNull RouteMarkData[] points);
 
   public static native void nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
                                                 int intermediateIndex, boolean isMyPosition, double lat, double lon,
                                                 boolean reorderIntermediatePoints);
-
-  public static native void nativeRemoveRoutePoints();
 
   public static native void nativeRemoveRoutePoint(@NonNull RouteMarkType markType, int intermediateIndex);
 

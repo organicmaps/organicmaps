@@ -215,6 +215,8 @@ public:
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
 
   void AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
+  /// Replaces a complete itinerary. Array order defines start, intermediate indexes, and finish.
+  void ReplaceRoutePoints(std::vector<RouteMarkData> points);
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;
@@ -266,8 +268,9 @@ public:
 
   /// \returns true if there are route points saved in file and false otherwise.
   bool HasSavedRoutePoints() const;
-  /// \brief It loads road points from file and delete file after loading.
-  /// The result of the loading will be sent via SafeCallback.
+  /// Consumes saved points only if the route-point layout is still empty when reading finishes.
+  /// Removes the saved file after the read attempt, even if the points are not applied.
+  /// Completion is delivered on the GUI thread.
   using LoadRouteHandler = platform::SafeCallback<void(bool success)>;
   void LoadRoutePoints(LoadRouteHandler const & handler);
   /// \brief It saves route points to file.
@@ -336,7 +339,7 @@ private:
 
   void SetPointsFollowingMode(bool enabled);
 
-  void ReorderIntermediatePoints();
+  void ReorderIntermediatePoints(size_t addedIndex);
 
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
