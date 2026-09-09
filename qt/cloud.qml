@@ -62,7 +62,7 @@ Item {
                     console.log("MouseArea released");
             }
             onClicked: {
-                root.map.getMyPositionAction().trigger();
+                root.map.myPositionAction.trigger();
                 console.log("Cloud clicked");
             }
         }
