@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.util.List;
@@ -22,6 +23,9 @@ public class PlacePageUtils
       // Because of the post(), this lambda is called after the car.SurfaceRenderer.onStableAreaChanged() and breaks the
       // visibleRect configuration
       if (MwmApplication.from(parent.getContext()).getDisplayManager().isCarDisplayUsed())
+        return;
+      // The navigation panel owns the viewport while it takes the start side of the screen.
+      if (RoutingController.get().isNavigating() && !parent.getResources().getBoolean(R.bool.nav_full_width_card))
         return;
       final int screenWidth = parent.getWidth();
       if (placePageDistanceToTop >= viewportMinHeight)
