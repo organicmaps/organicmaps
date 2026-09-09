@@ -21,18 +21,18 @@ presentation is cancelled; the phone displays the new preview or starts navigati
 Optional parameters:
 
 - `origin=lat,lon` is optional. For `/v2/dir` it sets the start point; use
-- `origin=lat,lon` is optional. For `/v2/dir` it sets the start point; use
   `origin=currentLocation` / `current-location` (or omit `origin`) to route from the current
-  position. `/v2/nav` always navigates from the current position, so it accepts but ignores
-  `origin`, including malformed values (reserved as a possible future routing hint).
+  position. `/v2/nav` accepts but ignores `origin`, including malformed values, because
+  navigation starts from the current position.
 - `origin_heading=degrees` in the inclusive range `0`–`360` to prefer the initial road direction from the origin. Degrees are clockwise from north:
   `0` north, `90` east, `180` south, `270` west.
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order. Empty slots are skipped.
 - `origin_name=...`, `destination_name=...`, `waypoint_names=name|name|...`.
 - `destination_callback=...` and `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.
-  Organic Maps opens a stop callback when the corresponding route point is passed while the app is in the
-  foreground. Stops passed while Organic Maps is in the background are deferred until it returns to the
-  foreground, and only the most recent pending callback is opened then; delivery is best-effort, so make
+  Organic Maps opens a stop callback when the corresponding route point is passed during navigation while the
+  app is in the foreground. Preview tracking does not open callbacks. Stops passed while Organic Maps is in the
+  background are deferred until it returns to the foreground, and only the most recent pending callback
+  is opened then; delivery is best-effort, so make
   callbacks idempotent and do not rely on every intermediate stop opening when the app is not visible
   (for example on a locked screen).
   Replacing or cancelling an unfinished itinerary discards its pending callback; automatic completion retains
@@ -57,9 +57,10 @@ Repeated parameters use the last value; `mode` and `travelmode` share the same v
 - `dir_action=navigate` on `/v2/dir` is accepted as a Google Maps-style alias for `/v2/nav`.
 - `optimize=true` to allow Organic Maps to reorder intermediate stops; otherwise URL order is preserved.
 - `ref_name=...` names the calling app (the `appname` equivalent; accepted and parsed, but not yet surfaced in the route UI) and `callback=...` is a global return URL.
-  The return URL is opened at most once. On Android it is opened when the user leaves Organic Maps; while navigation
-  is running, leaving the app does not trigger it, so it fires on the first leave after the navigation session ends.
-  On iOS it is opened by the explicit back action.
+  On both platforms, use the map menu's Back action, or the Back action under the navigation settings button,
+  to open the return URL. Returning does not stop navigation. Opening settings, switching applications, or
+  stopping navigation does not automatically open a v2 return URL. A successful return launch clears it.
+  On iOS the Escape keyboard shortcut also opens it.
   As with stop callbacks, delivery is best-effort: the pending return URL does not survive an app restart.
 - Any unrecognized parameter is ignored with a warning and never fails the route, so the format stays forward-compatible. Named-but-not-yet-applied extensions include `api=1`, `avoid=...` (e.g. `avoid=tolls` in the examples below), `ref=...`, and `callback_label=...`; they are accepted today but have no effect yet.
   `origin_callback=...` is also reserved: it is parsed but not opened, because the route start is departed from,

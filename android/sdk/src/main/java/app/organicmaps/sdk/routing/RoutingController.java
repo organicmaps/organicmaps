@@ -163,13 +163,6 @@ public class RoutingController
     mLastBuildProgress = 100;
     if (mContainer != null)
       mContainer.onBuiltRoute();
-    if (mStartNavigationAfterBuild
-        && (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS))
-    {
-      mStartNavigationAfterBuild = false;
-      if (mContainer != null)
-        mContainer.onRouteReadyToAutoStart();
-    }
   }
 
   private final RoutingProgressListener mRoutingProgressListener = progress ->
@@ -361,11 +354,7 @@ public class RoutingController
   {
     mStartNavigationAfterBuild = false;
     mContainsCachedResult = false;
-    build(0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
-  }
 
-  private void build(double startDirectionX, double startDirectionY)
-  {
     Framework.nativeRemoveRoute();
 
     Logger.d(TAG, "build");
@@ -380,7 +369,7 @@ public class RoutingController
 
     // This build uses the current settings and route marks, so it consumes any deferred options change.
     mPendingOptionsRebuild = false;
-    Framework.nativeBuildRoute(startDirectionX, startDirectionY);
+    Framework.nativeBuildRoute();
   }
 
   public void restoreRoute()

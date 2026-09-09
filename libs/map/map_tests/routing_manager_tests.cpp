@@ -1053,6 +1053,7 @@ private:
   std::string m_router;
   bool m_hadRouter;
 };
+
 class RoutingManagerTest
 {
 public:
@@ -1063,9 +1064,7 @@ public:
 
   ~RoutingManagerTest()
   {
-    // OnRoutePointPassed() saves route points to the settings directory, which for
-    // desktop tests is the repo data/ folder. The save is queued on the File thread,
-    // so drain it with a barrier task before removing the artifact.
+    // Drain asynchronous saves before the fixture removes its settings directory.
     std::promise<void> drained;
     GetPlatform().RunTask(Platform::Thread::File, [&drained]() { drained.set_value(); });
     drained.get_future().wait();
@@ -1113,6 +1112,7 @@ protected:
       m_manager.CheckLocationForRouting(gps);
     }
   }
+
   static RouteMarkData MakePoint(RouteMarkType type, double lat, double lon, std::string callback = {},
                                  size_t intermediateIndex = 0)
   {

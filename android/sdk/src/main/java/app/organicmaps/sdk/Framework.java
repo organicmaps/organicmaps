@@ -199,8 +199,6 @@ public class Framework
   public static native @Nullable String nativeGetParsedBackUrl();
   public static native boolean nativeHasLegacyBackUrl();
 
-  /// One-shot back URL consumption, see ParsedMapApi::ClearGlobalBackUrl().
-  public static native void nativeClearParsedBackUrl();
 
   /// One-shot back URL consumption, see ParsedMapApi::ClearGlobalBackUrl().
   public static native void nativeClearParsedBackUrl();
@@ -232,7 +230,7 @@ public class Framework
 
   public static native void nativeCloseRouting();
 
-  public static native void nativeBuildRoute(double startDirectionX, double startDirectionY);
+  public static native void nativeBuildRoute();
 
   /**
    * Materializes the parsed route deep link as route points and starts the build in the

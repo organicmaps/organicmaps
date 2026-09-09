@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
@@ -60,7 +59,6 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   @Nullable
   private WeakReference<Activity> mTopActivity;
-
 
 
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -180,9 +178,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     if (launched && activity instanceof MwmActivity)
       ((MwmActivity) activity).skipParsedBackUrlOnNextStop();
 
-
   }
-
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
     @Override
     public void onStart(@NonNull LifecycleOwner owner)

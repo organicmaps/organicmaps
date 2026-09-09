@@ -1076,15 +1076,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mSkipParsedBackUrlOnStop)
       mSkipParsedBackUrlOnStop = false;
-    // Returning to the caller is a one-shot action for the moment the user leaves the
-    // app; while navigation is running, leaving (screen lock, app switch) is a normal
-    // part of the session, so keep the back URL for the stop after navigation ends.
-    else if (!RoutingController.get().isNavigating())
-    {
-      final String backUrl = Framework.nativeGetParsedBackUrl();
-      if (!TextUtils.isEmpty(backUrl) && Utils.openUri(this, Uri.parse(backUrl), null))
-        Framework.nativeClearParsedBackUrl();
-    }
+    // Preserve legacy map backurl behavior. V2 route callbacks require an explicit return action.
+    else if (!RoutingController.get().isNavigating() && Framework.nativeHasLegacyBackUrl())
+      Utils.returnToCaller(this);
   }
 
   void skipParsedBackUrlOnNextStop()

@@ -231,7 +231,7 @@ public:
   bool OptimizeRoutePoints();
   /// Replaces a complete itinerary. Array order defines start, intermediate indexes, and finish.
   void ReplaceRoutePoints(std::vector<RouteMarkData> points, bool optimize = false);
-  void AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints = true);
+
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   /// Attach only while a UI can open links. Attaching delivers the latest pending stop callback.
@@ -390,9 +390,7 @@ private:
   std::vector<dp::DrapeID> m_drapeSubroutes;
   mutable std::mutex m_drapeSubroutesMutex;
   RoutePointCallback m_routePointCallback;
-  // Latest-only buffer for a stop callback emitted while no platform callback is
-  // attached: opening several caller apps in a row is pointless because only the
-  // last one would win the foreground, so older pending callbacks are dropped.
+  // Latest stop awaiting a foreground UI; replacement itineraries discard it.
   std::string m_pendingRoutePointCallback;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;

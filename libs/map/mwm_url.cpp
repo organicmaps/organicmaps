@@ -466,26 +466,10 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
     }
     else if (type == "route")
     {
-      m_routePoints.clear();
-      // Keep the legacy route parser strict and separate from the v2 /v2/dir and /v2/nav
-      // parser. This lets v2 evolve without changing legacy validation semantics.
-      size_t legacyRouteParamIndex = 0;
-      bool legacyRouteTypeSeen = false;
-      bool usesLegacySyntax = false;
-      bool correctOrder = true;
-      url.ForEachParam([&legacyRouteParamIndex, &legacyRouteTypeSeen, &usesLegacySyntax, &correctOrder, this](
-                           auto const & key, auto const & value)
-      { ParseRouteParam(key, value, legacyRouteParamIndex, legacyRouteTypeSeen, usesLegacySyntax, correctOrder); });
-
-      // A non-legacy URL never reaches legacyRouteParamIndex == 4, so the index check below
-      // already enforces that at least one legacy parameter was seen.
-      if (!correctOrder || m_routingType.empty())
-        return m_requestType = UrlType::Incorrect;
-
-      if (legacyRouteParamIndex != 4 || !legacyRouteTypeSeen || m_routePoints.size() != 2)
-        return m_requestType = UrlType::Incorrect;
-
-      return m_requestType = UrlType::Route;
+      size_t paramIndex = 0;
+      url.ForEachParam([this, &paramIndex](auto const & key, auto const & value)
+      { ParseRouteParam(key, value, paramIndex); });
+      return m_requestType = paramIndex == 5 ? UrlType::Route : UrlType::Incorrect;
     }
     else if (type == "search")
     {
@@ -682,8 +666,7 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
   }
 }
 
-void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value, size_t & legacyRouteParamIndex,
-                                   bool & legacyRouteTypeSeen, bool & usesLegacySyntax, bool & correctOrder)
+void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value, size_t & paramIndex)
 {
   using namespace route;
   if (key == kVersion)
@@ -695,24 +678,11 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
   ParseCommonParam(key, value);
 
 
-  std::array<std::string_view, 4> constexpr kLegacyRouteParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName};
-  bool const isLegacyParam = key == kSourceLatLon || key == kSourceName || key == kDestLatLon || key == kDestName;
-  if (!isLegacyParam)
-  {
-    ParseCommonParam(key, value);
+  // Legacy links consume this sequence and ignore parameters outside it, including trailing duplicates.
+  constexpr std::array<std::string_view, 5> kParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
+  if (paramIndex == kParams.size() || key != kParams[paramIndex])
     return;
-  }
 
-  if (legacyRouteTypeSeen || legacyRouteParamIndex >= kLegacyRouteParams.size() ||
-      key != kLegacyRouteParams[legacyRouteParamIndex])
-  {
-    correctOrder = false;
-    return;
-  }
-
-  // Keep the old two-point format strict: existing integrations may depend on
-  // invalid legacy links being rejected rather than silently reordered.
-  usesLegacySyntax = true;
   if (key == kSourceLatLon || key == kDestLatLon)
   {
     RoutePoint point;
