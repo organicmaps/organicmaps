@@ -86,11 +86,12 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
 
 void BookmarkDialog::OnAsyncLoadingStarted()
 {
-  FillTree();
+  FillTree(true);
 }
 
 void BookmarkDialog::OnAsyncLoadingFinished()
 {
+  // The core keeps its loading flag set during callbacks to serialize queued requests.
   FillTree();
 }
 
@@ -268,7 +269,7 @@ QTreeWidgetItem * BookmarkDialog::CreateTreeItem(std::string const & title, QTre
   return item;
 }
 
-void BookmarkDialog::FillTree()
+void BookmarkDialog::FillTree(bool isLoading)
 {
   m_tree->setSortingEnabled(false);
   m_tree->clear();
@@ -280,7 +281,7 @@ void BookmarkDialog::FillTree()
 
   auto const & bm = m_framework.GetBookmarkManager();
 
-  if (!bm.IsAsyncLoadingInProgress())
+  if (!isLoading)
   {
     for (auto catId : bm.GetUnsortedBmGroupsIdList())
     {
@@ -327,7 +328,7 @@ void BookmarkDialog::FillTree()
 
 void BookmarkDialog::ShowModal()
 {
-  FillTree();
+  FillTree(m_framework.GetBookmarkManager().IsAsyncLoadingInProgress());
   exec();
 }
 }  // namespace qt

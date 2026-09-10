@@ -34,7 +34,7 @@ private slots:
   void OnDeleteClick();
 
 private:
-  void FillTree();
+  void FillTree(bool isLoading = false);
   QTreeWidgetItem * CreateTreeItem(std::string const & title, QTreeWidgetItem * parent);
   void OnAsyncLoadingStarted();
   void OnAsyncLoadingFinished();
