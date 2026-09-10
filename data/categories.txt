@@ -951,6 +951,7 @@ amenity-studio
 en:Studio
 lt:5Studija|5Ateljė
 sl:4Studio|Atelje
+sv:Studio
 
 amenity-bar|amenity-pub|@category_eat|@category_nightlife
 en:2Bar|2pub|beer|drink|tavern|bars and pubs|brew pub|cocktail lounge|U+1F37A|U+1F37B|U+1F376
@@ -1265,6 +1266,7 @@ en:Cannabis
 lt:5Kanapiai|5kanabisas|kanapių parduotuvė
 nl:Coffeeshop|cannabis winkel
 sl:Kanabis
+sv:Cannabis|cannabisbutik
 tr:4Kenevir|4esrar|kenevir mağazası
 
 shop-cosmetics|@category_shopping|@shop
@@ -1408,6 +1410,7 @@ hi:3खेती से उत्पन्न खाद्द की दुक�
 lv:Lauku produkti
 ru:Фермерская еда|фермерский магазин
 sl:4Kmetija|4kmetijski izdelki
+sv:Gårdsbutik|gårdsprodukter|gårdsmat
 tr:Çiftlik gıdaları
 
 shop-garden_centre|@shop
@@ -1463,6 +1466,7 @@ ko:식료품점
 lv:Pārtika
 ru:Бакалея
 sl:4Živila|4bakalija|živilska trgovina
+sv:Livsmedel|matbutik|livsmedelsbutik
 tr:Market
 
 shop-health_food|@category_food|@shop
@@ -1478,6 +1482,7 @@ lv:Veselīgs uzturs
 ru:Здоровая еда
 sl:4Zdrava hrana|5bio trgovina
 sr:6Здрава храна|6Zdrava hrana
+sv:Hälsokost|hälsokostbutik
 tr:Sağlıklı Gıda
 
 shop-hearing_aids|@shop
@@ -2768,6 +2773,7 @@ fr:Vêtements femme|mode femme
 it:Abbigliamento donna
 pl:Odzież damska
 ru:3Женская одежда
+sv:3Damkläder|dammode
 tr:Kadın giyim|bayan giyim
 uk:Жіночий одяг
 zh-Hans:女装|女装店
@@ -2780,6 +2786,7 @@ fr:Sous-vêtements|lingerie
 it:Biancheria intima|lingerie
 pl:Bielizna
 ru:4Нижнее бельё|трусы
+sv:4Underkläder|lingeri|underklädesbutik
 tr:Iç çamaşırı|lingeri
 uk:Нижня білизна
 
@@ -2791,6 +2798,7 @@ fr:Vêtements homme|mode homme
 it:Abbigliamento uomo
 pl:Odzież męska
 ru:3Мужская одежда
+sv:3Herrkläder|herrmode
 tr:Erkek giyim
 uk:Чоловічий одяг
 zh-Hans:男装|男装店
@@ -2803,6 +2811,7 @@ fr:Vêtements enfants|vêtements bébé
 it:Abbigliamento bambini
 pl:Odzież dziecięca
 ru:4Детская одежда|Для новорожденных
+sv:4Barnkläder|babykläder|barnmode
 tr:Çocuk giyim|bebek giyim
 uk:Дитячий одяг
 zh-Hans:童装|童装店
@@ -2815,6 +2824,7 @@ fr:Vêtements de mariée|robe de mariée
 it:Abiti da sposa
 pl:Suknie ślubne
 ru:4Свадебная одежда|Свадебный салон
+sv:4Bröllopskläder|brudbutik|brudklänning
 tr:Gelinlik|düğün kıyafeti|gelinlik mağazası
 uk:Весільний одяг|Весільний салон
 
@@ -2826,6 +2836,7 @@ fr:Vêtements de sport
 it:Abbigliamento sportivo
 pl:Odzież sportowa
 ru:4Спортивная одежда
+sv:4Sportkläder|sportkläder
 tr:Spor giyim
 uk:Спортивний одяг
 
@@ -2837,6 +2848,7 @@ fr:Costumes|tailleurs
 it:Abiti|vestiti|sartoria
 pl:Garnitury
 ru:4Костюмы|деловая одежда|магазин костюмов
+sv:4Kostymer|kostymbutik
 tr:Takım elbise
 uk:Костюми|діловий одяг|магазин костюмів
 
@@ -2848,6 +2860,7 @@ fr:Chapeaux|casquettes|chapellerie
 it:Cappelli|cappelleria
 pl:Czapki|kapelusze
 ru:Шапки|головные уборы
+sv:Hattar|hattbutik|kepsar
 tr:Şapka|bere|şapka mağazası
 uk:Капелюхи|головні убори
 
@@ -2859,6 +2872,7 @@ fr:Mode|Boutique de mode
 it:Moda|boutique
 pl:Moda|butik modowy
 ru:Мода|Бутик
+sv:4Mode|modebutik
 tr:Moda|butik|moda butik
 uk:Мода|бутик|модний бутик
 
@@ -2875,6 +2889,7 @@ hi:4कैंपर डीलर
 lv:5kemperu veikals|5treileru veikals
 ru:Автодом|Продажа автодомов
 sl:4Avtodomi|5prodaja avtodomov|4kampirci|prodajalna avtodomov
+sv:2Husbilshandlare|4Husvagnshandlare|husbilar|husvagnar
 tr:Karavan galerisi|karavan bayiliği
 uk:Продаж автобудинків
 
@@ -3207,7 +3222,7 @@ ro:Funicular
 ru:Фуникулер
 sk:Lanovka
 sl:Tirna vzpenjača|funicular
-sv:Linbana
+sv:Bergbana
 sw:Funicular
 th:รถกระเช้าไฟฟ้า
 tr:Füniküler
@@ -3459,7 +3474,7 @@ ro:3Turism
 ru:4Произведение искусства|3скульптура
 sk:3Umelecké diela|umelecké dielo
 sl:3Umetniška dela|3skulptura|umetniško delo
-sv:3Konstverk|3turism
+sv:3Konstverk|4skulptur|4målning|4staty
 sw:Kazi ya kisanaa|utalii
 th:งานศิลปะ|3การท่องเที่ยว
 tr:3Resim|3Sanat
@@ -4550,7 +4565,7 @@ ro:Comemorare
 ru:Памятная доска
 sk:Pomník|pamätná tabuľa
 sl:5Spominska plošča|Plošča
-sv:Minnesmärke
+sv:Minnestavla|minnesplakett
 sw:Plaque
 th:ที่ระลึก
 tr:Hatıra Plaketi|Anı plaketi
@@ -4592,7 +4607,7 @@ ru:Скульптура
 sk:Pomník|plastika
 sl:Spomenik|kip|skulptura
 sr:Споменик|spomenik|скулптура
-sv:Minnesmärke
+sv:Skulptur
 sw:Uchongaji
 th:ที่ระลึก
 tr:Heykel
@@ -4635,7 +4650,7 @@ ru:Статуя
 sk:Pomník|socha
 sl:4Kip|4statua
 sr:Статуа|Споменик|Statua|Spomenik
-sv:Minnesmärke
+sv:Staty
 sw:Sanamu
 th:ที่ระลึก
 tr:Heykel
@@ -5234,6 +5249,7 @@ man_made-cross
 en:Cross
 lt:5Kryžius
 sl:4Križ
+sv:Kors
 
 historic-wayside_cross
 en:Wayside cross
@@ -5340,12 +5356,14 @@ pt-BR:Parque canino|Parque para cães|Parque para cachorros
 ru:Место для выгула собак|3выгул собак|Площадка для собак|4Собачья площадка
 sl:3Pasji park|Pasje igrišče|Izpust za pse
 sr:Парк за псе|Park za pse
+sv:3Hundrastgård|hundpark|hundrastplats
 tr:3Köpek parkı|köpek alanı
 
 leisure-dance|@category_entertainment
 en:4Dance|dancing school|dance hall
 lt:5Šokis|5šokių mokykla|šokių salė
 sl:3Ples|4plesna šola|plesna dvorana
+sv:4Dans|dansskola|danssal
 
 leisure-garden
 en:3Garden
@@ -5392,6 +5410,7 @@ leisure-firepit
 en:5Firepit
 lt:5Laužavietė|5Laužas
 sl:5Kurišče|Ognjena jama
+sv:5Eldplats|grillplats
 
 amenity-bench
 en:Bench
@@ -5501,6 +5520,7 @@ pt-BR:Oficina de bicicletas|4bicicleta
 ru:4Велоремонт|велосипед|ремонт|ремонт велосипедов
 sl:4Popravilo koles|servis koles|stojalo za popravilo koles
 sr:7Станица за поправку бицикала
+sv:4Cykelreparationsstation|cykel|cykelreparation|4cykelverktyg
 tr:4Bisiklet tamiri|4bisiklet|bisiklet tamircisi
 uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
 zh-Hans:1自行车修理|自行车维修站
@@ -5935,6 +5955,7 @@ amenity-love_hotel|@category_hotel
 en:4Love Hotel|3Sex Hotel|4Adult Hotel
 lt:5Meilės viešbutis|5Suaugusiųjų viešbutis
 sl:4Hotel za zaljubljence|4hotel za odrasle|ljubezenski hotel
+sv:4Kärlekshotell|3sexhotell|4timhotell
 
 @gambling
 en:Gambling
@@ -6874,6 +6895,7 @@ lt:5Mėginių ėmimas|5analizės
 hi:नमूना संग्रह केंद्र
 ru:Анализы|сбор анализов
 sl:5Odvzem vzorcev|laboratorij|analize
+sv:Provtagning|provtagningsställe
 uk:Аналізи|збір аналізів
 
 healthcare-speech_therapist
@@ -7070,7 +7092,7 @@ pt-BR:3Estacionamento
 ru:Автостоянка|парковка
 sl:4Parkirišče|3parkiranje
 sr:Паркинг|parking
-sv:Parkering|parkering entré
+sv:Parkering|parkeringsinfart
 sw:Maegesho
 tr:Otopark|otopark girişi
 uk:Автостоянка|парковка
@@ -7802,6 +7824,7 @@ mr:पुठ्ठा भंगारवाला|पुठ्ठा
 ru:5Приём картона|приём макулатуры|5переработка картона|5сдать картон|сдать макулатуру|4сбор картона|сбор макулатуры|5макулатура|картон
 sl:5Reciklaža kartona|5oddaja kartona|karton
 sr:Рециклажа картона|reciklaža kartona|картон
+sv:4Kartongåtervinning|5återvinning av kartong|kartongavfall|kartong
 tr:5Karton Geri Dönüşümü|karton
 uk:5Прийом картону|прийом макулатури|5переробка картону|5здати картон|здати макулатуру|4збір картону|збір макулатури|5макулатура|картон
 
@@ -7816,6 +7839,7 @@ mr:कॅन भंगारवाला|कॅन
 ru:5Приём жестяных и алюминиевых банок|5переработка жестяных и алюминиевых банок|5сдать жестяные и алюминиевые банки|4сбор жестяных и алюминиевых банок|6консервные банки|5жестяные банки|5алюминиевые банки|пивные банки
 sl:5Reciklaža pločevink|5oddaja pločevink|pločevinke
 sr:Рециклажа лименки|reciklaža limenki|конзерве
+sv:4Burkåtervinning|4återvinning av burkar|4aluminiumburkar|3konservburkar|burkar
 tr:4Kutu Geri Dönüşümü|tenekeler
 uk:5Прийом жерстяних та алюмінієвих банок|5переробка жерстяних та алюмінієвих банок|5здати жерстяні та алюмінієві банки|4збір жерстяних та алюмінієвих банок|6консервні банки|5жерстяні банки|5алюмінієві банки|пивні банки
 
@@ -7829,6 +7853,7 @@ mr:शूज भंगारवाला|पादत्राणे
 ru:5Приём обуви|старая обувь|5сдать обувь|обувь
 sl:5Reciklaža obutve|5oddaja obutve|čevlji
 sr:Рециклажа обуће|reciklaža obuće|ципеле
+sv:4Skåtervinning|återvinning av skor|donera skor|skor
 tr:5Ayakkabı Geri Dönüşümü|ayakkabı toplama kutusu|ayakkabılar
 uk:5Прийом взуття|старе взуття|5здати взуття|взуття
 
@@ -7841,6 +7866,7 @@ lv:Bioloģiskie atkritumi|bioloģisko atkritumu nodošana
 mr:हिरव्या कचऱ्याचे पुनर्वापर
 ru:5Приём органических отходов|приём пищевых отходов|5сдать органические отходы|4сбор органических отходов|сбор пищевых отходов|5пищевые отходы|6садовые отходы
 sl:5Reciklaža organskih odpadkov|6bio odpadki|zeleni/organski odpadki
+sv:4Trädgårdsavfall|5återvinning av organiskt avfall|5återvinning av trädgårdsavfall|matavfall|trädgårdsavfall|organiskt avfall
 tr:5Yeşil Atıkların Geri Dönüşümü|yeşil/organik atık
 uk:5Прийом органічних відходів|прийом харчових відходів|5здати органічні відходи|4збір органічних відходів|збір харчових відходів|5харчові відходи|6садові відходи
 
@@ -7852,6 +7878,7 @@ lt:5Gėrimų kartono perdirbimas|5tetrapakės|kartoninės pakuotės
 lv:Tetrapaku pārstrāde|tetrapaku nodošana
 ru:5Приём тетрапака|5сдать тетрапак|4сбор тетрапака|5тетрапак
 sl:5Reciklaža tetrapakov|5oddaja tetrapakov|kartonska embalaža
+sv:4Dryckeskartonger|5återvinning av kartonger|5återvinning av dryckeskartonger|kartonger
 tr:5Karton Kutu Geri Dönüşümü|4tetrapak|içecek kutusu geri dönüşümü|kartonlar
 uk:5Прийом тетрапака|5здати тетрапак|4збір тетрапака|5тетрапак
 
@@ -7867,6 +7894,7 @@ it:4Camper service
 lv:Mobilo māju apkalpošana|kemperu apkalpošana
 ru:4Слив нечистот|слив туалета|слив для туалета|нечистоты|канализация
 sl:4Postaja za izpraznitev|6izpraznitev stranišča
+sv:2Tömningsstation för husbil|5latrintömning|4tömningsstation|avlopp|husbilsavfall|5husbilstömning|5campertömning|4husvagnstömning
 tr:6Karavan Çöplüğü|karavanlar için çöplük
 uk:4Злив нечистот|слив туалету|слив для туалету|нечистоти|каналізація
 
@@ -8619,7 +8647,7 @@ ru:Остров
 sk:Ostrov|ostrovček
 sl:4Otok|otoček
 sr:Острво|ostrvo|острвце
-sv:Ö
+sv:Ö|holme
 sw:Kisiwa
 th:เกาะ
 tr:Ada|adacık
@@ -8950,7 +8978,7 @@ ru:Улица|пешеходная улица|шоссе|съезд с шосс�
 sk:Ulica|cesta i. triedy|miestna komunikácia|cesta II. triedy|cesta III. triedy|účelová cesta|poľná cesta|cesta|obytná zóna|cesta bez administratívneho zaradenia|diaľnica|cyklocesta
 sl:4Ulica|3cesta|ulica za pešce|glavna cesta|rampa glavne ceste|stanovanjska ulica|regionalna cesta|lokalna cesta|rampa lokalne ceste|servisna cesta|kolovoz|hitra cesta|rampa hitre ceste|bivalna ulica|manjša cesta|avtocesta|kolesarska pot
 sr:Улица|ulica|пешачка улица|пут прве класе|приступни пут|стамбена улица|пут друге класе|излаз са пута|пут треће класе|сервисни пут|пут|макадам|улица у стамбеној зони|некласификовани пут|излаз са мото-пута|мото-пут|бициклистичка стаза
-sv:Gata|väg|motorvägspåfart|cykelbana
+sv:Gata|väg|gågata|bostadsgata|serviceväg|stamväg|motorväg|motorvägsanslutning|cykelbana
 sw:mtaani
 th:ถนน
 tr:Sokak|sokağı|yaya caddesi|ana yol|ana yol rampası|tali yol|tali yol rampası|üçüncül yol|üçüncül yol rampası|servis yolu|yol|pist|devlet yolu|devlet yolu rampası|cadde|otoyol rampası|otoyol|bisiklet yolu
@@ -9009,6 +9037,7 @@ mr:उद्वाहक|एलिव्हेटर|लिफ्ट|उद्�
 ru:Лифт
 sl:3Dvigalo
 sr:Лифт|Lift
+sv:Hiss
 tr:Asansör
 
 @mountain
@@ -9069,6 +9098,7 @@ mr:खोगीर|माउंटन सॅडल|डोंगरवाट
 ru:4Седловина|5Перевал
 sl:4Sedlo|5prelaz|gorsko sedlo|gorski prelaz
 sr:Седло|sedlo|планинско седло|планински превој
+sv:4Bergssadel|pass|bergspass
 tr:Sırt|geçit|dağ eyeri|boğaz
 uk:4Сідловина|5Перевал
 
@@ -9626,6 +9656,7 @@ ro:Aeroport
 ru:Аэропорт
 sk:Letisko
 sl:Letališče
+sv:Flygplats
 th:สนามบิน
 tr:Havaalanı
 uk:Аеропорт
@@ -9938,6 +9969,7 @@ lv:4Hakertelpa
 mr:हॅकरस्पेस
 ru:Хакерспейс
 sl:5Hackerspace|Hekerski prostor
+sv:4Hackerspace|hackarlokal
 th:แฮกเกอร์สเปซ
 vi:Không gian tin tặc
 zh-Hans:创客空间
@@ -10151,6 +10183,7 @@ ro:Atletism|atletica ușoară
 ru:Лёгкая атлетика
 sl:5Atletika|Tek
 sr:Ателтика|atletika|атлетика
+sv:Friidrott
 tr:Atletik|Atletizm
 uk:Легка атлетика
 vi:Thế vận hội|điền kinh
@@ -10191,6 +10224,7 @@ ro:Fotbal australian
 ru:Австралийский футбол
 sl:5Avstralski nogomet
 sr:Аустралијски фудбал|Australijski fudbal
+sv:Australisk fotboll
 tr:Avustralya futbolu
 uk:Австралійський футбол
 vi:Bóng bầu dục Úc
@@ -10274,6 +10308,7 @@ ro:Baschet|baschetbal
 ru:Баскетбол
 sl:4Košarka|Basket
 sr:Кошарка|Košarka
+sv:Basket|basketboll
 tr:Basketbol
 uk:Баскетбол
 vi:Bóng rổ
@@ -10428,6 +10463,7 @@ pt-BR:Críquete
 ru:Крикет
 sl:4Kriket
 sr:Крикет|Kriket
+sv:Cricket
 tr:Kriket
 uk:Крикет
 vi:Cricket
@@ -12707,6 +12743,7 @@ fr:Architecte|Cabinet d'architecte
 it:Architetto|Studio di architettura
 pl:Architekt|Pracownia architektoniczna
 ru:4Архитектор|Архитектурное бюро
+sv:4Arkitekt|arkitektkontor
 tr:Mimar|Mimarlık bürosu
 uk:Архітектор|Архітектурне бюро
 
@@ -14136,6 +14173,7 @@ mr:सर्वेक्षण बिंदू|सर्व्हे पॉइ�
 pl:4Znak geodezyjny
 ru:4Геодезический пункт|Геодезический знак|4тригонометрический пункт|пункт триангуляции|тригопункт|4триангулятор
 sl:5Geodetska točka|Triangulacijska točka
+sv:4Mätpunkt|mätmärke|fixpunkt|4geodetisk punkt|triangelpunkt|4trigonometrisk punkt
 tr:4Veri toplama istasyonu|4nirengi istasyonu|4jeodezik ölçüm noktası|4ölçüm istasyonu|nirengi noktası
 uk:4Геодезичний пункт
 
@@ -14157,6 +14195,7 @@ pl:Maszt flagowy
 ru:Флагшток
 sk:Vlajkový stožiar
 sl:4Drog za zastavo|Zastava
+sv:Flaggstång
 tr:Bayrak Direği
 uk:Флагшток
 zh-Hans:旗杆
@@ -14179,6 +14218,7 @@ pl:Maszt
 ru:Мачта|вышка|мачта/вышка
 sk:Stožiar
 sl:4Jambor|Steber|Antena
+sv:Mast|stolpe
 tr:Direk
 uk:Щогла|вишка|щогла/вишка
 
@@ -15559,6 +15599,7 @@ mr:कॉफी विक्रीयंत्र
 ru:3Кофейный автомат|кофе|кофемат
 sl:3Kava|avtomat za kavo|kavomat
 sr:Аутомат за кафу|Automat za kafu
+sv:4Kaffeautomat|kaffe
 tr:4Kahve Dispenseri|kahve makinesi|kahve dağıtıcı
 uk:3Кавовий автомат|кава
 
@@ -15578,6 +15619,7 @@ mr:कंडोम विक्रीयंत्र
 ru:Автомат с презервативами|5презервативы|5кондомат
 sl:5Avtomat za kondome|kondomi|kondomat
 sr:Аутомат за кондоме|Automat za kondome
+sv:4Kondomautomat|kondomer
 tr:5Prezervatif Dispenseri|kondom dispenseri|prezervatif dağıtıcı
 uk:Автомат з презервативами|5презервативи|5кондомат
 
@@ -15639,6 +15681,7 @@ mr:अन्न विक्रीयंत्र
 ru:Автомат с едой|5перекус|4снэки
 sl:4Avtomat s hrano|Prigrizki
 sr:Аутомат за храну|Automat za hranu
+sv:4Matautomat|mat|snacks
 tr:Otomat|yiyecek dispenseri|atıştırmalık|yiyecek dağıtıcı
 uk:Автомат з їжею|5перекус|4снекі
 
@@ -15742,6 +15785,7 @@ lv:4Avīžu automāts|avīzes|4prese
 mr:वर्तमानपत्र विक्रीयंत्र|वृत्तपत्र विक्रीयंत्र
 ru:Газетный автомат|газетомат|3газеты|4пресса
 sl:4Časopisi|avtomat za časopise|časopisomat
+sv:4Tidningsautomat|tidningar
 tr:4Gazete dispenseri|gazetelik|gazete dağıtıcı
 uk:Газетний автомат|газетомат|3газети|4преса
 
@@ -15761,6 +15805,7 @@ lv:4Saldumu automāts|saldumi
 mr:मिठाई विक्रीयंत्र
 ru:Автомат со сладостями|4сладости|4конфеты
 sl:4Sladkarije|avtomat za sladkarije
+sv:4Godisautomat|godis|4karameller
 tr:Tatlı dispenseri|şekerler|şekerleme dağıtıcı
 uk:Автомат із солодощами|4солодощі|4цукерки
 
@@ -15776,6 +15821,7 @@ lv:Suņu izkārnījumu maisiņu automāts|maisiņi suņu izkārnījumiem|suņu h
 mr:मलमूत्र पिशव्या विक्रीयंत्र
 ru:5Пакеты для экскрементов|Какашки|Пакеты для какашек
 sl:5Vrečke za iztrebke|pasji iztrebki
+sv:5Hundpåseautomat|4bajspåsar|3hundbajspåsar|hundpåsar
 tr:5Dışkı torbası dispenseri
 uk:5Мішки для екскрементів|Какашки|5Пакети для какашок
 
@@ -15793,6 +15839,7 @@ mr:पार्सल लॉकर
 ru:3Почтомат|Постамат|5Получение посылок
 sl:4Paketomat|Prevzem paketov
 sr:Пакетомат|Paketomat
+sv:4Paketbox|4paketskåp|4paketutlämning
 tr:4kilitli dolap|4kitli dolap|kasa
 uk:3Поштомат|5Отримання посилок
 
@@ -15852,6 +15899,7 @@ mr:इंधन विक्रीयंत्र
 ru:Топливная колонка|бензоколонка|топливораздаточная колонка
 sl:4Počivališče
 sr:Самоуслужно точење горива|samouslužno točenje goriva
+sv:Bränslepump|bensinpump|dieselpump
 tr:Yakıt dağıtıcı
 uk:Паливна колонка|бензоколонка|пальнороздавальна колонка
 
@@ -15956,6 +16004,7 @@ pt-BR:Área de serviços de estrada
 ru:4Зона обслуживания
 sl:5Servisna cona|postaja za storitve|servisno območje
 sr:Сервисна станица|servisna stanica|сервисна зона
+sv:4Serviceområde|rastplats|servicestation
 tr:4Servis Alanı
 uk:4Зона обслуговування
 zh-Hans:服务区
@@ -16006,6 +16055,7 @@ en:Crane
 lt:5Kranas
 ru:Кран
 sl:4Dvigalo|Žerjav
+sv:Kran
 
 man_made-monitoring_station
 en:Monitoring Station
@@ -17620,7 +17670,7 @@ ru:Парковочное место для инвалидов
 sk:Parkovacie miesto pre invalidov
 sl:Parkirno mesto za invalide|Invalidsko parkirišče
 sr:Паркинг за особе са инвалидитетом|паркинг за инвалиде|parking za osobe sa invaliditetom|parking za invalide
-sv:Handikappparkeringsplats
+sv:Parkeringsplats för rörelsehindrade|handikapparkering
 sw:Nafasi ya maegesho iliyozimwa
 th:ที่จอดรถสำหรับผู้พิการ
 tr:Engelli park yeri
@@ -18668,6 +18718,7 @@ ro:3Galerie|muzeu
 ru:3Галерея|музей|картины|картинная галерея
 sl:3Galerija|Umetnostna galerija|Muzej
 sr:Галерија|музеј|galerija|muzej|уметничка галерија
+sv:3Konstgalleri|3galleri|museum
 tr:3Galeri|müze
 
 tourism-theme_park|@category_tourism|@category_children
@@ -18693,6 +18744,7 @@ ro:Parc de distracții
 ru:Парк развлечений|Парк аттракционов|Тематический парк
 sl:Tematski park|Zabaviščni park
 sr:Забавни парк|Zabavni park
+sv:Temapark|nöjespark
 tr:Tema parkı|Eğlence parkı
 
 boundary-national_park|@category_tourism
@@ -18998,6 +19050,7 @@ pt-BR:3Marina
 ru:4Причал|5пристань|3Марина
 sl:3Marina|Pristanišče
 sr:Марина|Marina
+sv:3Marina|småbåtshamn
 tr:Iskele|marina|rıhtım|liman
 uk:5Пристань|3Марина
 zh-Hans:游艇码头
@@ -19106,6 +19159,7 @@ pt-BR:Loja de chocolates
 ru:Шоколад|магазин шоколада
 sl:4Čokolada|Čokoladnica
 sr:Чоколада|Čokolada
+sv:Choklad|chokladbutik
 tr:Çikolata mağazası|çikolata dükkanı
 
 shop-coffee|@category_food|@shop
@@ -19126,6 +19180,7 @@ pt-BR:Loja de café
 ru:Кофе|магазин кофе
 sl:4Kava|trgovina s kavo|kavarna
 sr:Кафа|Kafa
+sv:Kaffe|kaffebutik
 tr:Kahve mağazası|kahve dükkanı
 
 shop-fabric|@shop
@@ -19145,6 +19200,7 @@ pt-BR:Loja de aviamentos
 ru:Текстиль|ткани|магазин тканей
 sl:Posojilodajalec
 sr:Текстил|Метража|Tekstil|Metraža
+sv:Tyg|tygbutik
 tr:Kumaş mağazası|Tekstil mağazası
 lt:5Audinių parduotuvė|5tekstilė|audiniai
 
@@ -19162,6 +19218,7 @@ pt-BR:Prestamista
 ru:Ростовщик
 sl:5Posojilodajalec
 sr:Новчане позајмице|Novčane pozajmice
+sv:Långivare|låneföretag
 tr:Tefeci
 
 shop-music|@shop
@@ -19184,6 +19241,7 @@ pt-BR:Loja de música
 ru:Музыка|музыкальный магазин
 sl:4Glasba|Glasbena trgovina|Plošče
 sr:Музика|Muzika
+sv:Skivor|vinyl|musik|skivbutik
 tr:Plak mağazası|müzik dükkanı
 
 shop-musical_instrument|@shop
@@ -19206,6 +19264,7 @@ pt-BR:Loja de instrumentos musicais
 ru:Музыкальные инструменты
 sl:4Glasbila|Glasbeni instrumenti|Trgovina z glasbili
 sr:Музички инструменти|Muzički instrumenti
+sv:Musikinstrument|instrumentbutik
 tr:Enstrüman Mağazası
 
 shop-tea|@shop
@@ -19228,6 +19287,7 @@ pt-BR:Loja de chás
 ru:Чай|чая|чайный магазин
 sl:3Čaj|Čajnica|Trgovina s čaji
 sr:Чај|čaj|чајеви
+sv:Te|tebutik
 tr:Çay mağazası|çay dükkanı
 zh-Hans:茶叶商店|茶叶店
 
@@ -19624,6 +19684,7 @@ zh-Hant:室內裝飾
 shop-leather|@shop
 en:4Leather|leather shop
 ru:4Кожаные изделия|кожа
+sv:4Läder|läderbutik
 
 shop-lighting|@shop
 en:4Lighting|4lamps|lighting shop
@@ -19891,6 +19952,7 @@ en:5Religion Shop
 ja:宗教用品店
 ko:종교 용품점
 ru:5Религиозный Магазин
+sv:5Religiös butik|religiösa artiklar
 
 shop-sewing|@shop
 en:3Sewing Supplies|4haberdashery
@@ -20385,6 +20447,7 @@ pt:Moledro ou mariola
 pt-BR:Moledro ou mariola
 ru:Тур
 sl:4Možic|Kup
+sv:4Röse|stenröse
 tr:Höyük
 uk:Тур
 
@@ -20807,6 +20870,7 @@ pt:Praça de alimentação
 pt-BR:Praça de alimentação
 ru:Ресторанный дворик
 sl:5Kotiček s hrano|restavracije|gostinska ponudba
+sv:Mattorg|food court
 tr:Yemek katı
 uk:Ресторанний двір
 zh-Hans:美食广场
@@ -20908,6 +20972,7 @@ fr:Boutique de jeux|Jeux de société
 it:Negozio di giochi|Giochi da tavolo
 pl:Sklep z grami|Gry planszowe
 ru:Магазин игр|Настольные игры
+sv:Spelbutik|brädspel|sällskapsspel
 tr:Oyun mağazası|Masa oyunları
 uk:Магазин ігор|Настільні ігри
 
@@ -21239,6 +21304,7 @@ ru:Станция перевалки отходов
 sk:Prekládková stanica odpadu
 sl:5Zbirni center za odpadke|odpadki
 lt:5Atliekų tvarkymo stotis|5atliekų surinkimo punktas
+sv:Avfallsomlastningsstation
 tr:Atık Transfer İstasyonu
 uk:Станція передачі сміття
 zh-Hans:垃圾转运站
@@ -21352,6 +21418,7 @@ en:Attraction|amusement ride|carousel|roller coaster|maze|historic attraction|bi
 lt:5Atrakcija|5pramogos|atrakcionų atrakcionas|karuselė|amerikietiški kalneliai|labirintas|istorinė atrakcija|apžvalgos ratas|autodromas
 ru:Аттракцион|карусель|американские горки|лабиринт|исторический аттракцион|колесо обозрения|автодром
 sl:4Varnostnik|vratarnica|zabaviščna vožnja|vrtiljak|vlak smrti|labirint|zgodovinska znamenitost|veliko kolo|avtočki
+sv:Attraktion|nöjesattraktion|karusell|berg- och dalbana|labyrint|historisk sevärdhet|pariserhjul|radiobil
 
 leisure-escape_game
 en:4Escape Room|quest|game
@@ -21446,11 +21513,13 @@ en:4Security Office
 lt:4Apsaugos tarnyba|5saugos tarnyba|apsauga
 ru:ЧОП|4Охрана
 sl:4Varnost|varnostna služba|varnostna pisarna
+sv:4Säkerhetskontor|bevakningskontor
 
 building-guardhouse
 en:4Guard
 ru:4Сторож|4Охрана
 sl:4Varnostnik|Vratarnica
+sv:4Vaktkur|vakthus|vakt
 
 xmas:feature-market
 en:4Christmas Market

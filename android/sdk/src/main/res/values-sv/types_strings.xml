@@ -6,6 +6,7 @@
     <string name="type.addr_interpolation.even">Adress / kvarter</string>
     <string name="type.addr_interpolation.odd">Adress / kvarter</string>
     <string name="type.aerialway">Linbana</string>
+    <string name="type.aerialway.cable_car">Kabinbana</string>
     <string name="type.aerialway.chair_lift">Stollift</string>
     <string name="type.aerialway.drag_lift">Släplift</string>
     <string name="type.aerialway.gondola">Gondolbana</string>
@@ -13,7 +14,8 @@
     <string name="type.aerialway.station">Linbanestation</string>
     <string name="type.aeroway">Luftfart</string>
     <string name="type.aeroway.aerodrome">Flygplats</string>
-    <string name="type.aeroway.aerodrome.international">Flygplats</string>
+    <string name="type.aeroway.aerodrome.international">Internationell flygplats</string>
+    <string name="type.aeroway.apron">Flygplansplatta</string>
     <string name="type.aeroway.gate">Gate</string>
     <string name="type.aeroway.helipad">Helikopterplatta</string>
     <string name="type.aeroway.runway">Landningsbana</string>
@@ -27,10 +29,12 @@
     <string name="type.amenity.bbq">Grillplats</string>
     <string name="type.amenity.bench">Bänk</string>
     <string name="type.amenity.bicycle_parking">Cykelparkering</string>
+    <string name="type.amenity.bicycle_parking.covered">Cykelparkering under tak</string>
     <string name="type.amenity.bicycle_rental">Cykeluthyrning</string>
     <string name="type.amenity.bicycle_repair_station">Cykelreparationsstation</string>
     <string name="type.amenity.biergarten">Ölservering</string>
     <string name="type.amenity.brothel">Bordell</string>
+    <string name="type.amenity.love_hotel">Kärlekshotell</string>
     <string name="type.amenity.bureau_de_change">Valutaväxling</string>
     <string name="type.amenity.bus_station">Busstation</string>
     <string name="type.amenity.cafe">Café</string>
@@ -47,6 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">Laddningsstation för bilar</string>
     <string name="type.amenity.childcare">Barnomsorg</string>
     <string name="type.amenity.cinema">Bio</string>
+    <string name="type.amenity.studio">Studio</string>
     <string name="type.leisure.bowling_alley">Bowlinghall</string>
     <string name="type.amenity.clinic">Klinik</string>
     <string name="type.amenity.college">Högskola</string>
@@ -73,7 +78,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard">Begravningsplats</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-    <string name="type.amenity.grave_yard.christian">Begravningsplats</string>
+    <string name="type.amenity.grave_yard.christian">Kristen kyrkogård</string>
     <string name="type.amenity.hospital">Sjukhus</string>
     <string name="type.amenity.hunting_stand">Jakttorn</string>
     <string name="type.amenity.ice_cream">Glassstånd</string>
@@ -81,6 +86,7 @@
     <string name="type.amenity.kindergarten">Förskola</string>
     <string name="type.amenity.library">Bibliotek</string>
     <string name="type.amenity.loading_dock">Lastkaj</string>
+    <string name="type.amenity.luggage_locker">Bagageskåp</string>
     <string name="type.amenity.marketplace">Marknadsplats</string>
     <string name="type.amenity.motorcycle_parking">Motorcykelparkering</string>
     <string name="type.amenity.nightclub">Nattklubb</string>
@@ -92,13 +98,13 @@
     <string name="type.amenity.parking.no.access">Privat parkering</string>
     <string name="type.amenity.parking.permissive">Privat parkering</string>
     <string name="type.amenity.parking.private">Privat parkering</string>
-    <string name="type.amenity.parking.park_and_ride">Parkering</string>
+    <string name="type.amenity.parking.park_and_ride">Infartsparkering</string>
     <string name="type.amenity.parking.underground">Underjordisk parkering</string>
     <string name="type.amenity.parking.underground.fee">Underjordisk parkering</string>
     <string name="type.amenity.parking.underground.private">Privat underjordisk parkering</string>
-    <string name="type.amenity.parking.street_side">Gata sida parkering</string>
-    <string name="type.amenity.parking.street_side.fee">Gata sida parkering</string>
-    <string name="type.amenity.parking.street_side.private">Privat gata sidoparkering</string>
+    <string name="type.amenity.parking.street_side">Gatuparkering</string>
+    <string name="type.amenity.parking.street_side.fee">Gatuparkering</string>
+    <string name="type.amenity.parking.street_side.private">Privat gatuparkering</string>
     <string name="type.amenity.parking.lane">Körfält parkering</string>
     <string name="type.amenity.parking.lane.fee">Körfält parkering</string>
     <string name="type.amenity.parking.lane.private">Privat körfält parkering</string>
@@ -125,6 +131,7 @@
     <string name="type.amenity.police">Polis</string>
     <string name="type.amenity.post_box">Postlåda</string>
     <string name="type.amenity.post_office">Postkontor</string>
+    <string name="type.post_office.post_partner">Postombud</string>
     <string name="type.amenity.prison">Fängelse</string>
     <string name="type.amenity.pub">Krog</string>
     <string name="type.amenity.public_bookcase">Bokskåp</string>
@@ -155,6 +162,8 @@
     <string name="type.amenity.shelter.public_transport">Vindskydd</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Bivack</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">Vindskydd</string>
     <string name="type.amenity.public_bath">Offentligt bad</string>
     <string name="type.amenity.shower">Dusch</string>
     <string name="type.amenity.stripclub">Stripklubb</string>
@@ -170,21 +179,24 @@
     <string name="type.amenity.vending_machine.coffee">Kaffeautomat</string>
     <string name="type.amenity.vending_machine.condoms">Kondomautomat</string>
     <string name="type.amenity.vending_machine.drinks">Läskautomat</string>
+    <string name="type.amenity.vending_machine.food">Matautomat</string>
     <string name="type.amenity.vending_machine.newspapers">Tidningsautomat</string>
     <string name="type.amenity.vending_machine.parking_tickets">Parkeringsautomat</string>
     <string name="type.amenity.vending_machine.public_transport_tickets">Biljettautomat</string>
     <string name="type.amenity.vending_machine.sweets">Godisautomat</string>
+    <string name="type.amenity.vending_machine.excrement_bags">Hundpåseautomat</string>
     <string name="type.amenity.parcel_locker">Paketbox</string>
     <string name="type.amenity.vehicle_inspection">Fordonsinspektion</string>
     <string name="type.amenity.vending_machine.fuel">Bränslepump</string>
     <string name="type.amenity.veterinary">Veterinär</string>
     <string name="type.amenity.waste_basket">Papperskorg</string>
     <string name="type.amenity.waste_disposal">Avfallscontainer</string>
+    <string name="type.amenity.waste_transfer_station">Avfallsomlastningsstation</string>
     <string name="type.amenity.water_point">Vattenpost</string>
     <string name="type.amenity.water_point.drinking_water_no">Vattenpost</string>
     <string name="type.barrier">Hinder</string>
-    <string name="type.barrier.block">Blockering</string>
-    <string name="type.barrier.bollard">Stolpe</string>
+    <string name="type.barrier.block">Block</string>
+    <string name="type.barrier.bollard">Pollare</string>
     <string name="type.barrier.border_control">Gränskontroll</string>
     <string name="type.barrier.chain">Kedja</string>
     <string name="type.barrier.city_wall">Stadsmur</string>
@@ -194,15 +206,16 @@
     <string name="type.natural.water.wastewater">Avloppsvatten</string>
     <string name="type.barrier.entrance">Ingång</string>
     <string name="type.barrier.fence">Staket</string>
+    <string name="type.barrier.guard_rail">Vägräcke</string>
     <string name="type.barrier.gate">Grind</string>
     <string name="type.barrier.hedge">Häck</string>
-    <string name="type.barrier.kissing_gate">Grind</string>
+    <string name="type.barrier.kissing_gate">Kyssgrind</string>
     <string name="type.barrier.lift_gate">Bom</string>
     <string name="type.barrier.retaining_wall">Stödmur</string>
     <string name="type.barrier.stile">Stätta</string>
     <string name="type.barrier.turnstile">Vändkors</string>
     <string name="type.barrier.swing_gate">Bom</string>
-    <string name="type.barrier.toll_booth">Tullhus</string>
+    <string name="type.barrier.toll_booth">Betalstation</string>
     <string name="type.barrier.wall">Mur</string>
     <string name="type.boundary">Gräns</string>
     <string name="type.boundary.administrative">Administrativ gräns</string>
@@ -269,6 +282,7 @@
     <string name="type.cuisine.beef_bowl">Biff donburi</string>
     <string name="type.cuisine.brazilian">Brasiliansk mat</string>
     <string name="type.cuisine.breakfast">Frukost</string>
+    <string name="type.cuisine.bubble_tea">Bubble tea</string>
     <string name="type.cuisine.burger">Hamburgare</string>
     <string name="type.cuisine.buschenschank">Vintaverna</string>
     <string name="type.cuisine.cake">Tårta</string>
@@ -378,13 +392,13 @@
     <string name="type.highway.bridleway.permissive">Ridväg</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.bridleway.tunnel">Tunnel</string>
-    <string name="type.highway.busway">Dedikerad bussväg</string>
+    <string name="type.highway.busway">Bussväg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.busway.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Tunnel</string>
     <string name="type.highway.bus_stop">Busshållplats</string>
-    <string name="type.highway.construction">Väg under uppförande</string>
+    <string name="type.highway.construction">Väg under byggnad</string>
     <string name="type.highway.cycleway">Cykelbana</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Cykelbro</string>
@@ -395,29 +409,29 @@
     <string name="type.highway.footway">Gångväg</string>
     <string name="type.highway.footway.sidewalk">Trottoar</string>
     <string name="type.highway.footway.crossing">Övergångsställe för fotgängare</string>
-    <string name="type.highway.footway.area">Gångväg</string>
+    <string name="type.highway.footway.area">Gångområde</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.footway.bridge">Gångbro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.footway.tunnel">Gångtunnel</string>
     <string name="type.highway.ford">Vadställe</string>
-    <string name="type.highway.living_street">Gata</string>
+    <string name="type.highway.living_street">Gångfartsområde</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.living_street.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.living_street.tunnel">Tunnel</string>
-    <string name="type.highway.motorway">Gata</string>
+    <string name="type.highway.motorway">Motorväg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
-    <string name="type.highway.motorway.bridge">Bro</string>
+    <string name="type.highway.motorway.bridge">Motorvägsbro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.motorway.tunnel">Tunnel</string>
+    <string name="type.highway.motorway.tunnel">Motorvägstunnel</string>
     <string name="type.highway.motorway_junction">Avfart</string>
     <string name="type.highway.motorway_link">Motorvägspåfart</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway_link.tunnel">Tunnel</string>
-    <string name="type.highway.path">Gångväg</string>
+    <string name="type.highway.path">Stig</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
     <string name="type.highway.path.difficult">Svår eller dåligt uppmärkt stig</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
@@ -426,116 +440,117 @@
     <string name="type.highway.footway.bicycle">Gång- och cykelbana</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.path.bridge">Bro</string>
-    <string name="type.highway.path.horse">Gångväg</string>
+    <string name="type.highway.path.horse">Ridväg</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.path.tunnel">Tunnel</string>
-    <string name="type.highway.pedestrian">Gata</string>
-    <string name="type.highway.pedestrian.area">Gata</string>
+    <string name="type.highway.pedestrian">Gågata</string>
+    <string name="type.highway.pedestrian.area">Gångområde</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
-    <string name="type.highway.pedestrian.bridge">Bro</string>
+    <string name="type.highway.pedestrian.bridge">Gångbro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.pedestrian.tunnel">Tunnel</string>
+    <string name="type.highway.pedestrian.tunnel">Gångtunnel</string>
     <string name="type.highway.platform">Perrong</string>
-    <string name="type.highway.primary">Gata</string>
+    <string name="type.highway.primary">Primärväg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary.tunnel">Tunnel</string>
-    <string name="type.highway.primary_link">Gata</string>
+    <string name="type.highway.primary_link">Primärvägsanslutning</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary_link.tunnel">Tunnel</string>
     <string name="type.highway.raceway">Racerbana</string>
-    <string name="type.highway.residential">Gata</string>
-    <string name="type.highway.residential.area">Gata</string>
+    <string name="type.highway.residential">Bostadsgata</string>
+    <string name="type.highway.residential.area">Bostadsgata</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.residential.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.residential.tunnel">Tunnel</string>
-    <string name="type.highway.rest_area">Viloplats</string>
-    <string name="type.highway.road">Gata</string>
+    <string name="type.highway.rest_area">Rastplats</string>
+    <string name="type.highway.road">Väg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.road.bridge">Bro</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.road.tunnel">Tunnel</string>
-    <string name="type.highway.secondary">Gata</string>
+    <string name="type.highway.secondary">Sekundärväg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.secondary.tunnel">Tunnel</string>
-    <string name="type.highway.secondary_link">Gata</string>
+    <string name="type.highway.secondary_link">Sekundärvägsanslutning</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.secondary_link.tunnel">Tunnel</string>
-    <string name="type.highway.service">Gata</string>
-    <string name="type.highway.service.area">Gata</string>
+    <string name="type.highway.service">Serviceväg</string>
+    <string name="type.highway.service.area">Serviceväg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.service.bridge">Bro</string>
-    <string name="type.highway.service.driveway">Gata</string>
-    <string name="type.highway.service.parking_aisle">Gata</string>
+    <string name="type.highway.service.driveway">Infart</string>
+    <string name="type.highway.service.parking_aisle">Parkeringsväg</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Tunnel</string>
-    <string name="type.highway.services">Rastplats</string>
+    <string name="type.highway.services">Serviceområde</string>
     <string name="type.highway.speed_camera">Hastighetskamera</string>
-    <string name="type.highway.steps">Gångväg</string>
+    <string name="type.highway.steps">Trappa</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Tunnel</string>
-    <string name="type.highway.tertiary">Gata</string>
+    <string name="type.highway.ladder">Stege</string>
+    <string name="type.highway.tertiary">Tertiärväg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary.tunnel">Tunnel</string>
-    <string name="type.highway.tertiary_link">Gata</string>
+    <string name="type.highway.tertiary_link">Tertiärvägsanslutning</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary_link.tunnel">Tunnel</string>
-    <string name="type.highway.track">Gata</string>
-    <string name="type.highway.track.area">Gata</string>
+    <string name="type.highway.track">Körväg</string>
+    <string name="type.highway.track.area">Körväg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.track.bridge">Bro</string>
-    <string name="type.highway.track.grade1">Gata</string>
-    <string name="type.highway.track.no.access">Gata</string>
+    <string name="type.highway.track.grade1">Körväg</string>
+    <string name="type.highway.track.no.access">Körväg</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.track.tunnel">Tunnel</string>
     <string name="type.highway.traffic_signals">Trafikljus</string>
-    <string name="type.highway.trunk">Gata</string>
+    <string name="type.highway.trunk">Stamväg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk.tunnel">Tunnel</string>
-    <string name="type.highway.trunk_link">Gata</string>
+    <string name="type.highway.trunk_link">Stamvägsanslutning</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk_link.tunnel">Tunnel</string>
-    <string name="type.highway.unclassified">Gata</string>
-    <string name="type.highway.unclassified.area">Gata</string>
+    <string name="type.highway.unclassified">Mindre väg</string>
+    <string name="type.highway.unclassified.area">Mindre väg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.unclassified.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Tunnel</string>
     <string name="type.area_highway.cycleway">Cykelbana</string>
     <string name="type.area_highway.footway">Gångväg</string>
-    <string name="type.area_highway.living_street">Gata</string>
-    <string name="type.area_highway.motorway">Gata</string>
-    <string name="type.area_highway.path">Gångväg</string>
-    <string name="type.area_highway.pedestrian">Gata</string>
-    <string name="type.area_highway.primary">Gata</string>
-    <string name="type.area_highway.residential">Gata</string>
-    <string name="type.area_highway.secondary">Gata</string>
-    <string name="type.area_highway.service">Gata</string>
-    <string name="type.area_highway.tertiary">Gata</string>
-    <string name="type.area_highway.steps">Gångväg</string>
-    <string name="type.area_highway.track">Gata</string>
-    <string name="type.area_highway.trunk">Gata</string>
-    <string name="type.area_highway.unclassified">Gata</string>
+    <string name="type.area_highway.living_street">Gångfartsområde</string>
+    <string name="type.area_highway.motorway">Motorväg</string>
+    <string name="type.area_highway.path">Stig</string>
+    <string name="type.area_highway.pedestrian">Gågata</string>
+    <string name="type.area_highway.primary">Primärväg</string>
+    <string name="type.area_highway.residential">Bostadsgata</string>
+    <string name="type.area_highway.secondary">Sekundärväg</string>
+    <string name="type.area_highway.service">Serviceväg</string>
+    <string name="type.area_highway.tertiary">Tertiärväg</string>
+    <string name="type.area_highway.steps">Trappa</string>
+    <string name="type.area_highway.track">Körväg</string>
+    <string name="type.area_highway.trunk">Stamväg</string>
+    <string name="type.area_highway.unclassified">Mindre väg</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historiskt objekt</string>
@@ -564,19 +579,19 @@
     <string name="type.historic.locomotive">Historiskt lok</string>
     <string name="type.historic.memorial">Minnesmärke</string>
     <string name="type.historic.memorial.cross">Kors till minne</string>
-    <string name="type.historic.memorial.plaque">Minnesmärke</string>
-    <string name="type.historic.memorial.sculpture">Minnesmärke</string>
-    <string name="type.historic.memorial.statue">Minnesmärke</string>
+    <string name="type.historic.memorial.plaque">Minnestavla</string>
+    <string name="type.historic.memorial.sculpture">Skulptur</string>
+    <string name="type.historic.memorial.statue">Staty</string>
     <string name="type.historic.memorial.stolperstein">Snubbelsten</string>
     <string name="type.historic.stone">Historisk sten</string>
     <string name="type.historic.memorial.war_memorial">Krigsmonument</string>
     <string name="type.historic.mine">Historisk gruva</string>
-    <string name="type.historic.monument">Minnesmärke</string>
+    <string name="type.historic.monument">Monument</string>
     <string name="type.historic.pillory">Skampåle</string>
     <string name="type.historic.ruins">Ruiner</string>
     <string name="type.historic.ship">Fartyg</string>
     <string name="type.historic.tank">Historisk tank</string>
-    <string name="type.historic.tomb">Grav</string>
+    <string name="type.historic.tomb">Gravmonument</string>
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Kors</string>
     <!-- Usually a Christian historical cross placed along a road. -->
@@ -600,15 +615,16 @@
     <string name="type.landuse.churchyard">Kyrkogård</string>
     <string name="type.landuse.commercial">Handelsområde</string>
     <string name="type.landuse.construction">Byggarbetsplats</string>
+    <string name="type.landuse.education">Utbildningsanläggning</string>
     <string name="type.landuse.farmland">Jordbruksmark</string>
     <string name="type.landuse.farmyard">Gård</string>
     <string name="type.landuse.field">Åkermark</string>
     <string name="type.landuse.flowerbed">Rabatt</string>
     <string name="type.landuse.forest">Skog</string>
-    <string name="type.landuse.forest.coniferous">Skog</string>
-    <string name="type.landuse.forest.deciduous">Skog</string>
-    <string name="type.landuse.forest.mixed">Skog</string>
-    <string name="type.landuse.garages">Garage</string>
+    <string name="type.landuse.forest.coniferous">Barrskog</string>
+    <string name="type.landuse.forest.deciduous">Lövskog</string>
+    <string name="type.landuse.forest.mixed">Blandskog</string>
+    <string name="type.landuse.garages">Garageområde</string>
     <string name="type.landuse.grass">Gräsmattan</string>
     <string name="type.landuse.greenfield">Obebyggt område</string>
     <string name="type.landuse.greenhouse_horticulture">Växthus</string>
@@ -620,20 +636,22 @@
     <string name="type.landuse.quarry">Stenbrott</string>
     <string name="type.landuse.railway">Järnvägsfaciliteter</string>
     <string name="type.landuse.recreation_ground">Strövområde</string>
-    <string name="type.landuse.reservoir">Vatten</string>
+    <string name="type.landuse.reservoir">Vattenmagasin</string>
     <string name="type.landuse.residential">Bostadsområde</string>
     <string name="type.landuse.retail">Detaljhandelsområde</string>
     <string name="type.landuse.salt_pond">Saltsjö</string>
     <string name="type.landuse.village_green">Grönområde</string>
     <string name="type.landuse.vineyard">Vingård</string>
+    <string name="type.landuse.plant_nursery">Plantskola</string>
     <string name="type.leisure">Fritid</string>
     <string name="type.leisure.common">Allmän plats</string>
     <string name="type.leisure.dog_park">Hundparken</string>
+    <string name="type.leisure.escape_game">Escape room</string>
     <string name="type.leisure.fitness_centre">Gym</string>
     <string name="type.leisure.fitness_station">Fitnesstation</string>
     <string name="type.leisure.dance">Danshall</string>
     <string name="type.leisure.garden">Trädgård</string>
-    <string name="type.leisure.garden.residential">Trädgård</string>
+    <string name="type.leisure.garden.residential">Bostadsträdgård</string>
     <string name="type.leisure.golf_course">Golfbana</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
     <string name="type.leisure.hackerspace">Hackerspace</string>
@@ -642,10 +660,11 @@
     <string name="type.leisure.nature_reserve">Naturreservat</string>
     <string name="type.leisure.bird_hide">Fågelgömsle</string>
     <string name="type.leisure.outdoor_seating">Sittplatser utomhus</string>
+    <string name="type.leisure.firepit">Eldplats</string>
     <string name="type.leisure.park">Parken</string>
-    <string name="type.leisure.park.no.access">Parken</string>
+    <string name="type.leisure.park.no.access">Privat park</string>
     <string name="type.leisure.park.permissive">Parken</string>
-    <string name="type.leisure.park.private">Parken</string>
+    <string name="type.leisure.park.private">Privat park</string>
     <string name="type.leisure.picnic_table">Picknickbord</string>
     <string name="type.leisure.pitch">Idrottsplats</string>
     <string name="type.leisure.playground">Lekplats</string>
@@ -667,6 +686,7 @@
     <string name="type.man_made.cairn">Röse</string>
     <string name="type.man_made.chimney">Fabriksskorsten</string>
     <string name="type.man_made.cutline">Ledningsgata</string>
+    <string name="type.man_made.survey_point">Mätpunkt</string>
     <string name="type.man_made.flagpole">Flaggstång</string>
     <string name="type.man_made.lighthouse">Fyr</string>
     <string name="type.man_made.mast">Mast</string>
@@ -774,9 +794,9 @@
     <string name="type.place.country">Land</string>
     <string name="type.place.county">Län</string>
     <string name="type.place.farm">Bondgård</string>
-    <string name="type.place.hamlet">By</string>
+    <string name="type.place.hamlet">Liten by</string>
     <string name="type.place.island">Ö</string>
-    <string name="type.place.islet">Ö</string>
+    <string name="type.place.islet">Holme</string>
     <string name="type.place.isolated_dwelling">Isolerade bostäder</string>
     <string name="type.place.locality">Lokalitet</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
@@ -791,14 +811,16 @@
     <string name="type.place.state.major">Stat</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Förort</string>
-    <string name="type.place.town">Stad</string>
+    <string name="type.place.town">Mindre stad</string>
     <string name="type.place.village">By</string>
     <string name="type.power">Energi</string>
+    <string name="type.power.generator">Generator</string>
     <string name="type.power.generator.solar">Solgenerator</string>
     <string name="type.power.generator.wind">Vindgenerator</string>
     <string name="type.power.generator.gas">Gasturbinkraftverk</string>
     <string name="type.power.generator.hydro">Vattenkraftverk</string>
     <string name="type.power.line">Kraftledning</string>
+    <string name="type.power.line.underground">Nedgrävd kraftledning</string>
     <string name="type.power.minor_line">Elledning</string>
     <string name="type.power.plant">Kraftverk</string>
     <string name="type.power.plant.coal">Kolkraftverk</string>
@@ -810,28 +832,39 @@
     <string name="type.power.substation">Ställverk</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Elstolpe</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Elstolpe</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Ledningsstolpe</string>
     <string name="type.public_transport">Kollektivtrafik</string>
     <string name="type.public_transport.platform">Perrong</string>
     <string name="type.railway">Järnväg</string>
-    <string name="type.railway.abandoned">Nerlagd järnväg</string>
-    <string name="type.railway.abandoned.bridge">Nerlagd järnvägsbro</string>
-    <string name="type.railway.abandoned.tunnel">Nerlagd järnvägstunnel</string>
-    <string name="type.railway.construction">Järnväg under uppbyggnad</string>
+    <string name="type.railway.abandoned">Nedlagd järnväg</string>
+    <string name="type.railway.abandoned.bridge">Nedlagd järnvägsbro</string>
+    <string name="type.railway.abandoned.tunnel">Nedlagd järnvägstunnel</string>
+    <string name="type.railway.construction">Järnväg under byggnad</string>
     <string name="type.railway.crossing">Järnvägsövergång</string>
     <string name="type.railway.disused">Otrafikerad järnväg</string>
     <string name="type.railway.disused.bridge">Otrafikerad järnvägsbro</string>
-    <string name="type.railway.disused.tunnel">Nedlagd järnvägstunnel</string>
+    <string name="type.railway.disused.tunnel">Otrafikerad järnvägstunnel</string>
     <string name="type.railway.funicular">Bergbana</string>
+    <string name="type.railway.funicular.bridge">Bergbanebro</string>
     <string name="type.railway.funicular.tunnel">Bergbanetunnel</string>
-    <string name="type.railway.halt">Tågstation</string>
+    <string name="type.railway.halt">Järnvägshållplats</string>
     <string name="type.railway.level_crossing">Järnvägskorsning</string>
     <string name="type.railway.light_rail">Snabbspårväg</string>
+    <string name="type.railway.light_rail.bridge">Snabbspårvägsbro</string>
+    <string name="type.railway.light_rail.tunnel">Snabbspårvägstunnel</string>
     <string name="type.railway.monorail">Monorail</string>
+    <string name="type.railway.monorail.bridge">Monorailbro</string>
+    <string name="type.railway.monorail.tunnel">Monorailtunnel</string>
     <string name="type.railway.narrow_gauge">Smalspårig järnväg</string>
     <string name="type.railway.narrow_gauge.bridge">Smalspårig järnvägsbro</string>
     <string name="type.railway.narrow_gauge.tunnel">Smalspårig järnvägstunnel</string>
     <string name="type.railway.platform">Järnvägsperrong</string>
     <string name="type.railway.preserved">Museijärnväg</string>
+    <string name="type.railway.preserved.bridge">Museijärnvägsbro</string>
+    <string name="type.railway.preserved.tunnel">Museijärnvägstunnel</string>
     <string name="type.railway.rail">Järnväg</string>
     <string name="type.railway.rail.highspeed">Järnväg för höghastighetståg</string>
     <string name="type.railway.rail.tourism">Järnväg för turisttrafik</string>
@@ -839,10 +872,10 @@
     <!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
     <string name="type.railway.rail.branch">Sekundär järnväg</string>
     <!-- Non-passenger utility tracks: industrial, military, test. -->
-    <string name="type.railway.rail.utility">Järnväg för allmännyttiga ändamål</string>
-    <string name="type.railway.rail.spur">Järnvägsspår</string>
+    <string name="type.railway.rail.utility">Nyttospår</string>
+    <string name="type.railway.rail.spur">Sidospår</string>
     <!-- Short service tracks: siding, yard, crossover. -->
-    <string name="type.railway.rail.service">Extra järnvägsspår</string>
+    <string name="type.railway.rail.service">Servicespår</string>
     <string name="type.railway.rail.bridge">Järnvägsbro</string>
     <string name="type.railway.rail.highspeed.bridge">Järnvägsbro</string>
     <string name="type.railway.rail.tourism.bridge">Järnvägsbro</string>
@@ -861,11 +894,11 @@
     <string name="type.railway.rail.service.tunnel">Järnvägstunnel</string>
     <string name="type.railway.station">Tågstation</string>
     <string name="type.railway.station.funicular">Linbana</string>
-    <string name="type.railway.station.light_rail">Tågstation</string>
-    <string name="type.railway.station.light_rail.berlin">Tågstation</string>
-    <string name="type.railway.station.light_rail.london">Tågstation</string>
-    <string name="type.railway.station.light_rail.porto">Tågstation</string>
-    <string name="type.railway.station.monorail">Tågstation</string>
+    <string name="type.railway.station.light_rail">Snabbspårvägsstation</string>
+    <string name="type.railway.station.light_rail.berlin">S-Bahn-station</string>
+    <string name="type.railway.station.light_rail.london">DLR-station</string>
+    <string name="type.railway.station.light_rail.porto">Metrostation</string>
+    <string name="type.railway.station.monorail">Monorailstation</string>
     <string name="type.railway.station.subway">Tunnelbanestation</string>
     <string name="type.railway.station.subway.adana">Tunnelbanestation</string>
     <string name="type.railway.station.subway.algiers">Tunnelbanestation</string>
@@ -947,6 +980,8 @@
     <string name="type.railway.station.subway.paris">Tunnelbanestation</string>
     <string name="type.railway.station.subway.philadelphia">Tunnelbanestation</string>
     <string name="type.railway.station.subway.pyongyang">Tunnelbanestation</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Tunnelbanestation</string>
     <string name="type.railway.station.subway.rennes">Tunnelbanestation</string>
     <string name="type.railway.station.subway.rio">Tunnelbanestation</string>
     <string name="type.railway.station.subway.roma">Tunnelbanestation</string>
@@ -980,127 +1015,130 @@
     <string name="type.railway.station.subway.wuhan">Tunnelbanestation</string>
     <string name="type.railway.station.subway.yerevan">Tunnelbanestation</string>
     <string name="type.railway.station.subway.yokohama">Tunnelbanestation</string>
-    <string name="type.railway.subway">Tunnelbana</string>
-    <string name="type.railway.subway_entrance">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.adana">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.algiers">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.almaty">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.amsterdam">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.ankara">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.athens">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.baku">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.bangkok">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.barcelona">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.beijing">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.bengalore">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.berlin">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.bilbao">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.brasilia">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.brescia">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.brussels">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.bucharest">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.budapest">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.buenos_aires">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.bursa">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.cairo">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.caracas">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.catania">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.changchun">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.chengdu">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.chicago">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.chongqing">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.dalian">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.delhi">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.dnepro">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.dubai">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.ekb">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.fukuoka">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.glasgow">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.guangzhou">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.hamburg">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.helsinki">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.hiroshima">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.hongkong">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.isfahan">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.istanbul">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.izmir">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.kazan">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.kharkiv">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.kiev">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.kobe">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.kolkata">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.kunming">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.kyoto">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.la">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.lausanne">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.lille">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.lima">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.lisboa">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.london">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.lyon">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.madrid">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.malaga">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.manila">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.maracaibo">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.mashhad">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.mecca">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.medellin">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.mexico">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.milan">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.minsk">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.montreal">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.moscow">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.munchen">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.nagoya">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.newyork">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.nnov">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.novosibirsk">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.osaka">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.oslo">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.palma">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.panama">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.paris">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.philadelphia">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.pyongyang">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.rennes">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.rio">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.roma">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.rotterdam">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.samara">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.santiago">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.santo_domingo">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.saopaulo">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.sapporo">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.sendai">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.sf">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.shanghai">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.shenzhen">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.shiraz">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.singapore">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.sofia">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.spb">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.stockholm">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.tabriz">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.taipei">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.taoyuan">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.tashkent">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.tbilisi">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.tehran">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.tianjin">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.tokyo">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.valencia">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.vienna">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.warszawa">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.washington">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.wuhan">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.yerevan">Tunnelbana entré</string>
-    <string name="type.railway.subway_entrance.yokohama">Tunnelbana entré</string>
-    <string name="type.railway.tram">Spårvagn</string>
+    <string name="type.railway.subway">Tunnelbanelinje</string>
+    <string name="type.railway.subway.bridge">Tunnelbanebro</string>
+    <string name="type.railway.subway.tunnel">Tunnelbanetunnel</string>
+    <string name="type.railway.subway_entrance">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.adana">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.algiers">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.almaty">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.amsterdam">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.ankara">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.athens">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.baku">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.bangkok">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.barcelona">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.beijing">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.bengalore">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.berlin">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.bilbao">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.brasilia">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.brescia">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.brussels">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.bucharest">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.budapest">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.buenos_aires">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.bursa">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.cairo">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.caracas">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.catania">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.changchun">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.chengdu">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.chicago">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.chongqing">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.dalian">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.delhi">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.dnepro">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.dubai">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.ekb">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.fukuoka">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.glasgow">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.guangzhou">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.hamburg">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.helsinki">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.hiroshima">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.hongkong">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.isfahan">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.istanbul">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.izmir">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.kazan">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.kharkiv">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.kiev">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.kobe">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.kolkata">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.kunming">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.kyoto">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.la">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.lausanne">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.lille">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.lima">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.lisboa">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.london">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.lyon">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.madrid">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.malaga">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.manila">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.maracaibo">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.mashhad">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.mecca">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.medellin">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.mexico">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.milan">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.minsk">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.montreal">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.moscow">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.munchen">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.nagoya">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.newyork">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.nnov">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.novosibirsk">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.osaka">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.oslo">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.palma">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.panama">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.paris">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.philadelphia">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.pyongyang">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.rennes">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.rio">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.roma">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.rotterdam">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.samara">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.santiago">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.santo_domingo">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.saopaulo">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.sapporo">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.sendai">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.sf">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.shanghai">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.shenzhen">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.shiraz">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.singapore">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.sofia">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.spb">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.stockholm">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.tabriz">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.taipei">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.taoyuan">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.tashkent">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.tbilisi">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.tehran">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.tianjin">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.tokyo">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.valencia">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.vienna">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.warszawa">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.washington">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.wuhan">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.yerevan">Tunnelbaneentré</string>
+    <string name="type.railway.subway_entrance.yokohama">Tunnelbaneentré</string>
+    <string name="type.railway.tram">Spårvagnslinje</string>
     <string name="type.railway.tram.bridge">Spårvagnsbro</string>
     <string name="type.railway.tram.tunnel">Spårvagnstunnel</string>
     <string name="type.railway.tram_stop">Spårvagnshållplats</string>
     <string name="type.route">Rutt</string>
     <string name="type.route.ferry">Färja</string>
+    <string name="type.route.shuttle_train">Biltåg</string>
     <string name="type.shop">Butik</string>
     <string name="type.shop.alcohol">Spritaffär</string>
     <string name="type.shop.bakery">Bageri</string>
@@ -1285,10 +1323,10 @@
     <string name="type.tourism.alpine_hut">Fjällstuga</string>
     <string name="type.tourism.apartment">Semesterlägenhet</string>
     <string name="type.tourism.artwork">Konstverk</string>
-    <string name="type.tourism.artwork.architecture">Konstverk</string>
-    <string name="type.tourism.artwork.painting">Konstverk</string>
-    <string name="type.tourism.artwork.sculpture">Konstverk</string>
-    <string name="type.tourism.artwork.statue">Konstverk</string>
+    <string name="type.tourism.artwork.architecture">Arkitektoniskt konstverk</string>
+    <string name="type.tourism.artwork.painting">Målning</string>
+    <string name="type.tourism.artwork.sculpture">Skulptur</string>
+    <string name="type.tourism.artwork.statue">Staty</string>
     <string name="type.tourism.attraction">Attraktion</string>
     <string name="type.attraction.amusement_ride">Nöjesattraktion</string>
     <string name="type.attraction.animal">Inhägnad för djur</string>
@@ -1305,7 +1343,7 @@
     <string name="type.tourism.caravan_site">Husvagnsplats</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Semesterstuga</string>
-    <string name="type.tourism.gallery">Attraktion</string>
+    <string name="type.tourism.gallery">Konstgalleri</string>
     <string name="type.tourism.guest_house">Gästhus</string>
     <string name="type.tourism.hostel">Vandrarhem</string>
     <string name="type.tourism.hotel">Hotell</string>
@@ -1315,15 +1353,17 @@
     <string name="type.tourism.information.map">Turistkarta</string>
     <string name="type.tourism.information.office">Turistcenter</string>
     <string name="type.tourism.information.visitor_centre">Besökscentrum</string>
+    <string name="type.amenity.ranger_station">Parkvaktsstation</string>
     <string name="type.tourism.motel">Motell</string>
     <string name="type.tourism.museum">Museum</string>
     <string name="type.tourism.picnic_site">Picknickplatser</string>
     <string name="type.leisure.resort">Semesterort</string>
-    <string name="type.tourism.theme_park">Attraktion</string>
+    <string name="type.tourism.theme_park">Nöjespark</string>
     <string name="type.tourism.viewpoint">Utsiktsplats</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Vildmarksstuga</string>
     <string name="type.tourism.zoo">Djurpark</string>
+    <string name="type.tourism.zoo.petting">Klappzoo</string>
     <string name="type.traffic_calming">Farthinder</string>
     <string name="type.traffic_calming.bump">Fartgupp</string>
     <string name="type.traffic_calming.hump">Fartbula</string>
@@ -1332,7 +1372,7 @@
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Fiskstege</string>
-    <string name="type.waterway.dam">Damm</string>
+    <string name="type.waterway.dam">Dammbyggnad</string>
     <string name="type.barrier.ditch">Dike</string>
     <string name="type.natural.water.ditch">Dräneringsdike</string>
     <string name="type.waterway.ditch.tunnel">Kulvert</string>
@@ -1343,16 +1383,20 @@
     <string name="type.waterway.lock_gate">Slussport</string>
     <string name="type.waterway.river">Flod</string>
     <string name="type.waterway.river.tunnel">Flod</string>
-    <string name="type.waterway.stream">Flod</string>
-    <string name="type.waterway.stream.ephemeral">Flod</string>
-    <string name="type.waterway.stream.intermittent">Flod</string>
-    <string name="type.waterway.stream.tunnel">Flod</string>
+    <string name="type.waterway.stream">Bäck</string>
+    <string name="type.waterway.stream.ephemeral">Tillfällig bäck</string>
+    <string name="type.waterway.stream.intermittent">Periodisk bäck</string>
+    <string name="type.waterway.stream.tunnel">Bäck</string>
     <string name="type.waterway.waterfall">Vattenfall</string>
+    <string name="type.waterway.weir">Dämme</string>
     <string name="type.wheelchair">Rullstol</string>
     <string name="type.wheelchair.limited">Delvis utrustad för handikappade</string>
     <string name="type.wheelchair.no">Ej utrustad för handikappade</string>
     <string name="type.wheelchair.yes">Utrustad för handikappade</string>
+    <string name="type.aerialway.j.bar">J-bygellift</string>
+    <string name="type.aerialway.magic_carpet">Transportband</string>
     <string name="type.aerialway.platter">Knapplift</string>
+    <string name="type.aerialway.rope_tow">Replift</string>
     <string name="type.aerialway.t.bar">Ankarlift</string>
     <string name="type.piste_type.downhill">Pist</string>
     <string name="type.piste_type.downhill.area">Pist</string>
@@ -1390,13 +1434,21 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Idrottshall</string>
-    <string name="type.barrier.jersey_barrier">Block</string>
+    <string name="type.sport.diving">Dykning</string>
+    <string name="type.man_made.crane">Kran</string>
+    <string name="type.barrier.wicket_gate">Gånggrind</string>
+    <string name="type.barrier.yes">Hinder</string>
+    <string name="type.building.guardhouse">Vaktkur</string>
+    <string name="type.office.security">Säkerhetskontor</string>
+    <string name="type.power.portal">Kraftledningsportal</string>
+    <string name="type.shop.lighting">Belysningsbutik</string>
+    <string name="type.barrier.jersey_barrier">Betongbarriär</string>
     <string name="type.barrier.debris">Bråte</string>
     <string name="type.barrier.log">Stockhinder</string>
     <string name="type.amenity.boat_rental">Båtuthyrning</string>
     <string name="type.shop.telecommunication">Butik för telekommunikation</string>
     <string name="type.leisure.indoor_play">Lekcenter</string>
-    <string name="type.tourism.camp_pitch">Campingplats</string>
+    <string name="type.tourism.camp_pitch">Campingtomt</string>
     <string name="type.railway.miniature">Miniatyrjärnväg</string>
     <string name="type.amenity.kneipp_water_cure">Kneipps vattenkur</string>
     <string name="type.area_highway.traffic_island">Trafikö</string>
