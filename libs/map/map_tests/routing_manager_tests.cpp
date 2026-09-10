@@ -91,4 +91,52 @@ UNIT_TEST(RoutingManager_ContinueRouteToPointWithoutFinishFailsCleanly)
   TEST(!routingManager.ContinueRouteToPoint(std::move(newFinish)), ());
   TEST_EQUAL(routingManager.GetRoutePointsCount(), 0, ());
 }
+
+UNIT_TEST(RoutingManager_OptimizeRoutePointsMatchesIncrementalOptimization)
+{
+  std::vector<double> const intermediateCoordinates = {1.0, 2.0, 3.0};
+
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & routingManager = framework.GetRoutingManager();
+  TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 0.0)), ());
+  TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 10.0)), ());
+  for (double const coordinate : intermediateCoordinates)
+    TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, coordinate)), (coordinate));
+  auto const expectedPoints = routingManager.GetRoutePoints();
+
+  routingManager.RemoveRoutePoints();
+  TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 0.0)), ());
+  TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 10.0)), ());
+  for (size_t i = 0; i < intermediateCoordinates.size(); ++i)
+  {
+    TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, i, intermediateCoordinates[i]),
+                                      false /* reorderIntermediatePoints */),
+         (i));
+  }
+
+  routingManager.OptimizeRoutePoints();
+  auto const actualPoints = routingManager.GetRoutePoints();
+
+  // CheckpointPredictor is tested separately; keep this integration fixture non-trivial so a no-op cannot pass.
+  TEST_EQUAL(expectedPoints.size(), intermediateCoordinates.size() + 2, ());
+  bool expectedOrderChanged = false;
+  for (size_t i = 0; i < intermediateCoordinates.size(); ++i)
+  {
+    auto const coordinate = intermediateCoordinates[i];
+    if (expectedPoints[i + 1].m_position != m2::PointD(coordinate, coordinate))
+    {
+      expectedOrderChanged = true;
+      break;
+    }
+  }
+  TEST(expectedOrderChanged, ());
+
+  TEST_EQUAL(actualPoints.size(), expectedPoints.size(), ());
+  for (size_t i = 0; i < actualPoints.size(); ++i)
+  {
+    TEST_EQUAL(static_cast<int>(actualPoints[i].m_pointType), static_cast<int>(expectedPoints[i].m_pointType), (i));
+    TEST_EQUAL(actualPoints[i].m_intermediateIndex, expectedPoints[i].m_intermediateIndex, (i));
+    TEST_EQUAL(actualPoints[i].m_position, expectedPoints[i].m_position, (i));
+  }
+}
 }  // namespace routing_manager_tests

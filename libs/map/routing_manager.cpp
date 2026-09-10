@@ -1084,6 +1084,24 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderInterm
   return true;
 }
 
+void RoutingManager::OptimizeRoutePoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  auto editSession = m_bmManager->GetEditSession();
+  auto routePoints = GetRoutePoints();
+  RemoveIntermediateRoutePoints();
+
+  for (auto & routePoint : routePoints)
+  {
+    if (routePoint.m_pointType != RouteMarkType::Intermediate)
+      continue;
+
+    // AddRoutePoint expects a new intermediate point at index 0 before finding its optimized position.
+    routePoint.m_intermediateIndex = 0;
+    CHECK(AddRoutePoint(std::move(routePoint)), ());
+  }
+}
+
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 {
   ASSERT(m_bmManager != nullptr, ());
