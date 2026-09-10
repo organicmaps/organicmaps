@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.";
 "driving_options_title" = "Kjørealternativer";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ruteoptimalisering";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Omorganiserer mellomstopp automatisk for å lage en mer effektiv rute.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Unngå bompenger";
 

@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.";
 "driving_options_title" = "Machaguo ya njia";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Uboreshaji wa njia";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Hupanga upya vituo vya kati kiotomatiki ili kuunda njia yenye ufanisi zaidi.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Epuka barabara za ushuru";
 

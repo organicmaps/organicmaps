@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Uz laiku ieslēdziet šo opciju, lai reģistrētu un manuāli nosūtītu sīkākus žurnālus problēmu diagnostikai, izmantojot „Ziņot par kļūdu“ funkciju palīdzības lodziņā. Žurnāli var saturēt informāciju par atrašanās vietu.";
 "driving_options_title" = "Maršruta opcijas";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Maršruta optimizācija";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Automātiski pārkārto starppieturas, lai izveidotu efektīvāku maršrutu.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Izvairīties no maksas ceļiem";
 

@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.";
 "driving_options_title" = "Ρυθμίσεις δρομολόγησης";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Βελτιστοποίηση διαδρομής";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Αναδιατάσσει αυτόματα τις ενδιάμεσες στάσεις για τη δημιουργία μιας πιο αποδοτικής διαδρομής.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Αποφυγή διοδίων";
 

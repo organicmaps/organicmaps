@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
 "driving_options_title" = "Útvonaltervezési beállítások";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Útvonal-optimalizálás";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Automatikusan átrendezi a köztes megállókat egy hatékonyabb útvonal létrehozásához.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Díjköteles utak elkerülése";
 

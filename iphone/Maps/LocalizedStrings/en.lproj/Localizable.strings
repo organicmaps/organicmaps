@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.";
 "driving_options_title" = "Routing options";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Route optimization";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Automatically rearranges intermediate stops to create a more efficient route.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Avoid tolls";
 
