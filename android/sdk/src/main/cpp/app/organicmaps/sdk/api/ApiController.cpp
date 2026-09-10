@@ -1,3 +1,4 @@
+#include "map/mwm_url.hpp"
 #include "map/user_mark.hpp"
 
 #include "app/organicmaps/sdk/Framework.hpp"
@@ -14,6 +15,40 @@ JNIEXPORT jint Java_app_organicmaps_sdk_api_ApiController_nativeParseAndSetApiUr
                                                                                   jstring url)
 {
   return static_cast<jint>(frm()->ParseAndSetApiURL(jni::ToNativeString(env, url)));
+}
+
+JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_api_ApiController_nativeParseLatLon(JNIEnv * env, jclass, jstring url)
+{
+  auto const toJavaLatLon = [env](double lat, double lon)
+  {
+    double latlon[] = {lat, lon};
+    jdoubleArray jLatLon = env->NewDoubleArray(2);
+    env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
+    return jLatLon;
+  };
+
+  url_scheme::ParsedMapApi const parsedMapApi(jni::ToNativeString(env, url));
+  auto const requestType = parsedMapApi.GetRequestType();
+
+  ms::LatLon const center = parsedMapApi.GetCenterLatLon();
+  if (center.IsValid())
+    return toJavaLatLon(center.m_lat, center.m_lon);
+
+  if (requestType == url_scheme::ParsedMapApi::UrlType::Map)
+  {
+    auto const & points = parsedMapApi.GetMapPoints();
+    if (!points.empty())
+      return toJavaLatLon(points.front().m_lat, points.front().m_lon);
+  }
+
+  if (requestType == url_scheme::ParsedMapApi::UrlType::Route)
+  {
+    auto const & points = parsedMapApi.GetRoutePoints();
+    if (!points.empty())
+      return toJavaLatLon(mercator::YToLat(points.front().m_org.y), mercator::XToLon(points.front().m_org.x));
+  }
+
+  return nullptr;
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_api_ApiController_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)

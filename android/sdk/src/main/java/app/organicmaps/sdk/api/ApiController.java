@@ -10,6 +10,9 @@ public final class ApiController
 
   @NonNull
   public static native @RequestType int nativeParseAndSetApiUrl(String url);
+  @Nullable
+  @Size(2)
+  public static native double[] nativeParseLatLon(@NonNull String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
   public static native @Nullable String nativeGetParsedAppName();
