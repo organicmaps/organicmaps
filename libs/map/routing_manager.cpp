@@ -1643,8 +1643,13 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
       auto const & myPosMark = m_bmManager->MyPositionMark();
       auto editSession = m_bmManager->GetEditSession();
       editSession.ClearGroup(UserMark::Type::ROUTING);
+      size_t intermediateIndex = 0;
       for (auto & p : points)
       {
+        // The saved array preserves stop order; intermediate indices are not serialized.
+        if (p.m_pointType == RouteMarkType::Intermediate)
+          p.m_intermediateIndex = intermediateIndex++;
+
         // Check if the saved route used the user's position
         if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start)
           routeUsedPosition = true;
@@ -1655,11 +1660,11 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
           startPt.m_pointType = RouteMarkType::Start;
           startPt.m_isMyPosition = true;
           startPt.m_position = myPosMark.GetPivot();
-          AddRoutePoint(std::move(startPt));
+          AddRoutePoint(std::move(startPt), false /* reorderIntermediatePoints */);
         }
         else
         {
-          AddRoutePoint(std::move(p));
+          AddRoutePoint(std::move(p), false /* reorderIntermediatePoints */);
         }
       }
 

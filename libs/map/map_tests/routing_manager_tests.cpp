@@ -3,6 +3,11 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "platform/platform_tests_support/scoped_dir.hpp"
+
+#include "base/file_name_utils.hpp"
+#include "base/scope_guard.hpp"
+
 #include <algorithm>
 #include <vector>
 
@@ -36,7 +41,96 @@ void FillRouteToLimit(RoutingManager & routingManager)
   }
   TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 101.0)), ());
 }
+
+void TestSavedRouteOrder(bool myPositionStart, size_t passedStops, bool hasCurrentPosition,
+                         size_t intermediateCount = 3)
+{
+  auto & platform = GetPlatform();
+  auto const testSettingsDir = base::JoinPath(platform.WritableDir(), "routing_manager_save_load_test");
+  platform::tests_support::ScopedDirCleanup settingsDir(testSettingsDir);
+  // Initialize global settings before redirecting the saved route to its test directory.
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto const originalSettingsDir = platform.SettingsDir();
+  platform.SetSettingsDir(testSettingsDir);
+  SCOPE_GUARD(restoreSettingsDir, [&] { platform.SetSettingsDir(originalSettingsDir); });
+  auto & routingManager = framework.GetRoutingManager();
+  auto & bookmarks = framework.GetBookmarkManager();
+
+  auto start = MakeRoutePoint(RouteMarkType::Start, 0, 1.0);
+  start.m_isMyPosition = myPositionStart;
+  bookmarks.MyPositionMark().SetUserPosition(start.m_position, true /* hasPosition */);
+  TEST(routingManager.AddRoutePoint(std::move(start), false /* reorderIntermediatePoints */), ());
+  for (size_t i = 0; i < intermediateCount; ++i)
+  {
+    auto point = MakeRoutePoint(RouteMarkType::Intermediate, i, static_cast<double>(i + 2));
+    point.m_title = "Stop " + std::to_string(i);
+    point.m_isPassed = i < passedStops;
+    TEST(routingManager.AddRoutePoint(std::move(point), false /* reorderIntermediatePoints */), (i));
+  }
+  TEST(routingManager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 110.0),
+                                    false /* reorderIntermediatePoints */),
+       ());
+
+  auto expected = routingManager.GetRoutePoints();
+  expected.erase(expected.begin(), expected.begin() + passedStops);
+  expected.front().m_pointType = RouteMarkType::Start;
+  expected.front().m_intermediateIndex = 0;
+  for (size_t i = 1; i + 1 < expected.size(); ++i)
+    expected[i].m_intermediateIndex = i - 1;
+
+  routingManager.SaveRoutePoints();
+  routingManager.RemoveRoutePoints();
+  m2::PointD const currentPosition(20.0, 20.0);
+  bookmarks.MyPositionMark().SetUserPosition(currentPosition, hasCurrentPosition);
+  bool const restoreMyPosition = myPositionStart && passedStops == 0;
+  if (restoreMyPosition && hasCurrentPosition)
+    expected.front().m_position = currentPosition;
+
+  bool loaded = false;
+  // Saving and loading run in order on the file thread. Failures can also call back from that thread.
+  routingManager.LoadRoutePoints([&](bool success)
+  {
+    platform.RunTask(Platform::Thread::Gui, [&, success]
+    {
+      loaded = success;
+      testing::StopEventLoop();
+    });
+  });
+  testing::RunEventLoop();
+  TEST(loaded, ());
+
+  auto const actual = routingManager.GetRoutePoints();
+  TEST_EQUAL(actual.size(), expected.size(), ());
+  for (size_t i = 0; i < actual.size(); ++i)
+  {
+    TEST(actual[i].m_pointType == expected[i].m_pointType, (i));
+    TEST_EQUAL(actual[i].m_intermediateIndex, expected[i].m_intermediateIndex, (i));
+    TEST_EQUAL(actual[i].m_position, expected[i].m_position, (i));
+    TEST_EQUAL(actual[i].m_title, expected[i].m_title, (i));
+  }
+  TEST_EQUAL(actual.front().m_isMyPosition, restoreMyPosition && hasCurrentPosition, ());
+  TEST_EQUAL(actual.front().m_replaceWithMyPositionAfterRestart, restoreMyPosition && !hasCurrentPosition, ());
+}
 }  // namespace
+
+UNIT_TEST(RoutingManager_SaveLoadRoutePointsPreservesOrder)
+{
+  TestSavedRouteOrder(false /* myPositionStart */, 0 /* passedStops */, false /* hasCurrentPosition */);
+  TestSavedRouteOrder(false /* myPositionStart */, 0 /* passedStops */, false /* hasCurrentPosition */,
+                      RoutePointsLayout::kMaxIntermediatePointsCount);
+}
+
+UNIT_TEST(RoutingManager_SaveLoadRoutePointsPreservesRemainingStops)
+{
+  TestSavedRouteOrder(true /* myPositionStart */, 1 /* passedStops */, true /* hasCurrentPosition */);
+  TestSavedRouteOrder(true /* myPositionStart */, 3 /* passedStops */, true /* hasCurrentPosition */);
+}
+
+UNIT_TEST(RoutingManager_SaveLoadRoutePointsRestoresMyPosition)
+{
+  TestSavedRouteOrder(true /* myPositionStart */, 0 /* passedStops */, false /* hasCurrentPosition */);
+  TestSavedRouteOrder(true /* myPositionStart */, 0 /* passedStops */, true /* hasCurrentPosition */);
+}
 
 UNIT_TEST(RoutingManager_ContinueRouteToPointAtLimitKeepsFinish)
 {
