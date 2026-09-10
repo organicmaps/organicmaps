@@ -1750,6 +1750,25 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cliff)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_DeprecatedTags)
+{
+  // A deprecated mapcss-mapping.csv row only remaps the type id of already built maps, so these
+  // tags need a replaced_tags.txt rule to be matched at all.
+  using Type = std::vector<std::string>;
+  std::vector<std::pair<Type, Tags>> const conversions = {
+      {{"landuse", "vineyard"}, {{"natural", "vineyard"}}},
+      {{"landuse", "orchard"}, {{"natural", "orchard"}}},
+      {{"office", "diplomatic"}, {{"amenity", "embassy"}}},
+  };
+
+  for (auto const & [type, tags] : conversions)
+  {
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), 1, (tags, params));
+    TEST(params.IsTypeExist(GetType(type)), (tags, params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_DeprecatedWaterTags)
 {
   using Type = std::vector<std::string>;
