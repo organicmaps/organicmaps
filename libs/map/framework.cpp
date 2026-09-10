@@ -1294,6 +1294,24 @@ void Framework::Rotate(double azimuth, bool isAnim)
     m_drapeEngine->Rotate(azimuth, isAnim);
 }
 
+void Framework::BeginTransformGesture()
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->BeginTransformGesture();
+}
+
+void Framework::RotateBy(double deltaRadians, m2::PointD const & pixelPoint)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RotateBy(deltaRadians, pixelPoint);
+}
+
+void Framework::EndTransformGesture()
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->EndTransformGesture();
+}
+
 void Framework::TouchEvent(df::TouchEvent const & touch)
 {
   if (m_drapeEngine != nullptr)

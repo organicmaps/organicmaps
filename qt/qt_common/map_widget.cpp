@@ -11,6 +11,7 @@
 
 #include "base/assert.hpp"
 
+#include <cmath>
 #include <functional>
 #include <string>
 
@@ -299,7 +300,6 @@ void MapWidget::Build()
   m_vbo->allocate(static_cast<void *>(vertices), sizeof(vertices));
   QOpenGLFunctions * f = QOpenGLContext::currentContext()->functions();
   // 0-index of the buffer is linked to "a_position" attribute in vertex shader.
-  // Introduced in https://github.com/organicmaps/organicmaps/pull/9814
   f->glEnableVertexAttribArray(0);
   f->glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(QVector4D), nullptr);
 
@@ -379,6 +379,70 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
   }
 
   menu.exec(e->globalPosition().toPoint());
+}
+
+bool MapWidget::event(QEvent * e)
+{
+  if (e->type() != QEvent::NativeGesture)
+    return QOpenGLWidget::event(e);
+
+  auto * gestureEvent = static_cast<QNativeGestureEvent *>(e);
+  auto const beginTransformGesture = [this]()
+  {
+    if (m_nativeTransformGestureStarted)
+      return;
+
+    m_nativeTransformGestureStarted = true;
+    m_framework.BeginTransformGesture();
+  };
+
+  switch (gestureEvent->gestureType())
+  {
+  case Qt::BeginNativeGesture:
+    ASSERT(!m_nativeGestureInProgress, ());
+    m_nativeGestureInProgress = true;
+    m_nativeTransformGestureStarted = false;
+    m_nativeRotationAccepted = false;
+    m_nativeRotationRadians = 0.0;
+    return true;
+  case Qt::ZoomNativeGesture:
+  {
+    ASSERT(m_nativeGestureInProgress, ());
+    beginTransformGesture();
+    double const factor = 1.0 + gestureEvent->value();
+    ASSERT_GREATER(factor, 0.0, ());
+    QPointF const pos = gestureEvent->position();
+    m_framework.Scale(factor, m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+    return true;
+  }
+  case Qt::RotateNativeGesture:
+  {
+    ASSERT(m_nativeGestureInProgress, ());
+    double const deltaRadians = math::DegToRad(gestureEvent->value());
+    m_nativeRotationRadians += deltaRadians;
+    if (!m_nativeRotationAccepted)
+    {
+      if (std::abs(m_nativeRotationRadians) <= df::kRotationThresholdRadians)
+        return true;
+      m_nativeRotationAccepted = true;
+    }
+
+    beginTransformGesture();
+    QPointF const pos = gestureEvent->position();
+    m_framework.RotateBy(deltaRadians, m2::PointD(L2D(pos.x()), L2D(pos.y())));
+    return true;
+  }
+  case Qt::EndNativeGesture:
+    ASSERT(m_nativeGestureInProgress, ());
+    if (m_nativeTransformGestureStarted)
+      m_framework.EndTransformGesture();
+    m_nativeGestureInProgress = false;
+    m_nativeTransformGestureStarted = false;
+    m_nativeRotationAccepted = false;
+    m_nativeRotationRadians = 0.0;
+    return true;
+  default: return QOpenGLWidget::event(e);
+  }
 }
 
 void MapWidget::initializeGL()
@@ -529,6 +593,6 @@ void MapWidget::wheelEvent(QWheelEvent * e)
   double const factor = e->angleDelta().y() / 3.0 / 360.0;
   // https://doc-snapshots.qt.io/qt6-dev/qwheelevent.html#angleDelta, angleDelta() returns in eighths of a degree.
   /// @todo Here you can tune the speed of zooming.
-  m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+  m_framework.Scale(std::exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
 }
 }  // namespace qt::common
