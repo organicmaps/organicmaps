@@ -6,6 +6,7 @@
 #import "MWMMapViewControlsManager+AddPlace.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePoint+CPP.h"
+#import "MWMSettings.h"
 #import "MWMStorage+UI.h"
 #import "SwiftBridge.h"
 
@@ -90,9 +91,18 @@ using namespace storage;
   }
   else
   {
+    size_t intermediateIndex = 0;
+    if (![MWMSettings routeOptimizationEnabled])
+    {
+      // Preserve the order stops were added by appending after existing stops when optimization is disabled.
+      for (auto const & routePoint : GetFramework().GetRoutingManager().GetRoutePoints())
+        if (routePoint.m_pointType == RouteMarkType::Intermediate)
+          ++intermediateIndex;
+    }
+
     MWMRoutePoint * pointBeforeFinish = [self routePoint:data
                                                 withType:MWMRoutePointTypeIntermediate
-                                       intermediateIndex:0];
+                                       intermediateIndex:intermediateIndex];
     [MWMRouter addPointAndRebuild:pointBeforeFinish];
   }
 

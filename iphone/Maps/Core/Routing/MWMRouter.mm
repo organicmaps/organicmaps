@@ -9,6 +9,7 @@
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRoutingManager.h"
+#import "MWMSettings.h"
 #import "MWMStorage+UI.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
@@ -32,6 +33,7 @@ using namespace routing;
 @property(nonatomic) BOOL canAutoAddLastLocation;
 @property(nonatomic) BOOL isAPICall;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
+@property(nonatomic) BOOL lastRouteOptimizationEnabled;
 @property(strong, nonatomic) MWMRoutingOptions * routingOptions;
 
 + (MWMRouter *)router;
@@ -224,6 +226,7 @@ using namespace routing;
     [MWMFrameworkListener addObserver:self];
     _canAutoAddLastLocation = YES;
     _routingOptions = [MWMRoutingOptions new];
+    _lastRouteOptimizationEnabled = _routingOptions.routeOptimizationEnabled;
     _isRestoreProcessCompleted = NO;
   }
   return self;
@@ -354,6 +357,7 @@ using namespace routing;
 + (void)removePoints
 {
   GetFramework().GetRoutingManager().RemoveRoutePoints();
+  [self router].lastRouteOptimizationEnabled = [MWMSettings routeOptimizationEnabled];
 }
 
 + (void)addPoint:(MWMRoutePoint *)point
@@ -365,7 +369,7 @@ using namespace routing;
   }
 
   RouteMarkData pt = point.routeMarkData;
-  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt), [MWMSettings routeOptimizationEnabled]);
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
@@ -507,7 +511,10 @@ using namespace routing;
 {
   [[MWMRoutingManager routingManager] stopRoutingAndRemoveRoutePoints:removeRoutePoints];
   if (removeRoutePoints)
+  {
+    [self router].lastRouteOptimizationEnabled = [MWMSettings routeOptimizationEnabled];
     [[MWMRoutingManager routingManager] deleteSavedRoutePoints];
+  }
 }
 
 - (void)updateFollowingInfo
@@ -605,8 +612,10 @@ using namespace routing;
   switch (recommendation)
   {
   case MWMRouterRecommendationRebuildAfterPointsLoading:
-    [MWMRouter addPointAndRebuild:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
-                                                                   intermediateIndex:0]];
+    // Refresh the restored start without changing the saved stop order when GPS becomes available.
+    [MWMRouter replacePointAndRebuild:[MWMRouter startPoint]
+                            withPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                                       intermediateIndex:0]];
     break;
   }
 }
@@ -696,8 +705,23 @@ using namespace routing;
 + (void)updateRoute
 {
   MWMRoutingOptions * newOptions = [MWMRoutingOptions new];
-  if ((self.isRoutingActive && !self.isOnRoute) && ![newOptions isEqual:[self router].routingOptions])
-    [self rebuildWithBestRouter:YES];
+  MWMRouter * router = [self router];
+  BOOL const shouldOptimizeRoutePoints = !router.lastRouteOptimizationEnabled && newOptions.routeOptimizationEnabled;
+  // Keep an Off-to-On transition pending while navigating; turning it off cancels the request.
+  if (!shouldOptimizeRoutePoints || !self.isRoutingActive)
+    router.lastRouteOptimizationEnabled = newOptions.routeOptimizationEnabled;
+
+  MWMRoutingOptions * previousOptions = router.routingOptions;
+  if (!self.isRoutingActive || self.isOnRoute || ([newOptions isEqual:previousOptions] && !shouldOptimizeRoutePoints))
+    return;
+
+  if (shouldOptimizeRoutePoints)
+  {
+    GetFramework().GetRoutingManager().OptimizeRoutePoints();
+    router.lastRouteOptimizationEnabled = YES;
+  }
+
+  [self rebuildWithBestRouter:YES];
 }
 
 + (BOOL)hasActiveDrivingOptions

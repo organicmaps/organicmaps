@@ -37,6 +37,9 @@ NS_SWIFT_NAME(Settings)
 + (BOOL)routingDisclaimerApproved;
 + (void)setRoutingDisclaimerApproved;
 
++ (BOOL)routeOptimizationEnabled;
++ (void)setRouteOptimizationEnabled:(BOOL)enabled;
+
 + (NSString *)spotlightLocaleLanguageId;
 + (void)setSpotlightLocaleLanguageId:(NSString *)spotlightLocaleLanguageId;
 

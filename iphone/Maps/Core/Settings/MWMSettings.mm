@@ -14,6 +14,7 @@ namespace
 char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
 char const * kRoutingDisclaimerApprovedKey = "IsDisclaimerApproved";
+char const * kRouteOptimizationEnabledKey = "RouteOptimizationEnabled";
 char const * kSearchHistoryEnabledKey = "SearchHistoryEnabled";
 
 // TODO(igrechuhin): Remove outdated kUDAutoNightModeOff
@@ -127,6 +128,19 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
 {
   settings::Set(kRoutingDisclaimerApprovedKey, true);
 }
+
++ (BOOL)routeOptimizationEnabled
+{
+  bool enabled = true;
+  UNUSED_VALUE(settings::Get(kRouteOptimizationEnabledKey, enabled));
+  return enabled;
+}
+
++ (void)setRouteOptimizationEnabled:(BOOL)enabled
+{
+  settings::Set(kRouteOptimizationEnabledKey, static_cast<bool>(enabled));
+}
+
 + (NSString *)spotlightLocaleLanguageId
 {
   return [NSUserDefaults.standardUserDefaults stringForKey:kSpotlightLocaleLanguageId];

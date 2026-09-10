@@ -1,10 +1,12 @@
 #import "MWMRoutingOptions.h"
+#import "MWMSettings.h"
 
 #include "routing/routing_options.hpp"
 
 @interface MWMRoutingOptions ()
 {
   routing::RoutingOptions _options;
+  BOOL _routeOptimizationEnabled;
 }
 
 @end
@@ -15,7 +17,10 @@
 {
   self = [super init];
   if (self)
+  {
     _options = routing::RoutingOptions::LoadCarOptionsFromSettings();
+    _routeOptimizationEnabled = [MWMSettings routeOptimizationEnabled];
+  }
 
   return self;
 }
@@ -68,6 +73,7 @@
 - (void)save
 {
   routing::RoutingOptions::SaveCarOptionsToSettings(_options);
+  [MWMSettings setRouteOptimizationEnabled:self.routeOptimizationEnabled];
 }
 
 - (void)setOption:(routing::RoutingOptions::Road)option enabled:(BOOL)enabled

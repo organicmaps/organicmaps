@@ -15,7 +15,10 @@ final class RoutingOptionsSettingsPresenter {
   private func sections(from state: RoutingOptionsSettingsState) -> [RoutingOptionsSettingsSectionViewModel] {
     [
       SettingsSectionViewModel(section: .options,
-                               items: RoutingOption.allCases.map { item($0, state: state) }),
+                               items: RoutingOption.avoidanceOptions.map { item($0, state: state) }),
+      SettingsSectionViewModel(section: .optimization,
+                               footer: RoutingOptionsSettingsSection.optimization.footer,
+                               items: [item(.routeOptimization, state: state)]),
     ]
   }
 
