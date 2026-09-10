@@ -49,10 +49,9 @@
             android:includeFontPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="3"
             android:textColor="@color/on_nav_card"
-            tools:text="Alexanderplatz Straße" />
+            tools:text="Exit 399B onto Old Middlefield Way" />
         </FrameLayout>
       </LinearLayout>
     </LinearLayout>
@@ -93,8 +92,7 @@
       android:layout_width="match_parent"
       android:includeFontPadding="false"
       android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:maxLines="1"
+      android:maxLines="2"
       android:textColor="@color/on_nav_card"
       tools:text="Harlem River Drive" />
   </LinearLayout>
