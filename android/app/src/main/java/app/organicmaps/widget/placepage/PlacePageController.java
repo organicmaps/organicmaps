@@ -31,6 +31,7 @@ import app.organicmaps.api.Const;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.api.ApiController;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
@@ -722,7 +723,7 @@ public class PlacePageController
     final Intent intent = activity.getIntent();
     final boolean showBackButton =
         (intent != null
-         && (Factory.isStartedForApiResult(intent) || !TextUtils.isEmpty(Framework.nativeGetParsedBackUrl())));
+         && (Factory.isStartedForApiResult(intent) || !TextUtils.isEmpty(ApiController.nativeGetParsedBackUrl())));
     mMapObject = mapObject;
     if (mapObject != null)
     {

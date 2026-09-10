@@ -12,6 +12,7 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.editor.OsmLoginActivity;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.api.ApiController;
 import app.organicmaps.sdk.api.ParsedRoutingData;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
@@ -74,7 +75,7 @@ public class Factory
       if (uri == null)
         return false;
 
-      switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
+      switch (ApiController.nativeParseAndSetApiUrl(uri.toString()))
       {
       case RequestType.INCORRECT: return false;
 
@@ -87,7 +88,7 @@ public class Factory
       case RequestType.ROUTE:
         SearchEngine.INSTANCE.cancelInteractiveSearch();
         target.forceCloseSearchFragment();
-        final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
+        final ParsedRoutingData data = ApiController.nativeGetParsedRoutingData();
         RoutingController.get().setRouterType(data.mRouterType);
         final RoutePoint from = data.mPoints[0];
         final RoutePoint to = data.mPoints[1];
@@ -98,8 +99,8 @@ public class Factory
       case RequestType.SEARCH:
       {
         SearchEngine.INSTANCE.cancelInteractiveSearch();
-        final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-        final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+        final ParsedSearchRequest request = ApiController.nativeGetParsedSearchRequest();
+        final double[] latlon = ApiController.nativeGetParsedCenterLatLon();
         if (latlon != null)
         {
           Framework.nativeStopLocationFollow();
@@ -116,9 +117,9 @@ public class Factory
       {
         SearchEngine.INSTANCE.cancelInteractiveSearch();
         target.forceCloseSearchFragment();
-        target.showPositionChooserForAPI(Framework.nativeGetParsedAppName());
+        target.showPositionChooserForAPI(ApiController.nativeGetParsedAppName());
 
-        final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+        final double[] latlon = ApiController.nativeGetParsedCenterLatLon();
         if (latlon != null)
         {
           Framework.nativeStopLocationFollow();
@@ -132,7 +133,7 @@ public class Factory
         SearchEngine.INSTANCE.cancelInteractiveSearch();
         target.forceCloseSearchFragment();
 
-        final String oauth2code = Framework.nativeGetParsedOAuth2Code();
+        final String oauth2code = ApiController.nativeGetParsedOAuth2Code();
         OsmLoginActivity.OAuth2Callback(target, oauth2code);
 
         return true;
