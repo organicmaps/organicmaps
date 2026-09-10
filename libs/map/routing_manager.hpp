@@ -215,6 +215,8 @@ public:
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
 
   void AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
+  /// Reorders unpassed intermediate route marks in place. Does not rebuild the route.
+  void OptimizeRoutePoints();
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;

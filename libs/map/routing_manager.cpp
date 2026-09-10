@@ -1082,6 +1082,51 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderInterm
     ReorderIntermediatePoints();
 }
 
+void RoutingManager::OptimizeRoutePoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  RoutePointsLayout layout(*m_bmManager);
+  auto const routePoints = layout.GetRoutePoints();
+  CHECK_GREATER_OR_EQUAL(routePoints.size(), 2, ());
+  CHECK(routePoints.front()->GetRoutePointType() == RouteMarkType::Start, ());
+  CHECK(routePoints.back()->GetRoutePointType() == RouteMarkType::Finish, ());
+
+  m2::PointD optimizationStart = routePoints.front()->GetPivot();
+  size_t passedCount = 0;
+  std::vector<RouteMarkPoint *> pointsToOptimize;
+  pointsToOptimize.reserve(routePoints.size());
+  for (auto * routePoint : routePoints)
+  {
+    if (routePoint->GetRoutePointType() != RouteMarkType::Intermediate)
+      continue;
+
+    if (routePoint->IsPassed())
+    {
+      ASSERT_EQUAL(routePoint->GetIntermediateIndex(), passedCount, ());
+      optimizationStart = routePoint->GetPivot();
+      ++passedCount;
+      continue;
+    }
+
+    pointsToOptimize.push_back(routePoint);
+  }
+
+  CheckpointPredictor const predictor(optimizationStart, routePoints.back()->GetPivot());
+  std::vector<m2::PointD> positions;
+  std::vector<RouteMarkPoint *> ordered;
+  positions.reserve(pointsToOptimize.size());
+  ordered.reserve(pointsToOptimize.size());
+  for (auto * routePoint : pointsToOptimize)
+  {
+    size_t const index = predictor.PredictPosition(positions, routePoint->GetPivot());
+    positions.insert(positions.begin() + index, routePoint->GetPivot());
+    ordered.insert(ordered.begin() + index, routePoint);
+  }
+
+  for (size_t i = 0; i < ordered.size(); ++i)
+    ordered[i]->SetIntermediateIndex(passedCount + i);
+}
+
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 {
   ASSERT(m_bmManager != nullptr, ());

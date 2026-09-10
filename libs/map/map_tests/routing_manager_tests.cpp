@@ -66,4 +66,82 @@ UNIT_TEST(RoutingManager_ContinueRouteToPointWithoutFinishFailsCleanly)
   TEST(!routingManager.ContinueRouteToPoint(std::move(newFinish)), ());
   TEST_EQUAL(routingManager.GetRoutePointsCount(), 0, ());
 }
+
+UNIT_TEST(RoutingManager_OptimizeRoutePointsUsesRouteMarks)
+{
+  std::vector<double> const intermediateCoordinates = {3.0, 1.0, 2.0};
+  std::vector<double> const expectedCoordinates = {1.0, 2.0, 3.0};
+
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & routingManager = framework.GetRoutingManager();
+  auto start = MakeRoutePoint(RouteMarkType::Start, 0, 0.0);
+  start.m_position.y = 0.0;
+  routingManager.AddRoutePoint(std::move(start), false /* reorderIntermediatePoints */);
+  auto finish = MakeRoutePoint(RouteMarkType::Finish, 0, 10.0);
+  finish.m_position.y = 0.0;
+  routingManager.AddRoutePoint(std::move(finish), false /* reorderIntermediatePoints */);
+  for (size_t i = 0; i < intermediateCoordinates.size(); ++i)
+  {
+    auto point = MakeRoutePoint(RouteMarkType::Intermediate, i, intermediateCoordinates[i]);
+    point.m_position.y = 0.0;
+    routingManager.AddRoutePoint(std::move(point), false /* reorderIntermediatePoints */);
+  }
+
+  routingManager.OptimizeRoutePoints();
+  auto const actualPoints = routingManager.GetRoutePoints();
+
+  TEST_EQUAL(actualPoints.size(), expectedCoordinates.size() + 2, ());
+  for (size_t i = 0; i < expectedCoordinates.size(); ++i)
+    TEST_EQUAL(actualPoints[i + 1].m_position, m2::PointD(expectedCoordinates[i], 0.0), (i));
+}
+
+UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
+{
+  std::vector<double> const intermediateCoordinates = {1.0, 4.0, 2.0, 3.0};
+  std::vector<double> const expectedCoordinates = {1.0, 2.0, 3.0, 4.0};
+
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & routingManager = framework.GetRoutingManager();
+  auto & bookmarks = framework.GetBookmarkManager();
+  auto start = MakeRoutePoint(RouteMarkType::Start, 0, 0.0);
+  start.m_position.y = 0.0;
+  routingManager.AddRoutePoint(std::move(start), false /* reorderIntermediatePoints */);
+  auto finish = MakeRoutePoint(RouteMarkType::Finish, 0, 10.0);
+  finish.m_position.y = 0.0;
+  routingManager.AddRoutePoint(std::move(finish), false /* reorderIntermediatePoints */);
+  for (size_t i = 0; i < intermediateCoordinates.size(); ++i)
+  {
+    auto point = MakeRoutePoint(RouteMarkType::Intermediate, i, intermediateCoordinates[i]);
+    point.m_position.y = 0.0;
+    routingManager.AddRoutePoint(std::move(point), false /* reorderIntermediatePoints */);
+  }
+
+  kml::MarkId passedId;
+  {
+    RoutePointsLayout layout(bookmarks);
+    auto const * passedPoint = layout.GetRoutePoint(RouteMarkType::Intermediate, 0);
+    TEST(passedPoint != nullptr, ());
+    passedId = passedPoint->GetId();
+    layout.PassRoutePoint(RouteMarkType::Intermediate, 0);
+  }
+
+  auto const markIds = bookmarks.GetUserMarkIds(UserMark::Type::ROUTING);
+  routingManager.OptimizeRoutePoints();
+
+  TEST_EQUAL(bookmarks.GetUserMarkIds(UserMark::Type::ROUTING).size(), markIds.size(), ());
+  for (auto const markId : markIds)
+    TEST(bookmarks.GetMark<RouteMarkPoint>(markId) != nullptr, (markId));
+
+  RoutePointsLayout layout(bookmarks);
+  auto const points = layout.GetRoutePoints();
+  TEST_EQUAL(points.size(), expectedCoordinates.size() + 2, ());
+  for (size_t i = 0; i < expectedCoordinates.size(); ++i)
+    TEST_EQUAL(points[i + 1]->GetPivot(), m2::PointD(expectedCoordinates[i], 0.0), (i));
+
+  auto const * passedPoint = layout.GetRoutePoint(RouteMarkType::Intermediate, 0);
+  TEST(passedPoint != nullptr, ());
+  TEST_EQUAL(passedPoint->GetId(), passedId, ());
+  TEST(passedPoint->IsPassed(), ());
+  TEST(!passedPoint->IsVisible(), ());
+}
 }  // namespace routing_manager_tests
