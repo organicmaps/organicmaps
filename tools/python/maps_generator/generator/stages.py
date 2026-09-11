@@ -25,7 +25,6 @@ from typing import Union
 import filelock
 
 from maps_generator.generator import status
-from maps_generator.generator.exceptions import FailedTest
 from maps_generator.utils.file import download_files
 from maps_generator.utils.file import normalize_url_to_path_dict
 from maps_generator.utils.log import DummyObject
@@ -40,37 +39,6 @@ class InternalDependency:
         self.url = url
         self.path_method = path_method
         self.mode = mode
-
-
-class Test:
-    def __init__(self, test, need_run=None, is_pretest=False):
-        self._test = test
-        self._need_run = need_run
-        self.is_pretest = is_pretest
-
-    @property
-    def name(self):
-        return self._test.__name__
-
-    def need_run(self, env, _logger):
-        if self._need_run is None:
-            return True
-
-        if callable(self._need_run):
-            return self._need_run(env, _logger)
-
-        return self._need_run
-
-    def test(self, env, _logger, *args, **kwargs):
-        try:
-            res = self._test(env, _logger, *args, **kwargs)
-        except Exception as e:
-            raise FailedTest(f"Test {self.name} is failed.") from e
-
-        if not res:
-            raise FailedTest(f"Test {self.name} is failed.")
-
-        _logger.info(f"Test {self.name} is successfully completed.")
 
 
 class Stage(ABC):
@@ -277,31 +245,6 @@ def country_stage_log(stage: Type[Stage]) -> Type[Stage]:
 
     stage.apply = new_apply(stage.apply)
     return stage
-
-
-def test_stage(*tests: Test) -> Callable[[Type[Stage],], Type[Stage]]:
-    def new_apply(method):
-        def apply(obj: Stage, env: "Env", *args, **kwargs):
-            _logger = kwargs["logger"] if "logger" in kwargs else logger
-
-            def run_tests(tests):
-                for test in tests:
-                    if test.need_run(env, _logger):
-                        test.test(env, _logger, *args, **kwargs)
-                    else:
-                        _logger.info(f"Test {test.name} was skipped.")
-
-            run_tests(filter(lambda t: t.is_pretest, tests))
-            method(obj, env, *args, **kwargs)
-            run_tests(filter(lambda t: not t.is_pretest, tests))
-
-        return apply
-
-    def wrapper(stage: Type[Stage]) -> Type[Stage]:
-        stage.apply = new_apply(stage.apply)
-        return stage
-
-    return wrapper
 
 
 def country_stage(stage: Type[Stage]) -> Type[Stage]:
