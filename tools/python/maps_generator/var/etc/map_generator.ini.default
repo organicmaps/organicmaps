@@ -65,7 +65,6 @@ NEED_BUILD_WORLD_ROADS: false
 #SUBWAY_URL: https://cdn.organicmaps.app/subway.json
 
 # Urls for production maps generation.
-# HOTELS_URL:
 # POPULARITY_URL:
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:

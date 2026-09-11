@@ -44,7 +44,6 @@ class GenTool:
         "stats_types": bool,
         "version": bool,
         "threads_count": int,
-        "booking_data": str,
         "brands_data": str,
         "brands_translations_data": str,
         "cache_path": str,
