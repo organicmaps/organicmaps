@@ -82,6 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)updateRoute;
 + (BOOL)hasActiveDrivingOptions;
 + (void)avoidRoadTypeAndRebuild:(MWMRoadType)type;
++ (void)optimizeRoutePointsAndRebuild;
 + (void)showNavigationMapControls;
 + (void)hideNavigationMapControls;
 
