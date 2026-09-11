@@ -14,20 +14,12 @@ namespace routing
 {
 // RoutingOptions -------------------------------------------------------------------------------------
 
-std::string_view constexpr kAvoidRoutingOptionSettingsForCar = "avoid_routing_options_car";
+namespace
+{
 std::string_view constexpr kRouteOptimizationSettings = "RouteOptimizationEnabled";
+}  // namespace
 
-bool RoutingOptions::LoadRouteOptimizationFromSettings()
-{
-  bool enabled = false;
-  return settings::Get(kRouteOptimizationSettings, enabled) && enabled;
-}
-
-void RoutingOptions::SaveRouteOptimizationToSettings(bool enabled)
-{
-  if (LoadRouteOptimizationFromSettings() != enabled)
-    settings::Set(kRouteOptimizationSettings, enabled);
-}
+std::string_view constexpr kAvoidRoutingOptionSettingsForCar = "avoid_routing_options_car";
 
 // static
 RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
@@ -43,6 +35,18 @@ RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
 void RoutingOptions::SaveCarOptionsToSettings(RoutingOptions options)
 {
   settings::Set(kAvoidRoutingOptionSettingsForCar, strings::to_string(static_cast<int32_t>(options.GetOptions())));
+}
+
+// static
+bool RoutingOptions::LoadRouteOptimizationFromSettings()
+{
+  return settings::IsEnabled(kRouteOptimizationSettings);
+}
+
+// static
+void RoutingOptions::SaveRouteOptimizationToSettings(bool enabled)
+{
+  settings::Set(kRouteOptimizationSettings, enabled);
 }
 
 void RoutingOptions::Add(RoutingOptions::Road type)

@@ -214,16 +214,15 @@ public:
   /// will not return previous data, only newer.
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
 
-  /// Inserts a new intermediate stop at the predicted position when optimization is enabled, otherwise before the
-  /// finish. Preserves the relative order of existing stops. Replacing an existing endpoint does not optimize the
-  /// route.
-  void AddRoutePoint(RouteMarkData && markData);
+  /// Adds an intermediate stop before the finish, ignoring markData.m_intermediateIndex. If optimize is true,
+  /// places only the new stop at the predicted position, except in Ruler mode. Existing endpoints are replaced
+  /// without optimization. Rejects additions that would exceed capacity.
+  void AddRoutePoint(RouteMarkData && markData, bool optimize);
+  /// Replaces an existing slot without optimization. The target must exist (CHECK); type/index override markData.
   void ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
-  /// Off -> On optimizes; On -> Off restores the previous order only if no route edits followed.
-  /// Does not rebuild. Returns whether the displayed order changed.
-  bool SetRouteOptimizationEnabled(bool enabled);
-  /// Reorders unpassed intermediate route marks in place. Does not rebuild the route.
-  void OptimizeRoutePoints();
+  /// Reorders unpassed intermediate marks in place. Returns whether their order changed; does not rebuild the route.
+  /// Does nothing while following, in Ruler mode, or without both Start and Finish. Does not read or write settings.
+  bool OptimizeRoutePoints();
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;
@@ -345,8 +344,9 @@ private:
 
   void SetPointsFollowingMode(bool enabled);
 
-  void AddRoutePointImpl(RouteMarkData && markData, bool replace);
-  void ReorderIntermediatePoints(size_t addedIndex);
+  void AddRoutePointImpl(RouteMarkData && markData, bool replace, bool optimize);
+  // With addedPoint, place only that stop; otherwise optimize all unpassed stops.
+  bool ReorderIntermediatePoints(RoutePointsLayout & layout, RouteMarkPoint * addedPoint);
 
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
@@ -367,8 +367,6 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
   bool m_loadAltitudes = false;
-  // Maps optimized stop indices to their pre-optimization indices for undo on On -> Off. Cleared by route edits.
-  std::vector<size_t> m_orderBeforeOptimization;
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
 
@@ -385,8 +383,6 @@ private:
   struct RoutePointsTransaction
   {
     std::vector<RouteMarkData> m_routeMarks;
-    // Snapshot of the optimization undo order, restored with the route points when editing is cancelled.
-    std::vector<size_t> m_orderBeforeOptimization;
   };
   std::map<uint32_t, RoutePointsTransaction> m_routePointsTransactions;
   std::chrono::steady_clock::time_point m_loadRoutePointsTimestamp;

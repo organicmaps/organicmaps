@@ -19,6 +19,8 @@
 #include <CoreApi/StringUtils+Core.h>
 #include <CoreApi/TrackInfo+Core.h>
 
+#include "routing/routing_options.hpp"
+
 #include "kml/type_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
@@ -351,7 +353,7 @@ using namespace routing;
   }
 
   RouteMarkData pt = point.routeMarkData;
-  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt), RoutingOptions::LoadRouteOptimizationFromSettings());
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 

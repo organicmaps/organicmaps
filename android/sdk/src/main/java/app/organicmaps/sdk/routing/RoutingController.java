@@ -870,7 +870,8 @@ public class RoutingController
   {
     Pair<String, String> description = getDescriptionForPoint(point);
     Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon());
+                                  0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
+                                  true /* reorderIntermediatePoints */);
   }
 
   @NonNull

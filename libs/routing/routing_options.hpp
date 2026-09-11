@@ -30,6 +30,7 @@ public:
 
   static RoutingOptions LoadCarOptionsFromSettings();
   static void SaveCarOptionsToSettings(RoutingOptions options);
+
   static bool LoadRouteOptimizationFromSettings();
   static void SaveRouteOptimizationToSettings(bool enabled);
 
