@@ -66,10 +66,10 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     Framework.nativeRemoveRoutePoints();
 
     // First, add the destination point.
-    Framework.addRoutePoint(newRoutePoints.get(newRoutePoints.size() - 1));
+    Framework.addRoutePoint(newRoutePoints.get(newRoutePoints.size() - 1), false);
 
     // Secondly, add the starting point.
-    Framework.addRoutePoint(newRoutePoints.get(0));
+    Framework.addRoutePoint(newRoutePoints.get(0), false);
 
     // And then, add all intermediate points (with no reordering).
     for (int pos = 1; pos < newRoutePoints.size() - 1; pos++)

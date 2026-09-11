@@ -31,6 +31,9 @@ public:
   static RoutingOptions LoadCarOptionsFromSettings();
   static void SaveCarOptionsToSettings(RoutingOptions options);
 
+  static bool LoadRouteOptimizationFromSettings();
+  static void SaveRouteOptimizationToSettings(bool enabled);
+
   void Add(Road type);
   void Remove(Road type);
   bool Has(Road type) const;

@@ -95,12 +95,6 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
                            needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
 }
 
-m2::PointD RoutingSession::GetStartPoint() const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_checkpoints.GetStart();
-}
-
 m2::PointD RoutingSession::GetEndPoint() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
