@@ -29,6 +29,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
@@ -739,6 +740,21 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     break;
   }
+  case Message::Type::SetTerrainLight:
+  {
+    ref_ptr<SetTerrainLightMessage> const msg = message;
+    double const azimuth = math::DegToRad(msg->AzimuthDeg());
+    double const altitude = math::DegToRad(msg->AltitudeDeg());
+    // Towards the light in the mercator frame, w = the shadow gamma (see
+    // MapProgramParams::m_terrainLightDir). The message wakes the render loop, so the
+    // next frame re-lights the standing terrain geometry.
+    m_frameValues.m_terrainLightDir =
+        glsl::vec4(static_cast<float>(std::sin(azimuth) * std::cos(altitude)),
+                   static_cast<float>(std::cos(azimuth) * std::cos(altitude)), static_cast<float>(std::sin(altitude)),
+                   static_cast<float>(msg->ShadowGamma()));
+    break;
+  }
+
   case Message::Type::FlushCirclesPack:
   {
     ref_ptr<FlushCirclesPackMessage> msg = message;

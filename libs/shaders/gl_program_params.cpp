@@ -114,6 +114,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   Parameter::CheckApply(guard, "u_interpolation", params.m_interpolation);
   Parameter::CheckApply(guard, "u_isOutlinePass", params.m_isOutlinePass);
   Parameter::CheckApply(guard, "u_contrastGamma", params.m_contrastGamma);
+  Parameter::CheckApply(guard, "u_terrainLightDir", params.m_terrainLightDir);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,

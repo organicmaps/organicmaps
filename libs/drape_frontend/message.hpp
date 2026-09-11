@@ -60,6 +60,7 @@ public:
     Allow3dMode,
     Allow3dBuildings,
     SetMapLangIndex,
+    SetTerrainLight,
     EnablePerspective,
     FlushCirclesPack,
     CacheCirclesPack,

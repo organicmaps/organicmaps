@@ -665,6 +665,13 @@ void DrapeEngine::SetMapLangIndex(int8_t mapLangIndex)
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::SetTerrainLight(double azimuthDeg, double altitudeDeg, double shadowGamma)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetTerrainLightMessage>(azimuthDeg, altitudeDeg, shadowGamma),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::EnablePerspective()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<EnablePerspectiveMessage>(),

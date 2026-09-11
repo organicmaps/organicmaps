@@ -211,10 +211,11 @@ dp::BindingInfo ColoredSymbolBindingInit()
 
 dp::BindingInfo TerrainShadeBindingInit()
 {
-  static_assert(sizeof(TerrainShadeVertex) == sizeof(TerrainShadeVertex::TPosition) + sizeof(float));
+  static_assert(sizeof(TerrainShadeVertex) ==
+                sizeof(TerrainShadeVertex::TPosition) + sizeof(TerrainShadeVertex::TNormal3d));
   dp::BindingFiller<TerrainShadeVertex> filler(2);
   filler.FillDecl<TerrainShadeVertex::TPosition>("a_position");
-  filler.FillDecl<float>("a_intensity");
+  filler.FillDecl<TerrainShadeVertex::TNormal3d>("a_normal");
 
   return filler.m_info;
 }
@@ -250,9 +251,9 @@ dp::BindingInfo const & AreaVertex::GetBindingInfo()
   return GetBinding(Area);
 }
 
-TerrainShadeVertex::TerrainShadeVertex(TPosition const & position, float intensity)
+TerrainShadeVertex::TerrainShadeVertex(TPosition const & position, TNormal3d const & normal)
   : m_position(position)
-  , m_intensity(intensity)
+  , m_normal(normal)
 {}
 
 dp::BindingInfo const & TerrainShadeVertex::GetBindingInfo()

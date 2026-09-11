@@ -45,6 +45,12 @@ public slots:
   void ScaleMinus();
   void ScalePlusLight();
   void ScaleMinusLight();
+  void LightRotateCW();
+  void LightRotateCCW();
+  void LightHigher();
+  void LightLower();
+  void ShadowSofter();
+  void ShadowHarder();
   void MoveRight();
   void MoveRightSmooth();
   void MoveLeft();
@@ -65,6 +71,13 @@ public:
   Q_SIGNAL void BeforeEngineCreation();
 
 protected:
+  // The terrain hillshade light prototype state (ALT + SHIFT + arrows, ALT + , / .),
+  // see ApplyTerrainLight.
+  void ApplyTerrainLight();
+  double m_lightAzimuthDeg = 315.0;
+  double m_lightAltitudeDeg = 45.0;
+  double m_shadowGamma = 0.5;
+
   enum class SliderState
   {
     Pressed,

@@ -625,9 +625,12 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
 {
   m2::RectD const & tileRect = m_applyParams.m_tileRect;
 
-  // The light direction (towards the light): azimuth 315 (NW), altitude 45 degrees;
-  // +x = east, +y = north in mercator. Flat ground gets sin(45) intensity and the shade
-  // is relative to it, so the flat ground is not drawn at all.
+  // The DEFAULT light direction (towards the light): azimuth 315 (NW), altitude 45
+  // degrees; +x = east, +y = north in mercator. The mesh ships per-vertex NORMALS and
+  // the LIVE light is the per-frame u_terrainLightDir uniform (see FrameValues and
+  // Framework::SetTerrainLight): moving it re-lights the standing geometry with no tile
+  // re-read. These constants only drive the near-flat culling estimate below, so a
+  // plain whose shade is invisible under the default light is not emitted at all.
   double constexpr kLightX = -0.5, kLightY = 0.5, kLightZ = 0.70710678;
   double constexpr kFlatIntensity = 0.70710678;
   double constexpr kExaggeration = 1.0;
@@ -690,14 +693,16 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
   if (CheckCancelled())
     return;
 
-  // Pass 2: the per-vertex Lambert intensity relative to the flat ground. The
-  // highlight half maps to [0, 1]; the shadow half maps to [-2, 0] and the shader
-  // clamps it to -1, so the steepest shadows share the max alpha (an intended floor:
-  // normalizing by 1 + kFlatIntensity instead would dilute the mid-slope contrast).
-  // The shadow half is gamma-lifted: the gentle slopes get a visible shade long before
-  // the steep ones saturate (0.1 of the linear response reads as 0.32), the shadow
-  // carries the relief; the highlight half stays linear and only accents it.
+  // Pass 2: normalize the smoothed per-vertex normals - the shader does the lighting
+  // (relative to the flat ground under the current light, the shadow half gamma-lifted,
+  // see terrain_shade.vsh.glsl). The intensity under the DEFAULT light is still
+  // computed here, post-gamma, as the culling estimate: a triangle invisible under the
+  // default light is skipped, so a moved light may reveal tiny missing patches on the
+  // plains - the prototype's accepted trade for keeping them free.
+  // Only the culling estimate below: the LIVE gamma rides in u_terrainLightDir.w and
+  // is changeable per frame (see Framework::SetTerrainLight).
   double constexpr kShadowGamma = 0.5;
+  std::vector<glsl::vec3> unitNormals(points.size(), glsl::vec3(0.0f, 0.0f, 1.0f));
   std::vector<float> intensities(points.size(), 0.0f);
   for (size_t i = 0; i < normals.size(); ++i)
   {
@@ -705,6 +710,8 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
     double const len = std::sqrt(n.m_nx * n.m_nx + n.m_ny * n.m_ny + n.m_nz * n.m_nz);
     if (len < 1e-15)
       continue;
+    unitNormals[i] = glsl::vec3(static_cast<float>(n.m_nx / len), static_cast<float>(n.m_ny / len),
+                                static_cast<float>(n.m_nz / len));
     double const intensity = (n.m_nx * kLightX + n.m_ny * kLightY + n.m_nz * kLightZ) / len;
     double relative =
         (intensity - kFlatIntensity) / (intensity < kFlatIntensity ? kFlatIntensity : 1.0 - kFlatIntensity);
@@ -714,13 +721,14 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
   }
 
   // Pass 3: clip to the tile (the alpha layer must not double-blend across the tiles)
-  // and emit; the clip points interpolate the vertex intensities barycentrically. The
-  // drape areas use the CW winding (cf. ApplyAreaFeature), TWM triangles are CCW.
+  // and emit; the clip points interpolate the vertex normals barycentrically (the
+  // shader renormalizes). The drape areas use the CW winding (cf. ApplyAreaFeature),
+  // TWM triangles are CCW.
   std::vector<gpu::TerrainShadeVertex> vertices;
-  auto const makeVertex = [&](m2::PointD const & p, float intensity)
+  auto const makeVertex = [&](m2::PointD const & p, glsl::vec3 const & normal)
   {
     m2::PointD const local = MapShape::ConvertToLocal(p, center, kShapeCoordScalar);
-    return gpu::TerrainShadeVertex(glsl::vec3(local.x, local.y, drule::kMinLayeredDepthFg), intensity);
+    return gpu::TerrainShadeVertex(glsl::vec3(local.x, local.y, drule::kMinLayeredDepthFg), normal);
   };
   for (size_t t = 0; t + 2 < shadeTriangles.size(); t += 3)
   {
@@ -732,6 +740,9 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
     float const ic = intensities[shadeTriangles[t + 2]];
     if (std::fabs(ia) < kFlatEps && std::fabs(ib) < kFlatEps && std::fabs(ic) < kFlatEps)
       continue;
+    glsl::vec3 const & na = unitNormals[shadeTriangles[t]];
+    glsl::vec3 const & nb = unitNormals[shadeTriangles[t + 1]];
+    glsl::vec3 const & nc = unitNormals[shadeTriangles[t + 2]];
 
     double const orientation = m2::robust::OrientedS(pa, pb, pc);
     double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
@@ -745,7 +756,8 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
         double const wa = m2::robust::OrientedS(p, pb, pc) / orientation;
         double const wb = m2::robust::OrientedS(pa, p, pc) / orientation;
         double const wc = 1.0 - wa - wb;
-        vertices.push_back(makeVertex(p, static_cast<float>(wa * ia + wb * ib + wc * ic)));
+        auto const fa = static_cast<float>(wa), fb = static_cast<float>(wb), fc = static_cast<float>(wc);
+        vertices.push_back(makeVertex(p, fa * na + fb * nb + fc * nc));
       }
     };
     if (orientation < 0)

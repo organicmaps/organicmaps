@@ -12,6 +12,9 @@ layout (binding = 0) uniform UBO
   float u_zScale;
   float u_interpolation;
   float u_isOutlinePass;
+  float u_dummy1;
+  float u_dummy2;
+  vec4 u_terrainLightDir;
 };
 
 void main()
