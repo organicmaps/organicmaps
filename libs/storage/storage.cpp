@@ -1206,8 +1206,6 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
   // Affiliations, synonyms, etc can be updated with the app update.
   // m_affiliations = std::move(storage.m_affiliations);
   // m_countryNameSynonyms = std::move(storage.m_countryNameSynonyms);
-  // m_mwmTopCityGeoIds = std::move(storage.m_mwmTopCityGeoIds);
-  // m_mwmTopCountryGeoIds = std::move(storage.m_mwmTopCountryGeoIds);
 
   LOG(LDEBUG, ("Version", m_currentVersion, "is applied"));
 
