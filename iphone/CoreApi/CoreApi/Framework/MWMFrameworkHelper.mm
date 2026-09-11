@@ -204,8 +204,43 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 
 + (BOOL)canEditMapAtViewportCenter
 {
-  auto const & f = GetFramework();
-  return f.CanEditMapForPosition(f.GetViewportCenter());
+  return [self canEditMapAtMercatorPoint:[self mercatorViewportCenter]];
+}
+
++ (BOOL)canEditMapAtMercatorPoint:(CGPoint)point
+{
+  return GetFramework().CanEditMapForPosition(m2::PointD(point.x, point.y));
+}
+
++ (void)startChoosePositionModeWithEnableBounds:(BOOL)enableBounds
+                        initialMercatorPosition:(NSValue *)initialMercatorPosition
+                           shouldChangeViewport:(BOOL)shouldChangeViewport
+{
+  m2::PointD position;
+  m2::PointD const * optionalPosition = nullptr;
+  if (initialMercatorPosition)
+  {
+    CGPoint const point = initialMercatorPosition.CGPointValue;
+    position = {point.x, point.y};
+    optionalPosition = &position;
+  }
+
+  auto & framework = GetFramework();
+  framework.EnableChoosePositionMode(true /* enable */, enableBounds, optionalPosition, shouldChangeViewport);
+  framework.BlockTapEvents(true);
+}
+
++ (void)stopChoosePositionMode
+{
+  auto & framework = GetFramework();
+  framework.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, nullptr /* optionalPosition */);
+  framework.BlockTapEvents(false);
+}
+
++ (CGPoint)mercatorViewportCenter
+{
+  auto const center = GetFramework().GetViewportCenter();
+  return CGPointMake(center.x, center.y);
 }
 
 + (void)showOnMap:(MWMMarkGroupID)categoryId

@@ -66,7 +66,15 @@ using namespace storage;
 - (void)routeAddStop:(PlacePageData *)data
 {
   MWMNavigationDashboardManager * navigationManager = [MWMNavigationDashboardManager sharedManager];
-  if (navigationManager.shouldAppendNewPoints)
+  MWMRoutePoint * myPositionPoint = data.isMyPosition ? [MWMRouter myPositionPoint] : nil;
+  if (myPositionPoint)
+  {
+    MWMRoutePoint * withPoint = [self routePoint:data
+                                        withType:myPositionPoint.type
+                               intermediateIndex:myPositionPoint.intermediateIndex];
+    [MWMRouter replacePointAndRebuild:myPositionPoint withPoint:withPoint];
+  }
+  else if (navigationManager.shouldAppendNewPoints)
   {
     MWMRoutePoint * newFinishPoint = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:0];
     [MWMRouter continueRouteToPointAndRebuild:newFinishPoint];
@@ -94,19 +102,22 @@ using namespace storage;
 
 - (void)routeRemoveStop:(PlacePageData *)data
 {
-  MWMRoutePoint * point = nil;
-  auto const intermediateIndex = GetFramework().GetCurrentPlacePageInfo().GetIntermediateIndex();
-  switch (GetFramework().GetCurrentPlacePageInfo().GetRouteMarkType())
+  MWMRoutePoint * point = data.isMyPosition ? [MWMRouter myPositionPoint] : nil;
+  if (!point)
   {
-  case RouteMarkType::Start:
-    point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:intermediateIndex];
-    break;
-  case RouteMarkType::Finish:
-    point = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:intermediateIndex];
-    break;
-  case RouteMarkType::Intermediate:
-    point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:intermediateIndex];
-    break;
+    auto const intermediateIndex = GetFramework().GetCurrentPlacePageInfo().GetIntermediateIndex();
+    switch (GetFramework().GetCurrentPlacePageInfo().GetRouteMarkType())
+    {
+    case RouteMarkType::Start:
+      point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:intermediateIndex];
+      break;
+    case RouteMarkType::Finish:
+      point = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:intermediateIndex];
+      break;
+    case RouteMarkType::Intermediate:
+      point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:intermediateIndex];
+      break;
+    }
   }
   [MWMRouter removePointAndRebuild:point];
   [self closePlacePage];

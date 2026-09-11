@@ -4,13 +4,16 @@ typedef NS_CLOSED_ENUM(NSUInteger, MWMRoutePointType) {
   MWMRoutePointTypeFinish
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MWMRoutePoint : NSObject
 
-- (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type intermediateIndex:(size_t)intermediateIndex;
+- (nullable instancetype)initWithLastLocationAndType:(MWMRoutePointType)type
+                                   intermediateIndex:(size_t)intermediateIndex;
 
 - (instancetype)initWithCGPoint:(CGPoint)point
-                          title:(NSString *)title
-                       subtitle:(NSString *)subtitle
+                          title:(nullable NSString *)title
+                       subtitle:(nullable NSString *)subtitle
                            type:(MWMRoutePointType)type
               intermediateIndex:(size_t)intermediateIndex;
 
@@ -25,3 +28,18 @@ typedef NS_CLOSED_ENUM(NSUInteger, MWMRoutePointType) {
 @property(nonatomic, readonly) double longitude;
 
 @end
+
+@interface MWMRoutePointSelection : NSObject
+
+- (instancetype)init __attribute__((unavailable("init is not available")));
+- (instancetype)initWithPoint:(nullable MWMRoutePoint *)point
+                         type:(MWMRoutePointType)type
+                 shouldAppend:(BOOL)shouldAppend;
+
+@property(nonatomic, strong, readonly, nullable) MWMRoutePoint * point;
+@property(nonatomic, readonly) MWMRoutePointType type;
+@property(nonatomic, readonly) BOOL shouldAppend;
+
+@end
+
+NS_ASSUME_NONNULL_END

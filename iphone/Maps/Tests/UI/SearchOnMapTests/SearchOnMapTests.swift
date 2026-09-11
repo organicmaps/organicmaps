@@ -6,12 +6,13 @@ final class SearchOnMapTests: XCTestCase {
   private var interactor: SearchOnMapInteractor!
   private var view: SearchOnMapViewMock!
   private var searchManager: SearchManagerMock.Type!
+  private var routePointSelector: RoutePointSelectorMock!
   private var currentState: SearchOnMapState = .searching
 
   override func setUp() {
     super.setUp()
     searchManager = SearchManagerMock.self
-    presenter = SearchOnMapPresenter(isRouting: false,
+    presenter = SearchOnMapPresenter(shouldHideForRouting: false,
                                      didChangeState: { [weak self] in self?.currentState = $0 })
     interactor = SearchOnMapInteractor(presenter: presenter, searchManager: searchManager)
     view = SearchOnMapViewMock()
@@ -25,6 +26,8 @@ final class SearchOnMapTests: XCTestCase {
     searchManager.results = .empty
     searchManager.setSearchMode(.everywhere)
     searchManager.updateViewportCallsCount = 0
+    searchManager.showResultCallCount = 0
+    routePointSelector = nil
     searchManager = nil
     super.tearDown()
   }
@@ -129,7 +132,7 @@ final class SearchOnMapTests: XCTestCase {
   }
 
   func test_GivenRouting_WhenTapSearch_ThenHideSearchAndKeepViewport() {
-    presenter = SearchOnMapPresenter(isRouting: true,
+    presenter = SearchOnMapPresenter(shouldHideForRouting: true,
                                      didChangeState: { [weak self] in self?.currentState = $0 })
     interactor = SearchOnMapInteractor(presenter: presenter, searchManager: searchManager)
     presenter.view = view
@@ -224,6 +227,15 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(currentState, .closed)
   }
 
+  func test_GivenSearchIsBeingReplaced_WhenClosed_ThenDoesNotNotifyObservers() {
+    interactor.handle(.openSearch)
+
+    interactor.closeForReplacement()
+
+    XCTAssertEqual(view.closeCallCount, 1)
+    XCTAssertEqual(currentState, .searching)
+  }
+
   func test_GivenSearchHasText_WhenClearSearch_ThenShowHistoryAndCategory() {
     interactor.handle(.openSearch)
 
@@ -296,6 +308,161 @@ final class SearchOnMapTests: XCTestCase {
     interactor.handle(.didUpdatePresentationStep(.expanded))
     XCTAssertEqual(searchManager.searchMode(), isiPad ? .everywhereAndViewport : .everywhere)
   }
+
+  func test_GivenRoutePointSearch_WhenSearchOpens_ThenShowsRoutePointActions() {
+    configureRoutePointSearch()
+
+    interactor.handle(.openSearch)
+
+    XCTAssertEqual(view.viewModel.routePointActions,
+                   .init(title: routePointSelector.title, canSelectCurrentLocation: true))
+  }
+
+  func test_GivenRoutePointSearch_WhenRegularResultIsSelected_ThenSelectsRoutePointAndCloses() {
+    configureRoutePointSearch()
+    interactor.handle(.openSearch)
+    let result = SearchResult()
+
+    interactor.handle(.didSelectResult(result, withQuery: SearchQuery("cafe", source: .typedText)))
+
+    XCTAssertTrue(routePointSelector.selectedSearchResult === result)
+    XCTAssertEqual(searchManager.showResultCallCount, 0)
+    XCTAssertEqual(view.closeCallCount, 1)
+    XCTAssertEqual(currentState, .closed)
+  }
+
+  func test_GivenRoutePointSearch_WhenCategoryIsSelected_ThenShowsSelectableResults() {
+    configureRoutePointSearch()
+    interactor.handle(.openSearch)
+    let query = SearchQuery("cafe", source: .category)
+
+    interactor.handle(.didSelect(query))
+
+    XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
+    let results = SearchResult.stubResults()
+    searchManager.results = results
+    XCTAssertEqual(view.viewModel.contentState, .results(results))
+
+    interactor.handle(.didSelectResult(results[0], withQuery: query))
+
+    XCTAssertTrue(routePointSelector.selectedSearchResult === results[0])
+    XCTAssertEqual(view.closeCallCount, 1)
+  }
+
+  func test_GivenRoutePointSearch_WhenResultsAreShown_ThenShowsRoutePointActions() {
+    configureRoutePointSearch()
+    interactor.handle(.openSearch)
+    let query = SearchQuery("cafe", source: .typedText)
+
+    interactor.handle(.didSelect(query))
+    searchManager.results = SearchResult.stubResults()
+
+    XCTAssertNotNil(view.viewModel.routePointActions)
+  }
+
+  func test_GivenRoutePointSearch_WhenCurrentLocationIsSelected_ThenSelectsAndCloses() {
+    configureRoutePointSearch()
+    interactor.handle(.openSearch)
+
+    interactor.handle(.currentLocationButtonDidTap)
+
+    XCTAssertEqual(routePointSelector.selectCurrentLocationCallCount, 1)
+    XCTAssertEqual(view.closeCallCount, 1)
+  }
+
+  func test_GivenRoutePointSearch_WhenChoosingOnMap_ThenPresentsPickerAndCommitsPoint() {
+    configureRoutePointSearch()
+    interactor.handle(.openSearch)
+
+    interactor.handle(.chooseOnMapButtonDidTap)
+
+    XCTAssertEqual(view.mapPointPickerTitle, routePointSelector.title)
+    XCTAssertEqual(view.viewModel.presentationStep, .hidden)
+    XCTAssertFalse(view.viewModel.isTyping)
+    XCTAssertEqual(currentState, .mapPointPicker)
+
+    let point = CGPoint(x: 12, y: 34)
+    interactor.handle(.didSelectMapPoint(point))
+
+    XCTAssertEqual(routePointSelector.selectedMapPoint, point)
+    XCTAssertEqual(view.closeCallCount, 1)
+  }
+
+  func test_GivenMapPointPicker_WhenCancelled_ThenCancelsRoutePointSearch() {
+    configureRoutePointSearch()
+    interactor.handle(.openSearch)
+    interactor.handle(.chooseOnMapButtonDidTap)
+
+    interactor.handle(.didCancelMapPoint)
+
+    XCTAssertEqual(routePointSelector.cancelCallCount, 1)
+    XCTAssertEqual(view.closeCallCount, 1)
+    XCTAssertEqual(currentState, .closed)
+  }
+
+  func test_GivenRoutePointSearch_WhenResultIsRejected_ThenKeepsSearchOpen() {
+    configureRoutePointSearch()
+    routePointSelector.shouldSelect = false
+    interactor.handle(.openSearch)
+    let query = SearchQuery("cafe", source: .typedText)
+    interactor.handle(.didSelect(query))
+    let results = SearchResult.stubResults()
+    searchManager.results = results
+
+    interactor.handle(.didSelectResult(results[0], withQuery: query))
+
+    XCTAssertTrue(routePointSelector.selectedSearchResult === results[0])
+    XCTAssertEqual(view.closeCallCount, 0)
+    XCTAssertEqual(searchManager.showResultCallCount, 0)
+  }
+
+  func test_GivenRoutePointSearch_WhenCurrentLocationIsRejected_ThenKeepsSearchOpen() {
+    configureRoutePointSearch()
+    routePointSelector.shouldSelect = false
+    interactor.handle(.openSearch)
+
+    interactor.handle(.currentLocationButtonDidTap)
+
+    XCTAssertEqual(routePointSelector.selectCurrentLocationCallCount, 1)
+    XCTAssertEqual(view.closeCallCount, 0)
+  }
+
+  func test_GivenMapPointPicker_WhenPointIsRejected_ThenReopensSearch() {
+    configureRoutePointSearch()
+    routePointSelector.shouldSelect = false
+    interactor.handle(.openSearch)
+    interactor.handle(.chooseOnMapButtonDidTap)
+    XCTAssertEqual(view.viewModel.presentationStep, .hidden)
+
+    let point = CGPoint(x: 12, y: 34)
+    interactor.handle(.didSelectMapPoint(point))
+
+    XCTAssertEqual(routePointSelector.selectedMapPoint, point)
+    XCTAssertEqual(view.closeCallCount, 0)
+    XCTAssertNotEqual(view.viewModel.presentationStep, .hidden)
+  }
+
+  func test_GivenRoutePointSearch_WhenClosed_ThenCancelsPendingSelection() {
+    configureRoutePointSearch()
+    interactor.handle(.openSearch)
+
+    interactor.handle(.closeSearch)
+
+    XCTAssertEqual(routePointSelector.cancelCallCount, 1)
+  }
+
+  private func configureRoutePointSearch() {
+    routePointSelector = RoutePointSelectorMock()
+    presenter = SearchOnMapPresenter(shouldHideForRouting: false,
+                                     routePointActions: .init(title: routePointSelector.title,
+                                                              canSelectCurrentLocation: true),
+                                     didChangeState: { [weak self] in self?.currentState = $0 })
+    interactor = SearchOnMapInteractor(presenter: presenter,
+                                       searchManager: searchManager,
+                                       routePointSelector: routePointSelector)
+    view = SearchOnMapViewMock()
+    presenter.view = view
+  }
 }
 
 // MARK: - Mocks
@@ -303,13 +470,22 @@ final class SearchOnMapTests: XCTestCase {
 private class SearchOnMapViewMock: SearchOnMapView {
   var viewModel: SearchOnMap.ViewModel = .initial
   var scrollViewDelegate: (any UIScrollViewDelegate)?
+  var closeCallCount = 0
+  var mapPointPickerTitle: String?
+
   func render(_ viewModel: SearchOnMap.ViewModel) {
     self.viewModel = viewModel
   }
 
-  func close() {}
+  func close() {
+    closeCallCount += 1
+  }
 
   func show() {}
+
+  func showMapPointPicker(title: String) {
+    mapPointPickerTitle = title
+  }
 }
 
 private class SearchManagerMock: SearchManager {
@@ -322,6 +498,7 @@ private class SearchManagerMock: SearchManager {
 
   private static var _searchMode: SearchMode = .everywhere
   static var updateViewportCallsCount = 0
+  static var showResultCallCount = 0
 
   static func add(_ observer: any MWMSearchObserver) {
     observers.addListener(observer)
@@ -332,13 +509,47 @@ private class SearchManagerMock: SearchManager {
   }
 
   static func save(_: SearchQuery) {}
+
   static func searchQuery(_: SearchQuery) {}
-  static func showResult(at _: UInt) {}
+  static func showResult(at _: UInt) {
+    showResultCallCount += 1
+  }
+
   static func updateViewportWithResults() { updateViewportCallsCount += 1 }
   static func clear() {}
   static func getResults() -> [SearchResult] { results.results }
   static func searchMode() -> SearchMode { _searchMode }
   static func setSearchMode(_ mode: SearchMode) { _searchMode = mode }
+}
+
+private final class RoutePointSelectorMock: RoutePointSelecting {
+  var isActive = true
+  var title = "Choose destination"
+  var canSelectCurrentLocation = true
+  var shouldSelect = true
+  var selectCurrentLocationCallCount = 0
+  var selectedSearchResult: SearchResult?
+  var selectedMapPoint: CGPoint?
+  var cancelCallCount = 0
+
+  func selectCurrentLocation() -> Bool {
+    selectCurrentLocationCallCount += 1
+    return shouldSelect
+  }
+
+  func select(searchResult: SearchResult) -> Bool {
+    selectedSearchResult = searchResult
+    return shouldSelect
+  }
+
+  func select(mapPoint: CGPoint) -> Bool {
+    selectedMapPoint = mapPoint
+    return shouldSelect
+  }
+
+  func cancel() {
+    cancelCallCount += 1
+  }
 }
 
 private extension SearchResult {

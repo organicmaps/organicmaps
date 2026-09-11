@@ -12,12 +12,15 @@ final class SearchOnMapPresenter {
   }
 
   private var viewModel: ViewModel = .initial
-  let isRouting: Bool
+  let shouldHideForRouting: Bool
   private var didChangeState: ((SearchOnMapState) -> Void)?
 
-  init(isRouting: Bool, didChangeState: ((SearchOnMapState) -> Void)?) {
-    self.isRouting = isRouting
+  init(shouldHideForRouting: Bool,
+       routePointActions: ViewModel.RoutePointActions? = nil,
+       didChangeState: ((SearchOnMapState) -> Void)?) {
+    self.shouldHideForRouting = shouldHideForRouting
     self.didChangeState = didChangeState
+    viewModel.routePointActions = routePointActions
     didChangeState?(searchState)
   }
 
@@ -25,9 +28,16 @@ final class SearchOnMapPresenter {
     guard response != .none else { return }
 
     if response == .close {
-      view?.close()
-      searchState = .closed
-      didChangeState = nil
+      close()
+      return
+    }
+
+    if case .showMapPointPicker(let title) = response {
+      viewModel.isTyping = false
+      viewModel.presentationStep = .hidden
+      view?.render(viewModel)
+      searchState = .mapPointPicker
+      view?.showMapPointPicker(title: title)
       return
     }
 
@@ -44,6 +54,14 @@ final class SearchOnMapPresenter {
     }
   }
 
+  func close(notifyObservers: Bool = true) {
+    view?.close()
+    if notifyObservers {
+      searchState = .closed
+    }
+    didChangeState = nil
+  }
+
   private func resolve(action: Response, with previousViewModel: ViewModel) -> ViewModel {
     var viewModel = previousViewModel
     viewModel.searchingText = nil // should not be nil only when the text is passed to the search field
@@ -56,7 +74,7 @@ final class SearchOnMapPresenter {
     case .showOnTheMap:
       viewModel.isTyping = false
       viewModel.skipSuggestions = true
-      viewModel.presentationStep = isRouting ? .hidden : .compact
+      viewModel.presentationStep = shouldHideForRouting ? .hidden : .compact
       if case .results(var results) = viewModel.contentState, !results.isEmpty {
         results.skipSuggestions()
         viewModel.contentState = .results(results)
@@ -85,7 +103,7 @@ final class SearchOnMapPresenter {
         viewModel.isTyping = true
       case .category, .history, .deeplink:
         viewModel.isTyping = false
-        viewModel.presentationStep = isRouting ? .hidden : .halfScreen
+        viewModel.presentationStep = shouldHideForRouting ? .hidden : .halfScreen
       @unknown default:
         fatalError("Unknown search text source")
       }
@@ -97,7 +115,8 @@ final class SearchOnMapPresenter {
       viewModel.presentationStep = .expanded
     case .setSearchScreenHidden(let isHidden):
       viewModel.isTyping = false
-      viewModel.presentationStep = isHidden ? .hidden : (isRouting ? .expanded : viewModel.latestVisiblePresentationStep)
+      let visibleStep = shouldHideForRouting ? .expanded : viewModel.latestVisiblePresentationStep
+      viewModel.presentationStep = isHidden ? .hidden : visibleStep
     case .setSearchScreenCompact:
       viewModel.isTyping = false
       viewModel.presentationStep = .compact
@@ -106,7 +125,9 @@ final class SearchOnMapPresenter {
         viewModel.isTyping = false
       }
       viewModel.presentationStep = step
-    case .close, .none:
+    case .updateRoutePointActions(let actions):
+      viewModel.routePointActions = actions
+    case .showMapPointPicker, .close, .none:
       break
     }
     return viewModel
