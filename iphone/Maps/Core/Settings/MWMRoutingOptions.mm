@@ -1,4 +1,5 @@
 #import "MWMRoutingOptions.h"
+#import "MWMSettings.h"
 
 #include "routing/routing_options.hpp"
 
@@ -65,6 +66,16 @@
   return self.avoidToll || self.avoidDirty || self.avoidFerry || self.avoidMotorway;
 }
 
+- (BOOL)routeOptimizationEnabled
+{
+  return [MWMSettings routeOptimizationEnabled];
+}
+
+- (void)setRouteOptimizationEnabled:(BOOL)enabled
+{
+  [MWMSettings setRouteOptimizationEnabled:enabled];
+}
+
 - (void)save
 {
   routing::RoutingOptions::SaveCarOptionsToSettings(_options);
@@ -80,6 +91,7 @@
 
 - (BOOL)isEqual:(id)object
 {
+  // Optimization order/state is tracked by the routing manager independently of avoidance options.
   if (![object isMemberOfClass:self.class])
     return NO;
   MWMRoutingOptions * another = (MWMRoutingOptions *)object;

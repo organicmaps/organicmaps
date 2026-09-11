@@ -2,12 +2,14 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMCoreUnits.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMRouter.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 #include <CoreApi/Logger.h>
 
 #include "map/gps_tracker.hpp"
+#include "routing/routing_options.hpp"
 
 namespace
 {
@@ -127,6 +129,18 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
 {
   settings::Set(kRoutingDisclaimerApprovedKey, true);
 }
+
++ (BOOL)routeOptimizationEnabled
+{
+  return routing::RoutingOptions::LoadRouteOptimizationFromSettings();
+}
+
++ (void)setRouteOptimizationEnabled:(BOOL)enabled
+{
+  if (GetFramework().GetRoutingManager().SetRouteOptimizationEnabled(enabled) && [MWMRouter isRoutingActive])
+    [MWMRouter rebuildWithBestRouter:NO];
+}
+
 + (NSString *)spotlightLocaleLanguageId
 {
   return [NSUserDefaults.standardUserDefaults stringForKey:kSpotlightLocaleLanguageId];

@@ -3,6 +3,7 @@ enum SettingsViewControllerAction<Item: Hashable> {
   case willAppear
   case didAppear
   case willDisappear
+  case didDisappear
   case didSelect(Item)
   case didTapAccessory(Item)
   case didChangeSwitch(Item, isOn: Bool)
@@ -63,6 +64,11 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
     super.viewWillDisappear(animated)
     view.endEditing(true)
     interactor?.handle(.willDisappear)
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    interactor?.handle(.didDisappear)
   }
 
   private func configureTableView() {

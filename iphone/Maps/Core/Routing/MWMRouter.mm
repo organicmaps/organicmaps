@@ -9,6 +9,7 @@
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRoutingManager.h"
+#import "MWMSettings.h"
 #import "MWMStorage+UI.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
@@ -682,8 +683,13 @@ using namespace routing;
 + (void)updateRoute
 {
   MWMRoutingOptions * newOptions = [MWMRoutingOptions new];
-  if ((self.isRoutingActive && !self.isOnRoute) && ![newOptions isEqual:[self router].routingOptions])
-    [self rebuildWithBestRouter:YES];
+  MWMRouter * router = [self router];
+  // Navigation follows the approved visible order; its optimization switch is disabled.
+  if (self.isOnRoute)
+    return;
+  BOOL const avoidanceChanged = ![newOptions isEqual:router.routingOptions];
+  if (self.isRoutingActive && avoidanceChanged)
+    [self rebuildWithBestRouter:NO];
 }
 
 + (BOOL)hasActiveDrivingOptions
