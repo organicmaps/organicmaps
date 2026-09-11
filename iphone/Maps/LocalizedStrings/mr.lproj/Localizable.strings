@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.";
 "driving_options_title" = "मार्गशोधी पर्याय";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "मार्ग अनुकूलन";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "अधिक कार्यक्षम मार्ग तयार करण्यासाठी मधले थांबे आपोआप पुनर्क्रमित करते.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "टोल रस्ते टाळा";
 
