@@ -670,6 +670,10 @@
     <string name="show_at_the_bottom">Показати внизу</string>
     <string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку \"Сповістити про помилку\".</string>
     <string name="driving_options_title">Налаштування об’їзду</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Оптимізація маршруту</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Автоматично змінює порядок проміжних зупинок для побудови ефективнішого маршруту.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Уникати платних доріг</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

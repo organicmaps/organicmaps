@@ -666,6 +666,10 @@
     <string name="show_at_the_bottom">Onderaan weergeven</string>
     <string name="enable_logging_warning_message">Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.</string>
     <string name="driving_options_title">Route instellingen</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Routeoptimalisatie</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Rangschikt tussenstops automatisch opnieuw om een efficiëntere route te maken.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Vermijd tolwegen</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

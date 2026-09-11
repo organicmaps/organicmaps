@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">در پایین نمایش دهید</string>
     <string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
     <string name="driving_options_title">گزینه‌های رانندگی</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">بهینه‌سازی مسیر</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">توقف‌های میانی را به‌طور خودکار جابه‌جا می‌کند تا مسیر بهینه‌تری ایجاد شود.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">از جاده های عوارضی خودداری کنید</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

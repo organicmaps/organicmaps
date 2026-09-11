@@ -664,6 +664,10 @@
     <string name="show_at_the_bottom">Εμφάνισε στο κάτω μέρος</string>
     <string name="enable_logging_warning_message">Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.</string>
     <string name="driving_options_title">Ρυθμίσεις δρομολόγησης</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Βελτιστοποίηση διαδρομής</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Αναδιατάσσει αυτόματα τις ενδιάμεσες στάσεις για τη δημιουργία μιας πιο αποδοτικής διαδρομής.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Αποφυγή διοδίων</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

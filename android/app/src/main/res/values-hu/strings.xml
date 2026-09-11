@@ -666,6 +666,10 @@
     <string name="show_at_the_bottom">Megjelenítés alul</string>
     <string name="enable_logging_warning_message">Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.</string>
     <string name="driving_options_title">Útvonaltervezési beállítások</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Útvonal-optimalizálás</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Automatikusan átrendezi a köztes megállókat egy hatékonyabb útvonal létrehozásához.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Díjköteles utak elkerülése</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

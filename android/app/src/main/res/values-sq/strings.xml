@@ -651,6 +651,10 @@
     <string name="show_at_the_bottom">Shfaq në fund</string>
     <string name="enable_logging_warning_message">Aktivizoni këtë opsion përkohësisht për të regjistruar dhe dërguar manualisht logje diagnostike të detajuara për problemin tuaj duke përdorur \"Raporto një problem\" në dialogun Ndihmë. Logjet mund të përfshijnë informacione vendndodhjeje.</string>
     <string name="driving_options_title">Mundësitë e rrugëtimit</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimizimi i itinerarit</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Riorganizon automatikisht ndalesat e ndërmjetme për të krijuar një itinerar më efikas.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Shmang pagesat</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
