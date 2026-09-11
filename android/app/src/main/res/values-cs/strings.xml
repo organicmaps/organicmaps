@@ -669,6 +669,10 @@
     <string name="show_at_the_bottom">Zobrazit dole</string>
     <string name="enable_logging_warning_message">Dočasně zapněte, abyste mohli zaznamenat a ručně nám poslat podrobná diagnostická data o vašem problému pomocí tlačítka „Nahlásit chybu“ v okně nápovědy. Protokoly mohou zahrnovat informace o poloze.</string>
     <string name="driving_options_title">Možnosti trasy</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimalizace trasy</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Automaticky přeuspořádá průjezdní body a vytvoří efektivnější trasu.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Vyhnout se mýtnému</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

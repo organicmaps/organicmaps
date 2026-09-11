@@ -672,6 +672,10 @@
     <string name="show_at_the_bottom">Паказваць знізу</string>
     <string name="enable_logging_warning_message">Часова ўключыце гэты параметр , каб запісаць і ўручную адправіць нам падрабязную інфармацыю пра знойдзеную праблему праз кнопку «Паведаміць аб памылцы» ў акне «Даведка». Журнал падзей можа змяшчаць даныя пра месцазнаходжанне.</string>
     <string name="driving_options_title">Налады пракладвання маршрутаў</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Аптымізацыя маршруту</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Аўтаматычна пераўпарадкоўвае прамежкавыя прыпынкі, каб стварыць больш эфектыўны маршрут.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Пазбягаць платных дарог</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

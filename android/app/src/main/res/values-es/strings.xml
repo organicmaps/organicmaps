@@ -669,6 +669,10 @@
     <string name="show_at_the_bottom">Mostrar en el fondo</string>
     <string name="enable_logging_warning_message">Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.</string>
     <string name="driving_options_title">Opciones de enrutamiento</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimización de la ruta</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Reordena automáticamente las paradas intermedias para crear una ruta más eficiente.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitar peajes</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

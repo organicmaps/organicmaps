@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">הצג בתחתית</string>
     <string name="enable_logging_warning_message">הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.</string>
     <string name="driving_options_title">אפשרויות מסלול</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">מיטוב המסלול</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">מסדר מחדש באופן אוטומטי את תחנות הביניים כדי ליצור מסלול יעיל יותר.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">הימנע מכבישי אגרה</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

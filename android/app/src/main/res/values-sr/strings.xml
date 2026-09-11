@@ -666,6 +666,10 @@
     <string name="show_at_the_bottom">Прикажи на дну</string>
     <string name="enable_logging_warning_message">Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције \"Пријавите проблем\" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.</string>
     <string name="driving_options_title">Опције рутирања</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Оптимизација руте</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Аутоматски мења редослед међуодредишта ради ефикасније руте.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избегавај путарине</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

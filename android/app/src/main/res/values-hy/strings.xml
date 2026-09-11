@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">Ցուցադրել ներքևից</string>
     <string name="enable_logging_warning_message">Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։</string>
     <string name="driving_options_title">Երթուղու ընտրանքներ</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Երթուղու օպտիմալացում</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Ավտոմատ վերադասավորում է միջանկյալ կանգառները՝ ավելի արդյունավետ երթուղի ստեղծելու համար։</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Խուսափել վճարովի ճանապարհներից</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

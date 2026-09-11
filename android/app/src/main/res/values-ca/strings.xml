@@ -669,6 +669,10 @@
     <string name="show_at_the_bottom">Mostra a la part inferior</string>
     <string name="enable_logging_warning_message">Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.</string>
     <string name="driving_options_title">Opcions d’encaminament</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimització de la ruta</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Reordena automàticament les parades intermèdies per crear una ruta més eficient.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evita peatges</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

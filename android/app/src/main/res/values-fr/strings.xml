@@ -667,6 +667,10 @@
     <string name="show_at_the_bottom">Afficher en bas</string>
     <string name="enable_logging_warning_message">Cette option est activée pour l\'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.</string>
     <string name="driving_options_title">Paramètres des itinéraires</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimisation de l’itinéraire</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Réorganise automatiquement les étapes intermédiaires afin de créer un itinéraire plus efficace.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Éviter les routes à péage</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

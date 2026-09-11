@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">Vis i bunden</string>
     <string name="enable_logging_warning_message">Aktivér denne mulighed midlertidigt for at registrere og manuelt sende detaljerede diagnostiske logfiler om dit problem til os ved hjælp af \"Rapportér en fejl\" i Hjælp-dialogen. Logfiler kan indeholde placeringsoplysninger.</string>
     <string name="driving_options_title">Indstillinger for ruteberegning</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Ruteoptimering</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Omarrangerer automatisk mellemstop for at oprette en mere effektiv rute.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Undgå betalingsveje</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
