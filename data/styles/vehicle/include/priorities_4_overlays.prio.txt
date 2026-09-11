@@ -465,6 +465,9 @@ natural-water-pond                                  # caption z10- (also has are
 shop-mall                                           # icon z14- (also has caption(optional) z14-)
 === 1500
 
+natural-water-intermittent                          # caption z10- (also has area z1-)
+=== 1490
+
 natural-desert                                      # caption z14- (also has area z1-)
 === 1450
 

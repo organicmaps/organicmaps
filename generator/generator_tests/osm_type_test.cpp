@@ -1811,6 +1811,49 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_UndrawnTunnels)
   TestTypes({{"natural", "water"}, {"water", "river"}, {"tunnel", "no"}}, {{"natural", "water", "river"}});
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterAreas)
+{
+  Type const intermittent = {"natural", "water", "intermittent"};
+  Type const basinIntermittent = {"landuse", "basin", "intermittent"};
+  char const * const waters[] = {"basin", "ditch", "drain",     "lake",  "lock",
+                                 "moat",  "pond",  "reservoir", "river", "wastewater"};
+
+  Tags const nonPermanent = {{"intermittent", "yes"},
+                             {"seasonal", "yes"},
+                             {"seasonal", "spring;summer"},
+                             {"basin", "detention"},
+                             {"basin", "infiltration"}};
+  for (auto const & tag : nonPermanent)
+  {
+    TestTypes({{"natural", "water"}, tag}, {intermittent});
+    // A specific water type is kept along with the intermittent one.
+    for (auto const water : waters)
+      TestTypes({{"natural", "water"}, {"water", water}, tag}, {{"natural", "water", water}, intermittent});
+    TestTypes({{"landuse", "basin"}, tag}, {basinIntermittent});
+  }
+
+  // Legacy water tags are converted first.
+  TestTypes({{"landuse", "reservoir"}, {"intermittent", "yes"}}, {{"natural", "water", "reservoir"}, intermittent});
+  TestTypes({{"waterway", "riverbank"}, {"seasonal", "summer"}}, {{"natural", "water", "river"}, intermittent});
+  // Different type groups get their own intermittent types.
+  TestTypes({{"landuse", "basin"}, {"natural", "water"}, {"intermittent", "yes"}}, {basinIntermittent, intermittent});
+  // Tunnels keep their own type only.
+  TestTypes({{"natural", "water"}, {"tunnel", "culvert"}, {"intermittent", "yes"}}, {});
+
+  Tags const permanent = {{"intermittent", "no"}, {"seasonal", "no"}, {"basin", "retention"}};
+  for (auto const & tag : permanent)
+  {
+    TestTypes({{"natural", "water"}, tag}, {{"natural", "water"}});
+    for (auto const water : waters)
+      TestTypes({{"natural", "water"}, {"water", water}, tag}, {{"natural", "water", water}});
+    TestTypes({{"landuse", "basin"}, tag}, {{"landuse", "basin"}});
+  }
+
+  // seasonal=* is valid for non-water features too.
+  TestTypes({{"natural", "wetland"}, {"seasonal", "yes"}}, {{"natural", "wetland"}});
+  TestTypes({{"leisure", "ice_rink"}, {"seasonal", "winter"}}, {{"leisure", "ice_rink"}});
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
 {
   {

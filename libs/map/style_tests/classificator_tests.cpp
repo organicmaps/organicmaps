@@ -249,17 +249,33 @@ UNIT_TEST(Classificator_AreaPriority)
           //{"waterway", "river"}, {"waterway", "stream"}, {"natural", "strait"}, {"waterway", "ditch"},
           // 0 - water areas
           {"natural", "water"},
+          {"natural", "water", "basin"},
+          {"natural", "water", "lake"},
+          {"natural", "water", "lock"},
+          {"natural", "water", "moat"},
+          {"natural", "water", "pond"},
           {"natural", "water", "reservoir"},
           {"natural", "water", "river"},
+          {"landuse", "basin"},
+          {"landuse", "salt_pond"},
+          {"natural", "water", "tunnel"},
           {"waterway", "dock"},
+          // 1 - intermittent water areas: their fill replaces the water fill of the same feature,
+          // and they are drawn over overlapping permanent water
+          {"natural", "water", "intermittent"},
+          {"landuse", "basin", "intermittent"},
+          // 2 - water areas with their own look, also when intermittent
+          {"natural", "water", "ditch"},
+          {"natural", "water", "drain"},
+          {"natural", "water", "wastewater"},
           // ? - hatching fills @todo: absent in vehicle style, need to test main style only
           //{"leisure", "nature_reserve"}, {"boundary", "national_park"}, {"landuse", "military"},
-          // 1 - above-water features
+          // 3 - above-water features
           {"man_made", "pier"},
           {"man_made", "breakwater"},
           {"waterway", "dam"},
       },
-      {4, 3}, drule::area);
+      {12, 2, 3, 3}, drule::area);
 
   CheckPriority(
       {
@@ -346,6 +362,29 @@ UNIT_TEST(Classificator_MultipleTypesPoiPriority)
          {"sport", "multi"}},
         {1, 1}, drule::symbol);
   }
+}
+
+// A specific water type with a caption should be the main one for captions and the place page,
+// no matter the types order.
+UNIT_TEST(Classificator_IntermittentWaterCaptionPriority)
+{
+  CheckPriority(
+      {
+          // 1
+          {"natural", "water", "intermittent"},
+          // 2
+          {"natural", "water", "basin"},
+          {"natural", "water", "ditch"},
+          {"natural", "water", "drain"},
+          {"natural", "water", "lake"},
+          {"natural", "water", "lock"},
+          {"natural", "water", "moat"},
+          {"natural", "water", "pond"},
+          {"natural", "water", "reservoir"},
+          {"natural", "water", "river"},
+          {"natural", "water", "wastewater"},
+      },
+      {1, 10}, drule::caption);
 }
 
 namespace
