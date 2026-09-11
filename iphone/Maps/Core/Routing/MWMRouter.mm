@@ -19,6 +19,8 @@
 #include <CoreApi/StringUtils+Core.h>
 #include <CoreApi/TrackInfo+Core.h>
 
+#include "routing/routing_options.hpp"
+
 #include "kml/type_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
@@ -309,9 +311,8 @@ using namespace routing;
   case MWMRoutePointTypeIntermediate:
     RouteMarkData pt = point.routeMarkData;
     auto & routingManager = GetFramework().GetRoutingManager();
-    routingManager.RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
     RouteMarkData newPt = newPoint.routeMarkData;
-    routingManager.AddRoutePoint(std::move(newPt), NO /* reorderIntermediatePoints */);
+    routingManager.ReplaceRoutePoint(pt.m_pointType, pt.m_intermediateIndex, std::move(newPt));
     [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
     [self rebuildWithBestRouter:NO];
   }
@@ -352,7 +353,7 @@ using namespace routing;
   }
 
   RouteMarkData pt = point.routeMarkData;
-  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt), RoutingOptions::LoadRouteOptimizationFromSettings());
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 

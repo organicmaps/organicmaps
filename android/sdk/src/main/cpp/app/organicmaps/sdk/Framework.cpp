@@ -37,6 +37,7 @@
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/speed_camera_manager.hpp"
 
 #include "platform/country_file.hpp"
@@ -86,6 +87,20 @@ static_assert(sizeof(int) >= 4, "Size of jint is less than 4 bytes.");
 namespace
 {
 jobject g_placePageActivationListener = nullptr;
+
+RouteMarkData MakeRouteMarkData(JNIEnv * env, jstring title, jstring subtitle, jobject markType, jint intermediateIndex,
+                                jboolean isMyPosition, jdouble lat, jdouble lon)
+{
+  RouteMarkData data;
+  data.m_title = jni::ToNativeString(env, title);
+  data.m_subTitle = jni::ToNativeString(env, subtitle);
+  data.m_pointType = routing_jni::GetRouteMarkType(env, markType);
+  data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
+  data.m_isMyPosition = static_cast<bool>(isMyPosition);
+  data.m_position = mercator::FromLatLon(lat, lon);
+
+  return data;
+}
 
 android::AndroidVulkanContextFactory * CastFactory(drape_ptr<dp::GraphicsContextFactory> const & f)
 {
@@ -1440,20 +1455,24 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
                                                                       jdouble lat, jdouble lon,
                                                                       jboolean reorderIntermediatePoints)
 {
-  RouteMarkData data;
-  data.m_title = jni::ToNativeString(env, title);
-  data.m_subTitle = jni::ToNativeString(env, subtitle);
-  data.m_pointType = routing_jni::GetRouteMarkType(env, markType);
-  data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
-  data.m_isMyPosition = static_cast<bool>(isMyPosition);
-  data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
+  auto data = MakeRouteMarkData(env, title, subtitle, markType, intermediateIndex, isMyPosition, lat, lon);
 
-  frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
+  bool const optimize = reorderIntermediatePoints && routing::RoutingOptions::LoadRouteOptimizationFromSettings();
+  frm()->GetRoutingManager().AddRoutePoint(std::move(data), optimize);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveRoutePoints();
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv * env, jclass, jstring title,
+                                                                          jstring subtitle, jobject markType,
+                                                                          jint intermediateIndex, jboolean isMyPosition,
+                                                                          jdouble lat, jdouble lon)
+{
+  auto data = MakeRouteMarkData(env, title, subtitle, markType, intermediateIndex, isMyPosition, lat, lon);
+  frm()->GetRoutingManager().ReplaceRoutePoint(data.m_pointType, data.m_intermediateIndex, std::move(data));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,
