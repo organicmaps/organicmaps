@@ -34,7 +34,6 @@ def generate_maps(env: Env, from_stage: Optional[AnyStr] = None):
         sd.StageFeatures(),
         sd.StageMwm(),
         sd.StageCountriesTxt(),
-        sd.StageLocalAds(),
         sd.StageStatistics(),
         sd.StageCleanup(),
     )
