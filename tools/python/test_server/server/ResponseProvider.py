@@ -1,6 +1,5 @@
 from __future__ import print_function
 
-import jsons
 import logging
 import os
 
@@ -167,22 +166,6 @@ class ResponseProvider:
                 "/ping": self.pong,
                 "/kill": self.kill,
                 "/id": self.my_id,
-                "/partners/time": self.partners_time,
-                "/partners/price": self.partners_price,
-                "/booking/hotelAvailability": self.partners_hotel_availability,
-                "/booking/deals": self.partners_hotels_with_deals,
-                "/booking/blockAvailability": self.partners_block_availability,
-                "/partners/taxi_info": self.partners_yandex_taxi_info,
-                "/partners/get-offers-in-bbox/": self.partners_rent_nearby,
-                "/partners/CalculateByCoords": self.partners_calculate_by_coords,
-                "/gallery/v2/search/": self.promo_gallery_city,
-                "/single/empty/gallery/v2/search/": self.promo_gallery_city_single_empty,
-                "/single/gallery/v2/search/": self.promo_gallery_city_single,
-                "/partners/oauth/token": self.freenow_auth_token,
-                "/partners/service-types": self.freenow_service_types,
-                "/gallery/v2/map": self.guides_on_map_gallery,
-                "/partners/get_supported_tariffs": self.citymobil_supported_tariffs,
-                "/partners/calculate_price": self.citymobil_calculate_price,
                 "/unit_tests/echo_headers": self.echo_headers,
                 "/unit_tests/echo_cookies": self.echo_cookies,
                 "/unit_tests/timeout": self.test_timeout,
@@ -289,56 +272,6 @@ class ResponseProvider:
 
         return bytes(message)
 
-
-    # Partners_api_tests
-    def partners_time(self):
-        return Payload(jsons.PARTNERS_TIME)
-
-
-    def partners_price(self):
-        return Payload(jsons.PARTNERS_PRICE)
-
-    def partners_hotel_availability(self):
-        return Payload(jsons.HOTEL_AVAILABILITY)
-
-    def partners_hotels_with_deals(self):
-        return Payload(jsons.HOTELS_WITH_DEALS)
-
-    def partners_block_availability(self):
-        return Payload(jsons.BLOCK_AVAILABILITY)
-
-    def partners_yandex_taxi_info(self):
-        return Payload(jsons.PARTNERS_TAXI_INFO)
-
-    def partners_rent_nearby(self):
-        return Payload(jsons.PARTNERS_RENT_NEARBY)
-
-    def partners_calculate_by_coords(self):
-        return Payload(jsons.PARTNERS_CALCULATE_BY_COORDS)
-
-    def promo_gallery_city(self):
-        return Payload(jsons.PROMO_GALLERY_CITY)
-
-    def promo_gallery_city_single_empty(self):
-        return Payload(jsons.PROMO_GALLERY_CITY_SINGLE_EMPTY)
-
-    def promo_gallery_city_single(self):
-        return Payload(jsons.PROMO_GALLERY_CITY_SINGLE)
-
-    def freenow_auth_token(self):
-        return Payload(jsons.FREENOW_AUTH_TOKEN)
-
-    def freenow_service_types(self):
-        return Payload(jsons.FREENOW_SERVICE_TYPES)
-
-    def guides_on_map_gallery(self):
-        return Payload(jsons.GUIDES_ON_MAP_GALLERY)
-
-    def citymobil_supported_tariffs(self):
-        return Payload(jsons.CITYMOBIL_SUPPORTED_TARIFFS)
-
-    def citymobil_calculate_price(self):
-        return Payload(jsons.CITYMOBIL_CALCULATE_PRICE)
 
     def echo_headers(self):
         """Return request headers as key:value lines so tests can verify custom headers."""
