@@ -66,12 +66,12 @@ Item {
         ]
     }
 
-    component GridLabel: Text {
+    component GridLabel: Label {
         // Positioner.index doesn't work here
         visible: parent.children[parent.children.indexOf(this) + 1].text
     }
 
-    component LinkedText: Text {
+    component LinkedText: Label {
         onLinkActivated: link => Qt.openUrlExternally(link)
     }
 
@@ -92,16 +92,16 @@ Item {
                 Column {
                     id: innerColumn
 
-                    Text {
+                    Label {
                         text: root.map.title
                         font.bold: true
                     }
 
-                    Text {
+                    Label {
                         text: root.map.subTitle
                     }
 
-                    Text {
+                    Label {
                         text: root.map.address
                     }
                 }
@@ -142,18 +142,18 @@ Item {
             Row {
                 spacing: 10
 
-                Text {
+                Label {
                     text: root.map.wikipedia ? "<a href='" + root.map.wikipedia + "'>Wikipedia</a>" : ""
                     onLinkActivated: link => Qt.openUrlExternally(link)
                 }
 
-                Text {
+                Label {
                     text: root.map.wikimedia ? "<a href='" + root.map.wikimedia + "'>Wikimedia Commons</a>" : ""
                     onLinkActivated: link => Qt.openUrlExternally(link)
                 }
             }
 
-            Text {
+            Label {
                 text: root.map.description
                 wrapMode: Text.Wrap
                 width: Math.min(implicitWidth, root.width - pane.leftPadding - pane.rightPadding)
@@ -166,21 +166,21 @@ Item {
                 GridLabel {
                     text: "Bookmark:"
                 }
-                Text {
+                Label {
                     text: root.map.bookmark ? "Yes" : ""
                 }
 
                 GridLabel {
                     text: "Opening hours:"
                 }
-                Text {
+                Label {
                     text: root.map.openingHours
                 }
 
                 GridLabel {
                     text: "Cuisine:"
                 }
-                Text {
+                Label {
                     text: root.map.cuisines
                 }
 
@@ -194,14 +194,14 @@ Item {
                 GridLabel {
                     text: "Operator:"
                 }
-                Text {
+                Label {
                     text: root.map.operator
                 }
 
                 GridLabel {
                     text: "Wi-Fi:"
                 }
-                Text {
+                Label {
                     text: root.map.wifi ? "Yes" : ""
                 }
 
@@ -257,14 +257,14 @@ Item {
                 GridLabel {
                     text: "Level:"
                 }
-                Text {
+                Label {
                     text: root.map.level
                 }
 
                 GridLabel {
                     text: "ATM:"
                 }
-                Text {
+                Label {
                     text: root.map.atm ? "Yes" : ""
                 }
             }
