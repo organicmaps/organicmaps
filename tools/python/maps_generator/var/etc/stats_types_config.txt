@@ -73,4 +73,3 @@ waterway-(canal|river|stream)(-.*)?;len;Rivers, canals and streams
 landuse-cemetery.*;area;Cemeteries
 leisure-park.*;area;Parks
 natural-beach;area;Beaches
-sponsored-booking;cnt;Booking hotels
