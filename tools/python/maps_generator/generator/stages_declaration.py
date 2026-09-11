@@ -165,7 +165,6 @@ class StageMwm(Stage):
 
         mwm_stages = [
             StageIndex,
-            StageUgc,
             StageSrtm,
             StageIsolinesInfo,
             StageDescriptions,
@@ -221,14 +220,6 @@ class StagePrepareRoutingWorld(Stage):
 class StageRoutingWorld(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_routing_world(env, country, **kwargs)
-
-
-@country_stage
-@depends_from_internal(D(settings.UGC_URL, PathProvider.ugc_path),)
-@production_only
-class StageUgc(Stage):
-    def apply(self, env: Env, country, **kwargs):
-        steps.step_ugc(env, country, **kwargs)
 
 
 @country_stage
