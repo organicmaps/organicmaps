@@ -43,6 +43,7 @@ public:
     VisibleViewport,
     Move,
     Scroll,
+    Fling,
     ActiveFrame
   };
 
@@ -383,6 +384,21 @@ private:
   double m_distanceY;
 };
 
+class FlingEvent : public UserEvent
+{
+public:
+  FlingEvent(double velocityX, double velocityY) : m_velocityX(velocityX), m_velocityY(velocityY) {}
+
+  EventType GetType() const override { return UserEvent::EventType::Fling; }
+
+  double GetVelocityX() const { return m_velocityX; }
+  double GetVelocityY() const { return m_velocityY; }
+
+private:
+  double m_velocityX;
+  double m_velocityY;
+};
+
 // Doesn't have any payload, allows to unfreeze rendering in frontend_renderer
 class ActiveFrameEvent : public UserEvent
 {
@@ -472,6 +488,7 @@ private:
   bool OnRotate(ref_ptr<RotateEvent> rotateEvent);
   bool OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent);
   bool OnScroll(ref_ptr<ScrollEvent> scrollEvent);
+  bool OnFling(ref_ptr<FlingEvent> flingEvent);
 
   bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
