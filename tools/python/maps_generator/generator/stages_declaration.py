@@ -7,10 +7,8 @@ Only stage_mwm can contain country_
 import datetime
 import json
 import logging
-import multiprocessing
 import os
 import shutil
-import tarfile
 from collections import defaultdict
 from multiprocessing.pool import ThreadPool
 from typing import AnyStr
@@ -26,7 +24,6 @@ from maps_generator.generator.env import PathProvider
 from maps_generator.generator.env import WORLD_COASTS_NAME
 from maps_generator.generator.env import WORLD_NAME
 from maps_generator.generator.exceptions import BadExitStatusError
-from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.stages import InternalDependency as D
 from maps_generator.generator.stages import Stage
 from maps_generator.generator.stages import Test
@@ -330,22 +327,6 @@ class StageCountriesTxt(Stage):
 
         with open(env.paths.counties_txt_path, "w") as f:
             json.dump(countries, f, ensure_ascii=False, indent=1)
-
-
-@outer_stage
-@production_only
-class StageLocalAds(Stage):
-    def apply(self, env: Env):
-        create_csv(
-            env.paths.localads_path,
-            env.paths.mwm_path,
-            env.paths.mwm_path,
-            env.mwm_version,
-            multiprocessing.cpu_count(),
-        )
-        with tarfile.open(f"{env.paths.localads_path}.tar.gz", "w:gz") as tar:
-            for filename in os.listdir(env.paths.localads_path):
-                tar.add(os.path.join(env.paths.localads_path, filename), arcname=filename)
 
 
 @outer_stage

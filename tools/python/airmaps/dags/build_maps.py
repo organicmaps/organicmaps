@@ -100,7 +100,6 @@ class MapsGenerationDAG(DAG):
             env,
             (
                 sd.StageCountriesTxt(),
-                sd.StageLocalAds(),
                 sd.StageStatistics(),
                 sd.StageCleanup(),
             ),
