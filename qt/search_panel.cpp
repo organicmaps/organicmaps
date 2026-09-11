@@ -254,7 +254,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
                                   {} /* timeout */,
                                   isCategory,
                                   // m_onResults
-                                  [this, timestamp](Results results, std::vector<ProductInfo> /* productInfo */)
+                                  [this, timestamp](Results results)
     { OnEverywhereSearchResults(timestamp, std::move(results)); }};
 
     if (GetFramework().GetSearchAPI().SearchEverywhere(std::move(params)))
