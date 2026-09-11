@@ -1,7 +1,7 @@
 <resources>
   <dimen name="nav_menu_content_height">56dp</dimen>
-  <dimen name="nav_turn_sign">48dp</dimen>
-  <dimen name="nav_next_turn_sign">24dp</dimen>
+  <dimen name="nav_turn_sign">56dp</dimen>
+  <dimen name="nav_next_turn_sign">28dp</dimen>
   <dimen name="nav_lanes_height">40dp</dimen>
 
   <dimen name="nav_frame_padding">@dimen/margin_base</dimen>
