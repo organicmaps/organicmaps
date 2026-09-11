@@ -11,6 +11,9 @@
 
 #include "base/assert.hpp"
 
+#include <algorithm>
+#include <cmath>
+
 #include <functional>
 #include <string>
 
@@ -71,6 +74,7 @@ void MapWidget::BindHotkeys(QWidget & parent)
       {Qt::Key_Left, SLOT(MoveLeft())},
       {Qt::Key_Up, SLOT(MoveUp())},
       {Qt::Key_Down, SLOT(MoveDown())},
+
       {Qt::ALT | Qt::Key_Equal, SLOT(ScalePlusLight())},
       {Qt::ALT | Qt::Key_Plus, SLOT(ScalePlusLight())},
       {Qt::ALT | Qt::Key_Minus, SLOT(ScaleMinusLight())},
@@ -78,6 +82,16 @@ void MapWidget::BindHotkeys(QWidget & parent)
       {Qt::ALT | Qt::Key_Left, SLOT(MoveLeftSmooth())},
       {Qt::ALT | Qt::Key_Up, SLOT(MoveUpSmooth())},
       {Qt::ALT | Qt::Key_Down, SLOT(MoveDownSmooth())},
+
+      // The terrain hillshade light prototype (see Framework::SetTerrainLight);
+      // plain ALT + arrows are the smooth moves below.
+      {Qt::ALT | Qt::SHIFT | Qt::Key_Right, SLOT(LightRotateCW())},
+      {Qt::ALT | Qt::SHIFT | Qt::Key_Left, SLOT(LightRotateCCW())},
+      {Qt::ALT | Qt::SHIFT | Qt::Key_Up, SLOT(LightHigher())},
+      {Qt::ALT | Qt::SHIFT | Qt::Key_Down, SLOT(LightLower())},
+      {Qt::ALT | Qt::SHIFT | Qt::Key_Period, SLOT(ShadowHarder())},
+      {Qt::ALT | Qt::SHIFT | Qt::Key_Comma, SLOT(ShadowSofter())},
+
 #ifdef ENABLE_AA_SWITCH
       {Qt::ALT | Qt::Key_A, SLOT(AntialiasingOn())},
       {Qt::ALT | Qt::Key_S, SLOT(AntialiasingOff())},
@@ -141,6 +155,49 @@ void MapWidget::ScalePlusLight()
 void MapWidget::ScaleMinusLight()
 {
   m_framework.Scale(Framework::SCALE_MIN_LIGHT, true);
+}
+
+void MapWidget::ApplyTerrainLight()
+{
+  LOG(LINFO, ("Terrain light: azimuth", m_lightAzimuthDeg, "altitude", m_lightAltitudeDeg, "gamma", m_shadowGamma));
+  m_framework.SetTerrainLight(m_lightAzimuthDeg, m_lightAltitudeDeg, m_shadowGamma);
+}
+
+void MapWidget::LightRotateCW()
+{
+  m_lightAzimuthDeg = fmod(m_lightAzimuthDeg + 15.0 + 360.0, 360.0);
+  ApplyTerrainLight();
+}
+
+void MapWidget::LightRotateCCW()
+{
+  m_lightAzimuthDeg = fmod(m_lightAzimuthDeg - 15.0 + 360.0, 360.0);
+  ApplyTerrainLight();
+}
+
+void MapWidget::LightHigher()
+{
+  m_lightAltitudeDeg = std::min(85.0, m_lightAltitudeDeg + 5.0);
+  ApplyTerrainLight();
+}
+
+void MapWidget::LightLower()
+{
+  m_lightAltitudeDeg = std::max(5.0, m_lightAltitudeDeg - 5.0);
+  ApplyTerrainLight();
+}
+
+void MapWidget::ShadowHarder()
+{
+  // A lower gamma lifts the gentle slopes harder; 1 is the plain linear response.
+  m_shadowGamma = std::max(0.2, m_shadowGamma - 0.05);
+  ApplyTerrainLight();
+}
+
+void MapWidget::ShadowSofter()
+{
+  m_shadowGamma = std::min(1.0, m_shadowGamma + 0.05);
+  ApplyTerrainLight();
 }
 
 void MapWidget::MoveRight()

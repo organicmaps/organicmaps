@@ -35,6 +35,8 @@ struct FrameValues
   glsl::mat4 m_projection{1.0f};
   glsl::mat4 m_pivotTransform{1.0f};
   float m_zScale = 1.0f;
+  // The terrain hillshade light, see MapProgramParams::m_terrainLightDir.
+  glsl::vec4 m_terrainLightDir{-0.5f, 0.5f, 0.70710678f, 0.5f};
 
   template <typename ParamsType>
   void SetTo(ParamsType & params) const
@@ -42,11 +44,13 @@ struct FrameValues
     SetProjection(params);
     SetPivotTransform(params);
     SetZScale(params);
+    SetTerrainLightDir(params);
   }
 
 private:
   DECLARE_SETTER(SetProjection, m_projection)
   DECLARE_SETTER(SetPivotTransform, m_pivotTransform)
   DECLARE_SETTER(SetZScale, m_zScale)
+  DECLARE_SETTER(SetTerrainLightDir, m_terrainLightDir)
 };
 }  // namespace df
