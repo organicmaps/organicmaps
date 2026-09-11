@@ -297,9 +297,9 @@ public class Utils
   public static Spannable formatDistance(Context context, @NonNull Distance distance)
   {
     final SpannableStringBuilder res = new SpannableStringBuilder(distance.toString(context));
-    res.setSpan(new AbsoluteSizeSpan(dimen(context, R.dimen.text_size_nav_number), false), 0,
+    res.setSpan(new AbsoluteSizeSpan(dimen(context, R.dimen.text_size_nav_distance), false), 0,
                 distance.mDistanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    res.setSpan(new AbsoluteSizeSpan(dimen(context, R.dimen.text_size_nav_dimension), false),
+    res.setSpan(new AbsoluteSizeSpan(dimen(context, R.dimen.text_size_nav_distance_units), false),
                 distance.mDistanceStr.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     return res;
   }

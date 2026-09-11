@@ -125,8 +125,8 @@
   <dimen name="menu_list_item_height">48dp</dimen>
 
   <!-- Nav menu -->
-  <dimen name="nav_turn_sign">40dp</dimen>
-  <dimen name="nav_next_turn_sign">20dp</dimen>
+  <dimen name="nav_turn_sign">48dp</dimen>
+  <dimen name="nav_next_turn_sign">24dp</dimen>
   <dimen name="nav_lanes_height">32dp</dimen>
   <dimen name="nav_speed_limit_size">52dp</dimen>
   <dimen name="nav_elevation">6dp</dimen>
