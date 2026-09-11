@@ -13,6 +13,9 @@ typedef struct
   float u_zScale;
   float u_interpolation;
   float u_isOutlinePass;
+  float u_dummy1;
+  float u_dummy2;
+  float4 u_terrainLightDir;
 } Uniforms_T;
 
 // Area/AreaOutline
@@ -53,7 +56,7 @@ fragment half4 fsArea(const AreaFragment_T in [[stage_in]])
 typedef struct
 {
   float3 a_position [[attribute(0)]];
-  float a_intensity [[attribute(1)]];
+  float3 a_normal [[attribute(1)]];
 } TerrainShadeVertex_T;
 
 typedef struct
@@ -68,7 +71,13 @@ vertex TerrainShadeFragment_T vsTerrainShade(const TerrainShadeVertex_T in [[sta
   TerrainShadeFragment_T out;
   float4 pos = float4(in.a_position, 1.0) * uniforms.u_modelView * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  out.intensity = in.a_intensity;
+  // See terrain_shade.vsh.glsl: relative to the flat ground under the current light,
+  // the shadow half gamma-lifted by u_terrainLightDir.w.
+  float const intensity = dot(normalize(in.a_normal), uniforms.u_terrainLightDir.xyz);
+  float const flatIntensity = uniforms.u_terrainLightDir.z;
+  float const rel =
+      (intensity - flatIntensity) / (intensity < flatIntensity ? flatIntensity : 1.0 - flatIntensity);
+  out.intensity = rel < 0.0 ? -pow(-rel, uniforms.u_terrainLightDir.w) : rel;
   return out;
 }
 
