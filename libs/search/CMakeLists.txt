@@ -1,6 +1,8 @@
 project(search)
 
 set(SRC
+  address_estimator.cpp
+  address_estimator.hpp
   algos.hpp
   approximate_string_match.cpp
   approximate_string_match.hpp

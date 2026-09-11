@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Descărcați regiunea în care căutați sau încercați să adăugați numele unei localități din apropiere.";
 "search_history_title" = "Istoricul căutărilor";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Arată căutările recente.";
 "clear_search" = "Șterge istoricul căutărilor";
 

@@ -893,6 +893,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_tracer = searchParams.m_tracer;
   geocoderParams.m_filteringParams = searchParams.m_filteringParams;
   geocoderParams.m_useDebugInfo = searchParams.m_useDebugInfo;
+  geocoderParams.m_allowNearbyHouseNumbers = searchParams.m_allowNearbyHouseNumbers;
 
   m_geocoder.SetParams(geocoderParams);
 }

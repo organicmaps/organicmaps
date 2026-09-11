@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Download the region where you are searching or try adding a nearby town/village name.";
 "search_history_title" = "Historial de guetes";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "View your recent searches.";
 "clear_search" = "Clear Search History";
 

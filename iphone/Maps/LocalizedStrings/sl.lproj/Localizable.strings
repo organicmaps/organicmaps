@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Prenesite regijo, kjer iščete, ali poskusite dodati ime bližnjega mesta/vasi.";
 "search_history_title" = "Zgodovina iskanja";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Oglejte si svoja nedavna iskanja.";
 "clear_search" = "Počisti zgodovino iskanja";
 

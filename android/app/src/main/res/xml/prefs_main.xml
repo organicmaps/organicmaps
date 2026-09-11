@@ -188,6 +188,13 @@
       app:singleLineTitle="false"
       android:defaultValue="true"
       android:order="2" />
+    <SwitchPreferenceCompat
+      android:key="@string/pref_search_contacts"
+      android:title="@string/search_contacts_title"
+      android:summary="@string/search_contacts_summary"
+      app:singleLineTitle="false"
+      android:defaultValue="false"
+      android:order="3" />
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"

@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Deskargatu bilatzen ari zaren eskualdea edo saiatu inguruko herri/hiri izena gehitzen.";
 "search_history_title" = "Bilaketa historia";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Ikusi azken bilaketak.";
 "clear_search" = "Garbitu bilaketa historia";
 

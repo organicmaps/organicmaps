@@ -379,6 +379,7 @@ private:
   std::vector<Track::TrackSelectionInfo> FindRelationTracksInTapPosition(
       std::vector<std::pair<double, FeatureID>> const & lineCandidates, m2::PointD const & mercator);
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
+  FeatureID FindNearestBuildingForAddress(m2::PointD const & mercator) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 
   void UpdateMinBuildingsTapZoom();
@@ -501,7 +502,7 @@ private:
 
 public:
   // Moves viewport to the search result and taps on it.
-  void SelectSearchResult(search::Result const & res, bool animation);
+  void SelectSearchResult(search::Result const & res, bool animation, bool snapToBuilding = false);
 
   // Highlights a public-transport route line on the map, using the current place page's feature
   // to locate the relation. The current place page (stop) remains open.
@@ -517,13 +518,20 @@ public:
 
   // Cancels all searches, stops location follow and then selects
   // search result.
-  void ShowSearchResult(search::Result const & res, bool animation = true);
+  void ShowSearchResult(search::Result const & res, bool animation = true, bool snapToBuilding = false);
 
   // Applies the search results viewport policy, see search::AdjustViewportToSearchResults().
   void UpdateViewport(search::Results const & results);
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIterT end, bool clear);
+  struct ContactMarkData
+  {
+    m2::PointD m_point;
+    std::string m_name;
+    bool m_estimated = false;
+  };
+  void SetContactMarks(std::vector<ContactMarkData> const & marks);
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;

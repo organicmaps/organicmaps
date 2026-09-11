@@ -328,6 +328,39 @@ SelectionProcessor::TapFeatures SelectionProcessor::FindFeaturesInRect(
   return result;
 }
 
+FeatureID SelectionProcessor::FindNearestBuildingInRect(m2::PointD const & mercator,
+                                                        m2::RectD const & rect) const
+{
+  auto const & isBuilding = ftypes::IsBuildingChecker::Instance();
+  constexpr int kScale = scales::GetUpperScale();
+
+  double const thresholdMercSq = rect.LeftBottom().SquaredLength(rect.RightTop()) / 8.0;
+  double closestDistance = thresholdMercSq;
+  double smallestArea = std::numeric_limits<double>::max();
+  FeatureID closest;
+
+  m_fw.m_featuresFetcher.GetDataSource().ForEachInRect([&](FeatureType & ft)
+  {
+    if (ft.GetGeomType() != feature::GeomType::Area || !isBuilding(ft))
+      return;
+
+    m2::RectD const limitRect = ft.GetLimitRect(kScale);
+    if (!rect.IsIntersect(limitRect))
+      return;
+
+    double const distance = AreaMinSquaredMercator(ft, mercator, kScale);
+    double const area = limitRect.Area();
+    if (distance < closestDistance || (distance == closestDistance && area < smallestArea))
+    {
+      closestDistance = distance;
+      smallestArea = area;
+      closest = ft.GetID();
+    }
+  }, rect, kScale);
+
+  return closest;
+}
+
 FeatureID SelectionProcessor::GetFeatureAtPoint(m2::PointD const & mercator,
                                                 FeatureMatcher const & matcher /* = nullptr */) const
 {

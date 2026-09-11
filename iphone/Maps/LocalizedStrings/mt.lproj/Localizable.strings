@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Niżżel ir-reġjun fejn qed tfittex jew ipprova żid isem ta’ belt/raħal fil-qrib.";
 "search_history_title" = "Kronoloġija tat-tiftix";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Ara t-tfittxijiet riċenti tiegħek.";
 "clear_search" = "Neħħi l-kronoloġija tat-tiftix";
 
