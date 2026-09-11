@@ -1223,6 +1223,12 @@ m2::RectD Framework::GetCurrentViewport() const
   return m_currentModelView.ClipRect();
 }
 
+void Framework::SetTerrainLight(double azimuthDeg, double altitudeDeg, double shadowGamma)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetTerrainLight(azimuthDeg, altitudeDeg, shadowGamma);
+}
+
 bool Framework::DownloadTerrainForViewport()
 {
   auto & storage = GetStorage();

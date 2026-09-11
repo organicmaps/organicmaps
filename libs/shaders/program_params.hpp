@@ -71,6 +71,16 @@ struct ALIGNMENT MapProgramParams
   float m_zScale = 1.0f;
   float m_interpolation = 1.0f;
   float m_isOutlinePass = 1.0f;
+  // The explicit padding keeps the appended vec4 16-aligned in every backend layout
+  // (C++ glsl::vec4 is 4-aligned, std140/MSL float4 are 16-aligned).
+  float m_dummy1 = 0.0f;
+  float m_dummy2 = 0.0f;
+  // The terrain hillshade light of the TerrainShade program: xyz is the unit direction
+  // towards the light in the mercator frame (+x east, +y north, +z up; z doubles as the
+  // flat ground intensity the shading is relative to), w is the shadow gamma (the lift
+  // of the gentle slopes, 1 = linear). The default is the classic cartographic NW at 45
+  // degrees; see Framework::SetTerrainLight.
+  glsl::vec4 m_terrainLightDir = glsl::vec4(-0.5f, 0.5f, 0.70710678f, 0.5f);
 
   BIND_PROGRAMS(MapProgramParams, Program::Area, Program::Area3d, Program::Area3dOutline, Program::AreaOutline,
                 Program::Bookmark, Program::BookmarkAnim, Program::BookmarkAnimBillboard, Program::BookmarkBillboard,

@@ -36,13 +36,13 @@ struct AreaVertex : BaseVertex
 struct TerrainShadeVertex : BaseVertex
 {
   TerrainShadeVertex() = default;
-  TerrainShadeVertex(TPosition const & position, float intensity);
+  TerrainShadeVertex(TPosition const & position, TNormal3d const & normal);
 
   TPosition m_position;
-  // The Lambert intensity relative to the flat ground: negative - shadow. The shadow
-  // half spans [-2, 0] (see RuleDrawer::DrawTerrainShade), the shader clamps to -1, so
-  // the steepest shadows saturate; the highlight half spans [0, 1].
-  float m_intensity;
+  // The unit surface normal in the mercator frame (+x east, +y north, +z up), altitudes
+  // pre-scaled by the vertical exaggeration (see RuleDrawer::DrawTerrainShade). The
+  // TerrainShade program lights it against the movable u_terrainLightDir uniform.
+  TNormal3d m_normal;
 
   static dp::BindingInfo const & GetBindingInfo();
 };
