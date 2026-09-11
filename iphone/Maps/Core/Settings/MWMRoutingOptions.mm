@@ -65,6 +65,16 @@
   return self.avoidToll || self.avoidDirty || self.avoidFerry || self.avoidMotorway;
 }
 
+- (BOOL)routeOptimizationEnabled
+{
+  return routing::RoutingOptions::LoadRouteOptimizationFromSettings();
+}
+
+- (void)setRouteOptimizationEnabled:(BOOL)enabled
+{
+  routing::RoutingOptions::SaveRouteOptimizationToSettings(enabled);
+}
+
 - (void)save
 {
   routing::RoutingOptions::SaveCarOptionsToSettings(_options);
@@ -83,6 +93,7 @@
   if (![object isMemberOfClass:self.class])
     return NO;
   MWMRoutingOptions * another = (MWMRoutingOptions *)object;
+  // Only avoidance options: +[MWMRouter updateRoute] must not rebuild when route optimization changes.
   return another.avoidToll == self.avoidToll && another.avoidDirty == self.avoidDirty &&
          another.avoidFerry == self.avoidFerry && another.avoidMotorway == self.avoidMotorway;
 }
