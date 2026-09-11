@@ -3,4 +3,8 @@
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="transliteration_title">Translittération vers l\'alphabet latin</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimisation de l’itinéraire</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Réorganise automatiquement les étapes intermédiaires afin de créer un itinéraire plus efficace.</string>
 </resources>
