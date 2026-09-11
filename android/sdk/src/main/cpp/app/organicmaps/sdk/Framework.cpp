@@ -1489,6 +1489,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveIntermediateRouteP
   frm()->GetRoutingManager().RemoveIntermediateRoutePoints();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeOptimizeRoutePoints(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().OptimizeRoutePoints();
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().CouldAddIntermediatePoint();

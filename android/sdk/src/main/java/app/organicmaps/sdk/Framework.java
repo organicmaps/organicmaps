@@ -293,6 +293,8 @@ public class Framework
 
   public static native void nativeRemoveIntermediateRoutePoints();
 
+  public static native boolean nativeOptimizeRoutePoints();
+
   public static native boolean nativeCouldAddIntermediatePoint();
 
   @NonNull
