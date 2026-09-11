@@ -1437,8 +1437,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCi
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
                                                                       jstring subtitle, jobject markType,
                                                                       jint intermediateIndex, jboolean isMyPosition,
-                                                                      jdouble lat, jdouble lon,
-                                                                      jboolean reorderIntermediatePoints)
+                                                                      jdouble lat, jdouble lon)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
@@ -1448,12 +1447,27 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
 
-  frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
+  frm()->GetRoutingManager().AddRoutePoint(std::move(data));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveRoutePoints();
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv * env, jclass, jstring title,
+                                                                          jstring subtitle, jobject markType,
+                                                                          jint intermediateIndex, jboolean isMyPosition,
+                                                                          jdouble lat, jdouble lon)
+{
+  RouteMarkData data;
+  data.m_title = jni::ToNativeString(env, title);
+  data.m_subTitle = jni::ToNativeString(env, subtitle);
+  data.m_pointType = routing_jni::GetRouteMarkType(env, markType);
+  data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
+  data.m_isMyPosition = static_cast<bool>(isMyPosition);
+  data.m_position = mercator::FromLatLon(lat, lon);
+  frm()->GetRoutingManager().ReplaceRoutePoint(data.m_pointType, data.m_intermediateIndex, std::move(data));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,

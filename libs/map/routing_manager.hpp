@@ -214,7 +214,14 @@ public:
   /// will not return previous data, only newer.
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
 
-  void AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
+  /// Inserts a new intermediate stop at the predicted position when optimization is enabled, otherwise before the
+  /// finish. Preserves the relative order of existing stops. Replacing an existing endpoint does not optimize the
+  /// route.
+  void AddRoutePoint(RouteMarkData && markData);
+  void ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
+  /// Off -> On optimizes; On -> Off restores the previous order only if no route edits followed.
+  /// Does not rebuild. Returns whether the displayed order changed.
+  bool SetRouteOptimizationEnabled(bool enabled);
   /// Reorders unpassed intermediate route marks in place. Does not rebuild the route.
   void OptimizeRoutePoints();
   bool ContinueRouteToPoint(RouteMarkData && markData);
@@ -338,7 +345,8 @@ private:
 
   void SetPointsFollowingMode(bool enabled);
 
-  void ReorderIntermediatePoints();
+  void AddRoutePointImpl(RouteMarkData && markData, bool replace);
+  void ReorderIntermediatePoints(size_t addedIndex);
 
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
@@ -359,6 +367,8 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
   bool m_loadAltitudes = false;
+  // Maps optimized stop indices to their pre-optimization indices for undo on On -> Off. Cleared by route edits.
+  std::vector<size_t> m_orderBeforeOptimization;
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
 
@@ -375,6 +385,8 @@ private:
   struct RoutePointsTransaction
   {
     std::vector<RouteMarkData> m_routeMarks;
+    // Snapshot of the optimization undo order, restored with the route points when editing is cancelled.
+    std::vector<size_t> m_orderBeforeOptimization;
   };
   std::map<uint32_t, RoutePointsTransaction> m_routePointsTransactions;
   std::chrono::steady_clock::time_point m_loadRoutePointsTimestamp;

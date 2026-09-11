@@ -861,19 +861,16 @@ public class RoutingController
   private static void replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int replaceStopIndex)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
-    if (type == RouteMarkType.Intermediate)
-      Framework.nativeRemoveRoutePoint(type, replaceStopIndex);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
-                                  point.getLon(), false /* reorderIntermediatePoints */);
+    Framework.nativeReplaceRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+                                      replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
+                                      point.getLon());
   }
 
   private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
     Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
-                                  true /* reorderIntermediatePoints */);
+                                  0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon());
   }
 
   @NonNull

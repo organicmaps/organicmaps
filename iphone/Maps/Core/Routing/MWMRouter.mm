@@ -309,9 +309,8 @@ using namespace routing;
   case MWMRoutePointTypeIntermediate:
     RouteMarkData pt = point.routeMarkData;
     auto & routingManager = GetFramework().GetRoutingManager();
-    routingManager.RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
     RouteMarkData newPt = newPoint.routeMarkData;
-    routingManager.AddRoutePoint(std::move(newPt), NO /* reorderIntermediatePoints */);
+    routingManager.ReplaceRoutePoint(pt.m_pointType, pt.m_intermediateIndex, std::move(newPt));
     [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
     [self rebuildWithBestRouter:NO];
   }

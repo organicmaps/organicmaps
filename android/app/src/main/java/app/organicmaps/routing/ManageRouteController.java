@@ -16,7 +16,6 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
-import app.organicmaps.sdk.util.Assert;
 import java.util.ArrayList;
 
 public class ManageRouteController implements ManageRouteAdapter.ManageRouteListener
@@ -57,24 +56,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     mTouchHelper.attachToRecyclerView(manageRouteList);
   }
 
-  public void onRouteOrderChanged(@NonNull ArrayList<RouteMarkData> newRoutePoints)
+  public void onRouteOrderChanged()
   {
-    // Make sure that the new route contains at least 2 points (start and destination).
-    Assert.debug(newRoutePoints.size() >= 2, "There must be at least two route points");
-
-    // Remove all existing route points.
-    Framework.nativeRemoveRoutePoints();
-
-    // First, add the destination point.
-    Framework.addRoutePoint(newRoutePoints.get(newRoutePoints.size() - 1));
-
-    // Secondly, add the starting point.
-    Framework.addRoutePoint(newRoutePoints.get(0));
-
-    // And then, add all intermediate points (with no reordering).
-    for (int pos = 1; pos < newRoutePoints.size() - 1; pos++)
-      Framework.addRoutePoint(newRoutePoints.get(pos), false);
-    // Launch route planning.
     RoutingController.get().launchPlanning();
   }
 
@@ -94,8 +77,10 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   @Override
   public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
   {
+    RouteMarkData point = mManageRouteAdapter.getRoutePoints().get(viewHolder.getBindingAdapterPosition());
     mManageRouteAdapter.deleteRoutePoint(viewHolder);
-    onRouteOrderChanged(mManageRouteAdapter.getRoutePoints());
+    Framework.nativeRemoveRoutePoint(point.mPointType, point.mIntermediateIndex);
+    RoutingController.get().launchPlanning();
   }
   @Override
   public void onAddStopButtonClicked()
@@ -202,6 +187,14 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     {
       if (target.getBindingAdapterPosition() == mManageRouteAdapter.getItemCount() - 1)
         return false;
+      int from = viewHolder.getBindingAdapterPosition();
+      int to = target.getBindingAdapterPosition();
+      if (from == to)
+        return false;
+      // Match the adapter's swap using explicit moves, which never trigger optimization.
+      Framework.nativeMoveRoutePoint(from, to);
+      if (Math.abs(from - to) > 1)
+        Framework.nativeMoveRoutePoint(from < to ? to - 1 : to + 1, from);
       mManageRouteAdapter.moveRoutePoint(viewHolder, target);
       mOrderChanged = isOrderDifferentFromDragStart();
       return true;
@@ -221,9 +214,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       {
         mOrderChanged = false;
         // clearView can fire mid-layout, and the rebuild chain ends in notifyDataSetChanged (forbidden during
-        // layout) — post it past the layout pass. Snapshot the order: a queued refresh() may rewrite it first.
-        ArrayList<RouteMarkData> newOrder = new ArrayList<>(mManageRouteAdapter.getRoutePoints());
-        recyclerView.post(() -> mController.onRouteOrderChanged(newOrder));
+        // layout) — post it past the layout pass. The core already has the new point order.
+        recyclerView.post(mController::onRouteOrderChanged);
       }
       mDragStartOrder = null;
     }
