@@ -68,8 +68,10 @@ uint32_t RulesHolder::GetColor(std::string_view name) const
   auto const it = m_colors.find(name);
   if (it == m_colors.end())
   {
-    LOG(LWARNING, ("Requested color", name, "is not found"));
-    return 0;
+    // Names are constants from the code, so a miss is a bug in a style or in the code (LERROR aborts in Debug).
+    LOG(LERROR, ("Requested color", name, "is not found"));
+    // Opaque magenta (the stored alpha is inverted), so that a miss is visible on the map in Release too.
+    return 0xFF00FF;
   }
   return it->second;
 }
