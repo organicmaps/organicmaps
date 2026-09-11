@@ -1059,7 +1059,7 @@ bool RoutingManager::CouldAddIntermediatePoint() const
   return m_bmManager->GetUserMarkIds(UserMark::Type::ROUTING).size() < RoutePointsLayout::kMaxRoutePointsCount;
 }
 
-void RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints)
+bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints)
 {
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1076,10 +1076,12 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderInterm
   }
 
   markData.m_isVisible = !markData.m_isMyPosition;
-  routePoints.AddRoutePoint(std::move(markData));
+  if (!routePoints.AddRoutePoint(std::move(markData)))
+    return false;
 
   if (reorderIntermediatePoints)
     ReorderIntermediatePoints();
+  return true;
 }
 
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
@@ -1113,7 +1115,7 @@ bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 
   markData.m_intermediateIndex = routePoints.GetRoutePointsCount() - 1;
   markData.m_isVisible = !markData.m_isMyPosition;
-  routePoints.AddRoutePoint(std::move(markData));
+  CHECK(routePoints.AddRoutePoint(std::move(markData)), ());
   return true;
 }
 
@@ -1153,7 +1155,7 @@ void RoutingManager::RemovePassedRoutePoints()
     startPt.m_isMyPosition = true;
     startPt.m_isVisible = false;
     startPt.m_position = m_bmManager->MyPositionMark().GetPivot();
-    routePoints.AddRoutePoint(std::move(startPt));
+    CHECK(routePoints.AddRoutePoint(std::move(startPt)), ());
   }
 }
 
