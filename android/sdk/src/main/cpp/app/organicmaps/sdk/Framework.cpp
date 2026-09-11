@@ -37,6 +37,7 @@
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/speed_camera_manager.hpp"
 
 #include "platform/country_file.hpp"
@@ -1480,6 +1481,17 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveIntermediateRoutePoints(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveIntermediateRoutePoints();
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeSetRouteOptimizationEnabled(JNIEnv * env, jclass,
+                                                                                        jboolean enabled)
+{
+  return frm()->GetRoutingManager().SetRouteOptimizationEnabled(enabled);
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRouteOptimizationEnabled(JNIEnv * env, jclass)
+{
+  return routing::RoutingOptions::LoadRouteOptimizationFromSettings();
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)

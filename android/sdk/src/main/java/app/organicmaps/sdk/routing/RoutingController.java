@@ -86,6 +86,7 @@ public class RoutingController
   private Router mLastRouterType;
   private boolean isPoiPickReplaceStop;
   private int mReplaceStopIndex = -1;
+  private boolean mPendingOptionsRebuild;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
   private int mLastResultCode;
@@ -261,6 +262,7 @@ public class RoutingController
   public void attach(@NonNull Container container)
   {
     mContainer = container;
+    applyPendingRoutingOptions();
   }
 
   public void initialize(@NonNull LocationHelper locationHelper)
@@ -350,6 +352,31 @@ public class RoutingController
   public void setRouteSaved()
   {
     mRouteSaved = true;
+  }
+
+  /**
+   * Records a change made on the routing options screen. The map activity is stopped while that screen is on
+   * top, so the rebuild waits for {@link #attach} instead of running against a detached container.
+   */
+  public void onRoutingOptionsChanged(boolean changed)
+  {
+    if (!changed)
+      return;
+
+    mPendingOptionsRebuild = true;
+    if (mContainer != null)
+      applyPendingRoutingOptions();
+  }
+
+  private void applyPendingRoutingOptions()
+  {
+    if (!mPendingOptionsRebuild)
+      return;
+
+    mPendingOptionsRebuild = false;
+    // While navigating the switch only affects stops added afterwards.
+    if (isPlanning())
+      rebuildLastRoute();
   }
 
   public void rebuildLastRoute()

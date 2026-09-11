@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -24,9 +25,11 @@ import java.util.Set;
 
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
-  public static final String BUNDLE_ROAD_TYPES = "road_types";
+  private static final String BUNDLE_ROAD_TYPES = "road_types";
+  private static final String BUNDLE_ROUTE_OPTIMIZATION = "route_optimization";
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();
+  private boolean mRouteOrderChanged;
   private View mContent;
 
   @Nullable
@@ -40,6 +43,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
                    ? makeRouteTypes(savedInstanceState)
                    : RoutingOptions.getActiveRoadTypes();
+    mRouteOrderChanged = savedInstanceState != null && savedInstanceState.getBoolean(BUNDLE_ROUTE_OPTIMIZATION);
     return root;
   }
 
@@ -49,9 +53,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     Set<RoadType> result = new HashSet<>();
     List<Integer> items = Objects.requireNonNull(bundle.getIntegerArrayList(BUNDLE_ROAD_TYPES));
     for (Integer each : items)
-    {
       result.add(RoadType.values()[each]);
-    }
     return result;
   }
 
@@ -61,37 +63,36 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     super.onSaveInstanceState(outState);
     ArrayList<Integer> savedRoadTypes = new ArrayList<>();
     for (RoadType each : mRoadTypes)
-    {
       savedRoadTypes.add(each.ordinal());
-    }
     outState.putIntegerArrayList(BUNDLE_ROAD_TYPES, savedRoadTypes);
-  }
-
-  private boolean areSettingsNotChanged()
-  {
-    Set<RoadType> lastActiveRoadTypes = RoutingOptions.getActiveRoadTypes();
-    return mRoadTypes.equals(lastActiveRoadTypes);
+    outState.putBoolean(BUNDLE_ROUTE_OPTIMIZATION, mRouteOrderChanged);
   }
 
   @Override
-  public boolean onBackPressed()
+  public void onStop()
   {
-    if (areSettingsNotChanged())
-    {
-      requireActivity().setResult(Activity.RESULT_CANCELED);
-    }
-    else
-    {
-      // The toggles already updated RoutingOptions; just signal a change so the caller rebuilds the route.
-      requireActivity().setResult(Activity.RESULT_OK);
-    }
+    super.onStop();
+    // Reported here rather than in onDestroy() so a process death after this screen is left still applies the
+    // change. A configuration change recreates the screen and reports nothing.
+    final Activity activity = getActivity();
+    if (activity == null || activity.isChangingConfigurations())
+      return;
 
-    return super.onBackPressed();
+    final Set<RoadType> roadTypes = RoutingOptions.getActiveRoadTypes();
+    RoutingController.get().onRoutingOptionsChanged(!mRoadTypes.equals(roadTypes) || mRouteOrderChanged);
+    // Re-baseline so returning to this screen and leaving again reports only what changed since.
+    mRoadTypes = roadTypes;
+    mRouteOrderChanged = false;
   }
 
   private void initViews(@NonNull View root)
   {
     mContent = root.findViewById(R.id.content);
+
+    SwitchCompat optimizationBtn = root.findViewById(R.id.route_optimization_btn);
+    optimizationBtn.setChecked(RoutingOptions.isRouteOptimizationEnabled());
+    optimizationBtn.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> mRouteOrderChanged |= RoutingOptions.setRouteOptimizationEnabled(isChecked));
 
     SwitchCompat tollsBtn = root.findViewById(R.id.avoid_tolls_btn);
     tollsBtn.setChecked(RoutingOptions.hasOption(RoadType.Toll));
