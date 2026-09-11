@@ -180,7 +180,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       button->setChecked(true);
 
     void (QButtonGroup::*buttonClicked)(int) = &QButtonGroup::idClicked;
-    connect(nightModeGroup, buttonClicked, [&framework](int i)
+    connect(nightModeGroup, buttonClicked, [&framework, parent](int i)
     {
       using namespace style_utils;
       if (i < static_cast<int>(NightMode::Off) || i > static_cast<int>(NightMode::System))
@@ -188,6 +188,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
 
       auto const mode = static_cast<NightMode>(i);
       SetNightModeSetting(mode);
+      QMetaObject::invokeMethod(parent, "nightModeChanged");
 
       auto const currStyle = framework.GetMapStyle();
       switch (mode)
