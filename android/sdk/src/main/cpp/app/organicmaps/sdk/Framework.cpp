@@ -11,7 +11,6 @@
 #include "app/organicmaps/sdk/vulkan/android_vulkan_context_factory.hpp"
 
 #include "map/bookmark_helpers.hpp"
-#include "map/everywhere_search_params.hpp"
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 #include "map/user_mark.hpp"
@@ -540,12 +539,6 @@ void Framework::Scale(m2::PointD const & centerPt, int targetZoom, bool animate)
 ::Framework * Framework::NativeFramework()
 {
   return &m_work;
-}
-
-bool Framework::Search(search::EverywhereSearchParams const & params)
-{
-  m_searchQuery = params.m_query;
-  return m_work.GetSearchAPI().SearchEverywhere(params);
 }
 
 void Framework::AddLocalMaps()

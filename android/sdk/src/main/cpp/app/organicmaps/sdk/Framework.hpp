@@ -28,11 +28,6 @@
 
 class DataSource;
 
-namespace search
-{
-struct EverywhereSearchParams;
-}
-
 namespace android
 {
 // Keep in sync `public @interface ChoosePositionMode`in Framework.java.
@@ -52,8 +47,6 @@ private:
 
   math::LowPassVector<float, 3> m_sensors[2];
   double m_lastCompass = 0;
-
-  std::string m_searchQuery;
 
   std::map<gui::EWidget, gui::Position> m_guiPositions;
 
@@ -120,10 +113,6 @@ public:
   void Scroll(double distanceX, double distanceY);
 
   void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
-
-  bool Search(search::EverywhereSearchParams const & params);
-  std::string GetLastSearchQuery() { return m_searchQuery; }
-  void ClearLastSearchQuery() { m_searchQuery.clear(); }
 
   void AddLocalMaps();
   void RemoveLocalMaps();
