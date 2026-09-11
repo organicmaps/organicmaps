@@ -27418,7 +27418,7 @@ zh-Hant = 繞行設定
 
 [route_optimization]
 comment = Routing setting that automatically reorders intermediate stops
-tags = apple-maps
+tags = apple-maps,android-app
 en = Route optimization
 af = Roete-optimering
 ar = تحسين المسار
@@ -27478,7 +27478,7 @@ zh-Hant = 路線最佳化
 
 [route_optimization_description]
 comment = Explains that route optimization automatically reorders intermediate stops
-tags = apple-maps
+tags = apple-maps,android-app
 en = Automatically rearranges intermediate stops to create a more efficient route.
 af = Herrangskik tussenstoppe outomaties om ’n doeltreffender roete te skep.
 ar = يعيد ترتيب المحطات الوسيطة تلقائيًا لإنشاء مسار أكثر كفاءة.

@@ -662,6 +662,10 @@
     <string name="show_at_the_bottom">Показване в долната част</string>
     <string name="enable_logging_warning_message">Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.</string>
     <string name="driving_options_title">Опции за маршрутизация</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Оптимизация на маршрута</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Автоматично пренарежда междинните спирки, за да създаде по-ефективен маршрут.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избягвайте платените пътища</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

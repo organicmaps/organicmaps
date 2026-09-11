@@ -661,6 +661,10 @@
     <string name="show_at_the_bottom">하단에 표시</string>
     <string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.</string>
     <string name="driving_options_title">운전 옵션</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">경로 최적화</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">더 효율적인 경로를 만들도록 중간 경유지를 자동으로 재정렬합니다.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">유료 도로 피하기</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

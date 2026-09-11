@@ -1,15 +1,12 @@
 package app.organicmaps.routing;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,15 +58,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private int mPeekHeightMargins;
   private View mButtonsLayout;
   private int mTopInset;
-
-  private final ActivityResultLauncher<Intent> startDrivingOptionsForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-        if (activityResult.getResultCode() == android.app.Activity.RESULT_OK)
-        {
-          RoutingController.get().rebuildLastRoute();
-          mViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes().size());
-        }
-      });
 
   // Single source of truth for the sheet's visibility: planning wants it AND no place page is covering it.
   private final MediatorLiveData<Boolean> mSheetVisible = new MediatorLiveData<>();
@@ -128,8 +116,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mTransitStepsView = mChartPanel.findViewById(R.id.transit_recycler_view);
     mDrivingOptionsBadge = mChartPanel.findViewById(R.id.driving_options_badge);
     mDrivingOptionsBtn = mChartPanel.findViewById(R.id.driving_options_btn_img);
-    mDrivingOptionsBtn.setOnClickListener(
-        v -> DrivingOptionsActivity.start(requireActivity(), startDrivingOptionsForResult));
+    mDrivingOptionsBtn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
 
     mSearchBtn = mRoutingRoot.findViewById(R.id.routing_btn_search);
     mBookmarkBtn = mButtonsLayout.findViewById(R.id.routing_btn_bookmarks);
@@ -432,9 +419,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.unable_to_calc_alert_title)
         .setMessage(R.string.unable_to_calc_alert_subtitle)
-        .setPositiveButton(
-            R.string.settings,
-            (dialog, which) -> DrivingOptionsActivity.start(requireActivity(), startDrivingOptionsForResult))
+        .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(requireActivity()))
         .setNegativeButton(R.string.cancel, null)
         .show();
   }

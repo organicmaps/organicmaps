@@ -293,6 +293,10 @@ public class Framework
 
   public static native void nativeRemoveIntermediateRoutePoints();
 
+  public static native boolean nativeSetRouteOptimizationEnabled(boolean enabled);
+
+  public static native boolean nativeIsRouteOptimizationEnabled();
+
   public static native boolean nativeCouldAddIntermediatePoint();
   @NonNull
   public static native RouteMarkData[] nativeGetRoutePoints();

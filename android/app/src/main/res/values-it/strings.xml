@@ -668,6 +668,10 @@
     <string name="show_at_the_bottom">Mostra in basso</string>
     <string name="enable_logging_warning_message">Attiva questa opzione temporaneamente per registrare e inviarci manualmente dei log diagnostici riguardo al tuo problema usando \"Segnala un bug\" nella sezione Aiuto. I log potrebbero contenere informazioni sulla posizione.</string>
     <string name="driving_options_title">Impostazioni del percorso</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Ottimizzazione del percorso</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Riordina automaticamente le tappe intermedie per creare un percorso più efficiente.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evita le strade a pedaggio</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">Visa längst ner</string>
     <string name="enable_logging_warning_message">Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
     <string name="driving_options_title">Ruttinställningar</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Ruttoptimering</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Ordnar automatiskt om mellanstoppen för att skapa en effektivare rutt.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Undvik avgiftsbelagda vägar</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

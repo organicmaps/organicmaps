@@ -662,6 +662,10 @@
     <string name="show_at_the_bottom">下部に表示</string>
     <string name="enable_logging_warning_message">このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。</string>
     <string name="driving_options_title">経路オプション</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">経路の最適化</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">より効率的な経路になるよう、中間地点を自動的に並べ替えます。</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">有料道路を避ける</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

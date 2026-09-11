@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.NonNull;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.settings.RoadType;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +31,19 @@ public final class RoutingOptions
         return true;
     }
     return false;
+  }
+
+  public static boolean isRouteOptimizationEnabled()
+  {
+    return Framework.nativeIsRouteOptimizationEnabled();
+  }
+
+  /**
+   * @return whether the order of the existing stops changed, which means the route has to be rebuilt.
+   */
+  public static boolean setRouteOptimizationEnabled(boolean enabled)
+  {
+    return Framework.nativeSetRouteOptimizationEnabled(enabled);
   }
 
   @NonNull

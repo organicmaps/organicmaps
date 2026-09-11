@@ -669,6 +669,10 @@
     <string name="show_at_the_bottom">Prikaži na dnu</string>
     <string name="enable_logging_warning_message">To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo \"Prijavi napako\" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.</string>
     <string name="driving_options_title">Možnosti načrtovanja poti</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimizacija poti</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Samodejno prerazporedi vmesne postanke za učinkovitejšo pot.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Izogibaj se cestninam</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
