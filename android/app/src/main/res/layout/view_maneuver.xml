@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingVertical="@dimen/margin_half"
+    android:paddingVertical="@dimen/margin_quarter_plus"
     android:paddingHorizontal="@dimen/margin_half_plus">
     <LinearLayout
       android:layout_width="match_parent"
@@ -37,7 +37,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textColor="@color/on_nav_card"
-          android:textSize="@dimen/text_size_nav_distance"
           tools:text="500 m" />
         <FrameLayout
           android:id="@+id/maneuver_street_frame"
