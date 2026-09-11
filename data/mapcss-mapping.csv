@@ -115,12 +115,12 @@ addr:interpolation|odd;41;
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
 addr:interpolation|even;43;
 highway|motorway_link;44;
-waterway|stream|intermittent;[waterway=stream][intermittent=yes];;name;int_name;45;
+waterway|stream|intermittent;[waterway=stream][intermittent=yes][!tunnel];;name;int_name;45;
 deprecated:highway|track|grade4:04.2024;[highway=track][tracktype=grade4];x;name;int_name;46;highway|track
-natural|water|pond;[natural=water][water=pond];;name;int_name;47;
+natural|water|pond;[natural=water][water=pond][!tunnel];;name;int_name;47;
 landuse|farmland;48;
 barrier|fence;49;
-natural|water|lake;[natural=water][water=lake];;name;int_name;50;
+natural|water|lake;[natural=water][water=lake][!tunnel];;name;int_name;50;
 # ~3M usages. TODO: consolidate all other footway=link/etc. values into highway-footway-minor.
 highway|footway|crossing;[highway=footway][footway=crossing];;name;int_name;51;
 deprecated:waterway|riverbank:05.2024;52;natural|water|river
@@ -206,7 +206,7 @@ deprecated:highway|path|hiking:04.2024;[highway=path][route=hiking],[highway=pat
 # ~200k usages.
 amenity|hospital;114;
 # TODO: merge with "intermittent".
-waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral];;name;int_name;115;
+waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral][!tunnel];;name;int_name;115;
 highway|trunk|bridge;[highway=trunk][bridge?];;name;int_name;116;
 # ~200k usages.
 amenity|post_office;117;
@@ -217,6 +217,8 @@ man_made|pier;120;
 # ~220k usages.
 highway|motorway_junction;121;
 moved:amenity|telephone:05.2024;122;amenity|telephone
+# Not drawn, but the row must stay so that a tunnel does not fall back to a shorter type.
+# Siblings need [!tunnel], otherwise they are kept too (equal arity) and draw the tunnel.
 waterway|stream|tunnel;[waterway=stream][tunnel?];;name;int_name;123;
 tourism|information|guidepost;[tourism=information][information=guidepost];;name;int_name;124;
 amenity|parking|fee;[amenity=parking][fee];;name;int_name;125;
@@ -246,13 +248,13 @@ railway|abandoned;144;
 amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
 deprecated:boundary|administrative|7:04.2024;[boundary=administrative][admin_level=7];x;name;int_name;146;
 tourism|attraction;147;
-natural|water|reservoir;[natural=water][water=reservoir];;name;int_name;148;
+natural|water|reservoir;[natural=water][water=reservoir][!tunnel];;name;int_name;148;
 # ~430k usages.
-natural|water|river;[natural=water][water=river];;name;int_name;149;
+natural|water|river;[natural=water][water=river][!tunnel];;name;int_name;149;
 railway|tram;150;
 # ~430k usages.
 amenity|toilets;151;
-natural|water|basin;[natural=water][water=basin];;name;int_name;152;
+natural|water|basin;[natural=water][water=basin][!tunnel];;name;int_name;152;
 deprecated:highway|footway|permissive:12.2023;[highway=footway][access=permissive],[highway=footway][foot=permissive];x;name;int_name;153;highway|footway
 leisure|picnic_table;154;
 landuse|construction;155;
@@ -557,11 +559,11 @@ amenity|parking|lane|fee;[amenity=parking][parking=lane][fee];;name;int_name;442
 amenity|parking|street_side|fee;[amenity=parking][parking=street_side][fee];;name;int_name;443;
 deprecated:highway|path|difficult_alpine_hiking:04.2024;[highway=path][sac_scale=difficult_alpine_hiking];x;name;int_name;444;highway|path|expert
 earthquake:damage|spontaneous_camp;445;
-natural|water|drain;[natural=water][water=drain];;name;int_name;446;
+natural|water|drain;[natural=water][water=drain][!tunnel];;name;int_name;446;
 deprecated:railway|yard:06.2023;447;x
-natural|water|ditch;[natural=water][water=ditch];;name;int_name;448;
-natural|water|moat;[natural=water][water=moat];;name;int_name;449;
-natural|water|wastewater;[natural=water][water=wastewater];;name;int_name;450;
+natural|water|ditch;[natural=water][water=ditch][!tunnel];;name;int_name;448;
+natural|water|moat;[natural=water][water=moat][!tunnel];;name;int_name;449;
+natural|water|wastewater;[natural=water][water=wastewater][!tunnel];;name;int_name;450;
 deprecated:railway|razed:06.2023;451;x
 deprecated:highway|footway|demanding_mountain_hiking:04.2024;[highway=footway][sac_scale=demanding_mountain_hiking];x;name;int_name;452;highway|path|difficult
 amenity|shelter|basic_hut;[amenity=shelter][shelter_type=basic_hut];;name;int_name;453;
@@ -615,7 +617,7 @@ tourism|information|visitor_centre;[tourism=information][information=visitor_cen
 amenity|parking|park_and_ride;[amenity=parking][parking=park_and_ride];;name;int_name;495;
 waterway|fish_pass;496;
 waterway|fish_pass|tunnel;[waterway=fish_pass][tunnel?];;name;int_name;497;
-natural|water|lock;[natural=water][water=lock];;name;int_name;498;
+natural|water|lock;[natural=water][water=lock][!tunnel];;name;int_name;498;
 deprecated:waterway|lock:06.2022;499;waterway|canal
 fee|yes;[fee?];;name;int_name;500;
 fee|no;[fee=no];;name;int_name;501;
@@ -1347,6 +1349,8 @@ shop|bed;1221;
 shop|outpost;1222;
 shop|gas;1223;
 natural|desert;[natural=desert],[natural=sand][desert=erg];;name;int_name;1224;
+# Not drawn, but the row must stay so that a tunnel does not fall back to a shorter type.
+# Siblings need [!tunnel], otherwise they are kept too (equal arity) and draw the tunnel.
 natural|water|tunnel;[natural=water][tunnel?];;name;int_name;1225;
 place|square;1226;
 tourism|artwork|architecture;[tourism=artwork][artwork_type=architecture],[tourism=artwork][type=architecture];;name;int_name;1227;

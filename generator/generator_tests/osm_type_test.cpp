@@ -5,6 +5,7 @@
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/tag_admixer.hpp"
+#include "generator/utils.hpp"
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
@@ -12,11 +13,14 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/feature_visibility.hpp"
 
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/stl_helpers.hpp"
 
+#include <set>
 #include <string>
 #include <vector>
 
@@ -65,6 +69,16 @@ FeatureBuilderParams GetFeatureBuilderParams(Tags const & tags,
 
   ftype::GetNameAndType(&e, params);
   return params;
+}
+
+using Type = std::vector<std::string>;
+
+void TestTypes(Tags const & tags, std::vector<Type> const & types)
+{
+  auto const params = GetFeatureBuilderParams(tags);
+  TEST_EQUAL(params.m_types.size(), types.size(), (tags, params));
+  for (auto const & type : types)
+    TEST(params.IsTypeExist(GetType(type)), (type, tags, params));
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SkipDummy)
@@ -1293,7 +1307,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cuisine)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hotel)
 {
-  using Type = std::vector<std::string>;
   std::vector<std::pair<std::vector<Type>, Tags>> const types = {{
                                                                      {{"tourism", "hotel"}},
                                                                      {{"tourism", "hotel"}},
@@ -1754,24 +1767,13 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_DeprecatedTags)
 {
   // A deprecated mapcss-mapping.csv row only remaps the type id of already built maps, so these
   // tags need a replaced_tags.txt rule to be matched at all.
-  using Type = std::vector<std::string>;
-  std::vector<std::pair<Type, Tags>> const conversions = {
-      {{"landuse", "vineyard"}, {{"natural", "vineyard"}}},
-      {{"landuse", "orchard"}, {{"natural", "orchard"}}},
-      {{"office", "diplomatic"}, {{"amenity", "embassy"}}},
-  };
-
-  for (auto const & [type, tags] : conversions)
-  {
-    auto const params = GetFeatureBuilderParams(tags);
-    TEST_EQUAL(params.m_types.size(), 1, (tags, params));
-    TEST(params.IsTypeExist(GetType(type)), (tags, params));
-  }
+  TestTypes({{"natural", "vineyard"}}, {{"landuse", "vineyard"}});
+  TestTypes({{"natural", "orchard"}}, {{"landuse", "orchard"}});
+  TestTypes({{"amenity", "embassy"}}, {{"office", "diplomatic"}});
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_DeprecatedWaterTags)
 {
-  using Type = std::vector<std::string>;
   std::vector<std::pair<std::vector<Type>, Tags>> const conversions = {
       {{{"natural", "water", "lake"}}, {{"natural", "lake"}}},
       {{{"natural", "water", "pond"}}, {{"natural", "pond"}}},
@@ -1786,12 +1788,27 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_DeprecatedWaterTags)
   };
 
   for (auto const & [types, tags] : conversions)
-  {
-    auto const params = GetFeatureBuilderParams(tags);
-    TEST_EQUAL(params.m_types.size(), types.size(), (tags, params));
-    for (auto const & type : types)
-      TEST(params.IsTypeExist(GetType(type)), (tags, params));
-  }
+    TestTypes(tags, types);
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_UndrawnTunnels)
+{
+  // A tunnel type without drawing rules, e.g. a water tunnel, makes the generator drop the feature.
+  // Equal arity types are kept together, so its siblings must exclude tunnels, otherwise a lake in
+  // a tunnel would keep the lake type and still be drawn. A bridge is never a tunnel.
+  auto const rules = generator::ParseMapCSS(GetPlatform().GetReader(MAPCSS_MAPPING_FILE));
+  std::set<generator::TypeStrings> undrawnBases;
+  for (auto const & [type, rule] : rules)
+    if (type.back() == "tunnel" && !feature::IsUsefulType(classif().GetTypeByPath(type)))
+      undrawnBases.emplace(type.begin(), type.end() - 1);
+  for (auto const & [type, rule] : rules)
+    if (type.back() != "tunnel" && type.back() != "bridge" &&
+        undrawnBases.contains(generator::TypeStrings(type.begin(), type.end() - 1)))
+      TEST(base::IsExist(rule.m_forbiddenKeys, "tunnel"), (type));
+
+  TestTypes({{"waterway", "stream"}, {"tunnel", "culvert"}, {"intermittent", "yes"}}, {});
+  TestTypes({{"natural", "water"}, {"water", "river"}, {"tunnel", "culvert"}}, {});
+  TestTypes({{"natural", "water"}, {"water", "river"}, {"tunnel", "no"}}, {{"natural", "water", "river"}});
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
@@ -1982,7 +1999,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ShopCarRepair)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_RailwayRail)
 {
-  using Type = std::vector<std::string>;
   std::vector<std::pair<Type, Tags>> const railTypes = {
       {{"railway", "rail", "highspeed"}, {{"railway", "rail"}, {"highspeed", "positive_value"}}},
       {{"railway", "rail", "highspeed"}, {{"railway", "rail"}, {"usage", "main"}, {"highspeed", "positive_value"}}},
@@ -2750,7 +2766,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
 {
-  using Type = std::vector<std::string>;
   std::vector<std::pair<Type, Tags>> const complexTypes = {
       // Filtered out by MatchTypes filter because have no styles.
       // {{"communication", "line", "underground"}, {{"communication", "line"}, {"location", "underground"}}},
@@ -3078,7 +3093,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
 {
-  using Type = std::vector<std::string>;
   std::vector<std::pair<Type, Tags>> const conversions = {
       {{"highway", "cycleway"}, {{"highway", "path"}, {"foot", "no"}, {"bicycle", "designated"}}},
 
@@ -3157,7 +3171,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_PathGrades)
 {
-  using Type = std::vector<std::string>;
   std::vector<std::pair<Type, Tags>> const conversions = {
       {{"highway", "path"},
        {{"highway", "path"}, {"sac_scale", "mountain_hiking"}, {"trail_visibility", "intermediate"}}},
@@ -3183,7 +3196,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_PathGrades)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_MultipleComplexTypesSmoke)
 {
-  using Type = std::vector<std::string>;
   std::vector<std::pair<std::vector<Type>, Tags>> const complexTypes = {
       {{{"amenity", "parking"}, {"fee", "no"}}, {{"amenity", "parking"}, {"fee", "no"}}},
       {{{"amenity", "parking", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"fee", "any_value"}}},
