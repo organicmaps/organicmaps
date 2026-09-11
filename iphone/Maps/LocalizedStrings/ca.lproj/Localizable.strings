@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.";
 "driving_options_title" = "Opcions d’encaminament";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimització de la ruta";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Reordena automàticament les parades intermèdies per crear una ruta més eficient.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evita peatges";
 

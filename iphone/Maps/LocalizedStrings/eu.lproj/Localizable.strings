@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.";
 "driving_options_title" = "Bideratzeko aukerak";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ibilbidearen optimizazioa";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Tarteko geldialdiak automatikoki berrantolatzen ditu ibilbide eraginkorragoa sortzeko.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Bidesariak saihestea";
 

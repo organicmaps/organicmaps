@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.";
 "driving_options_title" = "אפשרויות מסלול";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "מיטוב המסלול";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "מסדר מחדש באופן אוטומטי את תחנות הביניים כדי ליצור מסלול יעיל יותר.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "הימנע מכבישי אגרה";
 

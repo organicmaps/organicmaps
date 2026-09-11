@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "暫時啟用此選項，以便使用“報告問題”功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。";
 "driving_options_title" = "繞行設定";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "路線最佳化";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "自動重新排列中途點，以建立更有效率的路線。";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "避開收費公路";
 

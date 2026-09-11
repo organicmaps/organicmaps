@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche „App-Fehler melden“ unter „Hilfe“. Protokolle können Standortformationen enthalten.";
 "driving_options_title" = "Routenbeschränkungen";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Routenoptimierung";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Ordnet Zwischenstopps automatisch neu, um eine effizientere Route zu erstellen.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Mautstraßen vermeiden";
 

@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.";
 "driving_options_title" = "Ompadopsies";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Roete-optimering";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Herrangskik tussenstoppe outomaties om ’n doeltreffender roete te skep.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vermy tolgelde";
 
