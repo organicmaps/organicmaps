@@ -1,8 +1,10 @@
 enum RoutingOptionsSettingsSection: String {
   case options
+  case optimization
 }
 
-enum RoutingOption: String, CaseIterable {
+enum RoutingOption: String {
+  case routeOptimization
   case tollRoads
   case unpavedRoads
   case ferryCrossings
@@ -10,8 +12,11 @@ enum RoutingOption: String, CaseIterable {
 }
 
 extension RoutingOption {
+  static let avoidanceOptions: [RoutingOption] = [.tollRoads, .unpavedRoads, .ferryCrossings, .motorways]
+
   var title: String {
     switch self {
+    case .routeOptimization: return L("route_optimization")
     case .tollRoads: return L("avoid_tolls")
     case .unpavedRoads: return L("avoid_unpaved")
     case .ferryCrossings: return L("avoid_ferry")
@@ -29,6 +34,7 @@ extension RoutingOption {
 
   private var routingOptionsKeyPath: ReferenceWritableKeyPath<RoutingOptions, Bool> {
     switch self {
+    case .routeOptimization: return \.routeOptimizationEnabled
     case .tollRoads: return \.avoidToll
     case .unpavedRoads: return \.avoidDirty
     case .ferryCrossings: return \.avoidFerry
@@ -39,6 +45,7 @@ extension RoutingOption {
 
 struct RoutingOptionsSettingsState {
   let options: RoutingOptions
+  let canChangeOptimization: Bool
 }
 
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>
