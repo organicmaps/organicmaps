@@ -95,6 +95,7 @@ public class RoutingController
   private boolean mCanPickMyPosition;
   private int mLastBuildProgress;
   private Router mLastRouterType;
+  private boolean mPendingOptionsRebuild;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
   private int mLastResultCode;
@@ -359,6 +360,45 @@ public class RoutingController
   public void setRouteSaved()
   {
     mRouteSaved = true;
+  }
+
+  /**
+   * Reorders the stops of the route being planned. Does nothing while navigating, in Ruler mode, or with fewer than
+   * three route points.
+   *
+   * @return whether the order changed, which means the route has to be rebuilt.
+   */
+  public boolean optimizeRoutePoints()
+  {
+    return Framework.nativeOptimizeRoutePoints();
+  }
+
+  /**
+   * Requests a rebuild after a change on the routing options screen. It runs immediately when the map activity is
+   * attached — leaving that screen with Back restarts it first — and otherwise waits for
+   * {@link #applyPendingRoutingOptions}, e.g. when the screen is left via Home or opened from Settings.
+   */
+  public void onRoutingOptionsChanged()
+  {
+    mPendingOptionsRebuild = true;
+    applyPendingRoutingOptions();
+  }
+
+  /**
+   * Applies a change recorded by {@link #onRoutingOptionsChanged}, if any. Called from there and again by the map
+   * activity when it starts; {@link #attach} deliberately does not call it, because Android Auto screens attach to
+   * the same controller and would either waste a build or, while navigating, swallow the change.
+   */
+  public void applyPendingRoutingOptions()
+  {
+    if (!mPendingOptionsRebuild || mContainer == null)
+      return;
+
+    mPendingOptionsRebuild = false;
+    // A rebuild would exit navigation, so nothing is applied while navigating: the optimization switch then
+    // affects only the stops added afterwards, and changed road types only the next route.
+    if (isPlanning())
+      rebuildLastRoute();
   }
 
   public void rebuildLastRoute()
