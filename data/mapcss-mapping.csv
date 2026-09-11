@@ -170,7 +170,8 @@ highway|residential|bridge;[highway=residential][bridge?];;name;int_name;81;
 # railway|rail|spur|bridge;...,[railway=rail][!service][usage?][usage!=main|branch|tourism|utility][bridge?];...
 # railway|rail|service|bridge;[railway=rail][service?][service!=spur][bridge?];...
 railway|rail|bridge;[railway=rail][bridge?][dont=match];;name;int_name;82;
-deprecated:boundary|administrative|10:04.2024;[boundary=administrative][admin_level=10];x;name;int_name;83;
+# ~1.1M usages. Detention and infiltration basins are dry most of the time.
+natural|water|intermittent;[natural=water][intermittent=yes][!tunnel],[natural=water][seasonal?][!tunnel],[natural=water][basin=detention][!tunnel],[natural=water][basin=infiltration][!tunnel];;name;int_name;83;
 deprecated:boundary|administrative|6:04.2024;[boundary=administrative][admin_level=6];x;name;int_name;84;
 highway|secondary|bridge;[highway=secondary][bridge?];;name;int_name;85;
 highway|tertiary|bridge;[highway=tertiary][bridge?];;name;int_name;86;
@@ -610,7 +611,7 @@ leisure|park|permissive;[leisure=park][access=permissive];;name;int_name;487;
 highway|bridleway|tunnel;[highway=bridleway][tunnel?];;name;int_name;488;
 highway|motorway_link|tunnel;[highway=motorway_link][tunnel?];;name;int_name;489;
 area:highway|traffic_island;490;
-deprecated|deprecated;491;x
+landuse|basin|intermittent;[landuse=basin][intermittent=yes],[landuse=basin][seasonal?],[landuse=basin][basin=detention],[landuse=basin][basin=infiltration];;name;int_name;491;
 deprecated|deprecated;492;x
 highway|tertiary_link|bridge;[highway=tertiary_link][bridge?];;name;int_name;493;
 tourism|information|visitor_centre;[tourism=information][information=visitor_centre];;name;int_name;494;

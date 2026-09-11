@@ -16,19 +16,25 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
+natural-water-ditch                                 # area z13-
+natural-water-drain                                 # area z13-
+natural-water-wastewater                            # area z12-
+=== 27
+
+landuse-basin-intermittent                          # area z12-
+natural-water-intermittent                          # area z1- (also has caption z10-)
+=== 25
+
 landuse-basin                                       # area z12-
 landuse-salt_pond                                   # area z1-
 natural-water                                       # area z1- (also has caption z10-)
 natural-water-basin                                 # area z1- (also has caption z10-)
-natural-water-ditch                                 # area z13-
-natural-water-drain                                 # area z13-
 natural-water-lake                                  # area z1- (also has caption z10-)
 natural-water-lock                                  # area z1- (also has caption z10-)
 natural-water-moat                                  # area z1-
 natural-water-pond                                  # area z1- (also has caption z10-)
 natural-water-reservoir                             # area z1- (also has caption z10-)
 natural-water-river                                 # area z1- (also has caption z10-)
-natural-water-wastewater                            # area z12-
 waterway-dock                                       # area z1-
 === 20
 
