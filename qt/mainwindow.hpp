@@ -7,6 +7,7 @@
 
 #include "platform/location.hpp"
 #include "platform/location_service/location_service.hpp"
+#include "platform/style_utils.hpp"
 
 #include <QtCore/QLocale>
 #include <QtWidgets/QApplication>
@@ -53,6 +54,7 @@ public:
 signals:
   void positionModeChanged(location::EMyPositionMode mode);
   void infoChanged();
+  void nightModeChanged();
 
 private:
   QString m_title, m_subTitle, m_address, m_wikipedia, m_wikimedia, m_description, m_openingHours, m_cuisines, m_phone,
@@ -139,6 +141,9 @@ private:
   Q_PROPERTY(QAction * alongAction MEMBER m_alongAction NOTIFY infoChanged)
   Q_PROPERTY(QAction * editAction MEMBER m_editAction NOTIFY infoChanged)
   Q_PROPERTY(QAction * myPositionAction MEMBER m_pMyPositionAction)
+
+  style_utils::NightMode GetNightModeSetting() const {return style_utils::GetNightModeSetting();}
+  Q_PROPERTY(style_utils::NightMode nightMode READ GetNightModeSetting NOTIFY nightModeChanged)
 
 public:
   MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry,
