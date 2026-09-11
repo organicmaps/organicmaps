@@ -1,12 +1,10 @@
 import argparse
 import json
-import os
 import sys
 
 from post_generation.hierarchy_to_countries import (
     hierarchy_to_countries as hierarchy_to_countries_,
 )
-from post_generation.inject_promo_ids import inject_promo_ids
 
 
 class PostGeneration:
@@ -16,7 +14,6 @@ class PostGeneration:
             usage="""post_generation <command> [<args>]
 The post_generation commands are:
     hierarchy_to_countries Produces countries.json from hierarchy.txt.
-    inject_promo_ids       Injects promo osm ids into countries.json
     """,
         )
         parser.add_argument("command", help="Subcommand to run")
@@ -48,7 +45,7 @@ The post_generation commands are:
             "-o",
             "--output",
             required=True,
-            help="Output countries.json file (default is stdout)",
+            help="Output countries.json file",
         )
         args = parser.parse_args(sys.argv[2:])
         countries = hierarchy_to_countries_(
@@ -59,59 +56,6 @@ The post_generation commands are:
             args.target,
             args.mwm_version,
         )
-        if args.output:
-            with open(args.output, "w") as f:
-                json.dump(countries, f, ensure_ascii=False, indent=1)
-        else:
-            print(json.dumps(countries, ensure_ascii=False, indent=1))
-
-    @staticmethod
-    def inject_promo_ids():
-        parser = argparse.ArgumentParser(
-            description="Injects promo cities osm ids into countries.json"
-        )
-        parser.add_argument("--mwm", required=True, help="path to mwm files")
-        parser.add_argument(
-            "--types", required=True, help="path to omim/data/types.txt"
-        )
-        parser.add_argument(
-            "--promo_cities", required=True, help="Path to promo cities file"
-        )
-        parser.add_argument(
-            "--promo_countries", required=True, help="Path to promo countries file"
-        )
-        parser.add_argument(
-            "--osm2ft", help="path to osm2ft files (default is the same as mwm)"
-        )
-        parser.add_argument(
-            "--countries",
-            help="path to countries.json file (default is countries.json file into mwm directory)",
-        )
-        parser.add_argument(
-            "--output",
-            help="Output countries.json file (default is countries.json file into mwm directory)",
-        )
-        args = parser.parse_args(sys.argv[2:])
-
-        if not args.osm2ft:
-            args.osm2ft = args.mwm
-        if not args.countries:
-            args.countries = os.path.join(args.mwm, "countries.json")
-        if not args.output:
-            args.output = os.path.join(args.mwm, "countries.json")
-
-        with open(args.countries) as f:
-            countries = json.load(f)
-
-        inject_promo_ids(
-            countries,
-            args.promo_cities,
-            args.promo_countries,
-            args.mwm,
-            args.types,
-            args.osm2ft,
-        )
-
         with open(args.output, "w") as f:
             json.dump(countries, f, ensure_ascii=False, indent=1)
 
