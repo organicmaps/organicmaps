@@ -1,7 +1,3 @@
-// Source - https://stackoverflow.com/a/65082990
-// Posted by Leo
-// Retrieved 2026-06-30, License - CC BY-SA 4.0
-
 import QtQuick 2.0
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -12,67 +8,24 @@ import Location
 Item {
     id: root
     required property MainWindow map
+    Material.theme: map.nightMode
 
-    Canvas {
-        id: cloud
+    RoundButton {
+        id: positionMode
 
         anchors.right: parent.right
         y: parent.height / 2
-        width: 400
-        height: 300
-        rotation: 30
-        property var ctx: null
-        property var fillStyle: "#8ED6FF"
-
-        onPaint: {
-            if (!ctx)
-                ctx = getContext("2d");
-            var x = 100;
-            var y = 170;
-            ctx.beginPath();
-            ctx.arc(x, y, 60, Math.PI * 0.5, Math.PI * 1.5);
-            ctx.arc(x + 70, y - 60, 70, Math.PI * 1, Math.PI * 1.85);
-            ctx.arc(x + 152, y - 45, 50, Math.PI * 1.37, Math.PI * 1.91);
-            ctx.arc(x + 200, y, 60, Math.PI * 1.5, Math.PI * 0.5);
-            ctx.moveTo(x + 200, y + 60);
-            ctx.lineTo(x, y + 60);
-            ctx.strokeStyle = "#797874";
-            ctx.stroke();
-            ctx.fillStyle = fillStyle;
-            ctx.fill();
-        }
-
-        MouseArea {
-            anchors.fill: parent
-
-            onPressed: mouse => {
-                const inside = cloud.ctx.isPointInPath(mouse.x, mouse.y);
-                mouse.accepted = inside;
-                if (inside)
-                    console.log("Cloud pressed");
-                else
-                    console.log("MouseArea pressed");
-            }
-            onReleased: mouse => {
-                const inside = cloud.ctx.isPointInPath(mouse.x, mouse.y);
-                mouse.accepted = inside;
-                if (inside)
-                    console.log("Cloud released");
-                else
-                    console.log("MouseArea released");
-            }
-            onClicked: {
-                root.map.myPositionAction.trigger();
-                console.log("Cloud clicked");
-            }
-        }
+        icon.source: "qrc:/navig64/routing.png"
+        icon.color: "transparent"
+        Material.background: Material.theme === Material.Dark ? "#CC3C3F44" : "#CBFFFFFF"
+        flat: true
+        onClicked: root.map.myPositionAction.trigger()
 
         Connections {
             target: root.map
             function onPositionModeChanged(mode) {
-                cloud.state = mode;
-                cloud.requestPaint();
-                console.log("Position Mode changed to " + mode);
+                positionMode.state = mode;
+                console.log("Position Mode changed to", mode);
             }
             function onInfoChanged() {
                 pane.visible = root.height > root.width + 50;
@@ -83,51 +36,34 @@ Item {
             State {
                 name: PositionMode.PendingPosition
                 PropertyChanges {
-                    cloud.fillStyle: undefined
-                    text.text: "Pending Position..."
+                    positionMode.icon.source: "qrc:/navig64/location-search.png"
                 }
             },
             State {
                 name: PositionMode.NotFollowNoPosition
                 extend: PositionMode.PendingPosition
-                PropertyChanges {
-                    text.text: "No Position"
-                }
             },
             State {
                 name: PositionMode.NotFollow
                 PropertyChanges {
-                    cloud.fillStyle: cloud.context.strokeStyle
-                    text.text: "Not Follow"
+                    positionMode.icon.source: "qrc:/navig64/location.png"
                 }
             },
             State {
                 name: PositionMode.Follow
                 PropertyChanges {
                     restoreEntryValues: false
-                    cloud.rotation: 30
-                    text.text: "Follow"
+                    positionMode.rotation: 30
                 }
             },
             State {
                 name: PositionMode.FollowAndRotate
                 PropertyChanges {
                     restoreEntryValues: false
-                    cloud.rotation: 0
-                    text.text: "Follow and Rotate"
+                    positionMode.rotation: 0
                 }
             }
         ]
-
-        Text {
-            id: text
-
-            font.family: "Helvetica"
-            font.pointSize: 24
-            color: "white"
-
-            anchors.centerIn: parent
-        }
     }
 
     component GridLabel: Text {
