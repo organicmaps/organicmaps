@@ -15,7 +15,10 @@ final class RoutingOptionsSettingsPresenter {
   private func sections(from state: RoutingOptionsSettingsState) -> [RoutingOptionsSettingsSectionViewModel] {
     [
       SettingsSectionViewModel(section: .options,
-                               items: RoutingOption.allCases.map { item($0, state: state) }),
+                               items: RoutingOption.avoidanceOptions.map { item($0, state: state) }),
+      SettingsSectionViewModel(section: .optimization,
+                               footer: L("route_optimization_description"),
+                               items: [item(.routeOptimization, state: state)]),
     ]
   }
 
@@ -23,6 +26,7 @@ final class RoutingOptionsSettingsPresenter {
                     state: RoutingOptionsSettingsState) -> RoutingOptionsSettingsItemViewModel {
     SettingsItemViewModel(item: option,
                           title: option.title,
-                          kind: .switcher(isOn: option.isEnabled(in: state.options), isEnabled: true))
+                          kind: .switcher(isOn: option.isEnabled(in: state.options),
+                                          isEnabled: option != .routeOptimization || state.canChangeOptimization))
   }
 }
