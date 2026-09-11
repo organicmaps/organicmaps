@@ -108,8 +108,6 @@ PLANET_URL = DEFAULT_PLANET_URL
 PLANET_COASTS_URL = ""
 UGC_URL = ""
 HOTELS_URL = ""
-PROMO_CATALOG_CITIES_URL = ""
-PROMO_CATALOG_COUNTRIES_URL = ""
 POPULARITY_URL = ""
 SUBWAY_URL = ""
 NEED_BUILD_WORLD_ROADS = True
@@ -264,8 +262,6 @@ def init(default_settings_path: AnyStr):
     global PLANET_COASTS_URL
     global UGC_URL
     global HOTELS_URL
-    global PROMO_CATALOG_CITIES_URL
-    global PROMO_CATALOG_COUNTRIES_URL
     global POPULARITY_URL
     global SUBWAY_URL
     global NEED_BUILD_WORLD_ROADS
@@ -284,12 +280,6 @@ def init(default_settings_path: AnyStr):
     )
     UGC_URL = cfg.get_opt_path("External", "UGC_URL", UGC_URL)
     HOTELS_URL = cfg.get_opt_path("External", "HOTELS_URL", HOTELS_URL)
-    PROMO_CATALOG_CITIES_URL = cfg.get_opt_path(
-        "External", "PROMO_CATALOG_CITIES_URL", PROMO_CATALOG_CITIES_URL
-    )
-    PROMO_CATALOG_COUNTRIES_URL = cfg.get_opt_path(
-        "External", "PROMO_CATALOG_COUNTRIES_URL", PROMO_CATALOG_COUNTRIES_URL
-    )
     POPULARITY_URL = cfg.get_opt_path("External", "POPULARITY_URL", POPULARITY_URL)
     SUBWAY_URL = cfg.get_opt("External", "SUBWAY_URL", SUBWAY_URL)
     NEED_BUILD_WORLD_ROADS = cfg.get_opt("External", "NEED_BUILD_WORLD_ROADS", NEED_BUILD_WORLD_ROADS)
