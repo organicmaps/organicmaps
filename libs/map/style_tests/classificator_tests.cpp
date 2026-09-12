@@ -258,7 +258,6 @@ UNIT_TEST(Classificator_AreaPriority)
           {"natural", "water", "river"},
           {"landuse", "basin"},
           {"landuse", "salt_pond"},
-          {"natural", "water", "tunnel"},
           {"waterway", "dock"},
           // 1 - intermittent water areas: their fill replaces the water fill of the same feature,
           // and they are drawn over overlapping permanent water
@@ -275,7 +274,7 @@ UNIT_TEST(Classificator_AreaPriority)
           {"man_made", "breakwater"},
           {"waterway", "dam"},
       },
-      {12, 2, 3, 3}, drule::area);
+      {11, 2, 3, 3}, drule::area);
 
   CheckPriority(
       {
