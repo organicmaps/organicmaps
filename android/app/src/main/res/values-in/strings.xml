@@ -749,8 +749,7 @@
     <string name="deselect_all">Batalkan pilihan</string>
     <string name="select_list">Pilih daftar</string>
     <string name="button_layer_isolines">Isometrik</string>
-    <string name="isolines_activation_error_dialog">Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area</string>
-    <string name="isolines_location_error_dialog">Lapisan topografi belum tersedia untuk wilayah ini</string>
+    <string name="isolines_location_error_dialog">Perbarui wilayah ini untuk melihat garis kontur</string>
     <string name="elevation_profile_ascent">Menanjak</string>
     <string name="elevation_profile_descent">Menurun</string>
     <string name="elevation_profile_min_elevation">Min. tinggi</string>
@@ -891,6 +890,8 @@
     <string name="hide_track">Sembunyikan jalur</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Tampilkan jalur</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Aktifkan</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -919,4 +920,14 @@
     <string name="color_picker_grid">Kisi</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Pencarian suara</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Unduh data medan beserta peta</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Bayangan relief, garis kontur, dan kedalaman laut. Data medan suatu wilayah diunduh, diperbarui, dan dihapus bersama peta wilayah tersebut.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Hapus juga data medan yang telah diunduh (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Pertahankan</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Pengunduhan data medan bersama peta dinonaktifkan. Apakah Anda ingin mengaktifkannya untuk melihat garis kontur di sini?</string>
 </resources>

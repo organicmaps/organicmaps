@@ -749,8 +749,7 @@
     <string name="deselect_all">Bỏ chọn tất cả</string>
     <string name="select_list">Chọn danh sách</string>
     <string name="button_layer_isolines">Độ cao</string>
-    <string name="isolines_activation_error_dialog">Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn</string>
-    <string name="isolines_location_error_dialog">Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này</string>
+    <string name="isolines_location_error_dialog">Cập nhật khu vực này để xem các đường đồng mức</string>
     <string name="elevation_profile_ascent">Đi lên</string>
     <string name="elevation_profile_descent">Đi xuống</string>
     <string name="elevation_profile_min_elevation">Min. độ cao</string>
@@ -889,6 +888,8 @@
     <string name="hide_track">Ẩn tuyến đường</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Hiển thị tuyến đường</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Cho phép</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -917,4 +918,14 @@
     <string name="color_picker_grid">Lưới</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Tìm kiếm bằng giọng nói</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Tải xuống địa hình kèm bản đồ</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Đổ bóng địa hình, đường đồng mức và độ sâu biển. Địa hình của một khu vực được tải xuống, cập nhật và xóa cùng với bản đồ của khu vực đó.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Xóa luôn dữ liệu địa hình đã tải xuống (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Giữ lại</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Tính năng tải xuống địa hình kèm bản đồ đang tắt. Bật lên để xem đường đồng mức tại đây?</string>
 </resources>

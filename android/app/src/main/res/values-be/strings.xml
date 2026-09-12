@@ -760,8 +760,7 @@
     <string name="deselect_all">Зняць вылучэнне</string>
     <string name="select_list">Выбраць спіс</string>
     <string name="button_layer_isolines">Рэльеф</string>
-    <string name="isolines_activation_error_dialog">Каб задзейнічаць лініі рэльефу, трэба абнавіць мапу гэтага рэгіёна</string>
-    <string name="isolines_location_error_dialog">Для гэтага рэгіёна мапы рэльефу яшчэ недаступны</string>
+    <string name="isolines_location_error_dialog">Абнавіце гэты рэгіён, каб убачыць лініі вышынь</string>
     <string name="elevation_profile_ascent">Пад\'ём</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мін. вышыня</string>
@@ -918,6 +917,8 @@
     <string name="hide_track">Схаваць трэк</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Паказаць трэк</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Уключыць</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -946,4 +947,14 @@
     <string name="color_picker_grid">Сетка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Галасавы пошук</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Спампоўваць рэльеф разам з мапамі</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Цені рэльефу, лініі вышынь і глыбіні мора. Рэльеф рэгіёна спампоўваецца, абнаўляецца і выдаляецца разам з яго мапай.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Таксама выдаліць спампаваны рэльеф (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Пакінуць</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Спампоўванне рэльефу разам з мапамі адключана. Уключыць яго, каб убачыць тут лініі вышынь?</string>
 </resources>

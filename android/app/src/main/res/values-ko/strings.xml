@@ -749,8 +749,7 @@
     <string name="deselect_all">선택 해제</string>
     <string name="select_list">목록 선택</string>
     <string name="button_layer_isolines">지형</string>
-    <string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
-    <string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
+    <string name="isolines_location_error_dialog">이 지역을 업데이트하면 등고선을 볼 수 있습니다</string>
     <string name="elevation_profile_ascent">올라가기</string>
     <string name="elevation_profile_descent">내려가기</string>
     <string name="elevation_profile_min_elevation">최소 높이</string>
@@ -891,6 +890,8 @@
     <string name="hide_track">경로 숨기기</string>
     <!-- Text for the showing track. -->
     <string name="show_track">경로 표시</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">사용</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -919,4 +920,14 @@
     <string name="color_picker_grid">그리드</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">음성 검색</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">지도와 함께 지형 데이터 다운로드</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">지형 음영, 등고선, 수심. 지역의 지형 데이터는 해당 지도와 함께 다운로드, 업데이트, 삭제됩니다.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">다운로드한 지형 데이터(%s)도 삭제하시겠습니까?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">유지</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">지도와 함께 지형 데이터를 다운로드하는 기능이 꺼져 있습니다. 여기에 등고선을 표시하려면 켜시겠습니까?</string>
 </resources>
