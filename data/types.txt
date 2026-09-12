@@ -1655,3 +1655,4 @@ amenity|recycling|container
 *amenity|stage
 *natural|hill
 *natural|arch
+*organicapp|twm_border
