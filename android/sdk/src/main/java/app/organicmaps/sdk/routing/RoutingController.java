@@ -85,6 +85,7 @@ public class RoutingController
   private int mLastBuildProgress;
   private Router mLastRouterType;
   private boolean isPoiPickReplaceStop;
+  private boolean isPoiPickAppendStop;
   private int mReplaceStopIndex = -1;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
@@ -424,6 +425,22 @@ public class RoutingController
     resetPoiPickState();
   }
 
+  public void appendStop(@NonNull MapObject mapObject)
+  {
+    if (!appendRoutePoint(mapObject))
+    {
+      resetPoiPickState();
+      if (mContainer != null)
+        mContainer.onPoiPickCompleted();
+      return;
+    }
+    build();
+    if (mContainer != null)
+      mContainer.onAddedStop();
+    resetToPlanningStateIfNavigating();
+    resetPoiPickState();
+  }
+
   public void removeStop(@NonNull MapObject mapObject)
   {
     RoutePointInfo info = mapObject.getRoutePointInfo();
@@ -485,6 +502,11 @@ public class RoutingController
   public boolean isPoiPickReplaceStop()
   {
     return isPoiPickReplaceStop;
+  }
+
+  public boolean isPoiPickAppendStop()
+  {
+    return isPoiPickAppendStop;
   }
 
   public boolean isRoutePoint(@NonNull MapObject mapObject)
@@ -640,6 +662,9 @@ public class RoutingController
 
   public void waitForPoiPick(@NonNull RouteMarkType pointType)
   {
+    // Arming a pick always starts from a clean slate: the mode setters below are optional, so a leftover
+    // replace/append flag would otherwise silently change what the next, unrelated pick does.
+    resetPoiPickState();
     mWaitingPoiPickType = pointType;
   }
 
@@ -647,6 +672,19 @@ public class RoutingController
   {
     mReplaceStopIndex = index;
     isPoiPickReplaceStop = true;
+  }
+
+  public void appendStopPoiPick()
+  {
+    isPoiPickAppendStop = true;
+  }
+
+  public void cancelStopPoiPick()
+  {
+    // Start/Finish picks are finalized by set{Start,End}Point() after the search is torn down and need their
+    // pending state until then. Stop picks have no such finalizer, so an abandoned one is dropped here.
+    if (isPoiPickReplaceStop || isPoiPickAppendStop || mWaitingPoiPickType == RouteMarkType.Intermediate)
+      resetPoiPickState();
   }
 
   private void finalizePendingPoiPick()
@@ -664,6 +702,7 @@ public class RoutingController
   {
     mWaitingPoiPickType = null;
     isPoiPickReplaceStop = false;
+    isPoiPickAppendStop = false;
     mReplaceStopIndex = -1;
   }
 
@@ -876,6 +915,13 @@ public class RoutingController
                                   true /* reorderIntermediatePoints */);
   }
 
+  private static boolean appendRoutePoint(@NonNull MapObject point)
+  {
+    Pair<String, String> description = getDescriptionForPoint(point);
+    return Framework.nativeContinueRouteToPoint(description.first /* title */, description.second /* subtitle */,
+                                                point.isMyPosition(), point.getLat(), point.getLon());
+  }
+
   @NonNull
   private static Pair<String, String> getDescriptionForPoint(@NonNull MapObject point)
   {
@@ -968,6 +1014,8 @@ public class RoutingController
     {
       if (isPoiPickReplaceStop)
         replaceStop(point);
+      else if (isPoiPickAppendStop)
+        appendStop(point);
       else if (mWaitingPoiPickType == RouteMarkType.Finish)
         setEndPoint(point);
       else if (mWaitingPoiPickType == RouteMarkType.Start)
