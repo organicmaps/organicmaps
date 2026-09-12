@@ -42,7 +42,7 @@ LatLonWithAltitude const & TransitGraph::GetJunction(Segment const & segment, bo
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
+RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
 {
   ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
 
@@ -60,8 +60,16 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimat
                        0 /* numAccessConditionalPenalties */, weight /* transitTime */);
   }
 
+  // Gate projection: the hop between the gate point and its road projection (parts of real roads
+  // are priced by TransitWorldGraph as a fraction of the real segment weight). Bus and tram gates
+  // are stop positions on the carriageway or rails, so the hop is the platform-to-vehicle step,
+  // not a snapping choice: price it at the realistic offroad ETA speed for both purposes. The
+  // offroad weight speed (0.5 km/h for pedestrians) would charge a minute per 8 m of road width,
+  // biasing the router towards subway entrances that lie right on the footways.
+  ASSERT(m_fake.GetVertex(segment).GetType() == FakeVertex::Type::PureFake, (segment));
   return RouteWeight(m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
-                                              GetJunction(segment, true /* front */).GetLatLon(), purpose));
+                                              GetJunction(segment, true /* front */).GetLatLon(),
+                                              EdgeEstimator::Purpose::ETA));
 }
 
 RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
@@ -88,22 +96,11 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
   // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
   auto const it = m_transferPenaltiesSubway.find(lineIdTo);
   CHECK(it != m_transferPenaltiesSubway.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
-  // Scale only the routing weight (not transitTime) to bias the alternative route away from
-  // transfers; factor is 1.0 for the primary route.
-  double const penalty = it->second * m_estimator->GetTransitTransferFactor();
+  // The alternative route adds a fixed penalty per boarding to the routing weight only (not to
+  // transitTime); it is zero for the primary route.
+  double const penalty = it->second + m_estimator->GetTransitAltBoardingPenaltyS();
   return RouteWeight(penalty /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
                      0 /* numAccessConditionalPenalties */, it->second /* transitTime */);
-}
-
-void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const
-{
-  ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
-  for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
-  {
-    auto const & from = isOutgoing ? segment : s;
-    auto const & to = isOutgoing ? s : segment;
-    edges.emplace_back(s, CalcSegmentWeight(to, EdgeEstimator::Purpose::Weight) + GetTransferPenalty(from, to));
-  }
 }
 
 std::set<Segment> const & TransitGraph::GetFake(Segment const & real) const
