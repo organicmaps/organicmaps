@@ -640,7 +640,9 @@ world  +
         {}
     landuse  +
         allotments  -
-        basin  -
+        basin  +
+            intermittent  -
+            {}
         brownfield  -
         cemetery  +
             christian  -
@@ -815,6 +817,7 @@ world  +
             basin  -
             ditch  -
             drain  -
+            intermittent  -
             lake  -
             lock  -
             moat  -

@@ -80,7 +80,7 @@ highway|track
 *landuse|farmyard
 *highway|residential|bridge
 *railway|rail|bridge
-mapswithme
+*natural|water|intermittent
 mapswithme
 *highway|secondary|bridge
 *highway|tertiary|bridge
@@ -488,7 +488,7 @@ mapswithme
 *highway|bridleway|tunnel
 *highway|motorway_link|tunnel
 *area:highway|traffic_island
-mapswithme
+*landuse|basin|intermittent
 mapswithme
 *highway|tertiary_link|bridge
 *tourism|information|visitor_centre
