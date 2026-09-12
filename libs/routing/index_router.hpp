@@ -94,13 +94,6 @@ public:
   VehicleType GetVehicleType() const { return m_vehicleType; }
   std::shared_ptr<NumMwmIds> const & GetNumMwmIds() const { return m_numMwmIds; }
 
-  // Test/tuning hook: bias the transit routing weight of walking and transfers.
-  // Used by tests to force a bus over a short walk.
-  void SetTransitAltFactors(double walkFactor, double transferFactor)
-  {
-    m_estimator->SetTransitAltFactors(walkFactor, transferFactor);
-  }
-
   template <class T>
   void SetCurrentTimeGetter(T && getter)
   {
