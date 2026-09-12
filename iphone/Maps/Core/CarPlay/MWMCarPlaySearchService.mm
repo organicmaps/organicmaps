@@ -50,7 +50,9 @@
 
   /// @todo Didn't find pure category request in CarPlay.
   SearchQuery * query = [[SearchQuery alloc] init:text locale:inputLocale source:SearchTextSourceTypedText];
-  [MWMSearch searchQuery:query];
+  // A debug command starts no search, so nothing would report its completion.
+  if (![MWMSearch searchQuery:query])
+    [self completePendingRequestWithResults:@[]];
 }
 
 // Resets the handler before invoking it, since the handler may start another search of its own.
