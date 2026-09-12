@@ -283,6 +283,15 @@ public class Framework
                                                 int intermediateIndex, boolean isMyPosition, double lat, double lon,
                                                 boolean reorderIntermediatePoints);
 
+  /**
+   * Appends the point to the end of the route: the current finish becomes the last intermediate point and
+   * the given point becomes the new finish.
+   *
+   * @return {@code false} if the route has no finish point or the route points limit is reached.
+   */
+  public static native boolean nativeContinueRouteToPoint(String title, String subtitle, boolean isMyPosition,
+                                                          double lat, double lon);
+
   public static native void nativeRemoveRoutePoints();
 
   public static native void nativeRemoveRoutePoint(@NonNull RouteMarkType markType, int intermediateIndex);

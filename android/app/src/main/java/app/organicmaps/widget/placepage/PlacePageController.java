@@ -573,8 +573,13 @@ public class PlacePageController
 
   private void onRouteAddBtnClicked()
   {
-    if (mMapObject != null)
-      RoutingController.get().addStop(mMapObject);
+    if (mMapObject == null)
+      return;
+    final RoutingController controller = RoutingController.get();
+    if (controller.isPoiPickAppendStop())
+      controller.appendStop(mMapObject);
+    else
+      controller.addStop(mMapObject);
   }
 
   private void onRouteRemoveBtnClicked()
