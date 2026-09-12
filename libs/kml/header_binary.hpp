@@ -23,6 +23,10 @@ enum class Version : uint8_t
   V8 = 8,  // 24 September 2020: add compilations to types and corresponding section to kmb and
            // tags to kml
   V9 = 9,  // 01 October 2020: add minZoom to bookmarks
+  // Latest deliberately stays at V9 so that files we write remain readable by older builds.
+  // Collections (the compilations added in V8) are no longer supported: the section and the fields
+  // referencing it keep their slots in the layout, but we always write them empty and ignore
+  // whatever a file we read contains. See kml::CategoryData::m_unusedCompilationId.
   Latest = V9,
   // MapsMe-incompatible variants. Enum values 10/11 are internal identifiers assigned after V9
   // (V8/V9 occupy 8/9); they are NOT the on-disk version byte. On disk, V8MM still starts with
@@ -95,6 +99,8 @@ struct Header
     return visitor.m_size;
   }
 
+  // Only V8/V9 have a compilations section. We write it empty but may read legacy files where it is populated;
+  // MapsMe's V8MM/V9MM variants do not have this section.
   bool HasCompilationsSection() const { return m_version == Version::V8 || m_version == Version::V9; }
 
   Version m_version = Version::Latest;

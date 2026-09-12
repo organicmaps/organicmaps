@@ -737,8 +737,6 @@ void ResetIds(kml::FileData & kmlData)
     bmData.m_id = kml::kInvalidMarkId;
   for (auto & trackData : kmlData.m_tracksData)
     trackData.m_id = kml::kInvalidTrackId;
-  for (auto & compilationData : kmlData.m_compilationsData)
-    compilationData.m_id = kml::kInvalidMarkGroupId;
 }
 
 static bool TruncType(std::string_view & type)

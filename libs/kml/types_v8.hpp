@@ -14,7 +14,7 @@ struct BookmarkDataV8
                                   visitor(m_timestamp, "timestamp"), visitor(m_point, "point"),
                                   visitor(m_boundTracks, "boundTracks"), visitor(m_visible, "visible"),
                                   visitor(m_nearestToponym, "nearestToponym"), visitor(m_properties, "properties"),
-                                  visitor(m_compilations, "compilations"), VISITOR_COLLECTABLE)
+                                  visitor(m_unusedCompilations, "unusedCompilations"), VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName, m_nearestToponym, m_properties)
 
@@ -25,8 +25,7 @@ struct BookmarkDataV8
            IsEqual(m_timestamp, data.m_timestamp) && m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
            m_featureTypes == data.m_featureTypes && m_customName == data.m_customName &&
            m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
-           m_nearestToponym == data.m_nearestToponym && m_properties == data.m_properties &&
-           m_compilations == data.m_compilations;
+           m_nearestToponym == data.m_nearestToponym && m_properties == data.m_properties;
   }
 
   bool operator!=(BookmarkDataV8 const & data) const { return !operator==(data); }
@@ -51,7 +50,6 @@ struct BookmarkDataV8
     m_visible = src.m_visible;
     m_nearestToponym = src.m_nearestToponym;
     m_properties = src.m_properties;
-    m_compilations = src.m_compilations;
     m_collectionIndex = src.m_collectionIndex;
   }
 
@@ -72,7 +70,6 @@ struct BookmarkDataV8
     data.m_visible = m_visible;
     data.m_nearestToponym = m_nearestToponym;
     data.m_properties = m_properties;
-    data.m_compilations = m_compilations;
     return data;
   }
 
@@ -105,8 +102,8 @@ struct BookmarkDataV8
   std::string m_nearestToponym;
   // Key-value properties.
   Properties m_properties;
-  // List of compilationIds.
-  std::vector<CompilationId> m_compilations;
+  // Vestigial "Collections" leftover, see CategoryData::m_unusedCompilationId. Always empty.
+  std::vector<uint64_t> m_unusedCompilations;
 };
 
 using TrackDataV8 = TrackDataV9;
@@ -115,14 +112,12 @@ using CategoryDataV8 = CategoryDataV9;
 struct FileDataV8
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV8, visitor(m_serverId, "serverId"), visitor(m_categoryData, "category"),
-                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"),
-                                  visitor(m_compilationData, "compilations"))
+                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"))
 
   bool operator==(FileDataV8 const & data) const
   {
     return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
-           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData &&
-           m_compilationData == data.m_compilationData;
+           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
   }
 
   bool operator!=(FileDataV8 const & data) const { return !operator==(data); }
@@ -154,7 +149,5 @@ struct FileDataV8
   std::vector<BookmarkDataV8> m_bookmarksData;
   // Tracks collection.
   std::vector<TrackDataV8> m_tracksData;
-  // Compilation collection.
-  std::vector<CategoryDataV8> m_compilationData;
 };
 }  // namespace kml
