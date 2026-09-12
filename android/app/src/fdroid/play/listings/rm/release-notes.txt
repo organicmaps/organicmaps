@@ -1,8 +1,10 @@
-• Datas da la carta OSM dals 14 da fanadur
-• Ils nums da fermadas, da midada e da staziuns dal traffic public han ussa in ur alv
-• Meglra preschentaziun dals uraris d'avertura
-• Corregì indicaziuns incorrectas u mancantas
-• Segnapaginas e percurs modifitgads vegnan ussa memorisads automaticamain
-• Avis da ruta (pedagis, ferrys, vias nunpavimentadas, stgalas e.u.v.) vegnan mussads per tuttas rutas alternativas
-• Notas OSM vegnan creadas exact là nua che Vus tschernis
+• Datas OSM dals 26 d’avust
+• NOV: selecziun multipla da segnapaginas e percurs
+• NOV: zuppentar singuls percurs cun il simbol da l’egl
+• NOV: artitgels da Wikipedia en bengal, hindi, marathi, polac, tamil, telugu ed urdu
+• Agiuntà a la carta: chamonnas d’observaziun d’utschels, palcs, collinas ed arcs natirals
+• Meglra cundivisiun da lieus
+• Correcturas per Android Auto
+• Corregì la selecziun da las fermadas da la ruta
+• Corregì ils uraris d’avertura
 …dapli sin omaps.org/news
