@@ -147,6 +147,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mSheetVisible.addSource(mViewModel.getShowRoutingBottomSheet(), show -> updateSheetVisible());
     mSheetVisible.addSource(mViewModel.getIsPlacePageActive(), active -> updateSheetVisible());
     mSheetVisible.addSource(mViewModel.getIsSearchActive(), active -> updateSheetVisible());
+    mSheetVisible.addSource(mViewModel.getIsPointChooserActive(), active -> updateSheetVisible());
     mSheetVisible.observe(getViewLifecycleOwner(), this::showSheet);
     mViewModel.getMenuUpdateTrigger().observe(getViewLifecycleOwner(), mMenuUpdateObserver);
     mViewModel.getBuildProgress().observe(getViewLifecycleOwner(), mBuildProgressObserver);
@@ -163,17 +164,27 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private void setInsets()
   {
     ViewCompat.setOnApplyWindowInsetsListener(mRoutingRoot, (v, insets) -> {
-      final Insets mCurrentWindowInsets =
-          insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+      final int safeAreaTypes = WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout();
+      final Insets mCurrentWindowInsets = insets.getInsets(safeAreaTypes);
       final int leftInset = mCurrentWindowInsets.left;
       final int rightInset = mCurrentWindowInsets.right;
-      final int bottomInset = mCurrentWindowInsets.bottom;
+      // Below API 30 the IME lands in the system-window insets, and the sheet pads itself with them
+      // (paddingBottomSystemWindowInsets), so an open keyboard would inflate the height its offsets come from.
+      final Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+      final int stableBarsBottom = insets.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom;
+      final int stableSafeBottom = insets.getInsetsIgnoringVisibility(safeAreaTypes).bottom;
+      final int bottomInset = Math.min(mCurrentWindowInsets.bottom, stableSafeBottom);
       mTopInset = mCurrentWindowInsets.top;
       mRoutingRoot.setPadding(0, mTopInset, 0, 0);
       if (mRoutingBottomContainer != null)
         mRoutingBottomContainer.setPadding(leftInset, mRoutingBottomContainer.getPaddingTop(), rightInset, 0);
       mButtonsLayout.setPadding(0, 0, 0, bottomInset);
-      return ViewCompat.onApplyWindowInsets(v, insets);
+      return ViewCompat.onApplyWindowInsets(v,
+                                            new WindowInsetsCompat.Builder(insets)
+                                                .setInsets(WindowInsetsCompat.Type.systemBars(),
+                                                           Insets.of(systemBars.left, systemBars.top, systemBars.right,
+                                                                     Math.min(systemBars.bottom, stableBarsBottom)))
+                                                .build());
     });
   }
 
@@ -229,7 +240,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final boolean show = Boolean.TRUE.equals(mViewModel.getShowRoutingBottomSheet().getValue());
     final boolean placePageActive = Boolean.TRUE.equals(mViewModel.getIsPlacePageActive().getValue());
     final boolean searchActive = Boolean.TRUE.equals(mViewModel.getIsSearchActive().getValue());
-    mSheetVisible.setValue(show && !placePageActive && !searchActive);
+    final boolean pointChooserActive = Boolean.TRUE.equals(mViewModel.getIsPointChooserActive().getValue());
+    mSheetVisible.setValue(show && !placePageActive && !searchActive && !pointChooserActive);
   }
 
   private void showSheet(boolean show)
@@ -252,6 +264,10 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     {
       mSheetBehavior.setHideable(true);
       mSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+      // A sheet that is already hidden, or not yet laid out after a state restore, never reaches the
+      // STATE_HIDDEN callback. One that is on screen does, after sliding the anchored buttons out with it.
+      if (!mFrame.isShown() || mSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
+        UiUtils.hide(mButtonsLayout);
     }
   }
 
