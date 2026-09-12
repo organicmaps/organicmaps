@@ -35,6 +35,9 @@ class RouteMatchingInfo;
 
 namespace routing
 {
+class RouteAdjustmentContext;
+using RouteAdjustmentContextPtr = std::shared_ptr<RouteAdjustmentContext const>;
+
 using SubrouteUid = uint64_t;
 SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 
@@ -566,26 +569,48 @@ public:
   RoutesResult() = default;
   RoutesResult(std::string routerName, uint64_t routesId) : m_routerName(std::move(routerName)), m_routesId(routesId) {}
 
-  void MakeFrom(std::string name, Route && route)
+  void MakeFrom(std::string name, RouteBase && route, RouteAdjustmentContextPtr adjustmentContext)
   {
     m_routerName = std::move(name);
     m_routes.clear();
-    m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
+    m_adjustmentContexts.clear();
+    m_routes.emplace_back(std::move(route));
+    m_adjustmentContexts.emplace_back(std::move(adjustmentContext));
     m_activeIdx = 0;
   }
 
-  bool IsValid() const { return !m_routes.empty() && m_routes[m_activeIdx].IsValid(); }
+  void AddAlternative(RouteBase && route, RouteAdjustmentContextPtr adjustmentContext)
+  {
+    AssertConsistent();
+    m_routes.emplace_back(std::move(route));
+    m_adjustmentContexts.emplace_back(std::move(adjustmentContext));
+  }
+
+  bool IsValid() const
+  {
+    AssertConsistent();
+    return m_activeIdx < m_routes.size() && m_routes[m_activeIdx].IsValid();
+  }
 
   RouteBase & GetActive()
   {
+    AssertConsistent();
     ASSERT_LESS(m_activeIdx, m_routes.size(), ());
     return m_routes[m_activeIdx];
   }
 
   RouteBase const & GetActive() const
   {
+    AssertConsistent();
     ASSERT_LESS(m_activeIdx, m_routes.size(), ());
     return m_routes[m_activeIdx];
+  }
+
+  RouteAdjustmentContextPtr const & GetActiveAdjustmentContext() const
+  {
+    AssertConsistent();
+    ASSERT_LESS(m_activeIdx, m_adjustmentContexts.size(), ());
+    return m_adjustmentContexts[m_activeIdx];
   }
 
   std::vector<RouteBase> m_routes;
@@ -593,6 +618,12 @@ public:
   std::string m_routerName;
   // Session-unique id, shared by all alternatives in this result.
   uint64_t m_routesId = 0;
+
+private:
+  void AssertConsistent() const { ASSERT_EQUAL(m_routes.size(), m_adjustmentContexts.size(), ()); }
+
+  // Keep router state out of RouteBase so display/following copies cannot retain it accidentally.
+  std::vector<RouteAdjustmentContextPtr> m_adjustmentContexts;
 };
 
 /// \returns true if |turn| is not equal to turns::CarDirection::None or

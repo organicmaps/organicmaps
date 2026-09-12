@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
 #include "routing/router.hpp"
+
+#include <string>
 
 namespace routing
 {
@@ -13,7 +14,7 @@ class RulerRouter : public IRouter
   void SetGuides(GuidesTracks && guides) override {}
 
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                  bool adjustToPrevRoute, RouterDelegate const & delegate,
+                                  RouteAdjustmentContextPtr const & adjustmentContext, RouterDelegate const & delegate,
                                   RoutesResult & result) override;
   bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                    EdgeProj & proj) override;

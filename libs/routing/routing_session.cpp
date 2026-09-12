@@ -89,9 +89,12 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
+  RouteAdjustmentContextPtr adjustmentContext;
+  if (adjustToPrevRoute && m_lastResult)
+    adjustmentContext = m_lastResult->GetActiveAdjustmentContext();
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, DoReadyCallback(*this, readyCallback),
+  m_router->CalculateRoute(checkpoints, direction, std::move(adjustmentContext), DoReadyCallback(*this, readyCallback),
                            needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
 }
 
@@ -592,8 +595,6 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
 
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);
-  if (m_router)
-    m_router->SwapAltRouteToActive();
   return true;
 }
 
@@ -601,7 +602,7 @@ void RoutingSession::AssignRouteForTesting(Route && route, RouterResultCode e)
 {
   auto result = std::make_shared<RoutesResult>();
   if (route.IsValid())
-    result->m_routes.emplace_back(std::move(static_cast<RouteBase &>(route)));
+    result->MakeFrom({} /* routerName */, std::move(route), nullptr /* adjustmentContext */);
   AssignRoute(result, e);
 }
 

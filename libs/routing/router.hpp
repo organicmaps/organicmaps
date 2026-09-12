@@ -9,11 +9,14 @@
 
 #include <functional>
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
 namespace routing
 {
+class RouteAdjustmentContext;
+using RouteAdjustmentContextPtr = std::shared_ptr<RouteAdjustmentContext const>;
 
 using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
 
@@ -63,22 +66,19 @@ public:
   ///
   /// @param checkpoints start, finish and intermediate points
   /// @param startDirection start direction for routers with high cost of the turnarounds
-  /// @param adjust adjust route to the previous one if possible
+  /// @param adjustmentContext immutable state returned with the previously selected route;
+  ///                          null requests a full route calculation
   /// @param delegate callback functions and cancellation flag
   /// @param result populated with one or more alternative routes (as RouteBase) when successful;
   ///               callers consume the active alternative via result.GetActive()
   /// @return ResultCode error code or NoError if at least one route was produced
   /// @see Cancellable
   virtual RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                          bool adjust, RouterDelegate const & delegate, RoutesResult & result) = 0;
+                                          RouteAdjustmentContextPtr const & adjustmentContext,
+                                          RouterDelegate const & delegate, RoutesResult & result) = 0;
 
   virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                            EdgeProj & proj) = 0;
-
-  /// Swap the saved last-route state with the alternative's saved state. Called when the user
-  /// picks an alternative variant so a subsequent AdjustRoute (off-route rebuild) adjusts to
-  /// the selected route rather than the original primary. Default: no-op.
-  virtual void SwapAltRouteToActive() {}
 };
 
 }  // namespace routing

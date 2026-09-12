@@ -15,6 +15,7 @@
 #include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/route.hpp"
+#include "routing/route_adjustment_context.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
@@ -351,29 +352,11 @@ std::unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
   return worldGraph;
 }
 
-void IndexRouter::ClearRouteCalculationState()
+void IndexRouter::ClearState()
 {
   m_roadGraph.ClearState();
   m_directionsEngine->Clear();
   m_dataSource.FreeHandles();
-}
-
-void IndexRouter::ClearState()
-{
-  ClearRouteCalculationState();
-
-  // Drop the adjust-cache for both the active and the alternative route so a later (re)build
-  // can't accidentally AdjustRoute against state from a cancelled session.
-  m_lastRoute.reset();
-  m_lastFakeEdges.reset();
-  m_lastAltRoute.reset();
-  m_lastAltFakeEdges.reset();
-}
-
-void IndexRouter::SwapAltRouteToActive()
-{
-  std::swap(m_lastRoute, m_lastAltRoute);
-  std::swap(m_lastFakeEdges, m_lastAltFakeEdges);
 }
 
 bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
@@ -420,41 +403,52 @@ void IndexRouter::SetGuides(GuidesTracks && guides)
 }
 
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                             bool adjustToPrevRoute, RouterDelegate const & delegate,
-                                             RoutesResult & result)
+                                             RouteAdjustmentContextPtr const & adjustmentContext,
+                                             RouterDelegate const & delegate, RoutesResult & result)
 {
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
 
   Route route;
   Route altRoute;
+  RouteAdjustmentContextPtr routeAdjustmentContext;
+  RouteAdjustmentContextPtr altAdjustmentContext;
   RouterResultCode code;
   RouterResultCode altCode = RouterResultCode::RouteNotFound;
 
   try
   {
-    SCOPE_GUARD(featureRoadGraphClear, [this] { ClearRouteCalculationState(); });
+    SCOPE_GUARD(featureRoadGraphClear, [this] { ClearState(); });
 
+    auto const previous = adjustmentContext.get();
     bool doCalculate = true;
-    if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges && finalPoint == m_lastRoute->GetFinish())
+    if (previous && finalPoint == previous->GetRoute().GetFinish())
     {
-      double const distanceToRoute = m_lastRoute->CalcDistance(startPoint);
+      double const distanceToRoute = previous->GetRoute().CalcDistance(startPoint);
       double const distanceToFinish = mercator::DistanceOnEarth(startPoint, finalPoint);
       if (distanceToRoute <= kAdjustRangeM && distanceToFinish >= kMinDistanceToFinishM)
       {
-        code = AdjustRoute(checkpoints, startDirection, delegate, route);
+        code = AdjustRoute(checkpoints, startDirection, *previous, delegate, route);
         if (code != RouterResultCode::RouteNotFound)
+        {
           doCalculate = false;
+          if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)
+          {
+            // AdjustRoute intentionally reuses the full build's state. Successive adjustments
+            // therefore keep a stable baseline instead of chaining from earlier adjustments.
+            routeAdjustmentContext = adjustmentContext;
+          }
+        }
         else
           LOG(LWARNING,
-              ("Can't adjust route, do full rebuild, prev start:", mercator::ToLatLon(m_lastRoute->GetStart()),
+              ("Can't adjust route, do full rebuild, prev start:", mercator::ToLatLon(previous->GetRoute().GetStart()),
                "start:", mercator::ToLatLon(startPoint), "finish:", mercator::ToLatLon(finalPoint)));
       }
     }
 
     if (doCalculate)
     {
-      code = DoCalculateRoute(checkpoints, startDirection, delegate, route);
+      code = DoCalculateRoute(checkpoints, startDirection, delegate, route, routeAdjustmentContext);
 
       // Compute an alternative alongside the Normal route. Only on a full (non-adjust) build and only
       // within a reasonable distance budget — the alternative search costs about 0.5-1x of the
@@ -466,19 +460,10 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       if ((code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) && !delegate.IsCancelled() &&
           mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
       {
-        // Save the Normal route's adjust-cache; the alternative computation would overwrite it.
-        auto savedLastRoute = std::move(m_lastRoute);
-        auto savedLastFakeEdges = std::move(m_lastFakeEdges);
         SCOPE_GUARD(restoreNormal, [&]
         {
           m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
           m_estimator->SetTransitAltFactors(1.0, 1.0);
-          // Save the alternative route's adjust-cache.
-          m_lastAltRoute = std::move(m_lastRoute);
-          m_lastAltFakeEdges = std::move(m_lastFakeEdges);
-          // Restore the Normal cache.
-          m_lastRoute = std::move(savedLastRoute);
-          m_lastFakeEdges = std::move(savedLastFakeEdges);
         });
 
         if (m_vehicleType == VehicleType::Transit)
@@ -493,7 +478,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
           m_estimator->SetStrategy(EdgeEstimator::Strategy::DistanceBiased,
                                    !m_guides.IsAttached() /* tightHeuristicAllowed */);
         }
-        altCode = DoCalculateRoute(checkpoints, startDirection, delegate, altRoute);
+        altCode = DoCalculateRoute(checkpoints, startDirection, delegate, altRoute, altAdjustmentContext);
       }
     }
   }
@@ -506,6 +491,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)
   {
+    ASSERT(routeAdjustmentContext, ());
     // Calculate middle point of the longest length-diff part. nullopt if routes are equal.
     // Transit is distinguished by fake transit (subway/bus) segments, so compare by geometry;
     // road vehicles compare by real-road feature identity.
@@ -518,9 +504,10 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                        : altRoute.FindMaxDiffMidpoint(route.GetRouteSegments());
     }
 
-    result.MakeFrom(GetName(), std::move(route));
+    result.MakeFrom(GetName(), std::move(route), std::move(routeAdjustmentContext));
     if (diffMidpoint)
     {
+      ASSERT(altAdjustmentContext, ());
       // Set mid-points for both routes.
       altRoute.SetDiffMidpoint(*diffMidpoint);
 
@@ -531,14 +518,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       if (diffMidpoint)
         active.SetDiffMidpoint(*diffMidpoint);
 
-      result.m_routes.emplace_back(std::move(static_cast<RouteBase &>(altRoute)));
-    }
-    else
-    {
-      // Alt isn't surfaced to the user — drop its adjust-cache so a stale state can't be
-      // promoted by a stray SwapAltRouteToActive.
-      m_lastAltRoute.reset();
-      m_lastAltFakeEdges.reset();
+      result.AddAlternative(std::move(altRoute), std::move(altAdjustmentContext));
     }
   }
 
@@ -679,10 +659,9 @@ void IndexRouter::AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom
 }
 
 RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                               RouterDelegate const & delegate, Route & route)
+                                               RouterDelegate const & delegate, Route & route,
+                                               RouteAdjustmentContextPtr & adjustmentContext)
 {
-  m_lastRoute.reset();
-
   TrafficStash::Guard guard(m_trafficStash);
   std::unique_ptr<WorldGraph> graph = MakeWorldGraph();
 
@@ -830,11 +809,13 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
 
   LOG(LINFO, ("Route length:", route.GetTotalDistanceMeters(), "meters. ETA:", route.GetTotalTimeSec(), "seconds."));
 
-  m_lastRoute = std::make_unique<SegmentedRoute>(checkpoints.GetStart(), checkpoints.GetFinish(), route.GetSubroutes());
+  auto segmentedRoute =
+      std::make_unique<SegmentedRoute>(checkpoints.GetStart(), checkpoints.GetFinish(), route.GetSubroutes());
   for (Segment const & segment : segments)
-    m_lastRoute->AddStep(segment, mercator::FromLatLon(starter->GetPoint(segment, true /* front */)));
+    segmentedRoute->AddStep(segment, mercator::FromLatLon(starter->GetPoint(segment, true /* front */)));
 
-  m_lastFakeEdges = std::make_unique<FakeEdgesContainer>(std::move(*starter));
+  auto fakeEdges = std::make_unique<FakeEdgesContainer>(std::move(*starter));
+  adjustmentContext = std::make_shared<RouteAdjustmentContext>(std::move(segmentedRoute), std::move(fakeEdges));
 
   return RouterResultCode::NoError;
 }
@@ -1171,6 +1152,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
 }
 
 RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                                          RouteAdjustmentContext const & adjustmentContext,
                                           RouterDelegate const & delegate, Route & route)
 {
   base::Timer timer;
@@ -1188,18 +1170,20 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
     return RouterResultCode::StartPointNotFound;
   }
 
-  auto const & lastSubroutes = m_lastRoute->GetSubroutes();
+  auto const & previousRoute = adjustmentContext.GetRoute();
+  auto const & previousFakeEdges = adjustmentContext.GetFakeEdges();
+  auto const & lastSubroutes = previousRoute.GetSubroutes();
   CHECK(!lastSubroutes.empty(), ());
-  auto const & lastSubroute = m_lastRoute->GetSubroute(checkpoints.GetPassedIdx());
+  auto const & lastSubroute = previousRoute.GetSubroute(checkpoints.GetPassedIdx());
 
-  auto const & steps = m_lastRoute->GetSteps();
+  auto const & steps = previousRoute.GetSteps();
   CHECK(!steps.empty(), ());
 
   FakeEnding dummy{};
-  IndexGraphStarter starter(MakeFakeEnding(startSegments, pointFrom, *graph), dummy, m_lastFakeEdges->GetNumFakeEdges(),
-                            bestSegmentIsAlmostCodirectional, *graph);
+  IndexGraphStarter starter(MakeFakeEnding(startSegments, pointFrom, *graph), dummy,
+                            previousFakeEdges.GetNumFakeEdges(), bestSegmentIsAlmostCodirectional, *graph);
 
-  starter.Append(*m_lastFakeEdges);
+  starter.Append(previousFakeEdges);
 
   std::vector<SegmentEdge> prevEdges;
   CHECK_LESS_OR_EQUAL(lastSubroute.GetEndSegmentIdx(), steps.size(), ());
