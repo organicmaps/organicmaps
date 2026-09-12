@@ -353,6 +353,7 @@
     <string name="type.junction.circular">गोल चक्कर</string>
     <string name="type.junction.roundabout">गोल चक्कर</string>
     <string name="type.landuse">भूमि उपयोग</string>
+    <string name="type.landuse.basin.intermittent">अस्थायी जलाशय</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">क़ब्रिस्तान</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -421,6 +422,7 @@
     <string name="type.natural.water.lake">झील</string>
     <string name="type.natural.water.pond">तालाब</string>
     <string name="type.natural.water.river">नदी</string>
+    <string name="type.natural.water.intermittent">अस्थायी जल निकाय</string>
     <string name="type.natural.land">भूमि</string>
     <string name="type.natural.meadow">घास का मैदान</string>
     <string name="type.natural.orchard">फलोद्यान</string>

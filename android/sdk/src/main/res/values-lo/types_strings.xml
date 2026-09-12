@@ -604,6 +604,7 @@
     <string name="type.landuse">ການນຳໃຊ້ທີ່ດິນ</string>
     <string name="type.landuse.allotments">ສວນຜັກຊຸມຊົນ</string>
     <string name="type.landuse.basin">ແອ່ງຮັບນໍ້າ</string>
+    <string name="type.landuse.basin.intermittent">ແອ່ງຮັບນໍ້າຊົ່ວຄາວ</string>
     <string name="type.landuse.brownfield">ພື້ນທີ່ລໍຖ້າການພັດທະນາ</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">ປ່າຊ້າ</string>
@@ -742,6 +743,7 @@
     <string name="type.natural.water.reservoir">ອ່າງເກັບນໍ້າ</string>
     <string name="type.natural.water.basin">ແອ່ງນໍ້າ</string>
     <string name="type.natural.water.river">ແມ່ນໍ້າ</string>
+    <string name="type.natural.water.intermittent">ແຫຼ່ງນ້ຳຊົ່ວຄາວ</string>
     <string name="type.natural.land">ພື້ນດິນ</string>
     <string name="type.natural.meadow">ທົ່ງຫຍ້າ</string>
     <string name="type.natural.orchard">ສວນໝາກໄມ້</string>

@@ -605,7 +605,8 @@
     <string name="type.junction.roundabout">Žiedinė sankryža</string>
     <string name="type.landuse">Žemėnauda</string>
     <string name="type.landuse.allotments">Sodų bendrija</string>
-    <string name="type.landuse.basin">Baseinas</string>
+    <string name="type.landuse.basin">Vandens baseinas</string>
+    <string name="type.landuse.basin.intermittent">Periodinis vandens baseinas</string>
     <string name="type.landuse.brownfield">Apleista teritorija</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Kapinės</string>
@@ -742,8 +743,9 @@
     <string name="type.natural.water.lock">Šliuzas</string>
     <string name="type.natural.water.pond">Tvenkinys</string>
     <string name="type.natural.water.reservoir">Vandens saugykla</string>
-    <string name="type.natural.water.basin">Baseinas</string>
+    <string name="type.natural.water.basin">Vandens baseinas</string>
     <string name="type.natural.water.river">Upė</string>
+    <string name="type.natural.water.intermittent">Periodinis vandens telkinys</string>
     <string name="type.natural.land">Sausuma</string>
     <string name="type.natural.meadow">Pievos</string>
     <string name="type.natural.orchard">Sodas</string>

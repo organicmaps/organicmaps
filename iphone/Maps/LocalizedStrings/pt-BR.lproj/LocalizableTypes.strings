@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Rotatória";
 "type.landuse" = "Uso do solo";
 "type.landuse.allotments" = "Horta comunitária";
-"type.landuse.basin" = "Reservatório";
+"type.landuse.basin" = "Bacia";
+"type.landuse.basin.intermittent" = "Bacia intermitente";
 "type.landuse.brownfield" = "Terreno industrial devoluto";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -870,8 +871,9 @@
 "type.natural.water.lock" = "Eclusa";
 "type.natural.water.pond" = "Lagoa";
 "type.natural.water.reservoir" = "Reservatório";
-"type.natural.water.basin" = "Reservatório";
+"type.natural.water.basin" = "Bacia";
 "type.natural.water.river" = "Rio";
+"type.natural.water.intermittent" = "Corpo de água intermitente";
 "type.natural.land" = "Terra";
 "type.natural.meadow" = "Pradaria";
 "type.natural.orchard" = "Pomar";

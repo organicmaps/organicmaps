@@ -606,6 +606,7 @@
     <string name="type.landuse">Uso del suolo</string>
     <string name="type.landuse.allotments">Orti comunitari</string>
     <string name="type.landuse.basin">Bacino d\'acqua</string>
+    <string name="type.landuse.basin.intermittent">Bacino intermittente</string>
     <string name="type.landuse.brownfield">Zona industriale</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Cimitero</string>
@@ -744,6 +745,7 @@
     <string name="type.natural.water.reservoir">Bacino idrico</string>
     <string name="type.natural.water.basin">Bacino d\'acqua</string>
     <string name="type.natural.water.river">Fiume</string>
+    <string name="type.natural.water.intermittent">Corpo d\'acqua intermittente</string>
     <string name="type.natural.land">Terra</string>
     <string name="type.natural.meadow">Prato</string>
     <string name="type.natural.orchard">Frutteto</string>

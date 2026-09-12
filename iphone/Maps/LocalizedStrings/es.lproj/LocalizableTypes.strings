@@ -719,6 +719,7 @@
 "type.landuse" = "Uso del suelo";
 "type.landuse.allotments" = "Huerto urbano";
 "type.landuse.basin" = "Cuenca";
+"type.landuse.basin.intermittent" = "Cuenca intermitente";
 "type.landuse.brownfield" = "Solar abandonado";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Embalse";
 "type.natural.water.basin" = "Cuenca";
 "type.natural.water.river" = "Río";
+"type.natural.water.intermittent" = "Cuerpo de agua intermitente";
 "type.natural.land" = "Tierra";
 "type.natural.meadow" = "Prado";
 "type.natural.orchard" = "Huerto frutal";

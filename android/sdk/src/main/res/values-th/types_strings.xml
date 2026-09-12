@@ -534,6 +534,7 @@
     <string name="type.internet_access">อินเทอร์เน็ต</string>
     <string name="type.internet_access.wlan">อินเทอร์เน็ต</string>
     <string name="type.landuse.basin">อ่างน้ำ</string>
+    <string name="type.landuse.basin.intermittent">อ่างน้ำชั่วคราว</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">สุสาน</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -626,6 +627,7 @@
     <string name="type.natural.water.reservoir">อ่างเก็บน้ำ</string>
     <string name="type.natural.water.basin">อ่างน้ำ</string>
     <string name="type.natural.water.river">แม่น้ำ</string>
+    <string name="type.natural.water.intermittent">แหล่งน้ำชั่วคราว</string>
     <string name="type.natural.land">พื้นดิน</string>
     <string name="type.natural.meadow">ทุ่งหญ้า</string>
     <string name="type.natural.orchard">สวนผลไม้</string>

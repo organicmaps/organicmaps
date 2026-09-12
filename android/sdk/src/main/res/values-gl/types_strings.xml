@@ -602,7 +602,8 @@
     <string name="type.junction.roundabout">Rotonda</string>
     <string name="type.landuse">Uso do adoito</string>
     <string name="type.landuse.allotments">Horto urbano</string>
-    <string name="type.landuse.basin">Cuenca</string>
+    <string name="type.landuse.basin">Cunca</string>
+    <string name="type.landuse.basin.intermittent">Cunca intermitente</string>
     <string name="type.landuse.brownfield">Solar abandonado</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Cemiterio</string>
@@ -737,8 +738,9 @@
     <string name="type.natural.water.lock">Esclusa</string>
     <string name="type.natural.water.pond">Estanque</string>
     <string name="type.natural.water.reservoir">Encoro</string>
-    <string name="type.natural.water.basin">Cuenca</string>
+    <string name="type.natural.water.basin">Cunca</string>
     <string name="type.natural.water.river">Río</string>
+    <string name="type.natural.water.intermittent">Corpo de auga intermitente</string>
     <string name="type.natural.land">Terra</string>
     <string name="type.natural.meadow">Prado</string>
     <string name="type.natural.orchard">Horto froiteiro</string>

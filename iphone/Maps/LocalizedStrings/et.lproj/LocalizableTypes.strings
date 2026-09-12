@@ -719,6 +719,7 @@
 "type.landuse" = "Maakasutus";
 "type.landuse.allotments" = "Aianduskrundid";
 "type.landuse.basin" = "Kogumisbassein";
+"type.landuse.basin.intermittent" = "Ajutine kogumisbassein";
 "type.landuse.brownfield" = "Pruunala";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Veehoidla";
 "type.natural.water.basin" = "Kogumisbassein";
 "type.natural.water.river" = "Jõgi";
+"type.natural.water.intermittent" = "Ajutine veekogu";
 "type.natural.land" = "Maa";
 "type.natural.meadow" = "Heinamaa";
 "type.natural.orchard" = "Viljapuuaed";

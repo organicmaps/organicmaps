@@ -525,7 +525,8 @@
     <string name="type.historic.wayside_cross">Salib di pinggir jalan</string>
     <string name="type.historic.wayside_shrine">Kuil di pinggir jalan</string>
     <string name="type.historic.wreck">Kecelakaan kapal</string>
-    <string name="type.landuse.basin">Sebuah baskom air</string>
+    <string name="type.landuse.basin">Kolam tampungan</string>
+    <string name="type.landuse.basin.intermittent">Kolam tampungan sementara</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Pemakaman</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -613,8 +614,9 @@
     <string name="type.natural.water.lock">Ruang Kunci</string>
     <string name="type.natural.water.pond">Kolam</string>
     <string name="type.natural.water.reservoir">Waduk</string>
-    <string name="type.natural.water.basin">Sebuah baskom air</string>
+    <string name="type.natural.water.basin">Kolam tampungan</string>
     <string name="type.natural.water.river">Sungai</string>
+    <string name="type.natural.water.intermittent">Perairan sementara</string>
     <string name="type.natural.land">Daratan</string>
     <string name="type.natural.meadow">Padang rumput</string>
     <string name="type.natural.orchard">Kebun</string>

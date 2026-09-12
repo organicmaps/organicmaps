@@ -604,6 +604,7 @@
     <string name="type.landuse">Ús del sòl</string>
     <string name="type.landuse.allotments">Horts</string>
     <string name="type.landuse.basin">Conca</string>
+    <string name="type.landuse.basin.intermittent">Conca intermitent</string>
     <string name="type.landuse.brownfield">Camp industrial</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Cementiri</string>
@@ -741,6 +742,7 @@
     <string name="type.natural.water.reservoir">Embassament</string>
     <string name="type.natural.water.basin">Conca</string>
     <string name="type.natural.water.river">Riu</string>
+    <string name="type.natural.water.intermittent">Massa d\'aigua intermitent</string>
     <string name="type.natural.land">Terreny</string>
     <string name="type.natural.meadow">Prat de dall</string>
     <string name="type.natural.orchard">Verger</string>

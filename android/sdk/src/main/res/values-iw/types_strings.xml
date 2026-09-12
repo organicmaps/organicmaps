@@ -596,6 +596,7 @@
     <string name="type.landuse">שימושי קרקע</string>
     <string name="type.landuse.allotments">חלקות חקלאיות</string>
     <string name="type.landuse.basin">אגן מים</string>
+    <string name="type.landuse.basin.intermittent">אגן מים זמני</string>
     <string name="type.landuse.brownfield">קרקע מזוהמת</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">בית קברות</string>
@@ -729,6 +730,7 @@
     <string name="type.natural.water.reservoir">מאגר מים</string>
     <string name="type.natural.water.basin">אגן מים</string>
     <string name="type.natural.water.river">נהר</string>
+    <string name="type.natural.water.intermittent">גוף מים זמני</string>
     <string name="type.natural.land">ארץ</string>
     <string name="type.natural.meadow">אָחוּ</string>
     <string name="type.natural.orchard">פרדס</string>
