@@ -59,8 +59,7 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   return !hasPosition || distanceInMeters > search::Result::kPopularityHighPriorityMinDistance;
 }
 
-jobject ToJavaResult(search::Result const & result, search::ProductInfo const & productInfo, bool hasPosition,
-                     double lat, double lon)
+jobject ToJavaResult(search::Result const & result, bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -128,8 +127,7 @@ jobject ToJavaResult(search::Result const & result, search::ProductInfo const & 
                         descRanges.get(), popularity.get());
 }
 
-jobjectArray BuildSearchResults(std::vector<search::ProductInfo> const & productInfo, bool hasPosition, double lat,
-                                double lon)
+jobjectArray BuildSearchResults(bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -137,14 +135,13 @@ jobjectArray BuildSearchResults(std::vector<search::ProductInfo> const & product
   jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
   for (jsize i = 0; i < count; i++)
   {
-    jni::TScopedLocalRef jRes(env, ToJavaResult(g_results[i], productInfo[i], hasPosition, lat, lon));
+    jni::TScopedLocalRef jRes(env, ToJavaResult(g_results[i], hasPosition, lat, lon));
     env->SetObjectArrayElement(jResults, i, jRes.get());
   }
   return jResults;
 }
 
-void OnResults(search::Results results, std::vector<search::ProductInfo> const & productInfo, jlong timestamp,
-               bool isMapAndTable, bool hasPosition, double lat, double lon)
+void OnResults(search::Results results, jlong timestamp, bool isMapAndTable, bool hasPosition, double lat, double lon)
 {
   // Ignore results from obsolete searches.
   if (g_queryTimestamp > timestamp)
@@ -155,7 +152,7 @@ void OnResults(search::Results results, std::vector<search::ProductInfo> const &
   if (!results.IsEndMarker() || results.IsEndedNormal())
   {
     g_results = std::move(results);
-    jni::TScopedLocalObjectArrayRef jResults(env, BuildSearchResults(productInfo, hasPosition, lat, lon));
+    jni::TScopedLocalObjectArrayRef jResults(env, BuildSearchResults(hasPosition, lat, lon));
     env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(), timestamp);
   }
 
@@ -268,7 +265,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
       jni::ToNativeString(env, lang),
       {},  // default timeout
       static_cast<bool>(isCategory),
-      std::bind(&OnResults, std::placeholders::_1, std::placeholders::_2, timestamp, false, hasPosition, lat, lon)};
+      std::bind(&OnResults, std::placeholders::_1, timestamp, false, hasPosition, lat, lon)};
   bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(params));
   if (searchStarted)
     g_queryTimestamp = timestamp;
@@ -295,12 +292,12 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInterac
 
   if (isMapAndTable)
   {
-    search::EverywhereSearchParams eparams{std::move(vparams.m_query),
-                                           std::move(vparams.m_inputLocale),
-                                           {},  // default timeout
-                                           static_cast<bool>(isCategory),
-                                           std::bind(&OnResults, std::placeholders::_1, std::placeholders::_2,
-                                                     timestamp, isMapAndTable, hasPosition, lat, lon)};
+    search::EverywhereSearchParams eparams{
+        std::move(vparams.m_query),
+        std::move(vparams.m_inputLocale),
+        {},  // default timeout
+        static_cast<bool>(isCategory),
+        std::bind(&OnResults, std::placeholders::_1, timestamp, isMapAndTable, hasPosition, lat, lon)};
 
     if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
     {

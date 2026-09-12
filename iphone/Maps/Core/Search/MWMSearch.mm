@@ -82,13 +82,12 @@ BOOL HandleIOSDebugCommand(NSString * query)
   self.lastSearchTimestamp += 1;
   NSUInteger const timestamp = self.lastSearchTimestamp;
 
-  search::EverywhereSearchParams params{
-      m_query,
-      m_locale,
-      {} /* default timeout */,
-      m_isCategory,
-      // m_onResults
-      [self, timestamp](search::Results results, std::vector<search::ProductInfo> productInfo)
+  search::EverywhereSearchParams params{m_query,
+                                        m_locale,
+                                        {} /* default timeout */,
+                                        m_isCategory,
+                                        // m_onResults
+                                        [self, timestamp](search::Results results)
   {
     // Store the flag first, because we will make move next.
     bool const isEndMarker = results.IsEndMarker();

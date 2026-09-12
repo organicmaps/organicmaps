@@ -132,20 +132,12 @@ struct CountriesInfo
   Affiliations m_affiliations;
   CountryNameSynonyms m_countryNameSynonyms;
 
-  /// @todo This containers are empty for now, but probably will be used in future.
-  /// @{
-  MwmTopCityGeoIds m_mwmTopCityGeoIds;
-  MwmTopCountryGeoIds m_mwmTopCountryGeoIds;
-  /// @}
-
   std::unordered_map<CountryId, std::string> m_mwmToOld;
 
   void Clear()
   {
     m_affiliations.clear();
     m_countryNameSynonyms.clear();
-    m_mwmTopCityGeoIds.clear();
-    m_mwmTopCountryGeoIds.clear();
     m_mwmToOld.clear();
   }
 };
