@@ -54,7 +54,6 @@ public:
                     NeedMoreMapsCallback const & needMoreMapsCallback, RemoveRouteCallback const & removeRouteCallback,
                     uint32_t timeoutSec, SessionState routeRebuildingState, bool adjustToPrevRoute);
 
-  m2::PointD GetStartPoint() const;
   m2::PointD GetEndPoint() const;
 
   bool IsActive() const;
