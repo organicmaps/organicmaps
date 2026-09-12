@@ -81,7 +81,7 @@ T TwoVectorsAngle(m2::Point<T> const & p, m2::Point<T> const & p1, m2::Point<T> 
 double AngleIn2PI(double ang);
 
 /// @return Oriented angle (<= PI) from rad1 to rad2.
-/// >0 - clockwise, <0 - counterclockwise
+/// >0 - counterclockwise, <0 - clockwise.
 double GetShortestDistance(double rad1, double rad2);
 
 double GetMiddleAngle(double a1, double a2);

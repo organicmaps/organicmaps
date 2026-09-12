@@ -25,6 +25,17 @@ protected:
 
 void FixupCarTurns(std::vector<RouteSegment> & routeSegments);
 
+/// Measures the roundabout path ending at |outgoingSegmentIndex| and sets m_hasExit. A validated ring
+/// center gives an exact polar sweep; otherwise both values come from the bends of the driven path,
+/// and the angle stays 0 when that path has fewer than two edges or contradicts the ring's own
+/// winding.
+turns::RoundaboutInfo CalcRoundaboutInfo(turns::IRoutingResult const & result, size_t outgoingSegmentIndex);
+
+/// Returns the circulation of the roundabout entered at |firstRoundaboutSegment|, measured over the
+/// whole driven part of the ring. FixupCarTurns() replaces it with the exit's complete metadata
+/// unless the route ends on the ring.
+turns::RoundaboutDirection CalcRoundaboutDirection(turns::IRoutingResult const & result, size_t firstRoundaboutSegment);
+
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.
  * \returns an index in |segments| that has the opposite direction with master segment

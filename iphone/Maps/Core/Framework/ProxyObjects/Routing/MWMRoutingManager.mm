@@ -135,8 +135,7 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 {
   if (!self.isRoutingActive)
     return nil;
-  routing::FollowingInfo info;
-  self.rm.GetRouteFollowingInfo(info);
+  auto const info = self.rm.GetRouteFollowingInfo();
   if (!info.IsValid())
     return nil;
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
