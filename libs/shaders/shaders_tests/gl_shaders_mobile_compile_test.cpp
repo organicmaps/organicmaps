@@ -6,23 +6,18 @@
 
 #include "base/file_name_utils.hpp"
 
-#include "base/logging.hpp"
-#include "base/thread_pool_delayed.hpp"
-
-#include <QtCore/QDebug>
-#include <QtCore/QDir>
 #include <QtCore/QProcess>
-#include <QtCore/QTemporaryFile>
-#include <QtCore/QTextStream>
+#include <QtCore/QTemporaryDir>
 
-#include <atomic>
-#include <chrono>
-#include <functional>
-#include <sstream>
+#include <fstream>
+#include <map>
 #include <string>
 #include <thread>
+#include <utility>
 #include <vector>
 
+namespace gl_shaders_mobile_compile_test
+{
 // Absolute path baked in by shaders_tests/CMakeLists.txt, so the test finds the compilers no matter
 // which directory it is started from. The xcode/shaders project does not define it and resolves the
 // compilers bundled into its Resources against the working directory.
@@ -42,241 +37,101 @@ std::string const kCompilerMaliOpenGLES3 = kMaliCompilerOpenGLES3Dir + "/malisc"
 std::string const kCompilerOpenGLES = "linux/glslangValidator";
 #endif
 
-std::string DebugPrint(QString const & s)
+QString GetCompilerPath(std::string const & compilerName)
 {
-  return s.toStdString();
+  std::string const compilerPath = base::JoinPath(kCompilersDir, compilerName);
+  TEST(GetPlatform().IsFileExistsByFullPath(compilerPath), ("Shader compiler path not found:", compilerPath));
+  return QString::fromStdString(compilerPath);
 }
 
-namespace
+// Writes each shader of all programs once. The file extension tells the compilers the shader stage.
+QStringList WriteShaders(QTemporaryDir const & dir, std::string const & defines)
 {
-void WriteShaderToFile(QTemporaryFile & file, std::string const & shader)
-{
-  QTextStream out(&file);
-  out << QString::fromStdString(shader);
-}
-
-using PrepareProcessFn = std::function<void(QProcess & p)>;
-using PrepareArgumentsFn = std::function<void(QStringList & args, QString const & fileName)>;
-using SuccessChecker = std::function<bool(QString const & output)>;
-
-std::map<std::string, std::string> GetVertexShaders(dp::ApiVersion apiVersion)
-{
-  std::map<std::string, std::string> shaders;
+  std::map<std::string, char const *> shaders;
   for (size_t i = 0; i < static_cast<size_t>(gpu::Program::ProgramsCount); ++i)
   {
-    auto const programInfo = gpu::GetProgramInfo(apiVersion, static_cast<gpu::Program>(i));
-    shaders[programInfo.m_vertexShaderName] = programInfo.m_vertexShaderSource;
+    auto const & info = gpu::GetProgramInfo(dp::ApiVersion::OpenGLES3, static_cast<gpu::Program>(i));
+    shaders[info.m_vertexShaderName + ".vert"] = info.m_vertexShaderSource;
+    shaders[info.m_fragmentShaderName + ".frag"] = info.m_fragmentShaderSource;
   }
-  return shaders;
-}
 
-std::map<std::string, std::string> GetFragmentShaders(dp::ApiVersion apiVersion)
-{
-  std::map<std::string, std::string> shaders;
-  for (size_t i = 0; i < static_cast<size_t>(gpu::Program::ProgramsCount); ++i)
+  QStringList paths;
+  for (auto const & [name, source] : shaders)
   {
-    auto const programInfo = gpu::GetProgramInfo(apiVersion, static_cast<gpu::Program>(i));
-    shaders[programInfo.m_fragmentShaderName] = programInfo.m_fragmentShaderSource;
+    paths << dir.filePath(QString::fromStdString(name));
+    std::ofstream(paths.back().toStdString()) << gpu::GLES3_SHADER_VERSION << defines << source;
   }
-  return shaders;
+  return paths;
 }
 
-void RunShaderTest(dp::ApiVersion apiVersion, std::string const & shaderName, QString const & glslCompiler,
-                   QString const & fileName, PrepareProcessFn const & procPrepare,
-                   PrepareArgumentsFn const & argsPrepare, SuccessChecker const & successChecker,
-                   QTextStream & errorLog)
+// Returns the exit code and the merged stdout and stderr, or -1 and the error if the compiler did not finish.
+std::pair<int, std::string> RunCompiler(QString const & compiler, QStringList const & args)
 {
   QProcess p;
-  procPrepare(p);
   p.setProcessChannelMode(QProcess::MergedChannels);
-  QStringList args;
-  argsPrepare(args, fileName);
-  p.start(glslCompiler, args, QIODevice::ReadOnly);
-
-  TEST(p.waitForStarted(), ("GLSL compiler not started", glslCompiler));
-
-  int32_t kFinishTimeoutInMs = 60000;
-  TEST(p.waitForFinished(kFinishTimeoutInMs), ("GLSL compiler not finished in time", glslCompiler));
-
-  QString result = p.readAllStandardOutput();
-  if (!successChecker(result))
-  {
-    errorLog << "\n"
-             << QString(DebugPrint(apiVersion).c_str()) << ": " << QString(shaderName.c_str())
-             << QString(": SHADER COMPILE ERROR:\n");
-    errorLog << result.trimmed() << "\n";
-  }
-}
-
-void TestShaders(dp::ApiVersion apiVersion, std::string const & defines, QString const & ext,
-                 std::map<std::string, std::string> const & shaders, QString const & glslCompiler,
-                 PrepareProcessFn const & procPrepare, PrepareArgumentsFn const & argsPrepare,
-                 SuccessChecker const & successChecker, QTextStream & errorLog)
-{
-  for (auto const & src : shaders)
-  {
-    // From QTemporaryFile documentation (https://doc.qt.io/qt-6/qtemporaryfile.html):
-    // "Specified filenames can contain the following template XXXXXX (six upper case "X" characters),
-    // which will be replaced by the auto-generated portion of the filename."
-    // A relative template would be resolved against the working directory.
-    QTemporaryFile srcFile(QDir::tempPath() + "/XXXXXX" + ext);
-    TEST(srcFile.open(), ("Temporary file can't be created!"));
-    std::string fullSrc;
-    if (apiVersion == dp::ApiVersion::OpenGLES3)
-      fullSrc = std::string(gpu::GLES3_SHADER_VERSION) + defines + src.second;
-    else
-      fullSrc = defines + src.second;
-    WriteShaderToFile(srcFile, fullSrc);
-    RunShaderTest(apiVersion, src.first, glslCompiler, srcFile.fileName(), procPrepare, argsPrepare, successChecker,
-                  errorLog);
-  }
-}
-
-std::string GetCompilerPath(std::string const & compilerName)
-{
-  Platform & platform = GetPlatform();
-  std::string compilerPath = base::JoinPath(kCompilersDir, compilerName);
-  TEST(platform.IsFileExistsByFullPath(compilerPath), ("Shader compiler path not found:", compilerPath));
-  return compilerPath;
-}
-}  // namespace
-
-struct CompilerData
-{
-  dp::ApiVersion m_apiVersion;
-  std::string m_compilerPath;
-};
-
-void CompileShaders(CompilerData const & compiler, std::string const & additionalDefines = {})
-{
-  auto successChecker = [](QString const & output) { return output.isEmpty(); };
-
-  QString errorLog;
-  QTextStream ss(&errorLog);
-
-  QString compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  auto argsPrepareFn = [](QStringList & args, QString const & fileName) { args << fileName; };
-
-  TestShaders(compiler.m_apiVersion, additionalDefines, ".vert", GetVertexShaders(compiler.m_apiVersion), compilerPath,
-              [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-  TestShaders(compiler.m_apiVersion, additionalDefines, ".frag", GetFragmentShaders(compiler.m_apiVersion),
-              compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-
-  TEST_EQUAL(errorLog.isEmpty(), true, ("Defines:", additionalDefines, "\n", errorLog));
+  p.start(compiler, args, QIODevice::ReadOnly);
+  if (!p.waitForFinished(60000 /* msecs */) || p.exitStatus() != QProcess::NormalExit)
+    return {-1, p.errorString().toStdString()};
+  return {p.exitCode(), p.readAllStandardOutput().toStdString()};
 }
 
 UNIT_TEST(MobileCompileShaders_Test)
 {
-  base::DelayedThreadPool workerThread(6 /* threadsCount */);
-
-  workerThread.Push([] { CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)}); });
-
-  workerThread.Push([]
-  { CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)}, "#define ENABLE_VTF\n"); });
-
-  workerThread.Shutdown(base::DelayedThreadPool::Exit::ExecPending);
-}
-
-struct MaliReleaseVersion
-{
-  QString m_series;
-  QString m_version;
-  bool m_availableForMacOS;
-};
-
-using MaliReleases = std::vector<MaliReleaseVersion>;
-
-struct MaliDriverSet
-{
-  QString m_driverName;
-  MaliReleases m_releases;
-};
-
-struct MaliCompilerData
-{
-  dp::ApiVersion m_apiVersion;
-  std::string m_compilerPath;
-  std::string m_compilerAdditionalPath;
-  std::vector<MaliDriverSet> m_driverSets;
-};
-
-void MaliCompileShaders(MaliCompilerData const & compiler, MaliDriverSet const & driverSet,
-                        MaliReleaseVersion const & version)
-{
-  auto successChecker = [](QString const & output) { return output.indexOf("Compilation succeeded.") != -1; };
-
-  QString errorLog;
-  QTextStream ss(&errorLog);
-
-  QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-  env.insert("MALICM_LOCATION", QString::fromStdString(compiler.m_compilerAdditionalPath));
-  auto procPrepare = [&env](QProcess & p) { p.setProcessEnvironment(env); };
-  QString shaderType = "-v";
-  auto argForming = [&](QStringList & args, QString const & fileName)
+  QString const compiler = GetCompilerPath(kCompilerOpenGLES);
+  for (char const * defines : {"", "#define ENABLE_VTF\n"})
   {
-    args << shaderType << "-r" << version.m_version << "-c" << version.m_series << "-d" << driverSet.m_driverName
-         << fileName;
-  };
-  QString const compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  TestShaders(compiler.m_apiVersion, "", {}, GetVertexShaders(compiler.m_apiVersion), compilerPath, procPrepare,
-              argForming, successChecker, ss);
-  shaderType = "-f";
-  TestShaders(compiler.m_apiVersion, "", {}, GetFragmentShaders(compiler.m_apiVersion), compilerPath, procPrepare,
-              argForming, successChecker, ss);
-  TEST(errorLog.isEmpty(), (shaderType, version.m_series, version.m_version, driverSet.m_driverName, "", errorLog));
+    QTemporaryDir const dir;
+    TEST(dir.isValid(), ());
+    QStringList const shaders = WriteShaders(dir, defines);
 
-  // MALI GPUs do not support ENABLE_VTF. Do not test it here.
+    // glslangValidator compiles the files separately and prints the name of each one before its errors and warnings.
+    auto const [exitCode, output] = RunCompiler(compiler, shaders);
+    TEST(exitCode == 0 && output == shaders.join('\n').toStdString() + '\n', ("Defines:", defines, "\n", output));
+  }
 }
 
 UNIT_TEST(MALI_MobileCompileShaders_Test)
 {
-  // The GPU core and its revision affect only the generated code, not whether a shader compiles, so test
-  // each driver with the newest GPU it supports.
-  std::vector<MaliDriverSet> const driversES3new = {{"Mali-T600_r3p0-00rel0", {{"Mali-T620", "r1p0", false}}},
-                                                    {"Mali-T600_r4p0-00rel0", {{"Mali-T620", "r1p0", true}}},
-                                                    {"Mali-T600_r4p1-00rel0", {{"Mali-T760", "r1p0", true}}},
-                                                    {"Mali-T600_r5p0-00rel0", {{"Mali-T760", "r1p0", true}}},
-                                                    {"Mali-T600_r5p1-00rel0", {{"Mali-T880", "r0p2", true}}},
-                                                    {"Mali-T600_r6p0-00rel0", {{"Mali-T880", "r1p0", true}}},
-                                                    {"Mali-T600_r7p0-00rel0", {{"Mali-T880", "r2p0", true}}},
-                                                    {"Mali-T600_r8p0-00rel0", {{"Mali-T880", "r2p0", true}}},
-                                                    {"Mali-T600_r9p0-00rel0", {{"Mali-T880", "r2p0", true}}},
-                                                    {"Mali-T600_r10p0-00rel0", {{"Mali-T880", "r2p0", true}}},
-                                                    {"Mali-T600_r11p0-00rel0", {{"Mali-T880", "r2p0", true}}},
-                                                    {"Mali-T600_r12p0-00rel0", {{"Mali-T880", "r2p0", true}}},
-                                                    {"Mali-T600_r13p0-00rel0", {{"Mali-T880", "r2p0", true}}},
-                                                    {"Mali-Gxx_r3p0-00rel0", {{"Mali-G71", "r0p0", false}}}};
+  QTemporaryDir const dir;
+  TEST(dir.isValid(), ());
+  // Mali GPUs do not support ENABLE_VTF.
+  QStringList const shaders = WriteShaders(dir, {});
 
-  std::vector<MaliCompilerData> const compilers = {{dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerMaliOpenGLES3),
-                                                    GetCompilerPath(kMaliCompilerOpenGLES3Dir), driversES3new}};
+  QString const compiler = GetCompilerPath(kCompilerMaliOpenGLES3);
+  QString const compilerDir = GetCompilerPath(kMaliCompilerOpenGLES3Dir);
+  qputenv("MALICM_LOCATION", compilerDir.toUtf8());
 
-  base::DelayedThreadPool workerThread(16 /* threadsCount */);
-  uint32_t counter = 0;
-  std::atomic<uint32_t> progressCounter(0);
-  for (auto const & compiler : compilers)
+  // Each bundled driver library is a separate compiler. Without -c and -r malisc targets the newest GPU core and
+  // revision of the driver, which affect only the generated code, not whether a shader compiles.
+  Platform::FilesList drivers;
+  Platform::GetFilesByRegExp(base::JoinPath(compilerDir.toStdString(), "openglessl"), R"(^libMali-.+\.(so|dylib)$)",
+                             drivers);
+  TEST(!drivers.empty(), ());
+
+  // Unlike glslangValidator, malisc concatenates its input files into one shader, so it runs once per shader.
+  // The drivers are independent, so each one runs in its own thread and collects its own errors.
+  std::vector<std::string> errors(drivers.size());
+  std::vector<std::thread> threads;
+  for (size_t i = 0; i < drivers.size(); ++i)
   {
-    for (auto const & set : compiler.m_driverSets)
+    threads.emplace_back([&, i]
     {
-      for (auto const & version : set.m_releases)
+      // libMali-T600_r13p0-00rel0.so -> Mali-T600_r13p0-00rel0
+      QString const driver = QString::fromStdString(base::FilenameWithoutExt(drivers[i]).substr(3));
+      for (auto const & shader : shaders)
       {
-#if defined(OMIM_OS_MAC)
-        if (!version.m_availableForMacOS)
-          continue;
-#endif
-        counter++;
-        workerThread.Push([&progressCounter, compiler, set, version]
-        {
-          MaliCompileShaders(compiler, set, version);
-          progressCounter++;
-        });
+        auto const [exitCode, output] = RunCompiler(compiler, {"-d", driver, shader});
+        if (exitCode != 0)
+          errors[i] += "\n" + drivers[i] + ": " + shader.toStdString() + ":\n" + output;
       }
-    }
+    });
   }
+  for (auto & thread : threads)
+    thread.join();
 
-  // Here we are in active waiting, because thread_pool::delayed::ThreadPool stops dispatching tasks
-  // to different threads in case of shutting down.
-  while (progressCounter < counter)
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-  workerThread.Shutdown(base::DelayedThreadPool::Exit::ExecPending);
+  std::string log;
+  for (auto const & error : errors)
+    log += error;
+  TEST(log.empty(), (log));
 }
+}  // namespace gl_shaders_mobile_compile_test
