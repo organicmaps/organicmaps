@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Exit animation for a screen being popped: slides back out to the right edge. -->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="250"
+    android:fromXDelta="0"
+    android:toXDelta="100%p"
+    android:interpolator="@android:interpolator/accelerate_cubic" />
