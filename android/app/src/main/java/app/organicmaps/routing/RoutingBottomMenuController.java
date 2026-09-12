@@ -191,6 +191,7 @@ final class RoutingBottomMenuController
               if (controller.getStartPoint() == null || controller.getEndPoint() == null)
                 return;
               controller.waitForPoiPick(RouteMarkType.Intermediate);
+              controller.appendStopPoiPick();
               openSearchForRoutePick();
             }
             @Override
