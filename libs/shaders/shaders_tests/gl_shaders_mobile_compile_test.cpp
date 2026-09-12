@@ -230,44 +230,6 @@ void MaliCompileShaders(MaliCompilerData const & compiler, MaliDriverSet const &
 
 UNIT_TEST(MALI_MobileCompileShaders_Test)
 {
-#if defined(OMIM_OS_MAC)
-  std::vector<MaliDriverSet> const driversES2old = {{"Mali-400_r4p0-00rel1",
-                                                     {{"Mali-200", "r0p1", true},
-                                                      {"Mali-200", "r0p2", true},
-                                                      {"Mali-200", "r0p3", true},
-                                                      {"Mali-200", "r0p4", true},
-                                                      {"Mali-200", "r0p5", true},
-                                                      {"Mali-200", "r0p6", true},
-                                                      {"Mali-400", "r0p0", true},
-                                                      {"Mali-400", "r0p1", true},
-                                                      {"Mali-400", "r1p0", true},
-                                                      {"Mali-400", "r1p1", true},
-                                                      {"Mali-300", "r0p0", true},
-                                                      {"Mali-450", "r0p0", true}}},
-                                                    {"Mali-T600_r4p0-00rel0",
-                                                     {{"Mali-T600", "r0p0", true},
-                                                      {"Mali-T600", "r0p0_15dev0", true},
-                                                      {"Mali-T600", "r0p1", true},
-                                                      {"Mali-T620", "r0p1", true},
-                                                      {"Mali-T620", "r1p0", true},
-                                                      {"Mali-T670", "r1p0", true}}},
-                                                    {"Mali-T600_r4p1-00rel0",
-                                                     {{"Mali-T600", "r0p0", true},
-                                                      {"Mali-T600", "r0p0_15dev0", true},
-                                                      {"Mali-T600", "r0p1", true},
-                                                      {"Mali-T620", "r0p1", true},
-                                                      {"Mali-T620", "r1p0", true},
-                                                      {"Mali-T620", "r1p1", true},
-                                                      {"Mali-T720", "r0p0", true},
-                                                      {"Mali-T720", "r1p0", true},
-                                                      {"Mali-T760", "r0p0", true},
-                                                      {"Mali-T760", "r0p1", true},
-                                                      {"Mali-T760", "r0p1_50rel0", true},
-                                                      {"Mali-T760", "r0p2", true},
-                                                      {"Mali-T760", "r0p3", true},
-                                                      {"Mali-T760", "r1p0", true}}}};
-#endif
-
   std::vector<MaliDriverSet> const driversES3new = {
       {"Mali-T600_r3p0-00rel0",
        {{"Mali-T600", "r0p0", false},
@@ -413,29 +375,6 @@ UNIT_TEST(MALI_MobileCompileShaders_Test)
         {"Mali-T860", "r1p0", true}, {"Mali-T860", "r2p0", true},        {"Mali-T880", "r1p0", true},
         {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true},        {"Mali-T880", "r2p0", true}}},
       {"Mali-Gxx_r3p0-00rel0", {{"Mali-G71", "r0p0", false}}}};
-
-  std::vector<MaliDriverSet> driversES2new = {{"Mali-400_r5p0-01rel0",
-                                               {{"Mali-300", "r0p0", true},
-                                                {"Mali-400", "r1p1", true},
-                                                {"Mali-400", "r1p0", true},
-                                                {"Mali-400", "r0p1", true},
-                                                {"Mali-400", "r0p0", true},
-                                                {"Mali-450", "r0p0", true}}},
-                                              {"Mali-400_r6p1-00rel0",
-                                               {{"Mali-400", "r1p1", true},
-                                                {"Mali-400", "r1p0", true},
-                                                {"Mali-400", "r0p1", true},
-                                                {"Mali-400", "r0p0", true},
-                                                {"Mali-450", "r0p0", true},
-                                                {"Mali-470", "r0p1", true}}},
-                                              {"Mali-400_r7p0-00rel0",
-                                               {{"Mali-400", "r1p1", true},
-                                                {"Mali-400", "r1p0", true},
-                                                {"Mali-400", "r0p1", true},
-                                                {"Mali-400", "r0p0", true},
-                                                {"Mali-450", "r0p0", true},
-                                                {"Mali-470", "r0p1", true}}}};
-  driversES2new.insert(driversES2new.end(), driversES3new.begin(), driversES3new.end());
 
   std::vector<MaliCompilerData> const compilers = {{dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerMaliOpenGLES3),
                                                     GetCompilerPath(kMaliCompilerOpenGLES3Dir), driversES3new}};
