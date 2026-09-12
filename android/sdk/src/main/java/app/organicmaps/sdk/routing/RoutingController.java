@@ -662,6 +662,9 @@ public class RoutingController
 
   public void waitForPoiPick(@NonNull RouteMarkType pointType)
   {
+    // Arming a pick always starts from a clean slate: the mode setters below are optional, so a leftover
+    // replace/append flag would otherwise silently change what the next, unrelated pick does.
+    resetPoiPickState();
     mWaitingPoiPickType = pointType;
   }
 
@@ -674,6 +677,14 @@ public class RoutingController
   public void appendStopPoiPick()
   {
     isPoiPickAppendStop = true;
+  }
+
+  public void cancelStopPoiPick()
+  {
+    // Start/Finish picks are finalized by set{Start,End}Point() after the search is torn down and need their
+    // pending state until then. Stop picks have no such finalizer, so an abandoned one is dropped here.
+    if (isPoiPickReplaceStop || isPoiPickAppendStop || mWaitingPoiPickType == RouteMarkType.Intermediate)
+      resetPoiPickState();
   }
 
   private void finalizePendingPoiPick()

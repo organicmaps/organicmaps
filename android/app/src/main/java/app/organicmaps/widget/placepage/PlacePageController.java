@@ -576,7 +576,7 @@ public class PlacePageController
     if (mMapObject == null)
       return;
     final RoutingController controller = RoutingController.get();
-    if (controller.isPoiPickAppendStop())
+    if (controller.isWaitingPoiPick() && controller.isPoiPickAppendStop())
       controller.appendStop(mMapObject);
     else
       controller.addStop(mMapObject);
