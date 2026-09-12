@@ -292,6 +292,7 @@ UNIT_CLASS_TEST(TestRawGenerator, AreaHighway)
   std::string const mwmName = "AreaHighway";
   BuildFB("./data/test_data/osm/highway_area.osm", mwmName);
 
+  // Water tunnels are not drawn, so the generator drops them; the pedestrian areas above stay.
   uint32_t const waterType = classif().GetTypeByPath({"natural", "water", "tunnel"});
   uint32_t const pedestrianType = classif().GetTypeByPath({"highway", "pedestrian", "area"});
 
@@ -304,7 +305,7 @@ UNIT_CLASS_TEST(TestRawGenerator, AreaHighway)
       ++pedestrians;
   });
 
-  TEST_EQUAL(waters, 2, ());
+  TEST_EQUAL(waters, 0, ());
   TEST_EQUAL(pedestrians, 4, ());
 }
 

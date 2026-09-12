@@ -38,7 +38,6 @@ natural-water-moat                                  # area z1- (also has caption
 natural-water-pond                                  # area z1- (also has caption z10-)
 natural-water-reservoir                             # area z1- (also has caption z10-)
 natural-water-river                                 # area z1- (also has caption z10-)
-natural-water-tunnel                                # area z15-
 waterway-dock                                       # area z1-
 === 20
 
