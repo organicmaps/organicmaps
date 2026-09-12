@@ -78,6 +78,11 @@ double constexpr kTransitMaxSpeedKMpH = 60.0;
 // Transit alternatives are exempt because they intentionally trade time for less walking.
 double constexpr kMaxAltEtaRatio = 1.5;
 
+// Transit has no distance-biased road model: its alternative biases walking legs and transfers
+// instead (e.g. a direct bus instead of subway + walk).
+double constexpr kTransitAltWalkFactor = 3.0;
+double constexpr kTransitAltTransferFactor = 2.0;
+
 bool IsAlternativeEtaAcceptable(VehicleType vehicleType, double activeEtaSec, double alternativeEtaSec)
 {
   return vehicleType == VehicleType::Transit || alternativeEtaSec <= kMaxAltEtaRatio * activeEtaSec;
@@ -484,7 +489,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         if (m_vehicleType == VehicleType::Transit)
         {
           // Rewrite walking and transfer/boarding penalty for the alternative route.
-          m_estimator->SetTransitAltFactors(3.0 /* walk */, 2.0 /* transfer */);
+          m_estimator->SetTransitAltFactors(kTransitAltWalkFactor, kTransitAltTransferFactor);
         }
         else
         {
