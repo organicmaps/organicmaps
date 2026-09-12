@@ -78,8 +78,8 @@ public:
                                            EdgeProj & proj) = 0;
 
   /// Swap the saved last-route state with the alternative's saved state. Called when the user
-  /// picks an alternative variant so a subsequent AdjustRoute (off-route rebuild) adjusts to
-  /// the selected route rather than the original primary. Default: no-op.
+  /// picks an alternative variant so subsequent adjustments and full rebuilds (off-route rebuilds)
+  /// keep the selected variant rather than the original primary. Default: no-op.
   virtual void SwapAltRouteToActive() {}
 };
 

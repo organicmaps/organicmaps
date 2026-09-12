@@ -83,6 +83,14 @@ bool IsAlternativeEtaAcceptable(VehicleType vehicleType, double activeEtaSec, do
   return vehicleType == VehicleType::Transit || alternativeEtaSec <= kMaxAltEtaRatio * activeEtaSec;
 }
 
+// The route to follow is built with one strategy and its alternative with the other one. More
+// alternatives would need a list of strategies here and an adjust-cache per route in IndexRouter.
+EdgeEstimator::Strategy OtherStrategy(EdgeEstimator::Strategy strategy)
+{
+  return strategy == EdgeEstimator::Strategy::Normal ? EdgeEstimator::Strategy::DistanceBiased
+                                                     : EdgeEstimator::Strategy::Normal;
+}
+
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
 double constexpr kAdjustRangeM = 5000.0;
 // Full rebuild if distance(meters) is less.
@@ -368,12 +376,19 @@ void IndexRouter::ClearState()
   m_lastFakeEdges.reset();
   m_lastAltRoute.reset();
   m_lastAltFakeEdges.reset();
+  // A new route starts from the default variant again.
+  m_activeStrategy = EdgeEstimator::Strategy::Normal;
 }
 
 void IndexRouter::SwapAltRouteToActive()
 {
   std::swap(m_lastRoute, m_lastAltRoute);
   std::swap(m_lastFakeEdges, m_lastAltFakeEdges);
+  // Keep rebuilding the variant the user follows instead of the fastest one (issue #13205). Transit
+  // keeps the default weights: its alternative also scales the walking weights that
+  // TransitWorldGraph::CheckLength budgets, so a rebuild with them could find no route at all.
+  if (m_vehicleType != VehicleType::Transit)
+    m_activeStrategy = OtherStrategy(m_activeStrategy);
 }
 
 bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
@@ -435,6 +450,12 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   {
     SCOPE_GUARD(featureRoadGraphClear, [this] { ClearRouteCalculationState(); });
 
+    // Both the adjustment and the full build below keep the strategy of the route the user follows.
+    // Guides edges are priced at max speed (see SetGuidesGraphParams), above the DistanceBiased cap,
+    // so the tighter heuristic is only valid without them. They are not attached to the graph yet,
+    // hence IsActive() and not IsAttached().
+    m_estimator->SetStrategy(m_activeStrategy, !m_guides.IsActive() /* tightHeuristicAllowed */);
+
     bool doCalculate = true;
     if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges && finalPoint == m_lastRoute->GetFinish())
     {
@@ -442,6 +463,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       double const distanceToFinish = mercator::DistanceOnEarth(startPoint, finalPoint);
       if (distanceToRoute <= kAdjustRangeM && distanceToFinish >= kMinDistanceToFinishM)
       {
+        // AdjustLengthChecker limits routing weight, not ETA. DistanceBiased weights cover less
+        // distance on fast roads within that budget, so adjustments can need a full rebuild sooner.
         code = AdjustRoute(checkpoints, startDirection, delegate, route);
         if (code != RouterResultCode::RouteNotFound)
           doCalculate = false;
@@ -456,27 +479,27 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     {
       code = DoCalculateRoute(checkpoints, startDirection, delegate, route);
 
-      // Compute an alternative alongside the Normal route. Only on a full (non-adjust) build and only
+      // Compute an alternative alongside the active route. Only on a full (non-adjust) build and only
       // within a reasonable distance budget — the alternative search costs about 0.5-1x of the
       // normal one (measured; the tight DistanceBiased heuristic keeps it cheap, see
-      // EdgeEstimator::CalcHeuristic). Non-transit profiles get a distance-biased alternative;
+      // EdgeEstimator::CalcHeuristic). Non-transit profiles get the route of the other strategy;
       // transit gets a less-walking / fewer-transfers alternative (e.g. a direct bus instead of
       // subway + walk).
       double const altMaxDistanceM = m_vehicleType == VehicleType::Car ? 300'000.0 : 100'000.0;
       if (needAlternatives && (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) &&
           !delegate.IsCancelled() && mercator::DistanceOnEarth(startPoint, finalPoint) <= altMaxDistanceM)
       {
-        // Save the Normal route's adjust-cache; the alternative computation would overwrite it.
+        // Save the active route's adjust-cache; the alternative computation would overwrite it.
         auto savedLastRoute = std::move(m_lastRoute);
         auto savedLastFakeEdges = std::move(m_lastFakeEdges);
-        SCOPE_GUARD(restoreNormal, [&]
+        SCOPE_GUARD(restoreActive, [&]
         {
           m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
           m_estimator->SetTransitAltFactors(1.0, 1.0);
           // Save the alternative route's adjust-cache.
           m_lastAltRoute = std::move(m_lastRoute);
           m_lastAltFakeEdges = std::move(m_lastFakeEdges);
-          // Restore the Normal cache.
+          // Restore the active one.
           m_lastRoute = std::move(savedLastRoute);
           m_lastFakeEdges = std::move(savedLastFakeEdges);
         });
@@ -490,8 +513,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         {
           // Guides edges are priced at max speed (see SetGuidesGraphParams call below), above the
           // DistanceBiased cap, so the tighter heuristic is only valid without attached guides.
-          m_estimator->SetStrategy(EdgeEstimator::Strategy::DistanceBiased,
-                                   !m_guides.IsAttached() /* tightHeuristicAllowed */);
+          m_estimator->SetStrategy(OtherStrategy(m_activeStrategy), !m_guides.IsAttached() /* tightHeuristicAllowed */);
         }
         altCode = DoCalculateRoute(checkpoints, startDirection, delegate, altRoute);
       }

@@ -11,6 +11,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -1045,6 +1046,83 @@ UNIT_TEST(India_Bangalore_ShortRoute)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(12.963008, 77.648966), {0., 0.},
                                    FromLatLon(12.9600501, 77.6451721), 1997.79);
+}
+
+// The variant the user picked must survive a rebuild: after switching to the shorter alternative,
+// recalculating the route (as happens after every off-route deviation) has to keep the
+// distance-biased weights instead of silently returning the fastest route again.
+// https://github.com/organicmaps/organicmaps/issues/13205
+UNIT_TEST(Germany_FrankfurtDarmstadt_KeepAlternativeAfterRebuild)
+{
+  auto & components = GetVehicleComponents(VehicleType::Car);
+  // Frankfurt -> Darmstadt: A5 motorway (fastest) vs the shorter B3 (about 1.4 km less).
+  Checkpoints const checkpoints(FromLatLon(50.1109, 8.6821), FromLatLon(49.8728, 8.6512));
+
+  // The router keeps the chosen variant until the next route is built; don't leak it into the
+  // tests that share these components.
+  SCOPE_GUARD(clearRouter, [&components] { components.GetRouter().ClearState(); });
+
+  auto const initial = CalculateRoutes(components, checkpoints);
+  TEST_EQUAL(initial.second, RouterResultCode::NoError, ());
+  TEST_EQUAL(initial.first.size(), 2, ());
+
+  double const fastestM = initial.first[0]->GetTotalDistanceMeters();
+  double const shortestM = initial.first[1]->GetTotalDistanceMeters();
+  TEST_LESS(shortestM, fastestM, ());
+
+  // The user switches to the shorter alternative, then the route is rebuilt.
+  components.GetRouter().SwapAltRouteToActive();
+
+  auto const rebuilt = CalculateRoutes(components, checkpoints);
+  TEST_EQUAL(rebuilt.second, RouterResultCode::NoError, ());
+  TEST_EQUAL(rebuilt.first.size(), 2, ());
+  TEST_ALMOST_EQUAL_ABS(rebuilt.first[0]->GetTotalDistanceMeters(), shortestM, 1.0, ());
+  TEST_ALMOST_EQUAL_ABS(rebuilt.first[1]->GetTotalDistanceMeters(), fastestM, 1.0, ());
+
+  // Switching back to the fastest one is remembered just the same.
+  components.GetRouter().SwapAltRouteToActive();
+
+  auto const restored = CalculateRoutes(components, checkpoints);
+  TEST_EQUAL(restored.second, RouterResultCode::NoError, ());
+  TEST_EQUAL(restored.first.size(), 2, ());
+  TEST_ALMOST_EQUAL_ABS(restored.first[0]->GetTotalDistanceMeters(), fastestM, 1.0, ());
+
+  // A new journey resets the choice, including when the distance-biased route was active.
+  components.GetRouter().SwapAltRouteToActive();
+  components.GetRouter().ClearState();
+  auto const newJourney = CalculateRoutes(components, checkpoints);
+  TEST_EQUAL(newJourney.second, RouterResultCode::NoError, ());
+  TEST_EQUAL(newJourney.first.size(), 2, ());
+  TEST_ALMOST_EQUAL_ABS(newJourney.first[0]->GetTotalDistanceMeters(), fastestM, 1.0, ());
+
+  // Move along the selected route far enough to exercise its cached suffix during adjustment.
+  auto const & selected = *newJourney.first[1];
+  auto const & segments = selected.GetRouteSegments();
+  auto const startIt = std::find_if(segments.begin(), segments.end(), [](RouteSegment const & segment)
+  { return segment.GetDistFromBeginningMeters() >= 2000.0; });
+  TEST(startIt != segments.end(), ());
+  Checkpoints const advanced(startIt->GetJunction().GetPoint(), checkpoints.GetFinish());
+  components.GetRouter().SwapAltRouteToActive();
+
+  RouterDelegate delegate;
+  RoutesResult adjusted;
+  TEST_EQUAL(components.GetRouter().CalculateRoute(advanced, {} /* startDirection */, true /* adjust */,
+                                                   true /* needAlternatives */, delegate, adjusted),
+             RouterResultCode::NoError, ());
+  TEST_EQUAL(adjusted.m_routes.size(), 1, ());
+  TEST_LESS(Route(adjusted.GetActive()).GetTotalDistanceMeters(), shortestM, ());
+
+  // An adjustment publishes only the active route, but must retain its strategy for a later
+  // full rebuild. Compare that rebuild with a fresh fastest-first calculation at the same start.
+  auto const afterAdjust = CalculateRoutes(components, advanced);
+  TEST_EQUAL(afterAdjust.second, RouterResultCode::NoError, ());
+  components.GetRouter().ClearState();
+  auto const reference = CalculateRoutes(components, advanced);
+  TEST_EQUAL(reference.second, RouterResultCode::NoError, ());
+  TEST_EQUAL(reference.first.size(), 2, ());
+  TEST_EQUAL(afterAdjust.first.size(), 2, ());
+  TEST_ALMOST_EQUAL_ABS(afterAdjust.first[0]->GetTotalDistanceMeters(), reference.first[1]->GetTotalDistanceMeters(),
+                        1.0, ());
 }
 
 }  // namespace route_test
