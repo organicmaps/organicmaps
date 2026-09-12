@@ -46,18 +46,25 @@ public final class Editor
   public static final int UPLOAD_RESULT_ERROR = 1;
   public static final int UPLOAD_RESULT_NOTHING_TO_UPLOAD = 2;
 
-  /**
-   * Blocks the calling thread until the upload completes, but no longer than five minutes. On
-   * timeout UPLOAD_RESULT_ERROR is returned while the upload keeps running in the background. The
-   * same value is returned immediately if a map edits upload is already in progress.
-   * @return one of UPLOAD_RESULT_* constants, or -1 if not authorized.
-   */
-  @WorkerThread
-  public static int uploadChanges()
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({UPLOAD_FAILED_NOT_AUTHORIZED, UPLOAD_RESULT_SUCCESS, UPLOAD_RESULT_ERROR, UPLOAD_RESULT_NOTHING_TO_UPLOAD})
+  public @interface UploadResult
+  {}
+
+  public interface UploadListener
+  {
+    /** Called exactly once: on a core network thread if an upload ran, else synchronously on the calling thread. */
+    @WorkerThread
+    void onUploadComplete(@UploadResult int result);
+  }
+
+  /** @param listener receives one of {@link UploadResult} values, see {@link UploadListener}. */
+  public static void uploadChanges(@NonNull UploadListener listener)
   {
     if (OsmOAuth.isAuthorized())
-      return nativeUploadChanges(OsmOAuth.getAuthToken(), Config.getVersionName(), Config.getApplicationId());
-    return UPLOAD_FAILED_NOT_AUTHORIZED;
+      nativeUploadChanges(OsmOAuth.getAuthToken(), Config.getVersionName(), Config.getApplicationId(), listener);
+    else
+      listener.onUploadComplete(UPLOAD_FAILED_NOT_AUTHORIZED);
   }
 
   public static native boolean nativeShouldShowEditPlace();
@@ -134,8 +141,8 @@ public final class Editor
   public static native boolean nativeIsNameValid(String name);
 
   public static native boolean nativeHasSomethingToUpload();
-  @WorkerThread
-  private static native int nativeUploadChanges(String oauthToken, String appVersion, String appId);
+  private static native void nativeUploadChanges(String oauthToken, String appVersion, String appId,
+                                                 UploadListener listener);
 
   public static native void nativeClearLocalEdits();
 
