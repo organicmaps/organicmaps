@@ -98,6 +98,44 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(Search.searchMode(), .everywhere)
   }
 
+  /// A debug command starts no search, even when it reports results. Counting it as a running search would
+  /// either leave it running forever or finish a search that never started, and completion of every later
+  /// search, CarPlay requests included, depends on that count.
+  func testDebugCommandsAreNotCountedAsRunningSearches() {
+    let observer = SearchObserverSpy()
+    Search.add(observer)
+    defer { Search.remove(observer) }
+
+    var reportedBatches = 0
+    let statusReported = expectation(description: "The status command reports its result with an end marker")
+    observer.onResultsUpdated = {
+      guard Search.resultsCount() > 0 else { return }
+      reportedBatches += 1
+      if reportedBatches == 2 {
+        statusReported.fulfill()
+      }
+    }
+
+    // Reports nothing.
+    Search.searchQuery(SearchQuery("?no-all-types", source: .typedText))
+    // Reports the map download server twice, the second time with an end marker.
+    Search.searchQuery(SearchQuery("?map-download-server", source: .typedText))
+    wait(for: [statusReported], timeout: 5)
+
+    XCTAssertEqual(observer.startedCount, 0)
+    XCTAssertEqual(observer.completedCount, 0)
+  }
+
+  private final class SearchObserverSpy: NSObject, MWMSearchObserver {
+    var startedCount = 0
+    var completedCount = 0
+    var onResultsUpdated: (() -> Void)?
+
+    func onSearchStarted() { startedCount += 1 }
+    func onSearchCompleted() { completedCount += 1 }
+    func onSearchResultsUpdated() { onResultsUpdated?() }
+  }
+
   func testEveryMapButtonHasAFocusedImage() {
     let template = CPMapTemplate()
 
