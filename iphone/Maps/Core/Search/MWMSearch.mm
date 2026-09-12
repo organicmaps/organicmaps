@@ -81,6 +81,8 @@ BOOL HandleIOSDebugCommand(NSString * query)
 {
   self.lastSearchTimestamp += 1;
   NSUInteger const timestamp = self.lastSearchTimestamp;
+  // A debug command starts no search, yet some commands still report results with an end marker.
+  auto const isStarted = std::make_shared<bool>(false);
 
   search::EverywhereSearchParams params{
       m_query,
@@ -88,7 +90,7 @@ BOOL HandleIOSDebugCommand(NSString * query)
       {} /* default timeout */,
       m_isCategory,
       // m_onResults
-      [self, timestamp](search::Results results, std::vector<search::ProductInfo> productInfo)
+      [self, timestamp, isStarted](search::Results results, std::vector<search::ProductInfo> productInfo)
   {
     // Store the flag first, because we will make move next.
     bool const isEndMarker = results.IsEndMarker();
@@ -101,12 +103,14 @@ BOOL HandleIOSDebugCommand(NSString * query)
       [self onSearchResultsUpdated];
     }
 
-    if (isEndMarker)
+    if (isEndMarker && *isStarted)
       self.searchCount -= 1;
   }};
 
-  GetFramework().GetSearchAPI().SearchEverywhere(std::move(params));
-  self.searchCount += 1;
+  // Results arrive on the main thread only after this method returns.
+  *isStarted = GetFramework().GetSearchAPI().SearchEverywhere(std::move(params));
+  if (*isStarted)
+    self.searchCount += 1;
 }
 
 - (void)searchInViewport
