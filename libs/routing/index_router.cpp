@@ -78,10 +78,13 @@ double constexpr kTransitMaxSpeedKMpH = 60.0;
 // Transit alternatives are exempt because they intentionally trade time for less walking.
 double constexpr kMaxAltEtaRatio = 1.5;
 
-// Transit has no distance-biased road model: its alternative biases walking legs and transfers
-// instead (e.g. a direct bus instead of subway + walk).
+// Transit has no distance-biased road model: its alternative biases walking legs and boardings
+// instead (e.g. a direct bus instead of subway + walk). The boarding penalty is a fixed amount per
+// boarding rather than a multiple of the line's expected wait: scaling the wait penalises
+// low-frequency lines (900 s default bus interval) instead of the number of transfers and hides a
+// direct bus behind a subway + bus combination.
 double constexpr kTransitAltWalkFactor = 3.0;
-double constexpr kTransitAltTransferFactor = 2.0;
+double constexpr kTransitAltBoardingPenaltyS = 5 * 60.0;
 
 bool IsAlternativeEtaAcceptable(VehicleType vehicleType, double activeEtaSec, double alternativeEtaSec)
 {
@@ -500,7 +503,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         SCOPE_GUARD(restoreActive, [&]
         {
           m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
-          m_estimator->SetTransitAltFactors(1.0, 1.0);
+          m_estimator->SetTransitAltFactors(1.0, 0.0);
           // Save the alternative route's adjust-cache.
           m_lastAltRoute = std::move(m_lastRoute);
           m_lastAltFakeEdges = std::move(m_lastFakeEdges);
@@ -511,8 +514,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
         if (m_vehicleType == VehicleType::Transit)
         {
-          // Rewrite walking and transfer/boarding penalty for the alternative route.
-          m_estimator->SetTransitAltFactors(kTransitAltWalkFactor, kTransitAltTransferFactor);
+          // Rewrite walking weights and add a boarding penalty for the alternative route.
+          m_estimator->SetTransitAltFactors(kTransitAltWalkFactor, kTransitAltBoardingPenaltyS);
         }
         else
         {

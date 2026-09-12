@@ -36,11 +36,16 @@ public:
   TransitGraph(NumMwmId numMwmId, std::shared_ptr<EdgeEstimator> estimator);
 
   LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) const;
-  RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
+  // Gate/edge weights come from the data and the gate projection hop is always ETA-priced, so the
+  // weight does not depend on EdgeEstimator::Purpose.
+  RouteWeight CalcSegmentWeight(Segment const & segment) const;
   RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
 
-  using EdgeListT = SmallList<SegmentEdge>;
-  void GetTransitEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
+  // Fake (transit graph) neighbours of a transit |segment|.
+  std::set<Segment> const & GetFakeEdges(Segment const & segment, bool isOutgoing) const
+  {
+    return m_fake.GetEdges(segment, isOutgoing);
+  }
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
 

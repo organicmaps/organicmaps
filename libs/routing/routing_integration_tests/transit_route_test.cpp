@@ -10,6 +10,17 @@ namespace transit_route_test
 {
 using namespace routing;
 
+namespace
+{
+bool HasTransitStep(TransitRouteInfo const & info, TransitType type)
+{
+  for (auto const & step : info.m_steps)
+    if (step.m_type == type)
+      return true;
+  return false;
+}
+}  // namespace
+
 UNIT_TEST(Transit_Moscow_CenterToKotelniki_CrossMwm)
 {
   TRouteResult routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -49,18 +60,18 @@ UNIT_TEST(Transit_Moscow_NoSubwayTest)
   integration::CheckSubwayAbsent(*routeResult.first);
 }
 
+// With the bus data, bus 65 beats the subway here: it walks 700 m less and has a lower ETA.
 UNIT_TEST(Transit_Piter_FrunzenskyaToPlochadVosstaniya)
 {
-  TRouteResult routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
-                                                         mercator::FromLatLon(59.90511, 30.31425), {0.0, 0.0},
-                                                         mercator::FromLatLon(59.93096, 30.35872));
+  auto & components = integration::GetVehicleComponents(VehicleType::Transit);
+  TRouteResult routeResult = integration::CalculateRoute(components, mercator::FromLatLon(59.90511, 30.31425),
+                                                         {0.0, 0.0}, mercator::FromLatLon(59.93096, 30.35872));
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TEST(routeResult.first, ());
 
   /// @todo Check https://github.com/organicmaps/organicmaps/issues/1669 for details.
-  integration::TestRouteLength(*routeResult.first, 5837.21);
-
-  TEST(routeResult.first, ());
-  integration::CheckSubwayExistence(*routeResult.first);
+  integration::TestRouteLength(*routeResult.first, 4813.37);
+  TEST(HasTransitStep(integration::GetTransitRouteInfo(components, *routeResult.first), TransitType::Bus), ());
 }
 
 /// @todo The last pedestrian segment should use a dedicated footway instead of a primary road.
@@ -82,7 +93,7 @@ UNIT_TEST(Transit_Piter_StrangeLastWalk)
   auto const & route = *routeResult.first;
 
   integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 22917.7);
+  integration::TestRouteLength(route, 20721.2);
   TEST_LESS(route.GetTotalTimeSec(), 5000, ());
 }
 
@@ -243,13 +254,12 @@ UNIT_TEST(Transit_BuenosAires_ParallelBusNumbers)
 // boarding gate's road attachment shapes the first walking leg.
 //
 // The transit and pedestrian routers use the SAME pedestrian model and estimator, so footway
-// preference is identical. The difference in the first subroute is not the model but the target: the
-// walk must reach the bus through the gate's road attachment (its |bestPedestrianSegment|), which the
-// generator's CalculateBestPedestrianSegments picks as the gate's geometrically NEAREST routable
-// segment by distance, ignoring highway class. Here that nearest segment is a highway=secondary, so
-// the first leg walks ~100 m of that secondary to board, shorter than (but less footway-friendly
-// than) the route a standalone pedestrian search to the stop point would take along the parallel
-// footway. This is a known artifact of distance-based gate attachment, not a routing-model bug.
+// preference is identical. The walk must reach the bus through the gate's road attachment (its
+// |bestPedestrianSegment|), which the generator's CalculateBestPedestrianSegments picks as the gate's
+// geometrically NEAREST routable segment by distance, ignoring highway class. Here that is a
+// highway=secondary whose end junction coincides with the stop, so the first leg reaches that
+// junction along the parallel footways (~118 m) rather than walking the secondary itself, the same
+// path a standalone pedestrian search to the stop point takes.
 UNIT_TEST(Transit_Minsk_PedestrianLegToGate)
 {
   TRoutesResult const routesResult = integration::CalculateRoutes(
@@ -261,10 +271,9 @@ UNIT_TEST(Transit_Minsk_PedestrianLegToGate)
 
   auto const & route = *routesResult.first[0];
   integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 3496.24, 0.1);
+  integration::TestRouteLength(route, 3514.87, 0.1);
 
-  // First subroute: the walk from the start to the first boarding runs along the highway=secondary
-  // the gate attaches to (see the note above), so it is ~100 m rather than the longer footway path.
+  // First subroute: the walk from the start to the first boarding along the footways (see above).
   auto const & segs = route.GetRouteSegments();
   size_t firstTransit = segs.size();
   for (size_t i = 0; i < segs.size(); ++i)
@@ -277,10 +286,10 @@ UNIT_TEST(Transit_Minsk_PedestrianLegToGate)
   }
   TEST_LESS(firstTransit, segs.size(), ("Route doesn't use transit."));
   double const startWalk = segs[firstTransit - 1].GetDistFromBeginningMeters();
-  TEST_ALMOST_EQUAL_ABS(startWalk, 99.5, 10.0, ());
+  TEST_ALMOST_EQUAL_ABS(startWalk, 118.4, 10.0, ());
 
   // Total walking length of the transit route (first leg + the short hop off the bus at the end).
-  TEST_ALMOST_EQUAL_ABS(integration::GetWalkDistanceMeters(route), 228.5, 20.0, ());
+  TEST_ALMOST_EQUAL_ABS(integration::GetWalkDistanceMeters(route), 247.1, 20.0, ());
 }
 
 namespace
@@ -335,20 +344,23 @@ UNIT_TEST(Transit_SPb_StartEndSnapping)
   TestTransitStartEndWalk(*res.first[0], cp.GetStart(), cp.GetFinish(), 2.0 /* maxFactor */);
 }
 
-// Singapore: the alternative (less-walking / fewer-transfers) route rides bus 88 and transfers to
-// bus 50. Verifies the alternative is generated and that its bus legs are, in order, bus 88 then
-// bus 50. Each leg also lists its parallel sibling on the shared segment (88A for 88, 159 for 50),
-// see GetSharedLineNumbers.
-UNIT_TEST(Transit_Singapore_Bus88To50Alternative)
+// Singapore: the start is ~60 m from a bus 82 stop, 650 m from the NEL subway. The primary route is
+// subway + bus 22; the alternative (less-walking / fewer-transfers) route rides bus 82 and transfers
+// to bus 22, walking a quarter of what the primary walks. Verifies the alternative is generated and
+// that its bus legs are, in order, bus 82 then bus 22; the second leg also lists the parallel 853
+// and 853M on the shared segment, see GetSharedLineNumbers.
+UNIT_TEST(Transit_Singapore_Bus82To22Alternative)
 {
   auto & components = integration::GetVehicleComponents(VehicleType::Transit);
   auto const res = integration::CalculateRoutes(
-      components, {mercator::FromLatLon(1.381243, 103.896809), mercator::FromLatLon(1.361733, 103.851884)});
+      components, {mercator::FromLatLon(1.38110, 103.89722), mercator::FromLatLon(1.361733, 103.851884)});
 
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
   auto const & routes = res.first;
   // A primary route plus exactly one alternative.
   TEST_EQUAL(routes.size(), 2, ());
+
+  TEST_LESS(integration::GetWalkDistanceMeters(*routes[1]), integration::GetWalkDistanceMeters(*routes[0]), ());
 
   TransitRouteInfo const info = integration::GetTransitRouteInfo(components, *routes[1]);
 
@@ -357,7 +369,25 @@ UNIT_TEST(Transit_Singapore_Bus88To50Alternative)
     if (step.m_type == TransitType::Bus)
       busNumbers.push_back(step.m_number);
 
-  TEST_EQUAL(busNumbers, std::vector<std::string>({"88, 88A", "50, 159"}), ());
+  TEST_EQUAL(busNumbers, std::vector<std::string>({"82", "22, 853, 853M"}), ());
+}
+
+// Warsaw: a short trip across the centre where trams 4, 16 and 18 run directly between the
+// checkpoints, while the M1 subway needs a ~600 m walk at the end. Bus and tram gates are stop
+// positions on the carriageway, so the hop from the sidewalk and the piece of sidewalk up to the next
+// junction must be priced as regular walking (not offroad) -> prefer tram.
+UNIT_TEST(Transit_Warsaw_TramVsSubway)
+{
+  auto & components = integration::GetVehicleComponents(VehicleType::Transit);
+  auto const res = integration::CalculateRoutes(
+      components, {mercator::FromLatLon(52.230526, 21.0112323), mercator::FromLatLon(52.2177522, 21.0209975)});
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  TEST(!res.first.empty(), ());
+
+  auto const & route = *res.first[0];
+  integration::TestRouteLength(route, 1816.39, 0.05);
+  TEST_LESS(integration::GetWalkDistanceMeters(route), 350.0, ());
+  TEST(HasTransitStep(integration::GetTransitRouteInfo(components, route), TransitType::Tram), ());
 }
 
 }  // namespace transit_route_test
