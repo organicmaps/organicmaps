@@ -605,7 +605,8 @@
     <string name="type.junction.roundabout">环形交叉口</string>
     <string name="type.landuse">土地利用要素</string>
     <string name="type.landuse.allotments">市民农园</string>
-    <string name="type.landuse.basin">水盆地</string>
+    <string name="type.landuse.basin">蓄水池</string>
+    <string name="type.landuse.basin.intermittent">间歇性蓄水池</string>
     <string name="type.landuse.brownfield">废弃的工业用地</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">墓地</string>
@@ -742,8 +743,9 @@
     <string name="type.natural.water.lock">船闸</string>
     <string name="type.natural.water.pond">池塘</string>
     <string name="type.natural.water.reservoir">水库</string>
-    <string name="type.natural.water.basin">水盆地</string>
+    <string name="type.natural.water.basin">蓄水池</string>
     <string name="type.natural.water.river">河流</string>
+    <string name="type.natural.water.intermittent">间歇性水体</string>
     <string name="type.natural.land">陆地</string>
     <string name="type.natural.meadow">草甸</string>
     <string name="type.natural.orchard">果园</string>

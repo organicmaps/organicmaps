@@ -591,6 +591,7 @@
     <string name="type.landuse">Markanvändning</string>
     <string name="type.landuse.allotments">Koloniträgdårdar</string>
     <string name="type.landuse.basin">Vattenbassäng</string>
+    <string name="type.landuse.basin.intermittent">Periodisk vattenbassäng</string>
     <string name="type.landuse.brownfield">Tidigare industriområde</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Begravningsplats</string>
@@ -724,6 +725,7 @@
     <string name="type.natural.water.reservoir">Reservoar</string>
     <string name="type.natural.water.basin">Vattenbassäng</string>
     <string name="type.natural.water.river">Flod</string>
+    <string name="type.natural.water.intermittent">Periodiskt vattenområde</string>
     <string name="type.natural.land">Landa</string>
     <string name="type.natural.meadow">Äng</string>
     <string name="type.natural.orchard">Fruktodling</string>

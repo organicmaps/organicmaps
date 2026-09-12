@@ -6,8 +6,10 @@
 
     <!-- SECTION: Types: Historic -->
     <string name="type.man_made.ceremonial_gate">Bieb ċerimonjali</string>
+    <string name="type.landuse.basin.intermittent">Għadira temporanja</string>
     <string name="type.leisure.track">Korsa sportiva</string>
     <string name="type.leisure.track.area">Korsa sportiva</string>
+    <string name="type.natural.water.intermittent">Ilma temporanju</string>
     <string name="type.natural.hill">Għolja</string>
     <string name="type.natural.arch">Arka tal-blat</string>
     <string name="type.natural.volcano.active">Volkan attiv</string>

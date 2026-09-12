@@ -719,6 +719,7 @@
 "type.landuse" = "Zagospodarowanie ziemi";
 "type.landuse.allotments" = "Działki";
 "type.landuse.basin" = "Zbiornik";
+"type.landuse.basin.intermittent" = "Zbiornik okresowy";
 "type.landuse.brownfield" = "Teren do zabudowy";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Zbiornik wodny";
 "type.natural.water.basin" = "Zbiornik";
 "type.natural.water.river" = "Rzeka";
+"type.natural.water.intermittent" = "Akwen okresowy";
 "type.natural.land" = "Grunt";
 "type.natural.meadow" = "Łąka";
 "type.natural.orchard" = "Sad";

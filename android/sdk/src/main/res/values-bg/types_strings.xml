@@ -483,7 +483,8 @@
     <string name="type.junction">Разклонение</string>
     <string name="type.junction.circular">Кръгово</string>
     <string name="type.junction.roundabout">Кръгово</string>
-    <string name="type.landuse.basin">Езерце</string>
+    <string name="type.landuse.basin">Резервоар</string>
+    <string name="type.landuse.basin.intermittent">Пресъхващ резервоар</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Гробище</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -539,6 +540,7 @@
     <string name="type.natural.water.reservoir">Язовир</string>
     <string name="type.natural.water.basin">Резервоар</string>
     <string name="type.natural.water.river">Река</string>
+    <string name="type.natural.water.intermittent">Пресъхващ водоем</string>
     <string name="type.natural.land">Суша</string>
     <string name="type.natural.meadow">Ливада</string>
     <string name="type.natural.orchard">Овощна градина</string>

@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Roundabout";
 "type.landuse" = "Landuse";
 "type.landuse.allotments" = "Allotments";
-"type.landuse.basin" = "Một chậu nước";
+"type.landuse.basin" = "Hồ điều hòa";
+"type.landuse.basin.intermittent" = "Hồ điều hòa tạm thời";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -870,8 +871,9 @@
 "type.natural.water.lock" = "Khoang khóa";
 "type.natural.water.pond" = "Ao";
 "type.natural.water.reservoir" = "Hồ chứa";
-"type.natural.water.basin" = "Một chậu nước";
+"type.natural.water.basin" = "Hồ điều hòa";
 "type.natural.water.river" = "Sông";
+"type.natural.water.intermittent" = "Thủy vực tạm thời";
 "type.natural.land" = "Đất liền";
 "type.natural.meadow" = "Thảo điền";
 "type.natural.orchard" = "Vườn cây ăn trái";

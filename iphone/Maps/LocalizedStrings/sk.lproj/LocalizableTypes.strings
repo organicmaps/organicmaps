@@ -719,6 +719,7 @@
 "type.landuse" = "Využitie pôdy";
 "type.landuse.allotments" = "Záhradky";
 "type.landuse.basin" = "Vodná nádrž";
+"type.landuse.basin.intermittent" = "Občasná vodná nádrž";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Priehradná nádrž";
 "type.natural.water.basin" = "Vodná nádrž";
 "type.natural.water.river" = "Rieka";
+"type.natural.water.intermittent" = "Občasná vodná plocha";
 "type.natural.land" = "Pôda";
 "type.natural.meadow" = "Lúka";
 "type.natural.orchard" = "Sad";

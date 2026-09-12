@@ -710,6 +710,9 @@ waterway-stream-intermittent                        # pathtext z13- (also has li
 waterway-weir                                       # pathtext z15- (also has line z14-)
 === 2900
 
+natural-water-intermittent                          # caption z10- (also has area z1-)
+=== 2890
+
 highway-ford                                        # icon z14- and pathtext z16- (also has line z13-)
 natural-rock                                        # icon z14- (also has caption(optional) z17-)
 === 2850

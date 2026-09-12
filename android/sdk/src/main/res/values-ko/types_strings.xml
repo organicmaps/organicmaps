@@ -532,7 +532,8 @@
     <string name="type.historic.wreck">난파선</string>
     <string name="type.internet_access">인터넷</string>
     <string name="type.internet_access.wlan">인터넷</string>
-    <string name="type.landuse.basin">저수지</string>
+    <string name="type.landuse.basin">유수지</string>
+    <string name="type.landuse.basin.intermittent">간헐적 유수지</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">묘소</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -621,10 +622,11 @@
     <string name="type.natural.hot_spring">온천</string>
     <string name="type.natural.water.lake">호수</string>
     <string name="type.natural.water.lock">잠금 챔버</string>
-    <string name="type.natural.water.pond">연못이</string>
+    <string name="type.natural.water.pond">연못</string>
     <string name="type.natural.water.reservoir">저수지</string>
-    <string name="type.natural.water.basin">저수지</string>
+    <string name="type.natural.water.basin">유수지</string>
     <string name="type.natural.water.river">강</string>
+    <string name="type.natural.water.intermittent">간헐적 수역</string>
     <string name="type.natural.land">땅</string>
     <string name="type.natural.meadow">초지</string>
     <string name="type.natural.orchard">과수원</string>

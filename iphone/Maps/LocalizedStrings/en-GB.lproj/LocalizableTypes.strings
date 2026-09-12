@@ -719,6 +719,7 @@
 "type.landuse" = "Landuse";
 "type.landuse.allotments" = "Allotments";
 "type.landuse.basin" = "Basin";
+"type.landuse.basin.intermittent" = "Intermittent Basin";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Reservoir";
 "type.natural.water.basin" = "Basin";
 "type.natural.water.river" = "River";
+"type.natural.water.intermittent" = "Intermittent Water";
 "type.natural.land" = "Land";
 "type.natural.meadow" = "Meadow";
 "type.natural.orchard" = "Orchard";

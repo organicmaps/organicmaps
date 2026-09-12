@@ -719,6 +719,7 @@
 "type.landuse" = "שימושי קרקע";
 "type.landuse.allotments" = "חלקות חקלאיות";
 "type.landuse.basin" = "אגן מים";
+"type.landuse.basin.intermittent" = "אגן מים זמני";
 "type.landuse.brownfield" = "קרקע מזוהמת";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "מאגר מים";
 "type.natural.water.basin" = "אגן מים";
 "type.natural.water.river" = "נהר";
+"type.natural.water.intermittent" = "גוף מים זמני";
 "type.natural.land" = "ארץ";
 "type.natural.meadow" = "אָחוּ";
 "type.natural.orchard" = "פרדס";

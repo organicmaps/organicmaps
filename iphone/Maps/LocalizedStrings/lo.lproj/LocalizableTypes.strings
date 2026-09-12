@@ -719,6 +719,7 @@
 "type.landuse" = "ການນຳໃຊ້ທີ່ດິນ";
 "type.landuse.allotments" = "ສວນຜັກຊຸມຊົນ";
 "type.landuse.basin" = "ແອ່ງຮັບນໍ້າ";
+"type.landuse.basin.intermittent" = "ແອ່ງຮັບນໍ້າຊົ່ວຄາວ";
 "type.landuse.brownfield" = "ພື້ນທີ່ລໍຖ້າການພັດທະນາ";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "ອ່າງເກັບນໍ້າ";
 "type.natural.water.basin" = "ແອ່ງນໍ້າ";
 "type.natural.water.river" = "ແມ່ນໍ້າ";
+"type.natural.water.intermittent" = "ແຫຼ່ງນ້ຳຊົ່ວຄາວ";
 "type.natural.land" = "ພື້ນດິນ";
 "type.natural.meadow" = "ທົ່ງຫຍ້າ";
 "type.natural.orchard" = "ສວນໝາກໄມ້";

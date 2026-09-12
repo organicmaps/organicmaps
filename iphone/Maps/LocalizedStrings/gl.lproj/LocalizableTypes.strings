@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Rotonda";
 "type.landuse" = "Uso do adoito";
 "type.landuse.allotments" = "Horto urbano";
-"type.landuse.basin" = "Cuenca";
+"type.landuse.basin" = "Cunca";
+"type.landuse.basin.intermittent" = "Cunca intermitente";
 "type.landuse.brownfield" = "Solar abandonado";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -870,8 +871,9 @@
 "type.natural.water.lock" = "Esclusa";
 "type.natural.water.pond" = "Estanque";
 "type.natural.water.reservoir" = "Encoro";
-"type.natural.water.basin" = "Cuenca";
+"type.natural.water.basin" = "Cunca";
 "type.natural.water.river" = "Río";
+"type.natural.water.intermittent" = "Corpo de auga intermitente";
 "type.natural.land" = "Terra";
 "type.natural.meadow" = "Prado";
 "type.natural.orchard" = "Horto froiteiro";

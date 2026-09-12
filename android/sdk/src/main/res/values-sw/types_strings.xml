@@ -283,6 +283,7 @@
     <string name="type.historic.wayside_shrine">Kaburi la njia</string>
     <string name="type.historic.wreck">Ajali ya meli</string>
     <string name="type.landuse.basin">Bonde la Maji</string>
+    <string name="type.landuse.basin.intermittent">Bonde la maji la muda</string>
     <string name="type.landuse.religious">Sehemu ya kanisa</string>
     <string name="type.landuse.churchyard">Sehemu ya kanisa</string>
     <string name="type.landuse.farmland">Shamba</string>
@@ -336,6 +337,7 @@
     <string name="type.natural.water.reservoir">Hifadhi</string>
     <string name="type.natural.water.basin">Bonde la Maji</string>
     <string name="type.natural.water.river">Mto</string>
+    <string name="type.natural.water.intermittent">Maji ya muda</string>
     <string name="type.natural.land">Nchi kavu</string>
     <string name="type.natural.meadow">Meadow</string>
     <string name="type.natural.orchard">Bustani</string>
