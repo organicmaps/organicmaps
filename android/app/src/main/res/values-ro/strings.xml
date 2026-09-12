@@ -659,8 +659,8 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Nume de marcaje pe hartă</string>
     <string name="bookmarks_text_placement_description">Dacă există prea multe marcaje, afișarea numelor acestora pe hartă poate încetini aplicația.</string>
-    <string name="show_to_the_right">Arată la dreapta</string>
-    <string name="show_at_the_bottom">Afișare în partea de jos</string>
+    <string name="show_to_the_right">Afișează în partea dreaptă</string>
+    <string name="show_at_the_bottom">Afișează în partea de jos</string>
     <string name="enable_logging_warning_message">Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.</string>
     <string name="driving_options_title">Opțiuni de ocolire</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

@@ -420,14 +420,15 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
              capitalization:UITextAutocapitalizationTypeNone];
 }
 
-- (void)configTextViewCell:(UITableViewCell * _Nonnull)cell
-                    cellID:(MWMEditorCellID)cellID
-                      icon:(NSString * _Nonnull)icon
-               placeholder:(NSString * _Nonnull)name
+- (void)configSocialContactCell:(UITableViewCell * _Nonnull)cell
+                         cellID:(MWMEditorCellID)cellID
+                           icon:(NSString * _Nonnull)icon
+                    placeholder:(NSString * _Nonnull)name
 {
   MetadataID metaId = static_cast<MetadataID>(cellID);
+  NSAssert(osm::isSocialContactTag(metaId), @"Expected a social contact metadata type");
   NSString * value = ToNSString(m_mapObject.GetMetadata(metaId));
-  if (osm::isSocialContactTag(metaId) && [value containsString:@"/"])
+  if ([value containsString:@"/"])
     value = ToNSString(osm::socialContactToURL(metaId, [value UTF8String]));
 
   MWMEditorTextTableViewCell * tCell = static_cast<MWMEditorTextTableViewCell *>(cell);
@@ -435,8 +436,8 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                        icon:[UIImage imageNamed:icon]
                        text:value
                 placeholder:name
-               keyboardType:UIKeyboardTypeDefault
-             capitalization:UITextAutocapitalizationTypeSentences];
+               keyboardType:UIKeyboardTypeURL
+             capitalization:UITextAutocapitalizationTypeNone];
 }
 
 - (void)fillCell:(UITableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
@@ -677,27 +678,27 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   }
   case MetadataID::FMD_CONTACT_FACEBOOK:
   {
-    [self configTextViewCell:cell cellID:cellID icon:@"ic_placepage_facebook" placeholder:L(@"facebook")];
+    [self configSocialContactCell:cell cellID:cellID icon:@"ic_placepage_facebook" placeholder:@"Facebook"];
     break;
   }
   case MetadataID::FMD_CONTACT_INSTAGRAM:
   {
-    [self configTextViewCell:cell cellID:cellID icon:@"ic_placepage_instagram" placeholder:L(@"instagram")];
+    [self configSocialContactCell:cell cellID:cellID icon:@"ic_placepage_instagram" placeholder:@"Instagram"];
     break;
   }
   case MetadataID::FMD_CONTACT_TWITTER:
   {
-    [self configTextViewCell:cell cellID:cellID icon:@"ic_placepage_twitter" placeholder:L(@"twitter")];
+    [self configSocialContactCell:cell cellID:cellID icon:@"ic_placepage_twitter" placeholder:@"X (Twitter)"];
     break;
   }
   case MetadataID::FMD_CONTACT_VK:
   {
-    [self configTextViewCell:cell cellID:cellID icon:@"ic_placepage_vk" placeholder:L(@"vk")];
+    [self configSocialContactCell:cell cellID:cellID icon:@"ic_placepage_vk" placeholder:@"VK"];
     break;
   }
   case MetadataID::FMD_CONTACT_LINE:
   {
-    [self configTextViewCell:cell cellID:cellID icon:@"ic_placepage_line" placeholder:L(@"line")];
+    [self configSocialContactCell:cell cellID:cellID icon:@"ic_placepage_line" placeholder:@"LINE"];
     break;
   }
   case MWMEditorCellTypeNote:
