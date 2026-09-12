@@ -926,4 +926,6 @@
     <string name="color_picker_grid">Grilja</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Tfittxija bil-vuċi</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Aqleb ir-rotta</string>
 </resources>

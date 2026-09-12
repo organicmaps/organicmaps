@@ -926,4 +926,6 @@
     <string name="color_picker_grid">グリッド</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">音声検索</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">ルートを反転</string>
 </resources>

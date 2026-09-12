@@ -936,4 +936,6 @@
     <string name="color_picker_grid">Tinklelis</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Balso paieška</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Apversti maršrutą</string>
 </resources>

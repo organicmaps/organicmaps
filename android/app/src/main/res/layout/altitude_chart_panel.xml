@@ -21,7 +21,8 @@
 
     <LinearLayout
       android:orientation="vertical"
-      android:layout_width="wrap_content"
+      android:layout_weight="1"
+      android:layout_width="0dp"
       android:layout_height="wrap_content">
 
       <TextView
@@ -35,19 +36,33 @@
         android:layout_marginTop="@dimen/margin_half"
         android:visibility="gone" />
 
-      <LinearLayout
+      <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/time_elevation_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
-        android:layout_marginBottom="@dimen/margin_half"
-        android:orientation="horizontal">
+        android:layout_marginBottom="@dimen/margin_half">
+
+        <!-- Wraps the elevation onto a second line instead of squeezing it out when the time is long. -->
+        <androidx.constraintlayout.helper.widget.Flow
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:constraint_referenced_ids="time,altitude_difference"
+          app:flow_horizontalBias="0"
+          app:flow_horizontalGap="@dimen/margin_half"
+          app:flow_horizontalStyle="packed"
+          app:flow_verticalAlign="top"
+          app:flow_verticalGap="@dimen/margin_quarter"
+          app:flow_wrapMode="chain"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
           android:id="@+id/time"
-          android:layout_width="0dp"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
           android:ellipsize="end"
           android:maxLines="2"
           tools:text="5 h 55 min • 1555km"
@@ -56,16 +71,15 @@
         <TextView
           android:id="@+id/altitude_difference"
           android:layout_width="wrap_content"
-          android:layout_height="@dimen/altitude_chart_time_distance_height"
+          android:layout_height="wrap_content"
           android:fontFamily="@string/robotoMedium"
           android:gravity="center"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           android:textColor="?colorAccent"
           android:visibility="gone"
           tools:text="↗ 43 m ↘ 88 m"
-          tools:visibility="visible"
-          android:layout_marginStart="@dimen/margin_half" />
-      </LinearLayout>
+          tools:visibility="visible" />
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
       <LinearLayout
         android:orientation="horizontal"
@@ -121,16 +135,28 @@
 
     </LinearLayout>
 
+    <ImageView
+      android:id="@+id/reverse_route_btn"
+      android:layout_width="@dimen/margin_double"
+      android:layout_height="@dimen/margin_double"
+      android:layout_marginStart="@dimen/margin_half"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:enabled="false"
+      android:contentDescription="@string/reverse_route"
+      app:srcCompat="@drawable/ic_swap_vert"
+      app:tint="?iconTint" />
+
     <FrameLayout
       android:id="@+id/driving_options_btn_container"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content">
 
       <ImageView
         android:id="@+id/driving_options_btn_img"
         android:layout_width="@dimen/margin_double"
         android:layout_height="@dimen/margin_double"
-        android:layout_gravity="end"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:srcCompat="@drawable/ic_menu_settings"
         app:tint="?iconTint" />
 
