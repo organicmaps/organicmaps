@@ -26,12 +26,16 @@ public:
   std::string const & GetApiID() const { return m_id; }
   void SetApiID(std::string const & id);
 
+  bool ShouldMatchFeature() const { return m_matchFeature; }
+  void SetMatchFeature(bool matchFeature) { m_matchFeature = matchFeature; }
+
   void SetStyle(df::ColorConstant style);
   df::ColorConstant GetStyle() const { return m_style; }
 
 private:
   std::string m_name;
   std::string m_id;
+  bool m_matchFeature = true;
 
   /// @todo Replace ColorConstant with std::string for possible future custom styles.
   df::ColorConstant m_style;

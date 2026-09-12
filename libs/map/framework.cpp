@@ -872,8 +872,16 @@ std::optional<kml::TrackData> Framework::TryBuildRelationTrack(Track::TrackSelec
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
 {
-  // An API point identifies a coordinate, not the feature underneath it (e.g. a large park).
-  GetSelectionProcessor().FillNotMatchedPlaceInfo(info, api.GetPivot(), api.GetName());
+  if (api.ShouldMatchFeature())
+  {
+    GetSelectionProcessor().FillPointInfo(info, api.GetPivot());
+    if (!api.GetName().empty())
+      info.SetCustomName(api.GetName());
+  }
+  else
+  {
+    GetSelectionProcessor().FillNotMatchedPlaceInfo(info, api.GetPivot(), api.GetName());
+  }
   info.SetApiId(api.GetApiID());
   info.SetApiUrl(GenerateApiBackUrl(api));
 }
