@@ -60,6 +60,7 @@
 #import "MWMSideButtons.h"
 #import "MWMSpeedCameraManagerMode.h"
 #import "MWMStorage+UI.h"
+#import "MWMTTSVoicePreviewPlayer.h"
 #import "MWMTableViewCell.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
