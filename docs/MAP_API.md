@@ -2,19 +2,23 @@
 
 `om://map` links normally match each coordinate to a nearby or enclosing map
 feature. A supplied `n` replaces the displayed name, while the matched feature's
-classification and metadata remain available. This also preserves the behavior of
-Organic Maps' own shared coordinate/name links.
+classification and metadata remain available. For an independently supplied place,
+spatial proximity does not establish that it is the same object: this can combine
+one place's name with an unrelated feature's identity, classification and metadata.
 
 A caller importing an independently identified place can append `match=none` after
 that point's `ll` to display its supplied coordinates and name without matching an
 OpenStreetMap feature:
 
 ```text
-om://map?v=1&ll=40.2113819,19.5793909&n=Restorant%20Iliria%20Llogora&match=none
+om://map?v=1&ll=1,2&n=Imported%20place&match=none
 ```
 
-This prevents an imported restaurant from inheriting an enclosing park's metadata,
-including when a different POI or building happens to occupy the same coordinate.
+This avoids associating the supplied place with a nearby or enclosing feature,
+including a different POI or building at the same coordinate. The caller explicitly
+chooses to keep the point independent rather than infer a feature identity from its
+location.
+
 An unnamed point is shown with the normal coordinate-based title. The point's
 `id` and the request's `backurl` retain their existing meanings.
 
