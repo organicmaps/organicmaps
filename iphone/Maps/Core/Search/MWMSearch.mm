@@ -77,10 +77,12 @@ BOOL HandleIOSDebugCommand(NSString * query)
   return self;
 }
 
-- (void)searchEverywhere
+- (BOOL)searchEverywhere
 {
   self.lastSearchTimestamp += 1;
   NSUInteger const timestamp = self.lastSearchTimestamp;
+  // A debug command starts no search, yet some commands still report results with an end marker.
+  auto const isStarted = std::make_shared<bool>(false);
 
   search::EverywhereSearchParams params{
       m_query,
@@ -88,7 +90,7 @@ BOOL HandleIOSDebugCommand(NSString * query)
       {} /* default timeout */,
       m_isCategory,
       // m_onResults
-      [self, timestamp](search::Results results, std::vector<search::ProductInfo> productInfo)
+      [self, timestamp, isStarted](search::Results results, std::vector<search::ProductInfo> productInfo)
   {
     // Store the flag first, because we will make move next.
     bool const isEndMarker = results.IsEndMarker();
@@ -101,15 +103,18 @@ BOOL HandleIOSDebugCommand(NSString * query)
       [self onSearchResultsUpdated];
     }
 
-    if (isEndMarker)
+    if (isEndMarker && *isStarted)
       self.searchCount -= 1;
   }};
 
-  GetFramework().GetSearchAPI().SearchEverywhere(std::move(params));
-  self.searchCount += 1;
+  // Results arrive on the main thread only after this method returns.
+  *isStarted = GetFramework().GetSearchAPI().SearchEverywhere(std::move(params));
+  if (*isStarted)
+    self.searchCount += 1;
+  return *isStarted;
 }
 
-- (void)searchInViewport
+- (BOOL)searchInViewport
 {
   search::ViewportSearchParams params{m_query,
                                       m_locale,
@@ -126,23 +131,25 @@ BOOL HandleIOSDebugCommand(NSString * query)
       self->m_viewportResults = std::move(results);
   }};
 
-  GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
+  return GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
 }
 
-- (void)update
+- (BOOL)update
 {
   if (m_query.empty())
-    return;
+    return NO;
 
+  BOOL isStarted = NO;
   switch (self.searchMode)
   {
-  case SearchModeEverywhere: [self searchEverywhere]; break;
-  case SearchModeViewport: [self searchInViewport]; break;
+  case SearchModeEverywhere: isStarted = [self searchEverywhere]; break;
+  case SearchModeViewport: isStarted = [self searchInViewport]; break;
   case SearchModeEverywhereAndViewport:
-    [self searchEverywhere];
+    isStarted = [self searchEverywhere];
     [self searchInViewport];
     break;
   }
+  return isStarted;
 }
 
 #pragma mark - Add/Remove Observers
@@ -173,10 +180,10 @@ BOOL HandleIOSDebugCommand(NSString * query)
   GetFramework().GetSearchAPI().SaveSearchQuery({std::move(locale), std::move(text)});
 }
 
-+ (void)searchQuery:(SearchQuery *)query
++ (BOOL)searchQuery:(SearchQuery *)query
 {
   if (!query.text)
-    return;
+    return NO;
 
   MWMSearch * manager = [MWMSearch manager];
   if (query.locale.length != 0)
@@ -189,7 +196,7 @@ BOOL HandleIOSDebugCommand(NSString * query)
   manager.textChanged = YES;
 
   [manager reset];
-  [manager update];
+  return [manager update];
 }
 
 + (void)showResultAtIndex:(NSUInteger)index
