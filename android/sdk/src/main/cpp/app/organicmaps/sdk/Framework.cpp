@@ -1451,9 +1451,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
   frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoints(JNIEnv * env, jclass, jobjectArray points)
 {
-  frm()->GetRoutingManager().RemoveRoutePoints();
+  frm()->GetRoutingManager().ReplaceRoutePoints(routing_jni::ToNativeRouteMarkDataArray(env, points));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,

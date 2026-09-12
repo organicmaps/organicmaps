@@ -1011,6 +1011,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
 
   if (removeRoutePoints)
   {
+    m_routePointsTransactions.clear();
     m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROUTING);
     CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
   }
@@ -1076,10 +1077,43 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderInterm
   }
 
   markData.m_isVisible = !markData.m_isMyPosition;
+  auto const type = markData.m_pointType;
+  auto const index = markData.m_intermediateIndex;
+  auto const count = routePoints.GetRoutePointsCount();
   routePoints.AddRoutePoint(std::move(markData));
 
-  if (reorderIntermediatePoints)
-    ReorderIntermediatePoints();
+  // At the point limit insertion is rejected; do not reorder the existing stop at this index.
+  if (reorderIntermediatePoints && type == RouteMarkType::Intermediate && routePoints.GetRoutePointsCount() > count)
+    ReorderIntermediatePoints(index);
+}
+
+void RoutingManager::ReplaceRoutePoints(std::vector<RouteMarkData> points)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_GREATER_OR_EQUAL(points.size(), 2, ());
+  CHECK_LESS_OR_EQUAL(points.size(), RoutePointsLayout::kMaxRoutePointsCount, ());
+  CloseRouting(true /* remove route points */);
+
+  // Batch mark creation in one edit session.
+  RoutePointsLayout layout(*m_bmManager);
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    auto & point = points[i];
+    point.m_pointType = i == 0                 ? RouteMarkType::Start
+                      : i + 1 == points.size() ? RouteMarkType::Finish
+                                               : RouteMarkType::Intermediate;
+    point.m_intermediateIndex = point.m_pointType == RouteMarkType::Intermediate ? i - 1 : 0;
+    point.m_isVisible = !point.m_isMyPosition;
+    if (point.m_isMyPosition && point.m_title.empty())
+      point.m_title = m_callbacks.m_stringsBundleGetter().GetString("core_my_position");
+    if (point.m_isMyPosition && m_bmManager->MyPositionMark().HasPosition())
+      point.m_position = m_bmManager->MyPositionMark().GetPivot();
+  }
+
+  layout.AddRoutePoint(std::move(points.front()));
+  layout.AddRoutePoint(std::move(points.back()));
+  for (size_t i = 1; i + 1 < points.size(); ++i)
+    layout.AddRoutePoint(std::move(points[i]));
 }
 
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
@@ -1205,7 +1239,7 @@ void RoutingManager::SetPointsFollowingMode(bool enabled)
   routePoints.SetFollowingMode(enabled);
 }
 
-void RoutingManager::ReorderIntermediatePoints()
+void RoutingManager::ReorderIntermediatePoints(size_t addedIndex)
 {
   RoutePointsLayout routePoints(*m_bmManager);
   size_t const reserveCount = routePoints.GetRoutePointsCount();
@@ -1217,14 +1251,17 @@ void RoutingManager::ReorderIntermediatePoints()
 
   RouteMarkPoint * addedPoint = nullptr;
   m2::PointD addedPosition;
-  for (auto const & p : routePoints.GetRoutePoints())
+  auto const points = routePoints.GetRoutePoints();
+  if (points.size() < 2 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return;
+
+  for (auto const & p : points)
   {
     CHECK(p, ());
     if (p->GetRoutePointType() == RouteMarkType::Intermediate)
     {
-      // Note. An added (new) intermediate point is the first intermediate point at |routePoints.GetRoutePoints()|.
-      // The other intermediate points are former ones.
-      if (addedPoint == nullptr)
+      if (p->GetIntermediateIndex() == addedIndex)
       {
         addedPoint = p;
         addedPosition = p->GetPivot();
@@ -1239,7 +1276,13 @@ void RoutingManager::ReorderIntermediatePoints()
   if (addedPoint == nullptr)
     return;
 
-  CheckpointPredictor predictor(m_routingSession.GetStartPoint(), m_routingSession.GetEndPoint());
+  auto const & myPosition = m_bmManager->MyPositionMark();
+  // An unresolved my-position mark can contain a placeholder pivot, not a usable routing origin.
+  if (!myPosition.HasPosition() && (points.front()->IsMyPosition() || points.back()->IsMyPosition()))
+    return;
+  auto const pivotOf = [&myPosition](RouteMarkPoint const * point)
+  { return point->IsMyPosition() ? myPosition.GetPivot() : point->GetPivot(); };
+  CheckpointPredictor predictor(pivotOf(points.front()), pivotOf(points.back()));
 
   size_t const insertIndex = predictor.PredictPosition(prevPositions, addedPosition);
   addedPoint->SetIntermediateIndex(insertIndex);
@@ -1609,39 +1652,32 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
     }
 
     auto points = DeserializeRoutePoints(data);
-    if (handler && points.empty())
+    if (points.empty())
     {
-      handler(false /* success */);
+      if (handler)
+        handler(false /* success */);
       return;
     }
 
     GetPlatform().RunTask(Platform::Thread::Gui, [this, handler, points = std::move(points)]() mutable
     {
       ASSERT(m_bmManager != nullptr, ());
-      // If we have found my position and the saved route used the user's position, we use my position as start point.
-      bool routeUsedPosition = false;
-      auto const & myPosMark = m_bmManager->MyPositionMark();
-      auto editSession = m_bmManager->GetEditSession();
-      editSession.ClearGroup(UserMark::Type::ROUTING);
-      for (auto & p : points)
+      // A new user/API itinerary can arrive while the saved file is being read.
+      if (IsRoutingActive() || GetRoutePointsCount() != 0)
       {
-        // Check if the saved route used the user's position
-        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start)
-          routeUsedPosition = true;
-
-        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
-        {
-          RouteMarkData startPt;
-          startPt.m_pointType = RouteMarkType::Start;
-          startPt.m_isMyPosition = true;
-          startPt.m_position = myPosMark.GetPivot();
-          AddRoutePoint(std::move(startPt));
-        }
-        else
-        {
-          AddRoutePoint(std::move(p));
-        }
+        if (handler)
+          handler(false /* success */);
+        return;
       }
+      auto const & myPosMark = m_bmManager->MyPositionMark();
+      bool const routeUsedPosition = points.front().m_replaceWithMyPositionAfterRestart;
+      if (routeUsedPosition && myPosMark.HasPosition())
+      {
+        points.front().m_isMyPosition = true;
+        points.front().m_title.clear();
+        points.front().m_subTitle.clear();
+      }
+      ReplaceRoutePoints(std::move(points));
 
       // If we don't have my position and the saved route used it, save loading timestamp.
       // Probably we will get my position soon.
