@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Žiedinė sankryža";
 "type.landuse" = "Žemėnauda";
 "type.landuse.allotments" = "Sodų bendrija";
-"type.landuse.basin" = "Baseinas";
+"type.landuse.basin" = "Vandens baseinas";
+"type.landuse.basin.intermittent" = "Periodinis vandens baseinas";
 "type.landuse.brownfield" = "Apleista teritorija";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -870,8 +871,9 @@
 "type.natural.water.lock" = "Šliuzas";
 "type.natural.water.pond" = "Tvenkinys";
 "type.natural.water.reservoir" = "Vandens saugykla";
-"type.natural.water.basin" = "Baseinas";
+"type.natural.water.basin" = "Vandens baseinas";
 "type.natural.water.river" = "Upė";
+"type.natural.water.intermittent" = "Periodinis vandens telkinys";
 "type.natural.land" = "Sausuma";
 "type.natural.meadow" = "Pievos";
 "type.natural.orchard" = "Sodas";

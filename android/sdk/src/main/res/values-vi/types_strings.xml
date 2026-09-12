@@ -530,7 +530,8 @@
     <string name="type.historic.wayside_cross">Đường chéo</string>
     <string name="type.historic.wayside_shrine">Đền thờ</string>
     <string name="type.historic.wreck">Sự chìm tàu</string>
-    <string name="type.landuse.basin">Một chậu nước</string>
+    <string name="type.landuse.basin">Hồ điều hòa</string>
+    <string name="type.landuse.basin.intermittent">Hồ điều hòa tạm thời</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Bãi tha ma</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -619,8 +620,9 @@
     <string name="type.natural.water.lock">Khoang khóa</string>
     <string name="type.natural.water.pond">Ao</string>
     <string name="type.natural.water.reservoir">Hồ chứa</string>
-    <string name="type.natural.water.basin">Một chậu nước</string>
+    <string name="type.natural.water.basin">Hồ điều hòa</string>
     <string name="type.natural.water.river">Sông</string>
+    <string name="type.natural.water.intermittent">Thủy vực tạm thời</string>
     <string name="type.natural.land">Đất liền</string>
     <string name="type.natural.meadow">Thảo điền</string>
     <string name="type.natural.orchard">Vườn cây ăn trái</string>

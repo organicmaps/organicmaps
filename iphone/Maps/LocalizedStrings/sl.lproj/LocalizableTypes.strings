@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Krožišče";
 "type.landuse" = "Raba zemljišč";
 "type.landuse.allotments" = "Vrtički";
-"type.landuse.basin" = "Bazen";
+"type.landuse.basin" = "Vodni bazen";
+"type.landuse.basin.intermittent" = "Občasni vodni bazen";
 "type.landuse.brownfield" = "Degradirano območje";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -870,8 +871,9 @@
 "type.natural.water.lock" = "Zapornica";
 "type.natural.water.pond" = "Ribnik";
 "type.natural.water.reservoir" = "Zadrževalnik";
-"type.natural.water.basin" = "Bazen";
+"type.natural.water.basin" = "Vodni bazen";
 "type.natural.water.river" = "Reka";
+"type.natural.water.intermittent" = "Občasna vodna površina";
 "type.natural.land" = "Zemljišče";
 "type.natural.meadow" = "Travnik";
 "type.natural.orchard" = "Sadovnjak";

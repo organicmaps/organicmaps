@@ -583,6 +583,7 @@
     <string name="type.landuse">Torpaqdan istifadə</string>
     <string name="type.landuse.allotments">Ayrılmalar</string>
     <string name="type.landuse.basin">Hövzə</string>
+    <string name="type.landuse.basin.intermittent">Müvəqqəti hövzə</string>
     <string name="type.landuse.brownfield">Tərk edilmiş Sənaye Zonası</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Məzarlıq</string>
@@ -706,12 +707,13 @@
     <string name="type.natural.grassland">Campo</string>
     <string name="type.natural.heath">Buş</string>
     <string name="type.natural.hot_spring">Spa</string>
-    <string name="type.natural.water.lake">Məqsəd</string>
+    <string name="type.natural.water.lake">Göl</string>
     <string name="type.natural.water.lock">Kilid otağı</string>
     <string name="type.natural.water.pond">Gölməçə</string>
     <string name="type.natural.water.reservoir">Su anbarı</string>
     <string name="type.natural.water.basin">Hövzə</string>
     <string name="type.natural.water.river">Çay</string>
+    <string name="type.natural.water.intermittent">Müvəqqəti su hövzəsi</string>
     <string name="type.natural.land">Torpaq</string>
     <string name="type.natural.meadow">Çəmən</string>
     <string name="type.natural.orchard">Meyvə bağı</string>
@@ -728,7 +730,7 @@
     <string name="type.natural.vineyard">Bond</string>
     <string name="type.natural.volcano">Vulkan</string>
     <string name="type.natural.volcano.active">Fəal vulkan</string>
-    <string name="type.natural.water">Su təchizatı</string>
+    <string name="type.natural.water">Su hövzəsi</string>
     <string name="type.natural.wetland">Bataqlıq</string>
     <string name="type.natural.wetland.bog">Bataqlıq</string>
     <string name="type.natural.wetland.marsh">Bataqlıq</string>

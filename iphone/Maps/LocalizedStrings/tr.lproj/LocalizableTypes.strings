@@ -719,6 +719,7 @@
 "type.landuse" = "Arazi Kullanımı";
 "type.landuse.allotments" = "Tahsisler";
 "type.landuse.basin" = "Havza";
+"type.landuse.basin.intermittent" = "Geçici havza";
 "type.landuse.brownfield" = "Terkedilmiş Endüstri Bölgesi";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Rezervuar";
 "type.natural.water.basin" = "Havza";
 "type.natural.water.river" = "Nehir";
+"type.natural.water.intermittent" = "Geçici su";
 "type.natural.land" = "Arazi";
 "type.natural.meadow" = "Çayır";
 "type.natural.orchard" = "Meyve Bahçesi";

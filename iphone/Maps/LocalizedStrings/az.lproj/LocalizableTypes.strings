@@ -719,6 +719,7 @@
 "type.landuse" = "Torpaqdan istifadə";
 "type.landuse.allotments" = "Ayrılmalar";
 "type.landuse.basin" = "Hövzə";
+"type.landuse.basin.intermittent" = "Müvəqqəti hövzə";
 "type.landuse.brownfield" = "Tərk edilmiş Sənaye Zonası";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -866,12 +867,13 @@
 "type.natural.grassland" = "Campo";
 "type.natural.heath" = "Buş";
 "type.natural.hot_spring" = "Spa";
-"type.natural.water.lake" = "Məqsəd";
+"type.natural.water.lake" = "Göl";
 "type.natural.water.lock" = "Kilid otağı";
 "type.natural.water.pond" = "Gölməçə";
 "type.natural.water.reservoir" = "Su anbarı";
 "type.natural.water.basin" = "Hövzə";
 "type.natural.water.river" = "Çay";
+"type.natural.water.intermittent" = "Müvəqqəti su hövzəsi";
 "type.natural.land" = "Torpaq";
 "type.natural.meadow" = "Çəmən";
 "type.natural.orchard" = "Meyvə bağı";
@@ -888,7 +890,7 @@
 "type.natural.vineyard" = "Bond";
 "type.natural.volcano" = "Vulkan";
 "type.natural.volcano.active" = "Fəal vulkan";
-"type.natural.water" = "Su təchizatı";
+"type.natural.water" = "Su hövzəsi";
 "type.natural.wetland" = "Bataqlıq";
 "type.natural.wetland.bog" = "Bataqlıq";
 "type.natural.wetland.marsh" = "Bataqlıq";

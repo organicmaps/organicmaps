@@ -606,6 +606,7 @@
     <string name="type.landuse">Arazi Kullanımı</string>
     <string name="type.landuse.allotments">Tahsisler</string>
     <string name="type.landuse.basin">Havza</string>
+    <string name="type.landuse.basin.intermittent">Geçici havza</string>
     <string name="type.landuse.brownfield">Terkedilmiş Endüstri Bölgesi</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Mezarlık</string>
@@ -744,6 +745,7 @@
     <string name="type.natural.water.reservoir">Rezervuar</string>
     <string name="type.natural.water.basin">Havza</string>
     <string name="type.natural.water.river">Nehir</string>
+    <string name="type.natural.water.intermittent">Geçici su</string>
     <string name="type.natural.land">Arazi</string>
     <string name="type.natural.meadow">Çayır</string>
     <string name="type.natural.orchard">Meyve Bahçesi</string>

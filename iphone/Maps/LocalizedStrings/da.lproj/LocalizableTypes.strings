@@ -719,6 +719,7 @@
 "type.landuse" = "Arealanvendelse";
 "type.landuse.allotments" = "Kolonihaveområde";
 "type.landuse.basin" = "Vandbassin";
+"type.landuse.basin.intermittent" = "Periodisk vandbassin";
 "type.landuse.brownfield" = "Forladt område";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Reservoir";
 "type.natural.water.basin" = "Vandbassin";
 "type.natural.water.river" = "Flod";
+"type.natural.water.intermittent" = "Periodisk vandområde";
 "type.natural.land" = "Land";
 "type.natural.meadow" = "Eng";
 "type.natural.orchard" = "Frugthave";

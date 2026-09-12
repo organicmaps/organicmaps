@@ -719,6 +719,7 @@
 "type.landuse" = "Ús del sòl";
 "type.landuse.allotments" = "Horts";
 "type.landuse.basin" = "Conca";
+"type.landuse.basin.intermittent" = "Conca intermitent";
 "type.landuse.brownfield" = "Camp industrial";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Embassament";
 "type.natural.water.basin" = "Conca";
 "type.natural.water.river" = "Riu";
+"type.natural.water.intermittent" = "Massa d'aigua intermitent";
 "type.natural.land" = "Terreny";
 "type.natural.meadow" = "Prat de dall";
 "type.natural.orchard" = "Verger";

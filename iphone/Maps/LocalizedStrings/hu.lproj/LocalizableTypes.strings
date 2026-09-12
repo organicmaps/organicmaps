@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Körforgalom";
 "type.landuse" = "Területhasználat";
 "type.landuse.allotments" = "Kiskertek";
-"type.landuse.basin" = "Víztározó";
+"type.landuse.basin" = "Medence";
+"type.landuse.basin.intermittent" = "Időszakos medence";
 "type.landuse.brownfield" = "Barnamezős terület";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -870,8 +871,9 @@
 "type.natural.water.lock" = "Zsilipkamra";
 "type.natural.water.pond" = "Tavacska";
 "type.natural.water.reservoir" = "Víztározó";
-"type.natural.water.basin" = "Vízgyűjtő";
+"type.natural.water.basin" = "Medence";
 "type.natural.water.river" = "Folyó";
+"type.natural.water.intermittent" = "Időszakos vízfelület";
 "type.natural.land" = "Föld";
 "type.natural.meadow" = "Rét";
 "type.natural.orchard" = "Gyümölcsöskert";

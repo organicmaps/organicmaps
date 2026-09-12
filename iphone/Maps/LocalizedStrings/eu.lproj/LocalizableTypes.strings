@@ -719,6 +719,7 @@
 "type.landuse" = "Lurzoruaren erabilera";
 "type.landuse.allotments" = "Baratze komunitatea";
 "type.landuse.basin" = "Arroa";
+"type.landuse.basin.intermittent" = "Aldizkako arroa";
 "type.landuse.brownfield" = "Industrialde ohia";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Urtegia";
 "type.natural.water.basin" = "Arroa";
 "type.natural.water.river" = "Ibai";
+"type.natural.water.intermittent" = "Aldizkako ur-masa";
 "type.natural.land" = "Lur lehor";
 "type.natural.meadow" = "Belardi";
 "type.natural.orchard" = "Baratzea";

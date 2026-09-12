@@ -605,6 +605,7 @@
     <string name="type.landuse">Përdorim toke</string>
     <string name="type.landuse.allotments">Kopshte</string>
     <string name="type.landuse.basin">Bazen</string>
+    <string name="type.landuse.basin.intermittent">Bazen i përkohshëm</string>
     <string name="type.landuse.brownfield">Zonë industriale e braktisur</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Varreza</string>
@@ -743,6 +744,7 @@
     <string name="type.natural.water.reservoir">Rezervuar</string>
     <string name="type.natural.water.basin">Bazen</string>
     <string name="type.natural.water.river">Lumë</string>
+    <string name="type.natural.water.intermittent">Ujë i përkohshëm</string>
     <string name="type.natural.land">Tokë</string>
     <string name="type.natural.meadow">Lëndinë</string>
     <string name="type.natural.orchard">Pemëtore</string>

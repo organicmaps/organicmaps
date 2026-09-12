@@ -544,6 +544,7 @@
     <string name="type.historic.wayside_shrine">Altarul de la marginea drumului</string>
     <string name="type.historic.wreck">Naufragiu</string>
     <string name="type.landuse.basin">Bazin de apă</string>
+    <string name="type.landuse.basin.intermittent">Bazin de apă temporar</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Cimitir</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -636,6 +637,7 @@
     <string name="type.natural.water.reservoir">Lac de acumulare</string>
     <string name="type.natural.water.basin">Bazin de apă</string>
     <string name="type.natural.water.river">Râu</string>
+    <string name="type.natural.water.intermittent">Corp de apă temporar</string>
     <string name="type.natural.land">Teren</string>
     <string name="type.natural.meadow">Fâneață</string>
     <string name="type.natural.orchard">Livadă</string>

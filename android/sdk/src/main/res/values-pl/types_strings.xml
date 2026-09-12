@@ -606,6 +606,7 @@
     <string name="type.landuse">Zagospodarowanie ziemi</string>
     <string name="type.landuse.allotments">Działki</string>
     <string name="type.landuse.basin">Zbiornik</string>
+    <string name="type.landuse.basin.intermittent">Zbiornik okresowy</string>
     <string name="type.landuse.brownfield">Teren do zabudowy</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Cmentarz</string>
@@ -744,6 +745,7 @@
     <string name="type.natural.water.reservoir">Zbiornik wodny</string>
     <string name="type.natural.water.basin">Zbiornik</string>
     <string name="type.natural.water.river">Rzeka</string>
+    <string name="type.natural.water.intermittent">Akwen okresowy</string>
     <string name="type.natural.land">Grunt</string>
     <string name="type.natural.meadow">Łąka</string>
     <string name="type.natural.orchard">Sad</string>

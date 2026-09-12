@@ -606,6 +606,7 @@
     <string name="type.landuse">Uso del suelo</string>
     <string name="type.landuse.allotments">Huerto urbano</string>
     <string name="type.landuse.basin">Cuenca</string>
+    <string name="type.landuse.basin.intermittent">Cuenca intermitente</string>
     <string name="type.landuse.brownfield">Solar abandonado</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Cementerio</string>
@@ -744,6 +745,7 @@
     <string name="type.natural.water.reservoir">Embalse</string>
     <string name="type.natural.water.basin">Cuenca</string>
     <string name="type.natural.water.river">Río</string>
+    <string name="type.natural.water.intermittent">Cuerpo de agua intermitente</string>
     <string name="type.natural.land">Tierra</string>
     <string name="type.natural.meadow">Prado</string>
     <string name="type.natural.orchard">Huerto frutal</string>

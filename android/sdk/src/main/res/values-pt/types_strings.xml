@@ -581,7 +581,8 @@
     <string name="type.junction.roundabout">Rotunda</string>
     <string name="type.landuse">Uso do solo</string>
     <string name="type.landuse.allotments">Horta comunitária</string>
-    <string name="type.landuse.basin">Reservatório</string>
+    <string name="type.landuse.basin">Bacia</string>
+    <string name="type.landuse.basin.intermittent">Bacia intermitente</string>
     <string name="type.landuse.brownfield">Terreno industrial devoluto</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Cemitério</string>
@@ -719,6 +720,7 @@
     <string name="type.natural.water.reservoir">Reservatório</string>
     <string name="type.natural.water.basin">Bacia</string>
     <string name="type.natural.water.river">Rio</string>
+    <string name="type.natural.water.intermittent">Corpo de água intermitente</string>
     <string name="type.natural.land">Terra</string>
     <string name="type.natural.meadow">Pradaria</string>
     <string name="type.natural.orchard">Pomar</string>

@@ -719,6 +719,7 @@
 "type.landuse" = "Përdorim toke";
 "type.landuse.allotments" = "Kopshte";
 "type.landuse.basin" = "Bazen";
+"type.landuse.basin.intermittent" = "Bazen i përkohshëm";
 "type.landuse.brownfield" = "Zonë industriale e braktisur";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Rezervuar";
 "type.natural.water.basin" = "Bazen";
 "type.natural.water.river" = "Lumë";
+"type.natural.water.intermittent" = "Ujë i përkohshëm";
 "type.natural.land" = "Tokë";
 "type.natural.meadow" = "Lëndinë";
 "type.natural.orchard" = "Pemëtore";

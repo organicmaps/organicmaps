@@ -719,6 +719,7 @@
 "type.landuse" = "Landnotkun";
 "type.landuse.allotments" = "Úthlutuð svæði";
 "type.landuse.basin" = "Lægð";
+"type.landuse.basin.intermittent" = "Tímabundin lægð";
 "type.landuse.brownfield" = "Órækt";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Uppistöðulón";
 "type.natural.water.basin" = "Lægð";
 "type.natural.water.river" = "Á";
+"type.natural.water.intermittent" = "Tímabundið vatn";
 "type.natural.land" = "Land";
 "type.natural.meadow" = "Skógarlundur";
 "type.natural.orchard" = "Trjágarður";

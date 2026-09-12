@@ -598,6 +598,7 @@
     <string name="type.landuse">Lurzoruaren erabilera</string>
     <string name="type.landuse.allotments">Baratze komunitatea</string>
     <string name="type.landuse.basin">Arroa</string>
+    <string name="type.landuse.basin.intermittent">Aldizkako arroa</string>
     <string name="type.landuse.brownfield">Industrialde ohia</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Hilerria</string>
@@ -717,6 +718,7 @@
     <string name="type.natural.water.reservoir">Urtegia</string>
     <string name="type.natural.water.basin">Arroa</string>
     <string name="type.natural.water.river">Ibai</string>
+    <string name="type.natural.water.intermittent">Aldizkako ur-masa</string>
     <string name="type.natural.land">Lur lehor</string>
     <string name="type.natural.meadow">Belardi</string>
     <string name="type.natural.orchard">Baratzea</string>

@@ -719,6 +719,7 @@
 "type.landuse" = "Հողօգտագործում";
 "type.landuse.allotments" = "Հողամասեր";
 "type.landuse.basin" = "Ավազան";
+"type.landuse.basin.intermittent" = "Ընդհատվող ավազան";
 "type.landuse.brownfield" = "Լքված տարածք";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Ջրամբար";
 "type.natural.water.basin" = "Ավազան";
 "type.natural.water.river" = "Գետ";
+"type.natural.water.intermittent" = "Ընդհատվող ջրային մարմին";
 "type.natural.land" = "Ցամաք";
 "type.natural.meadow" = "Մարգագետին";
 "type.natural.orchard" = "Պտղատու այգի";

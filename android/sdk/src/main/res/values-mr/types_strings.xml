@@ -503,6 +503,7 @@
     <string name="type.landuse">भूमी उपयोग</string>
     <string name="type.landuse.allotments">वाटप</string>
     <string name="type.landuse.basin">कुंड</string>
+    <string name="type.landuse.basin.intermittent">तात्पुरते कुंड</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">स्मशानभूमी</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -625,6 +626,7 @@
     <string name="type.natural.water.reservoir">जलाशय</string>
     <string name="type.natural.water.basin">कुंड</string>
     <string name="type.natural.water.river">नदी</string>
+    <string name="type.natural.water.intermittent">तात्पुरता पाणवठा</string>
     <string name="type.natural.land">जमीन</string>
     <string name="type.natural.meadow">कुरण</string>
     <string name="type.natural.orchard">फळबागा</string>

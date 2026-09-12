@@ -606,6 +606,7 @@
     <string name="type.landuse">Landgebruik</string>
     <string name="type.landuse.allotments">Volkstuinen</string>
     <string name="type.landuse.basin">Waterbassin</string>
+    <string name="type.landuse.basin.intermittent">Periodiek waterbassin</string>
     <string name="type.landuse.brownfield">Braakliggend terrein</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Begraafplaats</string>
@@ -744,6 +745,7 @@
     <string name="type.natural.water.reservoir">Reservoir</string>
     <string name="type.natural.water.basin">Waterbassin</string>
     <string name="type.natural.water.river">Rivier</string>
+    <string name="type.natural.water.intermittent">Periodiek waterlichaam</string>
     <string name="type.natural.land">Land</string>
     <string name="type.natural.meadow">Weiland</string>
     <string name="type.natural.orchard">Boomgaard</string>

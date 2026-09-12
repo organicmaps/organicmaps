@@ -719,6 +719,7 @@
 "type.landuse" = "Maankäyttö";
 "type.landuse.allotments" = "Siirtolapuutarha";
 "type.landuse.basin" = "Vesisäiliö";
+"type.landuse.basin.intermittent" = "Ajoittainen vesisäiliö";
 "type.landuse.brownfield" = "Tuhoalue";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Tekojärvi";
 "type.natural.water.basin" = "Vesisäiliö";
 "type.natural.water.river" = "Joki";
+"type.natural.water.intermittent" = "Ajoittainen vesialue";
 "type.natural.land" = "Maa";
 "type.natural.meadow" = "Niitty";
 "type.natural.orchard" = "Hedelmänviljely";

@@ -586,6 +586,7 @@
     <string name="type.landuse">Maankäyttö</string>
     <string name="type.landuse.allotments">Siirtolapuutarha</string>
     <string name="type.landuse.basin">Vesisäiliö</string>
+    <string name="type.landuse.basin.intermittent">Ajoittainen vesisäiliö</string>
     <string name="type.landuse.brownfield">Tuhoalue</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Hautausmaa</string>
@@ -703,6 +704,7 @@
     <string name="type.natural.water.reservoir">Tekojärvi</string>
     <string name="type.natural.water.basin">Vesisäiliö</string>
     <string name="type.natural.water.river">Joki</string>
+    <string name="type.natural.water.intermittent">Ajoittainen vesialue</string>
     <string name="type.natural.land">Maa</string>
     <string name="type.natural.meadow">Niitty</string>
     <string name="type.natural.orchard">Hedelmänviljely</string>

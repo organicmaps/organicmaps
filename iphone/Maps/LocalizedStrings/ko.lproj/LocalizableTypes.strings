@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Roundabout";
 "type.landuse" = "Landuse";
 "type.landuse.allotments" = "Allotments";
-"type.landuse.basin" = "저수지";
+"type.landuse.basin" = "유수지";
+"type.landuse.basin.intermittent" = "간헐적 유수지";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -868,10 +869,11 @@
 "type.natural.hot_spring" = "온천";
 "type.natural.water.lake" = "호수";
 "type.natural.water.lock" = "잠금 챔버";
-"type.natural.water.pond" = "연못이";
+"type.natural.water.pond" = "연못";
 "type.natural.water.reservoir" = "저수지";
-"type.natural.water.basin" = "저수지";
+"type.natural.water.basin" = "유수지";
 "type.natural.water.river" = "강";
+"type.natural.water.intermittent" = "간헐적 수역";
 "type.natural.land" = "땅";
 "type.natural.meadow" = "초지";
 "type.natural.orchard" = "과수원";

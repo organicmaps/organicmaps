@@ -719,6 +719,7 @@
 "type.landuse" = "Землевикористання";
 "type.landuse.allotments" = "Земельні ділянки";
 "type.landuse.basin" = "Резервуар";
+"type.landuse.basin.intermittent" = "Пересихаючий резервуар";
 "type.landuse.brownfield" = "Земля для будівництва";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Водосховище";
 "type.natural.water.basin" = "Резервуар";
 "type.natural.water.river" = "Річка";
+"type.natural.water.intermittent" = "Пересихаюче водоймище";
 "type.natural.land" = "Суша";
 "type.natural.meadow" = "Луг";
 "type.natural.orchard" = "Сад";

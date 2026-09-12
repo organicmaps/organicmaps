@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Кръгово";
 "type.landuse" = "Landuse";
 "type.landuse.allotments" = "Allotments";
-"type.landuse.basin" = "Езерце";
+"type.landuse.basin" = "Резервоар";
+"type.landuse.basin.intermittent" = "Пресъхващ резервоар";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -872,6 +873,7 @@
 "type.natural.water.reservoir" = "Язовир";
 "type.natural.water.basin" = "Резервоар";
 "type.natural.water.river" = "Река";
+"type.natural.water.intermittent" = "Пресъхващ водоем";
 "type.natural.land" = "Суша";
 "type.natural.meadow" = "Ливада";
 "type.natural.orchard" = "Овощна градина";

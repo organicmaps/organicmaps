@@ -583,7 +583,8 @@
     <string name="type.junction.roundabout">Krožišče</string>
     <string name="type.landuse">Raba zemljišč</string>
     <string name="type.landuse.allotments">Vrtički</string>
-    <string name="type.landuse.basin">Bazen</string>
+    <string name="type.landuse.basin">Vodni bazen</string>
+    <string name="type.landuse.basin.intermittent">Občasni vodni bazen</string>
     <string name="type.landuse.brownfield">Degradirano območje</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Pokopališče</string>
@@ -712,8 +713,9 @@
     <string name="type.natural.water.lock">Zapornica</string>
     <string name="type.natural.water.pond">Ribnik</string>
     <string name="type.natural.water.reservoir">Zadrževalnik</string>
-    <string name="type.natural.water.basin">Bazen</string>
+    <string name="type.natural.water.basin">Vodni bazen</string>
     <string name="type.natural.water.river">Reka</string>
+    <string name="type.natural.water.intermittent">Občasna vodna površina</string>
     <string name="type.natural.land">Zemljišče</string>
     <string name="type.natural.meadow">Travnik</string>
     <string name="type.natural.orchard">Sadovnjak</string>
