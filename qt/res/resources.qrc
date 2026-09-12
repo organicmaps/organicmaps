@@ -1,43 +1,37 @@
 <RCC>
     <qresource prefix="/navig64">
-        <file>search.png</file>
-        <file>up.png</file>
-        <file>down.png</file>
-        <file>left.png</file>
-        <file>right.png</file>
-        <file>world.png</file>
-        <file>download.png</file>
-        <file>location-search.png</file>
-        <file>location.png</file>
-        <file>select.png</file>
-        <file>selectmode.png</file>
-        <file>clear.png</file>
-        <file>traffic.png</file>
-        <file>city_boundaries.png</file>
-        <file>city_roads.png</file>
-        <file>point-finish.png</file>
-        <file>point-intermediate.png</file>
-        <file>point-start.png</file>
-        <file>clear-route.png</file>
-        <file>routing.png</file>
-        <file>run.png</file>
-        <file>bug.png</file>
-        <file>chart.png</file>
-        <file>test.png</file>
-        <file>geom.png</file>
-        <file>phonepack.png</file>
-        <file>bookmark.png</file>
-        <file>ruler.png</file>
-        <file>layers.png</file>
-        <file>subway.png</file>
-        <file>isolines.png</file>
-        <file>guides.png</file>
-        <file>settings-routing.png</file>
-        <file>borders_selection.png</file>
+        <file alias="bookmark.svg">bookmark.svg</file>
+        <file alias="borders_selection.svg">borders_selection.svg</file>
+        <file alias="bug.svg">bug.svg</file>
+        <file alias="chart.svg">chart.svg</file>
+        <file alias="city_boundaries.svg">city_boundaries.svg</file>
+        <file alias="city_roads.svg">city_roads.svg</file>
+        <file alias="clear.svg">clear.svg</file>
+        <file alias="clear-route.svg">clear-route.svg</file>
+        <file alias="download.svg">download.svg</file>
+        <file alias="geom.svg">geom.svg</file>
+        <file alias="isolines.svg">isolines.svg</file>
+        <file alias="layers.svg">layers.svg</file>
+        <file alias="location.svg">location.svg</file>
+        <file alias="location-search.svg">location-search.svg</file>
+        <file alias="phonepack.svg">phonepack.svg</file>
+        <file alias="point-finish.svg">point-finish.svg</file>
+        <file alias="point-intermediate.svg">point-intermediate.svg</file>
+        <file alias="point-start.svg">point-start.svg</file>
+        <file alias="routing.svg">routing.svg</file>
+        <file alias="ruler.svg">ruler.svg</file>
+        <file alias="run.svg">run.svg</file>
+        <file alias="search.svg">search.svg</file>
+        <file alias="select.svg">select.svg</file>
+        <file alias="selectmode.svg">selectmode.svg</file>
+        <file alias="settings-routing.svg">settings-routing.svg</file>
+        <file alias="subway.svg">subway.svg</file>
+        <file alias="test.svg">test.svg</file>
+        <file alias="traffic.svg">traffic.svg</file>
     </qresource>
     <qresource prefix="/ui">
-        <file>logo.png</file>
-        <file>busy.png</file>
-        <file>x.png</file>
+        <file alias="logo.png">logo.png</file>
+        <file alias="busy.svg">busy.svg</file>
+        <file alias="x.svg">x.svg</file>
     </qresource>
 </RCC>

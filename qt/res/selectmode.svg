@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+	<path d="M0 0h80v80H0z" fill="none" />
+	<g fill="none">
+		<path fill="#6fcf97" d="M18 16v-2a2 2 0 0 0-2 2zm44 0h2a2 2 0 0 0-2-2zm-44 6v2a2 2 0 0 0 2-2zm-5.771 0v-2a2 2 0 0 0-2 2zm0 36h-2a2 2 0 0 0 2 2zm5.77 0h2a2 2 0 0 0-2-2zm0 6h-2a2 2 0 0 0 2 2zm44 0v2a2 2 0 0 0 2-2zm0-6v-2a2 2 0 0 0-2 2zm5.772 0v2a2 2 0 0 0 2-2zm0-36h2a2 2 0 0 0-2-2zM62 22h-2a2 2 0 0 0 2 2zm-44-4h44v-4H18zm2 4v-6h-4v6zm-7.771 2h5.77v-4h-5.77zm2-1v-1h-4v1zm0 34V23h-4v34zm0 1v-1h-4v1zm-2 2h5.77v-4h-5.77zm3.77-2v6h4v-6zm46 4H18v4h44zm-2-4v6h4v-6zm7.772-2H62v4h5.771zm-2-34v36h4V22zM62 24h5.771v-4H62zm-2-8v6h4v-6z" />
+		<path fill="#f2994a" stroke="#f2994a" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 10h12v12H6zm56 0h12v12H62zm0 48h12v12H62zM6 58h12v12H6z" />
+		<path fill="#eb5757" stroke="#eb5757" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M24 28h32v24H24z" />
+	</g>
+</svg>

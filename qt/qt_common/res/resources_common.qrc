@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/common">
-        <file>minus.png</file>
-        <file>plus.png</file>
+        <file alias="minus.svg">minus.svg</file>
+        <file alias="plus.svg">plus.svg</file>
         <file>shaders/gl_150.fsh.glsl</file>
         <file>shaders/gl_150.vsh.glsl</file>
         <file>shaders/gles_300.fsh.glsl</file>
