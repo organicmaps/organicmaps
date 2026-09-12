@@ -707,6 +707,13 @@ using namespace routing;
   [self rebuildWithBestRouter:YES];
 }
 
++ (void)optimizeRoutePointsAndRebuild
+{
+  // The core keeps the approved order while following or in Ruler mode.
+  if ([self isRoutingActive] && GetFramework().GetRoutingManager().OptimizeRoutePoints())
+    [self rebuildWithBestRouter:NO];
+}
+
 + (void)showNavigationMapControls
 {
   [[MWMMapViewControlsManager manager] onRouteStart];

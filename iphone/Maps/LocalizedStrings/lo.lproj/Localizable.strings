@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "ເປີດໃຊ້ຕົວເລືອກນີ້ຊົ່ວຄາວເພື່ອບັນທຶກ ແລະ ສົ່ງລັອກການວິນິດໄສໂດຍລະອຽດກ່ຽວກັບບັນຫາຂອງທ່ານໃຫ້ພວກເຮົາໂດຍໃຊ້ \"ລາຍງານຂໍ້ຜິດພາດ\" ໃນສ່ວນຊ່ວຍເຫຼືອ. ລັອກອາດຈະລວມມີຂໍ້ມູນຕຳແໜ່ງທີ່ຕັ້ງ.";
 "driving_options_title" = "ຕົວເລືອກການສ້າງເສັ້ນທາງ";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "ການປັບເສັ້ນທາງໃຫ້ເໝາະສົມ";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "ຈັດລຽງຈຸດຢຸດລະຫວ່າງທາງໃໝ່ອັດຕະໂນມັດ ເພື່ອສ້າງເສັ້ນທາງທີ່ມີປະສິດທິພາບກວ່າ.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "ເລ່ຽງທາງເສຍຄ່າທຳນຽມ";
 

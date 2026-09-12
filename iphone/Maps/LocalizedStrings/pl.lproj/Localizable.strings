@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Ta opcja zostaje włączona do zbierania danych działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.";
 "driving_options_title" = "Ustawienia nawigacji";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optymalizacja trasy";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Automatycznie zmienia kolejność postojów pośrednich, aby utworzyć bardziej efektywną trasę.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Unikaj płatnych dróg";
 
