@@ -38,6 +38,7 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.Distance;
@@ -227,8 +228,9 @@ public class Utils
    * @param context the app context
    * @param uri the URI to open.
    * @param failMessage string id: message to show in a toast when the system can't find an app to open with.
+   * @return true if the URI launch was handed to Android.
    */
-  public static void openUri(@NonNull Context context, @NonNull Uri uri, @Nullable Integer failMessage)
+  public static boolean openUri(@NonNull Context context, @NonNull Uri uri, @Nullable Integer failMessage)
   {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(uri);
@@ -238,18 +240,27 @@ public class Utils
     try
     {
       context.startActivity(intent);
+      return true;
     }
-    catch (ActivityNotFoundException e)
+    catch (ActivityNotFoundException | SecurityException e)
     {
       if (failMessage != null)
         Toast.makeText(context, context.getString(failMessage), Toast.LENGTH_LONG).show();
-      Logger.w(TAG, "ActivityNotFoundException", e);
+      Logger.w(TAG, "Failed to open URI", e);
+      return false;
     }
   }
 
   private static boolean isHttpOrHttpsScheme(@NonNull String url)
   {
     return url.startsWith("http://") || url.startsWith("https://");
+  }
+
+  public static void returnToCaller(@NonNull Context context)
+  {
+    final String backUrl = Framework.nativeGetParsedBackUrl();
+    if (!TextUtils.isEmpty(backUrl) && openUri(context, Uri.parse(backUrl), null))
+      Framework.nativeClearParsedBackUrl();
   }
 
   // subject is optional (could be an empty string).

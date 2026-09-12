@@ -25,6 +25,7 @@
 #include "platform/country_file.hpp"
 #include "platform/distance.hpp"
 #include "platform/duration.hpp"
+#include "platform/localization.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/algorithm.hpp"
@@ -42,6 +43,7 @@
 #include <glaze/json.hpp>
 
 #include <map>
+#include <utility>
 
 using namespace routing;
 
@@ -52,6 +54,7 @@ struct RoutePointJson
   int type = 0;
   std::string title;
   std::string subtitle;
+  std::string callback;
   double x = 0.0;
   double y = 0.0;
   bool replaceWithMyPosition = false;
@@ -62,6 +65,7 @@ RoutePointJson ToRoutePointJson(RouteMarkData const & data)
   return {.type = static_cast<int>(data.m_pointType),
           .title = data.m_title,
           .subtitle = data.m_subTitle,
+          .callback = data.m_callback,
           .x = data.m_position.x,
           .y = data.m_position.y,
           .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
@@ -73,6 +77,7 @@ RouteMarkData ToRouteMarkData(RoutePointJson const & point)
   data.m_pointType = static_cast<RouteMarkType>(point.type);
   data.m_title = point.title;
   data.m_subTitle = point.subtitle;
+  data.m_callback = point.callback;
   data.m_position = {point.x, point.y};
   data.m_replaceWithMyPositionAfterRestart = point.replaceWithMyPosition;
   return data;
@@ -135,6 +140,7 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, std::vector<RouteM
   // Last passed point will be considered as start point.
   data.m_pointType = RouteMarkType::Start;
   data.m_intermediateIndex = 0;
+  data.m_callback.clear();
   if (data.m_isMyPosition)
   {
     data.m_position = bmManager->MyPositionMark().GetPivot();
@@ -350,24 +356,15 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, passedCheckpointIdx]()
-    {
-      size_t const pointsCount = GetRoutePointsCount();
-
-      // TODO(@bykoianko). Since routing system may invoke callbacks from different threads and here
-      // we have to use gui thread, ASSERT is not correct. Uncomment it and delete condition after
-      // refactoring of threads usage in routing system.
-      // ASSERT_LESS(passedCheckpointIdx, pointsCount, ());
-      if (passedCheckpointIdx >= pointsCount)
-        return;
-
-      if (passedCheckpointIdx == 0)
-        OnRoutePointPassed(RouteMarkType::Start, 0);
-      else if (passedCheckpointIdx + 1 == pointsCount)
-        OnRoutePointPassed(RouteMarkType::Finish, 0);
-      else
-        OnRoutePointPassed(RouteMarkType::Intermediate, passedCheckpointIdx - 1);
-    });
+    // PassCheckpoints runs on the GUI thread. Resolve the index before another itinerary can replace it.
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
+    size_t const pointsCount = GetRoutePointsCount();
+    CHECK_GREATER(passedCheckpointIdx, 0, ());
+    CHECK_LESS(passedCheckpointIdx, pointsCount, ());
+    if (passedCheckpointIdx + 1 == pointsCount)
+      OnRoutePointPassed(RouteMarkType::Finish, 0);
+    else
+      OnRoutePointPassed(RouteMarkType::Intermediate, passedCheckpointIdx - 1);
   });
 
   m_routingSession.SetSpeedCamShowCallback([this](m2::PointD const & point, double cameraSpeedKmPH)
@@ -468,15 +465,27 @@ void RoutingManager::OnRemoveRoute(routing::RouterResultCode code)
 
 void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex)
 {
-  // Remove route point.
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
+  std::string callback;
+  if (auto const * point = routePoints.GetRoutePoint(type, intermediateIndex); point != nullptr && !point->IsPassed())
+  {
+    // Preview tracking can pass checkpoints too, but must not launch another app.
+    if (m_routingSession.IsFollowing())
+      callback = point->GetMarkData().m_callback;
+  }
   routePoints.PassRoutePoint(type, intermediateIndex);
 
   if (type == RouteMarkType::Finish)
     RemoveRoute(false /* deactivateFollowing */);
 
   SaveRoutePoints();
+  if (!callback.empty())
+  {
+    m_pendingRoutePointCallback = std::move(callback);
+    FlushRoutePointCallback();
+  }
 }
 
 void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
@@ -1000,6 +1009,9 @@ bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, doubl
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)
 {
+  // An automatically completed route may still owe its final callback on the next foreground transition.
+  if (!m_routingSession.IsFinished())
+    m_pendingRoutePointCallback.clear();
   m_extrapolator.Enable(false);
   // Hide preview.
   HidePreviewSegments();
@@ -1011,6 +1023,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
 
   if (removeRoutePoints)
   {
+    m_routePointsTransactions.clear();
     m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROUTING);
     CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
   }
@@ -1045,6 +1058,29 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePoints() const
   return result;
 }
 
+void RoutingManager::SetRoutePointCallback(RoutePointCallback && callback)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_routePointCallback = std::move(callback);
+  FlushRoutePointCallback();
+}
+
+void RoutingManager::FlushRoutePointCallback()
+{
+  if (!m_routePointCallback || m_pendingRoutePointCallback.empty())
+    return;
+
+  // Platform code may detach its listener during delivery.
+  auto const callback = m_routePointCallback;
+  auto const pending = std::exchange(m_pendingRoutePointCallback, {});
+  callback(pending);
+}
+
+std::vector<RouteMarkData> RoutingManager::DeserializeRoutePointsForTesting(std::string const & data)
+{
+  return DeserializeRoutePoints(data);
+}
+
 size_t RoutingManager::GetRoutePointsCount() const
 {
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1076,10 +1112,48 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderInterm
   }
 
   markData.m_isVisible = !markData.m_isMyPosition;
+  auto const type = markData.m_pointType;
+  auto const index = markData.m_intermediateIndex;
+  auto const count = routePoints.GetRoutePointsCount();
   routePoints.AddRoutePoint(std::move(markData));
 
-  if (reorderIntermediatePoints)
-    ReorderIntermediatePoints();
+  if (reorderIntermediatePoints && type == RouteMarkType::Intermediate && routePoints.GetRoutePointsCount() > count)
+    ReorderIntermediatePoints(index);
+}
+
+void RoutingManager::ReplaceRoutePoints(std::vector<RouteMarkData> points, bool optimize)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_GREATER_OR_EQUAL(points.size(), 2, ());
+  CHECK_LESS_OR_EQUAL(points.size(), RoutePointsLayout::kMaxRoutePointsCount, ());
+  CloseRouting(true /* remove route points */);
+  m_pendingRoutePointCallback.clear();
+
+  // Keep one edit session open so a whole itinerary produces one mark update.
+  RoutePointsLayout layout(*m_bmManager);
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    auto & point = points[i];
+    point.m_pointType = i == 0                 ? RouteMarkType::Start
+                      : i + 1 == points.size() ? RouteMarkType::Finish
+                                               : RouteMarkType::Intermediate;
+    point.m_intermediateIndex = point.m_pointType == RouteMarkType::Intermediate ? i - 1 : 0;
+    point.m_isVisible = !point.m_isMyPosition && !point.m_isPassed;
+    if (point.m_isMyPosition && point.m_title.empty())
+      point.m_title = platform::GetLocalizedString("core_my_position");
+    if (point.m_isMyPosition && m_bmManager->MyPositionMark().HasPosition())
+      point.m_position = m_bmManager->MyPositionMark().GetPivot();
+  }
+
+  layout.AddRoutePoint(std::move(points.front()));
+  layout.AddRoutePoint(std::move(points.back()));
+  for (size_t i = 1; i + 1 < points.size(); ++i)
+  {
+    auto const index = points[i].m_intermediateIndex;
+    layout.AddRoutePoint(std::move(points[i]));
+    if (optimize)
+      ReorderIntermediatePoints(index);
+  }
 }
 
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
@@ -1126,6 +1200,7 @@ void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateInd
 
 void RoutingManager::RemoveRoutePoints()
 {
+  m_pendingRoutePointCallback.clear();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.RemoveRoutePoints();
@@ -1205,7 +1280,7 @@ void RoutingManager::SetPointsFollowingMode(bool enabled)
   routePoints.SetFollowingMode(enabled);
 }
 
-void RoutingManager::ReorderIntermediatePoints()
+void RoutingManager::ReorderIntermediatePoints(size_t addedIndex)
 {
   RoutePointsLayout routePoints(*m_bmManager);
   size_t const reserveCount = routePoints.GetRoutePointsCount();
@@ -1217,14 +1292,17 @@ void RoutingManager::ReorderIntermediatePoints()
 
   RouteMarkPoint * addedPoint = nullptr;
   m2::PointD addedPosition;
-  for (auto const & p : routePoints.GetRoutePoints())
+  auto const points = routePoints.GetRoutePoints();
+  if (points.size() < 2 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return;
+
+  for (auto const & p : points)
   {
     CHECK(p, ());
     if (p->GetRoutePointType() == RouteMarkType::Intermediate)
     {
-      // Note. An added (new) intermediate point is the first intermediate point at |routePoints.GetRoutePoints()|.
-      // The other intermediate points are former ones.
-      if (addedPoint == nullptr)
+      if (p->GetIntermediateIndex() == addedIndex)
       {
         addedPoint = p;
         addedPosition = p->GetPivot();
@@ -1239,7 +1317,25 @@ void RoutingManager::ReorderIntermediatePoints()
   if (addedPoint == nullptr)
     return;
 
-  CheckpointPredictor predictor(m_routingSession.GetStartPoint(), m_routingSession.GetEndPoint());
+  m2::PointD startPosition = points.front()->GetPivot();
+  if (points.front()->IsMyPosition())
+  {
+    auto const & myPosition = m_bmManager->MyPositionMark();
+    if (!myPosition.HasPosition())
+      return;
+    startPosition = myPosition.GetPivot();
+  }
+
+  m2::PointD finishPosition = points.back()->GetPivot();
+  if (points.back()->IsMyPosition())
+  {
+    auto const & myPosition = m_bmManager->MyPositionMark();
+    if (!myPosition.HasPosition())
+      return;
+    finishPosition = myPosition.GetPivot();
+  }
+
+  CheckpointPredictor predictor(startPosition, finishPosition);
 
   size_t const insertIndex = predictor.PredictPosition(prevPositions, addedPosition);
   addedPoint->SetIntermediateIndex(insertIndex);
@@ -1252,7 +1348,7 @@ void RoutingManager::GenerateNotifications(std::vector<std::string> & turnNotifi
   m_routingSession.GenerateNotifications(turnNotifications, announceStreets);
 }
 
-void RoutingManager::BuildRoute(uint32_t timeoutSec)
+void RoutingManager::BuildRoute(uint32_t timeoutSec, m2::PointD const & startDirection)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
@@ -1282,6 +1378,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     if (!myPosition.HasPosition())
     {
       CallRouteBuilded(RouterResultCode::NoCurrentPosition, storage::CountriesSet());
+      CloseRouting(false /* remove route points */);
       return;
     }
     p.m_position = myPosition.GetPivot();
@@ -1323,7 +1420,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
+  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec, startDirection);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
@@ -1609,39 +1706,31 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
     }
 
     auto points = DeserializeRoutePoints(data);
-    if (handler && points.empty())
+    if (points.empty())
     {
-      handler(false /* success */);
+      if (handler)
+        handler(false /* success */);
       return;
     }
 
     GetPlatform().RunTask(Platform::Thread::Gui, [this, handler, points = std::move(points)]() mutable
     {
       ASSERT(m_bmManager != nullptr, ());
-      // If we have found my position and the saved route used the user's position, we use my position as start point.
-      bool routeUsedPosition = false;
-      auto const & myPosMark = m_bmManager->MyPositionMark();
-      auto editSession = m_bmManager->GetEditSession();
-      editSession.ClearGroup(UserMark::Type::ROUTING);
-      for (auto & p : points)
+      // A new user/API itinerary can arrive while the saved file is being read.
+      if (IsRoutingActive() || GetRoutePointsCount() != 0)
       {
-        // Check if the saved route used the user's position
-        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start)
-          routeUsedPosition = true;
-
-        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
-        {
-          RouteMarkData startPt;
-          startPt.m_pointType = RouteMarkType::Start;
-          startPt.m_isMyPosition = true;
-          startPt.m_position = myPosMark.GetPivot();
-          AddRoutePoint(std::move(startPt));
-        }
-        else
-        {
-          AddRoutePoint(std::move(p));
-        }
+        if (handler)
+          handler(false /* success */);
+        return;
       }
+      auto const & myPosMark = m_bmManager->MyPositionMark();
+      bool const routeUsedPosition = points.front().m_replaceWithMyPositionAfterRestart;
+      if (routeUsedPosition && myPosMark.HasPosition())
+      {
+        points.front().m_isMyPosition = true;
+        points.front().m_position = myPosMark.GetPivot();
+      }
+      ReplaceRoutePoints(std::move(points));
 
       // If we don't have my position and the saved route used it, save loading timestamp.
       // Probably we will get my position soon.

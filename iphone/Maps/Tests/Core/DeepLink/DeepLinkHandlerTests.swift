@@ -11,6 +11,7 @@ final class DeepLinkHandlerTests: XCTestCase {
 
   override func tearDown() {
     handler.reset()
+    FrameworkHelper.clearParsedBackUrl()
     super.tearDown()
   }
 
@@ -60,5 +61,20 @@ final class DeepLinkHandlerTests: XCTestCase {
     XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
     XCTAssertFalse(handler.isLaunchedByDeepLink)
     XCTAssertNil(handler.url)
+  }
+
+  func testHighlightLookupDoesNotReparseRouteOrRearmReturn() throws {
+    let url = try XCTUnwrap(URL(string: "om://v2/dir?destination=1,2&callback=app%3A%2F%2Fback"))
+    handler.prepareForColdLaunch(url: url)
+    XCTAssertEqual(DeepLinkParser.parseAndSetApiURL(url), .route)
+    FrameworkHelper.clearParsedBackUrl()
+
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+    XCTAssertNil(handler.getBackUrl())
+  }
+
+  func testCallbackNormalizationPreservesNestedEscapes() throws {
+    let url = try XCTUnwrap(MWMRouter.callbackURL(from: "app://done?next=a%2Fb|c&progress=100%"))
+    XCTAssertEqual(url.absoluteString, "app://done?next=a%2Fb%7Cc&progress=100%25")
   }
 }

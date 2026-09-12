@@ -25,11 +25,48 @@
 
 using namespace routing;
 
+namespace
+{
+// The core URL-decodes API parameters once, so a callback/back URL can reach this point
+// with characters that break NSURL parsing: a literal '%' decoded from "%25", raw spaces,
+// pipes or non-ASCII from decoded values. Normalize explicitly instead of relying on
+// -URLWithString: to reject the raw string, because its strictness varies across OS
+// versions (older parsers return nil, newer ones auto-encode every '%', corrupting valid
+// "%XX" sequences). A '%' is escaped only when it does not already start a valid escape,
+// so intentionally double-encoded values like "%257C" survive; a valid URL is unchanged.
+NSURL * RoutePointCallbackURL(NSString * callbackString)
+{
+  static NSRegularExpression * danglingPercent =
+      [NSRegularExpression regularExpressionWithPattern:@"%(?![0-9A-Fa-f]{2})" options:0 error:nil];
+  NSString * fixed = [danglingPercent stringByReplacingMatchesInString:callbackString
+                                                               options:0
+                                                                 range:NSMakeRange(0, callbackString.length)
+                                                          withTemplate:@"%25"];
+  // RFC 3986 unreserved + gen-delims + sub-delims + '%'.
+  static NSCharacterSet * allowed = [NSCharacterSet
+      characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                                         @"-._~:/?#[]@!$&'()*+,;=%"];
+  NSString * encoded = [fixed stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+  return encoded ? [NSURL URLWithString:encoded] : nil;
+}
+
+void OpenRoutePointCallback(std::string const & callback)
+{
+  ASSERT(NSThread.isMainThread, ());
+  NSURL * url = RoutePointCallbackURL(@(callback.c_str()));
+  if (!url)
+    return;
+
+  [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+}
+
+}  // namespace
+
 @interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
-@property(nonatomic) BOOL isAPICall;
+@property(nonatomic) BOOL startNavigationAfterBuild;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
 @property(strong, nonatomic) MWMRoutingOptions * routingOptions;
 
@@ -209,6 +246,20 @@ using namespace routing;
     _canAutoAddLastLocation = YES;
     _routingOptions = [MWMRoutingOptions new];
     _isRestoreProcessCompleted = NO;
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
+      GetFramework().GetRoutingManager().SetRoutePointCallback(&OpenRoutePointCallback);
+    [NSNotificationCenter.defaultCenter
+        addObserverForName:UIApplicationDidBecomeActiveNotification
+                    object:nil
+                     queue:NSOperationQueue.mainQueue
+                usingBlock:^(NSNotification *) {
+                  GetFramework().GetRoutingManager().SetRoutePointCallback(&OpenRoutePointCallback);
+                }];
+    [NSNotificationCenter.defaultCenter
+        addObserverForName:UIApplicationWillResignActiveNotification
+                    object:nil
+                     queue:NSOperationQueue.mainQueue
+                usingBlock:^(NSNotification *) { GetFramework().GetRoutingManager().SetRoutePointCallback({}); }];
   }
   return self;
 }
@@ -399,22 +450,21 @@ using namespace routing;
     [self rebuildWithBestRouter:bestRouter];
 }
 
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-                  finishPoint:(MWMRoutePoint *)finishPoint
++ (void)buildApiRouteWithType:(MWMRouterType)type startRouteNavigation:(BOOL)startRouteNavigation
 {
-  if (!startPoint || !finishPoint)
-    return;
+  // Match Android's API-route flow: a new deep link replaces any active route, even when
+  // the router type does not change and the new build later fails synchronously.
+  [self doStop:NO];
+  GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 
-  [MWMRouter setType:type];
-
-  auto router = [MWMRouter router];
-  router.isAPICall = YES;
-  [self addPoint:startPoint];
-  [self addPoint:finishPoint];
-  router.isAPICall = NO;
-
-  [self rebuildWithBestRouter:NO];
+  // The core sets the auto-start flag only for nav requests, which always route
+  // from the current position, so honor the parsed flag directly. Set it after
+  // doStop:, whose stop path resets the flag.
+  [MWMRouter router].startNavigationAfterBuild = startRouteNavigation;
+  [[MWMMapViewControlsManager manager] onRouteRebuild];
+  // The core materializes the parsed itinerary as route points and starts the build.
+  GetFramework().ExecuteRouteApiRequest();
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
@@ -435,6 +485,11 @@ using namespace routing;
   rm.BuildRoute();
 }
 
++ (NSURL *)callbackURLFromString:(NSString *)callbackString
+{
+  return RoutePointCallbackURL(callbackString);
+}
+
 + (void)start
 {
   auto const doStart = ^{
@@ -442,11 +497,11 @@ using namespace routing;
     auto const routePoints = rm.GetRoutePoints();
     if (routePoints.size() >= 2)
     {
-      auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
-      auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
+      auto start = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
+      auto finish = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
 
       CLLocation * lastLocation = [MWMLocationManager lastLocation];
-      if (p1.isMyPosition && lastLocation)
+      if (start.isMyPosition && lastLocation)
       {
         [[MWMRoutingManager routingManager] startRoute];
         [[MWMMapViewControlsManager manager] onRouteStart];
@@ -457,7 +512,7 @@ using namespace routing;
         // restoreRouteIfNeeded.
         [self saveRoute];
 
-        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
+        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !finish.isMyPosition;
 
         [[MWMAlertViewController activeAlertController]
             presentPoint2PointAlertWithOkBlock:^{
@@ -492,6 +547,7 @@ using namespace routing;
 
 + (void)doStop:(BOOL)removeRoutePoints
 {
+  [MWMRouter router].startNavigationAfterBuild = NO;
   [[MWMRoutingManager routingManager] stopRoutingAndRemoveRoutePoints:removeRoutePoints];
   if (removeRoutePoints)
     [[MWMRoutingManager routingManager] deleteSavedRoutePoints];
@@ -542,12 +598,19 @@ using namespace routing;
 
   [[MWMMapViewControlsManager manager] onRouteReady:hasWarnings];
   [self updateFollowingInfo];
+  if (self.startNavigationAfterBuild)
+  {
+    [MWMRouter start];
+    self.startNavigationAfterBuild = NO;
+  }
 }
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::CountriesSet const &)absentCountries
 {
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
+  if (code != routing::RouterResultCode::NoError && code != routing::RouterResultCode::HasWarnings)
+    self.startNavigationAfterBuild = NO;
   switch (code)
   {
   case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;

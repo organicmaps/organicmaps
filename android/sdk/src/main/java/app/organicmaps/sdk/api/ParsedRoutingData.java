@@ -11,12 +11,12 @@ import app.organicmaps.sdk.Router;
 @SuppressWarnings("unused")
 public class ParsedRoutingData
 {
-  public final RoutePoint[] mPoints;
   public final Router mRouterType;
+  public final boolean mStartRouteNavigation;
 
-  public ParsedRoutingData(RoutePoint[] points, int routerType)
+  public ParsedRoutingData(int routerType, boolean startRouteNavigation)
   {
-    this.mPoints = points;
     this.mRouterType = Router.valueOf(routerType);
+    this.mStartRouteNavigation = startRouteNavigation;
   }
 }

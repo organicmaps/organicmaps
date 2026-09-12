@@ -144,6 +144,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private boolean mIntentConsumed = false;
   private boolean mPreciseLocationDialogShown = false;
+  private boolean mSkipParsedBackUrlOnStop = false;
 
   private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
@@ -1006,9 +1007,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     MwmApplication.from(getApplicationContext()).getIsolinesManager().detach();
     Utils.keepScreenOn(false, getWindow());
 
-    final String backUrl = Framework.nativeGetParsedBackUrl();
-    if (!TextUtils.isEmpty(backUrl))
-      Utils.openUri(this, Uri.parse(backUrl), null);
+    if (mSkipParsedBackUrlOnStop)
+      mSkipParsedBackUrlOnStop = false;
+    // Preserve legacy map backurl behavior. V2 route callbacks require an explicit return action.
+    else if (!RoutingController.get().isNavigating() && Framework.nativeHasLegacyBackUrl())
+      Utils.returnToCaller(this);
+  }
+
+  void skipParsedBackUrlOnNextStop()
+  {
+    mSkipParsedBackUrlOnStop = true;
   }
 
   @CallSuper
@@ -1377,6 +1385,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBuiltRoute()
   {}
+
+  @Override
+  public void onRouteReadyToAutoStart()
+  {
+    if (!showRoutingDisclaimer())
+      return;
+
+    closeFloatingPanels();
+    setFullscreen(false);
+    RoutingController.get().start();
+  }
 
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
@@ -2027,6 +2046,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (id.equals(MAIN_MENU_ID))
     {
       ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+      if (!TextUtils.isEmpty(Framework.nativeGetParsedBackUrl()))
+        items.add(new MenuBottomSheetItem(R.string.back, R.drawable.ic_arrow_back, () -> Utils.returnToCaller(this)));
       items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus,
                                         this::onAddPlaceOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.download_maps, R.drawable.ic_download, getDownloadMapsCounter(),
