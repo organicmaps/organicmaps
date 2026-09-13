@@ -331,8 +331,8 @@ using namespace routing;
   }
   else
   {
-    rm.MoveRoutePoint(0, points.size() - 1);
-    rm.MoveRoutePoint(points.size() - 2, 0);
+    for (size_t i = 0; i + 1 < points.size(); ++i)
+      rm.MoveRoutePoint(points.size() - 1, i);
   }
 
   [self rebuildWithBestRouter:NO];
