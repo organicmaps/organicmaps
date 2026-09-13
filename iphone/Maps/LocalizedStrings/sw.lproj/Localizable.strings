@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Kijivu Buluu";
 
-/* place preview title */
-"info" = "Taarifa";
-
 /* Prints version number in About dialog */
 "version" = "Toleo la Organic Maps: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Takwimu za trafiki hazipatikani";
 "enable_logging" = "Wezesha kurekodi";
 "transliteration_title" = "Tafsiri kwa lugha ya Kilatini";
-"planning_route_manage_route" = "Dhibiti njia ya kufuata";
-"button_plan" = "Panga";
 "placepage_remove_stop" = "Ondoa eneo la kusimama";
 "placepage_add_stop" = "Ongeza eneo la kusimama";
-"saved" = "Imehifadhiwa";
 "error_enter_correct_name" = "Tafadhali, weka jina sahihi";
 "bookmark_lists" = "Orodha";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Epuka barabara";
 "unable_to_calc_alert_title" = "Haiwezi kukokotoa njia";
 "unable_to_calc_alert_subtitle" = "Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena";
-"define_to_avoid_btn" = "Fafanua njia za kuziepuka";
-"change_driving_options_btn" = "Machaguo ya njia yamewezeshwa";
 "toll_road" = "Barabara ya kulipia";
 "unpaved_road" = "Barabara ya vumbi";
 "ferry_crossing" = "Kivuko cha feri";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Uratibu wa njia umeshindikana";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Uwasili katika %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Pakua na sasisha ramani zote kando ya njia iliyotabiriwa ili kuhesabu njia.";
 "editor_done_dialog_1" = "Umeibadilisha ramani ya dunia! Usibaki nayo peke yako; waambie marafiki zako na mhariri pamoja.";
@@ -813,7 +802,6 @@
 "please_note" = "Tafadhali kumbuka";
 "migration_download_error_dialog" = "Hitilafu ya upakuaji";
 "editor_add_select_category" = "Chagua kategoria";
-"editor_add_select_category_popular_subtitle" = "Maarufu";
 "editor_add_select_category_all_subtitle" = "Kategoria Zote";
 "whatsnew_editor_message_1" = "Ongeza maeneo mapya kwenye ramani, na uhariri yale yaliyopo moja kwa moja kutoka kwenye programu.";
 "dialog_incorrect_feature_position" = "Badilisha eneo";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Ili kuonyesha data za trafiki, programu lazima isasishwe.";
 "log_file_size" = "Ukubwa wa faili ya kumbukumbu: %@";
-"planning_route_remove_title" = "Vuta hapa ili kuondoa";
 "placepage_replace_stop" = "Badilisha Stop";
-"start_from_my_position" = "Anzia";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi";
@@ -882,7 +868,6 @@
 "bottom" = "Chini";
 "trip_start" = "Twende zetu";
 "pick_destination" = "Mahali";
-"follow_my_position" = "Weka kati tena";
 "search_results" = "Matokeo ya utafutaji";
 "then_turn" = "Kisha";
 "redirect_route_alert" = "Je, unataka kuunda upya njia?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Asante kwa kutumia ramani zetu zilizojengwa na jumuiya!";
-
-/* App tip #01 */
-"app_tip_01" = "Kwa michango na usaidizi wako, tunaweza kuunda ramani bora zaidi Duniani!";
-
-/* App tip #02 */
-"app_tip_02" = "Je, unapenda programu yetu? Tafadhali toa mchango ili kusaidia maendeleo! Je, huipendi bado? Tafadhali tujulishe, na tutarekebisha!";
-
-/* App tip #03 */
-"app_tip_03" = "Ikiwa unajua msanidi programu, unaweza kumwomba kutekeleza kipengele unachohitaji.";
-
-/* App tip #04 */
-"app_tip_04" = "Gusa popote kwenye ramani ili kuchagua chochote. Gusa kwa muda mrefu ili kuficha na kuonyesha kiolesura.";
-
-/* App tip #05 */
-"app_tip_05" = "Je, unajua kwamba unaweza kuchagua eneo lako la sasa kwenye ramani?";
-
-/* App tip #06 */
-"app_tip_06" = "Unaweza kusaidia kutafsiri programu yetu katika lugha yako.";
-
-/* App tip #07 */
-"app_tip_07" = "Programu yetu imeundwa na washiriki wachache na jamii.";
-
-/* App tip #08 */
-"app_tip_08" = "Unaweza kurekebisha na kuboresha data ya ramani kwa urahisi.";
-
-/* App tip #09 */
-"app_tip_09" = "Lengo letu kuu ni kujenga ramani za haraka, zinazozingatia faragha, na rahisi kutumia ambazo utapenda.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Sasa unatumia Organic Maps kwenye skrini ya simu";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Njia ni tupu - hakuna cha kuhifadhi";
-"edit_track" = "Hariri Njia";
-"elevation_profile_diff_level" = "Usawa mgumu";
-"elevation_profile_diff_level_easy" = "Rahisi";
-"elevation_profile_diff_level_moderate" = "Wastani";
-"elevation_profile_diff_level_hard" = "Ngumu";
 "downloader_updating_ios" = "Inasasisha";
 
 /* Autoupdate dialog on start */

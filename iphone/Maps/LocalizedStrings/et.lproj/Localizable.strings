@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Sinakashall";
 
-/* place preview title */
-"info" = "Teave";
-
 /* Prints version number in About dialog */
 "version" = "Organic Mapsi versioon: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Liiklusinfo ei ole saadaval";
 "enable_logging" = "Luba logimine";
 "transliteration_title" = "Transliteratsioon ladina tähestikku";
-"planning_route_manage_route" = "Halda teekonda";
-"button_plan" = "Kavanda";
 "placepage_remove_stop" = "Eemalda peatus";
 "placepage_add_stop" = "Lisa peatus";
-"saved" = "Salvestatud";
 "error_enter_correct_name" = "Palun sisesta korrektne nimi";
 "bookmark_lists" = "Loendid";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Väldi kiirteed";
 "unable_to_calc_alert_title" = "Teekonna koostamine ei õnnestu";
 "unable_to_calc_alert_subtitle" = "Teekonda ei õnnestunud koostada. See võib olla põhjustatud sinu seatud tingimustest või OpenStreetMapi andmete puudumisest. Muuda algtingimusi ja proovi uuesti.";
-"define_to_avoid_btn" = "Määra välditavad teed";
-"change_driving_options_btn" = "Lubatud valikud teekonna koostamisel";
 "toll_road" = "Tasuline tee";
 "unpaved_road" = "Sillutamata tee";
 "ferry_crossing" = "Praamiületus";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Teekonna planeerimine ei õnnestunud";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Saabumine: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Marsruudi arvutamiseks laadi alla ja värskenda kõik kavandatud teekonnale jäävad kaardid.";
 "editor_done_dialog_1" = "Oled muutnud maailmakaarti. Ära hoia seda ainult enda teada! Räägi ka oma sõpradele ja muutke seda koos.";
@@ -813,7 +802,6 @@
 "please_note" = "Palun arvesta";
 "migration_download_error_dialog" = "Viga allalaadimisel";
 "editor_add_select_category" = "Vali kategooria";
-"editor_add_select_category_popular_subtitle" = "Populaarne";
 "editor_add_select_category_all_subtitle" = "Kõik kategooriad";
 "whatsnew_editor_message_1" = "Lisa kaardile uusi kohti ja muuda olemasolevaid otse rakenduses.";
 "dialog_incorrect_feature_position" = "Muuda asukohta";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Liiklusinfo kuvamiseks pead rakendust uuendama.";
 "log_file_size" = "Logifaili suurus: %@";
-"planning_route_remove_title" = "Eemaldamiseks lohista siia";
 "placepage_replace_stop" = "Asenda peatus";
-"start_from_my_position" = "Alusta kohast";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Oma kaardimuudatuste automaatseks üleslaadimiseks palun logi sisse OpenStreetMappi. Lisateave";
@@ -882,7 +868,6 @@
 "bottom" = "All";
 "trip_start" = "Läksime";
 "pick_destination" = "Sihtkoht";
-"follow_my_position" = "Säti keskele";
 "search_results" = "Otsingutulemused";
 "then_turn" = "Seejärel";
 "redirect_route_alert" = "Kas soovid teekonna uuesti luua?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Aitäh, et kasutad meie kogukonna koostatud kaarte!";
-
-/* App tip #01 */
-"app_tip_01" = "Sinu annetuste ja toetusega saame luua maailma parimaid kaarte!";
-
-/* App tip #02 */
-"app_tip_02" = "Kas sulle meeldib meie rakendus? Palun anneta arendustöö toetamiseks! Ei meeldi veel? Palun anna põhjusest meile teada ja me parandame selle!";
-
-/* App tip #03 */
-"app_tip_03" = "Kui tead mõnda tarkvaraarendajat, võid paluda tal osaleda vajaliku funktsionaalsuse loomisel.";
-
-/* App tip #04 */
-"app_tip_04" = "Puuduta kaardil ükskõik kus, et valida midagi. Pika puudutusega saad peita ja kuvada kasutajaliidest.";
-
-/* App tip #05 */
-"app_tip_05" = "Kas tead, et saad kaardil valida oma praeguse asukoha?";
-
-/* App tip #06 */
-"app_tip_06" = "Saad aidata meie rakendust oma keelde tõlkida.";
-
-/* App tip #07 */
-"app_tip_07" = "Meie rakenduse on loonud mõned entusiastid ja kogukond.";
-
-/* App tip #08 */
-"app_tip_08" = "Saad hõlpsasti kaardiandmeid parandada ja täiustada.";
-
-/* App tip #09 */
-"app_tip_09" = "Meie põhieesmärk on luua kiireid, privaatsusele keskenduvaid ja hõlpsasti kasutatavaid kaarte, mis sulle meeldivad.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Nüüd kasutad telefoni ekraanil Organic Mapsi";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
-"edit_track" = "Muuda rada";
-"elevation_profile_diff_level" = "Raskusaste";
-"elevation_profile_diff_level_easy" = "Lihtne";
-"elevation_profile_diff_level_moderate" = "Keskmine";
-"elevation_profile_diff_level_hard" = "Raske";
 "downloader_updating_ios" = "Uuendamine";
 
 /* Autoupdate dialog on start */

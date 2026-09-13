@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Plavo siva";
 
-/* place preview title */
-"info" = "Informacije";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps verzija: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Podaci o prometu nisu dostupni";
 "enable_logging" = "Omogući zapisivanje";
 "transliteration_title" = "Transliterirati u latinično pismo";
-"planning_route_manage_route" = "Upravljanje rutom";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Ukloni Stop";
 "placepage_add_stop" = "Dodaj stajalište";
-"saved" = "Spremljeno";
 "error_enter_correct_name" = "Molimo unesite ispravno ime";
 "bookmark_lists" = "Popisi";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Izbjegni autoputeve";
 "unable_to_calc_alert_title" = "Nije moguće izračunati rutu";
 "unable_to_calc_alert_subtitle" = "Nije pronađena ruta. To može biti uzrokovano vašim opcijama za rutiranje ili nepotpunim podacima OpenStreetMapa. Molimo promijenite svoje opcije za rutiranje i pokušajte ponovno.";
-"define_to_avoid_btn" = "Definirajte ceste koje želite izbjegavati";
-"change_driving_options_btn" = "Opcije za određivanje rute su aktivirane";
 "toll_road" = "Cesta sa cestarinom";
 "unpaved_road" = "Neasfaltirana cesta";
 "ferry_crossing" = "Prijevoz trajektom";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Planiranje rute nije uspjelo";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Dolazak na %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Preuzmite i ažurirajte sve karte duž predviđene rute kako biste izračunali rutu.";
 "editor_done_dialog_1" = "Promijenili ste kartu svijeta! Nemojte je zadržavati samo za sebe; recite svojim prijateljima i uređujte je zajedno.";
@@ -813,7 +802,6 @@
 "please_note" = "Molimo imajte na umu";
 "migration_download_error_dialog" = "Greška pri preuzimanju";
 "editor_add_select_category" = "Odaberite kategoriju";
-"editor_add_select_category_popular_subtitle" = "Popularno";
 "editor_add_select_category_all_subtitle" = "Sve kategorije";
 "whatsnew_editor_message_1" = "Dodajte nova mjesta na kartu i uređujte postojeća izravno u aplikaciji.";
 "dialog_incorrect_feature_position" = "Promijeni lokaciju";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Za prikaz podataka o prometu aplikacija se mora ažurirati.";
 "log_file_size" = "Veličina zapisnika: %@";
-"planning_route_remove_title" = "Povucite ovdje za uklanjanje";
 "placepage_replace_stop" = "Zamijeni Stop";
-"start_from_my_position" = "Počni od";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Molimo prijavite se na OpenStreetMap kako biste automatski učitali sve svoje izmjene karte. Saznajte više";
@@ -882,7 +868,6 @@
 "bottom" = "Dno";
 "trip_start" = "Idemo";
 "pick_destination" = "Odredište";
-"follow_my_position" = "Ponovno centriraj";
 "search_results" = "Rezultati pretraživanja";
 "then_turn" = "Zatim";
 "redirect_route_alert" = "Želite li ponovno izgraditi rutu?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Hvala što koristiš karte koje je izradila naša zajednica!";
-
-/* App tip #01 */
-"app_tip_01" = "Uz vaše donacije i podršku možemo stvoriti najbolje karte na svijetu!";
-
-/* App tip #02 */
-"app_tip_02" = "Sviđa li vam se naša aplikacija? Molimo donirajte kako biste podržali razvoj! Još vam se ne sviđa? Recite nam zašto i mi ćemo to popraviti!";
-
-/* App tip #03 */
-"app_tip_03" = "Ako poznajete programera, možete ga ili je zamoliti da implementira značajku koja vam je potrebna.";
-
-/* App tip #04 */
-"app_tip_04" = "Dodirnite bilo koje mjesto na karti da biste odabrali bilo što. Dugi dodir služi za skrivanje i prikazivanje sučelja.";
-
-/* App tip #05 */
-"app_tip_05" = "Jeste li znali da se vaša trenutna lokacija na karti može odabrati?";
-
-/* App tip #06 */
-"app_tip_06" = "Možete pomoći u prevođenju naše aplikacije na svoj jezik.";
-
-/* App tip #07 */
-"app_tip_07" = "Našu je aplikaciju razvilo nekoliko entuzijasta i zajednica.";
-
-/* App tip #08 */
-"app_tip_08" = "Možete jednostavno popraviti i poboljšati podatke karte.";
-
-/* App tip #09 */
-"app_tip_09" = "Naš glavni cilj je izraditi brze karte usmjerene na privatnost i jednostavne za korištenje koje ćete voljeti.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Sada koristiš Organic Maps na ekranu telefona";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Staza je prazna - nema što spremiti";
-"edit_track" = "Uredi stazu";
-"elevation_profile_diff_level" = "Razina težine";
-"elevation_profile_diff_level_easy" = "Jednostavno";
-"elevation_profile_diff_level_moderate" = "Umjereno";
-"elevation_profile_diff_level_hard" = "Teško";
 "downloader_updating_ios" = "Ažuriranje";
 
 /* Autoupdate dialog on start */

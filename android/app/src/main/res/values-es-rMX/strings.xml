@@ -152,16 +152,6 @@
     <string name="routing_not_enough_space">Espacio insuficiente</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Activa los servicios de localización</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Púrpura profundo</string>
-    <!-- light blue color -->
-    <string name="light_blue">Celeste</string>
-    <!-- lime color -->
-    <string name="lime">Cal</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Naranja intenso</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Azul Gris</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Apariencia</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -296,7 +286,6 @@
     <string name="prefs_languages_information_off_link">Para más información, consulte esta guía.</string>
     <string name="transliteration_title">Transliterar al alfabeto latino</string>
     <string name="learn_more">Más información</string>
-    <string name="planning_route_manage_route">Administrar ruta</string>
     <string name="placepage_remove_stop">Quitar Stop</string>
     <string name="placepage_add_stop">Añadir tope</string>
     <string name="drag_to_reorder">Reordenar</string>
@@ -361,7 +350,6 @@
     <string name="avoid_motorways">Evite las autopistas</string>
     <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
     <string name="unable_to_calc_alert_subtitle">No se ha podido encontrar una ruta. Esto puede deberse a sus opciones de ruta o a datos incompletos de OpenStreetMap. Cambia tus opciones de ruta y vuelve a intentarlo.</string>
-    <string name="define_to_avoid_btn">Definir las carreteras que deben evitarse</string>
     <string name="toll_road">Autopista de peaje</string>
     <string name="unpaved_road">Carretera sin asfaltar</string>
     <string name="ferry_crossing">Travesía en transbordador</string>
@@ -392,8 +380,6 @@
     <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>
     <string name="elevation_profile_min_elevation">Elevación mínima</string>
     <string name="elevation_profile_max_elevation">Elevación máxima</string>
-    <string name="elevation_profile_distance">Distancia:</string>
-    <string name="elevation_profile_time">Lapso:</string>
     <string name="isolines_toast_zooms_1_10">Zoom para explorar isolíneas</string>
     <string name="downloader_loading_ios">Cargando</string>
     <string name="download_map_title">Descargar el mapamundi</string>
@@ -465,14 +451,6 @@
     <string name="stop_track_recording">Detener grabación de pista</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Grabación de pistas</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar sin ahorrar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Seguir grabando</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">¿Guardar en marcadores y pistas?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">La pista está vacía - no hay nada que guardar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">No se puede mostrar el diálogo de selección de carpetas porque no hay ninguna aplicación adecuada instalada en el dispositivo. Instala una aplicación de gestión de archivos e inténtalo de nuevo.</string>
     <string name="edit_track">Editar pista</string>
@@ -480,10 +458,6 @@
     <string name="share_track">Compartir pista</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Iniciar sesión con contraseña</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Iniciar sesión utilizando el navegador</string>
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
 </resources>

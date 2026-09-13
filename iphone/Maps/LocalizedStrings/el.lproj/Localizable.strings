@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Γκρίζο μπλε";
 
-/* place preview title */
-"info" = "Πληροφορίες";
-
 /* Prints version number in About dialog */
 "version" = "Έκδοση Organic Maps: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
 "enable_logging" = "Ενεργοποίηση δυνατότητας καταγραφής";
 "transliteration_title" = "Μεταγραφή στο λατινικό αλφάβητο";
-"planning_route_manage_route" = "Διαχείριση διαδρομής";
-"button_plan" = "Σχεδιασμός";
 "placepage_remove_stop" = "Αφαίρεση στάσης";
 "placepage_add_stop" = "Προσθήκη στάσης";
-"saved" = "Αποθηκεύτηκε";
 "error_enter_correct_name" = "Εισάγετε ένα σωστό όνομα";
 "bookmark_lists" = "Λίστες";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Αποφυγή αυτοκινητόδρομων";
 "unable_to_calc_alert_title" = "Δεν ήταν δυνατός ο υπολογισμός διαδρομής";
 "unable_to_calc_alert_subtitle" = "Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι.";
-"define_to_avoid_btn" = "Ορισμός δρόμων προς αποφυγή";
-"change_driving_options_btn" = "Ρυθμίσεις δρομολόγησης ενεργοποιημένες";
 "toll_road" = "Δρόμος με διόδια";
 "unpaved_road" = "Χωματόδρομος";
 "ferry_crossing" = "Πέρασμα πορθμείου";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ο σχεδιασμός διαδρομής απέτυχε";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Άφιξη στις %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Κάντε λήψη και ενημέρωση όλων των χαρτών κατά μήκος της προβαλλόμενης διαδρομής για τον υπολογισμό της.";
 "editor_done_dialog_1" = "Έχετε αλλάξει τον παγκόσμιο χάρτη. Μην το κρατάτε για τον εαυτό σας! Πείτε το στους φίλους σας και κάντε αλλαγές μαζί.";
@@ -813,7 +802,6 @@
 "please_note" = "Λάβετε υπόψη";
 "migration_download_error_dialog" = "Σφάλμα λήψης";
 "editor_add_select_category" = "Επιλέξτε κατηγορία";
-"editor_add_select_category_popular_subtitle" = "Δημοφιλή";
 "editor_add_select_category_all_subtitle" = "Όλες οι κατηγορίες";
 "whatsnew_editor_message_1" = "Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.";
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.";
 "log_file_size" = "Μέγεθος αρχείου καταγραφής: %@";
-"planning_route_remove_title" = "Σύρετε εδώ για αφαίρεση";
 "placepage_replace_stop" = "Αντικατάσταση Stop";
-"start_from_my_position" = "Έναρξη από";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα";
@@ -882,7 +868,6 @@
 "bottom" = "Κάτω μέρος";
 "trip_start" = "Φύγαμε";
 "pick_destination" = "Προορισμός";
-"follow_my_position" = "Κεντράρισμα";
 "search_results" = "Αποτελέσματα αναζήτησης";
 "then_turn" = "Μετά";
 "redirect_route_alert" = "Θα θέλατε να επανυπολογιστεί η διαδρομή;";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Σας ευχαριστούμε που χρησιμοποιείτε τους χάρτες μας που δημιουργήθηκαν από την κοινότητα!";
-
-/* App tip #01 */
-"app_tip_01" = "Με τις δωρεές και την υποστήριξή σας, μπορούμε να δημιουργήσουμε τους καλύτερους χάρτες στον κόσμο!";
-
-/* App tip #02 */
-"app_tip_02" = "Σας αρέσει η εφαρμογή μας; Παρακαλούμε κάντε μια δωρεά για να στηρίξετε την ανάπτυξη! Ακόμα δεν σας αρέσει; Ενημερώστε μας και θα το διορθώσουμε!";
-
-/* App tip #03 */
-"app_tip_03" = "Εάν γνωρίζετε έναν προγραμματιστή λογισμικού, μπορείτε να του ζητήσετε να υλοποιήσει μια λειτουργία που χρειάζεστε.";
-
-/* App tip #04 */
-"app_tip_04" = "Πατήστε οπουδήποτε στο χάρτη για να επιλέξετε οτιδήποτε. Πατήστε παρατεταμένα για να αποκρύψετε και να εμφανίσετε ξανά το περιβάλλον εργασίας.";
-
-/* App tip #05 */
-"app_tip_05" = "Γνωρίζετε ότι μπορείτε να επιλέξετε την τρέχουσα τοποθεσία σας στο χάρτη;";
-
-/* App tip #06 */
-"app_tip_06" = "Μπορείτε να βοηθήσετε στη μετάφραση της εφαρμογής μας στη γλώσσα σας.";
-
-/* App tip #07 */
-"app_tip_07" = "Η εφαρμογή μας έχει αναπτυχθεί από λίγους θιασώτες και την κοινότητα.";
-
-/* App tip #08 */
-"app_tip_08" = "Μπορείτε εύκολα να διορθώσετε και να βελτιώσετε τα δεδομένα χάρτη.";
-
-/* App tip #09 */
-"app_tip_09" = "Ο κύριος στόχος μας είναι να δημιουργήσουμε γρήγορους, εύχρηστους και με σεβασμό στην ιδιωτικότητα χάρτες που θα λατρέψετε.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του κινητού";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε";
-"edit_track" = "Επεξεργασία διαδρομής";
-"elevation_profile_diff_level" = "Επίπεδο δυσκολίας";
-"elevation_profile_diff_level_easy" = "Εύκολο";
-"elevation_profile_diff_level_moderate" = "Μέτριο";
-"elevation_profile_diff_level_hard" = "Δύσκολο";
 "downloader_updating_ios" = "Γίνεται ενημέρωση";
 
 /* Autoupdate dialog on start */

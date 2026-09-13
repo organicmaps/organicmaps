@@ -308,38 +308,6 @@
     <string name="enable_location_services">Please enable Location Services</string>
     <string name="save">Save</string>
     <string name="create">create</string>
-    <!-- red color -->
-    <string name="red">Red</string>
-    <!-- yellow color -->
-    <string name="yellow">Yellow</string>
-    <!-- blue color -->
-    <string name="blue">Blue</string>
-    <!-- green color -->
-    <string name="green">Green</string>
-    <!-- purple color -->
-    <string name="purple">Purple</string>
-    <!-- orange color -->
-    <string name="orange">Orange</string>
-    <!-- brown color -->
-    <string name="brown">Brown</string>
-    <!-- pink color -->
-    <string name="pink">Pink</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Deep Purple</string>
-    <!-- light blue color -->
-    <string name="light_blue">Light Blue</string>
-    <!-- cyan color -->
-    <string name="cyan">Cyan</string>
-    <!-- teal color -->
-    <string name="teal">Teal</string>
-    <!-- lime color -->
-    <string name="lime">Lime</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Deep Orange</string>
-    <!-- gray color -->
-    <string name="gray">Gray</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Blue Gray</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Appearance</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -422,7 +390,6 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Closed today</string>
     <string name="day_off">Closed</string>
-    <string name="today">Today</string>
     <string name="opens_in">Opens in %s</string>
     <string name="closes_in">Closes in %s</string>
     <string name="closed">Closed</string>
@@ -465,7 +432,6 @@
     <string name="downloader_no_space_title">Not enough space</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Please delete any unnecessary data</string>
-    <string name="editor_login_error_dialog">Login error.</string>
     <string name="editor_profile_changes">Verified Changes</string>
     <string name="editor_focus_map_on_location">Drag the map to place the cross at the location of the place or business.</string>
     <string name="editor_edit_place_title">Editing</string>
@@ -571,12 +537,9 @@
     <string name="prefs_languages_information_off_link">For more information please check this guide.</string>
     <string name="transliteration_title">Transliterate into Latin alphabet</string>
     <string name="learn_more">Learn more</string>
-    <string name="planning_route_manage_route">Manage Route</string>
-    <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Remove Stop</string>
     <string name="placepage_add_stop">Add Stop</string>
     <string name="drag_to_reorder">Reorder</string>
-    <string name="saved">Saved</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.</string>
     <string name="dialog_error_storage_title">Storage access problem</string>
@@ -672,8 +635,6 @@
     <string name="avoid_motorways">Avoid freeways</string>
     <string name="unable_to_calc_alert_title">Unable to calculate route</string>
     <string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
-    <string name="define_to_avoid_btn">Define roads to avoid</string>
-    <string name="change_driving_options_btn">Routing options enabled</string>
     <string name="toll_road">Toll road</string>
     <string name="unpaved_road">Unpaved road</string>
     <string name="ferry_crossing">Ferry crossing</string>
@@ -758,8 +719,6 @@
     <string name="elevation_profile_min_elevation">Min. elevation</string>
     <string name="elevation_profile_max_elevation">Max. elevation</string>
     <string name="elevation_profile_difficulty">Difficulty</string>
-    <string name="elevation_profile_distance">Dist.:</string>
-    <string name="elevation_profile_time">Time:</string>
     <string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
     <string name="downloader_loading_ios">Downloading</string>
     <string name="download_map_title">Download the world overview map</string>
@@ -864,21 +823,11 @@
     <string name="stop_track_recording">Stop Track Recording</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Track Recording</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stop Without Saving</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continue Recording</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Save into Bookmarks and Tracks?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Track is empty - nothing to save</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Unable to display folder selection dialog because no suitable app is installed on your device. Please install a file manager app and try again.</string>
     <string name="choose_color">Choose Color</string>
     <string name="edit_track">Edit Track</string>
     <string name="uri_open_location_failed">No app installed that can open the location</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto in navigation</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Follow the system</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -905,10 +854,6 @@
     <string name="show_track">Show track</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Login with password</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Login using Browser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recently Used</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

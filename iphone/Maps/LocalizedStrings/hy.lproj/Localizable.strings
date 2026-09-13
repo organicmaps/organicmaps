@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Կապտամոխրագույն";
 
-/* place preview title */
-"info" = "Տեղեկություն";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps-ի տարբերակ՝ %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Երթևեկության տվյալները հասանելի չեն";
 "enable_logging" = "Միացնել գրանցումը";
 "transliteration_title" = "Տառադարձել լատինատառի";
-"planning_route_manage_route" = "Կառավարել երթուղին";
-"button_plan" = "Պլանավորել";
 "placepage_remove_stop" = "Հեռացնել կանգառը";
 "placepage_add_stop" = "Ավելացնել կանգառ";
-"saved" = "Պահպանված է";
 "error_enter_correct_name" = "Խնդրում ենք մուտքագրել ճիշտ անուն";
 "bookmark_lists" = "Ցուցակներ";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Խուսափել մայրուղիներից";
 "unable_to_calc_alert_title" = "Հնարավոր չէ հաշվարկել երթուղին";
 "unable_to_calc_alert_subtitle" = "Երթուղին չի գտնվել։ Սա կարող է պայմանավորված լինել երթուղու ընտրանքներով կամ OpenStreetMap-ի ոչ ամբողջական տվյալներով։ Խնդրում ենք փոխել երթուղու ընտրանքները և կրկին փորձել։";
-"define_to_avoid_btn" = "Սահմանել ճանապարհներ՝ խուսափելու համար";
-"change_driving_options_btn" = "Երթուղու ընտրանքները միացված են";
 "toll_road" = "Վճարովի ճանապարհ";
 "unpaved_road" = "Գրունտային ճանապարհ";
 "ferry_crossing" = "Լաստանավային ուղի";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Երթուղու պլանավորումը ձախողվեց";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ժամանումը՝ %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Ներբեռնել և թարմացնել բոլոր քարտեզները երթուղու երկայնքով՝ հաշվարկ կատարելու համար:";
 "editor_done_dialog_1" = "Դուք փոխեցիք աշխարհի քարտեզը: Մի պահեք դա Ձեզ, պատմեք ընկերներին և խմբագրեք միասին:";
@@ -813,7 +802,6 @@
 "please_note" = "Խնդրում ենք նկատի ունենալ";
 "migration_download_error_dialog" = "Ներբեռնման սխալ";
 "editor_add_select_category" = "Ընտրեք կատեգորիան";
-"editor_add_select_category_popular_subtitle" = "Հայտնի";
 "editor_add_select_category_all_subtitle" = "Բոլոր կատեգորիաները";
 "whatsnew_editor_message_1" = "Ավելացրեք նոր վայրեր քարտեզին և խմբագրեք առկաները անմիջապես հավելվածից:";
 "dialog_incorrect_feature_position" = "Փոխել տեղադիրքը";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Երթևեկության տվյալները ցուցադրելու համար հավելվածը պետք է թարմացվի:";
 "log_file_size" = "Գրանցամատյանի ֆայլի չափը՝ %@";
-"planning_route_remove_title" = "Քաշեք այստեղ՝ հեռացնելու համար";
 "placepage_replace_stop" = "Փոխարինել կանգառը";
-"start_from_my_position" = "Սկսել …-ից";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Խնդրում ենք մուտք գործել OpenStreetMap՝ Ձեր քարտեզի բոլոր փոփոխություններն ավտոմատ վերբեռնելու համար։ Իմացեք ավելին";
@@ -882,7 +868,6 @@
 "bottom" = "Ներքև";
 "trip_start" = "Գնացինք";
 "pick_destination" = "Նշանակման կետ";
-"follow_my_position" = "Կենտրոնացնել";
 "search_results" = "Որոնման արդյունքներ";
 "then_turn" = "Այնուհետև";
 "redirect_route_alert" = "Ցանկանո՞ւմ եք վերակառուցել երթուղին:";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Շնորհակալություն համայնքի կողմից ստեղծված մեր քարտեզներից օգտվելու համար։";
-
-/* App tip #01 */
-"app_tip_01" = "Ձեր նվիրատվություններով և աջակցությամբ մենք կարող ենք ստեղծել աշխարհի լավագույն քարտեզները։";
-
-/* App tip #02 */
-"app_tip_02" = "Հավանու՞մ եք մեր հավելվածը։ Խնդրում ենք նվիրատվություն կատարել՝ զարգացմանը աջակցելու համար։ Դեռ չե՞ք հավանում։ Խնդրում ենք հայտնել պատճառը, և մենք կշտկենք այն։";
-
-/* App tip #03 */
-"app_tip_03" = "Եթե ճանաչում եք ծրագրավորողի, կարող եք խնդրել նրան իրականացնել ձեզ անհրաժեշտ գործառույթը։";
-
-/* App tip #04 */
-"app_tip_04" = "Հպեք քարտեզի ցանկացած կետի՝ որևէ բան ընտրելու համար։ Երկար հպումը թաքցնում և ցուցադրում է ինտերֆեյսը։";
-
-/* App tip #05 */
-"app_tip_05" = "Գիտեի՞ք, որ քարտեզի վրա ձեր ընթացիկ դիրքը կարելի է ընտրել։";
-
-/* App tip #06 */
-"app_tip_06" = "Դուք կարող եք օգնել թարգմանել մեր հավելվածը ձեր լեզվով։";
-
-/* App tip #07 */
-"app_tip_07" = "Մեր հավելվածը մշակվում է մի քանի էնտուզիաստների և համայնքի կողմից։";
-
-/* App tip #08 */
-"app_tip_08" = "Դուք կարող եք հեշտությամբ ուղղել և բարելավել քարտեզի տվյալները։";
-
-/* App tip #09 */
-"app_tip_09" = "Մեր հիմնական նպատակն է ստեղծել արագ, գաղտնիությանը միտված և հեշտ օգտագործվող քարտեզներ, որոնք դուք կսիրեք։";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Դուք այժմ օգտագործում եք Organic Maps-ը հեռախոսի էկրանին";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Հետագիծը դատարկ է՝ պահպանելու ոչինչ չկա";
-"edit_track" = "Խմբագրել հետագիծը";
-"elevation_profile_diff_level" = "Բարդության մակարդակ";
-"elevation_profile_diff_level_easy" = "Հեշտ";
-"elevation_profile_diff_level_moderate" = "Միջին";
-"elevation_profile_diff_level_hard" = "Բարդ";
 "downloader_updating_ios" = "Թարմացում";
 
 /* Autoupdate dialog on start */

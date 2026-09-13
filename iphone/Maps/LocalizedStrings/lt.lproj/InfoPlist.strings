@@ -27,14 +27,5 @@
 /********** gps strings **********/
 
 
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Vietos aptikimas foninėje veiksenoje yra būtinas, norint, kad programėlė veiktų visapusiškai. Jis naudojamas navigacijai ir naujų trasų įrašymui.";
-
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Vietos aptikimas yra būtinas navigacijai ir naujų trasų įrašymui.";
-
-/* Login to OSM button text */
-"login_osm_credentials" = "Prisijungimas su slaptažodžiu";
-
-/* Login to OSM button text */
-"login_osm_browser" = "Prisijungimas naudojant naršyklę";

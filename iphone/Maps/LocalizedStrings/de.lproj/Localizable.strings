@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Graublau";
 
-/* place preview title */
-"info" = "Infos";
-
 /* Prints version number in About dialog */
 "version" = "„Organic Maps“-Version: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
 "enable_logging" = "Protokollierung aktivieren";
 "transliteration_title" = "Transliteration ins lateinische Alphabet";
-"planning_route_manage_route" = "Route verwalten";
-"button_plan" = "Planen";
 "placepage_remove_stop" = "Stopp entfernen";
 "placepage_add_stop" = "Stopp einfügen";
-"saved" = "Gespeichert";
 "error_enter_correct_name" = "Bitte gib einen korrekten Namen ein";
 "bookmark_lists" = "Listen";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Autobahnen vermeiden";
 "unable_to_calc_alert_title" = "Route kann nicht berechnet werden";
 "unable_to_calc_alert_subtitle" = "Eine Route konnte nicht gefunden werden. Dies kann an deinen Routenbeschränkungen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändere deine Routenbeschränkungen und versuche es erneut.";
-"define_to_avoid_btn" = "Routenbeschränkung einstellen";
-"change_driving_options_btn" = "Routenbeschränkungen aktiv";
 "toll_road" = "Mautstraße";
 "unpaved_road" = "Unbefestigte Straße";
 "ferry_crossing" = "Fährstelle";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Routenplanung fehlgeschlagen";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankunft: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lade alle Karten entlang der geplanten Route herunter und aktualisiere sie, um die Route zu berechnen.";
 "editor_done_dialog_1" = "Du hast die Weltkarte geändert. Behalte das nicht für dich! Erzähle deine Freunden davon und bearbeitet sie zusammen.";
@@ -813,7 +802,6 @@
 "please_note" = "Bitte beachten";
 "migration_download_error_dialog" = "Fehler beim Herunterladen";
 "editor_add_select_category" = "Kategorie auswählen";
-"editor_add_select_category_popular_subtitle" = "Beliebt";
 "editor_add_select_category_all_subtitle" = "Alle Kategorien";
 "whatsnew_editor_message_1" = "Füge auf der Karte einen neuen Ort hinzu und bearbeite existierende Orte direkt in der App.";
 "dialog_incorrect_feature_position" = "Standort wechseln";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Zum Anzeigen von Verkehrsdaten muss die Anwendung aktualisiert werden.";
 "log_file_size" = "Größe der Protokolldatei: %@";
-"planning_route_remove_title" = "Hierher ziehen zum Entfernen";
 "placepage_replace_stop" = "Stopp ersetzen";
-"start_from_my_position" = "Starten von";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr";
@@ -882,7 +868,6 @@
 "bottom" = "Unten";
 "trip_start" = "Los";
 "pick_destination" = "Ziel";
-"follow_my_position" = "Zentrieren";
 "search_results" = "Suchergebnisse";
 "then_turn" = "Danach";
 "redirect_route_alert" = "Möchtest du die Route neu erstellen?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/DE:Über_OSM";
 
-/* App Tip #00 */
-"app_tip_00" = "Danke, dass du unsere von der Community erstellten Karten benutzt!";
-
-/* App tip #01 */
-"app_tip_01" = "Mit deinen Spenden und deiner Unterstützung können wir die besten Karten der Welt erstellen!";
-
-/* App tip #02 */
-"app_tip_02" = "Gefällt dir unsere App? Bitte spende, um die Entwicklung zu unterstützen! Gefällt sie dir noch nicht? Bitte lass uns den Grund dafür wissen, damit wir das Problem beheben können!";
-
-/* App tip #03 */
-"app_tip_03" = "Wenn du einen Softwareentwickler kennst, kannst du ihn oder sie bitten, eine Funktion zu implementieren, die du benötigst.";
-
-/* App tip #04 */
-"app_tip_04" = "Tippe irgendwo auf die Karte, um etwas auszuwählen. Tipp lange, um die Oberfläche aus- und wieder einzublenden.";
-
-/* App tip #05 */
-"app_tip_05" = "Wusstest du, dass du deinen aktuellen Standort auf der Karte auswählen kannst?";
-
-/* App tip #06 */
-"app_tip_06" = "Du kannst dabei helfen, unsere App in deine Sprache zu übersetzen.";
-
-/* App tip #07 */
-"app_tip_07" = "Unsere App wird von einigen Enthusiasten und der Community entwickelt.";
-
-/* App tip #08 */
-"app_tip_08" = "Du kannst die Kartendaten einfach korrigieren und verbessern.";
-
-/* App tip #09 */
-"app_tip_09" = "Unser Hauptziel ist es, schnelle, datenschutzorientierte und benutzerfreundliche Karten zu erstellen, die du liebst.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Du verwendest jetzt Organic Maps auf dem Telefondisplay";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track ist leer – nichts zu speichern";
-"edit_track" = "Track bearbeiten";
-"elevation_profile_diff_level" = "Anspruchsniveau";
-"elevation_profile_diff_level_easy" = "Leicht";
-"elevation_profile_diff_level_moderate" = "Mittel";
-"elevation_profile_diff_level_hard" = "Schwer";
 "downloader_updating_ios" = "Aktualisierung";
 
 /* Autoupdate dialog on start */

@@ -207,20 +207,6 @@
     <!-- location service disabled -->
     <string name="enable_location_services">Por favor, ative os Serviços de Localização</string>
     <string name="save">Salvar</string>
-    <!-- brown color -->
-    <string name="brown">Marrom</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Lilás escuro</string>
-    <!-- light blue color -->
-    <string name="light_blue">Azul claro</string>
-    <!-- cyan color -->
-    <string name="cyan">Ciano</string>
-    <!-- teal color -->
-    <string name="teal">Azul petróleo</string>
-    <!-- lime color -->
-    <string name="lime">Verde limão</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Azul escuro</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aparência</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -313,7 +299,6 @@
     <string name="downloader_no_space_title">Não há espaço suficiente</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Exclua todos os dados desnecessários</string>
-    <string name="editor_login_error_dialog">Erro no login.</string>
     <string name="editor_focus_map_on_location">Arraste o mapa para colocar a cruz na localização do local ou da empresa.</string>
     <string name="editor_add_place_title">Adicionando</string>
     <string name="editor_edit_place_name_hint">Nome do local</string>
@@ -396,11 +381,8 @@
     <string name="prefs_languages_information_off">Para alguns idiomas, você precisa instalar um sintetizador de fala ou um pacote adicional de linguagem da loja de aplicativo (Google Play Market, Samsung Apps).\nAbra as configurações do seu dispositivo → Idioma e entrada → Fala → Saída de texto para fala.\nAqui você pode gerenciar as configurações para o sintetizador de fala (por exemplo, baixar pacote de idioma para usar off-line) e selecionar outro motor de texto-para-fala.</string>
     <string name="transliteration_title">Transliterar para alfabeto latino</string>
     <string name="learn_more">Saiba mais</string>
-    <string name="planning_route_manage_route">Gerenciar rota</string>
-    <string name="button_plan">Planejar</string>
     <string name="placepage_remove_stop">Remover parada</string>
     <string name="placepage_add_stop">Adicionar parada</string>
-    <string name="saved">Salvo</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
     <string name="dialog_error_storage_message">O armazenamento externo não está disponível. É provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support\@organicmaps.app</string>
@@ -468,8 +450,6 @@
     <string name="avoid_motorways">Evitar rodovias</string>
     <string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
     <string name="unable_to_calc_alert_subtitle">Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas ou dados do OpenStreetMap em falta. Por favor, altere as configurações e tente novamente.</string>
-    <string name="define_to_avoid_btn">Definir as estradas a serem evitadas</string>
-    <string name="change_driving_options_btn">Opções de direção ativadas</string>
     <string name="toll_road">Pedágio</string>
     <string name="unpaved_road">Pista não pavimentada</string>
     <string name="ferry_crossing">Balsa</string>
@@ -512,7 +492,6 @@
     <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>
-    <string name="elevation_profile_distance">Dist.:</string>
     <string name="isolines_toast_zooms_1_10">Use o zoom para explorar as isolinhas</string>
     <string name="downloader_loading_ios">Baixando</string>
     <string name="download_map_title">Baixar a visão geral mundial</string>
@@ -604,21 +583,11 @@
     <string name="stop_track_recording">Parar gravação de trilha</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Gravação de trilha</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar sem salvar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuar registrando</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Salvar em Favoritos e Trilhas?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">A trilha está vazia - não há nada para salvar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Não é possível exibir a caixa de diálogo de seleção de pastas porque nenhum aplicativo adequado está instalado no seu dispositivo. Instale um aplicativo gerenciador de arquivos e tente novamente.</string>
     <string name="choose_color">Escolha a cor</string>
     <string name="edit_track">Editar trilha</string>
     <string name="uri_open_location_failed">Nenhum aplicativo instalado que possa abrir o local</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automático na navegação</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Usar o padrão do sistema</string>
     <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
@@ -635,10 +604,6 @@
     <string name="show_track">Mostrar trilha</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Login com senha</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Fazer login usando o navegador</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Cor das trilhas alterada</string>
     <!-- Tab label for the RGB sliders color picker mode -->

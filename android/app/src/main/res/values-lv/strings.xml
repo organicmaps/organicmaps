@@ -308,38 +308,6 @@
     <string name="enable_location_services">Ieslēdziet ierīces atrašanās vietas noteikšanas pakalpojumus</string>
     <string name="save">Saglabāt</string>
     <string name="create">izveidot</string>
-    <!-- red color -->
-    <string name="red">Sarkana</string>
-    <!-- yellow color -->
-    <string name="yellow">Dzeltena</string>
-    <!-- blue color -->
-    <string name="blue">Zila</string>
-    <!-- green color -->
-    <string name="green">Zaļa</string>
-    <!-- purple color -->
-    <string name="purple">Violeta</string>
-    <!-- orange color -->
-    <string name="orange">Oranža</string>
-    <!-- brown color -->
-    <string name="brown">Brūna</string>
-    <!-- pink color -->
-    <string name="pink">Rozā</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tumši violeta</string>
-    <!-- light blue color -->
-    <string name="light_blue">Gaiši zila</string>
-    <!-- cyan color -->
-    <string name="cyan">Ciāna</string>
-    <!-- teal color -->
-    <string name="teal">Tumši ciāna</string>
-    <!-- lime color -->
-    <string name="lime">Dzeltenzaļa</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tumši oranža</string>
-    <!-- gray color -->
-    <string name="gray">Pelēka</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Zilpelēka</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Izskats</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -422,7 +390,6 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Šodien slēgts</string>
     <string name="day_off">Slēgts</string>
-    <string name="today">Šodien</string>
     <string name="opens_in">Atveras pēc %s</string>
     <string name="closes_in">Slēgts pēc %s</string>
     <string name="closed">Slēgts</string>
@@ -465,7 +432,6 @@
     <string name="downloader_no_space_title">Trūkst vietas</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Dzēsiet liekos datus</string>
-    <string name="editor_login_error_dialog">Ierakstīšanās kļūda.</string>
     <string name="editor_profile_changes">Apstiprinātas izmaiņas</string>
     <string name="editor_focus_map_on_location">Velciet karti, lai novietotu krustiņu objekta vai iestādes atrašanās vietā.</string>
     <string name="editor_edit_place_title">Vietas labošana</string>
@@ -571,12 +537,9 @@
     <string name="prefs_languages_information_off_link">Vairāk informācijas atradīsiet šajā pamācībā</string>
     <string name="transliteration_title">Transliterācija uz latīņu alfabētu</string>
     <string name="learn_more">Uzzināt vairāk</string>
-    <string name="planning_route_manage_route">Pārvaldīt maršrutu</string>
-    <string name="button_plan">Plānot</string>
     <string name="placepage_remove_stop">Noņemt starppunktu</string>
     <string name="placepage_add_stop">Pievienot starppunktu</string>
     <string name="drag_to_reorder">Pārkārtot</string>
-    <string name="saved">Saglabāts</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk <a href="https://github.com/organicmaps/organicmaps/issues/6144">te</a>.</string>
     <string name="dialog_error_storage_title">Krātuves pieejas problēma</string>
@@ -675,8 +638,6 @@
     <string name="avoid_motorways">Izvairīties no automaģistrālēm</string>
     <string name="unable_to_calc_alert_title">Neizdevās aprēķināt maršrutu</string>
     <string name="unable_to_calc_alert_subtitle">Maršrutu neatrada. Iespējams, maršruta iestatījumi ir pārāk ierobežojoši vai trūkst „OpenStreetMap“ datu. Mēģiniet mainīt iestatījumus un atkārtot.</string>
-    <string name="define_to_avoid_btn">Noteikt nevēlamos ceļus</string>
-    <string name="change_driving_options_btn">Maršruta izvēles ir ieslēgtas</string>
     <string name="toll_road">Maksas ceļš</string>
     <string name="unpaved_road">Neasfaltēts ceļš</string>
     <string name="ferry_crossing">Prāmja pārceltuve</string>
@@ -755,8 +716,6 @@
     <string name="elevation_profile_min_elevation">Zemākais punkts</string>
     <string name="elevation_profile_max_elevation">Augstākais punkts</string>
     <string name="elevation_profile_difficulty">Sarežģītība</string>
-    <string name="elevation_profile_distance">Attālums:</string>
-    <string name="elevation_profile_time">Ceļā:</string>
     <string name="isolines_toast_zooms_1_10">Pietuviniet, lai izpētītu izolīnijas</string>
     <string name="downloader_loading_ios">Lejupielādē</string>
     <string name="download_map_title">Lejupielādēt pasaules pārskata karti</string>
@@ -857,21 +816,11 @@
     <string name="stop_track_recording">Apstādināt pēdojuma ierakstīšanu</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Trases ierakstīšana</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Turpināt ierakstīt</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Saglabāt pēdojumu grāmatzīmju sadaļā?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav nekā saglabājama</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nevar parādīt mapes atlases dialoglodziņu, jo jūsu ierīcē nav instalēta piemērota lietotne. Lūdzu, uzstādiet failu pārvaldnieka lietotni un mēģiniet vēlreiz.</string>
     <string name="choose_color">Izvēlieties krāsu</string>
     <string name="edit_track">Pēdojuma labošana</string>
     <string name="uri_open_location_failed">Nav uzstādīta neviena lietotne, kas varētu atvērt atrašanās vietu</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automātisks navigācijas laikā</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Sekot sistēmai</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -900,10 +849,6 @@
     <string name="show_track">Rādīt pēdojumu</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Pieteikšanās ar paroli</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Pieteikšanās, izmantojot pārlūkprogrammu</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Nesen izmantots</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

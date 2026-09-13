@@ -11,12 +11,6 @@
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
     <string name="category_fuel">Petrol</string>
 
-    <!-- SECTION: Other translations -->
-    <!-- gray color -->
-    <string name="gray">Grey</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Blue Grey</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.</string>
 

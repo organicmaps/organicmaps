@@ -308,38 +308,6 @@
     <string name="enable_location_services">Įjunkite vietovės tarnybas</string>
     <string name="save">Įrašyti</string>
     <string name="create">kurti</string>
-    <!-- red color -->
-    <string name="red">Raudonas</string>
-    <!-- yellow color -->
-    <string name="yellow">Geltonas</string>
-    <!-- blue color -->
-    <string name="blue">Mėlynas</string>
-    <!-- green color -->
-    <string name="green">Žalias</string>
-    <!-- purple color -->
-    <string name="purple">Violetinis</string>
-    <!-- orange color -->
-    <string name="orange">Oranžinis</string>
-    <!-- brown color -->
-    <string name="brown">Rudas</string>
-    <!-- pink color -->
-    <string name="pink">Rožinis</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Tamsiai violetinis</string>
-    <!-- light blue color -->
-    <string name="light_blue">Šviesiai mėlynas</string>
-    <!-- cyan color -->
-    <string name="cyan">Žydras</string>
-    <!-- teal color -->
-    <string name="teal">Turkio spalvos</string>
-    <!-- lime color -->
-    <string name="lime">Salotinis</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Tamsiai oranžinis</string>
-    <!-- gray color -->
-    <string name="gray">Pilkas</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Mėlynai pilkas</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Išvaizda</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -422,7 +390,6 @@
     <string name="twentyfour_seven">24×7</string>
     <string name="day_off_today">Šiandien uždaryta</string>
     <string name="day_off">Uždaryta</string>
-    <string name="today">Šiandien</string>
     <string name="opens_in">Atsidaro už %s</string>
     <string name="closes_in">Užsidaro už %s</string>
     <string name="closed">Uždaryta</string>
@@ -465,7 +432,6 @@
     <string name="downloader_no_space_title">Nepakanka laisvos vietos</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Pašalinkite nereikalingus duomenis</string>
-    <string name="editor_login_error_dialog">Prisijungimo klaida.</string>
     <string name="editor_profile_changes">Patvirtinti pakeitimai</string>
     <string name="editor_focus_map_on_location">Vilkite žemėlapį, kad kryžiukas atsidurtų ties vieta, kurioje yra pridedama vieta ar įmonė.</string>
     <string name="editor_edit_place_title">Taisoma</string>
@@ -571,12 +537,9 @@
     <string name="prefs_languages_information_off_link">Jei norite išsamesnės informacijos, žvilgtelėkite į šią instrukciją.</string>
     <string name="transliteration_title">Transliteruoti užrašus lotyniškais rašmenimis</string>
     <string name="learn_more">Išsamesnė informacija</string>
-    <string name="planning_route_manage_route">Tvarkyti maršrutą</string>
-    <string name="button_plan">Planas</string>
     <string name="placepage_remove_stop">Šalinti stotelę</string>
     <string name="placepage_add_stop">Pridėti stotelę</string>
     <string name="drag_to_reorder">Pakeisti tvarką</string>
-    <string name="saved">Įrašyta</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prisijunkite prie „OpenStreetMap“, kad galėtumėte automatiškai įkelti visus savo žemėlapio pakeitimus. Išsamesnė informacija – <a href="https://github.com/organicmaps/organicmaps/issues/6144">čia</a>.</string>
     <string name="dialog_error_storage_title">Prieigos prie saugyklos problema</string>
@@ -675,8 +638,6 @@
     <string name="avoid_motorways">Vengti greitkelių</string>
     <string name="unable_to_calc_alert_title">Nepavyko apskaičiuoti maršruto</string>
     <string name="unable_to_calc_alert_subtitle">Deja, nepavyko rasti maršruto. Tikėtina, jog taip yra dėl jūsų pasirinktų parinkčių arba trūkstamų „OpenStreetMap“ duomenų. Pakeiskite parinktis ir bandykite dar kartą.</string>
-    <string name="define_to_avoid_btn">Nurodykite vengtinus kelius</string>
-    <string name="change_driving_options_btn">Yra įjungtų maršruto parinkčių</string>
     <string name="toll_road">Mokamas kelias</string>
     <string name="unpaved_road">Negrįstas kelias</string>
     <string name="ferry_crossing">Persikėlimas keltu</string>
@@ -761,8 +722,6 @@
     <string name="elevation_profile_min_elevation">Min. aukštis</string>
     <string name="elevation_profile_max_elevation">Maks. aukštis</string>
     <string name="elevation_profile_difficulty">Sudėtingumas</string>
-    <string name="elevation_profile_distance">Atstumas:</string>
-    <string name="elevation_profile_time">Laikas:</string>
     <string name="isolines_toast_zooms_1_10">Priartinkite, jei norite patyrinėti izolinijas</string>
     <string name="downloader_loading_ios">Atsiunčiama</string>
     <string name="download_map_title">Atsisiųsti bendrą pasaulio žemėlapį</string>
@@ -867,21 +826,11 @@
     <string name="stop_track_recording">Stabdyti trasos įrašymą</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Trasos įrašymas</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stabdyti neįrašant</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Tęsti įrašymą</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Įrašyti į žymių ir trasų sąrašą?</string>
-    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Trasa tuščia – nėra ką įrašyti</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nepavyko parodyti aplanko pasirinkimo dialogo, nes jūsų įrenginyje neįdiegta tinkama programa. Įdiekite failų tvarkyklės programą ir bandykite dar kartą.</string>
     <string name="choose_color">Pasirinkite spalvą</string>
     <string name="edit_track">Redaguoti trasą</string>
     <string name="uri_open_location_failed">Neįdiegta programėlė, galinti atverti vietą</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automatinė naviguojant</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Pagal sistemą</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -910,10 +859,6 @@
     <string name="show_track">Rodyti trasą</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Prisijungimas su slaptažodžiu</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Prisijungimas naudojant naršyklę</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Neseniai naudotas</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

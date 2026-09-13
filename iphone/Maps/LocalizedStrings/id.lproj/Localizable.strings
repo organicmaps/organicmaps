@@ -386,9 +386,6 @@
 /* blue gray color */
 "blue_gray" = "Biru Keabu-abuan";
 
-/* place preview title */
-"info" = "Info";
-
 /* Prints version number in About dialog */
 "version" = "Versi Organic Maps: %@";
 
@@ -649,11 +646,8 @@
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
 "enable_logging" = "Aktifkan pencatatan";
 "transliteration_title" = "Transliterasi ke dalam bahasa Latin";
-"planning_route_manage_route" = "Kelola rute";
-"button_plan" = "Rencana";
 "placepage_remove_stop" = "Hapus pemberhentian";
 "placepage_add_stop" = "Tambah perhentian";
-"saved" = "Tersimpan";
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
 "bookmark_lists" = "Daftar";
 
@@ -739,8 +733,6 @@
 "avoid_motorways" = "Hindari jalan raya";
 "unable_to_calc_alert_title" = "Tidak dapat menghitung rute";
 "unable_to_calc_alert_subtitle" = "Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi";
-"define_to_avoid_btn" = "Tentukan jalan yang dihindari";
-"change_driving_options_btn" = "Opsi perutean diaktifkan";
 "toll_road" = "Jalan tol";
 "unpaved_road" = "Jalan tanah";
 "ferry_crossing" = "Penyeberangan kapal feri";
@@ -786,9 +778,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Sudah sampai di tujuan";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Kedatangan: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
 "editor_done_dialog_1" = "Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.";
@@ -813,7 +802,6 @@
 "please_note" = "Harap diperhatikan";
 "migration_download_error_dialog" = "Unduh kesalahan";
 "editor_add_select_category" = "Pilih kategori";
-"editor_add_select_category_popular_subtitle" = "Populer";
 "editor_add_select_category_all_subtitle" = "Semua kategori";
 "whatsnew_editor_message_1" = "Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.";
 "dialog_incorrect_feature_position" = "Ubah lokasi";
@@ -852,9 +840,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.";
 "log_file_size" = "Ukuran file log: %@";
-"planning_route_remove_title" = "Seret ke sini untuk menghapus";
 "placepage_replace_stop" = "Ganti Berhenti";
-"start_from_my_position" = "Mulai dari";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut";
@@ -882,7 +868,6 @@
 "bottom" = "Bawah";
 "trip_start" = "Ayo";
 "pick_destination" = "Tujuan";
-"follow_my_position" = "Pusatkan ulang";
 "search_results" = "Hasil pencarian";
 "then_turn" = "Lalu";
 "redirect_route_alert" = "Anda ingin membuat ulang rute?";
@@ -965,36 +950,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Terima kasih telah menggunakan peta buatan komunitas kami!";
-
-/* App tip #01 */
-"app_tip_01" = "Dengan donasi dan dukungan Anda, kami dapat membuat peta terbaik di Dunia!";
-
-/* App tip #02 */
-"app_tip_02" = "Apakah Anda menyukai aplikasi kami? Silakan berdonasi untuk mendukung pengembangan! Belum menyukainya? Harap beri tahu kami, dan kami akan memperbaikinya!";
-
-/* App tip #03 */
-"app_tip_03" = "Jika Anda mengenal seorang pengembang perangkat lunak, Anda dapat memintanya untuk mengimplementasikan fitur yang Anda perlukan.";
-
-/* App tip #04 */
-"app_tip_04" = "Ketuk di mana saja pada peta untuk memilih apa pun. Ketuk lama untuk menyembunyikan dan menampilkan kembali antarmuka.";
-
-/* App tip #05 */
-"app_tip_05" = "Tahukah Anda bahwa Anda dapat memilih lokasi Anda saat ini di peta?";
-
-/* App tip #06 */
-"app_tip_06" = "Anda dapat membantu menerjemahkan aplikasi kami ke dalam bahasa Anda.";
-
-/* App tip #07 */
-"app_tip_07" = "Aplikasi kami dikembangkan oleh beberapa peminat dan komunitas.";
-
-/* App tip #08 */
-"app_tip_08" = "Anda dapat dengan mudah memperbaiki dan meningkatkan data peta.";
-
-/* App tip #09 */
-"app_tip_09" = "Tujuan utama kami adalah membuat peta yang cepat, berfokus pada privasi, dan mudah digunakan yang akan Anda sukai.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Anda sekarang menggunakan Organic Maps pada layar ponsel";
 
@@ -1037,11 +992,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
-"edit_track" = "Edit Jalur";
-"elevation_profile_diff_level" = "Tingkat kesulitan";
-"elevation_profile_diff_level_easy" = "Mudah";
-"elevation_profile_diff_level_moderate" = "Sedang";
-"elevation_profile_diff_level_hard" = "Sulit";
 "downloader_updating_ios" = "Memperbarui";
 
 /* Autoupdate dialog on start */
