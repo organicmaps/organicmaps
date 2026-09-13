@@ -1982,6 +1982,35 @@ UNIT_CLASS_TEST(ProcessorTest, CountrySynonymsTest)
   }
 }
 
+// "St." is a common abbreviation of the German "Sankt", and OSM stores both spellings
+// (Sankt Wendel, but St. Gallen and St. Pölten).
+UNIT_CLASS_TEST(ProcessorTest, SanktSynonymTest)
+{
+  TestCity sanktWendel({0, 0}, "Sankt Wendel", "de", 100 /* rank */);
+  TestCity stGallen({0.5, 0.5}, "St. Gallen", "de", 100 /* rank */);
+
+  auto const worldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
+    builder.Add(sanktWendel);
+    builder.Add(stGallen);
+  });
+
+  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
+  {
+    Rules const rules = {ExactMatch(worldId, sanktWendel)};
+    TEST(ResultsMatch("sankt wendel ", rules), ());
+    TEST(ResultsMatch("st wendel ", rules), ());
+    TEST(ResultsMatch("saint wendel ", rules), ());
+    TEST(ResultsMatch("St. Wendel", rules), ());
+  }
+  {
+    Rules const rules = {ExactMatch(worldId, stGallen)};
+    TEST(ResultsMatch("st gallen ", rules), ());
+    TEST(ResultsMatch("sankt gallen ", rules), ());
+    TEST(ResultsMatch("saint gallen ", rules), ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
 {
   TestStreet streetEn({{0.5, -0.5}, {0.0, 0.0}, {-0.5, 0.5}}, "Southwest street", "en");
