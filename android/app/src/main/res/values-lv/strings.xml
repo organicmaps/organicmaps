@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ielādē grāmatzīmes</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Grāmatzīmes ir ielādētas! Tās varat atrast kartē un grāmatzīmju pārvaldīšanas ekrānā.</string>
+    <string name="load_kmz_successful">Grāmatzīmes ir ielādētas! Izvēlieties sarakstu, lai skatītu to kartē:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta.</string>
+    <string name="load_kmz_failed">Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Lietotne neatpazīst datnes tipu:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

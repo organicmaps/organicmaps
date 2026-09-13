@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">A carregar favoritos</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Os favoritos foram carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.</string>
+    <string name="load_kmz_successful">Os favoritos foram carregados com sucesso! Selecione uma lista para a ver no mapa:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Surgiu uma falha ao enviar os favoritos. O ficheiro pode estar corrompido ou com defeito.</string>
+    <string name="load_kmz_failed">Surgiu uma falha ao enviar os favoritos. O ficheiro pode estar corrompido ou com defeito:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">O tipo de ficheiro não é reconhecido pela aplicação:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

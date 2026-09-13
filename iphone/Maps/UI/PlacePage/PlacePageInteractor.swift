@@ -446,7 +446,7 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
 // MARK: - BookmarksObserver
 
 extension PlacePageInteractor: BookmarksObserver {
-  func onBookmarksLoadFinished() {
+  func onBookmarksCategoryLoadingFinished() {
     updatePlacePageIfNeeded()
   }
 

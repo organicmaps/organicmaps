@@ -163,10 +163,10 @@
 "load_kmz_title" = "Laster inn bokmerker";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».";
+"load_kmz_successful" = "Bokmerkene ble lastet inn! Velg en liste for å se den på kartet:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.";
+"load_kmz_failed" = "Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt:";
 
 /* resource for context menu */
 "edit" = "Rediger";

@@ -163,10 +163,10 @@
 "load_kmz_title" = "Indlæser bogmærker";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Bogmærker er indlæst! Du kan finde dem på kortet eller på skærmen for bogmærkehåndtering.";
+"load_kmz_successful" = "Bogmærker er indlæst! Vælg en liste for at se den på kortet:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Bogmærkerne kunne ikke indlæses. Filen kan være skadet eller defekt.";
+"load_kmz_failed" = "Bogmærkerne kunne ikke indlæses. Filen kan være skadet eller defekt:";
 
 /* resource for context menu */
 "edit" = "Rediger";

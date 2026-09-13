@@ -252,7 +252,7 @@ private extension iCloudSynchronizaionManager {
           Self.isInitialSynchronization = false
         }
       case .reloadCategoriesAtURLs(let urls):
-        urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
+        self.bookmarksManager.reloadCategories(atFilePaths: urls.map(\.path))
       case .deleteCategoriesAtURLs(let urls):
         urls.forEach { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
       case .failure(let error):

@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Učitavanje zabilješki</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Zabilješke su uspješno učitane! Možeš ih pronaći na karti ili na ekranu „Upravljač zabilješki”.</string>
+    <string name="load_kmz_successful">Zabilješke su uspješno učitane! Odaberi popis za prikaz na karti:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Neuspjelo učitavanje zabilješki. Datoteka je možda oštećena ili neispravna.</string>
+    <string name="load_kmz_failed">Neuspjelo učitavanje zabilješki. Datoteka je možda oštećena ili neispravna:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aplikacija ne prepoznaje vrstu datoteke:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Lesezeichen werden geladen</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Lesezeichen erfolgreich geladen! Du kannst diese nun auf deiner Karte oder im Lesezeichen-Manager anzeigen.</string>
+    <string name="load_kmz_successful">Lesezeichen erfolgreich geladen! Wähle eine Liste aus, um sie auf der Karte anzuzeigen:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.</string>
+    <string name="load_kmz_failed">Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Der Dateityp wird von der App nicht erkannt:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

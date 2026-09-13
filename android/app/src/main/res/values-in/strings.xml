@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Memuat Penanda</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Penanda berhasil dimuat! Anda dapat menemukannya pada peta atau pada layar Pengelola Penanda Lokasi.</string>
+    <string name="load_kmz_successful">Penanda berhasil dimuat! Pilih daftar untuk melihatnya di peta:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Gagal mengunggah penanda lokasi. Berkas mungkin rusak.</string>
+    <string name="load_kmz_failed">Gagal mengunggah penanda lokasi. Berkas mungkin rusak:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Jenis file tidak dikenali oleh aplikasi:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

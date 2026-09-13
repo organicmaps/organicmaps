@@ -168,7 +168,7 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
 // MARK: - BookmarksObserver
 
 extension BookmarksListInteractor: BookmarksObserver {
-  func onBookmarksLoadFinished() {
+  func onBookmarksCategoryLoadingFinished() {
     reloadCategory()
   }
 

@@ -74,29 +74,25 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&BookmarkDialog::OnAsyncLoadingStarted, this);
   callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
-  callbacks.m_onFileSuccess = std::bind(&BookmarkDialog::OnAsyncLoadingFileSuccess, this, _1, _2);
-  callbacks.m_onFileError = std::bind(&BookmarkDialog::OnAsyncLoadingFileError, this, _1, _2);
+  callbacks.m_onImportFinished = [](BookmarkManager::BookmarkImportResult const & result)
+  {
+    for (auto const & sourceResult : result.m_sourceResults)
+      LOG(sourceResult.m_failedFileNames.empty() ? LINFO : LERROR,
+          ("Bookmarks import:", sourceResult.m_context.m_filePath, "imported:", sourceResult.m_groupIds.size(),
+           "failed:", sourceResult.m_failedFileNames));
+  };
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 }
 
 void BookmarkDialog::OnAsyncLoadingStarted()
 {
-  FillTree();
+  FillTree(true);
 }
 
 void BookmarkDialog::OnAsyncLoadingFinished()
 {
+  // The core keeps its loading flag set during callbacks to serialize queued requests.
   FillTree();
-}
-
-void BookmarkDialog::OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LINFO, ("OnAsyncLoadingFileSuccess", fileName, isTemporaryFile));
-}
-
-void BookmarkDialog::OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LERROR, ("OnAsyncLoadingFileError", fileName, isTemporaryFile));
 }
 
 void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
@@ -140,14 +136,11 @@ void BookmarkDialog::OnImportClick()
       this /* parent */, tr("Open KML, KMZ, GPX, JSON, GeoJSON..."), QString() /* dir */,
       "KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)");
 
+  std::vector<BookmarkManager::BookmarkFileLoadingContext> contexts;
+  contexts.reserve(files.size());
   for (auto const & name : files)
-  {
-    auto const file = name.toStdString();
-    if (file.empty())
-      continue;
-
-    m_framework.GetBookmarkManager().LoadBookmark(file, false /* isTemporaryFile */);
-  }
+    contexts.push_back({name.toStdString(), false /* isTemporaryFile */});
+  m_framework.GetBookmarkManager().ImportBookmarks(std::move(contexts));
 }
 
 void BookmarkDialog::OnExportClick(FileType exportedFileType)
@@ -276,7 +269,7 @@ QTreeWidgetItem * BookmarkDialog::CreateTreeItem(std::string const & title, QTre
   return item;
 }
 
-void BookmarkDialog::FillTree()
+void BookmarkDialog::FillTree(bool isLoading)
 {
   m_tree->setSortingEnabled(false);
   m_tree->clear();
@@ -288,7 +281,7 @@ void BookmarkDialog::FillTree()
 
   auto const & bm = m_framework.GetBookmarkManager();
 
-  if (!bm.IsAsyncLoadingInProgress())
+  if (!isLoading)
   {
     for (auto catId : bm.GetUnsortedBmGroupsIdList())
     {
@@ -335,7 +328,7 @@ void BookmarkDialog::FillTree()
 
 void BookmarkDialog::ShowModal()
 {
-  FillTree();
+  FillTree(m_framework.GetBookmarkManager().IsAsyncLoadingInProgress());
   exec();
 }
 }  // namespace qt

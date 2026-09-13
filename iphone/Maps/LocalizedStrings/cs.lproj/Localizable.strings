@@ -163,10 +163,10 @@
 "load_kmz_title" = "Nahrávání záložek";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Záložky byly úspěšně nahrány! Naleznete je na mapě nebo ve správci záložek.";
+"load_kmz_successful" = "Záložky byly úspěšně nahrány! Vyberte seznam, který chcete zobrazit na mapě:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.";
+"load_kmz_failed" = "Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný:";
 
 /* resource for context menu */
 "edit" = "Upravit";

@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Žymių sąrašas įkeliamas</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Žymių sąrašas įkeltas! Galite rasti jį žemėlapyje arba žymių tvarkytuvės ekrane.</string>
+    <string name="load_kmz_successful">Žymių sąrašas įkeltas! Pasirinkite sąrašą, kurį norite matyti žemėlapyje:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Žymių sąrašo nepavyko įkelti. Gali būti, kad failas sugadintas.</string>
+    <string name="load_kmz_failed">Žymių sąrašo nepavyko įkelti. Gali būti, kad failas sugadintas:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Programėlė neatpažįsta failo tipo: \n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

@@ -163,10 +163,10 @@
 "load_kmz_title" = "Memuat Penanda";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Penanda berhasil dimuat! Anda dapat menemukannya pada peta atau pada layar Pengelola Penanda Lokasi.";
+"load_kmz_successful" = "Penanda berhasil dimuat! Pilih daftar untuk melihatnya di peta:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Gagal mengunggah penanda lokasi. Berkas mungkin rusak.";
+"load_kmz_failed" = "Gagal mengunggah penanda lokasi. Berkas mungkin rusak:";
 
 /* resource for context menu */
 "edit" = "Sunting";

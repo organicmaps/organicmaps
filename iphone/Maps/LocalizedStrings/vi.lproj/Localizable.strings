@@ -163,10 +163,10 @@
 "load_kmz_title" = "Tải Điểm đánh dấu";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.";
+"load_kmz_successful" = "Đã tải điểm đánh dấu thành công! Chọn một danh sách để xem trên bản đồ:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Không tải lên được điểm đánh dấu. Tập tin có thể bị hỏng hoặc lỗi.";
+"load_kmz_failed" = "Không tải lên được điểm đánh dấu. Tập tin có thể bị hỏng hoặc lỗi:";
 
 /* resource for context menu */
 "edit" = "Sửa";
