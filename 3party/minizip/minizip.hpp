@@ -1,5 +1,8 @@
 #pragma once
 
+// Workaround for a bug in zlib-ng 2.0.6 and earlier, which probes for the presence of zlib.h in the include path before including it.
+#include "zlib.h"
+
 #include "3party/minizip-ng/compat/unzip.h"
 #include "3party/minizip-ng/compat/zip.h"
 
