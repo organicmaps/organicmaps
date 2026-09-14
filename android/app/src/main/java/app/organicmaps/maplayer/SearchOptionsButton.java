@@ -24,6 +24,8 @@ public class SearchOptionsButton implements View.OnClickListener
   private final View mFrame;
 
   private View mSearchLayout;
+  @Nullable
+  private View mSearchOptionsScroll;
   private final ImageView mSearchButton;
   @Nullable
   private final View mTouchInterceptor;
@@ -109,6 +111,9 @@ public class SearchOptionsButton implements View.OnClickListener
     if (mSearchLayout == null)
       return false;
 
+    // Present only where the options are a scrollable strip; the radial layout has no scroll view.
+    mSearchOptionsScroll = mSearchLayout.findViewById(R.id.search_options_scroll);
+
     // In landscape the search options are a horizontal strip sliding out from the search button,
     // so anchor the zoom animation to the left edge instead of the default center.
     final boolean isLandscape =
@@ -171,6 +176,10 @@ public class SearchOptionsButton implements View.OnClickListener
       else
       {
         animRes = R.animator.show_zoom_in_alpha;
+        // The strip keeps its scroll offset while hidden, which would slide the leading categories
+        // back under the search button when it reopens.
+        if (mSearchOptionsScroll != null)
+          mSearchOptionsScroll.scrollTo(0, 0);
         UiUtils.show(mSearchLayout);
       }
       mIsExpanded = !mIsExpanded;
