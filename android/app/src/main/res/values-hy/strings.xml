@@ -659,8 +659,8 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Էջանիշների անունները քարտեզի վրա</string>
     <string name="bookmarks_text_placement_description">Եթե էջանիշները շատ են, քարտեզի վրա դրանց անունների ցուցադրումը կարող է դանդաղեցնել հավելվածը:</string>
-    <string name="show_to_the_right">Ցուցադրել աջից</string>
-    <string name="show_at_the_bottom">Ցուցադրել ներքևից</string>
+    <string name="show_to_the_right">Ցուցադրել աջ կողմում</string>
+    <string name="show_at_the_bottom">Ցուցադրել ներքևում</string>
     <string name="enable_logging_warning_message">Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։</string>
     <string name="driving_options_title">Երթուղու ընտրանքներ</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

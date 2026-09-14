@@ -661,7 +661,7 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Haritadaki yer imi adları</string>
     <string name="bookmarks_text_placement_description">Eğer çok yer imi varsa, adlarını haritada göstermek uygulamayı yavaşlatabilir.</string>
-    <string name="show_to_the_right">Sağa doğru göster</string>
+    <string name="show_to_the_right">Sağda göster</string>
     <string name="show_at_the_bottom">Altta göster</string>
     <string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
     <string name="driving_options_title">Yönlendirme seçenekleri</string>

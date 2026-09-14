@@ -659,7 +659,7 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Xəritədə nişan adları</string>
     <string name="bookmarks_text_placement_description">Əgər çoxlu nişanlar varsa, onların adlarını xəritədə göstərmək tətbiqin işini ləngidə bilər.</string>
-    <string name="show_to_the_right">Sağa göstər</string>
+    <string name="show_to_the_right">Sağda göstər</string>
     <string name="show_at_the_bottom">Aşağıda göstər</string>
     <string name="enable_logging_warning_message">Yardım dialoq qutusunda “Problemi bildir” istifadə etməklə probleminizlə bağlı ətraflı diaqnostik jurnalları qeyd etmək və bizə göndərmək üçün bu seçimi müvəqqəti aktivləşdirin. Qeydlərə məkan məlumatı daxil ola bilər</string>
     <string name="driving_options_title">Marşrutlaşdırma seçimləri</string>
