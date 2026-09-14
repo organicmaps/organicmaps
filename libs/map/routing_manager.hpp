@@ -214,7 +214,17 @@ public:
   /// will not return previous data, only newer.
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
 
-  bool AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
+  /// Appends an intermediate stop before the finish, ignoring markData.m_intermediateIndex; Start/Finish replace the
+  /// existing endpoint instead. A new stop is dropped at capacity, except when it takes over an existing My Position
+  /// mark. optimize places only the new stop at the predicted position (needs both endpoints, ignored in Ruler mode,
+  /// still applied while following). Returns false when a new point cannot be added at capacity.
+  bool AddRoutePoint(RouteMarkData && markData, bool optimize);
+  /// Replaces an existing slot without optimization. If the target is gone, adds the point normally; otherwise the
+  /// target slot's current type overrides markData.
+  void ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
+  /// Reorders unpassed intermediate marks in place, keeping endpoints and passed stops. Returns whether the order
+  /// changed; the caller rebuilds. No-op while following, in Ruler mode, or without both endpoints.
+  bool OptimizeRoutePoints();
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;
@@ -336,7 +346,9 @@ private:
 
   void SetPointsFollowingMode(bool enabled);
 
-  void ReorderIntermediatePoints();
+  /// Places |added| among the unpassed stops, keeping their relative order, or re-inserts all of them if it is null.
+  /// Returns whether any stop index changed.
+  bool ReorderIntermediatePoints(RoutePointsLayout & layout, RouteMarkPoint const * added);
 
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
