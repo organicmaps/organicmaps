@@ -2,7 +2,13 @@
 
 #include "routing/routing_options.hpp"
 
+#include "platform/settings.hpp"
+
+#include "base/scope_guard.hpp"
+
 #include <cstdint>
+#include <string>
+#include <string_view>
 #include <vector>
 
 using namespace routing;
@@ -74,5 +80,27 @@ UNIT_CLASS_TEST(RoutingOptionsTests, GetSetTest)
   RoutingOptions fromSettings = RoutingOptions::LoadCarOptionsFromSettings();
 
   TEST_EQUAL(options.GetOptions(), fromSettings.GetOptions(), ());
+}
+
+UNIT_TEST(RouteOptimizationSettingDefaultsOffAndPersists)
+{
+  std::string_view constexpr kKey = "RouteOptimizationEnabled";
+  std::string saved;
+  bool const existed = settings::Get(kKey, saved);
+  SCOPE_GUARD(restoreSetting, [&]
+  {
+    if (existed)
+      settings::Set(kKey, saved);
+    else
+      settings::Delete(kKey);
+  });
+
+  settings::Delete(kKey);
+  TEST(!RoutingOptions::LoadRouteOptimizationFromSettings(), ());
+  for (bool const enabled : {true, false})
+  {
+    RoutingOptions::SaveRouteOptimizationToSettings(enabled);
+    TEST_EQUAL(RoutingOptions::LoadRouteOptimizationFromSettings(), enabled, ());
+  }
 }
 }  // namespace
