@@ -187,6 +187,11 @@ public class NavMenu implements DefaultLifecycleObserver
     }
   }
 
+  public int getPeekHeight()
+  {
+    return currentPeekHeight;
+  }
+
   public void collapseNavBottomSheet()
   {
     mNavBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);

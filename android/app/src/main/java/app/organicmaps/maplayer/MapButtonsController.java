@@ -15,6 +15,7 @@ import android.view.ViewTreeObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -67,6 +68,10 @@ public class MapButtonsController extends Fragment
   private ObjectAnimator mBlinkingAnimator;
   private float mContentHeight;
   private float mContentWidth;
+  private boolean mIsNavSideColumn;
+  private boolean mLeftButtonsAbovePanel;
+  @NonNull
+  private NavColumnMetrics mNavColumnMetrics = new NavColumnMetrics(0, 0, 0);
 
   private MapButtonClickListener mMapButtonClickListener;
   private PlacePageViewModel mPlacePageViewModel;
@@ -87,6 +92,7 @@ public class MapButtonsController extends Fragment
     showButton(enable, MapButtons.trackRecordingStatus);
   };
   private final Observer<Integer> mTopButtonMarginObserver = this::updateTopButtonsMargin;
+  private final Observer<NavColumnMetrics> mNavColumnMetricsObserver = this::updateLeftButtonsPlacement;
 
   @Nullable
   @Override
@@ -107,6 +113,16 @@ public class MapButtonsController extends Fragment
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
+
+    // Only the landscape navigation layouts park the left buttons beside the maneuver card; in
+    // landscape the nav panel is always the fixed-width start column, so orientation identifies them.
+    mIsNavSideColumn = mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation
+                    && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    // Window insets land on mFrame as padding after the first layout pass, so re-apply once the
+    // container settles instead of keeping a stale bottom margin.
+    if (mIsNavSideColumn && mInnerLeftButtonsFrame != null)
+      mInnerLeftButtonsFrame.addOnLayoutChangeListener(
+          (v, l, t, r, b, oldL, oldT, oldR, oldB) -> updateLeftButtonsPlacement(mNavColumnMetrics));
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
@@ -244,6 +260,102 @@ public class MapButtonsController extends Fragment
     mTrackRecordingStatusButton.setLayoutParams(params);
   }
 
+  // Landscape navigation: keep the bookmarks and search buttons in the start column, in a row right
+  // above the ETA panel, and stack them beside the maneuver card while the column is too short.
+  private void updateLeftButtonsPlacement(@NonNull NavColumnMetrics metrics)
+  {
+    mNavColumnMetrics = metrics;
+    if (!mIsNavSideColumn || mInnerLeftButtonsFrame == null)
+      return;
+
+    // Height of the row the buttons would form above the panel - one button plus the container
+    // padding. Taken from the dimens rather than measured, because the container currently holds
+    // the other arrangement.
+    final int padding = getResources().getDimensionPixelSize(R.dimen.nav_frame_padding);
+    final int rowHeight = getResources().getDimensionPixelSize(R.dimen.map_button_size) + 2 * padding;
+    // The card height drifts between maneuvers, so require some slack before moving into the
+    // column and let the buttons stay there until they really stop fitting.
+    final boolean abovePanel = metrics.getFreeHeight() >= (mLeftButtonsAbovePanel ? rowHeight : rowHeight + padding);
+    if (abovePanel != mLeftButtonsAbovePanel && applyLeftButtonsArrangement(abovePanel))
+      mLeftButtonsAbovePanel = abovePanel;
+    updateSearchOptionsWidth(abovePanel, padding, metrics.getEndSlotWidth());
+
+    final int marginStart = abovePanel ? 0 : getResources().getDimensionPixelSize(R.dimen.nav_menu_landscape_width);
+    // mFrame is already padded by the navigation bar inset, so only the sheet's peek height is left.
+    final int marginBottom = abovePanel ? Math.max(0, metrics.getPanelHeight() - mFrame.getPaddingBottom()) : 0;
+    final int topTo = abovePanel ? ConstraintLayout.LayoutParams.UNSET : ConstraintLayout.LayoutParams.PARENT_ID;
+    final int bottomTo = abovePanel ? ConstraintLayout.LayoutParams.PARENT_ID : ConstraintLayout.LayoutParams.UNSET;
+
+    final ConstraintLayout.LayoutParams params =
+        (ConstraintLayout.LayoutParams) mInnerLeftButtonsFrame.getLayoutParams();
+    if (params.topToTop == topTo && params.bottomToBottom == bottomTo && params.getMarginStart() == marginStart
+        && params.bottomMargin == marginBottom)
+      return;
+    params.topToTop = topTo;
+    params.bottomToBottom = bottomTo;
+    params.setMarginStart(marginStart);
+    params.bottomMargin = marginBottom;
+    mInnerLeftButtonsFrame.setLayoutParams(params);
+  }
+
+  // Beside the maneuver card the options strip has only the leftover screen width, which on narrow
+  // landscape screens is less than the strip needs, so cap it there and let it scroll instead of
+  // running off the edge. Inside the column it always fits at its full width.
+  private void updateSearchOptionsWidth(boolean abovePanel, int padding, int endSlotWidth)
+  {
+    final View searchOptions = mFrame.findViewById(R.id.search_frame);
+    if (searchOptions == null || mFrame.getWidth() == 0)
+      return;
+    // The strip shares the top row with the speed limit sign and, below it, the track recording
+    // FAB, so keep clear of whichever of them holds that corner.
+    final int endSlot = Math.max(endSlotWidth, trackRecordingSlotWidth(padding));
+    final int fullWidth = getResources().getDimensionPixelSize(R.dimen.nav_search_options_width);
+    final int leftover = mFrame.getWidth() - mFrame.getPaddingStart() - mFrame.getPaddingEnd()
+                       - getResources().getDimensionPixelSize(R.dimen.nav_menu_landscape_width) - 2 * padding - endSlot;
+    // Never shrink below the lead-in that clears the search button plus one category, otherwise
+    // the strip opens empty and the button looks dead.
+    final int minWidth = getResources().getDimensionPixelSize(R.dimen.nav_search_options_min_width);
+    final int width = abovePanel ? fullWidth : Math.min(fullWidth, Math.max(minWidth, leftover));
+    final ViewGroup.LayoutParams params = searchOptions.getLayoutParams();
+    if (params.width == width)
+      return;
+    params.width = width;
+    searchOptions.setLayoutParams(params);
+  }
+
+  private int trackRecordingSlotWidth(int padding)
+  {
+    if (mTrackRecordingStatusButton == null || !UiUtils.isVisible(mTrackRecordingStatusButton))
+      return 0;
+    return mTrackRecordingStatusButton.getWidth() + 2 * padding;
+  }
+
+  // Above the panel the buttons form a row reading bookmarks then search; beside the maneuver card
+  // they stack vertically, search on top. The search options strip follows the search button either
+  // way, since it is anchored to it.
+  private boolean applyLeftButtonsArrangement(boolean row)
+  {
+    final View searchButton = mButtonsMap.get(MapButtons.search);
+    final View bookmarksButton = mButtonsMap.get(MapButtons.bookmarks);
+    if (searchButton == null || bookmarksButton == null)
+      return false;
+    final int gap = getResources().getDimensionPixelSize(R.dimen.margin_half);
+
+    final ConstraintLayout.LayoutParams searchParams = (ConstraintLayout.LayoutParams) searchButton.getLayoutParams();
+    searchParams.startToStart = row ? ConstraintLayout.LayoutParams.UNSET : ConstraintLayout.LayoutParams.PARENT_ID;
+    searchParams.startToEnd = row ? R.id.btn_bookmarks : ConstraintLayout.LayoutParams.UNSET;
+    searchParams.setMarginStart(row ? gap : 0);
+    searchButton.setLayoutParams(searchParams);
+
+    final ConstraintLayout.LayoutParams bookmarksParams =
+        (ConstraintLayout.LayoutParams) bookmarksButton.getLayoutParams();
+    bookmarksParams.topToTop = row ? ConstraintLayout.LayoutParams.PARENT_ID : ConstraintLayout.LayoutParams.UNSET;
+    bookmarksParams.topToBottom = row ? ConstraintLayout.LayoutParams.UNSET : R.id.btn_search;
+    bookmarksParams.topMargin = row ? 0 : gap;
+    bookmarksButton.setLayoutParams(bookmarksParams);
+    return true;
+  }
+
   @OptIn(markerClass = ExperimentalBadgeUtils.class)
   private void updateMenuBadge(Boolean enable)
   {
@@ -373,7 +485,10 @@ public class MapButtonsController extends Fragment
     if (mInnerRightButtonsFrame != null
         && (isBehindSearchSheet(mInnerRightButtonsFrame) || isMoving(mInnerRightButtonsFrame)))
       applyMove(mInnerRightButtonsFrame, translationY);
-    if (mInnerLeftButtonsFrame != null
+    // The navigation side column owns its own placement and is bottom-anchored there, so letting
+    // applyMove pin its bottom to the sheet would throw it up over the maneuver card. move() skips
+    // landscape for the same reason.
+    if (mInnerLeftButtonsFrame != null && !mIsNavSideColumn
         && (isBehindSearchSheet(mInnerLeftButtonsFrame) || isMoving(mInnerLeftButtonsFrame)))
       applyMove(mInnerLeftButtonsFrame, translationY);
   }
@@ -476,6 +591,7 @@ public class MapButtonsController extends Fragment
     mMapButtonsViewModel.getSearchOption().observe(viewLifecycleOwner, mSearchOptionObserver);
     mMapButtonsViewModel.getTrackRecorderState().observe(viewLifecycleOwner, mTrackRecorderObserver);
     mMapButtonsViewModel.getTopButtonsMarginTop().observe(viewLifecycleOwner, mTopButtonMarginObserver);
+    mMapButtonsViewModel.getNavColumnMetrics().observe(viewLifecycleOwner, mNavColumnMetricsObserver);
   }
 
   @Override
