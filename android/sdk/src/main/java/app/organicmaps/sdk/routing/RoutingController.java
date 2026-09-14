@@ -920,24 +920,20 @@ public class RoutingController
     return true;
   }
 
-  // Both results are unread on purpose: the remove frees the slot the add takes, and replaceStopIndex comes
-  // from the layout the pick was armed on, so the add cannot run out of capacity.
   private static void replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int replaceStopIndex)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
-    if (type == RouteMarkType.Intermediate)
-      Framework.nativeRemoveRoutePoint(type, replaceStopIndex);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
-                                  point.getLon(), false /* reorderIntermediatePoints */);
+    Framework.nativeReplaceRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+                                      replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
+                                      point.getLon());
   }
 
   private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
     return Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                         0 /* intermediateIndex */, point.isMyPosition(), point.getLat(),
-                                         point.getLon(), true /* reorderIntermediatePoints */);
+                                         point.isMyPosition(), point.getLat(), point.getLon(),
+                                         true /* allowOptimization */);
   }
 
   @NonNull
