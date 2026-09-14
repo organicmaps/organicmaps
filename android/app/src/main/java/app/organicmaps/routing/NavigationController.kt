@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import app.organicmaps.MwmApplication
 import app.organicmaps.R
 import app.organicmaps.maplayer.MapButtonsViewModel
+import app.organicmaps.maplayer.NavColumnMetrics
 import app.organicmaps.sdk.Router
 import app.organicmaps.sdk.routing.RoutingController
 import app.organicmaps.sdk.routing.RoutingInfo
@@ -37,10 +38,18 @@ class NavigationController(
     private val minStartMargin = dimen(activity, R.dimen.nav_side_margin_min)
     private val navFramePadding = dimen(activity, R.dimen.nav_frame_padding)
 
-    // Vertical space the speed limit sign takes in the top-end corner, including its bottom margin.
+    // Space the speed limit sign takes in the top-end corner, including its margins.
     private val speedLimitSlot = dimen(activity, R.dimen.nav_speed_limit_size) + dimen(activity, R.dimen.margin_half)
+    private val speedLimitWidth =
+        dimen(activity, R.dimen.nav_speed_limit_size) + 2 * dimen(activity, R.dimen.margin_half)
     private val mapButtonsViewModel = ViewModelProvider(activity)[MapButtonsViewModel::class.java]
-    private val navMenu = NavMenu(activity, this, onMenuSizeChangedListener)
+
+    // The sheet's peek height feeds both the map widgets offset (activity) and the free space left
+    // in the start column for the map buttons, so relay the callback to both.
+    private val navMenu = NavMenu(activity, this) {
+        onMenuSizeChangedListener.OnMenuSizeChange()
+        updateNavColumnMetrics()
+    }
 
     // Landscape phone only: the sign sits in the top-end corner shared with the track-recording
     // FAB, so the FAB has to give way while a limit is shown.
@@ -61,7 +70,26 @@ class NavigationController(
             maneuverView.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
                 mapButtonsViewModel.setTopButtonsMarginTop(v.height + navFramePadding)
             }
+        } else {
+            // The card grows with the street name, the lane strip and the "then" band, so the space
+            // left below it has to be remeasured on every layout pass; the frame listener covers
+            // rotations and inset re-dispatches.
+            maneuverView.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateNavColumnMetrics() }
+            frame.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateNavColumnMetrics() }
         }
+    }
+
+    // Start column (landscape, tablets): the maneuver card sits at its top, the ETA sheet at its
+    // bottom. Report what is free in between so the map buttons can settle there when they fit.
+    private fun updateNavColumnMetrics() {
+        if (isFullWidthCard) {
+            return
+        }
+        // Collapsed height only: expanding the sheet dims the map, the buttons must not jump.
+        val panelHeight = navMenu.peekHeight + navigationBarBackground.height
+        val freeHeight = frame.height - panelHeight - maneuverView.bottom
+        val endSlotWidth = if (isSpeedLimitTopEnd && speedLimit.visibility == View.VISIBLE) speedLimitWidth else 0
+        mapButtonsViewModel.setNavColumnMetrics(NavColumnMetrics(freeHeight, panelHeight, endSlotWidth))
     }
 
     // Single inset pass over the nav header: pad nav_top_frame (side cutout as start, status bar as
@@ -146,6 +174,7 @@ class NavigationController(
         UiUtils.showIf(visible, frame)
         if (!visible) {
             mapButtonsViewModel.setTopHeaderHeight(0)
+            mapButtonsViewModel.setNavColumnMetrics(NavColumnMetrics())
         }
     }
 
@@ -170,10 +199,12 @@ class NavigationController(
         val speedLimitExceeded = location != null && info.speedLimitMps > 0 && info.speedLimitMps < location.speed
         speedLimit.setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded)
 
-        // The sign collapses itself when there is no limit, so keep the FAB in step with it.
+        // The sign collapses itself when there is no limit, so keep the FAB - and the top corner
+        // the map buttons have to clear - in step with it.
         if (isSpeedLimitTopEnd) {
             val slot = if (speedLimit.visibility == View.VISIBLE) speedLimitSlot else 0
             mapButtonsViewModel.setTopButtonsMarginTop(navFramePadding + slot)
+            updateNavColumnMetrics()
         }
     }
 }

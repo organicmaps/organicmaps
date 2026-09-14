@@ -5,6 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.organicmaps.sdk.location.TrackRecorder
 
+/**
+ * Start-side navigation column (landscape, tablets): [freeHeight] is the space left between the
+ * maneuver card and the collapsed ETA panel, [panelHeight] is how far that panel reaches up from
+ * the window bottom (peek height + navigation-bar strip), [endSlotWidth] is the width the speed
+ * limit sign holds in the opposite top corner, which anything spanning the top row must clear.
+ */
+data class NavColumnMetrics(val freeHeight: Int = 0, val panelHeight: Int = 0, val endSlotWidth: Int = 0)
+
 class MapButtonsViewModel : ViewModel() {
 
     private val _buttonsHidden = MutableLiveData(false)
@@ -37,6 +45,9 @@ class MapButtonsViewModel : ViewModel() {
     // Height of the top header (routing plan / navigation frame) the search sheet must clear when expanded.
     private val _topHeaderHeight = MutableLiveData(0)
     val topHeaderHeight: LiveData<Int> = _topHeaderHeight
+
+    private val _navColumnMetrics = MutableLiveData(NavColumnMetrics())
+    val navColumnMetrics: LiveData<NavColumnMetrics> = _navColumnMetrics
 
     fun setButtonsHidden(buttonsHidden: Boolean) {
         _buttonsHidden.value = buttonsHidden
@@ -79,6 +90,14 @@ class MapButtonsViewModel : ViewModel() {
         // expanded offset is recomputed only when the height actually changes.
         if (_topHeaderHeight.value != height) {
             _topHeaderHeight.value = height
+        }
+    }
+
+    fun setNavColumnMetrics(metrics: NavColumnMetrics) {
+        // Same as above: layout listeners fire on every pass, and re-applying the placement would
+        // schedule another one.
+        if (_navColumnMetrics.value != metrics) {
+            _navColumnMetrics.value = metrics
         }
     }
 }
