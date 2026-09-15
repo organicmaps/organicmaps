@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Vandaag gesloten</string>
     <string name="day_off">Gesloten</string>
+    <string name="midnight">Middernacht</string>
+    <string name="noon">Middag</string>
     <string name="today">Vandaag</string>
     <string name="opens_in">Opent over %s</string>
     <string name="closes_in">Sluit over %s</string>

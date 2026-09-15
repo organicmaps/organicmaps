@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Täna suletud</string>
     <string name="day_off">Suletud</string>
+    <string name="midnight">Kesköö</string>
+    <string name="noon">Keskpäev</string>
     <string name="today">Täna</string>
     <string name="opens_in">Avatakse %s jooksul</string>
     <string name="closes_in">Suletakse %s jooksul</string>

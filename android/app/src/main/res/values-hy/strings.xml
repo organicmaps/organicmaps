@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Այսօր փակ է</string>
     <string name="day_off">Փակ է</string>
+    <string name="midnight">Կեսգիշեր</string>
+    <string name="noon">Կեսօր</string>
     <string name="today">Այսօր</string>
     <string name="opens_in">Բացվում է %s</string>
     <string name="closes_in">Փակվում է %s</string>

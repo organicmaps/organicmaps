@@ -178,6 +178,8 @@
     <string name="editor_report_problem_duplicate_place_title">Llugar duplicáu</string>
     <string name="autodownload">Baxar mapes n’automático</string>
     <string name="twentyfour_seven">24/7</string>
+    <string name="midnight">Medianueche</string>
+    <string name="noon">Mediudía</string>
     <string name="today">Güei</string>
     <string name="password">Contraseña</string>
     <string name="forgot_password">¿Escaeciesti la contraseña?</string>

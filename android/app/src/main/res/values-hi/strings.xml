@@ -422,6 +422,8 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">आज बंद</string>
     <string name="day_off">बंद</string>
+    <string name="midnight">मध्यरात्रि</string>
+    <string name="noon">मध्याह्न</string>
     <string name="today">आज</string>
     <string name="opens_in">%s में खुल जाएगा</string>
     <string name="closes_in">%s में बंद हो जाता है</string>
