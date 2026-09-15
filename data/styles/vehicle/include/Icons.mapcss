@@ -87,6 +87,9 @@ area|z17-[boundary=protected_area],
 node|z17-[leisure=nature_reserve],
 area|z17-[leisure=nature_reserve]
 {icon-image: nparkf-outline-m.svg;text-offset: 1;font-size: 13.75;text-halo-opacity: 0.9;}
+node|z12-[landuse=forest][name],
+area|z12-[landuse=forest][name]
+{icon-image: none;text-offset: 0;}
 
 node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name],
