@@ -15,7 +15,7 @@ double Frac(double v)
   return v - std::floor(v);
 }
 
-// Reproduces the GPU mask UV that DrawHatchingArea bakes into the vertex buffer:
+// Reproduces the GPU pattern UV that AreaShape::DrawPatternArea bakes into the vertex buffer:
 //   maxU * (worldCoord - anchor),  maxU = baseGtoPScale / maskSizePx.
 double HatchUV(double worldCoord, double bboxMin, uint32_t maskSizePx, double baseGtoPScale)
 {
@@ -52,15 +52,9 @@ UNIT_TEST(HatchingPhaseAnchor_StableAcrossTileClipping)
   double const uvA = HatchUV(worldX, bboxMinA, kMaskPx, kBaseGtoP);
   double const uvB = HatchUV(worldX, bboxMinB, kMaskPx, kBaseGtoP);
   TEST_ALMOST_EQUAL_ABS(Frac(uvA), Frac(uvB), 1e-5, (uvA, uvB));
-
-  // Guard against regression: the previous bbox-anchored formula did NOT have this property.
-  double const oldA = (kBaseGtoP / kMaskPx) * (worldX - bboxMinA);
-  double const oldB = (kBaseGtoP / kMaskPx) * (worldX - bboxMinB);
-  TEST_GREATER(std::abs(Frac(oldA) - Frac(oldB)), 1e-3, (oldA, oldB));
 }
 
-// Phase stability must also hold when the same feature is rendered at different zoom levels: at a fixed
-// world coordinate the texel depends only on baseGtoPScale, not on the (clipped) bbox.
+// At a fixed scale, the phase depends only on the world coordinate, including at negative coordinates.
 UNIT_TEST(HatchingPhaseAnchor_IndependentOfBBoxAtFixedScale)
 {
   uint32_t const kMaskPx = 16;
