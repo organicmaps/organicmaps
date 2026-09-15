@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Biex tniżżel vuċi ta' kwalità ogħla, iftaħ l-app Settings u mur Aċċessibbiltà → VoiceOver → Diskors → Vuċi.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Ittestja id-Direzzjonijiet tal-vuċi (TTS, Test għad-diskors)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Iżżumja awtomatikament";
 "placepage_distance" = "Distanza";
 "search_show_on_map" = "Uri fuq il-mappa";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Skur";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Oħrajn";
 
 /* Tex label above the Donate button */
 "donate_description" = "Agħti mapep b'xejn u bla reklami lil miljuni ta' utenti!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.";
 "driving_options_title" = "Għażliet tar-rotta";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ottimizzazzjoni tar-rotta";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Tirranġa mill-ġdid il-waqfiet intermedji awtomatikament biex toħloq rotta aktar effiċjenti.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evita ħlasijiet għall-użu tat-triq";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ma nstabet l-ebda rotta tas-subway";
 "dialog_pedestrian_route_is_long_message" = "Agħżel punt tal-bidu jew tat-tmiem eqreb lejn stazzjon tas-subway";
 "button_layer_isolines" = "Linji tal-Contour";
-"isolines_activation_error_dialog" = "L-attivazzjoni tal-linji tal-contour teħtieġ it-tniżżil tad-dejta tal-mappa għal din iż-żona";
-"isolines_location_error_dialog" = "Il-linji tal-Contour għadhom mhumiex disponibbli f ’din iż-żona";
+"isolines_location_error_dialog" = "Aġġorna din iż-żona biex tara l-linji tal-kontorn";
 "elevation_profile_ascent" = "Tlugħ";
 "elevation_profile_descent" = "Inżul";
 "elevation_profile_min_elevation" = "Elevazzjoni minima";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Jekk jogħġbok,attiva l-iCloud fl-issettjar tal-apparat tiegħek biex tuża din il-karatteristika.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Attiva";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Il-kulur tat-tracks inbidel";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Niżżel it-terren bil-mapep";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Sfumatura tal-għoljiet, linji tal-kontorn u fond tal-baħar. It-terren ta’ reġjun jitniżżel, jiġi aġġornat u jitħassar flimkien mal-mappa tiegħu.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Ħassar ukoll id-dejta tat-terren imniżżla (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Żomm";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "It-tniżżil tat-terren bil-mapep huwa mitfi. Trid tixgħel din l-għażla biex tara l-linji tal-kontorn hawn?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Agħżel fuq il-mappa";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Punt tal-bidu";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destinazzjoni";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Żid waqfa";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Biddel il-bidu";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Biddel id-destinazzjoni";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Biddel il-waqfa";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Inkiseb in-numru massimu ta' waqfiet";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Mexxi u kabbar il-mappa biex tqiegħed is-salib";

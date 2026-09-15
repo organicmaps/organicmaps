@@ -662,6 +662,10 @@
     <string name="show_at_the_bottom">下部に表示</string>
     <string name="enable_logging_warning_message">このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。</string>
     <string name="driving_options_title">経路オプション</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">経路の最適化</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">より効率的な経路になるよう、中間地点を自動的に並べ替えます。</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">有料道路を避ける</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -750,8 +754,7 @@
     <string name="deselect_all">選択を解除</string>
     <string name="select_list">リストを選択</string>
     <string name="button_layer_isolines">地形</string>
-    <string name="isolines_activation_error_dialog">地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください</string>
-    <string name="isolines_location_error_dialog">地形レイヤーはこの地域ではまだ利用できません</string>
+    <string name="isolines_location_error_dialog">この地域を更新すると等高線が表示されます</string>
     <string name="elevation_profile_ascent">上昇</string>
     <string name="elevation_profile_descent">下降</string>
     <string name="elevation_profile_min_elevation">最小標高</string>
@@ -898,6 +901,8 @@
     <string name="hide_track">ルートを非表示</string>
     <!-- Text for the showing track. -->
     <string name="show_track">ルートを表示</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">有効にする</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -926,4 +931,36 @@
     <string name="color_picker_grid">グリッド</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">音声検索</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">地図と一緒に地形データをダウンロードする</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">地形の陰影、等高線、水深。地域の地形データは、その地図と一緒にダウンロード、更新、削除されます。</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">ダウンロード済みの地形データ（%s）も削除しますか？</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">残す</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">地図と一緒に地形データをダウンロードする機能がオフになっています。ここに等高線を表示するために有効にしますか？</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">地図上で選択</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">出発地</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">目的地</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">経由地を追加</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">出発地を変更</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">目的地を変更</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">経由地を変更</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">経由地の最大数に達しました</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">地図を移動・拡大縮小して、十字を配置してください</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">ルートを反転</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">停止して保存</string>
 </resources>

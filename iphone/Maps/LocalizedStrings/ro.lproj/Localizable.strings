@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Pentru a descărca o voce de calitate superioară, deschideți aplicația Configurări și accesați Accesibilitate → VoiceOver → Vorbire → Voce.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testarea indicațiilor vocale (TTS, Text-To-Speech)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Zoom automat";
 "placepage_distance" = "Distanță";
 "search_show_on_map" = "Vezi pe hartă";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Întunecat";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Altceva";
 
 /* Tex label above the Donate button */
 "donate_description" = "Oferiți hărți gratuite fără reclame pentru milioane de utilizatori!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.";
 "driving_options_title" = "Opțiuni de ocolire";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimizarea traseului";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Reordonează automat opririle intermediare pentru a crea un traseu mai eficient.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evitați drumurile cu taxă";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Traseul metroului nu a fost găsit";
 "dialog_pedestrian_route_is_long_message" = "Alege un punct de plecare sau de sosire mai aproape de o stație de metrou";
 "button_layer_isolines" = "Înălțimi";
-"isolines_activation_error_dialog" = "Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei";
-"isolines_location_error_dialog" = "Stratul topografic nu este încă disponibil în această zonă";
+"isolines_location_error_dialog" = "Actualizați această regiune pentru a vedea curbele de nivel";
 "elevation_profile_ascent" = "Urcare";
 "elevation_profile_descent" = "Coborâre";
 "elevation_profile_min_elevation" = "Min. altitudine";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Vă rugăm să activați iCloud în setările dispozitivului dvs. pentru a utiliza această funcție.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Activați";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Culoarea traseelor a fost schimbată";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Descarcă relieful împreună cu hărțile";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Umbrirea reliefului, curbele de nivel și adâncimile mării. Relieful unei regiuni este descărcat, actualizat și șters împreună cu harta sa.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Ștergi și datele de relief descărcate (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Păstrează";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Descărcarea reliefului împreună cu hărțile este dezactivată. O activezi ca să vezi aici curbele de nivel?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Alege pe hartă";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Plecare";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destinație";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Adaugă oprire";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Schimbă plecarea";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Schimbă destinația";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Schimbă oprirea";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "S-a atins numărul maxim de opriri";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Deplasați și măriți/micșorați harta pentru a poziționa crucea";

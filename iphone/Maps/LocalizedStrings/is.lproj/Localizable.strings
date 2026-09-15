@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Til að sækja rödd í meiri gæðum skaltu opna Stillingar-forritið og fara í Aðgengi → VoiceOver → Tal → Rödd.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Prófa raddleiðsögn (TTS, texti-í-tal)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Sjálfvirkur aðdráttur";
 "placepage_distance" = "Vegalengd";
 "search_show_on_map" = "Skoða á korti";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Dökkt";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Annað";
 
 /* Tex label above the Donate button */
 "donate_description" = "Gefðu milljónum notenda ókeypis kort án auglýsinga!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Virkjaðu þennan valkost tímabundið til að skrá og senda síðan handvirkt nákvæma greiningarskrá um vandamálið þitt með því að nota \"Tilkynna um villu\" í hjálparglugganum. Slíkar atvikaskrár geta innihaldið upplýsingar um staðsetningu.";
 "driving_options_title" = "Valkostir leiðagerðar";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Bestun leiðar";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Endurraðar millistöðvum sjálfkrafa til að búa til skilvirkari leið.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Forðast gjaldskyldu";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Engin neðanjarðarlestarleið fannst";
 "dialog_pedestrian_route_is_long_message" = "Veldu upphafs- eða endastað sem er nær neðanjarðarlestarstöð";
 "button_layer_isolines" = "Hæðarlínur";
-"isolines_activation_error_dialog" = "Til að virkja hæðarlínur þarf að sækja kortagögn fyrir þetta svæði";
-"isolines_location_error_dialog" = "Hæðarlínur eru ennþá ekki tiltækar á þessu svæði";
+"isolines_location_error_dialog" = "Uppfærðu þetta svæði til að sjá hæðarlínur";
 "elevation_profile_ascent" = "Hækkun";
 "elevation_profile_descent" = "Lækkun";
 "elevation_profile_min_elevation" = "Lágm.hæð";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Virkjaðu iCloud í stillingum tækisins þíns til að nota þennan eiginleika.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Virkja";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Litur ferla breytt";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Sækja landslag ásamt kortum";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Hæðarskygging, hæðarlínur og sjávardýpt. Landslag svæðis er sótt, uppfært og fjarlægt ásamt korti þess.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Eyða einnig sóttum landslagsgögnum (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Halda";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Slökkt er á niðurhali landslags með kortum. Viltu kveikja á því til að sjá hæðarlínur hér?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Velja á korti";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Upphafsstaður";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Áfangastaður";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Bæta við stoppi";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Breyta upphafsstað";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Breyta áfangastað";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Breyta stoppi";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Hámarksfjölda stoppa er náð";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Hreyfðu og stækkaðu kortið til að staðsetja krossinn";

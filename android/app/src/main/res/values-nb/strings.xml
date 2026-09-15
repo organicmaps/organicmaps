@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">Vis nederst</string>
     <string name="enable_logging_warning_message">Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.</string>
     <string name="driving_options_title">Kjørealternativer</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Ruteoptimalisering</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Omorganiserer mellomstopp automatisk for å lage en mer effektiv rute.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Unngå bompenger</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -751,8 +755,7 @@
     <string name="deselect_all">Fjern all merking</string>
     <string name="select_list">Velge liste</string>
     <string name="button_layer_isolines">Høyder</string>
-    <string name="isolines_activation_error_dialog">For å bruke høydekurver oppdater eller last opp kartet til nødvendig område</string>
-    <string name="isolines_location_error_dialog">Høydekurver er ikke tilgjengelige i dette området ennå</string>
+    <string name="isolines_location_error_dialog">Oppdater dette området for å se høydekurver</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
     <string name="elevation_profile_min_elevation">Min. høyde</string>
@@ -893,6 +896,8 @@
     <string name="hide_track">Skjul ruten</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Vis ruten</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Aktiver</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -921,4 +926,36 @@
     <string name="color_picker_grid">Rutenett</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Stemmesøk</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Last ned terreng sammen med kart</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Terrengskygge, høydekurver og havdybder. Terrenget for en region lastes ned, oppdateres og slettes sammen med kartet.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Vil du også slette de nedlastede terrengdataene (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behold</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Nedlasting av terreng sammen med kart er slått av. Vil du slå det på for å se høydekurver her?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Velg på kartet</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Startsted</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Destinasjon</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Legg til stopp</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Endre startsted</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Endre destinasjon</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Endre stoppested</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Maksimalt antall stopp er nådd</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Flytt og zoom på kartet for å plassere korset</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Vend ruten</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Stopp og lagre</string>
 </resources>

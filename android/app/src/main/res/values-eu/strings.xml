@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">Erakutsi behean</string>
     <string name="enable_logging_warning_message">Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.</string>
     <string name="driving_options_title">Bideratzeko aukerak</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Ibilbidearen optimizazioa</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Tarteko geldialdiak automatikoki berrantolatzen ditu ibilbide eraginkorragoa sortzeko.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Bidesariak saihestea</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -751,8 +755,7 @@
     <string name="deselect_all">Kendu hautapena</string>
     <string name="select_list">Hautatu zerrenda</string>
     <string name="button_layer_isolines">Sestra kurbak</string>
-    <string name="isolines_activation_error_dialog">Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa</string>
-    <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>
+    <string name="isolines_location_error_dialog">Eguneratu eskualde hau sestra-kurbak ikusteko</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>
     <string name="elevation_profile_min_elevation">Altitude min</string>
@@ -903,6 +906,8 @@
     <string name="hide_track">Ezkutatu arrastoa</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Erakutsi arrastoa</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Gaitu</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -931,4 +936,36 @@
     <string name="color_picker_grid">Sarea</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Ahots-bilaketa</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Deskargatu erliebea mapekin batera</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Erliebe-itzaldura, sestra-kurbak eta itsas sakonerak. Eskualde bateko erliebea bere maparekin batera deskargatu, eguneratu eta ezabatzen da.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Deskargatutako erliebe-datuak (%s) ere ezabatu nahi dituzu?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Mantendu</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Mapekin batera erliebea deskargatzea desaktibatuta dago. Aktibatu nahi duzu hemen sestra-kurbak ikusteko?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Aukeratu mapan</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Abiapuntua</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Helmuga</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Gehitu geldialdia</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Aldatu abiapuntua</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Aldatu helmuga</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Aldatu geldialdia</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Geldialdien kopuru maximoa lortu da</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Mugitu eta handitu mapa gurutzea kokatzeko</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Alderantzikatu ibilbidea</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Gelditu eta gorde</string>
 </resources>

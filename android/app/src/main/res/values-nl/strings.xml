@@ -666,6 +666,10 @@
     <string name="show_at_the_bottom">Onderaan weergeven</string>
     <string name="enable_logging_warning_message">Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.</string>
     <string name="driving_options_title">Route instellingen</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Routeoptimalisatie</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Rangschikt tussenstops automatisch opnieuw om een efficiëntere route te maken.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Vermijd tolwegen</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -754,8 +758,7 @@
     <string name="deselect_all">Selectie opheffen</string>
     <string name="select_list">Kies een lijst</string>
     <string name="button_layer_isolines">Contourlijnen</string>
-    <string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden</string>
-    <string name="isolines_location_error_dialog">Hoogtelijnen zijn nog niet beschikbaar in deze regio</string>
+    <string name="isolines_location_error_dialog">Werk deze regio bij om hoogtelijnen te zien</string>
     <string name="elevation_profile_ascent">Stijging</string>
     <string name="elevation_profile_descent">Daling</string>
     <string name="elevation_profile_min_elevation">Min. hoogte</string>
@@ -908,6 +911,8 @@
     <string name="hide_track">Route verbergen</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Route tonen</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Schakel in</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -936,4 +941,36 @@
     <string name="color_picker_grid">Raster</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Zoeken met spraak</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Terrein met kaarten downloaden</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Reliëfschaduw, hoogtelijnen en zeediepten. Het terrein van een regio wordt samen met de kaart gedownload, bijgewerkt en verwijderd.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Ook de gedownloade terreingegevens (%s) verwijderen?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behouden</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Het downloaden van terrein met kaarten staat uit. Inschakelen om hier hoogtelijnen te zien?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Kies op de kaart</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Startpunt</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Bestemming</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Stop toevoegen</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Startpunt wijzigen</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Bestemming wijzigen</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Stop wijzigen</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Het maximale aantal tussenstops is bereikt</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Verplaats en zoom in of uit op de kaart om het kruis te plaatsen</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Route omkeren</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Stoppen en opslaan</string>
 </resources>

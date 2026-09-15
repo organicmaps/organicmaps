@@ -665,6 +665,10 @@
     <string name="show_at_the_bottom">Altta göster</string>
     <string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
     <string name="driving_options_title">Yönlendirme seçenekleri</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Rota optimizasyonu</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Daha verimli bir rota oluşturmak için ara noktaları otomatik olarak yeniden sıralar.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Ücretli yollardan kaçın</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -753,8 +757,7 @@
     <string name="deselect_all">Seçimi kaldır</string>
     <string name="select_list">Liste seç</string>
     <string name="button_layer_isolines">İzohipsler</string>
-    <string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
-    <string name="isolines_location_error_dialog">İzohipsler henüz bu bölgede kullanılamaz</string>
+    <string name="isolines_location_error_dialog">İzohipsleri görmek için bu bölgeyi güncelleyin</string>
     <string name="elevation_profile_ascent">Tırmanış</string>
     <string name="elevation_profile_descent">İniş</string>
     <string name="elevation_profile_min_elevation">Min. yükselti</string>
@@ -907,6 +910,8 @@
     <string name="hide_track">İzi gizle</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göster</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Etkinleştir</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -935,4 +940,36 @@
     <string name="color_picker_grid">Izgara</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Sesli arama</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Araziyi haritalarla birlikte indir</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Kabartma gölgelendirme, izohipsler ve deniz derinlikleri. Bir bölgenin arazisi, haritasıyla birlikte indirilir, güncellenir ve silinir.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">İndirilen arazi verileri (%s) de silinsin mi?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Sakla</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Araziyi haritalarla birlikte indirme kapalı. Burada izohipsleri görmek için açılsın mı?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Haritadan seç</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Başlangıç</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Hedef</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Ara nokta ekle</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Başlangıcı değiştir</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Hedefi değiştir</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Ara noktayı değiştir</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Maksimum ara nokta sayısına ulaşıldı</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Çarpı imini yerleştirmek için haritayı kaydırın ve yakınlaştırın</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Rotayı tersine çevir</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Durdur ve Kaydet</string>
 </resources>

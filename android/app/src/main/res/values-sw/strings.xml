@@ -660,6 +660,10 @@
     <string name="show_at_the_bottom">Onyesha chini</string>
     <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
     <string name="driving_options_title">Machaguo ya njia</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Uboreshaji wa njia</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Hupanga upya vituo vya kati kiotomatiki ili kuunda njia yenye ufanisi zaidi.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Epuka barabara za ushuru</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -742,8 +746,7 @@
     <string name="deselect_all">Ondoa uteuzi</string>
     <string name="select_list">Chagua orodha</string>
     <string name="button_layer_isolines">Topografia</string>
-    <string name="isolines_activation_error_dialog">Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo</string>
-    <string name="isolines_location_error_dialog">Mistari ya mwinuko bado haipatikani katika eneo hili</string>
+    <string name="isolines_location_error_dialog">Sasisha eneo hili ili kuona mistari ya mwinuko</string>
     <string name="elevation_profile_ascent">Upandaji</string>
     <string name="elevation_profile_descent">Ushukaji</string>
     <string name="elevation_profile_min_elevation">Min. mwinuko</string>
@@ -884,6 +887,8 @@
     <string name="hide_track">Ficha njia</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Onyesha njia</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Wezesha</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -912,4 +917,36 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Utafutaji kwa sauti</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Pakua umbo la ardhi pamoja na ramani</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Vivuli vya milima, mistari ya mwinuko na kina cha bahari. Umbo la ardhi la eneo hupakuliwa, husasishwa na hufutwa pamoja na ramani yake.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Je, ungependa pia kufuta data ya ardhi iliyopakuliwa (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Hifadhi</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Upakuaji wa umbo la ardhi pamoja na ramani umezimwa. Uwashe ili kuona mistari ya mwinuko hapa?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Chagua kwenye ramani</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Kuanzia</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Marudio</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Ongeza kituo</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Badilisha kuanzia</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Badilisha marudio</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Badilisha kituo</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Idadi ya juu ya vituo imefikiwa</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Sogeza na zuma ramani ili kuweka msalaba</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Geuza njia</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Acha na hifadhi</string>
 </resources>

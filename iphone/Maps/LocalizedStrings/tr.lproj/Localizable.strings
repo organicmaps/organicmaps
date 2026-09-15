@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Daha yüksek kaliteli bir ses indirmek için Ayarlar uygulamasını açın ve Erişilebilirlik → VoiceOver → Konuşma → Ses bölümüne gidin.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Sesli Yönlendirmeleri Sına (TTS, Text-To-Speech)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Kendiliğinden yaklaştır";
 "placepage_distance" = "Mesafe";
 "search_show_on_map" = "Haritada görüntüle";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Koyu";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Diğer";
 
 /* Tex label above the Donate button */
 "donate_description" = "Milyonlarca kullanıcıya reklamsız ve ücretsiz haritalar hediye edin!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.";
 "driving_options_title" = "Yönlendirme seçenekleri";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Rota optimizasyonu";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Daha verimli bir rota oluşturmak için ara noktaları otomatik olarak yeniden sıralar.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Ücretli yollardan kaçın";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro rotası bulunamadı";
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";
 "button_layer_isolines" = "İzohipsler";
-"isolines_activation_error_dialog" = "Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin";
-"isolines_location_error_dialog" = "İzohipsler henüz bu bölgede kullanılamaz";
+"isolines_location_error_dialog" = "İzohipsleri görmek için bu bölgeyi güncelleyin";
 "elevation_profile_ascent" = "Tırmanış";
 "elevation_profile_descent" = "İniş";
 "elevation_profile_min_elevation" = "Min. yükselti";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Bu özelliği kullanmak için lütfen aygıtınızın ayarlarında iCloud'u etkinleştirin.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Etkinleştir";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "İz rengi değiştirildi";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Araziyi haritalarla birlikte indir";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Kabartma gölgelendirme, izohipsler ve deniz derinlikleri. Bir bölgenin arazisi, haritasıyla birlikte indirilir, güncellenir ve silinir.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "İndirilen arazi verileri (%@) de silinsin mi?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Sakla";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Araziyi haritalarla birlikte indirme kapalı. Burada izohipsleri görmek için açılsın mı?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Haritadan seç";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Başlangıç";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Hedef";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Ara nokta ekle";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Başlangıcı değiştir";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Hedefi değiştir";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Ara noktayı değiştir";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Maksimum ara nokta sayısına ulaşıldı";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Çarpı imini yerleştirmek için haritayı kaydırın ve yakınlaştırın";

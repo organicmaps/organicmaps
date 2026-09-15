@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Për të shkarkuar një zë me cilësi më të lartë, hapni aplikacionin Cilësimet dhe shkoni te Aksesueshmëria → VoiceOver → Të folurit → Zëri.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testoni Udhëzimet me Zë (TTS, Tekst-në-Fjalë)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Zmadhim automatik";
 "placepage_distance" = "Distanca";
 "search_show_on_map" = "Shiko në hartë";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Errësirë";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Tjetër";
 
 /* Tex label above the Donate button */
 "donate_description" = "Dhuroni harta falas pa reklama për miliona përdorues!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Aktivizoni këtë opsion përkohësisht për të regjistruar dhe dërguar manualisht logje diagnostike të detajuara për problemin tuaj duke përdorur \"Raporto një problem\" në dialogun Ndihmë. Logjet mund të përfshijnë informacione vendndodhjeje.";
 "driving_options_title" = "Mundësitë e rrugëtimit";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimizimi i itinerarit";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Riorganizon automatikisht ndalesat e ndërmjetme për të krijuar një itinerar më efikas.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Shmang pagesat";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nuk u gjet asnjë rrugë metroje";
 "dialog_pedestrian_route_is_long_message" = "Ju lutemi zgjidhni një pikë fillimi ose fundi më afër një stacioni metroje";
 "button_layer_isolines" = "Vija Konture";
-"isolines_activation_error_dialog" = "Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë";
-"isolines_location_error_dialog" = "Vijat e konturit nuk janë ende të disponueshme në këtë zonë";
+"isolines_location_error_dialog" = "Përditësoni këtë zonë për të parë vijat e konturit";
 "elevation_profile_ascent" = "Ngjitje";
 "elevation_profile_descent" = "Zbritje";
 "elevation_profile_min_elevation" = "Lartësia min.";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ju lutemi aktivizoni iCloud në cilësimet e pajisjes suaj për të përdorur këtë veçori.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Aktivizo";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Ngjyra e gjurmëve u ndryshua";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Shkarko terrenin bashkë me hartat";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Hijezimi i relievit, vijat e konturit dhe thellësia e detit. Terreni i një rajoni shkarkohet, përditësohet dhe fshihet së bashku me hartën e tij.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Të fshihen gjithashtu të dhënat e shkarkuara të terrenit (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Mbaj";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Shkarkimi i terrenit bashkë me hartat është i çaktivizuar. Të aktivizohet për të parë këtu vijat e konturit?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Zgjidh në hartë";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Nisja";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destinacioni";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Shto ndalesë";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Ndrysho nisjen";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Ndrysho destinacionin";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Ndrysho ndalesën";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Numri maksimal i ndalesave është arritur";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Lëvizni dhe zmadhoni hartën për të vendosur kryqin";

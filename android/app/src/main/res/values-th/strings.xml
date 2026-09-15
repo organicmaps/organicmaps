@@ -662,6 +662,10 @@
     <string name="show_at_the_bottom">แสดงที่ด้านล่าง</string>
     <string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น</string>
     <string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">การปรับเส้นทางให้เหมาะสม</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">จัดเรียงจุดแวะระหว่างทางใหม่โดยอัตโนมัติเพื่อสร้างเส้นทางที่มีประสิทธิภาพยิ่งขึ้น</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -750,8 +754,7 @@
     <string name="deselect_all">ยกเลิกการเลือก</string>
     <string name="select_list">เลือกรายการ</string>
     <string name="button_layer_isolines">ความสูง</string>
-    <string name="isolines_activation_error_dialog">ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น</string>
-    <string name="isolines_location_error_dialog">เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้</string>
+    <string name="isolines_location_error_dialog">อัปเดตพื้นที่นี้เพื่อดูเส้นชั้นความสูง</string>
     <string name="elevation_profile_ascent">การขึ้น</string>
     <string name="elevation_profile_descent">การลง</string>
     <string name="elevation_profile_min_elevation">ต่ำสุด</string>
@@ -890,6 +893,8 @@
     <string name="hide_track">ซ่อนเส้นทาง</string>
     <!-- Text for the showing track. -->
     <string name="show_track">แสดงเส้นทาง</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">เปิดใช้งาน</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -918,4 +923,36 @@
     <string name="color_picker_grid">กริด</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">ค้นหาด้วยเสียง</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">ดาวน์โหลดภูมิประเทศพร้อมแผนที่</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">การแรเงาภูเขา เส้นชั้นความสูง และความลึกของทะเล ข้อมูลภูมิประเทศของแต่ละภูมิภาคจะถูกดาวน์โหลด อัปเดต และลบพร้อมกับแผนที่ของภูมิภาคนั้น</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">ลบข้อมูลภูมิประเทศที่ดาวน์โหลดไว้ (%s) ด้วยหรือไม่?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">เก็บไว้</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">การดาวน์โหลดภูมิประเทศพร้อมแผนที่ถูกปิดอยู่ เปิดใช้งานเพื่อดูเส้นชั้นความสูงที่นี่หรือไม่?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">เลือกบนแผนที่</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">จุดเริ่มต้น</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">จุดหมาย</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">เพิ่มจุดหยุด</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">เปลี่ยนจุดเริ่มต้น</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">เปลี่ยนจุดหมาย</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">เปลี่ยนจุดหยุด</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">ถึงจำนวนจุดหยุดสูงสุดแล้ว</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">เลื่อนและซูมแผนที่เพื่อวางกากบาท</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">กลับเส้นทาง</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">หยุดและบันทึก</string>
 </resources>

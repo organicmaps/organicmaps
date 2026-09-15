@@ -669,6 +669,10 @@
     <string name="show_at_the_bottom">Pokaż na środku</string>
     <string name="enable_logging_warning_message">Ta opcja zostaje włączona do zbierania danych działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.</string>
     <string name="driving_options_title">Ustawienia nawigacji</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optymalizacja trasy</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Automatycznie zmienia kolejność postojów pośrednich, aby utworzyć bardziej efektywną trasę.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Unikaj płatnych dróg</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -757,8 +761,7 @@
     <string name="deselect_all">Odznacz wszystko</string>
     <string name="select_list">Wybierz listę</string>
     <string name="button_layer_isolines">Poziomice</string>
-    <string name="isolines_activation_error_dialog">Do skorzystania z poziomic, pobierz mapę tego obszaru.</string>
-    <string name="isolines_location_error_dialog">Poziomice nie są jeszcze dostępne w tym regionie</string>
+    <string name="isolines_location_error_dialog">Zaktualizuj ten region, aby zobaczyć poziomice</string>
     <string name="elevation_profile_ascent">Wejście</string>
     <string name="elevation_profile_descent">Zejście</string>
     <string name="elevation_profile_min_elevation">Min. wysokość</string>
@@ -913,6 +916,8 @@
     <string name="hide_track">Ukryj trasę</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Pokaż trasę</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Włącz</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -941,4 +946,36 @@
     <string name="color_picker_grid">Siatka</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Wyszukiwanie głosowe</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Pobieraj teren z mapami</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Cieniowanie rzeźby terenu, poziomice i głębokości morza. Teren regionu jest pobierany, aktualizowany i usuwany razem z jego mapą.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Usunąć również pobrane dane terenu (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Zachowaj</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Pobieranie terenu z mapami jest wyłączone. Włączyć je, aby zobaczyć tutaj poziomice?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Wybierz na mapie</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Początek</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Cel</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Dodaj postój</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Zmień początek</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Zmień cel</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Zmień postój</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Osiągnięto maksymalną liczbę postojów</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Przesuń i powiększ mapę, aby ustawić krzyżyk</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Odwróć trasę</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Zatrzymaj i zapisz</string>
 </resources>

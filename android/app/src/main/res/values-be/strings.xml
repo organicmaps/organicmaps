@@ -672,6 +672,10 @@
     <string name="show_at_the_bottom">Паказваць знізу</string>
     <string name="enable_logging_warning_message">Часова ўключыце гэты параметр , каб запісаць і ўручную адправіць нам падрабязную інфармацыю пра знойдзеную праблему праз кнопку «Паведаміць аб памылцы» ў акне «Даведка». Журнал падзей можа змяшчаць даныя пра месцазнаходжанне.</string>
     <string name="driving_options_title">Налады пракладвання маршрутаў</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Аптымізацыя маршруту</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Аўтаматычна пераўпарадкоўвае прамежкавыя прыпынкі, каб стварыць больш эфектыўны маршрут.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Пазбягаць платных дарог</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -760,8 +764,7 @@
     <string name="deselect_all">Зняць вылучэнне</string>
     <string name="select_list">Выбраць спіс</string>
     <string name="button_layer_isolines">Рэльеф</string>
-    <string name="isolines_activation_error_dialog">Каб задзейнічаць лініі рэльефу, трэба абнавіць мапу гэтага рэгіёна</string>
-    <string name="isolines_location_error_dialog">Для гэтага рэгіёна мапы рэльефу яшчэ недаступны</string>
+    <string name="isolines_location_error_dialog">Абнавіце гэты рэгіён, каб убачыць лініі вышынь</string>
     <string name="elevation_profile_ascent">Пад\'ём</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мін. вышыня</string>
@@ -918,6 +921,8 @@
     <string name="hide_track">Схаваць трэк</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Паказаць трэк</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Уключыць</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -946,4 +951,36 @@
     <string name="color_picker_grid">Сетка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Галасавы пошук</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Спампоўваць рэльеф разам з мапамі</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Цені рэльефу, лініі вышынь і глыбіні мора. Рэльеф рэгіёна спампоўваецца, абнаўляецца і выдаляецца разам з яго мапай.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Таксама выдаліць спампаваны рэльеф (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Пакінуць</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Спампоўванне рэльефу разам з мапамі адключана. Уключыць яго, каб убачыць тут лініі вышынь?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Выбраць на мапе</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Адкуль</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Куды</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Дадаць прыпынак</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Змяніць пачатак</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Змяніць пункт прызначэння</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Змяніць прыпынак</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Дасягнута максімальная колькасць прыпынкаў</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Рухайце мапу і змяняйце маштаб, каб размясціць крыжык</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Адваротны маршрут</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Спыніць і захаваць</string>
 </resources>

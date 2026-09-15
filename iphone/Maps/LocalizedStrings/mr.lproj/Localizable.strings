@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "उच्च-गुणवत्तेचा आवाज डाउनलोड करण्यासाठी, सेटिंग्ज अॅप उघडा आणि प्रवेशयोग्यता → VoiceOver → स्पीच → व्हॉइस येथे जा.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "चाचणी आवाज दिशानिर्देश (TTS, टेक्स्ट-टू-स्पीच)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "स्वयं झूम";
 "placepage_distance" = "अंतर";
 "search_show_on_map" = "नकाशावर पहा";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "अंधार";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "इतर";
 
 /* Tex label above the Donate button */
 "donate_description" = "लाखो वापरकर्त्यांना जाहिरातीशिवाय विनामूल्य नकाशे भेट द्या!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.";
 "driving_options_title" = "मार्गशोधी पर्याय";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "मार्ग अनुकूलन";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "अधिक कार्यक्षम मार्ग तयार करण्यासाठी मधले थांबे आपोआप पुनर्क्रमित करते.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "टोल रस्ते टाळा";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "मेट्रो मार्ग सापडला नाही";
 "dialog_pedestrian_route_is_long_message" = "कृपया मेट्रो स्थानकाजवळचा प्रारंभ किंवा शेवटचा बिंदू निवडा";
 "button_layer_isolines" = "भूप्रदेश";
-"isolines_activation_error_dialog" = "भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा";
-"isolines_location_error_dialog" = "या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही";
+"isolines_location_error_dialog" = "समोच्च रेषा पाहण्यासाठी हा भाग अपडेट करा";
 "elevation_profile_ascent" = "चढण";
 "elevation_profile_descent" = "उतरण";
 "elevation_profile_min_elevation" = "किमान उंची";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "कृपया हे वैशिष्ट्य वापरण्यासाठी तुमच्या डिव्हाइसच्या सेटिंग्जमध्ये iCloud सक्षम करा.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "सक्षम करा";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "ट्रॅकांचा रंग बदलला";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "नकाशांसोबत भूभाग डाउनलोड करा";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "टेकड्यांचे छायांकन, समोच्च रेषा आणि समुद्राची खोली. प्रदेशाचा भूभाग त्याच्या नकाशासोबतच डाउनलोड, अद्ययावत आणि हटवला जातो.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "डाउनलोड केलेला भूभाग डेटा (%@) देखील हटवायचा का?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "ठेवा";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "नकाशांसोबत भूभाग डाउनलोड करणे बंद आहे. येथे समोच्च रेषा पाहण्यासाठी ते चालू करायचे का?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "नकाशावर निवडा";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "प्रारंभ स्थान";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "गंतव्य";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "थांबा जोडा";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "प्रारंभ बदला";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "गंतव्य बदला";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "थांबा बदला";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "थांब्यांची कमाल संख्या गाठली आहे";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा";

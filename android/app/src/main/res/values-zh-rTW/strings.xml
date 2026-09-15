@@ -664,6 +664,10 @@
     <string name="show_at_the_bottom">顯示在底部</string>
     <string name="enable_logging_warning_message">暫時啟用此選項，以便使用“報告問題”功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。</string>
     <string name="driving_options_title">繞行設定</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">路線最佳化</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">自動重新排列中途點，以建立更有效率的路線。</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">避開收費公路</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -752,8 +756,7 @@
     <string name="deselect_all">取消全選</string>
     <string name="select_list">選擇列表</string>
     <string name="button_layer_isolines">等高線</string>
-    <string name="isolines_activation_error_dialog">如需使用等高線，請更新或下載所需區域的地圖</string>
-    <string name="isolines_location_error_dialog">暫時無法獲取該地區的等高線</string>
+    <string name="isolines_location_error_dialog">更新該地區以查看等高線</string>
     <string name="elevation_profile_ascent">上坡</string>
     <string name="elevation_profile_descent">下坡</string>
     <string name="elevation_profile_min_elevation">最低高度</string>
@@ -904,6 +907,8 @@
     <string name="hide_track">隱藏軌跡</string>
     <!-- Text for the showing track. -->
     <string name="show_track">顯示軌跡</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">啟用</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -932,4 +937,36 @@
     <string name="color_picker_grid">網格</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">語音搜尋</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">隨地圖一併下載地形資料</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">山體陰影、等高線和水深。地區的地形資料會隨其地圖一併下載、更新及刪除。</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">是否同時刪除已下載的地形資料（%s）？</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">保留</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">隨地圖一併下載地形資料的功能已關閉。要開啟此功能以在此處查看等高線嗎？</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">在地圖上選擇</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">起點</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">目的地</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">新增途經點</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">變更起點</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">變更目的地</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">變更途經點</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">已達到最大途經點數量</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">移動並縮放地圖以定位十字</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">反轉路線</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">停止並儲存</string>
 </resources>

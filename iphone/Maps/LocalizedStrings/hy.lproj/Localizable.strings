@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Ավելի բարձր որակի ձայն ներբեռնելու համար բացեք Կարգավորումներ հավելվածը և անցեք Մատչելիություն → VoiceOver → Խոսք → Ձայն։";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Փորձարկել ձայնային ուղղորդումը (TTS)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Ավտոմատ խոշորացում";
 "placepage_distance" = "Հեռավորություն";
 "search_show_on_map" = "Դիտել քարտեզի վրա";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Մուգ";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Այլ";
 
 /* Tex label above the Donate button */
 "donate_description" = "Նվիրեք անվճար և առանց գովազդի քարտեզներ միլիոնավոր օգտատերերի:";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։";
 "driving_options_title" = "Երթուղու ընտրանքներ";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Երթուղու օպտիմալացում";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Ավտոմատ վերադասավորում է միջանկյալ կանգառները՝ ավելի արդյունավետ երթուղի ստեղծելու համար։";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Խուսափել վճարովի ճանապարհներից";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Մետրոյի երթուղի չի գտնվել";
 "dialog_pedestrian_route_is_long_message" = "Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ";
 "button_layer_isolines" = "Հորիզոնականներ";
-"isolines_activation_error_dialog" = "Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները";
-"isolines_location_error_dialog" = "Հորիզոնականները դեռ հասանելի չեն այս տարածքում";
+"isolines_location_error_dialog" = "Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար";
 "elevation_profile_ascent" = "Վերելք";
 "elevation_profile_descent" = "Վայրէջք";
 "elevation_profile_min_elevation" = "Նվազգ. բարձրություն";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Այս գործառույթից օգտվելու համար խնդրում ենք միացնել iCloud-ը ձեր սարքի կարգավորումներում։";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Միացնել";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Հետագծերի գույնը փոխվեց";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Ներբեռնել տեղանքը քարտեզների հետ";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Ռելիեֆի ստվերում, հորիզոնականներ և ծովի խորություններ: Տարածաշրջանի տեղանքը ներբեռնվում, թարմացվում և ջնջվում է իր քարտեզի հետ միասին:";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Ջնջե՞լ նաև ներբեռնված տեղանքը (%@):";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Պահել";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Քարտեզների հետ տեղանքի ներբեռնումն անջատված է: Միացնե՞լ այն՝ այստեղ հորիզոնականները տեսնելու համար:";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Ընտրել քարտեզի վրա";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Մեկնարկ";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Նպատակակետ";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Ավելացնել կանգառ";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Փոխել մեկնարկը";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Փոխել նպատակակետը";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Փոխել կանգառը";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Հասել եք կանգառների առավելագույն քանակին";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Շարժեք և մեծացրեք քարտեզը՝ խաչմարկը տեղադրելու համար";

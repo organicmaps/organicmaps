@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Pour télécharger une voix de meilleure qualité, ouvrez l’app Réglages et allez dans Accessibilité → VoiceOver → Parole → Voix.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Teste les instructions vocales (TTS, Text-To-Speech)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Zoom automatique";
 "placepage_distance" = "Distance";
 "search_show_on_map" = "Voir sur la carte";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Sombre";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Autre";
 
 /* Tex label above the Donate button */
 "donate_description" = "Offrez des cartes gratuites et sans pub à des millions d'utilisateurs !";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.";
 "driving_options_title" = "Paramètres des itinéraires";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimisation de l’itinéraire";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Réorganise automatiquement les étapes intermédiaires afin de créer un itinéraire plus efficace.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Éviter les routes à péage";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Itinéraire de métro non trouvé";
 "dialog_pedestrian_route_is_long_message" = "Choisissez un point de départ ou d'arrivée plus proche d'une station de métro";
 "button_layer_isolines" = "Terrain";
-"isolines_activation_error_dialog" = "Pour activer et utiliser la couche topographique, mettez à jour ou téléchargez la carte de l'endroit désiré";
-"isolines_location_error_dialog" = "Les courbes de niveau ne sont pas encore disponibles dans cette région";
+"isolines_location_error_dialog" = "Mettez à jour cette région pour voir les courbes de niveau";
 "elevation_profile_ascent" = "Montée";
 "elevation_profile_descent" = "Descente";
 "elevation_profile_min_elevation" = "Min. élévation";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Veuillez activer iCloud dans les paramètres de votre appareil pour utiliser cette fonctionnalité.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Activer";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Couleur des tracés modifiée";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Télécharger le terrain avec les cartes";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Ombrage du relief, courbes de niveau et profondeurs marines. Le terrain d’une région est téléchargé, mis à jour et supprimé avec sa carte.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Supprimer aussi les données de terrain téléchargées (%@) ?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Conserver";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Le téléchargement du terrain avec les cartes est désactivé. L’activer pour voir les courbes de niveau ici ?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Choisir sur la carte";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Départ";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destination";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Ajouter un arrêt";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Changer le départ";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Changer la destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Changer l'arrêt";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Nombre maximal d'arrêts atteint";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Déplacez et zoomez sur la carte pour positionner la croix";

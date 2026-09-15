@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">तळाशी दाखवा</string>
     <string name="enable_logging_warning_message">निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.</string>
     <string name="driving_options_title">मार्गशोधी पर्याय</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">मार्ग अनुकूलन</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">अधिक कार्यक्षम मार्ग तयार करण्यासाठी मधले थांबे आपोआप पुनर्क्रमित करते.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">टोल रस्ते टाळा</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -751,8 +755,7 @@
     <string name="deselect_all">निवड रद्द करा</string>
     <string name="select_list">यादी निवडा</string>
     <string name="button_layer_isolines">भूप्रदेश</string>
-    <string name="isolines_activation_error_dialog">भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा</string>
-    <string name="isolines_location_error_dialog">या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही</string>
+    <string name="isolines_location_error_dialog">समोच्च रेषा पाहण्यासाठी हा भाग अपडेट करा</string>
     <string name="elevation_profile_ascent">चढण</string>
     <string name="elevation_profile_descent">उतरण</string>
     <string name="elevation_profile_min_elevation">किमान उंची</string>
@@ -895,6 +898,8 @@
     <string name="hide_track">मार्ग लपवा</string>
     <!-- Text for the showing track. -->
     <string name="show_track">मार्ग दाखवा</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">सक्षम करा</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -923,4 +928,36 @@
     <string name="color_picker_grid">ग्रिड</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">व्हॉइस सर्च</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">नकाशांसोबत भूभाग डाउनलोड करा</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">टेकड्यांचे छायांकन, समोच्च रेषा आणि समुद्राची खोली. प्रदेशाचा भूभाग त्याच्या नकाशासोबतच डाउनलोड, अद्ययावत आणि हटवला जातो.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">डाउनलोड केलेला भूभाग डेटा (%s) देखील हटवायचा का?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">ठेवा</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">नकाशांसोबत भूभाग डाउनलोड करणे बंद आहे. येथे समोच्च रेषा पाहण्यासाठी ते चालू करायचे का?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">नकाशावर निवडा</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">प्रारंभ स्थान</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">गंतव्य</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">थांबा जोडा</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">प्रारंभ बदला</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">गंतव्य बदला</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">थांबा बदला</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">थांब्यांची कमाल संख्या गाठली आहे</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">मार्ग उलटा करा</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">थांबवा आणि जतन करा</string>
 </resources>

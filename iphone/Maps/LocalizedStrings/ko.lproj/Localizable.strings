@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "더 높은 품질의 음성을 다운로드하려면 설정 앱을 열고 손쉬운 사용 → VoiceOver → 말하기 → 음성으로 이동하세요.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "음성 길 안내 테스트(TTS, 텍스트 음성 변환)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "자동 줌";
 "placepage_distance" = "거리";
 "search_show_on_map" = "지도 보기";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "다크";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "다른 언어";
 
 /* Tex label above the Donate button */
 "donate_description" = "수백만 명의 사용자에게 광고 없는 무료 지도를 선물하세요!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.";
 "driving_options_title" = "운전 옵션";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "경로 최적화";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "더 효율적인 경로를 만들도록 중간 경유지를 자동으로 재정렬합니다.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "유료 도로 피하기";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "지하철 루트가 발견되지 않았습니다";
 "dialog_pedestrian_route_is_long_message" = "지하철역에서 가까운 출발점 또는 종점을 선택하세요";
 "button_layer_isolines" = "지형";
-"isolines_activation_error_dialog" = "지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오";
-"isolines_location_error_dialog" = "이 지역의 지형 레이어는 아직 사용할 수 없습니다";
+"isolines_location_error_dialog" = "이 지역을 업데이트하면 등고선을 볼 수 있습니다";
 "elevation_profile_ascent" = "올라가기";
 "elevation_profile_descent" = "내려가기";
 "elevation_profile_min_elevation" = "최소 높이";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "이 기능을 사용하려면 기기 설정에서 iCloud를 활성화하세요.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "사용";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "트랙 색상이 변경됨";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "지도와 함께 지형 데이터 다운로드";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "지형 음영, 등고선, 수심. 지역의 지형 데이터는 해당 지도와 함께 다운로드, 업데이트, 삭제됩니다.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "다운로드한 지형 데이터(%@)도 삭제하시겠습니까?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "유지";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "지도와 함께 지형 데이터를 다운로드하는 기능이 꺼져 있습니다. 여기에 등고선을 표시하려면 켜시겠습니까?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "지도에서 선택";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "출발지";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "목적지";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "경유지 추가";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "출발지 변경";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "목적지 변경";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "경유지 변경";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "경유지 최대 개수에 도달했습니다";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요";

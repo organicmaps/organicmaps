@@ -664,6 +664,10 @@
     <string name="show_at_the_bottom">Εμφάνισε στο κάτω μέρος</string>
     <string name="enable_logging_warning_message">Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.</string>
     <string name="driving_options_title">Ρυθμίσεις δρομολόγησης</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Βελτιστοποίηση διαδρομής</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Αναδιατάσσει αυτόματα τις ενδιάμεσες στάσεις για τη δημιουργία μιας πιο αποδοτικής διαδρομής.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Αποφυγή διοδίων</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -752,8 +756,7 @@
     <string name="deselect_all">Κατάργηση επιλογής</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
-    <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
-    <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>
+    <string name="isolines_location_error_dialog">Ενημερώστε αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές</string>
     <string name="elevation_profile_ascent">Ανάβαση</string>
     <string name="elevation_profile_descent">Κατάβαση</string>
     <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>
@@ -904,6 +907,8 @@
     <string name="hide_track">Απόκρυψη διαδρομής</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Εμφάνιση διαδρομής</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Ενεργοποίηση</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -932,4 +937,36 @@
     <string name="color_picker_grid">Πλέγμα</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Φωνητική αναζήτηση</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Λήψη ανάγλυφου μαζί με τους χάρτες</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Σκίαση ανάγλυφου, υψομετρικές γραμμές και θαλάσσια βάθη. Το ανάγλυφο μιας περιοχής λαμβάνεται, ενημερώνεται και διαγράφεται μαζί με τον χάρτη της.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Να διαγραφεί και το ανάγλυφο που έχει ληφθεί (%s);</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Διατήρηση</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Η λήψη του ανάγλυφου μαζί με τους χάρτες είναι απενεργοποιημένη. Να ενεργοποιηθεί για να δείτε εδώ τις υψομετρικές γραμμές;</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Επιλέξτε στο χάρτη</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Αφετηρία</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Προορισμός</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Προσθήκη στάσης</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Αλλαγή αφετηρίας</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Αλλαγή προορισμού</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Αλλαγή στάσης</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Επιτεύχθηκε ο μέγιστος αριθμός στάσεων</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Μετακινήστε και μεγεθύνετε τον χάρτη για να τοποθετήσετε τον σταυρό</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Αντιστροφή διαδρομής</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Διακοπή και αποθήκευση</string>
 </resources>

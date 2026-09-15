@@ -670,6 +670,10 @@
     <string name="show_at_the_bottom">Под меткой</string>
     <string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".</string>
     <string name="driving_options_title">Настройки объезда</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Оптимизация маршрута</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Автоматически переставляет промежуточные остановки для построения более эффективного маршрута.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избегать платных дорог</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -758,8 +762,7 @@
     <string name="deselect_all">Отменить выбор</string>
     <string name="select_list">Выбрать список</string>
     <string name="button_layer_isolines">Высоты</string>
-    <string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
-    <string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>
+    <string name="isolines_location_error_dialog">Обновите этот регион, чтобы увидеть линии высот</string>
     <string name="elevation_profile_ascent">Подъём</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мин. высота</string>
@@ -914,6 +917,8 @@
     <string name="hide_track">Скрыть трек</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Показать трек</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Включить</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -942,4 +947,36 @@
     <string name="color_picker_grid">Сетка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Голосовой поиск</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Скачивать рельеф вместе с картами</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Тени рельефа, линии высот и глубины моря. Рельеф региона скачивается, обновляется и удаляется вместе с его картой.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Также удалить скачанный рельеф (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Оставить</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Скачивание рельефа вместе с картами отключено. Включить его, чтобы увидеть здесь линии высот?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Выбрать на карте</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Откуда</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Куда</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Добавить остановку</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Изменить начало</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Изменить пункт назначения</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Изменить остановку</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Достигнуто максимальное количество остановок</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Перемещайте и масштабируйте карту, чтобы установить крестик</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Обратный маршрут</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Остановить и сохранить</string>
 </resources>

@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "For at hente en stemme i højere kvalitet skal du åbne appen Indstillinger og gå til Tilgængelighed → VoiceOver → Tale → Stemme.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Test stemmeanvisninger (TTS, Text-To-Speech)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Auto-zoom";
 "placepage_distance" = "Afstand";
 "search_show_on_map" = "Vis på kort";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Mørk";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Andet";
 
 /* Tex label above the Donate button */
 "donate_description" = "Giv gratis kort uden reklamer til millioner af brugere!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Aktivér denne mulighed midlertidigt for at registrere og manuelt sende detaljerede diagnostiske logfiler om dit problem til os ved hjælp af \"Rapportér en fejl\" i Hjælp-dialogen. Logfiler kan indeholde placeringsoplysninger.";
 "driving_options_title" = "Indstillinger for ruteberegning";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ruteoptimering";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Omarrangerer automatisk mellemstop for at oprette en mere effektiv rute.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Undgå betalingsveje";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ingen undergrundsrute fundet";
 "dialog_pedestrian_route_is_long_message" = "Vælg venligst et start- eller stoppunkt tættere på en metrostation";
 "button_layer_isolines" = "Konturlinjer";
-"isolines_activation_error_dialog" = "Aktivering af konturlinjer kræver download af kortdata for dette område";
-"isolines_location_error_dialog" = "Konturlinjer er endnu ikke tilgængelige i dette område";
+"isolines_location_error_dialog" = "Opdater dette område for at se konturlinjer";
 "elevation_profile_ascent" = "Stigning";
 "elevation_profile_descent" = "Nedstigning";
 "elevation_profile_min_elevation" = "Min. højde";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktivér iCloud i din enheds indstillinger for at bruge denne funktion.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Aktivér";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Sporfarve er ændret";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Download terræn sammen med kort";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Terrænskygge, konturlinjer og havdybder. Terrænet for et område downloades, opdateres og slettes sammen med kortet.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Vil du også slette de downloadede terrændata (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Behold";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Download af terræn sammen med kort er slået fra. Vil du slå det til for at se konturlinjer her?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Vælg på kortet";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Startsted";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destination";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Tilføj stop";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Skift startsted";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Skift destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Skift stop";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Det maksimale antal stop er nået";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Flyt og zoom på kortet for at placere korset";

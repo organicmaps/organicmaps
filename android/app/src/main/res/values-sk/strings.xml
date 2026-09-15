@@ -664,6 +664,10 @@
     <string name="show_at_the_bottom">Zobraziť v dolnej časti</string>
     <string name="enable_logging_warning_message">Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.</string>
     <string name="driving_options_title">Možnosti trasy</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimalizácia trasy</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Automaticky zmení poradie priebežných zastávok a vytvorí efektívnejšiu trasu.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Vyhnúť sa spoplatneným cestám</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -752,8 +756,7 @@
     <string name="deselect_all">Zrušiť výber</string>
     <string name="select_list">Vybrať zoznam</string>
     <string name="button_layer_isolines">Terén</string>
-    <string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
-    <string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
+    <string name="isolines_location_error_dialog">Aktualizujte túto oblasť, aby ste videli vrstevnice</string>
     <string name="elevation_profile_ascent">Stúpanie</string>
     <string name="elevation_profile_descent">Klesanie</string>
     <string name="elevation_profile_min_elevation">Min. výška</string>
@@ -896,6 +899,8 @@
     <string name="hide_track">Skryť trasu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Zobraziť trasu</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Povoliť</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -924,4 +929,36 @@
     <string name="color_picker_grid">Mriežka</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Hlasové vyhľadávanie</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Stiahnuť terén s mapami</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Tieňovanie terénu, vrstevnice a hĺbky mora. Terén regiónu sa sťahuje, aktualizuje a maže spolu s jeho mapou.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Zmazať aj stiahnuté údaje o teréne (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Ponechať</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Sťahovanie terénu s mapami je vypnuté. Zapnúť ho, aby ste tu videli vrstevnice?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Vybrať na mape</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Začiatok</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Cieľ</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Pridať zastávku</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Zmeniť začiatok</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Zmeniť cieľ</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Zmeniť zastávku</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Dosiahnutý maximálny počet zastávok</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Posúvajte a zväčšujte mapu, aby ste umiestnili krížik</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Obrátiť trasu</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Zastaviť a uložiť</string>
 </resources>

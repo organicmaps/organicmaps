@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "高品質の音声をダウンロードするには、「設定」アプリを開き、アクセシビリティ → VoiceOver → 読み上げ → 声 に移動します。";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "音声案内をテストする（TTS、Text-To-Speech）";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "自動ズーム";
 "placepage_distance" = "距離";
 "search_show_on_map" = "地図に表示";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "ダーク";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "その他";
 
 /* Tex label above the Donate button */
 "donate_description" = "何百万人ものユーザーに広告なしの無料地図を贈ろう！";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。";
 "driving_options_title" = "経路オプション";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "経路の最適化";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "より効率的な経路になるよう、中間地点を自動的に並べ替えます。";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "有料道路を避ける";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "地下鉄ルートが見つかりませんでした";
 "dialog_pedestrian_route_is_long_message" = "もっと地下鉄駅に近い出発地または目的地を選択してください";
 "button_layer_isolines" = "地形";
-"isolines_activation_error_dialog" = "地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください";
-"isolines_location_error_dialog" = "地形レイヤーはこの地域ではまだ利用できません";
+"isolines_location_error_dialog" = "この地域を更新すると等高線が表示されます";
 "elevation_profile_ascent" = "上昇";
 "elevation_profile_descent" = "下降";
 "elevation_profile_min_elevation" = "最小標高";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "この機能を使うには、デバイスの設定でiCloudを有効にしてほしい。";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "有効にする";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "トラックの色が変更されました";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "地図と一緒に地形データをダウンロードする";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "地形の陰影、等高線、水深。地域の地形データは、その地図と一緒にダウンロード、更新、削除されます。";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "ダウンロード済みの地形データ（%@）も削除しますか？";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "残す";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "地図と一緒に地形データをダウンロードする機能がオフになっています。ここに等高線を表示するために有効にしますか？";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "地図上で選択";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "出発地";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "目的地";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "経由地を追加";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "出発地を変更";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "目的地を変更";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "経由地を変更";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "経由地の最大数に達しました";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "地図を移動・拡大縮小して、十字を配置してください";

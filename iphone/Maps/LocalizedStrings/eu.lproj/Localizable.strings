@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Kalitate handiagoko ahotsa deskargatzeko, ireki Ezarpenak aplikazioa eta joan Irisgarritasuna → VoiceOver → Ahotsa → Ahotsa.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Probatu ahots bidezko jarraibideak (TTS, Text-To-Speech)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Zoom automatikoa";
 "placepage_distance" = "Distantzia";
 "search_show_on_map" = "Ikusi mapan";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Iluna";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Beste batzuk";
 
 /* Tex label above the Donate button */
 "donate_description" = "Oparitu doako mapak iragarkirik gabe milioika erabiltzaileri!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.";
 "driving_options_title" = "Bideratzeko aukerak";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ibilbidearen optimizazioa";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Tarteko geldialdiak automatikoki berrantolatzen ditu ibilbide eraginkorragoa sortzeko.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Bidesariak saihestea";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ez da aurkitu metroko ibilbiderik";
 "dialog_pedestrian_route_is_long_message" = "Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua";
 "button_layer_isolines" = "Sestra kurbak";
-"isolines_activation_error_dialog" = "Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa";
-"isolines_location_error_dialog" = "Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan";
+"isolines_location_error_dialog" = "Eguneratu eskualde hau sestra-kurbak ikusteko";
 "elevation_profile_ascent" = "Maldan gora";
 "elevation_profile_descent" = "Maldan behera";
 "elevation_profile_min_elevation" = "Altitude min";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Mesedez, gaitu iCloud zure gailuaren ezarpenetan eginbide hau erabiltzeko.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Gaitu";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Ibilbideen kolorea aldatu da";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Deskargatu erliebea mapekin batera";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Erliebe-itzaldura, sestra-kurbak eta itsas sakonerak. Eskualde bateko erliebea bere maparekin batera deskargatu, eguneratu eta ezabatzen da.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Deskargatutako erliebe-datuak (%@) ere ezabatu nahi dituzu?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Mantendu";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Mapekin batera erliebea deskargatzea desaktibatuta dago. Aktibatu nahi duzu hemen sestra-kurbak ikusteko?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Aukeratu mapan";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Abiapuntua";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Helmuga";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Gehitu geldialdia";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Aldatu abiapuntua";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Aldatu helmuga";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Aldatu geldialdia";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Geldialdien kopuru maximoa lortu da";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Mugitu eta handitu mapa gurutzea kokatzeko";

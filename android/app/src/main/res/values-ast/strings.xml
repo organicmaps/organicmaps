@@ -289,6 +289,10 @@
     <string name="power_managment_setting_never">Enxamás</string>
     <string name="power_managment_setting_manual_max">Siempres</string>
     <string name="driving_options_title">Opciones d’encaminamientu</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimización de la ruta</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Reordena automáticamente les paraes intermedies pa crear una ruta más eficiente.</string>
     <string name="unable_to_calc_alert_subtitle">Nun pudo alcontrase una ruta. Quiciabes se deba a les opciones d’encaminamientu o a datos faltantes n’OpenStreetMap. Revisa les tos opciones d’encaminamientu y vuelvi intentalo.</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sí</string>
@@ -328,7 +332,7 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Desesbillar too</string>
     <string name="button_layer_isolines">Curves de nivel</string>
-    <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
+    <string name="isolines_location_error_dialog">Anueva esta rexón pa ver les curves de nivel</string>
     <string name="elevation_profile_ascent">Ascensu</string>
     <string name="elevation_profile_descent">Descensu</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
@@ -387,4 +391,20 @@
         <item quantity="one">¿Desaniciar %d elementu?</item>
         <item quantity="other">¿Desaniciar %d elementos?</item>
     </plurals>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Activar</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Baxar el relieve colos mapes</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Sombreáu del relieve, curves de nivel y profundidaes marines. El relieve d’una rexón báxase, anuévase y desaníciase xunto col so mapa.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">¿Desaniciar tamién el relieve baxáu (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Caltener</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">La baxada del relieve colos mapes ta desactivada. ¿Quies activala pa ver equí les curves de nivel?</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Parar y guardar</string>
 </resources>

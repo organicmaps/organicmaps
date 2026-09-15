@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "ເພື່ອດາວໂຫຼດສຽງຄຸນນະພາບສູງກວ່າ, ເປີດແອັບ ການຕັ້ງຄ່າ ແລ້ວໄປທີ່ ການເຂົ້າເຖິງ → VoiceOver → ການເວົ້າ → ສຽງ.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "ທົດສອບຄຳແນະນຳດ້ວຍສຽງ (TTS)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "ຊູມອັດຕະໂນມັດ";
 "placepage_distance" = "ໄລຍະທາງ";
 "search_show_on_map" = "ເບິ່ງໃນແຜນທີ່";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "ມືດ";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "ອື່ນໆ";
 
 /* Tex label above the Donate button */
 "donate_description" = "ມອບແຜນທີ່ຟຣີທີ່ບໍ່ມີໂຄສະນາໃຫ້ກັບຜູ້ໃຊ້ຫຼາຍລ້ານຄົນ!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "ເປີດໃຊ້ຕົວເລືອກນີ້ຊົ່ວຄາວເພື່ອບັນທຶກ ແລະ ສົ່ງລັອກການວິນິດໄສໂດຍລະອຽດກ່ຽວກັບບັນຫາຂອງທ່ານໃຫ້ພວກເຮົາໂດຍໃຊ້ \"ລາຍງານຂໍ້ຜິດພາດ\" ໃນສ່ວນຊ່ວຍເຫຼືອ. ລັອກອາດຈະລວມມີຂໍ້ມູນຕຳແໜ່ງທີ່ຕັ້ງ.";
 "driving_options_title" = "ຕົວເລືອກການສ້າງເສັ້ນທາງ";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "ການປັບເສັ້ນທາງໃຫ້ເໝາະສົມ";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "ຈັດລຽງຈຸດຢຸດລະຫວ່າງທາງໃໝ່ອັດຕະໂນມັດ ເພື່ອສ້າງເສັ້ນທາງທີ່ມີປະສິດທິພາບກວ່າ.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "ເລ່ຽງທາງເສຍຄ່າທຳນຽມ";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ";
 "dialog_pedestrian_route_is_long_message" = "ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ";
 "button_layer_isolines" = "ເສັ້ນລະດັບຄວາມສູງ";
-"isolines_activation_error_dialog" = "ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້";
-"isolines_location_error_dialog" = "ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້";
+"isolines_location_error_dialog" = "ອັບເດດເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ";
 "elevation_profile_ascent" = "ທາງຂຶ້ນ";
 "elevation_profile_descent" = "ທາງລົງ";
 "elevation_profile_min_elevation" = "ລະດັບຄວາມສູງຕ່ຳສຸດ";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "ກະລຸນາເປີດໃຊ້ iCloud ໃນການຕັ້ງຄ່າອຸປະກອນຂອງທ່ານເພື່ອໃຊ້ຟີເຈີນີ້.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "ເປີດໃຊ້ງານ";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "ສີຂອງເສັ້ນທາງໄດ້ປ່ຽນແລ້ວ";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "ດາວໂຫຼດພູມິປະເທດພ້ອມກັບແຜນທີ່";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "ເງົາເນີນພູ, ເສັ້ນລະດັບຄວາມສູງ ແລະ ຄວາມເລິກຂອງທະເລ. ພູມິປະເທດຂອງເຂດໜຶ່ງຈະຖືກດາວໂຫຼດ, ອັບເດດ ແລະ ລຶບພ້ອມກັບແຜນທີ່ຂອງມັນ.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "ລຶບຂໍ້ມູນພູມິປະເທດທີ່ດາວໂຫຼດແລ້ວ (%@) ນຳບໍ?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "ເກັບໄວ້";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "ການດາວໂຫຼດພູມິປະເທດພ້ອມກັບແຜນທີ່ຖືກປິດຢູ່. ເປີດມັນເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງຢູ່ບ່ອນນີ້ບໍ?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "ເລືອກຢູ່ໃນແຜນທີ່";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "ຈຸດເລີ່ມຕົ້ນ";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "ປາຍທາງ";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "ເພີ່ມຈຸດຈອດ";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "ປ່ຽນຈຸດເລີ່ມຕົ້ນ";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "ປ່ຽນປາຍທາງ";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "ປ່ຽນຈຸດຈອດ";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "ຮອດຈຳນວນຈຸດຈອດສູງສຸດແລ້ວ";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "ຍ້າຍ ແລະ ຊູມແຜນທີ່ເພື່ອວາງເຄື່ອງໝາຍບວກ";

@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">در پایین نمایش دهید</string>
     <string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
     <string name="driving_options_title">گزینه‌های رانندگی</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">بهینه‌سازی مسیر</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">توقف‌های میانی را به‌طور خودکار جابه‌جا می‌کند تا مسیر بهینه‌تری ایجاد شود.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">از جاده های عوارضی خودداری کنید</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -751,8 +755,7 @@
     <string name="deselect_all">لغو انتخاب همه</string>
     <string name="select_list">انتخاب فهرست</string>
     <string name="button_layer_isolines">خط تراز</string>
-    <string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
-    <string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
+    <string name="isolines_location_error_dialog">برای دیدن خطوط تراز، این منطقه را به‌روزرسانی کنید</string>
     <string name="elevation_profile_ascent">بالا رفتن</string>
     <string name="elevation_profile_descent">پایین آمدن</string>
     <string name="elevation_profile_min_elevation">کم ارتفاع</string>
@@ -903,6 +906,8 @@
     <string name="hide_track">مخفی کردن مسیر</string>
     <!-- Text for the showing track. -->
     <string name="show_track">نمایش مسیر</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">فعال کردن</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -931,4 +936,36 @@
     <string name="color_picker_grid">شبکه</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">جستجوی صوتی</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">دانلود عوارض زمین همراه با نقشه‌ها</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">سایه‌پردازی ناهمواری‌ها، خطوط تراز و عمق دریا. عوارض زمین هر منطقه همراه با نقشهٔ آن دانلود، به‌روزرسانی و حذف می‌شود.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">عوارض زمین دانلودشده (%s) هم حذف شود؟</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">نگه داشتن</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">دانلود عوارض زمین همراه با نقشه‌ها خاموش است. برای دیدن خطوط تراز در اینجا روشن شود؟</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">انتخاب از نقشه</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">نقطه شروع</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">مقصد</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">افزودن توقف</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">تغییر نقطه شروع</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">تغییر مقصد</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">تغییر توقف</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">حداکثر تعداد توقف‌ها رسیده است</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">نقشه را جابجا و بزرگنمایی کنید تا صلیب را قرار دهید</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">معکوس کردن مسیر</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">توقف و ذخیره</string>
 </resources>

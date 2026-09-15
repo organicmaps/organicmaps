@@ -667,6 +667,10 @@
     <string name="show_at_the_bottom">Prikaži dolje</string>
     <string name="enable_logging_warning_message">Privremeno omogućite ovu opciju kako biste snimili i ručno poslali detaljne dijagnostičke zapise o vašem problemu nama putem opcije \"Prijavi grešku\" u dijaloškom okviru Pomoć. Zapisi mogu uključivati informacije o lokaciji.</string>
     <string name="driving_options_title">Opcije za određivanje rute</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimizacija rute</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Automatski mijenja redoslijed međuodredišta radi stvaranja učinkovitije rute.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Izbjegni cestarine</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -749,8 +753,7 @@
     <string name="deselect_all">Poništi odabir</string>
     <string name="select_list">Odaberi popis</string>
     <string name="button_layer_isolines">Izohipse</string>
-    <string name="isolines_activation_error_dialog">Aktiviranje izohipsa zahtijeva preuzimanje podataka karte za ovo područje</string>
-    <string name="isolines_location_error_dialog">Izohipse još nisu dostupne za ovo područje</string>
+    <string name="isolines_location_error_dialog">Ažurirajte ovo područje da biste vidjeli izohipse</string>
     <string name="elevation_profile_ascent">Uzbrdo</string>
     <string name="elevation_profile_descent">Nizbrdo</string>
     <string name="elevation_profile_min_elevation">Min. visina</string>
@@ -899,6 +902,8 @@
     <string name="move">Pomakni</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Promijeni boju</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Omogući</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -927,4 +932,36 @@
     <string name="color_picker_grid">Rešetka</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Glasovno pretraživanje</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Preuzmi teren s kartama</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Sjenčanje reljefa, izohipse i dubine mora. Teren regije preuzima se, ažurira i briše zajedno s njezinom kartom.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Želite li izbrisati i preuzete podatke o terenu (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Zadrži</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Preuzimanje terena s kartama je isključeno. Želite li ga uključiti kako biste ovdje vidjeli izohipse?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Odaberi na karti</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Početak</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Odredište</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Dodaj stajalište</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Promijeni početak</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Promijeni odredište</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Promijeni stajalište</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Postignut je maksimalni broj stajališta</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Pomaknite i zumirajte kartu kako biste postavili križić</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Obrni rutu</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Prekini i spremi</string>
 </resources>

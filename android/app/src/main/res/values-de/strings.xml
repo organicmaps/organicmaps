@@ -665,6 +665,10 @@
     <string name="show_at_the_bottom">Unten anzeigen</string>
     <string name="enable_logging_warning_message">Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche „App-Fehler melden“ unter „Hilfe“. Protokolle können Standortformationen enthalten.</string>
     <string name="driving_options_title">Routenbeschränkungen</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Routenoptimierung</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Ordnet Zwischenstopps automatisch neu, um eine effizientere Route zu erstellen.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Mautstraßen vermeiden</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -753,8 +757,7 @@
     <string name="deselect_all">Auswahl aufheben</string>
     <string name="select_list">Liste auswählen</string>
     <string name="button_layer_isolines">Höhenlinien</string>
-    <string name="isolines_activation_error_dialog">Um die Höhenlinien nutzen zu können, aktualisiere die Karte des betreffenden Gebiets oder lade diese herunter</string>
-    <string name="isolines_location_error_dialog">Höhenlinien sind für dieses Gebiet noch nicht verfügbar</string>
+    <string name="isolines_location_error_dialog">Aktualisiere diese Region, um Höhenlinien zu sehen</string>
     <string name="elevation_profile_ascent">Bergauf</string>
     <string name="elevation_profile_descent">Bergab</string>
     <string name="elevation_profile_min_elevation">Min. Höhe</string>
@@ -907,6 +910,8 @@
     <string name="hide_track">Track ausblenden</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Track anzeigen</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. -->
+    <string name="enable">Aktivieren</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -935,4 +940,36 @@
     <string name="color_picker_grid">Raster</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Sprachsuche</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Gelände mit Karten herunterladen</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Geländeschattierung, Höhenlinien und Meerestiefen. Das Gelände einer Region wird zusammen mit ihrer Karte heruntergeladen, aktualisiert und gelöscht.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Auch die heruntergeladenen Geländedaten (%s) löschen?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behalten</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">Das Herunterladen von Gelände mit Karten ist deaktiviert. Jetzt aktivieren, um hier Höhenlinien zu sehen?</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Auf der Karte auswählen</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Startpunkt</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Ziel</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Stopp einfügen</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Start ändern</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Ziel ändern</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Stopp ändern</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Die maximale Anzahl an Stopps wurde erreicht</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Verschiebe und zoome die Karte, um das Kreuz zu platzieren</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Route umkehren</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Beenden und speichern</string>
 </resources>

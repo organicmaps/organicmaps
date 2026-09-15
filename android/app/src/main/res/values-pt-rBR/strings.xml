@@ -459,6 +459,10 @@
     <string name="bookmarks_text_placement_description">Se houver muitos favoritos, a exibição de seus nomes no mapa pode deixar o aplicativo lento.</string>
     <string name="enable_logging_warning_message">A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.</string>
     <string name="driving_options_title">Opções de trajeto</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Otimização da rota</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Reorganiza automaticamente as paradas intermediárias para criar uma rota mais eficiente.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitar pedágios</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -508,8 +512,7 @@
     <string name="religious_places">Locais religiosos</string>
     <string name="select_list">Escolher a lista</string>
     <string name="button_layer_isolines">Relevo</string>
-    <string name="isolines_activation_error_dialog">Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região</string>
-    <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
+    <string name="isolines_location_error_dialog">Atualize esta região para ver as curvas de nível</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>
     <string name="elevation_profile_distance">Dist.:</string>
@@ -645,4 +648,22 @@
     <string name="color_picker_sliders">Controles deslizantes</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Grade</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Baixar o terreno com os mapas</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Sombreamento do relevo, curvas de nível e profundidades do mar. O terreno de uma região é baixado, atualizado e excluído junto com o seu mapa.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Excluir também os dados de terreno baixados (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Manter</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">O download do terreno com os mapas está desativado. Ativá-lo para ver aqui as curvas de nível?</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_stop_along_route">Adicionar parada</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Alterar parada</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Número máximo de paradas atingido</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Parar e salvar</string>
 </resources>

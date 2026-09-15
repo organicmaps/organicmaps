@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Pa descargar una voz de meyor calidá, abre l'app Axustes y ve a Accesibilidá → VoiceOver → Voz → Voz.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Probar indicaciones de voz (TTS, Text-To-Speech)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Auto zoom";
 "placepage_distance" = "Distancia";
 "search_show_on_map" = "Ver nel mapa";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Escuru";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Other";
 
 /* Tex label above the Donate button */
 "donate_description" = "¡Regala mapes gratis y ensin anuncios a millones d'usuarios!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.";
 "driving_options_title" = "Opciones d’encaminamientu";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimización de la ruta";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Reordena automáticamente les paraes intermedies pa crear una ruta más eficiente.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Avoid tolls";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "No subway route found";
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
 "button_layer_isolines" = "Curves de nivel";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
-"isolines_location_error_dialog" = "Les curves de nivel entá nun tán disponibles nesta rexón";
+"isolines_location_error_dialog" = "Anueva esta rexón pa ver les curves de nivel";
 "elevation_profile_ascent" = "Ascensu";
 "elevation_profile_descent" = "Descensu";
 "elevation_profile_min_elevation" = "Elevación mín.";
@@ -1098,8 +1106,8 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Please enable iCloud in your device's settings to use this feature.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "Enable";
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
+"enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Backup";
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Tracks color changed";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Baxar el relieve colos mapes";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Sombreáu del relieve, curves de nivel y profundidaes marines. El relieve d’una rexón báxase, anuévase y desaníciase xunto col so mapa.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "¿Desaniciar tamién el relieve baxáu (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Caltener";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "La baxada del relieve colos mapes ta desactivada. ¿Quies activala pa ver equí les curves de nivel?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Choose on map";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Start point";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destination";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Add stop";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Change start";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Change destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Change stop";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Maximum number of stops reached";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Move and zoom the map to place the cross";

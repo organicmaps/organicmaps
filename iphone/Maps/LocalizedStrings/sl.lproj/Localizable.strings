@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Če želite prenesti glas višje kakovosti, odprite aplikacijo Nastavitve in pojdite v Dostopnost → VoiceOver → Govor → Glas.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Samodejna povečava";
 "placepage_distance" = "Razdalja";
 "search_show_on_map" = "Prikaži na zemljevidu";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Temna";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Drugo";
 
 /* Tex label above the Donate button */
 "donate_description" = "Podarite brezplačne zemljevide brez oglasov milijonom uporabnikov!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo \"Prijavi napako\" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.";
 "driving_options_title" = "Možnosti načrtovanja poti";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimizacija poti";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Samodejno prerazporedi vmesne postanke za učinkovitejšo pot.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Izogibaj se cestninam";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ni najdene poti s podzemno železnico";
 "dialog_pedestrian_route_is_long_message" = "Izberite začetno ali končno točko bližje postaji podzemne železnice";
 "button_layer_isolines" = "Plastnice";
-"isolines_activation_error_dialog" = "Aktiviranje plastnic zahteva prenos podatkov zemljevida za to območje";
-"isolines_location_error_dialog" = "Plastnice na tem območju še niso na voljo";
+"isolines_location_error_dialog" = "Posodobite to območje, da vidite plastnice";
 "elevation_profile_ascent" = "Vzpon";
 "elevation_profile_descent" = "Spust";
 "elevation_profile_min_elevation" = "Min. višina";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Za uporabo te funkcije omogočite iCloud v nastavitvah naprave.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Omogoči";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Barva sledi je spremenjena";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Prenesi teren z zemljevidi";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Senčenje reliefa, plastnice in globine morja. Teren regije se prenese, posodobi in izbriše skupaj z njenim zemljevidom.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Ali naj izbrišem tudi prenesene podatke o terenu (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Ohrani";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Prenos terena z zemljevidi je izklopljen. Ali ga želite vklopiti, da bi tukaj videli plastnice?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Izberi na zemljevidu";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Začetek";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Cilj";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Dodaj postanek";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Spremeni začetek";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Spremeni cilj";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Spremeni postanek";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Doseženo največje število postankov";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Premikajte in povečujte zemljevid, da namestite križec";

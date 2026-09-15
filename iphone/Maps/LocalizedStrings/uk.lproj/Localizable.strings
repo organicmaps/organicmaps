@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Щоб завантажити голос вищої якості, відкрийте програму Параметри та перейдіть у Доступність → VoiceOver → Мовлення → Голос.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Тестування голосових підказок (TTS, Text-To-Speech)";
+/* Header above Apple's group of joke text-to-speech voices, shown after the regional voice sections and Eloquence group. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Автозум";
 "placepage_distance" = "Відстань";
 "search_show_on_map" = "Подивитись на мапі";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Темний";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Інша";
 
 /* Tex label above the Donate button */
 "donate_description" = "Подаруйте мільйонам користувачів безкоштовні мапи без реклами!";
@@ -728,6 +731,12 @@
 "enable_logging_warning_message" = "Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку \"Сповістити про помилку\".";
 "driving_options_title" = "Налаштування об’їзду";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Оптимізація маршруту";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Автоматично змінює порядок проміжних зупинок для побудови ефективнішого маршруту.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Уникати платних доріг";
 
@@ -941,8 +950,7 @@
 "dialog_pedestrian_route_is_long_header" = "Жодного маршруту метро не знайдено";
 "dialog_pedestrian_route_is_long_message" = "Виберіть початкову чи кінцеву точку маршруту ближче до станції метро";
 "button_layer_isolines" = "Висоти";
-"isolines_activation_error_dialog" = "Щоб скористатися лініями висот, оновіть чи завантажте мапу потрібної місцевості";
-"isolines_location_error_dialog" = "Лінії висот ще недоступні в цьому регіоні";
+"isolines_location_error_dialog" = "Оновіть цей регіон, щоб побачити лінії висот";
 "elevation_profile_ascent" = "Підйом";
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мін. висота";
@@ -1098,7 +1106,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Щоб скористатися цією функцією, увімкніть iCloud у налаштуваннях вашого пристрою.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button and the terrain dialog. */
 "enable" = "Увімкнути";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1203,45 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Колір треків змінено";
+
+/* Settings «Map» category: the «Download terrain with maps» switch title */
+"pref_terrain_title" = "Завантажувати рельєф разом із мапами";
+
+/* The switch subtitle: what the terrain data brings and how it lives */
+"pref_terrain_summary" = "Тіні рельєфу, лінії висот і глибини моря. Рельєф регіону завантажується, оновлюється й видаляється разом із його мапою.";
+
+/* The confirmation shown when the terrain switch is turned off; %@ is the size on disk */
+"terrain_delete_all_message" = "Також видалити завантажений рельєф (%@)?";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Залишити";
+
+/* Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off */
+"terrain_disabled_dialog" = "Завантаження рельєфу разом із мапами вимкнено. Увімкнути його, щоб побачити тут лінії висот?";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Вибрати на мапі";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Звідки";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Куди";
+
+/* Search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_stop_along_route" = "Додати зупинку";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Змінити початок";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Змінити пункт призначення";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Змінити зупинку";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Досягнуто максимальної кількості зупинок";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Переміщайте та масштабуйте мапу, щоб розмістити хрестик";
