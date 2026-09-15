@@ -1527,25 +1527,29 @@ world  +
     waterway  +
         access_point  -
         canal  +
+            intermittent  -
             tunnel  -
             {}
         dam  -
         ditch  +
+            intermittent  -
             tunnel  -
             {}
         dock  -
         drain  +
+            intermittent  -
             tunnel  -
             {}
         fish_pass  +
+            intermittent  -
             tunnel  -
             {}
         lock_gate  -
         river  +
+            intermittent  -
             tunnel  -
             {}
         stream  +
-            ephemeral  -
             intermittent  -
             tunnel  -
             {}

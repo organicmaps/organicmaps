@@ -112,7 +112,7 @@ boundary|administrative|4
 railway|station
 highway|path
 *amenity|hospital
-*waterway|stream|ephemeral
+waterway|stream|intermittent
 *highway|trunk|bridge
 *amenity|post_office
 *landuse|quarry
@@ -143,7 +143,7 @@ landuse|forest|mixed
 *highway|motorway_link|bridge
 *railway|abandoned
 *amenity|parking|private
-mapswithme
+*waterway|ditch|intermittent
 *tourism|attraction
 *natural|water|reservoir
 *natural|water|river
@@ -183,7 +183,7 @@ landuse|forest|coniferous
 *highway|footway|tunnel
 *shop|hairdresser
 *amenity|hunting_stand
-mapswithme
+*waterway|river|intermittent
 *amenity|fountain
 *natural|beach|sand
 *amenity|bar
@@ -231,7 +231,7 @@ highway|track
 *landuse|cemetery|christian
 *highway|cycleway|tunnel
 *amenity|parking|permissive
-mapswithme
+*waterway|drain|intermittent
 *highway|unclassified|tunnel
 *amenity|recycling|centre
 *amenity|recycling
@@ -276,7 +276,7 @@ mapswithme
 *highway|footway|area
 *tourism|hostel
 *waterway|river|tunnel
-mapswithme
+*waterway|canal|intermittent
 *highway|road|bridge
 *boundary|administrative|3
 *power|generator|solar
@@ -292,7 +292,7 @@ mapswithme
 *railway|subway|tunnel
 *barrier|city_wall
 *place|farm
-mapswithme
+*waterway|fish_pass|intermittent
 *waterway|weir
 *highway|secondary|tunnel
 *railway|disused|bridge
