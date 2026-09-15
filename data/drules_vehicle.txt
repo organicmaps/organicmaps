@@ -5171,61 +5171,49 @@ type landuse-forest
     area color=#00C6D9AB/#00090F0A priority=-1950
   z12 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-s priority=2200 min_distance=12
-    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
+    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
   z12 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z13 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-s priority=2200 min_distance=12
-    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
+    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
   z13 if "!name"
+    area color=#00C6D9AB/#00090F0A priority=-1950
+  z14 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z14 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
-  z14 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
+  z15 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z15 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600 dy=1 optional] priority=-7800
-  z15 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600] priority=-7800
+  z16 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z16 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600 dy=1 optional] priority=-7800
-  z16 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600] priority=-7800
+  z17 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z17 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] priority=-7800
-  z17 if "!name"
-    area color=#00C6D9AB/#00090F0A priority=-1950
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] priority=-7800
   z18 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z18 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
   z19 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z19 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
   z20 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z20 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
 type landuse-forest-coniferous
   z10
     area color=#00C6D9AB/#00090F0A priority=-1950
@@ -5233,61 +5221,49 @@ type landuse-forest-coniferous
     area color=#00C6D9AB/#00090F0A priority=-1950
   z12 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-s priority=2200 min_distance=12
-    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
+    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
   z12 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z13 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-s priority=2200 min_distance=12
-    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
+    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
   z13 if "!name"
+    area color=#00C6D9AB/#00090F0A priority=-1950
+  z14 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z14 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
-  z14 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
+  z15 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z15 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600 dy=1 optional] priority=-7800
-  z15 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600] priority=-7800
+  z16 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z16 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600 dy=1 optional] priority=-7800
-  z16 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600] priority=-7800
+  z17 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z17 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] priority=-7800
-  z17 if "!name"
-    area color=#00C6D9AB/#00090F0A priority=-1950
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] priority=-7800
   z18 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z18 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
   z19 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z19 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
   z20 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z20 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
 type landuse-forest-deciduous
   z10
     area color=#00C6D9AB/#00090F0A priority=-1950
@@ -5295,61 +5271,49 @@ type landuse-forest-deciduous
     area color=#00C6D9AB/#00090F0A priority=-1950
   z12 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-s priority=2200 min_distance=12
-    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
+    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
   z12 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z13 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-s priority=2200 min_distance=12
-    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
+    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
   z13 if "!name"
+    area color=#00C6D9AB/#00090F0A priority=-1950
+  z14 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z14 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
-  z14 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
+  z15 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z15 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600 dy=1 optional] priority=-7800
-  z15 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600] priority=-7800
+  z16 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z16 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600 dy=1 optional] priority=-7800
-  z16 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600] priority=-7800
+  z17 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z17 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] priority=-7800
-  z17 if "!name"
-    area color=#00C6D9AB/#00090F0A priority=-1950
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] priority=-7800
   z18 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z18 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
   z19 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z19 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
   z20 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z20 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
 type landuse-forest-mixed
   z10
     area color=#00C6D9AB/#00090F0A priority=-1950
@@ -5357,61 +5321,49 @@ type landuse-forest-mixed
     area color=#00C6D9AB/#00090F0A priority=-1950
   z12 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-s priority=2200 min_distance=12
-    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
+    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
   z12 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z13 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-s priority=2200 min_distance=12
-    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
+    caption primary[height=11 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
   z13 if "!name"
+    area color=#00C6D9AB/#00090F0A priority=-1950
+  z14 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z14 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600 dy=1 optional] priority=-7800
-  z14 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#40FFFFFF/#40060600] priority=-7800
+  z15 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z15 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600 dy=1 optional] priority=-7800
-  z15 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600] priority=-7800
+  z16 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z16 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600 dy=1 optional] priority=-7800
-  z16 if "!name"
+    caption primary[height=12 color=#003A7921/#002B4918 stroke=#27FFFFFF/#27060600] priority=-7800
+  z17 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
   z17 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] priority=-7800
-  z17 if "!name"
-    area color=#00C6D9AB/#00090F0A priority=-1950
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] priority=-7800
   z18 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z18 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
   z19 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z19 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
   z20 if "name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-outline-m priority=2200 min_distance=8
-    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600 dy=1 optional] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1 optional] priority=-7800
+    caption primary[height=13 color=#003A7921/#002B4918 stroke=#1AFFFFFF/#1A060600] secondary[height=11 color=#003A7921/#002B4918 stroke=#33FFFFFF/#33111111 dy=1] priority=-7800
   z20 if "!name"
     area color=#00C6D9AB/#00090F0A priority=-1950
-    symbol name=nparkf-m priority=2200
 type landuse-garages
   z15
     area color=#00E1DCE3/#000D0A0D priority=90
