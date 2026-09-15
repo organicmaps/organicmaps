@@ -24,9 +24,11 @@ import app.organicmaps.util.Utils;
  * Self-contained navigation maneuver card.
  *
  * Top to bottom: a header row (turn arrow on the left, distance and street name stacked beside
- * it), the lane strip when lane guidance is available, and a full-width bottom band with the
- * maneuver after this one (see {@link RoutingInfo#hasNextNextTurn()}). Children are clipped to
- * the rounded background so the band follows the card's bottom corners.
+ * it), the lane strip when lane guidance is available - below the maneuver, as on Android Auto,
+ * so the arrow stays visible - and a full-width bottom band with the maneuver after this one
+ * (see {@link RoutingInfo#hasNextNextTurn()}). Children are clipped to the rounded background so
+ * the band follows the card's bottom corners. {@link LanesView} shows and hides itself with the
+ * lane data.
  *
  * Call {@link #updateVehicle} or {@link #updatePedestrian} each navigation tick.
  */
@@ -34,13 +36,12 @@ public class ManeuverView extends LinearLayout
 {
   private final ImageView mTurnImage;
   private final TextView mDistance;
-  private final View mStreetFrame;
   private final TextView mStreet;
   private final LanesView mLanes;
   private final View mNextNextTurnFrame;
   private final ImageView mNextNextTurnImage;
   private final TextView mNextNextTurnStreet;
-  private Boolean mFillToTop;
+  private boolean mFillToTop;
 
   public ManeuverView(@NonNull Context context, @Nullable AttributeSet attrs)
   {
@@ -52,8 +53,7 @@ public class ManeuverView extends LinearLayout
     LayoutInflater.from(context).inflate(R.layout.view_maneuver, this, true);
     mTurnImage = ViewCompat.requireViewById(this, R.id.maneuver_turn);
     mDistance = ViewCompat.requireViewById(this, R.id.maneuver_distance);
-    mStreetFrame = ViewCompat.requireViewById(this, R.id.maneuver_street_frame);
-    mStreet = ViewCompat.requireViewById(mStreetFrame, R.id.maneuver_street);
+    mStreet = ViewCompat.requireViewById(this, R.id.maneuver_street);
     mLanes = ViewCompat.requireViewById(this, R.id.maneuver_lanes);
     mNextNextTurnFrame = ViewCompat.requireViewById(this, R.id.maneuver_next_next_turn_frame);
     mNextNextTurnImage = ViewCompat.requireViewById(mNextNextTurnFrame, R.id.maneuver_next_next_turn);
@@ -66,7 +66,7 @@ public class ManeuverView extends LinearLayout
    */
   public void setFillToTop(boolean enabled, int topInset)
   {
-    if (mFillToTop == null || mFillToTop != enabled)
+    if (mFillToTop != enabled)
     {
       mFillToTop = enabled;
       setBackgroundResource(enabled ? R.drawable.bg_nav_maneuver_card_top_square : R.drawable.bg_nav_maneuver_card);
@@ -80,8 +80,6 @@ public class ManeuverView extends LinearLayout
   public void updateVehicle(@NonNull RoutingInfo info)
   {
     mLanes.setLanes(info.lanes, info.lanesTrimmedLeft, info.lanesTrimmedRight);
-    // The lane strip stands below the maneuver, as on Android Auto - the arrow stays visible.
-    UiUtils.showIf(info.lanes != null && info.lanes.length > 0, mLanes);
     mTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
 
     // Skip the band when the second maneuver keeps the same street name — repeating it is noise.
@@ -101,7 +99,6 @@ public class ManeuverView extends LinearLayout
   public void updatePedestrian(@NonNull RoutingInfo info)
   {
     mLanes.setLanes(null);
-    UiUtils.hide(mLanes);
     mTurnImage.setImageResource(info.pedestrianDirection.getTurnRes());
     UiUtils.hide(mNextNextTurnFrame);
     updateCommon(info);
@@ -125,7 +122,7 @@ public class ManeuverView extends LinearLayout
 
     final boolean hasStreet = !TextUtils.isEmpty(street);
     // INVISIBLE, not GONE: keeps the row height so the card doesn't jump between maneuvers.
-    UiUtils.visibleIf(hasStreet, mStreetFrame);
+    UiUtils.visibleIf(hasStreet, mStreet);
     if (hasStreet)
       mStreet.setText(RoadShieldUtils.createStreetTextWithShields(street, shields, mStreet.getTextSize()));
   }
