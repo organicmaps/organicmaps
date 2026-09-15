@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.routing.NavigationService;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.display.DisplayManager;
@@ -145,10 +147,28 @@ public class MwmApplication extends Application implements Application.ActivityL
     ThemeSwitcher.INSTANCE.initialize(this);
     return mOrganicMaps.init(() -> {
       ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+      updateRoutePointCallbackListener();
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
       if (onComplete != null)
         onComplete.run();
     });
+  }
+
+  private void updateRoutePointCallbackListener()
+  {
+    if (!mOrganicMaps.arePlatformAndCoreInitialized())
+      return;
+    final Activity topActivity = getTopActivity();
+    // The core keeps the latest stop callback while no foreground activity can open it.
+    Framework.nativeSetRoutePointCallbackListener(
+        topActivity == null ? null : callback -> openRoutePointCallback(topActivity, callback));
+  }
+
+  private static void openRoutePointCallback(@NonNull Activity activity, @NonNull String callback)
+  {
+    final boolean launched = Utils.openUri(activity, Uri.parse(callback), null);
+    if (launched && activity instanceof MwmActivity)
+      ((MwmActivity) activity).skipParsedBackUrlOnNextStop();
   }
 
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
@@ -180,13 +200,18 @@ public class MwmApplication extends Application implements Application.ActivityL
     Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), activity);
     getSensorHelper().setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
     mTopActivity = new WeakReference<>(activity);
+    updateRoutePointCallbackListener();
   }
 
   @Override
   public void onActivityPaused(@NonNull Activity activity)
   {
     Logger.d(TAG, "activity = " + activity);
-    mTopActivity = null;
+    if (getTopActivity() == activity)
+    {
+      mTopActivity = null;
+      updateRoutePointCallbackListener();
+    }
   }
 
   @Override

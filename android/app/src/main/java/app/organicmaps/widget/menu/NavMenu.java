@@ -2,6 +2,7 @@ package app.organicmaps.widget.menu;
 
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -9,17 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import java.time.LocalTime;
@@ -110,7 +114,7 @@ public class NavMenu implements DefaultLifecycleObserver
 
     // Bottom frame buttons
     ImageView mSettings = bottomFrame.findViewById(R.id.settings);
-    mSettings.setOnClickListener(v -> onSettingsClicked());
+    mSettings.setOnClickListener(this::onSettingsClicked);
     mTts = bottomFrame.findViewById(R.id.tts_volume);
     mTts.setOnClickListener(v -> onTtsClicked());
     Button stop = bottomFrame.findViewById(R.id.stop);
@@ -132,9 +136,23 @@ public class NavMenu implements DefaultLifecycleObserver
     mNavMenuListener.onStopClicked();
   }
 
-  private void onSettingsClicked()
+  private void onSettingsClicked(View anchor)
   {
-    mNavMenuListener.onSettingsClicked();
+    if (TextUtils.isEmpty(Framework.nativeGetParsedBackUrl()))
+    {
+      mNavMenuListener.onSettingsClicked();
+      return;
+    }
+    final PopupMenu menu = new PopupMenu(mActivity, anchor);
+    menu.getMenu().add(R.string.settings).setOnMenuItemClickListener(item -> {
+      mNavMenuListener.onSettingsClicked();
+      return true;
+    });
+    menu.getMenu().add(R.string.back).setOnMenuItemClickListener(item -> {
+      Utils.returnToCaller(mActivity);
+      return true;
+    });
+    menu.show();
   }
 
   private void onTtsClicked()

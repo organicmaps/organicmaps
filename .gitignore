@@ -13,6 +13,7 @@ data/patterns_design.txt
 # User data written by the app (local OSM edits, bookmarks)
 data/bookmarks
 data/edits.xml
+data/route_points.dat
 data/settings.ini
 
 # Python compiled files and dependencies
