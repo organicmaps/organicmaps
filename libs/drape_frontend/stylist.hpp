@@ -114,7 +114,7 @@ public:
 
   CaptionDescription m_captionDescriptor;
 
-  Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle);
+  Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle style);
 
 private:
   void ProcessKey(FeatureType & f, drule::Key const & key);

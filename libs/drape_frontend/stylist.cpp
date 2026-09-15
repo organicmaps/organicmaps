@@ -180,6 +180,7 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   case drule::shield:
     ASSERT(dRule->GetShield() && !m_shieldRule && geomType == GeomType::Line,
            (m_shieldRule == nullptr, geomType, f.DebugString()));
+    ASSERT_GREATER(dRule->GetShield()->height, 0, (f.DebugString()));
     m_shieldRule = dRule->GetShield();
     break;
   case drule::line:
@@ -206,18 +207,15 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   }
 }
 
-Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle)
-  : m_rulesHolder(forceOutdoorStyle ? drule::GetOutdoorRules() : drule::GetCurrentRules())
+Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle style)
+  : m_rulesHolder(drule::GetRules(style))
 {
 #ifdef DEBUG
-  auto const style = GetStyleReader().GetCurrentStyle();
-  ASSERT(classificator::IsStyleLoaded(
-             forceOutdoorStyle ? (MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight) : style),
-         ("Drawing rules for the current style are not loaded", style, forceOutdoorStyle));
+  ASSERT(classificator::IsStyleLoaded(style), ("Drawing rules for the style are not loaded", style));
 #endif  // DEBUG
 
   feature::TypesHolder const types(f);
-  Classificator const & cl = forceOutdoorStyle ? GetOutdoorClassif() : classif();
+  Classificator const & cl = classif(style);
 
   uint32_t mainOverlayType = 0;
   if (types.Size() == 1)

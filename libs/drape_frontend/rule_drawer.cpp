@@ -160,6 +160,7 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
   , m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
+  , m_mapStyle(GetStyleReader().GetCurrentStyle())
   , m_deviceLang(deviceLang)
 {
   ASSERT(m_checkCancelled != nullptr, ());
@@ -169,11 +170,11 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
 
   m_mapShapes[df::OverlayType].reserve(200 /* average overlays count */);
 
-  if (!GetStyleReader().IsCarNavigationStyle())
+  if (m_mapStyle != MapStyleVehicleLight && m_mapStyle != MapStyleVehicleDark)
   {
     /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
     /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
-    m_relsSettings.Load();
+    m_relsSettings.Load(m_mapStyle);
   }
 
   m_applyParams.m_insertShape = [this](drape_ptr<MapShape> && shape)
@@ -416,18 +417,18 @@ void RuleDrawer::operator()(FeatureType & f)
 
   feature::GeomType const geomType = f.GetGeomType();
 
-  // Force use Outdoor style (mainly because of visibility), for the hiking/cycling related Features
-  // (has correspondent Relation references). Otherwise, we get routes torn to separate pieces
-  // (e.g. highway=path is visible from z15, but highway=secondary from z13 in a regular Map style).
-  bool forceOutdoorStyle = false;
+  auto style = m_mapStyle;
+  // Hiking routes use Outdoors rules for consistent low-zoom visibility. Bicycle and MTB routes use
+  // the Cycling family while that mode is active, so their infrastructure treatment is not replaced
+  // by Outdoors rules.
   if (m_applyParams.IsRelationRoutes() && geomType == feature::GeomType::Line && !m_relsSettings.IsEmpty())
   {
     RelationsDrawInfo drawInfo(m_relsSettings);
-    if (drawInfo.HasHikingOrCycling(f))
-      forceOutdoorStyle = true;
+    auto const routes = drawInfo.GetActiveHikingCyclingRoutes(f);
+    style = GetMapStyleForRoute(style, routes);
   }
 
-  Stylist const s(f, m_zoomLevel, m_deviceLang, forceOutdoorStyle);
+  Stylist const s(f, m_zoomLevel, m_deviceLang, style);
 
   // No drawing rules.
   if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&
