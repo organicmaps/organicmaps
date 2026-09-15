@@ -155,6 +155,38 @@ void WaitForFileTasks()
   testing::Wait();
 }
 
+bool CreateZipWithEntryName(string const & sourceFilePath, string const & entryName, string const & zipFilePath)
+{
+  auto const zipFile = zip::Create(zipFilePath);
+  if (zipFile == nullptr)
+    return false;
+
+  zip::FileInfo fileInfo = {};
+  FillZipLocalDateTime(fileInfo.tmz_date);
+  bool success =
+      zip::OpenNewFileInZip(zipFile, entryName, fileInfo, "", Z_DEFLATED, Z_DEFAULT_COMPRESSION) == zip::Code::Ok;
+  if (success)
+  {
+    base::FileData sourceFile(sourceFilePath, base::FileData::Op::READ);
+    uint64_t writtenSize = 0;
+    zip::Buffer buffer;
+    while (writtenSize < sourceFile.Size())
+    {
+      auto const size = std::min(buffer.size(), static_cast<size_t>(sourceFile.Size() - writtenSize));
+      sourceFile.Read(writtenSize, buffer.data(), size);
+      if (zip::WriteInFileInZip(zipFile, buffer, size) != zip::Code::Ok)
+      {
+        success = false;
+        break;
+      }
+      writtenSize += size;
+    }
+    success = zipCloseFileInZip(zipFile) == ZIP_OK && success;
+  }
+  success = zip::Close(zipFile) == zip::Code::Ok && success;
+  return success;
+}
+
 char const * kmlString =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<kml xmlns=\"http://earth.google.com/kml/2.2\">"
@@ -463,8 +495,12 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportPartialKmzResult)
 {
   ScopedFile const validFile("bookmark_import_partial_valid.kml", kmlString);
   ScopedFile const corruptFile("bookmark_import_partial_corrupt.kml", "not valid KML");
+  ScopedFile const macOSMetadataFile("bookmark_import_partial_macos_metadata.kml", "not valid KML");
+  ScopedFile const adjacentMetadataFile("bookmark_import_partial_adjacent_metadata.kml", "not valid KML");
   ScopedFile const kmzFile("bookmark_import_partial.kmz", ScopedFile::Mode::DoNotCreate);
-  TEST(CreateZipFromFiles({validFile.GetFullPath(), corruptFile.GetFullPath()}, {"valid.kml", "corrupt.kml"},
+  TEST(CreateZipFromFiles({validFile.GetFullPath(), corruptFile.GetFullPath(), macOSMetadataFile.GetFullPath(),
+                           adjacentMetadataFile.GetFullPath()},
+                          {"valid.kml", "corrupt.kml", "__MACOSX/._valid.kml", "nested/._valid.kml"},
                           kmzFile.GetFullPath()),
        ());
 
@@ -498,6 +534,22 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportPartialKmzResult)
   TEST_EQUAL(std::vector<std::string>({"corrupt.kml"}), result.m_failedFileNames, ());
 
   WaitForFileTasks();
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportKmzInvalidEntryName)
+{
+  ScopedFile const corruptFile("bookmark_import_invalid_entry.kml", "not valid KML");
+  ScopedFile const kmzFile("bookmark_import_invalid_entry.kmz", ScopedFile::Mode::DoNotCreate);
+  string invalidEntryName = "invalid_";
+  invalidEntryName.push_back(static_cast<char>(0xFF));
+  invalidEntryName.append(".kml");
+  TEST(!::utf8::is_valid(invalidEntryName.begin(), invalidEntryName.end()), ());
+  TEST(CreateZipWithEntryName(corruptFile.GetFullPath(), invalidEntryName, kmzFile.GetFullPath()), ());
+
+  auto const result = LoadBookmarkFileForImport(kmzFile.GetFullPath());
+
+  TEST(result.m_kmlData.empty(), ());
+  TEST_EQUAL(std::vector<std::string>({"bookmark_import_invalid_entry.kmz"}), result.m_failedFileNames, ());
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
