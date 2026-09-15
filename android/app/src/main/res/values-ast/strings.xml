@@ -387,4 +387,8 @@
         <item quantity="one">¿Desaniciar %d elementu?</item>
         <item quantity="other">¿Desaniciar %d elementos?</item>
     </plurals>
+
+    <!-- SECTION: gps strings -->
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Parada %1$d</string>
 </resources>

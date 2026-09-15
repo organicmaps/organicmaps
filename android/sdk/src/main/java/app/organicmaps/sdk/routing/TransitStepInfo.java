@@ -23,9 +23,21 @@ public final class TransitStepInfo
   private final String mNumber;
   private final int mColor;
   private final int mIntermediateIndex;
+  @Nullable
+  private final String mStartStopName;
+  @Nullable
+  private final String mEndStopName;
+  private final int mStopCount;
+  @Nullable
+  private final String[] mIntermediateStopNames;
+  // The line's terminus in the direction of travel (e.g. "Hönow"), for showing "→ Hönow". May be null.
+  @Nullable
+  private final String mLineTerminusName;
 
   private TransitStepInfo(int type, @Nullable String distance, @Nullable String distanceUnits, int timeInSec,
-                          @Nullable String number, int color, int intermediateIndex)
+                          @Nullable String number, int color, int intermediateIndex, @Nullable String startStopName,
+                          @Nullable String endStopName, int stopCount, @Nullable String[] intermediateStopNames,
+                          @Nullable String lineTerminusName)
   {
     mType = TransitStepType.values()[type];
     mDistance = distance;
@@ -34,18 +46,25 @@ public final class TransitStepInfo
     mNumber = number;
     mColor = color;
     mIntermediateIndex = intermediateIndex;
+    mStartStopName = startStopName;
+    mEndStopName = endStopName;
+    mStopCount = stopCount;
+    mIntermediateStopNames = intermediateStopNames;
+    mLineTerminusName = lineTerminusName;
   }
 
   @NonNull
   public static TransitStepInfo intermediatePoint(int intermediateIndex)
   {
-    return new TransitStepInfo(TransitStepType.INTERMEDIATE_POINT.ordinal(), null, null, 0, null, 0, intermediateIndex);
+    return new TransitStepInfo(TransitStepType.INTERMEDIATE_POINT.ordinal(), null, null, 0, null, 0, intermediateIndex,
+                               null, null, 0, null, null);
   }
 
   @NonNull
   public static TransitStepInfo ruler(@NonNull String distance, @NonNull String distanceUnits)
   {
-    return new TransitStepInfo(TransitStepType.RULER.ordinal(), distance, distanceUnits, 0, null, 0, -1);
+    return new TransitStepInfo(TransitStepType.RULER.ordinal(), distance, distanceUnits, 0, null, 0, -1, null, null, 0,
+                               null, null);
   }
 
   @NonNull
@@ -85,5 +104,34 @@ public final class TransitStepInfo
   public int getIntermediateIndex()
   {
     return mIntermediateIndex;
+  }
+
+  @Nullable
+  public String getStartStopName()
+  {
+    return mStartStopName;
+  }
+
+  @Nullable
+  public String getEndStopName()
+  {
+    return mEndStopName;
+  }
+
+  public int getStopCount()
+  {
+    return mStopCount;
+  }
+
+  @Nullable
+  public String[] getIntermediateStopNames()
+  {
+    return mIntermediateStopNames;
+  }
+
+  @Nullable
+  public String getLineTerminusName()
+  {
+    return mLineTerminusName;
   }
 }
