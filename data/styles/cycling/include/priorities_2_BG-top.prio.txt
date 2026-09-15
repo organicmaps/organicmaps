@@ -17,7 +17,12 @@
 # - BG-by-size: landcover areas sorted by their size
 
 organicapp-mwm_border                               # area z1-7
+organicapp-twm_border                               # area z1-7
 === 30
+
+landuse-basin-intermittent                          # area z12-
+natural-water-intermittent                          # area z1- (also has caption z10-)
+=== 25
 
 landuse-basin                                       # area z12-
 landuse-reservoir                                   # area z12- (also has caption z10-)
