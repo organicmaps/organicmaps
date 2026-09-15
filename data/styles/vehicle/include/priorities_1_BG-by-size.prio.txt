@@ -55,17 +55,23 @@ natural-heath                                       # area z12-
 === 80
 
 landuse-farmyard                                    # area z14-
+=== 74
+
+natural-bare_rock                                   # area z12-
+=== 73
+
+landuse-orchard                                     # area z12-
+=== 72
+
+landuse-vineyard                                    # area z12-
 === 71
 
 landuse-allotments                                  # area z12-
 landuse-farmland                                    # area z14-
 landuse-field                                       # area z12-
 landuse-meadow                                      # area z12-
-landuse-orchard                                     # area z12-
 landuse-recreation_ground                           # area z12-
 landuse-village_green                               # area z12-
-landuse-vineyard                                    # area z12-
-natural-bare_rock                                   # area z12-
 natural-scrub                                       # area z12-
 === 70
 
@@ -100,13 +106,17 @@ power-station                                       # area z15- (also has icon z
 power-substation                                    # area z15- (also has icon z16-, caption(optional) z17-)
 === 40
 
-aeroway-aerodrome                                   # area z10- (also has icon z14-, caption(optional) z14-)
-aeroway-aerodrome-international                     # area z10- (also has icon z7-, caption(optional) z10-)
-leisure-beach_resort                                # area z10- (also has caption z15-)
 natural-beach                                       # area z10- (also has caption z15-)
 natural-beach-gravel                                # area z10- (also has caption z15-)
 natural-beach-sand                                  # area z10- (also has caption z15-)
+=== 32
+
 natural-desert                                      # area z1- (also has caption z14-)
+=== 31
+
+aeroway-aerodrome                                   # area z10- (also has icon z14-, caption(optional) z14-)
+aeroway-aerodrome-international                     # area z10- (also has icon z7-, caption(optional) z10-)
+leisure-beach_resort                                # area z10- (also has caption z15-)
 natural-glacier                                     # area z1-
 === 30
 
