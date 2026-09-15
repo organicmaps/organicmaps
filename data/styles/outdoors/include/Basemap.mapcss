@@ -24,17 +24,25 @@ line|z13-[waterway=fish_pass],
 
 line|z10[waterway=river],
 {width: 1.4; opacity: 0.7;}
+line|z10[waterway=river][intermittent],
+{dashes: 3.5,3.5;}
 
 line|z11-12[waterway=river],
 line|z11-12[natural=strait],
 {width: 2; opacity: 0.7;}
+line|z11-12[waterway=river][intermittent],
+{dashes: 5,5;}
 line|z12[waterway=stream],
 line|z12[waterway=canal],
 {width: 1; opacity: 0.5;}
+line|z12[waterway=canal][intermittent],
+{dashes: 5,2.5;}
 
 line|z13[waterway=river],
 line|z13[natural=strait],
 {width: 2.7;}
+line|z13[waterway=river][intermittent],
+{dashes: 7,7;}
 line|z13[waterway=stream],
 line|z13[waterway=canal],
 line|z13[waterway=fish_pass],
@@ -43,26 +51,39 @@ line|z11-12[waterway=stream][intermittent],
 {width: 0; text: none;}
 line|z13[waterway=stream][intermittent],
 {width: 1; dashes: 2.7,2.7; opacity: 0.7;}
+line|z13[waterway=canal][intermittent],
+line|z13[waterway=fish_pass][intermittent],
+{dashes: 6,3;}
 
 line|z14[waterway=river],
 line|z14[natural=strait],
 {width: 3.5;}
+line|z14[waterway=river][intermittent],
+{dashes: 9,9;}
 line|z14[waterway=stream],
 line|z14[waterway=canal],
 line|z14[waterway=fish_pass],
 {width: 1.8;}
 line|z14[waterway=stream][intermittent],
 {width: 1.4; dashes: 3.5,3.5;}
+line|z14[waterway=canal][intermittent],
+line|z14[waterway=fish_pass][intermittent],
+{dashes: 8,4;}
 
 line|z15-[waterway=river],
 line|z15-[natural=strait],
 {width: 4.6;}
+line|z15-[waterway=river][intermittent],
+{dashes: 12,12;}
 line|z15-[waterway=stream],
 line|z15-[waterway=canal],
 line|z15-[waterway=fish_pass],
 {width: 2.4;}
 line|z15-[waterway=stream][intermittent],
 {width: 2; dashes: 5,5;}
+line|z15-[waterway=canal][intermittent],
+line|z15-[waterway=fish_pass][intermittent],
+{dashes: 10,5;}
 
 line|z13-[waterway=ditch],
 line|z13-[waterway=drain],
