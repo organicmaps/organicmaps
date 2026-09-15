@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace classificator_tests
@@ -105,10 +106,24 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_StableIndex)
   TEST_EQUAL(type, c.GetTypeForIndex(357 - 1), ());
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, Classificator_IntermittentWaterwayIndices)
+{
+  Classificator const & c = classif();
+  // These indices are serialized in maps and must stay stable.
+  std::pair<char const *, uint32_t> const types[] = {
+      {"river", 557}, {"canal", 558}, {"ditch", 559}, {"drain", 560}, {"fish_pass", 561}};
+  for (auto const & [base, id] : types)
+  {
+    uint32_t const type = c.GetTypeByPath({"waterway", base, "intermittent"});
+    TEST_EQUAL(c.GetIndexForType(type), id - 1, (base));
+    TEST_EQUAL(type, c.GetTypeForIndex(id - 1), (base));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, Classificator_LegacyWaterTypes)
 {
-  // waterway=riverbank and landuse=reservoir are deprecated in mapcss-mapping.csv with a replacement,
-  // so their indices in old maps must resolve to the canonical natural=water subtypes.
+  // waterway=riverbank, landuse=reservoir and waterway-stream-ephemeral are deprecated in mapcss-mapping.csv with a
+  // replacement, so their indices in old maps must resolve to the canonical types.
   Classificator const & c = classif();
 
   uint32_t const river = c.GetTypeByPath({"natural", "water", "river"});
@@ -118,5 +133,11 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_LegacyWaterTypes)
   uint32_t const reservoir = c.GetTypeByPath({"natural", "water", "reservoir"});
   TEST_EQUAL(reservoir, c.GetTypeForIndex(62 - 1), ());
   TEST_EQUAL(c.GetIndexForType(reservoir), 148 - 1, ());
+
+  uint32_t const stream = c.GetTypeByPath({"waterway", "stream", "intermittent"});
+  TEST_EQUAL(stream, c.GetTypeForIndex(115 - 1), ());
+  TEST_EQUAL(c.GetIndexForType(stream), 45 - 1, ());
+  TEST_EQUAL(stream, c.GetTypeByReadableObjectName("waterway-stream-ephemeral"), ());
+  TEST_EQUAL(c.GetReadableObjectName(stream), "waterway-stream-intermittent", ());
 }
 }  // namespace classificator_tests
