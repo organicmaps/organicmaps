@@ -1188,6 +1188,27 @@ kml::ColorData RoundTripBookmarkColor(kml::ColorData const & color)
 }
 }  // namespace
 
+UNIT_TEST(Kml_LegacyStreamType)
+{
+  classificator::Load();
+  auto data =
+      ParseKmlText(WrapKmlDoc(PointPlacemark("<name>Saved stream</name>"
+                                             "<ExtendedData xmlns:mwm=\"https://omaps.app\"><mwm:featureTypes>"
+                                             "<mwm:value>waterway-stream-ephemeral</mwm:value>"
+                                             "<mwm:value>waterway-stream-unknown</mwm:value>"
+                                             "</mwm:featureTypes></ExtendedData>")));
+  std::vector<uint32_t> const expectedTypes = {classif().GetTypeByPath({"waterway", "stream", "intermittent"})};
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(data.m_bookmarksData.front().m_featureTypes, expectedTypes, ());
+
+  auto const text = SerializeKmlText(data);
+  TEST(text.find("waterway-stream-intermittent") != std::string::npos, ());
+  TEST(text.find("waterway-stream-ephemeral") == std::string::npos, ());
+  auto const parsed = ParseKmlText(text);
+  TEST_EQUAL(parsed.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(parsed.m_bookmarksData.front().m_featureTypes, expectedTypes, ());
+}
+
 UNIT_TEST(Kml_Export_NameWithoutPreferredLanguage)
 {
   kml::FileData data;

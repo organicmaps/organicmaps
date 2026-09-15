@@ -39,4 +39,5 @@ natural-water-intermittent                          # area z1- (also has caption
 === 20
 
 waterway-river                                      # line z10- (also has pathtext z11-)
+waterway-river-intermittent                         # line z10- (also has pathtext z11-)
 === 10
