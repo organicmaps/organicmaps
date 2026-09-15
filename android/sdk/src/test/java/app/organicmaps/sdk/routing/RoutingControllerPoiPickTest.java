@@ -34,6 +34,30 @@ public class RoutingControllerPoiPickTest
   }
 
   @Test
+  public void onlyStopPicksCountAsStopPicks()
+  {
+    final RoutingController controller = new RoutingController();
+    assertFalse(controller.isWaitingStopPick());
+
+    controller.waitForPoiPick(RouteMarkType.Finish);
+    assertFalse(controller.isWaitingStopPick());
+    controller.waitForPoiPick(RouteMarkType.Start);
+    assertFalse(controller.isWaitingStopPick());
+
+    controller.waitForPoiPick(RouteMarkType.Intermediate);
+    assertTrue(controller.isWaitingStopPick());
+    controller.waitForPoiPickToAppend();
+    assertTrue(controller.isWaitingStopPick());
+    // Replacing an endpoint from the plan sheet is a stop pick too: it commits through ROUTE_REPLACE.
+    controller.waitForPoiPickToReplace(RouteMarkType.Finish, 0);
+    assertTrue(controller.isWaitingStopPick());
+    controller.waitForPoiPickToReplace(RouteMarkType.Start, 0);
+    assertTrue(controller.isWaitingStopPick());
+    controller.waitForPoiPickToReplace(RouteMarkType.Intermediate, 1);
+    assertTrue(controller.isWaitingStopPick());
+  }
+
+  @Test
   public void armingAPickClearsTheModeOfTheAbandonedOne()
   {
     final RoutingController controller = new RoutingController();

@@ -695,11 +695,18 @@ public class RoutingController
     mReplaceStopIndex = replaceIndex;
   }
 
+  // A stop pick commits through the place page's Add/Replace button; Start/Finish picks use the regular
+  // routing buttons.
+  public boolean isWaitingStopPick()
+  {
+    return isWaitingPoiPick() && (mPoiPickMode != PoiPickMode.SET || mWaitingPoiPickType == RouteMarkType.Intermediate);
+  }
+
   public void cancelStopPoiPick()
   {
     // Only a plain Start/Finish pick survives: set{Start,End}Point() finalizes it after the search teardown.
     // Stop picks have no such finalizer, so an abandoned one is dropped here.
-    if (mPoiPickMode != PoiPickMode.SET || mWaitingPoiPickType == RouteMarkType.Intermediate)
+    if (isWaitingStopPick())
       resetPoiPickState();
   }
 
@@ -1026,16 +1033,12 @@ public class RoutingController
 
     if (point != null)
     {
-      if (mPoiPickMode == PoiPickMode.REPLACE)
-        replaceStop(point);
-      else if (mPoiPickMode == PoiPickMode.APPEND)
-        appendStop(point);
+      if (isWaitingStopPick())
+        commitStopPick(point);
       else if (mWaitingPoiPickType == RouteMarkType.Finish)
         setEndPoint(point);
-      else if (mWaitingPoiPickType == RouteMarkType.Start)
+      else
         setStartPoint(point);
-      else if (mWaitingPoiPickType == RouteMarkType.Intermediate)
-        addStop(point);
     }
 
     if (mContainer != null)
