@@ -126,6 +126,7 @@ area|z16-[landuse=flowerbed],
 
 area|z14-15[landuse=grass],
 {fill-color: @green0;}
+/* landuse=orchard and landuse=vineyard are hardcoded to have a grid-style fill, see drape_frontend/stylist.cpp */
 area|z16-[landuse=grass],
 area|z14-15[natural=grassland],
 area|z14-[leisure=golf_course],
@@ -162,6 +163,7 @@ area|z16-[leisure=garden][garden:type=residential],
 area|z17-[leisure=garden][garden:type=residential],
 {fill-color: @green2;}
 
+/* landuse=orchard and landuse=vineyard are hardcoded to have a grid-style fill, see drape_frontend/stylist.cpp */
 area|z12-13[landuse=grass],
 area|z12-13[natural=grassland],
 area|z12-13[leisure=golf_course],
@@ -215,10 +217,12 @@ area|z12-[amenity=prison]
 {fill-opacity: 0.5; fill-color: @prison;}
 /* End of hardcoded hatching */
 
+/* natural=scree and natural=shingle are hardcoded to have a speckle-style fill, see drape_frontend/stylist.cpp */
 area|z11-[natural=scree],
 area|z12-[natural=shingle],
 {fill-color: @scree;}
 
+/* natural=bare_rock is hardcoded to have a speckle-style fill, see drape_frontend/stylist.cpp */
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}
 
@@ -242,10 +246,12 @@ area|z10-[leisure=beach_resort],
 area|z0-[natural=glacier]
 {fill-color: @glacier;}
 
+/* natural=beach is hardcoded to have a stipple-style fill, see drape_frontend/stylist.cpp */
 area|z10-[natural=beach],
 area|z10-[leisure=beach_resort],
 {fill-color: @beach;}
 
+/* natural=desert is hardcoded to have a stipple-style fill, see drape_frontend/stylist.cpp */
 area|z0-[natural=desert],
 {fill-color: @desert;}
 
@@ -375,6 +381,7 @@ area|z15-[leisure=playground],
 
 /* 7.1 Industrial */
 
+/* landuse=quarry is hardcoded to have a speckle-style fill, see drape_frontend/stylist.cpp */
 area|z14-[landuse=industrial],
 area|z14-[landuse=construction],
 area|z14-[landuse=landfill],

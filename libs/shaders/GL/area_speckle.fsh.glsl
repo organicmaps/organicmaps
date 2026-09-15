@@ -20,7 +20,7 @@ layout (binding = 0) uniform UBO
   float u_isOutlinePass;
 };
 
-// Analytic speckle: a denser, finer, size-varied dot field for rocky surfaces (scree/bare_rock). Same
+// Analytic speckle: a denser, finer, size-varied dot field for rocky surfaces. Same
 // single-pass solid-fill + darken idea as the stipple, but smaller cells and per-cell radius variation
 // read as a coarse, irregular rock texture rather than even sand grains. fwidth() AA, no texture/mip.
 

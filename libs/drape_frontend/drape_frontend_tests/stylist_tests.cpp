@@ -39,9 +39,11 @@ UNIT_TEST(Stylist_IsAreaPattern)
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "beach", "sand"})), dp::kStipplePattern, ());
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "desert"})), dp::kStipplePattern, ());
 
-  // Speckle: rocky surfaces.
+  // Speckle: rocky and stony surfaces, quarries.
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "scree"})), dp::kSpecklePattern, ());
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "bare_rock"})), dp::kSpecklePattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "shingle"})), dp::kSpecklePattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "quarry"})), dp::kSpecklePattern, ());
 
   // Grid: planted landuse.
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "orchard"})), dp::kGridPattern, ());
@@ -49,4 +51,6 @@ UNIT_TEST(Stylist_IsAreaPattern)
 
   // Unrelated area types get no pattern.
   TEST(checker.GetPattern(cl.GetTypeByPath({"natural", "water"})).empty(), ());
+  // Mine sites share the quarry fill, but they outline whole mines, whose pits are mapped as quarries.
+  TEST(checker.GetPattern(cl.GetTypeByPath({"landuse", "industrial", "mine"})).empty(), ());
 }
