@@ -7,25 +7,40 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
+import app.organicmaps.wear.protocol.WearDistanceUnit
 import app.organicmaps.wear.protocol.WearNavigationData
+import app.organicmaps.wear.protocol.WearNavigationDetails
 import app.organicmaps.wear.protocol.WearNavigationMode
-import app.organicmaps.wear.protocol.WearNavigationState
 import app.organicmaps.wear.protocol.gms.WearNavigationDataMapCodec
+import app.organicmaps.wear.protocol.gms.WearNavigationDetailsDataMapCodec
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataItemBuffer
+import com.google.android.gms.wearable.DataMap
 import com.google.android.gms.wearable.DataMapItem
+import com.google.android.gms.wearable.MessageClient
+import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.Node
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
 
 class MainActivity :
     Activity(),
-    DataClient.OnDataChangedListener {
+    DataClient.OnDataChangedListener,
+    MessageClient.OnMessageReceivedListener {
     private lateinit var subtitle: TextView
+    private lateinit var turnDistanceValue: TextView
+    private lateinit var turnDistanceUnit: TextView
+    private lateinit var nextStreet: TextView
+    private lateinit var remaining: TextView
+
     private lateinit var dataClient: DataClient
+    private lateinit var messageClient: MessageClient
     private lateinit var capabilityClient: CapabilityClient
+
+    private var currentMode = WearNavigationMode.NORMAL
+    private var currentDetails: WearNavigationDetails? = null
 
     private var resumed = false
     private var lifecycleGeneration = 0
@@ -56,12 +71,48 @@ class MainActivity :
                 textSize = 14f
             }
 
+        turnDistanceValue =
+            TextView(this).apply {
+                gravity = Gravity.CENTER
+                textSize = 28f
+            }
+
+        turnDistanceUnit =
+            TextView(this).apply {
+                gravity = Gravity.CENTER
+                textSize = 14f
+            }
+
+        val turnDistance =
+            LinearLayout(this).apply {
+                gravity = Gravity.CENTER
+                orientation = LinearLayout.HORIZONTAL
+                addView(turnDistanceValue)
+                addView(turnDistanceUnit)
+            }
+
+        nextStreet =
+            TextView(this).apply {
+                gravity = Gravity.CENTER
+                textSize = 14f
+            }
+
+        remaining =
+            TextView(this).apply {
+                gravity = Gravity.CENTER
+                textSize = 12f
+            }
+
         layout.addView(title)
         layout.addView(subtitle)
+        layout.addView(turnDistance)
+        layout.addView(nextStreet)
+        layout.addView(remaining)
 
         setContentView(layout)
 
         dataClient = Wearable.getDataClient(this)
+        messageClient = Wearable.getMessageClient(this)
         capabilityClient = Wearable.getCapabilityClient(this)
     }
 
@@ -73,6 +124,12 @@ class MainActivity :
         // registration.
         resumed = true
         val generation = ++lifecycleGeneration
+
+        messageClient
+            .addListener(this)
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Failed to listen for navigation details", exception)
+            }
 
         dataClient
             .addListener(this, NAVIGATION_STATE_URI, DataClient.FILTER_LITERAL)
@@ -95,11 +152,18 @@ class MainActivity :
         resumed = false
         lifecycleGeneration += 1
         refreshGeneration += 1
+        currentDetails = null
 
         dataClient
             .removeListener(this)
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Failed to stop navigation listener", exception)
+            }
+
+        messageClient
+            .removeListener(this)
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Failed to stop navigation details listener", exception)
             }
 
         super.onPause()
@@ -108,6 +172,33 @@ class MainActivity :
     override fun onDataChanged(dataEvents: DataEventBuffer) {
         if (resumed && NavigationStateSource.requiresRefresh(dataEvents)) {
             refreshNavigationState()
+        }
+    }
+
+    override fun onMessageReceived(messageEvent: MessageEvent) {
+        if (messageEvent.path != WearNavigationData.PATH_NAVIGATION_DETAILS) {
+            return
+        }
+
+        val details =
+            try {
+                WearNavigationDetailsDataMapCodec.decode(
+                    DataMap.fromByteArray(messageEvent.data),
+                )
+            } catch (exception: IllegalArgumentException) {
+                Log.w(TAG, "Failed to decode Wear navigation details", exception)
+                null
+            }
+
+        if (details == null) {
+            return
+        }
+
+        runOnUiThread {
+            if (resumed && currentMode == WearNavigationMode.NAVIGATION) {
+                currentDetails = details
+                renderNavigationDetails(details)
+            }
         }
     }
 
@@ -154,7 +245,7 @@ class MainActivity :
     }
 
     private fun renderFromDataItems(dataItems: DataItemBuffer, generation: Int) {
-        val state =
+        val mode =
             try {
                 // A node owns at most one DataItem at a path. Treat any unexpected result as no current
                 // state.
@@ -173,7 +264,7 @@ class MainActivity :
             }
 
         if (isCurrent(generation)) {
-            render(state ?: WearNavigationState.normal())
+            render(mode ?: WearNavigationMode.NORMAL)
         }
     }
 
@@ -182,18 +273,71 @@ class MainActivity :
     private fun isResumed(generation: Int): Boolean = resumed && generation == lifecycleGeneration
 
     private fun renderNormal() {
-        render(WearNavigationState.normal())
+        render(WearNavigationMode.NORMAL)
     }
 
-    private fun render(state: WearNavigationState) {
-        val navigating = state.mode == WearNavigationMode.NAVIGATION
-        subtitle.setText(
-            if (navigating) {
-                R.string.wear_navigation_active_message
-            } else {
-                R.string.wear_no_navigation_message
-            },
-        )
+    private fun render(mode: WearNavigationMode) {
+        currentMode = mode
+
+        if (mode == WearNavigationMode.NORMAL) {
+            currentDetails = null
+            subtitle.setText(R.string.wear_no_navigation_message)
+            renderNavigationDetails(null)
+            return
+        }
+
+        subtitle.setText(R.string.wear_navigation_active_message)
+        renderNavigationDetails(currentDetails)
+    }
+
+    private fun renderNavigationDetails(details: WearNavigationDetails?) {
+        val distanceToTurn = details?.distanceToTurn
+
+        if (distanceToTurn == null) {
+            turnDistanceValue.text = ""
+            turnDistanceUnit.text = ""
+        } else {
+            turnDistanceValue.text = distanceToTurn.value
+            turnDistanceUnit.text = unitText(distanceToTurn.unit)
+        }
+
+        nextStreet.text = details?.nextStreet.orEmpty()
+
+        val remainingParts = mutableListOf<String>()
+
+        details?.remainingDistance?.let { distance ->
+            remainingParts += "${distance.value} ${unitText(distance.unit)}"
+        }
+
+        formatRemainingTime(details?.remainingTimeSeconds)?.let { time ->
+            remainingParts += time
+        }
+
+        remaining.text = remainingParts.joinToString(" | ")
+    }
+
+    private fun unitText(unit: WearDistanceUnit): String = getString(
+        when (unit) {
+            WearDistanceUnit.METERS -> R.string.wear_distance_unit_m
+            WearDistanceUnit.KILOMETERS -> R.string.wear_distance_unit_km
+            WearDistanceUnit.FEET -> R.string.wear_distance_unit_ft
+            WearDistanceUnit.MILES -> R.string.wear_distance_unit_mi
+        },
+    )
+
+    private fun formatRemainingTime(seconds: Int?): String? {
+        if (seconds == null) {
+            return null
+        }
+
+        val hours = seconds / 3600
+        val minutes = (seconds % 3600) / 60
+
+        return if (hours > 0) {
+            getString(R.string.wear_time_hours_minutes, hours, minutes)
+        } else {
+            getString(R.string.wear_time_minutes, minutes)
+        }
     }
 
     companion object {
