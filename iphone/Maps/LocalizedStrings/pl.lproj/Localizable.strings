@@ -163,10 +163,10 @@
 "load_kmz_title" = "Wczytywanie zakładek";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.";
+"load_kmz_successful" = "Wczytano zakładki! Wybierz listę, aby zobaczyć ją na mapie:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty.";
+"load_kmz_failed" = "Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty:";
 
 /* resource for context menu */
 "edit" = "Edytuj";

@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Loading Bookmarks</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</string>
+    <string name="load_kmz_successful">Bookmarks loaded successfully! Select a list to view it on the map:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Failed to load bookmarks. The file may be corrupted or defective.</string>
+    <string name="load_kmz_failed">Failed to load bookmarks. The file may be corrupted or defective:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">The file type is not recognized by the app:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

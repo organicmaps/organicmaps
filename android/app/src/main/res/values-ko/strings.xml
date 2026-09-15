@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">즐겨찾기 로드</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.</string>
+    <string name="load_kmz_successful">즐겨찾기가 성공적으로 로드되었습니다! 지도에서 볼 목록을 선택하세요:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.</string>
+    <string name="load_kmz_failed">즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">파일 형식이 앱에서 인식되지 않습니다:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

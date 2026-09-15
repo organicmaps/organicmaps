@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Inapakia alamisho</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Alama za ukurasa zimepakia kwa mafanikio! Unaweza kuzipata kwenye ramani au kwenye skrini ya Meneja wa Alama za ukurasa.</string>
+    <string name="load_kmz_successful">Alama za ukurasa zimepakia kwa mafanikio! Chagua orodha ili kuitazama kwenye ramani:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Imeshindwa kupakia alamisho. Faili linaweza kuwa limeharibika au lenye kasoro.</string>
+    <string name="load_kmz_failed">Imeshindwa kupakia alamisho. Faili linaweza kuwa limeharibika au lenye kasoro:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

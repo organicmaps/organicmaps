@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">正在載入書籤</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">書籤載入成功！ 您可以在地圖或書籤管理畫面中找到它們。</string>
+    <string name="load_kmz_successful">書籤載入成功！請選擇要在地圖上查看的列表：</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">書籤載入失敗，檔案可能已損壞或不完整。</string>
+    <string name="load_kmz_failed">書籤載入失敗，檔案可能已損壞或不完整：</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">應用程式無法識別該文件類型：\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

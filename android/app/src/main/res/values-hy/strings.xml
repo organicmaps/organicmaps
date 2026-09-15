@@ -156,7 +156,7 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Էջանիշների բեռնում</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Էջանիշները հաջողությամբ բեռնվեցին: Դուք կարող եք գտնել դրանք քարտեզի վրա կամ «Էջանիշների կառավարիչ» էկրանին:</string>
+    <string name="load_kmz_successful">Էջանիշները հաջողությամբ բեռնվեցին: Ընտրեք ցուցակ՝ այն քարտեզի վրա տեսնելու համար:</string>
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Չհաջողվեց բեռնել էջանիշները: Ֆայլը կարող է վնասված կամ անսարք լինել:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->

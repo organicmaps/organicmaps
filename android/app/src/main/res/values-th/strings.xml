@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">กำลังโหลดบุ๊กมาร์ก</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก</string>
+    <string name="load_kmz_successful">โหลดบุ๊กมาร์กสำเร็จแล้ว! เลือกรายการเพื่อดูบนแผนที่:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">การอัปโหลดล้มเหลว ไฟล์อาจเสียหายหรือมีข้อบกพร่อง</string>
+    <string name="load_kmz_failed">การอัปโหลดล้มเหลว ไฟล์อาจเสียหายหรือมีข้อบกพร่อง:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">แอปไม่รู้จักประเภทไฟล์:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

@@ -163,10 +163,10 @@
 "load_kmz_title" = "お気に入りをロード中";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "お気に入りをロードできました。 お気に入りはマップ上、またはお気に入り管理画面に表示されます。";
+"load_kmz_successful" = "お気に入りをロードできました。マップ上で表示するリストを選択してください：";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "お気に入りのロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。";
+"load_kmz_failed" = "お気に入りのロードに失敗しました。ファイルが破損していた、または問題があった可能性があります：";
 
 /* resource for context menu */
 "edit" = "編集";

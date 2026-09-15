@@ -163,10 +163,10 @@
 "load_kmz_title" = "Järjehoidjate laadimine";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Järjehoidjad edukalt laaditud! Leiad need kaardil või järjehoidjate halduri vaates.";
+"load_kmz_successful" = "Järjehoidjad edukalt laaditud! Vali loend, et seda kaardil vaadata:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Järjehoidjate laadimine ei õnnestunud. Fail võib olla vigane.";
+"load_kmz_failed" = "Järjehoidjate laadimine ei õnnestunud. Fail võib olla vigane:";
 
 /* resource for context menu */
 "edit" = "Muuda";

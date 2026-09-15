@@ -163,10 +163,10 @@
 "load_kmz_title" = "Ladataan kirjanmerkkejä";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Kirjanmerkkien lataaminen onnistui! Löydät ne joko kartalta tai kirjanmerkkien hallinnasta.";
+"load_kmz_successful" = "Kirjanmerkkien lataaminen onnistui! Valitse luettelo nähdäksesi sen kartalla:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Kirjanmerkkien lataus epäonnistui. Tiedosto saattaa olla vioittunut.";
+"load_kmz_failed" = "Kirjanmerkkien lataus epäonnistui. Tiedosto saattaa olla vioittunut:";
 
 /* resource for context menu */
 "edit" = "Muokkaa";

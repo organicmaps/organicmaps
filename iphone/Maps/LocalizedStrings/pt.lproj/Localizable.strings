@@ -163,10 +163,10 @@
 "load_kmz_title" = "A carregar favoritos";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Os favoritos foram carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.";
+"load_kmz_successful" = "Os favoritos foram carregados com sucesso! Selecione uma lista para a ver no mapa:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Surgiu uma falha ao enviar os favoritos. O ficheiro pode estar corrompido ou com defeito.";
+"load_kmz_failed" = "Surgiu uma falha ao enviar os favoritos. O ficheiro pode estar corrompido ou com defeito:";
 
 /* resource for context menu */
 "edit" = "Editar";

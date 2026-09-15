@@ -163,10 +163,10 @@
 "load_kmz_title" = "Yer İmleri Yükleniyor";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Yer İmleri başarılıyla yüklendi! Bunları haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.";
+"load_kmz_successful" = "Yer İmleri başarılıyla yüklendi! Haritada görüntülemek için bir liste seçin:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir.";
+"load_kmz_failed" = "Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir:";
 
 /* resource for context menu */
 "edit" = "Düzenle";
