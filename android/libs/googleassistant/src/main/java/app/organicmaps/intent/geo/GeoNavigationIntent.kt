@@ -63,18 +63,13 @@ class GeoNavigationIntent private constructor(
             if (avoidListStr.isNullOrEmpty()) return emptyList()
 
             val avoidList = mutableListOf<Avoid>()
-            for (item in avoidListStr.split(',')) {
-                if (item.length != 1) {
-                    Logger.w(TAG, "Invalid avoid item: $item")
-                    continue
-                }
-
-                val avoid = Enums.fromRaw<Avoid>(item[0])
+            for (i in avoidListStr.indices) {
+                val item = avoidListStr[i]
+                val avoid = Enums.fromRaw<Avoid>(item)
                 if (avoid == null) {
                     Logger.w(TAG, "Unknown avoid item: $item")
                     continue
                 }
-
                 avoidList.add(avoid)
             }
             return avoidList
