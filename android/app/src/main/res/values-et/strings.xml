@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Tere!\n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Mapsiga!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Järjehoidjate laadimine</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Järjehoidjad edukalt laaditud! Leiad need kaardil või järjehoidjate halduri vaates.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Järjehoidjate laadimine ei õnnestunud. Fail võib olla vigane.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Rakendus ei tunnista failitüüpi:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">„%1$s“ faili avamine ei õnnestunud\n \n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Järjehoidjad edukalt laaditud! Vali loend, et seda kaardil vaadata:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Faile ei õnnestunud laadida. Need võivad olla rikutud või vigased:</string>
     <!-- resource for context menu -->
     <string name="edit">Muuda</string>
     <!-- Warning message when doing search around current position -->

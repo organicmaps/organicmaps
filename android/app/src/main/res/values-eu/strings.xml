@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Markagailuak kargatzen</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Markagailuak behar bezala kargatu dira! Mapan edo markagailuak kudeatzeko pantailan aurki ditzakezu.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Ezin izan dira markagailuak kargatu. Fitxategia akastuna izan daiteke.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Aplikazioak ez du fitxategi mota ezagutzen:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Ezin izan da fitxategia ireki %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Markagailuak behar bezala kargatu dira! Hautatu zerrenda bat mapan ikusteko:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Ezin izan dira fitxategiak kargatu. Hondatuta egon daitezke edo akatsak izan ditzakete:</string>
     <!-- resource for context menu -->
     <string name="edit">Editatu</string>
     <!-- Warning message when doing search around current position -->

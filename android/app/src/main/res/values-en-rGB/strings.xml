@@ -12,6 +12,8 @@
     <string name="category_fuel">Petrol</string>
 
     <!-- SECTION: Other translations -->
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Failed to load the files. They may be corrupted or defective:</string>
     <!-- gray color -->
     <string name="gray">Grey</string>
     <!-- blue gray color -->

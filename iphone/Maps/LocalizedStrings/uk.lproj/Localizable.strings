@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Завантаження міток";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Мітки успішно завантажені! Ви можете знайти їх на мапі або у ваших збережених мітках.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Мітки успішно завантажені! Виберіть список, щоб побачити його на мапі:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Не вдалося завантажити файли. Можливо, вони пошкоджені або містять помилки:";
 
 /* resource for context menu */
 "edit" = "Редагувати";

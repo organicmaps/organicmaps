@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">您好！\n\n附件是我的书签，请在 Organic Maps 中打开。如果您没有安装 Organic Maps，可以在这里下载: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">正在加载书签</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">书签载入成功！您可以在地图或书签管理页面中找到它们。</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">书签载入失败，文件可能已损坏或不完整。</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">应用程序无法识别该文件类型：\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">无法打开文件 %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">书签载入成功！请选择要在地图上查看的列表：</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">无法加载这些文件。它们可能已损坏或存在缺陷：</string>
     <!-- resource for context menu -->
     <string name="edit">编辑</string>
     <!-- Warning message when doing search around current position -->

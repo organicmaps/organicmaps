@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Hola!\n\nAdjunto els meus marcadors de l’Organic Maps. Obriu-los si teniu l’Organic Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l’Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">S’estan carregant els marcadors</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Els marcadors s’han carregat correctament. Els trobareu al mapa i a la pantalla de gestió de marcadors.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">No s\'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">L\'aplicació no reconeix el tipus de fitxer:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">No s\'ha pogut obrir el fitxer %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Els marcadors s’han carregat correctament! Trieu una llista per veure-la al mapa:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">No s\'han pogut carregar els fitxers. Poden estar malmesos o ser defectuosos:</string>
     <!-- resource for context menu -->
     <string name="edit">Edita</string>
     <!-- Warning message when doing search around current position -->

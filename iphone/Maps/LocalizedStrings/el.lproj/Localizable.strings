@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Φορτώνονται τα αγαπημένα";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Τα αγαπημένα φορτώθηκαν με επιτυχία! Μπορείτε να τα βρείτε στο χάρτη ή στην οθόνη Διαχείρισης αγαπημένων.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Τα αγαπημένα φορτώθηκαν με επιτυχία! Επιλέξτε μια λίστα για να τη δείτε στον χάρτη:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Η φόρτωση των αγαπημένων απέτυχε. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελαττωματικό.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Η φόρτωση των αρχείων απέτυχε. Μπορεί να είναι κατεστραμμένα ή ελαττωματικά:";
 
 /* resource for context menu */
 "edit" = "Επεξεργασία";

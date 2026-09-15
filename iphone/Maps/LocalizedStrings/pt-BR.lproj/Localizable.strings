@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Carregando favoritos";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Favoritos carregados com sucesso! Você pode encontrá-los no mapa ou na tela de gestão dos favoritos.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Favoritos carregados com sucesso! Escolha uma lista para vê-la no mapa:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Falha no envio dos favoritos. O arquivo pode estar corrompido ou com defeito.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Não foi possível carregar os arquivos. Eles podem estar corrompidos ou com defeito:";
 
 /* resource for context menu */
 "edit" = "Editar";

@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Учитавање маркера";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Маркери су успешно учитани! Можете их проначи на мапи помоћу Менаџера маркера.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Маркери су успешно учитани! Изаберите листу да бисте је видели на мапи:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Неуспешно учитавање маркера. Могуће је да је фајл оштећен или неисправан.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Учитавање фајлова није успело. Можда су оштећени или неисправни:";
 
 /* resource for context menu */
 "edit" = "Измени";

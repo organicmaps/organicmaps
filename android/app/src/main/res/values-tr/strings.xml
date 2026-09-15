@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Merhaba! \n \nEktekiler yer imlerim, lütfen bunları Organic Maps\'te açın. Eğer uygulama kurulmamışsa, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://omaps.app/get?kmz\n \nOrganic Maps ile gezintinin tadını çıkarın!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Yer İmleri Yükleniyor</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Yer İmleri başarılıyla yüklendi! Bunları haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Dosya türü uygulamaca tanınmıyor:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Dosya açılamadı %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Yer İmleri başarılıyla yüklendi! Haritada görüntülemek için bir liste seçin:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Dosyalar yüklenemedi. Bozuk ya da hatalı olabilirler:</string>
     <!-- resource for context menu -->
     <string name="edit">Düzenle</string>
     <!-- Warning message when doing search around current position -->

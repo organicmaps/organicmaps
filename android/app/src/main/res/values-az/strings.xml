@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Salam!\n\nOrganic Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa Organic Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ilə səyahətdən həzz alın!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Əlfəcinlər yüklənir</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Əlfəcinlər uğurla yükləndi! Siz onları Xəritədə və ya Əlfəcin Menecer ekranında tapa bilərsiniz.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Əlfəcinlərin quraşdırılması uğursuz oldu. Fayl zədələnmiş və ya qüsurlu ola bilər.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Fayl növü tətbiq tərəfindən tanınmır:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Faylı açmaq alınmadı %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Əlfəcinlər uğurla yükləndi! Xəritədə görmək üçün siyahı seçin:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Faylları yükləmək mümkün olmadı. Onlar zədələnmiş və ya qüsurlu ola bilər:</string>
     <!-- resource for context menu -->
     <string name="edit">Redaktə et</string>
     <!-- Warning message when doing search around current position -->

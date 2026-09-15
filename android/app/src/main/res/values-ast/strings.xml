@@ -80,6 +80,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
     <string name="share_bookmarks_email_body">¡Hola!\n\nLos mios marcadores tán axuntos; ábrilos n’Organic Maps. Si nun lu tienes instaláu, te lu puedes baxar equí: https://omaps.app/get?kmz\n\n¡Gocia viaxar con Organic Maps!</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Nun se pudieron cargar los ficheros. Puen tar corruptos o tener defectos:</string>
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->

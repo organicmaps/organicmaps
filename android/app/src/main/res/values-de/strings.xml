@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Hallo!\n\nIm Anhang sind meine Lesezeichen der „Organic Maps“-App. Du kannst sie mit Organic Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://omaps.app/get?kmz herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Lesezeichen werden geladen</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Lesezeichen erfolgreich geladen! Du kannst diese nun auf deiner Karte oder im Lesezeichen-Manager anzeigen.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Der Dateityp wird von der App nicht erkannt:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Datei konnte nicht geöffnet werden %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Lesezeichen erfolgreich geladen! Wähle eine Liste aus, um sie auf der Karte anzuzeigen:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Die Dateien konnten nicht geladen werden. Sie könnten beschädigt oder fehlerhaft sein:</string>
     <!-- resource for context menu -->
     <string name="edit">Bearbeiten</string>
     <!-- Warning message when doing search around current position -->

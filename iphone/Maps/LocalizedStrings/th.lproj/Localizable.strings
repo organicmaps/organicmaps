@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "กำลังโหลดบุ๊กมาร์ก";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "โหลดบุ๊กมาร์กสำเร็จแล้ว! เลือกรายการเพื่อดูบนแผนที่:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "การอัปโหลดล้มเหลว ไฟล์อาจเสียหายหรือมีข้อบกพร่อง";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "โหลดไฟล์ไม่สำเร็จ ไฟล์เหล่านี้อาจเสียหายหรือมีข้อบกพร่อง:";
 
 /* resource for context menu */
 "edit" = "แก้ไข";

@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Se încarcă locurile preferate";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Locuri preferate încărcate cu succes! Le poți găsi pe hartă sau în „Gestionare Locuri preferate”.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Locuri preferate încărcate cu succes! Alege o listă pentru a o vedea pe hartă:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Încărcarea locurilor preferate a eșuat. Fișierul poate fi defect.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Fișierele nu au putut fi încărcate. Este posibil să fie corupte sau defecte:";
 
 /* resource for context menu */
 "edit" = "Modifică";

@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Caricamento luoghi preferiti";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Luoghi preferiti caricati con successo! Puoi trovarli sulla mappa o nella schermata Gestione Luoghi preferiti.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Luoghi preferiti caricati con successo! Seleziona una lista per visualizzarla sulla mappa:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Caricamento dei luoghi preferiti fallito. Il file potrebbe essere corrotto o difettoso.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Impossibile caricare i file. Potrebbero essere danneggiati o difettosi:";
 
 /* resource for context menu */
 "edit" = "Modifica";

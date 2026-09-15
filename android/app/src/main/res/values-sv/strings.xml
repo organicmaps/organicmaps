@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Hej! \n \nJag bifogar mina bokmärken, öppna gärna dem med Organic Maps. Om du inte redan har appen installerad, kan du ladda ner den här: https://omaps.app/get?kmz \n \nTrevlig resa med Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Läser in bokmärken</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Filtypen känns inte igen av appen:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Det gick inte att öppna filen %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Bokmärkena lästes in! Välj en lista för att visa den på kartan:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Det gick inte att läsa in filerna. De kan vara skadade eller felaktiga:</string>
     <!-- resource for context menu -->
     <string name="edit">Redigera</string>
     <!-- Warning message when doing search around current position -->
