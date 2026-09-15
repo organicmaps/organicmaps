@@ -22,6 +22,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -36,6 +38,9 @@ public class TrackRecordingService extends Service implements LocationListener
   public static final String TRACK_REC_CHANNEL_ID = "TRACK RECORDING";
   public static final String STOP_TRACK_RECORDING = "STOP_TRACK_RECORDING";
   public static final int TRACK_REC_NOTIFICATION_ID = 54321;
+  // Recording can be stopped from the notification while the activity is in the background or
+  // covered by the notification shade, so the UI observes the service instead of assuming its state.
+  private static final MutableLiveData<Boolean> sIsRecording = new MutableLiveData<>();
   private NotificationCompat.Builder mNotificationBuilder;
   private static final String TAG = TrackRecordingService.class.getSimpleName();
   private boolean mWarningNotification = false;
@@ -50,11 +55,18 @@ public class TrackRecordingService extends Service implements LocationListener
     return null;
   }
 
+  @NonNull
+  public static LiveData<Boolean> isRecording()
+  {
+    return sIsRecording;
+  }
+
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
   public static void startForegroundService(@NonNull Context context)
   {
     if (!TrackRecorder.nativeIsTrackRecordingEnabled())
       TrackRecorder.nativeStartTrackRecording();
+    sIsRecording.setValue(true);
     MwmApplication.from(context).getLocationHelper().restartWithNewMode();
     ContextCompat.startForegroundService(context, new Intent(context, TrackRecordingService.class));
   }
@@ -112,7 +124,7 @@ public class TrackRecordingService extends Service implements LocationListener
             .setOnlyAlertOnce(true)
             .setSmallIcon(app.organicmaps.branding.R.drawable.ic_splash)
             .setContentTitle(context.getString(R.string.track_recording))
-            .addAction(0, context.getString(R.string.navigation_stop_button), getExitPendingIntent(context))
+            .addAction(0, context.getString(R.string.track_recording_stop_and_save), getExitPendingIntent(context))
             .setContentIntent(getPendingIntent(context))
             .setColor(ContextCompat.getColor(context, R.color.notification));
 
@@ -131,9 +143,16 @@ public class TrackRecordingService extends Service implements LocationListener
     Logger.d(TAG);
     mNotificationBuilder = null;
     mWarningBuilder = null;
-    if (TrackRecorder.nativeIsTrackRecordingEnabled())
-      TrackRecorder.nativeStopTrackRecording();
-    MwmApplication.from(this).getLocationHelper().removeListener(this);
+    // onStartCommand() bails out with stopSelf() when the core is not initialized: Android re-delivers a start
+    // command that was in flight when the process crashed, even for START_NOT_STICKY.
+    if (MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
+    {
+      if (TrackRecorder.nativeIsTrackRecordingEnabled())
+        TrackRecorder.nativeStopTrackRecording();
+      MwmApplication.from(this).getLocationHelper().removeListener(this);
+      MwmApplication.from(this).onNavigationOrRecordingStopped();
+    }
+    sIsRecording.setValue(false);
     // The notification is cancelled automatically by the system.
   }
 
@@ -160,8 +179,8 @@ public class TrackRecordingService extends Service implements LocationListener
 
     if (!LocationUtils.checkFineLocationPermission(this))
     {
-      // In a hypothetical scenario, the user could revoke location permissions after the app's process crashed,
-      // but before the service with START_STICKY was restarted by the system.
+      // The user could have revoked the location permission while the process was dead, before Android
+      // re-delivered the start command that was in flight when it crashed.
       Logger.w(TAG, "Permission ACCESS_FINE_LOCATION is not granted, skipping TrackRecordingService");
       stopSelf();
       return START_NOT_STICKY; // The service will be stopped by stopSelf().
@@ -178,7 +197,7 @@ public class TrackRecordingService extends Service implements LocationListener
     if (action != null && STOP_TRACK_RECORDING.equals(action))
     {
       Logger.d(TAG, "Stop action received");
-      TrackRecorder.nativeStopTrackRecording();
+      TrackRecorder.saveAndStop();
       stopSelf();
       return START_NOT_STICKY;
     }
@@ -220,7 +239,7 @@ public class TrackRecordingService extends Service implements LocationListener
             .setContentText(context.getString(R.string.dialog_routing_location_turn_wifi))
             .setStyle(new NotificationCompat.BigTextStyle().bigText(
                 context.getString(R.string.dialog_routing_location_turn_wifi)))
-            .addAction(0, context.getString(R.string.navigation_stop_button), getExitPendingIntent(context))
+            .addAction(0, context.getString(R.string.track_recording_stop_and_save), getExitPendingIntent(context))
             .setContentIntent(getPendingIntent(context))
             .setColor(ContextCompat.getColor(context, R.color.notification_warning));
 
