@@ -40,9 +40,8 @@ private:
   uint32_t m_2levelDash;  // dash hatch
 };
 
-// Maps natural-surface area types to a solid-fill pattern key (analytic, single pass). Unlike hatching,
-// these modulate the surface colour in place (e.g. a darker speckle over sand) rather than overlaying a
-// transparent mask.
+// Maps area types to an analytic, single-pass fill pattern. The dots modulate the surface colour in place:
+// they darken light fills and lighten dark fills, while hatching uses a transparent overlay.
 class IsAreaPatternChecker
 {
   IsAreaPatternChecker() = default;
@@ -52,12 +51,17 @@ public:
 
   std::string_view GetPattern(uint32_t type) const;
   std::string_view GetPattern(feature::TypesHolder const & types) const;
+  bool IsIntermittentWater(uint32_t type) const { return m_intermittentWater(type); }
 
 private:
   struct Stipple : ftypes::BaseCheckerEx
   {
     Stipple();
   } m_stipple;  // beach (incl. sand subtype) / desert
+  struct IntermittentWater : ftypes::BaseCheckerEx
+  {
+    IntermittentWater();
+  } m_intermittentWater;
   struct Speckle : ftypes::BaseCheckerEx
   {
     Speckle();
