@@ -114,10 +114,12 @@ public class MapButtonsController extends Fragment
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
 
-    // Only the landscape navigation layouts park the left buttons beside the maneuver card; in
-    // landscape the nav panel is always the fixed-width start column, so orientation identifies them.
+    // The navigation layouts park the left buttons beside the maneuver card wherever the nav panel
+    // is the fixed-width start column. Same R.bool every other consumer of that branch reads
+    // (MwmActivity, PlacePageUtils, NavigationController), so a tablet in portrait - a start column
+    // too, unlike a phone - is not mistaken for the full-width arrangement.
     mIsNavSideColumn = mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation
-                    && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+                    && !getResources().getBoolean(R.bool.nav_full_width_card);
     // Window insets land on mFrame as padding after the first layout pass, so re-apply once the
     // container settles instead of keeping a stale bottom margin.
     if (mIsNavSideColumn && mInnerLeftButtonsFrame != null)
@@ -260,8 +262,9 @@ public class MapButtonsController extends Fragment
     mTrackRecordingStatusButton.setLayoutParams(params);
   }
 
-  // Landscape navigation: keep the bookmarks and search buttons in the start column, in a row right
-  // above the ETA panel, and stack them beside the maneuver card while the column is too short.
+  // Start-column navigation (landscape phone, tablets): keep the bookmarks and search buttons in
+  // the column, in a row right above the ETA panel, and stack them beside the maneuver card while
+  // the column is too short.
   private void updateLeftButtonsPlacement(@NonNull NavColumnMetrics metrics)
   {
     mNavColumnMetrics = metrics;
@@ -486,8 +489,7 @@ public class MapButtonsController extends Fragment
         && (isBehindSearchSheet(mInnerRightButtonsFrame) || isMoving(mInnerRightButtonsFrame)))
       applyMove(mInnerRightButtonsFrame, translationY);
     // The navigation side column owns its own placement and is bottom-anchored there, so letting
-    // applyMove pin its bottom to the sheet would throw it up over the maneuver card. move() skips
-    // landscape for the same reason.
+    // applyMove pin its bottom to the sheet would throw it up over the maneuver card.
     if (mInnerLeftButtonsFrame != null && !mIsNavSideColumn
         && (isBehindSearchSheet(mInnerLeftButtonsFrame) || isMoving(mInnerLeftButtonsFrame)))
       applyMove(mInnerLeftButtonsFrame, translationY);
