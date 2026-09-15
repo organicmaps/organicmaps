@@ -231,12 +231,18 @@ area|z11-[natural=wetland],
 
 line|z10[waterway=river],
 {width: 1;}
+line|z10[waterway=river][intermittent],
+{dashes: 3,3;}
 
 line|z11-12[waterway=river],
 {width: 1.2;}
+line|z11-12[waterway=river][intermittent],
+{dashes: 3.6,3.6;}
 
 line|z13[waterway=river],
 {width: 1.6;}
+line|z13[waterway=river][intermittent],
+{dashes: 4.8,4.8;}
 /*line|z13[waterway=stream],
 line|z13[waterway=canal],
 line|z13[natural=strait],
@@ -246,6 +252,8 @@ line|z13[waterway=stream][intermittent=yes]
 
 line|z14[waterway=river],
 {width: 1.8;}
+line|z14[waterway=river][intermittent],
+{dashes: 5.4,5.4;}
 /*line|z14[waterway=stream],
 line|z14[waterway=canal],
 line|z14[natural=strait],
@@ -255,6 +263,8 @@ line|z14[waterway=stream][intermittent=yes]
 
 line|z15-[waterway=river],
 {width: 2.2;}
+line|z15-[waterway=river][intermittent],
+{dashes: 6.6,6.6;}
 /*line|z15-[waterway=stream],
 line|z15-[waterway=canal],
 line|z15-[natural=strait],
