@@ -214,6 +214,11 @@ area|z12-[landuse=basin],
 area|z13-[leisure=swimming_pool],
 {fill-color: @water;}
 
+/* Dotted with the stipple, see drape_frontend/stylist.cpp */
+area|z0-[natural=water][intermittent=yes],
+area|z12-[landuse=basin][intermittent=yes],
+{fill-color: @water_intermittent;}
+
 area|z0-[natural=water][water=ditch],
 area|z0-[natural=water][water=drain],
 area|z0-[natural=water][water=wastewater],

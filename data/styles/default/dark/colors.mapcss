@@ -40,6 +40,7 @@
 @glacier: #111111;
 @water: #002222;
 @water_bad: #00261e;
+@water_intermittent: #001818;
 @river: #3FA7C0;
 @wetland: #5C747F;
 @beach: #28281A;

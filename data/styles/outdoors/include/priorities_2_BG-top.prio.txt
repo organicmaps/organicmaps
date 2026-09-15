@@ -16,17 +16,10 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-organicapp-mwm_border                               # area z1-7
-=== 30
-
 natural-water-ditch                                 # area z13- (also has caption z17-)
 natural-water-drain                                 # area z13- (also has caption z17-)
 natural-water-wastewater                            # area z12- (also has caption z17-)
-=== 27
-
-landuse-basin-intermittent                          # area z12-
-natural-water-intermittent                          # area z1- (also has caption z10-)
-=== 25
+=== 50
 
 landuse-basin                                       # area z12-
 landuse-salt_pond                                   # area z1-
@@ -39,6 +32,13 @@ natural-water-pond                                  # area z1- (also has caption
 natural-water-reservoir                             # area z1- (also has caption z10-)
 natural-water-river                                 # area z1- (also has caption z10-)
 waterway-dock                                       # area z1-
+=== 40
+
+organicapp-mwm_border                               # area z1-7
+=== 30
+
+landuse-basin-intermittent                          # area z12-
+natural-water-intermittent                          # area z1- (also has caption z10-)
 === 20
 
 natural-strait                                      # line z11- (also has caption z13-)
