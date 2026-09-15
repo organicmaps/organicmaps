@@ -21,7 +21,7 @@ layout (binding = 0) uniform UBO
 };
 
 // Analytic grid: a regular dot lattice for planted landuse (orchard/vineyard) - trees/vines in rows. No
-// jitter (the regularity is the signal), one dot per 16px tile. Same single-pass solid-fill + darken as
+// jitter (the regularity is the signal), one dot per 16px tile. Same single-pass solid fill with dots as
 // the stipple, with fwidth() AA - crisp at any zoom, fades to an even tint under minification.
 
 const float kCellPx = 16.0;    // one dot per tile -> sparse, regular rows
@@ -42,7 +42,7 @@ void main()
   float aa = max(fwidth(px.x), fwidth(px.y));
   float coverage = 1.0 - smoothstep(kRadiusPx - aa, kRadiusPx + aa, d);
 
-  color.rgb *= mix(1.0, kDarken, coverage);
+  color.rgb = ModulateByPatternDots(color.rgb, kDarken, coverage);
   color.a *= u_opacity;
   v_FragColor = color;
 }
