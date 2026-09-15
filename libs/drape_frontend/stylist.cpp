@@ -60,7 +60,10 @@ IsAreaPatternChecker::Stipple::Stipple()
   : ftypes::BaseCheckerEx({{"natural", "beach"}, {"natural", "desert"}})  // natural=sand is a beach subtype
 {}
 
-IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
+IsAreaPatternChecker::Speckle::Speckle()
+  : ftypes::BaseCheckerEx(
+        {{"natural", "scree"}, {"natural", "bare_rock"}, {"natural", "shingle"}, {"landuse", "quarry"}})
+{}
 
 IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
 
