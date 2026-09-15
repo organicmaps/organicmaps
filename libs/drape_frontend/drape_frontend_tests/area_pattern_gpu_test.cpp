@@ -8,6 +8,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include <cstdlib>
 #include <utility>
 #include <vector>
 
@@ -17,6 +18,10 @@ namespace area_pattern_gpu_test
 // is near-black, where a dot has to lighten the fill by more than a multiplier could.
 dp::Color constexpr kLightFill(196, 233, 239, 255);
 dp::Color constexpr kDarkFill(2, 25, 25, 255);
+
+// Two solid-pattern quads side by side, by the x of their left edge in world == pixel-from-center coordinates.
+int constexpr kQuadWidth = 112, kQuadHalfHeight = 110;
+std::pair<dp::Color, int> constexpr kQuads[] = {{kLightFill, -120}, {kDarkFill, 8}};
 
 df::AreaViewParams MakeParams(df::AreaPattern pattern)
 {
@@ -75,21 +80,26 @@ void RenderAndCheck(char const * title, df::AreaPattern hatching)
   TEST_EQUAL(tooDark, 0u, ("Fill darker than a straight-alpha blend - is rgb modulated too?", title));
 }
 
-// A solid-fill pattern (stipple/speckle/grid) fills a quad with the surface color and modulates it with dots that
-// darken a light fill and lighten a dark one. Renders a light quad in the left half and a dark one in the right half,
-// and validates that both fills are present, their dots shade them the expected way, and nothing samples as black.
-void RenderSolidPatternAndCheck(char const * title, df::AreaPattern pattern)
+// A solid-fill pattern fills a quad with the surface color and modulates it with marks that darken a light fill and
+// lighten a dark one. Renders the light and the dark quad and validates that every pixel of each lies between the fill
+// and its marked color. A transparent fragment would let the white background through, which the blending keeps at
+// alpha 255, so opacity is checked on the color. At the base scale each quad shows both its plain fill and marks. With
+// |faded|, the pattern is minified past the forest's fade at 4 lattice px per screen px, and each quad has to be one
+// even tint of the fill without marks.
+void RenderSolidPatternAndCheck(char const * title, df::AreaPattern pattern, bool faded = false)
 {
   df::test_support::ShapeTestFixture fixture;
-  uint32_t constexpr kW = 256, kH = 256;
-  fixture.Render(title, kW, kH, [pattern](df::test_support::ShapeTestFixture & f)
+  int constexpr kW = 256, kH = 256;
+  fixture.Render(title, kW, kH, [pattern, faded](df::test_support::ShapeTestFixture & f)
   {
-    for (auto const & [color, x] : {std::pair{kLightFill, -120.0}, std::pair{kDarkFill, 8.0}})
+    for (auto const & [color, quadX] : kQuads)
     {
       df::AreaViewParams p = MakeParams(pattern);
       p.m_color = color;
-      std::vector<m2::PointD> triangles = {{x, -110}, {x + 112, -110}, {x + 112, 110},
-                                           {x, -110}, {x + 112, 110},  {x, 110}};
+      p.m_baseGtoPScale = faded ? 5.0 : 1.0;
+      double const x = quadX, right = x + kQuadWidth;
+      std::vector<m2::PointD> triangles = {{x, -kQuadHalfHeight}, {right, -kQuadHalfHeight}, {right, kQuadHalfHeight},
+                                           {x, -kQuadHalfHeight}, {right, kQuadHalfHeight},  {x, kQuadHalfHeight}};
       f.AddShape(make_unique_dp<df::AreaShape>(std::move(triangles), df::BuildingOutline{}, p));
     }
   });
@@ -98,32 +108,50 @@ void RenderSolidPatternAndCheck(char const * title, df::AreaPattern pattern)
   if (img.isNull())
     return;  // Headless env without a usable GL context - nothing to assert.
 
-  uint32_t fill[2] = {}, dots[2] = {}, opaqueBlack = 0;
-  for (int y = 0; y < img.height(); ++y)
+  // The quads' pixels without their border.
+  int const top = kH / 2 - kQuadHalfHeight + 1, bottom = kH / 2 + kQuadHalfHeight - 1;
+  for (auto const & [fill, quadX] : kQuads)
   {
-    for (int x = 0; x < img.width(); ++x)
+    int const left = kW / 2 + quadX + 1, right = kW / 2 + quadX + kQuadWidth - 1;
+    bool const isLight = fill == kLightFill;
+    QColor const first = img.pixelColor(left, top);
+    uint32_t plain = 0, marked = 0, offFill = 0, uneven = 0;
+    for (int y = top; y < bottom; ++y)
     {
-      QColor const c = img.pixelColor(x, y);
-      size_t const i = x < img.width() / 2 ? 0 : 1;
-      if (c.green() > c.red() + 20 && c.blue() > c.red() + 20)  // teal fill on the pattern
+      for (int x = left; x < right; ++x)
       {
-        ++fill[i];
-        int const fillGreen = (i == 0 ? kLightFill : kDarkFill).GetGreen();
-        if (i == 0 ? c.green() < fillGreen - 4 : c.green() > fillGreen + 15)
-          ++dots[i];
+        QColor const c = img.pixelColor(x, y);
+        int const dr = c.red() - fill.GetRed(), dg = c.green() - fill.GetGreen(), db = c.blue() - fill.GetBlue();
+        if (std::abs(dr) <= 1 && std::abs(dg) <= 1 && std::abs(db) <= 1)
+          ++plain;
+        else if (isLight ? dg < -4 : dg > 4)
+          ++marked;
+        // A mark scales a light fill down and adds the same offset to every channel of a dark one.
+        bool const onFill = isLight ? dr <= 1 && dg <= 1 && db <= 1 && c.green() >= fill.GetGreen() * 3 / 4
+                                    : std::abs(dr - dg) <= 2 && std::abs(db - dg) <= 2 && dg >= -1 && dg <= 20;
+        if (!onFill)
+          ++offFill;
+        if (c != first)
+          ++uneven;
       }
-      if (c.alpha() > 200 && c.red() < 8 && c.green() < 8 && c.blue() < 8)
-        ++opaqueBlack;
+    }
+
+    char const * fillName = isLight ? "light fill" : "dark fill";
+    TEST_EQUAL(offFill, 0u, ("Pixels off the fill - transparent, or color texture not sampled?", title, fillName));
+    if (faded)
+    {
+      // A dropped fade leaves the plain fill, since the shader then skips the crowns, so the tint direction is checked.
+      int const dg = first.green() - fill.GetGreen();
+      TEST_EQUAL(uneven, 0u, ("Minified marks don't fade into an even tint:", title, fillName));
+      TEST_EQUAL(marked, 0u, ("Minified pattern still marked:", title, fillName));
+      TEST(isLight ? dg < 0 : dg > 0, ("Minified pattern doesn't tint the fill:", title, fillName, dg));
+    }
+    else
+    {
+      TEST_GREATER(plain, 0u, ("No plain fill between the marks:", title, fillName));
+      TEST_GREATER(marked, 0u, ("Marks not visible or shading the wrong way:", title, fillName));
     }
   }
-
-  for (size_t i = 0; i < 2; ++i)
-  {
-    char const * fillName = i == 0 ? "light fill" : "dark fill";
-    TEST_GREATER(fill[i], kW * kH / 8, ("Solid fill not rendered:", title, fillName));
-    TEST_GREATER(dots[i], 0u, ("Dots not visible or shading the wrong way:", title, fillName));
-  }
-  TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - color texture not sampled?", title));
 }
 }  // namespace area_pattern_gpu_test
 
@@ -150,4 +178,14 @@ UNIT_TEST(AreaSpeckleGpuTest)
 UNIT_TEST(AreaGridGpuTest)
 {
   area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic grid", df::AreaPattern::Grid);
+}
+
+UNIT_TEST(AreaForestGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic forest", df::AreaPattern::Forest);
+}
+
+UNIT_TEST(AreaForestFadeGpuTest)
+{
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Faded analytic forest", df::AreaPattern::Forest, true /* faded */);
 }

@@ -11,6 +11,7 @@ Area area.vsh.glsl solid_color.fsh.glsl
 AreaStipple hatching_area.vsh.glsl area_stipple.fsh.glsl
 AreaSpeckle hatching_area.vsh.glsl area_speckle.fsh.glsl
 AreaGrid hatching_area.vsh.glsl area_grid.fsh.glsl
+AreaForest hatching_area.vsh.glsl area_forest.fsh.glsl
 AreaOutline area.vsh.glsl solid_color.fsh.glsl
 Area3d area3d.vsh.glsl texturing3d.fsh.glsl
 Area3dOutline area3d_outline.vsh.glsl solid_color.fsh.glsl

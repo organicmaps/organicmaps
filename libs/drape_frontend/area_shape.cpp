@@ -31,6 +31,7 @@ gpu::Program PatternProgram(AreaPattern pattern)
   case AreaPattern::Stipple: return gpu::Program::AreaStipple;
   case AreaPattern::Speckle: return gpu::Program::AreaSpeckle;
   case AreaPattern::Grid: return gpu::Program::AreaGrid;
+  case AreaPattern::Forest: return gpu::Program::AreaForest;
   case AreaPattern::None: break;
   }
   UNREACHABLE();
