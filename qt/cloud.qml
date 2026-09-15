@@ -73,6 +73,9 @@ Item {
 
     component LinkedText: Label {
         onLinkActivated: link => Qt.openUrlExternally(link)
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        Layout.fillWidth: true
+        visible: text
     }
 
     Pane {
@@ -82,6 +85,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         visible: false
         topPadding: 0
+        width: Math.min(implicitWidth, root.width)
 
         Column {
             id: column
@@ -89,19 +93,20 @@ Item {
             width: Math.min(implicitWidth, parent.width)
 
             Row {
-                Column {
+                ColumnLayout {
                     id: innerColumn
+                    width: Math.min(implicitWidth, root.width - pane.leftPadding - pane.rightPadding - close.implicitWidth)
 
-                    Label {
+                    LinkedText {
                         text: root.map.title
                         font.bold: true
                     }
 
-                    Label {
+                    LinkedText {
                         text: root.map.subTitle
                     }
 
-                    Label {
+                    LinkedText {
                         text: root.map.address
                     }
                 }
@@ -111,7 +116,7 @@ Item {
                     implicitHeight: close.implicitHeight
 
                     Item {
-                        implicitWidth: column.implicitWidth - innerColumn.implicitWidth + pane.rightPadding
+                        implicitWidth: column.width - innerColumn.width + pane.rightPadding
 
                         ToolButton {
                             id: close
@@ -142,14 +147,12 @@ Item {
             Row {
                 spacing: 10
 
-                Label {
+                LinkedText {
                     text: root.map.wikipedia ? "<a href='" + root.map.wikipedia + "'>Wikipedia</a>" : ""
-                    onLinkActivated: link => Qt.openUrlExternally(link)
                 }
 
-                Label {
+                LinkedText {
                     text: root.map.wikimedia ? "<a href='" + root.map.wikimedia + "'>Wikimedia Commons</a>" : ""
-                    onLinkActivated: link => Qt.openUrlExternally(link)
                 }
             }
 
@@ -159,28 +162,29 @@ Item {
                 width: Math.min(implicitWidth, root.width - pane.leftPadding - pane.rightPadding)
             }
 
-            Grid {
+            GridLayout {
                 columns: 2
                 columnSpacing: 5
+                width: Math.min(implicitWidth, root.width - pane.leftPadding - pane.rightPadding)
 
                 GridLabel {
                     text: "Bookmark:"
                 }
-                Label {
+                LinkedText {
                     text: root.map.bookmark ? "Yes" : ""
                 }
 
                 GridLabel {
                     text: "Opening hours:"
                 }
-                Label {
+                LinkedText {
                     text: root.map.openingHours
                 }
 
                 GridLabel {
                     text: "Cuisine:"
                 }
-                Label {
+                LinkedText {
                     text: root.map.cuisines
                 }
 
@@ -194,14 +198,14 @@ Item {
                 GridLabel {
                     text: "Operator:"
                 }
-                Label {
+                LinkedText {
                     text: root.map.operator
                 }
 
                 GridLabel {
                     text: "Wi-Fi:"
                 }
-                Label {
+                LinkedText {
                     text: root.map.wifi ? "Yes" : ""
                 }
 
