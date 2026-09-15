@@ -283,6 +283,52 @@ fragment half4 fsAreaGrid(const HatchingAreaFragment_T in [[stage_in]])
   return color;
 }
 
+// Per-tile random values without the short period of AreaPatternHash (see Hash3 in GL/area_forest.fsh.glsl).
+static float3 AreaPatternHash3(float2 p)
+{
+  float3 p3 = fract(float3(p.xyx) * float3(0.1031, 0.1030, 0.0973));
+  p3 += dot(p3, p3.yxz + 33.33);
+  return fract((p3.xxy + p3.yzz) * p3.zyx);
+}
+
+// Analytic forest (see GL/area_forest.fsh.glsl): sparse scalloped tree crown outlines.
+fragment half4 fsAreaForest(const HatchingAreaFragment_T in [[stage_in]])
+{
+  constexpr float kEmptyTiles = 0.45;
+  constexpr float kLobeOffsetPx = 1.5;
+  constexpr float kMinLobeRadiusPx = 1.2;
+  constexpr float kMaxLobeRadiusPx = 2.8;
+  constexpr float kHalfWidthPx = 0.5;
+  constexpr float kMaxCrownRadiusPx = kLobeOffsetPx + kMaxLobeRadiusPx + kHalfWidthPx;
+  constexpr float kMaxShiftPx = 7.0 - kMaxCrownRadiusPx;
+  constexpr float kDarken = 0.88;
+  constexpr float kMeanCoverage = 0.05;
+  constexpr float kFadeStartPx = 2.5;
+  constexpr float kFadeEndPx = 4.0;
+  float2 fw = fwidth(in.maskTexCoords) * 16.0;
+  float aa = max(fw.x, fw.y);
+  float outline = 0.0;
+  if (aa < kFadeEndPx)
+  {
+    float3 h = AreaPatternHash3(floor(in.maskTexCoords));
+    float2 p = (fract(in.maskTexCoords) - 0.5) * 16.0 - (h.xy * 2.0 - 1.0) * kMaxShiftPx;
+    float reach = kMaxCrownRadiusPx + aa;
+    if (h.z >= kEmptyTiles && dot(p, p) < reach * reach)
+    {
+      float3 radii = mix(float3(kMinLobeRadiusPx), float3(kMaxLobeRadiusPx), fract(h.yxz * float3(7.0, 11.0, 17.0)));
+      float angle = 6.2831853 * fract(h.z * 5.0);
+      float2 u = kLobeOffsetPx * float2(cos(angle), sin(angle));
+      float2 v = float2(-0.5 * u.x - 0.8660254 * u.y, 0.8660254 * u.x - 0.5 * u.y);
+      float sdf = min(min(length(p - u) - radii.x, length(p - v) - radii.y), length(p + u + v) - radii.z);
+      outline = 1.0 - smoothstep(kHalfWidthPx - aa, kHalfWidthPx + aa, abs(sdf));
+    }
+  }
+  float coverage = mix(outline, kMeanCoverage, smoothstep(kFadeStartPx, kFadeEndPx, aa));
+  half4 color = in.color;
+  color.rgb = ModulateByPatternDots(color.rgb, kDarken, coverage);
+  return color;
+}
+
 // CirclePoint
 
 typedef struct

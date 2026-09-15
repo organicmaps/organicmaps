@@ -63,6 +63,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
     ProgramInfo("vsHatchingArea", "fsAreaStipple", {{0, 2}}),                         // AreaStipple
     ProgramInfo("vsHatchingArea", "fsAreaSpeckle", {{0, 2}}),                         // AreaSpeckle
     ProgramInfo("vsHatchingArea", "fsAreaGrid", {{0, 2}}),                            // AreaGrid
+    ProgramInfo("vsHatchingArea", "fsAreaForest", {{0, 2}}),                          // AreaForest
     ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                        // AreaOutline
     ProgramInfo("vsArea3d", "fsArea3d", {{0, 2}}),                                    // Area3d
     ProgramInfo("vsArea3dOutline", "fsArea", {{0, 1}}),                               // Area3dOutline
