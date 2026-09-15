@@ -74,18 +74,28 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&BookmarkDialog::OnAsyncLoadingStarted, this);
   callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
-  callbacks.m_onFileSuccess = std::bind(&BookmarkDialog::OnAsyncLoadingFileSuccess, this, _1, _2);
-  callbacks.m_onFileError = std::bind(&BookmarkDialog::OnAsyncLoadingFileError, this, _1, _2);
+  callbacks.m_onImportFinished = [this](BookmarkManager::BookmarkImportResult const & result)
+  {
+    for (auto const & sourceResult : result.m_sourceResults)
+    {
+      auto const & context = sourceResult.m_context;
+      if (sourceResult.m_groupIds.empty())
+        OnAsyncLoadingFileError(context.m_filePath, context.m_isTemporaryFile);
+      else
+        OnAsyncLoadingFileSuccess(context.m_filePath, context.m_isTemporaryFile);
+    }
+  };
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 }
 
 void BookmarkDialog::OnAsyncLoadingStarted()
 {
-  FillTree();
+  FillTree(true);
 }
 
 void BookmarkDialog::OnAsyncLoadingFinished()
 {
+  // The core keeps its loading flag set during callbacks to serialize queued requests.
   FillTree();
 }
 
@@ -146,7 +156,7 @@ void BookmarkDialog::OnImportClick()
     if (file.empty())
       continue;
 
-    m_framework.GetBookmarkManager().LoadBookmark(file, false /* isTemporaryFile */);
+    m_framework.GetBookmarkManager().ImportBookmarks({{file, false /* isTemporaryFile */}});
   }
 }
 
@@ -276,7 +286,7 @@ QTreeWidgetItem * BookmarkDialog::CreateTreeItem(std::string const & title, QTre
   return item;
 }
 
-void BookmarkDialog::FillTree()
+void BookmarkDialog::FillTree(bool isLoading)
 {
   m_tree->setSortingEnabled(false);
   m_tree->clear();
@@ -288,7 +298,7 @@ void BookmarkDialog::FillTree()
 
   auto const & bm = m_framework.GetBookmarkManager();
 
-  if (!bm.IsAsyncLoadingInProgress())
+  if (!isLoading)
   {
     for (auto catId : bm.GetUnsortedBmGroupsIdList())
     {
@@ -335,7 +345,7 @@ void BookmarkDialog::FillTree()
 
 void BookmarkDialog::ShowModal()
 {
-  FillTree();
+  FillTree(m_framework.GetBookmarkManager().IsAsyncLoadingInProgress());
   exec();
 }
 }  // namespace qt
