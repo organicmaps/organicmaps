@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Descargue a rexión na que está a buscar ou probe a engadir o nome dunha cidade/poboo próximo.";
 "search_history_title" = "Historial de procuras";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Ver procuras recentes.";
 "clear_search" = "Baleirar historial de procuras";
 

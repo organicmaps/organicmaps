@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Shkarkoni rajonin ku po kërkoni ose provoni të shtoni emrin e një qyteti/fshati të afërt.";
 "search_history_title" = "Historiku i Kërkimit";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Shikoni kërkimet tuaja të fundit.";
 "clear_search" = "Pastro Historikun e Kërkimit";
 

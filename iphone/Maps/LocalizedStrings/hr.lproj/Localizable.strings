@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Preuzmi regiju u kojoj tražiš ili pokušavaš dodati ime obližnjeg grada/sela.";
 "search_history_title" = "Povijest pretrage";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Pogledaj svoje nedavne pretrage.";
 "clear_search" = "Izbriši povijest pretraživanja";
 

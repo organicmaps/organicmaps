@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Atsisiųskite regioną, kuriame ieškote, arba pabandykite įvesti kito netoliese esančio miesto ar kaimo pavadinimą.";
 "search_history_title" = "Paieškų žurnalas";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Rodyti paskiausias paieškas.";
 "clear_search" = "Valyti paieškų žurnalą";
 

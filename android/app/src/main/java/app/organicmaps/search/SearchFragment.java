@@ -64,6 +64,18 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private PlaceholderView mResultsPlaceholder;
   private SearchShimmerView mShimmerView;
   private SearchPageViewModel mSearchViewModel;
+  @Nullable
+  private ContactAddressSearch mContactAddressSearch;
+  @Nullable
+  private ContactAddress mPendingContactAddress;
+  @Nullable
+  private String mPendingContactSourceQuery;
+  @NonNull
+  private SearchResult[] mPendingContactResults = {};
+  @NonNull
+  private List<ContactAddress.SearchQuery> mPendingContactQueries = List.of();
+  private int mPendingContactQueryIndex;
+  private long mSearchTimestamp;
 
   // Debouncer for runSearch() — collapses bursts of keystrokes into a single engine invocation.
   // searchInteractive() fans out to both SearchInViewport + EverywhereSearch internally, so the
@@ -344,6 +356,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     updateFrames();
     SearchEngine.INSTANCE.addListener(this);
 
+    if (mToolbarController.hasQuery())
+      searchContactAddresses();
+
     // Pre-warm tabs after the activity's critical path so the first sheet open is instant.
     // Idempotent — if the sheet opens before the post runs, setupTabsIfNeeded() fires from the
     // bottom-sheet observer instead and this no-ops.
@@ -419,6 +434,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
 
+    if (mToolbarController.hasQuery())
+      searchContactAddresses();
+
     if (mTabAdapter != null)
       setupTabsIfNeeded();
 
@@ -451,6 +469,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     SearchEngine.INSTANCE.removeListener(this);
+    mContactAddressSearch = null;
     super.onDestroyView();
   }
 
@@ -467,6 +486,39 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   void setQuery(String text, boolean isCategory)
   {
     mToolbarController.setQuery(text, isCategory);
+  }
+
+  void selectContactAddress(@NonNull ContactAddress contactAddress)
+  {
+    final ContactMapManager.ResolvedAddress resolved = ContactMapManager.INSTANCE.getResolved(contactAddress);
+    if (resolved != null)
+    {
+      if (Config.isSearchHistoryEnabled())
+      {
+        SearchRecents.add(contactAddress.address, requireContext());
+        mSearchViewModel.notifyHistoryChanged();
+      }
+      SearchEngine.INSTANCE.setQuery(contactAddress.address);
+      SearchEngine.INSTANCE.selectContactAddress(resolved.lat, resolved.lon, contactAddress.address,
+                                                 resolved.estimated, RoutingController.get().isWaitingPoiPick());
+      mToolbarController.deactivate();
+      return;
+    }
+    mPendingContactAddress = contactAddress;
+    mPendingContactSourceQuery = getQuery();
+    mPendingContactResults = new SearchResult[] {};
+    mPendingContactQueries = contactAddress.getSearchQueries();
+    mPendingContactQueryIndex = 0;
+    searchContactAddressOnMap();
+  }
+
+  private void clearPendingContactAddress()
+  {
+    mPendingContactAddress = null;
+    mPendingContactSourceQuery = null;
+    mPendingContactResults = new SearchResult[] {};
+    mPendingContactQueries = List.of();
+    mPendingContactQueryIndex = 0;
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -495,7 +547,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
-    final String query = getQuery();
+    showSingleResultOnMap(result, resultIndex, getQuery());
+  }
+
+  private void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex, @NonNull String query)
+  {
     if (Config.isSearchHistoryEnabled())
     {
       SearchRecents.add(query, requireContext());
@@ -524,6 +580,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     hideShimmer();
     updateFrames();
     updateResultsPlaceholder();
+    ContactMapManager.INSTANCE.resume();
   }
 
   private void stopSearch()
@@ -544,7 +601,38 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     // The previous search should be cancelled before the new one is started, since previous search
     // results are no longer needed.
     SearchEngine.INSTANCE.cancel();
+    mSearchAdapter.refreshContactData(List.of());
+    searchContactAddresses();
 
+    if (!startInteractiveSearch(getQuery(), isCategory()))
+    {
+      clearPendingContactAddress();
+      stopSearch();
+      return;
+    }
+
+    mSearchRunning = true;
+    mToolbarController.showProgress(true);
+    updateResultsPlaceholder();
+
+    if (mSearchAdapter.getItemCount() == 0)
+    {
+      UiUtils.show(mShimmerView);
+      mShimmerView.startShimmer();
+    }
+
+    updateFrames();
+  }
+
+  private boolean startInteractiveSearch(@NonNull String query, boolean isCategory)
+  {
+    return startInteractiveSearch(query, isCategory, false);
+  }
+
+  private boolean startInteractiveSearch(@NonNull String query, boolean isCategory, boolean allowNearbyHouseNumbers)
+  {
+    ContactMapManager.INSTANCE.pause();
+    final String searchQuery = allowNearbyHouseNumbers ? ContactAddressNormalizer.normalizeAddressQuery(query) : query;
     boolean hasLocation = mLastPosition.valid;
     double lat = mLastPosition.lat;
     double lon = mLastPosition.lon;
@@ -568,26 +656,57 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         (request != null && request.locale != null) ? request.locale : Language.getKeyboardLocale(requireContext());
     mSearchViewModel.clearPendingRequest();
 
-    SearchEngine.INSTANCE.setQuery(getQuery());
-    boolean started = SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, System.nanoTime(),
-                                                              true /* isMapAndTable */, hasLocation, lat, lon);
-    if (!started)
+    SearchEngine.INSTANCE.setQuery(query);
+    mSearchTimestamp = System.nanoTime();
+    return SearchEngine.INSTANCE.searchInteractive(searchQuery, isCategory, locale, mSearchTimestamp,
+                                                   true /* isMapAndTable */, hasLocation, lat, lon,
+                                                   allowNearbyHouseNumbers);
+  }
+
+  private void searchContactAddressOnMap()
+  {
+    final ContactAddress contactAddress = mPendingContactAddress;
+    if (contactAddress == null || mPendingContactQueryIndex >= mPendingContactQueries.size())
+      return;
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
+    SearchEngine.INSTANCE.cancel();
+    mPendingContactResults = new SearchResult[] {};
+    final ContactAddress.SearchQuery query = mPendingContactQueries.get(mPendingContactQueryIndex);
+    if (!startInteractiveSearch(query.query, false, query.allowNearbyHouseNumbers))
     {
-      stopSearch();
+      clearPendingContactAddress();
+      setQuery(contactAddress.address, false);
       return;
     }
 
     mSearchRunning = true;
     mToolbarController.showProgress(true);
-    updateResultsPlaceholder();
-
     if (mSearchAdapter.getItemCount() == 0)
     {
       UiUtils.show(mShimmerView);
       mShimmerView.startShimmer();
     }
-
+    updateResultsPlaceholder();
     updateFrames();
+  }
+
+  private void searchContactAddresses()
+  {
+    if (isCategory() || !Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
+    {
+      mSearchAdapter.refreshContactData(List.of());
+      mContactAddressSearch = null;
+      return;
+    }
+
+    mContactAddressSearch = ContactAddressSearch.getInstance(requireContext());
+
+    mContactAddressSearch.search(getQuery(), (query, results) -> {
+      if (!isAdded() || isCategory() || !query.equals(getQuery()))
+        return;
+      mSearchAdapter.refreshContactData(results);
+      updateResultsPlaceholder();
+    });
   }
 
   @Override
@@ -596,13 +715,72 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     if (!isAdded() || !mToolbarController.hasQuery())
       return;
 
+    if (mPendingContactAddress != null && timestamp == mSearchTimestamp)
+    {
+      mPendingContactResults = results;
+      return;
+    }
     refreshSearchResults(results);
   }
 
   @Override
   public void onResultsEnd(long timestamp)
   {
+    if (finishPendingContactAddressSearch(timestamp))
+      return;
     onSearchEnd();
+  }
+
+  private boolean finishPendingContactAddressSearch(long timestamp)
+  {
+    final ContactAddress contactAddress = mPendingContactAddress;
+    if (contactAddress == null || timestamp != mSearchTimestamp)
+      return false;
+
+    final SearchResult[] results = mPendingContactResults;
+    if (selectPendingContactAddressResult(results))
+      return true;
+    if (++mPendingContactQueryIndex < mPendingContactQueries.size())
+    {
+      searchContactAddressOnMap();
+      return true;
+    }
+    clearPendingContactAddress();
+    updateSearchView();
+    mSearchAdapter.refreshContactData(List.of());
+    setQuery(contactAddress.address, false);
+    return true;
+  }
+
+  private boolean selectPendingContactAddressResult(@NonNull SearchResult[] results)
+  {
+    final ContactAddress contactAddress = mPendingContactAddress;
+    if (contactAddress == null)
+      return false;
+    final ContactAddress.SearchQuery query = mPendingContactQueries.get(mPendingContactQueryIndex);
+    int bestResultIndex = -1;
+    int bestHouseNumberDifference = Integer.MAX_VALUE;
+
+    for (int i = 0; i < results.length; ++i)
+    {
+      final SearchResult result = results[i];
+      final int difference =
+          AddressResultMatcher.houseNumberDifference(contactAddress, query.expectedStreet, result);
+      if (difference == Integer.MAX_VALUE || (!query.allowNearbyHouseNumbers && difference != 0) ||
+          difference >= bestHouseNumberDifference)
+        continue;
+      bestResultIndex = i;
+      bestHouseNumberDifference = difference;
+    }
+    if (bestResultIndex < 0 || bestHouseNumberDifference > 10)
+      return false;
+
+    final SearchResult result = results[bestResultIndex];
+    ContactMapManager.INSTANCE.recordResolved(contactAddress, result.lat, result.lon, result.isEstimatedAddress);
+    clearPendingContactAddress();
+    updateSearchView();
+    showSingleResultOnMap(result, bestResultIndex, contactAddress.address);
+    return true;
   }
 
   @Override
@@ -879,6 +1057,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       if (!isAdded())
         return;
+
+      if (mPendingContactAddress != null && !query.equals(mPendingContactSourceQuery))
+        clearPendingContactAddress();
 
       mSearchViewModel.setCurrentToolbarCategorical(isCategory());
 

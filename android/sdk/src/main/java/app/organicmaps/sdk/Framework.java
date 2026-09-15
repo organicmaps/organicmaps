@@ -136,6 +136,8 @@ public class Framework
 
   public static native String nativeGetAddress(double lat, double lon);
 
+  public static native long nativeGetMwmVersion(double lat, double lon);
+
   public static native void nativePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
   public static native void nativeRemovePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
@@ -172,6 +174,9 @@ public class Framework
   }
 
   public static native void nativeClearApiPoints();
+
+  public static native void nativeSetContactMarks(double[] latitudes, double[] longitudes, String[] names,
+                                                  boolean[] estimated);
 
   @NonNull
   public static native @RequestType int nativeParseAndSetApiUrl(String url);

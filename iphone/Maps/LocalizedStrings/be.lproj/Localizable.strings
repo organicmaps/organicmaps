@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Спампуйце рэгіён, у якім вы шукаеце, або паспрабуйце дадаць назву бліжэйшага горада/вёскі.";
 "search_history_title" = "Гісторыя пошуку";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Прагляд апошніх выкарыстаных пошукавых запытаў.";
 "clear_search" = "Ачысціць гісторыю пошуку";
 
