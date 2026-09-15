@@ -109,14 +109,10 @@
     <string name="share_bookmarks_email_body">ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ Organic Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://omaps.app/get?kmz\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">ກຳລັງໂຫລດບຸກມາກ</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ທ່ານສາມາດຊອກຫາພວກມັນໄດ້ໃນແຜນທີ່ ຫຼື ໃນໜ້າຈໍຈັດການບຸກມາກ.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">ໂຫລດບຸກມາກບໍ່ສຳເລັດ. ໄຟລ໌ອາດເສຍຫາຍ ຫຼື ບົກພ່ອງ.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">ແອັບບໍ່ຮູ້ຈັກປະເພດໄຟລ໌ນີ້:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">ເປີດໄຟລ໌ບໍ່ສຳເລັດ %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ເລືອກລາຍການເພື່ອເບິ່ງໃນແຜນທີ່:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">ບໍ່ສາມາດໂຫລດໄຟລ໌ໄດ້. ໄຟລ໌ເຫຼົ່ານີ້ອາດເສຍຫາຍ ຫຼື ມີຂໍ້ບົກພ່ອງ:</string>
     <!-- resource for context menu -->
     <string name="edit">ແກ້ໄຂ</string>
     <!-- Warning message when doing search around current position -->

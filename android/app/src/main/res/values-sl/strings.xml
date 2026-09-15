@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Živjo!\n\nV priponki so moji zaznamki; odprite jih v Organic Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://omaps.app/get?kmz\n\nUživajte v potovanju z Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Nalaganje zaznamkov</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Zaznamki so bili uspešno naloženi! Najdete jih na zemljevidu ali na zaslonu Upravitelja zaznamkov.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Aplikacija ne prepozna vrste datoteke:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Odpiranje datoteke %1$s ni uspelo\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Zaznamki so bili uspešno naloženi! Izberite seznam, ki ga želite prikazati na zemljevidu:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Datotek ni bilo mogoče naložiti. Morda so poškodovane ali okvarjene:</string>
     <!-- resource for context menu -->
     <string name="edit">Uredi</string>
     <!-- Warning message when doing search around current position -->

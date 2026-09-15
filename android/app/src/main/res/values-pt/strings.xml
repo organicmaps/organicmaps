@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">A carregar favoritos</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Os favoritos foram carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Surgiu uma falha ao enviar os favoritos. O ficheiro pode estar corrompido ou com defeito.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">O tipo de ficheiro não é reconhecido pela aplicação:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Falha ao abrir o ficheiro %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Os favoritos foram carregados com sucesso! Selecione uma lista para a ver no mapa:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Não foi possível carregar os ficheiros. Podem estar corrompidos ou ter defeitos:</string>
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Warning message when doing search around current position -->

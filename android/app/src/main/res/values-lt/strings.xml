@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Labas! \n \nČia prisegtas mano žymių sąrašas iš „Organic Maps“ programėlės. Jei jos neturi, gali ją parsisiųsti iš https://omaps.app/get?kmz \n \nSmagių kelionių su „Organic Maps“!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Žymių sąrašas įkeliamas</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Žymių sąrašas įkeltas! Galite rasti jį žemėlapyje arba žymių tvarkytuvės ekrane.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Žymių sąrašo nepavyko įkelti. Gali būti, kad failas sugadintas.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Programėlė neatpažįsta failo tipo: \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Nepavyko atverti failo %1$s \n \n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Žymių sąrašas įkeltas! Pasirinkite sąrašą, kurį norite matyti žemėlapyje:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Nepavyko įkelti failų. Jie gali būti sugadinti arba netinkami:</string>
     <!-- resource for context menu -->
     <string name="edit">Taisyti</string>
     <!-- Warning message when doing search around current position -->

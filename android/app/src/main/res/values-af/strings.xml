@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Hallo!\n\nMy boekmerke is aangeheg; open dit asb. in Organic Maps. Indien dit nie geïnstalleer is nie, kan u dit hier aflaai: https://omaps.app/get?kmz\n\nGeniet dit om met Organic Maps te reis!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Laai tans boekmerke</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Boekmerke is suksesvol gelaai! U kan dit op die kaart of op die boekmerkbestuurderskerm vind.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Kon nie boekmerke laai nie. Die lêer is dalk gekorrupteer of defektief.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Die lêertipe word nie deur die toepassing herken nie:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Kon nie lêer oopmaak nie %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Boekmerke is suksesvol gelaai! Kies ’n lys om dit op die kaart te sien:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Kon nie die lêers laai nie. Hulle is dalk beskadig of defektief:</string>
     <!-- resource for context menu -->
     <string name="edit">Wysig</string>
     <!-- Warning message when doing search around current position -->

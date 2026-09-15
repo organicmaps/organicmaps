@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Nahrávání záložek";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Záložky byly úspěšně nahrány! Naleznete je na mapě nebo ve správci záložek.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Záložky byly úspěšně nahrány! Vyberte seznam, který chcete zobrazit na mapě:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Soubory se nepodařilo načíst. Mohou být poškozené nebo vadné:";
 
 /* resource for context menu */
 "edit" = "Upravit";

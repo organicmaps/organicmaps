@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Hleð inn bókamerkjum";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Tókst að hlaða inn bókamerkjum! Þú getur skoðað þau á landakortinu eða í bókamerkjasafninu.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Tókst að hlaða inn bókamerkjum! Veldu lista til að skoða hann á kortinu:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Mistókst að hlaða inn bókamerkjum. Skráin gæti verið skemmd eða gölluð.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Ekki tókst að hlaða inn skránum. Þær gætu verið skemmdar eða gallaðar:";
 
 /* resource for context menu */
 "edit" = "Breyta";
