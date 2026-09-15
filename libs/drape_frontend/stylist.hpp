@@ -23,13 +23,6 @@ public:
   DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
 
   AreaPattern GetHatch(uint32_t type) const;
-  AreaPattern GetHatch(feature::TypesHolder const & types) const;
-
-  template <class T>
-  bool operator()(T && t) const
-  {
-    return GetHatch(t) != AreaPattern::None;
-  }
 
 private:
   // 45d hatch.
@@ -42,9 +35,7 @@ private:
   uint32_t m_2levelDash;  // dash hatch
 };
 
-// Maps natural-surface area types to a solid-fill pattern key (analytic, single pass). Unlike hatching,
-// these modulate the surface colour in place (e.g. a darker speckle over sand) rather than overlaying a
-// transparent mask.
+// Maps area types to their solid-fill patterns.
 class IsAreaPatternChecker
 {
   IsAreaPatternChecker() = default;
@@ -52,14 +43,16 @@ class IsAreaPatternChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsAreaPatternChecker);
 
+  // The pattern of a surface type, drawn only on its own fill.
   AreaPattern GetPattern(uint32_t type) const;
-  AreaPattern GetPattern(feature::TypesHolder const & types) const;
+  // The pattern of a modifier type, e.g. intermittent water, drawn on the fill of any type of the feature.
+  AreaPattern GetModifierPattern(uint32_t type) const;
 
 private:
   struct Stipple : ftypes::BaseCheckerEx
   {
     Stipple();
-  } m_stipple;  // beach (incl. sand subtype) / desert / intermittent water
+  } m_stipple;  // beach (incl. subtypes) / desert
   struct Speckle : ftypes::BaseCheckerEx
   {
     Speckle();
@@ -68,6 +61,10 @@ private:
   {
     Grid();
   } m_grid;  // orchard / vineyard
+  struct Intermittent : ftypes::BaseCheckerEx
+  {
+    Intermittent();
+  } m_intermittent;  // intermittent water, a stipple modifier
 };
 
 struct CaptionDescription
@@ -108,6 +105,8 @@ public:
   drule::ShieldRule const * m_shieldRule = nullptr;
   drule::AreaRule const * m_areaRule = nullptr;
   drule::AreaRule const * m_hatchingRule = nullptr;
+  AreaPattern m_areaPattern = AreaPattern::None;
+  AreaPattern m_hatchingPattern = AreaPattern::None;
 
   using LineRulesT = buffer_vector<drule::LineRule const *, 4>;
   LineRulesT m_lineRules;
