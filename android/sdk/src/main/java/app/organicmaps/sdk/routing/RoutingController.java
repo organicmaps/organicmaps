@@ -34,6 +34,16 @@ public class RoutingController
     ERROR
   }
 
+  /** What a pending POI pick does with the picked place once it is committed. */
+  public enum PoiPickMode
+  {
+    /** Set the pick's own point type: Start, Finish, or an intermediate stop before the destination. */
+    SET,
+    REPLACE,
+    /** Continue the route: the picked place becomes the new destination. */
+    APPEND
+  }
+
   public interface Container
   {
     default void showRoutePlan(boolean show, @Nullable Runnable completionListener) {}
@@ -84,8 +94,8 @@ public class RoutingController
   private RouteMarkType mWaitingPoiPickType = null;
   private int mLastBuildProgress;
   private Router mLastRouterType;
-  private boolean isPoiPickReplaceStop;
-  private boolean isPoiPickAppendStop;
+  @NonNull
+  private PoiPickMode mPoiPickMode = PoiPickMode.SET;
   private int mReplaceStopIndex = -1;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
@@ -408,32 +418,38 @@ public class RoutingController
   {
     RouteMarkType type = mWaitingPoiPickType != null ? mWaitingPoiPickType : RouteMarkType.Intermediate;
     replaceRoutePoint(type, mapObject, mReplaceStopIndex);
-    build();
-    if (mContainer != null)
-      mContainer.onAddedStop();
-    resetToPlanningStateIfNavigating();
-    resetPoiPickState();
+    finalizeStopChange();
   }
 
   public void addStop(@NonNull MapObject mapObject)
   {
     addRoutePoint(RouteMarkType.Intermediate, mapObject);
-    build();
-    if (mContainer != null)
-      mContainer.onAddedStop();
-    resetToPlanningStateIfNavigating();
-    resetPoiPickState();
+    finalizeStopChange();
   }
 
-  public void appendStop(@NonNull MapObject mapObject)
+  private void appendStop(@NonNull MapObject mapObject)
   {
     if (!appendRoutePoint(mapObject))
     {
-      resetPoiPickState();
-      if (mContainer != null)
-        mContainer.onPoiPickCompleted();
+      finalizePendingPoiPick();
       return;
     }
+    finalizeStopChange();
+  }
+
+  // With no pick armed the mode is SET, which is the plain place page path: insert an intermediate point.
+  public void commitStopPick(@NonNull MapObject mapObject)
+  {
+    if (mPoiPickMode == PoiPickMode.REPLACE)
+      replaceStop(mapObject);
+    else if (mPoiPickMode == PoiPickMode.APPEND)
+      appendStop(mapObject);
+    else
+      addStop(mapObject);
+  }
+
+  private void finalizeStopChange()
+  {
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
@@ -499,14 +515,10 @@ public class RoutingController
     return Framework.nativeCouldAddIntermediatePoint();
   }
 
-  public boolean isPoiPickReplaceStop()
+  @NonNull
+  public PoiPickMode getPoiPickMode()
   {
-    return isPoiPickReplaceStop;
-  }
-
-  public boolean isPoiPickAppendStop()
-  {
-    return isPoiPickAppendStop;
+    return mPoiPickMode;
   }
 
   public boolean isRoutePoint(@NonNull MapObject mapObject)
@@ -662,28 +674,32 @@ public class RoutingController
 
   public void waitForPoiPick(@NonNull RouteMarkType pointType)
   {
-    // Arming a pick always starts from a clean slate: the mode setters below are optional, so a leftover
-    // replace/append flag would otherwise silently change what the next, unrelated pick does.
-    resetPoiPickState();
+    setPoiPick(pointType, PoiPickMode.SET, -1);
+  }
+
+  public void waitForPoiPickToReplace(@NonNull RouteMarkType pointType, int index)
+  {
+    setPoiPick(pointType, PoiPickMode.REPLACE, index);
+  }
+
+  public void waitForPoiPickToAppend()
+  {
+    setPoiPick(RouteMarkType.Intermediate, PoiPickMode.APPEND, -1);
+  }
+
+  // Type and mode are set together, so a mode left over from an abandoned pick cannot alter the next one.
+  private void setPoiPick(@NonNull RouteMarkType pointType, @NonNull PoiPickMode mode, int replaceIndex)
+  {
     mWaitingPoiPickType = pointType;
-  }
-
-  public void replaceStopPoiPick(int index)
-  {
-    mReplaceStopIndex = index;
-    isPoiPickReplaceStop = true;
-  }
-
-  public void appendStopPoiPick()
-  {
-    isPoiPickAppendStop = true;
+    mPoiPickMode = mode;
+    mReplaceStopIndex = replaceIndex;
   }
 
   public void cancelStopPoiPick()
   {
-    // Start/Finish picks are finalized by set{Start,End}Point() after the search is torn down and need their
-    // pending state until then. Stop picks have no such finalizer, so an abandoned one is dropped here.
-    if (isPoiPickReplaceStop || isPoiPickAppendStop || mWaitingPoiPickType == RouteMarkType.Intermediate)
+    // Only a plain Start/Finish pick survives: set{Start,End}Point() finalizes it after the search teardown.
+    // Stop picks have no such finalizer, so an abandoned one is dropped here.
+    if (mPoiPickMode != PoiPickMode.SET || mWaitingPoiPickType == RouteMarkType.Intermediate)
       resetPoiPickState();
   }
 
@@ -696,13 +712,11 @@ public class RoutingController
       mContainer.onPoiPickCompleted();
   }
 
-  // Clears the pending POI-pick selection in one place. The replace-stop index/flag must be cleared together
-  // with the waiting type, otherwise a cancelled replace leaks its index into the next, unrelated pick.
+  // All three fields go together: a leftover mode or index would leak into the next, unrelated pick.
   private void resetPoiPickState()
   {
     mWaitingPoiPickType = null;
-    isPoiPickReplaceStop = false;
-    isPoiPickAppendStop = false;
+    mPoiPickMode = PoiPickMode.SET;
     mReplaceStopIndex = -1;
   }
 
@@ -1012,9 +1026,9 @@ public class RoutingController
 
     if (point != null)
     {
-      if (isPoiPickReplaceStop)
+      if (mPoiPickMode == PoiPickMode.REPLACE)
         replaceStop(point);
-      else if (isPoiPickAppendStop)
+      else if (mPoiPickMode == PoiPickMode.APPEND)
         appendStop(point);
       else if (mWaitingPoiPickType == RouteMarkType.Finish)
         setEndPoint(point);

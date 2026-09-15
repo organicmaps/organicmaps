@@ -38,6 +38,7 @@ import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingController.PoiPickMode;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
@@ -573,13 +574,8 @@ public class PlacePageController
 
   private void onRouteAddBtnClicked()
   {
-    if (mMapObject == null)
-      return;
-    final RoutingController controller = RoutingController.get();
-    if (controller.isWaitingPoiPick() && controller.isPoiPickAppendStop())
-      controller.appendStop(mMapObject);
-    else
-      controller.addStop(mMapObject);
+    if (mMapObject != null)
+      RoutingController.get().commitStopPick(mMapObject);
   }
 
   private void onRouteRemoveBtnClicked()
@@ -670,11 +666,11 @@ public class PlacePageController
       // and leave only the bookmark button, so fall through to the regular routing buttons in that case.
       final boolean isIntermediateStopPick =
           RoutingController.get().isWaitingPoiPick()
-          && (RoutingController.get().isPoiPickReplaceStop()
+          && (RoutingController.get().getPoiPickMode() == PoiPickMode.REPLACE
               || RoutingController.get().getWaitingPoiPickType() == RouteMarkType.Intermediate);
       if (isIntermediateStopPick)
       {
-        if (RoutingController.get().isPoiPickReplaceStop())
+        if (RoutingController.get().getPoiPickMode() == PoiPickMode.REPLACE)
         {
           buttons.add(PlacePageButtons.ButtonType.ROUTE_REPLACE);
         }
