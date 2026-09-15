@@ -5,7 +5,8 @@ import android.content.Intent
 /**
  * Use a search intent to search for a query and display multiple results along the route while driving.
  *
- * @see <a href="https://developer.android.com/develop/devices/assistant/intents-assistant-nav-app#search-intent">Intent format</a>
+ * @see <a href="https://developer.android.com/develop/devices/assistant/intents-assistant-nav-app#search-intent">
+ *     Intent format</a>
  */
 class GeoViewIntent private constructor(val lat: Double, val lon: Double, val query: String) {
     companion object {

@@ -16,7 +16,8 @@ class DefaultReportActionHandler : ReportActionHandler {
     override fun reportHazard(hazardType: HazardType?, locationOnRoad: LocationOnRoad?, roadDirection: RoadDirection?) {
         Logger.d(
             TAG,
-            "Not implemented: report hazard hazardType=$hazardType, locationOnRoad=$locationOnRoad, roadDirection=$roadDirection",
+            "Not implemented: report hazard hazardType=$hazardType, locationOnRoad=$locationOnRoad, " +
+                "roadDirection=$roadDirection",
         )
     }
 

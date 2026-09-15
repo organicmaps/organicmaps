@@ -5,7 +5,7 @@ plugins {
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
-  namespace 'app.organicmaps.intent'
+  namespace = 'app.organicmaps.intent'
   enableKotlin = true
 }
 
@@ -14,4 +14,8 @@ dependencies {
   implementation project(':sdk')
 
   implementation libs.androidx.annotation
+
+  testImplementation libs.androidx.junit
+  testImplementation libs.mockito.inline
+  testImplementation libs.robolectric
 }

@@ -13,9 +13,12 @@ import app.organicmaps.sdk.util.log.Logger
  *
  * Intent data follows a URI format specified for each intent.
  *
- * @see <a href="https://developer.android.com/develop/devices/assistant/intents-assistant-nav-app.intent-format">Intent format</a>
+ * @see <a href="https://developer.android.com/develop/devices/assistant/intents-assistant-nav-app.intent-format">
+ *     Intent format</a>
  */
-class GeoNavigationIntent private constructor(
+class GeoNavigationIntent
+@Suppress("LongParameterList")
+private constructor(
     val lat: Double,
     val lon: Double,
     val query: String?,
@@ -62,37 +65,24 @@ class GeoNavigationIntent private constructor(
         private fun parseAvoidList(avoidListStr: String?): List<Avoid> {
             if (avoidListStr.isNullOrEmpty()) return emptyList()
 
-            val avoidList = mutableListOf<Avoid>()
-            for (item in avoidListStr.split(',')) {
-                if (item.length != 1) {
-                    Logger.w(TAG, "Invalid avoid item: $item")
-                    continue
-                }
-
-                val avoid = Enums.fromRaw<Avoid>(item[0])
-                if (avoid == null) {
+            return avoidListStr.mapNotNull { item ->
+                Enums.fromRaw<Avoid>(item) ?: run {
                     Logger.w(TAG, "Unknown avoid item: $item")
-                    continue
+                    null
                 }
-
-                avoidList.add(avoid)
             }
-            return avoidList
         }
 
         private fun parseTravelMode(travelModeStr: String?): TravelMode? {
             if (travelModeStr.isNullOrEmpty()) return null
 
             val rawMode = travelModeStr.singleOrNull()
-            if (rawMode == null) {
-                Logger.w(TAG, "Invalid travel mode: $travelModeStr")
-                return null
+            val travelMode = rawMode?.let { Enums.fromRaw<TravelMode>(it) }
+            if (travelMode == null) {
+                val reason = if (rawMode == null) "Invalid" else "Unknown"
+                Logger.w(TAG, "$reason travel mode: $travelModeStr")
             }
-
-            return Enums.fromRaw<TravelMode>(rawMode) ?: run {
-                Logger.w(TAG, "Unknown travel mode: $travelModeStr")
-                null
-            }
+            return travelMode
         }
     }
 }

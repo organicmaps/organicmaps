@@ -16,11 +16,16 @@ import app.organicmaps.sdk.util.log.Logger
  * The main action type is defined by the act query parameter.
  * You can set additional parameters depending on the action type.
  *
- * @see <a href="https://developer.android.com/develop/devices/assistant/intents-assistant-nav-app.custom-action-intent-format">Intent format</a>
+ * @see <a href="https://developer.android.com/develop/devices/assistant/intents-assistant-nav-app.custom-action-intent-format">
+ *     Intent format</a>
  *
- * @see <a href="https://developer.android.com/training/cars/platforms/automotive-os/android-intents-automotive.action-intents">Android automotive intent parameters</a>
+ * @see <a href="https://developer.android.com/training/cars/platforms/automotive-os/android-intents-automotive.action-intents">
+ *     Android automotive intent parameters</a>
  */
-class GeoActionIntent private constructor(
+@Suppress("MaxLineLength") // Long @see URLs cannot be wrapped without breaking the link.
+class GeoActionIntent
+@Suppress("LongParameterList")
+private constructor(
     val actionType: ActionType,
     /** Supported action types:
      *
@@ -65,7 +70,7 @@ class GeoActionIntent private constructor(
         private val SUPPORTED_SCHEMES = setOf("geo.action", "geo.action.offline")
         private const val SEARCH_ID_KEY = "id"
 
-        const val DEFAULT_SEARCH_ID: Int = -1
+        const val DEFAULT_SEARCH_ID: Int = 0
 
         fun fromIntent(intent: Intent): GeoActionIntent? {
             if (Intent.ACTION_VIEW != intent.action) return null
@@ -83,7 +88,7 @@ class GeoActionIntent private constructor(
             val searchIdRaw = queryParams[SEARCH_ID_KEY]
             val searchId = searchIdRaw?.toIntOrNull()?.takeIf { it >= 0 } ?: run {
                 if (searchIdRaw != null && actionType == ActionType.SelectSearchResult) {
-                    Logger.w(TAG, "Invalid search id: $searchIdRaw")
+                    Logger.w(TAG, "Invalid search id: $searchIdRaw. Use default value: $DEFAULT_SEARCH_ID")
                 }
                 DEFAULT_SEARCH_ID
             }

@@ -3,7 +3,8 @@ package app.organicmaps.intent.geo.navigation
 import app.organicmaps.intent.geo.enums.CharEnum
 
 /**
- * @see <a href="https://developer.android.com/develop/devices/assistant/intents-assistant-nav-app.travel_mode">TravelMode</a>
+ * @see <a href="https://developer.android.com/develop/devices/assistant/intents-assistant-nav-app.travel_mode">
+ *     TravelMode</a>
  */
 enum class TravelMode(override val raw: Char) : CharEnum {
     Bicycle('b'),
