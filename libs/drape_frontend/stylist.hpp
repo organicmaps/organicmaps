@@ -61,6 +61,10 @@ private:
   {
     Grid();
   } m_grid;  // orchard / vineyard
+  struct Forest : ftypes::BaseCheckerEx
+  {
+    Forest();
+  } m_forest;  // forest incl. leaf type subtypes
   struct Intermittent : ftypes::BaseCheckerEx
   {
     Intermittent();

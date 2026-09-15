@@ -63,6 +63,12 @@ UNIT_TEST(Stylist_IsAreaPattern)
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "orchard"})), AreaPattern::Grid, ());
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "vineyard"})), AreaPattern::Grid, ());
 
+  // Forest: the leaf type subtypes match via their parent.
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest"})), AreaPattern::Forest, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest", "coniferous"})), AreaPattern::Forest, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest", "deciduous"})), AreaPattern::Forest, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "forest", "mixed"})), AreaPattern::Forest, ());
+
   // Intermittent water is a modifier: its stipple is drawn on the fill of any type.
   for (uint32_t const type :
        {cl.GetTypeByPath({"natural", "water", "intermittent"}), cl.GetTypeByPath({"landuse", "basin", "intermittent"})})
@@ -93,14 +99,13 @@ public:
   }
 };
 
+// The fill or hatching rule of an area with just this type. Stylist also applies the runtime selectors, which split
+// e.g. forest rules for named features.
 drule::AreaRule const * GetAreaRule(Path const & path, int zoom)
 {
-  drule::KeysT keys;
-  classif().GetObject(classif().GetTypeByPath(path))->GetSuitable(zoom, feature::GeomType::Area, keys);
-  for (auto const & k : keys)
-    if (k.m_type == drule::area)
-      return drule::GetCurrentRules().Find(k)->GetArea();
-  return nullptr;
+  auto const ft = FeatureType::CreateFromMapObject(AreaObject({classif().GetTypeByPath(path)}));
+  df::Stylist const s(*ft, zoom, 0 /* deviceLang */, false /* forceOutdoorStyle */);
+  return s.m_hatchingRule ? s.m_hatchingRule : s.m_areaRule;
 }
 
 // Checks that Stylist retains the area rules of the expected fill and hatching types with their patterns, in both
@@ -150,6 +155,12 @@ UNIT_TEST(Stylist_AreaPatternsFollowRetainedRules)
   TestAreaRules({{"natural", "bare_rock"}, {"natural", "water"}}, {"natural", "water"}, AreaPattern::None);
   TestAreaRules({{"natural", "scree"}, {"natural", "scrub"}}, {"natural", "scrub"}, AreaPattern::None);
   TestAreaRules({{"natural", "beach"}, {"natural", "scree"}}, {"natural", "scree"}, AreaPattern::Speckle);
+  // A forest keeps its pattern under a hatch.
+  TestAreaRules({{"landuse", "forest", "coniferous"}, {"leisure", "nature_reserve"}},
+                {"landuse", "forest", "coniferous"}, AreaPattern::Forest, {"leisure", "nature_reserve"},
+                AreaPattern::Hatch45d);
+  // A forest that is also scrub keeps the plain scrub fill.
+  TestAreaRules({{"landuse", "forest"}, {"natural", "scrub"}}, {"natural", "scrub"}, AreaPattern::None);
   // A beach mapped as a beach resort, which has the same fill, keeps its dots.
   TestAreaRules({{"natural", "beach"}, {"leisure", "beach_resort"}}, {"natural", "beach"}, AreaPattern::Stipple);
 
