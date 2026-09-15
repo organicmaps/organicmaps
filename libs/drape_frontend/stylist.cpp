@@ -50,6 +50,8 @@ IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "s
 
 IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
 
+IsAreaPatternChecker::Forest::Forest() : ftypes::BaseCheckerEx({{"landuse", "forest"}}) {}
+
 IsAreaPatternChecker::Intermittent::Intermittent()
   : ftypes::BaseCheckerEx({{"natural", "water", "intermittent"}, {"landuse", "basin", "intermittent"}})
 {}
@@ -62,6 +64,8 @@ AreaPattern IsAreaPatternChecker::GetPattern(uint32_t type) const
     return AreaPattern::Speckle;
   if (m_grid(type))
     return AreaPattern::Grid;
+  if (m_forest(type))
+    return AreaPattern::Forest;
   return AreaPattern::None;
 }
 
