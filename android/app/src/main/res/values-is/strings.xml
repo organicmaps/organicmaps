@@ -932,4 +932,6 @@
     <string name="color_picker_grid">Rist</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Raddaleit</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Snúa leiðinni við</string>
 </resources>

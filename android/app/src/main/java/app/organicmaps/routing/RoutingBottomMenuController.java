@@ -258,6 +258,12 @@ final class RoutingBottomMenuController
     mSaveButton.setAlpha(enabled ? 1.0f : SAVE_BUTTON_DISABLED_ALPHA);
   }
 
+  void reverseRoute()
+  {
+    if (mManageRouteController != null)
+      mManageRouteController.reverseRoute();
+  }
+
   void refreshManageRoute()
   {
     if (mManageRouteController != null)

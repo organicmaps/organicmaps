@@ -941,4 +941,6 @@
     <string name="color_picker_grid">Mřížka</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Hlasové vyhledávání</string>
+    <!-- Accessibility label for the button that swaps the route direction -->
+    <string name="reverse_route">Obrátit trasu</string>
 </resources>
