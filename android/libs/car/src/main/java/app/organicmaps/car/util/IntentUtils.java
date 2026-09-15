@@ -13,10 +13,17 @@ import app.organicmaps.api.Const;
 import app.organicmaps.car.CarAppServiceBase;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
-import app.organicmaps.intent.GoogleAssistantIntentHandler;
+import app.organicmaps.intent.geo.GeoIntentProcessor;
+import app.organicmaps.intent.geo.handlers.DefaultAvoidActionHandler;
+import app.organicmaps.intent.geo.handlers.DefaultControlActionHandler;
+import app.organicmaps.intent.geo.handlers.DefaultNavigationActionHandler;
+import app.organicmaps.intent.geo.handlers.DefaultReportActionHandler;
+import app.organicmaps.intent.geo.handlers.DefaultSearchActionHandler;
+import app.organicmaps.intent.geo.handlers.DefaultVoiceActionHandler;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.api.ApiController;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.car.renderer.Renderer;
@@ -31,52 +38,21 @@ public final class IntentUtils
 
   private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
 
-  private static final CarGoogleAssistantIntentProcessor ASSISTANT_PROCESSOR = new CarGoogleAssistantIntentProcessor();
+  private static final GeoIntentProcessor sGeoIntentProcessor = new GeoIntentProcessor(
+      new DefaultAvoidActionHandler(), new DefaultControlActionHandler(), new DefaultNavigationActionHandler(),
+      new DefaultReportActionHandler(), new DefaultSearchActionHandler(), new DefaultVoiceActionHandler());
 
   public static void processIntent(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
                                    @NonNull Renderer surfaceRenderer, @NonNull DisplayManager displayManager,
                                    @NonNull Intent intent)
   {
-    if (ASSISTANT_PROCESSOR.processIntent(carContext, organicMapsContext, surfaceRenderer, intent))
+    if (sGeoIntentProcessor.processIntent(intent))
       return;
-
     final String action = intent.getAction();
     if (CarContext.ACTION_NAVIGATE.equals(action))
       IntentUtils.processNavigationIntent(carContext, organicMapsContext, surfaceRenderer, intent);
     else if (Intent.ACTION_VIEW.equals(action))
       processViewIntent(carContext, displayManager, intent);
-  }
-
-  private static final class CarGoogleAssistantIntentProcessor extends GoogleAssistantIntentHandler
-  {
-    boolean processIntent(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
-                          @NonNull Renderer surfaceRenderer, @NonNull Intent intent)
-    {
-      return handleIntent(intent, new CarSearchHandler(carContext, organicMapsContext, surfaceRenderer));
-    }
-  }
-
-  private record CarSearchHandler(CarContext mCarContext, OrganicMaps mOrganicMapsContext, Renderer mSurfaceRenderer)
-      implements GoogleAssistantIntentHandler.SearchHandler
-  {
-    private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull OrganicMaps mOrganicMapsContext,
-                             @NonNull Renderer mSurfaceRenderer)
-    {
-      this.mCarContext = mCarContext;
-      this.mOrganicMapsContext = mOrganicMapsContext;
-      this.mSurfaceRenderer = mSurfaceRenderer;
-    }
-
-    @Override
-    public void handleSearch(@NonNull String query, boolean searchOnMap)
-    {
-      final ScreenManager screenManager = mCarContext.getCarService(ScreenManager.class);
-      final SearchScreen.Builder builder = new SearchScreen.Builder(mCarContext, mOrganicMapsContext, mSurfaceRenderer);
-      builder.setQuery(query);
-
-      screenManager.popToRoot();
-      screenManager.push(builder.build());
-    }
   }
 
   @NonNull
@@ -102,7 +78,7 @@ public final class IntentUtils
       return;
 
     final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
-    switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
+    switch (ApiController.nativeParseAndSetApiUrl(uri.toString()))
     {
     case RequestType.INCORRECT: return;
     case RequestType.MAP:
@@ -111,8 +87,8 @@ public final class IntentUtils
       return;
     case RequestType.SEARCH:
       screenManager.popToRoot();
-      final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-      final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+      final ParsedSearchRequest request = ApiController.nativeGetParsedSearchRequest();
+      final double[] latlon = ApiController.nativeGetParsedCenterLatLon();
       if (latlon != null)
       {
         Framework.nativeStopLocationFollow();

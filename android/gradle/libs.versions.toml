@@ -53,6 +53,8 @@ nmcp = "1.4.4"
 
 okhttp = "5.3.2"
 
+robolectric = "4.17"
+
 triplet-play-publisher = "4.0.0"
 
 vanniktech-maven-publish = "0.36.0"
@@ -99,6 +101,8 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-cor
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
 
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
