@@ -105,6 +105,7 @@ area|z12-[landuse=village_green],
 area|z12-[landuse=field],
 {fill-opacity: 1;}
 
+/* landuse=orchard and landuse=vineyard are hardcoded to have a grid-style fill, see drape_frontend/stylist.cpp */
 area|z12-[landuse=grass],
 area|z12-[natural=grassland],
 area|z12-[leisure=miniature_golf],
@@ -150,6 +151,7 @@ area|z16-[leisure=garden][garden:type=residential],
 area|z17-[leisure=garden][garden:type=residential],
 {fill-color: @green2;}
 
+/* natural=bare_rock is hardcoded to have a speckle-style fill, see drape_frontend/stylist.cpp */
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}
 
@@ -167,7 +169,7 @@ area|z12-[landuse=military]
 
 area|z12-[amenity=prison]
 {fill-opacity: 0.5; fill-color: @prison;}
-/* End of hardcoded */
+/* End of hardcoded hatching */
 
 /* 5.BEACH, GLACIER, DESERT, etc. */
 
@@ -180,10 +182,12 @@ area|z10-[leisure=beach_resort],
 area|z0-[natural=glacier]
 {fill-color: @glacier;}
 
+/* natural=beach is hardcoded to have a stipple-style fill, see drape_frontend/stylist.cpp */
 area|z10-[natural=beach],
 area|z10-[leisure=beach_resort],
 {fill-color: @beach;fill-opacity: 0.35;}
 
+/* natural=desert is hardcoded to have a stipple-style fill, see drape_frontend/stylist.cpp */
 area|z0-[natural=desert],
 {fill-color: @desert;}
 
@@ -292,6 +296,7 @@ area|z15-[amenity=parking],
 
 /* 7.1 Industrial */
 
+/* landuse=quarry is hardcoded to have a speckle-style fill, see drape_frontend/stylist.cpp */
 area|z15-[landuse=industrial],
 area|z15-[landuse=construction],
 area|z15-[landuse=landfill],
