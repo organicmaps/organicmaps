@@ -111,6 +111,7 @@ UNIT_TEST(EditableMapObject_ValidateFlats)
   TEST(EditableMapObject::ValidateFlats("123-456; 43-45"), ());
   TEST(!EditableMapObject::ValidateFlats("123-456, 43-45"), ());
   TEST(!EditableMapObject::ValidateFlats("234-234 124"), ());
+  TEST(!EditableMapObject::ValidateFlats("123-\xC3\xA9"), ());
   TEST(!EditableMapObject::ValidateFlats("123-345-567"), ());
   TEST(!EditableMapObject::ValidateFlats("234-234;234("), ());
   TEST(!EditableMapObject::ValidateFlats("-;"), ());
@@ -146,6 +147,7 @@ UNIT_TEST(EditableMapObject_ValidatePhoneList)
   TEST(!EditableMapObject::ValidatePhoneList("00 00"), ());
   TEST(!EditableMapObject::ValidatePhoneList("acb"), ());
   TEST(!EditableMapObject::ValidatePhoneList("000 000 00b"), ());
+  TEST(!EditableMapObject::ValidatePhoneList("12345\xC3\xA9"), ());
   TEST(!EditableMapObject::ValidatePhoneList(";"), ());
   TEST(!EditableMapObject::ValidatePhoneList(","), ());
   TEST(!EditableMapObject::ValidatePhoneList(";;;;;;"), ());
