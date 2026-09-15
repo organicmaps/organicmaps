@@ -47,3 +47,13 @@ vec2 calcLineTransformedAxisPos(vec2 originalAxisPos, vec2 shiftedPos, mat4 mode
 }
 
 // FS (DO NOT modify this comment, it marks up block of fragment shader functions).
+
+// Shades a fill under an area pattern dot of the given coverage: darkens a light fill by |darken| and lightens a
+// dark one by a fixed offset, which, unlike a multiplier, stays visible on near-black fills.
+LOW_P vec3 ModulateByPatternDots(LOW_P vec3 color, float darken, float coverage)
+{
+  const float kLighten = 0.075;
+  if (dot(color, vec3(0.2126, 0.7152, 0.0722)) < 0.5)
+    return color + coverage * kLighten;
+  return color * mix(1.0, darken, coverage);
+}

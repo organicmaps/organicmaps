@@ -21,7 +21,7 @@ layout (binding = 0) uniform UBO
 };
 
 // Analytic speckle: a denser, finer, size-varied dot field for rocky surfaces (scree/bare_rock). Same
-// single-pass solid-fill + darken idea as the stipple, but smaller cells and per-cell radius variation
+// single-pass solid fill with dots as the stipple, but smaller cells and per-cell radius variation
 // read as a coarse, irregular rock texture rather than even sand grains. fwidth() AA, no texture/mip.
 
 const float kCellPx = 4.0;        // denser than stipple (divides the 16px tile, so cells tile seamlessly)
@@ -54,7 +54,7 @@ void main()
   float aa = max(fwidth(px.x), fwidth(px.y));
   float coverage = 1.0 - smoothstep(radius - aa, radius + aa, d);
 
-  color.rgb *= mix(1.0, kDarken, coverage);
+  color.rgb = ModulateByPatternDots(color.rgb, kDarken, coverage);
   color.a *= u_opacity;
   v_FragColor = color;
 }

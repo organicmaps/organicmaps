@@ -57,7 +57,7 @@ private:
   struct Stipple : ftypes::BaseCheckerEx
   {
     Stipple();
-  } m_stipple;  // beach (incl. sand subtype) / desert
+  } m_stipple;  // beach (incl. sand subtype) / desert / intermittent water
   struct Speckle : ftypes::BaseCheckerEx
   {
     Speckle();
