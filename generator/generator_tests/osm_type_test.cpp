@@ -1818,11 +1818,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterAreas)
   char const * const waters[] = {"basin", "ditch", "drain",     "lake",  "lock",
                                  "moat",  "pond",  "reservoir", "river", "wastewater"};
 
-  Tags const nonPermanent = {{"intermittent", "yes"},
-                             {"seasonal", "yes"},
-                             {"seasonal", "spring;summer"},
-                             {"basin", "detention"},
-                             {"basin", "infiltration"}};
+  Tags const nonPermanent = {{"intermittent", "yes"}, {"seasonal", "yes"},       {"seasonal", "spring;summer"},
+                             {"basin", "detention"},  {"basin", "infiltration"}, {"ephemeral", "yes"}};
   for (auto const & tag : nonPermanent)
   {
     TestTypes({{"natural", "water"}, tag}, {intermittent});
@@ -1840,7 +1837,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterAreas)
   // Tunnels keep their own type only.
   TestTypes({{"natural", "water"}, {"tunnel", "culvert"}, {"intermittent", "yes"}}, {});
 
-  Tags const permanent = {{"intermittent", "no"}, {"seasonal", "no"}, {"basin", "retention"}};
+  Tags const permanent = {{"intermittent", "no"}, {"seasonal", "no"}, {"basin", "retention"}, {"ephemeral", "no"}};
   for (auto const & tag : permanent)
   {
     TestTypes({{"natural", "water"}, tag}, {{"natural", "water"}});
@@ -1852,6 +1849,25 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterAreas)
   // seasonal=* is valid for non-water features too.
   TestTypes({{"natural", "wetland"}, {"seasonal", "yes"}}, {{"natural", "wetland"}});
   TestTypes({{"leisure", "ice_rink"}, {"seasonal", "winter"}}, {{"leisure", "ice_rink"}});
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterways)
+{
+  Tags const nonPermanent = {{"intermittent", "yes"},
+                             {"intermittent", "ephemeral"},
+                             {"seasonal", "yes"},
+                             {"seasonal", "wet_season"},
+                             {"ephemeral", "yes"}};
+  Tags const permanent = {{"intermittent", "no"}, {"seasonal", "no"}, {"ephemeral", "no"}};
+  for (char const * base : {"canal", "ditch", "drain", "fish_pass", "river", "stream"})
+  {
+    for (auto const & tag : nonPermanent)
+      TestTypes({{"waterway", base}, tag}, {{"waterway", base, "intermittent"}});
+    for (auto const & tag : permanent)
+      TestTypes({{"waterway", base}, tag}, {{"waterway", base}});
+    TestTypes({{"waterway", base}, {"intermittent", "yes"}, {"ephemeral", "yes"}},
+              {{"waterway", base, "intermittent"}});
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
@@ -3122,7 +3138,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
       {{"tourism", "information", "office"}, {{"tourism", "information"}, {"information", "office"}}},
       //{{"waterway", "canal", "tunnel"}, {{"waterway", "canal"}, {"tunnel", "any_value"}}},
       //{{"waterway", "river", "tunnel"}, {{"waterway", "river"}, {"tunnel", "any_value"}}},
-      {{"waterway", "stream", "ephemeral"}, {{"waterway", "stream"}, {"intermittent", "ephemeral"}}},
       {{"waterway", "stream", "intermittent"}, {{"waterway", "stream"}, {"intermittent", "yes"}}},
   };
 
