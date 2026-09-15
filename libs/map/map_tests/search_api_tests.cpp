@@ -12,7 +12,6 @@
 
 #include "map/bookmarks_search_params.hpp"
 #include "map/search_api.hpp"
-#include "map/search_product_info.hpp"
 #include "map/viewport_search_params.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -185,7 +184,7 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
     promise<void> promise;
     auto future = promise.get_future();
 
-    params.m_onResults = [&](Results const & results, vector<ProductInfo> const &)
+    params.m_onResults = [&](Results const & results)
     {
       TEST(!results.IsEndedCancelled(), ());
 
@@ -211,7 +210,7 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
 
     params.m_timeout = chrono::seconds(-1);
 
-    params.m_onResults = [&](Results const & results, vector<ProductInfo> const &)
+    params.m_onResults = [&](Results const & results)
     {
       // The deadline has fired but Search API does not expose it.
       TEST(!results.IsEndedCancelled(), ());

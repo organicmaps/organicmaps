@@ -16,6 +16,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
 #include <algorithm>
@@ -176,6 +177,8 @@ void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
 
 bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
 {
+  CHECK(params.m_onResults, ());
+
   SearchParams p;
   p.m_query = std::move(params.m_query);
   p.m_inputLocale = std::move(params.m_inputLocale);
@@ -190,7 +193,8 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
-  p.m_onResults = EverywhereSearchCallback(*this, std::move(params.m_onResults));
+  p.m_onResults = [this, onResults = std::move(params.m_onResults)](Results const & results)
+  { RunUITask([onResults, results]() mutable { onResults(std::move(results)); }); };
 
   return Search(std::move(p), true /* forceSearch */);
 }
@@ -306,11 +310,6 @@ bool SearchAPI::IsViewportSearchActive() const
 void SearchAPI::ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end, bool clear)
 {
   return m_delegate.ShowViewportSearchResults(begin, end, clear);
-}
-
-ProductInfo SearchAPI::GetProductInfo(Result const & result) const
-{
-  return m_delegate.GetProductInfo(result);
 }
 
 void SearchAPI::EnableIndexingOfBookmarksDescriptions(bool enable)
