@@ -247,7 +247,10 @@ UNIT_TEST(Classificator_AreaPriority)
       {
           // ? - linear waterways @todo: add ability to compare different drule types (areas vs lines)
           //{"waterway", "river"}, {"waterway", "stream"}, {"natural", "strait"}, {"waterway", "ditch"},
-          // 0 - water areas
+          // 0 - intermittent water draws behind separate permanent water polygons.
+          {"natural", "water", "intermittent"},
+          {"landuse", "basin", "intermittent"},
+          // 1 - permanent water areas
           {"natural", "water"},
           {"natural", "water", "basin"},
           {"natural", "water", "lake"},
@@ -259,10 +262,6 @@ UNIT_TEST(Classificator_AreaPriority)
           {"landuse", "basin"},
           {"landuse", "salt_pond"},
           {"waterway", "dock"},
-          // 1 - intermittent water areas: their fill replaces the water fill of the same feature,
-          // and they are drawn over overlapping permanent water
-          {"natural", "water", "intermittent"},
-          {"landuse", "basin", "intermittent"},
           // 2 - water areas with their own look, also when intermittent
           {"natural", "water", "ditch"},
           {"natural", "water", "drain"},
@@ -274,7 +273,7 @@ UNIT_TEST(Classificator_AreaPriority)
           {"man_made", "breakwater"},
           {"waterway", "dam"},
       },
-      {11, 2, 3, 3}, drule::area);
+      {2, 11, 3, 3}, drule::area);
 
   CheckPriority(
       {
