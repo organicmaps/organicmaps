@@ -23265,6 +23265,31 @@ type waterway-canal
   z20
     line width=1.6 color=c229 join=round cap=round priority=-990
     path_text primary[height=12 color=c222] priority=2900
+type waterway-canal-intermittent
+  z13
+    line width=0.7 color=c229 join=round cap=butt dash=[5.4,2.7] priority=-990
+    path_text primary[height=10 color=c222] priority=2900
+  z14
+    line width=1 color=c229 join=round cap=butt dash=[5.4,2.7] priority=-990
+    path_text primary[height=10 color=c222] priority=2900
+  z15
+    line width=1.6 color=c229 join=round cap=butt dash=[8,4] priority=-990
+    path_text primary[height=11 color=c222] priority=2900
+  z16
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=11 color=c222] priority=2900
+  z17
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=11 color=c222] priority=2900
+  z18
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=c222] priority=2900
+  z19
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=c222] priority=2900
+  z20
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=c222] priority=2900
 type waterway-dam
   z14
     line width=1.5 color=c268 join=round cap=butt priority=30
@@ -23310,6 +23335,23 @@ type waterway-ditch
     line width=3 color=c270 join=round cap=round dash=[2.7,2.7] priority=-990
   z20
     line width=3 color=c270 join=round cap=round dash=[2.7,2.7] priority=-990
+type waterway-ditch-intermittent
+  z13
+    line width=1.5 color=c270 join=round cap=butt dash=[2.7,5.4] priority=-990
+  z14
+    line width=1.5 color=c270 join=round cap=butt dash=[2.7,5.4] priority=-990
+  z15
+    line width=1.5 color=c270 join=round cap=butt dash=[2.7,5.4] priority=-990
+  z16
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
+  z17
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
+  z18
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
+  z19
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
+  z20
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
 type waterway-dock
   z1
     area color=c091 priority=-980
@@ -23368,6 +23410,23 @@ type waterway-drain
     line width=3 color=c270 join=round cap=round dash=[2.7,2.7] priority=-990
   z20
     line width=3 color=c270 join=round cap=round dash=[2.7,2.7] priority=-990
+type waterway-drain-intermittent
+  z13
+    line width=1.5 color=c270 join=round cap=butt dash=[2.7,5.4] priority=-990
+  z14
+    line width=1.5 color=c270 join=round cap=butt dash=[2.7,5.4] priority=-990
+  z15
+    line width=1.5 color=c270 join=round cap=butt dash=[2.7,5.4] priority=-990
+  z16
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
+  z17
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
+  z18
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
+  z19
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
+  z20
+    line width=3 color=c270 join=round cap=round dash=[2.7,5.4] priority=-990
 type waterway-fish_pass
   z13
     line width=0.7 color=c229 join=round cap=butt priority=-990
@@ -23392,6 +23451,31 @@ type waterway-fish_pass
     path_text primary[height=12 color=c222] priority=2900
   z20
     line width=1.6 color=c229 join=round cap=round priority=-990
+    path_text primary[height=12 color=c222] priority=2900
+type waterway-fish_pass-intermittent
+  z13
+    line width=0.7 color=c229 join=round cap=butt dash=[5.4,2.7] priority=-990
+    path_text primary[height=10 color=c222] priority=2900
+  z14
+    line width=1 color=c229 join=round cap=butt dash=[5.4,2.7] priority=-990
+    path_text primary[height=10 color=c222] priority=2900
+  z15
+    line width=1.6 color=c229 join=round cap=butt dash=[8,4] priority=-990
+    path_text primary[height=11 color=c222] priority=2900
+  z16
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=11 color=c222] priority=2900
+  z17
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=11 color=c222] priority=2900
+  z18
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=c222] priority=2900
+  z19
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=c222] priority=2900
+  z20
+    line width=1.6 color=c229 join=round cap=round dash=[8,4] priority=-990
     path_text primary[height=12 color=c222] priority=2900
 type waterway-lock_gate
   z16
@@ -23437,32 +23521,40 @@ type waterway-river
   z20
     line width=2.2 color=c229 join=round cap=round priority=-990
     path_text primary[height=12 color=c222] priority=3150
-type waterway-stream
+type waterway-river-intermittent
+  z10
+    line width=1 color=c229 join=bevel cap=butt dash=[3,3] priority=-990
+  z11
+    line width=1.2 color=c229 join=bevel cap=butt dash=[3.6,3.6] priority=-990
+    path_text primary[height=10 color=c222] priority=3150
+  z12
+    line width=1.2 color=c229 join=bevel cap=butt dash=[3.6,3.6] priority=-990
+    path_text primary[height=10 color=c222] priority=3150
   z13
-    line width=0.7 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c222] priority=2900
+    line width=1.6 color=c229 join=round cap=butt dash=[4.8,4.8] priority=-990
+    path_text primary[height=10 color=c222] priority=3150
   z14
-    line width=1 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=10 color=c222] priority=2900
+    line width=1.8 color=c229 join=round cap=butt dash=[5.4,5.4] priority=-990
+    path_text primary[height=10 color=c222] priority=3150
   z15
-    line width=1.6 color=c229 join=round cap=butt priority=-990
-    path_text primary[height=11 color=c222] priority=2900
+    line width=2.2 color=c229 join=round cap=butt dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=c222] priority=3150
   z16
-    line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c222] priority=2900
+    line width=2.2 color=c229 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=c222] priority=3150
   z17
-    line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=11 color=c222] priority=2900
+    line width=2.2 color=c229 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=c222] priority=3150
   z18
-    line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c222] priority=2900
+    line width=2.2 color=c229 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=c222] priority=3150
   z19
-    line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c222] priority=2900
+    line width=2.2 color=c229 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=c222] priority=3150
   z20
-    line width=1.6 color=c229 join=round cap=round priority=-990
-    path_text primary[height=12 color=c222] priority=2900
-type waterway-stream-ephemeral
+    line width=2.2 color=c229 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=c222] priority=3150
+type waterway-stream
   z13
     line width=0.7 color=c229 join=round cap=butt priority=-990
     path_text primary[height=10 color=c222] priority=2900

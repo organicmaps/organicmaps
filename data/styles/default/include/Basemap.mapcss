@@ -298,39 +298,55 @@ area|z11-[natural=wetland]
 
 line|z10[waterway=river],
 {width: 1;}
+line|z10[waterway=river][intermittent],
+{dashes: 3,3;}
 
 line|z11-12[waterway=river],
 {width: 1.2;}
+line|z11-12[waterway=river][intermittent],
+{dashes: 3.6,3.6;}
 
 line|z13[waterway=river],
 {width: 1.6;}
+line|z13[waterway=river][intermittent],
+{dashes: 4.8,4.8;}
 line|z13[waterway=stream],
 line|z13[waterway=canal],
 line|z13[waterway=fish_pass],
 line|z13[natural=strait],
 {width: 0.7;}
-line|z13[waterway=stream][intermittent=yes]
+line|z13[waterway=stream][intermittent]
 {width: 0.7;dashes: 2.7,2.7;}
+line|z13-14[waterway=canal][intermittent],
+line|z13-14[waterway=fish_pass][intermittent],
+{dashes: 5.4,2.7;}
 
 line|z14[waterway=river],
 {width: 1.8;}
+line|z14[waterway=river][intermittent],
+{dashes: 5.4,5.4;}
 line|z14[waterway=stream],
 line|z14[waterway=canal],
 line|z14[waterway=fish_pass],
 line|z14[natural=strait],
 {width: 1;}
-line|z14[waterway=stream][intermittent=yes]
+line|z14[waterway=stream][intermittent]
 {width: 1;dashes: 2.7,2.7;}
 
 line|z15-[waterway=river],
 {width: 2.2;}
+line|z15-[waterway=river][intermittent],
+{dashes: 6.6,6.6;}
 line|z15-[waterway=stream],
 line|z15-[waterway=canal],
 line|z15-[waterway=fish_pass],
 line|z15-[natural=strait],
 {width: 1.6;}
-line|z15-[waterway=stream][intermittent=yes]
+line|z15-[waterway=stream][intermittent]
 {width: 1.4;dashes: 4.95,4.95;}
+line|z15-[waterway=canal][intermittent],
+line|z15-[waterway=fish_pass][intermittent],
+{dashes: 8,4;}
 
 node|z16-[waterway=lock_gate],
 {icon-image: dot-m.svg;}
@@ -338,6 +354,9 @@ node|z16-[waterway=lock_gate],
 line|z13-[waterway=ditch],
 line|z13-[waterway=drain],
 {opacity: 0.7; color: @water_bad; width: 1.5; dashes: 2.7,2.7;}
+line|z13-[waterway=ditch][intermittent],
+line|z13-[waterway=drain][intermittent],
+{dashes: 2.7,5.4;}
 line|z16-[waterway=ditch],
 line|z16-[waterway=drain],
 {width: 3;}
