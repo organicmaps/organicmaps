@@ -20,6 +20,11 @@ enum class Program
   TextStaticOutlinedGui,
   TextOutlinedGui,
   Area,
+  // Solid-fill patterns are background fills: keep them before programs that draw translucent geometry over them,
+  // see AreaPatterns_SolidFillsDrawBeforeTranslucentGeometry.
+  AreaStipple,
+  AreaSpeckle,
+  AreaGrid,
   AreaOutline,
   Area3d,
   Area3dOutline,
@@ -29,12 +34,6 @@ enum class Program
   PathSymbol,
   TransparentArea,
   CapJoin,
-  // Keep the solid-fill patterns before the Hatching* overlays: render groups in a depth layer draw in
-  // program-enum order, and a hatch writes depth across its whole quad (including the transparent gaps
-  // between lines), so a fill placed after it is depth-culled where they overlap. See DrawPatternArea.
-  AreaStipple,
-  AreaSpeckle,
-  AreaGrid,
   HatchingArea,
   HatchingAreaDash,
   TexturingGui,
