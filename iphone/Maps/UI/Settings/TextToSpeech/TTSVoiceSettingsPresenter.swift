@@ -47,9 +47,15 @@ final class TTSVoiceSettingsPresenter {
   }
 
   private func standardSections(from state: TTSVoiceSettingsState) -> [TTSVoiceSettingsSectionViewModel] {
-    Dictionary(grouping: state.voices.filter { $0.group == .standard }, by: \TTSVoice.region)
+    let voicesByRegion = Dictionary(grouping: state.voices.filter { $0.group == .standard },
+                                    by: \TTSVoice.region)
+    // A region is useful only when it distinguishes sections. Otherwise the screen title already
+    // identifies the language, including the region for languages such as pt-BR and es-MX.
+    return voicesByRegion
       .map { region, voices in
-        let header = region.map { "\(state.language.title) (\($0))" } ?? state.language.title
+        let header = voicesByRegion.count > 1
+          ? region.map { "\(state.language.title) (\($0))" } ?? state.language.title
+          : state.language.title
         return SettingsSectionViewModel(section: .locale(header),
                                         header: header,
                                         items: voices.map { item(.voice($0), title: $0.title, state: state) })

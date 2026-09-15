@@ -1,13 +1,34 @@
 #import <XCTest/XCTest.h>
-#import "MWMTextToSpeech+CPP.h"
+#import "MWMTextToSpeech.h"
 
 #include "LocaleTranslator.h"
 
 @interface MWMTextToSpeechTest : XCTestCase
 
+@property(nonatomic, strong) MWMTTSLanguage * initialLanguage;
+@property(nonatomic, strong) MWMTTSVoice * initialPinnedVoice;
+
 @end
 
 @implementation MWMTextToSpeechTest
+
+- (void)setUp
+{
+  [super setUp];
+  self.initialLanguage = [MWMTextToSpeech currentLanguage];
+  self.initialPinnedVoice = [MWMTextToSpeech isVoicePinned] ? [MWMTextToSpeech currentVoice] : nil;
+}
+
+- (void)tearDown
+{
+  if (self.initialPinnedVoice)
+    [MWMTextToSpeech setVoice:self.initialPinnedVoice];
+  else if (self.initialLanguage)
+    [MWMTextToSpeech setLanguage:self.initialLanguage];
+  self.initialLanguage = nil;
+  self.initialPinnedVoice = nil;
+  [super tearDown];
+}
 
 - (void)testAvailableLanguagesAreSpeakable
 {
@@ -81,19 +102,16 @@
 
 - (void)testSelectingALanguageKeepsItsBestVoice
 {
-  MWMTTSLanguage * const initial = [MWMTextToSpeech currentLanguage];
   for (MWMTTSLanguage * language in [MWMTextToSpeech availableLanguages])
   {
     [MWMTextToSpeech setLanguage:language];
     XCTAssertEqualObjects([MWMTextToSpeech currentLanguage], language);
     XCTAssertEqualObjects([MWMTextToSpeech currentVoice], [MWMTextToSpeech bestVoiceForLanguage:language]);
   }
-  [MWMTextToSpeech setLanguage:initial];
 }
 
 - (void)testSelectingAVoiceSelectsItsLanguage
 {
-  MWMTTSLanguage * const initial = [MWMTextToSpeech currentLanguage];
   for (MWMTTSLanguage * language in [MWMTextToSpeech availableLanguages])
   {
     for (MWMTTSVoice * voice in [MWMTextToSpeech voicesForLanguage:language])
@@ -103,14 +121,12 @@
       XCTAssertEqualObjects([MWMTextToSpeech currentLanguage], language, @"%@ changed the language", voice.title);
     }
   }
-  [MWMTextToSpeech setLanguage:initial];
 }
 
 // A hand-picked voice stays in use even once a better one is installed, so anything naming the voice
 // of the selected language has to read currentVoice and not bestVoiceForLanguage.
 - (void)testSavedVoiceOutranksTheBestInstalledOne
 {
-  MWMTTSLanguage * const initial = [MWMTextToSpeech currentLanguage];
   for (MWMTTSLanguage * language in [MWMTextToSpeech availableLanguages])
   {
     NSArray<MWMTTSVoice *> * voices = [MWMTextToSpeech voicesForLanguage:language];
@@ -126,14 +142,12 @@
     XCTAssertEqualObjects([MWMTextToSpeech currentVoice], other, @"%@ did not stay selected", other.title);
     XCTAssertEqualObjects([MWMTextToSpeech currentLanguage], language);
   }
-  [MWMTextToSpeech setLanguage:initial];
 }
 
 // The voice picker offers the automatic choice as a row of its own, selected exactly when no voice
 // is pinned, and selecting it is the way back from a pinned one.
 - (void)testOnlyAHandPickedVoiceIsPinned
 {
-  MWMTTSLanguage * const initial = [MWMTextToSpeech currentLanguage];
   for (MWMTTSLanguage * language in [MWMTextToSpeech availableLanguages])
   {
     [MWMTextToSpeech setLanguage:language];
@@ -148,7 +162,6 @@
     [MWMTextToSpeech setLanguage:language];
     XCTAssertFalse([MWMTextToSpeech isVoicePinned], @"%@ stayed pinned", language.code);
   }
-  [MWMTextToSpeech setLanguage:initial];
 }
 
 // The default language is picked from the tags the system reports for the preferred languages, which
@@ -183,22 +196,6 @@
   XCTAssertEqual(bcp47ToTwineLanguage(@"yue_HK"), "yue-HK");
   XCTAssertEqual(bcp47ToTwineLanguage(@"zh-Hans_CN"), "zh-Hans");
   XCTAssertEqual(bcp47ToTwineLanguage(@"zh_TW"), "zh-Hant");
-}
-
-- (void)testTranslateLocaleWithTwineString
-{
-  XCTAssertEqual(tts::translateLocale("en"), "English");
-}
-
-- (void)testTranslateLocaleWithBcp47String
-{
-  XCTAssertEqual(tts::translateLocale("en-US"), "English (United States)");
-}
-
-// iOS 15 has no localized name for an unknown identifier and returns nil rather than an empty string.
-- (void)testTranslateLocaleWithUnknownString
-{
-  XCTAssertEqual(tts::translateLocale("unknown"), "");
 }
 
 @end

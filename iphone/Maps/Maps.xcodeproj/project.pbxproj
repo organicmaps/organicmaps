@@ -1536,7 +1536,6 @@
 		ED82C6F02F90186300FA103D /* LocaleTranslator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LocaleTranslator.mm; sourceTree = "<group>"; };
 		ED82C6F12F90186300FA103D /* MWMTextToSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeech.h; sourceTree = "<group>"; };
 		ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeech.mm; sourceTree = "<group>"; };
-		ED82C6F32F90186300FA103D /* MWMTextToSpeech+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMTextToSpeech+CPP.h"; sourceTree = "<group>"; };
 		ED82C6F42F90186300FA103D /* MWMTextToSpeechObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeechObserver.h; sourceTree = "<group>"; };
 		ED82C6F52F90186300FA103D /* TTSTester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSTester.h; sourceTree = "<group>"; };
 		ED82C6F62F90186300FA103D /* TTSTester.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TTSTester.mm; sourceTree = "<group>"; };
@@ -3811,7 +3810,6 @@
 				ED82C6F02F90186300FA103D /* LocaleTranslator.mm */,
 				ED82C6F12F90186300FA103D /* MWMTextToSpeech.h */,
 				ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */,
-				ED82C6F32F90186300FA103D /* MWMTextToSpeech+CPP.h */,
 				ED82C6F42F90186300FA103D /* MWMTextToSpeechObserver.h */,
 				ED82C6F52F90186300FA103D /* TTSTester.h */,
 				ED82C6F62F90186300FA103D /* TTSTester.mm */,

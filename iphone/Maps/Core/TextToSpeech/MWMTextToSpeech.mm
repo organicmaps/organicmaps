@@ -1,6 +1,6 @@
+#import "MWMTextToSpeech.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MWMRouter.h"
-#import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 
 #include "LocaleTranslator.h"
@@ -535,10 +535,9 @@ using Observers = NSHashTable<Observer>;
   // regional variant per voice name, and a saved voice may well be one of the others. Comparing the
   // two by identifier would then leave no row selected.
   NSString * languageCode = @(TwineLanguage(voice.language).c_str());
-  for (AVSpeechSynthesisVoice * listed in VoicesForLanguage([tts.catalog voicesReading:languageCode],
-                                                            tts.catalog.deviceLanguageCode))
-    if ([listed.name isEqualToString:voice.name])
-      return VoiceFromSpeechVoice(listed);
+  for (MWMTTSVoice * listed in [tts.catalog listedVoicesReading:languageCode])
+    if ([listed.title isEqualToString:voice.name])
+      return listed;
   return VoiceFromSpeechVoice(voice);
 }
 
@@ -806,15 +805,3 @@ using Observers = NSHashTable<Observer>;
 }
 
 @end
-
-namespace tts
-{
-std::string translateLocale(std::string const & localeString)
-{
-  NSString * nsLocaleString = [NSString stringWithUTF8String:localeString.c_str()];
-  NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier:nsLocaleString];
-  // Unknown identifiers have no localized name, and iOS 15 returns nil rather than an empty string.
-  NSString * localizedName = [locale localizedStringForLocaleIdentifier:nsLocaleString];
-  return localizedName ? std::string(localizedName.capitalizedString.UTF8String) : std::string();
-}
-}  // namespace tts

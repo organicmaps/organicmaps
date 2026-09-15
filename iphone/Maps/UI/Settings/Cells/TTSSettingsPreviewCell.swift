@@ -30,15 +30,6 @@ final class TTSSettingsPreviewCell: MWMTableViewCell {
     super.init(coder: coder)
   }
 
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    delegate = nil
-    titleLabel.text = nil
-    detailLabel.text = nil
-    accessoryType = .none
-    accessoryView = nil
-  }
-
   func configure(delegate: TTSSettingsPreviewCellDelegate,
                  title: String,
                  detail: String?,
