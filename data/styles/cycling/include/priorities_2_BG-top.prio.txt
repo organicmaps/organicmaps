@@ -25,7 +25,7 @@ natural-water-intermittent                          # area z1- (also has caption
 === 25
 
 landuse-basin                                       # area z12-
-landuse-reservoir                                   # area z12- (also has caption z10-)
+landuse-reservoir                                   # WARNING: no style defined (the type will be not included into map data)
 landuse-salt_pond                                   # area z1-
 natural-water                                       # area z1- (also has caption z10-)
 natural-water-basin                                 # area z1- (also has caption z10-)
@@ -37,7 +37,7 @@ natural-water-moat                                  # area z1- (also has caption
 natural-water-pond                                  # area z1- (also has caption z10-)
 natural-water-reservoir                             # area z1- (also has caption z10-)
 natural-water-river                                 # area z1- (also has caption z10-)
-natural-water-tunnel                                # area z15-
+natural-water-tunnel                                # WARNING: no style defined (the type will be not included into map data)
 natural-water-wastewater                            # area z12- (also has caption z17-)
 waterway-dock                                       # area z1-
 === 20
