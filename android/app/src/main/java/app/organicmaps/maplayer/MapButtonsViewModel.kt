@@ -66,7 +66,9 @@ class MapButtonsViewModel : ViewModel() {
     }
 
     fun setTopButtonsMarginTop(margin: Int) {
-        _topButtonsMarginTop.value = margin
+        if (_topButtonsMarginTop.value != margin) {
+            _topButtonsMarginTop.value = margin
+        }
     }
 
     fun setLayoutMode(layoutMode: MapButtonsController.LayoutMode) {

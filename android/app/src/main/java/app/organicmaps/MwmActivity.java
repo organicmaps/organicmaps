@@ -166,6 +166,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private String mDonatesUrl;
 
   private int mNavBarHeight;
+  // Whether the last viewport we wrote was the one reserved for the start-side navigation panel.
+  private boolean mSideNavPanelViewport;
 
   private RoutingPlanViewModel mRoutingPlanViewModel;
   private PlacePageViewModel mPlacePageViewModel;
@@ -1206,7 +1208,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mMapController.updateBottomWidgetsOffset(offsetX, offsetY);
       mMapController.updateMyPositionRoutingOffset(positionOffsetY);
-      updateMapViewport(hasSideNavPanel);
+      // The place page and the search sheet narrow the viewport for their own sheets, and this
+      // method runs on every inset dispatch and bottom-button height change - including while one
+      // of them is open. So only touch the rect while the start-side panel owns it, plus once more
+      // when it stops owning it, to hand the full screen back.
+      if (hasSideNavPanel || mSideNavPanelViewport)
+        updateMapViewport(hasSideNavPanel);
+      mSideNavPanelViewport = hasSideNavPanel;
     }
   }
 

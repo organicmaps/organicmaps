@@ -11,14 +11,14 @@ public final class LaneInfo
   // routing::turns::lanes::CollapseLanes); render one icon with a count badge when > 1.
   public final int mSimilarLanesCount;
 
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
   public LaneInfo(@NonNull LaneWay[] laneWays, LaneWay activeLane)
   {
     this(laneWays, activeLane, 1);
   }
 
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   public LaneInfo(@NonNull LaneWay[] laneWays, LaneWay activeLane, int similarLanesCount)
   {
     mLaneWays = laneWays;

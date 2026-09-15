@@ -38,20 +38,15 @@
           android:layout_height="wrap_content"
           android:textColor="@color/on_nav_card"
           tools:text="500 m" />
-        <FrameLayout
-          android:id="@+id/maneuver_street_frame"
+        <TextView
+          android:id="@+id/maneuver_street"
+          style="@style/MwmWidget.TextView.NavStreet"
+          android:includeFontPadding="false"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-          <TextView
-            android:id="@+id/maneuver_street"
-            style="@style/MwmWidget.TextView.NavStreet"
-            android:includeFontPadding="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:textColor="@color/on_nav_card"
-            tools:text="Exit 399B onto Old Middlefield Way" />
-        </FrameLayout>
+          android:layout_height="wrap_content"
+          android:maxLines="3"
+          android:textColor="@color/on_nav_card"
+          tools:text="Exit 399B onto Old Middlefield Way" />
       </LinearLayout>
     </LinearLayout>
     <app.organicmaps.sdk.widgets.lanes.LanesView
