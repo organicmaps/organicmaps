@@ -5337,19 +5337,19 @@ type landuse-farmland
     area color=c147 priority=-1930
 type landuse-farmyard
   z14
-    area color=c148 priority=-1929
+    area color=c148 priority=-1926
   z15
-    area color=c148 priority=-1929
+    area color=c148 priority=-1926
   z16
-    area color=c148 priority=-1929
+    area color=c148 priority=-1926
   z17
-    area color=c148 priority=-1929
+    area color=c148 priority=-1926
   z18
-    area color=c148 priority=-1929
+    area color=c148 priority=-1926
   z19
-    area color=c148 priority=-1929
+    area color=c148 priority=-1926
   z20
-    area color=c148 priority=-1929
+    area color=c148 priority=-1926
 type landuse-field
   z12
     area color=c074 priority=-1930
@@ -5773,23 +5773,23 @@ type landuse-military-danger_area
     caption primary[height=10 color=c073 dy=1 optional] priority=-9480
 type landuse-orchard
   z12
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
   z13
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
   z14
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
   z15
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
   z16
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
   z17
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
   z18
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
   z19
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
   z20
-    area color=c074 priority=-1930
+    area color=c074 priority=-1928
 type landuse-quarry
   z15
     area color=c102 priority=-1960
@@ -5918,23 +5918,23 @@ type landuse-village_green
     area color=c074 priority=-1930
 type landuse-vineyard
   z12
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
   z13
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
   z14
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
   z15
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
   z16
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
   z17
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
   z18
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
   z19
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
   z20
-    area color=c074 priority=-1930
+    area color=c074 priority=-1929
 type leisure-beach_resort
   z10
     area color=c153 priority=-1970
@@ -6443,23 +6443,23 @@ type man_made-pier
     area color=c156 priority=20
 type natural-bare_rock
   z12
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
   z13
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
   z14
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
   z15
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
   z16
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
   z17
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
   z18
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
   z19
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
   z20
-    area color=c160 priority=-1930
+    area color=c160 priority=-1927
 type natural-bay
   z14
     caption primary[height=9 color=c161] priority=1400
@@ -6477,90 +6477,90 @@ type natural-bay
     caption primary[height=10 color=c161] priority=1400
 type natural-beach
   z10
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z11
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z12
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z13
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z14
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z15
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z16
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z17
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z18
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z19
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z20
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
 type natural-beach-gravel
   z10
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z11
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z12
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z13
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z14
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z15
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z16
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z17
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z18
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z19
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z20
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
 type natural-beach-sand
   z10
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z11
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z12
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z13
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z14
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
   z15
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z16
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z17
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z18
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z19
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
   z20
-    area color=c153 priority=-1970
+    area color=c153 priority=-1968
     caption primary[height=10 color=c073] priority=900
 type natural-cape
   z14
@@ -6631,51 +6631,51 @@ type natural-coastline
     area color=c145 priority=-1990
 type natural-desert
   z1
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z2
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z3
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z4
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z5
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z6
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z7
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z8
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z9
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z10
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z11
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z12
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z13
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
   z14
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
     caption primary[height=10 color=c073] priority=1450
   z15
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
     caption primary[height=10 color=c073] priority=1450
   z16
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
     caption primary[height=10 color=c073] priority=1450
   z17
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
     caption primary[height=10 color=c073] priority=1450
   z18
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
     caption primary[height=10 color=c073] priority=1450
   z19
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
     caption primary[height=10 color=c073] priority=1450
   z20
-    area color=c164 priority=-1970
+    area color=c164 priority=-1969
     caption primary[height=10 color=c073] priority=1450
 type natural-earth_bank
   z16
