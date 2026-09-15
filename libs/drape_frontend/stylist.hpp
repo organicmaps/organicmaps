@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/area_pattern.hpp"
+
 #include "indexer/drawing_rules.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
@@ -20,13 +22,13 @@ class IsHatchingTerritoryChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
 
-  std::string_view GetHatch(uint32_t type) const;
-  std::string_view GetHatch(feature::TypesHolder const & types) const;
+  AreaPattern GetHatch(uint32_t type) const;
+  AreaPattern GetHatch(feature::TypesHolder const & types) const;
 
   template <class T>
   bool operator()(T && t) const
   {
-    return !GetHatch(t).empty();
+    return GetHatch(t) != AreaPattern::None;
   }
 
 private:
@@ -50,8 +52,8 @@ class IsAreaPatternChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsAreaPatternChecker);
 
-  std::string_view GetPattern(uint32_t type) const;
-  std::string_view GetPattern(feature::TypesHolder const & types) const;
+  AreaPattern GetPattern(uint32_t type) const;
+  AreaPattern GetPattern(feature::TypesHolder const & types) const;
 
 private:
   struct Stipple : ftypes::BaseCheckerEx

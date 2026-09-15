@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/area_pattern.hpp"
 #include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/color.hpp"
@@ -73,7 +74,7 @@ struct AreaViewParams : CommonViewParams
   float m_minPosZ = 0;
   float m_posZ = 0;
   bool m_is3D = false;
-  std::string_view m_areaPattern;  // analytic pattern key (hatch or solid-fill), empty for a plain fill
+  AreaPattern m_areaPattern = AreaPattern::None;  // analytic hatch or solid-fill pattern
   double m_baseGtoPScale = 1.0;
 };
 

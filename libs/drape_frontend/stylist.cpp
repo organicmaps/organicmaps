@@ -8,8 +8,6 @@
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
-#include "drape/hatching_decl.hpp"
-
 #include <algorithm>
 #include <limits>
 
@@ -30,30 +28,30 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
   m_2levelDash = c.GetTypeByPath({"natural", "wetland"});
 }
 
-std::string_view IsHatchingTerritoryChecker::GetHatch(uint32_t type) const
+AreaPattern IsHatchingTerritoryChecker::GetHatch(uint32_t type) const
 {
   // Matching with subtypes (see Stylist_IsHatching test).
 
   if (m_3level45 == ftype::Trunc(type, 3))
-    return dp::k45dHatching;
+    return AreaPattern::Hatch45d;
   if (m_2level45(type))
-    return dp::k45dHatching;
+    return AreaPattern::Hatch45d;
 
   if (m_2levelDash == ftype::Trunc(type, 2))
-    return dp::kDashHatching;
+    return AreaPattern::HatchDash;
 
-  return {};
+  return AreaPattern::None;
 }
 
-std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const & types) const
+AreaPattern IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const & types) const
 {
   for (uint32_t t : types)
   {
     auto s = GetHatch(t);
-    if (!s.empty())
+    if (s != AreaPattern::None)
       return s;
   }
-  return {};
+  return AreaPattern::None;
 }
 
 IsAreaPatternChecker::Stipple::Stipple()
@@ -67,26 +65,26 @@ IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "s
 
 IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
 
-std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
+AreaPattern IsAreaPatternChecker::GetPattern(uint32_t type) const
 {
   if (m_stipple(type))
-    return dp::kStipplePattern;
+    return AreaPattern::Stipple;
   if (m_speckle(type))
-    return dp::kSpecklePattern;
+    return AreaPattern::Speckle;
   if (m_grid(type))
-    return dp::kGridPattern;
-  return {};
+    return AreaPattern::Grid;
+  return AreaPattern::None;
 }
 
-std::string_view IsAreaPatternChecker::GetPattern(feature::TypesHolder const & types) const
+AreaPattern IsAreaPatternChecker::GetPattern(feature::TypesHolder const & types) const
 {
   for (uint32_t t : types)
   {
     auto s = GetPattern(t);
-    if (!s.empty())
+    if (s != AreaPattern::None)
       return s;
   }
-  return {};
+  return AreaPattern::None;
 }
 
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,

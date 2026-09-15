@@ -304,13 +304,9 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
     f.ForEachTriangle(apply, m_zoomLevel);
     if (apply.HasGeometry())
     {
-      std::string_view hatchKey;
-      if (s.m_hatchingRule)
-        hatchKey = m_isHatching.GetHatch(types);
-      std::string_view patternKey;
-      if (s.m_areaRule)
-        patternKey = m_isAreaPattern.GetPattern(types);
-      apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule, hatchKey, patternKey);
+      auto const hatchingPattern = s.m_hatchingRule ? m_isHatching.GetHatch(types) : AreaPattern::None;
+      auto const areaPattern = s.m_areaRule ? m_isAreaPattern.GetPattern(types) : AreaPattern::None;
+      apply.ProcessAreaRules(s.m_areaRule, areaPattern, s.m_hatchingRule, hatchingPattern);
     }
   }
 

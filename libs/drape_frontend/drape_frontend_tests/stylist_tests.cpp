@@ -1,11 +1,10 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/area_pattern.hpp"
 #include "drape_frontend/stylist.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
-
-#include "drape/hatching_decl.hpp"
 
 UNIT_TEST(Stylist_IsHatching)
 {
@@ -35,21 +34,21 @@ UNIT_TEST(Stylist_IsAreaPattern)
   auto const & checker = df::IsAreaPatternChecker::Instance();
 
   // Stipple: sandy / desert surfaces and intermittent water. natural=sand is a beach subtype, matched via the parent.
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "beach"})), dp::kStipplePattern, ());
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "beach", "sand"})), dp::kStipplePattern, ());
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "desert"})), dp::kStipplePattern, ());
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "water", "intermittent"})), dp::kStipplePattern, ());
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "basin", "intermittent"})), dp::kStipplePattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "beach"})), df::AreaPattern::Stipple, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "beach", "sand"})), df::AreaPattern::Stipple, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "desert"})), df::AreaPattern::Stipple, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "water", "intermittent"})), df::AreaPattern::Stipple, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "basin", "intermittent"})), df::AreaPattern::Stipple, ());
 
   // Speckle: rocky surfaces.
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "scree"})), dp::kSpecklePattern, ());
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "bare_rock"})), dp::kSpecklePattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "scree"})), df::AreaPattern::Speckle, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "bare_rock"})), df::AreaPattern::Speckle, ());
 
   // Grid: planted landuse.
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "orchard"})), dp::kGridPattern, ());
-  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "vineyard"})), dp::kGridPattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "orchard"})), df::AreaPattern::Grid, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "vineyard"})), df::AreaPattern::Grid, ());
 
   // Permanent water and unrelated area types get no pattern.
-  TEST(checker.GetPattern(cl.GetTypeByPath({"natural", "water"})).empty(), ());
-  TEST(checker.GetPattern(cl.GetTypeByPath({"landuse", "basin"})).empty(), ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "water"})), df::AreaPattern::None, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "basin"})), df::AreaPattern::None, ());
 }

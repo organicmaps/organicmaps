@@ -37,6 +37,7 @@ set(SRC
   apply_feature_functors.hpp
   apply_feature_params.cpp
   apply_feature_params.hpp
+  area_pattern.hpp
   area_shape.cpp
   area_shape.hpp
   arrow3d.cpp

@@ -212,6 +212,7 @@
 		BBD8F8791E96A51A00BAEB72 /* drape_hints.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */; };
 		BBD9E2D31F009D9E00DF189A /* user_mark_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD9E2D11F009D9E00DF189A /* user_mark_generator.cpp */; };
 		BBD9E2D41F009D9E00DF189A /* user_mark_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD9E2D21F009D9E00DF189A /* user_mark_generator.hpp */; };
+		E5C387C6EDA7FA2DDF0A2675 /* area_pattern.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BC9341809010A6D59997922E /* area_pattern.hpp */; };
 		EB2B77FF1EEDD418002697B6 /* metaline_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */; };
 		EB2B78001EEDD418002697B6 /* metaline_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */; };
 		EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */; };
@@ -432,6 +433,7 @@
 		BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_hints.hpp; sourceTree = "<group>"; };
 		BBD9E2D11F009D9E00DF189A /* user_mark_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_generator.cpp; sourceTree = "<group>"; };
 		BBD9E2D21F009D9E00DF189A /* user_mark_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark_generator.hpp; sourceTree = "<group>"; };
+		BC9341809010A6D59997922E /* area_pattern.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = area_pattern.hpp; sourceTree = "<group>"; };
 		EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metaline_manager.cpp; sourceTree = "<group>"; };
 		EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metaline_manager.hpp; sourceTree = "<group>"; };
 		EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = read_metaline_task.cpp; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				670947E81BDF9BF5005014C0 /* apply_feature_functors.cpp */,
 				ACB92F742EE0F10300AF185A /* apply_feature_params.hpp */,
 				ACB92F752EE0F10300AF185A /* apply_feature_params.cpp */,
+				BC9341809010A6D59997922E /* area_pattern.hpp */,
 				670947EB1BDF9BF5005014C0 /* area_shape.hpp */,
 				670947EA1BDF9BF5005014C0 /* area_shape.cpp */,
 				6743D3681C3A9F090095054B /* arrow3d.hpp */,
@@ -830,6 +833,7 @@
 				34C624C61DABDB0400510300 /* traffic_renderer.hpp in Headers */,
 				670947A21BDF9BE1005014C0 /* message.hpp in Headers */,
 				15CD2FB319B3238BB7E5852A /* selection_info.hpp in Headers */,
+				E5C387C6EDA7FA2DDF0A2675 /* area_pattern.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
