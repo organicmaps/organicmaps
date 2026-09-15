@@ -60,6 +60,8 @@ struct RoutePointInfo
 class RoutingManager final
 {
 public:
+  using RoutePointCallback = std::function<void(std::string const &)>;
+
   class Delegate
   {
   public:
@@ -128,12 +130,11 @@ public:
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }
   bool IsRouteValid() const { return m_routingSession.IsRouteValid(); }
-  void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout);
+  void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout,
+                  m2::PointD const & startDirection = m2::PointD::Zero());
   void SetUserCurrentPosition(m2::PointD const & position);
   void ResetRoutingSession() { m_routingSession.Reset(); }
-  // FollowRoute has a bug where the router follows the route even if the method hads't been called.
-  // This method was added because we do not want to break the behaviour that is familiar to our
-  // users.
+  // Built routes track progress before Start too. Explicit-origin previews opt out of that tracking.
   bool DisableFollowMode();
   kml::TrackId SaveRoute();
 
@@ -205,6 +206,8 @@ public:
   }
 
   Callbacks & GetCallbacksForTests() { return m_callbacks; }
+  static std::vector<RouteMarkData> DeserializeRoutePointsForTesting(std::string const & data);
+  std::vector<RouteMarkData> GetRoutePointsToSaveForTesting() const { return GetRoutePointsToSave(); }
   /// \brief Adds to @param notifications strings - notifications, which are ready to be
   /// pronounced to end user right now.
   /// Adds notifications about turns and speed camera on the road.
@@ -225,8 +228,12 @@ public:
   /// Reorders unpassed intermediate marks in place, keeping endpoints and passed stops. Returns whether the order
   /// changed; the caller rebuilds. No-op while following, in Ruler mode, or without both endpoints.
   bool OptimizeRoutePoints();
+  /// Replaces a complete itinerary. Array order defines start, intermediate indexes, and finish.
+  void ReplaceRoutePoints(std::vector<RouteMarkData> points, bool optimize = false);
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
+  /// Attach only while a UI can open links. Attaching delivers the latest pending stop callback.
+  void SetRoutePointCallback(RoutePointCallback && callback);
   size_t GetRoutePointsCount() const;
   void RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void RemoveRoutePoints();
@@ -276,8 +283,8 @@ public:
 
   /// \returns true if there are route points saved in file and false otherwise.
   bool HasSavedRoutePoints() const;
-  /// \brief It loads road points from file and delete file after loading.
-  /// The result of the loading will be sent via SafeCallback.
+  /// Consumes saved points only if the route-point layout is still empty when reading finishes.
+  /// Completion is delivered on the GUI thread.
   using LoadRouteHandler = platform::SafeCallback<void(bool success)>;
   void LoadRoutePoints(LoadRouteHandler const & handler);
   /// \brief It saves route points to file.
@@ -349,6 +356,7 @@ private:
   /// Places |added| among the unpassed stops, keeping their relative order, or re-inserts all of them if it is null.
   /// Returns whether any stop index changed.
   bool ReorderIntermediatePoints(RoutePointsLayout & layout, RouteMarkPoint const * added);
+  void FlushRoutePointCallback();
 
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
@@ -377,6 +385,9 @@ private:
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
   mutable std::mutex m_drapeSubroutesMutex;
+  RoutePointCallback m_routePointCallback;
+  // Latest stop awaiting a foreground UI; replacement itineraries discard it.
+  std::string m_pendingRoutePointCallback;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;
 

@@ -1,5 +1,6 @@
 protocol BottomMenuInteractorProtocol: AnyObject {
   func close()
+  func returnToCaller()
   func addPlace()
   func downloadMaps()
   func startDownloadingMapForCountry(_ countryId: String)
@@ -36,6 +37,11 @@ class BottomMenuInteractor {
 }
 
 extension BottomMenuInteractor: BottomMenuInteractorProtocol {
+  func returnToCaller() {
+    close()
+    mapViewController?.goBack()
+  }
+
   func close() {
     guard let controlsManager = controlsManager else {
       fatalError()

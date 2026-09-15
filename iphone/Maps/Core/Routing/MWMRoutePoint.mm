@@ -61,26 +61,8 @@ NSString * NormalizeSubtitle(NSString * subtitle)
     _point = lastLocation.mercator;
     _title = L(@"p2p_your_location");
     _subtitle = @"";
+    _callback = @"";
     _isMyPosition = YES;
-    _type = type;
-    _intermediateIndex = intermediateIndex;
-
-    [self validatePoint];
-  }
-  return self;
-}
-
-- (instancetype)initWithURLSchemeRoutePoint:(url_scheme::RoutePoint const &)point
-                                       type:(MWMRoutePointType)type
-                          intermediateIndex:(size_t)intermediateIndex
-{
-  self = [super init];
-  if (self)
-  {
-    _point = point.m_org;
-    _title = NormalizeTitle(@(point.m_name.c_str()), _point);
-    _subtitle = @"";
-    _isMyPosition = NO;
     _type = type;
     _intermediateIndex = intermediateIndex;
 
@@ -97,6 +79,7 @@ NSString * NormalizeSubtitle(NSString * subtitle)
     _point = point.m_position;
     _title = NormalizeTitle(@(point.m_title.c_str()), _point);
     _subtitle = NormalizeSubtitle(@(point.m_subTitle.c_str()));
+    _callback = @(point.m_callback.c_str());
     _isMyPosition = point.m_isMyPosition;
     _intermediateIndex = point.m_intermediateIndex;
     switch (point.m_pointType)
@@ -134,6 +117,7 @@ NSString * NormalizeSubtitle(NSString * subtitle)
     _point = point;
     _title = NormalizeTitle(title, _point);
     _subtitle = NormalizeSubtitle(subtitle);
+    _callback = @"";
     _isMyPosition = NO;
     _type = type;
     _intermediateIndex = intermediateIndex;
@@ -178,6 +162,7 @@ NSString * NormalizeSubtitle(NSString * subtitle)
   pt.m_isMyPosition = self.isMyPosition;
   pt.m_title = self.title.UTF8String;
   pt.m_subTitle = self.subtitle.UTF8String;
+  pt.m_callback = self.callback.UTF8String;
   pt.m_intermediateIndex = self.intermediateIndex;
   return pt;
 }
@@ -194,6 +179,7 @@ NSString * NormalizeSubtitle(NSString * subtitle)
 
   BOOL titlesEqual = [self.title isEqualToString:other.title];
   BOOL subtitlesEqual = [self.subtitle isEqualToString:other.subtitle];
+  BOOL callbacksEqual = [self.callback isEqualToString:other.callback];
   BOOL latLonEqual = [self.latLonString isEqualToString:other.latLonString];
   BOOL typeEqual = self.type == other.type;
   BOOL indexEqual = self.intermediateIndex == other.intermediateIndex;
@@ -201,13 +187,13 @@ NSString * NormalizeSubtitle(NSString * subtitle)
   BOOL longitudeEqual = fabs(self.longitude - other.longitude) < DBL_EPSILON;
   BOOL isMyPositionEqual = self.isMyPosition == other.isMyPosition;
 
-  return titlesEqual && subtitlesEqual && latLonEqual && typeEqual && indexEqual && latitudeEqual && longitudeEqual &&
-         isMyPositionEqual;
+  return titlesEqual && subtitlesEqual && callbacksEqual && latLonEqual && typeEqual && indexEqual && latitudeEqual &&
+         longitudeEqual && isMyPositionEqual;
 }
 
 - (NSUInteger)hash
 {
-  NSUInteger hash = self.title.hash ^ self.subtitle.hash ^ self.latLonString.hash;
+  NSUInteger hash = self.title.hash ^ self.subtitle.hash ^ self.callback.hash ^ self.latLonString.hash;
   hash ^= self.type;
   hash ^= self.intermediateIndex;
   hash ^= [[NSNumber numberWithDouble:self.latitude] hash];
@@ -227,9 +213,9 @@ NSString * NormalizeSubtitle(NSString * subtitle)
   }
 
   return [NSString stringWithFormat:@"<%@: %p> Position: [%@, %@] | IsMyPosition: %@ | Type: %@ | "
-                                    @"IntermediateIndex: %@ | Title: %@ | Subtitle: %@",
+                                    @"IntermediateIndex: %@ | Title: %@ | Subtitle: %@ | Callback: %@",
                                     [self class], self, @(_point.x), @(_point.y), _isMyPosition ? @"true" : @"false",
-                                    type, @(_intermediateIndex), _title, _subtitle];
+                                    type, @(_intermediateIndex), _title, _subtitle, _callback];
 }
 
 @end
