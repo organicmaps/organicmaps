@@ -163,10 +163,10 @@
 "load_kmz_title" = "Loading Bookmarks";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.";
+"load_kmz_successful" = "Bookmarks loaded successfully! Select a list to view it on the map:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Failed to load bookmarks. The file may be corrupted or defective.";
+"load_kmz_failed" = "Failed to load bookmarks. The file may be corrupted or defective:";
 
 /* resource for context menu */
 "edit" = "Edit";

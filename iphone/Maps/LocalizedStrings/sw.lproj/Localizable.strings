@@ -163,10 +163,10 @@
 "load_kmz_title" = "Inapakia alamisho";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Alama za ukurasa zimepakia kwa mafanikio! Unaweza kuzipata kwenye ramani au kwenye skrini ya Meneja wa Alama za ukurasa.";
+"load_kmz_successful" = "Alama za ukurasa zimepakia kwa mafanikio! Chagua orodha ili kuitazama kwenye ramani:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Imeshindwa kupakia alamisho. Faili linaweza kuwa limeharibika au lenye kasoro.";
+"load_kmz_failed" = "Imeshindwa kupakia alamisho. Faili linaweza kuwa limeharibika au lenye kasoro:";
 
 /* resource for context menu */
 "edit" = "Hariri";

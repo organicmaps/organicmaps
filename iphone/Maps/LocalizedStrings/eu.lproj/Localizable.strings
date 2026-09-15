@@ -163,10 +163,10 @@
 "load_kmz_title" = "Markagailuak kargatzen";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Markagailuak behar bezala kargatu dira! Mapan edo markagailuak kudeatzeko pantailan aurki ditzakezu.";
+"load_kmz_successful" = "Markagailuak behar bezala kargatu dira! Hautatu zerrenda bat mapan ikusteko:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Ezin izan dira markagailuak kargatu. Fitxategia akastuna izan daiteke.";
+"load_kmz_failed" = "Ezin izan dira markagailuak kargatu. Fitxategia akastuna izan daiteke:";
 
 /* resource for context menu */
 "edit" = "Editatu";

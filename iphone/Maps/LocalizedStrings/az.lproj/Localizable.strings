@@ -163,10 +163,10 @@
 "load_kmz_title" = "Əlfəcinlər yüklənir";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Əlfəcinlər uğurla yükləndi! Siz onları Xəritədə və ya Əlfəcin Menecer ekranında tapa bilərsiniz.";
+"load_kmz_successful" = "Əlfəcinlər uğurla yükləndi! Xəritədə görmək üçün siyahı seçin:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Əlfəcinlərin quraşdırılması uğursuz oldu. Fayl zədələnmiş və ya qüsurlu ola bilər.";
+"load_kmz_failed" = "Əlfəcinlərin quraşdırılması uğursuz oldu. Fayl zədələnmiş və ya qüsurlu ola bilər:";
 
 /* resource for context menu */
 "edit" = "Redaktə et";

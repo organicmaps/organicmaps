@@ -163,10 +163,10 @@
 "load_kmz_title" = "S’estan carregant els marcadors";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Els marcadors s’han carregat correctament. Els trobareu al mapa i a la pantalla de gestió de marcadors.";
+"load_kmz_successful" = "Els marcadors s’han carregat correctament! Trieu una llista per veure-la al mapa:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "No s'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.";
+"load_kmz_failed" = "No s'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós:";
 
 /* resource for context menu */
 "edit" = "Edita";

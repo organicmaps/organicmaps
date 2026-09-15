@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Järjehoidjate laadimine</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Järjehoidjad edukalt laaditud! Leiad need kaardil või järjehoidjate halduri vaates.</string>
+    <string name="load_kmz_successful">Järjehoidjad edukalt laaditud! Vali loend, et seda kaardil vaadata:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Järjehoidjate laadimine ei õnnestunud. Fail võib olla vigane.</string>
+    <string name="load_kmz_failed">Järjehoidjate laadimine ei õnnestunud. Fail võib olla vigane:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Rakendus ei tunnista failitüüpi:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->

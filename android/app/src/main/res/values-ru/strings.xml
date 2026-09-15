@@ -156,9 +156,9 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">Загрузка меток</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохранённых метках.</string>
+    <string name="load_kmz_successful">Метки успешно загружены! Выберите список, чтобы увидеть его на карте:</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Файл с метками не был загружен. Возможно, файл повреждён или неисправен.</string>
+    <string name="load_kmz_failed">Файл с метками не был загружен. Возможно, файл повреждён или неисправен:</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Тип файла не поддерживается приложением:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
