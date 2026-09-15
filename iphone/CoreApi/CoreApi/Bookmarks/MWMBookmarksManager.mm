@@ -2,6 +2,7 @@
 
 #import "MWMBookmark+Core.h"
 #import "MWMBookmarkGroup.h"
+#import "MWMBookmarksImportResult+Core.h"
 #import "MWMBookmarksSection.h"
 #import "MWMCarPlayBookmarkObject.h"
 #import "MWMTrack+Core.h"
@@ -10,8 +11,6 @@
 #include "Framework.h"
 
 #include "map/bookmarks_search_params.hpp"
-
-#include "coding/internal/file_data.hpp"
 
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -80,17 +79,24 @@ static UIColor * UIColorFromCoreColor(dp::Color const & color)
 
 static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 {
-  NSError * error;
+  NSFileManager * fileManager = NSFileManager.defaultManager;
+  NSError * error = nil;
   NSString * path = [NSString stringWithUTF8String:filePath.c_str()];
-  if ([[NSFileManager defaultManager] removeItemAtPath:path error:&error])
-  {
-    LOG(LINFO, ("Temporary bookmarks file is deleted:", filePath));
-    [[NSFileManager defaultManager] removeItemAtPath:path.stringByDeletingLastPathComponent error:nil];
-  }
-  else
+  if (![fileManager removeItemAtPath:path error:&error])
   {
     LOG(LWARNING, ("Failed to delete temporary bookmarks file:", filePath, error));
+    return;
   }
+
+  LOG(LINFO, ("Temporary bookmarks file is deleted:", filePath));
+
+  NSURL * parentURL = [[NSURL fileURLWithPath:path.stringByDeletingLastPathComponent
+                                  isDirectory:YES] URLByStandardizingPath];
+  NSURL * importsURL = [[NSURL fileURLWithPath:NSTemporaryDirectory()
+                                   isDirectory:YES] URLByAppendingPathComponent:@"FileImports" isDirectory:YES]
+                           .URLByStandardizingPath;
+  if ([parentURL.URLByDeletingLastPathComponent isEqual:importsURL])
+    [fileManager removeItemAtURL:parentURL error:nil];
 }
 
 @interface MWMBookmarksManager ()
@@ -160,19 +166,16 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   BookmarkManager::AsyncLoadingCallbacks bookmarkCallbacks;
   {
     __weak auto wSelf = self;
-    bookmarkCallbacks.m_onStarted = [wSelf]() { wSelf.areBookmarksLoaded = NO; };
-  }
-  {
-    __weak auto wSelf = self;
     bookmarkCallbacks.m_onFinished = [wSelf]()
     {
       __strong auto self = wSelf;
       if (!self)
         return;
       self.areBookmarksLoaded = YES;
+
       [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksLoadFinished)])
-          [observer onBookmarksLoadFinished];
+        if ([observer respondsToSelector:@selector(onBookmarksCategoryLoadingFinished)])
+          [observer onBookmarksCategoryLoadingFinished];
       }];
     };
   }
@@ -180,26 +183,22 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
     __weak auto wSelf = self;
     bookmarkCallbacks.m_onImportFinished = [wSelf](BookmarkManager::BookmarkImportResult const & result)
     {
-      __strong __typeof(self) self = wSelf;
+      __strong auto self = wSelf;
+      if (!self)
+        return;
+
       for (auto const & sourceResult : result.m_sourceResults)
       {
-        bool const success = !sourceResult.m_groupIds.empty();
-        [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-          if (!success)
-          {
-            if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
-              [observer onBookmarksFileLoadError];
-          }
-          else if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
-          {
-            [observer onBookmarksFileLoadSuccess];
-          }
-        }];
-
         auto const & context = sourceResult.m_context;
-        if (context.m_isTemporaryFile)
+        if (context.m_isTemporaryFile && !context.m_filePath.empty())
           DeleteTemporaryBookmarksFile(context.m_filePath);
       }
+
+      auto * importResult = [[MWMBookmarksImportResult alloc] initWithCoreResult:result];
+      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+        if ([observer respondsToSelector:@selector(onBookmarksImportFinished:)])
+          [observer onBookmarksImportFinished:importResult];
+      }];
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
@@ -217,14 +216,22 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   self.bm.LoadBookmarks();
 }
 
-- (void)loadBookmarkFile:(NSURL *)url
+- (void)loadBookmarkFiles:(NSArray<NSURL *> *)urls isTemporaryFile:(BOOL)isTemporaryFile
 {
-  self.bm.ImportBookmarks({{url.path.UTF8String, false /* isTemporaryFile */}});
+  std::vector<BookmarkManager::BookmarkFileLoadingContext> contexts;
+  contexts.reserve(urls.count);
+  for (NSURL * url in urls)
+    contexts.push_back({url.path.UTF8String, static_cast<bool>(isTemporaryFile)});
+  self.bm.ImportBookmarks(std::move(contexts));
 }
 
-- (void)reloadCategoryAtFilePath:(NSString *)filePath
+- (void)reloadCategoriesAtFilePaths:(NSArray<NSString *> *)filePaths
 {
-  self.bm.ReloadBookmarks({filePath.UTF8String});
+  std::vector<std::string> paths;
+  paths.reserve(filePaths.count);
+  for (NSString * filePath in filePaths)
+    paths.emplace_back(filePath.UTF8String);
+  self.bm.ReloadBookmarks(std::move(paths));
 }
 
 - (void)deleteCategoryAtFilePath:(NSString *)filePath
@@ -511,15 +518,6 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   return [result copy];
 }
 
-- (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId
-{
-  auto const & bookmarkIds = self.bm.GetUserMarkIds(categoryId);
-  NSMutableArray<NSNumber *> * collection = [[NSMutableArray alloc] initWithCapacity:bookmarkIds.size()];
-  for (auto bookmarkId : bookmarkIds)
-    [collection addObject:@(bookmarkId)];
-  return [collection copy];
-}
-
 - (void)notifyDeletedBookmarks:(MWMMarkIDCollection)bookmarkIds tracks:(MWMTrackIDCollection)trackIds
 {
   BOOL const hasBookmarks = bookmarkIds.count > 0;
@@ -659,16 +657,6 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 }
 
 #pragma mark - Tracks
-
-- (MWMTrackIDCollection)trackIdsForCategory:(MWMMarkGroupID)categoryId
-{
-  auto const & trackIds = self.bm.GetTrackIds(categoryId);
-  NSMutableArray<NSNumber *> * collection = [[NSMutableArray alloc] initWithCapacity:trackIds.size()];
-
-  for (auto trackId : trackIds)
-    [collection addObject:@(trackId)];
-  return collection;
-}
 
 - (NSArray<MWMTrack *> *)tracksForGroup:(MWMMarkGroupID)groupId
 {

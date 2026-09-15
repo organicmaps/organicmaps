@@ -10,8 +10,7 @@ final class DocumentPicker: NSObject {
     self.completionHandler = completionHandler
     let documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: fileTypes.map(\.utType), asCopy: true)
     documentPickerViewController.delegate = self
-    // TODO: Enable multiple selection when the multiple files parsing support will be added to the bookmark_manager.
-    documentPickerViewController.allowsMultipleSelection = false
+    documentPickerViewController.allowsMultipleSelection = true
     rootViewController.present(documentPickerViewController, animated: true)
   }
 }
