@@ -140,6 +140,7 @@ area|z16-[leisure=park],
 area|z16-[leisure=garden]
 {fill-color: @forest;}
 
+/* Forest fills get an analytic tree crown pattern, see IsAreaPatternChecker in drape_frontend/stylist.cpp */
 area|z10-[landuse=forest],
 {fill-color: @green5;}
 
