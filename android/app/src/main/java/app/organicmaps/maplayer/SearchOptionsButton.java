@@ -2,7 +2,6 @@ package app.organicmaps.maplayer;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -114,11 +113,10 @@ public class SearchOptionsButton implements View.OnClickListener
     // Present only where the options are a scrollable strip; the radial layout has no scroll view.
     mSearchOptionsScroll = mSearchLayout.findViewById(R.id.search_options_scroll);
 
-    // In landscape the search options are a horizontal strip sliding out from the search button,
-    // so anchor the zoom animation to the left edge instead of the default center.
-    final boolean isLandscape =
-        mFrame.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    if (isLandscape)
+    // The strip slides out horizontally from the search button, so anchor the zoom animation to
+    // its left edge instead of the default center. Keyed off the scroll view rather than the
+    // orientation, so it always follows the layout that was actually inflated.
+    if (mSearchOptionsScroll != null)
     {
       UiUtils.waitLayout(mSearchLayout, () -> {
         mSearchLayout.setPivotX(0);
