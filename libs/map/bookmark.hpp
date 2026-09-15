@@ -28,9 +28,6 @@ public:
   search::ReverseGeocoder::RegionAddress const & GetAddress() const;
   void SetAddress(search::ReverseGeocoder::RegionAddress const & address);
 
-  bool IsVisible() const override { return m_isVisible; }
-  void SetIsVisible(bool isVisible);
-
   bool HasCreationAnimation() const override;
 
   std::string GetPreferredName() const;
@@ -79,18 +76,13 @@ public:
   bool CanFillPlacePageMetadata() const;
 
   void Attach(kml::MarkGroupId groupId);
-  void AttachCompilation(kml::MarkGroupId groupId);
   void Detach();
-
-  kml::GroupIdCollection const & GetCompilations() const { return m_compilationIds; }
 
 private:
   drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GetCustomSymbolNames() const;
 
   kml::BookmarkData m_data;
   kml::MarkGroupId m_groupId;
-  kml::GroupIdCollection m_compilationIds;
-  bool m_isVisible = true;
   search::ReverseGeocoder::RegionAddress m_address;
 };
 
@@ -103,8 +95,6 @@ public:
   BookmarkCategory(kml::CategoryData && data, bool autoSave);
 
   kml::MarkGroupId GetID() const { return m_data.m_id; }
-  kml::MarkGroupId GetParentID() const { return m_parentId; }
-  void SetParentId(kml::MarkGroupId parentId) { m_parentId = parentId; }
 
   void SetIsVisible(bool isVisible) override;
   void SetName(std::string const & name);
@@ -121,7 +111,6 @@ public:
   void SetServerId(std::string const & serverId);
   std::string const & GetServerId() const { return m_serverId; }
 
-  void SetAuthor(std::string const & name, std::string const & id);
   void SetAccessRules(kml::AccessRules accessRules);
   void SetTags(std::vector<std::string> const & tags);
   void SetCustomProperty(std::string const & key, std::string const & value);
@@ -139,5 +128,4 @@ private:
   bool m_autoSave = true;
   kml::CategoryData m_data;
   std::string m_serverId;
-  kml::MarkGroupId m_parentId = kml::kInvalidMarkGroupId;
 };
