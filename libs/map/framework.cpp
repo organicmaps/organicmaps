@@ -1861,7 +1861,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   {
     auto & tracker = GpsTracker::Instance();
     if (tracker.IsEnabled())
-      tracker.Connect(std::bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
+      tracker.Connect(std::bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
   }
 
   GetBookmarkManager().SetDrapeEngine(make_ref(m_drapeEngine));
@@ -1974,15 +1974,17 @@ void Framework::StartTrackRecording()
   if (m_drapeEngine)
   {
     m_drapeEngine->ClearGpsTrackPoints();
-    tracker.Connect(std::bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
+    tracker.Connect(std::bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
   }
 }
 
 void Framework::SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate)
 {
-  m_trackRecordingUpdateHandler = std::move(trackRecordingDidUpdate);
-  if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(GpsTracker::Instance().GetTrackStatistics());
+  // Converting an empty std::function gives a non-empty one.
+  GpsTrack::TGpsTrackStatisticsCallback callback;
+  if (trackRecordingDidUpdate)
+    callback = std::move(trackRecordingDidUpdate);
+  GpsTracker::Instance().SetStatisticsCallback(callback);
 }
 
 ElevationInfo const & Framework::GetTrackRecordingElevationInfo()
@@ -2032,8 +2034,7 @@ void Framework::SaveRoute()
 }
 
 void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                                               std::pair<size_t, size_t> const & toRemove,
-                                               TrackStatistics const & trackStatistics)
+                                               std::pair<size_t, size_t> const & toRemove)
 {
   ASSERT(m_drapeEngine, ());
 
@@ -2060,9 +2061,6 @@ void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, loc
   }
 
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
-
-  if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(trackStatistics);
 }
 
 void Framework::MarkMapStyle(MapStyle mapStyle)

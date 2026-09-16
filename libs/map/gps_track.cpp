@@ -19,6 +19,7 @@ GpsTrack::~GpsTrack()
   {
     std::lock_guard lg(m_callbackGuard);
     m_callback = nullptr;
+    m_statisticsCallback = nullptr;
   }
   Finalize();
 }
@@ -89,6 +90,17 @@ void GpsTrack::SetCallback(TGpsTrackDiffCallback callback)
   ScheduleTask();
 }
 
+void GpsTrack::SetStatisticsCallback(TGpsTrackStatisticsCallback callback)
+{
+  {
+    std::lock_guard lg(m_callbackGuard);
+    m_statisticsCallback = std::move(callback);
+    m_needSendStatistics = true;
+  }
+  std::lock_guard lg(m_threadGuard);
+  ScheduleTask();
+}
+
 void GpsTrack::ScheduleTask()
 {
   if (!m_thread.joinable())
@@ -127,7 +139,8 @@ void GpsTrack::ProcessPoints()
 {
   auto evictedIds = std::make_pair(kInvalidId, kInvalidId);
   std::vector<location::GpsInfo> points;
-  if (m_needClear || m_needRestore)
+  bool const needReset = m_needClear || m_needRestore;
+  if (needReset)
   {
     evictedIds = m_collection.Clear(false /* resetIds */);
     m_filter->Reset();
@@ -148,6 +161,7 @@ void GpsTrack::ProcessPoints()
   m_points.clear();
 
   NotifyCallback(addedIds, evictedIds);
+  NotifyStatisticsCallback(needReset || addedIds.first != kInvalidId);
 }
 
 void GpsTrack::SaveBackup()
@@ -217,5 +231,13 @@ void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::p
     toAdd.emplace_back(id, point);
     return true;
   }, m_collection.GetSize() - addedCount);
-  m_callback(std::move(toAdd), toRemove, m_collection.GetTrackStatistics());
+  m_callback(std::move(toAdd), toRemove);
+}
+
+void GpsTrack::NotifyStatisticsCallback(bool changed)
+{
+  std::lock_guard lg(m_callbackGuard);
+  if (m_statisticsCallback && (changed || m_needSendStatistics))
+    m_statisticsCallback(m_collection.GetTrackStatistics());
+  m_needSendStatistics = false;
 }

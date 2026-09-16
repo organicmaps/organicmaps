@@ -93,6 +93,11 @@ void GpsTracker::Disconnect()
   m_track.SetCallback(nullptr);
 }
 
+void GpsTracker::SetStatisticsCallback(GpsTrack::TGpsTrackStatisticsCallback const & fn)
+{
+  m_track.SetStatisticsCallback(fn);
+}
+
 void GpsTracker::OnLocationUpdated(location::GpsInfo const & info)
 {
   if (!m_enabled)
