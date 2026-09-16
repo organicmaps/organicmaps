@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo \"Prijavi napako\" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.";
 "driving_options_title" = "Možnosti načrtovanja poti";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimizacija poti";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Samodejno prerazporedi vmesne postanke za učinkovitejšo pot.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Izogibaj se cestninam";
 

@@ -9,6 +9,8 @@ NS_SWIFT_NAME(RoutingOptions)
 @property(nonatomic) BOOL avoidDirty;
 @property(nonatomic) BOOL avoidFerry;
 @property(nonatomic) BOOL avoidMotorway;
+/// Persisted immediately, unlike the avoidance options, which need -save.
+@property(nonatomic) BOOL routeOptimizationEnabled;
 @property(nonatomic, readonly) BOOL hasOptions;
 
 - (void)save;

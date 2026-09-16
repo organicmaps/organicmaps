@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.";
 "driving_options_title" = "Опции за маршрутизация";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Оптимизация на маршрута";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Автоматично пренарежда междинните спирки, за да създаде по-ефективен маршрут.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Избягвайте платените пътища";
 

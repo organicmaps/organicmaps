@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.";
 "driving_options_title" = "Għażliet tar-rotta";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ottimizzazzjoni tar-rotta";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Tirranġa mill-ġdid il-waqfiet intermedji awtomatikament biex toħloq rotta aktar effiċjenti.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evita ħlasijiet għall-użu tat-triq";
 

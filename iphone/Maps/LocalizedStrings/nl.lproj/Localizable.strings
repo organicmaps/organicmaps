@@ -728,6 +728,12 @@
 "enable_logging_warning_message" = "Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.";
 "driving_options_title" = "Route instellingen";
 
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Routeoptimalisatie";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Rangschikt tussenstops automatisch opnieuw om een efficiëntere route te maken.";
+
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vermijd tolwegen";
 
