@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <string>
 
-#include "zlib.h"
+#include <zlib.h>
 
 namespace coding
 {

@@ -35,7 +35,6 @@
 /data/conf/isolines/ @organicmaps/data
 /docs/SUBWAY_GENERATION.md @organicmaps/data
 /docs/MAPS.md @organicmaps/data
-/docs/EXPERIMENTAL_PUBLIC_TRANSPORT_SUPPORT.md @organicmaps/data
 # no owner (changed often to add a new POI)
 /generator/generator_tests/osm_type_test.cpp
 

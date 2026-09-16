@@ -199,7 +199,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     headerViewHolder.getText().setText(holder.itemView.getResources().getString(R.string.bookmarks));
     final boolean visibility = !BookmarkManager.INSTANCE.areAllCategoriesVisible();
     headerViewHolder.setAction(mMassOperationAction, visibility);
-    headerViewHolder.setSkipDivider(true);
     updateVisibility(headerViewHolder.itemView);
   }
 

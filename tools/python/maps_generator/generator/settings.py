@@ -112,7 +112,6 @@ PROMO_CATALOG_CITIES_URL = ""
 PROMO_CATALOG_COUNTRIES_URL = ""
 POPULARITY_URL = ""
 SUBWAY_URL = ""
-TRANSIT_URL = ""
 NEED_BUILD_WORLD_ROADS = True
 FOOD_URL = ""
 FOOD_TRANSLATIONS_URL = ""
@@ -269,7 +268,6 @@ def init(default_settings_path: AnyStr):
     global PROMO_CATALOG_COUNTRIES_URL
     global POPULARITY_URL
     global SUBWAY_URL
-    global TRANSIT_URL
     global NEED_BUILD_WORLD_ROADS
     global FOOD_URL
     global UK_POSTCODES_URL
@@ -294,7 +292,6 @@ def init(default_settings_path: AnyStr):
     )
     POPULARITY_URL = cfg.get_opt_path("External", "POPULARITY_URL", POPULARITY_URL)
     SUBWAY_URL = cfg.get_opt("External", "SUBWAY_URL", SUBWAY_URL)
-    TRANSIT_URL = cfg.get_opt("External", "TRANSIT_URL", TRANSIT_URL)
     NEED_BUILD_WORLD_ROADS = cfg.get_opt("External", "NEED_BUILD_WORLD_ROADS", NEED_BUILD_WORLD_ROADS)
     FOOD_URL = cfg.get_opt("External", "FOOD_URL", FOOD_URL)
 

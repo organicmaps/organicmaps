@@ -152,8 +152,9 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents, m2::Poin
 {
   RouterDelegate delegate;
   RoutesResult res("mapsme", 0 /* routes id */);
-  RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
-      Checkpoints(startPoint, finalPoint), startDirection, false /* adjust */, delegate, res);
+  RouterResultCode result =
+      routerComponents.GetRouter().CalculateRoute(Checkpoints(startPoint, finalPoint), startDirection,
+                                                  false /* adjust */, true /* needAlternatives */, delegate, res);
   routerComponents.GetRouter().SetGuides({});
   return TRouteResult(PromoteActive(res), result);
 }
@@ -164,8 +165,9 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents, Checkpoi
   RouterDelegate delegate;
   RoutesResult res("mapsme", 0 /* routes id */);
   routerComponents.GetRouter().SetGuides(std::move(guides));
-  RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
-      checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, res);
+  RouterResultCode result =
+      routerComponents.GetRouter().CalculateRoute(checkpoints, m2::PointD::Zero() /* startDirection */,
+                                                  false /* adjust */, true /* needAlternatives */, delegate, res);
   routerComponents.GetRouter().SetGuides({});
   return TRouteResult(PromoteActive(res), result);
 }
@@ -174,8 +176,9 @@ TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkp
 {
   RouterDelegate delegate;
   RoutesResult res("mapsme", 0 /* routes id */);
-  RouterResultCode const result = routerComponents.GetRouter().CalculateRoute(
-      checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, res);
+  RouterResultCode const result =
+      routerComponents.GetRouter().CalculateRoute(checkpoints, m2::PointD::Zero() /* startDirection */,
+                                                  false /* adjust */, true /* needAlternatives */, delegate, res);
   routerComponents.GetRouter().SetGuides({});
 
   vector<shared_ptr<Route>> routes;

@@ -719,6 +719,7 @@
 "type.landuse" = "Landuse";
 "type.landuse.allotments" = "Allotments";
 "type.landuse.basin" = "Bazin de apă";
+"type.landuse.basin.intermittent" = "Bazin de apă temporar";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -751,7 +752,6 @@
 "type.landuse.quarry" = "Quarry";
 "type.landuse.railway" = "Instalații feroviare";
 "type.landuse.recreation_ground" = "Recreation Ground";
-"type.landuse.reservoir" = "Apă";
 "type.landuse.residential" = "Residential Area";
 "type.landuse.retail" = "Retail Area";
 "type.landuse.salt_pond" = "Salt Pond";
@@ -870,9 +870,10 @@
 "type.natural.water.lake" = "Lac";
 "type.natural.water.lock" = "Camera de blocare";
 "type.natural.water.pond" = "Heleșteu";
-"type.natural.water.reservoir" = "Rezervor";
+"type.natural.water.reservoir" = "Lac de acumulare";
 "type.natural.water.basin" = "Bazin de apă";
 "type.natural.water.river" = "Râu";
+"type.natural.water.intermittent" = "Corp de apă temporar";
 "type.natural.land" = "Teren";
 "type.natural.meadow" = "Fâneață";
 "type.natural.orchard" = "Livadă";

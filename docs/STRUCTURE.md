@@ -108,7 +108,7 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `track_analyzing/` -
 - `tracking/` -
 - `traffic/` - real-time traffic information.
-- `transit/` - experimental GTFS-based public transport support.
+- `transit/` - OSM public transport data structures.
 
 ## Documentation
 

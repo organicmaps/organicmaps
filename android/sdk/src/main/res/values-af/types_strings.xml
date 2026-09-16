@@ -564,6 +564,7 @@
     <string name="type.landuse">Grondgebruik</string>
     <string name="type.landuse.allotments">Tuinplotte</string>
     <string name="type.landuse.basin">Vanggebied</string>
+    <string name="type.landuse.basin.intermittent">Tydelike vanggebied</string>
     <string name="type.landuse.brownfield">Natuurlike bruin</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Begraafplaas</string>
@@ -593,7 +594,6 @@
     <string name="type.landuse.quarry">Steengroef</string>
     <string name="type.landuse.railway">Spoorwegfasiliteite</string>
     <string name="type.landuse.recreation_ground">Ontspanningsone</string>
-    <string name="type.landuse.reservoir">Reservoir</string>
     <string name="type.landuse.residential">Woongebied</string>
     <string name="type.landuse.retail">Handelsgebied</string>
     <string name="type.landuse.salt_pond">Soutpoel</string>
@@ -694,6 +694,7 @@
     <string name="type.natural.water.reservoir">Reservoir</string>
     <string name="type.natural.water.basin">Vanggebied</string>
     <string name="type.natural.water.river">Rivier</string>
+    <string name="type.natural.water.intermittent">Tydelike water</string>
     <string name="type.natural.land">Land</string>
     <string name="type.natural.meadow">Weiland</string>
     <string name="type.natural.orchard">Boord</string>

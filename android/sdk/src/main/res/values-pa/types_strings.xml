@@ -6,8 +6,10 @@
 
     <!-- SECTION: Types: Historic -->
     <string name="type.man_made.ceremonial_gate">ਸਮਾਰੋਹਕ ਦਰਵਾਜ਼ਾ</string>
+    <string name="type.landuse.basin.intermittent">ਅਸਥਾਈ ਜਲ-ਭੰਡਾਰ</string>
     <string name="type.leisure.track">ਖੇਡ ਟਰੈਕ</string>
     <string name="type.leisure.track.area">ਖੇਡ ਟਰੈਕ</string>
+    <string name="type.natural.water.intermittent">ਅਸਥਾਈ ਪਾਣੀ</string>
     <string name="type.natural.hill">ਟਿੱਲਾ</string>
     <string name="type.natural.arch">ਪੱਥਰ ਦੀ ਮੇਹਰਾਬ</string>
     <string name="type.natural.volcano.active">ਸਰਗਰਮ ਜਵਾਲਾਮੁਖੀ</string>

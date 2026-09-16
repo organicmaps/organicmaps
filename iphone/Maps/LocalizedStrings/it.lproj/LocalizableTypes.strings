@@ -719,6 +719,7 @@
 "type.landuse" = "Uso del suolo";
 "type.landuse.allotments" = "Orti comunitari";
 "type.landuse.basin" = "Bacino d'acqua";
+"type.landuse.basin.intermittent" = "Bacino intermittente";
 "type.landuse.brownfield" = "Zona industriale";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -751,7 +752,6 @@
 "type.landuse.quarry" = "Cava";
 "type.landuse.railway" = "Impianti ferroviari";
 "type.landuse.recreation_ground" = "Area divertimento";
-"type.landuse.reservoir" = "Bacino";
 "type.landuse.residential" = "Area residentiale";
 "type.landuse.retail" = "Area commerciale";
 "type.landuse.salt_pond" = "Salina";
@@ -870,9 +870,10 @@
 "type.natural.water.lake" = "Lago";
 "type.natural.water.lock" = "Camera di blocco";
 "type.natural.water.pond" = "Stagno";
-"type.natural.water.reservoir" = "Serbatoio";
+"type.natural.water.reservoir" = "Bacino idrico";
 "type.natural.water.basin" = "Bacino d'acqua";
 "type.natural.water.river" = "Fiume";
+"type.natural.water.intermittent" = "Corpo d'acqua intermittente";
 "type.natural.land" = "Terra";
 "type.natural.meadow" = "Prato";
 "type.natural.orchard" = "Frutteto";

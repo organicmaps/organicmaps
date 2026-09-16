@@ -54,7 +54,6 @@
 		FACB7ADA26B913F400810C9C /* translator_interface.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB798426B913F300810C9C /* translator_interface.hpp */; };
 		FACB7ADB26B913F400810C9C /* routing_index_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB798526B913F300810C9C /* routing_index_generator.cpp */; };
 		FACB7ADC26B913F400810C9C /* translator_world.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB798626B913F300810C9C /* translator_world.cpp */; };
-		FACB7ADD26B913F400810C9C /* transit_generator_experimental.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB798726B913F300810C9C /* transit_generator_experimental.hpp */; };
 		FACB7ADE26B913F400810C9C /* wiki_url_dumper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB798826B913F300810C9C /* wiki_url_dumper.cpp */; };
 		FACB7ADF26B913F400810C9C /* cluster_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB798926B913F300810C9C /* cluster_finder.hpp */; };
 		FACB7AE026B913F400810C9C /* filter_world.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB798A26B913F300810C9C /* filter_world.cpp */; };
@@ -229,7 +228,6 @@
 		FACB7BD726B913F400810C9C /* camera_info_collector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB7A9A26B913F300810C9C /* camera_info_collector.cpp */; };
 		FACB7BD826B913F400810C9C /* feature_maker_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB7A9B26B913F300810C9C /* feature_maker_base.cpp */; };
 		FACB7BD926B913F400810C9C /* wiki_url_dumper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7A9C26B913F300810C9C /* wiki_url_dumper.hpp */; };
-		FACB7BDA26B913F400810C9C /* transit_generator_experimental.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB7A9D26B913F300810C9C /* transit_generator_experimental.cpp */; };
 		FACB7BDB26B913F400810C9C /* translator_world.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7A9E26B913F300810C9C /* translator_world.hpp */; };
 		FACB7BDC26B913F400810C9C /* routing_index_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7A9F26B913F300810C9C /* routing_index_generator.hpp */; };
 		FACB7BDD26B913F400810C9C /* osm_xml_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7AA026B913F300810C9C /* osm_xml_source.hpp */; };
@@ -342,7 +340,6 @@
 		FACB798426B913F300810C9C /* translator_interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = translator_interface.hpp; sourceTree = "<group>"; };
 		FACB798526B913F300810C9C /* routing_index_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_index_generator.cpp; sourceTree = "<group>"; };
 		FACB798626B913F300810C9C /* translator_world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = translator_world.cpp; sourceTree = "<group>"; };
-		FACB798726B913F300810C9C /* transit_generator_experimental.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_generator_experimental.hpp; sourceTree = "<group>"; };
 		FACB798826B913F300810C9C /* wiki_url_dumper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wiki_url_dumper.cpp; sourceTree = "<group>"; };
 		FACB798926B913F300810C9C /* cluster_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cluster_finder.hpp; sourceTree = "<group>"; };
 		FACB798A26B913F300810C9C /* filter_world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = filter_world.cpp; sourceTree = "<group>"; };
@@ -517,7 +514,6 @@
 		FACB7A9A26B913F300810C9C /* camera_info_collector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera_info_collector.cpp; sourceTree = "<group>"; };
 		FACB7A9B26B913F300810C9C /* feature_maker_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_maker_base.cpp; sourceTree = "<group>"; };
 		FACB7A9C26B913F300810C9C /* wiki_url_dumper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wiki_url_dumper.hpp; sourceTree = "<group>"; };
-		FACB7A9D26B913F300810C9C /* transit_generator_experimental.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_generator_experimental.cpp; sourceTree = "<group>"; };
 		FACB7A9E26B913F300810C9C /* translator_world.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = translator_world.hpp; sourceTree = "<group>"; };
 		FACB7A9F26B913F300810C9C /* routing_index_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_index_generator.hpp; sourceTree = "<group>"; };
 		FACB7AA026B913F300810C9C /* osm_xml_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_xml_source.hpp; sourceTree = "<group>"; };
@@ -904,8 +900,6 @@
 				FACB7A6026B913F300810C9C /* towns_dumper.hpp */,
 				FACB79B526B913F300810C9C /* traffic_generator.cpp */,
 				FACB7AC626B913F400810C9C /* traffic_generator.hpp */,
-				FACB7A9D26B913F300810C9C /* transit_generator_experimental.cpp */,
-				FACB798726B913F300810C9C /* transit_generator_experimental.hpp */,
 				FACB79C326B913F300810C9C /* transit_generator.cpp */,
 				FACB7AD026B913F400810C9C /* transit_generator.hpp */,
 				FACB7A5426B913F300810C9C /* translator_coastline.cpp */,
@@ -948,7 +942,6 @@
 			files = (
 				FACB7AFE26B913F400810C9C /* filter_complex.hpp in Headers */,
 				FACB7B9326B913F400810C9C /* osm2type.hpp in Headers */,
-				FACB7ADD26B913F400810C9C /* transit_generator_experimental.hpp in Headers */,
 				FACB7B2326B913F400810C9C /* translator.hpp in Headers */,
 				FACB7AD726B913F400810C9C /* camera_info_collector.hpp in Headers */,
 				FACB7BC226B913F400810C9C /* cross_mwm_osm_ways_collector.hpp in Headers */,
@@ -1214,7 +1207,6 @@
 				FACB7BCC26B913F400810C9C /* maxspeeds_parser.cpp in Sources */,
 				FACB7BBE26B913F400810C9C /* relation_tags.cpp in Sources */,
 				FACB7BF126B913F400810C9C /* feature_merger.cpp in Sources */,
-				FACB7BDA26B913F400810C9C /* transit_generator_experimental.cpp in Sources */,
 				FACB7AD426B913F400810C9C /* restriction_writer.cpp in Sources */,
 				FACB7BCB26B913F400810C9C /* boundary_postcodes_enricher.cpp in Sources */,
 				FACB7BFB26B913F400810C9C /* filter_complex.cpp in Sources */,

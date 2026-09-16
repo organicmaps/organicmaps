@@ -719,6 +719,7 @@
 "type.landuse" = "भूमी उपयोग";
 "type.landuse.allotments" = "वाटप";
 "type.landuse.basin" = "कुंड";
+"type.landuse.basin.intermittent" = "तात्पुरते कुंड";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -751,7 +752,6 @@
 "type.landuse.quarry" = "खाण";
 "type.landuse.railway" = "रेल्वे परिसर";
 "type.landuse.recreation_ground" = "मनोरंजन मैदान";
-"type.landuse.reservoir" = "पाणी";
 "type.landuse.residential" = "निवासी जमीन";
 "type.landuse.retail" = "किरकोळ जमीन";
 "type.landuse.salt_pond" = "तलाव";
@@ -873,6 +873,7 @@
 "type.natural.water.reservoir" = "जलाशय";
 "type.natural.water.basin" = "कुंड";
 "type.natural.water.river" = "नदी";
+"type.natural.water.intermittent" = "तात्पुरता पाणवठा";
 "type.natural.land" = "जमीन";
 "type.natural.meadow" = "कुरण";
 "type.natural.orchard" = "फळबागा";

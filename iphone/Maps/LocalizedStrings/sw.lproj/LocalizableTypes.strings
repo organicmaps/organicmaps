@@ -719,6 +719,7 @@
 "type.landuse" = "Landuse";
 "type.landuse.allotments" = "Allotments";
 "type.landuse.basin" = "Bonde la Maji";
+"type.landuse.basin.intermittent" = "Bonde la maji la muda";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -751,7 +752,6 @@
 "type.landuse.quarry" = "Quarry";
 "type.landuse.railway" = "Eneo la njia ya reli";
 "type.landuse.recreation_ground" = "Recreation Ground";
-"type.landuse.reservoir" = "Reservoir";
 "type.landuse.residential" = "Residential Area";
 "type.landuse.retail" = "Retail Area";
 "type.landuse.salt_pond" = "Salt Pond";
@@ -873,6 +873,7 @@
 "type.natural.water.reservoir" = "Hifadhi";
 "type.natural.water.basin" = "Bonde la Maji";
 "type.natural.water.river" = "Mto";
+"type.natural.water.intermittent" = "Maji ya muda";
 "type.natural.land" = "Nchi kavu";
 "type.natural.meadow" = "Meadow";
 "type.natural.orchard" = "Bustani";

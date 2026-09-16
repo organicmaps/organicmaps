@@ -1,8 +1,5 @@
 #pragma once
 
-#include "opening_hours/opening_hours.hpp"
-
-#include "transit/experimental/transit_types_experimental.hpp"
 #include "transit/transit_types.hpp"
 
 #include "coding/geometry_coding.hpp"
@@ -120,16 +117,6 @@ public:
     else
       id.Visit(*this);
   }
-
-  void operator()(::transit::experimental::IdBundle const & id, char const * name = nullptr)
-  {
-    if (id.SerializeFeatureIdOnly())
-      (*this)(id.GetFeatureId(), name);
-    else
-      id.Visit(*this);
-  }
-
-  void operator()(osmoh::OpeningHours const & oh, char const * /* name */ = nullptr) { (*this)(ToString(oh)); }
 
   void operator()(Edge const & e, char const * /* name */ = nullptr)
   {
@@ -264,20 +251,6 @@ public:
     id.Visit(*this);
   }
 
-  void operator()(::transit::experimental::IdBundle & idBundle, char const * name = nullptr)
-  {
-    if (idBundle.SerializeFeatureIdOnly())
-    {
-      FeatureId featureId;
-      operator()(featureId, name);
-      idBundle.SetFeatureId(featureId);
-      idBundle.SetOsmId(kInvalidOsmId);
-      return;
-    }
-
-    idBundle.Visit(*this);
-  }
-
   void operator()(Edge & e, char const * name = nullptr)
   {
     (*this)(e.m_stop1Id);
@@ -373,13 +346,6 @@ public:
     }
   }
 
-  void operator()(osmoh::OpeningHours & oh, char const * /* name */ = nullptr)
-  {
-    std::string ohStr;
-    (*this)(ohStr);
-    oh = osmoh::OpeningHours(ohStr);
-  }
-
   template <typename T>
   std::enable_if_t<std::is_class<T>::value> operator()(T & t, char const * /* name */ = nullptr)
   {
@@ -406,11 +372,6 @@ public:
 
   void operator()(TransitHeader const & header) { header.Visit(*this); }
 
-  void operator()(::transit::experimental::TransitHeader const & headerExperimental)
-  {
-    headerExperimental.Visit(*this);
-  }
-
 private:
   Sink & m_sink;
 };
@@ -428,8 +389,6 @@ public:
   }
 
   void operator()(TransitHeader & header) { header.Visit(*this); }
-
-  void operator()(::transit::experimental::TransitHeader & headerExperimental) { headerExperimental.Visit(*this); }
 
 private:
   Source & m_source;

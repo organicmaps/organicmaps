@@ -718,7 +718,8 @@
 "type.junction.roundabout" = "Κυκλικός κόμβος";
 "type.landuse" = "Χρήση γης";
 "type.landuse.allotments" = "Κήποι οικοπέδων";
-"type.landuse.basin" = "Λεκανοπέδιο";
+"type.landuse.basin" = "Λεκάνη νερού";
+"type.landuse.basin.intermittent" = "Προσωρινή λεκάνη νερού";
 "type.landuse.brownfield" = "Εγκαταλελειμμένη έκταση";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -751,7 +752,6 @@
 "type.landuse.quarry" = "Λατομείο";
 "type.landuse.railway" = "Σιδηροδρομικές εγκαταστάσεις";
 "type.landuse.recreation_ground" = "Χώρος αναψυχής";
-"type.landuse.reservoir" = "Ταμιευτήρας";
 "type.landuse.residential" = "Οικιστική περιοχή";
 "type.landuse.retail" = "Περιοχή λιανικής";
 "type.landuse.salt_pond" = "Αλυκή";
@@ -871,8 +871,9 @@
 "type.natural.water.lock" = "Θάλαμος κλειδαριάς";
 "type.natural.water.pond" = "Δεξαμενή";
 "type.natural.water.reservoir" = "Ταμιευτήρας";
-"type.natural.water.basin" = "Λεκανοπέδιο";
+"type.natural.water.basin" = "Λεκάνη νερού";
 "type.natural.water.river" = "Ποταμός";
+"type.natural.water.intermittent" = "Προσωρινή υδάτινη επιφάνεια";
 "type.natural.land" = "Στεριά";
 "type.natural.meadow" = "Λιβάδι";
 "type.natural.orchard" = "Οπωρώνας";

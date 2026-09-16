@@ -70,6 +70,7 @@ waterway=sanitary_dump_station : amenity=sanitary_dump_station
 compressed_air=yes : amenity=compressed_air
 
 amenity=monastery : amenity=place_of_worship
+amenity=embassy : office=diplomatic
 
 vending=parcel_pickup;parcel_mail_in : amenity=parcel_locker | u
 vending=parcel_pickup : amenity=parcel_locker | u
@@ -89,7 +90,17 @@ natural=marsh     : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
 natural=forest    : natural=wood
 natural=shrubbery : natural=scrub
+natural=vineyard  : landuse=vineyard
+natural=orchard   : landuse=orchard
 cliff=yes         : natural=cliff
+
+# Deprecated water tagging. No 'u' flag: it would overwrite an existing natural=* tag,
+# e.g. landuse=reservoir + natural=wood would lose its forest type.
+natural=lake       : natural=water, water=lake
+natural=pond       : natural=water, water=pond
+natural=salt_pond  : landuse=salt_pond
+waterway=riverbank : natural=water, water=river
+landuse=reservoir  : natural=water, water=reservoir
 
 desert=sand : desert=erg
 desert=yes : desert=erg

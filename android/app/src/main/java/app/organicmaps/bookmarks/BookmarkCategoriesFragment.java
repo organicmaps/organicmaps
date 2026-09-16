@@ -38,7 +38,7 @@ import app.organicmaps.util.bottomsheet.ExportMenuItems;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.PlaceholderView;
-import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
+import app.organicmaps.widget.recycler.CardSectionDividerDecoration;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 import java.util.ArrayList;
@@ -120,7 +120,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       return;
 
     rw.setNestedScrollingEnabled(false);
-    RecyclerView.ItemDecoration decor = new DividerItemDecorationWithPadding(requireContext());
+    RecyclerView.ItemDecoration decor = new CardSectionDividerDecoration(requireContext());
     rw.addItemDecoration(decor);
     mCategoriesAdapterObserver = this::onCategoriesChanged;
     BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mCategoriesAdapterObserver);

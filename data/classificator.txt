@@ -640,7 +640,9 @@ world  +
         {}
     landuse  +
         allotments  -
-        basin  -
+        basin  +
+            intermittent  -
+            {}
         brownfield  -
         cemetery  +
             christian  -
@@ -675,7 +677,6 @@ world  +
         railway  -
         recreation_ground  -
         religious  -
-        reservoir  -
         residential  -
         retail  -
         salt_pond  -
@@ -816,6 +817,7 @@ world  +
             basin  -
             ditch  -
             drain  -
+            intermittent  -
             lake  -
             lock  -
             moat  -

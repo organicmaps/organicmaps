@@ -719,6 +719,7 @@
 "type.landuse" = "Пољопривредно земљиште";
 "type.landuse.allotments" = "Парцела";
 "type.landuse.basin" = "Резервоар";
+"type.landuse.basin.intermittent" = "Повремени резервоар";
 "type.landuse.brownfield" = "Грађевинско земљиште";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -751,7 +752,6 @@
 "type.landuse.quarry" = "Каменолом";
 "type.landuse.railway" = "Железничке просторије";
 "type.landuse.recreation_ground" = "Простор за рекреацију";
-"type.landuse.reservoir" = "Вештачко језеро";
 "type.landuse.residential" = "Стамбена зона";
 "type.landuse.retail" = "Пословна зона";
 "type.landuse.salt_pond" = "Слано језеро";
@@ -870,9 +870,10 @@
 "type.natural.water.lake" = "Језеро";
 "type.natural.water.lock" = "Преводница";
 "type.natural.water.pond" = "Језерце";
-"type.natural.water.reservoir" = "Резервоар";
+"type.natural.water.reservoir" = "Акумулационо језеро";
 "type.natural.water.basin" = "Природни базен";
 "type.natural.water.river" = "Река";
+"type.natural.water.intermittent" = "Повремена водена површина";
 "type.natural.land" = "Земљиште";
 "type.natural.meadow" = "Ливада";
 "type.natural.orchard" = "Воћњак";

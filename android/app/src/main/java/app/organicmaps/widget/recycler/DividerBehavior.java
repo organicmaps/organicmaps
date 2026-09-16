@@ -6,7 +6,10 @@ package app.organicmaps.widget.recycler;
 public interface DividerBehavior
 {
   /** Use full-width divider adjacent to this item (no start margin). */
-  boolean useFullWidthDivider();
+  default boolean useFullWidthDivider()
+  {
+    return false;
+  }
 
   /** Skip drawing divider below this item. */
   default boolean skipDivider()

@@ -374,16 +374,11 @@ node|z17-[leisure=beach_resort],
 node|z17-[natural=beach]
 {text: name;font-size: 10;text-color: @poi_label;}
 
-/* 6.WATER
-  Treat landuse=reservoir same as natural=water.
-  It is deprectated and will be replaced with natural=water=reservoir.
-*/
+/* 6.WATER */
 
 node|z1-[place=ocean],
 node|z4-[place=sea],
-area|z10-13[landuse=reservoir][bbox_area>=4000000],
 area|z10-13[natural=water][!tunnel][bbox_area>=4000000],
-area|z14-[landuse=reservoir],
 area|z14-[natural=water][!tunnel],
 line|z11-[waterway=river],
 node|z14-[natural=bay],
@@ -391,7 +386,6 @@ node|z16-[natural=wetland],
 area|z16-[natural=wetland],
 {text: name; text-color: @water_label;}
 
-area|z10-13[landuse=reservoir][bbox_area<4000000],
 area|z10-13[natural=water][!tunnel][bbox_area<4000000],
 {text: none;}
 
@@ -409,21 +403,18 @@ node|z5-[place=ocean]
 node|z4-[place=sea]
 {font-size: 12;}
 
-area|z10-[landuse=reservoir],
 area|z10-[natural=water][!tunnel],
 {font-size: 8.5;}
 
 node|z14-15[natural=bay],
 node|z14-15[natural=strait],
 area|z14-15[natural=water][!tunnel],
-area|z14-15[landuse=reservoir],
 {font-size: 9.5;}
 
 node|z16-[natural=bay],
 node|z16-[natural=strait],
 area|z16-[natural=wetland],
 area|z16-[natural=water][!tunnel],
-area|z16-[landuse=reservoir],
 {font-size: 10.5;}
 
 /* don't render caption in vehicle style */

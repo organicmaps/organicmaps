@@ -157,7 +157,7 @@ void AsyncRouter::SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<
 }
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction, bool adjustToPrevRoute,
-                                 ReadyCallbackOwnership const & readyCallback,
+                                 bool needAlternatives, ReadyCallbackOwnership const & readyCallback,
                                  NeedMoreMapsCallback const & needMoreMapsCallback,
                                  RemoveRouteCallback const & removeRouteCallback,
                                  ProgressCallback const & progressCallback, uint32_t timeoutSec)
@@ -167,6 +167,7 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
   m_checkpoints = checkpoints;
   m_startDirection = direction;
   m_adjustToPrevRoute = adjustToPrevRoute;
+  m_needAlternatives = needAlternatives;
 
   ResetDelegate();
 
@@ -272,6 +273,7 @@ void AsyncRouter::CalculateRoute()
   std::shared_ptr<RouterDelegateProxy> delegateProxy;
   m2::PointD startDirection;
   bool adjustToPrevRoute = false;
+  bool needAlternatives = true;
   std::shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
   std::shared_ptr<IRouter> router;
   uint64_t routeId = 0;
@@ -299,6 +301,7 @@ void AsyncRouter::CalculateRoute()
     routerName = router->GetName();
     router->SetGuides(std::move(m_guides));
     m_guides.clear();
+    needAlternatives = m_needAlternatives;
   }
 
   auto result = std::make_shared<RoutesResult>(router->GetName(), routeId);
@@ -318,8 +321,8 @@ void AsyncRouter::CalculateRoute()
 
     if (code == RouterResultCode::NoError)
     {
-      code =
-          router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegateProxy->GetDelegate(), *result);
+      code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, needAlternatives,
+                                    delegateProxy->GetDelegate(), *result);
     }
 
     router->SetGuides({});

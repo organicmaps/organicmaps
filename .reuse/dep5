@@ -83,13 +83,3 @@ License: BSD-3-Clause
 Files: tools/python/transit/bezier_curves.py
 Copyright: 2015, Emilia Petrisor
 License: BSD-2-Clause
-
-Files: debian/patches/010-embed-just_gtfs.patch
-Copyright: 2020-2021, Olga Khlopkova <mesozoic.drones@gmail.com>
-           2021-2021, Tatiana Ian <tatiana.kondakova@gmail.com>
-           2021-2021, Victor <victormartin96@outlook.com>
-           2020, ldo2 <ldo2.msiu@gmail.com>
-           2020, Vlad Vesa <vlad.vesa89@gmail.com>
-           2020, Vladimir Byko-Ianko <bykoianko@gmail.com>
-           2020, mesozoic-drones <mesozoic.drones@gmail.com>
-License: MIT

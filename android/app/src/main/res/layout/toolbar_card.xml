@@ -2,8 +2,8 @@
 <androidx.appcompat.widget.Toolbar
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/toolbar"
-  style="@style/MwmWidget.ToolbarStyle.NoElevation"
-  android:theme="@style/MwmWidget.ToolbarTheme"
+  style="@style/MwmWidget.Toolbar.Card"
+  android:theme="@style/ThemeOverlay.Mwm.Toolbar.Card"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
   <include

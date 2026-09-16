@@ -3,49 +3,17 @@ package app.organicmaps.bookmarks;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import app.organicmaps.R;
-import app.organicmaps.base.BaseToolbarActivity;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
-import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 
-public class BookmarkCategoriesActivity extends BaseToolbarActivity
+public class BookmarkCategoriesActivity extends BaseBookmarksActivity
 {
-  @CallSuper
-  @Override
-  public void onResume()
-  {
-    super.onResume();
-
-    // Disable all notifications in BM on appearance of this activity.
-    // It allows to significantly improve performance in case of bookmarks
-    // modification. All notifications will be sent on activity's disappearance.
-    BookmarkManager.INSTANCE.setNotificationsEnabled(false);
-  }
-
-  @CallSuper
-  @Override
-  public void onPause()
-  {
-    // Allow to send all notifications in BM.
-    BookmarkManager.INSTANCE.setNotificationsEnabled(true);
-
-    super.onPause();
-  }
-
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
     return BookmarkCategoriesFragment.class;
-  }
-
-  @Override
-  protected int getContentLayoutResId()
-  {
-    return R.layout.bookmarks_activity;
   }
 
   public static void start(@NonNull Activity context, @Nullable BookmarkCategory category)

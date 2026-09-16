@@ -37,8 +37,8 @@ namespace routing
 
  */
 RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                             bool adjustToPrevRoute, RouterDelegate const & delegate,
-                                             RoutesResult & result)
+                                             bool adjustToPrevRoute, bool /* needAlternatives */,
+                                             RouterDelegate const & delegate, RoutesResult & result)
 {
   auto const & points = checkpoints.GetPoints();
   size_t const count = points.size();

@@ -50,9 +50,6 @@ data/[0-9][0-9][0-9][0-9][0-9][0-9]
 data/gps_track.dat
 # custom raster background tiles disk cache
 data/bg_tiles/
-# temporary files for downloader
-data/test_data/world_feed_integration_tests_data
-
 # JetBrains IDEs
 .idea/
 !/android/.idea/

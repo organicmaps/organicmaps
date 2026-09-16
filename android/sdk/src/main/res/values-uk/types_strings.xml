@@ -606,6 +606,7 @@
     <string name="type.landuse">Землевикористання</string>
     <string name="type.landuse.allotments">Земельні ділянки</string>
     <string name="type.landuse.basin">Резервуар</string>
+    <string name="type.landuse.basin.intermittent">Пересихаючий резервуар</string>
     <string name="type.landuse.brownfield">Земля для будівництва</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Цвинтар</string>
@@ -636,7 +637,6 @@
     <string name="type.landuse.quarry">Кар\'єр</string>
     <string name="type.landuse.railway">Залізничні споруди</string>
     <string name="type.landuse.recreation_ground">База відпочинку</string>
-    <string name="type.landuse.reservoir">Водоймище</string>
     <string name="type.landuse.residential">Житлова зона</string>
     <string name="type.landuse.retail">Зона торгівлі</string>
     <string name="type.landuse.salt_pond">Соляний став</string>
@@ -745,6 +745,7 @@
     <string name="type.natural.water.reservoir">Водосховище</string>
     <string name="type.natural.water.basin">Резервуар</string>
     <string name="type.natural.water.river">Річка</string>
+    <string name="type.natural.water.intermittent">Пересихаюче водоймище</string>
     <string name="type.natural.land">Суша</string>
     <string name="type.natural.meadow">Луг</string>
     <string name="type.natural.orchard">Сад</string>

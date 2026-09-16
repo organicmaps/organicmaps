@@ -719,6 +719,7 @@
 "type.landuse" = "Landuse";
 "type.landuse.allotments" = "Allotments";
 "type.landuse.basin" = "อ่างน้ำ";
+"type.landuse.basin.intermittent" = "อ่างน้ำชั่วคราว";
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -751,7 +752,6 @@
 "type.landuse.quarry" = "Quarry";
 "type.landuse.railway" = "ที่ก่อสร้างทางรถไฟ";
 "type.landuse.recreation_ground" = "Recreation Ground";
-"type.landuse.reservoir" = "น้ำ";
 "type.landuse.residential" = "เขตที่อยู่อาศัย";
 "type.landuse.retail" = "Retail Area";
 "type.landuse.salt_pond" = "Salt Pond";
@@ -873,6 +873,7 @@
 "type.natural.water.reservoir" = "อ่างเก็บน้ำ";
 "type.natural.water.basin" = "อ่างน้ำ";
 "type.natural.water.river" = "แม่น้ำ";
+"type.natural.water.intermittent" = "แหล่งน้ำชั่วคราว";
 "type.natural.land" = "พื้นดิน";
 "type.natural.meadow" = "ทุ่งหญ้า";
 "type.natural.orchard" = "สวนผลไม้";

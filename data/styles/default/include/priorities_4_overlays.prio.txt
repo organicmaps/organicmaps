@@ -107,7 +107,6 @@ boundary-protected_area-6                           # icon z11-17 (also has capt
 leisure-nature_reserve                              # icon z11-17 and caption z9 (also has caption(optional) z12-17, area z8-17)
 === 6700
 
-landuse-reservoir                                   # caption z10- (also has area z12-)
 natural-water-lake                                  # caption z8- (also has area z1-)
 natural-water-reservoir                             # caption z10- (also has area z1-)
 === 6650
@@ -709,6 +708,9 @@ waterway-stream-ephemeral                           # pathtext z13- (also has li
 waterway-stream-intermittent                        # pathtext z13- (also has line z13-)
 waterway-weir                                       # pathtext z15- (also has line z14-)
 === 2900
+
+natural-water-intermittent                          # caption z10- (also has area z1-)
+=== 2890
 
 highway-ford                                        # icon z16- and pathtext z16- (also has line z13-)
 natural-rock                                        # icon z17- (also has caption(optional) z17-)

@@ -64,9 +64,6 @@ NEED_BUILD_WORLD_ROADS: false
 # Comment to disable subway layer generation.
 #SUBWAY_URL: https://cdn.organicmaps.app/subway.json
 
-# Location of the EXPERIMENTAL GTFS-extracted public transport transit files:
-# TRANSIT_URL:
-
 # Urls for production maps generation.
 # UGC_URL:
 # HOTELS_URL:
