@@ -273,15 +273,19 @@ public class Framework
     return addRoutePoint(point, true);
   }
 
-  public static boolean addRoutePoint(RouteMarkData point, boolean reorderIntermediatePoints)
+  public static boolean addRoutePoint(RouteMarkData point, boolean allowOptimization)
   {
-    return Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIntermediateIndex,
-                                         point.mIsMyPosition, point.mLat, point.mLon, reorderIntermediatePoints);
+    return Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIsMyPosition,
+                                         point.mLat, point.mLon, allowOptimization);
   }
 
   public static native boolean nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
-                                                   int intermediateIndex, boolean isMyPosition, double lat, double lon,
-                                                   boolean reorderIntermediatePoints);
+                                                   boolean isMyPosition, double lat, double lon,
+                                                   boolean allowOptimization);
+
+  public static native void nativeReplaceRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
+                                                    int intermediateIndex, boolean isMyPosition, double lat,
+                                                    double lon);
 
   public static native void nativeRemoveRoutePoints();
 

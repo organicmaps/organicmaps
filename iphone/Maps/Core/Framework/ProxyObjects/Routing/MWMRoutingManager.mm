@@ -215,7 +215,7 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 - (void)addRoutePoint:(MWMRoutePoint *)point
 {
   RouteMarkData startPt = point.routeMarkData;
-  self.rm.AddRoutePoint(std::move(startPt));
+  self.rm.AddRoutePoint(std::move(startPt), false /* optimize */);
 }
 
 - (void)saveRoute
