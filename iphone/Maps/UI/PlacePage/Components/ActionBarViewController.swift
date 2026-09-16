@@ -11,6 +11,7 @@ final class ActionBarViewController: UIViewController {
   var canAddStop = false
   var canReplaceStop = false
   var canRouteToAndFrom = false
+  var hasMyPositionRoutePoint = false
 
   private var visibleButtons: [ActionBarButtonType] = []
   private var additionalButtons: [ActionBarButtonType] = []
@@ -27,6 +28,8 @@ final class ActionBarViewController: UIViewController {
   private func configureButtons() {
     if placePageData.isRoutePoint {
       visibleButtons.append(.routeRemoveStop)
+    } else if placePageData.isMyPosition, hasMyPositionRoutePoint {
+      visibleButtons.append(contentsOf: [.routeReplaceStop, .routeRemoveStop])
     } else if placePageData.roadType != .none {
       switch placePageData.roadType {
       case .toll:

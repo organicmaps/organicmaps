@@ -1193,11 +1193,11 @@ extension CarPlayService {
     if let router = router,
        let startPoint = MWMRoutePoint(lastLocationAndType: .start,
                                       intermediateIndex: 0) {
-      let endPoints = results.compactMap { MWMRoutePoint(cgPoint: $0.mercatorPoint,
-                                                         title: $0.title,
-                                                         subtitle: $0.address,
-                                                         type: .finish,
-                                                         intermediateIndex: 0) }
+      let endPoints = results.map { MWMRoutePoint(cgPoint: $0.mercatorPoint,
+                                                  title: $0.title,
+                                                  subtitle: $0.address,
+                                                  type: .finish,
+                                                  intermediateIndex: 0) }
       let trips = endPoints.map { router.createTrip(startPoint: startPoint, endPoint: $0) }
       if router.currentTrip == nil {
         preparePreview(trips: trips)
@@ -1210,12 +1210,12 @@ extension CarPlayService {
   func preparePreview(forBookmark bookmark: MWMCarPlayBookmarkObject) {
     if let router = router,
        let startPoint = MWMRoutePoint(lastLocationAndType: .start,
-                                      intermediateIndex: 0),
-       let endPoint = MWMRoutePoint(cgPoint: bookmark.mercatorPoint,
-                                    title: bookmark.prefferedName,
-                                    subtitle: bookmark.address,
-                                    type: .finish,
-                                    intermediateIndex: 0) {
+                                      intermediateIndex: 0) {
+      let endPoint = MWMRoutePoint(cgPoint: bookmark.mercatorPoint,
+                                   title: bookmark.prefferedName,
+                                   subtitle: bookmark.address,
+                                   type: .finish,
+                                   intermediateIndex: 0)
       let trip = router.createTrip(startPoint: startPoint, endPoint: endPoint)
       if router.currentTrip == nil {
         preparePreview(trips: [trip])
