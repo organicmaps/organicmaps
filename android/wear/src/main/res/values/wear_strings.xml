@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="hour">h</string>
+    <string name="minute">min</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+
     <!-- SECTION: gps strings -->
     <!-- Displayed in the Wear OS app when no navigation is active on the phone. -->
     <string name="wear_no_navigation_message">Open Organic Maps on your phone to start navigation.</string>
     <!-- Displayed in the Wear OS app when navigation is active on the phone. -->
     <string name="wear_navigation_active_message">Navigation is running on your phone.</string>
-
-    <!-- Wear navigation details. -->
-    <string name="wear_distance_unit_m">m</string>
-    <string name="wear_distance_unit_km">km</string>
-    <string name="wear_distance_unit_ft">ft</string>
-    <string name="wear_distance_unit_mi">mi</string>
-    <string name="wear_time_minutes">%1$d min</string>
-    <string name="wear_time_hours_minutes">%1$d h %2$d min</string>
-
 </resources>
