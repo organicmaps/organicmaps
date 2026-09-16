@@ -136,10 +136,10 @@ leisure-park-permissive                             # area z10- (also has icon z
 leisure-park-private                                # area z10- (also has icon z14-, caption(optional) z14-)
 === 70
 
-landuse-forest                                      # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-coniferous                           # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-deciduous                            # area z10- (also has icon z13-, caption(optional) z14-)
-landuse-forest-mixed                                # area z10- (also has icon z13-, caption(optional) z14-)
+landuse-forest                                      # area z10- (also has caption z14-)
+landuse-forest-coniferous                           # area z10- (also has caption z14-)
+landuse-forest-deciduous                            # area z10- (also has caption z14-)
+landuse-forest-mixed                                # area z10- (also has caption z14-)
 === 60
 
 landuse-construction                                # area z14- (also has caption z15-)

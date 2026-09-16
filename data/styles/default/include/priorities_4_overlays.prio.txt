@@ -346,12 +346,6 @@ place-square                                        # caption z16-
 tourism-viewpoint                                   # icon z14- (also has caption(optional) z14-)
 === 4950
 
-landuse-forest                                      # icon z13- (also has caption(optional) z14-, area z10-)
-landuse-forest-coniferous                           # icon z13- (also has caption(optional) z14-, area z10-)
-landuse-forest-deciduous                            # icon z13- (also has caption(optional) z14-, area z10-)
-landuse-forest-mixed                                # icon z13- (also has caption(optional) z14-, area z10-)
-=== 4800
-
 natural-arch                                        # icon z17- (also has caption(optional) z17-)
 natural-cave_entrance                               # icon z15- (also has caption(optional) z15-)
 natural-geyser                                      # icon z14- (also has caption(optional) z14-)
@@ -1562,11 +1556,11 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # tourism-viewpoint                                 # caption(optional) z14- (also has icon z14-)
 # === -5050
 
-# landuse-forest                                    # caption(optional) z14- (also has icon z13-, area z10-)
-# landuse-forest-coniferous                         # caption(optional) z14- (also has icon z13-, area z10-)
-# landuse-forest-deciduous                          # caption(optional) z14- (also has icon z13-, area z10-)
-# landuse-forest-mixed                              # caption(optional) z14- (also has icon z13-, area z10-)
-# === -5200
+landuse-forest                                      # caption z14- (also has area z10-)
+landuse-forest-coniferous                           # caption z14- (also has area z10-)
+landuse-forest-deciduous                            # caption z14- (also has area z10-)
+landuse-forest-mixed                                # caption z14- (also has area z10-)
+=== -5200
 
 # natural-arch                                      # caption(optional) z17- (also has icon z17-)
 # natural-cave_entrance                             # caption(optional) z15- (also has icon z15-)
