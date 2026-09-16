@@ -1555,7 +1555,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
     mNavigationController.update(routingInfo);
-
   }
 
   @Override

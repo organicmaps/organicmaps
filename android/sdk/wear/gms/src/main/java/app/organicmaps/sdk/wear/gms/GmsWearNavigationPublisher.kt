@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.wear.gms
 
 import android.content.Context
+import android.os.SystemClock
 import android.util.Log
 import app.organicmaps.sdk.wear.WearNavigationDetailsPublisher
 import app.organicmaps.sdk.wear.WearNavigationPublisher
@@ -31,10 +32,12 @@ internal class GmsWearNavigationPublisher(context: Context) :
 
     private var connectedNodeIds: Set<String>? = null
     private var lastPublishedDetails: WearNavigationDetails? = null
+    private var lastPublishedDetailsAtMs = 0L
 
     override fun publish(mode: WearNavigationMode) {
         if (mode == WearNavigationMode.NORMAL) {
             lastPublishedDetails = null
+            lastPublishedDetailsAtMs = 0L
         }
         val dataMapRequest = PutDataMapRequest.create(WearNavigationData.PATH_NAVIGATION_STATE)
         WearNavigationDataMapCodec.encode(dataMapRequest.dataMap, mode)
@@ -52,7 +55,10 @@ internal class GmsWearNavigationPublisher(context: Context) :
     }
 
     override fun publish(details: WearNavigationDetails) {
-        if (details == lastPublishedDetails) {
+        val now = SystemClock.elapsedRealtime()
+        if (details == lastPublishedDetails &&
+            now - lastPublishedDetailsAtMs < DETAILS_HEARTBEAT_INTERVAL_MS
+        ) {
             return
         }
 
@@ -82,6 +88,7 @@ internal class GmsWearNavigationPublisher(context: Context) :
 
     private fun publishDetailsToNodes(nodeIds: Set<String>, payload: ByteArray, details: WearNavigationDetails) {
         lastPublishedDetails = details
+        lastPublishedDetailsAtMs = SystemClock.elapsedRealtime()
 
         nodeIds.forEach { nodeId ->
             messageClient
@@ -92,6 +99,7 @@ internal class GmsWearNavigationPublisher(context: Context) :
                 ).addOnFailureListener { exception ->
                     connectedNodeIds = null
                     lastPublishedDetails = null
+                    lastPublishedDetailsAtMs = 0L
                     logFailure("navigation details", exception)
                 }
         }
@@ -108,6 +116,7 @@ internal class GmsWearNavigationPublisher(context: Context) :
     }
 
     companion object {
+        private const val DETAILS_HEARTBEAT_INTERVAL_MS = 2_000L
         private val TAG = GmsWearNavigationPublisher::class.java.simpleName
     }
 }

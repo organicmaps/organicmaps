@@ -322,9 +322,9 @@ public class NavigationService extends Service implements LocationListener
     if (routingInfo == null)
       return;
 
-    WearBridge.publishDetails(
-        new WearNavigationDetails(toWearDistance(routingInfo.distToTurn), routingInfo.nextStreet,
-                                  toWearDistance(routingInfo.distToTarget), routingInfo.totalTimeInSeconds));
+    WearBridge.publishDetails(new WearNavigationDetails(toWearDistance(routingInfo.distToTurn), routingInfo.nextStreet,
+                                                        toWearDistance(routingInfo.distToTarget),
+                                                        routingInfo.totalTimeInSeconds));
 
     if (routingInfo.shouldPlayWarningSignal())
       mPlayer.playback(R.raw.speed_cams_beep);
