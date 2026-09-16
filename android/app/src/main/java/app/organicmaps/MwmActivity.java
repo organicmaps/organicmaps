@@ -502,7 +502,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapButtonsViewModel = new ViewModelProvider(this).get(MapButtonsViewModel.class);
     TrackRecordingService.isRecording().observe(this, recording -> {
       // Recording can be stopped from the notification, tear down the UI when it happens.
-      if (!recording && Boolean.TRUE.equals(mMapButtonsViewModel.getTrackRecorderState().getValue()))
+      if (Boolean.FALSE.equals(recording)
+          && Boolean.TRUE.equals(mMapButtonsViewModel.getTrackRecorderState().getValue()))
         stopTrackRecording();
     });
     // We don't need to manually handle removing the observers it follows the activity lifecycle
