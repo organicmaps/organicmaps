@@ -20,12 +20,12 @@ public:
   TrackStatistics GetTrackStatistics();
   ElevationInfo const & GetElevationInfo();
 
-  using TGpsTrackDiffCallback =
-      std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                         std::pair<size_t, size_t> const & toRemove, TrackStatistics const & trackStatistics)>;
+  using TGpsTrackDiffCallback = GpsTrack::TGpsTrackDiffCallback;
 
   void Connect(TGpsTrackDiffCallback const & fn);
   void Disconnect();
+
+  void SetStatisticsCallback(GpsTrack::TGpsTrackStatisticsCallback const & fn);
 
   void OnLocationUpdated(location::GpsInfo const & info);
 

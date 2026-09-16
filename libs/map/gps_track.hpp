@@ -50,9 +50,8 @@ public:
   /// @param toAdd - collection of points and ids to add.
   /// @param toRemove - range of point indices to remove, or pair(kInvalidId,kInvalidId) if nothing to remove
   /// @note Calling of a GpsTrack.SetCallback function from the callback causes deadlock.
-  using TGpsTrackDiffCallback =
-      std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                         std::pair<size_t, size_t> const & toRemove, TrackStatistics const & trackStatistics)>;
+  using TGpsTrackDiffCallback = std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
+                                                   std::pair<size_t, size_t> const & toRemove)>;
 
   /// Sets callback on change of gps track.
   /// @param callback - callback callable object
@@ -60,6 +59,12 @@ public:
   /// @note When sink is attached, it receives all points in 'toAdd' at first time,
   /// next time callbacks it receives only modifications. It simplifies getter/callback model.
   void SetCallback(TGpsTrackDiffCallback callback);
+
+  /// @note Calling SetStatisticsCallback from the callback causes deadlock.
+  using TGpsTrackStatisticsCallback = std::function<void(TrackStatistics const & trackStatistics)>;
+
+  /// Called on the worker thread with the current statistics, then on each change.
+  void SetStatisticsCallback(TGpsTrackStatisticsCallback callback);
 
   /// Finishes recording and flushes its backup, keeping it until Clear.
   size_t Finalize();
@@ -83,6 +88,7 @@ private:
   void SaveBackup();
   void ClearBackup();
   void NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::pair<size_t, size_t> const & evictedIds);
+  void NotifyStatisticsCallback(bool changed);
 
   std::chrono::milliseconds const m_backupInterval;
 
@@ -91,7 +97,9 @@ private:
   // will not be interleaved and after SetCallback(null) callback is never called. The negative side
   // is that GpsTrack.SetCallback must be never called from the callback.
   TGpsTrackDiffCallback m_callback;
+  TGpsTrackStatisticsCallback m_statisticsCallback;
   bool m_needSendSnapshot = false;
+  bool m_needSendStatistics = false;
 
   // Recording state is protected by m_threadGuard; callbacks have a separate guard.
   mutable std::mutex m_threadGuard;
