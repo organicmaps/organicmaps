@@ -8,6 +8,9 @@ Text text.vsh.glsl text.fsh.glsl
 TextStaticOutlinedGui text_outlined_gui.vsh.glsl text_outlined_gui.fsh.glsl
 TextOutlinedGui text_outlined_gui.vsh.glsl text_outlined_gui.fsh.glsl
 Area area.vsh.glsl solid_color.fsh.glsl
+AreaStipple hatching_area.vsh.glsl area_stipple.fsh.glsl
+AreaSpeckle hatching_area.vsh.glsl area_speckle.fsh.glsl
+AreaGrid hatching_area.vsh.glsl area_grid.fsh.glsl
 AreaOutline area.vsh.glsl solid_color.fsh.glsl
 Area3d area3d.vsh.glsl texturing3d.fsh.glsl
 Area3dOutline area3d_outline.vsh.glsl solid_color.fsh.glsl
@@ -17,9 +20,6 @@ DashedLine dashed_line.vsh.glsl dashed_line.fsh.glsl
 PathSymbol path_symbol.vsh.glsl texturing.fsh.glsl
 TransparentArea area.vsh.glsl solid_color.fsh.glsl
 CapJoin circle.vsh.glsl circle.fsh.glsl
-AreaStipple hatching_area.vsh.glsl area_stipple.fsh.glsl
-AreaSpeckle hatching_area.vsh.glsl area_speckle.fsh.glsl
-AreaGrid hatching_area.vsh.glsl area_grid.fsh.glsl
 HatchingArea hatching_area.vsh.glsl hatching_area.fsh.glsl
 HatchingAreaDash hatching_area.vsh.glsl hatching_area_dash.fsh.glsl
 TexturingGui texturing_gui.vsh.glsl texturing_gui.fsh.glsl

@@ -20,7 +20,7 @@ layout (binding = 0) uniform UBO
   float u_isOutlinePass;
 };
 
-// Analytic stipple: a solid surface fill (sand/beach/desert) speckled with subtly darker jittered dots.
+// Analytic stipple: a solid surface fill (sand/beach/desert, intermittent water) speckled with jittered dots.
 // v_maskTexCoords is the world-anchored lattice (1.0 == one 16px tile, continuous across tile seams). The
 // dots use fwidth() anti-aliasing, so they stay crisp at any zoom and fade to an even tint under
 // minification - no texture, no mip, no aliasing (issue #12804). Unlike the hatches this is a single-pass
@@ -29,7 +29,7 @@ layout (binding = 0) uniform UBO
 const float kCellPx = 8.0;     // dot lattice cell (divides the 16px tile, so cells tile seamlessly)
 const float kRadiusPx = 1.2;   // dot radius
 const float kJitter = 0.55;    // keep kJitter*0.5*kCellPx + kRadiusPx < kCellPx*0.5 (dots stay in cell)
-const float kDarken = 0.80;    // surface multiplier under a dot (gentle - texture should whisper)
+const float kDarken = 0.80;    // surface multiplier under a dot on a light fill (gentle - texture should whisper)
 
 float Hash(vec2 p)
 {
@@ -54,7 +54,7 @@ void main()
   float aa = max(fwidth(px.x), fwidth(px.y));  // continuous coord: no fract-seam derivative spike
   float coverage = 1.0 - smoothstep(kRadiusPx - aa, kRadiusPx + aa, d);
 
-  color.rgb *= mix(1.0, kDarken, coverage);
+  color.rgb = ModulateByPatternDots(color.rgb, kDarken, coverage);
   color.a *= u_opacity;
   v_FragColor = color;
 }
