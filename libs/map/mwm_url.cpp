@@ -40,6 +40,7 @@ std::string_view constexpr kZoomLevel = "z";
 std::string_view constexpr kName = "n";
 std::string_view constexpr kId = "id";
 std::string_view constexpr kStyle = "s";
+std::string_view constexpr kMatch = "match";
 std::string_view constexpr kBackUrl = "backurl";
 std::string_view constexpr kVersion = "v";
 std::string_view constexpr kBalloonAction = "balloonaction";
@@ -327,6 +328,17 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
       return;
     }
   }
+  else if (key == kMatch)
+  {
+    if (m_mapPoints.empty())
+    {
+      LOG(LWARNING, ("Map API: Matching policy with no point. 'll' should come first!"));
+      correctOrder = false;
+      return;
+    }
+    if (value == "none")
+      m_mapPoints.back().m_matchFeature = false;
+  }
   else if (key == kBackUrl)
   {
     // Fix missing :// in back url, it's important for iOS
@@ -468,12 +480,13 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
 
   // Add marks from the request.
   m2::RectD viewport;
-  for (auto const & [lat, lon, name, id, style] : m_mapPoints)
+  for (auto const & [lat, lon, name, id, style, matchFeature] : m_mapPoints)
   {
     m2::PointD const glPoint(mercator::FromLatLon(lat, lon));
     auto * mark = editSession.CreateUserMark<ApiMarkPoint>(glPoint);
     mark->SetName(name);
     mark->SetApiID(id);
+    mark->SetMatchFeature(matchFeature);
     mark->SetStyle(style::GetSupportedStyle(style));
     viewport.Add(glPoint);
   }
