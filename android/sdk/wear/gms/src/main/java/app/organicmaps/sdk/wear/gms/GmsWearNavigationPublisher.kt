@@ -29,7 +29,13 @@ internal class GmsWearNavigationPublisher(context: Context) :
     private val messageClient = Wearable.getMessageClient(this.context)
     private val nodeClient = Wearable.getNodeClient(this.context)
 
+    private var connectedNodeIds: Set<String>? = null
+    private var lastPublishedDetails: WearNavigationDetails? = null
+
     override fun publish(mode: WearNavigationMode) {
+        if (mode == WearNavigationMode.NORMAL) {
+            lastPublishedDetails = null
+        }
         val dataMapRequest = PutDataMapRequest.create(WearNavigationData.PATH_NAVIGATION_STATE)
         WearNavigationDataMapCodec.encode(dataMapRequest.dataMap, mode)
 
@@ -46,25 +52,49 @@ internal class GmsWearNavigationPublisher(context: Context) :
     }
 
     override fun publish(details: WearNavigationDetails) {
+        if (details == lastPublishedDetails) {
+            return
+        }
+
         val dataMap = DataMap()
         WearNavigationDetailsDataMapCodec.encode(dataMap, details)
         val payload = dataMap.toByteArray()
 
+        connectedNodeIds?.let { nodeIds ->
+            publishDetailsToNodes(nodeIds, payload, details)
+            return
+        }
+
         nodeClient.connectedNodes
             .addOnSuccessListener { nodes ->
-                nodes.forEach { node ->
-                    messageClient
-                        .sendMessage(
-                            node.id,
-                            WearNavigationData.PATH_NAVIGATION_DETAILS,
-                            payload,
-                        ).addOnFailureListener { exception ->
-                            logFailure("navigation details", exception)
-                        }
+                val nodeIds = nodes.mapTo(mutableSetOf()) { it.id }
+                if (nodeIds.isEmpty()) {
+                    return@addOnSuccessListener
                 }
+
+                connectedNodeIds = nodeIds
+                publishDetailsToNodes(nodeIds, payload, details)
             }.addOnFailureListener { exception ->
+                connectedNodeIds = null
                 logFailure("navigation details", exception)
             }
+    }
+
+    private fun publishDetailsToNodes(nodeIds: Set<String>, payload: ByteArray, details: WearNavigationDetails) {
+        lastPublishedDetails = details
+
+        nodeIds.forEach { nodeId ->
+            messageClient
+                .sendMessage(
+                    nodeId,
+                    WearNavigationData.PATH_NAVIGATION_DETAILS,
+                    payload,
+                ).addOnFailureListener { exception ->
+                    connectedNodeIds = null
+                    lastPublishedDetails = null
+                    logFailure("navigation details", exception)
+                }
+        }
     }
 
     private fun logFailure(what: String, exception: Exception) {

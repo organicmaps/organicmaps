@@ -3,6 +3,7 @@ package app.organicmaps.wear
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
@@ -41,6 +42,8 @@ class MainActivity :
 
     private var currentMode = WearNavigationMode.NORMAL
     private var currentDetails: WearNavigationDetails? = null
+    private var lastDetailsReceivedAtMs = 0L
+    private val staleDetailsRunnable = Runnable { expireStaleDetails() }
 
     private var resumed = false
     private var lifecycleGeneration = 0
@@ -152,6 +155,8 @@ class MainActivity :
         resumed = false
         lifecycleGeneration += 1
         refreshGeneration += 1
+        remaining.removeCallbacks(staleDetailsRunnable)
+        lastDetailsReceivedAtMs = 0L
         currentDetails = null
 
         dataClient
@@ -197,7 +202,11 @@ class MainActivity :
         runOnUiThread {
             if (resumed && currentMode == WearNavigationMode.NAVIGATION) {
                 currentDetails = details
+                lastDetailsReceivedAtMs = SystemClock.elapsedRealtime()
                 renderNavigationDetails(details)
+
+                remaining.removeCallbacks(staleDetailsRunnable)
+                remaining.postDelayed(staleDetailsRunnable, DETAILS_STALE_TIMEOUT_MS)
             }
         }
     }
@@ -280,6 +289,8 @@ class MainActivity :
         currentMode = mode
 
         if (mode == WearNavigationMode.NORMAL) {
+            remaining.removeCallbacks(staleDetailsRunnable)
+            lastDetailsReceivedAtMs = 0L
             currentDetails = null
             subtitle.setText(R.string.wear_no_navigation_message)
             renderNavigationDetails(null)
@@ -288,6 +299,24 @@ class MainActivity :
 
         subtitle.setText(R.string.wear_navigation_active_message)
         renderNavigationDetails(currentDetails)
+    }
+
+    private fun expireStaleDetails() {
+        if (!resumed ||
+            currentMode != WearNavigationMode.NAVIGATION ||
+            currentDetails == null
+        ) {
+            return
+        }
+
+        val ageMs = SystemClock.elapsedRealtime() - lastDetailsReceivedAtMs
+        if (ageMs < DETAILS_STALE_TIMEOUT_MS) {
+            remaining.postDelayed(staleDetailsRunnable, DETAILS_STALE_TIMEOUT_MS - ageMs)
+            return
+        }
+
+        currentDetails = null
+        renderNavigationDetails(null)
     }
 
     private fun renderNavigationDetails(details: WearNavigationDetails?) {
@@ -318,10 +347,10 @@ class MainActivity :
 
     private fun unitText(unit: WearDistanceUnit): String = getString(
         when (unit) {
-            WearDistanceUnit.METERS -> R.string.wear_distance_unit_m
-            WearDistanceUnit.KILOMETERS -> R.string.wear_distance_unit_km
-            WearDistanceUnit.FEET -> R.string.wear_distance_unit_ft
-            WearDistanceUnit.MILES -> R.string.wear_distance_unit_mi
+            WearDistanceUnit.METERS -> R.string.m
+            WearDistanceUnit.KILOMETERS -> R.string.km
+            WearDistanceUnit.FEET -> R.string.ft
+            WearDistanceUnit.MILES -> R.string.mi
         },
     )
 
@@ -333,14 +362,16 @@ class MainActivity :
         val hours = seconds / 3600
         val minutes = (seconds % 3600) / 60
 
+        val displayedMinutes = "$minutes\u00A0${getString(R.string.minute)}"
         return if (hours > 0) {
-            getString(R.string.wear_time_hours_minutes, hours, minutes)
+            "$hours\u00A0${getString(R.string.hour)}\u00A0$displayedMinutes"
         } else {
-            getString(R.string.wear_time_minutes, minutes)
+            displayedMinutes
         }
     }
 
     companion object {
+        private const val DETAILS_STALE_TIMEOUT_MS = 5_000L
         private val TAG = MainActivity::class.java.simpleName
         private val NAVIGATION_STATE_URI = navigationStateUri("*")
 

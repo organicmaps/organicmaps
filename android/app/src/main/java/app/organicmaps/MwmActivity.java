@@ -104,12 +104,10 @@ import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.sdk.util.Config;
-import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.sdk.wear.WearBridge;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
@@ -123,9 +121,6 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
-import app.organicmaps.wear.protocol.WearDistance;
-import app.organicmaps.wear.protocol.WearDistanceUnit;
-import app.organicmaps.wear.protocol.WearNavigationDetails;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -1561,31 +1556,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
     mNavigationController.update(routingInfo);
 
-    if (routingInfo != null)
-    {
-      WearBridge.publishDetails(
-          new WearNavigationDetails(toWearDistance(routingInfo.distToTurn), routingInfo.nextStreet,
-                                    toWearDistance(routingInfo.distToTarget), routingInfo.totalTimeInSeconds));
-    }
-  }
-
-  @Nullable
-  private static WearDistance toWearDistance(@NonNull Distance distance)
-  {
-    if (!distance.isValid() || distance.mDistanceStr.isEmpty())
-      return null;
-
-    final WearDistanceUnit unit;
-    switch (distance.mUnits)
-    {
-    case Meters: unit = WearDistanceUnit.METERS; break;
-    case Kilometers: unit = WearDistanceUnit.KILOMETERS; break;
-    case Feet: unit = WearDistanceUnit.FEET; break;
-    case Miles: unit = WearDistanceUnit.MILES; break;
-    default: throw new AssertionError("Unknown distance unit: " + distance.mUnits);
-    }
-
-    return new WearDistance(distance.mDistanceStr, unit);
   }
 
   @Override

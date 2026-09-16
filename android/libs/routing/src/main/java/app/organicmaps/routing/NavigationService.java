@@ -38,8 +38,13 @@ import app.organicmaps.sdk.sound.MediaPlayerWrapper;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.Graphics;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.sdk.wear.WearBridge;
+import app.organicmaps.wear.protocol.WearDistance;
+import app.organicmaps.wear.protocol.WearDistanceUnit;
+import app.organicmaps.wear.protocol.WearNavigationDetails;
 
 public class NavigationService extends Service implements LocationListener
 {
@@ -267,6 +272,25 @@ public class NavigationService extends Service implements LocationListener
     return null;
   }
 
+  @Nullable
+  private static WearDistance toWearDistance(@NonNull Distance distance)
+  {
+    if (!distance.isValid() || distance.mDistanceStr.isEmpty())
+      return null;
+
+    final WearDistanceUnit unit;
+    switch (distance.mUnits)
+    {
+    case Meters: unit = WearDistanceUnit.METERS; break;
+    case Kilometers: unit = WearDistanceUnit.KILOMETERS; break;
+    case Feet: unit = WearDistanceUnit.FEET; break;
+    case Miles: unit = WearDistanceUnit.MILES; break;
+    default: throw new AssertionError("Unknown distance unit: " + distance.mUnits);
+    }
+
+    return new WearDistance(distance.mDistanceStr, unit);
+  }
+
   @Override
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void onLocationUpdated(@NonNull Location location)
@@ -297,6 +321,10 @@ public class NavigationService extends Service implements LocationListener
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
     if (routingInfo == null)
       return;
+
+    WearBridge.publishDetails(
+        new WearNavigationDetails(toWearDistance(routingInfo.distToTurn), routingInfo.nextStreet,
+                                  toWearDistance(routingInfo.distToTarget), routingInfo.totalTimeInSeconds));
 
     if (routingInfo.shouldPlayWarningSignal())
       mPlayer.playback(R.raw.speed_cams_beep);
