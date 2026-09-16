@@ -30,6 +30,8 @@
     <string name="type.amenity.pub">Krogs</string>
 
     <!-- SECTION: Types: Recycling -->
+    <string name="type.waterway.ditch">Meliorācijas grāvis</string>
+    <string name="type.waterway.ditch.intermittent">Pagaidu meliorācijas grāvis</string>
     <string name="type.cuisine.shawarma">Šaurma</string>
     <string name="type.cuisine.uzbek">Uzbeku</string>
     <!-- A place where a lifeguard is on duty. -->
@@ -92,6 +94,20 @@
     <string name="type.roller_coaster.track">Amerikāņu kalniņi</string>
     <string name="type.attraction.water_slide">Ūdens slīdkalniņš</string>
     <string name="type.waterway.access_point">Piekļuves punkts pie ūdensceļiem</string>
+    <string name="type.waterway.canal">Kanāls</string>
+    <string name="type.waterway.canal.intermittent">Pagaidu kanāls</string>
+    <string name="type.waterway.fish_pass">Zivju ceļš</string>
+    <string name="type.waterway.fish_pass.intermittent">Pagaidu zivju ceļš</string>
+    <string name="type.natural.water.ditch">Meliorācijas grāvis</string>
+    <string name="type.waterway.drain">Notekgrāvis</string>
+    <string name="type.waterway.drain.intermittent">Pagaidu notekgrāvis</string>
+    <string name="type.natural.water.drain">Notekgrāvis</string>
+    <string name="type.waterway.river">Upe</string>
+    <string name="type.waterway.river.intermittent">Pagaidu upe</string>
+    <string name="type.waterway.river.tunnel">Upe</string>
+    <string name="type.waterway.stream">Strauts</string>
+    <string name="type.waterway.stream.intermittent">Pagaidu strauts</string>
+    <string name="type.waterway.stream.tunnel">Strauts</string>
     <string name="type.amenity.stage">Skatuve</string>
     <string name="type.barrier.jersey_barrier">Bloks</string>
     <string name="type.barrier.debris">Gruveši</string>

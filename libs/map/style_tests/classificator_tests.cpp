@@ -2,6 +2,7 @@
 #include "testing/testing.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/drawing_rules.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 
@@ -384,6 +385,45 @@ UNIT_TEST(Classificator_IntermittentWaterCaptionPriority)
           {"natural", "water", "wastewater"},
       },
       {1, 10}, drule::caption);
+}
+
+// An intermittent waterway is drawn and labelled like its base waterway, only dashed, with a longer gap if the base
+// is already dashed.
+UNIT_TEST(Classificator_IntermittentWaterwayRules)
+{
+  styles::RunForEveryMapStyle([](MapStyle style)
+  {
+    auto const & rules = drule::GetCurrentRules();
+    auto const getKeys = [](base::StringIL const & path, int level)
+    {
+      drule::KeysT keys;
+      GetDrawRule({classif().GetTypeByPath(path)}, level, GeomType::Line, keys);
+      return keys;
+    };
+
+    for (int level = scales::GetUpperWorldScale() + 1; level <= scales::GetUpperStyleScale(); ++level)
+    {
+      for (char const * base : {"canal", "ditch", "drain", "fish_pass", "river"})
+      {
+        auto const baseKeys = getKeys({"waterway", base}, level);
+        auto const keys = getKeys({"waterway", base, "intermittent"}, level);
+        TEST_EQUAL(keys.size(), baseKeys.size(), (style, base, level));
+        for (size_t i = 0; i < keys.size(); ++i)
+        {
+          TEST_EQUAL(keys[i].m_type, baseKeys[i].m_type, (style, base, level));
+          TEST_EQUAL(keys[i].m_priority, baseKeys[i].m_priority, (style, base, level));
+          if (keys[i].m_type != drule::line)
+            continue;
+          auto line = *rules.Find(keys[i])->GetLine();
+          auto const & baseLine = *rules.Find(baseKeys[i])->GetLine();
+          TEST(line.dashdot && (!baseLine.dashdot || line.dashdot->dd[1] > baseLine.dashdot->dd[1]),
+               (style, base, level));
+          line.dashdot = baseLine.dashdot;
+          TEST(line == baseLine, (style, base, level));
+        }
+      }
+    }
+  });
 }
 
 namespace

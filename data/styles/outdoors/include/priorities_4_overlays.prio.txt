@@ -601,6 +601,7 @@ railway-rail-tourism-bridge                         # pathtext z14- (also has li
 railway-rail-tourism-tunnel                         # pathtext z14- (also has line z10-, line::dash z15-, line(casing) z14-)
 waterway-dam                                        # pathtext z15- (also has line z14-, area z14-)
 waterway-river                                      # pathtext z11- (also has line z10-)
+waterway-river-intermittent                         # pathtext z11- (also has line z10-)
 === 3150
 
 highway-unclassified                                # pathtext z13- (also has line z11-)
@@ -703,9 +704,10 @@ natural-water-lock                                  # caption z10- (also has are
 natural-water-moat                                  # caption z17- (also has area z1-)
 natural-water-wastewater                            # caption z17- (also has area z12-)
 waterway-canal                                      # pathtext z13- (also has line z12-)
+waterway-canal-intermittent                         # pathtext z13- (also has line z12-)
 waterway-fish_pass                                  # pathtext z13- (also has line z13-)
+waterway-fish_pass-intermittent                     # pathtext z13- (also has line z13-)
 waterway-stream                                     # pathtext z13- (also has line z12-)
-waterway-stream-ephemeral                           # pathtext z13- (also has line z13-)
 waterway-stream-intermittent                        # pathtext z13- (also has line z13-)
 waterway-weir                                       # pathtext z15- (also has line z14-)
 === 2900
