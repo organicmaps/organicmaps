@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">Afișare în partea de jos</string>
     <string name="enable_logging_warning_message">Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.</string>
     <string name="driving_options_title">Opțiuni de ocolire</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimizarea traseului</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Reordonează automat opririle intermediare pentru a crea un traseu mai eficient.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitați drumurile cu taxă</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

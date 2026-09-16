@@ -289,6 +289,10 @@
     <string name="power_managment_setting_never">Enxamás</string>
     <string name="power_managment_setting_manual_max">Siempres</string>
     <string name="driving_options_title">Opciones d’encaminamientu</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimización de la ruta</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Reordena automáticamente les paraes intermedies pa crear una ruta más eficiente.</string>
     <string name="unable_to_calc_alert_subtitle">Nun pudo alcontrase una ruta. Quiciabes se deba a les opciones d’encaminamientu o a datos faltantes n’OpenStreetMap. Revisa les tos opciones d’encaminamientu y vuelvi intentalo.</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sí</string>

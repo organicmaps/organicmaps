@@ -660,6 +660,10 @@
     <string name="show_at_the_bottom">Onyesha chini</string>
     <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
     <string name="driving_options_title">Machaguo ya njia</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Uboreshaji wa njia</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Hupanga upya vituo vya kati kiotomatiki ili kuunda njia yenye ufanisi zaidi.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Epuka barabara za ushuru</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

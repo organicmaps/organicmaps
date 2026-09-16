@@ -661,6 +661,10 @@
     <string name="show_at_the_bottom">Hiển thị ở phía dưới</string>
     <string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.</string>
     <string name="driving_options_title">Thiết lập đi vòng</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Tối ưu hóa tuyến đường</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Tự động sắp xếp lại các điểm dừng trung gian để tạo tuyến đường hiệu quả hơn.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Tránh đường thu phí</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

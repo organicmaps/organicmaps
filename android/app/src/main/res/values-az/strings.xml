@@ -663,6 +663,10 @@
     <string name="show_at_the_bottom">Aşağıda göstər</string>
     <string name="enable_logging_warning_message">Yardım dialoq qutusunda “Problemi bildir” istifadə etməklə probleminizlə bağlı ətraflı diaqnostik jurnalları qeyd etmək və bizə göndərmək üçün bu seçimi müvəqqəti aktivləşdirin. Qeydlərə məkan məlumatı daxil ola bilər</string>
     <string name="driving_options_title">Marşrutlaşdırma seçimləri</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Marşrutun optimallaşdırılması</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Daha səmərəli marşrut yaratmaq üçün aralıq dayanacaqları avtomatik olaraq yenidən sıralayır.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Rüsumlardan çəkinin</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
