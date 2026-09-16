@@ -508,9 +508,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // single place that knows about both subsystems.
     mSearchPageViewModel.getSearchEnabled().observe(this, enabled -> {
       mRoutingPlanViewModel.setIsSearchActive(Boolean.TRUE.equals(enabled));
-      // Closing the search page abandons any stop pick it was opened for, however it was dismissed.
+      // Closing the search page abandons any pick it was opened for, however it was dismissed.
       if (!Boolean.TRUE.equals(enabled))
-        RoutingController.get().cancelStopPoiPick();
+        RoutingController.get().cancelPoiPick();
     });
 
     // Note: You must call registerForActivityResult() before the fragment or activity is created.
