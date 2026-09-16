@@ -6,6 +6,7 @@
 
 #include "coding/file_writer.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -77,6 +78,44 @@ private:
 
 seconds const kWaitForCallbackTimeout = seconds(5);
 
+// About 22 m between points, 1 s apart.
+double constexpr kStepDegrees = 0.0002;
+
+vector<location::GpsInfo> MakeWalk(size_t count)
+{
+  double const timestamp = system_clock::to_time_t(system_clock::now());
+  vector<location::GpsInfo> points;
+  for (size_t i = 0; i < count; ++i)
+    points.emplace_back(Make(timestamp + i, ms::LatLon(kStepDegrees * i, 0), 22));
+  return points;
+}
+
+double GetWalkLength(size_t count)
+{
+  return (count - 1) * ms::DistanceOnEarth(ms::LatLon(0, 0), ms::LatLon(kStepDegrees, 0));
+}
+
+class GpsTrackStatisticsCallback
+{
+public:
+  void OnUpdate(TrackStatistics const & trackStatistics)
+  {
+    lock_guard<mutex> lg(m_mutex);
+    m_length = trackStatistics.m_length;
+    m_cv.notify_one();
+  }
+  bool WaitForLength(double expected, seconds t)
+  {
+    unique_lock<mutex> ul(m_mutex);
+    return m_cv.wait_for(ul, t, [this, expected]() { return fabs(m_length - expected) < 1.0; });
+  }
+
+private:
+  mutex m_mutex;
+  condition_variable m_cv;
+  double m_length = 0;
+};
+
 UNIT_TEST(GpsTrack_Simple)
 {
   string const filePath = GetGpsTrackFilePath();
@@ -141,5 +180,71 @@ UNIT_TEST(GpsTrack_Simple)
       TEST_EQUAL(points[i].m_longitude, callback.m_toAdd[i].second.m_longitude, ());
     }
   }
+}
+
+// Recording without a displayed track, e.g. started from an Android home screen widget, still needs the statistics.
+UNIT_TEST(GpsTrack_StatisticsWithoutDiffCallback)
+{
+  string const filePath = GetGpsTrackFilePath();
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
+
+  double const expectedLength = GetWalkLength(5);
+
+  GpsTrack track(filePath);
+  GpsTrackStatisticsCallback callback;
+  track.SetStatisticsCallback(bind(&GpsTrackStatisticsCallback::OnUpdate, &callback, placeholders::_1));
+
+  track.AddPoints(MakeWalk(5));
+
+  TEST(callback.WaitForLength(expectedLength, kWaitForCallbackTimeout), ());
+  TEST(!track.IsEmpty(), ());
+  TEST_ALMOST_EQUAL_ABS(track.GetTrackStatistics().m_length, expectedLength, 1.0, ());
+}
+
+// A new subscriber gets the current statistics even if no new points are added.
+UNIT_TEST(GpsTrack_StatisticsForNewCallback)
+{
+  string const filePath = GetGpsTrackFilePath();
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
+
+  double const expectedLength = GetWalkLength(5);
+
+  GpsTrack track(filePath);
+  GpsTrackStatisticsCallback first;
+  track.SetStatisticsCallback(bind(&GpsTrackStatisticsCallback::OnUpdate, &first, placeholders::_1));
+  track.AddPoints(MakeWalk(5));
+  TEST(first.WaitForLength(expectedLength, kWaitForCallbackTimeout), ());
+
+  GpsTrackStatisticsCallback second;
+  track.SetStatisticsCallback(bind(&GpsTrackStatisticsCallback::OnUpdate, &second, placeholders::_1));
+  TEST(second.WaitForLength(expectedLength, kWaitForCallbackTimeout), ());
+}
+
+// A recording that continues after a restart without the map, e.g. from an Android home screen widget, reports
+// the statistics of the stored track and can save it, even if the user stands still and no new points are added.
+UNIT_TEST(GpsTrack_StatisticsOfStoredTrack)
+{
+  string const filePath = GetGpsTrackFilePath();
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
+
+  double const expectedLength = GetWalkLength(5);
+
+  {
+    GpsTrack track(filePath);
+    GpsTrackStatisticsCallback callback;
+    track.SetStatisticsCallback(bind(&GpsTrackStatisticsCallback::OnUpdate, &callback, placeholders::_1));
+    track.AddPoints(MakeWalk(5));
+    TEST(callback.WaitForLength(expectedLength, kWaitForCallbackTimeout), ());
+  }
+
+  GpsTrack track(filePath);
+  GpsTrackStatisticsCallback callback;
+  track.SetStatisticsCallback(bind(&GpsTrackStatisticsCallback::OnUpdate, &callback, placeholders::_1));
+
+  TEST(callback.WaitForLength(expectedLength, kWaitForCallbackTimeout), ());
+  TEST(!track.IsEmpty(), ());
 }
 }  // namespace gps_track_test

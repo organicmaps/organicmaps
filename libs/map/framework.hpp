@@ -481,10 +481,7 @@ private:
   TCurrentCountryChanged m_currentCountryChanged;
 
   void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                                      std::pair<size_t, size_t> const & toRemove,
-                                      TrackStatistics const & trackStatistics);
-
-  TrackRecordingUpdateHandler m_trackRecordingUpdateHandler;
+                                      std::pair<size_t, size_t> const & toRemove);
 
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
   SelectionProcessor m_selectionProcessor;

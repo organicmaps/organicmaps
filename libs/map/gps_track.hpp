@@ -44,9 +44,8 @@ public:
   /// @param toAdd - collection of points and ids to add.
   /// @param toRemove - range of point indices to remove, or pair(kInvalidId,kInvalidId) if nothing to remove
   /// @note Calling of a GpsTrack.SetCallback function from the callback causes deadlock.
-  using TGpsTrackDiffCallback =
-      std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                         std::pair<size_t, size_t> const & toRemove, TrackStatistics const & trackStatistics)>;
+  using TGpsTrackDiffCallback = std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
+                                                   std::pair<size_t, size_t> const & toRemove)>;
 
   /// Sets callback on change of gps track.
   /// @param callback - callback callable object
@@ -54,6 +53,14 @@ public:
   /// @note When sink is attached, it receives all points in 'toAdd' at first time,
   /// next time callbacks it receives only modifications. It simplifies getter/callback model.
   void SetCallback(TGpsTrackDiffCallback callback);
+
+  /// Notification callback about new statistics of the track, whether or not the track is displayed.
+  /// @note Calling of a GpsTrack.SetStatisticsCallback function from the callback causes deadlock.
+  using TGpsTrackStatisticsCallback = std::function<void(TrackStatistics const & trackStatistics)>;
+
+  /// Sets callback on change of the track statistics, called on the worker thread.
+  /// @note The callback receives the current statistics first, loading the stored track if needed.
+  void SetStatisticsCallback(TGpsTrackStatisticsCallback callback);
 
   size_t Finalize();
 
@@ -76,6 +83,7 @@ private:
   void UpdateCollection(bool needClear, std::vector<location::GpsInfo> const & points,
                         std::pair<size_t, size_t> & addedIds, std::pair<size_t, size_t> & evictedIds);
   void NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::pair<size_t, size_t> const & evictedIds);
+  void NotifyStatisticsCallback(bool changed);
 
   std::string const m_filePath;
 
@@ -88,7 +96,9 @@ private:
   // will not be interleaved and after SetCallback(null) callback is never called. The negative side
   // is that GpsTrack.SetCallback must be never called from the callback.
   TGpsTrackDiffCallback m_callback;
-  bool m_needSendSnapshop;  // need send initial snapshot
+  TGpsTrackStatisticsCallback m_statisticsCallback;
+  bool m_needSendSnapshop;    // need send initial snapshot
+  bool m_needSendStatistics;  // need send initial statistics
 
   std::unique_ptr<GpsTrackStorage> m_storage;        // used in the worker thread
   std::unique_ptr<GpsTrackCollection> m_collection;  // used in the worker thread
