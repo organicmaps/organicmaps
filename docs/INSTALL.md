@@ -155,6 +155,8 @@ sudo apk add \
 
 #### macOS
 
+**macOS 13 (Ventura)** or newer is required to run the desktop app.
+
 ```bash
 brew install cmake ninja qt@6
 ```

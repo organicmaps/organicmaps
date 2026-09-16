@@ -5,13 +5,9 @@
 
 #include "base/assert.hpp"
 
-#include "std/target_os.hpp"
-
-#include <algorithm>
 #include <functional>
 #include <string>
 #include <utility>
-#include <vector>
 
 namespace dp
 {
@@ -68,52 +64,22 @@ std::string MetalBaseContext::GetRendererName() const
   return std::string([m_device.name UTF8String]);
 }
 
-// TODO(AB): Remove after min supported iOS version is 13+ and replace deprecated MTLFeatureSet with MTLGPUFamily.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 std::string MetalBaseContext::GetRendererVersion() const
 {
-  static std::vector<std::pair<MTLFeatureSet, std::string>> features;
-  if (features.empty())
-  {
-#ifdef OMIM_OS_MAC
-    features.emplace_back(MTLFeatureSet_macOS_GPUFamily1_v1, "macOS_GPUFamily1_v1");
-    features.emplace_back(MTLFeatureSet_macOS_GPUFamily1_v2, "macOS_GPUFamily1_v2");
-    if (@available(macOS 10.13, *))
-      features.emplace_back(MTLFeatureSet_macOS_GPUFamily1_v3, "macOS_GPUFamily1_v3");
-    if (@available(macOS 10.14, *))
-    {
-      features.emplace_back(MTLFeatureSet_macOS_GPUFamily1_v4, "macOS_GPUFamily1_v4");
-      features.emplace_back(MTLFeatureSet_macOS_GPUFamily2_v1, "macOS_GPUFamily2_v1");
-    }
-#else
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v1, "iOS_GPUFamily1_v1");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v1, "iOS_GPUFamily2_v1");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v2, "iOS_GPUFamily1_v2");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v2, "iOS_GPUFamily2_v2");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily3_v1, "iOS_GPUFamily3_v1");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v3, "iOS_GPUFamily1_v3");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v3, "iOS_GPUFamily2_v3");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily3_v2, "iOS_GPUFamily3_v2");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v4, "iOS_GPUFamily1_v4");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v4, "iOS_GPUFamily2_v4");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily3_v3, "iOS_GPUFamily3_v3");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily4_v1, "iOS_GPUFamily4_v1");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v5, "iOS_GPUFamily1_v5");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v5, "iOS_GPUFamily2_v5");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily3_v4, "iOS_GPUFamily3_v4");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily4_v2, "iOS_GPUFamily4_v2");
-    features.emplace_back(MTLFeatureSet_iOS_GPUFamily5_v1, "iOS_GPUFamily5_v1");
-#endif
-    std::sort(features.begin(), features.end(), [](auto const & s1, auto const & s2) { return s1.first > s2.first; });
-  }
+  // Ordered from the most specific family to the least: the first match is the most informative.
+  // Unsupported values simply return NO, so one list covers both iOS and macOS (Apple Silicon included).
+  static constexpr std::pair<MTLGPUFamily, char const *> kFamilies[] = {
+      {MTLGPUFamilyApple9, "Apple9"},  {MTLGPUFamilyApple8, "Apple8"},   {MTLGPUFamilyApple7, "Apple7"},
+      {MTLGPUFamilyApple6, "Apple6"},  {MTLGPUFamilyApple5, "Apple5"},   {MTLGPUFamilyApple4, "Apple4"},
+      {MTLGPUFamilyApple3, "Apple3"},  {MTLGPUFamilyApple2, "Apple2"},   {MTLGPUFamilyApple1, "Apple1"},
+      {MTLGPUFamilyMac2, "Mac2"},      {MTLGPUFamilyCommon3, "Common3"}, {MTLGPUFamilyCommon2, "Common2"},
+      {MTLGPUFamilyCommon1, "Common1"}};
 
-  for (auto featureSet : features)
-    if ([m_device supportsFeatureSet:featureSet.first])
-      return featureSet.second;
+  for (auto const & [family, name] : kFamilies)
+    if ([m_device supportsFamily:family])
+      return name;
   return "Unknown";
 }
-#pragma clang diagnostic pop
 
 void MetalBaseContext::PushDebugLabel(std::string const & label)
 {

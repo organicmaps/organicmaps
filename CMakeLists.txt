@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.22.1)
 
+# Must be set before project(): CMake bakes it into the toolchain checks. Ignored on non-Apple platforms.
+set(CMAKE_OSX_DEPLOYMENT_TARGET 13.0 CACHE STRING "Minimum supported macOS version")
+
 project(omim C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
