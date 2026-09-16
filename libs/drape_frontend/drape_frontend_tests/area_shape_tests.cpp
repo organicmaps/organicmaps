@@ -79,7 +79,7 @@ UNIT_TEST(HatchingPhaseAnchor_IndependentOfBBoxAtFixedScale)
 
 // Within a DepthLayer, render groups draw in dp::RenderState order (RenderGroupComparator falls back to
 // RenderState::operator<, which for a shared layer and blending compares the gpu::Program value). The
-// analytic solid-fill patterns (stipple/speckle/grid) are background fills, but translucent geometry still writes
+// analytic solid-fill patterns are background fills, but translucent geometry still writes
 // depth across its whole shape (depth-write is bound to the depth test), including its transparent pixels such
 // as the gaps of a hatch or a dashed line. So a fill whose group is drawn AFTER such geometry is depth-culled
 // wherever they overlap -- e.g. a landcover fill under a protected-area hatch, or a beach under a path. The
@@ -89,7 +89,8 @@ UNIT_TEST(AreaPatterns_SolidFillsDrawBeforeTranslucentGeometry)
   auto const state = [](gpu::Program p) { return df::CreateRenderState(p, df::DepthLayer::GeometryLayer); };
 
   // gpu::DebugPrint returns string_view, which base::Message can't concatenate; wrap names in std::string.
-  for (auto fill : {gpu::Program::AreaStipple, gpu::Program::AreaSpeckle, gpu::Program::AreaGrid})
+  for (auto fill :
+       {gpu::Program::AreaStipple, gpu::Program::AreaSpeckle, gpu::Program::AreaGrid, gpu::Program::AreaForest})
     for (auto overlay :
          {gpu::Program::Line, gpu::Program::DashedLine, gpu::Program::PathSymbol, gpu::Program::TransparentArea,
           gpu::Program::CapJoin, gpu::Program::HatchingArea, gpu::Program::HatchingAreaDash})
