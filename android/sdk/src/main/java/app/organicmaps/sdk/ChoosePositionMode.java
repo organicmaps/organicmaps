@@ -6,7 +6,8 @@ public enum ChoosePositionMode
 {
   None(0),
   Editor(1),
-  Api(2);
+  Api(2),
+  Routing(3);
 
   ChoosePositionMode(int mode)
   {
