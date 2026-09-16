@@ -5,10 +5,13 @@
 
 #include "platform/platform.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
+
 #include "base/logging.hpp"
 
 #include <algorithm>
 #include <chrono>
+#include <cmath>
 #include <condition_variable>
 #include <cstdint>
 #include <filesystem>
@@ -81,7 +84,7 @@ class TrackCallback
 public:
   GpsTrack::TGpsTrackDiffCallback GetCallback()
   {
-    return [this](IndexedPoints && added, IdRange const & removed, TrackStatistics const &)
+    return [this](IndexedPoints && added, IdRange const & removed)
     {
       std::lock_guard lg(m_mutex);
       m_added.insert(m_added.end(), added.begin(), added.end());
@@ -115,6 +118,42 @@ private:
   IndexedPoints m_added;
   std::vector<IdRange> m_removed;
 };
+
+class StatisticsCallback
+{
+public:
+  GpsTrack::TGpsTrackStatisticsCallback GetCallback()
+  {
+    return [this](TrackStatistics const & trackStatistics)
+    {
+      std::lock_guard lg(m_mutex);
+      m_length = trackStatistics.m_length;
+      m_cv.notify_one();
+    };
+  }
+
+  bool WaitForLength(double expected)
+  {
+    std::unique_lock ul(m_mutex);
+    return m_cv.wait_for(ul, 5s, [this, expected] { return std::fabs(m_length - expected) < 1.0; });
+  }
+
+private:
+  std::mutex m_mutex;
+  std::condition_variable m_cv;
+  double m_length = 0;
+};
+
+double GetLength(Points const & points)
+{
+  double length = 0;
+  for (size_t i = 1; i < points.size(); ++i)
+  {
+    length += ms::DistanceOnEarth(ms::LatLon(points[i - 1].m_latitude, points[i - 1].m_longitude),
+                                  ms::LatLon(points[i].m_latitude, points[i].m_longitude));
+  }
+  return length;
+}
 
 template <typename Fn>
 bool WaitFor(Fn && condition, std::chrono::milliseconds timeout = 5s)
@@ -403,6 +442,58 @@ UNIT_TEST(GpsTrack_StartKeepsPendingClear)
   TEST_EQUAL(track.Finalize(), newPoints.size(), ());
   CheckPoints(GetPoints(track), newPoints);
   CheckPoints(file.Load(), newPoints);
+}
+
+UNIT_TEST(GpsTrack_StatisticsWithoutDiffCallback)
+{
+  TrackFile file("statistics");
+  StatisticsCallback callback;
+  GpsTrack track(file.m_path);
+  track.Start();
+  track.SetStatisticsCallback(callback.GetCallback());
+
+  auto const points = MakePoints(5);
+  track.AddPoints(points);
+
+  TEST(callback.WaitForLength(GetLength(points)), ());
+  TEST_ALMOST_EQUAL_ABS(track.GetTrackStatistics().m_length, GetLength(points), 1.0, ());
+}
+
+UNIT_TEST(GpsTrack_StatisticsForNewCallback)
+{
+  TrackFile file("statistics_new_callback");
+  GpsTrack track(file.m_path);
+  track.Start();
+
+  StatisticsCallback first;
+  track.SetStatisticsCallback(first.GetCallback());
+  auto const points = MakePoints(5);
+  track.AddPoints(points);
+  TEST(first.WaitForLength(GetLength(points)), ());
+
+  StatisticsCallback second;
+  track.SetStatisticsCallback(second.GetCallback());
+  TEST(second.WaitForLength(GetLength(points)), ());
+}
+
+// Reported right away, without waiting for new points.
+UNIT_TEST(GpsTrack_StatisticsOfRestoredTrack)
+{
+  TrackFile file("statistics_restored");
+  auto const points = MakePoints(5);
+  {
+    GpsTrack track(file.m_path);
+    track.Start();
+    track.AddPoints(points);
+  }
+
+  StatisticsCallback callback;
+  GpsTrack track(file.m_path);
+  track.Start();
+  track.SetStatisticsCallback(callback.GetCallback());
+
+  TEST(callback.WaitForLength(GetLength(points)), ());
+  TEST(!track.IsEmpty(), ());
 }
 
 UNIT_TEST(GpsTrack_LargeBackupRoundTrip)
