@@ -5,6 +5,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.api.ApiController;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.nio.charset.StandardCharsets;
@@ -182,7 +183,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   @MainThread
   private static void cancelApiCall()
   {
-    Framework.nativeClearApiPoints();
+    ApiController.nativeClearApiPoints();
   }
 
   @MainThread
