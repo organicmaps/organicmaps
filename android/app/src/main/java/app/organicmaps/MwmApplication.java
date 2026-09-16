@@ -223,15 +223,16 @@ public class MwmApplication extends Application implements Application.ActivityL
   }
 
   /**
-   * Navigation and track recording keep the location running in the background and at a faster refresh
-   * interval, and both can end while the app is in the background (notification actions, arrival).
+   * Track recording keeps the location running in the background and at a faster refresh interval,
+   * and it can end while the app is in the background (notification action).
    */
-  public void onNavigationOrRecordingStopped()
+  public void onTrackRecordingStopped()
   {
     if (!ProcessLifecycleOwner.get().getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED))
       stopLocationInBackgroundIfUnused();
-    else if (getLocationHelper().isActive() && LocationUtils.checkLocationPermission(this))
-      getLocationHelper().restartWithNewMode(); // Back to the regular refresh interval.
+    // Whatever is still running goes back to the regular refresh interval.
+    if (getLocationHelper().isActive() && LocationUtils.checkLocationPermission(this))
+      getLocationHelper().restartWithNewMode();
   }
 
   /**
