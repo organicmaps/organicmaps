@@ -519,8 +519,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
     /// RoutingSession::OnLocationPositionChanged will be called the last time.
     routingManager.RoutingSession().OnLocationPositionChanged(qt::common::MakeGpsInfo(point));
 
-    routing::FollowingInfo loc;
-    routingManager.GetRouteFollowingInfo(loc);
+    auto const loc = routingManager.GetRouteFollowingInfo();
     if (routingManager.GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, DebugPrint(loc.m_pedestrianTurn), "in",
@@ -533,9 +532,13 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
         speed = "SpeedLimit: " +
                 measurement_utils::FormatSpeedNumeric(loc.m_speedLimitMps, measurement_utils::Units::Metric);
 
+      std::string roundabout;
+      if (loc.m_roundaboutInfo != routing::turns::RoundaboutInfo())
+        roundabout = DebugPrint(loc.m_roundaboutInfo);
+
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, speed, GetTurnString(loc.m_turn),
-                   (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""), "in", loc.m_distToTurn.ToString(),
-                   loc.m_nextStreetName.empty() ? "" : "to " + loc.m_nextStreetName));
+                   (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""), roundabout, "in",
+                   loc.m_distToTurn.ToString(), loc.m_nextStreetName.empty() ? "" : "to " + loc.m_nextStreetName));
 
       std::vector<std::string> notifications;
       routingManager.GenerateNotifications(notifications, true /* announceStreets */);

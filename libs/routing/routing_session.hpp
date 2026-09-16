@@ -86,7 +86,7 @@ public:
 
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   /// @pre Function is called exactly while moving the route. Depends on current time, no pre-caching.
-  void GetRouteFollowingInfo(FollowingInfo & info) const;
+  FollowingInfo GetRouteFollowingInfo() const;
 
   bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo);
   void MatchLocationToRoadGraph(location::GpsInfo & location);

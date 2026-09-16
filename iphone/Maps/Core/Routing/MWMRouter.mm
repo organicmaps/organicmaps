@@ -502,8 +502,7 @@ using namespace routing;
   if (![MWMRouter isRoutingActive])
     return;
   auto const & rm = GetFramework().GetRoutingManager();
-  routing::FollowingInfo info;
-  rm.GetRouteFollowingInfo(info);
+  auto const info = rm.GetRouteFollowingInfo();
   if (!info.IsValid())
     return;
   auto navManager = [MWMNavigationDashboardManager sharedManager];
