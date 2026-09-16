@@ -303,15 +303,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
   {
     f.ForEachTriangle(apply, m_zoomLevel);
     if (apply.HasGeometry())
-    {
-      std::string_view hatchKey;
-      if (s.m_hatchingRule)
-        hatchKey = m_isHatching.GetHatch(types);
-      std::string_view patternKey;
-      if (s.m_areaRule)
-        patternKey = m_isAreaPattern.GetPattern(types);
-      apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule, hatchKey, patternKey);
-    }
+      apply.ProcessAreaRules(s.m_areaRule, s.m_areaPattern, s.m_hatchingRule, s.m_hatchingPattern);
   }
 
   /// @todo Can we put this check in the beginning of this function?

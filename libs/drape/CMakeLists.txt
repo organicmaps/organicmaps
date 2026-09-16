@@ -52,7 +52,6 @@ set(DRAPE_TESTABLE_SRC
   graphics_context_factory.hpp
   instancing.cpp
   instancing.hpp
-  hatching_decl.hpp
   hw_texture.cpp
   hw_texture.hpp
   index_buffer.cpp

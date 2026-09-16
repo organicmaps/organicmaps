@@ -641,8 +641,8 @@ void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingO
   }
 }
 
-void ApplyAreaFeature::ProcessAreaRules(drule::AreaRule const * areaRule, drule::AreaRule const * hatchingRule,
-                                        std::string_view hatchKey, std::string_view patternKey)
+void ApplyAreaFeature::ProcessAreaRules(drule::AreaRule const * areaRule, AreaPattern areaPattern,
+                                        drule::AreaRule const * hatchingRule, AreaPattern hatchingPattern)
 {
   ASSERT(areaRule || hatchingRule, ());
   ASSERT(HasGeometry(), ());
@@ -652,7 +652,8 @@ void ApplyAreaFeature::ProcessAreaRules(drule::AreaRule const * areaRule, drule:
   if (hatchingRule)
   {
     ASSERT_GREATER_OR_EQUAL(hatchingRule->priority, drule::kBasePriorityFg, (m_f.DebugString()));
-    ProcessRule(*hatchingRule, areaDepth, hatchKey, {});
+    ASSERT_NOT_EQUAL(hatchingPattern, AreaPattern::None, (m_f.DebugString()));
+    ProcessRule(*hatchingRule, areaDepth, hatchingPattern, true /* isHatching */);
   }
 
   if (areaRule)
@@ -660,15 +661,13 @@ void ApplyAreaFeature::ProcessAreaRules(drule::AreaRule const * areaRule, drule:
     // Calculate areaDepth for BG-by-size areas only.
     if (areaRule->priority < drule::kBasePriorityBgTop)
       areaDepth = drule::CalcAreaBySizeDepth(m_f);
-    ProcessRule(*areaRule, areaDepth, {}, patternKey);
+    ProcessRule(*areaRule, areaDepth, areaPattern, false /* isHatching */);
   }
 }
 
-void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double areaDepth, std::string_view hatchKey,
-                                   std::string_view patternKey)
+void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double areaDepth, AreaPattern pattern,
+                                   bool isHatching)
 {
-  bool const isHatching = !hatchKey.empty();
-
   AreaViewParams params;
   params.m_depthLayer = m_isMwmBorder ? DepthLayer::MwmBorderLayer : DepthLayer::GeometryLayer;
   params.m_tileCenter = m_params.m_tileRect.Center();
@@ -682,8 +681,7 @@ void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double area
   params.m_rank = m_f.GetRank();
   params.m_minPosZ = m_minPosZ;
   params.m_posZ = m_posZ;
-  // Hatch and solid-fill patterns are mutually exclusive here (one key is always empty).
-  params.m_areaPattern = hatchKey.empty() ? patternKey : hatchKey;
+  params.m_areaPattern = pattern;
   params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
 
   BuildingOutline outline;
