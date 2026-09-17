@@ -6,6 +6,9 @@
 
 namespace osm
 {
+/// Prepends a scheme to a website a user typed. @note Not ValidateAndFormat_url() from
+/// indexer/osm_value_format.hpp, which formats the same tag in the opposite direction: that one
+/// strips a trailing slash off a raw OSM value on import.
 std::string ValidateAndFormat_website(std::string const & v);
 std::string ValidateAndFormat_facebook(std::string const & v);
 std::string ValidateAndFormat_instagram(std::string const & v);
