@@ -29,6 +29,10 @@ struct TypeAggregatedDescription
   bool m_cuisine = false;
 };
 
+/// @returns every metadata field data/editor.config can make editable. Exposed so that tests can
+/// check the whole editable set is covered elsewhere, see editor/osm_tag_policy.hpp.
+std::vector<feature::Metadata::EType> GetEditableMetadataFields();
+
 class EditorConfig
 {
 public:

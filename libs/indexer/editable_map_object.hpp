@@ -10,6 +10,7 @@
 #include <functional>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace osm
@@ -64,6 +65,20 @@ struct LocalizedStreet
 
   bool operator==(LocalizedStreet const & st) const { return m_defaultName == st.m_defaultName; }
 };
+
+/// @name Journal keys EditableMapObject::LogDiffInJournal() writes on its own, i.e. neither through
+/// feature::Metadata nor as a localized name. The editor needs a tag policy for every journal key
+/// (editor/osm_tag_policy.hpp), so a new one belongs in kDirectJournalKeys too.
+//@{
+inline std::string_view constexpr kJournalKeyStreet = "addr:street";
+inline std::string_view constexpr kJournalKeyHouseNumber = "addr:housenumber";
+inline std::string_view constexpr kJournalKeyCuisine = "cuisine";
+inline std::string_view constexpr kJournalKeyVegetarian = "diet:vegetarian";
+inline std::string_view constexpr kJournalKeyVegan = "diet:vegan";
+
+inline std::string_view constexpr kDirectJournalKeys[] = {kJournalKeyStreet, kJournalKeyHouseNumber, kJournalKeyCuisine,
+                                                          kJournalKeyVegetarian, kJournalKeyVegan};
+//@}
 
 class EditableMapObject : public MapObject
 {
