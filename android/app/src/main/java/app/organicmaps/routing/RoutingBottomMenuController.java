@@ -191,12 +191,12 @@ final class RoutingBottomMenuController
               if (controller.getStartPoint() == null || controller.getEndPoint() == null)
                 return;
               controller.waitForPoiPick(RouteMarkType.Intermediate);
-              openSearchForRoutePick();
+              ((MwmActivity) mContext).showSearch("");
             }
             @Override
             public void onOpenRouteSearch()
             {
-              openSearchForRoutePick();
+              ((MwmActivity) mContext).showSearch("");
             }
           });
     }
@@ -214,11 +214,6 @@ final class RoutingBottomMenuController
     mTransitRecyclerView.setNestedScrollingEnabled(false);
     mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
     mTransitRecyclerView.setAdapter(mTransitAdapter);
-  }
-
-  private void openSearchForRoutePick()
-  {
-    ((MwmActivity) mContext).showSearch("");
   }
 
   void setVisibilityChangedCallback(@Nullable Runnable callback)
