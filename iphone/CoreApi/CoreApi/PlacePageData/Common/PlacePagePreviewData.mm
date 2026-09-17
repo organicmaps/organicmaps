@@ -8,7 +8,7 @@
 
 static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
 {
-  PlacePageDataSchedule schedule;
+  PlacePageDataSchedule schedule{};
 
   if (rawOH.empty())
   {

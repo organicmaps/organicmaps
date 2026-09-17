@@ -8,6 +8,7 @@
 
 #include <ctime>
 #include <fstream>
+#include <limits>
 #include <sstream>
 #include <string>
 
@@ -98,11 +99,26 @@ UNIT_TEST(OpeningHours_ExtendedHours)
   TEST_EQUAL(StateAt(oh, 2026, 7, 7, 3, 0), osmoh::RuleState::Closed, ());  // Tuesday 03:00
 }
 
-// closed / off evaluate as closed (issue #1274).
+// closed / off evaluate as closed (issue #1274). They also report no upcoming
+// opening, which the place pages render as a plain "Closed" instead of
+// "Closed now" (issue #12823); the platform layers rely on this sentinel.
 UNIT_TEST(OpeningHours_ClosedValue)
 {
-  TEST_EQUAL(StateAt("closed", 2026, 7, 6, 12, 0), osmoh::RuleState::Closed, ());
-  TEST_EQUAL(StateAt("off", 2026, 7, 6, 12, 0), osmoh::RuleState::Closed, ());
+  time_t constexpr kNoTransition = std::numeric_limits<time_t>::max();
+  auto const now = platform::tests_support::GetUnixtimeByDate(2026, osmoh::MonthDay::Month::Jul, 6, 12, 0);
+
+  for (std::string const value : {"closed", "off", "24/7 closed", "2015-2020 Mo-Fr 10:00-18:00"})
+  {
+    auto const info = OpeningHours(value).GetInfo(now);
+    TEST_EQUAL(info.state, osmoh::RuleState::Closed, (value));
+    TEST_EQUAL(info.nextTimeOpen, kNoTransition, (value));
+  }
+
+  // A schedule that opens later is closed with a known reopening time.
+  auto const later = OpeningHours("2030 Mo-Fr 10:00-18:00").GetInfo(now);
+  TEST_EQUAL(later.state, osmoh::RuleState::Closed, ());
+  TEST_NOT_EQUAL(later.nextTimeOpen, kNoTransition, ());
+
   TEST_EQUAL(StateAt("24/7", 2026, 7, 6, 12, 0), osmoh::RuleState::Open, ());
 }
 
