@@ -1,8 +1,12 @@
 package app.organicmaps.sdk.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mockStatic;
 
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.log.Logger;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,6 +16,52 @@ import org.mockito.MockedStatic;
 
 public class RoutingControllerNavigationStateTest
 {
+  @Test
+  public void rebuildingUsesExistingRoutePoints()
+  {
+    final RoutingController controller = new RoutingController() {
+      @Override
+      public MapObject getStartPoint()
+      {
+        return null;
+      }
+
+      @Override
+      public MapObject getEndPoint()
+      {
+        return null;
+      }
+
+      @Override
+      public void prepare(MapObject start, MapObject finish)
+      {
+        fail("Rebuilding must not reconstruct the core's existing route points");
+      }
+    };
+    final List<String> events = new ArrayList<>();
+    controller.attach(new RoutingController.Container() {
+      @Override
+      public void showRoutePlan(boolean show, Runnable completionListener)
+      {
+        assertTrue(show);
+        assertNotNull(completionListener);
+        events.add("plan");
+      }
+
+      @Override
+      public void onPlanningStarted()
+      {
+        events.add("started");
+      }
+    });
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    {
+      controller.rebuildLastRoute();
+    }
+    assertTrue(controller.isPlanning());
+    assertEquals(List.of("plan", "started"), events);
+  }
+
   @Test
   public void listenerReceivesOnlyNavigationBoundaryTransitions() throws ReflectiveOperationException
   {

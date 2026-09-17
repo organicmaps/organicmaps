@@ -145,7 +145,7 @@ public class RoutingController
   private final RoutingLoadPointsListener mRoutingLoadPointsListener = success ->
   {
     if (success)
-      prepare(getStartPoint(), getEndPoint());
+      rebuildLastRoute();
   };
 
   public static RoutingController get()
@@ -354,9 +354,10 @@ public class RoutingController
 
   public void rebuildLastRoute()
   {
-    setState(State.NONE);
+    mContainsCachedResult = false;
+    setState(State.PREPARE);
     setBuildState(BuildState.NONE);
-    prepare(getStartPoint(), getEndPoint());
+    startPlanning(getStartPoint(), getEndPoint());
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
