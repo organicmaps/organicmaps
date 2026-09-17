@@ -138,6 +138,23 @@ size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size
     auto const & loadedSegments = result.GetSegments();
     auto const & ingoingSegment = loadedSegments[outgoingSegmentIndex - 1];
     turnItem.m_lanes = ingoingSegment.m_lanes;
+
+    // A short ingoing segment usually appears when a dedicated lane (e.g. an U-turn pocket) forks off
+    // just before the turn and the way is split there. The driver receives the maneuver banner while
+    // still on the previous segment, so show its lanes if the current ones are a contiguous part of them.
+    double constexpr kShortLanesSegmentDistM = 30.0;
+    if (outgoingSegmentIndex >= 2 && !turnItem.m_lanes.empty() &&
+        CalcRouteDistanceM(ingoingSegment.m_path, 0, static_cast<uint32_t>(ingoingSegment.m_path.size())) <
+            kShortLanesSegmentDistM)
+    {
+      auto const & prevLanes = loadedSegments[outgoingSegmentIndex - 2].m_lanes;
+      if (prevLanes.size() > turnItem.m_lanes.size() &&
+          std::search(prevLanes.begin(), prevLanes.end(), turnItem.m_lanes.begin(), turnItem.m_lanes.end()) !=
+              prevLanes.end())
+      {
+        turnItem.m_lanes = prevLanes;
+      }
+    }
   }
 
   return skipTurnSegments;
