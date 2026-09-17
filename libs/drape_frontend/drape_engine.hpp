@@ -130,6 +130,9 @@ public:
   void Move(double factorX, double factorY, bool isAnim);
   void Scroll(double distanceX, double distanceY);
   void Rotate(double azimuth, bool isAnim);
+  void BeginTransformGesture();
+  void RotateBy(double deltaRadians, m2::PointD const & pixelPoint);
+  void EndTransformGesture();
 
   void MakeFrameActive();
 
