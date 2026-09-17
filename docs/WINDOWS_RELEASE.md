@@ -11,7 +11,7 @@ tested Qt installation for the build and `windeployqt`. Example:
 
 ```powershell
 cmake --preset release -B build/windows-direct `
-  -DBUILD_TESTING=OFF -DBUILD_DESIGNER=OFF `
+  -DBUILD_TESTING=OFF `
   -DOMIM_WINDOWS_DISTRIBUTION=direct
 cmake --build build/windows-direct --target desktop
 cmake --install build/windows-direct --prefix dist/windows-direct `
@@ -39,8 +39,8 @@ MSIX-oriented stage omits compiler runtime files. CI fetches 128 commits to matc
 the version script's history window when counting commits on the release date.
 Do not distribute this artifact as a release.
 
-For a direct or Store distribution, Release, bundled third-party libraries,
-and `BUILD_DESIGNER=OFF` are required. `tools/unix/version.sh windows_version`
+Direct and Store distributions require Release and bundled third-party libraries.
+`tools/unix/version.sh windows_version`
 generates `YYYY.MMDD.COUNT.0` for both channels, leaving the Store revision
 component at zero. Development builds use the resources directory when it is
 writable, otherwise `%LOCALAPPDATA%\OrganicMaps`. The `WindowsRuntime` component

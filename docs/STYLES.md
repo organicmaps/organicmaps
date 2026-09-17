@@ -72,9 +72,21 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 The most convenient way is using [the desktop app](INSTALL.md#desktop-app).
 
 The desktop app also has a **Designer mode** that rebuilds the
-currently-edited style on demand, without restarting.
+currently edited style on demand, without restarting.
 
-To run the Designer from a checkout:
+A Designer package for Linux and macOS is attached to every
+[CMake workflow run](https://github.com/organicmaps/organicmaps/actions/workflows/build-cmake.yaml)
+(open a run of `master` and scroll down to Artifacts).  Unpack it, run
+`./designer.sh` and edit the MapCSS in its `data/styles/`, which is a copy of
+this repository's.  It needs `python3`; Linux also needs compatible system
+Qt 6 and C++ runtime libraries.  The macOS app and its
+`generator_tool` and `style_tests` helpers share bundled Qt frameworks.
+See the package's own `README.md`.  Run
+`tools/unix/package_designer.sh <build-dir> [<output-parent-dir>]` to build a
+package yourself. It replaces only the `OrganicMaps-Designer/` subdirectory
+of the chosen parent (the build directory by default).
+
+To run the Designer from a checkout instead:
 
 ```
 cmake --preset debug
@@ -88,11 +100,20 @@ cmake --build --preset debug --target desktop generator_tool style_tests
 ```
 
 Launch it from the repository root: the writable dir then resolves to
-`data/`, so rebuilt styles land exactly where `generate_drules.sh` and
-`generate_symbols.sh` put them (commit or discard the changes as usual).
-Only `python3` must be on `PATH`; the drawing-rules writer (`libkomwm.py`)
+`data/`, so rebuilt styles land where `generate_drules.sh` and
+`generate_symbols.sh` put them. Re-run both scripts before committing: the
+Designer skips the `drules_*.txt` dumps, `visibility.txt` and `optipng`, and
+keeps unused `colors.txt`/`patterns.txt` entries. After discarding style edits,
+reopen Designer or click **Build style** before **Recalculate geometry index**
+to restore the indexes of git-ignored maps under `data/<version>/`.
+Alternatively, delete or replace those reindexed map files; `git restore`
+alone does not change their indexes.
+Python 3 must be on `PATH` (`python` on Windows, `python3` elsewhere);
+the drawing-rules writer (`libkomwm.py`)
 is pure Python and needs no extra packages.
 Designer is a runtime mode of the desktop app and needs no separate CMake flag.
+Windows direct/Store runtime artifacts omit style sources and Designer helpers;
+use a development checkout for style editing on Windows.
 
 Pass any of the six supported `style.mapcss` files:
 
@@ -101,8 +122,8 @@ data/styles/{default,outdoors,vehicle}/{light,dark}/style.mapcss
 ```
 
 Designer mode pins the map style to the file you opened and disables
-the layer-menu Outdoors switch and the night-mode preference (both would
-unload the style being edited).  Debug search commands cannot change that
+the layer-menu Outdoors switch and the night-mode preference, which cannot
+change the pinned style. Debug search commands cannot change that
 style.  Edit any include file under
 `data/styles/<type>/include/` (e.g. `Roads.mapcss`) and click **Build style**
 to recompile and reapply the rules and symbol atlases live.
@@ -120,30 +141,30 @@ Designer-only buttons:
   atlases in-process for the default family and reloads; results are written
   to the writable dir and the style's `out/`.  Startup recompiles the sources
   as well, so reopening Designer includes edits made between sessions.
-  The atlases are pixel-identical to what `generate_symbols.sh` produces
-  but are not run through `optipng`, so re-run
-  that script before committing changes to `data/symbols/`.  The outdoors and
-  vehicle families share the default family's atlases; build the corresponding
-  default theme first when adding an icon used by another family.
+  The atlases are pixel-identical to what `generate_symbols.sh` produces.
+  The outdoors and vehicle families share the default family's atlases; build
+  the corresponding default theme first when adding an icon used by another family.
   Enabling automatic geometry-index regeneration in Preferences makes a
   successful Build style close and relaunch Designer through the reindex step.
 - **Recalculate geometry index** — closes the app, rebuilds
   `drules_merged.bin` (the zoom-range union of the light styles, which
   `generator_tool` indexes against), runs `generator_tool
-  --generate_index=true` over every `.mwm` in the writable directory,
-  then relaunches on success.  World maps are copied into the writable
-  directory when Designer starts; indexing changes those copies and preserves
-  the application bundle's signature.  Each map gets a separate temporary
-  directory, including different versions with identical country names.
+  --generate_index=true` over maps directly inside the writable directory's
+  version folders (including symlinked folders),
+  then relaunches on success. World is copied into its dated writable map
+  directory only when recalculation is requested. Indexing changes that copy,
+  preserving bundled Worlds and the application bundle's signature. Newer
+  bundled Worlds supersede older editable copies. Each map gets a separate
+  temporary directory, including different versions with identical country names.
   Use this after widening a zoom range; narrowing one takes
   effect without it.  Features can only appear at zooms the map has geometry
   for, which `generator_tool --designer` widens by 3 levels when generating
   a map.
 - **Debug style** — toggles drape's debug rect overlay.
 - **Get statistics / Run tests** — invoke `drules_info.py` and `style_tests`.
-- **Build phone package** — exports the currently-edited style to a folder
-  you can copy to a device.  Source files and destination overlap are checked
-  before overwrite confirmation; all required density atlases must be present:
+- **Build phone package** — exports the currently edited style as a `styles/`
+  folder to copy to a device (an existing one is replaced only after all rebuilt
+  files are found and you confirm):
   - Android: `<storage>/Android/data/app.organicmaps/files/styles/`
   - iOS: Files → On My iPhone → Organic Maps → `styles/`
 
