@@ -180,6 +180,8 @@ private:
   void RebuildRouteOnTrafficUpdate();
 
   void PassCheckpoints(location::GpsInfo const & info);
+  /// \brief Common bookkeeping for a position that belongs to the route, matched or rejoined.
+  SessionState OnRoutePosition(location::GpsInfo const & info, turns::TurnItem const & formerTurn);
 
 private:
   std::unique_ptr<AsyncRouter> m_router;

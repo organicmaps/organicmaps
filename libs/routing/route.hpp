@@ -529,6 +529,14 @@ public:
   /// driving past an off-road intermediate checkpoint from arriving at it.
   bool IsSubroutePassed(size_t subrouteIdx, m2::PointD const & fixPoint, double fixSpeedMpS) const;
 
+  /// \brief Tries to re-attach the current position to a subroute lying past one or more pending
+  /// checkpoints. A gap in the fixes across a checkpoint (a tunnel, a backgrounded app) never
+  /// matches the route near it, so the checkpoint stays pending forever and the session ends up
+  /// rebuilding a route back to it.
+  /// \returns true if the position was moved, so that IsSubroutePassed() reports every skipped
+  /// subroute as passed.
+  bool RejoinPastCheckpoints(location::GpsInfo const & info);
+
   std::string DebugPrintTurns() const;
 
 private:
@@ -536,6 +544,11 @@ private:
 
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurnAfterIdx(size_t segIdx, turns::TurnItem & turn) const;
+
+  /// \returns Area to look for the route around |info|: the matching threshold, widened to the
+  /// fix's own accuracy so that a poor fix still matches. MoveIterator() and RejoinPastCheckpoints()
+  /// share it -- the rejoin only ever runs on a fix this very rect has failed to match.
+  m2::RectD GetMatchingRect(location::GpsInfo const & info) const;
 
   /// \returns Length of the trailing pure-fake connector (projection edge A->B + standalone B->B)
   /// of the subroute, i.e. how far its checkpoint sits off the road, or 0 when the subroute does
