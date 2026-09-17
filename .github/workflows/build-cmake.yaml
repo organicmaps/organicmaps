@@ -24,6 +24,7 @@ on:
       - packaging/**
       - tools/**
       - '!tools/python/test_server/**'
+      - '!tools/unix/package_designer.sh'
       - xcode/**
 
 # Cancels previous jobs if the same branch or PR was updated again.
@@ -55,6 +56,7 @@ jobs:
           - os: ubuntu-26.04
             cc: gcc-15
             cxx: g++-15
+            package-designer: ON
 
           - os: ubuntu-24.04-arm
             cc: gcc-13
@@ -64,6 +66,7 @@ jobs:
             cc: clang
             cxx: clang++
             developer-dir: /Applications/Xcode_26.5.app/Contents/Developer
+            package-designer: ON
 
           - os: windows-2025-vs2026
             cc: cl.exe
@@ -175,6 +178,28 @@ jobs:
 
       - name: Compile
         run: cmake --build --preset $PRESET
+
+      # A portable folder with the app, the style sources and the tools Build Style
+      # runs, so that map designers can tune styles without a checkout and a build.
+      # Release only: Debug is too slow to preview a style comfortably.
+      - name: Package Designer
+        if: ${{ matrix.environment.package-designer == 'ON' && matrix.cmake-build-type == 'Release' }}
+        run: |
+          tools/unix/package_designer.sh build
+          # Uploading the folder as is would lose the executable bits and the
+          # symlinks inside OrganicMaps.app, so upload a single archive instead.
+          tar -czf organicmaps-designer-${{ matrix.environment.os }}.tar.gz -C build OrganicMaps-Designer
+
+      - name: Upload Designer package
+        if: ${{ matrix.environment.package-designer == 'ON' && matrix.cmake-build-type == 'Release' }}
+        uses: actions/upload-artifact@v7
+        with:
+          path: organicmaps-designer-${{ matrix.environment.os }}.tar.gz
+          if-no-files-found: error
+          # Upload the tarball itself, so that it downloads ready to unpack instead of
+          # wrapped into a zip.  The file name becomes the artifact name: `name:` is
+          # ignored without an archive.
+          archive: false
 
       - name: Prepare testing environment (Linux)
         if: ${{ runner.os == 'Linux' }}
