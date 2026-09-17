@@ -372,6 +372,7 @@ extension CarPlayRouter {
       instructionVariant = instructionVariant.isEmpty ? exitNumber : (exitNumber + ", " + instructionVariant)
     }
     primaryManeuver.instructionVariants = [instructionVariant]
+    primaryManeuver.dashboardInstructionVariants = [instructionVariant]
     primaryManeuver.symbolImage = nil
     primaryManeuver.dashboardSymbolImage = nil
     if let imageName = routeInfo.turnImageName,
