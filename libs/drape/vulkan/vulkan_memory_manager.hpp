@@ -67,6 +67,7 @@ public:
   using AllocationPtr = std::shared_ptr<Allocation>;
 
   AllocationPtr Allocate(ResourceType resourceType, VkMemoryRequirements memReqs, uint64_t blockHash);
+  // Deallocation is done in sessions, unused blocks are released or recycled at the end of a session.
   void BeginDeallocationSession();
   void Deallocate(AllocationPtr ptr);
   void EndDeallocationSession();

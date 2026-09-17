@@ -13,12 +13,13 @@ namespace vulkan
 {
 namespace
 {
+// Only shared geometry blocks profit from a minimal size, an exclusive block holds a single allocation.
 std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kMinBlockSizeInBytes = {{
     1024 * 1024,  // Geometry
-    128 * 1024,   // Uniform
-    128 * 1024,   // Storage
-    0,            // Staging (no minimal size)
-    0,            // Image (no minimal size)
+    0,            // Uniform
+    0,            // Storage
+    0,            // Staging
+    0,            // Image
 }};
 
 std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInBytes = {{
@@ -27,6 +28,17 @@ std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInB
     std::numeric_limits<uint32_t>::max(),  // Storage (unlimited)
     20 * 1024 * 1024,                      // Staging
     100 * 1024 * 1024,                     // Image
+}};
+
+// Uniform, storage and staging buffers are mapped outside of the VulkanObjectManager lock, for an upload or for
+// their whole lifetime, so they never share a memory block: a VkDeviceMemory can't be mapped twice, and another
+// thread may deallocate a neighbour allocation while the block is mapped.
+std::array<bool, VulkanMemoryManager::kResourcesCount> const kExclusiveBlocks = {{
+    false,  // Geometry (mapped only under the lock)
+    true,   // Uniform
+    true,   // Storage
+    true,   // Staging
+    false,  // Image (never mapped)
 }};
 
 VkMemoryPropertyFlags GetMemoryPropertyFlags(VulkanMemoryManager::ResourceType resourceType,
@@ -148,9 +160,10 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
 {
   size_t const intResType = static_cast<size_t>(resourceType);
   auto const alignedSize = GetAligned(static_cast<uint32_t>(memReqs.size), GetSizeAlignment(memReqs));
+  auto & m = m_memory[intResType];
   // Looking for an existed block.
+  if (!kExclusiveBlocks[intResType])
   {
-    auto & m = m_memory[intResType];
     auto const it = m.find(blockHash);
     if (it != m.end())
     {
@@ -158,16 +171,20 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
       auto & block = it->second.back();
       auto const alignedOffset = GetAligned(block->m_freeOffset, GetOffsetAlignment(resourceType));
 
+      // Shared blocks are mapped only under the lock, see kExclusiveBlocks.
+      ASSERT(!block->m_isBlocked, ());
       // There is space in the current block.
-      if (!block->m_isBlocked && (block->m_blockSize >= alignedOffset + alignedSize))
+      if (block->m_blockSize >= alignedOffset + alignedSize)
       {
         block->m_freeOffset = alignedOffset + alignedSize;
         block->m_allocationCounter++;
         return std::make_shared<Allocation>(resourceType, blockHash, alignedOffset, alignedSize, make_ref(block));
       }
     }
+  }
 
-    // Looking for a block in free ones.
+  // Looking for a block in free ones.
+  {
     auto & fm = m_freeBlocks[intResType];
     // Free blocks array must be sorted by size.
     auto const freeBlockIt = std::lower_bound(fm.begin(), fm.end(), alignedSize, LessBlockSize());
@@ -218,8 +235,6 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   m_sizes[intResType] += blockSize;
 
   // Attach block.
-  auto & m = m_memory[intResType];
-
   auto newBlock = make_unique_dp<MemoryBlock>();
   newBlock->m_memory = memory;
   newBlock->m_blockSize = blockSize;
@@ -241,6 +256,7 @@ void VulkanMemoryManager::BeginDeallocationSession()
 void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
 {
   CHECK(ptr, ());
+  CHECK(m_isInDeallocationSession, ());
   CHECK(!ptr->m_memoryBlock->m_isBlocked, ());
   auto const resourceIndex = static_cast<size_t>(ptr->m_resourceType);
   auto & m = m_memory[resourceIndex];
@@ -255,38 +271,9 @@ void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
   CHECK_GREATER((*blockIt)->m_allocationCounter, 0, ());
   (*blockIt)->m_allocationCounter--;
 
+  // Set a bit in the deallocation mask to skip the processing of untouched resource collections.
   if ((*blockIt)->m_allocationCounter == 0)
-  {
-    if (m_isInDeallocationSession)
-    {
-      // Here we set a bit in the deallocation mask to skip the processing of untouched
-      // resource collections.
-      m_deallocationSessionMask |= (1 << resourceIndex);
-    }
-    else
-    {
-      drape_ptr<MemoryBlock> memoryBlock = std::move(*blockIt);
-      it->second.erase(blockIt);
-      // Mirror correspondent CHECK(!it->second.empty()) in VulkanMemoryManager::Allocate.
-      if (it->second.empty())
-        m.erase(it);
-
-      if (m_sizes[resourceIndex] > kDesiredSizeInBytes[resourceIndex])
-      {
-        CHECK_LESS_OR_EQUAL(memoryBlock->m_blockSize, m_sizes[resourceIndex], ());
-        m_sizes[resourceIndex] -= memoryBlock->m_blockSize;
-        DecrementTotalAllocationsCount();
-        vkFreeMemory(m_device, memoryBlock->m_memory, nullptr);
-      }
-      else
-      {
-        memoryBlock->m_freeOffset = 0;
-        auto & fm = m_freeBlocks[resourceIndex];
-        fm.push_back(std::move(memoryBlock));
-        std::sort(fm.begin(), fm.end(), LessBlockSize());
-      }
-    }
-  }
+    m_deallocationSessionMask |= (1 << resourceIndex);
 }
 
 void VulkanMemoryManager::EndDeallocationSession()
@@ -302,11 +289,9 @@ void VulkanMemoryManager::EndDeallocationSession()
       continue;
 
     auto & fm = m_freeBlocks[i];
-
-    static std::vector<uint64_t> hashesToDelete;
-    for (auto & p : m_memory[i])
+    for (auto it = m_memory[i].begin(); it != m_memory[i].end();)
     {
-      auto & m = p.second;
+      auto & m = it->second;
       m.erase(std::remove_if(m.begin(), m.end(),
                              [this, &fm, i](drape_ptr<MemoryBlock> & b)
       {
@@ -330,13 +315,12 @@ void VulkanMemoryManager::EndDeallocationSession()
       }),
               m.end());
 
+      // Mirror correspondent CHECK(!it->second.empty()) in VulkanMemoryManager::Allocate.
       if (m.empty())
-        hashesToDelete.push_back(p.first);
+        it = m_memory[i].erase(it);
+      else
+        ++it;
     }
-
-    for (auto hash : hashesToDelete)
-      m_memory[i].erase(hash);
-    hashesToDelete.clear();
 
     std::sort(fm.begin(), fm.end(), LessBlockSize());
   }
