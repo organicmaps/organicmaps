@@ -32,6 +32,16 @@ public final class RoutingOptions
     return false;
   }
 
+  public static boolean isRouteOptimizationEnabled()
+  {
+    return nativeIsRouteOptimizationEnabled();
+  }
+
+  public static void setRouteOptimizationEnabled(boolean enabled)
+  {
+    nativeSetRouteOptimizationEnabled(enabled);
+  }
+
   @NonNull
   public static Set<RoadType> getActiveRoadTypes()
   {
@@ -53,4 +63,8 @@ public final class RoutingOptions
   private static native void nativeRemoveOption(int option);
 
   private static native boolean nativeHasOption(int option);
+
+  private static native boolean nativeIsRouteOptimizationEnabled();
+
+  private static native void nativeSetRouteOptimizationEnabled(boolean enabled);
 }
