@@ -523,7 +523,11 @@ public:
   /// fields accordingly.
   bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  bool IsSubroutePassed(size_t subrouteIdx) const;
+  /// \brief Checks whether the user is past the end of |subrouteIdx|. |fixPoint| and |fixSpeedMpS|
+  /// are the raw (unmatched) position and speed of the fix just handled by MoveIterator(); the
+  /// speed is negative when the fix carries none, exactly as location::GpsInfo::m_speed. They tell
+  /// driving past an off-road intermediate checkpoint from arriving at it.
+  bool IsSubroutePassed(size_t subrouteIdx, m2::PointD const & fixPoint, double fixSpeedMpS) const;
 
   std::string DebugPrintTurns() const;
 
@@ -532,6 +536,11 @@ private:
 
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurnAfterIdx(size_t segIdx, turns::TurnItem & turn) const;
+
+  /// \returns Length of the trailing pure-fake connector (projection edge A->B + standalone B->B)
+  /// of the subroute, i.e. how far its checkpoint sits off the road, or 0 when the subroute does
+  /// not end with such a tail.
+  double GetSubrouteEndConnectorMeters(SubrouteAttrs const & attrs) const;
 
   /// \returns Estimated time from the beginning.
   double GetCurrentTimeFromBeginSec() const;
