@@ -333,14 +333,6 @@ bool VulkanContextFactory::QuerySurfaceSize()
     return false;
   }
 
-#if !defined(OMIM_OS_WINDOWS)
-  if (!(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
-  {
-    LOG_ERROR_VK("Alpha channel is not supported.");
-    return false;
-  }
-#endif
-
   m_surfaceFormat = formats[chosenFormat];
   m_surfaceWidth = static_cast<int>(m_surfaceCapabilities.currentExtent.width);
   m_surfaceHeight = static_cast<int>(m_surfaceCapabilities.currentExtent.height);
