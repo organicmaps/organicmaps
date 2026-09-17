@@ -1,23 +1,38 @@
 final class SearchOnMapInteractor: NSObject {
   private let presenter: SearchOnMapPresenter
   private let searchManager: SearchManager.Type
+  private let routePointSelector: RoutePointSelecting?
+  private weak var mapViewController: MapViewController?
   private var isUpdatesDisabled = false
 
   init(presenter: SearchOnMapPresenter,
-       searchManager: SearchManager.Type = Search.self) {
+       searchManager: SearchManager.Type = Search.self,
+       routePointSelector: RoutePointSelecting? = nil,
+       mapViewController: MapViewController? = nil) {
     self.presenter = presenter
     self.searchManager = searchManager
+    self.routePointSelector = routePointSelector
+    self.mapViewController = mapViewController
     super.init()
     searchManager.add(self)
+    if routePointSelector != nil {
+      mapViewController?.add(self)
+    }
   }
 
   deinit {
     searchManager.remove(self)
+    mapViewController?.remove(self)
   }
 
   func handle(_ event: SearchOnMap.Request) {
     let response = resolve(event)
     presenter.process(response)
+  }
+
+  func closeForReplacement() {
+    prepareToCloseSearch()
+    presenter.close(notifyObservers: false)
   }
 
   private func resolve(_ event: SearchOnMap.Request) -> SearchOnMap.Response {
@@ -39,6 +54,28 @@ final class SearchOnMapInteractor: NSObject {
 
     case .clearButtonDidTap:
       return processClearButtonDidTap()
+
+    case .currentLocationButtonDidTap:
+      guard routePointSelector?.selectCurrentLocation() == true else { return .none }
+      searchManager.clear()
+      return .close
+
+    case .chooseOnMapButtonDidTap:
+      guard let routePointSelector, routePointSelector.isActive else { return .none }
+      return .showMapPointPicker(routePointSelector.title)
+
+    case .didSelectMapPoint(let point):
+      guard routePointSelector?.select(mapPoint: point) == true else {
+        return .setSearchScreenHidden(false)
+      }
+      searchManager.clear()
+      return .close
+
+    case .didCancelMapPoint:
+      return closeSearch()
+
+    case .refreshRoutePointActions:
+      return .updateRoutePointActions(routePointActions)
 
     case .didSelect(let searchText):
       return processSelectedText(searchText)
@@ -63,7 +100,7 @@ final class SearchOnMapInteractor: NSObject {
       return .updatePresentationStep(step)
 
     case .updateVisibleAreaInsets(let insets):
-      MapViewController.shared()!.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
+      mapViewController?.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
       return .none
 
     case .closeSearch:
@@ -80,8 +117,9 @@ final class SearchOnMapInteractor: NSObject {
   private func processSearchButtonDidTap(_ query: SearchQuery) -> SearchOnMap.Response {
     searchManager.save(query)
     // During navigation the map follows the current position, so the viewport is not overridden;
-    // the results are still drawn as marks on the map.
-    if !presenter.isRouting {
+    // the results are still drawn as marks on the map. While a route point is being picked the search
+    // screen stays visible, so the viewport must still be refitted to the results.
+    if !presenter.shouldHideForRouting {
       searchManager.updateViewportWithResults()
     }
     return .showOnTheMap
@@ -106,6 +144,11 @@ final class SearchOnMapInteractor: NSObject {
     switch result.itemType {
     case .regular:
       searchManager.save(query)
+      if let routePointSelector, routePointSelector.isActive {
+        guard routePointSelector.select(searchResult: result) else { return .none }
+        searchManager.clear()
+        return .close
+      }
       searchManager.showResult(at: result.index)
       return isiPad ? .none : .setSearchScreenHidden(true)
     case .suggestion:
@@ -124,9 +167,20 @@ final class SearchOnMapInteractor: NSObject {
   }
 
   private func closeSearch() -> SearchOnMap.Response {
+    prepareToCloseSearch()
+    return .close
+  }
+
+  private func prepareToCloseSearch() {
     isUpdatesDisabled = true
     searchManager.clear()
-    return .close
+    routePointSelector?.cancel()
+  }
+
+  private var routePointActions: SearchOnMap.ViewModel.RoutePointActions? {
+    guard let routePointSelector, routePointSelector.isActive else { return nil }
+    return .init(title: routePointSelector.title,
+                 canSelectCurrentLocation: routePointSelector.canSelectCurrentLocation)
   }
 
   private func searchModeForPresentationStep(_ step: SearchOnMapModalPresentationStep) -> SearchMode {
@@ -138,6 +192,14 @@ final class SearchOnMapInteractor: NSObject {
     case .hidden:
       return .viewport
     }
+  }
+}
+
+// MARK: - LocationModeListener
+
+extension SearchOnMapInteractor: LocationModeListener {
+  func processMyPositionStateModeEvent(_: MWMMyPositionMode) {
+    handle(.refreshRoutePointActions)
   }
 }
 
