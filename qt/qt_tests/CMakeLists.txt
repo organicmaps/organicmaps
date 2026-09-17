@@ -32,3 +32,15 @@ add_test(NAME designer_index_script_tests
   COMMAND ${Python3_EXECUTABLE} ${OMIM_ROOT}/tools/python/test_recalculate_geom_index.py
 )
 set_tests_properties(designer_index_script_tests PROPERTIES LABELS "omim-test")
+
+add_test(NAME designer_style_generation_tests
+  COMMAND ${Python3_EXECUTABLE} ${OMIM_ROOT}/tools/python/test_designer_style_generation.py
+)
+set_tests_properties(designer_style_generation_tests PROPERTIES LABELS "omim-test")
+
+if (PLATFORM_MAC OR PLATFORM_LINUX)
+  add_test(NAME designer_package_script_tests
+    COMMAND ${Python3_EXECUTABLE} ${OMIM_ROOT}/tools/python/test_package_designer.py
+  )
+  set_tests_properties(designer_package_script_tests PROPERTIES LABELS "omim-test")
+endif()
