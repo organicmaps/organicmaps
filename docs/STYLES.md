@@ -72,7 +72,17 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 The most convenient way is using [the desktop app](INSTALL.md#desktop-app).
 
 The desktop app also has a **Designer mode** that rebuilds the
-currently-edited style on demand, without restarting:
+currently-edited style on demand, without restarting.
+
+A ready-to-run Designer package for Linux and macOS is attached to every
+[CMake workflow run](https://github.com/organicmaps/organicmaps/actions/workflows/build-cmake.yaml)
+(open a run of `master` and scroll down to Artifacts).  Unpack it, run
+`./designer.sh` and edit the MapCSS in its `data/styles/`, which is a copy of
+this repository's.  Only `python3` and, on Linux, a system-wide Qt 6 are
+needed; see the package's own `README.md`.  Run
+`tools/unix/package_designer.sh <build-dir>` to build a package yourself.
+
+To run the Designer from a checkout instead:
 
 ```
 cmake --preset debug
