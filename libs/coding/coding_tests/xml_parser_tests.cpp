@@ -3,6 +3,7 @@
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"
 
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -85,6 +86,24 @@ private:
   Strings m_pops;
 };
 
+class ThrowingDispatcher : public Dispatcher
+{
+public:
+  bool Push(std::string push)
+  {
+    if (push == "throw")
+      throw std::runtime_error(push);
+    return Dispatcher::Push(std::move(push));
+  }
+
+  void Pop(std::string pop)
+  {
+    if (pop == "throwOnPop")
+      throw std::runtime_error(pop);
+    Dispatcher::Pop(std::move(pop));
+  }
+};
+
 template <typename D>
 void TestXML(std::string const & xmlStr, D & dispatcher)
 {
@@ -115,5 +134,42 @@ UNIT_TEST(XmlParser_LongTest)
                 "landscape", "relative", "offset"});
   d.TestPops({"anchor", "offset", "portrait", "ruler", "anchor", "relative", "portrait", "relative", "offset",
               "landscape", "compass", "root"});
+}
+
+// Parses xml until the dispatcher throws.
+void TestThrowingXML(std::string const & xml, ThrowingDispatcher & d)
+{
+  MemReader reader(xml.data(), xml.size());
+  ReaderSource<MemReader> source(reader);
+  SequenceAdapter adapter(source);
+  XMLSequenceParser parser(adapter, d);
+
+  bool thrown = false;
+  try
+  {
+    parser.Read();
+  }
+  catch (std::runtime_error const &)
+  {
+    thrown = true;
+  }
+  TEST(thrown, ());
+}
+
+UNIT_TEST(XmlParser_DispatcherExceptionOnPush)
+{
+  ThrowingDispatcher d;
+  TestThrowingXML("<root><throw/><next/></root>", d);
+
+  d.TestPushes({"root"});
+  d.TestPops({});
+}
+
+UNIT_TEST(XmlParser_DispatcherExceptionOnPop)
+{
+  ThrowingDispatcher d;
+  TestThrowingXML("<root><throwOnPop>text</throwOnPop><next/></root>", d);
+  d.TestPushes({"root", "throwOnPop"});
+  d.TestPops({});
 }
 }  // namespace
