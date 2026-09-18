@@ -524,6 +524,8 @@
 "today" = "Σήμερα";
 "opens_in" = "Ανοίγει σε %@";
 "closes_in" = "Κλείνει σε %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Κλειστό";
 "no_osm_account" = "Δεν έχετε λογαριασμό OpenStreetMap;";
 "register_at_openstreetmap" = "Εγγραφή στο OpenStreetMap";

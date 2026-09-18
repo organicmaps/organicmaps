@@ -427,6 +427,8 @@
     <string name="today">Today</string>
     <string name="opens_in">Opens in %s</string>
     <string name="closes_in">Closes in %s</string>
+    <string name="opens_in_less_than_a_minute">Opens in less than a minute</string>
+    <string name="closes_in_less_than_a_minute">Closes in less than a minute</string>
     <string name="closed">Closed</string>
     <string name="edit_opening_hours">Edit business hours</string>
     <string name="no_osm_account">Don\'t have an OpenStreetMap account?</string>

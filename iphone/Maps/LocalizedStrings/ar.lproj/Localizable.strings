@@ -524,6 +524,8 @@
 "today" = "اليوم";
 "opens_in" = "يفتح بعد %@";
 "closes_in" = "يغلق في غضون %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "مغلق";
 "no_osm_account" = "ليس لديك حساب في خريطة الشارع المفتوحة؟";
 "register_at_openstreetmap" = "التسجيل في خريطة الشارع المفتوحة";
