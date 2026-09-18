@@ -9,60 +9,104 @@ Item {
     required property MainWindow map
     Material.theme: map.nightMode
 
-    RoundButton {
-        id: positionMode
-
-        anchors.right: parent.right
-        y: parent.height / 2
-        icon.source: "qrc:/navig64/routing.png"
+    component RoundOverayButton: RoundButton {
         icon.color: "transparent"
         Material.background: Material.theme === Material.Dark ? "#CC3C3F44" : "#CBFFFFFF"
         flat: true
-        onClicked: root.map.myPositionAction.trigger()
+    }
 
-        Connections {
-            target: root.map
-            function onPositionModeChanged(mode) {
-                positionMode.state = mode;
-                console.log("Position Mode changed to", mode);
-            }
-            function onInfoChanged() {
-                pane.visible = root.height > root.width + 50;
-            }
+    component OverayButton: RoundOverayButton {
+        radius: 10
+    }
+
+    RoundOverayButton {
+        y: height / 2
+        icon.source: "qrc:/navig64/layers.png"
+    }
+
+    Row {
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: 10
+        padding: spacing
+
+        OverayButton {icon.source: "qrc:/ui/logo.png"}
+        OverayButton {icon.source: "qrc:/navig64/search.png"}
+        OverayButton {icon.source: "qrc:/navig64/bookmark.png"}
+        OverayButton {icon.name: "application-menu"}
+    }
+
+    Column {
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+
+        RoundOverayButton {
+            text: "＋"  // "➕"
+            font.pixelSize: 19
+        }
+        RoundOverayButton {
+            text: "－"  // "➖"
+            font.pixelSize: 19
+        }
+        // Looks good on Adwaita
+        // RoundOverayButton {icon.name: "list-add"}
+        // RoundOverayButton {icon.name: "list-remove"}
+
+        Item {
+            height: positionMode.height / 2
+            width: 1
         }
 
-        states: [
-            State {
-                name: PositionMode.PendingPosition
-                PropertyChanges {
-                    positionMode.icon.source: "qrc:/navig64/location-search.png"
+        RoundOverayButton {
+            id: positionMode
+
+            icon.source: "qrc:/navig64/routing.png"
+            onClicked: root.map.myPositionAction.trigger()
+
+            Connections {
+                target: root.map
+                function onPositionModeChanged(mode) {
+                    positionMode.state = mode;
+                    console.log("Position Mode changed to", mode);
                 }
-            },
-            State {
-                name: PositionMode.NotFollowNoPosition
-                extend: PositionMode.PendingPosition
-            },
-            State {
-                name: PositionMode.NotFollow
-                PropertyChanges {
-                    positionMode.icon.source: "qrc:/navig64/location.png"
-                }
-            },
-            State {
-                name: PositionMode.Follow
-                PropertyChanges {
-                    restoreEntryValues: false
-                    positionMode.rotation: 30
-                }
-            },
-            State {
-                name: PositionMode.FollowAndRotate
-                PropertyChanges {
-                    restoreEntryValues: false
-                    positionMode.rotation: 0
+                function onInfoChanged() {
+                    pane.visible = root.height > root.width + 50;
                 }
             }
-        ]
+
+            states: [
+                State {
+                    name: PositionMode.PendingPosition
+                    PropertyChanges {
+                        positionMode.icon.source: "qrc:/navig64/location-search.png"
+                    }
+                },
+                State {
+                    name: PositionMode.NotFollowNoPosition
+                    extend: PositionMode.PendingPosition
+                },
+                State {
+                    name: PositionMode.NotFollow
+                    PropertyChanges {
+                        positionMode.icon.source: "qrc:/navig64/location.png"
+                    }
+                },
+                State {
+                    name: PositionMode.Follow
+                    PropertyChanges {
+                        restoreEntryValues: false
+                        positionMode.rotation: 30
+                    }
+                },
+                State {
+                    name: PositionMode.FollowAndRotate
+                    PropertyChanges {
+                        restoreEntryValues: false
+                        positionMode.rotation: 0
+                    }
+                }
+            ]
+        }
     }
 
     component GridLabel: Label {
