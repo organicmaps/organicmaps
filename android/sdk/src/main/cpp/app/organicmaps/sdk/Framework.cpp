@@ -34,6 +34,7 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include "indexer/feature_altitude.hpp"
+#include "indexer/kayak.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
@@ -1860,6 +1861,16 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeHasPlacePageInfo(JNI
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMemoryWarning(JNIEnv *, jclass)
 {
   return frm()->MemoryWarning();
+}
+
+JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass,
+                                                                             jstring countryIsoCode, jstring uri,
+                                                                             jlong firstDaySec, jlong lastDaySec)
+{
+  std::string const url =
+      osm::GetKayakHotelURLFromURI(jni::ToNativeString(env, countryIsoCode), jni::ToNativeString(env, uri),
+                                   static_cast<time_t>(firstDaySec), static_cast<time_t>(lastDaySec));
+  return url.empty() ? nullptr : jni::ToJavaString(env, url);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeShouldShowProducts(JNIEnv * env, jclass)

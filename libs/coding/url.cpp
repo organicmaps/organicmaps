@@ -110,6 +110,30 @@ std::string Join(std::string const & lhs, std::string const & rhs)
   return lhs + rhs;
 }
 
+std::string Slug(std::string const & raw)
+{
+  size_t const count = raw.size();
+  std::string result;
+  result.reserve(count);
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    char const c = raw[i];
+    if (c < '-' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_') || c == '`' || (c > 'z' && c < '~') ||
+        c > '~')
+    {
+      // No more than two dashes in a row.
+      size_t sz = result.length();
+      if (sz < 2 || result[sz - 2] != '-' || result[sz - 1] != '-')
+        result += '-';
+    }
+    else
+      result += raw[i];
+  }
+
+  return result;
+}
+
 std::string UrlEncode(std::string_view component)
 {
   size_t const count = component.size();

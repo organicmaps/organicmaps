@@ -1577,6 +1577,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  public void openKayakLink(@NonNull String url)
+  {
+    if (Config.isKayakDisclaimerAccepted())
+    {
+      Utils.openUrl(this, url);
+      return;
+    }
+
+    dismissAlertDialog();
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+                       .setTitle(R.string.how_to_support_us)
+                       .setMessage(R.string.dialog_kayak_disclaimer)
+                       .setCancelable(true)
+                       .setPositiveButton(R.string.dialog_kayak_button,
+                                          (dlg, which) -> {
+                                            Config.acceptKayakDisclaimer();
+                                            Utils.openUrl(this, url);
+                                          })
+                       .setNegativeButton(R.string.cancel, null)
+                       .setOnDismissListener(dialog -> mAlertDialog = null)
+                       .show();
+  }
+
   /**
    * Dismiss the active modal dialog from the screen, if any.
    */

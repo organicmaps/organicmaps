@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30FE368C2AF994E600DAC107 /* kayak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30FE368A2AF994E600DAC107 /* kayak.cpp */; };
+		30FE368D2AF994E600DAC107 /* kayak.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 30FE368B2AF994E600DAC107 /* kayak.hpp */; };
 		34583BC71C88552100F94664 /* cuisines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC11C88552100F94664 /* cuisines.cpp */; };
 		34583BC81C88552100F94664 /* cuisines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BC21C88552100F94664 /* cuisines.hpp */; };
 		34583BC91C88552100F94664 /* editable_map_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC31C88552100F94664 /* editable_map_object.cpp */; };
@@ -217,6 +219,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		30FE368A2AF994E600DAC107 /* kayak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kayak.cpp; sourceTree = "<group>"; };
+		30FE368B2AF994E600DAC107 /* kayak.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kayak.hpp; sourceTree = "<group>"; };
 		34583BC11C88552100F94664 /* cuisines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cuisines.cpp; sourceTree = "<group>"; };
 		34583BC21C88552100F94664 /* cuisines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuisines.hpp; sourceTree = "<group>"; };
 		34583BC31C88552100F94664 /* editable_map_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editable_map_object.cpp; sourceTree = "<group>"; };
@@ -550,6 +554,8 @@
 			children = (
 				46CB685B2CBC17F2003E40AB /* edit_journal.hpp */,
 				46CB685C2CBC17F2003E40AB /* edit_journal.cpp */,
+				30FE368A2AF994E600DAC107 /* kayak.cpp */,
+				30FE368B2AF994E600DAC107 /* kayak.hpp */,
 				34664CEE1D49FEC1003D7096 /* altitude_loader.cpp */,
 				34664CEF1D49FEC1003D7096 /* altitude_loader.hpp */,
 				4088CE1F21AE993F00E2702A /* brands_holder.cpp */,
@@ -787,6 +793,7 @@
 				34664CF41D49FEC1003D7096 /* altitude_loader.hpp in Headers */,
 				6753410A1A3F540F00A0A8C3 /* data_header.hpp in Headers */,
 				BBB7061023E46E0100A7F29A /* isolines_info.hpp in Headers */,
+				30FE368D2AF994E600DAC107 /* kayak.hpp in Headers */,
 				6753411B1A3F540F00A0A8C3 /* feature_impl.hpp in Headers */,
 				4099F64A1FC7142A002A7B05 /* fake_feature_ids.hpp in Headers */,
 			);
@@ -964,6 +971,7 @@
 				F5A1B2C3D4E5000000000001 /* tile_mesh.cpp in Sources */,
 				352FA3FA93C2407E946730F5 /* twm_grid.cpp in Sources */,
 				B059C1E87EAA42D28704F0E4 /* twm_set.cpp in Sources */,
+				30FE368C2AF994E600DAC107 /* kayak.cpp in Sources */,
 				408FE47724FEB95600F5D06D /* metadata_serdes.cpp in Sources */,
 				34583BCB1C88552100F94664 /* map_object.cpp in Sources */,
 				675B562320D25C9800A521D2 /* feature_source.cpp in Sources */,

@@ -17,6 +17,7 @@
 - (void)openWebsite:(PlacePageData *)data;
 - (void)openHeritageWebsite:(PlacePageData *)data;
 - (void)openWebsiteMenu:(PlacePageData *)data;
+- (void)openKayak:(PlacePageData *)data;
 - (void)openWikipedia:(PlacePageData *)data;
 - (void)openWikimediaCommons:(PlacePageData *)data;
 - (void)openEmail:(PlacePageData *)data;
@@ -91,6 +92,11 @@
 + (void)openWebsiteMenu:(PlacePageData *)data
 {
   [[MWMMapViewControlsManager manager].placePageManager openWebsiteMenu:data];
+}
+
++ (void)openKayak:(PlacePageData *)data
+{
+  [[MWMMapViewControlsManager manager].placePageManager openKayak:data];
 }
 
 + (void)openEmail:(PlacePageData *)data

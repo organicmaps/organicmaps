@@ -58,6 +58,9 @@ std::string Join(std::string const & lhs, std::string const & rhs, Args &&... ar
   return Join(Join(lhs, rhs), std::forward<Args>(args)...);
 }
 
+// Replaces all special characters with '-'
+std::string Slug(std::string const & raw);
+
 std::string UrlEncode(std::string_view component);
 std::string UrlDecode(std::string_view encodedComponent);
 
