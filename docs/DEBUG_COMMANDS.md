@@ -4,7 +4,7 @@ Organic Maps exposes debug commands to help you control the native components (e
 
 Each command is entered in the search input (Android and iOS) and are activated as soon as the full search keyword is entered. Unless specified, the effects triggered are discarded after a restart.
 
-For more information, please see the source code at [`Framework::ParseSearchQueryCommand`](../map/framework.cpp).
+For more information, please see the source code at [`Framework::ParseSearchQueryCommand`](../libs/map/framework.cpp).
 
 ## Drape
 
@@ -14,8 +14,10 @@ For more information, please see the source code at [`Framework::ParseSearchQuer
 - `?light` or `mapstyle:light`: Enable light mode for the map view only. You may need to change the zoom level to reload the view.
 - `?odark` or `mapstyle:outdoors_dark`: Same as `?dark`, but using the outdoor variant.
 - `?olight` or `mapstyle:outdoors_light`: Same as `?light`, but using the outdoor variant.
-- `?vdark` or `mapstyle:vdark`: Same as `?dark`, but using the vehicle variant.
-- `?vlight` or `mapstyle:vlight`: Same as `?light`, but using the vehicle variant.
+- `?cdark` or `mapstyle:cycling_dark`: Same as `?dark`, but using the cycling variant.
+- `?clight` or `mapstyle:cycling_light`: Same as `?light`, but using the cycling variant.
+- `?vdark` or `mapstyle:vehicle_dark`: Same as `?dark`, but using the vehicle variant.
+- `?vlight` or `mapstyle:vehicle_light`: Same as `?light`, but using the vehicle variant.
 
 ### Post processing
 
