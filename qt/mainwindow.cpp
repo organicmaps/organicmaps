@@ -135,6 +135,9 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   setCentralWidget(m_pDrawWidget);
 
+  // CHECK: is it still required to render menu button icon in flatpak?
+  QIcon::setFallbackThemeName("breeze");
+
   auto quickWidget = new ForwardingQuickWidget();
   quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
   // quickWidget->setAttribute(Qt::WA_TranslucentBackground);
