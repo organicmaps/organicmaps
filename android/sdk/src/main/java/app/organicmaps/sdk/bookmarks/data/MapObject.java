@@ -8,10 +8,14 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.routing.RoutePointInfo;
+import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -257,6 +261,19 @@ public class MapObject implements PlacePageData
       return website.substring(start, end);
     }
     return website;
+  }
+
+  @NonNull
+  public String getKayakUrl()
+  {
+    final String uri = getMetadata(Metadata.MetadataType.FMD_EXTERNAL_URI);
+    if (TextUtils.isEmpty(uri))
+      return "";
+    final Instant firstDay = Instant.now();
+    final long firstDaySec = firstDay.getEpochSecond();
+    final long lastDaySec = firstDay.plus(1, ChronoUnit.DAYS).getEpochSecond();
+    final String res = Framework.nativeGetKayakHotelLink(Utils.getCountryCode(), uri, firstDaySec, lastDaySec);
+    return res == null ? "" : res;
   }
 
   public String getApiId()

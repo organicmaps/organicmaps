@@ -5,6 +5,7 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
   func didPressWebsite()
   func didPressHeritageWebsite()
   func didPressWebsiteMenu()
+  func didPressKayak()
   func didPressWikipedia()
   func didPressWikimediaCommons()
   func didPressFacebook()
@@ -197,6 +198,10 @@ class PlacePageInfoViewController: UIViewController {
                        self?.delegate?.didCopy(address)
                      })
     }
+
+    createLinkItem(placePageInfoData.kayak,
+                   displayed: L("more_on_kayak"),
+                   icon: UIImage(resource: .icPlacepageKayak)) { $0.didPressKayak() }
 
     setupCoordinatesView()
     setupOpenWithAppView()
