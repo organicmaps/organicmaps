@@ -853,7 +853,7 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Dừng ghi âm đường đi</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="track_recording_title">Ghi âm hành trình</string>
+    <string name="track_recording_title">Ghi lại hành trình</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Dừng mà không lưu</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -919,4 +919,6 @@
     <string name="color_picker_grid">Lưới</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Tìm kiếm bằng giọng nói</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Dừng và lưu</string>
 </resources>
