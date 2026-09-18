@@ -81,6 +81,26 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(view.viewModel.isTyping, true)
   }
 
+  func test_GivenInitialState_WhenTypeDebugCommand_ThenShowNoResults() {
+    interactor.handle(.openSearch)
+
+    interactor.handle(.didType(SearchQuery("?dark", source: .typedText)))
+
+    XCTAssertEqual(view.viewModel.presentationStep, .expanded)
+    XCTAssertEqual(view.viewModel.contentState, .noResults)
+    XCTAssertEqual(view.viewModel.isTyping, true)
+  }
+
+  func test_GivenInitialState_WhenSelectDebugCommandFromHistory_ThenShowNoResults() {
+    interactor.handle(.openSearch)
+
+    interactor.handle(.didSelect(SearchQuery("?dark", source: .history)))
+
+    XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
+    XCTAssertEqual(view.viewModel.contentState, .noResults)
+    XCTAssertEqual(view.viewModel.isTyping, false)
+  }
+
   func test_GivenInitialState_WhenTapSearch_ThenUpdateSearchResultsAndShowMap() {
     interactor.handle(.openSearch)
 
@@ -332,7 +352,8 @@ private class SearchManagerMock: SearchManager {
   }
 
   static func save(_: SearchQuery) {}
-  static func searchQuery(_: SearchQuery) {}
+  // Debug commands start no search.
+  static func searchQuery(_ query: SearchQuery) -> Bool { !query.text.hasPrefix("?") }
   static func showResult(at _: UInt) {}
   static func updateViewportWithResults() { updateViewportCallsCount += 1 }
   static func clear() {}

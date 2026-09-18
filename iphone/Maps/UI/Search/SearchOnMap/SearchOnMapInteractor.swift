@@ -89,8 +89,7 @@ final class SearchOnMapInteractor: NSObject {
 
   private func processTypedText(_ query: SearchQuery) -> SearchOnMap.Response {
     isUpdatesDisabled = false
-    searchManager.searchQuery(query)
-    return .startSearching
+    return search(query, response: .startSearching)
   }
 
   private func processSelectedText(_ query: SearchQuery) -> SearchOnMap.Response {
@@ -98,8 +97,7 @@ final class SearchOnMapInteractor: NSObject {
     if query.source != .history {
       searchManager.save(query)
     }
-    searchManager.searchQuery(query)
-    return .selectQuery(query)
+    return search(query, response: .selectQuery(query))
   }
 
   private func processSelectedResult(_ result: SearchResult, query: SearchQuery) -> SearchOnMap.Response {
@@ -112,11 +110,19 @@ final class SearchOnMapInteractor: NSObject {
       let suggestionQuery = SearchQuery(result.suggestion,
                                         locale: query.locale,
                                         source: result.isPureSuggest ? .suggestion : .typedText)
-      searchManager.searchQuery(suggestionQuery)
-      return .selectQuery(suggestionQuery)
+      return search(suggestionQuery, response: .selectQuery(suggestionQuery))
     @unknown default:
       fatalError("Unsupported result type")
     }
+  }
+
+  /// A debug command starts no search, so nothing would report its completion:
+  /// the response is shown and the search completes at once.
+  private func search(_ query: SearchQuery, response: SearchOnMap.Response) -> SearchOnMap.Response {
+    guard !searchManager.searchQuery(query) else { return response }
+    presenter.process(response)
+    onSearchCompleted()
+    return .none
   }
 
   private func deselectPlaceOnMap() -> SearchOnMap.Response {
