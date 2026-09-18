@@ -167,7 +167,7 @@ bool ParseMaxspeedTag(std::string_view maxspeedValue, routing::SpeedInUnits & sp
   size_t i;
   for (i = 0; i < maxspeedValue.size(); ++i)
   {
-    if (!isdigit(maxspeedValue[i]))
+    if (!strings::IsASCIIDigit(maxspeedValue[i]))
       break;
 
     speedStr += maxspeedValue[i];

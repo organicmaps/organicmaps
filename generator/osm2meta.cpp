@@ -53,7 +53,7 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_stars(std::string const 
     return {};
 
   // Ignore numbers larger than 9.
-  if (v.size() > 1 && ::isdigit(v[1]))
+  if (v.size() > 1 && strings::IsASCIIDigit(v[1]))
     return {};
 
   return std::string(1, v[0]);
@@ -279,11 +279,11 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(std::string
     return {};
 
   auto str = v;
-  for (auto & c : str)
+  for (auto c : str)
   {
-    if (!std::isalpha(c))
+    if (!strings::IsASCIILatin(c))
       return {};
-    c = std::toupper(c);
+    c = strings::AsciiToUpper(c);
   }
   return str;
 }
@@ -347,7 +347,7 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string con
   {
     uint32_t number = 0;
     size_t const startPos = pos;
-    while (pos < v.size() && isdigit(v[pos]))
+    while (pos < v.size() && strings::IsASCIIDigit(v[pos]))
     {
       number *= 10;
       number += v[pos] - '0';

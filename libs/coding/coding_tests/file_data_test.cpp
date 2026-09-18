@@ -82,6 +82,24 @@ UNIT_TEST(FileData_ApiSmoke)
   TEST(!base::GetFileSize(name2, sz), ());
 }
 
+UNIT_TEST(FileData_CopyFileX_Binary)
+{
+  // Text mode would translate the CRLF and stop at the Ctrl-Z on Windows.
+  std::string const data =
+      "a\r\nb\x1A"
+      "c";
+  {
+    base::FileData f(name1, base::FileData::Op::WRITE_TRUNCATE);
+    f.Write(data.data(), data.size());
+  }
+
+  TEST(base::CopyFileX(name1, name2), ());
+  TEST(base::IsEqualFiles(name1, name2), ());
+
+  TEST(base::DeleteFileX(name1), ());
+  TEST(base::DeleteFileX(name2), ());
+}
+
 /*
 UNIT_TEST(FileData_NoDiskSpace)
 {

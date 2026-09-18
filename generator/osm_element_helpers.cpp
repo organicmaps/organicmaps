@@ -11,7 +11,7 @@ uint64_t GetPopulation(std::string const & str)
 {
   std::string number;
   for (auto const c : str)
-    if (isdigit(c))
+    if (strings::IsASCIIDigit(c))
       number += c;
     else if (c == '.' || c == ',' || c == ' ')
       continue;
