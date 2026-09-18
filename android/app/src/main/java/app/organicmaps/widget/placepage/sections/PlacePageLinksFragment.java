@@ -14,10 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
+import app.organicmaps.sdk.util.Config;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
@@ -40,6 +43,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   private View mLinePage;
   private TextView mTvLinePage;
 
+  private View mKayak;
   private View mWebsite;
   private TextView mTvWebsite;
   private View mHeritageWebsite;
@@ -99,6 +103,19 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   {
     super.onViewCreated(view, savedInstanceState);
     mFrame = view;
+
+    mKayak = mFrame.findViewById(R.id.ll__place_kayak);
+    mKayak.setOnClickListener((v) -> {
+      final String url = mMapObject.getKayakUrl();
+      if (!TextUtils.isEmpty(url))
+        ((MwmActivity) requireActivity()).openKayakLink(url);
+    });
+    mKayak.setOnLongClickListener((v) -> {
+      final String url = mMapObject.getKayakUrl();
+      if (!TextUtils.isEmpty(url))
+        PlacePageUtils.copyToClipboard(requireContext(), mFrame, url);
+      return true;
+    });
 
     mWebsite = mFrame.findViewById(R.id.ll__place_website);
     mTvWebsite = mFrame.findViewById(R.id.tv__place_website);
@@ -219,6 +236,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
 
     final String line = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
     refreshMetadataOrHide(line, mLinePage, mTvLinePage);
+
+    UiUtils.showIf(Config.isKayakEnabled() && !TextUtils.isEmpty(mMapObject.getKayakUrl()), mKayak);
   }
 
   @Override

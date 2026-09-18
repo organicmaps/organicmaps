@@ -20,4 +20,5 @@
   <include layout="@layout/place_page_vk" />
   <include layout="@layout/place_page_line" />
   <include layout="@layout/place_page_wikimedia" />
+  <include layout="@layout/place_page_kayak" />
 </LinearLayout>

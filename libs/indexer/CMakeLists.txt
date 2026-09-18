@@ -86,6 +86,8 @@ set(SRC
   interval_index.hpp
   interval_index_builder.hpp
   isolines_info.hpp
+  kayak.cpp
+  kayak.hpp
   map_object.cpp
   map_object.hpp
   map_style.cpp
