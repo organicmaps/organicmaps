@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Gestisci percorso";
 "button_plan" = "Pianifica";
 "placepage_remove_stop" = "Rimuovi sosta";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Aggiungi sosta";
 "saved" = "Salvato";
 "error_enter_correct_name" = "Inserire un nome corretto";

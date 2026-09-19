@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Spravovať trasu";
 "button_plan" = "Naplánovať";
 "placepage_remove_stop" = "Odstrániť zastávku";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Pridať zastávku";
 "saved" = "Uložené";
 "error_enter_correct_name" = "Prosím, zadajte správne meno";

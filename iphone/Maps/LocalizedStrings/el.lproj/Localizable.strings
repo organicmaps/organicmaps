@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Διαχείριση διαδρομής";
 "button_plan" = "Σχεδιασμός";
 "placepage_remove_stop" = "Αφαίρεση στάσης";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Προσθήκη στάσης";
 "saved" = "Αποθηκεύτηκε";
 "error_enter_correct_name" = "Εισάγετε ένα σωστό όνομα";

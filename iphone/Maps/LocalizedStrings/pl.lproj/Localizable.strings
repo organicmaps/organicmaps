@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Zarządzaj trasą";
 "button_plan" = "Zaplanuj";
 "placepage_remove_stop" = "Usuń postój";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Dodaj postój";
 "saved" = "Zapisano";
 "error_enter_correct_name" = "Wprowadź poprawną nazwę";

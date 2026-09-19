@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "จัดการเส้นทาง";
 "button_plan" = "วางแผน";
 "placepage_remove_stop" = "ลบจุดแวะพัก";
-"placepage_add_stop" = "เพิ่มจุดแวะพัก";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "เพิ่มจุดหยุด";
 "saved" = "บันทึกแล้ว";
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 "bookmark_lists" = "รายการ";

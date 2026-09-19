@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "Управление на маршрут";
 "button_plan" = "Планиране";
 "placepage_remove_stop" = "Премахване на спирка";
-"placepage_add_stop" = "Добавяне на спирка";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Добави спирка";
 "saved" = "Запазено";
 "error_enter_correct_name" = "Моля, въведете правилно име";
 "bookmark_lists" = "Списъци";

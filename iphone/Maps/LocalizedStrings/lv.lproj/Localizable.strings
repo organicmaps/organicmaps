@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Pārvaldīt maršrutu";
 "button_plan" = "Plānot";
 "placepage_remove_stop" = "Noņemt starppunktu";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Pievienot starppunktu";
 "saved" = "Saglabāts";
 "error_enter_correct_name" = "Ierakstiet pareizu nosaukumu";

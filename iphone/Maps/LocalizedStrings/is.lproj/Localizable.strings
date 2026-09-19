@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Sýsla með leið";
 "button_plan" = "Skipuleggja";
 "placepage_remove_stop" = "Fjarlægja stopp";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Bæta við stoppi";
 "saved" = "Vistað";
 "error_enter_correct_name" = "Settu inn rétt nafn";

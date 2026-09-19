@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Kelola rute";
 "button_plan" = "Rencana";
 "placepage_remove_stop" = "Hapus pemberhentian";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Tambah perhentian";
 "saved" = "Tersimpan";
 "error_enter_correct_name" = "Harap masukkan nama yang benar";

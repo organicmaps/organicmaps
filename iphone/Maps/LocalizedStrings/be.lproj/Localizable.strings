@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Кіраваць маршрутам";
 "button_plan" = "Пракласці";
 "placepage_remove_stop" = "Выдаліць прыпынак";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Дадаць прыпынак";
 "saved" = "Захавана";
 "error_enter_correct_name" = "Увядзіце правільную назву";
