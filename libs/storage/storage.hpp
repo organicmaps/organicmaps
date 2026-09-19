@@ -312,6 +312,9 @@ private:
     uint64_t m_missingBytes = 0;        // Not on disk, not in flight; downloaded leafs only.
     uint64_t m_inFlightTotal = 0;       // Queued or downloading.
     uint64_t m_inFlightDownloaded = 0;  // The received part of m_inFlightTotal.
+    // The error of a failed covering block of a downloaded leaf, NoError when none:
+    // a map-complete region with a failed terrain block reads Error (cf. the maps).
+    NodeErrorCode m_error = NodeErrorCode::NoError;
   };
   TerrainFusion GetTerrainFusion(CountryId const & countryId) const;
 
@@ -342,9 +345,23 @@ private:
   // regions interested in each block (for the observer notifications).
   TerrainQueueSubscriber m_terrainSubscriber{*this};
   std::map<std::string, TerrainBlockState> m_terrainQueue;
-  std::set<std::string> m_terrainFailed;
+  // Like the failed maps carry their NodeErrorCode: only the transport failures are
+  // retryable, a 404 or a hash mismatch would re-download a big block to the same end.
+  struct TerrainFailure
+  {
+    NodeErrorCode m_error = NodeErrorCode::UnknownError;
+    bool m_retryable = false;
+  };
+  std::map<std::string, TerrainFailure> m_terrainFailures;
   std::map<std::string, std::set<CountryId>> m_terrainBlockRegions;
 
+  // The blocks some region outside |excluded| still wants: the downloaded regions and
+  // the regions whose maps are queued (their own DownloadTerrain skipped the blocks
+  // already on disk, so nothing else keeps the blocks for them).
+  std::set<uint32_t> GetWantedTerrainBlocks(CountriesSet const & excluded) const;
+  // Upgrades a map-complete status by the terrain fusion, ranked like the MWM group
+  // aggregation: Downloading above Error above OnDiskOutOfDate.
+  StatusAndError GetEffectiveStatus(StatusAndError const & mapStatus, TerrainFusion const & terrain) const;
   TerrainBlock * FindTerrainBlock(std::string const & name);
   std::string GetTerrainDir(int64_t version) const;
   // The downloader's target path of the block (see QueuedCountry::GetFileDownloadPath).
@@ -355,7 +372,7 @@ private:
   // The downloaded regions the failed blocks' interest points at (setting on): derived
   // from the live state at both the retry arming and the retry firing, so a cancel or
   // a delete in between (both empty the interest) mutes the retry.
-  CountriesSet GetFailedTerrainRegions() const;
+  CountriesSet GetFailedTerrainRegions(bool retryableOnly) const;
   // The failed blocks auto-retry like the failed maps (DownloadingPolicy::ScheduleRetry)
   // for the downloaded regions still interested in them.
   void ScheduleTerrainRetry();
@@ -460,7 +477,13 @@ public:
   /// into the shared downloader queue; the blocks on disk or in flight are skipped. The
   /// blocks land into <writable>/terrain/<block version>/ after the countries.json-style
   /// integrity check; the observers get the region id notifications (no separate channel).
-  void DownloadTerrain(CountryId const & countryId);
+  /// The auto-retry (userRequest = false) is transport-only: it skips the blocks whose
+  /// recorded failure is not retryable, while a user request re-tries everything.
+  void DownloadTerrain(CountryId const & countryId, bool userRequest = true);
+  /// The exact bytes the download of |countries| still has to fetch: the full remote
+  /// size of every not-on-disk not-queued leaf map plus the missing terrain blocks of
+  /// the subtree coverage, shared blocks counted once (cf. the per-node fused sizes).
+  MwmSize GetDownloadSize(CountriesVec const & countries) const;
 
   /// Cancels the terrain blocks requested for the countryId subtree (the blocks another
   /// region still wants stay in the queue). CancelDownloadNode calls it too, so a country

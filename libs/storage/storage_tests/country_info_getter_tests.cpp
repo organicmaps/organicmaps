@@ -8,6 +8,7 @@
 #include "storage/country.hpp"
 #include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"
+#include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 
 #include "geometry/mercator.hpp"
@@ -114,6 +115,23 @@ void ScanTerrain(Storage & storage)
   }
   storage.OnTerrainScanned(scanned);
 }
+
+// Records the terrain retry armings without running them (the fire side is covered by
+// the production StorageDownloadingPolicy; here only the classification matters).
+class RecordingDownloadingPolicy : public DownloadingPolicy
+{
+public:
+  void ScheduleTerrainRetry(storage::CountriesSet const & regions, TProcessFunc const &) override
+  {
+    if (regions.empty())
+      return;  // The drain-time counter reset, not an arming.
+    ++m_calls;
+    m_regions.insert(regions.begin(), regions.end());
+  }
+
+  size_t m_calls = 0;
+  storage::CountriesSet m_regions;
+};
 
 bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
 {
@@ -1264,4 +1282,144 @@ UNIT_TEST(Storage_TerrainNodeAttrsGroupAndInFlight)
              (leaf));
   TEST_EQUAL(leafAttrs.m_downloadingProgress.m_bytesDownloaded, storage.GetCountryFile(leaf).GetRemoteSize(), (leaf));
 }
+
+UNIT_TEST(Storage_TerrainRetryClassification)
+{
+  WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
+  ScopedTerrainSettings const guardSettings;
+
+  int64_t version = 0;
+  std::vector<Storage::TerrainBlock> blocks;
+  std::map<CountryId, std::vector<uint32_t>> coverage;
+  {
+    std::string content;
+    GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+    Storage::ParseTwmGridJson(content, version, blocks, coverage);
+  }
+  // A single-block region: one forced download failure fails its whole coverage.
+  auto const owner =
+      std::find_if(coverage.begin(), coverage.end(), [](auto const & entry) { return entry.second.size() == 1; });
+  TEST(owner != coverage.end(), ());
+
+  Storage const mapInfo;
+  tests_support::ScopedDir mapsDir(strings::to_string(mapInfo.GetCurrentDataVersion()));
+  tests_support::ScopedFile map(mapsDir, platform::CountryFile(owner->first), MapFileType::Map);
+  ResizeToRemote(map, mapInfo, owner->first);
+
+  // Only the transport failures may arm the auto-retry (cf. the failed maps): a 404 or
+  // a hash mismatch would re-download a big block to the same end. Either way the
+  // fused status of the map-complete region is Error, with the matching error code.
+  auto const run = [&](downloader::DownloadStatus status, size_t expectedRetryCalls, NodeErrorCode expectedError)
+  {
+    TaskRunner runner;
+    RecordingDownloadingPolicy policy;
+    Storage storage;
+    storage.SetDownloaderForTesting(std::make_unique<FakeMapFilesDownloader>(runner, std::vector{status}));
+    storage.SetDownloadingPolicy(&policy);
+    storage.RegisterAllLocalMaps();
+    storage.OnTerrainScanned({});
+    storage.SetTerrainCallbacks({}, {});
+    storage.DownloadTerrain(owner->first);
+    runner.Run();
+
+    NodeAttrs attrs;
+    storage.GetNodeAttrs(owner->first, attrs);
+    TEST_EQUAL(attrs.m_status, NodeStatus::Error, (status));
+    TEST_EQUAL(attrs.m_error, expectedError, (status));
+    TEST_EQUAL(policy.m_calls, expectedRetryCalls, (status));
+    if (expectedRetryCalls > 0)
+      TEST(policy.m_regions.count(owner->first) > 0, (status));
+  };
+
+  run(downloader::DownloadStatus::FileNotFound, 0, NodeErrorCode::UnknownError);
+  run(downloader::DownloadStatus::Failed, 1, NodeErrorCode::NoInetConnection);
+}
+
+UNIT_TEST(Storage_TerrainDeleteProtectsQueuedRegion)
+{
+  WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
+  ScopedTerrainSettings const guardSettings;
+
+  int64_t version = 0;
+  std::vector<Storage::TerrainBlock> blocks;
+  std::map<CountryId, std::vector<uint32_t>> coverage;
+  {
+    std::string content;
+    GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+    Storage::ParseTwmGridJson(content, version, blocks, coverage);
+  }
+
+  // Two regions sharing a block, the first one with a globally exclusive block too
+  // (cf. Storage_TerrainRefcountDelete).
+  std::map<uint32_t, std::vector<CountryId>> owners;
+  for (auto const & [region, indices] : coverage)
+    for (auto const index : indices)
+      owners[index].push_back(region);
+  CountryId regionA, regionB;
+  uint32_t sharedBlock = 0, exclusiveBlock = 0;
+  for (auto const & [index, regions] : owners)
+  {
+    if (regions.size() != 2)
+      continue;
+    for (auto const & region : regions)
+    {
+      auto const & indices = coverage[region];
+      auto const exclusive =
+          std::find_if(indices.begin(), indices.end(), [&owners](uint32_t i) { return owners[i].size() == 1; });
+      if (exclusive == indices.end())
+        continue;
+      regionA = region;
+      regionB = regions[0] == region ? regions[1] : regions[0];
+      sharedBlock = index;
+      exclusiveBlock = *exclusive;
+      break;
+    }
+    if (!regionA.empty())
+      break;
+  }
+  TEST(!regionA.empty() && !regionB.empty(), ());
+
+  // All the blocks of both regions on disk.
+  std::set<uint32_t> created(coverage[regionA].begin(), coverage[regionA].end());
+  created.insert(coverage[regionB].begin(), coverage[regionB].end());
+  tests_support::ScopedDir terrainDir(TERRAIN_DIR);
+  std::list<tests_support::ScopedDir> versionDirs;
+  std::list<tests_support::ScopedFile> files;
+  std::set<std::string> versionNames;
+  for (auto const index : created)
+    if (versionNames.insert(strings::to_string(blocks[index].m_version)).second)
+      versionDirs.emplace_back(terrainDir, strings::to_string(blocks[index].m_version));
+  for (auto const index : created)
+    files.emplace_back(base::JoinPath(TERRAIN_DIR, strings::to_string(blocks[index].m_version),
+                                      blocks[index].m_name + TERRAIN_FILE_EXT),
+                       "twm");
+
+  // Neither map is downloaded; regionB's map gets QUEUED and never lands (the runner
+  // is not run). Its terrain is on disk already, so its own DownloadTerrain records no
+  // interest: only the queued map protects the shared block for it
+  // (see GetWantedTerrainBlocks).
+  TaskRunner runner;
+  Storage storage;
+  storage.SetDownloaderForTesting(std::make_unique<FakeMapFilesDownloader>(runner));
+  ScanTerrain(storage);
+  std::vector<m2::RectD> deleted;
+  storage.SetTerrainCallbacks({}, {}, [&](std::vector<m2::RectD> const & rects) { deleted = rects; });
+  storage.DownloadNode(regionB);
+
+  auto const contains = [&deleted](m2::RectD const & rect)
+  {
+    return std::any_of(deleted.begin(), deleted.end(),
+                       [&rect](m2::RectD const & r) { return AlmostEqualAbs(r, rect, kRectCompareEpsilon); });
+  };
+  storage.DeleteTerrain(regionA);
+  TEST(contains(blocks[exclusiveBlock].m_rect), ());
+  TEST(!contains(blocks[sharedBlock].m_rect), ());
+
+  // Cancelled: nobody wants the shared block any more.
+  storage.CancelDownloadNode(regionB);
+  deleted.clear();
+  storage.DeleteTerrain(regionA);
+  TEST(contains(blocks[sharedBlock].m_rect), ());
+}
+
 }  // namespace country_info_getter_tests

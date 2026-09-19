@@ -261,6 +261,10 @@ static constexpr NSTimeInterval kTimeoutIntervalInSeconds = 10;
     NSURL * destinationUrl = [self.saveStrategy getLocationForTask:downloadTask];
     if (destinationUrl != nil)
     {
+      // The destination may hold a complete file of an interrupted earlier attempt
+      // (e.g. a .twm.ready landed while the app was dead): moveItemAtURL refuses to
+      // overwrite, which would fail-loop the re-download forever.
+      [[NSFileManager defaultManager] removeItemAtURL:destinationUrl error:nil];
       [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
     }
     else
