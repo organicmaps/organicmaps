@@ -1,6 +1,6 @@
 package app.organicmaps.sdk.wear
 
-import app.organicmaps.wear.protocol.WearNavigationState
+import app.organicmaps.wear.protocol.WearNavigationMode
 
 /**
  * Phone-side port for pushing navigation state to a paired Wear OS device.
@@ -11,5 +11,5 @@ import app.organicmaps.wear.protocol.WearNavigationState
  * Play services types.
  */
 fun interface WearNavigationPublisher {
-    fun publish(state: WearNavigationState)
+    fun publish(mode: WearNavigationMode)
 }
