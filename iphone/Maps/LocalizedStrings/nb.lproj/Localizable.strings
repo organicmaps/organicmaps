@@ -524,6 +524,8 @@
 "today" = "I dag";
 "opens_in" = "Åpner om %@";
 "closes_in" = "Stenger om %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Stengt";
 "no_osm_account" = "Har du ingen konto hos OpenStreetMap?";
 "register_at_openstreetmap" = "Registrer deg";

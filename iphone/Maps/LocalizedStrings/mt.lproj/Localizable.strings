@@ -524,6 +524,8 @@
 "today" = "Illum";
 "opens_in" = "Jiftaħ f’ %@";
 "closes_in" = "Jagħlaq f’ %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Magħluq";
 "no_osm_account" = "M’ għandekx kont ta’ OpenStreetMap?";
 "register_at_openstreetmap" = "Irreġistra f’ OpenStreetMap";

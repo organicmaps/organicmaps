@@ -524,6 +524,8 @@
 "today" = "Hari ini";
 "opens_in" = "Dibuka dalam %@";
 "closes_in" = "Ditutup dalam %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Tutup";
 "no_osm_account" = "Tidak ada akun di OpenStreetMap?";
 "register_at_openstreetmap" = "Mendaftar";
