@@ -48,15 +48,15 @@ jobs:
             unity: OFF
             run-tests: OFF
 
-          - os: ubuntu-24.04
-            cc: clang-19
-            cxx: clang++-19
+          - os: ubuntu-26.04-arm
+            cc: clang-22
+            cxx: clang++-22
 
-          - os: ubuntu-24.04
-            cc: gcc-14
-            cxx: g++-14
+          - os: ubuntu-26.04
+            cc: gcc-15
+            cxx: g++-15
 
-          - os: ubuntu-24.04
+          - os: ubuntu-24.04-arm
             cc: gcc-13
             cxx: g++-13
 
