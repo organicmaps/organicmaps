@@ -11,7 +11,6 @@ from maps_generator.checks import check
 from maps_generator.checks.check_addresses import get_addresses_check_set
 from maps_generator.checks.check_categories import get_categories_check_set
 from maps_generator.checks.check_log_levels import get_log_levels_check_set
-from maps_generator.checks.check_mwm_types import get_mwm_type_check_set
 from maps_generator.checks.check_mwm_types import get_mwm_types_check_set
 from maps_generator.checks.check_sections import get_sections_existence_check_set
 from maps_generator.checks.check_sections import get_sections_size_check_set
@@ -80,8 +79,7 @@ class MwmsChecks(Enum):
     sections_size = 2
     mwm_size = 3
     types = 4
-    booking = 5
-    categories = 6
+    categories = 5
 
 
 def get_mwm_check_sets_and_filters(
@@ -107,11 +105,6 @@ def get_mwm_check_sets_and_filters(
     if need_add(MwmsChecks.types):
         c = get_mwm_types_check_set(old_path, new_path)
         thresholds = make_tmap(low=(500, 30), medium=(100, 20), hard=(100, 10))
-        m[c] = make_default_filter(thresholds)
-
-    if need_add(MwmsChecks.booking):
-        c = get_mwm_type_check_set(old_path, new_path, "sponsored-booking")
-        thresholds = make_tmap(low=(500, 20), medium=(50, 10), hard=(50, 5))
         m[c] = make_default_filter(thresholds)
 
     if need_add(MwmsChecks.categories):

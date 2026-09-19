@@ -1,8 +1,7 @@
 #pragma once
 
 #include "map/bookmark_helpers.hpp"
-#include "map/everywhere_search_callback.hpp"
-#include "map/search_product_info.hpp"
+#include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_callback.hpp"
 #include "map/viewport_search_params.hpp"
 
@@ -29,8 +28,6 @@ class DataSource;
 namespace search
 {
 struct BookmarksSearchParams;
-struct EverywhereSearchParams;
-struct DiscoverySearchParams;
 }  // namespace search
 
 namespace storage
@@ -43,7 +40,6 @@ struct DownloaderSearchParams;
 class SearchAPI
   : public search::DownloaderSearchCallback::Delegate
   , public search::ViewportSearchCallback::Delegate
-  , public search::EverywhereSearchCallback::Delegate
 {
 public:
   struct Delegate
@@ -62,8 +58,6 @@ public:
     virtual bool ParseSearchQueryCommand(search::SearchParams const & /* params */) { return false; }
 
     virtual m2::PointD GetMinDistanceBetweenResults() const { return {0, 0}; }
-
-    virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; }
   };
 
   SearchAPI(DataSource & dataSource, storage::Storage const & storage, storage::CountryInfoGetter const & infoGetter,
@@ -102,7 +96,6 @@ public:
   void RunUITask(std::function<void()> fn) override;
   bool IsViewportSearchActive() const override;
   void ShowViewportSearchResults(search::Results::ConstIter begin, search::Results::ConstIter end, bool clear) override;
-  search::ProductInfo GetProductInfo(search::Result const & result) const override;
 
   std::list<search::QuerySaver::SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(search::QuerySaver::SearchRequest const & query) { m_searchQuerySaver.Add(query); }
