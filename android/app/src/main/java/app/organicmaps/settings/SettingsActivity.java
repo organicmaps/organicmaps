@@ -58,7 +58,7 @@ public class SettingsActivity
     }
     catch (ClassNotFoundException e)
     {
-      e.printStackTrace();
+      android.util.Log.w("organicmaps", e);
     }
     return true;
   }
