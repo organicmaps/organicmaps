@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- The route's final row. The timeline otherwise ends on a walking leg, which leaves the journey
+     without a conclusion; this closes it with the place the rider actually asked to reach. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:baselineAligned="false"
+  android:gravity="center_vertical"
+  android:orientation="horizontal"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_half"
+  android:paddingBottom="@dimen/margin_base">
+
+  <!-- Legend column, on the same vertical axis as the ride legs' bars and the walk legs' dots. -->
+  <FrameLayout
+    android:layout_width="@dimen/transit_details_legend_width"
+    android:layout_height="wrap_content">
+
+    <ImageView
+      android:layout_width="@dimen/transit_details_legend_width"
+      android:layout_height="@dimen/transit_details_legend_width"
+      android:layout_gravity="center"
+      android:contentDescription="@null"
+      android:scaleType="fitCenter"
+      app:srcCompat="@drawable/route_point_finish" />
+  </FrameLayout>
+
+  <TextView
+    android:id="@+id/destination_name"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_marginStart="@dimen/margin_half"
+    android:ellipsize="end"
+    android:fontFamily="@string/robotoMedium"
+    android:maxLines="2"
+    android:textColor="?android:attr/textColorPrimary"
+    android:textSize="@dimen/transit_details_stop_text_size"
+    tools:text="Arrive at Alexanderplatz" />
+</LinearLayout>
