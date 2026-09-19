@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "Dhibiti njia ya kufuata";
 "button_plan" = "Panga";
 "placepage_remove_stop" = "Ondoa eneo la kusimama";
-"placepage_add_stop" = "Ongeza eneo la kusimama";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Ongeza kituo";
 "saved" = "Imehifadhiwa";
 "error_enter_correct_name" = "Tafadhali, weka jina sahihi";
 "bookmark_lists" = "Orodha";

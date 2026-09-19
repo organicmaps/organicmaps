@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Tvarkyti maršrutą";
 "button_plan" = "Planas";
 "placepage_remove_stop" = "Šalinti stotelę";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Pridėti stotelę";
 "saved" = "Įrašyta";
 "error_enter_correct_name" = "Įveskite teisingą pavadinimą";

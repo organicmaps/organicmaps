@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "Bestuur roete";
 "button_plan" = "Beplan";
 "placepage_remove_stop" = "Verwyder stop";
-"placepage_add_stop" = "Voeg tussenstop toe";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Voeg stop by";
 "saved" = "Gespaar";
 "error_enter_correct_name" = "Voer asb. ’n korrekte naam in";
 "bookmark_lists" = "Lyste";

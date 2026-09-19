@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "Útvonal kezelése";
 "button_plan" = "Tervezés";
 "placepage_remove_stop" = "Megálló eltávolítása";
-"placepage_add_stop" = "Köztes célpont hozzáadása";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Új megálló";
 "saved" = "Mentve";
 "error_enter_correct_name" = "Adjon meg egy érvényes nevet";
 "bookmark_lists" = "Listák";

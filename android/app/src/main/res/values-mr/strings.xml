@@ -576,7 +576,8 @@
     <string name="planning_route_manage_route">मार्ग व्यवस्थापन</string>
     <string name="button_plan">नियोजन</string>
     <string name="placepage_remove_stop">थांबा काढा</string>
-    <string name="placepage_add_stop">स्टॉप जोडा</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">थांबा जोडा</string>
     <string name="drag_to_reorder">पुनःक्रमवारी</string>
     <string name="saved">जतन केले</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
@@ -925,6 +926,22 @@
     <string name="color_picker_grid">ग्रिड</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">व्हॉइस सर्च</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">नकाशावर निवडा</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">प्रारंभ स्थान</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">गंतव्य</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">प्रारंभ बदला</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">गंतव्य बदला</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">थांबा बदला</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">थांब्यांची कमाल संख्या गाठली आहे</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">थांबवा आणि जतन करा</string>
 </resources>

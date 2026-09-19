@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Manage Route";
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Remove Stop";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Add Stop";
 "saved" = "Saved";
 "error_enter_correct_name" = "Please enter a correct name";

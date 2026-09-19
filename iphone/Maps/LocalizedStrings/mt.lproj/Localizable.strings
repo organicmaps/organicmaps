@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "Immaniġġja r-Rotta";
 "button_plan" = "Pjan";
 "placepage_remove_stop" = "Neħħi l-Waqfa";
-"placepage_add_stop" = "Żid Waqfa";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Żid waqfa";
 "saved" = "Salvat";
 "error_enter_correct_name" = "Daħħal isem korrett";
 "bookmark_lists" = "Listi";

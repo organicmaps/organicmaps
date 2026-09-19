@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Upravljaj pot";
 "button_plan" = "Načrtuj";
 "placepage_remove_stop" = "Odstrani postanek";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Dodaj postanek";
 "saved" = "Shranjeno";
 "error_enter_correct_name" = "Vnesite pravilno ime";
