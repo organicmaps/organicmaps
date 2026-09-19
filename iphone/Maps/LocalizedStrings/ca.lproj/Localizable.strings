@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "Gestionar la ruta";
 "button_plan" = "Planifica";
 "placepage_remove_stop" = "Elimina parada";
-"placepage_add_stop" = "Afegeix una parada";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Afegeix parada";
 "saved" = "Desat";
 "error_enter_correct_name" = "Introduïu un nom correcte";
 "bookmark_lists" = "Llistes";

@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "मार्ग प्रबंधित करें";
 "button_plan" = "योजना";
 "placepage_remove_stop" = "रोक हटाएँ";
-"placepage_add_stop" = "गंतव्य जोड़ें";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "स्टॉप जोड़ें";
 "saved" = "सहेजा गया";
 "error_enter_correct_name" = "कृपया एक सही नाम दर्ज करें";
 "bookmark_lists" = "सूचियों";

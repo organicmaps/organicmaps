@@ -243,6 +243,7 @@
     <string name="mobile_data_option_ask">Entrugar siempres</string>
     <string name="learn_more">Deprende más</string>
     <string name="placepage_remove_stop">Desaniciar parada</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Amestar parada</string>
     <string name="saved">Guardáu</string>
     <string name="bookmark_lists">Llistes</string>

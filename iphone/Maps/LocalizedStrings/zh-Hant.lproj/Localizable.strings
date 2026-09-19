@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "管理路線";
 "button_plan" = "計畫";
 "placepage_remove_stop" = "刪除停止";
-"placepage_add_stop" = "新增中途點";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "新增途經點";
 "saved" = "已經儲存";
 "error_enter_correct_name" = "請輸入正確的名稱";
 "bookmark_lists" = "列表";

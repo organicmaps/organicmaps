@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "ניהול מסלול";
 "button_plan" = "תכנון";
 "placepage_remove_stop" = "הסר עצירה";
-"placepage_add_stop" = "הוסף עצירה";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "הוספת עצירה";
 "saved" = "נשמר";
 "error_enter_correct_name" = "נא להזין שם תקין";
 "bookmark_lists" = "רשימות";

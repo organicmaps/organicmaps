@@ -654,7 +654,9 @@
 "planning_route_manage_route" = "मार्ग व्यवस्थापन";
 "button_plan" = "नियोजन";
 "placepage_remove_stop" = "थांबा काढा";
-"placepage_add_stop" = "स्टॉप जोडा";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "थांबा जोडा";
 "saved" = "जतन केले";
 "error_enter_correct_name" = "कृपया योग्य नाव प्रविष्ट करा";
 "bookmark_lists" = "याद्या";

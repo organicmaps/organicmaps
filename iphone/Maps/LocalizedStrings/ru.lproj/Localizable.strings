@@ -654,6 +654,8 @@
 "planning_route_manage_route" = "Изменить маршрут";
 "button_plan" = "Построить";
 "placepage_remove_stop" = "Удалить остановку";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Добавить остановку";
 "saved" = "Сохранено";
 "error_enter_correct_name" = "Пожалуйста, введите название правильно";
