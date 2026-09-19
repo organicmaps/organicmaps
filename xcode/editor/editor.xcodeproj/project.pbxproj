@@ -399,7 +399,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					3411386A1C15AD97002E3B3E = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -538,12 +538,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.editor_tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.editor_tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -551,12 +551,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.editor_tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/pugixml/pugixml/src",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.editor_tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};

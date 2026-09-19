@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */; };
 		165953742CB1D85500CFED7C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 165953732CB1D83700CFED7C /* fonts */; };
 		165953942CB44B5600CFED7C /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = 165953932CB44B3B00CFED7C /* symbols */; };
 		16CDB3FB2F15B0C30040FC4F /* libtimezone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CDB3FA2F15B0C30040FC4F /* libtimezone.a */; };
@@ -68,9 +69,14 @@
 		A10000000000000000000054 /* TTSLanguageSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000057 /* TTSLanguageSettingsInteractor.swift */; };
 		A10000000000000000000055 /* TTSLanguageSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000058 /* TTSLanguageSettingsModels.swift */; };
 		A10000000000000000000056 /* TTSLanguageSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */; };
-		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
 		A13418010000000000000002 /* CarPlayManeuverMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13418010000000000000001 /* CarPlayManeuverMapper.swift */; };
 		A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */; };
+		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
+		AB0CA7A50000000000000002 /* CarPlaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */; };
+		AB0DB0010000000000000002 /* CarPlayDashboardMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */; };
+		AB0DB0020000000000000002 /* DashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0020000000000000001 /* DashboardBuilder.swift */; };
+		AB0DB0030000000000000002 /* CarPlaySpeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */; };
+		AB0DB0040000000000000002 /* CarPlayMapOwnershipState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */; };
 		B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt78l.dat */; };
@@ -114,7 +120,6 @@
 		ED82C4FA2F90180300FA103D /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A32F90180300FA103D /* VisibleArea.swift */; };
 		ED82C4FB2F90180300FA103D /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A42F90180300FA103D /* WidgetsArea.swift */; };
 		ED82C4FC2F90180300FA103D /* BookmarksListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A62F90180300FA103D /* BookmarksListCell.swift */; };
-		F0A0B0012FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A0B0002FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift */; };
 		ED82C4FD2F90180300FA103D /* BookmarksListCellStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A82F90180300FA103D /* BookmarksListCellStrategy.swift */; };
 		ED82C4FE2F90180300FA103D /* BookmarksListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2A92F90180300FA103D /* BookmarksListSectionHeader.swift */; };
 		ED82C4FF2F90180300FA103D /* BookmarksListSubgroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2AB2F90180300FA103D /* BookmarksListSubgroupCell.swift */; };
@@ -474,11 +479,6 @@
 		ED82C74D2F90186300FA103D /* SearchResultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6842F90186300FA103D /* SearchResultInfo.swift */; };
 		ED82C74E2F90186300FA103D /* CarplayPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6862F90186300FA103D /* CarplayPlaceholderView.swift */; };
 		ED82C74F2F90186300FA103D /* CarPlayRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6872F90186300FA103D /* CarPlayRouter.swift */; };
-		AB0CA7A50000000000000002 /* CarPlaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */; };
-		AB0DB0010000000000000002 /* CarPlayDashboardMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */; };
-		AB0DB0020000000000000002 /* DashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0020000000000000001 /* DashboardBuilder.swift */; };
-		AB0DB0030000000000000002 /* CarPlaySpeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */; };
-		AB0DB0040000000000000002 /* CarPlayMapOwnershipState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */; };
 		ED82C7502F90186300FA103D /* CarPlayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6882F90186300FA103D /* CarPlayService.swift */; };
 		ED82C7512F90186300FA103D /* CarPlayWindowScaleAdjuster.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6892F90186300FA103D /* CarPlayWindowScaleAdjuster.swift */; };
 		ED82C7522F90186300FA103D /* CPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C68A2F90186300FA103D /* CPConstants.swift */; };
@@ -595,7 +595,6 @@
 		ED82C8022F90186900FA103D /* UINavigationItem+StyleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D12F90186900FA103D /* UINavigationItem+StyleStyle.swift */; };
 		ED82C8032F90186900FA103D /* UINib+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D22F90186900FA103D /* UINib+Init.swift */; };
 		ED82C8042F90186900FA103D /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D32F90186900FA103D /* UITableView+Cells.swift */; };
-		0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */; };
 		ED82C8052F90186900FA103D /* UITableView+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D42F90186900FA103D /* UITableView+Updates.swift */; };
 		ED82C8062F90186900FA103D /* UITextField+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D62F90186900FA103D /* UITextField+RuntimeAttributes.m */; };
 		ED82C8072F90186900FA103D /* UITextView+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7D82F90186900FA103D /* UITextView+RuntimeAttributes.m */; };
@@ -623,8 +622,8 @@
 		ED8F0F852FE962BF00780C0F /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8F0F842FE962BF00780C0F /* SettingsModels.swift */; };
 		ED91432C300168020081DF0B /* MainSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91432B300168020081DF0B /* MainSceneDelegate.swift */; };
 		ED914330300168200081DF0B /* MainSceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91432F300168200081DF0B /* MainSceneDelegateTests.swift */; };
-		ED91433B3001A0000081DF0B /* DeepLinkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */; };
 		ED914332300168CF0081DF0B /* CarPlaySceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914331300168CF0081DF0B /* CarPlaySceneDelegateTests.swift */; };
+		ED91433B3001A0000081DF0B /* DeepLinkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */; };
 		ED9BEED62FFEB5C8008DB423 /* ColorGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
 		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
@@ -639,6 +638,7 @@
 		EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */; };
 		EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B12C00B9C7007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */; };
 		EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */; };
+		F0A0B0012FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A0B0002FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift */; };
 		F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
 		F6C3A1B221AC22810060EEC8 /* Alert 5.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */; };
 		FA14E686276014C10066E453 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA14E683276014C10066E453 /* libz.1.tbd */; };
@@ -763,6 +763,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+SeparatorInset.swift"; sourceTree = "<group>"; };
 		165953732CB1D83700CFED7C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../data/fonts; sourceTree = "<group>"; };
 		165953932CB44B3B00CFED7C /* symbols */ = {isa = PBXFileReference; lastKnownFileType = folder; name = symbols; path = ../../data/symbols; sourceTree = "<group>"; };
 		16CDB3FA2F15B0C30040FC4F /* libtimezone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtimezone.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -880,6 +881,8 @@
 		A10000000000000000000057 /* TTSLanguageSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSLanguageSettingsInteractor.swift; sourceTree = "<group>"; };
 		A10000000000000000000058 /* TTSLanguageSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSLanguageSettingsModels.swift; sourceTree = "<group>"; };
 		A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSLanguageSettingsPresenter.swift; sourceTree = "<group>"; };
+		A13418010000000000000001 /* CarPlayManeuverMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayManeuverMapper.swift; sourceTree = "<group>"; };
+		A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayManeuverMapperTests.swift; sourceTree = "<group>"; };
 		A630D1E9207CA95900976DEA /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EB207CA96700976DEA /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EC207CA96D00976DEA /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = da; path = da.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -909,6 +912,11 @@
 		A630D204207CAA3400976DEA /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D205207CAA3A00976DEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		A630D206207CAA5800976DEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegate.swift; sourceTree = "<group>"; };
+		AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayDashboardMapViewController.swift; sourceTree = "<group>"; };
+		AB0DB0020000000000000001 /* DashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBuilder.swift; sourceTree = "<group>"; };
+		AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySpeedInfoView.swift; sourceTree = "<group>"; };
+		AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMapOwnershipState.swift; sourceTree = "<group>"; };
 		AC4209FF2D79BCEC00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC420A002D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC420A012D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = af; path = af.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -929,8 +937,6 @@
 		AC89C2362F2CF86000368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC89C2372F2CF86000368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lo; path = lo.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		AC89C2382F2CF86100368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
-		A13418010000000000000001 /* CarPlayManeuverMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayManeuverMapper.swift; sourceTree = "<group>"; };
-		A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayManeuverMapperTests.swift; sourceTree = "<group>"; };
 		BB25B1A51FB32767007276FA /* transit_colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_colors.txt; path = ../../data/transit_colors.txt; sourceTree = "<group>"; };
 		BB7626B41E8559980031D71C /* icudt78l.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = icudt78l.dat; path = ../../data/icudt78l.dat; sourceTree = "<group>"; };
 		DB05F1BC1BF340DE002C974C /* drules_default.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_default.bin; path = ../../data/drules_default.bin; sourceTree = "<group>"; };
@@ -978,7 +984,6 @@
 		ED82C2A32F90180300FA103D /* VisibleArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
 		ED82C2A42F90180300FA103D /* WidgetsArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsArea.swift; sourceTree = "<group>"; };
 		ED82C2A62F90180300FA103D /* BookmarksListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCell.swift; sourceTree = "<group>"; };
-		F0A0B0002FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCellConfiguration.swift; sourceTree = "<group>"; };
 		ED82C2A82F90180300FA103D /* BookmarksListCellStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCellStrategy.swift; sourceTree = "<group>"; };
 		ED82C2A92F90180300FA103D /* BookmarksListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSectionHeader.swift; sourceTree = "<group>"; };
 		ED82C2AA2F90180300FA103D /* BookmarksListSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListSectionHeader.xib; sourceTree = "<group>"; };
@@ -1443,11 +1448,6 @@
 		ED82C6842F90186300FA103D /* SearchResultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultInfo.swift; sourceTree = "<group>"; };
 		ED82C6862F90186300FA103D /* CarplayPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarplayPlaceholderView.swift; sourceTree = "<group>"; };
 		ED82C6872F90186300FA103D /* CarPlayRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayRouter.swift; sourceTree = "<group>"; };
-		AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegate.swift; sourceTree = "<group>"; };
-		AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayDashboardMapViewController.swift; sourceTree = "<group>"; };
-		AB0DB0020000000000000001 /* DashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBuilder.swift; sourceTree = "<group>"; };
-		AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySpeedInfoView.swift; sourceTree = "<group>"; };
-		AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMapOwnershipState.swift; sourceTree = "<group>"; };
 		ED82C6882F90186300FA103D /* CarPlayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayService.swift; sourceTree = "<group>"; };
 		ED82C6892F90186300FA103D /* CarPlayWindowScaleAdjuster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayWindowScaleAdjuster.swift; sourceTree = "<group>"; };
 		ED82C68A2F90186300FA103D /* CPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPConstants.swift; sourceTree = "<group>"; };
@@ -1628,7 +1628,6 @@
 		ED82C7D12F90186900FA103D /* UINavigationItem+StyleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+StyleStyle.swift"; sourceTree = "<group>"; };
 		ED82C7D22F90186900FA103D /* UINib+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Init.swift"; sourceTree = "<group>"; };
 		ED82C7D32F90186900FA103D /* UITableView+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Cells.swift"; sourceTree = "<group>"; };
-		0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+SeparatorInset.swift"; sourceTree = "<group>"; };
 		ED82C7D42F90186900FA103D /* UITableView+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Updates.swift"; sourceTree = "<group>"; };
 		ED82C7D52F90186900FA103D /* UITextField+RuntimeAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		ED82C7D62F90186900FA103D /* UITextField+RuntimeAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+RuntimeAttributes.m"; sourceTree = "<group>"; };
@@ -1709,8 +1708,8 @@
 		ED8F0F842FE962BF00780C0F /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
 		ED91432B300168020081DF0B /* MainSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDelegate.swift; sourceTree = "<group>"; };
 		ED91432F300168200081DF0B /* MainSceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDelegateTests.swift; sourceTree = "<group>"; };
-		ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerTests.swift; sourceTree = "<group>"; };
 		ED914331300168CF0081DF0B /* CarPlaySceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegateTests.swift; sourceTree = "<group>"; };
+		ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerTests.swift; sourceTree = "<group>"; };
 		ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridViewController.swift; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
 		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
@@ -1727,6 +1726,7 @@
 		EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
 		EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItemStubs.swift; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
+		F0A0B0002FF2ABCD00FA103D /* BookmarksListCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCellConfiguration.swift; sourceTree = "<group>"; };
 		F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = opening_hours_how_to_edit.html; path = ../../data/opening_hours_how_to_edit.html; sourceTree = "<group>"; };
 		F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Alert 5.m4a"; sourceTree = "<group>"; };
 		FA00953E286A48A10094B3ED /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mr; path = mr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2098,6 +2098,15 @@
 			path = TextToSpeech;
 			sourceTree = "<group>";
 		};
+		E79F77A472014212B40FDE97 /* PlacePageTests */ = {
+			isa = PBXGroup;
+			children = (
+				ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */,
+				4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */,
+			);
+			path = PlacePageTests;
+			sourceTree = "<group>";
+		};
 		ED0C360B2FE3EB6900CAF853 /* PlacePageUserDescriptionWebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2189,15 +2198,6 @@
 				ED810EC32D566E7600ECDE2C /* SearchOnMapTests */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		E79F77A472014212B40FDE97 /* PlacePageTests */ = {
-			isa = PBXGroup;
-			children = (
-				ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */,
-				4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */,
-			);
-			path = PlacePageTests;
 			sourceTree = "<group>";
 		};
 		ED810EC32D566E7600ECDE2C /* SearchOnMapTests */ = {
@@ -4060,20 +4060,20 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		ED9DDF982D6F6D8000645BC8 /* TrackRecorder */ = {
-			isa = PBXGroup;
-			children = (
-				ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */,
-			);
-			path = TrackRecorder;
-			sourceTree = "<group>";
-		};
 		ED91433C3001A0000081DF0B /* DeepLink */ = {
 			isa = PBXGroup;
 			children = (
 				ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */,
 			);
 			path = DeepLink;
+			sourceTree = "<group>";
+		};
+		ED9DDF982D6F6D8000645BC8 /* TrackRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */,
+			);
+			path = TrackRecorder;
 			sourceTree = "<group>";
 		};
 		EDBAB6F12E980415007962B5 /* GeoNavigationToOMURLConverterTests */ = {
@@ -4251,7 +4251,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2700;
 				ORGANIZATIONNAME = "Organic Maps";
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
