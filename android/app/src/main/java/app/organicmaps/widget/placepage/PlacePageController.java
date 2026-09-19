@@ -38,6 +38,7 @@ import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingController.PoiPickMode;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
@@ -551,10 +552,6 @@ public class PlacePageController
 
   private void commitRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
-    // Close search up front: dismissing this place page (via close() below, or via the route build's
-    // native place-page deactivation when both endpoints are set) resurfaces the still-enabled search
-    // sheet hidden behind it over the route plan card.
-    ((MwmActivity) requireActivity()).forceCloseSearchFragment();
     final RoutingController controller = RoutingController.get();
     switch (type)
     {
@@ -562,6 +559,10 @@ public class PlacePageController
     case Finish -> controller.setEndPoint(point);
     case Intermediate -> throw new AssertionError("Intermediate points are committed via addStop, not here");
     }
+    // Close search after the setter, not before: closing it cancels the pending pick, and the setter needs
+    // that pick alive to reveal the route plan. A pick-driven commit has already closed search by now (via
+    // finalizePendingPoiPick()), so this is for the pickless path -- picking a search result, then Route To.
+    ((MwmActivity) requireActivity()).forceCloseSearchFragment();
     close();
   }
 
@@ -574,7 +575,7 @@ public class PlacePageController
   private void onRouteAddBtnClicked()
   {
     if (mMapObject != null)
-      RoutingController.get().addStop(mMapObject);
+      RoutingController.get().commitStopPick(mMapObject);
   }
 
   private void onRouteRemoveBtnClicked()
@@ -659,17 +660,11 @@ public class PlacePageController
       boolean needToShowRoutingButtons =
           (RoutingController.get().isPlanning() || showRoutingButton) && !mapObject.isTrackRecording();
 
-      // The single-action branch below is only meaningful for an intermediate-stop pick (replace an
-      // existing stop or add a new one). For a Start/Finish pick (e.g. opened from the plan sheet's
-      // partial-slot row when the start or destination is missing) it would hide ROUTE_FROM/ROUTE_TO
-      // and leave only the bookmark button, so fall through to the regular routing buttons in that case.
-      final boolean isIntermediateStopPick =
-          RoutingController.get().isWaitingPoiPick()
-          && (RoutingController.get().isPoiPickReplaceStop()
-              || RoutingController.get().getWaitingPoiPickType() == RouteMarkType.Intermediate);
-      if (isIntermediateStopPick)
+      // A Start/Finish pick (e.g. from the plan sheet's partial-slot row) must fall through to the regular
+      // routing buttons: this branch would hide ROUTE_FROM/ROUTE_TO and leave only the bookmark button.
+      if (RoutingController.get().isWaitingStopPick())
       {
-        if (RoutingController.get().isPoiPickReplaceStop())
+        if (RoutingController.get().getPoiPickMode() == PoiPickMode.REPLACE)
         {
           buttons.add(PlacePageButtons.ButtonType.ROUTE_REPLACE);
         }
