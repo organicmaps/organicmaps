@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "お気に入りをロード中";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "お気に入りをロードできました。 お気に入りはマップ上、またはお気に入り管理画面に表示されます。";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "お気に入りをロードできました。マップ上で表示するリストを選択してください：";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "お気に入りのロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "ファイルを読み込めませんでした。破損しているか、不具合がある可能性があります：";
 
 /* resource for context menu */
 "edit" = "編集";

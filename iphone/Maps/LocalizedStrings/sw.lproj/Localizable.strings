@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "Inapakia alamisho";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Alama za ukurasa zimepakia kwa mafanikio! Unaweza kuzipata kwenye ramani au kwenye skrini ya Meneja wa Alama za ukurasa.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Alama za ukurasa zimepakia kwa mafanikio! Chagua orodha ili kuitazama kwenye ramani:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Imeshindwa kupakia alamisho. Faili linaweza kuwa limeharibika au lenye kasoro.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Imeshindwa kupakia faili. Huenda zimeharibika au zina kasoro:";
 
 /* resource for context menu */
 "edit" = "Hariri";

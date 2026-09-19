@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Привіт!\n\nДодаю мої мітки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Завантаження міток</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Мітки успішно завантажені! Ви можете знайти їх на мапі або у ваших збережених мітках.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Тип файлу не розпізнається програмою:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Не вдалося відкрити файл %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Мітки успішно завантажені! Виберіть список, щоб побачити його на мапі:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Не вдалося завантажити файли. Можливо, вони пошкоджені або містять помилки:</string>
     <!-- resource for context menu -->
     <string name="edit">Редагувати</string>
     <!-- Warning message when doing search around current position -->

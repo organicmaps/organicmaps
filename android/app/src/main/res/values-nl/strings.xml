@@ -155,14 +155,10 @@
     <string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Bladwijzers worden geladen</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzerbeheerder.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Het bestandstype wordt niet herkend door de app:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Bestand openen mislukt %1$s\n\n%2$s</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Bladwijzers succesvol geüpload! Kies een lijst om deze op de kaart te bekijken:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Het laden van de bestanden is mislukt. Ze zijn mogelijk beschadigd of defect:</string>
     <!-- resource for context menu -->
     <string name="edit">Wijzig</string>
     <!-- Warning message when doing search around current position -->

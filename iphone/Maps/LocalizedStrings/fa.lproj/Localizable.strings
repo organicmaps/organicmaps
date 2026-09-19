@@ -162,11 +162,11 @@
 /* message title of loading file */
 "load_kmz_title" = "در حال بارگیری نشانک‌ها";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "نشانک‌ها با موفقیت بارگیری شدند! می‌توانید آن‌ها را روی نقشه یا در صفحه مدیریت نشانک‌ها پیدا کنید.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "نشانک‌ها با موفقیت بارگیری شدند! فهرستی را برای نمایش روی نقشه انتخاب کنید:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "بارگیری نشانک‌ها ناموفق بود. ممکن است پرونده خراب یا ناقص باشد.";
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "بارگیری پرونده‌ها ناموفق بود. ممکن است خراب یا ناقص باشند:";
 
 /* resource for context menu */
 "edit" = "ویرایش";

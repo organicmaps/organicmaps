@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Impossible de charger les fichiers. Ils sont peut-être corrompus ou défectueux :</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="transliteration_title">Translittération vers l\'alphabet latin</string>
 </resources>
