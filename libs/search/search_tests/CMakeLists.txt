@@ -1,6 +1,7 @@
 project(search_tests)
 
 set(SRC
+  address_estimator_tests.cpp
   algos_tests.cpp
   bookmarks_processor_tests.cpp
   feature_offset_match_tests.cpp

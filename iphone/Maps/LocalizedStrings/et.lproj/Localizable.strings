@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Laadi alla otsitav piirkond või proovi lisada lähedalasuva linna/küla nimi.";
 "search_history_title" = "Otsinguajalugu";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Vaata hiljutisi otsinguid.";
 "clear_search" = "Kustuta otsinguajalugu";
 

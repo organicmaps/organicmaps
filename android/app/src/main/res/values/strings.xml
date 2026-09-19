@@ -375,6 +375,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Download the region where you are searching or try adding a nearby town/village name.</string>
     <string name="search_history_title">Search History</string>
+    <string name="search_contacts_title">Contacts</string>
+    <string name="search_contacts_summary">Show saved contact addresses in search results and on the map</string>
+    <string name="search_contacts_permission_message">Allow Contacts access in system settings to search saved addresses.</string>
+    <string name="search_estimated_location">Estimated location</string>
     <string name="search_history_text">View your recent searches.</string>
     <string name="clear_search">Clear Search History</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
