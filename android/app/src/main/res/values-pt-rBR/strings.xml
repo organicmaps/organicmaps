@@ -508,8 +508,7 @@
     <string name="religious_places">Locais religiosos</string>
     <string name="select_list">Escolher a lista</string>
     <string name="button_layer_isolines">Relevo</string>
-    <string name="isolines_activation_error_dialog">Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região</string>
-    <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
+    <string name="isolines_location_error_dialog">Atualize esta região para ver as curvas de nível</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>
     <string name="elevation_profile_distance">Dist.:</string>
@@ -645,4 +644,14 @@
     <string name="color_picker_sliders">Controles deslizantes</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Grade</string>
+    <!-- Settings «Map» category: the «Download terrain with maps» switch title -->
+    <string name="pref_terrain_title">Baixar o terreno com os mapas</string>
+    <!-- The switch subtitle: what the terrain data brings and how it lives -->
+    <string name="pref_terrain_summary">Sombreamento do relevo, curvas de nível e profundidades do mar. O terreno de uma região é baixado, atualizado e excluído junto com o seu mapa.</string>
+    <!-- The confirmation shown when the terrain switch is turned off; %@ is the size on disk -->
+    <string name="terrain_delete_all_message">Excluir também os dados de terreno baixados (%s)?</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Manter</string>
+    <!-- Shown when the contour lines layer is on over an area without terrain, but downloading terrain is turned off -->
+    <string name="terrain_disabled_dialog">O download do terreno com os mapas está desativado. Ativá-lo para ver aqui as curvas de nível?</string>
 </resources>
