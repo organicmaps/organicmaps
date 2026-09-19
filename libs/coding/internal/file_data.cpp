@@ -7,6 +7,7 @@
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
 
