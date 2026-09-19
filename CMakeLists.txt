@@ -133,6 +133,16 @@ if (PLATFORM_LINUX OR PLATFORM_ANDROID)
   endif()
 endif()
 
+set(OMIM_OPTIMIZED_CONFIG "$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>,$<CONFIG:MinSizeRel>>")
+if (MSVC)
+  add_compile_options("$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,${OMIM_OPTIMIZED_CONFIG}>:/Gy;/Gw>")
+elseif (APPLE)
+  add_link_options($<${OMIM_OPTIMIZED_CONFIG}:-Wl,-dead_strip>)
+else()
+  add_compile_options($<${OMIM_OPTIMIZED_CONFIG}:-ffunction-sections> $<${OMIM_OPTIMIZED_CONFIG}:-fdata-sections>)
+  add_link_options($<${OMIM_OPTIMIZED_CONFIG}:-Wl,--gc-sections>)
+endif()
+
 if (NOT PYTHON_VERSION)
   # FDroid build server has 3.5.3 Python installed.
   set(PYTHON_VERSION 3.5)
