@@ -54,12 +54,6 @@ extension BookmarksListRouter: IBookmarksListRouter {
     return description
   }
 
-  func showSubgroup(_ subgroupId: MWMMarkGroupID) {
-    let bookmarksListViewController = BookmarksListBuilder.build(markGroupId: subgroupId,
-                                                                 bookmarksCoordinator: coordinator)
-    coordinator?.push(bookmarksListViewController)
-  }
-
   func selectGroup(currentGroupId groupId: MWMMarkGroupID,
                    delegate: SelectBookmarkGroupViewControllerDelegate?) {
     let groupViewController = SelectBookmarkGroupViewController(groupId: groupId)

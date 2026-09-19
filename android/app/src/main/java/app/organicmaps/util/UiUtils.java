@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.TouchDelegate;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,7 +27,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
@@ -308,21 +306,6 @@ public final class UiUtils
       rect.bottom += bottom;
       parent.setTouchDelegate(new TouchDelegate(rect, view));
     });
-  }
-
-  public static void showRecyclerItemView(boolean show, @NonNull View view)
-  {
-    if (show)
-    {
-      view.setLayoutParams(
-          new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-      UiUtils.show(view);
-    }
-    else
-    {
-      view.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-      UiUtils.hide(view);
-    }
   }
 
   public static void startActivityForResult(ActivityResultLauncher<Intent> startForResult, @NonNull Intent intent)
