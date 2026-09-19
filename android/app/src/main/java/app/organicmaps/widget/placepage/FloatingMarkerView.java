@@ -14,8 +14,9 @@ import androidx.annotation.Nullable;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.StringUtils;
-import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.IMarker;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
@@ -24,7 +25,7 @@ import com.github.mikephil.charting.utils.MPPointF;
 public class FloatingMarkerView extends RelativeLayout implements IMarker
 {
   @Nullable
-  private Chart mChart;
+  private LineChart mChart;
   private static final int TRIANGLE_ROTATION_ANGLE = 180;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -44,8 +45,6 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mTextContentContainer;
-
-  private float mOffset;
 
   public FloatingMarkerView(@NonNull Context context)
   {
@@ -71,13 +70,13 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     LayoutInflater.from(getContext()).inflate(R.layout.floating_marker_view, this, true);
   }
 
-  public void setChartView(@NonNull Chart chart)
+  public void setChartView(@NonNull LineChart chart)
   {
     mChart = chart;
   }
 
   @Nullable
-  public Chart getChartView()
+  public LineChart getChartView()
   {
     return mChart;
   }
@@ -92,6 +91,10 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     mImage = findViewById(R.id.image);
     mAltitudeView = findViewById(R.id.altitude);
     mDistanceValueView = findViewById(R.id.distance_value);
+    // The chart's pixel space is left-to-right in any locale, so the marker's own frame must not be
+    // mirrored. Only the value box follows the locale, to keep its reading order natural.
+    setLayoutDirection(LAYOUT_DIRECTION_LTR);
+    mTextContentContainer.setLayoutDirection(LAYOUT_DIRECTION_LOCALE);
   }
 
   // runs every time the MarkerView is redrawn, can be used to update the
@@ -110,7 +113,9 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
   @Override
   public MPPointF getOffset()
   {
-    return new MPPointF(mOffset, -getHeight() / 2f);
+    // Where the image actually ended up: updateHorizontal() may put it at either end, and
+    // refreshContent() lays the marker out before every draw.
+    return new MPPointF(-(mImage.getLeft() + mImage.getWidth() / 2f), -getHeight() / 2f);
   }
 
   @Override
@@ -124,9 +129,6 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     if (getChartView() == null)
       return;
     updateVertical(entry);
-    final float halfImg = mImage.getResources().getDimensionPixelSize(R.dimen.elevation_profile_marker_width) / 2f;
-    boolean isLeftToRightDirection = isInvertedOrder(highlight);
-    mOffset = isLeftToRightDirection ? -getWidth() + halfImg : -halfImg;
     updateHorizontal(highlight);
   }
 
@@ -153,7 +155,9 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     float height = getChartView().getContentRect().height();
     if (height == 0)
       return 0f;
-    float delta = getChartView().getYMax() - getChartView().getYMin();
+    // Axis bounds, not data bounds: on a flat track they differ enough that updateVertical() never flips.
+    YAxis axis = getChartView().getAxisLeft();
+    float delta = axis.getAxisMaximum() - axis.getAxisMinimum();
     float factor = delta / height;
     return factor * mTextContentContainer.getHeight();
   }
@@ -163,14 +167,15 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     LayoutParams layoutParams = (LayoutParams) mTextContentContainer.getLayoutParams();
     float posY = entry.getY();
     float halfContent = convertContainerHeight() / 2f;
+    YAxis axis = getChartView().getAxisLeft();
 
-    if (posY + halfContent >= getChartView().getYChartMax())
+    if (posY + halfContent >= axis.getAxisMaximum())
     {
       layoutParams.addRule(ALIGN_PARENT_BOTTOM);
       layoutParams.removeRule(ALIGN_PARENT_TOP);
       layoutParams.removeRule(CENTER_VERTICAL);
     }
-    else if (posY - halfContent <= getChartView().getYChartMin())
+    else if (posY - halfContent <= axis.getAxisMinimum())
     {
       layoutParams.addRule(ALIGN_PARENT_TOP);
       layoutParams.removeRule(ALIGN_PARENT_BOTTOM);
@@ -205,7 +210,7 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
 
     toBecomeAnchor.removeRule(RelativeLayout.END_OF);
     toBecomeAnchor.removeRule(RelativeLayout.RIGHT_OF);
-    toBecomeDependent.addRule(RelativeLayout.END_OF, anchorId);
+    toBecomeDependent.addRule(RelativeLayout.RIGHT_OF, anchorId);
 
     mFloatingTriangle.setRotation(isInvertedOrder ? 0 : TRIANGLE_ROTATION_ANGLE);
     mInfoFloatingContainer.setLayoutParams(textParams);
@@ -220,7 +225,7 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
 
     toBecomeAnchor.removeRule(RelativeLayout.END_OF);
     toBecomeAnchor.removeRule(RelativeLayout.RIGHT_OF);
-    toBecomeDependent.addRule(END_OF, anchorId);
+    toBecomeDependent.addRule(RIGHT_OF, anchorId);
 
     mFloatingTriangle.setLayoutParams(triangleParams);
     mTextContentContainer.setLayoutParams(textContentParams);

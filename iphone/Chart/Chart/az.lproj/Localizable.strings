@@ -7,7 +7,9 @@
 
 /********** Uncategorized **********/
 
-"you" = "Sən";
+
+/* Short label of the user's position marker on the elevation profile chart. */
+"you" = "Siz";
 
 
 /********** gps strings **********/
