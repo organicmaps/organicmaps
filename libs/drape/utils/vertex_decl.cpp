@@ -7,6 +7,7 @@ namespace
 enum VertexType
 {
   Area,
+  TerrainShade,
   Area3d,
   HatchingArea,
   SolidTexturing,
@@ -208,20 +209,24 @@ dp::BindingInfo ColoredSymbolBindingInit()
   return filler.m_info;
 }
 
+dp::BindingInfo TerrainShadeBindingInit()
+{
+  static_assert(sizeof(TerrainShadeVertex) ==
+                sizeof(TerrainShadeVertex::TPosition) + sizeof(TerrainShadeVertex::TNormal3d));
+  dp::BindingFiller<TerrainShadeVertex> filler(2);
+  filler.FillDecl<TerrainShadeVertex::TPosition>("a_position");
+  filler.FillDecl<TerrainShadeVertex::TNormal3d>("a_normal");
+
+  return filler.m_info;
+}
+
 BindingNode g_bindingNodes[TypeCount];
-TInitFunction g_initFunctions[TypeCount] = {&AreaBindingInit,
-                                            &Area3dBindingInit,
-                                            &HatchingAreaBindingInit,
-                                            &SolidTexturingBindingInit,
-                                            &MaskedTexturingBindingInit,
-                                            &TextStaticBindingInit,
-                                            &TextOutlinedStaticBindingInit,
-                                            &TextDynamicBindingInit,
-                                            &LineBindingInit,
-                                            &DashedLineBindingInit,
-                                            &RouteBindingInit,
-                                            &RouteMarkerBindingInit,
-                                            &ColoredSymbolBindingInit};
+TInitFunction g_initFunctions[TypeCount] = {
+    &AreaBindingInit,         &TerrainShadeBindingInit,       &Area3dBindingInit,
+    &HatchingAreaBindingInit, &SolidTexturingBindingInit,     &MaskedTexturingBindingInit,
+    &TextStaticBindingInit,   &TextOutlinedStaticBindingInit, &TextDynamicBindingInit,
+    &LineBindingInit,         &DashedLineBindingInit,         &RouteBindingInit,
+    &RouteMarkerBindingInit,  &ColoredSymbolBindingInit};
 
 dp::BindingInfo const & GetBinding(VertexType type)
 {
@@ -244,6 +249,16 @@ AreaVertex::AreaVertex(TPosition const & position, TTexCoord const & colorTexCoo
 dp::BindingInfo const & AreaVertex::GetBindingInfo()
 {
   return GetBinding(Area);
+}
+
+TerrainShadeVertex::TerrainShadeVertex(TPosition const & position, TNormal3d const & normal)
+  : m_position(position)
+  , m_normal(normal)
+{}
+
+dp::BindingInfo const & TerrainShadeVertex::GetBindingInfo()
+{
+  return GetBinding(TerrainShade);
 }
 
 Area3dVertex::Area3dVertex(TPosition const & position, TPosition const & normal, TTexCoord const & colorTexCoord)

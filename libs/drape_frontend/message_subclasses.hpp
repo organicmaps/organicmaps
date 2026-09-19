@@ -919,6 +919,30 @@ private:
   int8_t const m_mapLangIndex;
 };
 
+// The terrain hillshade light (see MapProgramParams::m_terrainLightDir): azimuth
+// degrees clockwise from north TOWARDS the light, altitude degrees above the horizon,
+// and the shadow gamma (the gentle slopes lift, 1 = linear).
+class SetTerrainLightMessage : public Message
+{
+public:
+  SetTerrainLightMessage(double azimuthDeg, double altitudeDeg, double shadowGamma)
+    : m_azimuthDeg(azimuthDeg)
+    , m_altitudeDeg(altitudeDeg)
+    , m_shadowGamma(shadowGamma)
+  {}
+
+  Type GetType() const override { return Type::SetTerrainLight; }
+
+  double AzimuthDeg() const { return m_azimuthDeg; }
+  double AltitudeDeg() const { return m_altitudeDeg; }
+  double ShadowGamma() const { return m_shadowGamma; }
+
+private:
+  double const m_azimuthDeg;
+  double const m_altitudeDeg;
+  double const m_shadowGamma;
+};
+
 class EnablePerspectiveMessage : public Message
 {
 public:

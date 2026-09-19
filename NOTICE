@@ -7,7 +7,7 @@ You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
-Binary map data files (`.mwm`) are provided under a separate license.
+Binary map (`.mwm`) and terrain (`.twm`) data files are provided under a separate license.
 See `DATA_LICENSE.txt` for details.
 
 Unless required by applicable law or agreed to in writing, software

@@ -29,6 +29,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
@@ -739,6 +740,21 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     break;
   }
+  case Message::Type::SetTerrainLight:
+  {
+    ref_ptr<SetTerrainLightMessage> const msg = message;
+    double const azimuth = math::DegToRad(msg->AzimuthDeg());
+    double const altitude = math::DegToRad(msg->AltitudeDeg());
+    // Towards the light in the mercator frame, w = the shadow gamma (see
+    // MapProgramParams::m_terrainLightDir). The message wakes the render loop, so the
+    // next frame re-lights the standing terrain geometry.
+    m_frameValues.m_terrainLightDir =
+        glsl::vec4(static_cast<float>(std::sin(azimuth) * std::cos(altitude)),
+                   static_cast<float>(std::cos(azimuth) * std::cos(altitude)), static_cast<float>(std::sin(altitude)),
+                   static_cast<float>(msg->ShadowGamma()));
+    break;
+  }
+
   case Message::Type::FlushCirclesPack:
   {
     ref_ptr<FlushCirclesPackMessage> msg = message;
@@ -1167,7 +1183,14 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 {
   ScreenBase const screen = m_userEventStream.GetCurrentScreen();
   m2::RectD rect = gRect;
-  if (rect.Intersect(screen.ClipRect()))
+  // Invalidate over the same margin-inflated rect as ResolveTileKeys: the off-screen
+  // margin tiles are read and kept too, so they must be dropped as well or they come
+  // back stale when panned in.
+  m2::RectD clipRect = screen.ClipRect();
+  double const vs = VisualParams::Instance().GetVisualScale();
+  double const extension = vs * dp::kScreenPixelRectExtension * screen.GetScale();
+  clipRect.Inflate(extension, extension);
+  if (rect.Intersect(clipRect))
   {
     // Find tiles to invalidate.
     TTilesCollection tiles;

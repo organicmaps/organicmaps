@@ -183,6 +183,32 @@ public final class MapManager
   private static native void nativeDownload(String root);
 
   /**
+   * True when the bundle ships a terrain grid; the setting UI hides otherwise.
+   */
+  public static native boolean nativeIsTerrainAvailable();
+
+  /**
+   * The "Download terrain with maps" setting: the terrain of a region downloads,
+   * updates and deletes together with its map.
+   */
+  public static native boolean nativeIsTerrainWithMaps();
+
+  /**
+   * Flips the "Download terrain with maps" setting.
+   */
+  public static native void nativeSetTerrainWithMaps(boolean enabled);
+
+  /**
+   * The bytes under the terrain directory, for the deletion confirmation.
+   */
+  public static native long nativeGetTerrainOnDiskSize();
+
+  /**
+   * Cancels every terrain download and removes all the terrain files.
+   */
+  public static native void nativeDeleteAllTerrain();
+
+  /**
    * Enqueues failed items under given {@code root} node in downloader.
    */
   private static native void nativeRetry(String root);

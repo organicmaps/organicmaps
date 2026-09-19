@@ -77,6 +77,45 @@ using namespace storage;
   [self.observers removeObject:observer];
 }
 
+#pragma mark - Terrain
+
+- (BOOL)isTerrainAvailable
+{
+  return GetFramework().GetStorage().IsTerrainAvailable();
+}
+
+- (BOOL)isTerrainWithMaps
+{
+  return GetFramework().GetStorage().IsTerrainWithMaps();
+}
+
+- (void)setTerrainWithMaps:(BOOL)enabled
+{
+  GetFramework().GetStorage().SetTerrainWithMaps(enabled);
+}
+
+- (uint64_t)terrainOnDiskSize
+{
+  return GetFramework().GetStorage().GetTerrainOnDiskSize();
+}
+
+- (void)deleteAllTerrain
+{
+  GetFramework().GetStorage().DeleteAllTerrain();
+}
+
+- (BOOL)downloadTerrainForViewport:(NSError * __autoreleasing _Nullable *)error
+{
+  NSError * connectionError;
+  if (![self checkConnection:&connectionError])
+  {
+    if (error)
+      *error = connectionError;
+    return NO;
+  }
+  return GetFramework().DownloadTerrainForViewport();
+}
+
 - (BOOL)downloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
 {
   if (IsEnoughSpaceForDownload(countryId.UTF8String, GetFramework().GetStorage()))
