@@ -827,6 +827,30 @@ oh::OpeningHours<> MakeEval(std::shared_ptr<oh::OpeningHoursExpression const> co
   return oh::OpeningHours<>(expr, oh::Context<oh::NoLocation>{});
 }
 
+// Resolves sun events (sunrise/sunset/dawn/dusk) from the POI's coordinate,
+// expressed in the POI's local time. Without a coordinate it behaves exactly
+// like oh::NoLocation (fixed fallback times). Time math stays identity
+// (naive == local): GetInfo pre-converts to the zone's wall clock before
+// evaluating, so only sun-event resolution needs the coordinate and the zone.
+struct SunLocation : oh::NoLocation
+{
+  std::optional<oh::Coordinates> m_coords;
+  // Points into GetInfo's argument, which outlives the evaluation; avoids
+  // copying the zone's transitions into every Context copy.
+  std::optional<om::tz::TimeZone> const * m_tz = nullptr;
+
+  std::optional<oh::ExtendedTime> event_time(oh::NaiveDate date, oh::TimeEvent event) const
+  {
+    if (!m_coords)
+      return oh::fixed_event_fallback(event);
+    auto const utc = m_coords->event_time_utc(date, event);
+    if (!utc)
+      return std::nullopt;  // Polar day/night.
+    auto const local = ToNaive(ToZonedSeconds(static_cast<time_t>(*utc), *m_tz));
+    return oh::ExtendedTime{static_cast<uint8_t>(local.hour()), static_cast<uint8_t>(local.minute_of_hour())};
+  }
+};
+
 // A value that did not parse has no state to report, which is Unknown -- the
 // same answer GetInfo() gives.
 RuleState EvalState(std::shared_ptr<oh::OpeningHoursExpression const> const & expr, time_t dateTime)
@@ -866,7 +890,8 @@ bool OpeningHours::IsUnknown(time_t const dateTime) const
   return EvalState(m_expr, dateTime) == RuleState::Unknown;
 }
 
-OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
+OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone,
+                                          std::optional<ms::LatLon> const & coord) const
 {
   InfoT info;
   if (!m_expr)
@@ -877,8 +902,13 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<o
 
   int64_t const baseZoned = ToZonedSeconds(dateTime, timeZone);
   oh::NaiveDateTime const now = ToNaive(baseZoned);
-  auto const eval = MakeEval(m_expr);
-  info.state = ToRuleState(eval.state(now).first);
+
+  oh::Context<SunLocation> ctx;
+  if (coord)
+    ctx.locale.m_coords = oh::Coordinates::make(coord->m_lat, coord->m_lon);
+  ctx.locale.m_tz = &timeZone;
+
+  info.state = ToRuleState(oh::OpeningHours<SunLocation>(m_expr, ctx).state(now).first);
 
   if (info.state == RuleState::Unknown)
     return info;
@@ -991,7 +1021,7 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<o
 
   auto nextTimeOf = [&](oh::RuleKind target) -> time_t
   {
-    oh::TimeDomainIterator<oh::NoLocation> it(m_expr, oh::Context<oh::NoLocation>{}, now, to);
+    oh::TimeDomainIterator<SunLocation> it(m_expr, ctx, now, to);
     while (auto const interval = it.next())
     {
       if (!(interval->start < to))

@@ -1152,6 +1152,9 @@ std::optional<ETRange> timespan_as_naive(TimeSpan const & span, Context<L> const
   auto start_opt = time_as_naive(span.start, ctx, date);
   auto end_opt = time_as_naive(span.end, ctx, date);
   std::pair<unsigned, unsigned> md{date.month(), date.day()};
+  // @note Northern hemisphere only, as upstream: the season is derived from the
+  // date alone, so a polar day/night south of the antarctic circle is treated as
+  // its opposite. The `Localize` concept exposes no latitude to correct it here.
   bool is_summer = md >= std::pair<unsigned, unsigned>{3, 20} && md < std::pair<unsigned, unsigned>{9, 22};
 
   ExtendedTime start{}, end{};
