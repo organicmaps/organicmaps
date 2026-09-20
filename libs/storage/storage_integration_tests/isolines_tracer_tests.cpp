@@ -106,17 +106,12 @@ UNIT_TEST(TerrainIsolines_FlatPlainInvariants)
     LOG(LINFO, ("Altitude", altitude, ":", count, "isolines"));
 }
 
-// The multi-version registry policy: the newer block wins the overlap, the older one is
-// rejected; the out-of-date query sees the registered older blocks only.
-UNIT_TEST(TerrainTwmSet_VersionPolicy)
+// Registration keeps the scanned file identity and rejects overlapping active blocks.
+UNIT_TEST(TerrainTwmSet_Registration)
 {
   std::string const source = GetTestBlockPath();
   if (source.empty())
     return;
-
-  m2::RectD rect;
-  TEST(terrain::TwmSet::ReadLimitRect(source, rect), ());
-  TEST(rect.IsValid(), ());
 
   // Two copies of the same block = the same header rect = a guaranteed overlap.
   std::string const newerPath = base::JoinPath(GetPlatform().TmpDir(), "twm_v2.twm");
@@ -129,14 +124,23 @@ UNIT_TEST(TerrainTwmSet_VersionPolicy)
     base::DeleteFileX(olderPath);
   });
 
-  terrain::TwmSet set;
-  TEST_EQUAL(set.Register(newerPath, 2 /* version */).second, terrain::TwmSet::RegResult::Success, ());
-  // The older overlapping block is rejected: the newest data wins.
-  TEST_EQUAL(set.Register(olderPath, 1 /* version */).second, terrain::TwmSet::RegResult::Overlapping, ());
+  terrain::TwmFile newer, older;
+  TEST_EQUAL(terrain::TwmSet::ReadFile(newerPath, 2 /* version */, newer), terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(terrain::TwmSet::ReadFile(olderPath, 1 /* version */, older), terrain::TwmSet::RegResult::Success, ());
+  TEST(newer.m_rect.IsValid(), ());
 
-  TEST(set.HasBlocks(rect), ());
-  // The registered v2 block is older than a v3 grid, but not older than itself.
-  TEST(set.HasOlderBlocks(rect, 3 /* version */), ());
-  TEST(!set.HasOlderBlocks(rect, 2 /* version */), ());
+  terrain::TwmSet set;
+  auto const [id, result] = set.Register(newer);
+  TEST_EQUAL(result, terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(set.GetId(newer.m_id), id, ());
+  TEST_EQUAL(id.GetInfo()->GetFilePath(), newerPath, ());
+  TEST_EQUAL(id.GetInfo()->GetVersion(), 2, ());
+  TEST_EQUAL(set.Register(older).second, terrain::TwmSet::RegResult::Overlapping, ());
+  TEST(set.HasBlocks(newer.m_rect), ());
+
+  set.Deregister(newer.m_id);
+  TEST(!set.GetId(newer.m_id).IsAlive(), ());
+  TEST_EQUAL(set.Register(older).second, terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(set.GetId(older.m_id).GetInfo()->GetVersion(), 1, ());
 }
 }  // namespace isolines_tracer_tests

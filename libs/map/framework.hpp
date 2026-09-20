@@ -61,6 +61,7 @@
 
 #include "std/target_os.hpp"
 
+#include <atomic>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -192,6 +193,7 @@ protected:
   IsolinesManager m_isolinesManager;
   // Dynamic isolines terrain data (.twm files).
   terrain::TerrainProvider m_terrainProvider;
+  std::atomic<uint64_t> m_terrainScanGeneration{0};
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
@@ -208,6 +210,7 @@ protected:
 
   /// This function is called by m_featuresFetcher when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
+  void OnTerrainDeregistered(terrain::TwmFile const & file);
 
   void ClearAllCaches();
 

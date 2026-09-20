@@ -33,7 +33,7 @@ using Altitude = geometry::Altitude;
 // TWM (terrain) file format, version 3. A .twm file is a FilesContainer structured like an MWM:
 // - kHeaderTag: version, coordinate bits, geometry scales with their max
 //   vertical errors, the limit rect and the count of the meshes merged into the file. Parsed on
-//   every registration (TwmSet::Register), so it stays small;
+//   startup and download registration (TwmSet::ReadFile), so it stays small;
 // - kGridTag: the lattice tables of every mesh (see MeshGrid), read once by terrain::Reader;
 // - kFreqTag: the entropy coding tables of the geometry streams, one set of contexts per
 //   geometry scale (see GeometryTables), read once by terrain::Reader next to the grid. One

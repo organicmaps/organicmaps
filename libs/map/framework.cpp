@@ -323,7 +323,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                      [this](FeatureCallback const & fn, std::vector<FeatureID> const & features)
 { return m_featuresFetcher.ReadFeatures(fn, features); },
                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
-  , m_terrainProvider(GetPlatform().WritableDir() + TERRAIN_DIR)
   , m_routingManager(RoutingManager::Callbacks([this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
                                                [this]() -> storage::CountryInfoGetter const &
 { return GetCountryInfoGetter(); }, [this](std::string const & id) -> std::string
@@ -396,21 +395,20 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_storage.Init(std::bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  std::bind(&Framework::OnCountryFileDelete, this, _1, _2));
 
-  // Terrain (.twm) downloading: the landed blocks register into the provider
-  // (replacing the outdated coverage they intersect), and the out-of-date status
-  // queries the provider registry.
+  m_terrainProvider.SetOnTerrainDeregisteredCallback(std::bind(&Framework::OnTerrainDeregistered, this, _1));
   m_storage.SetTerrainCallbacks(
-      [this](std::string const & path, m2::RectD const & rect)
-  {
-    m2::RectD invalidRect = rect;
-    m_terrainProvider.OnBlockDownloaded(path, invalidRect);
-    InvalidateRect(invalidRect);
-    m_isolinesManager.Invalidate();
-  }, [this](m2::RectD const & rect, int64_t version) { return m_terrainProvider.HasOlderTerrain(rect, version); },
-      [this](std::vector<m2::RectD> const & rects)
+      [this](terrain::TwmFile const & file)
   {
     m2::RectD invalidRect;
-    m_terrainProvider.DeleteBlocks(rects, invalidRect);
+    bool const registered = m_terrainProvider.RegisterBlock(file, invalidRect);
+    if (invalidRect.IsValid())
+      InvalidateRect(invalidRect);
+    m_isolinesManager.Invalidate();
+    return registered;
+  }, [this](std::vector<terrain::TerrainId> const & ids)
+  {
+    m2::RectD invalidRect;
+    m_terrainProvider.DeleteBlocks(ids, invalidRect);
     if (invalidRect.IsValid())
       InvalidateRect(invalidRect);
     m_isolinesManager.Invalidate();
@@ -436,12 +434,12 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
-  // Before the initial Rescan the terrain registry is empty: claim the coverage present,
+  // Before the initial scan the terrain registry is empty: claim the coverage present,
   // the Invalidate after the scan re-evaluates the real state (no premature download hint).
   // The viewport rect can poke beyond the +-180 antimeridian: probe the canonical pieces.
   m_isolinesManager.SetHasTerrainFn([this](m2::RectD const & rect)
   {
-    if (!m_terrainProvider.IsScanned())
+    if (!m_storage.IsTerrainScanned())
       return true;
     bool has = false;
     mercator::ForEachRectWrapped(rect,
@@ -482,6 +480,7 @@ Framework::~Framework()
   m_trafficManager.Teardown();
   DestroyDrapeEngine();
   m_featuresFetcher.SetOnMapDeregisteredCallback(nullptr);
+  m_terrainProvider.SetOnTerrainDeregisteredCallback(nullptr);
 }
 
 void Framework::ShowNode(storage::CountryId const & countryId)
@@ -561,6 +560,20 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     GetPlatform().RunTask(Platform::Thread::Gui, action);
 }
 
+void Framework::OnTerrainDeregistered(terrain::TwmFile const & file)
+{
+  auto action = [this, file]
+  {
+    // The same file may have been registered again while this completion was queued.
+    if (!m_terrainProvider.IsFileInUse(file))
+      m_storage.OnTerrainFileDeregistered(file);
+  };
+  if (m_storage.GetThreadChecker().CalledOnOriginalThread())
+    action();
+  else
+    GetPlatform().RunTask(Platform::Thread::Gui, action);
+}
+
 bool Framework::HasUnsavedEdits(storage::CountryId const & countryId)
 {
   bool hasUnsavedChanges = false;
@@ -627,6 +640,7 @@ void Framework::LoadMapsAsync(std::function<void()> && callback)
 
 void Framework::RegisterAllMaps()
 {
+  auto const terrainScanGeneration = m_terrainScanGeneration.load();
   m_storage.RegisterAllLocalMaps(m_enabledDiffs);
 
   std::vector<std::shared_ptr<LocalCountryFile>> maps;
@@ -643,21 +657,22 @@ void Framework::RegisterAllMaps()
     }
   }
 
-  m_terrainProvider.Rescan();
-  // RegisterAllMaps runs on the async map-loading thread (see LoadMapsAsync), while the
-  // storage, the isolines manager and its platform state listeners are GUI-thread-only:
-  // publish the terrain scan there, like the registered maps above publish themselves.
-  // The registry is queried at the publish time, not snapshotted here: a terrain delete
-  // that runs on the GUI thread before the task must not be resurrected by stale data.
-  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+  auto terrainFiles = storage::Storage::ScanTerrainFiles();
+  // RegisterAllMaps can run on the map-loading thread. Publish the terrain inventory
+  // and register its files on the GUI thread, before restoring the download queue.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, terrainScanGeneration, terrainFiles = std::move(terrainFiles)]
   {
-    m_storage.OnTerrainScanned(m_terrainProvider.GetRegisteredFiles());
+    // A directory switch or unload invalidates scans already queued for publication.
+    if (terrainScanGeneration != m_terrainScanGeneration.load())
+      return;
+    m_storage.OnTerrainScanned(terrainFiles);
     m_isolinesManager.Invalidate();
   });
 }
 
 void Framework::DeregisterAllMaps()
 {
+  ++m_terrainScanGeneration;
   m_transitManager.Clear();
   m_trafficManager.Clear();
   m_descriptionsLoader->Clear();

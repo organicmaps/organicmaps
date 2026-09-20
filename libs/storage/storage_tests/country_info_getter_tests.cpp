@@ -50,6 +50,7 @@ namespace country_info_getter_tests
 {
 namespace tests_support = platform::tests_support;
 using namespace storage;
+using terrain::TerrainId;
 using namespace std;
 
 static double constexpr kRectCompareEpsilon = 1e-2;
@@ -100,20 +101,41 @@ private:
   std::map<std::string_view, std::string> m_saved;
 };
 
-// Feeds the storage the on-disk truth the provider scan delivers on a real start (the
-// async RegisterAllMaps flow, see Storage::OnTerrainScanned): every *.twm under the
-// terrain tree, (name, version folder) exactly like TerrainProvider::Rescan reports.
-void ScanTerrain(Storage & storage)
+terrain::TwmFile MakeTerrainFile(Storage::TerrainBlock const & block, int64_t version)
 {
+  return {block.m_id, version,
+          base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR, strings::to_string(version),
+                         block.m_id + TERRAIN_FILE_EXT),
+          block.m_rect};
+}
+
+// Test files contain stub bytes. Supply the descriptors that the real header scan
+// would produce, using catalog rectangles for these current-grid blocks.
+std::vector<terrain::TwmFile> ScanTerrain(Storage & storage)
+{
+  int64_t gridVersion = 0;
+  std::vector<Storage::TerrainBlock> blocks;
+  std::map<CountryId, std::vector<uint32_t>> coverage;
+  std::string content;
+  GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+  Storage::ParseTwmGridJson(content, gridVersion, blocks, coverage);
+
   std::vector<terrain::TwmFile> scanned;
   for (auto const & [dir, version] : terrain::ListVersionDirs(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR)))
   {
     Platform::FilesList files;
     Platform::GetFilesByExt(dir, TERRAIN_FILE_EXT, files);
     for (auto const & file : files)
-      scanned.push_back({base::FilenameWithoutExt(file), version});
+    {
+      auto const id = base::FilenameWithoutExt(file);
+      auto const it = std::find_if(blocks.begin(), blocks.end(), [&](auto const & block) { return block.m_id == id; });
+      TEST(it != blocks.end(), (id));
+      if (it != blocks.end())
+        scanned.push_back(MakeTerrainFile(*it, version));
+    }
   }
   storage.OnTerrainScanned(scanned);
+  return scanned;
 }
 
 // Records the terrain retry armings without running them (the fire side is covered by
@@ -678,15 +700,134 @@ UNIT_TEST(Storage_TerrainOutOfDateStatus)
   Storage storage;
   ScanTerrain(storage);
 
-  // The injected has-older callback flips a region with no current blocks on disk
-  // between NotDownloaded and OnDiskOutOfDate (cf. TerrainProvider::HasOlderTerrain).
-  bool hasOlder = false;
-  storage.SetTerrainCallbacks({}, [&](m2::RectD const &, int64_t /* version */) { return hasOlder; });
-
-  // Madagascar has no local terrain blocks in the test environment.
   TEST_EQUAL(storage.GetTerrainAttrs("Madagascar").m_status, Storage::TerrainStatus::NotDownloaded, ());
-  hasOlder = true;
+
+  int64_t version = 0;
+  std::vector<Storage::TerrainBlock> blocks;
+  std::map<CountryId, std::vector<uint32_t>> coverage;
+  std::string content;
+  GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+  Storage::ParseTwmGridJson(content, version, blocks, coverage);
+  auto const & block = blocks[coverage.at("Madagascar").front()];
+  tests_support::ScopedDir terrainDir(TERRAIN_DIR);
+  tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version - 1));
+  tests_support::ScopedFile blockFile(base::JoinPath(versionDir.GetRelativePath(), block.m_id + TERRAIN_FILE_EXT),
+                                      "twm");
+  storage.OnTerrainScanned({MakeTerrainFile(block, block.m_version - 1)});
   TEST_EQUAL(storage.GetTerrainAttrs("Madagascar").m_status, Storage::TerrainStatus::OnDiskOutOfDate, ());
+}
+
+UNIT_TEST(Storage_TerrainScanRegistration)
+{
+  WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
+  ScopedTerrainSettings const guardSettings;
+  int64_t version = 0;
+  std::vector<Storage::TerrainBlock> blocks;
+  std::map<CountryId, std::vector<uint32_t>> coverage;
+  std::string content;
+  GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+  Storage::ParseTwmGridJson(content, version, blocks, coverage);
+  auto const owner =
+      std::find_if(coverage.begin(), coverage.end(), [](auto const & entry) { return entry.second.size() == 1; });
+  TEST(owner != coverage.end(), ());
+  auto const & block = blocks[owner->second.front()];
+
+  tests_support::ScopedDir terrainDir(TERRAIN_DIR);
+  tests_support::ScopedDir currentDir(terrainDir, strings::to_string(block.m_version));
+  tests_support::ScopedDir olderDir(terrainDir, strings::to_string(block.m_version - 1));
+  tests_support::ScopedFile currentFile(base::JoinPath(currentDir.GetRelativePath(), block.m_id + TERRAIN_FILE_EXT),
+                                        "twm");
+  tests_support::ScopedFile olderFile(base::JoinPath(olderDir.GetRelativePath(), block.m_id + TERRAIN_FILE_EXT), "twm");
+  auto const current = MakeTerrainFile(block, block.m_version);
+  auto const older = MakeTerrainFile(block, block.m_version - 1);
+
+  Storage storage;
+  std::vector<int64_t> registered;
+  storage.SetTerrainCallbacks([&](terrain::TwmFile const & file)
+  {
+    registered.push_back(file.m_version);
+    return true;
+  }, {});
+  storage.OnTerrainScanned({older, current});
+  TEST_EQUAL(registered, (std::vector<int64_t>{block.m_version}), ());
+  TEST_EQUAL(storage.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::OnDisk, ());
+  TEST(currentFile.Exists(), ());
+  TEST(!olderFile.Exists(), ());
+  olderFile.Reset();
+  olderDir.Reset();
+
+  // A file rejected by the registry cannot make the region appear downloaded.
+  Storage rejected;
+  size_t attempts = 0;
+  rejected.SetTerrainCallbacks([&](terrain::TwmFile const & file)
+  {
+    ++attempts;
+    TEST_EQUAL(file.m_id, block.m_id, ());
+    return false;
+  }, {});
+  rejected.OnTerrainScanned({current});
+  TEST_EQUAL(attempts, 1, ());
+  TEST_EQUAL(rejected.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::NotDownloaded, ());
+  if (!currentFile.Exists())
+    currentFile.Reset();
+}
+
+UNIT_TEST(Storage_TerrainDeleteDuringScan)
+{
+  WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
+  ScopedTerrainSettings const guardSettings;
+  int64_t version = 0;
+  std::vector<Storage::TerrainBlock> blocks;
+  std::map<CountryId, std::vector<uint32_t>> coverage;
+  std::string content;
+  GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+  Storage::ParseTwmGridJson(content, version, blocks, coverage);
+  auto const owner =
+      std::find_if(coverage.begin(), coverage.end(), [](auto const & entry) { return entry.second.size() == 1; });
+  TEST(owner != coverage.end(), ());
+  auto const & block = blocks[owner->second.front()];
+  auto const file = MakeTerrainFile(block, block.m_version);
+
+  for (bool const deleteAll : {false, true})
+  {
+    tests_support::ScopedDir terrainDir(TERRAIN_DIR);
+    tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version));
+    tests_support::ScopedFile blockFile(base::JoinPath(versionDir.GetRelativePath(), block.m_id + TERRAIN_FILE_EXT),
+                                        "twm");
+    Storage storage;
+    size_t registrations = 0;
+    std::vector<TerrainId> deleted;
+    storage.SetTerrainCallbacks([&](terrain::TwmFile const &)
+    {
+      ++registrations;
+      return true;
+    }, [&](std::vector<TerrainId> const & ids) { deleted = ids; });
+
+    // A deletion requested while the scan runs must be applied when it finishes.
+    if (deleteAll)
+      storage.DeleteAllTerrain();
+    else
+      storage.DeleteTerrain(owner->first);
+    storage.OnTerrainScanned({file});
+    TEST_EQUAL(deleted, (std::vector<TerrainId>{block.m_id}), (deleteAll));
+    TEST_EQUAL(registrations, 1, (deleteAll));
+    TEST_EQUAL(storage.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::NotDownloaded, (deleteAll));
+    TEST(blockFile.Exists(), ());
+
+    // A delayed scan cannot revive a file still held by a deregistering reader.
+    storage.OnTerrainScanned({file});
+    TEST_EQUAL(registrations, 1, (deleteAll));
+    TEST_EQUAL(storage.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::NotDownloaded, (deleteAll));
+    storage.OnTerrainFileDeregistered(file);
+    TEST(!blockFile.Exists(), ());
+    blockFile.Reset();
+    versionDir.Reset();
+    terrainDir.Reset();
+
+    // Nor can a scan snapshot revive the file after its deletion completes.
+    storage.OnTerrainScanned({file});
+    TEST_EQUAL(registrations, 1, (deleteAll));
+  }
 }
 
 UNIT_TEST(Storage_TerrainAttrsAllNodes)
@@ -719,34 +860,59 @@ UNIT_TEST(Storage_TerrainDelete)
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
   ScopedTerrainSettings const guardSettings;
   Storage storage;
+  storage.OnTerrainScanned({});
 
-  std::vector<m2::RectD> deleted;
-  storage.SetTerrainCallbacks({}, {}, [&](std::vector<m2::RectD> const & rects) { deleted = rects; });
-
+  std::vector<TerrainId> deleted;
+  storage.SetTerrainCallbacks({}, [&](std::vector<TerrainId> const & ids) { deleted = ids; });
   storage.DeleteTerrain("Madagascar");
-  // The exact rects of the covering blocks from the twm_grid.json "mwms" list.
-  TEST(!deleted.empty(), ());
-  for (auto const & rect : deleted)
-    TEST(rect.IsValid(), ());
+  TEST(deleted.empty(), ());  // Missing files need no deregistration request.
 
-  // A group resolves to the deduplicated union of its leafs: the group rect count must
-  // be no less than any single leaf's and strictly less than the leafs' sum (the Norway
-  // leafs share the blocks along their common borders).
-  size_t leafsSum = 0;
-  size_t leafMax = 0;
+  int64_t version = 0;
+  std::vector<Storage::TerrainBlock> blocks;
+  std::map<CountryId, std::vector<uint32_t>> coverage;
+  std::string content;
+  GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+  Storage::ParseTwmGridJson(content, version, blocks, coverage);
+  std::set<uint32_t> installed(coverage.at("Madagascar").begin(), coverage.at("Madagascar").end());
+  std::set<TerrainId> expected;
   storage.ForEachInSubtree("Norway", [&](CountryId const & id, bool groupNode)
   {
-    if (groupNode)
-      return;
-    deleted.clear();
-    storage.DeleteTerrain(id);
-    leafsSum += deleted.size();
-    leafMax = std::max(leafMax, deleted.size());
+    if (!groupNode)
+      for (auto const index : coverage.at(id))
+      {
+        installed.insert(index);
+        expected.insert(blocks[index].m_id);
+      }
   });
+  tests_support::ScopedDir terrainDir(TERRAIN_DIR);
+  std::list<tests_support::ScopedDir> versionDirs;
+  std::list<tests_support::ScopedFile> blockFiles;
+  std::set<int64_t> versions;
+  std::vector<terrain::TwmFile> files;
+  for (auto const index : installed)
+  {
+    auto const & block = blocks[index];
+    if (versions.insert(block.m_version).second)
+      versionDirs.emplace_back(terrainDir, strings::to_string(block.m_version));
+    blockFiles.emplace_back(
+        base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version), block.m_id + TERRAIN_FILE_EXT), "twm");
+    files.push_back(MakeTerrainFile(block, block.m_version));
+  }
+  storage.OnTerrainScanned(files);
+
+  storage.DeleteTerrain("Madagascar");
+  TEST_EQUAL(deleted.size(), coverage.at("Madagascar").size(), ());
+  for (auto const index : coverage.at("Madagascar"))
+    TEST(std::find(deleted.begin(), deleted.end(), blocks[index].m_id) != deleted.end(), (index));
+
+  // A group requests every installed block of its leaves exactly once.
   deleted.clear();
   storage.DeleteTerrain("Norway");
-  TEST_GREATER_OR_EQUAL(deleted.size(), leafMax, ());
-  TEST_LESS(deleted.size(), leafsSum, ());
+  TEST_EQUAL(deleted.size(), expected.size(), ());
+  TEST_EQUAL((std::set<TerrainId>(deleted.begin(), deleted.end())), expected, ());
+  deleted.clear();
+  storage.DeleteTerrain("Norway");
+  TEST(deleted.empty(), ());
 }
 
 UNIT_TEST(Storage_TerrainParseTwmGridJson)
@@ -764,6 +930,12 @@ UNIT_TEST(Storage_TerrainParseTwmGridJson)
                             version, blocks, coverage);
   TEST_EQUAL(version, 260729, ());
   TEST_EQUAL(blocks.size(), 2, ());
+  TEST_EQUAL(blocks[0].m_id, "N45E008", ());
+  TEST(AlmostEqualAbs(blocks[0].m_rect, m2::RectD(mercator::FromLatLon(45, 8), mercator::FromLatLon(47, 11)),
+                      kRectCompareEpsilon),
+       ());
+  TEST_EQUAL(blocks[0].m_size, 10, ());
+  TEST_EQUAL(blocks[0].m_hash, "aGFzaDE", ());
   TEST_EQUAL(blocks[0].m_version, 260729, ());
   TEST_EQUAL(blocks[1].m_version, 260315, ());
   TEST_EQUAL(coverage.size(), 2, ());
@@ -829,16 +1001,19 @@ UNIT_TEST(Storage_TerrainStatusPrecedence)
   auto const & block = blocks[coverage[region].front()];
   tests_support::ScopedDir terrainDir(TERRAIN_DIR);
   tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version));
-  tests_support::ScopedFile blockFile(base::JoinPath(versionDir.GetRelativePath(), block.m_name + TERRAIN_FILE_EXT),
+  tests_support::ScopedFile blockFile(base::JoinPath(versionDir.GetRelativePath(), block.m_id + TERRAIN_FILE_EXT),
                                       "twm");
 
   Storage storage;
-  ScanTerrain(storage);
-  bool hasOlder = false;
-  storage.SetTerrainCallbacks({}, [&](m2::RectD const &, int64_t /* version */) { return hasOlder; });
-
+  auto files = ScanTerrain(storage);
   TEST_EQUAL(storage.GetTerrainAttrs(region).m_status, Storage::TerrainStatus::Partly, (region));
-  hasOlder = true;
+
+  auto const & missingBlock = blocks[coverage[region][1]];
+  tests_support::ScopedDir olderDir(terrainDir, strings::to_string(missingBlock.m_version - 1));
+  tests_support::ScopedFile olderFile(base::JoinPath(olderDir.GetRelativePath(), missingBlock.m_id + TERRAIN_FILE_EXT),
+                                      "twm");
+  files.push_back(MakeTerrainFile(missingBlock, missingBlock.m_version - 1));
+  storage.OnTerrainScanned(files);
   TEST_EQUAL(storage.GetTerrainAttrs(region).m_status, Storage::TerrainStatus::OnDiskOutOfDate, (region));
 }
 
@@ -897,9 +1072,9 @@ UNIT_TEST(Storage_TerrainRefcountDelete)
     if (versionNames.insert(strings::to_string(blocks[index].m_version)).second)
       versionDirs.emplace_back(terrainDir, strings::to_string(blocks[index].m_version));
   for (auto const index : created)
-    files.emplace_back(base::JoinPath(TERRAIN_DIR, strings::to_string(blocks[index].m_version),
-                                      blocks[index].m_name + TERRAIN_FILE_EXT),
-                       "twm");
+    files.emplace_back(
+        base::JoinPath(TERRAIN_DIR, strings::to_string(blocks[index].m_version), blocks[index].m_id + TERRAIN_FILE_EXT),
+        "twm");
 
   // The terrain follows the maps: only regionB is downloaded, so its coverage is the
   // protection set of the ref-counted delete.
@@ -909,8 +1084,8 @@ UNIT_TEST(Storage_TerrainRefcountDelete)
   ResizeToRemote(mapB, storage, regionB);
   storage.RegisterAllLocalMaps();
   ScanTerrain(storage);
-  std::vector<m2::RectD> deleted;
-  storage.SetTerrainCallbacks({}, {}, [&](std::vector<m2::RectD> const & rects) { deleted = rects; });
+  std::vector<TerrainId> deleted;
+  storage.SetTerrainCallbacks({}, [&](std::vector<TerrainId> const & ids) { deleted = ids; });
   TEST_EQUAL(storage.GetTerrainAttrs(regionA).m_status, Storage::TerrainStatus::OnDisk, (regionA));
 
   // Deleting regionA keeps the block shared with the downloaded regionB and drops the
@@ -924,20 +1099,17 @@ UNIT_TEST(Storage_TerrainRefcountDelete)
   deleted.clear();
   storage.DeleteTerrain(regionA);
   TEST_EQUAL(deleted.size(), expectedA, (regionA));
-  auto const contains = [&deleted](m2::RectD const & rect)
-  {
-    return std::any_of(deleted.begin(), deleted.end(),
-                       [&rect](m2::RectD const & r) { return AlmostEqualAbs(r, rect, kRectCompareEpsilon); });
-  };
-  TEST(contains(blocks[exclusiveBlock].m_rect), ());
-  TEST(!contains(blocks[sharedBlock].m_rect), ());
+  auto const contains = [&deleted](TerrainId const & id)
+  { return std::find(deleted.begin(), deleted.end(), id) != deleted.end(); };
+  TEST(contains(blocks[exclusiveBlock].m_id), ());
+  TEST(!contains(blocks[sharedBlock].m_id), ());
 
   // A deleted region does not protect itself: every block of regionB goes, the shared
   // one loses its last downloaded owner.
   deleted.clear();
   storage.DeleteTerrain(regionB);
   TEST_EQUAL(deleted.size(), coverage[regionB].size(), (regionB));
-  TEST(contains(blocks[sharedBlock].m_rect), ());
+  TEST(contains(blocks[sharedBlock].m_id), ());
 }
 
 UNIT_TEST(Storage_TerrainWithMapsSettingAndDeleteAll)
@@ -962,7 +1134,7 @@ UNIT_TEST(Storage_TerrainWithMapsSettingAndDeleteAll)
   tests_support::ScopedDir terrainDir(TERRAIN_DIR);
   tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version));
   tests_support::ScopedFile blockFile(
-      base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version), block.m_name + TERRAIN_FILE_EXT), "twm-bytes");
+      base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version), block.m_id + TERRAIN_FILE_EXT), "twm-bytes");
   tests_support::ScopedFile orphan(
       base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version), "N00E000" TERRAIN_FILE_EXT ".ready"), "partial");
 
@@ -971,12 +1143,14 @@ UNIT_TEST(Storage_TerrainWithMapsSettingAndDeleteAll)
   TEST(storage.IsTerrainWithMaps(), ());  // The default is ON.
   TEST_EQUAL(storage.GetTerrainOnDiskSize(), strlen("twm-bytes") + strlen("partial"), ());
 
-  std::vector<m2::RectD> deleted;
-  storage.SetTerrainCallbacks({}, {}, [&](std::vector<m2::RectD> const & rects) { deleted = rects; });
+  std::vector<TerrainId> deleted;
+  storage.SetTerrainCallbacks({}, [&](std::vector<TerrainId> const & ids) { deleted = ids; });
   storage.DeleteAllTerrain();
-  TEST_EQUAL(deleted.size(), 1, ());  // The world rect for the registered blocks.
-  TEST(!blockFile.Exists() && !orphan.Exists(), ());
-  // The whole terrain tree is gone; disarm the scoped cleanups.
+  TEST_EQUAL(deleted, (std::vector<TerrainId>{block.m_id}), ());
+  TEST(blockFile.Exists(), ());  // A reader may still hold the deregistering file.
+  TEST(!orphan.Exists(), ());
+  storage.OnTerrainFileDeregistered(MakeTerrainFile(block, block.m_version));
+  TEST(!blockFile.Exists(), ());
   blockFile.Reset();
   orphan.Reset();
   versionDir.Reset();
@@ -1040,7 +1214,7 @@ UNIT_TEST(Storage_TerrainArtifactResumeAndCancel)
   tests_support::ScopedDir terrainDir(TERRAIN_DIR);
   tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version));
   std::string const readyRel = base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version),
-                                              block.m_name + TERRAIN_FILE_EXT READY_FILE_EXTENSION);
+                                              block.m_id + TERRAIN_FILE_EXT READY_FILE_EXTENSION);
   tests_support::ScopedFile ready(readyRel, "partial");
   tests_support::ScopedFile resume(readyRel + RESUME_FILE_EXTENSION, "state");
 
@@ -1127,7 +1301,11 @@ UNIT_TEST(Storage_TerrainUpdateInfo)
 
   // An older file still rendering the area is replaced, not added: the download size
   // stays, the disk does not grow.
-  storage.SetTerrainCallbacks({}, [](m2::RectD const &, int64_t /* version */) { return true; });
+  tests_support::ScopedDir terrainDir(TERRAIN_DIR);
+  tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version - 1));
+  tests_support::ScopedFile blockFile(base::JoinPath(versionDir.GetRelativePath(), block.m_id + TERRAIN_FILE_EXT),
+                                      "twm");
+  storage.OnTerrainScanned({MakeTerrainFile(block, block.m_version - 1)});
   Storage::UpdateInfo replacingInfo;
   TEST(storage.GetUpdateInfo(storage.GetRootId(), replacingInfo), ());
   TEST_EQUAL(replacingInfo.m_totalDownloadSizeInBytes, block.m_size, ());
@@ -1200,7 +1378,7 @@ UNIT_TEST(Storage_TerrainNodeAttrsFusion)
   tests_support::ScopedDir terrainDir(TERRAIN_DIR);
   tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version));
   tests_support::ScopedFile blockFile(
-      base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version), block.m_name + TERRAIN_FILE_EXT), "twm");
+      base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version), block.m_id + TERRAIN_FILE_EXT), "twm");
   Storage complete;
   complete.RegisterAllLocalMaps();
   ScanTerrain(complete);
@@ -1401,9 +1579,9 @@ UNIT_TEST(Storage_TerrainDeleteProtectsQueuedRegion)
     if (versionNames.insert(strings::to_string(blocks[index].m_version)).second)
       versionDirs.emplace_back(terrainDir, strings::to_string(blocks[index].m_version));
   for (auto const index : created)
-    files.emplace_back(base::JoinPath(TERRAIN_DIR, strings::to_string(blocks[index].m_version),
-                                      blocks[index].m_name + TERRAIN_FILE_EXT),
-                       "twm");
+    files.emplace_back(
+        base::JoinPath(TERRAIN_DIR, strings::to_string(blocks[index].m_version), blocks[index].m_id + TERRAIN_FILE_EXT),
+        "twm");
 
   // Neither map is downloaded; regionB's map gets QUEUED and never lands (the runner
   // is not run). Its terrain is on disk already, so its own DownloadTerrain records no
@@ -1413,24 +1591,21 @@ UNIT_TEST(Storage_TerrainDeleteProtectsQueuedRegion)
   Storage storage;
   storage.SetDownloaderForTesting(std::make_unique<FakeMapFilesDownloader>(runner));
   ScanTerrain(storage);
-  std::vector<m2::RectD> deleted;
-  storage.SetTerrainCallbacks({}, {}, [&](std::vector<m2::RectD> const & rects) { deleted = rects; });
+  std::vector<TerrainId> deleted;
+  storage.SetTerrainCallbacks({}, [&](std::vector<TerrainId> const & ids) { deleted = ids; });
   storage.DownloadNode(regionB);
 
-  auto const contains = [&deleted](m2::RectD const & rect)
-  {
-    return std::any_of(deleted.begin(), deleted.end(),
-                       [&rect](m2::RectD const & r) { return AlmostEqualAbs(r, rect, kRectCompareEpsilon); });
-  };
+  auto const contains = [&deleted](TerrainId const & id)
+  { return std::find(deleted.begin(), deleted.end(), id) != deleted.end(); };
   storage.DeleteTerrain(regionA);
-  TEST(contains(blocks[exclusiveBlock].m_rect), ());
-  TEST(!contains(blocks[sharedBlock].m_rect), ());
+  TEST(contains(blocks[exclusiveBlock].m_id), ());
+  TEST(!contains(blocks[sharedBlock].m_id), ());
 
   // Cancelled: nobody wants the shared block any more.
   storage.CancelDownloadNode(regionB);
   deleted.clear();
   storage.DeleteTerrain(regionA);
-  TEST(contains(blocks[sharedBlock].m_rect), ());
+  TEST(contains(blocks[sharedBlock].m_id), ());
 }
 
 }  // namespace country_info_getter_tests
