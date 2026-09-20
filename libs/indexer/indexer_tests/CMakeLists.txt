@@ -41,6 +41,7 @@ set(SRC
   tmp_mwm_copy.hpp
   tree_node_tests.cpp
   trie_test.cpp
+  twm_set_tests.cpp
   validate_and_format_contacts_test.cpp
   visibility_test.cpp
   wheelchair_tests.cpp
