@@ -80,7 +80,7 @@ public class Android7RootCertificateWorkaround
     }
     catch (Exception e)
     {
-      e.printStackTrace();
+      android.util.Log.w("CertWorkaround", e);
       Logger.e(TAG, "Failed to load certificates: " + e.getMessage());
     }
   }
