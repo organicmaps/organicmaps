@@ -264,7 +264,7 @@ public class StorageUtils
     }
     catch (Exception e)
     {
-      e.printStackTrace();
+      android.util.Log.w("StorageUtils", e);
       return false;
     }
   }
