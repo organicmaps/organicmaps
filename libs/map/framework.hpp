@@ -559,10 +559,6 @@ public:
                          bool trackVisibleViewport = false);
 
   m2::RectD GetCurrentViewport() const;
-  /// Downloads the terrain of the downloaded regions in the current viewport: the
-  /// "Enable" action of the terrain-disabled layer dialog. False when the viewport
-  /// holds no downloaded region to fetch for (the caller hints to download a map).
-  bool DownloadTerrainForViewport();
   /// The terrain hillshade light (the prototype control, see DrapeEngine): azimuth
   /// degrees clockwise from north towards the light, altitude degrees above the
   /// horizon, and the shadow gamma (the gentle slopes lift, 1 = linear).

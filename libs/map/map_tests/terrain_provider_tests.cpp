@@ -24,40 +24,32 @@
 #include <map>
 #include <set>
 #include <string>
-#include <string_view>
-#include <utility>
 #include <vector>
 
 namespace terrain_provider_tests
 {
 namespace tests_support = platform::tests_support;
 
-class ScopedTerrainSettings
+class ScopedDownloadQueue
 {
 public:
-  ScopedTerrainSettings()
+  ScopedDownloadQueue()
   {
-    for (auto const key : kKeys)
-    {
-      std::string value;
-      if (settings::Get(key, value))
-        m_saved.emplace(key, std::move(value));
-      settings::Delete(key);
-    }
+    m_hadValue = settings::Get("DownloadQueue", m_saved);
+    settings::Delete("DownloadQueue");
   }
 
-  ~ScopedTerrainSettings()
+  ~ScopedDownloadQueue()
   {
-    for (auto const key : kKeys)
-      if (auto const it = m_saved.find(key); it != m_saved.end())
-        settings::Set(key, it->second);
-      else
-        settings::Delete(key);
+    if (m_hadValue)
+      settings::Set("DownloadQueue", m_saved);
+    else
+      settings::Delete("DownloadQueue");
   }
 
 private:
-  static constexpr std::string_view kKeys[] = {"DownloadQueue", "TerrainWithMaps"};
-  std::map<std::string_view, std::string> m_saved;
+  std::string m_saved;
+  bool m_hadValue = false;
 };
 
 void WriteTerrainHeader(std::string const & path, m2::RectD const & rect)
@@ -110,7 +102,7 @@ UNIT_TEST(TerrainStorage_DeleteRegionKeepsSharedBlocks)
 {
   WritableDirChanger const writableDirChanger("terrain_provider_delete_tests",
                                               WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   std::string grid;
   GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(grid);
@@ -181,7 +173,7 @@ UNIT_TEST(TerrainStorage_DeleteKeepsOlderBlockCoveringAnotherRegion)
 {
   WritableDirChanger const writableDirChanger("terrain_provider_old_grid_tests",
                                               WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
   storage::Storage storage;
   RegisterFranceMaps(storage);
 

@@ -401,41 +401,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownload(JNI
   EndBatchingCallbacks(env);
 }
 
-// static boolean nativeIsTerrainAvailable();
-JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsTerrainAvailable(JNIEnv * env, jclass clazz)
-{
-  return static_cast<jboolean>(GetStorage().IsTerrainAvailable());
-}
-
-// static boolean nativeIsTerrainWithMaps();
-JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsTerrainWithMaps(JNIEnv * env, jclass clazz)
-{
-  return static_cast<jboolean>(GetStorage().IsTerrainWithMaps());
-}
-
-// static void nativeSetTerrainWithMaps(boolean enabled);
-JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSetTerrainWithMaps(JNIEnv * env, jclass clazz,
-                                                                                       jboolean enabled)
-{
-  StartBatchingCallbacks();
-  GetStorage().SetTerrainWithMaps(enabled);
-  EndBatchingCallbacks(env);
-}
-
-// static long nativeGetTerrainOnDiskSize();
-JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetTerrainOnDiskSize(JNIEnv * env, jclass clazz)
-{
-  return static_cast<jlong>(GetStorage().GetTerrainOnDiskSize());
-}
-
-// static void nativeDeleteAllTerrain();
-JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDeleteAllTerrain(JNIEnv * env, jclass clazz)
-{
-  StartBatchingCallbacks();
-  GetStorage().DeleteAllTerrain();
-  EndBatchingCallbacks(env);
-}
-
 // static boolean nativeRetry(String root);
 JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeRetry(JNIEnv * env, jclass clazz, jstring root)
 {

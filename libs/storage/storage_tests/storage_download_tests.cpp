@@ -140,7 +140,7 @@ UNIT_CLASS_TEST(StorageDownloadTest, DownloadNode)
   TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
   TestDownloadedMap(storage, kWest);
 
-  // An up-to-date map is not re-downloaded: Storage::DownloadNode returns on OnDisk.
+  // The per-leaf download gate skips an up-to-date map.
   storage.DownloadNode(kWest);
   TEST(!storage.IsDownloadInProgress(), ());
 }

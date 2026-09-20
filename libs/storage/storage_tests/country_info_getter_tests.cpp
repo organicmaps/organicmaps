@@ -34,7 +34,6 @@
 #include "defines.hpp"
 
 #include <algorithm>
-#include <cstring>
 #include <filesystem>
 #include <list>
 #include <map>
@@ -42,7 +41,6 @@
 #include <random>
 #include <set>
 #include <string>
-#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -73,32 +71,26 @@ void ResizeToRemote(tests_support::ScopedFile const & file, Storage const & stor
   std::filesystem::resize_file(file.GetFullPath(), storage.GetCountryFile(id).GetRemoteSize());
 }
 
-class ScopedTerrainSettings
+class ScopedDownloadQueue
 {
 public:
-  ScopedTerrainSettings()
+  ScopedDownloadQueue()
   {
-    for (auto const key : kKeys)
-    {
-      std::string value;
-      if (settings::Get(key, value))
-        m_saved.emplace(key, std::move(value));
-      settings::Delete(key);
-    }
+    m_hadValue = settings::Get("DownloadQueue", m_saved);
+    settings::Delete("DownloadQueue");
   }
-  ~ScopedTerrainSettings()
+
+  ~ScopedDownloadQueue()
   {
-    for (auto const key : kKeys)
-      if (auto const it = m_saved.find(key); it != m_saved.end())
-        settings::Set(key, it->second);
-      else
-        settings::Delete(key);
+    if (m_hadValue)
+      settings::Set("DownloadQueue", m_saved);
+    else
+      settings::Delete("DownloadQueue");
   }
 
 private:
-  // Mirror kDownloadQueueKey/kTerrainWithMapsKey in storage.cpp.
-  static constexpr std::string_view kKeys[] = {"DownloadQueue", "TerrainWithMaps"};
-  std::map<std::string_view, std::string> m_saved;
+  std::string m_saved;
+  bool m_hadValue = false;
 };
 
 terrain::TwmFile MakeTerrainFile(Storage::TerrainBlock const & block, int64_t version)
@@ -696,7 +688,7 @@ UNIT_TEST(CountryInfoGetter_ExtendedRect_ExactLookup)
 UNIT_TEST(Storage_TerrainOutOfDateStatus)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
   Storage storage;
   ScanTerrain(storage);
 
@@ -720,7 +712,7 @@ UNIT_TEST(Storage_TerrainOutOfDateStatus)
 UNIT_TEST(Storage_TerrainScanRegistration)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
   int64_t version = 0;
   std::vector<Storage::TerrainBlock> blocks;
   std::map<CountryId, std::vector<uint32_t>> coverage;
@@ -775,7 +767,7 @@ UNIT_TEST(Storage_TerrainScanRegistration)
 UNIT_TEST(Storage_TerrainDeleteDuringScan)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
   int64_t version = 0;
   std::vector<Storage::TerrainBlock> blocks;
   std::map<CountryId, std::vector<uint32_t>> coverage;
@@ -788,52 +780,46 @@ UNIT_TEST(Storage_TerrainDeleteDuringScan)
   auto const & block = blocks[owner->second.front()];
   auto const file = MakeTerrainFile(block, block.m_version);
 
-  for (bool const deleteAll : {false, true})
+  tests_support::ScopedDir terrainDir(TERRAIN_DIR);
+  tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version));
+  tests_support::ScopedFile blockFile(base::JoinPath(versionDir.GetRelativePath(), block.m_id + TERRAIN_FILE_EXT),
+                                      "twm");
+  Storage storage;
+  size_t registrations = 0;
+  std::vector<TerrainId> deleted;
+  storage.SetTerrainCallbacks([&](terrain::TwmFile const &)
   {
-    tests_support::ScopedDir terrainDir(TERRAIN_DIR);
-    tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version));
-    tests_support::ScopedFile blockFile(base::JoinPath(versionDir.GetRelativePath(), block.m_id + TERRAIN_FILE_EXT),
-                                        "twm");
-    Storage storage;
-    size_t registrations = 0;
-    std::vector<TerrainId> deleted;
-    storage.SetTerrainCallbacks([&](terrain::TwmFile const &)
-    {
-      ++registrations;
-      return true;
-    }, [&](std::vector<TerrainId> const & ids) { deleted = ids; });
+    ++registrations;
+    return true;
+  }, [&](std::vector<TerrainId> const & ids) { deleted = ids; });
 
-    // A deletion requested while the scan runs must be applied when it finishes.
-    if (deleteAll)
-      storage.DeleteAllTerrain();
-    else
-      storage.DeleteTerrain(owner->first);
-    storage.OnTerrainScanned({file});
-    TEST_EQUAL(deleted, (std::vector<TerrainId>{block.m_id}), (deleteAll));
-    TEST_EQUAL(registrations, 1, (deleteAll));
-    TEST_EQUAL(storage.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::NotDownloaded, (deleteAll));
-    TEST(blockFile.Exists(), ());
+  // A deletion requested while the scan runs must be applied when it finishes.
+  storage.DeleteTerrain(owner->first);
+  storage.OnTerrainScanned({file});
+  TEST_EQUAL(deleted, (std::vector<TerrainId>{block.m_id}), ());
+  TEST_EQUAL(registrations, 1, ());
+  TEST_EQUAL(storage.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::NotDownloaded, ());
+  TEST(blockFile.Exists(), ());
 
-    // A delayed scan cannot revive a file still held by a deregistering reader.
-    storage.OnTerrainScanned({file});
-    TEST_EQUAL(registrations, 1, (deleteAll));
-    TEST_EQUAL(storage.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::NotDownloaded, (deleteAll));
-    storage.OnTerrainFileDeregistered(file);
-    TEST(!blockFile.Exists(), ());
-    blockFile.Reset();
-    versionDir.Reset();
-    terrainDir.Reset();
+  // A delayed scan cannot revive a file still held by a deregistering reader.
+  storage.OnTerrainScanned({file});
+  TEST_EQUAL(registrations, 1, ());
+  TEST_EQUAL(storage.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::NotDownloaded, ());
+  storage.OnTerrainFileDeregistered(file);
+  TEST(!blockFile.Exists(), ());
+  blockFile.Reset();
+  versionDir.Reset();
+  terrainDir.Reset();
 
-    // Nor can a scan snapshot revive the file after its deletion completes.
-    storage.OnTerrainScanned({file});
-    TEST_EQUAL(registrations, 1, (deleteAll));
-  }
+  // Nor can a scan snapshot revive the file after its deletion completes.
+  storage.OnTerrainScanned({file});
+  TEST_EQUAL(registrations, 1, ());
 }
 
 UNIT_TEST(Storage_TerrainAttrsAllNodes)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
   Storage storage;
   ScanTerrain(storage);
   storage.SetTerrainCallbacks({}, {});
@@ -858,7 +844,7 @@ UNIT_TEST(Storage_TerrainAttrsAllNodes)
 UNIT_TEST(Storage_TerrainDelete)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
   Storage storage;
   storage.OnTerrainScanned({});
 
@@ -975,7 +961,7 @@ UNIT_TEST(Storage_TerrainParseTwmGridJson)
 UNIT_TEST(Storage_TerrainStatusPrecedence)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
   // A region with some blocks on disk: Partly; a stale block whose area still renders
   // from an older file ranks OnDiskOutOfDate above Partly (a partial-world grid update
   // reads "update available", not "partly downloaded").
@@ -1020,7 +1006,7 @@ UNIT_TEST(Storage_TerrainStatusPrecedence)
 UNIT_TEST(Storage_TerrainRefcountDelete)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   int64_t version = 0;
   std::vector<Storage::TerrainBlock> blocks;
@@ -1112,62 +1098,10 @@ UNIT_TEST(Storage_TerrainRefcountDelete)
   TEST(contains(blocks[sharedBlock].m_id), ());
 }
 
-UNIT_TEST(Storage_TerrainWithMapsSettingAndDeleteAll)
-{
-  WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
-
-  int64_t version = 0;
-  std::vector<Storage::TerrainBlock> blocks;
-  std::map<CountryId, std::vector<uint32_t>> coverage;
-  {
-    std::string content;
-    GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
-    Storage::ParseTwmGridJson(content, version, blocks, coverage);
-  }
-  // A block that is some region's whole coverage: one file on disk, simple sizes.
-  auto const it =
-      std::find_if(coverage.begin(), coverage.end(), [](auto const & entry) { return entry.second.size() == 1; });
-  TEST(it != coverage.end(), ());
-  auto const & block = blocks[it->second.front()];
-
-  tests_support::ScopedDir terrainDir(TERRAIN_DIR);
-  tests_support::ScopedDir versionDir(terrainDir, strings::to_string(block.m_version));
-  tests_support::ScopedFile blockFile(
-      base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version), block.m_id + TERRAIN_FILE_EXT), "twm-bytes");
-  tests_support::ScopedFile orphan(
-      base::JoinPath(TERRAIN_DIR, strings::to_string(block.m_version), "N00E000" TERRAIN_FILE_EXT ".ready"), "partial");
-
-  Storage storage;
-  ScanTerrain(storage);
-  TEST(storage.IsTerrainWithMaps(), ());  // The default is ON.
-  TEST_EQUAL(storage.GetTerrainOnDiskSize(), strlen("twm-bytes") + strlen("partial"), ());
-
-  std::vector<TerrainId> deleted;
-  storage.SetTerrainCallbacks({}, [&](std::vector<TerrainId> const & ids) { deleted = ids; });
-  storage.DeleteAllTerrain();
-  TEST_EQUAL(deleted, (std::vector<TerrainId>{block.m_id}), ());
-  TEST(blockFile.Exists(), ());  // A reader may still hold the deregistering file.
-  TEST(!orphan.Exists(), ());
-  storage.OnTerrainFileDeregistered(MakeTerrainFile(block, block.m_version));
-  TEST(!blockFile.Exists(), ());
-  blockFile.Reset();
-  orphan.Reset();
-  versionDir.Reset();
-  terrainDir.Reset();
-  TEST_EQUAL(storage.GetTerrainOnDiskSize(), 0, ());
-
-  // The setting turns off durably.
-  storage.SetTerrainWithMaps(false);
-  TEST(!storage.IsTerrainWithMaps(), ());
-  Storage const restarted;
-  TEST(!restarted.IsTerrainWithMaps(), ());
-}
-
 UNIT_TEST(Storage_TerrainOrphanReadySweep)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   // An interrupted download leaves the downloader artifacts behind; with no downloaded
   // map wanting the block, the startup restore sweeps them (see RestoreTerrain: the
@@ -1191,7 +1125,7 @@ UNIT_TEST(Storage_TerrainOrphanReadySweep)
 UNIT_TEST(Storage_TerrainArtifactResumeAndCancel)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   // The artifacts of an interrupted block under a downloaded map are the resume
   // record: the restore re-enqueues the region and keeps the artifacts (exercised in
@@ -1244,7 +1178,7 @@ UNIT_TEST(Storage_TerrainArtifactResumeAndCancel)
 UNIT_TEST(Storage_TerrainUpdateInfo)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   int64_t version = 0;
   std::vector<Storage::TerrainBlock> blocks;
@@ -1310,19 +1244,12 @@ UNIT_TEST(Storage_TerrainUpdateInfo)
   TEST(storage.GetUpdateInfo(storage.GetRootId(), replacingInfo), ());
   TEST_EQUAL(replacingInfo.m_totalDownloadSizeInBytes, block.m_size, ());
   TEST_EQUAL(replacingInfo.m_sizeDifference, 0, ());
-
-  // "Download terrain with maps" off: the terrain drops out of the update entirely.
-  storage.SetTerrainWithMaps(false);
-  Storage::UpdateInfo offInfo;
-  TEST(storage.GetUpdateInfo(storage.GetRootId(), offInfo), ());
-  TEST_EQUAL(offInfo.m_totalDownloadSizeInBytes, 0, ());
-  TEST_EQUAL(offInfo.m_numberOfMwmFilesToUpdate, 0, ());
 }
 
 UNIT_TEST(Storage_TerrainNodeAttrsFusion)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   int64_t version = 0;
   std::vector<Storage::TerrainBlock> blocks;
@@ -1365,14 +1292,6 @@ UNIT_TEST(Storage_TerrainNodeAttrsFusion)
   TEST_EQUAL(otherAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(otherAttrs.m_mwmSize, storage.GetCountryFile(other).GetRemoteSize() + otherCoverage, ());
 
-  // The setting off: the region reads map-only and complete again.
-  storage.SetTerrainWithMaps(false);
-  storage.GetNodeAttrs(region, attrs);
-  TEST_EQUAL(attrs.m_status, NodeStatus::OnDisk, (region));
-  TEST_EQUAL(attrs.m_mwmSize, mapSize, (region));
-  TEST_EQUAL(attrs.m_downloadingProgress.m_bytesDownloaded, attrs.m_downloadingProgress.m_bytesTotal, ());
-  storage.SetTerrainWithMaps(true);
-
   // The complete state: the on-disk terrain keeps the OnDisk status, joins the local
   // size and the progress stays full - the fused size is not only the missing bytes.
   tests_support::ScopedDir terrainDir(TERRAIN_DIR);
@@ -1395,7 +1314,7 @@ UNIT_TEST(Storage_TerrainNodeAttrsFusion)
 UNIT_TEST(Storage_TerrainNodeAttrsGroupAndInFlight)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   int64_t version = 0;
   std::vector<Storage::TerrainBlock> blocks;
@@ -1427,10 +1346,12 @@ UNIT_TEST(Storage_TerrainNodeAttrsGroupAndInFlight)
   storage.RegisterAllLocalMaps();
 
   std::set<uint32_t> groupBlocks;
+  uint64_t groupMapSize = 0;
   storage.ForEachInSubtree(group, [&](CountryId const & id, bool groupNode)
   {
     if (groupNode)
       return;
+    groupMapSize += storage.GetCountryFile(id).GetRemoteSize();
     if (auto const it = coverage.find(id); it != coverage.end())
       groupBlocks.insert(it->second.begin(), it->second.end());
   });
@@ -1441,11 +1362,7 @@ UNIT_TEST(Storage_TerrainNodeAttrsGroupAndInFlight)
   NodeAttrs attrs;
   storage.GetNodeAttrs(group, attrs);
   TEST_EQUAL(attrs.m_status, NodeStatus::Partly, ());  // Not lifted: missing leafs are not an update.
-  NodeAttrs groupBase;
-  storage.SetTerrainWithMaps(false);
-  storage.GetNodeAttrs(group, groupBase);
-  storage.SetTerrainWithMaps(true);
-  TEST_EQUAL(attrs.m_mwmSize, groupBase.m_mwmSize + groupCoverage, ());
+  TEST_EQUAL(attrs.m_mwmSize, groupMapSize + groupCoverage, ());
 
   // Queued terrain of a map-complete leaf lifts it to Downloading; the progress totals
   // the map plus the whole enqueued coverage (never started: the runner is not run).
@@ -1461,10 +1378,66 @@ UNIT_TEST(Storage_TerrainNodeAttrsGroupAndInFlight)
   TEST_EQUAL(leafAttrs.m_downloadingProgress.m_bytesDownloaded, storage.GetCountryFile(leaf).GetRemoteSize(), (leaf));
 }
 
+UNIT_TEST(Storage_DownloadNodeIncludesTerrain)
+{
+  WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
+  ScopedDownloadQueue const guardSettings;
+
+  int64_t version = 0;
+  std::vector<Storage::TerrainBlock> blocks;
+  std::map<CountryId, std::vector<uint32_t>> coverage;
+  std::string content;
+  GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+  Storage::ParseTwmGridJson(content, version, blocks, coverage);
+  auto const owner =
+      std::find_if(coverage.begin(), coverage.end(), [](auto const & entry) { return entry.second.size() == 1; });
+  TEST(owner != coverage.end(), ());
+  auto const & region = owner->first;
+  auto const & block = blocks[owner->second.front()];
+
+  for (bool const mapOnDisk : {false, true})
+  {
+    TaskRunner runner;  // Keep the requests queued.
+    Storage storage;
+    tests_support::ScopedDir mapsDir(strings::to_string(storage.GetCurrentDataVersion()));
+    std::unique_ptr<tests_support::ScopedFile> map;
+    if (mapOnDisk)
+    {
+      map = std::make_unique<tests_support::ScopedFile>(mapsDir, platform::CountryFile(region), MapFileType::Map);
+      ResizeToRemote(*map, storage, region);
+    }
+    storage.RegisterAllLocalMaps();
+    ScanTerrain(storage);
+    auto downloader = std::make_unique<FakeMapFilesDownloader>(runner);
+    auto const & queue = downloader->GetQueue();
+    storage.SetDownloaderForTesting(std::move(downloader));
+
+    auto const mapSize = storage.GetCountryFile(region).GetRemoteSize();
+    TEST_EQUAL(storage.GetDownloadSize({region}), (mapOnDisk ? 0 : mapSize) + block.m_size, (mapOnDisk));
+    storage.DownloadNode(region);
+    TEST_EQUAL(queue.Count(), mapOnDisk ? 1 : 2, (mapOnDisk));
+    TEST_EQUAL(queue.Contains(region), !mapOnDisk, (mapOnDisk));
+    TEST_EQUAL(storage.GetTerrainAttrs(region).m_status, Storage::TerrainStatus::Downloading, (mapOnDisk));
+    NodeAttrs attrs;
+    storage.GetNodeAttrs(region, attrs);
+    TEST_EQUAL(attrs.m_status, NodeStatus::Downloading, (mapOnDisk));
+    TEST_EQUAL(attrs.m_mwmSize, mapSize + block.m_size, (mapOnDisk));
+    TEST_EQUAL(storage.GetDownloadSize({region}), 0, (mapOnDisk));
+
+    // Repeating a download neither re-downloads a current map nor duplicates terrain.
+    storage.DownloadNode(region);
+    TEST_EQUAL(queue.Count(), mapOnDisk ? 1 : 2, (mapOnDisk));
+    storage.CancelDownloadNode(region);
+    TEST(queue.IsEmpty(), (mapOnDisk));
+    TEST(!storage.IsDownloadInProgress(), (mapOnDisk));
+    TEST_EQUAL(storage.GetTerrainAttrs(region).m_status, Storage::TerrainStatus::NotDownloaded, (mapOnDisk));
+  }
+}
+
 UNIT_TEST(Storage_TerrainRetry)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   int64_t version = 0;
   std::vector<Storage::TerrainBlock> blocks;
@@ -1527,7 +1500,7 @@ UNIT_TEST(Storage_TerrainRetry)
 UNIT_TEST(Storage_TerrainDeleteProtectsQueuedRegion)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
-  ScopedTerrainSettings const guardSettings;
+  ScopedDownloadQueue const guardSettings;
 
   int64_t version = 0;
   std::vector<Storage::TerrainBlock> blocks;
