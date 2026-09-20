@@ -262,7 +262,6 @@ private:
   std::map<terrain::TerrainId, terrain::TwmFile> m_localTerrainFiles;
   std::set<std::string> m_pendingTerrainFiles;
   CountriesSet m_terrainDeletesBeforeScan;
-  bool m_deleteAllTerrainBeforeScan = false;
   // Region id -> the m_twmGrid indices of the blocks intersecting the region polygon
   // (twm_grid.json "mwms"): the download/status/delete unit is the region, no client
   // geometry involved. Group nodes resolve as the union of their leafs.
@@ -297,7 +296,7 @@ private:
   // sorted deduplicated union over the subtree leafs of a group.
   std::vector<uint32_t> GetCoveringBlocks(CountryId const & countryId) const;
 
-  // The terrain contribution to the region attrs (all zeros when the setting is off):
+  // The terrain contribution to the region attrs:
   // the full coverage bytes join the region size, the in-flight blocks its download
   // progress and the missing ones flip a map-complete region to OnDiskOutOfDate.
   struct TerrainFusion
@@ -357,22 +356,20 @@ private:
   // Upgrades a map-complete status by the terrain fusion, ranked like the MWM group
   // aggregation: Downloading above Error above OnDiskOutOfDate.
   StatusAndError GetEffectiveStatus(StatusAndError const & mapStatus, TerrainFusion const & terrain) const;
-  TerrainBlock * FindTerrainBlock(terrain::TerrainId const & id);
+  TerrainBlock const * FindTerrainBlock(terrain::TerrainId const & id) const;
   std::string GetTerrainDir(int64_t version) const;
   // The downloader's target path of the block (see QueuedCountry::GetFileDownloadPath).
   std::string GetTerrainReadyPath(TerrainBlock const & block) const;
   void OnTerrainBlockProgress(std::string const & name, downloader::Progress const & progress);
   void OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, downloader::DownloadStatus status);
   void NotifyTerrainRegions(std::string const & name);
-  // The downloaded regions the failed blocks' interest points at (setting on): derived
+  // The downloaded regions the failed blocks' interest points at: derived
   // from the live state at both the retry arming and the retry firing, so a cancel or
   // a delete in between (both empty the interest) mutes the retry.
   CountriesSet GetFailedTerrainRegions(bool retryableOnly) const;
   // The failed blocks auto-retry like the failed maps (DownloadingPolicy::ScheduleRetry)
   // for the downloaded regions still interested in them.
   void ScheduleTerrainRetry();
-  // Removes every terrain item from the downloader queue and forgets the batch state.
-  void DropTerrainDownloads();
 
   // This function is called each time all files for a
   // country are deleted.
@@ -447,25 +444,6 @@ public:
 
   // The provider executes registration and ID-based deregistration; storage owns file policy.
   void SetTerrainCallbacks(TerrainRegisterFn registerFn, TerrainDeleteFn deleteFn);
-
-  /// True when the bundle ships a terrain grid: the setting UI hides otherwise.
-  bool IsTerrainAvailable() const { return !m_terrainCoverage.empty(); }
-
-  /// The "Download terrain with maps" setting (default ON): the terrain of a region
-  /// downloads, updates and deletes together with its maps, sized into the region
-  /// attrs - there is no separate terrain unit in the UI. Turning it off stops every
-  /// terrain download; the files stay (and keep rendering) until DeleteAllTerrain.
-  bool IsTerrainWithMaps() const;
-  void SetTerrainWithMaps(bool enabled);
-
-  /// The bytes under <writable>/terrain/ (all the versions and the partial downloader
-  /// artifacts): the "also delete the downloaded terrain data?" dialog size.
-  uint64_t GetTerrainOnDiskSize() const;
-
-  /// Cancels every terrain download and removes the whole <writable>/terrain/ tree
-  /// (the registered blocks through the delete hook - the rendered tiles invalidate -
-  /// and the leftovers directly).
-  void DeleteAllTerrain();
 
   /// Enqueues the terrain blocks covering the country polygon (twm_grid.json "mwms")
   /// into the shared downloader queue; the blocks on disk or in flight are skipped. The

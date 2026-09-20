@@ -71,7 +71,7 @@ public:
   StorageHttpTest() : m_version(std::to_string(m_storage.GetCurrentDataVersion())), m_cleanupVersionDir(m_version) {}
 
 protected:
-  Storage m_storage;
+  Storage m_storage{ReadCountriesJson(), GetDownloader()};
   string const m_version;
   tests_support::ScopedDir const m_cleanupVersionDir;
 };
