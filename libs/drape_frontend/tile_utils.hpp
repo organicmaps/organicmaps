@@ -33,6 +33,10 @@ struct CoverageResult
 CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
                                  std::function<void(int, int)> const & processTile);
 
+// Returns extended tile keys inside clipRect intersecting any world copy of rect.
+// clipRect includes the viewport's off-screen tile margin.
+TTilesCollection CalcTilesToInvalidate(m2::RectD const & rect, m2::RectD const & clipRect, int zoom);
+
 // This function checks if tileKey1 and tileKey2 are neighbours
 bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2);
 
