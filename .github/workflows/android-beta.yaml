@@ -18,7 +18,6 @@ on:
       - data/strings/**
       - docs/**
       - generator/**
-      - packaging/**
       - platform/*apple*
       - platform/*_ios*
       - platform/*_linux*
