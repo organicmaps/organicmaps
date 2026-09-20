@@ -1244,21 +1244,6 @@ void Framework::SetTerrainLight(double azimuthDeg, double altitudeDeg, double sh
     m_drapeEngine->SetTerrainLight(azimuthDeg, altitudeDeg, shadowGamma);
 }
 
-bool Framework::DownloadTerrainForViewport()
-{
-  auto & storage = GetStorage();
-  bool any = false;
-  for (auto const & id : GetCountryInfoGetter().GetRegionsCountryIdByRect(GetCurrentViewport(), false /* rough */))
-  {
-    if (storage.IsNodeDownloaded(id))
-    {
-      storage.DownloadTerrain(id);
-      any = true;
-    }
-  }
-  return any;
-}
-
 void Framework::SetVisibleViewport(m2::RectD const & rect)
 {
   if (m_drapeEngine == nullptr)

@@ -60,7 +60,7 @@ void InitStorage(Storage & storage, Storage::ProgressFunction const & onProgress
 
 UNIT_CLASS_TEST(StorageTest, SmallMwms_ReDownloadExistedMWMIgnored_Test)
 {
-  Storage storage;
+  Storage storage(ReadCountriesJson(), GetDownloader());
 
   InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
   TEST(!storage.IsDownloadInProgress(), ());
@@ -78,7 +78,7 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_InterruptDownloadResumeDownload_Test)
 {
   // Start download but interrupt it
   {
-    Storage storage;
+    Storage storage(ReadCountriesJson(), GetDownloader());
 
     auto const onProgressFn = [](CountryId const & countryId, downloader::Progress const & /* progress */)
     {
@@ -103,7 +103,7 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_InterruptDownloadResumeDownload_Test)
 
   // Continue download
   {
-    Storage storage;
+    Storage storage(ReadCountriesJson(), GetDownloader());
 
     bool onProgressIsCalled = false;
     NodeAttrs onProgressAttrs;
@@ -165,7 +165,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
   {
     SCOPE_GUARD(deleteTestFileGuard, deleteMapFiles);
 
-    Storage storage(COUNTRIES_FILE);
+    Storage storage(ReadCountriesJson(), GetDownloader());
 
     InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
     TEST(!storage.IsDownloadInProgress(), ());
@@ -189,7 +189,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
     {
       SCOPE_GUARD(deleteTestFileGuard, deleteMapFiles);
 
-      Storage storage(COUNTRIES_FILE);
+      Storage storage(ReadCountriesJson(), GetDownloader());
 
       auto onProgressFn = [i, j](CountryId const & countryId, downloader::Progress const & progress)
       {
@@ -219,7 +219,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
       // and DownloadNode silently no-ops on the up-to-date map, hanging the event loop wait.
       SCOPE_GUARD(deleteTestFileGuard, deleteMapFiles);
 
-      Storage storage(COUNTRIES_FILE);
+      Storage storage(ReadCountriesJson(), GetDownloader());
 
       InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
       // Resumes from the partial download left by the interruption rounds (the downloader picks up

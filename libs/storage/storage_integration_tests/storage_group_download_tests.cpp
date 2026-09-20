@@ -230,7 +230,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
 
 void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 {
-  Storage storage;
+  Storage storage(ReadCountriesJson(), GetDownloader());
   string const version = std::to_string(storage.GetCurrentDataVersion());
 
   auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile)

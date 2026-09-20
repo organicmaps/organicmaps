@@ -34,7 +34,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadingTests_CalcOverallProgress)
   // A bunch of small islands.
   CountriesVec const kTestCountries = {"Kiribati", "Tokelau", "Niue", "Palau", "Pitcairn Islands"};
 
-  Storage s;
+  Storage s(ReadCountriesJson(), GetDownloader());
 
   s.SetDownloadingServersForTesting({storage::kTestWebServer});
   auto baseProgress = s.GetOverallProgress(kTestCountries);
