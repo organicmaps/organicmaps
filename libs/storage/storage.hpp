@@ -165,14 +165,8 @@ public:
   using StartDownloadingCallback = std::function<void()>;
   using UpdateCallback = std::function<void(storage::CountryId const &, LocalFilePtr const)>;
   using DeleteCallback = std::function<bool(storage::CountryId const &, LocalFilePtr const)>;
-  // The landed block file and its grid rect; the receiver registers the block and
-  // replaces the outdated coverage (TerrainProvider::OnBlockDownloaded).
-  using TerrainDownloadedFn = std::function<void(std::string const & path, m2::RectD const &)>;
-  // True when terrain older than the version covers the mercator rect
-  // (TerrainProvider::HasOlderTerrain): the OnDiskOutOfDate status source.
-  using TerrainHasOlderFn = std::function<bool(m2::RectD const &, int64_t version)>;
-  // Deletes the terrain blocks intersecting the rects (TerrainProvider::DeleteBlocks).
-  using TerrainDeleteFn = std::function<void(std::vector<m2::RectD> const &)>;
+  using TerrainRegisterFn = std::function<bool(terrain::TwmFile const &)>;
+  using TerrainDeleteFn = std::function<void(std::vector<terrain::TerrainId> const &)>;
   using ChangeCountryFunction = std::function<void(CountryId const &)>;
   using ProgressFunction = std::function<void(CountryId const &, downloader::Progress const &)>;
   using DownloadingCountries = std::unordered_map<CountryId, downloader::Progress>;
@@ -238,39 +232,37 @@ private:
 
 public:
   // The terrain blocks grid (data/twm_grid.json; empty when the bundle has none) with
-  // the countries.json-style size and integrity hash per block, and the
-  // Framework-injected terrain hooks.
+  // the countries.json-style size and integrity hash per block.
   // Public with ParseTwmGridJson for the tests only.
   struct TerrainBlock
   {
-    terrain::GridBlock m_block;
-    // Precomputed at the parse time: GetTerrainAttrs runs per downloader row on the
-    // GUI thread, no per-call name formatting or lat/lon conversions there.
-    std::string m_name;  // The block name without the extension, the download id.
-    m2::RectD m_rect;    // m_block.GetRectMercator().
+    terrain::TerrainId m_id;
+    m2::RectD m_rect;
     uint64_t m_size = 0;
     std::string m_hash;
     // The version of the last snapshot that changed the block bytes: names the download
     // URL and the client folder terrain/<version>/, so a grid update touches only the
     // re-generated blocks and the unchanged files simply stay current in their folders.
     int64_t m_version = 0;
-    // The current-version file presence: seeded by the provider scan (OnTerrainScanned)
-    // and maintained incrementally by the downloads and the deletes.
-    bool m_onDisk = false;
   };
 
   // Throws RootException on any inconsistency leaving the out params untouched.
   static void ParseTwmGridJson(std::string const & jsonBuffer, int64_t & version, std::vector<TerrainBlock> & blocks,
                                std::map<CountryId, std::vector<uint32_t>> & coverage);
 
-  // The on-disk truth from TerrainProvider::Rescan (the async RegisterAllMaps flow):
-  // every registered file - a file the provider condemned or deleted does not count.
-  // Until this lands the terrain is unknown: the attrs carry no terrain component and
-  // nothing terrain downloads or resumes.
+  // Reads local headers off the GUI thread; storage selects and registers them on publication.
+  static std::vector<terrain::TwmFile> ScanTerrainFiles();
   void OnTerrainScanned(std::vector<terrain::TwmFile> const & scanned);
+  bool IsTerrainScanned() const { return m_terrainScanned; }
+  // Called on the GUI thread once the last reader releases this exact file version.
+  void OnTerrainFileDeregistered(terrain::TwmFile const & file);
 
 private:
   std::vector<TerrainBlock> m_twmGrid;
+  std::map<terrain::TerrainId, terrain::TwmFile> m_localTerrainFiles;
+  std::set<std::string> m_pendingTerrainFiles;
+  CountriesSet m_terrainDeletesBeforeScan;
+  bool m_deleteAllTerrainBeforeScan = false;
   // Region id -> the m_twmGrid indices of the blocks intersecting the region polygon
   // (twm_grid.json "mwms"): the download/status/delete unit is the region, no client
   // geometry involved. Group nodes resolve as the union of their leafs.
@@ -294,8 +286,11 @@ private:
   // whose interrupted downloads left artifacts behind - the disk is the only record,
   // there is no settings snapshot of the terrain intent (the maps are the intent).
   void RestoreTerrain();
-  TerrainDownloadedFn m_terrainDownloadedFn;
-  TerrainHasOlderFn m_terrainHasOlderFn;
+  bool IsTerrainOnDisk(TerrainBlock const & block) const;
+  bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const;
+  bool RegisterTerrainFile(terrain::TwmFile const & file);
+  void DeleteTerrainFiles(std::vector<terrain::TerrainId> const & ids);
+  TerrainRegisterFn m_terrainRegisterFn;
   TerrainDeleteFn m_terrainDeleteFn;
 
   // The m_twmGrid indices covering the countryId: the coverage list of a leaf or the
@@ -344,7 +339,7 @@ private:
   // All GUI-thread-only: the in-flight blocks, the failures of the last batch and the
   // regions interested in each block (for the observer notifications).
   TerrainQueueSubscriber m_terrainSubscriber{*this};
-  std::map<std::string, TerrainBlockState> m_terrainQueue;
+  std::map<terrain::TerrainId, TerrainBlockState> m_terrainQueue;
   // Like the failed maps carry their NodeErrorCode: only the transport failures are
   // retryable, a 404 or a hash mismatch would re-download a big block to the same end.
   struct TerrainFailure
@@ -352,8 +347,8 @@ private:
     NodeErrorCode m_error = NodeErrorCode::UnknownError;
     bool m_retryable = false;
   };
-  std::map<std::string, TerrainFailure> m_terrainFailures;
-  std::map<std::string, std::set<CountryId>> m_terrainBlockRegions;
+  std::map<terrain::TerrainId, TerrainFailure> m_terrainFailures;
+  std::map<terrain::TerrainId, std::set<CountryId>> m_terrainBlockRegions;
 
   // The blocks some region outside |excluded| still wants: the downloaded regions and
   // the regions whose maps are queued (their own DownloadTerrain skipped the blocks
@@ -362,7 +357,7 @@ private:
   // Upgrades a map-complete status by the terrain fusion, ranked like the MWM group
   // aggregation: Downloading above Error above OnDiskOutOfDate.
   StatusAndError GetEffectiveStatus(StatusAndError const & mapStatus, TerrainFusion const & terrain) const;
-  TerrainBlock * FindTerrainBlock(std::string const & name);
+  TerrainBlock * FindTerrainBlock(terrain::TerrainId const & id);
   std::string GetTerrainDir(int64_t version) const;
   // The downloader's target path of the block (see QueuedCountry::GetFileDownloadPath).
   std::string GetTerrainReadyPath(TerrainBlock const & block) const;
@@ -450,9 +445,8 @@ public:
 
   void Init(UpdateCallback didDownload, DeleteCallback willDelete);
 
-  /// Terrain (.twm) downloading: the TerrainProvider hooks injected by the Framework
-  /// ("block landed" registration, the older-coverage probe, the blocks deletion).
-  void SetTerrainCallbacks(TerrainDownloadedFn onDownloaded, TerrainHasOlderFn hasOlder, TerrainDeleteFn deleteFn = {});
+  // The provider executes registration and ID-based deregistration; storage owns file policy.
+  void SetTerrainCallbacks(TerrainRegisterFn registerFn, TerrainDeleteFn deleteFn);
 
   /// True when the bundle ships a terrain grid: the setting UI hides otherwise.
   bool IsTerrainAvailable() const { return !m_terrainCoverage.empty(); }
@@ -490,9 +484,8 @@ public:
   /// cancel drops both the maps and the terrain; this one drops the terrain only.
   void CancelTerrain(CountryId const & countryId);
 
-  /// Deletes the downloaded terrain covering the country polygon (every intersecting
-  /// file of every version, mirroring the intersection-driven replacement; the blocks
-  /// shared with the neighbor regions disappear for them too - see DeleteBlocksImpl).
+  /// Deletes terrain covering the region, across all versions, except blocks still
+  /// needed by other downloaded or queued maps.
   void DeleteTerrain(CountryId const & countryId);
 
   enum class TerrainStatus : uint8_t

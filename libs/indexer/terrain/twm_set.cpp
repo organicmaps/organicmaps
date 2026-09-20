@@ -2,12 +2,8 @@
 
 #include "indexer/terrain/terrain_serdes.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
-
-#include <algorithm>
 
 namespace terrain
 {
@@ -18,58 +14,52 @@ std::string DebugPrint(TwmId const & id)
   return "TwmId [invalid]";
 }
 
-std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(std::string const & filePath, int64_t version /* = 0 */)
+std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(TwmFile const & file)
 {
+  ASSERT(!file.m_id.empty(), ());
+  ASSERT(file.m_rect.IsValid(), (file.m_rect));
   std::pair<TwmId, RegResult> result;
   WithEventLog([&](EventList & events)
   {
-    if (m_condemned.count(filePath) > 0)
+    if (m_condemned.count(file.m_path) > 0)
     {
       result = {TwmId(), RegResult::Condemned};
       return;
     }
 
-    if (TwmId const id = GetIdByKeyImpl(filePath); id.IsAlive())
+    TwmId const existing = GetIdByKeyImpl(file.m_id);
+    bool const sameFile = existing.IsAlive() && existing.GetInfo()->GetFilePath() == file.m_path &&
+                          existing.GetInfo()->GetVersion() == file.m_version;
+    if (existing.IsAlive() && existing.GetInfo()->IsRegistered())
     {
-      // Resurrect the marked file (cf. the MwmSet same-version re-registration).
-      SetStatus(*id.GetInfo(), TwmInfo::STATUS_REGISTERED, events);
-      result = {id, RegResult::AlreadyRegistered};
+      result = sameFile ? std::make_pair(existing, RegResult::AlreadyRegistered)
+                        : std::make_pair(TwmId(), RegResult::Overlapping);
       return;
     }
 
-    TwmHeader header;
-    if (!ReadHeader(filePath, header))
-    {
-      // An old format file identifies itself by the version byte: report it for the
-      // deletion (see TerrainProvider::Rescan) instead of condemning it as corrupt.
-      if (header.m_version < kTwmVersion)
-      {
-        result = {TwmId(), RegResult::ObsoleteVersion};
-        return;
-      }
-      LOG(LWARNING, ("Condemning the unreadable terrain file", filePath));
-      m_condemned.insert(filePath);
-      result = {TwmId(), RegResult::BadFile};
-      return;
-    }
-    m2::RectD const limitRect = header.GetLimitRect();
-
-    // The tracer merges the triangles of all the blocks of a query: an overlap doubles
-    // the shared triangles and fails the trace (the duplicate directed edge check).
-    for (auto const & [path, infos] : m_registry)
+    // The tracer cannot merge overlapping registered blocks. Marked old blocks only
+    // serve outstanding readers and must not prevent their replacements.
+    for (auto const & [terrainId, infos] : m_registry)
     {
       if (infos.empty())
         continue;
       auto const & info = infos.back();
-      if (TwmId(info).IsAlive() && IsInteriorOverlap(limitRect, info->GetLimitRect()))
+      if (info->IsRegistered() && IsInteriorOverlap(file.m_rect, info->GetLimitRect()))
       {
-        LOG(LWARNING, ("The terrain file", filePath, "overlaps the registered", path));
+        LOG(LWARNING, ("The terrain file", file.m_path, "overlaps the registered", info->GetFilePath()));
         result = {TwmId(), RegResult::Overlapping};
         return;
       }
     }
 
-    auto const info = std::make_shared<TwmInfo>(filePath, limitRect, version);
+    if (sameFile)
+    {
+      SetStatus(*existing.GetInfo(), TwmInfo::STATUS_REGISTERED, events);
+      result = {existing, RegResult::AlreadyRegistered};
+      return;
+    }
+
+    auto const info = std::make_shared<TwmInfo>(file);
     SetStatus(*info, TwmInfo::STATUS_REGISTERED, events);
     AddToRegistryImpl(info);
     result = {TwmId(info), RegResult::Success};
@@ -93,21 +83,39 @@ bool TwmSet::ReadHeader(std::string const & filePath, TwmHeader & header)
   return true;
 }
 
-bool TwmSet::ReadLimitRect(std::string const & filePath, m2::RectD & limitRect)
+TwmSet::RegResult TwmSet::ReadFile(std::string const & filePath, int64_t version, TwmFile & file)
 {
   TwmHeader header;
   if (!ReadHeader(filePath, header))
-    return false;
-  limitRect = header.GetLimitRect();
-  return true;
+    return header.m_version < kTwmVersion ? RegResult::ObsoleteVersion : RegResult::BadFile;
+  file = {base::FilenameWithoutExt(base::FileNameFromFullPath(filePath)), version, filePath, header.GetLimitRect()};
+  return RegResult::Success;
 }
 
-bool TwmSet::Deregister(std::string const & filePath)
+TwmId TwmSet::GetId(TerrainId const & terrainId) const
+{
+  std::lock_guard<std::mutex> lock(m_lock);
+  return GetIdByKeyImpl(terrainId);
+}
+
+bool TwmSet::IsFileAlive(TwmFile const & file) const
+{
+  std::lock_guard<std::mutex> lock(m_lock);
+  auto const it = m_registry.find(file.m_id);
+  if (it == m_registry.end())
+    return false;
+  for (auto const & info : it->second)
+    if (TwmId(info).IsAlive() && info->GetFilePath() == file.m_path && info->GetVersion() == file.m_version)
+      return true;
+  return false;
+}
+
+bool TwmSet::Deregister(TerrainId const & terrainId)
 {
   bool deregistered = false;
   WithEventLog([&](EventList & events)
   {
-    TwmId const id = GetIdByKeyImpl(filePath);
+    TwmId const id = GetIdByKeyImpl(terrainId);
     if (id.IsNull())
       return;
     deregistered = DeregisterImpl(id, events);
@@ -137,7 +145,7 @@ void TwmSet::ForEachBlockByRectImpl(m2::RectD const & rect, Fn && fn) const
   // TileKey::GetWrappedDataRect) intersects exactly the blocks of its canonical part -
   // no explicit clipping or splitting is needed here.
   ASSERT(rect.IsValid(), (rect));
-  for (auto const & [path, infos] : m_registry)
+  for (auto const & [terrainId, infos] : m_registry)
     if (!infos.empty() && infos.back()->IsRegistered() && rect.IsIntersect(infos.back()->GetLimitRect()))
       fn(infos.back());
 }
@@ -152,17 +160,6 @@ bool TwmSet::HasBlocks(m2::RectD const & rect) const
 {
   bool found = false;
   ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const &) { found = true; });
-  return found;
-}
-
-bool TwmSet::HasOlderBlocks(m2::RectD const & rect, int64_t version) const
-{
-  bool found = false;
-  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info)
-  {
-    if (info->GetVersion() < version)
-      found = true;
-  });
   return found;
 }
 
@@ -205,9 +202,9 @@ void TwmSet::SetStatus(TwmInfo & info, TwmInfo::Status status, EventList & event
 
   switch (status)
   {
-  case TwmInfo::STATUS_REGISTERED: events.Add(Event(Event::TYPE_REGISTERED, info.GetFilePath())); break;
+  case TwmInfo::STATUS_REGISTERED: events.Add(Event(Event::TYPE_REGISTERED, info.GetFile())); break;
   case TwmInfo::STATUS_MARKED_TO_DEREGISTER: break;
-  case TwmInfo::STATUS_DEREGISTERED: events.Add(Event(Event::TYPE_DEREGISTERED, info.GetFilePath())); break;
+  case TwmInfo::STATUS_DEREGISTERED: events.Add(Event(Event::TYPE_DEREGISTERED, info.GetFile())); break;
   }
 }
 
@@ -217,8 +214,8 @@ void TwmSet::ProcessEvents(EventList & events)
   {
     switch (event.m_type)
     {
-    case Event::TYPE_REGISTERED: m_observers.ForEach(&Observer::OnTerrainRegistered, event.m_filePath); break;
-    case Event::TYPE_DEREGISTERED: m_observers.ForEach(&Observer::OnTerrainDeregistered, event.m_filePath); break;
+    case Event::TYPE_REGISTERED: m_observers.ForEach(&Observer::OnTerrainRegistered, event.m_file); break;
+    case Event::TYPE_DEREGISTERED: m_observers.ForEach(&Observer::OnTerrainDeregistered, event.m_file); break;
     }
   }
 }

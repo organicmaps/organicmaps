@@ -1,8 +1,11 @@
 #include "indexer/terrain/twm_grid.hpp"
 
 #include "indexer/terrain/terrain_utils.hpp"
+#include "indexer/terrain/tile_mesh.hpp"
 
 #include "platform/platform.hpp"
+
+#include "coding/point_coding.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -11,15 +14,16 @@
 
 namespace terrain
 {
-std::vector<TwmFile> ListVersionDirs(std::string const & terrainDir)
+std::vector<VersionDir> ListVersionDirs(std::string const & terrainDir)
 {
-  std::vector<TwmFile> dirs;
+  std::vector<VersionDir> dirs;
   Platform::TFilesWithType subdirs;
   Platform::GetFilesByType(terrainDir, Platform::EFileType::Directory, subdirs);
   for (auto const & [name, type] : subdirs)
     if (uint64_t version; strings::to_uint64(name, version))
       dirs.push_back({base::JoinPath(terrainDir, name), static_cast<int64_t>(version)});
-  std::sort(dirs.begin(), dirs.end(), [](TwmFile const & a, TwmFile const & b) { return a.m_version > b.m_version; });
+  std::sort(dirs.begin(), dirs.end(),
+            [](VersionDir const & a, VersionDir const & b) { return a.m_version > b.m_version; });
   dirs.push_back({terrainDir, 0});
   return dirs;
 }
@@ -31,7 +35,11 @@ std::string GridBlock::GetFileName() const
 
 m2::RectD GridBlock::GetRectMercator() const
 {
-  return {mercator::FromLatLon(m_bottom, m_left), mercator::FromLatLon(m_bottom + m_height, m_left + m_width)};
+  // Match the TWM header exactly: unquantized borders can overlap adjacent blocks.
+  auto const quantize = [](m2::PointD const & p)
+  { return PointUToPointD(PointDToPointU(p, kTerrainCoordBits), kTerrainCoordBits); };
+  return {quantize(mercator::FromLatLon(m_bottom, m_left)),
+          quantize(mercator::FromLatLon(m_bottom + m_height, m_left + m_width))};
 }
 
 bool ParseBlockName(std::string_view name, int & bottom, int & left)
