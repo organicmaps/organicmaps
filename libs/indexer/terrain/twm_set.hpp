@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/terrain/terrain_reader.hpp"
+#include "indexer/terrain/twm_grid.hpp"
 #include "indexer/value_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -26,26 +27,19 @@ inline bool IsInteriorOverlap(m2::RectD const & lhs, m2::RectD const & rhs)
 class TwmInfo : public ds::SetInfoBase
 {
 public:
-  TwmInfo(std::string const & filePath, m2::RectD const & limitRect, int64_t version)
-    : m_filePath(filePath)
-    , m_limitRect(limitRect)
-    , m_version(version)
-  {}
+  explicit TwmInfo(TwmFile const & file) : m_file(file) {}
 
-  std::string const & GetFilePath() const { return m_filePath; }
-  /// The block coverage in mercator, from the TWM header.
-  m2::RectD const & GetLimitRect() const { return m_limitRect; }
-  /// The data version of the block (the client version folder name, 0 for the legacy
-  /// flat files), cf. MwmInfo::GetVersion.
-  int64_t GetVersion() const { return m_version; }
+  TwmFile const & GetFile() const { return m_file; }
+  TerrainId const & GetTerrainId() const { return m_file.m_id; }
+  std::string const & GetFilePath() const { return m_file.m_path; }
+  m2::RectD const & GetLimitRect() const { return m_file.m_rect; }
+  int64_t GetVersion() const { return m_file.m_version; }
 
 protected:
   using ds::SetInfoBase::SetStatus;
   friend class TwmSet;
 
-  std::string m_filePath;
-  m2::RectD m_limitRect;
-  int64_t m_version = 0;
+  TwmFile m_file;
 };
 
 class TwmId : public ds::SetId<TwmInfo>
@@ -66,10 +60,10 @@ struct TwmSetEvent
   };
 
   TwmSetEvent() = default;
-  TwmSetEvent(Type type, std::string const & filePath) : m_type(type), m_filePath(filePath) {}
+  TwmSetEvent(Type type, TwmFile const & file) : m_type(type), m_file(file) {}
 
   Type m_type;
-  std::string m_filePath;
+  TwmFile m_file;
 };
 
 class TwmSetEventList
@@ -100,10 +94,8 @@ private:
 };
 
 /// The registry of the terrain blocks: the MwmSet counterpart for the .twm files.
-/// Blocks are keyed by the file path and queried by their header limit rects,
-/// so the client does not depend on the block grid layout at all
-/// (mixed sizes and the future non-regular split both work). Corrupt files are
-/// condemned permanently: neither a re-register nor a rescan resurrects them.
+/// Blocks are keyed by TerrainId; marked old versions may coexist with their replacements.
+/// Corrupt files are condemned by physical path until Clear().
 class TwmSet : public ds::ValueSetBase<TwmId, TwmValue, TwmSetEventList>
 {
   using BaseT = ds::ValueSetBase<TwmId, TwmValue, TwmSetEventList>;
@@ -118,10 +110,10 @@ public:
   enum class RegResult
   {
     Success,
-    AlreadyRegistered,  ///< The same path is registered (a marked file is resurrected).
+    AlreadyRegistered,  ///< The same file is registered (a marked file is resurrected).
     Overlapping,        ///< The block rect overlaps a registered one (see the tracer).
     Condemned,          ///< The file was dropped as corrupt earlier.
-    BadFile,            ///< The header is unreadable; the file gets condemned.
+    BadFile,            ///< The header is unreadable.
     ObsoleteVersion,    ///< An old format no build reads anymore; the caller deletes the
                         ///< file (not condemned, so a failed deletion retries next time).
   };
@@ -133,26 +125,22 @@ public:
   public:
     virtual ~Observer() = default;
 
-    virtual void OnTerrainRegistered(std::string const & /* filePath */) {}
-    virtual void OnTerrainDeregistered(std::string const & /* filePath */) {}
+    virtual void OnTerrainRegistered(TwmFile const & /* file */) {}
+    virtual void OnTerrainDeregistered(TwmFile const & /* file */) {}
   };
 
-  /// version is the block data version (the client version folder), see TwmInfo::GetVersion.
-  /// Register the newer versions first: an older block overlapping an already registered
-  /// newer one is rejected as Overlapping, which IS the multi-version policy (newest wins,
-  /// older non-overlapping blocks keep rendering).
-  std::pair<TwmId, RegResult> Register(std::string const & filePath, int64_t version = 0);
+  /// Registers a descriptor validated by ReadFile. Storage selects versions and replacements.
+  std::pair<TwmId, RegResult> Register(TwmFile const & file);
 
-  /// Reads the block coverage from the .twm header; false on an unreadable file.
-  static bool ReadLimitRect(std::string const & filePath, m2::RectD & limitRect);
+  /// Reads the file identity and header coverage without changing the registry.
+  static RegResult ReadFile(std::string const & filePath, int64_t version, TwmFile & file);
 
-  /// True when a registered block older than the version intersects the mercator rect
-  /// (the out-of-date terrain status source, cf. Storage::GetTerrainAttrs).
-  bool HasOlderBlocks(m2::RectD const & rect, int64_t version) const;
+  TwmId GetId(TerrainId const & terrainId) const;
+  /// Includes older marked registrations still held by readers.
+  bool IsFileAlive(TwmFile const & file) const;
 
-  /// @return true if the file was deregistered right away; a file locked by outstanding
-  /// handles is deregistered by the last unlock (the delayed deregistration).
-  bool Deregister(std::string const & filePath);
+  /// @return true if deregistered immediately; active handles defer it until their last unlock.
+  bool Deregister(TerrainId const & terrainId);
 
   /// Condemns the blocks detected corrupt too late (e.g. at the trace time): deregisters
   /// them (delayed for the locked ones) and never registers the same paths again.
@@ -176,7 +164,7 @@ public:
 protected:
   /// @name ds::ValueSetBase overrides.
   //@{
-  std::string const & GetRegistryKey(TwmInfo const & info) const override { return info.GetFilePath(); }
+  std::string const & GetRegistryKey(TwmInfo const & info) const override { return info.GetTerrainId(); }
   std::unique_ptr<TwmValue> CreateValue(TwmInfo & info) const override;
   void SetStatus(TwmInfo & info, TwmInfo::Status status, EventList & events) override;
   void ProcessEvents(EventList & events) override;

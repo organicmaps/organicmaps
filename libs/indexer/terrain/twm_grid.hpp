@@ -12,6 +12,8 @@
 
 namespace terrain
 {
+using TerrainId = std::string;
+
 // One block of the dynamic (non-regular) TWM blocks grid: an integer-degrees rect named
 // by its bottom-left corner (the .twm file name key).
 struct GridBlock
@@ -23,24 +25,27 @@ struct GridBlock
 
   // The block .twm file name, e.g. "N35E070.twm" (see GetBlockFileName).
   std::string GetFileName() const;
+  // Quantized like the bounds stored in the TWM header.
   m2::RectD GetRectMercator() const;
 };
 
-// One .twm file on disk: the block name and the version folder that holds it
-// (terrain/<version>/<name>.twm, the flat legacy files as the version 0). The on-disk
-// truth the provider scan reports to the storage, see TerrainProvider::Rescan and
-// Storage::OnTerrainScanned.
+// One installed terrain file. The header rectangle can differ from the current grid.
 struct TwmFile
 {
-  std::string m_name;
+  TerrainId m_id;
+  int64_t m_version = 0;
+  std::string m_path;
+  m2::RectD m_rect;
+};
+
+struct VersionDir
+{
+  std::string m_path;
   int64_t m_version = 0;
 };
 
-// The version folders of the terrain dir as TwmFiles (m_name is the folder PATH here):
-// the numeric-named folders newest first, plus the flat legacy root as the version 0
-// last - the registration order for "the newest data wins" (see TerrainProvider::Rescan)
-// and the folder set of the artifact sweeps (see Storage::RestoreTerrain).
-std::vector<TwmFile> ListVersionDirs(std::string const & terrainDir);
+// Numeric version folders, newest first, followed by the flat legacy root as version 0.
+std::vector<VersionDir> ListVersionDirs(std::string const & terrainDir);
 
 // Parses the block name (the SW corner, e.g. "N40E045") into bottom/left degrees.
 bool ParseBlockName(std::string_view name, int & bottom, int & left);

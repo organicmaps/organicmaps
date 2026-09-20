@@ -6,54 +6,36 @@
 
 #include "geometry/rect2d.hpp"
 
-#include <atomic>
 #include <functional>
-#include <string>
+#include <vector>
 
 namespace terrain
 {
-// The provider of the dynamic isolines over the downloaded .twm terrain files:
-// scans the directory into the TwmSet registry and serves the queries from the drape tile reading threads.
-// The set hands the opened readers off exclusively (concurrent queries get own values), so the FileReader caches need
-// no sharing; blocks detected corrupt are condemned and never retried.
-class TerrainProvider
+// Serves terrain meshes from the registry. Storage owns download, replacement and deletion decisions.
+class TerrainProvider : private TwmSet::Observer
 {
 public:
-  // dir is the directory with the .twm files.
-  explicit TerrainProvider(std::string const & dir) : m_dir(dir) {}
+  TerrainProvider();
+  ~TerrainProvider() override;
 
-  // Rescans the directory: registers the files of every version folder (newest first, so
-  // the TwmSet overlap rejection implements "the newest data wins, the older
-  // non-overlapping blocks keep rendering"), plus the flat legacy files as the version 0.
-  void Rescan();
+  using TerrainDeregisteredCallback = std::function<void(TwmFile const &)>;
+  void SetOnTerrainDeregisteredCallback(TerrainDeregisteredCallback const & callback)
+  {
+    m_onTerrainDeregistered = callback;
+  }
+
   void Clear();
-
-  // The currently registered files - the on-disk truth for Storage::OnTerrainScanned.
-  // Queried at the publish time, not snapshotted at the scan time: a block deleted (or
-  // condemned) since the scan has left the registry and must not report.
   std::vector<TwmFile> GetRegisteredFiles() const;
+  bool IsFileInUse(TwmFile const & file) const { return m_set.IsFileAlive(file); }
 
-  // False until the first Rescan: the registry emptiness means nothing yet.
-  bool IsScanned() const { return m_scanned; }
-
-  // The downloaded block landed (see Storage terrain downloading): registers it and
-  // deletes the registered OLDER blocks it intersects, even partially - the newer
-  // coverage replaces them (the deregistration is delayed past the running queries).
-  // Extends invalidRect over the deleted blocks, so the caller invalidates all the
-  // affected tiles at once.
-  void OnBlockDownloaded(std::string const & path, m2::RectD & invalidRect);
-
-  // Deletes every registered block intersecting any of the rects, all the versions:
-  // the region terrain delete from the downloader UI. Extends invalidRect the same way.
-  void DeleteBlocks(std::vector<m2::RectD> const & rects, m2::RectD & invalidRect);
+  // Extend invalidRect over the affected registered files.
+  bool RegisterBlock(TwmFile const & file, m2::RectD & invalidRect);
+  void DeleteBlocks(std::vector<TerrainId> const & ids, m2::RectD & invalidRect);
 
   // Returns true if any registered terrain block intersects the mercator rect.
   // Cheap registry lookup, safe for the UI thread.
   bool HasTerrain(m2::RectD const & rect) const { return m_set.HasBlocks(rect); }
 
-  // True when a registered block older than the version intersects the rect: the
-  // OnDiskOutOfDate terrain status source. Safe for the UI thread.
-  bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const { return m_set.HasOlderBlocks(rect, version); }
   /// The rects of the downloaded (registered) blocks intersecting the mercator rect,
   /// e.g. for the downloaded regions highlight on the world zoom.
   void GetDownloadedRects(m2::RectD const & rect, std::vector<m2::RectD> & rects) const
@@ -68,11 +50,9 @@ public:
   void ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh) const;
 
 private:
-  void DeleteBlocksImpl(std::vector<m2::RectD> const & rects, std::function<bool(TwmInfo const &)> const & pred,
-                        m2::RectD & invalidRect);
+  void OnTerrainDeregistered(TwmFile const & file) override;
 
-  std::string m_dir;
-  std::atomic<bool> m_scanned{false};
+  TerrainDeregisteredCallback m_onTerrainDeregistered;
   // Mutable: the const queries lock the readers and condemn the corrupt blocks.
   mutable TwmSet m_set;
 };
