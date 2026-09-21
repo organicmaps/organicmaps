@@ -2312,9 +2312,6 @@ void Framework::DeactivateHotelSearchMark()
       m_searchMarks.SetVisited(featureId);
       m_searchMarks.OnDeactivate(featureId);
     }
-
-    if (!GetSearchAPI().IsViewportSearchActive())
-      GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
   }
 }
 
