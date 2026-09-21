@@ -140,6 +140,8 @@ private:
   Q_PROPERTY(QAction * editAction MEMBER m_editAction NOTIFY infoChanged)
   Q_PROPERTY(QAction * myPositionAction MEMBER m_pMyPositionAction)
 
+  Q_PROPERTY(QAction * searchAction MEMBER m_pSearchAction)
+
   style_utils::NightMode GetNightModeSetting() const {return style_utils::GetNightModeSetting();}
   Q_PROPERTY(style_utils::NightMode nightMode READ GetNightModeSetting NOTIFY nightModeChanged)
 
@@ -157,6 +159,7 @@ public:
   void HidePlacePage();
 
   Q_INVOKABLE void DeactivateMapSelection() const;
+  Q_INVOKABLE void toggleWidgetsUI() const;
 
 protected:
   Framework & GetFramework() const;

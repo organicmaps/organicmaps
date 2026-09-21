@@ -35,15 +35,22 @@ Item {
         OverayButton {
             icon.source: "qrc:/ui/logo.png"
             icon.color: "transparent"
+            onClicked: root.map.OnAbout()
         }
         OverayButton {
             icon.source: "qrc:/navig64/search.png"
             icon.color: "transparent"
+            onClicked: root.map.searchAction.trigger()
         }
         OverayButton {
             icon.source: "qrc:/navig64/bookmark.png"
             icon.color: "transparent"
-        OverayButton {icon.name: "application-menu"}
+            onClicked: root.map.OnBookmarksAction()
+        }
+        OverayButton {
+            icon.name: "application-menu"
+            onClicked: root.map.toggleWidgetsUI()
+        }
     }
 
     Column {
