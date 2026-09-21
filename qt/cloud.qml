@@ -10,8 +10,9 @@ Item {
     Material.theme: map.nightMode
 
     component RoundOverayButton: RoundButton {
-        icon.color: "transparent"
         Material.background: Material.theme === Material.Dark ? "#CC3C3F44" : "#CBFFFFFF"
+        icon.color: Qt.rgba(Material.foreground.r, Material.foreground.g, Material.foreground.b,
+                            0.541176)
         flat: true
     }
 
@@ -22,6 +23,7 @@ Item {
     RoundOverayButton {
         y: height / 2
         icon.source: "qrc:/navig64/layers.png"
+        icon.color: undefined
     }
 
     Row {
@@ -30,9 +32,17 @@ Item {
         spacing: 10
         padding: spacing
 
-        OverayButton {icon.source: "qrc:/ui/logo.png"}
-        OverayButton {icon.source: "qrc:/navig64/search.png"}
-        OverayButton {icon.source: "qrc:/navig64/bookmark.png"}
+        OverayButton {
+            icon.source: "qrc:/ui/logo.png"
+            icon.color: "transparent"
+        }
+        OverayButton {
+            icon.source: "qrc:/navig64/search.png"
+            icon.color: "transparent"
+        }
+        OverayButton {
+            icon.source: "qrc:/navig64/bookmark.png"
+            icon.color: "transparent"
         OverayButton {icon.name: "application-menu"}
     }
 
@@ -41,16 +51,15 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
 
         RoundOverayButton {
-            text: "＋"  // "➕"
-            font.pixelSize: 19
+            icon.name: "list-add-symbolic"
+            icon.width: 32
+            icon.height: icon.width            
         }
         RoundOverayButton {
-            text: "－"  // "➖"
-            font.pixelSize: 19
+            icon.name: "list-remove-symbolic"
+            icon.width: 32
+            icon.height: icon.width
         }
-        // Looks good on Adwaita
-        // RoundOverayButton {icon.name: "list-add"}
-        // RoundOverayButton {icon.name: "list-remove"}
 
         Item {
             height: positionMode.height / 2
@@ -97,9 +106,13 @@ Item {
                         restoreEntryValues: false
                         positionMode.rotation: 30
                     }
+                    PropertyChanges {
+                        positionMode.icon.color: "transparent"
+                    }
                 },
                 State {
                     name: PositionMode.FollowAndRotate
+                    extend: PositionMode.Follow
                     PropertyChanges {
                         restoreEntryValues: false
                         positionMode.rotation: 0
