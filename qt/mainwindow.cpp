@@ -862,6 +862,12 @@ void MainWindow::DeactivateMapSelection() const
   GetFramework().DeactivateMapSelection();
 }
 
+void MainWindow::toggleWidgetsUI() const {
+  QToolBar* const tb = findChild<QToolBar*>();
+  tb->setVisible(!tb->isVisible());
+  menuBar()->setVisible(!menuBar()->isVisible());
+}
+
 void MainWindow::ShowPlacePage(place_page::Info const & info)
 {
   m_title = QString::fromStdString(info.GetTitle());
