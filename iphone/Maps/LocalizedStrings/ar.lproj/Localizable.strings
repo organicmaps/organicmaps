@@ -878,12 +878,6 @@
 "popular_place" = "رائج";
 "hide_from_map" = "إخفاء من الخريطة";
 "tags_loading_error_subtitle" = "حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "صحيح";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "القاع";
 "trip_start" = "هيا بنا";
 "pick_destination" = "جهة الوصول";
 "follow_my_position" = "العودة إلى الوسط";
@@ -1102,8 +1096,8 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "يرجى تمكين iCloud في إعدادات جهازك لاستخدام هذه الميزة.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "يُمكَِن";
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
+"enable" = "تفعيل";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "دعم";
