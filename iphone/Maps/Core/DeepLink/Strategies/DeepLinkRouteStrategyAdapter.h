@@ -3,14 +3,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MWMRoutePoint;
 @interface DeepLinkRouteStrategyAdapter : NSObject
 
-@property(nonatomic, readonly) MWMRoutePoint * p1;
-@property(nonatomic, readonly) MWMRoutePoint * p2;
+@property(nonatomic, readonly) BOOL startRouteNavigation;
 @property(nonatomic, readonly) MWMRouterType type;
 
-- (nullable instancetype)init:(NSURL *)url;
+// Requires a successfully parsed Route API request in the current core API state.
+- (instancetype)init;
 
 @end
 

@@ -2104,8 +2104,7 @@ void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
 
 Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 {
-  return Framework::ParsedRoutingData(m_parsedMapApi.GetRoutePoints(),
-                                      routing::FromString(m_parsedMapApi.GetRoutingType()));
+  return {routing::FromString(m_parsedMapApi.GetRoutingType()), m_parsedMapApi.ShouldStartRouteNavigation()};
 }
 
 url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
@@ -2126,6 +2125,11 @@ std::string const & Framework::GetParsedAppName() const
 std::string const & Framework::GetParsedBackUrl() const
 {
   return m_parsedMapApi.GetGlobalBackUrl();
+}
+
+void Framework::ClearParsedBackUrl()
+{
+  m_parsedMapApi.ClearGlobalBackUrl();
 }
 
 ms::LatLon Framework::GetParsedCenterLatLon() const
