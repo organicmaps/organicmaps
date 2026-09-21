@@ -11,6 +11,9 @@
     <!-- Title for the "Open in Another App" button on the PlacePage; also shared email link text: opens the shared place in another (geo:) maps app. -->
     <string name="open_in_app">Open in Another App</string>
 
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_estimated_location">Estimated location</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>

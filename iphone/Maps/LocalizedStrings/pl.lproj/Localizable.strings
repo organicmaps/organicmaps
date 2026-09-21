@@ -483,6 +483,7 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Proszę pobrać region, w którym Państwo szukają lub spróbować dodać nazwę pobliskiego miasta/wsi.";
 "search_history_title" = "Historia wyszukiwania";
+"search_estimated_location" = "Estimated location";
 "search_history_text" = "Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.";
 "clear_search" = "Wyczyść historię wyszukiwania";
 
