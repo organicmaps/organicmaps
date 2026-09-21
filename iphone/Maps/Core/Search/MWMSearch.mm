@@ -84,13 +84,12 @@ BOOL HandleIOSDebugCommand(NSString * query)
   // A debug command starts no search, yet some commands still report results with an end marker.
   auto const isStarted = std::make_shared<bool>(false);
 
-  search::EverywhereSearchParams params{
-      m_query,
-      m_locale,
-      {} /* default timeout */,
-      m_isCategory,
-      // m_onResults
-      [self, timestamp, isStarted](search::Results results, std::vector<search::ProductInfo> productInfo)
+  search::EverywhereSearchParams params{m_query,
+                                        m_locale,
+                                        {} /* default timeout */,
+                                        m_isCategory,
+                                        // m_onResults
+                                        [self, timestamp, isStarted](search::Results results)
   {
     // Store the flag first, because we will make move next.
     bool const isEndMarker = results.IsEndMarker();
