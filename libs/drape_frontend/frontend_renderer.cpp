@@ -42,6 +42,7 @@
 #include <limits>
 #include <memory>
 #include <thread>
+#include <unordered_set>
 
 namespace df
 {
@@ -1644,8 +1645,44 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   DEBUG_LABEL(m_context, "Overlay Layer");
   RenderLayer & overlay = m_layers[static_cast<size_t>(DepthLayer::OverlayLayer)];
   BuildOverlayTree(modelView);
+
+  std::unordered_set<FeatureID> searchFeatures;
+  for (auto const & group : m_layers[static_cast<size_t>(DepthLayer::SearchMarkLayer)].m_renderGroups)
+  {
+    if (IsTextUserMarkState(group->GetState()))
+      continue;
+
+    group->ForEachOverlay([&searchFeatures](ref_ptr<dp::OverlayHandle> handle)
+    {
+      auto const & featureId = handle->GetOverlayID().m_featureId;
+      if (featureId.IsValid())
+        searchFeatures.insert(featureId);
+    });
+  }
+
+  std::vector<ref_ptr<dp::OverlayHandle>> hiddenSymbols;
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
+  {
+    auto const program = group->GetState().GetProgram<gpu::Program>();
+    if (!searchFeatures.empty() && (program == gpu::Program::Texturing || program == gpu::Program::MaskedTexturing))
+    {
+      // Keep POIs in the displacement tree for their captions, but do not draw them beneath translucent search marks.
+      group->ForEachOverlay([&](ref_ptr<dp::OverlayHandle> handle)
+      {
+        if (handle->IsVisible() && searchFeatures.contains(handle->GetOverlayID().m_featureId))
+        {
+          hiddenSymbols.push_back(handle);
+          handle->SetIsVisible(false);
+        }
+      });
+    }
+
     RenderSingleGroup(m_context, modelView, make_ref(group));
+
+    for (auto const & handle : hiddenSymbols)
+      handle->SetIsVisible(true);
+    hiddenSymbols.clear();
+  }
 }
 
 bool FrontendRenderer::HasTransitRouteData() const
