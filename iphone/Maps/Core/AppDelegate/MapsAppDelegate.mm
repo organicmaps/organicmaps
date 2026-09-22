@@ -18,6 +18,7 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <UserNotifications/UserNotifications.h>
 
+#import <CoreApi/AppInfo.h>
 #import <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 
@@ -89,16 +90,13 @@ using namespace osm_auth_ios;
   return self.mapViewController.mapView.drapeEngineCreated;
 }
 
-- (void)searchText:(NSString *)searchString
+- (void)searchQuery:(SearchQuery *)query
 {
   if (!self.isDrapeEngineCreated)
   {
-    dispatch_async(dispatch_get_main_queue(), ^{ [self searchText:searchString]; });
+    dispatch_async(dispatch_get_main_queue(), ^{ [self searchQuery:query]; });
     return;
   }
-  SearchQuery * query = [[SearchQuery alloc] init:[searchString stringByAppendingString:@" "]
-                                           locale:[MWMSettings spotlightLocaleLanguageId]
-                                           source:SearchTextSourceDeeplink];
   [[MWMMapViewControlsManager manager] search:query];
 }
 
@@ -243,7 +241,9 @@ using namespace osm_auth_ios;
   [self.mapViewController onGetFocus:YES];
   f.SetRenderingEnabled();
   [MWMLocationManager applicationDidBecomeActive];
-  [MWMSearch addCategoriesToSpotlight];
+  // Unit tests exercise indexing with a mock and must not modify the system index.
+  if (![MapsAppDelegate isTestsEnvironment])
+    [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
   [MWMTextToSpeech applicationDidBecomeActive];
 
@@ -268,13 +268,12 @@ using namespace osm_auth_ios;
 {
   if ([userActivity.activityType isEqualToString:CSSearchableItemActionType])
   {
-    NSString * searchStringKey = userActivity.userInfo[CSSearchableItemActivityIdentifier];
-    NSString * searchString = L(searchStringKey);
-    if (searchString)
-    {
-      [self searchText:searchString];
-      return YES;
-    }
+    NSString * identifier = userActivity.userInfo[CSSearchableItemActivityIdentifier];
+    SearchQuery * query = [MWMSearch searchQueryForSpotlightIdentifier:identifier];
+    if (!query)
+      return NO;
+    [self searchQuery:query];
+    return YES;
   }
   else if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] && userActivity.webpageURL != nil)
   {
