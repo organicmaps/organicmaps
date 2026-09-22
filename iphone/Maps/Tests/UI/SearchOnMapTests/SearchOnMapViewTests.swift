@@ -65,6 +65,50 @@ final class SearchOnMapHeaderViewTests: XCTestCase {
 }
 
 final class SearchOnMapManagerTests: XCTestCase {
+  func test_GivenSearchModes_WhenStartedRepeatedly_ThenReusesOnlyMatchingMode() throws {
+    let previousSearchMode = Search.searchMode()
+    defer { Search.setSearchMode(previousSearchMode) }
+    let mapViewController = try XCTUnwrap(MapViewController.shared())
+    mapViewController.loadViewIfNeeded()
+    let navigationManager = MWMNavigationDashboardManager.shared()
+    let routePreviewDelegate = try XCTUnwrap(navigationManager as? MWMRoutePreviewDelegate)
+    let manager = SearchOnMapManager()
+    var controllers: [SearchOnMapViewController] = []
+    defer {
+      navigationManager.cancelRoutePointSelection()
+      manager.close()
+      controllers.forEach(waitUntilDetached)
+    }
+
+    manager.startSearching(isRouting: false)
+    let normalController = try XCTUnwrap(manager.viewController)
+    controllers.append(normalController)
+    manager.startSearching(isRouting: false)
+    XCTAssertTrue(manager.viewController === normalController)
+
+    routePreviewDelegate.routePreviewDidSelect(
+      MWMRoutePointSelection(point: nil, type: .finish, shouldAppend: false)
+    )
+    manager.startSearching(isRouting: true)
+    let routePointController = try XCTUnwrap(manager.viewController)
+    controllers.append(routePointController)
+    XCTAssertFalse(routePointController === normalController)
+    manager.startSearching(isRouting: true)
+    XCTAssertTrue(manager.viewController === routePointController)
+
+    navigationManager.cancelRoutePointSelection()
+    manager.startSearching(isRouting: true)
+    let routingController = try XCTUnwrap(manager.viewController)
+    controllers.append(routingController)
+    XCTAssertFalse(routingController === routePointController)
+    manager.startSearching(isRouting: true)
+    XCTAssertTrue(manager.viewController === routingController)
+
+    waitUntilDetached(normalController)
+    waitUntilDetached(routePointController)
+    XCTAssertTrue(manager.viewController === routingController)
+  }
+
   func test_GivenClosingSearch_WhenReopenedBeforeAnimationEnds_ThenCreatesANewController() throws {
     let previousSearchMode = Search.searchMode()
     defer { Search.setSearchMode(previousSearchMode) }
@@ -98,6 +142,46 @@ final class SearchOnMapManagerTests: XCTestCase {
       controller.parent == nil
     }, object: nil)
     wait(for: [detached], timeout: 3)
+  }
+}
+
+final class MapPointPickerViewControllerTests: XCTestCase {
+  func test_GivenVisibleMapControls_WhenPickerIsPresentedAndClosed_ThenKeepsControlsVisible() throws {
+    let mapViewController = try XCTUnwrap(MapViewController.shared())
+    mapViewController.loadViewIfNeeded()
+    let controlsManager = try XCTUnwrap(MWMMapViewControlsManager.manager())
+    let previousHidden = controlsManager.hidden
+    let previousSideButtonsHidden = controlsManager.sideButtonsHidden
+    let previousZoomHidden = controlsManager.zoomHidden
+    controlsManager.hidden = false
+    controlsManager.sideButtonsHidden = false
+    controlsManager.zoomHidden = false
+    defer {
+      controlsManager.hidden = previousHidden
+      controlsManager.sideButtonsHidden = previousSideButtonsHidden
+      controlsManager.zoomHidden = previousZoomHidden
+    }
+    let picker = MapPointPickerViewController(title: "Choose point",
+                                              hint: "Move the map",
+                                              enableBounds: false,
+                                              initialMercatorPosition: nil,
+                                              shouldChangeViewport: false)
+
+    picker.present(in: mapViewController)
+
+    XCTAssertTrue(picker.parent === mapViewController)
+    XCTAssertFalse(controlsManager.hidden)
+    XCTAssertFalse(controlsManager.sideButtonsHidden)
+    XCTAssertFalse(controlsManager.zoomHidden)
+
+    picker.close()
+    let detached = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+      picker.parent == nil
+    }, object: nil)
+    wait(for: [detached], timeout: 3)
+    XCTAssertFalse(controlsManager.hidden)
+    XCTAssertFalse(controlsManager.sideButtonsHidden)
+    XCTAssertFalse(controlsManager.zoomHidden)
   }
 }
 

@@ -54,6 +54,18 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     waitUntilRouteReady()
   }
 
+  func test_GivenRoute_WhenIntermediatePointIsSelected_ThenAddsItBetweenEndpoints() {
+    seedEndpoints()
+
+    select(type: .intermediate, title: "stop", coordinate: 11)
+
+    let points = MWMRouter.points()
+    XCTAssertEqual(points.map(\.title), ["start", "stop", "finish"])
+    XCTAssertEqual(points.map(\.type), [.start, .intermediate, .finish])
+    XCTAssertEqual(points[1].intermediateIndex, 0)
+    waitUntilRouteReady()
+  }
+
   func test_GivenIntermediatePoint_WhenReplaced_ThenPreservesItsIndexAndOtherPoints() throws {
     seedRoute()
     let secondStop = try XCTUnwrap(MWMRouter.points().first { $0.title == "second stop" })
@@ -91,6 +103,27 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     XCTAssertEqual(MWMRouter.points().map(\.title), ["start", "first stop", "second stop", "finish"])
   }
 
+  func test_GivenRoutePoints_WhenResolvingTypes_ThenUsesTheirPositions() {
+    let endpoints = NavigationDashboard.RoutePoints(points: [
+      makePoint(type: .start, title: "start", coordinate: 10),
+      makePoint(type: .finish, title: "finish", coordinate: 13),
+    ])
+    XCTAssertEqual((0 ..< endpoints.count).map(endpoints.type(for:)), [.start, .finish])
+
+    let route = NavigationDashboard.RoutePoints(points: [
+      makePoint(type: .start, title: "start", coordinate: 10),
+      makePoint(type: .intermediate, title: "first stop", coordinate: 11),
+      makePoint(type: .intermediate, title: "second stop", coordinate: 12),
+      makePoint(type: .finish, title: "finish", coordinate: 13),
+    ])
+    XCTAssertEqual((0 ..< route.count).map(route.type(for:)), [.start, .intermediate, .intermediate, .finish])
+  }
+
+  private func seedEndpoints() {
+    MWMRouter.addPoint(makePoint(type: .start, title: "start", coordinate: 10))
+    MWMRouter.addPoint(makePoint(type: .finish, title: "finish", coordinate: 13))
+  }
+
   private func seedRoute() {
     for (title, coordinate, type, index) in [
       ("start", 10.0, MWMRoutePointType.start, 0),
@@ -101,6 +134,12 @@ final class MWMRoutePointSelectionTests: XCTestCase {
       MWMRouter.addPoint(MWMRoutePoint(cgPoint: CGPoint(x: coordinate, y: coordinate),
                                        title: title, subtitle: nil, type: type, intermediateIndex: index))
     }
+  }
+
+  private func makePoint(type: MWMRoutePointType, title: String, coordinate: Double,
+                         intermediateIndex: Int = 0) -> MWMRoutePoint {
+    MWMRoutePoint(cgPoint: CGPoint(x: coordinate, y: coordinate),
+                  title: title, subtitle: nil, type: type, intermediateIndex: intermediateIndex)
   }
 
   private func select(type: MWMRoutePointType, title: String, coordinate: Double,

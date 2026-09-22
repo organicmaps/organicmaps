@@ -351,7 +351,7 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(searchManager.showResultCallCount, 0)
     XCTAssertEqual(view.closeCallCount, 1)
     XCTAssertEqual(currentState, .closed)
-    assertClosedRoutePointSearchIgnoresLateResults()
+    assertRoutePointSearchClosed()
   }
 
   func test_GivenRoutePointSearch_WhenCategoryIsSelected_ThenShowsSelectableResults() {
@@ -391,7 +391,7 @@ final class SearchOnMapTests: XCTestCase {
 
     XCTAssertEqual(routePointSelector.selectCurrentLocationCallCount, 1)
     XCTAssertEqual(view.closeCallCount, 1)
-    assertClosedRoutePointSearchIgnoresLateResults()
+    assertRoutePointSearchClosed()
   }
 
   func test_GivenRoutePointSearch_WhenChoosingOnMap_ThenPresentsPickerAndCommitsPoint() {
@@ -410,7 +410,7 @@ final class SearchOnMapTests: XCTestCase {
 
     XCTAssertEqual(routePointSelector.selectedMapPoint, point)
     XCTAssertEqual(view.closeCallCount, 1)
-    assertClosedRoutePointSearchIgnoresLateResults()
+    assertRoutePointSearchClosed()
   }
 
   func test_GivenHiddenRoutePointSearch_WhenLocationAvailabilityChanges_ThenReopensWithCurrentActions() {
@@ -543,6 +543,22 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(routePointSelector.cancelCallCount, 1)
   }
 
+  func test_GivenClosedRoutePointSearch_WhenLateSearchCallbacksArrive_ThenIgnoresResults() {
+    configureRoutePointSearch()
+    interactor.handle(.openSearch)
+    interactor.handle(.currentLocationButtonDidTap)
+    let renderCount = view.renderCallCount
+
+    // Assigning results emits onSearchCompleted through SearchManagerMock.
+    searchManager.results = SearchResult.stubResults()
+    XCTAssertEqual(view.renderCallCount, renderCount)
+    XCTAssertEqual(currentState, .closed)
+
+    interactor.onSearchResultsUpdated()
+    XCTAssertEqual(view.renderCallCount, renderCount)
+    XCTAssertEqual(currentState, .closed)
+  }
+
   private func configureRoutePointSearch() {
     routePointSelector = RoutePointSelectorMock()
     presenter = SearchOnMapPresenter(shouldHideForRouting: false,
@@ -556,15 +572,9 @@ final class SearchOnMapTests: XCTestCase {
     presenter.view = view
   }
 
-  private func assertClosedRoutePointSearchIgnoresLateResults(file: StaticString = #filePath, line: UInt = #line) {
+  private func assertRoutePointSearchClosed(file: StaticString = #filePath, line: UInt = #line) {
     XCTAssertFalse(routePointSelector.isActive, file: file, line: line)
     XCTAssertEqual(searchManager.clearCallCount, 1, file: file, line: line)
-    let renderCount = view.renderCallCount
-
-    searchManager.results = SearchResult.stubResults()
-    interactor.onSearchResultsUpdated()
-
-    XCTAssertEqual(view.renderCallCount, renderCount, file: file, line: line)
     XCTAssertEqual(currentState, .closed, file: file, line: line)
   }
 }
