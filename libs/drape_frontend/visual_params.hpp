@@ -1,4 +1,6 @@
 #pragma once
+
+#include "drape/render_context.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
@@ -13,6 +15,8 @@ double constexpr kMaxVisualScale = 4.0;
 
 class VisualParams
 {
+  friend class dp::RenderContext;
+
 public:
   static double constexpr kMdpiScale = 1.0;
   static double constexpr kHdpiScale = 1.5;

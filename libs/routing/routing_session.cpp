@@ -567,7 +567,8 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
 bool RoutingSession::SwapActiveAlternative(size_t idx)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (!m_lastResult || idx >= m_lastResult->m_routes.size() || idx == m_lastResult->m_activeIdx)
+  // All callers, including ETA-balloon taps, must respect the planning-only selection policy.
+  if (m_isFollowing || !m_lastResult || idx >= m_lastResult->m_routes.size() || idx == m_lastResult->m_activeIdx)
     return false;
 
   m_lastResult->m_activeIdx = idx;

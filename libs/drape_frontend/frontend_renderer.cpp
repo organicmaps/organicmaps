@@ -1,4 +1,5 @@
 #include "drape_frontend/frontend_renderer.hpp"
+
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/debug_rect_renderer.hpp"
@@ -7,6 +8,7 @@
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/perspective_tile_coverage.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
@@ -182,6 +184,8 @@ FrontendRenderer::FrontendRenderer(Params && params)
 #endif
   , m_notifier(make_unique_dp<DrapeNotifier>(params.m_commutator))
   , m_renderInjectionHandler(std::move(params.m_renderInjectionHandler))
+  , m_minFrameTime(params.m_myPositionParams.m_hints.m_maxFps > 0 ? 1.0 / params.m_myPositionParams.m_hints.m_maxFps
+                                                                  : 0.0)
 {
 #ifdef DEBUG
   m_isTeardowned = false;
@@ -266,7 +270,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     dp::RenderState const & state = msg->GetState();
     TileKey const & key = msg->GetKey();
     drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-    if (key.m_zoomLevel == GetCurrentZoom() && CheckTileGenerations(key))
+    if (key.GetRenderZoom() == GetCurrentZoom() && IsRequestedTile(key) && CheckTileGenerations(key))
     {
       PrepareBucket(state, bucket);
       AddToRenderGroup<RenderGroup>(state, std::move(bucket), key);
@@ -280,8 +284,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     TOverlaysRenderData renderData = msg->AcceptRenderData();
     for (auto & overlayRenderData : renderData)
     {
-      if (overlayRenderData.m_tileKey.m_zoomLevel == GetCurrentZoom() &&
-          CheckTileGenerations(overlayRenderData.m_tileKey))
+      if (overlayRenderData.m_tileKey.GetRenderZoom() == GetCurrentZoom() &&
+          IsRequestedTile(overlayRenderData.m_tileKey) && CheckTileGenerations(overlayRenderData.m_tileKey))
       {
         PrepareBucket(overlayRenderData.m_state, overlayRenderData.m_bucket);
         AddToRenderGroup<RenderGroup>(overlayRenderData.m_state, std::move(overlayRenderData.m_bucket),
@@ -315,6 +319,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         }
       }
     }
+    m_pendingTileCount.store(static_cast<uint32_t>(m_notFinishedTiles.size()));
     if (changed || m_notFinishedTiles.empty())
       UpdateCanBeDeletedStatus();
 
@@ -346,7 +351,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     TUserMarksRenderData marksRenderData = msg->AcceptRenderData();
     for (auto & renderData : marksRenderData)
     {
-      if (renderData.m_tileKey.m_zoomLevel == GetCurrentZoom() && CheckTileGenerations(renderData.m_tileKey))
+      if (renderData.m_tileKey.GetRenderZoom() == GetCurrentZoom() && IsRequestedTile(renderData.m_tileKey) &&
+          CheckTileGenerations(renderData.m_tileKey))
       {
         PrepareBucket(renderData.m_state, renderData.m_bucket);
         AddToRenderGroup<UserMarkRenderGroup>(renderData.m_state, std::move(renderData.m_bucket), renderData.m_tileKey);
@@ -606,13 +612,27 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::SetClusterCamera:
+  {
+    ref_ptr<SetClusterCameraMessage> const msg = message;
+    CHECK(m_myPositionController->IsPassiveNavigation(), ());
+    // Auto zoom also owns perspective, just like the main navigation camera. Ignore a saved manual
+    // tilt from older clients; SetAutoPerspectiveEvent keeps the angle tied to the changing scale.
+    m_clusterTiltDegrees = msg->GetZoom() == 0 ? -1.0 : msg->GetTiltDegrees();
+    m_myPositionController->SetClusterAnchor(msg->GetAnchor());
+    m_myPositionController->EnablePerspectiveInRouting(m_clusterTiltDegrees != 0.0);
+    int const zoom = msg->GetZoom() == 0 ? 16 : msg->GetZoom();
+    FollowRoute(zoom, zoom, msg->GetZoom() == 0, true);
+    break;
+  }
   case Message::Type::FollowRoute:
   {
     ref_ptr<FollowRouteMessage> const msg = message;
 
     // After night style switching or drape engine reinitialization FrontendRenderer can
     // receive FollowRoute message before FlushSubroute message, so we need to postpone its processing.
-    if (m_routeRenderer->GetSubroutes().empty())
+    // A passive cluster camera also follows GPS and accepts zoom without an active route.
+    if (m_routeRenderer->GetSubroutes().empty() && !m_myPositionController->IsPassiveNavigation())
     {
       m_pendingFollowRoute = std::make_unique<FollowRouteData>(
           msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(), msg->EnableAutoZoom(), msg->IsArrowGlued());
@@ -722,10 +742,22 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     if (m_enablePerspectiveInNavigation != msg->AllowPerspective())
     {
       m_enablePerspectiveInNavigation = msg->AllowPerspective();
-      m_myPositionController->EnablePerspectiveInRouting(m_enablePerspectiveInNavigation);
+      bool const fixedClusterTilt = m_myPositionController->IsPassiveNavigation() && m_clusterTiltDegrees >= 0.0;
+      m_myPositionController->EnablePerspectiveInRouting(fixedClusterTilt ? m_clusterTiltDegrees != 0.0
+                                                                          : m_enablePerspectiveInNavigation);
       if (m_myPositionController->IsInRouting())
-        AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_enablePerspectiveInNavigation));
+      {
+        if (fixedClusterTilt)
+          AddUserEvent(make_unique_dp<SetPerspectiveEvent>(math::DegToRad(m_clusterTiltDegrees)));
+        else
+          AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_enablePerspectiveInNavigation));
+      }
     }
+    break;
+  }
+  case Message::Type::SetPoiVisibility:
+  {
+    m_forceUpdateScene = true;
     break;
   }
   case Message::Type::SetMapLangIndex:
@@ -1117,13 +1149,17 @@ std::unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 
 void FrontendRenderer::UpdateContextDependentResources()
 {
+  // The viewport can stay identical while every tile and texture has changed.
+  m_forceUpdateScene = true;
+  m_forceUpdateUserMarks = true;
+  m_frameData.m_forceFullRedrawNextFrame = true;
   ++m_lastRecacheRouteId;
 
-  for (auto const & subroute : m_routeRenderer->GetSubroutes())
-  {
-    auto msg = make_unique_dp<AddSubrouteMessage>(subroute.m_subrouteId, subroute.m_subroute, m_lastRecacheRouteId);
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(msg), MessagePriority::Normal);
-  }
+  // Immediate guidance switches style before the initial FlushSubroute may reach this renderer.
+  // UpdateAll discards those old-style GPU messages, so recover from the backend's logical routes,
+  // not just geometry already received here. Its queue also orders removals before recaching.
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                            make_unique_dp<RecacheSubroutesMessage>(m_lastRecacheRouteId), MessagePriority::Normal);
 
   m_trafficRenderer->ClearContextDependentResources();
   m_tileBackgroundRenderer->ClearContextDependentResources(m_context);
@@ -1135,6 +1171,8 @@ void FrontendRenderer::UpdateContextDependentResources()
     m_lastReadedModelView = screen;
     m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), m_forceUpdateScene, m_forceUpdateUserMarks,
                           ResolveTileKeys(screen));
+    m_forceUpdateScene = false;
+    m_forceUpdateUserMarks = false;
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<RegenerateTransitMessage>(),
@@ -1147,10 +1185,19 @@ void FrontendRenderer::UpdateContextDependentResources()
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
                                    bool isArrowGlued)
 {
+  bool const cluster = m_myPositionController->IsPassiveNavigation();
+  if (cluster)
+  {
+    // Set the projection before matching the car's position to its screen anchor.
+    if (m_clusterTiltDegrees < 0.0)
+      AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true));
+    else
+      AddUserEvent(make_unique_dp<SetPerspectiveEvent>(math::DegToRad(m_clusterTiltDegrees)));
+  }
   m_myPositionController->ActivateRouting(
       !m_enablePerspectiveInNavigation ? preferredZoomLevel : preferredZoomLevelIn3d, enableAutoZoom, isArrowGlued);
 
-  if (m_enablePerspectiveInNavigation)
+  if (!cluster && m_enablePerspectiveInNavigation)
     AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
 
   m_routeRenderer->SetFollowingEnabled(true);
@@ -1171,13 +1218,22 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
   {
     // Find tiles to invalidate.
     TTilesCollection tiles;
-    int const dataZoomLevel = ClipTileZoomByMaxDataZoom(GetCurrentZoom());
-    CalcTilesCoverage(rect, dataZoomLevel, [this, &rect, &tiles](int tileX, int tileY)
+    if (m_myPositionController->IsPassiveNavigation())
     {
-      TileKey const key(tileX, tileY, GetCurrentZoom());
-      if (rect.IsIntersect(key.GetGlobalRect()))
-        tiles.insert(key);
-    });
+      for (auto const & key : m_clusterTiles)
+        if (rect.IsIntersect(key.GetGlobalRect()))
+          tiles.insert(key);
+    }
+    else
+    {
+      int const dataZoomLevel = ClipTileZoomByMaxDataZoom(GetCurrentZoom());
+      CalcTilesCoverage(rect, dataZoomLevel, [this, &rect, &tiles](int tileX, int tileY)
+      {
+        TileKey const key(tileX, tileY, GetCurrentZoom());
+        if (rect.IsIntersect(key.GetGlobalRect()))
+          tiles.insert(key);
+      });
+    }
 
     // Remove tiles to invalidate from screen.
     auto eraseFunction = [&tiles](drape_ptr<RenderGroup> const & group)
@@ -1794,17 +1850,28 @@ void FrontendRenderer::RenderEmptyFrame()
 void FrontendRenderer::RenderFrame()
 {
   TRACE_SECTION("[drape] RenderFrame");
-  DrapeMeasurerGuard drapeMeasurerGuard;
+
+  auto const retryUnavailableSurface = [this]()
+  {
+    m_frameData.m_forceFullRedrawNextFrame = true;
+    m_frameData.m_inactiveFramesCounter = 0;
+    // An overlay Activity can pause presentation while retaining the map surface. OpenGL Validate()
+    // (or Vulkan BeginRendering()) then fails before Present() and the FPS limiter: without this wait,
+    // the render loop spins at full CPU. Retry at 20 Hz; the 50 ms bound keeps pause/destroy handshakes
+    // responsive because CheckRenderingEnabled() runs immediately after this RenderFrame returns.
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  };
 
   CHECK(m_context != nullptr, ());
   if (!m_context->Validate())
   {
-    m_frameData.m_forceFullRedrawNextFrame = true;
-    m_frameData.m_inactiveFramesCounter = 0;
+    retryUnavailableSurface();
     return;
   }
 
+  DrapeMeasurerGuard drapeMeasurerGuard;
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
+  auto const frameStart = std::chrono::steady_clock::now();
   m_frameData.m_timer.Reset();
 
   bool modelViewChanged, viewportChanged, needActiveFrame;
@@ -1823,10 +1890,13 @@ void FrontendRenderer::RenderFrame()
     return;
 
   if (!m_context->BeginRendering())
+  {
+    retryUnavailableSurface();
     return;
+  }
 
   // Check for a frame is active.
-  bool isActiveFrame = modelViewChanged || viewportChanged || needActiveFrame;
+  bool isActiveFrame = modelViewChanged || viewportChanged || needActiveFrame || m_frameData.m_forceFullRedrawNextFrame;
 
   if (isActiveFrame)
     PrepareScene(modelView);
@@ -1909,30 +1979,31 @@ void FrontendRenderer::RenderFrame()
                                 ? kVSyncIntervalMetalVulkan
                                 : kVSyncInterval;
 
-    double availableTime;
+    // Heavy frames can already exceed vsync here. Still give tile/control messages a
+    // bounded budget instead of processing just one and accumulating a seconds-long backlog.
+    auto const messageDeadline =
+        std::chrono::steady_clock::now() +
+        std::chrono::duration<double>(std::max(0.004, syncInverval - m_frameData.m_timer.ElapsedSeconds()));
     do
     {
       if (!ProcessSingleMessage(false /* waitForMessage */))
         break;
       m_frameData.m_forceFullRedrawNextFrame = true;
       m_frameData.m_inactiveFramesCounter = 0;
-      availableTime = syncInverval - m_frameData.m_timer.ElapsedSeconds();
     }
-    while (availableTime > 0.0);
+    while (std::chrono::steady_clock::now() < messageDeadline);
   }
 
 #ifndef DISABLE_SCREEN_PRESENTATION
   m_context->Present();
 #endif
 
-  // Limit fps in following mode.
-  double constexpr kFrameTime = 1.0 / 30.0;
-  auto const ft = m_frameData.m_timer.ElapsedSeconds();
-  if (!canSuspend && ft < kFrameTime && m_myPositionController->IsRouteFollowingActive())
-  {
-    auto const ms = static_cast<uint32_t>((kFrameTime - ft) * 1000);
-    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
-  }
+  // Each renderer has its own budget; rendering and presentation already count towards it.
+  double const frameTime =
+      std::max(m_minFrameTime, m_myPositionController->IsRouteFollowingActive() ? 1.0 / 30.0 : 0.0);
+  // The animation timer is reset after an idle wait, so use the original frame start for pacing.
+  if (IsRenderingEnabled() && frameTime > 0.0 && (!canSuspend || m_minFrameTime > 0.0))
+    std::this_thread::sleep_until(frameStart + std::chrono::duration<double>(frameTime));
 
   m_frameData.m_frameTime = m_frameData.m_timer.ElapsedSeconds();
   scaleFpsHelper.SetFrameTime(m_frameData.m_frameTime,
@@ -2351,42 +2422,59 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   rect.Inflate(extension, extension);
   int const dataZoomLevel = ClipTileZoomByMaxDataZoom(GetCurrentZoom());
 
-  m_notFinishedTiles.clear();
-
-  // Request new tiles.
+  bool const cluster = m_myPositionController->IsPassiveNavigation();
+  bool const adaptive =
+      cluster && !m_enable3dBuildings && m_tileBackgroundRenderer->GetBackgroundMode() == dp::BackgroundMode::Default;
+  auto const result = CalcTilesCoverage(rect, dataZoomLevel, nullptr);
   TTilesCollection tiles;
-  /// @todo Introduce small_set class based on buffer_vector.
   buffer_vector<TileKey, 8> tilesToDelete;
-  auto const result = CalcTilesCoverage(rect, dataZoomLevel, [this, &rect, &tiles, &tilesToDelete](int tileX, int tileY)
+  if (adaptive)
   {
-    TileKey const key(tileX, tileY, GetCurrentZoom());
-    if (rect.IsIntersect(key.GetGlobalRect()))
-    {
-      tiles.insert(key);
-      m_notFinishedTiles.insert(key);
-    }
-    else
-    {
-      tilesToDelete.push_back(key);
-    }
-  });
-
-  // Remove old tiles.
-  auto removePredicate = [this, &result, &tilesToDelete](drape_ptr<RenderGroup> const & group)
-  {
-    TileKey const & key = group->GetTileKey();
-    return key.m_zoomLevel == GetCurrentZoom() &&
-           (key.m_x < result.m_minTileX || key.m_x >= result.m_maxTileX || key.m_y < result.m_minTileY ||
-            key.m_y >= result.m_maxTileY || base::IsExist(tilesToDelete, key));
-  };
-  for (size_t i = 0; i < m_layers.size(); ++i)
-  {
-    m_layers[i].m_isDirty |=
-        RemoveGroups(removePredicate, m_layers[i].m_renderGroups, GetOverlayTree(static_cast<DepthLayer>(i)));
+    tiles = SelectPerspectiveTiles(screen, GetCurrentZoom(), extension, m_myPositionController->GetClusterAnchor(),
+                                   m_clusterTiles);
   }
+  else
+  {
+    result.ForEach([&](int tileX, int tileY)
+    {
+      TileKey const key(tileX, tileY, GetCurrentZoom());
+      if (rect.IsIntersect(key.GetGlobalRect()))
+        tiles.insert(key);
+      else
+        tilesToDelete.push_back(key);
+    });
+  }
+  m_notFinishedTiles = tiles;
+  uint32_t coarse = 0;
+  for (auto const & key : tiles)
+    coarse += key.m_zoomLevel != key.GetRenderZoom();
+  m_requestedTileCount.store(static_cast<uint32_t>(tiles.size()));
+  m_legacyTileCount.store(static_cast<uint32_t>(result.GetTilesCount()));
+  m_coarseTileCount.store(coarse);
+  m_pendingTileCount.store(static_cast<uint32_t>(m_notFinishedTiles.size()));
 
-  RemoveRenderGroupsLater([this](drape_ptr<RenderGroup> const & group)
-  { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
+  if (cluster)
+  {
+    // Keep a superseded parent/child until replacement tiles finish, as on ordinary zoom transitions.
+    RemoveRenderGroupsLater([&](drape_ptr<RenderGroup> const & group) { return !tiles.contains(group->GetTileKey()); });
+    m_clusterTiles = tiles;
+    UpdateCanBeDeletedStatus();
+  }
+  else
+  {
+    auto removePredicate = [this, &result, &tilesToDelete](drape_ptr<RenderGroup> const & group)
+    {
+      TileKey const & key = group->GetTileKey();
+      return key.GetRenderZoom() == GetCurrentZoom() &&
+             (key.m_x < result.m_minTileX || key.m_x >= result.m_maxTileX || key.m_y < result.m_minTileY ||
+              key.m_y >= result.m_maxTileY || base::IsExist(tilesToDelete, key));
+    };
+    for (size_t i = 0; i < m_layers.size(); ++i)
+      m_layers[i].m_isDirty |=
+          RemoveGroups(removePredicate, m_layers[i].m_renderGroups, GetOverlayTree(static_cast<DepthLayer>(i)));
+    RemoveRenderGroupsLater([this](drape_ptr<RenderGroup> const & group)
+    { return group->GetTileKey().GetRenderZoom() != GetCurrentZoom(); });
+  }
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
   m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom());
@@ -2400,6 +2488,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 
 void FrontendRenderer::OnContextDestroy()
 {
+  m_clusterTiles.clear();
   LOG(LINFO, ("On context destroy."));
 
   if (m_renderInjectionHandler)
@@ -2531,6 +2620,7 @@ FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(ren
 
 void FrontendRenderer::Routine::Do()
 {
+  dp::RenderContext::Scope scope(m_renderer.m_renderContext);
   LOG(LINFO, ("Start routine."));
 
   gui::DrapeGui::Instance().ConnectOnCompassTappedHandler(std::bind(&FrontendRenderer::OnCompassTapped, &m_renderer));
@@ -2638,8 +2728,12 @@ void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimut
                                        int preferredZoomLevel, Animation::TAction const & onFinishAction,
                                        TAnimationCreator const & parallelAnimCreator)
 {
-  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, preferredZoomLevel, true, onFinishAction,
-                                                    parallelAnimCreator));
+  // Apply explicit cluster settings and the first GPS fix without flying from the initial (0, 0) position.
+  // Such a flight can leave the camera at its intermediate zoom when surface initialization interrupts it.
+  bool const animate = !m_myPositionController->IsPassiveNavigation() ||
+                       (preferredZoomLevel == kDoNotChangeZoom && m_myPositionController->IsPositionAssigned());
+  AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, preferredZoomLevel, animate,
+                                                    onFinishAction, parallelAnimCreator));
 }
 
 void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
@@ -2693,7 +2787,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
     uint32_t const kMaxGenerationRange = 5;
     TileKey const & key = group->GetTileKey();
 
-    return (GetDepthLayer(group->GetState()) == DepthLayer::OverlayLayer && key.m_zoomLevel > GetCurrentZoom()) ||
+    return (GetDepthLayer(group->GetState()) == DepthLayer::OverlayLayer && key.GetRenderZoom() > GetCurrentZoom()) ||
            (m_maxGeneration - key.m_generation > kMaxGenerationRange) ||
            (group->IsUserMark() && (m_maxUserMarksGeneration - key.m_userMarksGeneration > kMaxGenerationRange));
   };

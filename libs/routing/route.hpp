@@ -576,6 +576,17 @@ public:
 
   bool IsValid() const { return !m_routes.empty() && m_routes[m_activeIdx].IsValid(); }
 
+  // Preserve the current choice when ETAs tie.
+  size_t GetFastestRouteIndex() const
+  {
+    ASSERT_LESS(m_activeIdx, m_routes.size(), ());
+    size_t fastest = m_activeIdx;
+    for (size_t i = 0; i < m_routes.size(); ++i)
+      if (m_routes[i].GetTotalTimeSec() < m_routes[fastest].GetTotalTimeSec())
+        fastest = i;
+    return fastest;
+  }
+
   RouteBase & GetActive()
   {
     ASSERT_LESS(m_activeIdx, m_routes.size(), ());

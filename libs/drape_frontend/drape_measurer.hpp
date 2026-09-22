@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/render_context.hpp"
+
 #include "drape/drape_diagnostics.hpp"
 #include "drape/drape_global.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
@@ -22,6 +24,8 @@ namespace df
 {
 class DrapeMeasurer
 {
+  friend class dp::RenderContext;
+
 public:
   static DrapeMeasurer & Instance();
 

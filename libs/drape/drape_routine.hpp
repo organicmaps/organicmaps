@@ -2,6 +2,7 @@
 
 #include "base/assert.hpp"
 #include "base/thread_pool_delayed.hpp"
+#include "drape/render_context.hpp"
 
 #include <algorithm>
 #include <atomic>
@@ -48,8 +49,10 @@ public:
   static ResultPtr Run(Task && t)
   {
     ResultPtr result(new Result());
-    auto const pushResult = Instance().m_workerThread.Push([result, t = std::forward<Task>(t)]() mutable
+    auto const pushResult =
+        Instance().m_workerThread.Push([context = RenderContext::Current(), result, t = std::forward<Task>(t)]() mutable
     {
+      RenderContext::Scope scope(context);
       t();
       result->Finish();
       Instance().Notify();
@@ -65,9 +68,10 @@ public:
   static ResultPtr RunDelayed(base::DelayedThreadPool::Duration const & duration, Task && t)
   {
     ResultPtr result(new Result());
-    auto const pushResult =
-        Instance().m_workerThread.PushDelayed(duration, [result, t = std::forward<Task>(t)]() mutable
+    auto const pushResult = Instance().m_workerThread.PushDelayed(
+        duration, [context = RenderContext::Current(), result, t = std::forward<Task>(t)]() mutable
     {
+      RenderContext::Scope scope(context);
       t();
       result->Finish();
       Instance().Notify();
@@ -84,8 +88,10 @@ public:
   static ResultPtr RunSequential(Task && t)
   {
     ResultPtr result(new Result());
-    auto const pushResult = Instance().m_sequentialWorkerThread.Push([result, t = std::forward<Task>(t)]() mutable
+    auto const pushResult = Instance().m_sequentialWorkerThread.Push(
+        [context = RenderContext::Current(), result, t = std::forward<Task>(t)]() mutable
     {
+      RenderContext::Scope scope(context);
       t();
       result->Finish();
       Instance().Notify();
@@ -100,7 +106,11 @@ public:
 private:
   static DrapeRoutine & Instance(bool reinitialize = false)
   {
-    static std::unique_ptr<DrapeRoutine> instance;
+    struct Holder
+    {
+      std::unique_ptr<DrapeRoutine> m_instance;
+    };
+    auto & instance = RenderContext::Get<Holder>().m_instance;
     if (!instance || reinitialize)
     {
       if (instance)

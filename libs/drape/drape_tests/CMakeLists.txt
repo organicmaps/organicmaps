@@ -4,6 +4,7 @@ set(DRAPE_TESTABLE_SRC_PREFIXED  ${DRAPE_TESTABLE_SRC})
 list(TRANSFORM DRAPE_TESTABLE_SRC_PREFIXED PREPEND "../")
 
 set(SRC
+  render_context_tests.cpp
   ${DRAPE_TESTABLE_SRC_PREFIXED}
   attribute_provides_tests.cpp
   batcher_tests.cpp
@@ -26,6 +27,7 @@ set(SRC
   static_texture_tests.cpp
   stipple_pen_tests.cpp
   text_metrics_cache_bench.cpp
+  texture_preparation_tests.cpp
   texture_of_colors_tests.cpp
   testing_graphics_context.hpp
   uniform_value_tests.cpp

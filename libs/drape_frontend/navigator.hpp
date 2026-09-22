@@ -41,6 +41,7 @@ public:
   bool InAction() const;
 
   void SetAutoPerspective(bool enable);
+  void SetPerspective(double angle);
   void Enable3dMode();
   void SetRotationIn3dMode(double rotationAngle);
   void Disable3dMode();

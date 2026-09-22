@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/render_context.hpp"
+
 #include "base/macros.hpp"
 
 #include <set>
@@ -10,6 +12,8 @@ class BaseInterpolator;
 
 class InterpolationHolder
 {
+  friend class dp::RenderContext;
+
 public:
   static InterpolationHolder & Instance();
   bool IsActive() const;

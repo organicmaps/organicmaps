@@ -206,7 +206,7 @@ void Framework::OnLocationError(TLocationError /*error*/)
     m_drapeEngine->LoseLocation();
 }
 
-void Framework::OnLocationUpdate(GpsInfo const & info)
+void Framework::OnLocationUpdate(GpsInfo const & info, double ageSeconds)
 {
 #ifdef FIXED_LOCATION
   GpsInfo rInfo(info);
@@ -230,7 +230,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   GpsInfo const & rInfo = info;
 #endif
 
-  m_routingManager.OnLocationUpdate(rInfo);
+  m_routingManager.OnLocationUpdate(rInfo, ageSeconds);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -244,6 +244,7 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
 
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetCompassInfo(rInfo);
+  m_routingManager.GetNavigationScene().SetCompassInfo(rInfo);
 }
 
 void Framework::SwitchMyPositionNextMode()
@@ -348,6 +349,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   if (settings::Get(kMapStyleKey, mapStyleStr))
     mapStyle = MapStyleFromSettings(mapStyleStr);
   GetStyleReader().SetCurrentStyle(mapStyle);
+  m_routingManager.GetNavigationScene().UpdateMapStyle();
   df::LoadTransitColors();
 
   // Init strings bundle.
@@ -609,6 +611,7 @@ void Framework::RegisterAllMaps()
       // Otherwise we have blank map view instead of countries, without Download button.
     }
   }
+  m_routingManager.GetNavigationScene().InvalidateRect(mercator::Bounds::FullRect());
 }
 
 void Framework::DeregisterAllMaps()
@@ -1329,6 +1332,7 @@ void Framework::InvalidateRect(m2::RectD const & rect)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->InvalidateRect(rect);
+  m_routingManager.GetNavigationScene().InvalidateRect(rect);
 }
 
 void Framework::ClearAllCaches()
@@ -1883,6 +1887,33 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   benchmark::RunGraphicsBenchmark(this);
 }
 
+drape_ptr<df::DrapeEngine> Framework::CreateNavigationRenderer(ref_ptr<dp::GraphicsContextFactory> factory, int width,
+                                                               int height, double visualScale, bool showPoi,
+                                                               bool allow3dBuildings)
+{
+  dp::RenderContext::Scope scope(std::make_shared<dp::RenderContext>());
+  df::Hints hints;
+  hints.m_isPassiveNavigation = true;
+  hints.m_maxFps = 20;
+  hints.m_showPoi = showPoi;
+  df::MapDataProvider provider([this](auto const & fn, m2::RectD const & rect, int scale)
+  { m_featuresFetcher.ForEachFeatureID(rect, fn, scale); }, [this](auto const & fn, std::vector<FeatureID> const & ids)
+  { m_featuresFetcher.ReadFeatures(fn, ids); }, [this](std::string_view name) { return IsCountryLoadedByName(name); },
+                               [](m2::PointD const &, int) {}, [](df::TileKey const &, dp::BackgroundMode)
+  { return false; }, [](df::TileKey const &, dp::BackgroundMode) {});
+  df::DrapeEngine::Params params(dp::ApiVersion::OpenGLES3, factory, dp::Viewport(0, 0, width, height), provider, hints,
+                                 visualScale, m_fontScaleFactor, {}, [](location::EMyPositionMode, bool) {},
+                                 allow3dBuildings, false, false, true, false, {}, false, false, false,
+                                 dp::BackgroundMode::Default, 1.0f, std::nullopt,
+                                 [](std::list<df::OverlayShowEvent> &&) {}, [] {}, {});
+  auto engine = make_unique_dp<df::DrapeEngine>(std::move(params));
+  engine->SetVisibleViewport(m2::RectD(0, 0, width, height));
+  engine->Allow3dMode(true, allow3dBuildings);
+  engine->SetKineticScrollEnabled(false);
+  engine->SetMapLangIndex(StringUtf8Multilang::GetLangIndex(GetMapLanguageCode()));
+  return engine;
+}
+
 void Framework::OnRecoverSurface(int width, int height, bool recreateContextDependentResources)
 {
   if (m_drapeEngine)
@@ -2072,6 +2103,7 @@ void Framework::MarkMapStyle(MapStyle mapStyle)
   // light<->dark stays zero-IO); drape worker threads observe the switch only via UpdateMapStyle.
   classificator::EnsureStyleLoaded(mapStyle);
   GetStyleReader().SetCurrentStyle(mapStyle);
+  m_routingManager.GetNavigationScene().UpdateMapStyle();
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)
@@ -2794,8 +2826,7 @@ std::string Framework::GetMapLanguageCode()
 void Framework::SetMapLanguageCode(std::string const & langCode)
 {
   settings::Set(settings::kMapLanguageCode, langCode);
-  if (m_drapeEngine)
-    ApplyMapLanguageCode(langCode);
+  ApplyMapLanguageCode(langCode);
 
   if (m_searchAPI)
     m_searchAPI->SetLocale(langCode);
@@ -2937,7 +2968,9 @@ void Framework::ApplyMapLanguageCode(std::string const & langCode)
   if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
     langIndex = StringUtf8Multilang::kDefaultCode;
 
-  m_drapeEngine->SetMapLangIndex(langIndex);
+  if (m_drapeEngine)
+    m_drapeEngine->SetMapLangIndex(langIndex);
+  m_routingManager.GetNavigationScene().SetMapLangIndex(langIndex);
 }
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)

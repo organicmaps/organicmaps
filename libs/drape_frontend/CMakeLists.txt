@@ -1,6 +1,9 @@
 project(drape_frontend)
 
 set(SRC
+  navigation_scene.hpp
+  perspective_tile_coverage.cpp
+  perspective_tile_coverage.hpp
   animation/animation.cpp
   animation/animation.hpp
   animation/arrow_animation.cpp

@@ -91,15 +91,16 @@ using TGeometryBuffer = std::vector<TransitStaticVertex>;
 
 dp::BindingInfo const & GetTransitStaticBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> s_info;
-  if (s_info == nullptr)
+  static auto const s_info = []
   {
+    std::unique_ptr<dp::BindingInfo> s_info;
     dp::BindingFiller<TransitStaticVertex> filler(3);
     filler.FillDecl<TransitStaticVertex::TPosition>("a_position");
     filler.FillDecl<TransitStaticVertex::TNormal>("a_normal");
     filler.FillDecl<TransitStaticVertex::TColor>("a_color");
     s_info.reset(new dp::BindingInfo(filler.m_info));
-  }
+    return s_info;
+  }();
   return *s_info;
 }
 

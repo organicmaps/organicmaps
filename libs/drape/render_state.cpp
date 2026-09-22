@@ -207,7 +207,7 @@ bool RenderState::operator!=(RenderState const & other) const
   return !operator==(other);
 }
 
-std::vector<glConst> TextureState::m_usedTextureTypes;
+thread_local std::vector<glConst> TextureState::m_usedTextureTypes;
 
 void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState const & state,
                                  ref_ptr<GpuProgram> program)
@@ -226,11 +226,12 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       if (tex != nullptr && (texLoc = p->GetUniformLocation(texture.first)) >= 0)
       {
         GLFunctions::glActiveTexture(gl_const::GLTexture0 + slot);
+        auto const hardwareTexture = tex->PrepareForRendering(context);
         tex->Bind(context);
         GLFunctions::glUniformValuei(texLoc, slot);
         tex->SetFilter(state.GetTextureFilter());
         slot++;
-        m_usedTextureTypes.push_back(tex->GetHardwareTexture()->GetTarget());
+        m_usedTextureTypes.push_back(hardwareTexture->GetTarget());
       }
     }
   }
@@ -251,13 +252,7 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       if (texture.second == nullptr)
         continue;
 
-      ref_ptr<dp::vulkan::VulkanTexture> t = texture.second->GetHardwareTexture();
-      if (t == nullptr)
-      {
-        texture.second->UpdateState(context);
-        t = texture.second->GetHardwareTexture();
-        CHECK(t != nullptr, ());
-      }
+      ref_ptr<dp::vulkan::VulkanTexture> t = texture.second->PrepareForRendering(context);
       t->Bind(context);
       t->SetFilter(state.GetTextureFilter());
 

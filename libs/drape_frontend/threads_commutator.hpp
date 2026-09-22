@@ -2,6 +2,7 @@
 
 #include "drape/pointers.hpp"
 
+#include <atomic>
 #include <map>
 
 namespace df
@@ -19,6 +20,8 @@ public:
     RenderThread,
     ResourceUploadThread
   };
+
+  std::atomic<unsigned> m_contextCounter{0};
 
   void RegisterThread(ThreadName name, BaseRenderer * acceptor);
   void PostMessage(ThreadName name, drape_ptr<Message> && message, MessagePriority priority);

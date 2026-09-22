@@ -18,14 +18,15 @@ void ApplyFeatureParams::Init(TileKey const & tileKey)
   ScreenBase geometryConvertor;
   geometryConvertor.OnSize(0, 0, tileSize, tileSize);
   geometryConvertor.SetFromRect(rect);
-  m_currentScaleGtoP = 1.0 / geometryConvertor.GetScale();
+  double const renderScaleFactor = std::exp2(tileKey.GetRenderZoom() - tileKey.m_zoomLevel);
+  m_currentScaleGtoP = renderScaleFactor / geometryConvertor.GetScale();
 
   // Here we support only two virtual tile size: 2048 px for high resolution and 1024 px for others.
   // It helps to render traffic the same on wide range of devices.
   uint32_t const trafficTileSize = m_vparams.GetVisualScale() < df::VisualParams::kXxhdpiScale ? 1024 : 2048;
   geometryConvertor.OnSize(0, 0, trafficTileSize, trafficTileSize);
   geometryConvertor.SetFromRect(rect);
-  m_trafficScalePtoG = geometryConvertor.GetScale();
+  m_trafficScalePtoG = geometryConvertor.GetScale() / renderScaleFactor;
 
   m_minSegmentSqrLength = math::Pow2(4.0 * m_vparams.GetVisualScale() / m_currentScaleGtoP);
 }

@@ -34,6 +34,7 @@
 #include "base/thread.hpp"
 
 #include <array>
+#include <atomic>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -158,6 +159,10 @@ public:
   drape_ptr<ScenarioManager> const & GetScenarioManager() const { return m_scenarioManager; }
   location::EMyPositionMode GetMyPositionMode() const { return m_myPositionController->GetCurrentMode(); }
 
+  std::array<uint32_t, 4> GetTileStats() const
+  {
+    return {m_requestedTileCount.load(), m_legacyTileCount.load(), m_coarseTileCount.load(), m_pendingTileCount.load()};
+  }
   void OnEnterBackground();
 
 protected:
@@ -282,6 +287,10 @@ private:
 
   void InvalidateRect(m2::RectD const & gRect);
   bool CheckTileGenerations(TileKey const & tileKey);
+  bool IsRequestedTile(TileKey const & key) const
+  {
+    return !m_myPositionController->IsPassiveNavigation() || m_clusterTiles.contains(key);
+  }
   void UpdateCanBeDeletedStatus();
 
   void OnCompassTapped();
@@ -363,6 +372,8 @@ private:
 
   ScreenBase m_lastReadedModelView;
   TTilesCollection m_notFinishedTiles;
+  TTilesCollection m_clusterTiles;
+  std::atomic<uint32_t> m_requestedTileCount{0}, m_legacyTileCount{0}, m_coarseTileCount{0}, m_pendingTileCount{0};
 
   // ResolveZoomLevel is called early in RenderFrame, so zoom is always valid during rendering.
   // This check is only needed for UpdateContextDependentResources, which can be triggered
@@ -376,6 +387,7 @@ private:
   }
 
   int m_currentZoomLevel = -1;
+  double m_clusterTiltDegrees = -1.0;
 
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
@@ -460,6 +472,7 @@ private:
     static uint32_t constexpr kMaxInactiveFrames = 2;
   };
   FrameData m_frameData;
+  double const m_minFrameTime;
 
 #ifdef DEBUG
   bool m_isTeardowned;

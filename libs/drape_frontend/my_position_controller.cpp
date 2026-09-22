@@ -123,7 +123,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   : m_notifier(notifier)
   , m_modeChangeCallback(std::move(params.m_myPositionModeCallback))
   , m_hints(params.m_hints)
-  , m_isInRouting(params.m_isRoutingActive)
+  , m_isInRouting(params.m_isRoutingActive || params.m_hints.m_isPassiveNavigation)
   , m_needBlockAnimation(false)
   , m_wasRotationInScaling(false)
   , m_errorRadius(0.0)
@@ -153,8 +153,11 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
 {
   using namespace location;
 
+  m_isArrowGluedInRouting = m_hints.m_isPassiveNavigation;
   m_mode = PendingPosition;
-  if (m_hints.m_isLaunchByDeepLink)
+  if (m_hints.m_isPassiveNavigation)
+    m_desiredInitMode = FollowAndRotate;
+  else if (m_hints.m_isLaunchByDeepLink)
   {
     m_desiredInitMode = NotFollow;
   }
@@ -587,8 +590,12 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     /// @todo Put under !m_hints.m_screenshotMode?
     /// Why do we have 6 modifiers (and 6 variables inside), if better to make 1 function m_shape->Render(Params)?
     m_shape->SetPositionObsolete(m_positionIsObsolete);
-    m_shape->SetPosition(m2::PointF(GetDrawablePosition()));
-    m_shape->SetAzimuth(static_cast<float>(GetDrawableAzimut()));
+    // Cluster arrows stay pinned even while GPS and camera animations interpolate differently.
+    bool const fixedArrow = m_hints.m_isPassiveNavigation && IsRouteFollowingActive();
+    auto const position =
+        fixedArrow ? screen.PtoG(screen.P3dtoP(GetRoutingRotationPixelCenter())) : GetDrawablePosition();
+    m_shape->SetPosition(m2::PointF(position));
+    m_shape->SetAzimuth(static_cast<float>(fixedArrow ? -screen.GetAngle() : GetDrawableAzimut()));
     m_shape->SetIsValidAzimuth(IsRotationAvailable());
     m_shape->SetAccuracy(static_cast<float>(m_errorRadius));
     m_shape->SetRoutingMode(IsInRouting());
@@ -596,7 +603,7 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     if (!m_hints.m_screenshotMode)
     {
       m_shape->RenderAccuracy(context, mng, screen, zoomLevel, frameValues);
-      m_shape->RenderMyPosition(context, mng, screen, zoomLevel, frameValues);
+      m_shape->RenderMyPosition(context, mng, screen, zoomLevel, frameValues, fixedArrow);
     }
   }
 }
@@ -626,7 +633,7 @@ void MyPositionController::SetDirection(double bearing)
 
 void MyPositionController::ChangeMode(location::EMyPositionMode newMode)
 {
-  if (m_isInRouting && (m_mode != newMode) && (newMode == location::FollowAndRotate))
+  if (m_isInRouting && !m_hints.m_isPassiveNavigation && (m_mode != newMode) && (newMode == location::FollowAndRotate))
     ResetBlockAutoZoomTimer();
 
   m_mode = newMode;
@@ -755,6 +762,9 @@ m2::PointD MyPositionController::GetRotationPixelCenter() const
 
 m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 {
+  if (m_hints.m_isPassiveNavigation)
+    return {m_visiblePixelRect.minX() + m_visiblePixelRect.SizeX() * m_clusterAnchor.x,
+            m_visiblePixelRect.minY() + m_visiblePixelRect.SizeY() * m_clusterAnchor.y};
   return {m_visiblePixelRect.Center().x, m_visiblePixelRect.maxY() - m_positionRoutingOffsetY};
 }
 
@@ -839,6 +849,17 @@ void MyPositionController::EnableAutoZoomInRouting(bool enableAutoZoom)
 
 void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued)
 {
+  if (m_hints.m_isPassiveNavigation)
+  {
+    m_enableAutoZoomInRouting = enableAutoZoom;
+    m_isDirtyAutoZoom = enableAutoZoom;
+    m_needBlockAutoZoom = false;
+    ResetNotification(m_blockAutoZoomNotifyId);
+    m_isArrowGluedInRouting = true;
+    ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0, GetRoutingRotationPixelCenter(),
+                    zoomLevel, [this](ref_ptr<Animation>) { UpdateViewport(kDoNotChangeZoom); });
+    return;
+  }
   if (!m_isInRouting)
   {
     m_isInRouting = true;
@@ -854,6 +875,8 @@ void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom, b
 
 void MyPositionController::DeactivateRouting()
 {
+  if (m_hints.m_isPassiveNavigation)
+    return;
   if (m_isInRouting)
   {
     m_isInRouting = false;

@@ -10,8 +10,7 @@ namespace df
 {
 DrapeMeasurer & DrapeMeasurer::Instance()
 {
-  static DrapeMeasurer s_inst;
-  return s_inst;
+  return dp::RenderContext::Get<DrapeMeasurer>();
 }
 
 void DrapeMeasurer::Start()

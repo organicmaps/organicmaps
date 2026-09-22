@@ -282,6 +282,13 @@ void Navigator::SetAutoPerspective(bool enable)
   m_Screen.SetAutoPerspective(enable);
 }
 
+void Navigator::SetPerspective(double angle)
+{
+  m_Screen.ResetPerspective();
+  if (angle > 0.0)
+    m_Screen.ApplyPerspective(angle, angle, m_Screen.GetAngleFOV());
+}
+
 void Navigator::Enable3dMode()
 {
   if (m_Screen.isPerspective())
