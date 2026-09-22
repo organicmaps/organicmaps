@@ -8,6 +8,9 @@ protocol SearchOnMapHeaderViewDelegate: UISearchBarDelegate {
 private final class RouteActionButton: UIButton {
   override func layoutSubviews() {
     super.layoutSubviews()
+    if #available(iOS 26.0, *) {
+      return
+    }
     layer.cornerRadius = bounds.height / 2
   }
 }
@@ -25,7 +28,6 @@ final class SearchOnMapHeaderView: UIView {
     static let grabberHeight: CGFloat = 5
     static let grabberWidth: CGFloat = 36
     static let grabberTopMargin: CGFloat = 5
-    static let cancelButtonInsets: UIEdgeInsets = .init(top: 0, left: 6, bottom: 0, right: 16)
     static let routeActionButtonSpacing: CGFloat = 8
     static let routeActionIconInset: CGFloat = 8
   }
@@ -36,8 +38,7 @@ final class SearchOnMapHeaderView: UIView {
   private let currentLocationButton = RouteActionButton(type: .system)
   private let chooseOnMapButton = RouteActionButton(type: .system)
   private let searchBar = UISearchBar()
-  private let cancelButton = UIButton()
-  private let cancelContainer = UIView()
+  private let cancelButton = SearchOnMapCancelButton()
   private var separator: UIView?
   private var searchBarLeadingDefaultConstraint: NSLayoutConstraint!
   private var searchBarLeadingWithRouteActionsConstraint: NSLayoutConstraint!
@@ -116,33 +117,41 @@ final class SearchOnMapHeaderView: UIView {
                                           image: UIImage,
                                           accessibilityLabel: String,
                                           action: Selector) {
-    button.backgroundColor = .pressBackground
-    button.tintColor = .linkBlue
-    button.clipsToBounds = true
-    button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
-    button.imageEdgeInsets = UIEdgeInsets(top: Constants.routeActionIconInset,
-                                          left: Constants.routeActionIconInset,
-                                          bottom: Constants.routeActionIconInset,
-                                          right: Constants.routeActionIconInset)
+    let image = image.withRenderingMode(.alwaysTemplate)
+    if #available(iOS 26.0, *) {
+      var configuration = UIButton.Configuration.glass()
+      configuration.image = image
+      configuration.baseForegroundColor = .linkBlue
+      configuration.contentInsets = NSDirectionalEdgeInsets(top: Constants.routeActionIconInset,
+                                                            leading: Constants.routeActionIconInset,
+                                                            bottom: Constants.routeActionIconInset,
+                                                            trailing: Constants.routeActionIconInset)
+      button.configuration = configuration
+    } else {
+      button.backgroundColor = .pressBackground
+      button.tintColor = .linkBlue
+      button.clipsToBounds = true
+      button.setImage(image, for: .normal)
+      button.imageEdgeInsets = UIEdgeInsets(top: Constants.routeActionIconInset,
+                                            left: Constants.routeActionIconInset,
+                                            bottom: Constants.routeActionIconInset,
+                                            right: Constants.routeActionIconInset)
+    }
     button.accessibilityLabel = accessibilityLabel
     button.addTarget(self, action: action, for: .touchUpInside)
   }
 
   private func setupCancelButton() {
-    cancelContainer.setStyle(.background)
-    cancelButton.setStyle(.searchCancelButton)
-    cancelButton.setTitle(L("cancel"), for: .normal)
     cancelButton.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
   }
 
   private func layoutView() {
     addSubview(grabberView)
     addSubview(grabberTapHandlerView)
-    addSubview(cancelContainer)
+    addSubview(cancelButton)
     addSubview(routeActionsStackView)
     addSubview(searchBar)
 
-    cancelContainer.addSubview(cancelButton)
     if #available(iOS 26.0, *) {}
     else {
       separator = addSeparator(.bottom)
@@ -153,7 +162,6 @@ final class SearchOnMapHeaderView: UIView {
     grabberTapHandlerView.setContentHuggingPriority(.defaultLow, for: .vertical)
     routeActionsStackView.translatesAutoresizingMaskIntoConstraints = false
     searchBar.translatesAutoresizingMaskIntoConstraints = false
-    cancelContainer.translatesAutoresizingMaskIntoConstraints = false
     cancelButton.translatesAutoresizingMaskIntoConstraints = false
     currentLocationButton.translatesAutoresizingMaskIntoConstraints = false
     chooseOnMapButton.translatesAutoresizingMaskIntoConstraints = false
@@ -184,18 +192,13 @@ final class SearchOnMapHeaderView: UIView {
       searchBar.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: Constants.searchBarInsets.top),
       searchBar.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.searchBarInsets.top).withPriority(.defaultLow),
       searchBarLeadingDefaultConstraint,
-      searchBar.trailingAnchor.constraint(equalTo: cancelContainer.leadingAnchor),
+      searchBar.trailingAnchor.constraint(equalTo: cancelButton.leadingAnchor),
       searchBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.searchBarInsets.bottom),
       searchBar.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.minSearchBarHeight),
 
-      cancelContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-      cancelContainer.topAnchor.constraint(equalTo: searchBar.topAnchor),
-      cancelContainer.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
-
-      cancelButton.topAnchor.constraint(equalTo: cancelContainer.topAnchor),
-      cancelButton.leadingAnchor.constraint(equalTo: cancelContainer.leadingAnchor, constant: Constants.cancelButtonInsets.left),
-      cancelButton.trailingAnchor.constraint(equalTo: cancelContainer.trailingAnchor, constant: -Constants.cancelButtonInsets.right),
-      cancelButton.bottomAnchor.constraint(equalTo: cancelContainer.bottomAnchor),
+      cancelButton.topAnchor.constraint(equalTo: searchBar.topAnchor),
+      cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+      cancelButton.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
     ])
   }
 

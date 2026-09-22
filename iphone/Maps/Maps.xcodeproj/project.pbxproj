@@ -364,6 +364,7 @@
 		ED82C5FA2F90180300FA103D /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B12F90180300FA103D /* PlaceholderView.swift */; };
 		ED82C5FB2F90180300FA103D /* SearchOnMapAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B22F90180300FA103D /* SearchOnMapAreaView.swift */; };
 		ED82C5FC2F90180300FA103D /* SearchOnMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B32F90180300FA103D /* SearchOnMapHeaderView.swift */; };
+		B7F2A1023E81A00100A1C0DE /* SearchOnMapCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2A1013E81A00100A1C0DE /* SearchOnMapCancelButton.swift */; };
 		ED82C5FD2F90180300FA103D /* SearchOnMapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B42F90180300FA103D /* SearchOnMapInteractor.swift */; };
 		ED82C5FE2F90180300FA103D /* SearchOnMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B52F90180300FA103D /* SearchOnMapManager.swift */; };
 		ED82C5FE2F9B000000FA103D /* ColorPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C5FD2F9B000000FA103D /* ColorPickerButton.swift */; };
@@ -1397,6 +1398,7 @@
 		ED82C4B12F90180300FA103D /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		ED82C4B22F90180300FA103D /* SearchOnMapAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapAreaView.swift; sourceTree = "<group>"; };
 		ED82C4B32F90180300FA103D /* SearchOnMapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapHeaderView.swift; sourceTree = "<group>"; };
+		B7F2A1013E81A00100A1C0DE /* SearchOnMapCancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapCancelButton.swift; sourceTree = "<group>"; };
 		ED82C4B42F90180300FA103D /* SearchOnMapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapInteractor.swift; sourceTree = "<group>"; };
 		ED82C4B52F90180300FA103D /* SearchOnMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapManager.swift; sourceTree = "<group>"; };
 		ED82C4B62F90180300FA103D /* SearchOnMapModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapModels.swift; sourceTree = "<group>"; };
@@ -3370,6 +3372,7 @@
 				ED82C4B02F90180300FA103D /* Presentation */,
 				ED82C4B12F90180300FA103D /* PlaceholderView.swift */,
 				ED82C4B22F90180300FA103D /* SearchOnMapAreaView.swift */,
+				B7F2A1013E81A00100A1C0DE /* SearchOnMapCancelButton.swift */,
 				ED82C4B32F90180300FA103D /* SearchOnMapHeaderView.swift */,
 				ED82C4B42F90180300FA103D /* SearchOnMapInteractor.swift */,
 				ED82C4B52F90180300FA103D /* SearchOnMapManager.swift */,
@@ -4903,6 +4906,7 @@
 				ED82C5F92F90180300FA103D /* SearchOnMapModalPresentationStepStrategy.swift in Sources */,
 				ED82C5FA2F90180300FA103D /* PlaceholderView.swift in Sources */,
 				ED82C5FB2F90180300FA103D /* SearchOnMapAreaView.swift in Sources */,
+				B7F2A1023E81A00100A1C0DE /* SearchOnMapCancelButton.swift in Sources */,
 				ED82C5FC2F90180300FA103D /* SearchOnMapHeaderView.swift in Sources */,
 				ED82C5FD2F90180300FA103D /* SearchOnMapInteractor.swift in Sources */,
 				ED82C5FE2F90180300FA103D /* SearchOnMapManager.swift in Sources */,
