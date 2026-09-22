@@ -3,6 +3,7 @@
 #include "drape_frontend/tile_info.hpp"
 
 #include "base/thread.hpp"
+#include "drape/render_context.hpp"
 
 #include <memory>
 
@@ -24,6 +25,7 @@ private:
   std::weak_ptr<TileInfo> m_tileInfo;
   TileKey m_tileKey;
   MapDataProvider & m_model;
+  std::shared_ptr<dp::RenderContext> m_renderContext = dp::RenderContext::Current();
 
 #ifdef DEBUG
   bool m_checker;

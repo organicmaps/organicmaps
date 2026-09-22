@@ -249,6 +249,15 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
                                      followEvent->GetOnFinishAction(), followEvent->GetParallelAnimCreator());
     }
     break;
+    case UserEvent::EventType::Perspective:
+    {
+      m_needTrackCenter = false;
+      ref_ptr<SetPerspectiveEvent> const perspectiveEvent = make_ref(e);
+      ResetMapPlaneAnimations();
+      m_navigator.SetPerspective(perspectiveEvent->GetAngle());
+      breakAnim = true;
+    }
+    break;
     case UserEvent::EventType::AutoPerspective:
     {
       m_needTrackCenter = false;

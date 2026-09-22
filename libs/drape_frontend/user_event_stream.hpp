@@ -40,6 +40,7 @@ public:
     Rotate,
     FollowAndRotate,
     AutoPerspective,
+    Perspective,
     VisibleViewport,
     Move,
     Scroll,
@@ -304,6 +305,17 @@ private:
   bool m_isAnim;
   Animation::TAction m_onFinishAction;
   TAnimationCreator m_parallelAnimCreator;
+};
+
+class SetPerspectiveEvent : public UserEvent
+{
+public:
+  explicit SetPerspectiveEvent(double angle) : m_angle(angle) {}
+  EventType GetType() const override { return EventType::Perspective; }
+  double GetAngle() const { return m_angle; }
+
+private:
+  double const m_angle;
 };
 
 class SetAutoPerspectiveEvent : public UserEvent

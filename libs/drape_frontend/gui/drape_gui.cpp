@@ -8,8 +8,7 @@ df::ColorConstant const kGuiTextColor = "GuiText";
 
 DrapeGui & DrapeGui::Instance()
 {
-  static DrapeGui s_gui;
-  return s_gui;
+  return dp::RenderContext::Get<DrapeGui>();
 }
 
 RulerHelper & DrapeGui::GetRulerHelper()

@@ -181,7 +181,6 @@ bool SupportManager::IsVulkanTexturePartialUpdateBuggy(int sdkVersion, std::stri
 
 SupportManager & SupportManager::Instance()
 {
-  static SupportManager manager;
-  return manager;
+  return RenderContext::Get<SupportManager>();
 }
 }  // namespace dp

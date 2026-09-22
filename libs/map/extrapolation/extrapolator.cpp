@@ -6,12 +6,29 @@
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
+#include "std/target_os.hpp"
 
 #include <chrono>
+#include <cmath>
 #include <memory>
+#if defined(OMIM_OS_ANDROID)
+#include <time.h>
+#endif
 
 namespace
 {
+double MonotonicSeconds()
+{
+#if defined(OMIM_OS_ANDROID)
+  // Match elapsedRealtimeNanos(), including suspend time; old fixes must expire during STR.
+  timespec time{};
+  int const result = clock_gettime(CLOCK_BOOTTIME, &time);
+  CHECK_EQUAL(result, 0, ());
+  return static_cast<double>(time.tv_sec) + static_cast<double>(time.tv_nsec) / 1e9;
+#else
+  return std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
+#endif
+}
 // If the difference of values between two instances of GpsInfo is greater
 // than the appropriate constant below the extrapolator will be switched off for
 // these two instances of GpsInfo.
@@ -120,21 +137,42 @@ Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update)
   : m_isEnabled(false)
   , m_extrapolatedLocationUpdate(update)
 {
-  RunTaskOnBackgroundThread(false /* delayed */);
+  RunTaskOnBackgroundThread(false /* delayed */, 0);
 }
 
-void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
+void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo, double ageSeconds)
 {
+  uint64_t generation;
   {
     std::lock_guard<std::mutex> guard(m_mutex);
     m_beforeLastGpsInfo = m_lastGpsInfo;
     m_lastGpsInfo = gpsInfo;
+    m_lastOutput = gpsInfo;
+    double const now = MonotonicSeconds();
+    bool const validAge = std::isfinite(ageSeconds) && ageSeconds >= 0.0;
+    m_lastGpsTime = now - (validAge ? ageSeconds : 0.0);
+    m_vehicleMotion.SetFix(validAge ? gpsInfo : location::GpsInfo{}, m_lastGpsTime, now);
+    ++m_motionRevision;
     m_consecutiveRuns = 0;
     // Canceling all background tasks which are put to the queue before the task run in this method.
     ++m_locationUpdateCounter;
     m_locationUpdateMinValid = m_locationUpdateCounter;
+    generation = m_locationUpdateCounter;
   }
-  RunTaskOnBackgroundThread(false /* delayed */);
+  RunTaskOnBackgroundThread(false /* delayed */, generation);
+}
+
+void Extrapolator::OnVehicleSpeed(double speedMps, double ageSeconds, bool valid)
+{
+  std::lock_guard<std::mutex> guard(m_mutex);
+  ++m_motionRevision;
+  if (!valid || !std::isfinite(ageSeconds) || ageSeconds < 0.0 || ageSeconds > VehicleMotion::kMaxAgeSeconds)
+  {
+    m_vehicleMotion.InvalidateSpeed();
+    return;
+  }
+  double const now = MonotonicSeconds();
+  m_vehicleMotion.SetSpeed(speedMps, now - ageSeconds, now);
 }
 
 void Extrapolator::Enable(bool enabled)
@@ -146,43 +184,69 @@ void Extrapolator::Enable(bool enabled)
 void Extrapolator::ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter)
 {
   location::GpsInfo gpsInfo;
+  bool predicted = false;
+  uint64_t revision;
   {
     std::lock_guard<std::mutex> guard(m_mutex);
     // Canceling all calls of the method which were activated before |m_locationUpdateMinValid|.
     if (locationUpdateCounter < m_locationUpdateMinValid)
       return;
 
-    uint64_t const extrapolationTimeMs = kExtrapolationPeriodMs * m_consecutiveRuns;
-    if (extrapolationTimeMs < kMaxExtrapolationTimeMs && m_lastGpsInfo.IsValid())
+    revision = m_motionRevision;
+    double const now = MonotonicSeconds();
+    double const elapsed = now - m_lastGpsTime;
+    bool const withinHorizon = elapsed >= 0.0 && elapsed < kMaxExtrapolationTimeMs / 1000.0;
+    if (m_lastGpsInfo.IsValid() && (m_consecutiveRuns == 0 || withinHorizon))
     {
-      if (DoesExtrapolationWork())
-        gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, extrapolationTimeMs);
+      auto vehicle = m_vehicleMotion.Predict(now);
+      if (vehicle)
+      {
+        gpsInfo = *vehicle;
+        predicted = true;
+      }
+      else if (m_vehicleMotion.ShouldHoldPosition())
+      {
+        gpsInfo = m_lastOutput;
+        gpsInfo.m_speed = -1.0;  // Invalid vehicle speed must not continue advancing a prediction.
+        predicted = true;
+      }
+      else if (withinHorizon && DoesExtrapolationWork())
+      {
+        gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo,
+                                      m_consecutiveRuns == 0 ? 0 : static_cast<uint64_t>(elapsed * 1000.0));
+        predicted = m_consecutiveRuns != 0;
+      }
       else
         gpsInfo = m_lastGpsInfo;
+      m_lastOutput = gpsInfo;
     }
   }
 
   if (gpsInfo.IsValid())
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, gpsInfo]() { m_extrapolatedLocationUpdate(gpsInfo); });
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, gpsInfo, locationUpdateCounter, revision, predicted]()
+    {
+      {
+        std::lock_guard<std::mutex> guard(m_mutex);
+        if (locationUpdateCounter != m_locationUpdateCounter || (predicted && revision != m_motionRevision))
+          return;
+      }
+      m_extrapolatedLocationUpdate(gpsInfo);
+    });
 
   {
     std::lock_guard<std::mutex> guard(m_mutex);
+    if (locationUpdateCounter != m_locationUpdateCounter)
+      return;
     if (m_consecutiveRuns != kExtrapolationCounterUndefined)
       ++m_consecutiveRuns;
   }
 
   // Calling ExtrapolatedLocationUpdate() in |kExtrapolationPeriodMs| milliseconds.
-  RunTaskOnBackgroundThread(true /* delayed */);
+  RunTaskOnBackgroundThread(true /* delayed */, locationUpdateCounter);
 }
 
-void Extrapolator::RunTaskOnBackgroundThread(bool delayed)
+void Extrapolator::RunTaskOnBackgroundThread(bool delayed, uint64_t locationUpdateCounter)
 {
-  uint64_t locationUpdateCounter = 0;
-  {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    locationUpdateCounter = m_locationUpdateCounter;
-  }
-
   if (delayed)
   {
     auto constexpr period = std::chrono::milliseconds(kExtrapolationPeriodMs);

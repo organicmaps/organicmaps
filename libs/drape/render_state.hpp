@@ -133,7 +133,7 @@ public:
   static std::vector<glConst> const & GetLastUsedTextureTypes();
 
 private:
-  static std::vector<glConst> m_usedTextureTypes;
+  static thread_local std::vector<glConst> m_usedTextureTypes;
 };
 
 void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state);

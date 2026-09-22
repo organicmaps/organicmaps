@@ -165,7 +165,7 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
   ASSERT(m_checkCancelled != nullptr, ());
 
   m_applyParams.Init(m_context->GetTileKey());
-  m_zoomLevel = m_applyParams.m_tileKey.m_zoomLevel;
+  m_zoomLevel = m_applyParams.m_tileKey.GetRenderZoom();
 
   m_mapShapes[df::OverlayType].reserve(200 /* average overlays count */);
 
@@ -427,7 +427,21 @@ void RuleDrawer::operator()(FeatureType & f)
       forceOutdoorStyle = true;
   }
 
-  Stylist const s(f, m_zoomLevel, m_deviceLang, forceOutdoorStyle);
+  auto const detailZoom = m_context->GetTileKey().m_zoomLevel;
+  Stylist s(f, detailZoom, m_deviceLang, forceOutdoorStyle);
+  if (detailZoom != m_zoomLevel && !s.m_lineRules.empty())
+  {
+    // The road centreline and width stay identical where different LOD cells meet.
+    Stylist roadStyle(f, m_zoomLevel, m_deviceLang, forceOutdoorStyle);
+    s.m_lineRules = std::move(roadStyle.m_lineRules);
+  }
+  if (!m_context->IsPoiVisible() && ftypes::IsPoiChecker::Instance()(types) &&
+      !ftypes::IsLocalityChecker::Instance()(types))
+  {
+    // Keep area geometry and house numbers on buildings that also contain a POI.
+    s.m_symbolRule = nullptr;
+    s.m_captionRule = nullptr;
+  }
 
   // No drawing rules.
   if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&

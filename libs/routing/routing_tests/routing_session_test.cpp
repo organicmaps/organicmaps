@@ -731,6 +731,15 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSwapActiveAlternative)
     TEST(m_session->SwapActiveAlternative(0), ());
     TEST_EQUAL(swapCount, 2, ());
 
+    TEST(m_session->EnableFollowMode(), ());
+    TEST(!m_session->SwapActiveAlternative(1), ());
+    TEST_EQUAL(swapCount, 2, ());
+    m_session->RouteCall([](RoutesResult const & result) { TEST_EQUAL(result.m_activeIdx, 0, ()); });
+
+    TEST(m_session->DisableFollowMode(), ());
+    TEST(m_session->SwapActiveAlternative(1), ());
+    TEST_EQUAL(swapCount, 3, ());
+
     swappedSignal.Signal();
   });
   TEST(swappedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative was not swapped."));

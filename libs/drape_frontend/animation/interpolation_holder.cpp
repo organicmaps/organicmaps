@@ -7,8 +7,7 @@ namespace df
 {
 InterpolationHolder & InterpolationHolder::Instance()
 {
-  static InterpolationHolder holder;
-  return holder;
+  return dp::RenderContext::Get<InterpolationHolder>();
 }
 
 bool InterpolationHolder::IsActive() const

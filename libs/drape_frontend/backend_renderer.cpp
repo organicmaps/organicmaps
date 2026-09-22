@@ -39,9 +39,9 @@ using namespace std::placeholders;
 BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
-  , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings,
-                                              params.m_trafficEnabled, params.m_isolinesEnabled,
-                                              params.m_backgroundMode, params.m_satelliteAreaOpacity))
+  , m_readManager(make_unique_dp<ReadManager>(
+        params.m_commutator, m_model, params.m_allow3dBuildings, params.m_trafficEnabled, params.m_isolinesEnabled,
+        params.m_backgroundMode, params.m_satelliteAreaOpacity, params.m_poiVisible, params.m_trackTileHistory))
   , m_transitBuilder(
         make_unique_dp<TransitSchemeBuilder>(std::bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(std::bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
@@ -137,17 +137,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::Type::UpdateReadManager:
   {
-    TTilesCollection tiles = m_requestedTiles->GetTiles();
+    ScreenBase screen;
+    bool have3dBuildings, forceRequest, forceUserMarksRequest;
+    TTilesCollection tiles = m_requestedTiles->Get(screen, have3dBuildings, forceRequest, forceUserMarksRequest);
     if (!tiles.empty())
     {
-      ScreenBase screen;
-      bool have3dBuildings;
-      bool forceRequest;
-      bool forceUserMarksRequest;
-      m_requestedTiles->GetParams(screen, have3dBuildings, forceRequest, forceUserMarksRequest);
       m_readManager->UpdateCoverage(screen, have3dBuildings, forceRequest, forceUserMarksRequest, tiles, m_texMng,
                                     make_ref(m_metalineManager));
-      m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
+      m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).GetRenderZoom());
     }
     break;
   }
@@ -326,8 +323,21 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::AddSubroute:
   {
     ref_ptr<AddSubrouteMessage> msg = message;
+    if (msg->GetRecacheId() < 0)
+      m_activeSubroutes[msg->GetSubrouteId()] = msg->GetSubroute();
+    else if (!m_activeSubroutes.contains(msg->GetSubrouteId()))
+      break;  // A style refresh queued by FR must not resurrect a cancelled route.
     CHECK(m_context != nullptr, ());
     m_routeBuilder->Build(m_context, msg->GetSubrouteId(), msg->GetSubroute(), m_texMng, msg->GetRecacheId());
+    break;
+  }
+
+  case Message::Type::RecacheSubroutes:
+  {
+    ref_ptr<RecacheSubroutesMessage> const msg = message;
+    CHECK(m_context != nullptr, ());
+    for (auto const & [id, subroute] : m_activeSubroutes)
+      m_routeBuilder->Build(m_context, id, subroute, m_texMng, msg->GetRecacheId());
     break;
   }
 
@@ -342,7 +352,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::RemoveSubroute:
   {
     ref_ptr<RemoveSubrouteMessage> msg = message;
-    m_routeBuilder->ClearRouteCache();
+    if (msg->NeedDeactivateFollowing())
+      m_activeSubroutes.clear();
+    else
+      m_activeSubroutes.erase(msg->GetSegmentId());
+    m_routeBuilder->ClearRouteCache(msg->NeedDeactivateFollowing() ? dp::DrapeID() : msg->GetSegmentId());
     // We have to resend the message to FR, because it guaranties that
     // RemoveSubroute will be processed after FlushSubrouteMessage.
     m_commutator->PostMessage(
@@ -414,10 +428,27 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::Allow3dMode:
+  {
+    ref_ptr<Allow3dModeMessage> const msg = message;
+    m_readManager->Allow3dBuildings(msg->Allow3dBuildings());
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<Allow3dModeMessage>(msg->AllowPerspective(), msg->Allow3dBuildings()),
+                              MessagePriority::Normal);
+    break;
+  }
   case Message::Type::Allow3dBuildings:
   {
     ref_ptr<Allow3dBuildingsMessage> msg = message;
     m_readManager->Allow3dBuildings(msg->Allow3dBuildings());
+    break;
+  }
+  case Message::Type::SetPoiVisibility:
+  {
+    ref_ptr<SetPoiVisibilityMessage> const msg = message;
+    if (m_readManager->SetPoiVisible(msg->IsVisible()))
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<SetPoiVisibilityMessage>(msg->IsVisible()), MessagePriority::Normal);
     break;
   }
   case Message::Type::SetMapLangIndex:
@@ -833,6 +864,7 @@ BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(rende
 
 void BackendRenderer::Routine::Do()
 {
+  dp::RenderContext::Scope scope(m_renderer.m_renderContext);
   LOG(LINFO, ("Start routine."));
   m_renderer.CreateContext();
   while (!IsCancelled())

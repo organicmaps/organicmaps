@@ -63,6 +63,8 @@ set(DRAPE_TESTABLE_SRC
   index_storage.hpp
   mesh_object.cpp
   mesh_object.hpp
+  render_context.cpp
+  render_context.hpp
   object_pool.hpp
   oglcontext.cpp
   oglcontext.hpp

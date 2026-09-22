@@ -38,6 +38,7 @@ bool ReadMWMTask::IsCancelled() const
 
 void ReadMWMTask::Do()
 {
+  dp::RenderContext::Scope scope(m_renderContext);
 #ifdef DEBUG
   ASSERT(m_checker, ());
 #endif

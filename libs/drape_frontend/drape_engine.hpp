@@ -49,6 +49,8 @@ class MapDataProvider;
 
 class DrapeEngine
 {
+  std::shared_ptr<dp::RenderContext> m_renderContext = dp::RenderContext::Current();
+
 public:
   struct Params
   {
@@ -142,6 +144,10 @@ public:
 
   using ModelViewChangedHandler = FrontendRenderer::ModelViewChangedHandler;
   void SetModelViewListener(ModelViewChangedHandler && fn);
+  double GetCurrentZoomLevel() const { return m_currentZoomLevel.load(); }
+  double GetCurrentTilt() const { return m_currentTilt.load(); }
+  std::array<uint32_t, 4> GetTileStats() const { return m_frontend->GetTileStats(); }
+  void SetClusterCamera(int zoom, double tiltDegrees, m2::PointD const & anchor);
 
 #if defined(OMIM_OS_DESKTOP)
   using GraphicsReadyHandler = FrontendRenderer::GraphicsReadyHandler;
@@ -178,7 +184,9 @@ public:
   /// Replaces any previously highlighted lines. No-op if no selection is active.
   void SetSelectionLines(SelectionInfo && info);
 
+  static dp::DrapeID NewSubrouteId() { return ++m_drapeIdGenerator; }
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
+  void AddSubrouteWithId(dp::DrapeID id, SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
   void RemoveAlternativeSubroutes();
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom, bool isArrowGlued);
@@ -205,6 +213,8 @@ public:
   void SetKineticScrollEnabled(bool enabled);
 
   void SetMapLangIndex(int8_t mapLangIndex);
+  void SetPoiVisible(bool visible);
+  void SetCluster3dBuildings(bool enabled);
 
   void OnEnterForeground();
   void OnEnterBackground();
@@ -292,6 +302,8 @@ private:
 
   dp::Viewport m_viewport;
 
+  std::atomic<double> m_currentZoomLevel{0.0};
+  std::atomic<double> m_currentTilt{0.0};
   ModelViewChangedHandler m_modelViewChangedHandler;
   TapEventInfoHandler m_tapEventInfoHandler;
   UserPositionChangedHandler m_userPositionChangedHandler;
@@ -302,7 +314,8 @@ private:
   bool m_choosePositionMode = false;
   bool m_kineticScrollEnabled = true;
 
-  std::atomic<dp::DrapeID> m_drapeIdGenerator = 0;
+  inline static std::atomic<dp::DrapeID> m_drapeIdGenerator = 0;
+  bool m_isPassiveNavigation = false;
 
   double m_startBackgroundTime = 0;
 

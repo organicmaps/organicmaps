@@ -15,8 +15,6 @@ extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);
 
 namespace df
 {
-// static
-std::atomic<uint8_t> BaseRenderer::m_contextCounter(0);
 
 BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params)
   : m_apiVersion(params.m_apiVersion)
@@ -131,9 +129,9 @@ void BaseRenderer::CreateContext()
 {
   OnContextCreate();
 
-  m_contextCounter++;
+  m_commutator->m_contextCounter++;
   uint8_t constexpr kContextCount = 2;
-  if (m_contextCounter == kContextCount && m_onGraphicsContextInitialized)
+  if (m_commutator->m_contextCounter == kContextCount && m_onGraphicsContextInitialized)
     m_onGraphicsContextInitialized();
 }
 
@@ -148,8 +146,8 @@ void BaseRenderer::CheckRenderingEnabled()
       using namespace std::placeholders;
       EnableMessageFiltering(std::bind(&BaseRenderer::FilterContextDependentMessage, this, _1));
       OnContextDestroy();
-      CHECK(m_contextCounter > 0, ());
-      m_contextCounter--;
+      CHECK(m_commutator->m_contextCounter > 0, ());
+      m_commutator->m_contextCounter--;
     }
     else
     {

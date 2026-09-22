@@ -36,26 +36,28 @@ dp::RenderState GetCirclesPackState()
 
 dp::BindingInfo const & GetCirclesPackStaticBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> s_info;
-  if (s_info == nullptr)
+  static auto const s_info = []
   {
+    std::unique_ptr<dp::BindingInfo> s_info;
     dp::BindingFiller<CirclesPackStaticVertex> filler(1);
     filler.FillDecl<CirclesPackStaticVertex::TNormal>("a_normal");
     s_info.reset(new dp::BindingInfo(filler.m_info));
-  }
+    return s_info;
+  }();
   return *s_info;
 }
 
 dp::BindingInfo const & GetCirclesPackDynamicBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> s_info;
-  if (s_info == nullptr)
+  static auto const s_info = []
   {
+    std::unique_ptr<dp::BindingInfo> s_info;
     dp::BindingFiller<CirclesPackDynamicVertex> filler(2, kDynamicStreamID);
     filler.FillDecl<CirclesPackDynamicVertex::TPosition>("a_position");
     filler.FillDecl<CirclesPackDynamicVertex::TColor>("a_color");
     s_info.reset(new dp::BindingInfo(filler.m_info));
-  }
+    return s_info;
+  }();
   return *s_info;
 }
 }  // namespace

@@ -125,6 +125,10 @@ public:
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
+  bool IsPassiveNavigation() const { return m_hints.m_isPassiveNavigation; }
+  bool IsPositionAssigned() const { return m_isPositionAssigned; }
+  void SetClusterAnchor(m2::PointD const & anchor) { m_clusterAnchor = anchor; }
+  m2::PointD const & GetClusterAnchor() const { return m_clusterAnchor; }
   bool IsRouteFollowingActive() const;
   bool IsModeChangeViewport() const;
 
@@ -164,6 +168,7 @@ private:
   location::EMyPositionMode m_desiredInitMode;
   location::TMyPositionModeChanged m_modeChangeCallback;
   Hints m_hints;
+  m2::PointD m_clusterAnchor{0.5, 0.75};
 
   bool m_isInRouting = false;
   bool m_isArrowGluedInRouting = false;

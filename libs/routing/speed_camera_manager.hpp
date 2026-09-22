@@ -78,6 +78,7 @@ public:
   void SetMode(SpeedCameraManagerMode mode);
   SpeedCameraManagerMode GetMode() const { return m_mode; }
   SpeedCameraOnRoute const & GetClosestCamForTests() const { return m_closestCamera; }
+  bool GetCameraAhead(SpeedCameraOnRoute & camera, double & distanceMeters) const;
   bool IsSpeedLimitExceeded() const;
 
 private:

@@ -39,7 +39,8 @@ public:
                       int zoomLevel, FrameValues const & frameValues);
 
   void RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                        ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
+                        ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues,
+                        bool screenAligned = false);
 
 private:
   void CacheAccuracySector(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);

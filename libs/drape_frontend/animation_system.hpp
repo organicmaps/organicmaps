@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/render_context.hpp"
+
 #include "drape_frontend/animation/animation.hpp"
 
 #include "drape/drape_diagnostics.hpp"
@@ -20,6 +22,8 @@ namespace df
 {
 class AnimationSystem
 {
+  friend class dp::RenderContext;
+
 public:
   static AnimationSystem & Instance();
 
