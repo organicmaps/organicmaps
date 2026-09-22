@@ -98,7 +98,10 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 {
   qmlRegisterUncreatableMetaObject(location::staticMetaObject, "Location", 1, 0, "PositionMode", "Access to enums & flags only");
 
-  setGeometry(screenGeometry);
+  if (std::string g; settings::Get("geometry", g))
+    restoreGeometry(QByteArray::fromStdString(g));
+  else
+    setGeometry(screenGeometry);
 
   if (m_screenshotMode)
   {
@@ -187,9 +190,6 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
     ::InsertMenuItemW(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
   }
 #endif
-
-  // Always show on full screen.
-  showMaximized();
 
 #ifndef NO_DOWNLOADER
   // Show intro dialog if necessary
@@ -998,6 +998,7 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
 void MainWindow::closeEvent(QCloseEvent * e)
 {
   m_pDrawWidget->PrepareShutdown();
+  settings::Set("geometry", saveGeometry().toStdString());
   e->accept();
 }
 
