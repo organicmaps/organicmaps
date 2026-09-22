@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C01F84D927D2414E9A530001 /* BookmarksListSortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */; };
 		0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */; };
+		C50A71010000000000000001 /* MWMSearchSpotlightTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */; };
 		165953742CB1D85500CFED7C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 165953732CB1D83700CFED7C /* fonts */; };
 		165953942CB44B5600CFED7C /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = 165953932CB44B3B00CFED7C /* symbols */; };
 		16CDB3FB2F15B0C30040FC4F /* libtimezone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CDB3FA2F15B0C30040FC4F /* libtimezone.a */; };
@@ -771,6 +772,7 @@
 /* Begin PBXFileReference section */
 		C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSortingTests.swift; sourceTree = "<group>"; };
 		0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+SeparatorInset.swift"; sourceTree = "<group>"; };
+		C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchSpotlightTests.mm; sourceTree = "<group>"; };
 		165953732CB1D83700CFED7C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../data/fonts; sourceTree = "<group>"; };
 		165953932CB44B3B00CFED7C /* symbols */ = {isa = PBXFileReference; lastKnownFileType = folder; name = symbols; path = ../../data/symbols; sourceTree = "<group>"; };
 		16CDB3FA2F15B0C30040FC4F /* libtimezone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtimezone.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1988,6 +1990,7 @@
 		4B4153B62BF9709100EE4B02 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */,
 				ED91433C3001A0000081DF0B /* DeepLink */,
 				EDBAB6F12E980415007962B5 /* GeoNavigationToOMURLConverterTests */,
 				AA01B2C3D4E5F60718293A03 /* Routing */,
@@ -5053,6 +5056,7 @@
 				EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */,
 				C01F84D927D2414E9A530001 /* BookmarksListSortingTests.swift in Sources */,
 				4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */,
+				C50A71010000000000000001 /* MWMSearchSpotlightTests.mm in Sources */,
 				EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */,
 				EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */,
 				ED914332300168CF0081DF0B /* CarPlaySceneDelegateTests.swift in Sources */,

@@ -547,7 +547,7 @@ bg:Семейна почивка
 ca:Oci familiar
 cs:Dovolená s dětmi
 da:Familieferie
-de:Freizeit mit Kindern
+de:Freizeit mit Familie|Freizeit mit Kindern
 el:Οικογενειακές διακοπές
 es:Ocio en familia|Diversión en familia
 et:Perepuhkus
@@ -596,7 +596,7 @@ cs:3Bankomat
 da:3Hæveautomat
 de:3Geldautomat|4Bankautomat|7Bargeldautomat
 el:ΑΤΜ|ATM
-es:Cajero|cajero automático
+es:Cajero automático|Cajero
 et:Pangaautomaat
 eu:4Kutxazain automatikoa
 fa:خود‌پرداز
@@ -779,7 +779,7 @@ bg:Втора употреба
 ca:Segona mà
 cs:Second-hand
 da:Genbrugsbutikker|brugt
-de:Second-hand
+de:Second-Hand
 el:Μεταχειρισμένα
 es:Segunda mano
 et:Taaskasutuspoed|kasutatud
@@ -6316,7 +6316,7 @@ vi:Tổ chức tang lễ
 zh-Hans:殡仪馆
 zh-Hant:葬儀社
 
-# First keyword should match [hospital] definition in strings.txt!
+# First keyword should match [category_hospital] definition in strings.txt!
 @category_hospital
 en:4Hospital
 ar:مستشفى
@@ -7078,7 +7078,7 @@ vi:Đỗ xe
 zh-Hans:1停车|停车场|停车场入口
 zh-Hant:1停車場|停車|泊車|停車場入口
 
-# First keyword should match [pharmacy] definition in strings.txt!
+# First keyword should match [category_pharmacy] definition in strings.txt!
 @category_pharmacy
 en:3Pharmacy
 ar:صيدلية
@@ -7161,7 +7161,7 @@ uk:Аптека|3ліки
 zh-Hans:药店|药剂师
 zh-Hant:藥局
 
-# First keyword should match [post] definition in strings.txt!
+# First keyword should match [category_post] definition in strings.txt!
 @category_post
 en:Post
 ar:بريد
@@ -8132,7 +8132,7 @@ vi:Điện thoại
 zh-Hans:1手机|电话
 zh-Hant:1電話|2電話亭|2公共電話|3公用電話
 
-# First keyword should match [toilet] definition in strings.txt!
+# First keyword should match [category_toilet] definition in strings.txt!
 @category_toilet
 en:3Toilet
 ar:مرحاض
@@ -11706,7 +11706,7 @@ vi:Tòa nhà
 zh-Hans:1建筑|建筑物
 zh-Hant:1建築物
 
-# First keyword should match [police] definition in strings.txt!
+# First keyword should match [category_police] definition in strings.txt!
 @category_police
 en:4Police|Cop
 ar:شرطة
@@ -11715,7 +11715,7 @@ bg:4Полиция
 ca:Policia
 cs:4Policie
 da:4Politi
-de:Polizeistation|4Polizei
+de:4Polizei|Polizeistation
 el:Αστυνομία
 es:4Policía
 et:4Politsei
@@ -11879,7 +11879,7 @@ zh-Hant:1海灣|灣|灣區
 #
 # A search for "Drinking/Potable water" shall result in amenity=drinking_water only.
 #
-# First keyword should match [water] definition in strings.txt!
+# First keyword should match [category_water] definition in strings.txt!
 @category_water
 en:3Water|water source
 ar:ماء
@@ -13954,7 +13954,7 @@ vi:Đại dương
 zh-Hans:海洋
 zh-Hant:海洋
 
-# First keyword should match [wifi] definition in strings.txt!
+# First keyword should match [category_wifi] definition in strings.txt!
 @category_wifi
 en:WiFi|Wi-Fi
 ar:إنترنت لا سلكي|وايفاي
