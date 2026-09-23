@@ -3,6 +3,7 @@ final class BookmarksListPresenter {
   private let router: IBookmarksListRouter
   private var interactor: IBookmarksListInteractor
   private var bookmarkGroup: BookmarkGroup
+  private var searchText: String?
   private var movingItemIds = Set<BookmarksListItemId>()
 
   init(view: IBookmarksListView,
@@ -40,6 +41,11 @@ final class BookmarksListPresenter {
   private func reload() {
     let hasEditableItems = bookmarkGroup.bookmarksCount > 0 || bookmarkGroup.trackCount > 0
     view?.enableEditing(hasEditableItems)
+
+    if let searchText {
+      search(searchText)
+      return
+    }
 
     guard hasEditableItems, let sortingType = interactor.lastSortingType() else {
       setDefaultSections()
@@ -183,6 +189,7 @@ final class BookmarksListPresenter {
   }
 
   private func viewOnMap() {
+    view?.saveSearchStateBeforeShowingOnMap(searchText: searchText)
     interactor.viewOnMap()
     router.viewOnMap(bookmarkGroup)
   }
@@ -229,19 +236,24 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     interactor.reloadCategory()
   }
 
+  func restoreSearchText(_ text: String?) {
+    searchText = text?.isEmpty == false ? text : nil
+  }
+
   func activateSearch() {
     interactor.prepareForSearch()
   }
 
-  func deactivateSearch() {}
-
   func cancelSearch() {
+    searchText = nil
     reload()
   }
 
   func search(_ text: String) {
+    assert(!text.isEmpty)
+    searchText = text
     interactor.search(text) { [weak self] in
-      guard let self = self else { return }
+      guard let self, self.searchText == text else { return }
       let bookmarks = self.mapBookmarks($0)
       self.view?.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
                                                                                  bookmarks: bookmarks)])
@@ -303,6 +315,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
   }
 
   func selectItem(in section: IBookmarksListSectionViewModel, at index: Int) {
+    view?.saveSearchStateBeforeShowingOnMap(searchText: searchText)
     switch section {
     case let bookmarksSection as IBookmarksSectionViewModel:
       let bookmark = bookmarksSection.bookmarks[index] as! BookmarkViewModel

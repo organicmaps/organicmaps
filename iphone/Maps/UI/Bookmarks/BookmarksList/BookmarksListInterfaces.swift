@@ -50,6 +50,7 @@ protocol IBookmarksListMenuItem {
 }
 
 protocol IBookmarksListView: AnyObject {
+  func saveSearchStateBeforeShowingOnMap(searchText: String?)
   func setInfo(_ info: IBookmarksListInfoViewModel)
   func setSections(_ sections: [IBookmarksListSectionViewModel])
   func showMenu(_ items: [IBookmarksListMenuItem], from source: BookmarkToolbarButtonSource)
@@ -64,8 +65,8 @@ protocol IBookmarksListView: AnyObject {
 protocol IBookmarksListPresenter {
   func viewDidLoad()
   func viewDidAppear()
+  func restoreSearchText(_ text: String?)
   func activateSearch()
-  func deactivateSearch()
   func cancelSearch()
   func search(_ text: String)
   func sort()
