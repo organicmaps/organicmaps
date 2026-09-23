@@ -57,11 +57,13 @@ final class SearchOnMapViewController: UIViewController {
                                           currentStep: .hidden,
                                           didUpdateHandler: presentationUpdateHandler)
     presentationStepsController = stepsController
-    mapViewController.searchContainer.addSubview(view)
     mapViewController.addChild(self)
     view.frame = mapViewController.searchContainer.bounds
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    mapViewController.searchContainer.addSubview(view)
     didMove(toParent: mapViewController)
+    // Attachment lets UIKit supply the safe area used to position the landscape sheet.
+    updateFrameOfPresentedViewInContainerView()
   }
 
   @available(*, unavailable)
@@ -85,6 +87,12 @@ final class SearchOnMapViewController: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     headerView.setIsSearching(false)
+  }
+
+  override func viewSafeAreaInsetsDidChange() {
+    super.viewSafeAreaInsetsDidChange()
+    guard availableAreaView.superview != nil else { return }
+    updateFrameOfPresentedViewInContainerView()
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -212,6 +220,7 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   private func layoutHistoryAndCategoryTabView() {
+    addChild(historyAndCategoryTabViewController)
     searchResultsView.addSubview(historyAndCategoryTabViewController.view)
     historyAndCategoryTabViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
@@ -221,6 +230,7 @@ final class SearchOnMapViewController: UIViewController {
       historyAndCategoryTabViewController.view.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
       historyAndCategoryTabViewController.view.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor),
     ])
+    historyAndCategoryTabViewController.didMove(toParent: self)
   }
 
   private func layoutSearchNoResultsView() {
