@@ -7,7 +7,7 @@ final class RootSettingsPresenter {
   }
 
   func presentSettings(_ state: RootSettingsState,
-                       reconfiguredItems: [RootSettings] = [],
+                       reconfiguredItems: [RootSettingsItem] = [],
                        animatingDifferences: Bool = true) {
     viewController?.display(SettingsViewModel(title: L("settings"),
                                               sections: buildSections(from: state),
@@ -17,6 +17,27 @@ final class RootSettingsPresenter {
 
   func present(_ screen: SettingsScreen) {
     viewController?.display(screen)
+  }
+
+  func presentFilePicker(contributionId: String, extensions: [String]) {
+    guard let viewController else { return }
+    let fileTypes = extensions.compactMap { ext -> FileType? in
+      switch ext.lowercased() {
+      case "gpx": return .gpx
+      case "kml": return .kml
+      case "kmz": return .kmz
+      case "geojson": return .geoJson
+      case "json": return .json
+      default: return nil
+      }
+    }
+    let types = fileTypes.isEmpty ? [.gpx] : fileTypes
+    DocumentPicker.shared.present(from: viewController, fileTypes: types) { [weak self] urls in
+      guard let url = urls.first else { return }
+      let path = url.path
+      FrameworkHelper.settingsContribution(withId: contributionId, didPickFileAtPath: path)
+      self?.interactor?.reloadSettings()
+    }
   }
 
   func present3dBuildingsDisabledAlert() {
@@ -75,11 +96,11 @@ final class RootSettingsPresenter {
   }
 
   func presentHighlight(_ setting: RootSettings) {
-    viewController?.displayHighlight(setting)
+    viewController?.displayHighlight(.builtin(setting))
   }
 
   private func buildSections(from state: RootSettingsState) -> [RootSettingsSectionViewModel] {
-    [
+    var sections: [RootSettingsSectionViewModel] = [
       SettingsSectionViewModel(section: .profile,
                                items: [profileItem(state)]),
       SettingsSectionViewModel(section: .general,
@@ -93,6 +114,21 @@ final class RootSettingsPresenter {
       SettingsSectionViewModel(section: .privacy,
                                items: privacyItems(state)),
     ]
+    let debug = debugItems()
+    if !debug.isEmpty {
+      sections.append(SettingsSectionViewModel(section: .debug, items: debug))
+    }
+    return sections
+  }
+
+  private func debugItems() -> [RootSettingsItemViewModel] {
+    FrameworkHelper.settingsContributions().compactMap { info in
+      guard info.sectionId == "debug" else { return nil }
+      return SettingsItemViewModel(contributionId: info.contributionId,
+                                   title: info.title,
+                                   detail: info.detail.isEmpty ? nil : info.detail,
+                                   kind: .link)
+    }
   }
 
   private func profileItem(_ state: RootSettingsState) -> RootSettingsItemViewModel {

@@ -8,6 +8,15 @@
 #include "map/track_mark.hpp"
 #include "map/user_mark.hpp"
 
+#ifdef DEBUG
+#include "map/location_provider/gpx_replay_provider.hpp"
+
+#include "kml/serdes_gpx.hpp"
+#include "kml/types.hpp"
+
+#include "coding/file_reader.hpp"
+#endif  // DEBUG
+
 #include "routing/route.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
@@ -45,6 +54,7 @@
 #include "indexer/transliteration_loader.hpp"
 
 #include "platform/localization.hpp"
+#include "platform/location_provider/location_provider_registry.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -69,6 +79,7 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <chrono>
 
 using namespace location;
 using namespace routing;
@@ -208,8 +219,10 @@ void Framework::OnLocationError(TLocationError /*error*/)
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
 {
+  GpsInfo const resolvedInfo = location_provider::LocationProviderRegistry::Instance().Resolve(info);
+
 #ifdef FIXED_LOCATION
-  GpsInfo rInfo(info);
+  GpsInfo rInfo(resolvedInfo);
 
   // get fixed coordinates
   m_fixedPos.GetLon(rInfo.m_longitude);
@@ -227,7 +240,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   }
 
 #else
-  GpsInfo const & rInfo = info;
+  GpsInfo const & rInfo = resolvedInfo;
 #endif
 
   m_routingManager.OnLocationUpdate(rInfo);
@@ -3410,6 +3423,39 @@ bool Framework::ParseDownloaderDebugCommand(search::SearchParams const & params)
   }
   return true;
 }
+
+#ifdef DEBUG
+void Framework::ScheduleGpxReplayTick()
+{
+  if (m_gpxReplayTickerRunning)
+    return;
+  if (!location_provider::GpxReplayProvider::Instance().HasMoreReadings())
+    return;
+
+  m_gpxReplayTickerRunning = true;
+  GpxReplayTick();
+}
+
+void Framework::GpxReplayTick()
+{
+  if (!location_provider::GpxReplayProvider::Instance().HasMoreReadings())
+  {
+    m_gpxReplayTickerRunning = false;
+    return;
+  }
+
+  // OnLocationUpdate() (and everything downstream of it, e.g. DrapeEngine) expects to run on the
+  // GUI thread; RunDelayedTask() itself only supports File/Network/Background, so the wait
+  // happens on Background and the actual tick is posted over to Gui once it fires.
+  location::GpsInfo native;
+  OnLocationUpdate(native);
+
+  GetPlatform().RunDelayedTask(Platform::Thread::Background, std::chrono::seconds(1), [this]()
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this]() { GpxReplayTick(); });
+  });
+}
+#endif  // DEBUG
 
 bool Framework::ParseAllTypesDebugCommand(search::SearchParams const & params)
 {

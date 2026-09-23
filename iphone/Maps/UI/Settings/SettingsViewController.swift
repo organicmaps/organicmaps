@@ -232,7 +232,7 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
   }
 }
 
-extension SettingsViewController where Section == RootSettingsSection, Item == RootSettings {
+extension SettingsViewController where Section == RootSettingsSection, Item == RootSettingsItem {
   func display(_ screen: SettingsScreen) {
     navigationController?.pushViewController(SettingsBuilder.build(screen), animated: true)
   }
@@ -244,7 +244,7 @@ extension SettingsViewController where Section == RootSettingsSection, Item == R
       guard let self else { return }
       interactor?.handle(.didCompleteBookmarkBackupSharing(completed))
     }
-    let anchorView = dataSource.indexPath(for: .iCloud).flatMap { tableView.cellForRow(at: $0) } ?? view
+    let anchorView = dataSource.indexPath(for: .builtin(.iCloud)).flatMap { tableView.cellForRow(at: $0) } ?? view
     shareController.present(inParentViewController: self, anchorView: anchorView)
   }
 

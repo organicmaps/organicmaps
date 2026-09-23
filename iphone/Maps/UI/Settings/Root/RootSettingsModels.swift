@@ -5,6 +5,7 @@ enum RootSettingsSection: String, CaseIterable, Hashable {
   case navigation
   case network
   case privacy
+  case debug
 }
 
 enum RootSettings: String, Hashable {
@@ -30,6 +31,11 @@ enum RootSettings: String, Hashable {
   case searchHistory
 }
 
+enum RootSettingsItem: Hashable {
+  case builtin(RootSettings)
+  case contribution(String)
+}
+
 extension RootSettingsSection {
   var title: String? {
     switch self {
@@ -39,12 +45,13 @@ extension RootSettingsSection {
     case .navigation: L("prefs_group_route")
     case .network: L("prefs_group_network")
     case .privacy: L("privacy")
+    case .debug: "Debug"
     }
   }
 
   var footer: String? {
     switch self {
-    case .profile, .map, .navigation, .network, .privacy: nil
+    case .profile, .map, .navigation, .network, .privacy, .debug: nil
     case .general: L("enable_logging_warning_message")
     }
   }
@@ -149,17 +156,24 @@ extension MWMSettingsPowerManagement {
   }
 }
 
-extension SettingsItemViewModel where Item == RootSettings {
+extension SettingsItemViewModel where Item == RootSettingsItem {
   init(setting: RootSettings, detail: String? = nil, kind: SettingsItemKind) {
-    item = setting
+    item = .builtin(setting)
     title = setting.title
+    self.detail = detail
+    self.kind = kind
+  }
+
+  init(contributionId: String, title: String, detail: String?, kind: SettingsItemKind) {
+    item = .contribution(contributionId)
+    self.title = title
     self.detail = detail
     self.kind = kind
   }
 }
 
-extension SettingsSectionViewModel where Section == RootSettingsSection, Item == RootSettings {
-  init(section: RootSettingsSection, items: [SettingsItemViewModel<RootSettings>]) {
+extension SettingsSectionViewModel where Section == RootSettingsSection, Item == RootSettingsItem {
+  init(section: RootSettingsSection, items: [SettingsItemViewModel<RootSettingsItem>]) {
     self.section = section
     header = section.title?.capitalized
     footer = section.footer
@@ -191,6 +205,6 @@ struct RootSettingsState {
   let searchHistoryEnabled: Bool
 }
 
-typealias RootSettingsViewController = SettingsViewController<RootSettingsSection, RootSettings>
-typealias RootSettingsSectionViewModel = SettingsSectionViewModel<RootSettingsSection, RootSettings>
-typealias RootSettingsItemViewModel = SettingsItemViewModel<RootSettings>
+typealias RootSettingsViewController = SettingsViewController<RootSettingsSection, RootSettingsItem>
+typealias RootSettingsSectionViewModel = SettingsSectionViewModel<RootSettingsSection, RootSettingsItem>
+typealias RootSettingsItemViewModel = SettingsItemViewModel<RootSettingsItem>

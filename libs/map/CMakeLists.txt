@@ -33,6 +33,12 @@ set(SRC
   gps_tracker.hpp
   isolines_manager.cpp
   isolines_manager.hpp
+  location_provider/gpx_replay_fusion_strategy.cpp
+  location_provider/gpx_replay_fusion_strategy.hpp
+  location_provider/gpx_replay_provider.cpp
+  location_provider/gpx_replay_provider.hpp
+  location_provider/gpx_replay_settings.cpp
+  location_provider/gpx_replay_settings.hpp
   mwm_url.cpp
   mwm_url.hpp
   place_page_info.cpp

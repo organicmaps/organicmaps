@@ -435,4 +435,16 @@ public class Framework
   public static native void nativeDidShowDonationPage();
 
   public static native void nativeResetDonations();
+
+  /**
+   * Plugin Settings rows. Each element is String[5]:
+   * [0]=id, [1]=title, [2]=sectionId, [3]=detail, [4]=pick extensions joined by '|'.
+   */
+  @NonNull
+  public static native Object[] nativeGetSettingsContributions();
+
+  public static native void nativeSelectSettingsContribution(@NonNull String contributionId);
+
+  public static native void nativeSettingsContributionDidPickFile(@NonNull String contributionId,
+                                                                  @NonNull String path);
 }
