@@ -1,0 +1,277 @@
+/* DRIVING road colors sampled at integer zooms; retain OM geometry and widths. */
+
+/* road-sd-1 */
+line|z6[highway=motorway],
+line|z6[highway=motorway_link],
+line|z6[highway=trunk],
+line|z6[highway=trunk_link]
+{color: #6B83A3;}
+line|z7[highway=motorway],
+line|z7[highway=motorway_link],
+line|z7[highway=trunk],
+line|z7[highway=trunk_link]
+{color: #7088A8;}
+line|z8[highway=motorway],
+line|z8[highway=motorway_link],
+line|z8[highway=trunk],
+line|z8[highway=trunk_link]
+{color: #758DAE;}
+line|z9[highway=motorway],
+line|z9[highway=motorway_link],
+line|z9[highway=trunk],
+line|z9[highway=trunk_link]
+{color: #7A92B3;}
+line|z10[highway=motorway],
+line|z10[highway=motorway_link],
+line|z10[highway=trunk],
+line|z10[highway=trunk_link]
+{color: #8098B8;}
+line|z11[highway=motorway],
+line|z11[highway=motorway_link],
+line|z11[highway=trunk],
+line|z11[highway=trunk_link]
+{color: #859DBE;}
+line|z12[highway=motorway],
+line|z12[highway=motorway_link],
+line|z12[highway=trunk],
+line|z12[highway=trunk_link]
+{color: #859DBE;}
+line|z13[highway=motorway],
+line|z13[highway=motorway_link],
+line|z13[highway=trunk],
+line|z13[highway=trunk_link]
+{color: #859DBE;}
+line|z14[highway=motorway],
+line|z14[highway=motorway_link],
+line|z14[highway=trunk],
+line|z14[highway=trunk_link]
+{color: #88A1C2;}
+line|z15[highway=motorway],
+line|z15[highway=motorway_link],
+line|z15[highway=trunk],
+line|z15[highway=trunk_link]
+{color: #8CA4C5;}
+line|z16[highway=motorway],
+line|z16[highway=motorway_link],
+line|z16[highway=trunk],
+line|z16[highway=trunk_link]
+{color: #8FA8C9;}
+line|z17[highway=motorway],
+line|z17[highway=motorway_link],
+line|z17[highway=trunk],
+line|z17[highway=trunk_link]
+{color: #A1B2CA;}
+line|z18[highway=motorway],
+line|z18[highway=motorway_link],
+line|z18[highway=trunk],
+line|z18[highway=trunk_link]
+{color: #B3BCCC;}
+line|z19-[highway=motorway],
+line|z19-[highway=motorway_link],
+line|z19-[highway=trunk],
+line|z19-[highway=trunk_link]
+{color: #B1BACB;}
+
+/* road-sd-3 */
+line|z6[highway=primary],
+line|z6[highway=primary_link]
+{color: #9099AA;}
+line|z7[highway=primary],
+line|z7[highway=primary_link]
+{color: #9099AA;}
+line|z8[highway=primary],
+line|z8[highway=primary_link]
+{color: #9AA2B4;}
+line|z9[highway=primary],
+line|z9[highway=primary_link]
+{color: #A3ABBD;}
+line|z10[highway=primary],
+line|z10[highway=primary_link]
+{color: #9EA6B8;}
+line|z11[highway=primary],
+line|z11[highway=primary_link]
+{color: #98A1B2;}
+line|z12[highway=primary],
+line|z12[highway=primary_link]
+{color: #A3ABBD;}
+line|z13[highway=primary],
+line|z13[highway=primary_link]
+{color: #A3ABBD;}
+line|z14[highway=primary],
+line|z14[highway=primary_link]
+{color: #A5ADBF;}
+line|z15[highway=primary],
+line|z15[highway=primary_link]
+{color: #A6AFC1;}
+line|z16[highway=primary],
+line|z16[highway=primary_link]
+{color: #A8B1C3;}
+line|z17[highway=primary],
+line|z17[highway=primary_link]
+{color: #AEB6C8;}
+line|z18[highway=primary],
+line|z18[highway=primary_link]
+{color: #B3BCCC;}
+line|z19-[highway=primary],
+line|z19-[highway=primary_link]
+{color: #B1BACB;}
+
+/* road-sd-4 */
+line|z6[highway=secondary],
+line|z6[highway=secondary_link]
+{color: #A3ABBD;}
+line|z7[highway=secondary],
+line|z7[highway=secondary_link]
+{color: #A3ABBD;}
+line|z8[highway=secondary],
+line|z8[highway=secondary_link]
+{color: #A3ABBD;}
+line|z9[highway=secondary],
+line|z9[highway=secondary_link]
+{color: #A3ABBD;}
+line|z10[highway=secondary],
+line|z10[highway=secondary_link]
+{color: #C0C7D5;}
+line|z11[highway=secondary],
+line|z11[highway=secondary_link]
+{color: #C0C7D5;}
+line|z12[highway=secondary],
+line|z12[highway=secondary_link]
+{color: #A3ABBD;}
+line|z13[highway=secondary],
+line|z13[highway=secondary_link]
+{color: #A3ABBD;}
+line|z14[highway=secondary],
+line|z14[highway=secondary_link]
+{color: #A5ADBF;}
+line|z15[highway=secondary],
+line|z15[highway=secondary_link]
+{color: #A6AFC1;}
+line|z16[highway=secondary],
+line|z16[highway=secondary_link]
+{color: #A8B1C3;}
+line|z17[highway=secondary],
+line|z17[highway=secondary_link]
+{color: #AEB6C8;}
+line|z18[highway=secondary],
+line|z18[highway=secondary_link]
+{color: #B3BCCC;}
+line|z19-[highway=secondary],
+line|z19-[highway=secondary_link]
+{color: #B1BACB;}
+
+/* road-sd-5 */
+line|z6[highway=tertiary],
+line|z6[highway=tertiary_link]
+{color: #A3ABBD;}
+line|z7[highway=tertiary],
+line|z7[highway=tertiary_link]
+{color: #A3ABBD;}
+line|z8[highway=tertiary],
+line|z8[highway=tertiary_link]
+{color: #A3ABBD;}
+line|z9[highway=tertiary],
+line|z9[highway=tertiary_link]
+{color: #A3ABBD;}
+line|z10[highway=tertiary],
+line|z10[highway=tertiary_link]
+{color: #A3ABBD;}
+line|z11[highway=tertiary],
+line|z11[highway=tertiary_link]
+{color: #C0C7D5;}
+line|z12[highway=tertiary],
+line|z12[highway=tertiary_link]
+{color: #C0C7D5;}
+line|z13[highway=tertiary],
+line|z13[highway=tertiary_link]
+{color: #C0C7D5;}
+line|z14[highway=tertiary],
+line|z14[highway=tertiary_link]
+{color: #C4CBD8;}
+line|z15[highway=tertiary],
+line|z15[highway=tertiary_link]
+{color: #C8CEDA;}
+line|z16[highway=tertiary],
+line|z16[highway=tertiary_link]
+{color: #CCD2DD;}
+line|z17[highway=tertiary],
+line|z17[highway=tertiary_link]
+{color: #CCD2DD;}
+line|z18[highway=tertiary],
+line|z18[highway=tertiary_link]
+{color: #CCD2DD;}
+line|z19-[highway=tertiary],
+line|z19-[highway=tertiary_link]
+{color: #C2C9D6;}
+
+/* road-sd-6 */
+line|z6[highway=residential],
+line|z6[highway=unclassified],
+line|z6[highway=service],
+line|z6[highway=living_street]
+{color: #A3ABBD;}
+line|z7[highway=residential],
+line|z7[highway=unclassified],
+line|z7[highway=service],
+line|z7[highway=living_street]
+{color: #A3ABBD;}
+line|z8[highway=residential],
+line|z8[highway=unclassified],
+line|z8[highway=service],
+line|z8[highway=living_street]
+{color: #A3ABBD;}
+line|z9[highway=residential],
+line|z9[highway=unclassified],
+line|z9[highway=service],
+line|z9[highway=living_street]
+{color: #A3ABBD;}
+line|z10[highway=residential],
+line|z10[highway=unclassified],
+line|z10[highway=service],
+line|z10[highway=living_street]
+{color: #A3ABBD;}
+line|z11[highway=residential],
+line|z11[highway=unclassified],
+line|z11[highway=service],
+line|z11[highway=living_street]
+{color: #A3ABBD;}
+line|z12[highway=residential],
+line|z12[highway=unclassified],
+line|z12[highway=service],
+line|z12[highway=living_street]
+{color: #A3ABBD;}
+line|z13[highway=residential],
+line|z13[highway=unclassified],
+line|z13[highway=service],
+line|z13[highway=living_street]
+{color: #C0C7D5;}
+line|z14[highway=residential],
+line|z14[highway=unclassified],
+line|z14[highway=service],
+line|z14[highway=living_street]
+{color: #C4CBD8;}
+line|z15[highway=residential],
+line|z15[highway=unclassified],
+line|z15[highway=service],
+line|z15[highway=living_street]
+{color: #C8CEDA;}
+line|z16[highway=residential],
+line|z16[highway=unclassified],
+line|z16[highway=service],
+line|z16[highway=living_street]
+{color: #CCD2DD;}
+line|z17[highway=residential],
+line|z17[highway=unclassified],
+line|z17[highway=service],
+line|z17[highway=living_street]
+{color: #CCD2DD;}
+line|z18[highway=residential],
+line|z18[highway=unclassified],
+line|z18[highway=service],
+line|z18[highway=living_street]
+{color: #CCD2DD;}
+line|z19-[highway=residential],
+line|z19-[highway=unclassified],
+line|z19-[highway=service],
+line|z19-[highway=living_street]
+{color: #C2C9D6;}

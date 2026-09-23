@@ -1,4 +1,5 @@
 @import("colors.mapcss");
+@import("../../auto/light.mapcss");
 @import("../include/defaults.mapcss");
 @import("../include/Basemap.mapcss");
 @import("../include/Basemap_label.mapcss");
@@ -6,6 +7,7 @@
 @import("../include/Roads_label.mapcss");
 @import("../include/Icons.mapcss");
 @import("../include/Subways.mapcss");
+@import("../../auto/light-roads.mapcss");
 
 colors
 {
@@ -15,12 +17,12 @@ colors
   MyPositionAccuracy-opacity: 0.08;
   Selection-color: #1E96F0;
   Selection-opacity: 0.64;
-  Route-color: #0087FF;
-  RouteOutline-color: #055FCD;
-  RouteTrafficG0-color: #9B2300;
-  RouteTrafficG1-color: #E82705;
-  RouteTrafficG2-color: #E82705;
-  RouteTrafficG3-color: #FFE500;
+  Route-color: #82EA0E;
+  RouteOutline-color: #308B0A;
+  RouteTrafficG0-color: #932100;
+  RouteTrafficG1-color: #FF5413;
+  RouteTrafficG2-color: #FF5413;
+  RouteTrafficG3-color: #FFFF41;
   RouteTrafficG3-opacity: 0.0;
   RoutePedestrian-color: #1D339E;
   RoutePedestrian-opacity: 0.8;
@@ -46,25 +48,25 @@ colors
   RouteMaskPedestrian-opacity: 0.5;
   RouteFake-color: #A8A8A8;
   RouteFakeOutline-color: #717171;
-  Arrow3D-color: #50AAFF;
-  Arrow3DObsolete-color: #82AAC8;
+  Arrow3D-color: #FFD438;
+  Arrow3DObsolete-color: #B5A16A;
   Arrow3DObsolete-opacity: 0.72;
   Arrow3DShadow-color: #3C3C3C;
   Arrow3DShadow-opacity: 0.24;
-  Arrow3DOutline-color: #FFFFFF;
+  Arrow3DOutline-color: #FFF0A6;
   TrackHumanSpeed-color: #1D339E;
   TrackCarSpeed-color: #7C8EDE;
   TrackPlaneSpeed-color: #A8B7ED;
   TrackUnknownDistance-color: #616161;
-  TrafficG0-color: #7E1712;
-  TrafficG1-color: #E42300;
-  TrafficG2-color: #E42300;
-  TrafficG3-color: #FCDE00;
+  TrafficG0-color: #932100;
+  TrafficG1-color: #FF5413;
+  TrafficG2-color: #FF5413;
+  TrafficG3-color: #FFFF41;
   TrafficG3-opacity: 0.0;
-  TrafficG4-color: #39962E;
-  TrafficG5-color: #39962E;
-  TrafficTempBlock-color: #525252;
-  TrafficUnknown-color: #000000;
+  TrafficG4-color: #82EA0E;
+  TrafficG5-color: #82EA0E;
+  TrafficTempBlock-color: #1A1A1A;
+  TrafficUnknown-color: #A0A0A0;
   TrafficArrowLight-color: #FFFFFF;
   TrafficArrowDark-color: #473635;
   TrafficOutline-color: #E8E6DC;
