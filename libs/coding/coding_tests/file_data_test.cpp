@@ -8,7 +8,8 @@
 #include "base/scope_guard.hpp"
 
 #include <algorithm>  // std::min
-#include <cstring>    // strlen
+#include <cerrno>
+#include <cstring>  // strlen
 #include <fstream>
 #include <memory>
 #include <string>
@@ -321,6 +322,23 @@ UNIT_TEST(FileData_TooManyOpenFiles)
   catch (Reader::OpenException const & ex)
   {
     TEST(false, ("Expected TooManyFilesException on fd exhaustion, got OpenException:", ex.what()));
+  }
+
+  for (auto const op :
+       {base::FileData::Op::WRITE_TRUNCATE, base::FileData::Op::WRITE_EXISTING, base::FileData::Op::APPEND})
+  {
+    try
+    {
+      base::FileData writer(name, op);
+      TEST(false, ("Expected Writer::OpenException on fd exhaustion", static_cast<int>(op)));
+    }
+    catch (Writer::OpenException const & ex)
+    {
+      TEST(ex.Msg().find(name) != std::string::npos, (ex.Msg()));
+      TEST(ex.Msg().find("errno=" + std::to_string(EMFILE)) != std::string::npos ||
+               ex.Msg().find("errno=" + std::to_string(ENFILE)) != std::string::npos,
+           (ex.Msg()));
+    }
   }
 }
 #endif

@@ -30,6 +30,18 @@ public:
   DECLARE_EXCEPTION(SeekException, Exception);
   DECLARE_EXCEPTION(CreateDirException, Exception);
 
+  // Named throw sites keep the open failure reason visible in crash stacks.
+  [[noreturn]] static void OpenExceptionTooManyFiles(std::string const & message);
+  [[noreturn]] static void OpenExceptionSystemTooManyFiles(std::string const & message);
+  [[noreturn]] static void OpenExceptionNoSpace(std::string const & message);
+  [[noreturn]] static void OpenExceptionAccessDenied(std::string const & message);
+  [[noreturn]] static void OpenExceptionOperationNotPermitted(std::string const & message);
+  [[noreturn]] static void OpenExceptionFileNotFound(std::string const & message);
+  [[noreturn]] static void OpenExceptionReadOnlyFileSystem(std::string const & message);
+  [[noreturn]] static void OpenExceptionNotDirectory(std::string const & message);
+  [[noreturn]] static void OpenExceptionIsDirectory(std::string const & message);
+  [[noreturn]] static void OpenExceptionUnknownError(std::string const & message);
+
   virtual void Seek(uint64_t pos) = 0;
   virtual uint64_t Pos() const = 0;
   virtual void Write(void const * p, size_t size) = 0;

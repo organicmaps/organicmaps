@@ -28,6 +28,67 @@
 #include <unistd.h>  // ftruncate
 #endif
 
+// Keep the fopen failure reason in symbolicated crash stacks, including optimized builds.
+#if defined(__clang__)
+#define FILE_OPEN_NOINLINE [[clang::noinline, clang::nomerge]]
+#elif defined(_MSC_VER)
+#define FILE_OPEN_NOINLINE __declspec(noinline)
+#else
+#define FILE_OPEN_NOINLINE __attribute__((noinline))
+#endif
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionTooManyFiles(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionSystemTooManyFiles(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionNoSpace(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionAccessDenied(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionOperationNotPermitted(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionFileNotFound(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionReadOnlyFileSystem(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionNotDirectory(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionIsDirectory(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void Writer::OpenExceptionUnknownError(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+#undef FILE_OPEN_NOINLINE
+
 namespace base
 {
 std::ostream & operator<<(std::ostream & stream, FileData::Op op)
@@ -66,10 +127,25 @@ FileData::FileData(std::string const & fileName, Op op) : m_FileName(fileName), 
       return;
   }
 
-  // if we're here - something bad is happened
+  int const openError = errno;
   if (m_Op != Op::READ)
-    MYTHROW(Writer::OpenException, (GetErrorProlog()));
-  else if (errno == EMFILE || errno == ENFILE)
+  {
+    auto const message = GetErrorProlog() + "; errno=" + std::to_string(openError);
+    switch (openError)
+    {
+    case EMFILE: Writer::OpenExceptionTooManyFiles(message);
+    case ENFILE: Writer::OpenExceptionSystemTooManyFiles(message);
+    case ENOSPC: Writer::OpenExceptionNoSpace(message);
+    case EACCES: Writer::OpenExceptionAccessDenied(message);
+    case EPERM: Writer::OpenExceptionOperationNotPermitted(message);
+    case ENOENT: Writer::OpenExceptionFileNotFound(message);
+    case EROFS: Writer::OpenExceptionReadOnlyFileSystem(message);
+    case ENOTDIR: Writer::OpenExceptionNotDirectory(message);
+    case EISDIR: Writer::OpenExceptionIsDirectory(message);
+    default: Writer::OpenExceptionUnknownError(message);
+    }
+  }
+  else if (openError == EMFILE || openError == ENFILE)
     MYTHROW(Reader::TooManyFilesException, (GetErrorProlog()));
   else
     MYTHROW(Reader::OpenException, (GetErrorProlog()));
@@ -86,8 +162,9 @@ FileData::~FileData()
 
 std::string FileData::GetErrorProlog() const
 {
+  int const error = errno;
   std::ostringstream stream;
-  stream << m_FileName << "; " << m_Op << "; " << strerror(errno);
+  stream << m_FileName << "; " << m_Op << "; " << strerror(error);
   return stream.str();
 }
 
