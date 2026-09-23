@@ -160,6 +160,8 @@ public:
 
   Q_INVOKABLE void DeactivateMapSelection() const;
   Q_INVOKABLE void toggleWidgetsUI() const;
+  Q_INVOKABLE void scalePlus() const;
+  Q_INVOKABLE void scaleMinus() const;
 
 protected:
   Framework & GetFramework() const;

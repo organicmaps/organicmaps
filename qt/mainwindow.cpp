@@ -888,6 +888,9 @@ void MainWindow::toggleWidgetsUI() const {
   menuBar()->setVisible(!menuBar()->isVisible());
 }
 
+void MainWindow::scalePlus() const {m_pDrawWidget->ScalePlus();}
+void MainWindow::scaleMinus() const {m_pDrawWidget->ScaleMinus();}
+
 void MainWindow::ShowPlacePage(place_page::Info const & info)
 {
   m_title = QString::fromStdString(info.GetTitle());

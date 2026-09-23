@@ -60,12 +60,14 @@ Item {
         RoundOverayButton {
             icon.name: "list-add-symbolic"
             icon.width: 32
-            icon.height: icon.width            
+            icon.height: icon.width
+            onClicked: root.map.scalePlus()
         }
         RoundOverayButton {
             icon.name: "list-remove-symbolic"
             icon.width: 32
             icon.height: icon.width
+            onClicked: root.map.scaleMinus()
         }
 
         Item {
