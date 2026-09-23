@@ -18,7 +18,6 @@
 		47AEF8402231249E00D20538 /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47AEF83F2231249E00D20538 /* categories_brands.txt */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */; };
-		A13471000000000000000002 /* TTSVoicePreviewPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13471000000000000000001 /* TTSVoicePreviewPlayerTests.swift */; };
 		4B7E9A102F9A000100000002 /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E9A102F9A000100000005 /* ExpandableTextView.swift */; };
 		4B7E9A102F9A000100000003 /* PlacePageUserDescriptionWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E9A102F9A000100000006 /* PlacePageUserDescriptionWebView.swift */; };
 		4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */; };
@@ -843,7 +842,6 @@
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = SOURCE_ROOT; };
 		4A300ED31C6DCFD400140018 /* countries-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "countries-strings"; path = "../../data/countries-strings"; sourceTree = "<group>"; };
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
-		A13471000000000000000001 /* TTSVoicePreviewPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoicePreviewPlayerTests.swift; sourceTree = "<group>"; };
 		4B7E9A102F9A000100000005 /* ExpandableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
 		4B7E9A102F9A000100000006 /* PlacePageUserDescriptionWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageUserDescriptionWebView.swift; sourceTree = "<group>"; };
 		4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTSTesterTest.m; sourceTree = "<group>"; };
@@ -2001,7 +1999,6 @@
 			children = (
 				4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */,
 				4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */,
-				A13471000000000000000001 /* TTSVoicePreviewPlayerTests.swift */,
 			);
 			path = TextToSpeech;
 			sourceTree = "<group>";
@@ -5048,7 +5045,6 @@
 				EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */,
 				EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */,
 				4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */,
-				A13471000000000000000002 /* TTSVoicePreviewPlayerTests.swift in Sources */,
 				EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */,
 				EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */,
 				ED914332300168CF0081DF0B /* CarPlaySceneDelegateTests.swift in Sources */,
