@@ -18,11 +18,6 @@ public class TrackRecording extends MapObject
     return TrackRecorder.nativeGetElevationInfo();
   }
 
-  public void setTrackRecordingStatsListener(TrackRecorder.TrackRecordingUpdateHandler listener)
-  {
-    TrackRecorder.nativeSetTrackRecordingStatsListener(listener);
-  }
-
   public MutableLiveData<String> getTrackRecordingPPDescription()
   {
     return mTrackRecordingPPDescription;
