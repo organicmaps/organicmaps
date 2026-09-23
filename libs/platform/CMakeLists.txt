@@ -38,6 +38,10 @@ set(SRC
   localization.cpp
   localization.hpp
   location.hpp
+  location_provider/location_fusion_strategy.hpp
+  location_provider/location_provider.hpp
+  location_provider/location_provider_registry.cpp
+  location_provider/location_provider_registry.hpp
   measurement_utils.cpp
   measurement_utils.hpp
   mwm_traits.cpp
