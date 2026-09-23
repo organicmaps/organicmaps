@@ -421,6 +421,12 @@ string MatchCity(ms::LatLon const & ll)
   // needs to be in format {minLon, minLat, maxLon, maxLat}
   // Draw boundary around metro with http://bboxfinder.com (set to Lon/Lat)
   // City name should be equal with railway-station-subway-CITY classifier types.
+  m2::PointD const pt(ll.m_lon, ll.m_lat);
+  // Suzhou and Shanghai metro networks meet inside Shanghai's bounding box.
+  static m2::RectD const suzhou{120.25, 31.12, 121.11, 31.46};
+  if (suzhou.IsPointInside(pt))
+    return "suzhou";
+
   static std::map<string, m2::RectD> const cities = {
       {"adana", {35.216442, 36.934693, 35.425525, 37.065481}},
       {"algiers", {2.949538, 36.676777, 3.256914, 36.826518}},
@@ -520,7 +526,7 @@ string MatchCity(ms::LatLon const & ll)
       {"sendai", {140.469472, 38.050849, 141.260304, 38.454699}},
       {"seoul", {126.540527344, 37.3352243593, 127.23815918, 37.6838203267}},
       {"sf", {-122.72277832, 37.1690715771, -121.651611328, 38.0307856938}},
-      {"shanghai", {119.849853516, 30.5291450367, 122.102050781, 32.1523618947}},
+      {"shanghai", {120.95, 30.5291450367, 122.102050781, 32.1523618947}},
       {"shenzhen", {113.747866, 22.464779, 114.477038, 22.816068}},
       {"shiraz", {52.382254, 29.498738, 52.667513, 29.840346}},
       {"singapore", {103.624420166, 1.21389843409, 104.019927979, 1.45278619819}},
@@ -546,7 +552,6 @@ string MatchCity(ms::LatLon const & ll)
       {"yokohama", {139.464781, 35.312501, 139.776935, 35.592738}},
   };
 
-  m2::PointD const pt(ll.m_lon, ll.m_lat);
   for (auto const & city : cities)
     if (city.second.IsPointInside(pt))
       return city.first;
@@ -838,7 +843,20 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
       auto const org = calcOrg(p);
       if (org)
       {
-        string const city = MatchCity(mercator::ToLatLon(*org));
+        string city;
+        if (isSubway)
+        {
+          // Huaqiao has stations from both networks at nearly the same coordinates.
+          auto const network = p->GetTag("network");
+          if (network.starts_with("上海地铁") || network.starts_with("上海轨道交通") ||
+              network.starts_with("Shanghai Metro"))
+            city = "shanghai";
+          else if (network.starts_with("苏州地铁") || network.starts_with("苏州轨道交通") ||
+                   network.starts_with("Suzhou Metro"))
+            city = "suzhou";
+        }
+        if (city.empty())
+          city = MatchCity(mercator::ToLatLon(*org));
         if (!city.empty())
           p->AddTag("city", city);
       }

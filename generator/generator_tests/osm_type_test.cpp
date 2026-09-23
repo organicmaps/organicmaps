@@ -15,11 +15,14 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <optional>
 #include <set>
 #include <string>
 #include <vector>
@@ -1157,6 +1160,37 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "minsk"})), (params));
   }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_SubwayCities)
+{
+  auto const check = [](Tags const & tags, double lat, double lon, Type const & expected)
+  {
+    OsmElement element;
+    element.m_type = OsmElement::EntityType::Node;
+    FillXmlElement(tags, &element);
+
+    FeatureBuilderParams params;
+    auto const origin = mercator::FromLatLon(lat, lon);
+    ftype::GetNameAndType(&element, params, &feature::IsUsefulType,
+                          [origin](OsmElement const *) -> std::optional<m2::PointD> { return origin; });
+
+    TEST_EQUAL(params.m_types.size(), 1, (params, lat, lon));
+    TEST(params.IsTypeExist(GetType(expected)), (params, lat, lon));
+  };
+
+  check({{"railway", "station"}, {"station", "subway"}}, 31.3329103, 120.6064286,
+        {"railway", "station", "subway", "suzhou"});
+  check({{"railway", "station"}, {"station", "subway"}}, 31.1395963, 120.6956499,
+        {"railway", "station", "subway", "suzhou"});
+  check({{"railway", "station"}, {"station", "subway"}}, 31.3012385, 121.0998583,
+        {"railway", "station", "subway", "suzhou"});
+  check({{"railway", "station"}, {"station", "subway"}, {"network", "上海地铁"}}, 31.3006017, 121.0997590,
+        {"railway", "station", "subway", "shanghai"});
+  check({{"railway", "subway_entrance"}}, 31.3008564, 121.0996757, {"railway", "subway_entrance", "suzhou"});
+  check({{"railway", "station"}, {"station", "subway"}}, 31.07261, 120.95989,
+        {"railway", "station", "subway", "shanghai"});
+  check({{"railway", "station"}, {"station", "subway"}}, 31.47592, 120.27268, {"railway", "station", "subway"});
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_PublicTransport)
