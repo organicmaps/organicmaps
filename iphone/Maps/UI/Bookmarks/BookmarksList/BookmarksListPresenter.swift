@@ -4,6 +4,9 @@ final class BookmarksListPresenter {
   private var interactor: IBookmarksListInteractor
   private var bookmarkGroup: BookmarkGroup
   private var searchText: String?
+  private var searchResults: [Bookmark]?
+  private var sortedSections: [BookmarksSection]?
+  private var sortingRevision = 0
   private var movingItemIds = Set<BookmarksListItemId>()
 
   init(view: IBookmarksListView,
@@ -42,17 +45,51 @@ final class BookmarksListPresenter {
     let hasEditableItems = bookmarkGroup.bookmarksCount > 0 || bookmarkGroup.trackCount > 0
     view?.enableEditing(hasEditableItems)
 
+    sortingRevision += 1
+    sortedSections = nil
     if let searchText {
       search(searchText)
-      return
     }
 
     guard hasEditableItems, let sortingType = interactor.lastSortingType() else {
-      setDefaultSections()
+      showSections()
       return
     }
 
     sort(sortingType)
+  }
+
+  private func showSections() {
+    // A sort may finish before the current query; never display the full category in that case.
+    if searchText != nil, searchResults == nil {
+      return
+    }
+
+    guard let sortedSections else {
+      if let searchResults, searchText != nil {
+        let bookmarks = mapBookmarks(searchResults)
+        view?.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
+                                                                              bookmarks: bookmarks)])
+      } else {
+        setDefaultSections()
+      }
+      return
+    }
+
+    let matchingIds = searchText == nil ? nil : searchResults.map { Set($0.map(\.bookmarkId)) }
+    let sections = sortedSections.compactMap { section -> IBookmarksListSectionViewModel? in
+      if let bookmarks = section.bookmarks {
+        let visibleBookmarks = matchingIds.map { ids in bookmarks.filter { ids.contains($0.bookmarkId) } } ?? bookmarks
+        guard !visibleBookmarks.isEmpty else { return nil }
+        return BookmarksSectionViewModel(title: section.sectionName, bookmarks: mapBookmarks(visibleBookmarks))
+      }
+      if let tracks = section.tracks {
+        guard matchingIds == nil else { return nil }
+        return TracksSectionViewModel(tracks: tracks.map { makeTrackViewModel($0) })
+      }
+      fatalError()
+    }
+    view?.setSections(sections)
   }
 
   private func setDefaultSections() {
@@ -132,7 +169,9 @@ final class BookmarksListPresenter {
     sortItems.append(BookmarksListMenuItem(title: L("sort_default"), action: { [weak self] in
       guard let self else { return }
       interactor.resetSort()
-      setDefaultSections()
+      sortingRevision += 1
+      sortedSections = nil
+      showSections()
     }))
     view?.showMenu(sortItems, from: .sort)
   }
@@ -200,28 +239,22 @@ final class BookmarksListPresenter {
   }
 
   private func sort(_ sortingType: BookmarksListSortingType) {
+    sortingRevision += 1
+    let revision = sortingRevision
     let location = LocationManager.lastLocation()
     // A by-distance sort without a position yields no sections, and the interactor drops that result, so the
     // completion below would never run and the list would stay unpopulated — use the default order instead.
     guard sortingType != .distance || location != nil else {
-      setDefaultSections()
+      sortedSections = nil
+      showSections()
       return
     }
 
-    // The core keeps the completion alive and calls it after the screen is gone, so a dead
-    // presenter must bail out instead of falling through to fatalError() below.
+    // Resetting to the default order does not cancel an in-flight core sort.
     interactor.sort(sortingType, location: location) { [weak self] sortedSections in
-      guard let self else { return }
-      let sections = sortedSections.map { bookmarksSection -> IBookmarksListSectionViewModel in
-        if let bookmarks = bookmarksSection.bookmarks {
-          return BookmarksSectionViewModel(title: bookmarksSection.sectionName, bookmarks: self.mapBookmarks(bookmarks))
-        }
-        if let tracks = bookmarksSection.tracks {
-          return TracksSectionViewModel(tracks: tracks.map { self.makeTrackViewModel($0) })
-        }
-        fatalError()
-      }
-      self.view?.setSections(sections)
+      guard let self, self.sortingRevision == revision else { return }
+      self.sortedSections = sortedSections
+      self.showSections()
     }
   }
 }
@@ -246,17 +279,18 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 
   func cancelSearch() {
     searchText = nil
+    searchResults = nil
     reload()
   }
 
   func search(_ text: String) {
     assert(!text.isEmpty)
     searchText = text
+    searchResults = nil
     interactor.search(text) { [weak self] in
       guard let self, self.searchText == text else { return }
-      let bookmarks = self.mapBookmarks($0)
-      self.view?.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
-                                                                                 bookmarks: bookmarks)])
+      self.searchResults = $0
+      self.showSections()
     }
   }
 
