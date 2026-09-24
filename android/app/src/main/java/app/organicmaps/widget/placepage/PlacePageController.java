@@ -377,8 +377,11 @@ public class PlacePageController
     final int bottomInsets = (mCurrentWindowInsets != null)
                                ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
                                : 0;
-    final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    final int bottomMargins = getResources().getDimensionPixelSize(R.dimen.margin_double);
+    // Resources come from the view, not the fragment: animator frames and posted runnables can run
+    // after the fragment is detached, where Fragment.getResources() throws IllegalStateException.
+    final Resources res = mPlacePage.getResources();
+    final boolean isLandscape = res.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    final int bottomMargins = res.getDimensionPixelSize(R.dimen.margin_double);
     final View plusDetailsContainer = mPlacePage.findViewById(R.id.plus_details);
     int peekHeight = mPreviewHeight + mButtonsHeight + bottomMargins;
     final View routeRef = mPlacePage.findViewById(R.id.ll__place_route_ref);
