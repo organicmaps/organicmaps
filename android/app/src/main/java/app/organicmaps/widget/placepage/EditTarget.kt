@@ -102,10 +102,7 @@ internal class TrackEditTarget(private val data: Track) : EditTarget {
         return movedFromCategory
     }
 
-    /**
-     * Must be applied after everything else is persisted: hiding the selected track closes its
-     * Place Page, and that synchronously tears down the editor when the Place Page hosts it.
-     */
+    /** Hiding the selected track closes its Place Page, so this runs after the rest is persisted. */
     fun applyStagedVisibility() {
         if (stagedVisibility != data.isVisible) data.setVisibility(stagedVisibility)
     }
