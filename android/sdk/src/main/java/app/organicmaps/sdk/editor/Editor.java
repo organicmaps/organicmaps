@@ -147,6 +147,8 @@ public final class Editor
   private static native void nativeUploadChanges(String oauthToken, String appVersion, String appId,
                                                  UploadListener listener);
 
+  @NonNull
+  public static native String nativeGetStatsString();
   public static native void nativeClearLocalEdits();
 
   /**
