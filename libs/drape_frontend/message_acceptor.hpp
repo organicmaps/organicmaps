@@ -4,6 +4,10 @@
 
 #include "drape/pointers.hpp"
 
+#ifdef DRAPE_QUEUE_TRACE
+#include "base/timer.hpp"
+#endif
+
 namespace df
 {
 class Message;
@@ -32,11 +36,19 @@ protected:
   void DisableMessageFiltering();
   void InstantMessageFilter(MessageQueue::FilterMessageFn && filter);
 
+#ifdef DRAPE_QUEUE_TRACE
+  // Called on the frontend thread; reports cumulative counters at most once per second.
+  void TraceMessageQueue();
+#endif
+
 private:
   friend class ThreadsCommutator;
 
   void PostMessage(drape_ptr<Message> && message, MessagePriority priority);
 
   MessageQueue m_messageQueue;
+#ifdef DRAPE_QUEUE_TRACE
+  base::Timer m_queueTraceTimer;
+#endif
 };
 }  // namespace df

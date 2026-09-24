@@ -10,6 +10,37 @@ namespace message_queue_tests
 {
 using namespace std::chrono_literals;
 
+#ifdef DRAPE_QUEUE_TRACE
+UNIT_TEST(MessageQueue_TraceAccountsForEveryRemoval)
+{
+  df::MessageQueue queue;
+  for (auto priority : {df::MessagePriority::Normal, df::MessagePriority::Low, df::MessagePriority::UberHighSingleton,
+                        df::MessagePriority::UberHighSingleton})
+    queue.PushMessage(make_unique_dp<df::Message>(), priority);
+
+  TEST_EQUAL(queue.GetTrace().m_size, 3, ());
+  queue.PopMessage(false);
+  queue.InstantFilter([](auto const &) { return true; });
+  queue.EnableMessageFiltering([](auto const &) { return true; });
+  queue.PushMessage(make_unique_dp<df::Message>(), df::MessagePriority::Normal);
+  queue.DisableMessageFiltering();
+  queue.PushMessage(make_unique_dp<df::Message>(), df::MessagePriority::Low);
+  queue.Clear();
+
+  auto const trace = queue.GetTrace();
+  TEST_EQUAL(trace.m_size, 0, ());
+  TEST_EQUAL(trace.m_peak, 3, ());
+  auto const & counts = trace.m_types.at(df::Message::Type::Unknown);
+  TEST_EQUAL(counts.m_size, 0, ());
+  TEST_EQUAL(counts.m_peak, 3, ());
+  TEST_EQUAL(counts.m_enqueued, 4, ());
+  TEST_EQUAL(counts.m_popped, 1, ());
+  TEST_EQUAL(counts.m_filtered, 2, ());
+  TEST_EQUAL(counts.m_rejected, 2, ());
+  TEST_EQUAL(counts.m_cleared, 1, ());
+}
+#endif
+
 class TestMessage : public df::Message
 {
 public:

@@ -2,6 +2,12 @@
 
 #include "drape_frontend/message.hpp"
 
+#ifdef DRAPE_QUEUE_TRACE
+#include "base/logging.hpp"
+
+#include <sstream>
+#endif
+
 namespace df
 {
 bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
@@ -44,6 +50,32 @@ void MessageAcceptor::CancelMessageWaiting()
 {
   m_messageQueue.CancelWait();
 }
+
+#ifdef DRAPE_QUEUE_TRACE
+void MessageAcceptor::TraceMessageQueue()
+{
+  if (m_queueTraceTimer.ElapsedSeconds() < 1.0)
+    return;
+  m_queueTraceTimer.Reset();
+
+  auto const trace = m_messageQueue.GetTrace();
+  std::ostringstream out;
+  out << "DrapeQueue {\"size\":" << trace.m_size << ",\"peak\":" << trace.m_peak << ",\"types\":{";
+  bool first = true;
+  for (auto const & [type, counts] : trace.m_types)
+  {
+    if (!first)
+      out << ',';
+    first = false;
+    out << '"' << DebugPrint(type) << "\":{\"size\":" << counts.m_size << ",\"peak\":" << counts.m_peak
+        << ",\"enqueued\":" << counts.m_enqueued << ",\"popped\":" << counts.m_popped
+        << ",\"filtered\":" << counts.m_filtered << ",\"rejected\":" << counts.m_rejected
+        << ",\"cleared\":" << counts.m_cleared << '}';
+  }
+  out << "}}";
+  LOG(LINFO, (out.str()));
+}
+#endif
 
 #ifdef DEBUG_MESSAGE_QUEUE
 

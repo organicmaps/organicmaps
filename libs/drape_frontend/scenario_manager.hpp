@@ -37,16 +37,22 @@ public:
   class CenterViewportAction : public Action
   {
   public:
-    CenterViewportAction(m2::PointD const & pt, int zoomLevel) : m_center(pt), m_zoomLevel(zoomLevel) {}
+    CenterViewportAction(m2::PointD const & pt, int zoomLevel, bool animated = true)
+      : m_center(pt)
+      , m_zoomLevel(zoomLevel)
+      , m_animated(animated)
+    {}
 
     ActionType GetType() override { return ActionType::CenterViewport; }
 
     m2::PointD const & GetCenter() const { return m_center; }
     int GetZoomLevel() const { return m_zoomLevel; }
+    bool IsAnimated() const { return m_animated; }
 
   private:
     m2::PointD const m_center;
     int const m_zoomLevel;
+    bool const m_animated;
   };
 
   class WaitForTimeAction : public Action

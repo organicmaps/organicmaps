@@ -2,6 +2,8 @@
 
 #include "base/assert.hpp"
 
+#include <algorithm>
+
 namespace df
 {
 drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
@@ -24,6 +26,10 @@ drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
     msg = std::move(m_lowPriorityMessages.front());
     m_lowPriorityMessages.pop_front();
   }
+#ifdef DRAPE_QUEUE_TRACE
+  if (msg)
+    TraceRemoved(msg->GetType(), &TraceCounts::m_popped);
+#endif
   return msg;
 }
 
@@ -32,7 +38,17 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
   std::lock_guard<std::mutex> lock(m_mutex);
 
   if (m_filter != nullptr && m_filter(make_ref(message)))
+  {
+#ifdef DRAPE_QUEUE_TRACE
+    ++m_trace.m_types[message->GetType()].m_rejected;
+#endif
     return;
+  }
+
+#ifdef DRAPE_QUEUE_TRACE
+  auto const type = message->GetType();
+  auto const sizeBefore = m_messages.size() + m_lowPriorityMessages.size();
+#endif
 
   switch (priority)
   {
@@ -75,6 +91,13 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
   default: ASSERT(false, ("Unknown message priority type"));
   }
 
+#ifdef DRAPE_QUEUE_TRACE
+  if (m_messages.size() + m_lowPriorityMessages.size() != sizeBefore)
+    TraceEnqueued(type);
+  else
+    ++m_trace.m_types[type].m_rejected;
+#endif
+
   m_condition.notify_one();
 }
 
@@ -82,8 +105,17 @@ void MessageQueue::FilterMessagesImpl()
 {
   CHECK(m_filter != nullptr, ());
 
-  std::erase_if(m_messages, [this](auto const & message) { return m_filter(make_ref(message.first)); });
-  std::erase_if(m_lowPriorityMessages, [this](auto const & message) { return m_filter(make_ref(message)); });
+  auto const filter = [this](auto const & message)
+  {
+    bool const remove = m_filter(make_ref(message));
+#ifdef DRAPE_QUEUE_TRACE
+    if (remove)
+      TraceRemoved(message->GetType(), &TraceCounts::m_filtered);
+#endif
+    return remove;
+  };
+  std::erase_if(m_messages, [&filter](auto const & message) { return filter(message.first); });
+  std::erase_if(m_lowPriorityMessages, filter);
 }
 
 void MessageQueue::EnableMessageFiltering(FilterMessageFn && filter)
@@ -132,7 +164,37 @@ void MessageQueue::CancelWait()
 void MessageQueue::Clear()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
+#ifdef DRAPE_QUEUE_TRACE
+  for (auto const & node : m_messages)
+    TraceRemoved(node.first->GetType(), &TraceCounts::m_cleared);
+  for (auto const & message : m_lowPriorityMessages)
+    TraceRemoved(message->GetType(), &TraceCounts::m_cleared);
+#endif
   m_messages.clear();
   m_lowPriorityMessages.clear();
 }
+
+#ifdef DRAPE_QUEUE_TRACE
+void MessageQueue::TraceEnqueued(Message::Type type)
+{
+  auto & counts = m_trace.m_types[type];
+  ++counts.m_enqueued;
+  counts.m_peak = std::max(counts.m_peak, ++counts.m_size);
+  m_trace.m_peak = std::max(m_trace.m_peak, ++m_trace.m_size);
+}
+
+void MessageQueue::TraceRemoved(Message::Type type, uint64_t TraceCounts::* counter)
+{
+  auto & counts = m_trace.m_types.at(type);
+  ++(counts.*counter);
+  --counts.m_size;
+  --m_trace.m_size;
+}
+
+MessageQueue::TraceSnapshot MessageQueue::GetTrace() const
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  return m_trace;
+}
+#endif
 }  // namespace df

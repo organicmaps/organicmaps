@@ -1808,6 +1808,9 @@ void FrontendRenderer::RenderEmptyFrame()
 void FrontendRenderer::RenderFrame()
 {
   TRACE_SECTION("[drape] RenderFrame");
+#ifdef DRAPE_QUEUE_TRACE
+  TraceMessageQueue();
+#endif
   DrapeMeasurerGuard drapeMeasurerGuard;
 
   CHECK(m_context != nullptr, ());

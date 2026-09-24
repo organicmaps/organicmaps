@@ -92,7 +92,7 @@ void ScenarioManager::ThreadRoutine()
     {
       CenterViewportAction * centerViewportAction = static_cast<CenterViewportAction *>(action.get());
       m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(
-          centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(), true /* isAnim */,
+          centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(), centerViewportAction->IsAnimated(),
           false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
       break;
     }

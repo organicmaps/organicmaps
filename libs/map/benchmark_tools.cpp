@@ -39,8 +39,10 @@ struct BenchmarkStepJson
 {
   std::string actionType;
   int64_t time = 0;
+  std::optional<int64_t> timeMs;
   std::optional<BenchmarkCenterJson> center;
   int64_t zoomLevel = -1;
+  bool animated = true;
 };
 
 struct BenchmarkScenarioJson
@@ -62,7 +64,6 @@ struct BenchmarkHandle
   std::vector<df::ScenarioManager::ScenarioData> m_scenariosToRun;
   size_t m_currentScenario = 0;
   std::vector<storage::CountryId> m_regionsToDownload;
-  size_t m_regionsToDownloadCounter = 0;
 
 #ifdef DRAPE_MEASURER_BENCHMARK
   std::vector<std::pair<std::string, df::DrapeMeasurer::DrapeStatistic>> m_drapeStatistic;
@@ -73,6 +74,7 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
 {
   if (handle->m_currentScenario >= handle->m_scenariosToRun.size())
   {
+    LOG(LINFO, ("Drape benchmark finished"));
 #ifdef DRAPE_MEASURER_BENCHMARK
     for (auto const & it : handle->m_drapeStatistic)
     {
@@ -88,11 +90,13 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
   framework->GetDrapeEngine()->RunScenario(std::move(scenarioData),
                                            [handle](std::string const & name)
   {
+    LOG(LINFO, ("Drape scenario started:", name));
 #ifdef DRAPE_MEASURER_BENCHMARK
     df::DrapeMeasurer::Instance().Start();
 #endif
   }, [framework, handle](std::string const & name)
   {
+    LOG(LINFO, ("Drape scenario finished:", name));
 #ifdef DRAPE_MEASURER_BENCHMARK
     df::DrapeMeasurer::Instance().Stop();
     auto const drapeStatistic = df::DrapeMeasurer::Instance().GetDrapeStatistic();
@@ -152,8 +156,10 @@ void RunGraphicsBenchmark(Framework * framework)
     {
       if (stepJson.actionType == "waitForTime")
       {
-        scenarioData.m_scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
-            new ScenarioManager::WaitForTimeAction(std::chrono::seconds(stepJson.time))));
+        auto const duration = stepJson.timeMs ? std::chrono::milliseconds(*stepJson.timeMs)
+                                              : std::chrono::milliseconds(std::chrono::seconds(stepJson.time));
+        scenarioData.m_scenario.push_back(
+            std::unique_ptr<ScenarioManager::Action>(new ScenarioManager::WaitForTimeAction(duration)));
       }
       else if (stepJson.actionType == "centerViewport")
       {
@@ -163,7 +169,7 @@ void RunGraphicsBenchmark(Framework * framework)
         m2::PointD const pt = mercator::FromLatLon(stepJson.center->lat, stepJson.center->lon);
         points.push_back(pt);
         scenarioData.m_scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
-            new ScenarioManager::CenterViewportAction(pt, static_cast<int>(stepJson.zoomLevel))));
+            new ScenarioManager::CenterViewportAction(pt, static_cast<int>(stepJson.zoomLevel), stepJson.animated)));
       }
     }
 
@@ -191,15 +197,19 @@ void RunGraphicsBenchmark(Framework * framework)
   {
     framework->GetStorage().Subscribe([framework, handle](storage::CountryId const & countryId)
     {
-      if (base::IsExist(handle->m_regionsToDownload, countryId))
-      {
-        handle->m_regionsToDownloadCounter++;
-        if (handle->m_regionsToDownloadCounter == handle->m_regionsToDownload.size())
-        {
-          handle->m_regionsToDownload.clear();
-          RunScenario(framework, handle);
-        }
-      }
+      auto & regions = handle->m_regionsToDownload;
+      auto const it = std::find(regions.begin(), regions.end(), countryId);
+      if (it == regions.end())
+        return;
+
+      storage::NodeStatuses statuses;
+      framework->GetStorage().GetNodeStatuses(countryId, statuses);
+      if (statuses.m_status != storage::NodeStatus::OnDisk)
+        return;
+
+      regions.erase(it);
+      if (regions.empty())
+        RunScenario(framework, handle);
     }, [](storage::CountryId const &, downloader::Progress const &) {});
 
     for (auto const & countryId : handle->m_regionsToDownload)
