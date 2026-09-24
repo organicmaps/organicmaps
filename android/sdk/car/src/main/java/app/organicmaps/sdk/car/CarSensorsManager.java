@@ -26,7 +26,7 @@ public final class CarSensorsManager
   @NonNull
   private final CarContext mCarContext;
   @NonNull
-  private final CarSensors mCarSensors;
+  private final CarSensorsSafe mCarSensors;
 
   @NonNull
   private final SensorHelper mSensorHelper;
@@ -41,7 +41,7 @@ public final class CarSensorsManager
                            @NonNull final LocationHelper locationHelper)
   {
     mCarContext = context;
-    mCarSensors = mCarContext.getCarService(CarHardwareManager.class).getCarSensors();
+    mCarSensors = new CarSensorsSafe(mCarContext.getCarService(CarHardwareManager.class).getCarSensors());
     mSensorHelper = sensorHelper;
     mLocationHelper = locationHelper;
   }
@@ -52,16 +52,18 @@ public final class CarSensorsManager
     final Executor executor = ContextCompat.getMainExecutor(mCarContext);
 
     if (mIsCarCompassUsed)
-      mCarSensors.addCompassListener(CarSensors.UPDATE_RATE_NORMAL, executor, this::onCarCompassDataAvailable);
-    else
+      mIsCarCompassUsed =
+          mCarSensors.addCompassListener(CarSensors.UPDATE_RATE_NORMAL, executor, this::onCarCompassDataAvailable);
+
+    if (!mIsCarCompassUsed)
       mSensorHelper.addListener(this::onCompassUpdated);
 
     if (!mLocationHelper.isActive())
       mLocationHelper.start();
 
     if (mIsCarLocationUsed)
-      mCarSensors.addCarHardwareLocationListener(CarSensors.UPDATE_RATE_FASTEST, executor,
-                                                 this::onCarLocationDataAvailable);
+      mIsCarLocationUsed = mCarSensors.addCarHardwareLocationListener(CarSensors.UPDATE_RATE_FASTEST, executor,
+                                                                      this::onCarLocationDataAvailable);
   }
 
   public void onStop()
