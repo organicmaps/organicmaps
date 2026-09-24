@@ -5285,24 +5285,31 @@ type highway-cycleway
     line width=1.4 color=c150 join=round cap=butt priority=330
     path_text primary[height=10 color=c107 stroke=c108] priority=2953
   z14
-    line width=1.6 color=c150 join=round cap=butt priority=330
+    line width=2.4 color=c024 join=round cap=round priority=329
+    line width=1.6 color=c150 join=round cap=round priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z15
-    line width=1.9 color=c150 join=round cap=butt priority=330
+    line width=2.9 color=c024 join=round cap=round priority=329
+    line width=1.9 color=c150 join=round cap=round priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z16
+    line width=3.5 color=c024 join=round cap=round priority=329
     line width=2.3 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z17
+    line width=3.5 color=c024 join=round cap=round priority=329
     line width=2.3 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z18
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z19
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z20
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
 type highway-cycleway-bridge
@@ -5314,34 +5321,41 @@ type highway-cycleway-bridge
     line width=1.4 color=c150 join=round cap=butt priority=330
     path_text primary[height=10 color=c107 stroke=c108] priority=2953
   z14
-    line width=1.6 color=c150 join=round cap=butt priority=330
+    line width=2.4 color=c024 join=round cap=round priority=329
+    line width=1.6 color=c150 join=round cap=round priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z15
     line width=4.8 color=c144 join=round cap=butt priority=150
-    line width=1.9 color=c150 join=round cap=butt priority=330
+    line width=2.9 color=c024 join=round cap=round priority=329
+    line width=1.9 color=c150 join=round cap=round priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z16
     line width=5.6 color=c144 join=round cap=butt priority=150
+    line width=3.5 color=c024 join=round cap=round priority=329
     line width=2.3 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z17
     line width=7.6 color=c145 join=round cap=butt priority=140
     line width=6.6 color=c144 join=round cap=butt priority=150
+    line width=3.5 color=c024 join=round cap=round priority=329
     line width=2.3 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z18
     line width=10.6 color=c145 join=round cap=butt priority=140
     line width=9.6 color=c144 join=round cap=butt priority=150
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z19
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.6 color=c144 join=round cap=butt priority=150
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z20
     line width=11.6 color=c145 join=round cap=butt priority=140
     line width=10.6 color=c144 join=round cap=butt priority=150
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
 type highway-cycleway-tunnel
@@ -5353,30 +5367,37 @@ type highway-cycleway-tunnel
     line width=1.4 color=c150 join=round cap=butt priority=330
     path_text primary[height=10 color=c107 stroke=c108] priority=2953
   z14
-    line width=1.6 color=c150 join=round cap=butt priority=330
+    line width=2.4 color=c024 join=round cap=round priority=329
+    line width=1.6 color=c150 join=round cap=round priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z15
-    line width=1.9 color=c150 join=round cap=butt priority=330
+    line width=2.9 color=c024 join=round cap=round priority=329
+    line width=1.9 color=c150 join=round cap=round priority=330
     path_text primary[height=11 color=c107 stroke=c108] priority=2953
   z16
+    line width=3.5 color=c024 join=round cap=round priority=329
     line width=2.3 color=c150 join=round cap=round priority=330
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z17
+    line width=3.5 color=c024 join=round cap=round priority=329
     line width=2.3 color=c150 join=round cap=round priority=330
     line width=6.6 color=c146 join=round cap=butt priority=154
     line width=7.6 color=c145 join=round cap=butt dash=[2,2] priority=153
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z18
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     line width=9.6 color=c146 join=round cap=butt priority=154
     line width=10.6 color=c145 join=round cap=butt dash=[2,2] priority=153
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z19
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     line width=10.6 color=c146 join=round cap=butt priority=154
     line width=11.6 color=c145 join=round cap=butt dash=[2,2] priority=153
     path_text primary[height=12 color=c143 stroke=c087] priority=2953
   z20
+    line width=4.4 color=c024 join=round cap=round priority=329
     line width=2.8 color=c150 join=round cap=round priority=330
     line width=10.6 color=c146 join=round cap=butt priority=154
     line width=11.6 color=c145 join=round cap=butt dash=[2,2] priority=153
@@ -9131,19 +9152,92 @@ type historic-wreck
   z20
     symbol name=wreck-m priority=3050
     caption primary[height=10 color=c082 dy=1 optional] priority=-6950
+type hwtag-onedir_bicycle
+  z15 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-xs step=44 offset=30 priority=343
+  z15 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-xs step=44 offset=30 priority=343
+  z15 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-xs step=44 offset=30 priority=343
+  z16 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-s step=54 offset=50 priority=343
+  z16 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=54 offset=50 priority=343
+  z16 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=54 offset=50 priority=343
+  z17 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-s step=64 offset=70 priority=343
+  z17 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=64 offset=70 priority=343
+  z17 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=64 offset=70 priority=343
+  z18 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=343
+  z18 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z18 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z19 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=343
+  z19 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z19 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z20 if "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=343
+  z20 if "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
+  z20 if "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=343
 type hwtag-oneway
-  z15
+  z15 if "extra_tag!=highway=cycleway" and "extra_tag!=highway=path=bicycle" and "extra_tag!=highway=footway=bicycle"
     line width=0 color=c022 join=round cap=round pathsym=arrow-xs step=44 offset=30 priority=330
-  z16
+  z15 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-xs step=44 offset=30 priority=330
+  z15 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-xs step=44 offset=30 priority=330
+  z15 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-xs step=44 offset=30 priority=330
+  z16 if "extra_tag!=highway=cycleway" and "extra_tag!=highway=path=bicycle" and "extra_tag!=highway=footway=bicycle"
     line width=0 color=c022 join=round cap=round pathsym=arrow-s step=54 offset=50 priority=330
-  z17
+  z16 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-s step=54 offset=50 priority=330
+  z16 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=54 offset=50 priority=330
+  z16 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=54 offset=50 priority=330
+  z17 if "extra_tag!=highway=cycleway" and "extra_tag!=highway=path=bicycle" and "extra_tag!=highway=footway=bicycle"
     line width=0 color=c022 join=round cap=round pathsym=arrow-s step=64 offset=70 priority=330
-  z18
+  z17 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-s step=64 offset=70 priority=330
+  z17 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=64 offset=70 priority=330
+  z17 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-s step=64 offset=70 priority=330
+  z18 if "extra_tag!=highway=cycleway" and "extra_tag!=highway=path=bicycle" and "extra_tag!=highway=footway=bicycle"
     line width=0 color=c022 join=round cap=round pathsym=arrow-m step=74 offset=90 priority=330
-  z19
+  z18 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=330
+  z18 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=330
+  z18 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=330
+  z19 if "extra_tag!=highway=cycleway" and "extra_tag!=highway=path=bicycle" and "extra_tag!=highway=footway=bicycle"
     line width=0 color=c022 join=round cap=round pathsym=arrow-m step=74 offset=90 priority=330
-  z20
+  z19 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=330
+  z19 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=330
+  z19 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=330
+  z20 if "extra_tag!=highway=cycleway" and "extra_tag!=highway=path=bicycle" and "extra_tag!=highway=footway=bicycle"
     line width=0 color=c022 join=round cap=round pathsym=arrow-m step=74 offset=90 priority=330
+  z20 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=cycleway"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-solid-m step=74 offset=90 priority=330
+  z20 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=path=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=330
+  z20 if "extra_tag!=hwtag=bidir_bicycle" and "extra_tag!=hwtag=onedir_bicycle" and "extra_tag=highway=footway=bicycle"
+    line width=0 color=c022 join=round cap=round pathsym=cycling-arrow-patterned-m step=74 offset=90 priority=330
 type isoline-step_10
   z15
     line width=0.8 color=c185 join=round cap=butt priority=60
