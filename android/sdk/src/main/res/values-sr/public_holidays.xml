@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: BE, FR, RS -->
+    <string name="armistice_day">Дан примирја у Првом светском рату</string>
+    <!-- Countries: BY, RS -->
+    <string name="christmas_day_orthodox">Први дан Божића</string>
+    <!-- Countries: RS -->
+    <string name="easter_monday_orthodox">Ускршњи понедељак</string>
+    <!-- Countries: RS -->
+    <string name="easter_saturday_orthodox">Ускршња субота</string>
+    <!-- Countries: RS -->
+    <string name="easter_sunday_orthodox">Ускрс</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Добар петак</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Празник рада</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Нова Година</string>
+    <!-- Countries: RS -->
+    <string name="sovereignty_day">Дан државности Србије</string>
+</resources>
