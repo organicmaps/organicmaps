@@ -59,19 +59,27 @@ double GetPreviewGlobalEps(ScreenBase const & screen)
   return std::max(screen.GetScale() * kPreviewScreenPositionEpsInPixels, 1e-12);
 }
 
+std::array<float, 20> const & GetRouteHalfWidthInPixel(RouteType routeType)
+{
+  switch (routeType)
+  {
+  case RouteType::Car:
+  case RouteType::Taxi: return kRouteHalfWidthInPixelCar;
+  case RouteType::Bicycle: return kRouteHalfWidthInPixelBicycle;
+  case RouteType::Transit: return kRouteHalfWidthInPixelTransit;
+  case RouteType::Pedestrian:
+  case RouteType::Ruler: return kRouteHalfWidthInPixelOthers;
+  }
+  UNREACHABLE();
+}
+
 void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & screen, float & halfWidth, double & zoom)
 {
   int index = 0;
   float lerpCoef = 0.0f;
   ExtractZoomFactors(screen, zoom, index, lerpCoef);
 
-  std::array<float, 20> const * halfWidthInPixel = &kRouteHalfWidthInPixelOthers;
-  if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
-    halfWidthInPixel = &kRouteHalfWidthInPixelCar;
-  else if (subroute->m_routeType == RouteType::Transit)
-    halfWidthInPixel = &kRouteHalfWidthInPixelTransit;
-
-  halfWidth = InterpolateByZoomLevels(index, lerpCoef, *halfWidthInPixel);
+  halfWidth = InterpolateByZoomLevels(index, lerpCoef, GetRouteHalfWidthInPixel(subroute->m_routeType));
   halfWidth *= static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 }
 
