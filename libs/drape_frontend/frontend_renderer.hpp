@@ -282,6 +282,7 @@ private:
 
   void InvalidateRect(m2::RectD const & gRect);
   bool CheckTileGenerations(TileKey const & tileKey);
+  void FilterObsoleteTileMessages();
   void UpdateCanBeDeletedStatus();
 
   void OnCompassTapped();
@@ -381,6 +382,7 @@ private:
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
   uint64_t m_maxUserMarksGeneration;
+  bool m_needFilterTileMessages = false;
 
   int m_lastRecacheRouteId = 0;
 

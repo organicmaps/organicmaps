@@ -11,6 +11,7 @@
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/screen_quad_renderer.hpp"
+#include "drape_frontend/tile_message_filter.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -1275,7 +1276,10 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
   bool const result = (tileKey.m_generation >= m_maxGeneration);
 
   if (tileKey.m_generation > m_maxGeneration)
+  {
     m_maxGeneration = tileKey.m_generation;
+    m_needFilterTileMessages = true;
+  }
 
   if (tileKey.m_userMarksGeneration > m_maxUserMarksGeneration)
     m_maxUserMarksGeneration = tileKey.m_userMarksGeneration;
@@ -1289,6 +1293,28 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
   });
 
   return result;
+}
+
+void FrontendRenderer::FilterObsoleteTileMessages()
+{
+  if (!m_needFilterTileMessages)
+    return;
+  m_needFilterTileMessages = false;
+
+  std::set<TileKey, TileKeyStrictComparator> discardedTiles;
+  auto const discard = [&](TileKey const & key)
+  {
+    if (key.m_generation >= m_maxGeneration)
+      return false;
+    if (key.m_zoomLevel == GetCurrentZoom())
+      discardedTiles.insert(key);
+    return true;
+  };
+  InstantMessageFilter([&](ref_ptr<Message> message) { return FilterTileMessage(message, discard); });
+
+  // Preserve the render-group cleanup normally performed on dequeue, once per tile rather than bucket.
+  for (auto const & key : discardedTiles)
+    CheckTileGenerations(key);
 }
 
 void FrontendRenderer::OnCompassTapped()
@@ -1877,6 +1903,7 @@ void FrontendRenderer::RenderFrame()
   }
 
   bool const canSuspend = m_frameData.m_inactiveFramesCounter > FrameData::kMaxInactiveFrames;
+  FilterObsoleteTileMessages();
   m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate() || m_searchMarkTextOverlayTree->IsNeedUpdate();
   if (canSuspend)
   {
