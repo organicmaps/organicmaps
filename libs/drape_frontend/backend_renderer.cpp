@@ -39,9 +39,9 @@ using namespace std::placeholders;
 BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
-  , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings,
-                                              params.m_trafficEnabled, params.m_isolinesEnabled,
-                                              params.m_backgroundMode, params.m_satelliteAreaOpacity))
+  , m_readManager(make_unique_dp<ReadManager>(
+        params.m_commutator, params.m_requestedTiles, m_model, params.m_allow3dBuildings, params.m_trafficEnabled,
+        params.m_isolinesEnabled, params.m_backgroundMode, params.m_satelliteAreaOpacity))
   , m_transitBuilder(
         make_unique_dp<TransitSchemeBuilder>(std::bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(std::bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
@@ -855,7 +855,7 @@ void BackendRenderer::InitContextDependentResources()
   // Increase this value for big features.
   uint32_t constexpr kBatchSize = 5000;
 
-  m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(
+  m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileReadKeyComparator>>(
       GetReadingThreadsCount(), std::bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3), kBatchSize, kBatchSize);
   m_trafficGenerator->Init();
 

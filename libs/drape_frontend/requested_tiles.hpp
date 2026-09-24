@@ -4,6 +4,7 @@
 
 #include "geometry/screenbase.hpp"
 
+#include <atomic>
 #include <mutex>
 
 namespace df
@@ -18,6 +19,9 @@ public:
   void GetParams(ScreenBase & screen, bool & have3dBuildings, bool & forceRequest, bool & forceUserMarksRequest);
   bool CheckTileKey(TileKey const & tileKey) const;
 
+  void NotifyTileCancellation();
+  uint64_t GetTileCancellationEpoch() const;
+
 private:
   TTilesCollection m_tiles;
   ScreenBase m_screen;
@@ -25,5 +29,6 @@ private:
   bool m_forceRequest = false;
   bool m_forceUserMarksRequest = false;
   mutable std::mutex m_mutex;
+  std::atomic<uint64_t> m_tileCancellationEpoch = 0;
 };
 }  // namespace df

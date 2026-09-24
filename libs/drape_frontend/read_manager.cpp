@@ -1,6 +1,7 @@
 #include "drape_frontend/read_manager.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/metaline_manager.hpp"
+#include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "platform/platform.hpp"
@@ -38,10 +39,11 @@ bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l
   return *l < *r;
 }
 
-ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings,
-                         bool trafficEnabled, bool isolinesEnabled, dp::BackgroundMode backgroundMode,
-                         float areaOpacity)
+ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, ref_ptr<RequestedTiles> requestedTiles,
+                         MapDataProvider & model, bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled,
+                         dp::BackgroundMode backgroundMode, float areaOpacity)
   : m_commutator(commutator)
+  , m_requestedTiles(requestedTiles)
   , m_model(model)
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
@@ -221,8 +223,9 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::Te
                                          ref_ptr<MetalineManager> metalineMng)
 {
   ASSERT(m_pool != nullptr, ());
-  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter),
-                                               m_commutator, texMng, metalineMng, m_customFeaturesContext,
+  TileKey readKey(tileKey, m_generationCounter, m_userMarksGenerationCounter);
+  readKey.InitReadState();
+  auto context = make_unique_dp<EngineContext>(readKey, m_commutator, texMng, metalineMng, m_customFeaturesContext,
                                                m_have3dBuildings && m_allow3dBuildings, m_trafficEnabled,
                                                m_isolinesEnabled, m_mapLangIndex, m_backgroundMode, m_areaOpacity);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
@@ -236,7 +239,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::Te
   /// Or order is important here?
   {
     std::lock_guard lock(m_finishedTilesMutex);
-    m_activeTiles.insert(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter));
+    m_activeTiles.insert(readKey);
   }
   m_pool->PushBack(task);
 }
@@ -281,6 +284,7 @@ void ReadManager::CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel)
   std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
   m_activeTiles.erase(tileToCancel->GetTileKey());
   tileToCancel->Cancel();
+  m_requestedTiles->NotifyTileCancellation();
 }
 
 void ReadManager::ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear)

@@ -123,7 +123,7 @@ private:
   void CleanupOverlays(TileKey const & tileKey);
 
   MapDataProvider m_model;
-  drape_ptr<BatchersPool<TileKey, TileKeyStrictComparator>> m_batchersPool;
+  drape_ptr<BatchersPool<TileKey, TileReadKeyComparator>> m_batchersPool;
   drape_ptr<ReadManager> m_readManager;
   drape_ptr<RouteBuilder> m_routeBuilder;
   drape_ptr<TransitSchemeBuilder> m_transitBuilder;

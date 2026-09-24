@@ -41,4 +41,14 @@ bool RequestedTiles::CheckTileKey(TileKey const & tileKey) const
 
   return m_tiles.find(tileKey) != m_tiles.end();
 }
+
+void RequestedTiles::NotifyTileCancellation()
+{
+  m_tileCancellationEpoch.fetch_add(1, std::memory_order_release);
+}
+
+uint64_t RequestedTiles::GetTileCancellationEpoch() const
+{
+  return m_tileCancellationEpoch.load(std::memory_order_acquire);
+}
 }  // namespace df

@@ -45,7 +45,24 @@ TileKey::TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGen
   , m_zoomLevel(key.m_zoomLevel)
   , m_generation(generation)
   , m_userMarksGeneration(userMarksGeneration)
+  , m_readCancelled(key.m_readCancelled)
 {}
+
+void TileKey::InitReadState()
+{
+  m_readCancelled = std::make_shared<std::atomic<bool>>(false);
+}
+
+void TileKey::CancelRead() const
+{
+  ASSERT(m_readCancelled != nullptr, ());
+  m_readCancelled->store(true, std::memory_order_relaxed);
+}
+
+bool TileKey::IsCancelled() const
+{
+  return m_readCancelled != nullptr && m_readCancelled->load(std::memory_order_relaxed);
+}
 
 bool TileKey::operator<(TileKey const & other) const
 {

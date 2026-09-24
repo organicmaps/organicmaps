@@ -259,6 +259,17 @@ void FrontendRenderer::UpdateCanBeDeletedStatus()
 
 void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
+  // A canceled payload may arrive after the retirement sweep. Drop it now and sweep
+  // again before the next frame's drain to release any other late arrivals together.
+  if (FilterTileMessage(message, [this](TileKey const & key)
+  {
+    if (!key.IsCancelled())
+      return false;
+    m_needFilterTileMessages = true;
+    return true;
+  }))
+    return;
+
   switch (message->GetType())
   {
   case Message::Type::FlushTile:
@@ -1273,6 +1284,9 @@ void FrontendRenderer::RemoveRenderGroupsLater(TRenderGroupRemovePredicate const
 
 bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
 {
+  if (tileKey.IsCancelled())
+    return false;
+
   bool const result = (tileKey.m_generation >= m_maxGeneration);
 
   if (tileKey.m_generation > m_maxGeneration)
@@ -1297,13 +1311,17 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
 
 void FrontendRenderer::FilterObsoleteTileMessages()
 {
-  if (!m_needFilterTileMessages)
+  auto const cancellationEpoch = m_requestedTiles->GetTileCancellationEpoch();
+  if (!m_needFilterTileMessages && cancellationEpoch == m_tileCancellationEpoch)
     return;
   m_needFilterTileMessages = false;
+  m_tileCancellationEpoch = cancellationEpoch;
 
   std::set<TileKey, TileKeyStrictComparator> discardedTiles;
   auto const discard = [&](TileKey const & key)
   {
+    if (key.IsCancelled())
+      return true;
     if (key.m_generation >= m_maxGeneration)
       return false;
     if (key.m_zoomLevel == GetCurrentZoom())

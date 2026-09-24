@@ -26,14 +26,16 @@ namespace df
 {
 class MapDataProvider;
 class MetalineManager;
+class RequestedTiles;
 
 uint8_t GetReadingThreadsCount();
 
 class ReadManager
 {
 public:
-  ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings,
-              bool trafficEnabled, bool isolinesEnabled, dp::BackgroundMode backgroundMode, float areaOpacity);
+  ReadManager(ref_ptr<ThreadsCommutator> commutator, ref_ptr<RequestedTiles> requestedTiles, MapDataProvider & model,
+              bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled, dp::BackgroundMode backgroundMode,
+              float areaOpacity);
 
   void Start();
   void Stop();
@@ -73,6 +75,7 @@ private:
                               ref_ptr<MetalineManager> metalineMng);
 
   ref_ptr<ThreadsCommutator> m_commutator;
+  ref_ptr<RequestedTiles> m_requestedTiles;
 
   MapDataProvider & m_model;
 

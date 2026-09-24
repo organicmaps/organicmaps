@@ -11,6 +11,8 @@ bool FilterTileMessage(ref_ptr<Message> message, std::function<bool(TileKey cons
   switch (message->GetType())
   {
   case Message::Type::FlushTile: return discard(ref_ptr<FlushRenderBucketMessage>(message)->GetKey());
+  case Message::Type::FlushTrafficData:
+    return discard(ref_ptr<FlushTrafficDataMessage>(message)->AcceptRenderData().m_tileKey);
   case Message::Type::FlushOverlays:
   {
     auto && data = ref_ptr<FlushOverlaysMessage>(message)->AcceptRenderData();

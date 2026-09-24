@@ -383,6 +383,7 @@ private:
   uint64_t m_maxGeneration;
   uint64_t m_maxUserMarksGeneration;
   bool m_needFilterTileMessages = false;
+  uint64_t m_tileCancellationEpoch = 0;
 
   int m_lastRecacheRouteId = 0;
 

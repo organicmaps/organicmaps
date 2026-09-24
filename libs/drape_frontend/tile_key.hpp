@@ -6,6 +6,8 @@
 
 #include "base/matrix.hpp"
 
+#include <atomic>
+#include <memory>
 #include <string>
 
 class ScreenBase;
@@ -32,6 +34,10 @@ struct TileKey
   // batches which must not merge batches with different m_generation.
   bool LessStrict(TileKey const & other) const;
   bool EqualStrict(TileKey const & other) const;
+
+  void InitReadState();
+  void CancelRead() const;
+  bool IsCancelled() const;
 
   m2::RectD GetGlobalRect(bool clipByDataMaxZoom = true) const;
 
@@ -61,11 +67,27 @@ struct TileKey
 
   uint64_t m_generation;
   uint64_t m_userMarksGeneration;
+
+private:
+  friend struct TileReadKeyComparator;
+
+  // A tile can leave and reenter coverage without changing either generation.
+  std::shared_ptr<std::atomic<bool>> m_readCancelled;
 };
 
 struct TileKeyStrictComparator
 {
   bool operator()(TileKey const & lhs, TileKey const & rhs) const { return lhs.LessStrict(rhs); }
+};
+
+struct TileReadKeyComparator
+{
+  bool operator()(TileKey const & lhs, TileKey const & rhs) const
+  {
+    if (!lhs.EqualStrict(rhs))
+      return lhs.LessStrict(rhs);
+    return lhs.m_readCancelled.owner_before(rhs.m_readCancelled);
+  }
 };
 
 std::string DebugPrint(TileKey const & key);
