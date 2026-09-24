@@ -23,6 +23,7 @@ import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.routing.NavigationService;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.display.DisplayManager;
@@ -57,6 +58,8 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   @Nullable
   private WeakReference<Activity> mTopActivity;
+
+  private int mStartedActivitiesCount = 0;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -179,7 +182,9 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   @Override
   public void onActivityStarted(@NonNull Activity activity)
-  {}
+  {
+    ++mStartedActivitiesCount;
+  }
 
   @Override
   public void onActivityResumed(@NonNull Activity activity)
@@ -199,7 +204,14 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   @Override
   public void onActivityStopped(@NonNull Activity activity)
-  {}
+  {
+    --mStartedActivitiesCount;
+    // Synchronous, beats task-kill (PL's debounced onStop would be too late).
+    // Init guard: ALC fires for SplashActivity before native init completes.
+    if (mStartedActivitiesCount == 0 && !activity.isChangingConfigurations()
+        && mOrganicMaps.arePlatformAndCoreInitialized())
+      Framework.nativeOnAppBackgrounded();
+  }
 
   @Override
   public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState)
