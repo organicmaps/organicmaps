@@ -263,8 +263,8 @@ public class PlacePageView extends Fragment
     Fragment parentFragment = getParentFragment();
     mPlacePageViewListener = (PlacePageViewListener) parentFragment;
 
-    getChildFragmentManager().setFragmentResultListener(EditBookmarkFragment.REQUEST_KEY, getViewLifecycleOwner(),
-                                                        (key, result) -> handleEditBookmarkResult(result));
+    requireActivity().getSupportFragmentManager().setFragmentResultListener(
+        EditBookmarkFragment.REQUEST_KEY, getViewLifecycleOwner(), (key, result) -> handleEditBookmarkResult(result));
 
     mFrame = view;
     mFrame.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestToggleState());
@@ -680,31 +680,40 @@ public class PlacePageView extends Fragment
 
   void showBookmarkEditFragment()
   {
+    final FragmentManager fm = requireActivity().getSupportFragmentManager();
     if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
-      EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), getChildFragmentManager());
+      EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), fm);
     }
     else if (mMapObject.isBookmark())
     {
       Bookmark bookmark = (Bookmark) mMapObject;
-      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(), getChildFragmentManager());
+      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(), fm);
     }
   }
 
   private void handleEditBookmarkResult(@NonNull Bundle result)
   {
+    if (mMapObject == null || !(mMapObject.isTrack() || mMapObject.isBookmark()))
+      return;
+
+    // The editor outlives the card, so a pending result may describe another object.
+    final boolean isTrack = mMapObject.isTrack();
+    final long currentId = isTrack ? ((Track) mMapObject).getTrackId() : ((Bookmark) mMapObject).getBookmarkId();
+    if (isTrack != result.getBoolean(EditBookmarkFragment.RESULT_TARGET_IS_TRACK)
+        || currentId != result.getLong(EditBookmarkFragment.RESULT_TARGET_ID))
+      return;
+
     final String action = result.getString(EditBookmarkFragment.RESULT_ACTION);
     if (EditBookmarkFragment.ACTION_DELETED.equals(action))
-    {
       mPlacePageViewListener.onPlacePageRequestClose();
-    }
-    else if (EditBookmarkFragment.ACTION_SAVED.equals(action) && mMapObject != null)
+    else if (EditBookmarkFragment.ACTION_SAVED.equals(action))
     {
-      if (mMapObject.isTrack())
+      if (isTrack)
         BookmarkManager.INSTANCE.updateTrackPlacePage();
-      else if (mMapObject.isBookmark())
-        BookmarkManager.INSTANCE.updateBookmarkPlacePage(result.getLong(EditBookmarkFragment.RESULT_SAVED_ID));
+      else
+        BookmarkManager.INSTANCE.updateBookmarkPlacePage(currentId);
     }
   }
 
