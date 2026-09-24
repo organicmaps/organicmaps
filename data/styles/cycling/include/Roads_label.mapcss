@@ -17,3 +17,52 @@ line|z10-14[highway=trunk]::shield,
 line|z10-14[highway=motorway_link]::shield,
 line|z10-14[highway=trunk_link]::shield,
 {shield-font-size: 0;}
+
+/* Keep ordinary-road arrows inherited from the base style. Bicycle
+   infrastructure overrides the same object so only one glyph is emitted. */
+line|z15[hwtag=oneway][extra_tag!=highway=cycleway][extra_tag!=highway=path=bicycle][extra_tag!=highway=footway=bicycle]::arrows
+{pattern-offset: 30; pattern-image: arrow-xs.svg; pattern-spacing: 60;}
+line|z16[hwtag=oneway][extra_tag!=highway=cycleway][extra_tag!=highway=path=bicycle][extra_tag!=highway=footway=bicycle]::arrows
+{pattern-offset: 50; pattern-image: arrow-s.svg; pattern-spacing: 70;}
+line|z17[hwtag=oneway][extra_tag!=highway=cycleway][extra_tag!=highway=path=bicycle][extra_tag!=highway=footway=bicycle]::arrows
+{pattern-offset: 70; pattern-image: arrow-s.svg; pattern-spacing: 80;}
+line|z18-[hwtag=oneway][extra_tag!=highway=cycleway][extra_tag!=highway=path=bicycle][extra_tag!=highway=footway=bicycle]::arrows
+{pattern-offset: 90; pattern-image: arrow-m.svg; pattern-spacing: 90;}
+
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=cycleway]::arrows,
+line|z15[hwtag=onedir_bicycle][extra_tag=highway=cycleway]::arrows
+{pattern-offset: 30; pattern-image: cycling-arrow-solid-xs.svg; pattern-spacing: 60;}
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=cycleway]::arrows,
+line|z16[hwtag=onedir_bicycle][extra_tag=highway=cycleway]::arrows
+{pattern-offset: 50; pattern-image: cycling-arrow-solid-s.svg; pattern-spacing: 70;}
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=cycleway]::arrows,
+line|z17[hwtag=onedir_bicycle][extra_tag=highway=cycleway]::arrows
+{pattern-offset: 70; pattern-image: cycling-arrow-solid-s.svg; pattern-spacing: 80;}
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=cycleway]::arrows,
+line|z18-[hwtag=onedir_bicycle][extra_tag=highway=cycleway]::arrows
+{pattern-offset: 90; pattern-image: cycling-arrow-solid-m.svg; pattern-spacing: 90;}
+
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::arrows,
+line|z15[hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::arrows
+{pattern-offset: 30; pattern-image: cycling-arrow-patterned-xs.svg; pattern-spacing: 60;}
+line|z15[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::arrows,
+line|z15[hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::arrows
+{pattern-offset: 30; pattern-image: cycling-arrow-patterned-xs.svg; pattern-spacing: 60;}
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::arrows,
+line|z16[hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::arrows
+{pattern-offset: 50; pattern-image: cycling-arrow-patterned-s.svg; pattern-spacing: 70;}
+line|z16[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::arrows,
+line|z16[hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::arrows
+{pattern-offset: 50; pattern-image: cycling-arrow-patterned-s.svg; pattern-spacing: 70;}
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::arrows,
+line|z17[hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::arrows
+{pattern-offset: 70; pattern-image: cycling-arrow-patterned-s.svg; pattern-spacing: 80;}
+line|z17[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::arrows,
+line|z17[hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::arrows
+{pattern-offset: 70; pattern-image: cycling-arrow-patterned-s.svg; pattern-spacing: 80;}
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::arrows,
+line|z18-[hwtag=onedir_bicycle][extra_tag=highway=path=bicycle]::arrows
+{pattern-offset: 90; pattern-image: cycling-arrow-patterned-m.svg; pattern-spacing: 90;}
+line|z18-[hwtag=oneway][extra_tag!=hwtag=bidir_bicycle][extra_tag!=hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::arrows,
+line|z18-[hwtag=onedir_bicycle][extra_tag=highway=footway=bicycle]::arrows
+{pattern-offset: 90; pattern-image: cycling-arrow-patterned-m.svg; pattern-spacing: 90;}

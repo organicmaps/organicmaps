@@ -34,6 +34,9 @@ line|z12-[highway=path][bicycle=designated]::cycleline,
 line|z13-[highway=footway][bicycle=designated]::cycleline,
 {color: @cycleway; opacity: 1;}
 
+line|z14-[highway=cycleway],
+{linecap: round; casing-color: @cycleway_casing; casing-linecap: round;}
+
 line|z11[highway=cycleway],
 {width: 1.0;}
 line|z12[highway=cycleway],
@@ -41,10 +44,10 @@ line|z12[highway=cycleway],
 line|z13[highway=cycleway],
 {width: 1.4;}
 line|z14[highway=cycleway],
-{width: 1.6;}
+{width: 1.6; casing-width: 0.4;}
 line|z15[highway=cycleway],
-{width: 1.9;}
+{width: 1.9; casing-width: 0.5;}
 line|z16-17[highway=cycleway],
-{width: 2.3;}
+{width: 2.3; casing-width: 0.6;}
 line|z18-[highway=cycleway],
-{width: 2.8;}
+{width: 2.8; casing-width: 0.8;}

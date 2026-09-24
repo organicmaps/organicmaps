@@ -4,3 +4,4 @@
 /* Dark-theme variant of the cycling accent. Brighter so the line still
    reads against the dark base. */
 @cycleway: #4FC3F7;
+@cycleway_casing: #000000;

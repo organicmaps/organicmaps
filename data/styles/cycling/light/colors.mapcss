@@ -4,3 +4,4 @@
 /* Single cycling accent: vivid cyan-blue. Geometry and width provide context
    while "blue means cycling" stays immediately recognizable. */
 @cycleway: #1E88E5;
+@cycleway_casing: #FFFFFF;
