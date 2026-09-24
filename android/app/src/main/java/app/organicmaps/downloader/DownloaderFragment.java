@@ -27,6 +27,8 @@ import java.util.List;
 public class DownloaderFragment
     extends BaseMwmRecyclerFragment<DownloaderAdapter> implements MenuBottomSheetFragment.MenuBottomSheetInterface
 {
+  private static final String EXTRA_SELECTED_COUNTRY = "selected_country";
+
   private DownloaderToolbarController mToolbarController;
 
   private BottomPanel mBottomPanel;
@@ -132,6 +134,14 @@ public class DownloaderFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
+    // The restored menu sheet is a child fragment; it asks for its items once this returns.
+    if (savedInstanceState != null)
+    {
+      final String selectedId = savedInstanceState.getString(EXTRA_SELECTED_COUNTRY);
+      if (selectedId != null)
+        getAdapter().setSelectedItem(CountryItem.fill(selectedId));
+    }
+
     ViewCompat.setOnApplyWindowInsetsListener(view, new DownloaderInsetsListener(view));
 
     mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback() {
@@ -167,6 +177,15 @@ public class DownloaderFragment
                                                                mToolbarController.getBackPressedCallback());
 
     update();
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    final String selectedId = mAdapter != null ? mAdapter.getSelectedItemId() : null;
+    if (selectedId != null)
+      outState.putString(EXTRA_SELECTED_COUNTRY, selectedId);
   }
 
   @Override
