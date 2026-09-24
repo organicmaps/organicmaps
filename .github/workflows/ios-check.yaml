@@ -62,6 +62,15 @@ jobs:
       - name: Show current version of Xcode
         run: xcodebuild -version
 
+      # Remove after https://github.com/actions/runner-images/issues/14548 is fixed.
+      - name: Ensure Metal Toolchain is available
+        run: |
+          if ! xcrun metal -v >/dev/null 2>&1; then
+            xcodebuild -downloadComponent MetalToolchain
+            xcrun -k
+          fi
+          xcrun metal -v
+
       - name: Checkout sources
         uses: actions/checkout@v6
 
