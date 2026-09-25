@@ -1029,16 +1029,36 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)onBookmarksImportFinished:(MWMBookmarksImportResult *)result
 {
   MWMGroupIDCollection const importedCategoryIds = result.groupIds;
-  if (importedCategoryIds.count > 0)
+  NSArray<NSString *> * const failedFileNames = result.failedFileNames;
+
+  if (importedCategoryIds.count == 0 && failedFileNames.count == 0)
+    return;
+
+  // Show the imported category on the map automatically.
+  if (failedFileNames.count == 0 && importedCategoryIds.count == 1)
   {
     MWMMarkGroupID const categoryId = importedCategoryIds.firstObject.unsignedLongLongValue;
     [self showImportedCategoryOnMap:categoryId];
-    [Toast showWithText:L(@"load_kmz_successful")];
+    [Toast showWithText:L(@"load_kmz_successful_toast")];
     return;
   }
 
-  if (result.failedFileNames.count > 0)
-    [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_failed")];
+  NSMutableArray<NSString *> * categoryNames = [NSMutableArray arrayWithCapacity:importedCategoryIds.count];
+  for (NSNumber * categoryIdNumber in importedCategoryIds)
+  {
+    MWMMarkGroupID const categoryId = categoryIdNumber.unsignedLongLongValue;
+    [categoryNames addObject:[MWMBookmarksManager.sharedManager getCategoryName:categoryId]];
+  }
+
+  __weak auto weakSelf = self;
+  [[MWMAlertViewController activeAlertController]
+      presentBookmarksImportAlertWithCategoryIds:importedCategoryIds
+                                   categoryNames:categoryNames
+                                 failedFileNames:failedFileNames
+                                  selectCategory:^(NSNumber * categoryIdNumber) {
+                                    MWMMarkGroupID const categoryId = categoryIdNumber.unsignedLongLongValue;
+                                    [weakSelf showImportedCategoryOnMap:categoryId];
+                                  }];
 }
 
 - (BOOL)canBecomeFirstResponder

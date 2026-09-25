@@ -223,26 +223,13 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onBookmarksImportFinished(@NonNull BookmarkImportResult result)
   {
-    long[] categoryIds = result.getCategoryIds();
-    if (categoryIds.length == 0 && result.getFailedFileNames().length == 0)
-      return;
-
     dismissBookmarksImportDialog();
-    if (categoryIds.length > 0)
-    {
+    mBookmarksImportDialog = BookmarksImportDialog.show(requireActivity(), result, categoryId -> {
       Intent intent = new Intent(requireActivity(), MwmActivity.class);
-      intent.putExtra(MwmActivity.EXTRA_CATEGORY_ID, categoryIds[0]);
+      intent.putExtra(MwmActivity.EXTRA_CATEGORY_ID, categoryId);
       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      Toast.makeText(requireContext(), R.string.load_kmz_successful, Toast.LENGTH_LONG).show();
       startActivity(intent);
-      return;
-    }
-
-    mBookmarksImportDialog = new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-                                 .setTitle(R.string.load_kmz_title)
-                                 .setMessage(R.string.load_kmz_failed)
-                                 .setPositiveButton(R.string.ok, null)
-                                 .show();
+    });
   }
 
   private void dismissBookmarksImportDialog()

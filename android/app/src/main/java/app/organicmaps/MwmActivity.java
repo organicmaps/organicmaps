@@ -55,6 +55,7 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
+import app.organicmaps.bookmarks.BookmarksImportDialog;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.downloader.OnmapDownloader;
 import app.organicmaps.editor.EditorActivity;
@@ -1908,24 +1909,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBookmarksImportFinished(@NonNull BookmarkImportResult result)
   {
-    long[] categoryIds = result.getCategoryIds();
-    if (categoryIds.length == 0 && result.getFailedFileNames().length == 0)
-      return;
-
     dismissAlertDialog();
-    if (categoryIds.length > 0)
+    mAlertDialog = BookmarksImportDialog.show(
+        this, result, categoryId -> BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId));
+    if (mAlertDialog != null)
     {
-      BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryIds[0]);
-      Toast.makeText(this, R.string.load_kmz_successful, Toast.LENGTH_LONG).show();
-      return;
+      mAlertDialog.setOnDismissListener(dialog -> {
+        if (mAlertDialog == dialog)
+          mAlertDialog = null;
+      });
     }
-
-    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-                       .setTitle(R.string.load_kmz_title)
-                       .setMessage(R.string.load_kmz_failed)
-                       .setPositiveButton(R.string.ok, null)
-                       .setOnDismissListener(dialog -> mAlertDialog = null)
-                       .show();
   }
 
   @Override

@@ -8,14 +8,18 @@
 
 #include <QtCore/QFile>
 
+#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
+
+#include <optional>
 
 namespace qt
 {
@@ -76,26 +80,86 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
   callbacks.m_onImportFinished = [this](BookmarkManager::BookmarkImportResult const & result)
   {
-    auto firstCategoryId = kml::kInvalidMarkGroupId;
-    bool hasFailures = false;
+    kml::GroupIdCollection importedIds;
+    std::vector<std::string> failedFileNames;
     for (auto const & sourceResult : result.m_sourceResults)
     {
       LOG(sourceResult.m_failedFileNames.empty() ? LINFO : LERROR,
           ("Bookmarks import:", sourceResult.m_context.m_filePath, "imported:", sourceResult.m_groupIds.size(),
            "failed:", sourceResult.m_failedFileNames));
-      if (firstCategoryId == kml::kInvalidMarkGroupId && !sourceResult.m_groupIds.empty())
-        firstCategoryId = sourceResult.m_groupIds.front();
-      hasFailures |= !sourceResult.m_failedFileNames.empty();
+      importedIds.insert(importedIds.end(), sourceResult.m_groupIds.begin(), sourceResult.m_groupIds.end());
+      failedFileNames.insert(failedFileNames.end(), sourceResult.m_failedFileNames.begin(),
+                             sourceResult.m_failedFileNames.end());
     }
 
-    if (firstCategoryId != kml::kInvalidMarkGroupId)
+    if (importedIds.empty() && failedFileNames.empty())
+      return;
+
+    if (importedIds.size() == 1 && failedFileNames.empty())
     {
       done(0);
-      m_framework.ShowBookmarkCategory(firstCategoryId);
+      m_framework.ShowBookmarkCategory(importedIds.front());
       QMessageBox::information(parentWidget(), tr("Bookmarks and tracks"), tr("Bookmarks loaded successfully."));
+      return;
     }
-    else if (hasFailures)
-      QMessageBox::warning(this, tr("Bookmarks and tracks"), tr("Could not load bookmarks."));
+
+    QDialog resultDialog(this);
+    resultDialog.setWindowTitle(tr("Bookmark import results"));
+    resultDialog.resize(500, 480);
+
+    auto * dialogLayout = new QVBoxLayout(&resultDialog);
+    auto * scrollArea = new QScrollArea(&resultDialog);
+    scrollArea->setWidgetResizable(true);
+    auto * content = new QWidget(scrollArea);
+    auto * contentLayout = new QVBoxLayout(content);
+
+    if (!failedFileNames.empty())
+    {
+      auto * heading = new QLabel(tr("Files that could not be imported:"), content);
+      heading->setWordWrap(true);
+      contentLayout->addWidget(heading);
+      for (auto const & name : failedFileNames)
+      {
+        auto * label = new QLabel(QString::fromStdString(name), content);
+        label->setWordWrap(true);
+        contentLayout->addWidget(label);
+      }
+    }
+
+    std::optional<kml::MarkGroupId> selectedCategory;
+    if (!importedIds.empty())
+    {
+      auto * heading = new QLabel(tr("Imported bookmark lists. Select one to show on the map:"), content);
+      heading->setWordWrap(true);
+      contentLayout->addWidget(heading);
+      for (auto const id : importedIds)
+      {
+        auto const name = QString::fromStdString(m_framework.GetBookmarkManager().GetCategoryName(id));
+        auto * button = new QPushButton(name, content);
+        button->setToolTip(name);
+        connect(button, &QAbstractButton::clicked, &resultDialog, [&resultDialog, &selectedCategory, id]
+        {
+          selectedCategory = id;
+          resultDialog.accept();
+        });
+        contentLayout->addWidget(button);
+      }
+    }
+
+    contentLayout->addStretch();
+    scrollArea->setWidget(content);
+    dialogLayout->addWidget(scrollArea);
+
+    auto * buttons = new QDialogButtonBox(QDialogButtonBox::Close, &resultDialog);
+    connect(buttons, &QDialogButtonBox::rejected, &resultDialog, &QDialog::reject);
+    dialogLayout->addWidget(buttons);
+    resultDialog.exec();
+
+    if (selectedCategory)
+    {
+      done(0);
+      m_framework.ShowBookmarkCategory(*selectedCategory);
+    }
   };
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 }
