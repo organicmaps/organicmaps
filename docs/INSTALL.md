@@ -508,7 +508,7 @@ Check if you have a system-wide Java Runtime Environment (JRE) installed:
 java -version
 ```
 
-If your system doesn't have a JRE installed or Java version is less than 17 (OpenJDK)
+If your system doesn't have a JRE installed or Java version is less than 21 (OpenJDK)
 or you want command line builds to use a JRE version bundled with the Studio
 then set the `JAVA_HOME` environment variable:
 
