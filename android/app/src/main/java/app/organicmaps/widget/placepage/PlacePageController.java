@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
@@ -31,6 +32,7 @@ import app.organicmaps.api.Const;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.Bookmark;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
@@ -43,6 +45,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
@@ -55,6 +58,10 @@ public class PlacePageController
   private static final String TAG = PlacePageController.class.getSimpleName();
   private static final String PLACE_PAGE_BUTTONS_FRAGMENT_TAG = "PLACE_PAGE_BUTTONS";
   private static final String PLACE_PAGE_FRAGMENT_TAG = "PLACE_PAGE";
+  private static final String COLOR_REQUEST_KEY = "PlacePageColor";
+  private static final String COLOR_TARGET_ID = "ColorTargetId";
+  private static final String COLOR_TARGET_IS_TRACK = "ColorTargetIsTrack";
+  private static final String COLOR_TARGET_INITIAL = "ColorTargetInitial";
   // Slide offset threshold below collapsed (0.0) at which the sheet is dismissed.
   private static final float EASY_DISMISS_SLIDE_THRESHOLD = -0.15f;
 
@@ -135,6 +142,8 @@ public class PlacePageController
     super.onViewCreated(view, savedInstanceState);
     final FragmentActivity activity = requireActivity();
     mPlacePageListener = (MwmActivity) activity;
+    activity.getSupportFragmentManager().setFragmentResultListener(COLOR_REQUEST_KEY, getViewLifecycleOwner(),
+                                                                   (key, result) -> onColorPicked(result));
 
     final Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
@@ -252,6 +261,32 @@ public class PlacePageController
     mPlacePage.setNestedScrollingEnabled(enabled);
     // Prevent user interaction with place page content when closing
     mPlacePageContainer.setEnabled(enabled);
+  }
+
+  static void showColorPicker(@NonNull FragmentManager fm, long id, boolean isTrack, @ColorInt int color)
+  {
+    final Bundle target = new Bundle();
+    target.putLong(COLOR_TARGET_ID, id);
+    target.putBoolean(COLOR_TARGET_IS_TRACK, isTrack);
+    target.putInt(COLOR_TARGET_INITIAL, color);
+    ColorPickerFragment.showForResult(fm, color, COLOR_REQUEST_KEY, target);
+  }
+
+  private void onColorPicked(@NonNull Bundle result)
+  {
+    final int color = result.getInt(ColorPickerFragment.RESULT_COLOR);
+    if (color == result.getInt(COLOR_TARGET_INITIAL))
+      return;
+    final long id = result.getLong(COLOR_TARGET_ID);
+    final boolean isTrack = result.getBoolean(COLOR_TARGET_IS_TRACK);
+    final long[] ids = {id};
+    final long[] none = {};
+    BookmarkManager.INSTANCE.changeBookmarksAndTracksColor(isTrack ? none : ids, isTrack ? ids : none, color);
+
+    if (isTrack && mMapObject instanceof Track track && track.getTrackId() == id)
+      BookmarkManager.INSTANCE.updateTrackPlacePage();
+    else if (!isTrack && mMapObject instanceof Bookmark bookmark && bookmark.getBookmarkId() == id)
+      BookmarkManager.INSTANCE.updateBookmarkPlacePage(id);
   }
 
   private void close()
