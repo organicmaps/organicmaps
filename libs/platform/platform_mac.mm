@@ -136,6 +136,11 @@ Platform::Platform()
       NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
       std::string const supportDir = [[dirPaths objectAtIndex:0] UTF8String];
       m_writableDir = MigrateAppSupportDirectory(supportDir, "OMapsData", "OrganicMaps");
+      if (m_writableDir == base::JoinPath(supportDir, "OrganicMaps"))
+      {
+        // Older compile-time Designer builds used a separate directory.
+        m_writableDir = MigrateAppSupportDirectory(supportDir, "OMapsData.Designer", "OrganicMaps");
+      }
       CHECK(MkDirRecursively(m_writableDir), ("Cannot create Application Support directory", m_writableDir));
     }
   }
