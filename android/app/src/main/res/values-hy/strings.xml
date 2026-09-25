@@ -405,13 +405,7 @@
     <string name="editor_example_values">Օրինակելի արժեքներ</string>
     <string name="editor_correct_mistake">Ուղղել սխալը</string>
     <string name="editor_add_select_location">Ընտրել վայրը</string>
-    <string name="editor_report_problem_desription_1">Խնդրում ենք մանրամասն նկարագրել խնդիրը, որպեսզի OpenStreetMap համայնքը կարողանա ուղղել այն:</string>
-    <string name="editor_report_problem_desription_2">Կամ արեք դա ինքներդ https://www.openstreetmap.org/ կայքում</string>
     <string name="editor_report_problem_send_button">Ուղարկել</string>
-    <string name="editor_report_problem_title">Խնդիր</string>
-    <string name="editor_report_problem_no_place_title">Այս վայրը գոյություն չունի</string>
-    <string name="editor_report_problem_under_construction_title">Փակ է վերանորոգման համար</string>
-    <string name="editor_report_problem_duplicate_place_title">Կրկնվող վայր</string>
     <string name="autodownload">Քարտեզների ավտոմատ ներբեռնում</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ամեն օր</string>
@@ -472,8 +466,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Ինչպես գրված է տեղական լեզվով</string>
     <string name="editor_edit_place_category_title">Կատեգորիա</string>
-    <string name="detailed_problem_description">Խնդրի մանրամասն նկարագրություն</string>
-    <string name="editor_report_problem_other_title">Այլ խնդիր</string>
     <string name="placepage_add_business_button">Ավելացնել կազմակերպություն</string>
     <string name="message_invalid_feature_position">Այստեղ օբյեկտ չի կարող գտնվել</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

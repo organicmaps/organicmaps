@@ -19,6 +19,8 @@
 #include <CoreApi/StringUtils+Core.h>
 #include <CoreApi/TrackInfo+Core.h>
 
+#include "routing/routing_options.hpp"
+
 #include "kml/type_utils.hpp"
 #include "map/routing_mark.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -308,19 +310,24 @@ using namespace routing;
     NSAssert(NO, @"Target point can not be nil");
     return;
   }
-  switch (point.type)
+  if (point.type == MWMRoutePointTypeStart)
   {
-  case MWMRoutePointTypeStart: [self buildFromPoint:newPoint bestRouter:NO]; break;
-  case MWMRoutePointTypeFinish: [self buildToPoint:newPoint bestRouter:NO]; break;
-  case MWMRoutePointTypeIntermediate:
-    RouteMarkData pt = point.routeMarkData;
-    auto & routingManager = GetFramework().GetRoutingManager();
-    routingManager.RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
-    RouteMarkData newPt = newPoint.routeMarkData;
-    routingManager.AddRoutePoint(std::move(newPt), NO /* reorderIntermediatePoints */);
-    [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
-    [self rebuildWithBestRouter:NO];
+    [self buildFromPoint:newPoint bestRouter:NO];
+    return;
   }
+  if (point.type == MWMRoutePointTypeFinish)
+  {
+    // Destination setup can add the current location when this is the only route point.
+    [self buildToPoint:newPoint bestRouter:NO];
+    return;
+  }
+
+  auto & routingManager = GetFramework().GetRoutingManager();
+  RouteMarkData pt = point.routeMarkData;
+  RouteMarkData newPt = newPoint.routeMarkData;
+  routingManager.ReplaceRoutePoint(pt.m_pointType, pt.m_intermediateIndex, std::move(newPt));
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
+  [self rebuildWithBestRouter:NO];
 }
 
 + (void)swapStartAndFinish
@@ -358,7 +365,7 @@ using namespace routing;
   }
 
   RouteMarkData pt = point.routeMarkData;
-  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt), RoutingOptions::LoadRouteOptimizationFromSettings());
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
@@ -710,6 +717,13 @@ using namespace routing;
   }
   [options save];
   [self rebuildWithBestRouter:YES];
+}
+
++ (void)optimizeRoutePointsAndRebuild
+{
+  // The core keeps the approved order while following or in Ruler mode.
+  if ([self isRoutingActive] && GetFramework().GetRoutingManager().OptimizeRoutePoints())
+    [self rebuildWithBestRouter:NO];
 }
 
 + (void)showNavigationMapControls

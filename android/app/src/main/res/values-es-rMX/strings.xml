@@ -196,11 +196,6 @@
     <string name="editor_hours_closed">Horario no comercial</string>
     <string name="editor_example_values">Ejemplos de valores</string>
     <string name="editor_add_select_location">Seleccione el lugar</string>
-    <string name="editor_report_problem_desription_1">Por favor, describa el problema detalladamente para que la comunidad OpenStreetMap pueda solucionarlo.</string>
-    <string name="editor_report_problem_desription_2">O hazlo tú mismo en https://www.openstreetmap.org/</string>
-    <string name="editor_report_problem_title">Edición</string>
-    <string name="editor_report_problem_no_place_title">Este lugar no existe</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplicar lugar</string>
     <string name="autodownload">Descarga automática de mapas</string>
     <string name="edit_opening_hours">Editar el horario comercial</string>
     <string name="no_osm_account">¿No tienes cuenta en OpenStreetMap?</string>
@@ -225,7 +220,6 @@
     <string name="editor_edit_place_title">Edición de</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Como está escrito en el idioma local</string>
-    <string name="editor_report_problem_other_title">Problema diferente</string>
     <string name="placepage_add_business_button">Añadir empresa</string>
     <string name="message_invalid_feature_position">Ningún objeto puede ser localizado aquí</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

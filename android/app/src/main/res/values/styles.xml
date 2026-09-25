@@ -7,8 +7,6 @@
 
   <style name="MwmWidget.FrameLayout"/>
 
-  <style name="MwmWidget.Downloader"/>
-
   <style name="MwmWidget.MapButton" parent="Theme.Material3.Dark">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
@@ -398,16 +396,6 @@
     <item name="tabIndicatorColor">?android:textColorPrimary</item>
     <item name="tabRippleColor">@android:color/transparent</item>
     <item name="tabSelectedTextColor">?android:textColorPrimary</item>
-  </style>
-
-  <style name="MwmWidget.Downloader.ToolbarButton">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">match_parent</item>
-    <item name="android:gravity">center</item>
-    <item name="android:layout_gravity">end|center_vertical</item>
-    <item name="android:background">?selectableItemBackgroundBorderless</item>
-    <item name="android:padding">@dimen/margin_half</item>
-    <item name="android:textAppearance">@style/MwmTextAppearance.Toolbar.Title.Button</item>
   </style>
 
   <style name="MwmWidget.MaterialCalendar.Theme.FullScreen.Dark"

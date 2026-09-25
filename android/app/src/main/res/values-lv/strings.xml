@@ -405,13 +405,7 @@
     <string name="editor_example_values">Piemēra vērtības</string>
     <string name="editor_correct_mistake">Labot kļūdu</string>
     <string name="editor_add_select_location">Izvēlieties atrašanās vietu</string>
-    <string name="editor_report_problem_desription_1">Sīkāk aprakstiet problēmu, lai „OpenStreetMap“ kopiena to varētu novērst.</string>
-    <string name="editor_report_problem_desription_2">Vai arī to izlabo vietnē https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Sūtīt</string>
-    <string name="editor_report_problem_title">Problēma</string>
-    <string name="editor_report_problem_no_place_title">Vieta nepastāv</string>
-    <string name="editor_report_problem_under_construction_title">Aizvērts uz remonta laiku</string>
-    <string name="editor_report_problem_duplicate_place_title">Vieta dublējas</string>
     <string name="autodownload">Automātiska karšu lejupielāde</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ik dienu</string>
@@ -472,8 +466,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Pieraksts vietējā valodā</string>
     <string name="editor_edit_place_category_title">Kategorija</string>
-    <string name="detailed_problem_description">Plašāks problēmas apraksts</string>
-    <string name="editor_report_problem_other_title">Cita problēma</string>
     <string name="placepage_add_business_button">Pievienot iestādi</string>
     <string name="message_invalid_feature_position">Šeit objekti nevar atrasties</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

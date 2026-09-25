@@ -10,6 +10,7 @@ final class BookmarksListViewController: MWMViewController {
 
   private var canEdit = false
   private var isSearchActive = false
+  private var searchStateBeforeShowingOnMap: (isTyping: Bool, text: String?)?
   private var defaultToolbarItems: [UIBarButtonItem] = []
   private var selectedItemIds = Set<BookmarksListItemId>()
 
@@ -83,11 +84,13 @@ final class BookmarksListViewController: MWMViewController {
     searchController.searchBar.placeholder = L("search_in_the_list")
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.hidesNavigationBarDuringPresentation = alternativeSizeClass(iPhone: true, iPad: false)
+    searchController.delegate = self
     searchController.searchBar.delegate = self
     searchController.searchBar.applyTheme()
     navigationItem.searchController = searchController
     navigationItem.hidesSearchBarWhenScrolling = false
 
+    tableView.keyboardDismissMode = .onDrag
     tableView.allowsMultipleSelectionDuringEditing = true
     cellStrategy.registerCells(tableView)
     cellStrategy.cellEditHandler = { [weak self] cell in
@@ -99,6 +102,22 @@ final class BookmarksListViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    if let searchState = searchStateBeforeShowingOnMap {
+      searchController.searchBar.text = searchState.text
+      let wasSearchActive = searchController.isActive
+      searchController.isActive = true
+      isSearchActive = true
+      updateNavigationButton()
+      toolBar.setHidden(searchState.isTyping)
+      // Keep the presenter's query aligned with the restored field before reloading the category.
+      presenter.restoreSearchText(searchState.text)
+      if wasSearchActive {
+        if searchState.isTyping {
+          searchController.searchBar.becomeFirstResponder()
+        }
+        searchStateBeforeShowingOnMap = nil
+      }
+    }
     presenter.viewDidAppear()
   }
 
@@ -357,12 +376,24 @@ extension BookmarksListViewController: UITableViewDelegate {
   }
 }
 
+extension BookmarksListViewController: UISearchControllerDelegate {
+  func didPresentSearchController(_ searchController: UISearchController) {
+    if searchStateBeforeShowingOnMap?.isTyping == true {
+      // The integrated search field is attached to its window after this callback on iOS 26.
+      DispatchQueue.main.async { [weak searchController] in
+        guard let searchController, searchController.isActive else { return }
+        searchController.searchBar.becomeFirstResponder()
+      }
+    }
+    searchStateBeforeShowingOnMap = nil
+  }
+}
+
 extension BookmarksListViewController: UISearchBarDelegate {
-  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+  func searchBarTextDidBeginEditing(_: UISearchBar) {
     isSearchActive = true
     updateNavigationButton()
     toolBar.setHidden(true)
-    searchBar.setShowsCancelButton(true, animated: true)
     presenter.activateSearch()
   }
 
@@ -370,8 +401,6 @@ extension BookmarksListViewController: UISearchBarDelegate {
     isSearchActive = !(searchBar.text?.isEmpty ?? true)
     updateNavigationButton()
     toolBar.setHidden(false)
-    searchBar.setShowsCancelButton(false, animated: true)
-    presenter.deactivateSearch()
   }
 
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -393,6 +422,16 @@ extension BookmarksListViewController: UISearchBarDelegate {
 }
 
 extension BookmarksListViewController: IBookmarksListView {
+  func saveSearchStateBeforeShowingOnMap(searchText: String?) {
+    // Hiding the list dismisses search; the presenter retains the query if UIKit has cleared the field.
+    let text = searchController.searchBar.text.flatMap { $0.isEmpty ? nil : $0 } ?? searchText
+    if searchController.isActive || text != nil {
+      searchStateBeforeShowingOnMap = (searchController.searchBar.searchTextField.isFirstResponder, text)
+    } else {
+      searchStateBeforeShowingOnMap = nil
+    }
+  }
+
   func setInfo(_ info: IBookmarksListInfoViewModel) {
     navigationItem.backButtonTitle = info.title
     infoViewController.info = info

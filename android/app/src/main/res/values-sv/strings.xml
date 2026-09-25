@@ -405,13 +405,7 @@
     <string name="editor_example_values">Exempelvärden</string>
     <string name="editor_correct_mistake">Korrigera fel</string>
     <string name="editor_add_select_location">Välj plats</string>
-    <string name="editor_report_problem_desription_1">Beskriv problemet i detalj så att OpenStreetMaps community kan lösa det.</string>
-    <string name="editor_report_problem_desription_2">Eller gör det själv på https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Skicka</string>
-    <string name="editor_report_problem_title">Problem</string>
-    <string name="editor_report_problem_no_place_title">Platsen existerar inte</string>
-    <string name="editor_report_problem_under_construction_title">Stängt för underhåll</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplicerad plats</string>
     <string name="autodownload">Automatisk nedladdning</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Dagligen</string>
@@ -472,8 +466,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Som det står skrivet på det lokala språket</string>
     <string name="editor_edit_place_category_title">Kategori</string>
-    <string name="detailed_problem_description">Detaljerad beskrivning av problemet</string>
-    <string name="editor_report_problem_other_title">Annat problem</string>
     <string name="placepage_add_business_button">Lägg till organisation</string>
     <string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

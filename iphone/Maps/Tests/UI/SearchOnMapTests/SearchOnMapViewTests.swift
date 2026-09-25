@@ -65,6 +65,47 @@ final class SearchOnMapHeaderViewTests: XCTestCase {
 }
 
 final class SearchOnMapManagerTests: XCTestCase {
+  @available(iOS 16.0, *)
+  func test_GivenInitialLandscapeSearch_WhenAttached_ThenTabContentHasNoExtraLeadingInset() throws {
+    let mapViewController = try XCTUnwrap(MapViewController.shared())
+    mapViewController.loadViewIfNeeded()
+    let scene = try XCTUnwrap(mapViewController.view.window?.windowScene)
+    scene.requestGeometryUpdate(UIWindowScene.GeometryPreferences.iOS(interfaceOrientations: .landscapeLeft)) { error in
+      XCTFail("Could not rotate scene: \(error)")
+    }
+    let rotated = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+      scene.interfaceOrientation.isLandscape
+    }, object: nil)
+    XCTAssertEqual(XCTWaiter.wait(for: [rotated], timeout: 5), .completed)
+    defer {
+      scene.requestGeometryUpdate(UIWindowScene.GeometryPreferences.iOS(interfaceOrientations: .portrait))
+      let restored = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+        scene.interfaceOrientation.isPortrait
+      }, object: nil)
+      XCTAssertEqual(XCTWaiter.wait(for: [restored], timeout: 5), .completed)
+    }
+
+    let expectedLeadingInset = mapViewController.view.safeAreaInsets.left
+    guard expectedLeadingInset > 0 else {
+      throw XCTSkip("This device has no leading safe area inset in landscape")
+    }
+    let manager = SearchOnMapManager()
+    manager.startSearching(isRouting: false)
+    let searchController = try XCTUnwrap(manager.viewController)
+    defer {
+      manager.close()
+      waitUntilDetached(searchController)
+    }
+    searchController.view.layoutIfNeeded()
+    let tabs = try XCTUnwrap(searchController.children.compactMap { $0 as? SearchTabViewController }.first)
+    let contentCollection = try XCTUnwrap(tabs.view.subviews.compactMap { $0 as? UICollectionView }.first)
+    XCTAssertEqual(searchController.view.safeAreaInsets.left, expectedLeadingInset, accuracy: 1)
+    XCTAssertEqual(searchController.availableAreaView.frame.minX,
+                   searchController.view.safeAreaInsets.left, accuracy: 1)
+    XCTAssertEqual(tabs.view.safeAreaInsets.left, 0, accuracy: 1)
+    XCTAssertEqual(contentCollection.adjustedContentInset.left, 0, accuracy: 1)
+  }
+
   func test_GivenSearchModes_WhenStartedRepeatedly_ThenReusesOnlyMatchingMode() throws {
     let previousSearchMode = Search.searchMode()
     defer { Search.setSearchMode(previousSearchMode) }

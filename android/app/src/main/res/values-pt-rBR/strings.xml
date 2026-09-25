@@ -271,11 +271,6 @@
     <string name="editor_example_values">Exemplo de Valores</string>
     <string name="editor_correct_mistake">Erro correto</string>
     <string name="editor_add_select_location">Selecionar Localização</string>
-    <string name="editor_report_problem_desription_1">Por favor, descreva o problema em detalhes para que a comunidade OpenStreetMap possa corrigir o erro.</string>
-    <string name="editor_report_problem_desription_2">Ou faça-o você mesmo em https://www.openstreetmap.org/</string>
-    <string name="editor_report_problem_no_place_title">Esse lugar não existe</string>
-    <string name="editor_report_problem_under_construction_title">Fechado para manutenção</string>
-    <string name="editor_report_problem_duplicate_place_title">Lugar duplicado</string>
     <string name="autodownload">Download automático</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="edit_opening_hours">Editar horário comercial</string>
@@ -315,7 +310,6 @@
     <string name="editor_edit_place_name_hint">Nome do local</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Como está escrito no idioma local</string>
-    <string name="editor_report_problem_other_title">Problema diferente</string>
     <string name="placepage_add_business_button">Adicionar uma empresa</string>
     <string name="message_invalid_feature_position">Nenhum objeto pode ser localizado aqui</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

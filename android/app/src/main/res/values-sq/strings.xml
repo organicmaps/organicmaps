@@ -405,13 +405,7 @@
     <string name="editor_example_values">Vlerat Shembull</string>
     <string name="editor_correct_mistake">Korrigjo gabimin</string>
     <string name="editor_add_select_location">Zgjidh Vendi</string>
-    <string name="editor_report_problem_desription_1">Ju lutemi përshkruani problemin në detaje në mënyrë që komuniteti OpenStreetMap ta rregullojë atë.</string>
-    <string name="editor_report_problem_desription_2">Ose bëjeni vetë në https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Dërgo</string>
-    <string name="editor_report_problem_title">Çështje</string>
-    <string name="editor_report_problem_no_place_title">Ky vend nuk ekziston</string>
-    <string name="editor_report_problem_under_construction_title">Mbyllur për mirëmbajtje</string>
-    <string name="editor_report_problem_duplicate_place_title">Vend i dyfishtë</string>
     <string name="autodownload">Shkarko automatikisht hartat</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Çdo ditë</string>
@@ -472,8 +466,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Siç shkruhet në gjuhën vendase</string>
     <string name="editor_edit_place_category_title">Kategoria</string>
-    <string name="detailed_problem_description">Përshkrim i detajuar i problemit</string>
-    <string name="editor_report_problem_other_title">Problem tjetër</string>
     <string name="placepage_add_business_button">Shto biznes</string>
     <string name="message_invalid_feature_position">Asnjë objekt nuk mund të vendoset këtu</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

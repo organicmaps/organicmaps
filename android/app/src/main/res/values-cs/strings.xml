@@ -405,13 +405,7 @@
     <string name="editor_example_values">Vzorové hodnoty</string>
     <string name="editor_correct_mistake">Opravit chybu</string>
     <string name="editor_add_select_location">Zvolte umístění</string>
-    <string name="editor_report_problem_desription_1">Popište prosím detailně problém, aby vám komunita OpenStreetMap mohla pomoct opravit chybu.</string>
-    <string name="editor_report_problem_desription_2">Nebo to udělejte sami na https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Odeslat</string>
-    <string name="editor_report_problem_title">Problém</string>
-    <string name="editor_report_problem_no_place_title">Místo neexistuje</string>
-    <string name="editor_report_problem_under_construction_title">Zavřeno kvůli údržbě</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplicitní místo</string>
     <string name="autodownload">Automaticky stahovat mapy</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Denně</string>
@@ -472,8 +466,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Jak je napsáno v místním jazyce</string>
     <string name="editor_edit_place_category_title">Kategorie</string>
-    <string name="detailed_problem_description">Detailní popis problému</string>
-    <string name="editor_report_problem_other_title">Jiný problém</string>
     <string name="placepage_add_business_button">Přidat organizaci</string>
     <string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

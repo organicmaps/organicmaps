@@ -405,13 +405,7 @@
     <string name="editor_example_values">Példaértékek</string>
     <string name="editor_correct_mistake">Hiba javítása</string>
     <string name="editor_add_select_location">Hely kiválasztása</string>
-    <string name="editor_report_problem_desription_1">Írja le részletesen a problémát, hogy az OpenStreetMap csapata kijavíthassa.</string>
-    <string name="editor_report_problem_desription_2">Vagy javítsa ki Ön itt: https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Küldés</string>
-    <string name="editor_report_problem_title">Hibajegy</string>
-    <string name="editor_report_problem_no_place_title">A hely nem létezik</string>
-    <string name="editor_report_problem_under_construction_title">Karbantartás miatt nem érhető el</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
     <string name="autodownload">Automatikus térképletöltés</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Naponta</string>
@@ -472,8 +466,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Ahogyan az, a helyi nyelven írva van</string>
     <string name="editor_edit_place_category_title">Kategória</string>
-    <string name="detailed_problem_description">A probléma részletes leírása</string>
-    <string name="editor_report_problem_other_title">Más jellegű probléma</string>
     <string name="placepage_add_business_button">Vállalkozás hozzáadása</string>
     <string name="message_invalid_feature_position">Itt nem található objektum</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

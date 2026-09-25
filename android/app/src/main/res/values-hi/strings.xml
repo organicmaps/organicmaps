@@ -405,13 +405,7 @@
     <string name="editor_example_values">उदाहरण मान</string>
     <string name="editor_correct_mistake">गलती सुधारें</string>
     <string name="editor_add_select_location">स्थान चुनें</string>
-    <string name="editor_report_problem_desription_1">कृपया समस्या का विस्तार से वर्णन करें ताकि OpenStreetMap समुदाय इसे ठीक कर सके।</string>
-    <string name="editor_report_problem_desription_2">या इसे स्वयं https://www.openstreetmap.org/ पर करें।</string>
     <string name="editor_report_problem_send_button">भेजें</string>
-    <string name="editor_report_problem_title">समस्या</string>
-    <string name="editor_report_problem_no_place_title">यह स्थान मौजूद नहीं है</string>
-    <string name="editor_report_problem_under_construction_title">रखरखाव के लिए बंद</string>
-    <string name="editor_report_problem_duplicate_place_title">डुप्लिकेट स्थान</string>
     <string name="autodownload">मानचित्र स्वतः डाउनलोड करें</string>
     <!-- Place Page opening hours text -->
     <string name="daily">दैनिक</string>
@@ -472,8 +466,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">जैसा कि स्थानीय भाषा में लिखा गया है</string>
     <string name="editor_edit_place_category_title">वर्ग</string>
-    <string name="detailed_problem_description">समस्या का विस्तृत विवरण</string>
-    <string name="editor_report_problem_other_title">अलग समस्या</string>
     <string name="placepage_add_business_button">व्यवसाय जोड़ें</string>
     <string name="message_invalid_feature_position">यहाँ कोई वस्तु स्थित नहीं की जा सकती</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

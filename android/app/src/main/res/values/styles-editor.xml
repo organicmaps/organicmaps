@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
   <style name="MwmWidget.Editor"/>
 
   <style name="MwmWidget.Editor.CardView">
@@ -69,17 +69,6 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:ellipsize">end</item>
     <item name="android:singleLine">true</item>
-    <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
-  </style>
-
-  <style name="MwmWidget.Editor.Problem" tools:ignore="NewApi">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">@dimen/height_block_base</item>
-    <item name="android:gravity">center_vertical</item>
-    <item name="android:paddingEnd">@dimen/margin_base</item>
-    <item name="android:paddingStart">@dimen/margin_base</item>
-    <item name="android:background">?selectableItemBackground</item>
-    <item name="android:clickable">true</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
 </resources>

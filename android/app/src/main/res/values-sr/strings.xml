@@ -405,13 +405,7 @@
     <string name="editor_example_values">Примери</string>
     <string name="editor_correct_mistake">Исправи грешку</string>
     <string name="editor_add_select_location">Изаберите локацију</string>
-    <string name="editor_report_problem_desription_1">Молим Вас да детаљно опишете проблем како би OpenStreetMap заједница могла да га поправи.</string>
-    <string name="editor_report_problem_desription_2">Или то учините сами на https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Пошаљи</string>
-    <string name="editor_report_problem_title">Проблем</string>
-    <string name="editor_report_problem_no_place_title">Ово место не постоји</string>
-    <string name="editor_report_problem_under_construction_title">Затворено због одржавања</string>
-    <string name="editor_report_problem_duplicate_place_title">Дуплирано место</string>
     <string name="autodownload">Аутоматско преузимање мапа</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Сваки дан</string>
@@ -472,8 +466,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Као што је написано на локалном језику</string>
     <string name="editor_edit_place_category_title">Категорија</string>
-    <string name="detailed_problem_description">Детаљан опис проблема</string>
-    <string name="editor_report_problem_other_title">Други проблем</string>
     <string name="placepage_add_business_button">Додај фирму</string>
     <string name="message_invalid_feature_position">Објекат не може бити на овом месту</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
