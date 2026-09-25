@@ -72,6 +72,26 @@ int GetDMSIndex(char const *& s)
   return -1;
 }
 
+bool HasHemisphereAhead(char const * s)
+{
+  while (kSpaces.find(*s) != std::string::npos || kCharsToSkip.find(*s) != std::string::npos)
+    ++s;
+  switch (*s)
+  {
+  case 'N':
+  case 'n':
+  case 'S':
+  case 's':
+  case 'E':
+  case 'e':
+  case 'W':
+  case 'w':
+    return true;
+  default:
+    return false;
+  }
+}
+
 bool SkipNSEW(char const *& s, char const * (&arrPos)[4])
 {
   Skip(s);
@@ -212,7 +232,13 @@ bool MatchLatLonDegree(std::string const & query, double & lat, double & lon)
     if (i == -1)
     {
       // try to assign next possible value mark
-      if (arrDegreeSymbol[base / 3])
+      // A bare number followed by a hemisphere marker is minutes (or seconds)
+      // of the coordinate that already has degrees, e.g. "37 00 27.73 N".
+      if (HasHemisphereAhead(s) && v[base].second)
+      {
+        i = v[base + 1].second ? 2 : 1;
+      }
+      else if (arrDegreeSymbol[base / 3])
       {
         if (!v[base + 1].second)
           i = 1;
