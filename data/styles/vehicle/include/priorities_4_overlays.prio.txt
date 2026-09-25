@@ -299,12 +299,6 @@ leisure-park                                        # icon z14- (also has captio
 leisure-park-permissive                             # icon z14- (also has caption(optional) z14-, area z10-)
 === 2250
 
-landuse-forest                                      # icon z12- (also has caption(optional) z12-, area z10-)
-landuse-forest-coniferous                           # icon z12- (also has caption(optional) z12-, area z10-)
-landuse-forest-deciduous                            # icon z12- (also has caption(optional) z12-, area z10-)
-landuse-forest-mixed                                # icon z12- (also has caption(optional) z12-, area z10-)
-=== 2200
-
 highway-service-driveway                            # pathtext z16- (also has line z15-)
 highway-service-parking_aisle                       # pathtext z16- (also has line z14-)
 === 2150
@@ -857,11 +851,11 @@ entrance-main                                       # icon z18- (also has captio
 # leisure-park-permissive                           # caption(optional) z14- (also has icon z14-, area z10-)
 # === -7750
 
-# landuse-forest                                    # caption(optional) z12- (also has icon z12-, area z10-)
-# landuse-forest-coniferous                         # caption(optional) z12- (also has icon z12-, area z10-)
-# landuse-forest-deciduous                          # caption(optional) z12- (also has icon z12-, area z10-)
-# landuse-forest-mixed                              # caption(optional) z12- (also has icon z12-, area z10-)
-# === -7800
+landuse-forest                                      # caption z12- (also has area z10-)
+landuse-forest-coniferous                           # caption z12- (also has area z10-)
+landuse-forest-deciduous                            # caption z12- (also has area z10-)
+landuse-forest-mixed                                # caption z12- (also has area z10-)
+=== -7800
 
 # railway-station-subway                            # caption(optional) z15- (also has icon z13-)
 # railway-station-subway-adana                      # caption(optional) z15- (also has icon z12-)

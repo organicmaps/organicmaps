@@ -9188,56 +9188,43 @@ type landuse-forest
     area color=c206 priority=-1940
   z12
     area color=c206 priority=-1940
-  z13 if "name"
+  z13
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-s priority=4800
-  z13 if "!name"
+  z14 if "!name"
     area color=c206 priority=-1940
   z14 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-s priority=4800 min_distance=8
-    caption primary[height=10 color=c130 stroke=c087 dy=1 optional] priority=-5200
-  z14 if "!name"
+    caption primary[height=10 color=c130 stroke=c087] priority=-5200
+  z15 if "!name"
     area color=c206 priority=-1940
   z15 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] priority=-5200
-  z15 if "!name"
-    area color=c206 priority=-1940
+    caption primary[height=11 color=c130 stroke=c088] priority=-5200
   z16 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=10 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=10 color=c130 stroke=c207 dy=1] priority=-5200
   z16 if "!name"
     area color=c206 priority=-1940
   z17 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=10 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=10 color=c130 stroke=c207 dy=1] priority=-5200
   z17 if "!name"
     area color=c206 priority=-1940
   z18 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z18 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
   z19 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z19 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
   z20 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z20 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
 type landuse-forest-coniferous
   z10
     area color=c206 priority=-1940
@@ -9245,56 +9232,43 @@ type landuse-forest-coniferous
     area color=c206 priority=-1940
   z12
     area color=c206 priority=-1940
-  z13 if "name"
+  z13
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-s priority=4800
-  z13 if "!name"
+  z14 if "!name"
     area color=c206 priority=-1940
   z14 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-s priority=4800 min_distance=8
-    caption primary[height=10 color=c130 stroke=c087 dy=1 optional] priority=-5200
-  z14 if "!name"
+    caption primary[height=10 color=c130 stroke=c087] priority=-5200
+  z15 if "!name"
     area color=c206 priority=-1940
   z15 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] priority=-5200
-  z15 if "!name"
-    area color=c206 priority=-1940
+    caption primary[height=11 color=c130 stroke=c088] priority=-5200
   z16 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=10 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=10 color=c130 stroke=c207 dy=1] priority=-5200
   z16 if "!name"
     area color=c206 priority=-1940
   z17 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=10 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=10 color=c130 stroke=c207 dy=1] priority=-5200
   z17 if "!name"
     area color=c206 priority=-1940
   z18 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z18 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
   z19 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z19 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
   z20 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z20 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
 type landuse-forest-deciduous
   z10
     area color=c206 priority=-1940
@@ -9302,56 +9276,43 @@ type landuse-forest-deciduous
     area color=c206 priority=-1940
   z12
     area color=c206 priority=-1940
-  z13 if "name"
+  z13
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-s priority=4800
-  z13 if "!name"
+  z14 if "!name"
     area color=c206 priority=-1940
   z14 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-s priority=4800 min_distance=8
-    caption primary[height=10 color=c130 stroke=c087 dy=1 optional] priority=-5200
-  z14 if "!name"
+    caption primary[height=10 color=c130 stroke=c087] priority=-5200
+  z15 if "!name"
     area color=c206 priority=-1940
   z15 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] priority=-5200
-  z15 if "!name"
-    area color=c206 priority=-1940
+    caption primary[height=11 color=c130 stroke=c088] priority=-5200
   z16 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=10 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=10 color=c130 stroke=c207 dy=1] priority=-5200
   z16 if "!name"
     area color=c206 priority=-1940
   z17 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=10 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=10 color=c130 stroke=c207 dy=1] priority=-5200
   z17 if "!name"
     area color=c206 priority=-1940
   z18 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z18 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
   z19 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z19 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
   z20 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z20 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
 type landuse-forest-mixed
   z10
     area color=c206 priority=-1940
@@ -9359,56 +9320,43 @@ type landuse-forest-mixed
     area color=c206 priority=-1940
   z12
     area color=c206 priority=-1940
-  z13 if "name"
+  z13
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-s priority=4800
-  z13 if "!name"
+  z14 if "!name"
     area color=c206 priority=-1940
   z14 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-s priority=4800 min_distance=8
-    caption primary[height=10 color=c130 stroke=c087 dy=1 optional] priority=-5200
-  z14 if "!name"
+    caption primary[height=10 color=c130 stroke=c087] priority=-5200
+  z15 if "!name"
     area color=c206 priority=-1940
   z15 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] priority=-5200
-  z15 if "!name"
-    area color=c206 priority=-1940
+    caption primary[height=11 color=c130 stroke=c088] priority=-5200
   z16 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=10 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=10 color=c130 stroke=c207 dy=1] priority=-5200
   z16 if "!name"
     area color=c206 priority=-1940
   z17 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=10 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=10 color=c130 stroke=c207 dy=1] priority=-5200
   z17 if "!name"
     area color=c206 priority=-1940
   z18 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z18 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
   z19 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z19 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
   z20 if "name"
     area color=c206 priority=-1940
-    symbol name=nparkf-outline-m priority=4800 min_distance=8
-    caption primary[height=11 color=c130 stroke=c088 dy=1 optional] secondary[height=11 color=c130 stroke=c207 dy=1 optional] priority=-5200
+    caption primary[height=11 color=c130 stroke=c088] secondary[height=11 color=c130 stroke=c207 dy=1] priority=-5200
   z20 if "!name"
     area color=c206 priority=-1940
-    symbol name=nparkf-m priority=4800
 type landuse-garages
   z14
     area color=c140 priority=110
