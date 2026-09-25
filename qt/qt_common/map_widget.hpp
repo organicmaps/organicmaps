@@ -71,7 +71,7 @@ protected:
     Released
   };
 
-  int L2D(int px) const { return px * m_ratio; }
+  double L2D(double px) const { return px * m_ratio; }
   m2::PointD GetDevicePoint(QMouseEvent * e) const;
   df::Touch GetDfTouchFromQMouseEvent(QMouseEvent * e) const;
   df::TouchEvent GetDfTouchEventFromQMouseEvent(QMouseEvent * e, df::TouchEvent::ETouchType type) const;
@@ -83,6 +83,7 @@ protected:
 
   void OnViewportChanged(ScreenBase const & screen);
 
+  bool event(QEvent * e) override;
   // QOpenGLWidget overrides:
   void initializeGL() override;
   void paintGL() override;
@@ -108,6 +109,11 @@ protected:
   std::unique_ptr<QOpenGLShaderProgram> m_program;
   std::unique_ptr<QOpenGLVertexArrayObject> m_vao;
   std::unique_ptr<QOpenGLBuffer> m_vbo;
+
+  bool m_nativeGestureInProgress = false;
+  bool m_nativeTransformGestureStarted = false;
+  bool m_nativeRotationAccepted = false;
+  double m_nativeRotationRadians = 0.0;
 };
 
 }  // namespace qt::common

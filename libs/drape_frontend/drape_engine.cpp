@@ -201,6 +201,21 @@ void DrapeEngine::Rotate(double azimuth, bool isAnim)
   AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim, nullptr /* parallelAnimCreator */));
 }
 
+void DrapeEngine::BeginTransformGesture()
+{
+  AddUserEvent(make_unique_dp<TransformGestureEvent>(TransformGestureEvent::Phase::Begin));
+}
+
+void DrapeEngine::RotateBy(double deltaRadians, m2::PointD const & pixelPoint)
+{
+  AddUserEvent(make_unique_dp<RotateByEvent>(deltaRadians, pixelPoint));
+}
+
+void DrapeEngine::EndTransformGesture()
+{
+  AddUserEvent(make_unique_dp<TransformGestureEvent>(TransformGestureEvent::Phase::End));
+}
+
 void DrapeEngine::MakeFrameActive()
 {
   AddUserEvent(make_unique_dp<ActiveFrameEvent>());
