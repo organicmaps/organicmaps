@@ -61,6 +61,8 @@ public:
 
   bool IsValidAttribute(std::string_view type, std::string const & value, std::string const & attrInLowerCase) const;
 
+  size_t GetDroppedCompilationsCount() const { return m_droppedCompilations; }
+
   static kml::TrackLayer GetDefaultTrackLayer();
 
 private:
@@ -90,8 +92,6 @@ private:
   double GetTrackWidthForStyle(std::string_view styleUrl) const;
 
   FileData & m_data;
-  CategoryData m_compilationData;
-  CategoryData * m_categoryData;  // never null
 
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
@@ -132,8 +132,9 @@ private:
   std::vector<std::string> m_nearestToponyms;
   int m_minZoom = 1;
   kml::Properties m_properties;
-  std::vector<CompilationId> m_compilations;
   double m_trackWidth;
+  // Collections are not supported, see Push(). Counted here to log them once instead of per element.
+  size_t m_droppedCompilations = 0;
 };
 
 class DeserializerKml
@@ -157,6 +158,9 @@ public:
         LOG(LWARNING, (kmlText));
       MYTHROW(DeserializeException, ("Could not parse KML."));
     }
+
+    if (auto const count = parser.GetDroppedCompilationsCount(); count > 0)
+      LOG(LWARNING, ("Ignored", count, "unsupported collections in a KML file"));
   }
 
 private:

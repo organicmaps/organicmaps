@@ -409,13 +409,7 @@
     <string name="editor_example_values">Παραδείγματα</string>
     <string name="editor_correct_mistake">Διόρθωση λάθους</string>
     <string name="editor_add_select_location">Επιλέξτε τοποθεσία</string>
-    <string name="editor_report_problem_desription_1">Περιγράψτε το πρόβλημα αναλυτικά ώστε η κοινότητα του OpenStreetMap να το διορθώσει.</string>
-    <string name="editor_report_problem_desription_2">Ή κάντε το μόνοι σας στη διεύθυνση https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Αποστολή</string>
-    <string name="editor_report_problem_title">Πρόβλημα</string>
-    <string name="editor_report_problem_no_place_title">Η τοποθεσία δεν υπάρχει</string>
-    <string name="editor_report_problem_under_construction_title">Κλειστό για συντήρηση</string>
-    <string name="editor_report_problem_duplicate_place_title">Διπλότυπη τοποθεσία</string>
     <string name="autodownload">Αυτόματη λήψη</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Καθημερινά</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Όπως είναι γραμμένο στην τοπική γλώσσα</string>
     <string name="editor_edit_place_category_title">Κατηγορία</string>
-    <string name="detailed_problem_description">Λεπτομερής περιγραφή του θέματος</string>
-    <string name="editor_report_problem_other_title">Διαφορετικό πρόβλημα</string>
     <string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
     <string name="message_invalid_feature_position">Δε μπορεί να τοποθετηθεί αντικείμενο εδώ</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">Μέρα</string>
     <string name="second">δ</string>
     <string name="placepage_more_button">Περισσότερα</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
     <string name="placepage_personal_notes_hint">Προσωπικές σημειώσεις (κείμενο ή html)</string>
     <string name="editor_comment_hint">Σχόλιο…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
     <string name="button_plan">Σχεδιασμός</string>
     <string name="placepage_remove_stop">Αφαίρεση στάσης</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Προσθήκη στάσης</string>
     <string name="drag_to_reorder">Αναδιάταξη</string>
     <string name="saved">Αποθηκεύτηκε</string>
@@ -907,6 +900,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Εμφάνιση διαδρομής</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Εσείς</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Σύνδεση με κωδικό πρόσβασης</string>
@@ -934,4 +931,22 @@
     <string name="color_picker_grid">Πλέγμα</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Φωνητική αναζήτηση</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Επιλέξτε στο χάρτη</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Αφετηρία</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Προορισμός</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Αλλαγή αφετηρίας</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Αλλαγή προορισμού</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Αλλαγή στάσης</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Επιτεύχθηκε ο μέγιστος αριθμός στάσεων</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Μετακινήστε και μεγεθύνετε τον χάρτη για να τοποθετήσετε τον σταυρό</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Διακοπή και αποθήκευση</string>
 </resources>

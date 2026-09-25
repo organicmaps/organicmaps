@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Để tải giọng nói chất lượng cao hơn, hãy mở ứng dụng Cài đặt và vào Trợ năng → VoiceOver → Lời nói → Giọng nói.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Kiểm tra chỉ đường bằng giọng nói (TTS, chuyển văn bản thành giọng nói)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Ống dòm tự động";
 "placepage_distance" = "Khoảng cách";
 "search_show_on_map" = "Xem trên bản đồ";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Tối";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Khác";
 
 /* Tex label above the Donate button */
 "donate_description" = "Tặng bản đồ miễn phí không có quảng cáo cho hàng triệu người dùng!";
@@ -606,9 +609,6 @@
 "day" = "ngày";
 "second" = "giây";
 "placepage_more_button" = "Bổ sung";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Sửa Dấu Trang";
 "placepage_personal_notes_hint" = "Ghi chú cá nhân (văn bản hoặc html)";
 "editor_comment_hint" = "Nhận xét…";
 "editor_reset_edits_message" = "Cài đặt lại tất cả thay đổi cục bộ?";
@@ -656,6 +656,8 @@
 "planning_route_manage_route" = "Quản lý lộ trình";
 "button_plan" = "Kế hoạch";
 "placepage_remove_stop" = "Xóa điểm dừng";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Thêm điểm dừng";
 "saved" = "Đã lưu";
 "error_enter_correct_name" = "Vui lòng nhập một tên chính xác";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "Hiển thị ở phía dưới";
 "enable_logging_warning_message" = "Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.";
 "driving_options_title" = "Thiết lập đi vòng";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Tối ưu hóa tuyến đường";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Tự động sắp xếp lại các điểm dừng trung gian để tạo tuyến đường hiệu quả hơn.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Tránh đường thu phí";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. Chọn Dịch vụ định vị";
 "location_services_disabled_on_device_4" = "4. Bật Dịch vụ định vị";
 "location_services_disabled_on_device_additional_message" = "Hoặc tiếp tục sử dụng Organic Maps mà không cần định vị";
-"book_button" = "Đặt trước";
 "placepage_call_button" = "Gọi";
 "placepage_bookmark_name_hint" = "Tên Dấu Trang";
 "placepage_delete_bookmark_button" = "Xóa Dấu Trang";
@@ -878,12 +885,6 @@
 "popular_place" = "Phổ biến";
 "hide_from_map" = "Ẩn từ bản đồ";
 "tags_loading_error_subtitle" = "Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Bên phải";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Phía dưới";
 "trip_start" = "Đi nào";
 "pick_destination" = "Mục đích";
 "follow_my_position" = "Định tâm";
@@ -1102,7 +1103,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Vui lòng bật iCloud trong cài đặt thiết bị của bạn để sử dụng tính năng này.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Cho phép";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Màu tuyến đường đã thay đổi";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Chọn trên bản đồ";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Điểm đi";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Điểm đến";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Đổi điểm đi";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Đổi điểm đến";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Đổi điểm dừng";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Đã đạt đến số điểm dừng tối đa";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Di chuyển và thu phóng bản đồ để đặt dấu thập";

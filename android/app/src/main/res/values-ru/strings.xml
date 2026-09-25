@@ -409,13 +409,7 @@
     <string name="editor_example_values">Примеры значений</string>
     <string name="editor_correct_mistake">Исправьте ошибку</string>
     <string name="editor_add_select_location">Выберите местоположение</string>
-    <string name="editor_report_problem_desription_1">Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.</string>
-    <string name="editor_report_problem_desription_2">Или сделайте это самостоятельно на сайте https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Отправить</string>
-    <string name="editor_report_problem_title">Проблема</string>
-    <string name="editor_report_problem_no_place_title">Места не существует</string>
-    <string name="editor_report_problem_under_construction_title">Закрыто на ремонт</string>
-    <string name="editor_report_problem_duplicate_place_title">Повторяющееся место</string>
     <string name="autodownload">Автоматическая загрузка</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ежедневно</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">На местном языке</string>
     <string name="editor_edit_place_category_title">Категория</string>
-    <string name="detailed_problem_description">Подробное описание проблемы</string>
-    <string name="editor_report_problem_other_title">Другая проблема</string>
     <string name="placepage_add_business_button">Добавить организацию</string>
     <string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">д</string>
     <string name="second">с</string>
     <string name="placepage_more_button">Ещё</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Редактировать метку</string>
     <string name="placepage_personal_notes_hint">Примечание (текст или html)</string>
     <string name="editor_comment_hint">Комментарий…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">Изменить маршрут</string>
     <string name="button_plan">Построить</string>
     <string name="placepage_remove_stop">Удалить остановку</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Добавить остановку</string>
     <string name="drag_to_reorder">Изменить порядок</string>
     <string name="saved">Сохранено</string>
@@ -669,7 +662,7 @@
     <string name="bookmarks_text_placement_title">Названия меток на карте</string>
     <string name="bookmarks_text_placement_description">Если меток очень много, отображение их названий на карте может замедлить работу приложения.</string>
     <string name="show_to_the_right">Справа</string>
-    <string name="show_at_the_bottom">Под меткой</string>
+    <string name="show_at_the_bottom">Снизу</string>
     <string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".</string>
     <string name="driving_options_title">Настройки объезда</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -917,6 +910,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Показать трек</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Вы</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Вход с паролем</string>
@@ -944,4 +941,22 @@
     <string name="color_picker_grid">Сетка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Голосовой поиск</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Выбрать на карте</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Откуда</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Куда</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Изменить начало</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Изменить пункт назначения</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Изменить остановку</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Достигнуто максимальное количество остановок</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Перемещайте и масштабируйте карту, чтобы установить крестик</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Остановить и сохранить</string>
 </resources>

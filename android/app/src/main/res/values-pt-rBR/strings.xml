@@ -275,11 +275,6 @@
     <string name="editor_example_values">Exemplo de Valores</string>
     <string name="editor_correct_mistake">Erro correto</string>
     <string name="editor_add_select_location">Selecionar Localização</string>
-    <string name="editor_report_problem_desription_1">Por favor, descreva o problema em detalhes para que a comunidade OpenStreetMap possa corrigir o erro.</string>
-    <string name="editor_report_problem_desription_2">Ou faça-o você mesmo em https://www.openstreetmap.org/</string>
-    <string name="editor_report_problem_no_place_title">Esse lugar não existe</string>
-    <string name="editor_report_problem_under_construction_title">Fechado para manutenção</string>
-    <string name="editor_report_problem_duplicate_place_title">Lugar duplicado</string>
     <string name="autodownload">Download automático</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="edit_opening_hours">Editar horário comercial</string>
@@ -319,7 +314,6 @@
     <string name="editor_edit_place_name_hint">Nome do local</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Como está escrito no idioma local</string>
-    <string name="editor_report_problem_other_title">Problema diferente</string>
     <string name="placepage_add_business_button">Adicionar uma empresa</string>
     <string name="message_invalid_feature_position">Nenhum objeto pode ser localizado aqui</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -346,7 +340,7 @@
     <string name="downloader_no_downloaded_maps_message">Baixe mapas para pesquisar locais e usar navegação offline.</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Mais informações</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Anotações pessoais (texto ou html)</string>
     <string name="editor_comment_hint">Comentar…</string>
@@ -399,6 +393,7 @@
     <string name="planning_route_manage_route">Gerenciar rota</string>
     <string name="button_plan">Planejar</string>
     <string name="placepage_remove_stop">Remover parada</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Adicionar parada</string>
     <string name="saved">Salvo</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
@@ -645,4 +640,10 @@
     <string name="color_picker_sliders">Controles deslizantes</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Grade</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Alterar parada</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Número máximo de paradas atingido</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Parar e salvar</string>
 </resources>

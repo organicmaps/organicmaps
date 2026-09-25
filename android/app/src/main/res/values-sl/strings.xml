@@ -409,13 +409,7 @@
     <string name="editor_example_values">Primeri vrednosti</string>
     <string name="editor_correct_mistake">Popravi napako</string>
     <string name="editor_add_select_location">Izberite lokacijo</string>
-    <string name="editor_report_problem_desription_1">Podrobno opišite težavo, da jo bo skupnost OpenStreetMap lahko odpravila.</string>
-    <string name="editor_report_problem_desription_2">Ali pa to storite sami na https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Pošlji</string>
-    <string name="editor_report_problem_title">Težava</string>
-    <string name="editor_report_problem_no_place_title">To mesto ne obstaja</string>
-    <string name="editor_report_problem_under_construction_title">Zaprto zaradi vzdrževanja</string>
-    <string name="editor_report_problem_duplicate_place_title">Dvojnik mesta</string>
     <string name="autodownload">Samodejni prenos zemljevidov</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Dnevno</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Kot je napisano v lokalnem jeziku</string>
     <string name="editor_edit_place_category_title">Kategorija</string>
-    <string name="detailed_problem_description">Podroben opis težave</string>
-    <string name="editor_report_problem_other_title">Druga težava</string>
     <string name="placepage_add_business_button">Dodaj podjetje</string>
     <string name="message_invalid_feature_position">Tukaj ni mogoče locirati nobenega objekta</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Več</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Uredi zaznamek</string>
     <string name="placepage_personal_notes_hint">Osebne opombe (besedilo ali html)</string>
     <string name="editor_comment_hint">Komentar…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">Upravljaj pot</string>
     <string name="button_plan">Načrtuj</string>
     <string name="placepage_remove_stop">Odstrani postanek</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Dodaj postanek</string>
     <string name="drag_to_reorder">Preuredi</string>
     <string name="saved">Shranjeno</string>
@@ -910,6 +903,10 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Spremeni barvo</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Vi</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Prijava z geslom</string>
@@ -937,4 +934,22 @@
     <string name="color_picker_grid">Mreža</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Glasovno iskanje</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Izberi na zemljevidu</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Začetek</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Cilj</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Spremeni začetek</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Spremeni cilj</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Spremeni postanek</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Doseženo največje število postankov</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Premikajte in povečujte zemljevid, da namestite križec</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Ustavi in shrani</string>
 </resources>

@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Каб спампаваць голас вышэйшай якасці, адкрыйце праграму Налады і перайдзіце ў Даступнасць → VoiceOver → Маўленне → Голас.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Тэставыя галасавыя ўказанні (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Аўтаматычны маштаб";
 "placepage_distance" = "Адлегласць";
 "search_show_on_map" = "Паглядзець на карце";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Цёмны";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Іншы";
 
 /* Tex label above the Donate button */
 "donate_description" = "Падарыце бясплатныя мапы без рэкламы мільёнам карыстальнікаў!";
@@ -606,9 +609,6 @@
 "day" = "д";
 "second" = "с";
 "placepage_more_button" = "Яшчэ";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Рэдагаваць закладку";
 "placepage_personal_notes_hint" = "Асабістыя нататкі (тэкст або html)";
 "editor_comment_hint" = "Каментарый…";
 "editor_reset_edits_message" = "Адмовіцца ад усіх лакальных змен?";
@@ -656,6 +656,8 @@
 "planning_route_manage_route" = "Кіраваць маршрутам";
 "button_plan" = "Пракласці";
 "placepage_remove_stop" = "Выдаліць прыпынак";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Дадаць прыпынак";
 "saved" = "Захавана";
 "error_enter_correct_name" = "Увядзіце правільную назву";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "Паказваць знізу";
 "enable_logging_warning_message" = "Часова ўключыце гэты параметр , каб запісаць і ўручную адправіць нам падрабязную інфармацыю пра знойдзеную праблему праз кнопку «Паведаміць аб памылцы» ў акне «Даведка». Журнал падзей можа змяшчаць даныя пра месцазнаходжанне.";
 "driving_options_title" = "Налады пракладвання маршрутаў";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Аптымізацыя маршруту";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Аўтаматычна пераўпарадкоўвае прамежкавыя прыпынкі, каб стварыць больш эфектыўны маршрут.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Пазбягаць платных дарог";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. Выберыце Службы месцазнаходжання";
 "location_services_disabled_on_device_4" = "4. Уключыце Службы вызначэння месцазнаходжання";
 "location_services_disabled_on_device_additional_message" = "Або працягвайце выкарыстоўваць Organic Maps без месцазнаходжання";
-"book_button" = "Забраніраваць";
 "placepage_call_button" = "Патэлефанаваць";
 "placepage_bookmark_name_hint" = "Назва закладкі";
 "placepage_delete_bookmark_button" = "Выдаліць закладку";
@@ -878,12 +885,6 @@
 "popular_place" = "Папулярнае";
 "hide_from_map" = "Схаваць з мапы";
 "tags_loading_error_subtitle" = "Адбылася памылка падчас загрузкі метак, калі ласка паспрабуйце зноў";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Справа";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Знізу";
 "trip_start" = "Паехалі";
 "pick_destination" = "Пункт прызначэння";
 "follow_my_position" = "Па цэнтры";
@@ -1102,7 +1103,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Каб выкарыстоўваць гэту функцыю, уключыце iCloud у наладах прылады.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Уключыць";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Колер трэкаў зменены";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Выбраць на мапе";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Адкуль";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Куды";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Змяніць пачатак";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Змяніць пункт прызначэння";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Змяніць прыпынак";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Дасягнута максімальная колькасць прыпынкаў";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Рухайце мапу і змяняйце маштаб, каб размясціць крыжык";

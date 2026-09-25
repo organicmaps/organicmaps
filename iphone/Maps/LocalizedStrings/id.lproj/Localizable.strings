@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Untuk mengunduh suara berkualitas lebih tinggi, buka app Pengaturan dan buka Aksesibilitas → VoiceOver → Ucapan → Suara.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Menguji petunjuk suara (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Perbesar otomatis";
 "placepage_distance" = "Jarak";
 "search_show_on_map" = "Tampilkan pada peta";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Gelap";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Lainnya";
 
 /* Tex label above the Donate button */
 "donate_description" = "Hadiahkan peta gratis tanpa iklan untuk jutaan pengguna!";
@@ -606,9 +609,6 @@
 "day" = "hr";
 "second" = "dtk";
 "placepage_more_button" = "Lainnya";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Edit Penanda";
 "placepage_personal_notes_hint" = "Catatan pribadi (teks atau html)";
 "editor_comment_hint" = "Komentar…";
 "editor_reset_edits_message" = "Atur ulang perubahan lokal?";
@@ -656,6 +656,8 @@
 "planning_route_manage_route" = "Kelola rute";
 "button_plan" = "Rencana";
 "placepage_remove_stop" = "Hapus pemberhentian";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Tambah perhentian";
 "saved" = "Tersimpan";
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
@@ -727,10 +729,16 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Menandai nama di peta";
 "bookmarks_text_placement_description" = "Jika ada terlalu banyak penanda, menampilkan nama mereka di peta dapat memperlambat aplikasi.";
-"show_to_the_right" = "Tunjukkan ke kanan";
+"show_to_the_right" = "Tampilkan di sebelah kanan";
 "show_at_the_bottom" = "Tampilkan di bagian bawah";
 "enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.";
 "driving_options_title" = "Pilihan berkendara";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Pengoptimalan rute";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Menyusun ulang perhentian antara secara otomatis untuk membuat rute yang lebih efisien.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Hindari jalan tol";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. Pilih Layanan Lokasi";
 "location_services_disabled_on_device_4" = "4. Aktifkan Layanan Lokasi";
 "location_services_disabled_on_device_additional_message" = "Atau lanjutkan menggunakan Organic Maps tanpa Lokasi";
-"book_button" = "Pesan";
 "placepage_call_button" = "Hubungi";
 "placepage_bookmark_name_hint" = "Nama Bookmark";
 "placepage_delete_bookmark_button" = "Hapus Bookmark";
@@ -878,12 +885,6 @@
 "popular_place" = "Populer";
 "hide_from_map" = "Sembunyikan dari peta";
 "tags_loading_error_subtitle" = "Kesalahan terjadi saat memuat tag, silakan coba lagi";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Kasus";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bawah";
 "trip_start" = "Ayo";
 "pick_destination" = "Tujuan";
 "follow_my_position" = "Pusatkan ulang";
@@ -1102,7 +1103,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktifkan iCloud di pengaturan perangkat Anda untuk menggunakan fitur ini.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktifkan";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Warna trek diubah";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Pilih di peta";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Titik awal";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Tujuan";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Ubah titik awal";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Ubah tujuan";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Ubah perhentian";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Jumlah perhentian maksimum telah tercapai";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Gerakkan dan perbesar/perkecil peta untuk menempatkan tanda silang";

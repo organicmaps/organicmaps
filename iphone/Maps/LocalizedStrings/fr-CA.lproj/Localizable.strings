@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Pour télécharger une voix de meilleure qualité, ouvrez l’app Réglages et allez dans Accessibilité → VoiceOver → Parole → Voix.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Teste les instructions vocales (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Zoom automatique";
 "placepage_distance" = "Distance";
 "search_show_on_map" = "Voir sur la carte";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Sombre";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Autre";
 
 /* Tex label above the Donate button */
 "donate_description" = "Offrez des cartes gratuites et sans pub à des millions d'utilisateurs !";
@@ -606,9 +609,6 @@
 "day" = "j";
 "second" = "s";
 "placepage_more_button" = "Plus";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Éditer le signet";
 "placepage_personal_notes_hint" = "Remarques personnelles (texte ou html)";
 "editor_comment_hint" = "Commentaire…";
 "editor_reset_edits_message" = "Abandonner toutes les modifications locales ?";
@@ -656,6 +656,8 @@
 "planning_route_manage_route" = "Gérer l’itinéraire";
 "button_plan" = "Planifier";
 "placepage_remove_stop" = "Supprimer l'arrêt";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Ajouter un arrêt";
 "saved" = "Enregistré";
 "error_enter_correct_name" = "Veuillez entrer un nom correct";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "Afficher en bas";
 "enable_logging_warning_message" = "Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.";
 "driving_options_title" = "Paramètres des itinéraires";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimisation de l’itinéraire";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Réorganise automatiquement les étapes intermédiaires afin de créer un itinéraire plus efficace.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Éviter les routes à péage";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. Sélectionner les services de localisation";
 "location_services_disabled_on_device_4" = "4. Activer les services de localisation";
 "location_services_disabled_on_device_additional_message" = "Ou continuer à utiliser Organic Maps sans Location";
-"book_button" = "Réserver";
 "placepage_call_button" = "Appeler";
 "placepage_bookmark_name_hint" = "Nom du signet";
 "placepage_delete_bookmark_button" = "Supprimer le signet";
@@ -878,12 +885,6 @@
 "popular_place" = "Populaire";
 "hide_from_map" = "Masquer sur la carte";
 "tags_loading_error_subtitle" = "Une erreur s'est produite lors du chargement des tags, veuillez réessayer";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Droite";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bas";
 "trip_start" = "On y va";
 "pick_destination" = "Point d'arrivée";
 "follow_my_position" = "Recentrer";
@@ -1102,7 +1103,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Veuillez activer iCloud dans les paramètres de votre appareil pour utiliser cette fonctionnalité.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Activer";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Couleur des tracés modifiée";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Choisir sur la carte";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Départ";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Changer le départ";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Changer la destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Changer l'arrêt";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Nombre maximal d'arrêts atteint";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Déplacez et zoomez sur la carte pour positionner la croix";

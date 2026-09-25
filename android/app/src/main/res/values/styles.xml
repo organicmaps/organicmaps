@@ -7,8 +7,6 @@
 
   <style name="MwmWidget.FrameLayout"/>
 
-  <style name="MwmWidget.Downloader"/>
-
   <style name="MwmWidget.MapButton" parent="Theme.Material3.Dark">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
@@ -300,6 +298,24 @@
     <item name="android:drawablePadding">@dimen/margin_base_plus</item>
   </style>
 
+  <style name="MwmWidget.SearchAction" parent="Widget.MaterialComponents.Button.TextButton">
+    <item name="android:layout_width">@dimen/search_input_height</item>
+    <item name="android:layout_height">@dimen/search_input_height</item>
+    <item name="android:minWidth">@dimen/dp_0</item>
+    <item name="android:minHeight">@dimen/dp_0</item>
+    <item name="android:insetTop">@dimen/dp_0</item>
+    <item name="android:insetBottom">@dimen/dp_0</item>
+    <item name="android:paddingStart">@dimen/dp_0</item>
+    <item name="android:paddingEnd">@dimen/dp_0</item>
+    <item name="backgroundTint">@color/bg_search</item>
+    <item name="rippleColor">@color/ripple_search_action</item>
+    <item name="iconSize">@dimen/search_action_icon_size</item>
+    <item name="iconPadding">@dimen/dp_0</item>
+    <item name="iconGravity">textStart</item>
+    <item name="iconTint">?attr/textSearchField</item>
+    <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Button.Round</item>
+  </style>
+
   <style name="MwmWidget.TextView.Direction">
     <item name="android:maxLines">3</item>
     <item name="android:textColor">@android:color/white</item>
@@ -380,16 +396,6 @@
     <item name="tabIndicatorColor">?android:textColorPrimary</item>
     <item name="tabRippleColor">@android:color/transparent</item>
     <item name="tabSelectedTextColor">?android:textColorPrimary</item>
-  </style>
-
-  <style name="MwmWidget.Downloader.ToolbarButton">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">match_parent</item>
-    <item name="android:gravity">center</item>
-    <item name="android:layout_gravity">end|center_vertical</item>
-    <item name="android:background">?selectableItemBackgroundBorderless</item>
-    <item name="android:padding">@dimen/margin_half</item>
-    <item name="android:textAppearance">@style/MwmTextAppearance.Toolbar.Title.Button</item>
   </style>
 
   <style name="MwmWidget.MaterialCalendar.Theme.FullScreen.Dark"

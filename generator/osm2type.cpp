@@ -74,7 +74,7 @@ public:
         if (lang != "old_name")
           return LangAction::Forbid;
 
-        if (base::AllOf(*token, [](auto const c) { return isdigit(c) || c == '-'; }))
+        if (base::AllOf(*token, [](auto const c) { return strings::IsASCIIDigit(c) || c == '-'; }))
           return LangAction::Append;
 
         return LangAction::Forbid;

@@ -174,8 +174,6 @@
     <string name="editor_time_simple">Mou simplificáu</string>
     <string name="editor_example_values">Valores d’exemplu</string>
     <string name="editor_report_problem_send_button">Unviar</string>
-    <string name="editor_report_problem_no_place_title">Esti llugar nun esiste</string>
-    <string name="editor_report_problem_duplicate_place_title">Llugar duplicáu</string>
     <string name="autodownload">Baxar mapes n’automático</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="midnight">Medianueche</string>
@@ -221,7 +219,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Más</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Notes personales (testu o HTML)</string>
     <string name="editor_comment_hint">Comentariu…</string>
@@ -243,6 +241,7 @@
     <string name="mobile_data_option_ask">Entrugar siempres</string>
     <string name="learn_more">Deprende más</string>
     <string name="placepage_remove_stop">Desaniciar parada</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Amestar parada</string>
     <string name="saved">Guardáu</string>
     <string name="bookmark_lists">Llistes</string>
@@ -389,4 +388,12 @@
         <item quantity="one">¿Desaniciar %d elementu?</item>
         <item quantity="other">¿Desaniciar %d elementos?</item>
     </plurals>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Tu</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Parar y guardar</string>
 </resources>

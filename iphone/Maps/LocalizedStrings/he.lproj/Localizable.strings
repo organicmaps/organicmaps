@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "כדי להוריד קול באיכות גבוהה יותר, פתח את אפליקציית ההגדרות ועבור אל נגישות → VoiceOver → דיבור → קול.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "בדיקת הנחיות קוליות (TTS, טקסט לדיבור)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "זום אוטומטי";
 "placepage_distance" = "מרחק";
 "search_show_on_map" = "הראה במפה";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "כהה";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "אחר";
 
 /* Tex label above the Donate button */
 "donate_description" = "העניקו במתנה מפות חינמיות וללא פרסומות למיליוני משתמשים!";
@@ -606,9 +609,6 @@
 "day" = "י";
 "second" = "ש׳׳";
 "placepage_more_button" = "עוד";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "ערוך סימניה";
 "placepage_personal_notes_hint" = "הערות אישיות (טקסט או HTML)";
 "editor_comment_hint" = "תגובה…";
 "editor_reset_edits_message" = "למחוק את כל השינויים המקומיים?";
@@ -656,7 +656,9 @@
 "planning_route_manage_route" = "ניהול מסלול";
 "button_plan" = "תכנון";
 "placepage_remove_stop" = "הסר עצירה";
-"placepage_add_stop" = "הוסף עצירה";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "הוספת עצירה";
 "saved" = "נשמר";
 "error_enter_correct_name" = "נא להזין שם תקין";
 "bookmark_lists" = "רשימות";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "הצג בתחתית";
 "enable_logging_warning_message" = "הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.";
 "driving_options_title" = "אפשרויות מסלול";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "מיטוב המסלול";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "מסדר מחדש באופן אוטומטי את תחנות הביניים כדי ליצור מסלול יעיל יותר.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "הימנע מכבישי אגרה";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. בחר שירותי מיקום";
 "location_services_disabled_on_device_4" = "4. הפעל את שירותי המיקום";
 "location_services_disabled_on_device_additional_message" = "או המשך להשתמש ב-Organic Maps ללא מיקום";
-"book_button" = "הזמנה";
 "placepage_call_button" = "התקשר";
 "placepage_bookmark_name_hint" = "שם סימניה";
 "placepage_delete_bookmark_button" = "מחק סימניה";
@@ -878,12 +885,6 @@
 "popular_place" = "פופולארי";
 "hide_from_map" = "הסתר מהמפה";
 "tags_loading_error_subtitle" = "אירעה שגיאה בטעינת התגיות, נא לנסות שנית";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "ימין";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "תחתית";
 "trip_start" = "נצא לדרך";
 "pick_destination" = "יעד";
 "follow_my_position" = "מרכוז";
@@ -1102,8 +1103,8 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "אנא הפעל את iCloud בהגדרות המכשיר שלך כדי להשתמש בתכונה זו.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "לְאַפשֵׁר";
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
+"enable" = "הפעל";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "גיבוי";
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "צבע המסלולים שונה";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "בחר במפה";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "נקודת התחלה";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "יעד";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "שינוי ההתחלה";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "שינוי היעד";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "שינוי העצירה";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "המספר המרבי של העצירות הושג";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "הזז את המפה ושנה את רמת הזום כדי למקם את הצלב";

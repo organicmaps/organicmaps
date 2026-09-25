@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Jobb minőségű hang letöltéséhez nyissa meg a Beállítások alkalmazást, majd lépjen a Kisegítő lehetőségek → VoiceOver → Beszéd → Hang menübe.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Hangutasítások tesztelése (TTS)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Automatikus nagyítás";
 "placepage_distance" = "Távolság";
 "search_show_on_map" = "Megtekintés a térképen";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Sötét";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Egyéb";
 
 /* Tex label above the Donate button */
 "donate_description" = "Ajándékozzon ingyenes, hirdetésmentes térképeket felhasználók millióinak!";
@@ -606,9 +609,6 @@
 "day" = "nap";
 "second" = "mp";
 "placepage_more_button" = "Tovább";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";
 "placepage_personal_notes_hint" = "Személyes jegyzetek (szöveg vagy html)";
 "editor_comment_hint" = "Megjegyzés…";
 "editor_reset_edits_message" = "Elveti az összes módosítást?";
@@ -656,7 +656,9 @@
 "planning_route_manage_route" = "Útvonal kezelése";
 "button_plan" = "Tervezés";
 "placepage_remove_stop" = "Megálló eltávolítása";
-"placepage_add_stop" = "Köztes célpont hozzáadása";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Új megálló";
 "saved" = "Mentve";
 "error_enter_correct_name" = "Adjon meg egy érvényes nevet";
 "bookmark_lists" = "Listák";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "Megjelenítés alul";
 "enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
 "driving_options_title" = "Útvonaltervezési beállítások";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Útvonal-optimalizálás";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Automatikusan átrendezi a köztes célpontokat egy hatékonyabb útvonal létrehozásához.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Díjköteles utak elkerülése";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. Válassza a „Helymeghatározási szolgáltatások” menüpontot";
 "location_services_disabled_on_device_4" = "4. Engedélyezze a „Helymeghatározási szolgáltatások lehetőséget";
 "location_services_disabled_on_device_additional_message" = "Vagy folytassa az Organic Maps használatát helymeghatározás nélkül";
-"book_button" = "Foglalás";
 "placepage_call_button" = "Hívás";
 "placepage_bookmark_name_hint" = "Könyvjelző neve";
 "placepage_delete_bookmark_button" = "Könyvjelző törlése";
@@ -878,12 +885,6 @@
 "popular_place" = "Népszerű";
 "hide_from_map" = "Elrejtés a térképről";
 "tags_loading_error_subtitle" = "Hiba történt a címkék betöltése közben, próbálja meg újra";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Jobb";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Alul";
 "trip_start" = "Gyerünk";
 "pick_destination" = "Célállomás";
 "follow_my_position" = "Középre";
@@ -1102,7 +1103,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "A funkció használatához engedélyezze az iCloudot a készülék beállításaiban.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Engedélyezés";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "A nyomvonalak színe megváltozott";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Kiválasztás a térképen";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Kiindulás";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Úticél";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Kiindulás módosítása";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Úticél módosítása";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Megálló módosítása";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Elérte a megállók maximális számát";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Mozgassa és nagyítsa/kicsinyítse a térképet a kereszt elhelyezéséhez";

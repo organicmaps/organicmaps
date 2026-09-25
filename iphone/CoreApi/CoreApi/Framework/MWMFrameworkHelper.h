@@ -77,6 +77,14 @@ NS_SWIFT_NAME(FrameworkHelper)
                inputLocale:(NSString *)locale
                 completion:(SearchInDownloaderCompletions)completion;
 + (BOOL)canEditMapAtViewportCenter;
++ (BOOL)canEditMapAtMercatorPoint:(CGPoint)point;
++ (void)startChoosePositionModeWithEnableBounds:(BOOL)enableBounds
+                        initialMercatorPosition:(nullable NSValue *)initialMercatorPosition
+                           shouldChangeViewport:(BOOL)shouldChangeViewport;
++ (void)stopChoosePositionMode;
++ (CGPoint)mercatorViewportCenter;
+/// Returns a formatted nearby address, or nil when none is available.
++ (nullable NSString *)addressAtMercatorPoint:(CGPoint)point NS_SWIFT_NAME(address(at:));
 + (void)showOnMap:(MWMMarkGroupID)categoryId;
 + (void)showBookmark:(MWMMarkID)bookmarkId;
 + (void)showTrack:(MWMTrackID)trackId;

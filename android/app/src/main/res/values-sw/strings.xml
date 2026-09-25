@@ -409,13 +409,7 @@
     <string name="editor_example_values">Mifano ya Thamani</string>
     <string name="editor_correct_mistake">Sahihisha kosa</string>
     <string name="editor_add_select_location">Chagua Mahali</string>
-    <string name="editor_report_problem_desription_1">Tafadhali elezea tatizo kwa undani ili jamii ya OpenStreetMap iweze kulirekebisha.</string>
-    <string name="editor_report_problem_desription_2">Au fanya mwenyewe kwenye https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Tuma</string>
-    <string name="editor_report_problem_title">Tatizo</string>
-    <string name="editor_report_problem_no_place_title">Mahali hapa hakipo</string>
-    <string name="editor_report_problem_under_construction_title">Imefungwa kwa ajili ya matengenezo</string>
-    <string name="editor_report_problem_duplicate_place_title">Mahali maradufu</string>
     <string name="autodownload">Pakua ramani kiotomatiki</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Kila siku</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Kama ilivyoandikwa katika lugha ya kienyeji</string>
     <string name="editor_edit_place_category_title">Kategoria</string>
-    <string name="detailed_problem_description">Maelezo ya kina ya tatizo</string>
-    <string name="editor_report_problem_other_title">Tatizo tofauti</string>
     <string name="placepage_add_business_button">Ongeza biashara</string>
     <string name="message_invalid_feature_position">Hakuna kitu kinachoweza kupatikana hapa</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -518,7 +510,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Zaidi</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Hariri alama ya ukurasa</string>
     <string name="placepage_personal_notes_hint">Vidokezo vya kibinafsi (maandishi au HTML)</string>
     <string name="editor_comment_hint">Maoni…</string>
@@ -574,7 +566,8 @@
     <string name="planning_route_manage_route">Dhibiti njia ya kufuata</string>
     <string name="button_plan">Panga</string>
     <string name="placepage_remove_stop">Ondoa eneo la kusimama</string>
-    <string name="placepage_add_stop">Ongeza eneo la kusimama</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">Ongeza kituo</string>
     <string name="drag_to_reorder">Panga upya</string>
     <string name="saved">Imehifadhiwa</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
@@ -887,6 +880,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Onyesha njia</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Wewe</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Ingia kwa nenosiri</string>
@@ -914,4 +911,22 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Utafutaji kwa sauti</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Chagua kwenye ramani</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Kuanzia</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Marudio</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Badilisha kuanzia</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Badilisha marudio</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Badilisha kituo</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Idadi ya juu ya vituo imefikiwa</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Sogeza na zuma ramani ili kuweka msalaba</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Acha na hifadhi</string>
 </resources>

@@ -8,7 +8,8 @@
 #include "base/scope_guard.hpp"
 
 #include <algorithm>  // std::min
-#include <cstring>    // strlen
+#include <cerrno>
+#include <cstring>  // strlen
 #include <fstream>
 #include <memory>
 #include <string>
@@ -16,6 +17,8 @@
 
 #ifndef OMIM_OS_WINDOWS
 #include <sys/resource.h>  // getrlimit / setrlimit
+#include <sys/stat.h>      // chmod
+#include <unistd.h>        // geteuid
 #endif
 
 namespace file_data_test
@@ -64,9 +67,40 @@ UNIT_TEST(FileData_ApiSmoke)
   TEST(base::GetFileSize(name2, sz), ());
   TEST_EQUAL(sz, size, ());
 
+  // Renaming over an existing file replaces it on every platform.
+  MakeFile(name1, 3 /* size */, 'x');
+  TEST(base::RenameFileX(name1, name2), ());
+  TEST(!base::GetFileSize(name1, sz), ());
+  TEST(base::GetFileSize(name2, sz), ());
+  TEST_EQUAL(sz, 3, ());
+
+  MakeFile(name1, 4 /* size */, 'y');
+  TEST(base::MoveFileX(name1, name2), ());
+  TEST(!base::GetFileSize(name1, sz), ());
+  TEST(base::GetFileSize(name2, sz), ());
+  TEST_EQUAL(sz, 4, ());
+
   TEST(base::DeleteFileX(name2), ());
 
   TEST(!base::GetFileSize(name2, sz), ());
+}
+
+UNIT_TEST(FileData_CopyFileX_Binary)
+{
+  // Text mode would translate the CRLF and stop at the Ctrl-Z on Windows.
+  std::string const data =
+      "a\r\nb\x1A"
+      "c";
+  {
+    base::FileData f(name1, base::FileData::Op::WRITE_TRUNCATE);
+    f.Write(data.data(), data.size());
+  }
+
+  TEST(base::CopyFileX(name1, name2), ());
+  TEST(base::IsEqualFiles(name1, name2), ());
+
+  TEST(base::DeleteFileX(name1), ());
+  TEST(base::DeleteFileX(name2), ());
 }
 
 /*
@@ -213,7 +247,6 @@ UNIT_TEST(EmptyFile)
 
   // Do copy.
   TEST(CopyFileX(name, copy), ());
-  // TEST(!RenameFileX(name, copy), ());
 
   // Delete copy file and rename name -> copy.
   TEST(DeleteFileX(copy), ());
@@ -258,7 +291,51 @@ UNIT_TEST(File_StdGetLine)
   }
 }
 
+UNIT_TEST(FileData_WriteExistingCreatesMissingFile)
+{
+  std::string const name = "test_write_existing_new.file";
+  uint64_t size = 0;
+  TEST(!base::GetFileSize(name, size), ());
+  {
+    base::FileData writer(name, base::FileData::Op::WRITE_EXISTING);
+    writer.Write("new", 3);
+  }
+  TEST(base::GetFileSize(name, size), ());
+  TEST_EQUAL(size, 3, ());
+  TEST(base::DeleteFileX(name), ());
+}
+
 #ifndef OMIM_OS_WINDOWS
+UNIT_TEST(FileData_WriteExistingKeepsWriteOnlyFile)
+{
+  if (geteuid() == 0)
+    return;
+
+  std::string const name = "test_write_only_file.file";
+  MakeFile(name);
+  SCOPE_GUARD(deleteFile, [&name]()
+  {
+    chmod(name.c_str(), S_IRUSR | S_IWUSR);
+    (void)base::DeleteFileX(name);
+  });
+  TEST_EQUAL(chmod(name.c_str(), S_IWUSR), 0, ());
+
+  try
+  {
+    base::FileData writer(name, base::FileData::Op::WRITE_EXISTING);
+    TEST(false, ("Opening a write-only file for update must fail"));
+  }
+  catch (Writer::OpenException const & ex)
+  {
+    TEST(ex.Msg().find("errno=" + std::to_string(EACCES)) != std::string::npos, (ex.Msg()));
+  }
+
+  TEST_EQUAL(chmod(name.c_str(), S_IRUSR | S_IWUSR), 0, ());
+  uint64_t size = 0;
+  TEST(base::GetFileSize(name, size), ());
+  TEST_EQUAL(size, name.size(), ());
+}
+
 UNIT_TEST(FileData_TooManyOpenFiles)
 {
   std::string const name = "test_too_many_files.file";
@@ -291,6 +368,23 @@ UNIT_TEST(FileData_TooManyOpenFiles)
   catch (Reader::OpenException const & ex)
   {
     TEST(false, ("Expected TooManyFilesException on fd exhaustion, got OpenException:", ex.what()));
+  }
+
+  for (auto const op :
+       {base::FileData::Op::WRITE_TRUNCATE, base::FileData::Op::WRITE_EXISTING, base::FileData::Op::APPEND})
+  {
+    try
+    {
+      base::FileData writer(name, op);
+      TEST(false, ("Expected Writer::OpenException on fd exhaustion", static_cast<int>(op)));
+    }
+    catch (Writer::OpenException const & ex)
+    {
+      TEST(ex.Msg().find(name) != std::string::npos, (ex.Msg()));
+      TEST(ex.Msg().find("errno=" + std::to_string(EMFILE)) != std::string::npos ||
+               ex.Msg().find("errno=" + std::to_string(ENFILE)) != std::string::npos,
+           (ex.Msg()));
+    }
   }
 }
 #endif

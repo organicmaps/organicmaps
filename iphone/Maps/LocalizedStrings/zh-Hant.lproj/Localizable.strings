@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "若要下載更高品質的語音，請打開「設定」App，然後前往「輔助使用」→「VoiceOver」→「語音」→「聲音」。";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "測試語音指令（TTS，文字轉語音系統）";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "自動縮放";
 "placepage_distance" = "距離";
 "search_show_on_map" = "在地圖上查看";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "深色";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "其他";
 
 /* Tex label above the Donate button */
 "donate_description" = "向數百萬使用者贈送無廣告的免費地圖！";
@@ -606,9 +609,6 @@
 "day" = "天";
 "second" = "秒";
 "placepage_more_button" = "更多";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "編輯書籤";
 "placepage_personal_notes_hint" = "個人備註（文字或 html）";
 "editor_comment_hint" = "備註…";
 "editor_reset_edits_message" = "重設所有本機變更？";
@@ -656,7 +656,9 @@
 "planning_route_manage_route" = "管理路線";
 "button_plan" = "計畫";
 "placepage_remove_stop" = "刪除停止";
-"placepage_add_stop" = "新增中途點";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "新增途經點";
 "saved" = "已經儲存";
 "error_enter_correct_name" = "請輸入正確的名稱";
 "bookmark_lists" = "列表";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "顯示在底部";
 "enable_logging_warning_message" = "暫時啟用此選項，以便使用“報告問題”功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。";
 "driving_options_title" = "繞行設定";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "路線最佳化";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "自動重新排列中途點，以建立更有效率的路線。";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "避開收費公路";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. 選擇“定位服務”";
 "location_services_disabled_on_device_4" = "4. 開啟“定位服務”";
 "location_services_disabled_on_device_additional_message" = "或繼續使用 Organic Maps，但無法定位到您目前所在的位置";
-"book_button" = "預定";
 "placepage_call_button" = "呼叫";
 "placepage_bookmark_name_hint" = "書籤名稱";
 "placepage_delete_bookmark_button" = "刪除書籤";
@@ -878,12 +885,6 @@
 "popular_place" = "受歡迎的";
 "hide_from_map" = "從地圖上隱藏";
 "tags_loading_error_subtitle" = "載入標籤時出錯，請重試";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "右側";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "底部";
 "trip_start" = "出發";
 "pick_destination" = "目的地";
 "follow_my_position" = "重新置中";
@@ -1102,7 +1103,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "請在您的裝置設定中啟用 iCloud 以使用此功能。";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "啟用";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "軌跡顏色已更改";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "在地圖上選擇";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "起點";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "目的地";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "變更起點";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "變更目的地";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "變更途經點";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "已達到最大途經點數量";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "移動並縮放地圖以定位十字";

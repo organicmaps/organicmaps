@@ -198,11 +198,6 @@
     <string name="editor_hours_closed">Horario no comercial</string>
     <string name="editor_example_values">Ejemplos de valores</string>
     <string name="editor_add_select_location">Seleccione el lugar</string>
-    <string name="editor_report_problem_desription_1">Por favor, describa el problema detalladamente para que la comunidad OpenStreetMap pueda solucionarlo.</string>
-    <string name="editor_report_problem_desription_2">O hazlo tú mismo en https://www.openstreetmap.org/</string>
-    <string name="editor_report_problem_title">Edición</string>
-    <string name="editor_report_problem_no_place_title">Este lugar no existe</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplicar lugar</string>
     <string name="autodownload">Descarga automática de mapas</string>
     <string name="edit_opening_hours">Editar el horario comercial</string>
     <string name="no_osm_account">¿No tienes cuenta en OpenStreetMap?</string>
@@ -227,7 +222,6 @@
     <string name="editor_edit_place_title">Edición de</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Como está escrito en el idioma local</string>
-    <string name="editor_report_problem_other_title">Problema diferente</string>
     <string name="placepage_add_business_button">Añadir empresa</string>
     <string name="message_invalid_feature_position">Ningún objeto puede ser localizado aquí</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -298,7 +292,8 @@
     <string name="learn_more">Más información</string>
     <string name="planning_route_manage_route">Administrar ruta</string>
     <string name="placepage_remove_stop">Quitar Stop</string>
-    <string name="placepage_add_stop">Añadir tope</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">Agregar parada</string>
     <string name="drag_to_reorder">Reordenar</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Inicie sesión en OpenStreetMap para cargar automáticamente todas las ediciones de su mapa. Obtenga más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
@@ -350,7 +345,6 @@
     <string name="power_managment_setting_auto">Automático</string>
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Nombres de favoritos en el mapa</string>
-    <string name="show_at_the_bottom">Mostrar en la parte inferior</string>
     <string name="enable_logging_warning_message">Activa esta opción temporalmente para grabar y enviarnos manualmente registros de diagnóstico detallados sobre tu problema mediante \"Informar de un error\" en el cuadro de diálogo Ayuda. Los registros pueden incluir información de ubicación.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evite los peajes</string>
@@ -465,8 +459,6 @@
     <string name="stop_track_recording">Detener grabación de pista</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Grabación de pistas</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar sin ahorrar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Seguir grabando</string>
     <!-- Title for the alert when saving a track recording. -->

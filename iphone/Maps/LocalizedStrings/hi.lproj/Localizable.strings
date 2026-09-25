@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "बेहतर गुणवत्ता वाली आवाज़ डाउनलोड करने के लिए, सेटिंग्स ऐप खोलें और एक्सेसिबिलिटी → VoiceOver → स्पीच → वॉइस पर जाएँ।";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "ध्वनि निर्देशों का परीक्षण करें (टीटीएस, टेक्स्ट-टू-स्पीच)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "ऑटो ज़ूम";
 "placepage_distance" = "दूरी";
 "search_show_on_map" = "मानचित्र पर देखें";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "गहरा";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "अन्य";
 
 /* Tex label above the Donate button */
 "donate_description" = "लाखों उपयोगकर्ताओं को बिना विज्ञापनों वाले मुफ़्त नक्शे उपहार में दें!";
@@ -606,9 +609,6 @@
 "day" = "दिन";
 "second" = "सेकंड";
 "placepage_more_button" = "और";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "बुकमार्क संपादित करें";
 "placepage_personal_notes_hint" = "व्यक्तिगत नोट्स (टेक्स्ट या एचटीएमएल)";
 "editor_comment_hint" = "टिप्पणी…";
 "editor_reset_edits_message" = "सभी स्थानीय परिवर्तनों को रद्द करें?";
@@ -656,7 +656,9 @@
 "planning_route_manage_route" = "मार्ग प्रबंधित करें";
 "button_plan" = "योजना";
 "placepage_remove_stop" = "रोक हटाएँ";
-"placepage_add_stop" = "गंतव्य जोड़ें";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "स्टॉप जोड़ें";
 "saved" = "सहेजा गया";
 "error_enter_correct_name" = "कृपया एक सही नाम दर्ज करें";
 "bookmark_lists" = "सूचियों";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "नीचे दिखाएँ";
 "enable_logging_warning_message" = "सहायता संवाद में \"बग की रिपोर्ट करें\" का उपयोग करके हमें अपनी समस्या के बारे में विस्तृत डायग्नोस्टिक लॉग रिकॉर्ड करने और मैन्युअल रूप से भेजने के लिए इस विकल्प को अस्थायी रूप से सक्षम करें। लॉग में स्थान की जानकारी शामिल हो सकती है.";
 "driving_options_title" = "रूटिंग विकल्प";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "मार्ग अनुकूलन";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "अधिक कुशल मार्ग बनाने के लिए बीच के पड़ावों को अपने-आप फिर से व्यवस्थित करता है।";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "पथकर को टालना";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. स्थान सेवाएँ चुनें";
 "location_services_disabled_on_device_4" = "4. स्थान सेवाएँ चालू करें";
 "location_services_disabled_on_device_additional_message" = "या बिना लोकेशन के Organic Maps का उपयोग जारी रखें";
-"book_button" = "पुस्तक";
 "placepage_call_button" = "कॉल करें";
 "placepage_bookmark_name_hint" = "बुकमार्क का नाम";
 "placepage_delete_bookmark_button" = "बुकमार्क हटाएँ";
@@ -878,12 +885,6 @@
 "popular_place" = "लोकप्रिय";
 "hide_from_map" = "नक्शे से छिपाएँ";
 "tags_loading_error_subtitle" = "टैग लोड करते समय एक त्रुटि हुई, कृपया फिर से प्रयास करें";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "सही";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "नीचला";
 "trip_start" = "चलो चलते हैं";
 "pick_destination" = "गंतव्य";
 "follow_my_position" = "पुनः केंद्रित करें";
@@ -1102,8 +1103,8 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "कृपया इस सुविधा का उपयोग करने के लिए अपने डिवाइस की सेटिंग में iCloud सक्षम करें।";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "सक्षम";
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
+"enable" = "सक्षम करें";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "बैकअप";
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "ट्रैकों का रंग बदल दिया गया";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "मानचित्र पर चुनें";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "प्रारंभ स्थान";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "गंतव्य";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "प्रारंभ बदलें";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "गंतव्य बदलें";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "स्टॉप बदलें";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "अधिकतम स्टॉप संख्या प्राप्त हो गई";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "क्रॉस रखने के लिए मानचित्र को हिलाएँ और ज़ूम करें";

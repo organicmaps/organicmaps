@@ -534,11 +534,11 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest)
 {
   TimedSignal alongTimedSignal;
-  GetPlatform().RunTask(Platform::Thread::Gui, [&alongTimedSignal, this]()
+  size_t counter = 0;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&alongTimedSignal, &counter, this]()
   {
     InitRoutingSession();
 
-    size_t counter = 0;
     m_session->SetRouter(make_unique<DummyRouter>(counter), nullptr);
 
     // Get completion percent of unexisted route.

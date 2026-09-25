@@ -409,13 +409,7 @@
     <string name="editor_example_values">Օրինակելի արժեքներ</string>
     <string name="editor_correct_mistake">Ուղղել սխալը</string>
     <string name="editor_add_select_location">Ընտրել վայրը</string>
-    <string name="editor_report_problem_desription_1">Խնդրում ենք մանրամասն նկարագրել խնդիրը, որպեսզի OpenStreetMap համայնքը կարողանա ուղղել այն:</string>
-    <string name="editor_report_problem_desription_2">Կամ արեք դա ինքներդ https://www.openstreetmap.org/ կայքում</string>
     <string name="editor_report_problem_send_button">Ուղարկել</string>
-    <string name="editor_report_problem_title">Խնդիր</string>
-    <string name="editor_report_problem_no_place_title">Այս վայրը գոյություն չունի</string>
-    <string name="editor_report_problem_under_construction_title">Փակ է վերանորոգման համար</string>
-    <string name="editor_report_problem_duplicate_place_title">Կրկնվող վայր</string>
     <string name="autodownload">Քարտեզների ավտոմատ ներբեռնում</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ամեն օր</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Ինչպես գրված է տեղական լեզվով</string>
     <string name="editor_edit_place_category_title">Կատեգորիա</string>
-    <string name="detailed_problem_description">Խնդրի մանրամասն նկարագրություն</string>
-    <string name="editor_report_problem_other_title">Այլ խնդիր</string>
     <string name="placepage_add_business_button">Ավելացնել կազմակերպություն</string>
     <string name="message_invalid_feature_position">Այստեղ օբյեկտ չի կարող գտնվել</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">օ</string>
     <string name="second">վ</string>
     <string name="placepage_more_button">Ավելին</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Խմբագրել էջանիշը</string>
     <string name="placepage_personal_notes_hint">Անձնական նշումներ (տեքստ կամ html)</string>
     <string name="editor_comment_hint">Մեկնաբանություն…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">Կառավարել երթուղին</string>
     <string name="button_plan">Պլանավորել</string>
     <string name="placepage_remove_stop">Հեռացնել կանգառը</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Ավելացնել կանգառ</string>
     <string name="drag_to_reorder">Վերակարգավորել</string>
     <string name="saved">Պահպանված է</string>
@@ -661,8 +654,8 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Էջանիշների անունները քարտեզի վրա</string>
     <string name="bookmarks_text_placement_description">Եթե էջանիշները շատ են, քարտեզի վրա դրանց անունների ցուցադրումը կարող է դանդաղեցնել հավելվածը:</string>
-    <string name="show_to_the_right">Ցուցադրել աջից</string>
-    <string name="show_at_the_bottom">Ցուցադրել ներքևից</string>
+    <string name="show_to_the_right">Ցուցադրել աջ կողմում</string>
+    <string name="show_at_the_bottom">Ցուցադրել ներքևում</string>
     <string name="enable_logging_warning_message">Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։</string>
     <string name="driving_options_title">Երթուղու ընտրանքներ</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -902,6 +895,10 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Փոխել գույնը</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Դուք</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Մուտք գաղտնաբառով</string>
@@ -929,4 +926,22 @@
     <string name="color_picker_grid">Ցանց</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Ձայնային որոնում</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Ընտրել քարտեզի վրա</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Մեկնարկ</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Նպատակակետ</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Փոխել մեկնարկը</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Փոխել նպատակակետը</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Փոխել կանգառը</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Հասել եք կանգառների առավելագույն քանակին</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Շարժեք և մեծացրեք քարտեզը՝ խաչը տեղադրելու համար</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Կանգնեցնել և պահպանել</string>
 </resources>

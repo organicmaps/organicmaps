@@ -7,6 +7,7 @@
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
 
@@ -20,6 +21,8 @@
 #include <vector>
 
 #ifdef OMIM_OS_WINDOWS
+#include "std/windows.hpp"
+
 #include <io.h>
 #else
 #include <unistd.h>  // ftruncate
@@ -27,6 +30,70 @@
 
 namespace base
 {
+namespace
+{
+// Keep the fopen failure reason in symbolicated crash stacks, including optimized builds.
+#if defined(__clang__)
+#define FILE_OPEN_NOINLINE [[clang::noinline, clang::nomerge]]
+#elif defined(_MSC_VER)
+#define FILE_OPEN_NOINLINE __declspec(noinline)
+#else
+#define FILE_OPEN_NOINLINE __attribute__((noinline))
+#endif
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenTooManyFiles(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenSystemTooManyFiles(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenNoSpace(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenAccessDenied(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenOperationNotPermitted(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenFileNotFound(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenReadOnlyFileSystem(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenNotDirectory(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenIsDirectory(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+[[noreturn]] FILE_OPEN_NOINLINE void ThrowWriterOpenUnknownError(std::string const & message)
+{
+  MYTHROW(Writer::OpenException, (message));
+}
+
+#undef FILE_OPEN_NOINLINE
+}  // namespace
+
 std::ostream & operator<<(std::ostream & stream, FileData::Op op)
 {
   switch (op)
@@ -55,18 +122,33 @@ FileData::FileData(std::string const & fileName, Op op) : m_FileName(fileName), 
     return;
   }
 
-  if (op == Op::WRITE_EXISTING)
+  if (op == Op::WRITE_EXISTING && errno == ENOENT)
   {
-    // Special case, since "r+b" fails if file doesn't exist.
-    m_File = fopen(fileName.c_str(), "wb");
+    // Exclusive creation keeps another opener's file intact if it appears after the first attempt.
+    m_File = fopen(fileName.c_str(), "wbx");
     if (m_File)
       return;
   }
 
-  // if we're here - something bad is happened
+  int const openError = errno;
   if (m_Op != Op::READ)
-    MYTHROW(Writer::OpenException, (GetErrorProlog()));
-  else if (errno == EMFILE || errno == ENFILE)
+  {
+    auto const message = GetErrorProlog() + "; errno=" + std::to_string(openError);
+    switch (openError)
+    {
+    case EMFILE: ThrowWriterOpenTooManyFiles(message);
+    case ENFILE: ThrowWriterOpenSystemTooManyFiles(message);
+    case ENOSPC: ThrowWriterOpenNoSpace(message);
+    case EACCES: ThrowWriterOpenAccessDenied(message);
+    case EPERM: ThrowWriterOpenOperationNotPermitted(message);
+    case ENOENT: ThrowWriterOpenFileNotFound(message);
+    case EROFS: ThrowWriterOpenReadOnlyFileSystem(message);
+    case ENOTDIR: ThrowWriterOpenNotDirectory(message);
+    case EISDIR: ThrowWriterOpenIsDirectory(message);
+    default: ThrowWriterOpenUnknownError(message);
+    }
+  }
+  else if (openError == EMFILE || openError == ENFILE)
     MYTHROW(Reader::TooManyFilesException, (GetErrorProlog()));
   else
     MYTHROW(Reader::OpenException, (GetErrorProlog()));
@@ -83,8 +165,9 @@ FileData::~FileData()
 
 std::string FileData::GetErrorProlog() const
 {
+  int const error = errno;
   std::ostringstream stream;
-  stream << m_FileName << "; " << m_Op << "; " << strerror(errno);
+  stream << m_FileName << "; " << m_Op << "; " << strerror(error);
   return stream.str();
 }
 
@@ -201,6 +284,28 @@ bool IsEOF(std::ifstream & fs)
   return fs.peek() == std::ifstream::traits_type::eof();
 }
 
+bool TryRenameFile(std::string const & fOld, std::string const & fNew, bool logFailure)
+{
+#ifdef OMIM_OS_WINDOWS
+  auto const oldPath = strings::ToUtf16(fOld);
+  auto const newPath = strings::ToUtf16(fNew);
+  static_assert(sizeof(wchar_t) == sizeof(char16_t));
+  if (::MoveFileExW(reinterpret_cast<wchar_t const *>(oldPath.c_str()),
+                    reinterpret_cast<wchar_t const *>(newPath.c_str()), MOVEFILE_REPLACE_EXISTING))
+  {
+    return true;
+  }
+  if (logFailure)
+    LOG(LWARNING, ("Can't rename file", fOld, "to", fNew, "- error", ::GetLastError()));
+#else
+  if (rename(fOld.c_str(), fNew.c_str()) == 0)
+    return true;
+  if (logFailure)
+    LOG(LWARNING, ("Can't rename file", fOld, "to", fNew, "-", strerror(errno)));
+#endif
+  return false;
+}
+
 }  // namespace
 
 bool DeleteFileX(std::string const & fName)
@@ -211,15 +316,13 @@ bool DeleteFileX(std::string const & fName)
 
 bool RenameFileX(std::string const & fOld, std::string const & fNew)
 {
-  int res = rename(fOld.c_str(), fNew.c_str());
-  return CheckFileOperationResult(res, fOld);
+  return TryRenameFile(fOld, fNew, true /* logFailure */);
 }
 
 bool MoveFileX(std::string const & fOld, std::string const & fNew)
 {
-  // Try to rename the file first.
-  int res = rename(fOld.c_str(), fNew.c_str());
-  if (res == 0)
+  // Failing across volumes is expected here, so don't log it.
+  if (TryRenameFile(fOld, fNew, false /* logFailure */))
     return true;
 
   // Otherwise perform the full move.
@@ -278,8 +381,9 @@ bool CopyFileX(std::string const & fOld, std::string const & fNew)
 
   try
   {
-    ifs.open(fOld.c_str());
-    ofs.open(fNew.c_str());
+    // Binary mode: text mode translates line endings and stops at Ctrl-Z on Windows.
+    ifs.open(fOld.c_str(), std::ios::binary);
+    ofs.open(fNew.c_str(), std::ios::binary);
 
     // If source file is empty - make empty dest file without any errors.
     if (IsEOF(ifs))

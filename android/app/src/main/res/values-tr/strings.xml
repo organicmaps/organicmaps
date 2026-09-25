@@ -409,13 +409,7 @@
     <string name="editor_example_values">Örnek Değerler</string>
     <string name="editor_correct_mistake">Hatayı düzelt</string>
     <string name="editor_add_select_location">Konum Seç</string>
-    <string name="editor_report_problem_desription_1">OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen sorunu ayrıntılı açıklayın.</string>
-    <string name="editor_report_problem_desription_2">Veya bunu https://www.openstreetmap.org/ adresinden kendiniz yapın</string>
     <string name="editor_report_problem_send_button">Gönder</string>
-    <string name="editor_report_problem_title">Sorun</string>
-    <string name="editor_report_problem_no_place_title">Yer yok</string>
-    <string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
-    <string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
     <string name="autodownload">Haritaları kendiliğinden indir</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Her gün</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Yerel dilde yazıldığı gibi</string>
     <string name="editor_edit_place_category_title">Kategori</string>
-    <string name="detailed_problem_description">Sorunun ayrıntılı açıklaması</string>
-    <string name="editor_report_problem_other_title">Farklı bir sorun</string>
     <string name="placepage_add_business_button">Kuruluş ekle</string>
     <string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">g</string>
     <string name="second">sn</string>
     <string name="placepage_more_button">Diğer</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
     <string name="placepage_personal_notes_hint">Kişisel notlar (metin veya html)</string>
     <string name="editor_comment_hint">Yorum…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">Rotayı yönet</string>
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Durağı Kaldır</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Ara nokta ekle</string>
     <string name="drag_to_reorder">Sırayı değiştir</string>
     <string name="saved">Kaydedildi</string>
@@ -663,7 +656,7 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Haritadaki yer imi adları</string>
     <string name="bookmarks_text_placement_description">Eğer çok yer imi varsa, adlarını haritada göstermek uygulamayı yavaşlatabilir.</string>
-    <string name="show_to_the_right">Sağa doğru göster</string>
+    <string name="show_to_the_right">Sağda göster</string>
     <string name="show_at_the_bottom">Altta göster</string>
     <string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
     <string name="driving_options_title">Yönlendirme seçenekleri</string>
@@ -910,6 +903,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göster</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Siz</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Şifre ile giriş yapın</string>
@@ -937,4 +934,22 @@
     <string name="color_picker_grid">Izgara</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Sesli arama</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Haritadan seç</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Başlangıç</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Hedef</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Başlangıcı değiştir</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Hedefi değiştir</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Ara noktayı değiştir</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Maksimum ara nokta sayısına ulaşıldı</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Çarpı imini yerleştirmek için haritayı kaydırın ve yakınlaştırın</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Durdur ve Kaydet</string>
 </resources>

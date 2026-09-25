@@ -112,38 +112,36 @@ set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
 function(copy_resources)
-  execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER})
   foreach(file ${ARGN})
-    execute_process(
-      COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
-      COMMAND_ERROR_IS_FATAL ANY
-    )
+    file(COPY ${DATA_DIR}/${file} DESTINATION ${RESOURCES_FOLDER})
   endforeach()
 endfunction()
 
-copy_resources(
-  fonts
-  symbols
-  countries-strings
-  vulkan_shaders
+# The bundle resources are only read on macOS, the other platforms resolve the data directory at run time.
+if (PLATFORM_MAC)
+  copy_resources(
+    fonts
+    symbols
+    countries-strings
+    vulkan_shaders
 
-  categories.txt
-  categories_cuisines.txt
-  classificator.txt
-  colors.txt
-  countries.json
-  drules_default.bin
-  drules_outdoors.bin
-  drules_vehicle.bin
-  editor.config
-  packed_polygons.bin
-  patterns.txt
-  transit_colors.txt
-  types.txt
-  World.mwm
-  WorldCoasts.mwm
-)
-
-if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
-  copy_resources(icudt78l.dat)
+    categories.txt
+    categories_cuisines.txt
+    classificator.txt
+    colors.txt
+    countries.json
+    drules_default.bin
+    drules_outdoors.bin
+    drules_vehicle.bin
+    editor.config
+    packed_polygons.bin
+    patterns.txt
+    transit_colors.txt
+    types.txt
+    World.mwm
+    WorldCoasts.mwm
+  )
+  if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
+    copy_resources(icudt78l.dat)
+  endif()
 endif()

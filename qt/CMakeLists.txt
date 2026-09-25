@@ -96,38 +96,41 @@ set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
 function(copy_resources)
-  execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER})
   foreach(file ${ARGN})
-    execute_process(
-      COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
-      COMMAND_ERROR_IS_FATAL ANY
-    )
+    file(COPY ${DATA_DIR}/${file} DESTINATION ${RESOURCES_FOLDER})
   endforeach()
 endfunction()
 
-copy_resources(
-  countries-strings
-  fonts
-  symbols
-  welcome.html
+# The bundle resources are only read on macOS, the other platforms resolve the data directory at run time.
+if (PLATFORM_MAC)
+  copy_resources(
+    countries-strings
+    fonts
+    symbols
+    welcome.html
 
-  categories.txt
-  categories_cuisines.txt
-  classificator.txt
-  colors.txt
-  copyright.html
-  countries.json
-  drules_default.bin
-  drules_outdoors.bin
-  drules_vehicle.bin
-  editor.config
-  packed_polygons.bin
-  patterns.txt
-  transit_colors.txt
-  types.txt
-  World.mwm
-  WorldCoasts.mwm
-)
+    categories.txt
+    categories_cuisines.txt
+    classificator.txt
+    colors.txt
+    copyright.html
+    countries.json
+    drules_default.bin
+    drules_outdoors.bin
+    drules_vehicle.bin
+    editor.config
+    packed_polygons.bin
+    patterns.txt
+    transit_colors.txt
+    types.txt
+    World.mwm
+    WorldCoasts.mwm
+  )
+  if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
+    copy_resources(icudt78l.dat)
+  endif()
+  file(COPY ${PROJECT_SOURCE_DIR}/res/mac/${BUNDLE_ICON} DESTINATION ${RESOURCES_FOLDER})
+endif()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
 install(DIRECTORY ${OMIM_ROOT}/data DESTINATION ${CMAKE_INSTALL_PREFIX}/share/organicmaps/)
@@ -136,22 +139,6 @@ if (PLATFORM_LINUX)
   install(FILES ${OMIM_ROOT}/packaging/app.organicmaps.desktop.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/)
   install(FILES ${OMIM_ROOT}/qt/res/linux/app.organicmaps.desktop.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/)
   install(FILES ${OMIM_ROOT}/qt/res/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/512x512/apps/ RENAME organicmaps.png)
-endif()
-
-if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
-  copy_resources(icudt78l.dat)
-endif()
-
-if (PLATFORM_MAC)
-  if (BUILD_DESIGNER)
-    execute_process(
-        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/designer.icns ${RESOURCES_FOLDER}
-    )
-  else ()
-    execute_process(
-        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/mac.icns ${RESOURCES_FOLDER}
-    )
-  endif ()
 endif()
 
 if (PLATFORM_MAC)
@@ -174,7 +161,7 @@ if (PLATFORM_WIN)
   target_sources(${PROJECT_NAME} PRIVATE res/windows/windows.rc)
 endif()
 
-if (BUILD_DESIGNER)
+if (PLATFORM_MAC AND BUILD_DESIGNER)
   execute_process(
     COMMAND cp -rf ${OMIM_ROOT}/data/symbols/mdpi/light/ ${OMIM_ROOT}/data/symbols/mdpi/design/
     COMMAND cp -rf ${OMIM_ROOT}/data/symbols/hdpi/light/ ${OMIM_ROOT}/data/symbols/hdpi/design/
@@ -234,7 +221,7 @@ if (BUILD_DESIGNER)
   set(CPACK_DMG_VOLUME_NAME ${BUNDLE_NAME})
   set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/res/mac/designer.icns)
   include(CPack)
-elseif (BUILD_STANDALONE)
+elseif (PLATFORM_MAC AND BUILD_STANDALONE)
   add_custom_command(TARGET desktop POST_BUILD
     COMMAND "${QT_PATH}/bin/macdeployqt" ${BUNDLE_FOLDER}
     COMMAND ${Python3_EXECUTABLE} "${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py" -q -nl ${BUNDLE_FOLDER}/Contents/MacOS/${BUNDLE_NAME} ${QT_PATH}

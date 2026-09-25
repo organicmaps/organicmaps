@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Om 'n stem van hoër gehalte af te laai, maak die Instellings-toep oop en gaan na Toeganklikheid → VoiceOver → Spraak → Stem.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Toets Stemmingsaanwysings (TTS, Teks-na-spraak)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Outomatiese zoem";
 "placepage_distance" = "Afstand";
 "search_show_on_map" = "Bekyk op kaart";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Donker";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Ander";
 
 /* Tex label above the Donate button */
 "donate_description" = "Skenk gratis kaarte sonder advertensies aan miljoene gebrui";
@@ -606,9 +609,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Meer";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Wysig boekmerk";
 "placepage_personal_notes_hint" = "Persoonlike notas (teks of html)";
 "editor_comment_hint" = "Kommentaar…";
 "editor_reset_edits_message" = "Wys alle lokale veranderinge af?";
@@ -656,7 +656,9 @@
 "planning_route_manage_route" = "Bestuur roete";
 "button_plan" = "Beplan";
 "placepage_remove_stop" = "Verwyder stop";
-"placepage_add_stop" = "Voeg tussenstop toe";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Voeg stop by";
 "saved" = "Gespaar";
 "error_enter_correct_name" = "Voer asb. ’n korrekte naam in";
 "bookmark_lists" = "Lyste";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "Wys onderaan";
 "enable_logging_warning_message" = "Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.";
 "driving_options_title" = "Ompadopsies";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Roete-optimering";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Herrangskik tussenstoppe outomaties om ’n doeltreffender roete te skep.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vermy tolgelde";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. Kies Liggingdienste";
 "location_services_disabled_on_device_4" = "4. Skakel Liggingdienste aan";
 "location_services_disabled_on_device_additional_message" = "Of gaan voort om Organic Maps sonder ligging te gebruik";
-"book_button" = "Bespreek";
 "placepage_call_button" = "Bel";
 "placepage_bookmark_name_hint" = "Boekmerknaam";
 "placepage_delete_bookmark_button" = "Skrap boekmerk";
@@ -878,12 +885,6 @@
 "popular_place" = "Gewild";
 "hide_from_map" = "Versteek van die kaart";
 "tags_loading_error_subtitle" = "’n Fout het voorgekom toe etikette gelaai word, probeer weer";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Regs";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Onderkant";
 "trip_start" = "Kom ons gaan";
 "pick_destination" = "Bestemming";
 "follow_my_position" = "Hersentreer";
@@ -1102,7 +1103,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktiveer asseblief iCloud in jou toestel se instellings om hierdie kenmerk te gebruik.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktiveer";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Spoorkleur is verander";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Kies op die kaart";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Beginpunt";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Bestemming";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Verander begin";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Verander bestemming";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Verander stop";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Maksimum aantal stoppe is bereik";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Skuif en zoem die kaart om die kruis te plaas";

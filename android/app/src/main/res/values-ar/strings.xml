@@ -409,13 +409,7 @@
     <string name="editor_example_values">أمثلة على القيم</string>
     <string name="editor_correct_mistake">تصحيح الخطأ</string>
     <string name="editor_add_select_location">اختر الموقع</string>
-    <string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوحة إصلاح الخطأ.</string>
-    <string name="editor_report_problem_desription_2">أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">إرسال</string>
-    <string name="editor_report_problem_title">مشكلة</string>
-    <string name="editor_report_problem_no_place_title">المكان غير موجود</string>
-    <string name="editor_report_problem_under_construction_title">مغلق للصيانة</string>
-    <string name="editor_report_problem_duplicate_place_title">مكان مكرر</string>
     <string name="autodownload">التنزيل التلقائي</string>
     <!-- Place Page opening hours text -->
     <string name="daily">يومياً</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">كما هو مكتوب باللغة المحلية</string>
     <string name="editor_edit_place_category_title">الفئة</string>
-    <string name="detailed_problem_description">وصف مفصّل للمشكلة</string>
-    <string name="editor_report_problem_other_title">مشكلة أخرى</string>
     <string name="placepage_add_business_button">إضافة مؤسسة</string>
     <string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">يوم</string>
     <string name="second">ث</string>
     <string name="placepage_more_button">المزيد</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
     <string name="placepage_personal_notes_hint">ملاحظات شخصية (نص أو html)</string>
     <string name="editor_comment_hint">تعليق…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">إدارة المسار</string>
     <string name="button_plan">خطة</string>
     <string name="placepage_remove_stop">إزالة نقطة توقف</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">إضافة نقطة توقف</string>
     <string name="drag_to_reorder">إعادة الترتيب</string>
     <string name="saved">حُفظت</string>
@@ -926,6 +919,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">عرض المسار</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">موقعي</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">تسجيل الدخول باستخدام كلمة المرور</string>
@@ -953,4 +950,22 @@
     <string name="color_picker_grid">الشبكة</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">البحث الصوتي</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">اختر على الخريطة</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">نقطة البداية</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">الوجهة</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">تغيير البداية</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">تغيير الوجهة</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">تغيير نقطة التوقف</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">تم الوصول إلى الحد الأقصى لعدد نقاط التوقف</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">حرك الخريطة وقم بتكبيرها أو تصغيرها لوضع الصليب</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">إيقاف وحفظ</string>
 </resources>

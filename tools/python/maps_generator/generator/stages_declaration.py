@@ -7,17 +7,14 @@ Only stage_mwm can contain country_
 import datetime
 import json
 import logging
-import multiprocessing
 import os
 import shutil
-import tarfile
 from collections import defaultdict
 from multiprocessing.pool import ThreadPool
 from typing import AnyStr
 from typing import Type
 
 import maps_generator.generator.diffs as diffs
-import maps_generator.generator.stages_tests as st
 from maps_generator.generator import coastline
 from maps_generator.generator import settings
 from maps_generator.generator import steps
@@ -26,22 +23,18 @@ from maps_generator.generator.env import PathProvider
 from maps_generator.generator.env import WORLD_COASTS_NAME
 from maps_generator.generator.env import WORLD_NAME
 from maps_generator.generator.exceptions import BadExitStatusError
-from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.stages import InternalDependency as D
 from maps_generator.generator.stages import Stage
-from maps_generator.generator.stages import Test
 from maps_generator.generator.stages import country_stage
 from maps_generator.generator.stages import depends_from_internal
 from maps_generator.generator.stages import helper_stage_for
 from maps_generator.generator.stages import mwm_stage
 from maps_generator.generator.stages import outer_stage
 from maps_generator.generator.stages import production_only
-from maps_generator.generator.stages import test_stage
 from maps_generator.generator.statistics import get_stages_info
 from maps_generator.utils.file import download_files
 from maps_generator.utils.file import is_verified
 from post_generation.hierarchy_to_countries import hierarchy_to_countries
-from post_generation.inject_promo_ids import inject_promo_ids
 
 logger = logging.getLogger("maps_generator")
 
@@ -101,14 +94,9 @@ class StagePreprocess(Stage):
 
 @outer_stage
 @depends_from_internal(
-    D(settings.HOTELS_URL, PathProvider.hotels_path, "p"),
-    D(settings.PROMO_CATALOG_CITIES_URL, PathProvider.promo_catalog_cities_path, "p"),
     D(settings.POPULARITY_URL, PathProvider.popularity_path, "p"),
     D(settings.FOOD_URL, PathProvider.food_paths, "p"),
     D(settings.FOOD_TRANSLATIONS_URL, PathProvider.food_translations_path, "p"),
-)
-@test_stage(
-    Test(st.make_test_booking_data(max_days=7), lambda e, _: e.production, True)
 )
 class StageFeatures(Stage):
     def apply(self, env: Env):
@@ -118,8 +106,6 @@ class StageFeatures(Stage):
         if env.production:
             extra.update(
                 {
-                    "booking_data": env.paths.hotels_path,
-                    "promo_catalog_cities": env.paths.promo_catalog_cities_path,
                     "popular_places_data": env.paths.popularity_path,
                     "brands_data": env.paths.food_paths,
                     "brands_translations_data": env.paths.food_translations_path,
@@ -171,7 +157,6 @@ class StageMwm(Stage):
 
         mwm_stages = [
             StageIndex,
-            StageUgc,
             StageSrtm,
             StageIsolinesInfo,
             StageDescriptions,
@@ -227,14 +212,6 @@ class StagePrepareRoutingWorld(Stage):
 class StageRoutingWorld(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_routing_world(env, country, **kwargs)
-
-
-@country_stage
-@depends_from_internal(D(settings.UGC_URL, PathProvider.ugc_path),)
-@production_only
-class StageUgc(Stage):
-    def apply(self, env: Env, country, **kwargs):
-        steps.step_ugc(env, country, **kwargs)
 
 
 @country_stage
@@ -300,14 +277,6 @@ class StageMwmStatistics(Stage):
 
 
 @outer_stage
-@depends_from_internal(
-    D(
-        settings.PROMO_CATALOG_COUNTRIES_URL,
-        PathProvider.promo_catalog_countries_path,
-        "p",
-    ),
-    D(settings.PROMO_CATALOG_CITIES_URL, PathProvider.promo_catalog_cities_path, "p"),
-)
 class StageCountriesTxt(Stage):
     def apply(self, env: Env):
         countries = hierarchy_to_countries(
@@ -318,34 +287,8 @@ class StageCountriesTxt(Stage):
             env.paths.mwm_path,
             env.paths.mwm_version,
         )
-        if env.production:
-            inject_promo_ids(
-                countries,
-                env.paths.promo_catalog_cities_path,
-                env.paths.promo_catalog_countries_path,
-                env.paths.mwm_path,
-                env.paths.types_path,
-                env.paths.mwm_path,
-            )
-
         with open(env.paths.counties_txt_path, "w") as f:
             json.dump(countries, f, ensure_ascii=False, indent=1)
-
-
-@outer_stage
-@production_only
-class StageLocalAds(Stage):
-    def apply(self, env: Env):
-        create_csv(
-            env.paths.localads_path,
-            env.paths.mwm_path,
-            env.paths.mwm_path,
-            env.mwm_version,
-            multiprocessing.cpu_count(),
-        )
-        with tarfile.open(f"{env.paths.localads_path}.tar.gz", "w:gz") as tar:
-            for filename in os.listdir(env.paths.localads_path):
-                tar.add(os.path.join(env.paths.localads_path, filename), arcname=filename)
 
 
 @outer_stage

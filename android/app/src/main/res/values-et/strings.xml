@@ -409,13 +409,7 @@
     <string name="editor_example_values">Näidisväärtused</string>
     <string name="editor_correct_mistake">Paranda viga</string>
     <string name="editor_add_select_location">Vali asukoht</string>
-    <string name="editor_report_problem_desription_1">Palun kirjelda probleemi üksikasjalikult, et OpenStreetMapi kogukond saaks selle parandada.</string>
-    <string name="editor_report_problem_desription_2">Või tee seda ise aadressil https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Saada</string>
-    <string name="editor_report_problem_title">Probleem</string>
-    <string name="editor_report_problem_no_place_title">Sellist kohta pole olemas</string>
-    <string name="editor_report_problem_under_construction_title">Suletud hoolduseks</string>
-    <string name="editor_report_problem_duplicate_place_title">Dubleeritud koht</string>
     <string name="autodownload">Laadi kaardid automaaselt alla</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Iga päev</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Nagu on kirjutatud kohalikus keeles</string>
     <string name="editor_edit_place_category_title">Kategooria</string>
-    <string name="detailed_problem_description">Probleemi üksikasjalik kirjeldus</string>
-    <string name="editor_report_problem_other_title">Erinev probleem</string>
     <string name="placepage_add_business_button">Lisa ettevõte või äri</string>
     <string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">p</string>
     <string name="second">sek</string>
     <string name="placepage_more_button">Veel</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
     <string name="placepage_personal_notes_hint">Isiklikud märkmed (tekst või html)</string>
     <string name="editor_comment_hint">Kommenteeri…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">Halda teekonda</string>
     <string name="button_plan">Kavanda</string>
     <string name="placepage_remove_stop">Eemalda peatus</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Lisa peatus</string>
     <string name="drag_to_reorder">Järjestuse muutmine</string>
     <string name="saved">Salvestatud</string>
@@ -664,8 +657,8 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Kaardil leiduvate järjehoidjate nimed</string>
     <string name="bookmarks_text_placement_description">Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.</string>
-    <string name="show_to_the_right">Näita paremale</string>
-    <string name="show_at_the_bottom">Näita alla</string>
+    <string name="show_to_the_right">Näita paremal</string>
+    <string name="show_at_the_bottom">Näita all</string>
     <string name="enable_logging_warning_message">Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.</string>
     <string name="driving_options_title">Tee juhatamise valikud</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -911,6 +904,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Näita rada</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Sina</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Sisselogimine parooliga</string>
@@ -938,4 +935,22 @@
     <string name="color_picker_grid">Ruudustik</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Häälotsing</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Vali kaardilt</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Alguskoht</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Sihtkoht</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Muuda alguskohta</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Muuda sihtkohta</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Muuda peatust</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Peatuste maksimaalne arv on saavutatud</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Liiguta ja suumi kaarti, et paigutada rist õigesse kohta</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Lõpeta ja salvesta</string>
 </resources>

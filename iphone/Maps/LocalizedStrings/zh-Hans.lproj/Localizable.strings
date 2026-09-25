@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "要下载更高质量的语音，请打开“设置”App，然后前往“辅助功能”→“VoiceOver”→“语音”→“声音”。";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "测试语音指令（TTS，文本转语音系统）";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "自动缩放";
 "placepage_distance" = "距离";
 "search_show_on_map" = "在地图上查看";
@@ -400,9 +406,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "深色";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "其他";
 
 /* Tex label above the Donate button */
 "donate_description" = "向数百万用户赠送无广告的免费地图！";
@@ -606,9 +609,6 @@
 "day" = "天";
 "second" = "秒";
 "placepage_more_button" = "更多";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "编辑书签";
 "placepage_personal_notes_hint" = "个人备注（文字或 html）";
 "editor_comment_hint" = "备注…";
 "editor_reset_edits_message" = "重置所有本地更改？";
@@ -656,7 +656,9 @@
 "planning_route_manage_route" = "管理路线";
 "button_plan" = "规划";
 "placepage_remove_stop" = "删除站点";
-"placepage_add_stop" = "添加经停点";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "添加途经点";
 "saved" = "已保存";
 "error_enter_correct_name" = "请输入正确的名称";
 "bookmark_lists" = "列表";
@@ -731,6 +733,12 @@
 "show_at_the_bottom" = "底部显示";
 "enable_logging_warning_message" = "临时启用此选项，以便使用“报告错误”功能在帮助对话框中记录并手动发送详细诊断日志给我们。日志可能包含位置信息。";
 "driving_options_title" = "绕行设置";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "路线优化";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "自动重新排列经停点，以生成更高效的路线。";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "避开收费公路";
@@ -839,7 +847,6 @@
 "location_services_disabled_on_device_3" = "3. 选择“定位服务”";
 "location_services_disabled_on_device_4" = "4. 打开“定位服务”";
 "location_services_disabled_on_device_additional_message" = "或没有定位继续使用 Organic Maps";
-"book_button" = "预定";
 "placepage_call_button" = "呼叫";
 "placepage_bookmark_name_hint" = "书签名称";
 "placepage_delete_bookmark_button" = "删除书签";
@@ -878,12 +885,6 @@
 "popular_place" = "受欢迎的";
 "hide_from_map" = "从地图上隐藏";
 "tags_loading_error_subtitle" = "加载标签时出错，请重试";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "右侧";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "底部";
 "trip_start" = "出发";
 "pick_destination" = "目的地";
 "follow_my_position" = "重新居中";
@@ -1102,7 +1103,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "请在您的设备设置中启用 iCloud，以使用此功能。";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "启用";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1199,3 +1200,27 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "轨迹颜色已更改";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "在地图上选择";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "起点";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "目的地";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "更改起点";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "更改目的地";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "更改途经点";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "已达到最大途经点数量";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "移动并缩放地图以定位十字";

@@ -26,7 +26,8 @@ typedef NS_ENUM(NSUInteger, SearchMode) {
 + (void)removeObserver:(id<MWMSearchObserver>)observer;
 
 + (void)saveQuery:(SearchQuery *)query;
-+ (void)searchQuery:(SearchQuery *)query;
+// Returns NO if no search has started, e.g. for a debug command.
++ (BOOL)searchQuery:(SearchQuery *)query;
 
 + (void)showResultAtIndex:(NSUInteger)index;
 // Applies the search results viewport policy, see Framework::UpdateViewport().
@@ -48,6 +49,7 @@ NS_SWIFT_NAME(Search)
 
 + (NSUInteger)suggestionsCount;
 + (NSUInteger)resultsCount;
++ (NSString *)query;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));

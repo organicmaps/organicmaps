@@ -1,5 +1,14 @@
 cmake_minimum_required(VERSION 3.22.1)
 
+# Let CMAKE_MSVC_DEBUG_INFORMATION_FORMAT choose between /Zi and /Z7, and keep the debug info inside the
+# object files: ccache cannot cache /Zi compilations, which write PDBs.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  if (NOT CMAKE_MSVC_DEBUG_INFORMATION_FORMAT)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
+  endif()
+endif()
+
 project(omim C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -49,6 +58,7 @@ endif()
 message(STATUS "Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
 if (CMAKE_UNITY_BUILD)
+  set(CMAKE_UNITY_BUILD_RELOCATABLE ON)
   message(STATUS "Using Unity Build with batch ${CMAKE_UNITY_BUILD_BATCH_SIZE}, use -DCMAKE_UNITY_BUILD=OFF to disable it.")
 endif()
 
@@ -69,7 +79,8 @@ endif()
 
 # Global compile options for all configurations.
 if (MSVC)
-  add_compile_options(/utf-8)
+  add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/utf-8>)
+  add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/bigobj>)
   add_link_options(/INCREMENTAL:NO)
 else()
   add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>)
@@ -112,14 +123,24 @@ if (PLATFORM_LINUX OR PLATFORM_ANDROID)
   find_program(LLD_FOUND ld.lld)
   if (LLD_FOUND)
     message(STATUS "Using ld.lld linker")
-    set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=lld")
+    add_link_options(-fuse-ld=lld)
   else()
     find_program(GOLD_FOUND ld.gold)
     if (GOLD_FOUND)
       message(STATUS "Using ld.gold")
-      set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=gold")
+      add_link_options(-fuse-ld=gold)
     endif()
   endif()
+endif()
+
+set(OMIM_OPTIMIZED_CONFIG "$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>,$<CONFIG:MinSizeRel>>")
+if (MSVC)
+  add_compile_options("$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,${OMIM_OPTIMIZED_CONFIG}>:/Gy;/Gw>")
+elseif (APPLE)
+  add_link_options($<${OMIM_OPTIMIZED_CONFIG}:-Wl,-dead_strip>)
+else()
+  add_compile_options($<${OMIM_OPTIMIZED_CONFIG}:-ffunction-sections> $<${OMIM_OPTIMIZED_CONFIG}:-fdata-sections>)
+  add_link_options($<${OMIM_OPTIMIZED_CONFIG}:-Wl,--gc-sections>)
 endif()
 
 if (NOT PYTHON_VERSION)

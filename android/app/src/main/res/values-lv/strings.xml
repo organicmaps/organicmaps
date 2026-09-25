@@ -409,13 +409,7 @@
     <string name="editor_example_values">Piemēra vērtības</string>
     <string name="editor_correct_mistake">Labot kļūdu</string>
     <string name="editor_add_select_location">Izvēlieties atrašanās vietu</string>
-    <string name="editor_report_problem_desription_1">Sīkāk aprakstiet problēmu, lai „OpenStreetMap“ kopiena to varētu novērst.</string>
-    <string name="editor_report_problem_desription_2">Vai arī to izlabo vietnē https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Sūtīt</string>
-    <string name="editor_report_problem_title">Problēma</string>
-    <string name="editor_report_problem_no_place_title">Vieta nepastāv</string>
-    <string name="editor_report_problem_under_construction_title">Aizvērts uz remonta laiku</string>
-    <string name="editor_report_problem_duplicate_place_title">Vieta dublējas</string>
     <string name="autodownload">Automātiska karšu lejupielāde</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ik dienu</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Pieraksts vietējā valodā</string>
     <string name="editor_edit_place_category_title">Kategorija</string>
-    <string name="detailed_problem_description">Plašāks problēmas apraksts</string>
-    <string name="editor_report_problem_other_title">Cita problēma</string>
     <string name="placepage_add_business_button">Pievienot iestādi</string>
     <string name="message_invalid_feature_position">Šeit objekti nevar atrasties</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Vairāk</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Grāmatzīmes labošana</string>
     <string name="placepage_personal_notes_hint">Personīgi pieraksti (teksts vai HTML)</string>
     <string name="editor_comment_hint">Komentārs…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">Pārvaldīt maršrutu</string>
     <string name="button_plan">Plānot</string>
     <string name="placepage_remove_stop">Noņemt starppunktu</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Pievienot starppunktu</string>
     <string name="drag_to_reorder">Pārkārtot</string>
     <string name="saved">Saglabāts</string>
@@ -860,7 +853,7 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Trases ierakstīšana</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
+    <string name="stop_without_saving">Pārtraukt nesaglabājot</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Turpināt ierakstīt</string>
     <!-- Title for the alert when saving a track recording. -->
@@ -901,6 +894,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Rādīt pēdojumu</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Jūs</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Pieteikšanās ar paroli</string>
@@ -928,4 +925,22 @@
     <string name="color_picker_grid">Režģis</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Balss meklēšana</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Izvēlēties kartē</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Sākums</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Galamērķis</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Mainīt sākumu</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Mainīt galamērķi</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Mainīt starppunktu</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Sasniegts maksimālais starppunktu skaits</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Pārvietojiet un tuviniet karti, lai novietotu krustiņu</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Pārtraukt un saglabāt</string>
 </resources>

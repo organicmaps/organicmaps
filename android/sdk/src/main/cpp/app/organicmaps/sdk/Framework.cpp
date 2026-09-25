@@ -11,7 +11,6 @@
 #include "app/organicmaps/sdk/vulkan/android_vulkan_context_factory.hpp"
 
 #include "map/bookmark_helpers.hpp"
-#include "map/everywhere_search_params.hpp"
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 #include "map/user_mark.hpp"
@@ -37,6 +36,7 @@
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/speed_camera_manager.hpp"
 
 #include "platform/country_file.hpp"
@@ -86,6 +86,19 @@ static_assert(sizeof(int) >= 4, "Size of jint is less than 4 bytes.");
 namespace
 {
 jobject g_placePageActivationListener = nullptr;
+
+RouteMarkData MakeRouteMarkData(JNIEnv * env, jstring title, jstring subtitle, jobject markType, jboolean isMyPosition,
+                                jdouble lat, jdouble lon)
+{
+  RouteMarkData data;
+  data.m_title = jni::ToNativeString(env, title);
+  data.m_subTitle = jni::ToNativeString(env, subtitle);
+  data.m_pointType = routing_jni::GetRouteMarkType(env, markType);
+  data.m_isMyPosition = static_cast<bool>(isMyPosition);
+  data.m_position = mercator::FromLatLon(lat, lon);
+
+  return data;
+}
 
 android::AndroidVulkanContextFactory * CastFactory(drape_ptr<dp::GraphicsContextFactory> const & f)
 {
@@ -228,7 +241,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   }
 
   p.m_visualScale = df::DPI2VS(densityDpi);
-  // Drape doesn't care about Editor vs Api mode differences.
+  // Only a cold start into the Api or Editor chooser reaches this, and both want the default viewport change.
+  // Routing sets its mode when the engine already exists, so it always goes through SetChoosePositionMode().
   p.m_isChoosePositionMode = m_isChoosePositionMode != ChoosePositionMode::None;
   p.m_hints.m_isFirstLaunch = firstLaunch;
   p.m_hints.m_isLaunchByDeepLink = launchByDeepLink;
@@ -452,7 +466,10 @@ void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, 
 {
   m_isChoosePositionMode = mode;
   m_work.BlockTapEvents(mode != ChoosePositionMode::None);
-  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, optionalPosition);
+  // A route point is picked from the view the user already has, so recentring and zooming in to the
+  // add-place scale would throw away the very context they are choosing from.
+  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, optionalPosition,
+                                  mode != ChoosePositionMode::Routing /* shouldChangeViewport */);
 }
 
 ChoosePositionMode Framework::GetChoosePositionMode()
@@ -540,12 +557,6 @@ void Framework::Scale(m2::PointD const & centerPt, int targetZoom, bool animate)
 ::Framework * Framework::NativeFramework()
 {
   return &m_work;
-}
-
-bool Framework::Search(search::EverywhereSearchParams const & params)
-{
-  m_searchQuery = params.m_query;
-  return m_work.GetSearchAPI().SearchEverywhere(params);
 }
 
 void Framework::AddLocalMaps()
@@ -1434,26 +1445,30 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCi
   return g_framework->DeactivateMapSelectionCircle(restoreViewport);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
-                                                                      jstring subtitle, jobject markType,
-                                                                      jint intermediateIndex, jboolean isMyPosition,
-                                                                      jdouble lat, jdouble lon,
-                                                                      jboolean reorderIntermediatePoints)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
+                                                                          jstring subtitle, jobject markType,
+                                                                          jboolean isMyPosition, jdouble lat,
+                                                                          jdouble lon, jboolean allowOptimization)
 {
-  RouteMarkData data;
-  data.m_title = jni::ToNativeString(env, title);
-  data.m_subTitle = jni::ToNativeString(env, subtitle);
-  data.m_pointType = routing_jni::GetRouteMarkType(env, markType);
-  data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
-  data.m_isMyPosition = static_cast<bool>(isMyPosition);
-  data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
+  auto data = MakeRouteMarkData(env, title, subtitle, markType, isMyPosition, lat, lon);
 
-  frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
+  bool const optimize = allowOptimization && routing::RoutingOptions::LoadRouteOptimizationFromSettings();
+  return frm()->GetRoutingManager().AddRoutePoint(std::move(data), optimize);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveRoutePoints();
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv * env, jclass, jstring title,
+                                                                          jstring subtitle, jobject markType,
+                                                                          jint intermediateIndex, jboolean isMyPosition,
+                                                                          jdouble lat, jdouble lon)
+{
+  auto data = MakeRouteMarkData(env, title, subtitle, markType, isMyPosition, lat, lon);
+  auto const type = data.m_pointType;
+  frm()->GetRoutingManager().ReplaceRoutePoint(type, static_cast<size_t>(intermediateIndex), std::move(data));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,

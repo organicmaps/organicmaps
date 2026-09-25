@@ -409,13 +409,7 @@
     <string name="editor_example_values">Contoh Nilai</string>
     <string name="editor_correct_mistake">Koreksi kesalahan</string>
     <string name="editor_add_select_location">Pilih Lokasi</string>
-    <string name="editor_report_problem_desription_1">Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreetMap dapat memperbaiki kesalahan.</string>
-    <string name="editor_report_problem_desription_2">Atau Anda bisa melakukan sendiri di https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Kirim</string>
-    <string name="editor_report_problem_title">Masalah</string>
-    <string name="editor_report_problem_no_place_title">Tempat tidak ada</string>
-    <string name="editor_report_problem_under_construction_title">Ditutup karena pemeliharaan</string>
-    <string name="editor_report_problem_duplicate_place_title">Tempat ganda</string>
     <string name="autodownload">Unduhan otomatis</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Setiap Hari</string>
@@ -476,8 +470,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Seperti yang tertulis dalam bahasa lokal</string>
     <string name="editor_edit_place_category_title">Kategori</string>
-    <string name="detailed_problem_description">Gambaran terperinci tentang masalah</string>
-    <string name="editor_report_problem_other_title">Masalah yang berbeda</string>
     <string name="placepage_add_business_button">Tambahkan organisasi</string>
     <string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +512,7 @@
     <string name="day">hr</string>
     <string name="second">dtk</string>
     <string name="placepage_more_button">Lainnya</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Edit Penanda</string>
     <string name="placepage_personal_notes_hint">Catatan pribadi (teks atau html)</string>
     <string name="editor_comment_hint">Komentar…</string>
@@ -576,6 +568,7 @@
     <string name="planning_route_manage_route">Kelola rute</string>
     <string name="button_plan">Rencana</string>
     <string name="placepage_remove_stop">Hapus pemberhentian</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Tambah perhentian</string>
     <string name="drag_to_reorder">Mengatur ulang</string>
     <string name="saved">Tersimpan</string>
@@ -659,7 +652,7 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Menandai nama di peta</string>
     <string name="bookmarks_text_placement_description">Jika ada terlalu banyak penanda, menampilkan nama mereka di peta dapat memperlambat aplikasi.</string>
-    <string name="show_to_the_right">Tunjukkan ke kanan</string>
+    <string name="show_to_the_right">Tampilkan di sebelah kanan</string>
     <string name="show_at_the_bottom">Tampilkan di bagian bawah</string>
     <string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.</string>
     <string name="driving_options_title">Pilihan berkendara</string>
@@ -894,6 +887,10 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Tampilkan jalur</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Anda</string>
+
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Masuk dengan kata sandi</string>
@@ -921,4 +918,22 @@
     <string name="color_picker_grid">Kisi</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Pencarian suara</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Pilih di peta</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Titik awal</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Tujuan</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Ubah titik awal</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Ubah tujuan</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Ubah perhentian</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Jumlah perhentian maksimum telah tercapai</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Gerakkan dan perbesar/perkecil peta untuk menempatkan tanda silang</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Berhenti dan simpan</string>
 </resources>
