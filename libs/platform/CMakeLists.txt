@@ -164,6 +164,7 @@ else() # neither iPhone nor Android
       http_uploader_background_dummy.cpp
       locale_std.cpp
       platform_linux.cpp
+      platform_linux_migration.hpp
       platform_unix_impl.cpp
       platform_unix_impl.hpp
       secure_storage_qt.cpp
