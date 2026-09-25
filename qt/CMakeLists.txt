@@ -94,6 +94,9 @@ set(BUNDLE_EXECUTABLE ${BUNDLE_NAME})
 set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${BUNDLE_NAME}.app)
 set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
+set(RUNTIME_RESOURCES_FILE "${CMAKE_CURRENT_SOURCE_DIR}/runtime_resources.txt")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${RUNTIME_RESOURCES_FILE}")
+file(STRINGS "${RUNTIME_RESOURCES_FILE}" RUNTIME_RESOURCES)
 
 function(copy_resources)
   foreach(file ${ARGN})
@@ -103,42 +106,37 @@ endfunction()
 
 # The bundle resources are only read on macOS, the other platforms resolve the data directory at run time.
 if (PLATFORM_MAC)
-  copy_resources(
-    countries-strings
-    fonts
-    symbols
-    welcome.html
-
-    categories.txt
-    categories_cuisines.txt
-    classificator.txt
-    colors.txt
-    copyright.html
-    countries.json
-    drules_default.bin
-    drules_outdoors.bin
-    drules_vehicle.bin
-    editor.config
-    packed_polygons.bin
-    patterns.txt
-    transit_colors.txt
-    types.txt
-    World.mwm
-    WorldCoasts.mwm
-  )
+  foreach(file IN LISTS RUNTIME_RESOURCES)
+    get_filename_component(resource_dir "${file}" DIRECTORY)
+    file(COPY "${DATA_DIR}/${file}" DESTINATION "${RESOURCES_FOLDER}/${resource_dir}")
+  endforeach()
   if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
     copy_resources(icudt78l.dat)
   endif()
   file(COPY ${PROJECT_SOURCE_DIR}/res/mac/${BUNDLE_ICON} DESTINATION ${RESOURCES_FOLDER})
 endif()
 
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
-install(DIRECTORY ${OMIM_ROOT}/data DESTINATION ${CMAKE_INSTALL_PREFIX}/share/organicmaps/)
+if (PLATFORM_WIN)
+  if (NOT OMIM_WINDOWS_DISTRIBUTION STREQUAL "development")
+    set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE ON)
+  endif()
+  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION . COMPONENT WindowsRuntime)
+  if (NOT TARGET Qt6::windeployqt)
+    message(FATAL_ERROR "The selected Qt installation has no Qt6::windeployqt target")
+  endif()
+  get_target_property(OMIM_WINDEPLOYQT_EXECUTABLE Qt6::windeployqt LOCATION)
+  configure_file("${OMIM_ROOT}/cmake/windows/StageWindowsRuntime.cmake.in"
+                 "${CMAKE_CURRENT_BINARY_DIR}/StageWindowsRuntime.cmake" @ONLY)
+  install(CODE "include(\"${CMAKE_CURRENT_BINARY_DIR}/StageWindowsRuntime.cmake\")" COMPONENT WindowsRuntime)
+else()
+  install(TARGETS ${PROJECT_NAME} DESTINATION bin/)
+  install(DIRECTORY ${OMIM_ROOT}/data DESTINATION share/organicmaps/)
+endif()
 
 if (PLATFORM_LINUX)
-  install(FILES ${OMIM_ROOT}/packaging/app.organicmaps.desktop.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/)
-  install(FILES ${OMIM_ROOT}/qt/res/linux/app.organicmaps.desktop.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/)
-  install(FILES ${OMIM_ROOT}/qt/res/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/512x512/apps/ RENAME organicmaps.png)
+  install(FILES ${OMIM_ROOT}/packaging/app.organicmaps.desktop.metainfo.xml DESTINATION share/metainfo/)
+  install(FILES ${OMIM_ROOT}/qt/res/linux/app.organicmaps.desktop.desktop DESTINATION share/applications/)
+  install(FILES ${OMIM_ROOT}/qt/res/logo.png DESTINATION share/icons/hicolor/512x512/apps/ RENAME organicmaps.png)
 endif()
 
 if (PLATFORM_MAC)
@@ -158,7 +156,9 @@ if (PLATFORM_MAC)
 endif()
 
 if (PLATFORM_WIN)
-  target_sources(${PROJECT_NAME} PRIVATE res/windows/windows.rc)
+  set(OMIM_WINDOWS_ICON "${CMAKE_CURRENT_SOURCE_DIR}/res/windows/windows.ico")
+  configure_file(res/windows/windows.rc.in "${CMAKE_CURRENT_BINARY_DIR}/windows.rc" @ONLY)
+  target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/windows.rc")
 endif()
 
 if (PLATFORM_MAC AND BUILD_DESIGNER)

@@ -7,6 +7,7 @@
 #include "platform/measurement_utils.hpp"
 
 #include <QtCore/QFile>
+#include <QtCore/QSaveFile>
 
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
@@ -20,6 +21,36 @@
 namespace qt
 {
 using namespace std::placeholders;
+
+namespace
+{
+bool SaveExportedFile(QString const & sourcePath, QString const & destinationPath)
+{
+  QFile source(sourcePath);
+  QSaveFile destination(destinationPath);
+  if (!source.open(QIODevice::ReadOnly) || !destination.open(QIODevice::WriteOnly))
+    return false;
+
+  while (true)
+  {
+    auto const chunk = source.read(64 * 1024);
+    if (chunk.isEmpty())
+    {
+      if (source.error() != QFileDevice::NoError)
+        return false;
+      break;
+    }
+    if (destination.write(chunk) != chunk.size())
+      return false;
+  }
+
+  if (!destination.commit())
+    return false;
+  source.close();
+  QFile::remove(sourcePath);
+  return true;
+}
+}  // namespace
 
 BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
@@ -195,10 +226,9 @@ void BookmarkDialog::OnExportClick(FileType exportedFileType)
   m_framework.GetBookmarkManager().PrepareFileForSharing({categoryIt->second},
                                                          [this, name](BookmarkManager::SharingResult const & result)
   {
-    if (result.m_code == BookmarkManager::SharingResult::Code::Success)
+    if (result.m_code == BookmarkManager::SharingResult::Code::Success &&
+        SaveExportedFile(QString::fromStdString(result.m_sharingPath), name))
     {
-      QFile::rename(QString(result.m_sharingPath.c_str()), name);
-
       QMessageBox ask(this);
       ask.setIcon(QMessageBox::Information);
       ask.setText(tr("Bookmarks successfully exported."));
@@ -209,7 +239,9 @@ void BookmarkDialog::OnExportClick(FileType exportedFileType)
     {
       QMessageBox ask(this);
       ask.setIcon(QMessageBox::Critical);
-      ask.setText(tr("Could not export bookmarks: ") + result.m_errorString.c_str());
+      ask.setText(tr("Could not export bookmarks: ") + (result.m_errorString.empty()
+                                                            ? tr("Could not save the selected file.")
+                                                            : QString::fromStdString(result.m_errorString)));
       ask.addButton(tr("OK"), QMessageBox::NoRole);
       ask.exec();
     }

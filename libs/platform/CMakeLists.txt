@@ -174,6 +174,11 @@ endif()
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
+if (PLATFORM_WIN)
+  string(TOUPPER "OMIM_WINDOWS_DISTRIBUTION_${OMIM_WINDOWS_DISTRIBUTION}" _channel)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE ${_channel}=1)
+endif()
+
 if (APPLE)
   target_compile_options(${PROJECT_NAME} PRIVATE -fobjc-arc -Wno-nullability-completeness)
 endif()
