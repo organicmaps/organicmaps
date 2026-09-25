@@ -172,8 +172,8 @@ Prefer the distribution's Qt6 packages listed in the sections above. If
 Linuxbrew's Qt6 must be used, preload the system libGL at runtime:
 
 ```bash
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 ./OMaps   # Debian/Ubuntu
-LD_PRELOAD=/usr/lib64/libGL.so.1 ./OMaps                  # Fedora/RHEL
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 ./OrganicMaps   # Debian/Ubuntu
+LD_PRELOAD=/usr/lib64/libGL.so.1 ./OrganicMaps                  # Fedora/RHEL
 ```
 
 ### Windows
@@ -257,20 +257,25 @@ tools/unix/build_omim.sh -r desktop
 A preset build puts binaries in `build/<preset>` (e.g. `build/release`); the
 `build_omim.sh` wrapper uses `../omim-build-<buildtype>` instead.
 
-A desktop app binary is `OMaps`. To run e.g. a release version built with the
+A desktop app binary is `OrganicMaps`. To run e.g. a release version built with the
 `release` preset:
 
 _Linux:_
 
 ```bash
-build/release/OMaps
+build/release/OrganicMaps
 ```
 
 _macOS:_
 
 ```bash
-build/release/OMaps.app/Contents/MacOS/OMaps
+build/release/OrganicMaps.app/Contents/MacOS/OrganicMaps
 ```
+
+On Linux, close older `OMaps` instances before the first `OrganicMaps` launch.
+It moves legacy directories under the XDG config and data roots to
+`OrganicMaps`. Populated destinations, symlinked legacy directories, and
+failed moves leave the old data intact for manual recovery.
 
 ### Testing
 
@@ -349,12 +354,12 @@ There are also other commands for turning on/off isolines, anti-aliasing, etc. C
 To make the desktop app display maps in a different language add a `-lang` option, e.g. for the Russian language:
 
 ```bash
-build/release/OMaps -lang ru
+build/release/OrganicMaps -lang ru
 ```
 
-By default `OMaps` expects a repository's `data` folder to be present in the current working directory, add a `-data_path` option to override it.
+By default `OrganicMaps` expects a repository's `data` folder to be present in the current working directory, add a `-data_path` option to override it.
 
-Check `OMaps -help` for a list of all run-time options.
+Check `OrganicMaps -help` for a list of all run-time options.
 
 When running the desktop app with lots of maps, increase the open files limit. In macOS the default value is only 256.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
