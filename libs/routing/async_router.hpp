@@ -53,7 +53,9 @@ public:
   /// Interrupt routing and clear buffers
   void ClearState();
   /// Forward to the underlying IRouter. See IRouter::SwapAltRouteToActive.
-  void SwapAltRouteToActive();
+  /// @return false if there is no router, a calculation is running, or |routesId| does not identify
+  ///         the result whose adjustment state is currently cached by the router.
+  bool SwapAltRouteToActive(uint64_t routesId);
 
   bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                    EdgeProj & proj);
@@ -115,6 +117,11 @@ private:
   m2::PointD m_startDirection = m2::PointD::Zero();
   bool m_adjustToPrevRoute = false;
   bool m_needAlternatives = true;
+  /// True while the routing thread has exclusive ownership of the router for a calculation request.
+  bool m_isCalculating = false;
+  /// Id of the valid result represented by the router's adjustment caches, or 0 when they cannot
+  /// safely be associated with a delivered result. A calculation without a route keeps it.
+  uint64_t m_cachedRoutesId = 0;
   std::shared_ptr<RouterDelegateProxy> m_delegateProxy;
   std::shared_ptr<AbsentRegionsFinder> m_absentRegionsFinder;
   std::shared_ptr<IRouter> m_router;
