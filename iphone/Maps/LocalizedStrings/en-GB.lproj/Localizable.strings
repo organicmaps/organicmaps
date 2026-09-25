@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Loading Bookmarks";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Failed to load bookmarks. The file may be corrupted or defective.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Bookmarks loaded successfully! Select a list to view it on the map:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Failed to load the files. They may be corrupted or defective:";
 
 /* resource for context menu */
 "edit" = "Edit";

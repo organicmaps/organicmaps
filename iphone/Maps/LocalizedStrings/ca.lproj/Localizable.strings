@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "S’estan carregant els marcadors";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Els marcadors s’han carregat correctament. Els trobareu al mapa i a la pantalla de gestió de marcadors.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Els marcadors s’han carregat correctament. Els trobareu al mapa i a la pantalla de gestió de marcadors.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "No s'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Els marcadors s’han carregat correctament! Trieu una llista per veure-la al mapa:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "No s'han pogut carregar els fitxers. Poden estar malmesos o ser defectuosos:";
 
 /* resource for context menu */
 "edit" = "Edita";

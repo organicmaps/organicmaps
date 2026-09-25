@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք Organic Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://omaps.app/get?kmz\nՎայելեք ճանապարհորդությունը Organic Maps-ի հետ:</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Էջանիշների բեռնում</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Էջանիշները հաջողությամբ բեռնվեցին: Դուք կարող եք գտնել դրանք քարտեզի վրա կամ «Էջանիշների կառավարիչ» էկրանին:</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Չհաջողվեց բեռնել էջանիշները: Ֆայլը կարող է վնասված կամ անսարք լինել:</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Ֆայլի տեսակը չի ճանաչվել հավելվածի կողմից՝\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Չհաջողվեց բացել %1$s ֆայլը\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Էջանիշները հաջողությամբ բեռնվեցին: Դուք կարող եք գտնել դրանք քարտեզի վրա կամ «Էջանիշների կառավարիչ» էկրանին:</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Էջանիշները հաջողությամբ բեռնվեցին: Ընտրեք ցուցակ՝ այն քարտեզի վրա տեսնելու համար:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Չհաջողվեց բեռնել ֆայլերը։ Դրանք կարող են վնասված կամ թերի լինել՝</string>
     <!-- resource for context menu -->
     <string name="edit">Խմբագրել</string>
     <!-- Warning message when doing search around current position -->

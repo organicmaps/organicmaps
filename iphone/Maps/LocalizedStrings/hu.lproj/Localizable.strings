@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Könyvjelzők betöltése";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "A könyvjelzők sikeresen betöltődtek! Megtalálhatja őket a térképen vagy a Könyvjelzők kezelése képernyőn.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "A könyvjelzők sikeresen betöltődtek! Megtalálhatja őket a térképen vagy a Könyvjelzők kezelése képernyőn.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Nem sikerült betölteni a könyvjelzőket. A fájl sérült vagy hibás lehet.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "A könyvjelzők sikeresen betöltődtek! Válasszon egy listát a térképen való megtekintéshez:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Nem sikerült betölteni a fájlokat. Lehet, hogy sérültek vagy hibásak:";
 
 /* resource for context menu */
 "edit" = "Szerkesztés";

@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Laai tans boekmerke";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Boekmerke is suksesvol gelaai! U kan dit op die kaart of op die boekmerkbestuurderskerm vind.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Boekmerke is suksesvol gelaai! U kan dit op die kaart of op die boekmerkbestuurderskerm vind.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Kon nie boekmerke laai nie. Die lêer is dalk gekorrupteer of defektief.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Boekmerke is suksesvol gelaai! Kies ’n lys om dit op die kaart te sien:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Kon nie die lêers laai nie. Hulle is dalk beskadig of defektief:";
 
 /* resource for context menu */
 "edit" = "Wysig";

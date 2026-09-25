@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">สวัสดีครับ\n\nแนบมาด้วยบุ๊กมาร์กของผม; กรุณาเปิดใน Organic Maps หากคุณยังไม่ได้ติดตั้ง คุณสามารถดาวน์โหลดได้ที่นี่: https://omaps.app/get?kmz\n\nขอให้สนุกกับการเดินทางด้วย Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">กำลังโหลดบุ๊กมาร์ก</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">การอัปโหลดล้มเหลว ไฟล์อาจเสียหายหรือมีข้อบกพร่อง</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">แอปไม่รู้จักประเภทไฟล์:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">ไม่สามารถเปิดไฟล์ได้ %1$s\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">โหลดบุ๊กมาร์กสำเร็จแล้ว! เลือกรายการเพื่อดูบนแผนที่:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">โหลดไฟล์ไม่สำเร็จ ไฟล์เหล่านี้อาจเสียหายหรือมีข้อบกพร่อง:</string>
     <!-- resource for context menu -->
     <string name="edit">แก้ไข</string>
     <!-- Warning message when doing search around current position -->
