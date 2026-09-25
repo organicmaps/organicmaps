@@ -6,6 +6,7 @@
 
 #include "std/target_os.hpp"
 
+#include <filesystem>
 #include <memory>
 #include <string>
 #include <utility>
@@ -22,11 +23,41 @@
 
 #include <dispatch/dispatch.h>
 
+namespace
+{
+std::string MigrateAppSupportDirectory(std::string const & supportDir, char const * oldName, char const * newName)
+{
+  namespace fs = std::filesystem;
+  fs::path const oldPath = fs::path(supportDir) / oldName;
+  fs::path const newPath = fs::path(supportDir) / newName;
+  std::error_code ec;
+  if (fs::is_symlink(oldPath, ec))
+  {
+    auto const newStatus = fs::symlink_status(newPath, ec);
+    return (!ec && fs::exists(newStatus) ? newPath : oldPath).string();
+  }
+
+  ec.clear();
+  fs::rename(oldPath, newPath, ec);
+  if (!ec)
+  {
+    LOG(LINFO, ("Moved desktop data directory", oldPath.string(), "to", newPath.string()));
+    return newPath.string();
+  }
+  if (ec == std::errc::no_such_file_or_directory || ec == std::errc::directory_not_empty ||
+      ec == std::errc::file_exists)
+    return newPath.string();
+
+  LOG(LWARNING, ("Cannot move desktop data directory", oldPath.string(), newPath.string(), ec.message()));
+  return oldPath.string();
+}
+}  // namespace
+
 Platform::Platform()
 {
-  // OMaps.app/Content/Resources or omim-build-debug for tests.
+  // OrganicMaps.app/Contents/Resources or omim-build-debug for tests.
   std::string const resourcesPath = NSBundle.mainBundle.resourcePath.UTF8String;
-  // Omaps.app or omim-build-debug for tests.
+  // OrganicMaps.app or omim-build-debug for tests.
   std::string const bundlePath = NSBundle.mainBundle.bundlePath.UTF8String;
   // Current working directory, can be overrided for Xcode projects in the scheme's settings.
   std::string const currentDir = [NSFileManager.defaultManager currentDirectoryPath].UTF8String;
@@ -103,14 +134,13 @@ Platform::Platform()
     if (m_writableDir.empty())
     {
       NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-      NSString * supportDir = [dirPaths objectAtIndex:0];
-      m_writableDir = supportDir.UTF8String;
+      std::string const supportDir = [[dirPaths objectAtIndex:0] UTF8String];
 #ifdef BUILD_DESIGNER
-      m_writableDir += "/OMapsData.Designer/";
+      m_writableDir = MigrateAppSupportDirectory(supportDir, "OMapsData.Designer", "OrganicMaps.Designer");
 #else   // BUILD_DESIGNER
-      m_writableDir += "/OMapsData/";
+      m_writableDir = MigrateAppSupportDirectory(supportDir, "OMapsData", "OrganicMaps");
 #endif  // BUILD_DESIGNER
-      ::mkdir(m_writableDir.c_str(), 0755);
+      CHECK(MkDirRecursively(m_writableDir), ("Cannot create Application Support directory", m_writableDir));
     }
   }
 
