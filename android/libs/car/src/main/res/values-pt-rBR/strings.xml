@@ -66,6 +66,7 @@
     <string name="by_default">Por padrão</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Relevo</string>
     <string name="downloader_loading_ios">Baixando</string>
     <string name="download_map_title">Baixar a visão geral mundial</string>
     <!-- The text in the activity for location permission request. -->

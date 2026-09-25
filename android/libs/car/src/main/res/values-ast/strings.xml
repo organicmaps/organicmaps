@@ -40,9 +40,11 @@
     <string name="midnight">Medianueche</string>
     <string name="noon">Mediudía</string>
     <string name="minute">min</string>
+    <string name="layers_title">Estilos y capes del mapa</string>
     <string name="driving_options_title">Opciones d’encaminamientu</string>
     <string name="trip_finished">Aportesti.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="button_layer_isolines">Curves de nivel</string>
     <string name="downloader_loading_ios">Baxando</string>
 </resources>

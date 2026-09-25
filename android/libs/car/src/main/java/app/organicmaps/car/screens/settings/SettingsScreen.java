@@ -63,6 +63,7 @@ public class SettingsScreen extends BaseMapScreen
   {
     final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createThemeItem());
+    builder.addItem(createLayersItem());
     builder.addItem(createRoutingOptionsItem());
     builder.addItem(create3dBuildingsItem());
     builder.addItem(createSharedPrefsToggle(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
@@ -80,6 +81,18 @@ public class SettingsScreen extends BaseMapScreen
     builder.addText(getCarContext().getString(ThemeUtils.getThemeMode(getCarContext()).getTitleId()));
     builder.setOnClickListener(
         () -> getScreenManager().push(new ThemeScreen(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer())));
+    builder.setBrowsable(true);
+    return builder.build();
+  }
+
+  @NonNull
+  private Item createLayersItem()
+  {
+    final Row.Builder builder = new Row.Builder();
+    builder.setTitle(getCarContext().getString(R.string.layers_title));
+    builder.setOnClickListener(()
+                                   -> getScreenManager().push(new LayersScreen(getCarContext(), getOrganicMapsContext(),
+                                                                               getSurfaceRenderer())));
     builder.setBrowsable(true);
     return builder.build();
   }
