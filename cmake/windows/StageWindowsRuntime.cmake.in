@@ -1,0 +1,14 @@
+if (NOT CMAKE_INSTALL_CONFIG_NAME STREQUAL "Release")
+  message(FATAL_ERROR "WindowsRuntime requires --config Release")
+endif()
+
+execute_process(
+  COMMAND "@Python3_EXECUTABLE@" "@OMIM_ROOT@/tools/windows/stage_runtime.py"
+    --source "@OMIM_ROOT@"
+    --stage "${CMAKE_INSTALL_PREFIX}"
+    --windeployqt "@OMIM_WINDEPLOYQT_EXECUTABLE@"
+    --channel "@OMIM_WINDOWS_DISTRIBUTION@"
+    --version "@OMIM_WINDOWS_VERSION_STRING@"
+    --qt-version "@Qt6Core_VERSION@"
+  COMMAND_ERROR_IS_FATAL ANY
+)

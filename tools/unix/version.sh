@@ -64,6 +64,12 @@ function qt_int_version {
   echo "${cutYear//./}"
 }
 
+function windows_version {
+  # Windows package versions have four numeric components; Store reserves the last one.
+  local month_day="${DATE:5:2}${DATE:8:2}"
+  echo "${DATE:0:4}.$((10#$month_day)).$COUNT.0"
+}
+
 function qt_version {
   local OS_NAME=$(uname -s)
   echo "$DATE-$COUNT-$GIT_HASH-$OS_NAME"
@@ -81,6 +87,7 @@ Where format is one of the following arguments (shows current values):
   android_code   $(android_code)
   qt_version     $(qt_version)
   qt_int_version $(qt_int_version)
+  windows_version $(windows_version)
   count          $(count)
 EOF
 }
