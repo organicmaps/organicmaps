@@ -182,11 +182,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="http"/>
-        <data android:scheme="https"/>
         <data android:scheme="content"/>
         <data android:scheme="file"/>
-        <data android:scheme="data"/>
         <data android:host="*"/>
         <data android:mimeType="application/vnd.google-earth.kml+xml"/>
         <data android:mimeType="application/vnd.google-earth.kmz"/>
@@ -210,11 +207,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="http"/>
-        <data android:scheme="https"/>
         <data android:scheme="content"/>
         <data android:scheme="file"/>
-        <data android:scheme="data"/>
         <data android:host="*"/>
         <data android:mimeType="application/geo+json"/>
         <data android:mimeType="application/vnd.geo+json"/>
@@ -236,7 +230,6 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="content"/>
         <data android:scheme="file"/>
-        <data android:scheme="data"/>
         <data android:host="*"/>
         <data android:mimeType="*/*"/>
         <!-- See http://stackoverflow.com/questions/3400072/pathpattern-to-match-file-extension-does-not-work-if-a-period-exists-elsewhere-i -->
@@ -332,7 +325,6 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="content"/>
         <data android:scheme="file"/>
-        <data android:scheme="data"/>
         <data android:host="*"/>
         <!-- See http://stackoverflow.com/questions/3400072/pathpattern-to-match-file-extension-does-not-work-if-a-period-exists-elsewhere-i -->
         <data android:pathPattern="/.*\\.kmz" />

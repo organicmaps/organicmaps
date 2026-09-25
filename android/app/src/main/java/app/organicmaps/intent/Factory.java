@@ -45,7 +45,14 @@ public class Factory
       // See KML/KMZ/KMB intent filters in manifest.
       final List<Uri> uris;
       if (Intent.ACTION_VIEW.equals(intent.getAction()))
-        uris = Collections.singletonList(intent.getData());
+      {
+        // Bookmark import reads local files or provider streams, not web or data URLs.
+        final Uri uri = intent.getData();
+        final String scheme = uri == null ? null : uri.getScheme();
+        if (!ContentResolver.SCHEME_CONTENT.equals(scheme) && !ContentResolver.SCHEME_FILE.equals(scheme))
+          return false;
+        uris = Collections.singletonList(uri);
+      }
       else if (Intent.ACTION_SEND.equals(intent.getAction()))
         uris = Collections.singletonList(IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class));
       else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction()))
@@ -59,7 +66,7 @@ public class Factory
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = activity.getContentResolver();
       ThreadPool.getStorage().execute(() -> BookmarkManager.INSTANCE.importBookmarksFiles(resolver, uris, tempDir));
-      return false;
+      return true;
     }
   }
 
