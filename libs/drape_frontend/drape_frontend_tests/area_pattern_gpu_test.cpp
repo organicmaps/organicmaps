@@ -1,14 +1,13 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/area_pattern.hpp"
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/drape_frontend_tests/shape_test_fixture.hpp"
 
 #include "drape/color.hpp"
-#include "drape/hatching_decl.hpp"
 
 #include "geometry/point2d.hpp"
 
-#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -19,7 +18,7 @@ namespace area_pattern_gpu_test
 dp::Color constexpr kLightFill(196, 233, 239, 255);
 dp::Color constexpr kDarkFill(2, 25, 25, 255);
 
-df::AreaViewParams MakeParams(std::string_view hatching)
+df::AreaViewParams MakeParams(df::AreaPattern pattern)
 {
   df::AreaViewParams p;
   p.m_tileCenter = {0, 0};
@@ -29,7 +28,7 @@ df::AreaViewParams MakeParams(std::string_view hatching)
   p.m_depthLayer = df::DepthLayer::GeometryLayer;
   p.m_minVisibleScale = 0;
   p.m_rank = 0;
-  p.m_areaPattern = hatching;
+  p.m_areaPattern = pattern;
   p.m_baseGtoPScale = 1.0;  // pattern at base scale: crisp 1px features with clear gaps
   return p;
 }
@@ -39,7 +38,7 @@ df::AreaViewParams MakeParams(std::string_view hatching)
 // fill), and every pixel lands on the straight-alpha blend of the fill over the background. No mask
 // texture is bound, so a binding mistake, a broken coverage function or coverage applied to rgb as well
 // would surface here as an empty frame, a flooded quad, or a fill darker than the blend allows.
-void RenderAndCheck(char const * title, std::string_view hatching)
+void RenderAndCheck(char const * title, df::AreaPattern hatching)
 {
   df::test_support::ShapeTestFixture fixture;
   uint32_t constexpr kW = 256, kH = 256;
@@ -56,7 +55,7 @@ void RenderAndCheck(char const * title, std::string_view hatching)
 
   // Blending is straight alpha, so the teal fill over the white clear must land on the white->teal
   // segment: r = 255*(1 - a) and g = b = 255 - 95*a, i.e. g = 255 - 95*(255 - r)/255 whatever the
-  // coverage is. Scaling rgb by coverage as well (or sampling an unbound colour texture) can only drag g
+  // coverage is. Scaling rgb by coverage as well (or sampling an unbound color texture) can only drag g
   // below that line - by up to 40 levels at a = 0.5, far above the 8-bit rounding tolerance.
   uint32_t teal = 0, tooDark = 0;
   for (int y = 0; y < img.height(); ++y)
@@ -76,18 +75,18 @@ void RenderAndCheck(char const * title, std::string_view hatching)
   TEST_EQUAL(tooDark, 0u, ("Fill darker than a straight-alpha blend - is rgb modulated too?", title));
 }
 
-// A solid-fill pattern (stipple/speckle/grid) fills a quad with the surface colour and modulates it with dots that
+// A solid-fill pattern (stipple/speckle/grid) fills a quad with the surface color and modulates it with dots that
 // darken a light fill and lighten a dark one. Renders a light quad in the left half and a dark one in the right half,
 // and validates that both fills are present, their dots shade them the expected way, and nothing samples as black.
-void RenderSolidPatternAndCheck(char const * title, std::string_view patternKey)
+void RenderSolidPatternAndCheck(char const * title, df::AreaPattern pattern)
 {
   df::test_support::ShapeTestFixture fixture;
   uint32_t constexpr kW = 256, kH = 256;
-  fixture.Render(title, kW, kH, [patternKey](df::test_support::ShapeTestFixture & f)
+  fixture.Render(title, kW, kH, [pattern](df::test_support::ShapeTestFixture & f)
   {
     for (auto const & [color, x] : {std::pair{kLightFill, -120.0}, std::pair{kDarkFill, 8.0}})
     {
-      df::AreaViewParams p = MakeParams(patternKey);
+      df::AreaViewParams p = MakeParams(pattern);
       p.m_color = color;
       std::vector<m2::PointD> triangles = {{x, -110}, {x + 112, -110}, {x + 112, 110},
                                            {x, -110}, {x + 112, 110},  {x, 110}};
@@ -124,31 +123,31 @@ void RenderSolidPatternAndCheck(char const * title, std::string_view patternKey)
     TEST_GREATER(fill[i], kW * kH / 8, ("Solid fill not rendered:", title, fillName));
     TEST_GREATER(dots[i], 0u, ("Dots not visible or shading the wrong way:", title, fillName));
   }
-  TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?", title));
+  TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - color texture not sampled?", title));
 }
 }  // namespace area_pattern_gpu_test
 
 UNIT_TEST(AreaHatch45GpuTest)
 {
-  area_pattern_gpu_test::RenderAndCheck("Analytic 45d hatch", dp::k45dHatching);
+  area_pattern_gpu_test::RenderAndCheck("Analytic 45d hatch", df::AreaPattern::Hatch45d);
 }
 
 UNIT_TEST(AreaHatchDashGpuTest)
 {
-  area_pattern_gpu_test::RenderAndCheck("Analytic dash hatch", dp::kDashHatching);
+  area_pattern_gpu_test::RenderAndCheck("Analytic dash hatch", df::AreaPattern::HatchDash);
 }
 
 UNIT_TEST(AreaStippleGpuTest)
 {
-  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic stipple", dp::kStipplePattern);
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic stipple", df::AreaPattern::Stipple);
 }
 
 UNIT_TEST(AreaSpeckleGpuTest)
 {
-  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic speckle", dp::kSpecklePattern);
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic speckle", df::AreaPattern::Speckle);
 }
 
 UNIT_TEST(AreaGridGpuTest)
 {
-  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic grid", dp::kGridPattern);
+  area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic grid", df::AreaPattern::Grid);
 }

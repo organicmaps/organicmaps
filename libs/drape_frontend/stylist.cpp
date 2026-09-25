@@ -8,10 +8,9 @@
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
-#include "drape/hatching_decl.hpp"
-
 #include <algorithm>
 #include <limits>
+#include <utility>
 
 namespace df
 {
@@ -30,63 +29,45 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
   m_2levelDash = c.GetTypeByPath({"natural", "wetland"});
 }
 
-std::string_view IsHatchingTerritoryChecker::GetHatch(uint32_t type) const
+AreaPattern IsHatchingTerritoryChecker::GetHatch(uint32_t type) const
 {
   // Matching with subtypes (see Stylist_IsHatching test).
 
   if (m_3level45 == ftype::Trunc(type, 3))
-    return dp::k45dHatching;
+    return AreaPattern::Hatch45d;
   if (m_2level45(type))
-    return dp::k45dHatching;
+    return AreaPattern::Hatch45d;
 
   if (m_2levelDash == ftype::Trunc(type, 2))
-    return dp::kDashHatching;
+    return AreaPattern::HatchDash;
 
-  return {};
+  return AreaPattern::None;
 }
 
-std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const & types) const
-{
-  for (uint32_t t : types)
-  {
-    auto s = GetHatch(t);
-    if (!s.empty())
-      return s;
-  }
-  return {};
-}
-
-IsAreaPatternChecker::Stipple::Stipple()
-  : ftypes::BaseCheckerEx({{"natural", "beach"},  // natural=sand is a beach subtype
-                           {"natural", "desert"},
-                           {"natural", "water", "intermittent"},
-                           {"landuse", "basin", "intermittent"}})
-{}
+IsAreaPatternChecker::Stipple::Stipple() : ftypes::BaseCheckerEx({{"natural", "beach"}, {"natural", "desert"}}) {}
 
 IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
 
 IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
 
-std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
+IsAreaPatternChecker::Intermittent::Intermittent()
+  : ftypes::BaseCheckerEx({{"natural", "water", "intermittent"}, {"landuse", "basin", "intermittent"}})
+{}
+
+AreaPattern IsAreaPatternChecker::GetPattern(uint32_t type) const
 {
   if (m_stipple(type))
-    return dp::kStipplePattern;
+    return AreaPattern::Stipple;
   if (m_speckle(type))
-    return dp::kSpecklePattern;
+    return AreaPattern::Speckle;
   if (m_grid(type))
-    return dp::kGridPattern;
-  return {};
+    return AreaPattern::Grid;
+  return AreaPattern::None;
 }
 
-std::string_view IsAreaPatternChecker::GetPattern(feature::TypesHolder const & types) const
+AreaPattern IsAreaPatternChecker::GetModifierPattern(uint32_t type) const
 {
-  for (uint32_t t : types)
-  {
-    auto s = GetPattern(t);
-    if (!s.empty())
-      return s;
-  }
-  return {};
+  return m_intermittent(type) ? AreaPattern::Stipple : AreaPattern::None;
 }
 
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,
@@ -195,11 +176,13 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
     {
       ASSERT(!m_hatchingRule, (f.DebugString()));
       m_hatchingRule = dRule->GetArea();
+      m_hatchingPattern = static_cast<AreaPattern>(key.m_areaPattern);
     }
     else
     {
       ASSERT(!m_areaRule, (f.DebugString()));
       m_areaRule = dRule->GetArea();
+      m_areaPattern = static_cast<AreaPattern>(key.m_areaPattern);
     }
     break;
   // TODO(pastk) : check if circle/waymarker support exists still (not used in styles ATM).
@@ -242,14 +225,17 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
   }
 
   auto const & hatchingChecker = IsHatchingTerritoryChecker::Instance();
+  auto const & patternChecker = IsAreaPatternChecker::Instance();
   auto const geomType = types.GetGeomType();
 
   drule::KeysT keys;
+  // A modifier pattern marks the whole feature, so it goes on the fill of any type, but only at zooms where the
+  // modifier type has an area rule before runtime selectors. With several modifiers, the enum order decides.
+  auto modifierPattern = AreaPattern::None;
   for (uint32_t t : types)
   {
     drule::KeysT typeKeys;
     cl.GetObject(t)->GetSuitable(zoomLevel, geomType, typeKeys);
-    bool const hasHatching = hatchingChecker(t);
 
     for (auto & k : typeKeys)
     {
@@ -257,8 +243,14 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
       if (t == mainOverlayType || (k.m_type != drule::caption && k.m_type != drule::symbol &&
                                    k.m_type != drule::shield && k.m_type != drule::pathtext))
       {
-        if (hasHatching && k.m_type == drule::area)
-          k.m_hatching = true;
+        if (k.m_type == drule::area)
+        {
+          // Keep the type's hatch or surface pattern with its rule, so the pattern follows the rule MakeUnique keeps.
+          auto const hatch = hatchingChecker.GetHatch(t);
+          k.m_hatching = hatch != AreaPattern::None;
+          k.m_areaPattern = std::to_underlying(k.m_hatching ? hatch : patternChecker.GetPattern(t));
+          modifierPattern = std::max(modifierPattern, patternChecker.GetModifierPattern(t));
+        }
         keys.push_back(k);
       }
     }
@@ -274,6 +266,9 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
 
   for (auto const & key : keys)
     ProcessKey(f, key);
+
+  if (m_areaRule && modifierPattern != AreaPattern::None)
+    m_areaPattern = modifierPattern;
 
   if (m_captionRule || m_pathtextRule)
   {

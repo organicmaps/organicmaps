@@ -5,7 +5,6 @@
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
-#include "drape/hatching_decl.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
@@ -22,21 +21,19 @@ uint32_t constexpr kHatchTilePx = 16;
 
 namespace
 {
-// Maps an area-pattern key (hatch or solid-fill) to its analytic GPU program.
-gpu::Program PatternProgram(std::string_view key)
+// Maps an area pattern (hatch or solid-fill) to its analytic GPU program.
+gpu::Program PatternProgram(AreaPattern pattern)
 {
-  if (key == dp::k45dHatching)
-    return gpu::Program::HatchingArea;
-  if (key == dp::kDashHatching)
-    return gpu::Program::HatchingAreaDash;
-  if (key == dp::kStipplePattern)
-    return gpu::Program::AreaStipple;
-  if (key == dp::kSpecklePattern)
-    return gpu::Program::AreaSpeckle;
-  if (key == dp::kGridPattern)
-    return gpu::Program::AreaGrid;
-  CHECK(false, ("Unknown area pattern key:", key));
-  return gpu::Program::Area;
+  switch (pattern)
+  {
+  case AreaPattern::Hatch45d: return gpu::Program::HatchingArea;
+  case AreaPattern::HatchDash: return gpu::Program::HatchingAreaDash;
+  case AreaPattern::Stipple: return gpu::Program::AreaStipple;
+  case AreaPattern::Speckle: return gpu::Program::AreaSpeckle;
+  case AreaPattern::Grid: return gpu::Program::AreaGrid;
+  case AreaPattern::None: break;
+  }
+  UNREACHABLE();
 }
 }  // namespace
 
@@ -72,8 +69,8 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     DrawMwmBorderArea(context, batcher, colorUv, region.GetTexture());
   else if (m_params.m_is3D)
     DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
-  else if (!m_params.m_areaPattern.empty())
-    DrawPatternArea(context, batcher, colorUv, region.GetTexture(), m_params.m_areaPattern);
+  else if (m_params.m_areaPattern != AreaPattern::None)
+    DrawPatternArea(context, batcher, colorUv, region.GetTexture());
   else
     DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
@@ -139,8 +136,7 @@ void AreaShape::DrawMwmBorderArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<
 }
 
 void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                                m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
-                                std::string_view patternKey) const
+                                m2::PointD const & colorUv, ref_ptr<dp::Texture> texture) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
@@ -166,7 +162,7 @@ void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp
   }
 
   // The pattern is computed analytically in the fragment shader (no mask texture, hence no mipmaps).
-  auto state = CreateRenderState(PatternProgram(patternKey), DepthLayer::GeometryLayer);
+  auto state = CreateRenderState(PatternProgram(m_params.m_areaPattern), DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
 
