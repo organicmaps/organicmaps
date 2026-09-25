@@ -104,6 +104,11 @@ set -euo pipefail
 cd "\$(dirname "\$0")"
 STYLE="\${1:-data/styles/default/light/style.mapcss}"
 case "\$STYLE" in /*) ;; *) STYLE="\$PWD/\$STYLE" ;; esac
+if [ -d ./OrganicMaps.app/Contents/Resources ]; then
+  # Helper binaries run outside the bundle and need its immutable resources.
+  export MWM_RESOURCES_DIR="\$PWD/OrganicMaps.app/Contents/Resources"
+  export MWM_WRITABLE_DIR="\$PWD/data"
+fi
 exec ./$APP_BINARY --designer="\$STYLE"
 EOF
 chmod +x "$OUT_DIR/designer.sh"
