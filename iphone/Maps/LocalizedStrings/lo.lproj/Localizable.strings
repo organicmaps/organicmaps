@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "ກຳລັງໂຫລດບຸກມາກ";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ທ່ານສາມາດຊອກຫາພວກມັນໄດ້ໃນແຜນທີ່ ຫຼື ໃນໜ້າຈໍຈັດການບຸກມາກ.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ທ່ານສາມາດຊອກຫາພວກມັນໄດ້ໃນແຜນທີ່ ຫຼື ໃນໜ້າຈໍຈັດການບຸກມາກ.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "ໂຫລດບຸກມາກບໍ່ສຳເລັດ. ໄຟລ໌ອາດເສຍຫາຍ ຫຼື ບົກພ່ອງ.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ເລືອກລາຍການເພື່ອເບິ່ງໃນແຜນທີ່:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "ບໍ່ສາມາດໂຫລດໄຟລ໌ໄດ້. ໄຟລ໌ເຫຼົ່ານີ້ອາດເສຍຫາຍ ຫຼື ມີຂໍ້ບົກພ່ອງ:";
 
 /* resource for context menu */
 "edit" = "ແກ້ໄຂ";

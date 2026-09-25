@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Üdvözlöm!\n\nMellékeltem a könyvjelzőimet; nyissa meg őket az Organic Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://omaps.app/get?kmz\n\nJó utat kívánok az Organic Maps alkalmazással!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Könyvjelzők betöltése</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">A könyvjelzők sikeresen betöltődtek! Megtalálhatja őket a térképen vagy a Könyvjelzők kezelése képernyőn.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Nem sikerült betölteni a könyvjelzőket. A fájl sérült vagy hibás lehet.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Az alkalmazás nem ismeri fel a következő fájltípust:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Nem sikerült megnyitni a(z) %1$s fájlt\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">A könyvjelzők sikeresen betöltődtek! Megtalálhatja őket a térképen vagy a Könyvjelzők kezelése képernyőn.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">A könyvjelzők sikeresen betöltődtek! Válasszon egy listát a térképen való megtekintéshez:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Nem sikerült betölteni a fájlokat. Lehet, hogy sérültek vagy hibásak:</string>
     <!-- resource for context menu -->
     <string name="edit">Szerkesztés</string>
     <!-- Warning message when doing search around current position -->

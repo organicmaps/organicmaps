@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Lesezeichen erfolgreich geladen! Du kannst diese nun auf deiner Karte oder im Lesezeichen-Manager anzeigen.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Lesezeichen erfolgreich geladen! Du kannst diese nun auf deiner Karte oder im Lesezeichen-Manager anzeigen.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Lesezeichen erfolgreich geladen! Wähle eine Liste aus, um sie auf der Karte anzuzeigen:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Die Dateien konnten nicht geladen werden. Sie könnten beschädigt oder fehlerhaft sein:";
 
 /* resource for context menu */
 "edit" = "Bearbeiten";

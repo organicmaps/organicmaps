@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "書籤載入成功！ 您可以在地圖或書籤管理畫面中找到它們。";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "書籤載入成功！ 您可以在地圖或書籤管理畫面中找到它們。";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "書籤載入失敗，檔案可能已損壞或不完整。";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "書籤載入成功！請選擇要在地圖上查看的列表：";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "無法載入這些檔案。它們可能已損壞或存在缺陷：";
 
 /* resource for context menu */
 "edit" = "編輯";
