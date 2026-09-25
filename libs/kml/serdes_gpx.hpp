@@ -68,6 +68,7 @@ private:
   };
 
   void ResetPoint();
+  void ResetCoordinates();
   bool MakeValid();
   void ParseColor(std::string_view colorStr);
   void ParseGarminColor(std::string const & value);

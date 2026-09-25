@@ -11,6 +11,8 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <limits>
+
 namespace kml
 {
 namespace gpx
@@ -60,18 +62,25 @@ void GpxParser::ResetPoint()
   m_color = kInvalidColor;
   m_geometry.Clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
-  m_lat = 0.;
-  m_lon = 0.;
+  ResetCoordinates();
   m_altitude = geometry::kInvalidAltitude;
   m_timestamp = base::INVALID_TIME_STAMP;
+}
+
+// A <wpt>/<trkpt>/<rtept> with a missing or unparseable lat/lon attribute must be skipped instead
+// of silently reusing the previous point's coordinates. AddAttr writes m_lat/m_lon only on a
+// successful parse, so this out-of-range sentinel survives and IsValidLatLon rejects the point.
+void GpxParser::ResetCoordinates()
+{
+  m_lat = std::numeric_limits<double>::max();
+  m_lon = std::numeric_limits<double>::max();
 }
 
 bool GpxParser::MakeValid()
 {
   if (GEOMETRY_TYPE_POINT == m_geometryType)
   {
-    m2::PointD const & pt = m_org.GetPoint();
-    if (mercator::ValidX(pt.x) && mercator::ValidY(pt.y))
+    if (IsValidLatLon(m_lat, m_lon))
     {
       // Set default name.
       if (m_name.empty())
@@ -91,9 +100,15 @@ bool GpxParser::MakeValid()
 bool GpxParser::Push(std::string tag)
 {
   if (tag == gpx::kWpt)
+  {
     m_geometryType = GEOMETRY_TYPE_POINT;
+    ResetCoordinates();
+  }
   else if (tag == gpx::kTrkPt || tag == gpx::kRtePt)
+  {
     m_geometryType = GEOMETRY_TYPE_LINE;
+    ResetCoordinates();
+  }
 
   m_tags.emplace_back(std::move(tag));
 
@@ -238,8 +253,10 @@ void GpxParser::Pop(std::string_view tag)
 
   if (tag == gpx::kTrkPt || tag == gpx::kRtePt)
   {
-    m2::PointD const p = mercator::FromLatLon(m_lat, m_lon);
-    if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
+    if (!IsValidLatLon(m_lat, m_lon))
+      LOG(LWARNING, ("Skipping gpx point with invalid coordinates:", m_lat, m_lon));
+    else if (m2::PointD const p = mercator::FromLatLon(m_lat, m_lon);
+             m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
     {
       m_line.emplace_back(p, m_altitude);
 
@@ -267,8 +284,13 @@ void GpxParser::Pop(std::string_view tag)
   }
   else if (tag == gpx::kWpt)
   {
-    m_org.SetPoint(mercator::FromLatLon(m_lat, m_lon));
-    m_org.SetAltitude(m_altitude);
+    if (IsValidLatLon(m_lat, m_lon))
+    {
+      m_org.SetPoint(mercator::FromLatLon(m_lat, m_lon));
+      m_org.SetAltitude(m_altitude);
+    }
+    else
+      LOG(LWARNING, ("Skipping gpx waypoint with invalid coordinates:", m_lat, m_lon));
     m_altitude = geometry::kInvalidAltitude;
   }
 
@@ -409,7 +431,7 @@ void GpxParser::ParseAltitude(std::string const & value)
 {
   double rawAltitude;
   if (strings::to_double(value, rawAltitude))
-    m_altitude = static_cast<geometry::Altitude>(std::round(rawAltitude));
+    m_altitude = ToAltitude(rawAltitude);
   else
     m_altitude = geometry::kInvalidAltitude;
 }
