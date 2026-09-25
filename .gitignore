@@ -5,11 +5,8 @@
 /screenlog.0
 compile_commands.json
 
-# Styles and colors edited by the built-in designer (see qt/build_style)
-data/symbols/*/design/
-data/drules_design.bin
-data/colors_design.txt
-data/patterns_design.txt
+# Build Style outputs of the built-in Designer (see qt/build_style)
+data/styles/*/*/out/
 # User data written by the app (local OSM edits, bookmarks)
 data/bookmarks
 data/edits.xml

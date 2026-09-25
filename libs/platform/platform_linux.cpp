@@ -149,6 +149,7 @@ Platform::Platform()
     std::string const dirsToScan[] = {
         "./data",                                                  // symlink in the current folder
         "../data",                                                 // 'build' folder inside the repo
+        JoinPath(*execDir, "data"),                                // portable folder, e.g. the Designer package
         JoinPath(*execDir, "..", "organicmaps", "data"),           // build-omim-{debug,release}
         JoinPath(*execDir, "..", "share"),                         // installed version with packages
         JoinPath(*execDir, "..", "OrganicMaps"),                   // installed version without packages

@@ -16,6 +16,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 #include "indexer/scales_patch.hpp"
@@ -92,6 +93,10 @@ template <class FnT>
 void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> scaleRange,
                       feature::TypesHolder const & types, FnT const & fn)
 {
+  // Drawable scale must be normalized to indexer scales. Patching is not idempotent in Designer
+  // mode, so it must happen once per call and not inside the loop over the feature's types.
+  scaleRange.second = scales::PatchMaxDrawableScale(scaleRange.second, GetStyleReader().IsDesignerMode());
+
   for (uint32_t t : types)
   {
     // Truncate |t| up to 2 levels and choose the best category match to find explicit category if
@@ -109,9 +114,6 @@ void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> s
     // Only categorized types will be added to index.
     if (!categories.IsTypeExist(t))
       continue;
-
-    // Drawable scale must be normalized to indexer scales.
-    scaleRange.second = scales::PatchMaxDrawableScale(scaleRange.second);
 
     // Index only those types that are visible.
     if (feature::IsVisibleInRange(t, scaleRange))

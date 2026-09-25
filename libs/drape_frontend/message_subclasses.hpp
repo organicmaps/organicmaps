@@ -770,7 +770,16 @@ private:
 class UpdateMapStyleMessage : public Message
 {
 public:
+  explicit UpdateMapStyleMessage(bool reloadFromDisk) : m_reloadFromDisk(reloadFromDisk) {}
+
   Type GetType() const override { return Type::UpdateMapStyle; }
+
+  // Designer only: the classificator, types and drawing rules have been overwritten on disk by
+  // Build Style and must be re-read; a plain style switch reuses the already loaded family.
+  bool NeedReloadFromDisk() const { return m_reloadFromDisk; }
+
+private:
+  bool m_reloadFromDisk;
 };
 
 class UpdateVisualScaleMessage : public Message
