@@ -34,10 +34,12 @@ UNIT_TEST(Stylist_IsAreaPattern)
   // exists - so an invalid path (e.g. the 3-level natural=beach=sand mistaken for 2-level) fails here.
   auto const & checker = df::IsAreaPatternChecker::Instance();
 
-  // Stipple: sandy / desert surfaces. natural=sand is a beach subtype, matched via the parent.
+  // Stipple: sandy / desert surfaces and intermittent water. natural=sand is a beach subtype, matched via the parent.
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "beach"})), dp::kStipplePattern, ());
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "beach", "sand"})), dp::kStipplePattern, ());
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "desert"})), dp::kStipplePattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "water", "intermittent"})), dp::kStipplePattern, ());
+  TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "basin", "intermittent"})), dp::kStipplePattern, ());
 
   // Speckle: rocky surfaces.
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"natural", "scree"})), dp::kSpecklePattern, ());
@@ -47,6 +49,7 @@ UNIT_TEST(Stylist_IsAreaPattern)
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "orchard"})), dp::kGridPattern, ());
   TEST_EQUAL(checker.GetPattern(cl.GetTypeByPath({"landuse", "vineyard"})), dp::kGridPattern, ());
 
-  // Unrelated area types get no pattern.
+  // Permanent water and unrelated area types get no pattern.
   TEST(checker.GetPattern(cl.GetTypeByPath({"natural", "water"})).empty(), ());
+  TEST(checker.GetPattern(cl.GetTypeByPath({"landuse", "basin"})).empty(), ());
 }
