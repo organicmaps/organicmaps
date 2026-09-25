@@ -451,13 +451,19 @@ public class Utils
   public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize,
                                                @DimenRes int textSize)
   {
-    long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
-    long hours = TimeUnit.SECONDS.toHours(seconds);
+    long totalMinutes = roundRoutingTimeToMinutes(seconds);
+    long minutes = totalMinutes % 60;
+    long hours = totalMinutes / 60;
     String min = context.getString(R.string.minute);
     String hour = context.getString(R.string.hour);
     SpannableStringBuilder displayedH = Utils.formatTime(context, textSize, unitsSize, String.valueOf(hours), hour);
     SpannableStringBuilder displayedM = Utils.formatTime(context, textSize, unitsSize, String.valueOf(minutes), min);
     return hours == 0 ? displayedM : TextUtils.concat(displayedH, "\u00A0", displayedM);
+  }
+
+  public static long roundRoutingTimeToMinutes(int seconds)
+  {
+    return TimeUnit.SECONDS.toMinutes(seconds + 30L);
   }
 
   @NonNull
