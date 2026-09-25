@@ -17,6 +17,7 @@ struct MapPoint
   std::string m_name;
   std::string m_id;
   std::string m_style;
+  bool m_matchFeature = true;
 };
 
 struct RoutePoint

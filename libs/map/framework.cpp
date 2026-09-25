@@ -872,10 +872,16 @@ std::optional<kml::TrackData> Framework::TryBuildRelationTrack(Track::TrackSelec
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
 {
-  GetSelectionProcessor().FillPointInfo(info, api.GetPivot());
-  std::string const & name = api.GetName();
-  if (!name.empty())
-    info.SetCustomName(name);
+  if (api.ShouldMatchFeature())
+  {
+    GetSelectionProcessor().FillPointInfo(info, api.GetPivot());
+    if (!api.GetName().empty())
+      info.SetCustomName(api.GetName());
+  }
+  else
+  {
+    GetSelectionProcessor().FillNotMatchedPlaceInfo(info, api.GetPivot(), api.GetName());
+  }
   info.SetApiId(api.GetApiID());
   info.SetApiUrl(GenerateApiBackUrl(api));
 }
