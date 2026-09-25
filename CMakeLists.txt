@@ -36,6 +36,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 include(OmimPlatform)
 include(OmimOptions)
+include(OmimWindowsDistribution)
 include(OmimConfig)
 include(OmimHelpers)
 include(OmimTesting)

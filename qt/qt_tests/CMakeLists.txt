@@ -13,3 +13,9 @@ target_link_libraries(update_dialog_tests
 
 set_target_properties(update_dialog_tests PROPERTIES AUTOMOC ON)
 set_tests_properties(update_dialog_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+
+omim_add_test(bookmark_export_tests NO_PLATFORM_INIT
+  bookmark_export_tests.cpp
+  ../bookmark_export.cpp
+)
+target_link_libraries(bookmark_export_tests PRIVATE Qt6::Core)
