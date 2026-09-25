@@ -65,8 +65,8 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (BOOL)areBookmarksLoaded;
 - (void)loadBookmarks;
-- (void)loadBookmarkFile:(NSURL *)url;
-- (void)reloadCategoryAtFilePath:(NSString *)filePath;
+- (void)loadBookmarkFiles:(NSArray<NSURL *> *)urls isTemporaryFile:(BOOL)isTemporaryFile;
+- (void)reloadCategoriesAtFilePaths:(NSArray<NSString *> *)filePaths;
 - (void)deleteCategoryAtFilePath:(NSString *)filePath;
 
 - (BOOL)areAllCategoriesEmpty;
@@ -106,7 +106,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)resetLastSortingType:(MWMMarkGroupID)groupId;
 
 - (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
-- (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
 - (void)deleteBookmark:(MWMMarkID)bookmarkId;
 - (void)deleteTrack:(MWMTrackID)trackId;
 - (void)deleteBookmarks:(MWMMarkIDCollection)bookmarkIds
@@ -124,8 +123,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)searchBookmarksGroup:(MWMMarkGroupID)groupId
                         text:(NSString *)text
                   completion:(SearchBookmarksCompletionBlock)completion;
-
-- (MWMTrackIDCollection)trackIdsForCategory:(MWMMarkGroupID)categoryId;
 
 /**
  Shares a specific category with the given group ID.

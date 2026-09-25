@@ -53,6 +53,13 @@ import UIKit
     state = .hidden(categoryId: categoryId)
   }
 
+  @objc(hideIfVisible:)
+  func hideIfVisible(categoryId: MWMMarkGroupID) -> Bool {
+    guard case .opened = state else { return false }
+    hide(categoryId: categoryId)
+    return true
+  }
+
   private func updateForState(newState _: BookmarksState) {
     guard let navigationController = navigationController else {
       fatalError()

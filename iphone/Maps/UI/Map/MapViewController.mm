@@ -989,6 +989,13 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   return _bookmarksCoordinator;
 }
 
+- (void)showImportedCategoryOnMap:(MWMMarkGroupID)categoryId
+{
+  [MWMFrameworkHelper showOnMap:categoryId];
+  if (![self.bookmarksCoordinator hideIfVisible:categoryId])
+    [[MapsAppDelegate theApp] showMap];
+}
+
 #pragma mark - CarPlay map append/remove
 
 - (void)disableCarPlayRepresentation
@@ -1019,14 +1026,19 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 #pragma mark - MWMBookmarksObserver
-- (void)onBookmarksFileLoadSuccess
+- (void)onBookmarksImportFinished:(MWMBookmarksImportResult *)result
 {
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_successful")];
-}
+  MWMGroupIDCollection const importedCategoryIds = result.groupIds;
+  if (importedCategoryIds.count > 0)
+  {
+    MWMMarkGroupID const categoryId = importedCategoryIds.firstObject.unsignedLongLongValue;
+    [self showImportedCategoryOnMap:categoryId];
+    [Toast showWithText:L(@"load_kmz_successful")];
+    return;
+  }
 
-- (void)onBookmarksFileLoadError
-{
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_failed")];
+  if (result.failedFileNames.count > 0)
+    [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_failed")];
 }
 
 - (BOOL)canBecomeFirstResponder

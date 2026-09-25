@@ -11,6 +11,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/Logger.h>
 #import <CoreApi/MWMBookmark.h>
 #import <CoreApi/MWMBookmarkGroup.h>
+#import <CoreApi/MWMBookmarksImportResult.h>
 #import <CoreApi/MWMBookmarksManager.h>
 #import <CoreApi/MWMBookmarksObserver.h>
 #import <CoreApi/MWMBookmarksSection.h>

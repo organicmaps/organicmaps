@@ -74,8 +74,29 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&BookmarkDialog::OnAsyncLoadingStarted, this);
   callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
-  callbacks.m_onFileSuccess = std::bind(&BookmarkDialog::OnAsyncLoadingFileSuccess, this, _1, _2);
-  callbacks.m_onFileError = std::bind(&BookmarkDialog::OnAsyncLoadingFileError, this, _1, _2);
+  callbacks.m_onImportFinished = [this](BookmarkManager::BookmarkImportResult const & result)
+  {
+    auto firstCategoryId = kml::kInvalidMarkGroupId;
+    bool hasFailures = false;
+    for (auto const & sourceResult : result.m_sourceResults)
+    {
+      LOG(sourceResult.m_failedFileNames.empty() ? LINFO : LERROR,
+          ("Bookmarks import:", sourceResult.m_context.m_filePath, "imported:", sourceResult.m_groupIds.size(),
+           "failed:", sourceResult.m_failedFileNames));
+      if (firstCategoryId == kml::kInvalidMarkGroupId && !sourceResult.m_groupIds.empty())
+        firstCategoryId = sourceResult.m_groupIds.front();
+      hasFailures |= !sourceResult.m_failedFileNames.empty();
+    }
+
+    if (firstCategoryId != kml::kInvalidMarkGroupId)
+    {
+      done(0);
+      m_framework.ShowBookmarkCategory(firstCategoryId);
+      QMessageBox::information(parentWidget(), tr("Bookmarks and tracks"), tr("Bookmarks loaded successfully."));
+    }
+    else if (hasFailures)
+      QMessageBox::warning(this, tr("Bookmarks and tracks"), tr("Could not load bookmarks."));
+  };
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 }
 
@@ -87,16 +108,6 @@ void BookmarkDialog::OnAsyncLoadingStarted()
 void BookmarkDialog::OnAsyncLoadingFinished()
 {
   FillTree();
-}
-
-void BookmarkDialog::OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LINFO, ("OnAsyncLoadingFileSuccess", fileName, isTemporaryFile));
-}
-
-void BookmarkDialog::OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LERROR, ("OnAsyncLoadingFileError", fileName, isTemporaryFile));
 }
 
 void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
@@ -140,14 +151,11 @@ void BookmarkDialog::OnImportClick()
       this /* parent */, tr("Open KML, KMZ, GPX, JSON, GeoJSON..."), QString() /* dir */,
       "KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)");
 
+  std::vector<BookmarkManager::BookmarkFileLoadingContext> contexts;
+  contexts.reserve(files.size());
   for (auto const & name : files)
-  {
-    auto const file = name.toStdString();
-    if (file.empty())
-      continue;
-
-    m_framework.GetBookmarkManager().LoadBookmark(file, false /* isTemporaryFile */);
-  }
+    contexts.push_back({name.toStdString(), false /* isTemporaryFile */});
+  m_framework.GetBookmarkManager().ImportBookmarks(std::move(contexts));
 }
 
 void BookmarkDialog::OnExportClick(FileType exportedFileType)

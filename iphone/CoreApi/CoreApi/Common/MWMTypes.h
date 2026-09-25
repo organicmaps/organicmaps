@@ -46,6 +46,7 @@ typedef uint64_t MWMTrackID;
 typedef uint64_t MWMMarkGroupID;
 typedef NSArray<NSNumber *> * MWMMarkIDCollection;
 typedef NSArray<NSNumber *> * MWMTrackIDCollection;
+typedef NSArray<NSNumber *> * MWMGroupIDCollection;
 
 typedef NS_CLOSED_ENUM(NSUInteger, MWMBookmarksShareStatus) {
   MWMBookmarksShareStatusSuccess,
