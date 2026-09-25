@@ -27,7 +27,6 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +76,6 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.utils.Graphics;
 import app.organicmaps.widget.ArrowPopup;
 import app.organicmaps.widget.ArrowView;
-import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageNotesFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
@@ -93,9 +91,7 @@ import java.util.List;
 
 public class PlacePageView extends Fragment
     implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
-               ChooseBookmarkCategoryFragment.Listener, MenuBottomSheetFragment.MenuBottomSheetInterface,
-               ColorPickerFragment.OnColorChangeListener
-
+               ChooseBookmarkCategoryFragment.Listener, MenuBottomSheetFragment.MenuBottomSheetInterface
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String PREF_DID_SHOW_TRACK_CANDIDATES_EDU = "tip_track_selector_popup";
@@ -603,43 +599,16 @@ public class PlacePageView extends Fragment
 
   void showColorDialog()
   {
+    final FragmentManager fm = requireActivity().getSupportFragmentManager();
     if (mMapObject.isTrack())
     {
       final Track track = (Track) mMapObject;
-      ColorPickerFragment.show(getChildFragmentManager(), track.getColor());
+      PlacePageController.showColorPicker(fm, track.getTrackId(), true, track.getColor());
     }
     else if (mMapObject.isBookmark())
     {
       final Bookmark bookmark = (Bookmark) mMapObject;
-      ColorPickerFragment.show(getChildFragmentManager(), bookmark.getIcon().argb());
-    }
-  }
-
-  @Override
-  public void onColorSet(@ColorInt int color)
-  {
-    if (mMapObject == null)
-      return;
-    if (mMapObject.isTrack())
-    {
-      final Track track = (Track) mMapObject;
-      if (track.getColor() == color)
-        return;
-      track.setColor(color);
-      Drawable circle =
-          Graphics.drawCircle(color, R.dimen.place_page_icon_background_size, requireContext().getResources());
-      mColorIcon.setImageDrawable(circle);
-    }
-    else if (mMapObject.isBookmark())
-    {
-      final Bookmark bookmark = (Bookmark) mMapObject;
-      if (bookmark.getIcon().argb() == color)
-        return;
-      bookmark.setIconColor(color);
-      Drawable circle =
-          Graphics.drawCircleAndImage(color, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
-                                      R.dimen.place_page_icon_size, requireContext());
-      mColorIcon.setImageDrawable(circle);
+      PlacePageController.showColorPicker(fm, bookmark.getBookmarkId(), false, bookmark.getIcon().argb());
     }
   }
 
