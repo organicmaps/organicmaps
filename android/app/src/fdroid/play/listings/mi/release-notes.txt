@@ -1,7 +1,10 @@
-• Ngā raraunga OSM i te 14 o Hūrae
-• He āhua pae mā ngā ingoa o ngā tūnga waka tūmatanui, whakawhiti me ngā teihana ināianei
-• Kua whakapaingia te whakaaturanga o ngā haora whakatuwhera
-• Kua whakatikahia ngā huarahi hē, ngaro rānei
-• Ka penapenahia aunoa ināianei ngā tohu me ngā ara kua whakatikahia
-• Ka whakaatuhia ināianei ngā whakatūpato huarahi (utu huarahi, pahi wai, huarahi kāore i whakapaia, arawhata, me ērā atu) mō ngā huarahi katoa kē.
+• Ngā raraunga OSM i te 26 o Akuhata
+• HOU: te kōwhiri maha i ngā tohuwāhi me ngā ara
+• HOU: huna ngā ara takitahi mā te tohu karu
+• HOU: ngā tuhinga Wikipedia i te reo Pengāri, Hini, Marathi, Pōrana, Tamil, Telugu, Urdu
+• Kua tāpirihia ki te mapi ngā whare mātakitaki manu, ngā atamira, ngā puke, me ngā pewa toka
+• He pai ake te tiritiri wāhi
+• Ngā whakatika Android Auto
+• Kua whakatikaia te kōwhiri i ngā tūnga o te huarahi
+• Kua whakatikaia ngā hāora whakatuwhera
 …he nui ake kei omaps.org/news
