@@ -1,0 +1,20 @@
+
+
+/********** Other translations **********/
+
+"placepage_distance" = "Pellter";
+
+
+/********** Uncategorized **********/
+
+"you" = "Chi";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Mewngofnodi gyda chyfrinair";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Mewngofnodi gan ddefnyddio Porwr";
