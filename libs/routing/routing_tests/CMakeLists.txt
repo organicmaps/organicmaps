@@ -10,6 +10,7 @@ set(SRC
   async_router_test.cpp
   bfs_tests.cpp
   checkpoint_predictor_test.cpp
+  checkpoint_pass_tests.cpp
   coding_test.cpp
   cross_border_graph_tests.cpp
   cross_mwm_connector_test.cpp
