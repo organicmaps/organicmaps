@@ -40,9 +40,9 @@ private:
   uint32_t m_2levelDash;  // dash hatch
 };
 
-// Maps natural-surface area types to a solid-fill pattern key (analytic, single pass). Unlike hatching,
-// these modulate the surface colour in place (e.g. a darker speckle over sand) rather than overlaying a
-// transparent mask.
+// Maps surface and landuse area types to a solid-fill pattern key (analytic, single pass). Unlike hatching,
+// these modulate the fill colour in place (e.g. dots over sand) rather than overlaying a transparent mask.
+// Keep the markers of these types in the styles' Basemap.mapcss files in sync.
 class IsAreaPatternChecker
 {
   IsAreaPatternChecker() = default;
@@ -57,15 +57,15 @@ private:
   struct Stipple : ftypes::BaseCheckerEx
   {
     Stipple();
-  } m_stipple;  // beach (incl. sand subtype) / desert
+  } m_stipple;
   struct Speckle : ftypes::BaseCheckerEx
   {
     Speckle();
-  } m_speckle;  // scree / bare_rock
+  } m_speckle;
   struct Grid : ftypes::BaseCheckerEx
   {
     Grid();
-  } m_grid;  // orchard / vineyard
+  } m_grid;
 };
 
 struct CaptionDescription
