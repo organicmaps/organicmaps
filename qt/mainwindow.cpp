@@ -780,7 +780,7 @@ void MainWindow::OnBuildPhonePackage()
     if (!QDir().mkpath(phoneStylesDir))
       throw std::runtime_error("Cannot create " + phoneStylesDir.toStdString());
 
-    if (!CopyFile(drulesSrc, JoinPathQt({phoneStylesDir, drulesName})))
+    if (!CopyQtFile(drulesSrc, JoinPathQt({phoneStylesDir, drulesName})))
       throw std::runtime_error("Cannot copy " + drulesName.toStdString());
 
     for (auto const & dpi : build_style::kSkinDpis)
@@ -793,7 +793,7 @@ void MainWindow::OnBuildPhonePackage()
         throw std::runtime_error("Cannot create " + symDstDir.toStdString());
       // BuildSkinImpl produces both files; if either is missing the package is incomplete.
       for (auto const * leaf : {"symbols.png", "symbols.xml"})
-        if (!CopyFile(JoinPathQt({symSrcDir, leaf}), JoinPathQt({symDstDir, leaf})))
+        if (!CopyQtFile(JoinPathQt({symSrcDir, leaf}), JoinPathQt({symDstDir, leaf})))
           throw std::runtime_error(std::string("Cannot copy ") + leaf + " for " + dpi.m_name);
     }
 

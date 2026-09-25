@@ -181,7 +181,7 @@ void RunRecalculationGeometryScript(QString const & mapcssFile, StyleInfo const 
   if (QDir(resourceDir).canonicalPath() != QDir(writableDir).canonicalPath())
   {
     for (char const * name : {"drules_merged.bin", "classificator.txt", "types.txt"})
-      if (!CopyFile(JoinPathQt({writableDir, name}), JoinPathQt({resourceDir, name})))
+      if (!CopyQtFile(JoinPathQt({writableDir, name}), JoinPathQt({resourceDir, name})))
         throw std::runtime_error(std::string("Cannot copy ") + name + " to " + resourceDir.toStdString());
   }
 

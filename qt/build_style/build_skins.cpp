@@ -51,8 +51,8 @@ void ApplySkins(QString const & outputDir, QString const & theme)
     if (!QFileInfo::exists(writableSkinDir) && !QDir().mkpath(writableSkinDir))
       throw std::runtime_error("Cannot create skin directory: " + writableSkinDir.toStdString());
 
-    if (!CopyFile(JoinPathQt({outputSkinDir, "symbols.png"}), JoinPathQt({writableSkinDir, "symbols.png"})) ||
-        !CopyFile(JoinPathQt({outputSkinDir, "symbols.xml"}), JoinPathQt({writableSkinDir, "symbols.xml"})))
+    if (!CopyQtFile(JoinPathQt({outputSkinDir, "symbols.png"}), JoinPathQt({writableSkinDir, "symbols.png"})) ||
+        !CopyQtFile(JoinPathQt({outputSkinDir, "symbols.xml"}), JoinPathQt({writableSkinDir, "symbols.xml"})))
     {
       throw std::runtime_error("Cannot copy skins files");
     }

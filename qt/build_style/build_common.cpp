@@ -51,7 +51,7 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
   return output;
 }
 
-bool CopyFile(QString const & oldFile, QString const & newFile)
+bool CopyQtFile(QString const & oldFile, QString const & newFile)
 {
   if (oldFile == newFile)
     return true;
@@ -67,14 +67,14 @@ void CopyFromDataDir(QString const & name, QString const & destDir)
   // The file may live in the writable dir (a dev checkout's data/) or in the
   // app resources; ReadPathForFile throws with a clear message when missing.
   QString const src = GetPlatform().ReadPathForFile(name.toStdString(), "wr").c_str();
-  if (!CopyFile(src, JoinPathQt({destDir, name})))
+  if (!CopyQtFile(src, JoinPathQt({destDir, name})))
     throw std::runtime_error(std::string("Cannot copy file ") + name.toStdString() + " to " + destDir.toStdString());
 }
 
 void CopyToWritableDir(QString const & name, QString const & srcDir)
 {
   QString const writableDir = GetPlatform().WritableDir().c_str();
-  if (!CopyFile(JoinPathQt({srcDir, name}), JoinPathQt({writableDir, name})))
+  if (!CopyQtFile(JoinPathQt({srcDir, name}), JoinPathQt({writableDir, name})))
     throw std::runtime_error(std::string("Cannot copy file ") + name.toStdString() + " from " + srcDir.toStdString());
 }
 

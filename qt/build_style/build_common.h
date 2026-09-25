@@ -14,7 +14,7 @@ class QProcessEnvironment;
 QString ExecProcess(QString const & program, std::initializer_list<QString> args,
                     QProcessEnvironment const * env = nullptr);
 
-bool CopyFile(QString const & oldFile, QString const & newFile);
+bool CopyQtFile(QString const & oldFile, QString const & newFile);
 
 // Copies a data file (resolved via the writable dir first, then app resources) into destDir.
 void CopyFromDataDir(QString const & name, QString const & destDir);
