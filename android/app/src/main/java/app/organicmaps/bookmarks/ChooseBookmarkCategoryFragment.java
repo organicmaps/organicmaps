@@ -19,6 +19,21 @@ import java.util.List;
 public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
 {
   public static final String CATEGORY_ID = "ExtraCategoryId";
+  public static final String RESULT_CATEGORY_ID = "CategoryId";
+  private static final String REQUEST_KEY = "RequestKey";
+  private static final String RESULT_TARGET = "ResultTarget";
+
+  public static void showForResult(@NonNull FragmentManager manager, long categoryId, @NonNull String requestKey,
+                                   @NonNull Bundle target)
+  {
+    final Bundle args = new Bundle();
+    args.putLong(CATEGORY_ID, categoryId);
+    args.putString(REQUEST_KEY, requestKey);
+    args.putBundle(RESULT_TARGET, target);
+    final ChooseBookmarkCategoryFragment fragment = new ChooseBookmarkCategoryFragment();
+    fragment.setArguments(args);
+    fragment.show(manager, null);
+  }
 
   public interface Listener
   {
@@ -90,9 +105,22 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
 
   private void onCategorySet(@NonNull BookmarkCategory category)
   {
-    final Listener listener = getListener();
-    if (listener != null)
-      listener.onCategoryChanged(category);
+    final String requestKey = requireArguments().getString(REQUEST_KEY);
+    if (requestKey != null)
+    {
+      final Bundle target = requireArguments().getBundle(RESULT_TARGET);
+      if (target == null)
+        throw new IllegalStateException("Category result target is missing");
+      final Bundle result = new Bundle(target);
+      result.putLong(RESULT_CATEGORY_ID, category.getId());
+      getParentFragmentManager().setFragmentResult(requestKey, result);
+    }
+    else
+    {
+      final Listener listener = getListener();
+      if (listener != null)
+        listener.onCategoryChanged(category);
+    }
     dismiss();
   }
 
