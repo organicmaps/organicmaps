@@ -115,7 +115,7 @@ addr:interpolation|odd;41;
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
 addr:interpolation|even;43;
 highway|motorway_link;44;
-waterway|stream|intermittent;[waterway=stream][intermittent=yes][!tunnel];;name;int_name;45;
+waterway|stream|intermittent;[waterway=stream][intermittent=yes][!tunnel],[waterway=stream][seasonal?][!tunnel];;name;int_name;45;
 deprecated:highway|track|grade4:04.2024;[highway=track][tracktype=grade4];x;name;int_name;46;highway|track
 natural|water|pond;[natural=water][water=pond][!tunnel];;name;int_name;47;
 landuse|farmland;48;
@@ -206,8 +206,7 @@ moved:railway|station:05.2024;112;railway|station
 deprecated:highway|path|hiking:04.2024;[highway=path][route=hiking],[highway=path][sac_scale=hiking];x;name;int_name;113;highway|path
 # ~200k usages.
 amenity|hospital;114;
-# TODO: merge with "intermittent".
-waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral][!tunnel];;name;int_name;115;
+deprecated:waterway|stream|ephemeral:09.2026;[waterway=stream][intermittent=ephemeral][!tunnel];x;name;int_name;115;waterway|stream|intermittent
 highway|trunk|bridge;[highway=trunk][bridge?];;name;int_name;116;
 # ~200k usages.
 amenity|post_office;117;
@@ -247,7 +246,7 @@ highway|motorway_link|bridge;[highway=motorway_link][bridge?];;name;int_name;143
 # but seems like its being used standalone still in which case usefull for e.g. hiking.
 railway|abandoned;144;
 amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
-deprecated:boundary|administrative|7:04.2024;[boundary=administrative][admin_level=7];x;name;int_name;146;
+waterway|ditch|intermittent;[waterway=ditch][intermittent=yes][!tunnel],[waterway=ditch][seasonal?][!tunnel];;name;int_name;146;
 tourism|attraction;147;
 natural|water|reservoir;[natural=water][water=reservoir][!tunnel];;name;int_name;148;
 # ~430k usages.
@@ -291,7 +290,7 @@ natural|beach;182;
 highway|footway|tunnel;[highway=footway][tunnel?],[highway=footway][location=underground];;name;int_name;183;
 shop|hairdresser;184;
 amenity|hunting_stand;185;
-deprecated:boundary|administrative|9:04.2024;[boundary=administrative][admin_level=9];x;name;int_name;186;
+waterway|river|intermittent;[waterway=river][intermittent=yes][!tunnel],[waterway=river][seasonal?][!tunnel];;name;int_name;186;
 amenity|fountain;187;
 natural|beach|sand;[natural=beach][surface=sand];;name;int_name;188;
 amenity|bar;189;
@@ -341,7 +340,7 @@ waterway|drain|tunnel;[waterway=drain][tunnel?];;name;int_name;230;
 landuse|cemetery|christian;[landuse=cemetery][religion=christian];;name;int_name;231;
 highway|cycleway|tunnel;[highway=cycleway][tunnel?];;name;int_name;232;
 amenity|parking|permissive;[amenity=parking][access=permissive];;name;int_name;233;
-deprecated:boundary|administrative|5:04.2024;[boundary=administrative][admin_level=5];x;name;int_name;234;
+waterway|drain|intermittent;[waterway=drain][intermittent=yes][!tunnel],[waterway=drain][seasonal?][!tunnel];;name;int_name;234;
 highway|unclassified|tunnel;[highway=unclassified][tunnel?];;name;int_name;235;
 amenity|recycling|centre;[amenity=recycling][recycling_type=centre];;name;int_name;236;
 amenity|recycling;237;
@@ -387,7 +386,7 @@ tourism|alpine_hut;275;
 highway|footway|area;[highway=footway][area?];;name;int_name;276;
 tourism|hostel;277;
 waterway|river|tunnel;[waterway=river][tunnel?];;name;int_name;278;
-deprecated:boundary|administrative|county:04.2024;[boundary=administrative][border_type=county];x;name;int_name;279;
+waterway|canal|intermittent;[waterway=canal][intermittent=yes][!tunnel],[waterway=canal][seasonal?][!tunnel];;name;int_name;279;
 highway|road|bridge;[highway=road][bridge?];;name;int_name;280;
 boundary|administrative|3;[boundary=administrative][admin_level=3];;name;int_name;281;
 power|generator|solar;[power=generator][generator:source=solar];;name;int_name;282;
@@ -403,7 +402,7 @@ power|generator|hydro;[power=generator][generator:source=hydro];;name;int_name;2
 railway|subway|tunnel;[railway=subway][tunnel?];;name;int_name;292;
 barrier|city_wall;293;
 place|farm;294;
-deprecated:boundary|administrative|11:04.2024;[boundary=administrative][admin_level=11];x;name;int_name;295;
+waterway|fish_pass|intermittent;[waterway=fish_pass][intermittent=yes][!tunnel],[waterway=fish_pass][seasonal?][!tunnel];;name;int_name;295;
 waterway|weir;296;
 highway|secondary|tunnel;[highway=secondary][tunnel?];;name;int_name;297;
 railway|disused|bridge;[railway=disused][bridge?],[railway=abandoned][bridge?];;name;int_name;298;

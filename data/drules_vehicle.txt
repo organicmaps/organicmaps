@@ -14605,6 +14605,39 @@ type waterway-river
   z20
     line width=2.2 color=c185 join=round cap=round priority=-990
     path_text primary[height=11 color=c160] priority=1550
+type waterway-river-intermittent
+  z10
+    line width=1 color=c185 join=bevel cap=butt dash=[3,3] priority=-990
+  z11
+    line width=1.2 color=c185 join=bevel cap=butt dash=[3.6,3.6] priority=-990
+    path_text primary[height=9 color=c160] priority=1550
+  z12
+    line width=1.2 color=c185 join=bevel cap=butt dash=[3.6,3.6] priority=-990
+    path_text primary[height=9 color=c160] priority=1550
+  z13
+    line width=1.6 color=c185 join=round cap=butt dash=[4.8,4.8] priority=-990
+    path_text primary[height=9 color=c160] priority=1550
+  z14
+    line width=1.8 color=c185 join=round cap=butt dash=[5.4,5.4] priority=-990
+    path_text primary[height=9 color=c160] priority=1550
+  z15
+    line width=2.2 color=c185 join=round cap=butt dash=[6.6,6.6] priority=-990
+    path_text primary[height=11 color=c160] priority=1550
+  z16
+    line width=2.2 color=c185 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=11 color=c160] priority=1550
+  z17
+    line width=2.2 color=c185 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=11 color=c160] priority=1550
+  z18
+    line width=2.2 color=c185 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=11 color=c160] priority=1550
+  z19
+    line width=2.2 color=c185 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=11 color=c160] priority=1550
+  z20
+    line width=2.2 color=c185 join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=11 color=c160] priority=1550
 type waterway-weir
   z15
     line width=2 color=c184 join=round cap=butt priority=270

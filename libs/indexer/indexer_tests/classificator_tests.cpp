@@ -107,8 +107,8 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_StableIndex)
 
 UNIT_CLASS_TEST(TestWithClassificator, Classificator_LegacyWaterTypes)
 {
-  // waterway=riverbank and landuse=reservoir are deprecated in mapcss-mapping.csv with a replacement,
-  // so their indices in old maps must resolve to the canonical natural=water subtypes.
+  // waterway=riverbank, landuse=reservoir and waterway-stream-ephemeral are deprecated in mapcss-mapping.csv with a
+  // replacement, so their indices in old maps must resolve to the canonical types.
   Classificator const & c = classif();
 
   uint32_t const river = c.GetTypeByPath({"natural", "water", "river"});
@@ -118,5 +118,9 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_LegacyWaterTypes)
   uint32_t const reservoir = c.GetTypeByPath({"natural", "water", "reservoir"});
   TEST_EQUAL(reservoir, c.GetTypeForIndex(62 - 1), ());
   TEST_EQUAL(c.GetIndexForType(reservoir), 148 - 1, ());
+
+  uint32_t const stream = c.GetTypeByPath({"waterway", "stream", "intermittent"});
+  TEST_EQUAL(stream, c.GetTypeForIndex(115 - 1), ());
+  TEST_EQUAL(c.GetIndexForType(stream), 45 - 1, ());
 }
 }  // namespace classificator_tests
