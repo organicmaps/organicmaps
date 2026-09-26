@@ -49,6 +49,19 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
     m_messages.emplace(iter, std::move(message), priority);
     break;
   }
+  case MessagePriority::HighLatest:
+  {
+    auto iter = m_messages.begin();
+    for (; iter != m_messages.end() && iter->second >= priority; ++iter)
+      if (iter->second == priority && iter->first->GetType() == message->GetType())
+      {
+        iter->first = std::move(message);
+        m_condition.notify_one();
+        return;
+      }
+    m_messages.emplace(iter, std::move(message), priority);
+    break;
+  }
   case MessagePriority::UberHighSingleton:
   {
     bool found = false;

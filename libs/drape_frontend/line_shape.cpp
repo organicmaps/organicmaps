@@ -157,16 +157,17 @@ public:
   {
     ASSERT(!m_capGeometry.empty(), ());
 
-    static std::unique_ptr<dp::BindingInfo> s_capInfo;
-    if (s_capInfo == nullptr)
+    static auto const s_capInfo = []
     {
+      std::unique_ptr<dp::BindingInfo> s_capInfo;
       dp::BindingFiller<CapVertex> filler(3);
       filler.FillDecl<CapVertex::TPosition>("a_position");
       filler.FillDecl<CapVertex::TNormal>("a_normal");
       filler.FillDecl<CapVertex::TTexCoord>("a_colorTexCoords");
 
       s_capInfo.reset(new dp::BindingInfo(filler.m_info));
-    }
+      return s_capInfo;
+    }();
 
     return *s_capInfo;
   }

@@ -779,7 +779,7 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     params.m_depth = depth;
     params.m_rank = m_f.GetRank();
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
-    params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
+    params.m_zoomLevel = m_params.m_tileKey.GetRenderZoom();
 
     for (auto const & spline : m_clippedSplines)
       m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
@@ -803,7 +803,7 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       rParams.m_minVisibleScale = params.m_minVisibleScale;
       rParams.m_rank = params.m_rank;
       rParams.m_baseGtoPScale = m_params.m_currentScaleGtoP;
-      rParams.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
+      rParams.m_zoomLevel = m_params.m_tileKey.GetRenderZoom();
       rParams.m_rainbowColors = colors;
 
       for (auto const & spline : m_clippedSplines)

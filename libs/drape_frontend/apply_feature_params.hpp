@@ -32,7 +32,7 @@ struct ApplyFeatureParams
   ApplyFeatureParams();
   void Init(TileKey const & tileKey);
 
-  bool IsSimplifyLines() const { return (m_tileKey.m_zoomLevel >= 10 && m_tileKey.m_zoomLevel <= 12); }
+  bool IsSimplifyLines() const { return (m_tileKey.GetRenderZoom() >= 10 && m_tileKey.GetRenderZoom() <= 12); }
   bool IsRelationRoutes() const { return m_tileKey.m_zoomLevel >= 12; }
 
   /// @return (created, obsolete)

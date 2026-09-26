@@ -125,6 +125,8 @@ set(SRC
   road_access_serialization.hpp
   road_graph.cpp
   road_graph.hpp
+  road_info.cpp
+  road_info.hpp
   road_index.cpp
   road_index.hpp
   road_point.hpp

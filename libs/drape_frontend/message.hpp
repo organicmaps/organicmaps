@@ -42,6 +42,7 @@ public:
     SetSelectionLines,
     BuildSelectionLines,
     AddSubroute,
+    RecacheSubroutes,
     RemoveSubroute,
     RemoveAlternativeSubroutes,
     PrepareSubrouteArrows,
@@ -60,6 +61,8 @@ public:
     Allow3dMode,
     Allow3dBuildings,
     SetMapLangIndex,
+    SetPoiVisibility,
+    SetClusterCamera,
     EnablePerspective,
     FlushCirclesPack,
     CacheCirclesPack,
@@ -128,6 +131,8 @@ enum class MessagePriority
   // This is standard priority. It must be used for majority of messages.
   // This priority guarantees order of messages processing.
   Normal,
+  // Latest desired state of a type wins, ahead of geometry but behind system messages.
+  HighLatest,
   // This priority is used for system messages where order of processing
   // could be neglected, so it does not guarantee order of messages processing.
   // Also it must be used for messages which stop threads.

@@ -24,7 +24,7 @@ struct TileKey
 
   // Operators < and == do not consider parameter m_generation.
   // m_generation is used to determine a generation of geometry for this tile key.
-  // Geometry with different generations must be able to group by (x, y, zoomlevel).
+  // Geometry with different generations groups by cell coordinates, detail zoom and camera zoom.
   bool operator<(TileKey const & other) const;
   bool operator==(TileKey const & other) const;
 
@@ -58,6 +58,10 @@ struct TileKey
   int m_x;
   int m_y;
   uint8_t m_zoomLevel;
+  // A coarse perspective tile belongs to the same camera zoom as the detailed tiles near the car.
+  // Zero keeps the ordinary single-zoom tile behavior.
+  uint8_t m_renderZoom = 0;
+  uint8_t GetRenderZoom() const { return m_renderZoom == 0 ? m_zoomLevel : m_renderZoom; }
 
   uint64_t m_generation;
   uint64_t m_userMarksGeneration;

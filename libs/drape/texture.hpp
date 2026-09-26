@@ -72,6 +72,8 @@ public:
                   uint32_t layer, ref_ptr<void> data);
 
   ref_ptr<HWTexture> GetHardwareTexture() const;
+  // Dynamic textures can be referenced after the frame's regular upload pass.
+  ref_ptr<HWTexture> PrepareForRendering(ref_ptr<dp::GraphicsContext> context);
 
   static bool IsPowerOfTwo(uint32_t width, uint32_t height);
 

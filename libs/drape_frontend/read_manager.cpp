@@ -40,13 +40,15 @@ bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l
 
 ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings,
                          bool trafficEnabled, bool isolinesEnabled, dp::BackgroundMode backgroundMode,
-                         float areaOpacity)
+                         float areaOpacity, bool poiVisible, bool trackTileHistory)
   : m_commutator(commutator)
   , m_model(model)
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_trafficEnabled(trafficEnabled)
   , m_isolinesEnabled(isolinesEnabled)
+  , m_poiVisible(poiVisible)
+  , m_trackTileHistory(trackTileHistory)
   , m_modeChanged(false)
   , m_mapLangIndex(StringUtf8Multilang::kDefaultCode)
   , m_backgroundMode(backgroundMode)
@@ -131,9 +133,20 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings
   m_modeChanged |= (m_have3dBuildings != have3dBuildings);
   m_have3dBuildings = have3dBuildings;
 
+  if (m_trackTileHistory)
+  {
+    size_t constexpr kMaxTileHistory = 512;
+    forceUpdate |= m_seenTiles.size() > kMaxTileHistory;
+    // Reusing a retired cell needs a new generation: late buffers from its cancelled read
+    // must not merge with a new read of the same cell after an LOD/frustum transition.
+    for (auto const & key : tiles)
+      if (m_seenTiles.contains(key) && !CheckTileKey(key))
+        forceUpdate = true;
+  }
   if (m_modeChanged || forceUpdate || MustDropAllTiles(screen))
   {
     m_modeChanged = false;
+    m_seenTiles.clear();
 
     for (auto const & info : m_tileInfos)
       CancelTileInfo(info);
@@ -176,6 +189,8 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings
       PushTaskBackForTileKey(tileKey, texMng, metalineMng);
   }
 
+  if (m_trackTileHistory)
+    m_seenTiles.insert(tiles.begin(), tiles.end());
   m_currentViewport = screen;
 }
 
@@ -221,10 +236,10 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::Te
                                          ref_ptr<MetalineManager> metalineMng)
 {
   ASSERT(m_pool != nullptr, ());
-  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter),
-                                               m_commutator, texMng, metalineMng, m_customFeaturesContext,
-                                               m_have3dBuildings && m_allow3dBuildings, m_trafficEnabled,
-                                               m_isolinesEnabled, m_mapLangIndex, m_backgroundMode, m_areaOpacity);
+  auto context = make_unique_dp<EngineContext>(
+      TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter), m_commutator, texMng, metalineMng,
+      m_customFeaturesContext, m_have3dBuildings && m_allow3dBuildings, m_trafficEnabled, m_isolinesEnabled,
+      m_mapLangIndex, m_backgroundMode, m_areaOpacity, m_poiVisible);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
 
@@ -307,6 +322,15 @@ void ReadManager::Allow3dBuildings(bool allow3dBuildings)
     m_modeChanged = true;
     m_allow3dBuildings = allow3dBuildings;
   }
+}
+
+bool ReadManager::SetPoiVisible(bool visible)
+{
+  if (m_poiVisible == visible)
+    return false;
+  m_poiVisible = visible;
+  m_modeChanged = true;
+  return true;
 }
 
 void ReadManager::SetMapLangIndex(int8_t mapLangIndex)

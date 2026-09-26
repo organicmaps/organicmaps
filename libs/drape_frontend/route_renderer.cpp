@@ -812,6 +812,10 @@ void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
 void RouteRenderer::SetFollowingEnabled(bool enabled)
 {
   m_followingEnabled = enabled;
+  // A pending FollowRoute can be resumed by the first arriving alternative, after the earlier
+  // RemoveAlternativeSubroutes message. Remove that geometry as we enter follow mode as well.
+  if (enabled)
+    RemoveAlternativeSubroutes();
 }
 
 void RouteRenderer::AddPreviewSegment(dp::DrapeID id, PreviewInfo && info)

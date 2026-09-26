@@ -66,6 +66,7 @@ public:
 
   void SetPosition(m2::PointD const & position);
   void SetAzimuth(double azimuth);
+  void SetScreenAligned(bool aligned) { m_screenAligned = aligned; }
   void SetPositionObsolete(bool obsolete);
 
   // Leyout is axes (in the plane of map): x - right, y - up,
@@ -99,6 +100,7 @@ private:
 
   m2::PointD m_position;
   double m_azimuth = 0.0;
+  bool m_screenAligned = false;
   bool m_obsoletePosition = false;
 
   dp::RenderState m_state;

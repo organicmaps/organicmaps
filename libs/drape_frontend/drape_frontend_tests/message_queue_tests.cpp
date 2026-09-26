@@ -125,6 +125,23 @@ UNIT_TEST(MessageQueue_PriorityOrder)
   TEST(queue.PopMessage(false) == nullptr, ());
 }
 
+UNIT_TEST(MessageQueue_LatestCameraStateOvertakesGeometry)
+{
+  using Type = df::Message::Type;
+  df::MessageQueue queue;
+  queue.PushMessage(make_unique_dp<TestMessage>(1, Type::FlushTile), df::MessagePriority::Normal);
+  for (int i = 0; i < 1000; ++i)
+    queue.PushMessage(make_unique_dp<TestMessage>(i, Type::SetClusterCamera), df::MessagePriority::HighLatest);
+  queue.PushMessage(make_unique_dp<TestMessage>(2, Type::Invalidate), df::MessagePriority::High);
+  queue.PushMessage(make_unique_dp<TestMessage>(3, Type::UpdateReadManager), df::MessagePriority::UberHighSingleton);
+
+  TEST_EQUAL(PopId(queue), 3, ());
+  TEST_EQUAL(PopId(queue), 2, ());
+  TEST_EQUAL(PopId(queue), 999, ());
+  TEST_EQUAL(PopId(queue), 1, ());
+  TEST(queue.PopMessage(false) == nullptr, ());
+}
+
 // Filtering drops matching messages both from the queue and on arrival, until it is disabled;
 // InstantFilter makes a single pass and leaves no filter installed.
 UNIT_TEST(MessageQueue_Filtering)

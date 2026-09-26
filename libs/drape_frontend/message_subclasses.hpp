@@ -642,6 +642,17 @@ private:
   int const m_recacheId;
 };
 
+class RecacheSubroutesMessage : public Message
+{
+public:
+  explicit RecacheSubroutesMessage(int recacheId) : m_recacheId(recacheId) {}
+  Type GetType() const override { return Type::RecacheSubroutes; }
+  int GetRecacheId() const { return m_recacheId; }
+
+private:
+  int const m_recacheId;
+};
+
 class PrepareSubrouteArrowsMessage : public Message
 {
 public:
@@ -907,6 +918,36 @@ public:
 
 private:
   bool const m_allow3dBuildings;
+};
+
+class SetClusterCameraMessage : public Message
+{
+public:
+  SetClusterCameraMessage(int zoom, double tiltDegrees, m2::PointD const & anchor)
+    : m_zoom(zoom)
+    , m_tiltDegrees(tiltDegrees)
+    , m_anchor(anchor)
+  {}
+  Type GetType() const override { return Type::SetClusterCamera; }
+  int GetZoom() const { return m_zoom; }
+  double GetTiltDegrees() const { return m_tiltDegrees; }
+  m2::PointD const & GetAnchor() const { return m_anchor; }
+
+private:
+  int const m_zoom;
+  double const m_tiltDegrees;
+  m2::PointD const m_anchor;
+};
+
+class SetPoiVisibilityMessage : public Message
+{
+public:
+  explicit SetPoiVisibilityMessage(bool visible) : m_visible(visible) {}
+  Type GetType() const override { return Type::SetPoiVisibility; }
+  bool IsVisible() const { return m_visible; }
+
+private:
+  bool const m_visible;
 };
 
 class SetMapLangIndexMessage : public Message

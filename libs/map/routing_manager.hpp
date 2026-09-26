@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/navigation_scene.hpp"
+
 #include "map/bookmark_manager.hpp"
 #include "map/extrapolation/extrapolator.hpp"
 #include "map/routing_mark.hpp"
@@ -38,7 +40,8 @@ class CountryInfoGetter;
 namespace routing
 {
 class NumMwmIds;
-}
+class RoadInfoReader;
+}  // namespace routing
 
 class DataSource;
 
@@ -60,6 +63,7 @@ struct RoutePointInfo
 class RoutingManager final
 {
 public:
+  std::unique_ptr<routing::RoadInfoReader> CreateRoadInfoReader();
   class Delegate
   {
   public:
@@ -168,6 +172,7 @@ public:
   /// Returns false if the index is out of range or already active. Re-renders the drape so
   /// the newly-active variant is highlighted and the previously-active becomes the alternative.
   bool SwapActiveAlternative(size_t idx);
+  void SelectFastestRoute();
 
   /// \brief Hit-tests |mercator| against the alternative-route polylines. If one is closer than
   /// a tap-area threshold (kTapPixels * |mercatorPerPixel|), swaps it to active and returns true.
@@ -249,7 +254,8 @@ public:
   void OnNeedMoreMaps(uint64_t routeId, storage::CountriesSet const & absentCountries);
   void OnRemoveRoute(routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
-  void OnLocationUpdate(location::GpsInfo const & info);
+  void OnLocationUpdate(location::GpsInfo const & info, double ageSeconds = 0.0);
+  void OnVehicleSpeed(double speedMps, double ageSeconds, bool valid);
 
   routing::SpeedCameraManager & GetSpeedCamManager() { return m_routingSession.GetSpeedCamManager(); }
   bool IsSpeedCamLimitExceeded() const;
@@ -258,6 +264,8 @@ public:
   {
     m_routingSession.SetTurnNotificationsUnits(units);
   }
+  df::NavigationScene & GetNavigationScene() { return m_navigationScene; }
+
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
@@ -368,6 +376,7 @@ private:
   RouteRecommendCallback m_routeRecommendCallback;
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
+  df::NavigationScene m_navigationScene;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
   bool m_loadAltitudes = false;
   routing::RoutingSession m_routingSession;
@@ -377,6 +386,7 @@ private:
   extrapolation::Extrapolator m_extrapolator;
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
+  uint64_t m_routeAltMarksGeneration = 0;
   mutable std::mutex m_drapeSubroutesMutex;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;

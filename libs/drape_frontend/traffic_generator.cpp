@@ -52,42 +52,45 @@ static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCo
 
 dp::BindingInfo const & GetTrafficStaticBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> s_info;
-  if (s_info == nullptr)
+  static auto const s_info = []
   {
+    std::unique_ptr<dp::BindingInfo> s_info;
     dp::BindingFiller<TrafficStaticVertex> filler(3);
     filler.FillDecl<TrafficStaticVertex::TPosition>("a_position");
     filler.FillDecl<TrafficStaticVertex::TNormal>("a_normal");
     filler.FillDecl<TrafficStaticVertex::TTexCoord>("a_colorTexCoord");
     s_info = std::make_unique<dp::BindingInfo>(filler.m_info);
-  }
+    return s_info;
+  }();
   return *s_info;
 }
 
 dp::BindingInfo const & GetTrafficLineStaticBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> s_info;
-  if (s_info == nullptr)
+  static auto const s_info = []
   {
+    std::unique_ptr<dp::BindingInfo> s_info;
     dp::BindingFiller<TrafficLineStaticVertex> filler(2);
     filler.FillDecl<TrafficLineStaticVertex::TPosition>("a_position");
     filler.FillDecl<TrafficLineStaticVertex::TTexCoord>("a_colorTexCoord");
     s_info = std::make_unique<dp::BindingInfo>(filler.m_info);
-  }
+    return s_info;
+  }();
   return *s_info;
 }
 
 dp::BindingInfo const & GetTrafficCircleStaticBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> s_info;
-  if (s_info == nullptr)
+  static auto const s_info = []
   {
+    std::unique_ptr<dp::BindingInfo> s_info;
     dp::BindingFiller<TrafficCircleStaticVertex> filler(3);
     filler.FillDecl<TrafficCircleStaticVertex::TPosition>("a_position");
     filler.FillDecl<TrafficCircleStaticVertex::TNormal>("a_normal");
     filler.FillDecl<TrafficCircleStaticVertex::TTexCoord>("a_colorTexCoord");
     s_info = std::make_unique<dp::BindingInfo>(filler.m_info);
-  }
+    return s_info;
+  }();
   return *s_info;
 }
 

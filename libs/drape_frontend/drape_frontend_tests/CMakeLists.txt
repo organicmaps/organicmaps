@@ -8,6 +8,7 @@ set(SRC
   message_queue_tests.cpp
   navigator_test.cpp
   path_text_test.cpp
+  perspective_tile_coverage_tests.cpp
   rainbow_line_gpu_test.cpp
   screen_operations_tests.cpp
   shape_test_fixture.cpp

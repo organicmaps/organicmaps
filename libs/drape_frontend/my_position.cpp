@@ -120,7 +120,8 @@ void MyPosition::RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
 }
 
 void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                  ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
+                                  ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues,
+                                  bool screenAligned)
 {
   m2::PointD const adjustedPos = df::AdjustPointForViewport(m2::PointD(m_position), screen);
 
@@ -129,6 +130,7 @@ void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     CHECK(m_arrow3d != nullptr, ());
     m_arrow3d->SetPosition(adjustedPos);
     m_arrow3d->SetAzimuth(m_azimuth);
+    m_arrow3d->SetScreenAligned(screenAligned);
     m_arrow3d->Render(context, mng, screen, m_isRoutingMode);
   }
   else

@@ -81,10 +81,9 @@ void FillMaskDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
 
 dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> info;
-
-  if (info == nullptr)
+  static auto const info = []
   {
+    std::unique_ptr<dp::BindingInfo> info;
     info = std::make_unique<dp::BindingInfo>(5);
     uint8_t constexpr stride = sizeof(Vertex);
     uint8_t offset = 0;
@@ -99,7 +98,8 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
     offset += sizeof(glsl::vec2);
     FillMaskDecl(info->GetBindingDecl(4), stride, offset);
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
-  }
+    return info;
+  }();
 
   return *info;
 }
@@ -244,10 +244,9 @@ dp::TGlyphs StaticLabel::CacheStaticText(std::string const & text, char const * 
 
 dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> info;
-
-  if (info == nullptr)
+  static auto const info = []
   {
+    std::unique_ptr<dp::BindingInfo> info;
     info = std::make_unique<dp::BindingInfo>(3);
 
     uint8_t constexpr stride = sizeof(StaticVertex);
@@ -259,17 +258,17 @@ dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
     offset += sizeof(glsl::vec2);
     FillOutlineDecl(info->GetBindingDecl(2), stride, offset);
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
-  }
+    return info;
+  }();
 
   return *info;
 }
 
 dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
 {
-  static std::unique_ptr<dp::BindingInfo> info;
-
-  if (info == nullptr)
+  static auto const info = []
   {
+    std::unique_ptr<dp::BindingInfo> info;
     info = std::make_unique<dp::BindingInfo>(2, 1);
     uint8_t constexpr stride = sizeof(DynamicVertex);
     uint8_t offset = 0;
@@ -278,7 +277,8 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
     offset += sizeof(glsl::vec2);
     FillMaskDecl(info->GetBindingDecl(1), stride, offset);
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
-  }
+    return info;
+  }();
 
   return *info;
 }

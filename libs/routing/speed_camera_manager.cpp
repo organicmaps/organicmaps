@@ -22,6 +22,19 @@ SpeedCameraManager::SpeedCameraManager(turns::sound::NotificationManager & notif
   }
 }
 
+bool SpeedCameraManager::GetCameraAhead(SpeedCameraOnRoute & camera, double & distanceMeters) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const route = m_route.lock();
+  if (!Enable() || !route || !m_closestCamera.IsValid())
+    return false;
+  distanceMeters = m_closestCamera.m_distFromBeginMeters - route->GetCurrentDistanceFromBeginMeters();
+  if (distanceMeters < 0.0)
+    return false;
+  camera = m_closestCamera;
+  return true;
+}
+
 // static
 SpeedCameraManager::Interval SpeedCameraManager::GetIntervalByDistToCam(double distanceToCameraMeters, double speedMpS)
 {

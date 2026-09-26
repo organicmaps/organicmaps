@@ -5,6 +5,7 @@
 #include "drape_frontend/tile_utils.hpp"
 
 #include "drape/graphics_context_factory.hpp"
+#include "drape/render_context.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "base/thread.hpp"
@@ -55,6 +56,7 @@ public:
   dp::ApiVersion GetApiVersion() const { return m_apiVersion; }
 
 protected:
+  std::shared_ptr<dp::RenderContext> m_renderContext = dp::RenderContext::Current();
   dp::ApiVersion m_apiVersion;
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::GraphicsContextFactory> m_contextFactory;
@@ -95,7 +97,6 @@ private:
   std::atomic<bool> m_wasContextReset;
 
   OnGraphicsContextInitialized m_onGraphicsContextInitialized;
-  static std::atomic<uint8_t> m_contextCounter;
 
   bool FilterContextDependentMessage(ref_ptr<Message> msg);
   void SetRenderingEnabled(bool const isEnabled);

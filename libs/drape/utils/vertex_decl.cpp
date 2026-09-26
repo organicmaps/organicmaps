@@ -1,5 +1,7 @@
 #include "drape/utils/vertex_decl.hpp"
 
+#include <array>
+
 namespace gpu
 {
 namespace
@@ -21,14 +23,6 @@ enum VertexType
   ColoredSymbol,
   TypeCount
 };
-
-struct BindingNode
-{
-  dp::BindingInfo m_info;
-  bool m_inited = false;
-};
-
-typedef dp::BindingInfo (*TInitFunction)();
 
 dp::BindingInfo AreaBindingInit()
 {
@@ -208,31 +202,22 @@ dp::BindingInfo ColoredSymbolBindingInit()
   return filler.m_info;
 }
 
-BindingNode g_bindingNodes[TypeCount];
-TInitFunction g_initFunctions[TypeCount] = {&AreaBindingInit,
-                                            &Area3dBindingInit,
-                                            &HatchingAreaBindingInit,
-                                            &SolidTexturingBindingInit,
-                                            &MaskedTexturingBindingInit,
-                                            &TextStaticBindingInit,
-                                            &TextOutlinedStaticBindingInit,
-                                            &TextDynamicBindingInit,
-                                            &LineBindingInit,
-                                            &DashedLineBindingInit,
-                                            &RouteBindingInit,
-                                            &RouteMarkerBindingInit,
-                                            &ColoredSymbolBindingInit};
-
 dp::BindingInfo const & GetBinding(VertexType type)
 {
-  BindingNode & node = g_bindingNodes[type];
-  if (!node.m_inited)
-  {
-    node.m_info = g_initFunctions[type]();
-    node.m_inited = true;
-  }
-
-  return node.m_info;
+  static std::array<dp::BindingInfo, TypeCount> const bindings = {AreaBindingInit(),
+                                                                  Area3dBindingInit(),
+                                                                  HatchingAreaBindingInit(),
+                                                                  SolidTexturingBindingInit(),
+                                                                  MaskedTexturingBindingInit(),
+                                                                  TextStaticBindingInit(),
+                                                                  TextOutlinedStaticBindingInit(),
+                                                                  TextDynamicBindingInit(),
+                                                                  LineBindingInit(),
+                                                                  DashedLineBindingInit(),
+                                                                  RouteBindingInit(),
+                                                                  RouteMarkerBindingInit(),
+                                                                  ColoredSymbolBindingInit()};
+  return bindings[type];
 }
 }  // namespace
 

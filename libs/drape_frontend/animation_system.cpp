@@ -158,8 +158,7 @@ bool AnimationSystem::HasMapAnimations() const
 
 AnimationSystem & AnimationSystem::Instance()
 {
-  static AnimationSystem animSystem;
-  return animSystem;
+  return dp::RenderContext::Get<AnimationSystem>();
 }
 
 void AnimationSystem::CombineAnimation(drape_ptr<Animation> && animation)
