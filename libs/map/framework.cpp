@@ -1515,6 +1515,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   }
 
   StopLocationFollow();
+  DeactivateHotelSearchMark();
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
 
   if (result.GetResultType() == Result::Type::Postcode)
@@ -2301,15 +2302,8 @@ void Framework::InvalidateUserMarks()
 
 void Framework::DeactivateHotelSearchMark()
 {
-  if (!m_currentPlacePageInfo)
-    return;
-
-  if (m_currentPlacePageInfo->IsHotel())
-  {
-    auto const & featureId = m_currentPlacePageInfo->GetID();
-    if (m_searchMarks.IsThereSearchMarkForFeature(featureId))
-      m_searchMarks.OnDeactivate(featureId);
-  }
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->IsHotel())
+    m_searchMarks.OnDeactivate(m_currentPlacePageInfo->GetID());
 }
 
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
