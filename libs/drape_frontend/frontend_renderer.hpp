@@ -13,6 +13,7 @@
 #include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
+#include "drape_frontend/search_mark_overlay_filter.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_background_renderer.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
@@ -198,7 +199,6 @@ private:
   void RenderMwmBorderLayer(ScreenBase const & modelView);
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
-  void RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);
   void RenderRouteLayer(ScreenBase const & modelView);
@@ -341,6 +341,7 @@ private:
   drape_ptr<dp::OverlayTree> m_overlayTree;
   // Actually, it holds displacing Bookmark titles. The tree named after SearchMarkLayer.
   drape_ptr<dp::OverlayTree> m_searchMarkTextOverlayTree;
+  SearchMarkOverlayFilter m_searchMarkOverlayFilter;
 
   FrameValues m_frameValues;
 

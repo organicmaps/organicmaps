@@ -163,6 +163,8 @@ set(SRC
   route_renderer.hpp
   route_shape.cpp
   route_shape.hpp
+  search_mark_overlay_filter.cpp
+  search_mark_overlay_filter.hpp
   rule_drawer.cpp
   rule_drawer.hpp
   scenario_manager.cpp
