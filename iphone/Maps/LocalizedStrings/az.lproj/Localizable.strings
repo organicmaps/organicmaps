@@ -527,6 +527,8 @@
 "today" = "Bu gün";
 "opens_in" = "%@ sonra açılır";
 "closes_in" = "%@ sonra bağlanır";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Bağlı";
 "no_osm_account" = "OpenStreetMap hesabınız yoxdur?";
 "register_at_openstreetmap" = "OpenStreetMap üçün qeydiyyatdan keçin";

@@ -527,6 +527,8 @@
 "today" = "Šodien";
 "opens_in" = "Atveras pēc %@";
 "closes_in" = "Slēgts pēc %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Slēgts";
 "no_osm_account" = "Vai jums nav „OpenStreetMap“ konta?";
 "register_at_openstreetmap" = "Reģistrējieties „OpenStreetMap“";

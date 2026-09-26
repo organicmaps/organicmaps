@@ -527,6 +527,8 @@
 "today" = "ມື້ນີ້";
 "opens_in" = "ຈະເປີດໃນອີກ %@";
 "closes_in" = "ຈະປິດໃນອີກ %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "ປິດ";
 "no_osm_account" = "ຍັງບໍ່ມີບັນຊີ OpenStreetMap ບໍ່?";
 "register_at_openstreetmap" = "ລົງທະບຽນທີ່ OpenStreetMap";

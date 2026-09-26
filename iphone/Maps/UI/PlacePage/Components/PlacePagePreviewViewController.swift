@@ -163,12 +163,15 @@ final class PlacePagePreviewViewController: UIViewController {
     case .open:
       let nextTimeClosed = placePagePreviewData.schedule.nextTimeClosed
       let minutesUntilClosed = (nextTimeClosed - now) / 60
-      let stringTimeInterval = getTimeIntervalString(minutes: minutesUntilClosed)
       let stringTime = stringFromTime(nextTimeClosed)
 
       let details: String?
-      if minutesUntilClosed < 3 * 60 // Less than 3 hours
+      if nextTimeClosed > now && minutesUntilClosed == 0
       {
+        details = L("closes_in_less_than_a_minute") + " • " + stringTime
+      } else if minutesUntilClosed < 3 * 60 // Less than 3 hours
+      {
+        let stringTimeInterval = getTimeIntervalString(minutes: minutesUntilClosed)
         details = String(format: L("closes_in"), stringTimeInterval) + " • " + stringTime
       } else if minutesUntilClosed < 24 * 60 // Less than 24 hours
       {
@@ -186,12 +189,15 @@ final class PlacePagePreviewViewController: UIViewController {
       let nextTimeOpenDate = Date(timeIntervalSince1970: TimeInterval(nextTimeOpen))
 
       let minutesUntilOpen = (nextTimeOpen - now) / 60
-      let stringTimeInterval = getTimeIntervalString(minutes: minutesUntilOpen)
       let stringTime = stringFromTime(nextTimeOpen)
 
       let details: String?
-      if minutesUntilOpen < 3 * 60 // Less than 3 hours
+      if nextTimeOpen > now && minutesUntilOpen == 0
       {
+        details = L("opens_in_less_than_a_minute") + " • " + stringTime
+      } else if minutesUntilOpen < 3 * 60 // Less than 3 hours
+      {
+        let stringTimeInterval = getTimeIntervalString(minutes: minutesUntilOpen)
         details = String(format: L("opens_in"), stringTimeInterval) + " • " + stringTime
       } else if Calendar.current.isDateInToday(nextTimeOpenDate) // Today
       {

@@ -527,6 +527,8 @@
 "today" = "Vandag";
 "opens_in" = "Open oor %@";
 "closes_in" = "Sluit oor %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Gesluit";
 "no_osm_account" = "Het u nie ’n OpenStreetMap-rekening nie?";
 "register_at_openstreetmap" = "Registreer by OpenStreetMap";

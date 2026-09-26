@@ -527,6 +527,8 @@
 "today" = "今天";
 "opens_in" = "將於 %@ 後開業";
 "closes_in" = "將於 %@ 後歇業";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "已停止營業";
 "no_osm_account" = "沒有 OpenStreetMap 帳號嗎？";
 "register_at_openstreetmap" = "註冊";
