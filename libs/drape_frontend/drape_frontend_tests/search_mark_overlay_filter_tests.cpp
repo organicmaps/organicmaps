@@ -2,6 +2,7 @@
 
 #include "drape_frontend/render_group.hpp"
 #include "drape_frontend/search_mark_overlay_filter.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 
 #include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
@@ -85,6 +86,53 @@ UNIT_TEST(TwoTexturedHandlesOneFeature)
 {
   CheckTwoHandles(gpu::Program::Texturing);
   CheckTwoHandles(gpu::Program::MaskedTexturing);
+}
+
+UNIT_TEST(UserMarkOverlayMatchesSpritePixelOffset)
+{
+  auto const screen = MakeScreen();
+  df::UserMarkRenderParams params;
+  params.m_pixelOffset = {0, 6};
+  df::TileKey const tile(0, 0, 1);
+  m2::RectD const vertices(-12, -6, 12, 18);
+  auto handle = df::CreateUserMarkOverlayHandle(params, tile, vertices);
+  TEST(handle, ());
+
+  auto expected = vertices;
+  expected.Offset(screen.GtoP(params.m_pivot));
+  TEST_EQUAL(handle->GetPixelRect(screen, false), expected, ());
+}
+
+UNIT_TEST(SearchSpriteOffsetControlsSymbolSuppression)
+{
+  auto const mwm = std::make_shared<RegisteredMwmInfo>();
+  auto const id = MakeFeature(mwm, 1);
+  auto const screen = MakeScreen();
+  df::UserMarkRenderParams params;
+  params.m_featureId = id;
+  params.m_pixelOffset = {0, 6};
+  df::TileKey const tile(0, 0, 1);
+  auto handle = df::CreateUserMarkOverlayHandle(params, tile, m2::RectD(-12, -6, 12, 18));
+  handle->SetIsVisible(true);
+  auto bucket = make_unique_dp<dp::RenderBucket>(drape_ptr<dp::VertexArrayBuffer>());
+  bucket->AddOverlayHandle(std::move(handle));
+
+  Groups searchGroups;
+  Groups regularGroups;
+  AddGroup(searchGroups, gpu::Program::BookmarkAboveText, df::DepthLayer::SearchMarkLayer).AddBucket(std::move(bucket));
+  auto & regular = AddGroup(regularGroups, gpu::Program::Texturing, df::DepthLayer::OverlayLayer);
+  // These 24-pixel symbols straddle the shifted sprite's bottom and top edges.
+  auto * below = AddHandle(regular, id, {0, 0}, {0, 27});
+  auto * above = AddHandle(regular, id, {0, 0}, {0, -21});
+
+  df::SearchMarkOverlayFilter filter;
+  filter.Collect(searchGroups, screen);
+  filter.HideOverlappingSymbols(regular, screen);
+  TEST(!below->IsVisible(), ());
+  TEST(above->IsVisible(), ());
+  filter.RestoreHiddenSymbols();
+  TEST(below->IsVisible(), ());
+  TEST(above->IsVisible(), ());
 }
 
 UNIT_TEST(FeatureAndGeometryMustBothMatch)
