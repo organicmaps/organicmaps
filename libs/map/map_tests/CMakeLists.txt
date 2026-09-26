@@ -15,7 +15,12 @@ set(SRC
   gps_track_filter_test.cpp
   gps_track_storage_test.cpp
   gps_track_test.cpp
+  gpx_replay_debug_registration_test.cpp
+  gpx_replay_fusion_strategy_test.cpp
+  gpx_replay_provider_test.cpp
   kmz_unarchive_test.cpp
+  location_provider_registry_wiring_test.cpp
+  mock_gpx_command_test.cpp
   mwm_url_tests.cpp
   power_manager_tests.cpp
   road_warning_tests.cpp

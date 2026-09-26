@@ -319,6 +319,29 @@ public:
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   m2::PointD GetMinDistanceBetweenResults() const override;
 
+#ifdef DEBUG
+  /// @returns true if command armed the GPX replay reference plugin (?mock-gpx:<path>[,accuracy]).
+  /// Public (unlike its sibling debug-command parsers) so its argument-parsing/extraction rule can
+  /// be unit-tested directly — it needs no private Framework state.
+  static bool ParseMockGpxCommand(search::SearchParams const & params);
+
+  /// @returns true if command disarmed the GPX replay reference plugin (?mock-gpx-stop).
+  static bool ParseMockGpxStopCommand(search::SearchParams const & params);
+#endif  // DEBUG
+
+private:
+#ifdef DEBUG
+  // Starts (if not already running) a recurring, once-a-second self-driving replay of the armed
+  // GpxReplayProvider track, feeding it through the normal OnLocationUpdate() path so the map
+  // follows it without needing a real or manually-clicked location event. Idempotent — safe to
+  // call on every successful ?mock-gpx: arm/re-arm, including while a chain is already ticking.
+  void ScheduleGpxReplayTick();
+  // One tick of the chain above: advances playback once and reschedules itself, stopping (and
+  // clearing m_gpxReplayTickerRunning) once GpxReplayProvider::HasMoreReadings() goes false.
+  void GpxReplayTick();
+  bool m_gpxReplayTickerRunning = false;
+#endif  // DEBUG
+
 private:
   void UpdateBookmarksTextPlacement();
 

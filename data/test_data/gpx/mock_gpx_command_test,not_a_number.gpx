@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1">
+  <trk>
+    <name>mock_gpx_command_test</name>
+    <trkseg>
+      <trkpt lat="47.0" lon="8.0">
+        <ele>400.0</ele>
+      </trkpt>
+      <trkpt lat="47.001" lon="8.001">
+        <ele>401.0</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

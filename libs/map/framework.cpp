@@ -8,6 +8,15 @@
 #include "map/track_mark.hpp"
 #include "map/user_mark.hpp"
 
+#ifdef DEBUG
+#include "map/location_provider/gpx_replay_provider.hpp"
+
+#include "kml/serdes_gpx.hpp"
+#include "kml/types.hpp"
+
+#include "coding/file_reader.hpp"
+#endif  // DEBUG
+
 #include "routing/route.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
@@ -45,6 +54,7 @@
 #include "indexer/transliteration_loader.hpp"
 
 #include "platform/localization.hpp"
+#include "platform/location_provider/location_provider_registry.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -69,6 +79,7 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <chrono>
 
 using namespace location;
 using namespace routing;
@@ -208,8 +219,10 @@ void Framework::OnLocationError(TLocationError /*error*/)
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
 {
+  GpsInfo const resolvedInfo = location_provider::LocationProviderRegistry::Instance().Resolve(info);
+
 #ifdef FIXED_LOCATION
-  GpsInfo rInfo(info);
+  GpsInfo rInfo(resolvedInfo);
 
   // get fixed coordinates
   m_fixedPos.GetLon(rInfo.m_longitude);
@@ -227,7 +240,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   }
 
 #else
-  GpsInfo const & rInfo = info;
+  GpsInfo const & rInfo = resolvedInfo;
 #endif
 
   m_routingManager.OnLocationUpdate(rInfo);
@@ -3411,6 +3424,99 @@ bool Framework::ParseDownloaderDebugCommand(search::SearchParams const & params)
   return true;
 }
 
+#ifdef DEBUG
+// static
+bool Framework::ParseMockGpxCommand(search::SearchParams const & params)
+{
+  std::string const kSetCommand = "?mock-gpx:";
+  if (!params.m_query.starts_with(kSetCommand))
+    return false;
+
+  std::string const remainder = params.m_query.substr(kSetCommand.size());
+
+  // Split on the last comma: a valid-double trailing segment is the accuracy override and
+  // everything before it is <path>; otherwise the whole remainder is <path> with no override.
+  // A non-numeric trailing segment is never itself a failure — see design.md's Debug command
+  // syntax.
+  std::string path = remainder;
+  std::optional<double> accuracyOverride;
+  auto const lastComma = remainder.find_last_of(',');
+  if (lastComma != std::string::npos)
+  {
+    double accuracy;
+    if (strings::to_double(remainder.substr(lastComma + 1), accuracy))
+    {
+      path = remainder.substr(0, lastComma);
+      accuracyOverride = accuracy;
+    }
+  }
+
+  kml::FileData fileData;
+  try
+  {
+    kml::DeserializerGpx des(fileData);
+    des.Deserialize(FileReader(path));
+  }
+  catch (std::exception const & e)
+  {
+    EmitDebugCommandResult(params, "Failed to load GPX track '" + path + "': " + e.what());
+    return true;
+  }
+
+  if (fileData.m_tracksData.empty())
+  {
+    EmitDebugCommandResult(params, "GPX file has no tracks: " + path);
+    return true;
+  }
+
+  location_provider::GpxReplayProvider::Instance().Arm(fileData.m_tracksData.front(), accuracyOverride);
+  EmitDebugCommandResult(params, "GPX replay armed: " + path);
+  return true;
+}
+
+// static
+bool Framework::ParseMockGpxStopCommand(search::SearchParams const & params)
+{
+  if (params.m_query != "?mock-gpx-stop")
+    return false;
+
+  location_provider::GpxReplayProvider::Instance().Disarm();
+  EmitDebugCommandResult(params, "GPX replay stopped.");
+  return true;
+}
+
+void Framework::ScheduleGpxReplayTick()
+{
+  if (m_gpxReplayTickerRunning)
+    return;
+  if (!location_provider::GpxReplayProvider::Instance().HasMoreReadings())
+    return;
+
+  m_gpxReplayTickerRunning = true;
+  GpxReplayTick();
+}
+
+void Framework::GpxReplayTick()
+{
+  if (!location_provider::GpxReplayProvider::Instance().HasMoreReadings())
+  {
+    m_gpxReplayTickerRunning = false;
+    return;
+  }
+
+  // OnLocationUpdate() (and everything downstream of it, e.g. DrapeEngine) expects to run on the
+  // GUI thread; RunDelayedTask() itself only supports File/Network/Background, so the wait
+  // happens on Background and the actual tick is posted over to Gui once it fires.
+  location::GpsInfo native;
+  OnLocationUpdate(native);
+
+  GetPlatform().RunDelayedTask(Platform::Thread::Background, std::chrono::seconds(1), [this]()
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this]() { GpxReplayTick(); });
+  });
+}
+#endif  // DEBUG
+
 bool Framework::ParseAllTypesDebugCommand(search::SearchParams const & params)
 {
   if (params.m_query == "?all-types")
@@ -3827,6 +3933,15 @@ bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
     return true;
   if (ParseDownloaderDebugCommand(params))
     return true;
+#ifdef DEBUG
+  if (ParseMockGpxCommand(params))
+  {
+    ScheduleGpxReplayTick();
+    return true;
+  }
+  if (ParseMockGpxStopCommand(params))
+    return true;
+#endif  // DEBUG
   if (ParseAllTypesDebugCommand(params))
     return true;
   return false;
