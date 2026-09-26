@@ -139,9 +139,8 @@ size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size
     auto const & ingoingSegment = loadedSegments[outgoingSegmentIndex - 1];
     turnItem.m_lanes = ingoingSegment.m_lanes;
 
-    // A short ingoing segment usually appears when a dedicated lane (e.g. an U-turn pocket) forks off
-    // just before the turn and the way is split there. The driver receives the maneuver banner while
-    // still on the previous segment, so show its lanes if the current ones are a contiguous part of them.
+    // A lane may fork off just before a turn, leaving a short ingoing segment with fewer lanes.
+    // Guidance can appear before the fork, so use the earlier layout when it contains the current lanes.
     double constexpr kShortLanesSegmentDistM = 30.0;
     if (outgoingSegmentIndex >= 2 && !turnItem.m_lanes.empty() &&
         CalcRouteDistanceM(ingoingSegment.m_path, 0, static_cast<uint32_t>(ingoingSegment.m_path.size())) <
