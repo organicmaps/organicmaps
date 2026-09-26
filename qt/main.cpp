@@ -8,6 +8,9 @@
 #include "map/framework.hpp"
 
 #include "platform/platform.hpp"
+#ifdef OMIM_OS_LINUX
+#include "platform/platform_linux_migration.hpp"
+#endif
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 #include "platform/style_utils.hpp"
@@ -108,6 +111,9 @@ int main(int argc, char * argv[])
   // See http://dbaron.org/log/20121222-locale for more details.
   std::setlocale(LC_NUMERIC, "C");
 
+#ifdef OMIM_OS_LINUX
+  platform::EnableDesktopDataMigration();
+#endif
   Platform & platform = GetPlatform();
 
   LOG(LINFO, ("Organic Maps", platform.Version(), "built with QT:", QT_VERSION_STR, "runtime QT:", qVersion(),
