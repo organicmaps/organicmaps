@@ -1514,6 +1514,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     return;
   }
 
+  StopLocationFollow();
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
 
   if (result.GetResultType() == Result::Type::Postcode)
@@ -1533,7 +1534,6 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 void Framework::ShowSearchResult(search::Result const & res, bool animation)
 {
   GetSearchAPI().CancelAllSearches();
-  StopLocationFollow();
   SelectSearchResult(res, animation);
 }
 
@@ -2308,10 +2308,7 @@ void Framework::DeactivateHotelSearchMark()
   {
     auto const & featureId = m_currentPlacePageInfo->GetID();
     if (m_searchMarks.IsThereSearchMarkForFeature(featureId))
-    {
-      m_searchMarks.SetVisited(featureId);
       m_searchMarks.OnDeactivate(featureId);
-    }
   }
 }
 

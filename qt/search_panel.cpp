@@ -328,7 +328,6 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
   else
   {
     // Select the result without cancelling the search or clearing its marks.
-    GetFramework().StopLocationFollow();
     GetFramework().SelectSearchResult(m_results[row], true /* animation */);
   }
 }
