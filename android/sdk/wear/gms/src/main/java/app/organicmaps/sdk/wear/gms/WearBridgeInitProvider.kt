@@ -17,7 +17,11 @@ import app.organicmaps.sdk.wear.WearBridge
  */
 class WearBridgeInitProvider : ContentProvider() {
     override fun onCreate(): Boolean {
-        context?.let { WearBridge.register(GmsWearNavigationPublisher(it)) }
+        context?.let {
+            val publisher = GmsWearNavigationPublisher(it)
+            WearBridge.register(publisher)
+            WearBridge.registerDetails(publisher)
+        }
         return true
     }
 

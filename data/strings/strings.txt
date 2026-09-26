@@ -20230,7 +20230,7 @@ zh-Hans = 英里每小时
 zh-Hant = 英哩每小時
 
 [hour]
-tags = android-app,apple-maps
+tags = android-app,android-wear,apple-maps
 en = h
 af = h
 ar = س
@@ -20285,7 +20285,7 @@ zh-Hans = 小时
 zh-Hant = 小時
 
 [minute]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,android-wear,apple-maps
 en = min
 af = min
 ar = د
@@ -43246,7 +43246,7 @@ zh-Hant = 地圖點
 
 [m]
 comment = abbreviation for meters
-tags = android-sdk,apple-maps
+tags = android-sdk,android-wear,apple-maps
 en = m
 af = m
 ar = متر
@@ -43302,7 +43302,7 @@ zh-Hant = 公尺
 
 [km]
 comment = abbreviation for kilometers
-tags = android-sdk,apple-maps
+tags = android-sdk,android-wear,apple-maps
 en = km
 af = km
 ar = كم
@@ -43359,7 +43359,7 @@ zh-Hant = 公里
 
 [mi]
 comment = abbreviation for mile(s)
-tags = android-sdk,apple-maps
+tags = android-sdk,android-wear,apple-maps
 en = mi
 af = myl
 ar = ميل
@@ -43414,7 +43414,7 @@ zh-Hant = 英哩
 
 [ft]
 comment = A unit of measure
-tags = android-sdk,apple-maps
+tags = android-sdk,android-wear,apple-maps
 en = ft
 af = vt.
 ar = قدم

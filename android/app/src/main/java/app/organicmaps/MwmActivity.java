@@ -99,6 +99,7 @@ import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesState;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.RoadType;
@@ -1618,7 +1619,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!routing.isNavigating())
       return;
 
-    mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
+    final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
+    mNavigationController.update(routingInfo);
   }
 
   @Override
