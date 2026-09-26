@@ -19112,6 +19112,30 @@ type railway-station-subway-stockholm
   z20
     symbol name=subway-stockholm-m priority=6250
     caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-3750
+type railway-station-subway-suzhou
+  z13
+    symbol name=subway-suzhou-s priority=6250
+  z14
+    symbol name=subway-suzhou-s priority=6250
+    caption primary[height=11 color=c072 stroke=c087 dy=1 optional] secondary[height=9 color=c072 stroke=c087 dy=1 optional] priority=-3750
+  z15
+    symbol name=subway-suzhou-m priority=6250
+    caption primary[height=12 color=c072 stroke=c087 dy=1 optional] secondary[height=10 color=c072 stroke=c087 dy=1 optional] priority=-3750
+  z16
+    symbol name=subway-suzhou-m priority=6250
+    caption primary[height=13 color=c072 stroke=c087 dy=1 optional] secondary[height=11 color=c072 stroke=c087 dy=1 optional] priority=-3750
+  z17
+    symbol name=subway-suzhou-m priority=6250
+    caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-3750
+  z18
+    symbol name=subway-suzhou-m priority=6250
+    caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-3750
+  z19
+    symbol name=subway-suzhou-m priority=6250
+    caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-3750
+  z20
+    symbol name=subway-suzhou-m priority=6250
+    caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-3750
 type railway-station-subway-tabriz
   z13
     symbol name=subway-tabriz-s priority=6250
@@ -21050,6 +21074,21 @@ type railway-subway_entrance-stockholm
     caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-6300
   z20
     symbol name=subway-stockholm-s priority=3700
+    caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-6300
+type railway-subway_entrance-suzhou
+  z16
+    symbol name=subway-suzhou-s priority=3700
+  z17
+    symbol name=subway-suzhou-s priority=3700
+    caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-6300
+  z18
+    symbol name=subway-suzhou-s priority=3700
+    caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-6300
+  z19
+    symbol name=subway-suzhou-s priority=3700
+    caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-6300
+  z20
+    symbol name=subway-suzhou-s priority=3700
     caption primary[height=13 color=c072 stroke=c088 dy=1 optional] secondary[height=11 color=c072 stroke=c088 dy=1 optional] priority=-6300
 type railway-subway_entrance-tabriz
   z16
