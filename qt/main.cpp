@@ -31,6 +31,21 @@
 
 #include <gflags/gflags.h>
 
+#ifdef OMIM_OS_WINDOWS
+#include <fcntl.h>
+#include <io.h>
+#include <share.h>
+#include <sys/stat.h>
+#include <windows.h>
+#include <algorithm>
+#include <cerrno>
+#include <cstdio>
+#include <filesystem>
+#include <functional>
+#include <utility>
+#include <vector>
+#endif
+
 DEFINE_string(data_path, "", "Path to data directory.");
 DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
               "Log messages severity that causes termination.");
@@ -76,22 +91,82 @@ bool ValidateLogAbortLevel(char const * flagname, std::string const & value)
 
 bool const g_logAbortLevelDummy = gflags::RegisterFlagValidator(&FLAGS_log_abort_level, &ValidateLogAbortLevel);
 
-#if defined(OMIM_OS_WINDOWS)  //&& defined(PROFILER_COMMON)
+#if defined(OMIM_OS_WINDOWS)
+void PruneWindowsLogs(std::filesystem::path const & logDir, std::filesystem::path const & currentLog)
+{
+  using LogFile = std::pair<std::filesystem::file_time_type, std::filesystem::path>;
+  std::vector<LogFile> logs;
+  std::error_code error;
+  for (std::filesystem::directory_iterator it(logDir, error), end; !error && it != end; it.increment(error))
+  {
+    if (it->path() == currentLog)
+      continue;
+    auto const name = it->path().filename().string();
+    auto const status = it->symlink_status(error);
+    if (error)
+    {
+      error.clear();
+      continue;
+    }
+    if (!std::filesystem::is_regular_file(status) || !name.starts_with("organicmaps-") || !name.ends_with(".log"))
+      continue;
+    auto const modified = it->last_write_time(error);
+    if (error)
+    {
+      error.clear();
+      continue;
+    }
+    logs.emplace_back(modified, it->path());
+  }
+  std::sort(logs.begin(), logs.end(), std::greater<>());
+  constexpr size_t kPreviousLogsToKeep = 9;
+  for (size_t i = kPreviousLogsToKeep; i < logs.size(); ++i)
+  {
+    error.clear();
+    std::filesystem::remove(logs[i].second, error);  // Open logs are retried on a later launch.
+  }
+}
+
 class InitializeFinalize
 {
-  FILE * m_errFile;
-  base::ScopedLogLevelChanger const m_debugLog;
-
 public:
-  InitializeFinalize() : m_debugLog(LDEBUG)
+  InitializeFinalize()
   {
-    // App runs without error console under win32.
-    m_errFile = ::freopen(".\\organicmaps.log", "w", stderr);
+    auto const logDir = GetPlatform().WritableDir() + "logs\\";
+    if (!Platform::MkDirRecursively(logDir))
+      return;
 
-    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
-    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    SYSTEMTIME now;
+    ::GetSystemTime(&now);
+    char timestamp[40];
+    std::snprintf(timestamp, sizeof(timestamp), "organicmaps-%04u%02u%02u-%02u%02u%02u-%03u-",
+                  static_cast<unsigned>(now.wYear), static_cast<unsigned>(now.wMonth), static_cast<unsigned>(now.wDay),
+                  static_cast<unsigned>(now.wHour), static_cast<unsigned>(now.wMinute),
+                  static_cast<unsigned>(now.wSecond), static_cast<unsigned>(now.wMilliseconds));
+
+    for (unsigned int suffix = 0; suffix < 1000; ++suffix)
+    {
+      auto const logPath = logDir + timestamp + std::to_string(suffix) + ".log";
+      int fd = -1;
+      auto const result =
+          ::_sopen_s(&fd, logPath.c_str(), _O_WRONLY | _O_CREAT | _O_EXCL | _O_TEXT, _SH_DENYNO, _S_IREAD | _S_IWRITE);
+      if (result == EEXIST)
+        continue;
+      if (result != 0)
+      {
+        LOG(LWARNING, ("Could not create log file", logPath, result));
+        return;
+      }
+
+      ::_close(fd);
+      if (::freopen(logPath.c_str(), "a", stderr) == nullptr)
+        return;
+      PruneWindowsLogs(logDir, logPath);
+      LOG(LINFO, ("Logging to", logPath));
+      return;
+    }
   }
-  ~InitializeFinalize() { ::fclose(m_errFile); }
+  ~InitializeFinalize() = default;
 };
 #else
 class InitializeFinalize

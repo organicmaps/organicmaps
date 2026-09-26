@@ -34,6 +34,17 @@ AboutDialog::AboutDialog(QWidget * parent)
   QLabel * versionLabel = new QLabel("Version: " + QString::fromStdString(platform.Version()));
   versionLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
   versionBox->addWidget(versionLabel);
+#ifdef OMIM_OS_WINDOWS
+  auto const licenseDir = QCoreApplication::applicationDirPath() + "/licenses/LICENSES/";
+  if (QFile::exists(licenseDir + "LGPL-3.0-only.txt"))
+  {
+    auto * qtNotice = new QLabel(
+        "Qt 6 (C) The Qt Company Ltd. and other contributors. "
+        "License texts: licenses/LICENSES/LGPL-3.0-only.txt and GPL-3.0-only.txt.");
+    qtNotice->setWordWrap(true);
+    versionBox->addWidget(qtNotice);
+  }
+#endif
   // TODO: insert maps data version.
   // versionBox->addWidget(new QLabel(QString("Data: ") + DESIGNER_DATA_VERSION));
 

@@ -23,6 +23,7 @@ on:
       - docs/**
       - packaging/**
       - tools/**
+      - '!tools/windows/**'
       - '!tools/python/test_server/**'
       - xcode/**
 
@@ -207,3 +208,25 @@ jobs:
       - name: Run drape tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
         run: ctest --preset $PRESET_DRAPE --verbose
+
+      # Reconfigure after the existing tests so they keep their development paths.
+      - name: Build Windows direct staging variant
+        if: ${{ runner.os == 'Windows' && matrix.cmake-build-type == 'Release' }}
+        run: |
+          python -m unittest discover -s tools/windows -p test_stage_runtime.py
+          cmake --preset "$PRESET" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTING=OFF -DBUILD_DESIGNER=OFF \
+            -DOMIM_WINDOWS_DISTRIBUTION=direct
+          cmake --build --preset "$PRESET" --target desktop
+          cmake --install build --prefix dist/windows-direct-ci --component WindowsRuntime
+
+      - name: Upload Windows direct staging folder
+        if: ${{ runner.os == 'Windows' && matrix.cmake-build-type == 'Release' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: WindowsDirect-unsigned-stage-${{ github.run_id }}
+          path: dist/windows-direct-ci/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
