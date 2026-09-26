@@ -21,12 +21,9 @@
 /*
  * These tests are developed to simplify routing integration tests writing.
  * You can use the interface bellow however you want but there are some hints.
- * 1. Most likely you want to use GetCarComponents() or GetPedestrianComponents() without parameter
- *    to get a reference to IRouterComponents.
- *    It loads all the maps from directories Platform::WritableDir()
- *    and Platform::ResourcesDir() only once and then reuse it.
- *    Use GetCarComponents() or GetPedestrianComponents() with vector of maps parameter
- *    only if you want to test something on a special map set.
+ * 1. Use GetVehicleComponents() to reuse a router for a vehicle type. It loads maps from
+ *    Platform::WritableDir() and Platform::ResourcesDir() once per vehicle type.
+ *    Construct VehicleRouterComponents with a specific map set when a test needs one.
  * 2. Loading maps and calculating routes is a time consuming process.
  *    Do this only if you really need it.
  * 3. If you want to check that a turn is absent - use TestTurnCount.
@@ -188,8 +185,8 @@ public:
   TestTurn const & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
 };
 
-/// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.
-/// inaccuracy is set in meters.
+/// Returns the requested turn, or an invalid TestTurn if the index is out of range.
+/// An out-of-range index also asserts in debug builds.
 TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
 
 void TestCurrentStreetName(routing::Route const & route, std::string const & expectedStreetName);

@@ -1458,8 +1458,8 @@ UNIT_TEST(Segregated_MergeLeftRightTurns)
 // Zemlyanoy Val street (northbound) in Moscow: turn:lanes = through|through|through|through|right|reverse,
 // where the last (right side) lane is a dedicated U-turn loop to the opposite carriageway.
 // After the U-turn fork there is a short (~20m) segment with turn:lanes = through|through|through|through|right
-// before the right turn to Staraya Basmannaya street. Both maneuvers below should show the same
-// 6 lanes the driver actually sees on approach, with ReverseLeft as the last lane.
+// before the right turn to Staraya Basmannaya street. Both maneuvers should show the six approach lanes.
+// The U-turn selects ReverseLeft in the last lane; the right turn keeps its reverse direction ambiguous.
 UNIT_TEST(Russia_Moscow_ZemlyanoyVal_LanesTest)
 {
   using namespace integration;
