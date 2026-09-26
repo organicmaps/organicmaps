@@ -94,7 +94,7 @@ public:
   virtual bool IsMarkAboveText() const = 0;
   virtual float GetSymbolOpacity() const = 0;
 
-  /// Used in CreateSymbolOverlayHandle only.
+  /// Non-POI sprites need an overlay handle to participate in hit testing.
   virtual bool IsSymbolSelectable() const = 0;
 
 private:
