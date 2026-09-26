@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
@@ -127,6 +128,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
+import kotlin.Unit;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener, MapRenderingListener, RoutingController.Container, LocationListener,
@@ -167,6 +169,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private String mDonatesUrl;
 
   private int mNavBarHeight;
+  // Whether the last viewport we wrote was the one reserved for the start-side navigation panel.
+  private boolean mSideNavPanelViewport;
 
   private RoutingPlanViewModel mRoutingPlanViewModel;
   private PlacePageViewModel mPlacePageViewModel;
@@ -571,8 +575,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void refreshLightStatusBar()
   {
-    UiUtils.setLightStatusBar(this, !(ThemeUtils.isDarkTheme(this) || RoutingController.get().isPlanning()
-                                      || ChoosePositionMode.get() != ChoosePositionMode.None));
+    // White icons only over the full-width green card (portrait nav); dark over the light map elsewhere.
+    final boolean navOverCard =
+        RoutingController.get().isNavigating() && getResources().getBoolean(R.bool.nav_full_width_card);
+    UiUtils.setLightStatusBar(
+        this, !(ThemeUtils.isDarkTheme(this) || navOverCard || ChoosePositionMode.get() != ChoosePositionMode.None));
   }
 
   private void updateViewsInsets()
@@ -616,9 +623,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     initNavigationButtons();
 
-    mNavigationController = new NavigationController(
-        this, v -> onSettingsOptionSelected(), v -> openVoiceInstructionsSettings(), this::updateBottomWidgetsOffset);
-    // TrafficManager.INSTANCE.attach(mNavigationController);
+    mNavigationController = new NavigationController(this,
+                                                     ()
+                                                         -> {
+                                                       onSettingsOptionSelected();
+                                                       return Unit.INSTANCE;
+                                                     },
+                                                     ()
+                                                         -> {
+                                                       openVoiceInstructionsSettings();
+                                                       return Unit.INSTANCE;
+                                                     },
+                                                     this::updateBottomWidgetsOffset);
     initOnmapDownloader();
     initPositionChooser();
   }
@@ -1235,15 +1251,54 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final Float bottomButtonHeight = mMapButtonsViewModel.getBottomButtonsHeight().getValue();
     if (bottomButtonHeight != null)
       offsetY = Math.max(offsetY, bottomButtonHeight.intValue() + mNavBarHeight);
+    // A start-side sheet (landscape, tablets) covers neither the marker nor the area it centers in.
+    final boolean hasSideNavPanel =
+        RoutingController.get().isNavigating() && !getResources().getBoolean(R.bool.nav_full_width_card);
+    int positionOffsetY = offsetY;
     final View navBottomSheetLineFrame = findViewById(R.id.line_frame);
     final View navBottomSheetNavBar = findViewById(R.id.nav_bottom_sheet_nav_bar);
     if (navBottomSheetLineFrame != null)
+    {
       offsetY = Math.max(offsetY, navBottomSheetLineFrame.getHeight() + navBottomSheetNavBar.getHeight());
+      // The bottom widgets sit on that same start side, so they clear the sheet either way.
+      if (!hasSideNavPanel)
+        positionOffsetY = offsetY;
+    }
     if (mDisplayManager.isDeviceDisplayUsed())
     {
       mMapController.updateBottomWidgetsOffset(offsetX, offsetY);
-      mMapController.updateMyPositionRoutingOffset(offsetY);
+      mMapController.updateMyPositionRoutingOffset(positionOffsetY);
+      // The place page and the search sheet narrow the viewport for their own sheets, and this
+      // method runs on every inset dispatch and bottom-button height change - including while one
+      // of them is open. So only touch the rect while the start-side panel owns it, plus once more
+      // when it stops owning it, to hand the full screen back.
+      if (hasSideNavPanel || mSideNavPanelViewport)
+        updateMapViewport(hasSideNavPanel);
+      mSideNavPanelViewport = hasSideNavPanel;
     }
+  }
+
+  // Posted: a surface resize resets the rect natively (Framework::OnSize) right after this runs.
+  private void updateMapViewport(boolean hasSideNavPanel)
+  {
+    final View map = findViewById(R.id.map);
+    map.post(() -> {
+      final int width = map.getWidth();
+      final int height = map.getHeight();
+      if (width == 0 || height == 0)
+        return;
+      final Resources res = getResources();
+      int panel = hasSideNavPanel ? res.getDimensionPixelSize(R.dimen.nav_menu_landscape_width)
+                                        + res.getDimensionPixelSize(R.dimen.nav_side_margin_min)
+                                  : 0;
+      // A split-screen window can be narrower than the panel, and an inverted rect asserts natively.
+      if (panel >= width)
+        panel = 0;
+      if (map.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL)
+        Framework.nativeSetVisibleRect(0, 0, width - panel, height);
+      else
+        Framework.nativeSetVisibleRect(panel, 0, width, height);
+    });
   }
 
   @Override

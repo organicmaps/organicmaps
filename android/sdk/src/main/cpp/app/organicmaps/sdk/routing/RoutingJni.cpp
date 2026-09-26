@@ -67,9 +67,9 @@ jobjectArray CreateLanesInfo(JNIEnv * env, routing::turns::lanes::LanesInfo cons
   auto const lanesSize = static_cast<jsize>(lanes.size());
   jobjectArray jLanes = env->NewObjectArray(lanesSize, laneInfoClass, nullptr);
   ASSERT(jLanes, (DescribeException()));
-  // Java signature : LaneInfo(LaneWay[] laneWays, LaneWay activeLane)
+  // Java signature : LaneInfo(LaneWay[] laneWays, LaneWay activeLane, int similarLanesCount)
   static jmethodID const ctorLaneInfoID = GetConstructorID(
-      env, laneInfoClass, "([Lapp/organicmaps/sdk/routing/LaneWay;Lapp/organicmaps/sdk/routing/LaneWay;)V");
+      env, laneInfoClass, "([Lapp/organicmaps/sdk/routing/LaneWay;Lapp/organicmaps/sdk/routing/LaneWay;I)V");
 
   for (jsize j = 0; j < lanesSize; ++j)
   {
@@ -82,8 +82,9 @@ jobjectArray CreateLanesInfo(JNIEnv * env, routing::turns::lanes::LanesInfo cons
       TScopedLocalRef jLaneWay(env, ToJavaLaneWay(env, laneWays[i]));
       env->SetObjectArrayElement(jLaneWays.get(), i, jLaneWay.get());
     }
-    TScopedLocalRef jLaneInfo(env, env->NewObject(laneInfoClass, ctorLaneInfoID, jLaneWays.get(),
-                                                  ToJavaLaneWay(env, lanes[j].recommendedWay)));
+    TScopedLocalRef jLaneInfo(
+        env, env->NewObject(laneInfoClass, ctorLaneInfoID, jLaneWays.get(), ToJavaLaneWay(env, lanes[j].recommendedWay),
+                            static_cast<jint>(lanes[j].similarLanesCount)));
     ASSERT(jLaneInfo.get(), (DescribeException()));
     env->SetObjectArrayElement(jLanes, j, jLaneInfo.get());
   }
@@ -237,6 +238,8 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     "I"                                                        // exitNum
     "I"                                                        // totalTime
     "[Lapp/organicmaps/sdk/routing/LaneInfo;"                  // lanes
+    "Z"                                                        // lanesTrimmedLeft
+    "Z"                                                        // lanesTrimmedRight
     "D"                                                        // speedLimitMps
     "Z"                                                        // speedLimitExceeded
     "Z"                                                        // shouldPlayWarningSignal
@@ -260,6 +263,8 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     info.m_exitNum,
     info.m_time,
     CreateLanesInfo(env, info.m_lanes),
+    static_cast<jboolean>(info.m_lanesTrimmedLeft),
+    static_cast<jboolean>(info.m_lanesTrimmedRight),
     info.m_speedLimitMps,
     static_cast<jboolean>(rm.IsSpeedCamLimitExceeded()),
     static_cast<jboolean>(rm.GetSpeedCamManager().ShouldPlayBeepSignal())
