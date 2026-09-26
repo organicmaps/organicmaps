@@ -936,4 +936,6 @@
     <string name="choose_point_on_map_hint">Skuif en zoem die kaart om die kruis te plaas</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stop en stoor</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Tussenstop %1$d</string>
 </resources>
