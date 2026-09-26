@@ -42,7 +42,6 @@
 #include <limits>
 #include <memory>
 #include <thread>
-#include <unordered_set>
 
 namespace df
 {
@@ -1537,7 +1536,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::UserMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
-      RenderNonDisplaceableUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
+      RenderUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
     }
 
     if (!HasRouteData())
@@ -1645,43 +1644,15 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   DEBUG_LABEL(m_context, "Overlay Layer");
   RenderLayer & overlay = m_layers[static_cast<size_t>(DepthLayer::OverlayLayer)];
   BuildOverlayTree(modelView);
-
-  std::unordered_set<FeatureID> searchFeatures;
-  for (auto const & group : m_layers[static_cast<size_t>(DepthLayer::SearchMarkLayer)].m_renderGroups)
-  {
-    if (IsTextUserMarkState(group->GetState()))
-      continue;
-
-    group->ForEachOverlay([&searchFeatures](ref_ptr<dp::OverlayHandle> handle)
-    {
-      auto const & featureId = handle->GetOverlayID().m_featureId;
-      if (featureId.IsValid())
-        searchFeatures.insert(featureId);
-    });
-  }
-
-  std::vector<ref_ptr<dp::OverlayHandle>> hiddenSymbols;
+  UpdateSearchMarkTextOverlay(modelView);
+  m_searchMarkOverlayFilter.Collect(m_layers[static_cast<size_t>(DepthLayer::SearchMarkLayer)].m_renderGroups,
+                                    modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
   {
-    auto const program = group->GetState().GetProgram<gpu::Program>();
-    if (!searchFeatures.empty() && (program == gpu::Program::Texturing || program == gpu::Program::MaskedTexturing))
-    {
-      // Keep POIs in the displacement tree for their captions, but do not draw them beneath translucent search marks.
-      group->ForEachOverlay([&](ref_ptr<dp::OverlayHandle> handle)
-      {
-        if (handle->IsVisible() && searchFeatures.contains(handle->GetOverlayID().m_featureId))
-        {
-          hiddenSymbols.push_back(handle);
-          handle->SetIsVisible(false);
-        }
-      });
-    }
-
+    // Keep POIs in the displacement tree for their captions while drawing search marks above them.
+    m_searchMarkOverlayFilter.HideOverlappingSymbols(*group, modelView);
     RenderSingleGroup(m_context, modelView, make_ref(group));
-
-    for (auto const & handle : hiddenSymbols)
-      handle->SetIsVisible(true);
-    hiddenSymbols.clear();
+    m_searchMarkOverlayFilter.RestoreHiddenSymbols();
   }
 }
 
@@ -1786,26 +1757,6 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
 
   for (drape_ptr<RenderGroup> const & group : renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
-}
-
-void FrontendRenderer::RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
-{
-  TRACE_SECTION("[drape] RenderNonDisplaceableUserMarksLayer");
-  if (layerId == DepthLayer::SearchMarkLayer)
-  {
-    UpdateSearchMarkTextOverlay(modelView);
-    RenderUserMarksLayer(modelView, layerId);
-    return;
-  }
-
-  auto & layer = m_layers[static_cast<size_t>(layerId)];
-  layer.Sort(nullptr);
-  for (drape_ptr<RenderGroup> & group : layer.m_renderGroups)
-  {
-    group->SetOverlayVisibility(true);
-    group->Update(modelView);
-  }
-  RenderUserMarksLayer(modelView, layerId);
 }
 
 void FrontendRenderer::RenderEmptyFrame()
