@@ -81,6 +81,7 @@ import app.organicmaps.sdk.MapController;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.BookmarkImportResult;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.TrackRecording;
@@ -1906,49 +1907,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onBookmarksFileUnsupported(@NonNull Uri uri)
+  public void onBookmarksImportFinished(@NonNull BookmarkImportResult result)
   {
-    dismissAlertDialog();
-    mAlertDialog =
-        new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-            .setTitle(R.string.load_kmz_title)
-            .setMessage(getString(R.string.unknown_file_type, uri))
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.report_a_bug,
-                               (dialog, which)
-                                   -> Utils.sendBugReport(mShareLauncher, this, getString(R.string.load_kmz_title),
-                                                          getString(R.string.unknown_file_type, uri)))
-            .setOnDismissListener(dialog -> mAlertDialog = null)
-            .show();
-  }
+    long[] categoryIds = result.getCategoryIds();
+    if (categoryIds.length == 0 && result.getFailedFileNames().length == 0)
+      return;
 
-  @Override
-  public void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String error)
-  {
     dismissAlertDialog();
-    mAlertDialog =
-        new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-            .setTitle(R.string.load_kmz_title)
-            .setMessage(getString(R.string.failed_to_open_file, uri, error))
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.report_a_bug,
-                               (dialog, which)
-                                   -> Utils.sendBugReport(mShareLauncher, this, getString(R.string.load_kmz_title),
-                                                          getString(R.string.failed_to_open_file, uri, error)))
-            .setOnDismissListener(dialog -> mAlertDialog = null)
-            .show();
-  }
+    if (categoryIds.length > 0)
+    {
+      BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryIds[0]);
+      Toast.makeText(this, R.string.load_kmz_successful, Toast.LENGTH_LONG).show();
+      return;
+    }
 
-  @Override
-  public void onBookmarksFileImportSuccessful()
-  {
-    Utils.showSnackbar(this, findViewById(R.id.coordinator), R.string.load_kmz_successful);
-  }
-
-  @Override
-  public void onBookmarksFileImportFailed()
-  {
-    dismissAlertDialog();
     mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
                        .setTitle(R.string.load_kmz_title)
                        .setMessage(R.string.load_kmz_failed)
