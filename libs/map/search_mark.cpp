@@ -510,48 +510,22 @@ std::optional<m2::PointD> SearchMarks::GetSize(std::string const & symbolName)
   return m2::PointD(it->second);
 }
 
-bool SearchMarks::IsThereSearchMarkForFeature(FeatureID const & featureId) const
-{
-  for (auto const markId : m_bmManager->GetUserMarkIds(UserMark::Type::SEARCH))
-    if (m_bmManager->GetUserMark(markId)->GetFeatureID() == featureId)
-      return true;
-  return false;
-}
-
 void SearchMarks::OnDeactivate(FeatureID const & featureId)
 {
-  m_visitedSearchMarks.insert(featureId);
-  ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
+  ASSERT(m_bmManager, ());
+  for (auto const markId : m_bmManager->GetUserMarkIds(UserMark::Type::SEARCH))
   {
-    if (featureId != mark->GetFeatureID())
-      return base::ControlFlow::Continue;
-    mark->SetVisited(true);
-    return base::ControlFlow::Break;
-  });
-}
-
-void SearchMarks::SetVisited(FeatureID const & id)
-{
-  m_visitedSearchMarks.insert(id);
+    if (m_bmManager->GetMark<SearchMarkPoint>(markId)->GetFeatureID() != featureId)
+      continue;
+    m_visitedSearchMarks.insert(featureId);
+    m_bmManager->GetEditSession().GetMarkForEdit<SearchMarkPoint>(markId)->SetVisited(true);
+    return;
+  }
 }
 
 bool SearchMarks::IsVisited(FeatureID const & id) const
 {
   return m_visitedSearchMarks.find(id) != m_visitedSearchMarks.cend();
-}
-
-void SearchMarks::ProcessMarks(std::function<base::ControlFlow(SearchMarkPoint *)> && processor) const
-{
-  if (m_bmManager == nullptr || processor == nullptr)
-    return;
-
-  auto editSession = m_bmManager->GetEditSession();
-  for (auto markId : m_bmManager->GetUserMarkIds(UserMark::Type::SEARCH))
-  {
-    auto * mark = editSession.GetMarkForEdit<SearchMarkPoint>(markId);
-    if (processor(mark) == base::ControlFlow::Break)
-      break;
-  }
 }
 
 void SearchMarks::UpdateMaxDimension()
