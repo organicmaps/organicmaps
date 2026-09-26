@@ -201,7 +201,6 @@ BOOL HandleIOSDebugCommand(NSString * query)
 + (void)showResultAtIndex:(NSUInteger)index
 {
   auto const & result = [MWMSearch manager]->m_everywhereResults[index];
-  GetFramework().StopLocationFollow();
   GetFramework().SelectSearchResult(result, true);
 }
 
