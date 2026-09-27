@@ -111,6 +111,7 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   public void refresh(@NonNull Context context)
   {
     cancelRequests();
+    mMainHandler.removeCallbacks(mUpdateMarks);
     mContext = context.getApplicationContext();
     ++mGeneration;
     mQueue.clear();
@@ -223,6 +224,11 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   @MainThread
   public void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
   {
+    if (mContext != null && !isEnabled(mContext))
+    {
+      refresh(mContext);
+      return;
+    }
     final PendingAddress address = mRequests.remove(requestId);
     if (address == null || address.generation != mGeneration)
     {
@@ -284,6 +290,8 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   @Nullable
   ResolvedAddress getResolved(@NonNull ContactAddress contactAddress)
   {
+    if (mContext == null || !isEnabled(mContext))
+      return null;
     return mCache.get(normalizeKey(contactAddress));
   }
 

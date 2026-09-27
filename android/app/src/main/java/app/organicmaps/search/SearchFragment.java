@@ -885,7 +885,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mContactAddressSearch = ContactAddressSearch.getInstance(requireContext());
 
     mContactAddressSearch.search(getQuery(), (query, results) -> {
-      if (!isAdded() || isCategory() || !query.equals(getQuery()))
+      if (!isAdded() || isCategory() || !query.equals(getQuery()) || !Config.isContactSearchEnabled() ||
+          !ContactAddressSearch.hasPermission(requireContext()))
         return;
       mSearchAdapter.refreshContactData(results);
       updateResultsPlaceholder();

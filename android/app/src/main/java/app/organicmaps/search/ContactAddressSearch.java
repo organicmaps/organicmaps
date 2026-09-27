@@ -147,7 +147,8 @@ final class ContactAddressSearch
     ThreadPool.getWorker().execute(() -> {
       final List<ContactAddress> matches = findMatches(normalizedQuery);
       mMainHandler.post(() -> {
-        callback.onResults(query, matches);
+        if (!mShutdown)
+          callback.onResults(query, matches);
       });
     });
   }
@@ -229,6 +230,8 @@ final class ContactAddressSearch
 
       while (cursor.moveToNext())
       {
+        if (mShutdown)
+          return Collections.emptyList();
         final String name = getString(cursor, nameColumn);
         if (name.isEmpty())
           continue;
@@ -269,7 +272,8 @@ final class ContactAddressSearch
     ThreadPool.getWorker().execute(() -> {
       final List<ContactAddress> addresses = getAddresses();
       mMainHandler.post(() -> {
-        callback.onResults("", addresses);
+        if (!mShutdown)
+          callback.onResults("", addresses);
       });
     });
   }
