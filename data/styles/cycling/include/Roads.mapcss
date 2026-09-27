@@ -68,6 +68,21 @@ line|z18-[highway=path][bicycle=designated][hwtag!=yescar],
 line|z18-[highway=footway][bicycle=designated][hwtag!=yescar],
 {width: 6.9;}
 
+/* Keep dedicated cycleways quieter at overview zooms, as upstream does. */
+line|z11[highway=cycleway][hwtag!=yescar],
+{opacity: 0.6; casing-opacity: 0.6;}
+line|z12[highway=cycleway][hwtag!=yescar],
+line|z12[highway=path][bicycle=designated][hwtag!=yescar],
+{opacity: 0.7; casing-opacity: 0.7;}
+line|z13[highway=cycleway][hwtag!=yescar],
+line|z13[highway=path][bicycle=designated][hwtag!=yescar],
+line|z13[highway=footway][bicycle=designated][hwtag!=yescar],
+{opacity: 0.8; casing-opacity: 0.8;}
+line|z14[highway=cycleway][hwtag!=yescar],
+line|z14[highway=path][bicycle=designated][hwtag!=yescar],
+line|z14[highway=footway][bicycle=designated][hwtag!=yescar],
+{opacity: 0.9; casing-opacity: 0.9;}
+
 /* A separately mapped bicycle way with explicit motor-vehicle access is shared
    space, not protected infrastructure. Keep its normal visibility range while
    overriding the solid stroke with the dotted shared-space treatment. */
