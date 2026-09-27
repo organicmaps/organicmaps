@@ -402,6 +402,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       mEnableContactSearchWhenPermissionGranted = false;
     }
     pref.setChecked(Config.isContactSearchEnabled() && permissionGranted);
+    ContactMapManager.INSTANCE.refreshIfAvailabilityChanged(requireContext());
   }
 
   private void openAppSettings()
