@@ -114,11 +114,14 @@ std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOp
 
   std::vector<Day> days;
 
-  NSCalendar * cal = NSCalendar.currentCalendar;
+  NSCalendar * cal = [NSCalendar.currentCalendar copy];
   cal.locale = NSLocale.currentLocale;
+  auto const now = time(nullptr);
+  cal.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:GetUtcOffset(now, timeZone)];
 
   auto const timeTablesSize = timeTableSet.Size();
-  auto const today = static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
+  auto const today = static_cast<Weekday>(
+      [cal components:NSCalendarUnitWeekday fromDate:[NSDate dateWithTimeIntervalSince1970:now]].weekday);
   auto const unhandledDays = timeTableSet.GetUnhandledDays();
 
   /// Schedule contains more than one rule for all days or unhandled days.

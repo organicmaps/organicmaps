@@ -30,7 +30,7 @@ struct Day
 };
 
 /// @return { Days schedule list, is closed now }
-/// @param timeZone POI's local time zone used to evaluate the "is closed now" flag (see issue #1642).
+/// @param timeZone POI's local time zone for the current state and "today" row.
 std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization,
                                                           std::optional<om::tz::TimeZone> const & timeZone);
 

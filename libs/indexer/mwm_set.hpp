@@ -138,7 +138,7 @@ public:
 
     std::shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
 
-    /// @returns the time zone of the mwm region, or nullopt when the id is not bound to an mwm.
+    /// @returns the mwm region's time zone, or nullopt for an unbound id or missing metadata.
     std::optional<om::tz::TimeZone> const & GetTimeZone() const
     {
       static std::optional<om::tz::TimeZone> const kNoTimeZone;

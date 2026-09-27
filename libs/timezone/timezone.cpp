@@ -106,6 +106,20 @@ ZonedTime Convert(time_t const time, TimeZone const & timeZone)
   return time + dstOffset * kSecondsPerMinute;
 }
 
+std::optional<time_t> NextTransition(time_t const time, TimeZone const & timeZone)
+{
+  time_t const startOfYear = GenerationYearStart(timeZone.generation_year_offset);
+  int64_t dayOffset = 0;
+  for (auto const & transition : timeZone.transitions)
+  {
+    dayOffset += transition.day_delta;
+    time_t const utc = startOfYear + dayOffset * kSecondsPerDay + transition.minute_of_day * kSecondsPerMinute;
+    if (utc > time)
+      return utc;
+  }
+  return std::nullopt;
+}
+
 TimeZoneDb::TimeZoneDb()
 {
   std::string buffer;

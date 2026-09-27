@@ -6,6 +6,7 @@
 
 #include "base/logging.hpp"
 
+#include <chrono>
 #include <ctime>
 #include <fstream>
 #include <sstream>
@@ -226,4 +227,39 @@ UNIT_TEST(OpeningHours_TimeZoneAwareState)
   // The state-only predicates must agree with GetInfo().
   TEST(oh.IsOpen(instant, kUtc), ());
   TEST(oh.IsClosed(instant, kUtcMinus10), ());
+}
+
+UNIT_TEST(OpeningHours_DstTransitions)
+{
+  // 2026 Europe/London transitions: Mar 29 and Oct 25 at 01:00 UTC.
+  om::tz::TimeZone const zone{
+      .generation_year_offset = 0, .base_offset = 64, .dst_delta = 60, .transitions = {{87, 60}, {210, 60}}};
+  auto const utc = [](unsigned month, unsigned day, int hour, int minute = 0)
+  {
+    using namespace std::chrono;
+    return static_cast<time_t>(sys_days{year{2026} / month / day}.time_since_epoch().count() * 86400 + hour * 3600 +
+                               minute * 60);
+  };
+
+  time_t const beforeFallBack = utc(10, 25, 0, 45);  // Local 01:45 DST.
+  time_t const fallBack = utc(10, 25, 1);            // Local 01:00 standard.
+  TEST_EQUAL(osmoh::GetUtcOffset(beforeFallBack, zone), 3600, ());
+  TEST_EQUAL(osmoh::GetUtcOffset(fallBack, zone), 0, ());
+  OpeningHours const opensInRepeatedHour("Su 01:00-01:30");
+  TEST(opensInRepeatedHour.IsClosed(beforeFallBack, zone), ());
+  TEST(opensInRepeatedHour.IsOpen(fallBack, zone), ());
+  TEST_EQUAL(opensInRepeatedHour.GetInfo(beforeFallBack, zone).nextTimeOpen, fallBack, ());
+
+  OpeningHours const closesAtFallBack("Su 01:30-02:30");
+  TEST(closesAtFallBack.IsOpen(beforeFallBack, zone), ());
+  TEST(closesAtFallBack.IsClosed(fallBack, zone), ());
+  TEST_EQUAL(closesAtFallBack.GetInfo(beforeFallBack, zone).nextTimeClosed, fallBack, ());
+
+  time_t const beforeSpringForward = utc(3, 29, 0, 45);  // Local 00:45 standard.
+  time_t const springForward = utc(3, 29, 1);            // Local 01:00 is skipped.
+  OpeningHours const opensInSkippedHour("Su 01:30-02:30");
+  TEST(opensInSkippedHour.IsClosed(beforeSpringForward, zone), ());
+  TEST(opensInSkippedHour.IsOpen(springForward, zone), ());
+  TEST_EQUAL(opensInSkippedHour.GetInfo(beforeSpringForward, zone).nextTimeOpen, springForward, ());
+  TEST_EQUAL(opensInSkippedHour.GetInfo(springForward, zone).nextTimeClosed, utc(3, 29, 1, 30), ());
 }

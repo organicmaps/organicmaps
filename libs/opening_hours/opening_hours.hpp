@@ -722,6 +722,9 @@ enum class RuleState
   Unknown
 };
 
+/// Local wall time minus UTC, in seconds; uses the device zone when |timeZone| is absent.
+int32_t GetUtcOffset(time_t time, std::optional<om::tz::TimeZone> const & timeZone);
+
 inline std::string DebugPrint(RuleState state)
 {
   switch (state)
