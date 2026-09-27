@@ -1071,6 +1071,15 @@ bool OpeningHours::IsValid() const
   return m_expr != nullptr;
 }
 
+bool OpeningHours::HasSunEvent() const
+{
+  for (auto const & rule : m_rule)
+    for (auto const & span : rule.GetTimes())
+      if (span.GetStart().IsEvent() || span.GetEnd().IsEvent())
+        return true;
+  return false;
+}
+
 bool OpeningHours::IsTwentyFourHours() const
 {
   return m_rule.size() == 1 && m_rule[0].IsTwentyFourHours();

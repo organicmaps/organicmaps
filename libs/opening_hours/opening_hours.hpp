@@ -768,6 +768,7 @@ public:
                 std::optional<ms::LatLon> const & coord = std::nullopt) const;
 
   bool IsValid() const;
+  bool HasSunEvent() const;
 
   bool IsTwentyFourHours() const;
   bool HasWeekdaySelector() const;

@@ -138,6 +138,10 @@ UNIT_TEST(OpeningHours_ClosedValue)
 // sunset 19:00, dusk 20:00).
 UNIT_TEST(OpeningHours_SunEvents_RealLocalTimes)
 {
+  TEST(OpeningHours("09:00-sunset").HasSunEvent(), ());
+  TEST(OpeningHours("sunrise-sunset").HasSunEvent(), ());
+  TEST(!OpeningHours("Mo-Fr 09:00-17:00").HasSunEvent(), ());
+
   // Golden reference (opening-hours-rs localization tests): Paris (48.87, 2.29)
   // on 2020-06-01 -> sunrise 05:51, sunset 21:46 in local time (CEST, UTC+2).
   ms::LatLon const paris(48.87, 2.29);

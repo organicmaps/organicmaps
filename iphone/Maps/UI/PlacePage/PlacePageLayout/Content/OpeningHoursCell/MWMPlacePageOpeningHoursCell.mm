@@ -64,7 +64,7 @@ WeekDayView getWeekDayView()
     self.expandImage.transform = CGAffineTransformMakeScale(-1, 1);
   NSAssert(info, @"Schedule can not be empty");
   osmoh::OpeningHours oh(info.UTF8String);
-  if (MakeTimeTableSet(oh, timeTableSet))
+  if (!oh.HasSunEvent() && MakeTimeTableSet(oh, timeTableSet))
   {
     cd.isCompatibility = NO;
     [self processSchedule];
