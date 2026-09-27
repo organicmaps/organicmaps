@@ -1,6 +1,16 @@
 /* Keep here changes of the base map style file only. */
 @import("../../outdoors/light/colors.mapcss");
 
-/* Single cycling accent: vivid cyan-blue. Geometry and width provide context
-   while "blue means cycling" stays immediately recognizable. */
-@cycleway: #1E88E5;
+/* Cycling accent: one blue hue in two intensities.
+   - @cycleway: dedicated cycleways and protected tracks (stronger).
+   - @cycleway_road: painted and shared lanes.
+   - @cycleway_casing: the continuous contrasting outline drawn underneath. */
+@cycleway: #0D47A1;
+@cycleway_road: #42A5F5;
+@cycleway_casing: #FFFFFF;
+@cycleway_arrow_solid_xs: cycling-arrow-solid-xs.svg;
+@cycleway_arrow_solid_s: cycling-arrow-solid-s.svg;
+@cycleway_arrow_solid_m: cycling-arrow-solid-m.svg;
+@cycleway_arrow_patterned_xs: cycling-arrow-patterned-xs.svg;
+@cycleway_arrow_patterned_s: cycling-arrow-patterned-s.svg;
+@cycleway_arrow_patterned_m: cycling-arrow-patterned-m.svg;
