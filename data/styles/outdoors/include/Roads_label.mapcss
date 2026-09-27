@@ -2,26 +2,20 @@
 @import("../../default/include/Roads_label.mapcss");
 
 
-line|z13-[highway=track],
-line|z13-[highway=path],
-line|z13-[highway=footway],
-line|z13-[highway=steps],
-line|z13-[highway=bridleway],
-line|z13-[highway=cycleway],
-{text: name; font-size: 10; text-color: @label_light; text-halo-opacity: 0.8; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+/* Names from z15 like in the main style: at z13-14 they crowd the map in settled areas
+   while the trail geometry itself is already visible. */
+line|z15-[highway=track],
+line|z15-[highway=path],
+line|z15-[highway=footway],
+line|z15-[highway=steps],
+line|z15-[highway=bridleway],
+line|z15-[highway=cycleway],
+{text: name; font-size: 11; text-color: @label_light; text-halo-opacity: 0.8; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
 
 /* Don't display names of sidewalks and pedestrian crossings. */
-line|z13-[highway=footway][footway=sidewalk],
-line|z13-[highway=footway][footway=crossing],
+line|z15-[highway=footway][footway=sidewalk],
+line|z15-[highway=footway][footway=crossing],
 {text: none;}
-
-line|z14-15[highway=path],
-line|z14-15[highway=track],
-line|z14-15[highway=footway],
-line|z14-15[highway=steps],
-line|z14-15[highway=bridleway],
-line|z14-15[highway=cycleway],
-{font-size: 11;}
 
 line|z16-[highway=path],
 line|z16-[highway=track],
@@ -32,7 +26,7 @@ line|z16-[highway=cycleway],
 {font-size: 12; text-color: @label_medium; text-halo-color: @label_halo_light;}
 
 /* Do not draw texts for highway-footway-area */
-line|z13-[highway=footway][area?],
+line|z15-[highway=footway][area?],
 {text: none;}
 
 line|z13-[piste:type=nordic],

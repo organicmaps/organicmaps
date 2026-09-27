@@ -1,0 +1,67 @@
+/* Keep here changes of the base map style file only. */
+@import("../../outdoors/include/Roads.mapcss");
+
+/* Dedicated cycleways use a solid cyan-blue accent. Designated shared paths
+   retain their dashed base line above the same accent used as an underlay. */
+
+/* Retain the base motorway/trunk visibility at z6 for regional orientation. At
+   z7-14, de-emphasize their geometry together with the suppressed labels. */
+line|z7-14[highway=motorway],
+line|z7-14[highway=trunk],
+line|z10-14[highway=motorway_link],
+line|z10-14[highway=trunk_link],
+{opacity: 0.4;}
+
+line|z7-14[highway=motorway]::bridgewhite,
+line|z7-14[highway=motorway]::bridgeblack,
+line|z7-14[highway=trunk]::bridgewhite,
+line|z7-14[highway=trunk]::bridgeblack,
+line|z10-14[highway=motorway_link]::bridgewhite,
+line|z10-14[highway=motorway_link]::bridgeblack,
+line|z10-14[highway=trunk_link]::bridgewhite,
+line|z10-14[highway=trunk_link]::bridgeblack,
+{casing-opacity: 0.4;}
+
+line|z7-14[highway=motorway][tunnel?],
+line|z7-14[highway=trunk][tunnel?],
+line|z10-14[highway=motorway_link][tunnel?],
+line|z10-14[highway=trunk_link][tunnel?],
+{opacity: 0.4; casing-opacity: 0.4;}
+
+/* Keep cycling infrastructure visible and monotonic from overview zooms. */
+line|z11-[highway=cycleway],
+line|z12-[highway=path][bicycle=designated]::cycleline,
+line|z13-[highway=footway][bicycle=designated]::cycleline,
+{color: @cycleway; opacity: 1;}
+
+line|z11[highway=cycleway],
+{width: 0.9;}
+line|z12[highway=cycleway],
+{width: 1.1;}
+line|z13[highway=cycleway],
+{width: 1.3;}
+line|z14[highway=cycleway],
+{width: 1.6;}
+line|z15[highway=cycleway],
+{width: 1.9;}
+line|z16-17[highway=cycleway],
+{width: 2.3;}
+line|z18-[highway=cycleway],
+{width: 2.8;}
+
+/* Ramp the accent in instead of switching it on at full strength: a whole city's
+   cycleways merge into a solid blue mesh at overview zooms. Full strength from z15,
+   where the map is actually used for cycling. */
+line|z11[highway=cycleway],
+{opacity: 0.6;}
+line|z12[highway=cycleway],
+line|z12[highway=path][bicycle=designated]::cycleline,
+{opacity: 0.7;}
+line|z13[highway=cycleway],
+line|z13[highway=path][bicycle=designated]::cycleline,
+line|z13[highway=footway][bicycle=designated]::cycleline,
+{opacity: 0.8;}
+line|z14[highway=cycleway],
+line|z14[highway=path][bicycle=designated]::cycleline,
+line|z14[highway=footway][bicycle=designated]::cycleline,
+{opacity: 0.9;}

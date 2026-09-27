@@ -170,6 +170,29 @@ line|z18-[piste:type=hike],
 line|z18-[highway=footway],
 {width: 4; dashes: 8,4.5;}
 
+/* Extend the z11-12 prominence ramp through z14: at overview zooms trails are context,
+   not the strongest thing on the map. They reach full strength at z15. */
+line|z11[highway=footway],
+{opacity: 0.6;}
+line|z12[highway=footway],
+line|z12[highway=ladder],
+line|z12[highway=steps],
+{opacity: 0.7;}
+line|z13[highway=track],
+line|z13[highway=path],
+line|z13[highway=footway],
+line|z13[highway=ladder],
+line|z13[highway=steps],
+line|z13[highway=bridleway],
+{opacity: 0.7;}
+line|z14[highway=track],
+line|z14[highway=path],
+line|z14[highway=footway],
+line|z14[highway=ladder],
+line|z14[highway=steps],
+line|z14[highway=bridleway],
+{opacity: 0.8;}
+
 line|z13-[highway=path][bicycle=designated],
 line|z13-[highway=footway][bicycle=designated],
 {opacity: 0.8;}
@@ -230,10 +253,11 @@ line|z18-[highway=path][_path_grade=expert],
 {width: 4; dashes: 3.5,11;}
 
 /*
-Don't display sidewalks till z13 (like highway=service).
-"Rožňava" foot routes are very common with highway-footway-sidewalk
+Don't display sidewalks till z15 - in cities they duplicate every street.
+Still one zoom earlier than in the main style, because "Rožňava" foot routes
+are very common with highway-footway-sidewalk.
 */
-line|z11-12[highway=footway][footway=sidewalk],
+line|z11-14[highway=footway][footway=sidewalk],
 /* Don't display pedestrian crossings till z16. */
 line|z11-15[highway=footway][footway=crossing],
 {width: 0;}
@@ -267,7 +291,7 @@ line|z13[highway=path][bicycle=designated]::cycleline,
 line|z14[highway=cycleway],
 line|z14[highway=footway][bicycle=designated]::cycleline,
 line|z14[highway=path][bicycle=designated]::cycleline,
-{width: 1.3;}
+{width: 1.3; opacity: 0.9;}
 line|z15[highway=cycleway],
 line|z15[highway=footway][bicycle=designated]::cycleline,
 line|z15[highway=path][bicycle=designated]::cycleline,
