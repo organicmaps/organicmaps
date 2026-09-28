@@ -31,9 +31,9 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
@@ -607,7 +607,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private void processData()
   {
     if (!mSearchResultsMode)
-      Collections.sort(mItems);
+      mItems.sort(CountryItem.comparator(Locale.getDefault()));
 
     collectHeaders();
 

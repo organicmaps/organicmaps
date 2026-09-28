@@ -5,6 +5,9 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.util.StringUtils;
+import java.text.Collator;
+import java.util.Comparator;
+import java.util.Locale;
 
 /**
  * Class representing a single item in countries hierarchy.
@@ -13,7 +16,7 @@ import app.organicmaps.sdk.util.StringUtils;
 // Used by JNI.
 @Keep
 @SuppressWarnings("unused")
-public final class CountryItem implements Comparable<CountryItem>
+public final class CountryItem
 {
   private static String sRootId;
 
@@ -104,14 +107,15 @@ public final class CountryItem implements Comparable<CountryItem>
     return id.equals(((CountryItem) other).id);
   }
 
-  @Override
-  public int compareTo(@NonNull CountryItem another)
+  @NonNull
+  public static Comparator<CountryItem> comparator(@NonNull Locale locale)
   {
-    int catDiff = (category - another.category);
-    if (catDiff != 0)
-      return catDiff;
-
-    return name.compareTo(another.name);
+    Collator collator = Collator.getInstance(locale);
+    return (first, second) ->
+    {
+      int catDiff = Integer.compare(first.category, second.category);
+      return catDiff != 0 ? catDiff : collator.compare(first.name, second.name);
+    };
   }
 
   public void update()
