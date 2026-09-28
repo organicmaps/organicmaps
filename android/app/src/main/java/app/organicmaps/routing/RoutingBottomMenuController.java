@@ -28,7 +28,6 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.routing.RouteAltitudeData;
 import app.organicmaps.sdk.routing.RouteMarkData;
-import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
@@ -190,7 +189,7 @@ final class RoutingBottomMenuController
               final RoutingController controller = RoutingController.get();
               if (controller.getStartPoint() == null || controller.getEndPoint() == null)
                 return;
-              controller.waitForPoiPick(RouteMarkType.Intermediate);
+              controller.waitForPoiPickToAppend();
               openSearchForRoutePick();
             }
             @Override
