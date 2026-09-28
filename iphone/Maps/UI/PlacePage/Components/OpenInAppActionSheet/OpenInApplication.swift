@@ -15,7 +15,9 @@ enum OpenInApplication: Int, CaseIterable {
 extension OpenInApplication {
   static var availableApps: [OpenInApplication] {
     // OSM should always be first in the list.
-    let sortedApps: [OpenInApplication] = [.osm] + allCases.filter { $0 != .osm }.sorted(by: { $0.name < $1.name })
+    let sortedApps: [OpenInApplication] = [.osm] + allCases.filter { $0 != .osm }.sorted {
+      $0.name.localizedStandardCompare($1.name) == .orderedAscending
+    }
     return sortedApps.filter { UIApplication.shared.canOpenURL(URL(string: $0.scheme)!) }
   }
 
