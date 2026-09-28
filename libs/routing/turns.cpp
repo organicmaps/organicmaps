@@ -141,8 +141,13 @@ std::string DebugPrint(TurnItem const & turnItem)
   std::stringstream out;
   out << "TurnItem "
       << "{ m_index = " << turnItem.m_index << ", m_turn = " << DebugPrint(turnItem.m_turn)
-      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
-      << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn) << " }";
+      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_approachLanes = [";
+  for (auto const & layout : turnItem.m_approachLanes)
+    out << " { splitIndex = " << layout.m_splitIndex << ", offset = " << layout.m_offset
+        << ", lanes = " << ::DebugPrint(layout.m_lanes) << " }";
+  out << " ], m_approachLanesBeginIndex = " << turnItem.m_approachLanesBeginIndex
+      << ", m_exitNum = " << turnItem.m_exitNum << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn)
+      << " }";
   return out.str();
 }
 
