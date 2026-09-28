@@ -517,8 +517,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // single place that knows about both subsystems.
     mSearchPageViewModel.getSearchEnabled().observe(this, enabled -> {
       mRoutingPlanViewModel.setIsSearchActive(Boolean.TRUE.equals(enabled));
-      // Closing the search page abandons any pick it was opened for, however it was dismissed, unless the map
-      // chooser takes the pick over: it is marked active before it closes search, and cancels the pick on its way out.
+      // A disabled search page cannot own a pending pick. The map chooser takes ownership before closing
+      // search and cancels the pick when it closes; this also handles search dismissal and activity recreation.
       if (!Boolean.TRUE.equals(enabled)
           && !Boolean.TRUE.equals(mRoutingPlanViewModel.getIsPointChooserActive().getValue()))
         RoutingController.get().cancelPoiPick();

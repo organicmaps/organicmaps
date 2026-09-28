@@ -13,6 +13,7 @@
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
+#include "map/routing_mark.hpp"
 #include "map/user_mark.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -1501,6 +1502,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeOptimizeRoutePoints(
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().CouldAddIntermediatePoint();
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutePointsLimitReached(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount;
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)

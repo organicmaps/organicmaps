@@ -518,7 +518,8 @@ public class RoutingController
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
-    resetToPlanningStateIfNavigating();
+    if (isNavigating())
+      transitionToPlanning();
     resetPoiPickState();
   }
 
@@ -533,7 +534,8 @@ public class RoutingController
     build();
     if (mContainer != null)
       mContainer.onRemovedStop();
-    resetToPlanningStateIfNavigating();
+    if (isNavigating())
+      transitionToPlanning();
     resetPoiPickState();
   }
 
@@ -556,16 +558,22 @@ public class RoutingController
     if (isNavigating())
     {
       build();
-      setState(State.PREPARE);
-      cancelNavigation(false);
-      startPlanning();
-      if (mContainer != null)
-        mContainer.updateMenu();
-      if (mContainer != null)
-        mContainer.onResetToPlanningState();
+      transitionToPlanning();
       return true;
     }
     return false;
+  }
+
+  // Each caller has already requested a route build; this only changes the navigation and planning UI.
+  private void transitionToPlanning()
+  {
+    setState(State.PREPARE);
+    cancelNavigation(false);
+    startPlanning();
+    if (mContainer != null)
+      mContainer.updateMenu();
+    if (mContainer != null)
+      mContainer.onResetToPlanningState();
   }
 
   @NonNull
@@ -757,6 +765,8 @@ public class RoutingController
 
   public void waitForPoiPickToAppend()
   {
+    // Intermediate labels this as an Add Stop pick and prevents the existing finish from being treated
+    // as replaced when checking whether My Position can be picked. The core makes the picked point Finish.
     armPoiPick(RouteMarkType.Intermediate, PoiPickMode.APPEND, -1);
   }
 
@@ -808,8 +818,8 @@ public class RoutingController
     return mPendingPoiPick;
   }
 
-  // A pick overwrites the point of its own slot, so a my-position point standing there is replaced by it
-  // rather than duplicated. Adding a stop overwrites nothing.
+  // SET and REPLACE overwrite their target slot, so a my-position point there is replaced rather than
+  // duplicated. APPEND preserves the current finish as a stop and therefore replaces no existing point.
   private static boolean isReplacedByPick(@NonNull RouteMarkData point, @NonNull PendingPoiPick pick)
   {
     if (point.mPointType != pick.pointType())
@@ -820,9 +830,9 @@ public class RoutingController
   }
 
   // The core keeps a single my-position mark, so adding it to a second slot pulls it out of the one it
-  // already holds (RoutingManager::AddRoutePoint), silently emptying that one. The shortcut is offered only
-  // where the route has no such point, or where the pick replaces the one it has. Answered once per pick:
-  // the route cannot be edited while one is armed, and the caller asks on every location update.
+  // already holds (in AddRoutePoint and ContinueRouteToPoint), silently emptying that one. Offer the shortcut only
+  // where the route has no such point, or where the pick replaces the one it has. Cache this per pick
+  // because the search UI asks on every location update; arming or clearing the pick invalidates the cache.
   private static boolean computeCanPickMyPosition(@NonNull PendingPoiPick pick)
   {
     for (RouteMarkData point : Framework.nativeGetRoutePoints())
