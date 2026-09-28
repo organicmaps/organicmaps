@@ -18,7 +18,7 @@ public:
 
   void Modify(CategoriesModifier & modifier);
 
-  // Returns a list of English names of displayed categories for the categories search tab.
+  // Returns keys of displayed categories for the categories search tab.
   // The list may be modified during the application runtime in order to support sponsored or
   // featured categories. Keys may be used as parts of resources ids.
   Keys const & GetKeys() const;

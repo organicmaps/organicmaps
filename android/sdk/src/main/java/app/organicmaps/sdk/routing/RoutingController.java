@@ -95,6 +95,7 @@ public class RoutingController
   private boolean mCanPickMyPosition;
   private int mLastBuildProgress;
   private Router mLastRouterType;
+  private boolean mPendingOptionsRebuild;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
   private int mLastResultCode;
@@ -327,6 +328,8 @@ public class RoutingController
 
     updatePlan();
 
+    // This build uses the current settings and route marks, so it consumes any deferred options change.
+    mPendingOptionsRebuild = false;
     Framework.nativeBuildRoute();
   }
 
@@ -359,6 +362,45 @@ public class RoutingController
   public void setRouteSaved()
   {
     mRouteSaved = true;
+  }
+
+  /**
+   * Tries to reduce the straight-line distance between route marks by reordering intermediate stops. The core leaves
+   * the marks unchanged while navigating, in Ruler mode, without both endpoints, or with fewer than three points.
+   *
+   * @return whether the order changed, which means the route has to be rebuilt.
+   */
+  public boolean optimizeRoutePoints()
+  {
+    return Framework.nativeOptimizeRoutePoints();
+  }
+
+  /**
+   * Requests a rebuild after a change on the routing options screen. A planned route is rebuilt immediately when a
+   * container is attached, including Android Auto. Otherwise the request waits for {@link #applyPendingRoutingOptions}
+   * when the map activity starts. Leaving the options screen with Back normally reattaches the map first.
+   */
+  public void onRoutingOptionsChanged()
+  {
+    mPendingOptionsRebuild = true;
+    applyPendingRoutingOptions();
+  }
+
+  /**
+   * Applies a change recorded by {@link #onRoutingOptionsChanged}, if any. Called from there and again by the map
+   * activity when it starts; {@link #attach} does not call it, because Android Auto screens attach to the same
+   * controller too and would waste a build.
+   */
+  public void applyPendingRoutingOptions()
+  {
+    if (!mPendingOptionsRebuild || mContainer == null)
+      return;
+
+    mPendingOptionsRebuild = false;
+    // A rebuild would exit navigation, so nothing is applied while navigating: the optimization switch then
+    // affects only the stops added afterwards, and changed road types only the next route.
+    if (isPlanning())
+      rebuildLastRoute();
   }
 
   public void rebuildLastRoute()

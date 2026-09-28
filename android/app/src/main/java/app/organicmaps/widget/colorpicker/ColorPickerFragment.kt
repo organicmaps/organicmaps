@@ -267,8 +267,15 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         if (isResumed) {
-            viewModel.getResultColor()?.let {
-                (parentFragment as? OnColorChangeListener)?.onColorSet(it)
+            viewModel.getResultColor()?.let { color ->
+                val requestKey = arguments?.getString(EXTRA_REQUEST_KEY)
+                if (requestKey != null) {
+                    val result = bundleOf(RESULT_COLOR to color)
+                    result.putAll(requireArguments().getBundle(EXTRA_RESULT_TARGET))
+                    parentFragmentManager.setFragmentResult(requestKey, result)
+                } else {
+                    (parentFragment as? OnColorChangeListener)?.onColorSet(color)
+                }
             }
         }
         super.onDismiss(dialog)
@@ -402,12 +409,27 @@ class ColorPickerFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
+        const val RESULT_COLOR = "color"
+
         private const val ADD_BUTTON_TAG = -1
+        private const val EXTRA_REQUEST_KEY = "RequestKey"
+        private const val EXTRA_RESULT_TARGET = "ResultTarget"
 
         @JvmStatic
         fun show(manager: FragmentManager, @ColorInt initialColor: Int) {
             ColorPickerFragment().apply {
                 arguments = bundleOf(ColorPickerViewModel.EXTRA_INITIAL_COLOR to initialColor)
+            }.show(manager, null)
+        }
+
+        @JvmStatic
+        fun showForResult(manager: FragmentManager, @ColorInt initialColor: Int, requestKey: String, target: Bundle) {
+            ColorPickerFragment().apply {
+                arguments = bundleOf(
+                    ColorPickerViewModel.EXTRA_INITIAL_COLOR to initialColor,
+                    EXTRA_REQUEST_KEY to requestKey,
+                    EXTRA_RESULT_TARGET to target,
+                )
             }.show(manager, null)
         }
 

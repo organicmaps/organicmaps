@@ -390,4 +390,15 @@ JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeRemoveOptio
   routingOptions.Remove(routing_jni::ToRoutingOptionsRoad(option));
   RoutingOptions::SaveCarOptionsToSettings(routingOptions);
 }
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsRouteOptimizationEnabled(JNIEnv *, jclass)
+{
+  return static_cast<jboolean>(routing::RoutingOptions::LoadRouteOptimizationFromSettings());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetRouteOptimizationEnabled(JNIEnv *, jclass,
+                                                                                                 jboolean enabled)
+{
+  routing::RoutingOptions::SaveRouteOptimizationToSettings(enabled);
+}
 }

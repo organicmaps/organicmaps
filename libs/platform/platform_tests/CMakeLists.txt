@@ -29,6 +29,10 @@ if (PLATFORM_DESKTOP AND NOT PLATFORM_MAC)
   list(APPEND SRC http_client_qt_http2_test.cpp)
 endif()
 
+if (PLATFORM_LINUX)
+  list(APPEND SRC platform_linux_migration_test.cpp)
+endif()
+
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
 
 target_link_libraries(${PROJECT_NAME}

@@ -21,12 +21,9 @@
 /*
  * These tests are developed to simplify routing integration tests writing.
  * You can use the interface bellow however you want but there are some hints.
- * 1. Most likely you want to use GetCarComponents() or GetPedestrianComponents() without parameter
- *    to get a reference to IRouterComponents.
- *    It loads all the maps from directories Platform::WritableDir()
- *    and Platform::ResourcesDir() only once and then reuse it.
- *    Use GetCarComponents() or GetPedestrianComponents() with vector of maps parameter
- *    only if you want to test something on a special map set.
+ * 1. Use GetVehicleComponents() to reuse a router for a vehicle type. It loads maps from
+ *    Platform::WritableDir() and Platform::ResourcesDir() once per vehicle type.
+ *    Construct VehicleRouterComponents with a specific map set when a test needs one.
  * 2. Loading maps and calculating routes is a time consuming process.
  *    Do this only if you really need it.
  * 3. If you want to check that a turn is absent - use TestTurnCount.
@@ -165,13 +162,15 @@ class TestTurn
 
   m2::PointD const m_point;
   CarDirection const m_direction;
+  turns::lanes::LanesInfo const m_lanes;
   uint32_t const m_roundAboutExitNum;
   bool const m_isValid;
 
   TestTurn() : m_point({0.0, 0.0}), m_direction(CarDirection::None), m_roundAboutExitNum(0), m_isValid(false) {}
-  TestTurn(m2::PointD const & pnt, CarDirection direction, uint32_t roundAboutExitNum)
+  TestTurn(m2::PointD const & pnt, CarDirection direction, turns::lanes::LanesInfo lanes, uint32_t roundAboutExitNum)
     : m_point(pnt)
     , m_direction(direction)
+    , m_lanes(std::move(lanes))
     , m_roundAboutExitNum(roundAboutExitNum)
     , m_isValid(true)
   {}
@@ -182,11 +181,12 @@ public:
   TestTurn const & TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters = 3.) const;
   TestTurn const & TestDirection(CarDirection expectedDirection) const;
   TestTurn const & TestOneOfDirections(std::set<CarDirection> const & expectedDirections) const;
+  TestTurn const & TestLanes(turns::lanes::LanesInfo const & expectedLanes) const;
   TestTurn const & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
 };
 
-/// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.
-/// inaccuracy is set in meters.
+/// Returns the requested turn, or an invalid TestTurn if the index is out of range.
+/// An out-of-range index also asserts in debug builds.
 TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
 
 void TestCurrentStreetName(routing::Route const & route, std::string const & expectedStreetName);
