@@ -773,6 +773,13 @@ public class RoutingController
     return getPoiPickMode() != PoiPickMode.SET;
   }
 
+  // A commit applies its pick before it closes the search or the map chooser, so this only ever drops a pick that is
+  // already applied or was abandoned.
+  public void cancelPoiPick()
+  {
+    resetPoiPickState();
+  }
+
   private void finalizePendingPoiPick()
   {
     if (!isWaitingPoiPick())
@@ -1128,21 +1135,18 @@ public class RoutingController
     mRemovingIntermediatePointsTransactionId = mInvalidRoutePointsTransactionId;
   }
 
-  public void onPoiSelected(@Nullable MapObject point)
+  public void onPoiSelected(@NonNull MapObject point)
   {
     final PendingPoiPick pick = mPendingPoiPick;
     if (pick == null)
       return;
 
-    if (point != null)
-    {
-      if (isWaitingStopPick())
-        commitStopPick(point);
-      else if (pick.pointType() == RouteMarkType.Finish)
-        setEndPoint(point);
-      else
-        setStartPoint(point);
-    }
+    if (isWaitingStopPick())
+      commitStopPick(point);
+    else if (pick.pointType() == RouteMarkType.Finish)
+      setEndPoint(point);
+    else
+      setStartPoint(point);
 
     if (mContainer != null)
     {
