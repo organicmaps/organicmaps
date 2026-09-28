@@ -139,8 +139,8 @@ struct TitleInfo
 
   std::string m_text;
   size_t m_rowsCount = 0;
-  m2::PointF m_pixelSize;
-  m2::PointF m_offset;
+  m2::PointF m_pixelSize{0, 0};
+  m2::PointF m_offset{0, 0};
   dp::Anchor m_anchor = dp::Left;
 };
 
