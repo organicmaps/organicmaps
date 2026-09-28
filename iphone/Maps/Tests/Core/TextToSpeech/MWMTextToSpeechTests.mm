@@ -86,6 +86,38 @@
   }
 }
 
+// Plain NSString comparison puts Ł after M instead of using the displayed names' localized order.
+- (void)testDisplayedVoiceNamesUseLocalizedOrder
+{
+  MWMTextToSpeech * tts = [MWMTextToSpeech tts];
+  id originalCatalog = [tts valueForKey:@"catalog"];
+  id originalVoice = [tts valueForKey:@"speechVoice"];
+  [self addTeardownBlock:^{
+    [tts setValue:originalCatalog forKey:@"catalog"];
+    [tts setValue:originalVoice forKey:@"speechVoice"];
+  }];
+
+  TTSVoiceMetadata * marek = [TTSVoiceMetadata new];
+  marek.name = @"Marek";
+  marek.language = @"pl-PL";
+  marek.identifier = @"test.pl-PL.Marek";
+  TTSVoiceMetadata * lukasz = [TTSVoiceMetadata new];
+  lukasz.name = @"Łukasz";
+  lukasz.language = @"pl-PL";
+  lukasz.identifier = @"test.pl-PL.Lukasz";
+
+  id catalog = [NSClassFromString(@"MWMTTSVoiceCatalog") new];
+  [catalog setValue:@"pl-PL" forKey:@"deviceLanguageCode"];
+  [catalog setValue:@{@"pl": @[marek, lukasz]} forKey:@"voicesByLanguage"];
+  [tts setValue:catalog forKey:@"catalog"];
+  [tts setValue:marek forKey:@"speechVoice"];
+
+  MWMTTSLanguage * language = [MWMTTSLanguage languageWithCode:@"pl" title:@"Polski"];
+  NSArray<MWMTTSVoice *> * listed = [MWMTextToSpeech voicesForLanguage:language];
+  XCTAssertEqualObjects([listed valueForKey:@"title"], (@[@"Łukasz", @"Marek"]), @"Locale: %@",
+                        NSLocale.currentLocale.localeIdentifier);
+}
+
 // These pairs share a primary subtag but not a set of notification texts, so they must never be
 // offered as alternatives for one another.
 - (void)testScriptAndRegionVariantsAreDistinctLanguages
