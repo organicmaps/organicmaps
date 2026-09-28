@@ -675,8 +675,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     SearchEngine.INSTANCE.setQuery(query);
     mToolbarController.deactivate();
 
-    // The pick is armed, so commit into its slot instead of selecting the result and opening a place page
-    // that asks the user to confirm the choice they just made.
+    // Commit the pending route pick directly instead of opening a place page that asks the user to
+    // confirm the choice they just made. An append pick also moves the current finish into the stops.
     final RoutingController controller = RoutingController.get();
     if (controller.isWaitingPoiPick())
     {

@@ -189,6 +189,11 @@ final class RoutingBottomMenuController
               final RoutingController controller = RoutingController.get();
               if (controller.getStartPoint() == null || controller.getEndPoint() == null)
                 return;
+              if (Framework.nativeIsRoutePointsLimitReached())
+              {
+                ((MwmActivity) mContext).onStopPointLimitReached();
+                return;
+              }
               controller.waitForPoiPickToAppend();
               openSearchForRoutePick();
             }

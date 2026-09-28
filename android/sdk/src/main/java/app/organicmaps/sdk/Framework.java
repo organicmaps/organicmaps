@@ -301,6 +301,9 @@ public class Framework
 
   public static native boolean nativeCouldAddIntermediatePoint();
 
+  /** Checks the mark limit even when a route build has failed and routing is inactive. */
+  public static native boolean nativeIsRoutePointsLimitReached();
+
   @NonNull
   public static native RouteMarkData[] nativeGetRoutePoints();
 
