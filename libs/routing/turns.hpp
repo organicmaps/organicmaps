@@ -11,6 +11,7 @@
 
 #include <limits>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -119,6 +120,15 @@ enum class PedestrianDirection
 
 std::string DebugPrint(PedestrianDirection const l);
 
+struct ApproachLaneLayout
+{
+  uint32_t m_splitIndex;
+  size_t m_offset;
+  lanes::LanesInfo m_lanes;
+
+  bool operator==(ApproachLaneLayout const &) const = default;
+};
+
 struct TurnItem
 {
   TurnItem()
@@ -145,7 +155,8 @@ struct TurnItem
   bool operator==(TurnItem const & rhs) const
   {
     return m_index == rhs.m_index && m_turn == rhs.m_turn && m_lanes == rhs.m_lanes && m_exitNum == rhs.m_exitNum &&
-           m_pedestrianTurn == rhs.m_pedestrianTurn;
+           m_pedestrianTurn == rhs.m_pedestrianTurn && m_approachLanes == rhs.m_approachLanes &&
+           m_approachLanesBeginIndex == rhs.m_approachLanesBeginIndex;
   }
 
   bool IsTurnReachedYourDestination() const
@@ -159,7 +170,11 @@ struct TurnItem
   uint32_t m_index;                         /*!< Index of point on route polyline (Index of segment + 1). */
   CarDirection m_turn = CarDirection::None; /*!< The turn instruction of the TurnItem */
   lanes::LanesInfo m_lanes;                 /*!< Lane information on the edge before the turn. */
-  uint32_t m_exitNum;                       /*!< Number of exit on roundabout. */
+  // Each entry holds the point where a narrower layout starts and the layout before it,
+  // ordered from the turn backwards. They apply from m_approachLanesBeginIndex.
+  std::vector<ApproachLaneLayout> m_approachLanes;
+  uint32_t m_approachLanesBeginIndex = 0;
+  uint32_t m_exitNum; /*!< Number of exit on roundabout. */
   /*!
    * \brief m_pedestrianTurn is type of corresponding direction for a pedestrian, or None
    * if there is no pedestrian specific direction
