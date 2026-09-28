@@ -12,7 +12,9 @@ recommended branch. Draw inactive branches first so the recommended branch
 and stem remain clear. Apply translucent tint once to each completed branch
 group; tinting overlapping path pieces separately makes a visible dot at
 the junction.
-`left_inner` and `right_inner` leave space for an accompanying U-turn.
+An accompanying same-side turn uses a shorter U-turn branch. With a sharp
+turn, the U-turn sits higher and the sharp arrowhead sits lower so both heads
+remain visible at small sizes.
 The SVG components can also be converted to native vector assets or paths for
 iOS and desktop UIs. Colors and sizing belong to each platform's UI.
 
