@@ -3,6 +3,7 @@
 #include "coding/base64.hpp"
 #include "coding/blake3.hpp"
 #include "coding/hex.hpp"
+#include "coding/reader.hpp"
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
@@ -106,10 +107,41 @@ UNIT_TEST(BLAKE3_File_And_Truncation)
   TEST_EQUAL(shortB64, base64::Encode(memView.substr(0, kShortBytes)), ());
   TEST_EQUAL(shortB64.size(), 12, ());
   TEST_EQUAL(shortB64.find('='), std::string::npos, ());
+  TEST_EQUAL(Blake3::CalculateMwmBase64(path), shortB64, ());
 
   // Streaming FinalizeToBase64 must agree with the one-shot truncated form.
   Blake3 hasher;
   hasher.Update(contents.data(), contents.size());
   TEST_EQUAL(hasher.FinalizeToBase64(kShortBytes), shortB64, ());
+}
+
+UNIT_TEST(BLAKE3_File_BufferBoundaries)
+{
+  for (size_t const size : {size_t{0}, size_t{65535}, size_t{65536}, size_t{65537}, size_t{131073}})
+  {
+    auto const bytes = MakeVectorInput(size);
+    std::string const contents(bytes.begin(), bytes.end());
+    platform::tests_support::ScopedFile file("blake3_boundaries.tmp", contents);
+    TEST_EQUAL(Blake3::Calculate(file.GetFullPath()), Blake3::CalculateForString(contents), (size));
+  }
+}
+
+UNIT_TEST(BLAKE3_File_Missing)
+{
+  std::string path;
+  {
+    platform::tests_support::ScopedFile file("blake3_missing.tmp", std::string{});
+    path = file.GetFullPath();
+  }
+  bool openError = false;
+  try
+  {
+    Blake3::CalculateMwmBase64(path);
+  }
+  catch (Reader::OpenException const &)
+  {
+    openError = true;
+  }
+  TEST(openError, (path));
 }
 }  // namespace blake3_test

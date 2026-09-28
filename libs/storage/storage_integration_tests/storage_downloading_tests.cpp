@@ -151,11 +151,9 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
   string mapPath;
   coding::Blake3::Hash mapHash;
 
-  // Wipes the registered map and any stranded .ready file. A round whose interruption came too
-  // late completes the transfer, and .ready is renamed to .mwm only by the Gui continuation of
-  // the integrity check, which cannot run once the event loop has exited. Leaving it behind
-  // would make the next DownloadNode complete synchronously in Storage::DownloadCountry, and
-  // the RunEventLoop() below would then wait forever.
+  // Remove completed map and ready files so subsequent rounds perform a transfer.
+  // A ready file goes straight to validation, while an up-to-date map makes
+  // DownloadNode return without a completion notification.
   auto const deleteMapFiles = [&mapPath]
   {
     FileWriter::DeleteFileX(mapPath);
@@ -204,10 +202,9 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
       InitStorage(storage, onProgressFn);
       storage.DownloadNode(kCountryId);
       testing::RunEventLoop();
-      // StopEventLoop only unwinds the loop, it does not cancel the transfer, so the progress
-      // callback that trips the threshold can be the one that also completes the file. The
-      // scope guard wipes whatever landed on disk and the next round starts over, which on the
-      // last round leaves this iteration hashing a fresh download instead of a resumed one.
+      // Stopping the event loop leaves the transfer active, so it can finish before
+      // Storage is destroyed. Cleanup removes completed files; partial chunks remain
+      // available to the next round.
       if (!storage.IsDownloadInProgress())
         LOG(LINFO, ("Interruption came too late, the map was downloaded fully."));
     }
