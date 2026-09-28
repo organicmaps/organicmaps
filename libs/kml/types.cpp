@@ -81,6 +81,8 @@ void MultiGeometry::FromPoints(std::vector<m2::PointD> const & points)
 
   ASSERT(line.size() > 1, ());
   m_lines.push_back(std::move(line));
+  // Every line has a timestamp vector, even when no point has a capture time.
+  m_timestamps.emplace_back();
 }
 
 void MultiGeometry::AddLine(std::initializer_list<geometry::PointWithAltitude> lst)

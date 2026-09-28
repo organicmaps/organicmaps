@@ -25,6 +25,8 @@ namespace binary
 class SerializerKml
 {
 public:
+  DECLARE_EXCEPTION(SerializeException, RootException);
+
   explicit SerializerKml(FileData const & data);
   ~SerializerKml();
 
@@ -145,19 +147,24 @@ public:
   template <typename ReaderType>
   void Deserialize(ReaderType const & reader)
   {
-    // Check version.
+    // Wire versions and internal MapsMe variant identifiers are different.
     NonOwningReaderSource source(reader);
-    m_header.m_version = ReadPrimitiveFromSource<Version>(source);
-
-    if (m_header.m_version != Version::V2 && m_header.m_version != Version::V3 && m_header.m_version != Version::V4 &&
-        m_header.m_version != Version::V5 && m_header.m_version != Version::V6 && m_header.m_version != Version::V7 &&
-        m_header.m_version != Version::V8 && m_header.m_version != Version::V9)
+    auto const version = ReadPrimitiveFromSource<uint8_t>(source);
+    if (version == 10)
     {
-      MYTHROW(DeserializeException, ("Incorrect file version."));
+      m_header.m_version = Version::V10MM;
+    }
+    else if (version >= 2 && version <= 9)
+    {
+      m_header.m_version = static_cast<Version>(version);
+      ReadDeviceId(source);
+      ReadServerId(source);
+    }
+    else
+    {
+      MYTHROW(DeserializeException, ("Incorrect file version:", static_cast<unsigned>(version)));
     }
 
-    ReadDeviceId(source);
-    ReadServerId(source);
     ReadBitsCountInDouble(source);
 
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
@@ -198,6 +205,11 @@ public:
       DeserializeFileData(subReader, dataV9MM);
 
       m_data = dataV9MM.ConvertToLatestVersion();
+      break;
+    }
+    case Version::V10MM:
+    {
+      DeserializeV10MM(subReader);
       break;
     }
     case Version::V7:
@@ -249,6 +261,8 @@ public:
   }
 
 private:
+  void DeserializeV10MM(std::unique_ptr<Reader> & reader);
+
   template <typename ReaderType>
   void InitializeIfNeeded(ReaderType const & reader)
   {

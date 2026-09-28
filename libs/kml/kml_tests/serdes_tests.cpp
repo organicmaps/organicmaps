@@ -107,6 +107,7 @@ kml::FileData GenerateKmlFileData()
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
+  trackData.m_geometry.AddTimestamps({});
 
   trackData.m_visible = false;
   trackData.m_nearestToponyms = {"12345", "54321", "98765"};
@@ -694,9 +695,6 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
 
   dataFromBinV8.m_tracksData[0].m_id =
       dataFromBinV9MM.m_tracksData[0].m_id;  // V8 and V9MM tracks have different IDs. Fix ID value manually.
-  // V9MM's ConvertToLatestVersion pads m_geometry.m_timestamps to match m_lines (matching
-  // MultiGeometry's own invariant). V8's deserializer does not, so normalize before comparing.
-  dataFromBinV8.m_tracksData[0].m_geometry.m_timestamps.resize(dataFromBinV8.m_tracksData[0].m_geometry.m_lines.size());
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
 }
 
