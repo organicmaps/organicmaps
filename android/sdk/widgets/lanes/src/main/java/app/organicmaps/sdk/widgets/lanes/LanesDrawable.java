@@ -113,20 +113,38 @@ public class LanesDrawable extends Drawable
     @DrawableRes
     private static int glyphRes(@NonNull LaneWay way, @NonNull EnumSet<LaneWay> ways)
     {
-      // An inner ordinary turn leaves room for the U-turn's return stroke.
+      // A short U-turn branch leaves space for a same-side ordinary turn.
       return switch (way)
       {
-        case ReverseLeft -> R.drawable.ic_lane_reverse_left;
-        case SharpLeft -> R.drawable.ic_lane_sharp_left;
-        case Left -> ways.contains(LaneWay.ReverseLeft) ? R.drawable.ic_lane_left_inner : R.drawable.ic_lane_left;
+        case ReverseLeft ->
+          ways.contains(LaneWay.SharpLeft) ? R.drawable.ic_lane_reverse_left_short_sharp
+          : hasLeftTurn(ways)              ? R.drawable.ic_lane_reverse_left_short
+                                           : R.drawable.ic_lane_reverse_left;
+        case SharpLeft ->
+          ways.contains(LaneWay.ReverseLeft) ? R.drawable.ic_lane_sharp_left_low : R.drawable.ic_lane_sharp_left;
+        case Left -> R.drawable.ic_lane_left;
         case SlightLeft -> R.drawable.ic_lane_slight_left;
         case Through -> R.drawable.ic_lane_through;
         case SlightRight -> R.drawable.ic_lane_slight_right;
-        case Right -> ways.contains(LaneWay.ReverseRight) ? R.drawable.ic_lane_right_inner : R.drawable.ic_lane_right;
-        case SharpRight -> R.drawable.ic_lane_sharp_right;
-        case ReverseRight -> R.drawable.ic_lane_reverse_right;
+        case Right -> R.drawable.ic_lane_right;
+        case SharpRight ->
+          ways.contains(LaneWay.ReverseRight) ? R.drawable.ic_lane_sharp_right_low : R.drawable.ic_lane_sharp_right;
+        case ReverseRight ->
+          ways.contains(LaneWay.SharpRight) ? R.drawable.ic_lane_reverse_right_short_sharp
+          : hasRightTurn(ways)              ? R.drawable.ic_lane_reverse_right_short
+                                            : R.drawable.ic_lane_reverse_right;
         default -> throw new IllegalArgumentException("No lane glyph for " + way);
       };
+    }
+
+    private static boolean hasLeftTurn(@NonNull EnumSet<LaneWay> ways)
+    {
+      return ways.contains(LaneWay.SharpLeft) || ways.contains(LaneWay.Left) || ways.contains(LaneWay.SlightLeft);
+    }
+
+    private static boolean hasRightTurn(@NonNull EnumSet<LaneWay> ways)
+    {
+      return ways.contains(LaneWay.SharpRight) || ways.contains(LaneWay.Right) || ways.contains(LaneWay.SlightRight);
     }
 
     @NonNull

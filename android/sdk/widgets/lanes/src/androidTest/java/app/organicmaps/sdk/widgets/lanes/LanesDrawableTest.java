@@ -74,7 +74,7 @@ public class LanesDrawableTest
                    new LaneInfo(new LaneWay[] {LaneWay.ReverseLeft, LaneWay.ReverseRight, LaneWay.Left}, LaneWay.Left),
                    new LaneInfo(new LaneWay[] {LaneWay.Left, LaneWay.Through, LaneWay.Right}, LaneWay.Left),
                });
-    Assert.assertEquals(INACTIVE, reverseLeft.getPixel(6, 42));
+    Assert.assertEquals(INACTIVE, reverseLeft.getPixel(19, 50));
     Assert.assertEquals(Color.BLACK, reverseLeft.getPixel(58, 42));
     Assert.assertEquals(ACTIVE, reverseLeft.getPixel(22, 25));
   }
@@ -112,9 +112,53 @@ public class LanesDrawableTest
         "reverse_right", new LaneInfo[] {
                              new LaneInfo(new LaneWay[] {LaneWay.ReverseRight, LaneWay.Right}, LaneWay.ReverseRight),
                          });
-    Assert.assertEquals(ACTIVE, reverseRight.getPixel(58, 42));
+    Assert.assertEquals(ACTIVE, reverseRight.getPixel(45, 50));
     Assert.assertEquals(Color.BLACK, reverseRight.getPixel(6, 42));
-    Assert.assertEquals(INACTIVE, reverseRight.getPixel(42, 25));
+    Assert.assertEquals(INACTIVE, reverseRight.getPixel(56, 18));
+  }
+
+  @Test
+  public void renderReverseWithSameSideTurns() throws IOException
+  {
+    final LaneInfo[] leftLanes = {
+        new LaneInfo(new LaneWay[] {LaneWay.ReverseLeft, LaneWay.SharpLeft}, LaneWay.SharpLeft),
+        new LaneInfo(new LaneWay[] {LaneWay.ReverseLeft, LaneWay.Left}, LaneWay.Left),
+        new LaneInfo(new LaneWay[] {LaneWay.ReverseLeft, LaneWay.SlightLeft}, LaneWay.SlightLeft),
+    };
+    final Bitmap left = render("short_reverse_left", leftLanes);
+    Assert.assertEquals(INACTIVE, left.getPixel(64 + 19, 50));
+    Assert.assertEquals(Color.BLACK, left.getPixel(64 + 28, 8));
+
+    final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    final Bitmap carImage = Graphics.drawableToBitmap(new LanesDrawable(context, leftLanes));
+    save(context, "lane_glyph_short_reverse_car_image.png", carImage);
+
+    final Bitmap right =
+        render("short_reverse_right",
+               new LaneInfo[] {
+                   new LaneInfo(new LaneWay[] {LaneWay.SlightRight, LaneWay.ReverseRight}, LaneWay.SlightRight),
+                   new LaneInfo(new LaneWay[] {LaneWay.Right, LaneWay.ReverseRight}, LaneWay.Right),
+                   new LaneInfo(new LaneWay[] {LaneWay.SharpRight, LaneWay.ReverseRight}, LaneWay.SharpRight),
+               });
+    Assert.assertEquals(INACTIVE, right.getPixel(64 + 45, 50));
+    Assert.assertEquals(Color.BLACK, right.getPixel(64 + 36, 8));
+    final Bitmap leftActive =
+        render("short_reverse_left_active",
+               new LaneInfo[] {
+                   new LaneInfo(new LaneWay[] {LaneWay.ReverseLeft, LaneWay.SharpLeft}, LaneWay.ReverseLeft),
+                   new LaneInfo(new LaneWay[] {LaneWay.ReverseLeft, LaneWay.Left}, LaneWay.ReverseLeft),
+                   new LaneInfo(new LaneWay[] {LaneWay.ReverseLeft, LaneWay.SlightLeft}, LaneWay.ReverseLeft),
+               });
+    Assert.assertEquals(ACTIVE, leftActive.getPixel(64 + 19, 50));
+
+    final Bitmap rightActive =
+        render("short_reverse_right_active",
+               new LaneInfo[] {
+                   new LaneInfo(new LaneWay[] {LaneWay.SlightRight, LaneWay.ReverseRight}, LaneWay.ReverseRight),
+                   new LaneInfo(new LaneWay[] {LaneWay.Right, LaneWay.ReverseRight}, LaneWay.ReverseRight),
+                   new LaneInfo(new LaneWay[] {LaneWay.SharpRight, LaneWay.ReverseRight}, LaneWay.ReverseRight),
+               });
+    Assert.assertEquals(ACTIVE, rightActive.getPixel(64 + 45, 50));
   }
 
   @Test
