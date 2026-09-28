@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d'ajouter le nom d'une ville ou d'un village proche.";
 "search_history_title" = "Historique de recherche";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Accédez rapidement aux dernières recherches.";
 "clear_search" = "Effacer l'historique de recherche";
 
@@ -887,6 +886,7 @@
 "trip_start" = "On y va";
 "pick_destination" = "Point d'arrivée";
 "follow_my_position" = "Recentrer";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Résultats de la recherche";
 "then_turn" = "Ensuite";
 "redirect_route_alert" = "Voulez-vous reconstruire l'itinéraire ?";

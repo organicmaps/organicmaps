@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Преузмите регион где вршите претрагу, или пробајте да додате име оближњег насеља.";
 "search_history_title" = "Историја претраге";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Погледајте ваше недавне претраге.";
 "clear_search" = "Обриши историју претраге";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Крећемо";
 "pick_destination" = "Одредиште";
 "follow_my_position" = "Центрирај";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Резултати претраге";
 "then_turn" = "Затим";
 "redirect_route_alert" = "Да ли желите да поново направим руту?";

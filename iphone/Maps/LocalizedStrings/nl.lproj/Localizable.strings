@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Download de regio waar u zoekt of probeer een nabijgelegen stad/dorpnaam toe te voegen.";
 "search_history_title" = "Zoekgeschiedenis";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Snel toegang tot recente zoekopdrachten.";
 "clear_search" = "Wis zoekgeschiedenis";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Laten we gaan";
 "pick_destination" = "Bestemming";
 "follow_my_position" = "Opnieuw centreren";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Zoekresultaten";
 "then_turn" = "Dan";
 "redirect_route_alert" = "Wilt u de route wijzigen?";

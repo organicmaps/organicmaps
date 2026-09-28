@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "ดาวน์โหลดภูมิภาคที่คุณกำลังค้นหาหรือลองเพิ่มชื่อเมือง/หมู่บ้านใกล้เคียง";
 "search_history_title" = "ประวัติการค้นหา";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว";
 "clear_search" = "ล้างการค้นหาประวัติ";
 
@@ -887,6 +886,7 @@
 "trip_start" = "ไปกันเลย";
 "pick_destination" = "จุดหมาย";
 "follow_my_position" = "รีเซ็นเตอร์";
+"search_estimated_location" = "Estimated location";
 "search_results" = "ผลการค้นหา";
 "then_turn" = "จากนั้น";
 "redirect_route_alert" = "ต้องการสร้างเส้นทางใหม่หรือไม่";

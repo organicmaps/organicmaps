@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Ներբեռնեք այն տարածաշրջանի քարտեզը, որտեղ որոնում եք կատարում, կամ փորձեք ավելացնել մոտակա քաղաքի/գյուղի անունը:";
 "search_history_title" = "Որոնման պատմություն";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Դիտեք ձեր վերջին որոնումները:";
 "clear_search" = "Մաքրել որոնման պատմությունը";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Գնացինք";
 "pick_destination" = "Նշանակման կետ";
 "follow_my_position" = "Կենտրոնացնել";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Որոնման արդյունքներ";
 "then_turn" = "Այնուհետև";
 "redirect_route_alert" = "Ցանկանո՞ւմ եք վերակառուցել երթուղին:";

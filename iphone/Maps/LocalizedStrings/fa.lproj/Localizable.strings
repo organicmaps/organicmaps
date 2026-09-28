@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "منطقه ای را که در آن جستجو می کنید دانلود کنید یا نام شهر/ روستای اطراف را اضافه کنید.";
 "search_history_title" = "سوابق جستجو";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "جستجوهای اخیر خود را مشاهده کنید.";
 "clear_search" = "پاک کردن سابقه جستجوها";
 
@@ -887,6 +886,7 @@
 "trip_start" = "برویم";
 "pick_destination" = "مقصد";
 "follow_my_position" = "نشان دادن مجدد در مرکز";
+"search_estimated_location" = "Estimated location";
 "search_results" = "نتایج جستجو";
 "then_turn" = "سپس";
 "redirect_route_alert" = "آیا می خواهید مسیر را دوباره ایجاد کنید?";

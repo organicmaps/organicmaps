@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Lade die Region herunter, in der du suchst, oder füge den Namen einer nahe gelegenen Stadt oder eines Dorfes hinzu.";
 "search_history_title" = "Suchverlauf";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Hier werden deine letzten Suchanfragen angezeigt.";
 "clear_search" = "Suchverlauf löschen";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Los";
 "pick_destination" = "Ziel";
 "follow_my_position" = "Zentrieren";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Suchergebnisse";
 "then_turn" = "Danach";
 "redirect_route_alert" = "Möchtest du die Route neu erstellen?";

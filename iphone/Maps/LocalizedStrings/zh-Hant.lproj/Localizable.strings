@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "下載您要搜尋的區域的地圖，或嘗試輸入附近的城鎮或村莊名稱。";
 "search_history_title" = "搜尋歷史紀錄";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "查看您最近的搜尋記錄。";
 "clear_search" = "清除搜尋記錄";
 
@@ -887,6 +886,7 @@
 "trip_start" = "出發";
 "pick_destination" = "目的地";
 "follow_my_position" = "重新置中";
+"search_estimated_location" = "Estimated location";
 "search_results" = "搜尋結果";
 "then_turn" = "然後";
 "redirect_route_alert" = "您想要重新規劃路線嗎？";

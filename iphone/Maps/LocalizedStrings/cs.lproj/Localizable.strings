@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Stáhněte si oblast, ve které hledáte, nebo zkuste přidat název blízkého města/obce.";
 "search_history_title" = "Historie vyhledávání";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Získejte rychlý přístup k hledaným výrazům.";
 "clear_search" = "Vymazat historii vyhledávání";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Pojďme";
 "pick_destination" = "Destinace";
 "follow_my_position" = "Znovu vystředit";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Prohledat výsledky";
 "then_turn" = "Poté";
 "redirect_route_alert" = "Chcete přestavět trasu?";

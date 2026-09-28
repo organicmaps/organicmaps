@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "तुम्ही जिथे शोधत आहात तो प्रदेश डाउनलोड करा किंवा जवळच्या शहर/गावाचे नाव जोडण्याचा प्रयत्न करा.";
 "search_history_title" = "शोध इतिहास";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "अलीकडील शोध पहा.";
 "clear_search" = "शोध इतिहास पुसून टाका";
 
@@ -887,6 +886,7 @@
 "trip_start" = "चल जाऊया";
 "pick_destination" = "गंतव्यस्थाना";
 "follow_my_position" = "पुनरकेंद्रित करा";
+"search_estimated_location" = "Estimated location";
 "search_results" = "शोध परिणाम";
 "then_turn" = "मग";
 "redirect_route_alert" = "तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?";

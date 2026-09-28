@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Sæktu kortið af því svæði sem þú ert að leita á eða prófaðu að bæta við nafni á nálægum bæ eða þorpi.";
 "search_history_title" = "Leitarferill";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Skoðaðu nýlegar leitir þínar.";
 "clear_search" = "Hreinsa leitarferil";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Hefjumst handa";
 "pick_destination" = "Ákvörðunarstaður";
 "follow_my_position" = "Endurmiðja";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Leitarniðurstöður";
 "then_turn" = "síðan";
 "redirect_route_alert" = "Viltu endurhanna þessa leið?";

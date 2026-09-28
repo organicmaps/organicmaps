@@ -378,7 +378,6 @@
     <string name="search_contacts_title">Contacts</string>
     <string name="search_contacts_summary">Show saved contact addresses in search results and on the map</string>
     <string name="search_contacts_permission_message">Allow Contacts access in system settings to search saved addresses.</string>
-    <string name="search_estimated_location">Estimated location</string>
     <string name="search_history_text">View your recent searches.</string>
     <string name="clear_search">Clear Search History</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -728,6 +727,7 @@
     <string name="closes_at">Closes at %s</string>
     <string name="editor_add_select_category_all_subtitle">All Categories</string>
     <string name="placepage_replace_stop">Replace Stop</string>
+    <string name="search_estimated_location">Estimated location</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Food</string>

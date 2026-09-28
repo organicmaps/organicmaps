@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Unduh wilayah tempat Anda mencari atau coba tambahkan nama kota/desa terdekat.";
 "search_history_title" = "Riwayat Pencarian";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Akses kueri pencarian terbaru dengan cepat.";
 "clear_search" = "Bersihkan riwayat pencarian";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Ayo";
 "pick_destination" = "Tujuan";
 "follow_my_position" = "Pusatkan ulang";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Hasil pencarian";
 "then_turn" = "Lalu";
 "redirect_route_alert" = "Anda ingin membuat ulang rute?";

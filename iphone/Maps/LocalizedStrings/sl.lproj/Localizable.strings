@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Prenesite regijo, kjer iščete, ali poskusite dodati ime bližnjega mesta/vasi.";
 "search_history_title" = "Zgodovina iskanja";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Oglejte si svoja nedavna iskanja.";
 "clear_search" = "Počisti zgodovino iskanja";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Gremo";
 "pick_destination" = "Cilj";
 "follow_my_position" = "Ponovno centriraj";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Rezultati iskanja";
 "then_turn" = "Nato";
 "redirect_route_alert" = "Ali želite ponovno zgraditi pot?";

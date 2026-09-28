@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Tải xuống khu vực bạn đang tìm kiếm hoặc thử thêm tên thị trấn/làng gần đó.";
 "search_history_title" = "Lịch sử tìm kiếm";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.";
 "clear_search" = "Xóa Lịch sử Tìm kiếm";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Đi nào";
 "pick_destination" = "Mục đích";
 "follow_my_position" = "Định tâm";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Kết quả tìm kiếm";
 "then_turn" = "Sau đó";
 "redirect_route_alert" = "Bạn có muốn tạo lại tuyến không?";

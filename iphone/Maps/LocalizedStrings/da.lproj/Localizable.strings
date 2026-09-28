@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Download den region, hvor du søger i, eller prøv at tilføje et nærliggende bynavn.";
 "search_history_title" = "Søgehistorik";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Se dine seneste søgninger.";
 "clear_search" = "Ryd søgehistorik";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Lad os komme i gang";
 "pick_destination" = "Destination";
 "follow_my_position" = "Centrer igen";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Søgeresultater";
 "then_turn" = "Derefter";
 "redirect_route_alert" = "Vil du genopbygge ruten igen?";

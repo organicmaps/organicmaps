@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Töltse le a keresett régiót, vagy próbálja meg hozzáadni egy közeli város vagy település nevét.";
 "search_history_title" = "Keresési előzmények";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Legutóbbi keresések megtekintése.";
 "clear_search" = "A keresési előzmények törlése";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Gyerünk";
 "pick_destination" = "Célállomás";
 "follow_my_position" = "Középre";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Keresési eredmények";
 "then_turn" = "Utána";
 "redirect_route_alert" = "Szeretné újratervezni az útvonalat?";

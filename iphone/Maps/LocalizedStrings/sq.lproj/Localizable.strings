@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Shkarkoni rajonin ku po kërkoni ose provoni të shtoni emrin e një qyteti/fshati të afërt.";
 "search_history_title" = "Historiku i Kërkimit";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Shikoni kërkimet tuaja të fundit.";
 "clear_search" = "Pastro Historikun e Kërkimit";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Le të shkojmë";
 "pick_destination" = "Destinacioni";
 "follow_my_position" = "Riqendro";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Rezultatet e kërkimit";
 "then_turn" = "Pastaj";
 "redirect_route_alert" = "A dëshironi të rindërtoni rrugën?";

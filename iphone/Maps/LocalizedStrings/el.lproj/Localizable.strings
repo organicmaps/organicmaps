@@ -486,7 +486,6 @@
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Κατεβάστε την περιοχή στην οποία ψάχνετε ή δοκιμάστε να προσθέσετε το όνομα μιας κοντινής πόλης/χωριού.";
 "search_history_title" = "Ιστορικό αναζητήσεων";
-"search_estimated_location" = "Estimated location";
 "search_history_text" = "Προβολή πρόσφατων αναζητήσεων.";
 "clear_search" = "Εκκαθάριση ιστορικού αναζητήσεων";
 
@@ -887,6 +886,7 @@
 "trip_start" = "Φύγαμε";
 "pick_destination" = "Προορισμός";
 "follow_my_position" = "Κεντράρισμα";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Αποτελέσματα αναζήτησης";
 "then_turn" = "Μετά";
 "redirect_route_alert" = "Θα θέλατε να επανυπολογιστεί η διαδρομή;";
