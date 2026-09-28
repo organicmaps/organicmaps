@@ -39,12 +39,13 @@ public:
   // Same as Finalize(), but returns base64 of the first |numBytes| of the digest.
   std::string FinalizeToBase64(size_t numBytes = kHashSizeInBytes) const;
 
-  // One-shot helpers.
+  // One-shot file helpers throw Reader::Exception on I/O errors.
   static Hash Calculate(std::string const & filePath);
   static std::string CalculateBase64(std::string const & filePath, size_t numBytes = kHashSizeInBytes);
   // Same as CalculateBase64, but truncated to the per-map integrity hash size used
   // for map files referenced in countries.json. See the definition for details.
   static std::string CalculateMwmBase64(std::string const & filePath);
+
   static Hash CalculateForString(std::string_view str);
 
 private:

@@ -67,9 +67,8 @@ struct NodeAttrs
   /// Number of mwms belonging to the node which have been downloaded.
   MwmCounter m_localMwmCounter;
 
-  /// Number of leaves of the node which have been downloaded
-  /// plus which is in progress of downloading (zero or one)
-  /// plus which are staying in queue.
+  /// Number of leaf maps that are downloaded, queued, downloading, validating,
+  /// applying a diff or have a download error.
   MwmCounter m_downloadingMwmCounter;
 
   /// If it's not an expandable node, |m_mwmSize| is size of one mwm according to countries.json.
@@ -82,10 +81,7 @@ struct NodeAttrs
   /// have been downloaded.
   MwmSize m_localMwmSize;
 
-  /// Size of leaves of the node which have been downloaded
-  /// plus which is in progress of downloading (zero or one)
-  /// plus which are staying in queue.
-  /// \note The size of leaves is the size is written in countries.json.
+  /// Total size from countries.json of the leaves counted by m_downloadingMwmCounter.
   MwmSize m_downloadingMwmSize;
 
   /// The name of the node in a local language. That means the language dependent on
@@ -147,14 +143,9 @@ struct NodeStatuses
   bool m_groupNode;
 };
 
-// This class is used for downloading, updating and deleting maps.
-// Storage manages a queue of mwms to be downloaded.
-// Every operation with this queue must be executed
-// on the storage thread. In the current implementation, the storage
-// thread coincides with the main (UI) thread.
-// Downloading of only one mwm at a time is supported, so while the
-// mwm at the top of the queue is being downloaded (or updated by
-// applying a diff file) all other mwms have to wait.
+// Storage downloads, updates and deletes maps. Queue operations run on its owner
+// thread, which is the main (UI) thread for downloads. Downloader queues track
+// pending transfers; active countries include integrity validation after a transfer finishes.
 class Storage final : public QueuedCountry::Subscriber
 {
 public:
@@ -163,10 +154,9 @@ public:
   using DeleteCallback = std::function<bool(storage::CountryId const &, LocalFilePtr const)>;
   using ChangeCountryFunction = std::function<void(CountryId const &)>;
   using ProgressFunction = std::function<void(CountryId const &, downloader::Progress const &)>;
-  using DownloadingCountries = std::unordered_map<CountryId, downloader::Progress>;
 
 private:
-  /// We support only one simultaneous request at the moment
+  // Owns the transfer queue; active countries also track validation below.
   std::unique_ptr<MapFilesDownloader> m_downloader;
 
   /// Stores timestamp for update checks
@@ -249,7 +239,14 @@ private:
 
   StartDownloadingCallback m_startDownloadingCallback;
 
-  DownloadingCountries m_downloadingCountries;
+  struct DownloadingCountry
+  {
+    downloader::Progress m_progress = downloader::Progress::Unknown();
+    // Erasing the operation invalidates its file and GUI callbacks, including after
+    // cancellation followed by a new download of the same country.
+    std::shared_ptr<int> const m_lifetime = std::make_shared<int>(0);
+  };
+  std::unordered_map<CountryId, DownloadingCountry> m_downloadingCountries;
 
   void LoadCountriesFile(std::string const & pathToCountriesFile);
 
@@ -460,7 +457,7 @@ public:
   /// Delete local maps and aggregate their Id if needed
   void DeleteAllLocalMaps(CountriesVec * existedCountries = nullptr);
 
-  // Clears local files registry and downloader's queue.
+  // Cancels transfers and pending validation, removes their temporary files and clears the local registry.
   void Clear();
 
   /// Used in Android to get absent Worlds files to download.
@@ -540,6 +537,7 @@ public:
   /// Notifies observers about country status change.
   void DeleteCustomCountryVersion(platform::LocalCountryFile const & localFile);
 
+  // Includes queued transfers, integrity validation and diff application.
   bool IsDownloadInProgress() const;
 
   /// @param[out] res Populated with oudated countries.
