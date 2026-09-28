@@ -624,7 +624,7 @@ public class PlacePageController
     {
     case Start -> controller.setStartPoint(point);
     case Finish -> controller.setEndPoint(point);
-    case Intermediate -> throw new AssertionError("Intermediate points are committed via addStop, not here");
+    case Intermediate -> throw new AssertionError("Intermediate points are committed via commitStopPick, not here");
     }
     close();
   }
@@ -638,7 +638,7 @@ public class PlacePageController
   private void onRouteAddBtnClicked()
   {
     if (mMapObject != null)
-      RoutingController.get().addStop(mMapObject);
+      RoutingController.get().commitStopPick(mMapObject);
   }
 
   private void onRouteRemoveBtnClicked()
@@ -723,15 +723,9 @@ public class PlacePageController
       boolean needToShowRoutingButtons =
           (RoutingController.get().isPlanning() || showRoutingButton) && !mapObject.isTrackRecording();
 
-      // The single-action branch below is only meaningful for an intermediate-stop pick (replace an
-      // existing stop or add a new one). For a Start/Finish pick (e.g. opened from the plan sheet's
-      // partial-slot row when the start or destination is missing) it would hide ROUTE_FROM/ROUTE_TO
-      // and leave only the bookmark button, so fall through to the regular routing buttons in that case.
-      final boolean isIntermediateStopPick =
-          RoutingController.get().isWaitingPoiPick()
-          && (RoutingController.get().isPoiPickReplaceStop()
-              || RoutingController.get().getWaitingPoiPickType() == RouteMarkType.Intermediate);
-      if (isIntermediateStopPick)
+      // A pick for an empty start or finish slot (the plan sheet's partial-slot row) must fall through to the regular
+      // routing buttons: this branch would hide ROUTE_FROM/ROUTE_TO and leave only the bookmark button.
+      if (RoutingController.get().isWaitingStopPick())
       {
         if (RoutingController.get().isPoiPickReplaceStop())
         {
