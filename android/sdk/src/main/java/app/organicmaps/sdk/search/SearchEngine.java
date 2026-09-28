@@ -9,6 +9,9 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.chromium.base.ObserverList;
 
 public enum SearchEngine implements SearchListener, MapSearchListener,
@@ -19,6 +22,11 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public interface ContactAddressListener
   {
     void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated);
+  }
+
+  public interface ContactViewportListener
+  {
+    void onContactViewportChanged(int scale, @NonNull String locality);
   }
 
   // Query, which results are shown on the map.
@@ -79,7 +87,10 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
-  private final ObserverList<ContactAddressListener> mContactAddressListeners = new ObserverList<>();
+  private final Map<Long, ContactAddressListener> mContactAddressRequests = new HashMap<>();
+  private long mNextContactRequestId;
+  @Nullable
+  private ContactViewportListener mContactViewportListener;
 
   public void addListener(SearchListener listener)
   {
@@ -111,24 +122,37 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     mBookmarkListeners.removeObserver(listener);
   }
 
-  public void addContactAddressListener(ContactAddressListener listener)
+  @MainThread
+  public long resolveContactAddress(@NonNull String[] queries, @NonNull String[] streets, @NonNull String locale,
+                                    boolean background, @NonNull ContactAddressListener listener)
   {
-    mContactAddressListeners.addObserver(listener);
-  }
-
-  public void removeContactAddressListener(ContactAddressListener listener)
-  {
-    mContactAddressListeners.removeObserver(listener);
-  }
-
-  public void resolveContactAddress(@NonNull String query, @NonNull String locale, long requestId)
-  {
-    nativeResolveContactAddress(query.getBytes(StandardCharsets.UTF_8), locale, requestId);
+    final long requestId = ++mNextContactRequestId;
+    mContactAddressRequests.put(requestId, listener);
+    nativeResolveContactAddress(queries, streets, locale, requestId, background);
+    return requestId;
   }
 
   public void cancelContactAddressResolution(long requestId)
   {
+    mContactAddressRequests.remove(requestId);
     nativeCancelContactAddressResolution(requestId);
+  }
+
+  @MainThread
+  public void setContactViewportListener(@Nullable ContactViewportListener listener)
+  {
+    mContactViewportListener = listener;
+    if (listener == null)
+      for (long requestId : new ArrayList<>(mContactAddressRequests.keySet()))
+        cancelContactAddressResolution(requestId);
+    nativeSetContactViewportEnabled(listener != null);
+  }
+
+  @Keep
+  private void onContactViewportChanged(int scale, @NonNull String locality)
+  {
+    if (mContactViewportListener != null)
+      mContactViewportListener.onContactViewportChanged(scale, locality);
   }
 
   public void selectContactAddress(double lat, double lon, @NonNull String address, boolean estimated, boolean show)
@@ -139,10 +163,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   @Keep
   private void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
   {
-    UiThread.run(() -> {
-      for (ContactAddressListener listener : mContactAddressListeners)
-        listener.onContactAddressResolved(requestId, found, lat, lon, estimated);
-    });
+    final ContactAddressListener listener = mContactAddressRequests.remove(requestId);
+    if (listener != null)
+      listener.onContactAddressResolved(requestId, found, lat, lon, estimated);
   }
 
   /**
@@ -166,17 +189,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
                                    boolean isMapAndTable, boolean hasLocation, double lat, double lon)
   {
-    return searchInteractive(query, isCategory, locale, timestamp, isMapAndTable, hasLocation, lat, lon, false);
-  }
-
-  @MainThread
-  public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
-                                   boolean isMapAndTable, boolean hasLocation, double lat, double lon,
-                                   boolean allowNearbyHouseNumbers)
-  {
     final boolean started = nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), isCategory, locale,
-                                                       timestamp, isMapAndTable, hasLocation, lat, lon,
-                                                       allowNearbyHouseNumbers);
+                                                       timestamp, isMapAndTable, hasLocation, lat, lon);
     // Cache the search-bar query only for map+table searches. Viewport-only searches (e.g. the
     // navigation search wheel) don't deliver list results, so caching their query would pair it
     // with the previous search's cached results when the search fragment is recreated.
@@ -307,7 +321,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
    */
   private static native boolean nativeRunInteractiveSearch(byte[] bytes, boolean isCategory, String language,
                                                            long timestamp, boolean isMapAndTable, boolean hasLocation,
-                                                           double lat, double lon, boolean allowNearbyHouseNumbers);
+                                                           double lat, double lon);
 
   /**
    * @param bytes utf-8 formatted query bytes
@@ -316,7 +330,10 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
 
-  private static native void nativeResolveContactAddress(byte[] bytes, String language, long requestId);
+  private static native void nativeResolveContactAddress(String[] queries, String[] streets, String language,
+                                                         long requestId, boolean background);
+
+  private static native void nativeSetContactViewportEnabled(boolean enabled);
 
   private static native void nativeCancelContactAddressResolution(long requestId);
 

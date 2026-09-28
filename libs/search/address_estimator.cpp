@@ -69,11 +69,39 @@ std::vector<std::string> Tokenize(std::string_view value)
   std::vector<std::string> tokens;
   for (auto const & token : NormalizeAndTokenizeString(value))
     tokens.push_back(CanonicalizeToken(strings::ToUtf8(token)));
+  // Search accepts these country aliases; address validation must accept the same metadata.
+  for (size_t i = 0; i < tokens.size(); ++i)
+  {
+    if (tokens[i] == "us")
+      tokens[i] = "usa";
+    if (i + 1 < tokens.size() && tokens[i] == "united" && tokens[i + 1] == "states")
+    {
+      size_t end = i + 2;
+      if (end + 1 < tokens.size() && tokens[end] == "of" && tokens[end + 1] == "america")
+        end += 2;
+      tokens[i] = "usa";
+      tokens.erase(tokens.begin() + i + 1, tokens.begin() + end);
+    }
+  }
   return tokens;
 }
 
 std::optional<ParsedAddress> ParseAddress(std::string_view value)
 {
+  // Map regions format addresses in either house/street or street/house order.
+  auto const comma = value.rfind(',');
+  if (comma != std::string_view::npos)
+  {
+    auto const numberTokens = Tokenize(value.substr(comma + 1));
+    uint64_t number = 0;
+    if (numberTokens.size() == 1 && strings::to_uint(numberTokens.front(), number))
+    {
+      auto const street = value.substr(0, comma);
+      auto tokens = Tokenize(street);
+      if (!tokens.empty())
+        return ParsedAddress{number, std::string(street), std::move(tokens)};
+    }
+  }
   auto const tokens = Tokenize(value);
   if (tokens.size() < 2)
     return {};
@@ -127,23 +155,39 @@ bool StreetMatchesQuery(std::vector<std::string> const & queryTokens, std::vecto
 }
 
 std::optional<Candidate> ParseCandidate(size_t index, Result const & result,
-                                        std::vector<std::string> const & queryTokens, uint64_t requested)
+                                        std::vector<std::string> const & queryTokens, uint64_t requested,
+                                        std::string const & expectedStreet = {})
 {
   if (!result.HasPoint() || result.IsSuggest())
     return {};
 
   auto const parsed = ParseAddress(result.GetString());
-  if (!parsed || parsed->m_houseNumber % 2 != requested % 2 ||
+  if (!parsed)
+    return {};
+
+  if (!expectedStreet.empty())
+  {
+    auto const expected = ParseAddress(expectedStreet);
+    if (!expected || std::multiset<std::string>(expected->m_streetTokens.begin(), expected->m_streetTokens.end()) !=
+                         std::multiset<std::string>(parsed->m_streetTokens.begin(), parsed->m_streetTokens.end()))
+      return {};
+  }
+
+  if (parsed->m_houseNumber % 2 != requested % 2 ||
       !StreetMatchesQuery(queryTokens, parsed->m_streetTokens, Tokenize(result.GetAddress())))
     return {};
 
-  uint64_t const difference = parsed->m_houseNumber > requested ? parsed->m_houseNumber - requested
-                                                                 : requested - parsed->m_houseNumber;
+  uint64_t const difference =
+      parsed->m_houseNumber > requested ? parsed->m_houseNumber - requested : requested - parsed->m_houseNumber;
   if (difference > kMaxNearbyHouseNumberDifference)
     return {};
 
-  return Candidate{index, parsed->m_houseNumber, result.GetFeatureCenter(), parsed->m_street,
-                   strings::ToUtf8(GetNormalizedStreetName(parsed->m_street)), &result};
+  return Candidate{index,
+                   parsed->m_houseNumber,
+                   result.GetFeatureCenter(),
+                   parsed->m_street,
+                   strings::ToUtf8(GetNormalizedStreetName(parsed->m_street)),
+                   &result};
 }
 
 double DistanceMeters(m2::PointD const & first, m2::PointD const & second)
@@ -168,8 +212,7 @@ std::optional<Estimate> FindEstimate(std::vector<Candidate> const & candidates, 
         std::swap(first, second);
 
       uint64_t const gap = second->m_houseNumber - first->m_houseNumber;
-      if (gap > kMaxSupportNumberGap ||
-          (requested < first->m_houseNumber && first->m_houseNumber - requested > gap) ||
+      if (gap > kMaxSupportNumberGap || (requested < first->m_houseNumber && first->m_houseNumber - requested > gap) ||
           (requested > second->m_houseNumber && requested - second->m_houseNumber > gap))
         continue;
 
@@ -177,16 +220,15 @@ std::optional<Estimate> FindEstimate(std::vector<Candidate> const & candidates, 
       if (supportDistance > kMaxSupportDistanceMeters)
         continue;
 
-      double const ratio = (static_cast<double>(requested) - static_cast<double>(first->m_houseNumber)) /
-                           static_cast<double>(gap);
+      double const ratio =
+          (static_cast<double>(requested) - static_cast<double>(first->m_houseNumber)) / static_cast<double>(gap);
       double const extrapolationRatio = ratio < 0.0 ? -ratio : std::max(0.0, ratio - 1.0);
       if (supportDistance * extrapolationRatio > kMaxExtrapolationDistanceMeters)
         continue;
 
-      uint64_t const score = std::max(requested > first->m_houseNumber ? requested - first->m_houseNumber
-                                                                       : first->m_houseNumber - requested,
-                                      requested > second->m_houseNumber ? requested - second->m_houseNumber
-                                                                        : second->m_houseNumber - requested);
+      uint64_t const score = std::max(
+          requested > first->m_houseNumber ? requested - first->m_houseNumber : first->m_houseNumber - requested,
+          requested > second->m_houseNumber ? requested - second->m_houseNumber : second->m_houseNumber - requested);
       if (best && best->m_score <= score)
         continue;
 
@@ -210,7 +252,8 @@ std::string MakeEstimatedAddress(std::string const & address, uint64_t oldNumber
 }
 }  // namespace
 
-Results MakeEstimatedAddressResults(std::string const & query, Results const & results)
+Results MakeEstimatedAddressResults(std::string const & query, Results const & results,
+                                    std::string const & expectedStreet)
 {
   auto const requestedAddress = ParseAddress(query);
   if (!requestedAddress)
@@ -219,7 +262,8 @@ Results MakeEstimatedAddressResults(std::string const & query, Results const & r
   std::vector<Candidate> candidates;
   for (size_t i = 0; i < results.GetCount(); ++i)
   {
-    auto candidate = ParseCandidate(i, results[i], requestedAddress->m_streetTokens, requestedAddress->m_houseNumber);
+    auto candidate = ParseCandidate(i, results[i], requestedAddress->m_streetTokens, requestedAddress->m_houseNumber,
+                                    expectedStreet);
     if (candidate)
       candidates.push_back(std::move(*candidate));
   }
@@ -228,8 +272,8 @@ Results MakeEstimatedAddressResults(std::string const & query, Results const & r
 
   auto const exact = std::find_if(candidates.begin(), candidates.end(), [&](Candidate const & candidate)
   { return candidate.m_houseNumber == requestedAddress->m_houseNumber; });
-  auto const estimate = exact == candidates.end() ? FindEstimate(candidates, requestedAddress->m_houseNumber)
-                                                   : std::optional<Estimate>{};
+  auto const estimate =
+      exact == candidates.end() ? FindEstimate(candidates, requestedAddress->m_houseNumber) : std::optional<Estimate>{};
 
   std::set<size_t> candidateIndices;
   for (auto const & candidate : candidates)
@@ -244,16 +288,15 @@ Results MakeEstimatedAddressResults(std::string const & query, Results const & r
     if (i == insertionIndex && estimate)
     {
       uint64_t const firstDifference = estimate->m_first->m_houseNumber > requestedAddress->m_houseNumber
-                                           ? estimate->m_first->m_houseNumber - requestedAddress->m_houseNumber
-                                           : requestedAddress->m_houseNumber - estimate->m_first->m_houseNumber;
+                                         ? estimate->m_first->m_houseNumber - requestedAddress->m_houseNumber
+                                         : requestedAddress->m_houseNumber - estimate->m_first->m_houseNumber;
       uint64_t const secondDifference = estimate->m_second->m_houseNumber > requestedAddress->m_houseNumber
-                                            ? estimate->m_second->m_houseNumber - requestedAddress->m_houseNumber
-                                            : requestedAddress->m_houseNumber - estimate->m_second->m_houseNumber;
+                                          ? estimate->m_second->m_houseNumber - requestedAddress->m_houseNumber
+                                          : requestedAddress->m_houseNumber - estimate->m_second->m_houseNumber;
       Candidate const & nearest = firstDifference <= secondDifference ? *estimate->m_first : *estimate->m_second;
-      Result estimated(estimate->m_center,
-                       std::to_string(requestedAddress->m_houseNumber) + ", " + nearest.m_street);
-      estimated.SetAddress(MakeEstimatedAddress(nearest.m_result->GetAddress(), nearest.m_houseNumber,
-                                                requestedAddress->m_houseNumber));
+      Result estimated(estimate->m_center, std::to_string(requestedAddress->m_houseNumber) + ", " + nearest.m_street);
+      estimated.SetAddress(
+          MakeEstimatedAddress(nearest.m_result->GetAddress(), nearest.m_houseNumber, requestedAddress->m_houseNumber));
       estimated.SetType(Result::Type::LatLon);
       estimated.SetEstimatedAddress(true);
       transformed.AddResultNoChecks(std::move(estimated));
@@ -269,12 +312,12 @@ Results MakeEstimatedAddressResults(std::string const & query, Results const & r
   return transformed;
 }
 
-bool IsAddressResultMatchingQuery(std::string const & query, Result const & result)
+bool IsAddressResultMatchingQuery(std::string const & query, Result const & result, std::string const & expectedStreet)
 {
   auto const requested = ParseAddress(query);
   if (!requested)
     return false;
-  auto const candidate = ParseCandidate(0, result, requested->m_streetTokens, requested->m_houseNumber);
+  auto const candidate = ParseCandidate(0, result, requested->m_streetTokens, requested->m_houseNumber, expectedStreet);
   return candidate && candidate->m_houseNumber == requested->m_houseNumber;
 }
 }  // namespace search

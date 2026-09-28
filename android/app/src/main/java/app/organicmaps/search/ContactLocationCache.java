@@ -36,8 +36,8 @@ final class ContactLocationCache
   private static final String PREFS_NAME = "contact_location_cache";
   private static final String VALUE_SEPARATOR = "\\|";
   // Increment when address resolution changes so cached contact marks are recomputed with the
-  // same estimator used by interactive search.
-  private static final int FORMAT_VERSION = 2;
+  // same estimator used by contact-address resolution.
+  private static final int FORMAT_VERSION = 3;
 
   @NonNull
   private final SharedPreferences mPreferences;
@@ -88,8 +88,8 @@ final class ContactLocationCache
     final long version = mMapVersionProvider.get(entry.lat, entry.lon);
     if (version <= 0)
       return;
-    final String value = String.format(Locale.ROOT, "%d|%d|%.5f|%.5f|%b", FORMAT_VERSION, version, entry.lat,
-                                       entry.lon, entry.estimated);
+    final String value = String.format(Locale.ROOT, "%d|%d|%.5f|%.5f|%b", FORMAT_VERSION, version, entry.lat, entry.lon,
+                                       entry.estimated);
     mPreferences.edit().putString(hash(addressKey), value).apply();
   }
 

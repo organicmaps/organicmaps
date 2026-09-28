@@ -14,19 +14,17 @@ public class ContactAddressNormalizerTest
   {
     assertEquals("123 Main Street, Vancouver BC, Canada",
                  ContactAddressNormalizer.format("123 Main Street\nVancouver BC\r\nCanada"));
-    assertEquals("123 Main Street, Vancouver, BC, V1V 1V1, Canada",
-                 ContactAddressNormalizer.format(null, "123 Main Street", null, "", "Vancouver", "BC",
-                                                       "V1V 1V1", "Canada"));
+    assertEquals(
+        "123 Main Street, Vancouver, BC, V1V 1V1, Canada",
+        ContactAddressNormalizer.format(null, "123 Main Street", null, "", "Vancouver", "BC", "V1V 1V1", "Canada"));
     assertEquals("Vancouver, BC", ContactAddressNormalizer.format(null, "Vancouver", "Vancouver", "BC"));
   }
 
   @Test
   public void canonicalizesAddressMatchTokens()
   {
-    assertEquals(List.of("531", "west", "28", "avenue"),
-                 ContactAddressNormalizer.matchTokens("531 W 28th Ave"));
-    assertEquals(List.of("1091", "euphrates", "crescent"),
-                 ContactAddressNormalizer.matchTokens("1091 Euphrates Cr."));
+    assertEquals(List.of("531", "west", "28", "avenue"), ContactAddressNormalizer.matchTokens("531 W 28th Ave"));
+    assertEquals(List.of("1091", "euphrates", "crescent"), ContactAddressNormalizer.matchTokens("1091 Euphrates Cr."));
   }
 
   @Test
@@ -56,8 +54,7 @@ public class ContactAddressNormalizerTest
     assertEquals("10238 155a Street", ContactAddressNormalizer.normalizeStreet("Unit #3 10238 155a Street"));
     assertEquals("2453 163 Street", ContactAddressNormalizer.normalizeStreet("#10 2453 163 St"));
     assertEquals("1400 9th Avenue Southeast", ContactAddressNormalizer.normalizeStreet("1-1400 9th Ave SE"));
-    assertEquals("32729 Garibaldi Drive",
-                 ContactAddressNormalizer.normalizeStreet("103 - 32729 Garibaldi Drive"));
+    assertEquals("32729 Garibaldi Drive", ContactAddressNormalizer.normalizeStreet("103 - 32729 Garibaldi Drive"));
   }
 
   @Test
@@ -77,52 +74,6 @@ public class ContactAddressNormalizerTest
   }
 
   @Test
-  public void normalizesFullCanadianAddresses()
-  {
-    assertEquals("16291 111A Avenue Surrey",
-                 ContactAddressNormalizer.normalizeAddressQuery(
-                     "[16291, 111A Avenue Surrey BC V4N4R7 Canada]"));
-    assertEquals("6498 131a Street Surrey",
-                 ContactAddressNormalizer.normalizeAddressQuery("6498 131a St, Surrey, BC V3W 7P4, Canada"));
-    assertEquals("531 West 28th Avenue Vancouver",
-                 ContactAddressNormalizer.normalizeAddressQuery(
-                     "531 W 28th Ave, Vancouver, BC V5Z 2H2, Canada"));
-  }
-
-  @Test
-  public void removesUnitsFromFullAddressQueries()
-  {
-    assertEquals("2377 West 5th Avenue Vancouver",
-                 ContactAddressNormalizer.normalizeAddressQuery(
-                     "2377 W 5th Ave #303, Vancouver, BC V6K 1S6, Canada"));
-    assertEquals("2377 West 5th Avenue Vancouver",
-                 ContactAddressNormalizer.normalizeAddressQuery("303-2377 W 5th Ave, Vancouver"));
-    assertEquals("2377 West 5th Avenue Vancouver",
-                 ContactAddressNormalizer.normalizeAddressQuery("303/2377 W 5th Ave, Vancouver"));
-    assertEquals("531 West 28th Avenue Vancouver",
-                 ContactAddressNormalizer.normalizeAddressQuery(
-                     "531 West 28 Ave, Basement Vancouver, B.C. V5Z 2H2, Canada Canada"));
-  }
-
-  @Test
-  public void normalizesUsAddressesWithoutConfusingStateAbbreviationsWithStreetSuffixes()
-  {
-    assertEquals("1600 Pennsylvania Avenue Northwest Washington",
-                 ContactAddressNormalizer.normalizeAddressQuery(
-                     "1600 Pennsylvania Ave. NW, Washington, DC 20500, USA"));
-    assertEquals("50 Main Street Hartford",
-                 ContactAddressNormalizer.normalizeAddressQuery("50 Main St, Hartford, CT 06103"));
-  }
-
-  @Test
-  public void preservesNonAddressQueries()
-  {
-    assertEquals("restaurants, Surrey", ContactAddressNormalizer.normalizeAddressQuery("restaurants, Surrey"));
-    assertFalse(ContactAddressNormalizer.looksLikeAddressQuery("same as Mom"));
-    assertFalse(ContactAddressNormalizer.looksLikeAddressQuery("person@example.com"));
-  }
-
-  @Test
   public void normalizesCommonContactFormatting()
   {
     assertEquals("10879 160 Street", ContactAddressNormalizer.normalizeStreet("10879-160 Street"));
@@ -134,18 +85,15 @@ public class ContactAddressNormalizerTest
     assertEquals("76 West 37th Avenue", ContactAddressNormalizer.normalizeStreet("76 w37 avenue"));
     assertEquals("16759 85A Avenue", ContactAddressNormalizer.normalizeStreet("16759 85A 85A Ave"));
     assertEquals("16896 81B Avenue",
-                 ContactAddressNormalizer.normalizeStreet(
-                     "V4N5E5 Please do not mail anything here 16896 81B Ave"));
-    assertEquals("8877 Wright Street Langley Township",
-                 ContactAddressNormalizer.normalizeAddressQuery(
-                     "8877 Wright St, Langley Twp, BC V1M 3T1, Canada"));
+                 ContactAddressNormalizer.normalizeStreet("V4N5E5 Please do not mail anything here 16896 81B Ave"));
+    assertEquals("8877 Wright Street",
+                 ContactAddressNormalizer.normalizeStreet("8877 Wright St, Langley Twp, BC V1M 3T1, Canada"));
   }
 
   @Test
   public void generatesConservativeBareUnitFallbacks()
   {
-    assertEquals("578 Corydon Avenue",
-                 ContactAddressNormalizer.possibleBareUnitStreet("10 578 Corydon Avenue"));
+    assertEquals("578 Corydon Avenue", ContactAddressNormalizer.possibleBareUnitStreet("10 578 Corydon Avenue"));
     assertEquals("", ContactAddressNormalizer.possibleBareUnitStreet("6498 131A Street"));
     assertEquals("10 67 Avenue", ContactAddressNormalizer.normalizeStreet("10 67 Avenue"));
   }
@@ -160,11 +108,21 @@ public class ContactAddressNormalizerTest
   }
 
   @Test
+  public void matchesAnyExplicitRegionWithoutUsingStreetNames()
+  {
+    assertTrue(
+        ContactAddressNormalizer.matchesMapRegion("Washington District of Columbia USA", "US District of Columbia"));
+    assertTrue(
+        ContactAddressNormalizer.matchesMapRegion("Vancouver British Columbia Canada", "Canada British Columbia"));
+    assertFalse(ContactAddressNormalizer.matchesMapRegion("Springfield Illinois USA", "US Massachusetts"));
+    assertFalse(ContactAddressNormalizer.matchesMapRegion("Vancouver British Columbia Canada", ""));
+  }
+
+  @Test
   public void doesNotCrashOnOversizedHouseOrUnitNumbers()
   {
     assertEquals("999999999999999999999999 10 Main Street",
                  ContactAddressNormalizer.normalizeStreet("999999999999999999999999-10 Main Street"));
-    assertEquals("", ContactAddressNormalizer.possibleBareUnitStreet(
-                         "999999999999999999999999 10 Main Street"));
+    assertEquals("", ContactAddressNormalizer.possibleBareUnitStreet("999999999999999999999999 10 Main Street"));
   }
 }

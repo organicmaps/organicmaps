@@ -27,6 +27,54 @@ public class ContactAddressSearchTest
   }
 
   @Test
+  public void matchesOnlyNameWordPrefixes()
+  {
+    final List<ContactAddress> addresses = List.of(address("Thomas Bergan", "Home"));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, "hom"));
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, "tho"));
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, "ber"));
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, "th be"));
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, "ber tho"));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, "tho smith"));
+  }
+
+  @Test
+  public void requiresThreeLettersUnlessShortNameMatchesExactly()
+  {
+    final ContactAddress li = address("Li Smith", "Home");
+    final ContactAddress jo = address("Jo Jones", "Home");
+    final List<ContactAddress> addresses = List.of(li, jo, address("Liam Jonathan", "Home"));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, "l"));
+    assertEquals(List.of(li), ContactAddressSearch.findMatches(addresses, "li"));
+    assertEquals(List.of(jo), ContactAddressSearch.findMatches(addresses, "jo"));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, "l j"));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, "l..."));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, "123 #"));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, "  "));
+  }
+
+  @Test
+  public void countsUnicodeLettersRatherThanUtf16Units()
+  {
+    final String letter = "\uD801\uDC00";
+    final List<ContactAddress> addresses = List.of(address(letter + letter + letter, "Home"));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, letter + letter));
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, letter + letter + letter));
+  }
+
+  @Test
+  public void matchesAccentsMiddleNamesAndCompoundSurnames()
+  {
+    final ContactAddress contact = address("Jos\u00e9 Andr\u00e9 de la Cruz-Smith", "Home");
+    final List<ContactAddress> addresses = List.of(contact);
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, " JOS "));
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, "jose\u0301"));
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, "and"));
+    assertEquals(addresses, ContactAddressSearch.findMatches(addresses, "cru smi"));
+    assertEquals(List.of(), ContactAddressSearch.findMatches(addresses, "ruz"));
+  }
+
+  @Test
   public void limitsResults()
   {
     final List<ContactAddress> addresses = new ArrayList<>();

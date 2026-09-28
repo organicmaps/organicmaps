@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.search.SearchEngine;
+import app.organicmaps.sdk.search.SearchEngine.ContactAddressListener;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import java.util.ArrayDeque;
@@ -19,11 +20,10 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-public enum ContactMapManager implements SearchEngine.ContactAddressListener
+public enum ContactMapManager implements ContactAddressListener
 {
   INSTANCE;
 
@@ -62,26 +62,18 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     @NonNull
     final String key;
     @NonNull
+    final String context;
+    @NonNull
     final List<ContactAddress.SearchQuery> queries;
     final long generation;
-    int queryIndex;
 
-    PendingAddress(@NonNull String key, @NonNull List<ContactAddress.SearchQuery> queries, long generation)
+    PendingAddress(@NonNull String key, @NonNull String context, @NonNull List<ContactAddress.SearchQuery> queries,
+                   long generation)
     {
       this.key = key;
+      this.context = context;
       this.queries = queries;
       this.generation = generation;
-    }
-
-    @NonNull
-    String currentQuery()
-    {
-      return queries.get(queryIndex).query;
-    }
-
-    boolean advance()
-    {
-      return ++queryIndex < queries.size();
     }
   }
 
@@ -99,13 +91,10 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   private Context mContext;
   private String mLocale = "en";
   private long mGeneration;
-  private long mNextRequestId;
-  private boolean mPaused;
-
-  ContactMapManager()
-  {
-    SearchEngine.INSTANCE.addContactAddressListener(this);
-  }
+  private final Map<String, PendingAddress> mAddresses = new LinkedHashMap<>();
+  private String mViewportRegion = "";
+  private int mViewportScale;
+  private final Runnable mResolveViewport = this::resolveViewport;
 
   @MainThread
   public void refresh(@NonNull Context context)
@@ -116,6 +105,8 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     ++mGeneration;
     mQueue.clear();
     mRequests.clear();
+    mAddresses.clear();
+    mMainHandler.removeCallbacks(mResolveViewport);
     mVisibleKeys.clear();
     mNames.clear();
     mFailed.clear();
@@ -123,6 +114,7 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
 
     if (!isEnabled(mContext))
     {
+      SearchEngine.INSTANCE.setContactViewportListener(null);
       ContactAddressSearch.shutdown();
       mContactSearch = null;
       if (mPersistentCache == null)
@@ -142,6 +134,7 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
       mPersistentCache = new ContactLocationCache(mContext);
     final long generation = mGeneration;
     mContactSearch.loadAll((ignored, addresses) -> onAddressesLoaded(generation, addresses));
+    SearchEngine.INSTANCE.setContactViewportListener(this::onViewportChanged);
   }
 
   @MainThread
@@ -162,9 +155,8 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
 
   private static boolean isEnabled(@NonNull Context context)
   {
-    return Config.isContactSearchEnabled() &&
-           ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) ==
-               PackageManager.PERMISSION_GRANTED;
+    return Config.isContactSearchEnabled()
+ && ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
   }
 
   @MainThread
@@ -176,11 +168,11 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
     final Map<String, PendingAddress> unique = new LinkedHashMap<>();
     for (ContactAddress address : addresses)
     {
-      final List<ContactAddress.SearchQuery> searchQueries = address.getMapSearchQueries();
+      final List<ContactAddress.SearchQuery> searchQueries = address.getSearchQueries();
       if (!searchQueries.isEmpty())
       {
         final String key = normalizeKey(address);
-        unique.putIfAbsent(key, new PendingAddress(key, searchQueries, generation));
+        unique.putIfAbsent(key, new PendingAddress(key, address.getResolutionContext(), searchQueries, generation));
         mNames.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(address.name);
       }
     }
@@ -195,17 +187,16 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
         if (cached != null)
           mCache.put(address.key, new ResolvedAddress(cached.lat, cached.lon, cached.estimated));
       }
-      if (!mCache.containsKey(address.key) && !mFailed.contains(address.key))
-        mQueue.add(address);
     }
+    mAddresses.putAll(unique);
     updateMarks();
-    resolveNext();
+    resolveViewport();
   }
 
   @MainThread
   private void resolveNext()
   {
-    if (mPaused)
+    if (mViewportScale < 16)
       return;
     while (mRequests.size() < MAX_CONCURRENT_REQUESTS)
     {
@@ -214,9 +205,10 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
         return;
       if (address.generation != mGeneration)
         continue;
-      final long requestId = ++mNextRequestId;
+      final long requestId = SearchEngine.INSTANCE.resolveContactAddress(
+          address.queries.stream().map(query -> query.query).toArray(String[] ::new),
+          address.queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new), mLocale, true, this);
       mRequests.put(requestId, address);
-      SearchEngine.INSTANCE.resolveContactAddress(address.currentQuery(), mLocale, requestId);
     }
   }
 
@@ -236,12 +228,6 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
       return;
     }
 
-    if (mPaused)
-    {
-      mQueue.addFirst(address);
-      return;
-    }
-
     if (found)
     {
       final ResolvedAddress resolved = new ResolvedAddress(lat, lon, estimated);
@@ -249,25 +235,8 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
       mPersistentCache.put(address.key, new ContactLocationCache.Entry(lat, lon, estimated));
       scheduleMarksUpdate();
     }
-    else if (address.advance())
-      mQueue.addFirst(address);
     else
       mFailed.add(address.key);
-    resolveNext();
-  }
-
-  @MainThread
-  public void pause()
-  {
-    mPaused = true;
-    for (long requestId : mRequests.keySet())
-      SearchEngine.INSTANCE.cancelContactAddressResolution(requestId);
-  }
-
-  @MainThread
-  public void resume()
-  {
-    mPaused = false;
     resolveNext();
   }
 
@@ -298,7 +267,37 @@ public enum ContactMapManager implements SearchEngine.ContactAddressListener
   @NonNull
   private static String normalizeKey(@NonNull ContactAddress contactAddress)
   {
-    return ContactAddressNormalizer.normalizeAddressQuery(contactAddress.address).trim().toLowerCase(Locale.ROOT);
+    return contactAddress.getAddressKey();
+  }
+
+  private void onViewportChanged(int scale, @NonNull String region)
+  {
+    cancelRequests();
+    mRequests.clear();
+    mQueue.clear();
+    mFailed.clear();
+    mViewportScale = scale;
+    mViewportRegion = region;
+    mMainHandler.removeCallbacks(mResolveViewport);
+    if (scale >= 16)
+      mMainHandler.postDelayed(mResolveViewport, 300);
+  }
+
+  private void resolveViewport()
+  {
+    if (mViewportScale < 16 || mContext == null || !isEnabled(mContext))
+      return;
+    for (PendingAddress address : mAddresses.values())
+    {
+      if (mCache.containsKey(address.key) || mFailed.contains(address.key) || mRequests.values().contains(address)
+          || mQueue.contains(address))
+        continue;
+      // Searches are bounded by the viewport; skip contacts in a different downloaded map region as well.
+      if (!ContactAddressNormalizer.matchesMapRegion(address.context, mViewportRegion))
+        continue;
+      mQueue.add(address);
+    }
+    resolveNext();
   }
 
   private void cancelRequests()

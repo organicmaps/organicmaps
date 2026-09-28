@@ -21,10 +21,8 @@ Result MakeAddress(double lat, double lon, std::string const & name, std::string
 Result const * FindEstimated(Results const & results)
 {
   for (auto const & result : results)
-  {
     if (result.IsEstimatedAddress())
       return &result;
-  }
   return nullptr;
 }
 
@@ -128,5 +126,46 @@ UNIT_TEST(AddressEstimator_AcceptsExactAndEstimatedContactMarkers)
 
   auto const exact = MakeAddress(49.1209318, -122.8577086, "6492, 131A Street");
   TEST(IsAddressResultMatchingQuery("6492 131A Street", exact), ());
+}
+UNIT_TEST(AddressEstimator_ContactRequiresCompleteStreetIndependentlyOfLocality)
+{
+  auto const wrong = MakeAddress(0, 0, "123, Main Street West", "Springfield, Illinois, USA");
+  TEST(!IsAddressResultMatchingQuery("123 Main Street Springfield Illinois USA", wrong, "123 Main Street"), ());
+  auto const correct = MakeAddress(0, 0, "123, Main Street", "Springfield, Illinois, United States");
+  TEST(IsAddressResultMatchingQuery("123 Main Street Springfield Illinois USA", correct, "123 Main Street"), ());
+  TEST(!IsAddressResultMatchingQuery("123 Main Street Springfield Massachusetts USA", correct, "123 Main Street"), ());
+  Results supports;
+  supports.AddResultNoChecks(MakeAddress(0, 0, "120, Main Street", "West Springfield"));
+  supports.AddResultNoChecks(MakeAddress(0, 0.0001, "122, Main Street", "West Springfield"));
+  TEST(
+      !FindEstimated(MakeEstimatedAddressResults("124 Main Street West Springfield", supports, "124 Main Street West")),
+      ());
+}
+
+UNIT_TEST(AddressEstimator_ContactFormattedFrenchAndNumericOverflow)
+{
+  auto const result = MakeAddress(48.855, 2.36, "12, Rue de Rivoli", "Paris, France");
+  TEST(IsAddressResultMatchingQuery("12 Rue de Rivoli Paris France", result, "12 Rue de Rivoli"), ());
+  TEST(!IsAddressResultMatchingQuery("999999999999999999999999 Rue de Rivoli Paris France", result,
+                                     "999999999999999999999999 Rue de Rivoli"),
+       ());
+}
+
+UNIT_TEST(AddressEstimator_ContactStreetFirstMapAddresses)
+{
+  auto const exact = MakeAddress(49.91, -97.17, "Ingersoll Street, 910", "Winnipeg, Manitoba, Canada");
+  TEST(IsAddressResultMatchingQuery("910 Ingersoll Street Winnipeg Manitoba Canada", exact, "910 Ingersoll Street"),
+       ());
+  TEST(!IsAddressResultMatchingQuery("910 Ingersoll Street West Winnipeg Manitoba Canada", exact,
+                                     "910 Ingersoll Street West"),
+       ());
+  Results supports;
+  supports.AddResultNoChecks(MakeAddress(49.1208601, -122.8575937, "131A Street, 6486"));
+  supports.AddResultNoChecks(MakeAddress(49.1209318, -122.8577086, "131A Street, 6492"));
+  supports.SetEndMarker(true);
+  auto const estimated = MakeEstimatedAddressResults("6498 131A Street Surrey Canada", supports, "6498 131A Street");
+  auto const * result = FindEstimated(estimated);
+  TEST(result, ());
+  TEST(IsAddressResultMatchingQuery("6498 131A Street Surrey Canada", *result, "6498 131A Street"), ());
 }
 }  // namespace address_estimator_tests

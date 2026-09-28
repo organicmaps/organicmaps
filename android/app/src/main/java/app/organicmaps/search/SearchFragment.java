@@ -84,6 +84,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   // Matches the zoom the deep-link handlers use when centering on a single place.
   private static final int PICKED_POINT_ZOOM = 16;
+  private static final String STATE_CONTACT_QUERY = "contact_derived_query";
   @Nullable
   private ContactAddressSearch mContactAddressSearch;
   @Nullable
@@ -91,10 +92,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Nullable
   private String mPendingContactSourceQuery;
   @NonNull
-  private SearchResult[] mPendingContactResults = {};
+  private String mContactDerivedQuery;
   @NonNull
-  private List<ContactAddress.SearchQuery> mPendingContactQueries = List.of();
-  private int mPendingContactQueryIndex;
+  private long mPendingContactRequestId;
   private long mSearchTimestamp;
 
   // Debouncer for runSearch() — collapses bursts of keystrokes into a single engine invocation.
@@ -579,6 +579,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onViewStateRestored(@Nullable Bundle savedInstanceState)
   {
     super.onViewStateRestored(savedInstanceState);
+    if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_CONTACT_QUERY))
+      mContactDerivedQuery = getQuery();
     // Defensive: ensure no debounced search re-fires when cached results are still valid.
     // saveEnabled=false on mQuery + setQuerySilently() removing the watcher around setText
     // mean nothing is normally pending here, but the guard remains as a safety net.
@@ -598,9 +600,19 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   }
 
   @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    // Retain only provenance, not another copy of the contact address.
+    outState.putBoolean(STATE_CONTACT_QUERY, getQuery().equals(mContactDerivedQuery));
+  }
+
+  @Override
   public void onResume()
   {
     super.onResume();
+    if (!Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
+      clearPendingContactAddress();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
 
     if (mToolbarController.hasQuery())
@@ -636,6 +648,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onDestroyView()
   {
+    clearPendingContactAddress();
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     SearchEngine.INSTANCE.removeListener(this);
     if (mPickerActionsAnimator != null)
@@ -661,35 +674,80 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   void selectContactAddress(@NonNull ContactAddress contactAddress)
   {
+    clearPendingContactAddress();
+    if (!Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
+    {
+      mSearchAdapter.refreshContactData(List.of());
+      updateResultsPlaceholder();
+      return;
+    }
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
+    SearchEngine.INSTANCE.cancel();
+    updateSearchView();
     final ContactMapManager.ResolvedAddress resolved = ContactMapManager.INSTANCE.getResolved(contactAddress);
     if (resolved != null)
     {
-      if (Config.isSearchHistoryEnabled())
-      {
-        SearchRecents.add(contactAddress.address, requireContext());
-        mSearchViewModel.notifyHistoryChanged();
-      }
-      SearchEngine.INSTANCE.setQuery(contactAddress.address);
-      SearchEngine.INSTANCE.selectContactAddress(resolved.lat, resolved.lon, contactAddress.address,
-                                                 resolved.estimated, RoutingController.get().isWaitingPoiPick());
-      mToolbarController.deactivate();
+      showContactAddress(contactAddress, resolved.lat, resolved.lon, resolved.estimated);
+      return;
+    }
+    final List<ContactAddress.SearchQuery> queries = contactAddress.getSearchQueries();
+    if (queries.isEmpty())
+    {
+      showContactAddressFallback(contactAddress);
       return;
     }
     mPendingContactAddress = contactAddress;
     mPendingContactSourceQuery = getQuery();
-    mPendingContactResults = new SearchResult[] {};
-    mPendingContactQueries = contactAddress.getSearchQueries();
-    mPendingContactQueryIndex = 0;
-    searchContactAddressOnMap();
+    mToolbarController.showProgress(true);
+    mPendingContactRequestId = SearchEngine.INSTANCE.resolveContactAddress(
+        queries.stream().map(query -> query.query).toArray(String[] ::new),
+        queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new),
+        Language.getKeyboardLocale(requireContext()), false, (requestId, found, lat, lon, estimated) -> {
+          if (requestId != mPendingContactRequestId || !isAdded())
+            return;
+          clearPendingContactAddress();
+          updateSearchView();
+          if (!Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
+            return;
+          if (found)
+          {
+            ContactMapManager.INSTANCE.recordResolved(contactAddress, lat, lon, estimated);
+            showContactAddress(contactAddress, lat, lon, estimated);
+          }
+          else
+            showContactAddressFallback(contactAddress);
+        });
+  }
+
+  private void showContactAddress(@NonNull ContactAddress contactAddress, double lat, double lon, boolean estimated)
+  {
+    mToolbarController.deactivate();
+    final RoutingController controller = RoutingController.get();
+    if (controller.isWaitingPoiPick())
+    {
+      controller.onPoiSelected(
+          MapObject.createMapObject(MapObject.SEARCH, contactAddress.name, contactAddress.address, lat, lon));
+      if (controller.getStartPoint() == null || controller.getEndPoint() == null)
+        Framework.nativeSetViewportCenter(lat, lon, PICKED_POINT_ZOOM);
+    }
+    else
+      SearchEngine.INSTANCE.selectContactAddress(lat, lon, contactAddress.address, estimated, false);
+  }
+
+  private void showContactAddressFallback(@NonNull ContactAddress contactAddress)
+  {
+    clearPendingContactAddress();
+    mContactDerivedQuery = contactAddress.address;
+    setQuery(contactAddress.address, false);
   }
 
   private void clearPendingContactAddress()
   {
+    if (mPendingContactRequestId != 0)
+      SearchEngine.INSTANCE.cancelContactAddressResolution(mPendingContactRequestId);
+    mPendingContactRequestId = 0;
     mPendingContactAddress = null;
     mPendingContactSourceQuery = null;
-    mPendingContactResults = new SearchResult[] {};
-    mPendingContactQueries = List.of();
-    mPendingContactQueryIndex = 0;
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -723,7 +781,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex, @NonNull String query)
   {
-    if (Config.isSearchHistoryEnabled())
+    if (Config.isSearchHistoryEnabled() && !query.equals(mContactDerivedQuery))
     {
       SearchRecents.add(query, requireContext());
       mSearchViewModel.notifyHistoryChanged();
@@ -763,7 +821,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     hideShimmer();
     updateFrames();
     updateResultsPlaceholder();
-    ContactMapManager.INSTANCE.resume();
   }
 
   private void stopSearch()
@@ -809,13 +866,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private boolean startInteractiveSearch(@NonNull String query, boolean isCategory)
   {
-    return startInteractiveSearch(query, isCategory, false);
-  }
-
-  private boolean startInteractiveSearch(@NonNull String query, boolean isCategory, boolean allowNearbyHouseNumbers)
-  {
-    ContactMapManager.INSTANCE.pause();
-    final String searchQuery = allowNearbyHouseNumbers ? ContactAddressNormalizer.normalizeAddressQuery(query) : query;
     boolean hasLocation = mLastPosition.valid;
     double lat = mLastPosition.lat;
     double lon = mLastPosition.lon;
@@ -841,36 +891,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     SearchEngine.INSTANCE.setQuery(query);
     mSearchTimestamp = System.nanoTime();
-    return SearchEngine.INSTANCE.searchInteractive(searchQuery, isCategory, locale, mSearchTimestamp,
-                                                   true /* isMapAndTable */, hasLocation, lat, lon,
-                                                   allowNearbyHouseNumbers);
-  }
-
-  private void searchContactAddressOnMap()
-  {
-    final ContactAddress contactAddress = mPendingContactAddress;
-    if (contactAddress == null || mPendingContactQueryIndex >= mPendingContactQueries.size())
-      return;
-    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
-    SearchEngine.INSTANCE.cancel();
-    mPendingContactResults = new SearchResult[] {};
-    final ContactAddress.SearchQuery query = mPendingContactQueries.get(mPendingContactQueryIndex);
-    if (!startInteractiveSearch(query.query, false, query.allowNearbyHouseNumbers))
-    {
-      clearPendingContactAddress();
-      setQuery(contactAddress.address, false);
-      return;
-    }
-
-    mSearchRunning = true;
-    mToolbarController.showProgress(true);
-    if (mSearchAdapter.getItemCount() == 0)
-    {
-      UiUtils.show(mShimmerView);
-      mShimmerView.startShimmer();
-    }
-    updateResultsPlaceholder();
-    updateFrames();
+    return SearchEngine.INSTANCE.searchInteractive(query, isCategory, locale, mSearchTimestamp,
+                                                   true /* isMapAndTable */, hasLocation, lat, lon);
   }
 
   private void searchContactAddresses()
@@ -885,8 +907,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mContactAddressSearch = ContactAddressSearch.getInstance(requireContext());
 
     mContactAddressSearch.search(getQuery(), (query, results) -> {
-      if (!isAdded() || isCategory() || !query.equals(getQuery()) || !Config.isContactSearchEnabled() ||
-          !ContactAddressSearch.hasPermission(requireContext()))
+      if (!isAdded() || isCategory() || !query.equals(getQuery()) || !Config.isContactSearchEnabled()
+          || !ContactAddressSearch.hasPermission(requireContext()))
         return;
       mSearchAdapter.refreshContactData(results);
       updateResultsPlaceholder();
@@ -899,72 +921,15 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     if (!isAdded() || !mToolbarController.hasQuery())
       return;
 
-    if (mPendingContactAddress != null && timestamp == mSearchTimestamp)
-    {
-      mPendingContactResults = results;
-      return;
-    }
     refreshSearchResults(results);
   }
 
   @Override
   public void onResultsEnd(long timestamp)
   {
-    if (finishPendingContactAddressSearch(timestamp))
+    if (mPendingContactAddress != null)
       return;
     onSearchEnd();
-  }
-
-  private boolean finishPendingContactAddressSearch(long timestamp)
-  {
-    final ContactAddress contactAddress = mPendingContactAddress;
-    if (contactAddress == null || timestamp != mSearchTimestamp)
-      return false;
-
-    final SearchResult[] results = mPendingContactResults;
-    if (selectPendingContactAddressResult(results))
-      return true;
-    if (++mPendingContactQueryIndex < mPendingContactQueries.size())
-    {
-      searchContactAddressOnMap();
-      return true;
-    }
-    clearPendingContactAddress();
-    updateSearchView();
-    mSearchAdapter.refreshContactData(List.of());
-    setQuery(contactAddress.address, false);
-    return true;
-  }
-
-  private boolean selectPendingContactAddressResult(@NonNull SearchResult[] results)
-  {
-    final ContactAddress contactAddress = mPendingContactAddress;
-    if (contactAddress == null)
-      return false;
-    final ContactAddress.SearchQuery query = mPendingContactQueries.get(mPendingContactQueryIndex);
-    int bestResultIndex = -1;
-    int bestHouseNumberDifference = Integer.MAX_VALUE;
-
-    for (int i = 0; i < results.length; ++i)
-    {
-      final SearchResult result = results[i];
-      final int difference =
-          AddressResultMatcher.houseNumberDifference(contactAddress, query.expectedStreet, result);
-      if (difference == Integer.MAX_VALUE || (!query.allowNearbyHouseNumbers && difference != 0) ||
-          difference >= bestHouseNumberDifference)
-        continue;
-      bestResultIndex = i;
-      bestHouseNumberDifference = difference;
-    }
-    if (bestResultIndex < 0 || bestHouseNumberDifference > 10)
-      return false;
-
-    final SearchResult result = results[bestResultIndex];
-    ContactMapManager.INSTANCE.recordResolved(contactAddress, result.lat, result.lon, result.isEstimatedAddress);
-    clearPendingContactAddress();
-    updateSearchView();
-    showSingleResultOnMap(result, bestResultIndex, contactAddress.address);
-    return true;
   }
 
   @Override
@@ -1247,6 +1212,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
       if (mPendingContactAddress != null && !query.equals(mPendingContactSourceQuery))
         clearPendingContactAddress();
+      if (!query.equals(mContactDerivedQuery))
+        mContactDerivedQuery = null;
 
       mSearchViewModel.setCurrentToolbarCategorical(isCategory());
 
@@ -1276,7 +1243,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     @Override
     protected boolean onStartSearchClick()
     {
-      if (Config.isSearchHistoryEnabled())
+      if (Config.isSearchHistoryEnabled() && !getQuery().equals(mContactDerivedQuery))
       {
         SearchRecents.add(getQuery(), requireContext());
         mSearchViewModel.notifyHistoryChanged();

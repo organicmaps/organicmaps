@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 final class ContactAddressNormalizer
 {
@@ -18,28 +21,97 @@ final class ContactAddressNormalizer
       Pattern.compile("^\\s*(\\d+[A-Za-z]?)\\s*[-/]\\s*(\\d+[A-Za-z]?)\\s+(.+)$");
   private static final Pattern TRAILING_UNIT =
       Pattern.compile("(?i)\\s+(?:(?:unit|suite|apt\\.?|apartment)\\s*|#)\\w+\\s*$");
-  private static final Pattern ADDRESS_UNIT =
-      Pattern.compile("(?i)(?:^|\\s)(?:(?:unit|suite|apt\\.?|apartment|cpo)\\s*#?\\s*|#)\\w+(?=\\s|$)");
-  private static final Pattern ADDRESS_BASEMENT = Pattern.compile("(?i)(?:^|\\s)basement(?=\\s|$)");
   private static final Pattern CANADIAN_POSTAL_CODE =
       Pattern.compile("(?i)\\b[ABCEGHJ-NPRSTVXY]\\d[ABCEGHJ-NPRSTV-Z]\\s*\\d[ABCEGHJ-NPRSTV-Z]\\d\\b");
   private static final Pattern US_ZIP_CODE =
       Pattern.compile("(?i)\\s+\\d{5}(?:-\\d{4})?(?=\\s*(?:USA|U\\.?S\\.?A\\.?|United States(?: of America)?)?\\s*$)");
-  private static final Pattern TRAILING_COUNTRY =
-      Pattern.compile("(?i)(?:\\s+(?:Canada|USA|U\\.?S\\.?A\\.?|United States(?: of America)?))+\\s*$");
-  private static final Pattern TRAILING_REGION_CODE = Pattern.compile(
-      "(?i)\\s+(?:AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT|" +
-      "AL|AK|AZ|AR|CA|CO|CT|DE|DC|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|" +
-      "NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\\s*$");
   private static final Pattern ORDINAL = Pattern.compile("(\\d+)(?:st|nd|rd|th)", Pattern.CASE_INSENSITIVE);
-  private static final Pattern ATTACHED_SUFFIX = Pattern.compile(
-      "(?i)^(\\d+[A-Za-z]?)(st|ave|av|rd|blvd|dr|ln|ct|cres|cr|cir|pl|ter|terr|trl|wy)$");
-  private static final Pattern ATTACHED_DIRECTIONAL_NUMBER =
-      Pattern.compile("(?i)^([NSEW])(\\d+)(?:st|nd|rd|th)?$");
+  private static final Pattern ATTACHED_SUFFIX =
+      Pattern.compile("(?i)^(\\d+[A-Za-z]?)(st|ave|av|rd|blvd|dr|ln|ct|cres|cr|cir|pl|ter|terr|trl|wy)$");
+  private static final Pattern ATTACHED_DIRECTIONAL_NUMBER = Pattern.compile("(?i)^([NSEW])(\\d+)(?:st|nd|rd|th)?$");
   private static final Pattern ADDRESS_START = Pattern.compile("(?i)\\b\\d+[A-Za-z]?\\s+(?=\\S)");
   private static final Pattern BARE_UNIT_STREET = Pattern.compile("^(\\d+)\\s+(\\d+[A-Za-z]?)\\s+(.+)$");
 
   private ContactAddressNormalizer() {}
+
+  private static final String[][] REGION_NAMES = {{"AB", "Alberta"},
+                                                  {"BC", "British Columbia"},
+                                                  {"MB", "Manitoba"},
+                                                  {"NB", "New Brunswick"},
+                                                  {"NL", "Newfoundland and Labrador"},
+                                                  {"NS", "Nova Scotia"},
+                                                  {"NT", "Northwest Territories"},
+                                                  {"NU", "Nunavut"},
+                                                  {"ON", "Ontario"},
+                                                  {"PE", "Prince Edward Island"},
+                                                  {"QC", "Quebec"},
+                                                  {"SK", "Saskatchewan"},
+                                                  {"YT", "Yukon"},
+                                                  {"AL", "Alabama"},
+                                                  {"AK", "Alaska"},
+                                                  {"AZ", "Arizona"},
+                                                  {"AR", "Arkansas"},
+                                                  {"CA", "California"},
+                                                  {"CO", "Colorado"},
+                                                  {"CT", "Connecticut"},
+                                                  {"DE", "Delaware"},
+                                                  {"DC", "District of Columbia"},
+                                                  {"FL", "Florida"},
+                                                  {"GA", "Georgia"},
+                                                  {"HI", "Hawaii"},
+                                                  {"ID", "Idaho"},
+                                                  {"IL", "Illinois"},
+                                                  {"IN", "Indiana"},
+                                                  {"IA", "Iowa"},
+                                                  {"KS", "Kansas"},
+                                                  {"KY", "Kentucky"},
+                                                  {"LA", "Louisiana"},
+                                                  {"ME", "Maine"},
+                                                  {"MD", "Maryland"},
+                                                  {"MA", "Massachusetts"},
+                                                  {"MI", "Michigan"},
+                                                  {"MN", "Minnesota"},
+                                                  {"MS", "Mississippi"},
+                                                  {"MO", "Missouri"},
+                                                  {"MT", "Montana"},
+                                                  {"NE", "Nebraska"},
+                                                  {"NV", "Nevada"},
+                                                  {"NH", "New Hampshire"},
+                                                  {"NJ", "New Jersey"},
+                                                  {"NM", "New Mexico"},
+                                                  {"NY", "New York"},
+                                                  {"NC", "North Carolina"},
+                                                  {"ND", "North Dakota"},
+                                                  {"OH", "Ohio"},
+                                                  {"OK", "Oklahoma"},
+                                                  {"OR", "Oregon"},
+                                                  {"PA", "Pennsylvania"},
+                                                  {"RI", "Rhode Island"},
+                                                  {"SC", "South Carolina"},
+                                                  {"SD", "South Dakota"},
+                                                  {"TN", "Tennessee"},
+                                                  {"TX", "Texas"},
+                                                  {"UT", "Utah"},
+                                                  {"VT", "Vermont"},
+                                                  {"VA", "Virginia"},
+                                                  {"WA", "Washington"},
+                                                  {"WV", "West Virginia"},
+                                                  {"WI", "Wisconsin"},
+                                                  {"WY", "Wyoming"}};
+
+  private static final Map<String, String> REGIONS =
+      Arrays.stream(REGION_NAMES).collect(Collectors.toMap(region -> region[0], region -> region[1]));
+  private static final Pattern REGION_CODE = Pattern.compile("\\b(?:" + String.join("|", REGIONS.keySet()) + ")\\b");
+  private static final List<List<String>> REGION_TOKENS =
+      REGIONS.values().stream().map(ContactAddressNormalizer::matchTokens).toList();
+
+  @NonNull
+  static String normalizeCountry(@NonNull String country)
+  {
+    return country.matches("(?i)[a-z]{2}")
+      ? new Locale.Builder().setRegion(country.toUpperCase(Locale.ROOT)).build().getDisplayCountry(Locale.ENGLISH)
+      : country;
+  }
 
   @NonNull
   static String format(@Nullable String formattedAddress, @Nullable String... addressParts)
@@ -104,25 +176,43 @@ final class ContactAddressNormalizer
   }
 
   @NonNull
-  static String normalizeAddressQuery(@NonNull String value)
+  static String normalizeContext(@NonNull String value)
   {
-    String query = value.trim();
-    while (query.length() >= 2 && isMatchingWrapper(query.charAt(0), query.charAt(query.length() - 1)))
-      query = query.substring(1, query.length() - 1).trim();
+    String context = CANADIAN_POSTAL_CODE.matcher(value.replaceAll("[,;\\r\\n]+", " ")).replaceAll(" ");
+    context = US_ZIP_CODE.matcher(context).replaceAll(" ");
+    final Matcher codes = REGION_CODE.matcher(context);
+    final StringBuffer expanded = new StringBuffer();
+    while (codes.find())
+      codes.appendReplacement(expanded, REGIONS.get(codes.group()));
+    codes.appendTail(expanded);
+    context = expanded.toString();
+    return context.replaceAll("[,;\\r\\n]+", " ").replaceAll("\\s+", " ").trim();
+  }
 
-    query = prepareAddress(query);
-    query = query.replaceAll("(?i)\\bB\\.\\s*C\\.?\\b", "BC");
-    query = query.replaceAll("[\\[\\]{}()]", " ").replaceAll("[.,;:|!]", " ");
-    query = ADDRESS_UNIT.matcher(query).replaceAll(" ");
-    query = ADDRESS_BASEMENT.matcher(query).replaceAll(" ");
-    query = CANADIAN_POSTAL_CODE.matcher(query).replaceAll(" ");
-    query = US_ZIP_CODE.matcher(query).replaceAll(" ");
-    query = TRAILING_COUNTRY.matcher(query).replaceFirst("");
-    query = TRAILING_REGION_CODE.matcher(query).replaceFirst("");
-    query = query.replaceAll("\\s+", " ").trim();
-    if (!query.matches("\\d+[\\p{L}]?\\s+\\S.*"))
-      return value.trim();
-    return String.join(" ", normalizeTokens(query));
+  static boolean matchesMapRegion(@NonNull String context, @NonNull String mapRegion)
+  {
+    if (mapRegion.isEmpty())
+      return false;
+    final List<String> mapTokens = matchTokens(mapRegion);
+    final List<String> addressTokens = matchTokens(context);
+    boolean hasRegion = false;
+    for (List<String> regionTokens : REGION_TOKENS)
+    {
+      if (addressTokens.containsAll(regionTokens))
+      {
+        hasRegion = true;
+        if (mapTokens.containsAll(regionTokens))
+          return true;
+      }
+    }
+    if (hasRegion)
+      return false;
+    if (addressTokens.contains("canada"))
+      return mapTokens.contains("canada");
+    if (addressTokens.contains("usa") || addressTokens.contains("us") || addressTokens.contains("united"))
+      return mapTokens.contains("us") || mapTokens.contains("usa") || mapTokens.contains("united");
+    // No geographical clue: the native resolver still limits the search and result to the viewport.
+    return true;
   }
 
   @NonNull
@@ -204,8 +294,8 @@ final class ContactAddressNormalizer
   @NonNull
   private static List<String> normalizeTokens(@NonNull String value)
   {
-    final String cleaned = value.replaceAll("[\\[\\]{}()]", " ").replaceAll("[.,;:|!]", " ")
-                                .replaceAll("\\s+", " ").trim();
+    final String cleaned =
+        value.replaceAll("[\\[\\]{}()]", " ").replaceAll("[.,;:|!]", " ").replaceAll("\\s+", " ").trim();
     if (cleaned.isEmpty())
       return new ArrayList<>();
 
@@ -229,8 +319,8 @@ final class ContactAddressNormalizer
         continue;
       }
 
-      if (i + 2 < rawTokens.length && rawTokens[i].matches("\\d+") && rawTokens[i + 1].matches("[A-Za-z]") &&
-          isStreetSuffix(rawTokens[i + 2]))
+      if (i + 2 < rawTokens.length && rawTokens[i].matches("\\d+") && rawTokens[i + 1].matches("[A-Za-z]")
+          && isStreetSuffix(rawTokens[i + 2]))
       {
         tokens.add(rawTokens[i] + rawTokens[++i].toUpperCase(Locale.ROOT));
         continue;
@@ -325,18 +415,18 @@ final class ContactAddressNormalizer
   {
     return switch (token.toLowerCase(Locale.ROOT))
     {
-      case "street", "avenue", "road", "boulevard", "drive", "lane", "court", "crescent", "circle",
-           "expressway", "freeway", "highway", "parkway", "place", "square", "terrace", "trail", "way" -> true;
+      case "street", "avenue", "road", "boulevard", "drive", "lane", "court", "crescent", "circle", "expressway",
+          "freeway", "highway", "parkway", "place", "square", "terrace", "trail", "way" ->
+        true;
       default -> false;
     };
   }
 
   private static boolean isDirection(@NonNull String token)
   {
-    return token.equalsIgnoreCase("North") || token.equalsIgnoreCase("South") || token.equalsIgnoreCase("East") ||
-           token.equalsIgnoreCase("West") || token.equalsIgnoreCase("Northeast") ||
-           token.equalsIgnoreCase("Northwest") || token.equalsIgnoreCase("Southeast") ||
-           token.equalsIgnoreCase("Southwest");
+    return token.equalsIgnoreCase("North") || token.equalsIgnoreCase("South") || token.equalsIgnoreCase("East")
+ || token.equalsIgnoreCase("West") || token.equalsIgnoreCase("Northeast") || token.equalsIgnoreCase("Northwest")
+ || token.equalsIgnoreCase("Southeast") || token.equalsIgnoreCase("Southwest");
   }
 
   @NonNull

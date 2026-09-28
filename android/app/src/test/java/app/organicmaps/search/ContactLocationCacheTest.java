@@ -61,7 +61,7 @@ public class ContactLocationCacheTest
     final CacheMocks mocks = new CacheMocks();
     final String address = "11378 158A Street Surrey";
     final String key = ContactLocationCache.hash(address);
-    when(mocks.preferences.getString(key, null)).thenReturn("2|42|49.12345|-122.98765|false");
+    when(mocks.preferences.getString(key, null)).thenReturn("3|42|49.12345|-122.98765|false");
 
     mocks.mapVersion = 43L;
     assertNull(mocks.cache.get(address));
@@ -77,7 +77,7 @@ public class ContactLocationCacheTest
     mocks.mapVersion = 42L;
     mocks.cache.put(address, new ContactLocationCache.Entry(49.1234567, -122.9876543, true));
 
-    verify(mocks.editor).putString(ContactLocationCache.hash(address), "2|42|49.12346|-122.98765|true");
+    verify(mocks.editor).putString(ContactLocationCache.hash(address), "3|42|49.12346|-122.98765|true");
   }
 
   private static final class CacheMocks

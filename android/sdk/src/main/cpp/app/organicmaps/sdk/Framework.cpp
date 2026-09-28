@@ -826,14 +826,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearApiPoints(JNIEnv * 
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetContactMarks(JNIEnv * env, jclass clazz,
-                                                                        jdoubleArray latitudes,
-                                                                        jdoubleArray longitudes, jobjectArray names,
-                                                                        jbooleanArray estimated)
+                                                                        jdoubleArray latitudes, jdoubleArray longitudes,
+                                                                        jobjectArray names, jbooleanArray estimated)
 {
   jsize const count = env->GetArrayLength(latitudes);
-  if (count != env->GetArrayLength(longitudes) || count != env->GetArrayLength(names) ||
-      count != env->GetArrayLength(estimated))
-    return;
+  CHECK_EQUAL(count, env->GetArrayLength(longitudes), ());
+  CHECK_EQUAL(count, env->GetArrayLength(names), ());
+  CHECK_EQUAL(count, env->GetArrayLength(estimated), ());
 
   std::vector<jdouble> latitudeValues(static_cast<size_t>(count));
   std::vector<jdouble> longitudeValues(static_cast<size_t>(count));

@@ -1,38 +1,39 @@
 package app.organicmaps.search;
 
 import androidx.annotation.NonNull;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 final class ContactAddress
 {
+  private static final Pattern NAME_MARKS = Pattern.compile("\\p{M}+");
+  private static final Pattern NAME_SEPARATORS = Pattern.compile("[^\\p{L}]+");
   static final class SearchQuery
   {
     @NonNull
     final String query;
     @NonNull
     final String expectedStreet;
-    final boolean allowNearbyHouseNumbers;
-
-    SearchQuery(@NonNull String query, @NonNull String expectedStreet, boolean allowNearbyHouseNumbers)
+    SearchQuery(@NonNull String query, @NonNull String expectedStreet)
     {
       this.query = query;
       this.expectedStreet = expectedStreet;
-      this.allowNearbyHouseNumbers = allowNearbyHouseNumbers;
     }
 
     @Override
     public boolean equals(Object object)
     {
-      return object instanceof SearchQuery other && query.equals(other.query) &&
-             expectedStreet.equals(other.expectedStreet) && allowNearbyHouseNumbers == other.allowNearbyHouseNumbers;
+      return object instanceof SearchQuery other && query.equals(other.query)
+   && expectedStreet.equals(other.expectedStreet);
     }
 
     @Override
     public int hashCode()
     {
-      return 31 * (31 * query.hashCode() + expectedStreet.hashCode()) + Boolean.hashCode(allowNearbyHouseNumbers);
+      return 31 * query.hashCode() + expectedStreet.hashCode();
     }
 
     @Override
@@ -47,6 +48,8 @@ final class ContactAddress
   @NonNull
   final String normalizedName;
   @NonNull
+  final List<String> nameWords;
+  @NonNull
   final String label;
   @NonNull
   final String address;
@@ -54,21 +57,45 @@ final class ContactAddress
   final String street;
   @NonNull
   final String locality;
+  @NonNull
+  final String region;
+  @NonNull
+  final String country;
 
   ContactAddress(@NonNull String name, @NonNull String label, @NonNull String address, @NonNull String street,
                  @NonNull String locality)
   {
+    this(name, label, address, street, locality, "", "");
+  }
+
+  ContactAddress(@NonNull String name, @NonNull String label, @NonNull String address, @NonNull String street,
+                 @NonNull String locality, @NonNull String region, @NonNull String country)
+  {
     this.name = name;
-    normalizedName = name.toLowerCase(Locale.ROOT);
+    normalizedName = normalizeName(name);
+    nameWords = normalizedName.isEmpty() ? List.of() : List.of(normalizedName.split(" "));
     this.label = label;
     this.address = address;
     this.street = street;
     this.locality = locality;
+    this.region = region;
+    this.country = country;
+  }
+
+  @NonNull
+  static String normalizeName(@NonNull String name)
+  {
+    final String decomposed = Normalizer.normalize(name.toLowerCase(Locale.ROOT), Normalizer.Form.NFD);
+    return NAME_SEPARATORS.matcher(NAME_MARKS.matcher(decomposed).replaceAll("")).replaceAll(" ").trim();
   }
 
   @NonNull
   String getNormalizedStreet()
   {
+    final String firstPart = address.split(",", 2)[0].trim();
+    if (street.isEmpty() && ContactAddressNormalizer.looksLikeStructuredStreet(firstPart)
+        && !ContactAddressNormalizer.hasRecognizedStreetSuffix(firstPart))
+      return firstPart;
     final String formattedStreet = ContactAddressNormalizer.normalizeStreet(address);
     final String structuredStreet = ContactAddressNormalizer.normalizeStreet(street);
     final boolean useFormattedStreet = ContactAddressNormalizer.looksLikeAddressQuery(formattedStreet);
@@ -80,59 +107,48 @@ final class ContactAddress
   {
     final String normalizedStreet = getNormalizedStreet();
     final List<SearchQuery> queries = new ArrayList<>();
-    if (ContactAddressNormalizer.looksLikeAddressQuery(normalizedStreet) ||
-        (!street.isEmpty() && ContactAddressNormalizer.looksLikeStructuredStreet(normalizedStreet)))
+    if (ContactAddressNormalizer.looksLikeStructuredStreet(normalizedStreet))
     {
-      addQuery(queries, new SearchQuery(normalizedStreet, normalizedStreet, false));
-      if (!locality.isEmpty())
-        addQuery(queries, new SearchQuery(normalizedStreet + " " + locality, normalizedStreet, true));
+      final String context = getResolutionContext();
+      addQuery(queries, new SearchQuery((normalizedStreet + " " + context).trim(), normalizedStreet));
 
       final String withoutBareUnit = ContactAddressNormalizer.possibleBareUnitStreet(normalizedStreet);
       if (!withoutBareUnit.isEmpty())
       {
-        addQuery(queries, new SearchQuery(withoutBareUnit, withoutBareUnit, false));
-        if (!locality.isEmpty())
-          addQuery(queries, new SearchQuery(withoutBareUnit + " " + locality, withoutBareUnit, true));
+        addQuery(queries, new SearchQuery((withoutBareUnit + " " + context).trim(), withoutBareUnit));
       }
     }
 
-    if (!address.isEmpty())
-    {
-      final String normalizedAddress = ContactAddressNormalizer.normalizeAddressQuery(address);
-      if (ContactAddressNormalizer.looksLikeAddressQuery(normalizedAddress))
-        addQuery(queries, new SearchQuery(normalizedAddress, normalizedStreet, true));
-      if (street.isEmpty() && !normalizedAddress.equals(address) &&
-          ContactAddressNormalizer.looksLikeAddressQuery(address))
-        addQuery(queries, new SearchQuery(address, normalizedStreet, false));
-    }
     return queries;
+  }
+
+  @NonNull
+  String getResolutionContext()
+  {
+    if (!region.isEmpty() || !country.isEmpty())
+      return ContactAddressNormalizer.normalizeContext(
+          String.join(" ", locality, region, ContactAddressNormalizer.normalizeCountry(country)));
+    // Preserve disambiguating components even for formatted-only provider rows.
+    final String[] parts = address.split(",", 2);
+    if (parts.length == 2 && !parts[0].trim().matches("\\d+[A-Za-z]?"))
+      return ContactAddressNormalizer.normalizeContext(parts[1]);
+    final String normalized = ContactAddressNormalizer.normalizeContext(address);
+    final String normalizedStreet = getNormalizedStreet();
+    final List<String> tokens = ContactAddressNormalizer.matchTokens(normalized);
+    final int streetTokens = ContactAddressNormalizer.matchTokens(normalizedStreet).size();
+    return tokens.size() > streetTokens ? String.join(" ", tokens.subList(streetTokens, tokens.size())) : locality;
+  }
+
+  @NonNull
+  String getAddressKey()
+  {
+    return (getNormalizedStreet() + "|" + getResolutionContext() + "|" + region + "|" + country)
+        .toLowerCase(Locale.ROOT);
   }
 
   private static void addQuery(@NonNull List<SearchQuery> queries, @NonNull SearchQuery candidate)
   {
     if (queries.stream().noneMatch(query -> query.query.equalsIgnoreCase(candidate.query)))
       queries.add(candidate);
-  }
-
-  @NonNull
-  SearchQuery getMapSearchQuery()
-  {
-    final List<SearchQuery> queries = getSearchQueries();
-    for (SearchQuery query : queries)
-    {
-      if (query.allowNearbyHouseNumbers)
-        return query;
-    }
-    return queries.isEmpty() ? new SearchQuery(address, "", true) : queries.get(0);
-  }
-
-  @NonNull
-  List<SearchQuery> getMapSearchQueries()
-  {
-    final List<SearchQuery> queries = getSearchQueries();
-    final List<SearchQuery> mapQueries = queries.stream().filter(query -> query.allowNearbyHouseNumbers).toList();
-    if (!mapQueries.isEmpty())
-      return mapQueries;
-    return queries.isEmpty() ? List.of() : List.of(queries.get(0));
   }
 }

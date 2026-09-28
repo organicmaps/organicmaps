@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -137,15 +136,14 @@ final class ContactAddressSearch
       callback.onResults(query, Collections.emptyList());
       return;
     }
-    final String normalizedQuery = query.trim().toLowerCase(Locale.ROOT);
-    if (normalizedQuery.isEmpty())
+    if (query.trim().isEmpty())
     {
       callback.onResults(query, Collections.emptyList());
       return;
     }
 
     ThreadPool.getWorker().execute(() -> {
-      final List<ContactAddress> matches = findMatches(normalizedQuery);
+      final List<ContactAddress> matches = findMatches(query);
       mMainHandler.post(() -> {
         if (!mShutdown)
           callback.onResults(query, matches);
@@ -160,18 +158,37 @@ final class ContactAddressSearch
   }
 
   @NonNull
-  static List<ContactAddress> findMatches(@NonNull List<ContactAddress> addresses, @NonNull String normalizedQuery)
+  static List<ContactAddress> findMatches(@NonNull List<ContactAddress> addresses, @NonNull String query)
   {
+    final String normalizedQuery = ContactAddress.normalizeName(query);
+    if (normalizedQuery.isEmpty())
+      return Collections.emptyList();
+    final String[] queryWords = normalizedQuery.split(" ");
+    final boolean shortQuery =
+        normalizedQuery.codePointCount(0, normalizedQuery.length()) - (queryWords.length - 1) < 3;
     final List<ContactAddress> matches = new ArrayList<>();
     for (ContactAddress address : addresses)
     {
-      if (address.normalizedName.contains(normalizedQuery))
+      if (shortQuery)
+      {
+        if (queryWords.length == 1 && address.nameWords.contains(normalizedQuery))
+          matches.add(address);
+        continue;
+      }
+      boolean matchesAllWords = true;
+      for (String word : queryWords)
+      {
+        if (address.nameWords.stream().noneMatch(nameWord -> nameWord.startsWith(word)))
+        {
+          matchesAllWords = false;
+          break;
+        }
+      }
+      if (matchesAllWords)
         matches.add(address);
     }
     matches.sort(
-        Comparator
-            .comparingInt(
-                (ContactAddress address) -> address.normalizedName.startsWith(normalizedQuery) ? 0 : 1)
+        Comparator.comparingInt((ContactAddress address) -> address.normalizedName.startsWith(normalizedQuery) ? 0 : 1)
             .thenComparing(address -> address.name, String.CASE_INSENSITIVE_ORDER)
             .thenComparing(address -> address.label, String.CASE_INSENSITIVE_ORDER));
     final Set<String> names = new HashSet<>();
@@ -207,26 +224,19 @@ final class ContactAddressSearch
         return Collections.emptyList();
 
       final int nameColumn = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY);
-      final int typeColumn =
-          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.TYPE);
-      final int labelColumn =
-          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.LABEL);
+      final int typeColumn = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.TYPE);
+      final int labelColumn = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.LABEL);
       final int formattedAddressColumn =
           cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS);
-      final int streetColumn =
-          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.STREET);
-      final int poBoxColumn =
-          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.POBOX);
+      final int streetColumn = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.STREET);
+      final int poBoxColumn = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.POBOX);
       final int neighborhoodColumn =
           cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.NEIGHBORHOOD);
-      final int cityColumn =
-          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.CITY);
-      final int regionColumn =
-          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.REGION);
+      final int cityColumn = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.CITY);
+      final int regionColumn = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.REGION);
       final int postcodeColumn =
           cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.POSTCODE);
-      final int countryColumn =
-          cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.COUNTRY);
+      final int countryColumn = cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredPostal.COUNTRY);
 
       while (cursor.moveToNext())
       {
@@ -238,11 +248,10 @@ final class ContactAddressSearch
 
         final String street = getString(cursor, streetColumn);
         final String locality = getString(cursor, cityColumn);
-        final String address =
-            ContactAddressNormalizer.format(getString(cursor, formattedAddressColumn), street,
-                                            getString(cursor, poBoxColumn), getString(cursor, neighborhoodColumn),
-                                            locality, getString(cursor, regionColumn), getString(cursor, postcodeColumn),
-                                            getString(cursor, countryColumn));
+        final String address = ContactAddressNormalizer.format(
+            getString(cursor, formattedAddressColumn), street, getString(cursor, poBoxColumn),
+            getString(cursor, neighborhoodColumn), locality, getString(cursor, regionColumn),
+            getString(cursor, postcodeColumn), getString(cursor, countryColumn));
         if (address.isEmpty())
           continue;
 
@@ -253,7 +262,8 @@ final class ContactAddressSearch
                 .toString();
         final String key = name + '\u0000' + label + '\u0000' + address;
         if (deduplicationKeys.add(key))
-          addresses.add(new ContactAddress(name, label, address, street, locality));
+          addresses.add(new ContactAddress(name, label, address, street, locality, getString(cursor, regionColumn),
+                                           getString(cursor, countryColumn)));
       }
     }
     catch (SecurityException ignored)
@@ -284,5 +294,4 @@ final class ContactAddressSearch
     final String value = cursor.getString(column);
     return value == null ? "" : value.trim();
   }
-
 }

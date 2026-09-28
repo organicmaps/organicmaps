@@ -1,4 +1,5 @@
 #include "map/search_api.hpp"
+#include "search/address_estimator.hpp"
 
 #include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
@@ -149,12 +150,13 @@ SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
              Engine::Params(languages::GetCurrentMapTwine() /* locale */, numThreads))
 {}
 
-void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
+void SearchAPI::OnViewportChanged(m2::RectD const & viewport, int scale)
 {
   // The map may be scrolled past the antimeridian, while the search engine works with canonical coordinates only.
   /// @todo A rect crossing the antimeridian is searched in its canonical part only: the engine (mwm selection,
   /// features collection, pivot distances) doesn't support two-parts rects.
   m_viewport = mercator::WrapRectX(viewport);
+  m_viewportScale = scale;
 
   auto const forceSearchInViewport = !m_isViewportInitialized;
   if (!m_isViewportInitialized)
@@ -173,6 +175,9 @@ void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
   }
 
   PokeSearchInViewport(forceSearchInViewport);
+  if (m_addressViewportCallback)
+    m_addressViewportCallback(m_viewport, scale);
+  StartAddressResolution();
 }
 
 bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
@@ -190,7 +195,6 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
   p.m_needAddress = true;
   p.m_needHighlighting = true;
   p.m_categorialRequest = params.m_isCategory;
-  p.m_allowNearbyHouseNumbers = params.m_allowNearbyHouseNumbers;
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
@@ -290,6 +294,9 @@ void SearchAPI::CancelSearch(Mode mode)
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
   intent.m_params.Clear();
   CancelQuery(intent.m_handle);
+  intent.m_isRunning = false;
+  ++intent.m_generation;
+  StartAddressResolution();
 }
 
 void SearchAPI::CancelAllSearches()
@@ -400,14 +407,142 @@ bool SearchAPI::Search(SearchParams params, bool forceSearch)
 
 void SearchAPI::Search(SearchIntent & intent)
 {
+  SuspendAddressResolution();
+  intent.m_isRunning = true;
   if (!m_isViewportInitialized)
   {
     intent.m_isDelayed = true;
     return;
   }
 
-  intent.m_handle = m_engine.Search(intent.m_params);
+  auto params = intent.m_params;
+  auto const generation = ++intent.m_generation;
+  auto const mode = params.m_mode;
+  params.m_onResults = [this, mode, generation, callback = params.m_onResults](Results const & results)
+  {
+    callback(results);
+    if (results.IsEndMarker())
+      RunUITask([this, mode, generation]
+      {
+        auto & current = m_searchIntents[static_cast<size_t>(mode)];
+        if (current.m_generation != generation)
+          return;
+        current.m_isRunning = false;
+        StartAddressResolution();
+      });
+  };
+  intent.m_handle = m_engine.Search(std::move(params));
   intent.m_isDelayed = false;
+}
+
+void SearchAPI::SetAddressViewportCallback(std::function<void(m2::RectD const &, int)> callback)
+{
+  m_addressViewportCallback = std::move(callback);
+  if (m_addressViewportCallback && m_isViewportInitialized)
+    m_addressViewportCallback(m_viewport, m_viewportScale);
+}
+
+void SearchAPI::ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
+                               AddressCallback callback)
+{
+  CHECK(callback, ());
+  auto request =
+      std::make_shared<AddressRequest>(id, std::move(queries), std::move(locale), background, std::move(callback));
+  if (background)
+    m_addressRequests.push_back(std::move(request));
+  else
+  {
+    SuspendAddressResolution();
+    m_addressRequests.push_front(std::move(request));
+  }
+  StartAddressResolution();
+}
+
+void SearchAPI::CancelAddressResolution(uint64_t id)
+{
+  if (!m_addressRequests.empty() && m_addressRequests.front()->m_id == id)
+    SuspendAddressResolution();
+  std::erase_if(m_addressRequests, [id](auto const & request) { return request->m_id == id; });
+  StartAddressResolution();
+}
+
+void SearchAPI::SuspendAddressResolution()
+{
+  ++m_addressGeneration;
+  CancelQuery(m_addressHandle);
+  m_addressRunning = false;
+}
+
+void SearchAPI::StartAddressResolution()
+{
+  if (m_addressRunning || m_addressRequests.empty() || !m_isViewportInitialized)
+    return;
+  for (auto const & intent : m_searchIntents)
+    if (intent.m_isRunning)
+      return;
+
+  auto const request = m_addressRequests.front();
+  if (request->m_queries.empty())
+  {
+    m_addressRequests.pop_front();
+    request->m_callback({});
+    StartAddressResolution();
+    return;
+  }
+  if (request->m_background && m_viewportScale < 16)
+    return;
+
+  m_addressRunning = true;
+  auto const generation = ++m_addressGeneration;
+  auto const query = request->m_queries[request->m_queryIndex];
+  auto const viewport = m_viewport;
+  SearchParams params;
+  params.m_query = query.m_query + " ";
+  params.m_inputLocale = request->m_locale;
+  params.m_viewport = viewport;
+  params.m_mode = request->m_background ? Mode::Viewport : Mode::Everywhere;
+  params.m_needAddress = true;
+  params.m_allowNearbyHouseNumbers = request->m_allowNearbyHouseNumbers;
+  params.m_onResults = [this, request, generation, query, viewport](Results const & results)
+  {
+    if (!results.IsEndMarker())
+      return;
+    RunUITask([this, request, generation, query, viewport, results]
+    {
+      // Cancelled or suspended attempts must not consume a query or deliver a stale coordinate.
+      if (generation != m_addressGeneration)
+        return;
+      m_addressRunning = false;
+      std::optional<search::Result> match;
+      // Deadlines retain useful results. Explicit cancellation/suspension is excluded by the generation guard.
+      {
+        auto const resolved = search::MakeEstimatedAddressResults(query.m_query, results, query.m_street);
+        for (auto const & result : resolved)
+          if (search::IsAddressResultMatchingQuery(query.m_query, result, query.m_street) &&
+              (!request->m_background || viewport.IsPointInside(result.GetFeatureCenter())))
+          {
+            match = result;
+            break;
+          }
+      }
+      if (!match && !request->m_allowNearbyHouseNumbers)
+      {
+        request->m_allowNearbyHouseNumbers = true;
+        StartAddressResolution();
+        return;
+      }
+      if (!match && ++request->m_queryIndex < request->m_queries.size())
+      {
+        request->m_allowNearbyHouseNumbers = false;
+        StartAddressResolution();
+        return;
+      }
+      m_addressRequests.pop_front();
+      request->m_callback(std::move(match));
+      StartAddressResolution();
+    });
+  };
+  m_addressHandle = m_engine.Search(std::move(params));
 }
 
 void SearchAPI::SetViewportIfPossible(SearchParams & params)
