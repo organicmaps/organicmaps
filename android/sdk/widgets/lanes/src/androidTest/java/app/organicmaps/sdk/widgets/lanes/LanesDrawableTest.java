@@ -29,10 +29,10 @@ public class LanesDrawableTest
         new LaneInfo(new LaneWay[] {LaneWay.Right}, LaneWay.Right),
     };
     final Bitmap vilnius = render("vilnius_right", vilniusLanes);
-    Assert.assertEquals(INACTIVE, vilnius.getPixel(32, 9));
+    Assert.assertEquals(INACTIVE, vilnius.getPixel(32, 15));
     Assert.assertEquals(INACTIVE, vilnius.getPixel(32, 54));
-    Assert.assertEquals(INACTIVE, vilnius.getPixel(8, 23));
-    Assert.assertEquals(ACTIVE, vilnius.getPixel(64 + 56, 23));
+    Assert.assertEquals(INACTIVE, vilnius.getPixel(15, 20));
+    Assert.assertEquals(ACTIVE, vilnius.getPixel(64 + 40, 12));
     Assert.assertEquals(Color.BLACK, vilnius.getPixel(25, 54));
     renderTheme("vilnius_light", vilniusLanes, Color.rgb(36, 156, 242), Color.WHITE);
     renderTheme("vilnius_night", vilniusLanes, Color.rgb(75, 185, 230), Color.argb(222, 0, 0, 0));
@@ -54,6 +54,13 @@ public class LanesDrawableTest
     Assert.assertEquals(ACTIVE, ljubljana.getPixel(64 + 32, 54));
     renderTheme("ljubljana_light", ljubljanaLanes, Color.rgb(36, 156, 242), Color.WHITE);
     renderTheme("ljubljana_night", ljubljanaLanes, Color.rgb(75, 185, 230), Color.argb(222, 0, 0, 0));
+
+    final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    final Bitmap carImage = Graphics.drawableToBitmap(new LanesDrawable(context, ljubljanaLanes));
+    final float density = context.getResources().getDisplayMetrics().density;
+    Assert.assertTrue(carImage.getWidth() <= 500 * density);
+    Assert.assertTrue(carImage.getHeight() <= 74 * density);
+    save(context, "lane_glyph_ljubljana_car_image.png", carImage);
   }
 
   @Test
@@ -86,7 +93,7 @@ public class LanesDrawableTest
         new LaneInfo(new LaneWay[] {LaneWay.ReverseLeft, LaneWay.ReverseRight}, LaneWay.None),
     };
     final Bitmap moscow = render("moscow_right", moscowLanes);
-    Assert.assertEquals(INACTIVE, moscow.getPixel(5 * 64 + 6, 42));
+    Assert.assertEquals(INACTIVE, moscow.getPixel(5 * 64 + 12, 42));
     Assert.assertEquals(Color.BLACK, moscow.getPixel(5 * 64 + 58, 42));
 
     // RoutingUtils supplies this same bitmap to Step.Builder.setLanesImage().
@@ -121,7 +128,7 @@ public class LanesDrawableTest
                                                        });
     Assert.assertEquals(Color.BLACK, unrestricted.getPixel(32, 9));
     Assert.assertEquals(INACTIVE, unrestricted.getPixel(32, 54));
-    Assert.assertEquals(ACTIVE, unrestricted.getPixel(64 + 56, 23));
+    Assert.assertEquals(ACTIVE, unrestricted.getPixel(64 + 40, 12));
   }
 
   @Test

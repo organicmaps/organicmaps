@@ -65,6 +65,23 @@ public class LanesDrawable extends Drawable
       if (activeWay != LaneWay.None)
         ways.add(activeWay);
 
+      // Keep the established full-size icon when there is only one direction.
+      if (ways.size() == 1)
+      {
+        final LaneWay way = ways.iterator().next();
+        if (activeWay == LaneWay.None)
+        {
+          mInactiveComponents = new Drawable[] {component(context, way.mTurnRes, colorInfo.mInactiveLaneTint)};
+          mActiveComponents = new Drawable[0];
+        }
+        else
+        {
+          mInactiveComponents = new Drawable[0];
+          mActiveComponents = new Drawable[] {component(context, way.mTurnRes, colorInfo.mActiveLaneTint)};
+        }
+        return;
+      }
+
       final ArrayList<Drawable> inactive = new ArrayList<>(ways.size() + 1);
       final ArrayList<Drawable> active = new ArrayList<>(2);
       for (final LaneWay way : ways)
