@@ -515,8 +515,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // Bridge search-active state into RoutingPlanViewModel so the routing sheet hides under the search
     // bottom sheet. RoutingPlanFragment stays decoupled from SearchPageViewModel; the activity is the
     // single place that knows about both subsystems.
-    mSearchPageViewModel.getSearchEnabled().observe(
-        this, enabled -> mRoutingPlanViewModel.setIsSearchActive(Boolean.TRUE.equals(enabled)));
+    mSearchPageViewModel.getSearchEnabled().observe(this, enabled -> {
+      mRoutingPlanViewModel.setIsSearchActive(Boolean.TRUE.equals(enabled));
+      // Closing the search page abandons any pick it was opened for, however it was dismissed, unless the map
+      // chooser takes the pick over: it is marked active before it closes search, and cancels the pick on its way out.
+      if (!Boolean.TRUE.equals(enabled)
+          && !Boolean.TRUE.equals(mRoutingPlanViewModel.getIsPointChooserActive().getValue()))
+        RoutingController.get().cancelPoiPick();
+    });
 
     // Note: You must call registerForActivityResult() before the fragment or activity is created.
     mLocationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
@@ -764,7 +770,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       finish();
     // No-op once Done committed the point; cancels the pick on every other way out.
     else if (mode == ChoosePositionMode.Routing)
-      RoutingController.get().onPoiSelected(null);
+      RoutingController.get().cancelPoiPick();
   }
 
   private void initNavigationButtons()

@@ -10,6 +10,28 @@ import org.junit.Test;
 public class RoutingControllerPoiPickTest
 {
   @Test
+  public void cancelPoiPickDropsEveryPendingPick()
+  {
+    final RoutingController controller = new RoutingController();
+
+    for (RouteMarkType type : new RouteMarkType[] {RouteMarkType.Start, RouteMarkType.Finish})
+    {
+      controller.waitForPoiPick(type);
+      controller.cancelPoiPick();
+      assertFalse(controller.isWaitingPoiPick());
+    }
+
+    controller.waitForPoiPickToAppend();
+    controller.cancelPoiPick();
+    assertFalse(controller.isWaitingPoiPick());
+    assertEquals(PoiPickMode.SET, controller.getPoiPickMode());
+
+    controller.waitForPoiReplacement(RouteMarkType.Intermediate, 2);
+    controller.cancelPoiPick();
+    assertFalse(controller.isWaitingPoiPick());
+  }
+
+  @Test
   public void onlyStopPicksCountAsStopPicks()
   {
     final RoutingController controller = new RoutingController();

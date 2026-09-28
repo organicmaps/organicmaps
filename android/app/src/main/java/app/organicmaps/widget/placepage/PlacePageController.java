@@ -615,10 +615,6 @@ public class PlacePageController
 
   private void commitRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
-    // Close search up front: dismissing this place page (via close() below, or via the route build's
-    // native place-page deactivation when both endpoints are set) resurfaces the still-enabled search
-    // sheet hidden behind it over the route plan card.
-    ((MwmActivity) requireActivity()).forceCloseSearchFragment();
     final RoutingController controller = RoutingController.get();
     switch (type)
     {
@@ -626,6 +622,9 @@ public class PlacePageController
     case Finish -> controller.setEndPoint(point);
     case Intermediate -> throw new AssertionError("Intermediate points are committed via commitStopPick, not here");
     }
+    // After the setter, which must apply a pending pick before closing search cancels it. Before close(), which
+    // would otherwise resurface a search sheet hidden behind this place page.
+    ((MwmActivity) requireActivity()).forceCloseSearchFragment();
     close();
   }
 

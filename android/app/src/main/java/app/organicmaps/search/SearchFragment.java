@@ -819,7 +819,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
 
     mToolbarController.deactivate();
-    RoutingController.get().onPoiSelected(null);
 
     return false;
   }
@@ -1041,12 +1040,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       super(root, SearchFragment.this.requireActivity());
       ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), null);
-      root.findViewById(R.id.close_search).setOnClickListener(v -> {
-        // Back does this via onBackPressed(); without it the X would leave a pending pick armed for
-        // the next search. No-op when nothing is pending.
-        RoutingController.get().onPoiSelected(null);
-        mSearchFragmentListener.closeSearch();
-      });
+      root.findViewById(R.id.close_search).setOnClickListener(v -> mSearchFragmentListener.closeSearch());
     }
 
     @Override
