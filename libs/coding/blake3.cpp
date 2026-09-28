@@ -42,26 +42,31 @@ Blake3::Hash Blake3::Calculate(std::string const & filePath)
   try
   {
     base::FileData file(filePath, base::FileData::Op::READ);
-    uint64_t const fileSize = file.Size();
-
-    Blake3 hasher;
-    uint64_t currSize = 0;
-    uint32_t constexpr kFileBufferSize = 64 * 1024;
-    unsigned char buffer[kFileBufferSize];
-    while (currSize < fileSize)
-    {
-      auto const toRead = std::min(kFileBufferSize, static_cast<uint32_t>(fileSize - currSize));
-      file.Read(currSize, buffer, toRead);
-      hasher.Update(buffer, toRead);
-      currSize += toRead;
-    }
-    return hasher.Finalize();
+    return Calculate(file);
   }
   catch (Reader::Exception const & ex)
   {
     LOG(LERROR, ("Error reading file:", filePath, ex.what()));
   }
   return {};
+}
+
+// static
+Blake3::Hash Blake3::Calculate(base::FileData & file)
+{
+  uint64_t const fileSize = file.Size();
+  Blake3 hasher;
+  uint64_t currSize = 0;
+  uint32_t constexpr kFileBufferSize = 64 * 1024;
+  unsigned char buffer[kFileBufferSize];
+  while (currSize < fileSize)
+  {
+    auto const toRead = static_cast<size_t>(std::min<uint64_t>(kFileBufferSize, fileSize - currSize));
+    file.Read(currSize, buffer, toRead);
+    hasher.Update(buffer, toRead);
+    currSize += toRead;
+  }
+  return hasher.Finalize();
 }
 
 // static
@@ -76,6 +81,13 @@ std::string Blake3::CalculateBase64(std::string const & filePath, size_t numByte
 std::string Blake3::CalculateMwmBase64(std::string const & filePath)
 {
   return CalculateBase64(filePath, kMwmHashSizeInBytes);
+}
+
+// static
+std::string Blake3::CalculateMwmBase64(base::FileData & file)
+{
+  auto const hash = Calculate(file);
+  return base64::Encode(std::string_view(reinterpret_cast<char const *>(hash.data()), kMwmHashSizeInBytes));
 }
 
 // static
