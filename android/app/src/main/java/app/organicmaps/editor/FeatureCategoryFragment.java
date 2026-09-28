@@ -23,6 +23,7 @@ import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.widget.ToolbarController;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import java.text.Collator;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -122,7 +123,7 @@ public class FeatureCategoryFragment
     }
 
     if (sort)
-      Arrays.sort(categories, Comparator.comparing(FeatureCategory::getLocalizedTypeName));
+      Arrays.sort(categories, Comparator.comparing(FeatureCategory::getLocalizedTypeName, Collator.getInstance()));
 
     return categories;
   }
