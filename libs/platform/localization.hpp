@@ -1,11 +1,21 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include "platform/measurement_utils.hpp"
 
 namespace platform
 {
+class StringCollator
+{
+public:
+  virtual ~StringCollator() = default;
+  virtual bool Less(std::string const & lhs, std::string const & rhs) const = 0;
+};
+
+std::unique_ptr<StringCollator> CreateStringCollator(std::string const & locale);
+
 struct LocalizedUnits
 {
   std::string m_low;

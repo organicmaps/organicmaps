@@ -6,10 +6,49 @@
 
 #include "platform/localization.hpp"
 
+#include "base/assert.hpp"
+
+#include <memory>
 #include <string>
 
 namespace
 {
+class AndroidStringCollator final : public platform::StringCollator
+{
+public:
+  explicit AndroidStringCollator(std::string const & locale)
+  {
+    JNIEnv * env = jni::GetEnv();
+    static jclass const localeClass = jni::GetGlobalClassRef(env, "java/util/Locale");
+    static jmethodID const forLanguageTag =
+        jni::GetStaticMethodID(env, localeClass, "forLanguageTag", "(Ljava/lang/String;)Ljava/util/Locale;");
+    static jclass const collatorClass = jni::GetGlobalClassRef(env, "java/text/Collator");
+    static jmethodID const getInstance =
+        jni::GetStaticMethodID(env, collatorClass, "getInstance", "(Ljava/util/Locale;)Ljava/text/Collator;");
+
+    jni::TScopedLocalRef localeTag(env, jni::ToJavaString(env, locale));
+    jni::TScopedLocalRef javaLocale(env, env->CallStaticObjectMethod(localeClass, forLanguageTag, localeTag.get()));
+    jni::TScopedLocalRef collator(env, env->CallStaticObjectMethod(collatorClass, getInstance, javaLocale.get()));
+    CHECK(!jni::HandleJavaException(env), (locale));
+    m_collator = jni::make_global_ref(collator.get());
+    m_compare = jni::GetMethodID(env, collator.get(), "compare", "(Ljava/lang/String;Ljava/lang/String;)I");
+  }
+
+  bool Less(std::string const & lhs, std::string const & rhs) const override
+  {
+    JNIEnv * env = jni::GetEnv();
+    jni::TScopedLocalRef left(env, jni::ToJavaString(env, lhs));
+    jni::TScopedLocalRef right(env, jni::ToJavaString(env, rhs));
+    auto const result = env->CallIntMethod(*m_collator, m_compare, left.get(), right.get());
+    CHECK(!jni::HandleJavaException(env), ());
+    return result < 0;
+  }
+
+private:
+  std::shared_ptr<jobject> m_collator;
+  jmethodID m_compare;
+};
+
 jmethodID GetMethodId(std::string const & methodName)
 {
   JNIEnv * env = jni::GetEnv();
@@ -30,6 +69,11 @@ std::string GetLocalizedStringByUtil(jmethodID const & methodId, std::string con
 
 namespace platform
 {
+std::unique_ptr<StringCollator> CreateStringCollator(std::string const & locale)
+{
+  return std::make_unique<AndroidStringCollator>(locale);
+}
+
 std::string GetLocalizedTypeName(std::string const & type)
 {
   static auto const methodId = GetMethodId("getLocalizedFeatureType");
