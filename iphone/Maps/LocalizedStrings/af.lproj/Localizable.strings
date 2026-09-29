@@ -886,6 +886,7 @@
 "trip_start" = "Kom ons gaan";
 "pick_destination" = "Bestemming";
 "follow_my_position" = "Hersentreer";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Soekresultate";
 "then_turn" = "Dan";
 "redirect_route_alert" = "Wil u die roete herbou?";

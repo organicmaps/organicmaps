@@ -45,6 +45,10 @@ public:
   TapFeatures FindFeaturesInRect(m2::PointD const & mercator, m2::RectD const & searchRect,
                                  FeatureMatcher const & matcher = nullptr) const;
 
+  /// Returns the building closest to @p mercator within @p searchRect, including buildings
+  /// whose geometry does not contain the point.
+  FeatureID FindNearestBuildingInRect(m2::PointD const & mercator, m2::RectD const & searchRect) const;
+
   /// Get "best for the user" feature at given point.
   /// Ignores coastlines and prefers buildings over other area features.
   FeatureID GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatcher const & matcher = nullptr) const;

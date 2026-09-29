@@ -886,6 +886,7 @@
 "trip_start" = "Si parte";
 "pick_destination" = "Destinazione";
 "follow_my_position" = "Centrare";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Risultati di ricerca";
 "then_turn" = "Poi";
 "redirect_route_alert" = "Vuoi ricalcolare il percorso?";

@@ -886,6 +886,7 @@
 "trip_start" = "Крећемо";
 "pick_destination" = "Одредиште";
 "follow_my_position" = "Центрирај";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Резултати претраге";
 "then_turn" = "Затим";
 "redirect_route_alert" = "Да ли желите да поново направим руту?";

@@ -886,6 +886,7 @@
 "trip_start" = "出發";
 "pick_destination" = "目的地";
 "follow_my_position" = "重新置中";
+"search_estimated_location" = "Estimated location";
 "search_results" = "搜尋結果";
 "then_turn" = "然後";
 "redirect_route_alert" = "您想要重新規劃路線嗎？";

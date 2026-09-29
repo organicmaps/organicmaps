@@ -20,9 +20,13 @@
 #include "indexer/classificator.hpp"
 
 #include <atomic>
+#include <chrono>
+#include <condition_variable>
+#include <deque>
 #include <functional>
 #include <future>
 #include <memory>
+#include <mutex>
 #include <string>
 
 namespace search_api_tests
@@ -71,6 +75,132 @@ protected:
   Delegate m_delegate;
   SearchAPI m_api;
 };
+
+class QueuedDelegate : public SearchAPI::Delegate
+{
+public:
+  void RunUITask(function<void()> fn) override
+  {
+    {
+      lock_guard lock(m_mutex);
+      m_tasks.push_back(std::move(fn));
+    }
+    m_condition.notify_one();
+  }
+
+  bool WaitUntil(function<bool()> const & finished)
+  {
+    auto const deadline = chrono::steady_clock::now() + chrono::seconds(10);
+    while (!finished())
+    {
+      function<void()> task;
+      {
+        unique_lock lock(m_mutex);
+        if (!m_condition.wait_until(lock, deadline, [this] { return !m_tasks.empty(); }))
+          return false;
+        task = std::move(m_tasks.front());
+        m_tasks.pop_front();
+      }
+      task();
+    }
+    return true;
+  }
+
+private:
+  mutex m_mutex;
+  condition_variable m_condition;
+  deque<function<void()>> m_tasks;
+};
+
+UNIT_CLASS_TEST(SearchAPITest, AddressResolutionCancellationAndInteractivePriority)
+{
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-1, -1, 1, 1), 16);
+  bool cancelledDelivered = false;
+  bool foregroundDelivered = false;
+  bool backgroundDelivered = false;
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", true, [&](auto) { cancelledDelivered = true; });
+  api.CancelAddressResolution(1);
+  api.ResolveAddress(2, {{"123 Main Street", "123 Main Street"}}, "en", true,
+                     [&](auto) { backgroundDelivered = true; });
+
+  EverywhereSearchParams params;
+  params.m_query = "cafe";
+  params.m_inputLocale = "en";
+  params.m_onResults = [](Results) {};
+  api.SearchEverywhere(std::move(params));
+  // An unsupported contact selected while ordinary search is in flight must finish safely,
+  // not borrow that search's results or index an empty query list.
+  api.ResolveAddress(3, {}, "en", false, [&](auto result)
+  {
+    TEST(!result, ());
+    TEST(!backgroundDelivered, ());
+    foregroundDelivered = true;
+  });
+  TEST(delegate.WaitUntil([&] { return foregroundDelivered && backgroundDelivered; }), ());
+  TEST(!cancelledDelivered, ());
+  TEST(api.GetLastSearchQueries().empty(), ());
+}
+
+UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionRequiresVisibleZoom)
+{
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-1, -1, 1, 1), 15);
+  bool backgroundDelivered = false;
+  bool foregroundDelivered = false;
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", true,
+                     [&](auto) { backgroundDelivered = true; });
+  api.ResolveAddress(2, {}, "en", false, [&](auto) { foregroundDelivered = true; });
+  TEST(foregroundDelivered, ());
+  TEST(!backgroundDelivered, ());
+  api.OnViewportChanged(m2::RectD(-1, -1, 1, 1), 16);
+  TEST(delegate.WaitUntil([&] { return backgroundDelivered; }), ());
+}
+
+UNIT_CLASS_TEST(SearchAPITest, AddressResolutionFindsMappedBuildingInBothModes)
+{
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
+  TestBuilding building(m2::PointD(0, 0.00001), "", "123", "Main Street", "en");
+  TestBuilding neighbour(m2::PointD(0, 0.00004), "", "127", "Main Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+    builder.Add(neighbour);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  for (bool background : {false, true})
+  {
+    bool delivered = false;
+    api.ResolveAddress(background ? 2 : 1, {{"123 Main Street", "123 Main Street"}}, "en", background, [&](auto result)
+    {
+      TEST(result, (background));
+      if (result)
+      {
+        TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().x, building.GetCenter().x, 3e-6, ());
+        TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().y, building.GetCenter().y, 3e-6, ());
+      }
+      delivered = true;
+    });
+    TEST(delegate.WaitUntil([&] { return delivered; }), (background));
+    delivered = false;
+    api.ResolveAddress(background ? 4 : 3, {{"125 Main Street", "125 Main Street"}}, "en", background, [&](auto result)
+    {
+      TEST(result, (background));
+      if (result)
+      {
+        TEST(result->IsEstimatedAddress(), (background));
+        TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().y, 0.000025, 3e-6, ());
+      }
+      delivered = true;
+    });
+    TEST(delegate.WaitUntil([&] { return delivered; }), (background));
+  }
+}
 
 UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
 {

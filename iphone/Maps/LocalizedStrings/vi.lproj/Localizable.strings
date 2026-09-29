@@ -886,6 +886,7 @@
 "trip_start" = "Đi nào";
 "pick_destination" = "Mục đích";
 "follow_my_position" = "Định tâm";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Kết quả tìm kiếm";
 "then_turn" = "Sau đó";
 "redirect_route_alert" = "Bạn có muốn tạo lại tuyến không?";

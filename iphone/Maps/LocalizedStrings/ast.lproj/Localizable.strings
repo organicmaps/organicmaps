@@ -886,6 +886,7 @@
 "trip_start" = "¡Vamos!";
 "pick_destination" = "Destination";
 "follow_my_position" = "Re-center";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Resultaos de la gueta";
 "then_turn" = "Then";
 "redirect_route_alert" = "Do you want to rebuild the route?";

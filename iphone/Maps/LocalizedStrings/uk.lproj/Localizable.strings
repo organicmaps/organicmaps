@@ -886,6 +886,7 @@
 "trip_start" = "Поїхали";
 "pick_destination" = "Ціль";
 "follow_my_position" = "Відцентрувати";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Результати пошуку";
 "then_turn" = "Далі";
 "redirect_route_alert" = "Бажаєте перебудувати маршрут?";

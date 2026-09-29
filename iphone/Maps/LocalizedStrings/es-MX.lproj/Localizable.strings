@@ -886,6 +886,7 @@
 "trip_start" = "Vámonos.";
 "pick_destination" = "Objetivo";
 "follow_my_position" = "Vuelva a centrar";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Resultados de la búsqueda";
 "then_turn" = "Entonces";
 "redirect_route_alert" = "¿Quieres reconstruir la ruta?";

@@ -886,6 +886,7 @@
 "trip_start" = "Să mergem";
 "pick_destination" = "Destinație";
 "follow_my_position" = "Centrează";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Rezultatul căutării";
 "then_turn" = "Apoi";
 "redirect_route_alert" = "Vrei să refaci traseul?";

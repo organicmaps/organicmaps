@@ -886,6 +886,7 @@
 "trip_start" = "هيا بنا";
 "pick_destination" = "جهة الوصول";
 "follow_my_position" = "العودة إلى الوسط";
+"search_estimated_location" = "Estimated location";
 "search_results" = "نتائج البحث";
 "then_turn" = "ثم";
 "redirect_route_alert" = "هل تريد إعادة رسم الطريق?";

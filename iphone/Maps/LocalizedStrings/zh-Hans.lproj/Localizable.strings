@@ -886,6 +886,7 @@
 "trip_start" = "出发";
 "pick_destination" = "目的地";
 "follow_my_position" = "重新居中";
+"search_estimated_location" = "Estimated location";
 "search_results" = "搜索结果";
 "then_turn" = "然后";
 "redirect_route_alert" = "您想重新规划路线吗？";

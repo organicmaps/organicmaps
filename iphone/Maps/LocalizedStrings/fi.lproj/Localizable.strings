@@ -886,6 +886,7 @@
 "trip_start" = "Mennään";
 "pick_destination" = "Määränpää";
 "follow_my_position" = "Kohdista";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Hakutulokset";
 "then_turn" = "Sitten";
 "redirect_route_alert" = "Haluatko luoda reitin uudelleen?";

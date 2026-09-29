@@ -886,6 +886,7 @@
 "trip_start" = "Gyerünk";
 "pick_destination" = "Célállomás";
 "follow_my_position" = "Középre";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Keresési eredmények";
 "then_turn" = "Utána";
 "redirect_route_alert" = "Szeretné újratervezni az útvonalat?";

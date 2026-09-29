@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.search;
 
 import android.content.Context;
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,12 +9,25 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.chromium.base.ObserverList;
 
 public enum SearchEngine implements SearchListener, MapSearchListener,
                                     BookmarkSearchListener
 {
   INSTANCE;
+
+  public interface ContactAddressListener
+  {
+    void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated);
+  }
+
+  public interface ContactViewportListener
+  {
+    void onContactViewportChanged(int scale, @NonNull String locality);
+  }
 
   // Query, which results are shown on the map.
   @Nullable
@@ -73,6 +87,11 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
+  private final Map<Long, ContactAddressListener> mContactAddressRequests = new HashMap<>();
+  private long mNextContactRequestId;
+  @Nullable
+  private ContactViewportListener mContactViewportListener;
+
   public void addListener(SearchListener listener)
   {
     mListeners.addObserver(listener);
@@ -101,6 +120,52 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public void removeBookmarkListener(BookmarkSearchListener listener)
   {
     mBookmarkListeners.removeObserver(listener);
+  }
+
+  @MainThread
+  public long resolveContactAddress(@NonNull String[] queries, @NonNull String[] streets, @NonNull String locale,
+                                    boolean background, @NonNull ContactAddressListener listener)
+  {
+    final long requestId = ++mNextContactRequestId;
+    mContactAddressRequests.put(requestId, listener);
+    nativeResolveContactAddress(queries, streets, locale, requestId, background);
+    return requestId;
+  }
+
+  public void cancelContactAddressResolution(long requestId)
+  {
+    mContactAddressRequests.remove(requestId);
+    nativeCancelContactAddressResolution(requestId);
+  }
+
+  @MainThread
+  public void setContactViewportListener(@Nullable ContactViewportListener listener)
+  {
+    mContactViewportListener = listener;
+    if (listener == null)
+      for (long requestId : new ArrayList<>(mContactAddressRequests.keySet()))
+        cancelContactAddressResolution(requestId);
+    nativeSetContactViewportEnabled(listener != null);
+  }
+
+  @Keep
+  private void onContactViewportChanged(int scale, @NonNull String locality)
+  {
+    if (mContactViewportListener != null)
+      mContactViewportListener.onContactViewportChanged(scale, locality);
+  }
+
+  public void selectContactAddress(double lat, double lon, @NonNull String address, boolean estimated, boolean show)
+  {
+    nativeSelectContactAddress(lat, lon, address, estimated, show);
+  }
+
+  @Keep
+  private void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
+  {
+    final ContactAddressListener listener = mContactAddressRequests.remove(requestId);
+    if (listener != null)
+      listener.onContactAddressResolved(requestId, found, lat, lon, estimated);
   }
 
   /**
@@ -264,6 +329,16 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
 
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
+
+  private static native void nativeResolveContactAddress(String[] queries, String[] streets, String language,
+                                                         long requestId, boolean background);
+
+  private static native void nativeSetContactViewportEnabled(boolean enabled);
+
+  private static native void nativeCancelContactAddressResolution(long requestId);
+
+  private static native void nativeSelectContactAddress(double lat, double lon, String address, boolean estimated,
+                                                        boolean show);
 
   private static native void nativeShowResult(int index);
 

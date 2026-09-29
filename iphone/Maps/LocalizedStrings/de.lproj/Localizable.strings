@@ -886,6 +886,7 @@
 "trip_start" = "Los";
 "pick_destination" = "Ziel";
 "follow_my_position" = "Zentrieren";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Suchergebnisse";
 "then_turn" = "Danach";
 "redirect_route_alert" = "Möchtest du die Route neu erstellen?";

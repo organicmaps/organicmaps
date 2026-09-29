@@ -886,6 +886,7 @@
 "trip_start" = "Imos";
 "pick_destination" = "Destino";
 "follow_my_position" = "Centrar";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Resultados de procura";
 "then_turn" = "Despois";
 "redirect_route_alert" = "Quere reconstruír a ruta?";

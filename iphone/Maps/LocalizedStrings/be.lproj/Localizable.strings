@@ -886,6 +886,7 @@
 "trip_start" = "Паехалі";
 "pick_destination" = "Пункт прызначэння";
 "follow_my_position" = "Па цэнтры";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Вынікі пошуку";
 "then_turn" = "Потым";
 "redirect_route_alert" = "Хочаце перапракласці маршрут?";

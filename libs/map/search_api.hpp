@@ -16,6 +16,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include <deque>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -64,7 +65,19 @@ public:
             size_t numThreads, Delegate & delegate);
   virtual ~SearchAPI() = default;
 
-  void OnViewportChanged(m2::RectD const & viewport);
+  void OnViewportChanged(m2::RectD const & viewport, int scale = 0);
+
+  struct AddressQuery
+  {
+    std::string m_query;
+    std::string m_street;
+  };
+  using AddressCallback = std::function<void(std::optional<search::Result>)>;
+  // UI-thread operation, independent of interactive results and search history.
+  void ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
+                      AddressCallback callback);
+  void CancelAddressResolution(uint64_t id);
+  void SetAddressViewportCallback(std::function<void(m2::RectD const &, int)> callback);
 
   void InitAfterWorldLoaded() { m_engine.InitAfterWorldLoaded(); }
 
@@ -130,7 +143,22 @@ private:
     search::SearchParams m_params;
     std::weak_ptr<search::ProcessorHandle> m_handle;
     bool m_isDelayed = false;
+    bool m_isRunning = false;
+    uint64_t m_generation = 0;
   };
+
+  struct AddressRequest
+  {
+    uint64_t m_id;
+    std::vector<AddressQuery> m_queries;
+    std::string m_locale;
+    bool m_background;
+    AddressCallback m_callback;
+    size_t m_queryIndex = 0;
+    bool m_allowNearbyHouseNumbers = false;
+  };
+  void StartAddressResolution();
+  void SuspendAddressResolution();
 
   bool Search(search::SearchParams params, bool forceSearch);
   void Search(SearchIntent & intent);
@@ -152,6 +180,12 @@ private:
   // used for search requests skipping. This field is not guarded
   // because it must be used from the UI thread only.
   SearchIntent m_searchIntents[static_cast<size_t>(search::Mode::Count)];
+  std::deque<std::shared_ptr<AddressRequest>> m_addressRequests;
+  std::weak_ptr<search::ProcessorHandle> m_addressHandle;
+  bool m_addressRunning = false;
+  uint64_t m_addressGeneration = 0;
+  std::function<void(m2::RectD const &, int)> m_addressViewportCallback;
+  int m_viewportScale = 0;
 
   m2::RectD m_viewport;
   bool m_isViewportInitialized = false;

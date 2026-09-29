@@ -886,6 +886,7 @@
 "trip_start" = "Läksime";
 "pick_destination" = "Sihtkoht";
 "follow_my_position" = "Säti keskele";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Otsingutulemused";
 "then_turn" = "Seejärel";
 "redirect_route_alert" = "Kas soovid teekonna uuesti luua?";

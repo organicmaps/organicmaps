@@ -886,6 +886,7 @@
 "trip_start" = "चल जाऊया";
 "pick_destination" = "गंतव्यस्थाना";
 "follow_my_position" = "पुनरकेंद्रित करा";
+"search_estimated_location" = "Estimated location";
 "search_results" = "शोध परिणाम";
 "then_turn" = "मग";
 "redirect_route_alert" = "तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?";

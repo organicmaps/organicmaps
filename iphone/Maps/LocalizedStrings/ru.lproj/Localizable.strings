@@ -886,6 +886,7 @@
 "trip_start" = "Поехали";
 "pick_destination" = "Цель";
 "follow_my_position" = "Отцентровать";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Результаты поиска";
 "then_turn" = "Затем";
 "redirect_route_alert" = "Хотите перестроить маршрут?";

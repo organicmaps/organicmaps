@@ -585,6 +585,7 @@ void Geocoder::GoImpl(std::vector<MwmInfoPtr> const & infos, bool inViewport)
     }
     m_matcher = it->second.get();
     m_matcher->SetContext(m_context.get());
+    m_matcher->SetAllowNearbyHouseNumbers(m_params.m_allowNearbyHouseNumbers);
 
     BaseContext ctx;
     InitBaseContext(ctx);

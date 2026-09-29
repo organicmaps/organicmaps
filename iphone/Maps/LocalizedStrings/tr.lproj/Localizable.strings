@@ -886,6 +886,7 @@
 "trip_start" = "Haydi gidelim";
 "pick_destination" = "Hedef";
 "follow_my_position" = "Yeniden ortala";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Arama sonuçları";
 "then_turn" = "Sonra";
 "redirect_route_alert" = "Yeniden bir rota oluşturmak ister misiniz?";

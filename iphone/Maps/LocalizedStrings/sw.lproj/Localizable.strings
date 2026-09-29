@@ -886,6 +886,7 @@
 "trip_start" = "Twende zetu";
 "pick_destination" = "Mahali";
 "follow_my_position" = "Weka kati tena";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Matokeo ya utafutaji";
 "then_turn" = "Kisha";
 "redirect_route_alert" = "Je, unataka kuunda upya njia?";

@@ -886,6 +886,7 @@
 "trip_start" = "Φύγαμε";
 "pick_destination" = "Προορισμός";
 "follow_my_position" = "Κεντράρισμα";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Αποτελέσματα αναζήτησης";
 "then_turn" = "Μετά";
 "redirect_route_alert" = "Θα θέλατε να επανυπολογιστεί η διαδρομή;";

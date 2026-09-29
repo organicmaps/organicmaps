@@ -886,6 +886,7 @@
 "trip_start" = "נצא לדרך";
 "pick_destination" = "יעד";
 "follow_my_position" = "מרכוז";
+"search_estimated_location" = "Estimated location";
 "search_results" = "תוצאות חיפוש";
 "then_turn" = "אז";
 "redirect_route_alert" = "האם ברצונך לבנות את המסלול מחדש?";

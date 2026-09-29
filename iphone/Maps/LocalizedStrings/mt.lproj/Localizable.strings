@@ -886,6 +886,7 @@
 "trip_start" = "Ejja mmorru";
 "pick_destination" = "Destinazzjoni";
 "follow_my_position" = "Irriċentra";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Riżultati tat-tfittxija";
 "then_turn" = "Imbagħad";
 "redirect_route_alert" = "Trid terġa' tibni r-rotta?";

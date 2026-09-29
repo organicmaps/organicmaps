@@ -426,8 +426,8 @@ private:
     /// Why not to prolong until MakeResult? If yes, avoid reading street's FeatureType,
     /// since we already have addr.m_street.m_multilangName
 
-    // Insert exact address (street and house number) instead of empty result name.
-    if (!m_isViewportMode && name.empty())
+    // Address resolution needs street/house-number names even for viewport searches.
+    if ((!m_isViewportMode || m_ranker.m_params.m_needAddress) && name.empty())
     {
       feature::TypesHolder featureTypes(*ft);
       featureTypes.SortBySpec();

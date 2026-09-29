@@ -886,6 +886,7 @@
 "trip_start" = "La oss begynne";
 "pick_destination" = "Destinasjon";
 "follow_my_position" = "Sentrer";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Søkeresultater";
 "then_turn" = "Deretter";
 "redirect_route_alert" = "Vil du planlegge en rute på nytt?";

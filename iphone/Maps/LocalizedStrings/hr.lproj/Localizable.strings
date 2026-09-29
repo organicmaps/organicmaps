@@ -886,6 +886,7 @@
 "trip_start" = "Idemo";
 "pick_destination" = "Odredište";
 "follow_my_position" = "Ponovno centriraj";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Rezultati pretraživanja";
 "then_turn" = "Zatim";
 "redirect_route_alert" = "Želite li ponovno izgraditi rutu?";

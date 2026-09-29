@@ -886,6 +886,7 @@
 "trip_start" = "出発";
 "pick_destination" = "目的地";
 "follow_my_position" = "リセンター";
+"search_estimated_location" = "Estimated location";
 "search_results" = "検索結果";
 "then_turn" = "その後";
 "redirect_route_alert" = "ルートを再計算しますか?";

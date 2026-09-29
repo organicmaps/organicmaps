@@ -886,6 +886,7 @@
 "trip_start" = "가자";
 "pick_destination" = "목적지";
 "follow_my_position" = "내 위치 조정하기";
+"search_estimated_location" = "Estimated location";
 "search_results" = "검색 결과";
 "then_turn" = "그 다음";
 "redirect_route_alert" = "루트를 재구축하길 원하시나요?";

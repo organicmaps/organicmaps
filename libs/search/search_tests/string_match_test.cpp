@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "search/approximate_string_match.hpp"
+#include "search/string_utils.hpp"
 
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -14,6 +15,36 @@ namespace string_match_test
 using namespace search;
 using namespace std;
 using namespace strings;
+
+UNIT_TEST(AddressQuery_ApartmentAndCanadianPostcode)
+{
+  TEST_EQUAL(RemoveAddressDetails("578 Corydon Ave #10, Winnipeg, MB R3L 0P2, Canada"),
+             "578 Corydon Ave , Winnipeg, MB  , Canada", ());
+  TEST_EQUAL(RemoveAddressDetails("578 Corydon Ave Apt. 10, Winnipeg MB r3l0p2 Canada"),
+             "578 Corydon Ave , Winnipeg MB   Canada", ());
+  TEST_EQUAL(RemoveAddressDetails("Unit 10, 578 Corydon Ave, Winnipeg, MB R3L0P2, Canada"),
+             "578 Corydon Ave, Winnipeg, MB  , Canada", ());
+  TEST_EQUAL(RemoveAddressDetails("#10, 578 Corydon Avenue, Winnipeg MB R3L 0P2"), "578 Corydon Avenue, Winnipeg MB  ",
+             ());
+  TEST_EQUAL(RemoveAddressDetails("578 Corydon Ave, Suite #10, Winnipeg, MB, Canada"),
+             "578 Corydon Ave , Winnipeg, MB, Canada", ());
+  TEST_EQUAL(RemoveAddressDetails("578 Corydon Ave#10, Winnipeg MB R3L-0P2 Canada"),
+             "578 Corydon Ave , Winnipeg MB   Canada", ());
+  TEST_EQUAL(RemoveAddressDetails("578 Corydon Ave Unit 10-A, Winnipeg MB Canada"),
+             "578 Corydon Ave , Winnipeg MB Canada", ());
+}
+
+UNIT_TEST(AddressQuery_PreservesOrdinaryQueriesAndContext)
+{
+  auto const longQuery = std::string(10000, '9') + " Corydon Ave #10";
+  TEST_EQUAL(RemoveAddressDetails(longQuery), longQuery, ());
+  for (auto const * query :
+       {"coffee #10", "#10 restaurant", "R3L 0P2", "578 Corydon Ave R3L 0P2", "578 Corydon Ave, Winnipeg, MB, Canada",
+        "578 Corydon Ave #coffee", "578 Corydon Ave, Winnipeg, MB R3L", "999999999999999999999999 restaurant #10"})
+    TEST_EQUAL(RemoveAddressDetails(query), query, ());
+  TEST_EQUAL(RemoveAddressDetails("999999999999999999999999 Corydon Ave #10, Winnipeg MB Canada"),
+             "999999999999999999999999 Corydon Ave , Winnipeg MB Canada", ());
+}
 
 struct MatchCostMock
 {

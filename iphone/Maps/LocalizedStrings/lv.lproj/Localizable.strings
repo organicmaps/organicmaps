@@ -886,6 +886,7 @@
 "trip_start" = "Uz priekšu";
 "pick_destination" = "Galamērķis";
 "follow_my_position" = "Centrēt";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Meklēšanas rezultāti";
 "then_turn" = "Pēc tam";
 "redirect_route_alert" = "Vai vēlaties maršrutu izveidot no jauna?";

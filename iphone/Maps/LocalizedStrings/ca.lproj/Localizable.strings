@@ -886,6 +886,7 @@
 "trip_start" = "Som-hi";
 "pick_destination" = "Destinació";
 "follow_my_position" = "Centra";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Resultats de cerca";
 "then_turn" = "Després";
 "redirect_route_alert" = "Voleu tornar a calcular la ruta?";

@@ -886,6 +886,7 @@
 "trip_start" = "Ayo";
 "pick_destination" = "Tujuan";
 "follow_my_position" = "Pusatkan ulang";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Hasil pencarian";
 "then_turn" = "Lalu";
 "redirect_route_alert" = "Anda ingin membuat ulang rute?";

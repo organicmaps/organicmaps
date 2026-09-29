@@ -886,6 +886,7 @@
 "trip_start" = "Poďme";
 "pick_destination" = "Cieľ";
 "follow_my_position" = "Vycentrovať";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Výsledky vyhľadávania";
 "then_turn" = "Potom";
 "redirect_route_alert" = "Chcete znova vytvoriť trasu?";

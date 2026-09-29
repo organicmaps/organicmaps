@@ -886,6 +886,7 @@
 "trip_start" = "Да вървим";
 "pick_destination" = "Дестинация";
 "follow_my_position" = "Повторно съсредоточаване на";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Резултати от търсенето";
 "then_turn" = "След това";
 "redirect_route_alert" = "Искате ли да възстановите маршрута?";

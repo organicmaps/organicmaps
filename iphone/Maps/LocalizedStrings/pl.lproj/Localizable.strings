@@ -886,6 +886,7 @@
 "trip_start" = "Jedźmy";
 "pick_destination" = "Meta";
 "follow_my_position" = "Wyśrodkuj";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Wyniki wyszukiwania";
 "then_turn" = "Dalej";
 "redirect_route_alert" = "Czy chcesz wyznaczyć trasę ponownie?";

@@ -886,6 +886,7 @@
 "trip_start" = "برویم";
 "pick_destination" = "مقصد";
 "follow_my_position" = "نشان دادن مجدد در مرکز";
+"search_estimated_location" = "Estimated location";
 "search_results" = "نتایج جستجو";
 "then_turn" = "سپس";
 "redirect_route_alert" = "آیا می خواهید مسیر را دوباره ایجاد کنید?";

@@ -886,6 +886,7 @@
 "trip_start" = "Pirmyn";
 "pick_destination" = "Tikslas";
 "follow_my_position" = "Centruoti";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Paieškos rezultatai";
 "then_turn" = "Tada";
 "redirect_route_alert" = "Norite perskaičiuoti maršrutą?";

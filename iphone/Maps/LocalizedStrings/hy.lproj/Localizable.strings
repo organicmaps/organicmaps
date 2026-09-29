@@ -886,6 +886,7 @@
 "trip_start" = "Գնացինք";
 "pick_destination" = "Նշանակման կետ";
 "follow_my_position" = "Կենտրոնացնել";
+"search_estimated_location" = "Estimated location";
 "search_results" = "Որոնման արդյունքներ";
 "then_turn" = "Այնուհետև";
 "redirect_route_alert" = "Ցանկանո՞ւմ եք վերակառուցել երթուղին:";
