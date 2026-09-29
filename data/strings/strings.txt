@@ -45324,3 +45324,11 @@ uk = Зупинити та зберегти
 vi = Dừng và lưu
 zh-Hans = 停止并保存
 zh-Hant = 停止並儲存
+
+[background_location_title]
+tags = android-app
+en = Uninterrupted Track Recording
+
+[background_location_warning_message]
+tags = android-app
+en = To ensure GPS tracking continues accurately when your screen is off or the app is in the background, please disable battery optimization for Organic Maps in your device settings.
