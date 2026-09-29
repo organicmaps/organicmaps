@@ -373,10 +373,11 @@ public enum BookmarkManager {
   }
 
   @MainThread
-  private void loadBookmarksFiles(@NonNull List<String> paths, @NonNull ImportFeedback feedback)
+  private void loadBookmarksFiles(@NonNull List<String> paths, @NonNull List<String> ownedDirectories,
+                                  @NonNull ImportFeedback feedback)
   {
     mPendingImports.addLast(feedback);
-    nativeLoadBookmarksFiles(paths.toArray(new String[0]), true);
+    nativeLoadBookmarksFiles(paths.toArray(new String[0]), ownedDirectories.toArray(new String[0]), true);
   }
 
   @WorkerThread
@@ -532,6 +533,7 @@ public enum BookmarkManager {
                                    boolean notifyEachPreparationFailure)
   {
     List<String> paths = new ArrayList<>();
+    List<String> ownedDirectories = new ArrayList<>();
     ImportFeedback firstFailure = null;
     for (Uri uri : uris)
     {
@@ -558,6 +560,7 @@ public enum BookmarkManager {
         if (!StorageUtils.copyFile(resolver, uri, tempFile))
           throw new IOException("Could not read bookmarks file from " + uri);
         paths.add(tempFile.getAbsolutePath());
+        ownedDirectories.add(importDir.getAbsolutePath());
       }
       catch (IOException | SecurityException e)
       {
@@ -576,7 +579,7 @@ public enum BookmarkManager {
     if (!paths.isEmpty())
     {
       ImportFeedback feedback = firstFailure == null ? new ImportFeedback(null, null) : firstFailure;
-      UiThread.run(() -> loadBookmarksFiles(paths, feedback));
+      UiThread.run(() -> loadBookmarksFiles(paths, ownedDirectories, feedback));
     }
     else if (firstFailure != null)
     {
@@ -740,7 +743,8 @@ public enum BookmarkManager {
 
   private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);
 
-  private static native void nativeLoadBookmarksFiles(@NonNull String[] paths, boolean isTemporaryFile);
+  private static native void nativeLoadBookmarksFiles(@NonNull String[] paths, @NonNull String[] ownedDirectories,
+                                                      boolean isTemporaryFile);
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 

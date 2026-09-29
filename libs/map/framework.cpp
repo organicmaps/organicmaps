@@ -1109,7 +1109,13 @@ void Framework::ShowFeature(FeatureID const & featureId)
 
 void Framework::AddBookmarksFile(std::string const & filePath, bool isTemporaryFile)
 {
-  GetBookmarkManager().ImportBookmarks({{filePath, isTemporaryFile}});
+  AddBookmarksFile(filePath, isTemporaryFile, {});
+}
+
+void Framework::AddBookmarksFile(std::string const & filePath, bool isTemporaryFile,
+                                 std::string const & ownedTemporaryDirectory)
+{
+  GetBookmarkManager().ImportBookmarks({{filePath, isTemporaryFile, ownedTemporaryDirectory}});
 }
 
 void Framework::PrepareToShutdown()
