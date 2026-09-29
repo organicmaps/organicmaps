@@ -43,7 +43,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
     implements BookmarkManager.BookmarksLoadingListener, CategoryListCallback, OnItemClickListener<BookmarkCategory>,
@@ -324,17 +323,13 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     final File tempDir = new File(StorageUtils.getTempPath(app));
     final ContentResolver resolver = context.getContentResolver();
     ThreadPool.getStorage().execute(() -> {
-      AtomicInteger found = new AtomicInteger(0);
-      StorageUtils.listContentProviderFilesRecursively(resolver, rootUri, uri -> {
-        if (BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir))
-          found.incrementAndGet();
-      });
+      List<Uri> uris = new ArrayList<>();
+      StorageUtils.listContentProviderFilesRecursively(resolver, rootUri, uris::add);
+      int found = BookmarkManager.INSTANCE.importBookmarksFilesAndGetCount(resolver, uris, tempDir);
       UiThread.run(() -> {
         if (dialog.isShowing())
           dialog.dismiss();
-        int found_val = found.get();
-        String message =
-            context.getResources().getQuantityString(R.plurals.bookmarks_detect_message, found_val, found_val);
+        String message = context.getResources().getQuantityString(R.plurals.bookmarks_detect_message, found, found);
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
       });
     });

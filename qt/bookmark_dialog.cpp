@@ -19,8 +19,6 @@
 
 namespace qt
 {
-using namespace std::placeholders;
-
 BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
   , m_framework(framework)
@@ -74,9 +72,20 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&BookmarkDialog::OnAsyncLoadingStarted, this);
   callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
-  callbacks.m_onFileSuccess = std::bind(&BookmarkDialog::OnAsyncLoadingFileSuccess, this, _1, _2);
-  callbacks.m_onFileError = std::bind(&BookmarkDialog::OnAsyncLoadingFileError, this, _1, _2);
+  callbacks.m_onImportFinished = [this](BookmarkManager::BookmarkImportResult const & result)
+  {
+    for (auto const & source : result.m_sourceResults)
+      if (source.m_groupIds.empty())
+        OnAsyncLoadingFileError(source.m_context.m_filePath, source.m_context.m_isTemporaryFile);
+      else
+        OnAsyncLoadingFileSuccess(source.m_context.m_filePath, source.m_context.m_isTemporaryFile);
+  };
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
+}
+
+BookmarkDialog::~BookmarkDialog()
+{
+  m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks({});
 }
 
 void BookmarkDialog::OnAsyncLoadingStarted()
@@ -140,14 +149,11 @@ void BookmarkDialog::OnImportClick()
       this /* parent */, tr("Open KML, KMZ, GPX, JSON, GeoJSON..."), QString() /* dir */,
       "KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)");
 
+  std::vector<BookmarkManager::BookmarkFileLoadingContext> contexts;
+  contexts.reserve(files.size());
   for (auto const & name : files)
-  {
-    auto const file = name.toStdString();
-    if (file.empty())
-      continue;
-
-    m_framework.GetBookmarkManager().LoadBookmark(file, false /* isTemporaryFile */);
-  }
+    contexts.push_back({name.toStdString(), false /* isTemporaryFile */});
+  m_framework.GetBookmarkManager().ImportBookmarks(std::move(contexts));
 }
 
 void BookmarkDialog::OnExportClick(FileType exportedFileType)

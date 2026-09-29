@@ -11,8 +11,6 @@
 
 #include "map/bookmarks_search_params.hpp"
 
-#include "coding/internal/file_data.hpp"
-
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -76,21 +74,6 @@ static IdCollection convertIdsToCore(NSArray<NSNumber *> * ids)
 static UIColor * UIColorFromCoreColor(dp::Color const & color)
 {
   return [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:color.GetAlphaF()];
-}
-
-static void DeleteTemporaryBookmarksFile(std::string const & filePath)
-{
-  NSError * error;
-  NSString * path = [NSString stringWithUTF8String:filePath.c_str()];
-  if ([[NSFileManager defaultManager] removeItemAtPath:path error:&error])
-  {
-    LOG(LINFO, ("Temporary bookmarks file is deleted:", filePath));
-    [[NSFileManager defaultManager] removeItemAtPath:path.stringByDeletingLastPathComponent error:nil];
-  }
-  else
-  {
-    LOG(LWARNING, ("Failed to delete temporary bookmarks file:", filePath, error));
-  }
 }
 
 @interface MWMBookmarksManager ()
@@ -170,6 +153,7 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
       if (!self)
         return;
       self.areBookmarksLoaded = YES;
+
       [self loopObservers:^(id<MWMBookmarksObserver> observer) {
         if ([observer respondsToSelector:@selector(onBookmarksLoadFinished)])
           [observer onBookmarksLoadFinished];
@@ -178,28 +162,20 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   }
   {
     __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFileSuccess = [wSelf](std::string const & filePath, bool isTemporaryFile)
+    bookmarkCallbacks.m_onImportFinished = [wSelf](BookmarkManager::BookmarkImportResult const & result)
     {
-      __strong __typeof(self) self = wSelf;
+      __strong auto self = wSelf;
+      if (!self)
+        return;
+      BOOL hasFailure = NO;
+      for (auto const & source : result.m_sourceResults)
+        hasFailure |= source.m_groupIds.empty();
       [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
+        if (hasFailure && [observer respondsToSelector:@selector(onBookmarksFileLoadError)])
+          [observer onBookmarksFileLoadError];
+        else if (!hasFailure && [observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
           [observer onBookmarksFileLoadSuccess];
       }];
-      if (isTemporaryFile)
-        DeleteTemporaryBookmarksFile(filePath);
-    };
-  }
-  {
-    __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFileError = [wSelf](std::string const & filePath, bool isTemporaryFile)
-    {
-      __strong __typeof(self) self = wSelf;
-      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
-          [observer onBookmarksFileLoadError];
-      }];
-      if (isTemporaryFile)
-        DeleteTemporaryBookmarksFile(filePath);
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
@@ -217,14 +193,18 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   self.bm.LoadBookmarks();
 }
 
-- (void)loadBookmarkFile:(NSURL *)url
+- (void)loadBookmarkFiles:(NSArray<NSURL *> *)urls
 {
-  self.bm.LoadBookmark(url.path.UTF8String, false /* isTemporaryFile */);
+  std::vector<BookmarkManager::BookmarkFileLoadingContext> contexts;
+  contexts.reserve(urls.count);
+  for (NSURL * url in urls)
+    contexts.push_back({url.path.UTF8String, false /* isTemporaryFile */});
+  self.bm.ImportBookmarks(std::move(contexts));
 }
 
 - (void)reloadCategoryAtFilePath:(NSString *)filePath
 {
-  self.bm.ReloadBookmark(filePath.UTF8String);
+  self.bm.ReloadBookmarks({filePath.UTF8String});
 }
 
 - (void)deleteCategoryAtFilePath:(NSString *)filePath
