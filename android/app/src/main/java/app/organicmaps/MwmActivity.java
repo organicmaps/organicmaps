@@ -2060,9 +2060,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void onTrackRecordingOptionSelected()
   {
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
+    {
       toggleTrackRecordingPP();
+    }
     else
+    {
+      // Check if we should warn the user about battery optimizations on Android 9+
+      if (BatteryOptimizationHelper.shouldShowWarning(this))
+      {
+        BatteryOptimizationHelper.showOptimizationDialog(this);
+      }
       startTrackRecording();
+    }
   }
 
   private void toggleTrackRecordingPP()
