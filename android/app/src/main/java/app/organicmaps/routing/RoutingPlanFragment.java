@@ -325,6 +325,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   private void updateProgressLabels()
   {
+    mRoutingBottomMenuController.updateSaveButton();
     final RoutingController controller = RoutingController.get();
     if (controller.getBuildState() != RoutingController.BuildState.BUILT)
     {
