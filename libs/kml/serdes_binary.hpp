@@ -262,6 +262,9 @@ public:
 
 private:
   void DeserializeV10MM(std::unique_ptr<Reader> & reader);
+  void DeserializeCategoryV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings, FileData & data);
+  void DeserializeBookmarksV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings, FileData & data);
+  void DeserializeTracksV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings, FileData & data);
 
   template <typename ReaderType>
   void InitializeIfNeeded(ReaderType const & reader)

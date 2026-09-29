@@ -92,7 +92,18 @@ void DeserializerKml::DeserializeV10MM(std::unique_ptr<Reader> & reader)
   coding::BlockedTextStorage<Reader> strings(*stringsReader);
   FileData data;
 
-  auto categoryReader = CreateCategorySubReader(*reader);
+  DeserializeCategoryV10MM(*reader, strings, data);
+  DeserializeBookmarksV10MM(*reader, strings, data);
+  DeserializeTracksV10MM(*reader, strings, data);
+
+  // Publish only after all record sections have been read without unsupported content.
+  m_data = std::move(data);
+}
+
+void DeserializerKml::DeserializeCategoryV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings,
+                                               FileData & data)
+{
+  auto categoryReader = CreateCategorySubReader(reader);
   NonOwningReaderSource categorySource(*categoryReader);
   CategoryDeserializerVisitor categoryVisitor(categorySource, m_doubleBits);
   auto & category = data.m_categoryData;
@@ -107,8 +118,12 @@ void DeserializerKml::DeserializeV10MM(std::unique_ptr<Reader> & reader)
   if (GetStringForExport(category.m_name).empty())
     category.m_name.clear();  // Allow the application's filename fallback.
   CheckV10SectionEnd(categorySource);
+}
 
-  auto bookmarksReader = CreateBookmarkSubReader(*reader);
+void DeserializerKml::DeserializeBookmarksV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings,
+                                                FileData & data)
+{
+  auto bookmarksReader = CreateBookmarkSubReader(reader);
   NonOwningReaderSource bookmarksSource(*bookmarksReader);
   BookmarkDeserializerVisitor bookmarkVisitor(bookmarksSource, m_doubleBits);
   auto const count = ReadVarUint<uint32_t>(bookmarksSource);
@@ -133,8 +148,12 @@ void DeserializerKml::DeserializeV10MM(std::unique_ptr<Reader> & reader)
     ReadV10Strings<5>(bookmarksSource, strings, bookmark.m_name, bookmark.m_description, bookmark.m_customName);
   }
   CheckV10SectionEnd(bookmarksSource);
+}
 
-  auto trackReader = CreateTrackSubReader(*reader);
+void DeserializerKml::DeserializeTracksV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings,
+                                             FileData & data)
+{
+  auto trackReader = CreateTrackSubReader(reader);
   NonOwningReaderSource trackSource(*trackReader);
   BookmarkDeserializerVisitor trackVisitor(trackSource, m_doubleBits);
   auto const trackCount = ReadVarUint<uint32_t>(trackSource);
@@ -176,14 +195,11 @@ void DeserializerKml::DeserializeV10MM(std::unique_ptr<Reader> & reader)
     // Imported GPX may name only the category. Empty localized strings otherwise
     // prevent the application's empty-name fallback from running.
     if (GetStringForExport(track.m_name).empty())
-      track.m_name = trackCount == 1 ? category.m_name : LocalizableString{};
+      track.m_name = trackCount == 1 ? data.m_categoryData.m_name : LocalizableString{};
 
     data.m_tracksData.emplace_back(track.ConvertToLatestVersion());
   }
   CheckV10SectionEnd(trackSource);
-
-  // Publish only after all record sections have been read without unsupported content.
-  m_data = std::move(data);
 }
 }  // namespace binary
 }  // namespace kml
