@@ -21,6 +21,7 @@ set(SRC
   road_warning_tests.cpp
   share_tests.cpp
   search_api_tests.cpp
+  search_mark_lifecycle_tests.cpp
   search_viewport_tests.cpp
   transliteration_test.cpp
   relation_track_tests.cpp

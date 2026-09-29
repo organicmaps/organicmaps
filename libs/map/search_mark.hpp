@@ -9,9 +9,6 @@
 #include "geometry/point2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "base/control_flow.hpp"
-
-#include <functional>
 #include <map>
 #include <optional>
 #include <set>
@@ -81,17 +78,15 @@ public:
 
   m2::PointD GetMaxDimension(ScreenBase const & modelView) const;
 
-  bool IsThereSearchMarkForFeature(FeatureID const & featureId) const;
+  // Only existing search results acquire visited state, which survives viewport result refreshes.
   void OnDeactivate(FeatureID const & featureId);
 
-  void SetVisited(FeatureID const & id);
   bool IsVisited(FeatureID const & id) const;
 
   static bool HaveSizes() { return !s_markSizes.empty(); }
   static std::optional<m2::PointD> GetSize(std::string const & symbolName);
 
 private:
-  void ProcessMarks(std::function<base::ControlFlow(SearchMarkPoint *)> && processor) const;
   void UpdateMaxDimension();
 
   BookmarkManager * m_bmManager;

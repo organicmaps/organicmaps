@@ -327,8 +327,8 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
   }
   else
   {
-    // center viewport on clicked item
-    GetFramework().ShowSearchResult(m_results[row]);
+    // Select the result without cancelling the search or clearing its marks.
+    GetFramework().SelectSearchResult(m_results[row], true /* animation */);
   }
 }
 

@@ -1536,7 +1536,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::UserMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
-      RenderNonDisplaceableUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
+      RenderUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
     }
 
     if (!HasRouteData())
@@ -1644,8 +1644,16 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   DEBUG_LABEL(m_context, "Overlay Layer");
   RenderLayer & overlay = m_layers[static_cast<size_t>(DepthLayer::OverlayLayer)];
   BuildOverlayTree(modelView);
+  UpdateSearchMarkTextOverlay(modelView);
+  m_searchMarkOverlayFilter.Collect(m_layers[static_cast<size_t>(DepthLayer::SearchMarkLayer)].m_renderGroups,
+                                    modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
+  {
+    // Keep POIs in the displacement tree for their captions while drawing search marks above them.
+    m_searchMarkOverlayFilter.HideOverlappingSymbols(*group, modelView);
     RenderSingleGroup(m_context, modelView, make_ref(group));
+    m_searchMarkOverlayFilter.RestoreHiddenSymbols();
+  }
 }
 
 bool FrontendRenderer::HasTransitRouteData() const
@@ -1749,26 +1757,6 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
 
   for (drape_ptr<RenderGroup> const & group : renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
-}
-
-void FrontendRenderer::RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
-{
-  TRACE_SECTION("[drape] RenderNonDisplaceableUserMarksLayer");
-  if (layerId == DepthLayer::SearchMarkLayer)
-  {
-    UpdateSearchMarkTextOverlay(modelView);
-    RenderUserMarksLayer(modelView, layerId);
-    return;
-  }
-
-  auto & layer = m_layers[static_cast<size_t>(layerId)];
-  layer.Sort(nullptr);
-  for (drape_ptr<RenderGroup> & group : layer.m_renderGroups)
-  {
-    group->SetOverlayVisibility(true);
-    group->Update(modelView);
-  }
-  RenderUserMarksLayer(modelView, layerId);
 }
 
 void FrontendRenderer::RenderEmptyFrame()
