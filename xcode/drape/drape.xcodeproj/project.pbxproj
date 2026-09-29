@@ -62,7 +62,9 @@
 		4598438F2139967F00F8CAB2 /* metal_texture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4598438D2139967F00F8CAB2 /* metal_texture.mm */; };
 		459843902139967F00F8CAB2 /* metal_texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4598438E2139967F00F8CAB2 /* metal_texture.hpp */; };
 		45D7ADE22113535600160DE3 /* render_state.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45D7ADE02113535500160DE3 /* render_state.hpp */; };
+		5436C49727472728D648C56D /* render_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D4C4D9DC1A2373E2E7E3182F /* render_context.hpp */; };
 		45D7ADE32113535600160DE3 /* render_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADE12113535600160DE3 /* render_state.cpp */; };
+		D7B0B5B4620CCF64F83C3438 /* render_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C733937F021F090EA1452698 /* render_context.cpp */; };
 		63B2D38C2E81ED3D001C7C9C /* instancing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 63B2D38A2E81ED3D001C7C9C /* instancing.hpp */; };
 		63B2D38D2E81ED3D001C7C9C /* instancing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63B2D38B2E81ED3D001C7C9C /* instancing.cpp */; };
 		63B2D38F2E81ED76001C7C9C /* metal_instancing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63B2D38E2E81ED76001C7C9C /* metal_instancing.mm */; };
@@ -211,7 +213,9 @@
 		4598438D2139967F00F8CAB2 /* metal_texture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_texture.mm; sourceTree = "<group>"; };
 		4598438E2139967F00F8CAB2 /* metal_texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_texture.hpp; sourceTree = "<group>"; };
 		45D7ADE02113535500160DE3 /* render_state.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = render_state.hpp; sourceTree = "<group>"; };
+		D4C4D9DC1A2373E2E7E3182F /* render_context.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = render_context.hpp; sourceTree = "<group>"; };
 		45D7ADE12113535600160DE3 /* render_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_state.cpp; sourceTree = "<group>"; };
+		C733937F021F090EA1452698 /* render_context.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = render_context.cpp; sourceTree = "<group>"; };
 		63B2D38A2E81ED3D001C7C9C /* instancing.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = instancing.hpp; sourceTree = "<group>"; };
 		63B2D38B2E81ED3D001C7C9C /* instancing.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = instancing.cpp; sourceTree = "<group>"; };
 		63B2D38E2E81ED76001C7C9C /* metal_instancing.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_instancing.mm; sourceTree = "<group>"; };
@@ -465,7 +469,9 @@
 				6729A5371A69213A007D5872 /* render_bucket.hpp */,
 				6729A5361A69213A007D5872 /* render_bucket.cpp */,
 				45D7ADE02113535500160DE3 /* render_state.hpp */,
+				D4C4D9DC1A2373E2E7E3182F /* render_context.hpp */,
 				45D7ADE12113535600160DE3 /* render_state.cpp */,
+				C733937F021F090EA1452698 /* render_context.cpp */,
 				6729A53D1A69213A007D5872 /* shader.hpp */,
 				6729A53C1A69213A007D5872 /* shader.cpp */,
 				34C624C81DABDB2000510300 /* static_texture.hpp */,
@@ -536,6 +542,7 @@
 				6729A5801A69213A007D5872 /* glsl_func.hpp in Headers */,
 				6729A5761A69213A007D5872 /* dynamic_texture.hpp in Headers */,
 				45D7ADE22113535600160DE3 /* render_state.hpp in Headers */,
+				5436C49727472728D648C56D /* render_context.hpp in Headers */,
 				6729A5681A69213A007D5872 /* batcher_helpers.hpp in Headers */,
 				6729A56A1A69213A007D5872 /* batcher.hpp in Headers */,
 				BBAD59F821258812005543FC /* debug_renderer.hpp in Headers */,
@@ -703,6 +710,7 @@
 				63B2D38D2E81ED3D001C7C9C /* instancing.cpp in Sources */,
 				4560F591213EC93400CC736C /* render_state_metal.mm in Sources */,
 				45D7ADE32113535600160DE3 /* render_state.cpp in Sources */,
+				D7B0B5B4620CCF64F83C3438 /* render_context.cpp in Sources */,
 				6729A58E1A69213A007D5872 /* index_buffer.cpp in Sources */,
 				452D373421F7415F00CD3A94 /* vulkan_object_manager.cpp in Sources */,
 				6729A5A61A69213A007D5872 /* texture_manager.cpp in Sources */,

@@ -89,7 +89,10 @@
 		670947A51BDF9BE1005014C0 /* my_position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947561BDF9BE0005014C0 /* my_position.cpp */; };
 		670947A61BDF9BE1005014C0 /* my_position.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947571BDF9BE0005014C0 /* my_position.hpp */; };
 		670947A71BDF9BE1005014C0 /* navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947581BDF9BE0005014C0 /* navigator.cpp */; };
+		C3C17C822CF8B1E0C9EA6756 /* perspective_tile_coverage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2776BF71C5C0FCFD63489552 /* perspective_tile_coverage.cpp */; };
 		670947A81BDF9BE1005014C0 /* navigator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947591BDF9BE0005014C0 /* navigator.hpp */; };
+		3099C44BC06BEC6F58B89C14 /* navigation_scene.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 223565F3D1FA7B9F67E077AF /* navigation_scene.hpp */; };
+		22B51096ED8C3316A4D3E8AF /* perspective_tile_coverage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7E85FD42754C243A52B9E079 /* perspective_tile_coverage.hpp */; };
 		670947A91BDF9BE1005014C0 /* path_symbol_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709475A1BDF9BE0005014C0 /* path_symbol_shape.cpp */; };
 		670947AA1BDF9BE1005014C0 /* path_symbol_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709475B1BDF9BE0005014C0 /* path_symbol_shape.hpp */; };
 		670947AB1BDF9BE1005014C0 /* path_text_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709475C1BDF9BE0005014C0 /* path_text_shape.cpp */; };
@@ -310,7 +313,10 @@
 		670947561BDF9BE0005014C0 /* my_position.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_position.cpp; sourceTree = "<group>"; };
 		670947571BDF9BE0005014C0 /* my_position.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = my_position.hpp; sourceTree = "<group>"; };
 		670947581BDF9BE0005014C0 /* navigator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = navigator.cpp; sourceTree = "<group>"; };
+		2776BF71C5C0FCFD63489552 /* perspective_tile_coverage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = perspective_tile_coverage.cpp; sourceTree = "<group>"; };
 		670947591BDF9BE0005014C0 /* navigator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = navigator.hpp; sourceTree = "<group>"; };
+		223565F3D1FA7B9F67E077AF /* navigation_scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = navigation_scene.hpp; sourceTree = "<group>"; };
+		7E85FD42754C243A52B9E079 /* perspective_tile_coverage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = perspective_tile_coverage.hpp; sourceTree = "<group>"; };
 		6709475A1BDF9BE0005014C0 /* path_symbol_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path_symbol_shape.cpp; sourceTree = "<group>"; };
 		6709475B1BDF9BE0005014C0 /* path_symbol_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = path_symbol_shape.hpp; sourceTree = "<group>"; };
 		6709475C1BDF9BE0005014C0 /* path_text_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path_text_shape.cpp; sourceTree = "<group>"; };
@@ -556,7 +562,10 @@
 				670947551BDF9BE0005014C0 /* my_position_controller.hpp */,
 				670947541BDF9BE0005014C0 /* my_position_controller.cpp */,
 				670947591BDF9BE0005014C0 /* navigator.hpp */,
+				223565F3D1FA7B9F67E077AF /* navigation_scene.hpp */,
+				7E85FD42754C243A52B9E079 /* perspective_tile_coverage.hpp */,
 				670947581BDF9BE0005014C0 /* navigator.cpp */,
+				2776BF71C5C0FCFD63489552 /* perspective_tile_coverage.cpp */,
 				56D545651C74A44900E3719C /* overlay_batcher.hpp */,
 				56D545641C74A44900E3719C /* overlay_batcher.cpp */,
 				672D24991E892768004BB7B1 /* overlays_tracker.hpp */,
@@ -831,6 +840,8 @@
 				BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */,
 				670947A61BDF9BE1005014C0 /* my_position.hpp in Headers */,
 				670947A81BDF9BE1005014C0 /* navigator.hpp in Headers */,
+				3099C44BC06BEC6F58B89C14 /* navigation_scene.hpp in Headers */,
+				22B51096ED8C3316A4D3E8AF /* perspective_tile_coverage.hpp in Headers */,
 				34C624C61DABDB0400510300 /* traffic_renderer.hpp in Headers */,
 				670947A21BDF9BE1005014C0 /* message.hpp in Headers */,
 			);
@@ -962,6 +973,7 @@
 				BB7D67D31F34A62C002FD122 /* path_text_handle.cpp in Sources */,
 				452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */,
 				670947A71BDF9BE1005014C0 /* navigator.cpp in Sources */,
+				C3C17C822CF8B1E0C9EA6756 /* perspective_tile_coverage.cpp in Sources */,
 				6709484F1BDF9C48005014C0 /* skin.cpp in Sources */,
 				670947B91BDF9BE1005014C0 /* route_renderer.cpp in Sources */,
 				670E393C1C46C59000E9C0A6 /* color_constants.cpp in Sources */,
