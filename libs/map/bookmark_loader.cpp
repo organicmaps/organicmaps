@@ -6,8 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
-
-#include <algorithm>
+#include "base/logging.hpp"
 
 BookmarkLoader::BookmarkLoader(ApplyData applyData) : m_applyData(std::move(applyData)) {}
 
