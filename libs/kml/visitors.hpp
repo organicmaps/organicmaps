@@ -677,10 +677,12 @@ public:
 
   void operator()(MultiGeometry & geom, char const * /* name */ = nullptr)
   {
-    /// @todo Update version if we want to save multi geometry into binary.
+    // The binary layout stores one line without timestamps. Keep the in-memory
+    // geometry's line and timestamp arrays aligned for its other consumers.
     MultiGeometry::LineT line;
     (*this)(line);
     geom.m_lines.push_back(std::move(line));
+    geom.m_timestamps.emplace_back();
   }
 
   void operator()(TrackPointTimestamps & pts, char const * /* name */ = nullptr)

@@ -64,7 +64,7 @@ int main(int argc, char ** argv)
       ser.Serialize(kmlFile);
     }
   }
-  catch (kml::SerializerKml::SerializeException const & ex)
+  catch (kml::binary::SerializerKml::SerializeException const & ex)
   {
     std::cerr << "Error encoding to kmb file " << filePath << ": " << ex.what() << std::endl;
     return 1;

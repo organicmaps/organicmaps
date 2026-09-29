@@ -28,17 +28,18 @@ enum class Version : uint8_t
   // referencing it keep their slots in the layout, but we always write them empty and ignore
   // whatever a file we read contains. See kml::CategoryData::m_unusedCompilationId.
   Latest = V9,
-  // MapsMe-incompatible variants. Enum values 10/11 are internal identifiers assigned after V9
-  // (V8/V9 occupy 8/9); they are NOT the on-disk version byte. On disk, V8MM still starts with
-  // 0x08 and V9MM still starts with 0x09 — the variant is detected via a header-shape heuristic
-  // (5 section offsets instead of 6) in DeserializerKml::InitializeIfNeeded.
-  V8MM = 10,  // 27 July 2023: MapsMe released version v15.0.71617. On-disk byte is 0x08 but the
-              // layout is not compatible with this repo's V8 (no compilations section).
-  V9MM = 11   // July 2024: MapsMe released a new KMB format. On-disk byte is 0x09 but not
-              // compatible with this repo's V9 (track uses vector<MultiGeometry>, no
-              // compilations). A later MapsMe release evolved the track layout to drop
-              // m_constant3 and append a per-point capture-timestamp vector; both shapes
-              // decode through this path — the legacy c3=0 byte reads as ts_count=0.
+  // MapsMe-incompatible variants use internal identifiers after V9, distinct from their
+  // on-disk version bytes. V8MM and V9MM use bytes 8 and 9 and are distinguished from OM
+  // files by their five-offset headers; V10MM uses byte 10 and has its own preamble.
+  V8MM = 10,   // 27 July 2023: MapsMe released version v15.0.71617. On-disk byte is 0x08 but the
+               // layout is not compatible with this repo's V8 (no compilations section).
+  V9MM = 11,   // July 2024: MapsMe released a new KMB format. On-disk byte is 0x09 but not
+               // compatible with this repo's V9 (track uses vector<MultiGeometry>, no
+               // compilations). A later MapsMe release evolved the track layout to drop
+               // m_constant3 and append a per-point capture-timestamp vector; both shapes
+               // decode through this path — the legacy c3=0 byte reads as ts_count=0.
+  V10MM = 12,  // September 2026 samples: on-disk byte 0x0a, no device/server IDs,
+               // shorter categories and changed bookmark/track tails.
 };
 
 inline std::string DebugPrint(Version v)
@@ -57,6 +58,7 @@ inline std::string DebugPrint(Version v)
   case Version::V9: return "V9";  // == Latest
   case Version::V8MM: return "V8MM";
   case Version::V9MM: return "V9MM";
+  case Version::V10MM: return "V10MM";
   }
   return "Unknown(" + ::DebugPrint(static_cast<int>(v)) + ")";
 }
@@ -100,7 +102,7 @@ struct Header
   }
 
   // Only V8/V9 have a compilations section. We write it empty but may read legacy files where it is populated;
-  // MapsMe's V8MM/V9MM variants do not have this section.
+  // MapsMe's V8MM/V9MM/V10MM variants do not have this section.
   bool HasCompilationsSection() const { return m_version == Version::V8 || m_version == Version::V9; }
 
   Version m_version = Version::Latest;
