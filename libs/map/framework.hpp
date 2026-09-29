@@ -296,6 +296,8 @@ public:
   void SelectTrackCandidate(kml::TrackId trackId, RelationID const & relationId);
 
   void AddBookmarksFile(std::string const & filePath, bool isTemporaryFile);
+  void AddBookmarksFile(std::string const & filePath, bool isTemporaryFile,
+                        std::string const & ownedTemporaryDirectory);
 
   BookmarkManager & GetBookmarkManager();
   BookmarkManager const & GetBookmarkManager() const;

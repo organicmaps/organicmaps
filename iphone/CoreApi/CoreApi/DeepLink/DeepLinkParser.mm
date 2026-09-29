@@ -38,4 +38,11 @@ static inline DeeplinkUrlType deeplinkUrlType(url_scheme::ParsedMapApi::UrlType 
   GetFramework().AddBookmarksFile(url.path.UTF8String, isTemporaryFile);
 }
 
++ (void)addBookmarksFile:(NSURL *)url
+            isTemporaryFile:(BOOL)isTemporaryFile
+    ownedTemporaryDirectory:(NSURL *)ownedTemporaryDirectory
+{
+  GetFramework().AddBookmarksFile(url.path.UTF8String, isTemporaryFile, ownedTemporaryDirectory.path.UTF8String);
+}
+
 @end

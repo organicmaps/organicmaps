@@ -15,6 +15,7 @@
 #include "platform/localization.hpp"
 #include "platform/preferred_languages.hpp"
 
+#include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
@@ -350,15 +351,18 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoa
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoadBookmarksFiles(
-    JNIEnv * env, jclass, jobjectArray paths, jboolean isTemporaryFile)
+    JNIEnv * env, jclass, jobjectArray paths, jobjectArray ownedDirectories, jboolean isTemporaryFile)
 {
   std::vector<BookmarkManager::BookmarkFileLoadingContext> contexts;
   auto const count = env->GetArrayLength(paths);
+  CHECK_EQUAL(count, env->GetArrayLength(ownedDirectories), ());
   contexts.reserve(count);
   for (jsize i = 0; i < count; ++i)
   {
     jni::ScopedLocalRef<jstring> path(env, static_cast<jstring>(env->GetObjectArrayElement(paths, i)));
-    contexts.push_back({jni::ToNativeString(env, path.get()), static_cast<bool>(isTemporaryFile)});
+    jni::ScopedLocalRef<jstring> directory(env, static_cast<jstring>(env->GetObjectArrayElement(ownedDirectories, i)));
+    contexts.push_back({jni::ToNativeString(env, path.get()), static_cast<bool>(isTemporaryFile),
+                        jni::ToNativeString(env, directory.get())});
   }
   frm()->GetBookmarkManager().ImportBookmarks(std::move(contexts));
 }

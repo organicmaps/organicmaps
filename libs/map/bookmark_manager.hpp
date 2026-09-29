@@ -2,6 +2,7 @@
 
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
+#include "map/bookmark_loader.hpp"
 #include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
 
@@ -19,7 +20,6 @@
 #include "base/thread_checker.hpp"
 #include "base/visitor.hpp"
 
-#include <atomic>
 #include <functional>
 #include <list>
 #include <map>
@@ -54,30 +54,10 @@ public:
 
   using OnSymbolSizesAcquiredCallback = std::function<void()>;
 
-  struct BookmarkFileLoadingContext
-  {
-    std::string m_filePath;
-    bool m_isTemporaryFile = false;
-  };
-
-  struct BookmarkImportSourceResult
-  {
-    BookmarkFileLoadingContext m_context;
-    kml::GroupIdCollection m_groupIds;
-    std::vector<std::string> m_failedFileNames;
-  };
-
-  struct BookmarkImportResult
-  {
-    std::vector<BookmarkImportSourceResult> m_sourceResults;
-  };
-
-  struct AsyncLoadingCallbacks
-  {
-    std::function<void()> m_onStarted;
-    std::function<void()> m_onFinished;
-    std::function<void(BookmarkImportResult const &)> m_onImportFinished;
-  };
+  using BookmarkFileLoadingContext = ::BookmarkFileLoadingContext;
+  using BookmarkImportSourceResult = ::BookmarkImportSourceResult;
+  using BookmarkImportResult = ::BookmarkImportResult;
+  using AsyncLoadingCallbacks = BookmarkLoadingCallbacks;
 
   struct Callbacks
   {
@@ -204,7 +184,7 @@ public:
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
-  bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
+  bool IsAsyncLoadingInProgress() const { return m_bookmarkLoader.IsLoadingInProgress(); }
 
   bool AreSymbolSizesAcquired(OnSymbolSizesAcquiredCallback && callback);
 
@@ -640,38 +620,7 @@ private:
 
   std::string GenerateSavedRouteName(std::string const & from, std::string const & to);
 
-  enum class BookmarkLoadingRequestType
-  {
-    Import,
-    Reload
-  };
-
-  struct BookmarkLoadingRequest
-  {
-    BookmarkLoadingRequestType m_type;
-    std::vector<BookmarkFileLoadingContext> m_contexts;
-  };
-
-  struct BookmarkImportSourceData
-  {
-    BookmarkFileLoadingContext m_context;
-    KMLDataCollection m_kmlData;
-    std::vector<std::string> m_failedFileNames;
-  };
-  using BookmarkImportSourceDataCollection = std::vector<BookmarkImportSourceData>;
-
-  void NotifyAboutStartAsyncLoading();
-  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
-  void EnqueueBookmarkLoadingRequest(BookmarkLoadingRequest && request);
-  void ProcessNextBookmarkLoadingRequest();
-  void ImportBookmarksRoutine(std::vector<BookmarkFileLoadingContext> && contexts);
-  void ReloadBookmarksRoutine(std::vector<BookmarkFileLoadingContext> && contexts);
-  void FinishBookmarkLoadingRequest(BookmarkImportResult const * importResult = nullptr);
-  void FinishImportLoading(BookmarkImportSourceDataCollection && dataCollection);
-
-  using BookmarksChecker = std::function<bool(kml::FileData const &)>;
-  KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string_view ext, FileType fileType,
-                                     BookmarksChecker const & checker);
+  kml::GroupIdCollection ApplyLoadedCategories(KMLDataCollection && collection, bool isInitialLoad);
 
   void GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const;
   void UpdateBmGroupIdList();
@@ -780,11 +729,8 @@ private:
   OnSymbolSizesAcquiredCallback m_onSymbolSizesAcquiredFn;
   bool m_symbolSizesAcquired = false;
 
-  AsyncLoadingCallbacks m_asyncLoadingCallbacks;
-  std::atomic<bool> m_needTeardown;
+  BookmarkLoader m_bookmarkLoader;
   size_t m_openedEditSessionsCount = 0;
-  bool m_loadBookmarksCalled = false;
-  bool m_loadBookmarksFinished = false;
   bool m_firstDrapeNotification = false;
   bool m_notificationsEnabled = true;
 
@@ -811,10 +757,6 @@ private:
   m2::PointF m_maxBookmarkSymbolSize;
 
   std::unique_ptr<Bookmark> m_recentlyDeletedBookmark;
-
-  bool m_asyncLoadingInProgress = false;
-  bool m_finishingBookmarkLoadingRequest = false;
-  std::list<BookmarkLoadingRequest> m_bookmarkLoadingQueue;
 
   struct RestoringCache
   {
