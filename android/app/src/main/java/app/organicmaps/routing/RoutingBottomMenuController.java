@@ -54,7 +54,6 @@ final class RoutingBottomMenuController
 
   private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
   private static final String STATE_ERROR = "error";
-  // Dimming applied to the save button once the route has been saved (it stays disabled until rebuilt).
   private static final float SAVE_BUTTON_DISABLED_ALPHA = 0.5f;
 
   @NonNull
@@ -244,18 +243,15 @@ final class RoutingBottomMenuController
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
-    updateSaveButton();
     notifyVisibilityChanged();
     refreshManageRoute();
   }
 
-  // Reflect the current route's saved state on the save button, consistently across every route-details view.
-  private void updateSaveButton()
+  void updateSaveButton()
   {
-    setSaveButtonEnabled(!RoutingController.get().isRouteSaved());
+    setSaveButtonEnabled(RoutingController.get().isBuilt() && !RoutingController.get().isRouteSaved());
   }
 
-  // Keeps the enabled flag and the dimming in sync so a saved (disabled) button is always restored on rebuild.
   private void setSaveButtonEnabled(boolean enabled)
   {
     mSaveButton.setEnabled(enabled);
@@ -278,7 +274,6 @@ final class RoutingBottomMenuController
   void showTransitInfo(@NonNull TransitRouteInfo info)
   {
     refreshManageRoute();
-    updateSaveButton();
     View transit_time = mAltitudeChartFrame.findViewById(R.id.transit_time);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.hide(mError, mTimeElevationLine, mTimeVehicle);
@@ -300,7 +295,6 @@ final class RoutingBottomMenuController
   void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
   {
     refreshManageRoute();
-    updateSaveButton();
     UiUtils.hide(mError, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
     setStartState(StartState.DISABLED);
     hideAltitudeChartAndRoutingDetails();

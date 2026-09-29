@@ -132,7 +132,7 @@ public class RoutingController
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
 
-      if (mLastResultCode == ResultCodes.NO_ERROR || resultCode == ResultCodes.NEED_MORE_MAPS)
+      if (mLastResultCode == ResultCodes.NO_ERROR)
       {
         onBuiltRoute();
       }
@@ -198,7 +198,8 @@ public class RoutingController
       return;
     }
 
-    if (mLastResultCode != ResultCodes.NEED_MORE_MAPS)
+    // NEED_MORE_MAPS comes after a found route when the missing maps may give a better one, or instead of it.
+    if (mLastResultCode != ResultCodes.NEED_MORE_MAPS || !isBuilt())
     {
       setBuildState(BuildState.ERROR);
       mLastBuildProgress = 0;
@@ -248,9 +249,12 @@ public class RoutingController
     Logger.d(TAG, "[B] State: " + mState + ", BuildState: " + mBuildState + " -> " + newState);
     mBuildState = newState;
 
-    final MapObject startPoint = getStartPoint();
-    if (mBuildState == BuildState.BUILT && (startPoint == null || !startPoint.isMyPosition()))
-      Framework.nativeDisableFollowing();
+    if (mBuildState == BuildState.BUILT)
+    {
+      final MapObject startPoint = getStartPoint();
+      if (startPoint == null || !startPoint.isMyPosition())
+        Framework.nativeDisableFollowing();
+    }
 
     if (mContainer != null)
       mContainer.updateMenu();
@@ -359,6 +363,9 @@ public class RoutingController
   {
     if (isNavigating() || (isPlanning() && isBuilt()))
       Framework.nativeSaveRoutePoints();
+    else if (isPlanning())
+      // A restart must not bring back an earlier route of this planning.
+      Framework.nativeDeleteSavedRoutePoints();
   }
 
   public void deleteSavedRoute()
