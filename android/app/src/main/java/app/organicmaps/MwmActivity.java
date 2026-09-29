@@ -113,6 +113,7 @@ import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.search.SearchRequest;
 import app.organicmaps.settings.SettingsActivity;
+import app.organicmaps.util.BatteryOptimizationHelper;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -2065,12 +2066,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      // Check if we should warn the user about battery optimizations on Android 9+
+      // Check if we should warn the user about battery optimizations
       if (BatteryOptimizationHelper.shouldShowWarning(this))
       {
-        BatteryOptimizationHelper.showOptimizationDialog(this);
+        // Pass startTrackRecording as a callback/Runnable so it only runs AFTER the dialog is handled
+        BatteryOptimizationHelper.showOptimizationDialog(this, this::startTrackRecording);
       }
-      startTrackRecording();
+      else
+      {
+        startTrackRecording();
+      }
     }
   }
 

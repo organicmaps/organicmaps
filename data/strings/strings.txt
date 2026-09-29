@@ -45331,4 +45331,8 @@ en = Uninterrupted Track Recording
 
 [background_location_warning_message]
 tags = android-app
-en = To ensure GPS tracking continues accurately when your screen is off or the app is in the background, please disable battery optimization for Organic Maps in your device settings.
+en = To ensure GPS tracking continues accurately when your screen is off, please disable battery optimization for Organic Maps in your device settings.
+
+[background_location_samsung_warning_message]
+tags = android-app
+en = To prevent Samsung from sleeping background tracking, please check Battery > Background usage limits > Never sleeping apps in your device settings.
