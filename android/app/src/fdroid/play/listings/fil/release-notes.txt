@@ -1,10 +1,9 @@
-• Data ng OSM noong Agosto 26
-• BAGO: maramihang pagpili ng mga bookmark at track
-• BAGO: itago ang bawat track gamit ang icon ng mata
-• BAGO: mga artikulo sa Wikipedia sa Bengali, Hindi, Marathi, Polish, Tamil, Telugu, Urdu
-• Naayos ang crash at freeze
-• Idinagdag sa mapa ang mga silungan sa panonood ng ibon, entablado, burol, at likas na arko
-• Mas mahusay na pagbabahagi ng lugar
-• Mga pag-aayos sa Android Auto
-• Naayos ang pagpili ng mga hintuan ng ruta
-…marami pa sa omaps.org/news
+• OSM: 28 Setyembre; Wikipedia: 21 Setyembre
+• Mas mahusay na alternatibong ruta at pagtataya ng pagdating
+• Bagong setting na nag-o-optimize sa pagkakasunod-sunod ng mga hintuan
+• Ang mga bagong pindutan ay nagdaragdag o pumapalit ng mga hintuan sa mga planadong ruta
+• Ang napiling alternatibong ruta ay pinananatili habang nagna-navigate
+• Mga pag-aayos at pagpapabuti sa pagre-record ng track
+• Naayos ang pag-import ng KMB
+• Pag-aayos at pagpapabuti ng UI
+…mas marami sa omaps.org/news
