@@ -1,10 +1,9 @@
-• 26 avqust tarixinə OSM məlumatları
-• YENİ: əlfəcinlər və izlər üçün çoxlu seçim
-• YENİ: göz ikonu ilə ayrı-ayrı izləri gizlətmək
-• YENİ: benqal, hind, marathi, polyak, tamil, teluqu və urdu dillərində Vikipediya məqalələri
-• Çökmə və donmalar düzəldildi
-• Xəritəyə quş müşahidə komaları, səhnələr, təpələr və təbii tağlar əlavə edildi
-• Yerlərin daha yaxşı paylaşılması
-• Android Auto düzəlişləri
-• Marşrut dayanacaqlarının seçimi düzəldildi
-…daha çoxunu omaps.org/news saytında oxuyun
+• OSM: 28 sentyabr; Wikipedia: 21 sentyabr
+• Daha yaxşı alternativ marşrutlar və gəliş təxminləri
+• Yeni parametr dayanacaqların sırasını optimallaşdırır
+• Yeni düymələr planlaşdırılmış marşrutlardakı dayanacaqları əlavə edir və ya əvəz edir
+• Seçilmiş alternativ marşrut naviqasiya zamanı saxlanılır
+• Trek yazılmasında düzəlişlər və təkmilləşdirmələr
+• KMB idxalı düzəldildi
+• UI düzəlişləri və təkmilləşdirmələri
+…daha çox omaps.org/news

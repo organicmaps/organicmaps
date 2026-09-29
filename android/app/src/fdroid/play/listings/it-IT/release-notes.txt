@@ -1,10 +1,9 @@
-• Dati OSM aggiornati al 26 agosto
-• NOVITÀ: selezione multipla di preferiti e tracce
-• NOVITÀ: nascondi singole tracce con l’icona dell’occhio
-• NOVITÀ: articoli di Wikipedia in bengalese, hindi, marathi, polacco, tamil, telugu e urdu
-• Corretti arresti e blocchi
-• Aggiunti alla mappa capanni per il birdwatching, palchi, colline e archi rocciosi
-• Migliore condivisione dei luoghi
-• Correzioni per Android Auto
-• Corretta la selezione delle fermate del percorso
-…continua su omaps.org/it/news
+• OSM: 28 settembre; Wikipedia: 21 settembre
+• Percorsi alternativi e orari d’arrivo stimati migliorati
+• Nuova impostazione per ottimizzare l’ordine delle tappe
+• Pulsanti per aggiungere o sostituire tappe su un percorso pianificato
+• Il percorso alternativo scelto resta selezionato durante la navigazione
+• Registrazione dei tracciati corretta e migliorata
+• Importazione dei file KMB corretta
+• Interfaccia migliorata e bug corretti
+…altro su omaps.org/it/news

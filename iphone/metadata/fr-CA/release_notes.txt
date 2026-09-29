@@ -1,50 +1,33 @@
-## Carte et lieux
+## Calcul d’itinéraire
+• Amélioration des itinéraires de rechange et de leurs heures d’arrivée estimées
+• Ajout de boutons permettant d’ajouter ou de remplacer un arrêt dans un itinéraire planifié
+• Ajout d’un paramètre permettant d’optimiser l’ordre des arrêts intermédiaires d’un itinéraire
+• L’itinéraire de rechange sélectionné est désormais conservé lorsque la navigation recalcule l’itinéraire
+• L’ordre des arrêts de l’itinéraire est désormais rétabli après le redémarrage de l’application
 
-• Données OpenStreetMap mises à jour au 26 août 2026
-• Mise à jour des articles Wikipédia en arabe, bengali, chinois, anglais, français, allemand, hindi, italien, japonais, coréen, marathi, polonais, portugais, russe, espagnol, tamoul, télougou, turc et ourdou
-• Ajout d’observatoires ornithologiques, de scènes, de collines et d’arches rocheuses sur la carte, ainsi que d’une nouvelle icône pour les rochers
-• Les icônes des sommets, des grottes et des cols de montagne ont été redimensionnées
-• Les aires protégées, les parcs nationaux et les zones humides sont désormais affichés dans des teintes plus claires
-• Correction de nombreux problèmes qui entraînaient un affichage incorrect des heures d’ouverture
-• Les paramètres ont été réorganisés en sections « Général », « Carte », « Navigation », « Réseau » et « Vie privée »
-• Le réglage de calibrage de la boussole a été supprimé, car le calibrage est désormais géré automatiquement
-• Correction de problèmes de boussole qui pouvaient faire pointer la flèche de position actuelle dans la mauvaise direction ou la figer
-• Le point correspondant s’affiche désormais sur la carte lorsque vous faites glisser le doigt sur le profil d’altitude dans l’aperçu d’un itinéraire à pied ou à vélo
-• Correction d’un blocage de l’application et d’un problème qui faisait parfois ignorer les appuis et les gestes
+## Carte
+• Données OpenStreetMap en date du 28 septembre
+• Données de Wikipédia en date du 21 septembre
+• Les réservoirs d’eau sont désormais visibles lorsque l’on effectue un zoom arrière
+• Les tunnels de cours d’eau n’apparaissent plus sur la carte
+• Correction des icônes des stations et des entrées du métro de Suzhou
+• Correction de rares cas où les étiquettes se déplaçaient hors de leur position sur la couche cartographique du métro
 
-## Partage, signets et parcours
+## CarPlay
+• Ajout d’instructions de manœuvre sur les affichages tête haute (HUD) des autos compatibles et sur le tableau de bord CarPlay
+• Correction des boutons CarPlay et de la fonction de recherche
 
-• NOUVEAU : ajout de la sélection multiple dans les listes de signets et de parcours, avec des actions groupées permettant de supprimer, déplacer et modifier la couleur des éléments sélectionnés, ainsi que « Tout sélectionner » et « Tout désélectionner »
-• Ajout de la prise en charge d’AirDrop pour le partage de lieux
-• Le partage d’un lieu, d’un signet ou de votre position actuelle envoie désormais un lien lisible contenant des renseignements utiles
-• Les signets exportés conservent désormais leurs noms et descriptions d’origine
-• Les listes de signets partagées utilisent désormais leur nom affiché au lieu du nom de fichier interne
-• Correction d’un problème d’affichage du graphique d’altitude pouvant survenir immédiatement après le lancement de l’enregistrement d’un parcours
-• Restauration du sélecteur de couleur personnalisée dans la fenêtre contextuelle de la palette de couleurs
-• Correction de l’affichage des descriptions HTML lorsqu’un signet est sélectionné sur la carte
+## Tracés
+• Ajout d’une icône en forme d’œil pour masquer des tracés individuels
+• Correction de bogues et amélioration de l’enregistrement des tracés
+• Correction de l’importation des fichiers KMB
 
-## Itinéraires et navigation
+## Recherche
+• Correction des recherches lorsque la zone visible de la carte traverse le méridien de 180° (longitude ±180°)
+• La recherche par catégorie a été rétablie dans Spotlight
 
-• NOUVEAU : ajout d’un tableau de bord CarPlay et correction de plusieurs problèmes liés à CarPlay
-• Correction de l’activation du style de carte de navigation automobile
-• Appuyer sur un arrêt ou un repère d’itinéraire l’ouvre désormais correctement, au lieu de basculer entre les itinéraires planifiés
-• Les itinéraires en transports en commun sont désormais calculés plus rapidement
-• Correction d’instructions de changement de direction erronées
-• Correction d’un point de départ incorrect après le recalcul d’un itinéraire
-• Lors du calcul d’itinéraire, les routes en latérite sont désormais considérées comme des routes non revêtues de mauvaise qualité
-• Les routes marquées access=unknown sont désormais traitées comme des routes à accès privé ou réservées à la desserte locale
-
-## Éditeur OpenStreetMap
-
-• Correction d’un plantage survenant lorsqu’un envoi vers OpenStreetMap se terminait en arrière-plan
-• Vider le champ des heures d’ouverture ne désactive plus les boutons « Enregistrer » ou « Terminé »
-• Les envois partiellement échoués sont désormais relancés au lieu d’être signalés comme entièrement réussis
-
-## Traductions
-
-• Ajout des instructions vocales en arménien et en laotien
-• Mise à jour de l’aide et de la foire aux questions (FAQ) ; ajout de la traduction japonaise
-• Correction de la traduction japonaise de « Fermé actuellement »
-• Amélioration des traductions chinoises de « parcours » et « désactiver »
-
-Consultez les notes de version détaillées sur https://omaps.org/fr/news/
+## Interface utilisateur
+• Les heures d’ouverture affichent désormais « Midi » pour 12 h et « Minuit » pour 00 h ou 24 h
+• Correction de divers bogues et amélioration de l’interface utilisateur
+• Corrections apportées aux traductions en anglais, en français et en asturien
+• Ajout de la possibilité de choisir une voix de navigation installée et d’en écouter un extrait

@@ -1,10 +1,9 @@
-• Date OSM din 26 august
-• NOU: selecție multiplă pentru locuri preferate și trasee
-• NOU: ascunderea traseelor individuale cu pictograma ochi
-• NOU: articole Wikipedia în bengaleză, hindi, marathi, poloneză, tamilă, telugu și urdu
-• Corectate blocajele și erorile
-• Adăugate pe hartă observatoare de păsări, scene, dealuri și arcade de piatră
-• Partajare mai bună a locurilor
-• Corecții pentru Android Auto
-• Corectată selectarea opririlor de pe traseu
-…mai multe informații pe omaps.org/news
+• OSM: 28 septembrie; Wikipedia: 21 septembrie
+• Rute alternative mai bune și estimări de sosire
+• O nouă setare optimizează ordinea opririlor
+• Noile butoane adaugă sau înlocuiesc opriri pe traseele planificate
+• Traseul alternativ ales este păstrat pe durata navigării
+• Corecții și îmbunătățiri privind înregistrarea traseelor
+• S-a remediat problema cu importul KMB
+• Corecții și îmbunătățiri ale interfeței utilizatorului
+…mai multe informații la omaps.org/news

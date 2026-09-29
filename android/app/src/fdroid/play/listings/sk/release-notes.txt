@@ -1,12 +1,9 @@
-• Dáta OSM k 26. augustu
-• NOVINKA: hromadný výber záložiek a stôp
-• NOVINKA: skrytie jednotlivých stôp ikonou oka
-• NOVINKA: články Wikipédie v bengálčine, hindčine, maráthčine, poľštine, tamilčine, telugčine a urdčine
-• Opravené pády a zamrznutia
-• Na mapu pribudli pozorovateľne vtákov, pódiá, kopce a skalné oblúky
-• Lepšie zdieľanie miest
-• Opravy pre Android Auto
-• Opravený výber zastávok trasy
-• Opravené otváracie hodiny
-• Opravené chyby editora OSM
-…viac na omaps.org/news
+• Údaje OSM k 28. septembru, Wikipédia k 21. septembru
+• Vylepšené alternatívne trasy a ich odhadované časy príchodu
+• Pridané nastavenie na optimalizáciu poradia medzizastávok na trase
+• Pridané tlačidlá na pridanie alebo nahradenie zastávky v naplánovanej trase
+• Vybraná alternatívna trasa sa teraz zachováva počas navigácie
+• Opravené a vylepšené zaznamenávanie trasy
+• Opravený import súborov KMB
+• Vylepšenia a opravy používateľského rozhrania
+…viac podrobností na omaps.org/news

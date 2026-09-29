@@ -1,14 +1,9 @@
-• OSM-data per 26. august
-• NYTT: flervalg for bokmerker og spor
-• NYTT: skjul enkeltspor med øyeikonet
-• NYTT: Wikipedia-artikler på bengali, hindi, marathi, polsk, tamil, telugu og urdu
-• Rettet krasj og fastfrysing
-• Fugleskjul, scener, åser og steinbuer er lagt til på kartet
-• Bedre deling av steder
-• Rettelser for Android Auto
-• Rettet valg av rutestopp
-• Rettet åpningstider
-• Bedre søkepanel
-• Rettet feil i OSM-editoren
-• Rettet høydeprofil
-…mer på omaps.org/news
+• OSM-data: 28. september; Wikipedia-data: 21. september
+• Forbedrede alternative ruter og ankomsttidsestimater
+• Ny innstilling optimaliserer rekkefølgen på mellomstoppene
+• Nye knapper legger til eller erstatter stopp på en planlagt rute
+• Valgt alternativ rute forblir valgt under navigasjonen
+• Sporopptak er fikset og forbedret
+• Import av KMB-filer er rettet
+• Forbedringer og feilrettinger i brukergrensesnittet
+…mer informasjon på omaps.org/news

@@ -1,10 +1,9 @@
-• OSM-adatok augusztus 26-i állapot szerint
-• ÚJ: könyvjelzők és nyomvonalak többszörös kijelölése
-• ÚJ: egyes nyomvonalak elrejtése a szem ikonnal
-• ÚJ: Wikipédia-szócikkek bengáli, hindi, maráthi, lengyel, tamil, telugu és urdu nyelven
-• Javított összeomlások és lefagyások
-• A térképre madárlesek, színpadok, dombok és sziklaívek kerültek
-• Jobb helymegosztás
-• Android Auto javítások
-• Javítva az útvonal megállóinak kiválasztása
-…további információk az omaps.org/hu/news oldalon
+• OSM: szeptember 28.; Wikipedia: szeptember 21.
+• Jobb alternatív útvonalak és érkezési becslések
+• Az új beállítás optimalizálja a megállók sorrendjét
+• Az új gombok segítségével megállókat lehet hozzáadni vagy kicserélni a tervezett útvonalakon
+• A kiválasztott alternatív útvonal megmarad a navigáció során
+• A nyomvonalak rögzítésének javítása és fejlesztése
+• A KMB-import javítva
+• Felhasználói felületi javítások és fejlesztések
+…további információk itt omaps.org/hu/news

@@ -1,50 +1,33 @@
-## Kaart & plaatsen
+## Routebepaling
+• Verbeterde alternatieve routes en de geschatte aankomsttijden daarvan
+• Er zijn knoppen toegevoegd om een tussenstop in een geplande route toe te voegen of te vervangen
+• Er is een instelling toegevoegd om de volgorde van tussenliggende routestops te optimaliseren
+• De geselecteerde alternatieve route blijft nu behouden wanneer de navigatie de route opnieuw berekent
+• De volgorde van de routestops wordt nu hersteld na het opnieuw opstarten van de app
 
-• Bijgewerkte OpenStreetMap-gegevens per 26 augustus 2026
-• Bijgewerkte Wikipedia-artikelen in het Arabisch, Bengaals, Chinees, Engels, Frans, Duits, Hindi, Italiaans, Japans, Koreaans, Marathi, Pools, Portugees, Russisch, Spaans, Tamil, Telugu, Turks en Urdu
-• Vogelkijkhutten, podia, heuvels en rotsbogen zijn aan de kaart toegevoegd, evenals een nieuw pictogram voor rotsen
-• De pictogrammen van bergtoppen, grotten en bergpassen zijn van formaat veranderd
-• Beschermde gebieden, nationale parken en wetlands worden nu in lichtere tinten weergegeven
-• Er zijn talrijke problemen verholpen waardoor de openingstijden onjuist werden weergegeven
-• De instellingen zijn opnieuw ingedeeld in de onderdelen ‘Algemeen’, ‘Kaart’, ‘Navigatie’, ‘Netwerk’ en ‘Privacy’
-• De instelling voor het kalibreren van het kompas is verwijderd, omdat de kalibratie nu automatisch wordt uitgevoerd
-• Problemen met het kompas zijn verholpen die ertoe konden leiden dat de pijl voor de huidige positie in de verkeerde richting wees of vastliep
-• Het bijbehorende punt wordt nu op de kaart weergegeven terwijl u met uw vinger over het hoogteprofiel sleept in het voorbeeld van een wandel- of fietsroute
-• Een vastlopen van de app en een probleem waardoor tikken en gebaren soms werden genegeerd, zijn verholpen
+## Kaart
+• OpenStreetMap-gegevens per 28 september
+• Wikipedia-gegevens per 21 september
+• Waterreservoirs zijn nu zichtbaar wanneer je verder uitzoomt
+• Watertunnels worden niet langer op de kaart weergegeven
+• De pictogrammen voor de stations en ingangen van de metro van Suzhou zijn gecorrigeerd
+• Zeldzame gevallen verholpen waarbij labels op de metrokaartlaag uit positie raakten
 
-## Delen, bladwijzers en tracks
+## CarPlay
+• Er zijn manoeuvreerinstructies toegevoegd op ondersteunde head-up displays (HUD’s) in auto’s en op het CarPlay-dashboard
+• CarPlay-knoppen en zoekfunctie gerepareerd
 
-• NIEUW: meervoudige selectie toegevoegd aan de lijsten met bladwijzers en tracks, met batchacties om geselecteerde items te verwijderen, te verplaatsen en de kleur ervan te wijzigen, plus ‘Alles selecteren’ en ‘Selectie opheffen’
-• AirDrop-ondersteuning toegevoegd voor het delen van plaatsen
-• Wanneer u een plaats, bladwijzer of uw huidige positie deelt, wordt er nu een leesbare link met nuttige informatie verzonden
-• Geëxporteerde bladwijzers behouden nu hun oorspronkelijke namen en beschrijvingen
-• Gedeelde bladwijzerlijsten gebruiken nu hun weergegeven naam in plaats van de interne bestandsnaam
-• Een weergavefout in de hoogtegrafiek is verholpen die direct na het starten van een trackopname kon optreden
-• De aangepaste kleurenkiezer in het pop-upvenster van het kleurenpalet is hersteld
-• De weergave van HTML-beschrijvingen is gecorrigeerd wanneer een bladwijzer op de kaart wordt geselecteerd
+## Tracks
+• Er is een oogpictogram toegevoegd om afzonderlijke tracks te verbergen
+• Bugs verholpen en het opnemen van tracks verbeterd
+• Problemen bij het importeren van KMB-bestanden verholpen
 
-## Routebepaling en navigatie
+## Zoeken
+• Problemen met zoeken verholpen wanneer het zichtbare kaartgebied de 180°-meridiaan (±180° lengtegraad) overschrijdt
+• Zoeken op categorie in Spotlight is hersteld
 
-• NIEUW: er is een CarPlay-dashboard toegevoegd en er zijn diverse CarPlay-problemen verholpen
-• De activering van de kaartstijl voor autonavigatie is gecorrigeerd
-• Als u nu op een routehalte of -markering tikt, wordt deze correct geopend in plaats van dat er wordt geschakeld tussen geplande routes
-• Routes voor het openbaar vervoer worden nu sneller berekend
-• Onjuiste afslaginstructies zijn gecorrigeerd
-• Een onjuist startpunt na het opnieuw berekenen van een route is verholpen
-• Laterietwegen worden bij de routeplanning nu behandeld als wegen met een onverhard wegdek van slechte kwaliteit
-• Wegen met de tag access=unknown worden nu behandeld als wegen met privétoegang of uitsluitend bestemmingsverkeer
-
-## OpenStreetMap-editor
-
-• Een crash is verholpen die optrad wanneer een upload naar OpenStreetMap op de achtergrond werd voltooid
-• Wanneer u het veld ‘Openingstijden’ leegmaakt, worden de knoppen ‘Bewaar’ en ‘Klaar’ niet langer uitgeschakeld
-• Uploads die gedeeltelijk mislukken, worden nu opnieuw geprobeerd in plaats van als volledig geslaagd te worden gerapporteerd
-
-## Vertalingen
-
-• Gesproken instructies in het Armeens en Laotiaans toegevoegd
-• Help/Veelgestelde vragen (FAQ) bijgewerkt, Japanse vertaling toegevoegd
-• De Japanse vertaling van ‘Nu gesloten’ is gecorrigeerd
-• De Chinese vertalingen van ‘track’ en ‘uitschakelen’ zijn verbeterd
-
-Bekijk de uitgebreide releasenotities op https://omaps.org/nl/news/
+## UI
+• Bij openingstijden wordt nu „Middaguur“ weergegeven voor 12:00 en „Middernacht“ voor 00:00 of 24:00
+• Diverse bugs zijn verholpen en de gebruikersinterface is verbeterd
+• De Engelse, Franse en Asturische vertalingen zijn gecorrigeerd
+• Ondersteuning toegevoegd voor het kiezen en beluisteren van een geïnstalleerde navigatiestem
