@@ -193,7 +193,8 @@ TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkp
   return {std::move(routes), result};
 }
 
-TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route)
+TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route,
+                                     std::vector<df::Subroute> * subroutes)
 {
   auto & fetcher = routerComponents.GetFeaturesFetcher();
   auto & dataSource = fetcher.GetDataSource();
@@ -219,6 +220,8 @@ TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents,
     // the subroute start point in CreateDrapeSubroute, so do the same here.
     subroute.m_polyline.Add(route.GetSubrouteAttrs(i).GetStart().GetPoint());
     display.ProcessSubroute(segments, subroute);
+    if (subroutes)
+      subroutes->push_back(std::move(subroute));
   }
 
   return display.GetRouteInfo();

@@ -390,4 +390,62 @@ UNIT_TEST(Transit_Warsaw_TramVsSubway)
   TEST(HasTransitStep(integration::GetTransitRouteInfo(components, route), TransitType::Tram), ());
 }
 
+// Stop/platform pairs in existing MWMs must render as one physical stop. Reference stop
+// counts and route lengths are from the 260928 snapshot; both alternatives are direct bus legs.
+UNIT_TEST(Transit_SPb_StopPlatformPairs)
+{
+  auto & components = integration::GetVehicleComponents(VehicleType::Transit);
+  auto const res = integration::CalculateRoutes(
+      components, {mercator::FromLatLon(60.0680776, 30.3337487), mercator::FromLatLon(60.0825921, 30.356999)});
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  TEST_EQUAL(res.first.size(), 2, ());
+
+  double const expectedLengths[] = {2535.13, 3079.51};
+  size_t const expectedStopCounts[] = {3, 8};
+  for (size_t i = 0; i < res.first.size(); ++i)
+  {
+    auto const & route = *res.first[i];
+    integration::TestRouteLength(route, expectedLengths[i], 0.1);
+    TEST_LESS(integration::GetWalkDistanceMeters(route), 600.0, ());
+
+    std::vector<df::Subroute> subroutes;
+    auto const info = integration::GetTransitRouteInfo(components, route, &subroutes);
+    size_t busSteps = 0;
+    for (auto const & step : info.m_steps)
+      if (step.m_type == TransitType::Bus)
+        ++busSteps;
+    TEST_EQUAL(busSteps, 1, ());
+    size_t markerCount = 0, transitPointCount = 0;
+    for (auto const & subroute : subroutes)
+    {
+      markerCount += subroute.m_markers.size();
+      for (auto const & style : subroute.m_style)
+        if (!style.m_pattern.m_isDashed)
+          transitPointCount += style.m_endIndex - style.m_startIndex + 1;
+    }
+    TEST_EQUAL(markerCount, expectedStopCounts[i], ());
+    TEST_EQUAL(transitPointCount, expectedStopCounts[i], ());
+  }
+
+  TEST_LESS(integration::GetWalkDistanceMeters(*res.first[1]), integration::GetWalkDistanceMeters(*res.first[0]), ());
+}
+
+// Relation 14879261 mixes stop positions with standalone platforms, including its final stop.
+// Dropping the platforms leaves a 5.4 km walk to La Serranita and makes this route fail.
+UNIT_TEST(Transit_Argentina_AltaGraciaToLaSerranita)
+{
+  auto & components = integration::GetVehicleComponents(VehicleType::Transit);
+  auto const res = integration::CalculateRoutes(
+      components, {mercator::FromLatLon(-31.655377, -64.4453797), mercator::FromLatLon(-31.7355415, -64.4563994)});
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  TEST(!res.first.empty(), ());
+
+  for (auto const & route : res.first)
+  {
+    TEST(HasTransitStep(integration::GetTransitRouteInfo(components, *route), TransitType::Bus), ());
+    integration::TestRouteLength(*route, 14500.0, 0.1);
+    TEST_LESS(integration::GetWalkDistanceMeters(*route), 1000.0, ());
+  }
+}
+
 }  // namespace transit_route_test

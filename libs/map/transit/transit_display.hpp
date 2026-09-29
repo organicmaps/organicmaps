@@ -121,6 +121,7 @@ struct SubrouteParams
   double m_prevDistance = 0.0;
   double m_prevTime = 0.0;
   bool m_pendingEntrance = false;
+  bool m_mergeNextStop = false;
 };
 
 struct SubrouteSegmentParams
@@ -152,6 +153,10 @@ public:
   TransitRouteInfo const & GetRouteInfo();
 
 private:
+  friend class TransitRouteDisplayTest;
+
+  void EmitStopForSubroute(df::Subroute & subroute, SubrouteParams & sp, bool mergePrevious);
+
   using StopId = routing::transit::StopId;
   void AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
                                 SubrouteSegmentParams & ssp, StopId legBoardId, StopId legAlightId);

@@ -70,6 +70,8 @@ float const kStopMarkerScale = 2.2f;
 float const kTransferMarkerScale = 4.0f;
 float const kGateBgScale = 1.2f;
 
+double constexpr kMaxSameStopDistanceM = 100.0;
+
 int const kSmallIconZoom = 1;
 int const kMediumIconZoom = 10;
 
@@ -347,6 +349,36 @@ TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
   return m_routeInfo;
 }
 
+void TransitRouteDisplay::EmitStopForSubroute(df::Subroute & subroute, SubrouteParams & sp, bool mergePrevious)
+{
+  // Stop positions and platforms can resolve to the same POI. Merge only an adjacent pair
+  // identified by the preceding edge, preserving transfer and boarding/alighting symbols.
+  ASSERT(!mergePrevious || (!subroute.m_markers.empty() && !m_transitMarks.empty()), ());
+  if (mergePrevious && sp.m_transitMarkInfo.m_featureId.IsValid() &&
+      m_transitMarks.back().m_featureId == sp.m_transitMarkInfo.m_featureId &&
+      m_transitMarks.back().m_type != TransitMarkInfo::Type::Gate)
+  {
+    if (m_transitMarks.back().m_type == TransitMarkInfo::Type::Stop ||
+        sp.m_transitMarkInfo.m_type == TransitMarkInfo::Type::Transfer ||
+        (m_transitMarks.back().m_type != TransitMarkInfo::Type::Transfer &&
+         sp.m_transitMarkInfo.m_type == TransitMarkInfo::Type::KeyStop))
+    {
+      subroute.m_markers.back() = sp.m_marker;
+      m_transitMarks.back() = sp.m_transitMarkInfo;
+    }
+    subroute.m_markers.back().m_position = sp.m_marker.m_position;
+    m_transitMarks.back().m_point = sp.m_transitMarkInfo.m_point;
+  }
+  else
+  {
+    subroute.m_markers.push_back(sp.m_marker);
+    m_transitMarks.push_back(sp.m_transitMarkInfo);
+  }
+  sp.m_marker = df::SubrouteMarker();
+  sp.m_transitMarkInfo = TransitMarkInfo();
+  sp.m_mergeNextStop = false;
+}
+
 void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
                                                    SubrouteParams & sp, SubrouteSegmentParams & ssp, StopId legBoardId,
                                                    StopId legAlightId)
@@ -354,6 +386,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   auto const & edge = ssp.m_transitInfo.GetEdgeSubway();
 
   auto const currentLineId = edge.m_lineId;
+  bool const mergePrevious = sp.m_mergeNextStop;
 
   auto const & line = ssp.m_displayInfo.m_linesSubway.at(currentLineId);
   auto const currentColor = df::GetTransitColorName(line.GetColor());
@@ -374,6 +407,15 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   bool const isTransfer1 = stop1.GetTransferId() != routing::transit::kInvalidTransferId;
   bool const isTransfer2 = stop2.GetTransferId() != routing::transit::kInvalidTransferId;
 
+  // The MWM does not retain OSM member roles. Limit presentation deduplication to nearby,
+  // unshaped surface-transit stops with the same resolved feature; keep the routing graph intact.
+  bool const isSurfaceTransit = sp.m_transitType == TransitType::Bus || sp.m_transitType == TransitType::Trolleybus ||
+                                sp.m_transitType == TransitType::Tram;
+  bool const mergeNextStop = isSurfaceTransit && edge.m_shapeIds.empty() && !isTransfer1 && !isTransfer2 &&
+                             stop1.GetFeatureId() != kInvalidFeatureId &&
+                             stop1.GetFeatureId() == stop2.GetFeatureId() &&
+                             mercator::DistanceOnEarth(stop1.GetPoint(), stop2.GetPoint()) <= kMaxSameStopDistanceM;
+
   sp.m_marker.m_distance = sp.m_prevDistance;
   sp.m_marker.m_scale = kStopMarkerScale;
   sp.m_marker.m_innerColor = currentColor;
@@ -384,23 +426,34 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   }
   else
   {
-    sp.m_marker.m_position = stop1.GetPoint();
+    sp.m_marker.m_position = mergeNextStop ? stop2.GetPoint() : stop1.GetPoint();
   }
   sp.m_transitMarkInfo.m_point = sp.m_marker.m_position;
 
+  bool skipPairSegment = false;
   if (sp.m_pendingEntrance)
   {
+    skipPairSegment = mergeNextStop;
     sp.m_transitMarkInfo.m_type = TransitMarkInfo::Type::KeyStop;
     sp.m_transitMarkInfo.m_symbolName = kTransitSymbols.at(sp.m_transitType);
     sp.m_transitMarkInfo.m_color = currentColor;
     AddTransitGateSegment(sp.m_marker.m_position, currentColor, subroute);
     sp.m_pendingEntrance = false;
   }
+  else if (mergeNextStop && subroute.m_polyline.GetSize() > 1 && subroute.m_polyline.Back() == stop1.GetPoint())
+  {
+    // Move the incoming endpoint to the platform and omit the artificial stop-position hop.
+    // Keeping the vertex index preserves style boundaries. Never move the route's start or
+    // an unrelated endpoint left by a transfer or a stored shape.
+    subroute.m_polyline.PopBack();
+    subroute.m_polyline.Add(stop2.GetPoint());
+    skipPairSegment = true;
+  }
 
   auto const id1 = isTransfer1 ? stop1.GetTransferId() : stop1.GetId();
   auto const id2 = isTransfer2 ? stop2.GetTransferId() : stop2.GetId();
 
-  if (id1 != id2)
+  if (id1 != id2 && !skipPairSegment)
   {
     if (edge.m_shapeIds.empty())
     {
@@ -448,11 +501,9 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
       sp.m_marker.m_up = -sp.m_marker.m_up;
   }
 
-  subroute.m_markers.push_back(sp.m_marker);
-  sp.m_marker = df::SubrouteMarker();
+  EmitStopForSubroute(subroute, sp, mergePrevious);
 
-  m_transitMarks.push_back(sp.m_transitMarkInfo);
-  sp.m_transitMarkInfo = TransitMarkInfo();
+  sp.m_mergeNextStop = mergeNextStop;
 
   sp.m_lastDir = currentDir;
 
@@ -491,17 +542,14 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
 
     AddTransitGateSegment(segment.GetJunction().GetPoint(), sp.m_lastColor, subroute);
 
-    subroute.m_markers.push_back(sp.m_marker);
-    sp.m_marker = df::SubrouteMarker();
-
     sp.m_transitMarkInfo.m_type = TransitMarkInfo::Type::KeyStop;
     sp.m_transitMarkInfo.m_symbolName = kTransitSymbols.at(sp.m_transitType);
     sp.m_transitMarkInfo.m_color = sp.m_lastColor;
-    m_transitMarks.push_back(sp.m_transitMarkInfo);
-    sp.m_transitMarkInfo = TransitMarkInfo();
+    EmitStopForSubroute(subroute, sp, sp.m_mergeNextStop);
   }
   else
   {
+    sp.m_mergeNextStop = false;
     sp.m_pendingEntrance = true;
   }
 
@@ -574,6 +622,7 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
       sp.m_lastColor = "";
       sp.m_lastLineId = routing::transit::kInvalidLineId;
       sp.m_transitType = TransitType::Pedestrian;
+      sp.m_mergeNextStop = false;
       continue;
     }
 
@@ -589,6 +638,8 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
       AddEdgeSubwayForSubroute(s, subroute, sp, ssp, legStops[i].first, legStops[i].second);
     else if (ssp.m_transitInfo.GetType() == routing::TransitInfo::Type::Gate)
       AddGateSubwayForSubroute(s, subroute, sp, ssp);
+    else
+      sp.m_mergeNextStop = false;
   }
 
   m_routeInfo.m_totalDistInMeters = sp.m_prevDistance;

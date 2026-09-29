@@ -126,8 +126,10 @@ TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkp
 
 // Builds the transit Place Page breakdown (TransitRouteInfo with per-leg steps and line numbers) for
 // |route| via the real TransitRouteDisplay, reading the transit section through the components'
-// DataSource — same path the app uses to render the route summary.
-TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route);
+// DataSource — same path the app uses to render the route summary. Optionally collects rendered
+// subroutes to check stop markers and polyline geometry.
+TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route,
+                                     std::vector<df::Subroute> * subroutes = nullptr);
 
 // Geodesic length in meters of the route's pedestrian (walking) legs — segments without transit
 // info. Useful to assert that a less-walking alternative actually walks less.

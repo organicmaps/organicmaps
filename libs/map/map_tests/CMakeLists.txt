@@ -24,6 +24,7 @@ set(SRC
   search_api_tests.cpp
   search_mark_lifecycle_tests.cpp
   search_viewport_tests.cpp
+  transit_display_tests.cpp
   transliteration_test.cpp
   relation_track_tests.cpp
   routing_manager_tests.cpp
