@@ -149,7 +149,7 @@ void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo, double ag
     m_lastGpsInfo = gpsInfo;
     m_lastOutput = gpsInfo;
     double const now = MonotonicSeconds();
-    bool const validAge = std::isfinite(ageSeconds) && ageSeconds >= 0.0;
+    bool const validAge = math::is_finite(ageSeconds) && ageSeconds >= 0.0;
     m_lastGpsTime = now - (validAge ? ageSeconds : 0.0);
     m_vehicleMotion.SetFix(validAge ? gpsInfo : location::GpsInfo{}, m_lastGpsTime, now);
     ++m_motionRevision;
@@ -166,7 +166,7 @@ void Extrapolator::OnVehicleSpeed(double speedMps, double ageSeconds, bool valid
 {
   std::lock_guard<std::mutex> guard(m_mutex);
   ++m_motionRevision;
-  if (!valid || !std::isfinite(ageSeconds) || ageSeconds < 0.0 || ageSeconds > VehicleMotion::kMaxAgeSeconds)
+  if (!valid || !math::is_finite(ageSeconds) || ageSeconds < 0.0 || ageSeconds > VehicleMotion::kMaxAgeSeconds)
   {
     m_vehicleMotion.InvalidateSpeed();
     return;

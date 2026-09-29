@@ -16,7 +16,7 @@ bool VehicleMotion::HasFreshSpeed(double now) const
 
 bool VehicleMotion::CanUseCourse() const
 {
-  return std::isfinite(m_fix.m_bearing) && m_fix.m_bearing >= 0.0 && m_fix.m_bearing < 360.0;
+  return math::is_finite(m_fix.m_bearing) && m_fix.m_bearing >= 0.0 && m_fix.m_bearing < 360.0;
 }
 
 void VehicleMotion::SetFix(location::GpsInfo const & fix, double timestamp, double now)
@@ -25,18 +25,19 @@ void VehicleMotion::SetFix(location::GpsInfo const & fix, double timestamp, doub
   m_fixTime = timestamp;
   m_distance = 0.0;
   m_blockedUntilFix = false;
-  m_fixValid = fix.IsValid() && std::isfinite(timestamp) && timestamp <= now && now - timestamp < kMaxAgeSeconds &&
-               std::isfinite(fix.m_timestamp) && std::isfinite(fix.m_latitude) && std::isfinite(fix.m_longitude) &&
-               std::abs(fix.m_latitude) < 90.0 && std::abs(fix.m_longitude) <= 180.0;
+  m_fixValid = fix.IsValid() && math::is_finite(timestamp) && timestamp <= now && now - timestamp < kMaxAgeSeconds &&
+               math::is_finite(fix.m_timestamp) && math::is_finite(fix.m_latitude) &&
+               math::is_finite(fix.m_longitude) && std::abs(fix.m_latitude) < 90.0 &&
+               std::abs(fix.m_longitude) <= 180.0;
   m_vehicleForFix = m_fixValid && HasFreshSpeed(now) && (CanUseCourse() || m_speeds.back().m_value == 0.0);
 }
 
 bool VehicleMotion::SetSpeed(double speedMps, double timestamp, double now)
 {
-  if (std::isfinite(timestamp) && timestamp <= m_lastSpeedTime)
+  if (math::is_finite(timestamp) && timestamp <= m_lastSpeedTime)
     return false;
-  if (!std::isfinite(speedMps) || std::abs(speedMps) > kMaxSpeedMps || !std::isfinite(timestamp) || timestamp > now ||
-      now - timestamp > kMaxAgeSeconds)
+  if (!math::is_finite(speedMps) || std::abs(speedMps) > kMaxSpeedMps || !math::is_finite(timestamp) ||
+      timestamp > now || now - timestamp > kMaxAgeSeconds)
   {
     InvalidateSpeed();
     return false;

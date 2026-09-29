@@ -32,7 +32,7 @@ private:
   bool CanUseCourse() const;
 
   std::deque<Speed> m_speeds;
-  double m_lastSpeedTime = -std::numeric_limits<double>::infinity();
+  double m_lastSpeedTime = std::numeric_limits<double>::lowest();
   location::GpsInfo m_fix;
   double m_fixTime = 0.0;
   double m_distance = 0.0;

@@ -4,8 +4,6 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "map/extrapolation/vehicle_motion.hpp"
 
-#include <limits>
-
 namespace vehicle_motion_tests
 {
 using extrapolation::VehicleMotion;
@@ -56,7 +54,7 @@ UNIT_TEST(VehicleMotion_TrustedZeroStopsAdvancing)
 
 UNIT_TEST(VehicleMotion_InvalidSpeedHoldsUntilNewFix)
 {
-  for (double speed : {76.0, -76.0, std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity()})
+  for (double speed : {76.0, -76.0, math::Nan(), math::Infinity(), -math::Infinity()})
   {
     VehicleMotion motion;
     motion.SetSpeed(10.0, 9.9, 10.0);
@@ -69,6 +67,42 @@ UNIT_TEST(VehicleMotion_InvalidSpeedHoldsUntilNewFix)
     TEST(!motion.Predict(10.6), ());
     motion.SetFix(Fix(), 11.0, 11.0);
     TEST(motion.Predict(11.2), ());
+  }
+}
+
+UNIT_TEST(VehicleMotion_RejectsNonFiniteMeasurementTimes)
+{
+  for (double timestamp : {math::Nan(), math::Infinity(), -math::Infinity()})
+  {
+    VehicleMotion motion;
+    TEST(motion.SetSpeed(10.0, 9.9, 10.0), ());
+    motion.SetFix(Fix(), 10.0, 10.0);
+    TEST(motion.Predict(10.2), ());
+    TEST(!motion.SetSpeed(10.0, timestamp, 10.3), ());
+    TEST(!motion.Predict(10.4), ());
+    TEST(motion.ShouldHoldPosition(), ());
+
+    TEST(motion.SetSpeed(10.0, 10.5, 10.5), ());
+    motion.SetFix(Fix(), timestamp, 10.5);
+    TEST(!motion.Predict(10.6), ());
+  }
+}
+
+UNIT_TEST(VehicleMotion_RejectsNonFiniteLocationAndCourse)
+{
+  for (double value : {math::Nan(), math::Infinity(), -math::Infinity()})
+  {
+    for (auto field : {&location::GpsInfo::m_timestamp, &location::GpsInfo::m_latitude, &location::GpsInfo::m_longitude,
+                       &location::GpsInfo::m_bearing})
+    {
+      VehicleMotion motion;
+      TEST(motion.SetSpeed(10.0, 9.9, 10.0), ());
+      auto fix = Fix();
+      fix.*field = value;
+      motion.SetFix(fix, 10.0, 10.0);
+      TEST(!motion.Predict(10.2), ());
+      TEST(!motion.ShouldHoldPosition(), ());
+    }
   }
 }
 

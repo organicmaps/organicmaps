@@ -112,10 +112,11 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 # Ubuntu x86_64 gcc 14.2.0 ignores -fno-finite-math-only in debug builds without -O1.
 # The -O1 workaround is GCC-specific; clang does not need it, and the Xcode generator
 # does not support per-config per-source COMPILE_OPTIONS — both fall through naturally.
+# Keep these helpers opaque to LTO so finite-math callers cannot fold their checks.
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;$<$<CONFIG:DEBUG>:-O1>")
+  set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;-fno-lto;$<$<CONFIG:DEBUG>:-O1>")
 elseif (NOT MSVC)
-  set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only")
+  set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;-fno-lto")
 endif()
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)

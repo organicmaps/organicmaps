@@ -145,8 +145,8 @@
 		E1B7FFC221FA19FE00F094DC /* thread_pool_delayed.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E1B7FFBE21FA19FD00F094DC /* thread_pool_delayed.hpp */; };
 		E1B7FFC321FA19FE00F094DC /* thread_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E1B7FFBF21FA19FD00F094DC /* thread_utils.hpp */; };
 		E1B7FFC421FA19FE00F094DC /* thread_pool_delayed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1B7FFC021FA19FE00F094DC /* thread_pool_delayed.cpp */; };
-		FAB54F592E053C17007B540E /* fast_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB54F582E053C17007B540E /* fast_math.cpp */; };
-		FAB54F5A2E053C17007B540E /* fast_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB54F582E053C17007B540E /* fast_math.cpp */; settings = {COMPILER_FLAGS = "-fno-finite-math-only"; }; };
+		FAB54F592E053C17007B540E /* fast_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB54F582E053C17007B540E /* fast_math.cpp */; settings = {COMPILER_FLAGS = "-fno-finite-math-only -fno-lto"; }; };
+		FAB54F5A2E053C17007B540E /* fast_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB54F582E053C17007B540E /* fast_math.cpp */; settings = {COMPILER_FLAGS = "-fno-finite-math-only -fno-lto"; }; };
 		FACB768326B8738F00810C9C /* linked_map_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D08987A24810A1300837783 /* linked_map_tests.cpp */; };
 		FACB768426B8739300810C9C /* checked_cast_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B94240FB11200ED9FE8 /* checked_cast_tests.cpp */; };
 		FACB768526B873A000810C9C /* lru_cache_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56290B8B206D0937003892E0 /* lru_cache_tests.cpp */; };

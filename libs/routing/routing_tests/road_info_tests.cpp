@@ -1,3 +1,4 @@
+#include "base/math.hpp"
 #include "geometry/mercator.hpp"
 #include "routing/road_info.hpp"
 #include "routing/routing_tests/road_graph_builder.hpp"
@@ -27,6 +28,8 @@ UNIT_TEST(RoadInfo_MatchingRejectsAmbiguityAndWrongDirection)
   TEST(!MatchRoad({0.0005, 0}, {0, 1}, 5, candidates), ());
   TEST(!MatchRoad({0.0005, 0}, {}, 5, candidates), ());
   TEST(!MatchRoad({0.0005, 0}, {1, 0}, 100, candidates), ());
+  for (double accuracy : {math::Nan(), math::Infinity(), -math::Infinity()})
+    TEST(!MatchRoad({0.0005, 0}, {1, 0}, accuracy, candidates), ());
   candidates.emplace_back(parallel, geometry::MakePointWithAltitudeForTesting({0.0005, 0.00002}));
   TEST(!MatchRoad({0.0005, 0}, {1, 0}, 5, candidates), ());
 }
