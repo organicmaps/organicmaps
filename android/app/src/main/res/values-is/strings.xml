@@ -753,8 +753,7 @@
     <string name="deselect_all">Afvelja allt</string>
     <string name="select_list">Veldu lista</string>
     <string name="button_layer_isolines">Hæðarlínur</string>
-    <string name="isolines_activation_error_dialog">Til að virkja hæðarlínur þarf að sækja kortagögn fyrir þetta svæði</string>
-    <string name="isolines_location_error_dialog">Hæðarlínur eru ennþá ekki tiltækar á þessu svæði</string>
+    <string name="isolines_location_error_dialog">Uppfærðu þetta svæði til að sjá hæðarlínur</string>
     <string name="elevation_profile_ascent">Hækkun</string>
     <string name="elevation_profile_descent">Lækkun</string>
     <string name="elevation_profile_min_elevation">Lágm.hæð</string>
@@ -903,6 +902,8 @@
     <string name="move">Færa</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Breyta lit</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Virkja</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -953,4 +954,6 @@
     <string name="choose_point_on_map_hint">Hreyfðu og stækkaðu kortið til að staðsetja krossinn</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stöðva og vista</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Halda</string>
 </resources>

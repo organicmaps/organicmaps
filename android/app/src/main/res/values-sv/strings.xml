@@ -750,8 +750,7 @@
     <string name="deselect_all">Avmarkera alla</string>
     <string name="select_list">Välj lista</string>
     <string name="button_layer_isolines">Terräng</string>
-    <string name="isolines_activation_error_dialog">Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område</string>
-    <string name="isolines_location_error_dialog">Höjdkurvor är ännu inte tillgängliga i det här området</string>
+    <string name="isolines_location_error_dialog">Uppdatera det här området för att se höjdkurvor</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Backe</string>
     <string name="elevation_profile_min_elevation">Min. höjd</string>
@@ -902,6 +901,8 @@
     <string name="hide_track">Dölj spår</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Visa spår</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivera</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -952,4 +953,6 @@
     <string name="choose_point_on_map_hint">Flytta och zooma på kartan för att placera korset</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stoppa och spara</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behåll</string>
 </resources>

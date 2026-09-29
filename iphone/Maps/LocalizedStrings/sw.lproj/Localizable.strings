@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Njia ya chini kwa chini haipatikani";
 "dialog_pedestrian_route_is_long_message" = "Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini";
 "button_layer_isolines" = "Topografia";
-"isolines_activation_error_dialog" = "Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo";
-"isolines_location_error_dialog" = "Mistari ya mwinuko bado haipatikani katika eneo hili";
+"isolines_location_error_dialog" = "Sasisha eneo hili ili kuona mistari ya mwinuko";
 "elevation_profile_ascent" = "Upandaji";
 "elevation_profile_descent" = "Ushukaji";
 "elevation_profile_min_elevation" = "Min. mwinuko";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Sogeza na zuma ramani ili kuweka msalaba";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Hifadhi";

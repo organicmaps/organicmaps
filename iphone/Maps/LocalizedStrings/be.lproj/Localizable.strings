@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Маршрут на метро не знойдзены";
 "dialog_pedestrian_route_is_long_message" = "Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро";
 "button_layer_isolines" = "Рэльеф";
-"isolines_activation_error_dialog" = "Каб задзейнічаць лініі рэльефу, трэба абнавіць мапу гэтага рэгіёна";
-"isolines_location_error_dialog" = "Для гэтага рэгіёна мапы рэльефу яшчэ недаступны";
+"isolines_location_error_dialog" = "Абнавіце гэты рэгіён, каб убачыць лініі вышынь";
 "elevation_profile_ascent" = "Пад'ём";
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мін. вышыня";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Рухайце мапу і змяняйце маштаб, каб размясціць крыжык";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Пакінуць";

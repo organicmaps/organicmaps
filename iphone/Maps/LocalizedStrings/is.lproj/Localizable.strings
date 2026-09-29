@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Engin neðanjarðarlestarleið fannst";
 "dialog_pedestrian_route_is_long_message" = "Veldu upphafs- eða endastað sem er nær neðanjarðarlestarstöð";
 "button_layer_isolines" = "Hæðarlínur";
-"isolines_activation_error_dialog" = "Til að virkja hæðarlínur þarf að sækja kortagögn fyrir þetta svæði";
-"isolines_location_error_dialog" = "Hæðarlínur eru ennþá ekki tiltækar á þessu svæði";
+"isolines_location_error_dialog" = "Uppfærðu þetta svæði til að sjá hæðarlínur";
 "elevation_profile_ascent" = "Hækkun";
 "elevation_profile_descent" = "Lækkun";
 "elevation_profile_min_elevation" = "Lágm.hæð";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Hreyfðu og stækkaðu kortið til að staðsetja krossinn";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Halda";

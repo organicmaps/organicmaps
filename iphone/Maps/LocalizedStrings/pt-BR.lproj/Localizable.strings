@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metrô";
 "dialog_pedestrian_route_is_long_message" = "Escolha outro ponto de início ou fim perto da estação de metrô";
 "button_layer_isolines" = "Relevo";
-"isolines_activation_error_dialog" = "Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região";
-"isolines_location_error_dialog" = "A camada Relevo ainda não está disponível para esta região";
+"isolines_location_error_dialog" = "Atualize esta região para ver as curvas de nível";
 "elevation_profile_ascent" = "Subida";
 "elevation_profile_descent" = "Descida";
 "elevation_profile_min_elevation" = "Elevação mínima";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Mova e amplie o mapa para posicionar a cruz";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Manter";

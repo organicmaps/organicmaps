@@ -750,8 +750,7 @@
     <string name="deselect_all">Kendu hautapena</string>
     <string name="select_list">Hautatu zerrenda</string>
     <string name="button_layer_isolines">Sestra kurbak</string>
-    <string name="isolines_activation_error_dialog">Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa</string>
-    <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>
+    <string name="isolines_location_error_dialog">Eguneratu eskualde hau sestra-kurbak ikusteko</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>
     <string name="elevation_profile_min_elevation">Altitude min</string>
@@ -902,6 +901,8 @@
     <string name="hide_track">Ezkutatu arrastoa</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Erakutsi arrastoa</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Gaitu</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -952,4 +953,6 @@
     <string name="choose_point_on_map_hint">Mugitu eta handitu mapa gurutzea kokatzeko</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Gelditu eta gorde</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Mantendu</string>
 </resources>

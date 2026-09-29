@@ -751,8 +751,7 @@
     <string name="deselect_all">Κατάργηση επιλογής</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
-    <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
-    <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>
+    <string name="isolines_location_error_dialog">Ενημερώστε αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές</string>
     <string name="elevation_profile_ascent">Ανάβαση</string>
     <string name="elevation_profile_descent">Κατάβαση</string>
     <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>
@@ -903,6 +902,8 @@
     <string name="hide_track">Απόκρυψη διαδρομής</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Εμφάνιση διαδρομής</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ενεργοποίηση</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -953,4 +954,6 @@
     <string name="choose_point_on_map_hint">Μετακινήστε και μεγεθύνετε τον χάρτη για να τοποθετήσετε τον σταυρό</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Διακοπή και αποθήκευση</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Διατήρηση</string>
 </resources>

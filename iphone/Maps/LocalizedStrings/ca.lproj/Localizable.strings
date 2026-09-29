@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";
 "button_layer_isolines" = "Corbes de nivell";
-"isolines_activation_error_dialog" = "Per a activar i usar la capa topogràfica, actualitzeu o baixeu el mapa de l’àrea";
-"isolines_location_error_dialog" = "La capa topogràfica encara no és disponible en aquesta àrea";
+"isolines_location_error_dialog" = "Actualitzeu aquesta regió per veure les corbes de nivell";
 "elevation_profile_ascent" = "Ascens";
 "elevation_profile_descent" = "Descens";
 "elevation_profile_min_elevation" = "Elevació mín.";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Moveu i amplieu el mapa per col·locar la creu";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Conserva";

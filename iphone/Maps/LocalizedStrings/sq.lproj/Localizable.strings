@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nuk u gjet asnjë rrugë metroje";
 "dialog_pedestrian_route_is_long_message" = "Ju lutemi zgjidhni një pikë fillimi ose fundi më afër një stacioni metroje";
 "button_layer_isolines" = "Vija Konture";
-"isolines_activation_error_dialog" = "Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë";
-"isolines_location_error_dialog" = "Vijat e konturit nuk janë ende të disponueshme në këtë zonë";
+"isolines_location_error_dialog" = "Përditësoni këtë zonë për të parë vijat e konturit";
 "elevation_profile_ascent" = "Ngjitje";
 "elevation_profile_descent" = "Zbritje";
 "elevation_profile_min_elevation" = "Lartësia min.";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Lëvizni dhe zmadhoni hartën për të vendosur kryqin";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Mbaj";

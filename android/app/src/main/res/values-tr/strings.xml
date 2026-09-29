@@ -752,8 +752,7 @@
     <string name="deselect_all">Seçimi kaldır</string>
     <string name="select_list">Liste seç</string>
     <string name="button_layer_isolines">İzohipsler</string>
-    <string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
-    <string name="isolines_location_error_dialog">İzohipsler henüz bu bölgede kullanılamaz</string>
+    <string name="isolines_location_error_dialog">İzohipsleri görmek için bu bölgeyi güncelleyin</string>
     <string name="elevation_profile_ascent">Tırmanış</string>
     <string name="elevation_profile_descent">İniş</string>
     <string name="elevation_profile_min_elevation">Min. yükselti</string>
@@ -906,6 +905,8 @@
     <string name="hide_track">İzi gizle</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göster</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Etkinleştir</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -956,4 +957,6 @@
     <string name="choose_point_on_map_hint">Çarpı imini yerleştirmek için haritayı kaydırın ve yakınlaştırın</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Durdur ve Kaydet</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Sakla</string>
 </resources>

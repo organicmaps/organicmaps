@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "No metro route found";
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a metro station";
 "button_layer_isolines" = "Contour Lines";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
-"isolines_location_error_dialog" = "Contour lines are not yet available in this area";
+"isolines_location_error_dialog" = "Update this region to see contour lines";
 "elevation_profile_ascent" = "Ascent";
 "elevation_profile_descent" = "Descent";
 "elevation_profile_min_elevation" = "Min. elevation";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Move and zoom the map to place the cross";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Keep";

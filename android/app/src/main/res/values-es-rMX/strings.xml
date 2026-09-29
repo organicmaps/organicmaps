@@ -386,8 +386,7 @@
     <string name="fuel_places">Gasolinería</string>
     <string name="religious_places">Sitios religiosos</string>
     <string name="button_layer_isolines">Líneas de contorno</string>
-    <string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualice o descargue el mapa del área deseada</string>
-    <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>
+    <string name="isolines_location_error_dialog">Actualice esta región para ver las curvas de nivel</string>
     <string name="elevation_profile_min_elevation">Elevación mínima</string>
     <string name="elevation_profile_max_elevation">Elevación máxima</string>
     <string name="elevation_profile_distance">Distancia:</string>
@@ -482,4 +481,6 @@
     <string name="login_osm_browser">Iniciar sesión utilizando el navegador</string>
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Conservar</string>
 </resources>

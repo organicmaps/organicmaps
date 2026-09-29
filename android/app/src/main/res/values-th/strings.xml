@@ -749,8 +749,7 @@
     <string name="deselect_all">ยกเลิกการเลือก</string>
     <string name="select_list">เลือกรายการ</string>
     <string name="button_layer_isolines">ความสูง</string>
-    <string name="isolines_activation_error_dialog">ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น</string>
-    <string name="isolines_location_error_dialog">เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้</string>
+    <string name="isolines_location_error_dialog">อัปเดตพื้นที่นี้เพื่อดูเส้นชั้นความสูง</string>
     <string name="elevation_profile_ascent">การขึ้น</string>
     <string name="elevation_profile_descent">การลง</string>
     <string name="elevation_profile_min_elevation">ต่ำสุด</string>
@@ -889,6 +888,8 @@
     <string name="hide_track">ซ่อนเส้นทาง</string>
     <!-- Text for the showing track. -->
     <string name="show_track">แสดงเส้นทาง</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">เปิดใช้งาน</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -939,4 +940,6 @@
     <string name="choose_point_on_map_hint">เลื่อนและซูมแผนที่เพื่อวางกากบาท</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">หยุดและบันทึก</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">เก็บไว้</string>
 </resources>

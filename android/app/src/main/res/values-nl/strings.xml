@@ -753,8 +753,7 @@
     <string name="deselect_all">Selectie opheffen</string>
     <string name="select_list">Kies een lijst</string>
     <string name="button_layer_isolines">Contourlijnen</string>
-    <string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden</string>
-    <string name="isolines_location_error_dialog">Hoogtelijnen zijn nog niet beschikbaar in deze regio</string>
+    <string name="isolines_location_error_dialog">Werk deze regio bij om hoogtelijnen te zien</string>
     <string name="elevation_profile_ascent">Stijging</string>
     <string name="elevation_profile_descent">Daling</string>
     <string name="elevation_profile_min_elevation">Min. hoogte</string>
@@ -907,6 +906,8 @@
     <string name="hide_track">Route verbergen</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Route tonen</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Schakel in</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -957,4 +958,6 @@
     <string name="choose_point_on_map_hint">Verplaats en zoom in of uit op de kaart om het kruis te plaatsen</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stoppen en opslaan</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behouden</string>
 </resources>

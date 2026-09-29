@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "未找到捷運路線";
 "dialog_pedestrian_route_is_long_message" = "選擇捷運站附近的起點和終點";
 "button_layer_isolines" = "等高線";
-"isolines_activation_error_dialog" = "如需使用等高線，請更新或下載所需區域的地圖";
-"isolines_location_error_dialog" = "暫時無法獲取該地區的等高線";
+"isolines_location_error_dialog" = "更新該地區以查看等高線";
 "elevation_profile_ascent" = "上坡";
 "elevation_profile_descent" = "下坡";
 "elevation_profile_min_elevation" = "最低高度";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "移動並縮放地圖以定位十字";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "保留";

@@ -750,8 +750,7 @@
     <string name="deselect_all">Seçimi ləğv et</string>
     <string name="select_list">Siyahı seçin</string>
     <string name="button_layer_isolines">Ərazi</string>
-    <string name="isolines_activation_error_dialog">Ərazi qatını aktivləşdirmək və istifadə etmək üçün xəritəni yeniləyin və ya endirin</string>
-    <string name="isolines_location_error_dialog">Bu bölgədə relyef təbəqəsi hələ mövcud deyil</string>
+    <string name="isolines_location_error_dialog">Kontur xətlərini görmək üçün bu bölgəni yeniləyin</string>
     <string name="elevation_profile_ascent">Qalxmaq</string>
     <string name="elevation_profile_descent">Eniş</string>
     <string name="elevation_profile_min_elevation">Min. hündürlük</string>
@@ -896,6 +895,8 @@
     <string name="hide_track">İzi gizlədin</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göstər</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivləşdirin</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -946,4 +947,6 @@
     <string name="choose_point_on_map_hint">Xaç işarəsini yerləşdirmək üçün xəritəni hərəkət etdirin və yaxınlaşdırın</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Dayandırın və yadda saxlayın</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Saxla</string>
 </resources>

@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metroo marsruuti ei leidu";
 "dialog_pedestrian_route_is_long_message" = "Palun vali metroojaamale lähemal asuv alg- või lõpp-punkt";
 "button_layer_isolines" = "Kontuurjooned";
-"isolines_activation_error_dialog" = "Topograafilise kihi aktiveerimiseks ja kasutamiseks laadi alla piirkonna kaart";
-"isolines_location_error_dialog" = "Topograafiline kiht ei ole selles piirkonnas veel saadaval";
+"isolines_location_error_dialog" = "Uuenda seda piirkonda, et näha kõrgusjooni";
 "elevation_profile_ascent" = "Tõus";
 "elevation_profile_descent" = "Langus";
 "elevation_profile_min_elevation" = "Min. kõrgus";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Liiguta ja suumi kaarti, et paigutada rist õigesse kohta";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Säilita";

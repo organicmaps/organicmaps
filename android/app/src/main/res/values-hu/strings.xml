@@ -753,8 +753,7 @@
     <string name="deselect_all">Kijelölés megszüntetése</string>
     <string name="select_list">Lista kiválasztása</string>
     <string name="button_layer_isolines">Szintvonalak</string>
-    <string name="isolines_activation_error_dialog">A szintvonalak aktiválásához a terület térképadatainak letöltése szükséges</string>
-    <string name="isolines_location_error_dialog">A szintvonalak még nem állnak rendelkezésre ezen a területen</string>
+    <string name="isolines_location_error_dialog">Frissítse ezt a területet a szintvonalak megjelenítéséhez</string>
     <string name="elevation_profile_ascent">Növekvő</string>
     <string name="elevation_profile_descent">Csökkenő</string>
     <string name="elevation_profile_min_elevation">Legkisebb magasság</string>
@@ -907,6 +906,8 @@
     <string name="hide_track">Nyomvonal elrejtése</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Nyomvonal megjelenítése</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Engedélyezés</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -957,4 +958,6 @@
     <string name="choose_point_on_map_hint">Mozgassa és nagyítsa/kicsinyítse a térképet a kereszt elhelyezéséhez</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Megállítás és mentés</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Megtartás</string>
 </resources>

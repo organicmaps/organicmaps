@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Маршрут метро не найден";
 "dialog_pedestrian_route_is_long_message" = "Выберите начальную или конечную точку маршрута ближе к станции метро";
 "button_layer_isolines" = "Высоты";
-"isolines_activation_error_dialog" = "Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности";
-"isolines_location_error_dialog" = "Линии высот пока не доступны в этом регионе";
+"isolines_location_error_dialog" = "Обновите этот регион, чтобы увидеть линии высот";
 "elevation_profile_ascent" = "Подъём";
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мин. высота";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Перемещайте и масштабируйте карту, чтобы установить крестик";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Оставить";

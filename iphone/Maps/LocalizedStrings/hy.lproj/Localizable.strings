@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Մետրոյի երթուղի չի գտնվել";
 "dialog_pedestrian_route_is_long_message" = "Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ";
 "button_layer_isolines" = "Հորիզոնականներ";
-"isolines_activation_error_dialog" = "Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները";
-"isolines_location_error_dialog" = "Հորիզոնականները դեռ հասանելի չեն այս տարածքում";
+"isolines_location_error_dialog" = "Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար";
 "elevation_profile_ascent" = "Վերելք";
 "elevation_profile_descent" = "Վայրէջք";
 "elevation_profile_min_elevation" = "Նվազգ. բարձրություն";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Շարժեք և մեծացրեք քարտեզը՝ խաչը տեղադրելու համար";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Պահել";

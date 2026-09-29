@@ -750,8 +750,7 @@
     <string name="deselect_all">בטל בחירה</string>
     <string name="select_list">בחר רשימה</string>
     <string name="button_layer_isolines">קווי מתאר</string>
-    <string name="isolines_activation_error_dialog">כדי להפעיל קווי מתאר יש להוריד את המפה לאזור זה</string>
-    <string name="isolines_location_error_dialog">קווי מתאר עוד לא זמינים לאזור זה</string>
+    <string name="isolines_location_error_dialog">עדכנו את האזור הזה כדי לראות קווי מתאר</string>
     <string name="elevation_profile_ascent">עלייה</string>
     <string name="elevation_profile_descent">ירידה</string>
     <string name="elevation_profile_min_elevation">מינ\' גובה</string>
@@ -892,6 +891,8 @@
     <string name="hide_track">הסתר מסלול</string>
     <!-- Text for the showing track. -->
     <string name="show_track">הצג מסלול</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">הפעל</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -942,4 +943,6 @@
     <string name="choose_point_on_map_hint">הזז את המפה ושנה את רמת הזום כדי למקם את הצלב</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">הפסק ושמור</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">שמור</string>
 </resources>

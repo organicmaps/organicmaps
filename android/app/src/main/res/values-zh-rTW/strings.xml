@@ -751,8 +751,7 @@
     <string name="deselect_all">取消全選</string>
     <string name="select_list">選擇列表</string>
     <string name="button_layer_isolines">等高線</string>
-    <string name="isolines_activation_error_dialog">如需使用等高線，請更新或下載所需區域的地圖</string>
-    <string name="isolines_location_error_dialog">暫時無法獲取該地區的等高線</string>
+    <string name="isolines_location_error_dialog">更新該地區以查看等高線</string>
     <string name="elevation_profile_ascent">上坡</string>
     <string name="elevation_profile_descent">下坡</string>
     <string name="elevation_profile_min_elevation">最低高度</string>
@@ -903,6 +902,8 @@
     <string name="hide_track">隱藏軌跡</string>
     <!-- Text for the showing track. -->
     <string name="show_track">顯示軌跡</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">啟用</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -953,4 +954,6 @@
     <string name="choose_point_on_map_hint">移動並縮放地圖以定位十字</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">停止並儲存</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">保留</string>
 </resources>

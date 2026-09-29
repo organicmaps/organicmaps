@@ -752,8 +752,7 @@
     <string name="deselect_all">Auswahl aufheben</string>
     <string name="select_list">Liste auswählen</string>
     <string name="button_layer_isolines">Höhenlinien</string>
-    <string name="isolines_activation_error_dialog">Um die Höhenlinien nutzen zu können, aktualisiere die Karte des betreffenden Gebiets oder lade diese herunter</string>
-    <string name="isolines_location_error_dialog">Höhenlinien sind für dieses Gebiet noch nicht verfügbar</string>
+    <string name="isolines_location_error_dialog">Aktualisiere diese Region, um Höhenlinien zu sehen</string>
     <string name="elevation_profile_ascent">Bergauf</string>
     <string name="elevation_profile_descent">Bergab</string>
     <string name="elevation_profile_min_elevation">Min. Höhe</string>
@@ -906,6 +905,8 @@
     <string name="hide_track">Track ausblenden</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Track anzeigen</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivieren</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -956,4 +957,6 @@
     <string name="choose_point_on_map_hint">Verschiebe und zoome die Karte, um das Kreuz zu platzieren</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Beenden und speichern</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behalten</string>
 </resources>

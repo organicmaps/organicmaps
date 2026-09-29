@@ -756,8 +756,7 @@
     <string name="deselect_all">Zrušit výběr</string>
     <string name="select_list">Vybrat seznam</string>
     <string name="button_layer_isolines">Terén</string>
-    <string name="isolines_activation_error_dialog">Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti</string>
-    <string name="isolines_location_error_dialog">Topografická vrstva není v této oblasti ještě dostupná</string>
+    <string name="isolines_location_error_dialog">Aktualizujte tuto oblast, abyste viděli vrstevnice</string>
     <string name="elevation_profile_ascent">Stoupání</string>
     <string name="elevation_profile_descent">Klesání</string>
     <string name="elevation_profile_min_elevation">Min. výška</string>
@@ -912,6 +911,8 @@
     <string name="hide_track">Skrýt stopu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Zobrazit stopu</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Povolit</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -962,4 +963,6 @@
     <string name="choose_point_on_map_hint">Posuňte a přibližujte mapu, abyste umístili křížek</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Zastavit a uložit</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Ponechat</string>
 </resources>

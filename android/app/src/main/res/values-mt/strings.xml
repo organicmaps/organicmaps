@@ -753,8 +753,7 @@
     <string name="deselect_all">Neħħi l-għażla</string>
     <string name="select_list">Agħżel il-lista</string>
     <string name="button_layer_isolines">Linji tal-Contour</string>
-    <string name="isolines_activation_error_dialog">L-attivazzjoni tal-linji tal-contour teħtieġ it-tniżżil tad-dejta tal-mappa għal din iż-żona</string>
-    <string name="isolines_location_error_dialog">Il-linji tal-Contour għadhom mhumiex disponibbli f ’din iż-żona</string>
+    <string name="isolines_location_error_dialog">Aġġorna din iż-żona biex tara l-linji tal-kontorn</string>
     <string name="elevation_profile_ascent">Tlugħ</string>
     <string name="elevation_profile_descent">Inżul</string>
     <string name="elevation_profile_min_elevation">Elevazzjoni minima</string>
@@ -897,6 +896,8 @@
     <string name="move">Ħawwad</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Biddel il-kulur</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Attiva</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -947,4 +948,6 @@
     <string name="choose_point_on_map_hint">Mexxi u kabbar il-mappa biex tqiegħed is-salib</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Waqqaf u ssejvja</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Żomm</string>
 </resources>

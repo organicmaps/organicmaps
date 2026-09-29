@@ -333,7 +333,7 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Desesbillar too</string>
     <string name="button_layer_isolines">Curves de nivel</string>
-    <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
+    <string name="isolines_location_error_dialog">Anueva esta rexón pa ver les curves de nivel</string>
     <string name="elevation_profile_ascent">Ascensu</string>
     <string name="elevation_profile_descent">Descensu</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
@@ -392,6 +392,8 @@
         <item quantity="one">¿Desaniciar %d elementu?</item>
         <item quantity="other">¿Desaniciar %d elementos?</item>
     </plurals>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -400,4 +402,6 @@
     <!-- SECTION: gps strings -->
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar y guardar</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Caltener</string>
 </resources>

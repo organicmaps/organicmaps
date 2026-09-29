@@ -741,8 +741,7 @@
     <string name="deselect_all">Ondoa uteuzi</string>
     <string name="select_list">Chagua orodha</string>
     <string name="button_layer_isolines">Topografia</string>
-    <string name="isolines_activation_error_dialog">Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo</string>
-    <string name="isolines_location_error_dialog">Mistari ya mwinuko bado haipatikani katika eneo hili</string>
+    <string name="isolines_location_error_dialog">Sasisha eneo hili ili kuona mistari ya mwinuko</string>
     <string name="elevation_profile_ascent">Upandaji</string>
     <string name="elevation_profile_descent">Ushukaji</string>
     <string name="elevation_profile_min_elevation">Min. mwinuko</string>
@@ -883,6 +882,8 @@
     <string name="hide_track">Ficha njia</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Onyesha njia</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Wezesha</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -933,4 +934,6 @@
     <string name="choose_point_on_map_hint">Sogeza na zuma ramani ili kuweka msalaba</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Acha na hifadhi</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Hifadhi</string>
 </resources>

@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Geen metroroute gevonden";
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
 "button_layer_isolines" = "Contourlijnen";
-"isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden";
-"isolines_location_error_dialog" = "Hoogtelijnen zijn nog niet beschikbaar in deze regio";
+"isolines_location_error_dialog" = "Werk deze regio bij om hoogtelijnen te zien";
 "elevation_profile_ascent" = "Stijging";
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Verplaats en zoom in of uit op de kaart om het kruis te plaatsen";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Behouden";

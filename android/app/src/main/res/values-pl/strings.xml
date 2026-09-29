@@ -756,8 +756,7 @@
     <string name="deselect_all">Odznacz wszystko</string>
     <string name="select_list">Wybierz listę</string>
     <string name="button_layer_isolines">Poziomice</string>
-    <string name="isolines_activation_error_dialog">Do skorzystania z poziomic, pobierz mapę tego obszaru.</string>
-    <string name="isolines_location_error_dialog">Poziomice nie są jeszcze dostępne w tym regionie</string>
+    <string name="isolines_location_error_dialog">Zaktualizuj ten region, aby zobaczyć poziomice</string>
     <string name="elevation_profile_ascent">Wejście</string>
     <string name="elevation_profile_descent">Zejście</string>
     <string name="elevation_profile_min_elevation">Min. wysokość</string>
@@ -912,6 +911,8 @@
     <string name="hide_track">Ukryj trasę</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Pokaż trasę</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Włącz</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -962,4 +963,6 @@
     <string name="choose_point_on_map_hint">Przesuń i powiększ mapę, aby ustawić krzyżyk</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Zatrzymaj i zapisz</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Zachowaj</string>
 </resources>

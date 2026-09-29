@@ -750,8 +750,7 @@
     <string name="deselect_all">Poista valinnat</string>
     <string name="select_list">Valitse luettelo</string>
     <string name="button_layer_isolines">Maasto</string>
-    <string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta käyttääksesi korkeuskäyriä</string>
-    <string name="isolines_location_error_dialog">Korkeuskäyrät eivät ole vielä saatavilla tällä alueella</string>
+    <string name="isolines_location_error_dialog">Päivitä tämä alue nähdäksesi korkeuskäyrät</string>
     <string name="elevation_profile_ascent">Nousua</string>
     <string name="elevation_profile_descent">Laskua</string>
     <string name="elevation_profile_min_elevation">Min. korkeus</string>
@@ -900,6 +899,8 @@
     <string name="hide_track">Piilota reitti</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Näytä reitti</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ota käyttöön</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -950,4 +951,6 @@
     <string name="choose_point_on_map_hint">Siirrä ja zoomaa karttaa ristin sijoittamiseksi</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Lopeta ja tallenna</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Säilytä</string>
 </resources>

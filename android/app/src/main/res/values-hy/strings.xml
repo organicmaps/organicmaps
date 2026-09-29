@@ -750,8 +750,7 @@
     <string name="deselect_all">Չեղարկել ընտրությունը</string>
     <string name="select_list">Ընտրել ցուցակը</string>
     <string name="button_layer_isolines">Հորիզոնականներ</string>
-    <string name="isolines_activation_error_dialog">Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները</string>
-    <string name="isolines_location_error_dialog">Հորիզոնականները դեռ հասանելի չեն այս տարածքում</string>
+    <string name="isolines_location_error_dialog">Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար</string>
     <string name="elevation_profile_ascent">Վերելք</string>
     <string name="elevation_profile_descent">Վայրէջք</string>
     <string name="elevation_profile_min_elevation">Նվազգ. բարձրություն</string>
@@ -898,6 +897,8 @@
     <string name="move">Տեղափոխել</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Փոխել գույնը</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Միացնել</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -948,4 +949,6 @@
     <string name="choose_point_on_map_hint">Շարժեք և մեծացրեք քարտեզը՝ խաչը տեղադրելու համար</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Կանգնեցնել և պահպանել</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Պահել</string>
 </resources>

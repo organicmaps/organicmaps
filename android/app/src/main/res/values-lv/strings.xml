@@ -747,8 +747,7 @@
     <string name="deselect_all">Noņemt atlasi</string>
     <string name="select_list">Izvēlēties sarakstu</string>
     <string name="button_layer_isolines">Reljefa līnijas</string>
-    <string name="isolines_activation_error_dialog">Reljefa līniju parādīšanai nepieciešamas lejupielādēt šī reģiona karti</string>
-    <string name="isolines_location_error_dialog">Topogrāfiskais slānis šim reģionam nav pieejams</string>
+    <string name="isolines_location_error_dialog">Atjauniniet šo reģionu, lai redzētu horizontāles</string>
     <string name="elevation_profile_ascent">Kāpums</string>
     <string name="elevation_profile_descent">Kritums</string>
     <string name="elevation_profile_min_elevation">Zemākais punkts</string>
@@ -897,6 +896,8 @@
     <string name="hide_track">Paslēpt pēdojumu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Rādīt pēdojumu</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ieslēgt</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -947,4 +948,6 @@
     <string name="choose_point_on_map_hint">Pārvietojiet un tuviniet karti, lai novietotu krustiņu</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Pārtraukt un saglabāt</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Paturēt</string>
 </resources>

@@ -755,8 +755,7 @@
     <string name="deselect_all">Deseleziona tutto</string>
     <string name="select_list">Seleziona lista</string>
     <string name="button_layer_isolines">Curve di livello</string>
-    <string name="isolines_activation_error_dialog">Per attivare le curve di livello devi aggiornare o scaricare la mappa dell\'area interessata</string>
-    <string name="isolines_location_error_dialog">Le curve di livello per questa regione non sono ancora disponibili</string>
+    <string name="isolines_location_error_dialog">Aggiorna questa regione per vedere le curve di livello</string>
     <string name="elevation_profile_ascent">Salita</string>
     <string name="elevation_profile_descent">Discesa</string>
     <string name="elevation_profile_min_elevation">Elevazione minima</string>
@@ -909,6 +908,8 @@
     <string name="hide_track">Nascondi traccia</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostra traccia</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Attiva</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -959,4 +960,6 @@
     <string name="choose_point_on_map_hint">Sposta e ingrandisci la mappa per posizionare la croce</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Interrompi e salva</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Mantieni</string>
 </resources>

@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Không tìm thấy tuyến Metro";
 "dialog_pedestrian_route_is_long_message" = "Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro";
 "button_layer_isolines" = "Độ cao";
-"isolines_activation_error_dialog" = "Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn";
-"isolines_location_error_dialog" = "Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này";
+"isolines_location_error_dialog" = "Cập nhật khu vực này để xem các đường đồng mức";
 "elevation_profile_ascent" = "Đi lên";
 "elevation_profile_descent" = "Đi xuống";
 "elevation_profile_min_elevation" = "Min. độ cao";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Di chuyển và thu phóng bản đồ để đặt dấu thập";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Giữ lại";

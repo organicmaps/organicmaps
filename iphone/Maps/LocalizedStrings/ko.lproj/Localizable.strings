@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "지하철 루트가 발견되지 않았습니다";
 "dialog_pedestrian_route_is_long_message" = "지하철역에서 가까운 출발점 또는 종점을 선택하세요";
 "button_layer_isolines" = "지형";
-"isolines_activation_error_dialog" = "지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오";
-"isolines_location_error_dialog" = "이 지역의 지형 레이어는 아직 사용할 수 없습니다";
+"isolines_location_error_dialog" = "이 지역을 업데이트하면 등고선을 볼 수 있습니다";
 "elevation_profile_ascent" = "올라가기";
 "elevation_profile_descent" = "내려가기";
 "elevation_profile_min_elevation" = "최소 높이";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "유지";

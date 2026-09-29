@@ -741,8 +741,7 @@
     <string name="deselect_all">चयन हटाएँ</string>
     <string name="select_list">सूची चुनें</string>
     <string name="button_layer_isolines">रूप रेखा लाइंस</string>
-    <string name="isolines_activation_error_dialog">कॉन्टूर लाइनों को सक्रिय करने के लिए इस क्षेत्र का नक्शा डेटा डाउनलोड करना आवश्यक है।</string>
-    <string name="isolines_location_error_dialog">इस क्षेत्र में समरेखीय रेखाएँ अभी उपलब्ध नहीं हैं</string>
+    <string name="isolines_location_error_dialog">समोच्च रेखाएँ देखने के लिए इस क्षेत्र को अपडेट करें</string>
     <string name="elevation_profile_ascent">चढ़ाई</string>
     <string name="elevation_profile_descent">उतरान</string>
     <string name="elevation_profile_min_elevation">न्यूनतम ऊँचाई</string>
@@ -883,6 +882,8 @@
     <string name="hide_track">मार्ग छिपाएँ</string>
     <!-- Text for the showing track. -->
     <string name="show_track">मार्ग दिखाएँ</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">सक्षम करें</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -933,4 +934,6 @@
     <string name="choose_point_on_map_hint">क्रॉस रखने के लिए मानचित्र को हिलाएँ और ज़ूम करें</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">रोकें और सहेजें</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">रखना</string>
 </resources>

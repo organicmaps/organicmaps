@@ -750,8 +750,7 @@
     <string name="deselect_all">निवड रद्द करा</string>
     <string name="select_list">यादी निवडा</string>
     <string name="button_layer_isolines">भूप्रदेश</string>
-    <string name="isolines_activation_error_dialog">भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा</string>
-    <string name="isolines_location_error_dialog">या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही</string>
+    <string name="isolines_location_error_dialog">समोच्च रेषा पाहण्यासाठी हा भाग अपडेट करा</string>
     <string name="elevation_profile_ascent">चढण</string>
     <string name="elevation_profile_descent">उतरण</string>
     <string name="elevation_profile_min_elevation">किमान उंची</string>
@@ -894,6 +893,8 @@
     <string name="hide_track">मार्ग लपवा</string>
     <!-- Text for the showing track. -->
     <string name="show_track">मार्ग दाखवा</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">सक्षम करा</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -944,4 +945,6 @@
     <string name="choose_point_on_map_hint">क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">थांबवा आणि जतन करा</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">ठेवा</string>
 </resources>

@@ -753,8 +753,7 @@
     <string name="deselect_all">Поништи избор</string>
     <string name="select_list">Изаберите листу</string>
     <string name="button_layer_isolines">Изолиније</string>
-    <string name="isolines_activation_error_dialog">Приказивање изолинија захтева преузмање података са мапе за ову област</string>
-    <string name="isolines_location_error_dialog">Изолиније нису доступне за ову област</string>
+    <string name="isolines_location_error_dialog">Ажурирајте ову област да бисте видели изолиније</string>
     <string name="elevation_profile_ascent">Успон</string>
     <string name="elevation_profile_descent">Спуст</string>
     <string name="elevation_profile_min_elevation">Минимална висина</string>
@@ -901,6 +900,8 @@
     <string name="move">Премести</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Промени боју</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Укључи</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -951,4 +952,6 @@
     <string name="choose_point_on_map_hint">Померите и зумирајте мапу да бисте поставили крст</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Заустави и сачувај</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Задржи</string>
 </resources>

@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ";
 "dialog_pedestrian_route_is_long_message" = "ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ";
 "button_layer_isolines" = "ເສັ້ນລະດັບຄວາມສູງ";
-"isolines_activation_error_dialog" = "ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້";
-"isolines_location_error_dialog" = "ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້";
+"isolines_location_error_dialog" = "ອັບເດດເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ";
 "elevation_profile_ascent" = "ທາງຂຶ້ນ";
 "elevation_profile_descent" = "ທາງລົງ";
 "elevation_profile_min_elevation" = "ລະດັບຄວາມສູງຕ່ຳສຸດ";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "ຍ້າຍ ແລະ ຊູມແຜນທີ່ເພື່ອວາງເຄື່ອງໝາຍບວກ";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "ເກັບໄວ້";

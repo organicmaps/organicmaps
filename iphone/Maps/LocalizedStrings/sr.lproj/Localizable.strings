@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Није пронађена метро рута";
 "dialog_pedestrian_route_is_long_message" = "Молим вас изаберите почетну и крајњу тачку ближе метро станицама";
 "button_layer_isolines" = "Изолиније";
-"isolines_activation_error_dialog" = "Приказивање изолинија захтева преузмање података са мапе за ову област";
-"isolines_location_error_dialog" = "Изолиније нису доступне за ову област";
+"isolines_location_error_dialog" = "Ажурирајте ову област да бисте видели изолиније";
 "elevation_profile_ascent" = "Успон";
 "elevation_profile_descent" = "Спуст";
 "elevation_profile_min_elevation" = "Минимална висина";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Померите и зумирајте мапу да бисте поставили крст";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Задржи";

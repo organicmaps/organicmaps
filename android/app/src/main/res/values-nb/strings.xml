@@ -750,8 +750,7 @@
     <string name="deselect_all">Fjern all merking</string>
     <string name="select_list">Velge liste</string>
     <string name="button_layer_isolines">Høyder</string>
-    <string name="isolines_activation_error_dialog">For å bruke høydekurver oppdater eller last opp kartet til nødvendig område</string>
-    <string name="isolines_location_error_dialog">Høydekurver er ikke tilgjengelige i dette området ennå</string>
+    <string name="isolines_location_error_dialog">Oppdater dette området for å se høydekurver</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
     <string name="elevation_profile_min_elevation">Min. høyde</string>
@@ -892,6 +891,8 @@
     <string name="hide_track">Skjul ruten</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Vis ruten</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktiver</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -942,4 +943,6 @@
     <string name="choose_point_on_map_hint">Flytt og zoom på kartet for å plassere korset</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stopp og lagre</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Behold</string>
 </resources>

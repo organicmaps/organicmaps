@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Moltreinroete nie gevind";
 "dialog_pedestrian_route_is_long_message" = "Kies asb. ’n begin- of eindpunt nader aan die moltreinstasie";
 "button_layer_isolines" = "Kontoerlyne";
-"isolines_activation_error_dialog" = "Om kontoerlyne te aktiveer moet u kaartdata vir hierdie area aflaai";
-"isolines_location_error_dialog" = "Die kontoerlyne is nog nie in hierdie area beskikbaar nie";
+"isolines_location_error_dialog" = "Werk hierdie area by om kontoerlyne te sien";
 "elevation_profile_ascent" = "Styging";
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Skuif en zoem die kaart om die kruis te plaas";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Behou";

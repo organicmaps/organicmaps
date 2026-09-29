@@ -738,8 +738,7 @@
     <string name="deselect_all">Hiq përzgjedhjen</string>
     <string name="select_list">Zgjidh listën</string>
     <string name="button_layer_isolines">Vija Konture</string>
-    <string name="isolines_activation_error_dialog">Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë</string>
-    <string name="isolines_location_error_dialog">Vijat e konturit nuk janë ende të disponueshme në këtë zonë</string>
+    <string name="isolines_location_error_dialog">Përditësoni këtë zonë për të parë vijat e konturit</string>
     <string name="elevation_profile_ascent">Ngjitje</string>
     <string name="elevation_profile_descent">Zbritje</string>
     <string name="elevation_profile_min_elevation">Lartësia min.</string>
@@ -876,6 +875,8 @@
     <string name="move">Lëviz</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Ndrysho Ngjyrën</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivizo</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -926,4 +927,6 @@
     <string name="choose_point_on_map_hint">Lëvizni dhe zmadhoni hartën për të vendosur kryqin</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Ndalo dhe ruaj</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Mbaj</string>
 </resources>

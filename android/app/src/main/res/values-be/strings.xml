@@ -759,8 +759,7 @@
     <string name="deselect_all">Зняць вылучэнне</string>
     <string name="select_list">Выбраць спіс</string>
     <string name="button_layer_isolines">Рэльеф</string>
-    <string name="isolines_activation_error_dialog">Каб задзейнічаць лініі рэльефу, трэба абнавіць мапу гэтага рэгіёна</string>
-    <string name="isolines_location_error_dialog">Для гэтага рэгіёна мапы рэльефу яшчэ недаступны</string>
+    <string name="isolines_location_error_dialog">Абнавіце гэты рэгіён, каб убачыць лініі вышынь</string>
     <string name="elevation_profile_ascent">Пад\'ём</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мін. вышыня</string>
@@ -917,6 +916,8 @@
     <string name="hide_track">Схаваць трэк</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Паказаць трэк</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Уключыць</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -967,4 +968,6 @@
     <string name="choose_point_on_map_hint">Рухайце мапу і змяняйце маштаб, каб размясціць крыжык</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Спыніць і захаваць</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Пакінуць</string>
 </resources>

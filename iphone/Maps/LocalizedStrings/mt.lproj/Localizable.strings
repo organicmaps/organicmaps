@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ma nstabet l-ebda rotta tas-subway";
 "dialog_pedestrian_route_is_long_message" = "Agħżel punt tal-bidu jew tat-tmiem eqreb lejn stazzjon tas-subway";
 "button_layer_isolines" = "Linji tal-Contour";
-"isolines_activation_error_dialog" = "L-attivazzjoni tal-linji tal-contour teħtieġ it-tniżżil tad-dejta tal-mappa għal din iż-żona";
-"isolines_location_error_dialog" = "Il-linji tal-Contour għadhom mhumiex disponibbli f ’din iż-żona";
+"isolines_location_error_dialog" = "Aġġorna din iż-żona biex tara l-linji tal-kontorn";
 "elevation_profile_ascent" = "Tlugħ";
 "elevation_profile_descent" = "Inżul";
 "elevation_profile_min_elevation" = "Elevazzjoni minima";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Mexxi u kabbar il-mappa biex tqiegħed is-salib";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Żomm";

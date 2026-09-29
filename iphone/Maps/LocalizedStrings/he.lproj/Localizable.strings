@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "מסלול רכבת תחתית לא נמצא";
 "dialog_pedestrian_route_is_long_message" = "נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית";
 "button_layer_isolines" = "קווי מתאר";
-"isolines_activation_error_dialog" = "כדי להפעיל קווי מתאר יש להוריד את המפה לאזור זה";
-"isolines_location_error_dialog" = "קווי מתאר עוד לא זמינים לאזור זה";
+"isolines_location_error_dialog" = "עדכנו את האזור הזה כדי לראות קווי מתאר";
 "elevation_profile_ascent" = "עלייה";
 "elevation_profile_descent" = "ירידה";
 "elevation_profile_min_elevation" = "מינ' גובה";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "הזז את המפה ושנה את רמת הזום כדי למקם את הצלב";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "שמור";

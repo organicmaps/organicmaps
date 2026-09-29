@@ -750,8 +750,7 @@
     <string name="deselect_all">لغو انتخاب همه</string>
     <string name="select_list">انتخاب فهرست</string>
     <string name="button_layer_isolines">خط تراز</string>
-    <string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
-    <string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
+    <string name="isolines_location_error_dialog">برای دیدن خطوط تراز، این منطقه را به‌روزرسانی کنید</string>
     <string name="elevation_profile_ascent">بالا رفتن</string>
     <string name="elevation_profile_descent">پایین آمدن</string>
     <string name="elevation_profile_min_elevation">کم ارتفاع</string>
@@ -902,6 +901,8 @@
     <string name="hide_track">مخفی کردن مسیر</string>
     <!-- Text for the showing track. -->
     <string name="show_track">نمایش مسیر</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">فعال کردن</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -952,4 +953,6 @@
     <string name="choose_point_on_map_hint">نقشه را جابجا و بزرگنمایی کنید تا صلیب را قرار دهید</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">توقف و ذخیره</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">نگه داشتن</string>
 </resources>

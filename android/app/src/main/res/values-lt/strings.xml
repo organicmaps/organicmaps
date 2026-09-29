@@ -753,8 +753,7 @@
     <string name="deselect_all">Atšaukti pasirinkimą</string>
     <string name="select_list">Pasirinkite sąrašą</string>
     <string name="button_layer_isolines">Reljefas</string>
-    <string name="isolines_activation_error_dialog">Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti reljefo sluoksnį</string>
-    <string name="isolines_location_error_dialog">Reljefo sluoksnis šiai vietovei dar neprieinamas</string>
+    <string name="isolines_location_error_dialog">Atnaujinkite šią vietovę, kad matytumėte izolinijas</string>
     <string name="elevation_profile_ascent">Pakilimas</string>
     <string name="elevation_profile_descent">Nusileidimas</string>
     <string name="elevation_profile_min_elevation">Min. aukštis</string>
@@ -907,6 +906,8 @@
     <string name="hide_track">Paslėpti trasą</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Rodyti trasą</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Įjungti</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -957,4 +958,6 @@
     <string name="choose_point_on_map_hint">Slinkite ir keiskite žemėlapio mastelį, kad nustatytumėte kryžiuko padėtį</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stabdyti ir įrašyti</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Palikti</string>
 </resources>

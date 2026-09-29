@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ez da aurkitu metroko ibilbiderik";
 "dialog_pedestrian_route_is_long_message" = "Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua";
 "button_layer_isolines" = "Sestra kurbak";
-"isolines_activation_error_dialog" = "Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa";
-"isolines_location_error_dialog" = "Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan";
+"isolines_location_error_dialog" = "Eguneratu eskualde hau sestra-kurbak ikusteko";
 "elevation_profile_ascent" = "Maldan gora";
 "elevation_profile_descent" = "Maldan behera";
 "elevation_profile_min_elevation" = "Altitude min";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Mugitu eta handitu mapa gurutzea kokatzeko";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "Mantendu";

@@ -944,8 +944,7 @@
 "dialog_pedestrian_route_is_long_header" = "未找到地铁路线图";
 "dialog_pedestrian_route_is_long_message" = "选择地铁站附近的起点和终点";
 "button_layer_isolines" = "等高线";
-"isolines_activation_error_dialog" = "如需使用等高线，请更新或下载所需区域的地图";
-"isolines_location_error_dialog" = "暂时无法获取该地区的等高线";
+"isolines_location_error_dialog" = "更新该地区以查看等高线";
 "elevation_profile_ascent" = "上坡";
 "elevation_profile_descent" = "下坡";
 "elevation_profile_min_elevation" = "最低高度";
@@ -1222,3 +1221,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "移动并缩放地图以定位十字";
+
+/* The «keep the files» action of the terrain deletion dialog */
+"keep" = "保留";

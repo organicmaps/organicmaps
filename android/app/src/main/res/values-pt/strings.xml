@@ -754,8 +754,7 @@
     <string name="deselect_all">Desmarcar tudo</string>
     <string name="select_list">Selecionar lista</string>
     <string name="button_layer_isolines">Terreno</string>
-    <string name="isolines_activation_error_dialog">Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área</string>
-    <string name="isolines_location_error_dialog">A camada Terreno ainda não está disponível nesta área</string>
+    <string name="isolines_location_error_dialog">Atualize esta região para ver as curvas de nível</string>
     <string name="elevation_profile_ascent">Subida</string>
     <string name="elevation_profile_descent">Descida</string>
     <string name="elevation_profile_min_elevation">Elevação mín.</string>
@@ -908,6 +907,8 @@
     <string name="hide_track">Ocultar trajeto</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostrar trajeto</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ativar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -958,4 +959,6 @@
     <string name="choose_point_on_map_hint">Mova e amplie o mapa para posicionar a cruz</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar e guardar</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Manter</string>
 </resources>

@@ -507,8 +507,7 @@
     <string name="religious_places">Locais religiosos</string>
     <string name="select_list">Escolher a lista</string>
     <string name="button_layer_isolines">Relevo</string>
-    <string name="isolines_activation_error_dialog">Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região</string>
-    <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
+    <string name="isolines_location_error_dialog">Atualize esta região para ver as curvas de nível</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>
     <string name="elevation_profile_distance">Dist.:</string>
@@ -650,4 +649,6 @@
     <string name="routing_max_stops_reached">Número máximo de paradas atingido</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar e salvar</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">Manter</string>
 </resources>

@@ -704,8 +704,7 @@
     <string name="deselect_all">ຍົກເລີກການເລືອກ</string>
     <string name="select_list">ເລືອກລາຍການ</string>
     <string name="button_layer_isolines">ເສັ້ນລະດັບຄວາມສູງ</string>
-    <string name="isolines_activation_error_dialog">ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້</string>
-    <string name="isolines_location_error_dialog">ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້</string>
+    <string name="isolines_location_error_dialog">ອັບເດດເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ</string>
     <string name="elevation_profile_ascent">ທາງຂຶ້ນ</string>
     <string name="elevation_profile_descent">ທາງລົງ</string>
     <string name="elevation_profile_min_elevation">ລະດັບຄວາມສູງຕ່ຳສຸດ</string>
@@ -850,6 +849,8 @@
     <string name="move">ຍ້າຍ</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">ປ່ຽນສີ</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">ເປີດໃຊ້ງານ</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -896,4 +897,6 @@
     <string name="choose_point_on_map_hint">ຍ້າຍ ແລະ ຊູມແຜນທີ່ເພື່ອວາງເຄື່ອງໝາຍບວກ</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">ຢຸດ ແລະ ບັນທຶກ</string>
+    <!-- The «keep the files» action of the terrain deletion dialog -->
+    <string name="keep">ເກັບໄວ້</string>
 </resources>
