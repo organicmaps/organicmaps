@@ -568,6 +568,8 @@
     <string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
     <string name="button_plan">Σχεδιασμός</string>
     <string name="placepage_remove_stop">Αφαίρεση στάσης</string>
+    <!-- Button below the route destination for adding another destination to the route. -->
+    <string name="route_add_destination">Προσθήκη προορισμού</string>
     <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Προσθήκη στάσης</string>
     <string name="drag_to_reorder">Αναδιάταξη</string>

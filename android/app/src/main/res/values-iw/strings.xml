@@ -568,6 +568,8 @@
     <string name="planning_route_manage_route">ניהול מסלול</string>
     <string name="button_plan">תכנון</string>
     <string name="placepage_remove_stop">הסר עצירה</string>
+    <!-- Button below the route destination for adding another destination to the route. -->
+    <string name="route_add_destination">הוספת יעד</string>
     <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">הוספת עצירה</string>
     <string name="drag_to_reorder">סידור מחדש</string>
