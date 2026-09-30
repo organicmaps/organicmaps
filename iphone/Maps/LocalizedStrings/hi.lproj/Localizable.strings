@@ -655,6 +655,9 @@
 "button_plan" = "योजना";
 "placepage_remove_stop" = "रोक हटाएँ";
 
+/* Button below the route destination for adding another destination to the route. */
+"route_add_destination" = "गंतव्य जोड़ें";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "स्टॉप जोड़ें";
 "saved" = "सहेजा गया";

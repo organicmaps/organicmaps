@@ -655,6 +655,9 @@
 "button_plan" = "Planlegge";
 "placepage_remove_stop" = "Fjern stopp";
 
+/* Button below the route destination for adding another destination to the route. */
+"route_add_destination" = "Legg til destinasjon";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Legg til stopp";
 "saved" = "Reddet";

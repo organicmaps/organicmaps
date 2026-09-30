@@ -655,6 +655,9 @@
 "button_plan" = "Σχεδιασμός";
 "placepage_remove_stop" = "Αφαίρεση στάσης";
 
+/* Button below the route destination for adding another destination to the route. */
+"route_add_destination" = "Προσθήκη προορισμού";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Προσθήκη στάσης";
 "saved" = "Αποθηκεύτηκε";

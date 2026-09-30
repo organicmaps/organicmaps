@@ -655,6 +655,9 @@
 "button_plan" = "Planen";
 "placepage_remove_stop" = "Stopp entfernen";
 
+/* Button below the route destination for adding another destination to the route. */
+"route_add_destination" = "Ziel hinzufügen";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Stopp einfügen";
 "saved" = "Gespeichert";
