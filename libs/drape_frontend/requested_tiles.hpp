@@ -16,7 +16,6 @@ public:
            TTilesCollection && tiles);
   TTilesCollection GetTiles();
   void GetParams(ScreenBase & screen, bool & have3dBuildings, bool & forceRequest, bool & forceUserMarksRequest);
-  bool CheckTileKey(TileKey const & tileKey) const;
 
 private:
   TTilesCollection m_tiles;
@@ -24,6 +23,6 @@ private:
   bool m_have3dBuildings = false;
   bool m_forceRequest = false;
   bool m_forceUserMarksRequest = false;
-  mutable std::mutex m_mutex;
+  std::mutex m_mutex;
 };
 }  // namespace df

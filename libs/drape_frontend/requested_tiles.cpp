@@ -33,12 +33,4 @@ void RequestedTiles::GetParams(ScreenBase & screen, bool & have3dBuildings, bool
   forceUserMarksRequest = m_forceUserMarksRequest;
 }
 
-bool RequestedTiles::CheckTileKey(TileKey const & tileKey) const
-{
-  std::lock_guard<std::mutex> lock(m_mutex);
-  if (m_tiles.empty())
-    return true;
-
-  return m_tiles.find(tileKey) != m_tiles.end();
-}
 }  // namespace df
