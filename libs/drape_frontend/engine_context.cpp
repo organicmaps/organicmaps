@@ -41,11 +41,28 @@ void EngineContext::BeginReadTile()
 
 void EngineContext::Flush(TMapShapes && shapes)
 {
-  PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, std::move(shapes)));
+  // Bound each upload operation while coalescing the small per-feature flushes.
+  size_t constexpr kShapesPerBatch = 64;
+  for (auto & shape : shapes)
+  {
+    if (m_geometry.empty())
+      m_geometry.reserve(kShapesPerBatch);
+    m_geometry.push_back(std::move(shape));
+    if (m_geometry.size() == kShapesPerBatch)
+      FlushGeometry();
+  }
+  shapes.clear();
+}
+
+void EngineContext::FlushGeometry()
+{
+  if (!m_geometry.empty())
+    PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, std::exchange(m_geometry, {})));
 }
 
 void EngineContext::FlushOverlays(TMapShapes && shapes)
 {
+  FlushGeometry();
   PostMessage(make_unique_dp<OverlayMapShapeReadedMessage>(m_tileKey, std::move(shapes)));
 }
 
@@ -58,6 +75,7 @@ void EngineContext::FlushTrafficGeometry(TrafficSegmentsGeometry && geometry)
 
 void EngineContext::EndReadTile()
 {
+  FlushGeometry();
   PostMessage(make_unique_dp<TileReadEndMessage>(m_tileKey));
 }
 
