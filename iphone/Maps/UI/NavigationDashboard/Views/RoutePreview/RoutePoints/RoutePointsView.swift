@@ -233,6 +233,7 @@ private extension NavigationDashboard.RoutePoints {
     let viewModel = RoutePointCollectionViewCell.PointViewModel(
       title: title(for: index),
       image: image(for: index),
+      usesCurrentPositionIcon: index == 0 && point?.isMyPosition == true,
       showCloseButton: point?.type == .intermediate,
       maskedCorners: maskedCorners,
       isPlaceholder: point == nil,
