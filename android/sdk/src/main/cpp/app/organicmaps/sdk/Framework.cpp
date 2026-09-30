@@ -1216,7 +1216,7 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetDataFileExt(JNIEnv
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass)
 {
-  std::vector<std::string> exts = {DATA_FILE_EXTENSION, FONT_FILE_EXTENSION};
+  std::vector<std::string> exts = {DATA_FILE_EXTENSION, TERRAIN_FILE_EXT, FONT_FILE_EXTENSION};
   platform::CountryIndexes::GetIndexesExts(exts);
   return jni::ToJavaStringArray(env, exts);
 }

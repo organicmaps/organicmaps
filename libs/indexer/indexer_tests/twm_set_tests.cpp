@@ -11,8 +11,8 @@
 #include "coding/point_coding.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
 
-#include <filesystem>
 #include <string>
 #include <vector>
 
@@ -23,7 +23,7 @@ namespace
 terrain::TwmFile WriteTerrainFile(std::string const & dir, int64_t version, std::string const & name = "N00E000")
 {
   std::string const versionDir = base::JoinPath(dir, std::to_string(version));
-  std::filesystem::create_directories(versionDir);
+  TEST(Platform::MkDirRecursively(versionDir), (versionDir));
   std::string const path = base::JoinPath(versionDir, name + ".twm");
   terrain::TwmHeader header;
   header.m_geometries = {{17, 0}};
@@ -172,5 +172,70 @@ UNIT_TEST(TwmSet_ResurrectMarkedFile)
   TEST(set.Deregister(file.m_id), ());
   TEST_EQUAL(observer.m_deregistered.size(), 1, ());
   CheckFile(observer.m_deregistered.front(), file);
+}
+
+UNIT_TEST(TwmSet_ReregisterCondemnedFile)
+{
+  std::string const dir = base::JoinPath(GetPlatform().WritableDir(), "twm_set_condemn_test");
+  platform::tests_support::ScopedDirCleanup const cleanup(dir);
+  auto const file = WriteTerrainFile(dir, 1);
+  Observer observer;
+  terrain::TwmSet set;
+  set.AddObserver(observer);
+  auto const id = set.Register(file).first;
+  auto handle = set.GetHandleById(id);
+  TEST(handle.IsAlive(), ());
+
+  // Late corruption detection must preserve readers until their last unlock.
+  set.Condemn({id});
+  TEST(!id.GetInfo()->IsRegistered(), ());
+  TEST(set.IsFileAlive(file), ());
+  TEST(observer.m_deregistered.empty(), ());
+  handle = {};
+  TEST(!id.IsAlive(), ());
+  TEST(!set.IsFileAlive(file), ());
+  TEST_EQUAL(observer.m_deregistered.size(), 1, ());
+  CheckFile(observer.m_deregistered.front(), file);
+
+  // Storage removes the deregistered file and publishes a download at the same path.
+  TEST(Platform::RemoveFileIfExists(file.m_path), ());
+  auto const downloaded = WriteTerrainFile(dir, 1);
+  CheckFile(downloaded, file);
+  auto const [newId, result] = set.Register(downloaded);
+  TEST_EQUAL(result, terrain::TwmSet::RegResult::Success, ());
+  TEST_NOT_EQUAL(newId, id, ());
+  auto newHandle = set.GetHandleById(newId);
+  TEST(newHandle.IsAlive(), ());
+  TEST_EQUAL(newHandle.GetValue()->GetReader().GetHeader().GetLimitRect(), downloaded.m_rect, ());
+}
+
+UNIT_TEST(TwmSet_ReregisterAfterReaderFailure)
+{
+  std::string const dir = base::JoinPath(GetPlatform().WritableDir(), "twm_set_reader_failure_test");
+  platform::tests_support::ScopedDirCleanup const cleanup(dir);
+  auto const file = WriteTerrainFile(dir, 1);
+  {
+    // The header remains readable, but constructing the full reader must fail.
+    auto const header = terrain::Reader(FilesContainerR(file.m_path)).GetHeader();
+    FilesContainerW container(file.m_path);
+    auto writer = container.GetWriter(terrain::kHeaderTag);
+    header.Serialize(*writer);
+  }
+  Observer observer;
+  terrain::TwmSet set;
+  set.AddObserver(observer);
+  auto const id = set.Register(file).first;
+  {
+    base::ScopedLogAbortLevelChanger const expectedReaderFailure(LCRITICAL);
+    TEST(!set.GetHandleById(id).IsAlive(), ());
+  }
+  TEST(!id.IsAlive(), ());
+  TEST_EQUAL(observer.m_deregistered.size(), 1, ());
+
+  TEST(Platform::RemoveFileIfExists(file.m_path), ());
+  auto const downloaded = WriteTerrainFile(dir, 1);
+  auto const [newId, result] = set.Register(downloaded);
+  TEST_EQUAL(result, terrain::TwmSet::RegResult::Success, ());
+  TEST(set.GetHandleById(newId).IsAlive(), ());
 }
 }  // namespace twm_set_tests

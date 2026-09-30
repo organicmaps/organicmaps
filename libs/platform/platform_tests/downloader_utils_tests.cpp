@@ -51,6 +51,17 @@ UNIT_TEST(Downloader_GetFilePathByUrl)
   }
 }
 
+UNIT_TEST(Downloader_TerrainDataDir)
+{
+  auto const path = base::JoinPath(GetPlatform().WritableDir(), "custom", "terrain", "260728", "N40E040.twm");
+  TEST_EQUAL(platform::GetFilePath(260728, "custom", "N40E040", MapFileType::Terrain), path, ());
+  TEST_EQUAL(platform::GetFileDownloadPath(260728, "custom", "N40E040", MapFileType::Terrain), path + ".ready", ());
+  TEST_EQUAL(platform::GetFileDownloadPath(260728, "N40E040", MapFileType::Terrain),
+             downloader::GetFilePathByUrl("terrain/260728/N40E040.twm"), ());
+  TEST_EQUAL(platform::GetFilePath(0, "custom", "N40E040", MapFileType::Terrain),
+             base::JoinPath(GetPlatform().WritableDir(), "custom", "terrain", "0", "N40E040.twm"), ());
+}
+
 UNIT_TEST(Downloader_IsUrlSupported)
 {
   std::string const mwmName = "Luna";
@@ -69,6 +80,7 @@ UNIT_TEST(Downloader_IsUrlSupported)
 
   TEST(downloader::IsUrlSupported("terrain/260728/N40E040.twm"), ());
   TEST(!downloader::IsUrlSupported("terrain/abc/N40E040.twm"), ());
+  TEST(!downloader::IsUrlSupported("terrain/-1/N40E040.twm"), ());
   TEST(!downloader::IsUrlSupported("terrain/260728/N40E040.mwm"), ());
   TEST(!downloader::IsUrlSupported("terrain/N40E040.twm"), ());
   TEST(!downloader::IsUrlSupported("0/Luna.mwm"), ());
@@ -97,6 +109,26 @@ UNIT_TEST(Downloader_IsUrlSupported)
   TEST(!downloader::IsUrlSupported("diffs/Luna.mwmdiff"), ());
   TEST(!downloader::IsUrlSupported("Luna.mwmdiff"), ());
   TEST(!downloader::IsUrlSupported("Luna"), ());
+}
+
+UNIT_TEST(Downloader_RejectsInvalidFileNames)
+{
+  for (auto const & path : {"maps/260728/", "diffs/260728/260727/", "terrain/260728/"})
+  {
+    auto const extension = std::string(path).starts_with("terrain/") ? ".twm"
+                         : std::string(path).starts_with("diffs/")   ? ".mwmdiff"
+                                                                     : ".mwm";
+    for (auto const & name : {"../N40E040", "%2E%2E%2FN40E040", "%2fN40E040", "N40E040%2FN40E041", "N40E040%5CN40E041",
+                              "N40E040%00", "N40E040.extra", ".N40E040", "N40E040.", ""})
+    {
+      auto const url = std::string(path) + name + extension;
+      TEST(!downloader::IsUrlSupported(url), (url));
+    }
+
+    auto const url = std::string(path) + "N40E040" + extension;
+    TEST(downloader::IsUrlSupported(url), (url));
+  }
+  TEST(downloader::IsUrlSupported("terrain/260728/N40E040%2Etwm"), ());
 }
 
 UNIT_TEST(Downloader_ParseMetaConfig)

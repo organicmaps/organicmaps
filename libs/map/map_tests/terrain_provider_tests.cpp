@@ -12,6 +12,7 @@
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 #include "platform/settings.hpp"
 
+#include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
 #include "coding/point_coding.hpp"
 
@@ -20,10 +21,10 @@
 #include "defines.hpp"
 
 #include <array>
-#include <filesystem>
 #include <map>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace terrain_provider_tests
@@ -35,21 +36,26 @@ class ScopedDownloadQueue
 public:
   ScopedDownloadQueue()
   {
-    m_hadValue = settings::Get("DownloadQueue", m_saved);
-    settings::Delete("DownloadQueue");
+    for (auto const * key : {"DownloadQueue", "TerrainDownloadQueue"})
+    {
+      std::string value;
+      if (settings::Get(key, value))
+        m_saved.emplace(key, std::move(value));
+      settings::Delete(key);
+    }
   }
 
   ~ScopedDownloadQueue()
   {
-    if (m_hadValue)
-      settings::Set("DownloadQueue", m_saved);
-    else
-      settings::Delete("DownloadQueue");
+    for (auto const * key : {"DownloadQueue", "TerrainDownloadQueue"})
+      if (auto const it = m_saved.find(key); it != m_saved.end())
+        settings::Set(key, it->second);
+      else
+        settings::Delete(key);
   }
 
 private:
-  std::string m_saved;
-  bool m_hadValue = false;
+  std::map<std::string, std::string> m_saved;
 };
 
 void WriteTerrainHeader(std::string const & path, m2::RectD const & rect)
@@ -72,11 +78,13 @@ void RegisterFranceMaps(storage::Storage & storage)
 {
   storage.Init({}, [](auto const &, auto const &) { return false; });
   std::string const mapsDir = std::to_string(storage.GetCurrentDataVersion());
-  std::filesystem::create_directories(base::JoinPath(GetPlatform().WritableDir(), mapsDir));
+  TEST(Platform::MkDirRecursively(base::JoinPath(GetPlatform().WritableDir(), mapsDir)), ());
   for (auto const & region : kFranceRegions)
   {
     tests_support::ScopedFile map(base::JoinPath(mapsDir, region + DATA_FILE_EXTENSION), "");
-    std::filesystem::resize_file(map.GetFullPath(), storage.GetCountryFile(region).GetRemoteSize());
+    FileWriter writer(map.GetFullPath());
+    writer.Seek(storage.GetCountryFile(region).GetRemoteSize() - 1);
+    writer.Write("", 1);
     map.Reset();  // DeleteNode removes it; the writable directory guard handles failures.
   }
   storage.RegisterAllLocalMaps();
@@ -126,7 +134,7 @@ UNIT_TEST(TerrainStorage_DeleteRegionKeepsSharedBlocks)
   {
     auto const & block = blocks[index];
     std::string const dir = base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR, std::to_string(block.m_version));
-    std::filesystem::create_directories(dir);
+    TEST(Platform::MkDirRecursively(dir), ());
     paths[index] = base::JoinPath(dir, block.m_id + TERRAIN_FILE_EXT);
     WriteTerrainHeader(paths[index], block.m_rect);
   }
@@ -178,7 +186,7 @@ UNIT_TEST(TerrainStorage_DeleteKeepsOlderBlockCoveringAnotherRegion)
   RegisterFranceMaps(storage);
 
   std::string const dir = base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR, "1");
-  std::filesystem::create_directories(dir);
+  TEST(Platform::MkDirRecursively(dir), ());
   std::string const path = base::JoinPath(dir, "N43E005" TERRAIN_FILE_EXT);
   // The old file spans both current blocks shared by Marseille, Toulon and Nice.
   // Its name alone cannot identify its owners in the current grid.

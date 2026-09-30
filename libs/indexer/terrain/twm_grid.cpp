@@ -20,11 +20,10 @@ std::vector<VersionDir> ListVersionDirs(std::string const & terrainDir)
   Platform::TFilesWithType subdirs;
   Platform::GetFilesByType(terrainDir, Platform::EFileType::Directory, subdirs);
   for (auto const & [name, type] : subdirs)
-    if (uint64_t version; strings::to_uint64(name, version))
-      dirs.push_back({base::JoinPath(terrainDir, name), static_cast<int64_t>(version)});
+    if (int64_t version; strings::to_int(name, version) && version > 0)
+      dirs.push_back({base::JoinPath(terrainDir, name), version});
   std::sort(dirs.begin(), dirs.end(),
             [](VersionDir const & a, VersionDir const & b) { return a.m_version > b.m_version; });
-  dirs.push_back({terrainDir, 0});
   return dirs;
 }
 

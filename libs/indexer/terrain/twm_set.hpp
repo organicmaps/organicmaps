@@ -9,7 +9,6 @@
 #include "base/observer_list.hpp"
 
 #include <memory>
-#include <set>
 #include <string>
 #include <vector>
 
@@ -95,7 +94,6 @@ private:
 
 /// The registry of the terrain blocks: the MwmSet counterpart for the .twm files.
 /// Blocks are keyed by TerrainId; marked old versions may coexist with their replacements.
-/// Corrupt files are condemned by physical path until Clear().
 class TwmSet : public ds::ValueSetBase<TwmId, TwmValue, TwmSetEventList>
 {
   using BaseT = ds::ValueSetBase<TwmId, TwmValue, TwmSetEventList>;
@@ -112,10 +110,8 @@ public:
     Success,
     AlreadyRegistered,  ///< The same file is registered (a marked file is resurrected).
     Overlapping,        ///< The block rect overlaps a registered one (see the tracer).
-    Condemned,          ///< The file was dropped as corrupt earlier.
     BadFile,            ///< The header is unreadable.
-    ObsoleteVersion,    ///< An old format no build reads anymore; the caller deletes the
-                        ///< file (not condemned, so a failed deletion retries next time).
+    ObsoleteVersion,    ///< An old format no build reads anymore; the caller deletes the file.
   };
 
   // The observer notes: see MwmSet::Observer - the callbacks can fire on any thread
@@ -142,8 +138,7 @@ public:
   /// @return true if deregistered immediately; active handles defer it until their last unlock.
   bool Deregister(TerrainId const & terrainId);
 
-  /// Condemns the blocks detected corrupt too late (e.g. at the trace time): deregisters
-  /// them (delayed for the locked ones) and never registers the same paths again.
+  /// Deregisters blocks detected corrupt while reading, delayed until their last unlock.
   void Condemn(std::vector<TwmId> const & ids);
 
   bool AddObserver(Observer & observer) { return m_observers.Add(observer); }
@@ -168,8 +163,6 @@ protected:
   std::unique_ptr<TwmValue> CreateValue(TwmInfo & info) const override;
   void SetStatus(TwmInfo & info, TwmInfo::Status status, EventList & events) override;
   void ProcessEvents(EventList & events) override;
-  /// A full reset (e.g. the storage path change) forgets the condemned files too.
-  void OnClear() override { m_condemned.clear(); }
   //@}
 
 private:
@@ -181,10 +174,6 @@ private:
 
   template <typename Fn>
   void ForEachBlockByRectImpl(m2::RectD const & rect, Fn && fn) const;
-
-  /// Corrupt files, never registered again (until Clear). Mutable: CreateValue (const,
-  /// under m_lock) condemns the files failing to open.
-  mutable std::set<std::string> m_condemned;
 
   base::ObserverListSafe<Observer> m_observers;
 };

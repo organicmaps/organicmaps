@@ -21,12 +21,6 @@ std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(TwmFile const & file)
   std::pair<TwmId, RegResult> result;
   WithEventLog([&](EventList & events)
   {
-    if (m_condemned.count(file.m_path) > 0)
-    {
-      result = {TwmId(), RegResult::Condemned};
-      return;
-    }
-
     TwmId const existing = GetIdByKeyImpl(file.m_id);
     bool const sameFile = existing.IsAlive() && existing.GetInfo()->GetFilePath() == file.m_path &&
                           existing.GetInfo()->GetVersion() == file.m_version;
@@ -131,7 +125,6 @@ void TwmSet::Condemn(std::vector<TwmId> const & ids)
     {
       if (id.IsNull())
         continue;
-      m_condemned.insert(id.GetInfo()->GetFilePath());
       DeregisterImpl(id, events);
     }
   });
@@ -178,20 +171,7 @@ TwmSet::Handle TwmSet::GetHandleById(TwmId const & id)
 
 std::unique_ptr<TwmValue> TwmSet::CreateValue(TwmInfo & info) const
 {
-  try
-  {
-    return std::make_unique<TwmValue>(info.GetFilePath());
-  }
-  catch (::Reader::TooManyFilesException const &)
-  {
-    throw;  // Transient, the base keeps the file registered.
-  }
-  catch (RootException const &)
-  {
-    // Corrupt data: the base deregisters the file, never register it again.
-    m_condemned.insert(info.GetFilePath());
-    throw;
-  }
+  return std::make_unique<TwmValue>(info.GetFilePath());
 }
 
 void TwmSet::SetStatus(TwmInfo & info, TwmInfo::Status status, EventList & events)
@@ -227,7 +207,6 @@ std::string DebugPrint(TwmSet::RegResult result)
   case TwmSet::RegResult::Success: return "Success";
   case TwmSet::RegResult::AlreadyRegistered: return "AlreadyRegistered";
   case TwmSet::RegResult::Overlapping: return "Overlapping";
-  case TwmSet::RegResult::Condemned: return "Condemned";
   case TwmSet::RegResult::BadFile: return "BadFile";
   case TwmSet::RegResult::ObsoleteVersion: return "ObsoleteVersion";
   }

@@ -177,8 +177,7 @@ static void UpdateItemShort(JNIEnv * env, jobject item, storage::NodeStatus cons
   env->SetIntField(item, ciBuilder.m_ErrorCode, static_cast<jint>(error));
 }
 
-static void UpdateItem(JNIEnv * env, jobject item, storage::CountryId const & countryId,
-                       storage::NodeAttrs const & attrs)
+static void UpdateItem(JNIEnv * env, jobject item, storage::NodeAttrs const & attrs)
 {
   auto const & ciBuilder = CountryItemBuilder::Instance(env);
   using SLR = jni::TScopedLocalRef;
@@ -264,7 +263,7 @@ static void PutItemsToList(
     SLR const item(env, ciBuilder.Create(env, SLR(env, jni::ToJavaString(env, child))));
     env->SetIntField(item.get(), ciBuilder.m_Category, category);
 
-    UpdateItem(env, item.get(), child, attrs);
+    UpdateItem(env, item.get(), attrs);
 
     // Put to resulting list
     env->CallBooleanMethod(list, listAddMethod, item.get());
@@ -306,7 +305,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeGetAttribute
   storage::NodeAttrs attrs;
   GetStorage().GetNodeAttrs(countryId, attrs);
 
-  UpdateItem(env, item, countryId, attrs);
+  UpdateItem(env, item, attrs);
 }
 
 // static void nativeGetStatus(String root);

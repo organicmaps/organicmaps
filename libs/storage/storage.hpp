@@ -24,6 +24,7 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <optional>
 #include <set>
 #include <string>
 #include <unordered_map>
@@ -251,7 +252,7 @@ public:
                                std::map<CountryId, std::vector<uint32_t>> & coverage);
 
   // Reads local headers off the GUI thread; storage selects and registers them on publication.
-  static std::vector<terrain::TwmFile> ScanTerrainFiles();
+  static std::vector<terrain::TwmFile> ScanTerrainFiles(std::string const & dataDir = {});
   void OnTerrainScanned(std::vector<terrain::TwmFile> const & scanned);
   bool IsTerrainScanned() const { return m_terrainScanned; }
   // Called on the GUI thread once the last reader releases this exact file version.
@@ -269,6 +270,9 @@ private:
   // See OnTerrainScanned and RestoreTerrain: the resume runs after both have landed.
   bool m_terrainScanned = false;
   bool m_queueRestored = false;
+  // Load the startup snapshot once; saves before restore must retain this intent.
+  std::optional<CountriesSet> m_pendingTerrainQueue;
+  CountriesSet & GetPendingTerrainQueue();
   // Calls fn(leafId, blockIndices) for the countryId coverage leaf or for every
   // coverage leaf of the subtree of a group.
   template <class Fn>
@@ -282,8 +286,7 @@ private:
   // download (see RestoreTerrain), deleted by the cancel so it stays cancelled.
   void DeleteTerrainArtifacts(TerrainBlock const & block) const;
   // Sweeps the downloader artifacts of the blocks nobody wants and resumes the regions
-  // whose interrupted downloads left artifacts behind - the disk is the only record,
-  // there is no settings snapshot of the terrain intent (the maps are the intent).
+  // whose interrupted downloads left artifacts behind, in addition to the saved queue.
   void RestoreTerrain();
   bool IsTerrainOnDisk(TerrainBlock const & block) const;
   bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const;
@@ -339,8 +342,8 @@ private:
   // regions interested in each block (for the observer notifications).
   TerrainQueueSubscriber m_terrainSubscriber{*this};
   std::map<terrain::TerrainId, TerrainBlockState> m_terrainQueue;
-  // Like the failed maps carry their NodeErrorCode: only the transport failures are
-  // retryable, a 404 or a hash mismatch would re-download a big block to the same end.
+  // Only transport failures auto-retry. A 404 or a hash mismatch waits for an explicit
+  // retry, avoiding repeated downloads of the same large broken block.
   struct TerrainFailure
   {
     NodeErrorCode m_error = NodeErrorCode::UnknownError;
@@ -357,7 +360,6 @@ private:
   // aggregation: Downloading above Error above OnDiskOutOfDate.
   StatusAndError GetEffectiveStatus(StatusAndError const & mapStatus, TerrainFusion const & terrain) const;
   TerrainBlock const * FindTerrainBlock(terrain::TerrainId const & id) const;
-  std::string GetTerrainDir(int64_t version) const;
   // The downloader's target path of the block (see QueuedCountry::GetFileDownloadPath).
   std::string GetTerrainReadyPath(TerrainBlock const & block) const;
   void OnTerrainBlockProgress(std::string const & name, downloader::Progress const & progress);

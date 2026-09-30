@@ -44,7 +44,7 @@ struct VersionDir
   int64_t m_version = 0;
 };
 
-// Numeric version folders, newest first, followed by the flat legacy root as version 0.
+// Numeric version folders, newest first.
 std::vector<VersionDir> ListVersionDirs(std::string const & terrainDir);
 
 // Parses the block name (the SW corner, e.g. "N40E045") into bottom/left degrees.
