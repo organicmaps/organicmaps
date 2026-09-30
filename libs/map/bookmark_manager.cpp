@@ -2567,7 +2567,8 @@ void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::Cate
   // The current implementation reloads the provided group.
   /// @todo implement more accurate merging instead of full reloading
   ClearGroup(groupId);
-  m_categories.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), autoSave));
+  data.m_id = groupId;
+  m_categories[groupId] = std::make_unique<BookmarkCategory>(std::move(data), autoSave);
   m_changesTracker.OnAddGroup(groupId);
 }
 
@@ -2713,6 +2714,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
   {
     auto & fileData = *fileDataPtr;
     auto & categoryData = fileData.m_categoryData;
+    auto groupId = GetCategoryByFileName(fileName);
 
     // Initialize timestamp for newly created or imported categories.
     if (categoryData.m_lastModified == kml::Timestamp{})
@@ -2725,11 +2727,10 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       ResetIds(fileData);
     }
 
-    SetUniqueName(categoryData);
+    SetUniqueName(categoryData, groupId);
 
     UserMarkIdStorage::Instance().EnableSaving(false);
 
-    auto groupId = GetCategoryByFileName(fileName);
     // Set autoSave = false now to avoid useless saving in NotifyChanges().
     // autoSave flag will be assigned in the end of this function.
     if (groupId != kml::kInvalidMarkGroupId)
@@ -2790,8 +2791,16 @@ bool BookmarkManager::HasDuplicatedIds(kml::FileData const & fileData) const
   return false;
 }
 
-void BookmarkManager::SetUniqueName(kml::CategoryData & data)
+void BookmarkManager::SetUniqueName(kml::CategoryData & data, kml::MarkGroupId excludedGroupId)
 {
+  auto const findCategoryId = [this, excludedGroupId](std::string const & name)
+  {
+    for (auto const & [groupId, category] : m_categories)
+      if (groupId != excludedGroupId && category->GetName() == name)
+        return groupId;
+    return kml::kInvalidMarkGroupId;
+  };
+
   auto originalName = kml::GetDefaultStr(data.m_name);
   if (originalName.empty())
   {
@@ -2801,7 +2810,7 @@ void BookmarkManager::SetUniqueName(kml::CategoryData & data)
 
   auto uniqueName = originalName;
   int counter = 0;
-  while (IsUsedCategoryName(uniqueName))
+  while (findCategoryId(uniqueName) != kml::kInvalidMarkGroupId)
     uniqueName = originalName + strings::to_string(++counter);
 
   if (counter > 0)
