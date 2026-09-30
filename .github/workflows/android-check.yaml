@@ -6,14 +6,16 @@ on:
       - master
   pull_request:
     paths-ignore:
+      - .agents/**
+      - .claude/**
       - .gitignore
       - .github/**
       - '!.github/workflows/android-check.yaml'  # Run check on self change
+      - '**/*.md'
       - '**/*_tests/**'
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
-      - README.md
       - android/app/src/fdroid/**
       - android/app/src/google/**
       - iphone/**

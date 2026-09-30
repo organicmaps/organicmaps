@@ -6,15 +6,17 @@ on:
       - master
   pull_request:
     paths-ignore:
+      - .agents/**
+      - .claude/**
       - .gitignore
       - .github/**
       - '!.github/workflows/ios-check.yaml'  # Run check on self change
+      - '**/*.md'
       - '**/*_tests/**'
       - '**/CMakeLists.txt'
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
-      - README.md
       - android/**
       - data/organic_maps_emoji/**
       - data/strings/**
