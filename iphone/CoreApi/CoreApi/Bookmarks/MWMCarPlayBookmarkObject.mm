@@ -2,6 +2,8 @@
 #include "Framework.h"
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
+
 @interface MWMCarPlayBookmarkObject ()
 @property(assign, nonatomic, readwrite) MWMMarkID bookmarkId;
 @property(strong, nonatomic, readwrite) NSString * prefferedName;
@@ -20,6 +22,7 @@
     self.bookmarkId = bookmarkId;
     auto const & bm = GetFramework().GetBookmarkManager();
     Bookmark const * bookmark = bm.GetBookmark(bookmarkId);
+    CHECK(bookmark != nullptr, (bookmarkId));
     self.prefferedName = @(bookmark->GetPreferredName().c_str());
     auto const pivot = bookmark->GetPivot();
     self.mercatorPoint = CGPointMake(pivot.x, pivot.y);

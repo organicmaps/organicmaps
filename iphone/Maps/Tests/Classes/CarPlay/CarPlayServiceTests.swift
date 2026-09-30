@@ -12,7 +12,7 @@ final class CarPlayServiceTests: XCTestCase {
 
   override func tearDown() {
     carPlayService = nil
-    // The search engine is a process-wide singleton; leave it as the tests found it.
+    // The search engine is a process-wide singleton; reset its query and mode for the next test.
     Search.clear()
     Search.setSearchMode(.everywhere)
     super.tearDown()
@@ -44,6 +44,131 @@ final class CarPlayServiceTests: XCTestCase {
 
     XCTAssertEqual(estimates.distanceRemaining, Measurement<UnitLength>(value: 25.2, unit: .kilometers))
     XCTAssertEqual(estimates.timeRemaining, 100)
+  }
+
+  func testStaleBookmarkSelectionCompletesOnce() throws {
+    let category = try importBookmarkFixture()
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    let item = try XCTUnwrap(template.sections.first?.items.first as? CPListItem)
+    let info = try XCTUnwrap(item.userInfo as? ListItemInfo)
+    let metadata = try XCTUnwrap(info.metadata as? BookmarkInfo)
+    let bookmarkManager = BookmarksManager.shared()
+    XCTAssertTrue(bookmarkManager.hasBookmark(metadata.bookmarkId))
+
+    bookmarkManager.deleteCategory(category.categoryId)
+    XCTAssertFalse(bookmarkManager.hasBookmark(metadata.bookmarkId))
+    var completionCount = 0
+
+    carPlayService.handleListItemSelection(item) { completionCount += 1 }
+
+    XCTAssertEqual(completionCount, 1)
+  }
+
+  func testStaleCategorySelectionCompletesOnce() throws {
+    let category = try importBookmarkFixture()
+    let item = try categoryListItem(for: category)
+    let bookmarkManager = BookmarksManager.shared()
+    XCTAssertTrue(bookmarkManager.hasCategory(category.categoryId))
+
+    bookmarkManager.deleteCategory(category.categoryId)
+    XCTAssertFalse(bookmarkManager.hasCategory(category.categoryId))
+    var completionCount = 0
+
+    carPlayService.handleListItemSelection(item) { completionCount += 1 }
+
+    XCTAssertEqual(completionCount, 1)
+  }
+
+  func testLiveBookmarkSelectionCompletesOnce() throws {
+    let category = try importBookmarkFixture()
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    let item = try XCTUnwrap(template.sections.first?.items.first as? CPListItem)
+    var completionCount = 0
+
+    carPlayService.handleListItemSelection(item) { completionCount += 1 }
+
+    XCTAssertEqual(completionCount, 1)
+  }
+
+  func testLiveCategorySelectionReadsTheCategoryBeforeCompleting() throws {
+    let fixture = try importBookmarkFixture()
+    let category = BookmarkGroupSpy(categoryId: fixture.categoryId, bookmarksManager: BookmarksManager.shared())
+    let item = try categoryListItem(for: fixture)
+    item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarkLists,
+                                 metadata: CategoryInfo(category: category))
+    var completionCount = 0
+
+    carPlayService.handleListItemSelection(item) {
+      completionCount += 1
+      XCTAssertEqual(category.titleReadCount, 1)
+    }
+
+    XCTAssertEqual(completionCount, 1)
+  }
+
+  private func importBookmarkFixture() throws -> BookmarkGroup {
+    let bookmarkManager = BookmarksManager.shared()
+    let name = "CarPlayTests-\(UUID().uuidString)"
+    let url = FileManager.default.temporaryDirectory.appendingPathComponent(name).appendingPathExtension("kml")
+    let kml = """
+    <?xml version="1.0" encoding="UTF-8"?>
+    <kml xmlns="http://www.opengis.net/kml/2.2">
+      <Document>
+        <name>\(name)</name>
+        <Placemark>
+          <name>CarPlay bookmark</name>
+          <Point><coordinates>0,0</coordinates></Point>
+        </Placemark>
+      </Document>
+    </kml>
+    """
+    try kml.write(to: url, atomically: true, encoding: .utf8)
+    addTeardownBlock { try FileManager.default.removeItem(at: url) }
+
+    let imported = expectation(description: "Bookmark fixture imported")
+    let observer = BookmarksLoadObserver()
+    observer.onFinished = { imported.fulfill() }
+    bookmarkManager.add(observer)
+    defer { bookmarkManager.remove(observer) }
+    bookmarkManager.loadBookmarkFile(url)
+    wait(for: [imported], timeout: 5)
+
+    let category = try XCTUnwrap(bookmarkManager.sortedUserCategories().first { $0.title == name })
+    let categoryId = category.categoryId
+    addTeardownBlock {
+      if bookmarkManager.hasCategory(categoryId) {
+        bookmarkManager.deleteCategory(categoryId)
+      }
+      let trashedURLs = bookmarkManager.getRecentlyDeletedCategories()
+        .filter { $0.fileURL.lastPathComponent.hasPrefix(name) }
+        .map(\.fileURL)
+      bookmarkManager.deleteRecentlyDeletedCategory(at: trashedURLs)
+    }
+    return category
+  }
+
+  private func categoryListItem(for category: BookmarkGroup) throws -> CPListItem {
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    return try XCTUnwrap(template.sections.flatMap(\.items).compactMap { $0 as? CPListItem }.first { item in
+      guard let info = item.userInfo as? ListItemInfo,
+            let metadata = info.metadata as? CategoryInfo else { return false }
+      return metadata.category.categoryId == category.categoryId
+    })
+  }
+
+  private final class BookmarksLoadObserver: NSObject, BookmarksObserver {
+    var onFinished: (() -> Void)?
+
+    func onBookmarksLoadFinished() { onFinished?() }
+  }
+
+  private final class BookmarkGroupSpy: BookmarkGroup {
+    var titleReadCount = 0
+
+    override var title: String {
+      titleReadCount += 1
+      return super.title
+    }
   }
 
   func testEmptySearchCompletesImmediately() {
