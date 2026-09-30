@@ -133,6 +133,10 @@ void BackendRenderer::ClearRouteTransitData()
 
 void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
+  // A producer may enqueue its last payload after the cancellation sweep.
+  if (MapShapeReadedMessage::IsCancelledMessage(message))
+    return;
+
   switch (message->GetType())
   {
   case Message::Type::UpdateReadManager:
@@ -867,6 +871,7 @@ void BackendRenderer::RenderFrame()
   if (!m_context->Validate())
     return;
 
+  auto const cancellationRevision = m_readManager->GetCancellationRevision();
   ProcessSingleMessage();
 #ifdef SCENARIO_ENABLE
   if (m_pendingScenarioViewport && m_readManager->IsReadingFinished())
@@ -879,6 +884,8 @@ void BackendRenderer::RenderFrame()
         MessagePriority::Normal);
   }
 #endif
+  if (cancellationRevision != m_readManager->GetCancellationRevision())
+    InstantMessageFilter(MapShapeReadedMessage::IsCancelledMessage);
 #ifdef DRAPE_QUEUE_TRACE
   TraceMessageQueue("backend");
 #endif

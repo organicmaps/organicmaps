@@ -8,6 +8,7 @@
 #include <limits>
 #endif
 
+#include <array>
 #include <chrono>
 #include <future>
 
@@ -18,13 +19,19 @@ using namespace std::chrono_literals;
 class TestMessage : public df::Message
 {
 public:
-  TestMessage(int id, Type type) : m_id(id), m_type(type) {}
+  TestMessage(int id, Type type, int * destroyed = nullptr) : m_id(id), m_type(type), m_destroyed(destroyed) {}
+  ~TestMessage() override
+  {
+    if (m_destroyed)
+      ++*m_destroyed;
+  }
   Type GetType() const override { return m_type; }
 
   int const m_id;
 
 private:
   Type const m_type;
+  int * m_destroyed;
 };
 
 int PopId(df::MessageQueue & queue)
@@ -154,6 +161,41 @@ UNIT_TEST(MessageQueue_Filtering)
   TEST_EQUAL(PopId(queue), 5, ());
 }
 
+UNIT_TEST(MessageQueue_FilterMixedPriorities)
+{
+  using Type = df::Message::Type;
+  std::array<int, 13> destructionCounts = {};
+  std::array<int, 13> filterCounts = {};
+  df::MessageQueue queue;
+  auto push = [&](int id, df::MessagePriority priority, Type type = Type::Invalidate)
+  { queue.PushMessage(make_unique_dp<TestMessage>(id, type, &destructionCounts[id]), priority); };
+  for (int id = 1; id <= 4; ++id)
+    push(id, df::MessagePriority::Normal);
+  for (int id = 5; id <= 6; ++id)
+    push(id, df::MessagePriority::High);
+  push(7, df::MessagePriority::UberHighSingleton);
+  push(8, df::MessagePriority::UberHighSingleton, Type::UpdateReadManager);
+  for (int id = 9; id <= 12; ++id)
+    push(id, df::MessagePriority::Low);
+
+  queue.InstantFilter([&](ref_ptr<df::Message> message)
+  {
+    auto const id = static_cast<TestMessage *>(message.get())->m_id;
+    ++filterCounts[id];
+    return id % 2 != 0;
+  });
+
+  for (int id = 1; id <= 12; ++id)
+  {
+    TEST_EQUAL(filterCounts[id], 1, (id));
+    TEST_EQUAL(destructionCounts[id], id % 2, (id));
+  }
+  for (int const id : {8, 6, 2, 4, 10, 12})
+    TEST_EQUAL(PopId(queue), id, ());
+  TEST(queue.PopMessage(false) == nullptr, ());
+  for (int id = 1; id <= 12; ++id)
+    TEST_EQUAL(destructionCounts[id], 1, (id));
+}
 #ifdef DRAPE_QUEUE_TRACE
 UNIT_TEST(MessageQueue_TraceCountsAllRemovalAndRejectionPaths)
 {

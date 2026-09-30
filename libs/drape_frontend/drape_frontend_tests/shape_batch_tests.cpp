@@ -3,6 +3,7 @@
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/tile_info.hpp"
 
 #include <numeric>
 #include <vector>
@@ -109,6 +110,36 @@ UNIT_TEST(ShapeBatch_PreservesOrderAndFlushesAtBoundaries)
   std::vector<size_t> expectedIds(199);
   std::iota(expectedIds.begin(), expectedIds.end(), 0);
   TEST_EQUAL(receiver.m_shapeIds, expectedIds, ());
+}
+
+UNIT_TEST(ShapeBatch_CancellationDropsPendingAndIncomingShapesBeforeEnqueue)
+{
+  size_t destroyed = 0;
+  df::ThreadsCommutator commutator;
+  ShapeReceiver receiver(commutator);
+  auto context = make_unique_dp<df::EngineContext>(MakeContext(commutator));
+  auto const read = context.get();
+  df::TileInfo tile(std::move(context));
+  read->BeginReadTile();
+  read->Flush(MakeShapes(0, 7, destroyed));
+  TEST(!tile.IsCancelled(), ());
+  tile.Cancel();
+  TEST(tile.IsCancelled(), ());
+  TEST(read->IsCancelled(), ());
+
+  auto geometry = MakeShapes(7, 130, destroyed);
+  read->Flush(std::move(geometry));
+  TEST(geometry.empty(), ());
+  TEST_EQUAL(destroyed, 137, ("The producer releases both buffered and incoming geometry"));
+  auto overlays = MakeShapes(137, 9, destroyed);
+  read->FlushOverlays(std::move(overlays));
+  TEST(overlays.empty(), ());
+  TEST_EQUAL(destroyed, 146, ());
+  read->EndReadTile();
+  receiver.Drain();
+  TEST_EQUAL(receiver.m_types,
+             (std::vector<df::Message::Type>{df::Message::Type::TileReadStarted, df::Message::Type::TileReadEnded}),
+             ("The receiver does not filter canceled messages"));
 }
 
 }  // namespace shape_batch_tests
