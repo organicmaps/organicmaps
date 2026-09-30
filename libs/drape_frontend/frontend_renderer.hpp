@@ -52,6 +52,7 @@ namespace df
 class DebugRectRenderer;
 class DrapeNotifier;
 class ScenarioManager;
+struct ScenarioViewportRequest;
 class ScreenQuadRenderer;
 class SelectionShape;
 class SelectObjectMessage;
@@ -143,6 +144,9 @@ public:
   void Teardown();
 
   void AddUserEvent(drape_ptr<UserEvent> && event);
+#ifdef SCENARIO_ENABLE
+  void RequestScenarioViewport(std::shared_ptr<ScenarioViewportRequest> const & request);
+#endif
 
   // MyPositionController::Listener
   void PositionChanged(m2::PointD const & position, bool hasPosition) override;
@@ -175,7 +179,7 @@ protected:
 
 private:
   void OnResize(ScreenBase const & screen);
-  void RenderScene(ScreenBase const & modelView, bool activeFrame);
+  bool RenderScene(ScreenBase const & modelView, bool activeFrame);
   void PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket);
   void RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, ScreenBase const & modelView,
                          ref_ptr<BaseRenderGroup> group);
@@ -216,6 +220,9 @@ private:
   ref_ptr<dp::OverlayTree> GetOverlayTree(DepthLayer layerId) const;
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
+#ifdef SCENARIO_ENABLE
+  void CompleteScenarioViewport(bool ready);
+#endif
 
 #if defined(OMIM_OS_DESKTOP)
   void EmitGraphicsReady();
@@ -423,6 +430,19 @@ private:
   drape_ptr<DebugRectRenderer> m_debugRectRenderer;
 
   drape_ptr<ScenarioManager> m_scenarioManager;
+#ifdef SCENARIO_ENABLE
+  std::shared_ptr<ScenarioViewportRequest> m_scenarioViewportRequest;
+  uint64_t m_scenarioViewportRevision = 0;
+  enum class ScenarioViewportStage
+  {
+    WaitViewport,
+    WaitTiles,
+    WaitFence,
+    ReadyToPresent
+  };
+  ScenarioViewportStage m_scenarioViewportStage = ScenarioViewportStage::WaitViewport;
+  ScreenBase m_scenarioViewportScreen;
+#endif
 
   bool m_firstTilesReady = false;
   bool m_firstLaunchAnimationTriggered = false;

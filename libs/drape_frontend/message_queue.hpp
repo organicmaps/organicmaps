@@ -10,6 +10,11 @@
 #include <functional>
 #include <mutex>
 
+#ifdef DRAPE_QUEUE_TRACE
+#include <cstdint>
+#include <map>
+#endif
+
 namespace df
 {
 // The queue has a single consumer: only one thread may call PopMessage(), since one cancellation
@@ -36,8 +41,36 @@ public:
   size_t GetSize() const;
 #endif
 
+#ifdef DRAPE_QUEUE_TRACE
+  struct TraceCounts
+  {
+    size_t m_size = 0;
+    size_t m_peak = 0;
+    uint64_t m_enqueued = 0;
+    uint64_t m_popped = 0;
+    uint64_t m_filtered = 0;
+    uint64_t m_rejected = 0;
+    uint64_t m_cleared = 0;
+  };
+
+  struct TraceSnapshot
+  {
+    size_t m_size = 0;
+    size_t m_peak = 0;
+    std::map<Message::Type, TraceCounts> m_types;
+  };
+
+  TraceSnapshot GetTrace() const;
+#endif
+
 private:
   void FilterMessagesImpl();
+
+#ifdef DRAPE_QUEUE_TRACE
+  void TraceEnqueued(Message::Type type);
+  void TraceRemoved(Message::Type type, uint64_t TraceCounts::* counter);
+  TraceSnapshot m_trace;
+#endif
 
   mutable std::mutex m_mutex;
   std::condition_variable m_condition;

@@ -2,6 +2,12 @@
 
 #include "drape_frontend/message_queue.hpp"
 
+#ifdef DRAPE_QUEUE_TRACE
+#include "drape_frontend/message_acceptor.hpp"
+
+#include <limits>
+#endif
+
 #include <chrono>
 #include <future>
 
@@ -147,4 +153,80 @@ UNIT_TEST(MessageQueue_Filtering)
   queue.PushMessage(make_unique_dp<TestMessage>(5, Type::Invalidate), df::MessagePriority::Normal);
   TEST_EQUAL(PopId(queue), 5, ());
 }
+
+#ifdef DRAPE_QUEUE_TRACE
+UNIT_TEST(MessageQueue_TraceCountsAllRemovalAndRejectionPaths)
+{
+  using Type = df::Message::Type;
+  df::MessageQueue queue;
+  queue.PushMessage(make_unique_dp<TestMessage>(1, Type::Invalidate), df::MessagePriority::Normal);
+  queue.PushMessage(make_unique_dp<TestMessage>(2, Type::Invalidate), df::MessagePriority::Low);
+  queue.PushMessage(make_unique_dp<TestMessage>(3, Type::FlushTile), df::MessagePriority::High);
+  queue.PushMessage(make_unique_dp<TestMessage>(4, Type::UpdateReadManager), df::MessagePriority::UberHighSingleton);
+  queue.PushMessage(make_unique_dp<TestMessage>(5, Type::UpdateReadManager), df::MessagePriority::UberHighSingleton);
+  queue.EnableMessageFiltering([](ref_ptr<df::Message> m) { return m->GetType() == Type::Invalidate; });
+  queue.PushMessage(make_unique_dp<TestMessage>(6, Type::Invalidate), df::MessagePriority::Normal);
+  TEST_EQUAL(PopId(queue), 4, ());
+  queue.Clear();
+
+  auto const trace = queue.GetTrace();
+  TEST_EQUAL(trace.m_size, 0, ());
+  TEST_EQUAL(trace.m_peak, 4, ("Singleton rejection must not inflate the peak"));
+  auto const & filtered = trace.m_types.at(Type::Invalidate);
+  TEST_EQUAL(filtered.m_enqueued, 2, ());
+  TEST_EQUAL(filtered.m_filtered, 2, ("Both normal and low priority queues are counted"));
+  TEST_EQUAL(filtered.m_rejected, 1, ());
+  TEST_EQUAL(filtered.m_peak, 2, ());
+  auto const & popped = trace.m_types.at(Type::UpdateReadManager);
+  TEST_EQUAL(popped.m_enqueued, 1, ());
+  TEST_EQUAL(popped.m_popped, 1, ());
+  TEST_EQUAL(popped.m_rejected, 1, ());
+  TEST_EQUAL(popped.m_peak, 1, ());
+  TEST_EQUAL(trace.m_types.at(Type::FlushTile).m_cleared, 1, ());
+  for (auto const & [type, counts] : trace.m_types)
+  {
+    TEST_EQUAL(counts.m_size, 0, (static_cast<int>(type)));
+    TEST_EQUAL(counts.m_enqueued, counts.m_size + counts.m_popped + counts.m_filtered + counts.m_cleared,
+               (static_cast<int>(type)));
+  }
+}
+
+UNIT_TEST(MessageQueue_TraceRecordsAreBoundedAndComplete)
+{
+  df::MessageQueue::TraceSnapshot trace;
+  auto const empty = df::FormatMessageQueueTrace(trace, "backend", 1);
+  TEST_EQUAL(empty.size(), 1, ());
+  TEST_EQUAL(
+      empty.front(),
+      "DrapeQueue {\"renderer\":\"backend\",\"size\":0,\"peak\":0,\"sample\":1,\"part\":0,\"parts\":1,\"types\":{}}",
+      ());
+
+  auto const max = std::numeric_limits<uint64_t>::max();
+  trace.m_size = trace.m_peak = std::numeric_limits<size_t>::max();
+  for (int i = 0; i <= static_cast<int>(df::Message::Type::AssignTileBackgroundImage); ++i)
+  {
+    auto & counts = trace.m_types[static_cast<df::Message::Type>(i)];
+    counts.m_size = counts.m_peak = std::numeric_limits<size_t>::max();
+    counts.m_enqueued = counts.m_popped = counts.m_filtered = counts.m_rejected = counts.m_cleared = max;
+  }
+
+  auto const parts = df::FormatMessageQueueTrace(trace, "frontend", max);
+  TEST_GREATER(parts.size(), 1, ());
+  for (size_t i = 0; i < parts.size(); ++i)
+  {
+    TEST_LESS_OR_EQUAL(parts[i].size(), 3000, ());
+    auto const metadata = "\"sample\":" + std::to_string(max) + ",\"part\":" + std::to_string(i) +
+                          ",\"parts\":" + std::to_string(parts.size());
+    TEST(parts[i].find(metadata) != std::string::npos, (parts[i]));
+  }
+  for (auto const & [type, counts] : trace.m_types)
+  {
+    auto const key = '"' + std::string(DebugPrint(type)) + "\":{";
+    size_t found = 0;
+    for (auto const & part : parts)
+      found += part.find(key) != std::string::npos;
+    TEST_EQUAL(found, 1, (static_cast<int>(type)));
+  }
+}
+#endif
 }  // namespace message_queue_tests
