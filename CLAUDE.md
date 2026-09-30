@@ -99,6 +99,7 @@ std::string DebugPrint(MyType const & t);
 ## Build on desktop
 1. CMake configure: `cmake --preset debug -B build-$YOUR_NAME` for debug configuration
    - the `debug` preset (in `CMakePresets.json`) sets Ninja + `CMAKE_BUILD_TYPE=Debug`; `-B` overrides the preset's build dir so each agent gets its own `build-$YOUR_NAME` and they don't clobber each other
+   - `$YOUR_NAME` is a placeholder, not a shell variable: use your agent's name (e.g. `build-claude`) and reuse the dir if it already exists
    - if configure fails, repeat with `--fresh` option to clear CMake cache
 2. Build: `cmake --build build-$YOUR_NAME` to build all targets
    or specify `--target target_name` to build a specific target (e.g., `desktop` for the main app)
