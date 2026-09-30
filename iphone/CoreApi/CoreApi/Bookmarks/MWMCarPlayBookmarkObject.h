@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign, nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property(assign, nonatomic, readonly) CGPoint mercatorPoint;
 
+/// Takes a snapshot of a live bookmark on the Core thread. IDs retained by UI must be checked before calling.
 - (instancetype)initWithBookmarkId:(MWMMarkID)bookmarkId;
 @end
 

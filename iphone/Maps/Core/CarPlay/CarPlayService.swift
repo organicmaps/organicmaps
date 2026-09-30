@@ -1281,19 +1281,28 @@ extension CarPlayService {
       return
     }
 
+    // Rows may outlive deleted or reloaded bookmark data. The main queue serializes these
+    // membership checks and synchronous reads with bookmark mutations.
     switch userInfo.type {
     case CPConstants.ListItemType.history:
       pushSearchResults(for: item.text ?? "", completion: completionHandler)
     case CPConstants.ListItemType.bookmarkLists where userInfo.metadata is CategoryInfo:
       let metadata = userInfo.metadata as! CategoryInfo
+      guard BookmarksManager.shared().hasCategory(metadata.category.categoryId) else {
+        completionHandler()
+        return
+      }
       let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: metadata.category))
       completionHandler()
       pushTemplate(template, animated: true)
     case CPConstants.ListItemType.bookmarks where userInfo.metadata is BookmarkInfo:
+      defer { completionHandler() }
       let metadata = userInfo.metadata as! BookmarkInfo
+      guard BookmarksManager.shared().hasBookmark(metadata.bookmarkId) else {
+        return
+      }
       let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId)
       preparePreview(forBookmark: bookmark)
-      completionHandler()
     case CPConstants.ListItemType.searchResults where userInfo.metadata is SearchResultInfo:
       let metadata = userInfo.metadata as! SearchResultInfo
       preparePreviewForSearchResults(selected: metadata.result)
