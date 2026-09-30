@@ -1,13 +1,16 @@
 #include "drape_frontend/rule_drawer.hpp"
 
-#include "drape_frontend/terrain_shade_shape.hpp"
-
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/clip_splines_builder.hpp"
 #include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/metaline_manager.hpp"
+#include "drape_frontend/path_text_shape.hpp"
+#include "drape_frontend/terrain_shade_shape.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
+
+#include "drape/drape_diagnostics.hpp"
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
@@ -27,12 +30,6 @@
 #include "geometry/robust_orientation.hpp"
 
 #include "base/assert.hpp"
-
-#include "drape_frontend/line_shape.hpp"
-#include "drape_frontend/path_text_shape.hpp"
-
-#include "drape/drape_diagnostics.hpp"
-
 #include "base/macros.hpp"
 
 #if defined(DRAW_TILE_NET) || defined(TERRAIN_DEBUG_MESH)
