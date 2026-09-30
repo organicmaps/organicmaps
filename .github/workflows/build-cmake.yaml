@@ -5,10 +5,16 @@ on:
   push:
     branches:
       - master
+    paths-ignore:
+      - .agents/**
+      - .claude/**
+      - .gemini/**
+      - '**/*.md'
   pull_request:
     paths-ignore:
       - .agents/**
       - .claude/**
+      - .gemini/**
       - .gitignore
       - .github/**
       - '!.github/workflows/build-cmake.yaml'  # Run check on self change

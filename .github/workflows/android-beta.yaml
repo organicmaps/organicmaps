@@ -5,15 +5,18 @@ on:
     branches:
       - master
     paths-ignore:
+      - .agents/**
+      - .claude/**
+      - .gemini/**
       - .gitignore
       - .github/**
       - '!.github/workflows/android-beta.yaml'  # Run check on self change
+      - '**/*.md'
       - '**/*_tests/**'
       - '**/CMakeLists.txt'
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
-      - README.md
       - iphone/**
       - data/strings/**
       - docs/**
