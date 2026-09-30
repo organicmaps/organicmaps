@@ -56,14 +56,21 @@ void EngineContext::Flush(TMapShapes && shapes)
 
 void EngineContext::FlushGeometry()
 {
+  if (IsCancelled())
+    m_geometry.clear();
   if (!m_geometry.empty())
-    PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, std::exchange(m_geometry, {})));
+    PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, std::exchange(m_geometry, {}), m_readCancelled));
 }
 
 void EngineContext::FlushOverlays(TMapShapes && shapes)
 {
   FlushGeometry();
-  PostMessage(make_unique_dp<OverlayMapShapeReadedMessage>(m_tileKey, std::move(shapes)));
+  if (IsCancelled())
+  {
+    shapes.clear();
+    return;
+  }
+  PostMessage(make_unique_dp<OverlayMapShapeReadedMessage>(m_tileKey, std::move(shapes), m_readCancelled));
 }
 
 void EngineContext::FlushTrafficGeometry(TrafficSegmentsGeometry && geometry)
