@@ -495,11 +495,7 @@ void RuleDrawer::operator()(FeatureType & f)
     shape->Prepare(m_context->GetTextureManager());
 
   if (!m_mapShapes[df::GeometryType].empty())
-  {
-    TMapShapes geomShapes;
-    geomShapes.swap(m_mapShapes[df::GeometryType]);
-    m_context->Flush(std::move(geomShapes));
-  }
+    m_context->Flush(std::move(m_mapShapes[df::GeometryType]));
 }
 
 void RuleDrawer::DrawTerrain(MapDataProvider const & model)
