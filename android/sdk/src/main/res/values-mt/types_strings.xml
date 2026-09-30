@@ -2,6 +2,8 @@
 <resources>
 
     <!-- SECTION: Types: Recycling -->
+    <string name="type.waterway.ditch">Foss tad-drenaġġ</string>
+    <string name="type.waterway.ditch.intermittent">Foss tad-drenaġġ temporanju</string>
     <string name="type.cuisine.uzbek">Użbeka</string>
 
     <!-- SECTION: Types: Historic -->
@@ -29,5 +31,19 @@
     <string name="type.sport.running">Ġiri</string>
     <string name="type.sport.softball">Softball</string>
     <string name="type.waterway.access_point">Punt ta\' Aċċess għall-Kors tal-Ilma</string>
+    <string name="type.waterway.canal">Kanal</string>
+    <string name="type.waterway.canal.intermittent">Kanal temporanju</string>
+    <string name="type.waterway.fish_pass">Passaġġ għall-ħut</string>
+    <string name="type.waterway.fish_pass.intermittent">Passaġġ għall-ħut temporanju</string>
+    <string name="type.natural.water.ditch">Foss tad-drenaġġ</string>
+    <string name="type.waterway.drain">Kanal tad-drenaġġ</string>
+    <string name="type.waterway.drain.intermittent">Kanal tad-drenaġġ temporanju</string>
+    <string name="type.natural.water.drain">Kanal tad-drenaġġ</string>
+    <string name="type.waterway.river">Xmara</string>
+    <string name="type.waterway.river.intermittent">Xmara temporanja</string>
+    <string name="type.waterway.river.tunnel">Xmara</string>
+    <string name="type.waterway.stream">Nixxiegħa</string>
+    <string name="type.waterway.stream.intermittent">Nixxiegħa temporanja</string>
+    <string name="type.waterway.stream.tunnel">Nixxiegħa</string>
     <string name="type.amenity.stage">Palk</string>
 </resources>
