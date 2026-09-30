@@ -162,7 +162,6 @@ public:
     std::lock_guard<std::mutex> lock(m_lock);
     ClearCacheImpl();
     m_registry.clear();
-    OnClear();
   }
 
   /// All the actual (the latest per key, including the marked to deregister) infos.
@@ -190,10 +189,6 @@ protected:
   /// Notifies the derived observers. Always called OUTSIDE of m_lock: it's generally
   /// unsafe to call user-provided functions under the lock (deadlocks or unbounded waits).
   virtual void ProcessEvents(EventsT & events) = 0;
-
-  /// A hook for the derived state reset (e.g. the condemned files).
-  /// @precondition Always called under m_lock.
-  virtual void OnClear() {}
 
   // This is the only valid way to take m_lock and use the *Impl() functions: the events
   // are collected under the lock and sent to the observers after it is released.

@@ -658,15 +658,15 @@ void Framework::RegisterAllMaps()
     }
   }
 
-  auto terrainFiles = storage::Storage::ScanTerrainFiles();
+  auto files = m_storage.ScanTerrainFiles();
   // RegisterAllMaps can run on the map-loading thread. Publish the terrain inventory
   // and register its files on the GUI thread, before restoring the download queue.
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, terrainScanGeneration, terrainFiles = std::move(terrainFiles)]
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, terrainScanGeneration, files = std::move(files)] mutable
   {
     // A directory switch or unload invalidates scans already queued for publication.
     if (terrainScanGeneration != m_terrainScanGeneration.load())
       return;
-    m_storage.OnTerrainScanned(terrainFiles);
+    m_storage.OnTerrainScanned(std::move(files));
     m_isolinesManager.Invalidate();
   });
 }

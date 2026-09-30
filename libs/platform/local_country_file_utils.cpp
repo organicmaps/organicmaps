@@ -117,8 +117,9 @@ bool IsDownloaderFile(string const & name)
 string GetFilePath(int64_t version, string const & dataDir, string const & countryName, MapFileType type)
 {
   string const filename = GetFileName(countryName, type);
-  string const dir = GetDataDirFullPath(dataDir);
-  if (version == 0)
+  auto const dataPath = GetDataDirFullPath(dataDir);
+  auto const dir = type == MapFileType::Terrain ? base::JoinPath(dataPath, TERRAIN_DIR) : dataPath;
+  if (version == 0 && type != MapFileType::Terrain)
     return base::JoinPath(dir, filename);
   return base::JoinPath(dir, strings::to_string(version), filename);
 }
