@@ -109,10 +109,10 @@ Add `"category_name"` to the `m_keys` initializer list.
 
 2. **Build and run tests:**
    ```
-   cmake --build build-agent --target search_tests && ctest -j --test-dir build-agent --stop-on-failure --output-on-failure -R search_tests
+   cmake --build build-$YOUR_NAME --target search_tests && ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R search_tests
    ```
 
 3. **If a displayed category was added**, also run:
    ```
-   cmake --build build-agent --target indexer_tests editor_tests && ctest -j --test-dir build-agent --stop-on-failure --output-on-failure -R "indexer_tests|editor_tests"
+   cmake --build build-$YOUR_NAME --target indexer_tests editor_tests && ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R "indexer_tests|editor_tests"
    ```
