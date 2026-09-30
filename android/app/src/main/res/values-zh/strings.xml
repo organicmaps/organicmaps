@@ -568,6 +568,8 @@
     <string name="planning_route_manage_route">管理路线</string>
     <string name="button_plan">规划</string>
     <string name="placepage_remove_stop">删除站点</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">添加目的地</string>
     <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">添加途经点</string>
     <string name="drag_to_reorder">重新排序</string>
