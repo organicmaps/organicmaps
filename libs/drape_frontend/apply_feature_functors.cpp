@@ -646,6 +646,8 @@ void ApplyAreaFeature::ProcessAreaRules(drule::AreaRule const * areaRule, drule:
 {
   ASSERT(areaRule || hatchingRule, ());
   ASSERT(HasGeometry(), ());
+  ASSERT((hatchingRule != nullptr) == !hatchKey.empty(), (m_f.DebugString()));
+  ASSERT(areaRule || patternKey.empty(), (m_f.DebugString()));
 
   double areaDepth = drule::kBaseDepthBgBySize - 1;
 
@@ -667,6 +669,7 @@ void ApplyAreaFeature::ProcessAreaRules(drule::AreaRule const * areaRule, drule:
 void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double areaDepth, std::string_view hatchKey,
                                    std::string_view patternKey)
 {
+  ASSERT(hatchKey.empty() || patternKey.empty(), (m_f.DebugString()));
   bool const isHatching = !hatchKey.empty();
 
   AreaViewParams params;

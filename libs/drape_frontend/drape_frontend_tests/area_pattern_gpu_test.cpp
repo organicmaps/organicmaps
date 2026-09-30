@@ -126,6 +126,34 @@ void RenderSolidPatternAndCheck(char const * title, std::string_view patternKey)
   }
   TEST_EQUAL(opaqueBlack, 0u, ("Opaque black pixels - colour texture not sampled?", title));
 }
+
+void CheckPatternClipping(std::string_view pattern)
+{
+  auto const render = [pattern](double min)
+  {
+    df::test_support::ShapeTestFixture fixture;
+    fixture.Render("Area pattern clipping", 256, 256, [pattern, min](auto & f)
+    {
+      auto params = MakeParams(pattern);
+      params.m_color = kLightFill;
+      std::vector<m2::PointD> triangles = {{min, min}, {110, min}, {110, 110}, {min, min}, {110, 110}, {min, 110}};
+      f.AddShape(make_unique_dp<df::AreaShape>(std::move(triangles), df::BuildingOutline{}, params));
+    });
+    return fixture.GetLastImage();
+  };
+  QImage const full = render(-110.0);
+  QImage const clipped = render(-94.0);
+  if (full.isNull() || clipped.isNull())
+    return;  // Headless environment without a usable GL context.
+
+  // Both axes get a different anchor. Compare only the unchanged interior, away from clipped edges.
+  size_t differences = 0;
+  for (int y = 20; y < 220; ++y)
+    for (int x = 36; x < 236; ++x)
+      if (full.pixel(x, y) != clipped.pixel(x, y))
+        ++differences;
+  TEST_EQUAL(differences, 0, (std::string(pattern), "Jitter changes with the clipped bounds"));
+}
 }  // namespace area_pattern_gpu_test
 
 UNIT_TEST(AreaHatch45GpuTest)
@@ -151,4 +179,14 @@ UNIT_TEST(AreaSpeckleGpuTest)
 UNIT_TEST(AreaGridGpuTest)
 {
   area_pattern_gpu_test::RenderSolidPatternAndCheck("Analytic grid", dp::kGridPattern);
+}
+
+UNIT_TEST(AreaSpeckleClippingGpuTest)
+{
+  area_pattern_gpu_test::CheckPatternClipping(dp::kSpecklePattern);
+}
+
+UNIT_TEST(AreaStippleClippingGpuTest)
+{
+  area_pattern_gpu_test::CheckPatternClipping(dp::kStipplePattern);
 }

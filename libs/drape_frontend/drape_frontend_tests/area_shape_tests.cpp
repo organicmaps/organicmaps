@@ -24,8 +24,9 @@ double HatchUV(double worldCoord, double bboxMin, uint32_t maskSizePx, double ba
 }
 }  // namespace
 
-// The analytic hatch repeats with mod() over the lattice coordinate, so only its fractional part (the
-// phase) is visible. The phase must be a function of the world coordinate alone — independent of how a
+// Periodic hatches repeat with mod() over the lattice coordinate, so only its fractional part (the
+// phase) is visible. This checks the UV phase; it does not cover hash-based jitter in stipple or speckle.
+// The phase must be a function of the world coordinate alone — independent of how a
 // feature happens to be clipped into per-tile bounding boxes — otherwise the pattern snaps/shifts and
 // breaks at tile seams when geometry is re-tiled or the LOD changes (issue #12804).
 UNIT_TEST(HatchingPhaseAnchor_StableAcrossTileClipping)
