@@ -115,6 +115,7 @@ public:
     AddTileBackgroundImage,
     SetTileBackgroundData,
     SetTileBackgroundMode,
+    ScenarioViewport,
     AssignTileBackgroundImage
   };
 
