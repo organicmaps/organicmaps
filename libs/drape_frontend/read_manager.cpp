@@ -289,6 +289,7 @@ void ReadManager::CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel)
   std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
   m_activeTiles.erase(tileToCancel->GetTileKey());
   tileToCancel->Cancel();
+  ++m_cancellationRevision;
 }
 
 void ReadManager::ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear)
