@@ -26,7 +26,9 @@
 #include <utf8.h>  // utf8::is_valid
 
 #include <array>
+#include <chrono>
 #include <cstring>  // strlen
+#include <ctime>
 #include <map>
 #include <numeric>  // std::reduce
 #include <set>
@@ -328,6 +330,87 @@ kml::TrackData MakeLineTrackData()
   trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
   trackData.m_geometry.AddTimestamps({});
   return trackData;
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
+{
+  auto const filePath = base::JoinPath(GetBookmarksDirectory(), "reload_metadata.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  auto makeFileData =
+      [](std::string const & name, std::string const & description, std::time_t modified, size_t bookmarkCount)
+  {
+    auto data = LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml);
+    TEST(data, ());
+    kml::SetDefaultStr(data->m_categoryData.m_name, name);
+    kml::SetDefaultStr(data->m_categoryData.m_description, description);
+    data->m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(modified);
+    data->m_serverId = "server-id";
+    data->m_bookmarksData.resize(bookmarkCount);
+    data->m_tracksData.push_back(MakeLineTrackData());
+    return data;
+  };
+
+  auto initialData = makeFileData("MapName", "initial", 1000, 2);
+  TEST(SaveKmlFileSafe(*initialData, filePath, FileType::Kml), ());
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto loadFile = [&](bool autoSave)
+  {
+    auto data = LoadKmlData(FileReader(filePath), FileType::Kml);
+    TEST(data, ());
+    BookmarkManager::KMLDataCollection collection;
+    collection.emplace_back(filePath, std::move(data));
+    bmManager.CreateCategories(std::move(collection), autoSave);
+  };
+  loadFile(false /* autoSave */);
+
+  auto const groupId = bmManager.GetCategoryByFileName(filePath);
+  TEST_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+  TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), 2, ());
+  TEST_EQUAL(bmManager.GetTrackIds(groupId).size(), 1, ());
+  auto oldBookmarkId = *bmManager.GetUserMarkIds(groupId).begin();
+  auto oldTrackId = *bmManager.GetTrackIds(groupId).begin();
+
+  auto reload =
+      [&](std::string const & name, std::string const & description, std::time_t modified, size_t bookmarkCount)
+  {
+    auto data = makeFileData(name, description, modified, bookmarkCount);
+    TEST(SaveKmlFileSafe(*data, filePath, FileType::Kml), ());
+    TEST(Platform::SetFileModificationTime(filePath, 5000), ());
+
+    loadFile(true /* autoSave */);
+
+    auto const & categoryData = bmManager.GetCategoryData(groupId);
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+    TEST_EQUAL(categoryData.m_id, groupId, ());
+    TEST_EQUAL(bmManager.GetCategoryByFileName(filePath), groupId, ());
+    TEST_EQUAL(bmManager.GetCategoryName(groupId), name, ());
+    TEST_EQUAL(kml::GetDefaultStr(categoryData.m_description), description, ());
+    TEST_EQUAL(categoryData.m_lastModified, kml::TimestampClock::from_time_t(modified), ());
+    TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), bookmarkCount, ());
+    TEST_EQUAL(bmManager.GetTrackIds(groupId).size(), 1, ());
+    TEST(!bmManager.HasBookmark(oldBookmarkId), ());
+    TEST(!bmManager.HasTrack(oldTrackId), ());
+
+    TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
+    oldBookmarkId = *bmManager.GetUserMarkIds(groupId).begin();
+    oldTrackId = *bmManager.GetTrackIds(groupId).begin();
+  };
+
+  reload("MapName", "same name", 2000, 1);
+  reload("Renamed", "new name", 3000, 2);
+
+  auto const otherId = bmManager.CreateBookmarkCategory("Taken", false /* autoSave */);
+  auto conflictingData = makeFileData("Taken", "conflicting name", 4000, 1);
+  TEST(SaveKmlFileSafe(*conflictingData, filePath, FileType::Kml), ());
+  TEST(Platform::SetFileModificationTime(filePath, 5000), ());
+
+  loadFile(true /* autoSave */);
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "Taken1", ());
+  TEST_EQUAL(bmManager.GetCategoryName(otherId), "Taken", ());
+  TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
 }
 
 kml::MarkId FindTrackSelectionMark(BookmarkManager const & bm, kml::TrackId trackId)

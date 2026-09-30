@@ -653,7 +653,7 @@ private:
   KMLDataCollectionPtr PrepareToSaveBookmarksForTrack(kml::TrackId trackId);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
-  void SetUniqueName(kml::CategoryData & data);
+  void SetUniqueName(kml::CategoryData & data, kml::MarkGroupId excludedGroupId);
   bool CheckVisibility(bool isVisible) const;
 
   struct SortBookmarkData
