@@ -3,6 +3,8 @@
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="transliteration_title">Translittération vers l\'alphabet latin</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">Ajouter une destination</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimisation de l’itinéraire</string>
     <!-- Explains that route optimization automatically reorders intermediate stops -->

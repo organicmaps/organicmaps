@@ -532,6 +532,8 @@
     <string name="transliteration_title">Trosi i\'r wyddor Ladin</string>
     <string name="learn_more">Dysgu mwy</string>
     <string name="placepage_remove_stop">Dileu pwynt aros</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">Ychwanegu cyrchfan</string>
     <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Ychwanegu pwynt aros</string>
     <string name="drag_to_reorder">Aildrefnu</string>
