@@ -20,11 +20,11 @@ layout (binding = 0) uniform UBO
   float u_isOutlinePass;
 };
 
-// Analytic speckle: a denser, finer, size-varied dot field for rocky surfaces (scree/bare_rock). Same
+// Analytic speckle: a denser, finer, size-varied dot field for rocky surfaces. Same
 // single-pass solid fill with dots as the stipple, but smaller cells and per-cell radius variation
 // read as a coarse, irregular rock texture rather than even sand grains. fwidth() AA, no texture/mip.
 
-const float kCellPx = 4.0;        // denser than stipple (divides the 16px tile, so cells tile seamlessly)
+const float kCellPx = 4.0;        // dot lattice spacing in base pixels, denser than stipple
 const float kBaseRadiusPx = 0.7;
 const float kRadiusVar = 0.6;     // per-cell radius variation -> irregular sizes
 const float kJitter = 0.5;        // keep kJitter*0.5*kCellPx + maxRadius < kCellPx*0.5
@@ -47,6 +47,8 @@ void main()
 
   vec2 px = v_maskTexCoords * 16.0;
   vec2 cell = floor(px / kCellPx);
+  // Periodic cell IDs preserve jitter when the UV anchor shifts by a whole 16px tile.
+  cell = mod(cell, vec2(16.0 / kCellPx));
   vec2 toCenter =
       (fract(px / kCellPx) - 0.5) * kCellPx - (vec2(Hash(cell), Hash(cell + 19.7)) - 0.5) * (kJitter * kCellPx);
   float radius = kBaseRadiusPx * (1.0 - kRadiusVar * 0.5 + kRadiusVar * Hash(cell + 3.7));

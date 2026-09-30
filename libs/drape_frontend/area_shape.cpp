@@ -15,8 +15,8 @@
 
 namespace df
 {
-// Analytic area patterns repeat every kHatchTilePx base pixels. The fragment shaders interpret
-// v_maskTexCoords * kHatchTilePx as the in-tile pixel coordinate.
+// Pattern UVs use kHatchTilePx base pixels per unit. The fragment shaders multiply
+// v_maskTexCoords by kHatchTilePx to recover the lattice coordinate in base pixels.
 uint32_t constexpr kHatchTilePx = 16;
 
 namespace
@@ -72,7 +72,7 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   else if (m_params.m_is3D)
     DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
   else if (!m_params.m_areaPattern.empty())
-    DrawPatternArea(context, batcher, colorUv, region.GetTexture(), m_params.m_areaPattern);
+    DrawPatternArea(context, batcher, colorUv, region.GetTexture());
   else
     DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
@@ -138,8 +138,7 @@ void AreaShape::DrawMwmBorderArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<
 }
 
 void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                                m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
-                                std::string_view patternKey) const
+                                m2::PointD const & colorUv, ref_ptr<dp::Texture> texture) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
@@ -147,11 +146,11 @@ void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp
   for (auto const & v : m_vertexes)
     bbox.Add(v);
 
-  // World units per tile repeat; the fragment shader scales v_maskTexCoords back to in-tile pixels.
+  // UV units per world unit; the fragment shader scales v_maskTexCoords back to base pixels.
   double const tilesPerWorld = m_params.m_baseGtoPScale / kHatchTilePx;
 
-  // Anchor the repeated pattern to a global, period-aligned grid instead of the clipped bbox, so the
-  // phase stays continuous across tile seams and LOD changes. See CalcHatchingPhaseAnchor / issue #12804.
+  // Snap to the lattice period to retain its fractional phase while keeping GPU coordinates small.
+  // Jittered patterns also need a periodic cell hash to be independent of this local anchor.
   double const anchorX = CalcHatchingPhaseAnchor(bbox.minX(), kHatchTilePx, m_params.m_baseGtoPScale);
   double const anchorY = CalcHatchingPhaseAnchor(bbox.minY(), kHatchTilePx, m_params.m_baseGtoPScale);
 
@@ -165,7 +164,7 @@ void AreaShape::DrawPatternArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp
   }
 
   // The pattern is computed analytically in the fragment shader (no mask texture, hence no mipmaps).
-  auto state = CreateRenderState(PatternProgram(patternKey), DepthLayer::GeometryLayer);
+  auto state = CreateRenderState(PatternProgram(m_params.m_areaPattern), DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
 
