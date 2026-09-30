@@ -55,6 +55,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     manageRouteList.setAdapter(new ConcatAdapter(mHeaderAdapter, mManageRouteAdapter));
     mTouchHelper = new ItemTouchHelper(new ManageRouteItemTouchHelperCallback(mManageRouteAdapter, this));
     mTouchHelper.attachToRecyclerView(manageRouteList);
+    manageRouteList.addItemDecoration(new RoutePointsConnectorItemDecoration(mContext, mManageRouteAdapter));
   }
 
   public void onRouteOrderChanged(@NonNull ArrayList<RouteMarkData> newRoutePoints)
