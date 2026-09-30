@@ -210,6 +210,14 @@ bool ReadManager::CheckTileKey(TileKey const & tileKey) const
   return false;
 }
 
+#ifdef SCENARIO_ENABLE
+bool ReadManager::IsReadingFinished()
+{
+  std::lock_guard lock(m_finishedTilesMutex);
+  return m_counter == 0;
+}
+#endif
+
 bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 {
   int const oldScale = df::GetDrawTileScale(m_currentViewport);

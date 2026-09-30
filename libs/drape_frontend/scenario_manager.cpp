@@ -4,8 +4,40 @@
 
 #include <memory>
 
+#ifdef SCENARIO_ENABLE
+#include <glaze/json.hpp>
+#endif
+
 namespace df
 {
+
+#ifdef SCENARIO_ENABLE
+namespace scenario_json
+{
+struct ViewportResult
+{
+  std::string scenario;
+  size_t index;
+  double elapsed_ms;
+  bool ready;
+};
+}  // namespace scenario_json
+
+void ScenarioViewportRequest::Complete(bool ready)
+{
+  std::lock_guard lock(m_mutex);
+  if (!m_result)
+    m_result = ready;
+  m_condition.notify_all();
+}
+
+std::optional<bool> ScenarioViewportRequest::WaitFor(std::chrono::milliseconds duration)
+{
+  std::unique_lock lock(m_mutex);
+  m_condition.wait_for(lock, duration, [this] { return m_result.has_value(); });
+  return m_result;
+}
+#endif
 
 ScenarioManager::ScenarioManager(FrontendRenderer * frontendRenderer)
   : m_frontendRenderer(frontendRenderer)
@@ -17,7 +49,12 @@ ScenarioManager::ScenarioManager(FrontendRenderer * frontendRenderer)
 
 ScenarioManager::~ScenarioManager()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_needInterrupt = true;
+  }
+  m_condition.notify_all();
+  // The worker takes m_mutex while finishing; joining with that lock held deadlocks.
   if (m_thread != nullptr)
   {
     m_thread->join();
@@ -74,6 +111,8 @@ void ScenarioManager::ThreadRoutine()
   if (m_onStartHandler != nullptr)
     m_onStartHandler(scenarioName);
 
+  bool failed = false;
+  size_t viewportIndex = 0;
   for (auto const & action : m_scenarioData.m_scenario)
   {
     // Interrupt scenario if it's necessary.
@@ -91,20 +130,55 @@ void ScenarioManager::ThreadRoutine()
     case ActionType::CenterViewport:
     {
       CenterViewportAction * centerViewportAction = static_cast<CenterViewportAction *>(action.get());
-      m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(
-          centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(), true /* isAnim */,
-          false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+#ifdef SCENARIO_ENABLE
+      if (centerViewportAction->WaitForReady())
+      {
+        auto request = std::make_shared<ScenarioViewportRequest>(centerViewportAction->GetCenter(),
+                                                                 centerViewportAction->GetZoomLevel());
+        auto const start = std::chrono::steady_clock::now();
+        m_frontendRenderer->RequestScenarioViewport(request);
+        std::optional<bool> ready;
+        while (!(ready = request->WaitFor(std::chrono::milliseconds(50))))
+        {
+          std::lock_guard lock(m_mutex);
+          if (m_needInterrupt || std::chrono::steady_clock::now() - start >= std::chrono::seconds(30))
+          {
+            request->Complete(false);
+            ready = false;
+          }
+        }
+
+        scenario_json::ViewportResult const result{
+            scenarioName, viewportIndex,
+            std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - start).count(), *ready};
+        std::string json;
+        CHECK(!glz::write_json(result, json), ());
+        LOG(LINFO, ("DrapeViewport", json));
+        failed = !*ready;
+      }
+      else
+#endif
+        m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(
+            centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(), centerViewportAction->IsAnimated(),
+            false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+      ++viewportIndex;
       break;
     }
 
     case ActionType::WaitForTime:
     {
       WaitForTimeAction * waitForTimeAction = static_cast<WaitForTimeAction *>(action.get());
-      std::this_thread::sleep_for(waitForTimeAction->GetDuration());
+      std::unique_lock lock(m_mutex);
+      m_condition.wait_for(lock, waitForTimeAction->GetDuration(), [this] { return m_needInterrupt; });
       break;
     }
 
     default: LOG(LINFO, ("Unknown action in scenario"));
+    }
+    if (failed)
+    {
+      LOG(LERROR, ("Drape scenario failed:", scenarioName));
+      break;
     }
   }
 
@@ -141,6 +215,7 @@ void ScenarioManager::InterruptImpl()
   else
   {
     m_needInterrupt = true;
+    m_condition.notify_all();
   }
 }
 

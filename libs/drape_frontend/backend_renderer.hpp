@@ -29,6 +29,7 @@ namespace df
 {
 class Message;
 class ReadManager;
+struct ScenarioViewportRequest;
 class RouteBuilder;
 class MetalineManager;
 
@@ -125,6 +126,10 @@ private:
   MapDataProvider m_model;
   drape_ptr<BatchersPool<TileKey, TileKeyStrictComparator>> m_batchersPool;
   drape_ptr<ReadManager> m_readManager;
+#ifdef SCENARIO_ENABLE
+  std::shared_ptr<ScenarioViewportRequest> m_pendingScenarioViewport;
+  uint64_t m_pendingScenarioViewportRevision = 0;
+#endif
   drape_ptr<RouteBuilder> m_routeBuilder;
   drape_ptr<TransitSchemeBuilder> m_transitBuilder;
   drape_ptr<TrafficGenerator> m_trafficGenerator;
