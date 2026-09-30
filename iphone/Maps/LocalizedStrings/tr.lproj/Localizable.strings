@@ -655,6 +655,9 @@
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Durağı Kaldır";
 
+/* Button below the route destination for adding another destination to the route. */
+"route_add_destination" = "Hedef ekle";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Ara nokta ekle";
 "saved" = "Kaydedildi";
