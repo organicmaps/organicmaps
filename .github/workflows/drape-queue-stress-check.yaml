@@ -1,0 +1,21 @@
+name: Drape queue stress checks
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/drape-queue-stress-check.yaml'
+      - 'tools/python/drape_queue_stress.py'
+      - 'tools/python/test_drape_queue_stress.py'
+
+jobs:
+  drape-queue-stress-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      - name: Run fixture and parser tests
+        run: python3 tools/python/test_drape_queue_stress.py
