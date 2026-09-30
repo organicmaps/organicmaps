@@ -6,6 +6,7 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/read_manager.hpp"
+#include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include <algorithm>
@@ -298,6 +299,45 @@ UNIT_CLASS_TEST(ReadCoverageFixture, ReadCancellation_ReentryKeepsNeighborAndAdv
   TEST_EQUAL(m_reader.GetCancellationRevision(), initialRevision + 1, ());
   Stop();
   TEST_EQUAL(m_reader.GetCancellationRevision(), initialRevision + 3, ());
+  CheckLifecycle();
+}
+
+UNIT_CLASS_TEST(ReadCoverageFixture, ReadCancellation_CoalescedPendingViewportPreservesAcceptedRead)
+{
+  auto const revision = m_reader.GetCancellationRevision();
+  Update({m_a});
+  TEST(WaitForReads(1), ());
+  auto const readA = FindRead(m_a);
+
+  df::RequestedTiles requested;
+  auto screenB = m_screen;
+  screenB.SetFromRect(m2::AnyRectD(m_b.GetGlobalRect()));
+  requested.Set(screenB, false, false, false, {m_b});
+  // Traffic uses accepted coverage; shape payloads carry their originating read's cancellation flag.
+  // Pending B must neither reject A's traffic nor retire its shape payloads.
+  TEST(m_reader.CheckTileKey(readA), ());
+  TEST(!m_reader.CheckTileKey(m_b), ("A pending request is not an accepted read"));
+  TEST_EQUAL(m_reader.GetCancellationRevision(), revision, ());
+
+  // Return to A before the backend consumes the coalesced viewport request.
+  requested.Set(m_screen, false, false, false, {m_a});
+  auto const tiles = requested.GetTiles();
+  TEST_EQUAL(tiles, (df::TTilesCollection{m_a}), ());
+  ScreenBase screen;
+  bool have3dBuildings, forceRequest, forceUserMarksRequest;
+  requested.GetParams(screen, have3dBuildings, forceRequest, forceUserMarksRequest);
+  m_reader.UpdateCoverage(screen, have3dBuildings, forceRequest, forceUserMarksRequest, tiles, nullptr,
+                          make_ref(&m_metalines));
+  TEST(m_reader.CheckTileKey(readA), ());
+  TEST(!m_reader.CheckTileKey(m_b), ());
+  TEST_EQUAL(m_reader.GetCancellationRevision(), revision, ("Superseding B must not cancel and replace A"));
+
+  Stop();
+  TEST_EQUAL(m_indexReads, 1, ("A must finish its original read; no replacement can restore a dropped payload"));
+  TEST_EQUAL(m_receiver.m_started.size(), 1, ());
+  TEST_EQUAL(m_receiver.m_ended.size(), 1, ());
+  TEST(m_receiver.m_started.front().EqualStrict(readA), ());
+  TEST_EQUAL(std::count(m_receiver.m_types.begin(), m_receiver.m_types.end(), df::Message::Type::FinishReading), 1, ());
   CheckLifecycle();
 }
 

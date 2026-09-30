@@ -45,6 +45,7 @@ public:
   void Invalidate(TTilesCollection const & keyStorage);
   void InvalidateAll();
 
+  // Pending viewport requests can be superseded without retiring active reads.
   bool CheckTileKey(TileKey const & tileKey) const;
   // Accessed only by the backend thread, which also retires reads.
   uint64_t GetCancellationRevision() const { return m_cancellationRevision; }
