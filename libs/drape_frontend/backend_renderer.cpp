@@ -709,6 +709,27 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+#ifdef SCENARIO_ENABLE
+  case Message::Type::ScenarioViewport:
+  {
+    ref_ptr<ScenarioViewportMessage> msg = message;
+    if (msg->GetRevision() < m_pendingScenarioViewportRevision)
+      break;
+    m_pendingScenarioViewportRevision = msg->GetRevision();
+    if (!msg->IsAfterReads() || !m_readManager->IsReadingFinished())
+    {
+      m_pendingScenarioViewport = msg->GetRequest();
+      break;
+    }
+    // The normal continuation also follows FinishReading, which flushes overlays.
+    m_commutator->PostMessage(
+        ThreadsCommutator::RenderThread,
+        make_unique_dp<ScenarioViewportMessage>(msg->GetRequest(), true /* fence */, msg->GetRevision()),
+        MessagePriority::Normal);
+    break;
+  }
+#endif
+
 #if defined(OMIM_OS_DESKTOP)
   case Message::Type::NotifyGraphicsReady:
   {
@@ -847,6 +868,20 @@ void BackendRenderer::RenderFrame()
     return;
 
   ProcessSingleMessage();
+#ifdef SCENARIO_ENABLE
+  if (m_pendingScenarioViewport && m_readManager->IsReadingFinished())
+  {
+    // The counter and final worker posts share a lock; enqueue behind all of those payloads.
+    m_commutator->PostMessage(
+        ThreadsCommutator::ResourceUploadThread,
+        make_unique_dp<ScenarioViewportMessage>(std::move(m_pendingScenarioViewport), true /* fence */,
+                                                m_pendingScenarioViewportRevision, true /* afterReads */),
+        MessagePriority::Normal);
+  }
+#endif
+#ifdef DRAPE_QUEUE_TRACE
+  TraceMessageQueue("backend");
+#endif
   m_context->CollectMemory();
 }
 

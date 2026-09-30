@@ -46,6 +46,9 @@ public:
   void InvalidateAll();
 
   bool CheckTileKey(TileKey const & tileKey) const;
+#ifdef SCENARIO_ENABLE
+  bool IsReadingFinished();
+#endif
   void Allow3dBuildings(bool allow3dBuildings);
 
   void SetMapLangIndex(int8_t mapLangIndex);

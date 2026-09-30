@@ -61,6 +61,14 @@ if (ENABLE_TRACE)
   add_definitions(-DENABLE_TRACE)
 endif()
 
+if (DRAPE_QUEUE_TRACE)
+  add_compile_definitions(DRAPE_QUEUE_TRACE)
+endif()
+
+if (DRAPE_SCENARIO)
+  add_compile_definitions(SCENARIO_ENABLE)
+endif()
+
 if (BUILD_DESIGNER)
   message(STATUS "Designer tool building is enabled")
   add_definitions(-DBUILD_DESIGNER)
