@@ -44,9 +44,11 @@ public:
   void EndReadTile();
 
 private:
+  void FlushGeometry();
   void PostMessage(drape_ptr<Message> && message);
 
   TileKey m_tileKey;
+  TMapShapes m_geometry;
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::TextureManager> m_texMng;
   ref_ptr<MetalineManager> m_metalineMng;
