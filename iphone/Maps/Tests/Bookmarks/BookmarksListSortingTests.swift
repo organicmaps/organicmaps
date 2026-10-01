@@ -131,6 +131,26 @@ final class BookmarksListSortingTests: XCTestCase {
 
     XCTAssertEqual(view.sections.flatMap(\.editableItems).map(\.itemId), [.bookmark(1)])
   }
+
+  func testReloadRefreshesCategoryMetadata() {
+    XCTAssertEqual(view.info?.title, "Test")
+    XCTAssertEqual(view.info?.description, "")
+    XCTAssertEqual(view.info?.hasDescription, false)
+    XCTAssertEqual(view.info?.imageUrl, nil)
+
+    let imageUrl = URL(string: "https://example.com/category.png")
+    interactor.updateCategoryMetadata(title: "Updated title",
+                                      description: "<b>Updated description</b>",
+                                      isHtmlDescription: true,
+                                      imageUrl: imageUrl)
+    interactor.reloadCategory()
+
+    XCTAssertEqual(view.info?.title, "Updated title")
+    XCTAssertEqual(view.info?.description, "<b>Updated description</b>")
+    XCTAssertEqual(view.info?.hasDescription, true)
+    XCTAssertEqual(view.info?.isHtmlDescription, true)
+    XCTAssertEqual(view.info?.imageUrl, imageUrl)
+  }
 }
 
 private final class MockSortingBookmark: Bookmark {
@@ -160,16 +180,21 @@ private final class MockSortingTrack: Track {
 
 private final class MockSortingBookmarkGroup: BookmarkGroup {
   private let items: [Bookmark]
+  var categoryTitle = "Test"
+  var categoryDescription = ""
+  var categoryDescriptionIsHtml = false
+  var categoryImageUrl: URL?
+
   init(bookmarks: [Bookmark]) {
     items = bookmarks
     super.init(categoryId: 1, bookmarksManager: BookmarksManager.shared())
   }
 
-  override var title: String { "Test" }
-  override var detailedAnnotation: String { "" }
-  override var hasDescription: Bool { false }
-  override var isHtmlDescription: Bool { false }
-  override var imageUrl: URL? { nil }
+  override var title: String { categoryTitle }
+  override var detailedAnnotation: String { categoryDescription }
+  override var hasDescription: Bool { !categoryDescription.isEmpty }
+  override var isHtmlDescription: Bool { categoryDescriptionIsHtml }
+  override var imageUrl: URL? { categoryImageUrl }
   override var bookmarks: [Bookmark] { items }
   override var tracks: [Track] { [MockSortingTrack()] }
   override var bookmarksCount: Int { items.count }
@@ -181,10 +206,17 @@ private final class MockBookmarksSortingInteractor: IBookmarksListInteractor {
   var searchCompletions: [([Bookmark]) -> Void] = []
   var sortCompletions: [([BookmarksSection]) -> Void] = []
   var sortingType: BookmarksListSortingType?
-  private let group: BookmarkGroup
+  private let group: MockSortingBookmarkGroup
   init(bookmarks: [Bookmark]) { group = MockSortingBookmarkGroup(bookmarks: bookmarks) }
   func getBookmarkGroup() -> BookmarkGroup { group }
   func reloadCategory() { onCategoryReload?(.success) }
+  func updateCategoryMetadata(title: String, description: String, isHtmlDescription: Bool, imageUrl: URL?) {
+    group.categoryTitle = title
+    group.categoryDescription = description
+    group.categoryDescriptionIsHtml = isHtmlDescription
+    group.categoryImageUrl = imageUrl
+  }
+
   func prepareForSearch() {}
   func search(_: String, completion: @escaping ([Bookmark]) -> Void) { searchCompletions.append(completion) }
   func availableSortingTypes(hasMyPosition _: Bool) -> [BookmarksListSortingType] { [.name, .date, .type] }
@@ -211,10 +243,11 @@ private final class MockBookmarksSortingInteractor: IBookmarksListInteractor {
 private final class MockBookmarksSortingView: IBookmarksListView {
   var sections: [IBookmarksListSectionViewModel] = []
   var menu: [IBookmarksListMenuItem] = []
+  var info: IBookmarksListInfoViewModel?
   func setSections(_ sections: [IBookmarksListSectionViewModel]) { self.sections = sections }
   func showMenu(_ items: [IBookmarksListMenuItem], from _: BookmarkToolbarButtonSource) { menu = items }
   func saveSearchStateBeforeShowingOnMap(searchText _: String?) {}
-  func setInfo(_: IBookmarksListInfoViewModel) {}
+  func setInfo(_ info: IBookmarksListInfoViewModel) { self.info = info }
   func showColorPicker(anchor _: UIView?, currentColor _: UIColor?, _: ((UIColor) -> Void)?) {}
   func showBatchColorPicker(_: ((UIColor) -> Void)?) {}
   func finishEditing() {}

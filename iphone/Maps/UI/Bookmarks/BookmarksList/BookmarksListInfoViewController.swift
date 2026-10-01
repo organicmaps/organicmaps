@@ -59,6 +59,8 @@ final class BookmarksListInfoViewController: UIViewController {
       descriptionLabel.text = description
     }
 
+    titleImageView.wi_cancelImageRequest()
+    titleImageView.image = nil
     titleImageView.isHidden = true
     if let imageUrl = info.imageUrl {
       titleImageView.wi_setImage(with: imageUrl, transitionDuration: 0) { [weak self] image, _ in
