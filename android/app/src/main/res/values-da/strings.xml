@@ -820,6 +820,8 @@
     <string name="stop_track_recording">Stop optagelse af spor</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Optagelse af rute</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Sporet er tomt - der er ikke noget at gemme</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kan ikke vise dialogboksen til valg af mappe, fordi der ikke er installeret en passende app på din enhed. Installer venligst en filhåndteringsapp, og prøv igen.</string>
     <string name="choose_color">Vælg farve</string>

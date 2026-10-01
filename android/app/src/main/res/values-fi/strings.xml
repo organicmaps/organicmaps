@@ -820,6 +820,8 @@
     <string name="stop_track_recording">Lopeta reitin tallennus</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Reitin tallennus</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Reitti on tyhjä - ei mitään tallennettavaa</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kansiovalintaikkunaa ei voida näyttää, koska laitteeseen ei ole asennettu sopivaa sovellusta. Asenna tiedostonhallintasovellus ja yritä uudelleen</string>
     <string name="choose_color">Valitse väri</string>

@@ -822,6 +822,8 @@
     <string name="stop_track_recording">Կանգնեցնել հետագծի գրանցումը</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Հետագծի գրանցում</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Հետագիծը դատարկ է՝ պահպանելու ոչինչ չկա</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Հնարավոր չէ ցուցադրել պանակի ընտրության պատուհանը, քանի որ սարքում չկա համապատասխան հավելված։ Խնդրում ենք տեղադրել ֆայլերի կառավարիչ և փորձել կրկին։</string>
     <string name="choose_color">Ընտրել գույն</string>

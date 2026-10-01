@@ -828,6 +828,8 @@
     <string name="stop_track_recording">Detener grabación de trayecto</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Grabación de pista</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">El trayecto está vacío; no hay nada que guardar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">No se puede mostrar el diálogo de selección de carpetas porque no hay ninguna aplicación adecuada instalada en el dispositivo. Instale un gestor de archivos e inténtelo de nuevo.</string>
     <string name="choose_color">Elegir color</string>

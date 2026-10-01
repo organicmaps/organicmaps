@@ -823,6 +823,8 @@
     <string name="stop_track_recording">停止轨迹记录</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">轨迹记录</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">轨迹为空 — 无内容可保存</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">由于您的设备上未安装合适的应用程序，因此无法显示文件夹选择对话框。请安装文件管理器应用程序并重试。</string>
     <string name="choose_color">选择颜色</string>

@@ -815,6 +815,8 @@
     <string name="stop_track_recording">Waqqaf ir-reġistrazzjoni tal-korsa</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Irrekordjar tat-Traċċa</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Il-Korsija hija vojta - xejn x’ tissejvja</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Ma jistax juri d-djalogu tal-għażla tal-fowlder għax l-ebda applikazzjoni xierqa mhi installata fuq it-tagħmir tiegħek. Installa applikazzjoni tal-maniġer tal-fajl u erġa ’pprova.</string>
     <string name="choose_color">Agħżel Kulur</string>

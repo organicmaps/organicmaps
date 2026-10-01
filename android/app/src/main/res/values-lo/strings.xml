@@ -774,6 +774,8 @@
     <string name="stop_track_recording">ຢຸດການບັນທຶກເສັ້ນທາງ</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">ການບັນທຶກເສັ້ນທາງ</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">ເສັ້ນທາງວ່າງເປົ່າ - ບໍ່ມີຫຍັງໃຫ້ບັນທຶກ</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">ບໍ່ສາມາດສະແດງໜ້າຈໍເລືອກໂຟນເດີໄດ້ເນື່ອງຈາກບໍ່ມີແອັບທີ່ເໝາະສົມຕິດຕັ້ງໃນອຸປະກອນຂອງທ່ານ. ກະລຸນາຕິດຕັ້ງແອັບຈັດການໄຟລ໌ ແລະ ລອງໃໝ່ອີກຄັ້ງ.</string>
     <string name="choose_color">ເລືອກສີ</string>

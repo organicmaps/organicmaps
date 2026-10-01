@@ -812,6 +812,8 @@
     <string name="stop_track_recording">הפסק הקלטת מסלול</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">הקלטת מסלול</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">המסלול ריק - אין מה לשמור</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">לא ניתן להציג תיבת דו-שיח לבחירת תיקיות מכיוון שלא מותקנת אפליקציה מתאימה במכשיר שלך. אנא התקן אפליקציית מנהל קבצים ונסה שוב</string>
     <string name="choose_color">בחר צבע</string>

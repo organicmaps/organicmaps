@@ -818,6 +818,8 @@
     <string name="stop_track_recording">Zaustavi snimanje staze</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Snimanje staze</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Staza je prazna - nema što spremiti</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nije moguće prikazati dijalog za odabir mape jer na vašem uređaju nije instalirana odgovarajuća aplikacija. Molimo instalirajte upravitelj datoteka i pokušajte ponovno.</string>
     <string name="choose_color">Odaberi boju</string>

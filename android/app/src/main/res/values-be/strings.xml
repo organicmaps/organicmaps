@@ -831,6 +831,8 @@
     <string name="stop_track_recording">Спыніць запіс маршруту</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Запіс маршруту</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Маршрут пусты - няма чаго захоўваць</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Немагчыма паказаць акно выбару папкі, бо на вашай прыладзе не ўсталявана адпаведнай праграмы. Усталюйце файлавы менеджар і паўтарыце спробу.</string>
     <string name="choose_color">Выберыце колер</string>

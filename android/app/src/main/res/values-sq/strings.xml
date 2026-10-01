@@ -810,6 +810,8 @@
     <string name="stop_track_recording">Ndalo Regjistrimin e Gjurmës</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Regjistrimi i Gjurmës</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Gjurma është boshe - asgjë për t\'u ruajtur</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nuk mund të shfaqet dialogu i zgjedhjes së dosjes sepse asnjë aplikacion i përshtatshëm nuk është i instaluar në pajisjen tuaj. Ju lutemi instaloni një aplikacion menaxhimi skedarësh dhe provoni përsëri.</string>
     <string name="choose_color">Zgjidh Ngjyrën</string>

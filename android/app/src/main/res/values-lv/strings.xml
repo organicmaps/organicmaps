@@ -815,6 +815,8 @@
     <string name="stop_track_recording">Apstādināt pēdojuma ierakstīšanu</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Trases ierakstīšana</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav nekā saglabājama</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nevar parādīt mapes atlases dialoglodziņu, jo jūsu ierīcē nav instalēta piemērota lietotne. Lūdzu, uzstādiet failu pārvaldnieka lietotni un mēģiniet vēlreiz.</string>
     <string name="choose_color">Izvēlieties krāsu</string>
