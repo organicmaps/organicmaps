@@ -452,32 +452,54 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportRequestResult)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_TemporaryImportCleanup)
 {
-  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "bookmarks-import-core-test");
-  Platform::RmDirRecursively(directory);
-  TEST_EQUAL(Platform::MkDir(directory), Platform::ERR_OK, ());
-  auto const path = base::JoinPath(directory, "source.kml");
-  FileWriter(path).Write(kmlString, std::strlen(kmlString));
+  auto const root = base::JoinPath(GetPlatform().WritableDir(), "bookmark-import-cleanup-test");
+  Platform::RmDirRecursively(root);
+  TEST_EQUAL(Platform::MkDir(root), Platform::ERR_OK, ());
+  SCOPE_GUARD(cleanup, [&]() { Platform::RmDirRecursively(root); });
+  auto const ownedDirectory = base::JoinPath(root, "owned");
+  auto const unownedDirectory = base::JoinPath(root, "bookmarks-import-unowned");
+  TEST_EQUAL(Platform::MkDir(ownedDirectory), Platform::ERR_OK, ());
+  TEST_EQUAL(Platform::MkDir(unownedDirectory), Platform::ERR_OK, ());
+  auto const ownedFile = base::JoinPath(ownedDirectory, "corrupt.kml");
+  auto const temporaryFile = base::JoinPath(unownedDirectory, "temporary.kml");
+  auto const userFile = base::JoinPath(unownedDirectory, "user.kml");
+  FileWriter(ownedFile).Write("not valid KML", std::strlen("not valid KML"));
+  FileWriter(temporaryFile).Write(kmlString, std::strlen(kmlString));
+  FileWriter(userFile).Write(kmlString, std::strlen(kmlString));
 
   ScopedManualGuiTaskLoop guiTaskLoop;
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   size_t finishedCount = 0;
-  bool importFinished = false;
   BookmarkManager::AsyncLoadingCallbacks callbacks;
-  callbacks.m_onFinished = [&]() { ++finishedCount; };
-  callbacks.m_onImportFinished = [&](BookmarkManager::BookmarkImportResult const &)
+  callbacks.m_onFinished = [&]()
   {
-    importFinished = true;
-    TEST(!Platform::IsFileExistsByFullPath(path), ());
+    if (++finishedCount != 2)
+      return;
+    TEST(!Platform::IsFileExistsByFullPath(ownedFile), ());
+    TEST(!Platform::IsFileExistsByFullPath(temporaryFile), ());
+    TEST(Platform::IsFileExistsByFullPath(userFile), ());
   };
   bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
 
   bmManager.LoadBookmarks();
   TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return finishedCount == 1; }), ());
-  bmManager.ImportBookmarks({{path, true /* isTemporaryFile */}});
-  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importFinished; }), ());
+  bmManager.ImportBookmarks({{ownedFile, true /* isTemporaryFile */, ownedDirectory},
+                             {temporaryFile, true /* isTemporaryFile */},
+                             {userFile, false /* isTemporaryFile */}});
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return finishedCount == 2; }), ());
   Platform::EFileType type;
-  TEST_NOT_EQUAL(Platform::GetFileType(directory, type), Platform::ERR_OK, ());
+  TEST_NOT_EQUAL(Platform::GetFileType(ownedDirectory, type), Platform::ERR_OK, ());
+  TEST_EQUAL(Platform::GetFileType(unownedDirectory, type), Platform::ERR_OK, ());
+
+  auto const noListenerDirectory = base::JoinPath(root, "owned-without-listener");
+  TEST_EQUAL(Platform::MkDir(noListenerDirectory), Platform::ERR_OK, ());
+  auto const noListenerFile = base::JoinPath(noListenerDirectory, "corrupt.kml");
+  FileWriter(noListenerFile).Write("not valid KML", std::strlen("not valid KML"));
+  bmManager.SetAsyncLoadingCallbacks({});
+  bmManager.ImportBookmarks({{noListenerFile, true /* isTemporaryFile */, noListenerDirectory}});
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return !Platform::IsFileExistsByFullPath(noListenerFile); }), ());
+  TEST_NOT_EQUAL(Platform::GetFileType(noListenerDirectory, type), Platform::ERR_OK, ());
   WaitForFileTasks();
 }
 
@@ -610,6 +632,72 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportPartialKmzResult)
   WaitForFileTasks();
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportValidEmptyKmzEntry)
+{
+  ScopedFile const emptyFile("bookmark_import_valid_empty.kml", ScopedFile::Mode::DoNotCreate);
+  ScopedFile const validFile("bookmark_import_valid_with_empty.kml", kmlString);
+  ScopedFile const kmzFile("bookmark_import_valid_empty.kmz", ScopedFile::Mode::DoNotCreate);
+  kml::FileData emptyData;
+  TEST(SaveKmlFileSafe(emptyData, emptyFile.GetFullPath(), FileType::Kml), ());
+  TEST(CreateZipFromFiles({emptyFile.GetFullPath(), validFile.GetFullPath()}, {"empty.kml", "valid.kml"},
+                          kmzFile.GetFullPath()),
+       ());
+
+  auto result = LoadBookmarkFileForImport(kmzFile.GetFullPath());
+  TEST_EQUAL(result.m_kmlData.size(), 1, ());
+  TEST(result.m_failedFileNames.empty(), (result.m_failedFileNames));
+  for (auto const & [path, data] : result.m_kmlData)
+    base::DeleteFileX(path);
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportMakesObjectsVisibleBeforeSaving)
+{
+  ScopedFile const source("bookmark_import_hidden.kml", ScopedFile::Mode::DoNotCreate);
+  auto hiddenData = LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml);
+  TEST(hiddenData, ());
+  hiddenData->m_categoryData.m_visible = false;
+  for (auto & bookmark : hiddenData->m_bookmarksData)
+    bookmark.m_visible = false;
+  kml::TrackData track;
+  track.m_layers.push_back(kml::TrackLayer());
+  track.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+  track.m_geometry.AddTimestamps({});
+  track.m_visible = false;
+  hiddenData->m_tracksData.push_back(std::move(track));
+  TEST(SaveKmlFileSafe(*hiddenData, source.GetFullPath(), FileType::Kml), ());
+
+  ScopedManualGuiTaskLoop guiTaskLoop;
+  BookmarkManager bm(BM_CALLBACKS);
+  bm.EnableTestMode(true);
+  size_t finishedCount = 0;
+  BookmarkImportResult result;
+  BookmarkLoadingCallbacks callbacks;
+  callbacks.m_onFinished = [&]() { ++finishedCount; };
+  callbacks.m_onImportFinished = [&](BookmarkImportResult const & value) { result = value; };
+  bm.SetAsyncLoadingCallbacks(std::move(callbacks));
+  bm.LoadBookmarks();
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return finishedCount == 1; }), ());
+  bm.ImportBookmarks({{source.GetFullPath()}});
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return finishedCount == 2; }), ());
+
+  TEST_EQUAL(result.m_sourceResults.size(), 1, ());
+  auto const groupId = result.m_sourceResults.front().m_groupIds.front();
+  TEST(bm.IsVisible(groupId), ());
+  for (auto const markId : bm.GetUserMarkIds(groupId))
+    TEST(bm.GetBookmark(markId)->IsVisible(), ());
+  for (auto const trackId : bm.GetTrackIds(groupId))
+    TEST(bm.GetTrack(trackId)->IsVisible(), ());
+
+  auto const savedPath = bm.GetCategoryFileName(groupId);
+  auto saved = LoadKmlFile(savedPath, FileType::Kml);
+  TEST(saved && saved->m_categoryData.m_visible, ());
+  for (auto const & bookmark : saved->m_bookmarksData)
+    TEST(bookmark.m_visible, ());
+  for (auto const & savedTrack : saved->m_tracksData)
+    TEST(savedTrack.m_visible, ());
+  WaitForFileTasks();
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_ImportKmzInvalidEntryName)
 {
   ScopedFile const corruptFile("bookmark_import_invalid_entry.kml", "not valid KML");
@@ -630,6 +718,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
 {
   ScopedFile const firstFile("bookmark_import_queue_first.kml", kmlString);
   ScopedFile const secondFile("bookmark_import_queue_second.kml", kmlString);
+  ScopedFile const thirdFile("bookmark_import_queue_third.kml", kmlString);
 
   ScopedManualGuiTaskLoop guiTaskLoop;
   BookmarkManager bmManager(BM_CALLBACKS);
@@ -672,6 +761,12 @@ UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
     callbackOrder.push_back("import_result_" + std::to_string(importResultCount));
     TEST_EQUAL(1, result.m_sourceResults.size(), ());
     TEST_EQUAL(1, result.m_sourceResults.front().m_groupIds.size(), ());
+    if (importResultCount == 2)
+    {
+      TEST(!bmManager.IsAsyncLoadingInProgress(), ());
+      bmManager.ImportBookmarks({{thirdFile.GetFullPath(), false /* isTemporaryFile */}});
+      TEST(bmManager.IsAsyncLoadingInProgress(), ());
+    }
   };
   bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
 
@@ -680,14 +775,15 @@ UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
        ("Timed out waiting for initial bookmark loading"));
 
   bmManager.ImportBookmarks({{firstFile.GetFullPath(), false /* isTemporaryFile */}});
-  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importResultCount == 2; }),
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importResultCount == 3; }),
        ("Timed out waiting for queued bookmark imports"));
 
   TEST_EQUAL(std::vector<std::string>({"started_initial", "finished_initial", "started_import_1", "finished_import_1",
-                                       "import_result_1", "started_import_2", "finished_import_2", "import_result_2"}),
+                                       "import_result_1", "started_import_2", "finished_import_2", "import_result_2",
+                                       "started_import_3", "finished_import_3", "import_result_3"}),
              callbackOrder, ());
-  TEST_EQUAL(2, finishedImportCount, ());
-  TEST_EQUAL(2, importResultCount, ());
+  TEST_EQUAL(3, finishedImportCount, ());
+  TEST_EQUAL(3, importResultCount, ());
   WaitForFileTasks();
 }
 
@@ -1105,6 +1201,73 @@ kml::TrackId AddTrack(BookmarkManager & bmManager, kml::MarkGroupId groupId)
   auto const trackId = es.CreateTrack(MakeLineTrackData())->GetId();
   es.AttachTrack(trackId, groupId);
   return trackId;
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_ImportedPresentation)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  auto & bm = fm.GetBookmarkManager();
+  bm.EnableTestMode(true);
+
+  auto const trackCategory = bm.CreateBookmarkCategory("imported track", false /* autoSave */);
+  auto const markCategory = bm.CreateBookmarkCategory("imported mark", false /* autoSave */);
+  auto const otherCategory = bm.CreateBookmarkCategory("existing", false /* autoSave */);
+  auto const trackId = AddTrack(bm, trackCategory);
+  AddBookmark(bm, markCategory, 50.0);
+  AddTrack(bm, otherCategory);
+
+  BookmarkImportResult oneTrack;
+  oneTrack.m_sourceResults.push_back({{}, {trackCategory, markCategory}, {}});
+  TEST(fm.SetBookmarkImportResult(oneTrack).m_hasContent, ());
+  TEST(fm.ShowPendingBookmarkImport(), ());
+  TEST(fm.HasPlacePageInfo(), ());
+  TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetBuildInfo().m_trackId, trackId, ());
+  TEST(!fm.ShowPendingBookmarkImport(), ("The batch must be consumed once"));
+
+  auto const secondTrackCategory = bm.CreateBookmarkCategory("second track", false /* autoSave */);
+  AddTrack(bm, secondTrackCategory);
+  BookmarkImportResult severalTracks;
+  severalTracks.m_sourceResults.push_back({{}, {trackCategory}, {}});
+  severalTracks.m_sourceResults.push_back({{}, {secondTrackCategory}, {}});
+  TEST(fm.SetBookmarkImportResult(severalTracks).m_hasContent, ());
+  TEST(fm.ShowPendingBookmarkImport(), ());
+  TEST(!fm.HasPlacePageInfo(), ("Several tracks require an overview"));
+
+  BookmarkImportResult onlyMarks;
+  onlyMarks.m_sourceResults.push_back({{}, {markCategory}, {}});
+  TEST(fm.SetBookmarkImportResult(oneTrack).m_hasContent, ());
+  TEST(fm.SetBookmarkImportResult(onlyMarks).m_hasContent, ());
+  TEST(fm.ShowPendingBookmarkImport(), ("The latest import replaces the previous one"));
+  TEST(!fm.HasPlacePageInfo(), ("A single bookmark must not open a Place Page"));
+
+  BookmarkImportResult failed;
+  failed.m_sourceResults.push_back({{}, {}, {"broken.kml"}});
+  TEST(fm.SetBookmarkImportResult(oneTrack).m_hasContent, ());
+  TEST(!fm.SetBookmarkImportResult(failed).m_hasContent, ());
+  TEST(!fm.ShowPendingBookmarkImport(), ("A failed latest import clears the previous one"));
+
+  TEST(fm.SetBookmarkImportResult(oneTrack).m_hasContent, ());
+  bm.GetEditSession().DeleteBmCategory(trackCategory, true /* permanently */);
+  TEST(fm.ShowPendingBookmarkImport(), ("The remaining imported bookmark should be shown"));
+  TEST(!fm.HasPlacePageInfo(), ());
+
+  auto & routing = fm.GetRoutingManager();
+  routing.RoutingSession().SetState(routing::SessionState::RouteNotStarted);
+  TEST(routing.RoutingSession().EnableFollowMode(), ());
+  BookmarkImportResult duringNavigation;
+  duringNavigation.m_sourceResults.push_back({{}, {secondTrackCategory}, {}});
+  auto const presentation = fm.SetBookmarkImportResult(duringNavigation);
+  TEST(presentation.m_hasContent && presentation.m_notificationOnly, ());
+  TEST(!fm.ShowPendingBookmarkImport(), ("Navigation must not be interrupted by an import"));
+  routing.ResetRoutingSession();
+
+  TEST(fm.SetBookmarkImportResult(duringNavigation).m_hasContent, ());
+  routing.RoutingSession().SetState(routing::SessionState::RouteNotStarted);
+  TEST(routing.RoutingSession().EnableFollowMode(), ());
+  TEST(!fm.ShowPendingBookmarkImport(), ("An import must be discarded if navigation starts before display"));
+  routing.ResetRoutingSession();
+  TEST(!fm.ShowPendingBookmarkImport(), ("The import must not be displayed after navigation"));
 }
 
 UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_BatchDelete)

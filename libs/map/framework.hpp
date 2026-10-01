@@ -96,6 +96,12 @@ struct FrameworkParams
   FrameworkParams(bool enableDiffs) : m_enableDiffs(enableDiffs) {}
 };
 
+struct BookmarkImportPresentation
+{
+  bool m_hasContent = false;
+  bool m_notificationOnly = false;
+};
+
 class Framework
   : public PositionProvider
   , public SearchAPI::Delegate
@@ -177,6 +183,7 @@ protected:
   location::TMyPositionModeChanged m_myPositionListener;
 
   std::unique_ptr<BookmarkManager> m_bmManager;
+  kml::GroupIdCollection m_pendingBookmarkImportGroups;
 
   SearchMarks m_searchMarks;
 
@@ -282,6 +289,8 @@ public:
   void ShowBookmark(kml::MarkId id);
   void ShowBookmark(Bookmark const * bookmark);
   void ShowTrack(kml::TrackId trackId);
+  BookmarkImportPresentation SetBookmarkImportResult(BookmarkImportResult const & result);
+  bool ShowPendingBookmarkImport();
   // Sets individual track visibility. Hiding the track that is currently shown in the
   // Place Page also resets the selection so nothing stays selected on an invisible track.
   void SetTrackVisibility(kml::TrackId trackId, bool visible);
@@ -296,6 +305,8 @@ public:
   void SelectTrackCandidate(kml::TrackId trackId, RelationID const & relationId);
 
   void AddBookmarksFile(std::string const & filePath, bool isTemporaryFile);
+  void AddBookmarksFile(std::string const & filePath, bool isTemporaryFile,
+                        std::string const & ownedTemporaryDirectory);
 
   BookmarkManager & GetBookmarkManager();
   BookmarkManager const & GetBookmarkManager() const;

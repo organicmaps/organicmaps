@@ -58,6 +58,7 @@
 - (void)disableCarPlayRepresentation;
 
 - (void)dismissPlacePage;
+- (void)presentPendingBookmarkImport;
 - (BOOL)isMapFullyVisible;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * _Nonnull controlsManager;

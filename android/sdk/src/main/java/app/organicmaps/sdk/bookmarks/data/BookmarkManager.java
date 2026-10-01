@@ -47,19 +47,51 @@ public enum BookmarkManager {
 
   @NonNull
   private final ArrayDeque<ImportFeedback> mPendingImports = new ArrayDeque<>();
+  @NonNull
+  @Nullable
+  private ImportOutcome mPendingImportOutcome;
+
+  public static final class ImportOutcome
+  {
+    public final boolean hasContent;
+    public final boolean notificationOnly;
+    @NonNull
+    public final List<String> errors;
+
+    private ImportOutcome(boolean hasContent, boolean notificationOnly, @NonNull List<String> errors)
+    {
+      this.hasContent = hasContent;
+      this.notificationOnly = notificationOnly;
+      this.errors = Collections.unmodifiableList(new ArrayList<>(errors));
+    }
+  }
 
   @AnyThread
   private static final class ImportFeedback
   {
     @Nullable
-    final Uri mFailedUri;
+    Uri mFailedUri;
     @Nullable
-    final String mReadError;
+    String mReadError;
+    @NonNull
+    final List<String> mErrors = new ArrayList<>();
 
     ImportFeedback(@Nullable Uri failedUri, @Nullable String readError)
     {
       mFailedUri = failedUri;
       mReadError = readError;
+      if (failedUri != null)
+        mErrors.add(failedUri + (readError == null ? "" : ": " + readError));
+    }
+
+    void addFailure(@NonNull Uri uri, @Nullable String error)
+    {
+      if (mFailedUri == null)
+      {
+        mFailedUri = uri;
+        mReadError = error;
+      }
+      mErrors.add(uri + (error == null ? "" : ": " + error));
     }
   }
 
@@ -189,27 +221,49 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  private void onBookmarksImportFinished(boolean success)
+  private void onBookmarksImportFinished(boolean hasContent, boolean notificationOnly,
+                                         @NonNull String[] failedFileNames)
   {
     ImportFeedback feedback = mPendingImports.removeFirst();
     if (feedback.mFailedUri != null)
-    {
-      if (!success)
-        Logger.w(TAG, "Bookmarks import also failed after a file preparation error");
       notifyImportPreparationFailure(feedback);
-      return;
-    }
+    List<String> errors = new ArrayList<>(feedback.mErrors);
+    Collections.addAll(errors, failedFileNames);
+    publishImportOutcome(hasContent, notificationOnly, errors, feedback.mFailedUri != null);
+  }
 
-    if (success)
+  @MainThread
+  private void publishImportOutcome(boolean hasContent, boolean notificationOnly, @NonNull List<String> errors,
+                                    boolean notifiedPreparationFailure)
+  {
+    mPendingImportOutcome = new ImportOutcome(hasContent, notificationOnly, errors);
+    for (BookmarksLoadingListener listener : mListeners)
     {
-      for (BookmarksLoadingListener listener : mListeners)
-        listener.onBookmarksFileImportSuccessful();
+      if (!notifiedPreparationFailure)
+      {
+        if (errors.isEmpty())
+          listener.onBookmarksFileImportSuccessful();
+        else
+          listener.onBookmarksFileImportFailed();
+      }
+      listener.onBookmarksImportAvailable();
     }
-    else
-    {
-      for (BookmarksLoadingListener listener : mListeners)
-        listener.onBookmarksFileImportFailed();
-    }
+  }
+
+  @MainThread
+  @Nullable
+  public ImportOutcome peekImportOutcome()
+  {
+    return mPendingImportOutcome;
+  }
+
+  @MainThread
+  @Nullable
+  public ImportOutcome takeImportOutcome()
+  {
+    ImportOutcome outcome = mPendingImportOutcome;
+    mPendingImportOutcome = null;
+    return outcome;
   }
 
   @MainThread
@@ -358,6 +412,16 @@ public enum BookmarkManager {
     nativeShowBookmarkCategoryOnMap(catId);
   }
 
+  public boolean showPendingBookmarkImport()
+  {
+    return nativeShowPendingBookmarkImport();
+  }
+
+  public boolean isRoutingFollowing()
+  {
+    return nativeIsRoutingFollowing();
+  }
+
   @ColorInt
   public int getLastEditedColor()
   {
@@ -373,10 +437,11 @@ public enum BookmarkManager {
   }
 
   @MainThread
-  private void loadBookmarksFiles(@NonNull List<String> paths, @NonNull ImportFeedback feedback)
+  private void loadBookmarksFiles(@NonNull List<String> paths, @NonNull List<String> ownedDirectories,
+                                  @NonNull ImportFeedback feedback)
   {
     mPendingImports.addLast(feedback);
-    nativeLoadBookmarksFiles(paths.toArray(new String[0]), true);
+    nativeLoadBookmarksFiles(paths.toArray(new String[0]), ownedDirectories.toArray(new String[0]), true);
   }
 
   @WorkerThread
@@ -516,23 +581,23 @@ public enum BookmarkManager {
   public void importBookmarksFiles(@NonNull ContentResolver resolver, @NonNull List<Uri> uris, @NonNull File tempDir)
   {
     // A shared batch has one result after all prepared files finish importing.
-    importBookmarksFiles(resolver, uris, tempDir, false);
+    importBookmarksFilesInternal(resolver, uris, tempDir);
   }
 
   @WorkerThread
   public int importBookmarksFilesAndGetCount(@NonNull ContentResolver resolver, @NonNull List<Uri> uris,
                                              @NonNull File tempDir)
   {
-    // Directory imports keep their existing per-file preparation notifications.
-    return importBookmarksFiles(resolver, uris, tempDir, true);
+    return importBookmarksFilesInternal(resolver, uris, tempDir);
   }
 
   @WorkerThread
-  private int importBookmarksFiles(@NonNull ContentResolver resolver, @NonNull List<Uri> uris, @NonNull File tempDir,
-                                   boolean notifyEachPreparationFailure)
+  private int importBookmarksFilesInternal(@NonNull ContentResolver resolver, @NonNull List<Uri> uris,
+                                           @NonNull File tempDir)
   {
     List<String> paths = new ArrayList<>();
-    ImportFeedback firstFailure = null;
+    List<String> ownedDirectories = new ArrayList<>();
+    ImportFeedback feedback = new ImportFeedback(null, null);
     for (Uri uri : uris)
     {
       Logger.i(TAG, "Importing bookmarks from " + uri);
@@ -544,10 +609,7 @@ public enum BookmarkManager {
         if (filename == null)
         {
           Logger.w(TAG, "Unsupported bookmarks file: " + uri);
-          if (notifyEachPreparationFailure)
-            UiThread.run(() -> notifyImportPreparationFailure(new ImportFeedback(uri, null)));
-          else if (firstFailure == null)
-            firstFailure = new ImportFeedback(uri, null);
+          feedback.addFailure(uri, null);
           continue;
         }
 
@@ -558,6 +620,7 @@ public enum BookmarkManager {
         if (!StorageUtils.copyFile(resolver, uri, tempFile))
           throw new IOException("Could not read bookmarks file from " + uri);
         paths.add(tempFile.getAbsolutePath());
+        ownedDirectories.add(importDir.getAbsolutePath());
       }
       catch (IOException | SecurityException e)
       {
@@ -566,22 +629,20 @@ public enum BookmarkManager {
         if (importDir != null)
           importDir.delete();
         Logger.e(TAG, "Could not download bookmarks file from " + uri, e);
-        if (notifyEachPreparationFailure)
-          UiThread.run(() -> notifyImportPreparationFailure(new ImportFeedback(uri, e.toString())));
-        else if (firstFailure == null)
-          firstFailure = new ImportFeedback(uri, e.toString());
+        feedback.addFailure(uri, e.toString());
       }
     }
-    // Keep the first cause for the existing single alert; all failures are logged above.
     if (!paths.isEmpty())
     {
-      ImportFeedback feedback = firstFailure == null ? new ImportFeedback(null, null) : firstFailure;
-      UiThread.run(() -> loadBookmarksFiles(paths, feedback));
+      UiThread.run(() -> loadBookmarksFiles(paths, ownedDirectories, feedback));
     }
-    else if (firstFailure != null)
+    else if (!feedback.mErrors.isEmpty())
     {
-      ImportFeedback feedback = firstFailure;
-      UiThread.run(() -> notifyImportPreparationFailure(feedback));
+      UiThread.run(() -> {
+        nativeClearPendingBookmarkImport();
+        notifyImportPreparationFailure(feedback);
+        publishImportOutcome(false, nativeIsRoutingFollowing(), feedback.mErrors, true);
+      });
     }
     return paths.size();
   }
@@ -731,6 +792,11 @@ public enum BookmarkManager {
   private native void nativeShowBookmarkOnMap(long bmkId);
 
   private native void nativeShowBookmarkCategoryOnMap(long catId);
+  private native boolean nativeShowPendingBookmarkImport();
+
+  private native boolean nativeIsRoutingFollowing();
+
+  private native void nativeClearPendingBookmarkImport();
 
   @Nullable
   private native Bookmark nativeAddBookmarkToLastEditedCategory(double lat, double lon);
@@ -740,7 +806,8 @@ public enum BookmarkManager {
 
   private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);
 
-  private static native void nativeLoadBookmarksFiles(@NonNull String[] paths, boolean isTemporaryFile);
+  private static native void nativeLoadBookmarksFiles(@NonNull String[] paths, @NonNull String[] ownedDirectories,
+                                                      boolean isTemporaryFile);
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
@@ -783,6 +850,7 @@ public enum BookmarkManager {
     default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
     default void onBookmarksFileImportSuccessful() {}
     default void onBookmarksFileImportFailed() {}
+    default void onBookmarksImportAvailable() {}
   }
 
   public interface BookmarksSortingListener

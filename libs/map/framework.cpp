@@ -1018,6 +1018,78 @@ void Framework::ShowTrack(kml::TrackId trackId)
   ActivateMapSelection();
 }
 
+BookmarkImportPresentation Framework::SetBookmarkImportResult(BookmarkImportResult const & result)
+{
+  auto const & bm = GetBookmarkManager();
+  // A new import replaces any result waiting for the map screen.
+  m_pendingBookmarkImportGroups.clear();
+  BookmarkImportPresentation presentation;
+  presentation.m_notificationOnly = m_routingManager.IsRoutingFollowing();
+  for (auto const & source : result.m_sourceResults)
+  {
+    for (auto const groupId : source.m_groupIds)
+    {
+      if (bm.HasBmCategory(groupId) && !bm.IsCategoryEmpty(groupId))
+      {
+        presentation.m_hasContent = true;
+        if (!presentation.m_notificationOnly)
+          m_pendingBookmarkImportGroups.push_back(groupId);
+      }
+    }
+  }
+  return presentation;
+}
+
+bool Framework::ShowPendingBookmarkImport()
+{
+  if (m_pendingBookmarkImportGroups.empty())
+    return false;
+
+  auto groupIds = std::move(m_pendingBookmarkImportGroups);
+  m_pendingBookmarkImportGroups.clear();
+
+  // Navigation could have started while the map screen was opening.
+  if (m_routingManager.IsRoutingFollowing())
+    return false;
+
+  auto & bm = GetBookmarkManager();
+  kml::TrackId singleTrackId = kml::kInvalidTrackId;
+  size_t trackCount = 0;
+  for (auto const groupId : groupIds)
+  {
+    if (!bm.HasBmCategory(groupId))
+      continue;
+
+    for (auto const trackId : bm.GetTrackIds(groupId))
+    {
+      singleTrackId = trackId;
+      ++trackCount;
+    }
+  }
+
+  if (trackCount == 1 && bm.GetTrack(singleTrackId) != nullptr)
+  {
+    ShowTrack(singleTrackId);
+    return true;
+  }
+
+  m2::RectD rect;
+  for (auto const groupId : groupIds)
+    if (bm.HasBmCategory(groupId))
+      rect.Add(bm.GetCategoryRect(groupId, true /* addIconsSize */));
+
+  if (!rect.IsValid())
+    return false;
+
+  // A route transit preview can restore its own selection on the first close.
+  if (DeactivateMapSelection())
+    DeactivateMapSelection();
+  ExpandRectForPreview(rect);
+  StopLocationFollow();
+  ShowRect(rect, true /* animation */, true /* useVisibleViewport */);
+  return true;
+}
+
 void Framework::SetTrackVisibility(kml::TrackId trackId, bool visible)
 {
   {
@@ -1109,7 +1181,13 @@ void Framework::ShowFeature(FeatureID const & featureId)
 
 void Framework::AddBookmarksFile(std::string const & filePath, bool isTemporaryFile)
 {
-  GetBookmarkManager().ImportBookmarks({{filePath, isTemporaryFile}});
+  AddBookmarksFile(filePath, isTemporaryFile, {});
+}
+
+void Framework::AddBookmarksFile(std::string const & filePath, bool isTemporaryFile,
+                                 std::string const & ownedTemporaryDirectory)
+{
+  GetBookmarkManager().ImportBookmarks({{filePath, isTemporaryFile, ownedTemporaryDirectory}});
 }
 
 void Framework::PrepareToShutdown()

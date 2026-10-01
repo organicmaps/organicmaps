@@ -9,6 +9,9 @@ set(SRC
   bookmark.hpp
   bookmark_helpers.cpp
   bookmark_helpers.hpp
+  bookmark_import.hpp
+  bookmark_loader.cpp
+  bookmark_loader.hpp
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmarks_search_params.hpp
