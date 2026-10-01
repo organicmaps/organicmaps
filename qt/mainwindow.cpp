@@ -40,11 +40,13 @@
 #include <QtWidgets/QMessageBox>
 #endif  // BUILD_DESIGNER
 
+#include <QtCore/QSignalBlocker>
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -142,6 +144,42 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   CreateSearchBarAndPanel();
   CreatePlacePagePanel();
 
+  QPointer<MainWindow> owner(this);
+  BookmarkLoadingCallbacks callbacks;
+  callbacks.m_onStarted = [owner]()
+  {
+    if (owner)
+      Q_EMIT owner->BookmarksLoadingFinished();
+  };
+  callbacks.m_onFinished = callbacks.m_onStarted;
+  callbacks.m_onImportFinished = [owner, &framework](BookmarkImportResult const & result)
+  {
+    if (!owner)
+      return;
+
+    auto const presentation = framework.SetBookmarkImportResult(result);
+    QStringList errors;
+    for (auto const & source : result.m_sourceResults)
+      for (auto const & name : source.m_failedFileNames)
+        errors << QString::fromStdString(name);
+    if (presentation.m_hasContent || (presentation.m_notificationOnly && !errors.isEmpty()))
+    {
+      owner->m_pendingImportFeedback = ImportFeedback{std::move(errors), presentation.m_notificationOnly};
+      if (owner->m_bookmarkDialog)
+        owner->m_bookmarkDialog->done(0);
+      QMetaObject::invokeMethod(owner, &MainWindow::PresentPendingBookmarkImport, Qt::QueuedConnection);
+    }
+    else
+    {
+      owner->m_pendingImportFeedback.reset();
+      if (!errors.isEmpty())
+        QMessageBox::warning(owner->m_bookmarkDialog ? static_cast<QWidget *>(owner->m_bookmarkDialog.data())
+                                                     : static_cast<QWidget *>(owner.data()),
+                             tr("Import failed"), tr("Could not import:\n%1").arg(errors.join("\n")));
+    }
+  };
+  framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
+
   QString caption = QCoreApplication::applicationName();
 
 #ifdef BUILD_DESIGNER
@@ -221,6 +259,29 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   m_pDrawWidget->UpdateAfterSettingsChanged();
 
   RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
+}
+
+MainWindow::~MainWindow()
+{
+  GetFramework().GetBookmarkManager().SetAsyncLoadingCallbacks({});
+}
+
+void MainWindow::PresentPendingBookmarkImport()
+{
+  if (!m_pendingImportFeedback || m_bookmarkDialog)
+    return;
+  auto feedback = std::move(*m_pendingImportFeedback);
+  m_pendingImportFeedback.reset();
+  bool const shown = GetFramework().ShowPendingBookmarkImport();
+  if (feedback.m_notificationOnly || GetFramework().GetRoutingManager().IsRoutingFollowing())
+  {
+    statusBar()->showMessage(feedback.m_errors.isEmpty() ? tr("Bookmarks imported") : tr("Import failed"), 5000);
+    return;
+  }
+  if (shown)
+    statusBar()->showMessage(tr("Bookmarks imported"), 5000);
+  if (!feedback.m_errors.isEmpty())
+    QMessageBox::warning(this, tr("Import failed"), tr("Could not import:\n%1").arg(feedback.m_errors.join("\n")));
 }
 
 #if defined(OMIM_OS_WINDOWS)
@@ -868,6 +929,12 @@ void MainWindow::HidePlacePage()
   m_Docks[kPlacePageDock]->hide();
 }
 
+void MainWindow::HidePlacePageForCore()
+{
+  QSignalBlocker block(m_Docks[kPlacePageDock]);
+  m_Docks[kPlacePageDock]->hide();
+}
+
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name, QKeySequence const & hotkey,
                                  char const * slot)
 {
@@ -970,7 +1037,11 @@ void MainWindow::OnRoutingSettings()
 void MainWindow::OnBookmarksAction()
 {
   BookmarkDialog dlg(this, m_pDrawWidget->GetFramework());
+  m_bookmarkDialog = &dlg;
+  connect(this, &MainWindow::BookmarksLoadingFinished, &dlg, &BookmarkDialog::Refresh);
   dlg.ShowModal();
+  m_bookmarkDialog = nullptr;
+  PresentPendingBookmarkImport();
   m_pDrawWidget->update();
 }
 

@@ -399,6 +399,7 @@ extension SearchOnMapViewController: SearchOnMapView {
     presentationStepsController.close { [weak self] in
       self?.view.removeFromSuperview()
       self?.removeFromParent()
+      MapViewController.shared()?.presentPendingBookmarkImport()
     }
   }
 

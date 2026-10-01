@@ -505,9 +505,6 @@ struct PreparedBookmarkFile
 {
   std::string m_filePath;
   std::string m_displayName;
-  // A doc.kml of a multi-category archive only indexes the other entries and holds no marks of its own.
-  // It is matched in any folder because re-zipping an extracted export nests the index.
-  bool m_isKmzIndex = false;
 };
 
 struct BookmarkFilePreparationResult
@@ -547,8 +544,7 @@ BookmarkFilePreparationResult PrepareFilesToLoadFromKmz(std::string const & file
             GenerateValidAndUniqueFilePath(isValidEntryName ? kmlFileInZip : archiveDisplayName, FileType::Kml);
         // UnzipFile removes its partial output when it throws.
         ZipFileReader::UnzipFile(filePath, kmlFileInZip, fileSavePath);
-        auto const isKmzIndex = files.size() > 1 && strings::EqualAsciiNoCase(displayName, kKmzIndexFileName);
-        result.m_files.push_back({std::move(fileSavePath), displayName, isKmzIndex});
+        result.m_files.push_back({std::move(fileSavePath), displayName});
       }
       catch (RootException const & e)
       {
@@ -656,10 +652,17 @@ BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath)
 
     if (kmlData->m_tracksData.empty() && kmlData->m_bookmarksData.empty())
     {
-      if (!preparedFile.m_isKmzIndex)
+      // Empty archive entries, such as the doc.kml index of a multi-category KMZ, are skipped silently.
+      if (GetFileType(filePath) != FileType::Kmz)
         result.m_failedFileNames.push_back(std::move(preparedFile.m_displayName));
       continue;
     }
+
+    kmlData->m_categoryData.m_visible = true;
+    for (auto & bookmark : kmlData->m_bookmarksData)
+      bookmark.m_visible = true;
+    for (auto & track : kmlData->m_tracksData)
+      track.m_visible = true;
 
     // A category with no timestamp of its own inherits the source file's modification time. For KMZ files, this is
     // the archive timestamp rather than the extracted temporary file's timestamp.
@@ -676,8 +679,6 @@ BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath)
     result.m_kmlData.emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
   }
 
-  if (result.m_kmlData.empty() && result.m_failedFileNames.empty())
-    result.m_failedFileNames.push_back(base::FileNameFromFullPath(filePath));
   return result;
 }
 
