@@ -337,7 +337,7 @@ void Bookmark::Attach(kml::MarkGroupId groupId)
   ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
   ASSERT_EQUAL(m_groupId, kml::kInvalidMarkGroupId, ());
   // A restored bookmark may have been rendered before, so re-attaching has to make it dirty again.
-  SetDirty();
+  SetDirty(false);
   m_groupId = groupId;
 }
 
