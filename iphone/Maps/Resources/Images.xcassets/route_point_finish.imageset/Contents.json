@@ -4,6 +4,11 @@
       "filename" : "route_point_finish.png",
       "idiom" : "universal",
       "scale" : "2x"
+    },
+    {
+      "filename" : "route_point_finish@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
