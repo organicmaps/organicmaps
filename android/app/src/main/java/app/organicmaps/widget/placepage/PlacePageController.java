@@ -116,6 +116,7 @@ public class PlacePageController
             // Clear before onHiddenInternal(): it may restore a transit PP, which sets the flag again.
             mPlacePageListener.onPlacePageActiveChanged(false);
             onHiddenInternal();
+            mPlacePageListener.onImportPlacePageSheetHidden();
           }
         }
 
@@ -325,9 +326,17 @@ public class PlacePageController
     // the sheet is already hidden: on re-entry from onHiddenInternal() -> setMapObject(null) ->
     // onChanged(null), which happens on every close, and when dismissed before the open animation.
     if (PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()))
+    {
       mPlacePageListener.onPlacePageActiveChanged(false);
+      mPlacePageListener.onImportPlacePageSheetHidden();
+    }
     else
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+  }
+
+  public boolean isSheetHidden()
+  {
+    return mPlacePageBehavior == null || mPlacePageBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN;
   }
 
   private void resetPlacePageHeightBounds()
@@ -850,5 +859,6 @@ public class PlacePageController
     void onTrackRecordingSaved();
     void onTrackRecordingCancelled();
     void onPlacePageActiveChanged(boolean active);
+    void onImportPlacePageSheetHidden();
   }
 }
