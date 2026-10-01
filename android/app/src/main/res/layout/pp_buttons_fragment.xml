@@ -11,6 +11,11 @@
   <LinearLayout
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/place_page_buttons_height"
-    android:orientation="horizontal" />
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/place_page_buttons_height"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/margin_half_plus"
+    android:paddingEnd="@dimen/margin_half_plus"
+    android:paddingTop="@dimen/margin_half"
+    android:paddingBottom="@dimen/margin_half" />
 </RelativeLayout>

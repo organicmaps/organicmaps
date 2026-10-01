@@ -4,6 +4,7 @@
 
   <color name="base_accent">#FF4BB9E6</color>
   <color name="base_accent_pressed">#FF3C9BBE</color>
+  <color name="place_page_route_action_tint">@color/base_accent</color>
 
   <color name="icon_tint">#FFC4C6C7</color>
 

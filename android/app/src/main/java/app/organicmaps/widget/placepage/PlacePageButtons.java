@@ -1,21 +1,27 @@
 package app.organicmaps.widget.placepage;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
-import app.organicmaps.util.Graphics;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import java.util.ArrayList;
@@ -53,6 +59,11 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     Fragment parentFragment = getParentFragment();
     mItemListener = (PlacePageButtonClickListener) parentFragment;
 
+    mButtonsContainer.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+      if (bottom - top != oldBottom - oldTop)
+        mItemListener.onPlacePageButtonsHeightChanged(bottom - top);
+    });
+    ViewCompat.requestApplyInsets(view);
     createButtons(mViewModel.getCurrentButtons().getValue());
   }
 
@@ -98,7 +109,13 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     List<PlacePageButton> shownButtons = collectButtons(buttons);
     mButtonsContainer.removeAllViews();
     for (PlacePageButton button : shownButtons)
-      mButtonsContainer.addView(createButton(button));
+    {
+      View view = createButton(button);
+      if (mButtonsContainer.getChildCount() > 0)
+        ((ViewGroup.MarginLayoutParams) view.getLayoutParams())
+            .setMarginStart(getResources().getDimensionPixelSize(R.dimen.margin_half));
+      mButtonsContainer.addView(view);
+    }
   }
 
   private View createButton(@NonNull final PlacePageButton current)
@@ -110,9 +127,35 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     TextView title = parent.findViewById(R.id.title);
 
     title.setText(current.getTitle());
-    @AttrRes
-    final int tint = current.getType() == ButtonType.BOOKMARK_DELETE ? R.attr.iconTintActive : R.attr.iconTint;
-    icon.setImageDrawable(Graphics.tint(getContext(), current.getIcon(), tint));
+    parent.setContentDescription(title.getText());
+    ViewCompat.setAccessibilityDelegate(parent, new AccessibilityDelegateCompat() {
+      @Override
+      public void onInitializeAccessibilityNodeInfo(@NonNull View host, @NonNull AccessibilityNodeInfoCompat info)
+      {
+        super.onInitializeAccessibilityNodeInfo(host, info);
+        info.setClassName(Button.class.getName());
+      }
+    });
+    final boolean routingAction = switch (current.getType())
+    {
+      case ROUTE_FROM, ROUTE_TO, ROUTE_REPLACE, ROUTE_ADD, ROUTE_REMOVE, ROUTE_AVOID_TOLL, ROUTE_AVOID_FERRY,
+          ROUTE_AVOID_UNPAVED ->
+        true;
+      default -> false;
+    };
+    @ColorInt
+    final int tint =
+        routingAction ? ContextCompat.getColor(requireContext(), R.color.place_page_route_action_tint)
+                      : ThemeUtils.getColor(requireContext(), current.getType() == ButtonType.BOOKMARK_DELETE
+                                                                  ? R.attr.iconTintActive
+                                                                  : R.attr.iconTint);
+    icon.setImageResource(current.getIcon());
+    ImageViewCompat.setImageTintList(icon, ColorStateList.valueOf(tint));
+    if (routingAction)
+    {
+      title.setTextColor(tint);
+      parent.setBackgroundResource(R.drawable.place_page_route_button_background);
+    }
     parent.setOnClickListener((view) -> {
       if (current.getType() == ButtonType.MORE)
         showMoreBottomSheet();
@@ -150,5 +193,6 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   public interface PlacePageButtonClickListener
   {
     void onPlacePageButtonClick(ButtonType item);
+    void onPlacePageButtonsHeightChanged(int height);
   }
 }

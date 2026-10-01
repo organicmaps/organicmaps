@@ -4,17 +4,18 @@
   xmlns:tools="http://schemas.android.com/tools"
   style="@style/PlacePageButton"
   tools:layout_width="100dp"
-  tools:layout_height="@dimen/place_page_buttons_height"
+  tools:layout_height="@dimen/place_page_button_min_height"
   tools:ignore="UseCompoundDrawables"
   tools:background="#40202020">
   <ImageView
     android:id="@+id/icon"
     style="@style/PlacePageButtonImage"
-    android:contentDescription="@string/back"
+    android:importantForAccessibility="no"
     tools:src="@drawable/ic_share"/>
 
   <TextView
     android:id="@+id/title"
     style="@style/PlacePageButtonText"
+    android:importantForAccessibility="no"
     tools:text="@string/back"/>
 </LinearLayout>

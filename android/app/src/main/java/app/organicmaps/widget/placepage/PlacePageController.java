@@ -457,10 +457,31 @@ public class PlacePageController
   }
 
   @Override
+  public void onPlacePageButtonsHeightChanged(int height)
+  {
+    if (mButtonsHeight == height)
+      return;
+    mButtonsHeight = height;
+    if (mFrameHeight > 0)
+      onPlacePageContentChanged(mPreviewHeight, mFrameHeight);
+  }
+
+  private void updateButtonsSpace()
+  {
+    final View space = mPlacePage.findViewById(R.id.place_page_buttons_space);
+    if (space != null && space.getLayoutParams().height != mButtonsHeight)
+    {
+      space.getLayoutParams().height = mButtonsHeight;
+      space.requestLayout();
+    }
+  }
+
+  @Override
   public void onPlacePageContentChanged(int previewHeight, int frameHeight)
   {
     mPreviewHeight = previewHeight;
     mFrameHeight = frameHeight;
+    updateButtonsSpace();
     mViewModel.setPlacePageWidth(mPlacePage.getWidth());
     // Make sure to update the peek height on the UI thread to prevent weird animation jumps
     // TODO(AB): Investigate if this post is still necessary.

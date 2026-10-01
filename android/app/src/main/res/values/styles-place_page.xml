@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <style name="PlacePageButtonText">
-    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:gravity">center</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textSize">10sp</item>
-    <item name="android:color">?iconTint</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:ellipsize">end</item>
   </style>
 
   <style name="PlacePageButtonImage">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">0dp</item>
-    <item name="android:layout_weight">1</item>
-    <item name="android:layout_marginBottom">@dimen/margin_eighth</item>
-    <item name="android:paddingTop">@dimen/margin_base</item>
-    <item name="android:paddingBottom">@dimen/margin_base</item>
-    <item name="android:scaleType">center</item>
-    <item name="android:color">?iconTint</item>
+    <item name="android:layout_width">24dp</item>
+    <item name="android:layout_height">24dp</item>
+    <item name="android:layout_marginBottom">@dimen/margin_quarter</item>
+    <item name="android:scaleType">fitCenter</item>
   </style>
 
   <style name="PlacePageButton">
     <item name="android:layout_width">0dp</item>
-    <item name="android:layout_height">@dimen/place_page_buttons_height</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:minHeight">@dimen/place_page_button_min_height</item>
     <item name="android:layout_gravity">center_horizontal</item>
     <item name="android:layout_weight">1</item>
     <item name="android:orientation">vertical</item>
-    <item name="android:paddingTop">@dimen/margin_quarter</item>
-    <item name="android:paddingBottom">@dimen/margin_quarter</item>
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:background">?clickableBackground</item>
+    <item name="android:padding">@dimen/margin_half</item>
+    <item name="android:gravity">center</item>
+    <item name="android:background">@drawable/place_page_button_background</item>
+    <item name="android:focusable">true</item>
   </style>
 
   <style name="PlacePageItemFrame">

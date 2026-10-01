@@ -91,6 +91,7 @@
   <include android:visibility="gone" layout="@layout/place_page_add"/>
 
   <android.widget.Space
+    android:id="@+id/place_page_buttons_space"
     android:layout_width="match_parent"
     android:layout_height="@dimen/place_page_buttons_height"/>
 

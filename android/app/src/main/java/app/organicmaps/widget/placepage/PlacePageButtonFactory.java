@@ -47,22 +47,22 @@ public class PlacePageButtonFactory
       case ROUTE_FROM ->
       {
         titleId = R.string.p2p_from_here;
-        yield R.drawable.ic_route_from;
+        yield R.drawable.ic_place_page_route_from;
       }
       case ROUTE_TO ->
       {
         titleId = R.string.p2p_to_here;
-        yield R.drawable.ic_route_to;
+        yield R.drawable.ic_place_page_route_to;
       }
       case ROUTE_ADD ->
       {
         titleId = R.string.placepage_add_stop;
-        yield R.drawable.ic_route_via;
+        yield R.drawable.ic_place_page_route_via;
       }
       case ROUTE_REPLACE ->
       {
         titleId = R.string.placepage_replace_stop;
-        yield R.drawable.ic_route_via;
+        yield R.drawable.ic_place_page_route_via;
       }
       case ROUTE_REMOVE ->
       {
