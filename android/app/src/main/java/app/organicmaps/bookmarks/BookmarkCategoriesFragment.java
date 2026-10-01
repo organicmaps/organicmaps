@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
@@ -19,6 +20,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
@@ -137,6 +139,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     super.onStart();
     BookmarkManager.INSTANCE.addLoadingListener(this);
+    onBookmarksImportAvailable();
   }
 
   @Override
@@ -215,14 +218,39 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onBookmarksFileImportFailed()
+  public void onBookmarksImportAvailable()
   {
-    // TODO: Is there a way to display several failure notifications?
-    // TODO: It would be helpful to see the file name that failed to import.
-    final View view = getView();
-    // TODO: how to get import button view to show snackbar above it?
-    if (view != null)
-      Utils.showSnackbar(requireActivity(), view, R.string.load_kmz_failed);
+    BookmarkManager.ImportOutcome outcome = BookmarkManager.INSTANCE.peekImportOutcome();
+    if (outcome == null)
+      return;
+    if (outcome.notificationOnly || BookmarkManager.INSTANCE.isRoutingFollowing())
+    {
+      BookmarkManager.INSTANCE.takeImportOutcome();
+      if (outcome.hasContent)
+        BookmarkManager.INSTANCE.showPendingBookmarkImport();
+      if (!outcome.errors.isEmpty())
+        Toast.makeText(requireContext(), R.string.load_kmz_failed, Toast.LENGTH_LONG).show();
+      else if (outcome.hasContent)
+        Toast.makeText(requireContext(), R.string.load_kmz_successful, Toast.LENGTH_LONG).show();
+      return;
+    }
+    if (outcome.hasContent)
+    {
+      Intent intent = new Intent(requireActivity(), MwmActivity.class);
+      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+      startActivity(intent);
+      requireActivity().finish();
+      return;
+    }
+
+    BookmarkManager.INSTANCE.takeImportOutcome();
+    if (!outcome.errors.isEmpty())
+      new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
+          .setTitle(R.string.load_kmz_title)
+          .setMessage(getString(R.string.load_kmz_failed) + "\n" + TextUtils.join("\n", outcome.errors))
+          .setPositiveButton(R.string.ok, null)
+          .setOnDismissListener(dialog -> onBookmarksImportAvailable())
+          .show();
   }
 
   @Override

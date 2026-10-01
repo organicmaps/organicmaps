@@ -1,6 +1,7 @@
 #pragma once
 #include "qt/selection.hpp"
 
+#include "map/bookmark_import.hpp"
 #include "map/routing_mark.hpp"
 
 #include "storage/storage_defines.hpp"
@@ -8,11 +9,14 @@
 #include "platform/location.hpp"
 #include "platform/location_service/location_service.hpp"
 
+#include <QtCore/QPointer>
+#include <QtCore/QStringList>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 
 #include <array>
 #include <memory>
+#include <optional>
 #include <string>
 
 class Framework;
@@ -33,6 +37,7 @@ class Result;
 namespace qt
 {
 class DrawWidget;
+class BookmarkDialog;
 class PopupMenuHolder;
 struct ScreenshotParams;
 
@@ -51,6 +56,13 @@ public:
 
 private:
   DrawWidget * m_pDrawWidget = nullptr;
+  QPointer<BookmarkDialog> m_bookmarkDialog;
+  struct ImportFeedback
+  {
+    QStringList m_errors;
+    bool m_notificationOnly = false;
+  };
+  std::optional<ImportFeedback> m_pendingImportFeedback;
   std::array<QDockWidget *, kDockCount> m_Docks;
 
   QPushButton * m_downloadButton = nullptr;
@@ -100,11 +112,19 @@ public:
              QString const & mapcssFilePath = QString()
 #endif
   );
+  ~MainWindow() override;
 
   // Replaces the place-page dock's contents with a fresh widget for `info`
   // (Developer or User variant depending on settings::kDeveloperMode) and shows the dock.
   void ShowPlacePage(place_page::Info const & info);
   void HidePlacePage();
+  void HidePlacePageForCore();
+
+Q_SIGNALS:
+  void BookmarksLoadingFinished();
+
+public:
+  void PresentPendingBookmarkImport();
 
 protected:
   Framework & GetFramework() const;
