@@ -512,7 +512,7 @@ public class PlacePageController
     case BACK -> onBackBtnClicked();
     case ROUTE_FROM -> onRouteFromBtnClicked();
     case ROUTE_TO -> onRouteToBtnClicked();
-    case ROUTE_ADD -> onRouteAddBtnClicked();
+    case ROUTE_ADD, ROUTE_APPEND -> onRouteAddBtnClicked();
     case ROUTE_REPLACE -> onRouteReplaceBtnClicked();
     case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
     case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
@@ -732,7 +732,7 @@ public class PlacePageController
         }
         else if (RoutingController.get().isStopPointAllowed())
         {
-          buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
+          buttons.add(PlacePageButtons.ButtonType.ROUTE_APPEND);
         }
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                            : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
