@@ -150,7 +150,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNI
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeChangeColor(JNIEnv *, jclass, jlong id, jint color)
 {
   auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(id));
-  auto const trkColor = dp::Color::FromARGB(static_cast<uint32_t>(color)); // ???
+  auto const trkColor = dp::Color::FromARGB(static_cast<uint32_t>(color));
   if (nTrack->GetColor(0) == trkColor)
     return;  // New color is the same as old one.
 
