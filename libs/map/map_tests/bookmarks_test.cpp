@@ -452,32 +452,54 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportRequestResult)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_TemporaryImportCleanup)
 {
-  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "bookmarks-import-core-test");
-  Platform::RmDirRecursively(directory);
-  TEST_EQUAL(Platform::MkDir(directory), Platform::ERR_OK, ());
-  auto const path = base::JoinPath(directory, "source.kml");
-  FileWriter(path).Write(kmlString, std::strlen(kmlString));
+  auto const root = base::JoinPath(GetPlatform().WritableDir(), "bookmark-import-cleanup-test");
+  Platform::RmDirRecursively(root);
+  TEST_EQUAL(Platform::MkDir(root), Platform::ERR_OK, ());
+  SCOPE_GUARD(cleanup, [&]() { Platform::RmDirRecursively(root); });
+  auto const ownedDirectory = base::JoinPath(root, "owned");
+  auto const unownedDirectory = base::JoinPath(root, "bookmarks-import-unowned");
+  TEST_EQUAL(Platform::MkDir(ownedDirectory), Platform::ERR_OK, ());
+  TEST_EQUAL(Platform::MkDir(unownedDirectory), Platform::ERR_OK, ());
+  auto const ownedFile = base::JoinPath(ownedDirectory, "corrupt.kml");
+  auto const temporaryFile = base::JoinPath(unownedDirectory, "temporary.kml");
+  auto const userFile = base::JoinPath(unownedDirectory, "user.kml");
+  FileWriter(ownedFile).Write("not valid KML", std::strlen("not valid KML"));
+  FileWriter(temporaryFile).Write(kmlString, std::strlen(kmlString));
+  FileWriter(userFile).Write(kmlString, std::strlen(kmlString));
 
   ScopedManualGuiTaskLoop guiTaskLoop;
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   size_t finishedCount = 0;
-  bool importFinished = false;
   BookmarkManager::AsyncLoadingCallbacks callbacks;
-  callbacks.m_onFinished = [&]() { ++finishedCount; };
-  callbacks.m_onImportFinished = [&](BookmarkManager::BookmarkImportResult const &)
+  callbacks.m_onFinished = [&]()
   {
-    importFinished = true;
-    TEST(!Platform::IsFileExistsByFullPath(path), ());
+    if (++finishedCount != 2)
+      return;
+    TEST(!Platform::IsFileExistsByFullPath(ownedFile), ());
+    TEST(!Platform::IsFileExistsByFullPath(temporaryFile), ());
+    TEST(Platform::IsFileExistsByFullPath(userFile), ());
   };
   bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
 
   bmManager.LoadBookmarks();
   TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return finishedCount == 1; }), ());
-  bmManager.ImportBookmarks({{path, true /* isTemporaryFile */}});
-  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importFinished; }), ());
+  bmManager.ImportBookmarks({{ownedFile, true /* isTemporaryFile */, true /* ownsParentDirectory */},
+                             {temporaryFile, true /* isTemporaryFile */},
+                             {userFile, false /* isTemporaryFile */}});
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return finishedCount == 2; }), ());
   Platform::EFileType type;
-  TEST_NOT_EQUAL(Platform::GetFileType(directory, type), Platform::ERR_OK, ());
+  TEST_NOT_EQUAL(Platform::GetFileType(ownedDirectory, type), Platform::ERR_OK, ());
+  TEST_EQUAL(Platform::GetFileType(unownedDirectory, type), Platform::ERR_OK, ());
+
+  auto const noListenerDirectory = base::JoinPath(root, "owned-without-listener");
+  TEST_EQUAL(Platform::MkDir(noListenerDirectory), Platform::ERR_OK, ());
+  auto const noListenerFile = base::JoinPath(noListenerDirectory, "corrupt.kml");
+  FileWriter(noListenerFile).Write("not valid KML", std::strlen("not valid KML"));
+  bmManager.SetAsyncLoadingCallbacks({});
+  bmManager.ImportBookmarks({{noListenerFile, true /* isTemporaryFile */, true /* ownsParentDirectory */}});
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return !Platform::IsFileExistsByFullPath(noListenerFile); }), ());
+  TEST_NOT_EQUAL(Platform::GetFileType(noListenerDirectory, type), Platform::ERR_OK, ());
   WaitForFileTasks();
 }
 
