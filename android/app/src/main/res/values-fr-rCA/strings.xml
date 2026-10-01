@@ -3,6 +3,8 @@
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="transliteration_title">Translittération vers l\'alphabet latin</string>
+    <!-- Button below the route destination for adding another destination to the route. -->
+    <string name="route_add_destination">Ajouter une destination</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimisation de l’itinéraire</string>
     <!-- Explains that route optimization automatically reorders intermediate stops -->

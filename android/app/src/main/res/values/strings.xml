@@ -568,6 +568,8 @@
     <string name="planning_route_manage_route">Manage Route</string>
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Remove Stop</string>
+    <!-- Button below the route destination for adding another destination to the route. -->
+    <string name="route_add_destination">Add destination</string>
     <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Add Stop</string>
     <string name="drag_to_reorder">Reorder</string>
