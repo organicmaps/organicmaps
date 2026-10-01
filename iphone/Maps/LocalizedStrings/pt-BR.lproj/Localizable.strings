@@ -655,7 +655,7 @@
 "button_plan" = "Planejar";
 "placepage_remove_stop" = "Remover parada";
 
-/* Button below the route destination for adding another destination to the route. */
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
 "route_add_destination" = "Adicionar destino";
 
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
