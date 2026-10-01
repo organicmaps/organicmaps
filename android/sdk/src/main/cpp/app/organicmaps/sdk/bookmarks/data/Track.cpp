@@ -138,14 +138,14 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNI
 
   auto const trkName = jni::ToNativeString(env, name);
   auto const trkDescr = jni::ToNativeString(env, descr);
-  auto const trkColor = dp::Color::FromARGB(static_cast<uint32_t>(color)); // ???
+  auto const trkColor = dp::Color::FromARGB(static_cast<uint32_t>(color));
   if (nTrack->GetName() == trkName && nTrack->GetDescription() == trkDescr && nTrack->GetColor(0) == trkColor)
     return;  // New parameters match existing track params. Nothing to update.
 
   kml::TrackData trackData(nTrack->GetData());
   kml::SetDefaultStr(trackData.m_name, trkName);
   kml::SetDefaultStr(trackData.m_description, trkDescr);
-  trackData.m_layers[0].m_color.m_rgba = dp::Color::FromARGB(static_cast<uint32_t>(color)).GetRGBA();
+  trackData.m_layers[0].m_color.m_rgba = trkColor.GetRGBA();
 
   g_framework->ReplaceTrack(static_cast<kml::TrackId>(id), trackData);
 }
@@ -153,7 +153,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNI
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeChangeColor(JNIEnv *, jclass, jlong id, jint color)
 {
   auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(id));
-  auto const trkColor = dp::Color::FromARGB(static_cast<uint32_t>(color)); // ???
+  auto const trkColor = dp::Color::FromARGB(static_cast<uint32_t>(color));
   if (nTrack->GetColor(0) == trkColor)
     return;  // New color is the same as old one.
 
