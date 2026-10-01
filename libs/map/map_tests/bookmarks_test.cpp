@@ -413,6 +413,80 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
   TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_ReloadWithDeferredNotifications)
+{
+  auto const filePath = base::JoinPath(GetBookmarksDirectory(), "deferred_reload.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  auto writeSource = [&](std::string const & description)
+  {
+    auto data = LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml);
+    TEST(data, ());
+    kml::SetDefaultStr(data->m_categoryData.m_description, description);
+    data->m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(2000);
+    TEST(SaveKmlFileSafe(*data, filePath, FileType::Kml), ());
+    TEST(Platform::SetFileModificationTime(filePath, 5000), ());
+  };
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto loadSource = [&]()
+  {
+    auto data = LoadKmlFile(filePath, FileType::Kml);
+    TEST(data, ());
+    BookmarkManager::KMLDataCollection collection;
+    collection.emplace_back(filePath, std::move(data));
+    bmManager.CreateCategories(std::move(collection), true /* autoSave */);
+  };
+  auto descriptionOnDisk = [&]()
+  {
+    auto data = LoadKmlFile(filePath, FileType::Kml);
+    TEST(data, ());
+    return kml::GetDefaultStr(data->m_categoryData.m_description);
+  };
+
+  writeSource("initial");
+  loadSource();
+  auto const groupId = bmManager.GetCategoryByFileName(filePath);
+  TEST_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+
+  bmManager.SetNotificationsEnabled(false);
+  writeSource("remote");
+  loadSource();
+  bmManager.SetNotificationsEnabled(true);
+  TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ("Reload must not save its source"));
+  TEST_EQUAL(kml::GetDefaultStr(bmManager.GetCategoryData(groupId).m_description), "remote", ());
+  TEST_EQUAL(bmManager.GetCategoryData(groupId).m_lastModified, kml::TimestampClock::from_time_t(2000), ());
+
+  // A reload supersedes local edits that were waiting for notifications to resume.
+  bmManager.SetNotificationsEnabled(false);
+  bmManager.GetEditSession().SetCategoryDescription(groupId, "pending local edit");
+  TEST_EQUAL(descriptionOnDisk(), "remote", ("Local saves must remain deferred"));
+  writeSource("new remote");
+  loadSource();
+  bmManager.SetNotificationsEnabled(true);
+  TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ("Reload must discard the pending save"));
+  TEST_EQUAL(kml::GetDefaultStr(bmManager.GetCategoryData(groupId).m_description), "new remote", ());
+
+  // Local edits after loading are saved together, even while reload notifications are still pending.
+  bmManager.SetNotificationsEnabled(false);
+  writeSource("latest remote");
+  loadSource();
+  bmManager.GetEditSession().SetCategoryDescription(groupId, "first local edit");
+  bmManager.GetEditSession().SetCategoryDescription(groupId, "last local edit");
+  TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
+  TEST_EQUAL(descriptionOnDisk(), "latest remote", ());
+  bmManager.SetNotificationsEnabled(true);
+  TEST_EQUAL(descriptionOnDisk(), "last local edit", ());
+
+  // Deleting a category also cancels its deferred save.
+  bmManager.SetNotificationsEnabled(false);
+  bmManager.GetEditSession().SetCategoryDescription(groupId, "pending deletion");
+  TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, true /* permanently */), ());
+  bmManager.SetNotificationsEnabled(true);
+  TEST(!Platform::IsFileExistsByFullPath(filePath), ());
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
+}
+
 kml::MarkId FindTrackSelectionMark(BookmarkManager const & bm, kml::TrackId trackId)
 {
   for (auto markId : bm.GetUserMarkIds(UserMark::Type::TRACK_SELECTION))

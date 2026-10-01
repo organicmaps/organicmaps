@@ -590,6 +590,12 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_changesTracker.AcceptDirtyItems();
+  for (auto const groupId : m_changesTracker.GetRemovedGroupIds())
+    m_categoriesToSave.erase(groupId);
+  if (saveChangesOnDisk)
+    for (auto const groupId : m_changesTracker.GetUpdatedGroupIds())
+      if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
+        m_categoriesToSave.insert(groupId);
   if (!m_firstDrapeNotification && !m_changesTracker.HasChanges() && !m_bookmarksChangesTracker.HasChanges() &&
       !m_drapeChangesTracker.HasChanges())
   {
@@ -608,16 +614,10 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
 
   if (m_bookmarksChangesTracker.HasBookmarksChanges())
   {
-    // During the category reloading/updating the file saving should be skipped
-    // because of the file is already up to date.
-    if (saveChangesOnDisk)
+    if (!m_categoriesToSave.empty())
     {
-      kml::GroupIdCollection categoriesToSave;
-      for (auto groupId : m_bookmarksChangesTracker.GetUpdatedGroupIds())
-        if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
-          categoriesToSave.push_back(groupId);
-
-      SaveBookmarks(categoriesToSave);
+      SaveBookmarks(kml::GroupIdCollection(m_categoriesToSave.begin(), m_categoriesToSave.end()));
+      m_categoriesToSave.clear();
     }
 
     SendBookmarksChanges(m_bookmarksChangesTracker);
@@ -2567,6 +2567,8 @@ void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::Cate
   // The current implementation reloads the provided group.
   /// @todo implement more accurate merging instead of full reloading
   ClearGroup(groupId);
+  // The loaded file supersedes any pending save of this category.
+  m_categoriesToSave.erase(groupId);
   data.m_id = groupId;
   m_categories[groupId] = std::make_unique<BookmarkCategory>(std::move(data), autoSave);
   m_changesTracker.OnAddGroup(groupId);

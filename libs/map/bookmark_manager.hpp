@@ -729,6 +729,8 @@ private:
   MarksChangesTracker m_changesTracker;
   MarksChangesTracker m_bookmarksChangesTracker;
   MarksChangesTracker m_drapeChangesTracker;
+  // UI changes include hydration; only local edits are eligible for deferred saving.
+  kml::GroupIdSet m_categoriesToSave;
   df::DrapeEngineSafePtr m_drapeEngine;
 
   std::unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
