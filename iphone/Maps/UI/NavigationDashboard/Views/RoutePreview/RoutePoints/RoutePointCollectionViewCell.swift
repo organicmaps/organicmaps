@@ -43,8 +43,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   private let textStackView = UIStackView()
   private let reorderButton = UIButton(type: .system)
   private let closeButton = UIButton(type: .system)
-  private let topConnectorLayer = CAShapeLayer()
-  private let bottomConnectorLayer = CAShapeLayer()
+  private let connectorLayer = CAShapeLayer()
   private lazy var separatorView: UIView = {
     let separatorInsets = UIEdgeInsets(top: 0, left: Constants.logoImageLeadingInset + Constants.logoSize + Constants.horizontalSpacing, bottom: 0, right: 0)
     return contentBackgroundView.addSeparator(.bottom, insets: separatorInsets)
@@ -68,14 +67,19 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    let x = Constants.logoImageLeadingInset + Constants.logoSize / 2
+    let leadingX = Constants.logoImageLeadingInset + Constants.logoSize / 2
+    let x = effectiveUserInterfaceLayoutDirection == .rightToLeft ? bounds.width - leadingX : leadingX
     let iconTop = (bounds.height - Constants.logoSize) / 2
     let iconBottom = iconTop + Constants.logoSize
     let topStart = topConnector == .threeDots ? -iconTop + Constants.connectorIconInset : 0
-    updateConnector(topConnectorLayer, style: topConnector, x: x,
+    let path = UIBezierPath()
+    appendConnector(to: path, style: topConnector, x: x,
                     from: topStart, to: iconTop - Constants.connectorIconInset, roundAtStart: false)
-    updateConnector(bottomConnectorLayer, style: bottomConnector, x: x,
+    appendConnector(to: path, style: bottomConnector, x: x,
                     from: iconBottom + Constants.connectorIconInset, to: bounds.height, roundAtStart: true)
+    connectorLayer.frame = bounds
+    connectorLayer.path = path.cgPath
+    connectorLayer.fillColor = UIColor.blackSecondaryText.cgColor
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -95,8 +99,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     contentBackgroundView.setStyle(.pressBackground)
     contentBackgroundView.layer.setCornerRadius(.buttonDefaultBig)
     contentBackgroundView.clipsToBounds = false
-    contentBackgroundView.layer.addSublayer(topConnectorLayer)
-    contentBackgroundView.layer.addSublayer(bottomConnectorLayer)
+    contentBackgroundView.layer.addSublayer(connectorLayer)
 
     logoImageView.contentMode = .scaleAspectFill
     logoImageView.clipsToBounds = true
@@ -182,10 +185,8 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     }
   }
 
-  private func updateConnector(_ layer: CAShapeLayer, style: ConnectorStyle, x: CGFloat,
+  private func appendConnector(to path: UIBezierPath, style: ConnectorStyle, x: CGFloat,
                                from startY: CGFloat, to endY: CGFloat, roundAtStart: Bool) {
-    layer.frame = CGRect(origin: .zero, size: bounds.size)
-    let path = UIBezierPath()
     switch style {
     case .none:
       break
@@ -205,9 +206,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
         path.append(UIBezierPath(ovalIn: dotRect))
       }
     }
-    layer.path = path.cgPath
-    layer.strokeColor = nil
-    layer.fillColor = UIColor.blackSecondaryText.cgColor
   }
 
   @objc

@@ -82,8 +82,7 @@ final class RoutePointsView: UIView {
     let index = indexPath.item
     let topConnector: RoutePointCollectionViewCell.ConnectorStyle = index == 0 ? .none :
       (index == routePoints.count ? .threeDots : .solid)
-    let bottomConnector: RoutePointCollectionViewCell.ConnectorStyle = index == routePoints.count ? .none :
-      (index == routePoints.count - 1 ? .none : .solid)
+    let bottomConnector: RoutePointCollectionViewCell.ConnectorStyle = index < routePoints.count - 1 ? .solid : .none
     switch indexPath.item {
     case routePoints.count:
       cell.configure(with: .addPoint, topConnector: topConnector, bottomConnector: bottomConnector)
