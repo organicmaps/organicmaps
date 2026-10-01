@@ -652,6 +652,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
 {
   ScopedFile const firstFile("bookmark_import_queue_first.kml", kmlString);
   ScopedFile const secondFile("bookmark_import_queue_second.kml", kmlString);
+  ScopedFile const thirdFile("bookmark_import_queue_third.kml", kmlString);
 
   ScopedManualGuiTaskLoop guiTaskLoop;
   BookmarkManager bmManager(BM_CALLBACKS);
@@ -694,6 +695,12 @@ UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
     callbackOrder.push_back("import_result_" + std::to_string(importResultCount));
     TEST_EQUAL(1, result.m_sourceResults.size(), ());
     TEST_EQUAL(1, result.m_sourceResults.front().m_groupIds.size(), ());
+    if (importResultCount == 2)
+    {
+      TEST(!bmManager.IsAsyncLoadingInProgress(), ());
+      bmManager.ImportBookmarks({{thirdFile.GetFullPath(), false /* isTemporaryFile */}});
+      TEST(bmManager.IsAsyncLoadingInProgress(), ());
+    }
   };
   bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
 
@@ -702,14 +709,15 @@ UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
        ("Timed out waiting for initial bookmark loading"));
 
   bmManager.ImportBookmarks({{firstFile.GetFullPath(), false /* isTemporaryFile */}});
-  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importResultCount == 2; }),
+  TEST(RunGuiTasksUntil(guiTaskLoop, [&]() { return importResultCount == 3; }),
        ("Timed out waiting for queued bookmark imports"));
 
   TEST_EQUAL(std::vector<std::string>({"started_initial", "finished_initial", "started_import_1", "finished_import_1",
-                                       "import_result_1", "started_import_2", "finished_import_2", "import_result_2"}),
+                                       "import_result_1", "started_import_2", "finished_import_2", "import_result_2",
+                                       "started_import_3", "finished_import_3", "import_result_3"}),
              callbackOrder, ());
-  TEST_EQUAL(2, finishedImportCount, ());
-  TEST_EQUAL(2, importResultCount, ());
+  TEST_EQUAL(3, finishedImportCount, ());
+  TEST_EQUAL(3, importResultCount, ());
   WaitForFileTasks();
 }
 
