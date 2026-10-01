@@ -138,6 +138,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNI
   auto const description = jni::ToNativeString(env, descr);
   auto edit = frm()->GetBookmarkManager().GetEditSession();
   auto * track = edit.GetTrackForEdit(static_cast<kml::TrackId>(id));
+  if (track->GetName() == title && nTrack->GetDescription() == description && nTrack->GetColor(0) == color)
+    return;  // New parameters match existing track params. Nothing to update.
+
   CHECK(track, ("Invalid track id:", id));
   track->SetName(title);
   track->SetDescription(description);
@@ -146,7 +149,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNI
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeChangeColor(JNIEnv *, jclass, jlong id, jint color)
 {
-  g_framework->ChangeTrackColor(static_cast<kml::TrackId>(id), dp::Color::FromARGB(static_cast<uint32_t>(color)));
+  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(id));
+  auto const trkColor = dp::Color::FromARGB(static_cast<uint32_t>(color)); // ???
+  if (nTrack->GetColor(0) == trkColor)
+    return;  // New color is the same as old one.
+
+  g_framework->ChangeTrackColor(static_cast<kml::TrackId>(id), trkColor);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeChangeCategory(JNIEnv *, jclass, jlong oldCat,
