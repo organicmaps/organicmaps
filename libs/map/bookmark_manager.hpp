@@ -285,7 +285,8 @@ public:
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
 
-  kml::MarkGroupId GetCategoryId(std::string const & name) const;
+  kml::MarkGroupId GetCategoryId(std::string const & name,
+                                 kml::MarkGroupId excludedGroupId = kml::kInvalidMarkGroupId) const;
 
   kml::GroupIdCollection const & GetUnsortedBmGroupsIdList() const { return m_unsortedBmGroupsIdList; }
   kml::GroupIdCollection GetSortedBmGroupIdList() const;
@@ -389,7 +390,7 @@ public:
   void RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
   void DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
 
-  // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
+  // Preserves nonempty modification timestamps while loading, importing, or reloading categories.
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
   static std::string GetTracksSortedBlockName();
@@ -790,22 +791,6 @@ private:
     bool m_isReloading = false;
   };
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
-
-  struct RestoringCache
-  {
-    std::string m_serverId;
-    kml::AccessRules m_accessRules;
-  };
-  std::map<std::string, RestoringCache> m_restoringCache;
-
-  struct ExpiredCategory
-  {
-    ExpiredCategory(kml::MarkGroupId id, std::string const & serverId) : m_id(id), m_serverId(serverId) {}
-
-    kml::MarkGroupId m_id;
-    std::string m_serverId;
-  };
-  std::vector<ExpiredCategory> m_expiredCategories;
 
   struct Properties
   {
