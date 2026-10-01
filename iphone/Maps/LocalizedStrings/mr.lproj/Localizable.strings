@@ -655,6 +655,9 @@
 "button_plan" = "नियोजन";
 "placepage_remove_stop" = "थांबा काढा";
 
+/* Button below the route destination for adding another destination to the route. */
+"route_add_destination" = "गंतव्य जोडा";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "थांबा जोडा";
 "saved" = "जतन केले";

@@ -4,9 +4,16 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     case addPoint
   }
 
+  enum ConnectorStyle {
+    case none
+    case solid
+    case threeDots
+  }
+
   struct PointViewModel {
     let title: String
     let image: UIImage
+    let usesCurrentPositionIcon: Bool
     let showCloseButton: Bool
     let maskedCorners: CACornerMask
     let isPlaceholder: Bool
@@ -16,7 +23,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
   private enum Constants {
     static let fontStyle = FontStyleSheet.semibold14
-    static let minimumHeight: CGFloat = 44
+    static let minimumHeight: CGFloat = 46
     static let titleNumberOfLines: Int = 2
     static let verticalInset: CGFloat = 8
     static let logoSize: CGFloat = 28
@@ -25,6 +32,9 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     static let closeButtonSize: CGFloat = 24
     static let horizontalSpacing: CGFloat = 12
     static let horizontalSpacingSmall: CGFloat = 5
+    static let connectorWidth: CGFloat = 2.5
+    static let connectorIconInset: CGFloat = 3
+    static let dotDiameter: CGFloat = 3.5
   }
 
   private let logoImageView = UIImageView()
@@ -33,12 +43,16 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   private let textStackView = UIStackView()
   private let reorderButton = UIButton(type: .system)
   private let closeButton = UIButton(type: .system)
+  private let topConnectorLayer = CAShapeLayer()
+  private let bottomConnectorLayer = CAShapeLayer()
   private lazy var separatorView: UIView = {
     let separatorInsets = UIEdgeInsets(top: 0, left: Constants.logoImageLeadingInset + Constants.logoSize + Constants.horizontalSpacing, bottom: 0, right: 0)
     return contentBackgroundView.addSeparator(.bottom, insets: separatorInsets)
   }()
 
   private var didTapClose: (() -> Void)?
+  private var topConnector: ConnectorStyle = .none
+  private var bottomConnector: ConnectorStyle = .none
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -52,17 +66,37 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     }
   }
 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    let x = Constants.logoImageLeadingInset + Constants.logoSize / 2
+    let iconTop = (bounds.height - Constants.logoSize) / 2
+    let iconBottom = iconTop + Constants.logoSize
+    let topStart = topConnector == .threeDots ? -iconTop + Constants.connectorIconInset : 0
+    updateConnector(topConnectorLayer, style: topConnector, x: x,
+                    from: topStart, to: iconTop - Constants.connectorIconInset, roundAtStart: false)
+    updateConnector(bottomConnectorLayer, style: bottomConnector, x: x,
+                    from: iconBottom + Constants.connectorIconInset, to: bounds.height, roundAtStart: true)
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    setNeedsLayout()
+  }
+
   @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   private func setupView() {
+    clipsToBounds = false
     contentView.clipsToBounds = false
 
     contentBackgroundView.setStyle(.pressBackground)
     contentBackgroundView.layer.setCornerRadius(.buttonDefaultBig)
     contentBackgroundView.clipsToBounds = false
+    contentBackgroundView.layer.addSublayer(topConnectorLayer)
+    contentBackgroundView.layer.addSublayer(bottomConnectorLayer)
 
     logoImageView.contentMode = .scaleAspectFill
     logoImageView.clipsToBounds = true
@@ -121,12 +155,15 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     ])
   }
 
-  func configure(with viewModel: CellType) {
+  func configure(with viewModel: CellType, topConnector: ConnectorStyle, bottomConnector: ConnectorStyle) {
+    self.topConnector = topConnector
+    self.bottomConnector = bottomConnector
+    setNeedsLayout()
     switch viewModel {
     case .point(let viewModel):
       titleLabel.text = viewModel.title
       logoImageView.image = viewModel.image
-      logoImageView.setStyleAndApply(.black)
+      logoImageView.setStyleAndApply(viewModel.usesCurrentPositionIcon ? .blue : .black)
       didTapClose = viewModel.onCloseHandler
       titleLabel.setFontStyleAndApply(Constants.fontStyle, color: viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
       closeButton.isHidden = !viewModel.showCloseButton
@@ -134,7 +171,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       contentBackgroundView.layer.maskedCorners = viewModel.maskedCorners
       separatorView.isHidden = !viewModel.showSeparator
     case .addPoint:
-      titleLabel.text = L("placepage_add_stop")
+      titleLabel.text = L("route_add_destination")
       logoImageView.image = UIImage(resource: .icAddButton)
       logoImageView.setStyleAndApply(.blue)
       titleLabel.setFontStyleAndApply(Constants.fontStyle, color: .linkBlue)
@@ -143,6 +180,34 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       contentBackgroundView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
       separatorView.isHidden = true
     }
+  }
+
+  private func updateConnector(_ layer: CAShapeLayer, style: ConnectorStyle, x: CGFloat,
+                               from startY: CGFloat, to endY: CGFloat, roundAtStart: Bool) {
+    layer.frame = CGRect(origin: .zero, size: bounds.size)
+    let path = UIBezierPath()
+    switch style {
+    case .none:
+      break
+    case .solid:
+      let radius = Constants.connectorWidth / 2
+      let rect = CGRect(x: x - radius, y: startY, width: Constants.connectorWidth, height: endY - startY)
+      let corners: UIRectCorner = roundAtStart ? [.topLeft, .topRight] : [.bottomLeft, .bottomRight]
+      path.append(UIBezierPath(roundedRect: rect, byRoundingCorners: corners,
+                               cornerRadii: CGSize(width: radius, height: radius)))
+    case .threeDots:
+      let radius = Constants.dotDiameter / 2
+      let centerSpacing = (endY - startY - Constants.dotDiameter) / 2
+      for index in 0 ..< 3 {
+        let y = startY + radius + CGFloat(index) * centerSpacing
+        let dotRect = CGRect(x: x - radius, y: y - radius,
+                             width: Constants.dotDiameter, height: Constants.dotDiameter)
+        path.append(UIBezierPath(ovalIn: dotRect))
+      }
+    }
+    layer.path = path.cgPath
+    layer.strokeColor = nil
+    layer.fillColor = UIColor.blackSecondaryText.cgColor
   }
 
   @objc

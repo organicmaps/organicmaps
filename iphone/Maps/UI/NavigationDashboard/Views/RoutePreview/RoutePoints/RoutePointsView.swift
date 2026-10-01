@@ -79,16 +79,21 @@ final class RoutePointsView: UIView {
   }
 
   private func configure(_ cell: RoutePointCollectionViewCell, at indexPath: IndexPath) {
+    let index = indexPath.item
+    let topConnector: RoutePointCollectionViewCell.ConnectorStyle = index == 0 ? .none :
+      (index == routePoints.count ? .threeDots : .solid)
+    let bottomConnector: RoutePointCollectionViewCell.ConnectorStyle = index == routePoints.count ? .none :
+      (index == routePoints.count - 1 ? .none : .solid)
     switch indexPath.item {
     case routePoints.count:
-      cell.configure(with: .addPoint)
+      cell.configure(with: .addPoint, topConnector: topConnector, bottomConnector: bottomConnector)
     default:
       let viewModel = routePoints.cellViewModel(for: indexPath.item, onCloseHandler: { [weak self] in
         if let point = self?.routePoints[indexPath.item] {
           self?.interactor?.process(.deleteRoutePoint(point))
         }
       })
-      cell.configure(with: viewModel)
+      cell.configure(with: viewModel, topConnector: topConnector, bottomConnector: bottomConnector)
     }
   }
 
@@ -228,6 +233,7 @@ private extension NavigationDashboard.RoutePoints {
     let viewModel = RoutePointCollectionViewCell.PointViewModel(
       title: title(for: index),
       image: image(for: index),
+      usesCurrentPositionIcon: index == 0 && point?.isMyPosition == true,
       showCloseButton: point?.type == .intermediate,
       maskedCorners: maskedCorners,
       isPlaceholder: point == nil,

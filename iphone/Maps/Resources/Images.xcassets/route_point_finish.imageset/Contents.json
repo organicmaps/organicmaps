@@ -1,0 +1,13 @@
+{
+  "images" : [
+    {
+      "filename" : "route_point_finish.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

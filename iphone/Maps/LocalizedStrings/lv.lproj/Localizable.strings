@@ -655,6 +655,9 @@
 "button_plan" = "Plānot";
 "placepage_remove_stop" = "Noņemt starppunktu";
 
+/* Button below the route destination for adding another destination to the route. */
+"route_add_destination" = "Pievienot galamērķi";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Pievienot starppunktu";
 "saved" = "Saglabāts";
