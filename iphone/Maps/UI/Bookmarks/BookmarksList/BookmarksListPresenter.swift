@@ -27,6 +27,7 @@ final class BookmarksListPresenter {
         self.router.goBack()
       case .success:
         self.bookmarkGroup = self.interactor.getBookmarkGroup()
+        self.updateInfo()
         self.reload()
       }
     }
