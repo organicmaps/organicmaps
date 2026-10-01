@@ -2256,12 +2256,11 @@ void BookmarkManager::FinishImportLoading(BookmarkImportSourceDataCollection && 
     if (!Platform::RemoveFileIfExists(path))
       LOG(LWARNING, ("Failed to delete temporary bookmarks file:", path));
 
-    auto const parent = base::GetDirectory(path);
-    auto const name = base::FileNameFromFullPath(parent);
-    if ((name.starts_with("bookmarks-import-") ||
-         base::FileNameFromFullPath(base::GetDirectory(parent)) == "FileImports") &&
-        Platform::RmDir(parent) != Platform::ERR_OK)
-      LOG(LWARNING, ("Failed to delete temporary bookmarks directory:", parent));
+    if (!source.m_context.m_ownsParentDirectory)
+      continue;
+    auto const directory = base::GetDirectory(path);
+    if (Platform::RmDir(directory) != Platform::ERR_OK)
+      LOG(LWARNING, ("Failed to delete temporary bookmarks directory:", directory));
   }
 
   FinishBookmarkLoadingRequest(&result);

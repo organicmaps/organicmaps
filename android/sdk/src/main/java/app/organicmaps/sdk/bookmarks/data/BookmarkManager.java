@@ -376,7 +376,7 @@ public enum BookmarkManager {
   private void loadBookmarksFiles(@NonNull List<String> paths, @NonNull ImportFeedback feedback)
   {
     mPendingImports.addLast(feedback);
-    nativeLoadBookmarksFiles(paths.toArray(new String[0]), true);
+    nativeLoadBookmarksFiles(paths.toArray(new String[0]), true, true);
   }
 
   @WorkerThread
@@ -740,7 +740,8 @@ public enum BookmarkManager {
 
   private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);
 
-  private static native void nativeLoadBookmarksFiles(@NonNull String[] paths, boolean isTemporaryFile);
+  private static native void nativeLoadBookmarksFiles(@NonNull String[] paths, boolean isTemporaryFile,
+                                                      boolean ownsParentDirectory);
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 

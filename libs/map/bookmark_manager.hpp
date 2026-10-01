@@ -58,6 +58,7 @@ public:
   {
     std::string m_filePath;
     bool m_isTemporaryFile = false;
+    bool m_ownsParentDirectory = false;
   };
 
   struct BookmarkImportSourceResult
