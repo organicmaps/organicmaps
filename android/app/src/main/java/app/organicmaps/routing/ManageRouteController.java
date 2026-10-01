@@ -87,8 +87,15 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   @Override
   public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
   {
-    mManageRouteAdapter.deleteRoutePoint(viewHolder);
-    onRouteOrderChanged(mManageRouteAdapter.getRoutePoints());
+    final ArrayList<RouteMarkData> routePoints = mManageRouteAdapter.getRoutePoints();
+    if (routePoints.size() == 1)
+    {
+      RoutingController.get().cancel();
+      return;
+    }
+    final RouteMarkData point = routePoints.get(viewHolder.getBindingAdapterPosition());
+    Framework.nativeRemoveRoutePoint(point.mPointType, point.mIntermediateIndex);
+    RoutingController.get().launchPlanning();
   }
   @Override
   public void onAddStopButtonClicked()

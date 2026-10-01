@@ -127,11 +127,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     pointHolder.mTextViewTitle.setText(title);
     pointHolder.mTextViewTitle.setTextColor(ThemeUtils.getColor(mContext, android.R.attr.textColorPrimary));
-    UiUtils.show(pointHolder.mImageViewDrag);
-    // Show 'Delete' icon button only if we have intermediate stops...
-    UiUtils.showIf(mRoutePoints.size() > 2 && mRoutePoints.get(position).mPointType != RouteMarkType.Start
-                       && mRoutePoints.get(position).mPointType != RouteMarkType.Finish,
-                   pointHolder.mImageViewDelete);
+    UiUtils.show(pointHolder.mImageViewDrag, pointHolder.mImageViewDelete);
     pointHolder.mImageViewDelete.setOnClickListener(v -> mManageRouteListener.onRoutePointDeleted(pointHolder));
     pointHolder.itemView.setOnClickListener(
         v -> { mManageRouteListener.onRoutePointClicked(pointHolder.getBindingAdapterPosition()); });
@@ -168,8 +164,10 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     final int titleColorAttr = isPlaceholder ? android.R.attr.textColorSecondary : android.R.attr.textColorPrimary;
     pointHolder.mTextViewTitle.setTextColor(ThemeUtils.getColor(mContext, titleColorAttr));
 
-    UiUtils.hide(pointHolder.mImageViewDelete, pointHolder.mImageViewDrag);
+    UiUtils.hide(pointHolder.mImageViewDrag);
     pointHolder.mImageViewDrag.setOnTouchListener(null);
+    UiUtils.showIf(!isPlaceholder, pointHolder.mImageViewDelete);
+    pointHolder.mImageViewDelete.setOnClickListener(v -> mManageRouteListener.onRoutePointDeleted(pointHolder));
 
     if (isPlaceholder)
     {
@@ -199,16 +197,6 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     Collections.swap(mRoutePoints, draggedItemIndex, targetIndex);
     updateRoutePointsData();
     notifyItemMoved(draggedItemIndex, targetIndex);
-  }
-
-  public void deleteRoutePoint(RecyclerView.ViewHolder viewHolder)
-  {
-    final int position = viewHolder.getBindingAdapterPosition();
-    mRoutePoints.remove(position);
-    updateRoutePointsData();
-    notifyItemRemoved(position);
-    // Remaining points may need renumbered icons or updated delete-button visibility after the removal.
-    notifyItemRangeChanged(0, getItemCount());
   }
 
   private void updateRoutePointsData()
