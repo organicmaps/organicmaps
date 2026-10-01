@@ -23214,7 +23214,7 @@ zh-Hans = 删除站点
 zh-Hant = 刪除停止
 
 [route_add_destination]
-comment = Button below the route destination for adding another destination to the route.
+comment = Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop.
 tags = apple-maps
 af = Voeg bestemming by
 ar = إضافة وجهة
