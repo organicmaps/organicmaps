@@ -44,7 +44,7 @@ extension NavigationDashboard.RoutePoints {
     case 0:
       return start?.isMyPosition == true ? UIImage.icCurrentPosition : UIImage(resource: .icRouteManagerStart)
     case count - 1:
-      return UIImage.routePointFinish.withRenderingMode(.alwaysOriginal)
+      return UIImage.routePointFinish
     default:
       let imageName = "route-point-\(index)"
       return UIImage(named: imageName) ?? UIImage(resource: .routePoint20)
