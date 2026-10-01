@@ -277,7 +277,6 @@ public:
 
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
-  void UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data, bool autoSave);
 
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
@@ -285,7 +284,8 @@ public:
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
 
-  kml::MarkGroupId GetCategoryId(std::string const & name) const;
+  kml::MarkGroupId GetCategoryId(std::string const & name,
+                                 kml::MarkGroupId excludedGroupId = kml::kInvalidMarkGroupId) const;
 
   kml::GroupIdCollection const & GetUnsortedBmGroupsIdList() const { return m_unsortedBmGroupsIdList; }
   kml::GroupIdCollection GetSortedBmGroupIdList() const;
@@ -389,7 +389,7 @@ public:
   void RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
   void DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
 
-  // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
+  // Preserves nonempty modification timestamps while loading, importing, or reloading categories.
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
   static std::string GetTracksSortedBlockName();
@@ -585,6 +585,7 @@ private:
   void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
   void ClearGroup(kml::MarkGroupId groupId);
+  void UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data);
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);
   void SetTrackVisibility(kml::TrackId trackId, bool visible);
 
