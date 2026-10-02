@@ -1222,3 +1222,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Շարժեք և մեծացրեք քարտեզը՝ խաչը տեղադրելու համար";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Շրջել երթուղին";
