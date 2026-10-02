@@ -228,4 +228,7 @@
   <dimen name="color_picker_hex_row_margin_top">32dp</dimen>
   <dimen name="color_picker_pill_padding">3dp</dimen>
   <dimen name="color_picker_popup_elevation">8dp</dimen>
+  <dimen name="widget_track_recording_main_text_size">28dp</dimen>
+  <dimen name="widget_track_recording_stats_min_text_size">10dp</dimen>
+  <dimen name="widget_track_recording_min_resize_height">180dp</dimen>
 </resources>
