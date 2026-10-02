@@ -20,7 +20,6 @@ import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -197,7 +196,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     final int targetIndex = targetItem.getBindingAdapterPosition();
     if (draggedItemIndex == targetIndex) // Dragged to the same spot, nothing to reorder.
       return;
-    Collections.swap(mRoutePoints, draggedItemIndex, targetIndex);
+    mRoutePoints.add(targetIndex, mRoutePoints.remove(draggedItemIndex));
     updateRoutePointsData();
     notifyItemMoved(draggedItemIndex, targetIndex);
   }
