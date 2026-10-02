@@ -1222,3 +1222,6 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "경로를 반대로 설정";
