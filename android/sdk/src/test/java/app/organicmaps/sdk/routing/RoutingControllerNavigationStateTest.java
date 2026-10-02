@@ -1,7 +1,11 @@
 package app.organicmaps.sdk.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import app.organicmaps.sdk.util.log.Logger;
 import java.lang.reflect.Method;
@@ -72,6 +76,25 @@ public class RoutingControllerNavigationStateTest
     }
 
     assertEquals(List.of("self:true", "other:true", "other:false"), events);
+  }
+
+  @Test
+  public void staleStartActionDoesNotEnterNavigationOrPublishAnActiveState() throws ReflectiveOperationException
+  {
+    final RoutingController controller = new RoutingController();
+    final List<Boolean> events = new ArrayList<>();
+    controller.addNavigationStateListener(events::add);
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    {
+      setState(controller, "PREPARE");
+      final RoutingController.Container container = mock(RoutingController.Container.class);
+      controller.attach(container);
+      controller.start();
+      assertTrue(controller.isPlanning());
+      assertFalse(controller.isNavigating());
+      assertTrue(events.isEmpty());
+      verifyNoInteractions(container);
+    }
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})

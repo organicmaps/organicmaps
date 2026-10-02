@@ -445,6 +445,9 @@ public class RoutingController
 
   public void start()
   {
+    // Phone and car actions can outlive the built route they were created for.
+    if (!isPlanning() || !isBuilt())
+      return;
     Logger.d(TAG, "start");
 
     // This saving is needed just for situation when the user starts navigation
