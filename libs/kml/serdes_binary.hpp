@@ -45,12 +45,8 @@ public:
       sink.Write(m_data.m_deviceId.data(), sz);
     }
 
-    // Write server id.
-    {
-      auto const sz = static_cast<uint32_t>(m_data.m_serverId.size());
-      WriteVarUint(sink, sz);
-      sink.Write(m_data.m_serverId.data(), sz);
-    }
+    // Keep the unused server id slot for compatibility with older readers.
+    WriteVarUint(sink, 0U);
 
     // Write bits count in double number.
     WriteToSink(sink, kDoubleBits);
@@ -158,7 +154,8 @@ public:
     {
       m_header.m_version = static_cast<Version>(version);
       ReadDeviceId(source);
-      ReadServerId(source);
+      // Skip the unused server id in the V2-V9 preamble.
+      source.Skip(ReadVarUint<uint32_t>(source));
     }
     else
     {
@@ -181,7 +178,6 @@ public:
     {
       FileDataV8 dataV8;
       dataV8.m_deviceId = m_data.m_deviceId;
-      dataV8.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV8);
 
       m_data = dataV8.ConvertToLatestVersion();
@@ -191,7 +187,6 @@ public:
     {
       FileDataV8MM dataV8MM;
       dataV8MM.m_deviceId = m_data.m_deviceId;
-      dataV8MM.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV8MM);
 
       m_data = dataV8MM.ConvertToLatestVersion();
@@ -201,7 +196,6 @@ public:
     {
       FileDataV9MM dataV9MM;
       dataV9MM.m_deviceId = m_data.m_deviceId;
-      dataV9MM.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV9MM);
 
       m_data = dataV9MM.ConvertToLatestVersion();
@@ -216,7 +210,6 @@ public:
     {
       FileDataV7 dataV7;
       dataV7.m_deviceId = m_data.m_deviceId;
-      dataV7.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV7);
 
       m_data = dataV7.ConvertToLatestVersion();
@@ -229,7 +222,6 @@ public:
       // NOTE: v.4, v.5 and v.6 are binary compatible.
       FileDataV6 dataV6;
       dataV6.m_deviceId = m_data.m_deviceId;
-      dataV6.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV6);
 
       m_data = dataV6.ConvertToLatestVersion();
@@ -241,7 +233,6 @@ public:
       // NOTE: v.2 and v.3 are binary compatible.
       FileDataV3 dataV3;
       dataV3.m_deviceId = m_data.m_deviceId;
-      dataV3.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV3);
 
       // Migrate bookmarks (it's necessary ony for v.2).
@@ -339,13 +330,6 @@ private:
     auto const sz = ReadVarUint<uint32_t>(source);
     m_data.m_deviceId.resize(sz);
     source.Read(&m_data.m_deviceId[0], sz);
-  }
-
-  void ReadServerId(NonOwningReaderSource & source)
-  {
-    auto const sz = ReadVarUint<uint32_t>(source);
-    m_data.m_serverId.resize(sz);
-    source.Read(&m_data.m_serverId[0], sz);
   }
 
   void ReadBitsCountInDouble(NonOwningReaderSource & source)
