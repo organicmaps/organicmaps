@@ -35,11 +35,9 @@ class EngineContext;
 class RuleDrawer
 {
 public:
-  using TCheckCancelledCallback = std::function<bool()>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
 
-  RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountryLoadedByNameFn const & isLoadedFn,
-             ref_ptr<EngineContext> engineContext, int8_t deviceLang);
+  RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> engineContext, int8_t deviceLang);
   ~RuleDrawer();
 
   void operator()(FeatureType & f);
@@ -55,11 +53,10 @@ private:
 
   bool CheckCoastlines(FeatureType & f);
 
-  bool CheckCancelled();
+  bool CheckCancelled() const;
 
   bool IsDiscardCustomFeature(FeatureID const & id) const;
 
-  TCheckCancelledCallback m_checkCancelled;
   TIsCountryLoadedByNameFn m_isLoadedFn;
 
   ref_ptr<EngineContext> m_context;
@@ -78,7 +75,6 @@ private:
 
   uint8_t m_zoomLevel;
   int8_t m_deviceLang;
-  bool m_wasCancelled = false;
 
   ftypes::IsBuildingHasPartsChecker const & m_isBuildingHasParts = ftypes::IsBuildingHasPartsChecker::Instance();
   ftypes::IsBuildingPartChecker const & m_isBuildingPart = ftypes::IsBuildingPartChecker::Instance();
