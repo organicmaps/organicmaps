@@ -73,8 +73,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
 
   public void refresh()
   {
-    // Resync the existing adapter with the native route points. Reusing the same adapter and touch helper
-    // preserves the scroll position and never tears down an in-progress drag.
+    // Keep the adapter and touch helper attached so route changes retain the list's scroll position.
     mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
   }
 
