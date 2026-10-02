@@ -6,6 +6,7 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/read_manager.hpp"
+#include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include <algorithm>
@@ -200,6 +201,34 @@ UNIT_TEST(ReadCancellation_CancelledBufferedTailIsReleasedAtReadEnd)
   TEST_EQUAL(destroyed, 1, ());
   TEST(receiver.m_shapeIds.empty(), ());
   TEST_EQUAL(receiver.m_types, (std::vector<Type>{Type::TileReadStarted, Type::TileReadEnded}), ());
+}
+
+UNIT_TEST(ReadCancellation_IndexCancellationPreservesLifecycle)
+{
+  using Type = df::Message::Type;
+  for (bool const cancelBeforeIndex : {true, false})
+  {
+    df::ThreadsCommutator commutator;
+    ReadReceiver receiver(commutator);
+    df::TileInfo tile(make_unique_dp<df::EngineContext>(MakeContext(df::TileKey(1, 2, 15), commutator)));
+    bool indexRead = false;
+    bool featuresRead = false;
+    df::MapDataProvider model([&](auto const & callback, auto const &, int)
+    {
+      indexRead = true;
+      callback(FeatureID{});
+      tile.Cancel();
+    }, [&](auto const &, auto const &) { featuresRead = true; }, [](std::string_view) {
+      return true;
+    }, [](auto const &, int) {}, [](auto const &, auto) { return false; }, [](auto const &, auto) {});
+    if (cancelBeforeIndex)
+      tile.Cancel();
+    tile.ReadFeatures(model);
+    receiver.Drain();
+    TEST_EQUAL(indexRead, !cancelBeforeIndex, ());
+    TEST(!featuresRead, ());
+    TEST_EQUAL(receiver.m_types, (std::vector<Type>{Type::TileReadStarted, Type::TileReadEnded}), ());
+  }
 }
 
 class ReadCoverageFixture
