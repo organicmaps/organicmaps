@@ -20,7 +20,6 @@ import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -109,7 +108,9 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
       break;
     case Intermediate:
       TypedArray iconArray = mContext.getResources().obtainTypedArray(R.array.route_stop_icons);
-      iconId = iconArray.getResourceId(mRoutePoints.get(position).mIntermediateIndex, R.drawable.route_point_20);
+      // The last item is the generic marker for stops beyond the numbered drawables.
+      final int stopIndex = Math.min(mRoutePoints.get(position).mIntermediateIndex, iconArray.length() - 1);
+      iconId = iconArray.getResourceId(stopIndex, R.drawable.route_point_20);
       iconArray.recycle();
       break;
     case Finish: iconId = R.drawable.route_point_finish; break;
@@ -194,7 +195,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     final int targetIndex = targetItem.getBindingAdapterPosition();
     if (draggedItemIndex == targetIndex) // Dragged to the same spot, nothing to reorder.
       return;
-    Collections.swap(mRoutePoints, draggedItemIndex, targetIndex);
+    mRoutePoints.add(targetIndex, mRoutePoints.remove(draggedItemIndex));
     updateRoutePointsData();
     notifyItemMoved(draggedItemIndex, targetIndex);
   }
