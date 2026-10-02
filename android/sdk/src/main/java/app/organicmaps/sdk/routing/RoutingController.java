@@ -526,13 +526,18 @@ public class RoutingController
     if (info == null)
       throw new AssertionError("A stop point must have the route point info!");
 
+    removeStop(info.mMarkType, info.mIntermediateIndex);
+  }
+
+  public void removeStop(@NonNull RouteMarkType type, int intermediateIndex)
+  {
     if (Framework.nativeGetRoutePoints().length == 1)
     {
       cancel();
       return;
     }
 
-    Framework.nativeRemoveRoutePoint(info.mMarkType, info.mIntermediateIndex);
+    Framework.nativeRemoveRoutePoint(type, intermediateIndex);
     build();
     if (mContainer != null)
       mContainer.onRemovedStop();

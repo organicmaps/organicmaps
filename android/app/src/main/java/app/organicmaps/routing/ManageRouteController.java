@@ -80,21 +80,19 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   @Override
   public void startDrag(RecyclerView.ViewHolder viewHolder)
   {
-    // Start dragging.
-    mTouchHelper.startDrag(viewHolder);
+    if (viewHolder.getBindingAdapterPosition() != RecyclerView.NO_POSITION)
+      mTouchHelper.startDrag(viewHolder);
   }
   @Override
   public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
   {
-    final ArrayList<RouteMarkData> routePoints = mManageRouteAdapter.getRoutePoints();
-    if (routePoints.size() == 1)
-    {
-      RoutingController.get().cancel();
+    final int position = viewHolder.getBindingAdapterPosition();
+    // Positions are invalid until the layout following a complete adapter refresh.
+    if (position == RecyclerView.NO_POSITION)
       return;
-    }
-    final RouteMarkData point = routePoints.get(viewHolder.getBindingAdapterPosition());
-    Framework.nativeRemoveRoutePoint(point.mPointType, point.mIntermediateIndex);
-    RoutingController.get().launchPlanning();
+    final ArrayList<RouteMarkData> routePoints = mManageRouteAdapter.getRoutePoints();
+    final RouteMarkData point = routePoints.get(routePoints.size() == 1 ? 0 : position);
+    RoutingController.get().removeStop(point.mPointType, point.mIntermediateIndex);
   }
   @Override
   public void onAddStopButtonClicked()
@@ -198,7 +196,9 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
                           @NonNull RecyclerView.ViewHolder target)
     {
-      if (target.getBindingAdapterPosition() == mManageRouteAdapter.getItemCount() - 1)
+      if (viewHolder.getBindingAdapterPosition() == RecyclerView.NO_POSITION
+          || target.getBindingAdapterPosition() == RecyclerView.NO_POSITION
+          || target.getBindingAdapterPosition() == mManageRouteAdapter.getItemCount() - 1)
         return false;
       mManageRouteAdapter.moveRoutePoint(viewHolder, target);
       mOrderChanged = isOrderDifferentFromDragStart();
