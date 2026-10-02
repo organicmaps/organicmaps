@@ -389,6 +389,8 @@
     <string name="p2p_to_here">Одредиште</string>
     <string name="p2p_only_from_current">Навигација је могућа само од ваше тренутне локације.</string>
     <string name="p2p_reroute_from_current">Да ли желите да направите руту од ваше тренутне локације?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Рута ће бити обрнута тако да почиње од ваше тренутне локације.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Даље</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

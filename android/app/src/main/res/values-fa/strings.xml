@@ -389,6 +389,8 @@
     <string name="p2p_to_here">مسیر به</string>
     <string name="p2p_only_from_current">مسیر‌یابی فقط از موقعیت کنونی شما قابل انجام است.</string>
     <string name="p2p_reroute_from_current">آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">مسیر معکوس می‌شود تا از موقعیت کنونی شما آغاز شود.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">بعدی</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

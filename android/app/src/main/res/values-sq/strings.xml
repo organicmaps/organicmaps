@@ -389,6 +389,8 @@
     <string name="p2p_to_here">Rruga për</string>
     <string name="p2p_only_from_current">Lundrimi është i disponueshëm vetëm nga vendndodhja juaj aktuale.</string>
     <string name="p2p_reroute_from_current">A dëshironi të planifikoni një rrugë nga vendndodhja juaj aktuale?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Rruga do të përmbyset që të nisë nga vendndodhja juaj aktuale.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Tjetra</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

@@ -389,6 +389,8 @@
     <string name="p2p_to_here">到這裡去</string>
     <string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
     <string name="p2p_reroute_from_current">您是否想要規劃目前位置的路線？</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">將反轉路線，使其從您目前的位置出發。</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">下一頁</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

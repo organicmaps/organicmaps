@@ -343,6 +343,8 @@
     <string name="p2p_to_here">ເສັ້ນທາງໄປຫາ</string>
     <string name="p2p_only_from_current">ການນຳທາງສາມາດໃຊ້ໄດ້ສະເພາະຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານເທົ່ານັ້ນ.</string>
     <string name="p2p_reroute_from_current">ທ່ານຕ້ອງການວາງແຜນເສັ້ນທາງຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານບໍ່?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">ເສັ້ນທາງຈະຖືກກັບທິດເພື່ອໃຫ້ເລີ່ມຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານ.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">ຕໍ່ໄປ</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
