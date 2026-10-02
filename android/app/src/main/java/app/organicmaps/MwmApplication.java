@@ -39,6 +39,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.wear.WearBridge;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.TrackRecordingWidget;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
@@ -143,6 +144,8 @@ public class MwmApplication extends Application implements Application.ActivityL
         onNavigationOrRecordingStopped();
     });
     TrackRecordingService.createNotificationChannel(this);
+    // Reset the widget in case the process was killed while recording.
+    TrackRecordingWidget.update(this);
 
     registerActivityLifecycleCallbacks(this);
     mDisplayManager = new DisplayManager();
@@ -239,6 +242,15 @@ public class MwmApplication extends Application implements Application.ActivityL
     // Whatever is still running goes back to the regular refresh interval.
     if (getLocationHelper().isActive() && LocationUtils.checkLocationPermission(this))
       getLocationHelper().restartWithNewMode();
+  }
+
+  // Recording from the widget runs without the map, so nothing else needs location then.
+  public void onTrackRecordingStopped()
+  {
+    if (!Map.isEngineCreated() && mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
+      getLocationHelper().stop();
+    else
+      onNavigationOrRecordingStopped();
   }
 
   /**
