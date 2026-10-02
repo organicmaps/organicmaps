@@ -512,6 +512,12 @@
     <string name="day">d</string>
     <string name="second">sek</string>
     <string name="placepage_more_button">Meira</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Ljósmyndir, umsagnir, bókanir</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Dálítið umboðsgjald fæst fyrir hverja bókun í gegnum þennan tengil og rennur það til áframhaldandi þróunar Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Nánar á Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Breyta bókamerki</string>
     <string name="placepage_personal_notes_hint">Persónulegir minnispunktar (texti eða html)</string>
@@ -753,8 +759,7 @@
     <string name="deselect_all">Afvelja allt</string>
     <string name="select_list">Veldu lista</string>
     <string name="button_layer_isolines">Hæðarlínur</string>
-    <string name="isolines_activation_error_dialog">Til að virkja hæðarlínur þarf að sækja kortagögn fyrir þetta svæði</string>
-    <string name="isolines_location_error_dialog">Hæðarlínur eru ennþá ekki tiltækar á þessu svæði</string>
+    <string name="isolines_location_error_dialog">Uppfærðu þetta svæði til að sjá hæðarlínur</string>
     <string name="elevation_profile_ascent">Hækkun</string>
     <string name="elevation_profile_descent">Lækkun</string>
     <string name="elevation_profile_min_elevation">Lágm.hæð</string>
@@ -903,6 +908,8 @@
     <string name="move">Færa</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Breyta lit</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Virkja</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -953,4 +960,6 @@
     <string name="choose_point_on_map_hint">Hreyfðu og stækkaðu kortið til að staðsetja krossinn</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stöðva og vista</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stopp %1$d</string>
 </resources>

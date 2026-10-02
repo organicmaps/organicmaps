@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Más";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Semeyes, opiniones, reserves";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "La bonificación por recomendación recibida por cada reserva al traviés d’esti enllaz destínase al desendolcu d’Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Detalles en Kayak";
 "placepage_personal_notes_hint" = "Notes personales (testu o HTML)";
 "editor_comment_hint" = "Comentariu…";
 "editor_reset_edits_message" = "Discard all local changes?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "No subway route found";
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
 "button_layer_isolines" = "Curves de nivel";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
-"isolines_location_error_dialog" = "Les curves de nivel entá nun tán disponibles nesta rexón";
+"isolines_location_error_dialog" = "Anueva esta rexón pa ver les curves de nivel";
 "elevation_profile_ascent" = "Ascensu";
 "elevation_profile_descent" = "Descensu";
 "elevation_profile_min_elevation" = "Elevación mín.";
@@ -1102,7 +1110,7 @@
 "icloud_disabled_message" = "Please enable iCloud in your device's settings to use this feature.";
 
 /* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
-"enable" = "Enable";
+"enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Backup";

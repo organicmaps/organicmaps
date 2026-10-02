@@ -512,6 +512,12 @@
     <string name="day">일</string>
     <string name="second">초</string>
     <string name="placepage_more_button">자세히</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">사진, 리뷰, 예약</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">이 링크를 통한 예약마다 발생하는 추천 보너스는 Organic Maps 개발에 사용됩니다.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak에서 자세히 보기</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
     <string name="placepage_personal_notes_hint">개인 메모 (글자 혹은 html)</string>
@@ -748,8 +754,7 @@
     <string name="deselect_all">선택 해제</string>
     <string name="select_list">목록 선택</string>
     <string name="button_layer_isolines">지형</string>
-    <string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
-    <string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
+    <string name="isolines_location_error_dialog">이 지역을 업데이트하면 등고선을 볼 수 있습니다</string>
     <string name="elevation_profile_ascent">올라가기</string>
     <string name="elevation_profile_descent">내려가기</string>
     <string name="elevation_profile_min_elevation">최소 높이</string>
@@ -890,6 +895,8 @@
     <string name="hide_track">경로 숨기기</string>
     <!-- Text for the showing track. -->
     <string name="show_track">경로 표시</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">사용</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -940,4 +947,20 @@
     <string name="choose_point_on_map_hint">지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">중지 및 저장</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">경로 세부 정보</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">%1$s에서 승차</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">%1$s에서 환승</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">%1$s에서 하차</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">도보</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">스톱 %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d 정거장</item>
+    </plurals>
 </resources>

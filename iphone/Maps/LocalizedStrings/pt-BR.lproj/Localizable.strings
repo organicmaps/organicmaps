@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Mais informações";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Fotos, avaliações, reservas";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "O bônus de indicação recebido por cada reserva feita por meio deste link é destinado ao desenvolvimento do Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Detalhes no Kayak";
 "placepage_personal_notes_hint" = "Anotações pessoais (texto ou html)";
 "editor_comment_hint" = "Comentar…";
 "editor_reset_edits_message" = "Descartar todas as modificações locais?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metrô";
 "dialog_pedestrian_route_is_long_message" = "Escolha outro ponto de início ou fim perto da estação de metrô";
 "button_layer_isolines" = "Relevo";
-"isolines_activation_error_dialog" = "Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região";
-"isolines_location_error_dialog" = "A camada Relevo ainda não está disponível para esta região";
+"isolines_location_error_dialog" = "Atualize esta região para ver as curvas de nível";
 "elevation_profile_ascent" = "Subida";
 "elevation_profile_descent" = "Descida";
 "elevation_profile_min_elevation" = "Elevação mínima";

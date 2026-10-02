@@ -512,6 +512,12 @@
     <string name="day">օ</string>
     <string name="second">վ</string>
     <string name="placepage_more_button">Ավելին</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Լուսանկարներ, կարծիքներ, ամրագրում</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Այս հղումով կատարված յուրաքանչյուր ամրագրման դիմաց ստացվող ուղղորդման բոնուսը հատկացվում է Organic Maps-ի զարգացմանը։</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Մանրամասներ Kayak-ում</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Խմբագրել էջանիշը</string>
     <string name="placepage_personal_notes_hint">Անձնական նշումներ (տեքստ կամ html)</string>
@@ -750,8 +756,7 @@
     <string name="deselect_all">Չեղարկել ընտրությունը</string>
     <string name="select_list">Ընտրել ցուցակը</string>
     <string name="button_layer_isolines">Հորիզոնականներ</string>
-    <string name="isolines_activation_error_dialog">Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները</string>
-    <string name="isolines_location_error_dialog">Հորիզոնականները դեռ հասանելի չեն այս տարածքում</string>
+    <string name="isolines_location_error_dialog">Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար</string>
     <string name="elevation_profile_ascent">Վերելք</string>
     <string name="elevation_profile_descent">Վայրէջք</string>
     <string name="elevation_profile_min_elevation">Նվազգ. բարձրություն</string>
@@ -898,6 +903,8 @@
     <string name="move">Տեղափոխել</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Փոխել գույնը</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Միացնել</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -948,4 +955,21 @@
     <string name="choose_point_on_map_hint">Շարժեք և մեծացրեք քարտեզը՝ խաչը տեղադրելու համար</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Կանգնեցնել և պահպանել</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Երթուղու մանրամասներ</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Նստել %1$s-ից</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Փոխադրում %1$s-ից</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Իջնել %1$s-ից</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Քայլել</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Կանգառ %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d կանգառ</item>
+        <item quantity="other">%d կանգառ</item>
+    </plurals>
 </resources>

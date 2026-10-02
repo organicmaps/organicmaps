@@ -512,6 +512,12 @@
     <string name="day">روز</string>
     <string name="second">ثانیه</string>
     <string name="placepage_more_button">بیشتر</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">عکس‌ها، نظرات، رزرو</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">پاداش ارجاعی دریافت‌شده برای هر رزرو از طریق این پیوند صرف توسعه Organic Maps می‌شود.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">جزئیات در Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ویرایش نشانک‌ها</string>
     <string name="placepage_personal_notes_hint">یادداشت های شخصی (متن یا html)</string>
@@ -750,8 +756,7 @@
     <string name="deselect_all">لغو انتخاب همه</string>
     <string name="select_list">انتخاب فهرست</string>
     <string name="button_layer_isolines">خط تراز</string>
-    <string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
-    <string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
+    <string name="isolines_location_error_dialog">برای دیدن خطوط تراز، این منطقه را به‌روزرسانی کنید</string>
     <string name="elevation_profile_ascent">بالا رفتن</string>
     <string name="elevation_profile_descent">پایین آمدن</string>
     <string name="elevation_profile_min_elevation">کم ارتفاع</string>
@@ -902,6 +907,8 @@
     <string name="hide_track">مخفی کردن مسیر</string>
     <!-- Text for the showing track. -->
     <string name="show_track">نمایش مسیر</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">فعال کردن</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -952,4 +959,21 @@
     <string name="choose_point_on_map_hint">نقشه را جابجا و بزرگنمایی کنید تا صلیب را قرار دهید</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">توقف و ذخیره</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">جزئیات سفر</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">سوار شدن در %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">تعویض در %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">پیاده شدن در %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">پیاده</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">توقف %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d ایستگاه</item>
+        <item quantity="other">%d ایستگاه</item>
+    </plurals>
 </resources>

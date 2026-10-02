@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Meer";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto’s, resensies, besprekings";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Die verwysingsbonus wat ons vir elke bespreking via hierdie skakel ontvang, gaan na die ontwikkeling van Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Details op Kayak";
 "placepage_personal_notes_hint" = "Persoonlike notas (teks of html)";
 "editor_comment_hint" = "Kommentaar…";
 "editor_reset_edits_message" = "Wys alle lokale veranderinge af?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Moltreinroete nie gevind";
 "dialog_pedestrian_route_is_long_message" = "Kies asb. ’n begin- of eindpunt nader aan die moltreinstasie";
 "button_layer_isolines" = "Kontoerlyne";
-"isolines_activation_error_dialog" = "Om kontoerlyne te aktiveer moet u kaartdata vir hierdie area aflaai";
-"isolines_location_error_dialog" = "Die kontoerlyne is nog nie in hierdie area beskikbaar nie";
+"isolines_location_error_dialog" = "Werk hierdie area by om kontoerlyne te sien";
 "elevation_profile_ascent" = "Styging";
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";

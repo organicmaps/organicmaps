@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Išsamiau";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Nuotraukos, apžvalgos, užsakymas";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Už kiekvieną per šią nuorodą atliktą užsakymą gauta premija skiriama „Organic Maps“ plėtrai.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Išsamiau „Kayak“ svetainėje";
 "placepage_personal_notes_hint" = "Asmeninės pastabos (tekstas arba HTML)";
 "editor_comment_hint" = "Komentaras…";
 "editor_reset_edits_message" = "Anuliuoti visus vietinius pakeitimus?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro maršrutas nerastas";
 "dialog_pedestrian_route_is_long_message" = "Pasirinkite pradžios ar pabaigos tašką, esančius arčiau metro stotelės";
 "button_layer_isolines" = "Reljefas";
-"isolines_activation_error_dialog" = "Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti reljefo sluoksnį";
-"isolines_location_error_dialog" = "Reljefo sluoksnis šiai vietovei dar neprieinamas";
+"isolines_location_error_dialog" = "Atnaujinkite šią vietovę, kad matytumėte izolinijas";
 "elevation_profile_ascent" = "Pakilimas";
 "elevation_profile_descent" = "Nusileidimas";
 "elevation_profile_min_elevation" = "Min. aukštis";

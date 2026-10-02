@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Více";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Fotografie, recenze, rezervace";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonus za každou rezervaci provedenou prostřednictvím tohoto odkazu je určen na rozvoj služby Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Podrobnosti na Kayaku";
 "placepage_personal_notes_hint" = "Vlastní poznámka (text nebo HTML)";
 "editor_comment_hint" = "Poznámka…";
 "editor_reset_edits_message" = "Vymazat všechny místní změny?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Trasa metra nebyla nalezena";
 "dialog_pedestrian_route_is_long_message" = "Zvolte prosím počáteční nebo koncový bod blíže k stanici metra";
 "button_layer_isolines" = "Terén";
-"isolines_activation_error_dialog" = "Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti";
-"isolines_location_error_dialog" = "Topografická vrstva není v této oblasti ještě dostupná";
+"isolines_location_error_dialog" = "Aktualizujte tuto oblast, abyste viděli vrstevnice";
 "elevation_profile_ascent" = "Stoupání";
 "elevation_profile_descent" = "Klesání";
 "elevation_profile_min_elevation" = "Min. výška";

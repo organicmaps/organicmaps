@@ -607,6 +607,15 @@
 "day" = "օ";
 "second" = "վ";
 "placepage_more_button" = "Ավելին";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Լուսանկարներ, կարծիքներ, ամրագրում";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Այս հղումով կատարված յուրաքանչյուր ամրագրման դիմաց ստացվող ուղղորդման բոնուսը հատկացվում է Organic Maps-ի զարգացմանը։";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Մանրամասներ Kayak-ում";
 "placepage_personal_notes_hint" = "Անձնական նշումներ (տեքստ կամ html)";
 "editor_comment_hint" = "Մեկնաբանություն…";
 "editor_reset_edits_message" = "Չեղարկե՞լ բոլոր տեղական փոփոխությունները:";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Մետրոյի երթուղի չի գտնվել";
 "dialog_pedestrian_route_is_long_message" = "Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ";
 "button_layer_isolines" = "Հորիզոնականներ";
-"isolines_activation_error_dialog" = "Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները";
-"isolines_location_error_dialog" = "Հորիզոնականները դեռ հասանելի չեն այս տարածքում";
+"isolines_location_error_dialog" = "Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար";
 "elevation_profile_ascent" = "Վերելք";
 "elevation_profile_descent" = "Վայրէջք";
 "elevation_profile_min_elevation" = "Նվազգ. բարձրություն";

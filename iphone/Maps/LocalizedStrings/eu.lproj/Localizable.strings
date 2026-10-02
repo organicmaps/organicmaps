@@ -607,6 +607,15 @@
 "day" = "e";
 "second" = "s";
 "placepage_more_button" = "Gehiago";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Argazkiak, iritziak, erreserba";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Xehetasunak Kayak-en";
 "placepage_personal_notes_hint" = "Ohar pertsonalak (testua edo html)";
 "editor_comment_hint" = "Iruzkina…";
 "editor_reset_edits_message" = "Tokiko aldaketa guztiak berrezarri nahi dituzu?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ez da aurkitu metroko ibilbiderik";
 "dialog_pedestrian_route_is_long_message" = "Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua";
 "button_layer_isolines" = "Sestra kurbak";
-"isolines_activation_error_dialog" = "Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa";
-"isolines_location_error_dialog" = "Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan";
+"isolines_location_error_dialog" = "Eguneratu eskualde hau sestra-kurbak ikusteko";
 "elevation_profile_ascent" = "Maldan gora";
 "elevation_profile_descent" = "Maldan behera";
 "elevation_profile_min_elevation" = "Altitude min";

@@ -512,6 +512,12 @@
     <string name="day">д</string>
     <string name="second">с</string>
     <string name="placepage_more_button">Ещё</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Фотографии, отзывы, бронирование</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Реферальный бонус, полученный за каждое бронирование по этой ссылке, идёт на разработку Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Подробнее на Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Редактировать метку</string>
     <string name="placepage_personal_notes_hint">Примечание (текст или html)</string>
@@ -757,8 +763,7 @@
     <string name="deselect_all">Отменить выбор</string>
     <string name="select_list">Выбрать список</string>
     <string name="button_layer_isolines">Высоты</string>
-    <string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
-    <string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>
+    <string name="isolines_location_error_dialog">Обновите этот регион, чтобы увидеть линии высот</string>
     <string name="elevation_profile_ascent">Подъём</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мин. высота</string>
@@ -913,6 +918,8 @@
     <string name="hide_track">Скрыть трек</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Показать трек</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Включить</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -963,4 +970,23 @@
     <string name="choose_point_on_map_hint">Перемещайте и масштабируйте карту, чтобы установить крестик</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Остановить и сохранить</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Подробности маршрута</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Посадка на %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Пересадка на %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Выход на %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Пешком</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Остановка %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d остановка</item>
+        <item quantity="few">%d остановки</item>
+        <item quantity="many">%d остановок</item>
+        <item quantity="other">%d остановки</item>
+    </plurals>
 </resources>

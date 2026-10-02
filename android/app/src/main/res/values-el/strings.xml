@@ -512,6 +512,12 @@
     <string name="day">Μέρα</string>
     <string name="second">δ</string>
     <string name="placepage_more_button">Περισσότερα</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Φωτογραφίες, κριτικές, κράτηση</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Το μπόνους παραπομπής που λαμβάνεται για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Λεπτομέρειες στο Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
     <string name="placepage_personal_notes_hint">Προσωπικές σημειώσεις (κείμενο ή html)</string>
@@ -751,8 +757,7 @@
     <string name="deselect_all">Κατάργηση επιλογής</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
-    <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
-    <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>
+    <string name="isolines_location_error_dialog">Ενημερώστε αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές</string>
     <string name="elevation_profile_ascent">Ανάβαση</string>
     <string name="elevation_profile_descent">Κατάβαση</string>
     <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>
@@ -903,6 +908,8 @@
     <string name="hide_track">Απόκρυψη διαδρομής</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Εμφάνιση διαδρομής</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ενεργοποίηση</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -953,4 +960,21 @@
     <string name="choose_point_on_map_hint">Μετακινήστε και μεγεθύνετε τον χάρτη για να τοποθετήσετε τον σταυρό</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Διακοπή και αποθήκευση</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Λεπτομέρειες διαδρομής</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Επιβίβαση στο %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Μετεπιβίβαση στο %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Αποβίβαση στο %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Με τα πόδια</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Στάση %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d στάση</item>
+        <item quantity="other">%d στάσεις</item>
+    </plurals>
 </resources>

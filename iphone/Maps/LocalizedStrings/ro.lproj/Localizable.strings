@@ -607,6 +607,15 @@
 "day" = "z";
 "second" = "s";
 "placepage_more_button" = "Mai mult";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Fotografii, comentarii, rezervări";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Detalii pe Kayak";
 "placepage_personal_notes_hint" = "Însemnări personale (text sau html)";
 "editor_comment_hint" = "Comentariu…";
 "editor_reset_edits_message" = "Ștergi toate modificările locale?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Traseul metroului nu a fost găsit";
 "dialog_pedestrian_route_is_long_message" = "Alege un punct de plecare sau de sosire mai aproape de o stație de metrou";
 "button_layer_isolines" = "Înălțimi";
-"isolines_activation_error_dialog" = "Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei";
-"isolines_location_error_dialog" = "Stratul topografic nu este încă disponibil în această zonă";
+"isolines_location_error_dialog" = "Actualizați această regiune pentru a vedea curbele de nivel";
 "elevation_profile_ascent" = "Urcare";
 "elevation_profile_descent" = "Coborâre";
 "elevation_profile_min_elevation" = "Min. altitudine";

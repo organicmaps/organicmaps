@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Mer";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foton, recensioner, bokning";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Hänvisningsbonusen för varje bokning via denna länk går till utvecklingen av Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Information på Kayak";
 "placepage_personal_notes_hint" = "Personlig anteckning (text eller html)";
 "editor_comment_hint" = "Kommentar…";
 "editor_reset_edits_message" = "Återställ alla lokala ändringar?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Tunnelbanerutt hittades inte";
 "dialog_pedestrian_route_is_long_message" = "Välj ruttens start- eller mål närmare en tunnelbanestation";
 "button_layer_isolines" = "Terräng";
-"isolines_activation_error_dialog" = "Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område";
-"isolines_location_error_dialog" = "Höjdkurvor är ännu inte tillgängliga i det här området";
+"isolines_location_error_dialog" = "Uppdatera det här området för att se höjdkurvor";
 "elevation_profile_ascent" = "Stigning";
 "elevation_profile_descent" = "Backe";
 "elevation_profile_min_elevation" = "Min. höjd";

@@ -607,6 +607,15 @@
 "day" = "दिन";
 "second" = "सेकंड";
 "placepage_more_button" = "और";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "तस्वीरें, समीक्षाएँ, बुकिंग";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "इस लिंक के माध्यम से प्रत्येक बुकिंग के लिए प्राप्त रेफरल बोनस Organic Maps के विकास के लिए जाता है।";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Kayak पर विवरण";
 "placepage_personal_notes_hint" = "व्यक्तिगत नोट्स (टेक्स्ट या एचटीएमएल)";
 "editor_comment_hint" = "टिप्पणी…";
 "editor_reset_edits_message" = "सभी स्थानीय परिवर्तनों को रद्द करें?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "सबवे मार्ग नहीं मिला";
 "dialog_pedestrian_route_is_long_message" = "कृपया सबवे स्टेशन के निकट प्रारंभ या समाप्ति बिंदु चुनें";
 "button_layer_isolines" = "रूप रेखा लाइंस";
-"isolines_activation_error_dialog" = "कॉन्टूर लाइनों को सक्रिय करने के लिए इस क्षेत्र का नक्शा डेटा डाउनलोड करना आवश्यक है।";
-"isolines_location_error_dialog" = "इस क्षेत्र में समरेखीय रेखाएँ अभी उपलब्ध नहीं हैं";
+"isolines_location_error_dialog" = "समोच्च रेखाएँ देखने के लिए इस क्षेत्र को अपडेट करें";
 "elevation_profile_ascent" = "चढ़ाई";
 "elevation_profile_descent" = "उतरान";
 "elevation_profile_min_elevation" = "न्यूनतम ऊँचाई";

@@ -512,6 +512,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Aktar</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Ritratti, reċensjonijiet, ibbukkjar</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Ir-referral bonus li nirċievu għal kull booking permezz ta’ din il-link imur għall-iżvilupp ta’ Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Dettalji fuq Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editja l-Bookmark</string>
     <string name="placepage_personal_notes_hint">Noti personali (kitba jew html)</string>
@@ -753,8 +759,7 @@
     <string name="deselect_all">Neħħi l-għażla</string>
     <string name="select_list">Agħżel il-lista</string>
     <string name="button_layer_isolines">Linji tal-Contour</string>
-    <string name="isolines_activation_error_dialog">L-attivazzjoni tal-linji tal-contour teħtieġ it-tniżżil tad-dejta tal-mappa għal din iż-żona</string>
-    <string name="isolines_location_error_dialog">Il-linji tal-Contour għadhom mhumiex disponibbli f ’din iż-żona</string>
+    <string name="isolines_location_error_dialog">Aġġorna din iż-żona biex tara l-linji tal-kontorn</string>
     <string name="elevation_profile_ascent">Tlugħ</string>
     <string name="elevation_profile_descent">Inżul</string>
     <string name="elevation_profile_min_elevation">Elevazzjoni minima</string>
@@ -897,6 +902,8 @@
     <string name="move">Ħawwad</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Biddel il-kulur</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Attiva</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -947,4 +954,6 @@
     <string name="choose_point_on_map_hint">Mexxi u kabbar il-mappa biex tqiegħed is-salib</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Waqqaf u ssejvja</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Waqfa %1$d</string>
 </resources>

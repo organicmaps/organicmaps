@@ -246,6 +246,12 @@
     <string name="downloader_no_downloaded_maps_title">No has descargado ningún mapa</string>
     <string name="downloader_no_downloaded_maps_message">Descarga mapas para buscar y navegar sin conexión.</string>
     <string name="current_location_unknown_error_title">La ubicación actual es desconocida.</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, reseñas, reservas</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">El bono de recomendación recibido por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalles en Kayak</string>
     <string name="editor_comment_hint">Comentar…</string>
     <string name="editor_reset_edits_message">¿Descartar todos los cambios locales?</string>
     <string name="editor_reset_edits_button">Descartar</string>
@@ -386,8 +392,7 @@
     <string name="fuel_places">Gasolinería</string>
     <string name="religious_places">Sitios religiosos</string>
     <string name="button_layer_isolines">Líneas de contorno</string>
-    <string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualice o descargue el mapa del área deseada</string>
-    <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>
+    <string name="isolines_location_error_dialog">Actualice esta región para ver las curvas de nivel</string>
     <string name="elevation_profile_min_elevation">Elevación mínima</string>
     <string name="elevation_profile_max_elevation">Elevación máxima</string>
     <string name="elevation_profile_distance">Distancia:</string>
@@ -482,4 +487,21 @@
     <string name="login_osm_browser">Iniciar sesión utilizando el navegador</string>
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Detalles del trayecto</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Subir en %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Transbordo en %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Bajar en %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">A pie</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Parada %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d parada</item>
+        <item quantity="other">%d paradas</item>
+    </plurals>
 </resources>

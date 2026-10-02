@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "More";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Photos, reviews, booking";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "The referral bonus received for each booking through this link goes towards the development of Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Details on Kayak";
 "placepage_personal_notes_hint" = "Personal notes (text or html)";
 "editor_comment_hint" = "Comment…";
 "editor_reset_edits_message" = "Discard all local changes?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "No metro route found";
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a metro station";
 "button_layer_isolines" = "Contour Lines";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
-"isolines_location_error_dialog" = "Contour lines are not yet available in this area";
+"isolines_location_error_dialog" = "Update this region to see contour lines";
 "elevation_profile_ascent" = "Ascent";
 "elevation_profile_descent" = "Descent";
 "elevation_profile_min_elevation" = "Min. elevation";

@@ -512,6 +512,12 @@
     <string name="day">gün</string>
     <string name="second">san</string>
     <string name="placepage_more_button">Digər</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Şəkillər, rəylər, rezervasiya</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bu link vasitəsilə edilən hər rezervasiya üçün alınan tövsiyə bonusu Organic Maps-in inkişafına sərf olunur.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak-da təfərrüatlar</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Əlfəcini redaktə edin</string>
     <string name="placepage_personal_notes_hint">Şəxsi qeydlər (mətn və ya html)</string>
@@ -750,8 +756,7 @@
     <string name="deselect_all">Seçimi ləğv et</string>
     <string name="select_list">Siyahı seçin</string>
     <string name="button_layer_isolines">Ərazi</string>
-    <string name="isolines_activation_error_dialog">Ərazi qatını aktivləşdirmək və istifadə etmək üçün xəritəni yeniləyin və ya endirin</string>
-    <string name="isolines_location_error_dialog">Bu bölgədə relyef təbəqəsi hələ mövcud deyil</string>
+    <string name="isolines_location_error_dialog">Kontur xətlərini görmək üçün bu bölgəni yeniləyin</string>
     <string name="elevation_profile_ascent">Qalxmaq</string>
     <string name="elevation_profile_descent">Eniş</string>
     <string name="elevation_profile_min_elevation">Min. hündürlük</string>
@@ -896,6 +901,8 @@
     <string name="hide_track">İzi gizlədin</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göstər</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivləşdirin</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -946,4 +953,6 @@
     <string name="choose_point_on_map_hint">Xaç işarəsini yerləşdirmək üçün xəritəni hərəkət etdirin və yaxınlaşdırın</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Dayandırın və yadda saxlayın</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Dayanacaq %1$d</string>
 </resources>

@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Więcej";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Zdjęcia, opinie, rezerwacja";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Premia za polecenie otrzymywana za każdą rezerwację za pośrednictwem tego linku jest przeznaczana na rozwój Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Szczegóły na Kayaku";
 "placepage_personal_notes_hint" = "Notatki osobiste (tekst lub html)";
 "editor_comment_hint" = "Komentarz…";
 "editor_reset_edits_message" = "Usunąć wszystkie lokalne zmiany?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nie znaleziono trasy metra";
 "dialog_pedestrian_route_is_long_message" = "Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra";
 "button_layer_isolines" = "Poziomice";
-"isolines_activation_error_dialog" = "Do skorzystania z poziomic, pobierz mapę tego obszaru.";
-"isolines_location_error_dialog" = "Poziomice nie są jeszcze dostępne w tym regionie";
+"isolines_location_error_dialog" = "Zaktualizuj ten region, aby zobaczyć poziomice";
 "elevation_profile_ascent" = "Wejście";
 "elevation_profile_descent" = "Zejście";
 "elevation_profile_min_elevation" = "Min. wysokość";

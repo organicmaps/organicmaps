@@ -607,6 +607,15 @@
 "day" = "g";
 "second" = "sn";
 "placepage_more_button" = "Diğer";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Fotoğraflar, yorumlar, rezervasyon";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps'in geliştirilmesine harcanmaktadır.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Kayak'ta ayrıntılar";
 "placepage_personal_notes_hint" = "Kişisel notlar (metin veya html)";
 "editor_comment_hint" = "Yorum…";
 "editor_reset_edits_message" = "Tüm yerel değişiklikler sıfırlansın mı?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro rotası bulunamadı";
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";
 "button_layer_isolines" = "İzohipsler";
-"isolines_activation_error_dialog" = "Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin";
-"isolines_location_error_dialog" = "İzohipsler henüz bu bölgede kullanılamaz";
+"isolines_location_error_dialog" = "İzohipsleri görmek için bu bölgeyi güncelleyin";
 "elevation_profile_ascent" = "Tırmanış";
 "elevation_profile_descent" = "İniş";
 "elevation_profile_min_elevation" = "Min. yükselti";

@@ -512,6 +512,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Më shumë</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Foto, vlerësime, rezervim</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonusi i referimit që merret për çdo rezervim përmes kësaj lidhjeje shkon për zhvillimin e Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detajet në Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Ndrysho Faqeshënuesin</string>
     <string name="placepage_personal_notes_hint">Shënime personale (tekst ose html)</string>
@@ -738,8 +744,7 @@
     <string name="deselect_all">Hiq përzgjedhjen</string>
     <string name="select_list">Zgjidh listën</string>
     <string name="button_layer_isolines">Vija Konture</string>
-    <string name="isolines_activation_error_dialog">Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë</string>
-    <string name="isolines_location_error_dialog">Vijat e konturit nuk janë ende të disponueshme në këtë zonë</string>
+    <string name="isolines_location_error_dialog">Përditësoni këtë zonë për të parë vijat e konturit</string>
     <string name="elevation_profile_ascent">Ngjitje</string>
     <string name="elevation_profile_descent">Zbritje</string>
     <string name="elevation_profile_min_elevation">Lartësia min.</string>
@@ -876,6 +881,8 @@
     <string name="move">Lëviz</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Ndrysho Ngjyrën</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivizo</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -926,4 +933,21 @@
     <string name="choose_point_on_map_hint">Lëvizni dhe zmadhoni hartën për të vendosur kryqin</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Ndalo dhe ruaj</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Detajet e rrugëtimit</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Hipni në %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Ndërrim në %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Zbritja në %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Në këmbë</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Ndalesë %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d ndalesë</item>
+        <item quantity="other">%d ndalesa</item>
+    </plurals>
 </resources>

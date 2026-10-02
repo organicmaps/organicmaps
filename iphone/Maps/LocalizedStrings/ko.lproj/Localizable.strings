@@ -607,6 +607,15 @@
 "day" = "일";
 "second" = "초";
 "placepage_more_button" = "자세히";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "사진, 리뷰, 예약";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "이 링크를 통한 예약마다 발생하는 추천 보너스는 Organic Maps 개발에 사용됩니다.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Kayak에서 자세히 보기";
 "placepage_personal_notes_hint" = "개인 메모 (글자 혹은 html)";
 "editor_comment_hint" = "설명…";
 "editor_reset_edits_message" = "지역 변경 사항을 재설정하시겠습니까?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "지하철 루트가 발견되지 않았습니다";
 "dialog_pedestrian_route_is_long_message" = "지하철역에서 가까운 출발점 또는 종점을 선택하세요";
 "button_layer_isolines" = "지형";
-"isolines_activation_error_dialog" = "지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오";
-"isolines_location_error_dialog" = "이 지역의 지형 레이어는 아직 사용할 수 없습니다";
+"isolines_location_error_dialog" = "이 지역을 업데이트하면 등고선을 볼 수 있습니다";
 "elevation_profile_ascent" = "올라가기";
 "elevation_profile_descent" = "내려가기";
 "elevation_profile_min_elevation" = "최소 높이";

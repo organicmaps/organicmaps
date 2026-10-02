@@ -607,6 +607,15 @@
 "day" = "י";
 "second" = "ש׳׳";
 "placepage_more_button" = "עוד";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "תמונות, ביקורות, הזמנה";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "בונוס ההפניה המתקבל עבור כל הזמנה דרך קישור זה מסייע בפיתוח של Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "פרטים ב-Kayak";
 "placepage_personal_notes_hint" = "הערות אישיות (טקסט או HTML)";
 "editor_comment_hint" = "תגובה…";
 "editor_reset_edits_message" = "למחוק את כל השינויים המקומיים?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "מסלול רכבת תחתית לא נמצא";
 "dialog_pedestrian_route_is_long_message" = "נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית";
 "button_layer_isolines" = "קווי מתאר";
-"isolines_activation_error_dialog" = "כדי להפעיל קווי מתאר יש להוריד את המפה לאזור זה";
-"isolines_location_error_dialog" = "קווי מתאר עוד לא זמינים לאזור זה";
+"isolines_location_error_dialog" = "עדכנו את האזור הזה כדי לראות קווי מתאר";
 "elevation_profile_ascent" = "עלייה";
 "elevation_profile_descent" = "ירידה";
 "elevation_profile_min_elevation" = "מינ' גובה";

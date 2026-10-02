@@ -512,6 +512,12 @@
     <string name="day">日</string>
     <string name="second">秒</string>
     <string name="placepage_more_button">さらに詳しく</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">写真、レビュー、予約</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">このリンクを経由した予約の紹介ボーナスは、Organic Mapsの開発のために使われます。</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak で詳細表示</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ブックマークを編集</string>
     <string name="placepage_personal_notes_hint">パーソナルメモ（テキストまたはHTML）</string>
@@ -749,8 +755,7 @@
     <string name="deselect_all">選択を解除</string>
     <string name="select_list">リストを選択</string>
     <string name="button_layer_isolines">地形</string>
-    <string name="isolines_activation_error_dialog">地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください</string>
-    <string name="isolines_location_error_dialog">地形レイヤーはこの地域ではまだ利用できません</string>
+    <string name="isolines_location_error_dialog">この地域を更新すると等高線が表示されます</string>
     <string name="elevation_profile_ascent">上昇</string>
     <string name="elevation_profile_descent">下降</string>
     <string name="elevation_profile_min_elevation">最小標高</string>
@@ -897,6 +902,8 @@
     <string name="hide_track">ルートを非表示</string>
     <!-- Text for the showing track. -->
     <string name="show_track">ルートを表示</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">有効にする</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -947,4 +954,20 @@
     <string name="choose_point_on_map_hint">地図を移動・拡大縮小して、十字を配置してください</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">停止して保存</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">経路の詳細</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">%1$sから乗車</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">%1$sで乗り換え</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">%1$sで下車</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">徒歩</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">中間地点 %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d 駅</item>
+    </plurals>
 </resources>

@@ -607,6 +607,15 @@
 "day" = "दि";
 "second" = "सेकंद";
 "placepage_more_button" = "अधिक";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "फोटो, पुनरावलोकने, बुकिंग";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस Organic Maps च्या विकासासाठी जातो.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Kayak वर तपशील";
 "placepage_personal_notes_hint" = "वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)";
 "editor_comment_hint" = "टिप्पणी…";
 "editor_reset_edits_message" = "सर्व स्थानिक बदल टाकून द्यायचे?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "मेट्रो मार्ग सापडला नाही";
 "dialog_pedestrian_route_is_long_message" = "कृपया मेट्रो स्थानकाजवळचा प्रारंभ किंवा शेवटचा बिंदू निवडा";
 "button_layer_isolines" = "भूप्रदेश";
-"isolines_activation_error_dialog" = "भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा";
-"isolines_location_error_dialog" = "या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही";
+"isolines_location_error_dialog" = "समोच्च रेषा पाहण्यासाठी हा भाग अपडेट करा";
 "elevation_profile_ascent" = "चढण";
 "elevation_profile_descent" = "उतरण";
 "elevation_profile_min_elevation" = "किमान उंची";

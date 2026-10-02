@@ -512,6 +512,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Mer</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Bilder, anmeldelser, bestilling</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Henvisningsbonusen som mottas for hver bestilling via denne lenken, går til utviklingen av Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detaljer på Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Rediger bokmerke</string>
     <string name="placepage_personal_notes_hint">Personlige notater (text or html)</string>
@@ -750,8 +756,7 @@
     <string name="deselect_all">Fjern all merking</string>
     <string name="select_list">Velge liste</string>
     <string name="button_layer_isolines">Høyder</string>
-    <string name="isolines_activation_error_dialog">For å bruke høydekurver oppdater eller last opp kartet til nødvendig område</string>
-    <string name="isolines_location_error_dialog">Høydekurver er ikke tilgjengelige i dette området ennå</string>
+    <string name="isolines_location_error_dialog">Oppdater dette området for å se høydekurver</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
     <string name="elevation_profile_min_elevation">Min. høyde</string>
@@ -892,6 +897,8 @@
     <string name="hide_track">Skjul ruten</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Vis ruten</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktiver</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -942,4 +949,21 @@
     <string name="choose_point_on_map_hint">Flytt og zoom på kartet for å plassere korset</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stopp og lagre</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Reisedetaljer</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Gå på ved %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Bytt ved %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Gå av ved %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Gå</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stopp %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d stopp</item>
+        <item quantity="other">%d stopp</item>
+    </plurals>
 </resources>

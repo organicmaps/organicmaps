@@ -512,6 +512,12 @@
     <string name="day">nap</string>
     <string name="second">mp</string>
     <string name="placepage_more_button">Tovább</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fényképek, vélemények, foglalás</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Az ezen a hivatkozáson keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Részletek a Kayakon</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
     <string name="placepage_personal_notes_hint">Személyes jegyzetek (szöveg vagy html)</string>
@@ -753,8 +759,7 @@
     <string name="deselect_all">Kijelölés megszüntetése</string>
     <string name="select_list">Lista kiválasztása</string>
     <string name="button_layer_isolines">Szintvonalak</string>
-    <string name="isolines_activation_error_dialog">A szintvonalak aktiválásához a terület térképadatainak letöltése szükséges</string>
-    <string name="isolines_location_error_dialog">A szintvonalak még nem állnak rendelkezésre ezen a területen</string>
+    <string name="isolines_location_error_dialog">Frissítse ezt a területet a szintvonalak megjelenítéséhez</string>
     <string name="elevation_profile_ascent">Növekvő</string>
     <string name="elevation_profile_descent">Csökkenő</string>
     <string name="elevation_profile_min_elevation">Legkisebb magasság</string>
@@ -907,6 +912,8 @@
     <string name="hide_track">Nyomvonal elrejtése</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Nyomvonal megjelenítése</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Engedélyezés</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -957,4 +964,21 @@
     <string name="choose_point_on_map_hint">Mozgassa és nagyítsa/kicsinyítse a térképet a kereszt elhelyezéséhez</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Megállítás és mentés</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Útvonal részletei</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Felszállás: %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Átszállás: %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Leszállás: %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Gyalog</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Köztes célpont %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d megálló</item>
+        <item quantity="other">%d megálló</item>
+    </plurals>
 </resources>

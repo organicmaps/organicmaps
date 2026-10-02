@@ -512,6 +512,12 @@
     <string name="day">z</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Mai mult</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotografii, comentarii, rezervări</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalii pe Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
     <string name="placepage_personal_notes_hint">Însemnări personale (text sau html)</string>
@@ -750,8 +756,7 @@
     <string name="deselect_all">Deselectează tot</string>
     <string name="select_list">Alege lista</string>
     <string name="button_layer_isolines">Înălțimi</string>
-    <string name="isolines_activation_error_dialog">Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei</string>
-    <string name="isolines_location_error_dialog">Stratul topografic nu este încă disponibil în această zonă</string>
+    <string name="isolines_location_error_dialog">Actualizați această regiune pentru a vedea curbele de nivel</string>
     <string name="elevation_profile_ascent">Urcare</string>
     <string name="elevation_profile_descent">Coborâre</string>
     <string name="elevation_profile_min_elevation">Min. altitudine</string>
@@ -894,6 +899,8 @@
     <string name="hide_track">Ascundeți traseul</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Afișează traseul</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activați</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -944,4 +951,22 @@
     <string name="choose_point_on_map_hint">Deplasați și măriți/micșorați harta pentru a poziționa crucea</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Oprire și salvare</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Detalii traseu</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Urcați la %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Schimbare la %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Coborâți la %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Pe jos</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Oprire %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d oprire</item>
+        <item quantity="few">%d opriri</item>
+        <item quantity="other">%d de opriri</item>
+    </plurals>
 </resources>

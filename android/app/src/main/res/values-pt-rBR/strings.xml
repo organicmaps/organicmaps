@@ -340,6 +340,12 @@
     <string name="downloader_no_downloaded_maps_message">Baixe mapas para pesquisar locais e usar navegação offline.</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Mais informações</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, avaliações, reservas</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">O bônus de indicação recebido por cada reserva feita por meio deste link é destinado ao desenvolvimento do Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalhes no Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Anotações pessoais (texto ou html)</string>
@@ -507,8 +513,7 @@
     <string name="religious_places">Locais religiosos</string>
     <string name="select_list">Escolher a lista</string>
     <string name="button_layer_isolines">Relevo</string>
-    <string name="isolines_activation_error_dialog">Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região</string>
-    <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
+    <string name="isolines_location_error_dialog">Atualize esta região para ver as curvas de nível</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>
     <string name="elevation_profile_distance">Dist.:</string>
@@ -650,4 +655,21 @@
     <string name="routing_max_stops_reached">Número máximo de paradas atingido</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar e salvar</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Detalhes do trajeto</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Embarcar em %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Baldear em %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Descer em %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">A pé</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Parada %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d parada</item>
+        <item quantity="other">%d paradas</item>
+    </plurals>
 </resources>

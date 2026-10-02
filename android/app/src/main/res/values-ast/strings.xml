@@ -219,6 +219,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Más</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Semeyes, opiniones, reserves</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">La bonificación por recomendación recibida por cada reserva al traviés d’esti enllaz destínase al desendolcu d’Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalles en Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Notes personales (testu o HTML)</string>
@@ -333,7 +339,7 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Desesbillar too</string>
     <string name="button_layer_isolines">Curves de nivel</string>
-    <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
+    <string name="isolines_location_error_dialog">Anueva esta rexón pa ver les curves de nivel</string>
     <string name="elevation_profile_ascent">Ascensu</string>
     <string name="elevation_profile_descent">Descensu</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
@@ -392,6 +398,8 @@
         <item quantity="one">¿Desaniciar %d elementu?</item>
         <item quantity="other">¿Desaniciar %d elementos?</item>
     </plurals>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -400,4 +408,6 @@
     <!-- SECTION: gps strings -->
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar y guardar</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Parada %1$d</string>
 </resources>

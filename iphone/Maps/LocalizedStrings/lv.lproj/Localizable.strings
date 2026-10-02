@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Vairāk";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto, atsauksmes, rezervācija";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "No ieteikuma saites saņemtais bonuss par katru rezervāciju nonāk „Organic Maps“ attīstīšanai.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Vairāk vietnē „Kayak“";
 "placepage_personal_notes_hint" = "Personīgi pieraksti (teksts vai HTML)";
 "editor_comment_hint" = "Komentārs…";
 "editor_reset_edits_message" = "Vai izmest visas lokāli saglabātās izmaiņas?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metro maršruts nav atrasts";
 "dialog_pedestrian_route_is_long_message" = "Izvēlieties sākuma un beigu punktu tuvāk metro stacijai";
 "button_layer_isolines" = "Reljefa līnijas";
-"isolines_activation_error_dialog" = "Reljefa līniju parādīšanai nepieciešamas lejupielādēt šī reģiona karti";
-"isolines_location_error_dialog" = "Topogrāfiskais slānis šim reģionam nav pieejams";
+"isolines_location_error_dialog" = "Atjauniniet šo reģionu, lai redzētu horizontāles";
 "elevation_profile_ascent" = "Kāpums";
 "elevation_profile_descent" = "Kritums";
 "elevation_profile_min_elevation" = "Zemākais punkts";

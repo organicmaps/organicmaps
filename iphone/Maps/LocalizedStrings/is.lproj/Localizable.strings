@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "sek";
 "placepage_more_button" = "Meira";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Ljósmyndir, umsagnir, bókanir";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Dálítið umboðsgjald fæst fyrir hverja bókun í gegnum þennan tengil og rennur það til áframhaldandi þróunar Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Nánar á Kayak";
 "placepage_personal_notes_hint" = "Persónulegir minnispunktar (texti eða html)";
 "editor_comment_hint" = "Athugasemd…";
 "editor_reset_edits_message" = "Henda öllum staðværum breytingum?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Engin neðanjarðarlestarleið fannst";
 "dialog_pedestrian_route_is_long_message" = "Veldu upphafs- eða endastað sem er nær neðanjarðarlestarstöð";
 "button_layer_isolines" = "Hæðarlínur";
-"isolines_activation_error_dialog" = "Til að virkja hæðarlínur þarf að sækja kortagögn fyrir þetta svæði";
-"isolines_location_error_dialog" = "Hæðarlínur eru ennþá ekki tiltækar á þessu svæði";
+"isolines_location_error_dialog" = "Uppfærðu þetta svæði til að sjá hæðarlínur";
 "elevation_profile_ascent" = "Hækkun";
 "elevation_profile_descent" = "Lækkun";
 "elevation_profile_min_elevation" = "Lágm.hæð";

@@ -512,6 +512,12 @@
     <string name="day">g</string>
     <string name="second">sn</string>
     <string name="placepage_more_button">Diğer</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotoğraflar, yorumlar, rezervasyon</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps\'in geliştirilmesine harcanmaktadır.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak\'ta ayrıntılar</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
     <string name="placepage_personal_notes_hint">Kişisel notlar (metin veya html)</string>
@@ -752,8 +758,7 @@
     <string name="deselect_all">Seçimi kaldır</string>
     <string name="select_list">Liste seç</string>
     <string name="button_layer_isolines">İzohipsler</string>
-    <string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
-    <string name="isolines_location_error_dialog">İzohipsler henüz bu bölgede kullanılamaz</string>
+    <string name="isolines_location_error_dialog">İzohipsleri görmek için bu bölgeyi güncelleyin</string>
     <string name="elevation_profile_ascent">Tırmanış</string>
     <string name="elevation_profile_descent">İniş</string>
     <string name="elevation_profile_min_elevation">Min. yükselti</string>
@@ -906,6 +911,8 @@
     <string name="hide_track">İzi gizle</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göster</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Etkinleştir</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -956,4 +963,21 @@
     <string name="choose_point_on_map_hint">Çarpı imini yerleştirmek için haritayı kaydırın ve yakınlaştırın</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Durdur ve Kaydet</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Sefer detayları</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">%1$s durağında bin</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">%1$s durağında aktarma</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">%1$s durağında in</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Yürü</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Ara nokta %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d durak</item>
+        <item quantity="other">%d durak</item>
+    </plurals>
 </resources>

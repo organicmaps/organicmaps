@@ -607,6 +607,15 @@
 "day" = "д";
 "second" = "с";
 "placepage_more_button" = "Више";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Фотографије, утисци, резервације";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Детаљи на Kayak-у";
 "placepage_personal_notes_hint" = "Личне белешке (текст или хтмл)";
 "editor_comment_hint" = "Коментар…";
 "editor_reset_edits_message" = "Брисање свих измена које нису послате?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Није пронађена метро рута";
 "dialog_pedestrian_route_is_long_message" = "Молим вас изаберите почетну и крајњу тачку ближе метро станицама";
 "button_layer_isolines" = "Изолиније";
-"isolines_activation_error_dialog" = "Приказивање изолинија захтева преузмање података са мапе за ову област";
-"isolines_location_error_dialog" = "Изолиније нису доступне за ову област";
+"isolines_location_error_dialog" = "Ажурирајте ову област да бисте видели изолиније";
 "elevation_profile_ascent" = "Успон";
 "elevation_profile_descent" = "Спуст";
 "elevation_profile_min_elevation" = "Минимална висина";

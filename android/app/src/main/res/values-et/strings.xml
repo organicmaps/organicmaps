@@ -512,6 +512,12 @@
     <string name="day">p</string>
     <string name="second">sek</string>
     <string name="placepage_more_button">Veel</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotod, arvustused, broneerimine</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Iga selle lingi kaudu tehtud broneeringu eest saadav viitamistasu läheb Organic Mapsi arendamiseks.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Üksikasjad Kayakis</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
     <string name="placepage_personal_notes_hint">Isiklikud märkmed (tekst või html)</string>
@@ -753,8 +759,7 @@
     <string name="deselect_all">Tühista valik</string>
     <string name="select_list">Vali loend</string>
     <string name="button_layer_isolines">Kontuurjooned</string>
-    <string name="isolines_activation_error_dialog">Topograafilise kihi aktiveerimiseks ja kasutamiseks laadi alla piirkonna kaart</string>
-    <string name="isolines_location_error_dialog">Topograafiline kiht ei ole selles piirkonnas veel saadaval</string>
+    <string name="isolines_location_error_dialog">Uuenda seda piirkonda, et näha kõrgusjooni</string>
     <string name="elevation_profile_ascent">Tõus</string>
     <string name="elevation_profile_descent">Langus</string>
     <string name="elevation_profile_min_elevation">Min. kõrgus</string>
@@ -907,6 +912,8 @@
     <string name="hide_track">Peida rada</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Näita rada</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Luba</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -957,4 +964,21 @@
     <string name="choose_point_on_map_hint">Liiguta ja suumi kaarti, et paigutada rist õigesse kohta</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Lõpeta ja salvesta</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Reisi üksikasjad</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Sisene peatuses %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Vahetus peatuses %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Välju peatuses %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Jalgsi</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Peatus %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d peatus</item>
+        <item quantity="other">%d peatust</item>
+    </plurals>
 </resources>

@@ -607,6 +607,15 @@
 "day" = "д";
 "second" = "сек";
 "placepage_more_button" = "Още";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Снимки, отзиви, резервация";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Полученият бонус за всяка резервация чрез тази връзка отива за развитието на Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Подробности в Kayak";
 "placepage_personal_notes_hint" = "Лични бележки (текст или html)";
 "editor_comment_hint" = "Коментиране…";
 "editor_reset_edits_message" = "Отхвърляне на всички локални промени?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Не е открит маршрут за метро";
 "dialog_pedestrian_route_is_long_message" = "Моля, изберете начална или крайна точка по-близо до метростанция";
 "button_layer_isolines" = "Терен";
-"isolines_activation_error_dialog" = "За да активирате и използвате топографския слой, моля, актуализирайте или изтеглете картата на района";
-"isolines_location_error_dialog" = "Топографският слой все още не е наличен в тази област";
+"isolines_location_error_dialog" = "Актуализирайте този регион, за да видите хоризонталите";
 "elevation_profile_ascent" = "Изкачване";
 "elevation_profile_descent" = "Спускане";
 "elevation_profile_min_elevation" = "Мин. височина";

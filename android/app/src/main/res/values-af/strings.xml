@@ -512,6 +512,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Meer</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Foto’s, resensies, besprekings</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Die verwysingsbonus wat ons vir elke bespreking via hierdie skakel ontvang, gaan na die ontwikkeling van Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Details op Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Wysig boekmerk</string>
     <string name="placepage_personal_notes_hint">Persoonlike notas (teks of html)</string>
@@ -747,8 +753,7 @@
     <string name="deselect_all">Ontkies alles</string>
     <string name="select_list">Kies lys</string>
     <string name="button_layer_isolines">Kontoerlyne</string>
-    <string name="isolines_activation_error_dialog">Om kontoerlyne te aktiveer moet u kaartdata vir hierdie area aflaai</string>
-    <string name="isolines_location_error_dialog">Die kontoerlyne is nog nie in hierdie area beskikbaar nie</string>
+    <string name="isolines_location_error_dialog">Werk hierdie area by om kontoerlyne te sien</string>
     <string name="elevation_profile_ascent">Styging</string>
     <string name="elevation_profile_descent">Daling</string>
     <string name="elevation_profile_min_elevation">Min. hoogte</string>
@@ -890,6 +895,8 @@
     <string name="hide_track">Versteek roete</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Wys roete</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktiveer</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -940,4 +947,6 @@
     <string name="choose_point_on_map_hint">Skuif en zoem die kaart om die kruis te plaas</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stop en stoor</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Tussenstop %1$d</string>
 </resources>

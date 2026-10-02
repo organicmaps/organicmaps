@@ -607,6 +607,15 @@
 "day" = "nap";
 "second" = "mp";
 "placepage_more_button" = "Tovább";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Fényképek, vélemények, foglalás";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Az ezen a hivatkozáson keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Részletek a Kayakon";
 "placepage_personal_notes_hint" = "Személyes jegyzetek (szöveg vagy html)";
 "editor_comment_hint" = "Megjegyzés…";
 "editor_reset_edits_message" = "Elveti az összes módosítást?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nem található metróútvonal";
 "dialog_pedestrian_route_is_long_message" = "Válasszon egy, a metróállomáshoz közelebb eső kiindulási pontot vagy úti célt";
 "button_layer_isolines" = "Szintvonalak";
-"isolines_activation_error_dialog" = "A szintvonalak aktiválásához a terület térképadatainak letöltése szükséges";
-"isolines_location_error_dialog" = "A szintvonalak még nem állnak rendelkezésre ezen a területen";
+"isolines_location_error_dialog" = "Frissítse ezt a területet a szintvonalak megjelenítéséhez";
 "elevation_profile_ascent" = "Növekvő";
 "elevation_profile_descent" = "Csökkenő";
 "elevation_profile_min_elevation" = "Legkisebb magasság";

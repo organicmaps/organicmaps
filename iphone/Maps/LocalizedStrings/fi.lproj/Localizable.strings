@@ -607,6 +607,15 @@
 "day" = "pv";
 "second" = "s";
 "placepage_more_button" = "Lisää";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Kuvat, arvostelut, varaus";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Lisätiedot Kayakissa";
 "placepage_personal_notes_hint" = "Henkilökohtaiset merkinnät (teksti tai html)";
 "editor_comment_hint" = "Kommentti…";
 "editor_reset_edits_message" = "Nollataanko kaikki paikalliset muutokset?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metroreittiä ei löytynyt";
 "dialog_pedestrian_route_is_long_message" = "Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa";
 "button_layer_isolines" = "Maasto";
-"isolines_activation_error_dialog" = "Päivitä tai lataa haluamasi alueen kartta käyttääksesi korkeuskäyriä";
-"isolines_location_error_dialog" = "Korkeuskäyrät eivät ole vielä saatavilla tällä alueella";
+"isolines_location_error_dialog" = "Päivitä tämä alue nähdäksesi korkeuskäyrät";
 "elevation_profile_ascent" = "Nousua";
 "elevation_profile_descent" = "Laskua";
 "elevation_profile_min_elevation" = "Min. korkeus";

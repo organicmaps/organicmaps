@@ -512,6 +512,12 @@
     <string name="day">天</string>
     <string name="second">秒</string>
     <string name="placepage_more_button">更多</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">照片、評論、預訂</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">每次透過此連結預訂所獲得的推薦獎金將用於 Organic Maps 的開發。</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak 上的詳細資訊</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">編輯書籤</string>
     <string name="placepage_personal_notes_hint">個人備註（文字或 html）</string>
@@ -751,8 +757,7 @@
     <string name="deselect_all">取消全選</string>
     <string name="select_list">選擇列表</string>
     <string name="button_layer_isolines">等高線</string>
-    <string name="isolines_activation_error_dialog">如需使用等高線，請更新或下載所需區域的地圖</string>
-    <string name="isolines_location_error_dialog">暫時無法獲取該地區的等高線</string>
+    <string name="isolines_location_error_dialog">更新該地區以查看等高線</string>
     <string name="elevation_profile_ascent">上坡</string>
     <string name="elevation_profile_descent">下坡</string>
     <string name="elevation_profile_min_elevation">最低高度</string>
@@ -903,6 +908,8 @@
     <string name="hide_track">隱藏軌跡</string>
     <!-- Text for the showing track. -->
     <string name="show_track">顯示軌跡</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">啟用</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -953,4 +960,20 @@
     <string name="choose_point_on_map_hint">移動並縮放地圖以定位十字</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">停止並儲存</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">行程詳情</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">在 %1$s 上車</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">在 %1$s 轉乘</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">在 %1$s 下車</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">步行</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">中途點 %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d 站</item>
+    </plurals>
 </resources>

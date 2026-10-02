@@ -512,6 +512,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Více</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotografie, recenze, rezervace</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonus za každou rezervaci provedenou prostřednictvím tohoto odkazu je určen na rozvoj služby Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Podrobnosti na Kayaku</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Upravit záložku</string>
     <string name="placepage_personal_notes_hint">Vlastní poznámka (text nebo HTML)</string>
@@ -756,8 +762,7 @@
     <string name="deselect_all">Zrušit výběr</string>
     <string name="select_list">Vybrat seznam</string>
     <string name="button_layer_isolines">Terén</string>
-    <string name="isolines_activation_error_dialog">Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti</string>
-    <string name="isolines_location_error_dialog">Topografická vrstva není v této oblasti ještě dostupná</string>
+    <string name="isolines_location_error_dialog">Aktualizujte tuto oblast, abyste viděli vrstevnice</string>
     <string name="elevation_profile_ascent">Stoupání</string>
     <string name="elevation_profile_descent">Klesání</string>
     <string name="elevation_profile_min_elevation">Min. výška</string>
@@ -912,6 +917,8 @@
     <string name="hide_track">Skrýt stopu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Zobrazit stopu</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Povolit</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -962,4 +969,22 @@
     <string name="choose_point_on_map_hint">Posuňte a přibližujte mapu, abyste umístili křížek</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Zastavit a uložit</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Podrobnosti trasy</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Nastoupit na %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Přestup na %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Vystoupit na %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Pěšky</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Zastávka %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d zastávka</item>
+        <item quantity="few">%d zastávky</item>
+        <item quantity="other">%d zastávek</item>
+    </plurals>
 </resources>

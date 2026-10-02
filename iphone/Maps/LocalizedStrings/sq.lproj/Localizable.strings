@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Më shumë";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto, vlerësime, rezervim";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonusi i referimit që merret për çdo rezervim përmes kësaj lidhjeje shkon për zhvillimin e Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Detajet në Kayak";
 "placepage_personal_notes_hint" = "Shënime personale (tekst ose html)";
 "editor_comment_hint" = "Komento…";
 "editor_reset_edits_message" = "Të hiqen të gjitha ndryshimet vendase?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Nuk u gjet asnjë rrugë metroje";
 "dialog_pedestrian_route_is_long_message" = "Ju lutemi zgjidhni një pikë fillimi ose fundi më afër një stacioni metroje";
 "button_layer_isolines" = "Vija Konture";
-"isolines_activation_error_dialog" = "Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë";
-"isolines_location_error_dialog" = "Vijat e konturit nuk janë ende të disponueshme në këtë zonë";
+"isolines_location_error_dialog" = "Përditësoni këtë zonë për të parë vijat e konturit";
 "elevation_profile_ascent" = "Ngjitje";
 "elevation_profile_descent" = "Zbritje";
 "elevation_profile_min_elevation" = "Lartësia min.";

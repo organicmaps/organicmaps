@@ -607,6 +607,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Meer";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto's, beoordelingen, boeken";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "De doorverwijsbonus die we ontvangen voor elke boeking via deze link gaat naar de ontwikkeling van Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Details op Kayak";
 "placepage_personal_notes_hint" = "Persoonlijke aantekeningen (tekst of html)";
 "editor_comment_hint" = "Reactie…";
 "editor_reset_edits_message" = "Alle lokale wijzigingen negeren?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Geen metroroute gevonden";
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
 "button_layer_isolines" = "Contourlijnen";
-"isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden";
-"isolines_location_error_dialog" = "Hoogtelijnen zijn nog niet beschikbaar in deze regio";
+"isolines_location_error_dialog" = "Werk deze regio bij om hoogtelijnen te zien";
 "elevation_profile_ascent" = "Stijging";
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";

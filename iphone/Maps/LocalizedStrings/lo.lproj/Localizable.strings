@@ -607,6 +607,15 @@
 "day" = "ມື້";
 "second" = "ວິ";
 "placepage_more_button" = "ເພີ່ມເຕີມ";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "ຮູບພາບ, ຄຳຕິຊົມ, ການຈອງ";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "ໂບນັດການແນະນຳທີ່ໄດ້ຮັບຈາກການຈອງແຕ່ລະຄັ້ງຜ່ານລິ້ງນີ້ຈະຖືກນຳໄປໃຊ້ໃນການພັດທະນາ Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "ລາຍລະອຽດໃນ Kayak";
 "placepage_personal_notes_hint" = "ບັນທຶກສ່ວນຕົວ (ຂໍ້ຄວາມ ຫຼື html)";
 "editor_comment_hint" = "ສະແດງຄວາມຄິດເຫັນ…";
 "editor_reset_edits_message" = "ຍົກເລີກການປ່ຽນແປງພາຍໃນທັງໝົດບໍ່?";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ";
 "dialog_pedestrian_route_is_long_message" = "ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ";
 "button_layer_isolines" = "ເສັ້ນລະດັບຄວາມສູງ";
-"isolines_activation_error_dialog" = "ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້";
-"isolines_location_error_dialog" = "ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້";
+"isolines_location_error_dialog" = "ອັບເດດເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ";
 "elevation_profile_ascent" = "ທາງຂຶ້ນ";
 "elevation_profile_descent" = "ທາງລົງ";
 "elevation_profile_min_elevation" = "ລະດັບຄວາມສູງຕ່ຳສຸດ";

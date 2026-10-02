@@ -512,6 +512,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Más</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, opiniones, reservas</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">La bonificación por recomendación recibida por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalles en Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Notas personales (texto o html)</string>
@@ -756,8 +762,7 @@
     <string name="deselect_all">Deseleccionar todo</string>
     <string name="select_list">Seleccionar lista</string>
     <string name="button_layer_isolines">Alturas</string>
-    <string name="isolines_activation_error_dialog">Para usar las curvas de nivel, actualice o descargue el mapa del área deseada</string>
-    <string name="isolines_location_error_dialog">La altitud de relieve aún no está disponible en esta región</string>
+    <string name="isolines_location_error_dialog">Actualice esta región para ver las curvas de nivel</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
@@ -912,6 +917,8 @@
     <string name="hide_track">Ocultar trayecto</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostrar trayecto</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -962,4 +969,21 @@
     <string name="choose_point_on_map_hint">Mueva y amplíe o reduzca el mapa para situar la cruz</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar y guardar</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Detalles del trayecto</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Subir en %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Transbordo en %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Bajar en %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">A pie</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Parada %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d parada</item>
+        <item quantity="other">%d paradas</item>
+    </plurals>
 </resources>

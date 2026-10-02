@@ -607,6 +607,15 @@
 "day" = "天";
 "second" = "秒";
 "placepage_more_button" = "更多";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "照片、评论、预订";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Kayak 上的详细信息";
 "placepage_personal_notes_hint" = "个人备注（文字或 html）";
 "editor_comment_hint" = "备注…";
 "editor_reset_edits_message" = "重置所有本地更改？";
@@ -944,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "未找到地铁路线图";
 "dialog_pedestrian_route_is_long_message" = "选择地铁站附近的起点和终点";
 "button_layer_isolines" = "等高线";
-"isolines_activation_error_dialog" = "如需使用等高线，请更新或下载所需区域的地图";
-"isolines_location_error_dialog" = "暂时无法获取该地区的等高线";
+"isolines_location_error_dialog" = "更新该地区以查看等高线";
 "elevation_profile_ascent" = "上坡";
 "elevation_profile_descent" = "下坡";
 "elevation_profile_min_elevation" = "最低高度";

@@ -512,6 +512,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Išsamiau</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Nuotraukos, apžvalgos, užsakymas</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Už kiekvieną per šią nuorodą atliktą užsakymą gauta premija skiriama „Organic Maps“ plėtrai.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Išsamiau „Kayak“ svetainėje</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Taisyti žymę</string>
     <string name="placepage_personal_notes_hint">Asmeninės pastabos (tekstas arba HTML)</string>
@@ -753,8 +759,7 @@
     <string name="deselect_all">Atšaukti pasirinkimą</string>
     <string name="select_list">Pasirinkite sąrašą</string>
     <string name="button_layer_isolines">Reljefas</string>
-    <string name="isolines_activation_error_dialog">Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti reljefo sluoksnį</string>
-    <string name="isolines_location_error_dialog">Reljefo sluoksnis šiai vietovei dar neprieinamas</string>
+    <string name="isolines_location_error_dialog">Atnaujinkite šią vietovę, kad matytumėte izolinijas</string>
     <string name="elevation_profile_ascent">Pakilimas</string>
     <string name="elevation_profile_descent">Nusileidimas</string>
     <string name="elevation_profile_min_elevation">Min. aukštis</string>
@@ -907,6 +912,8 @@
     <string name="hide_track">Paslėpti trasą</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Rodyti trasą</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Įjungti</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -957,4 +964,22 @@
     <string name="choose_point_on_map_hint">Slinkite ir keiskite žemėlapio mastelį, kad nustatytumėte kryžiuko padėtį</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stabdyti ir įrašyti</string>
+    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <string name="transit_details_title">Kelionės informacija</string>
+    <!-- Label preceding the boarding stop name in transit details (%1$s = stop name). -->
+    <string name="transit_board_at">Įlipti stotelėje %1$s</string>
+    <!-- Label for an intermediate transit leg's end stop, where the user switches lines (%1$s = stop name). -->
+    <string name="transit_transfer_at">Persėdimas stotelėje %1$s</string>
+    <!-- Label for the final transit leg's end stop, where the user leaves transit for good (%1$s = stop name). -->
+    <string name="transit_exit_at">Išlipti stotelėje %1$s</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Pėsčiomis</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stotelė %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d stotelė</item>
+        <item quantity="few">%d stotelės</item>
+        <item quantity="other">%d stotelių</item>
+    </plurals>
 </resources>
