@@ -45,13 +45,6 @@ void ReadMWMTask::Do()
   std::shared_ptr<TileInfo> tile = m_tileInfo.lock();
   if (tile == nullptr)
     return;
-  try
-  {
-    tile->ReadFeatures(m_model);
-  }
-  catch (TileInfo::ReadCanceledException &)
-  {
-    return;
-  }
+  tile->ReadFeatures(m_model);
 }
 }  // namespace df
