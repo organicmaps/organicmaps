@@ -1219,6 +1219,18 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 
   RoutePointsLayout routePoints(*m_bmManager);
   size_t const sz = routePoints.GetRoutePointsCount();
+  if (sz == 1)
+  {
+    auto * point = routePoints.GetRoutePoints().front();
+    auto const currentType = point->GetRoutePointType();
+    ASSERT(currentType != RouteMarkType::Intermediate, ());
+    ASSERT_LESS(currentIndex, 2, ());
+    ASSERT_LESS(targetIndex, 2, ());
+    ASSERT_NOT_EQUAL(currentIndex, targetIndex, ());
+    // Either endpoint slot may be dragged, so flip the real point regardless of drag direction.
+    point->SetRoutePointFullType(currentType == RouteMarkType::Start ? RouteMarkType::Finish : RouteMarkType::Start, 0);
+    return;
+  }
   auto const convertIndex = [sz](RouteMarkType & type, size_t & index)
   {
     if (index == 0)
@@ -1244,6 +1256,32 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
   convertIndex(targetType, targetIndex);
 
   routePoints.MoveRoutePoint(currentType, currentIndex, targetType, targetIndex);
+}
+
+bool RoutingManager::ReverseRoutePoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  RoutePointsLayout routePoints(*m_bmManager);
+  auto const points = routePoints.GetRoutePoints();
+  if (points.size() < 2 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return false;
+
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    size_t const reversedIndex = points.size() - 1 - i;
+    auto * point = points[i];
+    if (reversedIndex == 0)
+      point->SetRoutePointFullType(RouteMarkType::Start, 0);
+    else if (reversedIndex + 1 == points.size())
+      point->SetRoutePointFullType(RouteMarkType::Finish, 0);
+    else
+      point->SetRoutePointFullType(RouteMarkType::Intermediate, reversedIndex - 1);
+
+    point->SetPassed(false);
+    point->SetIsVisible(!point->IsMyPosition());
+  }
+  return true;
 }
 
 void RoutingManager::SetPointsFollowingMode(bool enabled)
