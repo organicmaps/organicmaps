@@ -389,6 +389,8 @@
     <string name="p2p_to_here">Tuyến đến</string>
     <string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
     <string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Tuyến đường sẽ được đảo ngược để bắt đầu từ vị trí hiện tại của bạn.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Tiếp theo</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

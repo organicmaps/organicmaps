@@ -389,6 +389,8 @@
     <string name="p2p_to_here">Njia ya</string>
     <string name="p2p_only_from_current">Uelekezi unapatikana tu kutoka eneo lako la sasa.</string>
     <string name="p2p_reroute_from_current">Je, unataka kupanga njia kutoka mahali ulipo sasa?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Njia itageuzwa ili ianze kutoka mahali ulipo sasa.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Ifuatayo</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

@@ -389,6 +389,8 @@
     <string name="p2p_to_here">Nach</string>
     <string name="p2p_only_from_current">Die Navigation ist nur von deinem aktuellen Standort verfügbar.</string>
     <string name="p2p_reroute_from_current">Soll eine Route von deinem aktuellen Standort aus berechnet werden?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Die Route wird umgekehrt, damit sie an deinem aktuellen Standort beginnt.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Weiter</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

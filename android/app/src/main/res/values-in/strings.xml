@@ -389,6 +389,8 @@
     <string name="p2p_to_here">Rute ke</string>
     <string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
     <string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Rute akan dibalik agar dimulai dari lokasi Anda saat ini.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Berikut</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

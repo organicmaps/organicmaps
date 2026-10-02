@@ -389,6 +389,8 @@
     <string name="p2p_to_here">Roete na</string>
     <string name="p2p_only_from_current">Navigering is slegs beskikbaar vanaf u huidige ligging.</string>
     <string name="p2p_reroute_from_current">Wil u ’n roete vanaf u huidige ligging beplan?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Die roete sal omgekeer word sodat dit vanaf u huidige ligging begin.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Volgende</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

@@ -389,6 +389,8 @@
     <string name="p2p_to_here">目的地</string>
     <string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
     <string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">現在位置から出発するようにルートを逆にします。</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">次へ</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
