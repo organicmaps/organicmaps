@@ -226,6 +226,146 @@ double GetRouteLengthMeters(RoutingManager const & manager)
 }
 }  // namespace
 
+UNIT_TEST(RoutingManager_ReverseRoutePointsRequiresBothEndpoints)
+{
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & manager = framework.GetRoutingManager();
+
+  TEST(!manager.ReverseRoutePoints(), ());
+
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1.0), false /* optimize */);
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, 2.0), false /* optimize */);
+  auto const startAndStop = manager.GetRoutePoints();
+  TEST(!manager.ReverseRoutePoints(), ());
+  auto const afterMissingFinish = manager.GetRoutePoints();
+  TEST_EQUAL(afterMissingFinish.size(), startAndStop.size(), ());
+  for (size_t i = 0; i < startAndStop.size(); ++i)
+  {
+    TEST(afterMissingFinish[i].m_pointType == startAndStop[i].m_pointType, (i));
+    TEST_EQUAL(afterMissingFinish[i].m_position, startAndStop[i].m_position, (i));
+  }
+
+  manager.RemoveRoutePoints();
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, 2.0), false /* optimize */);
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 3.0), false /* optimize */);
+  auto const stopAndFinish = manager.GetRoutePoints();
+  TEST(!manager.ReverseRoutePoints(), ());
+  auto const afterMissingStart = manager.GetRoutePoints();
+  TEST_EQUAL(afterMissingStart.size(), stopAndFinish.size(), ());
+  for (size_t i = 0; i < stopAndFinish.size(); ++i)
+  {
+    TEST(afterMissingStart[i].m_pointType == stopAndFinish[i].m_pointType, (i));
+    TEST_EQUAL(afterMissingStart[i].m_position, stopAndFinish[i].m_position, (i));
+  }
+}
+
+UNIT_TEST(RoutingManager_ReverseRoutePointsReversesEntireRoute)
+{
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & manager = framework.GetRoutingManager();
+
+  auto start = MakeRoutePoint(RouteMarkType::Start, 0, 1.0);
+  start.m_title = "Start";
+  start.m_isMyPosition = true;
+  manager.AddRoutePoint(std::move(start), false /* optimize */);
+  for (size_t i = 0; i < 3; ++i)
+  {
+    auto stop = MakeRoutePoint(RouteMarkType::Intermediate, i, static_cast<double>(i + 2));
+    stop.m_title = "Stop " + std::to_string(i);
+    manager.AddRoutePoint(std::move(stop), false /* optimize */);
+  }
+  auto finish = MakeRoutePoint(RouteMarkType::Finish, 0, 5.0);
+  finish.m_title = "Finish";
+  manager.AddRoutePoint(std::move(finish), false /* optimize */);
+  {
+    RoutePointsLayout layout(framework.GetBookmarkManager());
+    layout.PassRoutePoint(RouteMarkType::Intermediate, 0);
+  }
+
+  TEST(manager.ReverseRoutePoints(), ());
+  auto const reversed = manager.GetRoutePoints();
+  TEST_EQUAL(reversed.size(), 5, ());
+  for (size_t i = 0; i < reversed.size(); ++i)
+  {
+    TEST_EQUAL(reversed[i].m_position, m2::PointD(5.0 - i, 5.0 - i), (i));
+    TEST(!reversed[i].m_isPassed, (i));
+    TEST_EQUAL(reversed[i].m_isVisible, i != reversed.size() - 1, (i));
+    if (i > 0 && i + 1 < reversed.size())
+    {
+      TEST(reversed[i].m_pointType == RouteMarkType::Intermediate, (i));
+      TEST_EQUAL(reversed[i].m_intermediateIndex, i - 1, (i));
+      TEST_EQUAL(reversed[i].m_title, "Stop " + std::to_string(3 - i), (i));
+    }
+  }
+  TEST(reversed.front().m_pointType == RouteMarkType::Start, ());
+  TEST_EQUAL(reversed.front().m_title, "Finish", ());
+  TEST(reversed.back().m_pointType == RouteMarkType::Finish, ());
+  TEST_EQUAL(reversed.back().m_title, "Start", ());
+  TEST(reversed.back().m_isMyPosition, ());
+
+  TEST(manager.ReverseRoutePoints(), ());
+  auto const originalOrder = manager.GetRoutePoints();
+  for (size_t i = 0; i < originalOrder.size(); ++i)
+    TEST_EQUAL(originalOrder[i].m_position, m2::PointD(i + 1.0, i + 1.0), (i));
+}
+
+UNIT_TEST(RoutingManager_ReverseRoutePointsWithNoStops)
+{
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & manager = framework.GetRoutingManager();
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1.0), false /* optimize */);
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 2.0), false /* optimize */);
+
+  TEST(manager.ReverseRoutePoints(), ());
+  auto const points = manager.GetRoutePoints();
+  TEST_EQUAL(points.size(), 2, ());
+  TEST(points[0].m_pointType == RouteMarkType::Start, ());
+  TEST_EQUAL(points[0].m_position, m2::PointD(2.0, 2.0), ());
+  TEST(points[1].m_pointType == RouteMarkType::Finish, ());
+  TEST_EQUAL(points[1].m_position, m2::PointD(1.0, 1.0), ());
+}
+
+UNIT_TEST(RoutingManager_MoveSingleRoutePointBetweenEndpoints)
+{
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & manager = framework.GetRoutingManager();
+  auto point = MakeRoutePoint(RouteMarkType::Start, 0, 1.0);
+  point.m_title = "Only point";
+  manager.AddRoutePoint(std::move(point), false /* optimize */);
+  auto const getMarkId = [&framework]
+  {
+    RoutePointsLayout layout(framework.GetBookmarkManager());
+    return layout.GetRoutePoints().front()->GetId();
+  };
+  auto const markId = getMarkId();
+
+  manager.MoveRoutePoint(0, 1);
+  auto const finish = manager.GetRoutePoints();
+  TEST_EQUAL(finish.size(), 1, ());
+  TEST(finish.front().m_pointType == RouteMarkType::Finish, ());
+  TEST_EQUAL(finish.front().m_position, m2::PointD(1.0, 1.0), ());
+  TEST_EQUAL(finish.front().m_title, "Only point", ());
+  TEST_EQUAL(getMarkId(), markId, ());
+
+  manager.MoveRoutePoint(1, 0);
+  auto const start = manager.GetRoutePoints();
+  TEST_EQUAL(start.size(), 1, ());
+  TEST(start.front().m_pointType == RouteMarkType::Start, ());
+  TEST_EQUAL(start.front().m_position, m2::PointD(1.0, 1.0), ());
+  TEST_EQUAL(getMarkId(), markId, ());
+
+  // Empty endpoint cells can also be dragged onto the existing point.
+  manager.MoveRoutePoint(1, 0);
+  auto const finishFromEmptyStart = manager.GetRoutePoints();
+  TEST(finishFromEmptyStart.front().m_pointType == RouteMarkType::Finish, ());
+  TEST_EQUAL(getMarkId(), markId, ());
+
+  manager.MoveRoutePoint(0, 1);
+  auto const startFromEmptyFinish = manager.GetRoutePoints();
+  TEST(startFromEmptyFinish.front().m_pointType == RouteMarkType::Start, ());
+  TEST_EQUAL(getMarkId(), markId, ());
+}
+
 UNIT_TEST(RoutingManager_OptimizationWithIncompleteRoute)
 {
   Framework framework(FrameworkParams(false /* m_enableDiffs */));
