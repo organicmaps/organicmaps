@@ -1007,7 +1007,6 @@ public class RoutingController
    * Sets ending point.
    * <ul>
    *   <li>If {@code point} is the same as starting point &mdash; swap points if ending point is set, skip otherwise.
-   *   <li>Set starting point to MyPosition if it was not set before.
    * </ul>
    * Route starts to build if both points were set.
    *
@@ -1150,8 +1149,6 @@ public class RoutingController
 
   private void applyRemovingIntermediatePointsTransaction()
   {
-    // We have to apply removing intermediate points transaction each time
-    // we add/remove route points in the taxi mode.
     if (mRemovingIntermediatePointsTransactionId == mInvalidRoutePointsTransactionId)
       return;
     Framework.nativeApplyRoutePointsTransaction(mRemovingIntermediatePointsTransactionId);
