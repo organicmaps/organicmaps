@@ -109,7 +109,10 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
       break;
     case Intermediate:
       TypedArray iconArray = mContext.getResources().obtainTypedArray(R.array.route_stop_icons);
-      iconId = iconArray.getResourceId(mRoutePoints.get(position).mIntermediateIndex, R.drawable.route_point_20);
+      // The generic marker covers stops beyond the numbered drawable set.
+      final int stopIndex = mRoutePoints.get(position).mIntermediateIndex;
+      iconId = stopIndex < iconArray.length() ? iconArray.getResourceId(stopIndex, R.drawable.route_point_20)
+                                              : R.drawable.route_point_20;
       iconArray.recycle();
       break;
     case Finish: iconId = R.drawable.route_point_finish; break;
