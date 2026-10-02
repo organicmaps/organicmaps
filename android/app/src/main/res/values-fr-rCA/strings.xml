@@ -7,4 +7,8 @@
     <string name="route_optimization">Optimisation de l’itinéraire</string>
     <!-- Explains that route optimization automatically reorders intermediate stops -->
     <string name="route_optimization_description">Réorganise automatiquement les étapes intermédiaires afin de créer un itinéraire plus efficace.</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Inverser l\'itinéraire</string>
 </resources>

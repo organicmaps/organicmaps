@@ -948,4 +948,6 @@
     <string name="choose_point_on_map_hint">Շարժեք և մեծացրեք քարտեզը՝ խաչը տեղադրելու համար</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Կանգնեցնել և պահպանել</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Շրջել երթուղին</string>
 </resources>
