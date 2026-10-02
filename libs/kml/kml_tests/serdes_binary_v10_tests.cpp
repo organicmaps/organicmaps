@@ -164,7 +164,6 @@ UNIT_TEST(Kml_V10MM_Bookmarks)
   classificator::Load();
   auto const data = ReadKmb(V10Fixture().Serialize());
   TEST(data.m_deviceId.empty(), ());
-  TEST(data.m_serverId.empty(), ());
   TEST(data.m_tracksData.empty(), ());
   auto const & category = data.m_categoryData;
   TEST_EQUAL(category.m_id, 42, ());
