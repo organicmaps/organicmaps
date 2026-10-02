@@ -57,6 +57,13 @@ extension NavigationDashboard.ViewModel {
 
   var isBottomActionsMenuHidden: Bool { presentationStep == .hidden }
 
+  var canReverseRoutePoints: Bool {
+    // A fixed start leaves a valid preview in RouteNoFollowing, where isRouteBuilt() is false.
+    routePoints.hasStartAndFinish &&
+      (dashboardState == .ready || dashboardState == .prepare) &&
+      MWMRouter.isRouteValid()
+  }
+
   var startButtonState: StartRouteButton.State {
     if routePoints.count < 2 ||
       routePoints.start == nil ||

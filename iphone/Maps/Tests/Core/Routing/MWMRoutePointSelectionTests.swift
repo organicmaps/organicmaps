@@ -42,6 +42,32 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     waitUntilRouteReady()
   }
 
+  func test_GivenReversedRouteWithoutFollowMode_WhenReady_ThenCanReverseAgain() {
+    seedEndpoints()
+    MWMRouter.rebuild(withBestRouter: false)
+    waitUntilRouteReady()
+
+    MWMRouter.reverseRoute()
+    waitUntilRouteReady()
+
+    let followModeDisabled = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+      !MWMRouter.isRouteBuilt()
+    }, object: nil)
+    wait(for: [followModeDisabled], timeout: 5)
+    XCTAssertFalse(MWMRouter.isRouteBuilt())
+    XCTAssertTrue(MWMRouter.isRouteValid())
+
+    var viewModel = NavigationDashboard.ViewModel.initial
+    viewModel.dashboardState = .ready
+    viewModel.routePoints = NavigationDashboard.RoutePoints(points: MWMRouter.points())
+    XCTAssertTrue(viewModel.canReverseRoutePoints)
+
+    viewModel.dashboardState = .planning
+    XCTAssertFalse(viewModel.canReverseRoutePoints)
+    viewModel.dashboardState = .error
+    XCTAssertFalse(viewModel.canReverseRoutePoints)
+  }
+
   func test_GivenRoute_WhenPointIsAppended_ThenKeepsOldFinishAsLastStop() {
     seedRoute()
 
