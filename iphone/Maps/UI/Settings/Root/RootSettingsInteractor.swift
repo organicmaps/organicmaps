@@ -40,13 +40,13 @@ final class RootSettingsInteractor {
   func set(_ setting: RootSettings, enabled: Bool) {
     if setting == .buildings3D, !isBuildings3DEditable {
       presenter?.present3dBuildingsDisabledAlert()
-      updateSettings(reconfiguredItems: [.buildings3D])
+      updateSettings(reconfiguredItems: [.builtin(.buildings3D)])
       return
     }
 
     if setting == .iCloud, !settings.didShowICloudSynchronizationEnablingAlert() {
       presenter?.presentICloudSynchronizationEnablingAlert(canBackup: canBackupBookmarks())
-      updateSettings(reconfiguredItems: [.iCloud])
+      updateSettings(reconfiguredItems: [.builtin(.iCloud)])
       return
     }
 
@@ -57,12 +57,12 @@ final class RootSettingsInteractor {
   func confirmICloudSynchronization() {
     settings.setICloudSynchronizationEnablingAlertShown()
     setSetting(.iCloud, enabled: true)
-    updateSettings(reconfiguredItems: [.iCloud])
+    updateSettings(reconfiguredItems: [.builtin(.iCloud)])
   }
 
   func cancelICloudSynchronization() {
     setSetting(.iCloud, enabled: false)
-    updateSettings(reconfiguredItems: [.iCloud])
+    updateSettings(reconfiguredItems: [.builtin(.iCloud)])
   }
 
   func backupBeforeICloudSynchronization() {
@@ -94,7 +94,7 @@ final class RootSettingsInteractor {
       settings.setICloudSynchronizationEnablingAlertShown()
     }
     setSetting(.iCloud, enabled: completed)
-    updateSettings(reconfiguredItems: [.iCloud])
+    updateSettings(reconfiguredItems: [.builtin(.iCloud)])
   }
 
   private func startObserving() {
@@ -106,7 +106,7 @@ final class RootSettingsInteractor {
     }
   }
 
-  private func updateSettings(reconfiguredItems: [RootSettings] = [], animatingDifferences: Bool = true) {
+  private func updateSettings(reconfiguredItems: [RootSettingsItem] = [], animatingDifferences: Bool = true) {
     presenter?.presentSettings(loadState(),
                                reconfiguredItems: reconfiguredItems,
                                animatingDifferences: animatingDifferences)
@@ -200,9 +200,9 @@ final class RootSettingsInteractor {
 
 extension RootSettingsInteractor: SettingsViewControllerInteractor {
   typealias Section = RootSettingsSection
-  typealias Item = RootSettings
+  typealias Item = RootSettingsItem
 
-  func handle(_ action: SettingsViewControllerAction<RootSettings>) {
+  func handle(_ action: SettingsViewControllerAction<RootSettingsItem>) {
     switch action {
     case .didLoad:
       loadSettings()
@@ -210,12 +210,16 @@ extension RootSettingsInteractor: SettingsViewControllerInteractor {
       reloadSettings()
     case .didAppear:
       highlightInAppFeature()
-    case .didSelect(let setting):
-      select(setting)
-    case .didTapAccessory(let setting):
-      tapAccessory(setting)
-    case .didChangeSwitch(let setting, isOn: let isOn):
-      set(setting, enabled: isOn)
+    case .didSelect(let item):
+      select(item)
+    case .didTapAccessory(let item):
+      if case .builtin(let setting) = item {
+        tapAccessory(setting)
+      }
+    case .didChangeSwitch(let item, isOn: let isOn):
+      if case .builtin(let setting) = item {
+        set(setting, enabled: isOn)
+      }
     case .didCompleteBookmarkBackupSharing(let completed):
       completeICloudBackupSharing(completed: completed)
     default:
@@ -223,12 +227,25 @@ extension RootSettingsInteractor: SettingsViewControllerInteractor {
     }
   }
 
-  private func select(_ setting: RootSettings) {
-    if setting == .buildings3D, !isBuildings3DEditable {
-      set(setting, enabled: false)
-      return
+  private func select(_ item: RootSettingsItem) {
+    switch item {
+    case .builtin(let setting):
+      if setting == .buildings3D, !isBuildings3DEditable {
+        set(setting, enabled: false)
+        return
+      }
+      guard let screen = setting.screen else { return }
+      select(screen)
+    case .contribution(let contributionId):
+      guard let info = FrameworkHelper.settingsContributions().first(where: { $0.contributionId == contributionId })
+      else { return }
+      if !info.pickFileExtensions.isEmpty {
+        presenter?.presentFilePicker(contributionId: contributionId,
+                                     extensions: info.pickFileExtensions)
+      } else {
+        FrameworkHelper.selectSettingsContribution(withId: contributionId)
+        reloadSettings()
+      }
     }
-    guard let screen = setting.screen else { return }
-    select(screen)
   }
 }

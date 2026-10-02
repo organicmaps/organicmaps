@@ -50,6 +50,11 @@
 #include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
+#include "platform/settings_contribution/settings_contribution_registry.hpp"
+
+#ifdef DEBUG
+#include "map/location_provider/gpx_replay_provider.hpp"
+#endif
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
@@ -1943,6 +1948,66 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDidShowDonationPage(JNIE
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeResetDonations(JNIEnv *, jclass)
 {
   frm()->ResetDonations();
+}
+
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetSettingsContributions(JNIEnv * env, jclass)
+{
+  using namespace settings_contribution;
+  auto const & contributions = SettingsContributionRegistry::Instance().Contributions();
+  jclass stringClass = env->FindClass("java/lang/String");
+  jobjectArray result = env->NewObjectArray(static_cast<jsize>(contributions.size()),
+                                            env->FindClass("[Ljava/lang/String;"), nullptr);
+  for (jsize i = 0; i < static_cast<jsize>(contributions.size()); ++i)
+  {
+    auto * contribution = contributions[static_cast<size_t>(i)];
+    std::string extensions;
+    for (auto const & ext : contribution->GetPickFileExtensions())
+    {
+      if (!extensions.empty())
+        extensions += '|';
+      extensions += ext;
+    }
+    jobjectArray row = env->NewObjectArray(5, stringClass, nullptr);
+    env->SetObjectArrayElement(row, 0, jni::ToJavaString(env, contribution->GetId()));
+    env->SetObjectArrayElement(row, 1, jni::ToJavaString(env, contribution->GetTitle()));
+    env->SetObjectArrayElement(row, 2, jni::ToJavaString(env, contribution->GetSectionId()));
+    env->SetObjectArrayElement(row, 3, jni::ToJavaString(env, contribution->GetDetail()));
+    env->SetObjectArrayElement(row, 4, jni::ToJavaString(env, extensions));
+    env->SetObjectArrayElement(result, i, row);
+    env->DeleteLocalRef(row);
+  }
+  return result;
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSelectSettingsContribution(JNIEnv * env, jclass,
+                                                                                    jstring contributionId)
+{
+  std::string const id = jni::ToNativeString(env, contributionId);
+  for (auto * contribution : settings_contribution::SettingsContributionRegistry::Instance().Contributions())
+  {
+    if (contribution->GetId() != id)
+      continue;
+    contribution->OnSelected();
+#ifdef DEBUG
+    if (location_provider::GpxReplayProvider::Instance().IsArmed())
+      frm()->ScheduleGpxReplayTick();
+#endif
+    return;
+  }
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSettingsContributionDidPickFile(
+    JNIEnv * env, jclass, jstring contributionId, jstring path)
+{
+  std::string const id = jni::ToNativeString(env, contributionId);
+  std::string const filePath = jni::ToNativeString(env, path);
+  for (auto * contribution : settings_contribution::SettingsContributionRegistry::Instance().Contributions())
+  {
+    if (contribution->GetId() != id)
+      continue;
+    contribution->OnFilePicked(filePath);
+    return;
+  }
 }
 }  // extern "C"
 

@@ -12,6 +12,8 @@ set(SRC
   glaze_test.cpp
   language_test.cpp
   local_country_file_tests.cpp
+  location_provider_registry_test.cpp
+  settings_contribution_registry_test.cpp
   location_test.cpp
   measurement_tests.cpp
   platform_test.cpp
