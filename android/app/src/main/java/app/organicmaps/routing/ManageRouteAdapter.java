@@ -221,6 +221,12 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     return mRoutePoints;
   }
 
+  @NonNull
+  public RouteMarkData getRoutePointAt(int position)
+  {
+    return mRoutePoints.get(isPartial() ? 0 : position);
+  }
+
   // Resync the existing adapter with the native route points, keeping the same adapter/touch-helper instances.
   public void setRoutePoints(@NonNull RouteMarkData[] routePoints)
   {
