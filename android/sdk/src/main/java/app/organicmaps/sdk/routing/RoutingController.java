@@ -118,8 +118,6 @@ public class RoutingController
   private TransitRouteInfo mCachedTransitRouteInfo;
 
   private boolean mRouteSaved;
-  private int mInvalidRoutePointsTransactionId;
-  private int mRemovingIntermediatePointsTransactionId;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final RoutingListener mRoutingListener = new RoutingListener() {
@@ -292,8 +290,6 @@ public class RoutingController
   public void initialize(@NonNull LocationHelper locationHelper)
   {
     mLastRouterType = Router.getLastUsed();
-    mInvalidRoutePointsTransactionId = Framework.nativeInvalidRoutePointsTransactionId();
-    mRemovingIntermediatePointsTransactionId = mInvalidRoutePointsTransactionId;
 
     Framework.nativeSetRoutingListener(mRoutingListener);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
@@ -542,7 +538,6 @@ public class RoutingController
       return;
     }
 
-    applyRemovingIntermediatePointsTransaction();
     Framework.nativeRemoveRoutePoint(info.mMarkType, info.mIntermediateIndex);
     build();
     if (mContainer != null)
@@ -634,7 +629,6 @@ public class RoutingController
 
     // Clear stale elevation preview marker.
     Framework.nativeRouteRemoveElevationActivePoint();
-    applyRemovingIntermediatePointsTransaction();
     if (deleteSavedRoute)
       Framework.nativeDeleteSavedRoutePoints();
     Framework.nativeCloseRouting();
@@ -921,9 +915,6 @@ public class RoutingController
     final boolean hasEnd = endPoint != null;
     final boolean hasOnePointAtLeast = hasStart || hasEnd;
 
-    if (hasOnePointAtLeast)
-      applyRemovingIntermediatePointsTransaction();
-
     // The result is unread on purpose: the core drops the point standing in the slot before adding, so only adding
     // a stop can run the route out of capacity.
     if (hasStart)
@@ -974,7 +965,6 @@ public class RoutingController
     boolean isSamePoint = MapObject.same(startPoint, point);
     if (point != null)
     {
-      applyRemovingIntermediatePointsTransaction();
       addRoutePoint(RouteMarkType.Start, point);
       startPoint = getStartPoint();
     }
@@ -1028,8 +1018,6 @@ public class RoutingController
     boolean isSamePoint = MapObject.same(endPoint, point);
     if (point != null)
     {
-      applyRemovingIntermediatePointsTransaction();
-
       addRoutePoint(RouteMarkType.Finish, point);
       endPoint = getEndPoint();
     }
@@ -1128,8 +1116,6 @@ public class RoutingController
     mLastRouterType = router;
     Router.set(router);
 
-    cancelRemovingIntermediatePointsTransaction();
-
     if (getStartPoint() != null && getEndPoint() != null)
       build();
   }
@@ -1137,22 +1123,6 @@ public class RoutingController
   public Router getLastRouterType()
   {
     return mLastRouterType;
-  }
-
-  private void cancelRemovingIntermediatePointsTransaction()
-  {
-    if (mRemovingIntermediatePointsTransactionId == mInvalidRoutePointsTransactionId)
-      return;
-    Framework.nativeCancelRoutePointsTransaction(mRemovingIntermediatePointsTransactionId);
-    mRemovingIntermediatePointsTransactionId = mInvalidRoutePointsTransactionId;
-  }
-
-  private void applyRemovingIntermediatePointsTransaction()
-  {
-    if (mRemovingIntermediatePointsTransactionId == mInvalidRoutePointsTransactionId)
-      return;
-    Framework.nativeApplyRoutePointsTransaction(mRemovingIntermediatePointsTransactionId);
-    mRemovingIntermediatePointsTransactionId = mInvalidRoutePointsTransactionId;
   }
 
   public void onPoiSelected(@NonNull MapObject point)
