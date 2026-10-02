@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:initialLayout="@layout/widget_track_recording"
+  android:minWidth="250dp"
+  android:minHeight="180dp"
+  android:minResizeHeight="@dimen/widget_track_recording_min_resize_height"
+  android:previewLayout="@layout/widget_track_recording"
+  android:resizeMode="horizontal|vertical"
+  android:targetCellWidth="4"
+  android:targetCellHeight="2"
+  android:updatePeriodMillis="0"
+  android:widgetCategory="home_screen"
+  tools:targetApi="s" />

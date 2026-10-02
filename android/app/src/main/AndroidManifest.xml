@@ -550,6 +550,25 @@
       android:stopWithTask="false"
       />
 
+    <activity
+      android:name=".widget.TrackRecordingStartActivity"
+      android:excludeFromRecents="true"
+      android:exported="false"
+      android:noHistory="true"
+      android:taskAffinity=""
+      android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    <receiver android:name=".widget.TrackRecordingWidget"
+      android:exported="false"
+      android:label="@string/track_recording_title">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/track_recording_widget_info" />
+    </receiver>
+
     <service
         android:name=".downloader.DownloaderService"
         android:foregroundServiceType="dataSync"

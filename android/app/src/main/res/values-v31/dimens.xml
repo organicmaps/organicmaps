@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="widget_track_recording_min_resize_height">110dp</dimen>
+</resources>

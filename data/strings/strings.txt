@@ -22130,7 +22130,7 @@ zh-Hans = 停止
 zh-Hant = 停止
 
 [track_recording]
-comment = Shown as toast when starting the recent track recording
+comment = Shown while a track is being recorded: the start toast, the notification title and the home screen widget status.
 tags = android-app
 en = Recording the track
 af = Opname van die spoor
@@ -39555,7 +39555,7 @@ zh-Hans = 停止轨迹记录
 zh-Hant = 停止軌跡記錄
 
 [track_recording_title]
-comment = Subtitle for the active track recording on the Android place page.
+comment = Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.
 tags = android-app
 en = Track Recording
 af = Spooropname
@@ -44988,6 +44988,69 @@ uk = Зупинити та зберегти
 vi = Dừng và lưu
 zh-Hans = 停止并保存
 zh-Hant = 停止並儲存
+
+[track_recording_finish]
+comment = Track recording home screen widget button: opens the app to save or delete the recorded track.
+tags = android-app
+en = Finish
+af = Voltooi
+ar = إنهاء
+ast = Acabar
+az = Bitir
+be = Завяршыць
+bg = Завърши
+bn = শেষ করুন
+ca = Finalitza
+cs = Ukončit
+cy = Gorffen
+da = Afslut
+de = Beenden
+el = Ολοκλήρωση
+es = Finalizar
+et = Lõpeta
+eu = Amaitu
+fa = پایان
+fi = Lopeta
+fr = Terminer
+gl = Rematar
+he = סיום
+hi = समाप्त करें
+hr = Završi
+hu = Befejezés
+hy = Ավարտել
+id = Selesai
+is = Ljúka
+it = Termina
+ja = 終了
+ko = 종료
+lo = ສິ້ນສຸດ
+lt = Baigti
+lv = Pabeigt
+ml = പൂർത്തിയാക്കുക
+mr = समाप्त करा
+mt = Temm
+nb = Avslutt
+nl = Beëindigen
+oc = Acabar
+pa = ਸਮਾਪਤ ਕਰੋ
+pl = Zakończ
+pt = Terminar
+pt-BR = Finalizar
+ro = Finalizare
+ru = Завершить
+sk = Ukončiť
+sl = Končaj
+sq = Përfundo
+sr = Заврши
+sv = Avsluta
+sw = Maliza
+te = ముగించు
+th = เสร็จสิ้น
+tr = Bitir
+uk = Завершити
+vi = Kết thúc
+zh-Hans = 结束
+zh-Hant = 結束
 
 [reverse_route]
 comment = Accessibility label for the button that reverses the complete planned route, including intermediate stops.
