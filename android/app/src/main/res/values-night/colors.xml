@@ -55,5 +55,8 @@
   <color name="routing_button_tint">#FFFFFFFF</color>
   <color name="routing_bottom_button_activated_bg">#FFFFFFFF</color>
   <color name="routing_bottom_button_bg">@color/bg_menu</color>
+  <color name="widget_accent">@color/light_green</color>
+  <color name="widget_text_primary">@color/white_primary</color>
+  <color name="widget_text_secondary">@color/white_secondary</color>
 
 </resources>
