@@ -130,16 +130,8 @@ public class RoutingController
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
 
-      if (mLastResultCode == ResultCodes.NO_ERROR)
-      {
+      if (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS)
         onBuiltRoute();
-      }
-      else if (mLastResultCode == ResultCodes.HAS_WARNINGS)
-      {
-        onBuiltRoute();
-        if (mContainer != null)
-          mContainer.onDrivingOptionsWarning();
-      }
 
       processRoutingEvent();
     }
@@ -180,11 +172,10 @@ public class RoutingController
 
     mContainsCachedResult = false;
 
-    if (isDrivingOptionsBuildError())
-      mContainer.onDrivingOptionsWarning();
-
     if (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS)
     {
+      if (mLastResultCode == ResultCodes.HAS_WARNINGS)
+        mContainer.onDrivingOptionsWarning();
       updatePlan();
       return;
     }
