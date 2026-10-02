@@ -357,6 +357,8 @@
     <string name="p2p_to_here">Rute til</string>
     <string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
     <string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Ruten snus slik at den starter fra din nåværende posisjon.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Neste</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

@@ -357,6 +357,8 @@
     <string name="p2p_to_here">מסלול לכאן</string>
     <string name="p2p_only_from_current">ניווט זמין רק מהמיקום הנוכחי שלך.</string>
     <string name="p2p_reroute_from_current">ברצונך לתכנן מסלול מהמיקום הנוכחי שלך?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">המסלול יתהפך כדי להתחיל מהמיקום הנוכחי שלך.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">הבא</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

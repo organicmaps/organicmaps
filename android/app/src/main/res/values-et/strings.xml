@@ -357,6 +357,8 @@
     <string name="p2p_to_here">Teekond sihtkohta</string>
     <string name="p2p_only_from_current">Tee juhatamine on saadaval ainult sinu praegusest asukohast.</string>
     <string name="p2p_reroute_from_current">Kas soovid, et planeeriksime teekonna sinu praegusest asukohast?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Marsruut pööratakse ümber, et see algaks sinu praegusest asukohast.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Järgmine</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
