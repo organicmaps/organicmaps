@@ -1529,18 +1529,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     final MapObject endPoint = Objects.requireNonNull(controller.getEndPoint());
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.p2p_only_from_current)
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, endPoint.isMyPosition() ?
-            (dialog, which) -> controller.swapPoints() :
-            (dialog, which) -> {
-              // The current location may change while this dialog is still shown on the screen.
-              controller.setStartPoint(myPosition);
-            }
-        )
-        .setOnDismissListener(dialog -> mAlertDialog = null);
+                                                   .setTitle(R.string.p2p_only_from_current)
+                                                   .setCancelable(false)
+                                                   .setNegativeButton(R.string.cancel, null)
+                                                   .setOnDismissListener(dialog -> mAlertDialog = null);
+    if (endPoint.isMyPosition())
+      builder.setMessage(R.string.p2p_reverse_from_current)
+          .setPositiveButton(R.string.ok, (dialog, which) -> controller.reverseRoute());
+    else
+      builder.setMessage(R.string.p2p_reroute_from_current)
+          .setPositiveButton(R.string.ok, (dialog, which) -> controller.setStartPoint(myPosition));
     dismissAlertDialog();
     mAlertDialog = builder.show();
     return false;

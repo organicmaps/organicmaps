@@ -1096,22 +1096,6 @@ public class RoutingController
     return new Pair<>(title, subtitle);
   }
 
-  public void swapPoints()
-  {
-    Logger.d(TAG, "swapPoints");
-
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    MapObject point = startPoint;
-    startPoint = endPoint;
-    endPoint = point;
-
-    setPointsInternal(startPoint, endPoint);
-    checkAndBuildRoute();
-    if (mContainer != null)
-      mContainer.updateMenu();
-  }
-
   public void reverseRoute()
   {
     Logger.d(TAG, "reverseRoute");
