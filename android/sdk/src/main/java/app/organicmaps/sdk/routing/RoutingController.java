@@ -963,12 +963,6 @@ public class RoutingController
     MapObject startPoint = getStartPoint();
     MapObject endPoint = getEndPoint();
     boolean isSamePoint = MapObject.same(startPoint, point);
-    if (point != null)
-    {
-      addRoutePoint(RouteMarkType.Start, point);
-      startPoint = getStartPoint();
-    }
-
     if (isSamePoint)
     {
       Logger.d(TAG, "setStartPoint: skip the same starting point");
@@ -1016,12 +1010,6 @@ public class RoutingController
     MapObject startPoint = getStartPoint();
     MapObject endPoint = getEndPoint();
     boolean isSamePoint = MapObject.same(endPoint, point);
-    if (point != null)
-    {
-      addRoutePoint(RouteMarkType.Finish, point);
-      endPoint = getEndPoint();
-    }
-
     if (isSamePoint)
       return false;
 
