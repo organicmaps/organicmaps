@@ -5,7 +5,6 @@
 
 #include "indexer/feature_decl.hpp"
 
-#include "base/exception.hpp"
 #include "base/macros.hpp"
 
 #include <set>
@@ -20,8 +19,6 @@ class MapDataProvider;
 class TileInfo
 {
 public:
-  DECLARE_EXCEPTION(ReadCanceledException, RootException);
-
   TileInfo(drape_ptr<EngineContext> && engineContext);
 
   void ReadFeatures(MapDataProvider const & model);
@@ -33,7 +30,6 @@ public:
 
 private:
   void ReadFeatureIndex(MapDataProvider const & model);
-  void ThrowIfCancelled() const;
   bool DoNeedReadIndex() const;
 
   int GetZoomLevel() const;
