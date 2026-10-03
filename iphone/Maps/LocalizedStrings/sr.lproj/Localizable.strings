@@ -527,6 +527,8 @@
 "today" = "Данас";
 "opens_in" = "Отвара се за %@";
 "closes_in" = "Затвара се за %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Затворено";
 "no_osm_account" = "Немате OpenStreetMap налог?";
 "register_at_openstreetmap" = "Региструјте се на OpenStreetMap-у";

@@ -527,6 +527,8 @@
 "today" = "Այսօր";
 "opens_in" = "Բացվում է %@";
 "closes_in" = "Փակվում է %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Փակ է";
 "no_osm_account" = "Չունե՞ք OpenStreetMap հաշիվ:";
 "register_at_openstreetmap" = "Գրանցվել OpenStreetMap-ում";

@@ -16316,6 +16316,14 @@ vi = Đóng trong %@
 zh-Hans = 将于 %@ 后不营业
 zh-Hant = 將於 %@ 後歇業
 
+[opens_in_less_than_a_minute]
+tags = android-app,android-libs-car,apple-maps
+en = Opens in less than a minute
+
+[closes_in_less_than_a_minute]
+tags = android-app,android-libs-car,apple-maps
+en = Closes in less than a minute
+
 [closed]
 tags = android-app,android-libs-car,apple-maps
 en = Closed

@@ -527,6 +527,8 @@
 "today" = "오늘";
 "opens_in" = "%@에서 열립니다";
 "closes_in" = "%@로 마감";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "닫음";
 "no_osm_account" = "OpenStreetMap에서 계정이 없습니까?";
 "register_at_openstreetmap" = "등록";

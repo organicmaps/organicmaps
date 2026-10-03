@@ -527,6 +527,8 @@
 "today" = "Danes";
 "opens_in" = "Odpira se čez %@";
 "closes_in" = "Zapira se čez %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Zaprto";
 "no_osm_account" = "Nimate računa OpenStreetMap?";
 "register_at_openstreetmap" = "Registrirajte se na OpenStreetMap";

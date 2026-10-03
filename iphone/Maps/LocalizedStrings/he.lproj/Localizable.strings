@@ -527,6 +527,8 @@
 "today" = "היום";
 "opens_in" = "נפתח עוד %@";
 "closes_in" = "נסגר עוד %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "סגור";
 "no_osm_account" = "אין לך חשבון OpenStreetMap?";
 "register_at_openstreetmap" = "הירשם ב-OpenStreetMap";
