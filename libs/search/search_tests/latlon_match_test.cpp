@@ -183,6 +183,25 @@ UNIT_TEST(LatLon_Match_Smoke)
   TEST(!MatchLatLonDegree("N 51* 33.217 E 11* 10.113\"", lat, lon), ());
 }
 
+UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
+{
+  double lat, lon;
+
+  // Phone-keyboard-friendly DMS without degree/minute/second symbols (#13422).
+  TEST(MatchLatLonDegree("37 00 27.73 N 08 56 41.59 W", lat, lon), ());
+  TestAlmostEqual(lat, 37.00770277777778);
+  TestAlmostEqual(lon, -8.94488611111111);
+
+  TEST(MatchLatLonDegree("51 30 0 N 0 7 0 W", lat, lon), ());
+  TestAlmostEqual(lat, 51.5);
+  TestAlmostEqual(lon, -0.11666666666667);
+
+  // Decimal degrees must still work (not interpreted as DMS).
+  TEST(MatchLatLonDegree("10.0 20.0", lat, lon), ());
+  TestAlmostEqual(lat, 10.0);
+  TestAlmostEqual(lon, 20.0);
+}
+
 UNIT_TEST(LatLon_Match_False)
 {
   double lat, lon;
