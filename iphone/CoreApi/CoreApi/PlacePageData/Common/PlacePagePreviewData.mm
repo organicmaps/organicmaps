@@ -10,7 +10,8 @@
 #include <optional>
 
 static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH,
-                                                 std::optional<om::tz::TimeZone> const & timeZone)
+                                                 std::optional<om::tz::TimeZone> const & timeZone,
+                                                 ms::LatLon const & coordinate)
 {
   PlacePageDataSchedule schedule{};
 
@@ -35,8 +36,7 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH,
 
   auto const t = time(nullptr);
   schedule.utcOffsetNowSeconds = osmoh::GetUtcOffset(t, timeZone);
-  // Evaluate in the POI's local time zone (not the device's), see issue #1642.
-  osmoh::OpeningHours::InfoT info = oh.GetInfo(t, timeZone);
+  osmoh::OpeningHours::InfoT info = oh.GetInfo(t, timeZone, coordinate);
   switch (info.state)
   {
   case osmoh::RuleState::Open:
@@ -93,7 +93,7 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH,
     {
       _coordinates = @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str());
       _isMyPosition = rawData.IsMyPosition();
-      _schedule = convertOpeningHours(rawData.GetOpeningHours(), rawData.GetTimeZone());
+      _schedule = convertOpeningHours(rawData.GetOpeningHours(), rawData.GetTimeZone(), rawData.GetLatLon());
     }
   }
   return self;
