@@ -178,7 +178,7 @@ private:
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();
 
-  void PassCheckpoints();
+  void PassCheckpoints(location::GpsInfo const & info);
 
 private:
   std::unique_ptr<AsyncRouter> m_router;
