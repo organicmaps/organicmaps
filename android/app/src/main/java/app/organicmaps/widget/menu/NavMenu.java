@@ -20,11 +20,11 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 
 public class NavMenu implements DefaultLifecycleObserver
 {
@@ -209,8 +209,9 @@ public class NavMenu implements DefaultLifecycleObserver
 
   private void updateTimeLeft(int seconds)
   {
-    final long hours = TimeUnit.SECONDS.toHours(seconds);
-    final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
+    final long totalMinutes = Utils.roundRoutingTimeToMinutes(seconds);
+    final long hours = totalMinutes / 60;
+    final long minutes = totalMinutes % 60;
     mTimeMinuteValue.setText(String.valueOf(minutes));
     String min = mActivity.getResources().getString(R.string.minute);
     mTimeMinuteUnits.setText(min);
