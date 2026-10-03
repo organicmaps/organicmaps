@@ -67,48 +67,6 @@
           android:layout_marginStart="@dimen/margin_half" />
       </LinearLayout>
 
-      <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/transit_time"
-        android:layout_marginTop="@dimen/margin_half"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <TextView
-          android:id="@+id/total_time"
-          style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          tools:text="40 min" />
-
-        <TextView
-          android:id="@+id/dot"
-          style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-          android:text="•"
-          tools:ignore="HardcodedText"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/margin_quarter_plus" />
-
-        <ImageView
-          android:id="@+id/pedestrian_icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:srcCompat="@drawable/ic_20px_route_planning_walk"
-          app:tint="?iconTint"
-          android:layout_marginStart="@dimen/margin_quarter_plus" />
-
-        <TextView
-          android:id="@+id/total_distance"
-          style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          tools:text="1 km"
-          android:layout_marginStart="@dimen/margin_quarter_plus" />
-      </LinearLayout>
-
       <TextView
         android:id="@+id/time_ruler"
         style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
@@ -151,6 +109,14 @@
     </FrameLayout>
   </LinearLayout>
 
+  <!-- Transit summary tile (see @layout/transit_summary_tile). Full-width and self-contained. -->
+  <include
+    layout="@layout/transit_summary_tile"
+    android:id="@+id/transit_time"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone" />
+
   <LinearLayout
     android:id="@+id/altitude_chart_container"
     android:layout_width="match_parent"
@@ -166,15 +132,5 @@
       android:visibility="gone" />
 
   </LinearLayout>
-
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/transit_recycler_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/routing_plan_horizontal_padding"
-    android:layout_marginEnd="@dimen/routing_plan_horizontal_padding"
-    android:layout_marginTop="@dimen/margin_half_plus"
-    android:visibility="gone"
-    tools:visibility="visible" />
 
 </LinearLayout>
