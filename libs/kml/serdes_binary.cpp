@@ -138,7 +138,7 @@ void DeserializerKml::DeserializeBookmarksV10MM(Reader const & reader, coding::B
     bookmarkVisitor(bookmark.m_viewportScale);
     TimestampMillis created;
     bookmarkVisitor(created);
-    bookmark.m_timestamp = created;
+    bookmark.m_createdTimestamp = created;
     bookmarkVisitor(bookmark.m_point);
     bookmarkVisitor(bookmark.m_visible);
     ReadV10UnknownField(bookmarksSource);
