@@ -7,8 +7,7 @@
 # because ordering by size doesn't always work with e.g. water mapped over a forest,
 # so water should be on top of other landcover always, but linear waterways should be hidden beneath it.
 # Still, e.g. a layer=-1 BG-top feature will be rendered under a layer=0 BG-by-size feature
-# (so areal water tunnels are hidden beneath other landcover area) and a layer=1 landcover areas
-# are displayed above layer=0 BG-top.
+# and layer=1 landcover areas are displayed above layer=0 BG-top.
 #
 # Priorities ranges' rendering order overview:
 # - overlays (icons, captions...)
@@ -43,12 +42,16 @@ natural-water-intermittent                          # area z1- (also has caption
 
 natural-strait                                      # line z11- (also has caption z13-)
 waterway-canal                                      # line z12- (also has pathtext z13-)
+waterway-canal-intermittent                         # line z12- (also has pathtext z13-)
 waterway-ditch                                      # line z13-
+waterway-ditch-intermittent                         # line z13-
 waterway-drain                                      # line z13-
+waterway-drain-intermittent                         # line z13-
 waterway-fish_pass                                  # line z13- (also has pathtext z13-)
+waterway-fish_pass-intermittent                     # line z13- (also has pathtext z13-)
 waterway-river                                      # line z10- (also has pathtext z11-)
+waterway-river-intermittent                         # line z10- (also has pathtext z11-)
 waterway-stream                                     # line z12- (also has pathtext z13-)
-waterway-stream-ephemeral                           # line z13- (also has pathtext z13-)
 waterway-stream-intermittent                        # line z13- (also has pathtext z13-)
 === 10
 
