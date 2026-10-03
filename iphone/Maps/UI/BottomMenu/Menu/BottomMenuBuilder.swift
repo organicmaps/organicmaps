@@ -21,12 +21,12 @@
                             controlsManager: MWMMapViewControlsManager,
                             delegate: BottomMenuDelegate,
                             sections: [BottomMenuPresenter.Sections]) -> UIViewController {
-    let viewController = BottomMenuViewController(nibName: nil, bundle: nil)
+    let viewController = BottomMenuViewController()
     let interactor = BottomMenuInteractor(viewController: viewController,
                                           mapViewController: mapViewController,
                                           controlsManager: controlsManager,
                                           delegate: delegate)
-    let presenter = BottomMenuPresenter(view: viewController, interactor: interactor, sections: sections)
+    let presenter = BottomMenuPresenter(interactor: interactor, sections: sections)
     viewController.presenter = presenter
     return viewController
   }
