@@ -77,6 +77,7 @@ line[waterway][tunnel]
 
 /* 7.1 Industrial */
 
+/* landuse=quarry is hardcoded to have a speckle-style fill, see drape_frontend/stylist.cpp */
 area|z13-[landuse=industrial],
 area|z13-[landuse=construction],
 area|z13-[landuse=landfill],

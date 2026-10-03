@@ -4,8 +4,8 @@
 #
 # BG-by-size geometry: background areas rendered below BG-top and everything else.
 # Smaller areas are rendered above larger ones (area's size is estimated as the size of its' bounding box).
-# So effectively priority values of BG-by-size areas are not used at the moment.
-# But we might use them later for some special cases, e.g. to determine a main area type of a multi-type feature.
+# Priorities select the fill of features carrying multiple area types. They do not change
+# the bbox-based drawing order between separate features.
 # Keep them in a logical importance order please.
 #
 # Priorities ranges' rendering order overview:
@@ -55,17 +55,23 @@ natural-heath                                       # area z12-
 === 80
 
 landuse-farmyard                                    # area z14-
+=== 74
+
+natural-bare_rock                                   # area z12-
+=== 73
+
+landuse-orchard                                     # area z12-
+=== 72
+
+landuse-vineyard                                    # area z12-
 === 71
 
 landuse-allotments                                  # area z12-
 landuse-farmland                                    # area z14-
 landuse-field                                       # area z12-
 landuse-meadow                                      # area z12-
-landuse-orchard                                     # area z12-
 landuse-recreation_ground                           # area z12-
 landuse-village_green                               # area z12-
-landuse-vineyard                                    # area z12-
-natural-bare_rock                                   # area z12-
 natural-scrub                                       # area z12-
 === 70
 
@@ -83,11 +89,13 @@ landuse-forest-deciduous                            # area z10- (also has icon z
 landuse-forest-mixed                                # area z10- (also has icon z12-, caption(optional) z12-)
 === 50
 
+landuse-quarry                                      # area z15- (also has caption z17-)
+=== 41
+
 landuse-construction                                # area z15-
 landuse-industrial                                  # area z15-
 landuse-industrial-mine                             # area z15-
 landuse-landfill                                    # area z15- (also has caption z17-)
-landuse-quarry                                      # area z15- (also has caption z17-)
 landuse-railway                                     # area z15- (also has caption z17-)
 landuse-religious                                   # area z15-
 power-plant                                         # area z15- (also has icon z16-, caption(optional) z17-)
@@ -100,13 +108,17 @@ power-station                                       # area z15- (also has icon z
 power-substation                                    # area z15- (also has icon z16-, caption(optional) z17-)
 === 40
 
-aeroway-aerodrome                                   # area z10- (also has icon z14-, caption(optional) z14-)
-aeroway-aerodrome-international                     # area z10- (also has icon z7-, caption(optional) z10-)
-leisure-beach_resort                                # area z10- (also has caption z15-)
 natural-beach                                       # area z10- (also has caption z15-)
 natural-beach-gravel                                # area z10- (also has caption z15-)
 natural-beach-sand                                  # area z10- (also has caption z15-)
+=== 32
+
 natural-desert                                      # area z1- (also has caption z14-)
+=== 31
+
+aeroway-aerodrome                                   # area z10- (also has icon z14-, caption(optional) z14-)
+aeroway-aerodrome-international                     # area z10- (also has icon z7-, caption(optional) z10-)
+leisure-beach_resort                                # area z10- (also has caption z15-)
 natural-glacier                                     # area z1-
 === 30
 
