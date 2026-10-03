@@ -609,12 +609,15 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
   m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
 }
 
+m2::RectD Route::GetMatchingRect(location::GpsInfo const & info) const
+{
+  return mercator::MetersToXY(info.m_longitude, info.m_latitude,
+                              std::max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
+}
+
 bool Route::MoveIterator(location::GpsInfo const & info)
 {
-  m2::RectD const rect = mercator::MetersToXY(
-      info.m_longitude, info.m_latitude, std::max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-
-  return m_poly.UpdateMatchingProjection(rect);
+  return m_poly.UpdateMatchingProjection(GetMatchingRect(info));
 }
 
 double Route::GetPolySegAngle(size_t ind) const
@@ -696,6 +699,12 @@ bool Route::IsSubroutePassed(size_t subrouteIdx, m2::PointD const & fixPoint, do
   if (endSegmentIdx == 0)
     return true;
 
+  // The followed position is already at or past the end of the subroute, so it is passed whatever
+  // the raw fix looks like. Only RejoinPastCheckpoints() can put it there: while following, the
+  // position is clamped to the current subroute (FollowedPolyline::GetBestMatchingProjection()).
+  if (m_poly.GetCurrentIter().m_ind >= endSegmentIdx)
+    return true;
+
   size_t const segmentIdx = endSegmentIdx - 1;
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
   double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
@@ -732,6 +741,53 @@ bool Route::IsSubroutePassed(size_t subrouteIdx, m2::PointD const & fixPoint, do
   // movement where the vehicle defines a minimum speed (car only). A fix without speed data
   // (negative, as location::GpsInfo::HasSpeed()) must not block passing forever.
   return fixSpeedMpS < 0.0 || fixSpeedMpS >= m_routingSettings.m_minSpeedForRouteRebuildMpS;
+}
+
+bool Route::RejoinPastCheckpoints(location::GpsInfo const & info)
+{
+  // Nothing to skip unless an intermediate checkpoint is still pending. This also keeps the scan
+  // below away from every route without intermediate points.
+  if (m_currentSubrouteIdx + 1 >= m_subrouteAttrs.size())
+    return false;
+
+  // The very rect MoveIterator() has just failed to match, so a poor fix widens the scan below and
+  // the matching alike: it can only push the accept farther away, never closer.
+  auto const rect = GetMatchingRect(info);
+
+  // The closest projection over the whole route and not only over what lies ahead: on geometry the
+  // route travels twice (a checkpoint on a dead end, an out-and-back leg) the earliest segment wins
+  // the tie, so a fix that is still approaching the checkpoint resolves to the part already behind
+  // us and is rejected below, and a self-crossing route passes as few checkpoints as possible.
+  auto const iter = m_poly.GetClosestMatchingProjectionInInterval(rect, 0, m_subrouteAttrs.back().GetEndSegmentIdx());
+  if (!iter.IsValid())
+    return false;
+
+  // The scan is bounded by the last subroute's end, so the loop always stops on a valid subroute.
+  size_t subrouteIdx = m_currentSubrouteIdx + 1;
+  while (subrouteIdx < m_subrouteAttrs.size() && iter.m_ind >= GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx())
+    ++subrouteIdx;
+  ASSERT_LESS(subrouteIdx, m_subrouteAttrs.size(), ());
+
+  // The projection matches the current subroute or something behind it: the user has not passed
+  // the pending checkpoint.
+  if (iter.m_ind < GetSubrouteAttrs(subrouteIdx).GetBeginSegmentIdx())
+    return false;
+
+  // Both subroutes project their shared checkpoint onto the same road point A, so this one starts
+  // with the connector the previous one ends with: a fix short of the checkpoint projects onto it
+  // exactly at the connector length. Accept only a full matching threshold past that point.
+  double const startConnectorMeters = GetSubrouteEndConnectorMeters(GetSubrouteAttrs(subrouteIdx - 1));
+  size_t const beginSegmentIdx = GetSubrouteAttrs(subrouteIdx).GetBeginSegmentIdx();
+  double const alongSubrouteMeters = m_poly.GetDistanceM(m_poly.GetIterToIndex(beginSegmentIdx), iter);
+  if (alongSubrouteMeters < startConnectorMeters + m_routingSettings.m_matchingThresholdM)
+    return false;
+
+  // The position is now on |subrouteIdx|, so let the matcher work on it right away. The caller is
+  // expected to run RoutingSession::PassCheckpoints(), which sets the very same index again, but
+  // until it does the position must not sit beyond the checkpoint the polyline matches up to.
+  m_poly.SetCurrentIter(iter);
+  m_poly.SetNextCheckpointIndex(GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx());
+  return true;
 }
 
 std::string Route::DebugPrintTurns() const
