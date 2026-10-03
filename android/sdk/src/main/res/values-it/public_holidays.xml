@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">Ognissanti</string>
+    <!-- Countries: LT, SM -->
+    <string name="all_souls_day">Commemorazione dei defunti</string>
+    <!-- Countries: SM -->
+    <string name="anniversary_of_the_1906_arengo_and_commemoration_of_the_militia">Anniversario dell’Arengo</string>
+    <!-- Countries: SM -->
+    <string name="anniversary_of_the_fall_of_fascism_and_day_of_freedom">Anniversario della Caduta del Fascismo e Festa della Libertà</string>
+    <!-- Countries: AT, BE, CH, DE, FR, LI, NL, SE -->
+    <string name="ascension_day">Ascensione</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Ferragosto</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Natale</string>
+    <!-- Countries: AT, HR, LI, MC, PL, PT, SM -->
+    <string name="corpus_christi">Corpus Domini</string>
+    <!-- Countries: BE, SM -->
+    <string name="easter">Pasqua</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Lunedì di Pasqua</string>
+    <!-- Countries: AD, AT, ES, HR, IT, LI, PL, RO, SE, SK, SM -->
+    <string name="epiphany">Epifania</string>
+    <!-- Countries: AD, AT, ES, IT, LI, MC, MT, PT, SM -->
+    <string name="feast_of_the_immaculate_conception">Immacolata Concezione</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Festa nazionale</string>
+    <!-- Countries: SM -->
+    <string name="investiture_of_the_captains_regent_heads_of_state">Investitura Capitani Reggenti</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Festa del lavoro</string>
+    <!-- Countries: AL, CZ, IT, NL -->
+    <string name="liberation_day">Anniversario della liberazione d\'Italia</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Capodanno</string>
+    <!-- Countries: IT, MT, PT -->
+    <string name="republic_day">Festa della Repubblica</string>
+    <!-- Countries: SM -->
+    <string name="saint_agathas_day">Sant\'Agata / Compatrona della Repubblica</string>
+    <!-- Countries: SM -->
+    <string name="saint_stephens_day">Santo Stefano</string>
+    <!-- Countries: SM -->
+    <string name="san_marino_national_holiday_foundation_of_the_republic_301_ad">San Marino / Patrono e Fondatore della Repubblica</string>
+    <!-- Countries: SM -->
+    <string name="solemnity_of_mary_the_holy_mother_of_god">Maria Santissima Madre di Dio</string>
+    <!-- Countries: AD, AT, ES-CT, ES-IB, IE, IT, LI -->
+    <string name="st_stephens_day">Santo Stefano</string>
+</resources>
