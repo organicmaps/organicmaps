@@ -44,6 +44,8 @@ struct Place
 struct Result
 {
   std::string m_url;   // omaps.app link (also used as the "copy link" value)
+  // maps.apple.com link for apps that only accept a standard maps link, e.g. Tesla's iOS share extension.
+  std::string m_appleMapsUrl;
   std::string m_text;  // plain body for messengers
   std::string m_html;  // rich body for email
   // Place name, else address, else empty. Platforms build the email subject from it (they own the
