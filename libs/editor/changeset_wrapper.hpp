@@ -55,6 +55,12 @@ public:
   /// Allows to see exception details in OSM changesets for easier debugging.
   void SetErrorDescription(std::string const & error);
 
+  /// Writes the changeset description and closes the changeset. Does not throw: a failed
+  /// description update still attempts the close. Idempotent, and a no-op when no changeset was
+  /// ever created. Call it explicitly before reporting the upload as finished; the destructor
+  /// only covers early returns.
+  void Finish();
+
 private:
   /// Unfortunately, pugi can't return xml_documents from methods.
   /// Throws exceptions from above list.
