@@ -1,5 +1,6 @@
 #include <jni.h>
 
+#include "app/organicmaps/sdk/Framework.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 
@@ -7,6 +8,14 @@
 #include "editor/ui2oh.hpp"
 
 #include "opening_hours/opening_hours.hpp"
+
+#include "storage/country_info_getter.hpp"
+
+#include "indexer/data_source.hpp"
+
+#include "geometry/mercator.hpp"
+
+#include "platform/local_country_file.hpp"
 
 #include "base/logging.hpp"
 
@@ -105,7 +114,7 @@ jobjectArray JavaTimetables(JNIEnv * env, editor::ui::TimeTableSet & tts)
 }
 
 jobject JavaOpeningHoursInfo(JNIEnv * env, osmoh::RuleState state, bool isTwentyFourSeven, time_t nextTimeOpen,
-                             time_t nextTimeClosed)
+                             time_t nextTimeClosed, int32_t utcOffsetNowSeconds, int32_t utcOffsetNextSeconds)
 {
   ASSERT(state != osmoh::RuleState::Unknown, ("Shouldn't instantiate java OpeningHours with unknown state"));
 
@@ -118,8 +127,9 @@ jobject JavaOpeningHoursInfo(JNIEnv * env, osmoh::RuleState state, bool isTwenty
   if (nextTimeClosed == std::numeric_limits<time_t>::max())
     jlongNextTimeClosed = javaTimeNeverConstant;
 
-  jobject const info = env->NewObject(g_clazzOpeningHoursInfo, g_ctorOpeningHoursInfo, static_cast<jint>(state),
-                                      isTwentyFourSeven, jlongNextTimeOpen, jlongNextTimeClosed);
+  jobject const info =
+      env->NewObject(g_clazzOpeningHoursInfo, g_ctorOpeningHoursInfo, static_cast<jint>(state), isTwentyFourSeven,
+                     jlongNextTimeOpen, jlongNextTimeClosed, utcOffsetNowSeconds, utcOffsetNextSeconds);
   ASSERT(info, (jni::DescribeException()));
   return info;
 }
@@ -224,8 +234,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_OpeningHours_nativeInit(JNIEnv * 
   ASSERT(g_fidWeekdays, (jni::DescribeException()));
 
   g_clazzOpeningHoursInfo = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/editor/data/OpeningHoursInfo");
-  // Java signature : OpeningHoursInfo(int state, boolean isTwentyFourHours, long nextTimeOpen, long nextTimeClosed)
-  g_ctorOpeningHoursInfo = env->GetMethodID(g_clazzOpeningHoursInfo, "<init>", "(IZJJ)V");
+  // Java signature : OpeningHoursInfo(int, boolean, long, long, int, int)
+  g_ctorOpeningHoursInfo = env->GetMethodID(g_clazzOpeningHoursInfo, "<init>", "(IZJJII)V");
   ASSERT(g_ctorOpeningHoursInfo, (jni::DescribeException()));
 }
 
@@ -337,25 +347,47 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OpeningHours_nativeIsTimetabl
   return source.empty() || osmoh::OpeningHours(source).IsValid();
 }
 
-JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetOpeningHoursInfoFromString(JNIEnv * env,
-                                                                                                   jclass clazz,
-                                                                                                   jstring jSource,
-                                                                                                   jlong jCurrentTime)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetPlacePageOpeningHoursInfo(JNIEnv * env,
+                                                                                                  jclass clazz,
+                                                                                                  jlong jCurrentTime)
 {
   using namespace osmoh;
 
-  std::string const source = jni::ToNativeString(env, jSource);
+  if (!frm()->HasPlacePageInfo())
+    return nullptr;
+
+  // The schedule and the time zone must describe the same POI, hence both are taken from the
+  // currently shown place page instead of accepting the schedule as an argument.
+  auto const & placePage = g_framework->GetPlacePageInfo();
+  auto const source = placePage.GetOpeningHours();
+  if (source.empty())
+    return nullptr;
+
   OpeningHours const oh(source);
+  if (!oh.IsValid())
+    return nullptr;
 
-  if (!source.empty() && oh.IsValid())
-  {
-    OpeningHours::InfoT info = oh.GetInfo(static_cast<time_t>(jCurrentTime));
-    if (info.state == RuleState::Unknown)
-      return nullptr;
-    return JavaOpeningHoursInfo(env, info.state, oh.IsTwentyFourHours(), info.nextTimeOpen, info.nextTimeClosed);
-  }
+  // Evaluate in the POI's local time zone, not the device's, see issue #1642.
+  OpeningHours::InfoT const info = oh.GetInfo(static_cast<time_t>(jCurrentTime), placePage.GetTimeZone());
+  if (info.state == RuleState::Unknown)
+    return nullptr;
+  time_t const next = info.state == RuleState::Open ? info.nextTimeClosed : info.nextTimeOpen;
+  int32_t const nowOffset = GetUtcOffset(static_cast<time_t>(jCurrentTime), placePage.GetTimeZone());
+  int32_t const nextOffset =
+      next == std::numeric_limits<time_t>::max() ? nowOffset : GetUtcOffset(next, placePage.GetTimeZone());
+  return JavaOpeningHoursInfo(env, info.state, oh.IsTwentyFourHours(), info.nextTimeOpen, info.nextTimeClosed,
+                              nowOffset, nextOffset);
+}
 
-  return nullptr;
+JNIEXPORT jint Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetUtcOffsetSeconds(JNIEnv *, jclass, jdouble lat,
+                                                                                      jdouble lon, jlong jCurrentTime)
+{
+  // A restored car route may display this POI without an active native place page.
+  auto const time = static_cast<time_t>(jCurrentTime);
+  auto & framework = *frm();
+  auto const region = framework.GetCountryInfoGetter().GetRegionCountryId(mercator::FromLatLon(lat, lon));
+  auto const mwmId = framework.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(region));
+  return osmoh::GetUtcOffset(time, mwmId.GetTimeZone());
 }
 
 }  // extern "C"

@@ -29,6 +29,7 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -721,6 +722,9 @@ enum class RuleState
   Unknown
 };
 
+/// Local wall time minus UTC, in seconds; uses the device zone when |timeZone| is absent.
+int32_t GetUtcOffset(time_t time, std::optional<om::tz::TimeZone> const & timeZone);
+
 inline std::string DebugPrint(RuleState state)
 {
   switch (state)
@@ -739,9 +743,12 @@ public:
   OpeningHours(std::string_view rule);
   OpeningHours(TRuleSequences const & rule);
 
-  bool IsOpen(time_t const dateTime) const;
-  bool IsClosed(time_t const dateTime) const;
-  bool IsUnknown(time_t const dateTime) const;
+  /// @param timeZone POI's time zone; the device's local one is used when not set.
+  /// @{
+  bool IsOpen(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  bool IsClosed(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  bool IsUnknown(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  /// @}
 
   struct InfoT
   {
