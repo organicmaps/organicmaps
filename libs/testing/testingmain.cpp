@@ -161,6 +161,8 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
     CHECK(Platform::MkDirRecursively(options.m_writablePath),
           ("Failed to create writable dir:", options.m_writablePath));
     pl.SetWritableDirForTests(options.m_writablePath);
+    // StringStorage fixes its file path on first use, so select it before tests run.
+    pl.SetSettingsDir(options.m_writablePath);
   }
 #endif
 }
