@@ -14,6 +14,9 @@
   <!-- Backgrounds -->
   <color name="bg_window">#FF32363A</color>
   <color name="bg_primary">#1E2226</color>
+
+  <!-- Keep dark: white on-card foregrounds (see values/colors.xml) must stay legible. -->
+  <color name="nav_card_bg">#1E2226</color>
   <color name="bg_cards">#FF3C4044</color>
   <color name="bg_panel">@color/bg_window</color>
   <color name="notes_fade_start">#003C4044</color>
