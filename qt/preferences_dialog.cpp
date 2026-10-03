@@ -192,11 +192,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       auto const mode = static_cast<NightMode>(i);
       SetNightModeSetting(mode);
 
-      auto const currStyle = framework.GetMapStyle();
       switch (mode)
       {
-      case NightMode::Off: framework.SetMapStyle(GetLightMapStyleVariant(currStyle)); break;
-      case NightMode::On: framework.SetMapStyle(GetDarkMapStyleVariant(currStyle)); break;
+      case NightMode::Off: framework.ApplyMapStyleForMode(false /* dark */); break;
+      case NightMode::On: framework.ApplyMapStyleForMode(true /* dark */); break;
       case NightMode::System: qt::common::ApplySystemNightMode(framework); break;
       }
     });

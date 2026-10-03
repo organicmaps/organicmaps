@@ -4,14 +4,6 @@ enum AppearanceSettingsSection: String {
 
 extension MWMTheme {
   static let settingsOptions: [MWMTheme] = [.auto, .night, .day]
-
-  var settingsTheme: MWMTheme {
-    switch self {
-    case .vehicleDay: return .day
-    case .vehicleNight: return .night
-    default: return self
-    }
-  }
 }
 
 struct AppearanceSettingsState {
