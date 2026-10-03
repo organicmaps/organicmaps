@@ -11,15 +11,12 @@
 
 namespace df
 {
-TileInfo::TileInfo(drape_ptr<EngineContext> && engineContext) : m_context(std::move(engineContext)), m_isCanceled(false)
-{}
+TileInfo::TileInfo(drape_ptr<EngineContext> && engineContext) : m_context(std::move(engineContext)) {}
 
 void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 {
   if (!DoNeedReadIndex())
     return;
-
-  ThrowIfCancelled();
 
   size_t const kAverageFeaturesCount = 256;
   m_featureInfo.reserve(kAverageFeaturesCount);
@@ -44,11 +41,15 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
 #endif
   m_context->BeginReadTile();
 
-  // Reading can be interrupted by exception throwing
-  SCOPE_GUARD(ReleaseReadTile, std::bind(&EngineContext::EndReadTile, m_context.get()));
+  // Pair every start with an end, including cancellation and exceptions.
+  SCOPE_GUARD(ReleaseReadTile, [this] { m_context->EndReadTile(); });
+
+  if (IsCancelled())
+    return;
 
   ReadFeatureIndex(model);
-  ThrowIfCancelled();
+  if (IsCancelled())
+    return;
 
   m_context->GetMetalineManager()->Update(m_mwms);
 
@@ -56,8 +57,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
   {
     std::sort(m_featureInfo.begin(), m_featureInfo.end());
 
-    RuleDrawer drawer(std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName, make_ref(m_context),
-                      m_context->GetMapLangIndex());
+    RuleDrawer drawer(model.m_isCountryLoadedByName, make_ref(m_context), m_context->GetMapLangIndex());
     model.ReadFeatures([&drawer](FeatureType & ft) { drawer(ft); }, m_featureInfo);
 #ifdef DRAW_TILE_NET
     drawer.DrawTileNet();
@@ -70,23 +70,12 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
 
 void TileInfo::Cancel()
 {
-  m_isCanceled = true;
-}
-
-/*
- * TODO: the following check throws an exception while IsCancelled() is used in most places to quit gracefully.
- * Looks like the latter was added later, so maybe the throwing version is not needed anymore.
- */
-void TileInfo::ThrowIfCancelled() const
-{
-  // The exception is handled in ReadMWMTask::Do().
-  if (m_isCanceled)
-    MYTHROW(ReadCanceledException, ());
+  m_context->Cancel();
 }
 
 bool TileInfo::IsCancelled() const
 {
-  return m_isCanceled;
+  return m_context->IsCancelled();
 }
 
 bool TileInfo::DoNeedReadIndex() const

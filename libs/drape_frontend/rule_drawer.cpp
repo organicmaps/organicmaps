@@ -154,16 +154,13 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 }
 }  // namespace
 
-RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> engineContext, int8_t deviceLang)
-  : m_checkCancelled(checkCancelled)
-  , m_isLoadedFn(isLoadedFn)
+RuleDrawer::RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> engineContext,
+                       int8_t deviceLang)
+  : m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_deviceLang(deviceLang)
 {
-  ASSERT(m_checkCancelled != nullptr, ());
-
   m_applyParams.Init(m_context->GetTileKey());
   m_zoomLevel = m_applyParams.m_tileKey.m_zoomLevel;
 
@@ -190,7 +187,7 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
 
 RuleDrawer::~RuleDrawer()
 {
-  if (m_wasCancelled)
+  if (CheckCancelled())
     return;
 
   auto & overlayShapes = m_mapShapes[df::OverlayType];
@@ -206,10 +203,9 @@ RuleDrawer::~RuleDrawer()
   m_context->FlushTrafficGeometry(std::move(m_trafficGeometry));
 }
 
-bool RuleDrawer::CheckCancelled()
+bool RuleDrawer::CheckCancelled() const
 {
-  m_wasCancelled = m_checkCancelled();
-  return m_wasCancelled;
+  return m_context->IsCancelled();
 }
 
 bool RuleDrawer::IsDiscardCustomFeature(FeatureID const & id) const
@@ -474,11 +470,7 @@ void RuleDrawer::operator()(FeatureType & f)
     shape->Prepare(m_context->GetTextureManager());
 
   if (!m_mapShapes[df::GeometryType].empty())
-  {
-    TMapShapes geomShapes;
-    geomShapes.swap(m_mapShapes[df::GeometryType]);
-    m_context->Flush(std::move(geomShapes));
-  }
+    m_context->Flush(std::move(m_mapShapes[df::GeometryType]));
 }
 
 #ifdef DRAW_TILE_NET
