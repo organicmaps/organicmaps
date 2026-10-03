@@ -29,7 +29,8 @@ class VulkanBaseContext : public dp::GraphicsContext
 public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
-                    drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates);
+                    drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
+                    bool supportsImageAcquireTimeout);
   ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
@@ -146,6 +147,8 @@ protected:
 
   void CreateSyncPrimitives();
   void DestroySyncPrimitives();
+  void CreateRenderSemaphores();
+  void DestroyRenderSemaphores();
 
   void DestroyRenderPassAndFramebuffers();
   void DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer);
@@ -167,6 +170,7 @@ protected:
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
   bool const m_hasPartialTextureUpdates;
+  bool const m_supportsImageAcquireTimeout;
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};
@@ -177,8 +181,9 @@ protected:
 
   // Swap chain image acquiring.
   std::array<VkSemaphore, kMaxInflightFrames> m_acquireSemaphores = {};
-  // Command buffers submission and execution.
-  std::array<VkSemaphore, kMaxInflightFrames> m_renderSemaphores = {};
+  // Command buffers submission and execution. Present-wait semaphores are associated with swapchain images, because
+  // the frame fence does not guarantee that presentation has finished waiting on a semaphore.
+  std::vector<VkSemaphore> m_renderSemaphores;
   // All rendering tasks completion.
   std::array<VkFence, kMaxInflightFrames> m_fences = {};
 
