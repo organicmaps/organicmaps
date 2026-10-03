@@ -65,7 +65,7 @@ endif ()
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(recommended_virt_mb 13000)
-  set(unity_build_virt_mb 10000)
+  set(unity_build_virt_mb 12000)
 else()
   set(recommended_virt_mb 15000)
   set(unity_build_virt_mb 13800)
