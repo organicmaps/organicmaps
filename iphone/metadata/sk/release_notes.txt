@@ -1,50 +1,33 @@
-## Mapa a miesta
+## Plánovanie trasy
+• Vylepšené alternatívne trasy a ich odhadované časy príchodu
+• Pridané tlačidlá na pridanie alebo nahradenie zastávky v naplánovanej trase
+• Pridalo sa nastavenie na optimalizáciu poradia medzizastávok na trase
+• Vybraná alternatívna trasa sa teraz zachová, keď navigácia prepočíta trasu
+• Poradie zastávok na trase sa teraz po reštartovaní aplikácie obnoví
 
-• Aktualizované údaje OpenStreetMap k 26. augustu 2026
-• Aktualizované články na Wikipédii v arabčine, bengálčine, čínštine, angličtine, francúzštine, nemčine, hindčine, taliančine, japončine, kórejčine, maráthčine, poľštine, portugalčine, ruštine, španielčine, tamilčine, telugčine, turečtine a urdčine
-• Na mapu boli pridané pozorovateľne vtákov, javiská, kopce a skalné oblúky, ako aj nová ikona pre skaly
-• Upravila sa veľkosť ikon vrcholov, jaskýň a horských priesmykov
-• Chránené územia, národné parky a mokrade sú teraz zobrazené vo svetlejších odtieňoch
-• Bolo opravených mnoho chýb, ktoré spôsobovali nesprávne zobrazenie otváracích hodín
-• Nastavenia boli usporiadané do sekcií „Všeobecné“, „Mapa“, „Navigácia“, „Sieť“ a „Súkromie“
-• Bolo odstránené nastavenie kalibrácie kompasu, pretože kalibrácia sa teraz vykonáva automaticky
-• Boli opravené problémy s kompasom, ktoré mohli spôsobiť, že šípka aktuálnej polohy ukazovala nesprávnym smerom alebo sa zasekla
-• Príslušný bod sa teraz zobrazuje na mape, keď ťaháte prstom po výškovom profile v náhľade pešej alebo cyklistickej trasy
-• Opravilo sa zamrznutie aplikácie a problém, ktorý občas spôsoboval, že sa ťuknutia a gestá ignorovali
+## Mapa
+• Údaje OpenStreetMap k 28. septembru
+• Údaje z Wikipédie k 21. septembru
+• Vodné nádrže sú teraz viditeľné pri väčšom oddialení mapy
+• Vodné tunely sa už na mape nezobrazujú
+• Opravené ikony staníc a vchodov do metra v Suzhou
+• Opravené zriedkavé prípady, keď sa popisy na vrstve mapy metra posunuli mimo svojej polohy
 
-## Zdieľanie, záložky a trasy
+## CarPlay
+• Pridané pokyny k manévrom na podporovaných head-up displejoch (HUD) v autách a na ovládacom paneli CarPlay
+• Opravené tlačidlá CarPlay a vyhľadávanie
 
-• NOVINKA: do zoznamov záložiek a trás bol pridaný hromadný výber s hromadnými akciami na vymazanie, presun a zmenu farby vybraných položiek, ako aj možnosti „Vybrať všetko“ a „Zrušiť výber“
-• Pridaná podpora AirDrop na zdieľanie miest
-• Pri zdieľaní miesta, záložky alebo aktuálnej polohy sa teraz odošle čitateľný odkaz s užitočnými informáciami
-• Exportované záložky si teraz zachovávajú pôvodné názvy a popisy
-• Zdieľané zoznamy záložiek teraz používajú zobrazený názov namiesto interného názvu súboru
-• Bol opravený problém so zobrazením grafu nadmorskej výšky, ktorý sa mohol vyskytnúť ihneď po spustení zaznamenávania trasy
-• Bol obnovený výber vlastnej farby v rozbaľovacom okne farebnej palety
-• Opravilo sa zobrazenie popisov v HTML pri výbere záložky na mape
+## Záznamy trás
+• Pridaná ikona oka na skrytie jednotlivých záznamov trás
+• Opravené chyby a vylepšené zaznamenávanie trás
+• Opravený import súborov KMB
 
-## Plánovanie trás a navigácia
+## Vyhľadávanie
+• Opravené vyhľadávanie v prípadoch, keď viditeľná oblasť mapy prekročí 180° poludník (±180° zemepisnej dĺžky)
+• Obnovené vyhľadávanie podľa kategórií v Spotlight
 
-• NOVINKA: pridaný ovládací panel pre CarPlay a opravené viaceré problémy s CarPlay
-• Opravila sa aktivácia štýlu mapy pre automobilovú navigáciu
-• Ťuknutím na zastávku alebo značku trasy sa táto položka teraz správne otvorí namiesto prepínania medzi naplánovanými trasami
-• Trasy verejnej dopravy sa teraz plánujú rýchlejšie
-• Opravené nesprávne pokyny na odbočenie
-• Opravil sa nesprávny počiatočný bod po prepočítaní trasy
-• Cesty z lateritu sa teraz pri plánovaní trasy považujú za cesty s nekvalitným nespevneným povrchom
-• Cesty označené tagom access=unknown sa teraz spracúvajú ako cesty so súkromným prístupom alebo s prístupom len k cieľu
-
-## Editor OpenStreetMap
-
-• Opravený pád aplikácie po dokončení odosielania údajov do OpenStreetMap na pozadí
-• Vymazanie poľa s otváracími hodinami už nespôsobuje deaktiváciu tlačidiel „Uložiť“ alebo „Hotovo“
-• Čiastočne neúspešné odoslania sa teraz opakujú namiesto toho, aby sa nahlásili ako úplne úspešné
-
-## Preklady
-
-• Pridané hlasové povely v arménčine a laoštine
-• Aktualizovaná Nápoveda/Často kladené otázky (FAQ), pridaný japonský preklad
-• Opravil sa japonský preklad výrazu „Teraz zatvorené“
-• Boli vylepšené čínske preklady slov „trasa“ a „vypnúť“
-
-Podrobné poznámky k vydaniu nájdete na stránke https://omaps.org/news/
+## Používateľské rozhranie
+• Otváracie hodiny teraz zobrazujú „Poludnie“ pre 12:00 a „Polnoc“ pre 00:00 alebo 24:00
+• Opravené rôzne chyby a vylepšené používateľské rozhranie
+• Opravené preklady do angličtiny, francúzštiny a astúrskeho jazyka
+• Pridaná možnosť vybrať nainštalovaný navigačný hlas a vypočuť si jeho ukážku

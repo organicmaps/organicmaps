@@ -1,11 +1,9 @@
-• OSM-i andmed seisuga 26. august
-• UUS: järjehoidjate ja radade mitmikvalik
-• UUS: üksikute radade peitmine silmaikooniga
-• UUS: Vikipeedia artiklid bengali, hindi, marathi, poola, tamili, telugu ja urdu keeles
-• Parandatud kokkujooksmised ja hangumised
-• Kaardile lisatud linnuvaatluspunktid, lavad, künkad ja kivikaared
-• Parem kohtade jagamine
-• Android Auto parandused
-• Parandatud marsruudi peatuste valik
-• Parandatud lahtiolekuajad
-…rohkem infot aadressil omaps.org/et/news
+• OSM: 28. september; Wikipedia: 21. september
+• Paremad alternatiivmarsruudid ja saabumise prognoosid
+• Uus seade optimeerib vahepeatuste järjekorda
+• Uued nupud lisavad või asendavad peatusi planeeritud marsruutidel
+• Navigeerimise ajal säilitatakse valitud alternatiivne marsruut
+• Radade salvestamine parandatud ja täiustatud
+• KMB-failide importimine on parandatud
+• Kasutajaliidese parandused ja täiustused
+…lisateave aadressil omaps.org/et/news

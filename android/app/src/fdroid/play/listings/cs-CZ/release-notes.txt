@@ -1,13 +1,9 @@
-• Data OSM k 26. srpnu
-• NOVINKA: hromadný výběr záložek a stop
-• NOVINKA: skrytí jednotlivých stop ikonou oka
-• NOVINKA: články Wikipedie v bengálštině, hindštině, maráthštině, polštině, tamilštině, telugštině a urdštině
-• Opraveny pády a zamrzání
-• Na mapu přidány pozorovatelny ptáků, pódia, kopce a skalní oblouky
-• Lepší sdílení míst
-• Opravy pro Android Auto
-• Opraven výběr zastávek trasy
-• Opravena otevírací doba
-• Opraveny chyby editoru OSM
-• Opraven výškový graf
-…více na omaps.org/cs/news
+• Údaje OSM k 28. září, Wikipedie k 21. září
+• Vylepšené alternativní trasy a jejich odhadované časy příjezdu
+• Bylo přidáno nastavení pro optimalizaci pořadí mezilehlých zastávek na trase
+• Přidána tlačítka pro přidání nebo nahrazení zastávky v naplánované trase
+• Vybraná alternativní trasa se nyní během navigace zachovává
+• Opraveno a vylepšeno zaznamenávání tras
+• Opraven import souborů KMB
+• Vylepšení a opravy uživatelského rozhraní
+…více podrobností na omaps.org/cs/news

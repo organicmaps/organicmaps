@@ -1,11 +1,9 @@
-• Podatki OSM z dne 26. avgusta
-• NOVO: večkratna izbira zaznamkov in sledi
-• NOVO: skrivanje posameznih sledi z ikono očesa
-• NOVO: članki Wikipedije v bengalščini, hindijščini, maratščini, poljščini, tamilščini, telugščini in urdujščini
-• Popravljena sesutja in zamrznitve
-• Na zemljevid dodane opazovalnice ptic, odri, hribi in skalni loki
-• Boljše deljenje krajev
-• Popravki za Android Auto
-• Popravljena izbira postankov na poti
-• Popravljen odpiralni čas
-…več na omaps.org/news
+• Podatki OSM: 28. september; podatki Wikipedije: 21. september
+• Izboljšane alternativne poti in ocene časa prihoda
+• Nova nastavitev optimizira vrstni red vmesnih postankov
+• Novi gumbi dodajajo ali zamenjujejo postanke na načrtovani poti
+• Izbrana alternativna pot ostane izbrana med navigacijo
+• Popravljeno in izboljšano snemanje sledi
+• Popravljen uvoz datotek KMB
+• Izboljšave in popravki uporabniškega vmesnika
+…več podrobnosti na omaps.org/news
