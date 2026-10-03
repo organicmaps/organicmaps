@@ -62,6 +62,29 @@ private:
   std::vector<std::pair<LevenshteinDFA, uint64_t>> const & m_tokensToDf;
   std::vector<std::pair<PrefixDFA, uint64_t>> const & m_prefixToDf;
 };
+
+// Returns |token| as the query spells it: the query token whose synonym is |token|, or |token|.
+// QueryVec::Similarity compares tokens for equality, so a name token that the query spells as a
+// synonym ("Sankt Wendel" for "st wendel") must take the query spelling to count as matched.
+UniString GetQuerySpelling(QueryParams const & params, UniString const & token)
+{
+  size_t const numTokens = params.GetNumTokens();
+
+  // A name token spelled literally by the query keeps its spelling, otherwise it would be re-spelled
+  // as another query token's synonym ("saint" -> "st" for the "saint petersburg st" street query).
+  for (size_t i = 0; i < numTokens; ++i)
+    if (params.GetToken(i).GetOriginal() == token)
+      return token;
+
+  for (size_t i = 0; i < numTokens; ++i)
+  {
+    auto const & queryToken = params.GetToken(i);
+    if (queryToken.AnyOfSynonyms([&token](UniString const & s) { return s == token; }))
+      return queryToken.GetOriginal();
+  }
+
+  return token;
+}
 }  // namespace
 
 // Used as a default (minimun) number of candidates for futher processing (read FeatureType).
@@ -338,7 +361,7 @@ void LocalityScorer::GetDocVecs(uint32_t localityId, std::vector<DocVec> & dvs) 
     ForEachNormalizedToken(name, [&](strings::UniString const & token)
     {
       if (!IsStopWord(token))
-        builder.Add(token);
+        builder.Add(GetQuerySpelling(m_params, token));
     });
     dvs.emplace_back(std::move(builder));
   }
