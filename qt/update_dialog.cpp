@@ -51,6 +51,18 @@ namespace
 size_t const kInvalidPos = numeric_limits<int32_t>::max();
 size_t const kIrrelevantPos = numeric_limits<int32_t>::max() - 1;
 
+QString FormatTerrainSize(Storage::TerrainAttrs const & terrain)
+{
+  if (terrain.m_totalSize == 0)
+    return {};
+
+  int constexpr Mb = 1024 * 1024;
+  int constexpr halfMb = Mb / 2;
+  return QString("%1/%2 MB")
+      .arg(uint((terrain.m_downloadedSize + halfMb) / Mb))
+      .arg(uint((terrain.m_totalSize + halfMb) / Mb));
+}
+
 bool DeleteNotUploadedEditsConfirmation()
 {
   QMessageBox msb;
@@ -520,18 +532,7 @@ void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId co
   case Storage::TerrainStatus::OnDiskOutOfDate: twmStatus = tr("Out of date"); break;
   }
   item->setText(KColumnIndexTwmStatus, twmStatus);
-  if (terrain.m_totalSize > 0)
-  {
-    int constexpr Mb = 1024 * 1024;
-    int constexpr halfMb = Mb / 2;
-    item->setText(KColumnIndexTwmSize, QString("%1/%2 MB")
-                                           .arg(uint((terrain.m_downloadedSize + halfMb) / Mb))
-                                           .arg(uint((terrain.m_totalSize + halfMb) / Mb)));
-  }
-  else
-  {
-    item->setText(KColumnIndexTwmSize, QString());
-  }
+  item->setText(KColumnIndexTwmSize, FormatTerrainSize(terrain));
 
   // Commented out because it looks terrible on black backgrounds.
   //  if (!statusString.isEmpty())
@@ -585,18 +586,26 @@ void UpdateDialog::OnCountryChanged(CountryId const & countryId)
 {
   UpdateRowWithCountryInfo(countryId);
 
-  // Now core does not support callbacks about parent country change, therefore emulate it.
-  auto const items = GetTreeItemsByCountryId(countryId);
-  for (auto const item : items)
-    for (auto p = item->parent(); p != nullptr; p = p->parent())
-      UpdateRowWithCountryInfo(GetCountryIdByTreeItem(p));
+  // Core status notifications include ancestors except the root.
+  auto const & rootId = GetStorage().GetRootId();
+  if (countryId != rootId)
+    UpdateRowWithCountryInfo(rootId);
 }
 
 void UpdateDialog::OnCountryDownloadProgress(CountryId const & countryId, downloader::Progress const & progress)
 {
   auto const items = GetTreeItemsByCountryId(countryId);
+  if (items.empty())
+    return;
+
+  auto const percent = progress.m_bytesTotal == 0 ? 0 : progress.m_bytesDownloaded * 100 / progress.m_bytesTotal;
+  auto const progressText = QString("%1%").arg(percent);
+  auto const terrainSize = FormatTerrainSize(GetStorage().GetTerrainAttrs(countryId));
   for (auto const item : items)
-    item->setText(KColumnIndexSize, QString("%1%").arg(progress.m_bytesDownloaded * 100 / progress.m_bytesTotal));
+  {
+    item->setText(KColumnIndexSize, progressText);
+    item->setText(KColumnIndexTwmSize, terrainSize);
+  }
 }
 
 void UpdateDialog::ShowModal()

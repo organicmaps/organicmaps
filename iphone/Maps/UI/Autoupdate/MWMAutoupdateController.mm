@@ -112,9 +112,8 @@ using namespace storage;
   self.spinner = nil;
 }
 
-- (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
+- (void)setProgress:(downloader::Progress const &)progress
 {
-  auto const progress = nodeAttrs.m_downloadingProgress;
   if (progress.m_bytesTotal > 0)
   {
     CGFloat const prog =
@@ -134,7 +133,11 @@ using namespace storage;
   {
     self.progressLabel.text = @"";
   }
+}
 
+- (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
+{
+  [self setProgress:nodeAttrs.m_downloadingProgress];
   BOOL const isApplying = nodeAttrs.m_status == storage::NodeStatus::Applying;
   NSString * format = L(isApplying ? @"downloader_applying" : @"downloader_process");
   self.legendLabel.text = [NSString stringWithFormat:format, nodeName];
@@ -296,7 +299,7 @@ using namespace storage;
 
   if (self.progressFinished && m_updatingCountries.empty())
     [self dismiss];
-  else
+  else if (!nodeStatuses.m_groupNode)
     [self updateProcessStatus:countryId.UTF8String];
 }
 
@@ -309,8 +312,14 @@ using namespace storage;
 
 - (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
 {
-  if (m_updatingCountries.find(countryId.UTF8String) != m_updatingCountries.end())
-    [self updateProcessStatus:countryId.UTF8String];
+  if ([countryId isEqualToString:RootId()])
+  {
+    auto view = static_cast<MWMAutoupdateView *>(self.view);
+    downloader::Progress const progress{static_cast<int64_t>(downloadedBytes), static_cast<int64_t>(totalBytes)};
+    [view setProgress:progress];
+    if (downloadedBytes == totalBytes)
+      self.progressFinished = YES;
+  }
 }
 
 @end

@@ -69,7 +69,7 @@ public class OnmapDownloader
     {
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
       {
-        mCurrentCountry.update();
+        mCurrentCountry.updateProgress(localSize, remoteSize);
         updateProgressState(false);
       }
     }
@@ -108,8 +108,7 @@ public class OnmapDownloader
 
   private void updateStateInternal(boolean shouldAutoDownload)
   {
-    boolean showFrame =
-        (mCurrentCountry != null && !mCurrentCountry.present && !RoutingController.get().isNavigating());
+    boolean showFrame = mCurrentCountry != null && !mCurrentCountry.present && !RoutingController.get().isNavigating();
     if (showFrame)
     {
       boolean enqueued = (mCurrentCountry.status == CountryItem.STATUS_ENQUEUED);

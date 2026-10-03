@@ -33,7 +33,7 @@ public final class MapManager
     @Keep
     void onStatusChanged(List<StorageCallbackData> data);
 
-    // Called from JNI.
+    // Called from JNI with combined map and terrain bytes for the country or group.
     @Keep
     void onProgress(String countryId, long localSize, long remoteSize);
   }
@@ -104,6 +104,9 @@ public final class MapManager
    * false} otherwise.
    */
   public static native boolean nativeHasSpaceToDownloadCountry(String root);
+
+  /** Returns the remaining download size, counting shared terrain blocks once. */
+  public static native long nativeGetDownloadSize(@NonNull String[] countries);
 
   /**
    * Returns {@code true} if there is enough storage space to update maps with specified {@code root}. Or {@code false}
@@ -233,7 +236,15 @@ public final class MapManager
    * Calculates joint progress of downloading countries specified by {@code countries} array.
    * @return 0 to 100 percent.
    */
-  public static native int nativeGetOverallProgress(String[] countries);
+  public static int nativeGetOverallProgress(String[] countries)
+  {
+    long[] progress = nativeGetOverallProgressBytes(countries);
+    return progress[1] == 0 ? 0 : (int) (100.0 * progress[0] / progress[1]);
+  }
+
+  /** Returns downloaded and total bytes, counting shared terrain only once. */
+  @NonNull
+  public static native long[] nativeGetOverallProgressBytes(String[] countries);
 
   /**
    * Returns {@code true} if the core will NOT do attempts to download failed maps anymore.

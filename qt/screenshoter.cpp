@@ -269,12 +269,10 @@ void Screenshoter::PrepareCountries()
                                                                                    false /* rough */);
     for (auto const & countryId : countryIds)
     {
-      if (storage.CountryStatusEx(countryId) == storage::Status::NotDownloaded)
-      {
-        ChangeState(State::WaitCountries);
+      storage::NodeStatuses status;
+      storage.GetNodeStatuses(countryId, status);
+      if (status.m_status != storage::NodeStatus::OnDisk)
         m_countriesToDownload.insert(countryId);
-        storage.DownloadCountry(countryId, MapFileType::Map);
-      }
     }
   }
 
@@ -283,15 +281,23 @@ void Screenshoter::PrepareCountries()
     ChangeState(State::WaitGraphics);
     WaitGraphics();
   }
+  else
+  {
+    ChangeState(State::WaitCountries);
+    auto const countries = m_countriesToDownload;
+    for (auto const & countryId : countries)
+      storage.DownloadNode(countryId);
+  }
 }
 
 void Screenshoter::OnCountryChanged(storage::CountryId countryId)
 {
-  if (m_state != State::WaitCountries)
+  if (m_state != State::WaitCountries || m_countriesToDownload.count(countryId) == 0)
     return;
 
-  auto const status = m_framework.GetStorage().CountryStatusEx(countryId);
-  if (status == storage::Status::OnDisk)
+  storage::NodeStatuses status;
+  m_framework.GetStorage().GetNodeStatuses(countryId, status);
+  if (status.m_status == storage::NodeStatus::OnDisk)
   {
     m_countriesToDownload.erase(countryId);
     if (m_countriesToDownload.empty())

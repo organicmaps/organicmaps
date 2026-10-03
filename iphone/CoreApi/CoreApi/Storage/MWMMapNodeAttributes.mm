@@ -88,6 +88,7 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
       _totalUpdateSizeBytes = 0;
 
     auto const total = attributes.m_downloadingProgress.m_bytesTotal;
+    _downloadingProgressTotalBytes = total;
     if (total > 0)
       _downloadingProgress = static_cast<float>(attributes.m_downloadingProgress.m_bytesDownloaded) / total;
 

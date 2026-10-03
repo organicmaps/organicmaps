@@ -88,9 +88,10 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
         if (mDownloadingCountry == null)
           mDownloadingCountry = CountryItem.fill(countryId);
-        else
-          mDownloadingCountry.update();
+        else if (!mDownloadingCountry.id.equals(countryId))
+          return;
 
+        mDownloadingCountry.updateProgress(localSize, remoteSize);
         updateProgress();
       }
     });

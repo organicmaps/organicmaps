@@ -111,20 +111,21 @@ CGFloat const kAnimationDuration = .05;
 - (void)updateCountriesList
 {
   auto const & s = GetFramework().GetStorage();
-  m_countries.erase(remove_if(m_countries.begin(), m_countries.end(),
-                              [&s](storage::CountryId const & countryId) { return s.HasLatestVersion(countryId); }),
-                    m_countries.end());
+  m_countries.erase(remove_if(m_countries.begin(), m_countries.end(), [&s](storage::CountryId const & countryId)
+  {
+    storage::NodeStatuses statuses;
+    s.GetNodeStatuses(countryId, statuses);
+    return statuses.m_status == storage::NodeStatus::OnDisk;
+  }), m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
-  MwmSize totalSize = 0;
   for (auto const & countryId : m_countries)
   {
     storage::NodeAttrs attrs;
     s.GetNodeAttrs(countryId, attrs);
     [titles addObject:@(attrs.m_nodeLocalName.c_str())];
-    totalSize += attrs.m_mwmSize;
   }
   self.countriesNames = titles;
-  self.countriesSize = formattedSize(totalSize);
+  self.countriesSize = formattedSize(s.GetDownloadSize(m_countries));
 }
 
 #pragma mark - MWMCircularProgressProtocol
@@ -152,9 +153,13 @@ CGFloat const kAnimationDuration = .05;
         [self close:nil];
       return;
     }
-    auto const overallProgress = s.GetOverallProgress(m_countries);
-    // Test if downloading has finished by comparing downloaded and total sizes.
-    if (overallProgress.m_bytesDownloaded == overallProgress.m_bytesTotal)
+    bool const completed = std::all_of(m_countries.begin(), m_countries.end(), [&s](storage::CountryId const & id)
+    {
+      storage::NodeStatuses statuses;
+      s.GetNodeStatuses(id, statuses);
+      return statuses.m_status == storage::NodeStatus::OnDisk;
+    });
+    if (completed)
       [self close:self.downloadCompleteBlock];
   }
   else
@@ -173,6 +178,8 @@ CGFloat const kAnimationDuration = .05;
       find(m_countries.begin(), m_countries.end(), countryId.UTF8String) == m_countries.end())
     return;
   auto const overallProgress = GetFramework().GetStorage().GetOverallProgress(m_countries);
+  if (overallProgress.m_bytesTotal == 0)
+    return;
   CGFloat const progressValue = static_cast<CGFloat>(overallProgress.m_bytesDownloaded) / overallProgress.m_bytesTotal;
   self.progress.progress = progressValue;
   self.titleLabel.text = [NSString stringWithFormat:@"%@%@%%", L(@"downloading"), @(floor(progressValue * 100))];

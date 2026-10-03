@@ -211,22 +211,24 @@ class DownloadMapsViewController: MWMViewController {
   }
 
   fileprivate func configButtons() {
-    downloadAllView.state = .none
-    downloadAllView.isSizeHidden = false
+    var state: DownloadAllView.State = .none
+    var isSizeHidden = false
     let parentAttributes = dataSource.parentAttributes()
     let error = parentAttributes.nodeStatus == .error || parentAttributes.nodeStatus == .undefined
-    let downloading = parentAttributes.nodeStatus == .downloading || parentAttributes.nodeStatus == .inQueue || parentAttributes.nodeStatus == .applying
+    // The root can remain Partly while terrain for downloaded regions is still queued.
+    let rootDownloading = dataSource.isRoot && dataSource is DownloadedMapsDataSource && Storage.shared().downloadInProgress()
+    let downloading = rootDownloading || parentAttributes.nodeStatus == .downloading || parentAttributes.nodeStatus == .inQueue || parentAttributes.nodeStatus == .applying
     switch mode {
     case .available:
       if dataSource.isRoot {
         break
       }
       if error {
-        downloadAllView.state = .error
+        state = .error
       } else if downloading {
-        downloadAllView.state = .dowloading
+        state = .dowloading
       } else if parentAttributes.downloadedMwmCount < parentAttributes.totalMwmCount {
-        downloadAllView.state = .ready
+        state = .ready
         downloadAllView.style = .download
         downloadAllView.downloadSize = parentAttributes.totalSize - parentAttributes.downloadedSize
       }
@@ -234,22 +236,28 @@ class DownloadMapsViewController: MWMViewController {
       let isUpdate = parentAttributes.totalUpdateSizeBytes > 0
       let size = isUpdate ? parentAttributes.totalUpdateSizeBytes : parentAttributes.downloadingSize
       if error {
-        downloadAllView.state = dataSource.isRoot ? .none : .error
+        state = dataSource.isRoot ? .none : .error
         downloadAllView.downloadSize = parentAttributes.downloadingSize
       } else if downloading, dataSource is DownloadedMapsDataSource {
-        downloadAllView.state = .dowloading
+        state = .dowloading
         if dataSource.isRoot {
           downloadAllView.style = .download
-          downloadAllView.isSizeHidden = true
+          isSizeHidden = true
         }
       } else if isUpdate {
-        downloadAllView.state = .ready
+        state = .ready
         downloadAllView.style = .update
         downloadAllView.downloadSize = size
       }
     @unknown default:
       fatalError()
     }
+    if state == .dowloading {
+      downloadAllView.downloadProgress = CGFloat(parentAttributes.downloadingProgress)
+      downloadAllView.downloadSize = parentAttributes.downloadingProgressTotalBytes
+    }
+    downloadAllView.isSizeHidden = isSizeHidden
+    downloadAllView.state = state
   }
 
   @objc func onAddMaps() {
@@ -424,11 +432,8 @@ extension DownloadMapsViewController: StorageObserver {
   }
 
   func processCountry(_ countryId: String, downloadedBytes: UInt64, totalBytes: UInt64) {
-    // The observer reports the MAP bytes only, but the rows show the FUSED map+terrain
-    // ratio (see MapNodeAttributes): the raw bytes would race the bar to 100% and drop
-    // it back at the map-to-terrain handover. Re-read the fused attrs instead.
-    let fused = Storage.shared().attributes(forCountry: countryId).downloadingProgress
-    let progress = fused > 0 ? CGFloat(fused) : CGFloat(downloadedBytes) / CGFloat(totalBytes)
+    guard totalBytes > 0 else { return }
+    let progress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
     for cell in tableView.visibleCells {
       guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell,
             downloaderCell.nodeAttrs.countryId == countryId else { continue }
@@ -438,9 +443,6 @@ extension DownloadMapsViewController: StorageObserver {
     if countryId == dataSource.getParentCountryId() {
       downloadAllView.downloadProgress = progress
       downloadAllView.downloadSize = totalBytes
-    } else if dataSource.isRoot, dataSource is DownloadedMapsDataSource {
-      downloadAllView.state = .dowloading
-      downloadAllView.isSizeHidden = true
     }
   }
 }

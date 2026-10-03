@@ -17,6 +17,7 @@ import app.organicmaps.R;
 import app.organicmaps.adapter.DisabledChildSimpleExpandableListAdapter;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.Utils;
@@ -99,7 +100,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     ((TextView) countryView.findViewById(R.id.tv__title)).setText(map.name);
 
     final TextView szView = countryView.findViewById(R.id.tv__size);
-    szView.setText(StringUtils.getFileSizeString(requireContext(), map.totalSize));
+    szView.setText(StringUtils.getFileSizeString(requireContext(), MapManager.nativeGetDownloadSize(mMapsArray)));
     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) szView.getLayoutParams();
     MarginLayoutParamsCompat.setMarginEnd(lp, 0);
     szView.setLayoutParams(lp);
@@ -139,20 +140,17 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
   private ExpandableListAdapter buildAdapter()
   {
     List<Map<String, String>> countries = new ArrayList<>();
-    long size = 0;
 
     for (CountryItem item : mMissingMaps)
     {
       Map<String, String> data = new HashMap<>();
       data.put(COUNTRY_NAME, item.name);
       countries.add(data);
-
-      size += item.totalSize;
     }
 
     Map<String, String> group = new HashMap<>();
     group.put(GROUP_NAME, getString(R.string.downloader_status_maps) + " (" + mMissingMaps.size() + ") ");
-    group.put(GROUP_SIZE, StringUtils.getFileSizeString(requireContext(), size));
+    group.put(GROUP_SIZE, StringUtils.getFileSizeString(requireContext(), MapManager.nativeGetDownloadSize(mMapsArray)));
 
     List<Map<String, String>> groups = new ArrayList<>();
     groups.add(group);

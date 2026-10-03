@@ -175,28 +175,19 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   }
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback() {
-    private void updateItem(String countryId)
+    private void rebindItem(String countryId)
     {
-      List<CountryItem> lst = mCountryIndex.get(countryId);
-      if (lst == null)
+      LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
+      int first = lm.findFirstVisibleItemPosition();
+      int last = lm.findLastVisibleItemPosition();
+      if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION)
         return;
 
-      for (CountryItem ci : lst)
+      for (int i = first; i <= last; i++)
       {
-        ci.update();
-
-        LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
-        int first = lm.findFirstVisibleItemPosition();
-        int last = lm.findLastVisibleItemPosition();
-        if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION)
-          return;
-
-        for (int i = first; i <= last; i++)
-        {
-          ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
-          if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
-            vh.mHolder.rebind();
-        }
+        ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
+        if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
+          vh.mHolder.rebind();
       }
     }
 
@@ -214,14 +205,24 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       for (MapManager.StorageCallbackData item : data)
       {
-        updateItem(item.countryId);
+        List<CountryItem> countries = mCountryIndex.get(item.countryId);
+        if (countries == null)
+          continue;
+        for (CountryItem country : countries)
+          country.update();
+        rebindItem(item.countryId);
       }
     }
 
     @Override
     public void onProgress(String countryId, long localSize, long remoteSize)
     {
-      updateItem(countryId);
+      List<CountryItem> countries = mCountryIndex.get(countryId);
+      if (countries == null)
+        return;
+      for (CountryItem country : countries)
+        country.updateProgress(localSize, remoteSize);
+      rebindItem(countryId);
     }
   };
 

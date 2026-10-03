@@ -43,6 +43,8 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) NSArray<MWMCountryIdAndName *> * parentInfo;
 @property(nonatomic, readonly, nullable) NSArray<MWMCountryIdAndName *> * topmostParentInfo;
 @property(nonatomic, readonly) float downloadingProgress;
+/// Total bytes represented by downloadingProgress, including both maps and terrain.
+@property(nonatomic, readonly) uint64_t downloadingProgressTotalBytes;
 
 @end
 

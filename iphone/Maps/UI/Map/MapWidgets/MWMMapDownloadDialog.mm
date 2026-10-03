@@ -200,6 +200,7 @@ using namespace storage;
 
 - (void)showDownloading:(CGFloat)progress
 {
+  progress *= AppConstants.maxProgress;
   self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = [NSString stringWithFormat:@"%@ %.2f%%", L(@"downloader_downloading"), progress * 100.f];
   self.downloadButton.hidden = YES;
@@ -241,7 +242,7 @@ using namespace storage;
 
 - (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
 {
-  if (self.superview && m_countryId == countryId.UTF8String)
+  if (self.superview && m_countryId == countryId.UTF8String && totalBytes != 0)
     [self showDownloading:(CGFloat)downloadedBytes / totalBytes];
 }
 

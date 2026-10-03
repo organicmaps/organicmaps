@@ -129,7 +129,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
     placePageData.onMapNodeStatusUpdate = { [weak self] in
       guard let self = self else { return }
-      self.actionBarViewController.updateDownloadButtonState(self.placePageData.mapNodeAttributes!.nodeStatus)
+      self.actionBarViewController.updateDownloadButton()
       if let buttonsData = self.placePageData.osmContributionData {
         self.buttonsViewController.buttonsData = buttonsData
       }
@@ -141,8 +141,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       }
     }
     placePageData.onMapNodeProgressUpdate = { [weak self] downloadedBytes, totalBytes in
-      guard let self = self, let downloadButton = self.actionBarViewController.downloadButton else { return }
-      downloadButton.mapDownloadProgress?.progress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
+      guard let self = self, totalBytes > 0 else { return }
+      self.actionBarViewController.downloadButton?.mapDownloadProgress?.progress =
+        CGFloat(AppConstants.maxProgress) * CGFloat(downloadedBytes) / CGFloat(totalBytes)
     }
 
     return viewControllers

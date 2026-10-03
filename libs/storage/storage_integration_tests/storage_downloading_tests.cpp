@@ -80,8 +80,10 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_InterruptDownloadResumeDownload_Test)
   {
     Storage storage(ReadCountriesJson(), GetDownloader());
 
-    auto const onProgressFn = [](CountryId const & countryId, downloader::Progress const & /* progress */)
+    auto const onProgressFn = [&storage](CountryId const & countryId, downloader::Progress const & /* progress */)
     {
+      if (countryId == storage.GetRootId())
+        return;
       TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
       testing::StopEventLoop();
@@ -109,6 +111,8 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_InterruptDownloadResumeDownload_Test)
     NodeAttrs onProgressAttrs;
     auto const onProgressFn = [&](CountryId const & countryId, downloader::Progress const & /* progress */)
     {
+      if (countryId == storage.GetRootId())
+        return;
       TEST_EQUAL(countryId, kCountryId, ());
 
       if (onProgressIsCalled)
@@ -191,8 +195,10 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
 
       Storage storage(ReadCountriesJson(), GetDownloader());
 
-      auto onProgressFn = [i, j](CountryId const & countryId, downloader::Progress const & progress)
+      auto onProgressFn = [i, j, &storage](CountryId const & countryId, downloader::Progress const & progress)
       {
+        if (countryId == storage.GetRootId())
+          return;
         TEST_EQUAL(countryId, kCountryId, ());
         auto const fraction = static_cast<double>(progress.m_bytesDownloaded) / progress.m_bytesTotal;
         auto const interruptionFraction =

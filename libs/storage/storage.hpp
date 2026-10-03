@@ -304,15 +304,17 @@ private:
   // progress and the missing ones flip a map-complete region to OnDiskOutOfDate.
   struct TerrainFusion
   {
-    uint64_t m_coverageBytes = 0;       // The whole subtree coverage, deduplicated.
-    uint64_t m_onDiskBytes = 0;         // The current-version files present.
-    uint64_t m_missingBytes = 0;        // Not on disk, not in flight; downloaded leafs only.
-    uint64_t m_inFlightTotal = 0;       // Queued or downloading.
-    uint64_t m_inFlightDownloaded = 0;  // The received part of m_inFlightTotal.
+    uint64_t m_coverageBytes = 0;        // The whole subtree coverage, deduplicated.
+    uint64_t m_onDiskBytes = 0;          // The current-version files present.
+    uint64_t m_justDownloadedBytes = 0;  // The on-disk bytes downloaded in this batch.
+    uint64_t m_missingBytes = 0;         // Not on disk, not in flight; downloaded leafs only.
+    uint64_t m_inFlightTotal = 0;        // Queued or downloading.
+    uint64_t m_inFlightDownloaded = 0;   // The received part of m_inFlightTotal.
     // The error of a failed covering block of a downloaded leaf, NoError when none:
     // a map-complete region with a failed terrain block reads Error (cf. the maps).
     NodeErrorCode m_error = NodeErrorCode::NoError;
   };
+  void AccumulateTerrainBlock(uint32_t index, bool downloaded, TerrainFusion & fusion) const;
   TerrainFusion GetTerrainFusion(CountryId const & countryId) const;
 
   // The terrain items ride the shared downloader queue but must not reach the Storage
@@ -334,14 +336,17 @@ private:
 
   struct TerrainBlockState
   {
+    uint64_t m_downloadId = 0;
     uint64_t m_bytesDownloaded = 0;
     uint64_t m_lastNotifiedBytes = 0;
   };
 
   // All GUI-thread-only: the in-flight blocks, the failures of the last batch and the
-  // regions interested in each block (for the observer notifications).
+  // request owners of each block (shared notification interest is derived separately).
   TerrainQueueSubscriber m_terrainSubscriber{*this};
   std::map<terrain::TerrainId, TerrainBlockState> m_terrainQueue;
+  uint64_t m_nextTerrainDownloadId = 0;
+  std::set<terrain::TerrainId> m_justDownloadedTerrain;
   // Only transport failures auto-retry. A 404 or a hash mismatch waits for an explicit
   // retry, avoiding repeated downloads of the same large broken block.
   struct TerrainFailure
@@ -364,8 +369,9 @@ private:
   std::string GetTerrainReadyPath(TerrainBlock const & block) const;
   void OnTerrainBlockProgress(std::string const & name, downloader::Progress const & progress);
   void OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, downloader::DownloadStatus status);
+  CountriesSet GetTerrainRegions(std::string const & name) const;
   void NotifyTerrainRegions(std::string const & name);
-  // The downloaded regions the failed blocks' interest points at: derived
+  // The live request owners of failed blocks: derived
   // from the live state at both the retry arming and the retry firing, so a cancel or
   // a delete in between (both empty the interest) mutes the retry.
   CountriesSet GetFailedTerrainRegions(bool retryableOnly) const;
@@ -403,7 +409,7 @@ private:
   void LoadCountriesFile(std::string const & pathToCountriesFile);
 
   void ReportProgress(CountryId const & countryId, downloader::Progress const & p);
-  void ReportProgressForHierarchy(CountryId const & countryId, downloader::Progress const & leafProgress);
+  void ReportProgressForHierarchy(CountriesSet const & countryIds);
 
   // QueuedCountry::Subscriber overrides:
   void OnCountryInQueue(QueuedCountry const & queuedCountry) override;
@@ -688,11 +694,13 @@ public:
   size_t GetDownloadedFilesCount() const;
 
   /// Guarantees that change and progress are called in the main thread context.
+  /// Progress includes maps and terrain for the changed nodes and their ancestors, including the root.
+  /// Its bytes match NodeAttrs::m_downloadingProgress; completion is reported by a status change.
   /// @return unique identifier (>0) that should be used with Unsubscribe function
   int Subscribe(ChangeCountryFunction change, ProgressFunction progress);
   void Unsubscribe(int slotId);
 
-  /// Returns information about selected counties downloading progress.
+  /// Returns map and terrain download progress, counting shared files once.
   /// |countries| - watched CountryId, ONLY leaf expected.
   downloader::Progress GetOverallProgress(CountriesVec const & countries) const;
 
@@ -817,8 +825,10 @@ private:
   void NotifyStatusChanged(CountryId const & countryId);
   void NotifyStatusChangedForHierarchy(CountryId const & countryId);
 
-  /// Calculates progress of downloading for expandable nodes in country tree.
-  downloader::Progress CalculateProgress(CountryTree::Node const & subtreeRoot, CountriesSet const & mwmsInQueue) const;
+  downloader::Progress GetMapProgress(CountryId const & countryId, CountriesSet const & mwmsInQueue,
+                                      bool includeInstalled) const;
+  downloader::Progress CalculateProgress(CountryTree::Node const & subtreeRoot, TerrainFusion const & terrain,
+                                         CountriesSet const & mwmsInQueue, bool includeInstalled) const;
 
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(CountryTree::NodesBufferT const & nodes, ToDo && toDo) const;

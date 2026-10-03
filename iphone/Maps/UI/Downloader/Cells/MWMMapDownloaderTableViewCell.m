@@ -115,9 +115,7 @@
     break;
   }
   case MWMMapNodeStatusDownloading:
-    CGFloat const downloadProgress = nodeAttrs.downloadingProgress;
-    if (downloadProgress > 0)
-      [self setDownloadProgress:downloadProgress];
+    [self setDownloadProgress:nodeAttrs.downloadingProgress];
     break;
   case MWMMapNodeStatusApplying:
   case MWMMapNodeStatusInQueue: progress.state = MWMCircularProgressStateSpinner; break;

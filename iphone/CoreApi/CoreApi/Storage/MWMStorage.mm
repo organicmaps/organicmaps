@@ -169,15 +169,12 @@ using namespace storage;
 {
   auto & s = GetFramework().GetStorage();
 
-  MwmSize requiredSize = 0;
+  CountriesVec countries;
+  countries.reserve(countryIds.count);
   for (NSString * countryId in countryIds)
-  {
-    NodeAttrs nodeAttrs;
-    GetFramework().GetStorage().GetNodeAttrs(countryId.UTF8String, nodeAttrs);
-    requiredSize += nodeAttrs.m_mwmSize;
-  }
+    countries.emplace_back(countryId.UTF8String);
 
-  if (storage::IsEnoughSpaceForDownload(requiredSize))
+  if (storage::IsEnoughSpaceForDownload(s.GetDownloadSize(countries)))
   {
     NSError * connectionError;
     if ([self checkConnection:&connectionError])

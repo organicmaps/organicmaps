@@ -145,7 +145,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     {
       for (MapManager.StorageCallbackData item : data)
       {
-        if (!item.isLeafNode)
+        if (!item.countryId.equals(mCurrentCountry))
           continue;
 
         switch (item.newStatus)
@@ -165,6 +165,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     @Override
     public void onProgress(String countryId, long localSize, long remoteSize)
     {
+      if (!countryId.equals(mCurrentCountry))
+        return;
+
       // Permille: the fused map+terrain byte counts overflow an int progress range.
       if (remoteSize > 0)
         mProgress.setProgressCompat((int) (localSize * 1000 / remoteSize), true);

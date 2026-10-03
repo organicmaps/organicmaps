@@ -123,6 +123,14 @@ public final class CountryItem implements Comparable<CountryItem>
       directParentId = "";
   }
 
+  public void updateProgress(long downloadedBytes, long bytesToDownload)
+  {
+    this.downloadedBytes = downloadedBytes;
+    this.bytesToDownload = bytesToDownload;
+    // Reserve the final 5% for validation, registration, and applying diffs.
+    progress = bytesToDownload == 0 ? 0 : downloadedBytes * 95.0f / bytesToDownload;
+  }
+
   @NonNull
   public static CountryItem fill(String countryId)
   {

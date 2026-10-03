@@ -486,25 +486,27 @@ void MainWindow::CreateCountryStatusControls()
       return;
 
     auto const & storage = GetFramework().GetStorage();
-    auto status = storage.CountryStatusEx(countryId);
+    storage::NodeAttrs attrs;
+    storage.GetNodeAttrs(countryId, attrs);
+    auto const status = attrs.m_status;
     auto const & countryName = countryId;
 
-    if (status == storage::Status::NotDownloaded)
+    if (status == storage::NodeStatus::NotDownloaded)
     {
       m_downloadButton->setVisible(true);
 
       std::string units;
       size_t sizeToDownload = 0;
-      FormatMapSize(storage.CountrySizeInBytes(countryId).second, units, sizeToDownload);
+      FormatMapSize(attrs.m_mwmSize, units, sizeToDownload);
       std::stringstream str;
       str << "Download (" << countryName << ") " << sizeToDownload << units;
       m_downloadButton->setText(str.str().c_str());
     }
-    else if (status == storage::Status::Downloading)
+    else if (status == storage::NodeStatus::Downloading || status == storage::NodeStatus::Applying)
     {
       m_downloadingStatusLabel->setVisible(true);
     }
-    else if (status == storage::Status::InQueue)
+    else if (status == storage::NodeStatus::InQueue)
     {
       m_downloadingStatusLabel->setVisible(true);
 
@@ -512,7 +514,7 @@ void MainWindow::CreateCountryStatusControls()
       str << countryName << " is waiting for downloading";
       m_downloadingStatusLabel->setText(str.str().c_str());
     }
-    else if (status != storage::Status::OnDisk && status != storage::Status::OnDiskOutOfDate)
+    else if (status != storage::NodeStatus::OnDisk && status != storage::NodeStatus::OnDiskOutOfDate)
     {
       m_retryButton->setVisible(true);
 
@@ -532,8 +534,12 @@ void MainWindow::CreateCountryStatusControls()
       onChanged(countryId);
   }, [this](storage::CountryId const & countryId, downloader::Progress const & progress)
   {
+    if (countryId != m_lastCountry)
+      return;
+
+    auto const percent = progress.m_bytesTotal == 0 ? 0 : progress.m_bytesDownloaded * 100 / progress.m_bytesTotal;
     std::stringstream str;
-    str << "Downloading (" << countryId << ") " << progress.m_bytesDownloaded * 100 / progress.m_bytesTotal << "%";
+    str << "Downloading (" << countryId << ") " << percent << "%";
     m_downloadingStatusLabel->setText(str.str().c_str());
   });
 }

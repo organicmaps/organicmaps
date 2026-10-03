@@ -113,7 +113,7 @@ final class ActionBarViewController: UIViewController {
       switch buttonType {
       case .download:
         downloadButton = button
-        updateDownloadButtonState(placePageData.mapNodeAttributes!.nodeStatus)
+        updateDownloadButton()
       default:
         break
       }
@@ -170,11 +170,11 @@ final class ActionBarViewController: UIViewController {
     configureButtons()
   }
 
-  func updateDownloadButtonState(_: MapNodeStatus) {
+  func updateDownloadButton() {
     guard let downloadButton = downloadButton, let mapNodeAttributes = placePageData.mapNodeAttributes else { return }
     switch mapNodeAttributes.nodeStatus {
     case .downloading:
-      downloadButton.mapDownloadProgress?.state = .progress
+      downloadButton.mapDownloadProgress?.progress = CGFloat(AppConstants.maxProgress * mapNodeAttributes.downloadingProgress)
     case .applying, .inQueue:
       downloadButton.mapDownloadProgress?.state = .spinner
     case .error:

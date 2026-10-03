@@ -17,13 +17,16 @@ public:
   virtual void ScheduleRetry(storage::CountriesSet const &, TProcessFunc const &) {}
   // The terrain failures retry independently: one deferred slot per family, so a map
   // arming cannot swallow a pending terrain retry (and vice versa).
-  virtual void ScheduleTerrainRetry(storage::CountriesSet const &, TProcessFunc const &) {}
+  virtual void ScheduleTerrainRetry(storage::CountriesSet const &, TProcessFunc const &,
+                                    bool /* hasNonRetryableFailures */ = false)
+  {}
 };
 
 class StorageDownloadingPolicy : public DownloadingPolicy
 {
   bool m_cellularDownloadEnabled = false;
   bool m_downloadRetryFailed = false;
+  bool m_terrainDownloadRetryFailed = false;
   static size_t constexpr kAutoRetryCounterMax = 3;
   size_t m_autoRetryCounter = kAutoRetryCounterMax;
   base::DeferredTask m_autoRetryWorker;
@@ -33,17 +36,22 @@ class StorageDownloadingPolicy : public DownloadingPolicy
   std::chrono::time_point<std::chrono::steady_clock> m_disableCellularTime;
 
 public:
-  StorageDownloadingPolicy()
-    : m_autoRetryWorker(std::chrono::seconds(20))
-    , m_terrainRetryWorker(std::chrono::seconds(20))
+  explicit StorageDownloadingPolicy(base::DeferredTask::Duration retryInterval = std::chrono::seconds(20))
+    : m_autoRetryWorker(retryInterval)
+    , m_terrainRetryWorker(retryInterval)
   {}
   void EnableCellularDownload(bool enabled);
   bool IsCellularDownloadEnabled();
 
-  inline bool IsAutoRetryDownloadFailed() const { return m_downloadRetryFailed || m_autoRetryCounter == 0; }
+  bool IsAutoRetryDownloadFailed() const
+  {
+    return m_downloadRetryFailed || m_autoRetryCounter == 0 || m_terrainDownloadRetryFailed ||
+           m_terrainRetryCounter == 0;
+  }
 
   // DownloadingPolicy overrides:
   bool IsDownloadingAllowed() override;
   void ScheduleRetry(storage::CountriesSet const & failedCountries, TProcessFunc const & func) override;
-  void ScheduleTerrainRetry(storage::CountriesSet const & failedRegions, TProcessFunc const & func) override;
+  void ScheduleTerrainRetry(storage::CountriesSet const & failedRegions, TProcessFunc const & func,
+                            bool hasNonRetryableFailures = false) override;
 };
