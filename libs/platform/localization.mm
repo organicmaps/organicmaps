@@ -6,6 +6,32 @@
 
 namespace platform
 {
+namespace
+{
+class AppleStringCollator final : public StringCollator
+{
+public:
+  explicit AppleStringCollator(std::string const & locale)
+    : m_locale([[NSLocale alloc] initWithLocaleIdentifier:@(locale.c_str())])
+  {}
+
+  bool Less(std::string const & lhs, std::string const & rhs) const override
+  {
+    NSString * left = @(lhs.c_str());
+    NSString * right = @(rhs.c_str());
+    return [left compare:right options:0 range:NSMakeRange(0, left.length) locale:m_locale] == NSOrderedAscending;
+  }
+
+private:
+  NSLocale * __strong m_locale;
+};
+}  // namespace
+
+std::unique_ptr<StringCollator> CreateStringCollator(std::string const & locale)
+{
+  return std::make_unique<AppleStringCollator>(locale);
+}
+
 std::string GetLocalizedTypeName(std::string const & type)
 {
   auto key = "type." + type;

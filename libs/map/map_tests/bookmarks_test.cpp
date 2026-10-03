@@ -1614,6 +1614,57 @@ UNIT_TEST(Bookmarks_Sorting)
   }
 }
 
+UNIT_TEST(Bookmarks_NameSortUsesPolishLocale)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm({} /* params */, false /* loadMaps */);
+  fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("World"));
+
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+  auto const categoryId = bmManager.CreateBookmarkCategory("Polish sort", false /* autoSave */);
+
+  std::array<kml::MarkId, 3> bookmarkIds;
+  std::array<kml::TrackId, 3> trackIds;
+  {
+    auto session = bmManager.GetEditSession();
+    std::array<std::string, 3> const names = {"Łódź", "Mazury", "Lublin"};
+    for (size_t i = 0; i < names.size(); ++i)
+    {
+      kml::BookmarkData bookmark;
+      bookmark.m_point = m2::PointD(0.0, 0.0);
+      kml::SetDefaultStr(bookmark.m_name, names[i]);
+      bookmarkIds[i] = session.CreateBookmark(std::move(bookmark))->GetId();
+      session.AttachBookmark(bookmarkIds[i], categoryId);
+
+      kml::TrackData track;
+      kml::SetDefaultStr(track.m_name, names[i]);
+      track.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+      track.m_geometry.AddTimestamps({});
+      trackIds[i] = session.CreateTrack(std::move(track))->GetId();
+      session.AttachTrack(trackIds[i], categoryId);
+    }
+  }
+
+  BookmarkManager::SortedBlocksCollection sortedBlocks;
+  BookmarkManager::SortParams params;
+  params.m_groupId = categoryId;
+  params.m_sortingType = BookmarkManager::SortingType::ByName;
+  params.m_locale = "pl";
+  params.m_onResults =
+      [&sortedBlocks](BookmarkManager::SortedBlocksCollection && results, BookmarkManager::SortParams::Status status)
+  {
+    TEST(status == BookmarkManager::SortParams::Status::Completed, ());
+    sortedBlocks = std::move(results);
+  };
+  bmManager.GetSortedCategory(params);
+
+  BookmarkManager::SortedBlocksCollection const expected = {
+      {BookmarkManager::GetTracksSortedBlockName(), {}, {trackIds[2], trackIds[0], trackIds[1]}},
+      {BookmarkManager::GetBookmarksSortedBlockName(), {bookmarkIds[2], bookmarkIds[0], bookmarkIds[1]}, {}}};
+  TEST(sortedBlocks == expected, ());
+}
+
 UNIT_TEST(Bookmarks_GetBookmarkMatchInfo)
 {
   classificator::Load();

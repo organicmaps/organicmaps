@@ -261,6 +261,8 @@ public:
     SortingType m_sortingType = SortingType::ByType;
     bool m_hasMyPosition = false;
     m2::PointD m_myPosition = {0.0, 0.0};
+    // BCP 47 locale for name sorting; empty uses the current device locale.
+    std::string m_locale;
     OnResults m_onResults;
   };
 
@@ -699,7 +701,8 @@ private:
   static void SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
                          std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
   static void SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
-                         std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
+                         std::vector<SortTrackData> const & tracksForSort, std::string const & locale,
+                         SortedBlocksCollection & sortedBlocks);
 
   using AddressesCollection = std::vector<std::pair<kml::MarkId, search::ReverseGeocoder::RegionAddress>>;
   void PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort, AddressesCollection & newAddresses);
@@ -708,7 +711,6 @@ private:
   static void AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
                                    SortedBlocksCollection & sortedBlocks);
   static void SortTracksByTime(std::vector<SortTrackData> & tracks);
-  static void SortTracksByName(std::vector<SortTrackData> & tracks);
 
   kml::MarkId GetTrackSelectionMarkId(kml::TrackId trackId) const;
   int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;
