@@ -154,7 +154,11 @@ public:
     m_turn.m_pedestrianTurn = turns::PedestrianDirection::None;
   }
 
-  void SetTurnExits(uint32_t exitNum) { m_turn.m_exitNum = exitNum; }
+  void SetRoundaboutExit(uint32_t exitNum, turns::RoundaboutInfo const & roundaboutInfo)
+  {
+    m_turn.m_exitNum = exitNum;
+    m_turn.m_roundaboutInfo = roundaboutInfo;
+  }
 
   turns::lanes::LanesInfo & GetTurnLanes() { return m_turn.m_lanes; }
 
