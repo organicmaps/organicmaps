@@ -3,6 +3,7 @@
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
+#include "base/math.hpp"
 #include "base/thread.hpp"
 
 #include <cmath>
@@ -34,14 +35,14 @@ public:
   bool OnSingleTouchFiltrate(m2::PointD const & pt, df::TouchEvent::ETouchType type) override { return m_filtrate; }
   void OnDragStarted() override {}
   void OnDragEnded(m2::PointD const & /* distance */) override {}
-  void OnRotated() override {}
+  void OnRotated() override { ++m_rotationCount; }
   void OnScrolled(m2::PointD const & distance) override {}
 
-  void OnScaleStarted() override {}
+  void OnScaleStarted() override { ++m_scaleStartedCount; }
   void CorrectScalePoint(m2::PointD & pt) const override {}
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override {}
   void CorrectGlobalScalePoint(m2::PointD & pt) const override {}
-  void OnScaleEnded() override {}
+  void OnScaleEnded() override { ++m_scaleEndedCount; }
   void OnTouchMapAction(df::TouchEvent::ETouchType touchType, bool isMapTouch) override {}
   void OnAnimatedScaleEnded() override {}
   bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
@@ -72,7 +73,28 @@ public:
                                                          nullptr /* parallelAnimCreator */));
   }
 
+  void BeginTransformGesture()
+  {
+    m_stream.AddEvent(make_unique_dp<df::TransformGestureEvent>(df::TransformGestureEvent::Phase::Begin));
+  }
+
+  void RotateBy(double deltaRadians, m2::PointD const & pixelPoint)
+  {
+    m_stream.AddEvent(make_unique_dp<df::RotateByEvent>(deltaRadians, pixelPoint));
+  }
+
+  void EndTransformGesture()
+  {
+    m_stream.AddEvent(make_unique_dp<df::TransformGestureEvent>(df::TransformGestureEvent::Phase::End));
+  }
+
+  void EnableListener() { m_stream.SetListener(ref_ptr<df::UserEventStream::Listener>(this)); }
+
   ScreenBase const & GetScreen() const { return m_stream.GetCurrentScreen(); }
+  bool IsInUserAction() const { return m_stream.IsInUserAction(); }
+  size_t GetRotationCount() const { return m_rotationCount; }
+  size_t GetScaleStartedCount() const { return m_scaleStartedCount; }
+  size_t GetScaleEndedCount() const { return m_scaleEndedCount; }
 
   void AddExpectation(char const * action) { m_expectation.push_back(action); }
 
@@ -96,6 +118,9 @@ private:
   df::UserEventStream m_stream;
   std::list<char const *> m_expectation;
   bool m_filtrate;
+  size_t m_rotationCount = 0;
+  size_t m_scaleStartedCount = 0;
+  size_t m_scaleEndedCount = 0;
 };
 
 int touchTimeStamp = 1;
@@ -244,6 +269,43 @@ UNIT_CLASS_TEST(VisualParamsFixture, SetCenter_AlignsToVisibleViewportCenter)
     TEST(std::fabs(pixelPos.y - viewportCenter.y) < kEps,
          (pixelPos.y, "expected", viewportCenter.y, "trackVisibleViewport", trackVisibleViewport));
   }
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, TransformGesture_RotatesAroundPixelPoint)
+{
+  uint32_t constexpr kWidth = 1000;
+  uint32_t constexpr kHeight = 800;
+  double constexpr kRotation = math::pi / 4.0;
+  double constexpr kEps = 1e-9;
+  m2::PointD const pivot(200.0, 300.0);
+
+  UserEventStreamTest test(false);
+  test.EnableListener();
+  test.AddResizeEvent(kWidth, kHeight);
+  test.AddSetVisibleViewport(m2::RectD(0.0, 0.0, kWidth, kHeight));
+  test.SetRect(m2::RectD(-50.0, -40.0, 50.0, 40.0));
+  test.RunTest();
+
+  m2::PointD const globalPivot = test.GetScreen().PtoG(test.GetScreen().P3dtoP(pivot));
+
+  test.BeginTransformGesture();
+  test.RunTest();
+  TEST(test.IsInUserAction(), ());
+  TEST_EQUAL(test.GetScaleStartedCount(), 1, ());
+
+  test.RotateBy(kRotation, pivot);
+  test.RunTest();
+  TEST_ALMOST_EQUAL_ABS(test.GetScreen().GetAngle(), kRotation, kEps, ());
+  m2::PointD const rotatedGlobalPivot = test.GetScreen().PtoG(test.GetScreen().P3dtoP(pivot));
+  TEST_ALMOST_EQUAL_ABS(rotatedGlobalPivot.x, globalPivot.x, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(rotatedGlobalPivot.y, globalPivot.y, kEps, ());
+  TEST_EQUAL(test.GetRotationCount(), 1, ());
+  TEST(test.IsInUserAction(), ());
+
+  test.EndTransformGesture();
+  test.RunTest();
+  TEST(!test.IsInUserAction(), ());
+  TEST_EQUAL(test.GetScaleEndedCount(), 1, ());
 }
 
 #endif

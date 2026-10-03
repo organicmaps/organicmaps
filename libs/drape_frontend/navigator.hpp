@@ -2,9 +2,12 @@
 
 #include "geometry/screenbase.hpp"
 
+#include "base/math.hpp"
+
 namespace df
 {
 extern double const kDefault3dScale;
+double constexpr kRotationThresholdRadians = math::pi / 18.0;
 
 // Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator
