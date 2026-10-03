@@ -8,18 +8,19 @@
 #include <functional>
 #include <iostream>
 #include <iterator>
+#include <stdexcept>
 
 #include <QtCore/QDir>
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
+#include <QtCore/QFile>
+#include <QtCore/QXmlStreamWriter>
+#include <QtGui/QImageReader>
 
 namespace tools
 {
 namespace
 {
 
-static constexpr double kLargeIconSize = 24.0;   // Size of the -l SVG icons
-static constexpr double kMediumIconSize = 18.0;  // size of the -m SVG icons
+static constexpr double kMediumIconSize = 18.0;
 
 struct GreaterHeight
 {
@@ -72,7 +73,7 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string c
     QDir dir(QString(svgDataDir.c_str()));
     QStringList fileNames = dir.entryList(QDir::Files);
 
-    QDir pngDir(dir.absolutePath() + "/png");
+    QDir const pngDir(dir.absolutePath() + "/png");
     fileNames += pngDir.entryList(QDir::Files);
 
     // Separate page for symbols.
@@ -90,36 +91,19 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string c
       if (fileName.endsWith(".svg"))
       {
         QString fullFileName = QString(dir.absolutePath()) + "/" + fileName;
-        if (m_svgRenderer.load(fullFileName))
-        {
-          QSize svgSize = m_svgRenderer.defaultSize();  // Size of the SVG file
-
-          // Capping svg symbol to kLargeIconSize maximum, keeping aspect ratio
-          /*if (svgSize.width() > kLargeIconSize)
-          {
-            auto const h = static_cast<float>(svgSize.height()) * kLargeIconSize / svgSize.width();
-            svgSize.setHeight(static_cast<int>(h));
-            svgSize.setWidth(kLargeIconSize);
-          }
-
-          if (svgSize.height() > kLargeIconSize)
-          {
-            auto const w = static_cast<float>(svgSize.width()) * kLargeIconSize / svgSize.height();
-            svgSize.setWidth(static_cast<int>(w));
-            svgSize.setHeight(kLargeIconSize);
-          }*/
-
-          // Scale symbol to required size
-          QSize size = svgSize * (symbolSizes[j].width() / kMediumIconSize);
-
-          page.m_symbols.emplace_back(size + QSize(4, 4), fullFileName, symbolID);
-        }
+        if (!m_svgRenderer.load(fullFileName))
+          throw std::runtime_error("Cannot load SVG symbol " + fullFileName.toStdString());
+        QSize const size = m_svgRenderer.defaultSize() * (symbolSizes[j].width() / kMediumIconSize);
+        page.m_symbols.emplace_back(size + QSize(4, 4), fullFileName, symbolID);
       }
       else if (fileName.toLower().endsWith(".png"))
       {
         QString fullFileName = QString(pngDir.absolutePath()) + "/" + fileName;
-        QPixmap pix(fullFileName);
-        QSize s = pix.size();
+        // QImageReader reads only the header; QImage/QPainter (unlike QPixmap)
+        // are safe to use outside of the GUI thread.
+        QSize const s = QImageReader(fullFileName).size();
+        if (!s.isValid())
+          throw std::runtime_error("Cannot read PNG symbol " + fullFileName.toStdString());
         page.m_symbols.emplace_back(s + QSize(4, 4), fullFileName, symbolID);
       }
     }
@@ -137,6 +121,9 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
 
     page.m_width = NextPowerOf2(page.m_width);
     page.m_height = NextPowerOf2(page.m_height);
+    // A single oversized symbol can fit the initial page without triggering a packing overflow.
+    if (page.m_width > maxSize || page.m_height > maxSize)
+      return false;
 
     // Packing until we find a suitable rect.
     while (true)
@@ -193,19 +180,29 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
       QString fullLowerCaseName = s.m_fullFileName.toLower();
       if (fullLowerCaseName.endsWith(".svg"))
       {
-        m_svgRenderer.load(s.m_fullFileName);
+        if (!m_svgRenderer.load(s.m_fullFileName))
+          throw std::runtime_error("Cannot load SVG symbol " + s.m_fullFileName.toStdString());
         m_svgRenderer.render(&painter, renderRect);
       }
       else if (fullLowerCaseName.endsWith(".png"))
       {
-        QPixmap pix(s.m_fullFileName);
-        painter.drawPixmap(renderRect, pix);
+        QImage const symbol(s.m_fullFileName);
+        if (symbol.isNull())
+          throw std::runtime_error("Cannot load PNG symbol " + s.m_fullFileName.toStdString());
+        painter.drawImage(renderRect, symbol);
       }
     }
 
+    // Pin the DPI metadata: QImage's default depends on the environment
+    // (72 DPI headless vs the host app's screen), and the output must not.
+    constexpr int kDotsPerMeter72Dpi = 2835;
+    img.setDotsPerMeterX(kDotsPerMeter72Dpi);
+    img.setDotsPerMeterY(kDotsPerMeter72Dpi);
+
     std::string s = page.m_fileName + ".png";
     LOG(LINFO, ("saving skin image into: ", s));
-    img.save(s.c_str());
+    if (!img.save(s.c_str()))
+      throw std::runtime_error("Cannot write " + s);
   }
 
   return true;
@@ -216,37 +213,58 @@ void SkinGenerator::MarkOverflow()
   m_overflowDetected = true;
 }
 
+void BuildSkin(QString const & svgDir, int symbolSize, uint32_t maxTextureSize, QString const & outDir)
+{
+  SkinGenerator gen;
+  // The skin name is used only for its directory part and the fixed
+  // "symbols" base name; an empty suffix yields outDir/symbols.{png,xml}.
+  gen.ProcessSymbols(svgDir.toStdString(), outDir.toStdString() + "/", {QSize(symbolSize, symbolSize)}, {""});
+
+  if (!gen.RenderPages(maxTextureSize))
+    throw std::runtime_error("Skin symbols do not fit into the maximum texture size " + std::to_string(maxTextureSize));
+
+  // SymbolsTexture reads the atlas description as symbols.xml, next to symbols.png.
+  std::string const descPath = outDir.toStdString() + "/symbols.xml";
+  if (!gen.WriteToFileNewStyle(descPath))
+    throw std::runtime_error("Cannot write " + descPath);
+}
+
 bool SkinGenerator::WriteToFileNewStyle(std::string const & skinName)
 {
-  QDomDocument doc = QDomDocument("skin");
-  QDomElement rootElem = doc.createElement("root");
-  doc.appendChild(rootElem);
+  QFile file(QString(skinName.c_str()));
+  if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    return false;
 
+  // A fixed attribute order makes the output reproducible without changing Qt's process-wide
+  // hash seed. Write the DTD directly to keep it on the first line; auto-formatting would prepend
+  // a newline.
+  file.write("<!DOCTYPE skin>\n");
+
+  QXmlStreamWriter writer(&file);
+  writer.setAutoFormatting(true);
+  writer.setAutoFormattingIndent(1);
+  writer.writeStartElement("root");
   for (auto const & p : m_pages)
   {
-    QDomElement fileNode = doc.createElement("file");
-    fileNode.setAttribute("width", p.m_width);
-    fileNode.setAttribute("height", p.m_height);
-    rootElem.appendChild(fileNode);
+    writer.writeStartElement("file");
+    writer.writeAttribute("height", QString::number(p.m_height));
+    writer.writeAttribute("width", QString::number(p.m_width));
 
     for (auto const & s : p.m_symbols)
     {
-      m2::RectU r = p.m_packer.find(s.m_handle).second;
-      QDomElement symbol = doc.createElement("symbol");
-      symbol.setAttribute("minX", r.minX());
-      symbol.setAttribute("minY", r.minY());
-      symbol.setAttribute("maxX", r.maxX());
-      symbol.setAttribute("maxY", r.maxY());
-      symbol.setAttribute("name", s.m_symbolID.toLower());
-      fileNode.appendChild(symbol);
+      m2::RectU const r = p.m_packer.find(s.m_handle).second;
+      writer.writeEmptyElement("symbol");
+      writer.writeAttribute("maxX", QString::number(r.maxX()));
+      writer.writeAttribute("maxY", QString::number(r.maxY()));
+      writer.writeAttribute("minX", QString::number(r.minX()));
+      writer.writeAttribute("minY", QString::number(r.minY()));
+      writer.writeAttribute("name", s.m_symbolID.toLower());
     }
+
+    writer.writeEndElement();  // file
   }
-  QFile file(QString(skinName.c_str()));
-  if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate))
-    return false;
-  QTextStream ts(&file);
-  ts.setEncoding(QStringConverter::Utf8);
-  ts << doc.toString();
-  return true;
+  writer.writeEndElement();  // root
+  writer.writeEndDocument();
+  return !writer.hasError();
 }
 }  // namespace tools

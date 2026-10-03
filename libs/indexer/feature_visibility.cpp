@@ -364,10 +364,11 @@ std::pair<int, int> GetDrawableScaleRange(uint32_t type)
 
 std::pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
 {
+  auto const & cl = classif();
   std::pair<int, int> res(1000, -1000);
 
   for (uint32_t t : types)
-    AddRange(res, GetDrawableScaleRange(t));
+    AddRange(res, cl.GetObject(t)->GetDrawScaleRange());
 
   return (res.first > res.second ? kInvalidScalesRange : res);
 }

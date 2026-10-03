@@ -27,6 +27,12 @@ constexpr int GetUpperCountryScale()
 {
   return GetUpperWorldScale() + 1;
 }
+// Village lookup must cover the geometry indexed by all supported map versions, independent of
+// the current style's visibility. The bundled styles are checked against this scale in style_tests.
+constexpr int GetVillageSearchScale()
+{
+  return 13;
+}
 /// Upper scale for user comfort view (e.g. location zoom).
 constexpr int GetUpperComfortScale()
 {

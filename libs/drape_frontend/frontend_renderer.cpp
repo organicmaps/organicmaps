@@ -672,7 +672,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RecoverContextDependentResources: UpdateContextDependentResources(); break;
 
-  case Message::Type::UpdateMapStyle: UpdateAll<SwitchMapStyleMessage>(); break;
+  case Message::Type::UpdateMapStyle:
+  {
+    ref_ptr<UpdateMapStyleMessage> msg = message;
+    UpdateAll<SwitchMapStyleMessage>(msg->NeedReloadFromDisk());
+    break;
+  }
 
   case Message::Type::VisualScaleChanged:
   {
@@ -682,7 +687,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     // Draw tile zoom depends on the visual scale, but ResolveZoomLevel runs only when the model view
     // changes, so re-resolve it here before all tiles are re-requested in UpdateAll.
     ResolveZoomLevel(m_userEventStream.GetCurrentScreen());
-    UpdateAll<VisualScaleChangedMessage>();
+    UpdateAll<VisualScaleChangedMessage>(false /* reloadStyleFromDisk */);
     break;
   }
 
@@ -1064,12 +1069,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 }
 
 template <class MessageT>
-void FrontendRenderer::UpdateAll()
+void FrontendRenderer::UpdateAll(bool reloadStyleFromDisk)
 {
-#ifdef BUILD_DESIGNER
-  classificator::Load();
-#endif  // BUILD_DESIGNER
-
   // Clear all graphics.
   for (RenderLayer & layer : m_layers)
   {
@@ -1102,7 +1103,8 @@ void FrontendRenderer::UpdateAll()
   // Notify backend renderer and wait for completion.
   {
     BaseBlockingMessage::Blocker blocker;
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<MessageT>(blocker, std::move(f)),
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<MessageT>(blocker, std::move(f), reloadStyleFromDisk),
                               MessagePriority::Normal);
     blocker.Wait();
   }

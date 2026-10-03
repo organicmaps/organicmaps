@@ -89,11 +89,17 @@ public:
   std::string const & GetName() const { return m_name; }
   ClassifObject const * GetObject(size_t i) const;
 
-  std::vector<drule::Key> const & GetDrawRules() const { return m_drawRules; }
+  // Designer drawing-rule reads require the renderer reload barrier. Type identities,
+  // child nodes and type-selection priorities stay immutable during reload.
+  void ClearDrawingRules();
   void GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const;
 
   // Returns std::numeric_limits<int>::min() if there are no overlay drules.
   int GetMaxOverlaysPriority() const { return m_maxOverlaysPriority; }
+
+  // Captured after initial family loading; live reload only updates rendering priorities.
+  void FreezeTypePriorities();
+  int GetTypePriority() const { return m_typePriority; }
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
@@ -171,6 +177,7 @@ private:
   VisibleMask m_visibility;
 
   int m_maxOverlaysPriority = std::numeric_limits<int>::min();
+  int m_typePriority = std::numeric_limits<int>::min();
 };
 
 inline void swap(ClassifObject & r1, ClassifObject & r2)

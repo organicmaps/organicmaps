@@ -2,9 +2,8 @@
 
 #include <QtCore/QString>
 
-#include <utility>
-
 namespace build_style
 {
-std::pair<bool, QString> RunCurrentStyleTests();
+// Returns the tests' output; throws std::runtime_error with it when any test fails.
+QString RunCurrentStyleTests();
 }  // namespace build_style

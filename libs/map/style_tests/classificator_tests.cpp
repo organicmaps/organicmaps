@@ -4,6 +4,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/scales.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -33,6 +35,32 @@ UNIT_TEST(Classificator_CheckConsistency)
 
     DoCheckConsistency doCheck(c);
     c.ForEachTree(doCheck);
+  });
+}
+
+UNIT_TEST(Classificator_VillageSearchScaleCompatibility)
+{
+  styles::RunForEveryMapStyle([](MapStyle style)
+  {
+    ftypes::IsVillageChecker::Instance().ForEachType([style](uint32_t type)
+    {
+      feature::TypesHolder types;
+      types.Assign(type);
+      TEST_LESS_OR_EQUAL(feature::GetMinDrawableScaleClassifOnly(types), scales::GetVillageSearchScale(),
+                         (style, classif().GetReadableObjectName(type)));
+    });
+  });
+}
+
+UNIT_TEST(Classificator_InitialTypeSelectionPriorities)
+{
+  styles::RunForEveryMapStyle([](MapStyle style)
+  {
+    classif().ForEachTree([style](ClassifObject const * object, uint32_t type)
+    {
+      TEST_EQUAL(object->GetTypePriority(), object->GetMaxOverlaysPriority(),
+                 (style, classif().GetReadableObjectName(type)));
+    });
   });
 }
 
