@@ -90,4 +90,32 @@ UNIT_TEST(Test_SymbolsConsistency)
 
   TEST(res, ());
 }
+
+// The code requests named colors by name and a missing one aborts in Debug, so all styles must define the
+// same names. The merged style is skipped: it is a tools-only mix of the others.
+UNIT_TEST(Test_NamedColorsConsistency)
+{
+  auto const getNames = [](MapStyle mapStyle)
+  {
+    StringSet names;
+    for (auto const & color : drule::DecodeRules(mapStyle).namedColors)
+      names.insert(color.name);
+    return names;
+  };
+
+  StringSet const expected = getNames(kDefaultMapStyle);
+  TEST(!expected.empty(), ());
+  for (size_t s = 0; s < MapStyleCount; ++s)
+  {
+    MapStyle const mapStyle = static_cast<MapStyle>(s);
+    if (mapStyle == MapStyleMerged)
+      continue;
+
+    // Report just the differing names: every style defines about a hundred of them.
+    StringSet const names = getNames(mapStyle);
+    std::vector<std::string> diff;
+    std::set_symmetric_difference(names.begin(), names.end(), expected.begin(), expected.end(), back_inserter(diff));
+    TEST(diff.empty(), (mapStyle, "named colors differ:", diff));
+  }
+}
 }  // namespace style_symbols_consistency_tests
