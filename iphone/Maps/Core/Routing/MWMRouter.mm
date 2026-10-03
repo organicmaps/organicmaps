@@ -34,9 +34,12 @@ using namespace routing;
 @property(nonatomic) BOOL canAutoAddLastLocation;
 @property(nonatomic) BOOL isAPICall;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
+@property(nonatomic) BOOL startNavigationWhenRouteReady;
 @property(strong, nonatomic) MWMRoutingOptions * routingOptions;
 
 + (MWMRouter *)router;
++ (void)reverseRouteStartingNavigation:(BOOL)startNavigation;
++ (void)rebuildWithBestRouter:(BOOL)bestRouter startNavigationWhenReady:(BOOL)startNavigation;
 
 @end
 
@@ -145,7 +148,7 @@ using namespace routing;
 {
   return GetFramework().GetRoutingManager().IsRoutingFollowing();
 }
-+ (BOOL)IsRouteValid
++ (BOOL)isRouteValid
 {
   return GetFramework().GetRoutingManager().IsRouteValid();
 }
@@ -330,25 +333,16 @@ using namespace routing;
   [self rebuildWithBestRouter:NO];
 }
 
-+ (void)swapStartAndFinish
++ (void)reverseRoute
 {
-  auto const points = GetFramework().GetRoutingManager().GetRoutePoints();
-  CHECK(!points.empty(), ("Should never be empty"));
-  auto & rm = GetFramework().GetRoutingManager();
-  if (points.size() == 1)
-  {
-    RouteMarkType currentType = points[0].m_pointType;
-    ASSERT(currentType != RouteMarkType::Intermediate, ("There should be no intermediate points if points count is 1"));
-    RouteMarkType targetType = currentType == RouteMarkType::Start ? RouteMarkType::Finish : RouteMarkType::Start;
-    rm.MoveRoutePoint(currentType, 0, targetType, 0);
-  }
-  else
-  {
-    rm.MoveRoutePoint(0, points.size() - 1);
-    rm.MoveRoutePoint(points.size() - 2, 0);
-  }
+  [self reverseRouteStartingNavigation:NO];
+}
 
-  [self rebuildWithBestRouter:NO];
++ (void)reverseRouteStartingNavigation:(BOOL)startNavigation
+{
+  if (!GetFramework().GetRoutingManager().ReverseRoutePoints())
+    return;
+  [self rebuildWithBestRouter:NO startNavigationWhenReady:startNavigation];
 }
 
 + (void)removePoints
@@ -432,6 +426,12 @@ using namespace routing;
 
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
+  [self rebuildWithBestRouter:bestRouter startNavigationWhenReady:NO];
+}
+
++ (void)rebuildWithBestRouter:(BOOL)bestRouter startNavigationWhenReady:(BOOL)startNavigation
+{
+  [MWMRouter router].startNavigationWhenRouteReady = NO;
   auto & rm = GetFramework().GetRoutingManager();
   auto const & points = rm.GetRoutePoints();
   auto const pointsCount = points.size();
@@ -444,6 +444,7 @@ using namespace routing;
   if (bestRouter)
     self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
 
+  [MWMRouter router].startNavigationWhenRouteReady = startNavigation;
   [[MWMMapViewControlsManager manager] onRouteRebuild];
   rm.BuildRoute();
 }
@@ -470,15 +471,27 @@ using namespace routing;
         // restoreRouteIfNeeded.
         [self saveRoute];
 
-        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
+        if (p2.isMyPosition && lastLocation && [MWMLocationManager isStarted])
+        {
+          [[MWMAlertViewController activeAlertController]
+              presentDefaultAlertWithTitle:L(@"reverse_route")
+                                   message:L(@"p2p_reverse_route_and_start")
+                          rightButtonTitle:L(@"p2p_start")
+                           leftButtonTitle:L(@"cancel")
+                         rightButtonAction:^{ [self reverseRouteStartingNavigation:YES]; }];
+        }
+        else
+        {
+          BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
 
-        [[MWMAlertViewController activeAlertController]
-            presentPoint2PointAlertWithOkBlock:^{
-              [self buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
-                                                                    intermediateIndex:0]
-                        bestRouter:NO];
-            }
-                                 needToRebuild:needToRebuild];
+          [[MWMAlertViewController activeAlertController]
+              presentPoint2PointAlertWithOkBlock:^{
+                [self buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                                      intermediateIndex:0]
+                          bestRouter:NO];
+              }
+                                   needToRebuild:needToRebuild];
+        }
       }
     }
   };
@@ -505,6 +518,7 @@ using namespace routing;
 
 + (void)doStop:(BOOL)removeRoutePoints
 {
+  [MWMRouter router].startNavigationWhenRouteReady = NO;
   [[MWMRoutingManager routingManager] stopRoutingAndRemoveRoutePoints:removeRoutePoints];
   if (removeRoutePoints)
     [[MWMRoutingManager routingManager] deleteSavedRoutePoints];
@@ -555,11 +569,21 @@ using namespace routing;
 
   [[MWMMapViewControlsManager manager] onRouteReady:hasWarnings];
   [self updateFollowingInfo];
+
+  if (self.startNavigationWhenRouteReady)
+  {
+    self.startNavigationWhenRouteReady = NO;
+    if ([MWMLocationManager lastLocation])
+      [MWMRouter startRouting];
+  }
 }
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::CountriesSet const &)absentCountries
 {
+  if (code != routing::RouterResultCode::NoError && code != routing::RouterResultCode::HasWarnings)
+    self.startNavigationWhenRouteReady = NO;
+
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   switch (code)
   {
@@ -570,7 +594,7 @@ using namespace routing;
     [self presentDownloaderAlert:code countries:absentCountries];
     // NeedMoreMaps can arrive after a valid route is already built. In that case
     // the user may decline extra maps and still navigate along the current route.
-    if (![MWMRouter IsRouteValid])
+    if (![MWMRouter isRouteValid])
       [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
   case routing::RouterResultCode::FileTooOld:

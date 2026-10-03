@@ -1222,3 +1222,9 @@
 
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Flytta och zooma på kartan för att placera korset";
+
+/* Button accessibility label and confirmation title for reversing the complete route, including intermediate stops. */
+"reverse_route" = "Vänd rutten";
+
+/* Confirmation shown when starting navigation on a route that ends at the current location. Reverses the full route, including intermediate stops, before navigation starts. */
+"p2p_reverse_route_and_start" = "Vända rutten och starta navigering från din nuvarande plats?";
