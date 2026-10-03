@@ -36,7 +36,7 @@ public:
   void BuildArrows(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId,
                    std::vector<ArrowBorders> const & borders, ref_ptr<dp::TextureManager> textures, int recacheId);
 
-  void ClearRouteCache();
+  void ClearRouteCache(dp::DrapeID subrouteId);
 
 private:
   FlushFn m_flushFn;

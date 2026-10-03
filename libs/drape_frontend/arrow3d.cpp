@@ -477,7 +477,8 @@ std::pair<glsl::mat4, glsl::mat4> Arrow3d::CalculateTransform(ScreenBase const &
   auto const postProjectionScaleMatrix = glm::scale(glm::mat4(1.0f), postProjectionScale);
 
   m2::PointD const pos = screen.GtoP(m_position);
-  auto const dX = static_cast<float>(2.0 * pos.x / screen.PixelRect().SizeX() - 1.0);
+  bool const alignAfterProjection = m_screenAligned && screen.isPerspective();
+  auto const dX = alignAfterProjection ? 0.0f : static_cast<float>(2.0 * pos.x / screen.PixelRect().SizeX() - 1.0);
   auto const dY = static_cast<float>(2.0 * pos.y / screen.PixelRect().SizeY() - 1.0);
   auto const postProjectionTranslationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3{dX, -dY, dz});
 
@@ -488,6 +489,14 @@ std::pair<glsl::mat4, glsl::mat4> Arrow3d::CalculateTransform(ScreenBase const &
   {
     glm::mat4 pTo3dView = glm::make_mat4x4(screen.Pto3dMatrix().m_data);
     auto postProjectionPerspective = pTo3dView * modelTransform;
+    if (alignAfterProjection)
+    {
+      // Move the cluster arrow sideways after projection so perspective cannot lean its forward axis.
+      auto const pixel = screen.PtoP3d(pos);
+      auto const offsetX = static_cast<float>(2.0 * pixel.x / screen.PixelRectIn3d().SizeX() - 1.0);
+      postProjectionPerspective =
+          glm::translate(glm::mat4(1.0f), glm::vec3{offsetX, 0.0f, 0.0f}) * postProjectionPerspective;
+    }
     return std::make_pair(postProjectionPerspective, normalMatrix);
   }
 

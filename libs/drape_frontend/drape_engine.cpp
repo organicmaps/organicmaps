@@ -31,6 +31,8 @@ DrapeEngine::DrapeEngine(Params && params)
   : m_myPositionModeChanged(std::move(params.m_myPositionModeChanged))
   , m_viewport(std::move(params.m_viewport))
 {
+  dp::RenderContext::Scope scope(m_renderContext);
+  m_isPassiveNavigation = params.m_hints.m_isPassiveNavigation;
   dp::DrapeRoutine::Init();
 
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
@@ -47,7 +49,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
-  m_requestedTiles = make_unique_dp<RequestedTiles>();
+  m_requestedTiles = make_unique_dp<RequestedTiles>(m_isPassiveNavigation);
 
   using namespace location;
   using namespace settings;
@@ -107,6 +109,8 @@ DrapeEngine::DrapeEngine(Params && params)
       params.m_trafficEnabled, params.m_isolinesEnabled, params.m_simplifiedTrafficColors, params.m_backgroundMode,
       params.m_satelliteAreaOpacity, std::move(params.m_arrow3dCustomDecl), params.m_onGraphicsContextInitialized);
 
+  brParams.m_poiVisible = params.m_hints.m_showPoi;
+  brParams.m_trackTileHistory = m_isPassiveNavigation;
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
   m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
 
@@ -123,6 +127,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
 DrapeEngine::~DrapeEngine()
 {
+  dp::RenderContext::Scope scope(m_renderContext);
   dp::DrapeRoutine::Shutdown();
 
   // Call Teardown explicitly! We must wait for threads completion.
@@ -137,6 +142,8 @@ DrapeEngine::~DrapeEngine()
   m_backend.reset();
 
   m_textureManager->Release();
+  m_textureManager.reset();
+  m_renderContext->Clear();
 }
 
 void DrapeEngine::RecoverSurface(int w, int h, bool recreateContextDependentResources)
@@ -438,13 +445,16 @@ void DrapeEngine::AddUserEvent(drape_ptr<UserEvent> && e)
 
 void DrapeEngine::ModelViewChanged(ScreenBase const & screen)
 {
+  m_currentZoomLevel.store(df::GetZoomLevel(screen.GetScale()));
+  m_currentTilt.store(math::RadToDeg(screen.GetRotationAngle()));
   if (m_modelViewChangedHandler != nullptr)
     m_modelViewChangedHandler(screen);
 }
 
 void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
-  settings::Set(kLocationStateMode, mode);
+  if (!m_isPassiveNavigation)
+    settings::Set(kLocationStateMode, mode);
   if (m_myPositionModeChanged)
     m_myPositionModeChanged(mode, routingActive);
 }
@@ -468,6 +478,7 @@ void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosit
 
 void DrapeEngine::ResizeImpl(int w, int h)
 {
+  dp::RenderContext::Scope scope(m_renderContext);
   CHECK(w > 0 && h > 0, (w, h));
 
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
@@ -571,10 +582,15 @@ void DrapeEngine::SetSelectionLines(SelectionInfo && info)
 
 dp::DrapeID DrapeEngine::AddSubroute(SubrouteConstPtr subroute)
 {
-  dp::DrapeID const id = GenerateDrapeID();
+  auto const id = NewSubrouteId();
+  AddSubrouteWithId(id, std::move(subroute));
+  return id;
+}
+
+void DrapeEngine::AddSubrouteWithId(dp::DrapeID id, SubrouteConstPtr subroute)
+{
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<AddSubrouteMessage>(id, subroute), MessagePriority::Normal);
-  return id;
 }
 
 void DrapeEngine::RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing)
@@ -656,6 +672,31 @@ void DrapeEngine::Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBui
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::SetClusterCamera(int zoom, double tiltDegrees, m2::PointD const & anchor)
+{
+  CHECK(m_isPassiveNavigation, ());
+  CHECK(zoom == 0 || (zoom >= 1 && zoom <= 20), (zoom));
+  CHECK(tiltDegrees == -1.0 || (tiltDegrees >= 0.0 && tiltDegrees <= 55.0), (tiltDegrees));
+  CHECK(anchor.x >= 0.0 && anchor.x <= 1.0 && anchor.y >= 0.0 && anchor.y <= 1.0, (anchor));
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetClusterCameraMessage>(zoom, tiltDegrees, anchor),
+                                  MessagePriority::HighLatest);
+}
+
+void DrapeEngine::SetCluster3dBuildings(bool enabled)
+{
+  CHECK(m_isPassiveNavigation, ());
+  // Acknowledge on the frontend only after the tile reader has adopted the new building mode.
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<Allow3dModeMessage>(true, enabled), MessagePriority::Normal);
+}
+
+void DrapeEngine::SetPoiVisible(bool visible)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<SetPoiVisibilityMessage>(visible), MessagePriority::Normal);
+}
+
 void DrapeEngine::SetMapLangIndex(int8_t mapLangIndex)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -734,7 +775,8 @@ void DrapeEngine::OnEnterForeground()
 void DrapeEngine::OnEnterBackground()
 {
   m_startBackgroundTime = base::Timer::LocalTime();
-  settings::Set(kLastEnterBackground, m_startBackgroundTime);
+  if (!m_isPassiveNavigation)
+    settings::Set(kLastEnterBackground, m_startBackgroundTime);
 
   /// @todo By VNG: Make direct call to FR, because logic with PostMessage is not working now.
   /// Rendering engine becomes disabled first and posted message won't be processed in a correct timing
@@ -842,6 +884,7 @@ void DrapeEngine::EnableIsolines(bool enable)
 
 void DrapeEngine::SetFontScaleFactor(double scaleFactor)
 {
+  dp::RenderContext::Scope scope(m_renderContext);
   VisualParams::Instance().SetFontScale(scaleFactor);
 }
 
@@ -963,6 +1006,7 @@ drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark
 
 void DrapeEngine::UpdateVisualScale(double vs, bool needStopRendering)
 {
+  dp::RenderContext::Scope scope(m_renderContext);
   if (needStopRendering)
     SetRenderingDisabled(true /* destroySurface */);
 

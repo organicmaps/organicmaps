@@ -9,6 +9,7 @@ set(SRC
   my_position_controller_tests.cpp
   navigator_test.cpp
   path_text_test.cpp
+  perspective_tile_coverage_tests.cpp
   rainbow_line_gpu_test.cpp
   screen_operations_tests.cpp
   search_mark_overlay_filter_tests.cpp

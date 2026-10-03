@@ -2,38 +2,36 @@
 
 namespace gpu
 {
-// static
-std::map<std::string_view, std::string_view> ProgramParams::m_boundParams;
-
-// static
-void ProgramParams::Init()
+std::map<std::string_view, std::string_view> const & ProgramParams::GetBindings()
 {
-  MapProgramParams::BindPrograms(m_boundParams);
-  RouteProgramParams::BindPrograms(m_boundParams);
-  TrafficProgramParams::BindPrograms(m_boundParams);
-  TransitProgramParams::BindPrograms(m_boundParams);
-  GuiProgramParams::BindPrograms(m_boundParams);
-  ShapesProgramParams::BindPrograms(m_boundParams);
-  Arrow3dProgramParams::BindPrograms(m_boundParams);
-  DebugRectProgramParams::BindPrograms(m_boundParams);
-  ScreenQuadProgramParams::BindPrograms(m_boundParams);
-  SMAAProgramParams::BindPrograms(m_boundParams);
-  TileBackgroundProgramParams::BindPrograms(m_boundParams);
-  ImGuiProgramParams::BindPrograms(m_boundParams);
-}
-
-// static
-void ProgramParams::Destroy()
-{
-  m_boundParams.clear();
+  // Immutable metadata is shared by all renderers; GPU program lifetimes are independent.
+  static auto const bindings = []
+  {
+    std::map<std::string_view, std::string_view> bindings;
+    MapProgramParams::BindPrograms(bindings);
+    RouteProgramParams::BindPrograms(bindings);
+    TrafficProgramParams::BindPrograms(bindings);
+    TransitProgramParams::BindPrograms(bindings);
+    GuiProgramParams::BindPrograms(bindings);
+    ShapesProgramParams::BindPrograms(bindings);
+    Arrow3dProgramParams::BindPrograms(bindings);
+    DebugRectProgramParams::BindPrograms(bindings);
+    ScreenQuadProgramParams::BindPrograms(bindings);
+    SMAAProgramParams::BindPrograms(bindings);
+    TileBackgroundProgramParams::BindPrograms(bindings);
+    ImGuiProgramParams::BindPrograms(bindings);
+    return bindings;
+  }();
+  return bindings;
 }
 
 // static
 std::string_view ProgramParams::GetBoundParamsName(ref_ptr<dp::GpuProgram> program)
 {
-  auto const it = m_boundParams.find(program->GetName());
-  ASSERT(it != m_boundParams.cend(), (program->GetName(), "Program is not bound to params"));
-  if (it == m_boundParams.cend())
+  auto const & bindings = GetBindings();
+  auto const it = bindings.find(program->GetName());
+  ASSERT(it != bindings.cend(), (program->GetName(), "Program is not bound to params"));
+  if (it == bindings.cend())
     return {};
   return it->second;
 }

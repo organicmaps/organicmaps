@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/render_context.hpp"
+
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/gui/scale_fps_helper.hpp"
 #include "drape_frontend/gui/shape.hpp"
@@ -20,6 +22,8 @@ namespace gui
 
 class DrapeGui
 {
+  friend class dp::RenderContext;
+
 public:
   static DrapeGui & Instance();
   static RulerHelper & GetRulerHelper();

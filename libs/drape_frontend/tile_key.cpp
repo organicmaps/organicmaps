@@ -43,14 +43,18 @@ TileKey::TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGen
   : m_x(key.m_x)
   , m_y(key.m_y)
   , m_zoomLevel(key.m_zoomLevel)
+  , m_renderZoom(key.m_renderZoom)
   , m_generation(generation)
   , m_userMarksGeneration(userMarksGeneration)
 {}
 
 bool TileKey::operator<(TileKey const & other) const
 {
+  if (GetRenderZoom() != other.GetRenderZoom())
+    return GetRenderZoom() < other.GetRenderZoom();
+  // Within one view, enqueue detailed nearby tiles before distant coarse tiles.
   if (m_zoomLevel != other.m_zoomLevel)
-    return m_zoomLevel < other.m_zoomLevel;
+    return m_zoomLevel > other.m_zoomLevel;
 
   if (m_y != other.m_y)
     return m_y < other.m_y;
@@ -60,30 +64,22 @@ bool TileKey::operator<(TileKey const & other) const
 
 bool TileKey::operator==(TileKey const & other) const
 {
-  return m_x == other.m_x && m_y == other.m_y && m_zoomLevel == other.m_zoomLevel;
+  return m_x == other.m_x && m_y == other.m_y && m_zoomLevel == other.m_zoomLevel &&
+         GetRenderZoom() == other.GetRenderZoom();
 }
 
 bool TileKey::LessStrict(TileKey const & other) const
 {
   if (m_userMarksGeneration != other.m_userMarksGeneration)
     return m_userMarksGeneration < other.m_userMarksGeneration;
-
   if (m_generation != other.m_generation)
     return m_generation < other.m_generation;
-
-  if (m_zoomLevel != other.m_zoomLevel)
-    return m_zoomLevel < other.m_zoomLevel;
-
-  if (m_y != other.m_y)
-    return m_y < other.m_y;
-
-  return m_x < other.m_x;
+  return *this < other;
 }
 
 bool TileKey::EqualStrict(TileKey const & other) const
 {
-  return m_x == other.m_x && m_y == other.m_y && m_zoomLevel == other.m_zoomLevel &&
-         m_generation == other.m_generation && m_userMarksGeneration == other.m_userMarksGeneration;
+  return *this == other && m_generation == other.m_generation && m_userMarksGeneration == other.m_userMarksGeneration;
 }
 
 m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom /* = true */) const
@@ -121,7 +117,9 @@ m2::PointI TileKey::GetTileCoords() const
 
 TileKey TileKey::GetCanonicalTileKey() const
 {
-  return TileKey(WrapTileX(m_x, m_zoomLevel), m_y, m_zoomLevel);
+  TileKey key(WrapTileX(m_x, m_zoomLevel), m_y, m_zoomLevel);
+  key.m_renderZoom = m_renderZoom;
+  return key;
 }
 
 double TileKey::GetTileXOffset(bool clipByDataMaxZoom /* = true */) const
@@ -131,6 +129,8 @@ double TileKey::GetTileXOffset(bool clipByDataMaxZoom /* = true */) const
 
 uint64_t TileKey::GetHashValue(BatcherBucket bucket) const
 {
+  // The read manager advances the geometry generation when camera zoom changes. Within
+  // one generation, the detail zoom and cell coordinates also distinguish adaptive tiles.
   // Format (from most significant to least):
   // 8 bit - generation mod 2^8;
   // 8 bit - user marks generation mod 2^8;

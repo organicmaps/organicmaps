@@ -24,12 +24,10 @@ constexpr uint32_t kTileBackgroundMaxCount = 64;
 class ProgramParams
 {
 public:
-  static void Init();
-  static void Destroy();
   static std::string_view GetBoundParamsName(ref_ptr<dp::GpuProgram> program);
 
 private:
-  static std::map<std::string_view, std::string_view> m_boundParams;
+  static std::map<std::string_view, std::string_view> const & GetBindings();
 };
 
 #define BIND_PROGRAMS(ParamsType, ...)                                                              \

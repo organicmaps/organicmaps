@@ -110,4 +110,12 @@ ref_ptr<HWTexture> Texture::GetHardwareTexture() const
 {
   return make_ref(m_hwTexture);
 }
+
+ref_ptr<HWTexture> Texture::PrepareForRendering(ref_ptr<dp::GraphicsContext> context)
+{
+  if (m_hwTexture == nullptr)
+    UpdateState(context);
+  CHECK(m_hwTexture != nullptr, ("Texture has no GPU storage after UpdateState"));
+  return make_ref(m_hwTexture);
+}
 }  // namespace dp

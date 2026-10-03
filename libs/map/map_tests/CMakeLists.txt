@@ -9,6 +9,7 @@ set(SRC
   countries_names_tests.cpp
   editor_notes_tests.cpp
   extrapolator_tests.cpp
+  vehicle_motion_tests.cpp
   feature_getters_tests.cpp
   framework_viewport_tests.cpp
   gps_track_collection_test.cpp

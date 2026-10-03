@@ -17,6 +17,8 @@ set(SRC
   everywhere_search_params.hpp
   extrapolation/extrapolator.cpp
   extrapolation/extrapolator.hpp
+  extrapolation/vehicle_motion.cpp
+  extrapolation/vehicle_motion.hpp
   features_fetcher.cpp
   features_fetcher.hpp
   framework.cpp

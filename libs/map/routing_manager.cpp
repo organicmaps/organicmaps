@@ -5,6 +5,7 @@
 #include "routing/absent_regions_finder.hpp"
 #include "routing/checkpoint_predictor.hpp"
 #include "routing/index_router.hpp"
+#include "routing/road_info.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/ruler_router.hpp"
@@ -479,9 +480,20 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
   SaveRoutePoints();
 }
 
-void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
+void RoutingManager::OnLocationUpdate(location::GpsInfo const & info, double ageSeconds)
 {
-  m_extrapolator.OnLocationUpdate(info);
+  m_extrapolator.OnLocationUpdate(info, ageSeconds);
+}
+
+void RoutingManager::OnVehicleSpeed(double speedMps, double ageSeconds, bool valid)
+{
+  m_extrapolator.OnVehicleSpeed(speedMps, ageSeconds, valid);
+}
+
+std::unique_ptr<routing::RoadInfoReader> RoutingManager::CreateRoadInfoReader()
+{
+  return std::make_unique<routing::RoadInfoReader>(m_callbacks.m_dataSourceGetter(),
+                                                   m_callbacks.m_countryParentNameGetterFn);
 }
 
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const
@@ -565,6 +577,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
+  ++m_routeAltMarksGeneration;
   GetPlatform().RunTask(Platform::Thread::Gui, [this, deactivateFollowing]()
   {
     {
@@ -578,6 +591,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
       SetPointsFollowingMode(false /* enabled */);
   });
 
+  m_navigationScene.Remove(0);
   if (deactivateFollowing)
   {
     m_transitReadManager->BlockTransitSchemeMode(false /* isBlocked */);
@@ -607,7 +621,10 @@ void RoutingManager::ClearAlternativeRoutes()
   // Synchronously clear ETA balloons. RemoveRoute uses RunTask(Gui) which only fires after
   // the current GUI flow returns, leaving stale marks briefly visible; we call the same path
   // directly since RoutingManager is GUI-thread-only.
-  m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROUTE_ALT);
+  ++m_routeAltMarksGeneration;
+  auto es = m_bmManager->GetEditSession();
+  es.ClearGroup(UserMark::Type::ROUTE_ALT);
+  es.SetIsVisible(UserMark::Type::ROUTE_ALT, false);
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAlternativeSubroutes);
 }
@@ -733,8 +750,13 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
                      i == result.m_activeIdx});
   }
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, infos = std::move(infos)]()
+  auto const generation = m_routeAltMarksGeneration;
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, generation, infos = std::move(infos)]()
   {
+    // A start/cancel/new calculation invalidates queued planning balloons even if follow mode
+    // has changed again by the time this task runs.
+    if (generation != m_routeAltMarksGeneration || !IsRoutingActive() || m_routingSession.IsFollowing())
+      return;
     // Place each balloon up or down based on the midpoint's latitude relative to the others:
     // the northern midpoint (larger mercator y) gets the up balloon, the southern one goes down.
     // +y in drape vertex-normal space is downward, so (0, -N) lifts the body above the pivot.
@@ -745,6 +767,7 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
     avgY /= static_cast<double>(infos.size());
 
     auto es = m_bmManager->GetEditSession();
+    es.SetIsVisible(UserMark::Type::ROUTE_ALT, true);
     for (auto const & info : infos)
     {
       auto mark = es.CreateUserMark<RouteAltMark>(info.m_pt);
@@ -764,7 +787,7 @@ MwmSet::MwmId RoutingManager::GetMwmId(routing::NumMwmId numMwmId) const
 
 bool RoutingManager::InsertRoute(RoutesResult const & result)
 {
-  if (!m_drapeEngine || result.m_routes.empty())
+  if (result.m_routes.empty())
     return false;
 
   // TODO: Now we always update whole route, so we need to remove previous one.
@@ -904,8 +927,10 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 
     CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, roadWarnings);
 
-    auto const subrouteId =
-        m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));
+    auto const subrouteId = df::DrapeEngine::NewSubrouteId();
+    df::SubrouteConstPtr routeShape(subroute.release());
+    m_drapeEngine.SafeCall(&df::DrapeEngine::AddSubrouteWithId, subrouteId, routeShape);
+    m_navigationScene.Add(subrouteId, routeShape);
 
     std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
     m_drapeSubroutes.push_back(subrouteId);
@@ -934,6 +959,15 @@ void RoutingManager::FollowRoute()
   ClearAlternativeRoutes();
 
   CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
+}
+
+void RoutingManager::SelectFastestRoute()
+{
+  if (!m_routingSession.IsRouteValid())
+    return;
+  size_t fastest = 0;
+  m_routingSession.RouteCall([&fastest](RoutesResult const & result) { fastest = result.GetFastestRouteIndex(); });
+  SwapActiveAlternative(fastest);
 }
 
 bool RoutingManager::SwapActiveAlternative(size_t idx)
@@ -1787,6 +1821,7 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
 
   auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo, m_routingSession.IsNavigable(), routeMatchingInfo);
+  m_navigationScene.SetGpsInfo(gpsInfo, m_routingSession.IsNavigable(), routeMatchingInfo);
 }
 
 void RoutingManager::DeleteSavedRoutePoints()

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "map/extrapolation/vehicle_motion.hpp"
 #include "platform/location.hpp"
 
 #include <cstdint>
@@ -19,8 +20,9 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, locati
 /// \param info2 the latest location information.
 bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::GpsInfo const & info2);
 
-/// \brief This class implements linear extrapolation based on methods LinearExtrapolation()
-/// and AreCoordsGoodForExtrapolation(). The idea implemented in this class is
+/// \brief Combines route-enabled linear GNSS extrapolation with independent vehicle-speed
+/// prediction. Trusted vehicle speed can drive prediction without an active route.
+/// The idea implemented in this class is
 /// - OnLocationUpdate() should be called from gui thread when new data from gps is available.
 /// - When OnLocationUpdate() was called twice so that AreCoordsGoodForExtrapolation()
 ///   returns true, extrapolation for this two location will be launched.
@@ -47,7 +49,8 @@ public:
   /// \param update is a function which is called with params according to extrapolated position.
   /// |update| will be called on gui thread.
   explicit Extrapolator(ExtrapolatedLocationUpdateFn const & update);
-  void OnLocationUpdate(location::GpsInfo const & gpsInfo);
+  void OnLocationUpdate(location::GpsInfo const & gpsInfo, double ageSeconds = 0.0);
+  void OnVehicleSpeed(double speedMps, double ageSeconds, bool valid);
   // @TODO(bykoianko) Gyroscope information should be taken into account as well for calculation
   // extrapolated position.
 
@@ -58,7 +61,7 @@ private:
   /// \note This method should be called only when |m_mutex| is locked.
   bool DoesExtrapolationWork() const;
   void ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter);
-  void RunTaskOnBackgroundThread(bool delayed);
+  void RunTaskOnBackgroundThread(bool delayed, uint64_t generation);
 
   bool m_isEnabled;
 
@@ -66,6 +69,10 @@ private:
   ExtrapolatedLocationUpdateFn m_extrapolatedLocationUpdate;
   location::GpsInfo m_lastGpsInfo;
   location::GpsInfo m_beforeLastGpsInfo;
+  VehicleMotion m_vehicleMotion;
+  location::GpsInfo m_lastOutput;
+  double m_lastGpsTime = 0.0;
+  uint64_t m_motionRevision = 0;
   uint64_t m_consecutiveRuns = kExtrapolationCounterUndefined;
   // Number of calls Extrapolator::OnLocationUpdate() method. This way |m_locationUpdateCounter|
   // reflects generation of extrapolations. That mean the next gps location is

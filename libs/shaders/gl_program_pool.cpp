@@ -13,8 +13,6 @@ namespace gpu
 {
 GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion, std::string_view additionalDefines) : m_apiVersion(apiVersion)
 {
-  ProgramParams::Init();
-
   if (m_apiVersion == dp::ApiVersion::OpenGLES3)
   {
 #if defined(OMIM_OS_DESKTOP)
@@ -29,7 +27,6 @@ GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion, std::string_view additio
 GLProgramPool::~GLProgramPool()
 {
   GLFunctions::glUseProgram(0);
-  ProgramParams::Destroy();
 }
 
 drape_ptr<dp::GpuProgram> GLProgramPool::Get(Program program)

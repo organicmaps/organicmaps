@@ -27,8 +27,7 @@ using VisualScale = std::pair<std::string, double>;
 
 VisualParams & VisualParams::Instance()
 {
-  static VisualParams vizParams;
-  return vizParams;
+  return dp::RenderContext::Get<VisualParams>();
 }
 
 void VisualParams::Init(double vs, uint32_t tileSize)

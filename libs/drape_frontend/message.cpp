@@ -41,6 +41,7 @@ std::string_view DebugPrint(Message::Type msgType)
   case Message::Type::SetSelectionLines: return "SetSelectionLines";
   case Message::Type::BuildSelectionLines: return "BuildSelectionLines";
   case Message::Type::AddSubroute: return "AddSubroute";
+  case Message::Type::RecacheSubroutes: return "RecacheSubroutes";
   case Message::Type::RemoveSubroute: return "RemoveSubroute";
   case Message::Type::RemoveAlternativeSubroutes: return "RemoveAlternativeSubroutes";
   case Message::Type::PrepareSubrouteArrows: return "PrepareSubrouteArrows";
@@ -59,6 +60,8 @@ std::string_view DebugPrint(Message::Type msgType)
   case Message::Type::Allow3dMode: return "Allow3dMode";
   case Message::Type::Allow3dBuildings: return "Allow3dBuildings";
   case Message::Type::SetMapLangIndex: return "SetMapLangIndex";
+  case Message::Type::SetPoiVisibility: return "SetPoiVisibility";
+  case Message::Type::SetClusterCamera: return "SetClusterCamera";
   case Message::Type::EnablePerspective: return "EnablePerspective";
   case Message::Type::FlushCirclesPack: return "FlushCirclesPack";
   case Message::Type::CacheCirclesPack: return "CacheCirclesPack";

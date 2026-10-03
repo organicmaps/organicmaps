@@ -44,9 +44,12 @@ void RouteBuilder::Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subro
     m_flushMarkersFn(std::move(markersData));
 }
 
-void RouteBuilder::ClearRouteCache()
+void RouteBuilder::ClearRouteCache(dp::DrapeID subrouteId)
 {
-  m_routeCache.clear();
+  if (subrouteId == dp::DrapeID())
+    m_routeCache.clear();
+  else
+    m_routeCache.erase(subrouteId);
 }
 
 void RouteBuilder::BuildArrows(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId,

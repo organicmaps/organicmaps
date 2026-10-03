@@ -1,6 +1,7 @@
 #include "drape/gl_functions.hpp"
 #include "drape/gl_extensions_list.hpp"
 #include "drape/gl_includes.hpp"
+#include "drape/render_context.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -33,8 +34,11 @@ namespace
 using NodeKey = std::pair<std::thread::id, glConst>;
 using Node = std::pair<NodeKey, uint32_t>;
 using BoundMap = std::map<NodeKey, uint32_t>;
-BoundMap g_boundBuffers;
-std::mutex g_boundBuffersMutex;
+struct BufferBindings
+{
+  BoundMap m_buffers;
+  std::mutex m_mutex;
+};
 #endif
 
 inline GLboolean convert(bool v)
@@ -631,8 +635,9 @@ void GLFunctions::glBindBuffer(uint32_t vbo, uint32_t target)
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   ASSERT(glBindBufferFn != nullptr, ());
 #ifdef DEBUG
-  std::lock_guard<std::mutex> guard(g_boundBuffersMutex);
-  g_boundBuffers[std::make_pair(std::this_thread::get_id(), target)] = vbo;
+  auto & bindings = dp::RenderContext::Get<BufferBindings>();
+  std::lock_guard<std::mutex> guard(bindings.m_mutex);
+  bindings.m_buffers[std::make_pair(std::this_thread::get_id(), target)] = vbo;
 #endif
   GLCHECK(glBindBufferFn(target, vbo));
 }
@@ -642,8 +647,9 @@ void GLFunctions::glDeleteBuffer(uint32_t vbo)
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   ASSERT(glDeleteBuffersFn != nullptr, ());
 #ifdef DEBUG
-  std::lock_guard<std::mutex> guard(g_boundBuffersMutex);
-  for (auto const & n : g_boundBuffers)
+  auto & bindings = dp::RenderContext::Get<BufferBindings>();
+  std::lock_guard<std::mutex> guard(bindings.m_mutex);
+  for (auto const & n : bindings.m_buffers)
     ASSERT(n.second != vbo, ());
 #endif
   GLCHECK(glDeleteBuffersFn(1, &vbo));

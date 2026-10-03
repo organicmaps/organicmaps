@@ -11,15 +11,16 @@ namespace df
 class RequestedTiles
 {
 public:
-  RequestedTiles() = default;
+  explicit RequestedTiles(bool trackRetiredTiles = false) : m_trackRetiredTiles(trackRetiredTiles) {}
   void Set(ScreenBase const & screen, bool have3dBuildings, bool forceRequest, bool forceUserMarksRequest,
            TTilesCollection && tiles);
-  TTilesCollection GetTiles();
-  void GetParams(ScreenBase & screen, bool & have3dBuildings, bool & forceRequest, bool & forceUserMarksRequest);
+  TTilesCollection Get(ScreenBase & screen, bool & have3dBuildings, bool & forceRequest, bool & forceUserMarksRequest);
   bool CheckTileKey(TileKey const & tileKey) const;
 
 private:
   TTilesCollection m_tiles;
+  TTilesCollection m_lastTiles, m_retiredTiles;
+  bool const m_trackRetiredTiles;
   ScreenBase m_screen;
   bool m_have3dBuildings = false;
   bool m_forceRequest = false;

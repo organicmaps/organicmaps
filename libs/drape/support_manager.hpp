@@ -2,6 +2,7 @@
 
 #include "drape/graphics_context.hpp"
 #include "drape/pointers.hpp"
+#include "drape/render_context.hpp"
 
 #include "base/macros.hpp"
 
@@ -16,12 +17,14 @@ extern std::string_view kSupportedAntialiasing;
 
 class SupportManager
 {
+  friend class RenderContext;
+
 public:
-  // This singleton must be available only from rendering threads.
+  // State belongs to the current renderer and its graphics API.
   static SupportManager & Instance();
 
   // Initialization must be called only when graphics context is created.
-  // Initialization happens once per application launch, so SupportManager
+  // Initialization happens once per renderer, so SupportManager
   // must not contain any properties which can be changed in the case of contexts
   // reinitialization.
   void Init(ref_ptr<GraphicsContext> context);
