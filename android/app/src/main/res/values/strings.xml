@@ -952,4 +952,7 @@
     <string name="choose_point_on_map_hint">Move and zoom the map to place the cross</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stop and Save</string>
+    <string name="background_location_title">Uninterrupted Track Recording</string>
+    <string name="background_location_warning_message">To ensure GPS tracking continues accurately when your screen is off, please disable battery optimization for Organic Maps in your device settings.</string>
+    <string name="background_location_samsung_warning_message">To prevent Samsung from sleeping background tracking, please check Battery > Background usage limits > Never sleeping apps in your device settings.</string>
 </resources>
