@@ -6,22 +6,28 @@
 
 #import <LinkPresentation/LPLinkMetadata.h>
 
-@interface MWMAirDropActivityItem : NSObject <UIActivityItemSource>
+// Serves openable links, which the plain text source can't: the omaps.app link to AirDrop, and a maps.apple.com link
+// to third-party share extensions. Some of them, like Tesla's "send to car", reject plain text and only accept a link.
+@interface MWMLinkActivityItem : NSObject <UIActivityItemSource>
 
-- (instancetype)initWithURL:(NSURL *)url;
+- (instancetype)initWithURL:(NSURL *)url appleMapsURL:(NSURL *)appleMapsURL;
 
 @end
 
-@implementation MWMAirDropActivityItem
+@implementation MWMLinkActivityItem
 {
   NSURL * _url;
+  NSURL * _appleMapsURL;
 }
 
-- (instancetype)initWithURL:(NSURL *)url
+- (instancetype)initWithURL:(NSURL *)url appleMapsURL:(NSURL *)appleMapsURL
 {
   self = [super init];
   if (self)
+  {
     _url = url;
+    _appleMapsURL = appleMapsURL;
+  }
   return self;
 }
 
@@ -33,7 +39,12 @@
 - (id)activityViewController:(UIActivityViewController *)activityViewController
          itemForActivityType:(UIActivityType)activityType
 {
-  return [activityType isEqualToString:UIActivityTypeAirDrop] ? _url : nil;
+  if ([activityType isEqualToString:UIActivityTypeAirDrop])
+    return _url;
+  // Apple's own targets (Messages, Mail, Notes, ...) get the plain text only, as it already contains the link.
+  if (![activityType hasPrefix:@"com.apple."])
+    return _appleMapsURL;
+  return nil;
 }
 
 @end
@@ -42,6 +53,7 @@
 
 @property(nonatomic) BOOL isMyPosition;
 @property(nonatomic) NSURL * shareUrl;
+@property(nonatomic) NSURL * appleMapsUrl;
 @property(nonatomic, copy) NSString * shareText;
 @property(nonatomic, copy) NSString * shareHtml;
 @property(nonatomic, copy) NSString * subjectBasis;
@@ -80,6 +92,9 @@
   NSString * url = [@(result.m_url.c_str()) stringByAddingPercentEncodingWithAllowedCharacters:allowed];
   _shareUrl = [NSURL URLWithString:url];
   ASSERT(_shareUrl != nil, ("Failed to build a share URL from", result.m_url));
+  // The core already percent-encodes every non-ASCII and unsafe byte.
+  _appleMapsUrl = [NSURL URLWithString:@(result.m_appleMapsUrl.c_str())];
+  ASSERT(_appleMapsUrl != nil, ("Failed to build an Apple Maps URL from", result.m_appleMapsUrl));
   _shareText = @(result.m_text.c_str());
   _shareHtml = @(result.m_html.c_str());
   _subjectBasis = @(result.m_subjectBasis.c_str());
@@ -88,9 +103,9 @@
 - (NSArray<id<UIActivityItemSource>> *)activityItems
 {
   // AirDrop types its payload from the source's placeholder, and this source's placeholder is plain text.
-  // A separate NSURL-placeholder source provides an openable link only to AirDrop; dataTypeIdentifierForActivityType:
+  // A separate NSURL-placeholder source provides openable links only where needed; dataTypeIdentifierForActivityType:
   // applies to NSData only. A bare NSURL item would go to every target and duplicate the link in shareText.
-  return @[self, [[MWMAirDropActivityItem alloc] initWithURL:self.shareUrl]];
+  return @[self, [[MWMLinkActivityItem alloc] initWithURL:self.shareUrl appleMapsURL:self.appleMapsUrl]];
 }
 
 // Email subject: place name/address, "I am here" for the current position, or a generic fallback.
@@ -127,7 +142,7 @@
 - (id)activityViewController:(UIActivityViewController *)activityViewController
          itemForActivityType:(UIActivityType)activityType
 {
-  // The URL-typed source in -activityItems serves AirDrop; returning text here would add a second payload.
+  // The link source in -activityItems serves AirDrop; returning text here would add a second payload.
   if ([activityType isEqualToString:UIActivityTypeAirDrop])
     return nil;
   if ([activityType isEqualToString:UIActivityTypeMail])
