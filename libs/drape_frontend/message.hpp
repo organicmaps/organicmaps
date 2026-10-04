@@ -20,6 +20,7 @@ public:
     OverlayMapShapeReaded,
     UpdateReadManager,
     InvalidateRect,
+    InvalidateMap,
     InvalidateReadManagerRect,
     UpdateUserMarkGroup,
     ClearUserMarkGroup,

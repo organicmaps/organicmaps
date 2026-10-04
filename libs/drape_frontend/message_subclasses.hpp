@@ -833,6 +833,12 @@ public:
   Type GetType() const override { return Type::VisualScaleChanged; }
 };
 
+class InvalidateMapMessage : public Message
+{
+public:
+  Type GetType() const override { return Type::InvalidateMap; }
+};
+
 class InvalidateMessage : public Message
 {
 public:

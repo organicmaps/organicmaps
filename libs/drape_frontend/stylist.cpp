@@ -10,6 +10,10 @@
 
 #include "drape/hatching_decl.hpp"
 
+#include "platform/distance.hpp"
+
+#include "base/string_utils.hpp"
+
 #include <algorithm>
 #include <limits>
 
@@ -94,6 +98,15 @@ std::string_view IsAreaPatternChecker::GetPattern(feature::TypesHolder const & t
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,
                               bool auxCaptionExists)
 {
+  if (ftypes::IsIsolineChecker::Instance()(f))
+  {
+    // Existing maps store contour heights in meters as the default feature name.
+    double meters;
+    if (strings::to_double(f.GetName(StringUtf8Multilang::kDefaultCode), meters))
+      m_mainText = platform::Distance::FormatAltitude(meters);
+    return;
+  }
+
   if (auto const & info = f.GetID().m_mwmId.GetInfo())
     m_mwmRegionLang = feature::GetRegionLang(info->GetRegionData());
 

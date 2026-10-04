@@ -16,6 +16,8 @@ enum class Units
 std::string_view DebugPrint(Units units);
 
 Units GetMeasurementUnits();
+/// Meters or feet, independently of distance and speed units.
+Units GetAltitudeUnits();
 
 inline double MetersToMiles(double m)
 {

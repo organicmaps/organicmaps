@@ -19,6 +19,7 @@ std::string_view DebugPrint(Message::Type msgType)
   case Message::Type::OverlayMapShapeReaded: return "OverlayMapShapeReaded";
   case Message::Type::UpdateReadManager: return "UpdateReadManager";
   case Message::Type::InvalidateRect: return "InvalidateRect";
+  case Message::Type::InvalidateMap: return "InvalidateMap";
   case Message::Type::InvalidateReadManagerRect: return "InvalidateReadManagerRect";
   case Message::Type::UpdateUserMarkGroup: return "UpdateUserMarkGroup";
   case Message::Type::ClearUserMarkGroup: return "ClearUserMarkGroup";

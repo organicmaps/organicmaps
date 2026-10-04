@@ -108,6 +108,10 @@ final class ElevationProfileViewController: UIViewController {
     setupViews()
     layoutViews()
     applyPresentationOverrides()
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     presenter?.configure()
   }
 

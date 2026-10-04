@@ -10,6 +10,7 @@ namespace settings
 {
 /// Metric or Imperial.
 extern std::string_view kMeasurementUnits;
+extern std::string_view kAltitudeUnits;
 extern std::string_view kDeveloperMode;
 extern std::string_view kMapLanguageCode;
 // The following two settings are configured externally at the metaserver.

@@ -831,6 +831,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::InvalidateMap:
+  {
+    m_forceUpdateScene = true;
+    break;
+  }
+
   case Message::Type::Invalidate:
   {
     m_myPositionController->ResetRoutingNotFollowTimer();

@@ -57,6 +57,17 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
   GetFramework().SetupMeasurementSystem();
 }
 
++ (MWMUnits)altitudeUnits
+{
+  return mwmUnits(measurement_utils::GetAltitudeUnits());
+}
+
++ (void)setAltitudeUnits:(MWMUnits)altitudeUnits
+{
+  settings::Set(settings::kAltitudeUnits, coreUnits(altitudeUnits));
+  GetFramework().SetupMeasurementSystem();
+}
+
 + (BOOL)zoomButtonsEnabled
 {
   bool enabled = true;

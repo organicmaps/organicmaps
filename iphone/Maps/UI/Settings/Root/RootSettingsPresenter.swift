@@ -107,7 +107,7 @@ final class RootSettingsPresenter {
                             detail: state.theme.title,
                             kind: .link),
       SettingsItemViewModel(setting: .units,
-                            detail: state.measurementUnits.title,
+                            detail: "\(state.measurementUnits.title), \(state.altitudeUnits.altitudeTitle)",
                             kind: .link),
       SettingsItemViewModel(setting: .powerManagement,
                             detail: state.powerManagement.title,
