@@ -14,8 +14,6 @@ RUN dnf config-manager disable fedora-cisco-openh264 && \
     qt6-qtpositioning-devel \
     qt6-qtsvg-devel \
     sqlite-devel \
-    # for GLFW X11 backend
-    libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel \
     # for WITH_SYSTEM_PROVIDED_3PARTY=ON
     gflags-devel expat-devel pugixml-devel utf8cpp-devel gtest-devel fast_float-devel freetype-devel boost-devel \
     #
