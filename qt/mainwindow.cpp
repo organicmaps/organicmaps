@@ -138,6 +138,19 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   setCentralWidget(m_pDrawWidget);
 
+  if (m_screenshotMode)
+  {
+    m_pDrawWidget->setFixedSize(width, height);
+    setFixedSize(width, height + statusBar()->height());
+  }
+
+  connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
+
+  CreateCountryStatusControls();
+  CreateNavigationBar();
+  CreateSearchBarAndPanel();
+  CreatePlacePagePanel();
+
   // CHECK: is it still required to render menu button icon in flatpak?
   QIcon::setThemeName("Adwaita");
   QIcon::setFallbackThemeName("breeze");
@@ -151,19 +164,6 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   quickWidget->setInitialProperties({{"map", QVariant::fromValue(this)}});
   quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/cloud.qml"));
   // quickWidget->rootContext()->setContextProperty("map", this);
-
-  if (m_screenshotMode)
-  {
-    m_pDrawWidget->setFixedSize(width, height);
-    setFixedSize(width, height + statusBar()->height());
-  }
-
-  connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
-
-  CreateCountryStatusControls();
-  CreateNavigationBar();
-  CreateSearchBarAndPanel();
-  CreatePlacePagePanel();
 
   m_pDrawWidget->layout()->addWidget(quickWidget);
 
@@ -311,23 +311,23 @@ void MainWindow::CreateNavigationBar()
     //                     std::bind(&MainWindow::OnLayerEnabled, this, TRAFFIC), true);
     // m_layers->setChecked(TRAFFIC, Framework::LoadTrafficEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/subway.png"), tr("Public transport"),
+    m_transitAction = m_layers->addAction(QIcon(":/navig64/subway.png"), tr("Public transport"),
                         std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
     m_layers->setChecked(TRANSIT, Framework::LoadTransitSchemeEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Isolines"),
+    m_isolinesAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Isolines"),
                         std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
     m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
     // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Outdoors"),
+    m_outdoorsAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Outdoors"),
                         std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
     m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Hiking"),
+    m_hikingAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Hiking"),
                         std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
     m_layers->setChecked(HIKING, Framework::IsHikingEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Cycling"),
+    m_cyclingAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Cycling"),
                         std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
     m_layers->setChecked(CYCLING, Framework::IsCyclingEnabled());
 

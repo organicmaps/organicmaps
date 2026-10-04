@@ -20,10 +20,96 @@ Item {
         radius: 10
     }
 
+    Popup {
+        id: layersPopup
+        modal: true
+
+        Material.theme: parent.Material.theme
+        Material.accent: parent.Material.accent
+        Material.primary: parent.Material.primary
+
+        contentWidth: layersRow.width
+        contentHeight: layersLabel.implicitHeight + layersRow.implicitHeight
+
+        Label {
+            id: layersLabel
+            text: "Map Styles and Layers"
+        }
+
+        RowLayout {
+            id: layersRow
+            anchors.top: layersLabel.bottom
+            property int totalChecked
+
+            width: root.height / root.width < 16 / 9 ?
+                       Math.min(implicitWidth, root.width - 2 * layersPopup.padding) :
+                       root.width - 2 * layersPopup.padding
+
+            Repeater {
+                model: [
+                    { source: "qrc:/layer/subway", caption: "Subway", action: root.map.transitAction },
+                    { source: "qrc:/layer/contours", caption: "Contours", action: root.map.isolinesAction },
+                    { source: "qrc:/layer/outdoor_lake", caption: "Outdoors", action: root.map.outdoorsAction },
+                    { source: "qrc:/layer/outdoor_river_r2", caption: "Hiking", action: root.map.hikingAction },
+                    { source: "qrc:/layer/outdoor_river", caption: "Cycling", action: root.map.cyclingAction }
+                ]
+
+                delegate: ItemDelegate {
+                    required property var modelData
+
+                    checked: modelData.action.checked
+                    onCheckedChanged: layersRow.totalChecked += checked ? 1 : -1
+                    onClicked: modelData.action.trigger()
+
+                    Layout.fillWidth: true
+                    horizontalPadding: 5
+
+                    indicator: Rectangle {
+                        id: indicator
+                        parent: image
+                        visible: parent.parent.parent.checked
+
+                        color: "transparent"
+                        border.color: Material.color(Material.LightBlue)
+                        border.width: 2
+                        radius: image.width * 6 / 64 + border.width
+
+                        anchors.fill: parent
+                        anchors.margins: -border.width
+                        anchors.rightMargin: anchors.margins + 1
+                        anchors.bottomMargin: anchors.rightMargin
+                    }
+
+                    contentItem: ColumnLayout {
+                        Image {
+                            id: image
+                            source: modelData.source
+                            fillMode: Image.PreserveAspectFit
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: width
+                            Layout.preferredWidth: 70
+                            sourceSize.width: width
+                        }
+
+                        Label {
+                            text: modelData.caption
+                            // TODO: use better font/size from Pure Maps
+                            font.pixelSize: 10
+                            Layout.topMargin: indicator.border.width
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignHCenter
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     RoundOverayButton {
         y: height / 2
         icon.source: "qrc:/navig64/layers.png"
-        icon.color: undefined
+        icon.color: layersRow.totalChecked ? Material.color(Material.LightBlue) : undefined
+        onClicked: layersPopup.open()
     }
 
     Row {
