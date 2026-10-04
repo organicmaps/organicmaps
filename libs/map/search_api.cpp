@@ -509,7 +509,7 @@ void SearchAPI::StartAddressResolution()
     if (!results.IsEndMarker())
     {
       for (auto const & result : results)
-        if (search::IsEarlyAddressResultMatchingQuery(query.m_query, result, query.m_street) &&
+        if (search::IsEarlyAddressResultMatchingQuery(query.m_query, result, query.m_expectedStreet) &&
             (!request->m_background || viewport.IsPointInside(result.GetFeatureCenter())))
         {
           earlyMatch = result;
@@ -529,7 +529,7 @@ void SearchAPI::StartAddressResolution()
       if (!match)
       {
         for (auto const & result : results)
-          if (search::IsAddressResultMatchingQuery(query.m_query, result, query.m_street) &&
+          if (search::IsAddressResultMatchingQuery(query.m_query, result, query.m_expectedStreet) &&
               (!request->m_background || viewport.IsPointInside(result.GetFeatureCenter())))
           {
             match = result;
@@ -538,9 +538,9 @@ void SearchAPI::StartAddressResolution()
       }
       if (!match && request->m_allowNearbyHouseNumbers)
       {
-        auto const resolved = search::MakeEstimatedAddressResults(query.m_query, results, query.m_street);
+        auto const resolved = search::MakeEstimatedAddressResults(query.m_query, results, query.m_expectedStreet);
         for (auto const & result : resolved)
-          if (search::IsAddressResultMatchingQuery(query.m_query, result, query.m_street) &&
+          if (search::IsAddressResultMatchingQuery(query.m_query, result, query.m_expectedStreet) &&
               (!request->m_background || viewport.IsPointInside(result.GetFeatureCenter())))
           {
             match = result;
@@ -561,9 +561,8 @@ void SearchAPI::StartAddressResolution()
       }
       SuspendAddressResolution();
       m_addressRequests.pop_front();
-      LOG(LDEBUG,
-          ("Contact address resolution", request->m_id, "background", request->m_background, "found", match.has_value(),
-           "early", earlyMatch.has_value(), "milliseconds", request->m_timer.ElapsedMilliseconds()));
+      LOG(LDEBUG, ("Address resolution", request->m_id, "background", request->m_background, "found", match.has_value(),
+                   "early", earlyMatch.has_value(), "milliseconds", request->m_timer.ElapsedMilliseconds()));
       request->m_callback(std::move(match));
       StartAddressResolution();
     });

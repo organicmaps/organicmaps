@@ -19,14 +19,14 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 {
   INSTANCE;
 
-  public interface ContactAddressListener
+  public interface AddressResolutionListener
   {
-    void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated);
+    void onAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated);
   }
 
   public interface ContactViewportListener
   {
-    void onContactViewportChanged(int scale, @NonNull String locality);
+    void onContactViewportChanged(int scale, @NonNull String mapRegions);
   }
 
   // Query, which results are shown on the map.
@@ -87,8 +87,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
-  private final Map<Long, ContactAddressListener> mContactAddressRequests = new HashMap<>();
-  private long mNextContactRequestId;
+  private final Map<Long, AddressResolutionListener> mAddressResolutionListeners = new HashMap<>();
+  private long mNextAddressRequestId;
   @Nullable
   private ContactViewportListener mContactViewportListener;
 
@@ -123,49 +123,55 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   @MainThread
-  public long resolveContactAddress(@NonNull String[] queries, @NonNull String[] streets, @NonNull String locale,
-                                    boolean background, @NonNull ContactAddressListener listener)
+  public long resolveAddress(@NonNull String[] queries, @NonNull String[] expectedStreets, @NonNull String locale,
+                             boolean background, @NonNull AddressResolutionListener listener)
   {
-    final long requestId = ++mNextContactRequestId;
-    mContactAddressRequests.put(requestId, listener);
-    nativeResolveContactAddress(queries, streets, locale, requestId, background);
+    final long requestId = ++mNextAddressRequestId;
+    mAddressResolutionListeners.put(requestId, listener);
+    nativeResolveAddress(queries, expectedStreets, locale, requestId, background);
     return requestId;
   }
 
-  public void cancelContactAddressResolution(long requestId)
+  @MainThread
+  public void cancelAddressResolution(long requestId)
   {
-    mContactAddressRequests.remove(requestId);
-    nativeCancelContactAddressResolution(requestId);
+    mAddressResolutionListeners.remove(requestId);
+    nativeCancelAddressResolution(requestId);
+  }
+
+  @MainThread
+  public void cancelAllAddressResolutions()
+  {
+    for (long requestId : new ArrayList<>(mAddressResolutionListeners.keySet()))
+      cancelAddressResolution(requestId);
   }
 
   @MainThread
   public void setContactViewportListener(@Nullable ContactViewportListener listener)
   {
     mContactViewportListener = listener;
-    if (listener == null)
-      for (long requestId : new ArrayList<>(mContactAddressRequests.keySet()))
-        cancelContactAddressResolution(requestId);
     nativeSetContactViewportEnabled(listener != null);
   }
 
   @Keep
-  private void onContactViewportChanged(int scale, @NonNull String locality)
+  private void onContactViewportChanged(int scale, @NonNull String mapRegions)
   {
     if (mContactViewportListener != null)
-      mContactViewportListener.onContactViewportChanged(scale, locality);
+      mContactViewportListener.onContactViewportChanged(scale, mapRegions);
   }
 
-  public void selectContactAddress(double lat, double lon, @NonNull String address, boolean estimated, boolean show)
+  @MainThread
+  public void selectResolvedAddress(double lat, double lon, @NonNull String address, boolean estimated)
   {
-    nativeSelectContactAddress(lat, lon, address, estimated, show);
+    nativeSelectResolvedAddress(lat, lon, address, estimated);
   }
 
   @Keep
-  private void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
+  private void onAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
   {
-    final ContactAddressListener listener = mContactAddressRequests.remove(requestId);
+    final AddressResolutionListener listener = mAddressResolutionListeners.remove(requestId);
     if (listener != null)
-      listener.onContactAddressResolved(requestId, found, lat, lon, estimated);
+      listener.onAddressResolved(requestId, found, lat, lon, estimated);
   }
 
   /**
@@ -330,15 +336,14 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
 
-  private static native void nativeResolveContactAddress(String[] queries, String[] streets, String language,
-                                                         long requestId, boolean background);
+  private static native void nativeResolveAddress(String[] queries, String[] expectedStreets, String language,
+                                                  long requestId, boolean background);
 
   private static native void nativeSetContactViewportEnabled(boolean enabled);
 
-  private static native void nativeCancelContactAddressResolution(long requestId);
+  private static native void nativeCancelAddressResolution(long requestId);
 
-  private static native void nativeSelectContactAddress(double lat, double lon, String address, boolean estimated,
-                                                        boolean show);
+  private static native void nativeSelectResolvedAddress(double lat, double lon, String address, boolean estimated);
 
   private static native void nativeShowResult(int index);
 

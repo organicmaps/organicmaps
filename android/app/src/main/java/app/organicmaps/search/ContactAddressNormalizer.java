@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+// Contact-provider formatting only; ordinary search queries use the native search tokenizer.
 final class ContactAddressNormalizer
 {
   private static final Pattern UNIT_PREFIX =

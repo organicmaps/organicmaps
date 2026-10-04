@@ -328,8 +328,7 @@ SelectionProcessor::TapFeatures SelectionProcessor::FindFeaturesInRect(
   return result;
 }
 
-FeatureID SelectionProcessor::FindNearestBuildingInRect(m2::PointD const & mercator,
-                                                        m2::RectD const & rect) const
+FeatureID SelectionProcessor::FindNearestBuildingInRect(m2::PointD const & mercator, m2::RectD const & rect) const
 {
   auto const & isBuilding = ftypes::IsBuildingChecker::Instance();
   constexpr int kScale = scales::GetUpperScale();

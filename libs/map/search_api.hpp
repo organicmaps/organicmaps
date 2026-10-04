@@ -72,7 +72,8 @@ public:
   struct AddressQuery
   {
     std::string m_query;
-    std::string m_street;
+    // Normalized house-and-street portion, excluding geographical context.
+    std::string m_expectedStreet;
   };
   using AddressCallback = std::function<void(std::optional<search::Result>)>;
   // UI-thread operation, independent of interactive results and search history.

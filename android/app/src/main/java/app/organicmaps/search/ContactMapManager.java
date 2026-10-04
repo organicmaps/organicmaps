@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.search.SearchEngine;
-import app.organicmaps.sdk.search.SearchEngine.ContactAddressListener;
+import app.organicmaps.sdk.search.SearchEngine.AddressResolutionListener;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import java.util.ArrayDeque;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public enum ContactMapManager implements ContactAddressListener
+public enum ContactMapManager implements AddressResolutionListener
 {
   INSTANCE;
 
@@ -121,6 +121,7 @@ public enum ContactMapManager implements ContactAddressListener
 
     if (!isEnabled(mContext))
     {
+      SearchEngine.INSTANCE.cancelAllAddressResolutions();
       SearchEngine.INSTANCE.setContactViewportListener(null);
       ContactAddressSearch.shutdown();
       mContactSearch = null;
@@ -178,7 +179,7 @@ public enum ContactMapManager implements ContactAddressListener
       final List<ContactAddress.SearchQuery> searchQueries = address.getSearchQueries();
       if (!searchQueries.isEmpty())
       {
-        final String key = normalizeKey(address);
+        final String key = address.getAddressKey();
         unique.putIfAbsent(key, new PendingAddress(key, address.contextTokens, searchQueries, generation));
         mNames.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(address.name);
       }
@@ -212,7 +213,7 @@ public enum ContactMapManager implements ContactAddressListener
         return;
       if (address.generation != mGeneration || mCache.containsKey(address.key))
         continue;
-      final long requestId = SearchEngine.INSTANCE.resolveContactAddress(
+      final long requestId = SearchEngine.INSTANCE.resolveAddress(
           address.queries.stream().map(query -> query.query).toArray(String[] ::new),
           address.queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new), mLocale, true, this);
       mRequests.put(requestId, address);
@@ -221,7 +222,7 @@ public enum ContactMapManager implements ContactAddressListener
 
   @Override
   @MainThread
-  public void onContactAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
+  public void onAddressResolved(long requestId, boolean found, double lat, double lon, boolean estimated)
   {
     if (mContext != null && !isEnabled(mContext))
     {
@@ -252,14 +253,14 @@ public enum ContactMapManager implements ContactAddressListener
   {
     if (mContext == null || !isEnabled(mContext))
       return;
-    final String key = normalizeKey(contactAddress);
+    final String key = contactAddress.getAddressKey();
     final ResolvedAddress resolved = new ResolvedAddress(lat, lon, estimated);
     mCache.put(key, resolved);
     mQueue.removeIf(address -> address.key.equals(key));
     mRequests.entrySet().removeIf(request -> {
       if (!request.getValue().key.equals(key))
         return false;
-      SearchEngine.INSTANCE.cancelContactAddressResolution(request.getKey());
+      SearchEngine.INSTANCE.cancelAddressResolution(request.getKey());
       return true;
     });
     if (mPersistentCache != null)
@@ -276,7 +277,7 @@ public enum ContactMapManager implements ContactAddressListener
   {
     if (mContext == null || !isEnabled(mContext))
       return null;
-    final String key = normalizeKey(contactAddress);
+    final String key = contactAddress.getAddressKey();
     ResolvedAddress resolved = mCache.get(key);
     if (resolved == null && mPersistentCache != null)
     {
@@ -290,20 +291,14 @@ public enum ContactMapManager implements ContactAddressListener
     return resolved;
   }
 
-  @NonNull
-  private static String normalizeKey(@NonNull ContactAddress contactAddress)
-  {
-    return contactAddress.getAddressKey();
-  }
-
-  private void onViewportChanged(int scale, @NonNull String region)
+  private void onViewportChanged(int scale, @NonNull String mapRegions)
   {
     cancelRequests();
     mRequests.clear();
     mQueue.clear();
     mFailed.clear();
     mViewportScale = scale;
-    mViewportRegionTokens = ContactAddressNormalizer.matchTokens(region);
+    mViewportRegionTokens = ContactAddressNormalizer.matchTokens(mapRegions);
     mMainHandler.removeCallbacks(mResolveViewport);
     if (scale >= 16)
       mMainHandler.postDelayed(mResolveViewport, 300);
@@ -329,7 +324,7 @@ public enum ContactMapManager implements ContactAddressListener
   private void cancelRequests()
   {
     for (long requestId : mRequests.keySet())
-      SearchEngine.INSTANCE.cancelContactAddressResolution(requestId);
+      SearchEngine.INSTANCE.cancelAddressResolution(requestId);
   }
 
   @MainThread

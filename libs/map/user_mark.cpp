@@ -5,7 +5,6 @@
 
 #include "geometry/mercator.hpp"
 
-
 UserMark::UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type)
   : df::UserPointMark(id == kml::kInvalidMarkId ? UserMarkIdStorage::Instance().GetNextUserMarkId(type) : id)
   , m_ptOrg(ptOrg)

@@ -9,9 +9,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +28,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.CountrySuggestFragment;
@@ -98,7 +95,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private String mContactDerivedQuery;
   @NonNull
   private long mPendingContactRequestId;
-  private long mContactSelectionStartedMs;
   private long mSearchTimestamp;
 
   // Debouncer for runSearch() — collapses bursts of keystrokes into a single engine invocation.
@@ -678,7 +674,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   void selectContactAddress(@NonNull ContactAddress contactAddress)
   {
-    mContactSelectionStartedMs = SystemClock.elapsedRealtime();
     clearPendingContactAddress();
     if (!Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
     {
@@ -704,7 +699,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mPendingContactAddress = contactAddress;
     mPendingContactSourceQuery = getQuery();
     mToolbarController.showProgress(true);
-    mPendingContactRequestId = SearchEngine.INSTANCE.resolveContactAddress(
+    mPendingContactRequestId = SearchEngine.INSTANCE.resolveAddress(
         queries.stream().map(query -> query.query).toArray(String[] ::new),
         queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new),
         Language.getKeyboardLocale(requireContext()), false, (requestId, found, lat, lon, estimated) -> {
@@ -736,10 +731,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         Framework.nativeSetViewportCenter(lat, lon, PICKED_POINT_ZOOM);
     }
     else
-      SearchEngine.INSTANCE.selectContactAddress(lat, lon, contactAddress.address, estimated, false);
-    if (BuildConfig.DEBUG)
-      Log.d("ContactSearch", "Address selected in " + (SystemClock.elapsedRealtime() - mContactSelectionStartedMs)
-                                 + " ms; estimated=" + estimated);
+      SearchEngine.INSTANCE.selectResolvedAddress(lat, lon, contactAddress.address, estimated);
   }
 
   private void showContactAddressFallback(@NonNull ContactAddress contactAddress)
@@ -752,7 +744,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private void clearPendingContactAddress()
   {
     if (mPendingContactRequestId != 0)
-      SearchEngine.INSTANCE.cancelContactAddressResolution(mPendingContactRequestId);
+      SearchEngine.INSTANCE.cancelAddressResolution(mPendingContactRequestId);
     mPendingContactRequestId = 0;
     mPendingContactAddress = null;
     mPendingContactSourceQuery = null;
