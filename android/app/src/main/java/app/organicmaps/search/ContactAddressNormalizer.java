@@ -219,7 +219,7 @@ final class ContactAddressNormalizer
   }
 
   @NonNull
-  private static String prepareAddress(@NonNull String value)
+  static String prepareAddress(@NonNull String value)
   {
     String address = value.trim();
     while (address.length() >= 2 && isMatchingWrapper(address.charAt(0), address.charAt(address.length() - 1)))

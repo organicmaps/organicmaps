@@ -75,6 +75,22 @@ public class ContactAddressTest
   }
 
   @Test
+  public void excludesApartmentDetailsFromResolutionContext()
+  {
+    for (String formatted : List.of("200 Klahanie drive apt. 202", "apt. 202 200 Klahanie drive",
+                                    "200 Klahanie drive #202", "Apartment 202 200 Klahanie drive"))
+    {
+      final ContactAddress address = new ContactAddress("Name", "Home", formatted, "apt. 202 200 Klahanie drive", "");
+      assertEquals("", address.getResolutionContext());
+      assertEquals(List.of(new ContactAddress.SearchQuery("200 Klahanie Drive", "200 Klahanie Drive")),
+                   address.getSearchQueries());
+    }
+    final ContactAddress address = new ContactAddress("Name", "Home", "apt. 202 200 Klahanie drive, Port Moody, BC",
+                                                      "apt. 202 200 Klahanie drive", "Port Moody");
+    assertEquals("200 Klahanie Drive Port Moody British Columbia", address.getSearchQueries().get(0).query);
+  }
+
+  @Test
   public void handlesHouseNumberCommaAndOversizedNumbers()
   {
     final ContactAddress comma = new ContactAddress("Name", "", "16291, 111A Avenue Surrey BC V4N4R7 Canada", "", "");

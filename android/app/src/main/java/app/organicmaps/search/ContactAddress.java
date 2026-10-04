@@ -163,10 +163,11 @@ final class ContactAddress
       return ContactAddressNormalizer.normalizeContext(
           String.join(" ", locality, region, ContactAddressNormalizer.normalizeCountry(country)));
     // Preserve disambiguating components even for formatted-only provider rows.
-    final String[] parts = address.split(",", 2);
+    final String preparedAddress = ContactAddressNormalizer.prepareAddress(address);
+    final String[] parts = preparedAddress.split(",", 2);
     if (parts.length == 2 && !parts[0].trim().matches("\\d+[A-Za-z]?"))
       return ContactAddressNormalizer.normalizeContext(parts[1]);
-    final String normalized = ContactAddressNormalizer.normalizeContext(address);
+    final String normalized = ContactAddressNormalizer.normalizeContext(preparedAddress);
     final String normalizedStreet = getNormalizedStreet();
     final List<String> tokens = ContactAddressNormalizer.matchTokens(normalized);
     final int streetTokens = ContactAddressNormalizer.matchTokens(normalizedStreet).size();
