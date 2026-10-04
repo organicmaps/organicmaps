@@ -85,6 +85,12 @@ private:
   QAction * m_alongAction = nullptr;
   QAction * m_editAction = nullptr;
 
+  QAction * m_transitAction = nullptr;
+  QAction * m_isolinesAction = nullptr;
+  QAction * m_outdoorsAction = nullptr;
+  QAction * m_hikingAction = nullptr;
+  QAction * m_cyclingAction = nullptr;
+
   enum LayerType : uint8_t
   {
     /// @todo Uncomment when we will integrate a traffic provider.
@@ -143,6 +149,12 @@ private:
   Q_PROPERTY(QAction * myPositionAction MEMBER m_pMyPositionAction)
 
   Q_PROPERTY(QAction * searchAction MEMBER m_pSearchAction)
+
+  Q_PROPERTY(QAction * transitAction MEMBER m_transitAction CONSTANT)
+  Q_PROPERTY(QAction * isolinesAction MEMBER m_isolinesAction CONSTANT)
+  Q_PROPERTY(QAction * outdoorsAction MEMBER m_outdoorsAction CONSTANT)
+  Q_PROPERTY(QAction * hikingAction MEMBER m_hikingAction CONSTANT)
+  Q_PROPERTY(QAction * cyclingAction MEMBER m_cyclingAction CONSTANT)
 
   style_utils::NightMode GetNightModeSetting() const {return style_utils::GetNightModeSetting();}
   Q_PROPERTY(style_utils::NightMode nightMode READ GetNightModeSetting NOTIFY nightModeChanged)

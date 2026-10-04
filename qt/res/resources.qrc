@@ -40,4 +40,11 @@
         <file>busy.png</file>
         <file>x.png</file>
     </qresource>
+    <qresource prefix="/layer">
+        <file alias="subway">ic_layer_subway.svg</file>
+        <file alias="contours">ic_layer_contours.svg</file>
+        <file alias="outdoor_lake">ic_layer_outdoor_lake.svg</file>
+        <file alias="outdoor_river_r2">ic_layer_outdoor_river_r2.svg</file>
+        <file alias="outdoor_river">ic_layer_outdoor_river.svg</file>
+    </qresource>
 </RCC>
