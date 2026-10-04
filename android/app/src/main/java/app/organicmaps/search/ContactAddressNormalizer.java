@@ -191,10 +191,13 @@ final class ContactAddressNormalizer
 
   static boolean matchesMapRegion(@NonNull String context, @NonNull String mapRegion)
   {
-    if (mapRegion.isEmpty())
+    return matchesMapRegion(matchTokens(context), matchTokens(mapRegion));
+  }
+
+  static boolean matchesMapRegion(@NonNull List<String> addressTokens, @NonNull List<String> mapTokens)
+  {
+    if (mapTokens.isEmpty())
       return false;
-    final List<String> mapTokens = matchTokens(mapRegion);
-    final List<String> addressTokens = matchTokens(context);
     boolean hasRegion = false;
     for (List<String> regionTokens : REGION_TOKENS)
     {

@@ -1,5 +1,6 @@
 #include "search/address_estimator.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -319,5 +320,19 @@ bool IsAddressResultMatchingQuery(std::string const & query, Result const & resu
     return false;
   auto const candidate = ParseCandidate(0, result, requested->m_streetTokens, requested->m_houseNumber, expectedStreet);
   return candidate && candidate->m_houseNumber == requested->m_houseNumber;
+}
+
+bool IsEarlyAddressResultMatchingQuery(std::string const & query, Result const & result,
+                                       std::string const & expectedStreet)
+{
+  if (result.GetResultType() != Result::Type::Feature || result.IsEstimatedAddress() ||
+      !ftypes::IsAddressChecker::Instance()(result.GetFeatureType()) ||
+      ftypes::IsAddressInterpolChecker::Instance()(result.GetFeatureType()))
+    return false;
+  auto const requested = ParseAddress(query);
+  auto const street = ParseAddress(expectedStreet);
+  if (!requested || !street || requested->m_streetTokens.size() <= street->m_streetTokens.size())
+    return false;
+  return IsAddressResultMatchingQuery(query, result, expectedStreet);
 }
 }  // namespace search

@@ -125,10 +125,15 @@ final class ContactLocationCache
     try
     {
       final byte[] digest = MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8));
-      final StringBuilder result = new StringBuilder(digest.length * 2);
-      for (byte item : digest)
-        result.append(String.format(Locale.ROOT, "%02x", item & 0xff));
-      return result.toString();
+      final char[] result = new char[digest.length * 2];
+      final String hex = "0123456789abcdef";
+      for (int i = 0; i < digest.length; ++i)
+      {
+        final int valueByte = digest[i] & 0xff;
+        result[2 * i] = hex.charAt(valueByte >>> 4);
+        result[2 * i + 1] = hex.charAt(valueByte & 0xf);
+      }
+      return new String(result);
     }
     catch (NoSuchAlgorithmException exception)
     {

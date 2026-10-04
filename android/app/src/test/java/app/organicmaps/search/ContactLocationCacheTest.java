@@ -27,6 +27,7 @@ public class ContactLocationCacheTest
     assertEquals(hash, ContactLocationCache.hash(address));
     assertEquals(64, hash.length());
     assertNotEquals(address, hash);
+    assertEquals("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", ContactLocationCache.hash("abc"));
   }
 
   @Test
@@ -67,6 +68,20 @@ public class ContactLocationCacheTest
     assertNull(mocks.cache.get(address));
 
     verify(mocks.editor).remove(key);
+  }
+
+  @Test
+  public void restoresValidPersistedCoordinatesWithoutRewritingThem()
+  {
+    final CacheMocks mocks = new CacheMocks();
+    final String key = ContactLocationCache.hash("address");
+    when(mocks.preferences.getString(key, null)).thenReturn("3|42|49.12345|-122.98765|true");
+    mocks.mapVersion = 42L;
+    final ContactLocationCache.Entry restored = mocks.cache.get("address");
+    assertEquals(49.12345, restored.lat, 0);
+    assertEquals(-122.98765, restored.lon, 0);
+    assertEquals(true, restored.estimated);
+    verify(mocks.preferences, never()).edit();
   }
 
   @Test

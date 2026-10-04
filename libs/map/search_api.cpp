@@ -505,16 +505,38 @@ void SearchAPI::StartAddressResolution()
   params.m_allowNearbyHouseNumbers = request->m_allowNearbyHouseNumbers;
   params.m_onResults = [this, request, generation, query, viewport](Results const & results)
   {
+    std::optional<search::Result> earlyMatch;
     if (!results.IsEndMarker())
-      return;
-    RunUITask([this, request, generation, query, viewport, results]
+    {
+      for (auto const & result : results)
+        if (search::IsEarlyAddressResultMatchingQuery(query.m_query, result, query.m_street) &&
+            (!request->m_background || viewport.IsPointInside(result.GetFeatureCenter())))
+        {
+          earlyMatch = result;
+          break;
+        }
+      if (!earlyMatch)
+        return;
+    }
+    RunUITask([this, request, generation, query, viewport, results, earlyMatch = std::move(earlyMatch)]
     {
       // Cancelled or suspended attempts must not consume a query or deliver a stale coordinate.
       if (generation != m_addressGeneration)
         return;
       m_addressRunning = false;
-      std::optional<search::Result> match;
+      std::optional<search::Result> match = earlyMatch;
       // Deadlines retain useful results. Explicit cancellation/suspension is excluded by the generation guard.
+      if (!match)
+      {
+        for (auto const & result : results)
+          if (search::IsAddressResultMatchingQuery(query.m_query, result, query.m_street) &&
+              (!request->m_background || viewport.IsPointInside(result.GetFeatureCenter())))
+          {
+            match = result;
+            break;
+          }
+      }
+      if (!match && request->m_allowNearbyHouseNumbers)
       {
         auto const resolved = search::MakeEstimatedAddressResults(query.m_query, results, query.m_street);
         for (auto const & result : resolved)
@@ -537,7 +559,11 @@ void SearchAPI::StartAddressResolution()
         StartAddressResolution();
         return;
       }
+      SuspendAddressResolution();
       m_addressRequests.pop_front();
+      LOG(LDEBUG,
+          ("Contact address resolution", request->m_id, "background", request->m_background, "found", match.has_value(),
+           "early", earlyMatch.has_value(), "milliseconds", request->m_timer.ElapsedMilliseconds()));
       request->m_callback(std::move(match));
       StartAddressResolution();
     });

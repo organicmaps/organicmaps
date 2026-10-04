@@ -28,6 +28,9 @@ final class ContactAddressSearch
   }
 
   private static final int MAX_RESULTS = 20;
+  private static final Comparator<ContactAddress> ADDRESS_ORDER =
+      Comparator.comparing((ContactAddress address) -> address.name, String.CASE_INSENSITIVE_ORDER)
+          .thenComparing(address -> address.label, String.CASE_INSENSITIVE_ORDER);
   private static ContactAddressSearch sInstance;
   private static final String[] PROJECTION = {
       ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
@@ -55,6 +58,7 @@ final class ContactAddressSearch
   private final Set<Runnable> mContactsChangedListeners = new HashSet<>();
   @NonNull
   private final AtomicInteger mCacheGeneration = new AtomicInteger();
+  private final AtomicInteger mSearchGeneration = new AtomicInteger();
   private volatile List<ContactAddress> mCachedAddresses;
   private volatile boolean mShutdown;
   private boolean mObserverRegistered;
@@ -114,6 +118,7 @@ final class ContactAddressSearch
   {
     mShutdown = true;
     mCacheGeneration.incrementAndGet();
+    mSearchGeneration.incrementAndGet();
     mCachedAddresses = null;
     mContactsChangedListeners.clear();
     if (mObserverRegistered)
@@ -131,6 +136,7 @@ final class ContactAddressSearch
 
   void search(@NonNull String query, @NonNull Callback callback)
   {
+    final int generation = mSearchGeneration.incrementAndGet();
     if (mShutdown)
     {
       callback.onResults(query, Collections.emptyList());
@@ -143,22 +149,26 @@ final class ContactAddressSearch
     }
 
     ThreadPool.getWorker().execute(() -> {
-      final List<ContactAddress> matches = findMatches(query);
+      if (mShutdown || generation != mSearchGeneration.get())
+        return;
+      final List<ContactAddress> matches = findMatchesSorted(getAddresses(), query);
       mMainHandler.post(() -> {
-        if (!mShutdown)
+        if (!mShutdown && generation == mSearchGeneration.get())
           callback.onResults(query, matches);
       });
     });
   }
 
   @NonNull
-  private List<ContactAddress> findMatches(@NonNull String normalizedQuery)
+  static List<ContactAddress> findMatches(@NonNull List<ContactAddress> addresses, @NonNull String query)
   {
-    return findMatches(getAddresses(), normalizedQuery);
+    final List<ContactAddress> sorted = new ArrayList<>(addresses);
+    sorted.sort(ADDRESS_ORDER);
+    return findMatchesSorted(sorted, query);
   }
 
   @NonNull
-  static List<ContactAddress> findMatches(@NonNull List<ContactAddress> addresses, @NonNull String query)
+  private static List<ContactAddress> findMatchesSorted(@NonNull List<ContactAddress> addresses, @NonNull String query)
   {
     final String normalizedQuery = ContactAddress.normalizeName(query);
     if (normalizedQuery.isEmpty())
@@ -166,43 +176,41 @@ final class ContactAddressSearch
     final String[] queryWords = normalizedQuery.split(" ");
     final boolean shortQuery =
         normalizedQuery.codePointCount(0, normalizedQuery.length()) - (queryWords.length - 1) < 3;
-    final List<ContactAddress> matches = new ArrayList<>();
-    for (ContactAddress address : addresses)
-    {
-      if (shortQuery)
+    final Set<String> names = new HashSet<>();
+    final List<ContactAddress> matches = new ArrayList<>(MAX_RESULTS);
+    // Provider rows are sorted once. Prefer full-name prefixes without sorting all matches on each keystroke.
+    for (boolean fullNamePrefix : new boolean[] {true, false})
+      for (ContactAddress address : addresses)
       {
-        if (queryWords.length == 1 && address.nameWords.contains(normalizedQuery))
-          matches.add(address);
-        continue;
+        if (address.normalizedName.startsWith(normalizedQuery) != fullNamePrefix
+            || (!names.contains(address.name) && names.size() == 2))
+          continue;
+        if (shortQuery ? queryWords.length != 1 || !address.nameWords.contains(normalizedQuery)
+                       : !matchesWords(address.nameWords, queryWords))
+          continue;
+        names.add(address.name);
+        matches.add(address);
+        if (matches.size() == MAX_RESULTS)
+          return matches;
       }
-      boolean matchesAllWords = true;
-      for (String word : queryWords)
-      {
-        if (address.nameWords.stream().noneMatch(nameWord -> nameWord.startsWith(word)))
+    return matches;
+  }
+
+  private static boolean matchesWords(@NonNull List<String> nameWords, @NonNull String[] queryWords)
+  {
+    for (String queryWord : queryWords)
+    {
+      boolean matched = false;
+      for (String nameWord : nameWords)
+        if (nameWord.startsWith(queryWord))
         {
-          matchesAllWords = false;
+          matched = true;
           break;
         }
-      }
-      if (matchesAllWords)
-        matches.add(address);
+      if (!matched)
+        return false;
     }
-    matches.sort(
-        Comparator.comparingInt((ContactAddress address) -> address.normalizedName.startsWith(normalizedQuery) ? 0 : 1)
-            .thenComparing(address -> address.name, String.CASE_INSENSITIVE_ORDER)
-            .thenComparing(address -> address.label, String.CASE_INSENSITIVE_ORDER));
-    final Set<String> names = new HashSet<>();
-    final List<ContactAddress> limitedMatches = new ArrayList<>();
-    for (ContactAddress match : matches)
-    {
-      if (!names.contains(match.name) && names.size() == 2)
-        continue;
-      names.add(match.name);
-      limitedMatches.add(match);
-      if (limitedMatches.size() == MAX_RESULTS)
-        break;
-    }
-    return limitedMatches;
+    return true;
   }
 
   @NonNull
@@ -271,6 +279,7 @@ final class ContactAddressSearch
       return Collections.emptyList();
     }
 
+    addresses.sort(ADDRESS_ORDER);
     final List<ContactAddress> loadedAddresses = Collections.unmodifiableList(addresses);
     if (!mShutdown && cacheGeneration == mCacheGeneration.get())
       mCachedAddresses = loadedAddresses;

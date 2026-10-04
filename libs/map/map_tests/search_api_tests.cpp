@@ -7,6 +7,7 @@
 
 #include "generator/generator_tests_support/test_feature.hpp"
 
+#include "search/address_estimator.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_with_custom_mwms.hpp"
 
@@ -183,6 +184,16 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionFindsMappedBuildingInBothModes)
       {
         TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().x, building.GetCenter().x, 3e-6, ());
         TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().y, building.GetCenter().y, 3e-6, ());
+        auto qualified = *result;
+        qualified.SetAddress("Sampletown, Canada");
+        TEST(IsEarlyAddressResultMatchingQuery("123 Main Street Sampletown Canada", qualified, "123 Main Street"), ());
+        TEST(!IsEarlyAddressResultMatchingQuery("123 Main Street", qualified, "123 Main Street"), ());
+        TEST(!IsEarlyAddressResultMatchingQuery("123 Main Street West Sampletown Canada", qualified,
+                                                "123 Main Street West"),
+             ());
+        TEST(!IsEarlyAddressResultMatchingQuery("123 Main Street Othertown Canada", qualified, "123 Main Street"), ());
+        qualified.SetEstimatedAddress(true);
+        TEST(!IsEarlyAddressResultMatchingQuery("123 Main Street Sampletown Canada", qualified, "123 Main Street"), ());
       }
       delivered = true;
     });
@@ -200,6 +211,44 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionFindsMappedBuildingInBothModes)
     });
     TEST(delegate.WaitUntil([&] { return delivered; }), (background));
   }
+}
+
+UNIT_CLASS_TEST(SearchAPITest, AddressResolutionDoesNotDeliverAfterCompletionOrCancellation)
+{
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
+  TestBuilding building(m2::PointD(0, 0.00001), "", "123", "Main Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  int delivered = 0;
+  bool cancelledDelivered = false;
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result)
+  {
+    TEST(result, ());
+    ++delivered;
+  });
+  TEST(delegate.WaitUntil([&] { return delivered != 0; }), ());
+  api.ResolveAddress(2, {{"123 Main Street", "123 Main Street"}}, "en", false,
+                     [&](auto) { cancelledDelivered = true; });
+  api.CancelAddressResolution(2);
+  bool searchFinished = false;
+  EverywhereSearchParams params;
+  params.m_query = "Main Street";
+  params.m_inputLocale = "en";
+  params.m_onResults = [&](Results results)
+  {
+    if (results.IsEndMarker())
+      delegate.RunUITask([&] { searchFinished = true; });
+  };
+  api.SearchEverywhere(std::move(params));
+  TEST(delegate.WaitUntil([&] { return searchFinished; }), ());
+  TEST_EQUAL(delivered, 1, ());
+  TEST(!cancelledDelivered, ());
 }
 
 UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)

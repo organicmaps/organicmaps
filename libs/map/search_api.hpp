@@ -16,6 +16,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/timer.hpp"
+
 #include <deque>
 #include <functional>
 #include <memory>
@@ -156,6 +158,7 @@ private:
     AddressCallback m_callback;
     size_t m_queryIndex = 0;
     bool m_allowNearbyHouseNumbers = false;
+    base::Timer m_timer;
   };
   void StartAddressResolution();
   void SuspendAddressResolution();

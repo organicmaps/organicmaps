@@ -61,6 +61,16 @@ final class ContactAddress
   final String region;
   @NonNull
   final String country;
+  @NonNull
+  private final String mNormalizedStreet;
+  @NonNull
+  private final String mResolutionContext;
+  @NonNull
+  final List<String> contextTokens;
+  @NonNull
+  private final String mAddressKey;
+  @NonNull
+  private final List<SearchQuery> mSearchQueries;
 
   ContactAddress(@NonNull String name, @NonNull String label, @NonNull String address, @NonNull String street,
                  @NonNull String locality)
@@ -80,6 +90,12 @@ final class ContactAddress
     this.locality = locality;
     this.region = region;
     this.country = country;
+    mNormalizedStreet = normalizeStreet();
+    mResolutionContext = normalizeResolutionContext();
+    contextTokens = List.copyOf(ContactAddressNormalizer.matchTokens(mResolutionContext));
+    mAddressKey =
+        (mNormalizedStreet + "|" + mResolutionContext + "|" + region + "|" + country).toLowerCase(Locale.ROOT);
+    mSearchQueries = List.copyOf(buildSearchQueries());
   }
 
   @NonNull
@@ -91,6 +107,12 @@ final class ContactAddress
 
   @NonNull
   String getNormalizedStreet()
+  {
+    return mNormalizedStreet;
+  }
+
+  @NonNull
+  private String normalizeStreet()
   {
     final String firstPart = address.split(",", 2)[0].trim();
     if (street.isEmpty() && ContactAddressNormalizer.looksLikeStructuredStreet(firstPart)
@@ -104,6 +126,12 @@ final class ContactAddress
 
   @NonNull
   List<SearchQuery> getSearchQueries()
+  {
+    return mSearchQueries;
+  }
+
+  @NonNull
+  private List<SearchQuery> buildSearchQueries()
   {
     final String normalizedStreet = getNormalizedStreet();
     final List<SearchQuery> queries = new ArrayList<>();
@@ -125,6 +153,12 @@ final class ContactAddress
   @NonNull
   String getResolutionContext()
   {
+    return mResolutionContext;
+  }
+
+  @NonNull
+  private String normalizeResolutionContext()
+  {
     if (!region.isEmpty() || !country.isEmpty())
       return ContactAddressNormalizer.normalizeContext(
           String.join(" ", locality, region, ContactAddressNormalizer.normalizeCountry(country)));
@@ -142,8 +176,7 @@ final class ContactAddress
   @NonNull
   String getAddressKey()
   {
-    return (getNormalizedStreet() + "|" + getResolutionContext() + "|" + region + "|" + country)
-        .toLowerCase(Locale.ROOT);
+    return mAddressKey;
   }
 
   private static void addQuery(@NonNull List<SearchQuery> queries, @NonNull SearchQuery candidate)

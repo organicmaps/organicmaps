@@ -15,6 +15,7 @@ import app.organicmaps.sdk.search.SearchEngine.ContactAddressListener;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -27,7 +28,7 @@ public enum ContactMapManager implements ContactAddressListener
 {
   INSTANCE;
 
-  private static final int MAX_CONCURRENT_REQUESTS = 2;
+  private static final int MAX_CONCURRENT_REQUESTS = 1;
   private static final long MARK_UPDATE_DELAY_MS = 100;
 
   static final class ResolvedAddress
@@ -62,16 +63,16 @@ public enum ContactMapManager implements ContactAddressListener
     @NonNull
     final String key;
     @NonNull
-    final String context;
+    final List<String> contextTokens;
     @NonNull
     final List<ContactAddress.SearchQuery> queries;
     final long generation;
 
-    PendingAddress(@NonNull String key, @NonNull String context, @NonNull List<ContactAddress.SearchQuery> queries,
-                   long generation)
+    PendingAddress(@NonNull String key, @NonNull List<String> contextTokens,
+                   @NonNull List<ContactAddress.SearchQuery> queries, long generation)
     {
       this.key = key;
-      this.context = context;
+      this.contextTokens = contextTokens;
       this.queries = queries;
       this.generation = generation;
     }
@@ -92,13 +93,19 @@ public enum ContactMapManager implements ContactAddressListener
   private String mLocale = "en";
   private long mGeneration;
   private final Map<String, PendingAddress> mAddresses = new LinkedHashMap<>();
-  private String mViewportRegion = "";
+  private List<String> mViewportRegionTokens = List.of();
   private int mViewportScale;
   private final Runnable mResolveViewport = this::resolveViewport;
+  private double[] mMarkLatitudes = {};
+  private double[] mMarkLongitudes = {};
+  @Nullable
+  private String[] mMarkNames;
+  private boolean[] mMarkEstimated = {};
 
   @MainThread
   public void refresh(@NonNull Context context)
   {
+    mMarkNames = null;
     cancelRequests();
     mMainHandler.removeCallbacks(mUpdateMarks);
     mContext = context.getApplicationContext();
@@ -172,7 +179,7 @@ public enum ContactMapManager implements ContactAddressListener
       if (!searchQueries.isEmpty())
       {
         final String key = normalizeKey(address);
-        unique.putIfAbsent(key, new PendingAddress(key, address.getResolutionContext(), searchQueries, generation));
+        unique.putIfAbsent(key, new PendingAddress(key, address.contextTokens, searchQueries, generation));
         mNames.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(address.name);
       }
     }
@@ -203,7 +210,7 @@ public enum ContactMapManager implements ContactAddressListener
       final PendingAddress address = mQueue.poll();
       if (address == null)
         return;
-      if (address.generation != mGeneration)
+      if (address.generation != mGeneration || mCache.containsKey(address.key))
         continue;
       final long requestId = SearchEngine.INSTANCE.resolveContactAddress(
           address.queries.stream().map(query -> query.query).toArray(String[] ::new),
@@ -248,12 +255,20 @@ public enum ContactMapManager implements ContactAddressListener
     final String key = normalizeKey(contactAddress);
     final ResolvedAddress resolved = new ResolvedAddress(lat, lon, estimated);
     mCache.put(key, resolved);
+    mQueue.removeIf(address -> address.key.equals(key));
+    mRequests.entrySet().removeIf(request -> {
+      if (!request.getValue().key.equals(key))
+        return false;
+      SearchEngine.INSTANCE.cancelContactAddressResolution(request.getKey());
+      return true;
+    });
     if (mPersistentCache != null)
       mPersistentCache.put(key, new ContactLocationCache.Entry(lat, lon, estimated));
     mFailed.remove(key);
     mVisibleKeys.add(key);
     mNames.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(contactAddress.name);
     scheduleMarksUpdate();
+    resolveNext();
   }
 
   @Nullable
@@ -261,7 +276,18 @@ public enum ContactMapManager implements ContactAddressListener
   {
     if (mContext == null || !isEnabled(mContext))
       return null;
-    return mCache.get(normalizeKey(contactAddress));
+    final String key = normalizeKey(contactAddress);
+    ResolvedAddress resolved = mCache.get(key);
+    if (resolved == null && mPersistentCache != null)
+    {
+      final ContactLocationCache.Entry cached = mPersistentCache.get(key);
+      if (cached != null)
+      {
+        resolved = new ResolvedAddress(cached.lat, cached.lon, cached.estimated);
+        mCache.put(key, resolved);
+      }
+    }
+    return resolved;
   }
 
   @NonNull
@@ -277,7 +303,7 @@ public enum ContactMapManager implements ContactAddressListener
     mQueue.clear();
     mFailed.clear();
     mViewportScale = scale;
-    mViewportRegion = region;
+    mViewportRegionTokens = ContactAddressNormalizer.matchTokens(region);
     mMainHandler.removeCallbacks(mResolveViewport);
     if (scale >= 16)
       mMainHandler.postDelayed(mResolveViewport, 300);
@@ -293,7 +319,7 @@ public enum ContactMapManager implements ContactAddressListener
           || mQueue.contains(address))
         continue;
       // Searches are bounded by the viewport; skip contacts in a different downloaded map region as well.
-      if (!ContactAddressNormalizer.matchesMapRegion(address.context, mViewportRegion))
+      if (!ContactAddressNormalizer.matchesMapRegion(address.contextTokens, mViewportRegionTokens))
         continue;
       mQueue.add(address);
     }
@@ -342,6 +368,13 @@ public enum ContactMapManager implements ContactAddressListener
       estimated[index] = mark.coordinate.estimated;
       ++index;
     }
+    if (Arrays.equals(latitudes, mMarkLatitudes) && Arrays.equals(longitudes, mMarkLongitudes)
+        && Arrays.equals(names, mMarkNames) && Arrays.equals(estimated, mMarkEstimated))
+      return;
+    mMarkLatitudes = latitudes;
+    mMarkLongitudes = longitudes;
+    mMarkNames = names;
+    mMarkEstimated = estimated;
     Framework.nativeSetContactMarks(latitudes, longitudes, names, estimated);
   }
 }

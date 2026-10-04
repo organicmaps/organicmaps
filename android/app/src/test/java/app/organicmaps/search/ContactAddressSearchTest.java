@@ -75,6 +75,18 @@ public class ContactAddressSearchTest
   }
 
   @Test
+  public void keepsAllAddressesOfTwoNamesAcrossBothPrefixPasses()
+  {
+    final List<ContactAddress> addresses =
+        List.of(address("Zoe Alex", "Work"), address("Morgan Alex", "Work"), address("Alex Zane", "Work"),
+                address("Morgan Alex", "Home"), address("Alex Zane", "Home"));
+    final List<ContactAddress> matches = ContactAddressSearch.findMatches(addresses, "alex");
+    assertEquals(List.of("Alex Zane", "Alex Zane", "Morgan Alex", "Morgan Alex"),
+                 matches.stream().map(address -> address.name).toList());
+    assertEquals(List.of("Home", "Work", "Home", "Work"), matches.stream().map(address -> address.label).toList());
+  }
+
+  @Test
   public void limitsResults()
   {
     final List<ContactAddress> addresses = new ArrayList<>();

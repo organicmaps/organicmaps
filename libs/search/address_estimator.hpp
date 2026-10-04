@@ -15,4 +15,8 @@ Results MakeEstimatedAddressResults(std::string const & query, Results const & r
 // Call this after MakeEstimatedAddressResults() so a validated estimate can match as well.
 bool IsAddressResultMatchingQuery(std::string const & query, Result const & result,
                                   std::string const & expectedStreet = {});
+
+// Only mapped, fully qualified exact addresses can finish resolution before the search ends.
+bool IsEarlyAddressResultMatchingQuery(std::string const & query, Result const & result,
+                                       std::string const & expectedStreet);
 }  // namespace search
