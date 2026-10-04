@@ -789,22 +789,6 @@ private:
   };
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
 
-  struct RestoringCache
-  {
-    std::string m_serverId;
-    kml::AccessRules m_accessRules;
-  };
-  std::map<std::string, RestoringCache> m_restoringCache;
-
-  struct ExpiredCategory
-  {
-    ExpiredCategory(kml::MarkGroupId id, std::string const & serverId) : m_id(id), m_serverId(serverId) {}
-
-    kml::MarkGroupId m_id;
-    std::string m_serverId;
-  };
-  std::vector<ExpiredCategory> m_expiredCategories;
-
   struct Properties
   {
     DECLARE_VISITOR_AND_DEBUG_PRINT(Properties, visitor(m_values, "values"))

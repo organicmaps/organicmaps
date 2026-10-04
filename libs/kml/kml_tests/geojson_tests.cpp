@@ -770,7 +770,6 @@ kml::FileData GenerateKmlFileData()
 
   kml::FileData result;
   result.m_deviceId = "AAAA";
-  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
 
   kml::BookmarkData bookmarkData;
   bookmarkData.m_name[kDefaultLang] = "Marcador de prueba";

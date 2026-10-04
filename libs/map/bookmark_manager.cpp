@@ -2742,18 +2742,6 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     loadedGroups.insert(groupId);
     auto * group = GetBmCategory(groupId);
     group->SetFileName(fileName);
-    group->SetServerId(fileData.m_serverId);
-
-    // Restore sensitive info from the cache.
-    auto const cacheIt = m_restoringCache.find(fileName);
-    if (cacheIt != m_restoringCache.end() &&
-        (group->GetServerId().empty() || group->GetServerId() == cacheIt->second.m_serverId) &&
-        cacheIt->second.m_accessRules != group->GetCategoryData().m_accessRules)
-    {
-      group->SetServerId(cacheIt->second.m_serverId);
-      group->SetAccessRules(cacheIt->second.m_accessRules);
-      group->EnableAutoSave(autoSave);
-    }
 
     for (auto & bmData : fileData.m_bookmarksData)
     {
@@ -2772,7 +2760,6 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     UpdateTrackMarksVisibility(groupId);
     UserMarkIdStorage::Instance().EnableSaving(true);
   }
-  m_restoringCache.clear();
 
   // During the updating process the file shouldn't be re-saved on disk because it should be already up to date.
   // In other case race condition may occur when multiple devices are used.
@@ -2830,7 +2817,6 @@ void BookmarkManager::SetUniqueName(kml::CategoryData & data)
 std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCategory const * group) const
 {
   auto kmlData = std::make_unique<kml::FileData>();
-  kmlData->m_serverId = group->GetServerId();
   kmlData->m_categoryData = group->GetCategoryData();
   auto const & markIds = group->GetUserMarks();
   kmlData->m_bookmarksData.reserve(markIds.size());

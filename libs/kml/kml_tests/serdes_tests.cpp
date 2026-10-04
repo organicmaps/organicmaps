@@ -4,6 +4,7 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
+#include "kml/serdes_binary_v8.hpp"
 #include "kml/serdes_common.hpp"
 
 #include "coding/text_storage.hpp"
@@ -52,7 +53,6 @@ kml::FileData GenerateKmlFileData()
 {
   kml::FileData result;
   result.m_deviceId = "AAAA";
-  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
 
   result.m_categoryData.m_name[kDefaultLang] = "Test category";
   result.m_categoryData.m_name[kRuLang] = "Тестовая категория";
@@ -242,6 +242,22 @@ UNIT_TEST(Kml_Serialization_Bin_Memory)
   TEST_EQUAL(data, data2, ());
 }
 
+UNIT_TEST(Kml_Serialization_Bin_V8_Memory)
+{
+  classificator::Load();
+
+  kml::FileData data;
+  kml::binary::DeserializerKml(data).Deserialize(MemReader(kBinKmlV8.data(), kBinKmlV8.size()));
+
+  std::vector<uint8_t> buffer;
+  MemWriter sink(buffer);
+  kml::binary::SerializerKmlV8(data).Serialize(sink);
+
+  kml::FileData reloaded;
+  kml::binary::DeserializerKml(reloaded).Deserialize(MemReader(buffer.data(), buffer.size()));
+  TEST_EQUAL(reloaded, data, ());
+}
+
 // 4. Check deserialization from the text file.
 UNIT_TEST(Kml_Deserialization_Text_File)
 {
@@ -400,6 +416,7 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
     ser.Serialize(sink);
   }
   TEST_EQUAL(dataFromFileBuffer, dataFromGeneratedFileBuffer, ());
+  TEST(dataFromFileBuffer.find("mwm:serverId") == std::string::npos, ());
 }
 
 UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)

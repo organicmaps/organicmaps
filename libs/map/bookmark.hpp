@@ -108,9 +108,6 @@ public:
 
   kml::CategoryData const & GetCategoryData() const { return m_data; }
 
-  void SetServerId(std::string const & serverId);
-  std::string const & GetServerId() const { return m_serverId; }
-
   void SetAccessRules(kml::AccessRules accessRules);
   void SetTags(std::vector<std::string> const & tags);
   void SetCustomProperty(std::string const & key, std::string const & value);
@@ -127,5 +124,4 @@ private:
   std::string m_file;
   bool m_autoSave = true;
   kml::CategoryData m_data;
-  std::string m_serverId;
 };
