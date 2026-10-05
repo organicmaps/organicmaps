@@ -655,6 +655,9 @@
 "button_plan" = "План";
 "placepage_remove_stop" = "Уклони међуодредиште";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Додај одредиште";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Додај међуодредиште";
 "saved" = "Сачувано";

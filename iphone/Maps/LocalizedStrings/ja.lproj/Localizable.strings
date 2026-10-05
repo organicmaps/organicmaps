@@ -655,6 +655,9 @@
 "button_plan" = "プラン";
 "placepage_remove_stop" = "停留所を削除";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "目的地を追加";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "経由地を追加";
 "saved" = "保存";
