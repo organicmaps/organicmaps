@@ -14,6 +14,8 @@ RUN dnf config-manager disable fedora-cisco-openh264 && \
     qt6-qtpositioning-devel \
     qt6-qtsvg-devel \
     sqlite-devel \
+    google-noto-sans-symbols-2-fonts \
+    google-noto-color-emoji-fonts \
     # for WITH_SYSTEM_PROVIDED_3PARTY=ON
     gflags-devel expat-devel pugixml-devel utf8cpp-devel gtest-devel fast_float-devel freetype-devel boost-devel \
     #
