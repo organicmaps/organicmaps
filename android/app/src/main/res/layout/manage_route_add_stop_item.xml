@@ -24,7 +24,7 @@
     android:layout_marginEnd="@dimen/margin_half"
     android:ellipsize="end"
     android:maxLines="1"
-    android:text="@string/placepage_add_stop"
+    android:text="@string/route_add_destination"
     android:textAlignment="viewStart"
     android:textAppearance="@style/MwmTextAppearance.Body1"
     android:textColor="@color/base_accent"

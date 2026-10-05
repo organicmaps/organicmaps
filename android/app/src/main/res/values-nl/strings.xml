@@ -568,6 +568,8 @@
     <string name="planning_route_manage_route">Beheer route</string>
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Verwijder tussenstop</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">Bestemming toevoegen</string>
     <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Stop toevoegen</string>
     <string name="drag_to_reorder">Herschikken</string>

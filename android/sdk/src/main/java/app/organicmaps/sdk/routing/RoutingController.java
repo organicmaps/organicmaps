@@ -772,7 +772,7 @@ public class RoutingController
 
   public void waitForPoiPickToAppend()
   {
-    // Intermediate labels this as an Add Stop pick and prevents the existing finish from being treated
+    // Intermediate selects the "Add destination" labels and keeps the existing finish from being treated
     // as replaced when checking whether My Position can be picked. The core makes the picked point Finish.
     armPoiPick(RouteMarkType.Intermediate, PoiPickMode.APPEND, -1);
   }
