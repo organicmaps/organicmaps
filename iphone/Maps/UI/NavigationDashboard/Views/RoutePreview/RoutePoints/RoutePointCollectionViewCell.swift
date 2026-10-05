@@ -13,6 +13,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   struct PointViewModel {
     let title: String
     let image: UIImage
+    let usesCurrentPositionIcon: Bool
     let showCloseButton: Bool
     let maskedCorners: CACornerMask
     let isPlaceholder: Bool
@@ -169,7 +170,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     case .point(let viewModel):
       titleLabel.text = viewModel.title
       logoImageView.image = viewModel.image
-      logoImageView.setStyleAndApply(.black)
+      logoImageView.setStyleAndApply(viewModel.usesCurrentPositionIcon ? .blue : .black)
       didTapClose = viewModel.onCloseHandler
       titleLabel.setFontStyleAndApply(Constants.fontStyle, color: viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
       closeButton.isHidden = !viewModel.showCloseButton
