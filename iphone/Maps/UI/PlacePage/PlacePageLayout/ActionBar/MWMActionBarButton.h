@@ -13,7 +13,8 @@ typedef NS_ENUM(NSInteger, MWMActionBarButtonType) {
   MWMActionBarButtonTypeRouteTo,
   MWMActionBarButtonTypeAvoidToll,
   MWMActionBarButtonTypeAvoidDirty,
-  MWMActionBarButtonTypeAvoidFerry
+  MWMActionBarButtonTypeAvoidFerry,
+  MWMActionBarButtonTypeRouteAddDestination
 } NS_SWIFT_NAME(ActionBarButtonType);
 
 typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
