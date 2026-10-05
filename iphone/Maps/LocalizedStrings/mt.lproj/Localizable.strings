@@ -650,6 +650,9 @@
 "transliteration_title" = "Jittraduċi ruħu fl-alfabett Latin";
 "placepage_remove_stop" = "Neħħi l-Waqfa";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Żid destinazzjoni";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Żid waqfa";
 "error_enter_correct_name" = "Daħħal isem korrett";

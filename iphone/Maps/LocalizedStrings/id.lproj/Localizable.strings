@@ -650,6 +650,9 @@
 "transliteration_title" = "Transliterasi ke dalam bahasa Latin";
 "placepage_remove_stop" = "Hapus pemberhentian";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Tambah tujuan";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Tambah perhentian";
 "error_enter_correct_name" = "Harap masukkan nama yang benar";

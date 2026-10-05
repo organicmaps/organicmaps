@@ -650,6 +650,9 @@
 "transliteration_title" = "Transliterar al alfabeto latino";
 "placepage_remove_stop" = "Quitar Stop";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Agregar destino";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Agregar parada";
 "error_enter_correct_name" = "Introduzca un nombre correcto";

@@ -650,6 +650,9 @@
 "transliteration_title" = "ຖອດອັກສອນເປັນພາສາລາແຕັງ";
 "placepage_remove_stop" = "ເອົາຈຸດແວ່ພັກອອກ";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "ເພີ່ມປາຍທາງ";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "ເພີ່ມຈຸດຈອດ";
 "error_enter_correct_name" = "ກະລຸນາປ້ອນຊື່ທີ່ຖືກຕ້ອງ";

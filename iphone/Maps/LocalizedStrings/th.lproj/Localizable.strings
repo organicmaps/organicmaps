@@ -650,6 +650,9 @@
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 "placepage_remove_stop" = "ลบจุดแวะพัก";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "เพิ่มจุดหมาย";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "เพิ่มจุดหยุด";
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
