@@ -89,6 +89,23 @@ UNIT_TEST(OpeningHours_AdditiveRule)
   TEST_EQUAL(StateAt(oh, 2026, 7, 6, 20, 0), osmoh::RuleState::Closed, ());  // Monday not covered
 }
 
+UNIT_TEST(OpeningHours_SpacedTimeList)
+{
+  using platform::tests_support::GetUnixtimeByDate;
+  using Month = osmoh::MonthDay::Month;
+
+  // OSM node 14132311401: the afternoon span must retain the We-Sa selector.
+  std::string const value = "We-Sa 09:00-13:00 , 14:30-19:00";
+  OpeningHours const oh(value);
+  TEST(oh.IsValid(), ());
+  auto const info = oh.GetInfo(GetUnixtimeByDate(2026, Month::Oct, 5, 10, 0));  // Monday
+  TEST_EQUAL(info.state, osmoh::RuleState::Closed, ());
+  TEST_EQUAL(info.nextTimeOpen, GetUnixtimeByDate(2026, Month::Oct, 7, 9, 0), ());  // Wednesday
+  TEST_EQUAL(StateAt(value, 2026, 10, 7, 13, 30), osmoh::RuleState::Closed, ());    // Lunch break
+  TEST_EQUAL(StateAt(value, 2026, 10, 7, 15, 0), osmoh::RuleState::Open, ());
+  TEST_EQUAL(StateAt(value, 2026, 10, 11, 15, 0), osmoh::RuleState::Closed, ());  // Sunday
+}
+
 // #7523: extended hours past midnight spill into the next day.
 UNIT_TEST(OpeningHours_ExtendedHours)
 {
