@@ -1,17 +1,19 @@
 #pragma once
 
+#include "indexer/data_header.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/scales.hpp"
+
 #include "coding/geometry_coding.hpp"
 
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/simplification.hpp"
 
-#include "indexer/feature_data.hpp"
-#include "indexer/scales.hpp"
-
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
+#include <array>
 #include <cmath>
 #include <functional>
 #include <limits>
@@ -29,11 +31,14 @@ public:
 
   CalculateMidPoints();
 
-  void operator()(FeatureBuilder const & ft, uint64_t pos);
+  void operator()(FeatureBuilder const & ft, uint64_t pos, DataHeader::FeatureGroup group);
   bool operator()(m2::PointD const & p);
 
   m2::PointD GetCenter() const;
-  std::vector<CellAndOffset> const & GetVector() const { return m_vec; }
+  std::vector<CellAndOffset> const & GetVector(DataHeader::FeatureGroup group) const
+  {
+    return m_vectors[static_cast<size_t>(group)];
+  }
 
   void Sort();
 
@@ -44,7 +49,7 @@ private:
   size_t m_allCount = 0;
   uint8_t m_coordBits = serial::GeometryCodingParams().GetCoordBits();
   MinDrawableScaleFn m_minDrawableScaleFn;
-  std::vector<CellAndOffset> m_vec;
+  std::array<std::vector<CellAndOffset>, static_cast<size_t>(DataHeader::FeatureGroup::Count)> m_vectors;
 };
 
 template <typename Point>

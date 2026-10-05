@@ -11,6 +11,8 @@
 
 #include "defines.hpp"
 
+#include <algorithm>
+
 namespace feature
 {
 namespace
@@ -87,6 +89,24 @@ std::pair<int, int> DataHeader::GetScaleRange() const
   }
 }
 
+void DataHeader::SetFeatureOffsets(FeatureOffsets const & offsets)
+{
+  ASSERT(std::is_sorted(offsets.begin(), offsets.end()), (offsets));
+  m_featureOffsets = offsets;
+}
+
+std::pair<uint32_t, uint32_t> DataHeader::GetFeatureRange(FeatureGroup group) const
+{
+  auto const index = static_cast<size_t>(group);
+  ASSERT_LESS(index, m_featureOffsets.size(), ());
+  return {index == 0 ? 0 : m_featureOffsets[index - 1], m_featureOffsets[index]};
+}
+
+uint32_t DataHeader::GetFeatureCount() const
+{
+  return m_featureOffsets.back();
+}
+
 void DataHeader::Save(FileWriter & w) const
 {
   m_codingParams.Save(w);
@@ -98,14 +118,18 @@ void DataHeader::Save(FileWriter & w) const
   SaveBytes(w, m_langs);
 
   WriteVarInt(w, static_cast<int32_t>(m_type));
+
+  for (auto const offset : m_featureOffsets)
+    WriteVarUint(w, offset);
 }
 
 void DataHeader::Load(FilesContainerR const & cont)
 {
-  Load(cont.GetReader(HEADER_FILE_TAG));
+  auto const format = version::MwmVersion::Read(cont).GetFormat();
+  Load(cont.GetReader(HEADER_FILE_TAG), format >= version::Format::v12);
 }
 
-void DataHeader::Load(ModelReaderPtr const & r)
+void DataHeader::Load(ModelReaderPtr const & r, bool hasFeatureRanges)
 {
   ReaderSource<ModelReaderPtr> src(r);
   m_codingParams.Load(src);
@@ -120,6 +144,17 @@ void DataHeader::Load(ModelReaderPtr const & r)
 
   if (m_type < MapType::World || m_type > MapType::Country || m_scales.size() != kMaxScalesCount)
     MYTHROW(CorruptedMwmFile, (r.GetName()));
+
+  if (hasFeatureRanges)
+  {
+    for (auto & offset : m_featureOffsets)
+      offset = ReadVarUint<uint32_t>(src);
+    ASSERT(std::is_sorted(m_featureOffsets.begin(), m_featureOffsets.end()), (m_featureOffsets));
+  }
+  else
+  {
+    m_featureOffsets = {};
+  }
 }
 
 std::string DebugPrint(DataHeader::MapType type)

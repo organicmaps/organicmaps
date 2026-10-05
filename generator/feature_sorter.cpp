@@ -33,6 +33,7 @@
 #include <limits>
 #include <list>
 #include <memory>
+#include <numeric>
 #include <vector>
 
 namespace feature
@@ -72,6 +73,9 @@ public:
 
     // write own mwm header
     m_header.SetBounds(m_bounds);
+    DataHeader::FeatureOffsets offsets;
+    std::partial_sum(m_featureGroupSizes.begin(), m_featureGroupSizes.end(), offsets.begin());
+    m_header.SetFeatureOffsets(offsets);
     {
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
       auto w = writer.GetWriter(HEADER_FILE_TAG);
@@ -142,7 +146,7 @@ public:
 
   void SetBounds(m2::RectD const & bounds) { m_bounds = bounds; }
 
-  void operator()(FeatureBuilder & fb)
+  void operator()(FeatureBuilder & fb, DataHeader::FeatureGroup group)
   {
     GeometryHolder holder([this](int i) -> FileWriter & { return m_geoFile[i]->GetWriter(); },
                           [this](int i) -> FileWriter & { return m_trgFile[i]->GetWriter(); }, fb, m_header);
@@ -284,6 +288,7 @@ public:
       fb.SerializeForMwm(buffer, m_header.GetDefGeometryCodingParams());
 
       uint32_t const featureId = WriteFeatureBase(buffer.m_buffer, fb);
+      ++m_featureGroupSizes[static_cast<size_t>(group)];
 
       // Order is important here:
 
@@ -347,6 +352,7 @@ private:
   indexer::MetadataBuilder m_metadataBuilder;
 
   DataHeader m_header;
+  DataHeader::FeatureOffsets m_featureGroupSizes = {};
   RegionData m_regionData;
   uint32_t m_versionDate;
 
@@ -363,31 +369,33 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
   std::string const srcFilePath = info.GetTmpFileName(name);
   std::string const dataFilePath = info.GetTargetFileName(name);
 
+  DataHeader header;
+  header.SetType(mapType);
+  bool const isWorldOrWorldCoasts = (mapType != DataHeader::MapType::Country);
+  if (isWorldOrWorldCoasts)
+    header.SetScales(g_arrWorldScales);
+  else
+    header.SetScales(g_arrCountryScales);
+
+  indexer::SearchFeatureClassifier classifier(header.GetScaleRange());
   LOG(LINFO, ("Calculating middle points"));
   // Store cellIds for middle points.
   CalculateMidPoints midPoints;
-  ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) { midPoints(fb, pos); });
+  ForEachFeatureRawFormat(srcFilePath, [&](FeatureBuilder const & fb, uint64_t pos)
+  { midPoints(fb, pos, classifier.GetFeatureGroup(fb)); });
 
-  // Sort features by their middle point.
+  // Sort features inside each group by min drawable scale, then by middle point.
   midPoints.Sort();
 
   // Store sorted features.
   {
     FileReader reader(srcFilePath);
     // Fill mwm header.
-    DataHeader header;
-
-    bool const isWorldOrWorldCoasts = (mapType != DataHeader::MapType::Country);
     uint8_t coordBits = kFeatureSorterPointCoordBits;
     if (isWorldOrWorldCoasts)
       coordBits -= ((scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2);
 
-    header.SetType(static_cast<DataHeader::MapType>(mapType));
     header.SetGeometryCodingParams(serial::GeometryCodingParams(coordBits, midPoints.GetCenter()));
-    if (isWorldOrWorldCoasts)
-      header.SetScales(g_arrWorldScales);
-    else
-      header.SetScales(g_arrCountryScales);
 
     RegionData regionData;
     ReadRegionData(name, regionData);
@@ -407,14 +415,18 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
       LOG(LINFO, ("Simplifying and filtering geometry for all geom levels"));
 
       FeaturesCollector2 collector(name, info, header, regionData, info.m_versionDate);
-      for (auto const & point : midPoints.GetVector())
+      for (size_t i = 0; i < static_cast<size_t>(DataHeader::FeatureGroup::Count); ++i)
       {
-        ReaderSource<FileReader> src(reader);
-        src.Skip(point.second);
+        auto const group = static_cast<DataHeader::FeatureGroup>(i);
+        for (auto const & point : midPoints.GetVector(group))
+        {
+          ReaderSource<FileReader> src(reader);
+          src.Skip(point.second);
 
-        FeatureBuilder fb;
-        ReadFromSourceRawFormat(src, fb);
-        collector(fb);
+          FeatureBuilder fb;
+          ReadFromSourceRawFormat(src, fb);
+          collector(fb, group);
+        }
       }
 
       LOG(LINFO, ("Writing features' data to", dataFilePath));
