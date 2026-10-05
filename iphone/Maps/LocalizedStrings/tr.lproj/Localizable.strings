@@ -650,6 +650,9 @@
 "transliteration_title" = "Latin alfabesine çevir";
 "placepage_remove_stop" = "Durağı Kaldır";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Hedef ekle";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Ara nokta ekle";
 "error_enter_correct_name" = "Lütfen doğru ad girin";
