@@ -152,6 +152,32 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     XCTAssertEqual((0 ..< route.count).map(route.type(for:)), [.start, .intermediate, .intermediate, .finish])
   }
 
+  func test_GivenRoutePointSelection_WhenChoosingPoint_ThenShowsMatchingTitle() {
+    let start = makePoint(type: .start, title: "start", coordinate: 10)
+    let finish = makePoint(type: .finish, title: "finish", coordinate: 13)
+    let stop = makePoint(type: .intermediate, title: "stop", coordinate: 11)
+    let cases: [(type: MWMRoutePointType, point: MWMRoutePoint?, shouldAppend: Bool, key: String)] = [
+      (.start, nil, false, "choose_start_location"),
+      (.start, start, false, "change_start_location"),
+      (.finish, nil, false, "choose_destination"),
+      (.finish, finish, false, "change_destination"),
+      (.intermediate, nil, false, "placepage_add_stop"),
+      (.intermediate, stop, false, "change_stop_along_route"),
+      (.intermediate, nil, true, "route_add_destination"),
+    ]
+
+    for selection in cases {
+      delegate.routePreviewDidSelect(MWMRoutePointSelection(point: selection.point,
+                                                            type: selection.type,
+                                                            shouldAppend: selection.shouldAppend))
+      XCTAssertEqual(manager.routePointSelectionTitle, L(selection.key))
+    }
+
+    XCTAssertEqual(titleForButton(.routeAddStop, false), L("placepage_add_stop"))
+    XCTAssertEqual(titleForButton(.routeReplaceStop, false), L("placepage_replace_stop"))
+    XCTAssertEqual(titleForButton(.routeAddDestination, false), L("route_add_destination"))
+  }
+
   private func seedEndpoints() {
     MWMRouter.addPoint(makePoint(type: .start, title: "start", coordinate: 10))
     MWMRouter.addPoint(makePoint(type: .finish, title: "finish", coordinate: 13))

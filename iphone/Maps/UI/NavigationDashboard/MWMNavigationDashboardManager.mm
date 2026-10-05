@@ -260,7 +260,10 @@
   {
   case MWMRoutePointTypeStart: return L(isChanging ? @"change_start_location" : @"choose_start_location");
   case MWMRoutePointTypeFinish: return L(isChanging ? @"change_destination" : @"choose_destination");
-  case MWMRoutePointTypeIntermediate: return L(isChanging ? @"change_stop_along_route" : @"placepage_add_stop");
+  case MWMRoutePointTypeIntermediate:
+    if (isChanging)
+      return L(@"change_stop_along_route");
+    return L(self.shouldAppendNewPoints ? @"route_add_destination" : @"placepage_add_stop");
   }
 }
 

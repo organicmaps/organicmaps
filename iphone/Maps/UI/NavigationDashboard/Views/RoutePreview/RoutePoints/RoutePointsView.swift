@@ -79,16 +79,27 @@ final class RoutePointsView: UIView {
   }
 
   private func configure(_ cell: RoutePointCollectionViewCell, at indexPath: IndexPath) {
+    let index = indexPath.item
+    let topConnector: RoutePointCollectionViewCell.ConnectorStyle = index == 0 ? .none :
+      (index == routePoints.count ? .threeDots : .solid)
+    let bottomConnector: RoutePointCollectionViewCell.ConnectorStyle
+    if index < routePoints.count - 1 {
+      bottomConnector = .solid
+    } else if index == routePoints.count - 1, routePoints.hasStartAndFinish {
+      bottomConnector = .threeDots
+    } else {
+      bottomConnector = .none
+    }
     switch indexPath.item {
     case routePoints.count:
-      cell.configure(with: .addPoint)
+      cell.configure(with: .addPoint, topConnector: topConnector, bottomConnector: bottomConnector)
     default:
       let viewModel = routePoints.cellViewModel(for: indexPath.item, onCloseHandler: { [weak self] in
         if let point = self?.routePoints[indexPath.item] {
           self?.interactor?.process(.deleteRoutePoint(point))
         }
       })
-      cell.configure(with: viewModel)
+      cell.configure(with: viewModel, topConnector: topConnector, bottomConnector: bottomConnector)
     }
   }
 
