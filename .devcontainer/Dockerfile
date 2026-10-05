@@ -16,6 +16,7 @@ RUN dnf config-manager disable fedora-cisco-openh264 && \
     sqlite-devel \
     google-noto-sans-symbols-2-fonts \
     google-noto-color-emoji-fonts \
+    breeze-icon-theme \
     # for WITH_SYSTEM_PROVIDED_3PARTY=ON
     gflags-devel expat-devel pugixml-devel utf8cpp-devel gtest-devel fast_float-devel freetype-devel boost-devel \
     #
