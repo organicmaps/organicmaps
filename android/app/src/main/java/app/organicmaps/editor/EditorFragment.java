@@ -96,8 +96,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextInputEditText mBuildingLevels;
 
   // Define Metadata entries, that have more tricky logic, separately.
-  private TextView mPhone;
-  private TextView mEditPhoneLink;
+  private PhoneListAdapter mAdapter;
+  private RecyclerView mPhonesRecycler;
+
   private TextView mCuisine;
   private SwitchCompat mWifi;
   private TextView mSelfService;
@@ -183,7 +184,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     });
 
-    mPhone.setText(Editor.nativeGetPhone());
+    setupPhoneRecyclerView(view.getContext());
 
     initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE, R.string.error_enter_correct_web);
     initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE_MENU, R.string.error_enter_correct_web);
@@ -206,6 +207,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     refreshResetButton();
   }
 
+  private void setupPhoneRecyclerView(@NonNull Context context)
+  {
+    mAdapter = new PhoneListAdapter(Editor.nativeGetPhone());
+    mAdapter.setHasStableIds(true);
+    LinearLayoutManager manager = new LinearLayoutManager(context);
+    mPhonesRecycler.setLayoutManager(manager);
+    mPhonesRecycler.setAdapter(mAdapter);
+  }
+
   @Override
   public void onSaveInstanceState(Bundle outState)
   {
@@ -222,6 +232,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
+    //Editor.nativeSetPhone(???);
 
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
     // Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(),
@@ -428,10 +439,16 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
     mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
-    mPhone = blockPhone.findViewById(R.id.phone);
-    mEditPhoneLink = blockPhone.findViewById(R.id.edit_phone);
-    mEditPhoneLink.setOnClickListener(this);
-    mPhone.setOnClickListener(this);
+    mPhonesRecycler = blockPhone.findViewById(R.id.edit_phones_recycler);
+    /*
+        if (Editor.nativeIsPhoneValid(phone))
+        {
+          Editor.nativeSetPhone(phone);
+          editMapObject();
+        }
+
+     */
+
     View websiteBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website, R.drawable.ic_website,
                                   R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
     View websiteMenuBlock =
@@ -528,8 +545,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     final int id = v.getId();
     if (id == R.id.edit_opening_hours || id == R.id.empty_opening_hours || id == R.id.opening_hours)
       mParent.editTimetable();
-    else if (id == R.id.phone || id == R.id.edit_phone)
-      mParent.editPhone();
     else if (id == R.id.block_wifi)
       mWifi.toggle();
     else if (id == R.id.block_self_service)
