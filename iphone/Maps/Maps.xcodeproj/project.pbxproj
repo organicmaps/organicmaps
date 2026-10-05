@@ -80,6 +80,7 @@
 		AB0DB0030000000000000002 /* CarPlaySpeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */; };
 		AB0DB0040000000000000002 /* CarPlayMapOwnershipState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */; };
 		B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */; };
+		5A07CF7460A24F6BBCA9F174 /* RoutePointCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4D381982BD4FCD9308F4D1 /* RoutePointCollectionViewCellTests.swift */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt78l.dat */; };
 		DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BC1BF340DE002C974C /* drules_default.bin */; };
@@ -847,6 +848,7 @@
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
 		4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageUserDescriptionWebViewTests.swift; sourceTree = "<group>"; };
+		1A4D381982BD4FCD9308F4D1 /* RoutePointCollectionViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointCollectionViewCellTests.swift; sourceTree = "<group>"; };
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = SOURCE_ROOT; };
 		4A300ED31C6DCFD400140018 /* countries-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "countries-strings"; path = "../../data/countries-strings"; sourceTree = "<group>"; };
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
@@ -2218,6 +2220,7 @@
 		ED810EC02D566E6F00ECDE2C /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1A4D381982BD4FCD9308F4D1 /* RoutePointCollectionViewCellTests.swift */,
 				E79F77A472014212B40FDE97 /* PlacePageTests */,
 				ED810EC32D566E7600ECDE2C /* SearchOnMapTests */,
 			);
@@ -5045,6 +5048,7 @@
 				A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */,
 				A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */,
 				A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */,
+				5A07CF7460A24F6BBCA9F174 /* RoutePointCollectionViewCellTests.swift in Sources */,
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
 				ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */,
