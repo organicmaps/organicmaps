@@ -225,6 +225,7 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
 private extension NavigationDashboard.RoutePoints {
   func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RoutePointCollectionViewCell.CellType {
     let point = self[index]
+    let usesCurrentPositionIcon = index == 0 && point?.isMyPosition == true
     let maskedCorners: CACornerMask
     switch index {
     case 0:
@@ -234,7 +235,8 @@ private extension NavigationDashboard.RoutePoints {
     }
     let viewModel = RoutePointCollectionViewCell.PointViewModel(
       title: title(for: index),
-      image: image(for: index),
+      image: usesCurrentPositionIcon ? UIImage.icCurrentPosition : defaultImage(for: index),
+      usesCurrentPositionIcon: usesCurrentPositionIcon,
       showCloseButton: point?.type == .intermediate,
       maskedCorners: maskedCorners,
       isPlaceholder: point == nil,
