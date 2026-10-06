@@ -532,10 +532,10 @@ public class RoutingController
 
   public void removeStop(@NonNull MapObject mapObject)
   {
-    RoutePointInfo info = mapObject.getRoutePointInfo();
-    if (info == null)
+    if (!mapObject.has(RoutePointInfo.class))
       throw new AssertionError("A stop point must have the route point info!");
 
+    final RoutePointInfo info = mapObject.get(RoutePointInfo.class);
     applyRemovingIntermediatePointsTransaction();
     Framework.nativeRemoveRoutePoint(info.mMarkType, info.mIntermediateIndex);
     build();
@@ -609,7 +609,7 @@ public class RoutingController
 
   public boolean isRoutePoint(@NonNull MapObject mapObject)
   {
-    return mapObject.getRoutePointInfo() != null;
+    return mapObject.has(RoutePointInfo.class);
   }
 
   private void updatePlan()

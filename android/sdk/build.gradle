@@ -7,7 +7,7 @@ apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk'
-  enableKotlin = true  // see app/build.gradle
+  enableKotlin = true
 
   buildFeatures {
     buildConfig = true
@@ -106,6 +106,7 @@ dependencies {
 
   testImplementation libs.androidx.junit
   testImplementation libs.mockito.inline
+  testImplementation libs.robolectric
   androidTestImplementation libs.androidx.junit
   androidTestImplementation libs.androidx.test.runner
 }

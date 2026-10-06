@@ -1,14 +1,16 @@
 package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class Metadata implements Parcelable
+public class Metadata implements MapObjectData
 {
   // Values must correspond to the Metadata definition from indexer/feature_meta.hpp.
   public enum MetadataType
@@ -92,18 +94,32 @@ public class Metadata implements Parcelable
     }
   }
 
-  private final Map<MetadataType, String> mMetadataMap = new HashMap<>();
+  @NonNull
+  private final Map<MetadataType, String> mData;
 
-  public void addMetadata(int metaType, String metaValue)
+  @VisibleForTesting
+  Metadata()
   {
-    final MetadataType type = MetadataType.fromInt(metaType);
-    mMetadataMap.put(type, metaValue);
+    mData = new HashMap<>();
+  }
+
+  public boolean has(@NonNull MetadataType type)
+  {
+    return mData.containsKey(type);
   }
 
   @Nullable
-  String getMetadata(MetadataType type)
+  public String get(@NonNull MetadataType type)
   {
-    return mMetadataMap.get(type);
+    return mData.getOrDefault(type, null);
+  }
+
+  @VisibleForTesting
+  @Keep
+  void put(int metaType, @NonNull String metaValue)
+  {
+    final MetadataType type = MetadataType.fromInt(metaType);
+    mData.put(type, metaValue);
   }
 
   @Override
@@ -115,30 +131,24 @@ public class Metadata implements Parcelable
   @Override
   public void writeToParcel(@NonNull Parcel dest, int flags)
   {
-    dest.writeInt(mMetadataMap.size());
-    for (Map.Entry<MetadataType, String> metaEntry : mMetadataMap.entrySet())
+    dest.writeInt(mData.size());
+    for (Map.Entry<MetadataType, String> metaEntry : mData.entrySet())
     {
       dest.writeInt(metaEntry.getKey().mMetaType);
       dest.writeString(metaEntry.getValue());
     }
   }
 
-  @NonNull
-  private static Metadata readFromParcel(@NonNull Parcel source)
-  {
-    final Metadata metadata = new Metadata();
-    final int size = source.readInt();
-    for (int i = 0; i < size; i++)
-      metadata.addMetadata(source.readInt(), source.readString());
-    return metadata;
-  }
-
   public static final Creator<Metadata> CREATOR = new Creator<>() {
     @Override
     @NonNull
-    public Metadata createFromParcel(Parcel source)
+    public Metadata createFromParcel(@NonNull Parcel source)
     {
-      return readFromParcel(source);
+      final Metadata metadata = new Metadata();
+      final int size = source.readInt();
+      for (int i = 0; i < size; i++)
+        metadata.put(source.readInt(), Objects.requireNonNull(source.readString(), "Metadata value cannot be null"));
+      return metadata;
     }
 
     @Override

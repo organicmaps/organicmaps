@@ -50,9 +50,11 @@ import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
+import app.organicmaps.sdk.bookmarks.data.OsmDescription;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.bookmarks.data.TrackSelectionCandidate;
+import app.organicmaps.sdk.bookmarks.data.WikiData;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.editor.Editor;
@@ -476,9 +478,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
   private boolean hasWikipediaEntry()
   {
-    final String wikipediaLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
-    final String wikiArticle = mMapObject.getWikiArticle();
-    return !TextUtils.isEmpty(wikipediaLink) || !TextUtils.isEmpty(wikiArticle);
+    final boolean hasWikiMetadata =
+        mMapObject.has(Metadata.class) && mMapObject.get(Metadata.class).has(Metadata.MetadataType.FMD_WIKIPEDIA);
+    final boolean hasWikiData = mMapObject.has(WikiData.class);
+    return hasWikiMetadata || hasWikiData;
   }
 
   private void updateWikipediaView()
@@ -532,14 +535,13 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
     refreshCategoryPreview();
 
-    final String osmDescription = mMapObject.getOsmDescription();
-    if (osmDescription.isEmpty())
-      mOsmDescriptionContainer.setVisibility(GONE);
-    else
+    if (mMapObject.has(OsmDescription.class))
     {
-      mTvOsmDescription.setText(osmDescription);
+      mTvOsmDescription.setText(mMapObject.get(OsmDescription.class).getDescription());
       mOsmDescriptionContainer.setVisibility(VISIBLE);
     }
+    else
+      mOsmDescriptionContainer.setVisibility(GONE);
     if (mMapObject.isTrack())
     {
       UiUtils.hide(mAvDirection, mTvDistance);
@@ -676,7 +678,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
     refreshWiFi();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
-    final String level = Utils.getLocalizedLevel(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL));
+    final String level =
+        Utils.getLocalizedLevel(requireContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL));
     refreshMetadataOrHide(level, mLevel, mTvLevel);
 
     final String cap = mMapObject.getMetadata(Metadata.MetadataType.FMD_CAPACITY);
@@ -686,11 +689,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
                           mTvAtm);
 
     final String wheelchair =
-        getLocalizedFeatureType(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
+        getLocalizedFeatureType(requireContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
     refreshMetadataOrHide(wheelchair, mWheelchair, mTvWheelchair);
 
     final String driveThrough = mMapObject.getMetadata(Metadata.MetadataType.FMD_DRIVE_THROUGH);
-    refreshMetadataOrHide(driveThrough.equals("yes") ? getString(R.string.drive_through) : "", mDriveThrough,
+    refreshMetadataOrHide("yes".equals(driveThrough) ? getString(R.string.drive_through) : "", mDriveThrough,
                           mTvDriveThrough);
 
     final String selfService = mMapObject.getMetadata(Metadata.MetadataType.FMD_SELF_SERVICE);
@@ -698,7 +701,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
                           mTvSelfService);
 
     final String outdoorSeating = mMapObject.getMetadata(Metadata.MetadataType.FMD_OUTDOOR_SEATING);
-    refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating,
+    refreshMetadataOrHide("yes".equals(outdoorSeating) ? getString(R.string.outdoor_seating) : "", mOutdoorSeating,
                           mTvOutdoorSeating);
 
     // showTaxiOffer(mapObject);
@@ -845,9 +848,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
   {
     final Context context = requireContext();
     final int id = v.getId();
-    if ((id == R.id.tv__title || id == R.id.iv__title_chevron) && mMapObject instanceof Track)
+    if ((id == R.id.tv__title || id == R.id.iv__title_chevron) && mMapObject instanceof Track track)
     {
-      final Track track = (Track) mMapObject;
       if (track.hasMultipleCandidates())
       {
         showTrackCandidatesPopup(mIvTitleChevron, track.getCandidates());

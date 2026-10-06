@@ -23,6 +23,7 @@ import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PlacePageLinksFragment extends Fragment implements Observer<MapObject>
 {
@@ -81,7 +82,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
           yield "";
         yield Framework.nativeGetPoiContactUrl(type.toInt());
       }
-      default -> mMapObject.getMetadata(type);
+      default -> Objects.requireNonNullElse(mMapObject.getMetadata(type), "");
     };
   }
 
