@@ -37,8 +37,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
       phonesData.add(p);
     }
 
-    if (phonesData.isEmpty())
-      phonesData.add("");
+    phonesData.add("");
   }
 
   @NonNull
@@ -53,6 +52,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
   {
     holder.setPosition(position);
     holder.setPhone(phonesData.get(position));
+    if (position == phonesData.size()-1)
+      holder.setNewPhoneRow(true);
   }
 
   @Override
@@ -92,6 +93,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
   protected class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
     private int mPosition = -1;
+    private boolean isNewPhoneRow = false;
     private final TextInputEditText mInput;
     private final ImageView deleteButton;
 
@@ -108,6 +110,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
           UiUtils.setInputError(phoneInput,
                                 Editor.nativeIsPhoneValid(s.toString()) ? 0 : R.string.error_enter_correct_phone);
           PhoneListAdapter.this.updatePhoneItem(mPosition, mInput.getText().toString());
+          if (isNewPhoneRow)
+            setNewPhoneRow(false); // When user edits text in new phone row then it's not a new phone row anymore
         }
       });
 
@@ -115,6 +119,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
       deleteButton.setOnClickListener(this);
       // TODO: setting icons from code because icons defined in layout XML are white.
       deleteButton.setImageResource(R.drawable.ic_delete);
+
+      setNewPhoneRow(isNewPhoneRow);
     }
 
     public void setPosition(int position)
@@ -126,6 +132,22 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     {
       if (!mInput.getText().toString().equals(phone))
         mInput.setText(phone);
+    }
+
+    public void setNewPhoneRow(boolean newPhoneRow)
+    {
+      this.isNewPhoneRow = newPhoneRow;
+
+      if (deleteButton != null)
+        UiUtils.visibleIf(!newPhoneRow, deleteButton);
+
+      if (mInput != null)
+      {
+        if (newPhoneRow)
+          mInput.setHint("New Phone");
+        else
+          mInput.setHint(null);
+      }
     }
 
     @Override
@@ -141,6 +163,11 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     if (position == -1)
       return;
     phonesData.set(position, text);
+    if (position == phonesData.size() - 1 && !text.isEmpty())
+    {
+      phonesData.add("");
+      notifyDataSetChanged();
+    }
   }
 
   void deleteItem(int position)
