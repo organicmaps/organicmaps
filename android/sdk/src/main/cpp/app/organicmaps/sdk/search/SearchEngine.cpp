@@ -55,6 +55,7 @@ jmethodID g_mapResultCtor;
 jmethodID g_updateBookmarksResultsId;
 jmethodID g_endBookmarksResultsId;
 jmethodID g_addressResolvedId;
+jmethodID g_contactViewportChangedId;
 
 bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 {
@@ -108,7 +109,7 @@ jobject ToJavaResult(search::Result const & result, bool hasPosition, double lat
 
   bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
 
-  auto const localizedFeatureType = result.GetLocalizedFeatureType();
+  auto const & localizedFeatureType = result.GetLocalizedFeatureType();
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, localizedFeatureType));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, ToJavaDistance(env, distance));
@@ -255,6 +256,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
   g_updateBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsUpdate", "([JJ)V");
   g_endBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
   g_addressResolvedId = jni::GetMethodID(env, g_javaListener, "onAddressResolved", "(JZDD)V");
+  g_contactViewportChangedId =
+      jni::GetMethodID(env, g_javaListener, "onContactViewportChanged", "(ILjava/lang/String;)V");
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz,
@@ -302,8 +305,8 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInterac
         {},  // default timeout
         static_cast<bool>(isCategory),
         std::bind(&OnResults, std::placeholders::_1, timestamp, isMapAndTable, hasPosition, lat, lon)};
-    eparams.m_prioritizeAddressMatches = true;
 
+    eparams.m_prioritizeAddressMatches = true;
     if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
     {
       g_queryTimestamp = timestamp;
@@ -372,6 +375,27 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAddressR
                                                                                           jlong requestId)
 {
   g_framework->NativeFramework()->GetSearchAPI().CancelAddressResolution(requestId);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSetContactViewportEnabled(JNIEnv * env, jclass clazz,
+                                                                                            jboolean enabled)
+{
+  auto & api = g_framework->NativeFramework()->GetSearchAPI();
+  if (!enabled)
+  {
+    api.SetAddressViewportCallback({});
+    return;
+  }
+  api.SetAddressViewportCallback([](m2::RectD const & viewport, int scale)
+  {
+    auto * env = jni::GetEnv();
+    std::string mapRegions;
+    if (scale >= 16)
+      for (auto const & region : g_framework->NativeFramework()->GetRegionsCountryIdByRect(viewport, false))
+        mapRegions += region + " ";
+    jni::TScopedLocalRef regions(env, jni::ToJavaString(env, mapRegions));
+    env->CallVoidMethod(g_javaListener, g_contactViewportChangedId, scale, regions.get());
+  });
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResolvedAddress(JNIEnv * env, jclass clazz,
