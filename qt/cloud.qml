@@ -217,11 +217,6 @@ Item {
         }
     }
 
-    component GridLabel: Label {
-        // Positioner.index doesn't work here
-        visible: parent.children[parent.children.indexOf(this) + 1].text
-    }
-
     component LinkedText: Label {
         onLinkActivated: link => Qt.openUrlExternally(link)
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
@@ -314,109 +309,31 @@ Item {
                 columnSpacing: 5
                 width: Math.min(implicitWidth, root.width - pane.leftPadding - pane.rightPadding)
 
-                GridLabel {
-                    text: "Bookmark:"
-                }
-                LinkedText {
-                    text: root.map.bookmark ? "Yes" : ""
-                }
+                Repeater {
+                    id: repeater 
 
-                GridLabel {
-                    text: "Opening hours:"
-                }
-                LinkedText {
-                    text: root.map.openingHours
-                }
+                    model: [
+                        "Bookmark:", root.map.bookmark ? "Yes" : "",
+                        "Opening hours:", root.map.openingHours,
+                        "Cuisine:", root.map.cuisines,
+                        "Phone:", root.map.phone ? "<a href='tel:" + root.map.phone + "'>" + root.map.phone + "</a>" : "",
+                        "Operator:", root.map.operator,
+                        "Wi-Fi:", root.map.wifi ? "Yes" : "",
+                        "Website:", root.map.website ? "<a href='" + root.map.website + "'>" + root.map.website + "</a>" : "",
+                        "Email:", root.map.email ? "<a href='mailto:" + root.map.email + "'>" + root.map.email + "</a>" : "",
+                        "Facebook:", root.map.facebook,
+                        "Instagram:", root.map.instagram,
+                        "Twitter:", root.map.twitter,
+                        "VK:", root.map.vk,
+                        "Line:", root.map.line,
+                        "Level:", root.map.level,
+                        "ATM:", root.map.atm ? "Yes" : ""
+                    ]
 
-                GridLabel {
-                    text: "Cuisine:"
-                }
-                LinkedText {
-                    text: root.map.cuisines
-                }
-
-                GridLabel {
-                    text: "Phone:"
-                }
-                LinkedText {
-                    text: root.map.phone ? "<a href='tel:" + root.map.phone + "'>" + root.map.phone + "</a>" : ""
-                }
-
-                GridLabel {
-                    text: "Operator:"
-                }
-                LinkedText {
-                    text: root.map.operator
-                }
-
-                GridLabel {
-                    text: "Wi-Fi:"
-                }
-                LinkedText {
-                    text: root.map.wifi ? "Yes" : ""
-                }
-
-                GridLabel {
-                    text: "Website:"
-                }
-                LinkedText {
-                    text: root.map.website ? "<a href='" + root.map.website + "'>" + root.map.website + "</a>" : ""
-                }
-
-                GridLabel {
-                    text: "Email:"
-                }
-                LinkedText {
-                    text: root.map.email ? "<a href='mailto:" + root.map.email + "'>" + root.map.email + "</a>" : ""
-                }
-
-                GridLabel {
-                    text: "Facebook:"
-                }
-                LinkedText {
-                    text: root.map.facebook
-                }
-
-                GridLabel {
-                    text: "Instagram:"
-                }
-                LinkedText {
-                    text: root.map.instagram
-                }
-
-                GridLabel {
-                    text: "Twitter:"
-                }
-                LinkedText {
-                    text: root.map.twitter
-                }
-
-                GridLabel {
-                    text: "VK:"
-                }
-                LinkedText {
-                    text: root.map.vk
-                }
-
-                GridLabel {
-                    text: "Line:"
-                }
-                LinkedText {
-                    text: root.map.line
-                }
-
-                GridLabel {
-                    text: "Level:"
-                }
-                Label {
-                    text: root.map.level
-                }
-
-                GridLabel {
-                    text: "ATM:"
-                }
-                Label {
-                    text: root.map.atm ? "Yes" : ""
+                    delegate: LinkedText {
+                        text: modelData
+                        visible: index % 2 ? modelData : repeater.model[index + 1]
+                    }
                 }
             }
 
