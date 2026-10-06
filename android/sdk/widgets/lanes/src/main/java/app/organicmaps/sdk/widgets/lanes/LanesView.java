@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -109,21 +108,6 @@ public class LanesView extends View
     canvas.drawRoundRect(mViewBounds, mCornerRadius, mCornerRadius, mBackgroundPaint);
 
     mLanesDrawable.draw(canvas);
-  }
-
-  @Override
-  public boolean onTouchEvent(MotionEvent event)
-  {
-    // Every touch Android dispatches here is already within the view bounds.
-    performClick();
-    return true;
-  }
-
-  @Override
-  public boolean performClick()
-  {
-    super.performClick();
-    return false;
   }
 
   private void update()
