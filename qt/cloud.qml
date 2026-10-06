@@ -281,17 +281,13 @@ Item {
                 }
             }
 
-            // Rectangle wrapper is needed so the separator shrinks
+            // Wrapper item is needed so the separator shrinks.
             Item {
                 implicitWidth: 1
-                implicitHeight: 1
-                visible: parent.implicitWidth
+                implicitHeight: childrenRect.height
 
-                Rectangle {
+                MenuSeparator {
                     implicitWidth: parent.parent.implicitWidth
-
-                    implicitHeight: 1
-                    color: "#1E000000"
                 }
             }
 
