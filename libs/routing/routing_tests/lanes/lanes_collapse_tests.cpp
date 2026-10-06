@@ -39,6 +39,28 @@ UNIT_TEST(CollapseLanes_FittingLanesArePassedThroughVerbatim)
   TEST_EQUAL(CollapseLanes(lanes), CollapsedLanes({lanes, false, false}), ());
 }
 
+UNIT_TEST(CollapseLanes_IdenticalLanesCollapseOnlyPastTheCap)
+{
+  LanesInfo lanes;
+  Append(lanes, Plain({LaneWay::Through}), kMaxLanesToDisplay);
+  TEST_EQUAL(CollapseLanes(lanes), CollapsedLanes({lanes, false, false}), ());
+
+  lanes.push_back(Plain({LaneWay::Through}));
+  LanesInfo const expected{Collapsed({LaneWay::Through}, kMaxLanesToDisplay + 1)};
+  TEST_EQUAL(CollapseLanes(lanes), CollapsedLanes({expected, false, false}), ());
+}
+
+UNIT_TEST(CollapseLanes_TrimsBothEdges)
+{
+  LanesInfo lanes{Plain({LaneWay::Left}),        Recommended(LaneWay::Through),  Plain({LaneWay::Through}),
+                  Plain({LaneWay::SlightRight}), Plain({LaneWay::Right}),        Plain({LaneWay::SharpRight}),
+                  Plain({LaneWay::MergeToLeft}), Plain({LaneWay::MergeToRight}), Plain({LaneWay::ReverseRight}),
+                  Plain({LaneWay::None})};
+
+  LanesInfo const expected(lanes.begin() + 1, lanes.end() - 1);
+  TEST_EQUAL(CollapseLanes(lanes), CollapsedLanes({expected, true, true}), ());
+}
+
 UNIT_TEST(CollapseLanes_TollPlazaCollapsesToExactCounts)
 {
   // 50 booths, the two recommended ones in the middle: 20 + 2 + 28 -> 4 entries, no trimming.
