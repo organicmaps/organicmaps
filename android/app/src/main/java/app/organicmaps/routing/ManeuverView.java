@@ -82,8 +82,7 @@ public class ManeuverView extends LinearLayout
     mLanes.setLanes(info.lanes, info.lanesTrimmedLeft, info.lanesTrimmedRight);
     mTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
 
-    // Skip the band when the second maneuver keeps the same street name — repeating it is noise.
-    final boolean showNextNextTurn = info.hasNextNextTurn() && !TextUtils.equals(info.nextNextStreet, info.nextStreet);
+    final boolean showNextNextTurn = info.hasNextNextTurn();
     UiUtils.showIf(showNextNextTurn, mNextNextTurnFrame);
     if (showNextNextTurn)
     {

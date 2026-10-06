@@ -88,9 +88,10 @@ public final class RoutingInfo
     return shouldPlayWarningSignal;
   }
 
+  // A second maneuver that keeps the same street name is noise, so it is not reported.
   public boolean hasNextNextTurn()
   {
-    return nextNextStreet != null && !nextNextStreet.isEmpty() && nextCarDirection != CarDirection.NoTurn
- && nextCarDirection != CarDirection.GoStraight;
+    return nextNextStreet != null && !nextNextStreet.isEmpty() && !nextNextStreet.equals(nextStreet)
+ && nextCarDirection != CarDirection.NoTurn && nextCarDirection != CarDirection.GoStraight;
   }
 }

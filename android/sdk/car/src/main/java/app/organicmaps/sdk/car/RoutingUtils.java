@@ -59,7 +59,7 @@ public final class RoutingUtils
 
     // TODO (AndrewShkrob): Use real distance and time estimates
     builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0, distanceColor));
-    // Same predicate as the phone's maneuver-card "then" chip, so both surfaces show the
+    // Same predicate as the phone's maneuver-card "then" band, so both surfaces show the
     // second step under identical conditions (and nextNextStreet is guaranteed non-empty).
     if (info.hasNextNextTurn())
       builder.addStep(createNextStep(context, info), createTravelEstimate(Distance.EMPTY, 0, distanceColor));
