@@ -598,7 +598,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Deze naam is al in gebruik</string>
     <string name="bookmarks_error_message_list_name_already_taken">Kies alstublieft een andere naam</string>
     <string name="please_wait">Even geduld aub…</string>
-    <string name="phone_number">Telefoonnummer</string>
     <string name="profile">OpenStreetMap-profiel</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">%d bestanden gevonden.</item>

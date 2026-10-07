@@ -599,7 +599,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Aquest nom ja és en ús</string>
     <string name="bookmarks_error_message_list_name_already_taken">Trieu-ne un altre</string>
     <string name="please_wait">Espereu…</string>
-    <string name="phone_number">Número de telèfon</string>
     <string name="profile">Perfil de l’OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">No s’ha trobat cap fitxer.</item>

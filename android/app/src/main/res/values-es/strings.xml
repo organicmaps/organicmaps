@@ -599,7 +599,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Este nombre ya existe</string>
     <string name="bookmarks_error_message_list_name_already_taken">Elija otro nombre</string>
     <string name="please_wait">Espere…</string>
-    <string name="phone_number">Número de teléfono</string>
     <string name="profile">Perfil de OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">Se han encontrado %d archivos. Los verá después de la conversión.</item>

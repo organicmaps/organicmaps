@@ -598,7 +598,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Овај назив већ постоји</string>
     <string name="bookmarks_error_message_list_name_already_taken">Молим Вас изаберите други назив</string>
     <string name="please_wait">Молим Вас сачекајте…</string>
-    <string name="phone_number">Број телефона</string>
     <string name="profile">OpenStreetMap профил</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d фајл је пронађен. Можете да га погледате након конверзије.</item>

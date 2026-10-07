@@ -601,7 +601,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">هذا الاسم موجود سابقا</string>
     <string name="bookmarks_error_message_list_name_already_taken">يرجى اختيار اسم آخر</string>
     <string name="please_wait">أرجو الإنتظار…</string>
-    <string name="phone_number">رقم الهاتف</string>
     <string name="profile">ملف الشخصي على خريطة الشارع المفتوحة</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">لم يتم العثور على أي ملف.</item>

@@ -596,7 +596,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Nama ini sudah dipakai</string>
     <string name="bookmarks_error_message_list_name_already_taken">Silakan pilih nama lain</string>
     <string name="please_wait">Mohon tunggu…</string>
-    <string name="phone_number">Nomor telepon</string>
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="other">%d file ditemukan. Anda akan melihatnya setelah konversi.</item>

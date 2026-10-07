@@ -551,7 +551,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">ຊື່ນີ້ຖືກໃຊ້ແລ້ວ</string>
     <string name="bookmarks_error_message_list_name_already_taken">ກະລຸນາເລືອກຊື່ອື່ນ</string>
     <string name="please_wait">ກະລຸນາລໍຖ້າ…</string>
-    <string name="phone_number">ເບີໂທລະສັບ</string>
     <string name="profile">ໂປຣໄຟລ໌ OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">ພົບເຫັນ %d ໄຟລ໌. ທ່ານສາມາດເບິ່ງມັນໄດ້ຫຼັງຈາກການແປງ.</item>

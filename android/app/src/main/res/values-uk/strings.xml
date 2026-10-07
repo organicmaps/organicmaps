@@ -600,7 +600,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Це ім\'я вже зайнято</string>
     <string name="bookmarks_error_message_list_name_already_taken">Виберіть інше ім\'я</string>
     <string name="please_wait">Будь ласка, зачекайте…</string>
-    <string name="phone_number">Номер телефону</string>
     <string name="profile">Профіль OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">%d файлів було знайдено. Ви побачите їх після перетворення.</item>

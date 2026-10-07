@@ -597,7 +597,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Izen hau dagoeneko hartua da</string>
     <string name="bookmarks_error_message_list_name_already_taken">Aukeratu beste izen bat</string>
     <string name="please_wait">Itxaron mesedez…</string>
-    <string name="phone_number">Telefono zenbakia</string>
     <string name="profile">OpenStreetMap profila</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">fitxategi %d aurkitu da. Elkarrizketaren ondoren ikusiko duzu.</item>

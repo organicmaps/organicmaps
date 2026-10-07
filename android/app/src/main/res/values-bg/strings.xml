@@ -596,7 +596,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Това име вече е заето</string>
     <string name="bookmarks_error_message_list_name_already_taken">Моля, изберете друго име</string>
     <string name="please_wait">Моля, изчакайте…</string>
-    <string name="phone_number">Телефонен номер</string>
     <string name="profile">Профил в OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Открит е %d файл. Можете да го видите след конвертирането.</item>

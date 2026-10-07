@@ -597,7 +597,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Acest nume este deja folosit</string>
     <string name="bookmarks_error_message_list_name_already_taken">Alege un alt nume</string>
     <string name="please_wait">Așteaptă…</string>
-    <string name="phone_number">Număr de telefon</string>
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">A fost găsit %d fișier. Îl vei vedea după conversiune.</item>

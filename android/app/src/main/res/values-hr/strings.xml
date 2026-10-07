@@ -597,7 +597,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Ovo se ime već koristi</string>
     <string name="bookmarks_error_message_list_name_already_taken">Odaberi jedno drugo ime</string>
     <string name="please_wait">Pričekaj …</string>
-    <string name="phone_number">Broj telefona</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">Pronađeno je %d datoteka. Možeš ih vidjeti nakon konverzije.</item>

@@ -597,7 +597,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Det här namnet är redan taget</string>
     <string name="bookmarks_error_message_list_name_already_taken">Vänligen välj ett annat namn</string>
     <string name="please_wait">Vänligen vänta…</string>
-    <string name="phone_number">Telefonnummer</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d fil hittades. Du kommer att se den efter omvandlingen.</item>

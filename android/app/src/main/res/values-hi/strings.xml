@@ -596,7 +596,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">यह नाम पहले ही ले लिया गया है</string>
     <string name="bookmarks_error_message_list_name_already_taken">कृपया कोई अन्य नाम चुनें</string>
     <string name="please_wait">कृपया प्रतीक्षा करें…</string>
-    <string name="phone_number">फ़ोन नंबर</string>
     <string name="profile">OpenStreetMap प्रोफ़ाइल</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="other">%d files were found. You can see them after conversion.</item>

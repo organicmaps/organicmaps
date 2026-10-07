@@ -594,7 +594,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Jina hili tayari limechukuliwa</string>
     <string name="bookmarks_error_message_list_name_already_taken">Tafadhali chagua jina lingine</string>
     <string name="please_wait">Tafadhali subiri…</string>
-    <string name="phone_number">Nambari ya simu</string>
     <string name="profile">Wasifu wa OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Faili %d ilipatikana. Utaiona baada ya uongofu.</item>

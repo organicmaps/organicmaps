@@ -598,7 +598,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Þetta nafn er þegar í notkun</string>
     <string name="bookmarks_error_message_list_name_already_taken">Veldu eitthvað annað heiti</string>
     <string name="please_wait">Bíddu aðeins…</string>
-    <string name="phone_number">Símanúmer</string>
     <string name="profile">OpenStreetMap-notandasnið</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">%d skrá fannst.</item>

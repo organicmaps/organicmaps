@@ -596,7 +596,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">이 이름은 이미 사용 중입니다.</string>
     <string name="bookmarks_error_message_list_name_already_taken">다른 이름을 선택하십시오.</string>
     <string name="please_wait">잠시만 기다려주십시오…</string>
-    <string name="phone_number">전화 번호</string>
     <string name="profile">OpenStreetMap 프로필</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="other">%d 개의 파일이 발견되었습니다. 변환 후 확인할 수 있습니다.</item>

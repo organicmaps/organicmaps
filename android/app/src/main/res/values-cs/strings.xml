@@ -599,7 +599,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Toto jméno již bylo provedeno</string>
     <string name="bookmarks_error_message_list_name_already_taken">Zvolte jiný název</string>
     <string name="please_wait">Prosím, čekejte…</string>
-    <string name="phone_number">Telefonní číslo</string>
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">Bylo nalezeno %d souborů. Uvidíte je po konverzi.</item>

@@ -598,7 +598,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">This name is already taken</string>
     <string name="bookmarks_error_message_list_name_already_taken">Please choose another name</string>
     <string name="please_wait">Please wait…</string>
-    <string name="phone_number">Phone number</string>
     <string name="profile">OpenStreetMap profile</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d file was found. You can see it after conversion.</item>

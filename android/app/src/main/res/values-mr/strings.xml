@@ -597,7 +597,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">हे नाव आधीच वापरात आहे</string>
     <string name="bookmarks_error_message_list_name_already_taken">कृपया दुसरे नाव निवडा</string>
     <string name="please_wait">कृपया थांबा…</string>
-    <string name="phone_number">फोन क्रमांक</string>
     <string name="profile">OpenStreetMap प्रोफाइल</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d फाईल सापडली. रूपांतरानंतर तुम्ही ती पाहू शकता.</item>

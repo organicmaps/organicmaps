@@ -598,7 +598,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Ez a név már foglalt</string>
     <string name="bookmarks_error_message_list_name_already_taken">Válasszon másik nevet</string>
     <string name="please_wait">Kis türelmet…</string>
-    <string name="phone_number">Telefonszám</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">%d fájl található.</item>

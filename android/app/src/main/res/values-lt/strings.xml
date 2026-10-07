@@ -598,7 +598,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Toks pavadinimas jau naudojamas</string>
     <string name="bookmarks_error_message_list_name_already_taken">Įveskite kitą pavadinimą</string>
     <string name="please_wait">Luktelėkite…</string>
-    <string name="phone_number">Telefono numeris</string>
     <string name="profile">„OpenStreetMap“ profilis</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Aptiktas %d failas. Jį (juos) galėsite pamatyti, atlikus konvertavimą.</item>

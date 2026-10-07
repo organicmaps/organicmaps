@@ -596,7 +596,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Die naam is reeds in gebruik</string>
     <string name="bookmarks_error_message_list_name_already_taken">Kies asb. ’n ander naam</string>
     <string name="please_wait">Wag asb.…</string>
-    <string name="phone_number">Telefoonnommer</string>
     <string name="profile">OpenStreetMap-profiel</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="other">%d files were found. You can see them after conversion.</item>

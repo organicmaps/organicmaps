@@ -598,7 +598,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Šāds nosaukums jau ir aizņemts</string>
     <string name="bookmarks_error_message_list_name_already_taken">Izvēlieties citu nosaukumu</string>
     <string name="please_wait">Uzgaidiet…</string>
-    <string name="phone_number">Tālruņa numurs</string>
     <string name="profile">„OpenStreetMap“ profils</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">Lietotne atrada %d jaunu datņu. Varat tās apskatīt pēc konvertācijas.</item>

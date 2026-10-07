@@ -597,7 +597,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Αυτό το όνομα χρησιμοποιείται ήδη</string>
     <string name="bookmarks_error_message_list_name_already_taken">Επιλέξτε άλλο όνομα</string>
     <string name="please_wait">Παρακαλώ περιμένετε…</string>
-    <string name="phone_number">Αριθμός τηλεφώνου</string>
     <string name="profile">Προφίλ OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Βρέθηκε %d αρχείο. Μπορείτε να το δείτε μετά τη μετατροπή.</item>

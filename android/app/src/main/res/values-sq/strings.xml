@@ -593,7 +593,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Ky emër është tashmë i zënë</string>
     <string name="bookmarks_error_message_list_name_already_taken">Ju lutemi zgjidhni një emër tjetër</string>
     <string name="please_wait">Ju lutemi prisni…</string>
-    <string name="phone_number">Numri i telefonit</string>
     <string name="profile">Profili OpenStreetMap</string>
     <string name="restore">Restauro</string>
     <!-- Settings privacy group in settings screen -->

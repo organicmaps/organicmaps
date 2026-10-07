@@ -597,7 +597,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">השם הזה כבר תפוס</string>
     <string name="bookmarks_error_message_list_name_already_taken">נא לבחור שם אחר</string>
     <string name="please_wait">נא להמתין…</string>
-    <string name="phone_number">מספר טלפון</string>
     <string name="profile">פרופיל OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">נמצא %d קובץ. תוכלו לראות אותו לאחר ההמרה.</item>
