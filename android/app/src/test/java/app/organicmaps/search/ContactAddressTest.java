@@ -65,8 +65,45 @@ public class ContactAddressTest
   public void handlesFormattedFrenchAddressWithoutEnglishSuffix()
   {
     final ContactAddress address = new ContactAddress("Name", "", "12 Rue de Rivoli, Paris, France", "", "");
-    assertEquals(List.of(new ContactAddress.SearchQuery("12 Rue de Rivoli Paris France", "12 Rue de Rivoli")),
+    assertEquals(List.of(new ContactAddress.SearchQuery("12 Rue de Rivoli, Paris, France", "12 Rue de Rivoli")),
                  address.getSearchQueries());
+  }
+
+  @Test
+  public void preservesInternationalStreetOrderAndHouseIdentifiers()
+  {
+    for (String street : List.of("Hauptstraße 12a", "Křižíkova 12/1", "Via Roma 12-14", "улица Ленина 12"))
+    {
+      final ContactAddress address =
+          new ContactAddress("Name", "Home", street + ", City, Germany", street, "City", "", "DE");
+      assertEquals(street, address.getNormalizedStreet());
+      assertEquals(List.of(new ContactAddress.SearchQuery(street + ", City Germany", street)),
+                   address.getSearchQueries());
+    }
+  }
+
+  @Test
+  public void formattedInternationalAddressKeepsNativeNamesAndPostcodeContext()
+  {
+    final ContactAddress address = new ContactAddress("Name", "Home", "Kantstraße 12, 10623 Berlin, Germany", "", "");
+    assertEquals("Kantstraße 12", address.getNormalizedStreet());
+    assertEquals(List.of(new ContactAddress.SearchQuery("Kantstraße 12, 10623 Berlin, Germany", "Kantstraße 12")),
+                 address.getSearchQueries());
+    final ContactAddress spanish =
+        new ContactAddress("Name", "Home", "12 Calle N, Madrid, Spain", "12 Calle N", "Madrid", "CA", "ES");
+    assertEquals("12 Calle N", spanish.getNormalizedStreet());
+    assertEquals("Madrid CA Spain", spanish.getResolutionContext());
+  }
+
+  @Test
+  public void australianUnitsAreNotCzechHouseIdentifiers()
+  {
+    final ContactAddress australian = new ContactAddress("Name", "Home", "2/14 Smith Street, Sydney, Australia",
+                                                         "2/14 Smith Street", "Sydney", "", "AU");
+    assertEquals("14 Smith Street", australian.getNormalizedStreet());
+    final ContactAddress czech =
+        new ContactAddress("Name", "Home", "Křižíkova 12/1, Praha, Czechia", "Křižíkova 12/1", "Praha", "", "CZ");
+    assertEquals("Křižíkova 12/1", czech.getNormalizedStreet());
   }
 
   @Test

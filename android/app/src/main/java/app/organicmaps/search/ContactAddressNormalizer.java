@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,6 +38,32 @@ final class ContactAddressNormalizer
   private static final Pattern LOCALITY_ABBREVIATION = Pattern.compile("(?i)\\b(?:twp|twnshp|boro)\\b\\.?");
 
   private ContactAddressNormalizer() {}
+
+  private static final Set<String> COUNTRY_NAMES = Arrays.stream(Locale.getISOCountries())
+                                                       .map(code
+                                                            -> new Locale.Builder()
+                                                                   .setRegion(code)
+                                                                   .build()
+                                                                   .getDisplayCountry(Locale.ENGLISH)
+                                                                   .toLowerCase(Locale.ROOT))
+                                                       .collect(Collectors.toSet());
+
+  @NonNull
+  static String formattingCountry(@NonNull String country, @NonNull String address)
+  {
+    if (!country.isBlank())
+      return normalizeCountry(country);
+    final String[] parts = address.split("[,\\r\\n]");
+    final String last = parts[parts.length - 1].trim();
+    return COUNTRY_NAMES.contains(last.toLowerCase(Locale.ROOT)) || last.matches("(?i)USA|UK|United States of America")
+      ? last
+      : "";
+  }
+
+  static boolean usesNorthAmericanFormatting(@NonNull String country)
+  {
+    return country.isEmpty() || country.matches("(?i)Canada|USA|US|United States(?: of America)?");
+  }
 
   private static final String[][] REGION_NAMES = {{"AB", "Alberta"},
                                                   {"BC", "British Columbia"},
@@ -135,6 +162,16 @@ final class ContactAddressNormalizer
     return String.join(" ", tokens);
   }
 
+  @NonNull
+  static String normalizeStreet(@NonNull String value, @NonNull String country)
+  {
+    if (usesNorthAmericanFormatting(country))
+      return normalizeStreet(value);
+    // Preserve native street order, names and compound house numbers. The shared native
+    // matcher supplies multilingual token normalization instead of English substitutions.
+    return prepareAddress(value.split(",", 2)[0], country);
+  }
+
   static boolean looksLikeAddressQuery(@NonNull String value)
   {
     final String prepared = prepareAddress(value);
@@ -143,7 +180,8 @@ final class ContactAddressNormalizer
 
   static boolean looksLikeStructuredStreet(@NonNull String value)
   {
-    return value.matches("\\d+[\\p{L}]?\\s+\\S.*");
+    final String house = "\\d+[\\p{L}]?(?:[-/]\\d+[\\p{L}]?)*";
+    return value.matches(house + "\\s+\\S.*") || value.matches("\\S.*\\s+" + house);
   }
 
   static boolean hasRecognizedStreetSuffix(@NonNull String value)
@@ -198,6 +236,14 @@ final class ContactAddressNormalizer
     return context.replaceAll("[,;\\r\\n]+", " ").replaceAll("\\s+", " ").trim();
   }
 
+  @NonNull
+  static String normalizeContext(@NonNull String value, @NonNull String country)
+  {
+    if (usesNorthAmericanFormatting(country))
+      return normalizeContext(value);
+    return value.replaceAll("[;\\r\\n]+", " ").replaceAll("\\s+", " ").trim();
+  }
+
   static boolean matchesMapRegion(@NonNull String context, @NonNull String mapRegion)
   {
     return matchesMapRegion(matchTokens(context), matchTokens(mapRegion));
@@ -230,16 +276,25 @@ final class ContactAddressNormalizer
   @NonNull
   static String prepareAddress(@NonNull String value)
   {
+    return prepareAddress(value, "");
+  }
+
+  @NonNull
+  static String prepareAddress(@NonNull String value, @NonNull String country)
+  {
     String address = value.trim();
     while (address.length() >= 2 && isMatchingWrapper(address.charAt(0), address.charAt(address.length() - 1)))
       address = address.substring(1, address.length() - 1).trim();
     address = address.replaceAll("[\\r\\n]+", " ").replace('|', ' ');
     address = UNIT_PREFIX.matcher(address).replaceFirst("");
     address = BASEMENT_PREFIX.matcher(address).replaceFirst("");
-    address = normalizeLeadingNumberSeparator(address);
+    if (usesNorthAmericanFormatting(country))
+      address = normalizeLeadingNumberSeparator(address);
+    else if (country.equalsIgnoreCase("Australia"))
+      address = address.replaceFirst("^\\d+[A-Za-z]?\\s*/\\s*(\\d+[A-Za-z]?)\\s+", "$1 ");
     address = TRAILING_UNIT.matcher(address).replaceFirst("");
 
-    if (!address.matches("^\\d+[A-Za-z]?(?:\\s|,)+\\S.*"))
+    if (usesNorthAmericanFormatting(country) && !address.matches("^\\d+[A-Za-z]?(?:\\s|,)+\\S.*"))
     {
       final String extracted = extractAddressFromText(address);
       if (!extracted.isEmpty())

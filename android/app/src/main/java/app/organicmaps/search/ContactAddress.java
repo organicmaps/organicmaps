@@ -64,6 +64,8 @@ final class ContactAddress
   @NonNull
   private final String mNormalizedStreet;
   @NonNull
+  private final String mFormattingCountry;
+  @NonNull
   private final String mResolutionContext;
   @NonNull
   final List<String> contextTokens;
@@ -90,6 +92,7 @@ final class ContactAddress
     this.locality = locality;
     this.region = region;
     this.country = country;
+    mFormattingCountry = ContactAddressNormalizer.formattingCountry(country, address);
     mNormalizedStreet = normalizeStreet();
     mResolutionContext = normalizeResolutionContext();
     contextTokens = List.copyOf(ContactAddressNormalizer.matchTokens(mResolutionContext));
@@ -114,6 +117,8 @@ final class ContactAddress
   @NonNull
   private String normalizeStreet()
   {
+    if (!ContactAddressNormalizer.usesNorthAmericanFormatting(mFormattingCountry))
+      return ContactAddressNormalizer.normalizeStreet(street.isEmpty() ? address : street, mFormattingCountry);
     final String firstPart = address.split(",", 2)[0].trim();
     if (street.isEmpty() && ContactAddressNormalizer.looksLikeStructuredStreet(firstPart)
         && !ContactAddressNormalizer.hasRecognizedStreetSuffix(firstPart))
@@ -138,9 +143,13 @@ final class ContactAddress
     if (ContactAddressNormalizer.looksLikeStructuredStreet(normalizedStreet))
     {
       final String context = getResolutionContext();
-      addQuery(queries, new SearchQuery((normalizedStreet + " " + context).trim(), normalizedStreet));
+      final String separator = ContactAddressNormalizer.usesNorthAmericanFormatting(mFormattingCountry) ? " " : ", ";
+      addQuery(queries, new SearchQuery(context.isEmpty() ? normalizedStreet : normalizedStreet + separator + context,
+                                        normalizedStreet));
 
-      final String withoutBareUnit = ContactAddressNormalizer.possibleBareUnitStreet(normalizedStreet);
+      final String withoutBareUnit = ContactAddressNormalizer.usesNorthAmericanFormatting(mFormattingCountry)
+                                       ? ContactAddressNormalizer.possibleBareUnitStreet(normalizedStreet)
+                                       : "";
       if (!withoutBareUnit.isEmpty())
       {
         addQuery(queries, new SearchQuery((withoutBareUnit + " " + context).trim(), withoutBareUnit));
@@ -161,12 +170,12 @@ final class ContactAddress
   {
     if (!region.isEmpty() || !country.isEmpty())
       return ContactAddressNormalizer.normalizeContext(
-          String.join(" ", locality, region, ContactAddressNormalizer.normalizeCountry(country)));
+          String.join(" ", locality, region, ContactAddressNormalizer.normalizeCountry(country)), mFormattingCountry);
     // Preserve disambiguating components even for formatted-only provider rows.
-    final String preparedAddress = ContactAddressNormalizer.prepareAddress(address);
+    final String preparedAddress = ContactAddressNormalizer.prepareAddress(address, mFormattingCountry);
     final String[] parts = preparedAddress.split(",", 2);
     if (parts.length == 2 && !parts[0].trim().matches("\\d+[A-Za-z]?"))
-      return ContactAddressNormalizer.normalizeContext(parts[1]);
+      return ContactAddressNormalizer.normalizeContext(parts[1], mFormattingCountry);
     final String normalized = ContactAddressNormalizer.normalizeContext(preparedAddress);
     final String normalizedStreet = getNormalizedStreet();
     final List<String> tokens = ContactAddressNormalizer.matchTokens(normalized);
