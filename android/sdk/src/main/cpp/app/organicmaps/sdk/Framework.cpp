@@ -762,7 +762,7 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 }
 }  // namespace android
 
-//============ GLUE CODE for app.organicmaps.Framework class =============//
+//============ GLUE CODE for app.organicmaps.sdk.Framework class =============//
 /*            ____
  *          _ |||| _
  *          \\    //
@@ -1772,28 +1772,6 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRouteFinished(JNIE
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRunFirstLaunchAnimation(JNIEnv * env, jclass)
 {
   frm()->RunFirstLaunchAnimation();
-}
-
-JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeOpenRoutePointsTransaction(JNIEnv * env, jclass)
-{
-  return frm()->GetRoutingManager().OpenRoutePointsTransaction();
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeApplyRoutePointsTransaction(JNIEnv * env, jclass,
-                                                                                    jint transactionId)
-{
-  frm()->GetRoutingManager().ApplyRoutePointsTransaction(transactionId);
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeCancelRoutePointsTransaction(JNIEnv * env, jclass,
-                                                                                     jint transactionId)
-{
-  frm()->GetRoutingManager().CancelRoutePointsTransaction(transactionId);
-}
-
-JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeInvalidRoutePointsTransactionId(JNIEnv * env, jclass)
-{
-  return frm()->GetRoutingManager().InvalidRoutePointsTransactionId();
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeHasSavedRoutePoints(JNIEnv *, jclass)
