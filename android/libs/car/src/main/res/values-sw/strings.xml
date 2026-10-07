@@ -76,6 +76,7 @@
     <string name="minute">kidogo</string>
     <string name="big_font">Ongeza ukubwa wa lebo za ramani</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
+    <string name="button_plan">Panga</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Kipakua Ramani</string>
     <string name="driving_options_title">Machaguo ya njia</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps katika Android Auto zinahitaji ruhusa ya eneo ili kufanya kazi kwa ufanisi</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Toa ruhusa</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Geuza mwelekeo wa njia</string>
 </resources>

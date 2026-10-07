@@ -76,6 +76,7 @@
     <string name="minute">मिनट</string>
     <string name="big_font">मानचित्र लेबल के लिए आकार बढ़ाएँ</string>
     <string name="transliteration_title">लैटिन में लिप्यंतरण</string>
+    <string name="button_plan">योजना</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">नक्शा डाउनलोडर</string>
     <string name="driving_options_title">रूटिंग विकल्प</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps Android Auto में प्रभावी ढंग से काम करने के लिए इसे स्थान अनुमतियों की आवश्यकता होती है</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">अनुमतियाँ प्रदान करें</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">मार्ग उलटें</string>
 </resources>

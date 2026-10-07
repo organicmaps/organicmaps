@@ -6,4 +6,8 @@
     <string name="cancel">বাতিল</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">অনুসন্ধান</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">রুটের দিক উল্টান</string>
 </resources>

@@ -76,6 +76,7 @@
     <string name="minute">分钟</string>
     <string name="big_font">增大地图上的字体大小</string>
     <string name="transliteration_title">拉丁字母音译</string>
+    <string name="button_plan">规划</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">加载地图</string>
     <string name="driving_options_title">绕行设置</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Android Auto 中的 Organic Maps 需要位置权限才能有效工作</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">授予权限</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">反转路线</string>
 </resources>
