@@ -96,7 +96,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextInputEditText mBuildingLevels;
 
   // Define Metadata entries, that have more tricky logic, separately.
-  private PhoneListAdapter mAdapter;
+  private PhoneListAdapter mPhonesAdapter;
   private RecyclerView mPhonesRecycler;
 
   private TextView mCuisine;
@@ -209,11 +209,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void setupPhoneRecyclerView(@NonNull Context context)
   {
-    mAdapter = new PhoneListAdapter(Editor.nativeGetPhone());
-    mAdapter.setHasStableIds(true);
+    mPhonesAdapter = new PhoneListAdapter(Editor.nativeGetPhone());
+    mPhonesAdapter.setHasStableIds(true);
     LinearLayoutManager manager = new LinearLayoutManager(context);
     mPhonesRecycler.setLayoutManager(manager);
-    mPhonesRecycler.setAdapter(mAdapter);
+    mPhonesRecycler.setAdapter(mPhonesAdapter);
   }
 
   @Override
@@ -232,7 +232,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
-    //Editor.nativeSetPhone(???);
+    Editor.nativeSetPhone(mPhonesAdapter.getPhoneList());
 
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
     // Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(),
@@ -267,6 +267,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
         InputUtils.showKeyboard(mBuildingLevels);
         return false;
       }
+    }
+
+    //Validate phones
+    if (!mPhonesAdapter.allPhonesValid())
+    {
+      mPhonesRecycler.requestFocus();
+      return false;
     }
 
     for (var e : mMetadata.entrySet())
