@@ -175,4 +175,15 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     phonesData.remove(position);
     notifyDataSetChanged();
   }
+
+  public boolean allPhonesValid()
+  {
+    for(String number: phonesData)
+    {
+      if (!Editor.nativeIsPhoneValid(number))
+        return false;
+    }
+
+    return true;
+  }
 }
