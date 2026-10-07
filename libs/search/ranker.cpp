@@ -1,5 +1,6 @@
 #include "search/ranker.hpp"
 
+#include "search/address_matcher.hpp"
 #include "search/emitter.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/highlighting.hpp"
@@ -24,6 +25,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <map>
 #include <memory>
 #include <optional>
 
@@ -426,8 +428,8 @@ private:
     /// Why not to prolong until MakeResult? If yes, avoid reading street's FeatureType,
     /// since we already have addr.m_street.m_multilangName
 
-    // Insert exact address (street and house number) instead of empty result name.
-    if (!m_isViewportMode && name.empty())
+    // Address resolution needs street/house-number names even for viewport searches.
+    if ((!m_isViewportMode || m_ranker.m_params.m_needAddress) && name.empty())
     {
       feature::TypesHolder featureTypes(*ft);
       featureTypes.SortBySpec();
@@ -701,6 +703,7 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
   m_geocoderParams = geocoderParams;
   m_preRankerResults.clear();
   m_tentativeResults.clear();
+  m_addressMatches.clear();
   m_noSuggests = false;
 }
 
@@ -847,11 +850,31 @@ void Ranker::UpdateResults(bool lastUpdate)
     ProcessSuggestions(m_tentativeResults);
   }
 
+  if (m_geocoderParams.m_isAddressQuery && !m_params.m_viewportSearch)
+  {
+    auto const query = ParseAddressQuery(m_params.m_query.m_query);
+    CHECK(query, (m_params.m_query.m_query));
+    for (auto const & result : m_tentativeResults)
+    {
+      if (!lastUpdate)
+        BailIfCancelled();
+      if (!m_addressMatches.contains(result.GetID()))
+        m_addressMatches.emplace(result.GetID(), GetAddressResultMatch(*query, MakeResult(result, true, false)));
+    }
+    // Textual address correctness precedes distance/popularity and the final result limit.
+    std::stable_sort(m_tentativeResults.begin(), m_tentativeResults.end(), [&](auto const & first, auto const & second)
+    { return m_addressMatches.at(first.GetID()) > m_addressMatches.at(second.GetID()); });
+  }
+
   // Emit feature results.
   size_t count = m_emitter.GetResults().GetCount();
   size_t i = 0;
   for (; i < m_tentativeResults.size(); ++i)
   {
+    // Do not let a nearby/fuzzy batch consume the quota before other downloaded maps are searched.
+    if (!lastUpdate && !m_addressMatches.empty() &&
+        m_addressMatches.at(m_tentativeResults[i].GetID()) != AddressResultMatch::Exact)
+      break;
     if (!lastUpdate && count >= m_params.m_batchSize && !m_params.m_viewportSearch && !m_params.m_categorialRequest)
       break;
 

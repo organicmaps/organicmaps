@@ -19,5 +19,8 @@ struct EverywhereSearchParams
   bool m_isCategory = false;
 
   OnResults m_onResults;
+
+  // Callers opt in; ordinary queries retain their existing ranking and house-number matching.
+  bool m_prioritizeAddressMatches = false;
 };
 }  // namespace search
