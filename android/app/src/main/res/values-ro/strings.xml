@@ -450,7 +450,6 @@
     <string name="select_cuisine">Alege bucătăria</string>
     <!-- login text field -->
     <string name="email_or_username">E-mail sau nume de utilizator</string>
-    <string name="editor_add_phone">Adaugă un număr</string>
     <string name="level">Etaj</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivel: %s</string>

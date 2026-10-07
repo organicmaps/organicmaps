@@ -450,7 +450,6 @@
     <string name="select_cuisine">व्यंजन चुनें</string>
     <!-- login text field -->
     <string name="email_or_username">ईमेल या उपयोगकर्ता नाम</string>
-    <string name="editor_add_phone">फोन नंबर डालें</string>
     <string name="level">मंजिल</string>
     <!-- Building level -->
     <string name="level_value_generic">स्तर: %s</string>

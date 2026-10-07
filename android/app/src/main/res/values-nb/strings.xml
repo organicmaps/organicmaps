@@ -450,7 +450,6 @@
     <string name="select_cuisine">Velg matrett</string>
     <!-- login text field -->
     <string name="email_or_username">E-postadresse eller brukernavn</string>
-    <string name="editor_add_phone">Legg til telefon</string>
     <string name="level">Gulv</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivå: %s</string>

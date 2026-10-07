@@ -450,7 +450,6 @@
     <string name="select_cuisine">Välj mat</string>
     <!-- login text field -->
     <string name="email_or_username">E-postadress eller användarnamn</string>
-    <string name="editor_add_phone">Lägg till telefon</string>
     <string name="level">Våningsplan</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivå: %s</string>

@@ -450,7 +450,6 @@
     <string name="select_cuisine">انتخاب غذاخوری</string>
     <!-- login text field -->
     <string name="email_or_username">ایمیل یا نام کاربری</string>
-    <string name="editor_add_phone">افزودن تلفن</string>
     <string name="level">طبقه</string>
     <!-- Building level -->
     <string name="level_value_generic">سطح: %s</string>

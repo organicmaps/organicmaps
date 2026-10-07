@@ -450,7 +450,6 @@
     <string name="select_cuisine">요리 선택</string>
     <!-- login text field -->
     <string name="email_or_username">이메일 또는 사용자 이름</string>
-    <string name="editor_add_phone">전화 추가</string>
     <string name="level">층</string>
     <!-- Building level -->
     <string name="level_value_generic">레벨: %s</string>

@@ -450,7 +450,6 @@
     <string name="select_cuisine">Mutfak Seç</string>
     <!-- login text field -->
     <string name="email_or_username">E-posta veya kullanıcı adı</string>
-    <string name="editor_add_phone">Telefon Ekle</string>
     <string name="level">Kat</string>
     <!-- Building level -->
     <string name="level_value_generic">Kat sayısı: %s</string>

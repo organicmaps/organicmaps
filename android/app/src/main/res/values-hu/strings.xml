@@ -450,7 +450,6 @@
     <string name="select_cuisine">Konyha kiválasztása</string>
     <!-- login text field -->
     <string name="email_or_username">E-mail-cím vagy felhasználónév</string>
-    <string name="editor_add_phone">Telefonszám hozzáadása</string>
     <string name="level">Szint</string>
     <!-- Building level -->
     <string name="level_value_generic">%s. szint</string>

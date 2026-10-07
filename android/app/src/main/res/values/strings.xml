@@ -450,7 +450,7 @@
     <string name="select_cuisine">Select cuisine</string>
     <!-- login text field -->
     <string name="email_or_username">Email or username</string>
-    <string name="editor_add_phone">Add Phone</string>
+    <string name="editor_new_phone">New Phone</string>
     <string name="level">Floor</string>
     <!-- Building level -->
     <string name="level_value_generic">Level: %s</string>

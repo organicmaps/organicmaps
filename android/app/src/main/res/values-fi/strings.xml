@@ -450,7 +450,6 @@
     <string name="select_cuisine">Valitse ruokalaji</string>
     <!-- login text field -->
     <string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
-    <string name="editor_add_phone">Lisää puhelinnumero</string>
     <string name="level">Kerros</string>
     <!-- Building level -->
     <string name="level_value_generic">Kerros: %s</string>

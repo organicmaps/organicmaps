@@ -450,7 +450,6 @@
     <string name="select_cuisine">选择菜肴</string>
     <!-- login text field -->
     <string name="email_or_username">电子邮件或用户名</string>
-    <string name="editor_add_phone">新增电话号码</string>
     <string name="level">楼层</string>
     <!-- Building level -->
     <string name="level_value_generic">楼层：%s</string>

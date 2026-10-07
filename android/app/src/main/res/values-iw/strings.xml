@@ -450,7 +450,6 @@
     <string name="select_cuisine">בחר סיגנון בישול</string>
     <!-- login text field -->
     <string name="email_or_username">דוא\"ל או שם משתמש</string>
-    <string name="editor_add_phone">הוסף טלפון</string>
     <string name="level">קומה</string>
     <!-- Building level -->
     <string name="level_value_generic">רמה: %s</string>

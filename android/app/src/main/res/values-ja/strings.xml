@@ -450,7 +450,6 @@
     <string name="select_cuisine">料理を選択</string>
     <!-- login text field -->
     <string name="email_or_username">メールアドレスまたはユーザー名</string>
-    <string name="editor_add_phone">電話番号を追加</string>
     <string name="level">階</string>
     <!-- Building level -->
     <string name="level_value_generic">レベル: %s</string>

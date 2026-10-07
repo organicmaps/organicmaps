@@ -196,7 +196,6 @@
     <string name="cuisine">Cocina</string>
     <!-- login text field -->
     <string name="email_or_username">Señes o nome d’usuariu</string>
-    <string name="editor_add_phone">Amestar teléfonu</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_update_maps">Anovar mapes</string>

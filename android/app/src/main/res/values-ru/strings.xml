@@ -450,7 +450,7 @@
     <string name="select_cuisine">Выбрать кухню</string>
     <!-- login text field -->
     <string name="email_or_username">Эл. почта или имя пользователя</string>
-    <string name="editor_add_phone">Добавить телефон</string>
+    <string name="editor_new_phone">Новый телефон</string>
     <string name="level">Этаж</string>
     <!-- Building level -->
     <string name="level_value_generic">Этаж: %s</string>

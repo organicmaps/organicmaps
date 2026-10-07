@@ -450,7 +450,6 @@
     <string name="select_cuisine">Mətbəx seçin</string>
     <!-- login text field -->
     <string name="email_or_username">E-poçt və ya istifadəçi adı</string>
-    <string name="editor_add_phone">Telefon əlavə edin</string>
     <string name="level">Mərtəbə</string>
     <!-- Building level -->
     <string name="level_value_generic">Səviyyə: %s</string>

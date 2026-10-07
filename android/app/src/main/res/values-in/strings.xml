@@ -450,7 +450,6 @@
     <string name="select_cuisine">Pilih Masakan</string>
     <!-- login text field -->
     <string name="email_or_username">Surel atau nama pengguna</string>
-    <string name="editor_add_phone">Tambahkan Telepon</string>
     <string name="level">Tingkat</string>
     <!-- Building level -->
     <string name="level_value_generic">Tingkat: %s</string>

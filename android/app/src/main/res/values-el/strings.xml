@@ -450,7 +450,6 @@
     <string name="select_cuisine">Επιλέξτε κουζίνα</string>
     <!-- login text field -->
     <string name="email_or_username">Email ή όνομα χρήστη</string>
-    <string name="editor_add_phone">Προσθήκη Τηλεφώνου</string>
     <string name="level">Όροφος</string>
     <!-- Building level -->
     <string name="level_value_generic">Όροφος: %s</string>

@@ -450,7 +450,6 @@
     <string name="select_cuisine">Odaberi kuhinju</string>
     <!-- login text field -->
     <string name="email_or_username">E-mail adresa ili korisničko ime</string>
-    <string name="editor_add_phone">Dodaj telefon</string>
     <string name="level">Kat</string>
     <!-- Building level -->
     <string name="level_value_generic">Kat: %s</string>

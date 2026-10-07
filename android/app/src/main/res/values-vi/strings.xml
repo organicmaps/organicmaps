@@ -450,7 +450,6 @@
     <string name="select_cuisine">Chọn Ẩm thực</string>
     <!-- login text field -->
     <string name="email_or_username">Email hoặc tên người dùng</string>
-    <string name="editor_add_phone">Thêm số điện thoại</string>
     <string name="level">Tầng</string>
     <!-- Building level -->
     <string name="level_value_generic">Cấp độ: %s</string>

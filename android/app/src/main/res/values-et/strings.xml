@@ -450,7 +450,6 @@
     <string name="select_cuisine">Vali köök</string>
     <!-- login text field -->
     <string name="email_or_username">E-post või kasutajanimi</string>
-    <string name="editor_add_phone">Lisa telefon</string>
     <string name="level">Korrus</string>
     <!-- Building level -->
     <string name="level_value_generic">Korrus: %s</string>

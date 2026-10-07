@@ -450,7 +450,6 @@
     <string name="select_cuisine">Выбраць кухню</string>
     <!-- login text field -->
     <string name="email_or_username">Email або імя карыстальніка</string>
-    <string name="editor_add_phone">Дадаць тэлефон</string>
     <string name="level">Паверх</string>
     <!-- Building level -->
     <string name="level_value_generic">Узровень: %s</string>

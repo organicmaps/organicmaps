@@ -450,7 +450,6 @@
     <string name="select_cuisine">Pasirinkite virtuvę</string>
     <!-- login text field -->
     <string name="email_or_username">El. paštas arba naudotojo vardas</string>
-    <string name="editor_add_phone">Pridėti telefono numerį</string>
     <string name="level">Aukštas</string>
     <!-- Building level -->
     <string name="level_value_generic">Aukštas: %s</string>
