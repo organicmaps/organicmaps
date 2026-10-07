@@ -269,7 +269,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     }
 
-    //Validate phones
+    // Validate phones
     if (!mPhonesAdapter.allPhonesValid())
     {
       mPhonesRecycler.requestFocus();
