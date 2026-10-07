@@ -1,0 +1,49 @@
+name: Border tools
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/borders-check.yaml'
+      - 'tools/python/borders/**'
+      - 'data/borders/**'
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/borders-check.yaml'
+      - 'tools/python/borders/**'
+      - 'data/borders/**'
+
+permissions:
+  contents: read
+
+jobs:
+  borders-check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dependencies: legacy
+            numpy: numpy==1.26.4
+            shapely: shapely==2.0.7
+          - dependencies: current
+            numpy: numpy>=2
+            shapely: shapely>=2
+    name: Border tools (${{ matrix.dependencies }})
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: >-
+          python -m pip install -r tools/python/borders/requirements.txt
+          '${{ matrix.numpy }}' '${{ matrix.shapely }}'
+
+      - name: Run border regression tests
+        run: python -m unittest discover -s tools/python/borders -p 'test_*.py'
