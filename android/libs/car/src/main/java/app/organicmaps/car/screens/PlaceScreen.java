@@ -23,6 +23,7 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
@@ -91,26 +92,28 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
     mRoutingController.attach(this);
     if (mMapObject == null)
-      mRoutingController.restoreRoute();
-    else
     {
-      final boolean isPlanningMode = mRoutingController.isPlanning();
-      final boolean hasIncorrectEndPoint =
-          isPlanningMode && (!MapObject.same(mMapObject, mRoutingController.getEndPoint()));
-      final boolean hasIncorrectRouterType = mRoutingController.getLastRouterType() != ROUTER;
-      if (hasIncorrectRouterType)
-      {
-        mRoutingController.setRouterType(ROUTER);
-        if (isPlanningMode)
-          mRoutingController.rebuildLastRoute();
-        else
-          mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject);
-      }
-      else if (hasIncorrectEndPoint || !isPlanningMode)
-      {
-        mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject);
-      }
+      // Synchronous recovery supplies the destination through onStartRouteBuilding().
+      mRoutingController.restoreRoute();
+      if (mMapObject == null)
+        finish();
+      return;
     }
+
+    final boolean isPlanningMode = mRoutingController.isPlanning();
+    final boolean hasIncorrectEndPoint =
+        isPlanningMode && !MapObject.same(mMapObject, mRoutingController.getEndPoint());
+    final boolean hasIncorrectRouterType = mRoutingController.getLastRouterType() != ROUTER;
+    if (hasIncorrectRouterType)
+    {
+      mRoutingController.setRouterType(ROUTER);
+      if (isPlanningMode)
+        mRoutingController.rebuildLastRoute();
+      else
+        mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject);
+    }
+    else if (hasIncorrectEndPoint || !isPlanningMode)
+      mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject);
   }
 
   @Override
@@ -152,14 +155,14 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   private Pane createPane()
   {
     final Pane.Builder builder = new Pane.Builder();
-    final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
-
-    if (routingInfo == null && !mRoutingController.isErrorEncountered())
+    if (mMapObject == null || mRoutingController.isBuilding())
     {
       builder.setLoading(true);
       return builder.build();
     }
 
+    // The controller retains the last successful metrics across builds.
+    final RoutingInfo routingInfo = mRoutingController.isBuilt() ? mRoutingController.getCachedRoutingInfo() : null;
     builder.addRow(getPlaceDescription());
     if (routingInfo != null)
       builder.addRow(getPlaceRouteInfo(routingInfo));
@@ -211,9 +214,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
   private void createPaneActions(@NonNull Pane.Builder builder)
   {
-    Objects.requireNonNull(mMapObject);
+    final MapObject destination = Objects.requireNonNull(mMapObject);
 
-    final String phones = mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER);
+    final String phones = destination.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER);
     if (!TextUtils.isEmpty(phones))
     {
       final String phoneNumber = phones.split(";", 1)[0];
@@ -225,11 +228,11 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       builder.addAction(openDialBuilder.build());
     }
 
-    if (!mRoutingController.isBuilt())
+    if (!mRoutingController.isPlanning() || !mRoutingController.isBuilt())
       return;
 
     final boolean canStart = mRoutingController.canStartNavigation();
-    final boolean reverse = !canStart && mMapObject.isMyPosition();
+    final boolean reverse = destination.isMyPosition();
     if (!canStart && getLocationHelper().getMyPosition() == null)
       return;
 
@@ -243,6 +246,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       routeAction.setIcon(
           new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
     routeAction.setOnClickListener(() -> {
+      // The host can deliver clicks from a replaced screen or route preview.
+      if (mMapObject != destination || !getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)
+          || getScreenManager().getTop() != this)
+        return;
       if (canStart)
       {
         if (!mRoutingController.canStartNavigation())
@@ -325,6 +332,12 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   }
 
   @Override
+  public void updateMenu()
+  {
+    invalidate();
+  }
+
+  @Override
   public void onPlanningCancelled()
   {
     Framework.nativeDeactivateMapSelectionCircle(true);
@@ -333,9 +346,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
-    // Saved route points are loaded after this screen is created.
-    if (mMapObject == null)
-      mMapObject = Objects.requireNonNull(mRoutingController.getEndPoint());
     if (ResultCodesHelper.isDownloadable(lastResultCode, lastMissingMaps.length))
       getScreenManager().pushForResult(
           new DownloadMapsScreenBuilder(getCarContext(), getOrganicMapsContext())
