@@ -229,18 +229,44 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     if (!mRoutingController.isBuilt())
       return;
 
-    final Action.Builder startRouteBuilder = new Action.Builder();
-    startRouteBuilder.setBackgroundColor(Colors.START_NAVIGATION);
-    startRouteBuilder.setFlags(Action.FLAG_DEFAULT);
-    startRouteBuilder.setTitle(getCarContext().getString(R.string.p2p_start));
-    startRouteBuilder.setIcon(
-        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
-    startRouteBuilder.setOnClickListener(() -> {
-      Config.acceptRoutingDisclaimer();
-      mRoutingController.start();
+    final boolean canStart = mRoutingController.canStartNavigation();
+    final boolean reverse = !canStart && mMapObject.isMyPosition();
+    if (!canStart && getLocationHelper().getMyPosition() == null)
+      return;
+
+    final Action.Builder routeAction = new Action.Builder();
+    routeAction.setBackgroundColor(Colors.START_NAVIGATION);
+    routeAction.setFlags(Action.FLAG_DEFAULT);
+    routeAction.setTitle(getCarContext().getString(canStart  ? R.string.p2p_start
+                                                   : reverse ? R.string.reverse_route
+                                                             : R.string.button_plan));
+    if (canStart)
+      routeAction.setIcon(
+          new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
+    routeAction.setOnClickListener(() -> {
+      if (canStart)
+      {
+        if (!mRoutingController.canStartNavigation())
+          return;
+        Config.acceptRoutingDisclaimer();
+        mRoutingController.start();
+      }
+      else if (reverse)
+      {
+        final MapObject endPoint = mRoutingController.getEndPoint();
+        if (endPoint != null && endPoint.isMyPosition())
+          mRoutingController.reverseRoute();
+      }
+      else if (mRoutingController.isPlanning() && mRoutingController.isBuilt())
+      {
+        final MapObject endPoint = mRoutingController.getEndPoint();
+        final MapObject myPosition = getLocationHelper().getMyPosition();
+        if (endPoint != null && !endPoint.isMyPosition() && myPosition != null)
+          mRoutingController.setStartPoint(myPosition);
+      }
     });
 
-    builder.addAction(startRouteBuilder.build());
+    builder.addAction(routeAction.build());
   }
 
   @NonNull
@@ -298,6 +324,13 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void onBuiltRoute()
   {
     Framework.nativeDeactivateMapSelectionCircle(true);
+    mMapObject = mRoutingController.getEndPoint();
+    invalidate();
+  }
+
+  @Override
+  public void onStartRouteBuilding()
+  {
     mMapObject = mRoutingController.getEndPoint();
     invalidate();
   }

@@ -10,6 +10,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
@@ -456,6 +457,11 @@ public class RoutingController
   {
     Logger.d(TAG, "start");
 
+    final boolean canStart = canStartNavigation();
+    Assert.debug(canStart, "Navigation requires a built preview starting at My Position");
+    if (!canStart)
+      return;
+
     // This saving is needed just for situation when the user starts navigation
     // and then app crashes. So, the previous route will be restored on the next app launch.
     saveRoute();
@@ -750,6 +756,14 @@ public class RoutingController
   public boolean isBuilt()
   {
     return mBuildState == BuildState.BUILT;
+  }
+
+  public boolean canStartNavigation()
+  {
+    if (!isPlanning() || !isBuilt())
+      return false;
+    final MapObject startPoint = getStartPoint();
+    return startPoint != null && startPoint.isMyPosition();
   }
 
   public void waitForPoiPick(@NonNull RouteMarkType pointType)
@@ -1080,7 +1094,13 @@ public class RoutingController
   {
     Logger.d(TAG, "reverseRoute");
 
-    if (Framework.nativeReverseRoutePoints())
+    // A car host can deliver another click before the rebuilding template replaces the preview.
+    if (!isPlanning() || !isBuilt())
+      return;
+
+    final boolean reversed = Framework.nativeReverseRoutePoints();
+    Assert.debug(reversed, "A built route preview must have both endpoints");
+    if (reversed)
       build();
   }
 
