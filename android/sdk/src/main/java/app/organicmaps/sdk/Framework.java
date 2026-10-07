@@ -32,8 +32,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * This class wraps android::Framework.cpp class
- * via static methods
+ * JNI bridge to the native map framework.
  */
 public class Framework
 {

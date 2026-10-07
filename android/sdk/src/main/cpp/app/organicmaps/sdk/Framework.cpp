@@ -762,7 +762,7 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 }
 }  // namespace android
 
-//============ GLUE CODE for app.organicmaps.Framework class =============//
+//============ GLUE CODE for app.organicmaps.sdk.Framework class =============//
 /*            ____
  *          _ |||| _
  *          \\    //
