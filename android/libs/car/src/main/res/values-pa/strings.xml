@@ -17,4 +17,8 @@
     <string name="bookmarks">ਬੁੱਕਮਾਰਕ</string>
     <!-- Settings button in system menu -->
     <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">ਰੂਟ ਦੀ ਦਿਸ਼ਾ ਉਲਟਾਓ</string>
 </resources>
