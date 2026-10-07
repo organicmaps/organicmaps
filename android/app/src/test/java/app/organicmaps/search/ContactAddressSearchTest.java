@@ -57,7 +57,7 @@ public class ContactAddressSearchTest
   public void doesNotTreatAddressNumbersAsNameSeparators()
   {
     final List<ContactAddress> addresses = List.of(address("Anna Stagliano", "Home"), address("Alex Morgan", "Home"));
-    for (String query : List.of("6498 131a st", "6492 131a st, surrey", "131a st", "Alex 123",
+    for (String query : List.of("6498 131a st", "6492 131a st, surrey", "131a st", "Alex 123", "Alex \uD835\uDFD4",
                                 "\u0666\u0664\u0669\u0668 a st", "\uFF16\uFF14\uFF19\uFF18 a st", "\uD835\uDFD4 a st"))
       assertEquals(query, List.of(), ContactAddressSearch.findMatches(addresses, query));
     assertEquals(List.of(addresses.get(0)), ContactAddressSearch.findMatches(addresses, "anna sta"));

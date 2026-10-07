@@ -201,7 +201,14 @@ final class ContactAddressSearch
   private static boolean containsDigits(@NonNull String query)
   {
     // Name normalization removes numbers; do not turn an address into unrelated name prefixes.
-    return query.codePoints().anyMatch(Character::isDigit);
+    for (int offset = 0; offset < query.length();)
+    {
+      final int codePoint = query.codePointAt(offset);
+      if (Character.isDigit(codePoint))
+        return true;
+      offset += Character.charCount(codePoint);
+    }
+    return false;
   }
 
   private static boolean matchesWords(@NonNull List<String> nameWords, @NonNull String[] queryWords)
