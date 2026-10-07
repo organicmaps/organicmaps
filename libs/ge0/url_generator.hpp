@@ -33,9 +33,8 @@ std::string GenerateHttpShowMapUrl(double lat, double lon, double zoomLevel, std
 // CoordinatesFormat::LatLonDecimal). Zoom is emitted as a "?z=" query parameter when > 0.
 //
 // Two decoders read it: Ge0Parser::ParseClearCoordinates in the app and the web landing page
-// (organicmaps/url-processor). They agree on this exact form but not beyond it - the app accepts
-// only it, while the web regex also matches other separators and coordinates that do not start the
-// path, and rejects the +-90/+-180 corners the app allows. Keep this generator inside the overlap.
+// (organicmaps/url-processor). Both accept this exact path form, including integer coordinates
+// shared by other apps, and validate latitude in [-90, 90] and longitude in [-180, 180].
 //
 // NOT shared yet: apps released before Ge0Parser::ParseClearCoordinates shipped reject such links
 // (see the switch note in share::Build). Used by tests and by the future generator switch.

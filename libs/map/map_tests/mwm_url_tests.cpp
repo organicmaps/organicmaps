@@ -417,6 +417,38 @@ UNIT_TEST(MapApiClearCoordinates)
   }
 }
 
+UNIT_TEST(MapApiClearIntegerCoordinates)
+{
+  struct TestCase
+  {
+    char const * m_url;
+    double m_lat;
+    double m_lon;
+    double m_zoom;
+    char const * m_name;
+  };
+  TestCase const cases[] = {
+      {"https://omaps.app/-14.333333,-170/American_Samoa", -14.333333, -170, 14, "American Samoa"},
+      {"https://omaps.app/-14,-170.25/American_Samoa", -14, -170.25, 14, "American Samoa"},
+      {"https://omaps.app/-14,-170/American_Samoa?z=12", -14, -170, 12, "American Samoa"},
+      {"om://48,2/7-Eleven?z=16", 48, 2, 16, "7-Eleven"},
+      {"https://omaps.app/0,0", 0, 0, 14, ""},
+      {"https://omaps.app/-90,-180", -90, -180, 14, ""},
+      {"https://omaps.app/90,180", 90, 180, 14, ""},
+  };
+  for (auto const & test : cases)
+  {
+    ParsedMapApi api(test.m_url);
+    TEST_EQUAL(api.GetRequestType(), UrlType::Map, (test.m_url));
+    TEST_EQUAL(api.GetMapPoints().size(), 1, (test.m_url));
+    MapPoint const & point = api.GetMapPoints()[0];
+    TEST_ALMOST_EQUAL_ABS(point.m_lat, test.m_lat, kEps, (test.m_url));
+    TEST_ALMOST_EQUAL_ABS(point.m_lon, test.m_lon, kEps, (test.m_url));
+    TEST_ALMOST_EQUAL_ABS(api.GetZoomLevel(), test.m_zoom, kEps, (test.m_url));
+    TEST_EQUAL(point.m_name, test.m_name, (test.m_url));
+  }
+}
+
 UNIT_TEST(MapApiGeoScheme)
 {
   {
