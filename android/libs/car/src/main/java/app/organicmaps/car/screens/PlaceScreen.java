@@ -83,6 +83,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     super.onCreate(owner);
+    // Cached build results need the planning screen's container when restoration replays them.
+    if (mRoutingController.isPlanning())
+      mRoutingController.attach(this);
     mRoutingController.restore();
     if (mRoutingController.isNavigating() && mRoutingController.getLastRouterType() == ROUTER)
     {
