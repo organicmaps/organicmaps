@@ -84,7 +84,8 @@ if (MSVC)
   add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/bigobj>)
   add_link_options(/INCREMENTAL:NO)
 else()
-  add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>)
+  # -U__FAST_MATH__ keeps glibc from using libmvec, a library Sailfish Harbour doesn't allow.
+  add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi> $<$<BOOL:${PLATFORM_SAILFISH}>:-U__FAST_MATH__>)
 endif()
 
 if (PLATFORM_WIN)
@@ -155,7 +156,14 @@ find_package(Threads REQUIRED)
 
 # Scripts
 
-if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+if (PLATFORM_SAILFISH)
+  # The app is a shared library, so the core must be PIC.
+  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+  # Sailfish OS ships Qt 5.6, which Silica needs.
+  set(OMIM_QT Qt5)
+  find_package(Qt5 5.6 COMPONENTS REQUIRED Core Network)
+elseif (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+  set(OMIM_QT Qt6)
   list(APPEND qt_components Core Network)
   if (NOT SKIP_QT_GUI OR BUILD_TESTING)
     list(APPEND qt_components Widgets)

@@ -34,6 +34,11 @@
 #define OMIM_OS_WINDOWS_NATIVE
 #endif
 
+#elif defined(OMIM_SAILFISH)
+#define OMIM_OS_LINUX
+#define OMIM_OS_SAILFISH
+#define OMIM_OS_NAME "sailfish"
+
 #else
 #define OMIM_OS_LINUX
 #define OMIM_OS_NAME "linux"

@@ -72,7 +72,9 @@ public:
   explicit DesktopLocationService(LocationObserver & observer) : LocationService(observer), m_reportFirstEvent(true)
   {
 #if defined(QT_LOCATION_SERVICE)
-#if defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_SAILFISH)
+    m_services.push_back(CreateQtLocationService(*this, "geoclue"));
+#elif defined(OMIM_OS_LINUX)
     m_services.push_back(CreateQtLocationService(*this, "geoclue2"));
 #endif                                 // OMIM_OS_LINUX
 #elif defined(APPLE_LOCATION_SERVICE)  // No QT_LOCATION_SERVICE

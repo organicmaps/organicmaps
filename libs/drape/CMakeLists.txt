@@ -194,7 +194,8 @@ set(DRAPE_LINK_LIBRARIES
   expat::expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ Metal>
-  $<$<BOOL:${PLATFORM_LINUX}>:OpenGL::GL>
+  $<$<BOOL:${PLATFORM_SAILFISH}>:GLESv2>
+  $<$<AND:$<BOOL:${PLATFORM_LINUX}>,$<NOT:$<BOOL:${PLATFORM_SAILFISH}>>>:OpenGL::GL>
   $<$<BOOL:${PLATFORM_WIN}>:OpenGL::GL>
 )
 
