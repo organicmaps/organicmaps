@@ -253,7 +253,7 @@ public abstract class GoogleAssistantIntentHandler
       case "exit_navigation": RoutingController.get().cancel(); return true;
 
       case "resume_navigation":
-        if (RoutingController.get().isBuilt() && !RoutingController.get().isNavigating())
+        if (RoutingController.get().canStartNavigation())
           RoutingController.get().start();
         return true;
 

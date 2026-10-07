@@ -76,6 +76,7 @@
     <string name="minute">mín</string>
     <string name="big_font">Auka stærð á skýringum</string>
     <string name="transliteration_title">Umrita yfir í latneskt stafróf</string>
+    <string name="button_plan">Skipuleggja</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Niðurhal landakorta</string>
     <string name="driving_options_title">Valkostir leiðagerðar</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps í Android Auto þarf heimildir fyrir staðsetningar til að virka eðlilega</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Veita heimildir</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Snúa leið við</string>
 </resources>

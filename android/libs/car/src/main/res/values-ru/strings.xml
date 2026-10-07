@@ -76,6 +76,7 @@
     <string name="minute">мин</string>
     <string name="big_font">Увеличить шрифт на карте</string>
     <string name="transliteration_title">Транслитерировать в Латинский алфавит</string>
+    <string name="button_plan">Построить</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Загрузка карт</string>
     <string name="driving_options_title">Настройки объезда</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Для эффективной работы Organic Maps в Android Auto необходимы разрешения на определение местоположения</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Разрешить</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Развернуть маршрут</string>
 </resources>

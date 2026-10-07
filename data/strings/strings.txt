@@ -23102,7 +23102,7 @@ zh-Hans = 管理路线
 zh-Hant = 管理路線
 
 [button_plan]
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = Plan
 af = Beplan
 ar = خطة
@@ -45327,7 +45327,7 @@ zh-Hant = 停止並儲存
 
 [reverse_route]
 comment = Accessibility label for the button that reverses the complete planned route, including intermediate stops.
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = Reverse route
 af = Keer roete om
 ar = عكس اتجاه المسار

@@ -76,6 +76,7 @@
     <string name="minute">dk</string>
     <string name="big_font">Haritadaki yazı tipi boyutunu artır</string>
     <string name="transliteration_title">Latin alfabesine çevir</string>
+    <string name="button_plan">Plan</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Harita indirici</string>
     <string name="driving_options_title">Yönlendirme seçenekleri</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Android Auto\'daki Organic Maps etkin çalışmak için konum iznine gereksiniyor</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">İzinleri Verin</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Rotayı tersine çevir</string>
 </resources>

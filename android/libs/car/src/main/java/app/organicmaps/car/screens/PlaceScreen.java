@@ -83,6 +83,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     super.onCreate(owner);
+    // Cached build results need the planning screen's container when restoration replays them.
+    if (mRoutingController.isPlanning())
+      mRoutingController.attach(this);
     mRoutingController.restore();
     if (mRoutingController.isNavigating() && mRoutingController.getLastRouterType() == ROUTER)
     {
@@ -153,14 +156,14 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   private Pane createPane()
   {
     final Pane.Builder builder = new Pane.Builder();
-    final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
-
-    if (routingInfo == null && !mRoutingController.isErrorEncountered())
+    if (mMapObject == null || mRoutingController.isBuilding())
     {
       builder.setLoading(true);
       return builder.build();
     }
 
+    // The core may retain a route after a failed build; only a built preview has current metrics.
+    final RoutingInfo routingInfo = mRoutingController.isBuilt() ? mRoutingController.getCachedRoutingInfo() : null;
     builder.addRow(getPlaceDescription());
     if (routingInfo != null)
       builder.addRow(getPlaceRouteInfo(routingInfo));
@@ -229,18 +232,44 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     if (!mRoutingController.isBuilt())
       return;
 
-    final Action.Builder startRouteBuilder = new Action.Builder();
-    startRouteBuilder.setBackgroundColor(Colors.START_NAVIGATION);
-    startRouteBuilder.setFlags(Action.FLAG_DEFAULT);
-    startRouteBuilder.setTitle(getCarContext().getString(R.string.p2p_start));
-    startRouteBuilder.setIcon(
-        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
-    startRouteBuilder.setOnClickListener(() -> {
-      Config.acceptRoutingDisclaimer();
-      mRoutingController.start();
+    final boolean canStart = mRoutingController.canStartNavigation();
+    final boolean reverse = !canStart && mMapObject.isMyPosition();
+    if (!canStart && getLocationHelper().getMyPosition() == null)
+      return;
+
+    final Action.Builder routeAction = new Action.Builder();
+    routeAction.setBackgroundColor(Colors.START_NAVIGATION);
+    routeAction.setFlags(Action.FLAG_DEFAULT);
+    routeAction.setTitle(getCarContext().getString(canStart  ? R.string.p2p_start
+                                                   : reverse ? R.string.reverse_route
+                                                             : R.string.button_plan));
+    if (canStart)
+      routeAction.setIcon(
+          new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
+    routeAction.setOnClickListener(() -> {
+      if (canStart)
+      {
+        if (!mRoutingController.canStartNavigation())
+          return;
+        Config.acceptRoutingDisclaimer();
+        mRoutingController.start();
+      }
+      else if (reverse)
+      {
+        final MapObject endPoint = mRoutingController.getEndPoint();
+        if (endPoint != null && endPoint.isMyPosition())
+          mRoutingController.reverseRoute();
+      }
+      else if (mRoutingController.isPlanning() && mRoutingController.isBuilt())
+      {
+        final MapObject endPoint = mRoutingController.getEndPoint();
+        final MapObject myPosition = getLocationHelper().getMyPosition();
+        if (endPoint != null && !endPoint.isMyPosition() && myPosition != null)
+          mRoutingController.setStartPoint(myPosition);
+      }
     });
 
-    builder.addAction(startRouteBuilder.build());
+    builder.addAction(routeAction.build());
   }
 
   @NonNull
@@ -299,6 +328,19 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   {
     Framework.nativeDeactivateMapSelectionCircle(true);
     mMapObject = mRoutingController.getEndPoint();
+    invalidate();
+  }
+
+  @Override
+  public void onStartRouteBuilding()
+  {
+    mMapObject = mRoutingController.getEndPoint();
+    invalidate();
+  }
+
+  @Override
+  public void updateMenu()
+  {
     invalidate();
   }
 

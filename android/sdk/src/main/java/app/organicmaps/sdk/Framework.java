@@ -32,8 +32,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * This class wraps android::Framework.cpp class
- * via static methods
+ * JNI bridge to the native map framework.
  */
 public class Framework
 {
@@ -401,11 +400,6 @@ public class Framework
   public static native boolean nativeIsRouteFinished();
 
   public static native void nativeRunFirstLaunchAnimation();
-
-  public static native int nativeOpenRoutePointsTransaction();
-  public static native void nativeApplyRoutePointsTransaction(int transactionId);
-  public static native void nativeCancelRoutePointsTransaction(int transactionId);
-  public static native int nativeInvalidRoutePointsTransactionId();
 
   public static native boolean nativeHasSavedRoutePoints();
   public static native void nativeLoadRoutePoints();

@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Zväčšiť veľkosť písma na mape</string>
     <string name="transliteration_title">Prepis do latinky</string>
+    <string name="button_plan">Naplánovať</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Sťahovač máp</string>
     <string name="driving_options_title">Možnosti trasy</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps v službe Android Auto potrebujú na efektívnu prácu povolenie na určenie polohy</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Udelenie oprávnení</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Otočiť trasu</string>
 </resources>

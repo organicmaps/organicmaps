@@ -76,6 +76,7 @@
     <string name="minute">ր</string>
     <string name="big_font">Մեծացնել քարտեզի գրությունների չափսը</string>
     <string name="transliteration_title">Տառադարձել լատինատառի</string>
+    <string name="button_plan">Պլանավորել</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Քարտեզի ներբեռնիչ</string>
     <string name="driving_options_title">Երթուղու ընտրանքներ</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Android Auto-ում Organic Maps-ի արդյունավետ աշխատանքի համար անհրաժեշտ է տեղադիրքի թույլտվություն</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Տալ թույլտվություններ</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Շրջել երթուղին</string>
 </resources>

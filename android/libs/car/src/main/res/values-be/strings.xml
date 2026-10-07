@@ -76,6 +76,7 @@
     <string name="minute">хв</string>
     <string name="big_font">Павялічыць шрыфт мапы</string>
     <string name="transliteration_title">Транслітарацыя лацінкай</string>
+    <string name="button_plan">Пракласці</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Спампоўванне мап</string>
     <string name="driving_options_title">Налады пракладвання маршрутаў</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Для эфектыўнай працы Organic Maps у Android Auto патрабуецца дазвол на вызначэнне месцазнаходжання</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Дазволіць</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Развярнуць маршрут</string>
 </resources>

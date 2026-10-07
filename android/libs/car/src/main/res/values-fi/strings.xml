@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Suurenna fonttikokoa kartalla</string>
     <string name="transliteration_title">Translitterointi latinalaisiksi aakkosiksi</string>
+    <string name="button_plan">Suunnittele</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Karttojen lataaminen</string>
     <string name="driving_options_title">Reititysvalinnat</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps tarvitsee luvan käyttää sijantia toimiakseen tehokkaasti Android Autossa</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Lupien myöntäminen</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Käännä reitti</string>
 </resources>

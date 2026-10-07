@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Forøg størrelsen på kortetiketter</string>
     <string name="transliteration_title">Translitterer til det latinske alfabet</string>
+    <string name="button_plan">Planlæg</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Kort-downloader</string>
     <string name="driving_options_title">Indstillinger for ruteberegning</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps i Android Auto har brug for placeringstilladelse for at fungere effektivt</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Giv tilladelser</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Vend ruten om</string>
 </resources>

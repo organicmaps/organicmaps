@@ -1506,41 +1506,33 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final RoutingController controller = RoutingController.get();
 
-    // S - start, F - finish, L - my position
-    // -S-F-L -> Start
-    // -S-F+L -> Finish
-    // -S+F-L -> Start
-    // -S+F+L -> Start + Use
-    // +S-F-L -> Finish
-    // +S-F+L -> Finish
-    // +S+F-L -> Hide
-    // +S+F+L -> Hide
-    final MapObject myPosition = MwmApplication.from(this).getLocationHelper().getMyPosition();
-    if (myPosition != null && controller.getEndPoint() == null)
-      return false;
-    if (controller.getStartPoint() == null)
-      return false;
-    if (controller.getEndPoint() == null)
+    final MapObject startPoint = controller.getStartPoint();
+    final MapObject endPoint = controller.getEndPoint();
+    if (startPoint == null || endPoint == null)
       return false;
 
-    final MapObject startPoint = Objects.requireNonNull(controller.getStartPoint());
     if (startPoint.isMyPosition())
       return true;
 
-    final MapObject endPoint = Objects.requireNonNull(controller.getEndPoint());
+    final LocationHelper locationHelper = MwmApplication.from(this).getLocationHelper();
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.p2p_only_from_current)
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, endPoint.isMyPosition() ?
-            (dialog, which) -> controller.swapPoints() :
-            (dialog, which) -> {
-              // The current location may change while this dialog is still shown on the screen.
+                                                   .setTitle(R.string.p2p_only_from_current)
+                                                   .setCancelable(false)
+                                                   .setOnDismissListener(dialog -> mAlertDialog = null);
+    if (locationHelper.getMyPosition() == null)
+      builder.setMessage(R.string.unknown_current_position).setPositiveButton(R.string.ok, null);
+    else if (endPoint.isMyPosition())
+      builder.setNegativeButton(R.string.cancel, null)
+          .setPositiveButton(R.string.reverse_route, (dialog, which) -> controller.reverseRoute());
+    else
+      builder.setMessage(R.string.p2p_reroute_from_current)
+          .setNegativeButton(R.string.cancel, null)
+          .setPositiveButton(R.string.ok, (dialog, which) -> {
+            // Use the location fix at confirmation time.
+            final MapObject myPosition = locationHelper.getMyPosition();
+            if (myPosition != null)
               controller.setStartPoint(myPosition);
-            }
-        )
-        .setOnDismissListener(dialog -> mAlertDialog = null);
+          });
     dismissAlertDialog();
     mAlertDialog = builder.show();
     return false;
