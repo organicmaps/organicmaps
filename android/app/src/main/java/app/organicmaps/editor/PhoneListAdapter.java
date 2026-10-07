@@ -52,7 +52,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
   {
     holder.setPosition(position);
     holder.setPhone(phonesData.get(position));
-    if (position == phonesData.size()-1)
+    if (position == phonesData.size() - 1)
       holder.setNewPhoneRow(true);
   }
 
@@ -178,7 +178,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
 
   public boolean allPhonesValid()
   {
-    for(String number: phonesData)
+    for (String number : phonesData)
     {
       if (!Editor.nativeIsPhoneValid(number))
         return false;
