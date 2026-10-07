@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Suurenda teksti suurust kaardil</string>
     <string name="transliteration_title">Transliteratsioon ladina tähestikku</string>
+    <string name="button_plan">Kavanda</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Kaartide allalaadija</string>
     <string name="driving_options_title">Tee juhatamise valikud</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Android Auto liidestusega Organic Maps vajavab tõhusaks tööks luba asukoha tuvastamiseks</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Anna luba</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Pööra marsruut ümber</string>
 </resources>

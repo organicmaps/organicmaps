@@ -76,6 +76,7 @@
     <string name="minute">λπτ</string>
     <string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
     <string name="transliteration_title">Μεταγραφή στο λατινικό αλφάβητο</string>
+    <string name="button_plan">Σχεδιασμός</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
     <string name="driving_options_title">Ρυθμίσεις δρομολόγησης</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps στο Android Auto απαιτεί δικαιώματα πρόσβασης στην τοποθεσία για να λειτουργεί αποτελεσματικά</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Να επιτραπεί</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Αντιστροφή διαδρομής</string>
 </resources>

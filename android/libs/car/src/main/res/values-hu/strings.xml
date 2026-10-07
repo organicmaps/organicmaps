@@ -76,6 +76,7 @@
     <string name="minute">p</string>
     <string name="big_font">Betűméret növelése a térképen</string>
     <string name="transliteration_title">Átírás latin betűkre</string>
+    <string name="button_plan">Tervezés</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Térképletöltő</string>
     <string name="driving_options_title">Útvonaltervezési beállítások</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Az Organic Maps az Android Autoban helymeghatározási engedélyeket igényel a hatékony működéshez</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Engedélyek megadása</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Útvonal megfordítása</string>
 </resources>

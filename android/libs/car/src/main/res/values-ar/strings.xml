@@ -76,6 +76,7 @@
     <string name="minute">د</string>
     <string name="big_font">زيادة حجم الخط على الخريطة</string>
     <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>
+    <string name="button_plan">خطة</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">مُنزّل الخريطة</string>
     <string name="driving_options_title">خيارات رسم المسار</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps في Android Auto تحتاج إلى أذونات الموقع لتعمل بفعالية</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">أذونات المنح</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">عكس اتجاه المسار</string>
 </resources>

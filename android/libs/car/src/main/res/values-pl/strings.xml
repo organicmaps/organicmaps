@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Powiększ rozmiar czcionki na mapie</string>
     <string name="transliteration_title">Transkrypcja na alfabet łaciński</string>
+    <string name="button_plan">Zaplanuj</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Pobieranie map</string>
     <string name="driving_options_title">Ustawienia nawigacji</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps w Android Auto wymagają uprawnień do lokalizacji, aby działać efektywnie</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Przyznaj uprawnienia</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Odwróć trasę</string>
 </resources>

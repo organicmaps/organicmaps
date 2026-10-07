@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Vergroot lettergrootte op de kaart</string>
     <string name="transliteration_title">Transliteratie in het Latijnse alfabet</string>
+    <string name="button_plan">Plan</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Kaartdownloader</string>
     <string name="driving_options_title">Route instellingen</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps in Android Auto heeft locatietoestemming nodig om effectief te werken</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Geef toestemming</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Route omkeren</string>
 </resources>

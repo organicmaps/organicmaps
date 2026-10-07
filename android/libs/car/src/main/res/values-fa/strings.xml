@@ -76,6 +76,7 @@
     <string name="minute">دقیقه</string>
     <string name="big_font">افزایش اندازه متن بر روی نقشه</string>
     <string name="transliteration_title">ترجمه به الفبای لاتین</string>
+    <string name="button_plan">برنامه</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">دانلود کننده نقشه</string>
     <string name="driving_options_title">گزینه‌های رانندگی</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps در Android Auto برای عملکرد بهتر به مجوزهای مکان نیاز دارد</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">اعطای مجوزها</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">معکوس کردن مسیر</string>
 </resources>

@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Increase size for map labels</string>
     <string name="transliteration_title">Transliterate into Latin alphabet</string>
+    <string name="button_plan">Plan</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Map downloader</string>
     <string name="driving_options_title">Routing options</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps in Android Auto needs location permissions to work effectively</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Grant Permissions</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Reverse route</string>
 </resources>

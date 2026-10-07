@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Padidinti žemėlapio užrašų šrifto dydį</string>
     <string name="transliteration_title">Transliteruoti užrašus lotyniškais rašmenimis</string>
+    <string name="button_plan">Planas</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Žemėlapių atsiuntimas</string>
     <string name="driving_options_title">Maršruto apskaičiavimo parinktys</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Kad „Android Auto“ sistemoje „Organic Maps“ veiktų efektyviai, reikia leidimo nustatyti buvimo vietą</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Suteikti leidimą</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Apgręžti maršrutą</string>
 </resources>

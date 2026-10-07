@@ -76,6 +76,7 @@
     <string name="minute">min</string>
     <string name="big_font">Augmenta la mida de lletra del mapa</string>
     <string name="transliteration_title">Transliteració a l’alfabet llatí</string>
+    <string name="button_plan">Planifica</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Baixada de mapes</string>
     <string name="driving_options_title">Opcions d’encaminament</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">L’Organic Maps a l’Android Auto necessita permisos d’ubicació per a funcionar eficaçment</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Concedeix permisos</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Inverteix la ruta</string>
 </resources>

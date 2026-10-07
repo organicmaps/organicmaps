@@ -76,6 +76,7 @@
     <string name="minute">분</string>
     <string name="big_font">지도에서 글꼴 크기 늘리기</string>
     <string name="transliteration_title">라틴어로 음역</string>
+    <string name="button_plan">계획</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">맵 다운로더</string>
     <string name="driving_options_title">운전 옵션</string>
@@ -108,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Organic Maps Android Auto에서 이 앱이 제대로 작동하려면 위치 권한이 필요합니다</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">권한 부여</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">경로를 반대로 설정</string>
 </resources>
