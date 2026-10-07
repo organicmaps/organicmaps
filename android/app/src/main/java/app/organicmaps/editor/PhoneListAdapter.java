@@ -144,7 +144,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
       if (mInput != null)
       {
         if (newPhoneRow)
-          mInput.setHint("New Phone");
+          mInput.setHint(R.string.editor_new_phone);
         else
           mInput.setHint(null);
       }
