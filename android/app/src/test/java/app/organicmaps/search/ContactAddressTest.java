@@ -21,7 +21,7 @@ public class ContactAddressTest
   public void formattedOnlyAddressPreservesLocality()
   {
     final ContactAddress address = new ContactAddress("Name", "Home", "868 West 67 Ave, Vancouver", "", "");
-    assertEquals(List.of(new ContactAddress.SearchQuery("868 West 67th Avenue Vancouver", "868 West 67th Avenue")),
+    assertEquals(List.of(new ContactAddress.SearchQuery("868 West 67 Ave, Vancouver", "868 West 67 Ave")),
                  address.getSearchQueries());
   }
 
@@ -44,11 +44,11 @@ public class ContactAddressTest
   @Test
   public void distinguishesStatesInCacheAndQueries()
   {
-    final ContactAddress illinois = new ContactAddress("A", "", "123 Main St, Springfield, IL 62701", "", "");
-    final ContactAddress massachusetts = new ContactAddress("B", "", "123 Main St, Springfield, MA 01103", "", "");
+    final ContactAddress illinois = new ContactAddress("A", "", "123 Main St, Springfield, IL 62701, USA", "", "");
+    final ContactAddress massachusetts = new ContactAddress("B", "", "123 Main St, Springfield, MA 01103, USA", "", "");
     assertNotEquals(illinois.getAddressKey(), massachusetts.getAddressKey());
-    assertEquals("123 Main Street Springfield Illinois", illinois.getSearchQueries().get(0).query);
-    assertEquals("123 Main Street Springfield Massachusetts", massachusetts.getSearchQueries().get(0).query);
+    assertEquals("123 Main Street Springfield Illinois USA", illinois.getSearchQueries().get(0).query);
+    assertEquals("123 Main Street Springfield Massachusetts USA", massachusetts.getSearchQueries().get(0).query);
   }
 
   @Test
@@ -109,21 +109,35 @@ public class ContactAddressTest
   @Test
   public void handlesEmptyAndNonAddressContactNotes()
   {
-    for (String note : List.of("", "Same as Mom", "France"))
+    for (String note : List.of("", ",", ",,", "\n", "Same as Mom", "France"))
       assertEquals(List.of(), new ContactAddress("Name", "", note, "", "").getSearchQueries());
+  }
+
+  @Test
+  public void unknownCountryPreservesAmbiguousNamesAndHouseIdentifiers()
+  {
+    for (String street : List.of("12 Calle N", "Křižíkova 12/1", "Via Roma 12-14"))
+    {
+      final ContactAddress address = new ContactAddress("Name", "", street + ", City, CA, España", street, "");
+      assertEquals(street, address.getNormalizedStreet());
+      assertEquals("City, CA, España", address.getResolutionContext());
+    }
+    assertEquals("", ContactAddressNormalizer.formattingCountry("", ",,"));
+    assertEquals("Spain", ContactAddressNormalizer.formattingCountry("", "12 Calle N, V4N 5R2, Spain"));
   }
 
   @Test
   public void removesExplicitUnitAndRetriesAmbiguousUnit()
   {
     final ContactAddress explicit =
-        new ContactAddress("Name", "Home", "#15 3495 147A Street, Surrey, BC", "15 3495 147A Street", "Surrey");
-    assertEquals("3495 147A Street Surrey British Columbia", explicit.getSearchQueries().get(0).query);
-    final ContactAddress ambiguous =
-        new ContactAddress("Name", "Home", "10 578 Corydon Ave, Winnipeg, MB", "10 578 Corydon Ave", "Winnipeg");
+        new ContactAddress("Name", "Home", "#15 3495 147A Street, Surrey, BC, Canada", "15 3495 147A Street", "Surrey");
+    assertEquals("3495 147A Street Surrey British Columbia Canada", explicit.getSearchQueries().get(0).query);
+    final ContactAddress ambiguous = new ContactAddress("Name", "Home", "10 578 Corydon Ave, Winnipeg, MB, Canada",
+                                                        "10 578 Corydon Ave", "Winnipeg");
     assertEquals(
-        List.of(new ContactAddress.SearchQuery("10 578 Corydon Avenue Winnipeg Manitoba", "10 578 Corydon Avenue"),
-                new ContactAddress.SearchQuery("578 Corydon Avenue Winnipeg Manitoba", "578 Corydon Avenue")),
+        List.of(
+            new ContactAddress.SearchQuery("10 578 Corydon Avenue Winnipeg Manitoba Canada", "10 578 Corydon Avenue"),
+            new ContactAddress.SearchQuery("578 Corydon Avenue Winnipeg Manitoba Canada", "578 Corydon Avenue")),
         ambiguous.getSearchQueries());
   }
 
@@ -133,14 +147,16 @@ public class ContactAddressTest
     for (String formatted : List.of("200 Klahanie drive apt. 202", "apt. 202 200 Klahanie drive",
                                     "200 Klahanie drive #202", "Apartment 202 200 Klahanie drive"))
     {
-      final ContactAddress address = new ContactAddress("Name", "Home", formatted, "apt. 202 200 Klahanie drive", "");
-      assertEquals("", address.getResolutionContext());
-      assertEquals(List.of(new ContactAddress.SearchQuery("200 Klahanie Drive", "200 Klahanie Drive")),
+      final ContactAddress address =
+          new ContactAddress("Name", "Home", formatted, "apt. 202 200 Klahanie drive", "", "", "Canada");
+      assertEquals("Canada", address.getResolutionContext());
+      assertEquals(List.of(new ContactAddress.SearchQuery("200 Klahanie Drive Canada", "200 Klahanie Drive")),
                    address.getSearchQueries());
     }
-    final ContactAddress address = new ContactAddress("Name", "Home", "apt. 202 200 Klahanie drive, Port Moody, BC",
-                                                      "apt. 202 200 Klahanie drive", "Port Moody");
-    assertEquals("200 Klahanie Drive Port Moody British Columbia", address.getSearchQueries().get(0).query);
+    final ContactAddress address =
+        new ContactAddress("Name", "Home", "apt. 202 200 Klahanie drive, Port Moody, BC, Canada",
+                           "apt. 202 200 Klahanie drive", "Port Moody");
+    assertEquals("200 Klahanie Drive Port Moody British Columbia Canada", address.getSearchQueries().get(0).query);
   }
 
   @Test

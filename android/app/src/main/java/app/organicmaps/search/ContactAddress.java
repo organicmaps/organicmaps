@@ -176,7 +176,7 @@ final class ContactAddress
     final String[] parts = preparedAddress.split(",", 2);
     if (parts.length == 2 && !parts[0].trim().matches("\\d+[A-Za-z]?"))
       return ContactAddressNormalizer.normalizeContext(parts[1], mFormattingCountry);
-    final String normalized = ContactAddressNormalizer.normalizeContext(preparedAddress);
+    final String normalized = ContactAddressNormalizer.normalizeContext(preparedAddress, mFormattingCountry);
     final String normalizedStreet = getNormalizedStreet();
     final List<String> tokens = ContactAddressNormalizer.matchTokens(normalized);
     final int streetTokens = ContactAddressNormalizer.matchTokens(normalizedStreet).size();

@@ -53,16 +53,20 @@ final class ContactAddressNormalizer
   {
     if (!country.isBlank())
       return normalizeCountry(country);
-    final String[] parts = address.split("[,\\r\\n]");
+    final String[] parts = address.split("[,\\r\\n]", -1);
     final String last = parts[parts.length - 1].trim();
-    return COUNTRY_NAMES.contains(last.toLowerCase(Locale.ROOT)) || last.matches("(?i)USA|UK|United States of America")
-      ? last
-      : "";
+    if (COUNTRY_NAMES.contains(last.toLowerCase(Locale.ROOT)) || last.matches("(?i)USA|UK|United States of America"))
+      return last;
+    if (address.matches("(?is).*\\bCanada\\s*$") || CANADIAN_POSTAL_CODE.matcher(address).find())
+      return "Canada";
+    if (address.matches("(?is).*\\b(?:USA|United States(?: of America)?)\\s*$"))
+      return "USA";
+    return "";
   }
 
   static boolean usesNorthAmericanFormatting(@NonNull String country)
   {
-    return country.isEmpty() || country.matches("(?i)Canada|USA|US|United States(?: of America)?");
+    return country.matches("(?i)Canada|USA|US|United States(?: of America)?");
   }
 
   private static final String[][] REGION_NAMES = {{"AB", "Alberta"},
@@ -276,11 +280,17 @@ final class ContactAddressNormalizer
   @NonNull
   static String prepareAddress(@NonNull String value)
   {
-    return prepareAddress(value, "");
+    return prepareAddress(value, true, false);
   }
 
   @NonNull
   static String prepareAddress(@NonNull String value, @NonNull String country)
+  {
+    return prepareAddress(value, usesNorthAmericanFormatting(country), country.equalsIgnoreCase("Australia"));
+  }
+
+  @NonNull
+  private static String prepareAddress(@NonNull String value, boolean northAmerican, boolean australian)
   {
     String address = value.trim();
     while (address.length() >= 2 && isMatchingWrapper(address.charAt(0), address.charAt(address.length() - 1)))
@@ -288,13 +298,13 @@ final class ContactAddressNormalizer
     address = address.replaceAll("[\\r\\n]+", " ").replace('|', ' ');
     address = UNIT_PREFIX.matcher(address).replaceFirst("");
     address = BASEMENT_PREFIX.matcher(address).replaceFirst("");
-    if (usesNorthAmericanFormatting(country))
+    if (northAmerican)
       address = normalizeLeadingNumberSeparator(address);
-    else if (country.equalsIgnoreCase("Australia"))
+    else if (australian)
       address = address.replaceFirst("^\\d+[A-Za-z]?\\s*/\\s*(\\d+[A-Za-z]?)\\s+", "$1 ");
     address = TRAILING_UNIT.matcher(address).replaceFirst("");
 
-    if (usesNorthAmericanFormatting(country) && !address.matches("^\\d+[A-Za-z]?(?:\\s|,)+\\S.*"))
+    if (northAmerican && !address.matches("^\\d+[A-Za-z]?(?:\\s|,)+\\S.*"))
     {
       final String extracted = extractAddressFromText(address);
       if (!extracted.isEmpty())
