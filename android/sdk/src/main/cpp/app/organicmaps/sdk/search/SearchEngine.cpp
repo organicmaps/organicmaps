@@ -257,7 +257,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
   g_endBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
   g_addressResolvedId = jni::GetMethodID(env, g_javaListener, "onAddressResolved", "(JZDD)V");
   g_contactViewportChangedId =
-      jni::GetMethodID(env, g_javaListener, "onContactViewportChanged", "(ILjava/lang/String;)V");
+      jni::GetMethodID(env, g_javaListener, "onContactViewportChanged", "(ILjava/lang/String;JDDDD)V");
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz,
@@ -394,7 +394,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSetContactView
       for (auto const & region : g_framework->NativeFramework()->GetRegionsCountryIdByRect(viewport, false))
         mapRegions += region + " ";
     jni::TScopedLocalRef regions(env, jni::ToJavaString(env, mapRegions));
-    env->CallVoidMethod(g_javaListener, g_contactViewportChangedId, scale, regions.get());
+    auto const version = g_framework->NativeFramework()->GetMwmVersion(viewport.Center());
+    env->CallVoidMethod(g_javaListener, g_contactViewportChangedId, scale, regions.get(), static_cast<jlong>(version),
+                        viewport.minX(), viewport.minY(), viewport.maxX(), viewport.maxY());
   });
 }
 

@@ -26,7 +26,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   public interface ContactViewportListener
   {
-    void onContactViewportChanged(int scale, @NonNull String mapRegions);
+    void onContactViewportChanged(int scale, @NonNull String mapRegions, long mapVersion, double left, double bottom,
+                                  double right, double top);
   }
 
   // Query, which results are shown on the map.
@@ -154,10 +155,11 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   @Keep
-  private void onContactViewportChanged(int scale, @NonNull String mapRegions)
+  private void onContactViewportChanged(int scale, @NonNull String mapRegions, long mapVersion, double left,
+                                        double bottom, double right, double top)
   {
     if (mContactViewportListener != null)
-      mContactViewportListener.onContactViewportChanged(scale, mapRegions);
+      mContactViewportListener.onContactViewportChanged(scale, mapRegions, mapVersion, left, bottom, right, top);
   }
 
   @MainThread

@@ -1685,11 +1685,28 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
 
 void Framework::SetContactMarks(std::vector<ContactMarkData> const & marks)
 {
-  auto editSession = GetBookmarkManager().GetEditSession();
-  editSession.ClearGroup(UserMark::Type::CONTACT);
+  auto & manager = GetBookmarkManager();
+  std::map<std::pair<double, double>, kml::MarkId> existing;
+  for (auto const id : manager.GetUserMarkIds(UserMark::Type::CONTACT))
+  {
+    auto const point = manager.GetMark<ContactMarkPoint>(id)->GetPivot();
+    existing.emplace(std::pair{point.x, point.y}, id);
+  }
+  auto editSession = manager.GetEditSession();
   editSession.SetIsVisible(UserMark::Type::CONTACT, true);
   for (auto const & mark : marks)
-    editSession.CreateUserMark<ContactMarkPoint>(mark.m_point)->SetName(mark.m_name);
+  {
+    auto const it = existing.find(std::pair{mark.m_point.x, mark.m_point.y});
+    if (it == existing.end())
+      editSession.CreateUserMark<ContactMarkPoint>(mark.m_point)->SetName(mark.m_name);
+    else
+    {
+      editSession.GetMarkForEdit<ContactMarkPoint>(it->second)->SetName(mark.m_name);
+      existing.erase(it);
+    }
+  }
+  for (auto const & [point, id] : existing)
+    editSession.DeleteUserMark(id);
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,

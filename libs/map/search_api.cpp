@@ -502,14 +502,24 @@ void SearchAPI::StartAddressResolution()
   m_addressRunning = true;
   auto const generation = ++m_addressGeneration;
   auto const query = request->m_queries[request->m_queryIndex];
-  auto const viewport = m_viewport;
+  auto viewport = m_viewport;
+  if (request->m_background)
+    viewport.Inflate(viewport.SizeX() / 4.0, viewport.SizeY() / 4.0);
   SearchParams params;
-  params.m_query = query.m_query + " ";
+  // The viewport supplies the geographic restriction. Avoid expanding country/city tokens
+  // for every contact; still validate the complete original query against the result address.
+  params.m_query =
+      (request->m_background && !query.m_expectedStreet.empty() ? query.m_expectedStreet : query.m_query) + " ";
   params.m_inputLocale = request->m_locale;
   params.m_viewport = viewport;
   params.m_mode = request->m_background ? Mode::Viewport : Mode::Everywhere;
   params.m_needAddress = true;
-  params.m_onResults = [this, request, generation, query, viewport](Results const & results)
+  double constexpr kBackgroundBudgetSec = 2.0;
+  if (request->m_background)
+    params.m_timeout = std::chrono::duration_cast<SearchParams::TimeDurationT>(
+        std::chrono::duration<double>(std::max(0.0, kBackgroundBudgetSec - request->m_backgroundTimeSec)));
+  auto const started = std::chrono::steady_clock::now();
+  params.m_onResults = [this, request, generation, query, viewport, started](Results const & results)
   {
     std::optional<search::Result> earlyMatch;
     if (!results.IsEndMarker())
@@ -527,14 +537,17 @@ void SearchAPI::StartAddressResolution()
         if (!request->m_background || viewport.IsPointInside(result->GetFeatureCenter()))
           match = *result;
     }
-    RunUITask([this, request, generation, match = std::move(match), early = earlyMatch.has_value()]() mutable
+    auto const elapsed = std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
+    RunUITask([this, request, generation, match = std::move(match), early = earlyMatch.has_value(), elapsed]() mutable
     {
       // Cancelled or suspended attempts must not consume a query or deliver a stale coordinate.
       if (generation != m_addressGeneration)
         return;
       m_addressRunning = false;
+      request->m_backgroundTimeSec += elapsed;
       // Deadlines retain useful results. Explicit cancellation/suspension is excluded by the generation guard.
-      if (!match && ++request->m_queryIndex < request->m_queries.size())
+      if (!match && ++request->m_queryIndex < request->m_queries.size() &&
+          (!request->m_background || request->m_backgroundTimeSec < kBackgroundBudgetSec))
       {
         StartAddressResolution();
         return;

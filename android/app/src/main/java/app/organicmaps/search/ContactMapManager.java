@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import app.organicmaps.sdk.search.SearchEngine.AddressResolutionListener;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -78,7 +80,7 @@ public enum ContactMapManager implements AddressResolutionListener
 
   private final Map<String, ResolvedAddress> mCache = new HashMap<>();
   private final Map<String, Set<String>> mNames = new HashMap<>();
-  private final Set<String> mFailed = new HashSet<>();
+  private final ContactResolutionPolicy mResolutionPolicy = new ContactResolutionPolicy();
   private final ArrayDeque<PendingAddress> mQueue = new ArrayDeque<>();
   private final Map<Long, PendingAddress> mRequests = new HashMap<>();
   private final Set<String> mVisibleKeys = new HashSet<>();
@@ -113,7 +115,7 @@ public enum ContactMapManager implements AddressResolutionListener
     mMainHandler.removeCallbacks(mResolveViewport);
     mVisibleKeys.clear();
     mNames.clear();
-    mFailed.clear();
+    mResolutionPolicy.clear();
     mCache.clear();
 
     if (!isEnabled(mContext))
@@ -152,8 +154,8 @@ public enum ContactMapManager implements AddressResolutionListener
   @MainThread
   private void onContactsChanged()
   {
-    if (mPersistentCache != null)
-      mPersistentCache.clear();
+    // Address keys include the complete address. Reload names/addresses and retain only
+    // surviving keys, rather than invalidating locations for unrelated provider updates.
     if (mContext != null)
       refresh(mContext);
   }
@@ -241,7 +243,10 @@ public enum ContactMapManager implements AddressResolutionListener
       scheduleMarksUpdate();
     }
     else
-      mFailed.add(address.key);
+      mResolutionPolicy.recordMiss(address.key, SystemClock.elapsedRealtime());
+    // Retain progress when the viewport changes instead of always starting with the first name.
+    mAddresses.remove(address.key);
+    mAddresses.put(address.key, address);
     resolveNext();
   }
 
@@ -262,7 +267,7 @@ public enum ContactMapManager implements AddressResolutionListener
     });
     if (mPersistentCache != null)
       mPersistentCache.put(key, new ContactLocationCache.Entry(lat, lon));
-    mFailed.remove(key);
+    mResolutionPolicy.forget(key);
     mVisibleKeys.add(key);
     mNames.computeIfAbsent(key, ignored -> new LinkedHashSet<>()).add(contactAddress.name);
     scheduleMarksUpdate();
@@ -288,14 +293,39 @@ public enum ContactMapManager implements AddressResolutionListener
     return resolved;
   }
 
-  private void onViewportChanged(int scale, @NonNull String mapRegions)
+  private void onViewportChanged(int scale, @NonNull String mapRegions, long mapVersion, double left, double bottom,
+                                 double right, double top)
   {
+    if (mContext != null && !isEnabled(mContext))
+    {
+      refresh(mContext);
+      return;
+    }
+    boolean areaChanged = mResolutionPolicy.updateArea(mapRegions, mapVersion, left, bottom, right, top);
+    boolean becameVisible = mViewportScale < 16 && scale >= 16;
+    mViewportScale = scale;
+    mViewportRegionTokens = ContactAddressNormalizer.matchTokens(mapRegions);
+    if (areaChanged && scale >= 16)
+    {
+      // Re-submit cached marks when returning to an area without waiting for address searches.
+      mMarkNames = null;
+      updateMarks();
+    }
+    if (!areaChanged && !becameVisible && scale >= 16)
+    {
+      // Also allow expired misses to retry on a later small viewport movement.
+      if (mRequests.isEmpty() && mQueue.isEmpty())
+        resolveViewport();
+      return;
+    }
+    for (PendingAddress address : mRequests.values())
+    {
+      mAddresses.remove(address.key);
+      mAddresses.put(address.key, address);
+    }
     cancelRequests();
     mRequests.clear();
     mQueue.clear();
-    mFailed.clear();
-    mViewportScale = scale;
-    mViewportRegionTokens = ContactAddressNormalizer.matchTokens(mapRegions);
     mMainHandler.removeCallbacks(mResolveViewport);
     if (scale >= 16)
       mMainHandler.postDelayed(mResolveViewport, 300);
@@ -305,10 +335,15 @@ public enum ContactMapManager implements AddressResolutionListener
   {
     if (mViewportScale < 16 || mContext == null || !isEnabled(mContext))
       return;
-    for (PendingAddress address : mAddresses.values())
+    final List<PendingAddress> candidates = new ArrayList<>(mAddresses.values());
+    candidates.sort(
+        (first, second)
+            -> Integer.compare(ContactResolutionPolicy.regionScore(second.contextTokens, mViewportRegionTokens),
+                               ContactResolutionPolicy.regionScore(first.contextTokens, mViewportRegionTokens)));
+    for (PendingAddress address : candidates)
     {
-      if (mCache.containsKey(address.key) || mFailed.contains(address.key) || mRequests.values().contains(address)
-          || mQueue.contains(address))
+      if (mCache.containsKey(address.key) || !mResolutionPolicy.shouldRetry(address.key, SystemClock.elapsedRealtime())
+          || mRequests.values().contains(address) || mQueue.contains(address))
         continue;
       // Searches are bounded by the viewport; skip contacts in a different downloaded map region as well.
       if (!ContactAddressNormalizer.matchesMapRegion(address.contextTokens, mViewportRegionTokens))

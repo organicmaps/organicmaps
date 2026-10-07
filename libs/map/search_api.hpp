@@ -159,6 +159,7 @@ private:
     AddressCallback m_callback;
     size_t m_queryIndex = 0;
     base::Timer m_timer;
+    double m_backgroundTimeSec = 0.0;
   };
   void StartAddressResolution();
   void SuspendAddressResolution();
