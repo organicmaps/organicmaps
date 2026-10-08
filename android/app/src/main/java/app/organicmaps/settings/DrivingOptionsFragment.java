@@ -15,19 +15,12 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
-  private static final String BUNDLE_ROAD_TYPES = "road_types";
+  private static final String BUNDLE_ROAD_TYPES = "road_types_mask";
   private static final String BUNDLE_ROUTE_OPTIMIZATION = "route_optimization";
-  @NonNull
-  private Set<RoadType> mRoadTypes = Collections.emptySet();
+  private int mOptionsMask;
   private boolean mOptimizationEnabledOnLoad;
   private View mContent;
 
@@ -39,32 +32,19 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     View root = inflater.inflate(R.layout.fragment_driving_options, container, false);
     initViews(root);
     ViewCompat.setOnApplyWindowInsetsListener(mContent, new PaddingInsetsListener(false, true, true, true));
-    mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
-                   ? makeRouteTypes(savedInstanceState)
-                   : RoutingOptions.getActiveRoadTypes();
+    mOptionsMask = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
+                     ? savedInstanceState.getInt(BUNDLE_ROAD_TYPES)
+                     : RoutingOptions.getOptions();
     mOptimizationEnabledOnLoad = savedInstanceState != null ? savedInstanceState.getBoolean(BUNDLE_ROUTE_OPTIMIZATION)
                                                             : RoutingOptions.isRouteOptimizationEnabled();
     return root;
-  }
-
-  @NonNull
-  private Set<RoadType> makeRouteTypes(@NonNull Bundle bundle)
-  {
-    Set<RoadType> result = new HashSet<>();
-    List<Integer> items = Objects.requireNonNull(bundle.getIntegerArrayList(BUNDLE_ROAD_TYPES));
-    for (Integer each : items)
-      result.add(RoadType.values()[each]);
-    return result;
   }
 
   @Override
   public void onSaveInstanceState(@NonNull Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    ArrayList<Integer> savedRoadTypes = new ArrayList<>();
-    for (RoadType each : mRoadTypes)
-      savedRoadTypes.add(each.ordinal());
-    outState.putIntegerArrayList(BUNDLE_ROAD_TYPES, savedRoadTypes);
+    outState.putInt(BUNDLE_ROAD_TYPES, mOptionsMask);
     outState.putBoolean(BUNDLE_ROUTE_OPTIMIZATION, mOptimizationEnabledOnLoad);
   }
 
@@ -76,14 +56,14 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     if (requireActivity().isChangingConfigurations())
       return;
 
-    final Set<RoadType> roadTypes = RoutingOptions.getActiveRoadTypes();
+    final int mask = RoutingOptions.getOptions();
     // A temporary switch to On must not reorder stops if the user switches back before leaving this screen.
     final boolean enabled = RoutingOptions.isRouteOptimizationEnabled();
     final boolean reordered = enabled && !mOptimizationEnabledOnLoad && RoutingController.get().optimizeRoutePoints();
-    if (!mRoadTypes.equals(roadTypes) || reordered)
+    if (mOptionsMask != mask || reordered)
       RoutingController.get().onRoutingOptionsChanged();
     // Re-baseline so leaving this screen again (e.g. after Home) reports only what changed since.
-    mRoadTypes = roadTypes;
+    mOptionsMask = mask;
     mOptimizationEnabledOnLoad = enabled;
   }
 
