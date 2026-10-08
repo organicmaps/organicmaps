@@ -37,6 +37,8 @@ class Routing : public QObject
   Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY stateChanged)
   Q_PROPERTY(QStringList missingMaps READ missingMaps NOTIFY stateChanged)
   Q_PROPERTY(QString missingMapsSize READ missingMapsSize NOTIFY stateChanged)
+  Q_PROPERTY(bool downloadingMissingMaps READ downloadingMissingMaps NOTIFY missingMapsProgressChanged)
+  Q_PROPERTY(double missingMapsProgress READ missingMapsProgress NOTIFY missingMapsProgressChanged)
   Q_PROPERTY(QVariantMap elevation READ elevation NOTIFY stateChanged)
   Q_PROPERTY(QString ascentDescent READ ascentDescent NOTIFY stateChanged)
   // Distance of the point marked on the route, -1 without one.
@@ -131,6 +133,9 @@ public:
   QString errorMessage() const { return m_errorMessage; }
   QStringList missingMaps() const { return m_missingMaps; }
   QString missingMapsSize() const;
+  bool downloadingMissingMaps() const;
+  // Of all the missing maps together, from 0 to 1.
+  double missingMapsProgress() const;
   QVariantMap elevation() const { return m_elevation; }
   QString ascentDescent() const { return m_ascentDescent; }
   double elevationActivePoint() const { return m_elevationActivePoint; }
@@ -172,6 +177,7 @@ public:
   // reorders the stops if route optimization was turned on.
   Q_INVOKABLE void applyOptions(int previousAvoidRoads, bool previousRouteOptimization);
   Q_INVOKABLE void downloadMissingMaps();
+  Q_INVOKABLE void cancelMissingMaps();
   Q_INVOKABLE void acceptDisclaimer();
   Q_INVOKABLE void startPick(int type, int index);
   Q_INVOKABLE void cancelPick();
@@ -223,6 +229,7 @@ signals:
   void pickChanged();
   void message(QString const & text);
   void elevationActivePointChanged();
+  void missingMapsProgressChanged();
   void darkOutsideChanged();
 
 private:

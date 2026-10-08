@@ -339,11 +339,24 @@ MapPanel {
                 onClicked: pageStack.push(Qt.resolvedUrl("RoutingOptionsPage.qml"), { routing: routing })
             }
 
+            ProgressBar {
+                width: parent.width
+                visible: routing.downloadingMissingMaps
+                indeterminate: routing.missingMapsProgress === 0
+                value: routing.missingMapsProgress
+                label: appInfo.localized("downloading")
+            }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: routing.missingMaps.length > 0
-                text: appInfo.localized("download") + " (" + routing.missingMapsSize + ")"
-                onClicked: Downloads.start(pageStack, function() { routing.downloadMissingMaps() })
+                text: routing.downloadingMissingMaps ? appInfo.localized("cancel")
+                    : appInfo.localized("download") + " (" + routing.missingMapsSize + ")"
+                onClicked: {
+                    if (routing.downloadingMissingMaps)
+                        routing.cancelMissingMaps()
+                    else
+                        Downloads.start(pageStack, function() { routing.downloadMissingMaps() })
+                }
             }
 
             // Press and hold a point to reorder or remove it.

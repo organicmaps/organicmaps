@@ -3,6 +3,7 @@
 #include "base/logging.hpp"
 
 #include <QBuffer>
+#include <QCoreApplication>
 #include <QMetaObject>
 
 #include <QNetworkRequest>
@@ -41,6 +42,19 @@ struct NetworkThread
     thread.wait();
     delete worker;
   }
+};
+
+QEvent::Type TaskEventType()
+{
+  static auto const type = static_cast<QEvent::Type>(QEvent::registerEventType());
+  return type;
+}
+
+struct TaskEvent : QEvent
+{
+  explicit TaskEvent(std::function<void()> && task) : QEvent(TaskEventType()), m_task(std::move(task)) {}
+
+  std::function<void()> m_task;
 };
 
 NetworkThread & GetNetworkThread()
@@ -95,6 +109,19 @@ QNetworkReply * IssueRequest(QNetworkAccessManager & manager, std::string const 
 
 namespace platform
 {
+void NetworkWorker::Post(std::function<void()> task)
+{
+  QCoreApplication::postEvent(this, new TaskEvent(std::move(task)));
+}
+
+bool NetworkWorker::event(QEvent * event)
+{
+  if (event->type() != TaskEventType())
+    return QObject::event(event);
+  static_cast<TaskEvent *>(event)->m_task();
+  return true;
+}
+
 bool IsOsmHost(QString const & host)
 {
   return host.compare(QLatin1String("openstreetmap.org"), Qt::CaseInsensitive) == 0 ||
@@ -602,9 +629,8 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   // where QNetworkAccessManager lives, so QNetworkReply is created with
   // correct affinity and signals fire on the worker's event loop.
   auto & nt = GetNetworkThread();
-  QTimer::singleShot(0, nt.worker,
-                     [=, handler = std::move(handler), cancelChecker = std::move(cancelChecker),
-                      rebindCancel = std::move(rebindCancel)]() mutable
+  nt.worker->Post([=, handler = std::move(handler), cancelChecker = std::move(cancelChecker),
+                   rebindCancel = std::move(rebindCancel)]() mutable
   {
     // Check cancellation BEFORE creating the request — fixes the race where
     // Cancel() is called between RunHttpRequestAsync() returning and this

@@ -307,17 +307,25 @@ Routing::Routing(Framework & framework, QObject * parent)
   });
 
   // Rebuild once the missing maps are downloaded.
-  m_storageSlot = m_framework.GetStorage().Subscribe([this](storage::CountryId const & id)
+  m_storageSlot = m_framework.GetStorage().Subscribe(
+      [this](storage::CountryId const & id)
   {
+    if (!m_missingMaps.contains(QString::fromStdString(id)))
+      return;
+    emit missingMapsProgressChanged();
     // A rebuild would close the route being followed.
-    if (m_navigating || !m_missingMaps.contains(QString::fromStdString(id)))
+    if (m_navigating)
       return;
     auto & storage = m_framework.GetStorage();
     for (auto const & missing : m_missingMaps)
       if (MapAttrs(storage, missing.toStdString()).m_status != storage::NodeStatus::OnDisk)
         return;
     Build();
-  }, [](storage::CountryId const &, downloader::Progress const &) {});
+  }, [this](storage::CountryId const & id, downloader::Progress const &)
+  {
+    if (m_missingMaps.contains(QString::fromStdString(id)))
+      emit missingMapsProgressChanged();
+  });
 
   // A restored route starts at the position once it is found.
   m_framework.GetRoutingManager().SetRouteRecommendationListener([this](RoutingManager::Recommendation r)
@@ -400,6 +408,32 @@ QString Routing::missingMapsSize() const
   for (auto const & id : m_missingMaps)
     size += static_cast<qint64>(MapAttrs(m_framework.GetStorage(), id.toStdString()).m_mwmSize);
   return FormatSize(size);
+}
+
+bool Routing::downloadingMissingMaps() const
+{
+  using storage::NodeStatus;
+  return std::any_of(m_missingMaps.begin(), m_missingMaps.end(), [this](QString const & id)
+  {
+    auto const status = MapAttrs(m_framework.GetStorage(), id.toStdString()).m_status;
+    return status == NodeStatus::Downloading || status == NodeStatus::InQueue || status == NodeStatus::Applying;
+  });
+}
+
+double Routing::missingMapsProgress() const
+{
+  int64_t total = 0;
+  int64_t downloaded = 0;
+  for (auto const & id : m_missingMaps)
+  {
+    auto const attrs = MapAttrs(m_framework.GetStorage(), id.toStdString());
+    total += static_cast<int64_t>(attrs.m_mwmSize);
+    if (attrs.m_status == storage::NodeStatus::OnDisk)
+      downloaded += static_cast<int64_t>(attrs.m_mwmSize);
+    else if (attrs.m_status == storage::NodeStatus::Downloading && !attrs.m_downloadingProgress.IsUnknown())
+      downloaded += attrs.m_downloadingProgress.m_bytesDownloaded;
+  }
+  return total > 0 ? static_cast<double>(downloaded) / total : 0;
 }
 
 int Routing::avoidRoads() const
@@ -1042,6 +1076,12 @@ void Routing::downloadMissingMaps()
 {
   for (auto const & id : m_missingMaps)
     m_framework.GetStorage().DownloadNode(id.toStdString());
+}
+
+void Routing::cancelMissingMaps()
+{
+  for (auto const & id : m_missingMaps)
+    m_framework.GetStorage().CancelDownloadNode(id.toStdString());
 }
 
 void Routing::saveRoute()

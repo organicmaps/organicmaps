@@ -2,12 +2,14 @@
 
 #include "platform/http_client.hpp"
 
+#include <QEvent>
 #include <QFile>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QObject>
 
 #include <cstdint>
+#include <functional>
 #include <optional>
 
 namespace platform
@@ -106,5 +108,12 @@ public:
   // Parent = this ensures the manager is a child QObject and moves
   // together with the worker when moveToThread() is called.
   QNetworkAccessManager m_manager{this};
+
+  // Runs the task on the worker thread. Callable from any thread: Qt 5.6 QTimer::singleShot()
+  // starts its timer on the calling thread, so it never fires from a non-Qt thread.
+  void Post(std::function<void()> task);
+
+protected:
+  bool event(QEvent * event) override;
 };
 }  // namespace platform
