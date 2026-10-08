@@ -9,6 +9,14 @@ using namespace std::string_literals;
 
 namespace storage
 {
+std::string DebugPrint(Progress const & progress)
+{
+  std::ostringstream out;
+  out << "Progress{MWM: " << progress.m_mwmDownloaded << '/' << progress.m_mwmTotal
+      << ", TWM: " << progress.m_twmDownloaded << '/' << progress.m_twmTotal << '}';
+  return out.str();
+}
+
 std::string DebugPrint(Status status)
 {
   switch (status)

@@ -200,6 +200,7 @@ using namespace storage;
 
 - (void)showDownloading:(CGFloat)progress
 {
+  progress *= AppConstants.maxProgress;
   self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = [NSString stringWithFormat:@"%@ %.2f%%", L(@"downloader_downloading"), progress * 100.f];
   self.downloadButton.hidden = YES;
@@ -239,10 +240,10 @@ using namespace storage;
     [self removeFromSuperview];
 }
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if (self.superview && m_countryId == countryId.UTF8String)
-    [self showDownloading:(CGFloat)downloadedBytes / totalBytes];
+  if (self.superview && m_countryId == countryId.UTF8String && progress.mwmTotal > 0)
+    [self showDownloading:(CGFloat)progress.mwmDownloaded / progress.mwmTotal];
 }
 
 #pragma mark - MWMCircularProgressDelegate

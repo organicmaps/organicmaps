@@ -59,3 +59,26 @@ UNIT_TEST(UpdateDialog_EntireTreeIsSortedAlphabetically)
   constexpr int kCountryColumn = 0;  // KColumnIndexCountry
   TEST_EQUAL(tree.sortColumn(), kCountryColumn, ());
 }
+
+UNIT_TEST(UpdateDialog_TerrainProgressKeepsIdleMapRow)
+{
+  EnsureApp();
+
+  Framework framework(FrameworkParams{}, false);
+  qt::UpdateDialog dialog(nullptr, framework);
+  dialog.FillTreeForTesting();
+
+  auto const & tree = dialog.GetTreeForTesting();
+  auto * row = tree.topLevelItem(0);
+  while (row->childCount() != 0)
+    row = row->child(0);
+  auto const id = row->data(0, Qt::UserRole).toString().toStdString();
+  auto const status = row->text(1);
+  auto const size = row->text(2);
+  TEST(!size.isEmpty(), (id));
+
+  // Terrain-only callbacks carry no map transfer bytes and must not replace an idle map size with 0%.
+  dialog.OnCountryDownloadProgress(id, {0, 0, 5, 10});
+  TEST_EQUAL(row->text(1).toStdString(), status.toStdString(), (id));
+  TEST_EQUAL(row->text(2).toStdString(), size.toStdString(), (id));
+}

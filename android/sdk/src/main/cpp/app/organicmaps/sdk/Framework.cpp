@@ -732,6 +732,11 @@ bool Framework::IsAutoRetryDownloadFailed()
   return m_work.GetDownloadingPolicy().IsAutoRetryDownloadFailed();
 }
 
+bool Framework::IsTerrainAutoRetryDownloadFailed()
+{
+  return m_work.GetDownloadingPolicy().IsTerrainAutoRetryDownloadFailed();
+}
+
 bool Framework::IsDownloadOn3gEnabled()
 {
   return m_work.GetDownloadingPolicy().IsCellularDownloadEnabled();

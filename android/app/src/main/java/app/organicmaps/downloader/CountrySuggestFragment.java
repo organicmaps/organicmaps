@@ -81,16 +81,20 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       }
 
       @Override
-      public void onProgress(String countryId, long localSize, long remoteSize)
+      public void onProgress(String countryId, MapManager.Progress progress)
       {
+        if (progress.mwmTotal == 0)
+          return;
+
         if (!isAdded())
           return;
 
         if (mDownloadingCountry == null)
           mDownloadingCountry = CountryItem.fill(countryId);
-        else
-          mDownloadingCountry.update();
+        else if (!mDownloadingCountry.id.equals(countryId))
+          return;
 
+        mDownloadingCountry.updateProgress(progress.mwmDownloaded, progress.mwmTotal);
         updateProgress();
       }
     });

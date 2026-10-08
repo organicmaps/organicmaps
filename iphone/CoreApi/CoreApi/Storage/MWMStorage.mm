@@ -49,19 +49,15 @@ using namespace storage;
       NSHashTable * observersCopy = [observers copy];
       for (id<MWMStorageObserver> observer in observersCopy)
         [observer processCountryEvent:@(countryId.c_str())];
-    }, [observers](CountryId const & countryId, downloader::Progress const & progress)
+    }, [observers](CountryId const & countryId, storage::Progress const & progress)
     {
-      for (id<MWMStorageObserver> observer in observers)
-      {
-        // processCountry function in observer's implementation may not exist.
-        /// @todo We can face with an invisible bug, if function's signature will be changed.
-        if ([observer respondsToSelector:@selector(processCountry:downloadedBytes:totalBytes:)])
-        {
-          [observer processCountry:@(countryId.c_str())
-                   downloadedBytes:progress.m_bytesDownloaded
-                        totalBytes:progress.m_bytesTotal];
-        }
-      }
+      MWMStorageProgress const snapshot{
+          static_cast<uint64_t>(progress.m_mwmDownloaded), static_cast<uint64_t>(progress.m_mwmTotal),
+          static_cast<uint64_t>(progress.m_twmDownloaded), static_cast<uint64_t>(progress.m_twmTotal)};
+      NSHashTable * observersCopy = [observers copy];
+      for (id<MWMStorageObserver> observer in observersCopy)
+        if ([observer respondsToSelector:@selector(processCountry:progress:)])
+          [observer processCountry:@(countryId.c_str()) progress:snapshot];
     });
   }
   return self;
@@ -160,6 +156,40 @@ using namespace storage;
   GetFramework().GetStorage().CancelDownloadNode(countryId.UTF8String);
 }
 
+- (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
+{
+  return [self downloadTerrainNodes:@[countryId] error:error];
+}
+
+- (BOOL)downloadTerrainNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error
+{
+  auto & storage = GetFramework().GetStorage();
+  CountriesVec countries;
+  for (NSString * countryId in countryIds)
+    countries.emplace_back(countryId.UTF8String);
+  if (!storage::IsEnoughSpaceForDownload(storage.GetTerrainDownloadSize(countries)))
+  {
+    if (error)
+      *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
+    return NO;
+  }
+  if (![self checkConnection:error])
+    return NO;
+  for (auto const & countryId : countries)
+    storage.DownloadTerrain(countryId);
+  return YES;
+}
+
+- (void)cancelTerrain:(NSString *)countryId
+{
+  GetFramework().GetStorage().CancelTerrain(countryId.UTF8String);
+}
+
+- (void)deleteTerrain:(NSString *)countryId
+{
+  GetFramework().GetStorage().DeleteTerrain(countryId.UTF8String);
+}
+
 - (void)showNode:(NSString *)countryId
 {
   GetFramework().ShowNode(countryId.UTF8String);
@@ -169,15 +199,12 @@ using namespace storage;
 {
   auto & s = GetFramework().GetStorage();
 
-  MwmSize requiredSize = 0;
+  CountriesVec countries;
+  countries.reserve(countryIds.count);
   for (NSString * countryId in countryIds)
-  {
-    NodeAttrs nodeAttrs;
-    GetFramework().GetStorage().GetNodeAttrs(countryId.UTF8String, nodeAttrs);
-    requiredSize += nodeAttrs.m_mwmSize;
-  }
+    countries.emplace_back(countryId.UTF8String);
 
-  if (storage::IsEnoughSpaceForDownload(requiredSize))
+  if (storage::IsEnoughSpaceForDownload(s.GetDownloadSize(countries)))
   {
     NSError * connectionError;
     if ([self checkConnection:&connectionError])

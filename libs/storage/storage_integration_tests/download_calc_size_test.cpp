@@ -45,9 +45,12 @@ UNIT_CLASS_TEST(StorageTest, DownloadingTests_CalcOverallProgress)
   for (auto const & country : kTestCountries)
     baseProgress.m_bytesTotal += s.CountrySizeInBytes(country).second;
 
+  bool batchQueued = false;
   auto progressChanged =
-      [&s, &kTestCountries, &baseProgress](CountryId const & id, downloader::Progress const & /* progress */)
+      [&s, &kTestCountries, &baseProgress, &batchQueued](CountryId const & id, storage::Progress const & /* progress */)
   {
+    if (!batchQueued)
+      return;
     auto const currentProgress = s.GetOverallProgress(kTestCountries);
     LOG_SHORT(LINFO, (id, "downloading progress:", currentProgress));
 
@@ -63,6 +66,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadingTests_CalcOverallProgress)
   for (auto const & countryId : kTestCountries)
     s.DownloadNode(countryId);
 
+  batchQueued = true;
   testing::RunEventLoop();
 }
 }  // namespace download_calc_size_test

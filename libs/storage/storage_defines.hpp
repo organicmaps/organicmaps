@@ -2,6 +2,7 @@
 
 #include "platform/local_country_file.hpp"
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
@@ -20,6 +21,16 @@ using LocalFilePtr = std::shared_ptr<platform::LocalCountryFile>;
 using Affiliations = std::unordered_map<std::string, CountriesVec>;
 /// Map from country name synonyms and old names into CountryId.
 using CountryNameSynonyms = std::unordered_map<std::string, CountryId>;
+
+// Live bytes for independent map (or diff) and terrain requests.
+struct Progress
+{
+  int64_t m_mwmDownloaded = 0;
+  int64_t m_mwmTotal = 0;
+  int64_t m_twmDownloaded = 0;
+  int64_t m_twmTotal = 0;
+};
+std::string DebugPrint(Progress const & progress);
 
 /// @note Android code relies that kInvalidCountryId is an empty string!
 inline constexpr char kInvalidCountryId[] = "";

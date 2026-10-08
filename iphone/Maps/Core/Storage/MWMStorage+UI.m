@@ -46,6 +46,32 @@
     success();
 }
 
+- (void)downloadTerrain:(NSString *)countryId
+{
+  [self downloadTerrainNodes:@[countryId]];
+}
+
+- (void)downloadTerrainNodes:(NSArray<NSString *> *)countryIds
+{
+  NSError * error;
+  if ([self downloadTerrainNodes:countryIds error:&error])
+    return;
+  if (error.code == kStorageCellularForbidden)
+  {
+    __weak __typeof(self) ws = self;
+    [[MWMAlertViewController activeAlertController]
+        presentNoWiFiAlertWithOkBlock:^{
+          [ws enableCellularDownload:YES];
+          [ws downloadTerrainNodes:countryIds];
+        }
+                       andCancelBlock:nil];
+  }
+  else
+  {
+    [self handleError:error];
+  }
+}
+
 - (void)updateNode:(NSString *)countryId
 {
   [self updateNode:countryId onCancel:nil];

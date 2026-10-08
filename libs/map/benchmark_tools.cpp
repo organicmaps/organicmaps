@@ -217,7 +217,7 @@ void RunGraphicsBenchmark(Framework * framework)
       regions.erase(it);
       if (regions.empty())
         RunScenario(framework, handle);
-    }, [](storage::CountryId const &, downloader::Progress const &) {});
+    }, [](storage::CountryId const &, storage::Progress const &) {});
 
     for (auto const & countryId : handle->m_regionsToDownload)
       framework->GetStorage().DownloadNode(countryId);

@@ -100,7 +100,7 @@ std::string DownloadPath(Storage const & storage, CountryId const & countryId)
 // update callback for a registered map, NodeStatus::Error for a rejected one.
 void InitStorage(Storage & storage, Storage::UpdateCallback didDownload,
                  Storage::ChangeCountryFunction changeCountry = [](CountryId const &) {},
-                 Storage::ProgressFunction progress = [](CountryId const &, downloader::Progress const &) {})
+                 Storage::ProgressFunction progress = [](CountryId const &, storage::Progress const &) {})
 {
   storage.Init(std::move(didDownload), [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps();
@@ -152,7 +152,11 @@ UNIT_CLASS_TEST(StorageDownloadTest, ResumeInterruptedDownload)
   {
     Storage storage(CountriesJson(), std::make_unique<TestMapFilesDownloader>());
     InitStorage(storage, [](CountryId const &, LocalFilePtr const) {}, [](CountryId const &) {},
-                [](CountryId const &, downloader::Progress const &) { testing::StopEventLoop(); });
+                [](CountryId const & countryId, storage::Progress const & progress)
+    {
+      if (countryId == kWest && progress.m_mwmDownloaded > 0)
+        testing::StopEventLoop();
+    });
 
     storage.DownloadNode(kWest);
     testing::RunEventLoop();

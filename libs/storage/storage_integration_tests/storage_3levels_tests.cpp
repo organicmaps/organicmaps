@@ -41,7 +41,7 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_3levels_Test)
 
   std::string const mapDir = base::JoinPath(platform.WritableDir(), version);
 
-  auto onProgressFn = [](CountryId const &, downloader::Progress const &) {};
+  auto onProgressFn = [](CountryId const &, storage::Progress const &) {};
 
   auto onChangeCountryFn = [&storage](CountryId const &)
   {

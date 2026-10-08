@@ -12,6 +12,16 @@ typedef NS_ENUM(NSInteger, MWMMapNodeStatus) {
   MWMMapNodeStatusPartly
 } NS_SWIFT_NAME(MapNodeStatus);
 
+typedef NS_ENUM(NSInteger, MWMTerrainStatus) {
+  MWMTerrainStatusNotAvailable,
+  MWMTerrainStatusNotDownloaded,
+  MWMTerrainStatusDownloading,
+  MWMTerrainStatusPartly,
+  MWMTerrainStatusOnDisk,
+  MWMTerrainStatusFailed,
+  MWMTerrainStatusOnDiskOutOfDate
+} NS_SWIFT_NAME(TerrainStatus);
+
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(CountryIdAndName)
@@ -30,7 +40,6 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) NSString * countryId;
 @property(nonatomic, readonly) NSUInteger totalMwmCount;
 @property(nonatomic, readonly) NSUInteger downloadedMwmCount;
-@property(nonatomic, readonly) NSUInteger downloadingMwmCount;
 @property(nonatomic, readonly) uint64_t totalSize;
 @property(nonatomic, readonly) uint64_t downloadedSize;
 @property(nonatomic, readonly) uint64_t downloadingSize;
@@ -43,6 +52,13 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) NSArray<MWMCountryIdAndName *> * parentInfo;
 @property(nonatomic, readonly, nullable) NSArray<MWMCountryIdAndName *> * topmostParentInfo;
 @property(nonatomic, readonly) float downloadingProgress;
+/// Total bytes represented by downloadingProgress, for map downloads.
+@property(nonatomic, readonly) uint64_t downloadingProgressTotalBytes;
+@property(nonatomic, readonly) MWMTerrainStatus terrainStatus;
+@property(nonatomic, readonly) uint64_t terrainLocalSize;
+@property(nonatomic, readonly) uint64_t terrainRemainingSize;
+@property(nonatomic, readonly) float terrainDownloadingProgress;
+@property(nonatomic, readonly) uint64_t terrainDownloadingProgressTotalBytes;
 
 @end
 

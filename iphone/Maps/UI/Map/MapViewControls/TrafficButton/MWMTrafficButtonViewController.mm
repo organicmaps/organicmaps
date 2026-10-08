@@ -70,6 +70,13 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   [StyleManager.shared removeListener:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  if ([MWMMapOverlayManager isoLinesEnabled])
+    [self handleIsolinesState:[MWMMapOverlayManager isolinesState]];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
@@ -143,6 +150,13 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (void)handleIsolinesState:(MWMMapOverlayIsolinesState)state
 {
+  MapViewController * mapController = [MapViewController sharedController];
+  // Overlay notifications continue while the Downloader covers the map. Leave
+  // those transitions pending until the map appears again.
+  if (!self.view.window || mapController.navigationController.visibleViewController != mapController ||
+      mapController.presentedViewController)
+    return;
+
   // applyTheme re-derives the state on every theme/overlay poke: the hints must fire
   // on the actual transitions only, or they would stack over an unchanged NoData.
   if (state == self.lastHandledIsolinesState)

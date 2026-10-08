@@ -194,10 +194,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, MapManager.Progress progress)
     {
+      if (progress.mwmTotal == 0)
+        return;
+
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
-        updateDownloader();
+      {
+        mCurrentCountry.updateProgress(progress.mwmDownloaded, progress.mwmTotal);
+        updateDownloader(mCurrentCountry);
+      }
     }
   };
   private PlacePageViewListener mPlacePageViewListener;

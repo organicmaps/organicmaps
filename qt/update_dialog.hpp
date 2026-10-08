@@ -36,7 +36,7 @@ public:
   /// @name Called from downloader to notify GUI
   //@{
   void OnCountryChanged(storage::CountryId const & countryId);
-  void OnCountryDownloadProgress(storage::CountryId const & countryId, downloader::Progress const & progress);
+  void OnCountryDownloadProgress(storage::CountryId const & countryId, storage::Progress const & progress);
   //@}
 
   void ShowModal();
@@ -46,7 +46,6 @@ public:
 
 private slots:
   void OnItemClick(QTreeWidgetItem * item, int column);
-  void OnTerrainClick(storage::CountryId const & countryId);
   void OnCloseClick();
   void OnLocaleTextChanged(QString const & text);
   void OnQueryTextChanged(QString const & text);
