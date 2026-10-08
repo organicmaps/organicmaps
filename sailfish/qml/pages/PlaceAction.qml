@@ -8,6 +8,7 @@ BackgroundItem {
     property alias text: label.text
 
     height: Theme.itemSizeMedium
+    opacity: enabled ? 1.0 : Theme.opacityLow
 
     Column {
         anchors.centerIn: parent

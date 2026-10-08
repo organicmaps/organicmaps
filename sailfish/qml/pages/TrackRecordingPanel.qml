@@ -69,18 +69,18 @@ MapPanel {
         width: parent.width
 
         PlaceAction {
-            width: parent.width / (saveAction.visible ? 2 : 1)
+            width: parent.width / 2
             icon: "image://theme/icon-m-delete"
             text: appInfo.localized("delete")
             onClicked: Remorse.popupAction(panel.parent, appInfo.localized("delete"), function() {
                 panel.map.stopTrackRecording()
             })
         }
-        // Saves under the default name, once there is something to save.
+        // Saves under the default name, once there is something to save. Greyed out until then, so that Delete
+        // isn't taken for the only way to stop.
         PlaceAction {
-            id: saveAction
             width: parent.width / 2
-            visible: panel.map.recordingElevation.length > 0
+            enabled: panel.map.recordingElevation.length > 0
             icon: "image://theme/icon-m-device-download"
             text: appInfo.localized("save")
             onClicked: panel.map.saveAndStopTrackRecording()

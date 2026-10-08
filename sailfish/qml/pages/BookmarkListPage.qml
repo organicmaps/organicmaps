@@ -27,6 +27,16 @@ Page {
         page.selected = selected
     }
 
+    // Here rather than in the item menu: the menu is gone when these callbacks run, and on Qt 5.6 its context no
+    // longer resolves bookmarksIO.
+    function deleteItems(item, items) {
+        item.remorseDelete(function() { bookmarksIO.deleteItems(items) })
+    }
+
+    function shareTrack(trackId) {
+        Bookmarks.pickExportFormat(pageStack, function(type) { bookmarksIO.exportTrack(trackId, type) })
+    }
+
     // -1 is the default order.
     function sortingName(type) {
         switch (type) {
@@ -125,7 +135,7 @@ Page {
                     verticalCenter: parent.verticalCenter
                 }
                 visible: model.isTrack && !page.selecting
-                shown: model.isVisible
+                shown: !!model.isVisible
                 onClicked: bookmarks.setTrackVisible(index, !model.isVisible)
             }
 
@@ -186,19 +196,11 @@ Page {
                     MenuItem {
                         visible: model.isTrack
                         text: appInfo.localized("share")
-                        onClicked: {
-                            var trackId = model.itemId
-                            Bookmarks.pickExportFormat(pageStack, function(type) {
-                                bookmarksIO.exportTrack(trackId, type)
-                            })
-                        }
+                        onClicked: page.shareTrack(model.itemId)
                     }
                     MenuItem {
                         text: appInfo.localized("delete")
-                        onClicked: {
-                            var items = bookmarks.items([index])
-                            item.remorseDelete(function() { bookmarksIO.deleteItems(items) })
-                        }
+                        onClicked: page.deleteItems(item, bookmarks.items([index]))
                     }
                 }
             }
