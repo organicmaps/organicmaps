@@ -997,7 +997,7 @@ zh-Hans = 再试一次
 zh-Hant = 再試一次
 
 [about_menu_title]
-tags = android-app
+tags = android-app,apple-maps
 en = About Organic Maps
 af = Oor Organic Maps
 ar = حول Organic Maps
@@ -7938,7 +7938,7 @@ zh-Hant = 在地圖上查看
 
 [menu]
 comment = Menu button
-tags = android-app
+tags = android-app,apple-maps
 en = Menu
 af = Kieslys
 ar = القائمة
@@ -38633,7 +38633,7 @@ zh-Hant = 停止軌跡記錄
 
 [track_recording_title]
 comment = Title for the "Stop Without Saving" action for the alert when saving a track recording.
-tags = android-app
+tags = android-app,apple-maps
 en = Track Recording
 af = Spooropname
 ar = تسجيل المسار
@@ -44045,3 +44045,43 @@ uk = Розвернути маршрут
 vi = Đảo ngược tuyến đường
 zh-Hans = 反转路线
 zh-Hant = 反轉路線
+
+[map_location_searching]
+comment = VoiceOver value of the location button while the iOS map is determining the user's position.
+tags = apple-maps
+en = Finding your location
+pl = Ustalanie Twojej lokalizacji
+ru = Определение вашего местоположения
+uk = Визначення вашого місцезнаходження
+
+[map_location_following]
+comment = VoiceOver value of the location button while the iOS map follows the user's position without rotating.
+tags = apple-maps
+en = Following your location
+pl = Mapa podąża za Twoją lokalizacją
+ru = Отслеживание вашего местоположения
+uk = Відстеження вашого місцезнаходження
+
+[map_location_following_direction]
+comment = VoiceOver value of the location button while the iOS map follows both the user's position and heading.
+tags = apple-maps
+en = Following your location and direction
+pl = Mapa podąża za Twoją lokalizacją i kierunkiem
+ru = Отслеживание вашего местоположения и направления
+uk = Відстеження вашого місцезнаходження та напрямку
+
+[map_updates_available]
+comment = VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available.
+tags = apple-maps
+en = Map updates available
+pl = Dostępne aktualizacje map
+ru = Доступны обновления карт
+uk = Доступні оновлення мап
+
+[map_layers_turn_off]
+comment = VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers.
+tags = apple-maps
+en = Turn off map layers
+pl = Wyłącz warstwy mapy
+ru = Отключить слои карты
+uk = Вимкнути шари мапи
