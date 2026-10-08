@@ -1,12 +1,13 @@
-# Organic Maps — неофициальный порт для ОС Аврора
+# Organic Maps — неофициальный форк/порт для ОС Аврора
 
-Неофициальный порт [Organic Maps](https://organicmaps.app) на ОС Аврора.
-Основа — порт для Sailfish OS (ветка `sailfish` репозитория
-`github.com/klahr/organicmaps-sailfish`); здесь он адаптирован под Аврора ОС
-(`auroraapp`, Qt 5.6, RPM, валидатор Авроры).
+Это **форк** проекта [Organic Maps](https://organicmaps.app) — неофициальный порт
+на ОС Аврора. За основу взят форк для Sailfish OS
+(`github.com/klahr/organicmaps-sailfish`, ветка `sailfish`); здесь он адаптирован
+под Аврора ОС (`auroraapp`, Qt 5.6, RPM, валидатор Авроры).
 
 - **Автор порта на ОС Аврора: Юрасов Леонид**
-- **Репозиторий: https://gitflic.ru/project/ub3gad/maps**
+- **Форк-репозиторий: https://gitflic.ru/project/ub3gad/maps** (`git@gitflic.ru:ub3gad/maps.git`)
+- **Апстрим: https://github.com/organicmaps/organicmaps**
 - Это **неофициальная сборка**: она не связана с командой Organic Maps и не
   одобряется ею. Название и логотип оставлены официальными (см. лицензию).
 
