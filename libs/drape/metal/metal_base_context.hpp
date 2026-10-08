@@ -25,7 +25,7 @@ public:
 
   MetalBaseContext(id<MTLDevice> device, m2::PointU const & screenSize, DrawableRequest && drawableRequest);
 
-  bool BeginRendering() override;
+  FrameStatus BeginRendering() override;
   void EndRendering() override;
   void Present() override;
   void MakeCurrent() override {}

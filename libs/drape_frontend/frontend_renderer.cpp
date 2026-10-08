@@ -1794,7 +1794,7 @@ void FrontendRenderer::RenderEmptyFrame()
   if (!m_context->Validate())
     return;
 
-  if (!m_context->BeginRendering())
+  if (m_context->BeginRendering() != dp::FrameStatus::Ready)
     return;
 
   m_context->SetFramebuffer(nullptr /* default */);
@@ -1857,8 +1857,14 @@ void FrontendRenderer::RenderFrame()
   if (!IsRenderingEnabled())
     return;
 
-  if (!m_context->BeginRendering())
+  auto const frameStatus = m_context->BeginRendering();
+  if (frameStatus != dp::FrameStatus::Ready)
+  {
+    m_frameData.m_forceFullRedrawNextFrame = true;
+    m_frameData.m_inactiveFramesCounter = 0;
+    ProcessFrameFailure(frameStatus);
     return;
+  }
 
   // Check for a frame is active.
   bool isActiveFrame = modelViewChanged || viewportChanged || needActiveFrame;

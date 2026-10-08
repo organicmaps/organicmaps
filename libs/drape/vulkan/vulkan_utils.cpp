@@ -1,6 +1,8 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
+#include <algorithm>
 #include <array>
+#include <limits>
 #include <string>
 
 namespace dp
@@ -20,6 +22,18 @@ VkDevice DebugName::m_device = VK_NULL_HANDLE;
 PFN_vkSetDebugUtilsObjectNameEXT DebugName::vkSetDebugUtilsObjectNameEXT = nullptr;
 
 static bool gUse32bitDepth8bitStencil = false;
+
+VkExtent2D ChooseSurfaceExtent(VkSurfaceCapabilitiesKHR const & capabilities, VkExtent2D framebufferSize)
+{
+  if (framebufferSize.width == 0 || framebufferSize.height == 0)
+    return {};
+
+  if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max())
+    return capabilities.currentExtent;
+
+  return {std::clamp(framebufferSize.width, capabilities.minImageExtent.width, capabilities.maxImageExtent.width),
+          std::clamp(framebufferSize.height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height)};
+}
 
 void DebugName::Init(VkInstance instance, VkDevice device)
 {
