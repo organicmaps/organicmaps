@@ -81,6 +81,12 @@ DESTDIR=%{buildroot} cmake -P build/sailfish/cmake_install.cmake
 # Harbour allows no files outside the app directories, so not %%license in /usr/share/licenses.
 install -m 644 LICENSE DATA_LICENSE.txt %{buildroot}%{_datadir}/%{name}/
 
+%if %{without harbour}
+%post
+# A minimized app keeps running as its cover, so the next launch would show the old version.
+pkill -f '^%{_bindir}/%{name}$' || :
+%endif
+
 %files
 %{_bindir}/%{name}
 %{_datadir}/%{name}

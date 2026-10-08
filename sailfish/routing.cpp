@@ -290,6 +290,8 @@ Routing::Routing(Framework & framework, QObject * parent)
 {
   m_beep.setMedia(SailfishApp::pathTo(QStringLiteral("sounds/speed_cams_beep.wav")));
   SetupVoice();
+  // The framework saves the vehicle style, which stays after the app is closed while navigating.
+  SetNavigationStyle(false);
   m_framework.GetRoutingManager().SetRouteBuildingListener(
       [this](RouterResultCode code, storage::CountriesSet const & absent)
   {
