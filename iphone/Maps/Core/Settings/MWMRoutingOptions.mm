@@ -1,6 +1,13 @@
 #import "MWMRoutingOptions.h"
 
+#import "MWMCoreRouterType.h"
+
 #include "routing/routing_options.hpp"
+
+static_assert(MWMRoutingAvoidanceToll == static_cast<NSUInteger>(routing::RoutingOptions::Toll));
+static_assert(MWMRoutingAvoidanceMotorway == static_cast<NSUInteger>(routing::RoutingOptions::Motorway));
+static_assert(MWMRoutingAvoidanceFerry == static_cast<NSUInteger>(routing::RoutingOptions::Ferry));
+static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::RoutingOptions::Dirty));
 
 @interface MWMRoutingOptions ()
 {
@@ -11,11 +18,19 @@
 
 @implementation MWMRoutingOptions
 
-- (instancetype)init
+- (instancetype)initWithRouterType:(MWMRouterType)routerType
 {
   self = [super init];
   if (self)
-    _options = routing::RoutingOptions::LoadCarOptionsFromSettings();
+  {
+    _routerType = routerType;
+    auto const vehicle = routing::RoutingOptions::GetVehicleType(coreRouterType(routerType));
+    if (vehicle)
+    {
+      _options = routing::RoutingOptions::LoadFromSettings(*vehicle);
+      _supportedOptions = static_cast<MWMRoutingAvoidance>(routing::RoutingOptions::GetSupportedOptions(*vehicle));
+    }
+  }
 
   return self;
 }
@@ -77,12 +92,14 @@
 
 - (void)save
 {
-  routing::RoutingOptions::SaveCarOptionsToSettings(_options);
+  auto const vehicle = routing::RoutingOptions::GetVehicleType(coreRouterType(self.routerType));
+  if (vehicle)
+    routing::RoutingOptions::SaveToSettings(*vehicle, _options);
 }
 
 - (void)setOption:(routing::RoutingOptions::Road)option enabled:(BOOL)enabled
 {
-  if (enabled)
+  if (enabled && (self.supportedOptions & option))
     _options.Add(option);
   else
     _options.Remove(option);
@@ -94,8 +111,12 @@
     return NO;
   MWMRoutingOptions * another = (MWMRoutingOptions *)object;
   // Only avoidance options: +[MWMRouter updateRoute] must not rebuild when route optimization changes.
-  return another.avoidToll == self.avoidToll && another.avoidDirty == self.avoidDirty &&
-         another.avoidFerry == self.avoidFerry && another.avoidMotorway == self.avoidMotorway;
+  return another.routerType == self.routerType && another->_options.GetOptions() == _options.GetOptions();
+}
+
+- (NSUInteger)hash
+{
+  return (static_cast<NSUInteger>(self.routerType) << 8) | _options.GetOptions();
 }
 
 @end

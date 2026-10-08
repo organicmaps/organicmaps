@@ -11,7 +11,7 @@ static inline routing::RouterType coreRouterType(MWMRouterType type)
   case MWMRouterTypePublicTransport: return routing::RouterType::Transit;
   case MWMRouterTypeBicycle: return routing::RouterType::Bicycle;
   case MWMRouterTypeRuler: return routing::RouterType::Ruler;
-  default: ASSERT(false, ("Invalid routing type")); return routing::RouterType::Vehicle;
+  default: CHECK(false, ("Invalid routing type", type)); return routing::RouterType::Count;
   }
 }
 

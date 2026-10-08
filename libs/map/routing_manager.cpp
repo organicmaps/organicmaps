@@ -7,6 +7,7 @@
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
 
@@ -181,20 +182,6 @@ std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
     return {};
 
   return result;
-}
-
-VehicleType GetVehicleType(RouterType routerType)
-{
-  switch (routerType)
-  {
-  case RouterType::Pedestrian: return VehicleType::Pedestrian;
-  case RouterType::Bicycle: return VehicleType::Bicycle;
-  case RouterType::Vehicle: return VehicleType::Car;
-  case RouterType::Transit: return VehicleType::Transit;
-  case RouterType::Ruler: return VehicleType::Transit;
-  case RouterType::Count: CHECK(false, ("Invalid type", routerType)); return VehicleType::Count;
-  }
-  UNREACHABLE();
 }
 
 // Maps a barrier point-feature classificator type (stored in routing::Route::GetWarnings) to a UI
@@ -524,7 +511,8 @@ void RoutingManager::Init(std::shared_ptr<routing::NumMwmIds> ptr)
 
 void RoutingManager::SetRouterImpl(RouterType type)
 {
-  VehicleType const vehicleType = GetVehicleType(type);
+  // Ruler has no road profile and uses Transit session settings.
+  VehicleType const vehicleType = RoutingOptions::GetVehicleType(type).value_or(VehicleType::Transit);
 
   m_loadAltitudes = vehicleType != VehicleType::Car;
 
@@ -834,9 +822,9 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
     { transitRouteDisplay->CreateTransitMarks(); });
   }
 
-  // We render marks for every warning, but only an avoidable warning (toll/ferry/dirty) on a car
-  // route should surface the "driving options" affordance via RouterResultCode::HasWarnings.
-  // Steps/gate/lift_gate have no avoid option, and non-car routes have no driving options at all.
+  // HasWarnings signals avoidable car-road warnings. Walking and cycling still render their warning
+  // marks and expose ferry avoidance directly.
+  // Steps/gate/lift_gate have no avoidance control.
   bool const hasDrivingOptionsWarning =
       m_currentRouterType == RouterType::Vehicle &&
       base::AnyOf(roadWarnings, [](auto const & w) { return IsAvoidableRoadWarning(w.first); });

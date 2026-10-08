@@ -32,12 +32,20 @@ public enum Router
 
   public static Router getBest(double srcLat, double srcLon, double dstLat, double dstLon)
   {
-    return Router.values()[nativeGetBest(srcLat, srcLon, dstLat, dstLon)];
+    return valueOf(nativeGetBest(srcLat, srcLon, dstLat, dstLon));
   }
 
   public static Router valueOf(int type)
   {
-    return Router.values()[type];
+    for (Router router : values())
+      if (router.type == type)
+        return router;
+    throw new IllegalArgumentException("Unknown router: " + type);
+  }
+
+  public int getType()
+  {
+    return type;
   }
 
   private final int type;

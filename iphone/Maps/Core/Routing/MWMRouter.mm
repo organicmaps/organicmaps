@@ -215,7 +215,7 @@ using namespace routing;
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
     _canAutoAddLastLocation = YES;
-    _routingOptions = [MWMRoutingOptions new];
+    _routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     _isRestoreProcessCompleted = NO;
   }
   return self;
@@ -533,7 +533,7 @@ using namespace routing;
 
 - (void)onRouteReady:(BOOL)hasWarnings
 {
-  self.routingOptions = [MWMRoutingOptions new];
+  self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
 
   auto startPoint = [MWMRouter startPoint];
   if (!startPoint || !startPoint.isMyPosition)
@@ -552,7 +552,7 @@ using namespace routing;
   case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;
   case routing::RouterResultCode::HasWarnings: [self onRouteReady:YES]; break;
   case routing::RouterResultCode::NeedMoreMaps:
-    self.routingOptions = [MWMRoutingOptions new];
+    self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     [self presentDownloaderAlert:code countries:absentCountries];
     // NeedMoreMaps can arrive after a valid route is already built. In that case
     // the user may decline extra maps and still navigate along the current route.
@@ -561,7 +561,7 @@ using namespace routing;
     break;
   case routing::RouterResultCode::FileTooOld:
   case routing::RouterResultCode::RouteNotFound:
-    self.routingOptions = [MWMRoutingOptions new];
+    self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     [self presentDownloaderAlert:code countries:absentCountries];
     [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
@@ -681,19 +681,19 @@ using namespace routing;
 
 + (void)updateRoute
 {
-  MWMRoutingOptions * newOptions = [MWMRoutingOptions new];
+  MWMRoutingOptions * newOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
   if ((self.isRoutingActive && !self.isOnRoute) && ![newOptions isEqual:[self router].routingOptions])
     [self rebuildWithBestRouter:YES];
 }
 
 + (BOOL)hasActiveDrivingOptions
 {
-  return [MWMRoutingOptions new].hasOptions && self.type != MWMRouterTypeRuler;
+  return [[MWMRoutingOptions alloc] initWithRouterType:self.type].hasOptions;
 }
 
 + (void)avoidRoadTypeAndRebuild:(MWMRoadType)type
 {
-  MWMRoutingOptions * options = [MWMRoutingOptions new];
+  MWMRoutingOptions * options = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
   switch (type)
   {
   case MWMRoadTypeToll: options.avoidToll = YES; break;

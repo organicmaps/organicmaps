@@ -456,7 +456,20 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
-    SCOPE_GUARD(featureRoadGraphClear, [this] { ClearRouteCalculationState(); });
+    m_requestRoutingOptions = RoutingOptions::LoadFromSettings(m_vehicleType);
+    if (m_previousRoutingOptions != m_requestRoutingOptions->GetOptions())
+    {
+      m_lastRoute.reset();
+      m_lastFakeEdges.reset();
+      m_lastAltRoute.reset();
+      m_lastAltFakeEdges.reset();
+    }
+    m_previousRoutingOptions = m_requestRoutingOptions->GetOptions();
+    SCOPE_GUARD(featureRoadGraphClear, [this]
+    {
+      ClearRouteCalculationState();
+      m_requestRoutingOptions.reset();
+    });
 
     // Both the adjustment and the full build below keep the strategy of the route the user follows.
     // Guides edges are priced at max speed (see SetGuidesGraphParams), above the DistanceBiased cap,
@@ -1297,8 +1310,8 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
 std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  // Use saved routing options for all types (car, bicycle, pedestrian).
-  RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
+  RoutingOptions const routingOptions =
+      m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
   /// @DebugNote
   // Add avoid roads here for debug purpose.
   // routingOptions.Add(RoutingOptions::Road::Motorway);

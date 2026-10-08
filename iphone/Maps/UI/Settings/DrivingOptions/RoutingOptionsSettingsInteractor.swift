@@ -5,8 +5,8 @@ final class RoutingOptionsSettingsInteractor {
   private var state: RoutingOptionsSettingsState?
   private var optimizationEnabledOnLoad = false
 
-  init(routingOptionsProvider: @escaping () -> RoutingOptions = RoutingOptions.init) {
-    self.routingOptionsProvider = routingOptionsProvider
+  init(routerType: MWMRouterType, routingOptionsProvider: (() -> RoutingOptions)? = nil) {
+    self.routingOptionsProvider = routingOptionsProvider ?? { RoutingOptions(routerType: routerType) }
   }
 
   /// The router type outlives a closed Ruler route, so only an active one blocks the switch.
