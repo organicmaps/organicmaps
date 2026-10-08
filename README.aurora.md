@@ -47,14 +47,36 @@
     запрошенный размер; из-за этого падал разбор `drules_*.bin`);
   - `3party/glaze` — патч от C++23 `static constexpr`-локалей и отключение `<format>`
     (см. `aurora/patches/glaze-gcc12.patch`).
-- **Фикс сети**: `libs/platform/http_client_qt.{hpp,cpp}` — работа в Qt-поток
-  отправляется через `QMetaObject::invokeMethod(..., Qt::QueuedConnection, ...)` и слот
-  `NetworkWorker::ProcessJob`; прежний `QTimer::singleShot(0, worker, …)` из
-  сетевого `std::thread` не доставлялся и HTTP-запросы не уходили.
+- **Фикс сети**: `libs/platform/http_client_qt.{hpp,cpp}` — работа в Qt-поток теперь
+  отправляется через `NetworkWorker::Post()` (кастомное `QEvent` + `QCoreApplication::postEvent`),
+  а не через `QTimer::singleShot(0, worker, …)`, который из сетевого `std::thread`
+  не доставлялся и HTTP-запросы не уходили. (Этот же фикс пришёл и в апстрим-обновлении
+  Sailfish — совпадает по причине, отличается только механикой.)
+
+  Root cause (проверено экспериментально): `QTimer::singleShot(0, context, functor)`
+  в **Qt 5.6** строит `QSingleShotTimer` в *вызывающем* потоке и вызывает `startTimer()`
+  на нём; если вызывающий поток — не `QThread`, Qt пишет
+  `QObject::startTimer: Timers can only be used with threads started with QThread`,
+  таймер не срабатывает и функтор не вызывается. А вызывается он из
+  `Platform::Thread::Network` — это `base::DelayedThreadPool` → `std::thread`
+  (`libs/base/thread_pool_delayed.hpp`, `libs/base/thread.hpp`), без Qt-диспетчера.
+  Отсюда: `QNetworkReply` не создавался → соединений на :443 нет → загрузка карт «висела».
+
+  Минимальный тест (Qt 5.6.3 vs Qt 6.10.2), вызов `QTimer::singleShot(0, receiver, fn)`:
+
+  | Qt | из `std::thread` | из главного потока |
+  |----|:---:|:---:|
+  | 5.6.3 (Аврора) | **не срабатывает** (`startTimer: Timers can only be used with threads started with QThread`) | срабатывает |
+  | 6.10.2 (десктоп) | срабатывает | срабатывает |
+
+  Именно поэтому на десктопе (Qt 6) тот же код работал, а на Авроре (Qt 5.6) — нет.
+  Корректные фиксы — постить событие в очередь потока-получателя:
+  `QCoreApplication::postEvent` (используется в дереве, `NetworkWorker::Post`) либо
+  `QMetaObject::invokeMethod(..., Qt::QueuedConnection, ...)`. Оба работают из любого потока.
 - **Иконка**: заменена на официальную (`android/app/ic_launcher-playstore.png`),
   уменьшенную до 86/108/128/172.
 - **Атрибуция/пометка**: добавлены в `sailfish/qml/pages/HelpPage.qml` и
-  `sailfish/qml/pages/MapPage.qml`.
+  `sailfish/qml/pages/MenuPage.qml` (главное меню).
 
 ## Сборка
 
