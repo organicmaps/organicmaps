@@ -1203,3 +1203,6 @@
 
 /* VoiceOver label for the email icon in the iOS About screen's social links. */
 "about_contact_email" = "Napisz e-mail do Organic Maps";
+
+/* VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates. */
+"menu_map_updates_count" = "Dostępne aktualizacje map: %d";
