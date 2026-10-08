@@ -22,7 +22,13 @@
 #include <algorithm>
 #include <iterator>
 
+// Aurora OS has no Sailfish camera daemon and its MLite D-Bus property is MGConfItem.
+#if defined(OMIM_AURORA)
+#include <MGConfItem>
+using MDConfItem = MGConfItem;
+#else
 #include <MDConfItem>
+#endif
 
 namespace sailfish
 {

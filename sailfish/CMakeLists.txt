@@ -1,21 +1,37 @@
 project(organicmaps_sailfish)
 
 option(SAILFISH_HARBOUR "Build the Jolla Harbour package: harbour- name, no Sailjail profile and no voice" OFF)
-# libsailfishapp finds the data, desktop file and main QML by the executable name; Harbour requires its prefix.
-if (SAILFISH_HARBOUR)
-  set(APP_NAME harbour-organicmaps)
-else()
-  set(APP_NAME organicmaps)
-endif()
-set(APP_DATA_DIR share/${APP_NAME})
-# The launcher's openUrl and the notification actions; Sailjail requires OrganizationName.ApplicationName.
+# Aurora OS is Qt 5.6 + Silica like Sailfish, but ships libauroraapp.so.2 in place
+# of the deprecated libsailfishapp.so.1, different app isolation and packaging.
+option(AURORA "Build the Aurora OS package (uses auroraapp instead of sailfishapp)" OFF)
+
+set(APP_ORG app.organicmaps)
+# The application name: QGuiApplication::applicationName() and the "qml/<name>.qml" entry point.
+set(APP_QML_NAME organicmaps)
+# The launcher's openUrl and the notification actions.
 set(DBUS_SERVICE app.organicmaps.organicmaps)
 set(DBUS_PATH /app/organicmaps)
 
+# appdir resolves "/usr/share/<org>.<app>", the same layout the desktop and RPM use.
+if (AURORA)
+  set(APP_NAME ${APP_ORG}.${APP_QML_NAME})
+  set(APP_LIB auroraapp)
+  set(APP_DESKTOP_IN organicmaps-aurora.desktop.in)
+elseif (SAILFISH_HARBOUR)
+  set(APP_NAME harbour-organicmaps)
+  set(APP_LIB sailfishapp)
+  set(APP_DESKTOP_IN organicmaps.desktop.in)
+else()
+  set(APP_NAME organicmaps)
+  set(APP_LIB sailfishapp)
+  set(APP_DESKTOP_IN organicmaps.desktop.in)
+endif()
+set(APP_DATA_DIR share/${APP_NAME})
+
 find_package(Qt5 COMPONENTS REQUIRED DBus Gui Multimedia Network Qml Quick Sensors)
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(SAILFISHAPP REQUIRED sailfishapp)
-# The Sailfish clock format, see Is24HourClock().
+pkg_check_modules(APPLIB REQUIRED ${APP_LIB})
+# The Sailfish/Aurora clock format, see Is24HourClock().
 pkg_check_modules(MLITE REQUIRED mlite5)
 
 set(SRC
@@ -71,12 +87,13 @@ set(SRC
 add_library(${PROJECT_NAME}_lib SHARED ${SRC})
 set_target_properties(${PROJECT_NAME}_lib PROPERTIES OUTPUT_NAME organicmaps AUTOMOC ON)
 target_compile_options(${PROJECT_NAME}_lib PRIVATE ${OMIM_WARNING_FLAGS})
-target_compile_definitions(${PROJECT_NAME}_lib PRIVATE "SAILFISH_APP_NAME=\"${APP_NAME}\""
+target_compile_definitions(${PROJECT_NAME}_lib PRIVATE "SAILFISH_APP_NAME=\"${APP_QML_NAME}\""
                            "SAILFISH_DBUS_SERVICE=\"${DBUS_SERVICE}\"" "SAILFISH_DBUS_PATH=\"${DBUS_PATH}\""
-                           $<$<BOOL:${SAILFISH_HARBOUR}>:OMIM_SAILFISH_HARBOUR>)
+                           $<$<BOOL:${SAILFISH_HARBOUR}>:OMIM_SAILFISH_HARBOUR>
+                           $<$<BOOL:${AURORA}>:OMIM_AURORA>)
 # Keep the bundled 3party libraries (FreeType, ICU, ...) from interposing the system copies Qt uses.
 target_link_options(${PROJECT_NAME}_lib PRIVATE -Wl,--exclude-libs,ALL)
-target_include_directories(${PROJECT_NAME}_lib PRIVATE ${SAILFISHAPP_INCLUDE_DIRS} ${MLITE_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME}_lib PRIVATE ${APPLIB_INCLUDE_DIRS} ${MLITE_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME}_lib
   PRIVATE
     Boost::headers
@@ -89,7 +106,7 @@ target_link_libraries(${PROJECT_NAME}_lib
     Qt5::Qml
     Qt5::Quick
     Qt5::Sensors
-    ${SAILFISHAPP_LIBRARIES}
+    ${APPLIB_LIBRARIES}
     ${MLITE_LIBRARIES}
 )
 
@@ -123,7 +140,7 @@ install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 install(TARGETS ${PROJECT_NAME}_lib LIBRARY DESTINATION ${APP_DATA_DIR}/lib)
 install(DIRECTORY sounds DESTINATION ${APP_DATA_DIR})
 install(DIRECTORY qml DESTINATION ${APP_DATA_DIR} PATTERN organicmaps.qml EXCLUDE)
-install(FILES qml/organicmaps.qml DESTINATION ${APP_DATA_DIR}/qml RENAME ${APP_NAME}.qml)
+install(FILES qml/organicmaps.qml DESTINATION ${APP_DATA_DIR}/qml RENAME ${APP_QML_NAME}.qml)
 # SVG icons converted from the Android vector drawables.
 set(SVG_ICONS_DIR "${CMAKE_CURRENT_BINARY_DIR}/icons")
 add_custom_command(
@@ -173,12 +190,17 @@ install(FILES "${ANDROID_RES}/drawable-xxhdpi/ic_direction_pagepreview.webp"
               "${ANDROID_RES}/drawable-xxxhdpi/ic_entrance.webp"
               icons/placepage/ic_wiki.svg icons/placepage/ic_wikimedia_commons.svg
         DESTINATION ${APP_DATA_DIR}/icons/placepage)
-configure_file(organicmaps.desktop.in ${APP_NAME}.desktop @ONLY)
+configure_file(${APP_DESKTOP_IN} ${APP_NAME}.desktop @ONLY)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.desktop" DESTINATION share/applications)
-if (NOT SAILFISH_HARBOUR)
-  # Sailjail applies it to the app by name, see the file.
+if (NOT SAILFISH_HARBOUR AND NOT AURORA)
+  # Sailjail applies it to the app by name, see the file. Aurora isolates apps via the desktop [X-Application] section.
   install(FILES organicmaps.profile DESTINATION /etc/sailjail/permissions)
 endif()
+
+# The Apache-2.0 code license, the NOTICE and the Organic Maps binary data license must ship with the app.
+# LICENSE is a symlink in the repo; install the real license text as a regular file (the validator rejects symlinks).
+install(FILES "${OMIM_ROOT}/LICENSES/Apache-2.0.txt" DESTINATION ${APP_DATA_DIR} RENAME LICENSE)
+install(FILES "${OMIM_ROOT}/NOTICE" "${OMIM_ROOT}/DATA_LICENSE.txt" DESTINATION ${APP_DATA_DIR})
 foreach(size 86 108 128 172)
   install(FILES icons/${size}x${size}/organicmaps.png DESTINATION share/icons/hicolor/${size}x${size}/apps
           RENAME ${APP_NAME}.png)

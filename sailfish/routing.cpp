@@ -45,7 +45,7 @@
 #include <utility>
 #include <vector>
 
-#include <sailfishapp.h>
+#include "sailfish/app_lib.hpp"
 
 namespace sailfish
 {
@@ -288,7 +288,7 @@ Routing::Routing(Framework & framework, QObject * parent)
   , m_framework(framework)
   , m_voice(new VoiceGuide(this))
 {
-  m_beep.setMedia(SailfishApp::pathTo(QStringLiteral("sounds/speed_cams_beep.wav")));
+  m_beep.setMedia(AppLib::pathTo(QStringLiteral("sounds/speed_cams_beep.wav")));
   SetupVoice();
   // The framework saves the vehicle style, which stays after the app is closed while navigating.
   SetNavigationStyle(false);

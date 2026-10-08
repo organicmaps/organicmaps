@@ -32,17 +32,12 @@ std::string DebugPrint(LaneWays const & laneWays)
 {
   std::stringstream out;
   out << "LaneWays: [";
-  std::uint8_t const waysCount = laneWays.m_laneWays.count();
-  std::uint8_t waysPrinted = 0;
-  for (std::size_t i = 0; i < laneWays.m_laneWays.size(); ++i)
+  auto const ways = laneWays.GetActiveLaneWays();
+  for (std::size_t i = 0; i < ways.size(); ++i)
   {
-    if (laneWays.m_laneWays.test(i))
-    {
-      out << DebugPrint(static_cast<LaneWay>(i));
-      if (waysPrinted < waysCount - 1)
-        out << ", ";
-      waysPrinted++;
-    }
+    out << DebugPrint(ways[i]);
+    if (i + 1 < ways.size())
+      out << ", ";
   }
   out << "]";
   return out.str();

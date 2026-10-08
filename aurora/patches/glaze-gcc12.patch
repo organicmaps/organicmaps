@@ -1,0 +1,101 @@
+diff --git a/include/glaze/core/reflect.hpp b/include/glaze/core/reflect.hpp
+index 0cd351c7..1f4e807e 100644
+--- a/include/glaze/core/reflect.hpp
++++ b/include/glaze/core/reflect.hpp
+@@ -2890,7 +2890,7 @@ namespace glz
+    // Variant deduction bits - for each unique key, tracks which variant types contain it
+    template <is_variant T>
+    constexpr auto variant_deduction_bits = []() {
+-      static constexpr size_t K = variant_deduction_key_count<T>;
++      constexpr size_t K = variant_deduction_key_count<T>;
+       using bits_type = bit_array<std::variant_size_v<T>>;
+       std::array<bits_type, K> bits{};
+ 
+diff --git a/include/glaze/util/string_literal.hpp b/include/glaze/util/string_literal.hpp
+index d4c74466..bd88f78b 100644
+--- a/include/glaze/util/string_literal.hpp
++++ b/include/glaze/util/string_literal.hpp
+@@ -70,12 +70,14 @@ namespace glz
+ 
+    namespace detail
+    {
++      // A static data member keeps the characters alive. A local static inside a constexpr
++      // function requires C++23 (P2647), which GCC 12 does not implement.
+       template <const std::string_view&... Strs>
+-      inline constexpr std::string_view join()
++      struct joined_storage
+       {
+-         static constexpr auto joined_arr = []() {
++         static constexpr auto value = []() {
+             constexpr size_t len = (Strs.size() + ... + 0);
+-            std::array<char, len + 1> arr;
++            std::array<char, len + 1> arr{};
+             auto append = [i = 0, &arr](const auto& s) mutable {
+                for (auto c : s) arr[i++] = c;
+             };
+@@ -83,8 +85,37 @@ namespace glz
+             arr[len] = '\0';
+             return arr;
+          }();
++      };
++
++      template <const std::string_view&... Strs>
++      inline constexpr std::string_view join()
++      {
++         auto const& joined_arr = joined_storage<Strs...>::value;
+          return {joined_arr.data(), joined_arr.size() - 1};
+       }
++
++      template <const std::string_view& Key, bool Prettify>
++      struct quoted_key_storage
++      {
++         static constexpr auto value = [] {
++            constexpr auto N = Key.size();
++            std::array<char, N + 4 + Prettify> result{}; // [quote, key, quote, colon, (prettify? space), null]
++            result[0] = '"';
++            for (size_t i = 0; i < N; ++i) {
++               result[i + 1] = Key[i];
++            }
++            result[N + 1] = '"';
++            result[N + 2] = ':';
++            if constexpr (Prettify) {
++               result[N + 3] = ' ';
++               result[N + 4] = '\0';
++            }
++            else {
++               result[N + 3] = '\0';
++            }
++            return result;
++         }();
++      };
+    }
+ 
+    // Helper to get the value out
+@@ -92,25 +123,8 @@ namespace glz
+    inline constexpr auto join_v = detail::join<Strs...>();
+ 
+    template <const std::string_view& Key, bool Prettify = false>
+-   inline constexpr auto quoted_key_v = []() -> std::string_view {
+-      static constexpr auto quoted = [] {
+-         constexpr auto N = Key.size();
+-         std::array<char, N + 4 + Prettify> result; // [quote, key, quote, colon, (prettify? space), null]
+-         result[0] = '"';
+-         for (size_t i = 0; i < N; ++i) {
+-            result[i + 1] = Key[i];
+-         }
+-         result[N + 1] = '"';
+-         result[N + 2] = ':';
+-         if constexpr (Prettify) {
+-            result[N + 3] = ' ';
+-            result[N + 4] = '\0';
+-         }
+-         else {
+-            result[N + 3] = '\0';
+-         }
+-         return result;
+-      }();
++   inline constexpr std::string_view quoted_key_v = []() -> std::string_view {
++      auto const& quoted = detail::quoted_key_storage<Key, Prettify>::value;
+       return {quoted.data(), quoted.size() - 1};
+    }();
+ }

@@ -1,4 +1,5 @@
 #include "sailfish/app_info.hpp"
+#include "sailfish/app_lib.hpp"
 #include "sailfish/app_settings.hpp"
 #include "sailfish/bookmark_editor.hpp"
 #include "sailfish/bookmarks_io.hpp"
@@ -33,8 +34,6 @@
 #include <clocale>
 #include <memory>
 
-#include <sailfishapp.h>
-
 namespace
 {
 Framework * g_framework = nullptr;
@@ -68,7 +67,7 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
   format.setStencilBufferSize(8);
   QSurfaceFormat::setDefaultFormat(format);
 
-  std::unique_ptr<QGuiApplication> app(SailfishApp::application(argc, argv));
+  std::unique_ptr<QGuiApplication> app(AppLib::application(argc, argv));
   app->setOrganizationName(QStringLiteral("app.organicmaps"));
   app->setApplicationName(QStringLiteral("organicmaps"));
 
@@ -81,7 +80,7 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
   }
 
   // Platform reads these on first use; the defaults match the installed RPM layout and Sailjail.
-  SetEnvIfUnset("MWM_RESOURCES_DIR", SailfishApp::pathTo(QStringLiteral("data")).toLocalFile());
+  SetEnvIfUnset("MWM_RESOURCES_DIR", AppLib::pathTo(QStringLiteral("data")).toLocalFile());
   QString writableDir = sailfish::MapsStorage::ConfiguredDir();
   if (writableDir.isEmpty())
     writableDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
@@ -125,7 +124,7 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
                    &sailfish::OsmAccount::LoginWithCode);
   if (!urlHandler.RegisterOnDBus())
     LOG(LWARNING, ("Can't serve the D-Bus interface: links from other apps won't open"));
-  std::unique_ptr<QQuickView> view(SailfishApp::createView());
+  std::unique_ptr<QQuickView> view(AppLib::createView());
   view->rootContext()->setContextProperty(QStringLiteral("appInfo"), &appInfo);
   view->rootContext()->setContextProperty(QStringLiteral("appSettings"), &appSettings);
   view->rootContext()->setContextProperty(QStringLiteral("osmAccount"), &osmAccount);
@@ -133,7 +132,9 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
   view->rootContext()->setContextProperty(QStringLiteral("urlHandler"), &urlHandler);
   view->rootContext()->setContextProperty(QStringLiteral("mapsStorage"), &mapsStorage);
   view->rootContext()->setContextProperty(QStringLiteral("downloads"), &downloads);
-  view->setSource(SailfishApp::pathToMainQml());
+  // Aurora's pathToMainQml() looks for "qml/<package id>.qml", while the entry point is installed
+  // as "qml/<application name>.qml" (see SAILFISH_APP_NAME), so spell the path out.
+  view->setSource(AppLib::pathTo(QStringLiteral("qml/" SAILFISH_APP_NAME ".qml")));
   view->show();
   if (!urls.isEmpty())
     urlHandler.openUrl(urls);

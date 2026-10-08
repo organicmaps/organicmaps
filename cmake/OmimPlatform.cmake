@@ -7,12 +7,17 @@ set(PLATFORM_DESKTOP FALSE)
 set(PLATFORM_SAILFISH FALSE)
 
 option(SAILFISH "Build for Sailfish OS" OFF)
+option(AURORA "Build for Aurora OS" OFF)
 
-if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux" AND SAILFISH)
+if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux" AND (SAILFISH OR AURORA))
   set(PLATFORM_LINUX TRUE)
   set(PLATFORM_SAILFISH TRUE)
   # 64-bit off_t for FileReader/FileWriter on 32-bit armv7hl.
   add_compile_definitions(OMIM_SAILFISH _FILE_OFFSET_BITS=64)
+  if (AURORA)
+    # Aurora OS ships Qt 5.6 and GCC 12: no <format>, so glaze must use its printf fallback.
+    add_compile_definitions(GLZ_USE_STD_FORMAT_FLOAT=0)
+  endif()
 elseif ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
   set(PLATFORM_LINUX TRUE)
   set(PLATFORM_DESKTOP TRUE)

@@ -102,6 +102,18 @@ Page {
                     shareLocationAction.trigger()
                 }
             }
+
+            // Required attribution (Organic Maps data license) and the unofficial-port notice.
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
+                topPadding: Theme.paddingLarge
+                text: "Map data © OpenStreetMap and Organic Maps\n"
+                      + "Неофициальный порт для ОС Аврора / Unofficial Aurora OS port"
+                wrapMode: Text.Wrap
+                font.pixelSize: Theme.fontSizeExtraSmall
+                color: Theme.secondaryColor
+            }
         }
 
         VerticalScrollDecorator {}

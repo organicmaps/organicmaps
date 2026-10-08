@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+Name=Organic Maps
+Name[ru]=Organic Maps
+Icon=@APP_NAME@
+Exec=/usr/bin/@APP_NAME@
+X-Nemo-Application-Type=silica-qt5
+# Bookmark and track files, and map links, like the Android intent filters.
+MimeType=application/vnd.google-earth.kml+xml;application/vnd.google-earth.kmz;application/gpx+xml;application/geo+json;x-scheme-handler/geo;x-scheme-handler/om;x-scheme-handler/ge0;x-scheme-handler/mapsme;x-scheme-handler/mapswithme;
+X-Maemo-Service=@DBUS_SERVICE@
+X-Maemo-Object-Path=@DBUS_PATH@
+X-Maemo-Method=@DBUS_SERVICE@.openUrl
+
+[X-Application]
+# appdir resolves the data directory "/usr/share/<org>.<app>" from these, matching the RPM layout.
+OrganizationName=@APP_ORG@
+ApplicationName=@APP_QML_NAME@
+ExecDBus=/usr/bin/@APP_NAME@
+# Audio: voice instructions and the speed camera beep. Internet: map downloads and the OSM login.
+# Location: positioning. UserDirs/RemovableMedia: imported files, backups and maps on a memory card.
+Permissions=Audio;Internet;Location;UserDirs;RemovableMedia

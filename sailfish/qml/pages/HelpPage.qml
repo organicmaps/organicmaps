@@ -67,6 +67,17 @@ Page {
                        appInfo.localized("about_developed_by_enthusiasts")].join("\n")
                 color: Theme.secondaryHighlightColor
             }
+            PageLabel {
+                topPadding: Theme.paddingLarge
+                text: "Неофициальная сборка для ОС Аврора, не связана с проектом Organic Maps.\n"
+                      + "Unofficial Aurora OS build, not affiliated with the Organic Maps project."
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeSmall
+            }
+            TextRow {
+                text: "Порт для ОС Аврора: Юрасов Леонид"
+                url: "https://gitflic.ru/project/ub3gad/maps"
+            }
 
             MenuRow {
                 visible: appSettings.donateUrl !== ""
@@ -103,6 +114,16 @@ Page {
             Item {
                 width: 1
                 height: Theme.paddingMedium
+            }
+            PageLabel {
+                topPadding: Theme.paddingMedium
+                textFormat: Text.RichText
+                text: "Map data © <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>"
+                      + " and <a href=\"https://organicmaps.app\">Organic Maps</a>."
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeSmall
+                linkColor: Theme.primaryColor
+                onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Repeater {
