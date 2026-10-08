@@ -30,6 +30,7 @@
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "O download falhou";
+"about_menu_title" = "Sobre Organic Maps";
 
 /* Text in About screen */
 "about_headline" = "Livre para todos, feito com amor";
@@ -275,6 +276,9 @@
 "pref_map_auto_zoom" = "Zoom automático";
 "placepage_distance" = "Distância";
 "search_show_on_map" = "Ver no mapa";
+
+/* Menu button */
+"menu" = "Menu";
 
 /* Text in menu */
 "website" = "Site";
@@ -993,6 +997,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Parar gravação de trilha";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"track_recording_title" = "Gravação de trilha";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "A trilha está vazia - não há nada para salvar";
 "downloader_updating_ios" = "Atualizando";
@@ -1175,3 +1182,18 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Inverter rota";
+
+/* VoiceOver value of the location button while the iOS map is determining the user's position. */
+"map_location_searching" = "Finding your location";
+
+/* VoiceOver value of the location button while the iOS map follows the user's position without rotating. */
+"map_location_following" = "Following your location";
+
+/* VoiceOver value of the location button while the iOS map follows both the user's position and heading. */
+"map_location_following_direction" = "Following your location and direction";
+
+/* VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available. */
+"map_updates_available" = "Map updates available";
+
+/* VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers. */
+"map_layers_turn_off" = "Turn off map layers";

@@ -30,6 +30,7 @@
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Помилка завантаження";
+"about_menu_title" = "Про Organic Maps";
 
 /* Text in About screen */
 "about_headline" = "Безкоштовно для всіх, зроблене з любов'ю";
@@ -275,6 +276,9 @@
 "pref_map_auto_zoom" = "Автозум";
 "placepage_distance" = "Відстань";
 "search_show_on_map" = "Подивитись на мапі";
+
+/* Menu button */
+"menu" = "Меню";
 
 /* Text in menu */
 "website" = "Вебсайт";
@@ -993,6 +997,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Зупинити запис треку";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"track_recording_title" = "Запис треку";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек порожній - нічого зберігати";
 "downloader_updating_ios" = "Оновлення";
@@ -1175,3 +1182,18 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Розвернути маршрут";
+
+/* VoiceOver value of the location button while the iOS map is determining the user's position. */
+"map_location_searching" = "Визначення вашого місцезнаходження";
+
+/* VoiceOver value of the location button while the iOS map follows the user's position without rotating. */
+"map_location_following" = "Відстеження вашого місцезнаходження";
+
+/* VoiceOver value of the location button while the iOS map follows both the user's position and heading. */
+"map_location_following_direction" = "Відстеження вашого місцезнаходження та напрямку";
+
+/* VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available. */
+"map_updates_available" = "Доступні оновлення мап";
+
+/* VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers. */
+"map_layers_turn_off" = "Вимкнути шари мапи";

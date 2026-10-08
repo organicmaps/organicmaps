@@ -30,6 +30,7 @@
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Sedang Mengunduh telah gagal";
+"about_menu_title" = "Tentang Organic Maps";
 
 /* Text in About screen */
 "about_headline" = "Gratis untuk semua orang, dibuat dengan cinta";
@@ -275,6 +276,9 @@
 "pref_map_auto_zoom" = "Perbesar otomatis";
 "placepage_distance" = "Jarak";
 "search_show_on_map" = "Tampilkan pada peta";
+
+/* Menu button */
+"menu" = "Menu";
 
 /* Text in menu */
 "website" = "Situs Web";
@@ -993,6 +997,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Hentikan perekaman jalur";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"track_recording_title" = "Perekaman Jalur";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
 "downloader_updating_ios" = "Memperbarui";
@@ -1175,3 +1182,18 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Balikkan rute";
+
+/* VoiceOver value of the location button while the iOS map is determining the user's position. */
+"map_location_searching" = "Finding your location";
+
+/* VoiceOver value of the location button while the iOS map follows the user's position without rotating. */
+"map_location_following" = "Following your location";
+
+/* VoiceOver value of the location button while the iOS map follows both the user's position and heading. */
+"map_location_following_direction" = "Following your location and direction";
+
+/* VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available. */
+"map_updates_available" = "Map updates available";
+
+/* VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers. */
+"map_layers_turn_off" = "Turn off map layers";

@@ -30,6 +30,7 @@
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "डाउनलोड अयशस्वी";
+"about_menu_title" = "Organic Maps बद्दल";
 
 /* Text in About screen */
 "about_headline" = "सर्वांसाठी विनामूल्य, आवडीने तयार केलेले";
@@ -275,6 +276,9 @@
 "pref_map_auto_zoom" = "स्वयं झूम";
 "placepage_distance" = "अंतर";
 "search_show_on_map" = "नकाशावर पहा";
+
+/* Menu button */
+"menu" = "मेनू";
 
 /* Text in menu */
 "website" = "संकेतस्थळ";
@@ -993,6 +997,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "ट्रॅक रेकॉर्डिंग थांबवा";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"track_recording_title" = "ट्रॅक रेकॉर्डिंग";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - साठवण्यासाठी काहीही नाही";
 "downloader_updating_ios" = "अद्ययावत करत आहे";
@@ -1175,3 +1182,18 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "मार्ग उलटा करा";
+
+/* VoiceOver value of the location button while the iOS map is determining the user's position. */
+"map_location_searching" = "Finding your location";
+
+/* VoiceOver value of the location button while the iOS map follows the user's position without rotating. */
+"map_location_following" = "Following your location";
+
+/* VoiceOver value of the location button while the iOS map follows both the user's position and heading. */
+"map_location_following_direction" = "Following your location and direction";
+
+/* VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available. */
+"map_updates_available" = "Map updates available";
+
+/* VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers. */
+"map_layers_turn_off" = "Turn off map layers";
