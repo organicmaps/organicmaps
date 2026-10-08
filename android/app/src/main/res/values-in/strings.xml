@@ -618,6 +618,14 @@
     <string name="show_to_the_right">Tampilkan di sebelah kanan</string>
     <string name="show_at_the_bottom">Tampilkan di bagian bawah</string>
     <string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Mengemudi</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Bersepeda</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Berjalan kaki</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Semua moda perjalanan</string>
     <string name="driving_options_title">Pilihan berkendara</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Pengoptimalan rute</string>

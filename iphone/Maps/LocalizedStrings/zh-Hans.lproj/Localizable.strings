@@ -724,6 +724,18 @@
 "show_to_the_right" = "右侧显示";
 "show_at_the_bottom" = "底部显示";
 "enable_logging_warning_message" = "临时启用此选项，以便使用“报告错误”功能在帮助对话框中记录并手动发送详细诊断日志给我们。日志可能包含位置信息。";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "驾车";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "骑行";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "步行";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "所有出行方式";
 "driving_options_title" = "绕行设置";
 
 /* Routing setting that automatically reorders intermediate stops */

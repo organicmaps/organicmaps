@@ -618,6 +618,14 @@
     <string name="show_to_the_right">Hiển thị ở bên phải</string>
     <string name="show_at_the_bottom">Hiển thị ở phía dưới</string>
     <string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Lái xe</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Đạp xe</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Đi bộ</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Tất cả phương thức di chuyển</string>
     <string name="driving_options_title">Thiết lập đi vòng</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Tối ưu hóa tuyến đường</string>

@@ -608,6 +608,14 @@
     <string name="show_to_the_right">Shfaq në të djathtë</string>
     <string name="show_at_the_bottom">Shfaq në fund</string>
     <string name="enable_logging_warning_message">Aktivizoni këtë opsion përkohësisht për të regjistruar dhe dërguar manualisht logje diagnostike të detajuara për problemin tuaj duke përdorur \"Raporto një problem\" në dialogun Ndihmë. Logjet mund të përfshijnë informacione vendndodhjeje.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Me makinë</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Me biçikletë</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Në këmbë</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Të gjitha mënyrat e udhëtimit</string>
     <string name="driving_options_title">Mundësitë e rrugëtimit</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimizimi i itinerarit</string>

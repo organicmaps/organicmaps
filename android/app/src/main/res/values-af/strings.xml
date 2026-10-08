@@ -617,6 +617,14 @@
     <string name="show_to_the_right">Wys aan die regterkant</string>
     <string name="show_at_the_bottom">Wys onderaan</string>
     <string name="enable_logging_warning_message">Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Bestuur</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Fietsry</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Stap</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Alle vervoermodusse</string>
     <string name="driving_options_title">Ompadopsies</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Roete-optimering</string>

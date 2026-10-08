@@ -622,6 +622,14 @@
     <string name="show_to_the_right">Rechts anzeigen</string>
     <string name="show_at_the_bottom">Unten anzeigen</string>
     <string name="enable_logging_warning_message">Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche „App-Fehler melden“ unter „Hilfe“. Protokolle können Standortformationen enthalten.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Auto</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Fahrrad</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Zu Fuß</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Alle Fortbewegungsarten</string>
     <string name="driving_options_title">Routenbeschränkungen</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Routenoptimierung</string>

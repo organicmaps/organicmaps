@@ -622,6 +622,14 @@
     <string name="show_to_the_right">Sağda göster</string>
     <string name="show_at_the_bottom">Altta göster</string>
     <string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Araba</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Bisiklet</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Yürüyüş</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Tüm ulaşım türleri</string>
     <string name="driving_options_title">Yönlendirme seçenekleri</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Rota optimizasyonu</string>

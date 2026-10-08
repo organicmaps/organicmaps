@@ -627,6 +627,14 @@
     <string name="show_to_the_right">Показати праворуч</string>
     <string name="show_at_the_bottom">Показати внизу</string>
     <string name="enable_logging_warning_message">Тимчасово увімкніть цю опцію, щоб записати й вручну надіслати нам детальні діагностичні дані про проблему через пункт «Повідомити про помилку» в розділі «Довідка». Журнали можуть містити інформацію про розташування.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Автомобілем</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Велосипедом</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Пішки</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Для всіх способів пересування</string>
     <string name="driving_options_title">Налаштування об’їзду</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Оптимізація маршруту</string>

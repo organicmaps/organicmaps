@@ -620,6 +620,14 @@
     <string name="show_to_the_right">Sağda göstər</string>
     <string name="show_at_the_bottom">Aşağıda göstər</string>
     <string name="enable_logging_warning_message">Yardım dialoq qutusunda “Problemi bildir” istifadə etməklə probleminizlə bağlı ətraflı diaqnostik jurnalları qeyd etmək və bizə göndərmək üçün bu seçimi müvəqqəti aktivləşdirin. Qeydlərə məkan məlumatı daxil ola bilər</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Avtomobillə</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Velosipedlə</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Piyada</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Bütün hərəkət növləri</string>
     <string name="driving_options_title">Marşrutlaşdırma seçimləri</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Marşrutun optimallaşdırılması</string>

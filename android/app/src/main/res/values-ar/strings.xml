@@ -632,6 +632,14 @@
     <string name="show_to_the_right">عرض إلى اليمين</string>
     <string name="show_at_the_bottom">اعرض في الأسفل</string>
     <string name="enable_logging_warning_message">هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">القيادة</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">ركوب الدراجة</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">المشي</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">جميع وسائل التنقل</string>
     <string name="driving_options_title">خيارات رسم المسار</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">تحسين المسار</string>

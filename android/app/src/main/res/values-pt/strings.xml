@@ -624,6 +624,14 @@
     <string name="show_to_the_right">Mostrar à direita</string>
     <string name="show_at_the_bottom">Mostrar na parte inferior</string>
     <string name="enable_logging_warning_message">Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">De carro</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">De bicicleta</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">A pé</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Todos os modos de deslocação</string>
     <string name="driving_options_title">Configurações de direção</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Otimização do percurso</string>

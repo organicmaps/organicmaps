@@ -620,6 +620,14 @@
     <string name="show_to_the_right">Vis til højre</string>
     <string name="show_at_the_bottom">Vis i bunden</string>
     <string name="enable_logging_warning_message">Aktivér denne mulighed midlertidigt for at registrere og manuelt sende detaljerede diagnostiske logfiler om dit problem til os ved hjælp af \"Rapportér en fejl\" i Hjælp-dialogen. Logfiler kan indeholde placeringsoplysninger.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Kørsel</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Cykling</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Gang</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Alle transportformer</string>
     <string name="driving_options_title">Indstillinger for ruteberegning</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Ruteoptimering</string>

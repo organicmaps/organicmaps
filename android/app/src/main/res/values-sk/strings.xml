@@ -621,6 +621,14 @@
     <string name="show_to_the_right">Zobraziť vpravo</string>
     <string name="show_at_the_bottom">Zobraziť v dolnej časti</string>
     <string name="enable_logging_warning_message">Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Autom</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Bicyklom</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Pešo</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Všetky spôsoby dopravy</string>
     <string name="driving_options_title">Možnosti trasy</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimalizácia trasy</string>

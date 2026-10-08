@@ -623,6 +623,14 @@
     <string name="show_to_the_right">Rodyti dešinėje</string>
     <string name="show_at_the_bottom">Rodyti apačioje</string>
     <string name="enable_logging_warning_message">Įjunkite šią parinktį, jei norite kurį laiką rašyti derinimo žurnalą. Pasinaudodami mygtuku „Pranešti apie klaidą“, esančiu žinyno dialogo lange, galėsite pranešti apie problemą, pridėdami sukauptą žurnalą. Žurnaluose gali būti vietos duomenų.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Automobiliu</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Dviračiu</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Pėsčiomis</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Visi keliavimo būdai</string>
     <string name="driving_options_title">Maršruto apskaičiavimo parinktys</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Maršruto optimizavimas</string>

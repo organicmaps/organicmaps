@@ -620,6 +620,14 @@
     <string name="show_to_the_right">Erakutsi eskuinean</string>
     <string name="show_at_the_bottom">Erakutsi behean</string>
     <string name="enable_logging_warning_message">Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Autoz</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Bizikletaz</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Oinez</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Garraiobide guztiak</string>
     <string name="driving_options_title">Bideratzeko aukerak</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Ibilbidearen optimizazioa</string>

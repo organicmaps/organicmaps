@@ -620,6 +620,14 @@
     <string name="show_to_the_right">در سمت راست نمایش دهید</string>
     <string name="show_at_the_bottom">در پایین نمایش دهید</string>
     <string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">رانندگی</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">دوچرخه‌سواری</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">پیاده‌روی</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">همه روش‌های جابه‌جایی</string>
     <string name="driving_options_title">گزینه‌های رانندگی</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">بهینه‌سازی مسیر</string>

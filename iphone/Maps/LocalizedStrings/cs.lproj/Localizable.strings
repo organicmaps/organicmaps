@@ -724,6 +724,18 @@
 "show_to_the_right" = "Zobrazit napravo";
 "show_at_the_bottom" = "Zobrazit dole";
 "enable_logging_warning_message" = "Dočasně zapněte, abyste mohli zaznamenat a ručně nám poslat podrobná diagnostická data o vašem problému pomocí tlačítka „Nahlásit chybu“ v okně nápovědy. Protokoly mohou zahrnovat informace o poloze.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Autem";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Na kole";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Pěšky";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Všechny způsoby dopravy";
 "driving_options_title" = "Možnosti trasy";
 
 /* Routing setting that automatically reorders intermediate stops */

@@ -620,6 +620,14 @@
     <string name="show_to_the_right">Afișează în partea dreaptă</string>
     <string name="show_at_the_bottom">Afișează în partea de jos</string>
     <string name="enable_logging_warning_message">Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Cu mașina</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Cu bicicleta</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Pe jos</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Toate modurile de deplasare</string>
     <string name="driving_options_title">Opțiuni de ocolire</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimizarea traseului</string>

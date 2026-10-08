@@ -283,6 +283,14 @@
     <string name="power_managment_title">Mou d’aforru d’enerxía</string>
     <string name="power_managment_setting_never">Enxamás</string>
     <string name="power_managment_setting_manual_max">Siempres</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">En coche</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">En bicicleta</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">A pie</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Tolos moos de desplazamientu</string>
     <string name="driving_options_title">Opciones d’encaminamientu</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimización de la ruta</string>
