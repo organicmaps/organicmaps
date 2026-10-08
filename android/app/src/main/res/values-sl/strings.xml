@@ -626,6 +626,14 @@
     <string name="show_to_the_right">Prikaži na desni</string>
     <string name="show_at_the_bottom">Prikaži na dnu</string>
     <string name="enable_logging_warning_message">To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo \"Prijavi napako\" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Z avtom</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">S kolesom</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Peš</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Vsi načini potovanja</string>
     <string name="driving_options_title">Možnosti načrtovanja poti</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimizacija poti</string>

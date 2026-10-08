@@ -621,6 +621,14 @@
     <string name="show_to_the_right">Εμφάνισε στα δεξιά</string>
     <string name="show_at_the_bottom">Εμφάνισε στο κάτω μέρος</string>
     <string name="enable_logging_warning_message">Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Οδήγηση</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Ποδήλατο</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Περπάτημα</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Όλοι οι τρόποι μετακίνησης</string>
     <string name="driving_options_title">Ρυθμίσεις δρομολόγησης</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Βελτιστοποίηση διαδρομής</string>

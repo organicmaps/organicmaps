@@ -620,6 +620,14 @@
     <string name="show_to_the_right">Ցուցադրել աջ կողմում</string>
     <string name="show_at_the_bottom">Ցուցադրել ներքևում</string>
     <string name="enable_logging_warning_message">Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Մեքենայով</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Հեծանվով</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Ոտքով</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Տեղաշարժման բոլոր եղանակները</string>
     <string name="driving_options_title">Երթուղու ընտրանքներ</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Երթուղու օպտիմալացում</string>

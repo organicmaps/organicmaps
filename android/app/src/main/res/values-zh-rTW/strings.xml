@@ -621,6 +621,14 @@
     <string name="show_to_the_right">顯示在右側</string>
     <string name="show_at_the_bottom">顯示在底部</string>
     <string name="enable_logging_warning_message">暫時啟用此選項，以便使用“報告問題”功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">開車</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">騎單車</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">步行</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">所有交通方式</string>
     <string name="driving_options_title">繞行設定</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">路線最佳化</string>

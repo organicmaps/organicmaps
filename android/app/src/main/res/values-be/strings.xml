@@ -629,6 +629,14 @@
     <string name="show_to_the_right">Паказваць справа</string>
     <string name="show_at_the_bottom">Паказваць знізу</string>
     <string name="enable_logging_warning_message">Часова ўключыце гэты параметр , каб запісаць і ўручную адправіць нам падрабязную інфармацыю пра знойдзеную праблему праз кнопку «Паведаміць аб памылцы» ў акне «Даведка». Журнал падзей можа змяшчаць даныя пра месцазнаходжанне.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Аўтамабілем</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Веласіпедам</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Пешшу</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Для ўсіх спосабаў перамяшчэння</string>
     <string name="driving_options_title">Налады пракладвання маршрутаў</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Аптымізацыя маршруту</string>

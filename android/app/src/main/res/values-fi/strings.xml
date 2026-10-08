@@ -620,6 +620,14 @@
     <string name="show_to_the_right">Näytä oikealle</string>
     <string name="show_at_the_bottom">Näytä alareunassa</string>
     <string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Autolla</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Pyörällä</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Kävellen</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Kaikki kulkutavat</string>
     <string name="driving_options_title">Reititysvalinnat</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Reitin optimointi</string>

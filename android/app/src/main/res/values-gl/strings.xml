@@ -623,6 +623,14 @@
     <string name="show_to_the_right">Mostrar á dereita</string>
     <string name="show_at_the_bottom">Mostrar na parte inferior</string>
     <string name="enable_logging_warning_message">Active esta opción temporalmente para gravar e enviar de forma manual rexistros para diagnosticar defectos enviados mediante a opción «Informar dun fallo» no diálogo Axuda. Os rexistros poden incluír localizacións.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">En coche</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">En bicicleta</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">A pé</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Todos os modos de desprazamento</string>
     <string name="driving_options_title">Opcións de encamiñamento</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimización da ruta</string>

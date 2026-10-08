@@ -623,6 +623,14 @@
     <string name="show_to_the_right">Megjelenítés jobb oldalon</string>
     <string name="show_at_the_bottom">Megjelenítés alul</string>
     <string name="enable_logging_warning_message">Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Autóval</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Kerékpárral</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Gyalog</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Minden közlekedési mód</string>
     <string name="driving_options_title">Útvonaltervezési beállítások</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Útvonal-optimalizálás</string>

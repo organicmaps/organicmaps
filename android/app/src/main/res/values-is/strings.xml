@@ -623,6 +623,14 @@
     <string name="show_to_the_right">Birta hægra megin</string>
     <string name="show_at_the_bottom">Birta neðst</string>
     <string name="enable_logging_warning_message">Virkjaðu þennan valkost tímabundið til að skrá og senda síðan handvirkt nákvæma greiningarskrá um vandamálið þitt með því að nota \"Tilkynna um villu\" í hjálparglugganum. Slíkar atvikaskrár geta innihaldið upplýsingar um staðsetningu.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Akstur</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Hjólreiðar</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Ganga</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Allir ferðamátar</string>
     <string name="driving_options_title">Valkostir leiðagerðar</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Bestun leiðar</string>

@@ -620,6 +620,14 @@
     <string name="show_to_the_right">Vis til høyre</string>
     <string name="show_at_the_bottom">Vis nederst</string>
     <string name="enable_logging_warning_message">Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Bil</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Sykkel</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Gange</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Alle reisemåter</string>
     <string name="driving_options_title">Kjørealternativer</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Ruteoptimalisering</string>

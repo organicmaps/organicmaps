@@ -629,6 +629,14 @@
     <string name="show_to_the_right">Uri fuq il-lemin</string>
     <string name="show_at_the_bottom">Uri fil-qiegħ</string>
     <string name="enable_logging_warning_message">Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Bil-karozza</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Bir-rota</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Bil-mixi</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Il-modi kollha tal-ivvjaġġar</string>
     <string name="driving_options_title">Għażliet tar-rotta</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Ottimizzazzjoni tar-rotta</string>

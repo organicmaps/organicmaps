@@ -627,6 +627,14 @@
     <string name="show_to_the_right">Справа</string>
     <string name="show_at_the_bottom">Снизу</string>
     <string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">На автомобиле</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">На велосипеде</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Пешком</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Для всех способов передвижения</string>
     <string name="driving_options_title">Настройки объезда</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Оптимизация маршрута</string>

@@ -619,6 +619,14 @@
     <string name="show_to_the_right">右に表示</string>
     <string name="show_at_the_bottom">下部に表示</string>
     <string name="enable_logging_warning_message">このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">車</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">自転車</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">徒歩</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">すべての移動手段</string>
     <string name="driving_options_title">経路オプション</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">経路の最適化</string>

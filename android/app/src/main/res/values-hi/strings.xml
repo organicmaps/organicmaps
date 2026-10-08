@@ -617,6 +617,14 @@
     <string name="show_to_the_right">दाईं ओर दिखाएँ</string>
     <string name="show_at_the_bottom">नीचे दिखाएँ</string>
     <string name="enable_logging_warning_message">सहायता संवाद में \"बग की रिपोर्ट करें\" का उपयोग करके हमें अपनी समस्या के बारे में विस्तृत डायग्नोस्टिक लॉग रिकॉर्ड करने और मैन्युअल रूप से भेजने के लिए इस विकल्प को अस्थायी रूप से सक्षम करें। लॉग में स्थान की जानकारी शामिल हो सकती है.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">ड्राइविंग</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">साइकिलिंग</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">पैदल</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">यात्रा के सभी तरीके</string>
     <string name="driving_options_title">रूटिंग विकल्प</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">मार्ग अनुकूलन</string>

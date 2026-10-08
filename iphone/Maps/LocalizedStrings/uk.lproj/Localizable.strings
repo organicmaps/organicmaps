@@ -724,6 +724,18 @@
 "show_to_the_right" = "Показати праворуч";
 "show_at_the_bottom" = "Показати внизу";
 "enable_logging_warning_message" = "Тимчасово увімкніть цю опцію, щоб записати й вручну надіслати нам детальні діагностичні дані про проблему через пункт «Повідомити про помилку» в розділі «Довідка». Журнали можуть містити інформацію про розташування.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Автомобілем";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Велосипедом";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Пішки";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Для всіх способів пересування";
 "driving_options_title" = "Налаштування об’їзду";
 
 /* Routing setting that automatically reorders intermediate stops */

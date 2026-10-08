@@ -626,6 +626,14 @@
     <string name="show_to_the_right">Mostra a la dreta</string>
     <string name="show_at_the_bottom">Mostra a la part inferior</string>
     <string name="enable_logging_warning_message">Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">En cotxe</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">En bicicleta</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">A peu</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Tots els modes de desplaçament</string>
     <string name="driving_options_title">Opcions d’encaminament</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimització de la ruta</string>

@@ -623,6 +623,14 @@
     <string name="show_to_the_right">Rechts weergeven</string>
     <string name="show_at_the_bottom">Onderaan weergeven</string>
     <string name="enable_logging_warning_message">Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Auto</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Fiets</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Lopen</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Alle vervoerswijzen</string>
     <string name="driving_options_title">Route instellingen</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Routeoptimalisatie</string>

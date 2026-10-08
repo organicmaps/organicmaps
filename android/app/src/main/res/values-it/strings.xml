@@ -625,6 +625,14 @@
     <string name="show_to_the_right">Mostra a destra</string>
     <string name="show_at_the_bottom">Mostra in basso</string>
     <string name="enable_logging_warning_message">Attiva questa opzione temporaneamente per registrare e inviarci manualmente dei log diagnostici riguardo al tuo problema usando \"Segnala un bug\" nella sezione Aiuto. I log potrebbero contenere informazioni sulla posizione.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">In auto</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">In bici</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">A piedi</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Tutte le modalità di spostamento</string>
     <string name="driving_options_title">Impostazioni del percorso</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Ottimizzazione del percorso</string>

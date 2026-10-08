@@ -617,6 +617,14 @@
     <string name="show_to_the_right">Onyesha upande wa kulia</string>
     <string name="show_at_the_bottom">Onyesha chini</string>
     <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Kwa gari</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Kwa baiskeli</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Kwa miguu</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Njia zote za usafiri</string>
     <string name="driving_options_title">Machaguo ya njia</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Uboreshaji wa njia</string>

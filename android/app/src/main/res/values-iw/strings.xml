@@ -620,6 +620,14 @@
     <string name="show_to_the_right">הצג מימין</string>
     <string name="show_at_the_bottom">הצג בתחתית</string>
     <string name="enable_logging_warning_message">הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">נהיגה</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">רכיבה על אופניים</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">הליכה</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">כל אמצעי התחבורה</string>
     <string name="driving_options_title">אפשרויות מסלול</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">מיטוב המסלול</string>
