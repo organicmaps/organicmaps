@@ -3,8 +3,6 @@ package app.organicmaps.sdk.routing;
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.settings.RoadType;
-import java.util.EnumSet;
-import java.util.Set;
 
 public final class RoutingOptions
 {
@@ -20,7 +18,7 @@ public final class RoutingOptions
 
   public static boolean hasOption(@NonNull Router router, @NonNull RoadType roadType)
   {
-    return (nativeGetOptions(router.getType()) & roadType.nativeValue) != 0;
+    return (getOptions(router) & roadType.nativeValue) != 0;
   }
 
   public static boolean supportsOption(@NonNull Router router, @NonNull RoadType roadType)
@@ -41,7 +39,7 @@ public final class RoutingOptions
 
   public static boolean hasAnyOptions(@NonNull Router router)
   {
-    return nativeGetOptions(router.getType()) != 0;
+    return getOptions(router) != 0;
   }
 
   public static boolean isRouteOptimizationEnabled()
@@ -54,15 +52,10 @@ public final class RoutingOptions
     nativeSetRouteOptimizationEnabled(enabled);
   }
 
-  @NonNull
-  public static Set<RoadType> getActiveRoadTypes(@NonNull Router router)
+  public static int getOptions(@NonNull Router router)
   {
-    Set<RoadType> roadTypes = EnumSet.noneOf(RoadType.class);
-    final int mask = nativeGetOptions(router.getType());
-    for (RoadType each : RoadType.values())
-      if ((mask & each.nativeValue) != 0)
-        roadTypes.add(each);
-    return roadTypes;
+    // Native settings expose only the options supported by this router.
+    return nativeGetOptions(router.getType());
   }
 
   private RoutingOptions() {}

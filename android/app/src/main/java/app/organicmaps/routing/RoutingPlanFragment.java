@@ -376,7 +376,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final boolean hasSettings = RoutingOptions.hasSettings(router);
     mDrivingOptionsBtn.setEnabled(mRoutingContentActive && hasSettings);
     mDrivingOptionsContainer.setAlpha(hasSettings ? 1.0f : 0.5f);
-    mViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes(router).size());
+    mViewModel.setDrivingOptionsCount(Integer.bitCount(RoutingOptions.getOptions(router)));
   }
 
   private void updateBuildProgress(int progress, @NonNull Router router)

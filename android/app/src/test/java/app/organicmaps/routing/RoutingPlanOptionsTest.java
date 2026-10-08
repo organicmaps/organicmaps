@@ -15,7 +15,6 @@ import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.EnumSet;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
@@ -42,12 +41,12 @@ public class RoutingPlanOptionsTest
          MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class, CALLS_REAL_METHODS))
     {
       routing.when(RoutingController::get).thenReturn(controller);
-      options.when(() -> RoutingOptions.getActiveRoadTypes(Router.Vehicle))
-          .thenReturn(EnumSet.of(RoadType.Toll, RoadType.Motorway, RoadType.Dirty));
-      options.when(() -> RoutingOptions.getActiveRoadTypes(Router.Bicycle)).thenReturn(EnumSet.noneOf(RoadType.class));
-      options.when(() -> RoutingOptions.getActiveRoadTypes(Router.Pedestrian)).thenReturn(EnumSet.of(RoadType.Ferry));
-      options.when(() -> RoutingOptions.getActiveRoadTypes(Router.Transit)).thenReturn(EnumSet.noneOf(RoadType.class));
-      options.when(() -> RoutingOptions.getActiveRoadTypes(Router.Ruler)).thenReturn(EnumSet.noneOf(RoadType.class));
+      options.when(() -> RoutingOptions.getOptions(Router.Vehicle))
+          .thenReturn(RoadType.Toll.nativeValue | RoadType.Motorway.nativeValue | RoadType.Dirty.nativeValue);
+      options.when(() -> RoutingOptions.getOptions(Router.Bicycle)).thenReturn(0);
+      options.when(() -> RoutingOptions.getOptions(Router.Pedestrian)).thenReturn(RoadType.Ferry.nativeValue);
+      options.when(() -> RoutingOptions.getOptions(Router.Transit)).thenReturn(0);
+      options.when(() -> RoutingOptions.getOptions(Router.Ruler)).thenReturn(0);
 
       updateProgress(fragment, Router.Vehicle);
       verify(viewModel).setDrivingOptionsCount(3);
@@ -100,7 +99,7 @@ public class RoutingPlanOptionsTest
          MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class, CALLS_REAL_METHODS))
     {
       routing.when(RoutingController::get).thenReturn(controller);
-      options.when(() -> RoutingOptions.getActiveRoadTypes(Router.Bicycle)).thenReturn(EnumSet.noneOf(RoadType.class));
+      options.when(() -> RoutingOptions.getOptions(Router.Bicycle)).thenReturn(0);
       Method install = RoutingPlanFragment.class.getDeclaredMethod("setRouterClick", int.class, Router.class);
       install.setAccessible(true);
       install.invoke(fragment, 1, Router.Bicycle);
