@@ -51,6 +51,7 @@ final class CarPlayService: NSObject {
   private weak var visibleCarPlayTemplate: CPTemplate?
   private var currentViewPortState: CPViewPortState = .default
   private var speedState = CarPlaySpeedState()
+  private var isBookmarkRefreshScheduled = false
 
   private var currentPositionMode: MWMMyPositionMode {
     MapViewController.shared()?.currentPositionMode ?? .pendingPosition
@@ -440,6 +441,7 @@ final class CarPlayService: NSObject {
     router.subscribeToEvents()
     isCarPlayRouterSubscribed = true
     self.router = router
+    BookmarksManager.shared().add(self)
     return router
   }
 
@@ -566,6 +568,7 @@ final class CarPlayService: NSObject {
 
   private func teardownRouterIfCarPlayDisconnected() {
     guard window == nil, dashboardWindow == nil, let router else { return }
+    BookmarksManager.shared().remove(self)
     // moveMap() may not run on disconnect, so hand routing back here too. No-op if already phone-owned.
     updateRoutingPresentation(for: .device)
     if isCarPlayRouterSubscribed {
@@ -935,6 +938,10 @@ extension CarPlayService: CPInterfaceControllerDelegate {
   }
 
   func templateDidAppear(_ aTemplate: CPTemplate, animated _: Bool) {
+    if ListTemplateBuilder.isDeletedBookmarkList(aTemplate) {
+      refreshBookmarkLists()
+      return
+    }
     guard let mapTemplate = aTemplate as? CPMapTemplate,
           let info = aTemplate.userInfo as? MapInfo
     else {
@@ -1188,6 +1195,39 @@ extension CarPlayService: CarPlayRouterListener {
   }
 }
 
+// MARK: - BookmarksObserver implementation
+
+extension CarPlayService: BookmarksObserver {
+  func onBookmarksLoadFinished() {
+    refreshBookmarkLists()
+  }
+
+  func onBookmarksCategoryDeleted(_: MWMMarkGroupID) {
+    refreshBookmarkLists()
+  }
+
+  func onBookmarksDeleted(_: [NSNumber]) {
+    refreshBookmarkLists()
+  }
+
+  /// Reloading can replace bookmark IDs, so shown lists must read their rows from the currently loaded data.
+  private func refreshBookmarkLists() {
+    guard !isBookmarkRefreshScheduled, interfaceController != nil else { return }
+    isBookmarkRefreshScheduled = true
+    // Each bookmark row includes a reverse-geocoded address. Coalesce observer callbacks before rebuilding it.
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+      isBookmarkRefreshScheduled = false
+      guard let interfaceController else { return }
+      let templates = interfaceController.templates
+      if let index = templates.firstIndex(where: ListTemplateBuilder.isDeletedBookmarkList), index > 0 {
+        interfaceController.pop(to: templates[index - 1], animated: false, completion: templateCompletion)
+      }
+      templates.forEach(ListTemplateBuilder.refreshBookmarks(in:))
+    }
+  }
+}
+
 // MARK: - LocationModeListener implementation
 
 extension CarPlayService: LocationModeListener {
@@ -1289,6 +1329,7 @@ extension CarPlayService {
     case CPConstants.ListItemType.bookmarkLists where userInfo.metadata is CategoryInfo:
       let metadata = userInfo.metadata as! CategoryInfo
       guard BookmarksManager.shared().hasCategory(metadata.category.categoryId) else {
+        refreshBookmarkLists()
         completionHandler()
         return
       }
@@ -1298,10 +1339,10 @@ extension CarPlayService {
     case CPConstants.ListItemType.bookmarks where userInfo.metadata is BookmarkInfo:
       defer { completionHandler() }
       let metadata = userInfo.metadata as! BookmarkInfo
-      guard BookmarksManager.shared().hasBookmark(metadata.bookmarkId) else {
+      guard let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId) else {
+        refreshBookmarkLists()
         return
       }
-      let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId)
       preparePreview(forBookmark: bookmark)
     case CPConstants.ListItemType.searchResults where userInfo.metadata is SearchResultInfo:
       let metadata = userInfo.metadata as! SearchResultInfo

@@ -193,7 +193,9 @@ class BookmarkCategoriesFragment :
     private fun onShowActionSelected(category: BookmarkCategory) = category.toggleVisibility()
 
     private fun onDeleteActionSelected(category: BookmarkCategory) {
-        BookmarkManager.INSTANCE.deleteCategory(category.id)
+        if (!BookmarkManager.INSTANCE.deleteCategory(category.id)) {
+            Logger.w(TAG, "Failed to delete the list ${category.name}")
+        }
     }
 
     private fun showNoFileManagerError() {

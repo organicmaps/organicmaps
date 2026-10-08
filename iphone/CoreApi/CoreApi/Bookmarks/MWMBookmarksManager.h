@@ -67,7 +67,11 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)loadBookmarks;
 - (void)loadBookmarkFile:(NSURL *)url;
 - (void)reloadCategoryAtFilePath:(NSString *)filePath;
-- (void)deleteCategoryAtFilePath:(NSString *)filePath;
+/// Trashes the file, including a file that could not be loaded as a category.
+/// @return NO while bookmarks are loading or saving, or when the file could not be moved to the trash.
+- (BOOL)deleteCategoryAtFilePath:(NSString *)filePath;
+/// True while a loaded category has changes waiting to be saved to this file.
+- (BOOL)isCategoryFileSavingAtPath:(NSString *)filePath NS_SWIFT_NAME(isCategoryFileSaving(atPath:));
 
 - (BOOL)areAllCategoriesEmpty;
 - (BOOL)isCategoryEmpty:(MWMMarkGroupID)groupId;
@@ -91,7 +95,8 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible;
 - (void)setUserCategoriesVisible:(BOOL)isVisible;
 - (void)setTrack:(MWMTrackID)trackId isVisible:(BOOL)isVisible;
-- (void)deleteCategory:(MWMMarkGroupID)groupId;
+/// @return NO when there is no such category or its file could not be moved to the trash.
+- (BOOL)deleteCategory:(MWMMarkGroupID)groupId;
 - (BOOL)checkCategoryName:(NSString *)name;
 - (BOOL)hasCategory:(MWMMarkGroupID)groupId;
 - (BOOL)hasBookmark:(MWMMarkID)bookmarkId;
@@ -105,7 +110,9 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMBookmarksSortingType)lastSortingType:(MWMMarkGroupID)groupId;
 - (void)resetLastSortingType:(MWMMarkGroupID)groupId;
 
-- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
+/// Returns at most limit snapshots; address lookup is skipped for bookmarks beyond the display limit.
+/// @return an empty array when the category is not loaded.
+- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId limit:(NSInteger)limit;
 - (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
 - (void)deleteBookmark:(MWMMarkID)bookmarkId;
 - (void)deleteTrack:(MWMTrackID)trackId;

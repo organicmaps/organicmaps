@@ -9,10 +9,12 @@
 
 #include "Framework.h"
 
+#include "map/bookmark_helpers.hpp"
 #include "map/bookmarks_search_params.hpp"
 
 #include "coding/internal/file_data.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -227,11 +229,39 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   self.bm.ReloadBookmark(filePath.UTF8String);
 }
 
-- (void)deleteCategoryAtFilePath:(NSString *)filePath
+- (BOOL)deleteCategoryAtFilePath:(NSString *)filePath
+{
+  // A pending load can still install the category from data read before the deletion.
+  if (!self.areBookmarksLoaded)
+    return NO;
+  auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
+  if (groupId == kml::kInvalidMarkGroupId)
+  {
+    // Loading may still create the category. Once it has finished, an unparsed synchronized file has no
+    // in-memory category to unload, but its confirmed deletion must still remove it from the directory.
+    auto const path = filePath.UTF8String;
+    if (!Platform::IsFileExistsByFullPath(path))
+      return YES;
+    auto const trashedPath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(path));
+    if (!base::MoveFileX(path, trashedPath))
+    {
+      LOG(LERROR, ("Failed to move", path, "into the trash at", trashedPath));
+      return NO;
+    }
+    LOG(LINFO, ("Unloaded category at", path, "is trashed to", trashedPath));
+    return YES;
+  }
+  // The local snapshot does not include edits waiting on the file thread. They must be observed before a
+  // remote deletion can decide that the local copy still holds the common base.
+  if (self.bm.IsCategorySaving(groupId))
+    return NO;
+  return [self deleteCategory:groupId];
+}
+
+- (BOOL)isCategoryFileSavingAtPath:(NSString *)filePath
 {
   auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
-  if (groupId)
-    [self deleteCategory:groupId];
+  return groupId != kml::kInvalidMarkGroupId && self.bm.IsCategorySaving(groupId);
 }
 
 #pragma mark - Categories
@@ -360,13 +390,15 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   GetFramework().SetTrackVisibility(trackId, isVisible);
 }
 
-- (void)deleteCategory:(MWMMarkGroupID)groupId
+- (BOOL)deleteCategory:(MWMMarkGroupID)groupId
 {
-  self.bm.GetEditSession().DeleteBmCategory(groupId, false /* move to the Trash */);
+  if (!self.bm.GetEditSession().DeleteBmCategory(groupId, false /* move to the Trash */))
+    return NO;
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
       [observer onBookmarksCategoryDeleted:groupId];
   }];
+  return YES;
 }
 
 - (BOOL)checkCategoryName:(NSString *)name
@@ -486,14 +518,23 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
 #pragma mark - Bookmarks
 
-- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId
+- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId limit:(NSInteger)limit
 {
+  CHECK_GREATER_OR_EQUAL(limit, 0, ());
+  // A CarPlay list may outlive the category it was built for.
+  if (!self.bm.HasBmCategory(categoryId))
+    return @[];
+
   NSMutableArray<MWMCarPlayBookmarkObject *> * result = [NSMutableArray array];
   auto const & bookmarkIds = self.bm.GetUserMarkIds(categoryId);
   for (auto bookmarkId : bookmarkIds)
   {
+    // Address lookup is expensive; rows CarPlay cannot display need no snapshot.
+    if (result.count == static_cast<NSUInteger>(limit))
+      break;
     MWMCarPlayBookmarkObject * bookmark = [[MWMCarPlayBookmarkObject alloc] initWithBookmarkId:bookmarkId];
-    [result addObject:bookmark];
+    if (bookmark)
+      [result addObject:bookmark];
   }
   return [result copy];
 }
