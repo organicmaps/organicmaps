@@ -11,6 +11,7 @@
 #include "sailfish/routing.hpp"
 
 #include "map/framework.hpp"
+#include "map/gps_tracker.hpp"
 
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -242,6 +243,7 @@ void MapItem::OnLocationUpdated(location::GpsInfo const & info)
   if (m_inBackground && QDateTime::currentMSecsSinceEpoch() - m_positionInfoMs > 10000)
     UpdatePositionInfo();
   m_framework.OnLocationUpdate(info);
+  GpsTracker::Instance().OnLocationUpdated(info);
   if (regained || !std::exchange(m_hadPosition, true))
     emit BookmarksNotifier::Instance().positionFound();
   m_placePage->UpdateDistance();
