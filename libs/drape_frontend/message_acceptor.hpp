@@ -4,6 +4,8 @@
 
 #include "drape/pointers.hpp"
 
+#include <chrono>
+
 namespace df
 {
 class Message;
@@ -17,7 +19,8 @@ protected:
   virtual void AcceptMessage(ref_ptr<Message> message) = 0;
 
   /// Must be called by subclass on message target thread
-  bool ProcessSingleMessage(bool waitForMessage = true);
+  bool ProcessSingleMessage(bool waitForMessage = true,
+                            std::chrono::milliseconds timeout = std::chrono::milliseconds::max());
 
   void CancelMessageWaiting();
 

@@ -104,6 +104,56 @@ UNIT_TEST(MessageQueue_PushRacingWithWait)
   TEST(WaitForResult(queue, result) != nullptr, ());
 }
 
+UNIT_TEST(MessageQueue_TimedWaitExpires)
+{
+  df::MessageQueue queue;
+  auto result = std::async(std::launch::async, [&queue] { return queue.PopMessage(true, 10ms); });
+  TEST(WaitForResult(queue, result) == nullptr, ());
+
+  queue.PushMessage(make_unique_dp<TestMessage>(1, df::Message::Type::Invalidate), df::MessagePriority::Low);
+  auto const msg = queue.PopMessage(true, 10ms);
+  TEST(msg != nullptr, ());
+  TEST_EQUAL(static_cast<TestMessage *>(msg.get())->m_id, 1, ());
+}
+
+UNIT_TEST(MessageQueue_CancelBeforeTimedWait)
+{
+  df::MessageQueue queue;
+  queue.CancelWait();
+  auto result = std::async(std::launch::async, [&queue] { return queue.PopMessage(true, 10s); });
+  TEST(WaitForResult(queue, result) == nullptr, ());
+}
+
+UNIT_TEST(MessageQueue_CancelRacingWithTimedWait)
+{
+  df::MessageQueue queue;
+  std::promise<void> started;
+  auto result = std::async(std::launch::async, [&queue, &started]
+  {
+    started.set_value();
+    return queue.PopMessage(true, 10s);
+  });
+  started.get_future().wait();
+  queue.CancelWait();
+  TEST(WaitForResult(queue, result) == nullptr, ());
+}
+
+UNIT_TEST(MessageQueue_LowPriorityPushRacingWithTimedWait)
+{
+  df::MessageQueue queue;
+  std::promise<void> started;
+  auto result = std::async(std::launch::async, [&queue, &started]
+  {
+    started.set_value();
+    return queue.PopMessage(true, 10s);
+  });
+  started.get_future().wait();
+  queue.PushMessage(make_unique_dp<TestMessage>(1, df::Message::Type::Invalidate), df::MessagePriority::Low);
+  auto const msg = WaitForResult(queue, result);
+  TEST(msg != nullptr, ());
+  TEST_EQUAL(static_cast<TestMessage *>(msg.get())->m_id, 1, ());
+}
+
 // UberHighSingleton jumps the whole queue and is deduplicated by message type, High overtakes Normal but
 // stays behind UberHighSingleton, and Low is drained only after everything else.
 UNIT_TEST(MessageQueue_PriorityOrder)

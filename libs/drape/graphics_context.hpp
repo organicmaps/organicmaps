@@ -47,11 +47,19 @@ enum class StencilAction : uint8_t
   Invert
 };
 
+enum class FrameStatus
+{
+  Ready,
+  Suspended,  // A surface event must wake the renderer.
+  Retry,      // Recovery made progress; another attempt can start immediately.
+  RetryLater  // A transient failure still needs a bounded retry wait.
+};
+
 class GraphicsContext
 {
 public:
   virtual ~GraphicsContext() = default;
-  virtual bool BeginRendering() { return true; }
+  virtual FrameStatus BeginRendering() { return FrameStatus::Ready; }
   virtual void EndRendering() {}
   virtual void Present() = 0;
   virtual void MakeCurrent() = 0;

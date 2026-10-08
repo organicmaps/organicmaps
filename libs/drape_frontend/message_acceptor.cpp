@@ -4,9 +4,9 @@
 
 namespace df
 {
-bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
+bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage, std::chrono::milliseconds timeout)
 {
-  drape_ptr<Message> message = m_messageQueue.PopMessage(waitForMessage);
+  drape_ptr<Message> message = m_messageQueue.PopMessage(waitForMessage, timeout);
   if (message == nullptr)
     return false;
 

@@ -4,12 +4,16 @@
 
 namespace df
 {
-drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
+drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage, std::chrono::milliseconds timeout)
 {
   std::unique_lock<std::mutex> lock(m_mutex);
   if (waitForMessage)
   {
-    m_condition.wait(lock, [this] { return m_cancelPending || !m_messages.empty() || !m_lowPriorityMessages.empty(); });
+    auto const ready = [this] { return m_cancelPending || !m_messages.empty() || !m_lowPriorityMessages.empty(); };
+    if (timeout == std::chrono::milliseconds::max())
+      m_condition.wait(lock, ready);
+    else
+      m_condition.wait_for(lock, timeout, ready);
     m_cancelPending = false;
   }
 

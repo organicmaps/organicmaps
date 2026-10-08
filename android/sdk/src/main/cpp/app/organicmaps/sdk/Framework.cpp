@@ -400,6 +400,7 @@ void Framework::ResumeSurfaceRendering()
     if (factory->IsValid())
       factory->SetPresentAvailable(true);
   }
+  m_work.MakeFrameActive();
   LOG(LINFO, ("Resume surface rendering."));
 }
 
