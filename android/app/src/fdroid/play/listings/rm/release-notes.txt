@@ -1,10 +1,9 @@
-• Datas OSM dals 26 d’avust
-• NOV: selecziun multipla da segnapaginas e percurs
-• NOV: zuppentar singuls percurs cun il simbol da l’egl
-• NOV: artitgels da Wikipedia en bengal, hindi, marathi, polac, tamil, telugu ed urdu
-• Agiuntà a la carta: chamonnas d’observaziun d’utschels, palcs, collinas ed arcs natirals
-• Meglra cundivisiun da lieus
-• Correcturas per Android Auto
-• Corregì la selecziun da las fermadas da la ruta
-• Corregì ils uraris d’avertura
+• Datas OSM dals 28 da settember; Wikipedia dals 21 da settember
+• Megliers percurs alternativs e temps stimads d’arrivada
+• Nova opziun per optimar l’urden da las fermadas intermediaras
+• Novs buttuns per agiuntar u remplazzar ina fermada sin in percurs planisà
+• Il percurs alternativ tschernì resta tschernì durant la navigaziun
+• Registraziun dals percurs curregida e meglierada
+• Import da datotecas KMB curregì
+• Interfatscha d’utilisader meglierada e curregida
 …dapli sin omaps.org/news

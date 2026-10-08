@@ -1,10 +1,9 @@
-• Données OSM au 26 août
-• NOUVEAU : sélection multiple des signets et parcours
-• NOUVEAU : masquer un parcours avec l’icône en forme d’œil
-• NOUVEAU : articles Wikipédia en bengali, hindi, marathi, polonais, tamoul, télougou, ourdou
-• Plantages et blocages corrigés
-• Ajout sur la carte d’affûts ornithologiques, scènes, collines et arches rocheuses
-• Meilleur partage des lieux
-• Corrections pour Android Auto
-• Sélection des arrêts d’itinéraire corrigée
-…plus d’informations sur omaps.org/fr/news
+• OSM : 28 sept.; Wikipédia : 21 sept.
+• Itinéraires de rechange et heures d’arrivée estimées améliorés
+• Nouveau réglage pour optimiser l’ordre des étapes
+• Boutons pour ajouter ou remplacer une étape d’un itinéraire prévu
+• L’itinéraire de rechange choisi reste actif en navigation
+• Enregistrement des tracés corrigé et amélioré
+• Importation des fichiers KMB corrigée
+• Interface améliorée et bogues corrigés
+…plus sur omaps.org/fr/news

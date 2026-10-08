@@ -1,50 +1,33 @@
-## Mappa e luoghi
+## Calcolo del percorso
+• Miglioramento dei percorsi alternativi e dei relativi tempi di arrivo stimati
+• Aggiunti pulsanti per aggiungere o sostituire una tappa in un percorso pianificato
+• Aggiunta un’impostazione per ottimizzare l’ordine delle tappe intermedie del percorso
+• Il percorso alternativo selezionato viene ora mantenuto quando la navigazione ricalcola il percorso
+• L’ordine delle tappe del percorso viene ora ripristinato dopo il riavvio dell’app
 
-• Dati OpenStreetMap aggiornati al 26 agosto 2026
-• Articoli di Wikipedia aggiornati in arabo, bengalese, cinese, inglese, francese, tedesco, hindi, italiano, giapponese, coreano, marathi, polacco, portoghese, russo, spagnolo, tamil, telugu, turco e urdu
-• Sono stati aggiunti alla mappa capanni per il birdwatching, palcoscenici, colline e archi rocciosi, oltre a una nuova icona per le rocce
-• Sono state ridimensionate le icone di vette, grotte e passi di montagna
-• Le aree protette, i parchi nazionali e le zone umide vengono ora visualizzati con tonalità più chiare
-• Sono stati risolti numerosi problemi che causavano la visualizzazione errata degli orari di apertura
-• Le impostazioni sono state riorganizzate nelle sezioni «Generale», «Mappa», «Navigazione», «Rete» e «Privacy»
-• È stata rimossa l’impostazione di calibrazione della bussola, poiché la calibrazione viene ora gestita automaticamente
-• Sono stati risolti i problemi della bussola che potevano far puntare la freccia della posizione corrente nella direzione sbagliata o bloccarla
-• Il punto corrispondente viene ora visualizzato sulla mappa mentre si trascina il dito lungo il profilo altimetrico nell’anteprima di un percorso a piedi o in bicicletta
-• Sono stati risolti un blocco dell’app e un problema che occasionalmente faceva ignorare tocchi e gesti
+## Mappa
+• Dati OpenStreetMap aggiornati al 28 settembre
+• Dati di Wikipedia aggiornati al 21 settembre
+• I bacini idrici sono ora visibili quando si allarga ulteriormente la visuale
+• I tunnel idrici non vengono più visualizzati sulla mappa
+• Corrette le icone delle stazioni e degli ingressi della metropolitana di Suzhou
+• Sono stati risolti rari casi in cui le etichette si spostavano fuori posizione sul livello della mappa della metropolitana
 
-## Condivisione, preferiti e tracce
+## CarPlay
+• Aggiunte le istruzioni di manovra sugli head-up display (HUD) delle auto supportate e sulla dashboard di CarPlay
+• Corretto il funzionamento dei pulsanti e della ricerca in CarPlay
 
-• NOVITÀ: è stata aggiunta la selezione multipla agli elenchi dei preferiti e delle tracce, con azioni di gruppo per eliminare, spostare e cambiare il colore degli elementi selezionati, oltre a «Seleziona tutto» e «Deseleziona tutto»
-• Aggiunto il supporto AirDrop per la condivisione dei luoghi
-• La condivisione di un luogo, di un preferito o della posizione corrente invia ora un link leggibile contenente informazioni utili
-• I preferiti esportati mantengono ora i nomi e le descrizioni originali
-• Gli elenchi di preferiti condivisi utilizzano ora il nome visualizzato anziché il nome interno del file
-• È stato risolto un problema di visualizzazione del grafico altimetrico che poteva verificarsi subito dopo l’avvio della registrazione di una traccia
-• È stato ripristinato il selettore di colore personalizzato nel popover della tavolozza dei colori
-• È stata corretta la visualizzazione delle descrizioni HTML quando si seleziona un preferito sulla mappa
+## Tracce
+• Aggiunta un'icona a forma di occhio per nascondere singole tracce
+• Correzione di bug e miglioramento della registrazione dei tracciati
+• Risolto il problema di importazione dei file KMB
 
-## Percorsi e navigazione
+## Cerca
+• Risolto il problema delle ricerche quando l’area visibile della mappa attraversa il meridiano dei 180° (longitudine ±180°)
+• Ripristinata la ricerca per categoria in Spotlight
 
-• NOVITÀ: è stata aggiunta una dashboard CarPlay e sono stati risolti diversi problemi relativi a CarPlay
-• È stata corretta l’attivazione dello stile della mappa di navigazione per auto
-• Toccando una tappa o un punto del percorso, ora questo si apre correttamente invece di passare da un percorso pianificato all’altro
-• I percorsi con i mezzi pubblici vengono ora calcolati più rapidamente
-• Sono state corrette indicazioni di svolta errate
-• È stato corretto un punto di partenza errato dopo il ricalcolo di un percorso
-• Durante il calcolo del percorso, le strade in laterite vengono ora considerate come strade non asfaltate di scarsa qualità
-• Le strade contrassegnate con access=unknown vengono ora gestite come strade con accesso privato o consentito solo a chi è diretto a destinazione
-
-## Editor di OpenStreetMap
-
-• È stato risolto un arresto anomalo che si verificava al termine di un caricamento su OpenStreetMap in background
-• La cancellazione del campo degli orari di apertura non lascia più disattivati i pulsanti «Salva» o «Fatto»
-• I caricamenti che falliscono parzialmente vengono ora ritentati anziché essere segnalati come completamente riusciti
-
-## Traduzioni
-
-• Aggiunte le istruzioni vocali in armeno e laotiano
-• Aggiornata la sezione Aiuto/Domande frequenti (FAQ), aggiunta la traduzione in giapponese
-• È stata corretta la traduzione in giapponese di «Ora chiuso»
-• Sono state migliorate le traduzioni in cinese di «traccia» e «disattiva»
-
-Le note di rilascio dettagliate sono disponibili su https://omaps.org/it/news/
+## Interfaccia utente
+• Gli orari di apertura ora mostrano «Mezzogiorno» per le 12:00 e «Mezzanotte» per le 00:00 o le 24:00
+• Sono stati corretti vari bug e migliorata l’interfaccia utente
+• Traduzioni corrette in inglese, francese e asturiano
+• Aggiunta la possibilità di selezionare una voce di navigazione installata e ascoltarne un’anteprima

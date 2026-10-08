@@ -1,11 +1,9 @@
-• OSM-tiedot 26. elokuuta
-• UUTTA: kirjanmerkkien ja reittien monivalinta
-• UUTTA: yksittäisten reittien piilotus silmäkuvakkeella
-• UUTTA: Wikipedia-artikkelit bengaliksi, hindiksi, marathiksi, puolaksi, tamiliksi, teluguksi ja urduksi
-• Korjattu kaatumiset ja jumiutumiset
-• Kartalle lisätty lintupiiloja, esiintymislavoja, kukkuloita ja kivikaaria
-• Parempi paikkojen jakaminen
-• Android Auto -korjauksia
-• Korjattu reitin pysäkkien valinta
-• Korjattu aukioloajat
-…lisää osoitteessa omaps.org/news
+• OSM-tiedot: 28. syyskuuta; Wikipedia-tiedot: 21. syyskuuta
+• Parannetut vaihtoehtoiset reitit ja arvioidut saapumisajat
+• Uusi asetus optimoi välipysähdysten järjestyksen
+• Uudet painikkeet lisäävät tai korvaavat välipysähdyksiä suunnitellulla reitillä
+• Valittu vaihtoehtoinen reitti pysyy valittuna navigoinnin aikana
+• Jälkien tallennus korjattu ja parannettu
+• KMB-tiedostojen tuonti korjattu
+• Käyttöliittymän parannukset ja korjaukset
+…lisätietoja osoitteessa omaps.org/news

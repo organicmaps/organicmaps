@@ -1,11 +1,9 @@
-• Dane OSM z 26 sierpnia
-• NOWOŚĆ: zaznaczanie wielu zakładek i tras
-• NOWOŚĆ: ukrywanie pojedynczych tras ikoną oka
-• NOWOŚĆ: artykuły Wikipedii w językach bengalskim, hindi, marathi, polskim, tamilskim, telugu i urdu
-• Poprawione awarie i zawieszenia
-• Na mapie dodano kryjówki do obserwacji ptaków, sceny, wzgórza i łuki skalne
-• Lepsze udostępnianie miejsc
-• Poprawki dla Android Auto
-• Poprawiony wybór przystanków trasy
-• Poprawione godziny otwarcia
-…więcej na omaps.org/pl/news
+• OSM: 28 września; Wikipedia: 21 września
+• Lepsze trasy alternatywne i szacowane czasy przyjazdu
+• Nowe ustawienie optymalizuje kolejność punktów pośrednich
+• Nowe przyciski dodają lub zastępują punkty na zaplanowanej trasie
+• Wybrana trasa alternatywna jest zachowywana podczas nawigacji
+• Poprawki i ulepszenia rejestrowania śladów
+• Naprawiono import plików KMB
+• Poprawki i ulepszenia interfejsu użytkownika
+…więcej na stronie omaps.org/pl/news

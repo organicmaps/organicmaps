@@ -1,11 +1,9 @@
-• Dades d’OSM del 26 d’agost
-• NOU: selecció múltiple de marcadors i recorreguts
-• NOU: amaga recorreguts concrets amb la icona de l’ull
-• NOU: articles de la Viquipèdia en bengalí, hindi, marathi, polonès, tàmil, telugu i urdú
-• Corregides fallades i bloqueigs
-• Afegits al mapa aguaits d’ocells, escenaris, turons i arcs rocosos
-• Millor compartició de llocs
-• Correccions per a Android Auto
-• Corregida la selecció de parades de la ruta
-• Corregits els horaris d’obertura
+• OSM: 28 de setembre; Wikipedia: 21 de setembre
+• Millors rutes alternatives i estimacions d'arribada
+• Una nova configuració optimitza l'ordre de les parades
+• Nous botons per afegir o substituir parades en rutes planificades
+• Es manté la ruta alternativa escollida durant la navegació
+• Correccions i millores en l'enregistrament de traçats
+• Corregida la importació de fitxers KMB
+• Correccions i millores de la interfície d'usuari
 …més a omaps.org/ca/news

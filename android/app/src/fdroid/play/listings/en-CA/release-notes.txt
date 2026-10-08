@@ -1,14 +1,9 @@
-• OSM data as of August 26
-• NEW: Multi-selection for bookmarks and tracks
-• NEW: Hide individual tracks using eye icon
-• NEW: Wikipedia articles in Bengali, Hindi, Marathi, Polish, Tamil, Telugu, Urdu
-• Fixed crashes and freezes
-• Added bird hides, stages, hills, and rock arches to the map
-• Better place sharing
-• Android Auto fixes
-• Fixed route stops selection
-• Fixed opening hours
-• Better search panel
-• Fixed OSM editor issues
-• Fixed elevation chart
-…more at omaps.org/news
+• OSM data as of September 28, Wikipedia as of September 21
+• Improved alternative routes and their estimated arrival times
+• Added a setting to optimize the order of intermediate route stops
+• Added buttons for adding or replacing a stop in a planned route
+• The selected alternative route is now preserved during navigation
+• Fixed and improved track recording
+• Fixed importing KMB files
+• User interface improvements and fixes
+…more details at omaps.org/news

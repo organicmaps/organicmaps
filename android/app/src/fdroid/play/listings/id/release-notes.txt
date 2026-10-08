@@ -1,11 +1,9 @@
-• Data OSM per 26 Agustus
-• BARU: pemilihan ganda untuk penanda dan jalur
-• BARU: sembunyikan masing-masing jalur dengan ikon mata
-• BARU: artikel Wikipedia dalam bahasa Bengali, Hindi, Marathi, Polandia, Tamil, Telugu, Urdu
-• Perbaikan crash dan macet
-• Ditambahkan ke peta: tempat pengamatan burung, panggung, bukit, dan lengkung batu alami
-• Berbagi tempat lebih baik
-• Perbaikan Android Auto
-• Perbaikan pemilihan perhentian rute
-• Perbaikan jam buka
+• OSM: 28 September; Wikipedia: 21 September
+• Rute alternatif yang lebih baik dan perkiraan waktu tiba
+• Pengaturan baru mengoptimalkan urutan perhentian
+• Tombol-tombol baru memungkinkan penambahan atau penggantian titik perhentian pada rute yang direncanakan
+• Rute alternatif yang dipilih tetap dipertahankan selama navigasi
+• Perekaman trek diperbaiki dan ditingkatkan
+• Masalah impor KMB telah diperbaiki
+• Perbaikan dan peningkatan antarmuka pengguna
 …selengkapnya di omaps.org/id/news
