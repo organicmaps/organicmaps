@@ -447,14 +447,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
     mPhonesRecycler = blockPhone.findViewById(R.id.edit_phones_recycler);
-    /*
-        if (Editor.nativeIsPhoneValid(phone))
-        {
-          Editor.nativeSetPhone(phone);
-          editMapObject();
-        }
-
-     */
 
     View websiteBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website, R.drawable.ic_website,
                                   R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
