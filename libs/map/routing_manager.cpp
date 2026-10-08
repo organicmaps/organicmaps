@@ -821,9 +821,9 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
     { transitRouteDisplay->CreateTransitMarks(); });
   }
 
-  // We render marks for every warning, but only an avoidable warning (toll/ferry/dirty) on a car
-  // route should surface the "driving options" affordance via RouterResultCode::HasWarnings.
-  // Steps/gate/lift_gate have no avoid option, and non-car routes have no driving options at all.
+  // HasWarnings signals avoidable car-road warnings. Walking and cycling still render their warning
+  // marks and expose ferry avoidance directly.
+  // Steps/gate/lift_gate have no avoidance control.
   bool const hasDrivingOptionsWarning =
       m_currentRouterType == RouterType::Vehicle &&
       base::AnyOf(roadWarnings, [](auto const & w) { return IsAvoidableRoadWarning(w.first); });

@@ -35,7 +35,7 @@ public abstract class GoogleAssistantIntentHandler
 
       Router routingMode = parseRoutingMode(uri);
 
-      applyAvoidOptions(uri);
+      applyAvoidOptions(uri, routingMode);
 
       RoutingController.get().setRouterType(routingMode);
 
@@ -158,7 +158,7 @@ public abstract class GoogleAssistantIntentHandler
   /**
    * Apply avoid options: t=tolls, f=ferries, h=highways
    */
-  private static void applyAvoidOptions(@NonNull Uri uri)
+  private static void applyAvoidOptions(@NonNull Uri uri, @NonNull Router router)
   {
     try
     {
@@ -167,11 +167,11 @@ public abstract class GoogleAssistantIntentHandler
         return;
 
       if (avoid.indexOf('t') >= 0)
-        RoutingOptions.addOption(RoadType.Toll);
+        RoutingOptions.addOption(router, RoadType.Toll);
       if (avoid.indexOf('f') >= 0)
-        RoutingOptions.addOption(RoadType.Ferry);
+        RoutingOptions.addOption(router, RoadType.Ferry);
       if (avoid.indexOf('h') >= 0)
-        RoutingOptions.addOption(RoadType.Motorway);
+        RoutingOptions.addOption(router, RoadType.Motorway);
     }
     catch (Exception e)
     {
@@ -274,32 +274,32 @@ public abstract class GoogleAssistantIntentHandler
       case "unmute": TtsPlayer.setEnabled(true); return true;
 
       case "avoid_tolls":
-        RoutingOptions.addOption(RoadType.Toll);
+        RoutingOptions.addOption(Router.Vehicle, RoadType.Toll);
         rebuildRouteIfNeeded();
         return true;
 
       case "avoid_ferries":
-        RoutingOptions.addOption(RoadType.Ferry);
+        RoutingOptions.addOption(Router.Vehicle, RoadType.Ferry);
         rebuildRouteIfNeeded();
         return true;
 
       case "avoid_highways":
-        RoutingOptions.addOption(RoadType.Motorway);
+        RoutingOptions.addOption(Router.Vehicle, RoadType.Motorway);
         rebuildRouteIfNeeded();
         return true;
 
       case "allow_tolls":
-        RoutingOptions.removeOption(RoadType.Toll);
+        RoutingOptions.removeOption(Router.Vehicle, RoadType.Toll);
         rebuildRouteIfNeeded();
         return true;
 
       case "allow_ferries":
-        RoutingOptions.removeOption(RoadType.Ferry);
+        RoutingOptions.removeOption(Router.Vehicle, RoadType.Ferry);
         rebuildRouteIfNeeded();
         return true;
 
       case "allow_highways":
-        RoutingOptions.removeOption(RoadType.Motorway);
+        RoutingOptions.removeOption(Router.Vehicle, RoadType.Motorway);
         rebuildRouteIfNeeded();
         return true;
 

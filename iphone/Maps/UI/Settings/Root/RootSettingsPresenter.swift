@@ -19,6 +19,18 @@ final class RootSettingsPresenter {
     viewController?.display(screen)
   }
 
+  func presentRoutingProfiles() {
+    let alert = UIAlertController(title: L("driving_options_title"), message: nil, preferredStyle: .alert)
+    for type in MWMRouterType.allCases where !RoutingOptions(routerType: type).supportedOptions.isEmpty {
+      alert.addAction(UIAlertAction(title: type.routingOptionsTitle, style: .default) { [weak self] _ in
+        let controller = SettingsBuilder.buildRoutingOptions(routerType: type)
+        self?.viewController?.navigationController?.pushViewController(controller, animated: true)
+      })
+    }
+    alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+    viewController?.display(alert)
+  }
+
   func present3dBuildingsDisabledAlert() {
     let alert = UIAlertController(title: L("pref_map_3d_buildings_title"),
                                   message: L("pref_map_3d_buildings_disabled_summary"),

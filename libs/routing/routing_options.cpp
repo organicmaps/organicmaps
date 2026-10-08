@@ -1,12 +1,12 @@
 #include "routing/routing_options.hpp"
 
+#include "routing/router.hpp"
+
 #include "platform/settings.hpp"
 
 #include "indexer/classificator.hpp"
 
 #include "base/assert.hpp"
-#include "base/checked_cast.hpp"
-#include "base/string_utils.hpp"
 
 #include <sstream>
 
@@ -15,22 +15,83 @@ namespace routing
 // RoutingOptions -------------------------------------------------------------------------------------
 
 std::string_view constexpr kRouteOptimizationEnabledKey = "RouteOptimizationEnabled";
-std::string_view constexpr kAvoidRoutingOptionSettingsForCar = "avoid_routing_options_car";
 
-// static
-RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
+namespace
 {
-  uint32_t mode = 0;
-  if (!settings::Get(kAvoidRoutingOptionSettingsForCar, mode))
-    mode = 0;
+std::string_view SettingsKey(VehicleType vehicleType)
+{
+  switch (vehicleType)
+  {
+  case VehicleType::Car: return "avoid_routing_options_car";
+  case VehicleType::Bicycle: return "avoid_routing_options_bicycle";
+  case VehicleType::Pedestrian: return "avoid_routing_options_pedestrian";
+  case VehicleType::Transit: return {};
+  case VehicleType::Count: break;
+  }
+  CHECK(false, (vehicleType));
+  return {};
+}
+}  // namespace
 
-  return RoutingOptions(base::checked_cast<RoadType>(mode));
+RoutingOptions::RoadType RoutingOptions::GetSupportedOptions(VehicleType vehicleType)
+{
+  switch (vehicleType)
+  {
+  case VehicleType::Car: return Toll | Motorway | Ferry | Dirty;
+  case VehicleType::Bicycle:
+  case VehicleType::Pedestrian: return Ferry;
+  case VehicleType::Transit: return 0;
+  case VehicleType::Count: break;
+  }
+  CHECK(false, (vehicleType));
+  return 0;
+}
+
+std::optional<VehicleType> RoutingOptions::GetVehicleType(RouterType routerType)
+{
+  switch (routerType)
+  {
+  case RouterType::Vehicle: return VehicleType::Car;
+  case RouterType::Bicycle: return VehicleType::Bicycle;
+  case RouterType::Pedestrian: return VehicleType::Pedestrian;
+  case RouterType::Transit: return VehicleType::Transit;
+  case RouterType::Ruler: return {};
+  case RouterType::Count: break;
+  }
+  CHECK(false, (routerType));
+  return {};
+}
+
+std::optional<RoutingOptions::Road> RoutingOptions::RoadFromId(uint32_t id)
+{
+  switch (id)
+  {
+  case Usual:
+  case Toll:
+  case Motorway:
+  case Ferry:
+  case Dirty:
+  case Steps: return static_cast<Road>(id);
+  default: return {};
+  }
 }
 
 // static
-void RoutingOptions::SaveCarOptionsToSettings(RoutingOptions options)
+RoutingOptions RoutingOptions::LoadFromSettings(VehicleType vehicleType)
 {
-  settings::Set(kAvoidRoutingOptionSettingsForCar, strings::to_string(static_cast<int32_t>(options.GetOptions())));
+  auto const key = SettingsKey(vehicleType);
+  uint32_t mask = 0;
+  if (!key.empty())
+    settings::TryGet(key, mask);
+  return RoutingOptions(static_cast<RoadType>(mask & GetSupportedOptions(vehicleType)));
+}
+
+// static
+void RoutingOptions::SaveToSettings(VehicleType vehicleType, RoutingOptions options)
+{
+  auto const key = SettingsKey(vehicleType);
+  if (!key.empty())
+    settings::Set(key, static_cast<uint32_t>(options.GetOptions() & GetSupportedOptions(vehicleType)));
 }
 
 // static
@@ -148,15 +209,25 @@ std::string DebugPrint(RoutingOptions::Road type)
   UNREACHABLE();
 }
 
-RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask)
+RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask, VehicleType vehicleType)
+  : m_vehicleType(vehicleType)
 {
-  m_saved = RoutingOptions::LoadCarOptionsFromSettings();
-  RoutingOptions::SaveCarOptionsToSettings(RoutingOptions(roadsMask));
+  auto const key = SettingsKey(vehicleType);
+  std::string value;
+  if (!key.empty() && settings::Get(key, value))
+    m_saved = value;
+  RoutingOptions::SaveToSettings(vehicleType, RoutingOptions(roadsMask));
 }
 
 RoutingOptionSetter::~RoutingOptionSetter()
 {
-  RoutingOptions::SaveCarOptionsToSettings(m_saved);
+  auto const key = SettingsKey(m_vehicleType);
+  if (key.empty())
+    return;
+  if (m_saved)
+    settings::Set(key, *m_saved);
+  else
+    settings::Delete(key);
 }
 
 }  // namespace routing

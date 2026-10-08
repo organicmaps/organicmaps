@@ -224,6 +224,10 @@ extension RootSettingsInteractor: SettingsViewControllerInteractor {
   }
 
   private func select(_ setting: RootSettings) {
+    if setting == .routingOptions {
+      presenter?.presentRoutingProfiles()
+      return
+    }
     if setting == .buildings3D, !isBuildings3DEditable {
       set(setting, enabled: false)
       return

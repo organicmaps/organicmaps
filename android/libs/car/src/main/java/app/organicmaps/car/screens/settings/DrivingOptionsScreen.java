@@ -15,6 +15,7 @@ import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.routing.RoutingOptions;
@@ -63,7 +64,7 @@ public class DrivingOptionsScreen extends BaseMapScreen
     for (final DrivingOption drivingOption : mDrivingOptions)
     {
       if (Boolean.TRUE.equals(mInitialDrivingOptionsState.get(drivingOption.roadType))
-          != RoutingOptions.hasOption(drivingOption.roadType))
+          != RoutingOptions.hasOption(Router.Vehicle, drivingOption.roadType))
       {
         setResult(DRIVING_OPTIONS_RESULT_CHANGED);
         return;
@@ -94,21 +95,23 @@ public class DrivingOptionsScreen extends BaseMapScreen
   {
     final Toggle.OnCheckedChangeListener listener = (unused) ->
     {
-      if (RoutingOptions.hasOption(roadType))
-        RoutingOptions.removeOption(roadType);
+      if (RoutingOptions.hasOption(Router.Vehicle, roadType))
+        RoutingOptions.removeOption(Router.Vehicle, roadType);
       else
-        RoutingOptions.addOption(roadType);
+        RoutingOptions.addOption(Router.Vehicle, roadType);
       invalidate();
     };
     final Row.Builder toggle = new Row.Builder();
     toggle.setTitle(getCarContext().getString(title));
-    toggle.setToggle(new Toggle.Builder(listener).setChecked(RoutingOptions.hasOption(roadType)).build());
+    toggle.setToggle(
+        new Toggle.Builder(listener).setChecked(RoutingOptions.hasOption(Router.Vehicle, roadType)).build());
     return toggle.build();
   }
 
   private void initDrivingOptionsState()
   {
     for (final DrivingOption drivingOption : mDrivingOptions)
-      mInitialDrivingOptionsState.put(drivingOption.roadType, RoutingOptions.hasOption(drivingOption.roadType));
+      mInitialDrivingOptionsState.put(drivingOption.roadType,
+                                      RoutingOptions.hasOption(Router.Vehicle, drivingOption.roadType));
   }
 }

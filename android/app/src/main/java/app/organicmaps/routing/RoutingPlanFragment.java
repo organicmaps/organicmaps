@@ -41,6 +41,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mTransitStepsView;
   private ChartHeaderAdapter mChartHeaderAdapter;
   private View mDrivingOptionsBtn;
+  private View mDrivingOptionsContainer;
   private View mReverseRouteBtn;
   private View mFrame;
   private View mRoutingRoot;
@@ -59,6 +60,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private int mPeekHeightMargins;
   private View mButtonsLayout;
   private int mTopInset;
+  private boolean mRoutingContentActive = true;
 
   // Single source of truth for the sheet's visibility: planning wants it AND no place page is covering it.
   private final MediatorLiveData<Boolean> mSheetVisible = new MediatorLiveData<>();
@@ -117,7 +119,9 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mTransitStepsView = mChartPanel.findViewById(R.id.transit_recycler_view);
     mDrivingOptionsBadge = mChartPanel.findViewById(R.id.driving_options_badge);
     mDrivingOptionsBtn = mChartPanel.findViewById(R.id.driving_options_btn_img);
-    mDrivingOptionsBtn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
+    mDrivingOptionsContainer = mChartPanel.findViewById(R.id.driving_options_btn_container);
+    mDrivingOptionsBtn.setOnClickListener(
+        v -> DrivingOptionsActivity.start(requireActivity(), RoutingController.get().getLastRouterType()));
     mReverseRouteBtn = mChartPanel.findViewById(R.id.reverse_route_btn);
     mReverseRouteBtn.setOnClickListener(v -> RoutingController.get().reverseRoute());
 
@@ -147,7 +151,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (savedInstanceState != null)
       restoreRoutingPanelState(savedInstanceState);
 
-    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
+    updateRoutingOptions(RoutingController.get().getLastRouterType());
     mRoutingContainer.addOnLayoutChangeListener(this);
   }
 
@@ -263,7 +267,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   private void setRoutingContentActive(boolean active)
   {
-    mDrivingOptionsBtn.setEnabled(active);
+    mRoutingContentActive = active;
+    updateRoutingOptions(RoutingController.get().getLastRouterType());
     mReverseRouteBtn.setEnabled(active);
     mChartPanel.setAlpha(active ? 1.0f : 0.2f);
   }
@@ -303,7 +308,11 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   private void setRouterClick(@IdRes int buttonId, @NonNull Router router)
   {
-    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> RoutingController.get().setRouterType(router));
+    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> {
+      RoutingController.get().setRouterType(router);
+      // A partial plan has no calculation callback to refresh its settings controls.
+      updateRoutingOptions(router);
+    });
   }
 
   @IdRes
@@ -362,12 +371,21 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     }
   }
 
+  private void updateRoutingOptions(@NonNull Router router)
+  {
+    final boolean hasSettings = RoutingOptions.hasSettings(router);
+    mDrivingOptionsBtn.setEnabled(mRoutingContentActive && hasSettings);
+    mDrivingOptionsContainer.setAlpha(hasSettings ? 1.0f : 0.5f);
+    updateBadgeCount(hasSettings ? RoutingOptions.getActiveRoadTypes(router).size() : 0);
+  }
+
   private void updateBuildProgress(int progress, @NonNull Router router)
   {
     if (getView() == null)
       return;
 
     mRouterTypes.check(routerToButtonId(router));
+    updateRoutingOptions(router);
     updateProgressLabels();
     final RoutingController controller = RoutingController.get();
     if (controller.isBuilding())
@@ -400,7 +418,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.setBottomSheetState(state.getInt(TAG + "_bottom_sheet_state", BottomSheetBehavior.STATE_COLLAPSED));
     if (mRoutingBottomMenuController != null)
       mRoutingBottomMenuController.restoreRoutingPanelState(state);
-    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
+    updateRoutingOptions(RoutingController.get().getLastRouterType());
   }
 
   @Override
@@ -432,7 +450,10 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.unable_to_calc_alert_title)
         .setMessage(R.string.unable_to_calc_alert_subtitle)
-        .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(requireActivity()))
+        .setPositiveButton(
+            R.string.settings,
+            (dialog,
+             which) -> DrivingOptionsActivity.start(requireActivity(), RoutingController.get().getLastRouterType()))
         .setNegativeButton(R.string.cancel, null)
         .show();
   }

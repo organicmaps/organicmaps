@@ -14,6 +14,16 @@ enum RoutingOption: String {
 extension RoutingOption {
   static let avoidanceOptions: [RoutingOption] = [.tollRoads, .unpavedRoads, .ferryCrossings, .motorways]
 
+  func isSupported(in options: RoutingOptions) -> Bool {
+    switch self {
+    case .routeOptimization: return true
+    case .tollRoads: return options.supportedOptions.contains(.toll)
+    case .unpavedRoads: return options.supportedOptions.contains(.dirty)
+    case .ferryCrossings: return options.supportedOptions.contains(.ferry)
+    case .motorways: return options.supportedOptions.contains(.motorway)
+    }
+  }
+
   var title: String {
     switch self {
     case .routeOptimization: return L("route_optimization")
@@ -51,3 +61,19 @@ struct RoutingOptionsSettingsState {
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>
 typealias RoutingOptionsSettingsSectionViewModel = SettingsSectionViewModel<RoutingOptionsSettingsSection, RoutingOption>
 typealias RoutingOptionsSettingsItemViewModel = SettingsItemViewModel<RoutingOption>
+
+extension MWMRouterType {
+  var hasRoutingSettings: Bool {
+    // Transit exposes global optimization without introducing road avoidances.
+    self != .ruler
+  }
+
+  var routingOptionsTitle: String {
+    switch self {
+    case .vehicle: return L("routing_options_driving")
+    case .bicycle: return L("routing_options_cycling")
+    case .pedestrian: return L("routing_options_walking")
+    default: return L("driving_options_title")
+    }
+  }
+}

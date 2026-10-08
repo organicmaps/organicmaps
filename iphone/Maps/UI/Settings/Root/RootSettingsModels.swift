@@ -87,9 +87,9 @@ extension RootSettings {
     case .bookmarksTextPlacement: return .bookmarksTextPlacement
     case .appearance: return .appearance
     case .voiceInstructions: return .voiceInstructions
-    case .routingOptions: return .drivingOptions
     case .mapTiles: return .mapTiles
-    case .zoomButtons,
+    case .routingOptions,
+         .zoomButtons,
          .buildings3D,
          .autoDownload,
          .showDownloadedRegions,

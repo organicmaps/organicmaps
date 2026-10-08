@@ -10,7 +10,7 @@ final class SettingsTemplateBuilder {
   }
 
   private class func buildGridButtons() -> [CPGridButton] {
-    let options = RoutingOptions()
+    let options = RoutingOptions(routerType: .vehicle)
     return [createUnpavedButton(options: options),
             createTollButton(options: options),
             createFerryButton(options: options),
@@ -25,7 +25,7 @@ final class SettingsTemplateBuilder {
     let avoidToll = !options.avoidToll
     return CPGridButton(titleVariants: [L("avoid_tolls")],
                         image: UIImage(named: tollIconName)!) { _ in
-      let options = RoutingOptions()
+      let options = RoutingOptions(routerType: .vehicle)
       options.avoidToll = avoidToll
       options.save()
       CarPlayService.shared.updateRouteAfterChangingSettings()
@@ -38,7 +38,7 @@ final class SettingsTemplateBuilder {
     let avoidDirty = !options.avoidDirty
     return CPGridButton(titleVariants: [L("avoid_unpaved")],
                         image: UIImage(named: unpavedIconName)!) { _ in
-      let options = RoutingOptions()
+      let options = RoutingOptions(routerType: .vehicle)
       options.avoidDirty = avoidDirty
       options.save()
       CarPlayService.shared.updateRouteAfterChangingSettings()
@@ -51,7 +51,7 @@ final class SettingsTemplateBuilder {
     let avoidFerry = !options.avoidFerry
     return CPGridButton(titleVariants: [L("avoid_ferry")],
                         image: UIImage(named: ferryIconName)!) { _ in
-      let options = RoutingOptions()
+      let options = RoutingOptions(routerType: .vehicle)
       options.avoidFerry = avoidFerry
       options.save()
       CarPlayService.shared.updateRouteAfterChangingSettings()

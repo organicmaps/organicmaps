@@ -41,6 +41,7 @@ import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
@@ -706,7 +707,15 @@ public class PlacePageController
   {
     List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
     PlacePageButtons.ButtonType roadAvoidButton = toPlacePageButton(mapObject.getRoadWarningMarkType());
-    if (roadAvoidButton != null)
+    RoadType roadType = switch (mapObject.getRoadWarningMarkType())
+    {
+      case TOLL -> RoadType.Toll;
+      case FERRY -> RoadType.Ferry;
+      case DIRTY -> RoadType.Dirty;
+      default -> null;
+    };
+    if (roadAvoidButton != null && roadType != null
+        && RoutingOptions.supportsOption(RoutingController.get().getLastRouterType(), roadType))
     {
       buttons.add(roadAvoidButton);
     }

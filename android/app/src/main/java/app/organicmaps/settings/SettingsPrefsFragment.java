@@ -18,6 +18,7 @@ import app.organicmaps.editor.LanguagesFragment;
 import app.organicmaps.editor.ProfileActivity;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.editor.data.Language;
@@ -90,7 +91,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   private void updateRoutingSettingsPrefsSummary()
   {
     final Preference pref = getPreference(getString(R.string.prefs_routing));
-    pref.setSummary(RoutingOptions.hasAnyOptions() ? R.string.on : R.string.off);
+    boolean hasOptions = false;
+    for (Router router : Router.values())
+      hasOptions |= RoutingOptions.hasAnyOptions(router);
+    pref.setSummary(hasOptions ? R.string.on : R.string.off);
   }
 
   private void updateProfileSettingsPrefsSummary()
@@ -122,7 +126,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     final String key = preference.getKey();
     if (key != null)
     {
-      if (key.equals(getString(R.string.pref_osm_profile)))
+      if (key.equals(getString(R.string.prefs_routing)))
+      {
+        DrivingOptionsActivity.chooseProfile(requireActivity());
+        return true;
+      }
+      else if (key.equals(getString(R.string.pref_osm_profile)))
       {
         startActivity(new Intent(requireActivity(), ProfileActivity.class));
       }
