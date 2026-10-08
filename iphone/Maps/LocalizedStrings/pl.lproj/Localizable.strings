@@ -1197,3 +1197,9 @@
 
 /* VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers. */
 "map_layers_turn_off" = "Wyłącz warstwy mapy";
+
+/* VoiceOver hint for the tappable app version in the iOS About screen. */
+"about_copy_version_hint" = "Kopiuje wersję aplikacji do schowka";
+
+/* VoiceOver label for the email icon in the iOS About screen's social links. */
+"about_contact_email" = "Napisz e-mail do Organic Maps";
