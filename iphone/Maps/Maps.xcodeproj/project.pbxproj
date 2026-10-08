@@ -689,6 +689,9 @@
 		A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13811000000000000000001 /* TransportTransitWrappingTests.swift */; };
 		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
 		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
+		554CA6533AAE428FB75EEB04 /* DownloadMapsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3363836791B4D529767C347 /* DownloadMapsViewControllerTests.swift */; };
+		2F29C3908CB140F4A11BF405 /* MWMTrafficButtonViewControllerTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A608634962C4DCB8DE350D1 /* MWMTrafficButtonViewControllerTests.mm */; };
+		F8C305C0F5984E44AC25B6BA /* MWMDownloaderProgressTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DD65EF6C59F429F900996F2 /* MWMDownloaderProgressTests.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1863,6 +1866,9 @@
 		A13811000000000000000001 /* TransportTransitWrappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitWrappingTests.swift; sourceTree = "<group>"; };
 		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
 		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
+		B3363836791B4D529767C347 /* DownloadMapsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapsViewControllerTests.swift; sourceTree = "<group>"; };
+		1A608634962C4DCB8DE350D1 /* MWMTrafficButtonViewControllerTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTrafficButtonViewControllerTests.mm; sourceTree = "<group>"; };
+		1DD65EF6C59F429F900996F2 /* MWMDownloaderProgressTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloaderProgressTests.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2243,6 +2249,7 @@
 			children = (
 				1A4D381982BD4FCD9308F4D1 /* RoutePointCollectionViewCellTests.swift */,
 				E79F77A472014212B40FDE97 /* PlacePageTests */,
+				4781E50E1EB84B2DB47CCB0C /* DownloaderTests */,
 				ED810EC32D566E7600ECDE2C /* SearchOnMapTests */,
 			);
 			path = UI;
@@ -4229,6 +4236,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4781E50E1EB84B2DB47CCB0C /* DownloaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				B3363836791B4D529767C347 /* DownloadMapsViewControllerTests.swift */,
+				1A608634962C4DCB8DE350D1 /* MWMTrafficButtonViewControllerTests.mm */,
+				1DD65EF6C59F429F900996F2 /* MWMDownloaderProgressTests.mm */,
+			);
+			path = DownloaderTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5067,6 +5084,9 @@
 				5A07CF7460A24F6BBCA9F174 /* RoutePointCollectionViewCellTests.swift in Sources */,
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
+				554CA6533AAE428FB75EEB04 /* DownloadMapsViewControllerTests.swift in Sources */,
+				2F29C3908CB140F4A11BF405 /* MWMTrafficButtonViewControllerTests.mm in Sources */,
+				F8C305C0F5984E44AC25B6BA /* MWMDownloaderProgressTests.mm in Sources */,
 				ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */,
 				EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */,
 				EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */,

@@ -20,8 +20,10 @@
 
 - (downloader::DownloadStatus)toDownloaderError
 {
-  return self.code == NSURLErrorFileDoesNotExist ? downloader::DownloadStatus::FileNotFound
-                                                 : downloader::DownloadStatus::Failed;
+  if (([self.domain isEqualToString:NSURLErrorDomain] && self.code == NSURLErrorFileDoesNotExist) ||
+      ([self.domain isEqualToString:@"app.omaps.http"] && self.code == 404))
+    return downloader::DownloadStatus::FileNotFound;
+  return downloader::DownloadStatus::Failed;
 }
 
 @end

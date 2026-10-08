@@ -27,15 +27,33 @@ public final class MapManager
     }
   }
 
+  // Used by JNI. A complete snapshot for a country or group; inactive flows have zero totals.
+  @Keep
+  public static final class Progress
+  {
+    public final long mwmDownloaded;
+    public final long mwmTotal;
+    public final long twmDownloaded;
+    public final long twmTotal;
+
+    public Progress(long mwmDownloaded, long mwmTotal, long twmDownloaded, long twmTotal)
+    {
+      this.mwmDownloaded = mwmDownloaded;
+      this.mwmTotal = mwmTotal;
+      this.twmDownloaded = twmDownloaded;
+      this.twmTotal = twmTotal;
+    }
+  }
+
   public interface StorageCallback
   {
     // Called from JNI.
     @Keep
     void onStatusChanged(List<StorageCallbackData> data);
 
-    // Called from JNI.
+    // Called from JNI with independent map and terrain bytes for the country or group.
     @Keep
-    void onProgress(String countryId, long localSize, long remoteSize);
+    void onProgress(String countryId, Progress progress);
   }
 
   public interface CurrentCountryChangedListener
@@ -104,6 +122,9 @@ public final class MapManager
    * false} otherwise.
    */
   public static native boolean nativeHasSpaceToDownloadCountry(String root);
+
+  /** Returns the remaining map download size. */
+  public static native long nativeGetDownloadSize(@NonNull String[] countries);
 
   /**
    * Returns {@code true} if there is enough storage space to update maps with specified {@code root}. Or {@code false}
@@ -202,6 +223,20 @@ public final class MapManager
    */
   public static native void nativeDelete(String root);
 
+  /** Enqueues, updates, or retries terrain for this region or group independently of its maps. */
+  public static native void nativeDownloadTerrain(@NonNull String root);
+
+  public static native void nativeCancelTerrain(@NonNull String root);
+
+  public static native void nativeDeleteTerrain(@NonNull String root);
+
+  /** Returns the missing terrain bytes, counting shared blocks once. */
+  public static native long nativeGetTerrainDownloadSize(@NonNull String[] countries);
+
+  /** Returns independent map and terrain bytes for active requests under this country or group. */
+  @NonNull
+  public static native Progress nativeGetDownloadingProgress(@NonNull String countryId);
+
   /**
    * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link
    * #nativeUnsubscribe(int)}.
@@ -233,12 +268,23 @@ public final class MapManager
    * Calculates joint progress of downloading countries specified by {@code countries} array.
    * @return 0 to 100 percent.
    */
-  public static native int nativeGetOverallProgress(String[] countries);
+  public static int nativeGetOverallProgress(String[] countries)
+  {
+    long[] progress = nativeGetOverallProgressBytes(countries);
+    return progress[1] == 0 ? 0 : (int) (100.0 * progress[0] / progress[1]);
+  }
+
+  /** Returns downloaded and total map bytes. */
+  @NonNull
+  public static native long[] nativeGetOverallProgressBytes(String[] countries);
 
   /**
    * Returns {@code true} if the core will NOT do attempts to download failed maps anymore.
    */
   public static native boolean nativeIsAutoretryFailed();
+
+  /** Returns {@code true} if the core will not retry failed terrain downloads automatically. */
+  public static native boolean nativeIsTerrainAutoretryFailed();
 
   /**
    * Returns {@code true} if the core is allowed to download maps while on 3g network. {@code false} otherwise.

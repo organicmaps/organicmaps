@@ -5,7 +5,7 @@ final class AppConstants: NSObject {
   override private init() {}
   static let defaultAnimationDuration: TimeInterval = 0.3
   static let fastAnimationDuration: TimeInterval = 0.15
-  // The last 5% are left for applying diffs.
+  // The last 5% are left for validating and registering files, including applying diffs.
   static let maxProgress: Float = 0.95
   static let openStreetMapURL = "https://www.openstreetmap.org/"
   static let omapsURL = "https://omaps.app"

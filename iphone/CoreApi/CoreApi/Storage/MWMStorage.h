@@ -14,6 +14,14 @@ extern NSInteger const kStorageCellularForbidden;
 extern NSInteger const kStorageRoutingActive;
 extern NSInteger const kStorageHaveUnsavedEdits;
 
+typedef struct
+{
+  uint64_t mwmDownloaded;
+  uint64_t mwmTotal;
+  uint64_t twmDownloaded;
+  uint64_t twmTotal;
+} MWMStorageProgress NS_SWIFT_NAME(StorageProgress);
+
 NS_SWIFT_NAME(StorageObserver)
 @protocol MWMStorageObserver <NSObject>
 
@@ -21,7 +29,7 @@ NS_SWIFT_NAME(StorageObserver)
 
 @optional
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes;
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress;
 
 @end
 
@@ -37,6 +45,10 @@ NS_SWIFT_NAME(Storage)
     ignoreUnsavedEdits:(BOOL)force
                  error:(NSError * __autoreleasing _Nullable *)error;
 - (void)cancelDownloadNode:(NSString *)countryId;
+- (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
+- (BOOL)downloadTerrainNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;
+- (void)cancelTerrain:(NSString *)countryId;
+- (void)deleteTerrain:(NSString *)countryId;
 - (void)showNode:(NSString *)countryId;
 - (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;
 

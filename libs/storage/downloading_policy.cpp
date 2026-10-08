@@ -25,8 +25,9 @@ bool StorageDownloadingPolicy::IsDownloadingAllowed()
 }
 
 void StorageDownloadingPolicy::ScheduleTerrainRetry(storage::CountriesSet const & failedRegions,
-                                                    TProcessFunc const & func)
+                                                    TProcessFunc const & func, bool hasNonRetryableFailures)
 {
+  m_terrainDownloadRetryFailed = hasNonRetryableFailures;
   if (IsDownloadingAllowed() && !failedRegions.empty() && m_terrainRetryCounter > 0)
   {
     auto action = [this, func, failedRegions]
@@ -41,8 +42,11 @@ void StorageDownloadingPolicy::ScheduleTerrainRetry(storage::CountriesSet const 
     // Only the all-clear drain refreshes the budget: the slot is armed once per failed
     // BLOCK, so a reset on a non-empty batch would rewind the exhausted counter and
     // retry an offline device forever.
+    m_terrainRetryWorker.Drop();
     m_terrainRetryCounter = kAutoRetryCounterMax;
   }
+  else
+    m_terrainDownloadRetryFailed = true;
 }
 
 void StorageDownloadingPolicy::ScheduleRetry(storage::CountriesSet const & failedCountries, TProcessFunc const & func)

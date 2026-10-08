@@ -183,10 +183,11 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
   }
 }
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if ([countryId isEqualToString:self.mapNodeAttributes.countryId] && self.onMapNodeProgressUpdate != nil)
-    self.onMapNodeProgressUpdate(downloadedBytes, totalBytes);
+  auto const total = progress.mwmTotal + progress.twmTotal;
+  if (total > 0 && [countryId isEqualToString:self.mapNodeAttributes.countryId] && self.onMapNodeProgressUpdate != nil)
+    self.onMapNodeProgressUpdate(progress.mwmDownloaded + progress.twmDownloaded, total);
 }
 
 @end

@@ -65,11 +65,14 @@ public class OnmapDownloader
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, MapManager.Progress progress)
     {
+      if (progress.mwmTotal == 0)
+        return;
+
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
       {
-        mCurrentCountry.update();
+        mCurrentCountry.updateProgress(progress.mwmDownloaded, progress.mwmTotal);
         updateProgressState(false);
       }
     }
@@ -108,8 +111,7 @@ public class OnmapDownloader
 
   private void updateStateInternal(boolean shouldAutoDownload)
   {
-    boolean showFrame =
-        (mCurrentCountry != null && !mCurrentCountry.present && !RoutingController.get().isNavigating());
+    boolean showFrame = mCurrentCountry != null && !mCurrentCountry.present && !RoutingController.get().isNavigating();
     if (showFrame)
     {
       boolean enqueued = (mCurrentCountry.status == CountryItem.STATUS_ENQUEUED);

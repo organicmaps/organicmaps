@@ -1,7 +1,5 @@
 #include "storage/queued_country.hpp"
 
-#include "storage/storage_helpers.hpp"
-
 #include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 
@@ -76,7 +74,7 @@ uint64_t QueuedCountry::GetDownloadSize() const
     return size;
   }
 
-  return GetRemoteSize(*m_diffsDataSource, m_countryFile);
+  return m_countryFile.GetRemoteSize();
 }
 
 void QueuedCountry::OnCountryInQueue() const

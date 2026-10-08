@@ -72,9 +72,7 @@ struct NodeAttrs
   /// Number of mwms belonging to the node which have been downloaded.
   MwmCounter m_localMwmCounter;
 
-  /// Number of leaves of the node which have been downloaded
-  /// plus which is in progress of downloading (zero or one)
-  /// plus which are staying in queue.
+  /// Number of installed (current or outdated), downloading, queued, or failed leaves.
   MwmCounter m_downloadingMwmCounter;
 
   /// If it's not an expandable node, |m_mwmSize| is size of one mwm according to countries.json.
@@ -83,14 +81,12 @@ struct NodeAttrs
   MwmSize m_mwmSize;
 
   /// If it's not an expandable node, |m_localMwmSize| is size of one downloaded mwm.
-  /// Otherwise |m_localNodeSize| is the sum of all mwm file sizes which belong to the group and
+  /// Otherwise |m_localMwmSize| is the sum of all mwm file sizes which belong to the group and
   /// have been downloaded.
   MwmSize m_localMwmSize;
 
-  /// Size of leaves of the node which have been downloaded
-  /// plus which is in progress of downloading (zero or one)
-  /// plus which are staying in queue.
-  /// \note The size of leaves is the size is written in countries.json.
+  /// Target size of installed (current or outdated), downloading, queued, or failed leaves,
+  /// according to countries.json. This is not the size of the active download request.
   MwmSize m_downloadingMwmSize;
 
   /// The name of the node in a local language. That means the language dependent on
@@ -169,7 +165,7 @@ public:
   using TerrainRegisterFn = std::function<bool(terrain::TwmFile const &)>;
   using TerrainDeleteFn = std::function<void(std::vector<terrain::TerrainId> const &)>;
   using ChangeCountryFunction = std::function<void(CountryId const &)>;
-  using ProgressFunction = std::function<void(CountryId const &, downloader::Progress const &)>;
+  using ProgressFunction = std::function<void(CountryId const &, Progress const &)>;
   using DownloadingCountries = std::unordered_map<CountryId, downloader::Progress>;
 
 private:
@@ -262,6 +258,7 @@ private:
   std::string GetTerrainDir() const;
   std::vector<TerrainBlock> m_twmGrid;
   std::map<terrain::TerrainId, terrain::TwmFile> m_localTerrainFiles;
+  std::map<terrain::TerrainId, uint64_t> m_localTerrainSizes;
   std::set<std::string> m_pendingTerrainFiles;
   CountriesSet m_terrainDeletesBeforeScan;
   // Region id -> the m_twmGrid indices of the blocks intersecting the region polygon
@@ -274,15 +271,19 @@ private:
   // Load the startup snapshot once; saves before restore must retain this intent.
   std::optional<CountriesSet> m_pendingTerrainQueue;
   CountriesSet & GetPendingTerrainQueue();
+  // Persisted leaf requests retain installed terrain independently of map files.
+  std::optional<CountriesSet> m_requestedTerrainRegions;
+  void LoadRequestedTerrainRegions();
+  void SaveRequestedTerrainRegions() const;
   // Calls fn(leafId, blockIndices) for the countryId coverage leaf or for every
   // coverage leaf of the subtree of a group.
   template <class Fn>
   void ForEachCoverageLeaf(CountryId const & countryId, Fn && fn) const;
-  // Calls fn(leafId, blockIndex) for every block the countryId subtree still has to
-  // download: the single definition of "the terrain part of an update" shared by
-  // GetUpdateInfo (the size) and UpdateNode (the downloads), so the two cannot drift.
+  LocalFilePtr GetInstalledLocalFile(CountryId const & countryId) const;
+  // Leaves retain full coverage; folders select only their installed MWM leaves.
   template <class Fn>
-  void ForEachTerrainBlockToDownload(CountryId const & countryId, Fn && fn) const;
+  void ForEachTerrainLeafForNode(CountryId const & countryId, Fn && fn) const;
+  std::vector<uint32_t> GetTerrainBlocksForNode(CountryId const & countryId) const;
   // The partial downloader artifacts of the block: the resume record of an interrupted
   // download (see RestoreTerrain), deleted by the cancel so it stays cancelled.
   void DeleteTerrainArtifacts(TerrainBlock const & block) const;
@@ -299,22 +300,6 @@ private:
   // The m_twmGrid indices covering the countryId: the coverage list of a leaf or the
   // sorted deduplicated union over the subtree leafs of a group.
   std::vector<uint32_t> GetCoveringBlocks(CountryId const & countryId) const;
-
-  // The terrain contribution to the region attrs:
-  // the full coverage bytes join the region size, the in-flight blocks its download
-  // progress and the missing ones flip a map-complete region to OnDiskOutOfDate.
-  struct TerrainFusion
-  {
-    uint64_t m_coverageBytes = 0;       // The whole subtree coverage, deduplicated.
-    uint64_t m_onDiskBytes = 0;         // The current-version files present.
-    uint64_t m_missingBytes = 0;        // Not on disk, not in flight; downloaded leafs only.
-    uint64_t m_inFlightTotal = 0;       // Queued or downloading.
-    uint64_t m_inFlightDownloaded = 0;  // The received part of m_inFlightTotal.
-    // The error of a failed covering block of a downloaded leaf, NoError when none:
-    // a map-complete region with a failed terrain block reads Error (cf. the maps).
-    NodeErrorCode m_error = NodeErrorCode::NoError;
-  };
-  TerrainFusion GetTerrainFusion(CountryId const & countryId) const;
 
   // The terrain items ride the shared downloader queue but must not reach the Storage
   // subscriber (its notification paths walk the country tree and the block names are
@@ -335,38 +320,35 @@ private:
 
   struct TerrainBlockState
   {
+    uint64_t m_downloadId = 0;
     uint64_t m_bytesDownloaded = 0;
     uint64_t m_lastNotifiedBytes = 0;
   };
 
   // All GUI-thread-only: the in-flight blocks, the failures of the last batch and the
-  // regions interested in each block (for the observer notifications).
+  // request owners of each block. Only publication/deletion refreshes shared neighbors.
   TerrainQueueSubscriber m_terrainSubscriber{*this};
   std::map<terrain::TerrainId, TerrainBlockState> m_terrainQueue;
+  uint64_t m_nextTerrainDownloadId = 0;
   // Only transport failures auto-retry. A 404 or a hash mismatch waits for an explicit
   // retry, avoiding repeated downloads of the same large broken block.
-  struct TerrainFailure
-  {
-    NodeErrorCode m_error = NodeErrorCode::UnknownError;
-    bool m_retryable = false;
-  };
-  std::map<terrain::TerrainId, TerrainFailure> m_terrainFailures;
+  std::map<terrain::TerrainId, bool> m_terrainFailures;  // Whether each failure is retryable.
   std::map<terrain::TerrainId, std::set<CountryId>> m_terrainBlockRegions;
 
-  // The blocks some region outside |excluded| still wants: the downloaded regions and
-  // the regions whose maps are queued (their own DownloadTerrain skipped the blocks
-  // already on disk, so nothing else keeps the blocks for them).
+  // Mirrors m_justDownloaded: completed requests remain in folder progress until the terrain queue drains.
+  CountriesSet m_justDownloadedTerrain;
+
+  // Coverage retained by installed/in-flight MWMs or explicit terrain requests outside |excluded|.
   std::set<uint32_t> GetWantedTerrainBlocks(CountriesSet const & excluded) const;
-  // Upgrades a map-complete status by the terrain fusion, ranked like the MWM group
-  // aggregation: Downloading above Error above OnDiskOutOfDate.
-  StatusAndError GetEffectiveStatus(StatusAndError const & mapStatus, TerrainFusion const & terrain) const;
+  std::set<uint32_t> GetActiveTerrainBlocks(CountriesSet const & regions) const;
   TerrainBlock const * FindTerrainBlock(terrain::TerrainId const & id) const;
   // The downloader's target path of the block (see QueuedCountry::GetFileDownloadPath).
   std::string GetTerrainReadyPath(TerrainBlock const & block) const;
-  void OnTerrainBlockProgress(std::string const & name, downloader::Progress const & progress);
+  void OnTerrainBlockProgress(QueuedCountry const & queuedCountry, downloader::Progress const & progress);
   void OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, downloader::DownloadStatus status);
-  void NotifyTerrainRegions(std::string const & name);
-  // The downloaded regions the failed blocks' interest points at: derived
+  CountriesSet GetTerrainRegions(std::string const & name) const;
+  void NotifyTerrainRegions(std::string const & name, bool allCoverage = false);
+  // The live request owners of failed blocks: derived
   // from the live state at both the retry arming and the retry firing, so a cancel or
   // a delete in between (both empty the interest) mutes the retry.
   CountriesSet GetFailedTerrainRegions(bool retryableOnly) const;
@@ -403,8 +385,9 @@ private:
 
   void LoadCountriesFile(std::string const & pathToCountriesFile);
 
-  void ReportProgress(CountryId const & countryId, downloader::Progress const & p);
-  void ReportProgressForHierarchy(CountryId const & countryId, downloader::Progress const & leafProgress);
+  downloader::Progress GetActiveMapProgress(CountryId const & countryId) const;
+  downloader::Progress GetTerrainDownloadingProgress(CountryId const & countryId) const;
+  void ReportProgressForHierarchy(CountriesSet const & countryIds);
 
   // QueuedCountry::Subscriber overrides:
   void OnCountryInQueue(QueuedCountry const & queuedCountry) override;
@@ -448,30 +431,29 @@ public:
   // The provider executes registration and ID-based deregistration; storage owns file policy.
   void SetTerrainCallbacks(TerrainRegisterFn registerFn, TerrainDeleteFn deleteFn);
 
-  /// Enqueues the terrain blocks covering the country polygon (twm_grid.json "mwms")
+  /// Enqueues terrain for a leaf or the installed MWM leaves of a folder (twm_grid.json "mwms")
   /// into the shared downloader queue; the blocks on disk or in flight are skipped. The
   /// blocks land into <writable>/terrain/<block version>/ after the countries.json-style
   /// integrity check; the observers get the region id notifications (no separate channel).
   /// The auto-retry (userRequest = false) is transport-only: it skips the blocks whose
   /// recorded failure is not retryable, while a user request re-tries everything.
   void DownloadTerrain(CountryId const & countryId, bool userRequest = true);
-  /// The exact bytes the download of |countries| still has to fetch: the full remote
-  /// size of every not-on-disk not-queued leaf map plus the missing terrain blocks of
-  /// the subtree coverage, shared blocks counted once (cf. the per-node fused sizes).
+  /// Remaining remote bytes of the not-on-disk, not-queued maps in |countries|.
   MwmSize GetDownloadSize(CountriesVec const & countries) const;
+  /// Missing current terrain blocks for the batch, counting shared blocks once.
+  /// Folder downloads cover installed MWMs; leaf downloads retain full coverage.
+  MwmSize GetTerrainDownloadSize(CountriesVec const & countries) const;
 
-  /// Cancels the terrain blocks requested for the countryId subtree (the blocks another
-  /// region still wants stay in the queue). CancelDownloadNode calls it too, so a country
-  /// cancel drops both the maps and the terrain; this one drops the terrain only.
+  /// Cancels terrain requests for the subtree, retaining blocks requested by other regions.
   void CancelTerrain(CountryId const & countryId);
 
-  /// Deletes terrain covering the region, across all versions, except blocks still
-  /// needed by other downloaded or queued maps.
+  /// Deletes terrain covering the region, retaining blocks used by other installed/in-flight
+  /// MWMs or explicitly requested terrain regions.
   void DeleteTerrain(CountryId const & countryId);
 
   enum class TerrainStatus : uint8_t
   {
-    NotAvailable,  // No terrain grid or no coverage for the id (World, groups of it).
+    NotAvailable,  // No terrain grid, no leaf coverage, or no installed MWMs in a folder.
     NotDownloaded,
     Downloading,  // Any covering block is enqueued or downloading.
     Partly,       // Some covering blocks are on disk, nothing in flight and no updates.
@@ -485,11 +467,13 @@ public:
   struct TerrainAttrs
   {
     TerrainStatus m_status = TerrainStatus::NotAvailable;
-    uint64_t m_totalSize = 0;
-    uint64_t m_downloadedSize = 0;  // The on-disk blocks plus the in-flight bytes.
+    uint64_t m_localSize = 0;                    // Installed files, including older versions, counted once.
+    uint64_t m_remainingSize = 0;                // Missing current blocks outside this node's active requests.
+    downloader::Progress m_downloadingProgress;  // Live progress covers only active request owners.
   };
 
-  /// The aggregated terrain state over the blocks covering the country polygon.
+  /// Leaves report their full terrain coverage; folders aggregate installed MWM leaves.
+  /// In-flight progress and failures belong only to the explicitly requested leaves.
   TerrainAttrs GetTerrainAttrs(CountryId const & countryId) const;
 
   void SetDownloadingPolicy(DownloadingPolicy * policy);
@@ -608,12 +592,10 @@ public:
 
   struct UpdateInfo
   {
-    // The regions with an update: the outdated maps plus the downloaded regions whose
-    // terrain has blocks to fetch (the update badges count regions, not files).
+    // The number of outdated maps in the subtree.
     MwmCounter m_numberOfMwmFilesToUpdate = 0;
 
-    // The sizes cover BOTH the mwm files and the missing terrain blocks of the
-    // downloaded regions of the subtree - the update downloads both (see UpdateNode).
+    // The map diff/full size of the outdated maps in the subtree.
     MwmSize m_maxFileSizeInBytes = 0;
     MwmSize m_totalDownloadSizeInBytes = 0;
 
@@ -689,13 +671,17 @@ public:
   size_t GetDownloadedFilesCount() const;
 
   /// Guarantees that change and progress are called in the main thread context.
-  /// @return unique identifier (>0) that should be used with Unsubscribe function
+  /// A snapshot of both download flows for the changed nodes and their ancestors, including the root.
+  /// Inactive flows have zero bytes; completion is reported by a status change.
+  /// @return unique identifier (>0) that should be used with Unsubscribe.
   int Subscribe(ChangeCountryFunction change, ProgressFunction progress);
   void Unsubscribe(int slotId);
 
-  /// Returns information about selected counties downloading progress.
+  /// Returns map download progress, counting shared files once.
   /// |countries| - watched CountryId, ONLY leaf expected.
   downloader::Progress GetOverallProgress(CountriesVec const & countries) const;
+  /// Progress of active map and terrain requests, counting shared files once.
+  Progress GetDownloadingProgress(CountryId const & countryId) const;
 
   Country const & CountryLeafByCountryId(CountryId const & countryId) const;
   Country const & CountryByCountryId(CountryId const & countryId) const;
@@ -754,6 +740,7 @@ public:
   void SetEnabledIntegrityValidationForTesting(bool enabled);
   void SetDownloaderForTesting(std::unique_ptr<MapFilesDownloader> downloader);
   void SetCurrentDataVersionForTesting(int64_t currentVersion);
+  void SetDiffInfoForTesting(diffs::NameDiffInfoMap && diffs);
   void SetDownloadingServersForTesting(std::vector<std::string> const & downloadingUrls);
   void SetLocaleForTesting(std::string const & jsonBuffer, std::string const & locale);
 
@@ -818,8 +805,11 @@ private:
   void NotifyStatusChanged(CountryId const & countryId);
   void NotifyStatusChangedForHierarchy(CountryId const & countryId);
 
-  /// Calculates progress of downloading for expandable nodes in country tree.
-  downloader::Progress CalculateProgress(CountryTree::Node const & subtreeRoot, CountriesSet const & mwmsInQueue) const;
+  TerrainAttrs GetTerrainAttrs(CountryId const & countryId, bool installedMapsOnly) const;
+  downloader::Progress GetMapProgress(CountryId const & countryId, CountriesSet const & mwmsInQueue,
+                                      bool includeInstalled) const;
+  downloader::Progress CalculateProgress(CountryTree::Node const & subtreeRoot, CountriesSet const & mwmsInQueue,
+                                         bool includeInstalled) const;
 
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(CountryTree::NodesBufferT const & nodes, ToDo && toDo) const;

@@ -398,26 +398,28 @@ int main(int argc, char * argv[])
       return;
 
     auto const & storage = framework.GetStorage();
-    auto status = storage.CountryStatusEx(countryId);
+    storage::NodeAttrs attrs;
+    storage.GetNodeAttrs(countryId, attrs);
+    auto const status = attrs.m_status;
     auto const & countryName = countryId;
 
-    if (status == storage::Status::NotDownloaded)
+    if (status == storage::NodeStatus::NotDownloaded)
     {
       std::string units;
       size_t sizeToDownload = 0;
-      FormatMapSize(storage.CountrySizeInBytes(countryId).second, units, sizeToDownload);
+      FormatMapSize(attrs.m_mwmSize, units, sizeToDownload);
       std::stringstream str;
       str << "Download (" << countryName << ") " << sizeToDownload << units;
       downloadButtonLabel = str.str();
     }
-    else if (status == storage::Status::InQueue)
+    else if (status == storage::NodeStatus::InQueue)
     {
       std::stringstream str;
       str << countryName << " is waiting for downloading";
       downloadStatusLabel = str.str();
     }
-    else if (status != storage::Status::Downloading && status != storage::Status::OnDisk &&
-             status != storage::Status::OnDiskOutOfDate)
+    else if (status != storage::NodeStatus::Downloading && status != storage::NodeStatus::Applying &&
+             status != storage::NodeStatus::OnDisk && status != storage::NodeStatus::OnDiskOutOfDate)
     {
       std::stringstream str;
       str << "Retry to download " << countryName;
@@ -432,10 +434,14 @@ int main(int argc, char * argv[])
     // Storage also calls notifications for parents, but we are interested in leafs only.
     if (framework.GetStorage().IsLeaf(countryId))
       onCountryChanged(countryId);
-  }, [&](storage::CountryId const & countryId, downloader::Progress const & progress)
+  }, [&](storage::CountryId const & countryId, storage::Progress const & progress)
   {
+    if (countryId != lastCountry || progress.m_mwmTotal == 0)
+      return;
+
+    auto const percent = progress.m_mwmDownloaded * 100 / progress.m_mwmTotal;
     std::stringstream str;
-    str << "Downloading (" << countryId << ") " << (progress.m_bytesDownloaded * 100 / progress.m_bytesTotal) << "%";
+    str << "Downloading (" << countryId << ") " << percent << "%";
     downloadStatusLabel = str.str();
     framework.MakeFrameActive();
   });

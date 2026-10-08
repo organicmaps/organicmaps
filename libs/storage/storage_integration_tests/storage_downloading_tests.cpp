@@ -62,7 +62,7 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_ReDownloadExistedMWMIgnored_Test)
 {
   Storage storage(ReadCountriesJson(), GetDownloader());
 
-  InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
+  InitStorage(storage, [](CountryId const &, storage::Progress const &) {});
   TEST(!storage.IsDownloadInProgress(), ());
 
   storage.DownloadNode(kCountryId);
@@ -80,8 +80,10 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_InterruptDownloadResumeDownload_Test)
   {
     Storage storage(ReadCountriesJson(), GetDownloader());
 
-    auto const onProgressFn = [](CountryId const & countryId, downloader::Progress const & /* progress */)
+    auto const onProgressFn = [&storage](CountryId const & countryId, storage::Progress const & /* progress */)
     {
+      if (countryId == storage.GetRootId())
+        return;
       TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
       testing::StopEventLoop();
@@ -107,8 +109,10 @@ UNIT_CLASS_TEST(StorageTest, SmallMwms_InterruptDownloadResumeDownload_Test)
 
     bool onProgressIsCalled = false;
     NodeAttrs onProgressAttrs;
-    auto const onProgressFn = [&](CountryId const & countryId, downloader::Progress const & /* progress */)
+    auto const onProgressFn = [&](CountryId const & countryId, storage::Progress const & /* progress */)
     {
+      if (countryId == storage.GetRootId())
+        return;
       TEST_EQUAL(countryId, kCountryId, ());
 
       if (onProgressIsCalled)
@@ -167,7 +171,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
 
     Storage storage(ReadCountriesJson(), GetDownloader());
 
-    InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
+    InitStorage(storage, [](CountryId const &, storage::Progress const &) {});
     TEST(!storage.IsDownloadInProgress(), ());
 
     storage.DownloadNode(kCountryId);
@@ -191,10 +195,12 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
 
       Storage storage(ReadCountriesJson(), GetDownloader());
 
-      auto onProgressFn = [i, j](CountryId const & countryId, downloader::Progress const & progress)
+      auto onProgressFn = [i, j, &storage](CountryId const & countryId, storage::Progress const & progress)
       {
+        if (countryId == storage.GetRootId())
+          return;
         TEST_EQUAL(countryId, kCountryId, ());
-        auto const fraction = static_cast<double>(progress.m_bytesDownloaded) / progress.m_bytesTotal;
+        auto const fraction = static_cast<double>(progress.m_mwmDownloaded) / progress.m_mwmTotal;
         auto const interruptionFraction =
             0.1 + 0.75 * static_cast<double>((i + j) % kInterruptionsCount) / kInterruptionsCount;
         if (fraction > interruptionFraction)
@@ -221,7 +227,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadIntegrity_Test)
 
       Storage storage(ReadCountriesJson(), GetDownloader());
 
-      InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
+      InitStorage(storage, [](CountryId const &, storage::Progress const &) {});
       // Resumes from the partial download left by the interruption rounds (the downloader picks up
       // the .resume file by path), or starts from scratch if the last round completed the map.
       storage.DownloadNode(kCountryId);
