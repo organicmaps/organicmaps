@@ -44101,3 +44101,11 @@ en = Email Organic Maps
 pl = Napisz e-mail do Organic Maps
 ru = Написать в Organic Maps по электронной почте
 uk = Написати в Organic Maps електронною поштою
+
+[menu_map_updates_count]
+comment = VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates.
+tags = apple-maps
+en = Map updates available: %d
+pl = Dostępne aktualizacje map: %d
+ru = Доступны обновления карт: %d
+uk = Доступні оновлення мап: %d
