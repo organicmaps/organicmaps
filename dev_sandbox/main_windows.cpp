@@ -21,7 +21,7 @@ class WindowsVulkanContextFactory : public dp::vulkan::VulkanContextFactory
 public:
   WindowsVulkanContextFactory() : dp::vulkan::VulkanContextFactory(1, 33, false) {}
 
-  void SetSurface(HWND hwnd)
+  void SetSurface(HWND hwnd, m2::PointU const & size)
   {
     VkWin32SurfaceCreateInfoKHR const createInfo = {
         .sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR,
@@ -50,10 +50,10 @@ public:
     }
     CHECK_EQUAL(supportsPresent, VK_TRUE, ());
 
-    CHECK(QuerySurfaceSize(), ());
+    CHECK(QuerySurfaceSize(size), ());
 
     if (m_drawContext)
-      m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceCapabilities);
+      m_drawContext->SetSurface(m_surface, m_surfaceFormat, size);
   }
 
   void ResetSurface()
@@ -70,7 +70,7 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, 
   if (api == dp::ApiVersion::Vulkan)
   {
     auto contextFactory = make_unique_dp<WindowsVulkanContextFactory>();
-    contextFactory->SetSurface(glfwGetWin32Window(window));
+    contextFactory->SetSurface(glfwGetWin32Window(window), size);
     return contextFactory;
   }
 

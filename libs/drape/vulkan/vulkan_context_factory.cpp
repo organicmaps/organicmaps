@@ -23,7 +23,7 @@ bool SupportsImageAcquireTimeout(int sdkVersion)
   return sdkVersion >= 30;
 #else
   UNUSED_VALUE(sdkVersion);
-  return false;
+  return true;
 #endif
 }
 
@@ -306,7 +306,7 @@ void VulkanContextFactory::SetPresentAvailable(bool available)
     m_drawContext->SetPresentAvailable(available);
 }
 
-bool VulkanContextFactory::QuerySurfaceSize()
+bool VulkanContextFactory::QuerySurfaceSize(m2::PointU const & framebufferSize)
 {
   auto statusCode = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, m_surface, &m_surfaceCapabilities);
   if (statusCode != VK_SUCCESS)
@@ -357,6 +357,8 @@ bool VulkanContextFactory::QuerySurfaceSize()
 #endif
 
   m_surfaceFormat = formats[chosenFormat];
+  m_surfaceCapabilities.currentExtent =
+      ChooseSurfaceExtent(m_surfaceCapabilities, {framebufferSize.x, framebufferSize.y});
   m_surfaceWidth = static_cast<int>(m_surfaceCapabilities.currentExtent.width);
   m_surfaceHeight = static_cast<int>(m_surfaceCapabilities.currentExtent.height);
   return true;
