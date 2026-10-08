@@ -40,7 +40,7 @@ extension NavigationDashboard.ViewModel {
       routerType: MWMRouter.type(),
       entity: MWMNavigationDashboardEntity(),
       trackRecordingState: TrackRecordingManager.shared.recordingState,
-      routingOptions: RoutingOptions(),
+      routingOptions: RoutingOptions(routerType: MWMRouter.type()),
       routeElevationPreviewData: nil,
       routeElevationActivePointDistance: nil,
       navigationInfo: .hidden,

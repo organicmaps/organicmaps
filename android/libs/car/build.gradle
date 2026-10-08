@@ -27,4 +27,8 @@ dependencies {
   coreLibraryDesugaring libs.android.tools.desugaring
 
   implementation libs.androidx.car.app
+
+  testImplementation libs.androidx.junit
+  testImplementation libs.mockito.core
+  testImplementation libs.mockito.inline
 }

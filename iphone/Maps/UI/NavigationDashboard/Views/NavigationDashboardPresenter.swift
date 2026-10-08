@@ -67,6 +67,7 @@ extension NavigationDashboard {
 
       case .updateRouteBuildingProgress(let progress, routerType: let routerType):
         viewModel.routerType = routerType
+        viewModel.routingOptions = RoutingOptions(routerType: routerType)
         viewModel.progress = progress
 
       case .updateNavigationInfo(let entity):
@@ -111,6 +112,7 @@ extension NavigationDashboard {
         }
         viewModel.routePoints = RoutePoints(points: points)
         viewModel.routerType = routerType
+        viewModel.routingOptions = RoutingOptions(routerType: routerType)
         viewModel.canSaveRouteAsTrack = canSaveRouteAsTrack
         if !isSearchOpened, viewModel.presentationStep == .hidden {
           let step = viewModel.latestVisiblePresentationStep.forNavigationState(viewModel.dashboardState)

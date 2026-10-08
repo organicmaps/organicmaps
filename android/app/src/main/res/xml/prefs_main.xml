@@ -164,11 +164,6 @@
       android:key="@string/prefs_routing"
       android:order="5"
       android:title="@string/driving_options_title">
-      <intent
-        android:targetClass="app.organicmaps.settings.DrivingOptionsActivity"
-        android:targetPackage="@string/app_id">
-        <extra android:name="from" android:value="settings" />
-      </intent>
     </PreferenceScreen>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory

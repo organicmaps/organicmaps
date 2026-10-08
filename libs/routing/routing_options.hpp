@@ -1,5 +1,7 @@
 #pragma once
 
+#include "routing/vehicle_mask.hpp"
+
 #include "base/small_map.hpp"
 
 #include <optional>
@@ -8,6 +10,8 @@
 
 namespace routing
 {
+enum class RouterType;
+
 class RoutingOptions
 {
 public:
@@ -28,8 +32,11 @@ public:
   RoutingOptions() = default;
   explicit RoutingOptions(RoadType mask) : m_options(mask) {}
 
-  static RoutingOptions LoadCarOptionsFromSettings();
-  static void SaveCarOptionsToSettings(RoutingOptions options);
+  static RoutingOptions LoadFromSettings(VehicleType vehicleType);
+  static void SaveToSettings(VehicleType vehicleType, RoutingOptions options);
+  static RoadType GetSupportedOptions(VehicleType vehicleType);
+  static std::optional<VehicleType> GetVehicleType(RouterType routerType);
+  static std::optional<Road> RoadFromId(uint32_t id);
 
   static bool LoadRouteOptimizationFromSettings();
   static void SaveRouteOptimizationToSettings(bool enabled);
@@ -63,10 +70,11 @@ std::string DebugPrint(RoutingOptions::Road type);
 class RoutingOptionSetter
 {
 public:
-  explicit RoutingOptionSetter(RoutingOptions::RoadType roadsMask);
+  explicit RoutingOptionSetter(RoutingOptions::RoadType roadsMask, VehicleType vehicleType = VehicleType::Car);
   ~RoutingOptionSetter();
 
 private:
-  RoutingOptions m_saved;
+  VehicleType m_vehicleType;
+  std::optional<std::string> m_saved;
 };
 }  // namespace routing
