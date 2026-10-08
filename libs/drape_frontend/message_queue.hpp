@@ -5,6 +5,7 @@
 #include "drape/drape_diagnostics.hpp"
 #include "drape/pointers.hpp"
 
+#include <chrono>
 #include <condition_variable>
 #include <deque>
 #include <functional>
@@ -18,9 +19,10 @@ class MessageQueue
 {
 public:
   // Returns the highest priority message, or nullptr if the queue is empty and waitForMessage is
-  // false, or if the wait was interrupted by CancelWait(). A queued message wins over a pending
+  // false, or if the wait timed out or was interrupted by CancelWait(). A queued message wins over a pending
   // cancellation and consumes it, so a cancelled wait is not guaranteed to be observed as a nullptr.
-  drape_ptr<Message> PopMessage(bool waitForMessage);
+  drape_ptr<Message> PopMessage(bool waitForMessage,
+                                std::chrono::milliseconds timeout = std::chrono::milliseconds::max());
   void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   // Interrupts the current or the next PopMessage(true). A PopMessage(false) leaves it pending.
   void CancelWait();

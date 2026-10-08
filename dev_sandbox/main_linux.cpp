@@ -34,7 +34,7 @@ class LinuxVulkanContextFactory : public dp::vulkan::VulkanContextFactory
 public:
   LinuxVulkanContextFactory() : dp::vulkan::VulkanContextFactory(1, 33, false) {}
 
-  void SetSurface(Display * display, Window window)
+  void SetSurface(Display * display, Window window, m2::PointU const & size)
   {
     VkXlibSurfaceCreateInfoKHR const createInfo = {
         .sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR,
@@ -63,10 +63,10 @@ public:
     }
     CHECK_EQUAL(supportsPresent, VK_TRUE, ());
 
-    CHECK(QuerySurfaceSize(), ());
+    CHECK(QuerySurfaceSize(size), ());
 
     if (m_drawContext)
-      m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceCapabilities);
+      m_drawContext->SetSurface(m_surface, m_surfaceFormat, size);
   }
 
   void ResetSurface()
@@ -370,7 +370,7 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, 
   if (api == dp::ApiVersion::Vulkan)
   {
     auto contextFactory = make_unique_dp<LinuxVulkanContextFactory>();
-    contextFactory->SetSurface(glfwGetX11Display(), glfwGetX11Window(window));
+    contextFactory->SetSurface(glfwGetX11Display(), glfwGetX11Window(window), size);
     return contextFactory;
   }
 

@@ -60,10 +60,12 @@ void AndroidVulkanContextFactory::SetVulkanSurface()
   }
   CHECK_EQUAL(supportsPresent, VK_TRUE, ());
 
-  CHECK(QuerySurfaceSize(), ());
+  m2::PointU const framebufferSize(static_cast<uint32_t>(ANativeWindow_getWidth(m_nativeWindow)),
+                                   static_cast<uint32_t>(ANativeWindow_getHeight(m_nativeWindow)));
+  CHECK(QuerySurfaceSize(framebufferSize), ());
 
   if (m_drawContext)
-    m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceCapabilities);
+    m_drawContext->SetSurface(m_surface, m_surfaceFormat, framebufferSize);
 
   m_windowSurfaceValid = true;
 }

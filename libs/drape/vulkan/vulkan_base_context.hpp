@@ -35,7 +35,7 @@ public:
 
   using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
 
-  bool BeginRendering() override;
+  FrameStatus BeginRendering() override;
   void EndRendering() override;
   void Present() override;
   void CollectMemory() override;
@@ -78,8 +78,7 @@ public:
   void ApplyParamDescriptor(ParamDescriptor && descriptor);
   void ClearParamDescriptors();
 
-  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
-                  VkSurfaceCapabilitiesKHR const & surfaceCapabilities);
+  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat, m2::PointU const & framebufferSize);
   void ResetSurface(bool allowPipelineDump);
 
   VkPhysicalDevice GetPhysicalDevice() const { return m_gpu; }
@@ -155,7 +154,7 @@ protected:
 
   void RecreateDepthTexture();
 
-  void RecreateSwapchainAndDependencies();
+  FrameStatus RecreateSwapchainAndDependencies();
   void ResetSwapchainAndDependencies();
 
   AttachmentsOperations GetAttachmensOperations();
@@ -191,7 +190,8 @@ protected:
   drape_ptr<VulkanPipeline> m_pipeline;
   std::optional<VkSurfaceKHR> m_surface;
 
-  VkSurfaceCapabilitiesKHR m_surfaceCapabilities;
+  VkSurfaceCapabilitiesKHR m_surfaceCapabilities = {};
+  m2::PointU m_framebufferSize;
   std::optional<VkSurfaceFormatKHR> m_surfaceFormat;
 
   VkSwapchainKHR m_swapchain = {};

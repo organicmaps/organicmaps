@@ -85,6 +85,7 @@ void errorCallback(int error, char const * description)
 struct WindowHandlers
 {
   std::function<void(int w, int h)> onResize;
+  std::function<void()> onIconify;
   std::function<void(double x, double y, int button, int action, int mods)> onMouseButton;
   std::function<void(double x, double y)> onMouseMove;
   std::function<void(double x, double y, double xOffset, double yOffset)> onScroll;
@@ -304,6 +305,7 @@ int main(int argc, char * argv[])
     framework.CreateDrapeEngine(make_ref(contextFactory), std::move(params));
     OnCreateDrapeEngine(window, version, make_ref(contextFactory));
     framework.SetRenderingEnabled(nullptr);
+    framework.MakeFrameActive();
   };
   CreateDrapeEngine(drapeParams.m_apiVersion);
 
@@ -314,6 +316,16 @@ int main(int argc, char * argv[])
     PrepareDestroyContextFactory(make_ref(contextFactory));
     contextFactory.reset();
   };
+
+  auto updatePresentAvailability = [&]()
+  {
+    bool const available = fbWidth > 0 && fbHeight > 0 && glfwGetWindowAttrib(window, GLFW_ICONIFIED) == GLFW_FALSE;
+    contextFactory->SetPresentAvailable(available);
+    framework.MakeFrameActive();
+  };
+
+  handlers.onIconify = updatePresentAvailability;
+  glfwSetWindowIconifyCallback(window, [](GLFWwindow *, int) { handlers.onIconify(); });
 
   // Process resizing.
   handlers.onResize = [&](int w, int h)
@@ -329,8 +341,8 @@ int main(int argc, char * argv[])
       gui::TWidgetsLayoutInfo layout;
       guiSkin.ForEach([&layout](gui::EWidget w, gui::Position const & pos) { layout[w] = pos.m_pixelPivot; });
       framework.SetWidgetLayout(std::move(layout));
-      framework.MakeFrameActive();
     }
+    updatePresentAvailability();
   };
   glfwSetFramebufferSizeCallback(window, [](GLFWwindow * wnd, int w, int h) { handlers.onResize(w, h); });
 
@@ -347,16 +359,11 @@ int main(int argc, char * argv[])
     h *= yscale;
 #endif
 
-    if (w != fbWidth || h != fbHeight)
-    {
 #if defined(OMIM_OS_MAC)
-      UpdateContentScale(window, xscale);
+    UpdateContentScale(window, xscale);
 #endif
-      fbWidth = w;
-      fbHeight = h;
-      UpdateSize(make_ref(contextFactory), fbWidth, fbHeight);
-      framework.OnSize(fbWidth, fbHeight);
-    }
+    if (w != fbWidth || h != fbHeight)
+      handlers.onResize(w, h);
   };
   glfwSetWindowContentScaleCallback(
       window, [](GLFWwindow *, float xscale, float yscale) { handlers.onContentScale(xscale, yscale); });
