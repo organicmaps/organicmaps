@@ -44085,3 +44085,19 @@ en = Turn off map layers
 pl = Wyłącz warstwy mapy
 ru = Отключить слои карты
 uk = Вимкнути шари мапи
+
+[about_copy_version_hint]
+comment = VoiceOver hint for the tappable app version in the iOS About screen.
+tags = apple-maps
+en = Copies the app version to the clipboard
+pl = Kopiuje wersję aplikacji do schowka
+ru = Копирует версию приложения в буфер обмена
+uk = Копіює версію застосунку до буфера обміну
+
+[about_contact_email]
+comment = VoiceOver label for the email icon in the iOS About screen's social links.
+tags = apple-maps
+en = Email Organic Maps
+pl = Napisz e-mail do Organic Maps
+ru = Написать в Organic Maps по электронной почте
+uk = Написати в Organic Maps електронною поштою
