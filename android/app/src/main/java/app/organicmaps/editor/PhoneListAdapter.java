@@ -13,9 +13,8 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.ViewHolder>
 {
@@ -70,7 +69,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
   public String getPhoneList()
   {
     StringBuilder sb = new StringBuilder();
-    for(String p: phonesData)
+    for (String p : phonesData)
     {
       if (!TextUtils.isEmpty(p))
       {
@@ -100,7 +99,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
         {
           UiUtils.setInputError(phoneInput,
                                 Editor.nativeIsPhoneValid(s.toString()) ? 0 : R.string.error_enter_correct_phone);
-          PhoneListAdapter.this.updatePhoneItem(ViewHolder.this.getBindingAdapterPosition(), mInput.getText().toString());
+          PhoneListAdapter.this.updatePhoneItem(ViewHolder.this.getBindingAdapterPosition(),
+                                                mInput.getText().toString());
           if (isNewPhoneRow)
             setNewPhoneRow(false); // When user edits text in new phone row then it's not a new phone row anymore
         }
@@ -139,7 +139,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     @Override
     public void onClick(View view)
     {
-      if (view.getId() == R.id.delete_icon) {
+      if (view.getId() == R.id.delete_icon)
+      {
         PhoneListAdapter.this.deleteItem(getBindingAdapterPosition());
       }
     }
@@ -150,10 +151,10 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     if (position == -1)
       return;
     phonesData.set(position, text);
-    if (position == phonesData.size()-1 && !text.isEmpty())
+    if (position == phonesData.size() - 1 && !text.isEmpty())
     {
       phonesData.add("");
-      notifyItemInserted(phonesData.size()-1);
+      notifyItemInserted(phonesData.size() - 1);
     }
   }
 
