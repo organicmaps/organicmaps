@@ -301,22 +301,14 @@ void Editor::DeleteFeature(FeatureID const & fid)
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
-  auto editableFeatures = make_shared<FeaturesContainer>(*m_features.Get());
-
-  auto const mwm = editableFeatures->find(fid.m_mwmId);
-
-  if (mwm != editableFeatures->end())
+  // A feature created by the user is deleted by removing all traces of it.
+  if (GetFeatureStatus(fid) == FeatureStatus::Created)
   {
-    auto const f = mwm->second.find(fid.m_index);
-    // Created feature is deleted by removing all traces of it.
-    if (f != mwm->second.end() && f->second.m_status == FeatureStatus::Created)
-    {
-      mwm->second.erase(f);
-      SaveTransaction(editableFeatures);
-      return;
-    }
+    RemoveFeature(fid);
+    return;
   }
 
+  auto editableFeatures = make_shared<FeaturesContainer>(*m_features.Get());
   MarkFeatureWithStatus(*editableFeatures, fid, FeatureStatus::Deleted);
   SaveTransaction(editableFeatures);
   Invalidate();
@@ -420,9 +412,8 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   fti.m_modificationTimestamp = time(nullptr);
   fti.m_street = emo.GetStreet().m_defaultName;
 
-  // Reset upload status so already uploaded features can be uploaded again after modification.
-  fti.m_uploadStatus = {};
-
+  // The whole entry is replaced, so the upload state of a previous operation on the same feature
+  // is dropped and an already uploaded feature is uploaded again after it was modified.
   auto editableFeatures = make_shared<FeaturesContainer>(*features);
   (*editableFeatures)[fid.m_mwmId][fid.m_index] = std::move(fti);
 
@@ -770,10 +761,11 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
         /// @todo I suspect that some (last) features can be uploaded several times.
         /// UploadChanges -> async update here -> m_isUploadingNow = false, new UploadChanges,
         /// actual SaveUploadedInformation (on Gui) is called after the new upload.
-        GetPlatform().RunTask(Platform::Thread::Gui, [this, id = fti.m_object.GetID(), uploadInfo]()
+        GetPlatform().RunTask(Platform::Thread::Gui,
+                              [this, id = fti.m_object.GetID(), status = fti.m_status, uploadInfo]()
         {
           // Call Save every time we modify each feature's information.
-          SaveUploadedInformation(id, uploadInfo);
+          SaveUploadedInformation(id, status, uploadInfo);
         });
       }
     }
@@ -795,7 +787,7 @@ Editor::UploadStart Editor::UploadChanges(string const & oauthToken, ChangesetTa
   return UploadStart::Started;
 }
 
-void Editor::SaveUploadedInformation(FeatureID const & fid, UploadInfo const & uploadInfo)
+void Editor::SaveUploadedInformation(FeatureID const & fid, FeatureStatus uploadedStatus, UploadInfo const & uploadInfo)
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
@@ -812,6 +804,12 @@ void Editor::SaveUploadedInformation(FeatureID const & fid, UploadInfo const & u
     return;
 
   auto & fti = index->second;
+  // The user started a new operation on the feature (deleted it, or edited it again) while the
+  // upload was in flight. The result belongs to the previous operation: applying it would mark the
+  // new one as uploaded and it would never be sent to OSM.
+  if (fti.m_status != uploadedStatus)
+    return;
+
   fti.m_uploadAttemptTimestamp = uploadInfo.m_uploadAttemptTimestamp;
   fti.m_uploadStatus = uploadInfo.m_uploadStatus;
   fti.m_uploadError = uploadInfo.m_uploadError;
@@ -1064,19 +1062,20 @@ void Editor::MarkFeatureWithStatus(FeaturesContainer & editableFeatures, Feature
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
-  auto & fti = editableFeatures[fid.m_mwmId][fid.m_index];
-
   auto const originalObjectPtr = GetOriginalMapObject(fid);
-
   if (!originalObjectPtr)
   {
     LOG(LERROR, ("A feature with id", fid, "cannot be loaded."));
     return;
   }
 
+  // Deleting or obsoleting a feature starts a new operation on it, so nothing from a previous edit
+  // survives: a leftover "Uploaded" status would keep a deletion from ever being sent to OSM.
+  FeatureTypeInfo fti;
   fti.m_object = *originalObjectPtr;
   fti.m_status = status;
   fti.m_modificationTimestamp = time(nullptr);
+  editableFeatures[fid.m_mwmId][fid.m_index] = std::move(fti);
 }
 
 MwmSet::MwmId Editor::GetMwmIdByMapName(string const & name)
