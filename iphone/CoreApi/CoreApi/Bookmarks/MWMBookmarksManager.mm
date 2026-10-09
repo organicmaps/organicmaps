@@ -168,15 +168,19 @@ static UIColor * UIColorFromCoreColor(dp::Color const & color)
       if (!self)
         return;
       auto const presentation = GetFramework().SetBookmarkImportResult(result);
+      NSMutableArray<NSNumber *> * categoryIds = [NSMutableArray arrayWithCapacity:presentation.m_groupIds.size()];
+      for (auto const groupId : presentation.m_groupIds)
+        [categoryIds addObject:@(groupId)];
       NSMutableArray<NSString *> * failedFileNames = [NSMutableArray array];
       for (auto const & source : result.m_sourceResults)
         for (auto const & name : source.m_failedFileNames)
           [failedFileNames addObject:[NSString stringWithUTF8String:name.c_str()] ?: @"?"];
       [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer
-                respondsToSelector:@selector(onBookmarksImportFinishedWithContent:notificationOnly:failedFileNames:)])
+        if ([observer respondsToSelector:@selector(onBookmarksImportFinishedWithContent:notificationOnly:categoryIds:
+                                                   failedFileNames:)])
           [observer onBookmarksImportFinishedWithContent:presentation.m_hasContent
                                         notificationOnly:presentation.m_notificationOnly
+                                             categoryIds:categoryIds
                                          failedFileNames:failedFileNames];
       }];
     };
@@ -187,6 +191,11 @@ static UIColor * UIColorFromCoreColor(dp::Color const & color)
 - (BOOL)showPendingImportedBookmarks
 {
   return GetFramework().ShowPendingBookmarkImport();
+}
+
+- (void)discardPendingImportedBookmarks
+{
+  GetFramework().SetBookmarkImportResult({});
 }
 
 #pragma mark - Bookmarks loading

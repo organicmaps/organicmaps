@@ -60,7 +60,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_onBookmarksLoadingFinishedMethod =
       jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingFinished", "()V");
   g_onBookmarksImportFinishedMethod =
-      jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksImportFinished", "(ZZ[Ljava/lang/String;)V");
+      jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksImportFinished", "(ZZ[J[Ljava/lang/String;)V");
   g_onPreparedFileForSharingMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                                                       "(Lapp/organicmaps/sdk/bookmarks/data/BookmarkSharingResult;)V");
 
@@ -145,10 +145,11 @@ void OnBookmarksImportFinished(JNIEnv * env, BookmarkManager::BookmarkImportResu
 
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
+  jni::TScopedLocalLongArrayRef const categories(env, jni::ToJavaLongArray(env, presentation.m_groupIds));
   jni::TScopedLocalObjectArrayRef const errors(env, jni::ToJavaStringArray(env, failedFileNames));
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksImportFinishedMethod,
                       static_cast<jboolean>(presentation.m_hasContent),
-                      static_cast<jboolean>(presentation.m_notificationOnly), errors.get());
+                      static_cast<jboolean>(presentation.m_notificationOnly), categories.get(), errors.get());
   jni::HandleJavaException(env);
 }
 

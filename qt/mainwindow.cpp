@@ -42,14 +42,18 @@
 
 #include <QtCore/QSignalBlocker>
 #include <QtGui/QCloseEvent>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 
 #ifdef OMIM_OS_WINDOWS
 #include "std/windows.hpp"
@@ -162,20 +166,21 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
     for (auto const & source : result.m_sourceResults)
       for (auto const & name : source.m_failedFileNames)
         errors << QString::fromStdString(name);
-    if (presentation.m_hasContent || (presentation.m_notificationOnly && !errors.isEmpty()))
+    if (presentation.m_hasContent || !errors.isEmpty())
     {
-      owner->m_pendingImportFeedback = ImportFeedback{std::move(errors), presentation.m_notificationOnly};
+      owner->m_pendingImportFeedback =
+          ImportFeedback{presentation.m_groupIds, std::move(errors), presentation.m_notificationOnly};
       if (owner->m_bookmarkDialog)
         owner->m_bookmarkDialog->done(0);
+      if (owner->m_importResultDialog)
+        owner->m_importResultDialog->reject();
       QMetaObject::invokeMethod(owner, &MainWindow::PresentPendingBookmarkImport, Qt::QueuedConnection);
     }
     else
     {
       owner->m_pendingImportFeedback.reset();
-      if (!errors.isEmpty())
-        QMessageBox::warning(owner->m_bookmarkDialog ? static_cast<QWidget *>(owner->m_bookmarkDialog.data())
-                                                     : static_cast<QWidget *>(owner.data()),
-                             tr("Import failed"), tr("Could not import:\n%1").arg(errors.join("\n")));
+      if (owner->m_importResultDialog)
+        owner->m_importResultDialog->reject();
     }
   };
   framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
@@ -268,20 +273,79 @@ MainWindow::~MainWindow()
 
 void MainWindow::PresentPendingBookmarkImport()
 {
-  if (!m_pendingImportFeedback || m_bookmarkDialog)
+  if (!m_pendingImportFeedback || m_bookmarkDialog || m_importResultDialog)
     return;
   auto feedback = std::move(*m_pendingImportFeedback);
   m_pendingImportFeedback.reset();
-  bool const shown = GetFramework().ShowPendingBookmarkImport();
   if (feedback.m_notificationOnly || GetFramework().GetRoutingManager().IsRoutingFollowing())
   {
     statusBar()->showMessage(feedback.m_errors.isEmpty() ? tr("Bookmarks imported") : tr("Import failed"), 5000);
     return;
   }
-  if (shown)
-    statusBar()->showMessage(tr("Bookmarks imported"), 5000);
+  if (feedback.m_groupIds.size() == 1 && feedback.m_errors.isEmpty())
+  {
+    if (GetFramework().ShowPendingBookmarkImport())
+      statusBar()->showMessage(tr("Bookmarks imported"), 5000);
+    return;
+  }
+
+  GetFramework().SetBookmarkImportResult({});
+  QDialog resultDialog(this);
+  m_importResultDialog = &resultDialog;
+  resultDialog.setWindowTitle(tr("Bookmark import results"));
+  resultDialog.resize(500, 480);
+  auto * layout = new QVBoxLayout(&resultDialog);
+  auto * scrollArea = new QScrollArea(&resultDialog);
+  scrollArea->setWidgetResizable(true);
+  auto * content = new QWidget(scrollArea);
+  auto * contentLayout = new QVBoxLayout(content);
+
   if (!feedback.m_errors.isEmpty())
-    QMessageBox::warning(this, tr("Import failed"), tr("Could not import:\n%1").arg(feedback.m_errors.join("\n")));
+  {
+    auto * heading = new QLabel(tr("Files that could not be imported:"), content);
+    heading->setWordWrap(true);
+    contentLayout->addWidget(heading);
+    for (auto const & name : feedback.m_errors)
+    {
+      auto * label = new QLabel(name, content);
+      label->setWordWrap(true);
+      contentLayout->addWidget(label);
+    }
+  }
+
+  std::optional<kml::MarkGroupId> selectedCategory;
+  if (!feedback.m_groupIds.empty())
+  {
+    auto * heading = new QLabel(tr("Imported bookmark lists. Select one to show on the map:"), content);
+    heading->setWordWrap(true);
+    contentLayout->addWidget(heading);
+    for (auto const id : feedback.m_groupIds)
+    {
+      auto const name = QString::fromStdString(GetFramework().GetBookmarkManager().GetCategoryName(id));
+      auto * button = new QPushButton(name, content);
+      button->setToolTip(name);
+      connect(button, &QAbstractButton::clicked, &resultDialog, [&resultDialog, &selectedCategory, id]
+      {
+        selectedCategory = id;
+        resultDialog.accept();
+      });
+      contentLayout->addWidget(button);
+    }
+  }
+
+  contentLayout->addStretch();
+  scrollArea->setWidget(content);
+  layout->addWidget(scrollArea);
+  auto * buttons = new QDialogButtonBox(QDialogButtonBox::Close, &resultDialog);
+  connect(buttons, &QDialogButtonBox::rejected, &resultDialog, &QDialog::reject);
+  layout->addWidget(buttons);
+  resultDialog.exec();
+  m_importResultDialog = nullptr;
+
+  if (selectedCategory)
+    GetFramework().ShowBookmarkCategory(*selectedCategory);
+  if (m_pendingImportFeedback)
+    QMetaObject::invokeMethod(this, &MainWindow::PresentPendingBookmarkImport, Qt::QueuedConnection);
 }
 
 #if defined(OMIM_OS_WINDOWS)

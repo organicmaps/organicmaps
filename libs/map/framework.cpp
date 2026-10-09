@@ -1033,6 +1033,7 @@ BookmarkImportPresentation Framework::SetBookmarkImportResult(BookmarkImportResu
       if (bm.HasBmCategory(groupId) && !bm.IsCategoryEmpty(groupId))
       {
         presentation.m_hasContent = true;
+        presentation.m_groupIds.push_back(groupId);
         if (!presentation.m_notificationOnly)
           m_pendingBookmarkImportGroups.push_back(groupId);
       }
