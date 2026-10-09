@@ -186,7 +186,7 @@ UNIT_TEST(Kml_V10MM_Bookmarks)
   TEST_EQUAL(first.m_color.m_predefinedColor, kml::PredefinedColor::Blue, ());
   TEST_EQUAL(first.m_icon, kml::BookmarkIcon::Mountain, ());
   TEST_EQUAL(first.m_viewportScale, 17, ());
-  TEST_EQUAL(kml::ToSecondsSinceEpoch(first.m_timestamp), 1700000000, ());
+  TEST_EQUAL(kml::ToSecondsSinceEpoch(first.m_createdTimestamp), 1700000000, ());
   TEST_ALMOST_EQUAL_ABS(first.m_point.x, 0.0, 1e-6, ());
   TEST_ALMOST_EQUAL_ABS(first.m_point.y, 0.0, 1e-6, ());
   TEST(first.m_visible, ());
@@ -201,7 +201,7 @@ UNIT_TEST(Kml_V10MM_Bookmarks)
   TEST_EQUAL(second.m_color.m_predefinedColor, kml::PredefinedColor::Green, ());
   TEST_EQUAL(second.m_icon, kml::BookmarkIcon::Park, ());
   TEST_EQUAL(second.m_viewportScale, 12, ());
-  TEST_EQUAL(kml::ToSecondsSinceEpoch(second.m_timestamp), 1700000123, ());
+  TEST_EQUAL(kml::ToSecondsSinceEpoch(second.m_createdTimestamp), 1700000123, ());
   TEST_ALMOST_EQUAL_ABS(second.m_point.x, -90.0, 1e-6, ());
   TEST_ALMOST_EQUAL_ABS(second.m_point.y, 90.0, 1e-6, ());
   TEST(!second.m_visible, ());
@@ -390,7 +390,7 @@ UNIT_TEST(Kml_V10MM_TrackMetadataTime)
   fixture.m_tracks = MakeTracks({track});
   auto data = ReadKmb(fixture.Serialize());
   TEST_EQUAL(kml::GetDefaultStr(data.m_tracksData[0].m_name), "V10 bookmarks", ());
-  TEST_EQUAL(kml::ToSecondsSinceEpoch(data.m_tracksData[0].m_timestamp), 1750000000, ());
+  TEST_EQUAL(kml::ToSecondsSinceEpoch(data.m_tracksData[0].m_createdTimestamp), 1750000000, ());
   TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());
 
   fixture.m_category[20] = 0;  // Category name also references the empty string.
@@ -403,7 +403,7 @@ UNIT_TEST(Kml_V10MM_TrackMetadataTime)
   track.m_created = 1700000000456;
   fixture.m_tracks = MakeTracks({track});
   data = ReadKmb(fixture.Serialize());
-  TEST_EQUAL(kml::ToSecondsSinceEpoch(data.m_tracksData[0].m_timestamp), 1700000000, ());
+  TEST_EQUAL(kml::ToSecondsSinceEpoch(data.m_tracksData[0].m_createdTimestamp), 1700000000, ());
   TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());
 
   // Unmatched arrays cannot safely be assigned to points, but retain geometry.
