@@ -330,3 +330,27 @@ private final class SearchClosureObserver: NSObject, SearchOnMapManagerObserver 
     }
   }
 }
+
+final class SearchPlaceholderAccessibilityTests: XCTestCase {
+  func test_EmptySearchAndHistoryExposeLocalizedHeadings() throws {
+    for key in ["search_not_found", "search_history_title"] {
+      let placeholder = PlaceholderView(title: L(key), subtitle: L("search_not_found_query"))
+      let title = try XCTUnwrap(placeholder.firstDescendant {
+        ($0 as? UILabel)?.text == L(key)
+      } as? UILabel)
+      XCTAssertTrue(title.isAccessibilityElement)
+      XCTAssertTrue(title.accessibilityTraits.contains(.header))
+    }
+  }
+
+  func test_LegacyNoResultsExposesHeading() throws {
+    let titleText = L("search_not_found")
+    let view = try XCTUnwrap(MWMSearchNoResults.view(with: nil,
+                                                     title: titleText,
+                                                     text: L("search_not_found_query")))
+    let title = try XCTUnwrap(view.firstDescendant {
+      ($0 as? UILabel)?.text == titleText
+    } as? UILabel)
+    XCTAssertTrue(title.accessibilityTraits.contains(.header))
+  }
+}
