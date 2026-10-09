@@ -30,7 +30,8 @@ enum class Format
            // header, sdx section with header, dat section renamed to features, features section with
            // header).
   v11,     // September 2020 (compressed string storage for metadata).
-  lastFormat = v11
+  v12,     // October 2026 (features grouped by search type, cumulative FeatureID offsets in header).
+  lastFormat = v12
 };
 
 std::string DebugPrint(Format f);

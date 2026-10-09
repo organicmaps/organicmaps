@@ -15,7 +15,7 @@ CalculateMidPoints::CalculateMidPoints()
   { return GetMinDrawableScale(fb.GetTypesHolder(), fb.GetLimitRect()); };
 }
 
-void CalculateMidPoints::operator()(FeatureBuilder const & ft, uint64_t pos)
+void CalculateMidPoints::operator()(FeatureBuilder const & ft, uint64_t pos, DataHeader::FeatureGroup group)
 {
   // Reset state.
   m_midLoc = m2::PointD::Zero();
@@ -33,7 +33,7 @@ void CalculateMidPoints::operator()(FeatureBuilder const & ft, uint64_t pos)
   if (minScale != -1)
   {
     uint64_t const order = (static_cast<uint64_t>(minScale) << 59) | (pointAsInt64 >> 5);
-    m_vec.emplace_back(order, pos);
+    m_vectors[static_cast<size_t>(group)].emplace_back(order, pos);
   }
 }
 
@@ -57,6 +57,7 @@ m2::PointD CalculateMidPoints::GetCenter() const
 
 void CalculateMidPoints::Sort()
 {
-  std::sort(m_vec.begin(), m_vec.end(), base::LessBy(&CellAndOffset::first));
+  for (auto & features : m_vectors)
+    std::sort(features.begin(), features.end(), base::LessBy(&CellAndOffset::first));
 }
 }  // namespace feature
