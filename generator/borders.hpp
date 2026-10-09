@@ -36,10 +36,8 @@ namespace borders
 //
 // The borders for all mwm files are shipped with the application in
 // the mwm binary format for geometry data (see coding/geometry_coding.hpp).
-// However, storing every single point turned out to take too much space,
-// therefore the borders are simplified. This simplification may lead to
-// unwanted consequences (for example, empty spaces may occur between mwms)
-// but currently we do not take any action against them.
+// Packed borders simplify matching source arcs consistently across all rings.
+// Junctions stay fixed, so simplification preserves existing shared boundaries.
 
 using Polygon = m2::RegionD;
 using PolygonsTree = m4::Tree<Polygon>;

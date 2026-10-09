@@ -4,6 +4,7 @@ set(SRC
   addresses_tests.cpp
   affiliation_tests.cpp
   altitude_test.cpp
+  border_simplification_tests.cpp
   brands_loader_test.cpp
   camera_collector_tests.cpp
   cells_merger_tests.cpp

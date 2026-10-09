@@ -1,6 +1,6 @@
 #include "generator/borders.hpp"
 
-#include "generator/borders.hpp"
+#include "generator/border_simplification.hpp"
 
 #include "platform/platform.hpp"
 
@@ -14,7 +14,6 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
-#include "geometry/simplification.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
@@ -27,10 +26,8 @@
 #include <functional>
 #include <iomanip>
 #include <iostream>
+#include <span>
 #include <vector>
-
-#include "base/assert.hpp"
-#include "base/string_utils.hpp"
 
 #include "defines.hpp"
 
@@ -62,16 +59,11 @@ class PackedBordersGenerator
 public:
   explicit PackedBordersGenerator(std::string const & baseDir) : m_writer(baseDir + PACKED_POLYGONS_FILE) {}
 
-  void operator()(std::string const & name, std::vector<m2::RegionD> const & borders)
+  void WriteCountry(std::string const & name, m2::RectD const & rect, std::span<m2::RegionD const> borders)
   {
     // use index in vector as tag
     auto w = m_writer.GetWriter(strings::to_string(m_polys.size()));
     serial::GeometryCodingParams cp;
-
-    // calc rect
-    m2::RectD rect;
-    for (m2::RegionD const & border : borders)
-      rect.Add(border.GetRect());
 
     // store polygon info
     m_polys.push_back(storage::CountryDef(name, rect));
@@ -79,15 +71,7 @@ public:
     // write polygons as paths
     WriteVarUint(w, borders.size());
     for (m2::RegionD const & border : borders)
-    {
-      std::vector<m2::PointD> const & in = border.Data();
-      std::vector<m2::PointD> out;
-
-      /// @todo Choose scale level for simplification.
-      SimplifyDefault(in.begin(), in.end(), math::Pow2(scales::GetEpsilonForSimplify(10)), out);
-
-      serial::SaveOuterPath(out, cp, *w);
-    }
+      serial::SaveOuterPath(border.Data(), cp, *w);
   }
 
   void WritePolygonsInfo()
@@ -202,8 +186,31 @@ CountryPolygonsCollection LoadCountriesList(std::string const & baseDir)
 
 void GeneratePackedBorders(std::string const & baseDir)
 {
+  struct Country
+  {
+    std::string m_name;
+    m2::RectD m_rect;
+    size_t m_polygonCount;
+  };
+  std::vector<Country> countries;
+  std::vector<m2::RegionD> polygons;
+  ForEachCountry(baseDir, [&](std::string const & name, std::vector<m2::RegionD> const & borders)
+  {
+    m2::RectD rect;
+    for (auto const & border : borders)
+      rect.Add(border.GetRect());
+    countries.push_back({name, rect, borders.size()});
+    polygons.insert(polygons.end(), borders.begin(), borders.end());
+  });
+  auto const simplified = SimplifyBorders(polygons, math::Pow2(scales::GetEpsilonForSimplify(10)));
   PackedBordersGenerator generator(baseDir);
-  ForEachCountry(baseDir, generator);
+  size_t first = 0;
+  for (auto const & country : countries)
+  {
+    generator.WriteCountry(country.m_name, country.m_rect,
+                           std::span(simplified).subspan(first, country.m_polygonCount));
+    first += country.m_polygonCount;
+  }
   generator.WritePolygonsInfo();
 }
 

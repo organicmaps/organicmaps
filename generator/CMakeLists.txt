@@ -9,6 +9,8 @@ set(SRC
   affiliation.hpp
   altitude_generator.cpp
   altitude_generator.hpp
+  border_simplification.cpp
+  border_simplification.hpp
   borders.cpp
   borders.hpp
   boundary_postcodes_enricher.cpp
@@ -258,6 +260,7 @@ target_link_libraries(${PROJECT_NAME}
 # Disable unity build to avoid boost::geometry macro linker errors.
 set_source_files_properties(
   affiliation.cpp
+  border_simplification.cpp
   final_processor_country.cpp
   hierarchy.cpp
   PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE
