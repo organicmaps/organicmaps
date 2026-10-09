@@ -15,6 +15,14 @@ using namespace routing;
 using namespace routing::turns;
 using mercator::FromLatLon;
 
+void TestLanes(Route const & route, size_t turnIndex, lanes::LanesInfo const & expected)
+{
+  std::vector<TurnItem> turns;
+  route.GetTurnsForTesting(turns);
+  TEST_LESS(turnIndex, turns.size(), ());
+  TEST_EQUAL(turns[turnIndex].m_lanes, expected, ());
+}
+
 // Secondary should be preferred against residential.
 UNIT_TEST(StPetersburg_SideRoadPenalty_TurnTest)
 {
@@ -1458,8 +1466,8 @@ UNIT_TEST(Segregated_MergeLeftRightTurns)
 // Zemlyanoy Val street (northbound) in Moscow: turn:lanes = through|through|through|through|right|reverse,
 // where the last (right side) lane is a dedicated U-turn loop to the opposite carriageway.
 // After the U-turn fork there is a short (~20m) segment with turn:lanes = through|through|through|through|right
-// before the right turn to Staraya Basmannaya street. Both maneuvers should show the six approach lanes.
-// The U-turn selects ReverseLeft in the last lane; the right turn keeps its reverse direction ambiguous.
+// before the right turn to Staraya Basmannaya street. The right-turn guidance must switch from
+// six approach lanes to five after that fork.
 UNIT_TEST(Russia_Moscow_ZemlyanoyVal_LanesTest)
 {
   using namespace integration;
@@ -1476,18 +1484,12 @@ UNIT_TEST(Russia_Moscow_ZemlyanoyVal_LanesTest)
     Route const & route = *res.first;
 
     TestTurnCount(route, 1 /* expectedTurnCount */);
-    GetNthTurn(route, 0)
-        .TestValid()
-        .TestDirection(CarDirection::TurnRight)
-        .TestLanes({through,
-                    through,
-                    through,
-                    through,
-                    {{LaneWay::Right}, LaneWay::Right},
-                    // The "reverse" tag does not specify the U-turn side, so the lane is parsed into both
-                    // ReverseLeft and ReverseRight. It is disambiguated by FixRecommendedReverseLane only
-                    // when a U-turn maneuver recommends this lane (see the U-turn case below).
-                    {{LaneWay::ReverseLeft, LaneWay::ReverseRight}, LaneWay::None}});
+    GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+    TestLanes(route, 0, {through, through, through, through, {{LaneWay::Right}, LaneWay::Right}});
+    std::vector<TurnItem> turns;
+    route.GetTurnsForTesting(turns);
+    TEST_EQUAL(turns[0].m_approachLanes.size(), 1, ());
+    TEST_EQUAL(turns[0].m_approachLanes[0].m_lanes.size(), 6, ());
   }
 
   // U-turn to the southbound carriageway of Zemlyanoy Val.
@@ -1499,16 +1501,31 @@ UNIT_TEST(Russia_Moscow_ZemlyanoyVal_LanesTest)
     Route const & route = *res.first;
 
     TestTurnCount(route, 1 /* expectedTurnCount */);
-    GetNthTurn(route, 0)
-        .TestValid()
-        .TestDirection(CarDirection::UTurnLeft)
-        .TestLanes({through,
-                    through,
-                    through,
-                    through,
-                    {{LaneWay::Right}, LaneWay::None},
-                    {{LaneWay::ReverseLeft}, LaneWay::ReverseLeft}});
+    GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::UTurnLeft);
+    TestLanes(route, 0,
+              {through,
+               through,
+               through,
+               through,
+               {{LaneWay::Right}, LaneWay::None},
+               {{LaneWay::ReverseLeft}, LaneWay::ReverseLeft}});
   }
+}
+
+UNIT_TEST(Russia_Moscow_ZemlyanoyVal_BicycleLanesTest)
+{
+  using namespace integration;
+
+  TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle), FromLatLon(55.763544, 37.6567575),
+                                          {0., 0.}, FromLatLon(55.7642684, 37.6569801));
+  TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+  std::vector<TurnItem> turns;
+  res.first->GetTurnsForTesting(turns);
+  TEST_EQUAL(turns.size(), 2, ());
+  TEST_EQUAL(turns[0].m_turn, CarDirection::TurnRight, ());
+  TEST_EQUAL(turns[0].m_lanes.size(), 5, ());
+  TEST_EQUAL(turns[0].m_approachLanes.size(), 1, ());
+  TEST_EQUAL(turns[0].m_approachLanes[0].m_lanes.size(), 6, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/9429
@@ -1525,10 +1542,8 @@ UNIT_TEST(Lithuania_Vilnius_LuksioKalvariju_LanesTest)
   Route const & route = *res.first;
 
   TestTurnCount(route, 1 /* expectedTurnCount */);
-  GetNthTurn(route, 0)
-      .TestValid()
-      .TestDirection(CarDirection::TurnRight)
-      .TestLanes({{{LaneWay::Left, LaneWay::Through}, LaneWay::None}, {{LaneWay::Right}, LaneWay::Right}});
+  GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  TestLanes(route, 0, {{{LaneWay::Left, LaneWay::Through}, LaneWay::None}, {{LaneWay::Right}, LaneWay::Right}});
 }
 
 // https://github.com/organicmaps/organicmaps/issues/10327
@@ -1546,12 +1561,11 @@ UNIT_TEST(Slovenia_Ljubljana_GolovecTunnelExit_LanesTest)
   Route const & route = *res.first;
 
   TestTurnCount(route, 1 /* expectedTurnCount */);
-  GetNthTurn(route, 0)
-      .TestValid()
-      .TestDirection(CarDirection::ExitHighwayToLeft)
-      .TestLanes({{{LaneWay::SlightLeft}, LaneWay::SlightLeft},
-                  {{LaneWay::SlightLeft, LaneWay::SlightRight}, LaneWay::SlightLeft},
-                  {{LaneWay::SlightRight}, LaneWay::None}});
+  GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
+  TestLanes(route, 0,
+            {{{LaneWay::SlightLeft}, LaneWay::SlightLeft},
+             {{LaneWay::SlightLeft, LaneWay::SlightRight}, LaneWay::SlightLeft},
+             {{LaneWay::SlightRight}, LaneWay::None}});
 }
 
 }  // namespace turn_test
