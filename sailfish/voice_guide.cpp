@@ -1,6 +1,7 @@
 #include "sailfish/voice_guide.hpp"
 
 #include "platform/languages.hpp"
+#include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -17,8 +18,29 @@
 #include <algorithm>
 #include <utility>
 
+#if defined(OMIM_AURORA)
+#include <piper/piper.hpp>
+
+#include <QFile>
+#include <QFileInfo>
+#include <fstream>
+
+#include <auroraapp.h>
+#endif
+
 namespace sailfish
 {
+#if defined(OMIM_AURORA)
+// Loaded lazily on the first utterance; Piper keeps the onnxruntime session alive between calls.
+struct VoiceGuide::Piper
+{
+  piper::PiperConfig config;
+  piper::Voice voice;
+  bool loaded = false;
+  QString language;
+};
+#endif
+
 struct VoiceGuide::Engine
 {
   char const * m_program;
@@ -88,6 +110,24 @@ VoiceGuide::Engine const kEngines[] = {
     {"mimic", EnglishOnly, MimicArguments},      {"flite", EnglishOnly, MimicArguments},
     {"pico2wave", PicoVoice, PicoArguments},
 };
+
+#if defined(OMIM_AURORA)
+// The separate voices configuration package installs into "/usr/share/common/<org>/voices".
+QString VoiceConfigDir(QString const & relative)
+{
+  return Aurora::Application::organizationPathTo(QStringLiteral("voices/") + relative).toLocalFile();
+}
+
+// The voices package names models "<locale>-<name>-<quality>.onnx"; map the locale to a core language.
+std::string PiperLanguageForModel(QString const & fileName)
+{
+  QString const locale = fileName.section('-', 0, 0);  // e.g. "ru_RU" or "en_US"
+  QString const lang = locale.section('_', 0, 0);      // e.g. "ru" or "en"
+  if (lang == "zh")
+    return (locale.endsWith("_TW") || locale.endsWith("_HK")) ? "zh-Hant" : "zh-Hans";
+  return lang.toStdString();
+}
+#endif
 }  // namespace
 
 VoiceGuide::VoiceGuide(QObject * parent) : QObject(parent)
@@ -115,6 +155,10 @@ VoiceGuide::~VoiceGuide()
   // The QProcess destructor waits for a killed program, and its finished() must not reach the destroyed player.
   m_process.disconnect(this);
   Stop();
+#if defined(OMIM_AURORA)
+  if (m_piper && m_piper->loaded)
+    piper::terminate(m_piper->config);
+#endif
 }
 
 std::vector<std::string> VoiceGuide::Languages() const
@@ -123,7 +167,11 @@ std::vector<std::string> VoiceGuide::Languages() const
   for (auto const & lang : routing::turns::sound::kLanguageList)
   {
     std::string const code(lang.first);
+#if defined(OMIM_AURORA)
+    if (m_piperVoices.contains(code) || m_speechNoteVoices.contains(code) || m_programVoices.contains(code))
+#else
     if (m_speechNoteVoices.contains(code) || m_programVoices.contains(code))
+#endif
       languages.push_back(code);
   }
   return languages;
@@ -179,6 +227,23 @@ void VoiceGuide::Refresh()
       }
     }
   }
+#if defined(OMIM_AURORA)
+  // Piper voices come from the separate voices configuration package.
+  m_piperVoices.clear();
+  {
+    QString const voicesDir = VoiceConfigDir(QString());
+    QDir dir(voicesDir);
+    for (QString const & fileName : dir.entryList({QStringLiteral("*.onnx")}, QDir::Files, QDir::Name))
+    {
+      QString const config = voicesDir + '/' + fileName + QStringLiteral(".json");
+      if (!QFile::exists(config))
+        continue;
+      // The first model of a language wins.
+      m_piperVoices.emplace(PiperLanguageForModel(fileName), std::make_pair(voicesDir + '/' + fileName, config));
+    }
+    LOG(LINFO, ("Piper voices found:", m_piperVoices.size()));
+  }
+#endif
   ChooseLanguage();
 
   // Asks an installed Speech Note for its voices; this starts its service. Not installed, the call fails.
@@ -253,11 +318,21 @@ void VoiceGuide::ChooseLanguage()
   m_speechNoteLanguage.clear();
   m_speechNoteVoice.clear();
   m_engine = nullptr;
+#if defined(OMIM_AURORA)
+  m_piperEnabled = false;
+#endif
   if (auto const it = m_speechNoteVoices.find(language); it != m_speechNoteVoices.end())
   {
     m_speechNoteLanguage = it->second;
     LOG(LINFO, ("Voice instructions in", language, "with Speech Note"));
   }
+#if defined(OMIM_AURORA)
+  else if (auto const it = m_piperVoices.find(language); it != m_piperVoices.end())
+  {
+    m_piperEnabled = true;
+    LOG(LINFO, ("Voice instructions in", language, "with Piper"));
+  }
+#endif
   else if (auto const it = m_programVoices.find(language); it != m_programVoices.end())
   {
     m_engine = it->second.m_engine;
@@ -338,6 +413,13 @@ void VoiceGuide::SynthesizeNext()
   if (m_queue.isEmpty() || m_speechNotePending || m_speechNoteRequestsToStop > 0 ||
       m_process.state() != QProcess::NotRunning || m_player.state() == QMediaPlayer::PlayingState)
     return;
+#if defined(OMIM_AURORA)
+  if (m_piperEnabled)
+  {
+    SynthesizeWithPiper();
+    return;
+  }
+#endif
   if (!m_speechNoteLanguage.isEmpty())
   {
     m_speechNotePending = true;
@@ -397,6 +479,67 @@ void VoiceGuide::OnSynthesized(int exitCode, QProcess::ExitStatus status)
   m_player.setMedia(QUrl::fromLocalFile(m_wavFile));
   m_player.play();
 }
+
+#if defined(OMIM_AURORA)
+void VoiceGuide::SynthesizeWithPiper()
+{
+  auto const it = m_piperVoices.find(m_language);
+  if (it == m_piperVoices.end())
+  {
+    SynthesizeNext();
+    return;
+  }
+
+  if (!m_piper)
+    m_piper = std::make_unique<Piper>();
+  Piper & piper = *m_piper;
+
+  try
+  {
+    // The voices package also ships the espeak-ng data used for phonemization.
+    piper.config.eSpeakDataPath = VoiceConfigDir(QStringLiteral("espeak-ng-data")).toStdString();
+    if (!piper.loaded)
+    {
+      piper::initialize(piper.config);
+      piper.loaded = true;
+    }
+    if (piper.language != QString::fromStdString(m_language))
+    {
+      std::optional<piper::SpeakerId> speakerId;
+      piper::loadVoice(piper.config, it->second.first.toStdString(), it->second.second.toStdString(), piper.voice,
+                       speakerId);
+      piper.language = QString::fromStdString(m_language);
+    }
+  }
+  catch (std::exception const & e)
+  {
+    LOG(LWARNING, ("Piper voice load failed:", e.what()));
+    m_queue.clear();
+    return;
+  }
+
+  // Two files take turns, so that a new one never replaces the media being played.
+  QString const dir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+  QDir().mkpath(dir);
+  m_wavFile = dir + (m_wavFile.endsWith("speech0.wav") ? "/speech1.wav" : "/speech0.wav");
+
+  try
+  {
+    std::ofstream out(m_wavFile.toStdString(), std::ios::binary);
+    piper::SynthesisResult result;
+    piper::textToWavFile(piper.config, piper.voice, m_queue.takeFirst().toStdString(), out, result);
+  }
+  catch (std::exception const & e)
+  {
+    LOG(LWARNING, ("Piper synthesis failed:", e.what()));
+    SynthesizeNext();
+    return;
+  }
+
+  m_player.setMedia(QUrl::fromLocalFile(m_wavFile));
+  m_player.play();
+}
+#endif
 
 void VoiceGuide::OnPlayerStateChanged(QMediaPlayer::State state)
 {

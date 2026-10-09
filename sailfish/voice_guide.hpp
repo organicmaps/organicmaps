@@ -7,6 +7,7 @@
 #include <QStringList>
 
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -113,5 +114,18 @@ private:
   bool m_processKilled = false;
   // The Sailfish media player also acquires the audio resource, without which the policy keeps it silent.
   QMediaPlayer m_player;
+
+#if defined(OMIM_AURORA)
+  // Aurora OS has no speech engine and its sandbox forbids running external programs, so turn
+  // notifications are synthesized in-process with Piper (libpiper) and played with m_player.
+  // The Piper objects are hidden here to keep the onnxruntime headers out of this header.
+  struct Piper;
+  std::unique_ptr<Piper> m_piper;
+  // Core language -> {onnx model, onnx config} installed by the voices package.
+  std::map<std::string, std::pair<QString, QString>> m_piperVoices;
+  bool m_piperEnabled = false;
+  // Synthesizes the first queued text with Piper and plays the produced WAV.
+  void SynthesizeWithPiper();
+#endif
 };
 }  // namespace sailfish
