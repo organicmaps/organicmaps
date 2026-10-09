@@ -27,8 +27,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacement) {
 typedef NS_ENUM(NSUInteger, MWMTheme) {
   MWMThemeDay,
   MWMThemeNight,
-  MWMThemeVehicleDay,
-  MWMThemeVehicleNight,
   MWMThemeAuto
 };
 
