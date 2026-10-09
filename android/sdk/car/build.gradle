@@ -16,6 +16,8 @@ dependencies {
 
   implementation project(':sdk:widgets:speedlimit')
   implementation project(':sdk:widgets:lanes')
+
+  testImplementation libs.androidx.junit
 }
 
 Publish(project, [

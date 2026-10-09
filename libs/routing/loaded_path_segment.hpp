@@ -7,6 +7,7 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include <optional>
 #include <vector>
 
 namespace routing
@@ -25,6 +26,11 @@ struct LoadedPathSegment
   SegmentRange m_segmentRange;
   std::vector<Segment> m_segments; /*!< Traffic segments for |m_path|. */
   ftypes::HighwayClass m_highwayClass = ftypes::HighwayClass::Undefined;
+  // Closed-roundabout metadata retained only while turn annotations are created. The direction is the
+  // circulation as driven, already flipped for a backward traversal. The center is set only when the
+  // whole feature is angularly monotonic around it, so partial polar sweeps around it are valid.
+  std::optional<m2::PointD> m_roundaboutCenter;
+  turns::RoundaboutDirection m_roundaboutDirection = turns::RoundaboutDirection::Unknown;
   bool m_onRoundabout = false;
   bool m_isLink = false;
   bool m_isOneWay = false;

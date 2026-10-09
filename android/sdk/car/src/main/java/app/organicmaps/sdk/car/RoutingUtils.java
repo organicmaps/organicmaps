@@ -1,8 +1,8 @@
 package app.organicmaps.sdk.car;
 
 import android.graphics.Bitmap;
-import android.text.TextUtils;
 import android.text.style.CharacterStyle;
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -11,13 +11,16 @@ import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.CarIconSpan;
 import androidx.car.app.navigation.model.Destination;
 import androidx.car.app.navigation.model.Lane;
+import androidx.car.app.navigation.model.Maneuver;
 import androidx.car.app.navigation.model.Step;
 import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.LaneInfo;
 import app.organicmaps.sdk.routing.LaneWay;
+import app.organicmaps.sdk.routing.RoundaboutDirection;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.Graphics;
@@ -60,7 +63,7 @@ public final class RoutingUtils
 
     // TODO (AndrewShkrob): Use real distance and time estimates
     builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0, distanceColor));
-    if (!TextUtils.isEmpty(info.nextStreet))
+    if (info.hasNextNextTurn())
       builder.addStep(createNextStep(context, info), createTravelEstimate(Distance.EMPTY, 0, distanceColor));
     return builder.build();
   }
@@ -73,7 +76,8 @@ public final class RoutingUtils
                                                                info.nextStreetRoadShields, 40f, /* drawOutline */
                                                                false));
     builder.setRoad(info.nextStreet);
-    builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum));
+    builder.setManeuver(createManeuver(context, info.carDirection, info.exitNum, info.roundaboutDirection,
+                                       info.exitAngle, info.hasRoundaboutExit));
     if (info.lanes != null)
     {
       for (final LaneInfo laneInfo : info.lanes)
@@ -99,8 +103,43 @@ public final class RoutingUtils
     builder.setCue(RoadShieldUtils.createStreetTextWithShields(RoutingUtils::createRoadShieldSpan, info.nextNextStreet,
                                                                info.nextNextStreetRoadShields, 40f,
                                                                /* drawOutline */ false));
-    builder.setManeuver(RoutingHelpers.createManeuver(context, info.nextCarDirection, 0));
+    builder.setManeuver(createManeuver(context, info.nextCarDirection, info.nextExitNum, info.nextRoundaboutDirection,
+                                       info.nextExitAngle, info.nextHasRoundaboutExit));
 
+    return builder.build();
+  }
+
+  @NonNull
+  private static Maneuver createManeuver(@NonNull final CarContext context, @NonNull CarDirection carDirection,
+                                         @IntRange(from = 0) int roundaboutExitNum,
+                                         @NonNull RoundaboutDirection roundaboutDirection,
+                                         @IntRange(from = 0, to = 360) int roundaboutExitAngle,
+                                         boolean hasRoundaboutExit)
+  {
+    final int maneuverType = switch (carDirection)
+    {
+      case NoTurn, GoStraight -> Maneuver.TYPE_STRAIGHT;
+      case TurnRight -> Maneuver.TYPE_TURN_NORMAL_RIGHT;
+      case TurnSharpRight -> Maneuver.TYPE_TURN_SHARP_RIGHT;
+      case TurnSlightRight -> Maneuver.TYPE_TURN_SLIGHT_RIGHT;
+      case TurnLeft -> Maneuver.TYPE_TURN_NORMAL_LEFT;
+      case TurnSharpLeft -> Maneuver.TYPE_TURN_SHARP_LEFT;
+      case TurnSlightLeft -> Maneuver.TYPE_TURN_SLIGHT_LEFT;
+      case UTurnLeft -> Maneuver.TYPE_U_TURN_LEFT;
+      case UTurnRight -> Maneuver.TYPE_U_TURN_RIGHT;
+      case EnterRoundAbout, LeaveRoundAbout, StayOnRoundAbout ->
+        RoutingHelpers.getRoundaboutManeuverType(carDirection, roundaboutExitNum, roundaboutDirection,
+                                                 roundaboutExitAngle, hasRoundaboutExit);
+      case StartAtEndOfStreet -> Maneuver.TYPE_DEPART;
+      case ReachedYourDestination -> Maneuver.TYPE_DESTINATION;
+      case ExitHighwayToLeft -> Maneuver.TYPE_OFF_RAMP_SLIGHT_LEFT;
+      case ExitHighwayToRight -> Maneuver.TYPE_OFF_RAMP_SLIGHT_RIGHT;
+    };
+    final Maneuver.Builder builder = new Maneuver.Builder(maneuverType);
+    RoutingHelpers.setRoundaboutFields(builder, maneuverType, roundaboutExitNum, roundaboutExitAngle);
+    builder.setIcon(
+        new CarIcon.Builder(IconCompat.createWithResource(context, carDirection.getTurnRes(roundaboutExitNum)))
+            .build());
     return builder.build();
   }
 
