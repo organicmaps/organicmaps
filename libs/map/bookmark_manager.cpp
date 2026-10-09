@@ -13,6 +13,7 @@
 
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
@@ -1308,13 +1309,6 @@ void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
             [](SortTrackData const & lbm, SortTrackData const & rbm) { return lbm.m_timestamp > rbm.m_timestamp; });
 }
 
-// static
-void BookmarkManager::SortTracksByName(std::vector<SortTrackData> & tracks)
-{
-  std::sort(tracks.begin(), tracks.end(),
-            [](SortTrackData const & lbm, SortTrackData const & rbm) { return lbm.m_name < rbm.m_name; });
-}
-
 void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
                                      std::vector<SortTrackData> const & tracksForSort, m2::PointD const & myPosition,
                                      SortedBlocksCollection & sortedBlocks)
@@ -1495,11 +1489,18 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
 }
 
 void BookmarkManager::SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
-                                 std::vector<SortTrackData> const & tracksForSort,
+                                 std::vector<SortTrackData> const & tracksForSort, std::string const & locale,
                                  SortedBlocksCollection & sortedBlocks)
 {
+  auto const collator = platform::CreateStringCollator(locale);
+
+  auto const lessByName = [&collator](std::string const & lhs, std::string const & rhs)
+  { return collator->Less(lhs, rhs); };
+
   std::vector<SortTrackData> sortedTracks = tracksForSort;
-  SortTracksByName(sortedTracks);
+  std::sort(sortedTracks.begin(), sortedTracks.end(),
+            [&lessByName](SortTrackData const & lhs, SortTrackData const & rhs)
+  { return lessByName(lhs.m_name, rhs.m_name); });
   AddTracksSortedBlock(sortedTracks, sortedBlocks);
 
   std::vector<SortBookmarkData const *> sortedMarks;
@@ -1508,7 +1509,8 @@ void BookmarkManager::SortByName(std::vector<SortBookmarkData> const & bookmarks
     sortedMarks.push_back(&mark);
 
   std::sort(sortedMarks.begin(), sortedMarks.end(),
-            [](SortBookmarkData const * lbm, SortBookmarkData const * rbm) { return lbm->m_name < rbm->m_name; });
+            [&lessByName](SortBookmarkData const * lhs, SortBookmarkData const * rhs)
+  { return lessByName(lhs->m_name, rhs->m_name); });
 
   // Put all bookmarks into one block
   SortedBlock bookmarkBlock;
@@ -1531,7 +1533,10 @@ void BookmarkManager::GetSortedCategoryImpl(SortParams const & params,
     return;
   case SortingType::ByTime: SortByTime(bookmarksForSort, tracksForSort, sortedBlocks); return;
   case SortingType::ByType: SortByType(bookmarksForSort, tracksForSort, sortedBlocks); return;
-  case SortingType::ByName: SortByName(bookmarksForSort, tracksForSort, sortedBlocks); return;
+  case SortingType::ByName:
+    SortByName(bookmarksForSort, tracksForSort, params.m_locale.empty() ? languages::GetCurrentOrig() : params.m_locale,
+               sortedBlocks);
+    return;
   }
   UNREACHABLE();
 }
