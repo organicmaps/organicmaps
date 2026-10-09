@@ -129,8 +129,8 @@ APPSTORE_LOCALES = [
 # Combined Android locale set for O(1) membership tests in check_path().
 ANDROID_LOCALES = frozenset(GPLAY_LOCALES + HUAWEI_ONLY_LOCALES)
 
-# Char limits for files validated by check_path(). Source of truth for the
-# `files` subcommand; the bulk check_android()/check_ios() use literals inline.
+# Char limits per metadata file, shared by the full check_android()/check_ios()
+# scans and the per-file `files` subcommand so both enforce identical limits.
 ANDROID_LISTING_LIMITS = {
     'title.txt': 50,
     'title-google.txt': 30,
@@ -140,6 +140,8 @@ ANDROID_LISTING_LIMITS = {
     'full-description-google.txt': 4000,
     'release-notes.txt': 500,
 }
+# Listing files that may be absent for a locale (e.g. Google-specific overrides).
+ANDROID_OPTIONAL_FILES = frozenset({'short-description-google.txt', 'full-description-google.txt'})
 IOS_METADATA_LIMITS = {
     'name.txt': 30,
     'subtitle.txt': 30,
@@ -148,6 +150,8 @@ IOS_METADATA_LIMITS = {
     'release_notes.txt': 4000,
     'keywords.txt': 100,
 }
+# iOS metadata files that may be absent for a locale.
+IOS_OPTIONAL_FILES = frozenset({'keywords.txt'})
 IOS_URL_FILES = ('support_url.txt', 'marketing_url.txt', 'privacy_url.txt')
 
 # Pre-compiled path patterns dispatched by check_path().
@@ -210,7 +214,10 @@ def check_raw(path, max_length, fix=False):
     ok = True
     with open(path, 'rb') as f:
         raw = f.read()
-    text = raw.decode('utf-8').rstrip()
+    try:
+        text = raw.decode('utf-8').rstrip()
+    except UnicodeDecodeError as e:
+        return error(path, "invalid UTF-8: {}", e), ""
     if fix and (encoded := text.encode('utf-8')) != raw:
         with open(path, 'wb') as f:
             f.write(encoded)
@@ -241,7 +248,7 @@ def check_url(path, fix=False):
 
 def check_email(path, fix=False):
     (ok, email) = check_raw(path, 500, fix=fix)
-    ok = ok and email.find('@') != -1 and email.find('.') != -1
+    ok = ok and '@' in email and '.' in email
     return done(path, ok)
 
 def check_exact(path, expected, fix=False):
@@ -257,20 +264,14 @@ def check_android():
     ok = check_url(flavor + 'contact-website.txt') and ok
     ok = check_email(flavor + 'contact-email.txt') and ok
     ok = check_exact(flavor + 'default-language.txt', 'en-US') and ok
-    all_locales = set(GPLAY_LOCALES + HUAWEI_ONLY_LOCALES)
     for locale in glob.glob(flavor + 'listings/*/'):
-        if locale.split('/')[-2] not in all_locales:
+        if locale.split('/')[-2] not in ANDROID_LOCALES:
             ok = error(locale, 'unsupported locale') and ok
             continue
-        ok = check_text(locale + 'title.txt', 50) and ok
-        ok = check_text(locale + 'title-google.txt', 30) and ok
-        ok = check_text(locale + 'short-description.txt', 80) and ok
-        ok = check_text(locale + 'short-description-google.txt', 80, True) and ok
-        ok = check_text(locale + 'full-description.txt', 4000) and ok
-        ok = check_text(locale + 'full-description-google.txt', 4000, True) and ok
-        ok = check_text(locale + 'release-notes.txt', 500) and ok
+        for name, limit in ANDROID_LISTING_LIMITS.items():
+            ok = check_text(locale + name, limit, name in ANDROID_OPTIONAL_FILES) and ok
     for locale in glob.glob(flavor + 'release-notes/*/'):
-        if locale.split('/')[-2] not in all_locales:
+        if locale.split('/')[-2] not in ANDROID_LOCALES:
             ok = error(locale, 'unsupported locale') and ok
             continue
         ok = check_text(locale + 'default.txt', 500) and ok
@@ -285,9 +286,7 @@ def check_ios():
         overlay_dir = os.path.join('keywords', 'ios', locale)
         if not os.path.isdir(locale_dir):
             os.mkdir(locale_dir)
-        for name in ["name.txt", "subtitle.txt", "promotional_text.txt",
-                        "description.txt", "release_notes.txt", "keywords.txt",
-                        "support_url.txt", "marketing_url.txt", "privacy_url.txt"]:
+        for name in (*IOS_METADATA_LIMITS, *IOS_URL_FILES):
             overlay_path = os.path.join(overlay_dir, name)
             english_path = os.path.join(english_dir, name)
             target_path = os.path.join(locale_dir, name)
@@ -304,15 +303,10 @@ def check_ios():
         if dirname not in APPSTORE_LOCALES:
             ok = error(locale, "unsupported locale") and ok
             continue
-        ok = check_text(locale + "name.txt", 30) and ok
-        ok = check_text(locale + "subtitle.txt", 30) and ok
-        ok = check_text(locale + "promotional_text.txt", 170) and ok
-        ok = check_text(locale + "description.txt", 4000) and ok
-        ok = check_text(locale + "release_notes.txt", 4000) and ok
-        ok = check_text(locale + "keywords.txt", 100, True) and ok
-        ok = check_url(locale + "support_url.txt") and ok
-        ok = check_url(locale + "marketing_url.txt") and ok
-        ok = check_url(locale + "privacy_url.txt") and ok
+        for name, limit in IOS_METADATA_LIMITS.items():
+            ok = check_text(locale + name, limit, name in IOS_OPTIONAL_FILES) and ok
+        for name in IOS_URL_FILES:
+            ok = check_url(locale + name) and ok
     for locale in glob.glob('keywords/ios/*/'):
         if locale.split('/')[-2] not in APPSTORE_LOCALES:
             ok = error(locale, "unsupported locale") and ok
@@ -327,6 +321,9 @@ def check_path(path, fix=False):
     are skipped (return True) so non-metadata files in the same commit are a
     no-op rather than an error.
     """
+    if not os.path.isfile(path):
+        return error(path, "file not found")
+
     # Android Play Store listings (fdroid or google flavor share the same layout).
     if m := _LISTINGS_RE.match(path):
         locale, name = m[1], m[2]
