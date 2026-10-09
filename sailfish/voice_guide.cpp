@@ -18,7 +18,7 @@
 #include <algorithm>
 #include <utility>
 
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
 #include <piper/piper.hpp>
 
 #include <QFile>
@@ -30,7 +30,7 @@
 
 namespace sailfish
 {
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
 // Loaded lazily on the first utterance; Piper keeps the onnxruntime session alive between calls.
 struct VoiceGuide::Piper
 {
@@ -111,7 +111,7 @@ VoiceGuide::Engine const kEngines[] = {
     {"pico2wave", PicoVoice, PicoArguments},
 };
 
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
 // The separate voices configuration package installs into "/usr/share/common/<org>/voices".
 QString VoiceConfigDir(QString const & relative)
 {
@@ -155,7 +155,7 @@ VoiceGuide::~VoiceGuide()
   // The QProcess destructor waits for a killed program, and its finished() must not reach the destroyed player.
   m_process.disconnect(this);
   Stop();
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
   if (m_piper && m_piper->loaded)
     piper::terminate(m_piper->config);
 #endif
@@ -167,7 +167,7 @@ std::vector<std::string> VoiceGuide::Languages() const
   for (auto const & lang : routing::turns::sound::kLanguageList)
   {
     std::string const code(lang.first);
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
     if (m_piperVoices.contains(code) || m_speechNoteVoices.contains(code) || m_programVoices.contains(code))
 #else
     if (m_speechNoteVoices.contains(code) || m_programVoices.contains(code))
@@ -227,7 +227,7 @@ void VoiceGuide::Refresh()
       }
     }
   }
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
   // Piper voices come from the separate voices configuration package.
   m_piperVoices.clear();
   {
@@ -318,7 +318,7 @@ void VoiceGuide::ChooseLanguage()
   m_speechNoteLanguage.clear();
   m_speechNoteVoice.clear();
   m_engine = nullptr;
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
   m_piperEnabled = false;
 #endif
   if (auto const it = m_speechNoteVoices.find(language); it != m_speechNoteVoices.end())
@@ -326,7 +326,7 @@ void VoiceGuide::ChooseLanguage()
     m_speechNoteLanguage = it->second;
     LOG(LINFO, ("Voice instructions in", language, "with Speech Note"));
   }
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
   else if (auto const it = m_piperVoices.find(language); it != m_piperVoices.end())
   {
     m_piperEnabled = true;
@@ -413,7 +413,7 @@ void VoiceGuide::SynthesizeNext()
   if (m_queue.isEmpty() || m_speechNotePending || m_speechNoteRequestsToStop > 0 ||
       m_process.state() != QProcess::NotRunning || m_player.state() == QMediaPlayer::PlayingState)
     return;
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
   if (m_piperEnabled)
   {
     SynthesizeWithPiper();
@@ -480,7 +480,7 @@ void VoiceGuide::OnSynthesized(int exitCode, QProcess::ExitStatus status)
   m_player.play();
 }
 
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
 void VoiceGuide::SynthesizeWithPiper()
 {
   auto const it = m_piperVoices.find(m_language);

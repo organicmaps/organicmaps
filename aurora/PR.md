@@ -32,12 +32,15 @@ existing Sailfish OS port.
   unofficial-port notice are shown in About and the main menu. `LICENSE`,
   `NOTICE` and `DATA_LICENSE.txt` are shipped in the package.
 - Offline voice guidance on Aurora (which has no system TTS): a Piper backend
-  (`sailfish/voice_guide.*`, guarded by `OMIM_AURORA`) uses espeak-ng for
-  phonemization and onnxruntime for the vocoder. Voice models and the
-  `espeak-ng-data` live in a separate noarch package `app.organicmaps.voices`
-  (`aurora/voices-package/`) under `/usr/share/common/app.organicmaps/voices`,
-  discovered via `Aurora::Application::organizationPathTo("voices")`; without it
-  the app still works, just without spoken instructions.
+  (`sailfish/voice_guide.*`, guarded by `OMIM_AURORA_VOICE`, enabled by the
+  optional `-DVOICE_LIBS_DIR=...` build flag) uses espeak-ng for phonemization
+  and onnxruntime for the vocoder. Voice models and the `espeak-ng-data` live in
+  a separate noarch package `app.organicmaps.voices` (`aurora/voices-package/`)
+  under `/usr/share/common/app.organicmaps/voices`, discovered via
+  `Aurora::Application::organizationPathTo("voices")`; without it the app still
+  works, just without spoken instructions. The prebuilt onnxruntime/XNNPACK
+  libraries need an ARMv8.2 CPU (dot product), so builds for ARMv8.0 devices
+  omit voice to avoid an `SIGILL` on load.
 
 ### Licensing
 

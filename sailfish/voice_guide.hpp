@@ -115,7 +115,7 @@ private:
   // The Sailfish media player also acquires the audio resource, without which the policy keeps it silent.
   QMediaPlayer m_player;
 
-#if defined(OMIM_AURORA)
+#if defined(OMIM_AURORA_VOICE)
   // Aurora OS has no speech engine and its sandbox forbids running external programs, so turn
   // notifications are synthesized in-process with Piper (libpiper) and played with m_player.
   // The Piper objects are hidden here to keep the onnxruntime headers out of this header.

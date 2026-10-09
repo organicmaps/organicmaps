@@ -80,7 +80,8 @@
 - **Голосовые подсказки (Piper)**: у Авроры нет системного движка TTS, поэтому офлайн-озвучка
   сделана на [Piper](https://github.com/rhasspy/piper) (нейросетевой синтез: espeak-ng для
   фонемизации + onnxruntime для вокодера). Бэкенд — `sailfish/voice_guide.{hpp,cpp}` (под
-  `#if defined(OMIM_AURORA)`), включается автоматически, если установлен пакет с моделями.
+  `#if defined(OMIM_AURORA_VOICE)`, включается опцией сборки `-DVOICE_LIBS_DIR=...`), собирается
+  автоматически, если установлен пакет с моделями.
   Подробности — в разделе «Голосовые подсказки (Piper)».
 
 ## Сборка
@@ -103,10 +104,10 @@
    git -C 3party/glaze apply ../../../aurora/patches/glaze-gcc12.patch
    ```
    (путь указывать от корня репозитория; либо `cd 3party/glaze && git apply <путь>/glaze-gcc12.patch`).
-3. Голосовые библиотеки (нужны при `-DAURORA=ON`; иначе CMake завершится с ошибкой)
-   скачиваются скриптом `aurora/voices-package/fetch_voice_deps.py` из публичного
-   Conan-репозитория Авроры в каталог с подкаталогом `lib/` (например, `/opt/voice`), см.
-   раздел «Голосовые подсказки (Piper)».
+3. Голосовые библиотеки (опционально; включают офлайн-озвучку) скачиваются скриптом
+   `aurora/voices-package/fetch_voice_deps.py` из публичного Conan-репозитория Авроры в каталог
+   с подкаталогом `lib/` (например, `/opt/voice`), см. раздел «Голосовые подсказки (Piper)». Без
+   `-DVOICE_LIBS_DIR` приложение собирается и работает, но без голоса.
 4. ARMv7 (32-битные устройства Авроры):
    ```sh
    S=/opt/cross/armv7hl-meego-linux-gnueabi/sys-root
@@ -150,8 +151,18 @@ sed -i 's#${_qt5Core_install_prefix}/lib/qt5/bin/#/usr/lib64/qt5/bin/#g' \
 
 У Авроры нет системного TTS, поэтому офлайн-озвучка маневрирования сделана на
 [Piper](https://github.com/rhasspy/piper): фонемизация через espeak-ng + нейросетевой вокодер на
-onnxruntime. Реализация — `sailfish/voice_guide.{hpp,cpp}` (под `#if defined(OMIM_AURORA)`). Включается
-автоматически, если найден язык, соответствующий языку интерфейса, и установлен пакет с данными.
+onnxruntime. Реализация — `sailfish/voice_guide.{hpp,cpp}` (под `#if defined(OMIM_AURORA_VOICE)`).
+Включается автоматически, если найден язык, соответствующий языку интерфейса, и установлен пакет с
+данными.
+
+**Голос опционален при сборке**: он включается только при передаче `-DVOICE_LIBS_DIR=...`. Без него
+приложение собирается и работает без озвучки.
+
+**Важно про CPU**: преднастроенные Conan-библиотеки onnxruntime/XNNPACK скомпилированы с ARMv8.2
+dot product (`sdot`/`udot`). На ARMv8.0-устройствах (например, Cortex-A53/A73) они падают с
+`SIGILL` уже при загрузке, поэтому для таких устройств сборку делают **без голоса**
+(`-DVOICE_LIBS_DIR` не передаётся). Голос следует включать только там, где CPU поддерживает
+ARMv8.2 (dot product) — проверяется по `HWCAP_ASIMDDP` в `/proc/cpuinfo` (`asimddp` в `Features`).
 
 Два пакета:
 
@@ -175,8 +186,10 @@ desktop + qml + icons + `configuration/` (модели + espeak-ng-data).
 ## Установка RPM
 
 Пакет не подписан ключом Авроры, поэтому штатная установка (`rpm -i`, `pkcon`)
-блокируется плагином проверки/подписи, а relocation в `/opt/app` может не сработать.
-Рабочая установка в штатную раскладку `/usr`:
+блокируется плагином проверки/подписи. На части устройств включена IMA-проверка подписи
+исполняемых файлов: там бинарник запускается только из штатной раскладки `/opt/app`
+(её создаёт менеджер пакетов Авроры/apm), а запуск из `/usr` даёт `Permission denied`.
+Так или иначе, рабочая установка вручную:
 ```sh
 rpm -Uvh --replacepkgs --noplugins --nodeps app.organicmaps.organicmaps-<версия>.<арх>.rpm
 ```
@@ -184,7 +197,7 @@ rpm -Uvh --replacepkgs --noplugins --nodeps app.organicmaps.organicmaps-<вер�
 ```sh
 rpm-validator -p regular app.organicmaps.organicmaps-<версия>.<арх>.rpm
 ```
-Пакет голосов устанавливается так же:
+Пакет голосов (нужен только для сборки *с* голосом) устанавливается так же:
 ```sh
 rpm -Uvh --replacepkgs --noplugins --nodeps app.organicmaps.voices-<версия>.noarch.rpm
 rpm-validator -p regular app.organicmaps.voices-<версия>.noarch.rpm
@@ -192,10 +205,10 @@ rpm-validator -p regular app.organicmaps.voices-<версия>.noarch.rpm
 
 ## Раскладка после установки
 
-- бинарник: `/usr/bin/app.organicmaps.organicmaps`
+- бинарник: `/usr/bin/app.organicmaps.organicmaps` (или `/opt/app/app.organicmaps.organicmaps/<версия>/bin/...` при установке через apm)
 - ресурсы и приватная библиотека: `/usr/share/app.organicmaps.organicmaps/`
-  (`data/`, `qml/`, `icons/`, `lib/liborganicmaps.so` + голосовые `lib/*.so`, `sounds/`,
-  `LICENSE`, `NOTICE`, `DATA_LICENSE.txt`)
+  (`data/`, `qml/`, `icons/`, `lib/liborganicmaps.so` (+ голосовые `lib/*.so` в сборке с голосом),
+  `sounds/`, `LICENSE`, `NOTICE`, `DATA_LICENSE.txt`)
 - desktop: `/usr/share/applications/app.organicmaps.organicmaps.desktop`
 - данные голосов (пакет `app.organicmaps.voices`): `/usr/share/common/app.organicmaps/voices/`
   (`*.onnx`, `*.onnx.json`, `espeak-ng-data/`), desktop — `/usr/share/applications/app.organicmaps.voices.desktop`
