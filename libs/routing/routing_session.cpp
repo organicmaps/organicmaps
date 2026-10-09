@@ -277,6 +277,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
     if (m_checkpoints.IsFinished())
     {
+      // Cancel queued and in-flight rebuild callbacks so they cannot restart a completed trip.
+      m_router->ClearState();
       m_passedDistanceOnRouteMeters += m_route->GetTotalDistanceMeters();
       SetState(SessionState::RouteFinished);
     }
@@ -483,13 +485,12 @@ void RoutingSession::PassCheckpoints()
   while (!m_checkpoints.IsFinished() && m_route->IsSubroutePassed(m_checkpoints.GetPassedIdx()))
   {
     m_route->PassNextSubroute();
-    // Keep the active RouteBase in m_lastResult in sync so a later RouteCall (e.g. drape engine
-    // reinit) doesn't re-render already-passed subroutes via InsertSingleRoute's
-    // route.GetCurrentSubrouteIdx() loop start.
+    // Every displayed or promoted alternative must skip checkpoints already passed by the session.
     if (m_lastResult)
     {
       CHECK(m_lastResult->IsValid(), ());
-      m_lastResult->GetActive().SetCurrentSubrouteIdx(m_route->GetCurrentSubrouteIdx());
+      for (auto & variant : m_lastResult->m_routes)
+        variant.SetCurrentSubrouteIdx(m_route->GetCurrentSubrouteIdx());
     }
 
     m_checkpoints.PassNextPoint();
@@ -554,14 +555,34 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
     return;
   }
 
+  ASSERT(!m_checkpoints.IsFinished(), ());
+  auto const passedIdx = m_checkpoints.GetPassedIdx();
+  bool const progressed = result->GetActive().GetCurrentSubrouteIdx() < passedIdx;
+  // GPS updates can advance the retained route while this result is calculated on the routing thread.
+  for (auto & variant : result->m_routes)
+  {
+    ASSERT_LESS_OR_EQUAL(variant.GetCurrentSubrouteIdx(), passedIdx, ());
+    variant.SetCurrentSubrouteIdx(passedIdx);
+  }
+  // Promote the active alternative (RouteBase) to a followed Route.
+  auto route = std::make_shared<Route>(result->GetActive());
+  route->SetRoutingSettings(m_routingSettings);
+  if (progressed && IsRouteValid())
+  {
+    auto const position = mercator::ToLatLon(m_route->GetCurrentIter().m_pt);
+    GpsInfo gps;
+    gps.m_latitude = position.m_lat;
+    gps.m_longitude = position.m_lon;
+    gps.m_horizontalAccuracy = 0.0;
+    // The new route can diverge from the retained one; failed matching leaves it at the active leg's start.
+    route->MoveIterator(gps);
+  }
+
   RemoveRoute();
   SetState(SessionState::RouteNotStarted);
   m_lastCompletionPercent = 0;
 
-  // Promote the active alternative (RouteBase) to a followed Route.
-  auto route = std::make_shared<Route>(result->GetActive());
-  m_checkpoints.SetPointFrom(route->GetPoly().Front());
-  route->SetRoutingSettings(m_routingSettings);
+  m_checkpoints.SetPointFrom(route->GetSubrouteAttrs(passedIdx).GetStart().GetPoint());
   m_route = route;
 
   m_lastResult = result;
@@ -573,7 +594,8 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
 bool RoutingSession::SwapActiveAlternative(size_t idx)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (!m_lastResult || idx >= m_lastResult->m_routes.size() || idx == m_lastResult->m_activeIdx)
+  if (m_checkpoints.IsFinished() || !m_lastResult || idx >= m_lastResult->m_routes.size() ||
+      idx == m_lastResult->m_activeIdx)
     return false;
 
   // Validate the cache generation before changing the GUI-owned selection.
@@ -594,7 +616,7 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
   m_lastCompletionPercent = 0;
   m_passedDistanceOnRouteMeters = 0.0;
   m_turnNotificationsMgr.Reset();
-  m_checkpoints.SetPointFrom(m_route->GetPoly().Front());
+  m_checkpoints.SetPointFrom(m_route->GetSubrouteAttrs(m_checkpoints.GetPassedIdx()).GetStart().GetPoint());
 
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);

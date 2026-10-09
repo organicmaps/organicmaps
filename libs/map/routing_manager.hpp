@@ -165,8 +165,9 @@ public:
   void CloseRouting(bool removeRoutePoints);
 
   /// \brief Activate alternative |idx| (typically triggered by tapping its ETA balloon).
-  /// Returns false if the index is out of range, already active, or its adjustment caches are
-  /// unavailable or belong to another result. Re-renders the drape to highlight the selected variant.
+  /// Returns false if no route is available, the journey is complete, |idx| is out of range or already active,
+  /// or its adjustment caches are unavailable or belong to another result.
+  /// Re-renders the drape with the selected variant active.
   bool SwapActiveAlternative(size_t idx);
 
   /// \brief Hit-tests |mercator| against the alternative-route polylines. If one is closer than
