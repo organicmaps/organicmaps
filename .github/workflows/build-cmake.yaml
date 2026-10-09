@@ -120,13 +120,16 @@ jobs:
               libglvnd-dev \
               libharfbuzz-dev \
               libqt6svg6-dev \
-              libxcursor-dev \
-              libxi-dev \
-              libxinerama-dev \
-              libxrandr-dev \
+              libwayland-bin \
+              libwayland-dev \
+              libxkbcommon-dev \
+              mesa-vulkan-drivers \
               ninja-build \
+              pkg-config \
               qt6-base-dev \
               qt6-positioning-dev \
+              vulkan-validationlayers \
+              weston
 
       - name: Install build tools and dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
@@ -168,25 +171,44 @@ jobs:
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
           UNITY_BUILD: ${{ matrix.environment.unity || 'ON' }}
         run: |
+          SANDBOX_FLAGS=()
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            SANDBOX_FLAGS+=(-DENABLE_VULKAN_DIAGNOSTICS=ON)
+          fi
           cmake --preset $PRESET \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
-            -DCMAKE_UNITY_BUILD=${UNITY_BUILD}
+            -DCMAKE_UNITY_BUILD=${UNITY_BUILD} "${SANDBOX_FLAGS[@]}"
 
       # Surface compiler warnings and errors as inline annotations on the PR diff.
       - name: Enable inline compiler annotations
         run: echo "::add-matcher::.github/problem-matchers/${{ runner.os == 'Windows' && 'msvc' || 'gcc' }}.json"
 
-      # dev_sandbox is skipped with a warning when the Metal toolchain is
-      # unavailable (see dev_sandbox/CMakeLists.txt). Ask for the target
-      # explicitly so that a skip fails the job instead of hiding in the log.
+      # Ask for the optional sandbox explicitly so a missing Metal toolchain or
+      # Wayland dependencies fail this job instead of hiding a skip in the log.
       # Before the full build: ninja rejects an unknown target immediately, and
       # dev_sandbox is a part of the default target anyway, so nothing is wasted.
-      - name: Check dev_sandbox is not skipped (macOS)
-        if: ${{ runner.os == 'macOS' }}
+      - name: Check dev_sandbox is not skipped
+        if: ${{ runner.os == 'macOS' || runner.os == 'Linux' }}
         run: cmake --build --preset $PRESET --target dev_sandbox
 
       - name: Compile
         run: cmake --build --preset $PRESET
+
+      - name: Check sandbox graphics (Linux)
+        if: ${{ runner.os == 'Linux' && matrix.environment.run-tests != 'OFF' }}
+        run: |
+          python3 dev_sandbox/tests/run_graphics_smoke.py \
+            --binary build/OMapsDevSandbox \
+            --resources data --output build/sandbox-smoke
+
+      - name: Upload sandbox graphics logs
+        if: ${{ always() && runner.os == 'Linux' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: sandbox-${{ matrix.environment.os }}-${{ matrix.environment.cc }}-${{ matrix.cmake-build-type }}
+          path: build/sandbox-smoke/
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Prepare testing environment (Linux)
         if: ${{ runner.os == 'Linux' }}
@@ -259,6 +281,13 @@ jobs:
           fetch-depth: 128
           submodules: recursive
 
+      - name: Exercise Wayland discovery and remove optional dependencies
+        run: |
+          apt-get install -y --no-install-recommends \
+            pkg-config libwayland-dev libwayland-bin libxkbcommon-dev
+          python3 dev_sandbox/tests/backend_selection/run_matrix.py \
+            --output sandbox-matrix --remove-packages
+
       - name: Configure without the developer sandbox
         env:
           CC: clang-19
@@ -266,7 +295,20 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          cmake --preset ci -DCMAKE_BUILD_TYPE=Release -DBUILD_DEV_SANDBOX=OFF 2>&1 | tee configure.log
+          cmake --preset ci -DCMAKE_BUILD_TYPE=Release -DBUILD_DEV_SANDBOX=OFF 2>&1 | tee disabled-configure.log
+          if cmake --build --preset ci --target dev_sandbox; then exit 1; fi
+          cmake --build --preset ci --target help > targets.log
+          if grep -Eq 'glfw|imgui' targets.log; then exit 1; fi
+
+      - name: Configure without Wayland development dependencies
+        env:
+          CC: clang-19
+          CXX: clang++-19
+        shell: bash
+        run: |
+          set -o pipefail
+          cmake --preset ci -DCMAKE_BUILD_TYPE=Release -DBUILD_DEV_SANDBOX=ON 2>&1 | tee configure.log
+          grep -q 'Skipping dev_sandbox: Wayland development dependencies are unavailable' configure.log
           if cmake --build --preset ci --target dev_sandbox; then exit 1; fi
           cmake --build --preset ci --target help > targets.log
           if grep -Eq 'glfw|imgui' targets.log; then exit 1; fi
@@ -280,6 +322,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: sandbox-disabled-configure
-          path: configure.log
+          name: sandbox-skipped-configure
+          path: |
+            configure.log
+            disabled-configure.log
+            sandbox-matrix/*.log
           retention-days: 7
