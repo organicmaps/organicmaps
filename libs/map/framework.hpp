@@ -100,6 +100,7 @@ struct BookmarkImportPresentation
 {
   bool m_hasContent = false;
   bool m_notificationOnly = false;
+  kml::GroupIdCollection m_groupIds;
 };
 
 class Framework

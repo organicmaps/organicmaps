@@ -20,6 +20,7 @@
 #include <string>
 
 class Framework;
+class QDialog;
 class QDockWidget;
 class QLabel;
 class QPushButton;
@@ -59,10 +60,12 @@ private:
   QPointer<BookmarkDialog> m_bookmarkDialog;
   struct ImportFeedback
   {
+    kml::GroupIdCollection m_groupIds;
     QStringList m_errors;
     bool m_notificationOnly = false;
   };
   std::optional<ImportFeedback> m_pendingImportFeedback;
+  QPointer<QDialog> m_importResultDialog;
   std::array<QDockWidget *, kDockCount> m_Docks;
 
   QPushButton * m_downloadButton = nullptr;

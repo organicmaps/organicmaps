@@ -113,6 +113,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 @property(strong, nonatomic) NSHashTable<id<MWMLocationModeListener>> * listeners;
 @property(strong, nonatomic) NSArray<NSString *> * pendingImportedErrors;
+@property(strong, nonatomic) NSArray<NSNumber *> * pendingImportedCategoryIds;
 @property(strong, nonatomic) NSArray<NSString *> * pendingImportFailureErrors;
 @property(nonatomic) BOOL importClosingPlacePage;
 @property(nonatomic) BOOL importClosingSearch;
@@ -717,13 +718,39 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [MWMFrameworkListener removeObserver:self];
 }
 
-- (void)showImportErrors:(NSArray<NSString *> *)names
+- (void)showImportResultsWithCategoryIds:(NSArray<NSNumber *> *)categoryIds
+                                  errors:(NSArray<NSString *> *)errors
+                          fromController:(UIViewController *)controller
 {
-  if (names.count == 0)
-    return;
-  NSString * message =
-      [NSString stringWithFormat:@"%@\n%@", L(@"load_kmz_failed"), [names componentsJoinedByString:@"\n"]];
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:message];
+  NSMutableArray<NSString *> * sections = [NSMutableArray array];
+  if (errors.count != 0)
+    [sections addObject:[NSString stringWithFormat:@"%@\n%@", L(@"load_kmz_failed"),
+                                                   [errors componentsJoinedByString:@"\n"]]];
+  if (categoryIds.count != 0)
+    [sections addObject:L(@"load_kmz_successful")];
+
+  UIAlertController * alert = [UIAlertController alertControllerWithTitle:L(@"load_kmz_title")
+                                                                  message:[sections componentsJoinedByString:@"\n\n"]
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+  __weak auto weakSelf = self;
+  for (NSNumber * categoryId in categoryIds)
+  {
+    NSString * name = [[MWMBookmarksManager sharedManager] getCategoryName:categoryId.unsignedLongLongValue];
+    [alert addAction:[UIAlertAction actionWithTitle:name
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(__unused UIAlertAction * action) {
+                                              GetFramework().ShowBookmarkCategory(categoryId.unsignedLongLongValue);
+                                              dispatch_async(dispatch_get_main_queue(),
+                                                             ^{ [weakSelf presentPendingBookmarkImport]; });
+                                            }]];
+  }
+  [alert addAction:[UIAlertAction actionWithTitle:L(@"ok")
+                                            style:UIAlertActionStyleCancel
+                                          handler:^(__unused UIAlertAction * action) {
+                                            dispatch_async(dispatch_get_main_queue(),
+                                                           ^{ [weakSelf presentPendingBookmarkImport]; });
+                                          }]];
+  [controller presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)presentPendingBookmarkImport
@@ -731,14 +758,15 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
     return;
 
-  if ((self.pendingImportedErrors || self.pendingImportFailureErrors) &&
+  if ((self.pendingImportedCategoryIds || self.pendingImportFailureErrors) &&
       GetFramework().GetRoutingManager().IsRoutingFollowing())
   {
     NSArray<NSString *> * errors = self.pendingImportedErrors ?: self.pendingImportFailureErrors;
     self.pendingImportedErrors = nil;
+    self.pendingImportedCategoryIds = nil;
     self.pendingImportFailureErrors = nil;
     [[MWMBookmarksManager sharedManager] showPendingImportedBookmarks];
-    [Toast showWithText:errors.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful")];
+    [Toast showWithText:errors.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful_toast")];
     return;
   }
 
@@ -751,22 +779,11 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
     NSArray<NSString *> * errors = self.pendingImportFailureErrors;
     self.pendingImportFailureErrors = nil;
-    NSString * message =
-        [NSString stringWithFormat:@"%@\n%@", L(@"load_kmz_failed"), [errors componentsJoinedByString:@"\n"]];
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:L(@"load_kmz_title")
-                                                                    message:message
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:L(@"ok")
-                                              style:UIAlertActionStyleDefault
-                                            handler:^(__unused UIAlertAction * action) {
-                                              dispatch_async(dispatch_get_main_queue(),
-                                                             ^{ [self presentPendingBookmarkImport]; });
-                                            }]];
-    [visibleController presentViewController:alert animated:YES completion:nil];
+    [self showImportResultsWithCategoryIds:@[] errors:errors fromController:visibleController];
     return;
   }
 
-  if (!self.pendingImportedErrors || !self.importMapDidAppear || !self.isViewLoaded || !self.view.window ||
+  if (!self.pendingImportedCategoryIds || !self.importMapDidAppear || !self.isViewLoaded || !self.view.window ||
       self.view.window != [MapsAppDelegate theApp].window || self.navigationController.visibleViewController != self ||
       !self.mapView.drapeEngineCreated)
     return;
@@ -799,17 +816,22 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   }
 
   NSArray<NSString *> * errors = self.pendingImportedErrors;
+  NSArray<NSNumber *> * categoryIds = self.pendingImportedCategoryIds;
   self.pendingImportedErrors = nil;
-  BOOL const shown = [[MWMBookmarksManager sharedManager] showPendingImportedBookmarks];
+  self.pendingImportedCategoryIds = nil;
   if (GetFramework().GetRoutingManager().IsRoutingFollowing())
   {
-    [Toast showWithText:errors.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful")];
+    [Toast showWithText:errors.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful_toast")];
     return;
   }
-  if (shown)
-    [Toast showWithText:L(@"load_kmz_successful")];
-  if (errors.count != 0)
-    [self showImportErrors:errors];
+  if (categoryIds.count == 1 && errors.count == 0)
+  {
+    if ([[MWMBookmarksManager sharedManager] showPendingImportedBookmarks])
+      [Toast showWithText:L(@"load_kmz_successful_toast")];
+    return;
+  }
+  [[MWMBookmarksManager sharedManager] discardPendingImportedBookmarks];
+  [self showImportResultsWithCategoryIds:categoryIds errors:errors fromController:self];
 }
 
 - (void)addListener:(id<MWMLocationModeListener>)listener
@@ -1134,18 +1156,21 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 #pragma mark - MWMBookmarksObserver
 - (void)onBookmarksImportFinishedWithContent:(BOOL)hasContent
                             notificationOnly:(BOOL)notificationOnly
+                                 categoryIds:(NSArray<NSNumber *> *)categoryIds
                              failedFileNames:(NSArray<NSString *> *)failedFileNames
 {
   self.pendingImportedErrors = nil;
+  self.pendingImportedCategoryIds = nil;
   self.pendingImportFailureErrors = nil;
   if (notificationOnly)
   {
     if (hasContent || failedFileNames.count != 0)
-      [Toast showWithText:failedFileNames.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful")];
+      [Toast showWithText:failedFileNames.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful_toast")];
     return;
   }
   if (hasContent)
   {
+    self.pendingImportedCategoryIds = categoryIds;
     self.pendingImportedErrors = failedFileNames;
     [[MapsAppDelegate theApp] showMap];
   }

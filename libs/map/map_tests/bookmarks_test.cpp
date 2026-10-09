@@ -1218,7 +1218,11 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_ImportedPresentation)
 
   BookmarkImportResult oneTrack;
   oneTrack.m_sourceResults.push_back({{}, {trackCategory, markCategory}, {}});
-  TEST(fm.SetBookmarkImportResult(oneTrack).m_hasContent, ());
+  auto const firstPresentation = fm.SetBookmarkImportResult(oneTrack);
+  TEST(firstPresentation.m_hasContent, ());
+  TEST_EQUAL(firstPresentation.m_groupIds.size(), 2, ());
+  TEST_EQUAL(firstPresentation.m_groupIds[0], trackCategory, ());
+  TEST_EQUAL(firstPresentation.m_groupIds[1], markCategory, ());
   TEST(fm.ShowPendingBookmarkImport(), ());
   TEST(fm.HasPlacePageInfo(), ());
   TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetBuildInfo().m_trackId, trackId, ());

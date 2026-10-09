@@ -56,12 +56,16 @@ public enum BookmarkManager {
     public final boolean hasContent;
     public final boolean notificationOnly;
     @NonNull
+    public final long[] categoryIds;
+    @NonNull
     public final List<String> errors;
 
-    private ImportOutcome(boolean hasContent, boolean notificationOnly, @NonNull List<String> errors)
+    private ImportOutcome(boolean hasContent, boolean notificationOnly, @NonNull long[] categoryIds,
+                          @NonNull List<String> errors)
     {
       this.hasContent = hasContent;
       this.notificationOnly = notificationOnly;
+      this.categoryIds = categoryIds.clone();
       this.errors = Collections.unmodifiableList(new ArrayList<>(errors));
     }
   }
@@ -221,7 +225,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  private void onBookmarksImportFinished(boolean hasContent, boolean notificationOnly,
+  private void onBookmarksImportFinished(boolean hasContent, boolean notificationOnly, @NonNull long[] categoryIds,
                                          @NonNull String[] failedFileNames)
   {
     ImportFeedback feedback = mPendingImports.removeFirst();
@@ -229,14 +233,14 @@ public enum BookmarkManager {
       notifyImportPreparationFailure(feedback);
     List<String> errors = new ArrayList<>(feedback.mErrors);
     Collections.addAll(errors, failedFileNames);
-    publishImportOutcome(hasContent, notificationOnly, errors, feedback.mFailedUri != null);
+    publishImportOutcome(hasContent, notificationOnly, categoryIds, errors, feedback.mFailedUri != null);
   }
 
   @MainThread
-  private void publishImportOutcome(boolean hasContent, boolean notificationOnly, @NonNull List<String> errors,
-                                    boolean notifiedPreparationFailure)
+  private void publishImportOutcome(boolean hasContent, boolean notificationOnly, @NonNull long[] categoryIds,
+                                    @NonNull List<String> errors, boolean notifiedPreparationFailure)
   {
-    mPendingImportOutcome = new ImportOutcome(hasContent, notificationOnly, errors);
+    mPendingImportOutcome = new ImportOutcome(hasContent, notificationOnly, categoryIds, errors);
     for (BookmarksLoadingListener listener : mListeners)
     {
       if (!notifiedPreparationFailure)
@@ -415,6 +419,11 @@ public enum BookmarkManager {
   public boolean showPendingBookmarkImport()
   {
     return nativeShowPendingBookmarkImport();
+  }
+
+  public void discardPendingBookmarkImport()
+  {
+    nativeClearPendingBookmarkImport();
   }
 
   public boolean isRoutingFollowing()
@@ -638,7 +647,7 @@ public enum BookmarkManager {
       UiThread.run(() -> {
         nativeClearPendingBookmarkImport();
         notifyImportPreparationFailure(feedback);
-        publishImportOutcome(false, nativeIsRoutingFollowing(), feedback.mErrors, true);
+        publishImportOutcome(false, nativeIsRoutingFollowing(), new long[0], feedback.mErrors, true);
       });
     }
     return paths.size();

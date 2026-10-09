@@ -247,7 +247,7 @@ class BookmarkCategoriesFragment :
             if (outcome.errors.isNotEmpty()) {
                 Toast.makeText(requireContext(), R.string.load_kmz_failed, Toast.LENGTH_LONG).show()
             } else if (outcome.hasContent) {
-                Toast.makeText(requireContext(), R.string.load_kmz_successful, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.load_kmz_successful_toast, Toast.LENGTH_LONG).show()
             }
             return
         }

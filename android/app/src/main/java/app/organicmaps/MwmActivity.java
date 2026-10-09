@@ -56,6 +56,7 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
+import app.organicmaps.bookmarks.BookmarksImportDialog;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.downloader.OnmapDownloader;
 import app.organicmaps.editor.EditorActivity;
@@ -1957,7 +1958,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!outcome.errors.isEmpty())
         Toast.makeText(this, R.string.load_kmz_failed, Toast.LENGTH_LONG).show();
       else if (outcome.hasContent)
-        Toast.makeText(this, R.string.load_kmz_successful, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.load_kmz_successful_toast, Toast.LENGTH_LONG).show();
       return;
     }
 
@@ -1987,25 +1988,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
     try
     {
       BookmarkManager.INSTANCE.takeImportOutcome();
-      if (outcome.hasContent)
+      if (outcome.categoryIds.length == 1 && outcome.errors.isEmpty())
       {
         boolean shown = BookmarkManager.INSTANCE.showPendingBookmarkImport();
         if (shown)
-          Toast.makeText(this, R.string.load_kmz_successful, Toast.LENGTH_LONG).show();
+          Toast.makeText(this, R.string.load_kmz_successful_toast, Toast.LENGTH_LONG).show();
       }
-      if (!outcome.errors.isEmpty())
+      else if (outcome.categoryIds.length > 0 || !outcome.errors.isEmpty())
       {
+        BookmarkManager.INSTANCE.discardPendingBookmarkImport();
         dismissAlertDialog();
-        mAlertDialog =
-            new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-                .setTitle(R.string.load_kmz_title)
-                .setMessage(getString(R.string.load_kmz_failed) + "\n" + TextUtils.join("\n", outcome.errors))
-                .setPositiveButton(R.string.ok, null)
-                .setOnDismissListener(dialog -> {
-                  mAlertDialog = null;
-                  presentPendingBookmarkImport();
-                })
-                .show();
+        mAlertDialog = BookmarksImportDialog.show(this, outcome, BookmarkManager.INSTANCE::showBookmarkCategoryOnMap);
+        if (mAlertDialog != null)
+          mAlertDialog.setOnDismissListener(dialog -> {
+            if (mAlertDialog == dialog)
+              mAlertDialog = null;
+            presentPendingBookmarkImport();
+          });
       }
     }
     finally
@@ -2013,7 +2012,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mPresentingBookmarkImport = false;
     }
 
-    if (outcome.errors.isEmpty() && BookmarkManager.INSTANCE.peekImportOutcome() != null)
+    if (mAlertDialog == null && BookmarkManager.INSTANCE.peekImportOutcome() != null)
       findViewById(R.id.coordinator).post(this::presentPendingBookmarkImport);
   }
 
