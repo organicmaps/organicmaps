@@ -19,6 +19,7 @@ set(SRC
   products_tests.cpp
   irish_grid_utils_tests.cpp
   os_grid_utils_tests.cpp
+  usage_stats_tests.cpp
   utm_mgrs_utils_tests.cpp
 )
 
