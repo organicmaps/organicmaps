@@ -2,11 +2,8 @@ package app.organicmaps.maplayer;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.content.Context;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -21,11 +18,13 @@ import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.UiUtils;
 
-public class SearchWheel implements View.OnClickListener
+public class SearchOptionsButton implements View.OnClickListener
 {
   private final View mFrame;
 
   private View mSearchLayout;
+  @Nullable
+  private View mSearchOptionsScroll;
   private final ImageView mSearchButton;
   @Nullable
   private final View mTouchInterceptor;
@@ -85,9 +84,9 @@ public class SearchWheel implements View.OnClickListener
     }
   }
 
-  public SearchWheel(View frame, @NonNull View.OnClickListener onSearchPressedListener,
-                     @NonNull View.OnClickListener onSearchCanceledListener, MapButtonsViewModel mapButtonsViewModel,
-                     SearchPageViewModel searchPageViewModel)
+  public SearchOptionsButton(View frame, @NonNull View.OnClickListener onSearchPressedListener,
+                             @NonNull View.OnClickListener onSearchCanceledListener,
+                             MapButtonsViewModel mapButtonsViewModel, SearchPageViewModel searchPageViewModel)
   {
     mFrame = frame;
     mMapButtonsViewModel = mapButtonsViewModel;
@@ -111,14 +110,13 @@ public class SearchWheel implements View.OnClickListener
     if (mSearchLayout == null)
       return false;
 
-    DisplayMetrics displayMetrics = new DisplayMetrics();
-    WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
-    windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
-    // Get available screen height in DP
-    int height = Math.round(displayMetrics.heightPixels / displayMetrics.density);
-    // If height is less than 400dp, the search wheel in a straight line
-    // In this case, move the pivot for the animation
-    if (height < 400)
+    // Present only where the options are a scrollable strip; the radial layout has no scroll view.
+    mSearchOptionsScroll = mSearchLayout.findViewById(R.id.search_options_scroll);
+
+    // The strip slides out horizontally from the search button, so anchor the zoom animation to
+    // its left edge instead of the default center. Keyed off the scroll view rather than the
+    // orientation, so it always follows the layout that was actually inflated.
+    if (mSearchOptionsScroll != null)
     {
       UiUtils.waitLayout(mSearchLayout, () -> {
         mSearchLayout.setPivotX(0);
@@ -176,6 +174,10 @@ public class SearchWheel implements View.OnClickListener
       else
       {
         animRes = R.animator.show_zoom_in_alpha;
+        // The strip keeps its scroll offset while hidden, which would slide the leading categories
+        // back under the search button when it reopens.
+        if (mSearchOptionsScroll != null)
+          mSearchOptionsScroll.scrollTo(0, 0);
         UiUtils.show(mSearchLayout);
       }
       mIsExpanded = !mIsExpanded;
