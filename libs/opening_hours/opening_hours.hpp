@@ -24,6 +24,8 @@
 
 #pragma once
 
+#include "geometry/latlon.hpp"
+
 #include "timezone/timezone.hpp"
 
 #include <chrono>
@@ -758,9 +760,15 @@ public:
     time_t nextTimeClosed;
   };
 
-  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  // |coord| is the POI location: with it, sun events (sunrise/sunset/dawn/dusk)
+  // resolve to the real local times; without it they fall back to fixed local
+  // times (dawn 06:00, sunrise 07:00, sunset 19:00, dusk 20:00). |timeZone|
+  // expresses those events in the POI's local time (device-local otherwise).
+  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt,
+                std::optional<ms::LatLon> const & coord = std::nullopt) const;
 
   bool IsValid() const;
+  bool HasSunEvent() const;
 
   bool IsTwentyFourHours() const;
   bool HasWeekdaySelector() const;

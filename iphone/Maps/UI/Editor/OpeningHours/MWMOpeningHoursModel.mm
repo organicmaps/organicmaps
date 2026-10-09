@@ -162,7 +162,10 @@ using namespace osmoh;
 
   auto isSimple = isSimpleMode;
   if (isSimple && oh && oh.length)
-    isSimple = MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), timeTableSet);
+  {
+    osmoh::OpeningHours const hours(oh.UTF8String);
+    isSimple = !hours.HasSunEvent() && MakeTimeTableSet(hours, timeTableSet);
+  }
 
   delegate.advancedEditor.hidden = isSimple;
   UITableView * tv = delegate.tableView;
@@ -199,7 +202,8 @@ using namespace osmoh;
   if (!oh || !oh.length)
     return YES;
   ui::TimeTableSet tts;
-  return MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), tts);
+  osmoh::OpeningHours const hours(oh.UTF8String);
+  return !hours.HasSunEvent() && MakeTimeTableSet(hours, tts);
 }
 
 @end
