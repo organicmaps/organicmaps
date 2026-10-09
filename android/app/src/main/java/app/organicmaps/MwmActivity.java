@@ -263,26 +263,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     mIntentConsumed = true;
 
-    final long categoryId = intent.getLongExtra(EXTRA_CATEGORY_ID, -1);
-    final long bookmarkId = intent.getLongExtra(EXTRA_BOOKMARK_ID, -1);
-    final long trackId = intent.getLongExtra(EXTRA_TRACK_ID, -1);
-    if (bookmarkId != -1)
-    {
-      Objects.requireNonNull(BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId));
-      BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId);
+    if (showBookmarkOrTrackFromIntent(intent, BookmarkManager.INSTANCE))
       return;
-    }
-    else if (trackId != -1)
-    {
-      Objects.requireNonNull(BookmarkManager.INSTANCE.getTrack(trackId));
-      Framework.nativeShowTrackRect(trackId);
-      return;
-    }
-    else if (categoryId != -1)
-    {
-      BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId);
-      return;
-    }
 
     final String countryId = intent.getStringExtra(EXTRA_COUNTRY_ID);
     if (countryId != null)
@@ -485,6 +467,39 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return savedInstanceState.getBoolean(EXTRA_CONSUMED, false);
 
     return intent != null && intent.getBooleanExtra(EXTRA_CONSUMED, false);
+  }
+
+  @VisibleForTesting
+  static boolean showBookmarkOrTrackFromIntent(@NonNull Intent intent, @NonNull BookmarkManager bookmarkManager)
+  {
+    final long bookmarkId = intent.getLongExtra(EXTRA_BOOKMARK_ID, -1);
+    if (bookmarkId != -1)
+    {
+      if (bookmarkManager.getBookmarkInfo(bookmarkId) != null)
+        bookmarkManager.showBookmarkOnMap(bookmarkId);
+      else
+        Logger.w(TAG, "Bookmark not found for id: " + bookmarkId);
+      return true;
+    }
+
+    final long trackId = intent.getLongExtra(EXTRA_TRACK_ID, -1);
+    if (trackId != -1)
+    {
+      if (bookmarkManager.hasTrack(trackId))
+        Framework.nativeShowTrackRect(trackId);
+      else
+        Logger.w(TAG, "Track not found for id: " + trackId);
+      return true;
+    }
+
+    final long categoryId = intent.getLongExtra(EXTRA_CATEGORY_ID, -1);
+    if (categoryId != -1)
+    {
+      bookmarkManager.showBookmarkCategoryOnMap(categoryId);
+      return true;
+    }
+
+    return false;
   }
 
   @SuppressLint("InlinedApi")
