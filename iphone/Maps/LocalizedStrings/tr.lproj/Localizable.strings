@@ -524,6 +524,8 @@
 "today" = "Bugün";
 "opens_in" = "%@ sonra açılıyor";
 "closes_in" = "%@ sonra kapanıyor";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Kapalı";
 "no_osm_account" = "OpenStreetMap hesabınız yok mu?";
 "register_at_openstreetmap" = "OpenStreetMap'e kaydol";

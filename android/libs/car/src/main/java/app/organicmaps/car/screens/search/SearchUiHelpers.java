@@ -65,8 +65,13 @@ public final class SearchUiHelpers
     case SearchResult.OPEN_NOW_YES:
       if (searchResult.description.minutesUntilClosed < 60) // less than 1 hour
       {
-        final String time = searchResult.description.minutesUntilClosed + " " + carContext.getString(R.string.minute);
-        text = carContext.getString(R.string.closes_in, time);
+        if (searchResult.description.minutesUntilClosed == 0)
+          text = carContext.getString(R.string.closes_in_less_than_a_minute);
+        else
+        {
+          final String time = searchResult.description.minutesUntilClosed + " " + carContext.getString(R.string.minute);
+          text = carContext.getString(R.string.closes_in, time);
+        }
         color = Colors.OPENING_HOURS_CLOSES_SOON;
       }
       else
@@ -78,8 +83,13 @@ public final class SearchUiHelpers
     case SearchResult.OPEN_NOW_NO:
       if (searchResult.description.minutesUntilOpen < 60) // less than 1 hour
       {
-        final String time = searchResult.description.minutesUntilOpen + " " + carContext.getString(R.string.minute);
-        text = carContext.getString(R.string.opens_in, time);
+        if (searchResult.description.minutesUntilOpen == 0)
+          text = carContext.getString(R.string.opens_in_less_than_a_minute);
+        else
+        {
+          final String time = searchResult.description.minutesUntilOpen + " " + carContext.getString(R.string.minute);
+          text = carContext.getString(R.string.opens_in, time);
+        }
       }
       else
         text = carContext.getString(R.string.closed);

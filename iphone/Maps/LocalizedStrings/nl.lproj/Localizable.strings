@@ -524,6 +524,8 @@
 "today" = "Vandaag";
 "opens_in" = "Opent over %@";
 "closes_in" = "Sluit over %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Gesloten";
 "no_osm_account" = "Geen account bij OpenStreetMap?";
 "register_at_openstreetmap" = "Registreer bij OpenStreetMap";
