@@ -564,21 +564,31 @@ UNIT_TEST(parse_fallback_rule)
 
 UNIT_TEST(parse_additional_rule)
 {
-  // A spaced comma between two timespans is a time list, not an additive rule
-  // (opening-hours-rs gh88): so an additive rule needs a following selector.
-  auto r = parse("Mo-Fr 08:00-12:00, Sa 14:00-18:00");
-  ASSERT_TRUE(r.has_value());
-  ASSERT_TRUE(r->rules.size() == 2);
-  ASSERT_TRUE(r->rules[1].op == oh::RuleOperator::Additional);
+  // A weekday after the comma starts an additive rule, even with a leading space.
+  for (auto const value : {"Mo-Fr 08:00-12:00, Sa 14:00-18:00", "Mo-Fr 08:00-12:00 , Sa 14:00-18:00"})
+  {
+    auto const r = parse(value);
+    ASSERT_TRUE(r.has_value());
+    ASSERT_TRUE(r->rules.size() == 2);
+    ASSERT_TRUE(r->rules[1].op == oh::RuleOperator::Additional);
+    ASSERT_EQ(r->to_string(), "Mo-Fr 08:00-12:00, Sa 14:00-18:00");
+  }
 }
 
 UNIT_TEST(parse_time_list_with_space)
 {
-  // gh88: comma in a time block wins over the additive separator, even spaced.
-  auto r = parse("Mo-Fr 08:00-12:00, 14:00-18:00");
-  ASSERT_TRUE(r.has_value());
-  ASSERT_TRUE(r->rules.size() == 1);
-  ASSERT_TRUE(r->rules[0].time_selector.time.size() == 2);
+  for (auto const value : {"Mo 10:00-12:00,13:00-14:00", "Mo 10:00-12:00, 13:00-14:00", "Mo 10:00-12:00 ,13:00-14:00",
+                           "Mo 10:00-12:00 , 13:00-14:00"})
+  {
+    auto const r = parse(value);
+    ASSERT_TRUE(r.has_value());
+    ASSERT_TRUE(r->rules.size() == 1);
+    ASSERT_TRUE(r->rules[0].time_selector.time.size() == 2);
+    ASSERT_EQ(r->to_string(), "Mo 10:00-12:00,13:00-14:00");
+    auto const roundTrip = parse(r->to_string());
+    ASSERT_TRUE(roundTrip.has_value());
+    ASSERT_TRUE(roundTrip->rules == r->rules);
+  }
 }
 
 UNIT_TEST(reject_inverted_year_range)
@@ -937,7 +947,7 @@ UNIT_TEST(display_additional_rule_forces_weekday)
 {
   // An additional rule with no day selector must emit "Mo-Su", otherwise the
   // output re-parses as extra timespans of the previous rule.
-  auto r = parse("Mo 10:00-12:00 , 13:00-14:00");
+  auto r = parse("Mo 10:00-12:00 open , 13:00-14:00");
   ASSERT_TRUE(r.has_value());
   ASSERT_EQ(r->to_string(), "Mo 10:00-12:00, Mo-Su 13:00-14:00");
 }

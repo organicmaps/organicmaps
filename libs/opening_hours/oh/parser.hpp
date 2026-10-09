@@ -1958,9 +1958,10 @@ private:
     {
       auto sp = save();
       // A comma inside a time block wins over the additive-rule separator,
-      // even with a space, as long as a timespan follows (opening_hours.js /
+      // even with spaces on either side, as long as a timespan follows (opening_hours.js /
       // opening-hours-rs gh88). A day/month selector after the comma still
       // falls through to an additive rule via the failed timespan parse below.
+      skip_spaces();
       if (match_comma_spaces())
       {
         if (auto ts = try_parse_timespan())
