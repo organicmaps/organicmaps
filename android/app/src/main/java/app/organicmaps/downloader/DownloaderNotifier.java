@@ -112,9 +112,7 @@ public class DownloaderNotifier
   public Notification buildProgressNotification(@Nullable String countryId, int maxProgress, int progress)
   {
     var builder = getNotificationBuilder(countryId);
-    ///  @todo Doesn't work properly .. Bad input sizes?
-    // builder.setProgress(maxProgress, progress, maxProgress == 0);
-    builder.setProgress(maxProgress, progress, true);
+    builder.setProgress(maxProgress, progress, /* indeterminate */ maxProgress == 0);
     return builder.build();
   }
 
