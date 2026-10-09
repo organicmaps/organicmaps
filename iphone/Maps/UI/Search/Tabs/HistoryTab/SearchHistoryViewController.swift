@@ -81,6 +81,7 @@ final class SearchHistoryViewController: MWMViewController {
   private func clearSearchHistory() {
     frameworkHelper.clearSearchHistory()
     reload()
+    UIAccessibility.post(notification: .layoutChanged, argument: emptyHistoryView.accessibilityTitle)
   }
 
   // MARK: - Public methods

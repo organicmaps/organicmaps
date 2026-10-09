@@ -1,6 +1,7 @@
 final class PlaceholderView: UIView {
   private let activityIndicator: UIActivityIndicatorView?
   private let titleLabel = UILabel()
+  var accessibilityTitle: UILabel { titleLabel }
   private let subtitleLabel = UILabel()
   private let stackView = UIStackView()
   private var keyboardHeight: CGFloat = 0
@@ -64,6 +65,8 @@ final class PlaceholderView: UIView {
     }
 
     titleLabel.text = title
+    titleLabel.isAccessibilityElement = true
+    titleLabel.accessibilityTraits.insert(.header)
     titleLabel.setFontStyle(.medium16, color: .blackPrimary)
     titleLabel.textAlignment = .center
 
