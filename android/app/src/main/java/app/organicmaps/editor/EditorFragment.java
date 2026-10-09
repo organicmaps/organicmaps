@@ -210,7 +210,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void setupPhoneRecyclerView(@NonNull Context context)
   {
     mPhonesAdapter = new PhoneListAdapter(Editor.nativeGetPhone());
-    mPhonesAdapter.setHasStableIds(true);
+    mPhonesAdapter.setHasStableIds(false);
     LinearLayoutManager manager = new LinearLayoutManager(context);
     mPhonesRecycler.setLayoutManager(manager);
     mPhonesRecycler.setAdapter(mPhonesAdapter);
