@@ -7,6 +7,7 @@
 
 #include "platform/measurement_utils.hpp"
 
+#include <QtCore/QPointer>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
