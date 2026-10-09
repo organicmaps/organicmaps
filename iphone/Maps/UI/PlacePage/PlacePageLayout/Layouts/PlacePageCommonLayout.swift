@@ -185,6 +185,11 @@ extension PlacePageCommonLayout: MWMLocationObserver {
       } else {
         previewViewController.updateSpeedAndAltitude(altString)
       }
+      let lat = location.coordinate.latitude
+      let lon = location.coordinate.longitude
+      let formattedCoords = String(format: "%.6f, %.6f", lat, lon)
+      previewViewController.updateCoordinates(formattedCoords)
+
     } else {
       let ppLocation = CLLocation(latitude: placePageData.locationCoordinate.latitude,
                                   longitude: placePageData.locationCoordinate.longitude)
