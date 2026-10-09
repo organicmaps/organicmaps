@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Confírmese de que non introduciu ningún dato privado ou persoal.</string>
     <string name="editor_share_to_all_dialog_message_2">Os editores de OpenStreetMap comprobarán os cambios e poñeranse en contacto con vostede se teñen algunha pregunta.</string>
     <string name="navigation_stop_button">Deter</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Gravando o traxecto</string>
     <!-- For the first routing -->
     <string name="accept">Aceptar</string>
@@ -831,7 +831,7 @@
     <string name="start_track_recording">Gravar traxecto</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Deter gravación de traxecto</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Grabación de ruta</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">O traxecto está baleiro</string>
@@ -908,6 +908,8 @@
     <string name="choose_point_on_map_hint">Mova e achegue o mapa para colocar a cruz</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Deter e gardar</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Rematar</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Inverter a ruta</string>
 </resources>

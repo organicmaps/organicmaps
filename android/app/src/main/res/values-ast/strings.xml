@@ -225,7 +225,7 @@
     <string name="osm_note_toast">La nota va unviase a OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">¿Quies unvialu a tolos usuarios?</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Grabando’l trayeutu</string>
     <!-- For the first routing -->
     <string name="accept">Aceutar</string>
@@ -395,6 +395,8 @@
     <!-- SECTION: gps strings -->
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar y guardar</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Acabar</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Invertir la ruta</string>
 </resources>

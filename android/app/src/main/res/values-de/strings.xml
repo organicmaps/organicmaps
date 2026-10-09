@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Stelle sicher, dass du keine persönlichen oder privaten Daten eingegeben hast.</string>
     <string name="editor_share_to_all_dialog_message_2">Freiwillige von OpenStreetMap werden die Änderungen prüfen und sich bei Fragen mit dir in Verbindung setzen.</string>
     <string name="navigation_stop_button">Beenden</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Aufnahme der Strecke</string>
     <!-- For the first routing -->
     <string name="accept">Annehmen</string>
@@ -830,7 +830,7 @@
     <string name="start_track_recording">Track aufnehmen</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Aufnahme des Tracks stoppen</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Track-Aufzeichnung</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Track ist leer – nichts zu speichern</string>
@@ -911,6 +911,8 @@
     <string name="choose_point_on_map_hint">Verschiebe und zoome die Karte, um das Kreuz zu platzieren</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Beenden und speichern</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Beenden</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Route umkehren</string>
 </resources>

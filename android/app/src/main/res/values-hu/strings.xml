@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Győződjön meg arról, hogy nem ad meg semmilyen személyes információt.</string>
     <string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.</string>
     <string name="navigation_stop_button">Megállítás</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Nyomvonal rögzítése</string>
     <!-- For the first routing -->
     <string name="accept">Elfogadás</string>
@@ -831,7 +831,7 @@
     <string name="start_track_recording">Nyomvonal rögzítése</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Nyomvonal rögzítésének megállítása</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Nyomvonal rögzítése</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">A nyomvonal üres – nincs mit menteni</string>
@@ -912,6 +912,8 @@
     <string name="choose_point_on_map_hint">Mozgassa és nagyítsa/kicsinyítse a térképet a kereszt elhelyezéséhez</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Megállítás és mentés</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Befejezés</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Útvonal megfordítása</string>
 </resources>

@@ -505,7 +505,7 @@
     <string name="editor_share_to_all_dialog_message_1">Provjerite jeste li unijeli bilo kakve privatne ili osobne podatke.</string>
     <string name="editor_share_to_all_dialog_message_2">Urednici OpenStreetMapa provjerit će promjene i kontaktirat će vas ako budu imali pitanja.</string>
     <string name="navigation_stop_button">Stani</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Snimanje staze</string>
     <!-- For the first routing -->
     <string name="accept">Prihvati</string>
@@ -824,7 +824,7 @@
     <string name="start_track_recording">Snimanje staze</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Zaustavi snimanje staze</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Snimanje staze</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Staza je prazna - nema što spremiti</string>
@@ -903,6 +903,8 @@
     <string name="choose_point_on_map_hint">Pomaknite i zumirajte kartu kako biste postavili križić</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Prekini i spremi</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Završi</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Obrni rutu</string>
 </resources>

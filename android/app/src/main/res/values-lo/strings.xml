@@ -461,7 +461,7 @@
     <string name="editor_share_to_all_dialog_message_1">ໃຫ້ແນ່ໃຈວ່າທ່ານບໍ່ໄດ້ປ້ອນຂໍ້ມູນສ່ວນຕົວໃດໆ.</string>
     <string name="editor_share_to_all_dialog_message_2">ຜູ້ກວດແກ້ OpenStreetMap ຈະກວດສອບການປ່ຽນແປງ ແລະ ຕິດຕໍ່ຫາທ່ານຫາກພວກເຂົາມີຄຳຖາມໃດໆ.</string>
     <string name="navigation_stop_button">ຢຸດ</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">ກຳລັງບັນທຶກເສັ້ນທາງ</string>
     <!-- For the first routing -->
     <string name="accept">ຍອມຮັບ</string>
@@ -780,7 +780,7 @@
     <string name="start_track_recording">ບັນທຶກເສັ້ນທາງ</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">ຢຸດການບັນທຶກເສັ້ນທາງ</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">ການບັນທຶກເສັ້ນທາງ</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">ເສັ້ນທາງວ່າງເປົ່າ - ບໍ່ມີຫຍັງໃຫ້ບັນທຶກ</string>
@@ -855,6 +855,8 @@
     <string name="choose_point_on_map_hint">ຍ້າຍ ແລະ ຊູມແຜນທີ່ເພື່ອວາງເຄື່ອງໝາຍບວກ</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">ຢຸດ ແລະ ບັນທຶກ</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">ສິ້ນສຸດ</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">ກັບທິດທາງເສັ້ນທາງ</string>
 </resources>
