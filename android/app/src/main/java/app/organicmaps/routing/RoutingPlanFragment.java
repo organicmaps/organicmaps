@@ -147,7 +147,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (savedInstanceState != null)
       restoreRoutingPanelState(savedInstanceState);
 
-    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
+    updateBadgeCount(Integer.bitCount(RoutingOptions.getOptions()));
     mRoutingContainer.addOnLayoutChangeListener(this);
   }
 
@@ -400,7 +400,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.setBottomSheetState(state.getInt(TAG + "_bottom_sheet_state", BottomSheetBehavior.STATE_COLLAPSED));
     if (mRoutingBottomMenuController != null)
       mRoutingBottomMenuController.restoreRoutingPanelState(state);
-    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
+    updateBadgeCount(Integer.bitCount(RoutingOptions.getOptions()));
   }
 
   @Override
