@@ -87,7 +87,7 @@ public:
 
   template <class Fn, class... Args>
   explicit SimpleThread(Fn && fn, Args &&... args)
-    : m_thread(&SimpleThread::ThreadFunc, std::bind(std::forward<Fn>(fn), std::forward<Args>(args)...))
+    : m_thread(&SimpleThread::ThreadFunc, std::bind_front(std::forward<Fn>(fn), std::forward<Args>(args)...))
   {}
 
   SimpleThread & operator=(SimpleThread && x) noexcept

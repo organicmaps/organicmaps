@@ -18,7 +18,6 @@ namespace tools
 namespace
 {
 
-static constexpr double kLargeIconSize = 24.0;   // Size of the -l SVG icons
 static constexpr double kMediumIconSize = 18.0;  // size of the -m SVG icons
 
 struct GreaterHeight
@@ -95,7 +94,9 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string c
           QSize svgSize = m_svgRenderer.defaultSize();  // Size of the SVG file
 
           // Capping svg symbol to kLargeIconSize maximum, keeping aspect ratio
-          /*if (svgSize.width() > kLargeIconSize)
+          /*
+          static constexpr double kLargeIconSize = 24.0;  // Size of the -l SVG icons
+          if (svgSize.width() > kLargeIconSize)
           {
             auto const h = static_cast<float>(svgSize.height()) * kLargeIconSize / svgSize.width();
             svgSize.setHeight(static_cast<int>(h));

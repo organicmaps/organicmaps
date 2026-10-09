@@ -112,7 +112,9 @@ void ScenarioManager::ThreadRoutine()
     m_onStartHandler(scenarioName);
 
   bool failed = false;
+#ifdef SCENARIO_ENABLE
   size_t viewportIndex = 0;
+#endif
   for (auto const & action : m_scenarioData.m_scenario)
   {
     // Interrupt scenario if it's necessary.
@@ -161,7 +163,9 @@ void ScenarioManager::ThreadRoutine()
         m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(
             centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(), centerViewportAction->IsAnimated(),
             false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+#ifdef SCENARIO_ENABLE
       ++viewportIndex;
+#endif
       break;
     }
 

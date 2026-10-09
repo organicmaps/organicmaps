@@ -23,8 +23,6 @@ using namespace feature;
 
 using BoundariesCollector = RoutingCityBoundariesCollector;
 
-std::string const kDumpFileName = "dump.bin";
-
 std::vector<m2::PointD> const kPolygon1 = {{1, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {1, 0}};
 std::vector<m2::PointD> const kPolygon2 = {{2, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {2, 0}};
 std::vector<m2::PointD> const kPolygon3 = {{3, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {3, 0}};
@@ -79,6 +77,8 @@ auto const relationWithLabel3 = MakeAreaWithPlaceNode(7 /* id */, 11 /* placeId 
 auto const relationWithLabel4 = MakeAreaWithPlaceNode(8 /* id */, 12 /* placeId */, "country" /* role */);
 
 /*
+std::string const kDumpFileName = "dump.bin";
+
 void Collect(BoundariesCollector & collector, std::vector<OsmElement> const & elements,
              std::vector<std::vector<m2::PointD>> geometries = {})
 {

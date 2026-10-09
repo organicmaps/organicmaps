@@ -425,6 +425,7 @@ public:
   explicit Route(RouteBase const & base) : RouteBase(base) { RebuildFollowedPolyline(); }
 
   Route(Route const & rhs) = default;
+  Route & operator=(Route const & rhs) = default;
 
   template <class TIter>
   void SetGeometry(TIter beg, TIter end)
