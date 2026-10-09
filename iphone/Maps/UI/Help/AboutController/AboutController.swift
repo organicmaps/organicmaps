@@ -1,5 +1,15 @@
 import OSLog
 
+private final class AboutVersionLabel: UILabel {
+  var onAccessibilityActivate: (() -> Void)?
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilityActivate else { return false }
+    onAccessibilityActivate()
+    return true
+  }
+}
+
 final class AboutController: MWMViewController {
   fileprivate struct AboutInfoTableViewCellModel {
     let title: String
@@ -80,14 +90,19 @@ final class AboutController: MWMViewController {
 private extension AboutController {
   func setupViews() {
     func setupTitle() {
-      let titleButton = UIButton(type: .custom)
-      titleButton.setTitle(Self.formattedAppVersion(), for: .normal)
-      titleButton.setTitleColor(.whitePrimaryText, for: .normal)
-      titleButton.titleLabel?.setFontStyle(.semibold17, color: .whitePrimary)
-      titleButton.titleLabel?.configureSingleLineAutoScaling()
-      titleButton.accessibilityHint = L("about_copy_version_hint")
-      titleButton.addTarget(self, action: #selector(appVersionButtonTapped), for: .touchUpInside)
-      navigationItem.titleView = titleButton
+      let titleView = AboutVersionLabel()
+      titleView.text = Self.formattedAppVersion()
+      titleView.setFontStyle(.semibold17, color: .whitePrimary)
+      titleView.isUserInteractionEnabled = true
+      titleView.configureSingleLineAutoScaling()
+      let titleDidTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(appVersionButtonTapped))
+      titleView.addGestureRecognizer(titleDidTapGestureRecognizer)
+      titleView.accessibilityTraits = .button
+      titleView.accessibilityHint = L("about_copy_version_hint")
+      titleView.onAccessibilityActivate = { [weak self] in
+        self?.appVersionButtonTapped()
+      }
+      navigationItem.titleView = titleView
     }
 
     func setupScrollAndStack() {

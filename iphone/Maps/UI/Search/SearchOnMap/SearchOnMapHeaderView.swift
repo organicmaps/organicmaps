@@ -12,6 +12,16 @@ private final class RouteActionButton: UIButton {
   }
 }
 
+private final class SearchGrabberTapHandlerView: UIView {
+  var onAccessibilityActivate: (() -> Void)?
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilityActivate else { return false }
+    onAccessibilityActivate()
+    return true
+  }
+}
+
 final class SearchOnMapHeaderView: UIView {
   weak var delegate: SearchOnMapHeaderViewDelegate? {
     didSet {
@@ -31,7 +41,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private let grabberView = UIView()
-  private let grabberTapHandlerView = UIButton(type: .custom)
+  private let grabberTapHandlerView = SearchGrabberTapHandlerView()
   private let routeActionsStackView = UIStackView()
   private let currentLocationButton = RouteActionButton(type: .system)
   private let chooseOnMapButton = RouteActionButton(type: .system)
@@ -75,8 +85,13 @@ final class SearchOnMapHeaderView: UIView {
   private func setupGrabberTapHandlerView() {
     grabberTapHandlerView.backgroundColor = .clear
     iPhoneSpecific {
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(grabberDidTap))
+      grabberTapHandlerView.addGestureRecognizer(tapGesture)
       grabberTapHandlerView.accessibilityLabel = L("search_accessibility_expand")
-      grabberTapHandlerView.addTarget(self, action: #selector(grabberDidTap), for: .touchUpInside)
+      grabberTapHandlerView.accessibilityTraits = .button
+      grabberTapHandlerView.onAccessibilityActivate = { [weak self] in
+        self?.grabberDidTap()
+      }
     }
   }
 
