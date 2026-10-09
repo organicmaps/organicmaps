@@ -56,6 +56,19 @@ final class SearchOnMapHeaderViewTests: XCTestCase {
     assertActionsHidden(true)
   }
 
+  func test_GivenRoutePointSearch_WhenShown_ThenLocationActionsAreAccessible() throws {
+    header.setRoutePointActions(.init(title: L("choose_destination"), canSelectCurrentLocation: true))
+    assertActionsHidden(false)
+    header.layoutIfNeeded()
+
+    let currentLocation = try XCTUnwrap(actions.arrangedSubviews.first as? UIButton)
+    let chooseOnMap = try XCTUnwrap(actions.arrangedSubviews.last as? UIButton)
+    XCTAssertEqual(currentLocation.accessibilityLabel, L("p2p_your_location"))
+    XCTAssertEqual(chooseOnMap.accessibilityLabel, L("choose_on_map"))
+    XCTAssertGreaterThanOrEqual(currentLocation.bounds.height, 44)
+    XCTAssertGreaterThanOrEqual(chooseOnMap.bounds.height, 44)
+  }
+
   private func assertActionsHidden(_ hidden: Bool, file: StaticString = #filePath, line: UInt = #line) {
     let settled = XCTNSPredicateExpectation(predicate: NSPredicate { [actions] _, _ in
       actions?.isHidden == hidden && actions?.alpha == (hidden ? 0 : 1)
