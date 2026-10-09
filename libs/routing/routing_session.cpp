@@ -132,29 +132,24 @@ void RoutingSession::RemoveRoute()
 void RoutingSession::RebuildRouteOnTrafficUpdate()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  m2::PointD startPoint;
+  m2::PointD startPoint = m_lastGoodPosition;
 
+  switch (m_state)
   {
-    startPoint = m_lastGoodPosition;
+  case SessionState::NoValidRoute:
+  case SessionState::RouteFinished: return;
 
-    switch (m_state)
-    {
-    case SessionState::NoValidRoute:
-    case SessionState::RouteFinished: return;
+  case SessionState::RouteBuilding:
+  case SessionState::RouteNotStarted:
+  case SessionState::RouteNoFollowing:
+  case SessionState::RouteRebuilding: startPoint = m_checkpoints.GetPointFrom(); break;
 
-    case SessionState::RouteBuilding:
-    case SessionState::RouteNotStarted:
-    case SessionState::RouteNoFollowing:
-    case SessionState::RouteRebuilding: startPoint = m_checkpoints.GetPointFrom(); break;
-
-    case SessionState::OnRoute:
-    case SessionState::RouteNeedRebuild: break;
-    }
-
-    // Cancel current route building.
-    m_router->ClearState();
+  case SessionState::OnRoute:
+  case SessionState::RouteNeedRebuild: break;
   }
 
+  // Traffic updates require a full rebuild while preserving the selected route strategy.
+  // CalculateRoute cancels the previous request; ClearState would also reset that strategy.
   RebuildRoute(startPoint, m_rebuildReadyCallback, nullptr /* needMoreMapsCallback */,
                nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding,
                false /* adjustToPrevRoute */);
