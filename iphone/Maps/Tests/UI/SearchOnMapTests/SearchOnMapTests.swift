@@ -95,6 +95,18 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(view.viewModel.isTyping, true)
   }
 
+  func test_SearchResultCountIsAnnouncedOnlyAfterSearchCompletes() {
+    interactor.handle(.openSearch)
+    let results = SearchResult.stubResults()
+
+    presenter.process(.showResults(results, isSearchCompleted: false))
+    XCTAssertTrue(view.announcedResultCounts.isEmpty)
+
+    presenter.process(.showResults(results, isSearchCompleted: true))
+    presenter.process(.showResults(.empty, isSearchCompleted: true))
+    XCTAssertEqual(view.announcedResultCounts, [results.count, 0])
+  }
+
   func test_GivenInitialState_WhenSelectDebugCommandFromHistory_ThenShowNoResults() {
     interactor.handle(.openSearch)
 
@@ -587,10 +599,15 @@ private class SearchOnMapViewMock: SearchOnMapView {
   var closeCallCount = 0
   var renderCallCount = 0
   var mapPointPickerTitle: String?
+  var announcedResultCounts: [Int] = []
 
   func render(_ viewModel: SearchOnMap.ViewModel) {
     renderCallCount += 1
     self.viewModel = viewModel
+  }
+
+  func announceSearchResults(count: Int) {
+    announcedResultCounts.append(count)
   }
 
   func close() {

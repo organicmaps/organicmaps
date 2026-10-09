@@ -1,5 +1,6 @@
 protocol SearchOnMapView: AnyObject {
   func render(_ viewModel: SearchOnMap.ViewModel)
+  func announceSearchResults(count: Int)
   func show()
   func close()
   func showMapPointPicker(title: String)
@@ -125,6 +126,8 @@ final class SearchOnMapViewController: UIViewController {
     setupSearchResultsView()
     setupResultsTableView()
     setupHistoryAndCategoryTabView()
+    searchingActivityView.isAccessibilityElement = true
+    searchingActivityView.accessibilityLabel = L("search_accessibility_searching")
   }
 
   private func setupDimView() {
@@ -379,7 +382,9 @@ final class SearchOnMapViewController: UIViewController {
 
 extension SearchOnMapViewController: SearchOnMapView {
   func render(_ viewModel: ViewModel) {
+    availableAreaView.accessibilityViewIsModal = viewModel.presentationStep == .expanded || viewModel.presentationStep == .halfScreen
     headerView.setRoutePointActions(viewModel.routePointActions)
+    headerView.setGrabberAccessible(viewModel.presentationStep != .expanded && viewModel.presentationStep != .hidden)
     setContent(viewModel.contentState)
     setIsSearching(viewModel.isTyping)
     setSearchText(viewModel.searchingText)
@@ -388,6 +393,12 @@ extension SearchOnMapViewController: SearchOnMapView {
 
   func show() {
     interactor?.handle(.openSearch)
+    UIAccessibility.post(notification: .screenChanged, argument: headerView.accessibilitySearchField)
+  }
+
+  func announceSearchResults(count: Int) {
+    let announcement = count == 0 ? L("search_not_found") : String(format: L("search_accessibility_results_count"), count)
+    UIAccessibility.post(notification: .announcement, argument: announcement)
   }
 
   func close() {

@@ -31,7 +31,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private let grabberView = UIView()
-  private let grabberTapHandlerView = UIView()
+  private let grabberTapHandlerView = UIButton(type: .custom)
   private let routeActionsStackView = UIStackView()
   private let currentLocationButton = RouteActionButton(type: .system)
   private let chooseOnMapButton = RouteActionButton(type: .system)
@@ -75,14 +75,15 @@ final class SearchOnMapHeaderView: UIView {
   private func setupGrabberTapHandlerView() {
     grabberTapHandlerView.backgroundColor = .clear
     iPhoneSpecific {
-      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(grabberDidTap))
-      grabberTapHandlerView.addGestureRecognizer(tapGesture)
+      grabberTapHandlerView.accessibilityLabel = L("search_accessibility_expand")
+      grabberTapHandlerView.addTarget(self, action: #selector(grabberDidTap), for: .touchUpInside)
     }
   }
 
   private func setupSearchBar() {
     searchBar.setStyle(.searchOnMapSearchBar)
     searchBar.placeholder = L("search")
+    searchBar.searchTextField.accessibilityLabel = searchBar.placeholder
     searchBar.showsCancelButton = false
     searchBar.searchBarStyle = .minimal
     searchBar.searchTextField.clearButtonMode = .always
@@ -235,6 +236,7 @@ final class SearchOnMapHeaderView: UIView {
   func setRoutePointActions(_ actions: SearchOnMap.ViewModel.RoutePointActions?) {
     hasRouteActions = actions != nil
     searchBar.placeholder = actions?.title ?? L("search")
+    searchBar.searchTextField.accessibilityLabel = searchBar.placeholder
     currentLocationButton.isHidden = actions?.canSelectCurrentLocation != true
     chooseOnMapButton.isHidden = actions == nil
     updateRouteActionButtonsVisibility()
@@ -247,6 +249,12 @@ final class SearchOnMapHeaderView: UIView {
   func setSeparatorHidden(_ hidden: Bool) {
     separator?.isHidden = hidden
   }
+
+  func setGrabberAccessible(_ accessible: Bool) {
+    grabberTapHandlerView.isAccessibilityElement = accessible && !isiPad
+  }
+
+  var accessibilitySearchField: UITextField { searchBar.searchTextField }
 
   private func updateRouteActionButtonsVisibility() {
     let shouldShow = hasRouteActions && (searchBar.text?.isEmpty ?? true)

@@ -58,6 +58,9 @@ final class SearchOnMapPresenter {
       view?.render(newViewModel)
       searchState = newViewModel.presentationStep.searchState
     }
+    if case .showResults(let results, let isSearchCompleted) = response, isSearchCompleted {
+      view?.announceSearchResults(count: results.count)
+    }
   }
 
   func close(notifyObservers: Bool = true) {

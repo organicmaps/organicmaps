@@ -12,6 +12,10 @@
 - (void)configureWith:(SearchResult * _Nonnull)result isPartialMatching:(BOOL)isPartialMatching
 {
   NSString * title = result.titleText;
+  self.isAccessibilityElement = YES;
+  self.accessibilityLabel = title;
+  self.accessibilityValue = nil;
+  self.accessibilityTraits = UIAccessibilityTraitButton;
 
   if (title.length == 0)
   {
