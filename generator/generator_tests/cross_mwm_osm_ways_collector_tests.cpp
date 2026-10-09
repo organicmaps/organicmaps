@@ -67,14 +67,13 @@ public:
   void Check(std::string const & countryName, std::vector<std::string> const & answers) const
   {
     std::ifstream stream(FormatPath(countryName));
-    size_t pos = 0;
+    TEST(stream.is_open(), (countryName));
+    std::vector<std::string> actual;
     std::string line;
-    while (std::getline(stream, line).good())
-    {
-      TEST_EQUAL(line, answers[pos], (countryName));
-      pos++;
-    }
-    TEST_EQUAL(pos, answers.size(), (countryName));
+    while (std::getline(stream, line))
+      actual.push_back(line);
+    TEST(!stream.bad(), (countryName));
+    TEST_EQUAL(actual, answers, (countryName));
   }
 
 private:
@@ -194,6 +193,44 @@ UNIT_CLASS_TEST(Sample1Test, TwoCollectorsTest)
   collection1->Finalize();
 
   Checker();
+}
+
+UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Check_OutputRows)
+{
+  std::string const country = "output_rows";
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), kTmpDirName, CROSS_MWM_OSM_WAYS_DIR);
+  TEST(Platform::MkDirChecked(directory), (directory));
+  auto const path = base::JoinPath(directory, country);
+  auto write = [&](std::string const & text)
+  {
+    std::ofstream stream(path);
+    stream << text;
+    TEST(stream.good(), (path));
+  };
+  auto expectFailure = [&](std::string const & name, std::vector<std::string> const & expected)
+  {
+    bool rejected = false;
+    try
+    {
+      Check(name, expected);
+    }
+    catch (TestFailureException const &)
+    {
+      rejected = true;
+    }
+    TEST(rejected, (name));
+  };
+  for (auto const & text : {"expected\n", "expected"})
+  {
+    write(text);
+    Check(country, {"expected"});
+  }
+  for (auto const & text : {"expected\nextra\n", "expected\nextra", ""})
+  {
+    write(text);
+    expectFailure(country, {"expected"});
+  }
+  expectFailure("missing_output_rows", {});
 }
 
 UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Lithuania_Belarus_Kamenny_Log)
