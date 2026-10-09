@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Зареждане на отметки";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Качването на отметките се провали. Файлът може да бъде повреден или дефектен.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Отметките са заредени успешно! Изберете списък, за да го видите на картата:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Файловете не можаха да бъдат заредени. Възможно е да са повредени или дефектни:";
 
 /* resource for context menu */
 "edit" = "Редакция";

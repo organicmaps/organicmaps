@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Cargando marcadores";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Os marcadores cargáronse con éxito! Pode atopalos no mapa ou na pantalla de Xestión de marcadores.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Os marcadores cargáronse con éxito! Pode atopalos no mapa ou na pantalla de Xestión de marcadores.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Non se puideron cargar os marcadores. O arquivo podería ter danos ou defectos.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Os marcadores cargáronse con éxito! Seleccione unha lista para vela no mapa:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Non se puideron cargar os ficheiros. Poderían estar danados ou ser defectuosos:";
 
 /* resource for context menu */
 "edit" = "Editar";

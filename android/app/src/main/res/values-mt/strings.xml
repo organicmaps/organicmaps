@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo Organic Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://omaps.app/get?kmz\n\nĦu pjaċir ivvjaġġa ġo Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Tgħobijja tal-bookmarks</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Bookmarks mgħobbija b\'suċċess!Tista issibhom ġol-mappa jew fuq l-iskrin tal-Maniġer tal-Bookmarks.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">It-tip tal-fajl mhuwiex rikonoxxut mill-applikazzjoni:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Il-fajl falla biex jiftaħ %1$s\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Bookmarks mgħobbija b\'suċċess!Tista issibhom ġol-mappa jew fuq l-iskrin tal-Maniġer tal-Bookmarks.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Bookmarks mgħobbija b\'suċċess! Agħżel lista biex taraha fuq il-mappa:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Ma setgħux jitgħabbew il-fajls. Jistgħu jkunu korrotti jew difettużi:</string>
     <!-- resource for context menu -->
     <string name="edit">Editja</string>
     <!-- Warning message when doing search around current position -->

@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "正在加载书签";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "书签载入成功！您可以在地图或书签管理页面中找到它们。";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "书签载入成功！您可以在地图或书签管理页面中找到它们。";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "书签载入失败，文件可能已损坏或不完整。";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "书签载入成功！请选择要在地图上查看的列表：";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "无法加载这些文件。它们可能已损坏或存在缺陷：";
 
 /* resource for context menu */
 "edit" = "编辑";

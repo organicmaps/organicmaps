@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Načítavanie záložiek";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Záložky boli úspešne načítané! Môžete ich nájsť na mape alebo na obrazovke Správca záložiek.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Záložky boli úspešne načítané! Môžete ich nájsť na mape alebo na obrazovke Správca záložiek.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Načítavanie záložiek sa nepodarilo. Súbor môže byť poškodený alebo chybný.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Záložky boli úspešne načítané! Vyberte zoznam, ktorý chcete zobraziť na mape:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Súbory sa nepodarilo načítať. Môžu byť poškodené alebo chybné:";
 
 /* resource for context menu */
 "edit" = "Upraviť";

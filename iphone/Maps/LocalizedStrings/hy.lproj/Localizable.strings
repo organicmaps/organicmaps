@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Էջանիշների բեռնում";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Էջանիշները հաջողությամբ բեռնվեցին: Դուք կարող եք գտնել դրանք քարտեզի վրա կամ «Էջանիշների կառավարիչ» էկրանին:";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Էջանիշները հաջողությամբ բեռնվեցին: Դուք կարող եք գտնել դրանք քարտեզի վրա կամ «Էջանիշների կառավարիչ» էկրանին:";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Չհաջողվեց բեռնել էջանիշները: Ֆայլը կարող է վնասված կամ անսարք լինել:";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Էջանիշները հաջողությամբ բեռնվեցին: Ընտրեք ցուցակ՝ այն քարտեզի վրա տեսնելու համար:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Չհաջողվեց բեռնել ֆայլերը։ Դրանք կարող են վնասված կամ թերի լինել՝";
 
 /* resource for context menu */
 "edit" = "Խմբագրել";

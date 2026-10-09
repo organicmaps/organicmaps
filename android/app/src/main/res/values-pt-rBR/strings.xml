@@ -97,14 +97,12 @@
     <string name="share_bookmarks_email_body">Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Se tiver instalado o Organic Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Carregando favoritos</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Favoritos carregados com sucesso! Você pode encontrá-los no mapa ou na tela de gestão dos favoritos.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Falha no envio dos favoritos. O arquivo pode estar corrompido ou com defeito.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">O tipo de arquivo não é reconhecido pelo aplicativo:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Falha ao abrir o arquivo %1$s\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Favoritos carregados com sucesso! Você pode encontrá-los no mapa ou na tela de gestão dos favoritos.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Favoritos carregados com sucesso! Escolha uma lista para vê-la no mapa:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Não foi possível carregar os arquivos. Eles podem estar corrompidos ou com defeito:</string>
     <!-- Warning message when doing search around current position -->
     <string name="unknown_current_position">Sua localização ainda não foi determinada</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->

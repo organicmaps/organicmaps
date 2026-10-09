@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Järjehoidjate laadimine";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Järjehoidjad edukalt laaditud! Leiad need kaardil või järjehoidjate halduri vaates.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Järjehoidjad edukalt laaditud! Leiad need kaardil või järjehoidjate halduri vaates.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Järjehoidjate laadimine ei õnnestunud. Fail võib olla vigane.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Järjehoidjad edukalt laaditud! Vali loend, et seda kaardil vaadata:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Faile ei õnnestunud laadida. Need võivad olla rikutud või vigased:";
 
 /* resource for context menu */
 "edit" = "Muuda";

@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Загрузка меток</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохранённых метках.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Файл с метками не был загружен. Возможно, файл повреждён или неисправен.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Тип файла не поддерживается приложением:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Не удалось открыть файл %1$s\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохранённых метках.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Метки успешно загружены! Выберите список, чтобы увидеть его на карте:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Не удалось загрузить файлы. Возможно, они повреждены или содержат ошибки:</string>
     <!-- resource for context menu -->
     <string name="edit">Редактировать</string>
     <!-- Warning message when doing search around current position -->
