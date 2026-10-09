@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "drules_test_helpers.hpp"
+
 #include "indexer/drules_format.hpp"
 
 #include "coding/varint.hpp"
@@ -493,6 +495,11 @@ DrulesFormat BuildFixture()
   return f;
 }
 }  // namespace
+
+std::string EncodeForTests(drule::DrulesFormat const & format)
+{
+  return Encoder().Encode(format);
+}
 
 // The Encoder above is hand-mirrored from the decoder, so this round-trip proves the decoder is
 // self-consistent with a conforming writer. DrulesFormat_GoldenKothicBlob below pins agreement with

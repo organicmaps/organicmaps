@@ -318,6 +318,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 
 Framework::Framework(FrameworkParams const & params, bool loadMaps)
   : m_enabledDiffs(params.m_enableDiffs)
+  , m_fixedMapStyle(params.m_fixedMapStyle)
   , m_isRenderingEnabled(true)
   , m_transitManager(m_featuresFetcher.GetDataSource(),
                      [this](FeatureCallback const & fn, std::vector<FeatureID> const & features)
@@ -347,6 +348,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   std::string mapStyleStr;
   if (settings::Get(kMapStyleKey, mapStyleStr))
     mapStyle = MapStyleFromSettings(mapStyleStr);
+  mapStyle = m_fixedMapStyle.value_or(mapStyle);
   GetStyleReader().SetCurrentStyle(mapStyle);
   df::LoadTransitColors();
 
@@ -2059,9 +2061,11 @@ void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, loc
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
+  if (m_fixedMapStyle)
+    return;
   ASSERT_NOT_EQUAL(mapStyle, MapStyle::MapStyleMerged, ());
 
-  // Store current map style before classificator reloading
+  // Store the current map style before loading its family.
   std::string mapStyleStr = MapStyleToString(mapStyle);
   if (mapStyleStr.empty())
   {
@@ -2075,11 +2079,13 @@ void Framework::MarkMapStyle(MapStyle mapStyle)
   GetStyleReader().SetCurrentStyle(mapStyle);
 }
 
-void Framework::SetMapStyle(MapStyle mapStyle)
+void Framework::SetMapStyle(MapStyle mapStyle, bool reloadFromDisk)
 {
+  if (m_fixedMapStyle && mapStyle != *m_fixedMapStyle)
+    return;
   MarkMapStyle(mapStyle);
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateMapStyle();
+    m_drapeEngine->UpdateMapStyle(reloadFromDisk);
   InvalidateUserMarks();
   UpdateBookmarksTextPlacement();
   UpdateMinBuildingsTapZoom();

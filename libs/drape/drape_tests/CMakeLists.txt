@@ -57,6 +57,7 @@ endif()
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
     qt_tstfrm
+    platform_tests_support
     gmock
     ${DRAPE_LINK_LIBRARIES}
 )

@@ -54,6 +54,7 @@ public:
     m2::Packer m_packer;
   };
 
+  // Collects SVG symbols from symbolsDir, plus any pre-rendered images in its png/ subdirectory.
   void ProcessSymbols(std::string const & symbolsDir, std::string const & skinName,
                       std::vector<QSize> const & symbolSizes, std::vector<std::string> const & suffix);
   bool RenderPages(uint32_t maxSize);
@@ -67,4 +68,9 @@ private:
 
   void MarkOverflow();
 };
+
+// Renders all SVG symbols from svgDir into outDir/symbols.png and outDir/symbols.xml.
+// Throws std::runtime_error on failure. Uses only QImage/QSvgRenderer, so it is safe
+// to call outside of the GUI thread.
+void BuildSkin(QString const & svgDir, int symbolSize, uint32_t maxTextureSize, QString const & outDir);
 }  // namespace tools
