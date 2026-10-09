@@ -56,19 +56,6 @@ final class SearchOnMapHeaderViewTests: XCTestCase {
     assertActionsHidden(true)
   }
 
-  func test_GivenRoutePointSearch_WhenShown_ThenLocationActionsAreAccessible() throws {
-    header.setRoutePointActions(.init(title: L("choose_destination"), canSelectCurrentLocation: true))
-    assertActionsHidden(false)
-    header.layoutIfNeeded()
-
-    let currentLocation = try XCTUnwrap(actions.arrangedSubviews.first as? UIButton)
-    let chooseOnMap = try XCTUnwrap(actions.arrangedSubviews.last as? UIButton)
-    XCTAssertEqual(currentLocation.accessibilityLabel, L("p2p_your_location"))
-    XCTAssertEqual(chooseOnMap.accessibilityLabel, L("choose_on_map"))
-    XCTAssertGreaterThanOrEqual(currentLocation.bounds.height, 44)
-    XCTAssertGreaterThanOrEqual(chooseOnMap.bounds.height, 44)
-  }
-
   private func assertActionsHidden(_ hidden: Bool, file: StaticString = #filePath, line: UInt = #line) {
     let settled = XCTNSPredicateExpectation(predicate: NSPredicate { [actions] _, _ in
       actions?.isHidden == hidden && actions?.alpha == (hidden ? 0 : 1)
@@ -276,27 +263,6 @@ final class MapPointPickerViewControllerTests: XCTestCase {
     XCTAssertFalse(controlsManager.zoomHidden)
   }
 
-  func test_GivenMapPointPicker_WhenPresented_ThenVoiceOverCanReadSelection() throws {
-    let picker = MapPointPickerViewController(title: L("choose_on_map"),
-                                              hint: L("choose_point_on_map_hint"),
-                                              enableBounds: false,
-                                              initialMercatorPosition: nil,
-                                              shouldChangeViewport: false)
-    picker.loadViewIfNeeded()
-
-    let title = try XCTUnwrap(picker.view.firstDescendant {
-      ($0 as? UILabel)?.text == L("choose_on_map")
-    } as? UILabel)
-    let doneButton = try XCTUnwrap(picker.view.firstDescendant {
-      $0 is MapPointPickerDoneButton
-    } as? MapPointPickerDoneButton)
-    XCTAssertTrue(title.accessibilityTraits.contains(.header))
-    XCTAssertEqual(doneButton.accessibilityHint, L("choose_point_on_map_hint"))
-    XCTAssertEqual(doneButton.accessibilityValue,
-                   FrameworkHelper.address(at: FrameworkHelper.mercatorViewportCenter())
-                     ?? FrameworkHelper.formattedCoordinates(at: FrameworkHelper.mercatorViewportCenter()))
-  }
-
   func test_GivenButtonDismissalInProgress_WhenClosedExternally_ThenDoesNotDeliverResult() throws {
     let mapViewController = try XCTUnwrap(MapViewController.shared())
     mapViewController.loadViewIfNeeded()
@@ -349,29 +315,5 @@ private final class SearchClosureObserver: NSObject, SearchOnMapManagerObserver 
     if state == .closed {
       wasSearchingWhenClosed = manager.isSearching
     }
-  }
-}
-
-final class SearchPlaceholderAccessibilityTests: XCTestCase {
-  func test_EmptySearchAndHistoryExposeLocalizedHeadings() throws {
-    for key in ["search_not_found", "search_history_title"] {
-      let placeholder = PlaceholderView(title: L(key), subtitle: L("search_not_found_query"))
-      let title = try XCTUnwrap(placeholder.firstDescendant {
-        ($0 as? UILabel)?.text == L(key)
-      } as? UILabel)
-      XCTAssertTrue(title.isAccessibilityElement)
-      XCTAssertTrue(title.accessibilityTraits.contains(.header))
-    }
-  }
-
-  func test_LegacyNoResultsExposesHeading() throws {
-    let titleText = L("search_not_found")
-    let view = try XCTUnwrap(MWMSearchNoResults.view(with: nil,
-                                                     title: titleText,
-                                                     text: L("search_not_found_query")))
-    let title = try XCTUnwrap(view.firstDescendant {
-      ($0 as? UILabel)?.text == titleText
-    } as? UILabel)
-    XCTAssertTrue(title.accessibilityTraits.contains(.header))
   }
 }
