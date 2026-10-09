@@ -236,6 +236,8 @@ fragment half4 fsAreaStipple(const HatchingAreaFragment_T in [[stage_in]])
   constexpr float kDarken = 0.80;
   float2 px = in.maskTexCoords * 16.0;
   float2 cell = floor(px / kCellPx);
+  // Positive modulo preserves jitter across the CPU's 16px UV anchor shifts, matching GLSL.
+  cell -= floor(cell / (16.0 / kCellPx)) * (16.0 / kCellPx);
   float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx -
                     (float2(AreaPatternHash(cell), AreaPatternHash(cell + 19.7)) - 0.5) * (kJitter * kCellPx);
   float d = length(toCenter);
@@ -256,6 +258,8 @@ fragment half4 fsAreaSpeckle(const HatchingAreaFragment_T in [[stage_in]])
   constexpr float kDarken = 0.78;
   float2 px = in.maskTexCoords * 16.0;
   float2 cell = floor(px / kCellPx);
+  // Positive modulo preserves jitter across the CPU's 16px UV anchor shifts, matching GLSL.
+  cell -= floor(cell / (16.0 / kCellPx)) * (16.0 / kCellPx);
   float2 toCenter = (fract(px / kCellPx) - 0.5) * kCellPx -
                     (float2(AreaPatternHash(cell), AreaPatternHash(cell + 19.7)) - 0.5) * (kJitter * kCellPx);
   float radius = kBaseRadiusPx * (1.0 - kRadiusVar * 0.5 + kRadiusVar * AreaPatternHash(cell + 3.7));
