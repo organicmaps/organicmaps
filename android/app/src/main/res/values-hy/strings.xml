@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Համոզվեք, որ չեք մուտքագրել որևէ անձնական կամ գաղտնի տվյալ:</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap-ի խմբագիրները կստուգեն փոփոխությունները և հարցերի դեպքում կկապվեն ձեզ հետ:</string>
     <string name="navigation_stop_button">Դադար</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Հետագծի ձայնագրում</string>
     <!-- For the first routing -->
     <string name="accept">Ընդունել</string>
@@ -830,7 +830,7 @@
     <string name="start_track_recording">Գրանցել հետագիծը</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Կանգնեցնել հետագծի գրանցումը</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Հետագծի գրանցում</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Հետագիծը դատարկ է՝ պահպանելու ոչինչ չկա</string>
@@ -905,6 +905,8 @@
     <string name="choose_point_on_map_hint">Շարժեք և մեծացրեք քարտեզը՝ խաչը տեղադրելու համար</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Կանգնեցնել և պահպանել</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Ավարտել</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Շրջել երթուղին</string>
 </resources>

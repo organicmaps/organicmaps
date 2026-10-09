@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
     <string name="editor_share_to_all_dialog_message_2">Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.</string>
     <string name="navigation_stop_button">Стоп</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Запущена запись трека</string>
     <!-- For the first routing -->
     <string name="accept">Принять</string>
@@ -837,7 +837,7 @@
     <string name="start_track_recording">Записать трек</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Остановить запись трека</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Запись трека</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Трек пуст - нечего сохранять</string>
@@ -920,6 +920,8 @@
     <string name="choose_point_on_map_hint">Перемещайте и масштабируйте карту, чтобы установить крестик</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Остановить и сохранить</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Завершить</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Развернуть маршрут</string>
 </resources>

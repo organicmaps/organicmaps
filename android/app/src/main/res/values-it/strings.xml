@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Assicurati di non aver inserito alcun dato personale.</string>
     <string name="editor_share_to_all_dialog_message_2">Gli editor di OpenStreetMap controlleranno le modifiche e si metteranno in contatto con te in caso di domande.</string>
     <string name="navigation_stop_button">Ferma</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Sto registrando la traccia</string>
     <!-- For the first routing -->
     <string name="accept">Accetta</string>
@@ -835,7 +835,7 @@
     <string name="start_track_recording">Registra traccia</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Interrompi registrazione della traccia</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Registrazione traccia</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">La traccia è vuota - non c\'è nulla da salvare</string>
@@ -916,6 +916,8 @@
     <string name="choose_point_on_map_hint">Sposta e ingrandisci la mappa per posizionare la croce</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Interrompi e salva</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Termina</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Inverti il percorso</string>
 </resources>

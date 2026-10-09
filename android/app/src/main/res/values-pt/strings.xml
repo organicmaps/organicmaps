@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Certifique-se que não incluiu nenhuns dados pessoais.</string>
     <string name="editor_share_to_all_dialog_message_2">Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.</string>
     <string name="navigation_stop_button">Parar</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Registar a pista</string>
     <!-- For the first routing -->
     <string name="accept">Aceitar</string>
@@ -834,7 +834,7 @@
     <string name="start_track_recording">Gravar trajeto</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Parar gravação de trajeto</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Gravação de percurso</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">O trajeto está vazio - não há nada para guardar</string>
@@ -915,6 +915,8 @@
     <string name="choose_point_on_map_hint">Mova e amplie o mapa para posicionar a cruz</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar e guardar</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Terminar</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Inverter percurso</string>
 </resources>
