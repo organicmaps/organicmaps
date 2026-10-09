@@ -608,8 +608,14 @@ private:
       info.m_isAltOrOldName = isAltOrOldName;
       info.m_matchedFraction = matchedLength / static_cast<float>(totalLength);
 
-      /// @todo Also should add POI + nearby Street/Suburb/City.
-      info.m_nearbyMatch = preInfo.m_geoParts.IsPoiAndComplexPoi();
+      // A POI matched together with a nearby geographical feature is less relevant than a
+      // single feature whose name matches the whole query. For example, when searching for
+      // "Forêt de Chantilly", a POI named "Forêt" near Chantilly must not outrank the
+      // forest named "Forêt de Chantilly".
+      info.m_nearbyMatch =
+          Model::IsPoi(info.m_type) &&
+          (preInfo.m_geoParts.IsPoiAndComplexPoi() || preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId ||
+           preInfo.m_geoParts.m_suburb != IntersectionResult::kInvalidId || preInfo.m_cityId.IsValid());
     }
 
     CategoriesInfo const categoriesInfo(featureTypes, TokenSlice(m_params, preInfo.InnermostTokenRange()),
