@@ -1,6 +1,7 @@
 #include "drape/harfbuzz_shaping.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -165,9 +166,10 @@ void GetSingleTextLineRuns(TextSegments & segments)
     {
       // Find the longest sequence of characters that have at least one common UScriptCode value.
       UScriptCode script = USCRIPT_INVALID_CODE;
-      size_t const scriptRunEnd =
-          ScriptInterval(segments.m_text, scriptRunStart, bidiRunEnd - scriptRunStart, script) + scriptRunStart;
-      ASSERT_LESS(scriptRunStart, base::asserted_cast<int32_t>(scriptRunEnd), ());
+      int32_t const scriptRunEnd =
+          scriptRunStart + base::asserted_cast<int32_t>(
+                               ScriptInterval(segments.m_text, scriptRunStart, bidiRunEnd - scriptRunStart, script));
+      ASSERT_LESS(scriptRunStart, scriptRunEnd, ());
 
       // TODO(AB): May need to break on different unicode blocks, parentheses, and control chars (spaces).
 
@@ -176,7 +178,7 @@ void GetSingleTextLineRuns(TextSegments & segments)
                                        bidiLevel & 0x01 ? HB_DIRECTION_RTL : HB_DIRECTION_LTR);
 
       // Move to the next script sequence.
-      scriptRunStart = static_cast<int32_t>(scriptRunEnd);
+      scriptRunStart = scriptRunEnd;
     }
     // Move to the next direction sequence.
     bidiRunStart = bidiRunEnd;

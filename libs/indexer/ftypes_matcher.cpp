@@ -4,6 +4,7 @@
 #include "indexer/feature.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -159,7 +160,7 @@ BaseCheckerEx::BaseCheckerEx(std::initializer_list<base::StringIL> const & lst)
   for (auto const & e : lst)
   {
     uint32_t const t = c.GetTypeByPath(e);
-    m_types.emplace_back(t, e.size());
+    m_types.emplace_back(t, base::asserted_cast<uint8_t>(e.size()));
     ASSERT_EQUAL(ftype::GetLevel(t), e.size(), ());
   }
 }

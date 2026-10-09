@@ -5,6 +5,8 @@
 
 #include "routing/routing_session.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include <algorithm>
 #include <cstdlib>
 #include <memory>
@@ -739,7 +741,7 @@ void TransitRouteDisplay::CreateTransitMarks()
       df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
       for (size_t sizeIndex = 0; sizeIndex < transferMarkerSizes.size(); ++sizeIndex)
       {
-        auto const zoomLevel = sizeIndex + 1;
+        auto const zoomLevel = base::asserted_cast<int>(sizeIndex + 1);
         auto const & sz = transferMarkerSizes[sizeIndex];
         df::ColoredSymbolViewParams params;
         params.m_radiusInPixels = std::max(sz.x, sz.y) * 0.5f;
