@@ -851,8 +851,14 @@ void VulkanBaseContext::RecreateSwapchain()
   swapchainCI.pQueueFamilyIndices = nullptr;
 
 #if !defined(OMIM_OS_WINDOWS)
-  CHECK(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR, ());
-  swapchainCI.compositeAlpha = VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR;
+  // Prefer INHERIT, but Mesa's Wayland WSI and MoltenVK expose only OPAQUE/PRE_MULTIPLIED.
+  static VkCompositeAlphaFlagBitsKHR constexpr kCompositeAlphaPreference[] = {
+      VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR, VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR, VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
+      VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR};
+  auto const * alpha = std::find_if(std::begin(kCompositeAlphaPreference), std::end(kCompositeAlphaPreference),
+                                    [this](auto bit) { return m_surfaceCapabilities.supportedCompositeAlpha & bit; });
+  CHECK(alpha != std::end(kCompositeAlphaPreference), (m_surfaceCapabilities.supportedCompositeAlpha));
+  swapchainCI.compositeAlpha = *alpha;
 #endif
 
   // This mode waits for the vertical blank ("v-sync").
