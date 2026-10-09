@@ -249,7 +249,7 @@ void RankerResult::FillDetails(FeatureType & ft, bool isBuilding, bool isHotel)
     if (OpeningHours const oh{openHours}; oh.IsValid())
     {
       time_t now = time(nullptr);
-      auto const & ftTimezone = ft.GetID().m_mwmId.GetInfo()->GetRegionData().GetTimeZone();
+      auto const & ftTimezone = ft.GetID().m_mwmId.GetTimeZone();
       auto const info = oh.GetInfo(now, ftTimezone);
       if (info.state != RuleState::Unknown)
       {

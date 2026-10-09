@@ -101,10 +101,12 @@ void addUnhandledDays(ui::OpeningDays const & days, std::vector<Day> & allDays)
 namespace osmoh
 {
 
-std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization)
+std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization,
+                                                          std::optional<om::tz::TimeZone> const & timeZone)
 {
   osmoh::OpeningHours oh(str.UTF8String);
-  bool const isClosed = oh.IsClosed(time(nullptr));
+  // Evaluate "is closed now" in the POI's local time zone, not the device's, see issue #1642.
+  bool const isClosed = oh.IsClosed(time(nullptr), timeZone);
 
   ui::TimeTableSet timeTableSet;
   if (!MakeTimeTableSet(oh, timeTableSet))
@@ -112,11 +114,14 @@ std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOp
 
   std::vector<Day> days;
 
-  NSCalendar * cal = NSCalendar.currentCalendar;
+  NSCalendar * cal = [NSCalendar.currentCalendar copy];
   cal.locale = NSLocale.currentLocale;
+  auto const now = time(nullptr);
+  cal.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:GetUtcOffset(now, timeZone)];
 
   auto const timeTablesSize = timeTableSet.Size();
-  auto const today = static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
+  auto const today = static_cast<Weekday>(
+      [cal components:NSCalendarUnitWeekday fromDate:[NSDate dateWithTimeIntervalSince1970:now]].weekday);
   auto const unhandledDays = timeTableSet.GetUnhandledDays();
 
   /// Schedule contains more than one rule for all days or unhandled days.

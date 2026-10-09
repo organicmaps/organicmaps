@@ -144,14 +144,19 @@ final class PlacePagePreviewViewController: UIViewController {
 
   private func configSchedule() {
     let now = time_t(Date().timeIntervalSince1970)
+    let schedule = placePagePreviewData.schedule
+    let nextZone = TimeZone(secondsFromGMT: Int(schedule.utcOffsetNextSeconds))!
+    let timeFormatter = DateFormatter()
+    timeFormatter.locale = .current
+    timeFormatter.timeZone = nextZone
+    timeFormatter.dateStyle = .none
+    timeFormatter.timeStyle = .short
 
     func stringFromTime(_ time: Int) -> String {
-      DateTimeFormatter.dateString(from: Date(timeIntervalSince1970: TimeInterval(time)),
-                                   dateStyle: .none,
-                                   timeStyle: .short)
+      timeFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(time)))
     }
 
-    switch placePagePreviewData.schedule.state {
+    switch schedule.state {
     case .unknown:
       scheduleContainerView.isHidden = true
 
@@ -161,20 +166,20 @@ final class PlacePagePreviewViewController: UIViewController {
                        details: nil)
 
     case .open:
-      let nextTimeClosed = placePagePreviewData.schedule.nextTimeClosed
-      let minutesUntilClosed = (nextTimeClosed - now) / 60
-      let stringTimeInterval = getTimeIntervalString(minutes: minutesUntilClosed)
-      let stringTime = stringFromTime(nextTimeClosed)
-
+      let nextTimeClosed = schedule.nextTimeClosed
       let details: String?
-      if minutesUntilClosed < 3 * 60 // Less than 3 hours
-      {
-        details = String(format: L("closes_in"), stringTimeInterval) + " • " + stringTime
-      } else if minutesUntilClosed < 24 * 60 // Less than 24 hours
-      {
-        details = String(format: L("closes_at"), stringTime)
-      } else {
+      if nextTimeClosed == .max {
         details = nil
+      } else {
+        let minutesUntilClosed = (nextTimeClosed - now) / 60
+        let stringTime = stringFromTime(nextTimeClosed)
+        if minutesUntilClosed < 3 * 60 {
+          details = String(format: L("closes_in"), getTimeIntervalString(minutes: minutesUntilClosed)) + " • " + stringTime
+        } else if minutesUntilClosed < 24 * 60 {
+          details = String(format: L("closes_at"), stringTime)
+        } else {
+          details = nil
+        }
       }
 
       setScheduleLabel(state: L("editor_time_open"),
@@ -182,29 +187,31 @@ final class PlacePagePreviewViewController: UIViewController {
                        details: details)
 
     case .closed:
-      let nextTimeOpen = placePagePreviewData.schedule.nextTimeOpen
-      let nextTimeOpenDate = Date(timeIntervalSince1970: TimeInterval(nextTimeOpen))
-
-      let minutesUntilOpen = (nextTimeOpen - now) / 60
-      let stringTimeInterval = getTimeIntervalString(minutes: minutesUntilOpen)
-      let stringTime = stringFromTime(nextTimeOpen)
-
+      let nextTimeOpen = schedule.nextTimeOpen
       let details: String?
-      if minutesUntilOpen < 3 * 60 // Less than 3 hours
-      {
-        details = String(format: L("opens_in"), stringTimeInterval) + " • " + stringTime
-      } else if Calendar.current.isDateInToday(nextTimeOpenDate) // Today
-      {
-        details = String(format: L("opens_at"), stringTime)
-      } else if minutesUntilOpen < 24 * 60 // Less than 24 hours
-      {
-        details = String(format: L("opens_tomorrow_at"), stringTime)
-      } else if minutesUntilOpen < 7 * 24 * 60 // Less than 1 week
-      {
-        let dayOfWeek = DateTimeFormatter.dateString(from: nextTimeOpenDate, format: "EEEE")
-        details = String(format: L("opens_dayoftheweek_at"), dayOfWeek, stringTime)
-      } else {
+      if nextTimeOpen == .max {
         details = nil
+      } else {
+        let minutesUntilOpen = (nextTimeOpen - now) / 60
+        let daysUntilOpen = (nextTimeOpen + time_t(schedule.utcOffsetNextSeconds)) / 86400
+          - (now + time_t(schedule.utcOffsetNowSeconds)) / 86400
+        let stringTime = stringFromTime(nextTimeOpen)
+        if minutesUntilOpen < 3 * 60 {
+          details = String(format: L("opens_in"), getTimeIntervalString(minutes: minutesUntilOpen)) + " • " + stringTime
+        } else if daysUntilOpen == 0 {
+          details = String(format: L("opens_at"), stringTime)
+        } else if daysUntilOpen == 1 {
+          details = String(format: L("opens_tomorrow_at"), stringTime)
+        } else if daysUntilOpen >= 2, daysUntilOpen < 7 {
+          let weekdayFormatter = DateFormatter()
+          weekdayFormatter.locale = .current
+          weekdayFormatter.timeZone = nextZone
+          weekdayFormatter.dateFormat = "EEEE"
+          let dayOfWeek = weekdayFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(nextTimeOpen)))
+          details = String(format: L("opens_dayoftheweek_at"), dayOfWeek, stringTime)
+        } else {
+          details = nil
+        }
       }
 
       setScheduleLabel(state: L("closed_now"),
