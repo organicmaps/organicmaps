@@ -102,6 +102,10 @@ natural=salt_pond  : landuse=salt_pond
 waterway=riverbank : natural=water, water=river
 landuse=reservoir  : natural=water, water=reservoir
 
+# Organic Maps does not distinguish ephemeral water from intermittent.
+intermittent=ephemeral : intermittent=yes
+ephemeral=yes : intermittent=yes
+
 desert=sand : desert=erg
 desert=yes : desert=erg
 desert=semi_arid : desert=erg

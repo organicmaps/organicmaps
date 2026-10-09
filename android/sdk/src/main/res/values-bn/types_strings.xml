@@ -2,6 +2,8 @@
 <resources>
 
     <!-- SECTION: Types: Recycling -->
+    <string name="type.waterway.ditch">নিকাশি নালা</string>
+    <string name="type.waterway.ditch.intermittent">অস্থায়ী নিকাশি নালা</string>
     <string name="type.cuisine.uzbek">উজবেক</string>
 
     <!-- SECTION: Types: Historic -->
@@ -18,5 +20,19 @@
     <string name="type.shop.leather">চামড়াজাত পণ্যের দোকান</string>
     <string name="type.shop.religion">ধর্মীয় সামগ্রীর দোকান</string>
     <string name="type.waterway.access_point">জলপথ প্রবেশ বিন্দু</string>
+    <string name="type.waterway.canal">খাল</string>
+    <string name="type.waterway.canal.intermittent">অস্থায়ী খাল</string>
+    <string name="type.waterway.fish_pass">মাছ চলাচলের পথ</string>
+    <string name="type.waterway.fish_pass.intermittent">অস্থায়ী মাছ চলাচলের পথ</string>
+    <string name="type.natural.water.ditch">নিকাশি নালা</string>
+    <string name="type.waterway.drain">নিকাশি খাল</string>
+    <string name="type.waterway.drain.intermittent">অস্থায়ী নিকাশি খাল</string>
+    <string name="type.natural.water.drain">নিকাশি খাল</string>
+    <string name="type.waterway.river">নদী</string>
+    <string name="type.waterway.river.intermittent">অস্থায়ী নদী</string>
+    <string name="type.waterway.river.tunnel">নদী</string>
+    <string name="type.waterway.stream">ছোট নদী</string>
+    <string name="type.waterway.stream.intermittent">অস্থায়ী ছোট নদী</string>
+    <string name="type.waterway.stream.tunnel">ছোট নদী</string>
     <string name="type.amenity.stage">মঞ্চ</string>
 </resources>
