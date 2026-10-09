@@ -29,9 +29,6 @@ char const * const kInstanceExtensions[] = {
     "VK_MVK_macos_surface",
     "VK_KHR_get_physical_device_properties2",
 #endif
-#if defined(OMIM_OS_LINUX)
-    "VK_KHR_xlib_surface",
-#endif
 #if defined(OMIM_OS_WINDOWS)
     "VK_KHR_win32_surface",
 #endif
@@ -167,12 +164,17 @@ static VkBool32 VKAPI_PTR DebugReportCallbackImpl(VkDebugReportFlagsEXT flags, V
   return VK_FALSE;
 }
 
-Layers::Layers(bool enableDiagnostics)
+Layers::Layers(bool enableDiagnostics, std::span<char const * const> requiredInstanceExtensions)
   : m_enableDiagnostics(enableDiagnostics)
   , m_vkCreateDebugReportCallbackEXT(vkCreateDebugReportCallbackEXT)
   , m_vkDestroyDebugReportCallbackEXT(vkDestroyDebugReportCallbackEXT)
   , m_vkDebugReportMessageEXT(vkDebugReportMessageEXT)
 {
+  // Keep required names even when enumeration fails so instance creation reports them.
+  for (auto const * extension : requiredInstanceExtensions)
+    if (!IsContained(extension, m_instanceExtensions))
+      m_instanceExtensions.push_back(extension);
+
   if (m_enableDiagnostics)
   {
     // Get instance layers count.
@@ -247,8 +249,11 @@ Layers::Layers(bool enableDiagnostics)
     extensionsProperties.insert(extensionsProperties.end(), props.begin(), props.end());
   }
 
-  m_instanceExtensions =
+  auto const optionalExtensions =
       CheckExtensions(extensionsProperties, m_enableDiagnostics, kInstanceExtensions, ARRAY_SIZE(kInstanceExtensions));
+  for (auto const * extension : optionalExtensions)
+    if (!IsContained(extension, m_instanceExtensions))
+      m_instanceExtensions.push_back(extension);
 
   for (auto ext : m_instanceExtensions)
   {

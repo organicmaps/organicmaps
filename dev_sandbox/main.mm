@@ -1,3 +1,5 @@
+#include "dev_sandbox/context_factory.hpp"
+
 #include "iphone/Maps/Core/MapRendering/MetalContextFactory.h"
 
 #include "drape/gl_functions.hpp"
@@ -277,8 +279,10 @@ private:
   std::mutex m_viewSetMutex;
 };
 
-drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, dp::ApiVersion api, m2::PointU size)
+drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GlfwWindows const & windows, dp::ApiVersion api,
+                                                           m2::PointU size)
 {
+  auto * window = windows.m_visible;
   if (api == dp::ApiVersion::Metal)
   {
     CAMetalLayer * layer = [CAMetalLayer layer];

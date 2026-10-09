@@ -113,8 +113,7 @@ void ImguiRenderer::Update(std::function<void()> const & uiCallback)
   ImGuiIO & io = ImGui::GetIO();
   if (!io.Fonts->IsBuilt())
     io.Fonts->Build();
-  if (!m_texture)
-    UpdateTexture();
+  UpdateTexture();
 
   ImGui::NewFrame();
   uiCallback();
@@ -138,6 +137,9 @@ void ImguiRenderer::Reset()
 void ImguiRenderer::UpdateTexture()
 {
   std::lock_guard<std::mutex> lock(m_textureMutex);
+  if (m_texture || !m_textureData.empty())
+    return;
+
   unsigned char * pixels;
   int width, height;
   ImGui::GetIO().Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
