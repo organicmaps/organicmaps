@@ -259,10 +259,6 @@ UNIT_TEST(TrieBuilder_Build)
           v.emplace_back(makeKey(possibleStrings[i1]), i1 + 10);
         if (i2 >= 0)
           v.emplace_back(makeKey(possibleStrings[i2]), i2 + 100);
-        vector<string> vs;
-        for (size_t i = 0; i < v.size(); ++i)
-          vs.push_back(string(v[i].first.begin(), v[i].first.end()));
-
         vector<uint8_t> buf;
         PushBackByteSink<vector<uint8_t>> sink(buf);
         SingleValueSerializer<uint32_t> serializer;

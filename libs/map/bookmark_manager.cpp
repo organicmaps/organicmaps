@@ -1119,8 +1119,9 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
   tracker.ForEachTrackPoint([&line, &timestamps](location::GpsInfo const & pt, size_t id)
   {
     /// @todo pt.HasAltitude() ?
-    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude), pt.m_altitude);
-    timestamps.emplace_back(pt.m_timestamp);
+    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude),
+                      static_cast<geometry::Altitude>(pt.m_altitude));
+    timestamps.emplace_back(static_cast<kml::MultiGeometry::TimeInt>(pt.m_timestamp));
     return true;
   });
 
