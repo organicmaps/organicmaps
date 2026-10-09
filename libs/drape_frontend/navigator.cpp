@@ -233,11 +233,10 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2)
     double s = pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2);
     double a = ang::AngleTo(pt1, pt2) - ang::AngleTo(m_StartPt1, m_StartPt2);
 
-    double aThresh = 10.0 / 180.0 * math::pi;
     double sThresh = 1.2;
 
     bool isScalingInBounds = (s > 1 / sThresh) && (s < sThresh);
-    bool isRotationOutBounds = fabs(a) > aThresh;
+    bool isRotationOutBounds = fabs(a) > kRotationThresholdRadians;
 
     if (isScalingInBounds)
     {
