@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "storage/background_downloading/downloader_queue.hpp"
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
@@ -1295,6 +1296,122 @@ UNIT_TEST(StorageTest_GetOverallProgressSmokeTest)
   auto const currentProgress = storage.GetOverallProgress({"Abkhazia", "Algeria_Coast"});
   TEST_EQUAL(currentProgress.m_bytesDownloaded, 0, ());
   TEST_EQUAL(currentProgress.m_bytesTotal, 0, ());
+}
+
+// Delivers progress and failures explicitly, without network requests or file writes.
+class ProgressMapFilesDownloader : public MapFilesDownloader
+{
+public:
+  ProgressMapFilesDownloader() { SetServersList({"http://test-url/"}); }
+
+  void Remove(CountryId const & countryId) override { m_queue.Remove(countryId); }
+  void Clear() override { m_queue.Clear(); }
+  QueueInterface const & GetQueue() const override { return m_queue; }
+
+  void ReportProgress(CountryId const & countryId, downloader::Progress const & progress)
+  {
+    m_queue.GetCountryById(countryId).OnDownloadProgress(progress);
+  }
+
+  void Fail(CountryId const & countryId)
+  {
+    auto const country = m_queue.GetCountryById(countryId);
+    m_queue.Remove(countryId);
+    country.OnDownloadFinished(downloader::DownloadStatus::Failed);
+  }
+
+private:
+  void Download(QueuedCountry && country) override
+  {
+    auto const countryId = country.GetCountryId();
+    m_queue.Append(std::move(country));
+    m_queue.GetCountryById(countryId).OnStartDownloading();
+  }
+
+  BackgroundDownloaderQueue<uint64_t> m_queue;
+};
+
+UNIT_TEST(StorageTest_ResumedProgressMatchesNodeAttrs)
+{
+  WritableDirChanger writableDirChanger(kMapTestDir);
+  auto downloader = make_unique<ProgressMapFilesDownloader>();
+  auto * downloaderPtr = downloader.get();
+  Storage storage(kCountriesTxt, std::move(downloader));
+
+  int progressEvents = 0;
+  auto const slot = storage.Subscribe([](CountryId const &) {},
+                                      [&](CountryId const & countryId, downloader::Progress const & progress)
+  {
+    if (countryId != "Algeria_Central")
+      return;
+    ++progressEvents;
+    NodeAttrs attrs;
+    storage.GetNodeAttrs(countryId, attrs);
+    TEST_EQUAL(progress.m_bytesDownloaded, 100, ());
+    TEST_EQUAL(progress.m_bytesTotal, 24177144, ());
+    TEST_EQUAL(progress.m_bytesDownloaded, attrs.m_downloadingProgress.m_bytesDownloaded, ());
+    TEST_EQUAL(progress.m_bytesTotal, attrs.m_downloadingProgress.m_bytesTotal, ());
+  });
+  SCOPE_GUARD(unsubscribe, [&]() { storage.Unsubscribe(slot); });
+
+  storage.DownloadNode("Algeria_Central");
+  // A resumed request may report a different total, or an unknown total before receiving headers.
+  downloaderPtr->ReportProgress("Algeria_Central", {100, 200});
+  downloaderPtr->ReportProgress("Algeria_Central", {100, downloader::Progress::kUnknownTotalSize});
+  TEST_EQUAL(progressEvents, 2, ());
+  storage.CancelDownloadNode("Algeria_Central");
+}
+
+UNIT_TEST(StorageTest_ProgressWithoutObservers)
+{
+  WritableDirChanger writableDirChanger(kMapTestDir);
+  auto downloader = make_unique<ProgressMapFilesDownloader>();
+  auto * downloaderPtr = downloader.get();
+  Storage storage(kCountriesTxt, std::move(downloader));
+
+  storage.DownloadNode("Algeria_Central");
+  downloaderPtr->ReportProgress("Algeria_Central", {100, 24177144});
+
+  NodeAttrs attrs;
+  storage.GetNodeAttrs("Algeria_Central", attrs);
+  TEST_EQUAL(attrs.m_downloadingProgress.m_bytesDownloaded, 100, ());
+  TEST_EQUAL(attrs.m_downloadingProgress.m_bytesTotal, 24177144, ());
+  storage.CancelDownloadNode("Algeria_Central");
+}
+
+UNIT_TEST(StorageTest_GroupProgressTotalAfterFailureAndRetry)
+{
+  WritableDirChanger writableDirChanger(kMapTestDir);
+  auto downloader = make_unique<ProgressMapFilesDownloader>();
+  auto * downloaderPtr = downloader.get();
+  Storage storage(kCountriesTxt, std::move(downloader));
+  storage.Init(&OnCountryDownloaded, [](CountryId const &, LocalFilePtr const) { return false; });
+
+  auto checkProgress = [&](int64_t expectedTotal)
+  {
+    NodeAttrs attrs;
+    storage.GetNodeAttrs("Algeria", attrs);
+    TEST_EQUAL(attrs.m_downloadingProgress.m_bytesDownloaded, 100, ());
+    TEST_EQUAL(attrs.m_downloadingProgress.m_bytesTotal, expectedTotal, ());
+    auto const overall = storage.GetOverallProgress({"Algeria_Central", "Algeria_Coast"});
+    TEST_EQUAL(overall.m_bytesDownloaded, 100, ());
+    TEST_EQUAL(overall.m_bytesTotal, expectedTotal, ());
+  };
+
+  storage.DownloadNode("Algeria");
+  downloaderPtr->ReportProgress("Algeria_Central", {100, 24177144});
+  checkProgress(90878678);
+
+  // A failed sibling must not shrink the total while another file is still downloading.
+  downloaderPtr->Fail("Algeria_Coast");
+  checkProgress(90878678);
+  storage.RetryDownloadNode("Algeria");
+  checkProgress(90878678);
+
+  downloaderPtr->Fail("Algeria_Coast");
+  storage.CancelDownloadNode("Algeria_Coast");
+  checkProgress(24177144);
+  storage.CancelDownloadNode("Algeria");
 }
 
 UNIT_TEST(StorageTest_GetTopmostNodesFor)
