@@ -20,7 +20,6 @@ import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -109,7 +108,9 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
       break;
     case Intermediate:
       TypedArray iconArray = mContext.getResources().obtainTypedArray(R.array.route_stop_icons);
-      iconId = iconArray.getResourceId(mRoutePoints.get(position).mIntermediateIndex, R.drawable.route_point_20);
+      // The last item is the generic marker for stops beyond the numbered drawables.
+      final int stopIndex = Math.min(mRoutePoints.get(position).mIntermediateIndex, iconArray.length() - 1);
+      iconId = iconArray.getResourceId(stopIndex, R.drawable.route_point_20);
       iconArray.recycle();
       break;
     case Finish: iconId = R.drawable.route_point_finish; break;
@@ -127,11 +128,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     pointHolder.mTextViewTitle.setText(title);
     pointHolder.mTextViewTitle.setTextColor(ThemeUtils.getColor(mContext, android.R.attr.textColorPrimary));
-    UiUtils.show(pointHolder.mImageViewDrag);
-    // Show 'Delete' icon button only if we have intermediate stops...
-    UiUtils.showIf(mRoutePoints.size() > 2 && mRoutePoints.get(position).mPointType != RouteMarkType.Start
-                       && mRoutePoints.get(position).mPointType != RouteMarkType.Finish,
-                   pointHolder.mImageViewDelete);
+    UiUtils.show(pointHolder.mImageViewDrag, pointHolder.mImageViewDelete);
     pointHolder.mImageViewDelete.setOnClickListener(v -> mManageRouteListener.onRoutePointDeleted(pointHolder));
     pointHolder.itemView.setOnClickListener(
         v -> { mManageRouteListener.onRoutePointClicked(pointHolder.getBindingAdapterPosition()); });
@@ -168,8 +165,10 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     final int titleColorAttr = isPlaceholder ? android.R.attr.textColorSecondary : android.R.attr.textColorPrimary;
     pointHolder.mTextViewTitle.setTextColor(ThemeUtils.getColor(mContext, titleColorAttr));
 
-    UiUtils.hide(pointHolder.mImageViewDelete, pointHolder.mImageViewDrag);
+    UiUtils.hide(pointHolder.mImageViewDrag);
     pointHolder.mImageViewDrag.setOnTouchListener(null);
+    UiUtils.showIf(!isPlaceholder, pointHolder.mImageViewDelete);
+    pointHolder.mImageViewDelete.setOnClickListener(v -> mManageRouteListener.onRoutePointDeleted(pointHolder));
 
     if (isPlaceholder)
     {
@@ -196,19 +195,9 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     final int targetIndex = targetItem.getBindingAdapterPosition();
     if (draggedItemIndex == targetIndex) // Dragged to the same spot, nothing to reorder.
       return;
-    Collections.swap(mRoutePoints, draggedItemIndex, targetIndex);
+    mRoutePoints.add(targetIndex, mRoutePoints.remove(draggedItemIndex));
     updateRoutePointsData();
     notifyItemMoved(draggedItemIndex, targetIndex);
-  }
-
-  public void deleteRoutePoint(RecyclerView.ViewHolder viewHolder)
-  {
-    final int position = viewHolder.getBindingAdapterPosition();
-    mRoutePoints.remove(position);
-    updateRoutePointsData();
-    notifyItemRemoved(position);
-    // Remaining points may need renumbered icons or updated delete-button visibility after the removal.
-    notifyItemRangeChanged(0, getItemCount());
   }
 
   private void updateRoutePointsData()
@@ -230,6 +219,12 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   public ArrayList<RouteMarkData> getRoutePoints()
   {
     return mRoutePoints;
+  }
+
+  @NonNull
+  public RouteMarkData getRoutePointAt(int position)
+  {
+    return mRoutePoints.get(isPartial() ? 0 : position);
   }
 
   // Resync the existing adapter with the native route points, keeping the same adapter/touch-helper instances.

@@ -60,7 +60,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mButtonsLayout;
   private int mTopInset;
 
-  // Single source of truth for the sheet's visibility: planning wants it AND no place page is covering it.
+  // Show the requested planner sheet only when no place page, search, or point chooser covers it.
   private final MediatorLiveData<Boolean> mSheetVisible = new MediatorLiveData<>();
   private final Observer<Integer> mMenuUpdateObserver = trigger -> updateMenuInternal();
   private final Observer<int[]> mBuildProgressObserver = progress ->

@@ -402,11 +402,6 @@ public class Framework
 
   public static native void nativeRunFirstLaunchAnimation();
 
-  public static native int nativeOpenRoutePointsTransaction();
-  public static native void nativeApplyRoutePointsTransaction(int transactionId);
-  public static native void nativeCancelRoutePointsTransaction(int transactionId);
-  public static native int nativeInvalidRoutePointsTransactionId();
-
   public static native boolean nativeHasSavedRoutePoints();
   public static native void nativeLoadRoutePoints();
   public static native void nativeSaveRoutePoints();
