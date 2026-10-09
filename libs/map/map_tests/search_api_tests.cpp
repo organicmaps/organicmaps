@@ -7,6 +7,7 @@
 
 #include "generator/generator_tests_support/test_feature.hpp"
 
+#include "search/address_matcher.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_with_custom_mwms.hpp"
 
@@ -18,11 +19,20 @@
 #include "storage/storage.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
+#include "indexer/feature_utils.hpp"
+#include "indexer/scales.hpp"
 
+#include <algorithm>
 #include <atomic>
+#include <chrono>
+#include <condition_variable>
+#include <deque>
 #include <functional>
 #include <future>
 #include <memory>
+#include <mutex>
 #include <string>
 
 namespace search_api_tests
@@ -71,6 +81,388 @@ protected:
   Delegate m_delegate;
   SearchAPI m_api;
 };
+
+class QueuedDelegate : public SearchAPI::Delegate
+{
+public:
+  void RunUITask(function<void()> fn) override
+  {
+    {
+      lock_guard lock(m_mutex);
+      m_tasks.push_back(std::move(fn));
+    }
+    m_condition.notify_one();
+  }
+
+  bool WaitUntil(function<bool()> const & finished)
+  {
+    auto const deadline = chrono::steady_clock::now() + chrono::seconds(10);
+    while (!finished())
+    {
+      function<void()> task;
+      {
+        unique_lock lock(m_mutex);
+        if (!m_condition.wait_until(lock, deadline, [this] { return !m_tasks.empty(); }))
+          return false;
+        task = std::move(m_tasks.front());
+        m_tasks.pop_front();
+      }
+      task();
+    }
+    return true;
+  }
+
+private:
+  mutex m_mutex;
+  condition_variable m_condition;
+  deque<function<void()>> m_tasks;
+};
+
+UNIT_CLASS_TEST(SearchAPITest, AddressResolutionCancellationAndInteractivePriority)
+{
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-1, -1, 1, 1), 16);
+  bool cancelledDelivered = false;
+  bool foregroundDelivered = false;
+  bool backgroundDelivered = false;
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", true, [&](auto) { cancelledDelivered = true; });
+  api.CancelAddressResolution(1);
+  api.ResolveAddress(2, {{"123 Main Street", "123 Main Street"}}, "en", true,
+                     [&](auto) { backgroundDelivered = true; });
+
+  EverywhereSearchParams params;
+  params.m_query = "cafe";
+  params.m_inputLocale = "en";
+  params.m_onResults = [](Results) {};
+  api.SearchEverywhere(std::move(params));
+  // An unsupported address selected while ordinary search is in flight must finish safely,
+  // not borrow that search's results or index an empty query list.
+  api.ResolveAddress(3, {}, "en", false, [&](auto result)
+  {
+    TEST(!result, ());
+    TEST(!backgroundDelivered, ());
+    foregroundDelivered = true;
+  });
+  TEST(delegate.WaitUntil([&] { return foregroundDelivered && backgroundDelivered; }), ());
+  TEST(!cancelledDelivered, ());
+  TEST(api.GetLastSearchQueries().empty(), ());
+}
+
+UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionRequiresVisibleZoom)
+{
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-1, -1, 1, 1), 15);
+  bool backgroundDelivered = false;
+  bool foregroundDelivered = false;
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", true,
+                     [&](auto) { backgroundDelivered = true; });
+  api.ResolveAddress(2, {}, "en", false, [&](auto) { foregroundDelivered = true; });
+  TEST(foregroundDelivered, ());
+  TEST(!backgroundDelivered, ());
+  api.OnViewportChanged(m2::RectD(-1, -1, 1, 1), 16);
+  TEST(delegate.WaitUntil([&] { return backgroundDelivered; }), ());
+}
+
+UNIT_CLASS_TEST(SearchAPITest, AddressResolutionFindsMappedBuildingInBothModes)
+{
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
+  TestBuilding building(m2::PointD(0, 0.00001), "", "123", "Main Street", "en");
+  TestBuilding neighbour(m2::PointD(0.0002, 0.00004), "", "127", "Main Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+    builder.Add(neighbour);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  for (bool background : {false, true})
+  {
+    bool delivered = false;
+    api.ResolveAddress(background ? 2 : 1, {{"123 Main Street", "123 Main Street"}}, "en", background, [&](auto result)
+    {
+      TEST(result, (background));
+      if (result)
+      {
+        TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().x, building.GetCenter().x, 3e-6, ());
+        TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().y, building.GetCenter().y, 3e-6, ());
+        auto qualified = *result;
+        qualified.SetAddress("Sampletown, Canada");
+        TEST(IsEarlyAddressResultMatchingQuery("123 Main Street Sampletown Canada", qualified, "123 Main Street"), ());
+        TEST(!IsEarlyAddressResultMatchingQuery("123 Main Street", qualified, "123 Main Street"), ());
+        TEST(!IsEarlyAddressResultMatchingQuery("123 Main Street West Sampletown Canada", qualified,
+                                                "123 Main Street West"),
+             ());
+        TEST(!IsEarlyAddressResultMatchingQuery("123 Main Street Othertown Canada", qualified, "123 Main Street"), ());
+      }
+      delivered = true;
+    });
+    TEST(delegate.WaitUntil([&] { return delivered; }), (background));
+    delivered = false;
+    api.ResolveAddress(background ? 4 : 3, {{"125 Main Street", "125 Main Street"}}, "en", background, [&](auto result)
+    {
+      TEST(!result, (background));
+      delivered = true;
+    });
+    TEST(delegate.WaitUntil([&] { return delivered; }), (background));
+  }
+}
+
+UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionPrefetchesOnlyNearbyMappedAddresses)
+{
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
+  TestBuilding building(m2::PointD(0, 0.00001), "", "123", "Main Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  for (bool nearby : {true, false})
+  {
+    auto const viewport = nearby ? m2::RectD(-0.002, 0.00002, 0.002, 0.0001) : m2::RectD(-0.002, 0.0002, 0.002, 0.0004);
+    api.OnViewportChanged(viewport, 16);
+    bool delivered = false;
+    api.ResolveAddress(nearby ? 1 : 2, {{"123 Main Street", "123 Main Street"}}, "en", true, [&](auto result)
+    {
+      TEST_EQUAL(result.has_value(), nearby, ());
+      if (result)
+        TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().y, building.GetCenter().y, 3e-6, ());
+      delivered = true;
+    });
+    TEST(delegate.WaitUntil([&] { return delivered; }), ());
+  }
+}
+
+UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionValidatesLocalityAfterStreetLookup)
+{
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
+  TestBuilding building(m2::PointD(0, 0.00001), "", "123", "Main Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  bool delivered = false;
+  api.ResolveAddress(1, {{"123 Main Street Wrongtown", "123 Main Street"}}, "en", true, [&](auto result)
+  {
+    TEST(!result, ());
+    delivered = true;
+  });
+  TEST(delegate.WaitUntil([&] { return delivered; }), ());
+}
+
+UNIT_CLASS_TEST(SearchAPITest, TypedAddressRankingIsExplicitAndNeverInventsMissingAddresses)
+{
+  TestCity city(m2::PointD(0, 0), "Surrey", "en", 100);
+  BuildWorld([&](TestMwmBuilder & builder) { builder.Add(city); });
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "131A Street", "en");
+  TestBuilding first(m2::PointD(0, -0.00005), "", "6486", "131A Street", "en");
+  TestBuilding second(m2::PointD(0.0002, -0.00005), "", "6492", "131A Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(city);
+    builder.Add(street);
+    builder.Add(first);
+    builder.Add(second);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  for (bool enabled : {false, true})
+    for (bool exact : {false, true})
+    {
+      bool delivered = false;
+      EverywhereSearchParams params;
+      params.m_query = exact ? "6492 131a st, surrey " : "6498 131a st, surrey ";
+      params.m_inputLocale = "en";
+      params.m_prioritizeAddressMatches = enabled;
+      params.m_onResults = [&](Results results)
+      {
+        if (!results.IsEndMarker())
+          return;
+        TEST_GREATER(results.GetCount(), 0, (enabled, exact));
+        if (enabled && results.GetCount() != 0)
+        {
+          TEST(IsAddressResultMatchingQuery("6492 131a st Surrey", results[0]), ());
+          TEST_EQUAL(results[0].GetString().find("6498"), std::string::npos, ());
+        }
+        delivered = true;
+      };
+      TEST(api.SearchEverywhere(std::move(params)), ());
+      TEST(delegate.WaitUntil([&] { return delivered; }), (enabled, exact));
+    }
+  for (auto const * number : {"18446744073709551615", "18446744073709551616", "999999999999999999999999999999"})
+  {
+    bool delivered = false;
+    std::string const query = std::string(number) + " 131A Street Surrey";
+    api.ResolveAddress(10, {{query, std::string(number) + " 131A Street"}}, "en", false, [&](auto result)
+    {
+      TEST(!result, (number));
+      delivered = true;
+    });
+    TEST(delegate.WaitUntil([&] { return delivered; }), (number));
+  }
+}
+
+UNIT_CLASS_TEST(SearchAPITest, AddressSearchFindsDistantStreetBeforeNearbyFuzzyMatches)
+{
+  BuildCountry("Nearland", [&](TestMwmBuilder & builder)
+  {
+    for (size_t i = 0; i < 120; ++i)
+    {
+      double const x = static_cast<double>(i) * 0.00001;
+      TestStreet street({m2::PointD(x, 0), m2::PointD(x, 0.0002)}, "191A Street", "en");
+      builder.Add(street);
+    }
+  });
+  TestStreet street({m2::PointD(30, 0), m2::PointD(30.001, 0)}, "131A Street", "en");
+  TestBuilding building(m2::PointD(30.0002, -0.00005), "", "6492", "131A Street", "en");
+  BuildCountry("Farland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  for (auto const * query : {"6492 131a st", "6492 131a st ", "6498 131a st", "6498 131a st "})
+  {
+    bool delivered = false;
+    EverywhereSearchParams params;
+    params.m_query = query;
+    params.m_inputLocale = "en";
+    params.m_prioritizeAddressMatches = true;
+    params.m_onResults = [&](Results results)
+    {
+      if (!results.IsEndMarker())
+        return;
+      TEST_EQUAL(results.GetSuggestsCount(), 0, (query));
+      TEST_GREATER(results.GetCount(), 0, (query));
+      if (results.GetCount() != 0)
+      {
+        TEST(IsAddressResultMatchingQuery("6492 131a st", results[0]), (query, results[0].GetString()));
+        TEST_GREATER(mercator::DistanceOnEarth(results[0].GetFeatureCenter(), m2::PointD(0, 0)), 1000000, ());
+      }
+      delivered = true;
+    };
+    TEST(api.SearchEverywhere(std::move(params)), ());
+    TEST(delegate.WaitUntil([&] { return delivered; }), (query));
+  }
+}
+
+UNIT_CLASS_TEST(SearchAPITest, AddressResolutionPrefersMappedAddressOverInterpolation)
+{
+  auto const countryId = BuildCountry("Addressland", [&](TestMwmBuilder & builder)
+  { builder.Add(TestBuilding(m2::PointD(0, 0), "", "123", "Main Street", "en")); });
+  FeatureID const id(countryId, 0);
+  auto const buildingType = classif().GetTypeByPath({"building"});
+  auto const interpolationType = classif().GetTypeByPath({"addr:interpolation", "odd"});
+  Results results;
+  Result interpolated(m2::PointD(0, 0), "123, Main Street");
+  interpolated.FromFeature(id, interpolationType, interpolationType, {});
+  TEST_EQUAL(GetAddressResultMatch("123 Main Street", interpolated), AddressResultMatch::Interpolated, ());
+  results.AddResultNoChecks(std::move(interpolated));
+  Result mapped(m2::PointD(0.0001, 0), "123, Main Street");
+  mapped.FromFeature(id, buildingType, buildingType, {});
+  results.AddResultNoChecks(std::move(mapped));
+  auto const * resolved = FindUniqueAddressResult("123 Main Street", results);
+  TEST(resolved, ());
+  TEST_EQUAL(resolved->GetFeatureCenter(), results[1].GetFeatureCenter(), ());
+}
+
+UNIT_CLASS_TEST(SearchAPITest, AddressSearchPreservesAmbiguityAndStreamsExactResults)
+{
+  for (double const x : {0.0, 30.0})
+  {
+    TestStreet street({m2::PointD(x - 0.001, 0), m2::PointD(x + 0.001, 0)}, "Main Street", "en");
+    TestBuilding building(m2::PointD(x, 0.00001), "", "123", "Main Street", "en");
+    BuildCountry(x == 0 ? "Nearland" : "Farland", [&](TestMwmBuilder & builder)
+    {
+      builder.Add(street);
+      builder.Add(building);
+    });
+  }
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  bool finished = false;
+  bool streamed = false;
+  EverywhereSearchParams params;
+  params.m_query = "123 Main Street";
+  params.m_inputLocale = "en";
+  params.m_prioritizeAddressMatches = true;
+  params.m_onResults = [&](Results results)
+  {
+    if (!results.IsEndMarker())
+    {
+      for (auto const & result : results)
+      {
+        TEST(IsAddressResultMatchingQuery("123 Main Street", result), (result.GetString()));
+        streamed = true;
+      }
+      return;
+    }
+    TEST_EQUAL(results.GetCount(), 2, ());
+    TEST(!FindUniqueAddressResult("123 Main Street", results), ());
+    finished = true;
+  };
+  TEST(api.SearchEverywhere(std::move(params)), ());
+  TEST(delegate.WaitUntil([&] { return finished; }), ());
+  TEST(streamed, ());
+  bool resolved = false;
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result)
+  {
+    TEST(!result, ());
+    resolved = true;
+  });
+  TEST(delegate.WaitUntil([&] { return resolved; }), ());
+}
+
+UNIT_CLASS_TEST(SearchAPITest, AddressResolutionDoesNotDeliverAfterCompletionOrCancellation)
+{
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
+  TestBuilding building(m2::PointD(0, 0.00001), "", "123", "Main Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  int delivered = 0;
+  bool cancelledDelivered = false;
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result)
+  {
+    TEST(result, ());
+    ++delivered;
+  });
+  TEST(delegate.WaitUntil([&] { return delivered != 0; }), ());
+  api.ResolveAddress(2, {{"123 Main Street", "123 Main Street"}}, "en", false,
+                     [&](auto) { cancelledDelivered = true; });
+  api.CancelAddressResolution(2);
+  bool searchFinished = false;
+  EverywhereSearchParams params;
+  params.m_query = "Main Street";
+  params.m_inputLocale = "en";
+  params.m_onResults = [&](Results results)
+  {
+    if (results.IsEndMarker())
+      delegate.RunUITask([&] { searchFinished = true; });
+  };
+  api.SearchEverywhere(std::move(params));
+  TEST(delegate.WaitUntil([&] { return searchFinished; }), ());
+  TEST_EQUAL(delivered, 1, ());
+  TEST(!cancelledDelivered, ());
+}
 
 UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
 {

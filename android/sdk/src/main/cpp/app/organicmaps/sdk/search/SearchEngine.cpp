@@ -10,6 +10,7 @@
 #include "search/mode.hpp"
 #include "search/result.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/network_policy.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -53,6 +54,8 @@ jmethodID g_mapResultCtor;
 
 jmethodID g_updateBookmarksResultsId;
 jmethodID g_endBookmarksResultsId;
+jmethodID g_addressResolvedId;
+jmethodID g_contactViewportChangedId;
 
 bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 {
@@ -106,7 +109,7 @@ jobject ToJavaResult(search::Result const & result, bool hasPosition, double lat
 
   bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
 
-  std::string const localizedFeatureType = result.GetLocalizedFeatureType();
+  auto const & localizedFeatureType = result.GetLocalizedFeatureType();
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, localizedFeatureType));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, ToJavaDistance(env, distance));
@@ -252,6 +255,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
 
   g_updateBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsUpdate", "([JJ)V");
   g_endBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
+  g_addressResolvedId = jni::GetMethodID(env, g_javaListener, "onAddressResolved", "(JZDD)V");
+  g_contactViewportChangedId =
+      jni::GetMethodID(env, g_javaListener, "onContactViewportChanged", "(ILjava/lang/String;JDDDD)V");
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz,
@@ -266,6 +272,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
       {},  // default timeout
       static_cast<bool>(isCategory),
       std::bind(&OnResults, std::placeholders::_1, timestamp, false, hasPosition, lat, lon)};
+  params.m_prioritizeAddressMatches = true;
   bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(params));
   if (searchStarted)
     g_queryTimestamp = timestamp;
@@ -299,6 +306,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInterac
         static_cast<bool>(isCategory),
         std::bind(&OnResults, std::placeholders::_1, timestamp, isMapAndTable, hasPosition, lat, lon)};
 
+    eparams.m_prioritizeAddressMatches = true;
     if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
     {
       g_queryTimestamp = timestamp;
@@ -334,6 +342,73 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchI
   if (searchStarted)
     g_queryTimestamp = timestamp;
   return searchStarted;
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeResolveAddress(JNIEnv * env, jclass clazz,
+                                                                                 jobjectArray queries,
+                                                                                 jobjectArray expectedStreets,
+                                                                                 jstring lang, jlong requestId,
+                                                                                 jboolean background)
+{
+  auto const count = env->GetArrayLength(queries);
+  CHECK_EQUAL(count, env->GetArrayLength(expectedStreets), ());
+  std::vector<SearchAPI::AddressQuery> nativeQueries;
+  for (jsize i = 0; i < count; ++i)
+  {
+    jni::TScopedLocalRef query(env, env->GetObjectArrayElement(queries, i));
+    jni::TScopedLocalRef street(env, env->GetObjectArrayElement(expectedStreets, i));
+    nativeQueries.push_back({jni::ToNativeString(env, static_cast<jstring>(query.get())),
+                             jni::ToNativeString(env, static_cast<jstring>(street.get()))});
+  }
+  g_framework->NativeFramework()->GetSearchAPI().ResolveAddress(requestId, std::move(nativeQueries),
+                                                                jni::ToNativeString(env, lang), background,
+                                                                [requestId](std::optional<search::Result> result)
+  {
+    auto const latLon = result ? mercator::ToLatLon(result->GetFeatureCenter()) : ms::LatLon::Zero();
+    auto * env = jni::GetEnv();
+    env->CallVoidMethod(g_javaListener, g_addressResolvedId, requestId, static_cast<jboolean>(result.has_value()),
+                        latLon.m_lat, latLon.m_lon);
+  });
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAddressResolution(JNIEnv * env, jclass clazz,
+                                                                                          jlong requestId)
+{
+  g_framework->NativeFramework()->GetSearchAPI().CancelAddressResolution(requestId);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSetContactViewportEnabled(JNIEnv * env, jclass clazz,
+                                                                                            jboolean enabled)
+{
+  auto & api = g_framework->NativeFramework()->GetSearchAPI();
+  if (!enabled)
+  {
+    api.SetAddressViewportCallback({});
+    return;
+  }
+  api.SetAddressViewportCallback([](m2::RectD const & viewport, int scale)
+  {
+    auto * env = jni::GetEnv();
+    std::string mapRegions;
+    if (scale >= 16)
+      for (auto const & region : g_framework->NativeFramework()->GetRegionsCountryIdByRect(viewport, false))
+        mapRegions += region + " ";
+    jni::TScopedLocalRef regions(env, jni::ToJavaString(env, mapRegions));
+    auto const version = g_framework->NativeFramework()->GetMwmVersion(viewport.Center());
+    env->CallVoidMethod(g_javaListener, g_contactViewportChangedId, scale, regions.get(), static_cast<jlong>(version),
+                        viewport.minX(), viewport.minY(), viewport.maxX(), viewport.maxY());
+  });
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResolvedAddress(JNIEnv * env, jclass clazz,
+                                                                                        jdouble lat, jdouble lon,
+                                                                                        jstring address)
+{
+  auto const nativeAddress = jni::ToNativeString(env, address);
+  search::Result result(mercator::FromLatLon(lat, lon), nativeAddress);
+  result.SetAddress(std::string(nativeAddress));
+  result.SetType(search::Result::Type::LatLon);
+  g_framework->NativeFramework()->SelectSearchResult(result, true /* animation */);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)

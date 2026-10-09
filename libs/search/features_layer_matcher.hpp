@@ -61,6 +61,7 @@ public:
 
   FeaturesLayerMatcher(DataSource const & dataSource, base::Cancellable const & cancellable);
   void SetContext(MwmContext * context);
+  void SetAllowNearbyHouseNumbers(bool allow) { m_allowNearbyHouseNumbers = allow; }
   void SetPostcodes(CBV const * postcodes);
 
   template <typename Fn>
@@ -114,7 +115,7 @@ private:
 
   void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
-  static bool HouseNumbersMatch(FeatureType & feature, std::vector<house_numbers::Token> const & queryParse)
+  bool HouseNumbersMatch(FeatureType & feature, std::vector<house_numbers::Token> const & queryParse) const
   {
     ASSERT(!queryParse.empty(), ());
 
@@ -129,7 +130,31 @@ private:
     if (feature.GetID().IsEqualCountry({"Czech", "Slovakia"}))
       return house_numbers::HouseNumbersMatchConscription(uniHouse, queryParse);
 
-    return house_numbers::HouseNumbersMatch(uniHouse, queryParse);
+    if (house_numbers::HouseNumbersMatch(uniHouse, queryParse))
+      return true;
+    if (!m_allowNearbyHouseNumbers || queryParse.size() != 1 ||
+        queryParse[0].m_type != house_numbers::Token::TYPE_NUMBER || queryParse[0].m_prefix)
+      return false;
+
+    std::vector<house_numbers::TokensT> houseParses;
+    house_numbers::ParseHouseNumber(uniHouse, houseParses);
+    uint64_t requested = 0;
+    if (!strings::to_uint(strings::ToUtf8(queryParse[0].m_value), requested))
+      return false;
+    for (auto const & parse : houseParses)
+    {
+      if (parse.size() != 1 || parse[0].m_type != house_numbers::Token::TYPE_NUMBER)
+        continue;
+      uint64_t candidate = 0;
+      if (!strings::to_uint(strings::ToUtf8(parse[0].m_value), candidate))
+        continue;
+      uint64_t const difference = requested > candidate ? requested - candidate : candidate - requested;
+      // Keep the range narrow enough to avoid unrelated address blocks while allowing two nearby
+      // same-parity addresses to support a conservative position estimate.
+      if (difference <= 24 && difference % 2 == 0)
+        return true;
+    }
+    return false;
   }
 
   template <typename Fn>
@@ -454,6 +479,7 @@ private:
   CBV const * m_postcodes;
 
   ReverseGeocoder m_reverseGeocoder;
+  bool m_allowNearbyHouseNumbers = false;
 
   // Cache of streets in a feature's vicinity. All lists in the cache
   // are ordered by distance from the corresponding feature.

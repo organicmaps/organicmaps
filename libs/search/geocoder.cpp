@@ -585,6 +585,7 @@ void Geocoder::GoImpl(std::vector<MwmInfoPtr> const & infos, bool inViewport)
     }
     m_matcher = it->second.get();
     m_matcher->SetContext(m_context.get());
+    m_matcher->SetAllowNearbyHouseNumbers(m_params.m_allowNearbyHouseNumbers);
 
     BaseContext ctx;
     InitBaseContext(ctx);
@@ -613,10 +614,12 @@ void Geocoder::GoImpl(std::vector<MwmInfoPtr> const & infos, bool inViewport)
       // Probably, we should process all MWMs "until the end" but I left some _better-than-before_
       // reasonable criteria (ContinueSearch) not to hang a lot.
       auto const & mwmType = m_context->GetType();
-      if (mwmType.m_viewportIntersected || mwmType.m_containsUserPosition || m_preRanker.ContinueSearch())
+      if (m_params.m_isAddressQuery || mwmType.m_viewportIntersected || mwmType.m_containsUserPosition ||
+          m_preRanker.ContinueSearch())
         MatchAroundPivot(ctx);
     }
 
+    // The ranker streams exact addresses but holds nearby/fuzzy matches until all relevant maps are searched.
     if (updatePreranker)
       m_preRanker.UpdateResults(false /* lastUpdate */);
 
@@ -1346,6 +1349,33 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx, StreetsM
   layer.m_sortedFeatures = &sortedFeatures;
   sortedFeatures.reserve(base::asserted_cast<size_t>(prediction.m_features.PopCount()));
   prediction.m_features.ForEach([&](uint64_t bit) { sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit)); });
+
+  if (m_params.m_isAddressQuery)
+  {
+    std::vector<uint32_t> exactStreets;
+    base::EraseIf(sortedFeatures, [&](uint32_t id)
+    {
+      for (size_t token : prediction.m_tokenRange)
+        if (!m_params.IsCommonToken(token) && !ctx.m_features[token].m_exactMatchingFeatures.HasBit(id))
+          return false;
+      exactStreets.push_back(id);
+      return true;
+    });
+    if (!exactStreets.empty())
+    {
+      // Exact street tokens outrank proximity; only fuzzy candidates need the usual distance cap.
+      std::sort(exactStreets.begin(), exactStreets.end());
+      layer.m_sortedFeatures = &exactStreets;
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_STREET, prediction.m_tokenRange);
+      size_t const numEmitted = ctx.m_numEmitted;
+      MatchPOIsAndBuildings(ctx, 0 /* curToken */, CBV::GetFull());
+      if (makeRelaxed && numEmitted == ctx.m_numEmitted && !ctx.AllTokensUsed())
+        FindPaths(ctx);
+      // Matching may reallocate the layers vector; reacquire the street layer after recursion.
+      ASSERT_EQUAL(layers.back().m_type, Model::TYPE_STREET, ());
+      layers.back().m_sortedFeatures = &sortedFeatures;
+    }
+  }
 
   centers.ClusterizeStreets(sortedFeatures, *this, [&]()
   {
