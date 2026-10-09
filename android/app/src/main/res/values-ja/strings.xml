@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。</string>
     <string name="navigation_stop_button">停止</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">トラックの記録</string>
     <!-- For the first routing -->
     <string name="accept">了解</string>
@@ -827,7 +827,7 @@
     <string name="start_track_recording">トラックを記録する</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">トラック記録を停止しますか</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">トラック記録</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">ルートが空です - 保存するものがありません</string>
@@ -904,6 +904,8 @@
     <string name="choose_point_on_map_hint">地図を移動・拡大縮小して、十字を配置してください</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">停止して保存</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">終了</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">ルートを逆にする</string>
 </resources>

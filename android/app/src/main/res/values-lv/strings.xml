@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Pārliecinieties, ka neievadījāt nekādus privātus vai personīgus datus.</string>
     <string name="editor_share_to_all_dialog_message_2">„OpenStreetMap“ redaktori pārskatīs veiktās izmaiņas un jautājumu gadījumā ar jums sazināsies.</string>
     <string name="navigation_stop_button">Apturēt</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Pēdojums tiek ierakstīts</string>
     <!-- For the first routing -->
     <string name="accept">Pieņemt</string>
@@ -823,7 +823,7 @@
     <string name="start_track_recording">Ierakstīt pēdojumu</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Apstādināt pēdojuma ierakstīšanu</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Trases ierakstīšana</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav nekā saglabājama</string>
@@ -904,6 +904,8 @@
     <string name="choose_point_on_map_hint">Pārvietojiet un tuviniet karti, lai novietotu krustiņu</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Pārtraukt un saglabāt</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Pabeigt</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Apgriezt maršrutu</string>
 </resources>

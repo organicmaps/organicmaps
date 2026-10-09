@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Ziurtatu ez duzula datu pertsonalik sartu.</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.</string>
     <string name="navigation_stop_button">Gelditu</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Arrastoa grabatzen</string>
     <!-- For the first routing -->
     <string name="accept">Onartu</string>
@@ -830,7 +830,7 @@
     <string name="start_track_recording">Grabatu arrastoa</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Gelditu arrastoaren grabaketa</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Ibilbidearen grabaketa</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Arrastoa hutsik dago; ez dago ezer gordetzeko</string>
@@ -909,6 +909,8 @@
     <string name="choose_point_on_map_hint">Mugitu eta handitu mapa gurutzea kokatzeko</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Gelditu eta gorde</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Amaitu</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Ibilbidea alderantzikatu</string>
 </resources>

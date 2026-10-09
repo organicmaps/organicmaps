@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişikliklerinizi denetleyecek ve bir soruları olursa sizinle iletişime geçecek.</string>
     <string name="navigation_stop_button">Dur</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">İz kaydediliyor</string>
     <!-- For the first routing -->
     <string name="accept">Kabul Et</string>
@@ -832,7 +832,7 @@
     <string name="start_track_recording">İzi Kaydet</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">İz Kaydını Durdur</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Rota Kaydı</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">İz boş - kaydedilecek bir şey yok</string>
@@ -913,6 +913,8 @@
     <string name="choose_point_on_map_hint">Çarpı imini yerleştirmek için haritayı kaydırın ve yakınlaştırın</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Durdur ve Kaydet</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Bitir</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Rotayı tersine çevir</string>
 </resources>
