@@ -11,6 +11,7 @@
 #include "base/sunrise_sunset.hpp"
 
 #include "platform/local_country_file_utils.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/network_policy_ios.h"
 
 static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(ProductsPopupCloseReason reason)
@@ -247,6 +248,12 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 {
   auto const address = GetFramework().GetAddressAtPoint(m2::PointD(point.x, point.y)).FormatAddress();
   return address.empty() ? nil : @(address.c_str());
+}
+
++ (NSString *)formattedCoordinatesAtMercatorPoint:(CGPoint)point
+{
+  auto const coordinates = measurement_utils::FormatMercatorAsDMS(m2::PointD(point.x, point.y), 2);
+  return @(coordinates.c_str());
 }
 
 + (void)showOnMap:(MWMMarkGroupID)categoryId

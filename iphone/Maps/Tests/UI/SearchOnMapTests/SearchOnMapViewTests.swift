@@ -276,6 +276,27 @@ final class MapPointPickerViewControllerTests: XCTestCase {
     XCTAssertFalse(controlsManager.zoomHidden)
   }
 
+  func test_GivenMapPointPicker_WhenPresented_ThenVoiceOverCanReadSelection() throws {
+    let picker = MapPointPickerViewController(title: L("choose_on_map"),
+                                              hint: L("choose_point_on_map_hint"),
+                                              enableBounds: false,
+                                              initialMercatorPosition: nil,
+                                              shouldChangeViewport: false)
+    picker.loadViewIfNeeded()
+
+    let title = try XCTUnwrap(picker.view.firstDescendant {
+      ($0 as? UILabel)?.text == L("choose_on_map")
+    } as? UILabel)
+    let doneButton = try XCTUnwrap(picker.view.firstDescendant {
+      $0 is MapPointPickerDoneButton
+    } as? MapPointPickerDoneButton)
+    XCTAssertTrue(title.accessibilityTraits.contains(.header))
+    XCTAssertEqual(doneButton.accessibilityHint, L("choose_point_on_map_hint"))
+    XCTAssertEqual(doneButton.accessibilityValue,
+                   FrameworkHelper.address(at: FrameworkHelper.mercatorViewportCenter())
+                     ?? FrameworkHelper.formattedCoordinates(at: FrameworkHelper.mercatorViewportCenter()))
+  }
+
   func test_GivenButtonDismissalInProgress_WhenClosedExternally_ThenDoesNotDeliverResult() throws {
     let mapViewController = try XCTUnwrap(MapViewController.shared())
     mapViewController.loadViewIfNeeded()

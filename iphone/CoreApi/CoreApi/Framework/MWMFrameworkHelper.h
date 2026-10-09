@@ -85,6 +85,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (CGPoint)mercatorViewportCenter;
 /// Returns a formatted nearby address, or nil when none is available.
 + (nullable NSString *)addressAtMercatorPoint:(CGPoint)point NS_SWIFT_NAME(address(at:));
++ (NSString *)formattedCoordinatesAtMercatorPoint:(CGPoint)point NS_SWIFT_NAME(formattedCoordinates(at:));
 + (void)showOnMap:(MWMMarkGroupID)categoryId;
 + (void)showBookmark:(MWMMarkID)bookmarkId;
 + (void)showTrack:(MWMTrackID)trackId;

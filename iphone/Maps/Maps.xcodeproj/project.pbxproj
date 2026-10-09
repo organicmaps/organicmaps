@@ -313,6 +313,7 @@
 		ED82C5C52F90180300FA103D /* PlacePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4302F90180300FA103D /* PlacePagePresenter.swift */; };
 		ED82C5C62F90180300FA103D /* PlacePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4312F90180300FA103D /* PlacePageViewController.swift */; };
 		ED82C5C72F90180300FA103D /* MapPointPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4342F90180300FA103D /* MapPointPickerViewController.swift */; };
+		A11A8D0013DE755195EE70BC /* MapPointPickerDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11A8D0113DE755195EE70BC /* MapPointPickerDoneButton.swift */; };
 		ED82C5C82F90180300FA103D /* MWMCircularProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4382F90180300FA103D /* MWMCircularProgress.m */; };
 		ED82C5C92F90180300FA103D /* MWMCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C43C2F90180300FA103D /* MWMCircularProgressView.m */; };
 		ED82C5CA2F90180300FA103D /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C43F2F90180300FA103D /* MWMAlertViewController.mm */; };
@@ -1303,6 +1304,7 @@
 		ED82C4302F90180300FA103D /* PlacePagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePagePresenter.swift; sourceTree = "<group>"; };
 		ED82C4312F90180300FA103D /* PlacePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageViewController.swift; sourceTree = "<group>"; };
 		ED82C4342F90180300FA103D /* MapPointPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPointPickerViewController.swift; sourceTree = "<group>"; };
+		A11A8D0113DE755195EE70BC /* MapPointPickerDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPointPickerDoneButton.swift; sourceTree = "<group>"; };
 		ED82C4372F90180300FA103D /* MWMCircularProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCircularProgress.h; sourceTree = "<group>"; };
 		ED82C4382F90180300FA103D /* MWMCircularProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMCircularProgress.m; sourceTree = "<group>"; };
 		ED82C4392F90180300FA103D /* MWMCircularProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMCircularProgress.xib; sourceTree = "<group>"; };
@@ -3093,6 +3095,7 @@
 			isa = PBXGroup;
 			children = (
 				ED82C4342F90180300FA103D /* MapPointPickerViewController.swift */,
+				A11A8D0113DE755195EE70BC /* MapPointPickerDoneButton.swift */,
 			);
 			path = MapPointPicker;
 			sourceTree = "<group>";
@@ -4870,6 +4873,7 @@
 				ED82C5C52F90180300FA103D /* PlacePagePresenter.swift in Sources */,
 				ED82C5C62F90180300FA103D /* PlacePageViewController.swift in Sources */,
 				ED82C5C72F90180300FA103D /* MapPointPickerViewController.swift in Sources */,
+				A11A8D0013DE755195EE70BC /* MapPointPickerDoneButton.swift in Sources */,
 				ED82C5C82F90180300FA103D /* MWMCircularProgress.m in Sources */,
 				ED82C5C92F90180300FA103D /* MWMCircularProgressView.m in Sources */,
 				ED82C5CA2F90180300FA103D /* MWMAlertViewController.mm in Sources */,
