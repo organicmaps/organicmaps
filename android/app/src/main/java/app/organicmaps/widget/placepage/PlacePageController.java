@@ -33,9 +33,11 @@ import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.ApiData;
 import app.organicmaps.sdk.bookmarks.data.Bookmark;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.OpeningMode;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.location.TrackRecorder;
@@ -447,7 +449,8 @@ public class PlacePageController
     int peekHeight = mPreviewHeight + mButtonsHeight + bottomMargins;
     final View routeRef = mPlacePage.findViewById(R.id.ll__place_route_ref);
     final boolean hasRouteRefs = routeRef != null && routeRef.getVisibility() == View.VISIBLE;
-    if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS && !hasRouteRefs)
+    if (mMapObject != null && mMapObject.has(OpeningMode.class)
+        && mMapObject.get(OpeningMode.class) == OpeningMode.PREVIEW_PLUS && !hasRouteRefs)
     {
       peekHeight += plusDetailsContainer.getHeight();
     }
@@ -583,7 +586,7 @@ public class PlacePageController
     result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
         .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
         .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
-        .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
+        .putExtra(Const.EXTRA_POINT_ID, mMapObject.has(ApiData.class) ? mMapObject.get(ApiData.class).getId() : null)
         .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
     requireActivity().setResult(Activity.RESULT_OK, result);
     requireActivity().finish();
@@ -702,10 +705,11 @@ public class PlacePageController
     }
   }
 
-  private void updateButtons(MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
+  private void updateButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
-    List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
-    PlacePageButtons.ButtonType roadAvoidButton = toPlacePageButton(mapObject.getRoadWarningMarkType());
+    final List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
+    final PlacePageButtons.ButtonType roadAvoidButton =
+        mapObject.has(RoadWarningMarkType.class) ? toPlacePageButton(mapObject.get(RoadWarningMarkType.class)) : null;
     if (roadAvoidButton != null)
     {
       buttons.add(roadAvoidButton);
@@ -847,8 +851,11 @@ public class PlacePageController
   public interface PlacePageListener
   {
     void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType);
+
     void onTrackRecordingSaved();
+
     void onTrackRecordingCancelled();
+
     void onPlacePageActiveChanged(boolean active);
   }
 }

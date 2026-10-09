@@ -1,5 +1,6 @@
 package app.organicmaps.car.util;
 
+import android.text.TextUtils;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.utils.Utils;
 import java.util.Calendar;
+import java.util.Objects;
 
 public final class UiHelpers
 {
@@ -114,11 +116,11 @@ public final class UiHelpers
   @Nullable
   public static Row getPlaceOpeningHoursRow(@NonNull MapObject place, @NonNull CarContext context)
   {
-    final String ohStr = place.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    final String ohStr = Objects.requireNonNullElse(place.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS), "");
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
 
-    if (ohStr.isEmpty() && isEmptyTT)
+    if (TextUtils.isEmpty(ohStr) && isEmptyTT)
       return null;
 
     final Row.Builder builder = new Row.Builder();

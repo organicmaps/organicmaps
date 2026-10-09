@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
+import app.organicmaps.sdk.bookmarks.data.WikiData;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
@@ -63,13 +65,18 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
 
   private void showWikiArticleScreen()
   {
-    WikiArticleActivity.start(requireContext(), mMapObject.getName(), mMapObject.getWikiArticle(),
-                              mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
+    final String wikiUrl = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
+    if (TextUtils.isEmpty(wikiUrl))
+      return;
+    WikiArticleActivity.start(requireContext(), mMapObject.getName(), mMapObject.get(WikiData.class).getArticle(),
+                              wikiUrl);
   }
 
+  @NonNull
   private Spanned getShortWikiArticle()
   {
-    String htmlWikiArticle = mMapObject.getWikiArticle();
+    Assert.debug(mMapObject.has(WikiData.class), "WikiData must be present in MapObject");
+    String htmlWikiArticle = mMapObject.get(WikiData.class).getArticle();
     final int paragraphStart = htmlWikiArticle.indexOf("<p>");
     final int paragraphEnd = htmlWikiArticle.indexOf("</p>");
     if (paragraphStart == 0 && paragraphEnd != -1)
@@ -91,7 +98,7 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
     // There are two sources of wiki info in OrganicMaps:
     // wiki links from OpenStreetMaps, and wiki pages explicitly parsed into OrganicMaps.
     // This part hides the WikiArticleView if the wiki page has not been parsed.
-    if (TextUtils.isEmpty(mMapObject.getWikiArticle()))
+    if (!mMapObject.has(WikiData.class))
       UiUtils.hide(mWikiArticleViewContainer);
     else
     {

@@ -40,11 +40,10 @@ jobjectArray BuildTrackCandidatesArray(JNIEnv * env, place_page::Info const & in
 }
 }  // namespace
 
-jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLocalObjectArrayRef const & jrawTypes,
-                    jni::TScopedLocalRef const & routingPointInfo)
+jobject CreateTrack(JNIEnv * env, place_page::Info const & info)
 {
   // clang-format off
-  static jmethodID const ctorId = jni::GetConstructorID(env, g_trackClazz,
+  static jmethodID ctorId = jni::GetConstructorID(env, g_trackClazz,
     "("
     "J"                                               // categoryId
     "J"                                               // trackId
@@ -53,11 +52,6 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     "Ljava/lang/String;"                              // secondaryTitle
     "Ljava/lang/String;"                              // subtitle
     "Ljava/lang/String;"                              // address
-    "Lapp/organicmaps/sdk/routing/RoutePointInfo;"    // routePointInfo
-    "I"                                               // openingMode
-    "Ljava/lang/String;"                              // wikiArticle
-    "Ljava/lang/String;"                              // osmDescription
-    "[Ljava/lang/String;"                             // rawTypes
     "I"                                               // color
     "Lapp/organicmaps/sdk/util/Distance;"             // length
     "D"                                               // lat
@@ -81,11 +75,6 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondaryTitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSubtitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondarySubtitle()),
-    routingPointInfo.get(),
-    info.GetOpeningMode(),
-    jni::ToJavaString(env, info.GetWikiDescription()),
-    jni::ToJavaString(env, info.GetOSMDescription()),
-    jrawTypes.get(),
     track->GetColor(0).GetARGB(),
     ToJavaDistance(env, platform::Distance::CreateFormatted(track->GetLengthMeters())),
     static_cast<jdouble>(ll.m_lat),
@@ -94,9 +83,6 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     static_cast<jboolean>(track->IsVisible())
   );
   // clang-format on
-
-  if (info.HasMetadata())
-    InjectMetadata(env, g_mapObjectClazz, mapObject, info);
   return mapObject;
 }
 

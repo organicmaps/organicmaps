@@ -34,6 +34,8 @@ set(SRC
   app/organicmaps/sdk/core/jni_helper.cpp
   app/organicmaps/sdk/core/jni_java_methods.cpp
   app/organicmaps/sdk/core/logging.cpp
+  app/organicmaps/sdk/bookmarks/data/ApiData.cpp
+  app/organicmaps/sdk/bookmarks/data/ApiData.hpp
   app/organicmaps/sdk/bookmarks/data/Bookmark.cpp
   app/organicmaps/sdk/bookmarks/data/Bookmark.hpp
   app/organicmaps/sdk/bookmarks/data/BookmarkCategory.cpp
@@ -47,12 +49,22 @@ set(SRC
   app/organicmaps/sdk/bookmarks/data/MapObject.hpp
   app/organicmaps/sdk/bookmarks/data/Metadata.cpp
   app/organicmaps/sdk/bookmarks/data/Metadata.hpp
+  app/organicmaps/sdk/bookmarks/data/OpeningMode.cpp
+  app/organicmaps/sdk/bookmarks/data/OpeningMode.hpp
+  app/organicmaps/sdk/bookmarks/data/OsmDescription.cpp
+  app/organicmaps/sdk/bookmarks/data/OsmDescription.hpp
   app/organicmaps/sdk/bookmarks/data/PredefinedColors.cpp
   app/organicmaps/sdk/bookmarks/data/PredefinedColors.hpp
+  app/organicmaps/sdk/bookmarks/data/RawData.cpp
+  app/organicmaps/sdk/bookmarks/data/RawData.hpp
+  app/organicmaps/sdk/bookmarks/data/RoadWarningMarkType.cpp
+  app/organicmaps/sdk/bookmarks/data/RoadWarningMarkType.hpp
   app/organicmaps/sdk/bookmarks/data/Track.cpp
   app/organicmaps/sdk/bookmarks/data/Track.hpp
   app/organicmaps/sdk/bookmarks/data/TrackStatistics.cpp
   app/organicmaps/sdk/bookmarks/data/TrackStatistics.hpp
+  app/organicmaps/sdk/bookmarks/data/WikiData.cpp
+  app/organicmaps/sdk/bookmarks/data/WikiData.hpp
   app/organicmaps/sdk/DownloadResourcesLegacyActivity.cpp
   app/organicmaps/sdk/editor/Editor.cpp
   app/organicmaps/sdk/editor/OpeningHours.cpp

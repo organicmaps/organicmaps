@@ -1,36 +1,21 @@
 package app.organicmaps.sdk.routing;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import app.organicmaps.sdk.bookmarks.data.MapObjectData;
 
-// Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public final class RoutePointInfo implements Parcelable
+public final class RoutePointInfo implements MapObjectData
 {
-  public static final Creator<RoutePointInfo> CREATOR = new Creator<>() {
-    @Override
-    public RoutePointInfo createFromParcel(Parcel in)
-    {
-      return new RoutePointInfo(in);
-    }
-
-    @Override
-    public RoutePointInfo[] newArray(int size)
-    {
-      return new RoutePointInfo[size];
-    }
-  };
-
   public final RouteMarkType mMarkType;
 
   public final int mIntermediateIndex;
 
   // Called from JNI.
   @Keep
-  public RoutePointInfo(int markType, int intermediateIndex)
+  @VisibleForTesting
+  RoutePointInfo(int markType, int intermediateIndex)
   {
     switch (markType)
     {
@@ -41,18 +26,6 @@ public final class RoutePointInfo implements Parcelable
     }
 
     mIntermediateIndex = intermediateIndex;
-  }
-
-  private RoutePointInfo(@NonNull RouteMarkType markType, int intermediateIndex)
-  {
-    mMarkType = markType;
-    mIntermediateIndex = intermediateIndex;
-  }
-
-  private RoutePointInfo(@NonNull Parcel in)
-  {
-    // noinspection WrongConstant
-    this(RouteMarkType.values()[in.readInt()] /* mMarkType */, in.readInt() /* mIntermediateIndex */);
   }
 
   boolean isIntermediatePoint()
@@ -77,9 +50,25 @@ public final class RoutePointInfo implements Parcelable
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags)
+  public void writeToParcel(@NonNull Parcel dest, int flags)
   {
     dest.writeInt(mMarkType.ordinal());
     dest.writeInt(mIntermediateIndex);
   }
+
+  public static final Creator<RoutePointInfo> CREATOR = new Creator<>() {
+    @Override
+    @NonNull
+    public RoutePointInfo createFromParcel(@NonNull Parcel in)
+    {
+      return new RoutePointInfo(in.readInt() /* mMarkType */, in.readInt() /* mIntermediateIndex */);
+    }
+
+    @Override
+    @NonNull
+    public RoutePointInfo[] newArray(int size)
+    {
+      return new RoutePointInfo[size];
+    }
+  };
 }
