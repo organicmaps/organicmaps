@@ -407,14 +407,49 @@ UNIT_TEST(GenerateClearShowMapUrl_RoundTrip)
   TEST_EQUAL(info.m_name, "Falafel M. Sahyoun", ());
 }
 
+UNIT_TEST(ParseClearCoordinates_RoundedIntegers)
+{
+  struct TestCase
+  {
+    char const * m_path;
+    double m_lat;
+    double m_lon;
+    char const * m_name;
+  };
+  TestCase const cases[] = {
+      {"-14.333333,-170/American_Samoa", -14.333333, -170, "American Samoa"},
+      {"-14,-170.25/American_Samoa", -14, -170.25, "American Samoa"},
+      {"-14,-170/American_Samoa", -14, -170, "American Samoa"},
+      {"48,2/7-Eleven", 48, 2, "7-Eleven"},
+      {"0,0", 0, 0, ""},
+      {"0,0/", 0, 0, ""},
+      {"0,-170", 0, -170, ""},
+      {"-14,0", -14, 0, ""},
+      {"-0,-0.0", 0, 0, ""},
+      {"-90,-180", -90, -180, ""},
+      {"90,180", 90, 180, ""},
+  };
+  for (auto const & test : cases)
+  {
+    Ge0Parser::Result info;
+    TEST(Ge0Parser::ParseClearCoordinates(test.m_path, info), (test.m_path));
+    TEST_ALMOST_EQUAL_ABS(info.m_lat, test.m_lat, kEps, (test.m_path));
+    TEST_ALMOST_EQUAL_ABS(info.m_lon, test.m_lon, kEps, (test.m_path));
+    TEST_EQUAL(info.m_name, test.m_name, (test.m_path));
+    TEST_EQUAL(info.m_zoomLevel, 0.0, (test.m_path));
+  }
+}
+
 UNIT_TEST(ParseClearCoordinates_Rejects)
 {
   Ge0Parser::Result info;
-  TEST(!Ge0Parser::ParseClearCoordinates("o4B4pYZsRs", info), ("ge0 base64 has no dot"));
+  TEST(!Ge0Parser::ParseClearCoordinates("o4B4pYZsRs", info), ("ge0 base64 has no comma"));
   TEST(!Ge0Parser::ParseClearCoordinates("foo", info), ());
   TEST(!Ge0Parser::ParseClearCoordinates("foo/48.858093,2.294694", info), ("coordinates must start the path"));
   TEST(!Ge0Parser::ParseClearCoordinates("48.858093,2.294694suffix", info), ("lon must consume the path segment"));
-  TEST(!Ge0Parser::ParseClearCoordinates("48,2", info), ("integer-only coordinates are not clear links"));
+  for (auto const * path : {"48.,2", ".5,2", "48,2.", "48,.5", "48.8.5,2", "48;2", "48,2suffix", "48,2,16", "48,", ",2",
+                            "1e1,2", "--14,-170", "91,0", "0,181"})
+    TEST(!Ge0Parser::ParseClearCoordinates(path, info), (path));
   TEST(!Ge0Parser::ParseClearCoordinates("91.0,0.0", info), ("lat out of range"));
   TEST(!Ge0Parser::ParseClearCoordinates("0.0,181.0", info), ("lon out of range"));
 }
