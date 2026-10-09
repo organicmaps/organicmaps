@@ -450,6 +450,8 @@
     <string name="select_cuisine">Ընտրել խոհանոց</string>
     <!-- login text field -->
     <string name="email_or_username">Էլ․ փոստ կամ օգտանուն</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Նոր հեռախոս</string>
     <string name="level">Հարկ</string>
     <!-- Building level -->
     <string name="level_value_generic">Հարկ՝ %s</string>

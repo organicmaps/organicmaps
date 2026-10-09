@@ -213,6 +213,8 @@
     <string name="choose_language">Elija una lengua</string>
     <!-- login text field -->
     <string name="email_or_username">Correo electrónico o nombre de usuario</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Nuevo número de teléfono</string>
     <string name="level">Suelo</string>
     <string name="downloader_delete_map_dialog">Todas las ediciones del mapa se eliminarán con él.</string>
     <string name="common_check_internet_connection_dialog">Asegúrate de que tu dispositivo está conectado a Internet.</string>

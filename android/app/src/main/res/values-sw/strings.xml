@@ -450,6 +450,8 @@
     <string name="select_cuisine">Chagua aina ya chakula</string>
     <!-- login text field -->
     <string name="email_or_username">Barua pepe au jina la mtumiaji</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Simu mpya</string>
     <string name="level">Ghorofa</string>
     <!-- Building level -->
     <string name="level_value_generic">Kiwango: %s</string>

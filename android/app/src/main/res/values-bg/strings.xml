@@ -450,6 +450,8 @@
     <string name="select_cuisine">Избор на кухня</string>
     <!-- login text field -->
     <string name="email_or_username">Имейл или потребителско име</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Нов телефон</string>
     <string name="level">Етаж</string>
     <!-- Building level -->
     <string name="level_value_generic">Ниво: %s</string>

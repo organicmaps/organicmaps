@@ -450,6 +450,8 @@
     <string name="select_cuisine">Изаберите кухињу</string>
     <!-- login text field -->
     <string name="email_or_username">Email или корисничко име</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Нови телефон</string>
     <string name="level">Спрат</string>
     <!-- Building level -->
     <string name="level_value_generic">Спрат: %s</string>

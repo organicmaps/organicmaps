@@ -450,6 +450,8 @@
     <string name="select_cuisine">Izberite kuhinjo</string>
     <!-- login text field -->
     <string name="email_or_username">E-pošta ali uporabniško ime</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Nova telefonska številka</string>
     <string name="level">Nadstropje</string>
     <!-- Building level -->
     <string name="level_value_generic">Nadstropje: %s</string>

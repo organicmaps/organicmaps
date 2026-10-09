@@ -404,6 +404,8 @@
     <string name="select_cuisine">ເລືອກປະເພດອາຫານ</string>
     <!-- login text field -->
     <string name="email_or_username">ອີເມລ ຫຼື ຊື່ຜູ້ໃຊ້</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">ໂທລະສັບໃໝ່</string>
     <string name="level">ຊັ້ນ</string>
     <!-- Building level -->
     <string name="level_value_generic">ຊັ້ນ: %s</string>

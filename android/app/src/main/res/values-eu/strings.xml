@@ -450,6 +450,8 @@
     <string name="select_cuisine">Aukeratu sukaldea</string>
     <!-- login text field -->
     <string name="email_or_username">Posta elektronikoa edo erabiltzailea</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Telefono berria</string>
     <string name="level">Solairua</string>
     <!-- Building level -->
     <string name="level_value_generic">Maila: %s</string>

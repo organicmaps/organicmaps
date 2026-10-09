@@ -450,6 +450,8 @@
     <string name="select_cuisine">Kies kookkuns</string>
     <!-- login text field -->
     <string name="email_or_username">E-posadres of gebruikersnaam</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Nuwe foon</string>
     <string name="level">Verdieping</string>
     <!-- Building level -->
     <string name="level_value_generic">Vlak: %s</string>

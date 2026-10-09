@@ -450,6 +450,8 @@
     <string name="select_cuisine">Sélectionner une cuisine</string>
     <!-- login text field -->
     <string name="email_or_username">Email ou nom d\'utilisateur</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Nouveau numéro de téléphone</string>
     <string name="level">Étage</string>
     <!-- Building level -->
     <string name="level_value_generic">Niveau : %s</string>
