@@ -89,6 +89,7 @@ final class SearchHistoryViewController: MWMViewController {
   func reload() {
     guard isViewLoaded else { return }
     lastQueries = frameworkHelper.lastSearchQueries()
+    tableView.accessibilityElementsHidden = lastQueries.isEmpty
     showEmptyHistoryView(lastQueries.isEmpty ? true : false)
     tableView.reloadData()
   }
