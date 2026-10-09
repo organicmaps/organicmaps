@@ -12,6 +12,12 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/network_policy_ios.h"
+#include "platform/settings_contribution/settings_contribution_registry.hpp"
+
+#ifdef DEBUG
+#include "map/location_provider/gpx_replay_fusion_strategy.hpp"
+#include "map/location_provider/gpx_replay_provider.hpp"
+#endif
 
 static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(ProductsPopupCloseReason reason)
 {
@@ -23,6 +29,14 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   case ProductsPopupCloseReasonRemindLater: return Framework::ProductsPopupCloseReason::RemindLater;
   }
 }
+
+@interface MWMSettingsContributionInfo ()
+- (instancetype)initWithId:(NSString *)contributionId
+                     title:(NSString *)title
+                 sectionId:(NSString *)sectionId
+                    detail:(NSString *)detail
+       pickFileExtensions:(NSArray<NSString *> *)pickFileExtensions;
+@end
 
 @implementation MWMFrameworkHelper
 
@@ -95,6 +109,9 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 + (void)createFramework
 {
   UNUSED_VALUE(GetFramework());
+#ifdef DEBUG
+  location_provider::ForceLinkGpxReplayPlugin();
+#endif
 }
 
 + (BOOL)isFrameworkDestroyed
@@ -374,6 +391,82 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 + (void)didShowRateUsRequest
 {
   GetFramework().DidShowRateUsRequest();
+}
+
++ (NSArray<MWMSettingsContributionInfo *> *)settingsContributions
+{
+#ifdef DEBUG
+  // Ensure the GPX plugin registrar TU stays live and has run (static init).
+  location_provider::ForceLinkGpxReplayPlugin();
+  (void)location_provider::GpxReplayProvider::Instance();
+#endif
+  NSMutableArray<MWMSettingsContributionInfo *> * result = [NSMutableArray array];
+  auto const & contributions = settings_contribution::SettingsContributionRegistry::Instance().Contributions();
+  NSLog(@"[SettingsContribution] registered count=%zu", contributions.size());
+  for (auto * contribution : contributions)
+  {
+    NSMutableArray<NSString *> * extensions = [NSMutableArray array];
+    for (auto const & ext : contribution->GetPickFileExtensions())
+      [extensions addObject:@(ext.c_str())];
+    NSLog(@"[SettingsContribution] id=%s section=%s title=%s", contribution->GetId().c_str(),
+          contribution->GetSectionId().c_str(), contribution->GetTitle().c_str());
+    [result addObject:[[MWMSettingsContributionInfo alloc] initWithId:@(contribution->GetId().c_str())
+                                                                title:@(contribution->GetTitle().c_str())
+                                                            sectionId:@(contribution->GetSectionId().c_str())
+                                                               detail:@(contribution->GetDetail().c_str())
+                                                  pickFileExtensions:extensions]];
+  }
+  return result;
+}
+
++ (void)selectSettingsContributionWithId:(NSString *)contributionId
+{
+  std::string const id = contributionId.UTF8String;
+  for (auto * contribution : settings_contribution::SettingsContributionRegistry::Instance().Contributions())
+  {
+    if (contribution->GetId() != id)
+      continue;
+    contribution->OnSelected();
+#ifdef DEBUG
+    if (location_provider::GpxReplayProvider::Instance().IsArmed())
+      GetFramework().ScheduleGpxReplayTick();
+#endif
+    return;
+  }
+}
+
++ (void)settingsContributionWithId:(NSString *)contributionId didPickFileAtPath:(NSString *)path
+{
+  std::string const id = contributionId.UTF8String;
+  for (auto * contribution : settings_contribution::SettingsContributionRegistry::Instance().Contributions())
+  {
+    if (contribution->GetId() != id)
+      continue;
+    contribution->OnFilePicked(path.UTF8String);
+    return;
+  }
+}
+
+@end
+
+@implementation MWMSettingsContributionInfo
+
+- (instancetype)initWithId:(NSString *)contributionId
+                     title:(NSString *)title
+                 sectionId:(NSString *)sectionId
+                    detail:(NSString *)detail
+       pickFileExtensions:(NSArray<NSString *> *)pickFileExtensions
+{
+  self = [super init];
+  if (self)
+  {
+    _contributionId = [contributionId copy];
+    _title = [title copy];
+    _sectionId = [sectionId copy];
+    _detail = [detail copy];
+    _pickFileExtensions = [pickFileExtensions copy];
+  }
+  return self;
 }
 
 @end
