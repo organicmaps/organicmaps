@@ -2,6 +2,7 @@
 
 #include "ge0/parser.hpp"
 
+#include "search/address_matcher.hpp"
 #include "search/common.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
@@ -13,6 +14,7 @@
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/search_params.hpp"
+#include "search/string_utils.hpp"
 #include "search/utils.hpp"
 #include "search/utm_mgrs_coords_match.hpp"
 
@@ -228,7 +230,8 @@ void Processor::SetInputLocale(std::string const & locale)
   m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
 
-void Processor::SetQuery(std::string const & query, bool categorialRequest /* = false */)
+void Processor::SetQuery(std::string const & query, bool categorialRequest /* = false */,
+                         bool buildingSearch /* = false */)
 {
   LOG(LDEBUG, ("query:", query, "isCategorial:", categorialRequest));
 
@@ -242,7 +245,8 @@ void Processor::SetQuery(std::string const & query, bool categorialRequest /* = 
   // them as is.
 
   Delimiters delims;
-  auto normalizedQuery = NormalizeAndSimplifyString(query);
+  auto normalizedQuery =
+      NormalizeAndSimplifyString(buildingSearch && !categorialRequest ? RemoveAddressDetails(query) : query);
   PreprocessBeforeTokenization(normalizedQuery);
   SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(m_query.m_tokens), delims);
 
@@ -568,7 +572,8 @@ void Processor::Search(SearchParams params)
 
   SetInputLocale(params.m_inputLocale);
 
-  SetQuery(params.m_query, params.m_categorialRequest);
+  SetQuery(params.m_query, params.m_categorialRequest,
+           params.m_mode == Mode::Everywhere || params.m_mode == Mode::Viewport);
   SetViewport(viewport);
 
   // Used to store the earliest available cancellation status:
@@ -893,6 +898,9 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_tracer = searchParams.m_tracer;
   geocoderParams.m_filteringParams = searchParams.m_filteringParams;
   geocoderParams.m_useDebugInfo = searchParams.m_useDebugInfo;
+  geocoderParams.m_allowNearbyHouseNumbers = searchParams.m_allowNearbyHouseNumbers;
+  geocoderParams.m_isAddressQuery = searchParams.m_mode == Mode::Everywhere && !searchParams.m_categorialRequest &&
+                                    IsAddressQuery(searchParams.m_query);
 
   m_geocoder.SetParams(geocoderParams);
 }
@@ -948,7 +956,8 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams, SearchParams
   // Remove "secondary" category types from preferred.
   base::EraseIf(params.m_preferredTypes, NotInPreffered::Instance());
 
-  params.m_suggestsEnabled = searchParams.m_suggestsEnabled;
+  // A complete house-and-street query should return addresses, not fuzzy street completions.
+  params.m_suggestsEnabled = searchParams.m_suggestsEnabled && !geocoderParams.m_isAddressQuery;
   params.m_needAddress = searchParams.m_needAddress;
   params.m_needHighlighting = searchParams.m_needHighlighting && !geocoderParams.IsCategorialRequest();
   params.m_query = m_query;

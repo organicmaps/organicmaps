@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.search;
 
 import android.content.Context;
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,12 +9,20 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.chromium.base.ObserverList;
 
 public enum SearchEngine implements SearchListener, MapSearchListener,
                                     BookmarkSearchListener
 {
   INSTANCE;
+
+  public interface AddressResolutionListener
+  {
+    void onAddressResolved(long requestId, boolean found, double lat, double lon);
+  }
 
   // Query, which results are shown on the map.
   @Nullable
@@ -73,6 +82,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
+  private final Map<Long, AddressResolutionListener> mAddressResolutionListeners = new HashMap<>();
+  private long mNextAddressRequestId;
+
   public void addListener(SearchListener listener)
   {
     mListeners.addObserver(listener);
@@ -101,6 +113,44 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public void removeBookmarkListener(BookmarkSearchListener listener)
   {
     mBookmarkListeners.removeObserver(listener);
+  }
+
+  @MainThread
+  public long resolveAddress(@NonNull String[] queries, @NonNull String[] expectedStreets, @NonNull String locale,
+                             boolean background, @NonNull AddressResolutionListener listener)
+  {
+    final long requestId = ++mNextAddressRequestId;
+    mAddressResolutionListeners.put(requestId, listener);
+    nativeResolveAddress(queries, expectedStreets, locale, requestId, background);
+    return requestId;
+  }
+
+  @MainThread
+  public void cancelAddressResolution(long requestId)
+  {
+    mAddressResolutionListeners.remove(requestId);
+    nativeCancelAddressResolution(requestId);
+  }
+
+  @MainThread
+  public void cancelAllAddressResolutions()
+  {
+    for (long requestId : new ArrayList<>(mAddressResolutionListeners.keySet()))
+      cancelAddressResolution(requestId);
+  }
+
+  @MainThread
+  public void selectResolvedAddress(double lat, double lon, @NonNull String address)
+  {
+    nativeSelectResolvedAddress(lat, lon, address);
+  }
+
+  @Keep
+  private void onAddressResolved(long requestId, boolean found, double lat, double lon)
+  {
+    final AddressResolutionListener listener = mAddressResolutionListeners.remove(requestId);
+    if (listener != null)
+      listener.onAddressResolved(requestId, found, lat, lon);
   }
 
   /**
@@ -264,6 +314,13 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
 
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
+
+  private static native void nativeResolveAddress(String[] queries, String[] expectedStreets, String language,
+                                                  long requestId, boolean background);
+
+  private static native void nativeCancelAddressResolution(long requestId);
+
+  private static native void nativeSelectResolvedAddress(double lat, double lon, String address);
 
   private static native void nativeShowResult(int index);
 

@@ -305,7 +305,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 
   m_currentModelView = screen;
 
-  GetSearchAPI().OnViewportChanged(GetCurrentViewport());
+  GetSearchAPI().OnViewportChanged(GetCurrentViewport(), GetDrawScale());
 
   GetBookmarkManager().UpdateViewport(m_currentModelView);
   m_trafficManager.UpdateViewport(m_currentModelView);
