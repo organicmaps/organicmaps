@@ -8,6 +8,14 @@ apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 android {
   namespace 'app.organicmaps.sdk.car'
   // enableKotlin = true  // see app/build.gradle
+
+  defaultConfig {
+    testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+  }
+
+  compileOptions {
+    coreLibraryDesugaringEnabled = true
+  }
 }
 
 dependencies {
@@ -16,6 +24,12 @@ dependencies {
 
   implementation project(':sdk:widgets:speedlimit')
   implementation project(':sdk:widgets:lanes')
+
+  coreLibraryDesugaring libs.android.tools.desugaring
+
+  testImplementation libs.androidx.junit
+  androidTestImplementation libs.androidx.junit
+  androidTestImplementation libs.androidx.test.runner
 }
 
 Publish(project, [
