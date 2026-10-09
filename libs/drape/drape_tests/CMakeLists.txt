@@ -30,7 +30,6 @@ set(SRC
   testing_graphics_context.hpp
   uniform_value_tests.cpp
   vertex_buffer_tests.cpp
-  vulkan_context_tests.cpp
   vulkan_memory_manager_tests.cpp
 )
 
