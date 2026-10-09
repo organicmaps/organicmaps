@@ -794,7 +794,7 @@ void TransitRouteDisplay::CreateTransitMarks()
         df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
         for (size_t sizeIndex = 0; sizeIndex < stopMarkerSizes.size(); ++sizeIndex)
         {
-          auto const zoomLevel = sizeIndex + 1;
+          auto const zoomLevel = base::asserted_cast<int>(sizeIndex + 1);
           auto const & sz = stopMarkerSizes[sizeIndex];
           df::ColoredSymbolViewParams params;
           params.m_radiusInPixels = std::max(sz.x, sz.y) * 0.5f;
