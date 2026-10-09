@@ -39,7 +39,7 @@ public:
   void EndRendering() override;
   void Present() override;
   void CollectMemory() override;
-  void DoneCurrent() override {}
+  void DoneCurrent() override;
   bool Validate() override { return true; }
   void Resize(uint32_t w, uint32_t h) override;
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
@@ -78,7 +78,8 @@ public:
   void ApplyParamDescriptor(ParamDescriptor && descriptor);
   void ClearParamDescriptors();
 
-  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat, m2::PointU const & framebufferSize);
+  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat, m2::PointU const & framebufferSize,
+                  VkPresentModeKHR presentMode = VK_PRESENT_MODE_FIFO_KHR);
   void ResetSurface(bool allowPipelineDump);
 
   VkPhysicalDevice GetPhysicalDevice() const { return m_gpu; }
@@ -192,6 +193,7 @@ protected:
 
   VkSurfaceCapabilitiesKHR m_surfaceCapabilities = {};
   m2::PointU m_framebufferSize;
+  VkPresentModeKHR m_presentMode = VK_PRESENT_MODE_FIFO_KHR;
   std::optional<VkSurfaceFormatKHR> m_surfaceFormat;
 
   VkSwapchainKHR m_swapchain = {};

@@ -1,6 +1,16 @@
 project(dev_sandbox)
 
+if (PLATFORM_LINUX)
+  include(linux_backend.cmake)
+  if (NOT DEV_SANDBOX_WAYLAND_AVAILABLE)
+    return()
+  endif()
+endif()
+
 set(SRC
+  context_factory.hpp
+  glfw_window.cpp
+  glfw_window.hpp
   main.cpp
   imgui_renderer.cpp
   imgui_renderer.hpp
@@ -49,11 +59,6 @@ set(GLFW_BUILD_EXAMPLES OFF)
 set(GLFW_BUILD_TESTS OFF)
 set(GLFW_INSTALL OFF)
 set(GLFW_VULKAN_STATIC OFF)
-set(GLFW_BUILD_WAYLAND OFF)
-if (PLATFORM_LINUX)
-  # The native Linux context factories still require GLFW's X11 backend.
-  set(GLFW_BUILD_X11 ON)
-endif()
 
 function(add_sandbox_glfw)
   # Function scope disables ARC for GLFW without changing the sandbox's flags.
@@ -64,7 +69,7 @@ endfunction()
 add_sandbox_glfw()
 add_subdirectory(${OMIM_ROOT}/3party/imgui ${CMAKE_CURRENT_BINARY_DIR}/imgui)
 
-if (${PLATFORM_LINUX})
+if (PLATFORM_LINUX)
   append(SRC
     main_linux.cpp
   )
@@ -112,7 +117,6 @@ endif()
 
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE
-    $<$<BOOL:${PLATFORM_LINUX}>:VK_USE_PLATFORM_XLIB_KHR>
     $<$<BOOL:${PLATFORM_WIN}>:VK_USE_PLATFORM_WIN32_KHR>
     $<$<BOOL:${PLATFORM_ANDROID}>:VK_USE_PLATFORM_ANDROID_KHR>
 )

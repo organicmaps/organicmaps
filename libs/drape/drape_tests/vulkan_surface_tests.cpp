@@ -7,6 +7,7 @@
 
 namespace vulkan_surface_tests
 {
+using dp::vulkan::ChooseCompositeAlpha;
 using dp::vulkan::ChooseSurfaceExtent;
 
 VkSurfaceCapabilitiesKHR Capabilities()
@@ -184,5 +185,24 @@ UNIT_TEST(VulkanSurface_PauseDuringFenceWaitSkipsAcquisition)
   g_fenceResult = VK_SUCCESS;
   g_pauseDuringFenceWait = &context;
   TEST(context.BeginRendering() == dp::FrameStatus::Suspended, ());
+}
+UNIT_TEST(VulkanSurface_CompositeAlpha)
+{
+  VkCompositeAlphaFlagBitsKHR const modes[] = {VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR, VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
+                                               VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
+                                               VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR};
+  for (auto const mode : modes)
+    TEST(ChooseCompositeAlpha(mode) == mode, ());
+
+  TEST(ChooseCompositeAlpha(VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR | VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR) ==
+           VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
+       ());
+  TEST(ChooseCompositeAlpha(VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR | VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR) ==
+           VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
+       ());
+  TEST(ChooseCompositeAlpha(VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR | VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR) ==
+           VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
+       ());
+  TEST(!ChooseCompositeAlpha(0), ());
 }
 }  // namespace vulkan_surface_tests

@@ -1,3 +1,5 @@
+#include "dev_sandbox/context_factory.hpp"
+
 #include "std/target_os.hpp"
 #if !defined(OMIM_OS_WINDOWS)
 #error Unsupported OS
@@ -65,8 +67,10 @@ public:
   }
 };
 
-drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, dp::ApiVersion api, m2::PointU size)
+drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GlfwWindows const & windows, dp::ApiVersion api,
+                                                           m2::PointU size)
 {
+  auto * window = windows.m_visible;
   if (api == dp::ApiVersion::Vulkan)
   {
     auto contextFactory = make_unique_dp<WindowsVulkanContextFactory>();

@@ -6,6 +6,8 @@
 #include "drape/vulkan/vulkan_layers.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
 
+#include <span>
+
 namespace dp
 {
 namespace vulkan
@@ -13,7 +15,9 @@ namespace vulkan
 class VulkanContextFactory : public dp::GraphicsContextFactory
 {
 public:
-  VulkanContextFactory(uint32_t appVersionCode, int sdkVersion, bool isCustomROM);
+  // Required extension names are borrowed and must outlive the factory.
+  VulkanContextFactory(uint32_t appVersionCode, int sdkVersion, bool isCustomROM,
+                       std::span<char const * const> requiredInstanceExtensions = {});
   ~VulkanContextFactory() override;
 
   bool IsVulkanSupported() const;

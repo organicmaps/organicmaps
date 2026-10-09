@@ -100,12 +100,21 @@ void VulkanBaseContext::SetPresentAvailable(bool available)
   m_presentAvailable = available;
 }
 
+void VulkanBaseContext::DoneCurrent()
+{
+  // Context recreation can retain the Vulkan context while replacing framebuffer textures.
+  if (!m_framebuffersData.empty())
+    DestroyRenderPassAndFramebuffers();
+  m_currentFramebuffer = nullptr;
+}
+
 void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
-                                   m2::PointU const & framebufferSize)
+                                   m2::PointU const & framebufferSize, VkPresentModeKHR presentMode)
 {
   m_surface = surface;
   m_surfaceFormat = surfaceFormat;
   m_framebufferSize = framebufferSize;
+  m_presentMode = presentMode;
   CreateSyncPrimitives();
   RecreateSwapchainAndDependencies();
 }
@@ -870,13 +879,10 @@ void VulkanBaseContext::RecreateSwapchain()
   swapchainCI.queueFamilyIndexCount = 0;
   swapchainCI.pQueueFamilyIndices = nullptr;
 
-#if !defined(OMIM_OS_WINDOWS)
-  CHECK(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR, ());
-  swapchainCI.compositeAlpha = VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR;
-#endif
-
-  // This mode waits for the vertical blank ("v-sync").
-  swapchainCI.presentMode = VK_PRESENT_MODE_FIFO_KHR;
+  auto const alpha = ChooseCompositeAlpha(m_surfaceCapabilities.supportedCompositeAlpha);
+  CHECK(alpha, ("Surface has no supported composite alpha mode", m_surfaceCapabilities.supportedCompositeAlpha));
+  swapchainCI.compositeAlpha = *alpha;
+  swapchainCI.presentMode = m_presentMode;
   swapchainCI.oldSwapchain = VK_NULL_HANDLE;
   swapchainCI.clipped = VK_TRUE;
 

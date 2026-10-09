@@ -81,7 +81,8 @@ public:
 };
 }  // namespace
 
-VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersion, bool isCustomROM)
+VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersion, bool isCustomROM,
+                                           std::span<char const * const> requiredInstanceExtensions)
 {
   if (InitVulkan() == 0)
   {
@@ -102,7 +103,7 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
 #ifdef ENABLE_VULKAN_DIAGNOSTICS
   enableDiagnostics = true;
 #endif
-  m_layers = make_unique_dp<dp::vulkan::Layers>(enableDiagnostics);
+  m_layers = make_unique_dp<dp::vulkan::Layers>(enableDiagnostics, requiredInstanceExtensions);
 
   VkInstanceCreateInfo instanceCreateInfo = {};
   instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
@@ -347,14 +348,6 @@ bool VulkanContextFactory::QuerySurfaceSize(m2::PointU const & framebufferSize)
     LOG_ERROR_VK("Any supported surface format wasn't found.");
     return false;
   }
-
-#if !defined(OMIM_OS_WINDOWS)
-  if (!(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
-  {
-    LOG_ERROR_VK("Alpha channel is not supported.");
-    return false;
-  }
-#endif
 
   m_surfaceFormat = formats[chosenFormat];
   m_surfaceCapabilities.currentExtent =
