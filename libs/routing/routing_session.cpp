@@ -89,8 +89,6 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
-  // Use old-style callback construction, because lambda constructs buggy function on Android
-  // (callback param isn't captured by value).
   // RoutingManager::InsertRoute draws alternatives only outside navigation, don't pay for them.
   m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
                            DoReadyCallback(*this, readyCallback), needMoreMapsCallback, removeRouteCallback,
@@ -126,29 +124,24 @@ void RoutingSession::RemoveRoute()
 void RoutingSession::RebuildRouteOnTrafficUpdate()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  m2::PointD startPoint;
+  m2::PointD startPoint = m_lastGoodPosition;
 
+  switch (m_state)
   {
-    startPoint = m_lastGoodPosition;
+  case SessionState::NoValidRoute:
+  case SessionState::RouteFinished: return;
 
-    switch (m_state)
-    {
-    case SessionState::NoValidRoute:
-    case SessionState::RouteFinished: return;
+  case SessionState::RouteBuilding:
+  case SessionState::RouteNotStarted:
+  case SessionState::RouteNoFollowing:
+  case SessionState::RouteRebuilding: startPoint = m_checkpoints.GetPointFrom(); break;
 
-    case SessionState::RouteBuilding:
-    case SessionState::RouteNotStarted:
-    case SessionState::RouteNoFollowing:
-    case SessionState::RouteRebuilding: startPoint = m_checkpoints.GetPointFrom(); break;
-
-    case SessionState::OnRoute:
-    case SessionState::RouteNeedRebuild: break;
-    }
-
-    // Cancel current route building.
-    m_router->ClearState();
+  case SessionState::OnRoute:
+  case SessionState::RouteNeedRebuild: break;
   }
 
+  // Traffic updates require a full rebuild while preserving the selected route strategy.
+  // CalculateRoute cancels the previous request; ClearState would also reset that strategy.
   RebuildRoute(startPoint, m_rebuildReadyCallback, nullptr /* needMoreMapsCallback */,
                nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding,
                false /* adjustToPrevRoute */);
