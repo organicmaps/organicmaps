@@ -1,22 +1,5 @@
 project(dev_sandbox)
 
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "")
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "")
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "")
-set(GLFW_INSTALL OFF CACHE BOOL "")
-set(GLFW_VULKAN_STATIC OFF CACHE BOOL "")
-set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "")
-
-# Disable ARC for glfw and re-enable it afterwards because it's globally enabled
-# in the root CMakeLists.txt.
-set(CMAKE_OBJC_FLAGS "")
-add_subdirectory(${OMIM_ROOT}/3party/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
-set_target_properties(glfw PROPERTIES UNITY_BUILD OFF)
-set_target_properties(glfw PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC NO)
-set(CMAKE_OBJC_FLAGS -fobjc-arc)
-
-add_subdirectory(${OMIM_ROOT}/3party/imgui ${CMAKE_CURRENT_BINARY_DIR}/imgui)
-
 set(SRC
   main.cpp
   imgui_renderer.cpp
@@ -60,6 +43,26 @@ if (PLATFORM_MAC)
     ${SHADER_SOURCES_FILES}
   )
 endif()
+
+set(GLFW_BUILD_DOCS OFF)
+set(GLFW_BUILD_EXAMPLES OFF)
+set(GLFW_BUILD_TESTS OFF)
+set(GLFW_INSTALL OFF)
+set(GLFW_VULKAN_STATIC OFF)
+set(GLFW_BUILD_WAYLAND OFF)
+if (PLATFORM_LINUX)
+  # The native Linux context factories still require GLFW's X11 backend.
+  set(GLFW_BUILD_X11 ON)
+endif()
+
+function(add_sandbox_glfw)
+  # Function scope disables ARC for GLFW without changing the sandbox's flags.
+  set(CMAKE_OBJC_FLAGS "")
+  add_subdirectory(${OMIM_ROOT}/3party/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
+  set_target_properties(glfw PROPERTIES UNITY_BUILD OFF XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC NO)
+endfunction()
+add_sandbox_glfw()
+add_subdirectory(${OMIM_ROOT}/3party/imgui ${CMAKE_CURRENT_BINARY_DIR}/imgui)
 
 if (${PLATFORM_LINUX})
   append(SRC

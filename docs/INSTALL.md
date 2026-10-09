@@ -155,6 +155,24 @@ sudo apk add \
 brew install cmake ninja qt@6
 ```
 
+#### Optional developer sandbox
+
+The developer graphics sandbox is enabled by default. Qt-only and command-line
+builds can omit it and its GLFW/ImGui dependencies with `-DBUILD_DEV_SANDBOX=OFF`.
+Selecting `--target desktop` alone does not skip CMake's dependency discovery.
+
+On Linux the sandbox currently uses X11. Install these additional development
+packages only when building it:
+
+| Distribution | Packages |
+| --- | --- |
+| Ubuntu | `libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev` |
+| Fedora | `libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel` |
+| Alpine | `libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev` |
+
+To enable the sandbox again in an existing build directory, configure with
+`-DBUILD_DEV_SANDBOX=ON` and build the `dev_sandbox` target.
+
 #### Note: Homebrew (Linuxbrew) Qt6 on Linux with NVIDIA
 
 Installing Qt6 via Homebrew (Linuxbrew) on a Linux machine that uses the
@@ -217,7 +235,7 @@ run from the repository root. List configure/build/test presets with
 To configure and build the desktop app in Debug (binaries go into `build/debug`):
 
 ```bash
-cmake --preset debug
+cmake --preset debug -DBUILD_DEV_SANDBOX=OFF
 cmake --build --preset debug --target desktop
 ```
 
@@ -278,7 +296,7 @@ failed moves leave the old data intact for manual recovery.
 Configure and compile all unit tests in Debug mode:
 
 ```bash
-cmake --preset debug
+cmake --preset debug -DBUILD_DEV_SANDBOX=OFF
 cmake --build --preset debug
 ```
 

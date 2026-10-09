@@ -241,3 +241,45 @@ jobs:
           if-no-files-found: error
           retention-days: 7
           compression-level: 0
+
+  without-sandbox:
+    name: Linux without optional sandbox dependencies
+    runs-on: ubuntu-24.04
+    container: ubuntu:24.04
+    steps:
+      - name: Install ordinary project dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            build-essential ca-certificates clang-19 cmake git libgl1-mesa-dev libglvnd-dev \
+            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-positioning-dev
+
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 128
+          submodules: recursive
+
+      - name: Configure without the developer sandbox
+        env:
+          CC: clang-19
+          CXX: clang++-19
+        shell: bash
+        run: |
+          set -o pipefail
+          cmake --preset ci -DCMAKE_BUILD_TYPE=Release -DBUILD_DEV_SANDBOX=OFF 2>&1 | tee configure.log
+          if cmake --build --preset ci --target dev_sandbox; then exit 1; fi
+          cmake --build --preset ci --target help > targets.log
+          if grep -Eq 'glfw|imgui' targets.log; then exit 1; fi
+
+      - name: Build the ordinary application and tools
+        run: >-
+          cmake --build --preset ci --parallel 4
+          --target desktop generator_tool features_collector_tool samples_generation_tool
+
+      - name: Upload configuration log
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sandbox-disabled-configure
+          path: configure.log
+          retention-days: 7
