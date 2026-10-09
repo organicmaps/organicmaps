@@ -3,6 +3,7 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "editor/editable_data_source.hpp"
+#include "editor/osm_editor.hpp"
 
 #include "indexer/mwm_set.hpp"
 
@@ -47,9 +48,14 @@ public:
   void LoadMapEditsTest();
   void SaveEditedFeatureTest();
   void SaveTransactionTest();
+  void SaveUploadedInformationTest();
+  void EditRevisionTest();
   void LoadExistingEditsXml();
 
 private:
+  /// @returns a copy of the editor's entry for |fid|.
+  static osm::Editor::FeatureTypeInfo GetEditedFeatureInfo(FeatureID const & fid);
+
   template <typename BuildFn>
   MwmSet::MwmId ConstructTestMwm(BuildFn && fn)
   {
