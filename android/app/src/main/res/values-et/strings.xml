@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Palun kontrolli, et sa ei sisestanud isiklikke andmeid.</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMapi haldajad kontrollivad muudatused üle ja võtavad küsimuste korral sinuga ühendust.</string>
     <string name="navigation_stop_button">Lõpeta</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Rada on salvestamisel</string>
     <!-- For the first routing -->
     <string name="accept">Nõustu</string>
@@ -833,7 +833,7 @@
     <string name="start_track_recording">Salvesta rada</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Peata raja salvestamine</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Rada salvestamine</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Rada on tühi - ei ole midagi salvestada</string>
@@ -914,6 +914,8 @@
     <string name="choose_point_on_map_hint">Liiguta ja suumi kaarti, et paigutada rist õigesse kohta</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Lõpeta ja salvesta</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Lõpeta</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Pööra marsruut ümber</string>
 </resources>

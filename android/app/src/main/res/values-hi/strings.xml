@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">सुनिश्चित करें कि आपने कोई निजी या व्यक्तिगत डेटा दर्ज नहीं किया है।</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap संपादक परिवर्तन की जाँच करेंगे और यदि उनके कोई प्रश्न हों तो आपसे संपर्क करेंगे।</string>
     <string name="navigation_stop_button">रुकें</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">ट्रैक रिकॉर्ड करना</string>
     <!-- For the first routing -->
     <string name="accept">मुझे स्वीकार है</string>
@@ -813,7 +813,7 @@
     <string name="start_track_recording">ट्रैक रिकॉर्ड करें</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">ट्रैक रिकॉर्डिंग रोकें</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">ट्रैक रिकॉर्डिंग</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">मार्ग खाली है - बचाने के लिए कुछ नहीं</string>
@@ -890,6 +890,8 @@
     <string name="choose_point_on_map_hint">क्रॉस रखने के लिए मानचित्र को हिलाएँ और ज़ूम करें</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">रोकें और सहेजें</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">समाप्त करें</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">मार्ग उलटें</string>
 </resources>
