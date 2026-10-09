@@ -13,8 +13,9 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import java.util.ArrayList;
+
 import java.util.List;
+import java.util.ArrayList;
 
 public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.ViewHolder>
 {
@@ -50,10 +51,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
   @Override
   public void onBindViewHolder(@NonNull PhoneListAdapter.ViewHolder holder, int position)
   {
-    holder.setPosition(position);
     holder.setPhone(phonesData.get(position));
-    if (position == phonesData.size() - 1)
-      holder.setNewPhoneRow(true);
+    holder.setNewPhoneRow(position == phonesData.size() - 1);
   }
 
   @Override
@@ -68,18 +67,11 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     return position;
   }
 
-  public void appendPhone()
-  {
-    phonesData.add("");
-    notifyDataSetChanged();
-  }
-
   public String getPhoneList()
   {
     StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < phonesData.size(); i++)
+    for(String p: phonesData)
     {
-      final String p = phonesData.get(i).trim();
       if (!TextUtils.isEmpty(p))
       {
         if (sb.length() > 0)
@@ -92,7 +84,6 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
 
   protected class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
-    private int mPosition = -1;
     private boolean isNewPhoneRow = false;
     private final TextInputEditText mInput;
     private final ImageView deleteButton;
@@ -109,7 +100,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
         {
           UiUtils.setInputError(phoneInput,
                                 Editor.nativeIsPhoneValid(s.toString()) ? 0 : R.string.error_enter_correct_phone);
-          PhoneListAdapter.this.updatePhoneItem(mPosition, mInput.getText().toString());
+          PhoneListAdapter.this.updatePhoneItem(ViewHolder.this.getBindingAdapterPosition(), mInput.getText().toString());
           if (isNewPhoneRow)
             setNewPhoneRow(false); // When user edits text in new phone row then it's not a new phone row anymore
         }
@@ -121,11 +112,6 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
       deleteButton.setImageResource(R.drawable.ic_delete);
 
       setNewPhoneRow(isNewPhoneRow);
-    }
-
-    public void setPosition(int position)
-    {
-      mPosition = position;
     }
 
     public void setPhone(String phone)
@@ -153,8 +139,9 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     @Override
     public void onClick(View view)
     {
-      if (view.getId() == R.id.delete_icon)
-        PhoneListAdapter.this.deleteItem(mPosition);
+      if (view.getId() == R.id.delete_icon) {
+        PhoneListAdapter.this.deleteItem(getBindingAdapterPosition());
+      }
     }
   }
 
@@ -163,17 +150,17 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     if (position == -1)
       return;
     phonesData.set(position, text);
-    if (position == phonesData.size() - 1 && !text.isEmpty())
+    if (position == phonesData.size()-1 && !text.isEmpty())
     {
       phonesData.add("");
-      notifyDataSetChanged();
+      notifyItemInserted(phonesData.size()-1);
     }
   }
 
   void deleteItem(int position)
   {
     phonesData.remove(position);
-    notifyDataSetChanged();
+    notifyItemRemoved(position);
   }
 
   public boolean allPhonesValid()
