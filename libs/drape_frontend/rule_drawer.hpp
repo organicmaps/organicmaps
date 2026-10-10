@@ -26,6 +26,7 @@ namespace terrain
 {
 class IsolinesStyle;
 class TileMesh;
+struct TerrainData;
 }  // namespace terrain
 
 namespace df
@@ -75,14 +76,15 @@ private:
 
   /// Smooth terrain hillshading: the area-weighted per-vertex normals over the shared
   /// mesh give the Lambert intensity interpolated by the terrain shade shader.
-  void DrawTerrainShade(terrain::TileMesh const & mesh);
+  void DrawTerrainShade(terrain::TerrainData const & data);
   /// Traces the dynamic isolines over the shared mesh and emits line shapes through the
   /// same smoothing/clipping pipeline as the baked isoline features (which are
   /// suppressed when the dynamic isolines are used).
-  void DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::IsolinesStyle const & isolinesStyle,
+  void DrawDynamicIsolines(terrain::TerrainData const & data, terrain::IsolinesStyle const & isolinesStyle,
                            measurement_utils::Units units);
   /// The raw mesh inspection: the triangle edges and the vertex altitudes in red.
   void DrawTerrainDebugMesh(terrain::TileMesh const & mesh);
+  void DrawTerrainDebugRaster(terrain::TerrainData const & data);
 
   TIsCountryLoadedByNameFn m_isLoadedFn;
 

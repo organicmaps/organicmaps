@@ -37,7 +37,7 @@ using Altitude = geometry::Altitude;
 // - kGridTag: the lattice tables of every mesh (see MeshGrid), read once by terrain::Reader;
 // - kFreqTag: the entropy coding tables of the geometry streams, one set of contexts per
 //   geometry scale (see GeometryTables), read once by terrain::Reader next to the grid. One
-//   table is a varuint symbols count and a (symbol, code length) varuint pair each, symbol
+//   table is a byte symbols count and a (symbol, code length) byte pair each, symbol
 //   ordered: the file ships the code LENGTHS only and both sides derive the codes from them
 //   by the same canonical assignment (impl::AssignCanonicalCodes). A length is capped at
 //   impl::kFlatCodeBits, so a code always resolves in one flat table lookup, and the lengths
@@ -98,15 +98,20 @@ using Altitude = geometry::Altitude;
 // topography_generator/mesh/twm_encoder.hpp (GeometryCoders, the chain walk, the package merge).
 
 uint8_t constexpr kTwmVersion = 3;
+uint8_t constexpr kOldestTwmVersion = 3;
+// Development hybrid format: the native v3 layout with raster sections.
+uint8_t constexpr kHybridTwmVersion = 254;
+uint8_t constexpr kRasterLayoutVersion = 1;
+uint32_t constexpr kMaxRasterCells = 128;
+size_t constexpr kMaxGeometryCount = 10;
 // The cell depth of the geometry index, the same as the MWM scale index uses.
 int constexpr kCellDepth = RectId::DEPTH_LEVELS;
 // One .twm holds the meshes of one dynamic grid block, a handful of them in practice.
 uint32_t constexpr kMaxMeshCount = 4096;
 
 // Thrown on an unsupported .twm file: the header gates below, parsed once per registration.
-// Corrupt data past the header is not defended - the files are hash checked on download - so
-// the decode validates with ASSERT, and with CHECK only where a corrupt value would drive an
-// allocation or a loop.
+// Tile data past the header is trusted after download verification. Use ASSERT for invariants,
+// with CHECK before allocations or indexed access controlled by stream-derived sizes/indices.
 DECLARE_EXCEPTION(TwmException, RootException);
 
 char constexpr kHeaderTag[] = HEADER_FILE_TAG;
@@ -114,10 +119,13 @@ char constexpr kGridTag[] = "grid";
 char constexpr kFreqTag[] = "freq";
 char constexpr kFeaturesTag[] = FEATURES_FILE_TAG;
 char constexpr kIndexTag[] = "index";  /// @todo Make INDEX_FILE_TAG
+char constexpr kRasterFeaturesTag[] = "rfeatures";
+char constexpr kRasterDataTag[] = "rdata";
+char constexpr kRasterIndexTag[] = "rindex";
 
 inline std::string GetGeometryTag(size_t geomIndex)
 {
-  ASSERT_LESS(geomIndex, 10, ());
+  ASSERT_LESS(geomIndex, kMaxGeometryCount, ());
   return std::string(TRIANGLE_FILE_TAG) + static_cast<char>('0' + geomIndex);
 }
 
@@ -138,6 +146,11 @@ struct TwmHeader
   m2::PointU m_limitRT;
   // The meshes merged into the file, one grid section entry each.
   uint32_t m_meshCount = 1;
+  uint8_t m_rasterLayout = 0;
+  uint8_t m_rasterGeometryIndex = 0;
+  uint32_t m_rasterPatchCount = 0;
+
+  bool HasRaster(size_t geomIndex) const { return m_rasterPatchCount != 0 && geomIndex == m_rasterGeometryIndex; }
 
   size_t GetGeometryIndex(int scale) const
   {
@@ -158,6 +171,7 @@ struct TwmHeader
   {
     CHECK(m_limitLB.x <= m_limitRT.x && m_limitLB.y <= m_limitRT.y, ());
     CHECK(m_meshCount > 0 && m_meshCount <= kMaxMeshCount, (m_meshCount));
+    CHECK(m_version == kTwmVersion || m_version == kHybridTwmVersion, ());
     WriteToSink(sink, m_version);
     WriteToSink(sink, m_coordBits);
     WriteToSink(sink, static_cast<uint8_t>(m_geometries.size()));
@@ -171,13 +185,24 @@ struct TwmHeader
     WriteVarUint(sink, m_limitRT.x - m_limitLB.x);
     WriteVarUint(sink, m_limitRT.y - m_limitLB.y);
     WriteVarUint(sink, m_meshCount);
+    if (m_version == kHybridTwmVersion)
+    {
+      CHECK_EQUAL(m_rasterLayout, kRasterLayoutVersion, ());
+      CHECK_EQUAL(size_t{m_rasterGeometryIndex} + 1, m_geometries.size(), ());
+      CHECK_GREATER(m_rasterPatchCount, 0, ());
+      WriteToSink(sink, m_rasterLayout);
+      WriteToSink(sink, m_rasterGeometryIndex);
+      WriteVarUint(sink, m_rasterPatchCount);
+    }
+    else
+      CHECK_EQUAL(m_rasterPatchCount, 0, ());
   }
 
   template <typename Source>
   void Deserialize(Source & src)
   {
     m_version = ReadPrimitiveFromSource<uint8_t>(src);
-    if (m_version != kTwmVersion)
+    if (m_version != kTwmVersion && m_version != kHybridTwmVersion)
       MYTHROW(TwmException, ("Unsupported TWM version", m_version));
     m_coordBits = ReadPrimitiveFromSource<uint8_t>(src);
     if (m_coordBits == 0 || m_coordBits > kPointCoordBits)
@@ -197,6 +222,18 @@ struct TwmHeader
     m_meshCount = ReadVarUint<uint32_t>(src);
     if (m_meshCount == 0 || m_meshCount > kMaxMeshCount)
       MYTHROW(TwmException, ("Invalid meshes count", m_meshCount));
+    m_rasterLayout = 0;
+    m_rasterGeometryIndex = 0;
+    m_rasterPatchCount = 0;
+    if (m_version == kHybridTwmVersion)
+    {
+      m_rasterLayout = ReadPrimitiveFromSource<uint8_t>(src);
+      m_rasterGeometryIndex = ReadPrimitiveFromSource<uint8_t>(src);
+      m_rasterPatchCount = ReadVarUint<uint32_t>(src);
+      if (m_rasterLayout != kRasterLayoutVersion || size_t{m_rasterGeometryIndex} + 1 != m_geometries.size() ||
+          m_rasterPatchCount == 0)
+        MYTHROW(TwmException, ("Unsupported raster layout", m_rasterLayout, m_rasterGeometryIndex, m_rasterPatchCount));
+    }
   }
 };
 
@@ -320,8 +357,7 @@ void DeserializeGrid(Source & src, TwmHeader const & header, std::vector<MeshGri
 
     uint64_t const cols = uint64_t{ReadVarUint<uint32_t>(src)} + 1;
     uint64_t const rows = uint64_t{ReadVarUint<uint32_t>(src)} + 1;
-    // Every table value takes at least one byte. Always-on: the sizes drive the table
-    // allocations, a corrupt pair must not reserve gigabytes.
+    // Every table value takes at least one byte.
     CHECK_LESS_OR_EQUAL(cols + rows, src.Size(), ());
 
     impl::DeserializeTable(src, rows, header.m_coordBits, grid.m_rowY);
@@ -373,7 +409,6 @@ template <typename Source>
 void DeserializeFeatureRecord(Source & src, TwmHeader const & header, FeatureRecord & record)
 {
   record.m_meshIdx = ReadVarUint<uint32_t>(src);
-  // Always-on: the index addresses the grids vector of the reader.
   CHECK_LESS(record.m_meshIdx, header.m_meshCount, ());
 
   int32_t const minAltitude = ReadVarInt<int32_t>(src);
@@ -625,12 +660,11 @@ class TokenTable
 {
 public:
   // Parses one freq section table: the count of the coded symbols, then a (symbol, code
-  // length) varuint pair each.
+  // length) byte pair each.
   template <typename Source>
   void Deserialize(Source & src)
   {
-    uint64_t const count = ReadVarUint<uint64_t>(src);
-    // Always-on: the count drives the parse loop below.
+    uint8_t const count = ReadPrimitiveFromSource<uint8_t>(src);
     CHECK_LESS_OR_EQUAL(count, kTokenAlphabet, ());
     if (count == 0)
     {
@@ -647,9 +681,8 @@ public:
     uint64_t kraft = 0;
     for (uint64_t i = 0; i < count; ++i)
     {
-      uint64_t const symbol = ReadVarUint<uint64_t>(src);
-      uint64_t const length = ReadVarUint<uint64_t>(src);
-      // Always-on: the symbol indexes the lengths array, the length feeds the shift below.
+      uint8_t const symbol = ReadPrimitiveFromSource<uint8_t>(src);
+      uint8_t const length = ReadPrimitiveFromSource<uint8_t>(src);
       CHECK(symbol <= kMaxToken && length <= kFlatCodeBits, (symbol, length));
       uint32_t const bit = uint32_t{1} << symbol;
       ASSERT(!(coded & bit), ("A duplicate token table symbol", symbol));
@@ -831,8 +864,7 @@ void DecodeChains(Source & src, MeshGrid const & grid, GeometryTables const & ta
                   GeometryScratch & scratch, TileMesh & mesh)
 {
   uint64_t const count = ReadVarUint<uint64_t>(src);
-  // The bitstream can not hold more events than it has bits. Always-on: a corrupt count must
-  // not drive the reserves below and the decode loop.
+  // The bitstream cannot hold more events than it has bits.
   CHECK_LESS_OR_EQUAL(count, 8 * src.Size(), ());
 
   BlobBitReader<Source> in(src);
@@ -945,8 +977,6 @@ void DecodeChains(Source & src, MeshGrid const & grid, GeometryTables const & ta
       }
       emitTriangle(cur.m_u, cur.m_v, w);
       ++decoded;
-      // Always-on: a crafted zero-length-code stream would otherwise consume no bits
-      // and loop this walk forever - an OOM hang instead of the accepted crash.
       CHECK_LESS_OR_EQUAL(decoded, count, ());
       pa = cur.m_u;
       pb = cur.m_v;

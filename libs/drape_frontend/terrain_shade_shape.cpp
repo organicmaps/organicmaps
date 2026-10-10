@@ -24,4 +24,18 @@ void TerrainShadeShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::B
                       make_ref(const_cast<gpu::TerrainShadeVertex *>(m_vertices.data())));
   batcher->InsertTriangleList(context, state, make_ref(&provider));
 }
+
+void TerrainGridShadeShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                                 ref_ptr<dp::TextureManager> /* textures */) const
+{
+  auto state = CreateRenderState(gpu::Program::TerrainShade, DepthLayer::GeometryLayer);
+  state.SetDepthTestEnabled(true);
+  for (auto const & row : m_rows)
+  {
+    dp::AttributeProvider provider(1, static_cast<uint32_t>(row.size()));
+    provider.InitStream(0, gpu::TerrainShadeVertex::GetBindingInfo(),
+                        make_ref(const_cast<gpu::TerrainShadeVertex *>(row.data())));
+    batcher->InsertTriangleStrip(context, state, make_ref(&provider), false /* canDivide */);
+  }
+}
 }  // namespace df

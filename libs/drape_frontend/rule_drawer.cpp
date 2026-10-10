@@ -19,6 +19,7 @@
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/terrain/isolines_tracer.hpp"
+#include "indexer/terrain/terrain_normals.hpp"
 #include "indexer/terrain/terrain_utils.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -519,18 +520,19 @@ void RuleDrawer::DrawTerrain(MapDataProvider const & model)
   if (!queryRect.Intersect(mercator::Bounds::FullRect()))
     return;
 
-  terrain::TileMesh mesh;
-  model.ReadTerrainMesh(queryRect, m_zoomLevel, mesh);
-  if (CheckCancelled() || mesh.IsEmpty())
+  terrain::TerrainData data;
+  model.ReadTerrain(queryRect, m_zoomLevel, data, [this] { return CheckCancelled(); });
+  if (CheckCancelled() || data.IsEmpty())
     return;
 
 #ifdef TERRAIN_DEBUG_MESH
-  DrawTerrainDebugMesh(mesh);
+  DrawTerrainDebugMesh(data.m_mesh);
+  DrawTerrainDebugRaster(data);
 #else
-  DrawTerrainShade(mesh);
+  DrawTerrainShade(data);
 #endif
   if (drawIsolines && !CheckCancelled())
-    DrawDynamicIsolines(mesh, isolinesStyle, units);
+    DrawDynamicIsolines(data, isolinesStyle, units);
 
   if (CheckCancelled())
     return;
@@ -610,8 +612,39 @@ void RuleDrawer::DrawTerrainDebugMesh(terrain::TileMesh const & mesh)
 #endif
 }
 
-void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
+void RuleDrawer::DrawTerrainDebugRaster(terrain::TerrainData const & data)
 {
+#ifdef TERRAIN_DEBUG_MESH
+  auto const & tileRect = m_applyParams.m_tileRect;
+  for (auto const & patch : data.m_rasterPatches)
+  {
+    auto const rect = patch.GetRect();
+    if (!tileRect.IsIntersect(rect))
+      continue;
+    std::vector<m2::SharedSpline> splines;
+    m2::ClipPathByRect(
+        tileRect, {rect.LeftBottom(), rect.RightBottom(), rect.RightTop(), rect.LeftTop(), rect.LeftBottom()}, splines);
+    df::LineViewParams params;
+    params.m_tileCenter = tileRect.Center();
+    params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+    params.m_cap = dp::ButtCap;
+    params.m_join = dp::RoundJoin;
+    params.m_color = dp::Color(0, 80, 255, 160);
+    params.m_depth = dp::kMaxDepth;
+    params.m_depthLayer = DepthLayer::GeometryLayer;
+    params.m_width = 1;
+    params.m_zoomLevel = m_zoomLevel;
+    for (auto const & spline : splines)
+      m_applyParams.m_insertShape(make_unique_dp<LineShape>(spline, params));
+  }
+#else
+  UNUSED_VALUE(data);
+#endif
+}
+
+void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
+{
+  auto const & mesh = data.m_mesh;
   m2::RectD const & tileRect = m_applyParams.m_tileRect;
 
   // The DEFAULT light direction (towards the light): azimuth 315 (NW), altitude 45
@@ -634,18 +667,16 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
       kExaggeration / mercator::DistanceOnEarth({center.x - 0.5, center.y}, {center.x + 0.5, center.y});
 
   auto const & points = mesh.GetPoints();
-  auto const & altitudes = mesh.GetAltitudes();
   auto const & triangles = mesh.GetTriangles();
 
   // Pass 1: accumulate the area-weighted face normals per vertex. The mesh vertices are
   // deduplicated across features and blocks, so the smoothed per-vertex normals agree
   // along every seam. Triangles outside the tile still contribute to their vertices,
   // only the intersecting ones are emitted.
-  struct Normal
-  {
-    double m_nx = 0.0, m_ny = 0.0, m_nz = 0.0;
-  };
-  std::vector<Normal> normals(points.size());
+  auto const jointNormals = terrain::CalculateTerrainNormals(data, zScale, [this] { return CheckCancelled(); });
+  if (CheckCancelled())
+    return;
+  auto const & normals = jointNormals.m_tin;
   std::vector<uint32_t> shadeTriangles;
   for (size_t t = 0; t + 2 < triangles.size(); t += 3)
   {
@@ -655,23 +686,6 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
     m2::PointD const & p0 = points[i0];
     m2::PointD const & p1 = points[i1];
     m2::PointD const & p2 = points[i2];
-
-    // The upward normal of the CCW triangle (unnormalized, i.e. area-weighted), the
-    // altitudes scaled into mercator units.
-    double const e1x = p1.x - p0.x, e1y = p1.y - p0.y;
-    double const e2x = p2.x - p0.x, e2y = p2.y - p0.y;
-    double const e1z = (altitudes[i1] - altitudes[i0]) * zScale;
-    double const e2z = (altitudes[i2] - altitudes[i0]) * zScale;
-    double const nx = e1y * e2z - e1z * e2y;
-    double const ny = e1z * e2x - e1x * e2z;
-    double const nz = e1x * e2y - e1y * e2x;
-
-    for (uint32_t const v : {i0, i1, i2})
-    {
-      normals[v].m_nx += nx;
-      normals[v].m_ny += ny;
-      normals[v].m_nz += nz;
-    }
 
     m2::RectD triRect(p0, p1);
     triRect.Add(p2);
@@ -696,12 +710,12 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
   for (size_t i = 0; i < normals.size(); ++i)
   {
     auto const & n = normals[i];
-    double const len = std::sqrt(n.m_nx * n.m_nx + n.m_ny * n.m_ny + n.m_nz * n.m_nz);
+    double const len = std::sqrt(n.m_x * n.m_x + n.m_y * n.m_y + n.m_z * n.m_z);
     if (len < 1e-15)
       continue;
-    unitNormals[i] = glsl::vec3(static_cast<float>(n.m_nx / len), static_cast<float>(n.m_ny / len),
-                                static_cast<float>(n.m_nz / len));
-    double const intensity = (n.m_nx * kLightX + n.m_ny * kLightY + n.m_nz * kLightZ) / len;
+    unitNormals[i] =
+        glsl::vec3(static_cast<float>(n.m_x / len), static_cast<float>(n.m_y / len), static_cast<float>(n.m_z / len));
+    double const intensity = (n.m_x * kLightX + n.m_y * kLightY + n.m_z * kLightZ) / len;
     double relative =
         (intensity - kFlatIntensity) / (intensity < kFlatIntensity ? kFlatIntensity : 1.0 - kFlatIntensity);
     if (relative < 0.0)
@@ -755,11 +769,83 @@ void RuleDrawer::DrawTerrainShade(terrain::TileMesh const & mesh)
       m2::ClipTriangleByRect(tileRect, pa, pc, pb, emit);
   }
 
+  std::vector<std::vector<gpu::TerrainShadeVertex>> gridRows;
+  for (size_t p = 0; p < data.m_rasterPatches.size(); ++p)
+  {
+    if (CheckCancelled())
+      return;
+    auto const & patch = data.m_rasterPatches[p];
+    if (!tileRect.IsIntersect(patch.GetRect()))
+      continue;
+    std::vector<glsl::vec3> gridNormals;
+    gridNormals.reserve(patch.m_heights.size());
+    for (auto const & n : jointNormals.m_raster[p])
+    {
+      double const length = std::sqrt(n.m_x * n.m_x + n.m_y * n.m_y + n.m_z * n.m_z);
+      gridNormals.emplace_back(length == 0 ? glsl::vec3(0, 0, 1)
+                                           : glsl::vec3(n.m_x / length, n.m_y / length, n.m_z / length));
+    }
+    uint32_t const stride = patch.CellsX() + 1;
+    for (uint32_t y = 0; y < patch.CellsY(); ++y)
+    {
+      if (CheckCancelled())
+        return;
+      std::vector<gpu::TerrainShadeVertex> row;
+      auto const flushRow = [&]
+      {
+        if (!row.empty())
+          gridRows.push_back(std::move(row));
+        row.clear();
+      };
+      for (uint32_t x = 0; x < patch.CellsX(); ++x)
+      {
+        uint32_t const sw = y * stride + x, ne = sw + stride + 1;
+        auto const a = patch.Point(sw), b = patch.Point(ne);
+        if (tileRect.IsPointInside(a) && tileRect.IsPointInside(b))
+        {
+          if (row.empty())
+          {
+            auto const nw = makeVertex(patch.Point(sw + stride), gridNormals[sw + stride]);
+            row.push_back(nw);  // Shift strip parity to CW.
+            row.push_back(nw);
+            row.push_back(makeVertex(a, gridNormals[sw]));
+          }
+          row.push_back(makeVertex(b, gridNormals[ne]));
+          row.push_back(makeVertex(patch.Point(sw + 1), gridNormals[sw + 1]));
+          continue;
+        }
+        flushRow();
+        if (!tileRect.IsIntersect(m2::RectD(a, b)))
+          continue;
+        // Only edge cells need temporary clipped triangles. Normals are
+        // interpolated on exactly the same fixed-diagonal surface as the TIN path.
+        for (uint32_t t : {2 * (y * patch.CellsX() + x), 2 * (y * patch.CellsX() + x) + 1})
+        {
+          auto const v = patch.Triangle(t);
+          auto const pa = patch.Point(v[0]), pb = patch.Point(v[1]), pc = patch.Point(v[2]);
+          double const orientation = m2::robust::OrientedS(pa, pb, pc);
+          m2::ClipTriangleByRect(tileRect, pa, pc, pb, [&](auto const & ca, auto const & cb, auto const & cc)
+          {
+            for (auto const & point : {ca, cb, cc})
+            {
+              float const wa = static_cast<float>(m2::robust::OrientedS(point, pb, pc) / orientation);
+              float const wb = static_cast<float>(m2::robust::OrientedS(pa, point, pc) / orientation);
+              vertices.push_back(makeVertex(
+                  point, wa * gridNormals[v[0]] + wb * gridNormals[v[1]] + (1.0f - wa - wb) * gridNormals[v[2]]));
+            }
+          });
+        }
+      }
+      flushRow();
+    }
+  }
+  if (!gridRows.empty())
+    m_applyParams.m_insertShape(make_unique_dp<TerrainGridShadeShape>(std::move(gridRows)));
   if (!vertices.empty())
     m_applyParams.m_insertShape(make_unique_dp<TerrainShadeShape>(std::move(vertices)));
 }
 
-void RuleDrawer::DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::IsolinesStyle const & isolinesStyle,
+void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain::IsolinesStyle const & isolinesStyle,
                                      measurement_utils::Units units)
 {
   double const visScale = m_applyParams.m_vparams.GetVisualScale();
@@ -771,7 +857,7 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TileMesh const & mesh, terrain::Is
   uint32_t textIndex = 128;
 
   // The isolines come in the display units (see terrain::TraceIsolines).
-  terrain::TraceIsolines(mesh, isolinesStyle.GetStep(), units, [&](terrain::Isoline && isoline)
+  terrain::TraceIsolines(data, isolinesStyle.GetStep(), units, [&](terrain::Isoline && isoline)
   {
     if (CheckCancelled())
       return;

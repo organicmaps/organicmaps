@@ -113,6 +113,12 @@ void Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState 
   InsertTriangleStrip(context, state, params, nullptr);
 }
 
+void Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                  ref_ptr<AttributeProvider> params, bool canDivide)
+{
+  InsertPrimitives<TriangleStripBatch>(context, state, params, nullptr, 0 /* vertexStride */, canDivide);
+}
+
 IndicesRange Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
                                           ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle)
 {

@@ -14,9 +14,11 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
+#include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
 
 #include "defines.hpp"
 
@@ -236,7 +238,9 @@ UNIT_TEST(TerrainProvider_DeleteByIdKeepsAdjacentBlocks)
     TEST_EQUAL(registered.size(), 1, (deletedPath, keptPath));
     TEST_EQUAL(registered.front().m_id, keptFile.m_id, ());
     TEST_EQUAL(deregistered, std::vector<terrain::TerrainId>{deletedFile.m_id}, ());
-    TEST_EQUAL(invalidRect, deletedFile.m_rect, ());
+    auto affected = deletedFile.m_rect;
+    affected.Add(keptFile.m_rect);
+    TEST_EQUAL(invalidRect, affected, ("The kept neighbor must rebuild halo normals and contour guide points"));
     // The provider only deregisters; Storage owns physical file removal.
     TEST(Platform::IsFileExistsByFullPath(deletedPath), (deletedPath));
     TEST(Platform::IsFileExistsByFullPath(keptPath), (keptPath));

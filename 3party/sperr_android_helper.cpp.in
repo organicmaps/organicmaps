@@ -1,0 +1,2 @@
+// Organic Maps build adaptation: use posix_memalign on Android API < 28.
+@SPERR_HELPER_SOURCE@

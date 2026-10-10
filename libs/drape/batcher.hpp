@@ -37,6 +37,8 @@ public:
 
   void InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
                            ref_ptr<AttributeProvider> params);
+  void InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                           ref_ptr<AttributeProvider> params, bool canDivide);
   IndicesRange InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
                                    ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle);
 
