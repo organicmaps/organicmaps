@@ -115,6 +115,7 @@ final class RootSettingsInteractor {
   private func loadState() -> RootSettingsState {
     RootSettingsState(osmUserName: settings.osmUserName() ?? "",
                       measurementUnits: settings.measurementUnits(),
+                      altitudeUnits: settings.altitudeUnits(),
                       zoomButtonsEnabled: settings.zoomButtonsEnabled(),
                       buildings3DEnabled: settings.map3dBuildingsEnabled(),
                       buildings3DEditable: isBuildings3DEditable,

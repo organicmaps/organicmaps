@@ -83,6 +83,25 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     });
   }
 
+  auto altitudeRadioBox = new QGroupBox(tr("Elevation units"));
+  {
+    auto layout = new QHBoxLayout();
+    auto group = new QButtonGroup(this);
+    auto meters = new QRadioButton(tr("Meters"));
+    auto feet = new QRadioButton(tr("Feet"));
+    layout->addWidget(meters);
+    layout->addWidget(feet);
+    group->addButton(meters, static_cast<int>(Units::Metric));
+    group->addButton(feet, static_cast<int>(Units::Imperial));
+    group->button(static_cast<int>(GetAltitudeUnits()))->setChecked(true);
+    altitudeRadioBox->setLayout(layout);
+    connect(group, &QButtonGroup::idClicked, [&framework](int id)
+    {
+      settings::Set(settings::kAltitudeUnits, static_cast<Units>(id));
+      framework.SetupMeasurementSystem();
+    });
+  }
+
   QCheckBox * largeFontCheckBox = new QCheckBox("Use larger font on the map");
   {
     largeFontCheckBox->setChecked(framework.LoadLargeFontsSize());
@@ -282,6 +301,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
 
   QVBoxLayout * finalLayout = new QVBoxLayout();
   finalLayout->addWidget(unitsRadioBox);
+  finalLayout->addWidget(altitudeRadioBox);
   finalLayout->addWidget(largeFontCheckBox);
   finalLayout->addWidget(transliterationCheckBox);
   finalLayout->addWidget(developerModeCheckBox);

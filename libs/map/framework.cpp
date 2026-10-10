@@ -2094,7 +2094,16 @@ void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
 
+  // Preserve existing altitude units on upgrade, then keep them independent of distance units.
+  auto altitudeUnits = measurement_utils::GetMeasurementUnits();
+  if (!settings::Get(settings::kAltitudeUnits, altitudeUnits))
+    settings::Set(settings::kAltitudeUnits, altitudeUnits);
+
   m_routingManager.SetTurnNotificationsUnits(measurement_utils::GetMeasurementUnits());
+  // Rebuild cached contour labels too, including tiles prefetched outside the viewport.
+  if (m_drapeEngine)
+    m_drapeEngine->InvalidateMap();
+  UpdatePlacePageInfoForCurrentSelection();
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)

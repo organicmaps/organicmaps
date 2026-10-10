@@ -3059,6 +3059,22 @@ vi = Đơn vị đo
 zh-Hans = 测量单位
 zh-Hant = 測量單位
 
+[altitude_units]
+comment = Independent elevation unit setting, used for contour lines, heights, and elevation profiles
+tags = android-app,apple-maps
+en = Elevation units
+
+[altitude_units_meters]
+comment = Elevation unit option in settings
+tags = android-app,apple-maps
+en = Meters
+en-GB = Metres
+
+[altitude_units_feet]
+comment = Elevation unit option in settings
+tags = android-app,apple-maps
+en = Feet
+
 [measurement_units_summary]
 comment = Detailed description of Measurement Units settings button
 tags = android-app

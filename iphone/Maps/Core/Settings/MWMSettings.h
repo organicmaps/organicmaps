@@ -25,6 +25,9 @@ NS_SWIFT_NAME(Settings)
 + (MWMUnits)measurementUnits;
 + (void)setMeasurementUnits:(MWMUnits)measurementUnits;
 
++ (MWMUnits)altitudeUnits;
++ (void)setAltitudeUnits:(MWMUnits)altitudeUnits;
+
 + (BOOL)zoomButtonsEnabled;
 + (void)setZoomButtonsEnabled:(BOOL)zoomButtonsEnabled;
 

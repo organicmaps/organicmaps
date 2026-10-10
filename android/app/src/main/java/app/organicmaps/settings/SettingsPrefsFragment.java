@@ -53,6 +53,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
     initStoragePrefCallbacks();
     initMeasureUnitsPrefsCallbacks();
+    initAltitudeUnitsPrefsCallbacks();
     initZoomPrefsCallbacks();
     initMapStylePrefsCallbacks();
     initAutoDownloadPrefsCallbacks();
@@ -471,6 +472,17 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     ((ListPreference) pref).setValue(String.valueOf(UnitLocale.getUnits()));
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       UnitLocale.setUnits(Integer.parseInt((String) newValue));
+      return true;
+    });
+  }
+
+  private void initAltitudeUnitsPrefsCallbacks()
+  {
+    final ListPreference pref = getPreference(getString(R.string.pref_altitude_units));
+
+    pref.setValue(String.valueOf(UnitLocale.getAltitudeUnits()));
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      UnitLocale.setAltitudeUnits(Integer.parseInt((String) newValue));
       return true;
     });
   }

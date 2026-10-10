@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "platform/distance.hpp"
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
@@ -26,20 +27,23 @@ std::string MakeDistanceStr(std::string value, Distance::Units unit)
 struct ScopedSettings
 {
   /// Saves/restores previous units and sets new units for a scope.
-  explicit ScopedSettings(measurement_utils::Units newUnits) : m_oldUnits(measurement_utils::Units::Metric)
+  explicit ScopedSettings(measurement_utils::Units newUnits, std::string_view key = settings::kMeasurementUnits)
+    : m_key(key)
+    , m_oldUnits(measurement_utils::Units::Metric)
   {
-    m_wasSet = settings::Get(settings::kMeasurementUnits, m_oldUnits);
-    settings::Set(settings::kMeasurementUnits, newUnits);
+    m_wasSet = settings::Get(m_key, m_oldUnits);
+    settings::Set(m_key, newUnits);
   }
 
   ~ScopedSettings()
   {
     if (m_wasSet)
-      settings::Set(settings::kMeasurementUnits, m_oldUnits);
+      settings::Set(m_key, m_oldUnits);
     else
-      settings::Delete(settings::kMeasurementUnits);
+      settings::Delete(m_key);
   }
 
+  std::string_view m_key;
   bool m_wasSet;
   measurement_utils::Units m_oldUnits;
 };
@@ -80,17 +84,45 @@ UNIT_TEST(Distance_CreateAltitudeFormatted)
 {
   using enum Distance::Units;
   {
-    ScopedSettings const guard(measurement_utils::Units::Metric);
+    ScopedSettings const guard(measurement_utils::Units::Metric, settings::kAltitudeUnits);
 
     TEST_EQUAL(Distance::FormatAltitude(5), MakeDistanceStr("5", Meters), ());
     TEST_EQUAL(Distance::FormatAltitude(-8849), MakeDistanceStr("-8849", Meters), ());
     TEST_EQUAL(Distance::FormatAltitude(12345), MakeDistanceStr("12,345", Meters), ());
   }
   {
-    ScopedSettings const guard(measurement_utils::Units::Imperial);
+    ScopedSettings const guard(measurement_utils::Units::Imperial, settings::kAltitudeUnits);
 
     TEST_EQUAL(Distance::FormatAltitude(10000), MakeDistanceStr("32,808", Feet), ());
+    TEST_EQUAL(Distance::FormatAltitude(100), MakeDistanceStr("328", Feet), ());
+    TEST_EQUAL(Distance::FormatAltitude(-50), MakeDistanceStr("-164", Feet), ());
+    TEST_EQUAL(Distance::FormatAltitude(0), MakeDistanceStr("0", Feet), ());
   }
+}
+
+UNIT_TEST(Distance_IndependentAltitudeUnits)
+{
+  using measurement_utils::Units;
+  ScopedSettings const distanceGuard(Units::Imperial);
+  ScopedSettings const altitudeGuard(Units::Metric, settings::kAltitudeUnits);
+
+  TEST_EQUAL(Distance::FormatAltitude(100), MakeDistanceStr("100", Distance::Units::Meters), ());
+  TEST_EQUAL(GetLocalizedAltitudeUnits().m_low, "m", ());
+  TEST_EQUAL(Distance::CreateFormatted(100).GetUnits(), Distance::Units::Feet, ());
+  TEST_EQUAL(measurement_utils::FormatSpeedNumeric(10, measurement_utils::GetMeasurementUnits()), "22", ());
+
+  settings::Set(settings::kMeasurementUnits, Units::Metric);
+  settings::Set(settings::kAltitudeUnits, Units::Imperial);
+  TEST_EQUAL(Distance::FormatAltitude(100), MakeDistanceStr("328", Distance::Units::Feet), ());
+  TEST_EQUAL(GetLocalizedAltitudeUnits().m_low, "ft", ());
+  TEST_EQUAL(Distance::CreateFormatted(100).GetUnits(), Distance::Units::Meters, ());
+  TEST_EQUAL(measurement_utils::FormatSpeedNumeric(10, measurement_utils::GetMeasurementUnits()), "36", ());
+
+  // Existing installations keep their previous altitude units until the preference is initialized.
+  settings::Delete(settings::kAltitudeUnits);
+  TEST(measurement_utils::GetAltitudeUnits() == Units::Metric, ());
+  settings::Set(settings::kMeasurementUnits, Units::Imperial);
+  TEST(measurement_utils::GetAltitudeUnits() == Units::Imperial, ());
 }
 
 UNIT_TEST(Distance_IsLowUnits)
