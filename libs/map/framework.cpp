@@ -1107,9 +1107,9 @@ void Framework::ShowFeature(FeatureID const & featureId)
   ActivateMapSelection();
 }
 
-void Framework::AddBookmarksFile(std::string const & filePath, bool isTemporaryFile)
+void Framework::AddBookmarksFile(std::string const & filePath, bool isTemporaryFile, bool ownsParentDirectory)
 {
-  GetBookmarkManager().ImportBookmarks({{filePath, isTemporaryFile}});
+  GetBookmarkManager().ImportBookmarks({{filePath, isTemporaryFile, ownsParentDirectory}});
 }
 
 void Framework::PrepareToShutdown()
