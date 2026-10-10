@@ -650,6 +650,9 @@
 "transliteration_title" = "ترجمه به الفبای لاتین";
 "placepage_remove_stop" = "توقف را حذف کنید";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "افزودن مقصد";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "افزودن توقف";
 "error_enter_correct_name" = "لطفا نام صحیح را وارد کنید";

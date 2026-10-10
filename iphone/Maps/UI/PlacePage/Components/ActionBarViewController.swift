@@ -11,6 +11,7 @@ final class ActionBarViewController: UIViewController {
   var canAddStop = false
   var canReplaceStop = false
   var canRouteToAndFrom = false
+  var shouldAppendNewPoints = false
 
   private var visibleButtons: [ActionBarButtonType] = []
   private var additionalButtons: [ActionBarButtonType] = []
@@ -58,13 +59,14 @@ final class ActionBarViewController: UIViewController {
     }
 
     var buttons: [ActionBarButtonType] = []
+    let addStopButton: ActionBarButtonType = shouldAppendNewPoints ? .routeAddDestination : .routeAddStop
     switch placePageData.objectType {
     case .POI, .bookmark:
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
       if canAddStop {
-        buttons.append(canReplaceStop ? .routeReplaceStop : .routeAddStop)
+        buttons.append(canReplaceStop ? .routeReplaceStop : addStopButton)
       }
       buttons.append(.bookmark)
       if canRouteToAndFrom {
@@ -75,7 +77,7 @@ final class ActionBarViewController: UIViewController {
         buttons.append(.routeFrom)
       }
       if canAddStop {
-        buttons.append(.routeAddStop)
+        buttons.append(addStopButton)
       }
       buttons.append(.bookmark)
       if canRouteToAndFrom {

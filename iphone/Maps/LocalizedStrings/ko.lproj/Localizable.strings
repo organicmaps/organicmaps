@@ -650,6 +650,9 @@
 "transliteration_title" = "라틴어로 음역";
 "placepage_remove_stop" = "정류장 제거";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "목적지 추가";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "경유지 추가";
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";

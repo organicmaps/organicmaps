@@ -255,7 +255,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       }
     case .download:
       startMapDownloading()
-    case .routeAddStop, .routeReplaceStop:
+    case .routeAddStop, .routeAddDestination, .routeReplaceStop:
       MWMPlacePageManagerHelper.routeAddStop(placePageData)
     case .routeFrom:
       MWMPlacePageManagerHelper.route(from: placePageData)

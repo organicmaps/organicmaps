@@ -19,6 +19,7 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeRouteTo: return L(@"p2p_to_here");
   case MWMActionBarButtonTypeMore: return L(@"placepage_more_button");
   case MWMActionBarButtonTypeRouteAddStop: return L(@"placepage_add_stop");
+  case MWMActionBarButtonTypeRouteAddDestination: return L(@"route_add_destination");
   case MWMActionBarButtonTypeRouteReplaceStop: return L(@"placepage_replace_stop");
   case MWMActionBarButtonTypeRouteRemoveStop: return L(@"placepage_remove_stop");
   case MWMActionBarButtonTypeAvoidToll: return L(@"avoid_tolls");
@@ -94,6 +95,9 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
     if ([self needsToHighlightRouteToButton])
       self.button.coloring = MWMButtonColoringBlue;
+    break;
+  case MWMActionBarButtonTypeRouteAddDestination:
+    [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
     break;
   case MWMActionBarButtonTypeMore:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"] forState:UIControlStateNormal];

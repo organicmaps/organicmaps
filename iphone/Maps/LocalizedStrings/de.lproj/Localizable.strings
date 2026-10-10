@@ -650,6 +650,9 @@
 "transliteration_title" = "Transliteration ins lateinische Alphabet";
 "placepage_remove_stop" = "Stopp entfernen";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Ziel hinzufügen";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Stopp einfügen";
 "error_enter_correct_name" = "Bitte gib einen korrekten Namen ein";
