@@ -13,6 +13,7 @@
 #include <cmath>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 namespace nogps_inertial_tests
 {
@@ -330,6 +331,43 @@ UNIT_TEST(NoGps_AccelLog_JoltOfSensor)
   TEST_EQUAL(slices.size(), AccelLog::kSlices, (line));
   TEST_EQUAL(slices[0], "0.00,0.00,0.10,0.2", ());
   TEST_EQUAL(slices[1], "0.00,0.00,0.10,6.8", ());
+}
+
+UNIT_TEST(NoGps_GyroLog_LineEverySecond)
+{
+  GyroLog log;
+  std::vector<std::string> lines;
+  // 50 samples a second for 3 s and one more to end the last second. The car turns right by 20 degrees a second
+  // in the third part of the second second, and shakes by 0.5 degrees to both sides in the third one.
+  for (int i = 0; i <= 150; ++i)
+  {
+    double delta = 0;
+    if (i >= 70 && i < 80)
+      delta = 0.4;
+    else if (i >= 100 && i < 150)
+      delta = i % 2 == 0 ? 0.5 : -0.5;
+    if (auto const line = log.OnSample(i * kStepNs, delta))
+    {
+      lines.push_back(*line);
+      if (lines.size() == 2)
+        TEST_ALMOST_EQUAL_ABS(log.GetLineRotationDeg(), 4.0, 1e-9, ());
+      else if (lines.size() == 3)
+        TEST_ALMOST_EQUAL_ABS(log.GetLineRotationDeg(), 25.0, 1e-9, ());
+    }
+  }
+  TEST_EQUAL(lines.size(), 3, ());
+  TEST_EQUAL(lines[0], "0.0 0.00 0.00 0.00 0.00 0.00", ());
+  // The total rotation since the start, then the parts of the second.
+  TEST_EQUAL(lines[1], "4.0 0.00 0.00 4.00 0.00 0.00", ());
+  TEST_EQUAL(lines[2], "4.0 0.00 0.00 0.00 0.00 0.00", ());
+
+  // The sensor was silent for 5 s: the unfinished second is dropped, the total goes on.
+  int64_t constexpr kLater = 10'000'000'000LL;
+  for (int i = 0; i < 50; ++i)
+    TEST(!log.OnSample(kLater + i * kStepNs, 0.1), ());
+  auto const line = log.OnSample(kLater + 50 * kStepNs, 0.1);
+  TEST(line, ());
+  TEST_EQUAL(*line, "9.0 1.00 1.00 1.00 1.00 1.00", ());
 }
 
 UNIT_TEST(NoGps_AccelLog_BreakStartsAnew)

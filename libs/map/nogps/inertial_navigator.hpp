@@ -66,6 +66,8 @@ public:
   static double constexpr kMaxGpsHeadingErrorDeg = 10;
   // A longer pause of the source is a lost connection, the car could do anything meanwhile.
   static double constexpr kMaxMotionDtSec = 1;
+  // A second the car stands in goes to the trip log if the car has rotated at least this much in it.
+  static double constexpr kGyroLogMinRotationDeg = 1;
   static int64_t constexpr kSnapIntervalMs = 1000;
   // A road farther aside is another street: the car doesn't jump to it, however inaccurate the position is.
   // It did at the end of a street with the position ahead of the car, and between the ramps of a junction.
@@ -263,6 +265,8 @@ private:
   SpeedLag m_speedLag;
   // The accelerometer for the trip log, nothing depends on it yet.
   AccelLog m_accelLog;
+  // The rotation of the car for the trip log.
+  GyroLog m_gyroLog;
   bool m_moving = false;
   // The speed the lag is compensated up to, nothing if the car didn't move the position.
   std::optional<double> m_lagSpeedMps;

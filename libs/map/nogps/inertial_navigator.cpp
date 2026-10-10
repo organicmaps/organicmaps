@@ -65,6 +65,7 @@ void InertialNavigator::Start()
   m_source->Start();
   // The accelerometer goes to the trip log with any source.
   m_accelLog.Reset();
+  m_gyroLog.Reset();
   // The phone may be put into the holder another way, the box may be another one.
   m_boxAccelSpeed.Reset();
   m_phoneAccelSpeed.Reset();
@@ -411,6 +412,11 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
 {
   if (dtSec <= 0 || dtSec > kMaxMotionDtSec)
     return;
+
+  // The car reports that it moves a second late: a second with a rotation is written too.
+  auto const gyroLine = m_gyroLog.OnSample(timestampNs, yawDeltaDeg);
+  if (gyroLine && (m_moving || m_gyroLog.GetLineRotationDeg() >= kGyroLogMinRotationDeg))
+    LOG(LINFO, ("GYRO", *gyroLine));
 
   bool const speedFresh = IsSpeedFresh();
   m_deadReckoning.SetSpeed(speedFresh ? m_speedKmh / 3.6 * GetSpeedScale(m_speedKmh) : 0);

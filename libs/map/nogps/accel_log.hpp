@@ -36,4 +36,31 @@ private:
   std::array<double, 3> m_max{};
   double m_jolt = 0;
 };
+
+/// Packs the rotation of the car for the trip log: one line a second, the total rotation since the start and
+/// kSlices parts of the second each with the rotation during it, degrees. The log is to replay what the car did
+/// where the map has no roads, a yard or a parking lot, and to try the rules for such places on real trips.
+class GyroLog
+{
+public:
+  static int constexpr kSlices = AccelLog::kSlices;
+
+  /// \param yawDeltaDeg the rotation of the car since the previous sample.
+  /// \returns the line of the second that has just ended.
+  std::optional<std::string> OnSample(int64_t timestampNs, double yawDeltaDeg);
+  /// \returns how much the car has rotated to either side in the second of the last line.
+  double GetLineRotationDeg() const { return m_lineRotationDeg; }
+
+  void Reset();
+
+private:
+  std::string m_line;
+  int m_slices = 0;
+  bool m_hasSlice = false;
+  int64_t m_sliceStartNs = 0;
+  double m_sliceDeg = 0;
+  double m_rotationDeg = 0;
+  double m_lineRotationDeg = 0;
+  double m_totalDeg = 0;
+};
 }  // namespace nogps

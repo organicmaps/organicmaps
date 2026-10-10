@@ -29,6 +29,8 @@ public:
   static int64_t constexpr kHelloIntervalMs = 1000;
   // The box sends 50 lines a second, a longer silence means it is lost.
   static int64_t constexpr kDataTimeoutMs = 1000;
+  // The seconds of the accelerometer written to the trip log from before the car has reported that it moves.
+  static size_t constexpr kAccelLinesBeforeStart = 3;
   // A calibration takes ~3 s on the box.
   static int64_t constexpr kCalibrationTimeoutMs = 10'000;
   // The events missed are asked again not more often than this.
@@ -130,6 +132,8 @@ private:
   std::optional<int64_t> m_lastDataMs;
   int m_flags = 0;
   AccelLog m_accelLog;
+  // The lines of the accelerometer while the car reports that it stands.
+  std::deque<std::string> m_accelLinesBeforeStart;
   bool m_hasLast = false;
   int64_t m_lastTimeMs = 0;
   int64_t m_lastYawMdeg = 0;

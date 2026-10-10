@@ -1,6 +1,7 @@
 #include "map/nogps/accel_log.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <cstdio>
 
 namespace nogps
@@ -67,5 +68,49 @@ void AccelLog::EndSlice()
   m_line += buf;
   ++m_slices;
   ClearSlice();
+}
+
+std::optional<std::string> GyroLog::OnSample(int64_t timestampNs, double yawDeltaDeg)
+{
+  std::optional<std::string> line;
+  // A break of the sensor starts the second anew, the total goes on.
+  if (m_hasSlice && (timestampNs < m_sliceStartNs || timestampNs - m_sliceStartNs > 2 * kAccelSliceNs))
+  {
+    m_line.clear();
+    m_slices = 0;
+    m_rotationDeg = 0;
+    m_hasSlice = false;
+  }
+  if (m_hasSlice && timestampNs - m_sliceStartNs >= kAccelSliceNs)
+  {
+    char buf[32];
+    std::snprintf(buf, sizeof(buf), " %.2f", m_sliceDeg);
+    m_line += buf;
+    m_hasSlice = false;
+    if (++m_slices == kSlices)
+    {
+      std::snprintf(buf, sizeof(buf), "%.1f", m_totalDeg);
+      line = buf + m_line;
+      m_lineRotationDeg = m_rotationDeg;
+      m_line.clear();
+      m_slices = 0;
+      m_rotationDeg = 0;
+    }
+  }
+  if (!m_hasSlice)
+  {
+    m_hasSlice = true;
+    m_sliceStartNs = timestampNs;
+    m_sliceDeg = 0;
+  }
+  m_sliceDeg += yawDeltaDeg;
+  m_rotationDeg += std::fabs(yawDeltaDeg);
+  m_totalDeg += yawDeltaDeg;
+  return line;
+}
+
+void GyroLog::Reset()
+{
+  *this = {};
 }
 }  // namespace nogps

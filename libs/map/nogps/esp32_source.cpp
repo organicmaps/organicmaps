@@ -236,8 +236,24 @@ void Esp32Source::OnData(esp32::Data const & data)
   {
     auto const line =
         m_accelLog.OnSample(data.m_timeMs * 1'000'000, data.m_accelH1, data.m_accelH2, data.m_accelUp, data.m_jolt);
+    // What the sensor has felt before a break is not before the start.
+    if (!fresh)
+      m_accelLinesBeforeStart.clear();
     if (line && data.m_speedKmh > 0)
+    {
+      // The car reports that it moves a second late. What the sensor has felt before that tells which way the car
+      // has started, forward or backward.
+      for (size_t i = 0; i < m_accelLinesBeforeStart.size(); ++i)
+        LOG(LINFO, ("ACCB_BEFORE", m_accelLinesBeforeStart.size() - i, m_accelLinesBeforeStart[i]));
+      m_accelLinesBeforeStart.clear();
       LOG(LINFO, ("ACCB", *line));
+    }
+    else if (line)
+    {
+      m_accelLinesBeforeStart.push_back(std::move(*line));
+      if (m_accelLinesBeforeStart.size() > kAccelLinesBeforeStart)
+        m_accelLinesBeforeStart.pop_front();
+    }
     m_listener.OnSourceAccel({data.m_accelH1, data.m_accelH2, data.m_accelUp});
   }
 
