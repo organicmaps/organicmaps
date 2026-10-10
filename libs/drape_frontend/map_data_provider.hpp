@@ -12,7 +12,7 @@
 
 namespace terrain
 {
-class TileMesh;
+struct TerrainData;
 }
 
 namespace df
@@ -31,7 +31,8 @@ public:
   using TCancelTileBackgroundReadingFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
   // Dynamic isolines and hillshading from the TWM terrain files.
   using THasTerrainFn = std::function<bool(m2::RectD const &)>;
-  using TReadTerrainFn = std::function<void(m2::RectD const &, int, terrain::TileMesh &)>;
+  using TReadTerrainFn =
+      std::function<void(m2::RectD const &, int, terrain::TerrainData &, std::function<bool()> const &)>;
 
   MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
                   TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
@@ -44,7 +45,8 @@ public:
 
   // Terrain availability and the tile mesh reading; safe to call from the tile reading threads.
   bool HasTerrain(m2::RectD const & rect) const;
-  void ReadTerrainMesh(m2::RectD const & rect, int zoom, terrain::TileMesh & mesh) const;
+  void ReadTerrain(m2::RectD const & rect, int zoom, terrain::TerrainData & data,
+                   std::function<bool()> const & isCancelled) const;
 
   TTileBackgroundReadFn ReadTileBackgroundFn() const;
   TCancelTileBackgroundReadingFn CancelTileBackgroundReadingFn() const;

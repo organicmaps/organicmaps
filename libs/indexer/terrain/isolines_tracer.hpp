@@ -12,6 +12,7 @@
 
 namespace terrain
 {
+struct TerrainData;
 // One traced isoline: the level altitude (in the units of the trace, see Trace) and the
 // polyline in mercator. A closed ring stores the first point again as the last one.
 // int32_t, not the storage Altitude: the feet values overflow int16_t for the deep bathymetry.
@@ -46,5 +47,8 @@ using IsolineFn = std::function<void(Isoline &&)>;
 // isCancelled (optional) is polled between the levels: a cancelled drape tile read
 // stops tracing instead of walking every remaining level of the mesh.
 void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
+                   std::function<bool()> const & isCancelled = {});
+// Joins grid/TIN fragments by exact physical edges before smoothing/clipping.
+void TraceIsolines(TerrainData const & data, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
                    std::function<bool()> const & isCancelled = {});
 }  // namespace terrain

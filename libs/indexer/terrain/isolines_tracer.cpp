@@ -1,5 +1,7 @@
 #include "indexer/terrain/isolines_tracer.hpp"
 
+#include "indexer/terrain/terrain_data.hpp"
+
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
@@ -14,207 +16,328 @@ namespace
 {
 uint32_t constexpr kNone = std::numeric_limits<uint32_t>::max();
 
-// The traced view over the deduplicated tile mesh: the altitudes are in the display
-// units, the adjacency map sews the triangles across features and blocks.
-struct TracedMesh
+int32_t DisplayAltitude(int32_t altitude, measurement_utils::Units units)
 {
-  std::vector<m2::PointD> const & m_points;
-  std::vector<int32_t> const & m_altitudes;
-  std::vector<uint32_t> const & m_triangles;
-  // Directed edge (u << 32 | v) -> the owning triangle.
-  std::unordered_map<uint64_t, uint32_t> m_edgeToTri;
+  return units == measurement_utils::Units::Imperial
+           ? static_cast<int32_t>(std::lround(measurement_utils::MetersToFeet(altitude)))
+           : altitude;
+}
 
-  static uint64_t EdgeKey(uint32_t u, uint32_t v) { return (static_cast<uint64_t>(u) << 32) | v; }
+struct EdgeLevel
+{
+  uint64_t m_a = 0, m_b = 0;
+  int32_t m_level = 0;
+  bool operator==(EdgeLevel const &) const = default;
+};
 
-  uint32_t Vertex(uint32_t tri, size_t i) const { return m_triangles[tri * 3 + i]; }
-
-  uint32_t Neighbor(uint32_t u, uint32_t v) const
+struct EdgeLevelHash
+{
+  size_t operator()(EdgeLevel const & key) const
   {
-    auto const it = m_edgeToTri.find(EdgeKey(v, u));
-    return it == m_edgeToTri.end() ? kNone : it->second;
+    impl::PointKeyHash hash;
+    return hash(key.m_a) ^ (hash(key.m_b) << 1) ^ hash(static_cast<uint32_t>(key.m_level));
   }
+};
 
-  // The crossing point of the level h on the (u, v) edge. The vertices are reordered
-  // canonically, so both incident triangles produce a bit-identical point.
-  m2::PointD Crossing(uint32_t u, uint32_t v, int32_t h) const
+struct Fragment
+{
+  Isoline m_line;
+  EdgeLevel m_entry, m_exit;
+};
+
+struct TinView
+{
+  TileMesh const & m_mesh;
+  std::vector<int32_t> m_feet;
+  std::span<int32_t const> m_altitudes;
+  std::unordered_map<uint64_t, uint32_t> m_edges;
+
+  explicit TinView(TileMesh const & mesh, measurement_utils::Units units) : m_mesh(mesh)
   {
-    if (u > v)
-      std::swap(u, v);
-    double const au = m_altitudes[u];
-    double const av = m_altitudes[v];
-    ASSERT(au != av, (h));
-    double const t = (h - au) / (av - au);
-    return m_points[u] + (m_points[v] - m_points[u]) * t;
+    m_altitudes = mesh.GetAltitudes();
+    if (units == measurement_utils::Units::Imperial)
+    {
+      m_feet.reserve(mesh.GetAltitudes().size());
+      for (int32_t altitude : mesh.GetAltitudes())
+        m_feet.push_back(DisplayAltitude(altitude, units));
+      m_altitudes = m_feet;
+    }
+    m_edges.reserve(mesh.GetTriangles().size());
+    for (uint32_t t = 0; t < Count(); ++t)
+    {
+      auto const v = Triangle(t);
+      for (size_t e = 0; e < 3; ++e)
+        CHECK(m_edges.emplace(Edge(v[e], v[(e + 1) % 3]), t).second, ());
+    }
   }
+  static uint64_t Edge(uint32_t u, uint32_t v) { return (uint64_t{u} << 32) | v; }
+  uint32_t Count() const { return static_cast<uint32_t>(m_mesh.GetTrianglesCount()); }
+  std::array<uint32_t, 3> Triangle(uint32_t t) const
+  {
+    auto const & indices = m_mesh.GetTriangles();
+    return {indices[3 * t], indices[3 * t + 1], indices[3 * t + 2]};
+  }
+  uint32_t Neighbor(uint32_t t, uint8_t edge) const
+  {
+    auto const v = Triangle(t);
+    auto const it = m_edges.find(Edge(v[(edge + 1) % 3], v[edge]));
+    return it == m_edges.end() ? kNone : it->second;
+  }
+  m2::PointU PointU(uint32_t v) const { return m_mesh.GetPointU(v); }
+  m2::PointD Point(uint32_t v) const { return m_mesh.GetPoints()[v]; }
+};
+
+// Interior topology is implicit: no node deduplication or hashed grid edges.
+struct GridView
+{
+  RasterPatch const & m_patch;
+  std::vector<int32_t> m_altitudes;
+
+  explicit GridView(RasterPatch const & patch, measurement_utils::Units units) : m_patch(patch)
+  {
+    m_altitudes.reserve(patch.m_heights.size());
+    for (int32_t altitude : patch.m_heights)
+      m_altitudes.push_back(DisplayAltitude(altitude, units));
+  }
+  uint32_t Count() const { return 2 * m_patch.CellsX() * m_patch.CellsY(); }
+  std::array<uint32_t, 3> Triangle(uint32_t t) const { return m_patch.Triangle(t); }
+  uint32_t Neighbor(uint32_t t, uint8_t edge) const { return m_patch.Neighbor(t, edge); }
+  m2::PointU PointU(uint32_t v) const { return m_patch.PointU(v); }
+  m2::PointD Point(uint32_t v) const { return m_patch.Point(v); }
 };
 
 struct CrossedEdges
 {
-  // The entry (low -> high) and the exit (high -> low) directed edges of a crossed triangle.
-  uint32_t m_entryU = kNone, m_entryV = kNone;
-  uint32_t m_exitU = kNone, m_exitV = kNone;
+  uint8_t m_entry = 3, m_exit = 3;
 };
 
-// A vertex exactly on the level counts as the higher side (half-open classification).
-bool IsHigh(int32_t alt, int32_t h)
+template <typename View>
+CrossedEdges GetCrossedEdges(View const & view, uint32_t triangle, int32_t level)
 {
-  return alt >= h;
-}
-
-CrossedEdges GetCrossedEdges(TracedMesh const & mesh, uint32_t tri, int32_t h)
-{
-  CrossedEdges edges;
-  for (size_t i = 0; i < 3; ++i)
+  CrossedEdges result;
+  auto const v = view.Triangle(triangle);
+  for (uint8_t e = 0; e < 3; ++e)
   {
-    uint32_t const u = mesh.Vertex(tri, i);
-    uint32_t const v = mesh.Vertex(tri, (i + 1) % 3);
-    bool const highU = IsHigh(mesh.m_altitudes[u], h);
-    bool const highV = IsHigh(mesh.m_altitudes[v], h);
-    if (highU == highV)
-      continue;
-    if (highU)
-    {
-      edges.m_exitU = u;
-      edges.m_exitV = v;
-    }
-    else
-    {
-      edges.m_entryU = u;
-      edges.m_entryV = v;
-    }
+    bool const a = view.m_altitudes[v[e]] >= level;
+    bool const b = view.m_altitudes[v[(e + 1) % 3]] >= level;
+    if (a != b)
+      (a ? result.m_exit : result.m_entry) = e;
   }
-  ASSERT(edges.m_entryU != kNone && edges.m_exitU != kNone, (tri, h));
-  return edges;
+  ASSERT(result.m_entry != 3 && result.m_exit != 3, (triangle, level));
+  return result;
 }
-}  // namespace
 
-void TraceIsolines(TileMesh const & tileMesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
-                   std::function<bool()> const & isCancelled /* = {} */)
+template <typename View>
+EdgeLevel Key(View const & view, uint32_t triangle, uint8_t edge, int32_t level)
 {
-  ASSERT_GREATER(step, 0, ());
-  size_t const trianglesCount = tileMesh.GetTrianglesCount();
-  if (trianglesCount == 0)
+  auto const v = view.Triangle(triangle);
+  uint64_t a = impl::PointKey(view.PointU(v[edge]));
+  uint64_t b = impl::PointKey(view.PointU(v[(edge + 1) % 3]));
+  if (b < a)
+    std::swap(a, b);
+  return {a, b, level};
+}
+
+template <typename View>
+m2::PointD Crossing(View const & view, uint32_t triangle, uint8_t edge, int32_t level)
+{
+  auto const v = view.Triangle(triangle);
+  uint32_t a = v[edge], b = v[(edge + 1) % 3];
+  // Both representations use physical endpoint ordering, independently of local IDs.
+  if (impl::PointKey(view.PointU(b)) < impl::PointKey(view.PointU(a)))
+    std::swap(a, b);
+  double const t = (static_cast<double>(level) - view.m_altitudes[a]) /
+                   (static_cast<double>(view.m_altitudes[b]) - view.m_altitudes[a]);
+  return view.Point(a) + (view.Point(b) - view.Point(a)) * t;
+}
+
+void AppendPoint(std::vector<m2::PointD> & points, m2::PointD const & point)
+{
+  if (points.empty() || points.back() != point)
+    points.push_back(point);
+}
+
+template <typename View, typename Emit>
+void TraceView(View const & view, int32_t step, Emit const & emit, std::function<bool()> const & isCancelled)
+{
+  uint32_t const count = view.Count();
+  if (count == 0)
     return;
-
-  // The display units altitudes: the rounded feet conversion is deterministic per
-  // vertex, so the shared vertices still agree across features and blocks and the
-  // chains stay seamless.
-  std::vector<int32_t> feet;
-  if (units == measurement_utils::Units::Imperial)
+  int32_t first = std::numeric_limits<int32_t>::max(), last = std::numeric_limits<int32_t>::min();
+  std::vector<std::pair<int32_t, int32_t>> ranges(count);
+  for (uint32_t t = 0; t < count; ++t)
   {
-    feet.reserve(tileMesh.GetAltitudes().size());
-    for (int32_t const altitude : tileMesh.GetAltitudes())
-      feet.push_back(static_cast<int32_t>(std::lround(measurement_utils::MetersToFeet(altitude))));
-  }
-
-  TracedMesh mesh{tileMesh.GetPoints(), feet.empty() ? tileMesh.GetAltitudes() : feet, tileMesh.GetTriangles(), {}};
-
-  mesh.m_edgeToTri.reserve(trianglesCount * 3);
-  for (uint32_t t = 0; t < trianglesCount; ++t)
-    for (size_t i = 0; i < 3; ++i)
-      CHECK(mesh.m_edgeToTri.emplace(TracedMesh::EdgeKey(mesh.Vertex(t, i), mesh.Vertex(t, (i + 1) % 3)), t).second,
-            ());
-
-  // Bin the triangles by the levels they cross: the level h crosses a triangle iff
-  // min < h <= max over its vertex altitudes (the half-open classification).
-  int32_t minLevel = std::numeric_limits<int32_t>::max();
-  int32_t maxLevel = std::numeric_limits<int32_t>::min();
-  std::vector<std::pair<int32_t, int32_t>> levelRanges(trianglesCount);
-  for (uint32_t t = 0; t < trianglesCount; ++t)
-  {
-    auto const [minAlt, maxAlt] = std::minmax({mesh.m_altitudes[mesh.Vertex(t, 0)], mesh.m_altitudes[mesh.Vertex(t, 1)],
-                                               mesh.m_altitudes[mesh.Vertex(t, 2)]});
-    int32_t const lo = math::FloorDiv(minAlt, step) + 1;
-    int32_t const hi = math::FloorDiv(maxAlt, step);
-
-    // A triangle crossing this many levels is physically impossible for real terrain:
-    // don't let a crafted altitudes range blow up the level bins below.
-    CHECK_LESS(hi - lo, 1024, (minAlt, maxAlt, step));
-
-    levelRanges[t] = {lo, hi};
+    auto const v = view.Triangle(t);
+    auto const [minimum, maximum] =
+        std::minmax({view.m_altitudes[v[0]], view.m_altitudes[v[1]], view.m_altitudes[v[2]]});
+    int32_t const lo = math::FloorDiv(minimum, step) + 1, hi = math::FloorDiv(maximum, step);
+    CHECK_LESS(hi - lo, 1024, (minimum, maximum, step));
+    ranges[t] = {lo, hi};
     if (lo <= hi)
     {
-      minLevel = std::min(minLevel, lo);
-      maxLevel = std::max(maxLevel, hi);
+      first = std::min(first, lo);
+      last = std::max(last, hi);
     }
   }
-  if (minLevel > maxLevel)
+  if (first > last)
     return;
-
-  std::vector<std::vector<uint32_t>> bins(maxLevel - minLevel + 1);
-  for (uint32_t t = 0; t < trianglesCount; ++t)
-    for (int32_t l = levelRanges[t].first; l <= levelRanges[t].second; ++l)
-      bins[l - minLevel].push_back(t);
-
-  // Trace the chains per level: walk forward through the exit edges, the higher ground
-  // stays on the right by construction.
-  std::vector<uint32_t> visited(trianglesCount, 0);
+  std::vector<std::vector<uint32_t>> bins(last - first + 1);
+  for (uint32_t t = 0; t < count; ++t)
+    for (int32_t l = ranges[t].first; l <= ranges[t].second; ++l)
+      bins[l - first].push_back(t);
+  std::vector<uint32_t> visited(count, 0);
   for (size_t bin = 0; bin < bins.size(); ++bin)
   {
     if (isCancelled && isCancelled())
       return;
-    int32_t const h = (minLevel + static_cast<int32_t>(bin)) * step;
+    int32_t const level = (first + static_cast<int32_t>(bin)) * step;
     uint32_t const epoch = static_cast<uint32_t>(bin) + 1;
     for (uint32_t const seed : bins[bin])
     {
       if (visited[seed] == epoch)
         continue;
-
-      // Walk backward through the entry edges to find the chain start or detect a ring.
       uint32_t start = seed;
       bool closed = false;
-      for (size_t guard = 0; guard <= trianglesCount; ++guard)
+      for (uint32_t guard = 0; guard <= count; ++guard)
       {
-        auto const edges = GetCrossedEdges(mesh, start, h);
-        uint32_t const prev = mesh.Neighbor(edges.m_entryU, edges.m_entryV);
-        if (prev == kNone)
+        auto const edges = GetCrossedEdges(view, start, level);
+        uint32_t const previous = view.Neighbor(start, edges.m_entry);
+        if (previous == kNone)
           break;
-        if (prev == seed)
+        if (previous == seed)
         {
           closed = true;
           start = seed;
           break;
         }
-        start = prev;
-        CHECK_LESS(guard, trianglesCount, ("The backward walk has not terminated", h));
+        start = previous;
+        CHECK_LESS(guard, count, ("Unterminated contour backward walk", level));
       }
-
-      Isoline isoline;
-      isoline.m_altitude = h;
-      isoline.m_closed = closed;
-      auto & points = isoline.m_points;
-      auto const append = [&points](m2::PointD const & pt)
+      Fragment fragment;
+      auto & line = fragment.m_line;
+      line.m_altitude = level;
+      line.m_closed = closed;
+      uint32_t current = start;
+      for (uint32_t guard = 0; guard <= count; ++guard)
       {
-        // Chains passing exactly through a vertex produce repeated crossing points.
-        if (points.empty() || points.back() != pt)
-          points.push_back(pt);
-      };
-
-      uint32_t cur = start;
-      for (size_t guard = 0; guard <= trianglesCount; ++guard)
-      {
-        auto const edges = GetCrossedEdges(mesh, cur, h);
-        if (points.empty() && !closed)
-          append(mesh.Crossing(edges.m_entryU, edges.m_entryV, h));
-        append(mesh.Crossing(edges.m_exitU, edges.m_exitV, h));
-        visited[cur] = epoch;
-
-        uint32_t const next = mesh.Neighbor(edges.m_exitU, edges.m_exitV);
-        if (next == kNone)
-          break;
-        if (next == start && closed)
+        auto const edges = GetCrossedEdges(view, current, level);
+        if (line.m_points.empty() && !closed)
         {
-          append(points.front());
+          fragment.m_entry = Key(view, current, edges.m_entry, level);
+          AppendPoint(line.m_points, Crossing(view, current, edges.m_entry, level));
+        }
+        AppendPoint(line.m_points, Crossing(view, current, edges.m_exit, level));
+        visited[current] = epoch;
+        uint32_t const next = view.Neighbor(current, edges.m_exit);
+        if (next == kNone)
+        {
+          fragment.m_exit = Key(view, current, edges.m_exit, level);
           break;
         }
-        cur = next;
-        CHECK_LESS(guard, trianglesCount, ("The forward walk has not terminated", h));
+        if (next == start && closed)
+        {
+          AppendPoint(line.m_points, line.m_points.front());
+          break;
+        }
+        current = next;
+        CHECK_LESS(guard, count, ("Unterminated contour forward walk", level));
       }
-
-      if (points.size() < (closed ? 4u : 2u))
-        continue;  // Degenerate: the level touches the mesh at a single vertex.
-      fn(std::move(isoline));
+      // Retain one-point open fragments: different physical edges can cross at
+      // the same vertex, and the fragment still connects its two interfaces.
+      emit(std::move(fragment));
     }
   }
+}
+
+void EmitLine(Isoline && line, IsolineFn const & fn)
+{
+  if (line.m_points.size() >= (line.m_closed ? 4u : 2u))
+    fn(std::move(line));
+}
+
+void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn, std::function<bool()> const & isCancelled)
+{
+  std::unordered_map<EdgeLevel, size_t, EdgeLevelHash> entries, exits;
+  for (size_t i = 0; i < fragments.size(); ++i)
+  {
+    if (fragments[i].m_line.m_closed)
+      continue;
+    CHECK(entries.emplace(fragments[i].m_entry, i).second, ());
+    CHECK(exits.emplace(fragments[i].m_exit, i).second, ());
+  }
+  std::vector<bool> visited(fragments.size(), false);
+  auto const walk = [&](size_t start)
+  {
+    Isoline line;
+    line.m_altitude = fragments[start].m_line.m_altitude;
+    size_t current = start;
+    while (!visited[current])
+    {
+      visited[current] = true;
+      auto const & fragment = fragments[current];
+      for (auto const & point : fragment.m_line.m_points)
+        AppendPoint(line.m_points, point);
+      auto const next = entries.find(fragment.m_exit);
+      if (next == entries.end())
+        break;
+      current = next->second;
+      if (current == start)
+      {
+        line.m_closed = true;
+        AppendPoint(line.m_points, line.m_points.front());
+        break;
+      }
+    }
+    EmitLine(std::move(line), fn);
+  };
+  for (size_t i = 0; i < fragments.size(); ++i)
+  {
+    if (isCancelled && isCancelled())
+      return;
+    if (fragments[i].m_line.m_closed)
+    {
+      EmitLine(std::move(fragments[i].m_line), fn);
+      visited[i] = true;
+    }
+    else if (!exits.contains(fragments[i].m_entry))
+      walk(i);
+  }
+  for (size_t i = 0; i < fragments.size(); ++i)
+  {
+    if (isCancelled && isCancelled())
+      return;
+    if (!visited[i])
+      walk(i);
+  }
+}
+}  // namespace
+
+void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
+                   std::function<bool()> const & isCancelled)
+{
+  ASSERT_GREATER(step, 0, ());
+  TraceView(TinView(mesh, units), step, [&](Fragment && fragment) { EmitLine(std::move(fragment.m_line), fn); },
+            isCancelled);
+}
+
+void TraceIsolines(TerrainData const & data, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
+                   std::function<bool()> const & isCancelled)
+{
+  ASSERT_GREATER(step, 0, ());
+  if (data.m_rasterPatches.empty())
+  {
+    TraceIsolines(data.m_mesh, step, units, fn, isCancelled);
+    return;
+  }
+  std::vector<Fragment> fragments;
+  auto const emit = [&](Fragment && fragment) { fragments.push_back(std::move(fragment)); };
+  TraceView(TinView(data.m_mesh, units), step, emit, isCancelled);
+  for (auto const & patch : data.m_rasterPatches)
+  {
+    if (isCancelled && isCancelled())
+      return;
+    TraceView(GridView(patch, units), step, emit, isCancelled);
+  }
+  JoinFragments(fragments, fn, isCancelled);
 }
 }  // namespace terrain

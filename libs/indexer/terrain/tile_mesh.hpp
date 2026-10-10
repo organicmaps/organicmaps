@@ -89,6 +89,7 @@ public:
   size_t GetTrianglesCount() const { return m_triangles.size() / 3; }
 
   std::vector<m2::PointD> const & GetPoints() const { return m_points; }
+  m2::PointU GetPointU(size_t index) const { return PointDToPointU(m_points[index], m_coordBits); }
   // The altitudes are meters (the storage units), per deduplicated vertex.
   std::vector<int32_t> const & GetAltitudes() const { return m_altitudes; }
   // CCW vertex index triples over the deduplicated vertices.

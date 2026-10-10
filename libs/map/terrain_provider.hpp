@@ -1,6 +1,6 @@
 #pragma once
 
-#include "indexer/terrain/tile_mesh.hpp"
+#include "indexer/terrain/terrain_data.hpp"
 #include "indexer/terrain/twm_grid.hpp"
 #include "indexer/terrain/twm_set.hpp"
 
@@ -48,8 +48,11 @@ public:
   // hillshading and the isolines of a tile (see RuleDrawer::DrawTerrain). Called from
   // the drape tile reading threads.
   void ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh) const;
+  void ReadTerrain(m2::RectD const & rect, int zoom, TerrainData & data,
+                   std::function<bool()> const & isCancelled = {}) const;
 
 private:
+  void AddInvalidationRect(m2::RectD const & rect, m2::RectD & invalidRect) const;
   void OnTerrainDeregistered(TwmFile const & file) override;
 
   TerrainDeregisteredCallback m_onTerrainDeregistered;

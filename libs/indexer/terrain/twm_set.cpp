@@ -81,7 +81,7 @@ TwmSet::RegResult TwmSet::ReadFile(std::string const & filePath, int64_t version
 {
   TwmHeader header;
   if (!ReadHeader(filePath, header))
-    return header.m_version < kTwmVersion ? RegResult::ObsoleteVersion : RegResult::BadFile;
+    return header.m_version < kOldestTwmVersion ? RegResult::ObsoleteVersion : RegResult::BadFile;
   file = {base::FilenameWithoutExt(base::FileNameFromFullPath(filePath)), version, filePath, header.GetLimitRect()};
   return RegResult::Success;
 }

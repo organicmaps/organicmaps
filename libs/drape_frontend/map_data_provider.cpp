@@ -44,9 +44,10 @@ bool MapDataProvider::HasTerrain(m2::RectD const & rect) const
   return m_hasTerrain(rect);
 }
 
-void MapDataProvider::ReadTerrainMesh(m2::RectD const & rect, int zoom, terrain::TileMesh & mesh) const
+void MapDataProvider::ReadTerrain(m2::RectD const & rect, int zoom, terrain::TerrainData & data,
+                                  std::function<bool()> const & isCancelled) const
 {
-  m_readTerrain(rect, zoom, mesh);
+  m_readTerrain(rect, zoom, data, isCancelled);
 }
 
 MapDataProvider::TTileBackgroundReadFn MapDataProvider::ReadTileBackgroundFn() const

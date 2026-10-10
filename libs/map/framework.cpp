@@ -1941,8 +1941,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto updateCurrentCountryFn = std::bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
   auto hasTerrainFn = [this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); };
-  auto readTerrainFn = [this](m2::RectD const & rect, int zoom, terrain::TileMesh & mesh)
-  { m_terrainProvider.ReadMesh(rect, zoom, mesh); };
+  auto readTerrainFn =
+      [this](m2::RectD const & rect, int zoom, terrain::TerrainData & data, std::function<bool()> const & isCancelled)
+  { m_terrainProvider.ReadTerrain(rect, zoom, data, isCancelled); };
 
   bool allow3d;
   bool allow3dBuildings;
