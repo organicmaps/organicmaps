@@ -66,6 +66,7 @@ public:
       TEST_EQUAL(m_keyValuePairs.front().second, value, ());
       m_keyValuePairs.pop();
     });
+    TEST(m_keyValuePairs.empty(), ("Missing URL parameters", m_url, m_keyValuePairs.size()));
   }
 
 private:
@@ -160,6 +161,37 @@ UNIT_TEST(Url_Fragment)
       .Path("search")
       .KV("query", "Falafel Sahyoun")
       .KV("map", "16/33.89041/35.50664");
+}
+
+UNIT_TEST(Url_QueryFields)
+{
+  TestUrl("om://search?flag&&empty=&=value&query=a%26b%3Dc&query=last&tail#fragment&value=a=b=c#")
+      .Scheme("om")
+      .Host("search")
+      .KV("flag", "")
+      .KV("empty", "")
+      .KV("", "value")
+      .KV("query", "a&b=c")
+      .KV("query", "last")
+      .KV("tail", "")
+      .KV("fragment", "")
+      .KV("value", "a=b=c");
+}
+
+UNIT_TEST(Url_ManyFlagParameters)
+{
+  size_t constexpr kFlagCount = 32768;
+  string input = "om://search?";
+  input.reserve(input.size() + kFlagCount * 5 + 32);
+  for (size_t i = 0; i < kFlagCount; ++i)
+    input += "flag&";
+  input += "query=a%26b%3Dc#tail";
+
+  TestUrl test(std::move(input));
+  test.Scheme("om").Host("search");
+  for (size_t i = 0; i < kFlagCount; ++i)
+    test.KV("flag", "");
+  test.KV("query", "a&b=c").KV("tail", "");
 }
 
 UNIT_TEST(UrlScheme_Comprehensive)
