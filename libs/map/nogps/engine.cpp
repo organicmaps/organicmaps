@@ -375,7 +375,9 @@ bool Engine::IsGpsBack(Fix const & gps)
   }
   else if (IsInertialActive() && m_savedLocation)
   {
-    own = GpsReturnDetector::Own{m_savedLocation->m_position, m_savedLocation->m_accuracyM};
+    // The car maneuvering off the roads is not where its mark waits.
+    auto const & car = m_inertial->GetOffRoadCar();
+    own = GpsReturnDetector::Own{car ? *car : m_savedLocation->m_position, m_savedLocation->m_accuracyM};
   }
   else if (m_manualLocation)
   {
@@ -809,8 +811,10 @@ void Engine::ReverseDirection()
 
 void Engine::TogglePause()
 {
-  if (m_inertial)
-    m_inertial->SetPaused(!m_inertial->IsPaused());
+  if (!m_inertial)
+    return;
+  m_inertial->SetPaused(!m_inertial->IsPaused());
+  ShowOffRoadCar();
 }
 
 std::optional<double> Engine::GetCarBearing() const
@@ -838,11 +842,26 @@ void Engine::ShowCarHeading()
     m_map.ShowCarHeading(*GetCarBearing());
 }
 
+void Engine::ShowOffRoadCar()
+{
+  // The car maneuvers off the roads, its mark waits on the road. While a route is followed the mark stays there,
+  // otherwise the route would be rebuilt from a yard, and the car is shown apart. Without a route the mark itself
+  // follows the car.
+  std::optional<ms::LatLon> car;
+  if (m_inertial && IsInertialNavigationEnabled() && m_map.IsNavigating())
+    car = m_inertial->GetOffRoadCar();
+  if (car.has_value() == m_shownOffRoadCar.has_value() && (!car || car->EqualDxDy(*m_shownOffRoadCar, 1e-7)))
+    return;
+  m_shownOffRoadCar = car;
+  m_map.ShowOffRoadCar(car);
+}
+
 void Engine::NotifyLocationUpdated()
 {
   CHECK(m_savedLocation, ());
   m_delegate.OnPosition(*m_savedLocation);
   ShowCarHeading();
+  ShowOffRoadCar();
 }
 
 void Engine::StartInertialNavigation()
@@ -863,7 +882,7 @@ bool Engine::IsInertialActive() const
   return m_inertial && MsSince(m_lastInertialUsedMs) < kInertialActiveMs;
 }
 
-void Engine::OnInertialLocation(Fix const & location)
+void Engine::OnInertialLocation(Fix const & inertial)
 {
   // Trusted GPS is better. In the manual mode GPS is ignored, so the inertial navigation is used. The manual
   // mode just left by the user waits for GPS a while, otherwise it would come back before the first GPS position.
@@ -875,6 +894,10 @@ void Engine::OnInertialLocation(Fix const & location)
   // The car is not followed by GPS any more, the user sees it by the manual mode and can mark the car.
   EnterManualModeByItself("GPS is lost, the inertial navigation continues");
   m_lastInertialUsedMs = m_clock.NowMs();
+  // Without a route the mark follows the car maneuvering off the roads, see ShowOffRoadCar().
+  Fix location = inertial;
+  if (auto const & car = m_inertial->GetOffRoadCar(); car && !m_map.IsNavigating())
+    location.m_position = *car;
   // The mark follows the car: when the inertial navigation stops, e.g. the adapter is disconnected, the car
   // stays where it has been driven to, not at the old mark behind.
   if (m_manualLocation)
@@ -972,6 +995,7 @@ bool Engine::SetManualLocation(ms::LatLon const & position)
   if (m_inertial)
     m_inertial->SetRoadPosition(road->m_point, road->m_bearingDeg);
   ApplyManualLocation();
+  ShowOffRoadCar();
   return true;
 }
 
@@ -1183,6 +1207,7 @@ Status Engine::GetStatus()
     status.m_calibrationProgress = m_inertial->GetCalibrationProgressPercent();
     status.m_hasInertialPosition = m_inertial->HasPosition();
     status.m_paused = m_inertial->IsPaused();
+    status.m_pausedByItself = m_inertial->IsPausedByItself();
     if (auto const * box = m_inertial->GetEsp32())
     {
       if (box->GetInfo())
@@ -1303,6 +1328,12 @@ std::string Engine::GetTripLine()
     line += "/" + DebugPrint(m_inertial->GetHeadingSource());
     line += std::string(" road=") + (m_inertial->IsOnRoad() ? "1" : "0");
     line += std::string(" lost=") + (m_inertial->IsRoadLost() ? "1" : "0");
+    // The pause set by the navigation itself and where the car maneuvers by the calculation.
+    if (auto const & car = m_inertial->GetOffRoadCar())
+    {
+      std::snprintf(buf, sizeof(buf), " self=1 car=%.6f,%.6f", car->m_lat, car->m_lon);
+      line += buf;
+    }
     auto const snap = m_inertial->GetLastSnapShiftM();
     if (snap)
       std::snprintf(buf, sizeof(buf), " snap=%.1f", *snap);

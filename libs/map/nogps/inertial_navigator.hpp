@@ -112,6 +112,21 @@ public:
   static double constexpr kLostRoadM = 30;
   // The user is reminded to mark the car while it drives with the position stopped, e.g. on the next trip.
   static int64_t constexpr kRoadLostReminderMs = 30'000;
+  // A car driving this slowly off the roads maneuvers: it parks, or drives through a yard or a parking lot missing
+  // on the map. The calculation gone wrong takes a car off the roads at any speed.
+  static double constexpr kMaxManeuverSpeedMps = 20 / 3.6;
+  // A maneuvering car this far off the roads has left them: the movement is paused by itself, the mark waits on
+  // the road and the car is followed apart. On the trips checked a car that was not parking drove so far off the
+  // roads that slowly twice an hour, for a few seconds.
+  static double constexpr kManeuverPauseM = 15;
+  // A maneuvering car is not thrown to a road this far aside at once, as a car driving along a road is: next to a
+  // yard that road is a street behind the houses. 13 of 31 maneuvers at a parking place had such a throw.
+  static double constexpr kMaxManeuverSnapM = 10;
+  // It is put on the road it has driven along for this distance without turning.
+  static double constexpr kRoadConfirmM = 15;
+  static double constexpr kMaxRoadConfirmTurnDeg = 15;
+  // A road going this much another way is another road.
+  static double constexpr kMaxRoadConfirmBearingDiffDeg = 10;
   // The speed table is saved once in a while, not on every position.
   static int constexpr kSpeedTableSaveSamples = 30;
 
@@ -148,6 +163,11 @@ public:
   /// Pauses the movement of the car while it maneuvers, or resumes it: the car is put on the road where it
   /// stands, looking the way it has turned to during the pause.
   void SetPaused(bool paused);
+  /// \returns true if the navigation has paused the movement by itself: the car has left the roads maneuvering.
+  /// Its mark waits on the road until the car drives along a road again, or the user resumes the movement.
+  bool IsPausedByItself() const { return m_pausedByItself; }
+  /// \returns where the car is by the calculation while the pause set by itself keeps its mark on the road.
+  std::optional<ms::LatLon> const & GetOffRoadCar() const { return m_offRoadCar; }
 
   // The platform events, passed to the source they are for.
   void OnGyro(int64_t timestampNs, Vec3 const & gyro);
@@ -219,6 +239,14 @@ private:
   void SetRoadPoint(ms::LatLon const & position);
   void TrackOffRoad(double distanceM);
   void NotifyRoadLost();
+  void PauseByItself();
+  void EndPauseByItself();
+  // The car paused by itself is put on the road it drives along, if there is one.
+  void CheckBackOnRoad();
+  /// \returns true if the maneuvering car has driven along the road far enough to be put on it.
+  bool IsRoadConfirmed(RoadPoint const & road, double headingDeg);
+  // The car is on the road: the maneuver is over.
+  void PutOnRoad(ms::LatLon const & point, double bearingDeg);
   double DistanceWithLag(double dtSec);
   void SnapToRoad();
   void MatchBend();
@@ -304,6 +332,23 @@ private:
   // positive and would move the car forward. The car stays where it is then, the gyroscope still follows
   // its rotation.
   bool m_paused = false;
+  // The pause is set by the navigation itself, not by the user: the car has left the roads maneuvering.
+  bool m_pausedByItself = false;
+  // Where the car is by the calculation while the pause set by itself keeps its mark on the road.
+  std::optional<ms::LatLon> m_offRoadCar;
+  // The fastest the car has driven off the roads since the last road point.
+  double m_offRoadMaxSpeedMps = 0;
+  // The road the maneuvering car seems to drive along: its direction, and the path of the car and where the car
+  // looked when the road was found.
+  struct RoadCandidate
+  {
+    double m_bearingDeg;
+    double m_pathM;
+    double m_headingDeg;
+  };
+  std::optional<RoadCandidate> m_roadCandidate;
+  // All the car has driven, paused or not.
+  double m_pathM = 0;
   // Since when the car drives fast enough to end the pause.
   std::optional<int64_t> m_fastSinceMs;
 };

@@ -81,6 +81,9 @@ struct Status
   int m_calibrationProgress = 0;
   bool m_hasInertialPosition = false;
   bool m_paused = false;
+  // The navigation has paused the movement by itself: the car maneuvers off the roads. The mark waits on the
+  // road until the car drives along a road again or the user resumes the movement.
+  bool m_pausedByItself = false;
 
   // The firmware of the ESP32 sensor box, empty until the box tells it.
   std::string m_boxFirmware;
@@ -290,6 +293,7 @@ private:
   bool IsInertialActive() const;
   std::optional<double> GetCarBearing() const;
   void ShowCarHeading();
+  void ShowOffRoadCar();
   void NotifyLocationUpdated();
   void ApplyManualLocation();
   void BlockShift(bool forward, ms::LatLon const & at);
@@ -342,6 +346,8 @@ private:
   // The start of the location updates.
   int64_t m_startTimeMs = 0;
   std::optional<int64_t> m_lastInertialUsedMs;
+  // The car maneuvering off the roads as the map shows it now, see ShowOffRoadCar().
+  std::optional<ms::LatLon> m_shownOffRoadCar;
   // The motion source of the inertial navigation gave the car speed, the user is told when it stops.
   bool m_motionSourceWorked = false;
   std::optional<int64_t> m_motionSourceWarnedMs;

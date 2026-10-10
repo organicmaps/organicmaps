@@ -105,10 +105,12 @@ std::vector<ms::LatLon> RoutingMapApi::RoutingRoads::FindCrossings(ms::LatLon co
   return m_routing.FindRoadCrossings(center, radiusM);
 }
 
-RoutingMapApi::RoutingMapApi(RoutingManager & routing, Clock const & clock, ShowCarHeadingFn && showCarHeading)
+RoutingMapApi::RoutingMapApi(RoutingManager & routing, Clock const & clock, ShowCarHeadingFn && showCarHeading,
+                             ShowOffRoadCarFn && showOffRoadCar)
   : m_routing(routing)
   , m_clock(clock)
   , m_showCarHeading(std::move(showCarHeading))
+  , m_showOffRoadCar(std::move(showOffRoadCar))
   , m_roads(routing, false /* matchRoute */)
   , m_routeRoads(routing, true /* matchRoute */)
 {}
@@ -169,8 +171,9 @@ std::string RoutingMapApi::GetDistanceLeft() const
   return info.m_distToTarget.GetDistanceString() + info.m_distToTarget.GetUnitsString();
 }
 
-Service::Service(Delegate & delegate, RoutingManager & routing, RoutingMapApi::ShowCarHeadingFn && showCarHeading)
-  : m_map(routing, m_clock, std::move(showCarHeading))
+Service::Service(Delegate & delegate, RoutingManager & routing, RoutingMapApi::ShowCarHeadingFn && showCarHeading,
+                 RoutingMapApi::ShowOffRoadCarFn && showOffRoadCar)
+  : m_map(routing, m_clock, std::move(showCarHeading), std::move(showOffRoadCar))
   , m_engine(delegate, m_map, m_storage, m_clock, m_scheduler)
 {
   m_engine.SetFirmwares(LoadFirmwares());
