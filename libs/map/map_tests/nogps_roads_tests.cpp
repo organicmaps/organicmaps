@@ -9,6 +9,7 @@
 #include "base/math.hpp"
 
 #include <cmath>
+#include <string>
 
 namespace nogps_roads_tests
 {
@@ -107,7 +108,9 @@ UNIT_TEST(NoGps_TurnMatcher_NotFartherThanCalculationMayBeWrong)
   GridRoads grid;
   // The car turned north 40 m before the crossing by the calculation, which may be wrong by 20 m: that
   // crossing is too far, the car has turned somewhere else, e.g. into a yard.
-  TEST(!TurnMatcher::FindCrossing(grid, At(160, 0), 90, 0, 20), ());
+  std::string whyNot;
+  TEST(!TurnMatcher::FindCrossing(grid, At(160, 0), 90, 0, 20, &whyNot), ());
+  TEST(whyNot.find("crossings around 0,") != std::string::npos, (whyNot));
   // 22 m before the crossing is within the least distance searched.
   TEST(TurnMatcher::FindCrossing(grid, At(178, 0), 90, 0, 20), ());
   TEST(TurnMatcher::FindCrossing(grid, At(160, 0), 90, 0, 45), ());
@@ -144,7 +147,9 @@ UNIT_TEST(NoGps_TurnMatcher_MatchesTurnAfterCrossing)
 UNIT_TEST(NoGps_TurnMatcher_IgnoresBends)
 {
   GridRoads grid;
-  TEST(!TurnMatcher::FindCrossing(grid, At(200, 0), 90, 70, 60), ());
+  std::string whyNot;
+  TEST(!TurnMatcher::FindCrossing(grid, At(200, 0), 90, 70, 60, &whyNot), ());
+  TEST_EQUAL(whyNot, "a turn that small is a bend of the road", ());
 }
 
 UNIT_TEST(NoGps_TurnMatcher_IgnoresTurnsAround)
@@ -157,7 +162,9 @@ UNIT_TEST(NoGps_TurnMatcher_IgnoresParallelStreets)
 {
   // A crossing 30 m aside is on a parallel street, not on the street the car has driven along.
   GridRoads grid;
-  TEST(!TurnMatcher::FindCrossing(grid, At(190, 30), 90, 0, 60), ());
+  std::string whyNot;
+  TEST(!TurnMatcher::FindCrossing(grid, At(190, 30), 90, 0, 60, &whyNot), ());
+  TEST(whyNot.find("along the road or aside of it 1,") != std::string::npos, (whyNot));
 }
 
 UNIT_TEST(NoGps_TurnMatcher_NoCrossingOutsideRoads)
@@ -181,7 +188,9 @@ UNIT_TEST(NoGps_TurnMatcher_IgnoresBendWithSideStreet)
           {-30, 0, -30 + 100 * std::sin(side), 100 * std::cos(side)},
       },
       {{-30, 0}});
-  TEST(!TurnMatcher::FindCrossing(roads, At(0, 0), 90, 130, 60), ());
+  std::string whyNot;
+  TEST(!TurnMatcher::FindCrossing(roads, At(0, 0), 90, 130, 60, &whyNot), ());
+  TEST_EQUAL(whyNot, "the road bends that way", ());
   // The car has turned to the side street: the road it was on goes on east.
   PieceRoads straight(
       {

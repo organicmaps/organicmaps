@@ -25,35 +25,64 @@ bool HasRoadFromCrossing(Roads & roads, ms::LatLon const & crossing, double bear
 }  // namespace
 
 std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
-                                                    double toBearingDeg, double searchM)
+                                                    double toBearingDeg, double searchM, std::string * whyNot)
 {
+  auto const no = [whyNot](std::string const & why)
+  {
+    if (whyNot)
+      *whyNot = why;
+    return std::optional<ms::LatLon>();
+  };
   double const turn = std::fabs(AngleDiff(toBearingDeg, fromBearingDeg));
-  if (turn < kMinTurnDeg || turn > kMaxTurnDeg)
-    return {};
+  if (turn < kMinTurnDeg)
+    return no("a turn that small is a bend of the road");
+  if (turn > kMaxTurnDeg)
+    return no("a turn that large is a turn around");
 
   double const radius = std::max(kMinSearchM, std::min(kMaxSearchM, searchM));
   // A bend of the road with a side street close to it would move the car to the street.
   if (IsBend(roads, corner, fromBearingDeg, toBearingDeg, radius))
-    return {};
+    return no("the road bends that way");
 
   std::optional<ms::LatLon> best;
   double bestAlong = std::numeric_limits<double>::max();
-  for (auto const & crossing : roads.FindCrossings(corner, radius))
+  auto const crossings = roads.FindCrossings(corner, radius);
+  size_t aside = 0;
+  size_t noRoadBack = 0;
+  size_t noRoadAhead = 0;
+  for (auto const & crossing : crossings)
   {
     // The offset of the crossing along the road the car came by and to the side of it.
     double const distance = Distance(corner, crossing);
     double const angle = math::DegToRad(AngleDiff(Bearing(corner, crossing), fromBearingDeg));
     double const along = std::fabs(distance * std::cos(angle));
     double const side = std::fabs(distance * std::sin(angle));
-    if (along > radius || side > kMaxSideOffsetM || along >= bestAlong)
-      continue;
-    if (!HasRoadFromCrossing(roads, crossing, fromBearingDeg + 180) ||
-        !HasRoadFromCrossing(roads, crossing, toBearingDeg))
+    if (along > radius || side > kMaxSideOffsetM)
     {
+      ++aside;
+      continue;
+    }
+    if (along >= bestAlong)
+      continue;
+    if (!HasRoadFromCrossing(roads, crossing, fromBearingDeg + 180))
+    {
+      ++noRoadBack;
+      continue;
+    }
+    if (!HasRoadFromCrossing(roads, crossing, toBearingDeg))
+    {
+      ++noRoadAhead;
       continue;
     }
     best = crossing;
     bestAlong = along;
+  }
+  if (!best)
+  {
+    return no("crossings around " + std::to_string(crossings.size()) + ", farther than " +
+              std::to_string(std::lround(radius)) + " m along the road or aside of it " + std::to_string(aside) +
+              ", without the road the car came by " + std::to_string(noRoadBack) +
+              ", without a road going the new way " + std::to_string(noRoadAhead));
   }
   return best;
 }

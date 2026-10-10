@@ -5,6 +5,7 @@
 #include "geometry/latlon.hpp"
 
 #include <optional>
+#include <string>
 
 namespace nogps
 {
@@ -38,9 +39,10 @@ public:
   /// \param fromBearingDeg where the car looked before the turn.
   /// \param toBearingDeg where the car looks after the turn.
   /// \param searchM how far along the road the crossing is searched, e.g. the accuracy of the calculation.
+  /// \param whyNot why the turn is not at a crossing, for the log.
   /// \returns the crossing, or nothing if the turn is not at a crossing.
   static std::optional<ms::LatLon> FindCrossing(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
-                                                double toBearingDeg, double searchM);
+                                                double toBearingDeg, double searchM, std::string * whyNot = nullptr);
 
   /// Follows the road the car was on from the corner: the road going on the way the car looked before. At a
   /// crossing it goes straight on or ends.
