@@ -2337,7 +2337,7 @@ en:Mall|Gallery|shopping arcade|entertainment center|retail
 ar:مركز تسوق|مجمع تجاري|مول|متجر
 be:4Гандлевы цэнтр|гандлёвы цэнтр
 bg:4Търговски център|търговски комплекс|пазаруване|мол
-cs:Obchoďák
+cs:Obchodní centrum|obchoďák|nákupní centrum|nákupní galerie|obchodní galerie
 da:Indkøbscenter|butikscenter|storcenter|center
 de:5Einkaufszentrum|Ladenstraße|Einkaufsgalerie|Einkaufen|Einkaufspassage|Kaufhalle|Vergnügungszentrum|Einzelhandel
 el:Εμπορικό κέντρο|μαγαζί
@@ -3136,7 +3136,7 @@ railway-station|railway-halt|building-train_station|@category_transport
 en:3Train Station|trainstation|4railway|railroad|4station|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B|rail halt|station building
 ar:محطة سكك حديدية|محطة قطار|قطار|محطة|مواصلات|مبنى المحطة
 bg:ЖП|влак|спирка|станция
-cs:3Železniční stanice|vlakové nádraží|2vlak|staniční budova
+cs:3Železniční stanice|železniční zastávka|vlakové nádraží|2vlak|staniční budova
 da:4Togstation|4station|3jernbane|stationsbygning
 de:4Bahnhof|3haltepunkt|3station|zug|bahn|ÖPNV|hbf|bahnhofsgebäude
 el:Σιδηροδρομικός σταθμός|σιδηρόδρομος|σιδηροδρομικό|τρένο|σταθμός|μεταφορές|σιδηροδρομική στάση|κτίριο σταθμού
