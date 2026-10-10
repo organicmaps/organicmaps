@@ -118,7 +118,7 @@ Progress Storage::GetOverallProgress(CountriesVec const & countries) const
       overallProgress.m_bytesDownloaded += sz;
       overallProgress.m_bytesTotal += sz;
     }
-    else if (IsCountryInQueue(country))
+    else if (IsCountryInQueue(country) || m_failedCountries.count(country) != 0)
     {
       overallProgress.m_bytesTotal += GetRemoteSize(GetCountryFile(country));
     }
@@ -764,12 +764,14 @@ void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, Progress c
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  // Use the same total as GetNodeAttrs, including when a resumed HTTP request reports a different size.
+  Progress const mapProgress{progress.m_bytesDownloaded, static_cast<int64_t>(queuedCountry.GetDownloadSize())};
+  m_downloadingCountries[queuedCountry.GetCountryId()] = mapProgress;
+
   if (m_observers.empty())
     return;
 
-  m_downloadingCountries[queuedCountry.GetCountryId()] = progress;
-
-  ReportProgressForHierarchy(queuedCountry.GetCountryId(), progress);
+  ReportProgressForHierarchy(queuedCountry.GetCountryId(), mapProgress);
 }
 
 void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadStatus status)
@@ -1833,7 +1835,8 @@ Progress Storage::CalculateProgress(CountryTree::Node const & subtreeRoot, Count
 
       result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
     }
-    else if (mwmsInQueue.count(d) != 0)
+    // Failed files still belong to the requested download and can be retried.
+    else if (mwmsInQueue.count(d) != 0 || m_failedCountries.count(d) != 0)
     {
       result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
     }
