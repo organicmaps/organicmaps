@@ -53,6 +53,15 @@ void DeadReckoning::AdvanceBy(double distanceM)
   m_odometerM += distanceM;
 }
 
+void DeadReckoning::ReverseBy(double distanceM)
+{
+  if (!IsReady() || distanceM <= 0)
+    return;
+  m_position = Move(m_position, m_headingDeg, -distanceM);
+  m_distanceSinceFixM += distanceM;
+  m_odometerM += distanceM;
+}
+
 bool DeadReckoning::SnapToRoad(ms::LatLon const & road, double roadBearingDeg)
 {
   if (!IsReady())

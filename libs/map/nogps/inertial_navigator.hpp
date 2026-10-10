@@ -127,17 +127,20 @@ public:
   static double constexpr kMaxRoadConfirmTurnDeg = 15;
   // A road going this much another way is another road.
   static double constexpr kMaxRoadConfirmBearingDiffDeg = 10;
-  // The car speed has no sign. Which way a car maneuvering off the roads has started, the accelerometer of the box
-  // tells: the speed it has felt since the car stood, by the time the car reports that it moves and a little
-  // later. The car reports it late by the lag of its speed, so it stood for sure until the lag and a margin
-  // before that. On the trips checked 43 of 50 starts were felt as 0.5 m/s forward or more, 4 at a parking place
-  // as 0.3 m/s backward or more, 3 were in between.
+  // The car speed has no sign. Which way the car has started, the accelerometer of the box tells: the speed it
+  // has felt since the car stood, by the time the car reports that it moves and a little later. The car reports
+  // it late by the lag of its speed, so it stood for sure until the lag and a margin before that. On the trips
+  // checked 43 of 50 starts were felt as 0.5 m/s forward or more, 4 at a parking place as 0.3 m/s backward or
+  // more, 3 were in between.
   static double constexpr kReverseStartSpeedMps = 0.3;
   static int64_t constexpr kStartFeltAfterMs = 300;
   static int64_t constexpr kStandMarginMs = 300;
   // What the accelerometer feels while the car stands is taken from this time at most and at least.
   static int64_t constexpr kMaxStandFeltMs = 2000;
   static int64_t constexpr kMinStandFeltMs = 300;
+  // The accelerometer is compared with the last seconds of the car speed, which has no sign: it is not learned
+  // from and doesn't tell how much faster the car is while the car drives backwards and for this time after it.
+  static int64_t constexpr kAccelAfterBackMs = 7000;
   // What is learned about the accelerometer of the box is saved this often.
   static int64_t constexpr kBoxAccelSaveMs = 60'000;
   // The speed table is saved once in a while, not on every position.
@@ -181,8 +184,8 @@ public:
   bool IsPausedByItself() const { return m_pausedByItself; }
   /// \returns where the car is by the calculation while the pause set by itself keeps its mark on the road.
   std::optional<ms::LatLon> const & GetOffRoadCar() const { return m_offRoadCar; }
-  /// \returns true if that car drives backwards by the accelerometer of the box.
-  bool IsOffRoadCarDrivingBack() const { return m_offRoadDirection < 0; }
+  /// \returns true if the car drives backwards by the accelerometer of the box.
+  bool IsDrivingBack() const { return m_direction < 0; }
 
   // The platform events, passed to the source they are for.
   void OnGyro(int64_t timestampNs, Vec3 const & gyro);
@@ -256,8 +259,13 @@ private:
   void NotifyRoadLost();
   void PauseByItself();
   void EndPauseByItself();
-  // Tells by the accelerometer of the box which way the car paused by itself drives, forward or backward.
-  void TrackStartDirection();
+  // Tells by the accelerometer of the box which way the car drives, forward or backward.
+  void TrackDirection();
+  void SetDirection(int direction);
+  // Nothing is known about the way the car drives: it drives forward.
+  void ResetDirection();
+  bool HasDrivenBackLately() const;
+  void ResetLag();
   void RestoreBoxAccel();
   void SaveBoxAccel();
   // Another box is fixed in another way: what is learned about the accelerometer is of the box it was learned with.
@@ -370,15 +378,18 @@ private:
   std::optional<RoadCandidate> m_roadCandidate;
   // All the car has driven, paused or not.
   double m_pathM = 0;
-  // The way the car paused by itself drives since its last start: 1 forward, -1 backward.
-  int m_offRoadDirection = 1;
+  // The way the car drives since its last start: 1 forward, -1 backward. A standing car is ready to drive forward.
+  int m_direction = 1;
   // Since when it reports that it stands, and when it has reported that it moves after that.
-  std::optional<int64_t> m_offRoadStandMs;
-  std::optional<int64_t> m_offRoadStartMs;
+  std::optional<int64_t> m_standMs;
+  std::optional<int64_t> m_startMs;
   // The way of the start is told by the accelerometer already.
-  bool m_offRoadStartFelt = true;
-  // Driven since the start, either way.
-  double m_offRoadStartM = 0;
+  bool m_startFelt = true;
+  // Driven since the start, either way, and how far the mark of the car was moved for that.
+  double m_startM = 0;
+  double m_startMarkM = 0;
+  // When it drove backwards the last time.
+  std::optional<int64_t> m_lastBackMs;
   // The box the accelerometer is learned with, and when it was saved.
   std::string m_boxAccelId;
   int64_t m_boxAccelSavedMs = 0;

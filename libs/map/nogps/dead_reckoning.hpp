@@ -35,6 +35,8 @@ public:
   void Advance(double dtSec);
   /// Moves the position forward by the distance.
   void AdvanceBy(double distanceM);
+  /// Moves the position back by the distance: the car drives backwards, it looks where it did.
+  void ReverseBy(double distanceM);
 
   /// Pulls the position to the road the car is on: it removes the side error. The heading is corrected
   /// towards the road direction, it removes the gyroscope drift on straight roads.

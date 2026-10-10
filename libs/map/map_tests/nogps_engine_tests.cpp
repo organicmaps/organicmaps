@@ -1012,13 +1012,29 @@ public:
       // A little of the gravity is left in the other axes.
       if (m_accelerometer)
         std::snprintf(body + length, sizeof(body) - length, ",%d,50,-60,100",
-                      static_cast<int>(std::lround(accelerationMps2 * 1000)));
+                      static_cast<int>(std::lround((accelerationMps2 + m_slopeMps2) * 1000)));
       m_env.m_engine.OnEsp32BleBytes(BoxLine(body));
+    }
+  }
+
+  /// The car speeds up and brakes four times, 900 m along its way, and stands: the box learns where its
+  /// accelerometer looks.
+  void SpeedUpAndBrake()
+  {
+    for (int i = 0; i < 4; ++i)
+    {
+      Drive(10, 1.5, 0);
+      Drive(5, 0, 0);
+      Drive(10, -1.5, 0);
+      Drive(5, 0, 0);
     }
   }
 
   double East() const { return m_east; }
   double North() const { return m_north; }
+
+  // The gravity the accelerometer feels along the car on a slope.
+  double m_slopeMps2 = 0;
 
 private:
   Env & m_env;
@@ -1043,14 +1059,7 @@ UNIT_TEST(NoGps_Engine_AccelerometerTellsCarInYardDrivesBack)
     Env env(true /* inertial */, &roads);
     MarkCar(env, -450);
     BoxCar car(env, -450, accelerometer);
-    // The car speeds up and brakes along the street: the box learns where its accelerometer looks.
-    for (int i = 0; i < 4; ++i)
-    {
-      car.Drive(10, 1.5, 0);
-      car.Drive(5, 0, 0);
-      car.Drive(10, -1.5, 0);
-      car.Drive(5, 0, 0);
-    }
+    car.SpeedUpAndBrake();
     TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 5);
 
     // It turns right into a yard at a walking speed, drives 20 m and stops there.
@@ -1092,6 +1101,104 @@ UNIT_TEST(NoGps_Engine_AccelerometerTellsCarInYardDrivesBack)
     if (accelerometer)
       TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
   }
+}
+
+UNIT_TEST(NoGps_Engine_AccelerometerTellsCarOnRoadDrivesBack)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  for (bool accelerometer : {true, false})
+  {
+    Env env(true /* inertial */, &roads);
+    MarkCar(env, -450);
+    BoxCar car(env, -450, accelerometer);
+    car.SpeedUpAndBrake();
+    TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 5);
+    double const stoppedEast = East(env.Last().m_position);
+
+    // It drives 12 m backwards along the street. The speed of the car tells the same as if it drove forward.
+    car.Drive(2, -1, 0);
+    car.Drive(2, 0, 0);
+    TEST_EQUAL(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, accelerometer,
+               (env.m_engine.GetTripLine()));
+    car.Drive(2, 0, 0);
+    car.Drive(2, 1, 0);
+    car.Drive(3, 0, 0);
+    TestAlmostEqualAbs(East(env.Last().m_position), stoppedEast + (accelerometer ? -12 : 12), 3);
+    TestAlmostEqualAbs(North(env.Last().m_position), 0, 1);
+    // The car looks where it did.
+    TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 90), 0, 3);
+    TEST(!env.m_engine.GetStatus().m_paused, (accelerometer));
+
+    // And forward again.
+    car.Drive(2, 1, 0);
+    car.Drive(10, 0, 0);
+    car.Drive(2, -1, 0);
+    car.Drive(3, 0, 0);
+    TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+    if (accelerometer)
+      TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 4);
+  }
+}
+
+UNIT_TEST(NoGps_Engine_CarBackingIntoSideStreetIsFollowed)
+{
+  // A street crosses the street going east at 0 m.
+  PieceRoads roads({{-2000, 0, 3000, 0}, {0, -500, 0, 500}}, {{0, 0}});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, -890);
+  BoxCar car(env, -890, true /* accelerometer */);
+  // The car stops 10 m after the crossing, the user marks it there.
+  car.SpeedUpAndBrake();
+  TestAlmostEqualAbs(car.East(), 10, 0.5);
+  TEST(env.m_engine.PlaceMarkByTap(At(car.East(), 3)), ());
+
+  // It backs into the side street to the south: 2 m along its street, a quarter of a circle of 8 m, and 2 m along
+  // the side street, looking north in the end.
+  car.Drive(2, -1, 0);
+  car.Drive(6.3, 0, -14.3);
+  car.Drive(2, 1, 0);
+  car.Drive(3, 0, 0);
+  TestAlmostEqualAbs(car.East(), 0, 0.5);
+  TestAlmostEqualAbs(car.North(), -10, 0.5);
+  TestAlmostEqualAbs(East(env.Last().m_position), 0, 1);
+  TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
+  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 5);
+  // A car rotating that way driving forward turns left at the crossing: this one is not moved as if it did.
+  TEST(env.m_engine.GetTripLine().find(" turn=NaN") != std::string::npos, (env.m_engine.GetTripLine()));
+
+  // And drives forward across the crossing.
+  car.Drive(2, 1, 0);
+  car.Drive(8, 0, 0);
+  car.Drive(2, -1, 0);
+  car.Drive(3, 0, 0);
+  TestAlmostEqualAbs(car.North(), 10, 0.5);
+  TestAlmostEqualAbs(East(env.Last().m_position), 0, 1);
+  TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
+  TEST(!env.m_engine.GetStatus().m_paused, ());
+  TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+}
+
+UNIT_TEST(NoGps_Engine_CarDrivingFastDoesNotDriveBack)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, -450);
+  BoxCar car(env, -450, true /* accelerometer */);
+  car.SpeedUpAndBrake();
+  double const stoppedEast = East(env.Last().m_position);
+
+  // The street goes down from where the car stood: the car starts forward, the accelerometer feels a start backward.
+  car.m_slopeMps2 = -2.5;
+  car.Drive(3, 1, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+  TEST_LESS(East(env.Last().m_position), stoppedEast, ());
+
+  // Nobody drives 15 km/h backwards: the car is where it would be if it was known to drive forward.
+  car.m_slopeMps2 = 0;
+  car.Drive(3, 1, 0);
+  car.Drive(5, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+  TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 5);
 }
 
 UNIT_TEST(NoGps_Engine_ManualModeWhenGpsIsLostWhileNavigating)

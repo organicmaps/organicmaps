@@ -64,6 +64,19 @@ UNIT_TEST(NoGps_DeadReckoning_DrivesNorthAndEast)
   TEST_ALMOST_EQUAL_ABS((dr.GetPosition().m_lon - kLon) * kMPerDeg * std::cos(math::DegToRad(kLat)), 1000.0, 1.0, ());
 }
 
+UNIT_TEST(NoGps_DeadReckoning_DrivesBackLookingWhereItDid)
+{
+  DeadReckoning dr;
+  dr.SetPosition({kLat, kLon});
+  dr.SetHeading(0);
+  dr.AdvanceBy(100);
+  dr.ReverseBy(30);
+  TEST_ALMOST_EQUAL_ABS((dr.GetPosition().m_lat - kLat) * kMPerDeg, 70.0, 0.1, ());
+  TEST_ALMOST_EQUAL_ABS(dr.GetHeading(), 0.0, 1e-9, ());
+  // The accuracy degrades with the way driven, whichever way.
+  TEST_ALMOST_EQUAL_ABS(dr.GetDistanceSinceFix(), 130.0, 1e-6, ());
+}
+
 UNIT_TEST(NoGps_DeadReckoning_AccuracyGrowsWithDistance)
 {
   DeadReckoning dr;

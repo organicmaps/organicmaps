@@ -1328,11 +1328,12 @@ std::string Engine::GetTripLine()
     line += "/" + DebugPrint(m_inertial->GetHeadingSource());
     line += std::string(" road=") + (m_inertial->IsOnRoad() ? "1" : "0");
     line += std::string(" lost=") + (m_inertial->IsRoadLost() ? "1" : "0");
+    // The car drives backwards by the accelerometer of the box.
+    line += std::string(" back=") + (m_inertial->IsDrivingBack() ? "1" : "0");
     // The pause set by the navigation itself and where the car maneuvers by the calculation.
     if (auto const & car = m_inertial->GetOffRoadCar())
     {
-      std::snprintf(buf, sizeof(buf), " self=1 car=%.6f,%.6f back=%d", car->m_lat, car->m_lon,
-                    m_inertial->IsOffRoadCarDrivingBack() ? 1 : 0);
+      std::snprintf(buf, sizeof(buf), " self=1 car=%.6f,%.6f", car->m_lat, car->m_lon);
       line += buf;
     }
     auto const snap = m_inertial->GetLastSnapShiftM();
