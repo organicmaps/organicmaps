@@ -1528,7 +1528,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final RoutingController controller = RoutingController.get();
 
-    final MapObject myPosition = MwmApplication.from(this).getLocationHelper().getMyPosition();
     final MapObject startPoint = controller.getStartPoint();
     final MapObject endPoint = controller.getEndPoint();
     if (startPoint == null || endPoint == null)
@@ -1536,17 +1535,26 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (startPoint.isMyPosition())
       return true;
 
+    final LocationHelper locationHelper = MwmApplication.from(this).getLocationHelper();
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
                                                    .setTitle(R.string.p2p_only_from_current)
                                                    .setCancelable(false)
-                                                   .setNegativeButton(R.string.cancel, null)
                                                    .setOnDismissListener(dialog -> mAlertDialog = null);
-    if (endPoint.isMyPosition())
+    if (locationHelper.getMyPosition() == null)
+      builder.setMessage(R.string.unknown_current_position).setPositiveButton(R.string.ok, null);
+    else if (endPoint.isMyPosition())
       builder.setMessage(R.string.p2p_reverse_from_current)
+          .setNegativeButton(R.string.cancel, null)
           .setPositiveButton(R.string.ok, (dialog, which) -> controller.reverseRoute());
     else
       builder.setMessage(R.string.p2p_reroute_from_current)
-          .setPositiveButton(R.string.ok, (dialog, which) -> controller.setStartPoint(myPosition));
+          .setNegativeButton(R.string.cancel, null)
+          .setPositiveButton(R.string.ok, (dialog, which) -> {
+            // The position may change or get lost while the dialog is shown.
+            final MapObject myPosition = locationHelper.getMyPosition();
+            if (myPosition != null)
+              controller.setStartPoint(myPosition);
+          });
     dismissAlertDialog();
     mAlertDialog = builder.show();
     return false;
