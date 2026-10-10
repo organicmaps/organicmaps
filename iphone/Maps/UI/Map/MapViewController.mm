@@ -747,7 +747,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)openDrivingOptions
 {
-  [self.navigationController pushViewController:[SettingsBuilder buildDrivingOptions] animated:YES];
+  [self.navigationController pushViewController:[SettingsBuilder buildRoutingOptionsWithRouterType:MWMRouter.type]
+                                       animated:YES];
 }
 
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode

@@ -724,6 +724,18 @@
 "show_to_the_right" = "Rodyti dešinėje";
 "show_at_the_bottom" = "Rodyti apačioje";
 "enable_logging_warning_message" = "Įjunkite šią parinktį, jei norite kurį laiką rašyti derinimo žurnalą. Pasinaudodami mygtuku „Pranešti apie klaidą“, esančiu žinyno dialogo lange, galėsite pranešti apie problemą, pridėdami sukauptą žurnalą. Žurnaluose gali būti vietos duomenų.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Driving";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cycling";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Walking";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "All routing modes";
 "driving_options_title" = "Maršruto apskaičiavimo parinktys";
 
 /* Routing setting that automatically reorders intermediate stops */

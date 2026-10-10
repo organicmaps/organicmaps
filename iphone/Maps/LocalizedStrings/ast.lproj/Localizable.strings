@@ -724,6 +724,18 @@
 "show_to_the_right" = "Show to the right";
 "show_at_the_bottom" = "Show at the bottom";
 "enable_logging_warning_message" = "Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Driving";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cycling";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Walking";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "All routing modes";
 "driving_options_title" = "Opciones d’encaminamientu";
 
 /* Routing setting that automatically reorders intermediate stops */

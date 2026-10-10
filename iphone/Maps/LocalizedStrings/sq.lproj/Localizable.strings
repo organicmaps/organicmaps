@@ -724,6 +724,18 @@
 "show_to_the_right" = "Shfaq në të djathtë";
 "show_at_the_bottom" = "Shfaq në fund";
 "enable_logging_warning_message" = "Aktivizoni këtë opsion përkohësisht për të regjistruar dhe dërguar manualisht logje diagnostike të detajuara për problemin tuaj duke përdorur \"Raporto një problem\" në dialogun Ndihmë. Logjet mund të përfshijnë informacione vendndodhjeje.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Driving";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cycling";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Walking";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "All routing modes";
 "driving_options_title" = "Mundësitë e rrugëtimit";
 
 /* Routing setting that automatically reorders intermediate stops */

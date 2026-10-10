@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
+import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
@@ -24,11 +24,12 @@ import java.util.Set;
 
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
-  private static final String BUNDLE_ROAD_TYPES = "road_types";
+  private static final String BUNDLE_ROAD_TYPES = "road_type_ids";
   private static final String BUNDLE_ROUTE_OPTIMIZATION = "route_optimization";
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();
   private boolean mOptimizationEnabledOnLoad;
+  private Router mRouter;
   private View mContent;
 
   @Nullable
@@ -37,11 +38,14 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_driving_options, container, false);
+    mRouter =
+        Router.valueOf(savedInstanceState != null ? savedInstanceState.getInt(DrivingOptionsActivity.EXTRA_ROUTER)
+                                                  : requireArguments().getInt(DrivingOptionsActivity.EXTRA_ROUTER));
     initViews(root);
     ViewCompat.setOnApplyWindowInsetsListener(mContent, new PaddingInsetsListener(false, true, true, true));
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
                    ? makeRouteTypes(savedInstanceState)
-                   : RoutingOptions.getActiveRoadTypes();
+                   : RoutingOptions.getActiveRoadTypes(mRouter);
     mOptimizationEnabledOnLoad = savedInstanceState != null ? savedInstanceState.getBoolean(BUNDLE_ROUTE_OPTIMIZATION)
                                                             : RoutingOptions.isRouteOptimizationEnabled();
     return root;
@@ -53,7 +57,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     Set<RoadType> result = new HashSet<>();
     List<Integer> items = Objects.requireNonNull(bundle.getIntegerArrayList(BUNDLE_ROAD_TYPES));
     for (Integer each : items)
-      result.add(RoadType.values()[each]);
+      result.add(RoadType.fromNativeValue(each));
     return result;
   }
 
@@ -63,8 +67,9 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     super.onSaveInstanceState(outState);
     ArrayList<Integer> savedRoadTypes = new ArrayList<>();
     for (RoadType each : mRoadTypes)
-      savedRoadTypes.add(each.ordinal());
+      savedRoadTypes.add(each.nativeValue);
     outState.putIntegerArrayList(BUNDLE_ROAD_TYPES, savedRoadTypes);
+    outState.putInt(DrivingOptionsActivity.EXTRA_ROUTER, mRouter.getType());
     outState.putBoolean(BUNDLE_ROUTE_OPTIMIZATION, mOptimizationEnabledOnLoad);
   }
 
@@ -76,11 +81,11 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     if (requireActivity().isChangingConfigurations())
       return;
 
-    final Set<RoadType> roadTypes = RoutingOptions.getActiveRoadTypes();
+    final Set<RoadType> roadTypes = RoutingOptions.getActiveRoadTypes(mRouter);
     // A temporary switch to On must not reorder stops if the user switches back before leaving this screen.
     final boolean enabled = RoutingOptions.isRouteOptimizationEnabled();
     final boolean reordered = enabled && !mOptimizationEnabledOnLoad && RoutingController.get().optimizeRoutePoints();
-    if (!mRoadTypes.equals(roadTypes) || reordered)
+    if ((mRouter == RoutingController.get().getLastRouterType() && !mRoadTypes.equals(roadTypes)) || reordered)
       RoutingController.get().onRoutingOptionsChanged();
     // Re-baseline so leaving this screen again (e.g. after Home) reports only what changed since.
     mRoadTypes = roadTypes;
@@ -96,44 +101,32 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     optimizationBtn.setOnCheckedChangeListener(
         (buttonView, isChecked) -> RoutingOptions.setRouteOptimizationEnabled(isChecked));
 
-    SwitchCompat tollsBtn = root.findViewById(R.id.avoid_tolls_btn);
-    tollsBtn.setChecked(RoutingOptions.hasOption(RoadType.Toll));
-    CompoundButton.OnCheckedChangeListener tollBtnListener = new ToggleRoutingOptionListener(RoadType.Toll);
-    tollsBtn.setOnCheckedChangeListener(tollBtnListener);
-
-    SwitchCompat motorwaysBtn = root.findViewById(R.id.avoid_motorways_btn);
-    motorwaysBtn.setChecked(RoutingOptions.hasOption(RoadType.Motorway));
-    CompoundButton.OnCheckedChangeListener motorwayBtnListener = new ToggleRoutingOptionListener(RoadType.Motorway);
-    motorwaysBtn.setOnCheckedChangeListener(motorwayBtnListener);
-
-    SwitchCompat ferriesBtn = root.findViewById(R.id.avoid_ferries_btn);
-    ferriesBtn.setChecked(RoutingOptions.hasOption(RoadType.Ferry));
-    CompoundButton.OnCheckedChangeListener ferryBtnListener = new ToggleRoutingOptionListener(RoadType.Ferry);
-    ferriesBtn.setOnCheckedChangeListener(ferryBtnListener);
-
-    SwitchCompat dirtyRoadsBtn = root.findViewById(R.id.avoid_dirty_roads_btn);
-    dirtyRoadsBtn.setChecked(RoutingOptions.hasOption(RoadType.Dirty));
-    CompoundButton.OnCheckedChangeListener dirtyBtnListener = new ToggleRoutingOptionListener(RoadType.Dirty);
-    dirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
+    initOption(root, R.id.avoid_tolls_btn, R.id.avoid_tolls_divider, RoadType.Toll);
+    initOption(root, R.id.avoid_motorways_btn, 0, RoadType.Motorway);
+    initOption(root, R.id.avoid_ferries_btn, R.id.avoid_ferries_divider, RoadType.Ferry);
+    initOption(root, R.id.avoid_dirty_roads_btn, R.id.avoid_dirty_roads_divider, RoadType.Dirty);
   }
 
-  private static class ToggleRoutingOptionListener implements CompoundButton.OnCheckedChangeListener
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    @NonNull
-    private final RoadType mRoadType;
+    super.onViewCreated(view, savedInstanceState);
+    getToolbarController().setTitle(DrivingOptionsActivity.title(mRouter));
+  }
 
-    private ToggleRoutingOptionListener(@NonNull RoadType roadType)
-    {
-      mRoadType = roadType;
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-    {
+  private void initOption(@NonNull View root, int buttonId, int dividerId, @NonNull RoadType roadType)
+  {
+    SwitchCompat button = root.findViewById(buttonId);
+    int visibility = RoutingOptions.supportsOption(mRouter, roadType) ? View.VISIBLE : View.GONE;
+    ((View) button.getParent()).setVisibility(visibility);
+    if (dividerId != 0)
+      root.findViewById(dividerId).setVisibility(visibility);
+    button.setChecked(RoutingOptions.hasOption(mRouter, roadType));
+    button.setOnCheckedChangeListener((unused, isChecked) -> {
       if (isChecked)
-        RoutingOptions.addOption(mRoadType);
+        RoutingOptions.addOption(mRouter, roadType);
       else
-        RoutingOptions.removeOption(mRoadType);
-    }
+        RoutingOptions.removeOption(mRouter, roadType);
+    });
   }
 }

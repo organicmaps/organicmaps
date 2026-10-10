@@ -724,6 +724,18 @@
 "show_to_the_right" = "Hiển thị ở bên phải";
 "show_at_the_bottom" = "Hiển thị ở phía dưới";
 "enable_logging_warning_message" = "Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Driving";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cycling";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Walking";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "All routing modes";
 "driving_options_title" = "Thiết lập đi vòng";
 
 /* Routing setting that automatically reorders intermediate stops */

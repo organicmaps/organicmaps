@@ -724,6 +724,18 @@
 "show_to_the_right" = "Prikaži desno";
 "show_at_the_bottom" = "Prikaži dolje";
 "enable_logging_warning_message" = "Privremeno omogućite ovu opciju kako biste snimili i ručno poslali detaljne dijagnostičke zapise o vašem problemu nama putem opcije \"Prijavi grešku\" u dijaloškom okviru Pomoć. Zapisi mogu uključivati informacije o lokaciji.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Driving";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cycling";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Walking";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "All routing modes";
 "driving_options_title" = "Opcije za određivanje rute";
 
 /* Routing setting that automatically reorders intermediate stops */

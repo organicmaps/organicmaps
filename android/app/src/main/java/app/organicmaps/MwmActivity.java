@@ -631,7 +631,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void updateDrivingOptionCount()
   {
-    mRoutingPlanViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes().size());
+    mRoutingPlanViewModel.setDrivingOptionsCount(
+        RoutingOptions.getActiveRoadTypes(RoutingController.get().getLastRouterType()).size());
   }
 
   private void initPositionChooser()
@@ -2128,7 +2129,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     forceCloseSearchFragment();
     closePlacePage();
-    RoutingOptions.addOption(roadType);
+    RoutingOptions.addOption(RoutingController.get().getLastRouterType(), roadType);
     rebuildLastRoute();
     updateDrivingOptionCount();
   }

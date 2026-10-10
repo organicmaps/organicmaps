@@ -47,7 +47,7 @@
           android:layout_height="match_parent"
           android:padding="@dimen/margin_half_double_plus"/>
       </LinearLayout>
-      <include layout="@layout/list_divider"/>
+      <include android:id="@+id/avoid_tolls_divider" layout="@layout/list_divider"/>
       <LinearLayout
         android:orientation="horizontal"
         android:minHeight="@dimen/height_block_base"
@@ -69,7 +69,7 @@
           android:layout_height="match_parent"
           android:padding="@dimen/margin_half_double_plus"/>
       </LinearLayout>
-      <include layout="@layout/list_divider"/>
+      <include android:id="@+id/avoid_dirty_roads_divider" layout="@layout/list_divider"/>
       <LinearLayout
         android:orientation="horizontal"
         android:minHeight="@dimen/height_block_base"
@@ -91,7 +91,7 @@
           android:layout_height="match_parent"
           android:padding="@dimen/margin_half_double_plus"/>
       </LinearLayout>
-      <include layout="@layout/list_divider"/>
+      <include android:id="@+id/avoid_ferries_divider" layout="@layout/list_divider"/>
       <LinearLayout
         android:orientation="horizontal"
         android:minHeight="@dimen/height_block_base"
@@ -117,6 +117,15 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_base"
         android:background="?windowBackgroundForced"/>
+      <TextView
+        android:text="@string/routing_options_all_modes"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base"
+        android:paddingTop="@dimen/margin_half_double_plus"
+        android:textColor="?android:attr/textColorSecondary"/>
       <LinearLayout
         android:orientation="horizontal"
         android:minHeight="@dimen/height_block_base"

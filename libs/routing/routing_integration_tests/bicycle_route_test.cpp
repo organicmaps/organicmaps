@@ -185,7 +185,7 @@ UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
 UNIT_TEST(Lithuania_Avoid_Ferry_Long_Route)
 {
   // Avoid ferry Dreverna-Juodkrantė-Klaipėda.
-  RoutingOptionSetter optionsGuard(RoutingOptions::Ferry);
+  RoutingOptionSetter optionsGuard(RoutingOptions::Ferry, VehicleType::Bicycle);
 
   // GraphHopper makes a detour (via unpaved), OSRM goes straight with highway=primary,
   // Valhalla uses a part of the primary. A user says that GraphHopper is the best option.

@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="1" lat="1" lon="1" />
+  <node id="2" lat="1" lon="1.1" />
+  <node id="3" lat="1" lon="1.4" />
+  <node id="4" lat="1" lon="1.5" />
+  <node id="5" lat="1.02" lon="1.1" />
+  <node id="6" lat="1.02" lon="1.4" />
+  <!-- Bends preserve real segments around the intermediate checkpoint for adjustment to join. -->
+  <node id="7" lat="1.0001" lon="1.0101" />
+  <node id="8" lat="0.9999" lon="1.0103" />
+  <node id="9" lat="1.0001" lon="1.0105" />
+  <node id="100" lat="0.9999" lon="1.1000" />
+  <node id="101" lat="0.9998" lon="1.1002" />
+  <node id="102" lat="0.9997" lon="1.1000" />
+  <node id="103" lat="0.9996" lon="1.1002" />
+  <node id="104" lat="0.9995" lon="1.1000" />
+  <node id="105" lat="0.9994" lon="1.1002" />
+  <node id="106" lat="0.9993" lon="1.1000" />
+  <node id="107" lat="0.9992" lon="1.1002" />
+  <node id="108" lat="0.9991" lon="1.1000" />
+  <node id="109" lat="0.9990" lon="1.1002" />
+  <node id="110" lat="0.9989" lon="1.1000" />
+  <node id="111" lat="0.9988" lon="1.1002" />
+  <node id="112" lat="0.9987" lon="1.1000" />
+  <node id="113" lat="0.9986" lon="1.1002" />
+  <node id="114" lat="0.9985" lon="1.1000" />
+  <node id="115" lat="0.9984" lon="1.1002" />
+  <node id="116" lat="0.9983" lon="1.1000" />
+  <node id="117" lat="0.9982" lon="1.1002" />
+  <node id="118" lat="0.9981" lon="1.1000" />
+  <node id="119" lat="0.9980" lon="1.1002" />
+  <node id="120" lat="0.9979" lon="1.1000" />
+  <node id="121" lat="0.9978" lon="1.1002" />
+  <node id="122" lat="0.9977" lon="1.1000" />
+  <node id="123" lat="0.9976" lon="1.1002" />
+  <node id="124" lat="0.9975" lon="1.1000" />
+  <node id="125" lat="0.9974" lon="1.1002" />
+  <node id="126" lat="0.9973" lon="1.1000" />
+  <node id="127" lat="0.9972" lon="1.1002" />
+  <node id="128" lat="0.9971" lon="1.1000" />
+  <node id="129" lat="0.9970" lon="1.1002" />
+  <node id="130" lat="0.9969" lon="1.1000" />
+  <node id="131" lat="0.9968" lon="1.1002" />
+  <node id="132" lat="0.9967" lon="1.1000" />
+  <node id="133" lat="0.9966" lon="1.1002" />
+  <node id="134" lat="0.9965" lon="1.1000" />
+  <node id="135" lat="0.9964" lon="1.1002" />
+  <node id="136" lat="0.9963" lon="1.1000" />
+  <node id="137" lat="0.9962" lon="1.1002" />
+  <node id="138" lat="0.9961" lon="1.1000" />
+  <node id="139" lat="0.9960" lon="1.1002" />
+  <node id="140" lat="0.9959" lon="1.1000" />
+  <node id="141" lat="0.9958" lon="1.1002" />
+  <node id="142" lat="0.9957" lon="1.1000" />
+  <node id="143" lat="0.9956" lon="1.1002" />
+  <node id="144" lat="0.9955" lon="1.1000" />
+  <node id="145" lat="0.9954" lon="1.1002" />
+  <node id="146" lat="0.9953" lon="1.1000" />
+  <node id="147" lat="0.9952" lon="1.1002" />
+  <node id="148" lat="0.9951" lon="1.1000" />
+  <node id="149" lat="0.9950" lon="1.1002" />
+  <node id="150" lat="0.9949" lon="1.1000" />
+  <node id="151" lat="0.9948" lon="1.1002" />
+  <node id="152" lat="0.9947" lon="1.1000" />
+  <node id="153" lat="0.9946" lon="1.1002" />
+  <node id="154" lat="0.9945" lon="1.1000" />
+  <node id="155" lat="0.9944" lon="1.1002" />
+  <node id="156" lat="0.9943" lon="1.1000" />
+  <node id="157" lat="0.9942" lon="1.1002" />
+  <node id="158" lat="0.9941" lon="1.1000" />
+  <node id="159" lat="0.9940" lon="1.1002" />
+  <node id="160" lat="0.9939" lon="1.1000" />
+  <node id="161" lat="0.9938" lon="1.1002" />
+  <node id="162" lat="0.9937" lon="1.1000" />
+  <node id="163" lat="0.9936" lon="1.1002" />
+  <node id="164" lat="0.9935" lon="1.1000" />
+  <node id="165" lat="0.9934" lon="1.1002" />
+  <node id="166" lat="0.9933" lon="1.1000" />
+  <node id="167" lat="0.9932" lon="1.1002" />
+  <node id="168" lat="0.9931" lon="1.1000" />
+  <node id="169" lat="0.9930" lon="1.1002" />
+  <node id="170" lat="0.9929" lon="1.1000" />
+  <node id="171" lat="0.9928" lon="1.1002" />
+  <node id="172" lat="0.9927" lon="1.1000" />
+  <node id="173" lat="0.9926" lon="1.1002" />
+  <node id="174" lat="0.9925" lon="1.1000" />
+  <node id="175" lat="0.9924" lon="1.1002" />
+  <node id="176" lat="0.9923" lon="1.1000" />
+  <node id="177" lat="0.9922" lon="1.1002" />
+  <node id="178" lat="0.9921" lon="1.1000" />
+  <node id="179" lat="0.9920" lon="1.1002" />
+  <node id="180" lat="0.9919" lon="1.1000" />
+  <node id="181" lat="0.9918" lon="1.1002" />
+  <node id="182" lat="0.9917" lon="1.1000" />
+  <node id="183" lat="0.9916" lon="1.1002" />
+  <node id="184" lat="0.9915" lon="1.1000" />
+  <node id="185" lat="0.9914" lon="1.1002" />
+  <node id="186" lat="0.9913" lon="1.1000" />
+  <node id="187" lat="0.9912" lon="1.1002" />
+  <node id="188" lat="0.9911" lon="1.1000" />
+  <node id="189" lat="0.9910" lon="1.1002" />
+  <node id="190" lat="0.9909" lon="1.1000" />
+  <node id="191" lat="0.9908" lon="1.1002" />
+  <node id="192" lat="0.9907" lon="1.1000" />
+  <node id="193" lat="0.9906" lon="1.1002" />
+  <node id="194" lat="0.9905" lon="1.1000" />
+  <node id="195" lat="0.9904" lon="1.1002" />
+  <node id="196" lat="0.9903" lon="1.1000" />
+  <node id="197" lat="0.9902" lon="1.1002" />
+  <node id="198" lat="0.9901" lon="1.1000" />
+  <node id="199" lat="0.9900" lon="1.1002" />
+  <node id="200" lat="0.9899" lon="1.1000" />
+  <node id="201" lat="0.9898" lon="1.1002" />
+  <node id="202" lat="0.9897" lon="1.1000" />
+  <node id="203" lat="0.9896" lon="1.1002" />
+  <node id="204" lat="0.9895" lon="1.1000" />
+  <node id="205" lat="0.9894" lon="1.1002" />
+  <node id="206" lat="0.9893" lon="1.1000" />
+  <node id="207" lat="0.9892" lon="1.1002" />
+  <node id="208" lat="0.9891" lon="1.1000" />
+  <node id="209" lat="0.9890" lon="1.1002" />
+  <node id="210" lat="0.9889" lon="1.1000" />
+  <node id="211" lat="0.9888" lon="1.1002" />
+  <node id="212" lat="0.9887" lon="1.1000" />
+  <node id="213" lat="0.9886" lon="1.1002" />
+  <node id="214" lat="0.9885" lon="1.1000" />
+  <node id="215" lat="0.9884" lon="1.1002" />
+  <node id="216" lat="0.9883" lon="1.1000" />
+  <node id="217" lat="0.9882" lon="1.1002" />
+  <node id="218" lat="0.9881" lon="1.1000" />
+  <node id="219" lat="0.9880" lon="1.1002" />
+  <node id="220" lat="0.9879" lon="1.1000" />
+  <node id="221" lat="0.9878" lon="1.1002" />
+  <node id="222" lat="0.9877" lon="1.1000" />
+  <node id="223" lat="0.9876" lon="1.1002" />
+  <node id="224" lat="0.9875" lon="1.1000" />
+  <node id="225" lat="0.9874" lon="1.1002" />
+  <node id="226" lat="0.9873" lon="1.1000" />
+  <node id="227" lat="0.9872" lon="1.1002" />
+  <node id="228" lat="0.9871" lon="1.1000" />
+  <node id="229" lat="0.9870" lon="1.1002" />
+  <node id="230" lat="0.9869" lon="1.1000" />
+  <node id="231" lat="0.9868" lon="1.1002" />
+  <node id="232" lat="0.9867" lon="1.1000" />
+  <node id="233" lat="0.9866" lon="1.1002" />
+  <node id="234" lat="0.9865" lon="1.1000" />
+  <node id="235" lat="0.9864" lon="1.1002" />
+  <node id="236" lat="0.9863" lon="1.1000" />
+  <node id="237" lat="0.9862" lon="1.1002" />
+  <node id="238" lat="0.9861" lon="1.1000" />
+  <node id="239" lat="0.9860" lon="1.1002" />
+  <node id="240" lat="0.9859" lon="1.1000" />
+  <node id="241" lat="0.9858" lon="1.1002" />
+  <node id="242" lat="0.9857" lon="1.1000" />
+  <node id="243" lat="0.9856" lon="1.1002" />
+  <node id="244" lat="0.9855" lon="1.1000" />
+  <node id="245" lat="0.9854" lon="1.1002" />
+  <node id="246" lat="0.9853" lon="1.1000" />
+  <node id="247" lat="0.9852" lon="1.1002" />
+  <node id="248" lat="0.9851" lon="1.1000" />
+  <node id="249" lat="0.9850" lon="1.1002" />
+  <node id="250" lat="0.9849" lon="1.1000" />
+  <node id="251" lat="0.9848" lon="1.1002" />
+  <node id="252" lat="0.9847" lon="1.1000" />
+  <node id="253" lat="0.9846" lon="1.1002" />
+  <node id="254" lat="0.9845" lon="1.1000" />
+  <node id="255" lat="0.9844" lon="1.1002" />
+  <node id="256" lat="0.9843" lon="1.1000" />
+  <node id="257" lat="0.9842" lon="1.1002" />
+  <node id="258" lat="0.9841" lon="1.1000" />
+  <node id="259" lat="0.9840" lon="1.1002" />
+  <node id="260" lat="0.9839" lon="1.1000" />
+  <node id="261" lat="0.9838" lon="1.1002" />
+  <node id="262" lat="0.9837" lon="1.1000" />
+  <node id="263" lat="0.9836" lon="1.1002" />
+  <node id="264" lat="0.9835" lon="1.1000" />
+  <node id="265" lat="0.9834" lon="1.1002" />
+  <node id="266" lat="0.9833" lon="1.1000" />
+  <node id="267" lat="0.9832" lon="1.1002" />
+  <node id="268" lat="0.9831" lon="1.1000" />
+  <node id="269" lat="0.9830" lon="1.1002" />
+  <node id="270" lat="0.9829" lon="1.1000" />
+  <node id="271" lat="0.9828" lon="1.1002" />
+  <node id="272" lat="0.9827" lon="1.1000" />
+  <node id="273" lat="0.9826" lon="1.1002" />
+  <node id="274" lat="0.9825" lon="1.1000" />
+  <node id="275" lat="0.9824" lon="1.1002" />
+  <node id="276" lat="0.9823" lon="1.1000" />
+  <node id="277" lat="0.9822" lon="1.1002" />
+  <node id="278" lat="0.9821" lon="1.1000" />
+  <node id="279" lat="0.9820" lon="1.1002" />
+  <node id="280" lat="0.9819" lon="1.1000" />
+  <node id="281" lat="0.9818" lon="1.1002" />
+  <node id="282" lat="0.9817" lon="1.1000" />
+  <node id="283" lat="0.9816" lon="1.1002" />
+  <node id="284" lat="0.9815" lon="1.1000" />
+  <node id="285" lat="0.9814" lon="1.1002" />
+  <node id="286" lat="0.9813" lon="1.1000" />
+  <node id="287" lat="0.9812" lon="1.1002" />
+  <node id="288" lat="0.9811" lon="1.1000" />
+  <node id="289" lat="0.9810" lon="1.1002" />
+  <node id="290" lat="0.9809" lon="1.1000" />
+  <node id="291" lat="0.9808" lon="1.1002" />
+  <node id="292" lat="0.9807" lon="1.1000" />
+  <node id="293" lat="0.9806" lon="1.1002" />
+  <node id="294" lat="0.9805" lon="1.1000" />
+  <node id="295" lat="0.9804" lon="1.1002" />
+  <node id="296" lat="0.9803" lon="1.1000" />
+  <node id="297" lat="0.9802" lon="1.1002" />
+  <node id="298" lat="0.9801" lon="1.1000" />
+  <node id="299" lat="0.9800" lon="1.1002" />
+  <node id="300" lat="0.9799" lon="1.1000" />
+  <node id="301" lat="0.9798" lon="1.1002" />
+  <node id="302" lat="0.9797" lon="1.1000" />
+  <node id="303" lat="0.9796" lon="1.1002" />
+  <node id="304" lat="0.9795" lon="1.1000" />
+  <node id="305" lat="0.9794" lon="1.1002" />
+  <node id="306" lat="0.9793" lon="1.1000" />
+  <node id="307" lat="0.9792" lon="1.1002" />
+  <node id="308" lat="0.9791" lon="1.1000" />
+  <node id="309" lat="0.9790" lon="1.1002" />
+  <node id="310" lat="0.9789" lon="1.1000" />
+  <node id="311" lat="0.9788" lon="1.1002" />
+  <node id="312" lat="0.9787" lon="1.1000" />
+  <node id="313" lat="0.9786" lon="1.1002" />
+  <node id="314" lat="0.9785" lon="1.1000" />
+  <node id="315" lat="0.9784" lon="1.1002" />
+  <node id="316" lat="0.9783" lon="1.1000" />
+  <node id="317" lat="0.9782" lon="1.1002" />
+  <node id="318" lat="0.9781" lon="1.1000" />
+  <node id="319" lat="0.9780" lon="1.1002" />
+  <node id="320" lat="0.9779" lon="1.1000" />
+  <node id="321" lat="0.9778" lon="1.1002" />
+  <node id="322" lat="0.9777" lon="1.1000" />
+  <node id="323" lat="0.9776" lon="1.1002" />
+  <node id="324" lat="0.9775" lon="1.1000" />
+  <node id="325" lat="0.9774" lon="1.1002" />
+  <node id="326" lat="0.9773" lon="1.1000" />
+  <node id="327" lat="0.9772" lon="1.1002" />
+  <node id="328" lat="0.9771" lon="1.1000" />
+  <node id="329" lat="0.9770" lon="1.1002" />
+  <node id="330" lat="0.9769" lon="1.1000" />
+  <node id="331" lat="0.9768" lon="1.1002" />
+  <node id="332" lat="0.9767" lon="1.1000" />
+  <node id="333" lat="0.9766" lon="1.1002" />
+  <node id="334" lat="0.9765" lon="1.1000" />
+  <node id="335" lat="0.9764" lon="1.1002" />
+  <node id="336" lat="0.9763" lon="1.1000" />
+  <node id="337" lat="0.9762" lon="1.1002" />
+  <node id="338" lat="0.9761" lon="1.1000" />
+  <node id="339" lat="0.9760" lon="1.1002" />
+  <node id="340" lat="0.9759" lon="1.1000" />
+  <node id="341" lat="0.9758" lon="1.1002" />
+  <node id="342" lat="0.9757" lon="1.1000" />
+  <node id="343" lat="0.9756" lon="1.1002" />
+  <node id="344" lat="0.9755" lon="1.1000" />
+  <node id="345" lat="0.9754" lon="1.1002" />
+  <node id="346" lat="0.9753" lon="1.1000" />
+  <node id="347" lat="0.9752" lon="1.1002" />
+  <node id="348" lat="0.9751" lon="1.1000" />
+  <node id="349" lat="0.9750" lon="1.1002" />
+  <node id="350" lat="0.9749" lon="1.1000" />
+  <node id="351" lat="0.9748" lon="1.1002" />
+  <node id="352" lat="0.9747" lon="1.1000" />
+  <node id="353" lat="0.9746" lon="1.1002" />
+  <node id="354" lat="0.9745" lon="1.1000" />
+  <node id="355" lat="0.9744" lon="1.1002" />
+  <node id="356" lat="0.9743" lon="1.1000" />
+  <node id="357" lat="0.9742" lon="1.1002" />
+  <node id="358" lat="0.9741" lon="1.1000" />
+  <node id="359" lat="0.9740" lon="1.1002" />
+  <way id="10">
+    <nd ref="1" /><nd ref="7" /><nd ref="8" /><nd ref="9" /><nd ref="2" />
+    <tag k="highway" v="residential" />
+  </way>
+  <way id="11">
+    <nd ref="2" /><nd ref="3" />
+    <tag k="route" v="ferry" />
+    <tag k="duration" v="01:40" />
+    <tag k="motor_vehicle" v="yes" />
+    <tag k="bicycle" v="yes" />
+    <tag k="foot" v="yes" />
+  </way>
+  <way id="12">
+    <nd ref="3" /><nd ref="4" />
+    <tag k="highway" v="residential" />
+  </way>
+  <way id="13">
+    <nd ref="2" /><nd ref="5" /><nd ref="6" /><nd ref="3" />
+    <tag k="highway" v="residential" />
+    <tag k="maxspeed" v="5" />
+  </way>
+  <!-- Connectivity checks need more than 250 preserved segments during adjustment. -->
+  <way id="14">
+    <nd ref="2" />
+    <nd ref="100" />
+    <nd ref="101" />
+    <nd ref="102" />
+    <nd ref="103" />
+    <nd ref="104" />
+    <nd ref="105" />
+    <nd ref="106" />
+    <nd ref="107" />
+    <nd ref="108" />
+    <nd ref="109" />
+    <nd ref="110" />
+    <nd ref="111" />
+    <nd ref="112" />
+    <nd ref="113" />
+    <nd ref="114" />
+    <nd ref="115" />
+    <nd ref="116" />
+    <nd ref="117" />
+    <nd ref="118" />
+    <nd ref="119" />
+    <nd ref="120" />
+    <nd ref="121" />
+    <nd ref="122" />
+    <nd ref="123" />
+    <nd ref="124" />
+    <nd ref="125" />
+    <nd ref="126" />
+    <nd ref="127" />
+    <nd ref="128" />
+    <nd ref="129" />
+    <nd ref="130" />
+    <nd ref="131" />
+    <nd ref="132" />
+    <nd ref="133" />
+    <nd ref="134" />
+    <nd ref="135" />
+    <nd ref="136" />
+    <nd ref="137" />
+    <nd ref="138" />
+    <nd ref="139" />
+    <nd ref="140" />
+    <nd ref="141" />
+    <nd ref="142" />
+    <nd ref="143" />
+    <nd ref="144" />
+    <nd ref="145" />
+    <nd ref="146" />
+    <nd ref="147" />
+    <nd ref="148" />
+    <nd ref="149" />
+    <nd ref="150" />
+    <nd ref="151" />
+    <nd ref="152" />
+    <nd ref="153" />
+    <nd ref="154" />
+    <nd ref="155" />
+    <nd ref="156" />
+    <nd ref="157" />
+    <nd ref="158" />
+    <nd ref="159" />
+    <nd ref="160" />
+    <nd ref="161" />
+    <nd ref="162" />
+    <nd ref="163" />
+    <nd ref="164" />
+    <nd ref="165" />
+    <nd ref="166" />
+    <nd ref="167" />
+    <nd ref="168" />
+    <nd ref="169" />
+    <nd ref="170" />
+    <nd ref="171" />
+    <nd ref="172" />
+    <nd ref="173" />
+    <nd ref="174" />
+    <nd ref="175" />
+    <nd ref="176" />
+    <nd ref="177" />
+    <nd ref="178" />
+    <nd ref="179" />
+    <nd ref="180" />
+    <nd ref="181" />
+    <nd ref="182" />
+    <nd ref="183" />
+    <nd ref="184" />
+    <nd ref="185" />
+    <nd ref="186" />
+    <nd ref="187" />
+    <nd ref="188" />
+    <nd ref="189" />
+    <nd ref="190" />
+    <nd ref="191" />
+    <nd ref="192" />
+    <nd ref="193" />
+    <nd ref="194" />
+    <nd ref="195" />
+    <nd ref="196" />
+    <nd ref="197" />
+    <nd ref="198" />
+    <nd ref="199" />
+    <nd ref="200" />
+    <nd ref="201" />
+    <nd ref="202" />
+    <nd ref="203" />
+    <nd ref="204" />
+    <nd ref="205" />
+    <nd ref="206" />
+    <nd ref="207" />
+    <nd ref="208" />
+    <nd ref="209" />
+    <nd ref="210" />
+    <nd ref="211" />
+    <nd ref="212" />
+    <nd ref="213" />
+    <nd ref="214" />
+    <nd ref="215" />
+    <nd ref="216" />
+    <nd ref="217" />
+    <nd ref="218" />
+    <nd ref="219" />
+    <nd ref="220" />
+    <nd ref="221" />
+    <nd ref="222" />
+    <nd ref="223" />
+    <nd ref="224" />
+    <nd ref="225" />
+    <nd ref="226" />
+    <nd ref="227" />
+    <nd ref="228" />
+    <nd ref="229" />
+    <nd ref="230" />
+    <nd ref="231" />
+    <nd ref="232" />
+    <nd ref="233" />
+    <nd ref="234" />
+    <nd ref="235" />
+    <nd ref="236" />
+    <nd ref="237" />
+    <nd ref="238" />
+    <nd ref="239" />
+    <nd ref="240" />
+    <nd ref="241" />
+    <nd ref="242" />
+    <nd ref="243" />
+    <nd ref="244" />
+    <nd ref="245" />
+    <nd ref="246" />
+    <nd ref="247" />
+    <nd ref="248" />
+    <nd ref="249" />
+    <nd ref="250" />
+    <nd ref="251" />
+    <nd ref="252" />
+    <nd ref="253" />
+    <nd ref="254" />
+    <nd ref="255" />
+    <nd ref="256" />
+    <nd ref="257" />
+    <nd ref="258" />
+    <nd ref="259" />
+    <nd ref="260" />
+    <nd ref="261" />
+    <nd ref="262" />
+    <nd ref="263" />
+    <nd ref="264" />
+    <nd ref="265" />
+    <nd ref="266" />
+    <nd ref="267" />
+    <nd ref="268" />
+    <nd ref="269" />
+    <nd ref="270" />
+    <nd ref="271" />
+    <nd ref="272" />
+    <nd ref="273" />
+    <nd ref="274" />
+    <nd ref="275" />
+    <nd ref="276" />
+    <nd ref="277" />
+    <nd ref="278" />
+    <nd ref="279" />
+    <nd ref="280" />
+    <nd ref="281" />
+    <nd ref="282" />
+    <nd ref="283" />
+    <nd ref="284" />
+    <nd ref="285" />
+    <nd ref="286" />
+    <nd ref="287" />
+    <nd ref="288" />
+    <nd ref="289" />
+    <nd ref="290" />
+    <nd ref="291" />
+    <nd ref="292" />
+    <nd ref="293" />
+    <nd ref="294" />
+    <nd ref="295" />
+    <nd ref="296" />
+    <nd ref="297" />
+    <nd ref="298" />
+    <nd ref="299" />
+    <nd ref="300" />
+    <nd ref="301" />
+    <nd ref="302" />
+    <nd ref="303" />
+    <nd ref="304" />
+    <nd ref="305" />
+    <nd ref="306" />
+    <nd ref="307" />
+    <nd ref="308" />
+    <nd ref="309" />
+    <nd ref="310" />
+    <nd ref="311" />
+    <nd ref="312" />
+    <nd ref="313" />
+    <nd ref="314" />
+    <nd ref="315" />
+    <nd ref="316" />
+    <nd ref="317" />
+    <nd ref="318" />
+    <nd ref="319" />
+    <nd ref="320" />
+    <nd ref="321" />
+    <nd ref="322" />
+    <nd ref="323" />
+    <nd ref="324" />
+    <nd ref="325" />
+    <nd ref="326" />
+    <nd ref="327" />
+    <nd ref="328" />
+    <nd ref="329" />
+    <nd ref="330" />
+    <nd ref="331" />
+    <nd ref="332" />
+    <nd ref="333" />
+    <nd ref="334" />
+    <nd ref="335" />
+    <nd ref="336" />
+    <nd ref="337" />
+    <nd ref="338" />
+    <nd ref="339" />
+    <nd ref="340" />
+    <nd ref="341" />
+    <nd ref="342" />
+    <nd ref="343" />
+    <nd ref="344" />
+    <nd ref="345" />
+    <nd ref="346" />
+    <nd ref="347" />
+    <nd ref="348" />
+    <nd ref="349" />
+    <nd ref="350" />
+    <nd ref="351" />
+    <nd ref="352" />
+    <nd ref="353" />
+    <nd ref="354" />
+    <nd ref="355" />
+    <nd ref="356" />
+    <nd ref="357" />
+    <nd ref="358" />
+    <nd ref="359" />
+    <tag k="highway" v="residential" />
+    <tag k="name" v="Adjustment connector" />
+  </way>
+</osm>

@@ -724,6 +724,18 @@
 "show_to_the_right" = "Rechts weergeven";
 "show_at_the_bottom" = "Onderaan weergeven";
 "enable_logging_warning_message" = "Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Driving";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cycling";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Walking";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "All routing modes";
 "driving_options_title" = "Route instellingen";
 
 /* Routing setting that automatically reorders intermediate stops */

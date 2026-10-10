@@ -724,6 +724,18 @@
 "show_to_the_right" = "Näytä oikealle";
 "show_at_the_bottom" = "Näytä alareunassa";
 "enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Driving";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cycling";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Walking";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "All routing modes";
 "driving_options_title" = "Reititysvalinnat";
 
 /* Routing setting that automatically reorders intermediate stops */

@@ -1,35 +1,47 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.NonNull;
+import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.settings.RoadType;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.Set;
 
 public final class RoutingOptions
 {
-  public static void addOption(@NonNull RoadType roadType)
+  public static void addOption(@NonNull Router router, @NonNull RoadType roadType)
   {
-    nativeAddOption(roadType.ordinal());
+    nativeAddOption(router.getType(), roadType.nativeValue);
   }
 
-  public static void removeOption(@NonNull RoadType roadType)
+  public static void removeOption(@NonNull Router router, @NonNull RoadType roadType)
   {
-    nativeRemoveOption(roadType.ordinal());
+    nativeRemoveOption(router.getType(), roadType.nativeValue);
   }
 
-  public static boolean hasOption(@NonNull RoadType roadType)
+  public static boolean hasOption(@NonNull Router router, @NonNull RoadType roadType)
   {
-    return nativeHasOption(roadType.ordinal());
+    return (nativeGetOptions(router.getType()) & roadType.nativeValue) != 0;
   }
 
-  public static boolean hasAnyOptions()
+  public static boolean supportsOption(@NonNull Router router, @NonNull RoadType roadType)
   {
-    for (RoadType each : RoadType.values())
-    {
-      if (hasOption(each))
-        return true;
-    }
-    return false;
+    return (nativeGetSupportedOptions(router.getType()) & roadType.nativeValue) != 0;
+  }
+
+  public static boolean hasSupportedOptions(@NonNull Router router)
+  {
+    return nativeGetSupportedOptions(router.getType()) != 0;
+  }
+
+  public static boolean hasSettings(@NonNull Router router)
+  {
+    // Transit still offers global route optimization; Ruler preserves the measured point order.
+    return router != Router.Ruler;
+  }
+
+  public static boolean hasAnyOptions(@NonNull Router router)
+  {
+    return nativeGetOptions(router.getType()) != 0;
   }
 
   public static boolean isRouteOptimizationEnabled()
@@ -43,26 +55,25 @@ public final class RoutingOptions
   }
 
   @NonNull
-  public static Set<RoadType> getActiveRoadTypes()
+  public static Set<RoadType> getActiveRoadTypes(@NonNull Router router)
   {
-    Set<RoadType> roadTypes = new HashSet<>();
+    Set<RoadType> roadTypes = EnumSet.noneOf(RoadType.class);
+    final int mask = nativeGetOptions(router.getType());
     for (RoadType each : RoadType.values())
-    {
-      if (hasOption(each))
+      if ((mask & each.nativeValue) != 0)
         roadTypes.add(each);
-    }
     return roadTypes;
   }
 
-  private RoutingOptions() throws IllegalAccessException
-  {
-    throw new IllegalAccessException("RoutingOptions is a utility class and should not be instantiated");
-  }
-  private static native void nativeAddOption(int option);
+  private RoutingOptions() {}
 
-  private static native void nativeRemoveOption(int option);
+  private static native int nativeGetOptions(int routerType);
 
-  private static native boolean nativeHasOption(int option);
+  private static native int nativeGetSupportedOptions(int routerType);
+
+  private static native void nativeAddOption(int routerType, int option);
+
+  private static native void nativeRemoveOption(int routerType, int option);
 
   private static native boolean nativeIsRouteOptimizationEnabled();
 

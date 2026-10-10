@@ -209,9 +209,9 @@ routing::RoutingOptions::Road ToRoutingOptionsRoad(jint option)
 {
   using routing::RoutingOptions;
 
-  auto const road = static_cast<uint8_t>(1u << static_cast<int>(option));
-  CHECK_LESS(road, static_cast<uint8_t>(RoutingOptions::Road::Max), ());
-  return static_cast<RoutingOptions::Road>(road);
+  auto const road = RoutingOptions::RoadFromId(static_cast<uint32_t>(option));
+  CHECK(road, (option));
+  return *road;
 }
 }  // namespace
 
@@ -365,30 +365,43 @@ jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> c
 
 extern "C"
 {
-JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeHasOption(JNIEnv *, jclass, jint option)
+JNIEXPORT jint Java_app_organicmaps_sdk_routing_RoutingOptions_nativeGetOptions(JNIEnv *, jclass, jint routerType)
 {
-  using routing::RoutingOptions;
-
-  RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
-  return static_cast<jboolean>(routingOptions.Has(routing_jni::ToRoutingOptionsRoad(option)));
+  auto const vehicle = routing::RoutingOptions::GetVehicleType(static_cast<routing::RouterType>(routerType));
+  return vehicle ? routing::RoutingOptions::LoadFromSettings(*vehicle).GetOptions() : 0;
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeAddOption(JNIEnv *, jclass, jint option)
+JNIEXPORT jint Java_app_organicmaps_sdk_routing_RoutingOptions_nativeGetSupportedOptions(JNIEnv *, jclass,
+                                                                                         jint routerType)
 {
-  using routing::RoutingOptions;
-
-  RoutingOptions routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
-  routingOptions.Add(routing_jni::ToRoutingOptionsRoad(option));
-  RoutingOptions::SaveCarOptionsToSettings(routingOptions);
+  auto const vehicle = routing::RoutingOptions::GetVehicleType(static_cast<routing::RouterType>(routerType));
+  return vehicle ? routing::RoutingOptions::GetSupportedOptions(*vehicle) : 0;
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeRemoveOption(JNIEnv *, jclass, jint option)
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeAddOption(JNIEnv *, jclass, jint routerType,
+                                                                               jint option)
 {
   using routing::RoutingOptions;
+  auto const road = routing_jni::ToRoutingOptionsRoad(option);
+  auto const vehicle = RoutingOptions::GetVehicleType(static_cast<routing::RouterType>(routerType));
+  if (!vehicle)
+    return;
+  auto options = RoutingOptions::LoadFromSettings(*vehicle);
+  options.Add(road);
+  RoutingOptions::SaveToSettings(*vehicle, options);
+}
 
-  RoutingOptions routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
-  routingOptions.Remove(routing_jni::ToRoutingOptionsRoad(option));
-  RoutingOptions::SaveCarOptionsToSettings(routingOptions);
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeRemoveOption(JNIEnv *, jclass, jint routerType,
+                                                                                  jint option)
+{
+  using routing::RoutingOptions;
+  auto const road = routing_jni::ToRoutingOptionsRoad(option);
+  auto const vehicle = RoutingOptions::GetVehicleType(static_cast<routing::RouterType>(routerType));
+  if (!vehicle)
+    return;
+  auto options = RoutingOptions::LoadFromSettings(*vehicle);
+  options.Remove(road);
+  RoutingOptions::SaveToSettings(*vehicle, options);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsRouteOptimizationEnabled(JNIEnv *, jclass)
