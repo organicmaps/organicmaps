@@ -3,7 +3,11 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "routing/ruler_router.hpp"
+
 #include "storage/routing_helpers.hpp"
+
+#include "drape_frontend/visual_params.hpp"
 
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
@@ -23,6 +27,15 @@
 
 namespace routing_manager_tests
 {
+struct RoutingManagerAltMarksTest
+{
+  // Headless InsertRoute() skips rendering, so queue its mark work without a drape engine.
+  static void QueueMarks(RoutingManager & manager, routing::RoutesResult const & result)
+  {
+    manager.CreateRouteAltMarks(result);
+  }
+};
+
 namespace
 {
 // Pump only this fixture's tasks, not callbacks left by earlier Framework instances.
@@ -41,6 +54,13 @@ public:
     Task task;
     m_tasks.WaitAndPop(task);
     task();
+  }
+
+  void RunPending()
+  {
+    Task task;
+    while (m_tasks.TryPop(task))
+      task();
   }
 
 private:
@@ -224,7 +244,116 @@ double GetRouteLengthMeters(RoutingManager const & manager)
     length += mercator::DistanceOnEarth(points[i - 1].m_position, points[i].m_position);
   return length;
 }
+
+class AlternativeRouter final : public routing::IRouter
+{
+public:
+  std::string GetName() const override { return "alternative-test-router"; }
+  void ClearState() override {}
+  void SetGuides(routing::GuidesTracks &&) override {}
+  bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, routing::EdgeProj &) override
+  {
+    return false;
+  }
+
+  routing::RouterResultCode CalculateRoute(routing::Checkpoints const & checkpoints, m2::PointD const & direction,
+                                           bool adjust, bool needAlternatives, routing::RouterDelegate const & delegate,
+                                           routing::RoutesResult & result) override
+  {
+    routing::RulerRouter ruler;
+    auto const code = static_cast<routing::IRouter &>(ruler).CalculateRoute(checkpoints, direction, adjust,
+                                                                            needAlternatives, delegate, result);
+    auto alternative = result.GetActive();
+    result.m_routes.push_back(std::move(alternative));
+    return code;
+  }
+};
+
+class RouteFollowDelegate final : public RoutingManager::Delegate
+{
+public:
+  void OnRouteFollow(routing::RouterType type) override
+  {
+    TEST(type == routing::RouterType::Vehicle, ());
+    ++m_followCalls;
+  }
+
+  size_t m_followCalls = 0;
+};
 }  // namespace
+
+UNIT_TEST(RoutingManager_QueuedAlternativeMarksRespectFollowing)
+{
+  auto & platform = GetPlatform();
+  auto testGuiThread = std::make_unique<TestGuiThread>();
+  auto * guiThread = testGuiThread.get();
+  platform.SetGuiThread(std::move(testGuiThread));
+  SCOPE_GUARD(restoreGuiThread, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
+
+  Framework framework(FrameworkParams(false /* m_enableDiffs */), false /* loadMaps */);
+  auto & bookmarks = framework.GetBookmarkManager();
+  auto callbacks = framework.GetRoutingManager().GetCallbacksForTests();
+  RouteFollowDelegate delegate;
+  RoutingManager manager(std::move(callbacks), delegate);
+  manager.SetBookmarkManager(&bookmarks);
+  manager.SetTransitManager(&framework.GetTransitManager());
+  manager.Init(routing::CreateNumMwmIds(framework.GetStorage()));
+  auto const originalRouter = manager.GetLastUsedRouter();
+  SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(originalRouter); });
+  manager.SetRouter(routing::RouterType::Vehicle);
+  df::VisualParams::Init(1.0, 256);
+
+  auto & session = manager.RoutingSession();
+  session.SetRouter(std::make_unique<AlternativeRouter>(), nullptr /* finder */);
+  session.SetRoutingCallbacks([&](routing::RoutesResult const & result, routing::RouterResultCode code)
+  {
+    RoutingManagerAltMarksTest::QueueMarks(manager, result);
+    manager.OnBuildRouteReady(result, code);
+  }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
+
+  size_t builds = 0;
+  bool resumeNavigation = false;
+  manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+  {
+    TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
+    TEST(!manager.IsRoutingFollowing(), ());
+    if (resumeNavigation)
+    {
+      manager.FollowRoute();
+      TEST(manager.IsRoutingFollowing(), ());
+      TEST(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).empty(), ());
+    }
+    ++builds;
+  });
+  auto const build = [&]
+  {
+    auto const expected = builds + 1;
+    manager.BuildRoute();
+    while (builds != expected)
+      guiThread->RunNext();
+  };
+  auto const marksCount = [&] { return bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).size(); };
+  AddTestRoute(manager, {});
+
+  build();
+  guiThread->RunPending();
+  TEST_EQUAL(marksCount(), 2, ("Planning must show both route choices"));
+  manager.FollowRoute();
+  TEST(manager.IsRoutingFollowing(), ());
+  TEST_EQUAL(marksCount(), 0, ("Starting navigation must clear existing balloons"));
+  guiThread->RunPending();
+  TEST_EQUAL(marksCount(), 0, ());
+
+  // A full build disables following; the platform listener resumes the existing navigation session.
+  resumeNavigation = true;
+  build();
+  guiThread->RunPending();
+  TEST(manager.IsRoutingFollowing(), ());
+  TEST_EQUAL(marksCount(), 0, ("Queued balloons must stay hidden after navigation resumes"));
+  TEST_EQUAL(delegate.m_followCalls, 2, ());
+  manager.CloseRouting(true /* removeRoutePoints */);
+  guiThread->RunPending();
+}
 
 UNIT_TEST(RoutingManager_ReverseRoutePointsRequiresBothEndpoints)
 {

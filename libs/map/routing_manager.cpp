@@ -735,6 +735,10 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
 
   GetPlatform().RunTask(Platform::Thread::Gui, [this, infos = std::move(infos)]()
   {
+    // The build listener can resume navigation before this task runs.
+    if (m_routingSession.IsFollowing())
+      return;
+
     // Place each balloon up or down based on the midpoint's latitude relative to the others:
     // the northern midpoint (larger mercator y) gets the up balloon, the southern one goes down.
     // +y in drape vertex-normal space is downward, so (0, -N) lifts the body above the pivot.
