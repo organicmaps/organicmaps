@@ -77,9 +77,8 @@ bool AsyncRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::Poin
                                               EdgeProj & proj)
 {
   lock_guard ul(m_guard);
-  // IndexRouter::FindClosestProjectionToRoad reads the road graph caches that CalculateRoute fills
-  // and clears on the routing thread, so refuse rather than read them from under it. The caller
-  // only snaps the position marker to a road, and it is off route anyway while a rebuild runs.
+  // Calculations mutate the road graph caches. GPS updates can return the session to OnRoute
+  // before a rebuild finishes, so guard projection by worker activity, not session state.
   if (!m_router || m_isCalculating)
     return false;
 
@@ -335,10 +334,9 @@ void AsyncRouter::CalculateRoute()
     SCOPE_GUARD(routerIdle, [&]
     {
       lock_guard ul(m_guard);
-      bool const isCurrentResult =
-          m_router == router && m_delegateProxy == delegateProxy && !m_clearState && !m_hasRequest;
-      bool const succeeded = code == RouterResultCode::NoError;
-      m_cachedRoutesId = completed && isCurrentResult && succeeded && result->IsValid() ? routeId : 0;
+      bool const cacheIsValid = completed && code == RouterResultCode::NoError && result->IsValid() &&
+                                m_delegateProxy == delegateProxy && !m_clearState;
+      m_cachedRoutesId = cacheIsValid ? routeId : 0;
       m_isCalculating = false;
     });
 

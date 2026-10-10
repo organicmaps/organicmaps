@@ -5,6 +5,8 @@
 #include "routing/router.hpp"
 #include "routing/routing_tests/tools.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
@@ -16,6 +18,7 @@
 #include <mutex>
 #include <string>
 #include <thread>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -31,7 +34,19 @@ Route MakeValidRoute(Checkpoints const & checkpoints)
   Route route;
   route.SetGeometry(points.cbegin(), points.cend());
   vector<RouteSegment> segments;
-  RouteSegmentsFrom({}, points, {}, {}, segments);
+  double distanceMeters = 0.0;
+  double distanceMercator = 0.0;
+  for (size_t i = 1; i < points.size(); ++i)
+  {
+    distanceMeters += mercator::DistanceOnEarth(points[i - 1], points[i]);
+    distanceMercator += points[i - 1].Length(points[i]);
+    turns::TurnItem const turn(
+        i, i + 1 == points.size() ? turns::CarDirection::ReachedYourDestination : turns::CarDirection::None);
+    segments.emplace_back(Segment(0, 0, i - 1, true), turn,
+                          geometry::PointWithAltitude(points[i], geometry::kDefaultAltitudeMeters),
+                          RouteSegment::RoadNameInfo{});
+    segments.back().SetDistancesAndTime(distanceMeters, distanceMercator, 0.0);
+  }
   route.SetRouteSegments(std::move(segments));
   route.SetSubroutes(vector<Route::SubrouteAttrs>{Route::SubrouteAttrs(
       geometry::PointWithAltitude(points.front(), geometry::kDefaultAltitudeMeters),
@@ -131,6 +146,7 @@ using ReadyResult = pair<uint64_t, RouterResultCode>;
 
 struct ReadyRequest
 {
+  // Keep the promise alive when cancellation drops its callback, so an undelivered future stays pending.
   shared_ptr<promise<ReadyResult>> m_ready = make_shared<promise<ReadyResult>>();
   future<ReadyResult> m_future = m_ready->get_future();
 };
@@ -151,6 +167,17 @@ uint64_t WaitReady(ReadyRequest & ready)
   auto const [id, code] = ready.m_future.get();
   TEST_EQUAL(code, RouterResultCode::NoError, ());
   return id;
+}
+
+template <typename Fn>
+auto RunOnGui(Fn && fn)
+{
+  // Return GUI-thread assertion failures to the test thread, keeping the task alive on timeout.
+  auto task = make_shared<packaged_task<invoke_result_t<Fn>()>>(std::forward<Fn>(fn));
+  auto done = task->get_future();
+  GetPlatform().RunTask(Platform::Thread::Gui, [task] { (*task)(); });
+  TEST(done.wait_for(30s) == future_status::ready, ("GUI task did not finish."));
+  return done.get();
 }
 
 UNIT_CLASS_TEST(AsyncGuiThreadTest, RouterCallsWhileCalculating)
@@ -195,7 +222,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterFailedCalculation)
   auto failure = failed->get_future();
   Calculate(async, [failed](RouterResultCode code) { failed->set_value(code); });
   TEST(failure.wait_for(30s) == future_status::ready, ());
-  TEST_EQUAL(failure.get(), RouterResultCode::RouteNotFound, ());
+  auto const code = failure.get();
+  TEST_EQUAL(code, RouterResultCode::RouteNotFound, ());
   TEST(!async.SwapAltRouteToActive(oldId), ());
 
   auto recovered = Calculate(async);
@@ -258,11 +286,12 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterSupersededCalculation)
   TEST(!async.SwapAltRouteToActive(oldId), ());
   TEST(async.SwapAltRouteToActive(newId), ());
 }
+
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, AlternativesDiscardedDuringRebuild)
 {
   auto built = make_shared<promise<bool>>();
   auto builtFuture = built->get_future();
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, built]
+  RunOnGui([this, built]
   {
     InitRoutingSession();
     m_session->SetRouter(make_unique<TestRouter>(vector{Outcome::Success, Outcome::Failure, Outcome::Success}),
@@ -274,38 +303,94 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, AlternativesDiscardedDurin
   TEST(builtFuture.wait_for(30s) == future_status::ready, ());
   TEST(builtFuture.get(), ());
 
-  auto pending = make_shared<promise<pair<size_t, size_t>>>();
-  auto pendingFuture = pending->get_future();
   auto failed = make_shared<promise<void>>();
   auto failedFuture = failed->get_future();
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, pending, failed]
+  RunOnGui([this, failed]
   {
     m_session->RebuildRoute({1, 2}, [](RoutesResult const &, RouterResultCode) {}, nullptr, [failed](RouterResultCode)
     { failed->set_value(); }, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true);
-    m_session->RouteCall([pending](RoutesResult const & result)
-    { pending->set_value({result.m_routes.size(), result.GetActive().GetRouteSegments().size()}); });
+    m_session->RouteCall([](RoutesResult const & result)
+    {
+      TEST_EQUAL(result.m_routes.size(), 1, ());
+      TEST_EQUAL(result.GetActive().GetRouteSegments().size(), 2,
+                 ("Only the selected three-point route remains available while rebuilding."));
+    });
   });
-  TEST(pendingFuture.wait_for(30s) == future_status::ready, ());
-  TEST_EQUAL(pendingFuture.get(), (pair<size_t, size_t>{1, 2}),
-             ("Only the selected three-point route remains available while rebuilding."));
   TEST(failedFuture.wait_for(30s) == future_status::ready, ());
 
-  auto retained = make_shared<promise<pair<size_t, size_t>>>();
-  auto retainedFuture = retained->get_future();
   auto recovered = make_shared<promise<bool>>();
   auto recoveredFuture = recovered->get_future();
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, retained, recovered]
+  RunOnGui([this, recovered]
   {
-    m_session->RouteCall([retained](RoutesResult const & result)
-    { retained->set_value({result.m_routes.size(), result.GetActive().GetRouteSegments().size()}); });
+    m_session->RouteCall([](RoutesResult const & result)
+    {
+      TEST_EQUAL(result.m_routes.size(), 1, ());
+      TEST_EQUAL(result.GetActive().GetRouteSegments().size(), 2,
+                 ("Failure retains the selected route without choices."));
+    });
     m_session->RebuildRoute({1, 2}, [this, recovered](RoutesResult const &, RouterResultCode) {
       recovered->set_value(m_session->SwapActiveAlternative(1));
     }, nullptr, nullptr, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true);
   });
-  TEST(retainedFuture.wait_for(30s) == future_status::ready, ());
-  TEST_EQUAL(retainedFuture.get(), (pair<size_t, size_t>{1, 2}),
-             ("Failure retains the selected route without choices."));
   TEST(recoveredFuture.wait_for(30s) == future_status::ready, ());
   TEST(recoveredFuture.get(), ("A successful result restores alternatives."));
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, RoadProjectionAfterReturningToRouteDuringRebuild)
+{
+  auto built = make_shared<promise<void>>();
+  auto builtFuture = built->get_future();
+  auto * raw = RunOnGui([this, built]
+  {
+    InitRoutingSession();
+    auto router = make_unique<TestRouter>(vector{Outcome::Success, Outcome::BlockedSuccess});
+    auto * raw = router.get();
+    m_session->SetRouter(std::move(router), nullptr);
+    m_session->SetRoutingCallbacks([built](RoutesResult const &, RouterResultCode) { built->set_value(); }, nullptr,
+                                   nullptr, nullptr);
+    m_session->BuildRoute(Checkpoints({1, 2}, {5, 6}), RouterDelegate::kNoTimeout);
+    return raw;
+  });
+  SCOPE_GUARD(releaseRouter, [raw] { raw->Release(); });
+  TEST(builtFuture.wait_for(30s) == future_status::ready, ());
+
+  auto rebuilt = make_shared<promise<void>>();
+  auto rebuiltFuture = rebuilt->get_future();
+  RunOnGui([this, rebuilt]
+  {
+    TEST(m_session->EnableFollowMode(), ());
+    m_session->RebuildRoute({1, 2}, [rebuilt](RoutesResult const &, RouterResultCode) { rebuilt->set_value(); },
+                            nullptr, nullptr, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true);
+    TEST(m_session->IsRebuildingOnly(), ());
+  });
+  TEST(raw->WaitStarted(), ("Rebuild did not start."));
+
+  RunOnGui([this, raw]
+  {
+    location::GpsInfo info;
+    info.m_longitude = 1.002;
+    info.m_latitude = mercator::YToLat(2);
+    // Iterator movement accepts the accuracy radius; route snapping uses a smaller threshold.
+    info.m_horizontalAccuracy = 500;
+    TEST_EQUAL(m_session->OnLocationPositionChanged(info), SessionState::OnRoute, ());
+    location::RouteMatchingInfo matchingInfo;
+    TEST(!m_session->MatchLocationToRoute(info, matchingInfo), ("The caller must fall back to the road graph."));
+
+    // Ensure road projection has a direction, so it reaches the async-router guard.
+    m_session->PushPositionAccumulator({1, 2});
+    m_session->PushPositionAccumulator({1, 2.0002});
+    m_session->MatchLocationToRoadGraph(info);
+    TEST_EQUAL(raw->m_projections, 0, ("OnRoute must not expose the busy road graph."));
+  });
+  TEST(rebuiltFuture.wait_for(0s) != future_status::ready, ("The worker must still be blocked."));
+
+  raw->Release();
+  TEST(rebuiltFuture.wait_for(30s) == future_status::ready, ());
+  RunOnGui([this, raw]
+  {
+    location::GpsInfo info;
+    m_session->MatchLocationToRoadGraph(info);
+    TEST_EQUAL(raw->m_projections, 1, ("Road projection resumes after the worker finishes."));
+  });
 }
 }  // namespace async_router_test

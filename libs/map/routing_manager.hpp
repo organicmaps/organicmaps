@@ -338,8 +338,7 @@ private:
   void CreateRouteAltMarks(routing::RoutesResult const & result);
 
   // Synchronously remove the alternative-route subroutes from drape and clear the alt ETA
-  // balloons. Used when entering navigation mode (FollowRoute) so the alts drawn at build
-  // time disappear immediately. The active route is left untouched.
+  // balloons when rebuilding or entering navigation. The active route is left untouched.
   void ClearAlternativeRoutes();
 
   /// \returns false if the location could not be matched to the route and should be matched to the

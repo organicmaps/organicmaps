@@ -741,11 +741,11 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
 
   GetPlatform().RunTask(Platform::Thread::Gui, [this, routesId = result.m_routesId, infos = std::move(infos)]()
   {
-    // A rebuild can discard choices before this queued task runs.
+    // A rebuild or navigation can hide choices before this queued task runs.
     bool hasAlternatives = false;
     m_routingSession.RouteCall([&](RoutesResult const & current)
     { hasAlternatives = current.m_routesId == routesId && current.m_routes.size() > 1; });
-    if (!hasAlternatives)
+    if (!hasAlternatives || m_routingSession.IsFollowing())
       return;
 
     // Place each balloon up or down based on the midpoint's latitude relative to the others:
