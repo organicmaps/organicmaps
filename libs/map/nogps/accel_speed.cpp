@@ -1,7 +1,11 @@
 #include "map/nogps/accel_speed.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
+#include <vector>
 
 namespace nogps
 {
@@ -11,6 +15,8 @@ namespace
 int64_t constexpr kMaxLagMs = 3000;
 // A part of the time the sensor may be silent for.
 double constexpr kMinCoverage = 0.8;
+// The sums of the comparisons in Serialize().
+size_t constexpr kSerializedValues = 21;
 
 double Dot(AccelSpeed::Vec3 const & a, AccelSpeed::Vec3 const & b)
 {
@@ -63,11 +69,62 @@ void AccelSpeed::OnCarSpeed(int64_t timeMs, double speedMps)
   while (m_speeds.size() > 1 && timeMs - m_speeds[1].m_timeMs > keepMs)
     m_speeds.pop_front();
 
-  if (timeMs < m_lastLearnMs || timeMs - m_lastLearnMs >= m_params.m_learnIntervalMs)
+  if (m_learning && (timeMs < m_lastLearnMs || timeMs - m_lastLearnMs >= m_params.m_learnIntervalMs))
   {
     m_lastLearnMs = timeMs;
     Learn(timeMs);
   }
+}
+
+std::string AccelSpeed::Serialize() const
+{
+  std::string result;
+  auto const add = [&result](double value)
+  {
+    char buf[32];
+    std::snprintf(buf, sizeof(buf), "%s%.9g", result.empty() ? "" : ";", value);
+    result += buf;
+  };
+  add(m_n);
+  add(m_sumY);
+  add(m_sumYY);
+  for (double v : m_sumX)
+    add(v);
+  for (double v : m_sumXY)
+    add(v);
+  for (double v : m_sumXX)
+    add(v);
+  for (double v : {m_checkN, m_checkA, m_checkY, m_checkAY, m_checkAA, m_checkYY})
+    add(v);
+  return result;
+}
+
+bool AccelSpeed::Deserialize(std::string const & data)
+{
+  std::vector<double> values;
+  for (auto const item : strings::Tokenize(data, ";"))
+  {
+    double value;
+    if (!strings::to_double(item, value) || !std::isfinite(value))
+      return false;
+    values.push_back(value);
+  }
+  if (values.size() != kSerializedValues || values[0] < 0)
+    return false;
+  size_t i = 0;
+  m_n = values[i++];
+  m_sumY = values[i++];
+  m_sumYY = values[i++];
+  for (double & v : m_sumX)
+    v = values[i++];
+  for (double & v : m_sumXY)
+    v = values[i++];
+  for (double & v : m_sumXX)
+    v = values[i++];
+  for (double * v : {&m_checkN, &m_checkA, &m_checkY, &m_checkAY, &m_checkAA, &m_checkYY})
+    *v = values[i++];
+  UpdateDirection();
+  return true;
 }
 
 std::optional<double> AccelSpeed::CarSpeedAt(int64_t timeMs) const
@@ -235,6 +292,16 @@ double AccelSpeed::GetRecentScale() const
   if (varY < 1e-9)
     return 0;
   return (m_checkAY / m_checkN - meanA * meanY) / varY;
+}
+
+std::optional<double> AccelSpeed::GetAccelAlong(int64_t fromMs, int64_t toMs) const
+{
+  if (!IsUsable())
+    return {};
+  auto const accel = MeanAccel(fromMs, toMs);
+  if (!accel)
+    return {};
+  return Dot(m_direction, *accel);
 }
 
 bool AccelSpeed::IsUsable() const

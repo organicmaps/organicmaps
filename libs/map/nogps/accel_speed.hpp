@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <deque>
 #include <optional>
+#include <string>
 
 namespace nogps
 {
@@ -63,6 +64,14 @@ public:
   /// Forgets everything: another sensor.
   void Reset();
 
+  /// What is learned about how the sensor is fixed in the car. A sensor box stays in its place: the application
+  /// started again goes on with it, and knows which way the car starts from the first minute of a trip.
+  std::string Serialize() const;
+  /// \returns false if the string is wrong, nothing is changed then.
+  bool Deserialize(std::string const & data);
+  /// A maneuvering car is not learned from: it drives backwards too, and its speed has no sign.
+  void SetLearning(bool learning) { m_learning = learning; }
+
   /// \param lagSec how late the car reports its speed.
   void SetLag(double lagSec) { m_lagMs = static_cast<int64_t>(lagSec * 1000); }
 
@@ -75,6 +84,10 @@ public:
   /// \returns how much faster the car is at |nowMs| than it reports, m/s, if the accelerometer is known to
   /// follow the car.
   std::optional<double> GetGain(int64_t nowMs) const;
+
+  /// \returns the mean acceleration along the car in (fromMs, toMs] with its constant part, the gravity on a slope.
+  /// Nothing if the sensor doesn't follow the car or was silent for a part of the time.
+  std::optional<double> GetAccelAlong(int64_t fromMs, int64_t toMs) const;
 
   /// \returns true if the direction along the car is known and the sensor follows the car.
   bool IsUsable() const;
@@ -136,6 +149,7 @@ private:
   std::array<double, 6> m_sumXX{};
   double m_sumYY = 0;
 
+  bool m_learning = true;
   bool m_hasDirection = false;
   Vec3 m_direction{};
   double m_correlation = 0;

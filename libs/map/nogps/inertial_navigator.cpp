@@ -66,8 +66,11 @@ void InertialNavigator::Start()
   // The accelerometer goes to the trip log with any source.
   m_accelLog.Reset();
   m_gyroLog.Reset();
-  // The phone may be put into the holder another way, the box may be another one.
+  // The phone may be put into the holder another way. The box stays in its place: what is learned about it goes on.
   m_boxAccelSpeed.Reset();
+  m_boxAccelId.clear();
+  if (esp32)
+    RestoreBoxAccel();
   m_phoneAccelSpeed.Reset();
   m_accelAheadM = 0;
   m_phoneAheadM = 0;
@@ -79,6 +82,8 @@ void InertialNavigator::Stop()
   if (!m_started)
     return;
   m_started = false;
+  if (m_esp32)
+    SaveBoxAccel();
   m_delegate.StopMotionSensors();
   m_source->Stop();
   m_phone = nullptr;
@@ -319,6 +324,96 @@ void InertialNavigator::NotifyRoadLost()
   m_listener.OnRoadLost();
 }
 
+void InertialNavigator::RestoreBoxAccel()
+{
+  auto const saved = m_storage.Get<std::string>(Storage::kBoxAccel, "");
+  auto const colon = saved.find(':');
+  if (colon == std::string::npos || !m_boxAccelSpeed.Deserialize(saved.substr(colon + 1)))
+    return;
+  m_boxAccelId = saved.substr(0, colon);
+  LOG(LINFO, ("The accelerometer of the box", m_boxAccelId, "is known: usable =", m_boxAccelSpeed.IsUsable(),
+              "correlation =", m_boxAccelSpeed.GetCorrelation()));
+}
+
+void InertialNavigator::SaveBoxAccel()
+{
+  m_boxAccelSavedMs = m_clock.NowMs();
+  if (m_boxAccelSpeed.GetSamples() > 0)
+    m_storage.Set(Storage::kBoxAccel, m_boxAccelId + ":" + m_boxAccelSpeed.Serialize());
+}
+
+void InertialNavigator::CheckBoxAccel()
+{
+  if (!m_esp32)
+    return;
+  if (auto const & info = m_esp32->GetInfo(); info && info->m_id != m_boxAccelId)
+  {
+    if (!m_boxAccelId.empty())
+    {
+      LOG(LINFO, ("The accelerometer was learned with the box", m_boxAccelId, "this one is", info->m_id));
+      m_boxAccelSpeed.Reset();
+    }
+    m_boxAccelId = info->m_id;
+  }
+  if (m_boxAccelSpeed.IsUsable() && m_clock.NowMs() - m_boxAccelSavedMs >= kBoxAccelSaveMs)
+    SaveBoxAccel();
+}
+
+void InertialNavigator::TrackStartDirection()
+{
+  int64_t const now = m_clock.NowMs();
+  if (m_speedKmh == 0)
+  {
+    if (!m_offRoadStandMs)
+      m_offRoadStandMs = now;
+    m_offRoadStartMs.reset();
+    return;
+  }
+  if (!m_offRoadStandMs)
+    return;
+  if (!m_offRoadStartMs)
+  {
+    m_offRoadStartMs = now;
+    m_offRoadStartM = 0;
+    m_offRoadStartFelt = false;
+  }
+  int direction = m_offRoadDirection;
+  if (!m_offRoadStartFelt && now - *m_offRoadStartMs >= kStartFeltAfterMs)
+  {
+    m_offRoadStartFelt = true;
+    // The car stood for sure from when it has reported that until the lag of its speed before it has reported
+    // that it moves.
+    int64_t const standTo = *m_offRoadStartMs - static_cast<int64_t>(m_speedLag.Get() * 1000) - kStandMarginMs;
+    int64_t const standFrom = std::max(*m_offRoadStandMs, standTo - kMaxStandFeltMs);
+    std::optional<double> stand;
+    if (standTo - standFrom >= kMinStandFeltMs)
+      stand = m_boxAccelSpeed.GetAccelAlong(standFrom, standTo);
+    auto const start = m_boxAccelSpeed.GetAccelAlong(standTo, now);
+    // A start the accelerometer tells nothing about is a start forward.
+    direction = 1;
+    if (stand && start)
+    {
+      double const feltMps = (*start - *stand) * (now - standTo) / 1000.0;
+      direction = feltMps <= -kReverseStartSpeedMps ? -1 : 1;
+      LOG(LINFO, ("The maneuvering car has started", direction > 0 ? "forward" : "backward",
+                  "the accelerometer has felt", feltMps, "m/s"));
+    }
+    m_offRoadStandMs.reset();
+  }
+  // Nobody drives that fast backwards.
+  if (m_speedKmh >= kAutoResumeSpeedKmh)
+    direction = 1;
+  if (direction == m_offRoadDirection)
+    return;
+  // What it has driven since the start was counted the other way.
+  if (m_offRoadCar)
+  {
+    m_offRoadCar =
+        Move(*m_offRoadCar, m_deadReckoning.GetHeading(), (direction - m_offRoadDirection) * m_offRoadStartM);
+  }
+  m_offRoadDirection = direction;
+}
+
 void InertialNavigator::PauseByItself()
 {
   LOG(LINFO, ("The car maneuvers", std::round(m_offRoadM), "m off the roads, paused by itself, the mark waits at",
@@ -330,6 +425,11 @@ void InertialNavigator::PauseByItself()
   // The car is followed from where it is, its mark waits where it has left the roads.
   m_offRoadCar = m_deadReckoning.GetPosition();
   m_deadReckoning.MoveTo(*m_roadPoint);
+  // It has driven here forward.
+  m_offRoadDirection = 1;
+  m_offRoadStandMs.reset();
+  m_offRoadStartMs.reset();
+  m_offRoadStartFelt = true;
 }
 
 void InertialNavigator::EndPauseByItself()
@@ -380,7 +480,8 @@ void InertialNavigator::CheckBackOnRoad()
 {
   double const heading = m_deadReckoning.GetHeading();
   auto const road = m_roads.Snap(*m_offRoadCar, heading, kSnapRadiusM);
-  if (!road || Distance(*m_offRoadCar, road->m_point) > kSnapRadiusM)
+  // A car driving backwards along a road is not driving along it yet.
+  if (!road || Distance(*m_offRoadCar, road->m_point) > kSnapRadiusM || m_offRoadDirection < 0)
   {
     m_roadCandidate.reset();
     return;
@@ -492,9 +593,11 @@ void InertialNavigator::OnSpeed(int speedKmh, int64_t timeMs)
   int64_t const now = m_clock.NowMs();
   double const speedMps = speedKmh / 3.6 * GetSpeedScale(speedKmh);
   m_speedLag.OnCarSpeed(now, speedMps);
+  CheckBoxAccel();
   for (AccelSpeed * accelSpeed : {&m_boxAccelSpeed, &m_phoneAccelSpeed})
   {
     accelSpeed->SetLag(m_speedLag.Get());
+    accelSpeed->SetLearning(!m_paused);
     accelSpeed->OnCarSpeed(now, speedMps);
   }
   m_moving = speedKmh > 0;
@@ -565,8 +668,10 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
     // The car paused by itself is followed apart from its mark.
     if (m_pausedByItself && m_offRoadCar)
     {
-      m_offRoadCar = Move(*m_offRoadCar, m_deadReckoning.GetHeading(), step);
+      TrackStartDirection();
+      m_offRoadCar = Move(*m_offRoadCar, m_deadReckoning.GetHeading(), step * m_offRoadDirection);
       m_offRoadM += step;
+      m_offRoadStartM += step;
     }
   }
   if (speedFresh && !stopped)

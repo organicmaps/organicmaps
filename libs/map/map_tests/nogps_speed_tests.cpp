@@ -227,6 +227,43 @@ UNIT_TEST(NoGps_AccelSpeed_TellsSpeedGain)
   TEST_LESS(car.m_maxError, 0.25, ());
 }
 
+UNIT_TEST(NoGps_AccelSpeed_KeepsBetweenStarts)
+{
+  AccelSpeed accel;
+  CarAccelerometer car;
+  car.Drive(accel, 200);
+  TEST(accel.IsUsable(), ());
+
+  // The application is started again: the sensor box is where it was.
+  AccelSpeed restored;
+  TEST(restored.Deserialize(accel.Serialize()), ());
+  TEST(restored.IsUsable(), ());
+  TEST_ALMOST_EQUAL_ABS(restored.GetCorrelation(), accel.GetCorrelation(), 1e-6, ());
+  // It tells the speed gain as soon as it has the last seconds of the sensor and of the car speed.
+  car.Drive(restored, 20);
+  car.Drive(restored, 60);
+  TEST_GREATER(car.m_gains, 2000, ());
+  TEST_LESS(car.m_maxError, 0.25, ());
+
+  TEST(!restored.Deserialize("broken"), ());
+  TEST(!restored.Deserialize(""), ());
+  TEST(!restored.Deserialize("1;2;3"), ());
+  TEST(restored.IsUsable(), ());
+}
+
+UNIT_TEST(NoGps_AccelSpeed_ManeuveringCarIsNotLearnedFrom)
+{
+  AccelSpeed accel;
+  accel.SetLearning(false);
+  CarAccelerometer car;
+  car.Drive(accel, 200);
+  TEST(!accel.IsUsable(), ());
+  TEST_EQUAL(accel.GetSamples(), 0.0, ());
+  accel.SetLearning(true);
+  car.Drive(accel, 200);
+  TEST(accel.IsUsable(), ());
+}
+
 UNIT_TEST(NoGps_AccelSpeed_SlopeDoesNotMatter)
 {
   AccelSpeed accel;

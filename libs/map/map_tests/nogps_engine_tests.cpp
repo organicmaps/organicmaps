@@ -975,6 +975,125 @@ UNIT_TEST(NoGps_Engine_ManeuveringCarIsNotThrownToRoadAside)
   }
 }
 
+/// A car with the sensor box: it speeds up, brakes and turns as the test tells, backwards too. The box reports the
+/// speed of the car 1.2 s late and without a sign.
+class BoxCar
+{
+public:
+  /// \param accelerometer the box has one, it looks forward with its first horizontal axis.
+  BoxCar(Env & env, double eastM, bool accelerometer)
+    : m_env(env)
+    , m_accelerometer(accelerometer)
+    , m_east(eastM)
+    , m_speeds(60, 0.0)
+  {}
+
+  /// \param accelerationMps2 along the car, negative to brake or to speed up backwards.
+  void Drive(double seconds, double accelerationMps2, double yawRateDegS)
+  {
+    for (int i = 0; i < std::lround(seconds * 50); ++i)
+    {
+      m_speed += accelerationMps2 * 0.02;
+      m_headingDeg += yawRateDegS * 0.02;
+      m_yawMdeg += yawRateDegS * 20;
+      m_east += m_speed * 0.02 * std::sin(math::DegToRad(m_headingDeg));
+      m_north += m_speed * 0.02 * std::cos(math::DegToRad(m_headingDeg));
+      m_speeds.push_back(std::fabs(m_speed));
+      int const reportedKmh = static_cast<int>(std::lround(m_speeds.front() * 3.6));
+      m_speeds.pop_front();
+
+      m_env.m_clock.Advance(20);
+      m_boxTimeMs += 20;
+      char body[160];
+      int const length =
+          std::snprintf(body, sizeof(body), "NGD,1,%lld,%lld,%lld,0,0,%d,0,%X", static_cast<long long>(++m_seq),
+                        static_cast<long long>(m_boxTimeMs), static_cast<long long>(std::llround(m_yawMdeg)),
+                        reportedKmh, kCalibratedFlags);
+      // A little of the gravity is left in the other axes.
+      if (m_accelerometer)
+        std::snprintf(body + length, sizeof(body) - length, ",%d,50,-60,100",
+                      static_cast<int>(std::lround(accelerationMps2 * 1000)));
+      m_env.m_engine.OnEsp32BleBytes(BoxLine(body));
+    }
+  }
+
+  double East() const { return m_east; }
+  double North() const { return m_north; }
+
+private:
+  Env & m_env;
+  bool const m_accelerometer;
+  double m_east;
+  double m_north = 0;
+  double m_headingDeg = 90;
+  // Negative while the car drives backwards.
+  double m_speed = 0;
+  // The speeds of the car of the last 1.2 s.
+  std::deque<double> m_speeds;
+  int64_t m_seq = 1000;
+  int64_t m_boxTimeMs = 200'000;
+  double m_yawMdeg = 0;
+};
+
+UNIT_TEST(NoGps_Engine_AccelerometerTellsCarInYardDrivesBack)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  for (bool accelerometer : {true, false})
+  {
+    Env env(true /* inertial */, &roads);
+    MarkCar(env, -450);
+    BoxCar car(env, -450, accelerometer);
+    // The car speeds up and brakes along the street: the box learns where its accelerometer looks.
+    for (int i = 0; i < 4; ++i)
+    {
+      car.Drive(10, 1.5, 0);
+      car.Drive(5, 0, 0);
+      car.Drive(10, -1.5, 0);
+      car.Drive(5, 0, 0);
+    }
+    TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 5);
+
+    // It turns right into a yard at a walking speed, drives 20 m and stops there.
+    car.Drive(2.5, 1, 0);
+    car.Drive(1, 0, 90);
+    car.Drive(8, 0, 0);
+    car.Drive(2.5, -1, 0);
+    car.Drive(4, 0, 0);
+    TEST(env.m_engine.GetStatus().m_pausedByItself, (accelerometer));
+    TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
+    double const stoppedNorth = North(env.Last().m_position);
+    TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+
+    // It drives 12 m backwards. The speed of the car tells the same as if it drove forward.
+    car.Drive(2, -1, 0);
+    car.Drive(2, 0, 0);
+    TEST_EQUAL(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, accelerometer,
+               (env.m_engine.GetTripLine()));
+    car.Drive(2, 0, 0);
+    car.Drive(2, 1, 0);
+    car.Drive(3, 0, 0);
+    TEST(env.m_engine.GetStatus().m_pausedByItself, (accelerometer));
+    if (accelerometer)
+    {
+      TestAlmostEqualAbs(North(env.Last().m_position), stoppedNorth + 12, 3);
+      TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
+    }
+    else
+    {
+      TestAlmostEqualAbs(North(env.Last().m_position), stoppedNorth - 12, 3);
+    }
+
+    // And forward again, 12 m more than it has driven back.
+    car.Drive(2, 1, 0);
+    car.Drive(10, 0, 0);
+    car.Drive(2, -1, 0);
+    car.Drive(3, 0, 0);
+    TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+    if (accelerometer)
+      TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
+  }
+}
+
 UNIT_TEST(NoGps_Engine_ManualModeWhenGpsIsLostWhileNavigating)
 {
   Env env(false /* inertial */);

@@ -21,6 +21,8 @@ public:
   static std::string_view constexpr kSpeedScale = "NoGpsSpeedScale";
   static std::string_view constexpr kSpeedTable = "NoGpsSpeedTable";
   static std::string_view constexpr kSpeedLag = "NoGpsSpeedLag";
+  // How the accelerometer of the sensor box is fixed in the car: the identifier of the box and what is learned.
+  static std::string_view constexpr kBoxAccel = "NoGpsBoxAccel";
   static std::string_view constexpr kWrongNetworkPoints = "NoGpsWrongNetworkPoints";
   static std::string_view constexpr kLastTrusted = "NoGpsLastTrusted";
   // When the ESP32 sensor box was powered on the last time, milliseconds since the Unix epoch: for a box that
