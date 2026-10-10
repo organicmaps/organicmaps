@@ -199,7 +199,7 @@ UNIT_TEST(ZipFilesList)
   FileWriter::DeleteFileX(ZIPFILE);
 }
 
-UNIT_TEST(ZipFilesList64)
+UNIT_TEST(ZipFilesListPreservesZip64Size)
 {
   string const ZIPFILE = "list_zip64_test.zip";
   SCOPE_GUARD(fileGuard, [&] { FileWriter::DeleteFileX(ZIPFILE); });
@@ -208,7 +208,8 @@ UNIT_TEST(ZipFilesList64)
     auto const zip = zipOpen64(ZIPFILE.c_str(), APPEND_STATUS_CREATE);
     TEST(zip != nullptr, ());
     SCOPE_GUARD(zipGuard, [&] { zipClose(zip, nullptr); });
-    // Raw ZIP64 metadata crosses 4 GiB without creating a large payload.
+    // Raw mode lets us declare a size of 4 GiB + 5 bytes without writing the payload.
+    // Only the directory listing is tested; this synthetic entry cannot be extracted.
     TEST_EQUAL(zipOpenNewFileInZip2_64(zip, "large.bin", nullptr, nullptr, 0, nullptr, 0, nullptr,
                                        0 /* compression method */, 0 /* level */, 1 /* raw */, 1 /* zip64 */),
                ZIP_OK, ());
@@ -219,7 +220,7 @@ UNIT_TEST(ZipFilesList64)
   ZipFileReader::FilesList(ZIPFILE, files);
   TEST_EQUAL(files.size(), 1, ());
   TEST_EQUAL(files[0].first, "large.bin", ());
-  TEST_EQUAL(files[0].second, kUncompressedSize, ());
+  TEST_EQUAL(files[0].second, kUncompressedSize, ("A 32-bit FileList size would truncate this to 5 bytes"));
 }
 
 /// Compressed zip file with 2 files in assets folder:
