@@ -5,6 +5,8 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -35,7 +37,8 @@ DescriptionsCollection Convert(std::vector<RawDescription> const & rawDescriptio
 
     for (auto const & translation : desc.m_strings)
     {
-      ftDesc.m_strIndices.emplace_back(translation.first, descriptions.m_strings.size());
+      ftDesc.m_strIndices.emplace_back(translation.first,
+                                       base::asserted_cast<StringIndex>(descriptions.m_strings.size()));
       descriptions.m_strings.push_back(translation.second);
     }
   }

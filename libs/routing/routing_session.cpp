@@ -8,6 +8,8 @@
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
+#include "base/checked_cast.hpp"
+
 namespace
 {
 int constexpr kOnRouteMissedCount = 10;
@@ -356,7 +358,7 @@ void GetFullRoadName(RouteSegment::RoadNameInfo const & road, FollowingInfo::Roa
     if (!roadShields.m_junctionInfo.empty())
     {
       name += GetRoadShieldsText(roadShields.m_junctionInfo, /* withBraces */ false);
-      roadShields.m_junctionInfoPosition = {0, strings::Utf8Length(name)};
+      roadShields.m_junctionInfoPosition = {0, base::asserted_cast<uint16_t>(strings::Utf8Length(name))};
     }
 
     if (!roadShields.m_targetRoadShields.empty())
@@ -364,9 +366,9 @@ void GetFullRoadName(RouteSegment::RoadNameInfo const & road, FollowingInfo::Roa
       std::string const & shieldsText = GetRoadShieldsText(roadShields.m_targetRoadShields);
       if (!name.empty())
         name += " : ";
-      roadShields.m_targetRoadShieldsPosition.first = strings::Utf8Length(name);
+      roadShields.m_targetRoadShieldsPosition.first = base::asserted_cast<uint16_t>(strings::Utf8Length(name));
       name += shieldsText;
-      roadShields.m_targetRoadShieldsPosition.second = strings::Utf8Length(name);
+      roadShields.m_targetRoadShieldsPosition.second = base::asserted_cast<uint16_t>(strings::Utf8Length(name));
     }
 
     if (!road.m_destination.empty())
@@ -379,7 +381,7 @@ void GetFullRoadName(RouteSegment::RoadNameInfo const & road, FollowingInfo::Roa
     if (!roadShields.m_targetRoadShields.empty())
     {
       name = GetRoadShieldsText(roadShields.m_targetRoadShields);
-      roadShields.m_targetRoadShieldsPosition = {0, strings::Utf8Length(name)};
+      roadShields.m_targetRoadShieldsPosition = {0, base::asserted_cast<uint16_t>(strings::Utf8Length(name))};
     }
     if (!road.m_name.empty())
       name += (name.empty() ? "" : " ") + road.m_name;

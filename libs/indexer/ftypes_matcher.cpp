@@ -159,7 +159,7 @@ BaseCheckerEx::BaseCheckerEx(std::initializer_list<base::StringIL> const & lst)
   for (auto const & e : lst)
   {
     uint32_t const t = c.GetTypeByPath(e);
-    m_types.emplace_back(t, e.size());
+    m_types.emplace_back(t, ftype::GetLevel(t));
     ASSERT_EQUAL(ftype::GetLevel(t), e.size(), ());
   }
 }

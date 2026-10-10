@@ -174,7 +174,7 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
       {
         scores[e] = eScore;
         links[e] = u;
-        q.emplace(e, eScore);
+        q.emplace(e, static_cast<uint32_t>(eScore));
       }
     }
   }

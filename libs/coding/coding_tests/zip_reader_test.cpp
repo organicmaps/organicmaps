@@ -6,6 +6,9 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/scope_guard.hpp"
+
+#include "3party/minizip/minizip.hpp"
 
 #include <exception>
 #include <string>
@@ -194,6 +197,30 @@ UNIT_TEST(ZipFilesList)
 
   FileWriter::DeleteFileX(ZIPFILE_INVALID);
   FileWriter::DeleteFileX(ZIPFILE);
+}
+
+UNIT_TEST(ZipFilesListPreservesZip64Size)
+{
+  string const ZIPFILE = "list_zip64_test.zip";
+  SCOPE_GUARD(fileGuard, [&] { FileWriter::DeleteFileX(ZIPFILE); });
+  uint64_t constexpr kUncompressedSize = (uint64_t{1} << 32) + 5;
+  {
+    auto const zip = zipOpen64(ZIPFILE.c_str(), APPEND_STATUS_CREATE);
+    TEST(zip != nullptr, ());
+    SCOPE_GUARD(zipGuard, [&] { zipClose(zip, nullptr); });
+    // Raw mode lets us declare a size of 4 GiB + 5 bytes without writing the payload.
+    // Only the directory listing is tested; this synthetic entry cannot be extracted.
+    TEST_EQUAL(zipOpenNewFileInZip2_64(zip, "large.bin", nullptr, nullptr, 0, nullptr, 0, nullptr,
+                                       0 /* compression method */, 0 /* level */, 1 /* raw */, 1 /* zip64 */),
+               ZIP_OK, ());
+    TEST_EQUAL(zipCloseFileInZipRaw64(zip, kUncompressedSize, 0 /* crc */), ZIP_OK, ());
+  }
+
+  ZipFileReader::FileList files;
+  ZipFileReader::FilesList(ZIPFILE, files);
+  TEST_EQUAL(files.size(), 1, ());
+  TEST_EQUAL(files[0].first, "large.bin", ());
+  TEST_EQUAL(files[0].second, kUncompressedSize, ("A 32-bit FileList size would truncate this to 5 bytes"));
 }
 
 /// Compressed zip file with 2 files in assets folder:

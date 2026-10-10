@@ -1,6 +1,7 @@
 #include "drape/harfbuzz_shaping.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -27,15 +28,15 @@ size_t GetScriptExtensions(char32_t codepoint, TScriptsArray & scripts)
 {
   // Fill scripts with the script extensions.
   UErrorCode icu_error = U_ZERO_ERROR;
-  size_t const count = uscript_getScriptExtensions(static_cast<UChar32>(codepoint), scripts.data(),
-                                                   static_cast<int32_t>(scripts.max_size()), &icu_error);
+  auto const count = uscript_getScriptExtensions(static_cast<UChar32>(codepoint), scripts.data(),
+                                                 static_cast<int32_t>(scripts.max_size()), &icu_error);
   if (U_FAILURE(icu_error))
   {
     LOG(LWARNING, ("uscript_getScriptExtensions failed with error", icu_error));
     return 0;
   }
 
-  return count;
+  return static_cast<size_t>(count);
 }
 
 // Intersects the script extensions set of codepoint with scripts and returns the updated size of the scripts.
@@ -96,12 +97,12 @@ size_t ScriptSetIntersect(char32_t codepoint, TScriptsArray & inOutScripts, size
 //
 // Consider 3 characters with the script values {Kana}, {Hira, Kana}, {Kana}. Without script extensions only the first
 // script in each set would be taken into account, resulting in 3 segments where 1 would be enough.
-size_t ScriptInterval(std::u16string const & text, int32_t start, size_t length, UScriptCode & outScript)
+int32_t ScriptInterval(std::u16string const & text, int32_t start, int32_t length, UScriptCode & outScript)
 {
-  ASSERT_GREATER(length, 0U, ());
+  ASSERT_GREATER(length, 0, ());
 
   auto const begin = text.begin() + start;
-  auto const end = text.begin() + start + static_cast<int32_t>(length);
+  auto const end = begin + length;
   auto iterator = begin;
 
   auto c32 = utf8::unchecked::next16(iterator);
@@ -116,7 +117,7 @@ size_t ScriptInterval(std::u16string const & text, int32_t start, size_t length,
     scriptsSize = ScriptSetIntersect(c32, scripts, scriptsSize);
     if (scriptsSize == 0U)
     {
-      length = prev - begin;
+      length = base::asserted_cast<int32_t>(prev - begin);
       break;
     }
   }
@@ -165,9 +166,9 @@ void GetSingleTextLineRuns(TextSegments & segments)
     {
       // Find the longest sequence of characters that have at least one common UScriptCode value.
       UScriptCode script = USCRIPT_INVALID_CODE;
-      size_t const scriptRunEnd =
-          ScriptInterval(segments.m_text, scriptRunStart, bidiRunEnd - scriptRunStart, script) + scriptRunStart;
-      ASSERT_LESS(scriptRunStart, base::asserted_cast<int32_t>(scriptRunEnd), ());
+      int32_t const scriptRunEnd =
+          scriptRunStart + ScriptInterval(segments.m_text, scriptRunStart, bidiRunEnd - scriptRunStart, script);
+      ASSERT_LESS(scriptRunStart, scriptRunEnd, ());
 
       // TODO(AB): May need to break on different unicode blocks, parentheses, and control chars (spaces).
 
@@ -176,7 +177,7 @@ void GetSingleTextLineRuns(TextSegments & segments)
                                        bidiLevel & 0x01 ? HB_DIRECTION_RTL : HB_DIRECTION_LTR);
 
       // Move to the next script sequence.
-      scriptRunStart = static_cast<int32_t>(scriptRunEnd);
+      scriptRunStart = scriptRunEnd;
     }
     // Move to the next direction sequence.
     bidiRunStart = bidiRunEnd;

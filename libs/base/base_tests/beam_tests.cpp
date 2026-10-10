@@ -22,14 +22,14 @@ void Smoke()
 
   CHECK_LESS_OR_EQUAL(kCapacity, kTotal, ());
 
-  Beam<uint32_t, double> beam(kCapacity);
+  Beam<size_t, double> beam(kCapacity);
 
-  for (uint32_t i = 0; i < kTotal; ++i)
+  for (size_t i = 0; i < kTotal; ++i)
     beam.Add(i, static_cast<double>(i));
 
   std::vector<double> expected;
   for (size_t i = 0; i < kCapacity; ++i)
-    expected.emplace_back(kTotal - 1 - i);
+    expected.emplace_back(static_cast<double>(kTotal - 1 - i));
 
   std::vector<double> actual;
   actual.reserve(kCapacity);
