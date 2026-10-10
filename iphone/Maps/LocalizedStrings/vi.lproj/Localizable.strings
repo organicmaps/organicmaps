@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Tải Điểm đánh dấu";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Không tải lên được điểm đánh dấu. Tập tin có thể bị hỏng hoặc lỗi.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Đã tải điểm đánh dấu thành công! Chọn một danh sách để xem trên bản đồ:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Không thể tải các tập tin. Chúng có thể bị hỏng hoặc có lỗi:";
 
 /* resource for context menu */
 "edit" = "Sửa";

@@ -11,6 +11,10 @@
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
     <string name="category_fuel">Petrol</string>
 
+    <!-- SECTION: Other translations -->
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Failed to load the files. They may be corrupted or defective:</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.</string>
 

@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ielādē grāmatzīmes</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Grāmatzīmes ir ielādētas! Tās varat atrast kartē un grāmatzīmju pārvaldīšanas ekrānā.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Lietotne neatpazīst datnes tipu:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Neizdevās atvērt datni %1$s\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Grāmatzīmes ir ielādētas! Tās varat atrast kartē un grāmatzīmju pārvaldīšanas ekrānā.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Grāmatzīmes ir ielādētas! Izvēlieties sarakstu, lai skatītu to kartē:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Neizdevās ielādēt datnes. Tās var būt bojātas vai kļūdainas:</string>
     <!-- resource for context menu -->
     <string name="edit">Labot</string>
     <!-- Warning message when doing search around current position -->

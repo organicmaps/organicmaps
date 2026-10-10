@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Memuat Penanda";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Penanda berhasil dimuat! Anda dapat menemukannya pada peta atau pada layar Pengelola Penanda Lokasi.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Penanda berhasil dimuat! Anda dapat menemukannya pada peta atau pada layar Pengelola Penanda Lokasi.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Gagal mengunggah penanda lokasi. Berkas mungkin rusak.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Penanda berhasil dimuat! Pilih daftar untuk melihatnya di peta:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Gagal memuat berkas. Berkas tersebut mungkin rusak atau cacat:";
 
 /* resource for context menu */
 "edit" = "Sunting";

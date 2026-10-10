@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Les signets ont été chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran du Gestionnaire de signets.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Les signets ont été chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran du Gestionnaire de signets.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Échec lors du chargement des signets. Le fichier peut être corrompu ou défectueux.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Les signets ont été chargés avec succès ! Sélectionnez une liste pour l’afficher sur la carte :";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Impossible de charger les fichiers. Ils sont peut-être corrompus ou défectueux :";
 
 /* resource for context menu */
 "edit" = "Modifier";
