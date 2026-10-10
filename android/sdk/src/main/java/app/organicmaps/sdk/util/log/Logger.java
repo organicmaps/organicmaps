@@ -223,8 +223,8 @@ public final class Logger
   private static class LogFileWriter
   {
     private static final int MAX_SIZE = 3000000;
-    // A day of driving: the log of a drive is analysed afterwards.
-    private static final int MAX_LOG_FILES = 30;
+    // A long day of driving, 20 hours and more at about 6.5 MB an hour: the log of a drive is analysed afterwards.
+    private static final int MAX_LOG_FILES = 50;
     private static final int QUEUE_CAPACITY = 4096;
     private static final int MAX_BATCH_SIZE = 256;
     private static final int FLUSH_TIMEOUT_SECONDS = 2;
