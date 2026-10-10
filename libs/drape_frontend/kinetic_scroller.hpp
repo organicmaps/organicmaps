@@ -18,7 +18,11 @@ public:
   void Cancel();
   drape_ptr<Animation> CreateKineticAnimation(ScreenBase const & modelView);
 
+  /// Creates a kinetic fling animation from raw pixel velocity (pixels per second).
+  static drape_ptr<Animation> CreateFlingAnimation(ScreenBase const & modelView, double velocityX, double velocityY);
+
 private:
+  /// @return Normalized mercator direction and unfiltered speed in pixels per second.
   std::pair<m2::PointD, double> GetDirectionAndVelocity(ScreenBase const & modelView) const;
 
   using ClockT = std::chrono::steady_clock;
@@ -30,7 +34,4 @@ private:
   std::deque<std::pair<m2::PointD, ClockT::time_point>> m_points;
   bool m_isActive = false;
 };
-
-/// Creates a kinetic fling animation from raw pixel velocity (pixels per second).
-drape_ptr<Animation> CreateFlingAnimation(ScreenBase const & modelView, double velocityX, double velocityY);
 }  // namespace df

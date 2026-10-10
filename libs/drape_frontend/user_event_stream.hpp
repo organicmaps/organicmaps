@@ -488,7 +488,7 @@ private:
   bool OnRotate(ref_ptr<RotateEvent> rotateEvent);
   bool OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent);
   bool OnScroll(ref_ptr<ScrollEvent> scrollEvent);
-  bool OnFling(ref_ptr<FlingEvent> flingEvent);
+  void OnFling(ref_ptr<FlingEvent> flingEvent);
 
   bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,

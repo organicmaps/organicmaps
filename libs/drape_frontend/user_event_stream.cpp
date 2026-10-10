@@ -272,7 +272,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     case UserEvent::EventType::Fling:
     {
       ref_ptr<FlingEvent> flingEvent = make_ref(e);
-      breakAnim = OnFling(flingEvent);
+      OnFling(flingEvent);
       TouchCancel(m_touches);
     }
     break;
@@ -508,15 +508,15 @@ bool UserEventStream::OnScroll(ref_ptr<ScrollEvent> scrollEvent)
   return SetScreen(screen, false);
 }
 
-bool UserEventStream::OnFling(ref_ptr<FlingEvent> flingEvent)
+void UserEventStream::OnFling(ref_ptr<FlingEvent> flingEvent)
 {
-  auto anim = CreateFlingAnimation(GetCurrentScreen(), flingEvent->GetVelocityX(), flingEvent->GetVelocityY());
+  if (!m_kineticScrollEnabled)
+    return;
+
+  auto anim =
+      KineticScroller::CreateFlingAnimation(GetCurrentScreen(), flingEvent->GetVelocityX(), flingEvent->GetVelocityY());
   if (anim != nullptr)
-  {
     m_animationSystem.CombineAnimation(std::move(anim));
-    return false;
-  }
-  return true;
 }
 
 bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator)
