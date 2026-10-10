@@ -43,6 +43,7 @@ void InertialNavigator::Start()
   m_started = true;
   // The speedometer error is the same on every trip.
   m_speedScale.Set(m_storage.Get<double>(Storage::kSpeedScale, 1));
+  LogSpeedCalibration();
   // The source may have changed: a sensor box with another gyroscope or the phone.
   m_turnSignChecker = {};
   m_bendMatcher = {};
@@ -198,6 +199,14 @@ void InertialNavigator::SaveSpeedTable()
   m_unsavedSpeedSamples = 0;
   m_storage.Set(Storage::kSpeedTable, m_speedTable.Serialize());
   m_storage.Set(Storage::kSpeedLag, m_speedLag.Serialize());
+  LogSpeedCalibration();
+}
+
+void InertialNavigator::LogSpeedCalibration() const
+{
+  // For the trip log: the path of a trip is calculated again with these.
+  LOG(LINFO, ("Speed table =", m_speedTable.ToString(), "lag =", m_speedLag.Get(), "measured =",
+              m_speedLag.IsMeasured(), "scale =", m_speedScale.Get()));
 }
 
 void InertialNavigator::ClearSpeedCalibration()

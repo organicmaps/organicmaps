@@ -287,6 +287,7 @@ private:
   void CheckTurnSign(Fix const & gps);
   double GetSpeedScale(int speedKmh) const;
   void SaveSpeedTable();
+  void LogSpeedCalibration() const;
   bool IsSpeedFresh() const;
   void SetRoadPoint(ms::LatLon const & position);
   void TrackOffRoad(double distanceM);
