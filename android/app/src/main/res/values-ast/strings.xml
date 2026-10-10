@@ -162,6 +162,8 @@
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
     <string name="p2p_start">Entamar</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">La ruta invertiráse pa qu’entame nel to allugamientu actual.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Siguiente</string>
     <!-- Text for allday switch. -->

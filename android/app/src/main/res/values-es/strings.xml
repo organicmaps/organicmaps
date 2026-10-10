@@ -357,6 +357,8 @@
     <string name="p2p_to_here">Ruta hacia</string>
     <string name="p2p_only_from_current">La navegación solo está disponible desde su ubicación actual.</string>
     <string name="p2p_reroute_from_current">¿Quiere planificar un itinerario desde su ubicación actual?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">La ruta se invertirá para que comience desde su ubicación actual.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Siguiente</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

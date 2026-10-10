@@ -357,6 +357,8 @@
     <string name="p2p_to_here">La</string>
     <string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de plecare poziția ta actuală.</string>
     <string name="p2p_reroute_from_current">Vrei să planifici un traseu din poziția ta actuală?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Traseul va fi inversat pentru a porni din poziția ta actuală.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Următorul</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

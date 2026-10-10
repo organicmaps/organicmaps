@@ -357,6 +357,8 @@
     <string name="p2p_to_here">Երթուղի դեպի այստեղ</string>
     <string name="p2p_only_from_current">Նավիգացիան հասանելի է միայն ձեր ընթացիկ վայրից:</string>
     <string name="p2p_reroute_from_current">Ցանկանո՞ւմ եք կառուցել երթուղի ձեր ընթացիկ վայրից:</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Երթուղին կշրջվի, որպեսզի սկսվի ձեր ընթացիկ վայրից:</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Հաջորդը</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
