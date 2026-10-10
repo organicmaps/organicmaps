@@ -26,7 +26,7 @@ class AvailableMapsDataSource {
     let countries = countryIds.map {
       CountryIdAndName(countryId: $0, name: Storage.shared().name(forCountry: $0))
     }.sorted {
-      $0.countryName.compare($1.countryName) == .orderedAscending
+      $0.countryName.localizedStandardCompare($1.countryName) == .orderedAscending
     }
 
     sections = []
@@ -39,15 +39,11 @@ class AvailableMapsDataSource {
 
     for country in countries {
       let section = parentCountryId == nil ? String(country.countryName.prefix(1)) : L("downloader_available_maps")
-      if sections!.last != section {
-        sections!.append(section)
-        sectionsContent![section] = []
-      }
-
-      var sectionCountries = sectionsContent![section]
-      sectionCountries?.append(country.countryId)
-      sectionsContent![section] = sectionCountries
+      sectionsContent![section, default: []].append(country.countryId)
     }
+
+    sections?.append(contentsOf: sectionsContent!.keys.filter { $0 != Const.locationArrow }
+      .sorted { $0.localizedStandardCompare($1) == .orderedAscending })
   }
 }
 
