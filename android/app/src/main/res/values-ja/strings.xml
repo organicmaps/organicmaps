@@ -417,7 +417,8 @@
     <string name="select_cuisine">料理を選択</string>
     <!-- login text field -->
     <string name="email_or_username">メールアドレスまたはユーザー名</string>
-    <string name="editor_add_phone">電話番号を追加</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">新しい電話番号</string>
     <string name="level">階</string>
     <!-- Building level -->
     <string name="level_value_generic">レベル: %s</string>
@@ -560,7 +561,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">この名前はすでに使用されています</string>
     <string name="bookmarks_error_message_list_name_already_taken">別の名前を選んでください</string>
     <string name="please_wait">お待ちください…</string>
-    <string name="phone_number">電話番号</string>
     <string name="profile">OpenStreetMap プロフィール</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d ファイルが見つかりました。変換後にそれを見ることができます。</item>

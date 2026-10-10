@@ -417,7 +417,8 @@
     <string name="select_cuisine">Выбрать кухню</string>
     <!-- login text field -->
     <string name="email_or_username">Эл. почта или имя пользователя</string>
-    <string name="editor_add_phone">Добавить телефон</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Новый номер телефона</string>
     <string name="level">Этаж</string>
     <!-- Building level -->
     <string name="level_value_generic">Этаж: %s</string>
@@ -563,7 +564,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Такое имя уже занято</string>
     <string name="bookmarks_error_message_list_name_already_taken">Выберите, пожалуйста, другое имя</string>
     <string name="please_wait">Пожалуйста, подождите…</string>
-    <string name="phone_number">Номер телефона</string>
     <string name="profile">Профиль OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">Найдено %d файлов.</item>

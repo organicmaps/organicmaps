@@ -191,7 +191,6 @@
     <string name="cuisine">Cocina</string>
     <!-- login text field -->
     <string name="email_or_username">Señes o nome d’usuariu</string>
-    <string name="editor_add_phone">Amestar teléfonu</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_update_maps">Anovar mapes</string>
@@ -248,7 +247,6 @@
     <string name="bookmarks_new_list_hint">Llista nueva</string>
     <string name="bookmarks_error_message_list_name_already_taken">Escueyi otru nome</string>
     <string name="please_wait">Aguarda…</string>
-    <string name="phone_number">Númberu telefónicu</string>
     <string name="profile">Perfil d’OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Atopóse %d ficheru. Pues velu dempués de la conversión.</item>

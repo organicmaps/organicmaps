@@ -417,7 +417,8 @@
     <string name="select_cuisine">Selecione a culinária</string>
     <!-- login text field -->
     <string name="email_or_username">Email ou nome de utilizador</string>
-    <string name="editor_add_phone">Adicionar telefone</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Novo número de telefone</string>
     <string name="level">Andar</string>
     <!-- Building level -->
     <string name="level_value_generic">Nível: %s</string>
@@ -562,7 +563,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Este nome já está a ser utilizado</string>
     <string name="bookmarks_error_message_list_name_already_taken">Por favor escolha outro nome</string>
     <string name="please_wait">Por favor aguarde…</string>
-    <string name="phone_number">Número de telefone</string>
     <string name="profile">Perfil no OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">%d ficheiros encontrados.</item>

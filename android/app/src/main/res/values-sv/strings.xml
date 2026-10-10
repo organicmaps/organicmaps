@@ -417,7 +417,8 @@
     <string name="select_cuisine">Välj mat</string>
     <!-- login text field -->
     <string name="email_or_username">E-postadress eller användarnamn</string>
-    <string name="editor_add_phone">Lägg till telefon</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Nytt telefonnummer</string>
     <string name="level">Våningsplan</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivå: %s</string>
@@ -561,7 +562,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Det här namnet är redan taget</string>
     <string name="bookmarks_error_message_list_name_already_taken">Vänligen välj ett annat namn</string>
     <string name="please_wait">Vänligen vänta…</string>
-    <string name="phone_number">Telefonnummer</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d fil hittades. Du kommer att se den efter omvandlingen.</item>

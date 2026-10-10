@@ -417,7 +417,8 @@
     <string name="select_cuisine">اختر المطبخ</string>
     <!-- login text field -->
     <string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
-    <string name="editor_add_phone">إضافة رقم هاتف</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">رقم هاتف جديد</string>
     <string name="level">طابق</string>
     <!-- Building level -->
     <string name="level_value_generic">المستوى: %s</string>
@@ -565,7 +566,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">هذا الاسم موجود سابقا</string>
     <string name="bookmarks_error_message_list_name_already_taken">يرجى اختيار اسم آخر</string>
     <string name="please_wait">أرجو الإنتظار…</string>
-    <string name="phone_number">رقم الهاتف</string>
     <string name="profile">ملف الشخصي على خريطة الشارع المفتوحة</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">لم يتم العثور على أي ملف.</item>

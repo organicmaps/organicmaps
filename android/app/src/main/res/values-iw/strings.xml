@@ -417,7 +417,8 @@
     <string name="select_cuisine">בחר סיגנון בישול</string>
     <!-- login text field -->
     <string name="email_or_username">דוא\"ל או שם משתמש</string>
-    <string name="editor_add_phone">הוסף טלפון</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">מספר טלפון חדש</string>
     <string name="level">קומה</string>
     <!-- Building level -->
     <string name="level_value_generic">רמה: %s</string>
@@ -561,7 +562,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">השם הזה כבר תפוס</string>
     <string name="bookmarks_error_message_list_name_already_taken">נא לבחור שם אחר</string>
     <string name="please_wait">נא להמתין…</string>
-    <string name="phone_number">מספר טלפון</string>
     <string name="profile">פרופיל OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">נמצא %d קובץ. תוכלו לראות אותו לאחר ההמרה.</item>

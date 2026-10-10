@@ -417,7 +417,8 @@
     <string name="select_cuisine">Избор на кухня</string>
     <!-- login text field -->
     <string name="email_or_username">Имейл или потребителско име</string>
-    <string name="editor_add_phone">Добави телефон</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Нов телефон</string>
     <string name="level">Етаж</string>
     <!-- Building level -->
     <string name="level_value_generic">Ниво: %s</string>
@@ -560,7 +561,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Това име вече е заето</string>
     <string name="bookmarks_error_message_list_name_already_taken">Моля, изберете друго име</string>
     <string name="please_wait">Моля, изчакайте…</string>
-    <string name="phone_number">Телефонен номер</string>
     <string name="profile">Профил в OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Открит е %d файл. Можете да го видите след конвертирането.</item>

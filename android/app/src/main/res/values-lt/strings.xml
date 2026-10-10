@@ -417,7 +417,8 @@
     <string name="select_cuisine">Pasirinkite virtuvę</string>
     <!-- login text field -->
     <string name="email_or_username">El. paštas arba naudotojo vardas</string>
-    <string name="editor_add_phone">Pridėti telefono numerį</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Naujas telefonas</string>
     <string name="level">Aukštas</string>
     <!-- Building level -->
     <string name="level_value_generic">Aukštas: %s</string>
@@ -562,7 +563,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Toks pavadinimas jau naudojamas</string>
     <string name="bookmarks_error_message_list_name_already_taken">Įveskite kitą pavadinimą</string>
     <string name="please_wait">Luktelėkite…</string>
-    <string name="phone_number">Telefono numeris</string>
     <string name="profile">„OpenStreetMap“ profilis</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Aptiktas %d failas. Jį (juos) galėsite pamatyti, atlikus konvertavimą.</item>

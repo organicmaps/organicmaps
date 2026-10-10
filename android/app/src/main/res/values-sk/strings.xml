@@ -417,7 +417,8 @@
     <string name="select_cuisine">Vyberte si kuchyňu</string>
     <!-- login text field -->
     <string name="email_or_username">Email alebo používateľské meno</string>
-    <string name="editor_add_phone">Pridať telefónne číslo</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Nové telefónne číslo</string>
     <string name="level">Podlaha</string>
     <!-- Building level -->
     <string name="level_value_generic">Úroveň: %s</string>
@@ -561,7 +562,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Tento názov už bol prijatý</string>
     <string name="bookmarks_error_message_list_name_already_taken">Vyberte iné meno</string>
     <string name="please_wait">Prosím čakajte…</string>
-    <string name="phone_number">Telefónne číslo</string>
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Bol nájdený %d súbor. Uvidíte ho po konverzii.</item>

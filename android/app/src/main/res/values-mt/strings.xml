@@ -417,7 +417,8 @@
     <string name="select_cuisine">Agħżel il-kċina</string>
     <!-- login text field -->
     <string name="email_or_username">E-mejl jew isem l-utent</string>
-    <string name="editor_add_phone">Żid in-Numru tat-Telefown</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Telefon Ġdid</string>
     <string name="level">Livell</string>
     <!-- Building level -->
     <string name="level_value_generic">Livell: %s</string>
@@ -564,7 +565,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Dan l-isem diġa meħud</string>
     <string name="bookmarks_error_message_list_name_already_taken">Agħżel isem ieħor</string>
     <string name="please_wait">Stenna ftit…</string>
-    <string name="phone_number">Numru tat-telefown</string>
     <string name="profile">Profil ta’ OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Instab fajl %d. Tista’ tarah wara l-konverżjoni.</item>
