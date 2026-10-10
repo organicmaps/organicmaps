@@ -66,11 +66,14 @@ generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(FileReader & oldRea
   std::vector<uint8_t> diffBuf;
   {
     std::string deflatedDiff;
-    deflatedDiff.resize_and_overwrite(base::checked_cast<size_t>(diffFileSource.Size()),
-                                      [&](std::string::value_type * p, size_t n)
+    // Read exactly the source size: libstdc++ on GCC 12 (Aurora OS) passes the allocated capacity
+    // to the operation instead of the requested size, so n must not be used as the read count.
+    size_t const deflatedSize = base::checked_cast<size_t>(diffFileSource.Size());
+    deflatedDiff.resize_and_overwrite(deflatedSize,
+                                      [&](std::string::value_type * p, size_t /* n */)
     {
-      diffFileSource.Read(p, n);
-      return n;
+      diffFileSource.Read(p, deflatedSize);
+      return deflatedSize;
     });
 
     using Inflate = coding::ZLib::Inflate;

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=app.organicmaps.voices
+Exec=aurora-qml app.organicmaps.voices
+Name=Organic Maps voices
+Name[ru]=Голоса Organic Maps
+NoDisplay=true
+
+# A configuration package: it only ships data (Piper voice models and the espeak-ng data used by
+# libpiper) for app.organicmaps.organicmaps under /usr/share/common/app.organicmaps/voices.
+[X-Application]
+OrganizationName=app.organicmaps
+ApplicationName=voices

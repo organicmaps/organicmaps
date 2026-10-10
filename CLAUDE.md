@@ -14,7 +14,7 @@ Libraries in `libs/` are strictly layered -- no circular or upward dependencies 
 4. **Domain:** `search`, `routing`, `storage` (map downloads), `traffic`
 5. **Rendering:** `drape` (OpenGL/Vulkan/Metal abstraction), `drape_frontend` (scene management), `shaders`
 6. **Application:** `map` (Framework class -- aggregates all subsystems)
-7. **UI:** in the project's root: `qt/` (desktop), `iphone/` (iOS), `android/` (Android), `dev_sandbox/` (graphics dev tool)
+7. **UI:** in the project's root: `qt/` (desktop), `iphone/` (iOS), `android/` (Android), `sailfish/` (Sailfish OS), `dev_sandbox/` (graphics dev tool)
 
 Key namespaces: `m2::` (2D geometry, e.g. `m2::PointD`, `m2::RectD`), `ms::LatLon` (WGS84), `mercator::` (coordinate conversion), `search::`, `routing::`, `storage::`, `kml::`
 

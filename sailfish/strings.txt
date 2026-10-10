@@ -1,0 +1,571 @@
+# UI strings of the Sailfish OS app only, in the twine format of data/strings/strings.txt. Installed next to
+# the shared string files and read with them by sailfish/localization.cpp.
+
+[[Sailfish OS strings]]
+
+[less]
+comment = Sailfish OS: collapses the expanded Wikipedia description on the place page
+tags = sailfish
+en = Less
+de = Weniger
+es = Menos
+fr = Moins
+ru = Свернуть
+sv = Mindre
+uk = Згорнути
+
+[copy_value]
+comment = Sailfish OS: menu item that copies the shown value to the clipboard
+tags = sailfish
+en = Copy %@
+de = %@ kopieren
+es = Copiar %@
+fr = Copier %@
+ru = Копировать %@
+sv = Kopiera %@
+uk = Копіювати %@
+
+[move_up]
+comment = Sailfish OS: menu item that moves a route point up in the list
+tags = sailfish
+en = Move up
+de = Nach oben
+es = Subir
+fr = Monter
+ru = Переместить вверх
+sv = Flytta upp
+uk = Перемістити вгору
+
+[move_down]
+comment = Sailfish OS: menu item that moves a route point down in the list
+tags = sailfish
+en = Move down
+de = Nach unten
+es = Bajar
+fr = Descendre
+ru = Переместить вниз
+sv = Flytta ned
+uk = Перемістити вниз
+
+[editor_pending_edits]
+comment = Sailfish OS: OpenStreetMap profile, number of local map edits not uploaded yet
+tags = sailfish
+en = Edits waiting for upload
+de = Noch nicht hochgeladene Änderungen
+ru = Правки, ожидающие отправки
+sv = Ändringar som väntar på uppladdning
+uk = Правки, що очікують надсилання
+
+[speech_note_install]
+comment = Sailfish OS: voice instructions settings, Speech Note is an app name, %@ is a language name
+tags = sailfish
+en = Speech Note speaks the instructions with natural voices. Install it, then download a voice for %@ in it.
+de = Speech Note spricht die Anweisungen mit natürlichen Stimmen. Installiere es und lade darin eine Stimme für %@ herunter.
+ru = Speech Note произносит подсказки естественными голосами. Установите его, затем скачайте в нём голос для языка %@.
+sv = Speech Note läser upp instruktionerna med naturliga röster. Installera den och ladda sedan ned en röst för %@ i den.
+uk = Speech Note озвучує підказки природними голосами. Встановіть його, а потім завантажте в ньому голос для мови %@.
+
+[speech_note_other_synthesizers]
+comment = Sailfish OS: voice instructions settings, eSpeak NG, mimic and flite are app names
+tags = sailfish
+en = eSpeak NG, mimic or flite also work, with plainer voices.
+de = eSpeak NG, mimic oder flite funktionieren auch, mit einfacheren Stimmen.
+ru = Также подойдут eSpeak NG, mimic или flite, но с более простыми голосами.
+sv = eSpeak NG, mimic eller flite fungerar också, med enklare röster.
+uk = Також підійдуть eSpeak NG, mimic або flite, але з простішими голосами.
+
+[speech_note_download_voice]
+comment = Sailfish OS: voice instructions settings, Speech Note is an app name, %@ is a language name
+tags = sailfish
+en = Download a voice for %@ in Speech Note to hear the instructions in it.
+de = Lade in Speech Note eine Stimme für %@ herunter, um die Anweisungen darin zu hören.
+ru = Скачайте в Speech Note голос для языка %@, чтобы слышать подсказки на нём.
+sv = Ladda ned en röst för %@ i Speech Note för att höra instruktionerna på det språket.
+uk = Завантажте в Speech Note голос для мови %@, щоб чути підказки нею.
+
+[speech_note_in_use]
+comment = Sailfish OS: voice instructions settings, Speech Note is an app name
+tags = sailfish
+en = The instructions are spoken by Speech Note. It has more voices to download.
+de = Die Anweisungen werden von Speech Note gesprochen. Dort gibt es weitere Stimmen zum Herunterladen.
+ru = Подсказки произносит Speech Note. В нём можно скачать и другие голоса.
+sv = Instruktionerna läses upp av Speech Note. Där finns fler röster att ladda ned.
+uk = Підказки озвучує Speech Note. У ньому можна завантажити й інші голоси.
+
+[speech_note_open]
+comment = Sailfish OS: button that opens the Speech Note app
+tags = sailfish
+en = Open Speech Note
+de = Speech Note öffnen
+ru = Открыть Speech Note
+sv = Öppna Speech Note
+uk = Відкрити Speech Note
+
+[speech_note_get]
+comment = Sailfish OS: button that opens the store page of the Speech Note app
+tags = sailfish
+en = Get Speech Note
+de = Speech Note installieren
+ru = Установить Speech Note
+sv = Hämta Speech Note
+uk = Встановити Speech Note
+
+[backup_description]
+comment = Sailfish OS: explanation on the bookmarks backup settings page
+tags = sailfish
+en = Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.
+de = Lesezeichen und Tracks werden als KMZ-Dateien in einem Ordner gespeichert. Importiere eine Datei auf der Lesezeichenseite, um sie wiederherzustellen.
+es = Los marcadores y las rutas se guardan como archivos KMZ en una carpeta. Importa un archivo en la página de marcadores para restaurarlo.
+fr = Les signets et les traces sont enregistrés dans des fichiers KMZ dans un dossier. Importez un fichier depuis la page des signets pour le restaurer.
+ru = Метки и треки сохраняются в файлы KMZ в папке. Чтобы восстановить их, импортируйте файл на странице меток.
+sv = Bokmärken och spår sparas som KMZ-filer i en mapp. Importera en fil på bokmärkessidan för att återställa den.
+uk = Мітки та треки зберігаються у файли KMZ у теці. Щоб відновити їх, імпортуйте файл на сторінці міток.
+
+[backup_automatic]
+comment = Sailfish OS: setting for how often bookmarks are backed up automatically
+tags = sailfish
+en = Automatic backup
+de = Automatische Sicherung
+es = Copia de seguridad automática
+fr = Sauvegarde automatique
+ru = Автоматическое резервное копирование
+sv = Automatisk säkerhetskopiering
+uk = Автоматичне резервне копіювання
+
+[backup_weekly]
+comment = Sailfish OS: automatic backup option
+tags = sailfish
+en = Weekly
+de = Wöchentlich
+es = Semanal
+fr = Hebdomadaire
+ru = Еженедельно
+sv = Varje vecka
+uk = Щотижня
+
+[backup_folder]
+comment = Sailfish OS: setting for the folder bookmark backups are saved to
+tags = sailfish
+en = Backup folder
+de = Sicherungsordner
+es = Carpeta de copias de seguridad
+fr = Dossier de sauvegarde
+ru = Папка для резервных копий
+sv = Mapp för säkerhetskopior
+uk = Тека для резервних копій
+
+[backup_now]
+comment = Sailfish OS: button that backs up all bookmarks and tracks
+tags = sailfish
+en = Back up now
+de = Jetzt sichern
+es = Hacer copia ahora
+fr = Sauvegarder maintenant
+ru = Создать копию сейчас
+sv = Säkerhetskopiera nu
+uk = Створити копію зараз
+
+[backup_last]
+comment = Sailfish OS: date of the last bookmarks backup
+tags = sailfish
+en = Last backup: %@
+de = Letzte Sicherung: %@
+es = Última copia: %@
+fr = Dernière sauvegarde : %@
+ru = Последняя копия: %@
+sv = Senaste säkerhetskopia: %@
+uk = Остання копія: %@
+
+[backup_none]
+comment = Sailfish OS: shown when bookmarks were never backed up
+tags = sailfish
+en = No backups yet
+de = Noch keine Sicherungen
+es = Aún no hay copias
+fr = Aucune sauvegarde pour le moment
+ru = Резервных копий ещё нет
+sv = Inga säkerhetskopior än
+uk = Резервних копій ще немає
+
+[backup_failed]
+comment = Sailfish OS: error when bookmarks could not be backed up
+tags = sailfish
+en = Backup failed
+de = Sicherung fehlgeschlagen
+es = No se pudo hacer la copia
+fr = Échec de la sauvegarde
+ru = Не удалось создать копию
+sv = Säkerhetskopieringen misslyckades
+uk = Не вдалося створити копію
+
+[mobile_data_downloads_off]
+comment = Sailfish OS: a map download was not started because mobile internet is off in the settings
+tags = sailfish
+en = Map downloads over mobile internet are turned off in the settings.
+de = Kartendownloads über mobiles Internet sind in den Einstellungen deaktiviert.
+es = Las descargas de mapas por internet móvil están desactivadas en los ajustes.
+fr = Les téléchargements de cartes via l’internet mobile sont désactivés dans les paramètres.
+ru = Загрузка карт через мобильный интернет отключена в настройках.
+sv = Kartnedladdningar via mobilt internet är avstängda i inställningarna.
+uk = Завантаження мап через мобільний інтернет вимкнено в налаштуваннях.
+
+[maps_storage_restart]
+comment = Sailfish OS: the maps were moved and the app must be started again
+tags = sailfish
+en = The maps were moved. Start Organic Maps again to use them.
+de = Die Karten wurden verschoben. Starte Organic Maps erneut, um sie zu verwenden.
+es = Los mapas se han movido. Vuelve a abrir Organic Maps para usarlos.
+fr = Les cartes ont été déplacées. Relancez Organic Maps pour les utiliser.
+ru = Карты перемещены. Запустите Organic Maps снова, чтобы использовать их.
+sv = Kartorna har flyttats. Starta Organic Maps igen för att använda dem.
+uk = Мапи переміщено. Запустіть Organic Maps знову, щоб користуватися ними.
+
+[pref_tts_voice_title]
+comment = Sailfish OS: chooses one of the Speech Note voices of the voice instructions language
+tags = sailfish
+en = Voice
+de = Stimme
+es = Voz
+fr = Voix
+ru = Голос
+sv = Röst
+uk = Голос
+
+[editor_login_error_dialog]
+comment = Sailfish OS: message when the OpenStreetMap login fails
+tags = sailfish
+en = Login error.
+af = Aantekenfout.
+ar = خطأ في تسجيل الدخول.
+az = Giriş xətası
+be = Памылка аўтарызацыі.
+bg = Грешка при вход.
+ca = Error en iniciar sessió.
+cs = Chyba při přihlašování.
+da = Login-fejl.
+de = Login-Fehler.
+el = Σφάλμα σύνδεσης.
+es = Error de inicio de sesión.
+et = Sisselogimise viga.
+eu = Saioa hasteko errorea.
+fa = خطای ورود.
+fi = Kirjautumisvirhe.
+fr = Erreur de connexion.
+gl = Erro de inicio de sesión.
+he = שגיאת התחברות.
+hi = लॉगिन त्रुटि
+hr = Greška pri prijavi.
+hu = Bejelentkezési hiba.
+hy = Մուտքի սխալ։
+id = Kesalahan masuk.
+is = Villa við innskráningu.
+it = Errore durante l'accesso.
+ja = ログインエラー。
+ko = 로그인 오류.
+lo = ເກີດຂໍ້ຜິດພາດໃນການເຂົ້າສູ່ລະບົບ.
+lt = Prisijungimo klaida.
+lv = Ierakstīšanās kļūda.
+mr = लॉग इन त्रुटी.
+mt = Żball tal-illoggjar.
+nb = Innloggingsfeil.
+nl = Inlogfout.
+pl = Błąd logowania.
+pt = Erro de início de sessão.
+pt-BR = Erro no login.
+ro = Eroare de conectare.
+ru = Произошла ошибка при авторизации.
+sk = Pri prihlasovaní sa vyskytla chyba.
+sl = Napaka pri prijavi.
+sq = Gabim në hyrje.
+sr = Грешка приликом пријаве.
+sv = Inloggningsfel.
+sw = Hitilafu ya kuingia.
+th = ข้อผิดพลาดในการล็อกอิน
+tr = Giriş hatası.
+uk = Виникла помилка при авторизації.
+vi = Lỗi đăng nhập.
+zh-Hans = 无法登录。
+zh-Hant = 無法登入。
+
+[elevation_profile_distance]
+comment = Sailfish OS: track statistics on the place page, the length of the track
+tags = sailfish
+en = Dist.:
+af = Afst.:
+ar = المسافة:
+az = Məsafə:
+be = Адл.:
+bg = Разст.:
+ca = Distància:
+cs = Vzdál.:
+da = Afs.:
+de = Entf.:
+el = Απόστ.:
+es = Dist.:
+es-MX = Distancia:
+et = Kaugus:
+eu = Distantzia:
+fa = فاصله:
+fi = Etäisyys:
+fr = Distance :
+gl = Distancia:
+he = מרחק:
+hi = वितरण:
+hr = Udaljenost:
+hu = Távolság:
+hy = Հեռ.՝
+id = Jarak:
+is = Fjarl.:
+it = Dist.:
+ja = 距離：
+ko = 거리:
+lo = ໄລຍະ:
+lt = Atstumas:
+lv = Attālums:
+mr = अंतर.:
+mt = Distanza:
+nb = Avstand:
+nl = Afst.:
+pl = Odległ.:
+pt = Distância:
+pt-BR = Dist.:
+ro = Dist.:
+ru = Расст.:
+sk = Vzdial.:
+sl = Razd.:
+sq = Dist.:
+sr = Удаљ.:
+sv = Avst.:
+sw = Umbali:
+th = ระยะทาง
+tr = Mesafe:
+uk = Відст.:
+vi = Khoảng cách
+zh-Hans = 距离：
+zh-Hant = 距離：
+
+[elevation_profile_time]
+comment = Sailfish OS: track statistics on the place page, the duration of the track
+tags = sailfish
+en = Time:
+af = Tyd:
+ar = المدة:
+ast = Tiempu:
+az = Müddət:
+be = Час:
+bg = Време:
+ca = Temps:
+cs = Čas:
+da = Tid:
+de = Dauer:
+el = Διάρκ:
+es = Tiempo:
+es-MX = Lapso:
+et = Aeg:
+eu = Denbora:
+fa = زمان:
+fi = Aika:
+fr = Temps :
+gl = Tempo:
+he = זמן:
+hi = समय:
+hr = Vrijeme:
+hu = Idő:
+hy = Ժամ.՝
+id = Waktu:
+is = Tími:
+it = Tempo:
+ja = 時間：
+ko = 소비 시간:
+lo = ເວລາ:
+lt = Laikas:
+lv = Ceļā:
+mr = वेळ:
+mt = Ħin:
+nb = I rute
+nl = Tijd:
+pl = Trasa:
+pt = Tempo:
+ro = Timp:
+ru = В пути:
+sk = Čas:
+sl = Čas:
+sq = Koha:
+sr = Време:
+sv = Tid:
+sw = Muda:
+th = เวลา:
+tr = Süre:
+uk = Шлях:
+vi = Giờ:
+zh-Hans = 时间：
+zh-Hant = 時間：
+
+[elevation_profile_diff_level_easy]
+comment = Sailfish OS: track statistics on the place page, an easy difficulty
+tags = sailfish
+en = Easy
+af = Maklik
+ar = سهل
+ast = Fácil
+az = Asan
+be = Лёгкі
+bg = Лесно
+ca = Fàcil
+cs = Snadný
+da = Let
+de = Leicht
+el = Εύκολο
+es = Fácil
+et = Lihtne
+eu = Erraza
+fa = آسان
+fi = Helppo
+fr = Facile
+gl = Fácil
+he = קל
+hr = Jednostavno
+hi = आसान
+hu = Könnyű
+hy = Հեշտ
+id = Mudah
+is = Auðvelt
+it = Facile
+ja = 簡単
+ko = 쉬움
+lo = ງ່າຍ
+lt = Lengvas
+lv = Viegls
+mr = सोपे
+mt = Faċli
+nb = Lett
+nl = Gemakkelijk
+pl = Łatwy
+pt = Fácil
+ro = Ușor
+ru = Лёгкий
+sk = Jednoduchá
+sl = Lahka
+sq = E lehtë
+sr = Лако
+sv = Lätt
+sw = Rahisi
+th = ง่าย
+tr = Kolay
+uk = Простий
+vi = Dễ
+zh-Hans = 容易
+zh-Hant = 容易
+
+[elevation_profile_diff_level_moderate]
+comment = Sailfish OS: track statistics on the place page, a moderate difficulty
+tags = sailfish
+en = Moderate
+af = Matig
+ar = معتدل
+ast = Moderáu
+az = Orta
+be = Сярэдні
+bg = Умерен
+ca = Moderat
+cs = Mírný
+da = Middel
+de = Mittel
+el = Μέτριο
+es = Moderado
+et = Keskmine
+eu = Moderatua
+fa = متوسط
+fi = Kohtuullinen
+fr = Moyen
+gl = Moderado
+he = מתון
+hr = Umjereno
+hi = मध्यम
+hu = Mérsékelt
+hy = Միջին
+id = Sedang
+is = Miðlungs
+it = Moderato
+ja = 普通
+ko = 보통
+lo = ປານກາງ
+lt = Normalus
+lv = Normāls
+mr = मध्यम
+mt = Moderata
+nb = Middels
+nl = Middelmatig
+pl = Umiarkowany
+pt = Moderado
+ro = Mediu
+ru = Умеренный
+sk = Mierna
+sl = Zmerna
+sq = Mesatare
+sr = Умерено
+sv = Måttlig
+sw = Wastani
+th = ปานกลาง
+tr = Orta
+uk = Помірний
+vi = Trung bình
+zh-Hans = 中等
+zh-Hant = 中等
+
+[elevation_profile_diff_level_hard]
+comment = Sailfish OS: track statistics on the place page, a hard difficulty
+tags = sailfish
+en = Hard
+af = Moeilik
+ar = صعب
+ast = Difícil
+az = Çətin
+be = Цяжкі
+bg = Трудно
+ca = Difícil
+cs = Těžký
+da = Svær
+de = Schwer
+el = Δύσκολο
+es = Difícil
+es-MX = Duro
+et = Raske
+eu = Zaila
+fa = دشوار
+fi = Vaikea
+fr = Difficile
+gl = Difícil
+he = קשה
+hr = Teško
+hi = कठिन
+hu = Nehéz
+hy = Բարդ
+id = Sulit
+is = Erfitt
+it = Difficile
+ja = 困難
+ko = 어려움
+lo = ຍາກ
+lt = Sunkus
+lv = Sarežģīts
+mr = कठिण
+mt = Ċast
+nb = Vanskelig
+nl = Moeilijk
+pl = Skomplikowany
+pt = Difícil
+ro = Dificil
+ru = Сложный
+sk = Náročná
+sl = Težka
+sq = E vështirë
+sr = Тешко
+sv = Svår
+sw = Ngumu
+th = ยาก
+tr = Zor
+uk = Складний
+vi = Khó
+zh-Hans = 困难
+zh-Hant = 困難
