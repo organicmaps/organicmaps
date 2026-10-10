@@ -7,6 +7,14 @@
   android:layout_height="wrap_content"
   android:gravity="center_vertical"
   android:orientation="horizontal">
+  <!-- For the test drives, shown in debug builds only: marks in the log the moment the car was shown wrong at. -->
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/flag_log"
+    style="@style/MwmWidget.MapButton.Zoom"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:visibility="gone"
+    android:importantForAccessibility="no"
+    app:srcCompat="@drawable/ic_flag_log" />
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/pause_movement"
     style="@style/MwmWidget.MapButton.Zoom"

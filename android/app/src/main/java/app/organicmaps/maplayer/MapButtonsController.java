@@ -15,11 +15,13 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.TypedValue;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
@@ -30,6 +32,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingPlanViewModel;
@@ -43,6 +46,7 @@ import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -59,6 +63,10 @@ import java.util.Map;
 
 public class MapButtonsController extends Fragment
 {
+  private static final String TAG = MapButtonsController.class.getSimpleName();
+  // The moments of a test drive marked in the log, see the button flag_log.
+  private static int sLogFlags;
+
   Map<MapButtons, View> mButtonsMap;
   private View mFrame;
   private View mInnerLeftButtonsFrame;
@@ -176,6 +184,14 @@ public class MapButtonsController extends Fragment
         (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.shiftPositionBack));
     mReverseButton = mFrame.findViewById(R.id.reverse_direction);
     mReverseButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.reverseDirection));
+    // The log of a test drive is analysed afterwards: the tester marks the moments the car was shown wrong at.
+    final View flagLog = mFrame.findViewById(R.id.flag_log);
+    UiUtils.showIf(BuildConfig.DEBUG, flagLog);
+    flagLog.setOnClickListener((v) -> {
+      Logger.i(TAG, "FLAG " + ++sLogFlags);
+      v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+      Toast.makeText(v.getContext(), "\u2691 " + sLogFlags, Toast.LENGTH_SHORT).show();
+    });
     mPauseButton = mFrame.findViewById(R.id.pause_movement);
     mPauseButtonIconTint = mPauseButton.getImageTintList();
     mPauseButton.setOnClickListener((v) -> {
