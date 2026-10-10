@@ -249,6 +249,8 @@ public:
   Esp32Source * GetEsp32() { return m_esp32; }
   /// \returns the last speed in km/h, or -1 if it is unknown or stale.
   int GetSpeedKmh() const;
+  /// \returns how long ago the car has measured that speed, -1 if it never did.
+  int64_t GetSpeedAgeMs() const;
   CalibrationState GetCalibrationState();
   int GetCalibrationProgressPercent() const;
   /// \returns how far the last turn has moved the car to its crossing.

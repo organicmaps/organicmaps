@@ -285,6 +285,11 @@ int InertialNavigator::GetCalibrationProgressPercent() const
   return m_source ? m_source->GetCalibrationProgressPercent() : 0;
 }
 
+int64_t InertialNavigator::GetSpeedAgeMs() const
+{
+  return m_speedKmh >= 0 ? m_clock.NowMs() - m_speedTimeMs : -1;
+}
+
 bool InertialNavigator::IsSpeedFresh() const
 {
   return m_speedKmh >= 0 && m_clock.NowMs() - m_speedTimeMs < kSpeedStaleMs;

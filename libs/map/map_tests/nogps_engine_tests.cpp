@@ -779,6 +779,7 @@ UNIT_TEST(NoGps_Engine_TripLineTellsWhyCarIsNotOnRoad)
   env.Drive(3000, 9, 0);
   std::string line = env.m_engine.GetTripLine();
   TEST(line.find(" rdiff=0 snapwhy=ROAD ") != std::string::npos, (line));
+  TEST(line.find(" speed=9 sage=0 ") != std::string::npos, (line));
   TEST(line.find(" turning=0 odo=7 offm=0 offv=0 cand=- ") != std::string::npos, (line));
 
   // The car turns right by 40 degrees: the street goes another way than it looks.

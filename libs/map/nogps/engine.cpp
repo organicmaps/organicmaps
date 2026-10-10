@@ -1287,6 +1287,8 @@ std::string Engine::GetTripLine()
   if (m_inertial && IsInertialNavigationEnabled())
   {
     line += " obd=" + DebugPrint(m_inertial->GetSourceState()) + " speed=" + std::to_string(m_inertial->GetSpeedKmh());
+    // How old the speed is, milliseconds: the car is asked for it a few times a second.
+    line += " sage=" + std::to_string(m_inertial->GetSpeedAgeMs());
     // The ESP32 box: what Bluetooth does, and how its data came during the last second: the lines and the
     // longest pause between them in milliseconds. "BLE" is from the time the box had Wi-Fi too.
     if (auto const rate = m_inertial->GetEsp32DataRate())
