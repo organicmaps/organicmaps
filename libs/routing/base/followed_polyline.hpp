@@ -2,6 +2,7 @@
 
 #include "geometry/polyline2d.hpp"
 
+#include <algorithm>
 #include <limits>
 #include <vector>
 
@@ -12,10 +13,14 @@ class FollowedPolyline
 public:
   FollowedPolyline() = default;
 
+  /// @param startIndex Initial vertex; the full polyline remains available for distance queries.
   template <typename Iter>
-  FollowedPolyline(Iter begin, Iter end) : m_poly(begin, end)
+  FollowedPolyline(Iter begin, Iter end, size_t startIndex = 0) : m_poly(begin, end)
   {
     Update();
+    ASSERT_LESS_OR_EQUAL(startIndex, m_segProj.size(), ());
+    // At the terminal vertex, keep a valid segment iterator for distance/turn queries.
+    m_current = FollowedPolyline::Iter(m_poly.GetPoint(startIndex), std::min(startIndex, m_segProj.size() - 1));
     // Initially we do not have intermediate points. Next checkpoint is finish.
     m_nextCheckpointIndex = m_segProj.size();
   }
