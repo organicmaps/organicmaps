@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -80,6 +81,9 @@ public class MapButtonsController extends Fragment
   private TextView mPositionStatus;
   @Nullable
   private FloatingActionButton mPauseButton;
+  // The color of the icon of the pause button as its style sets it.
+  @Nullable
+  private ColorStateList mPauseButtonIconTint;
   @Nullable
   private View mShiftPositionContainer;
   @Nullable
@@ -173,6 +177,7 @@ public class MapButtonsController extends Fragment
     mReverseButton = mFrame.findViewById(R.id.reverse_direction);
     mReverseButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.reverseDirection));
     mPauseButton = mFrame.findViewById(R.id.pause_movement);
+    mPauseButtonIconTint = mPauseButton.getImageTintList();
     mPauseButton.setOnClickListener((v) -> {
       mMapButtonClickListener.onMapButtonClick(MapButtons.pauseMovement);
       updatePositionStatus();
@@ -353,6 +358,16 @@ public class MapButtonsController extends Fragment
       UiUtils.showIf(status.movedByHand && status.inertialEnabled, mPauseButton);
       mPauseButton.setImageResource(status.paused ? R.drawable.ic_play : R.drawable.ic_pause);
       mPauseButton.setContentDescription(getString(status.paused ? R.string.nogps_resume : R.string.nogps_pause));
+      // The pause set by the navigation itself is to be noticed: the mark waits until the car drives along a
+      // road again or the user resumes the movement.
+      final boolean byItself = status.paused && status.pausedByItself;
+      // The style tints the background by the attribute of the view, not of the button: the tint of the button
+      // is not seen under it.
+      final Drawable background = mPauseButton.getBackground();
+      if (background != null)
+        background.setTint(byItself ? ContextCompat.getColor(context, R.color.nogps_paused_by_itself)
+                                    : ThemeUtils.getColor(context, R.attr.menuBackground));
+      mPauseButton.setImageTintList(byItself ? ColorStateList.valueOf(Color.WHITE) : mPauseButtonIconTint);
     }
 
     // The position waits at a turn until the car leaves it, otherwise it would go to another street.

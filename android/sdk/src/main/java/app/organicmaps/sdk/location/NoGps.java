@@ -227,6 +227,9 @@ public final class NoGps
     public boolean hasInertialPosition;
     @Keep
     public boolean paused;
+    // The pause is set by the navigation itself: the car maneuvers off the roads, its mark waits on the road.
+    @Keep
+    public boolean pausedByItself;
     // The firmware of the ESP32 sensor box, empty until the box tells it.
     @Keep
     @NonNull

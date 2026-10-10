@@ -99,6 +99,8 @@ NS_SWIFT_NAME(NoGpsStatus)
 @property(nonatomic, readonly) NSInteger calibrationProgress;
 @property(nonatomic, readonly) BOOL hasInertialPosition;
 @property(nonatomic, readonly) BOOL paused;
+/// The pause is set by the navigation itself: the car maneuvers off the roads, its mark waits on the road.
+@property(nonatomic, readonly) BOOL pausedByItself;
 
 @end
 
