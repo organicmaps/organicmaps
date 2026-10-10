@@ -12,8 +12,12 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
+#include <atomic>
 #include <chrono>
+#include <functional>
+#include <future>
 #include <initializer_list>
 #include <memory>
 #include <mutex>
@@ -132,6 +136,101 @@ public:
 private:
   size_t & m_swapCount;
 };
+
+struct BlockedTrafficRequest
+{
+  promise<void> m_started;
+  promise<void> m_resume;
+  shared_future<void> m_resumeFuture = m_resume.get_future().share();
+  promise<bool> m_cancelled;
+};
+
+// Returning the chosen geometry makes a session reset observable without accessing router internals.
+class TrafficChoiceRouter : public AltRoutesRouter
+{
+public:
+  explicit TrafficChoiceRouter(size_t & swapCount, shared_ptr<BlockedTrafficRequest> blockedRequest = {})
+    : AltRoutesRouter(swapCount)
+    , m_blockedRequest(std::move(blockedRequest))
+  {}
+
+  void ClearState() override
+  {
+    ++m_clearCount;
+    m_alternativeSelected = false;
+  }
+
+  void SwapAltRouteToActive() override
+  {
+    AltRoutesRouter::SwapAltRouteToActive();
+    m_alternativeSelected = !m_alternativeSelected;
+  }
+
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection, bool adjust,
+                                  bool needAlternatives, RouterDelegate const & delegate,
+                                  RoutesResult & result) override
+  {
+    m_adjustFlags.push_back(adjust);
+    if (m_blockedRequest && m_adjustFlags.size() == 2)
+    {
+      m_blockedRequest->m_started.set_value();
+      CHECK(m_blockedRequest->m_resumeFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+      m_blockedRequest->m_cancelled.set_value(delegate.IsCancelled());
+    }
+
+    auto const code =
+        AltRoutesRouter::CalculateRoute(checkpoints, startDirection, adjust, needAlternatives, delegate, result);
+    if (m_alternativeSelected)
+      swap(result.m_routes[0], result.m_routes[1]);
+    if (!needAlternatives)
+      result.m_routes.resize(1);
+    return code;
+  }
+
+  size_t m_clearCount = 0;
+  vector<bool> m_adjustFlags;
+
+private:
+  bool m_alternativeSelected = false;
+  shared_ptr<BlockedTrafficRequest> m_blockedRequest;
+};
+
+void RunOnGuiAndWait(function<void()> task)
+{
+  auto completed = make_shared<promise<void>>();
+  auto future = completed->get_future();
+  GetPlatform().RunTask(Platform::Thread::Gui, [task = std::move(task), completed]
+  {
+    try
+    {
+      task();
+      completed->set_value();
+    }
+    catch (...)
+    {
+      completed->set_exception(current_exception());
+    }
+  });
+  TEST(future.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ("GUI task timed out."));
+  future.get();
+}
+
+RoutesResult WaitForRoute(RoutingSession & session, function<void()> request)
+{
+  auto completed = make_shared<promise<pair<RoutesResult, RouterResultCode>>>();
+  auto future = completed->get_future();
+  RunOnGuiAndWait([&session, completed, request = std::move(request)]
+  {
+    ReadyCallback ready = [completed](RoutesResult const & result, RouterResultCode code)
+    { completed->set_value({result, code}); };
+    session.SetRoutingCallbacks(ready, ready, nullptr, nullptr);
+    request();
+  });
+  TEST(future.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ("Route was not built."));
+  auto [result, code] = future.get();
+  TEST_EQUAL(code, RouterResultCode::NoError, ());
+  return result;
+}
 
 // Router which every next call of CalculateRoute() method return different return codes.
 class ReturnCodesRouter : public IRouter
@@ -253,10 +352,8 @@ private:
 
 void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* = kTestTurnsReachOnly */)
 {
-  // Build segments from the route's actual polyline points (not the global kTestRoute) so segments
-  // are consistent with the followed polyline. This matters because RouteBase no longer stores
-  // the polyline: promoting a sliced RouteBase back to a Route reconstructs the FollowedPolyline
-  // from segments (subroute.front().GetStart() + each segment's junction).
+  // RouteBase promotion reconstructs the polyline from the subroute start and segment junctions,
+  // so segment data must match this route's geometry.
   auto const & polyPts = route.GetPoly().GetPoints();
 
   vector<geometry::PointWithAltitude> junctions;
@@ -734,5 +831,111 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSwapActiveAlternative)
     swappedSignal.Signal();
   });
   TEST(swappedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative was not swapped."));
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestTrafficRebuildPreservesChoice)
+{
+  size_t swapCount = 0;
+  TrafficChoiceRouter * router = nullptr;
+  RunOnGuiAndWait([&]
+  {
+    InitRoutingSession();
+    auto choiceRouter = make_unique<TrafficChoiceRouter>(swapCount);
+    router = choiceRouter.get();
+    m_session->SetRouter(std::move(choiceRouter), nullptr);
+  });
+  WaitForRoute(*m_session, [this]
+  { m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout); });
+  auto const clearCount = router->m_clearCount;
+  RunOnGuiAndWait([this] { TEST(m_session->SwapActiveAlternative(1), ()); });
+
+  auto const clear = [this] { m_session->OnTrafficInfoClear(); };
+  auto const add = [this]
+  {
+    m_session->OnTrafficInfoAdded(traffic::TrafficInfo::BuildForTesting(
+        {{traffic::TrafficInfo::RoadSegmentId(1, 0, traffic::TrafficInfo::RoadSegmentId::kForwardDirection),
+          traffic::SpeedGroup::G0}}));
+  };
+  auto const remove = [this] { m_session->OnTrafficInfoRemoved(MwmSet::MwmId()); };
+  vector<function<void()>> const updates = {clear, add, remove};
+  for (size_t i = 0; i < updates.size(); ++i)
+  {
+    auto const result = WaitForRoute(*m_session, updates[i]);
+    TEST_EQUAL(result.GetActive().GetRouteSegments()[1].GetJunction().GetPoint(), kTestAltRoute[2], ());
+    TEST_EQUAL(router->m_clearCount, clearCount, ("Traffic must preserve the journey's router state."));
+    TEST(!router->m_adjustFlags.back(), ("Traffic requires a full calculation."));
+    RunOnGuiAndWait([this, i]
+    {
+      traffic::AllMwmTrafficInfo traffic;
+      m_session->CopyTraffic(traffic);
+      TEST_EQUAL(traffic.size(), i == 1 ? 1 : 0, ());
+      TEST(m_session->EnableFollowMode(), ());
+    });
+  }
+  RunOnGuiAndWait([this]
+  {
+    traffic::AllMwmTrafficInfo traffic;
+    m_session->CopyTraffic(traffic);
+    TEST(traffic.empty(), ("Removing traffic must update the cache."));
+    TEST(m_session->IsFollowing(), ());
+  });
+
+  auto const newJourney = WaitForRoute(*m_session, [this]
+  { m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout); });
+  TEST_EQUAL(newJourney.GetActive().GetRouteSegments()[1].GetJunction().GetPoint(), kTestRoute[2], ());
+  TEST_GREATER(router->m_clearCount, clearCount, ("A new journey resets the selected strategy."));
+  RunOnGuiAndWait([this] { TEST(!m_session->IsFollowing(), ()); });
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestTrafficUpdateCancelsSupersededRebuild)
+{
+  size_t swapCount = 0;
+  auto supersededCallbacks = make_shared<atomic<size_t>>(0);
+  auto blockedRequest = make_shared<BlockedTrafficRequest>();
+  auto started = blockedRequest->m_started.get_future();
+  auto cancelled = blockedRequest->m_cancelled.get_future();
+  bool resumed = false;
+  SCOPE_GUARD(resumeRequest, [&]
+  {
+    if (!resumed)
+      blockedRequest->m_resume.set_value();
+  });
+
+  RunOnGuiAndWait([&]
+  {
+    InitRoutingSession();
+    m_session->SetRouter(make_unique<TrafficChoiceRouter>(swapCount, blockedRequest), nullptr);
+  });
+  WaitForRoute(*m_session, [this]
+  { m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout); });
+  RunOnGuiAndWait([&]
+  {
+    TEST(m_session->SwapActiveAlternative(1), ());
+    m_session->SetRoutingCallbacks(nullptr, [supersededCallbacks](RoutesResult const &, RouterResultCode)
+    { ++*supersededCallbacks; }, nullptr, nullptr);
+    m_session->OnTrafficInfoClear();
+  });
+  TEST(started.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ("Traffic rebuild did not start."));
+
+  auto completed = make_shared<promise<RoutesResult>>();
+  auto future = completed->get_future();
+  RunOnGuiAndWait([&]
+  {
+    m_session->SetRoutingCallbacks(nullptr, [completed](RoutesResult const & result, RouterResultCode code)
+    {
+      CHECK_EQUAL(code, RouterResultCode::NoError, ());
+      completed->set_value(result);
+    }, nullptr, nullptr);
+    m_session->OnTrafficInfoRemoved(MwmSet::MwmId());
+  });
+  // Removal queues its GUI work; this barrier ensures it has replaced the blocked request.
+  RunOnGuiAndWait([] {});
+  blockedRequest->m_resume.set_value();
+  resumed = true;
+  TEST(future.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ("Replacement route was not built."));
+  auto const result = future.get();
+  TEST_EQUAL(result.GetActive().GetRouteSegments()[1].GetJunction().GetPoint(), kTestAltRoute[2], ());
+  TEST(cancelled.get(), ("The superseded delegate must be cancelled."));
+  TEST_EQUAL(supersededCallbacks->load(), 0, ());
 }
 }  // namespace routing_session_test
