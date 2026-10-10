@@ -752,28 +752,31 @@ UNIT_TEST(HttpClient_LargeFileDownload)
   TEST_GREATER(result.m_serverResponse.size(), 0, ());
 }
 
-// Cancel a request that has likely already completed — should not crash.
+// Repeatedly cancel completed requests to exercise the race with reply cleanup.
 UNIT_TEST(HttpClient_Cancel_AfterCompletion)
 {
-  HttpClient client(kTestUrl1);
-  std::mutex mu;
-  std::condition_variable cv;
-  bool done = false;
-  auto handle = client.RunHttpRequestAsync([&](HttpClient::Result)
+  int constexpr kNumRequests = 1000;
+  for (int i = 0; i < kNumRequests; ++i)
   {
-    std::lock_guard lock(mu);
-    done = true;
-    cv.notify_one();
-  });
+    HttpClient client(kTestUrl1);
+    std::mutex mu;
+    std::condition_variable cv;
+    bool done = false;
+    auto handle = client.RunHttpRequestAsync([&](HttpClient::Result)
+    {
+      std::lock_guard lock(mu);
+      done = true;
+      cv.notify_one();
+    });
 
-  {
-    std::unique_lock lock(mu);
-    cv.wait(lock, [&] { return done; });
+    {
+      std::unique_lock lock(mu);
+      cv.wait(lock, [&] { return done; });
+    }
+
+    handle.Cancel();
+    TEST(handle.IsCancelled(), (i));
   }
-
-  // Cancel after completion — should be a no-op, must not crash.
-  handle.Cancel();
-  TEST(handle.IsCancelled(), ());
 }
 
 // Multiple cancel calls should be safe.
