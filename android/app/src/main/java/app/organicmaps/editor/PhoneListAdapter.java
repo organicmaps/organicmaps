@@ -164,14 +164,15 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     notifyItemRemoved(position);
   }
 
-  public boolean allPhonesValid()
+  public int findInvalidPhone()
   {
-    for (String number : phonesData)
+    for (int i=0; i<phonesData.size(); i++)
     {
+      String number = phonesData.get(i);
       if (!Editor.nativeIsPhoneValid(number))
-        return false;
+        return i;
     }
 
-    return true;
+    return -1;
   }
 }

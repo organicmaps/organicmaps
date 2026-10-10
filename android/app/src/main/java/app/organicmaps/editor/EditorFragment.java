@@ -270,9 +270,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
 
     // Validate phones
-    if (!mPhonesAdapter.allPhonesValid())
+    int invalidPhoneIdx = mPhonesAdapter.findInvalidPhone();
+    if (invalidPhoneIdx != -1)
     {
-      mPhonesRecycler.requestFocus();
+      mPhonesRecycler.findViewHolderForAdapterPosition(invalidPhoneIdx)
+                     .itemView.requestFocus();
       return false;
     }
 
