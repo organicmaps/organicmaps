@@ -73,23 +73,17 @@ bool Url::Parse(std::string_view url)
     if (end == kNotFound)
       end = url.size();
 
-    // Skip empty keys.
+    // Skip empty query/fragment fields.
     if (end != start)
     {
-      size_t const eq = url.find('=', start);
+      // Limit the search to this field so repeated parameters without '=' take linear time.
+      std::string_view const param = url.substr(start, end - start);
+      size_t const eq = param.find('=');
 
-      std::string key, value;
-      if (eq != kNotFound && eq < end)
-      {
-        key = UrlDecode(url.substr(start, eq - start));
-        value = UrlDecode(url.substr(eq + 1, end - eq - 1));
-      }
+      if (eq != kNotFound)
+        m_params.emplace_back(UrlDecode(param.substr(0, eq)), UrlDecode(param.substr(eq + 1)));
       else
-      {
-        key = UrlDecode(url.substr(start, end - start));
-      }
-
-      m_params.emplace_back(key, value);
+        m_params.emplace_back(UrlDecode(param), std::string());
     }
 
     start = end + 1;
