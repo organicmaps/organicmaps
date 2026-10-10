@@ -70,13 +70,14 @@ void AccelLog::EndSlice()
   ClearSlice();
 }
 
-std::optional<std::string> GyroLog::OnSample(int64_t timestampNs, double yawDeltaDeg)
+std::optional<std::string> GyroLog::OnSample(int64_t timestampNs, double yawDeltaDeg, int speedKmh)
 {
   std::optional<std::string> line;
   // A break of the sensor starts the second anew, the total goes on.
   if (m_hasSlice && (timestampNs < m_sliceStartNs || timestampNs - m_sliceStartNs > 2 * kAccelSliceNs))
   {
     m_line.clear();
+    m_speeds.clear();
     m_slices = 0;
     m_rotationDeg = 0;
     m_hasSlice = false;
@@ -86,13 +87,15 @@ std::optional<std::string> GyroLog::OnSample(int64_t timestampNs, double yawDelt
     char buf[32];
     std::snprintf(buf, sizeof(buf), " %.2f", m_sliceDeg);
     m_line += buf;
+    m_speeds += " " + std::to_string(m_sliceSpeedKmh);
     m_hasSlice = false;
     if (++m_slices == kSlices)
     {
       std::snprintf(buf, sizeof(buf), "%.1f", m_totalDeg);
-      line = buf + m_line;
+      line = buf + m_line + m_speeds;
       m_lineRotationDeg = m_rotationDeg;
       m_line.clear();
+      m_speeds.clear();
       m_slices = 0;
       m_rotationDeg = 0;
     }
@@ -104,6 +107,7 @@ std::optional<std::string> GyroLog::OnSample(int64_t timestampNs, double yawDelt
     m_sliceDeg = 0;
   }
   m_sliceDeg += yawDeltaDeg;
+  m_sliceSpeedKmh = speedKmh;
   m_rotationDeg += std::fabs(yawDeltaDeg);
   m_totalDeg += yawDeltaDeg;
   return line;

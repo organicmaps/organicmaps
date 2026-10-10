@@ -34,6 +34,10 @@ public:
   static double constexpr kMaxRoadDiffDeg = 35;
   // The road the car was on going the new way within this difference has bent, the car has followed it.
   static double constexpr kMaxBendEndDiffDeg = 25;
+  // The crossings this close to a turn are written to the trip log, a few closest ones: farther than they are
+  // searched, to see on real trips where the crossing of a turn that was not moved to one really was.
+  static double constexpr kLogRadiusM = 80;
+  static size_t constexpr kLogCrossings = 6;
 
   /// \param corner where the car has turned by the calculation.
   /// \param fromBearingDeg where the car looked before the turn.
@@ -43,6 +47,12 @@ public:
   /// \returns the crossing, or nothing if the turn is not at a crossing.
   static std::optional<ms::LatLon> FindCrossing(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
                                                 double toBearingDeg, double searchM, std::string * whyNot = nullptr);
+
+  /// \returns the crossings around the corner for the trip log, the closest first, as "+40/-3/BA,-60/+0/B-": how
+  /// far the crossing is ahead of the corner the way the car came, how far to the right, meters, whether it has the
+  /// road the car came by (B) and a road going the new way (A). "-" if there are no crossings around.
+  static std::string DescribeCrossings(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
+                                       double toBearingDeg);
 
   /// Follows the road the car was on from the corner: the road going on the way the car looked before. At a
   /// crossing it goes straight on or ends.

@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 
 namespace nogps
 {
@@ -357,8 +358,22 @@ void InertialNavigator::CheckBoxAccel()
     }
     m_boxAccelId = info->m_id;
   }
-  if (m_boxAccelSpeed.IsUsable() && m_clock.NowMs() - m_boxAccelSavedMs >= kBoxAccelSaveMs)
+  int64_t const now = m_clock.NowMs();
+  if (now - m_boxAccelSavedMs < kBoxAccelSaveMs)
+    return;
+  // For the trip log: where the accelerometer looks in its axes and how well it follows the car.
+  char direction[64] = "-";
+  if (auto const d = m_boxAccelSpeed.GetDirection())
+    std::snprintf(direction, sizeof(direction), "%.3f,%.3f,%.3f", (*d)[0], (*d)[1], (*d)[2]);
+  char buf[160];
+  std::snprintf(buf, sizeof(buf), "dir=%s n=%.0f corr=%.2f recent=%.2f/%.2f usable=%d", direction,
+                m_boxAccelSpeed.GetSamples(), m_boxAccelSpeed.GetCorrelation(), m_boxAccelSpeed.GetRecentCorrelation(),
+                m_boxAccelSpeed.GetRecentScale(), m_boxAccelSpeed.IsUsable() ? 1 : 0);
+  LOG(LINFO, ("BOXACC", buf));
+  if (m_boxAccelSpeed.IsUsable())
     SaveBoxAccel();
+  else
+    m_boxAccelSavedMs = now;
 }
 
 void InertialNavigator::TrackDirection()
@@ -397,12 +412,18 @@ void InertialNavigator::TrackDirection()
         stand = m_boxAccelSpeed.GetAccelAlong(standFrom, standTo);
     }
     auto const start = m_boxAccelSpeed.GetAccelAlong(standTo, now);
+    double const stoodSec = m_standMs ? (*m_startMs - *m_standMs) / 1000.0 : -1;
     if (stand && start)
     {
       double const feltMps = (*start - *stand) * (now - standTo) / 1000.0;
       direction = feltMps <= -kReverseStartSpeedMps ? -1 : 1;
       LOG(LINFO, ("The car has started", direction > 0 ? "forward" : "backward", "the accelerometer has felt", feltMps,
-                  "m/s"));
+                  "m/s, standing", *stand, "starting", *start, "m/s2, it stood", stoodSec, "s"));
+    }
+    else
+    {
+      LOG(LINFO, ("The car has started, the accelerometer tells nothing: usable =", m_boxAccelSpeed.IsUsable(),
+                  "it stood", stoodSec, "s"));
     }
     m_standMs.reset();
   }
@@ -459,8 +480,8 @@ void InertialNavigator::ResetLag()
 
 void InertialNavigator::PauseByItself()
 {
-  LOG(LINFO, ("The car maneuvers", std::round(m_offRoadM), "m off the roads, paused by itself, the mark waits at",
-              *m_roadPoint));
+  LOG(LINFO, ("The car maneuvers", std::round(m_offRoadM), "m off the roads at up to",
+              std::round(m_offRoadMaxSpeedMps * 3.6), "km/h, paused by itself, the mark waits at", *m_roadPoint));
   m_paused = true;
   m_pausedByItself = true;
   m_fastSinceMs.reset();
@@ -510,6 +531,7 @@ void InertialNavigator::PutOnRoad(ms::LatLon const & point, double bearingDeg)
   m_roadCandidate.reset();
   m_turning = false;
   m_onRoad = true;
+  m_lastSnapResult = SnapResult::OnRoad;
   // The car drives along the road: what the gyroscope has counted through the maneuver is less sure.
   SetHeading(bearingDeg, HeadingSource::Road);
 }
@@ -518,17 +540,41 @@ void InertialNavigator::CheckBackOnRoad()
 {
   double const heading = m_deadReckoning.GetHeading();
   auto const road = m_roads.Snap(*m_offRoadCar, heading, kSnapRadiusM);
-  // A car driving backwards along a road is not driving along it yet.
-  if (!road || Distance(*m_offRoadCar, road->m_point) > kSnapRadiusM || m_direction < 0)
+  if (!road)
   {
+    m_lastSnapShiftM.reset();
+    m_lastSnapBearingDiffDeg.reset();
+    m_lastSnapResult = SnapResult::NoRoad;
+    m_roadCandidate.reset();
+    return;
+  }
+  double const shift = Distance(*m_offRoadCar, road->m_point);
+  m_lastSnapShiftM = shift;
+  m_lastSnapBearingDiffDeg = AngleDiff(heading, Orient(road->m_bearingDeg, heading));
+  // A car driving backwards along a road is not driving along it yet.
+  if (shift > kSnapRadiusM || m_direction < 0)
+  {
+    m_lastSnapResult = shift > kSnapRadiusM ? SnapResult::Far : SnapResult::Unconfirmed;
     m_roadCandidate.reset();
     return;
   }
   if (!IsRoadConfirmed(*road, heading))
+  {
+    m_lastSnapResult = std::fabs(*m_lastSnapBearingDiffDeg) > DeadReckoning::kMaxSnapHeadingDiffDeg
+                           ? SnapResult::Angle
+                           : SnapResult::Unconfirmed;
     return;
-  LOG(LINFO, ("The car drives along a road again", std::round(Distance(*m_offRoadCar, road->m_point)),
-              "m aside, after", std::round(m_offRoadM), "m off the roads"));
+  }
+  LOG(LINFO, ("The car drives along a road again", std::round(shift), "m aside, after", std::round(m_offRoadM),
+              "m off the roads"));
   PutOnRoad(road->m_point, Orient(road->m_bearingDeg, heading));
+}
+
+std::optional<double> InertialNavigator::GetRoadCandidateM() const
+{
+  if (!m_roadCandidate)
+    return {};
+  return m_pathM - m_roadCandidate->m_pathM;
 }
 
 void InertialNavigator::SetPaused(bool paused)
@@ -682,7 +728,7 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
     return;
 
   // The car reports that it moves a second late: a second with a rotation is written too.
-  auto const gyroLine = m_gyroLog.OnSample(timestampNs, yawDeltaDeg);
+  auto const gyroLine = m_gyroLog.OnSample(timestampNs, yawDeltaDeg, IsSpeedFresh() ? m_speedKmh : -1);
   if (gyroLine && (m_moving || m_gyroLog.GetLineRotationDeg() >= kGyroLogMinRotationDeg))
     LOG(LINFO, ("GYRO", *gyroLine));
 
@@ -852,16 +898,21 @@ void InertialNavigator::SnapToRoad()
   {
     m_onRoad = false;
     m_lastSnapShiftM.reset();
+    m_lastSnapBearingDiffDeg.reset();
+    m_lastSnapResult = SnapResult::NoRoad;
     m_roadCandidate.reset();
     return;
   }
   // Roads are searched in a square, its corners are farther than the radius.
   double const shift = Distance(position, snapped->m_point);
   m_lastSnapShiftM = shift;
+  m_lastSnapBearingDiffDeg = AngleDiff(heading, Orient(snapped->m_bearingDeg, heading));
+  bool const otherWay = std::fabs(*m_lastSnapBearingDiffDeg) > DeadReckoning::kMaxSnapHeadingDiffDeg;
   // A maneuvering car is not thrown to a road far aside at once: it is put there after it has driven along it.
   if (shift > kMaxManeuverSnapM && shift <= kSnapRadiusM && m_deadReckoning.GetSpeed() <= kMaxManeuverSpeedMps)
   {
     m_onRoad = false;
+    m_lastSnapResult = otherWay ? SnapResult::Angle : SnapResult::Unconfirmed;
     // A car driving backwards along a road is not driving along it yet.
     if (m_direction < 0)
     {
@@ -876,6 +927,7 @@ void InertialNavigator::SnapToRoad()
   }
   m_roadCandidate.reset();
   m_onRoad = shift <= kSnapRadiusM && m_deadReckoning.SnapToRoad(snapped->m_point, snapped->m_bearingDeg);
+  m_lastSnapResult = m_onRoad ? SnapResult::OnRoad : shift > kSnapRadiusM ? SnapResult::Far : SnapResult::Angle;
   if (m_onRoad)
   {
     m_roadPoint = snapped->m_point;
@@ -934,8 +986,13 @@ void InertialNavigator::TrackTurn(double yawDeltaDeg, double dtSec, int64_t time
     m_turnFromRoad = m_onRoad;
     m_turnCalmSinceNs.reset();
     m_turnRotationDeg = 0;
+    m_turnStartNs = timestampNs;
+    m_turnStartPathM = m_pathM;
+    m_turnMinKmh = m_turnMaxKmh = m_speedKmh;
     return;
   }
+  m_turnMinKmh = std::min(m_turnMinKmh, m_speedKmh);
+  m_turnMaxKmh = std::max(m_turnMaxKmh, m_speedKmh);
 
   if (std::fabs(yawRateDeg) >= kTurnEndRateDeg)
   {
@@ -951,20 +1008,28 @@ void InertialNavigator::TrackTurn(double yawDeltaDeg, double dtSec, int64_t time
     return;
 
   m_turning = false;
-  MatchTurn();
+  MatchTurn(timestampNs);
 }
 
-void InertialNavigator::MatchTurn()
+void InertialNavigator::MatchTurn(int64_t timestampNs)
 {
   double const toBearing = m_deadReckoning.GetHeading();
   double const turnDeg = std::fabs(AngleDiff(toBearing, m_turnFromBearing));
+  auto const corner = Move(m_turnStart, m_turnFromBearing, kTurnCornerAheadM);
+  // For the trip log, to try other rules on real trips: the turn with the second the car went straight after it,
+  // and the crossings around where it has started by the calculation.
+  char buf[160];
+  std::snprintf(buf, sizeof(buf), "from=%ld to=%ld rot=%ld sec=%.1f m=%ld kmh=%d-%d road=%d acc=%ld cr=",
+                std::lround(m_turnFromBearing), std::lround(toBearing), std::lround(m_turnRotationDeg),
+                (timestampNs - m_turnStartNs) / 1e9, std::lround(m_pathM - m_turnStartPathM), m_turnMinKmh,
+                m_turnMaxKmh, m_turnFromRoad ? 1 : 0, std::lround(m_deadReckoning.GetAccuracy()));
+  LOG(LINFO, ("TURN", buf + TurnMatcher::DescribeCrossings(m_roads, corner, m_turnFromBearing, toBearing)));
   if (m_turnRotationDeg - turnDeg > kMaxExtraTurnRotationDeg)
   {
     LOG(LINFO, ("Turn from", std::round(m_turnFromBearing), "to", std::round(toBearing), "rotating by",
                 std::round(m_turnRotationDeg), "is a roundabout or a winding road"));
     return;
   }
-  auto const corner = Move(m_turnStart, m_turnFromBearing, kTurnCornerAheadM);
   std::string whyNot;
   auto const crossing = TurnMatcher::FindCrossing(m_roads, corner, m_turnFromBearing, toBearing,
                                                   m_deadReckoning.GetAccuracy(), &whyNot);
@@ -1014,6 +1079,20 @@ std::string DebugPrint(InertialNavigator::HeadingSource source)
   case InertialNavigator::HeadingSource::None: return "NONE";
   case InertialNavigator::HeadingSource::Gps: return "GPS";
   case InertialNavigator::HeadingSource::Road: return "ROAD";
+  }
+  UNREACHABLE();
+}
+
+std::string DebugPrint(InertialNavigator::SnapResult result)
+{
+  switch (result)
+  {
+  case InertialNavigator::SnapResult::None: return "NONE";
+  case InertialNavigator::SnapResult::OnRoad: return "ROAD";
+  case InertialNavigator::SnapResult::NoRoad: return "NOROAD";
+  case InertialNavigator::SnapResult::Far: return "FAR";
+  case InertialNavigator::SnapResult::Angle: return "ANGLE";
+  case InertialNavigator::SnapResult::Unconfirmed: return "WAIT";
   }
   UNREACHABLE();
 }

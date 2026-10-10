@@ -304,6 +304,13 @@ std::optional<double> AccelSpeed::GetAccelAlong(int64_t fromMs, int64_t toMs) co
   return Dot(m_direction, *accel);
 }
 
+std::optional<AccelSpeed::Vec3> AccelSpeed::GetDirection() const
+{
+  if (!m_hasDirection)
+    return {};
+  return m_direction;
+}
+
 bool AccelSpeed::IsUsable() const
 {
   if (!m_hasDirection || m_n < m_params.m_minSamples || m_correlation < m_params.m_minCorrelation ||

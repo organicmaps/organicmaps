@@ -91,6 +91,8 @@ public:
 
   /// What the box has told about itself, nothing until it does.
   std::optional<esp32::Info> const & GetInfo() const { return m_info; }
+  /// \returns the flags of the last data line of the box, see esp32::kFlag*.
+  int GetFlags() const { return m_flags; }
   /// \returns true if the box takes a firmware now: it is connected over Bluetooth and its firmware knows how.
   bool CanUpdate() const;
   void StartUpdate(Firmware const & firmware);

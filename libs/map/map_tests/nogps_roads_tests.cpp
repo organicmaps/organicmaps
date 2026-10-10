@@ -127,6 +127,17 @@ UNIT_TEST(NoGps_TurnMatcher_NotFartherThanCalculationIsEverWrong)
   TEST(!TurnMatcher::FindCrossing(roads, At(30, 0), 90, 0, 140), ());
 }
 
+UNIT_TEST(NoGps_TurnMatcher_DescribesCrossingsAround)
+{
+  // The car going east has turned north at 160 m: the crossings of its street are 40 m ahead and 60 m behind.
+  GridRoads grid;
+  TEST_EQUAL(TurnMatcher::DescribeCrossings(grid, At(160, 0), 90, 0), "+40/+0/BA,-60/+0/BA", ());
+  // A street with one crossing, the side street goes south only: no road going north there.
+  PieceRoads roads({{-300, 0, 300, 0}, {100, -300, 100, 0}}, {{100, 0}});
+  TEST_EQUAL(TurnMatcher::DescribeCrossings(roads, At(80, 5), 90, 0), "+20/+5/B-", ());
+  TEST_EQUAL(TurnMatcher::DescribeCrossings(roads, At(-100, 0), 90, 0), "-", ());
+}
+
 UNIT_TEST(NoGps_TurnMatcher_MatchesTurnBeforeCrossing)
 {
   // The calculated distance lags: the car turned left at 200 m, but it is at 160 m by the calculation.

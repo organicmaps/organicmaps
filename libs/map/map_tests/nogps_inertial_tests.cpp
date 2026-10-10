@@ -359,7 +359,8 @@ UNIT_TEST(NoGps_GyroLog_LineEverySecond)
       delta = 0.4;
     else if (i >= 100 && i < 150)
       delta = i % 2 == 0 ? 0.5 : -0.5;
-    if (auto const line = log.OnSample(i * kStepNs, delta))
+    // The car reports 7 km/h from the middle of the second second on.
+    if (auto const line = log.OnSample(i * kStepNs, delta, i < 75 ? 0 : 7))
     {
       lines.push_back(*line);
       if (lines.size() == 2)
@@ -369,18 +370,19 @@ UNIT_TEST(NoGps_GyroLog_LineEverySecond)
     }
   }
   TEST_EQUAL(lines.size(), 3, ());
-  TEST_EQUAL(lines[0], "0.0 0.00 0.00 0.00 0.00 0.00", ());
-  // The total rotation since the start, then the parts of the second.
-  TEST_EQUAL(lines[1], "4.0 0.00 0.00 4.00 0.00 0.00", ());
-  TEST_EQUAL(lines[2], "4.0 0.00 0.00 0.00 0.00 0.00", ());
+  TEST_EQUAL(lines[0], "0.0 0.00 0.00 0.00 0.00 0.00 0 0 0 0 0", ());
+  // The total rotation since the start, the parts of the second, and the speed of the car by the end of each.
+  TEST_EQUAL(lines[1], "4.0 0.00 0.00 4.00 0.00 0.00 0 0 7 7 7", ());
+  TEST_EQUAL(lines[2], "4.0 0.00 0.00 0.00 0.00 0.00 7 7 7 7 7", ());
 
   // The sensor was silent for 5 s: the unfinished second is dropped, the total goes on.
   int64_t constexpr kLater = 10'000'000'000LL;
   for (int i = 0; i < 50; ++i)
-    TEST(!log.OnSample(kLater + i * kStepNs, 0.1), ());
-  auto const line = log.OnSample(kLater + 50 * kStepNs, 0.1);
+    TEST(!log.OnSample(kLater + i * kStepNs, 0.1, -1), ());
+  auto const line = log.OnSample(kLater + 50 * kStepNs, 0.1, -1);
   TEST(line, ());
-  TEST_EQUAL(*line, "9.0 1.00 1.00 1.00 1.00 1.00", ());
+  // The speed of the car is not known.
+  TEST_EQUAL(*line, "9.0 1.00 1.00 1.00 1.00 1.00 -1 -1 -1 -1 -1", ());
 }
 
 UNIT_TEST(NoGps_AccelLog_BreakStartsAnew)

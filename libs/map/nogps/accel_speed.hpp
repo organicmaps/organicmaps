@@ -91,6 +91,8 @@ public:
 
   /// \returns true if the direction along the car is known and the sensor follows the car.
   bool IsUsable() const;
+  /// \returns the direction along the car in the axes of the sensor, nothing if it is not learned yet.
+  std::optional<Vec3> GetDirection() const;
   /// \returns how well the sensor follows the changes of the car speed, 1 is the best.
   double GetCorrelation() const { return m_correlation; }
   /// \returns the same of the last comparisons only.

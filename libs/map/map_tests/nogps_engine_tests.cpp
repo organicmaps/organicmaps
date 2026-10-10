@@ -771,6 +771,31 @@ UNIT_TEST(NoGps_Engine_TripLineHasPlatformPositions)
   TEST(line.find(" gps=") == std::string::npos && line.find(" fused=") == std::string::npos, (line));
 }
 
+UNIT_TEST(NoGps_Engine_TripLineTellsWhyCarIsNotOnRoad)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 0);
+  env.Drive(3000, 9, 0);
+  std::string line = env.m_engine.GetTripLine();
+  TEST(line.find(" rdiff=0 snapwhy=ROAD ") != std::string::npos, (line));
+  TEST(line.find(" turning=0 odo=7 offm=0 offv=0 cand=- ") != std::string::npos, (line));
+
+  // The car turns right by 40 degrees: the street goes another way than it looks.
+  env.Drive(1000, 9, 40);
+  TEST(env.m_engine.GetTripLine().find(" turning=1 ") != std::string::npos, (env.m_engine.GetTripLine()));
+  env.Drive(2500, 9, 0);
+  line = env.m_engine.GetTripLine();
+  TEST(line.find(" rdiff=40 snapwhy=ANGLE ") != std::string::npos, (line));
+  TEST(line.find(" turning=0 odo=16 offm=4 offv=9 cand=- ") != std::string::npos, (line));
+
+  // And to the south: no street goes that way.
+  env.Drive(1000, 9, 50);
+  env.Drive(1500, 9, 0);
+  line = env.m_engine.GetTripLine();
+  TEST(line.find(" rdiff=- snapwhy=NOROAD ") != std::string::npos, (line));
+}
+
 UNIT_TEST(NoGps_Engine_PauseResumesByItself)
 {
   Env env(true /* inertial */);

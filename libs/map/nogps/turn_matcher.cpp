@@ -7,7 +7,9 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <limits>
+#include <vector>
 
 namespace nogps
 {
@@ -85,6 +87,36 @@ std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon co
               ", without a road going the new way " + std::to_string(noRoadAhead));
   }
   return best;
+}
+
+std::string TurnMatcher::DescribeCrossings(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
+                                           double toBearingDeg)
+{
+  struct Item
+  {
+    double m_distance;
+    ms::LatLon m_point;
+  };
+  std::vector<Item> items;
+  for (auto const & crossing : roads.FindCrossings(corner, kLogRadiusM))
+    if (double const distance = Distance(corner, crossing); distance <= kLogRadiusM)
+      items.push_back({distance, crossing});
+  std::sort(items.begin(), items.end(), [](Item const & a, Item const & b) { return a.m_distance < b.m_distance; });
+  if (items.size() > kLogCrossings)
+    items.resize(kLogCrossings);
+
+  std::string result;
+  for (auto const & item : items)
+  {
+    double const angle = math::DegToRad(AngleDiff(Bearing(corner, item.m_point), fromBearingDeg));
+    char buf[48];
+    std::snprintf(buf, sizeof(buf), "%s%+ld/%+ld/%c%c", result.empty() ? "" : ",",
+                  std::lround(item.m_distance * std::cos(angle)), std::lround(item.m_distance * std::sin(angle)),
+                  HasRoadFromCrossing(roads, item.m_point, fromBearingDeg + 180) ? 'B' : '-',
+                  HasRoadFromCrossing(roads, item.m_point, toBearingDeg) ? 'A' : '-');
+    result += buf;
+  }
+  return result.empty() ? "-" : result;
 }
 
 bool TurnMatcher::IsBend(Roads & roads, ms::LatLon const & position, double fromBearingDeg, double toBearingDeg,

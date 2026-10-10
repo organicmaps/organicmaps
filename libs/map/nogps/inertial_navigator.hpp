@@ -47,6 +47,22 @@ public:
     Road,
   };
 
+  // What the last look for the road under the car has ended with, for the trip log.
+  enum class SnapResult
+  {
+    // The car was not looked for yet.
+    None,
+    OnRoad,
+    // No road around.
+    NoRoad,
+    // The road is farther than kSnapRadiusM.
+    Far,
+    // The road goes another way than the car looks.
+    Angle,
+    // A maneuvering car is not on a road far aside until it has driven along it.
+    Unconfirmed,
+  };
+
   class Listener
   {
   public:
@@ -245,6 +261,20 @@ public:
   bool IsOnRoad() const { return m_onRoad; }
   /// \returns how far the closest road was from the calculated position.
   std::optional<double> GetLastSnapShiftM() const { return m_lastSnapShiftM; }
+  /// \returns how much to the right of that road the car looked, degrees.
+  std::optional<double> GetLastSnapBearingDiffDeg() const { return m_lastSnapBearingDiffDeg; }
+  SnapResult GetLastSnapResult() const { return m_lastSnapResult; }
+
+  // For the trip log.
+  /// \returns true while the car makes a turn that is to be moved to its crossing.
+  bool IsTurning() const { return m_turning; }
+  /// \returns all the car has driven, meters.
+  double GetPathM() const { return m_pathM; }
+  /// \returns how far and how fast at most the car has driven off the roads since it was on a road.
+  double GetOffRoadM() const { return m_offRoadM; }
+  double GetOffRoadMaxSpeedMps() const { return m_offRoadMaxSpeedMps; }
+  /// \returns how far the maneuvering car has driven along the road it is to be put on, nothing without one.
+  std::optional<double> GetRoadCandidateM() const;
 
 private:
   // MotionSource::Listener overrides:
@@ -284,7 +314,7 @@ private:
   void SnapToRoad();
   void MatchBend();
   void TrackTurn(double yawDeltaDeg, double dtSec, int64_t timestampNs);
-  void MatchTurn();
+  void MatchTurn(int64_t timestampNs);
 
   Delegate & m_delegate;
   Scheduler & m_scheduler;
@@ -302,6 +332,8 @@ private:
   int64_t m_lastSnapMs = 0;
   bool m_onRoad = false;
   std::optional<double> m_lastSnapShiftM;
+  std::optional<double> m_lastSnapBearingDiffDeg;
+  SnapResult m_lastSnapResult = SnapResult::None;
   // Where the car was on a road or at a known position the last time, and the distance driven off the roads
   // since then.
   std::optional<ms::LatLon> m_roadPoint;
@@ -363,6 +395,11 @@ private:
   std::optional<int64_t> m_turnCalmSinceNs;
   // The rotation of the turn both ways together.
   double m_turnRotationDeg = 0;
+  // For the trip log: when the turn has started, all the car had driven by then, and its speeds in the turn.
+  int64_t m_turnStartNs = 0;
+  double m_turnStartPathM = 0;
+  int m_turnMinKmh = 0;
+  int m_turnMaxKmh = 0;
   // How far the last turn has moved the car to its crossing, for the log of a drive.
   std::optional<double> m_lastTurnShiftM;
 
@@ -407,4 +444,5 @@ private:
 };
 
 std::string DebugPrint(InertialNavigator::HeadingSource source);
+std::string DebugPrint(InertialNavigator::SnapResult result);
 }  // namespace nogps

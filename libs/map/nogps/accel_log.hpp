@@ -37,17 +37,19 @@ private:
   double m_jolt = 0;
 };
 
-/// Packs the rotation of the car for the trip log: one line a second, the total rotation since the start and
-/// kSlices parts of the second each with the rotation during it, degrees. The log is to replay what the car did
-/// where the map has no roads, a yard or a parking lot, and to try the rules for such places on real trips.
+/// Packs the rotation of the car for the trip log: one line a second, the total rotation since the start,
+/// kSlices parts of the second each with the rotation during it, degrees, and the speed the car has reported by
+/// the end of each part, km/h. The log is to replay what the car did, e.g. where the map has no roads, a yard or
+/// a parking lot, and to try other rules on real trips.
 class GyroLog
 {
 public:
   static int constexpr kSlices = AccelLog::kSlices;
 
   /// \param yawDeltaDeg the rotation of the car since the previous sample.
+  /// \param speedKmh the speed the car reports now, -1 if it is not known.
   /// \returns the line of the second that has just ended.
-  std::optional<std::string> OnSample(int64_t timestampNs, double yawDeltaDeg);
+  std::optional<std::string> OnSample(int64_t timestampNs, double yawDeltaDeg, int speedKmh);
   /// \returns how much the car has rotated to either side in the second of the last line.
   double GetLineRotationDeg() const { return m_lineRotationDeg; }
 
@@ -55,10 +57,12 @@ public:
 
 private:
   std::string m_line;
+  std::string m_speeds;
   int m_slices = 0;
   bool m_hasSlice = false;
   int64_t m_sliceStartNs = 0;
   double m_sliceDeg = 0;
+  int m_sliceSpeedKmh = -1;
   double m_rotationDeg = 0;
   double m_lineRotationDeg = 0;
   double m_totalDeg = 0;

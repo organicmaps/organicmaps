@@ -1295,6 +1295,9 @@ std::string Engine::GetTripLine()
       line += " box=" + std::to_string(rate->m_lines) + "/" + std::to_string(rate->m_maxGapMs);
       // The firmware of the box and its update with the percent sent.
       auto const * box = m_inertial->GetEsp32();
+      // The flags of its last data line: the car stands by the box, its sensors and calibrations are fine.
+      std::snprintf(buf, sizeof(buf), " bf=%X", box->GetFlags());
+      line += buf;
       if (box->GetInfo())
         line += " fw=" + box->GetInfo()->m_firmware;
       if (auto const & update = box->GetUpdate(); update.GetState() != Esp32Update::State::None)
@@ -1330,6 +1333,13 @@ std::string Engine::GetTripLine()
     line += std::string(" lost=") + (m_inertial->IsRoadLost() ? "1" : "0");
     // The car drives backwards by the accelerometer of the box.
     line += std::string(" back=") + (m_inertial->IsDrivingBack() ? "1" : "0");
+    // A turn is being followed to its crossing, all the car has driven, how far and how fast at most it has
+    // driven off the roads, and how far along the road a maneuvering car is to be put on.
+    std::snprintf(buf, sizeof(buf), " turning=%d odo=%.0f offm=%.0f offv=%.0f", m_inertial->IsTurning() ? 1 : 0,
+                  m_inertial->GetPathM(), m_inertial->GetOffRoadM(), m_inertial->GetOffRoadMaxSpeedMps() * 3.6);
+    line += buf;
+    auto const candidate = m_inertial->GetRoadCandidateM();
+    line += " cand=" + (candidate ? std::to_string(std::lround(*candidate)) : std::string("-"));
     // The pause set by the navigation itself and where the car maneuvers by the calculation.
     if (auto const & car = m_inertial->GetOffRoadCar())
     {
@@ -1342,6 +1352,11 @@ std::string Engine::GetTripLine()
     else
       std::snprintf(buf, sizeof(buf), " snap=NaN");
     line += buf;
+    // How much to the right of the road found by the last look for it the car looks, and what the look has ended
+    // with. While the pause set by itself keeps the mark on the road, the car followed apart is looked for.
+    auto const roadDiff = m_inertial->GetLastSnapBearingDiffDeg();
+    line += " rdiff=" + (roadDiff ? std::to_string(std::lround(*roadDiff)) : std::string("-"));
+    line += " snapwhy=" + DebugPrint(m_inertial->GetLastSnapResult());
     std::snprintf(buf, sizeof(buf), " fix=%.0f ready=%d", m_inertial->GetDistanceSinceFix(),
                   m_inertial->IsReady() ? 1 : 0);
     line += buf;
