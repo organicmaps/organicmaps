@@ -70,7 +70,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
 
   m_isCategory = new QCheckBox(tr("Category request"));
   m_isCategory->setCheckState(Qt::Unchecked);
-  connect(m_isCategory, &QCheckBox::stateChanged, std::bind(&SearchPanel::RunSearch, this));
+  connect(m_isCategory, &QCheckBox::toggled, this, &SearchPanel::RunSearch);
 
   QHBoxLayout * requestLayout = new QHBoxLayout();
   requestLayout->addWidget(m_pEditor);

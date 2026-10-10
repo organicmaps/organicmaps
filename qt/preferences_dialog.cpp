@@ -86,16 +86,15 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   QCheckBox * largeFontCheckBox = new QCheckBox("Use larger font on the map");
   {
     largeFontCheckBox->setChecked(framework.LoadLargeFontsSize());
-    connect(largeFontCheckBox, &QCheckBox::stateChanged,
-            [&framework](int i) { framework.SetLargeFontsSize(static_cast<bool>(i)); });
+    connect(largeFontCheckBox, &QCheckBox::toggled,
+            [&framework](bool enabled) { framework.SetLargeFontsSize(enabled); });
   }
 
   QCheckBox * transliterationCheckBox = new QCheckBox("Transliterate to Latin");
   {
     transliterationCheckBox->setChecked(framework.LoadTransliteration());
-    connect(transliterationCheckBox, &QCheckBox::stateChanged, [&framework](int i)
+    connect(transliterationCheckBox, &QCheckBox::toggled, [&framework](bool enable)
     {
-      bool const enable = i > 0;
       framework.SaveTransliteration(enable);
       framework.AllowTransliteration(enable);
     });
@@ -106,8 +105,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     bool developerMode;
     if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
       developerModeCheckBox->setChecked(developerMode);
-    connect(developerModeCheckBox, &QCheckBox::stateChanged,
-            [](int i) { settings::Set(settings::kDeveloperMode, static_cast<bool>(i)); });
+    connect(developerModeCheckBox, &QCheckBox::toggled,
+            [](bool enabled) { settings::Set(settings::kDeveloperMode, enabled); });
   }
 
   QLabel * mapLanguageLabel = new QLabel("Map Language");
@@ -236,7 +235,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     };
     updateEnabled(enableCheckBox->isChecked());
     // Only update the field availability live; the values are applied once when the dialog closes.
-    connect(enableCheckBox, &QCheckBox::stateChanged, [updateEnabled](int i) { updateEnabled(i > 0); });
+    connect(enableCheckBox, &QCheckBox::toggled, updateEnabled);
 
     // Apply all tile settings together when the Preferences dialog is closed.
     connect(this, &QDialog::finished, [&framework, enableCheckBox, urlEdit, sizeSpin, opacitySpin](int)
@@ -264,8 +263,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
       settings::Set(kEnabledAutoRegenGeomIndex, false);
     indexRegenCheckBox->setChecked(enabled);
-    connect(indexRegenCheckBox, &QCheckBox::stateChanged,
-            [](int i) { settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i)) });
+    connect(indexRegenCheckBox, &QCheckBox::toggled,
+            [](bool enabled) { settings::Set(kEnabledAutoRegenGeomIndex, enabled); });
   }
 #endif
 

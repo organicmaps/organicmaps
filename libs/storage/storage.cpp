@@ -459,8 +459,7 @@ LocalFilePtr Storage::GetLatestLocalFile(CountryId const & countryId) const
   {
     // 2 is possible in the moment of updating the map (old and new are both present).
     auto const & files = it->second;
-    size_t const sz = files.size();
-    ASSERT(sz > 0 && sz < 3, (sz));
+    ASSERT(!files.empty() && files.size() < 3, (files.size()));
 
     LocalFilePtr latest = files.front();
     for (LocalFilePtr const & file : files)
@@ -1306,7 +1305,7 @@ void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downl
     }
   });
 
-  size_t constexpr kAllDisputedCount = 11;
+  [[maybe_unused]] size_t constexpr kAllDisputedCount = 11;
   ASSERT_LESS(disputedTerritoriesWithoutSiblings.size(), kAllDisputedCount, ());
   ASSERT_LESS(allDisputedTerritories.size(), kAllDisputedCount, ());
 

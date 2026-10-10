@@ -28,8 +28,7 @@ void TestDistributionIntType()
 
   // The mapped type must hold every value of T, so that the cast back in operator() stays exact.
   static_assert(std::is_signed_v<ValueT> == std::is_signed_v<T>);
-  static_assert(std::numeric_limits<ValueT>::min() <= std::numeric_limits<T>::min());
-  static_assert(std::numeric_limits<ValueT>::max() >= std::numeric_limits<T>::max());
+  static_assert(std::numeric_limits<ValueT>::digits >= std::numeric_limits<T>::digits);
 }
 
 template <class T>
