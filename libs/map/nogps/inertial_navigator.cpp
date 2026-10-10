@@ -75,6 +75,7 @@ void InertialNavigator::Start()
   ResetLag();
   ResetDirection();
   m_lastBackMs.reset();
+  m_standRotation.clear();
   m_delegate.StartMotionSensors(!esp32 /* gyroscope */);
 }
 
@@ -694,15 +695,39 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
   bool const back = m_direction < 0;
   // The car stands where it is while it maneuvers or after it has left the roads.
   bool const stopped = m_paused || m_roadLost;
+  int64_t const now = m_clock.NowMs();
   // A standing car can't turn, so the remaining gyroscope drift doesn't rotate the heading at stops. The car
   // reports 0 km/h standing, and 1 km/h, which is below kMovingSpeedMps, while it turns crawling in a jam.
-  bool const rotates = m_source && m_source->IsCalibrated() && speedFresh && m_deadReckoning.GetSpeed() > 0;
+  bool const calibrated = m_source && m_source->IsCalibrated() && speedFresh;
+  bool const rotates = calibrated && m_deadReckoning.GetSpeed() > 0;
+  double rotatedDeg = 0;
   if (rotates)
   {
-    if (!stopped && !back)
-      TrackTurn(yawDeltaDeg, dtSec, timestampNs);
-    m_deadReckoning.Rotate(yawDeltaDeg);
-    m_turnSignChecker.OnGyro(yawDeltaDeg);
+    bool const trackTurn = !stopped && !back;
+    if (!m_standRotation.empty())
+    {
+      // The car has started before it has reported that.
+      double startDeg = 0;
+      for (auto const & rotation : m_standRotation)
+        startDeg += rotation.second;
+      double const startSec = std::max(dtSec, (now - m_standRotation.front().first) / 1000.0);
+      m_standRotation.clear();
+      Rotate(startDeg, startSec, timestampNs, trackTurn);
+      rotatedDeg += startDeg;
+    }
+    Rotate(yawDeltaDeg, dtSec, timestampNs, trackTurn);
+    rotatedDeg += yawDeltaDeg;
+  }
+  else if (calibrated)
+  {
+    m_standRotation.emplace_back(now, yawDeltaDeg);
+    int64_t const keepMs = static_cast<int64_t>(m_speedLag.Get() * 1000) + kStandMarginMs;
+    while (now - m_standRotation.front().first > keepMs)
+      m_standRotation.pop_front();
+  }
+  else
+  {
+    m_standRotation.clear();
   }
   if (speedFresh)
   {
@@ -716,7 +741,6 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
       m_offRoadM += step;
     }
   }
-  int64_t const now = m_clock.NowMs();
   if (back)
     m_lastBackMs = now;
   if (speedFresh && !stopped)
@@ -731,7 +755,7 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
     else
     {
       m_deadReckoning.AdvanceBy(distance);
-      m_bendMatcher.OnMotion(rotates ? yawDeltaDeg : 0, distance);
+      m_bendMatcher.OnMotion(rotatedDeg, distance);
     }
     m_speedScale.OnDistance(step);
     if (IsReady())
@@ -766,6 +790,14 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
     if (auto const location = GetLocation())
       m_listener.OnInertialLocation(*location);
   }
+}
+
+void InertialNavigator::Rotate(double yawDeltaDeg, double dtSec, int64_t timestampNs, bool trackTurn)
+{
+  if (trackTurn)
+    TrackTurn(yawDeltaDeg, dtSec, timestampNs);
+  m_deadReckoning.Rotate(yawDeltaDeg);
+  m_turnSignChecker.OnGyro(yawDeltaDeg);
 }
 
 double InertialNavigator::DistanceWithLag(double dtSec)

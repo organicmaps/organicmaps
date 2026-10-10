@@ -16,10 +16,12 @@
 #include "geometry/latlon.hpp"
 
 #include <cstdint>
+#include <deque>
 #include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace nogps
 {
@@ -277,6 +279,8 @@ private:
   // The car is on the road: the maneuver is over.
   void PutOnRoad(ms::LatLon const & point, double bearingDeg);
   double DistanceWithLag(double dtSec);
+  // Rotates the car, following its turn at a crossing if |trackTurn|.
+  void Rotate(double yawDeltaDeg, double dtSec, int64_t timestampNs, bool trackTurn);
   void SnapToRoad();
   void MatchBend();
   void TrackTurn(double yawDeltaDeg, double dtSec, int64_t timestampNs);
@@ -325,6 +329,11 @@ private:
   // The rotation of the car for the trip log.
   GyroLog m_gyroLog;
   bool m_moving = false;
+  // A car reporting that it stands doesn't turn. But it reports that it moves late by the lag of its speed, and
+  // a car starting at a crossing turns at once: its rotation of that time and a margin is kept, the time and the
+  // degrees, and is its turn when it reports that it moves. On a turn started from a standstill 15 degrees of
+  // 68 were lost that way.
+  std::deque<std::pair<int64_t, double>> m_standRotation;
   // The speed the lag is compensated up to, nothing if the car didn't move the position.
   std::optional<double> m_lagSpeedMps;
   // The position is to be moved back by this distance yet: it is not moved back, it waits.

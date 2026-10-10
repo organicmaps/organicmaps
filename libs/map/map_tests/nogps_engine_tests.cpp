@@ -1103,6 +1103,21 @@ UNIT_TEST(NoGps_Engine_AccelerometerTellsCarInYardDrivesBack)
   }
 }
 
+UNIT_TEST(NoGps_Engine_TurnStartedBeforeCarReportsSpeedIsNotLost)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 0);
+  BoxCar car(env, 0, false /* accelerometer */);
+  car.Drive(3, 0, 0);
+  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 90), 0, 1);
+  // The car starts and turns right at once, by 90 degrees in 4.5 s. It reports that it moves 1.3 s later: it has
+  // turned by 26 degrees by then.
+  car.Drive(4.5, 1, 20);
+  car.Drive(1.5, 0, 0);
+  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 180), 0, 2);
+}
+
 UNIT_TEST(NoGps_Engine_AccelerometerTellsCarOnRoadDrivesBack)
 {
   PieceRoads roads({{-2000, 0, 3000, 0}}, {});
