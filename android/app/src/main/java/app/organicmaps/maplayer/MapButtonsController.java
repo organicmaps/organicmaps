@@ -67,6 +67,16 @@ public class MapButtonsController extends Fragment
   // The moments of a test drive marked in the log, see the button flag_log.
   private static int sLogFlags;
 
+  // In debug builds a hidden control of the car keeps its place in the row: the button marking the log at the start
+  // of the row stays where it is, whatever controls are shown.
+  private static void showCarControl(boolean show, @NonNull View control)
+  {
+    if (BuildConfig.DEBUG)
+      UiUtils.visibleIf(show, control);
+    else
+      UiUtils.showIf(show, control);
+  }
+
   Map<MapButtons, View> mButtonsMap;
   private View mFrame;
   private View mInnerLeftButtonsFrame;
@@ -366,12 +376,12 @@ public class MapButtonsController extends Fragment
     if (mShiftPositionStep != null)
       mShiftPositionStep.setText(getString(R.string.nogps_meters, status.shiftStepM));
     if (mReverseButton != null)
-      UiUtils.showIf(status.movedByHand, mReverseButton);
+      showCarControl(status.movedByHand, mReverseButton);
 
     // The movement is paused only when it is calculated from the car speed.
     if (mPauseButton != null)
     {
-      UiUtils.showIf(status.movedByHand && status.inertialEnabled, mPauseButton);
+      showCarControl(status.movedByHand && status.inertialEnabled, mPauseButton);
       mPauseButton.setImageResource(status.paused ? R.drawable.ic_play : R.drawable.ic_pause);
       mPauseButton.setContentDescription(getString(status.paused ? R.string.nogps_resume : R.string.nogps_pause));
       // The pause set by the navigation itself is to be noticed: the mark waits until the car drives along a
