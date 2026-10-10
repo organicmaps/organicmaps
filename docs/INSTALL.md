@@ -462,7 +462,7 @@ There is a matrix of different build variants:
   - ...and other flavors like `Huawei`.
 
 You can choose a build variant in Android Studio's "Build > Select Build Variant..." menu. There you can also choose a target architecture (Active ABI) like _x86_64_ (for e.g. emulator) or _arm64-v8a_ (many modern devices).
-In order to build the Google variant, you need a special key which only the core developers have. For community members who want to contribute, the best selection is "fdroidBeta" or "fdroidDebug" depending on the use case.
+In order to build the "googleBeta" variant, you need a special key which only the core developers have. For community members who want to contribute, the best selection is "googleDebug", "fdroidDebug" or "fdroidBeta" depending on the use case.
 The Active ABI can be set to "arm64-v8a".
 
 To build and run the app in the emulator or on a hardware device use a "Run > Run (android)" menu item or press the Play / Debug button on the top right of the IDE.
