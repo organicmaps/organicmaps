@@ -902,6 +902,6 @@
     <string name="choose_point_on_map_hint">移动并缩放地图以定位十字</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">停止并保存</string>
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <!-- Button accessibility label and confirmation title for reversing the complete route, including intermediate stops. -->
     <string name="reverse_route">反转路线</string>
 </resources>

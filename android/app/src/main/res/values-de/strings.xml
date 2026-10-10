@@ -905,6 +905,6 @@
     <string name="choose_point_on_map_hint">Verschiebe und zoome die Karte, um das Kreuz zu platzieren</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Beenden und speichern</string>
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <!-- Button accessibility label and confirmation title for reversing the complete route, including intermediate stops. -->
     <string name="reverse_route">Route umkehren</string>
 </resources>

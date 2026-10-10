@@ -44041,7 +44041,7 @@ zh-Hans = 停止并保存
 zh-Hant = 停止並儲存
 
 [reverse_route]
-comment = Accessibility label for the button that reverses the complete planned route, including intermediate stops.
+comment = Button accessibility label and confirmation title for reversing the complete route, including intermediate stops.
 tags = android-app,apple-maps
 en = Reverse route
 af = Keer roete om

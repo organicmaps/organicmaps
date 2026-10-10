@@ -1173,5 +1173,5 @@
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Mozgassa és nagyítsa/kicsinyítse a térképet a kereszt elhelyezéséhez";
 
-/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+/* Button accessibility label and confirmation title for reversing the complete route, including intermediate stops. */
 "reverse_route" = "Útvonal megfordítása";
