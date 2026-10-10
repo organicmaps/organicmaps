@@ -348,6 +348,12 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   { OnRebuildRouteReady(result, code); }, [this](uint64_t routeId, storage::CountriesSet const & absentCountries)
   { OnNeedMoreMaps(routeId, absentCountries); }, [this](RouterResultCode code) { OnRemoveRoute(code); });
 
+  m_routingSession.SetChangeSessionStateCallback([this](SessionState, SessionState state)
+  {
+    if (state == SessionState::RouteBuilding || state == SessionState::RouteRebuilding)
+      ClearAlternativeRoutes();
+  });
+
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, passedCheckpointIdx]()
@@ -733,8 +739,15 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
                      i == result.m_activeIdx});
   }
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, infos = std::move(infos)]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, routesId = result.m_routesId, infos = std::move(infos)]()
   {
+    // A rebuild or navigation can hide choices before this queued task runs.
+    bool hasAlternatives = false;
+    m_routingSession.RouteCall([&](RoutesResult const & current)
+    { hasAlternatives = current.m_routesId == routesId && current.m_routes.size() > 1; });
+    if (!hasAlternatives || m_routingSession.IsFollowing())
+      return;
+
     // Place each balloon up or down based on the midpoint's latitude relative to the others:
     // the northern midpoint (larger mercator y) gets the up balloon, the southern one goes down.
     // +y in drape vertex-normal space is downward, so (0, -N) lifts the body above the pivot.
