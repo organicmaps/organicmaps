@@ -157,21 +157,63 @@ brew install cmake ninja qt@6
 
 #### Optional developer sandbox
 
-The developer graphics sandbox is enabled by default. Qt-only and command-line
-builds can omit it and its GLFW/ImGui dependencies with `-DBUILD_DEV_SANDBOX=OFF`.
-Selecting `--target desktop` alone does not skip CMake's dependency discovery.
+The sandbox is enabled by default. Configure with `-DBUILD_DEV_SANDBOX=OFF`
+for Qt-only or command-line builds, or `-DBUILD_DEV_SANDBOX=ON` to enable it
+again in a reused build directory. Selecting `--target desktop` alone does
+not skip CMake's dependency discovery.
 
-On Linux the sandbox currently uses X11. Install these additional development
-packages only when building it:
+On Linux the sandbox uses only Wayland and requires a Wayland compositor at
+launch. Vulkan and OpenGL are available through its API menu. Install these
+additional development packages:
 
 | Distribution | Packages |
 | --- | --- |
-| Ubuntu | `libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev` |
-| Fedora | `libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel` |
-| Alpine | `libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev` |
+| Ubuntu | `pkg-config libwayland-dev libwayland-bin libxkbcommon-dev` |
+| Fedora | `pkgconf-pkg-config wayland-devel libxkbcommon-devel` |
+| Alpine | `pkgconf wayland-dev libxkbcommon-dev` |
 
-To enable the sandbox again in an existing build directory, configure with
-`-DBUILD_DEV_SANDBOX=ON` and build the `dev_sandbox` target.
+If these packages or a runnable `wayland-scanner` are missing, CMake warns and
+skips the sandbox and its GLFW/ImGui libraries. Qt and tools still build;
+configuration does not need a running display. Use a fresh CMake cache after
+changing a sysroot. GLFW bundles its protocol definitions and loads OpenGL/EGL
+at runtime, so the sandbox needs no extra EGL headers or `wayland-protocols`
+package. Ordinary Qt/OpenGL dependencies may still include X11 libraries.
+
+Wayland uses Vulkan's required
+[MAILBOX presentation mode](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_wayland_surface.html)
+and disables OpenGL's swap interval so hidden windows do not block on a frame
+callback. Native configuration and resize/scale updates run between GPU frames.
+Normal window geometry, viewport, controls and ImGui state survive API switches.
+
+For headless graphics checks on Ubuntu, install
+`weston mesa-vulkan-drivers vulkan-validationlayers`, then run:
+
+```bash
+cmake --preset debug -DBUILD_DEV_SANDBOX=ON -DENABLE_VULKAN_DIAGNOSTICS=ON
+cmake --build --preset debug --target dev_sandbox
+python3 dev_sandbox/tests/run_graphics_smoke.py \
+  --binary build/debug/OMapsDevSandbox \
+  --resources data --output build/debug/sandbox-smoke
+```
+
+The check renders both APIs at 100%/200% framebuffer scale and exercises API
+switches, restored geometry, visual-scale resource recreation, zero-size
+suspension/recovery, hidden-window teardown and reentrant GUI tasks. Graphics
+errors fail the check; renderer and compositor logs are retained. Interactive
+minimize/restore, fractional-scale input and mixed-scale monitor moves need a
+desktop check because Wayland cannot programmatically undo minimization.
+
+The dependency-removal matrix runs in a **disposable root Ubuntu Docker
+container** with the development packages installed:
+
+```bash
+python3 dev_sandbox/tests/backend_selection/run_matrix.py \
+  --output /tmp/sandbox-matrix --remove-packages
+```
+
+It builds the bundled GLFW/ImGui and tests missing dependencies and reused
+CMake caches. The command intentionally removes development packages from
+that container.
 
 #### Note: Homebrew (Linuxbrew) Qt6 on Linux with NVIDIA
 

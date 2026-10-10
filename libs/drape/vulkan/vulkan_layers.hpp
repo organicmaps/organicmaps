@@ -3,6 +3,7 @@
 #include <vulkan_wrapper.h>
 
 #include <cstdint>
+#include <span>
 #include <vector>
 
 namespace dp
@@ -12,7 +13,7 @@ namespace vulkan
 class Layers
 {
 public:
-  explicit Layers(bool enableDiagnostics);
+  explicit Layers(bool enableDiagnostics, std::span<char const * const> requiredInstanceExtensions = {});
 
   // These methods are available before initialization.
   uint32_t GetInstanceLayersCount() const;

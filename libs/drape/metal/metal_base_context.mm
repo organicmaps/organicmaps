@@ -359,10 +359,10 @@ id<MTLSamplerState> MetalBaseContext::GetSamplerState(TextureFilter filter, Text
   return m_metalStates.GetSamplerState(m_device, key);
 }
 
-bool MetalBaseContext::BeginRendering()
+FrameStatus MetalBaseContext::BeginRendering()
 {
   CHECK(m_currentCommandEncoder == nil, ("Current command encoder was not finished."));
-  return true;
+  return FrameStatus::Ready;
 }
 
 void MetalBaseContext::EndRendering()
