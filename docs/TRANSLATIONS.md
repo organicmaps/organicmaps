@@ -10,6 +10,9 @@ Adding and updating translations is easy!
 5. (Optional) Commit the updated files with the title `[strings] Regenerated`
 6. Send a pull request!
 
+CI validates the translations and reports out-of-date generated files as a warning.
+If you skip regeneration, a maintainer should run the script and commit the generated files before merging.
+
 Please make sure to add a [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to your commit descriptions (`git commit -s ...`).
 
 ## Requirements
