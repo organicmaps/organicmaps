@@ -990,7 +990,7 @@
 "type.railway.funicular" = "Pozemní lanová dráha";
 "type.railway.funicular.bridge" = "Most pozemní lanové dráhy";
 "type.railway.funicular.tunnel" = "Tunel pozemní lanové dráhy";
-"type.railway.halt" = "Železniční stanice";
+"type.railway.halt" = "Železniční zastávka";
 "type.railway.level_crossing" = "Přejezd";
 "type.railway.light_rail" = "Lehká železnice";
 "type.railway.light_rail.bridge" = "Most lehké železnice";
@@ -1349,7 +1349,7 @@
 "type.shop.kitchen" = "Prodejna kuchyní";
 "type.shop.laundry" = "Prádelna";
 "type.shop.leather" = "Obchod s koženým zbožím";
-"type.shop.mall" = "Obchoďák";
+"type.shop.mall" = "Obchodní centrum";
 "type.shop.massage" = "Masážní salon";
 "type.shop.mobile_phone" = "Mobily";
 "type.shop.money_lender" = "Půjčovatel peněz";
