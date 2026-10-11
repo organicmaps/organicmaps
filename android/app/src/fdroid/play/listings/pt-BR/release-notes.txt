@@ -1,7 +1,9 @@
-• Dados do OSM atualizados em 14 de julho
-• Os nomes de pontos de transporte público, baldeações e estações agora têm um contorno branco
-• Exibição aprimorada dos horários de funcionamento
-• Corrigidas orientações incorretas ou ausentes
-• Favoritos e trilhas editados agora são salvos automaticamente
-• Avisos de rota (pedágios, balsas, estradas não pavimentadas, escadas etc.) agora são exibidos para todas as rotas alternativas
+• OSM: 28 de setembro; Wikipedia: 21 de setembro
+• Melhores rotas alternativas e estimativas de chegada
+• Nova configuração otimiza a ordem das paradas
+• Novos botões permitem adicionar ou substituir paradas nas rotas planejadas
+• A rota alternativa escolhida é mantida durante a navegação
+• Correções e melhorias no registro de trajetos
+• Correção na importação de KMB
+• Correções e melhorias na interface do usuário
 …mais em omaps.org/pt-BR/news

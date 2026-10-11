@@ -547,12 +547,8 @@ uint32_t VulkanBaseContext::RegisterHandler(HandlerType handlerType, ContextHand
 
 void VulkanBaseContext::UnregisterHandler(uint32_t id)
 {
-  for (size_t i = 0; i < m_handlers.size(); ++i)
-  {
-    m_handlers[i].erase(std::remove_if(m_handlers[i].begin(), m_handlers[i].end(),
-                                       [id](std::pair<uint8_t, ContextHandler> const & p) { return p.first == id; }),
-                        m_handlers[i].end());
-  }
+  for (auto & handlers : m_handlers)
+    std::erase_if(handlers, [id](auto const & handler) { return handler.first == id; });
 }
 
 void VulkanBaseContext::ResetPipelineCache()

@@ -1,28 +1,33 @@
-• A nova configuração «Guardar histórico de pesquisa» ajuda a manter privado o seu histórico de pesquisa, quando necessário
+## Cálculo de percursos
+• Rotas alternativas melhoradas e os respetivos tempos estimados de chegada
+• Foram adicionados botões para adicionar ou substituir uma paragem numa rota planeada
+• Foi adicionada uma configuração para otimizar a ordem das paragens intermédias da rota
+• A rota alternativa selecionada é agora mantida quando a navegação recalcula a rota
+• A ordem das paragens da rota é agora restaurada após o reinício da aplicação
 
-## Mapas e locais
-• Dados do OpenStreetMap atualizados a 14 de julho
-• As notas do OpenStreetMap são agora colocadas na localização exata que selecionar, em vez de no meio da floresta
-• Seleção de mapas melhorada para regiões que atravessam o antimeridiano de 180°
-• Os perfis de elevação dos percursos já não mostram gráficos desatualizados ou vazios após a remoção de um percurso
-• Melhorou-se o gráfico de elevação vazio para percursos gravados
-• O botão para remover marcadores é mais fácil de encontrar
-• Gravação automática de marcadores ao sair do ecrã de edição
-• A paleta de cores inclui cores predefinidas e permite escolher qualquer cor personalizada
-• Outras melhorias na interface do utilizador
+## Mapa
+• Dados do OpenStreetMap a 28 de setembro
+• Dados da Wikipédia a 21 de setembro
+• Os reservatórios de água estão agora visíveis ao afastar ainda mais o zoom
+• Os túneis de água já não são apresentados no mapa
+• Corrigidos os ícones das estações e entradas do Metro de Suzhou
+• Corrigiram-se casos raros em que as legendas ficavam deslocadas na camada do mapa do metro
 
-## Transportes públicos
-• Os nomes das paragens, transferências e estações utilizam agora um contorno branco para se manterem legíveis tanto no tema claro como no escuro
-• A camada do metro reaparece corretamente após fechar a pré-visualização de um percurso de transportes públicos
+## CarPlay
+• Foram adicionadas instruções de manobra nos ecrãs de visualização frontal (HUD) dos automóveis compatíveis e no painel de instrumentos do CarPlay
+• Corrigidos os botões do CarPlay e a função de pesquisa
 
-## Traçado de percursos e navegação
-• Corrigidos problemas com indicações erradas ou em falta
-• Os avisos de percurso (portagens, ferries, estradas não pavimentadas, escadas, etc.) são agora apresentados para todas as rotas alternativas
-• Corrigido um congelamento raro durante a criação de um percurso e melhorado o tratamento de becos sem saída e pontos de partida/chegada numa estrada com restrições
-• Melhorou-se a indicação do progresso do percurso no botão «Iniciar»
-• A reordenação das paragens do percurso já não faz com que a lista salte de um lado para o outro
+## Percursos gravados
+• Foi adicionado um ícone de olho para ocultar percursos individuais
+• Corrigiram-se erros e melhorou-se o registo de percursos
+• Corrigida a importação de ficheiros KMB
 
-## Traduções
-• Melhorou-se a redação em chinês
-• Atualizaram-se as traduções em ucraniano
-• Corrigiram-se as traduções das regiões do mapa em italiano
+## Pesquisar
+• Corrigiram-se as pesquisas quando a área visível do mapa atravessa o meridiano de 180° (±180° de longitude)
+• Foi restaurada a pesquisa por categoria no Spotlight
+
+## IU
+• Os horários de funcionamento passaram a apresentar «Meio-dia» para as 12:00 e «Meia-noite» para as 00:00 ou 24:00
+• Foram corrigidos vários erros e melhorada a interface do utilizador
+• Traduções corrigidas em inglês, francês e asturiano
+• Foi adicionada a possibilidade de selecionar uma voz de navegação instalada e ouvir uma amostra

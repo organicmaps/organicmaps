@@ -108,7 +108,7 @@ NSArray<AVSpeechSynthesisVoice *> * VoicesForLanguage(NSArray<AVSpeechSynthesisV
 
   return [[bestByName allValues]
       sortedArrayUsingComparator:^NSComparisonResult(AVSpeechSynthesisVoice * lhs, AVSpeechSynthesisVoice * rhs) {
-        return [lhs.name compare:rhs.name];
+        return [lhs.name localizedStandardCompare:rhs.name];
       }];
 }
 

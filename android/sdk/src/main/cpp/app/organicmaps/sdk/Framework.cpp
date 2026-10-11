@@ -13,6 +13,7 @@
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
+#include "map/routing_mark.hpp"
 #include "map/user_mark.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -87,13 +88,13 @@ namespace
 {
 jobject g_placePageActivationListener = nullptr;
 
-RouteMarkData MakeRouteMarkData(JNIEnv * env, jstring title, jstring subtitle, jobject markType, jboolean isMyPosition,
-                                jdouble lat, jdouble lon)
+RouteMarkData MakeRouteMarkData(JNIEnv * env, jstring title, jstring subtitle, RouteMarkType type,
+                                jboolean isMyPosition, jdouble lat, jdouble lon)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
   data.m_subTitle = jni::ToNativeString(env, subtitle);
-  data.m_pointType = routing_jni::GetRouteMarkType(env, markType);
+  data.m_pointType = type;
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = mercator::FromLatLon(lat, lon);
 
@@ -1450,10 +1451,20 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv
                                                                           jboolean isMyPosition, jdouble lat,
                                                                           jdouble lon, jboolean allowOptimization)
 {
-  auto data = MakeRouteMarkData(env, title, subtitle, markType, isMyPosition, lat, lon);
+  auto data =
+      MakeRouteMarkData(env, title, subtitle, routing_jni::GetRouteMarkType(env, markType), isMyPosition, lat, lon);
 
   bool const optimize = allowOptimization && routing::RoutingOptions::LoadRouteOptimizationFromSettings();
   return frm()->GetRoutingManager().AddRoutePoint(std::move(data), optimize);
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeContinueRouteToPoint(JNIEnv * env, jclass, jstring title,
+                                                                                 jstring subtitle,
+                                                                                 jboolean isMyPosition, jdouble lat,
+                                                                                 jdouble lon)
+{
+  return frm()->GetRoutingManager().ContinueRouteToPoint(
+      MakeRouteMarkData(env, title, subtitle, RouteMarkType::Finish, isMyPosition, lat, lon));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
@@ -1466,8 +1477,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv
                                                                           jint intermediateIndex, jboolean isMyPosition,
                                                                           jdouble lat, jdouble lon)
 {
-  auto data = MakeRouteMarkData(env, title, subtitle, markType, isMyPosition, lat, lon);
-  auto const type = data.m_pointType;
+  auto const type = routing_jni::GetRouteMarkType(env, markType);
+  auto data = MakeRouteMarkData(env, title, subtitle, type, isMyPosition, lat, lon);
   frm()->GetRoutingManager().ReplaceRoutePoint(type, static_cast<size_t>(intermediateIndex), std::move(data));
 }
 
@@ -1493,6 +1504,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediate
   return frm()->GetRoutingManager().CouldAddIntermediatePoint();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutePointsLimitReached(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().GetRoutePointsCount() >= RoutePointsLayout::kMaxRoutePointsCount;
+}
+
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
 {
   return routing_jni::CreateRouteMarkDataArray(env, frm()->GetRoutingManager().GetRoutePoints());
@@ -1502,6 +1518,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * 
                                                                        jint targetIndex)
 {
   frm()->GetRoutingManager().MoveRoutePoint(currentIndex, targetIndex);
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReverseRoutePoints(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().ReverseRoutePoints();
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)

@@ -1,8 +1,9 @@
-• OSM-data pr. 14. juli
-• Navne på stoppesteder, skiftesteder og stationer for offentlig transport har nu en hvid kontur
-• Forbedret visning af åbningstider
-• Forkerte eller manglende rutevejledninger er rettet
-• Redigerede bogmærker og spor gemmes nu automatisk
-• Ruteadvarsler (vejafgifter, færger, grusveje, trapper osv.) vises nu for alle alternative ruter
-• OSM-noter oprettes på den nøjagtige placering, du vælger
-…mere på omaps.org/news
+• OSM-data: 28. september; Wikipedia-data: 21. september
+• Forbedrede alternative ruter og ankomstestimater
+• Ny indstilling optimerer rækkefølgen af mellemliggende stop
+• Nye knapper til at tilføje eller erstatte stop på en planlagt rute
+• Den valgte alternative rute forbliver valgt under navigationen
+• Sporoptagelse rettet og forbedret
+• Import af KMB-filer er rettet
+• Forbedringer og rettelser af brugergrænsefladen
+…flere detaljer på omaps.org/news

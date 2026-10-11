@@ -19,11 +19,7 @@
 natural-water-ditch                                 # area z13-
 natural-water-drain                                 # area z13-
 natural-water-wastewater                            # area z12-
-=== 27
-
-landuse-basin-intermittent                          # area z12-
-natural-water-intermittent                          # area z1- (also has caption z10-)
-=== 25
+=== 50
 
 landuse-basin                                       # area z12-
 landuse-salt_pond                                   # area z1-
@@ -36,6 +32,10 @@ natural-water-pond                                  # area z1- (also has caption
 natural-water-reservoir                             # area z1- (also has caption z10-)
 natural-water-river                                 # area z1- (also has caption z10-)
 waterway-dock                                       # area z1-
+=== 40
+
+landuse-basin-intermittent                          # area z12-
+natural-water-intermittent                          # area z1- (also has caption z10-)
 === 20
 
 waterway-river                                      # line z10- (also has pathtext z11-)

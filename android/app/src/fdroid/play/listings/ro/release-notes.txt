@@ -1,7 +1,9 @@
-• Date OSM actualizate la 14 iulie
-• Numele stațiilor de transport public, ale punctelor de transfer și ale gărilor au acum un contur alb
-• Afișarea orelor de funcționare a fost îmbunătățită
-• S-au remediat indicațiile de orientare incorecte sau lipsă
-• Marcajele și traseele editate se salvează acum automat
-• Avertismentele privind traseul (taxe de drum, feriboturi, drumuri neasfaltate, scări etc.) sunt afișate acum pentru toate traseele alternative
-…mai multe informații pe omaps.org/news
+• OSM: 28 septembrie; Wikipedia: 21 septembrie
+• Rute alternative mai bune și estimări de sosire
+• O nouă setare optimizează ordinea opririlor
+• Noile butoane adaugă sau înlocuiesc opriri pe traseele planificate
+• Traseul alternativ ales este păstrat pe durata navigării
+• Corecții și îmbunătățiri privind înregistrarea traseelor
+• S-a remediat problema cu importul KMB
+• Corecții și îmbunătățiri ale interfeței utilizatorului
+…mai multe informații la omaps.org/news

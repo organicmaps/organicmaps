@@ -1,4 +1,5 @@
 #include "platform/platform.hpp"
+#include "platform/platform_linux_migration.hpp"
 #include "private.h"
 
 #include "platform/gui_thread.hpp"
@@ -13,6 +14,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <filesystem>
 #include <functional>  // bind
 #include <initializer_list>
 #include <optional>
@@ -35,6 +37,8 @@
 
 namespace
 {
+bool g_migrateDesktopData = false;
+
 // Returns directory where binary resides, including slash at the end.
 std::optional<std::string> GetExecutableDir()
 {
@@ -64,10 +68,53 @@ bool IsDirWritable(std::string const & dir)
 {
   return ::access(dir.c_str(), W_OK) == 0;
 }
+
 }  // namespace
 
 namespace platform
 {
+void EnableDesktopDataMigration()
+{
+  g_migrateDesktopData = true;
+}
+
+std::string MigrateDesktopDirectory(std::string const & root, bool isDesktopApp)
+{
+  namespace fs = std::filesystem;
+  fs::path const oldPath = fs::path(root) / "OMaps";
+  fs::path const newPath = fs::path(root) / "OrganicMaps";
+  std::error_code ec;
+  if (!isDesktopApp)
+  {
+    auto const newStatus = fs::symlink_status(newPath, ec);
+    return (!ec && fs::exists(newStatus) ? newPath : oldPath).string();
+  }
+
+  auto const oldStatus = fs::symlink_status(oldPath, ec);
+  if (!ec && fs::is_symlink(oldStatus))
+  {
+    auto const newStatus = fs::symlink_status(newPath, ec);
+    if (!ec && fs::exists(newStatus))
+      return newPath.string();
+    LOG(LWARNING, ("Leaving symlinked desktop data directory in place", oldPath.string()));
+    return oldPath.string();
+  }
+
+  ec.clear();
+  fs::rename(oldPath, newPath, ec);
+  if (!ec)
+  {
+    LOG(LINFO, ("Moved desktop data directory", oldPath.string(), "to", newPath.string()));
+    return newPath.string();
+  }
+
+  if (ec == std::errc::no_such_file_or_directory || ec == std::errc::directory_not_empty ||
+      ec == std::errc::file_exists)
+    return newPath.string();
+  LOG(LWARNING, ("Cannot move desktop data directory", oldPath.string(), newPath.string(), ec.message()));
+  return oldPath.string();
+}
+
 std::unique_ptr<Socket> CreateSocket()
 {
   return std::unique_ptr<Socket>();
@@ -77,6 +124,7 @@ std::unique_ptr<Socket> CreateSocket()
 Platform::Platform()
 {
   using base::JoinPath;
+  bool const isDesktopApp = g_migrateDesktopData;
   // Current executable's path with a trailing slash.
   auto const execDir = GetExecutableDir();
   CHECK(execDir, ("Can't retrieve the path to executable"));
@@ -84,9 +132,8 @@ Platform::Platform()
   auto const homeDir = GetEnv("HOME");
   CHECK(homeDir, ("Can't retrieve home directory"));
 
-  // XDG config directory, usually ~/.config/OMaps/
-  m_settingsDir =
-      JoinPath(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation).toStdString(), "OMaps");
+  m_settingsDir = platform::MigrateDesktopDirectory(
+      QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation).toStdString(), isDesktopApp);
   if (!IsFileExistsByFullPath(JoinPath(m_settingsDir, SETTINGS_FILE_NAME)) && !MkDirRecursively(m_settingsDir))
     MYTHROW(FileSystemException, ("Can't create directory", m_settingsDir));
   m_settingsDir += '/';
@@ -104,7 +151,8 @@ Platform::Platform()
         "../data",                                                 // 'build' folder inside the repo
         JoinPath(*execDir, "..", "organicmaps", "data"),           // build-omim-{debug,release}
         JoinPath(*execDir, "..", "share"),                         // installed version with packages
-        JoinPath(*execDir, "..", "OMaps"),                         // installed version without packages
+        JoinPath(*execDir, "..", "OrganicMaps"),                   // installed version without packages
+        JoinPath(*execDir, "..", "OMaps"),                         // older installed version
         JoinPath(*execDir, "..", "share", "organicmaps", "data"),  // flatpak-build
     };
     for (auto const & dir : dirsToScan)
@@ -118,13 +166,11 @@ Platform::Platform()
       }
     }
   }
-  // Use ~/.local/share/OMaps if resources directory was not writable.
+  // Use XDG user data if resources are read-only.
   if (!m_resourcesDir.empty() && m_writableDir.empty())
   {
-    // The writableLocation does the same for AppDataLocation, AppLocalDataLocation,
-    // and GenericDataLocation. Provided, that test mode is not enabled, then
-    // first it checks ${XDG_DATA_HOME}, if empty then it falls back to ${HOME}/.local/share
-    m_writableDir = JoinPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString(), "OMaps");
+    m_writableDir = platform::MigrateDesktopDirectory(
+        QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation).toStdString(), isDesktopApp);
 
     if (!MkDirRecursively(m_writableDir))
       MYTHROW(FileSystemException, ("Can't create writable directory:", m_writableDir));

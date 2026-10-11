@@ -1,28 +1,33 @@
-• Nowe ustawienie „Zapisz historię wyszukiwania” pomaga w razie potrzeby zachować prywatność historii wyszukiwania
+## Planowanie trasy
+• Ulepszone trasy alternatywne i szacowany czas przybycia na miejsce
+• Dodano przyciski do dodawania lub zastępowania punktu pośredniego na zaplanowanej trasie
+• Dodano ustawienie pozwalające zoptymalizować kolejność pośrednich punktów trasy
+• Wybrana trasa alternatywna jest teraz zachowywana podczas ponownego obliczania trasy przez nawigację
+• Kolejność punktów pośrednich na trasie jest teraz przywracana po ponownym uruchomieniu aplikacji
 
-## Mapy i miejsca
-• Dane OpenStreetMap na dzień 14 lipca
-• Notatki OpenStreetMap są teraz umieszczane dokładnie w wybranej lokalizacji, a nie na środku lasu
-• Ulepszony wybór map dla regionów przekraczających antymerydian 180°
-• Profile wysokości tras nie wyświetlają już nieaktualnych lub pustych wykresów po usunięciu trasy
-• Ulepszono pusty wykres wysokości dla zarejestrowanych tras
-• Przycisk usuwania zakładek jest łatwiejszy do znalezienia
-• Automatyczne zapisywanie zakładek po opuszczeniu ekranu edycji
-• Paleta kolorów zawiera gotowe kolory i umożliwia wybór dowolnego koloru niestandardowego
-• Inne ulepszenia interfejsu użytkownika
+## Mapa
+• Dane OpenStreetMap na dzień 28 września
+• Dane z Wikipedii na dzień 21 września
+• Zbiorniki wodne są teraz widoczne przy większym oddaleniu widoku
+• Tunele wodne nie są już wyświetlane na mapie
+• Poprawiono ikony stacji i wejść do metra w Suzhou
+• Naprawiono rzadkie przypadki, w których etykiety przesuwały się poza właściwe położenie na warstwie mapy metra
 
-## Transport publiczny
-• Nazwy przystanków, przesiadek i stacji mają teraz białą obwódkę, dzięki czemu są czytelne zarówno w jasnym, jak i ciemnym motywie
-• Warstwa metra ponownie wyświetla się poprawnie po zamknięciu podglądu trasy transportu publicznego
+## CarPlay
+• Dodano instrukcje manewrów na obsługiwanych wyświetlaczach head-up (HUD) w samochodach oraz na pulpicie nawigacyjnym CarPlay
+• Naprawiono działanie przycisków CarPlay i funkcji wyszukiwania
 
-## Wyznaczanie tras i nawigacja
-• Naprawiono problemy związane z błędnymi i brakującymi wskazówkami
-• Ostrzeżenia dotyczące trasy (opłaty drogowe, promy, drogi nieutwardzone, schody itp.) są teraz wyświetlane dla wszystkich tras alternatywnych
-• Naprawiono rzadkie zawieszanie się aplikacji podczas wyznaczania trasy oraz poprawiono obsługę ślepych uliczek oraz punktów początkowych i końcowych na drogach z ograniczeniami
-• Ulepszono wyświetlanie postępu trasy przy przycisku startu
-• Zmiana kolejności przystanków na trasie nie powoduje już przeskakiwania listy
+## Ślady
+• Dodano ikonę oka, umożliwiającą ukrycie poszczególnych śladów
+• Naprawiono błędy i ulepszono rejestrowanie śladów
+• Naprawiono import plików KMB
 
-## Tłumaczenia
-• Ulepszono sformułowania w języku chińskim
-• Zaktualizowano tłumaczenia na język ukraiński
-• Naprawiono tłumaczenia nazw regionów na mapie w języku włoskim
+## Wyszukiwanie
+• Naprawiono błąd wyszukiwania, gdy widoczny obszar mapy przekraczał południk 180° (±180° długości geograficznej)
+• Przywrócono wyszukiwanie według kategorii w Spotlight
+
+## Interfejs użytkownika
+• Godziny otwarcia są teraz wyświetlane jako „Południe” dla godziny 12:00 oraz „Północ” dla godziny 00:00 lub 24:00
+• Naprawiono różne błędy i ulepszono interfejs użytkownika
+• Poprawiono tłumaczenia na język angielski, francuski i asturyjski
+• Dodano możliwość wyboru i odsłuchania próbki zainstalowanego głosu nawigacyjnego

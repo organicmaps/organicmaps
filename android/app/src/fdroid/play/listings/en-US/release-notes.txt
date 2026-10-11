@@ -1,10 +1,9 @@
-• OSM data as of July 14
-• Public transport stop, transfer and station names now have a white outline
-• Improved display of opening hours
-• Fixed incorrect or missing directions
-• Edited bookmarks and tracks now save automatically
-• Route warnings (tolls, ferries, unpaved roads, stairs, etc.) are now shown for all alternative routes
-• OSM notes are created at the exact location you select
-• Color picker closes automatically when you pick a preset
-• Fixed crashes
-…more at omaps.org/news
+• OSM data as of September 28, Wikipedia as of September 21
+• Improved alternative routes and their estimated arrival times
+• Added a setting to optimize the order of intermediate route stops
+• Added buttons for adding or replacing a stop in a planned route
+• The selected alternative route is now preserved during navigation
+• Fixed and improved track recording
+• Fixed importing KMB files
+• User interface improvements and fixes
+…more details at omaps.org/news

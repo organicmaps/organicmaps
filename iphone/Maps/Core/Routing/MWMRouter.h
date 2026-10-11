@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isRoutingActive;
 + (BOOL)isRouteBuilt;
++ (BOOL)isRouteValid;
 + (BOOL)isRouteFinished;
 + (BOOL)isRouteRebuildingOnly;
 + (BOOL)isOnRoute;
@@ -55,9 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)continueRouteToPointAndRebuild:(MWMRoutePoint *)point;
 + (void)removePointAndRebuild:(MWMRoutePoint *)point;
 + (void)replacePointAndRebuild:(MWMRoutePoint *)point withPoint:(MWMRoutePoint *)newPoint;
-/// Swaps start and finish points and rebuilds the route.
-/// If there is only start or finish point, it becomes the opposite.
-+ (void)swapStartAndFinish;
++ (void)reverseRoute;
 + (void)removePoints;
 
 + (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;

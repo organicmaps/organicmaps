@@ -111,13 +111,13 @@ using CategoryDataV8 = CategoryDataV9;
 
 struct FileDataV8
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV8, visitor(m_serverId, "serverId"), visitor(m_categoryData, "category"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV8, visitor(m_categoryData, "category"),
                                   visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"))
 
   bool operator==(FileDataV8 const & data) const
   {
-    return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
-           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
+    return m_categoryData == data.m_categoryData && m_bookmarksData == data.m_bookmarksData &&
+           m_tracksData == data.m_tracksData;
   }
 
   bool operator!=(FileDataV8 const & data) const { return !operator==(data); }
@@ -126,7 +126,6 @@ struct FileDataV8
   {
     FileData data;
     data.m_deviceId = m_deviceId;
-    data.m_serverId = m_serverId;
 
     data.m_categoryData = m_categoryData;
 
@@ -141,8 +140,6 @@ struct FileDataV8
 
   // Device id (it will not be serialized in text files).
   std::string m_deviceId;
-  // Server id.
-  std::string m_serverId;
   // Category's data.
   CategoryDataV8 m_categoryData;
   // Bookmarks collection.

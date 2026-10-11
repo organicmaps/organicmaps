@@ -243,12 +243,9 @@ void SaveStringsMap(Writer & writer, std::map<std::string, std::string> const & 
   writer << indent << "</mwm:" << tagName << ">\n";
 }
 
-void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData, std::string const & extendedServerId)
+void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData)
 {
   writer << kIndent2 << kExtendedDataHeader;
-
-  if (!extendedServerId.empty())
-    writer << kIndent4 << "<mwm:serverId>" << extendedServerId << "</mwm:serverId>\n";
 
   SaveLocalizableString(writer, categoryData.m_name, "name", kIndent4);
   SaveLocalizableString(writer, categoryData.m_annotation, "annotation", kIndent4);
@@ -299,7 +296,7 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
   writer << kIndent2 << kExtendedDataFooter;
 }
 
-void SaveCategoryData(Writer & writer, CategoryData const & categoryData, std::string const & extendedServerId)
+void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
 {
   for (uint8_t i = 0; i < base::Underlying(PredefinedColor::Count); ++i)
   {
@@ -324,7 +321,7 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData, std::s
 
   writer << kIndent2 << "<visibility>" << (categoryData.m_visible ? "1" : "0") << "</visibility>\n";
 
-  SaveCategoryExtendedData(writer, categoryData, extendedServerId);
+  SaveCategoryExtendedData(writer, categoryData);
 }
 
 void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData)
@@ -640,7 +637,7 @@ void KmlWriter::Write(FileData const & fileData)
   m_writer << kKmlHeader;
 
   // Save category.
-  SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId);
+  SaveCategoryData(m_writer, fileData.m_categoryData);
 
   // One shared style per unique custom bookmark color (presets are emitted by SaveCategoryData).
   SaveCustomColorStyles(m_writer, fileData.m_bookmarksData);
@@ -1139,10 +1136,6 @@ void KmlParser::CharData(std::string & value)
       {
         if (!strings::to_uint(value, m_data.m_categoryData.m_reviewsNumber))
           m_data.m_categoryData.m_reviewsNumber = 0;
-      }
-      else if (currTag == "mwm:serverId")
-      {
-        m_data.m_serverId = value;
       }
     }
     else if (pppTag == kDocument && ppTag == kExtendedData && currTag == "mwm:lang")

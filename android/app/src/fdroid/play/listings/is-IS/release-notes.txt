@@ -1,8 +1,9 @@
-• OSM-gögn frá 14. júlí
-• Stöðvarnöfn almenningssamgangna, skiptistöðva og lestarstöðva eru nú með hvítum útlínum
-• Bættur birtingarháttur opnunartíma
-• Leyst úr röngum eða vantandi leiðbeiningum
-• Breytt bókamerki og slóðir vistast nú sjálfkrafa
-• Leiðarviðvaranir (gjöld, ferjur, ómalbikaðir vegir, stigar o.s.frv.) birtast nú fyrir allar aðrar leiðir
-• OSM-athugasemdir eru búnar til á nákvæmri staðsetningu sem þú velur
-…meira á omaps.org/news
+• OSM-gögn frá 28. september; Wikipedia frá 21. september
+• Betri varaleiðir og áætlaður komutími
+• Ný stilling fínstillir röð viðkomustaða
+• Nýir hnappar bæta við eða skipta út viðkomustað á fyrirhugaðri leið
+• Valin varaleið helst valin meðan á leiðsögn stendur
+• Villur í skráningu ferla lagaðar og skráningin bætt
+• Innflutningur KMB-skráa lagfærður
+• Lagfæringar og umbætur á notendaviðmóti
+…nánar á omaps.org/news

@@ -1655,3 +1655,5 @@ amenity|recycling|container
 *amenity|stage
 *natural|hill
 *natural|arch
+*railway|station|subway|suzhou
+*railway|subway_entrance|suzhou

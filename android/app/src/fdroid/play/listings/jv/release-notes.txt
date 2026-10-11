@@ -1,8 +1,9 @@
-• Data OSM per 14 Juli
-• Jeneng halte, transfer, lan stasiun transportasi umum saiki duwe wates putih
-• Tampilan jam buka sing luwih apik
-• Pituduh sing salah utawa ilang wis dibenerake
-• Tanda buku lan jejak sing diowahi saiki disimpen kanthi otomatis
-• Peringatan rute (tol, feri, dalan ora diaspal, tangga, lsp.) saiki ditampilaké kanggo kabèh rute alternatif
-• Cathetan OSM saiki digawe ing lokasi persis sing sampeyan pilih
-…lan liya-liyané ana ing omaps.org/news
+• Data OSM per 28 September, Wikipedia per 21 September
+• Rute alternatif sing luwih apik lan perkiraan wektu teka
+• Ditambahaké setelan kanggo ngoptimalaké urutan mandhègan rute antaran
+• Ditambah tombol kanggo nambah utawa ngganti mandeg ing rute sing wis direncanakake
+• Rute alternatif sing dipilih saiki dijaga sajrone navigasi
+• Rekaman trek wis dibenerake lan ditingkatake
+• Masalah ngimpor berkas KMB wis didandani
+• Peningkatan lan perbaikan antarmuka pangguna
+…omaps.org/news

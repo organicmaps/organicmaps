@@ -236,6 +236,9 @@ public:
   void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
   void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType targetType,
                       size_t targetIntermediateIndex);
+  /// Reverses the complete route, including intermediate points. Returns false without changing points if either
+  /// endpoint is missing.
+  bool ReverseRoutePoints();
   void HideRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   bool CouldAddIntermediatePoint() const;
   bool IsMyPosition(RouteMarkType type, size_t intermediateIndex = 0);

@@ -1,28 +1,33 @@
-• Yeni “Arama geçmişini kaydet” ayarı, gerektiğinde arama geçmişinizi gizli tutmanıza yardımcı olur
+## Rota Oluşturma
+• Geliştirilmiş alternatif rotalar ve tahmini varış süreleri
+• Planlanmış bir rotaya durak eklemek veya değiştirmek için düğmeler eklendi
+• Ara rota duraklarının sırasını optimize etmek için bir ayar eklendi
+• Navigasyon rotayı yeniden hesapladığında, seçilen alternatif rota artık korunmaktadır
+• Uygulama yeniden başlatıldıktan sonra rota duraklarının sırası artık eski haline getiriliyor
 
-## Harita ve yerler
-• 14 Temmuz itibarıyla OpenStreetMap verileri
-• OpenStreetMap notları artık ormanın ortasında değil, seçtiğiniz tam konumda yerleştiriliyor
-• 180° antimeridyenini geçen bölgeler için harita seçimi iyileştirildi
-• Bir rota silindikten sonra yükseklik profilleri artık güncel olmayan veya boş grafikler göstermiyor
-• Kaydedilen rotalar için boş yükseklik grafiği iyileştirildi
-• Yer imlerini silme düğmesi artık daha kolay bulunur
-• Düzenleme ekranından çıktığınızda yer imleri otomatik olarak kaydedilir
-• Renk paleti önceden tanımlanmış renkleri içerir ve istediğiniz herhangi bir özel rengi seçmenize olanak tanır
-• Diğer kullanıcı arayüzü iyileştirmeleri
+## Harita
+• 28 Eylül itibarıyla OpenStreetMap verileri
+• 21 Eylül itibarıyla Wikipedia verileri
+• Artık haritayı daha fazla uzaklaştırdığınızda su rezervuarları görünür hale geliyor
+• Su tünelleri artık haritada gösterilmiyor
+• Suzhou Metro istasyon ve giriş simgeleri düzeltildi
+• Metro harita katmanında etiketlerin yerinden kaydığı nadir durumlar düzeltildi
 
-## Toplu taşıma
-• Durak, aktarma noktası ve istasyon adları artık hem açık hem de koyu temalarda okunabilir kalması için beyaz bir çerçeve kullanıyor
-• Toplu taşıma güzergah önizlemesini kapattıktan sonra metro katmanı doğru şekilde yeniden görünüyor
+## CarPlay
+• Desteklenen araç head-up ekranlarında (HUD'lar) ve CarPlay gösterge panelinde manevra talimatları eklendi
+• CarPlay düğmeleri ve arama özelliği düzeltildi
 
-## Güzergah belirleme ve navigasyon
-• Yanlış ve eksik yol tarifleriyle ilgili sorunlar giderildi
-• Rota uyarıları (ücretli yollar, feribotlar, asfaltsız yollar, merdivenler vb.) artık tüm alternatif rotalar için gösteriliyor
-• Rota oluşturulurken nadiren yaşanan donma sorunu giderildi ve kısıtlı yollardaki çıkmazlar ile başlangıç/bitiş noktalarının işlenmesi iyileştirildi
-• Başlat düğmesindeki rota ilerleme göstergesi iyileştirildi
-• Rota duraklarının sırasını değiştirirken listenin atlaması sorunu giderildi
+## İzler
+• Tek tek izleri gizlemek için bir göz simgesi eklendi
+• Hatalar düzeltildi ve iz kaydı iyileştirildi
+• KMB dosyalarının içe aktarılması sorunu düzeltildi
 
-## Çeviriler
-• Çince ifadeler iyileştirildi
-• Ukraynaca çeviriler güncellendi
-• İtalyanca harita bölgelerinin çevirilerindeki hatalar düzeltildi
+## Arama
+• Görünür harita alanı 180° meridyenini (±180° boylam) geçtiğinde arama sorunları giderildi
+• Spotlight’ta kategori araması geri getirildi
+
+## Kullanıcı Arayüzü
+• Çalışma saatlerinde artık 12:00 için “Öğle”, 00:00 veya 24:00 için “Gece yarısı” ifadesi görüntülenmektedir
+• Çeşitli hatalar düzeltildi ve kullanıcı arayüzü iyileştirildi
+• İngilizce, Fransızca ve Asturya dillerindeki çeviriler düzeltildi
+• Yüklü bir navigasyon sesini seçme ve örnek olarak dinleme desteği eklendi

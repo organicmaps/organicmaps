@@ -1,28 +1,33 @@
-• Den nya inställningen ”Spara sökhistorik” hjälper dig att hålla din sökhistorik privat vid behov
+## Ruttplanering
+• Förbättrade alternativa rutter och deras beräknade ankomsttider
+• Knappar har lagts till för att lägga till eller byta ut ett stopp i en planerad rutt
+• En inställning har lagts till för att optimera ordningen på mellanliggande ruttstopp
+• Den valda alternativa rutten bevaras nu när navigeringen beräknar om rutten
+• Ordningen på ruttstopp återställs nu efter omstart av appen
 
-## Kartor och platser
-• OpenStreetMap-data per den 14 juli
-• OpenStreetMap-anteckningar placeras nu på den exakta platsen du väljer, istället för mitt i skogen
-• Förbättrat kartval för regioner som sträcker sig över 180°-antimeridianen
-• Höjdprofiler för spår visar inte längre inaktuella eller tomma diagram efter att ett spår har tagits bort
-• Det tomma höjddiagrammet för inspelade spår har förbättrats
-• Knappen för att ta bort bokmärken är lättare att hitta
-• Automatisk sparning av bokmärken när du lämnar redigeringsskärmen
-• Färgpaletten innehåller fördefinierade färger och låter dig välja valfri anpassad färg
-• Övriga förbättringar av användargränssnittet
+## Karta
+• OpenStreetMap-data per den 28 september
+• Wikipedia-data per den 21 september
+• Vattenreservoarer syns nu när man zoomar ut ytterligare
+• Vattentunnlar visas inte längre på kartan
+• Ikonerna för Suzhou Metros stationer och ingångar har korrigerats
+• Åtgärdat sällsynta fall där etiketter hamnade fel på tunnelbanekartlagret
 
-## Kollektivtrafik
-• Namn på hållplatser, byten och stationer har nu en vit kontur för att förbli läsbara i både ljusa och mörka teman
-• Tunnelbanelagret visas åter korrekt efter att du stängt förhandsvisningen av en kollektivtrafikrutt
+## CarPlay
+• Manöverinstruktioner har lagts till på stödda head-up-displayer (HUD) i bilar och på CarPlay-instrumentpanelen
+• Korrigeringar av CarPlay-knappar och sökfunktion
 
-## Ruttplanering och navigering
-• Problem med felaktiga och saknade vägbeskrivningar har åtgärdats
-• Ruttvarningar (vägtullar, färjor, oasfalterade vägar, trappor osv.) visas nu för alla alternativa rutter
-• Ett sällsynt hängningsfel vid ruttplanering har åtgärdats och hanteringen av återvändsgränder samt start- och slutpunkter på en avstängd väg har förbättrats
-• Förbättrad visning av ruttförloppet på startknappen
-• Om man ändrar ordningen på ruttens stopp hoppar listan inte längre omkring
+## Spår
+• Lagt till en ögonikon för att dölja enskilda spår
+• Buggar har åtgärdats och spårinspelningen har förbättrats
+• Import av KMB-filer har åtgärdats
 
-## Översättningar
-• Förbättrad formulering på kinesiska
-• Uppdaterade översättningar till ukrainska
-• Korrigerade översättningar av kartregioner på italienska
+## Sök
+• Sökningar har korrigerats när det synliga kartområdet korsar 180°-meridianen (±180° longitud)
+• Kategorisökningen i Spotlight har återställts
+
+## Användargränssnitt
+• Öppettiderna visar nu ”Middagstid” för kl. 12:00 och ”Midnatt” för kl. 00:00 eller 24:00
+• Olika buggar har åtgärdats och användargränssnittet har förbättrats
+• Korrigerade översättningar till engelska, franska och asturiska
+• Stöd för att välja och förhandslyssna på en installerad navigationsröst har lagts till

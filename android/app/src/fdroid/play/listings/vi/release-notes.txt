@@ -1,8 +1,9 @@
-• Dữ liệu OSM cập nhật đến ngày 14 tháng 7
-• Tên các trạm dừng, điểm chuyển tuyến và ga giao thông công cộng nay có viền trắng
-• Cải thiện cách hiển thị giờ mở cửa
-• Sửa lỗi chỉ đường sai hoặc thiếu
-• Các dấu trang và lộ trình đã chỉnh sửa nay được lưu tự động
-• Các cảnh báo trên lộ trình (phí cầu đường, phà, đường không trải nhựa, cầu thang, v.v.) hiện được hiển thị cho tất cả các lộ trình thay thế
-• Ghi chú OSM được tạo tại vị trí chính xác mà bạn chọn
+• OSM: 28 tháng 9; Wikipedia: 21 tháng 9
+• Các lộ trình thay thế tốt hơn và ước tính thời gian đến
+• Cài đặt mới tối ưu hóa thứ tự các điểm dừng
+• Các nút mới cho phép thêm hoặc thay thế các điểm dừng trên các lộ trình đã lên kế hoạch
+• Lộ trình thay thế đã chọn sẽ được duy trì trong quá trình điều hướng
+• Đã sửa lỗi và cải thiện tính năng ghi lại hành trình
+• Đã khắc phục lỗi nhập dữ liệu KMB
+• Sửa lỗi và cải tiến giao diện người dùng
 …xem thêm tại omaps.org/news

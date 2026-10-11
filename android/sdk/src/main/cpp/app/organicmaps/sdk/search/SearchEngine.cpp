@@ -347,10 +347,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResult(J
 {
   if (index < 0 || index >= static_cast<jint>(g_results.GetCount()))
     return;
-  // Ideally this location mode change should happen in core automatically, without specifically changing the mode.
-  auto const mode = g_framework->GetMyPositionMode();
-  if (mode == location::Follow || mode == location::FollowAndRotate)
-    g_framework->NativeFramework()->StopLocationFollow();
   g_framework->NativeFramework()->SelectSearchResult(g_results[index], true /* animation */);
 }
 

@@ -675,8 +675,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     SearchEngine.INSTANCE.setQuery(query);
     mToolbarController.deactivate();
 
-    // The pick is armed, so commit into its slot instead of selecting the result and opening a place page
-    // that asks the user to confirm the choice they just made.
+    // Commit the pending route pick directly instead of opening a place page that asks the user to
+    // confirm the choice they just made. An append pick also moves the current finish into the stops.
     final RoutingController controller = RoutingController.get();
     if (controller.isWaitingPoiPick())
     {
@@ -819,7 +819,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
 
     mToolbarController.deactivate();
-    RoutingController.get().onPoiSelected(null);
 
     return false;
   }
@@ -1041,12 +1040,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       super(root, SearchFragment.this.requireActivity());
       ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), null);
-      root.findViewById(R.id.close_search).setOnClickListener(v -> {
-        // Back does this via onBackPressed(); without it the X would leave a pending pick armed for
-        // the next search. No-op when nothing is pending.
-        RoutingController.get().onPoiSelected(null);
-        mSearchFragmentListener.closeSearch();
-      });
+      root.findViewById(R.id.close_search).setOnClickListener(v -> mSearchFragmentListener.closeSearch());
     }
 
     @Override

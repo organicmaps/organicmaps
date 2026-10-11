@@ -145,7 +145,7 @@ using namespace routing;
 {
   return GetFramework().GetRoutingManager().IsRoutingFollowing();
 }
-+ (BOOL)IsRouteValid
++ (BOOL)isRouteValid
 {
   return GetFramework().GetRoutingManager().IsRouteValid();
 }
@@ -330,24 +330,10 @@ using namespace routing;
   [self rebuildWithBestRouter:NO];
 }
 
-+ (void)swapStartAndFinish
++ (void)reverseRoute
 {
-  auto const points = GetFramework().GetRoutingManager().GetRoutePoints();
-  CHECK(!points.empty(), ("Should never be empty"));
-  auto & rm = GetFramework().GetRoutingManager();
-  if (points.size() == 1)
-  {
-    RouteMarkType currentType = points[0].m_pointType;
-    ASSERT(currentType != RouteMarkType::Intermediate, ("There should be no intermediate points if points count is 1"));
-    RouteMarkType targetType = currentType == RouteMarkType::Start ? RouteMarkType::Finish : RouteMarkType::Start;
-    rm.MoveRoutePoint(currentType, 0, targetType, 0);
-  }
-  else
-  {
-    rm.MoveRoutePoint(0, points.size() - 1);
-    rm.MoveRoutePoint(points.size() - 2, 0);
-  }
-
+  if (!GetFramework().GetRoutingManager().ReverseRoutePoints())
+    return;
   [self rebuildWithBestRouter:NO];
 }
 
@@ -570,7 +556,7 @@ using namespace routing;
     [self presentDownloaderAlert:code countries:absentCountries];
     // NeedMoreMaps can arrive after a valid route is already built. In that case
     // the user may decline extra maps and still navigate along the current route.
-    if (![MWMRouter IsRouteValid])
+    if (![MWMRouter isRouteValid])
       [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
   case routing::RouterResultCode::FileTooOld:

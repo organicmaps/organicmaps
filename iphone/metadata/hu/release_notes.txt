@@ -1,28 +1,33 @@
-• Az új „Keresési előzmények mentése” beállítás segít szükség esetén megőrizni keresési előzményei titkosságát
+## Útvonaltervezés
+• Továbbfejlesztett alternatív útvonalak és azok becsült érkezési idejei
+• Gombok hozzáadása a tervezett útvonalon lévő megálló hozzáadásához vagy cseréjéhez
+• Hozzáadtunk egy beállítást a köztes megállók sorrendjének optimalizálásához
+• A kiválasztott alternatív útvonal mostantól megmarad, amikor a navigáció újraszámolja az útvonalat
+• Az alkalmazás újraindítása után az útvonal-megállók sorrendje ismét helyreáll
 
-## Térkép és helyek
-• OpenStreetMap-adatok július 14-i állapot szerint
-• Az OpenStreetMap-jegyzetek mostantól pontosan a kiválasztott helyen jelennek meg, nem pedig az erdő közepén
-• Javított térképválasztás az 180°-os antimeridiánt átlépő régiók esetében
-• A magassági profilok már nem jelennek meg elavult vagy üres grafikonokkal, miután egy útvonalat eltávolítottak
-• Javítottuk a rögzített útvonalak üres magassági grafikonját
-• A könyvjelzők eltávolítására szolgáló gomb könnyebben megtalálható
-• Automatikus könyvjelző-mentés, amikor kilép a szerkesztőképernyőről
-• A színpaletta előre definiált színeket tartalmaz, és lehetővé teszi bármely egyéni szín kiválasztását
-• Egyéb felhasználói felület-fejlesztések
+## Térkép
+• OpenStreetMap-adatok szeptember 28-i állapot szerint
+• A Wikipedia-adatok állapota: szeptember 21
+• A víztározók mostantól akkor is láthatók, ha távolabbra kicsinyítjük a térképet
+• A vízalagutak már nem jelennek meg a térképen
+• Javítva lettek a Suzhou Metro állomás- és bejárati ikonjai
+• Kijavítottuk azokat a ritka eseteket, amikor a metró térkép rétegen a címkék elmozdultak a helyükről
 
-## Tömegközlekedés
-• A megállók, átszállási pontok és állomások nevei most fehér kontúrral jelennek meg, hogy világos és sötét témákban egyaránt jól olvashatók legyenek
-• A metróréteg helyesen jelenik meg újra a tömegközlekedési útvonal-előnézet bezárása után
+## CarPlay
+• Manőverezési utasítások kerültek hozzáadásra a támogatott autó head-up kijelzőin (HUD-okon) és a CarPlay műszerfalán
+• Javítva lettek a CarPlay gombok és a keresés
 
-## Útvonaltervezés és navigáció
-• Kijavítottuk a hibás és hiányzó útbaigazításokkal kapcsolatos problémákat
-• Az útvonal-figyelmeztetések (útdíjak, kompok, földutak, lépcsők stb.) mostantól minden alternatív útvonal esetében megjelennek
-• Kijavítottuk az útvonal-tervezés során ritkán előforduló lefagyást, és javítottuk a zsákutcák, valamint a korlátozott forgalmú utakon lévő kiindulási és érkezési pontok kezelését
-• Javítottuk az útvonal előrehaladásának jelzését a „Start” gombon
-• Az útvonalállomások sorrendjének megváltoztatása már nem okoz ugrálást a listában
+## Nyomvonalak
+• Hozzáadtunk egy szem ikont az egyes nyomvonalak elrejtéséhez
+• Hibákat javítottunk, és továbbfejlesztettük a nyomvonalak rögzítését
+• Javítva a KMB-fájlok importálása
 
-## Fordítások
-• Javítottuk a kínai szövegezést
-• Frissítettük az ukrán fordításokat
-• Javítottuk a térképrégiók olasz nyelvű fordításait
+## Keresés
+• Javítva lett a keresés, amikor a látható térképterület átlépi a 180°-os meridiánt (±180° hosszúság)
+• Helyreállítottuk a kategóriák szerinti keresést a Spotlightban
+
+## Felhasználói felület
+• A nyitvatartási időknél a 12:00-t mostantól „Dél”, a 00:00-t és a 24:00-t pedig „Éjfél” jelöli
+• Különböző hibákat javítottunk, és továbbfejlesztettük a felhasználói felületet
+• Javított angol, francia és asztúriai fordítások
+• Támogatást adtunk a telepített navigációs hang kiválasztásához és előzetes meghallgatásához

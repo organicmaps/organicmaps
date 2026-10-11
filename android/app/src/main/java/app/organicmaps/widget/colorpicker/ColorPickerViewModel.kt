@@ -32,16 +32,20 @@ class ColorPickerViewModel(application: Application, private val savedStateHandl
     @ColorInt
     val initialColor = savedStateHandle[EXTRA_INITIAL_COLOR] ?: PRESET_COLORS.first()
 
+    @ColorInt
+    private val restoredColor = savedStateHandle[KEY_CURRENT_COLOR] ?: initialColor
+
     private val restoredTab = savedStateHandle.get<String>(KEY_ACTIVE_TAB)
         ?.let { name -> ColorPickerTab.entries.firstOrNull { it.name == name } }
         ?: ColorPickerTab.SPECTRUM
 
     private val _state = MutableStateFlow(
         ColorPickerState(
-            currentColor = initialColor,
+            currentColor = restoredColor,
             presetColors = emptyList(),
             selectedPresetIndex = -1,
             activeTab = restoredTab,
+            colorChanged = savedStateHandle[KEY_COLOR_CHANGED] ?: false,
         ),
     )
     val state = _state.asStateFlow()
@@ -55,7 +59,7 @@ class ColorPickerViewModel(application: Application, private val savedStateHandl
             _state.update {
                 it.copy(
                     presetColors = presets,
-                    selectedPresetIndex = presets.indexOf(initialColor),
+                    selectedPresetIndex = presets.indexOf(it.currentColor),
                 )
             }
         }
@@ -85,6 +89,7 @@ class ColorPickerViewModel(application: Application, private val savedStateHandl
                 colorChanged = true,
             )
         }
+        saveSelectedColor()
     }
 
     fun selectPreset(index: Int) {
@@ -99,6 +104,14 @@ class ColorPickerViewModel(application: Application, private val savedStateHandl
                 )
             }
         }
+        saveSelectedColor()
+    }
+
+    private fun saveSelectedColor() {
+        // The ViewModel survives rotation, but the pending choice also needs saved state after process death.
+        val state = _state.value
+        savedStateHandle[KEY_CURRENT_COLOR] = state.currentColor
+        savedStateHandle[KEY_COLOR_CHANGED] = state.colorChanged
     }
 
     fun canAddPreset(): Boolean {
@@ -167,6 +180,8 @@ class ColorPickerViewModel(application: Application, private val savedStateHandl
     companion object {
         const val EXTRA_INITIAL_COLOR = "ExtraInitialColor"
         private const val KEY_ACTIVE_TAB = "active_tab"
+        private const val KEY_CURRENT_COLOR = "current_color"
+        private const val KEY_COLOR_CHANGED = "color_changed"
         private const val MAX_PRESETS = 20
         private const val PREFS_NAME = "color_presets"
         private const val KEY_COLORS = "saved_colors"

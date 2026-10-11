@@ -1,8 +1,9 @@
-• OSM podaci od 14. srpnja
-• Nazivi stanica javnog prijevoza, prijelaza i samih stanica sada imaju bijeli obrub
-• Poboljšan prikaz radnog vremena
-• Ispravljena netočna ili nedostajuća uputstva
-• Uređene oznake i tragovi sada se automatski spremaju
-• Upozorenja o ruti (naplatne ceste, trajekti, neravne ceste, stepenice itd.) sada se prikazuju za sve alternativne rute
-• OSM bilješke stvaraju se na točnoj lokaciji koju odaberete
-…više na omaps.org/news
+• OSM podaci od 28. rujna, Wikipedija od 21. rujna
+• Poboljšane alternativne rute i njihova procijenjena vremena dolaska
+• Dodana je postavka za optimizaciju redoslijeda međutočaka na ruti
+• Dodani su gumbi za dodavanje ili zamjenu usputne točke u planiranoj ruti
+• Odabrana alternativna ruta sada se čuva tijekom navigacije
+• Popravljeno i poboljšano snimanje staze
+• Popravljen je uvoz KMB datoteka
+• Poboljšanja i ispravci korisničkog sučelja
+…više detalja na omaps.org/news

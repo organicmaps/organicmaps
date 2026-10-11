@@ -11,6 +11,7 @@ final class NavigationDashboardViewController: UIViewController {
     static let closeButtonInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16)
     static let closeButtonSize: CGSize = .init(width: 28, height: 28)
 
+    static let reverseRouteButtonSize: CGFloat = 44
     static let settingsButtonSize: CGFloat = 32
 
     static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -20)
@@ -37,6 +38,7 @@ final class NavigationDashboardViewController: UIViewController {
   private let closeButton = CircleImageButton()
   private var transportOptionsView = TransportOptionsView()
   private let estimatesStackView = UIStackView()
+  private let routeControlsStackView = UIStackView()
   private let routeStatusStackView = UIStackView()
   private let estimatesView = EstimatesView()
   private let transportTransitStepsView = TransportTransitStepsView()
@@ -44,6 +46,7 @@ final class NavigationDashboardViewController: UIViewController {
   private var elevationProfileViewController: ElevationProfileViewController?
   private var currentRouteElevationPreviewData: RouteElevationPreviewData?
   private var currentRouteElevationActivePointDistance: Double?
+  private let reverseRoutePointsButton = UIButton(type: .system)
   private let settingsButton = UIButton(type: .system)
   private let settingsBadge = BadgeWithNumber()
   private var routePointsView = RoutePointsView()
@@ -138,6 +141,7 @@ final class NavigationDashboardViewController: UIViewController {
     setupEstimatesView()
     setupRouteStatusView()
     setupElevationProfileView()
+    setupReverseRoutePointsButton()
     setupSettingsButton()
     setupBottomMenuActions()
     setupTransportOptionsView()
@@ -207,6 +211,9 @@ final class NavigationDashboardViewController: UIViewController {
   private func setupEstimatesView() {
     estimatesStackView.axis = .horizontal
     estimatesStackView.distribution = .equalSpacing
+    routeControlsStackView.axis = .horizontal
+    routeControlsStackView.alignment = .center
+    routeControlsStackView.spacing = 4
   }
 
   private func setupRouteStatusView() {
@@ -226,6 +233,16 @@ final class NavigationDashboardViewController: UIViewController {
     settingsButton.addTarget(self, action: #selector(didTapSettingsButton), for: .touchUpInside)
     settingsBadge.badgeAddTo(settingsButton)
     settingsBadge.isHidden = true
+  }
+
+  private func setupReverseRoutePointsButton() {
+    reverseRoutePointsButton.setStyle(.blue)
+    var configuration = UIButton.Configuration.plain()
+    configuration.image = UIImage(resource: .icSwap)
+    configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 0)
+    reverseRoutePointsButton.configuration = configuration
+    reverseRoutePointsButton.accessibilityLabel = L("reverse_route")
+    reverseRoutePointsButton.addTarget(self, action: #selector(didTapReverseRoutePointsButton), for: .touchUpInside)
   }
 
   private func setupTransportOptionsView() {
@@ -354,6 +371,12 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   @objc
+  private func didTapReverseRoutePointsButton() {
+    impactGenerator.impactOccurred()
+    interactor?.process(.reverseRoutePoints)
+  }
+
+  @objc
   private func didTapStartRouteButton() {
     impactGenerator.impactOccurred()
     interactor?.process(.startButtonDidTap)
@@ -368,7 +391,9 @@ final class NavigationDashboardViewController: UIViewController {
     availableAreaView.addSubview(transportOptionsView)
 
     estimatesStackView.addArrangedSubview(estimatesView)
-    estimatesStackView.addArrangedSubview(settingsButton)
+    routeControlsStackView.addArrangedSubview(reverseRoutePointsButton)
+    routeControlsStackView.addArrangedSubview(settingsButton)
+    estimatesStackView.addArrangedSubview(routeControlsStackView)
 
     routeStatusStackView.addArrangedSubview(estimatesStackView)
     routeStatusStackView.addArrangedSubview(transportTransitStepsView)
@@ -382,6 +407,7 @@ final class NavigationDashboardViewController: UIViewController {
     closeButton.translatesAutoresizingMaskIntoConstraints = false
     transportOptionsView.translatesAutoresizingMaskIntoConstraints = false
     routeStatusStackView.translatesAutoresizingMaskIntoConstraints = false
+    reverseRoutePointsButton.translatesAutoresizingMaskIntoConstraints = false
     settingsButton.translatesAutoresizingMaskIntoConstraints = false
     routePointsView.translatesAutoresizingMaskIntoConstraints = false
     bottomActionsMenu.translatesAutoresizingMaskIntoConstraints = false
@@ -413,6 +439,8 @@ final class NavigationDashboardViewController: UIViewController {
 
       settingsButton.heightAnchor.constraint(equalToConstant: Constants.settingsButtonSize),
       settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor),
+      reverseRoutePointsButton.heightAnchor.constraint(equalToConstant: Constants.reverseRouteButtonSize),
+      reverseRoutePointsButton.widthAnchor.constraint(equalTo: reverseRoutePointsButton.heightAnchor),
 
       routePointsView.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.routePointsInsets.left),
       routePointsView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.routePointsInsets.right),
@@ -564,6 +592,7 @@ extension NavigationDashboardViewController {
 
     bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
     startRouteButton.setState(viewModel.startButtonState)
+    reverseRoutePointsButton.isEnabled = viewModel.canReverseRoutePoints
 
     updatePresentationStep(viewModel.presentationStep)
   }

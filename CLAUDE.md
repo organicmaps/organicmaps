@@ -99,6 +99,7 @@ std::string DebugPrint(MyType const & t);
 ## Build on desktop
 1. CMake configure: `cmake --preset debug -B build-$YOUR_NAME` for debug configuration
    - the `debug` preset (in `CMakePresets.json`) sets Ninja + `CMAKE_BUILD_TYPE=Debug`; `-B` overrides the preset's build dir so each agent gets its own `build-$YOUR_NAME` and they don't clobber each other
+   - `$YOUR_NAME` is a placeholder, not a shell variable: use your agent's name (e.g. `build-claude`) and reuse the dir if it already exists
    - if configure fails, repeat with `--fresh` option to clear CMake cache
 2. Build: `cmake --build build-$YOUR_NAME` to build all targets
    or specify `--target target_name` to build a specific target (e.g., `desktop` for the main app)
@@ -213,7 +214,7 @@ These rules apply to all translation files: `data/strings/`, `data/categories*.t
 - "icon"/"icons" (place's image symbol on the map): "иконка"/"иконки" (Russian)
 - "outdoors"/"outdoors style"/"outdoors map style": "стиль для активного отдыха" (Russian), "режим Активний відпочинок" (Ukrainian)
 - "map": "мапа" (Ukrainian, Belarusian)
-- use "..." instead of "..."
+- use the ellipsis character "…" (U+2026) instead of three dots "..."
 - use ё instead е in Russian where applicable
 - do not translate "Organic Maps" and "ID Editor"
 - do not replace amounts like 5K with zeroes (5.000), either leave it (if it is a normal language practice) or use "5 thousands" equivalent (like 5 тыс. in Russian)

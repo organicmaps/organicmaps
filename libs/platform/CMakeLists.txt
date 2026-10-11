@@ -164,6 +164,7 @@ else() # neither iPhone nor Android
       http_uploader_background_dummy.cpp
       locale_std.cpp
       platform_linux.cpp
+      platform_linux_migration.hpp
       platform_unix_impl.cpp
       platform_unix_impl.hpp
       secure_storage_qt.cpp
@@ -172,6 +173,11 @@ else() # neither iPhone nor Android
 endif()
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+if (PLATFORM_WIN)
+  string(TOUPPER "OMIM_WINDOWS_DISTRIBUTION_${OMIM_WINDOWS_DISTRIBUTION}" _channel)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE ${_channel}=1)
+endif()
 
 if (APPLE)
   target_compile_options(${PROJECT_NAME} PRIVATE -fobjc-arc -Wno-nullability-completeness)

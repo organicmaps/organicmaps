@@ -1,4 +1,5 @@
 #include "qt/bookmark_dialog.hpp"
+#include "qt/bookmark_export.hpp"
 
 #include "map/bookmark_helpers.hpp"
 #include "map/bookmark_manager.hpp"
@@ -6,7 +7,7 @@
 
 #include "platform/measurement_utils.hpp"
 
-#include <QtCore/QFile>
+#include <QtCore/QPointer>
 
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
@@ -77,6 +78,12 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   callbacks.m_onFileSuccess = std::bind(&BookmarkDialog::OnAsyncLoadingFileSuccess, this, _1, _2);
   callbacks.m_onFileError = std::bind(&BookmarkDialog::OnAsyncLoadingFileError, this, _1, _2);
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
+}
+
+BookmarkDialog::~BookmarkDialog()
+{
+  // Loading notifications read these callbacks when they reach the GUI thread.
+  m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks({});
 }
 
 void BookmarkDialog::OnAsyncLoadingStarted()
@@ -174,6 +181,8 @@ void BookmarkDialog::OnExportClick(FileType exportedFileType)
     return;
   }
 
+  // The save dialog runs an event loop that can rebuild the category tree.
+  auto const categoryId = categoryIt->second;
   QString caption, filter;
   switch (exportedFileType)
   {
@@ -192,27 +201,22 @@ void BookmarkDialog::OnExportClick(FileType exportedFileType)
   if (name.isEmpty())
     return;
 
-  m_framework.GetBookmarkManager().PrepareFileForSharing({categoryIt->second},
-                                                         [this, name](BookmarkManager::SharingResult const & result)
+  m_framework.GetBookmarkManager().PrepareFileForSharing(
+      {categoryId}, [self = QPointer<BookmarkDialog>(this), name](BookmarkManager::SharingResult const & result)
   {
-    if (result.m_code == BookmarkManager::SharingResult::Code::Success)
-    {
-      QFile::rename(QString(result.m_sharingPath.c_str()), name);
+    auto const success = result.m_code == BookmarkManager::SharingResult::Code::Success &&
+                         SaveExportedFile(QString::fromStdString(result.m_sharingPath), name);
+    if (!self)
+      return;
 
-      QMessageBox ask(this);
-      ask.setIcon(QMessageBox::Information);
-      ask.setText(tr("Bookmarks successfully exported."));
-      ask.addButton(tr("OK"), QMessageBox::NoRole);
-      ask.exec();
-    }
-    else
-    {
-      QMessageBox ask(this);
-      ask.setIcon(QMessageBox::Critical);
-      ask.setText(tr("Could not export bookmarks: ") + result.m_errorString.c_str());
-      ask.addButton(tr("OK"), QMessageBox::NoRole);
-      ask.exec();
-    }
+    QMessageBox ask(self.data());
+    ask.setIcon(success ? QMessageBox::Information : QMessageBox::Critical);
+    ask.setText(success ? tr("Bookmarks successfully exported.")
+                        : tr("Could not export bookmarks: ") + (result.m_errorString.empty()
+                                                                    ? tr("Could not save the selected file.")
+                                                                    : QString::fromStdString(result.m_errorString)));
+    ask.addButton(tr("OK"), QMessageBox::NoRole);
+    ask.exec();
   }, exportedFileType);
 }
 

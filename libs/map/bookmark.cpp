@@ -359,15 +359,6 @@ void BookmarkCategory::SetDescription(std::string const & desc)
   kml::SetDefaultStr(m_data.m_description, desc);
 }
 
-void BookmarkCategory::SetServerId(std::string const & serverId)
-{
-  if (m_serverId == serverId)
-    return;
-
-  SetDirty(true /* updateModificationTime */);
-  m_serverId = serverId;
-}
-
 void BookmarkCategory::SetTags(std::vector<std::string> const & tags)
 {
   if (m_data.m_tags == tags)

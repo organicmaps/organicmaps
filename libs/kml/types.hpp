@@ -569,21 +569,19 @@ struct CategoryData
 
 struct FileData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_serverId, "serverId"), visitor(m_categoryData, "category"),
-                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_categoryData, "category"), visitor(m_bookmarksData, "bookmarks"),
+                                  visitor(m_tracksData, "tracks"))
 
   bool operator==(FileData const & data) const
   {
-    return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
-           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
+    return m_categoryData == data.m_categoryData && m_bookmarksData == data.m_bookmarksData &&
+           m_tracksData == data.m_tracksData;
   }
 
   bool operator!=(FileData const & data) const { return !operator==(data); }
 
   // Device id (it will not be serialized in text files).
   std::string m_deviceId;
-  // Server id.
-  std::string m_serverId;
   // Category's data.
   CategoryData m_categoryData;
   // Bookmarks collection.

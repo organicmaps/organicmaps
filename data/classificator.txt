@@ -1129,6 +1129,7 @@ world  +
                 sofia  -
                 spb  -
                 stockholm  -
+                suzhou  -
                 tabriz  -
                 taipei  -
                 taoyuan  -
@@ -1251,6 +1252,7 @@ world  +
             sofia  -
             spb  -
             stockholm  -
+            suzhou  -
             tabriz  -
             taipei  -
             taoyuan  -

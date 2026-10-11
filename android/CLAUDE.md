@@ -40,7 +40,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 - `MwmApplication` -- Application singleton, lifecycle management
 - `SplashActivity` -- startup/initialization entry point
 - `MwmActivity` -- main map activity (hosts fragments for search, routing, editor, etc.)
-- `Framework.java` -- 200+ native methods bridging to C++ Framework
+- `Framework.java` -- native methods bridging to the C++ `Framework`
 - `OrganicMaps.java` -- SDK initialization and platform setup
 - `Map.java` -- surface rendering, touch events, widget management
 

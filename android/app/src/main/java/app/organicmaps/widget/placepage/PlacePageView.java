@@ -27,14 +27,12 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,12 +40,10 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.BookmarksSharingHelper;
-import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
 import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.Bookmark;
-import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.FileType;
@@ -77,7 +73,6 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.utils.Graphics;
 import app.organicmaps.widget.ArrowPopup;
 import app.organicmaps.widget.ArrowView;
-import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageNotesFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
@@ -91,11 +86,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class PlacePageView extends Fragment
-    implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
-               ChooseBookmarkCategoryFragment.Listener, MenuBottomSheetFragment.MenuBottomSheetInterface,
-               ColorPickerFragment.OnColorChangeListener
-
+public class PlacePageView extends Fragment implements View.OnClickListener, View.OnLongClickListener, LocationListener,
+                                                       SensorListener, Observer<MapObject>,
+                                                       MenuBottomSheetFragment.MenuBottomSheetInterface
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String PREF_DID_SHOW_TRACK_CANDIDATES_EDU = "tip_track_selector_popup";
@@ -603,79 +596,28 @@ public class PlacePageView extends Fragment
 
   void showColorDialog()
   {
+    // The picker can remain open when navigation closes this Place Page.
+    final FragmentManager fm = requireActivity().getSupportFragmentManager();
     if (mMapObject.isTrack())
     {
       final Track track = (Track) mMapObject;
-      ColorPickerFragment.show(getChildFragmentManager(), track.getColor());
+      PlacePageController.showColorPicker(fm, track.getTrackId(), true, track.getColor());
     }
     else if (mMapObject.isBookmark())
     {
       final Bookmark bookmark = (Bookmark) mMapObject;
-      ColorPickerFragment.show(getChildFragmentManager(), bookmark.getIcon().argb());
-    }
-  }
-
-  @Override
-  public void onColorSet(@ColorInt int color)
-  {
-    if (mMapObject == null)
-      return;
-    if (mMapObject.isTrack())
-    {
-      final Track track = (Track) mMapObject;
-      if (track.getColor() == color)
-        return;
-      track.setColor(color);
-      Drawable circle =
-          Graphics.drawCircle(color, R.dimen.place_page_icon_background_size, requireContext().getResources());
-      mColorIcon.setImageDrawable(circle);
-    }
-    else if (mMapObject.isBookmark())
-    {
-      final Bookmark bookmark = (Bookmark) mMapObject;
-      if (bookmark.getIcon().argb() == color)
-        return;
-      bookmark.setIconColor(color);
-      Drawable circle =
-          Graphics.drawCircleAndImage(color, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
-                                      R.dimen.place_page_icon_size, requireContext());
-      mColorIcon.setImageDrawable(circle);
+      PlacePageController.showColorPicker(fm, bookmark.getBookmarkId(), false, bookmark.getIcon().argb());
     }
   }
 
   private void showCategoryList()
   {
-    final long categoryId;
-    if (mMapObject.isTrack())
-      categoryId = ((Track) mMapObject).getCategoryId();
-    else if (mMapObject.isBookmark())
-      categoryId = ((Bookmark) mMapObject).getCategoryId();
-    else
-      return;
-
-    final Bundle args = new Bundle();
-    args.putLong(ChooseBookmarkCategoryFragment.CATEGORY_ID, categoryId);
-
-    final FragmentManager manager = getChildFragmentManager();
-    String className = ChooseBookmarkCategoryFragment.class.getName();
-    final FragmentFactory factory = manager.getFragmentFactory();
-    final ChooseBookmarkCategoryFragment frag =
-        (ChooseBookmarkCategoryFragment) factory.instantiate(getContext().getClassLoader(), className);
-    frag.setArguments(args);
-    frag.show(manager, null);
-  }
-
-  @Override
-  public void onCategoryChanged(@NonNull BookmarkCategory newCategory)
-  {
-    if (mMapObject.isTrack())
-      ((Track) mMapObject).setCategoryId(newCategory.getId());
-    else if (mMapObject.isBookmark())
-      ((Bookmark) mMapObject).setCategoryId(newCategory.getId());
-    else
-      return;
-
-    mTvCategory.setText(newCategory.getName());
+    // The chooser and its new-list dialog can remain open when navigation closes this Place Page.
+    final FragmentManager fm = requireActivity().getSupportFragmentManager();
+    if (mMapObject instanceof Track track)
+      PlacePageController.showCategoryPicker(fm, track.getTrackId(), true, track.getCategoryId());
+    else if (mMapObject instanceof Bookmark bookmark)
+      PlacePageController.showCategoryPicker(fm, bookmark.getBookmarkId(), false, bookmark.getCategoryId());
   }
 
   void showBookmarkEditFragment()

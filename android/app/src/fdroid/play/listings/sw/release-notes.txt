@@ -1,7 +1,9 @@
-• Data ya OSM hadi tarehe 14 Julai
-• Vituo vya usafiri wa umma, vituo vya kubadilishia na majina ya vituo sasa vina mstari mweupe wa mzunguko
-• Uboreshaji wa onyesho la saa za ufunguzi
-• Marekebisho ya maelekezo yasiyo sahihi au yaliyokosekana
-• Alama za ukurasa na njia zilizohaririwa sasa zinahifadhiwa kiotomatiki
-• Maonyo ya njia (tozo, feri, barabara zisizo za lami, ngazi, n.k.) sasa yanaonyeshwa kwa njia zote mbadala
+• Data za OSM: 28 Septemba; Data za Wikipedia: 21 Septemba
+• Njia mbadala zilizoboreshwa na makadirio ya kuwasili
+• Mpangilio mpya huboresha mpangilio wa vituo vya kati
+• Vifungo vipya huongeza au kubadilisha vituo kwenye njia iliyopangwa
+• Njia mbadala iliyochaguliwa hubaki imechaguliwa wakati wa urambazaji
+• Urekodi wa njia zilizopitiwa umerekebishwa na kuboreshwa
+• Uingizaji wa faili ya KMB umerekebishwa
+• Maboresho na marekebisho ya kiolesura
 …maelezo zaidi katika omaps.org/news

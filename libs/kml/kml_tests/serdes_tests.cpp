@@ -4,6 +4,7 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
+#include "kml/serdes_binary_v8.hpp"
 #include "kml/serdes_common.hpp"
 
 #include "coding/text_storage.hpp"
@@ -52,7 +53,6 @@ kml::FileData GenerateKmlFileData()
 {
   kml::FileData result;
   result.m_deviceId = "AAAA";
-  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
 
   result.m_categoryData.m_name[kDefaultLang] = "Test category";
   result.m_categoryData.m_name[kRuLang] = "Тестовая категория";
@@ -107,6 +107,7 @@ kml::FileData GenerateKmlFileData()
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
+  trackData.m_geometry.AddTimestamps({});
 
   trackData.m_visible = false;
   trackData.m_nearestToponyms = {"12345", "54321", "98765"};
@@ -239,6 +240,22 @@ UNIT_TEST(Kml_Serialization_Bin_Memory)
   }
 
   TEST_EQUAL(data, data2, ());
+}
+
+UNIT_TEST(Kml_Serialization_Bin_V8_Memory)
+{
+  classificator::Load();
+
+  kml::FileData data;
+  kml::binary::DeserializerKml(data).Deserialize(MemReader(kBinKmlV8.data(), kBinKmlV8.size()));
+
+  std::vector<uint8_t> buffer;
+  MemWriter sink(buffer);
+  kml::binary::SerializerKmlV8(data).Serialize(sink);
+
+  kml::FileData reloaded;
+  kml::binary::DeserializerKml(reloaded).Deserialize(MemReader(buffer.data(), buffer.size()));
+  TEST_EQUAL(reloaded, data, ());
 }
 
 // 4. Check deserialization from the text file.
@@ -399,6 +416,7 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
     ser.Serialize(sink);
   }
   TEST_EQUAL(dataFromFileBuffer, dataFromGeneratedFileBuffer, ());
+  TEST(dataFromFileBuffer.find("mwm:serverId") == std::string::npos, ());
 }
 
 UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
@@ -694,9 +712,6 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
 
   dataFromBinV8.m_tracksData[0].m_id =
       dataFromBinV9MM.m_tracksData[0].m_id;  // V8 and V9MM tracks have different IDs. Fix ID value manually.
-  // V9MM's ConvertToLatestVersion pads m_geometry.m_timestamps to match m_lines (matching
-  // MultiGeometry's own invariant). V8's deserializer does not, so normalize before comparing.
-  dataFromBinV8.m_tracksData[0].m_geometry.m_timestamps.resize(dataFromBinV8.m_tracksData[0].m_geometry.m_lines.size());
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
 }
 

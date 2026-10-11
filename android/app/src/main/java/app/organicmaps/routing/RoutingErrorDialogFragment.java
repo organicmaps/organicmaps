@@ -69,15 +69,9 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
   @Override
   public void onDismiss(DialogInterface dialog)
   {
+    // Dismissing a missing-maps prompt keeps planning; only a found route can be started.
     if (mNeedMoreMaps && mCancelled)
-    {
       mCancelled = false;
-
-      /// @todo Actually, should cancel if there is no valid route only.
-      // I didn't realize how to distinguish NEED_MORE_MAPS but valid route is present.
-      // Should refactor RoutingController states.
-      // RoutingController.get().cancel();
-    }
 
     super.onDismiss(dialog);
   }
