@@ -1,5 +1,6 @@
 #include "qt/mainwindow.hpp"
 #include "qt/about.hpp"
+#include "qt/html_processor.hpp"
 #include "qt/bookmark_dialog.hpp"
 #include "qt/draw_widget.hpp"
 #include "qt/mwms_borders_selection.hpp"
@@ -870,6 +871,14 @@ void MainWindow::toggleWidgetsUI() const {
 
 void MainWindow::scalePlus() const {m_pDrawWidget->ScalePlus();}
 void MainWindow::scaleMinus() const {m_pDrawWidget->ScaleMinus();}
+
+QString MainWindow::getCopyrightText() const {
+  std::string text;
+  ReaderPtr<Reader> reader = GetPlatform().GetReader("copyright.html");
+  reader.ReadAsString(text);
+  RemovePTagsWithNonMatchedLanguages(languages::GetCurrentTwine(), text);
+  return QString::fromStdString(text);
+}
 
 void MainWindow::ShowPlacePage(place_page::Info const & info)
 {
