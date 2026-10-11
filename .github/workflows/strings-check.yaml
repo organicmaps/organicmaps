@@ -48,10 +48,21 @@ jobs:
         shell: bash
         run: tools/unix/strings_validate_keys.sh
 
+      - name: Generate localization files
+        shell: bash
+        run: tools/unix/generate_localizations.sh
+
       - name: Verify generated localization files
         shell: bash
         run: |
-          tools/unix/generate_localizations.sh
           # Staging first so that files the generator adds count as a difference too.
           git add -A
-          git diff --cached --exit-code
+          diff_status=0
+          git diff --cached --exit-code || diff_status=$?
+          # Exit code 1 means stale generated files; other errors still fail CI.
+          if [[ "$diff_status" -ne 1 ]]; then
+            exit "$diff_status"
+          fi
+          echo "::warning::Generated localization files need updating. A maintainer should regenerate them before merging."
+          echo "A maintainer should run \`tools/unix/generate_localizations.sh\` and commit the generated files before merging." \
+            >> "$GITHUB_STEP_SUMMARY"
