@@ -107,9 +107,12 @@ std::string Duration::GetString(std::initializer_list<Units> units, std::string_
   return formattedTime;
 }
 
-std::string Duration::GetHoursMinutesString() const
+std::string Duration::GetRoutingString() const
 {
-  // Round seconds up to the nearest minute so a 4 min 30 s route reads "5 min" rather than "4 min".
+  // Isolate the comparison so RTL units don't mirror the less-than sign.
+  if (m_seconds < seconds(60))
+    return std::string("\u2066<1\u2069").append(kNonBreakingSpace).append(GetUnitsString(Units::Minutes));
+
   long const totalMinutes = duration_cast<minutes>(m_seconds + seconds(30)).count();
   long const h = totalMinutes / 60;
   long const m = totalMinutes % 60;

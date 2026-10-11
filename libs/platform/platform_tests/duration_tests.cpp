@@ -121,22 +121,32 @@ UNIT_TEST(Duration_Localization)
     }
   }
 }
-UNIT_TEST(Duration_HoursMinutesString)
+UNIT_TEST(Duration_RoutingString)
 {
-  // GetUnitsString returns the localization key as-is in test environment (e.g. "minute", "hour"),
-  // so build expectations using the same keys.
-  TEST_EQUAL(Duration(0).GetHoursMinutesString(), "0" + kNonBreakingSpace + m, ());
-  TEST_EQUAL(Duration(29).GetHoursMinutesString(), "0" + kNonBreakingSpace + m, ());  // round down
-  TEST_EQUAL(Duration(30).GetHoursMinutesString(), "1" + kNonBreakingSpace + m, ());  // round up
-  TEST_EQUAL(Duration(4 * 60).GetHoursMinutesString(), "4" + kNonBreakingSpace + m, ());
-  TEST_EQUAL(Duration(59 * 60 + 30).GetHoursMinutesString(), "1" + kNonBreakingSpace + h, ());
-  TEST_EQUAL(Duration(60 * 60).GetHoursMinutesString(), "1" + kNonBreakingSpace + h, ());
-  TEST_EQUAL(Duration(60 * 60 + 23 * 60).GetHoursMinutesString(),
-             "1" + kNonBreakingSpace + h + kNonBreakingSpace + "23" + kNonBreakingSpace + m, ());
-  TEST_EQUAL(Duration(2 * 60 * 60 + 30 * 60).GetHoursMinutesString(),
-             "2" + kNonBreakingSpace + h + kNonBreakingSpace + "30" + kNonBreakingSpace + m, ());
-  // Seconds beyond the minute boundary still ignored once we're past 1 hour.
-  TEST_EQUAL(Duration(3 * 60 * 60 + 45 * 60 + 50).GetHoursMinutesString(),
-             "3" + kNonBreakingSpace + h + kNonBreakingSpace + "46" + kNonBreakingSpace + m, ());
+  for (unsigned long seconds = 0; seconds < 60; ++seconds)
+    TEST_EQUAL(Duration(seconds).GetRoutingString(), "\u2066<1\u2069" + kNonBreakingSpace + m, (seconds));
+
+  struct Case
+  {
+    unsigned long m_seconds;
+    std::string m_expected;
+  };
+  Case const cases[] = {
+      {60, "1" + kNonBreakingSpace + m},
+      {4 * 60 + 29, "4" + kNonBreakingSpace + m},
+      {4 * 60 + 30, "5" + kNonBreakingSpace + m},
+      {27 * 60 + 29, "27" + kNonBreakingSpace + m},
+      {27 * 60 + 30, "28" + kNonBreakingSpace + m},
+      {34 * 60 + 45, "35" + kNonBreakingSpace + m},
+      {59 * 60 + 29, "59" + kNonBreakingSpace + m},
+      {59 * 60 + 30, "1" + kNonBreakingSpace + h},
+      {60 * 60, "1" + kNonBreakingSpace + h},
+      {60 * 60 + 29, "1" + kNonBreakingSpace + h},
+      {60 * 60 + 30, "1" + kNonBreakingSpace + h + kNonBreakingSpace + "1" + kNonBreakingSpace + m},
+      {24 * 60 * 60, "24" + kNonBreakingSpace + h},
+      {26 * 60 * 60 + 14 * 60 + 45, "26" + kNonBreakingSpace + h + kNonBreakingSpace + "15" + kNonBreakingSpace + m},
+  };
+  for (auto const & test : cases)
+    TEST_EQUAL(Duration(test.m_seconds).GetRoutingString(), test.m_expected, (test.m_seconds));
 }
 }  // namespace platform

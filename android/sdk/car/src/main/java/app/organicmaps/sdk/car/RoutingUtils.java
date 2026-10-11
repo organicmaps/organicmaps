@@ -55,13 +55,18 @@ public final class RoutingUtils
     else
       destinationBuilder.setName(" ");
 
+    // The host truncates durations to minutes; keep arrival based on the actual remaining seconds.
     builder.addDestination(destinationBuilder.build(),
-                           createTravelEstimate(info.distToTarget, info.totalTimeInSeconds, distanceColor));
+                           createTravelEstimateBuilder(info.distToTarget, info.totalTimeInSeconds, distanceColor)
+                               .setRemainingTimeSeconds(Math.max(60, info.totalTimeInSeconds))
+                               .build());
 
     // TODO (AndrewShkrob): Use real distance and time estimates
-    builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0, distanceColor));
+    builder.addStep(createCurrentStep(context, info),
+                    createTravelEstimateBuilder(info.distToTurn, 0, distanceColor).build());
     if (!TextUtils.isEmpty(info.nextStreet))
-      builder.addStep(createNextStep(context, info), createTravelEstimate(Distance.EMPTY, 0, distanceColor));
+      builder.addStep(createNextStep(context, info),
+                      createTravelEstimateBuilder(Distance.EMPTY, 0, distanceColor).build());
     return builder.build();
   }
 
@@ -106,13 +111,12 @@ public final class RoutingUtils
 
   @SuppressWarnings("NewApi") // ZonedDateTime is backported for Android versions below 8.0.
   @NonNull
-  private static TravelEstimate createTravelEstimate(@NonNull Distance distance, int time,
-                                                     @NonNull CarColor distanceColor)
+  private static TravelEstimate.Builder createTravelEstimateBuilder(@NonNull Distance distance, int time,
+                                                                    @NonNull CarColor distanceColor)
   {
     return new TravelEstimate.Builder(RoutingHelpers.createDistance(distance), ZonedDateTime.now().plusSeconds(time))
         .setRemainingTimeSeconds(time)
-        .setRemainingDistanceColor(distanceColor)
-        .build();
+        .setRemainingDistanceColor(distanceColor);
   }
 
   @NonNull

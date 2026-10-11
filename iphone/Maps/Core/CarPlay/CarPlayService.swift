@@ -1314,7 +1314,8 @@ extension CarPlayService {
 
   func createEstimates(routeInfo: RouteInfo) -> CPTravelEstimates? {
     let measurement = Measurement(value: routeInfo.targetDistance, unit: routeInfo.targetUnits)
-    return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: routeInfo.timeToTarget)
+    // CarPlay truncates durations to minutes, so keep its one-minute minimum.
+    return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: max(60, routeInfo.timeToTarget))
   }
 
   func applyUndefinedEstimates(template: CPMapTemplate, trip: CPTrip) {

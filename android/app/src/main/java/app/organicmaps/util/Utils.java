@@ -451,6 +451,35 @@ public class Utils
   public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize,
                                                @DimenRes int textSize)
   {
+    long totalMinutes = getRoundedRoutingTimeMinutes(seconds);
+    long hours = totalMinutes / 60;
+    long minutes = totalMinutes % 60;
+    CharSequence displayedM =
+        formatTime(context, textSize, unitsSize, getRoutingMinuteValue(seconds), context.getString(R.string.minute));
+    if (hours == 0)
+      return displayedM;
+    CharSequence displayedH =
+        formatTime(context, textSize, unitsSize, String.valueOf(hours), context.getString(R.string.hour));
+    return minutes == 0 ? displayedH : TextUtils.concat(displayedH, "\u00A0", displayedM);
+  }
+
+  // Same nearest-minute policy as platform::Duration::GetRoutingString().
+  public static long getRoundedRoutingTimeMinutes(int seconds)
+  {
+    return (seconds + 30L) / 60;
+  }
+
+  @NonNull
+  public static String getRoutingMinuteValue(int seconds)
+  {
+    // Keep the comparison left-to-right alongside RTL units.
+    return seconds < 60 ? "\u2066<1\u2069" : String.valueOf(getRoundedRoutingTimeMinutes(seconds) % 60);
+  }
+
+  @NonNull
+  public static CharSequence formatDuration(Context context, int seconds, @DimenRes int unitsSize)
+  {
+    int textSize = R.dimen.text_size_routing_number;
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
     String min = context.getString(R.string.minute);

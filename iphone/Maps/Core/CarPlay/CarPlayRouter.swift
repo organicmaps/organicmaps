@@ -300,9 +300,10 @@ extension CarPlayRouter {
 
     let maneuvers = createUpcomingManeuvers(routeInfo: routeInfo)
 
+    // CarPlay truncates durations to minutes, so keep its one-minute minimum.
     let tripEstimates = CPTravelEstimates(
       distanceRemaining: Measurement(value: routeInfo.targetDistance, unit: routeInfo.targetUnits),
-      timeRemaining: routeInfo.timeToTarget
+      timeRemaining: max(60, routeInfo.timeToTarget)
     )
     // CPRouteInformation requires a current lane guidance even when the app has no lane data.
     let emptyLaneGuidance = CPLaneGuidance()

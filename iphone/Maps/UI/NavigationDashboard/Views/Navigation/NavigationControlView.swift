@@ -219,7 +219,7 @@ final class NavigationControlView: SolidTouchView {
       ]
 
     if timePageControl.currentPage == 0 {
-      timeLabel.text = DurationFormatter.durationString(from: TimeInterval(info.timeToTarget))
+      timeLabel.text = DurationFormatter.routingDurationString(from: TimeInterval(info.timeToTarget))
     } else {
       timeLabel.text = info.arrival
     }

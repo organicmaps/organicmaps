@@ -2080,7 +2080,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       String title = StringUtils.nativeFormatDistance(0).toString(this) + " • "
-                   + Utils.formatRoutingTime(this, 0, R.dimen.text_size_body_3);
+                   + Utils.formatDuration(this, 0, R.dimen.text_size_body_3);
       mPlacePageViewModel.setMapObject(new TrackRecording(title, getString(R.string.track_recording_title)));
     }
   }

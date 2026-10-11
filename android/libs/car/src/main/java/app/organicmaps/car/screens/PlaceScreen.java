@@ -198,7 +198,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     final Row.Builder builder = new Row.Builder();
 
     final SpannableString time = new SpannableString(" ");
-    time.setSpan(DurationSpan.create(routingInfo.totalTimeInSeconds), 0, 1, SPAN_INCLUSIVE_INCLUSIVE);
+    // The host truncates durations to minutes, so keep its one-minute minimum.
+    time.setSpan(DurationSpan.create(Math.max(60, routingInfo.totalTimeInSeconds)), 0, 1, SPAN_INCLUSIVE_INCLUSIVE);
     builder.setTitle(time);
 
     final SpannableString distance = new SpannableString(" ");

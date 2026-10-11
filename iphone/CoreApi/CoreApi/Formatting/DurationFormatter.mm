@@ -4,10 +4,10 @@
 
 @implementation DurationFormatter
 
-+ (NSString *)durationStringFromTimeInterval:(NSTimeInterval)timeInterval
++ (NSString *)routingDurationStringFromTimeInterval:(NSTimeInterval)timeInterval
 {
-  auto const duration = platform::Duration(static_cast<int>(timeInterval));
-  return [NSString stringWithCString:duration.GetPlatformLocalizedString().c_str() encoding:NSUTF8StringEncoding];
+  auto const duration = platform::Duration(static_cast<unsigned long>(timeInterval));
+  return [NSString stringWithUTF8String:duration.GetRoutingString().c_str()];
 }
 
 @end
