@@ -608,22 +608,26 @@ For Xcode, run `cmake --preset xcode` to generate the project (`build/xcode/omim
 
 #### Enable Vulkan Validation
 
-1. Download Vulkan Validation Layers
-```bash
-./tools/android/download_vulkan_validation_layers.py
-```
+Set `app.organicmaps.enableVulkanDiagnostics=ON` in `gradle.properties`. Validation layers are
+downloaded automatically and packed into the app.
 
-2. Set `enableVulkanDiagnostics=ON` in `gradle.properties`.
+Gradle supplies the validation libraries. Remove any `libVkLayer_khronos_validation.so` files from
+`android/app/src/main/jniLibs/` so source-set copies do not override the selected dependency.
+Keep all other JNI libraries in place.
+
+```bash
+find android/app/src/main/jniLibs -name libVkLayer_khronos_validation.so -delete 2>/dev/null
+```
 
 If you build the app from command line, the parameter can be passed via command line.
 
 E.g.
 ```
-./gradlew -Parm64 -PenableVulkanDiagnostics=ON runGoogleDebug
+./gradlew -Parm64 -Papp.organicmaps.enableVulkanDiagnostics=ON runGoogleDebug
 ```
 
 #### Enable tracing
-1. Set `enableTrace=ON` in `gradle.properties`.
+1. Set `app.organicmaps.enableTrace=ON` in `gradle.properties`.
 2. Follow the guide https://perfetto.dev/docs/quickstart/android-tracing to set-up Perfetto
 Example of command line for running system tracing:
 ```

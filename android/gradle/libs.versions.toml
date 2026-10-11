@@ -57,6 +57,8 @@ triplet-play-publisher = "4.0.0"
 
 vanniktech-maven-publish = "0.36.0"
 
+vulkan-validation-layers = "1.4.363.0"
+
 [libraries]
 android-tools-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugaring" }
 
@@ -99,6 +101,8 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-cor
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
 
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+
+vulkan-validation-layers = { module = "org.khronos.vulkan:android-binaries", version.ref = "vulkan-validation-layers" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
