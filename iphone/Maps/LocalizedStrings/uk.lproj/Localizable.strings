@@ -713,7 +713,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Ніколи не попереджати";
 "power_managment_title" = "Режим енергозбереження";
-"power_managment_description" = "Спроба зменшити енергоспоживання коштом деяких функцій.";
+"power_managment_description" = "Зменшити споживання енергії за рахунок обмеження деяких функцій.";
 "power_managment_setting_never" = "Ніколи";
 "power_managment_setting_auto" = "Автоматично";
 "power_managment_setting_manual_max" = "Максимальне енергозбереження";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "Якщо міток забагато, відображення їхніх назв на мапі може уповільнити роботу програми.";
 "show_to_the_right" = "Показати праворуч";
 "show_at_the_bottom" = "Показати внизу";
-"enable_logging_warning_message" = "Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку \"Сповістити про помилку\".";
+"enable_logging_warning_message" = "Тимчасово увімкніть цю опцію, щоб записати й вручну надіслати нам детальні діагностичні дані про проблему через пункт «Повідомити про помилку» в розділі «Довідка». Журнали можуть містити інформацію про розташування.";
 "driving_options_title" = "Налаштування об’їзду";
 
 /* Routing setting that automatically reorders intermediate stops */
@@ -798,7 +798,7 @@
 "opens_tomorrow_at" = "Відкриття завтра о %@";
 "opens_dayoftheweek_at" = "Відчиняється в %1$@ о %2$@";
 "opens_at" = "Відкриття о %@";
-"closes_at" = "Закривається о %@";
+"closes_at" = "Зачиняється о %@";
 "add_opening_hours" = "Додати графік роботи";
 "password_8_chars_min" = "Пароль (мінімум 8 символів)";
 "invalid_username_or_password" = "Невірне ім'я користувача або пароль.";

@@ -617,7 +617,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Ніколи не попереджати</string>
     <string name="power_managment_title">Режим енергозбереження</string>
-    <string name="power_managment_description">Спроба зменшити енергоспоживання коштом деяких функцій.</string>
+    <string name="power_managment_description">Зменшити споживання енергії за рахунок обмеження деяких функцій.</string>
     <string name="power_managment_setting_never">Ніколи</string>
     <string name="power_managment_setting_auto">Автоматично</string>
     <string name="power_managment_setting_manual_max">Максимальне енергозбереження</string>
@@ -626,7 +626,7 @@
     <string name="bookmarks_text_placement_description">Якщо міток забагато, відображення їхніх назв на мапі може уповільнити роботу програми.</string>
     <string name="show_to_the_right">Показати праворуч</string>
     <string name="show_at_the_bottom">Показати внизу</string>
-    <string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку \"Сповістити про помилку\".</string>
+    <string name="enable_logging_warning_message">Тимчасово увімкніть цю опцію, щоб записати й вручну надіслати нам детальні діагностичні дані про проблему через пункт «Повідомити про помилку» в розділі «Довідка». Журнали можуть містити інформацію про розташування.</string>
     <string name="driving_options_title">Налаштування об’їзду</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Оптимізація маршруту</string>
@@ -689,7 +689,7 @@
     <string name="opens_tomorrow_at">Відкриття завтра о %s</string>
     <string name="opens_dayoftheweek_at">Відчиняється в %1$s о %2$s</string>
     <string name="opens_at">Відкриття о %s</string>
-    <string name="closes_at">Закривається о %s</string>
+    <string name="closes_at">Зачиняється о %s</string>
     <string name="editor_add_select_category_all_subtitle">Усі категорії</string>
     <string name="placepage_replace_stop">Замінити зупинку</string>
 
