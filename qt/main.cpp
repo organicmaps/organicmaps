@@ -140,6 +140,7 @@ int main(int argc, char * argv[])
 #else
   QApplication::setApplicationName("Organic Maps");
 #endif
+  QApplication::setApplicationVersion(QString::fromStdString(platform.Version()));
 
 #ifdef DEBUG
   static bool constexpr developerMode = true;

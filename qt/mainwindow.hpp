@@ -174,6 +174,7 @@ public:
   Q_INVOKABLE void toggleWidgetsUI() const;
   Q_INVOKABLE void scalePlus() const;
   Q_INVOKABLE void scaleMinus() const;
+  Q_INVOKABLE QString getCopyrightText() const;
 
 protected:
   Framework & GetFramework() const;
