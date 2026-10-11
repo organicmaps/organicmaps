@@ -231,17 +231,27 @@ UNIT_TEST(NoGps_Engine_CyclesShiftSteps)
   TEST_EQUAL(env.m_engine.GetStatus().m_shiftStepM, 10, ());
 }
 
-UNIT_TEST(NoGps_Engine_InertialTurnIsMovedToCrossing)
+// The value of a field of the trip line, e.g. "turn".
+std::string TripField(Env & env, std::string const & name)
 {
-  Env env(true /* inertial */);
-  MarkCar(env, 50);
-  // 10 m/s east, the calculated position lags behind the car: the car turns left at the crossing at 200 m while it
-  // is at ~160 m by the calculation.
+  std::string const line = env.m_engine.GetTripLine();
+  auto const key = line.find(" " + name + "=");
+  TEST(key != std::string::npos, (name, line));
+  auto const from = key + name.size() + 2;
+  return line.substr(from, line.find(' ', from) - from);
+}
+
+// The car driving 10 m/s east turns left at the crossing at 200 m, the calculated position lags behind it: it is
+// |beforeTurnM| east when the turn starts. Then the car drives north.
+void TurnLeftAtCrossing(Env & env, double beforeTurnM)
+{
+  // The position is 112 m farther after 10 s.
+  MarkCar(env, beforeTurnM - 112);
   env.Drive(10'000, 36, 0);
   TEST_EQUAL(env.Last().m_provider, Provider::Inertial, ());
-  double const beforeTurnM = East(env.Last().m_position);
-  TEST_LESS(beforeTurnM, 180, ());
+  TestAlmostEqualAbs(East(env.Last().m_position), beforeTurnM, 2);
   TestAlmostEqualAbs(North(env.Last().m_position), 0, 1);
+  TEST_EQUAL(TripField(env, "turn"), "NaN", ());
   env.Drive(3000, 36, -30);
   env.Drive(3000, 36, 0);
   // The car is on the street going north from the crossing.
@@ -249,6 +259,28 @@ UNIT_TEST(NoGps_Engine_InertialTurnIsMovedToCrossing)
   TEST_GREATER(North(env.Last().m_position), 20, ());
   TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 3);
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+}
+
+UNIT_TEST(NoGps_Engine_InertialTurnIsMovedToCrossing)
+{
+  Env env(true /* inertial */);
+  // The car starts turning 5 m before the middle of a crossing: this one is 18 m farther.
+  TurnLeftAtCrossing(env, 177);
+  TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 18, 2);
+  // The crossing is a known place: the error of the calculated distance is gone, the car has driven 20 m since.
+  TEST_LESS(env.Last().m_accuracyM, DeadReckoning::kBaseAccuracyM + 1, ());
+}
+
+UNIT_TEST(NoGps_Engine_InertialTurnFarFromCrossingIsNotMovedToIt)
+{
+  Env env(true /* inertial */);
+  // The crossing is 33 m farther than the turn, and a crossing is searched within 25 m: farther away another
+  // crossing may be the one. The street going north is 14 m aside of the car after the turn, the car is on it
+  // as on any road it drives along.
+  TurnLeftAtCrossing(env, 162);
+  TEST_EQUAL(TripField(env, "turn"), "NaN", ());
+  // Its place along the street is not known better than before the turn.
+  TEST_GREATER(env.Last().m_accuracyM, DeadReckoning::kBaseAccuracyM + 2, ());
 }
 
 UNIT_TEST(NoGps_Engine_TurnAlongBranchIsNotMovedToNextCrossing)
