@@ -84,6 +84,13 @@ UNIT_TEST(RussiaMoscowNoServiceCrossing)
                                    FromLatLon(55.77682, 37.70391), 3140.);
 }
 
+UNIT_TEST(RussiaNskServiceEndpoints)
+{
+  // Service-road endpoints must allow the direct route along the public street, улица Забалуева.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(54.989101, 82.814544), {0., 0.},
+                                   FromLatLon(54.988947, 82.80889), 425.484);
+}
+
 UNIT_TEST(PriceIslandLoadCrossGeometryTest)
 {
   size_t constexpr kExpectedPointsNumber = 56;
@@ -592,7 +599,7 @@ UNIT_TEST(USA_NorthCarolina_CrossMWMs)
 UNIT_TEST(Cyprus_NoUTurnFromFake)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(34.70639, 33.1184951), {0., 0.},
-                                   FromLatLon(34.7065239, 33.1184222), 384.238);
+                                   FromLatLon(34.7065239, 33.1184222), 394.096);
 
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(34.7068976, 33.1199084), {0., 0.},
                                    FromLatLon(34.7070505, 33.1198391), 670.077);
@@ -958,9 +965,7 @@ UNIT_TEST(Colombia_MotorVehicle_Conditional_No)
 
 UNIT_TEST(Belarus_Kopyl_Minsk)
 {
-  // Use P23 ASAP.
-  // OSRM makes a shorter but strange route here:
-  // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=53.131897%2C27.018889%3B53.57253%2C27.47209
+  /// @todo OM now uses secondary H8544 (longer) instead of primary P61.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(53.131897, 27.018889), {0., 0.},
                                    FromLatLon(53.57253, 27.47209), 82109);
 }
