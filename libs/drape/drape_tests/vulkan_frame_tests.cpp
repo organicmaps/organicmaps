@@ -23,6 +23,8 @@ struct Calls
   uintptr_t m_nextHandle = 100;
   uint32_t m_imageCount = 3;
   VkResult m_acquireResult = VK_TIMEOUT;
+  VkResult m_fenceResult = VK_SUCCESS;
+  VkResult m_submitResult = VK_SUCCESS;
   VkResult m_presentResult = VK_SUCCESS;
   uint64_t m_acquireTimeout = 0;
   unsigned m_acquires = 0;
@@ -47,7 +49,7 @@ VKAPI_ATTR VkResult VKAPI_CALL DeviceWaitIdle(VkDevice)
 
 VKAPI_ATTR VkResult VKAPI_CALL WaitForFences(VkDevice, uint32_t, VkFence const *, VkBool32, uint64_t)
 {
-  return VK_SUCCESS;
+  return g_calls.m_fenceResult;
 }
 
 VKAPI_ATTR VkResult VKAPI_CALL AcquireNextImage(VkDevice, VkSwapchainKHR, uint64_t timeout, VkSemaphore semaphore,
@@ -88,7 +90,7 @@ VKAPI_ATTR VkResult VKAPI_CALL QueueSubmit(VkQueue, uint32_t count, VkSubmitInfo
   TEST_EQUAL(info->signalSemaphoreCount, 1, ());
   g_calls.m_submitWaitSemaphore = info->pWaitSemaphores[0];
   g_calls.m_submitSignalSemaphore = info->pSignalSemaphores[0];
-  return VK_SUCCESS;
+  return g_calls.m_submitResult;
 }
 
 VKAPI_ATTR VkResult VKAPI_CALL QueuePresent(VkQueue, VkPresentInfoKHR const * info)
@@ -225,6 +227,34 @@ private:
   ScopedEntryPoint<PFN_vkMapMemory> m_map{vkMapMemory, &MapMemory};
   ScopedEntryPoint<PFN_vkUnmapMemory> m_unmap{vkUnmapMemory, &UnmapMemory};
 };
+
+struct CheckFailure
+{
+  std::string m_message;
+};
+
+bool CaptureCheck(base::SrcPoint const &, std::string const & message)
+{
+  throw CheckFailure{message};
+}
+
+void ExpectCheck(auto && action, char const * method)
+{
+  std::string message;
+  {
+    ScopedEntryPoint<base::AssertFailedFn> check(base::OnAssertFailed, &CaptureCheck);
+    try
+    {
+      action();
+    }
+    catch (CheckFailure const & failure)
+    {
+      message = failure.m_message;
+    }
+  }
+  TEST(!message.empty(), (method));
+  TEST(message.find(method) != std::string::npos, (message));
+}
 
 VkPhysicalDeviceLimits Limits()
 {
@@ -431,5 +461,40 @@ UNIT_TEST(VulkanFrame_PresentationSurfaceLossCompletesFrameAndRemainsRetryable)
   g_calls.m_acquireResult = VK_ERROR_SURFACE_LOST_KHR;
   TEST(RetryLater(context.BeginRendering()), ());
   TEST_EQUAL(g_calls.m_idleWaits, 0, ());
+}
+
+UNIT_TEST(VulkanFrame_DeviceLossReportedAtFenceWait)
+{
+  VulkanCalls calls;
+  Context context(nullptr, true);
+  g_calls.m_fenceResult = VK_ERROR_DEVICE_LOST;
+  ExpectCheck([&context] { context.BeginRendering(); }, "vkWaitForFences");
+  TEST_EQUAL(g_calls.m_acquires, 0, ());
+}
+
+UNIT_TEST(VulkanFrame_DeviceLossReportedAtSubmissionAndPresentation)
+{
+  for (bool const submission : {true, false})
+  {
+    VulkanCalls calls;
+    dp::vulkan::VulkanObjectManager manager(VK_NULL_HANDLE, Limits(), MemoryProperties(), 0);
+    manager.RegisterThread(dp::vulkan::VulkanObjectManager::Frontend);
+    Context context(make_ref(&manager), true);
+    context.Init(dp::ApiVersion::Vulkan);
+    g_calls.m_acquireResult = VK_SUCCESS;
+    TEST(Ready(context.BeginRendering()), ());
+    context.StartRenderPass();
+    if (submission)
+    {
+      g_calls.m_submitResult = VK_ERROR_DEVICE_LOST;
+      ExpectCheck([&context] { context.EndRendering(); }, "vkQueueSubmit");
+    }
+    else
+    {
+      context.EndRendering();
+      g_calls.m_presentResult = VK_ERROR_DEVICE_LOST;
+      ExpectCheck([&context] { context.Present(); }, "vkQueuePresentKHR");
+    }
+  }
 }
 }  // namespace vulkan_frame_tests
