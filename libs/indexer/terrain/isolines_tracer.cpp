@@ -158,7 +158,7 @@ void AppendPoint(std::vector<m2::PointD> & points, m2::PointD const & point)
 }
 
 template <typename View, typename Emit>
-void TraceView(View const & view, int32_t step, Emit const & emit, std::function<bool()> const & isCancelled)
+void TraceView(View const & view, int32_t step, Emit const & emit, base::SharedCancellable const & isCancellable)
 {
   uint32_t const count = view.Count();
   if (count == 0)
@@ -188,7 +188,7 @@ void TraceView(View const & view, int32_t step, Emit const & emit, std::function
   std::vector<uint32_t> visited(count, 0);
   for (size_t bin = 0; bin < bins.size(); ++bin)
   {
-    if (isCancelled && isCancelled())
+    if (isCancellable.IsCancelled())
       return;
     int32_t const level = (first + static_cast<int32_t>(bin)) * step;
     uint32_t const epoch = static_cast<uint32_t>(bin) + 1;
@@ -255,7 +255,8 @@ void EmitLine(Isoline && line, IsolineFn const & fn)
     fn(std::move(line));
 }
 
-void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn, std::function<bool()> const & isCancelled)
+void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn,
+                   base::SharedCancellable const & isCancellable)
 {
   std::unordered_map<EdgeLevel, size_t, EdgeLevelHash> entries, exits;
   for (size_t i = 0; i < fragments.size(); ++i)
@@ -292,7 +293,7 @@ void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn, std:
   };
   for (size_t i = 0; i < fragments.size(); ++i)
   {
-    if (isCancelled && isCancelled())
+    if (isCancellable.IsCancelled())
       return;
     if (fragments[i].m_line.m_closed)
     {
@@ -304,7 +305,7 @@ void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn, std:
   }
   for (size_t i = 0; i < fragments.size(); ++i)
   {
-    if (isCancelled && isCancelled())
+    if (isCancellable.IsCancelled())
       return;
     if (!visited[i])
       walk(i);
@@ -313,31 +314,31 @@ void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn, std:
 }  // namespace
 
 void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
-                   std::function<bool()> const & isCancelled)
+                   base::SharedCancellable const & isCancellable)
 {
   ASSERT_GREATER(step, 0, ());
   TraceView(TinView(mesh, units), step, [&](Fragment && fragment) { EmitLine(std::move(fragment.m_line), fn); },
-            isCancelled);
+            isCancellable);
 }
 
 void TraceIsolines(TerrainData const & data, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
-                   std::function<bool()> const & isCancelled)
+                   base::SharedCancellable const & isCancellable)
 {
   ASSERT_GREATER(step, 0, ());
   if (data.m_rasterPatches.empty())
   {
-    TraceIsolines(data.m_mesh, step, units, fn, isCancelled);
+    TraceIsolines(data.m_mesh, step, units, fn, isCancellable);
     return;
   }
   std::vector<Fragment> fragments;
   auto const emit = [&](Fragment && fragment) { fragments.push_back(std::move(fragment)); };
-  TraceView(TinView(data.m_mesh, units), step, emit, isCancelled);
+  TraceView(TinView(data.m_mesh, units), step, emit, isCancellable);
   for (auto const & patch : data.m_rasterPatches)
   {
-    if (isCancelled && isCancelled())
+    if (isCancellable.IsCancelled())
       return;
-    TraceView(GridView(patch, units), step, emit, isCancelled);
+    TraceView(GridView(patch, units), step, emit, isCancellable);
   }
-  JoinFragments(fragments, fn, isCancelled);
+  JoinFragments(fragments, fn, isCancellable);
 }
 }  // namespace terrain

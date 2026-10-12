@@ -521,7 +521,7 @@ void RuleDrawer::DrawTerrain(MapDataProvider const & model)
     return;
 
   terrain::TerrainData data;
-  model.ReadTerrain(queryRect, m_zoomLevel, data, [this] { return CheckCancelled(); });
+  model.ReadTerrain(queryRect, m_zoomLevel, data, m_context->GetCancellable());
   if (CheckCancelled() || data.IsEmpty())
     return;
 
@@ -673,7 +673,7 @@ void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
   // deduplicated across features and blocks, so the smoothed per-vertex normals agree
   // along every seam. Triangles outside the tile still contribute to their vertices,
   // only the intersecting ones are emitted.
-  auto const jointNormals = terrain::CalculateTerrainNormals(data, zScale, [this] { return CheckCancelled(); });
+  auto const jointNormals = terrain::CalculateTerrainNormals(data, zScale, m_context->GetCancellable());
   if (CheckCancelled())
     return;
   auto const & normals = jointNormals.m_tin;
@@ -916,7 +916,7 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
       textIndex += static_cast<uint32_t>(shape->GetOffsets().size());
       m_applyParams.m_insertShape(std::move(shape));
     }
-  }, [this]() { return CheckCancelled(); });
+  }, m_context->GetCancellable());
 }
 
 #ifdef DRAW_TILE_NET

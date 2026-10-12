@@ -11,37 +11,42 @@ namespace terrain
 enum class RasterCodec : uint8_t
 {
   Raw = 0,
-  Sperr = 1  // Headerless 2D PWE, pinned SPERR profile 1.
+  // Headerless 2D PWE, pinned SPERR profile 1, followed by sparse perimeter corrections.
+  Sperr = 1,
+  SperrZlibBorder = 2  // Same SPERR frame, with zlib-compressed corrections.
 };
+
+// SPERR payload: frame length, frame, then correction bytes through the end of the record.
+// Corrections: varuint count, then packed varints with delta perimeter ordinal in the high bits
+// and ZigZag correction to DecodeSperr in the low three bits. Previous ordinal starts at zero.
 
 struct RasterRecord
 {
   uint32_t m_gridIndex = 0;
-  uint32_t m_firstColumn = 0, m_firstRow = 0;
-  uint32_t m_cellsX = 0, m_cellsY = 0;
+  // Row-major ordinal in the grid interior, excluding the one-cell TIN rim.
+  uint32_t m_patchIndex = 0;
+  // SPERR clamps reconstructed heights to the source range before rounding.
   Altitude m_minAltitude = 0, m_maxAltitude = 0;
-  uint32_t m_maxErrorMm = 3000;
   RasterCodec m_codec = RasterCodec::Raw;
-  uint64_t m_dataOffset = 0;
+  uint32_t m_dataOffset = 0;
   uint32_t m_dataLength = 0;
 
-  size_t GetNodesCount() const { return size_t{m_cellsX + 1} * (m_cellsY + 1); }
+  m2::RectU GetGridRect(MeshGrid const & grid) const;
   m2::RectD GetRect(MeshGrid const & grid, uint8_t coordBits) const;
-  void Validate(TwmHeader const & header, std::vector<MeshGrid> const & grids) const;
+  void Validate(TwmHeader const & header, MeshGrid const & grid) const;
 };
 
 template <typename Sink>
 void SerializeRasterRecord(Sink & sink, RasterRecord const & r)
 {
   WriteVarUint(sink, r.m_gridIndex);
-  WriteVarUint(sink, r.m_firstColumn);
-  WriteVarUint(sink, r.m_firstRow);
-  WriteVarUint(sink, r.m_cellsX);
-  WriteVarUint(sink, r.m_cellsY);
-  WriteVarInt(sink, int32_t{r.m_minAltitude});
-  WriteVarUint(sink, static_cast<uint32_t>(r.m_maxAltitude - r.m_minAltitude));
-  WriteVarUint(sink, r.m_maxErrorMm);
+  WriteVarUint(sink, r.m_patchIndex);
   WriteToSink(sink, static_cast<uint8_t>(r.m_codec));
+  if (r.m_codec != RasterCodec::Raw)
+  {
+    WriteVarInt(sink, int32_t{r.m_minAltitude});
+    WriteVarUint(sink, static_cast<uint32_t>(r.m_maxAltitude - r.m_minAltitude));
+  }
   WriteVarUint(sink, r.m_dataOffset);
   WriteVarUint(sink, r.m_dataLength);
 }
@@ -51,19 +56,18 @@ RasterRecord DeserializeRasterRecord(Source & src)
 {
   RasterRecord r;
   r.m_gridIndex = ReadVarUint<uint32_t>(src);
-  r.m_firstColumn = ReadVarUint<uint32_t>(src);
-  r.m_firstRow = ReadVarUint<uint32_t>(src);
-  r.m_cellsX = ReadVarUint<uint32_t>(src);
-  r.m_cellsY = ReadVarUint<uint32_t>(src);
-  int32_t const minimum = ReadVarInt<int32_t>(src);
-  int64_t const maximum = int64_t{minimum} + ReadVarUint<uint32_t>(src);
-  ASSERT_GREATER_OR_EQUAL(minimum, std::numeric_limits<Altitude>::min(), ());
-  ASSERT_LESS_OR_EQUAL(maximum, std::numeric_limits<Altitude>::max(), ());
-  r.m_minAltitude = static_cast<Altitude>(minimum);
-  r.m_maxAltitude = static_cast<Altitude>(maximum);
-  r.m_maxErrorMm = ReadVarUint<uint32_t>(src);
+  r.m_patchIndex = ReadVarUint<uint32_t>(src);
   r.m_codec = static_cast<RasterCodec>(ReadPrimitiveFromSource<uint8_t>(src));
-  r.m_dataOffset = ReadVarUint<uint64_t>(src);
+  if (r.m_codec != RasterCodec::Raw)
+  {
+    int32_t const minimum = ReadVarInt<int32_t>(src);
+    int64_t const maximum = int64_t{minimum} + ReadVarUint<uint32_t>(src);
+    ASSERT_GREATER_OR_EQUAL(minimum, std::numeric_limits<Altitude>::min(), ());
+    ASSERT_LESS_OR_EQUAL(maximum, std::numeric_limits<Altitude>::max(), ());
+    r.m_minAltitude = static_cast<Altitude>(minimum);
+    r.m_maxAltitude = static_cast<Altitude>(maximum);
+  }
+  r.m_dataOffset = ReadVarUint<uint32_t>(src);
   r.m_dataLength = ReadVarUint<uint32_t>(src);
   return r;
 }
@@ -92,6 +96,26 @@ struct RasterPatch
 };
 
 // Perimeter indices, counterclockwise from SW, each corner exactly once.
-std::vector<uint32_t> RasterPerimeter(uint32_t cellsX, uint32_t cellsY);
-std::vector<Altitude> DecodeRasterPayload(RasterRecord const & record, std::span<uint8_t const> payload);
+class RasterPerimeter
+{
+public:
+  RasterPerimeter(uint32_t cellsX, uint32_t cellsY)
+    : m_cellsX(cellsX)
+    , m_cellsY(cellsY)
+    , m_size(2 * cellsX + 2 * cellsY)
+  {
+    ASSERT(cellsX > 0 && cellsY > 0 && cellsX <= kMaxRasterCells && cellsY <= kMaxRasterCells, (cellsX, cellsY));
+  }
+
+  uint32_t Size() const { return m_size; }
+
+  uint32_t operator()(uint32_t ordinal) const;
+
+private:
+  uint32_t m_cellsX, m_cellsY;
+  uint32_t const m_size;
+};
+
+std::vector<Altitude> DecodeRasterPayload(RasterRecord const & record, std::span<uint8_t const> payload,
+                                          uint32_t cellsX, uint32_t cellsY);
 }  // namespace terrain

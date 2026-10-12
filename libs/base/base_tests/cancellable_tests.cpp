@@ -7,6 +7,7 @@
 #include <chrono>
 #include <cmath>
 #include <future>
+#include <thread>
 
 namespace cancellable_tests
 {
@@ -60,5 +61,51 @@ UNIT_TEST(Cancellable_Deadline)
   cancellable.Cancel();
   TEST(cancellable.IsCancelled(), ());
   TEST_EQUAL(cancellable.CancellationStatus(), Cancellable::Status::CancelCalled, ());
+}
+
+UNIT_TEST(SharedCancellable_CopiesShareCancellation)
+{
+  base::SharedCancellable cancellable;
+  auto copy = cancellable;
+  base::SharedCancellable const independent;
+  TEST(!cancellable.IsCancelled(), ());
+  TEST(!copy.IsCancelled(), ());
+
+  copy.Cancel();
+  TEST(cancellable.IsCancelled(), ());
+  TEST(copy.IsCancelled(), ());
+  TEST(!independent.IsCancelled(), ());
+}
+
+UNIT_TEST(SharedCancellable_CopyOutlivesOwner)
+{
+  base::SharedCancellable observer;
+  {
+    base::SharedCancellable owner;
+    observer = owner;
+    owner.Cancel();
+  }
+  TEST(observer.IsCancelled(), ());
+}
+
+UNIT_TEST(SharedCancellable_CancelAcrossThreads)
+{
+  base::SharedCancellable cancellable;
+  promise<void> started;
+  auto startedFuture = started.get_future();
+  promise<bool> observed;
+  auto observedFuture = observed.get_future();
+  threads::SimpleThread thread([token = cancellable, &started, &observed]
+  {
+    auto const deadline = chrono::steady_clock::now() + chrono::seconds(5);
+    started.set_value();
+    while (!token.IsCancelled() && chrono::steady_clock::now() < deadline)
+      this_thread::yield();
+    observed.set_value(token.IsCancelled());
+  });
+  startedFuture.wait();
+  cancellable.Cancel();
+  thread.join();
+  TEST(observedFuture.get(), ());
 }
 }  // namespace cancellable_tests

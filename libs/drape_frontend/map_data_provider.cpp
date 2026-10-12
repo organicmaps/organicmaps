@@ -45,9 +45,9 @@ bool MapDataProvider::HasTerrain(m2::RectD const & rect) const
 }
 
 void MapDataProvider::ReadTerrain(m2::RectD const & rect, int zoom, terrain::TerrainData & data,
-                                  std::function<bool()> const & isCancelled) const
+                                  base::SharedCancellable const & isCancellable) const
 {
-  m_readTerrain(rect, zoom, data, isCancelled);
+  m_readTerrain(rect, zoom, data, isCancellable);
 }
 
 MapDataProvider::TTileBackgroundReadFn MapDataProvider::ReadTileBackgroundFn() const

@@ -16,7 +16,7 @@ TerrainNormal Face(m2::PointD const & a, m2::PointD const & b, m2::PointD const 
 }  // namespace
 
 TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
-                                       std::function<bool()> const & isCancelled)
+                                       base::SharedCancellable const & isCancellable)
 {
   TerrainNormals result;
   auto const & mesh = data.m_mesh;
@@ -24,7 +24,7 @@ TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
   auto const & triangles = mesh.GetTriangles();
   for (size_t t = 0; t < triangles.size(); t += 3)
   {
-    if ((t % 3072 == 0) && isCancelled && isCancelled())
+    if ((t % 3072 == 0) && isCancellable.IsCancelled())
       return {};
     uint32_t const a = triangles[t], b = triangles[t + 1], c = triangles[t + 2];
     auto const n = Face(mesh.GetPoints()[a], mesh.GetPoints()[b], mesh.GetPoints()[c], mesh.GetAltitudes()[a],
@@ -37,9 +37,10 @@ TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
   std::unordered_map<uint64_t, TerrainNormal, impl::PointKeyHash> interface;
   for (auto const & patch : data.m_rasterPatches)
   {
-    if (isCancelled && isCancelled())
+    if (isCancellable.IsCancelled())
       return {};
-    auto & normals = result.m_raster.emplace_back(patch.m_heights.size());
+    result.m_raster.emplace_back(patch.m_heights.size());
+    auto & normals = result.m_raster.back();
     for (uint32_t t = 0; t < 2 * patch.CellsX() * patch.CellsY(); ++t)
     {
       auto const v = patch.Triangle(t);
@@ -48,8 +49,12 @@ TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
       for (auto const node : v)
         normals[node] += n;
     }
-    for (auto const node : RasterPerimeter(patch.CellsX(), patch.CellsY()))
+    RasterPerimeter const perimeter(patch.CellsX(), patch.CellsY());
+    for (uint32_t i = 0; i < perimeter.Size(); ++i)
+    {
+      auto const node = perimeter(i);
       interface[impl::PointKey(patch.PointU(node))] += normals[node];
+    }
   }
   for (size_t v = 0; v < result.m_tin.size(); ++v)
     if (auto it = interface.find(impl::PointKey(mesh.GetPointU(v))); it != interface.end())
@@ -60,8 +65,12 @@ TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
   for (size_t p = 0; p < data.m_rasterPatches.size(); ++p)
   {
     auto const & patch = data.m_rasterPatches[p];
-    for (auto const node : RasterPerimeter(patch.CellsX(), patch.CellsY()))
+    RasterPerimeter const perimeter(patch.CellsX(), patch.CellsY());
+    for (uint32_t i = 0; i < perimeter.Size(); ++i)
+    {
+      auto const node = perimeter(i);
       result.m_raster[p][node] = interface.at(impl::PointKey(patch.PointU(node)));
+    }
   }
   return result;
 }

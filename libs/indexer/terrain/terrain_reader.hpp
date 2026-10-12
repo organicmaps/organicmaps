@@ -8,9 +8,10 @@
 
 #include "geometry/rect2d.hpp"
 
-#include <cstdint>
-#include <functional>
-#include <memory>
+#include "base/cancellable.hpp"
+
+#include <optional>
+#include <string>
 #include <vector>
 
 namespace terrain
@@ -40,23 +41,21 @@ struct ReadStats
 class Reader
 {
 public:
-  explicit Reader(FilesContainerR const & container);
+  explicit Reader(std::string const & filePath);
 
   TwmHeader const & GetHeader() const { return m_header; }
-  // The lattice tables of the file meshes, indexed by FeatureRecord::m_meshIdx.
-  std::vector<MeshGrid> const & GetGrids() const { return m_grids; }
 
   // Decodes every feature intersecting the mercator rect at the given geometry scale
   // index, in the file order, straight into the tile mesh (see DecodeChains).
   // Use ReadTerrain for a hybrid raster LOD.
   void ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh) const;
   void ReadTerrain(m2::RectD const & rect, size_t geomIndex, TerrainData & data,
-                   std::function<bool()> const & isCancelled = {}, ReadStats * stats = nullptr) const;
+                   base::SharedCancellable const & isCancellable = {}, ReadStats * stats = nullptr) const;
   m2::PointD GetRasterHalo() const { return m_rasterHalo; }
 
 private:
   void ReadTin(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh,
-               std::function<bool()> const & isCancelled = {}, ReadStats * stats = nullptr) const;
+               base::SharedCancellable const & isCancellable = {}, ReadStats * stats = nullptr) const;
   FilesContainerR m_container;
   TwmHeader m_header;
   // Loaded upfront: small (0.03-0.34% of the file) and every feature needs its mesh tables.
@@ -64,8 +63,8 @@ private:
   // The entropy tables of the geometry sections, one per geometry scale, tiny and needed by
   // every geometry decode of their scale.
   std::vector<GeometryTables> m_tables;
-  std::unique_ptr<IntervalIndex<ModelReaderPtr, uint32_t>> m_index;
-  std::unique_ptr<IntervalIndex<ModelReaderPtr, uint32_t>> m_rasterIndex;
+  std::optional<IntervalIndex<ModelReaderPtr, uint32_t>> m_index;
+  std::optional<IntervalIndex<ModelReaderPtr, uint32_t>> m_rasterIndex;
   m2::PointD m_rasterHalo;
 };
 }  // namespace terrain

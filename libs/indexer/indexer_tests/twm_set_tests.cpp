@@ -9,6 +9,7 @@
 
 #include "coding/files_container.hpp"
 #include "coding/point_coding.hpp"
+#include "coding/varint.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
@@ -36,12 +37,14 @@ terrain::TwmFile WriteTerrainFile(std::string const & dir, int64_t version, std:
       header.Serialize(*writer);
     }
     {
-      terrain::MeshGrid grid;
-      grid.m_samplesPerDegree = 1;
-      grid.m_colX = {header.m_limitLB.x, header.m_limitRT.x};
-      grid.m_rowY = {header.m_limitLB.y, header.m_limitRT.y};
       auto writer = container.GetWriter(terrain::kGridTag);
-      terrain::SerializeGrid(*writer, {grid}, header.m_coordBits);
+      // Native V3: zero sample origins, one sample per degree, and two nodes per axis.
+      uint8_t const prefix[] = {0, 0, 1, 1, 1};
+      writer->Write(prefix, sizeof(prefix));
+      WriteVarUint(*writer, header.m_limitLB.y);
+      WriteVarUint(*writer, header.m_limitRT.y - header.m_limitLB.y);
+      WriteVarUint(*writer, header.m_limitLB.x);
+      WriteVarUint(*writer, header.m_limitRT.x - header.m_limitLB.x);
     }
     {
       auto writer = container.GetWriter(terrain::kFreqTag);
@@ -127,9 +130,9 @@ UNIT_TEST(TwmSet_ReplaceWhileOldHandleIsHeld)
     auto const [newId, result] = set.Register(newFile);
     TEST_EQUAL(result, terrain::TwmSet::RegResult::Success, (sameId));
     TEST_EQUAL(set.GetId(newFile.m_id), newId, (sameId));
-    std::vector<terrain::TwmId> visible;
+    terrain::TwmIds visible;
     set.GetBlocksByRect(newFile.m_rect, visible);
-    TEST_EQUAL(visible, (std::vector<terrain::TwmId>{newId}), (sameId));
+    TEST_EQUAL(visible, (terrain::TwmIds{newId}), (sameId));
     TEST(oldHandle.IsAlive(), (sameId));
     TEST(set.IsFileAlive(oldFile), (sameId));
     TEST(set.IsFileAlive(newFile), (sameId));
@@ -216,7 +219,7 @@ UNIT_TEST(TwmSet_ReregisterAfterReaderFailure)
   auto const file = WriteTerrainFile(dir, 1);
   {
     // The header remains readable, but constructing the full reader must fail.
-    auto const header = terrain::Reader(FilesContainerR(file.m_path)).GetHeader();
+    auto const header = terrain::Reader(file.m_path).GetHeader();
     FilesContainerW container(file.m_path);
     auto writer = container.GetWriter(terrain::kHeaderTag);
     header.Serialize(*writer);

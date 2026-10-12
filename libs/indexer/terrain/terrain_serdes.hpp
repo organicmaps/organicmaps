@@ -3,6 +3,7 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/terrain/tile_mesh.hpp"
 
+#include "coding/byte_stream.hpp"
 #include "coding/endianness.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
@@ -15,6 +16,7 @@
 
 #include "base/assert.hpp"
 #include "base/bits.hpp"
+#include "base/buffer_vector.hpp"
 #include "base/exception.hpp"
 #include "base/macros.hpp"
 
@@ -24,6 +26,7 @@
 #include <array>
 #include <cstdint>
 #include <cstring>
+#include <limits>
 #include <vector>
 
 namespace terrain
@@ -51,10 +54,9 @@ using Altitude = geometry::Altitude;
 // - kIndexTag: an interval index over the RectId cells covering the feature rects,
 //   mapping cell intervals to the FeatureRecord offsets (the MWM scale index scheme).
 //
-// The vertices lay on the geographic samples lattice of their mesh (the DEM grid, m_samplesPerDegree
-// samples per degree on both axes), so a geometry codes mesh-local (column, row) integer pairs and
-// the grid section maps them to the quantized mercator points. The mapping is separable - the
-// mercator x depends on the longitude only and y on the latitude only - so (gridWidth + 1) +
+// Vertices lie on their mesh's geographic DEM sample lattice. Geometry codes mesh-local
+// (column, row) integer pairs, and the grid section maps them to quantized mercator points.
+// The mapping is separable: mercator x depends only on longitude and y only on latitude, so (gridWidth + 1) +
 // (gridHeight + 1) table values replace the per-vertex projection: the deltas of the small lattice
 // ints are much cheaper than the deltas of the quantized points, the client needs no trigonometry,
 // and a vertex shared by two features, two meshes or two files still decodes to the identical
@@ -97,11 +99,13 @@ using Altitude = geometry::Altitude;
 // with one flat table lookup. The encode side of this codec is generator only and lives in
 // topography_generator/mesh/twm_encoder.hpp (GeometryCoders, the chain walk, the package merge).
 
+// The version byte stores the TIN version in its low nibble and the raster version in its high nibble.
+// Raster version 0 means a TIN-only file.
 uint8_t constexpr kTwmVersion = 3;
 uint8_t constexpr kOldestTwmVersion = 3;
-// Development hybrid format: the native v3 layout with raster sections.
-uint8_t constexpr kHybridTwmVersion = 254;
-uint8_t constexpr kRasterLayoutVersion = 1;
+uint8_t constexpr kRasterVersion = 1;
+uint8_t constexpr kHybridTwmVersion = kTwmVersion | (kRasterVersion << 4);
+static_assert(kTwmVersion < 16 && kRasterVersion < 16);
 uint32_t constexpr kMaxRasterCells = 128;
 size_t constexpr kMaxGeometryCount = 10;
 // The cell depth of the geometry index, the same as the MWM scale index uses.
@@ -140,17 +144,18 @@ struct TwmHeader
   uint8_t m_version = kTwmVersion;
   uint8_t m_coordBits = kTerrainCoordBits;
   // Ordered from the coarsest to the finest.
-  std::vector<Geometry> m_geometries;
+  buffer_vector<Geometry, kMaxGeometryCount> m_geometries;
   // The limit rect of all the TWM features, quantized.
   m2::PointU m_limitLB;
   m2::PointU m_limitRT;
   // The meshes merged into the file, one grid section entry each.
   uint32_t m_meshCount = 1;
-  uint8_t m_rasterLayout = 0;
-  uint8_t m_rasterGeometryIndex = 0;
   uint32_t m_rasterPatchCount = 0;
 
-  bool HasRaster(size_t geomIndex) const { return m_rasterPatchCount != 0 && geomIndex == m_rasterGeometryIndex; }
+  uint8_t GetTinVersion() const { return m_version & 0x0F; }
+  uint8_t GetRasterVersion() const { return m_version >> 4; }
+
+  bool HasRaster(size_t geomIndex) const { return m_rasterPatchCount != 0 && geomIndex == m_geometries.size() - 1; }
 
   size_t GetGeometryIndex(int scale) const
   {
@@ -171,7 +176,8 @@ struct TwmHeader
   {
     CHECK(m_limitLB.x <= m_limitRT.x && m_limitLB.y <= m_limitRT.y, ());
     CHECK(m_meshCount > 0 && m_meshCount <= kMaxMeshCount, (m_meshCount));
-    CHECK(m_version == kTwmVersion || m_version == kHybridTwmVersion, ());
+    CHECK_EQUAL(GetTinVersion(), kTwmVersion, ());
+    CHECK(GetRasterVersion() == 0 || GetRasterVersion() == kRasterVersion, (GetRasterVersion()));
     WriteToSink(sink, m_version);
     WriteToSink(sink, m_coordBits);
     WriteToSink(sink, static_cast<uint8_t>(m_geometries.size()));
@@ -185,13 +191,9 @@ struct TwmHeader
     WriteVarUint(sink, m_limitRT.x - m_limitLB.x);
     WriteVarUint(sink, m_limitRT.y - m_limitLB.y);
     WriteVarUint(sink, m_meshCount);
-    if (m_version == kHybridTwmVersion)
+    if (GetRasterVersion() != 0)
     {
-      CHECK_EQUAL(m_rasterLayout, kRasterLayoutVersion, ());
-      CHECK_EQUAL(size_t{m_rasterGeometryIndex} + 1, m_geometries.size(), ());
       CHECK_GREATER(m_rasterPatchCount, 0, ());
-      WriteToSink(sink, m_rasterLayout);
-      WriteToSink(sink, m_rasterGeometryIndex);
       WriteVarUint(sink, m_rasterPatchCount);
     }
     else
@@ -202,8 +204,10 @@ struct TwmHeader
   void Deserialize(Source & src)
   {
     m_version = ReadPrimitiveFromSource<uint8_t>(src);
-    if (m_version != kTwmVersion && m_version != kHybridTwmVersion)
-      MYTHROW(TwmException, ("Unsupported TWM version", m_version));
+    if (GetTinVersion() != kTwmVersion)
+      MYTHROW(TwmException, ("Unsupported TWM TIN version", GetTinVersion()));
+    if (GetRasterVersion() != 0 && GetRasterVersion() != kRasterVersion)
+      MYTHROW(TwmException, ("Unsupported TWM raster version", GetRasterVersion()));
     m_coordBits = ReadPrimitiveFromSource<uint8_t>(src);
     if (m_coordBits == 0 || m_coordBits > kPointCoordBits)
       MYTHROW(TwmException, ("Invalid coord bits", m_coordBits));
@@ -222,17 +226,12 @@ struct TwmHeader
     m_meshCount = ReadVarUint<uint32_t>(src);
     if (m_meshCount == 0 || m_meshCount > kMaxMeshCount)
       MYTHROW(TwmException, ("Invalid meshes count", m_meshCount));
-    m_rasterLayout = 0;
-    m_rasterGeometryIndex = 0;
     m_rasterPatchCount = 0;
-    if (m_version == kHybridTwmVersion)
+    if (GetRasterVersion() != 0)
     {
-      m_rasterLayout = ReadPrimitiveFromSource<uint8_t>(src);
-      m_rasterGeometryIndex = ReadPrimitiveFromSource<uint8_t>(src);
       m_rasterPatchCount = ReadVarUint<uint32_t>(src);
-      if (m_rasterLayout != kRasterLayoutVersion || size_t{m_rasterGeometryIndex} + 1 != m_geometries.size() ||
-          m_rasterPatchCount == 0)
-        MYTHROW(TwmException, ("Unsupported raster layout", m_rasterLayout, m_rasterGeometryIndex, m_rasterPatchCount));
+      if (m_rasterPatchCount == 0)
+        MYTHROW(TwmException, ("Empty raster patches list"));
     }
   }
 };
@@ -244,11 +243,6 @@ struct TwmHeader
 // map to the identical points.
 struct MeshGrid
 {
-  // The mesh south-west corner in the global lattice units, kept for the tools and the
-  // diagnostics: the decoder addresses the tables directly.
-  int32_t m_originLatSamples = 0;
-  int32_t m_originLonSamples = 0;
-  uint32_t m_samplesPerDegree = 0;
   // Quantized mercator x per lattice column and y per lattice row, strictly increasing.
   std::vector<uint32_t> m_colX;
   std::vector<uint32_t> m_rowY;
@@ -269,31 +263,8 @@ struct MeshGrid
 
 namespace impl
 {
-// A strictly increasing table, delta of delta coded: the lattice step of the mercator
-// projection changes slowly, so the second differences are tiny (one byte varints).
-template <typename Sink>
-void SerializeTable(Sink & sink, std::vector<uint32_t> const & table, uint8_t coordBits)
-{
-  CHECK(!table.empty(), ());
-  CHECK_LESS(table.back(), uint64_t{1} << coordBits, ());
-  WriteVarUint(sink, table.front());
-  if (table.size() == 1)
-    return;
-
-  CHECK_LESS(table[0], table[1], ());
-  int64_t prevDelta = int64_t{table[1]} - table[0];
-  WriteVarUint(sink, static_cast<uint32_t>(prevDelta));
-  for (size_t i = 2; i < table.size(); ++i)
-  {
-    CHECK_LESS(table[i - 1], table[i], (i));
-    int64_t const delta = int64_t{table[i]} - table[i - 1];
-    WriteVarInt(sink, delta - prevDelta);
-    prevDelta = delta;
-  }
-}
-
-template <typename Source>
-void DeserializeTable(Source & src, size_t count, uint8_t coordBits, std::vector<uint32_t> & table)
+// The first coordinate and step are unsigned; the remaining steps use signed second differences.
+inline void DeserializeTable(ArrayByteSource & src, size_t count, uint8_t coordBits, std::vector<uint32_t> & table)
 {
   ASSERT_GREATER(count, 0, ());
   auto const limit = static_cast<int64_t>(uint64_t{1} << coordBits);
@@ -307,62 +278,61 @@ void DeserializeTable(Source & src, size_t count, uint8_t coordBits, std::vector
     return;
 
   int64_t delta = ReadVarUint<uint32_t>(src);
-  for (size_t i = 1; i < count; ++i)
+  size_t i = 1;
+  auto const append = [&]
   {
-    if (i > 1)
-    {
-      // A valid delta is under the limit, so the second difference is bounded by it too.
-      int64_t const secondDelta = ReadVarInt<int64_t>(src);
-      ASSERT(secondDelta >= -limit && secondDelta <= limit, (i, secondDelta));
-      delta += secondDelta;
-    }
     ASSERT_GREATER(delta, 0, (i));
     value += delta;
     ASSERT_LESS(value, limit, (i));
-    table[i] = static_cast<uint32_t>(value);
-  }
+    table[i++] = static_cast<uint32_t>(value);
+  };
+  append();
+  ReadVarInt64Array(src, count - 2, [&](int64_t secondDelta)
+  {
+    ASSERT(secondDelta >= -limit && secondDelta <= limit, (i, secondDelta));
+    delta += secondDelta;
+    append();
+  });
 }
 }  // namespace impl
 
 // The grid section: the lattice tables of every mesh of the file, in the mesh index order.
-template <typename Sink>
-void SerializeGrid(Sink & sink, std::vector<MeshGrid> const & grids, uint8_t coordBits)
+// The legacy geographic prefix is consumed here and exposed only to generator diagnostics.
+template <typename Source, typename OnGrid>
+void DeserializeGrid(Source & source, TwmHeader const & header, std::vector<MeshGrid> & grids, OnGrid && onGrid)
 {
-  CHECK(!grids.empty() && grids.size() <= kMaxMeshCount, (grids.size()));
-  for (auto const & grid : grids)
+  auto const size = source.Size();
+  CHECK_LESS_OR_EQUAL(size, std::numeric_limits<size_t>::max(), ());
+  std::vector<uint8_t> buffer(static_cast<size_t>(size));
+  source.Read(buffer.data(), buffer.size());
+  ArrayByteSource src(buffer.data());
+  auto const end = buffer.data() + buffer.size();
+
+  grids.clear();
+  grids.resize(header.m_meshCount);
+  for (auto & grid : grids)
   {
-    CHECK(!grid.m_colX.empty() && !grid.m_rowY.empty(), ());
-    CHECK_GREATER(grid.m_samplesPerDegree, 0, ());
-    WriteVarInt(sink, grid.m_originLatSamples);
-    WriteVarInt(sink, grid.m_originLonSamples);
-    WriteVarUint(sink, grid.m_samplesPerDegree);
-    WriteVarUint(sink, grid.GetMax().x);
-    WriteVarUint(sink, grid.GetMax().y);
-    impl::SerializeTable(sink, grid.m_rowY, coordBits);
-    impl::SerializeTable(sink, grid.m_colX, coordBits);
+    int32_t const originLatSamples = ReadVarInt<int32_t>(src);
+    int32_t const originLonSamples = ReadVarInt<int32_t>(src);
+    uint32_t const samplesPerDegree = ReadVarUint<uint32_t>(src);
+    ASSERT_GREATER(samplesPerDegree, 0, ());
+
+    uint64_t const cols = uint64_t{ReadVarUint<uint32_t>(src)} + 1;
+    uint64_t const rows = uint64_t{ReadVarUint<uint32_t>(src)} + 1;
+    // Every table value takes at least one byte.
+    CHECK_LESS_OR_EQUAL(cols + rows, static_cast<uint64_t>(end - src.PtrUint8()), ());
+
+    impl::DeserializeTable(src, rows, header.m_coordBits, grid.m_rowY);
+    impl::DeserializeTable(src, cols, header.m_coordBits, grid.m_colX);
+    onGrid(grid, originLatSamples, originLonSamples, samplesPerDegree);
   }
+  ASSERT_EQUAL(src.Ptr(), static_cast<void const *>(end), ());
 }
 
 template <typename Source>
 void DeserializeGrid(Source & src, TwmHeader const & header, std::vector<MeshGrid> & grids)
 {
-  grids.clear();
-  grids.resize(header.m_meshCount);
-  for (auto & grid : grids)
-  {
-    grid.m_originLatSamples = ReadVarInt<int32_t>(src);
-    grid.m_originLonSamples = ReadVarInt<int32_t>(src);
-    grid.m_samplesPerDegree = ReadVarUint<uint32_t>(src);
-    ASSERT_GREATER(grid.m_samplesPerDegree, 0, ());
-
-    uint64_t const cols = uint64_t{ReadVarUint<uint32_t>(src)} + 1;
-    uint64_t const rows = uint64_t{ReadVarUint<uint32_t>(src)} + 1;
-    // Every table value takes at least one byte.
-    CHECK_LESS_OR_EQUAL(cols + rows, src.Size(), ());
-
-    impl::DeserializeTable(src, rows, header.m_coordBits, grid.m_rowY);
-    impl::DeserializeTable(src, cols, header.m_coordBits, grid.m_colX);
-  }
+  DeserializeGrid(src, header, grids, [](MeshGrid const &, int32_t, int32_t, uint32_t) {});
 }
 
 // The FeatureRecord of the features section: everything needed to cull a feature and locate
@@ -375,7 +345,7 @@ struct FeatureRecord
   m2::PointU m_rectRT;
   Altitude m_minAltitude = 0;
   Altitude m_maxAltitude = 0;
-  std::vector<uint64_t> m_geomOffsets;  // One offset into the kGeometryTags[g] section per geometry.
+  buffer_vector<uint64_t, kMaxGeometryCount> m_geomOffsets;  // One offset per geometry section.
 
   m2::RectD GetRect(uint8_t coordBits) const
   {
@@ -798,9 +768,8 @@ void DeserializeFreqs(Source & src, TwmHeader const & header, std::vector<Geomet
     scale.Deserialize(src);
 }
 
-// The working vectors of the geometry decoder. They are per feature, but one tile read decodes
-// hundreds of features, so the caller owns them for the whole read: the decoder clears them and
-// never shrinks them, and the pages of a tile are first touched once instead of once per feature.
+// Working vectors are reused for all features in one tile read.
+// Clearing between features retains capacity.
 struct GeometryScratch
 {
   // The DFS stack entry: the edge shared with the parent triangle and the parent vertex
@@ -891,9 +860,6 @@ void DecodeChains(Source & src, MeshGrid const & grid, GeometryTables const & ta
   lattice.reserve(reserved + 2);
   altitudes.reserve(reserved + 2);
   meshIndex.reserve(reserved + 2);
-  // The DFS stack holds the pending branches of one chain: shallow in practice.
-  size_t constexpr kStackReserve = 256;
-  stack.reserve(kStackReserve);
 
   auto const addVertex = [&](m2::PointU const & pt, int64_t alt) -> uint32_t
   {
