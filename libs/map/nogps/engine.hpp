@@ -117,14 +117,6 @@ public:
   static double constexpr kMaxAlongRoadDiffDeg = 30;
   // Closer to the previous position, the side the car has turned to is not known.
   static double constexpr kMinTurnDistanceM = 5;
-  // The finger of a driving user is tens of meters off: on October 11 the taps made on the move were 25-75 m from
-  // GPS, and on October 12 one put the mark on a road going 39 degrees aside of where the car drove, which lost
-  // the road in 6 s. A car this fast is on the move. If the road at its tap goes another way than it drives, the
-  // road going its way this close to the tap is taken; the mark looks strictly along it, as along any road. The
-  // next tap within the time is taken as it is: the user insists, e.g. the heading is what is wrong.
-  static int constexpr kMovingMarkSpeedKmh = 10;
-  static double constexpr kMovingMarkRadiusM = 25;
-  static int64_t constexpr kMovingMarkInsistMs = 10'000;
   // The position stopped at a turn is not moved further: the car can turn to another street there.
   // It is moved again after the car has really left the turn by this distance.
   static double constexpr kShiftBlockRadiusM = 10;
@@ -356,8 +348,6 @@ private:
   std::optional<int64_t> m_lastInertialUsedMs;
   // The car maneuvering off the roads as the map shows it now, see ShowOffRoadCar().
   std::optional<ms::LatLon> m_shownOffRoadCar;
-  // When the mark of a driving user was put on another road than the one at the tap, see kMovingMarkRadiusM.
-  std::optional<int64_t> m_movingMarkMs;
   // The motion source of the inertial navigation gave the car speed, the user is told when it stops.
   bool m_motionSourceWorked = false;
   std::optional<int64_t> m_motionSourceWarnedMs;

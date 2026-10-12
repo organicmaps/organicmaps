@@ -444,48 +444,6 @@ UNIT_TEST(NoGps_Engine_MarkLooksAlongRoadWhateverGyroscopeCounted)
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
-UNIT_TEST(NoGps_Engine_MarkOnTheMoveIsPutOnRoadGoingCarsWay)
-{
-  // The street going east, a street going north crosses it at 100 m.
-  PieceRoads roads({{-300, 0, 600, 0}, {100, -300, 100, 300}}, {{100, 0}});
-  Env env(true /* inertial */, &roads);
-  MarkCar(env, 0);
-  env.Drive(5000, 36, 0);
-  TestAlmostEqualAbs(*env.Last().m_bearingDeg, 90, 1);
-
-  // The car drives east, the finger of the user lands on the crossing street 12 m from the street of the car:
-  // the mark is on the street going the way the car drives, next to the finger.
-  TEST(env.m_engine.PlaceMarkByTap(At(100, 12)), ());
-  env.Drive(InertialNavigator::kOutputIntervalMs, 36, 0);
-  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.01);
-  TestAlmostEqualAbs(*env.Last().m_bearingDeg, 90, 0.01);
-  TestAlmostEqualAbs(East(env.Last().m_position), 102, 3);
-
-  // The user taps the crossing street again at once: the car has turned to it, whatever the gyroscope has counted.
-  env.Drive(2000, 36, 0);
-  TEST(env.m_engine.PlaceMarkByTap(At(100, 12)), ());
-  env.Drive(InertialNavigator::kOutputIntervalMs, 36, 0);
-  TestAlmostEqualAbs(East(env.Last().m_position), 100, 0.01);
-  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 0.01);
-
-  // No street goes the way of the car within 25 m of the tap: the mark is where the finger is.
-  env.m_engine.ReverseDirection();
-  env.Drive(15'000, 36, 0);
-  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 180), 0, 1);
-  TEST(env.m_engine.PlaceMarkByTap(At(40, 2)), ());
-  env.Drive(InertialNavigator::kOutputIntervalMs, 36, 0);
-  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.01);
-  double const bearing = *env.Last().m_bearingDeg;
-  TEST(std::fabs(AngleDiff(bearing, 90)) < 0.01 || std::fabs(AngleDiff(bearing, 270)) < 0.01, (bearing));
-
-  // A standing car is where the finger is: on the crossing street 12 m from the other one.
-  env.Drive(11'000, 0, 0);
-  TEST(env.m_engine.PlaceMarkByTap(At(100, 12)), ());
-  env.Drive(500, 0, 0);
-  TestAlmostEqualAbs(East(env.Last().m_position), 100, 0.01);
-  TestAlmostEqualAbs(North(env.Last().m_position), 12, 0.01);
-}
-
 UNIT_TEST(NoGps_Engine_MarkAheadOnBendComesBackToRoad)
 {
   // The street going east bends 25 degrees to the left at 100 m.
