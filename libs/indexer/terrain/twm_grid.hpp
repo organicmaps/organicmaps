@@ -5,9 +5,7 @@
 #include "base/math.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace terrain

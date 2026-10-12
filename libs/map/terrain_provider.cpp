@@ -79,19 +79,11 @@ void TerrainProvider::Clear()
   m_set.Clear();
 }
 
-void TerrainProvider::ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh) const
-{
-  TerrainData data(mesh.GetCoordBits());
-  ReadTerrain(rect, zoom, data);
-  ASSERT(data.m_rasterPatches.empty(), ("ReadMesh cannot read a raster LOD; use ReadTerrain"));
-  mesh = std::move(data.m_mesh);
-}
-
 void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData & data,
-                                  std::function<bool()> const & isCancelled) const
+                                  base::SharedCancellable const & isCancellable) const
 {
   data = TerrainData();
-  std::vector<TwmId> ids;
+  TwmIds ids;
   m_set.GetBlocksByRect(rect, ids);
   if (ids.empty())
     return;
@@ -99,13 +91,15 @@ void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData 
   m2::PointD halo(0, 0);
   for (auto const & id : ids)
   {
-    if (isCancelled && isCancelled())
+    if (isCancellable.IsCancelled())
       return;
+
     try
     {
       auto const handle = m_set.GetHandleById(id);
       if (!handle.IsAlive())
         continue;
+
       auto const & reader = handle.GetValue()->GetReader();
       auto const & header = reader.GetHeader();
       if (header.HasRaster(header.GetGeometryIndex(std::min(zoom, scales::GetUpperScale()))))
@@ -117,25 +111,29 @@ void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData 
     }
     catch (RootException const & ex)
     {
-      LOG(LERROR, ("Condemning the unreadable terrain block", id, ":", ex.Msg()));
+      LOG(LERROR, ("Error reading terrain block", id, ":", ex.Msg()));
       m_set.Condemn({id});
     }
   }
+
   auto query = rect;
   query.Inflate(halo.x, halo.y);
   if (!query.Intersect(mercator::Bounds::FullRect()))
     return;
   m_set.GetBlocksByRect(query, ids);
+
   uint8_t coordBits = 0;
   for (auto const & id : ids)
   {
-    if (isCancelled && isCancelled())
+    if (isCancellable.IsCancelled())
       return;
+
     try
     {
       auto const handle = m_set.GetHandleById(id);
       if (!handle.IsAlive())
         continue;
+
       auto const & reader = handle.GetValue()->GetReader();
       auto const bits = reader.GetHeader().m_coordBits;
       if (coordBits != 0 && bits != coordBits)
@@ -147,11 +145,13 @@ void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData 
       }
       size_t const geomIndex = reader.GetHeader().GetGeometryIndex(std::min(zoom, scales::GetUpperScale()));
       TerrainData decoded(bits);
-      reader.ReadTerrain(query, geomIndex, decoded, isCancelled);
-      if (isCancelled && isCancelled())
+      reader.ReadTerrain(query, geomIndex, decoded, isCancellable);
+
+      if (isCancellable.IsCancelled())
         return;
       if (decoded.IsEmpty())
         continue;
+
       // A failed file must not choose the coordinate configuration of its
       // healthy neighbors. Commit both the data and its bits only after decoding.
       if (coordBits == 0)
@@ -165,7 +165,7 @@ void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData 
     {
       // An unreadable block (e.g. an unsupported newer format) is condemned alone, the
       // neighbor blocks keep rendering. The deregistration is delayed past the handles.
-      LOG(LERROR, ("Condemning the unreadable terrain block", id, ":", ex.Msg()));
+      LOG(LERROR, ("Error reading terrain block", id, ":", ex.Msg()));
       m_set.Condemn({id});
     }
   }

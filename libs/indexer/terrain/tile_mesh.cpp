@@ -15,9 +15,11 @@ void TileMesh::ReserveAdditional(size_t vertices, size_t triangles)
     m_points.reserve(capacity);
     m_altitudes.reserve(capacity);
   }
+
   size_t const totalIndices = m_triangles.size() + 3 * triangles;
   if (totalIndices > m_triangles.capacity())
     m_triangles.reserve(std::max(totalIndices, 2 * m_triangles.capacity()));
+
   // The open addressing table rounds its buckets up to a power of two, no exact fit hazard.
   m_pointToIndex.reserve(totalPoints);
 }

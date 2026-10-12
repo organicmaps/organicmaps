@@ -38,7 +38,8 @@ auto sperr::CDF97::copy_data(const T* data, size_t len, dims_type dims) -> RTNTy
     m_aligned_buf = static_cast<double*>(sperr::aligned_malloc(alignment, m_aligned_buf_bytes));
   }
 
-  auto max_slice = std::max(std::max(dims[0] * dims[1], dims[0] * dims[2]), dims[1] * dims[2]);
+  // A 2D transform gathers one column, whereas 3D transforms also gather planes.
+  auto max_slice = dims[2] == 1 ? max_col : std::max(std::max(dims[0] * dims[1], dims[0] * dims[2]), dims[1] * dims[2]);
   if (max_slice > m_slice_buf.size())
     m_slice_buf.resize(max_slice);
 
@@ -65,7 +66,7 @@ auto sperr::CDF97::take_data(vecd_type&& buf, dims_type dims) -> RTNType
     m_aligned_buf = static_cast<double*>(sperr::aligned_malloc(alignment, m_aligned_buf_bytes));
   }
 
-  auto max_slice = std::max(std::max(dims[0] * dims[1], dims[0] * dims[2]), dims[1] * dims[2]);
+  auto max_slice = dims[2] == 1 ? max_col : std::max(std::max(dims[0] * dims[1], dims[0] * dims[2]), dims[1] * dims[2]);
   if (max_slice > m_slice_buf.size())
     m_slice_buf.resize(max_slice);
 

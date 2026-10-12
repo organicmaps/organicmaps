@@ -7,8 +7,6 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/files_container.hpp"
-
 #include "geometry/mercator.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -49,8 +47,7 @@ UNIT_TEST(TerrainIsolines_FlatPlainInvariants)
   if (path.empty())
     return;
 
-  FilesContainerR const container(path);
-  terrain::Reader const reader(container);
+  terrain::Reader const reader(path);
 
   m2::RectD const rect =
       mercator::RectByCenterXYAndSizeInMeters(reader.GetHeader().GetLimitRect().Center(), 3000.0 /* meters */);

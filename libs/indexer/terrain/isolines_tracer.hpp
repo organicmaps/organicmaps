@@ -7,6 +7,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/cancellable.hpp"
+
 #include <functional>
 #include <vector>
 
@@ -44,11 +46,11 @@ using IsolineFn = std::function<void(Isoline &&)>;
 // and the result levels are round values in the display units.
 // Chains are maximal: they close into rings or end on the collected mesh boundary, so
 // the mesh should be collected over an inflated rect if the isolines must cover it.
-// isCancelled (optional) is polled between the levels: a cancelled drape tile read
+// The cancellation flag is polled between the levels: a cancelled drape tile read
 // stops tracing instead of walking every remaining level of the mesh.
 void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
-                   std::function<bool()> const & isCancelled = {});
+                   base::SharedCancellable const & isCancellable = {});
 // Joins grid/TIN fragments by exact physical edges before smoothing/clipping.
 void TraceIsolines(TerrainData const & data, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
-                   std::function<bool()> const & isCancelled = {});
+                   base::SharedCancellable const & isCancellable = {});
 }  // namespace terrain

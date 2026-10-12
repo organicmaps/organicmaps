@@ -6,6 +6,7 @@
 
 #include "geometry/rect2d.hpp"
 
+#include "base/buffer_vector.hpp"
 #include "base/observer_list.hpp"
 
 #include <memory>
@@ -49,6 +50,8 @@ public:
   friend std::string DebugPrint(TwmId const & id);
 };
 
+using TwmIds = buffer_vector<TwmId, 4>;
+
 // The TwmSet events: registration status changes of the terrain files.
 struct TwmSetEvent
 {
@@ -84,7 +87,7 @@ private:
 class TwmValue
 {
 public:
-  explicit TwmValue(std::string const & filePath) : m_reader(FilesContainerR(filePath)) {}
+  explicit TwmValue(std::string const & filePath) : m_reader(filePath) {}
 
   Reader const & GetReader() const { return m_reader; }
 
@@ -148,7 +151,7 @@ public:
   /// so a query rect poking beyond the +-180 seam (a TileKey::GetWrappedDataRect of a tile
   /// straddling or beyond the antimeridian) matches its canonical intersection - the same
   /// clipping semantics the MWM feature index applies to such tile rects.
-  void GetBlocksByRect(m2::RectD const & rect, std::vector<TwmId> & ids) const;
+  void GetBlocksByRect(m2::RectD const & rect, TwmIds & ids) const;
   bool HasBlocks(m2::RectD const & rect) const;
   /// The limit rects of the registered blocks intersecting the mercator rect.
   void GetBlockRectsByRect(m2::RectD const & rect, std::vector<m2::RectD> & rects) const;

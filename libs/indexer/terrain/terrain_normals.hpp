@@ -2,7 +2,10 @@
 
 #include "indexer/terrain/terrain_data.hpp"
 
-#include <functional>
+#include "base/buffer_vector.hpp"
+#include "base/cancellable.hpp"
+
+#include <vector>
 
 namespace terrain
 {
@@ -21,11 +24,11 @@ struct TerrainNormal
 struct TerrainNormals
 {
   std::vector<TerrainNormal> m_tin;
-  std::vector<std::vector<TerrainNormal>> m_raster;
+  buffer_vector<std::vector<TerrainNormal>, 8> m_raster;
 };
 
 // Unnormalized area-weighted normals. Grid cells contribute once; only their
 // perimeter nodes are hashed to combine chunk and TIN-strip contributions.
 TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
-                                       std::function<bool()> const & isCancelled = {});
+                                       base::SharedCancellable const & isCancellable = {});
 }  // namespace terrain

@@ -6,6 +6,8 @@
 
 #include "geometry/rect2d.hpp"
 
+#include "base/cancellable.hpp"
+
 #include <functional>
 #include <vector>
 
@@ -47,9 +49,8 @@ public:
   // at the geometry scale selected for the draw zoom: the single source for the
   // hillshading and the isolines of a tile (see RuleDrawer::DrawTerrain). Called from
   // the drape tile reading threads.
-  void ReadMesh(m2::RectD const & rect, int zoom, TileMesh & mesh) const;
   void ReadTerrain(m2::RectD const & rect, int zoom, TerrainData & data,
-                   std::function<bool()> const & isCancelled = {}) const;
+                   base::SharedCancellable const & isCancellable = {}) const;
 
 private:
   void AddInvalidationRect(m2::RectD const & rect, m2::RectD & invalidRect) const;

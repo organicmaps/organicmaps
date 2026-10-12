@@ -81,7 +81,7 @@ TwmSet::RegResult TwmSet::ReadFile(std::string const & filePath, int64_t version
 {
   TwmHeader header;
   if (!ReadHeader(filePath, header))
-    return header.m_version < kOldestTwmVersion ? RegResult::ObsoleteVersion : RegResult::BadFile;
+    return header.GetTinVersion() < kOldestTwmVersion ? RegResult::ObsoleteVersion : RegResult::BadFile;
   file = {base::FilenameWithoutExt(base::FileNameFromFullPath(filePath)), version, filePath, header.GetLimitRect()};
   return RegResult::Success;
 }
@@ -143,7 +143,7 @@ void TwmSet::ForEachBlockByRectImpl(m2::RectD const & rect, Fn && fn) const
       fn(infos.back());
 }
 
-void TwmSet::GetBlocksByRect(m2::RectD const & rect, std::vector<TwmId> & ids) const
+void TwmSet::GetBlocksByRect(m2::RectD const & rect, TwmIds & ids) const
 {
   ids.clear();
   ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info) { ids.emplace_back(info); });
