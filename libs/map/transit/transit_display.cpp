@@ -737,18 +737,18 @@ void TransitRouteDisplay::CreateTransitMarks()
         titleTransitMark->SetPriority(UserMark::Priority::TransitTransfer);
       }
       df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
-      for (size_t sizeIndex = 0; sizeIndex < transferMarkerSizes.size(); ++sizeIndex)
+      int zoomLevel = 1;
+      for (auto const & sz : transferMarkerSizes)
       {
-        auto const zoomLevel = sizeIndex + 1;
-        auto const & sz = transferMarkerSizes[sizeIndex];
         df::ColoredSymbolViewParams params;
         params.m_radiusInPixels = std::max(sz.x, sz.y) * 0.5f;
         params.m_color = dp::Color::Transparent();
         if (coloredSymbol.m_zoomInfo.empty() ||
             coloredSymbol.m_zoomInfo.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
         {
-          coloredSymbol.m_zoomInfo.insert(std::make_pair(zoomLevel, params));
+          coloredSymbol.m_zoomInfo.emplace(zoomLevel, params);
         }
+        ++zoomLevel;
       }
       transitMark->SetColoredSymbols(coloredSymbol);
       transitMark->SetPriority(UserMark::Priority::TransitTransfer);
@@ -790,18 +790,18 @@ void TransitRouteDisplay::CreateTransitMarks()
       else
       {
         df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
-        for (size_t sizeIndex = 0; sizeIndex < stopMarkerSizes.size(); ++sizeIndex)
+        int zoomLevel = 1;
+        for (auto const & sz : stopMarkerSizes)
         {
-          auto const zoomLevel = sizeIndex + 1;
-          auto const & sz = stopMarkerSizes[sizeIndex];
           df::ColoredSymbolViewParams params;
           params.m_radiusInPixels = std::max(sz.x, sz.y) * 0.5f;
           params.m_color = dp::Color::Transparent();
           if (coloredSymbol.m_zoomInfo.empty() ||
               coloredSymbol.m_zoomInfo.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
           {
-            coloredSymbol.m_zoomInfo.insert(std::make_pair(zoomLevel, params));
+            coloredSymbol.m_zoomInfo.emplace(zoomLevel, params);
           }
+          ++zoomLevel;
         }
         transitMark->SetSymbolSizes(stopMarkerSizes);
         transitMark->SetColoredSymbols(coloredSymbol);

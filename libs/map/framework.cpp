@@ -62,6 +62,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
@@ -2048,7 +2049,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, loc
     ASSERT_LESS_OR_EQUAL(toRemove.first, toRemove.second, ());
     indicesRemove.reserve(toRemove.second - toRemove.first + 1);
     for (size_t i = toRemove.first; i <= toRemove.second; ++i)
-      indicesRemove.emplace_back(i);
+      indicesRemove.emplace_back(base::asserted_cast<uint32_t>(i));
   }
 
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));

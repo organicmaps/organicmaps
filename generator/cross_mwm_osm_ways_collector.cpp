@@ -9,6 +9,7 @@
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
@@ -95,7 +96,7 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
       else
         UNREACHABLE();
       prevPointIn = curPointIn;
-      crossMwmSegments.emplace_back(i - 1 /* segmentId */, forwardIsEnter);
+      crossMwmSegments.emplace_back(base::checked_cast<uint32_t>(i - 1) /* segmentId */, forwardIsEnter);
     }
 
     if (crossMwmSegments.empty())
