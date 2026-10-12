@@ -340,11 +340,14 @@ UNIT_TEST(NoGps_Engine_TurnAlongBranchIsNotMovedToNextCrossing)
 
 UNIT_TEST(NoGps_Engine_CarAtRoundaboutIsNotLost)
 {
-  for (bool roundabout : {true, false})
+  // The street the car leaves the roundabout by is where the car is, or 30 m to the left of it: the car came to
+  // the roundabout with its distance wrong by that much.
+  for (auto const & [roundabout, exitNorth] :
+       std::vector<std::pair<bool, double>>{{true, 7.5}, {false, 7.5}, {true, 37.5}, {false, 37.5}})
   {
-    // A street going east comes to a roundabout and leaves it 8 m to the north. The mark doesn't follow the circle
-    // of the map: here the circle has no pieces at all.
-    PieceRoads roads({{-300, 0, -30, 0}, {75, 7.5, 400, 7.5}}, {});
+    // A street going east comes to a roundabout and leaves it to the north of where it came. The mark doesn't
+    // follow the circle of the map: here the circle has no pieces at all.
+    PieceRoads roads({{-300, 0, -30, 0}, {75, exitNorth, 400, exitNorth}}, {});
     if (roundabout)
       roads.AddRoundabout(15, 0, 25);
     Env env(true /* inertial */, &roads);
@@ -371,7 +374,7 @@ UNIT_TEST(NoGps_Engine_CarAtRoundaboutIsNotLost)
     std::string const after = env.m_engine.GetTripLine();
     TEST(after.find(" road=1 ") != std::string::npos, (after));
     TEST(after.find(" ring=0") != std::string::npos, (after));
-    TestAlmostEqualAbs(North(env.Last().m_position), 7.5, 1);
+    TestAlmostEqualAbs(North(env.Last().m_position), exitNorth, 1);
     TEST_GREATER(East(env.Last().m_position), 75, ());
     TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 90), 0, 3);
   }

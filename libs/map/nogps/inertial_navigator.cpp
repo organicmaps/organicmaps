@@ -151,7 +151,7 @@ void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bear
   m_deadReckoning.SetPosition(position);
   SetRoadPoint(position);
   m_turning = false;
-  m_atRoundabout = false;
+  LeaveRoundabout();
   SetHeading(bearingDeg, HeadingSource::Road);
 }
 
@@ -338,14 +338,48 @@ void InertialNavigator::TrackOffRoad(double distanceM)
 
 void InertialNavigator::CheckRoundabout()
 {
-  bool const atRoundabout =
-      !m_onRoad && m_roads.IsRoundaboutNear(m_deadReckoning.GetPosition(), kRoundaboutRadiusM);
-  if (atRoundabout && !m_atRoundabout)
+  if (m_onRoad)
+  {
+    LeaveRoundabout();
+    return;
+  }
+  auto const position = m_deadReckoning.GetPosition();
+  if (m_roads.IsRoundaboutNear(position, kRoundaboutRadiusM))
+    m_roundaboutPathM = m_pathM;
+  bool const atRoundabout = m_roundaboutPathM && m_pathM - *m_roundaboutPathM <= kRoundaboutExitM;
+  if (!atRoundabout)
+  {
+    LeaveRoundabout();
+    return;
+  }
+  if (!m_atRoundabout)
   {
     LOG(LINFO, ("The car is off the roads at a roundabout after", std::round(m_offRoadM),
-                "m off them, it is not lost while it is there"));
+                "m off them, it is not lost until it has left it"));
   }
-  m_atRoundabout = atRoundabout;
+  m_atRoundabout = true;
+
+  // The road the car leaves the roundabout by.
+  double const heading = m_deadReckoning.GetHeading();
+  auto const road = m_roads.Snap(position, heading, kMaxSnapRadiusM);
+  if (!road || Distance(position, road->m_point) > kMaxSnapRadiusM)
+  {
+    m_exitCandidate.reset();
+    return;
+  }
+  if (!IsRoadConfirmed(*road, heading, m_exitCandidate))
+    return;
+  LOG(LINFO, ("The car has left the roundabout along a road", std::round(Distance(position, road->m_point)),
+              "m aside, it is put there"));
+  PutOnRoad(road->m_point, Orient(road->m_bearingDeg, heading));
+  LeaveRoundabout();
+}
+
+void InertialNavigator::LeaveRoundabout()
+{
+  m_atRoundabout = false;
+  m_roundaboutPathM.reset();
+  m_exitCandidate.reset();
 }
 
 void InertialNavigator::NotifyRoadLost()
@@ -576,21 +610,26 @@ void InertialNavigator::EndPauseByItself()
 
 bool InertialNavigator::IsRoadConfirmed(RoadPoint const & road, double headingDeg)
 {
+  return IsRoadConfirmed(road, headingDeg, m_roadCandidate);
+}
+
+bool InertialNavigator::IsRoadConfirmed(RoadPoint const & road, double headingDeg,
+                                        std::optional<RoadCandidate> & candidate)
+{
   double const bearing = Orient(road.m_bearingDeg, headingDeg);
   if (std::fabs(AngleDiff(bearing, headingDeg)) > DeadReckoning::kMaxSnapHeadingDiffDeg)
   {
-    m_roadCandidate.reset();
+    candidate.reset();
     return false;
   }
   // Another road, or the car has turned: it is counted anew.
-  if (!m_roadCandidate ||
-      std::fabs(AngleDiff(bearing, m_roadCandidate->m_bearingDeg)) > kMaxRoadConfirmBearingDiffDeg ||
-      std::fabs(AngleDiff(headingDeg, m_roadCandidate->m_headingDeg)) > kMaxRoadConfirmTurnDeg)
+  if (!candidate || std::fabs(AngleDiff(bearing, candidate->m_bearingDeg)) > kMaxRoadConfirmBearingDiffDeg ||
+      std::fabs(AngleDiff(headingDeg, candidate->m_headingDeg)) > kMaxRoadConfirmTurnDeg)
   {
-    m_roadCandidate = RoadCandidate{bearing, m_pathM, headingDeg};
+    candidate = RoadCandidate{bearing, m_pathM, headingDeg};
     return false;
   }
-  return m_pathM - m_roadCandidate->m_pathM >= kRoadConfirmM;
+  return m_pathM - candidate->m_pathM >= kRoadConfirmM;
 }
 
 void InertialNavigator::PutOnRoad(ms::LatLon const & point, double bearingDeg)

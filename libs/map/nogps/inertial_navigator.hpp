@@ -124,10 +124,15 @@ public:
   static double constexpr kMaxExtraTurnRotationDeg = 60;
   // A car driving around a roundabout is off the road of the map for a while: on a small circle a few meters of
   // the calculated distance are tens of degrees between the car and the road, and the car goes straight for a
-  // moment in the middle of it, which ends its turn. With a roundabout this close it is neither lost nor
-  // maneuvering: it is put on the road going its way as it leaves. On October 12 a car was stopped as lost 4 s
-  // before it left a roundabout the way it had driven in.
+  // moment in the middle of it, which ends its turn. With a roundabout this close, and for some distance after
+  // it, the car is neither lost nor maneuvering. On October 12 a car was stopped as lost 4 s before it left a
+  // roundabout the way it had driven in.
   static double constexpr kRoundaboutRadiusM = 30;
+  // The roads leaving a roundabout bend for tens of meters, and the car that came to it with the distance wrong
+  // by 20-30 m leaves it that far from its road. That trip driven again, the roundabout was 30 m behind and the
+  // car was lost 5 s before it went straight. It leaves a roundabout for this distance, and is put on the road
+  // going its way as far aside as a mark of the user is, after it has driven along it without turning.
+  static double constexpr kRoundaboutExitM = 100;
   // The pause is over when the car drives this fast for a while: nobody drives so fast backwards.
   static int constexpr kAutoResumeSpeedKmh = 15;
   static int64_t constexpr kAutoResumeMs = 3000;
@@ -336,8 +341,13 @@ private:
   void CheckBoxAccel();
   // Looks if the car that is not on a road is next to a roundabout.
   void CheckRoundabout();
+  void LeaveRoundabout();
   // The car paused by itself is put on the road it drives along, if there is one.
   void CheckBackOnRoad();
+  /// \returns true if the car has driven along the road far enough to be put on it. |candidate| is that road
+  /// while the car drives along it.
+  struct RoadCandidate;
+  bool IsRoadConfirmed(RoadPoint const & road, double headingDeg, std::optional<RoadCandidate> & candidate);
   /// \returns true if the maneuvering car has driven along the road far enough to be put on it.
   bool IsRoadConfirmed(RoadPoint const & road, double headingDeg);
   // The car is on the road: the maneuver is over.
@@ -372,8 +382,10 @@ private:
   // since then.
   std::optional<ms::LatLon> m_roadPoint;
   double m_offRoadM = 0;
-  // The car is off the roads next to a roundabout, see kRoundaboutRadiusM.
+  // The car is off the roads next to a roundabout or leaving it, see kRoundaboutRadiusM. What it had driven
+  // when the roundabout was next to it the last time, and the road it leaves the roundabout by, if it is found.
   bool m_atRoundabout = false;
+  std::optional<double> m_roundaboutPathM;
   // The car has left the roads and stands at the last road point until it is marked or GPS comes back.
   bool m_roadLost = false;
   int64_t m_roadLostNotifiedMs = 0;
@@ -458,6 +470,8 @@ private:
     double m_headingDeg;
   };
   std::optional<RoadCandidate> m_roadCandidate;
+  // The road the car leaves a roundabout by, see kRoundaboutExitM.
+  std::optional<RoadCandidate> m_exitCandidate;
   // All the car has driven, paused or not.
   double m_pathM = 0;
   // The way the car drives since its last start: 1 forward, -1 backward. A standing car is ready to drive forward.
