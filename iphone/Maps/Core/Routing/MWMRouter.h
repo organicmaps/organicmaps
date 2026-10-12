@@ -51,7 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray<NSString *> *)turnNotifications;
 
 + (void)addPoint:(MWMRoutePoint *)point;
-+ (void)removePoint:(MWMRoutePoint *)point;
 + (void)addPointAndRebuild:(MWMRoutePoint *)point;
 + (void)continueRouteToPointAndRebuild:(MWMRoutePoint *)point;
 + (void)removePointAndRebuild:(MWMRoutePoint *)point;

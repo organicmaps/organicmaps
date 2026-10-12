@@ -118,6 +118,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
     closeButton.setImage(UIImage(resource: .icSearchClear), for: .normal)
     closeButton.setStyle(.gray)
+    closeButton.accessibilityLabel = L("placepage_remove_stop")
     closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
   }
 
