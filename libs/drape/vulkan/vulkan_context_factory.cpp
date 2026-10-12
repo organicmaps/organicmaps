@@ -16,14 +16,14 @@ namespace vulkan
 {
 namespace
 {
-bool SupportsImageAcquireTimeout(int sdkVersion)
+uint64_t ImageAcquireTimeoutNanoseconds(int sdkVersion)
 {
 #if defined(OMIM_OS_ANDROID)
   // Android implemented finite vkAcquireNextImageKHR timeouts in API 30.
-  return sdkVersion >= 30;
+  return sdkVersion >= 30 ? 250'000'000 : UINT64_MAX;
 #else
   UNUSED_VALUE(sdkVersion);
-  return true;
+  return 250'000'000;
 #endif
 }
 
@@ -33,11 +33,11 @@ public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
                     ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, uint32_t appVersionCode,
-                    bool hasPartialTextureUpdates, bool supportsImageAcquireTimeout)
+                    bool hasPartialTextureUpdates, uint64_t imageAcquireTimeoutNanoseconds)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex,
                                     objectManager,
                                     make_unique_dp<dp::vulkan::VulkanPipeline>(device, gpuProperties, appVersionCode),
-                                    hasPartialTextureUpdates, supportsImageAcquireTimeout)
+                                    hasPartialTextureUpdates, imageAcquireTimeoutNanoseconds)
   {
     VkQueue queue;
     vkGetDeviceQueue(device, renderingQueueFamilyIndex, 0, &queue);
@@ -53,11 +53,9 @@ class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
 public:
   UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                       VkDevice device, uint32_t renderingQueueFamilyIndex,
-                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, bool hasPartialTextureUpdates,
-                      bool supportsImageAcquireTimeout)
+                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, bool hasPartialTextureUpdates)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex,
-                                    objectManager, nullptr /* pipeline */, hasPartialTextureUpdates,
-                                    supportsImageAcquireTimeout)
+                                    objectManager, nullptr /* pipeline */, hasPartialTextureUpdates)
   {}
 
   void MakeCurrent() override { m_objectManager->RegisterThread(dp::vulkan::VulkanObjectManager::Backend); }
@@ -246,14 +244,14 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
 
   bool const hasPartialTextureUpdates = !dp::SupportManager::Instance().IsVulkanTexturePartialUpdateBuggy(
       sdkVersion, gpuProperties.deviceName, apiVersion, driverVersion);
-  bool const supportsImageAcquireTimeout = SupportsImageAcquireTimeout(sdkVersion);
+  uint64_t const imageAcquireTimeoutNanoseconds = ImageAcquireTimeoutNanoseconds(sdkVersion);
 
   m_drawContext = make_unique_dp<DrawVulkanContext>(
       m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex, make_ref(m_objectManager),
-      appVersionCode, hasPartialTextureUpdates, supportsImageAcquireTimeout);
-  m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device,
-                                                        renderingQueueFamilyIndex, make_ref(m_objectManager),
-                                                        hasPartialTextureUpdates, supportsImageAcquireTimeout);
+      appVersionCode, hasPartialTextureUpdates, imageAcquireTimeoutNanoseconds);
+  m_uploadContext =
+      make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
+                                          make_ref(m_objectManager), hasPartialTextureUpdates);
 }
 
 VulkanContextFactory::~VulkanContextFactory()

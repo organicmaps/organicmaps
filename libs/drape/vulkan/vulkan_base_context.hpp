@@ -30,7 +30,7 @@ public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
                     drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
-                    bool supportsImageAcquireTimeout);
+                    uint64_t imageAcquireTimeoutNanoseconds = UINT64_MAX);
   ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
@@ -167,7 +167,7 @@ protected:
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
   bool const m_hasPartialTextureUpdates;
-  bool const m_supportsImageAcquireTimeout;
+  uint64_t const m_imageAcquireTimeoutNanoseconds;
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};

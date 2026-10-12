@@ -16,7 +16,6 @@ namespace
 {
 uint32_t constexpr kDefaultStagingBufferSizeInBytes = 3 * 1024 * 1024;
 uint64_t constexpr kFenceTimeoutNanoseconds = 2'000'000'000;
-uint64_t constexpr kImageAcquireTimeoutNanoseconds = 250'000'000;
 
 uint16_t PackAttachmentsOperations(VulkanBaseContext::AttachmentsOperations const & operations)
 {
@@ -35,14 +34,14 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
                                      VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
                                      uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
                                      drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
-                                     bool supportsImageAcquireTimeout)
+                                     uint64_t imageAcquireTimeoutNanoseconds)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
   , m_gpuProperties(gpuProperties)
   , m_device(device)
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
   , m_hasPartialTextureUpdates(hasPartialTextureUpdates)
-  , m_supportsImageAcquireTimeout(supportsImageAcquireTimeout)
+  , m_imageAcquireTimeoutNanoseconds(imageAcquireTimeoutNanoseconds)
   , m_objectManager(std::move(objectManager))
   , m_pipeline(std::move(pipeline))
   , m_presentAvailable(true)
@@ -188,10 +187,8 @@ FrameStatus VulkanBaseContext::BeginRendering()
   if (!m_presentAvailable)
     return FrameStatus::Suspended;
 
-  auto const acquireTimeout =
-      m_supportsImageAcquireTimeout ? kImageAcquireTimeoutNanoseconds : std::numeric_limits<uint64_t>::max();
-  res = vkAcquireNextImageKHR(m_device, m_swapchain, acquireTimeout, m_acquireSemaphores[m_inflightFrameIndex],
-                              VK_NULL_HANDLE, &m_imageIndex);
+  res = vkAcquireNextImageKHR(m_device, m_swapchain, m_imageAcquireTimeoutNanoseconds,
+                              m_acquireSemaphores[m_inflightFrameIndex], VK_NULL_HANDLE, &m_imageIndex);
   if (res == VK_TIMEOUT)
     return FrameStatus::RetryLater;
 
