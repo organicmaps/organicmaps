@@ -44110,14 +44110,6 @@ pl = Dostępne aktualizacje map: %d
 ru = Доступны обновления карт: %d
 uk = Доступні оновлення мап: %d
 
-[search_accessibility_expand]
-comment = VoiceOver label for the handle that expands the iOS search sheet.
-tags = apple-maps
-en = Expand search
-pl = Rozwiń wyszukiwanie
-ru = Развернуть поиск
-uk = Розгорнути пошук
-
 [search_accessibility_searching]
 comment = VoiceOver label for the progress indicator while iOS search is running.
 tags = apple-maps
@@ -44131,8 +44123,8 @@ comment = VoiceOver announcement after an iOS search completes. %d is the number
 tags = apple-maps
 en = Search results: %d
 pl = Wyniki wyszukiwania: %d
-ru = Результатов поиска: %d
-uk = Результатів пошуку: %d
+ru = Найдено результатов: %d
+uk = Знайдено результатів: %d
 
 [search_accessibility_distance]
 comment = VoiceOver value for the distance to a place in an iOS search result. %@ is a localized distance with unit.
