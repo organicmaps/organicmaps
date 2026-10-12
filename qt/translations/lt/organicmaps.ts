@@ -216,7 +216,7 @@
 <message id="share_open_in_om_or_browser">
 <extracomment>Shared email link text; opens the shared place in Organic Maps or in a web browser.</extracomment>
 <source>Open in Organic Maps or in a browser</source>
-<translation>Atidaryti „Organic Maps“ arba naršyklėje</translation>
+<translation>Atidaryti „Organic Maps“ programėlėje arba naršyklėje</translation>
 </message>
 <message id="share_get_om">
 <extracomment>Shared email link text; leads to the Organic Maps download page.</extracomment>

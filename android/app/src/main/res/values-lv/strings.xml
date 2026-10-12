@@ -152,7 +152,7 @@
     <string name="description">Piezīmes</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps ar jums tika dalītas grāmatzīmes</string>
-    <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!</string>
+    <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Organic Maps“!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ielādē grāmatzīmes</string>
     <!-- Kmz file successful loading -->

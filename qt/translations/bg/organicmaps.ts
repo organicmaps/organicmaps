@@ -48,7 +48,7 @@
 </message>
 <message id="about_menu_title">
 <source>About Organic Maps</source>
-<translation>За „Organic Maps“</translation>
+<translation>За Organic Maps</translation>
 </message>
 <message id="close">
 <source>Close</source>

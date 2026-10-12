@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!";
+"share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Organic Maps“!";
 
 /* message title of loading file */
 "load_kmz_title" = "Ielādē grāmatzīmes";
@@ -847,7 +847,7 @@
 "location_services_disabled_on_device_2" = "2. Atlasiet „Privātums“";
 "location_services_disabled_on_device_3" = "3. Atlasiet atrašanās vietas pakalpojumus";
 "location_services_disabled_on_device_4" = "4. Ieslēdziet atrašanāš vietas noteikšanas pakalpojumus";
-"location_services_disabled_on_device_additional_message" = "Vai turpiniet izmantot „Organic Maps“ bez vietas";
+"location_services_disabled_on_device_additional_message" = "Vai turpiniet izmantot „Organic Maps“ bez atrašanās vietas noteikšanas";
 "placepage_call_button" = "Zvanīt";
 "placepage_bookmark_name_hint" = "Grāmatzīmes nosaukums";
 "placepage_delete_bookmark_button" = "Dzēst grāmatzīmi";
@@ -858,7 +858,7 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vai izslēgt pēdējā noietā vai nobrauktā maršuta ierakstīšanu?";
 "off_recent_track_background_button" = "Izslēgt";
-"recent_track_background_dialog_message" = "„Organic Maps“ fonā izmantos ierīces atrašanās vietas datus, lai reģistrētu pēdējo noieto vai nobraukto maršrutu.";
+"recent_track_background_dialog_message" = "„Organic Maps“ fonā izmanto ierīces atrašanās vietas datus, lai reģistrētu pēdējo noieto vai nobraukto maršrutu.";
 "general_settings" = "Pamata iestatījumi";
 
 /* "traffic" as in road congestion */
