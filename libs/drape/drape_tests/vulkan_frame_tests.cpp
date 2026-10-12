@@ -21,6 +21,7 @@ T Handle(uintptr_t value)
 struct Calls
 {
   uintptr_t m_nextHandle = 100;
+  uint32_t m_imageCount = 3;
   VkResult m_acquireResult = VK_TIMEOUT;
   uint64_t m_acquireTimeout = 0;
   unsigned m_acquires = 0;
@@ -111,6 +112,33 @@ VKAPI_ATTR void VKAPI_CALL DestroySemaphore(VkDevice, VkSemaphore semaphore, VkA
   g_calls.m_destroyedSemaphores.push_back(semaphore);
 }
 
+VKAPI_ATTR VkResult VKAPI_CALL CreateSwapchain(VkDevice, VkSwapchainCreateInfoKHR const *,
+                                               VkAllocationCallbacks const *, VkSwapchainKHR * swapchain)
+{
+  *swapchain = Handle<VkSwapchainKHR>(g_calls.m_nextHandle++);
+  return VK_SUCCESS;
+}
+
+VKAPI_ATTR void VKAPI_CALL DestroySwapchain(VkDevice, VkSwapchainKHR, VkAllocationCallbacks const *) {}
+
+VKAPI_ATTR VkResult VKAPI_CALL GetSwapchainImages(VkDevice, VkSwapchainKHR, uint32_t * count, VkImage * images)
+{
+  if (images)
+    for (uint32_t i = 0; i < g_calls.m_imageCount; ++i)
+      images[i] = Handle<VkImage>(g_calls.m_nextHandle++);
+  *count = g_calls.m_imageCount;
+  return VK_SUCCESS;
+}
+
+VKAPI_ATTR VkResult VKAPI_CALL CreateImageView(VkDevice, VkImageViewCreateInfo const *, VkAllocationCallbacks const *,
+                                               VkImageView * view)
+{
+  *view = Handle<VkImageView>(g_calls.m_nextHandle++);
+  return VK_SUCCESS;
+}
+
+VKAPI_ATTR void VKAPI_CALL DestroyImageView(VkDevice, VkImageView, VkAllocationCallbacks const *) {}
+
 VKAPI_ATTR VkResult VKAPI_CALL CreateBuffer(VkDevice, VkBufferCreateInfo const *, VkAllocationCallbacks const *,
                                             VkBuffer * buffer)
 {
@@ -181,6 +209,11 @@ private:
   ScopedEntryPoint<PFN_vkQueuePresentKHR> m_present{vkQueuePresentKHR, &QueuePresent};
   ScopedEntryPoint<PFN_vkCreateSemaphore> m_createSemaphore{vkCreateSemaphore, &CreateSemaphore};
   ScopedEntryPoint<PFN_vkDestroySemaphore> m_destroySemaphore{vkDestroySemaphore, &DestroySemaphore};
+  ScopedEntryPoint<PFN_vkCreateSwapchainKHR> m_createSwapchain{vkCreateSwapchainKHR, &CreateSwapchain};
+  ScopedEntryPoint<PFN_vkDestroySwapchainKHR> m_destroySwapchain{vkDestroySwapchainKHR, &DestroySwapchain};
+  ScopedEntryPoint<PFN_vkGetSwapchainImagesKHR> m_images{vkGetSwapchainImagesKHR, &GetSwapchainImages};
+  ScopedEntryPoint<PFN_vkCreateImageView> m_createView{vkCreateImageView, &CreateImageView};
+  ScopedEntryPoint<PFN_vkDestroyImageView> m_destroyView{vkDestroyImageView, &DestroyImageView};
   ScopedEntryPoint<PFN_vkCreateBuffer> m_createBuffer{vkCreateBuffer, &CreateBuffer};
   ScopedEntryPoint<PFN_vkDestroyBuffer> m_destroyBuffer{vkDestroyBuffer, &DestroyBuffer};
   ScopedEntryPoint<PFN_vkGetBufferMemoryRequirements> m_requirements{vkGetBufferMemoryRequirements,
@@ -212,47 +245,78 @@ VkPhysicalDeviceMemoryProperties MemoryProperties()
   return properties;
 }
 
-class Context : public dp::vulkan::VulkanBaseContext
+// Exercise the acquisition contract of both stacked PRs independently of frame scheduling.
+template <typename BaseContext>
+class FrameContext : public BaseContext
 {
 public:
-  Context(ref_ptr<dp::vulkan::VulkanObjectManager> manager, bool supportsTimeout)
-    : VulkanBaseContext(VK_NULL_HANDLE, VK_NULL_HANDLE, {}, VK_NULL_HANDLE, 0, manager, nullptr, false, supportsTimeout)
+  FrameContext(ref_ptr<dp::vulkan::VulkanObjectManager> manager, bool supportsTimeout)
+    : BaseContext(VK_NULL_HANDLE, VK_NULL_HANDLE, {}, VK_NULL_HANDLE, 0, manager, nullptr, false,
+                  AcquireArgument(supportsTimeout))
   {
-    m_surface = Handle<VkSurfaceKHR>(1);
-    m_swapchain = Handle<VkSwapchainKHR>(2);
+    this->m_surface = Handle<VkSurfaceKHR>(1);
+    this->m_surfaceFormat = VkSurfaceFormatKHR{VK_FORMAT_R8G8B8A8_UNORM, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR};
+    this->m_surfaceCapabilities.minImageCount = 1;
+    this->m_surfaceCapabilities.currentExtent = {640, 480};
+    this->m_surfaceCapabilities.supportedTransforms = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR;
+    this->m_surfaceCapabilities.supportedCompositeAlpha = VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR;
     for (uint32_t i = 0; i < dp::vulkan::kMaxInflightFrames; ++i)
     {
-      m_fences[i] = Handle<VkFence>(10 + i);
-      m_acquireSemaphores[i] = Handle<VkSemaphore>(20 + i);
-      m_memoryCommandBuffers[i] = Handle<VkCommandBuffer>(30 + i);
-      m_renderingCommandBuffers[i] = Handle<VkCommandBuffer>(40 + i);
+      this->m_fences[i] = Handle<VkFence>(10 + i);
+      this->m_acquireSemaphores[i] = Handle<VkSemaphore>(20 + i);
+      this->m_memoryCommandBuffers[i] = Handle<VkCommandBuffer>(30 + i);
+      this->m_renderingCommandBuffers[i] = Handle<VkCommandBuffer>(40 + i);
     }
-    m_swapchainImages.resize(3);
-    CreateRenderSemaphores();
+    this->RecreateSwapchain();
   }
 
-  ~Context() override
+  ~FrameContext() override
   {
     // These handles are borrowed sentinels; presentation semaphores and staging buffers use mocked allocation.
-    m_swapchain = VK_NULL_HANDLE;
-    m_fences = {};
-    m_acquireSemaphores = {};
-    m_memoryCommandBuffers = {};
-    m_renderingCommandBuffers = {};
+    this->m_fences = {};
+    this->m_acquireSemaphores = {};
+    this->m_memoryCommandBuffers = {};
+    this->m_renderingCommandBuffers = {};
   }
 
   void MakeCurrent() override {}
-  void StartRenderPass() { m_isActiveRenderPass = true; }
-  VkFence FrameFence() const { return m_fences[m_inflightFrameIndex]; }
-  VkSemaphore AcquireSemaphore() const { return m_acquireSemaphores[m_inflightFrameIndex]; }
+  void StartRenderPass() { this->m_isActiveRenderPass = true; }
+  VkFence FrameFence() const { return this->m_fences[this->m_inflightFrameIndex]; }
+  VkSemaphore AcquireSemaphore() const { return this->m_acquireSemaphores[this->m_inflightFrameIndex]; }
 
   void RecreatePresentationSemaphores(uint32_t imageCount)
   {
-    DestroyRenderSemaphores();
-    m_swapchainImages.resize(imageCount);
-    CreateRenderSemaphores();
+    g_calls.m_imageCount = imageCount;
+    this->RecreateSwapchain();
+  }
+
+private:
+  static auto AcquireArgument(bool finite)
+  {
+    if constexpr (requires(FrameContext & context) { context.m_imageAcquireTimeoutNanoseconds; })
+      return finite ? uint64_t{250'000'000} : std::numeric_limits<uint64_t>::max();
+    else
+      return finite;
   }
 };
+
+using Context = FrameContext<dp::vulkan::VulkanBaseContext>;
+
+bool Ready(auto status)
+{
+  if constexpr (std::is_same_v<decltype(status), bool>)
+    return status;
+  else
+    return status == decltype(status)::Ready;
+}
+
+bool RetryLater(auto status)
+{
+  if constexpr (std::is_same_v<decltype(status), bool>)
+    return !status;
+  else
+    return status == decltype(status)::RetryLater;
+}
 
 UNIT_TEST(VulkanFrame_AcquisitionTimeoutPreservesFrameAndSynchronization)
 {
@@ -264,7 +328,7 @@ UNIT_TEST(VulkanFrame_AcquisitionTimeoutPreservesFrameAndSynchronization)
                           [&completedFrames](uint32_t) { ++completedFrames; });
 
   for (unsigned attempt = 0; attempt < 3; ++attempt)
-    TEST(context.BeginRendering() == dp::FrameStatus::RetryLater, ());
+    TEST(RetryLater(context.BeginRendering()), ());
 
   TEST_EQUAL(g_calls.m_acquires, 3, ());
   TEST_EQUAL(g_calls.m_acquireTimeout, 250'000'000, ());
@@ -282,7 +346,7 @@ UNIT_TEST(VulkanFrame_LegacyAcquisitionRetainsInfiniteTimeout)
 {
   VulkanCalls calls;
   Context context(nullptr, false);
-  TEST(context.BeginRendering() == dp::FrameStatus::RetryLater, ());
+  TEST(RetryLater(context.BeginRendering()), ());
   TEST_EQUAL(g_calls.m_acquireTimeout, std::numeric_limits<uint64_t>::max(), ());
 }
 
@@ -297,9 +361,9 @@ UNIT_TEST(VulkanFrame_TimeoutThenSuccessSubmitsAndPresentsAcquiredImage)
   auto const acquireSemaphore = context.AcquireSemaphore();
   auto const presentSemaphore = g_calls.m_createdSemaphores[2];
 
-  TEST(context.BeginRendering() == dp::FrameStatus::RetryLater, ());
+  TEST(RetryLater(context.BeginRendering()), ());
   g_calls.m_acquireResult = VK_SUCCESS;
-  TEST(context.BeginRendering() == dp::FrameStatus::Ready, ());
+  TEST(Ready(context.BeginRendering()), ());
   TEST_EQUAL(g_calls.m_fenceResets, 1, ());
   TEST(g_calls.m_resetFence == frameFence, ());
   TEST_EQUAL(g_calls.m_commandBegins, 2, ());

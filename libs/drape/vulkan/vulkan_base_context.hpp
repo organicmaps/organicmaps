@@ -146,8 +146,6 @@ protected:
 
   void CreateSyncPrimitives();
   void DestroySyncPrimitives();
-  void CreateRenderSemaphores();
-  void DestroyRenderSemaphores();
 
   void DestroyRenderPassAndFramebuffers();
   void DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer);
