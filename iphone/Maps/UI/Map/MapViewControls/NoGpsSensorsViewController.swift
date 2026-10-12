@@ -176,7 +176,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
   private func boxStateKey(_ state: NoGpsSourceState) -> String {
     switch state {
     case .disconnected: return "nogps_elm_disconnected"
-    case .connecting: return "nogps_box_bt_searching"
+    case .connecting: return boxSearchKey()
     case .noAdapter: return "nogps_elm_no_adapter"
     case .obdDisabled: return "nogps_box_obd_disabled"
     case .obdConnecting: return "nogps_box_obd_connecting"
@@ -185,6 +185,21 @@ final class NoGpsSensorsViewController: MWMTableViewController {
     case .boxSleeping: return "nogps_box_sleeping"
     case .obdSleeping: return "nogps_box_obd_sleeping"
     case .connected: return "nogps_elm_connected"
+    @unknown default: return "nogps_unknown"
+    }
+  }
+
+  /// The box is not heard yet: what the phone does to reach it.
+  private func boxSearchKey() -> String {
+    switch status.bleState {
+    case .noPermission: return "nogps_box_bt_no_permission"
+    // Off: the phone has no Bluetooth LE.
+    case .off, .disabled: return "nogps_box_bt_disabled"
+    case .searching: return "nogps_box_bt_searching"
+    case .pairingClosed: return "nogps_box_bt_pairing_closed"
+    case .connecting: return "nogps_box_bt_connecting"
+    case .pairing: return "nogps_box_bt_pairing"
+    case .connected: return "nogps_box_bt_waiting"
     @unknown default: return "nogps_unknown"
     }
   }

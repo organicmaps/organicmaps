@@ -680,6 +680,7 @@
 		FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BF226BC5DE50026D455 /* libshaders.a */; };
 		FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */; };
 		3AB2A51C1DF5ED4103358BAF /* MWMNoGps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */; };
+		9B5728946390BF79AAED06E1 /* Esp32BleTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */; };
 		CF816FBCBE80AAE1FFDC7E66 /* NoGpsControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */; };
 		11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -1827,6 +1828,7 @@
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 		B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNoGps.h; sourceTree = "<group>"; };
 		7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoGps.mm; sourceTree = "<group>"; };
+		0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Esp32BleTransport.swift; sourceTree = "<group>"; };
 		EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsControls.swift; sourceTree = "<group>"; };
 		FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsSensorsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -4196,6 +4198,7 @@
 			children = (
 				B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */,
 				7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */,
+				0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */,
 			);
 			path = NoGps;
 			sourceTree = "<group>";
@@ -4531,6 +4534,7 @@
 				CF816FBCBE80AAE1FFDC7E66 /* NoGpsControls.swift in Sources */,
 				11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */,
 				3AB2A51C1DF5ED4103358BAF /* MWMNoGps.mm in Sources */,
+				9B5728946390BF79AAED06E1 /* Esp32BleTransport.swift in Sources */,
 				ED82BCB22F900F8200FA103D /* main.mm in Sources */,
 				ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */,
 				ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */,

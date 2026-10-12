@@ -28,6 +28,23 @@ typedef NS_ENUM(NSInteger, MWMNoGpsSourceState) {
   MWMNoGpsSourceStateConnected,
 } NS_SWIFT_NAME(NoGpsSourceState);
 
+/// What the phone does to reach the ESP32 sensor box over Bluetooth LE.
+typedef NS_ENUM(NSInteger, MWMNoGpsBleState) {
+  // Not searched, or the phone has no Bluetooth LE.
+  MWMNoGpsBleStateOff,
+  MWMNoGpsBleStateNoPermission,
+  // Bluetooth is switched off on the phone.
+  MWMNoGpsBleStateDisabled,
+  MWMNoGpsBleStateSearching,
+  // A box is found, but it doesn't accept a new phone now.
+  MWMNoGpsBleStatePairingClosed,
+  MWMNoGpsBleStateConnecting,
+  // The system asks the user for the code of the box.
+  MWMNoGpsBleStatePairing,
+  // Subscribed to the lines of the box.
+  MWMNoGpsBleStateConnected,
+} NS_SWIFT_NAME(NoGpsBleState);
+
 typedef NS_ENUM(NSInteger, MWMNoGpsCalibrationState) {
   MWMNoGpsCalibrationStateNone,
   MWMNoGpsCalibrationStateCalibrating,
@@ -79,6 +96,7 @@ NS_SWIFT_NAME(NoGpsStatus)
 // The rest is known while the inertial navigation works.
 @property(nonatomic, readonly) BOOL inertialStarted;
 @property(nonatomic, readonly) MWMNoGpsSourceState sourceState;
+@property(nonatomic, readonly) MWMNoGpsBleState bleState;
 @property(nonatomic, readonly) NSString * deviceName;
 // Negative if unknown.
 @property(nonatomic, readonly) NSInteger speedKmh;
@@ -130,6 +148,10 @@ NS_SWIFT_NAME(NoGps)
 + (void)clearSpeedCalibration;
 + (void)cycleShiftStep;
 + (void)setShiftButtonsShown:(BOOL)shown;
+
+/// The bytes of the ESP32 sensor box and the state of the connection to it.
++ (void)onEsp32BleBytes:(NSData *)data;
++ (void)onEsp32BleState:(MWMNoGpsBleState)state;
 
 @end
 
