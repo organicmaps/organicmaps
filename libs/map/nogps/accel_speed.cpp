@@ -296,7 +296,7 @@ double AccelSpeed::GetRecentScale() const
 
 std::optional<double> AccelSpeed::GetAccelAlong(int64_t fromMs, int64_t toMs) const
 {
-  if (!IsUsable())
+  if (!IsDirectionKnown())
     return {};
   auto const accel = MeanAccel(fromMs, toMs);
   if (!accel)
@@ -311,10 +311,15 @@ std::optional<AccelSpeed::Vec3> AccelSpeed::GetDirection() const
   return m_direction;
 }
 
+bool AccelSpeed::IsDirectionKnown() const
+{
+  return m_hasDirection && m_n >= m_params.m_minSamples && m_correlation >= m_params.m_minCorrelation;
+}
+
 bool AccelSpeed::IsUsable() const
 {
-  if (!m_hasDirection || m_n < m_params.m_minSamples || m_correlation < m_params.m_minCorrelation ||
-      m_checkN < m_params.m_minCheckSamples || GetRecentCorrelation() < m_params.m_minRecentCorrelation)
+  if (!IsDirectionKnown() || m_checkN < m_params.m_minCheckSamples ||
+      GetRecentCorrelation() < m_params.m_minRecentCorrelation)
   {
     return false;
   }

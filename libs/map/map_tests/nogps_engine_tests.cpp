@@ -1274,6 +1274,83 @@ UNIT_TEST(NoGps_Engine_CarDrivingFastDoesNotDriveBack)
   TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 5);
 }
 
+UNIT_TEST(NoGps_Engine_CarStartingWithJerkBackDrivesForward)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, -450);
+  BoxCar car(env, -450, true /* accelerometer */);
+  car.SpeedUpAndBrake();
+  double const stoppedEast = East(env.Last().m_position);
+
+  // The car creeps forward, and its first jerk is felt as a start backward.
+  car.m_slopeMps2 = -2.5;
+  car.Drive(0.3, 1, 0);
+  car.m_slopeMps2 = 0;
+  car.Drive(1.6, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+
+  // It speeds up to 12 km/h, slower than a car that is known to drive forward by its speed. The accelerometer feels
+  // the speed the car reports, growing forward.
+  car.Drive(3, 1, 0);
+  car.Drive(2, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+  TEST_GREATER(East(env.Last().m_position), stoppedEast + 10, ());
+  TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 3);
+}
+
+UNIT_TEST(NoGps_Engine_CarDrivingBackAfterShortStopIsFollowed)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, -450);
+  BoxCar car(env, -450, true /* accelerometer */);
+  car.SpeedUpAndBrake();
+
+  // The car parks: 6 m forward, a stop of a second, which is too short to feel what the accelerometer feels
+  // standing, and 8 m backward.
+  car.Drive(2, 1, 0);
+  car.Drive(1, 0, 0);
+  car.Drive(2, -1, 0);
+  car.Drive(1, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+  car.Drive(2, -1, 0);
+  car.Drive(2, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+  car.Drive(2, 1, 0);
+  car.Drive(3, 0, 0);
+  TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 3);
+}
+
+UNIT_TEST(NoGps_Engine_AccelerometerIsNotLearnedFromManeuvers)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, -450);
+  BoxCar car(env, -450, true /* accelerometer */);
+  car.SpeedUpAndBrake();
+
+  // The car backs down a slope that begins where it stood: the accelerometer feels a start forward.
+  car.m_slopeMps2 = 3;
+  car.Drive(2, -1, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+  // It speeds up and brakes for a minute at 4-11 km/h, driving backwards: its speed grows while the accelerometer
+  // feels it braking.
+  car.Drive(1, -1, 0);
+  for (int i = 0; i < 15; ++i)
+  {
+    car.Drive(2, 1, 0);
+    car.Drive(2, -1, 0);
+  }
+  car.Drive(3, 1, 0);
+  car.Drive(5, 0, 0);
+
+  // The accelerometer still knows where the car looks: the next start backward is told.
+  car.Drive(2, -1, 0);
+  car.Drive(2, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+}
+
 UNIT_TEST(NoGps_Engine_ManualModeWhenGpsIsLostWhileNavigating)
 {
   Env env(false /* inertial */);

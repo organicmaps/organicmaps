@@ -86,10 +86,13 @@ public:
   std::optional<double> GetGain(int64_t nowMs) const;
 
   /// \returns the mean acceleration along the car in (fromMs, toMs] with its constant part, the gravity on a slope.
-  /// Nothing if the sensor doesn't follow the car or was silent for a part of the time.
+  /// Nothing if the direction along the car is not known or the sensor was silent for a part of the time.
   std::optional<double> GetAccelAlong(int64_t fromMs, int64_t toMs) const;
 
-  /// \returns true if the direction along the car is known and the sensor follows the car.
+  /// \returns true if the direction along the car is learned.
+  bool IsDirectionKnown() const;
+  /// \returns true if the direction along the car is known and the sensor follows the car in the last comparisons
+  /// as much as the car speed changes: it tells how much faster the car is, not only which way it speeds up.
   bool IsUsable() const;
   /// \returns the direction along the car in the axes of the sensor, nothing if it is not learned yet.
   std::optional<Vec3> GetDirection() const;

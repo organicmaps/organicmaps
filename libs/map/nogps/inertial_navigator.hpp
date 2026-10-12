@@ -156,8 +156,27 @@ public:
   // What the accelerometer feels while the car stands is taken from this time at most and at least.
   static int64_t constexpr kMaxStandFeltMs = 2000;
   static int64_t constexpr kMinStandFeltMs = 300;
+  // A car maneuvering at a parking place stands for a second between driving back and forth, too short to feel
+  // it standing: what was felt at its last longer stand is taken, while the car is about there and the slope
+  // under it is the same. On the trips checked every such start was within 20 s and 16 m of that stand.
+  static int64_t constexpr kKeepStandFeltMs = 30'000;
+  static double constexpr kKeepStandFeltM = 20;
+  // The first jerk of a start tells the wrong way sometimes, e.g. of a car rolling back before it starts uphill.
+  // For this long after the start the speed the accelerometer has felt is compared with the one the car reports,
+  // which is the speed of the lag ago. Felt clearly the other way for a while, the car drives the other way. Felt
+  // much faster than the car reports, it is the slope that has changed under the car: on a ramp going down a car
+  // driving forward is felt as driving backwards 3 s after its start, so only the first seconds tell that. On
+  // the trips of October 11-12 GPS has seen the way of 43 starts: 33 were told right before, 41 with this.
+  static int64_t constexpr kStartCheckMs = 4000;
+  static int64_t constexpr kStartCheckBackMs = 2000;
+  static int64_t constexpr kStartCheckHoldMs = 500;
+  static double constexpr kMinFeltSpeedRatio = 0.5;
+  static double constexpr kMaxFeltSpeedRatio = 2;
+  static double constexpr kMaxFeltSpeedExtraMps = 0.5;
   // The accelerometer is compared with the last seconds of the car speed, which has no sign: it is not learned
   // from and doesn't tell how much faster the car is while the car drives backwards and for this time after it.
+  // A start backward is not always told, so it is learned from at a speed nobody drives backwards at only: a
+  // parking maneuver has made it useless for the next 6 minutes of a trip.
   static int64_t constexpr kAccelAfterBackMs = 7000;
   // What is learned about the accelerometer of the box is saved this often.
   static int64_t constexpr kBoxAccelSaveMs = 60'000;
@@ -434,6 +453,15 @@ private:
   std::optional<int64_t> m_startMs;
   // The way of the start is told by the accelerometer already.
   bool m_startFelt = true;
+  // Until when the car stood for sure before that start.
+  int64_t m_startStandToMs = 0;
+  // What the accelerometer of the box has felt along the car standing, m/s2: at the last stand long enough to
+  // feel it, when that was and what the car had driven by then.
+  std::optional<double> m_standAccel;
+  int64_t m_standAccelMs = 0;
+  double m_standAccelPathM = 0;
+  // Since when the accelerometer feels the car driving the other way than it is known to drive.
+  std::optional<int64_t> m_otherWayMs;
   // Driven since the start, either way, and how far the mark of the car was moved for that.
   double m_startM = 0;
   double m_startMarkM = 0;
