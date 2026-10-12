@@ -451,6 +451,10 @@ public final class NoGps
 
   public static native void nativeTogglePause();
 
+  /// Drives a recorded trip again through a navigation of its own and writes its trip log to the file, for
+  /// debug builds. The input is made from a trip log by a script, see NoGpsReplay.cpp. Called on the UI thread.
+  public static native void nativeReplay(@NonNull String inputPath, @NonNull String outputPath);
+
   public static native void nativeSetGpsDisabled(boolean disabled);
 
   public static native void nativeSetInertialNavigationEnabled(boolean enabled);

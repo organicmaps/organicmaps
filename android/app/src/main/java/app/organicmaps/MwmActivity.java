@@ -222,10 +222,28 @@ public class MwmActivity extends BaseMwmFragmentActivity
     checkMeasurementSystem();
   }
 
+  // A debug build drives a recorded trip again when its file is put to the folder of the application, e.g. with
+  // adb, and writes the trip log of that drive next to it. See NoGpsReplay.cpp.
+  private void replayTripIfAsked()
+  {
+    final java.io.File dir = getExternalFilesDir(null);
+    if (dir == null)
+      return;
+    final java.io.File input = new java.io.File(dir, "nogps-replay-in.txt");
+    final java.io.File taken = new java.io.File(dir, "nogps-replay-running.txt");
+    if (!input.exists())
+      return;
+    taken.delete();
+    if (input.renameTo(taken))
+      NoGps.nativeReplay(taken.getAbsolutePath(), new java.io.File(dir, "nogps-replay-out.txt").getAbsolutePath());
+  }
+
   @Override
   @Keep
   public void onRenderingInitializationFinished()
   {
+    if (BuildConfig.DEBUG)
+      replayTripIfAsked();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
 
     Framework.nativeRestoreDownloadQueue();
