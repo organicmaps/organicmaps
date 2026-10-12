@@ -978,6 +978,26 @@ bool Engine::SetManualLocation(ms::LatLon const & position)
     return false;
   }
 
+  int64_t const now = m_clock.NowMs();
+  bool const insists = m_movingMarkMs && now - *m_movingMarkMs < kMovingMarkInsistMs;
+  m_movingMarkMs.reset();
+  if (!insists && heading && m_inertial && IsInertialNavigationEnabled() &&
+      m_inertial->GetSpeedKmh() >= kMovingMarkSpeedKmh &&
+      std::fabs(AngleDiff(Orient(road->m_bearingDeg, *heading), *heading)) > kMaxAlongRoadDiffDeg)
+  {
+    auto const along = m_map.GetRoads(m_map.IsNavigating()).Snap(position, *heading, kMovingMarkRadiusM);
+    if (along && Distance(position, along->m_point) <= kMovingMarkRadiusM &&
+        std::fabs(AngleDiff(Orient(along->m_bearingDeg, *heading), *heading)) <= kMaxAlongRoadDiffDeg)
+    {
+      LOG(LINFO, ("The road at the tap goes", std::round(road->m_bearingDeg), "and the car drives",
+                  std::round(*heading), "at", m_inertial->GetSpeedKmh(),
+                  "km/h: the mark is put on the road going its way",
+                  std::round(Distance(road->m_point, along->m_point)), "m from that one"));
+      road = RoadPoint{along->m_point, Orient(along->m_bearingDeg, *heading)};
+      m_movingMarkMs = now;
+    }
+  }
+
   Fix location;
   location.m_provider = Provider::Manual;
   location.m_position = road->m_point;
