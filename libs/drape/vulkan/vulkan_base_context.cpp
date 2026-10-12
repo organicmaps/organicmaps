@@ -197,15 +197,9 @@ FrameStatus VulkanBaseContext::BeginRendering()
   if (res == VK_TIMEOUT)
     return FrameStatus::RetryLater;
 
-  // VK_ERROR_SURFACE_LOST_KHR appears sometimes after getting foreground. We suppose rendering can be recovered
-  // next frame.
+  // Failed acquisition submits no GPU work and leaves this frame's synchronization reusable.
   if (res == VK_ERROR_SURFACE_LOST_KHR)
-  {
-    vkDeviceWaitIdle(m_device);
-    DestroySyncPrimitives();
-    CreateSyncPrimitives();
     return FrameStatus::RetryLater;
-  }
 
 #if defined(OMIM_OS_MAC)
   // MoltenVK returns VK_SUBOPTIMAL_KHR in our configuration, it means that window is not resized that's expected
