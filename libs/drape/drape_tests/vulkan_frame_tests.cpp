@@ -23,6 +23,7 @@ struct Calls
   uintptr_t m_nextHandle = 100;
   uint32_t m_imageCount = 3;
   VkResult m_acquireResult = VK_TIMEOUT;
+  VkResult m_presentResult = VK_SUCCESS;
   uint64_t m_acquireTimeout = 0;
   unsigned m_acquires = 0;
   unsigned m_idleWaits = 0;
@@ -96,7 +97,7 @@ VKAPI_ATTR VkResult VKAPI_CALL QueuePresent(VkQueue, VkPresentInfoKHR const * in
   TEST_EQUAL(info->swapchainCount, 1, ());
   g_calls.m_presentWaitSemaphore = info->pWaitSemaphores[0];
   g_calls.m_presentImage = info->pImageIndices[0];
-  return VK_SUCCESS;
+  return g_calls.m_presentResult;
 }
 
 VKAPI_ATTR VkResult VKAPI_CALL CreateSemaphore(VkDevice, VkSemaphoreCreateInfo const *, VkAllocationCallbacks const *,
@@ -409,5 +410,26 @@ UNIT_TEST(VulkanFrame_PresentationSemaphoresFollowImageCount)
   context.RecreatePresentationSemaphores(4);
   TEST(g_calls.m_destroyedSemaphores == previous, ());
   TEST_EQUAL(g_calls.m_createdSemaphores.size(), 7, ());
+}
+
+UNIT_TEST(VulkanFrame_PresentationSurfaceLossCompletesFrameAndRemainsRetryable)
+{
+  VulkanCalls calls;
+  dp::vulkan::VulkanObjectManager manager(VK_NULL_HANDLE, Limits(), MemoryProperties(), 0);
+  manager.RegisterThread(dp::vulkan::VulkanObjectManager::Frontend);
+  Context context(make_ref(&manager), true);
+  context.Init(dp::ApiVersion::Vulkan);
+  g_calls.m_acquireResult = VK_SUCCESS;
+  TEST(Ready(context.BeginRendering()), ());
+  context.StartRenderPass();
+  context.EndRendering();
+  g_calls.m_presentResult = VK_ERROR_SURFACE_LOST_KHR;
+  context.Present();
+  TEST_EQUAL(g_calls.m_presentImage, 2, ());
+  TEST_EQUAL(context.GetCurrentInflightFrameIndex(), 1, ());
+
+  g_calls.m_acquireResult = VK_ERROR_SURFACE_LOST_KHR;
+  TEST(RetryLater(context.BeginRendering()), ());
+  TEST_EQUAL(g_calls.m_idleWaits, 0, ());
 }
 }  // namespace vulkan_frame_tests
