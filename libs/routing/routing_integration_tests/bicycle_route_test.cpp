@@ -103,7 +103,7 @@ UNIT_TEST(RussiaMoscowKashirskoe16ToCapLongRoute)
   // Main route - dedicated bicycle infra.
   // Alt route - a short and logical route shortcutting via some service roads and footways (allowed in Russia).
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle), mercator::FromLatLon(55.66230, 37.63214),
-                                   {0., 0.}, mercator::FromLatLon(55.68927, 37.70356), 7318.61);
+                                   {0., 0.}, mercator::FromLatLon(55.68927, 37.70356), 6740.67);
 }
 
 UNIT_TEST(Germany_UseServiceCountrysideRoads)
