@@ -315,9 +315,6 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
   }
 }
 
-/// @todo "No speed camera found". Check how they are resolved.
-/// The closest one is on "Ленинский x Удальцова" in an opposite direction.
-
 // Mode: Always/Auto
 // ____Notification___|___beep____|_____Impact camera zone_____|
 // ----------------^  |  - We are here. Exceed speed limit.
@@ -326,38 +323,41 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
 //                    |    But it's soon to make beep signal.
 // ---------------------^ - Than we are here. Exceed speed limit.
 //                          We should here beep signal.
+// Ленинский проспект to the north-east, then its дублёр after улица Академика Пилюгина.
+// The camera (node 4655419991) is bound to the дублёр by geometry and has no maxspeed,
+// so IsSpeedHigh is true within 600 m before it. Positions are 650, 575 and 500 m before.
 UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_8)
 {
   for (auto const mode : {SpeedCameraManagerMode::Auto, SpeedCameraManagerMode::Always})
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.6754885, 37.5266064},  // from
-                       {55.6704386, 37.5191539},  // to
+    InitRoutingSession({55.6658702, 37.5129008},  // from
+                       {55.676012, 37.528425},    // to
                        routingSession, mode);
 
     {
       double const speedKmPH = 180.0;
-      ChangePosition({55.67533, 37.5264}, speedKmPH, routingSession);
+      ChangePosition({55.6694185, 37.5181668}, speedKmPH, routingSession);
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
     {
       double const speedKmPH = 180.0;
-      ChangePosition({55.6750679, 37.5259757}, speedKmPH, routingSession);
+      ChangePosition({55.6699373, 37.5189291}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
     {
       double const speedKmPH = 180.0;
-      ChangePosition({55.6750679, 37.5259757}, speedKmPH, routingSession);
+      ChangePosition({55.6699373, 37.5189291}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
     {
       double const speedKmPH = 180.0;
-      ChangePosition({55.6749048, 37.5257293}, speedKmPH, routingSession);
+      ChangePosition({55.6704547, 37.5196943}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::BeepSignalZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
