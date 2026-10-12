@@ -1,3 +1,13 @@
+private final class MapPointPickerDoneButton: UIButton {
+  override var accessibilityValue: String? {
+    get {
+      let center = FrameworkHelper.mercatorViewportCenter()
+      return FrameworkHelper.address(at: center) ?? FrameworkHelper.formattedCoordinates(at: center)
+    }
+    set { super.accessibilityValue = newValue }
+  }
+}
+
 @objcMembers
 final class MapPointPickerViewController: UIViewController {
   private enum Constants {
