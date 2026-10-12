@@ -26,6 +26,10 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   private final RecyclerView.Adapter<?> mHeaderAdapter;
   private ManageRouteAdapter mManageRouteAdapter;
   private ItemTouchHelper mTouchHelper;
+  // Point order when the staged reorder began, so an unchanged drop skips the rebuild. Non-null until that drop is
+  // committed or abandoned; panel edits are ignored meanwhile.
+  @Nullable
+  private ArrayList<RouteMarkData> mDragStartOrder;
   private final ManageRouteCallback mCallback;
 
   public interface ManageRouteCallback
@@ -72,33 +76,46 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     RoutingController.get().launchPlanning();
   }
 
+  private boolean isReordering()
+  {
+    return mDragStartOrder != null;
+  }
+
   public void refresh()
   {
-    // Resync the existing adapter with the native route points. Reusing the same adapter and touch helper
-    // preserves the scroll position and never tears down an in-progress drag.
+    if (isReordering())
+      return;
+    // Keep the adapter and touch helper attached so route changes retain the list's scroll position.
     mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
   }
 
   @Override
   public void startDrag(RecyclerView.ViewHolder viewHolder)
   {
-    // Start dragging.
-    mTouchHelper.startDrag(viewHolder);
+    if (!isReordering() && viewHolder.getBindingAdapterPosition() != RecyclerView.NO_POSITION)
+      mTouchHelper.startDrag(viewHolder);
   }
   @Override
   public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
   {
-    mManageRouteAdapter.deleteRoutePoint(viewHolder);
-    onRouteOrderChanged(mManageRouteAdapter.getRoutePoints());
+    final int position = viewHolder.getBindingAdapterPosition();
+    // Positions are invalid until the layout following a complete adapter refresh.
+    if (position == RecyclerView.NO_POSITION || isReordering())
+      return;
+    final RouteMarkData point = mManageRouteAdapter.getRoutePointAt(position);
+    RoutingController.get().removeStop(point.mPointType, point.mIntermediateIndex);
   }
   @Override
   public void onAddStopButtonClicked()
   {
-    mCallback.onAddStop();
+    if (!isReordering())
+      mCallback.onAddStop();
   }
   @Override
   public void onRoutePointClicked(int position)
   {
+    if (isReordering())
+      return;
     ArrayList<RouteMarkData> routePoints = mManageRouteAdapter.getRoutePoints();
     if (position < 0 || position >= routePoints.size())
     {
@@ -132,12 +149,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   {
     private final ManageRouteAdapter mManageRouteAdapter;
     private final ManageRouteController mController;
-    private boolean mOrderChanged = false;
-    // Snapshot of the route-point reference order captured when the drag starts. Used on drop to skip the
-    // native rebuild if the user dragged around but ended at the original order (e.g. picked up an item and
-    // dropped it back where it was).
-    @Nullable
-    private ArrayList<RouteMarkData> mDragStartOrder;
+    private int mDragGeneration;
 
     public ManageRouteItemTouchHelperCallback(ManageRouteAdapter adapter, ManageRouteController controller)
     {
@@ -170,7 +182,10 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     {
       if (viewHolder != null && actionState == ItemTouchHelper.ACTION_STATE_DRAG)
       {
-        mDragStartOrder = new ArrayList<>(mManageRouteAdapter.getRoutePoints());
+        ++mDragGeneration;
+        // Re-grabbing a recovering row continues the staged edit until its latest drop commits.
+        if (!mController.isReordering())
+          mController.mDragStartOrder = new ArrayList<>(mManageRouteAdapter.getRoutePoints());
         viewHolder.itemView.setTranslationX(-10f);
         viewHolder.itemView.setTranslationZ(6f);
       }
@@ -193,10 +208,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
                           @NonNull RecyclerView.ViewHolder target)
     {
-      if (target.getBindingAdapterPosition() == mManageRouteAdapter.getItemCount() - 1)
-        return false;
       mManageRouteAdapter.moveRoutePoint(viewHolder, target);
-      mOrderChanged = isOrderDifferentFromDragStart();
       return true;
     }
 
@@ -210,30 +222,31 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       super.clearView(recyclerView, viewHolder);
       viewHolder.itemView.setTranslationX(0f);
       viewHolder.itemView.setTranslationZ(0f);
-      if (mOrderChanged)
-      {
-        mOrderChanged = false;
-        // clearView can fire mid-layout, and the rebuild chain ends in notifyDataSetChanged (forbidden during
-        // layout) — post it past the layout pass. Snapshot the order: a queued refresh() may rewrite it first.
-        ArrayList<RouteMarkData> newOrder = new ArrayList<>(mManageRouteAdapter.getRoutePoints());
-        recyclerView.post(() -> mController.onRouteOrderChanged(newOrder));
-      }
-      mDragStartOrder = null;
+      if (!mController.isReordering())
+        return;
+      // Both committing and refreshing can notify the adapter; defer them past a layout callback.
+      final ArrayList<RouteMarkData> newOrder =
+          isOrderDifferentFromDragStart() ? new ArrayList<>(mManageRouteAdapter.getRoutePoints()) : null;
+      final int generation = mDragGeneration;
+      recyclerView.post(() -> {
+        if (generation != mDragGeneration || !mController.isReordering())
+          return;
+        mController.mDragStartOrder = null;
+        // A detached panel or cancelled routing has nothing to update.
+        if (!recyclerView.isAttachedToWindow() || !RoutingController.get().isPlanning())
+          return;
+        if (newOrder != null)
+          mController.onRouteOrderChanged(newOrder);
+        else
+          mController.refresh();
+      });
     }
 
     private boolean isOrderDifferentFromDragStart()
     {
-      if (mDragStartOrder == null)
-        return true;
-      ArrayList<RouteMarkData> current = mManageRouteAdapter.getRoutePoints();
-      if (current.size() != mDragStartOrder.size())
-        return true;
-      for (int i = 0; i < current.size(); i++)
-      {
-        if (current.get(i) != mDragStartOrder.get(i))
-          return true;
-      }
-      return false;
+      final ArrayList<RouteMarkData> start = mController.mDragStartOrder;
+      Assert.debug(start != null, "A drag must have its original point order");
+      return !mManageRouteAdapter.getRoutePoints().equals(start);
     }
   }
 }

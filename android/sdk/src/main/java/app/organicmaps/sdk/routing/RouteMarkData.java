@@ -44,10 +44,4 @@ public final class RouteMarkData
     mLat = lat;
     mLon = lon;
   }
-
-  public boolean equals(RouteMarkData other)
-  {
-    return mTitle != null && other.mTitle != null && mTitle.compareTo(other.mTitle) == 0 && mSubtitle != null
- && other.mSubtitle != null && mSubtitle.compareTo(other.mSubtitle) == 0;
-  }
 }
