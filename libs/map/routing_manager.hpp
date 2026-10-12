@@ -267,6 +267,8 @@ public:
   bool SnapToMainRoad(ms::LatLon const & latLon, double radiusM, ms::LatLon & snapped, double & bearingDeg);
   // Returns the points where three or more roads meet within |radiusM| of |center|.
   std::vector<ms::LatLon> FindRoadCrossings(ms::LatLon const & center, double radiusM) const;
+  // Returns true if a roundabout is within |radiusM| of |center|.
+  bool IsRoundaboutNear(ms::LatLon const & center, double radiusM) const;
   void CallRouteBuilded(routing::RouterResultCode code, storage::CountriesSet const & absentCountries);
   void OnBuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
   void OnRebuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);

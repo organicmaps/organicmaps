@@ -105,6 +105,11 @@ std::vector<ms::LatLon> RoutingMapApi::RoutingRoads::FindCrossings(ms::LatLon co
   return m_routing.FindRoadCrossings(center, radiusM);
 }
 
+bool RoutingMapApi::RoutingRoads::IsRoundaboutNear(ms::LatLon const & center, double radiusM)
+{
+  return m_routing.IsRoundaboutNear(center, radiusM);
+}
+
 RoutingMapApi::RoutingMapApi(RoutingManager & routing, Clock const & clock, ShowCarHeadingFn && showCarHeading,
                              ShowOffRoadCarFn && showOffRoadCar)
   : m_routing(routing)

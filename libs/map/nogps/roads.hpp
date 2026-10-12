@@ -26,5 +26,8 @@ public:
 
   /// \returns the points where three or more roads meet within |radiusM|.
   virtual std::vector<ms::LatLon> FindCrossings(ms::LatLon const & center, double radiusM) = 0;
+
+  /// \returns true if a roundabout is within |radiusM|.
+  virtual bool IsRoundaboutNear(ms::LatLon const & /* center */, double /* radiusM */) { return false; }
 };
 }  // namespace nogps

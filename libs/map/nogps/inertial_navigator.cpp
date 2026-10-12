@@ -151,6 +151,7 @@ void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bear
   m_deadReckoning.SetPosition(position);
   SetRoadPoint(position);
   m_turning = false;
+  m_atRoundabout = false;
   SetHeading(bearingDeg, HeadingSource::Road);
 }
 
@@ -315,8 +316,8 @@ void InertialNavigator::SetRoadPoint(ms::LatLon const & position)
 void InertialNavigator::TrackOffRoad(double distanceM)
 {
   // A turn is not counted: the car is aside from both roads for a while, and the turn is matched to its crossing
-  // afterwards.
-  if (m_onRoad || m_turning || !m_roadPoint || m_roadLost)
+  // afterwards. Nor is a roundabout.
+  if (m_onRoad || m_turning || m_atRoundabout || !m_roadPoint || m_roadLost)
     return;
   m_offRoadM += distanceM;
   m_offRoadMaxSpeedMps = std::max(m_offRoadMaxSpeedMps, m_deadReckoning.GetSpeed());
@@ -333,6 +334,18 @@ void InertialNavigator::TrackOffRoad(double distanceM)
   m_roadLost = true;
   m_deadReckoning.MoveTo(*m_roadPoint);
   NotifyRoadLost();
+}
+
+void InertialNavigator::CheckRoundabout()
+{
+  bool const atRoundabout =
+      !m_onRoad && m_roads.IsRoundaboutNear(m_deadReckoning.GetPosition(), kRoundaboutRadiusM);
+  if (atRoundabout && !m_atRoundabout)
+  {
+    LOG(LINFO, ("The car is off the roads at a roundabout after", std::round(m_offRoadM),
+                "m off them, it is not lost while it is there"));
+  }
+  m_atRoundabout = atRoundabout;
 }
 
 void InertialNavigator::NotifyRoadLost()
@@ -891,6 +904,7 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
   {
     m_lastSnapMs = now;
     SnapToRoad();
+    CheckRoundabout();
     if (m_onRoad && !m_turning && now - m_lastBendMatchMs >= kBendMatchIntervalMs)
     {
       m_lastBendMatchMs = now;

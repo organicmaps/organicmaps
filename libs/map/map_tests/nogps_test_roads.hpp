@@ -142,8 +142,20 @@ public:
     return result;
   }
 
+  /// A roundabout: a circle of the radius around the point. It has no pieces, a car is not snapped to it.
+  void AddRoundabout(double eastM, double northM, double radiusM) { m_roundabouts.push_back({eastM, northM, radiusM}); }
+
+  bool IsRoundaboutNear(ms::LatLon const & center, double radiusM) override
+  {
+    for (auto const & r : m_roundabouts)
+      if (std::fabs(std::hypot(East(center) - r[0], North(center) - r[1]) - r[2]) <= radiusM)
+        return true;
+    return false;
+  }
+
 private:
   std::vector<Piece> m_pieces;
   std::vector<std::pair<double, double>> m_crossings;
+  std::vector<std::array<double, 3>> m_roundabouts;
 };
 }  // namespace nogps_test

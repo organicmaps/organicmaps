@@ -338,6 +338,45 @@ UNIT_TEST(NoGps_Engine_TurnAlongBranchIsNotMovedToNextCrossing)
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
+UNIT_TEST(NoGps_Engine_CarAtRoundaboutIsNotLost)
+{
+  for (bool roundabout : {true, false})
+  {
+    // A street going east comes to a roundabout and leaves it 8 m to the north. The mark doesn't follow the circle
+    // of the map: here the circle has no pieces at all.
+    PieceRoads roads({{-300, 0, -30, 0}, {75, 7.5, 400, 7.5}}, {});
+    if (roundabout)
+      roads.AddRoundabout(15, 0, 25);
+    Env env(true /* inertial */, &roads);
+    MarkCar(env, -100);
+    env.Drive(8000, 27, 0);
+    TEST(env.m_engine.GetTripLine().find(" road=1 ") != std::string::npos, (env.m_engine.GetTripLine()));
+    // The car drives 7.5 m/s around the circle: to the right, to the left by 70 degrees, straight for 1.5 s, which
+    // ends its turn, and slowly to the right for 37 m, slower than a turn begins.
+    env.Drive(1000, 27, 45);
+    env.Drive(2000, 27, -35);
+    env.Drive(1500, 27, 0);
+    env.Drive(2500, 27, 5);
+    std::string const line = env.m_engine.GetTripLine();
+    TEST(line.find(" road=0 ") != std::string::npos, (line));
+    TEST_EQUAL(line.find(" ring=1") != std::string::npos, roundabout, (line));
+    env.Drive(2500, 27, 5);
+    env.Drive(4000, 27, 0);
+    // Without the roundabout a car driving so far off the roads is lost and stopped.
+    TEST_EQUAL(env.m_delegate.HasEvent(Event::RoadLost), !roundabout, ());
+    if (!roundabout)
+      continue;
+    // The car is on the street it has left the roundabout by.
+    TEST(!env.m_engine.GetStatus().m_paused, ());
+    std::string const after = env.m_engine.GetTripLine();
+    TEST(after.find(" road=1 ") != std::string::npos, (after));
+    TEST(after.find(" ring=0") != std::string::npos, (after));
+    TestAlmostEqualAbs(North(env.Last().m_position), 7.5, 1);
+    TEST_GREATER(East(env.Last().m_position), 75, ());
+    TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 90), 0, 3);
+  }
+}
+
 UNIT_TEST(NoGps_Engine_StopsCarThatLeftRoads)
 {
   Env env(true /* inertial */);

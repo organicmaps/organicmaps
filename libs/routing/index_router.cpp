@@ -576,6 +576,32 @@ bool IndexRouter::FindMainRoad(m2::PointD const & point, double radiusM, m2::Poi
   return true;
 }
 
+bool IndexRouter::IsRoundaboutNear(m2::PointD const & point, double radiusM)
+{
+  ClearPositionStateIfNeeded();
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, 2.0 * radiusM);
+  for (auto const & road : m_positionRoadGraph.FindRoads(rect, nullptr /* isGoodFeature */))
+  {
+    feature::TypesHolder types;
+    m_positionRoadGraph.GetFeatureTypes(road.m_featureId, types);
+    if (!ftypes::IsRoundAboutChecker::Instance()(types))
+      continue;
+    // The roads are found by their rectangles: a piece of this one is to be that close.
+    auto const & junctions = road.m_roadInfo.m_junctions;
+    for (size_t i = 0; i + 1 < junctions.size(); ++i)
+    {
+      auto const & start = junctions[i].GetPoint();
+      auto const & end = junctions[i + 1].GetPoint();
+      if (start == end)
+        continue;
+      auto const closest = m2::ParametrizedSegment<m2::PointD>(start, end).ClosestPointTo(point);
+      if (mercator::DistanceOnEarth(point, closest) <= radiusM)
+        return true;
+    }
+  }
+  return false;
+}
+
 bool IndexRouter::FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
                                 m2::PointD & projected, double & angleRad)
 {

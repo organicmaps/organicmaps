@@ -43,6 +43,7 @@ private:
 
     std::optional<RoadPoint> Snap(ms::LatLon const & point, std::optional<double> bearingDeg, double radiusM) override;
     std::vector<ms::LatLon> FindCrossings(ms::LatLon const & center, double radiusM) override;
+    bool IsRoundaboutNear(ms::LatLon const & center, double radiusM) override;
 
   private:
     RoutingManager & m_routing;
