@@ -12,6 +12,7 @@ final class SearchOnMapPresenter {
   }
 
   private var viewModel: ViewModel = .initial
+  private var isAwaitingSearchCompletion = false
   let shouldHideForRouting: Bool
   private var didChangeState: ((SearchOnMapState) -> Void)?
 
@@ -58,8 +59,20 @@ final class SearchOnMapPresenter {
       view?.render(newViewModel)
       searchState = newViewModel.presentationStep.searchState
     }
-    if case .showResults(let results, let isSearchCompleted) = response, isSearchCompleted {
-      view?.announceSearchResults(count: results.count)
+    switch response {
+    case .startSearching, .selectQuery:
+      isAwaitingSearchCompletion = true
+    case .clearSearch, .showHistoryAndCategory:
+      isAwaitingSearchCompletion = false
+    case .showResults(_, isSearchCompleted: true) where isAwaitingSearchCompletion:
+      isAwaitingSearchCompletion = false
+      if case .results(let results) = viewModel.contentState {
+        view?.announceSearchResults(count: results.count)
+      } else {
+        view?.announceSearchResults(count: 0)
+      }
+    default:
+      break
     }
   }
 
