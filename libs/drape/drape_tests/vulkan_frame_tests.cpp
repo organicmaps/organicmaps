@@ -350,6 +350,26 @@ UNIT_TEST(VulkanFrame_LegacyAcquisitionRetainsInfiniteTimeout)
   TEST_EQUAL(g_calls.m_acquireTimeout, std::numeric_limits<uint64_t>::max(), ());
 }
 
+UNIT_TEST(VulkanFrame_SurfaceLossPreservesSynchronization)
+{
+  VulkanCalls calls;
+  Context context(nullptr, true);
+  auto const frameFence = context.FrameFence();
+  auto const acquireSemaphore = context.AcquireSemaphore();
+  auto const semaphores = g_calls.m_createdSemaphores;
+  g_calls.m_acquireResult = VK_ERROR_SURFACE_LOST_KHR;
+
+  for (unsigned attempt = 0; attempt < 3; ++attempt)
+    TEST(RetryLater(context.BeginRendering()), ());
+
+  TEST_EQUAL(g_calls.m_idleWaits, 0, ());
+  TEST_EQUAL(g_calls.m_fenceResets, 0, ());
+  TEST(context.FrameFence() == frameFence, ());
+  TEST(context.AcquireSemaphore() == acquireSemaphore, ());
+  TEST(g_calls.m_createdSemaphores == semaphores, ());
+  TEST(g_calls.m_destroyedSemaphores.empty(), ());
+}
+
 UNIT_TEST(VulkanFrame_TimeoutThenSuccessSubmitsAndPresentsAcquiredImage)
 {
   VulkanCalls calls;
