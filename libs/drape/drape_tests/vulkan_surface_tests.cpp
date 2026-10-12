@@ -30,6 +30,16 @@ UNIT_TEST(VulkanSurface_FixedExtent)
   CheckExtent(Capabilities(), {800, 600}, {640, 480});
 }
 
+UNIT_TEST(VulkanSurface_CompositeAlphaUsesSupportedModes)
+{
+  for (auto const mode : {VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR, VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
+                          VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR, VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR})
+    TEST(dp::vulkan::ChooseCompositeAlpha(mode) == mode, ());
+  TEST(dp::vulkan::ChooseCompositeAlpha(VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR | VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR) ==
+           VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
+       ());
+}
+
 UNIT_TEST(VulkanSurface_UnspecifiedExtent)
 {
   auto capabilities = Capabilities();

@@ -35,6 +35,16 @@ VkExtent2D ChooseSurfaceExtent(VkSurfaceCapabilitiesKHR const & capabilities, Vk
           std::clamp(framebufferSize.height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height)};
 }
 
+VkCompositeAlphaFlagBitsKHR ChooseCompositeAlpha(VkCompositeAlphaFlagsKHR supported)
+{
+  for (auto const mode : {VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR, VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
+                          VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR, VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR})
+    if (supported & mode)
+      return mode;
+  UNREACHABLE();
+  return VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+}
+
 void DebugName::Init(VkInstance instance, VkDevice device)
 {
   vkSetDebugUtilsObjectNameEXT =
