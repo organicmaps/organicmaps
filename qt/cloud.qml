@@ -7,6 +7,7 @@ import Location
 Item {
     id: root
     required property MainWindow map
+    property bool windowIsVertical: root.height / root.width > 16 / 9
     Material.theme: map.nightMode
 
     component RoundOverayButton: RoundButton {
@@ -23,6 +24,7 @@ Item {
     AboutPopup {
         id: aboutPopup
         rootItem: root
+        windowIsVertical: root.windowIsVertical
         map: root.map
     }
 
@@ -47,9 +49,9 @@ Item {
             anchors.top: layersLabel.bottom
             property int totalChecked
 
-            width: root.height / root.width < 16 / 9 ?
-                       Math.min(implicitWidth, root.width - 2 * layersPopup.padding) :
-                       root.width - 2 * layersPopup.padding
+            width: root.windowIsVertical ?
+                       root.width - 2 * layersPopup.padding :
+                       Math.min(implicitWidth, root.width - 2 * layersPopup.padding)
 
             Repeater {
                 model: [
