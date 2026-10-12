@@ -1816,22 +1816,24 @@ void FrontendRenderer::RenderFrame()
   DrapeMeasurerGuard drapeMeasurerGuard;
 
   CHECK(m_context != nullptr, ());
-  if (!m_context->Validate())
-  {
-    m_frameData.m_forceFullRedrawNextFrame = true;
-    m_frameData.m_inactiveFramesCounter = 0;
-    return;
-  }
-
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
   m_frameData.m_timer.Reset();
 
   bool modelViewChanged, viewportChanged, needActiveFrame;
   ScreenBase const & modelView = ProcessEvents(modelViewChanged, viewportChanged, needActiveFrame);
+  bool const zoomChanged = modelViewChanged && ResolveZoomLevel(modelView);
+
+  if (!ValidateContext())
+  {
+    // The event stream consumes resize events even while presentation is unavailable.
+    m_needRestoreSize |= viewportChanged;
+    m_frameData.m_forceFullRedrawNextFrame = true;
+    m_frameData.m_inactiveFramesCounter = 0;
+    return;
+  }
+
   if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
-
-  bool const zoomChanged = modelViewChanged && ResolveZoomLevel(modelView);
 
 #ifdef SCENARIO_ENABLE
   if (m_scenarioViewportRequest)

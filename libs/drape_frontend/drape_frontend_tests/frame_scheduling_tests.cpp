@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "drape_frontend/base_renderer.hpp"
+#include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
 #include "drape/drape_tests/testing_graphics_context.hpp"
@@ -13,14 +14,20 @@ namespace frame_scheduling_tests
 {
 using namespace std::chrono_literals;
 
+class TestContext : public TestingGraphicsContext
+{
+public:
+  bool Validate() override { return m_valid; }
+  std::atomic<bool> m_valid = true;
+};
+
 class TestFactory : public dp::GraphicsContextFactory
 {
 public:
   dp::GraphicsContext * GetDrawContext() override { return &m_context; }
   dp::GraphicsContext * GetResourcesUploadContext() override { return &m_context; }
 
-private:
-  TestingGraphicsContext m_context;
+  TestContext m_context;
 };
 
 class TestRenderer : public df::BaseRenderer
@@ -33,7 +40,9 @@ public:
     : BaseRenderer(df::ThreadsCommutator::RenderThread,
                    Params(dp::ApiVersion::OpenGLES3, make_ref(&commutator), make_ref(&factory), nullptr, {}))
     , m_status(status)
-  {}
+  {
+    m_context = make_ref(factory.GetDrawContext());
+  }
 
   ~TestRenderer() override { Stop(); }
 
@@ -79,7 +88,10 @@ private:
   std::unique_ptr<threads::IRoutine> CreateRoutine() override { return std::make_unique<Routine>(*this); }
   void OnContextCreate() override {}
   void OnContextDestroy() override {}
-  void AcceptMessage(ref_ptr<df::Message>) override {}
+  void AcceptMessage(ref_ptr<df::Message> message) override
+  {
+    ref_ptr<df::NotifyRenderThreadMessage>(message)->InvokeFunctor();
+  }
 
   void RenderFrame() override
   {
@@ -88,6 +100,8 @@ private:
     auto const status = m_status.load();
     if (++m_attempts == 1)
       m_firstAttempt.set_value();
+    if (!ValidateContext())
+      return;
     if (status != dp::FrameStatus::Ready)
     {
       // A rebuilt swapchain or transient failure can recover without a platform event.
@@ -182,5 +196,30 @@ UNIT_TEST(FrameScheduling_ImmediateRetryPreservesCancellation)
   renderer.CancelMessageWaiting();
   waiter.get();
   TEST(status == std::future_status::ready, ());
+}
+
+UNIT_TEST(FrameScheduling_InvalidContextParksProcessesMessagesAndResumes)
+{
+  df::ThreadsCommutator commutator;
+  TestFactory factory;
+  factory.m_context.m_valid = false;
+  TestRenderer renderer(commutator, factory, dp::FrameStatus::Ready);
+  auto attempted = renderer.m_firstAttempt.get_future();
+  auto ready = renderer.m_frameReady.get_future();
+  renderer.Start();
+  TEST(attempted.wait_for(5s) == std::future_status::ready, ());
+  TEST(ready.wait_for(100ms) == std::future_status::timeout, ());
+  TEST_EQUAL(renderer.m_attempts.load(), 1, ());
+
+  std::promise<void> processed;
+  auto message = processed.get_future();
+  commutator.PostMessage(
+      df::ThreadsCommutator::RenderThread,
+      make_unique_dp<df::NotifyRenderThreadMessage>([&processed](uint64_t) { processed.set_value(); }, 0),
+      df::MessagePriority::Normal);
+  TEST(message.wait_for(5s) == std::future_status::ready, ());
+  factory.m_context.m_valid = true;
+  renderer.CancelMessageWaiting();
+  TEST(ready.wait_for(5s) == std::future_status::ready, ());
 }
 }  // namespace frame_scheduling_tests
