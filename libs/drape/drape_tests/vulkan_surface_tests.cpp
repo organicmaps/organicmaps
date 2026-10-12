@@ -116,7 +116,7 @@ public:
   void MakeCurrent() override {}
 
   TestContext()
-    : VulkanBaseContext(VK_NULL_HANDLE, VK_NULL_HANDLE, {}, VK_NULL_HANDLE, 0, nullptr, nullptr, false, true)
+    : VulkanBaseContext(VK_NULL_HANDLE, VK_NULL_HANDLE, {}, VK_NULL_HANDLE, 0, nullptr, nullptr, false, 250'000'000)
   {
     // A sentinel surface is enough: mocked entry points never use the handle.
     m_surface = VkSurfaceKHR{};
