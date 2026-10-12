@@ -28,6 +28,8 @@ TAP = re.compile(r'tap = ms::LatLon\((-?[\d.]+), (-?[\d.]+)\) location = ms::Lat
 SLICE_MS = 200
 # A break of the box data longer than this is another trip.
 MAX_STAND_FILL_MS = 600_000
+# The car standing before the first data of the box is driven again for this long at most.
+MAX_STAND_BEFORE_MS = 15_000
 
 
 def read(paths, day):
@@ -134,8 +136,10 @@ def make_input(args):
                 lost = total - total_before - sum(deltas)
                 if abs(lost) <= 0.2:
                     deltas = [d + lost / 5 for d in deltas]
+            # What the car has rotated since the previous line, if a line between them is lost.
+            between = total - sum(deltas) - total_before if total_before is not None else 0
             total_before = total
-            gyro_lines.append((ms, list(zip(deltas, speeds))))
+            gyro_lines.append((ms, [(d, v, between if i == 0 else 0) for i, (d, v) in enumerate(zip(deltas, speeds))]))
         elif text.startswith('ACCB_BEFORE '):
             parts = text.split()
             accel_lines.append((ms - int(parts[1]) * 1000, parts[2:7]))
@@ -241,23 +245,45 @@ def make_input(args):
         return (len(rows) >= (to_ms - from_ms) / 1000 * 0.8 - 1 and
                 all(number(f, 'speed', -1) >= 0 and f.get('src') != 'GPS' for f in rows))
 
+    def speed_at(ms):
+        i = bisect.bisect_right(trip_times, ms)
+        rows = [f for f in trips[max(0, i - 1):i + 1] if abs(f['ms'] - ms) <= 1500]
+        return max((int(number(f, 'speed', 0)) for f in rows), default=0)
+
     records = []  # (ms, order at the same time, text)
     previous = None
-    for at, duration, (delta, speed) in gyro:
+    for at, duration, (delta, speed, between) in gyro:
         if not (start <= at <= end):
             continue
         gap = at - duration - previous if previous is not None else None
         if gap is None or gap > MAX_STAND_FILL_MS or (gap > 2 * SLICE_MS and not stands(previous, at - duration)):
-            # Nothing has come from the box meanwhile.
-            records.append((at - duration, 5, 'J %d' % round(at - duration)))
+            # Nothing has come from the box meanwhile. Then the car stood for some seconds before it moved: a
+            # standing car is not written, but how long it stood tells which way it starts.
+            begin = at - duration
+            i = bisect.bisect_right(trip_times, begin) - 1
+            while (i >= 0 and begin - trips[i]['ms'] <= MAX_STAND_BEFORE_MS and trips[i].get('speed') == '0' and
+                   (previous is None or trips[i]['ms'] > previous)):
+                i -= 1
+            stood_from = trips[i + 1]['ms'] if i + 1 < len(trips) and trips[i + 1]['ms'] < begin else begin
+            records.append((stood_from, 5, 'J %d' % round(stood_from)))
+            count = round((begin - stood_from) / SLICE_MS)
+            for k in range(count):
+                t = stood_from + (begin - stood_from) * (k + 1) / count
+                a = accel_at(t, 3000)
+                records.append((t, 5, 'B %d %d 0 0 %s %s' % (round(t), round((begin - stood_from) / count),
+                                                             flags_at(t), '%d %d %d' % a if a else '-')))
         elif gap > SLICE_MS / 2:
-            # The car stood: nothing is written about the box then.
+            # Nothing is written about the box while the car stands. A second of a driving car is lost from the
+            # log now and then: the car has driven on with the speed of the trip line of that second, and has
+            # rotated as much as the total rotation tells.
             count = max(1, round(gap / SLICE_MS))
+            moves = gap <= 10_000 and any(speed_at(previous + gap * (i + 1) / count) > 0 for i in range(count))
             for i in range(count):
                 t = previous + gap * (i + 1) / count
                 a = accel_at(t, 3000)
-                records.append((t, 5, 'B %d %d 0 0 %s %s' % (round(t), round(gap / count), flags_at(t),
-                                                             '%d %d %d' % a if a else '-')))
+                records.append((t, 5, 'B %d %d %d %d %s %s' % (
+                    round(t), round(gap / count), round(between * 1000 / count) if moves else 0,
+                    speed_at(t) if moves else 0, flags_at(t), '%d %d %d' % a if a else '-')))
         a = accel_at(at, 150) or accel_at(at, 3000)
         records.append((at, 5, 'B %d %d %d %d %s %s' % (round(at), round(duration), round(delta * 1000), speed,
                                                         flags_at(at), '%d %d %d' % a if a else '-')))
