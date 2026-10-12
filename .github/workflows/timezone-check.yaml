@@ -2,7 +2,7 @@ name: Timezone check
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - '.github/workflows/timezone-check.yaml'
       - 'data/generator/timezone/timezone_info.json'

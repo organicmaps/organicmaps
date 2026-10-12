@@ -3,7 +3,7 @@ on:
   workflow_dispatch: # Manual trigger
   push:
     branches:
-      - master
+      - main
   pull_request:
     paths-ignore:
       - .gitignore
@@ -19,19 +19,18 @@ on:
       - iphone/**
       - data/organic_maps_emoji/**
       - data/strings/**
+      - dev_sandbox/**
       - docs/**
       - generator/**
+      - libs/platform/*apple*
+      - libs/platform/*_ios*
+      - libs/platform/*_linux*
+      - libs/platform/*_mac*
+      - libs/platform/*qt*
+      - libs/platform/*_win*
       - packaging/**
-      - platform/*apple*
-      - platform/*_ios*
-      - platform/*_linux*
-      - platform/*_mac*
-      - platform/*qt*
-      - platform/*_win*
       - qt*/**
-      - skin_generator/**
       - tools/**
-      - track_generator/**
       - xcode/**
 
 env:
@@ -83,7 +82,7 @@ jobs:
           - flavor: FdroidDebug
             arch: arm32
     # Cancels previous jobs if the same branch or PR was updated again.
-    # Only cancel PR runs: master runs must finish to populate the shared ccache.
+    # Only cancel PR runs: main runs must finish to populate the shared ccache.
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.flavor }}-${{ github.event.pull_request.number || github.ref }}
       cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -109,9 +108,9 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ github.workflow }}-${{ matrix.flavor }}
-          # Restore-only on PRs: master populates the shared cache, PRs read it.
-          # Avoids overflowing the 10GB repo limit, which evicts master's caches.
-          save: ${{ github.ref == 'refs/heads/master' }}
+          # Restore-only on PRs: main populates the shared cache, PRs read it.
+          # Avoids overflowing the 10GB repo limit, which evicts main's caches.
+          save: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Compile ${{ matrix.flavor }}
         shell: bash
@@ -162,6 +161,6 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: android-${{ matrix.flavor }}
-          path: android/app/build/outputs/apk/**/OrganicMaps-*.apk
+          path: android/app/build/outputs/apk/**/NoGPSMaps-*.apk
           if-no-files-found: error
           retention-days: 30
