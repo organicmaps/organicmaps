@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/nogps/accel_log.hpp"
+#include "map/nogps/delegate.hpp"
 #include "map/nogps/esp32_protocol.hpp"
 #include "map/nogps/esp32_update.hpp"
 #include "map/nogps/motion_source.hpp"
@@ -16,7 +17,6 @@
 namespace nogps
 {
 class Clock;
-class Delegate;
 
 /// The NoGPS ESP32 sensor box: it is fixed in the car and sends the car rotation and speed over Bluetooth LE,
 /// the phone can be held in hands. The box zeroes its gyroscope by itself on every stop.
