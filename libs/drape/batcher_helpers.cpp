@@ -4,6 +4,7 @@
 #include "drape/index_storage.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 
 #include <algorithm>
 
@@ -562,7 +563,8 @@ void TriangleFanBatch::BatchData(ref_ptr<GraphicsContext> context, ref_ptr<Attri
           // "(vertexCount + 1) - batchVertexCount" we allocate CPUBuffer on all remaining data
           // + first vertex of fan, that must be duplicate in the next buffer
           // + last vertex of currently uploaded data.
-          cpuBuffers.emplace_back(binding.GetElementSize(), (vertexCount + 2) - batchVertexCount);
+          cpuBuffers.emplace_back(base::asserted_cast<uint8_t>(binding.GetElementSize()),
+                                  (vertexCount + 2) - batchVertexCount);
           CPUBuffer & cpuBuffer = cpuBuffers.back();
           cpuBuffer.UploadData(rawDataPointer, 1);
 
