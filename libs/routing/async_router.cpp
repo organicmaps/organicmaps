@@ -250,17 +250,8 @@ void AsyncRouter::ThreadFunc()
       std::unique_lock ul(m_guard);
       m_threadCondVar.wait(ul, [this]() { return m_threadExit || m_hasRequest || m_clearState; });
 
-      if (m_clearState && m_router)
-      {
-        m_router->ClearState();
-        m_clearState = false;
-      }
-
       if (m_threadExit)
         break;
-
-      if (!m_hasRequest)
-        continue;
     }
 
     CalculateRoute();
@@ -281,6 +272,14 @@ void AsyncRouter::CalculateRoute()
 
   {
     lock_guard ul(m_guard);
+
+    // Clear and claim the request together so a pending clear cannot discard its result.
+    if (m_clearState)
+    {
+      if (m_router)
+        m_router->ClearState();
+      m_clearState = false;
+    }
 
     bool hasRequest = m_hasRequest;
     m_hasRequest = false;
