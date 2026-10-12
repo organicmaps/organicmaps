@@ -39,6 +39,7 @@ final class SearchOnMapViewController: UIViewController {
   private var internalScrollViewContentOffset: CGFloat = .zero
   private var presentationStepsController: StepsController!
   private var searchResults = SearchOnMap.SearchResults([])
+  private var isSearchExpanded = false
   private weak var mapPointPickerViewController: MapPointPickerViewController?
 
   // MARK: - Init
@@ -100,6 +101,7 @@ final class SearchOnMapViewController: UIViewController {
     super.traitCollectionDidChange(previousTraitCollection)
     updateFrameOfPresentedViewInContainerView()
     updateDimView(for: availableAreaView.frame)
+    updateAccessibilityModalState()
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -265,6 +267,11 @@ final class SearchOnMapViewController: UIViewController {
     view.layoutIfNeeded()
   }
 
+  private func updateAccessibilityModalState() {
+    (parent as? MapViewController)?.searchContainer.accessibilityViewIsModal =
+      isSearchExpanded && !isiPad && traitCollection.verticalSizeClass == .regular
+  }
+
   @objc
   private func handleTapOutside(_ gesture: UITapGestureRecognizer) {
     let location = gesture.location(in: view)
@@ -382,7 +389,8 @@ final class SearchOnMapViewController: UIViewController {
 
 extension SearchOnMapViewController: SearchOnMapView {
   func render(_ viewModel: ViewModel) {
-    availableAreaView.accessibilityViewIsModal = viewModel.presentationStep == .expanded || viewModel.presentationStep == .halfScreen
+    isSearchExpanded = viewModel.presentationStep == .expanded
+    updateAccessibilityModalState()
     headerView.setRoutePointActions(viewModel.routePointActions)
     headerView.setGrabberAccessible(viewModel.presentationStep != .expanded && viewModel.presentationStep != .hidden)
     setContent(viewModel.contentState)
@@ -404,6 +412,8 @@ extension SearchOnMapViewController: SearchOnMapView {
   func close() {
     mapPointPickerViewController?.close()
     mapPointPickerViewController = nil
+    isSearchExpanded = false
+    updateAccessibilityModalState()
     headerView.setIsSearching(false)
     updateDimView(for: presentationStepsController.hiddenFrame)
     willMove(toParent: nil)
