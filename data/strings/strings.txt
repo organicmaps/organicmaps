@@ -1021,7 +1021,7 @@ ar = حول Organic Maps
 ast = Tocante a Organic Maps
 az = Organic Maps Haqqında
 be = Аб праграме Organic Maps
-bg = За „Organic Maps“
+bg = За Organic Maps
 ca = Quant a l’Organic Maps
 cs = O aplikaci Organic Maps
 cy = Ynglŷn ag Organic Maps
@@ -4851,7 +4851,7 @@ ja = こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリ�
 ko = 안녕하세요!\n\n제 북마크를 첨부했습니다. Organic Maps에서 열어주세요. 설치되어 있지 않다면 여기에서 다운로드할 수 있습니다: https://omaps.app/get?kmz\n\nOrganic Maps와 함께 즐거운 여행 되세요!
 lo = ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ Organic Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://omaps.app/get?kmz\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ Organic Maps!
 lt = Labas! \n \nČia prisegtas mano žymių sąrašas iš „Organic Maps“ programėlės. Jei jos neturi, gali ją parsisiųsti iš https://omaps.app/get?kmz \n \nSmagių kelionių su „Organic Maps“!
-lv = Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!
+lv = Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Organic Maps“!
 mr = नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!
 mt = Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo Organic Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://omaps.app/get?kmz\n\nĦu pjaċir ivvjaġġa ġo Organic Maps!
 nb = Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!
@@ -5663,7 +5663,7 @@ it = Apri in Organic Maps o in un browser
 ja = Organic Mapsまたはブラウザーで開く
 ko = Organic Maps 또는 브라우저에서 열기
 lo = ເປີດໃນ Organic Maps ຫຼືໃນບຣາວເຊີ
-lt = Atidaryti „Organic Maps“ arba naršyklėje
+lt = Atidaryti „Organic Maps“ programėlėje arba naršyklėje
 lv = Atvērt lietotnē Organic Maps vai pārlūkā
 mr = Organic Maps किंवा ब्राउझरमध्ये उघडा
 mt = Iftaħ f'Organic Maps jew fil-browser
@@ -20283,7 +20283,7 @@ it = Organic Maps consente di aggiungere solo punti semplici, escludendo p.es. c
 ja = Organic Maps このアプリでは、シンプルな地点カテゴリのみを追加できます。つまり、町、道路、湖、建物の輪郭などは追加できません。そのようなカテゴリは、<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してください。詳細な手順については、<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>をご確認ください。
 ko = Organic Maps 단순한 지점 카테고리만 추가할 수 있습니다. 즉, 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>에 직접 추가해 주십시오. 자세한 단계별 안내는 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드를</a> 확인해 주세요.
 lo = Organic Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.
-lt = „Organic Maps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.
+lt = „Organic Maps“ leidžia pridėti tik paprastų kategorijų taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.
 lv = „Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.
 mr = Organic Maps फक्त साध्या बिंदू श्रेण्या जोडण्याची परवानगी देते, म्हणजे शहरं, रस्ते, तलाव, इमारतींच्या रूपरेषा इत्यादी नाहीत. कृपया अशा श्रेण्या थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. सविस्तर टप्प्याटप्प्याच्या सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> तपासा.
 mt = Organic Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Iċċekkja l-<a href="https://organicmaps.app/faq/editing/advanced-map-editing">gwida</a> tagħna għal struzzjonijiet dettaljati.
@@ -31723,7 +31723,7 @@ ja = または、位置情報を使用せずにOrganic Mapsを引き続きご利
 ko = 또는 위치 정보 없이 Organic Maps을 계속 사용하세요
 lo = ຫຼື ໃຊ້ Organic Maps ຕໍ່ໄປໂດຍບໍ່ໃຊ້ຕຳແໜ່ງ
 lt = Arba toliau naudokitės „Organic Maps“ be vietos nustatymo
-lv = Vai turpiniet izmantot „Organic Maps“ bez vietas
+lv = Vai turpiniet izmantot „Organic Maps“ bez atrašanās vietas noteikšanas
 mr = किंवा स्थानशिवाय Organic Maps वापरणे सुरू ठेवा
 mt =  Jew kompli tuża Organic Maps mingħajr il-pożizzjoni
 nb = Eller fortsett å bruke Organic Maps uten plassering
@@ -32235,8 +32235,8 @@ it = Organic Maps usa la tua posizione in background per registrare la strada ch
 ja = Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。
 ko = Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.
 lo = Organic Maps ໃຊ້ຕຳແໜ່ງຂອງທ່ານໃນເບື້ອງຫຼັງເພື່ອບັນທຶກເສັ້ນທາງການເດີນທາງຫຼ້າສຸດຂອງທ່ານ.
-lt = „Organic Maps“ naudota jūsų vietos duomenis fone, kad įrašytų jūsų paskiausiai keliautą trasą.
-lv = „Organic Maps“ fonā izmantos ierīces atrašanās vietas datus, lai reģistrētu pēdējo noieto vai nobraukto maršrutu.
+lt = „Organic Maps“ naudoja jūsų vietos duomenis fone, kad įrašytų jūsų paskiausiai keliautą trasą.
+lv = „Organic Maps“ fonā izmanto ierīces atrašanās vietas datus, lai reģistrētu pēdējo noieto vai nobraukto maršrutu.
 mr = तुम्ही अलीकडे प्रवास केलेला मार्ग रेकॉर्ड करण्यासाठी Organic Maps पार्श्वभूमीत तुमचे स्थान वापरते.
 mt = Organic Maps tuża l-lokazzjoni tiegħek fil-isfond biex tirreġistra r-rotta li għadek kemm għaddejt minnha.
 nb = Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.
@@ -38501,7 +38501,7 @@ it = Organic Maps ha bisogno di accedere alla posizione. Quando puoi farlo in si
 ja = Organic Maps 位置情報のアクセスが必要です。安全な場所にいる際は、スマートフォンの通知をご確認ください。
 ko = Organic Maps 위치 정보 접근 권한이 필요합니다. 안전한 환경에서 휴대폰의 알림을 확인해 주세요.
 lo = Organic Maps ຕ້ອງການການເຂົ້າເຖິງຕຳແໜ່ງທີ່ຕັ້ງ. ເມື່ອປອດໄພແລ້ວ, ໃຫ້ກວດເບິ່ງການແຈ້ງເຕືອນໃນໂທລະສັບຂອງທ່ານ.
-lt = „Organic Maps“ programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.
+lt = „Organic Maps“ programėlei reikia prieigos prie vietos. Kai bus saugu, patikrinkite pranešimą savo telefone.
 lv = Organic Maps lietotnes darbībai ir nepieciešama piekļuve jūsu atrašanās vietai. Kad tas ir droši, pārbaudiet paziņojumu savā tālrunī.
 mr = Organic Maps स्थान प्रवेश आवश्यक आहे. जेव्हा सुरक्षित असेल, तेव्हा आपल्या फोनवरील सूचना तपासा.
 mt = Organic Maps teħtieġ aċċess għall-post. Meta jkun sigur, iċċekkja n-notifika fuq il-mowbajl tiegħek.
@@ -41385,7 +41385,7 @@ it = Vuoi inviare una segnalazione di bug agli sviluppatori?\nCi affidiamo ai no
 ja = 開発者にバグレポートを送りたいか？\nオーガニック・マップはエラー情報を自動収集しないため、我々はユーザーに依存している。Organic Mapsを応援してくださりありがとう！
 ko = 개발자에게 버그 보고서를 보내시겠습니까?\nOrganic Maps는 오류 정보를 자동으로 수집하지 않으므로, 저희는 사용자 여러분의 협조에 의존하고 있습니다. Organic Maps을 이용해 주셔서 미리 감사드립니다!
 lo = ທ່ານຕ້ອງການສົ່ງລາຍງານບັນຫາໃຫ້ກັບນັກພັດທະນາຫຼືບໍ່?\nເນື່ອງຈາກ Organic Maps ບໍ່ໄດ້ເກັບກຳຂໍ້ມູນຂໍ້ຜິດພາດໂດຍອັດຕະໂນມັດ ພວກເຮົາຈຶ່ງຕ້ອງອາໄສຂໍ້ມູນຈາກຜູ້ໃຊ້. ຂອບໃຈລ່ວງໜ້າທີ່ສະໜັບສະໜູນ Organic Maps!
-lt = Ar norite išsiųsti pranešimą apie klaidą programos kūrėjams?\nTokių pranešimų mes tikimės iš savo naudotojų, nes "Organic Maps" nerenka jokios informacijos apie klaidas automatiškai. Iš anksto dėkojame, kad prisidedate prie „Organic Maps“ tobulinimo!
+lt = Ar norite išsiųsti pranešimą apie klaidą programos kūrėjams?\nTokių pranešimų mes tikimės iš savo naudotojų, nes „Organic Maps“ nerenka jokios informacijos apie klaidas automatiškai. Iš anksto dėkojame, kad prisidedate prie „Organic Maps“ tobulinimo!
 lv = Vai vēlaties izstrādātājiem nosūtīt ziņojumu par kļūdu?\nMēs paļaujamies uz šiem ziņojumiem, jo „Organic Maps“ automātiski nevāc nekādus datus par kļūdām. Jau iepriekš pateicamies par „Organic Maps“ atbalstīšanu!
 mr = तुम्हाला विकासकांना बग रिपोर्ट पाठवायचा आहे का?\nआम्ही आमच्या वापरकर्त्यांवर अवलंबून आहोत कारण Organic Maps आपोआप कोणतीही त्रुटीची माहिती गोळा करत नाही. Organic Maps ला पाठिंबा दिल्याबद्दल आगाऊ धन्यवाद!
 mt = Tixtieq tibgħat rapport ta' żball lill-iżviluppaturi?\nAħna niddependu fuq l-utenti tagħna għax Organic Maps ma jiġborx awtomatikament l-ebda informazzjoni dwar żbalji. Grazzi minn qabel talli tappoġġja Organic Maps!
