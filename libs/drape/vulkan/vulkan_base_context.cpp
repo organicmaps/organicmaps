@@ -124,8 +124,8 @@ void VulkanBaseContext::ResetSurface(bool allowPipelineDump)
 
 FrameStatus VulkanBaseContext::RecreateSwapchainAndDependencies()
 {
-  vkDeviceWaitIdle(m_device);
-  ResetSwapchainAndDependencies();
+  if (m_swapchain != VK_NULL_HANDLE)
+    ResetSwapchainAndDependencies();
 
   auto const res = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, *m_surface, &m_surfaceCapabilities);
   if (res == VK_ERROR_SURFACE_LOST_KHR)
@@ -139,7 +139,6 @@ FrameStatus VulkanBaseContext::RecreateSwapchainAndDependencies()
   CreateCommandBuffers();
   RecreateDepthTexture();
   RecreateSwapchain();
-  vkDeviceWaitIdle(m_device);
   return FrameStatus::Retry;
 }
 
