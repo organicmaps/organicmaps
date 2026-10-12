@@ -35,7 +35,7 @@
     <string name="country_status_download_failed">Изтеглянето се провали</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Опитайте отново</string>
-    <string name="about_menu_title">За „Organic Maps“</string>
+    <string name="about_menu_title">За Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Безплатно за всички, направени с любов</string>
     <!-- Text in About screen -->
