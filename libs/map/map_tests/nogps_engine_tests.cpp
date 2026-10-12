@@ -283,7 +283,7 @@ UNIT_TEST(NoGps_Engine_InertialTurnFarFromCrossingIsNotMovedToIt)
   TEST_GREATER(env.Last().m_accuracyM, DeadReckoning::kBaseAccuracyM + 2, ());
 }
 
-UNIT_TEST(NoGps_Engine_TurnOffRoadsIsNotMovedToOneOfCrossings)
+UNIT_TEST(NoGps_Engine_TurnOfCarManeuveringOffRoadsIsNotMoved)
 {
   for (bool twoStreets : {true, false})
   {
@@ -303,12 +303,20 @@ UNIT_TEST(NoGps_Engine_TurnOffRoadsIsNotMovedToOneOfCrossings)
     TEST(env.m_engine.GetTripLine().find(" road=0 ") != std::string::npos, (env.m_engine.GetTripLine()));
     env.Drive(1000, 9, -90);
     env.Drive(2000, 9, 0);
-    // With one crossing to turn at the car is moved to it. With two it is not known which one it was.
-    if (twoStreets)
-      TEST_EQUAL(TripField(env, "turn"), "NaN", ());
-    else
-      TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 20, 3);
+    // The car was maneuvering off the roads: it has turned where it is, be there two crossings to turn at or one.
+    TEST_EQUAL(TripField(env, "turn"), "NaN", (twoStreets));
   }
+
+  // A turn as slow of a car driving along a street is moved to the crossing of that street, 12 m ahead.
+  PieceRoads roads({{-300, 0, 300, 0}, {40, -300, 40, 300}}, {{40, 0}});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 0);
+  env.Drive(8000, 9, 0);
+  TEST(env.m_engine.GetTripLine().find(" road=1 ") != std::string::npos, (env.m_engine.GetTripLine()));
+  env.Drive(3000, 9, -30);
+  env.Drive(2000, 9, 0);
+  TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 12, 4);
+  TestAlmostEqualAbs(East(env.Last().m_position), 40, 1);
 }
 
 UNIT_TEST(NoGps_Engine_TurnAlongBranchIsNotMovedToNextCrossing)
