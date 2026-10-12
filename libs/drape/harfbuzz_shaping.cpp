@@ -24,7 +24,7 @@ using TScriptsArray = std::array<UScriptCode, 32>;
 
 // Writes the script and the script extensions of the Unicode codepoint.
 // Returns the number of written scripts.
-size_t GetScriptExtensions(char32_t codepoint, TScriptsArray & scripts)
+int32_t GetScriptExtensions(char32_t codepoint, TScriptsArray & scripts)
 {
   // Fill scripts with the script extensions.
   UErrorCode icu_error = U_ZERO_ERROR;
@@ -36,12 +36,12 @@ size_t GetScriptExtensions(char32_t codepoint, TScriptsArray & scripts)
     return 0;
   }
 
-  return static_cast<size_t>(count);
+  return count;
 }
 
 // Intersects the script extensions set of codepoint with scripts and returns the updated size of the scripts.
 // The output result will be a subset of the input result (thus resultSize can only be smaller).
-size_t ScriptSetIntersect(char32_t codepoint, TScriptsArray & inOutScripts, size_t inOutScriptsCount)
+int32_t ScriptSetIntersect(char32_t codepoint, TScriptsArray & inOutScripts, int32_t inOutScriptsCount)
 {
   // Each codepoint has a Script property and a Script Extensions (Scx) property.
   //
@@ -68,20 +68,21 @@ size_t ScriptSetIntersect(char32_t codepoint, TScriptsArray & inOutScripts, size
   // For most of the codepoints, the script extensions set contains only one element. For CJK codepoints, it's common
   // to see 3-4 scripts. For really rare cases, the set can go above 20 scripts.
   TScriptsArray codepointScripts;
-  size_t const codepointScriptsCount = GetScriptExtensions(codepoint, codepointScripts);
+  int32_t const codepointScriptsCount = GetScriptExtensions(codepoint, codepointScripts);
 
   // Implicit script 'inherited' is inheriting scripts from preceding codepoint.
   if (codepointScriptsCount == 1 && codepointScripts[0] == USCRIPT_INHERITED)
     return inOutScriptsCount;
 
-  std::span<UScriptCode const> const codepointScriptsView{codepointScripts.data(), codepointScriptsCount};
+  std::span<UScriptCode const> const codepointScriptsView{codepointScripts.data(),
+                                                          static_cast<size_t>(codepointScriptsCount)};
   auto const contains = [codepointScriptsView](UScriptCode code)
   { return std::ranges::find(codepointScriptsView, code) != codepointScriptsView.end(); };
 
   // Intersect both script sets.
   ASSERT(!contains(USCRIPT_INHERITED), ());
-  size_t outSize = 0;
-  for (size_t i = 0; i < inOutScriptsCount; ++i)
+  int32_t outSize = 0;
+  for (int32_t i = 0; i < inOutScriptsCount; ++i)
   {
     auto const currentScript = inOutScripts[i];
     if (contains(currentScript))
@@ -108,14 +109,14 @@ int32_t ScriptInterval(std::u16string const & text, int32_t start, int32_t lengt
   auto c32 = utf8::unchecked::next16(iterator);
 
   TScriptsArray scripts;
-  size_t scriptsSize = GetScriptExtensions(c32, scripts);
+  int32_t scriptsSize = GetScriptExtensions(c32, scripts);
 
   while (iterator != end)
   {
     auto prev = iterator;
     c32 = utf8::unchecked::next16(iterator);
     scriptsSize = ScriptSetIntersect(c32, scripts, scriptsSize);
-    if (scriptsSize == 0U)
+    if (scriptsSize == 0)
     {
       length = base::asserted_cast<int32_t>(prev - begin);
       break;
