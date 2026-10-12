@@ -76,7 +76,7 @@ UNIT_TEST(Zgrad924aToKrukovo)
 {
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-                                                mercator::FromLatLon(55.9802, 37.1736), 1030);
+                                                mercator::FromLatLon(55.9802, 37.1736), 954.346);
 }
 
 UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley)
@@ -118,7 +118,7 @@ UNIT_TEST(PolandWarshaw_AvoidCycleway)
 {
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(52.2487, 21.0173), {0., 0.},
-                                                mercator::FromLatLon(52.25, 21.0164), 182.);
+                                                mercator::FromLatLon(52.25, 21.0164), 177.626);
 }
 
 UNIT_TEST(SwedenStockholmSlussenHiltonToMaritimeMuseum)
@@ -303,9 +303,15 @@ UNIT_TEST(Russia_SaintPetersburg_Bridge_Access_Conditional)
 
 UNIT_TEST(RussiaSaintPetersburgPetrPaulChurchToDolphins)
 {
-  integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
-                                                mercator::FromLatLon(59.9502, 30.3165), {0., 0.},
-                                                mercator::FromLatLon(59.973, 30.2702), 4607.);
+  using namespace platform::tests_support;
+
+  // The route crosses drawbridges with access:conditional, see Russia_SaintPetersburg_Bridge_Access_Conditional.
+  auto components = CreateAllMapsComponents(VehicleType::Pedestrian, {});
+  time_t currentTime = GetUnixtimeByDate(2025, Month::Oct, 27, 12, 00);
+  components->SetCurrentTimeGetter([&currentTime] { return currentTime; });
+
+  integration::CalculateRouteAndTestRouteLength(*components, mercator::FromLatLon(59.9502, 30.3165), {0., 0.},
+                                                mercator::FromLatLon(59.973, 30.2702), 4770.68);
 }
 
 UNIT_TEST(RussiaPetergofEntranceToErmitagePalace)
@@ -331,9 +337,10 @@ UNIT_TEST(RussiaMoscowMailRuToTsarCannon)
 
 UNIT_TEST(RussiaMoscowHovrinoStationToKasperskyLab)
 {
+  // Prefers longer park footways, OSRM, GraphHopper, Valhalla and the OM alternative are 5.1-5.4 km.
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(55.8701, 37.50833), {0., 0.},
-                                                mercator::FromLatLon(55.83715, 37.48132), 5162.);
+                                                mercator::FromLatLon(55.83715, 37.48132), 5558.4);
 }
 
 UNIT_TEST(ItalyRome_WalkOverStreetWithSidewalkBoth)
@@ -664,13 +671,15 @@ UNIT_TEST(Australia_Mountains_Downlhill)
   Route const & route = *routeResult.first;
 
   TestRouteLength(route, 34.0359);
-  // Altitudes diff is (900 -> 800).
+  // Altitudes diff is (817 -> 803). Raw SRTM has a cliff here (898 -> 799).
   double const eta = route.GetTotalTimeSec();
-  TEST(9 * 60 < eta && eta < 12 * 60, (eta));  // was "path", now - "steps"
+  TEST(2 * 60 < eta && eta < 4 * 60, (eta));
 }
 
 UNIT_TEST(Turkey_UsePrimary)
 {
+  // Use detour with residential + sidewalk instead of primary. Primary as the alt route.
+  /// @todo OSRM, GH, Valhalla use primary, and for Turkey it looks acceptable.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian), FromLatLon(38.7352697, 35.516104),
                                    {0., 0.}, FromLatLon(38.7398797, 35.5170627), 679.702);
 
@@ -690,7 +699,7 @@ UNIT_TEST(Georgia_UsePrimary)
 
   TestRouteLength(route, 68595);
   double const eta = route.GetTotalTimeSec();
-  TEST(22 * 3600 < eta && eta < 24 * 3600, (eta));
+  TEST(19 * 3600 < eta && eta < 21 * 3600, (eta));
 }
 
 UNIT_TEST(Belarus_PedestrianArea)

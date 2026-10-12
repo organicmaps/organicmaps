@@ -62,12 +62,11 @@ UNIT_TEST(CrossCountry_Russia_Belgorod_Oblast_to_Crimea)
 // borders of the Schengen Area countries. So the route should run directly from Lithuania to Poland.
 UNIT_TEST(CrossCountry_Lithuania_to_Poland)
 {
-  // Google maps agree here with OM :)
-  // All OSM engines make shorter routes via the minor roads.
+  // Goes via the minor roads like OSRM, GraphHopper and Valhalla (179-185 km).
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car), mercator::FromLatLon(55.10055, 22.30228) /* startPoint */,
       {0.0, 0.0} /* startDirection */, mercator::FromLatLon(54.27745, 22.33767) /* finalPoint */,
-      228'702 /* expectedRouteMeters */);
+      192'828 /* expectedRouteMeters */);
 }
 
 // In this case the shortest way from Hungary to Slovakia is through Ukraine. But we add penalty for

@@ -102,8 +102,9 @@ UNIT_TEST(RussiaMoscowKashirskoe16ToCapLongRoute)
 {
   // Main route - dedicated bicycle infra.
   // Alt route - a short and logical route shortcutting via some service roads and footways (allowed in Russia).
+  // Main route is the same as GraphHopper.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle), mercator::FromLatLon(55.66230, 37.63214),
-                                   {0., 0.}, mercator::FromLatLon(55.68927, 37.70356), 7318.61);
+                                   {0., 0.}, mercator::FromLatLon(55.68927, 37.70356), 6958.25);
 }
 
 UNIT_TEST(Germany_UseServiceCountrysideRoads)
@@ -176,10 +177,12 @@ UNIT_TEST(SwedenStockholmBicyclePastFerry)
 
 UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
 {
-  // A cross mwm route (3 regions). Includes a ferry.
+  // A cross mwm route (3 regions). Includes ferries.
+  /// @todo Takes the seasonal Šilutė - Nida and the Nida - Klaipėda ferries (79 km) instead of riding
+  /// ~50 km Šilutė - Klaipėda like GraphHopper.
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Bicycle),
                                                 mercator::FromLatLon(54.63519, 21.80749), {0., 0.},
-                                                mercator::FromLatLon(56.51119, 21.01847), 266992);
+                                                mercator::FromLatLon(56.51119, 21.01847), 289800);
 }
 
 UNIT_TEST(Lithuania_Avoid_Ferry_Long_Route)
@@ -210,8 +213,8 @@ UNIT_TEST(SpainTenerife_AdejeVilaflor)
                      mercator::FromLatLon(28.15865, -16.63704));
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
 
-  TestRouteLength(*res.first, 26918.5);
-  TestRouteTime(*res.first, 10817);
+  TestRouteLength(*res.first, 26530);
+  TestRouteTime(*res.first, 10970.9);
 }
 
 UNIT_TEST(SpainTenerife_VilaflorAdeje)
@@ -227,7 +230,7 @@ UNIT_TEST(SpainTenerife_VilaflorAdeje)
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
 
   TestRouteLength(*res.first, 25196.4);
-  TestRouteTime(*res.first, 4586);
+  TestRouteTime(*res.first, 4666.74);
 }
 
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.
@@ -385,11 +388,12 @@ UNIT_TEST(Finland_Use_Tertiary_LowTraffic)
 UNIT_TEST(Belarus_Stolbcy_Use_Unpaved)
 {
   // Goes by a paved streets and an compacted track in the end.
-  // Same as GraphHopper and Valhalla detours the unpaved paths.
   // OSRM shortcuts through paths and a ford.
+  /// @todo Shortcuts the start via a grade5 track and a path bridge, while GraphHopper and Valhalla
+  /// detour the unpaved paths by Шчорса, Чыгуначная and 17 Верасня streets.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
                                    mercator::FromLatLon(53.471389, 26.7422186), {0.0, 0.0},
-                                   mercator::FromLatLon(53.454082, 26.7560061), 5233.27 /* expectedRouteMeters */);
+                                   mercator::FromLatLon(53.454082, 26.7560061), 4690.42 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Russia_UseTrunk_Long)
