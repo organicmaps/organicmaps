@@ -1275,15 +1275,18 @@ std::string Engine::GetTripLine()
     line += " age=" + FormatSeconds(AgeMs(*m_savedLocation));
   }
   // The positions of the platform, used or not: latitude,longitude/accuracy in meters/speed in km/h/bearing/age
-  // in seconds. The age tells where the car was at the moment of the line: the two are not written together.
+  // in seconds/accuracy of the bearing in degrees. The age tells where the car was at the moment of the line: the
+  // two are not written together. The accuracy of the bearing tells if a slow car has taken its heading from it:
+  // a trip is driven again with it.
   auto const addRaw = [&](char const * name, std::optional<Fix> const & fix)
   {
     if (!fix || AgeMs(*fix) > kGpsStatusMaxAgeMs)
       return;
     auto const speedKmh = fix->m_speedMps ? std::optional<double>(*fix->m_speedMps * 3.6) : std::nullopt;
-    std::snprintf(buf, sizeof(buf), " %s=%.6f,%.6f/%.1f/%s/%s/%.2f", name, fix->m_position.m_lat,
+    std::snprintf(buf, sizeof(buf), " %s=%.6f,%.6f/%.1f/%s/%s/%.2f/%s", name, fix->m_position.m_lat,
                   fix->m_position.m_lon, fix->m_accuracyM, FormatOptional(speedKmh).c_str(),
-                  FormatOptional(fix->m_bearingDeg).c_str(), AgeMs(*fix) / 1000.0);
+                  FormatOptional(fix->m_bearingDeg).c_str(), AgeMs(*fix) / 1000.0,
+                  FormatOptional(fix->m_bearingAccuracyDeg).c_str());
     line += buf;
   };
   addRaw("gps", m_rawGps);
