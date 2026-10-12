@@ -849,10 +849,7 @@ void VulkanBaseContext::RecreateSwapchain()
   swapchainCI.queueFamilyIndexCount = 0;
   swapchainCI.pQueueFamilyIndices = nullptr;
 
-#if !defined(OMIM_OS_WINDOWS)
-  CHECK(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR, ());
-  swapchainCI.compositeAlpha = VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR;
-#endif
+  swapchainCI.compositeAlpha = ChooseCompositeAlpha(m_surfaceCapabilities.supportedCompositeAlpha);
 
   // This mode waits for the vertical blank ("v-sync").
   swapchainCI.presentMode = VK_PRESENT_MODE_FIFO_KHR;
