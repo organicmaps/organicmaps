@@ -12,16 +12,6 @@ private final class RouteActionButton: UIButton {
   }
 }
 
-private final class SearchGrabberTapHandlerView: UIView {
-  var onAccessibilityActivate: (() -> Void)?
-
-  override func accessibilityActivate() -> Bool {
-    guard let onAccessibilityActivate else { return false }
-    onAccessibilityActivate()
-    return true
-  }
-}
-
 final class SearchOnMapHeaderView: UIView {
   weak var delegate: SearchOnMapHeaderViewDelegate? {
     didSet {
@@ -41,7 +31,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private let grabberView = UIView()
-  private let grabberTapHandlerView = SearchGrabberTapHandlerView()
+  private let grabberTapHandlerView = UIView()
   private let routeActionsStackView = UIStackView()
   private let currentLocationButton = RouteActionButton(type: .system)
   private let chooseOnMapButton = RouteActionButton(type: .system)
@@ -87,11 +77,6 @@ final class SearchOnMapHeaderView: UIView {
     iPhoneSpecific {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(grabberDidTap))
       grabberTapHandlerView.addGestureRecognizer(tapGesture)
-      grabberTapHandlerView.accessibilityLabel = L("search_accessibility_expand")
-      grabberTapHandlerView.accessibilityTraits = .button
-      grabberTapHandlerView.onAccessibilityActivate = { [weak self] in
-        self?.grabberDidTap()
-      }
     }
   }
 
@@ -263,10 +248,6 @@ final class SearchOnMapHeaderView: UIView {
 
   func setSeparatorHidden(_ hidden: Bool) {
     separator?.isHidden = hidden
-  }
-
-  func setGrabberAccessible(_ accessible: Bool) {
-    grabberTapHandlerView.isAccessibilityElement = accessible && !isiPad
   }
 
   var accessibilitySearchField: UITextField { searchBar.searchTextField }

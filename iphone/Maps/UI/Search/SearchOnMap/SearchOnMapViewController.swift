@@ -392,7 +392,6 @@ extension SearchOnMapViewController: SearchOnMapView {
     isSearchExpanded = viewModel.presentationStep == .expanded
     updateAccessibilityModalState()
     headerView.setRoutePointActions(viewModel.routePointActions)
-    headerView.setGrabberAccessible(viewModel.presentationStep != .expanded && viewModel.presentationStep != .hidden)
     setContent(viewModel.contentState)
     setIsSearching(viewModel.isTyping)
     setSearchText(viewModel.searchingText)
