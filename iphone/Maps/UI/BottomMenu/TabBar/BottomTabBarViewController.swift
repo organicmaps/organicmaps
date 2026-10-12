@@ -30,7 +30,6 @@ class BottomTabBarViewController: UIViewController {
     bookmarksButton.accessibilityLabel = L("bookmarks_and_tracks")
     moreButton.accessibilityLabel = L("menu")
     downloadBadge.isAccessibilityElement = false
-    updateBadge()
   }
 
   override func viewWillAppear(_ animated: Bool) {

@@ -206,7 +206,11 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (IBAction)buttonTouchUpInside
 {
-  if ([self hasActiveLayers])
+  BOOL needsToDisableMapLayer = [MWMMapOverlayManager trafficEnabled] || [MWMMapOverlayManager transitEnabled] ||
+                                [MWMMapOverlayManager isoLinesEnabled] || [MWMMapOverlayManager outdoorEnabled] ||
+                                [MWMMapOverlayManager hikingEnabled] || [MWMMapOverlayManager cyclingEnabled];
+
+  if (needsToDisableMapLayer)
   {
     [MWMMapOverlayManager setTrafficEnabled:NO];
     [MWMMapOverlayManager setTransitEnabled:NO];

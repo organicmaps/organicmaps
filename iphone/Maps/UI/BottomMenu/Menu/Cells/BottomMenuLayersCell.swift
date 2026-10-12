@@ -167,7 +167,7 @@ private extension BottomMenuLayerButton {
     self.image = image
     spacing = 10
     numberOfLines = 2
-    title = text
+    localizedText = text
     isAccessibilityElement = true
     accessibilityLabel = text
   }
