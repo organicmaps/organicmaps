@@ -163,7 +163,7 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
   quickWidget->setInitialProperties({{"map", QVariant::fromValue(this)}});
-  quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/cloud.qml"));
+  quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/qml/main.qml"));
   // quickWidget->rootContext()->setContextProperty("map", this);
 
   m_pDrawWidget->layout()->addWidget(quickWidget);
