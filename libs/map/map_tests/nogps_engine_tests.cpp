@@ -447,6 +447,57 @@ UNIT_TEST(NoGps_Engine_MarkLooksAlongRoadWhateverGyroscopeCounted)
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
+UNIT_TEST(NoGps_Engine_MarkSetDuringTurnKeepsLookingAlongRoad)
+{
+  // The street going east, a street going north crosses it at 100 m, and another street going east 200 m to the
+  // north.
+  PieceRoads roads({{-300, 0, 600, 0}, {100, -300, 100, 600}, {-300, 200, 600, 200}}, {{100, 0}, {100, 200}});
+  for (int standMs : {0, 3000})
+  {
+    Env env(true /* inertial */, &roads);
+    MarkCar(env, 0);
+    env.Drive(6000, 36, 0);
+    TestAlmostEqualAbs(*env.Last().m_bearingDeg, 90, 1);
+
+    // The car turns left to the street going north. In the middle of the turn, looking north-east, the user
+    // marks it on that street: the mark looks north.
+    env.Drive(1500, 18, -30);
+    TEST(env.m_engine.GetTripLine().find(" turning=1 ") != std::string::npos, (env.m_engine.GetTripLine()));
+    TEST(env.m_engine.PlaceMarkByTap(At(100, 15)), ());
+    // It may creep on and stand for a while, e.g. letting a car pass, and makes the other half of the turn.
+    if (standMs > 0)
+      env.Drive(1500, 2, 0);
+    env.Drive(standMs, 0, 0);
+    env.Drive(1500, 18, -30);
+    env.Drive(3000, 18, 0);
+    // The mark was not turned away from the street by the rest of the turn.
+    TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 2);
+    TestAlmostEqualAbs(East(env.Last().m_position), 100, 0.5);
+    TEST_GREATER(North(env.Last().m_position), 30, (standMs));
+    TEST(env.m_engine.GetTripLine().find(" road=1 ") != std::string::npos, (env.m_engine.GetTripLine()));
+
+    // The next turn is a turn as any other: to the right, to the other street going east.
+    env.Drive(31'000, 18, 0);
+    env.Drive(3000, 18, 30);
+    env.Drive(3000, 18, 0);
+    TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 90), 0, 3);
+    TestAlmostEqualAbs(North(env.Last().m_position), 200, 1);
+    TEST(!env.m_delegate.HasEvent(Event::RoadLost), (standMs));
+  }
+
+  // A car turning right is marked on a street that goes farther to the left than it looks: it is not the turn
+  // the car is making, the heading was wrong. The mark looks along the street, and a turn right after it is a turn.
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 0);
+  env.Drive(6000, 36, 0);
+  env.Drive(1500, 18, 30);
+  TEST(env.m_engine.PlaceMarkByTap(At(100, 15)), ());
+  env.Drive(500, 18, 0);
+  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 1);
+  env.Drive(1500, 18, -30);
+  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, -45), 0, 3);
+}
+
 UNIT_TEST(NoGps_Engine_MarkAheadOnBendComesBackToRoad)
 {
   // The street going east bends 25 degrees to the left at 100 m.
