@@ -635,16 +635,28 @@ std::optional<double> InertialNavigator::GetRoadCandidateM() const
   return m_pathM - m_roadCandidate->m_pathM;
 }
 
-void InertialNavigator::SetPaused(bool paused)
+bool InertialNavigator::SetPaused(bool paused)
 {
   // The pause set by itself is taken over by the user: resumed, or it is the pause of the user since now.
   bool const byItself = m_pausedByItself;
   if (m_paused == paused && !byItself)
-    return;
+    return true;
   LOG(LINFO, ("paused =", paused));
-  std::optional<ms::LatLon> car;
-  if (byItself)
-    car = m_offRoadCar;
+  double const heading = m_deadReckoning.GetHeading();
+  // The car goes on from the road next to where it has maneuvered to.
+  std::optional<RoadPoint> road;
+  if (byItself && !paused && m_offRoadCar && m_deadReckoning.IsReady())
+  {
+    road = m_roads.Snap(*m_offRoadCar, heading, kMaxSnapRadiusM);
+    // Going on from the mark, which waits where the car has left the roads, would throw away where the car is:
+    // on October 11 it was thrown back so three times, and paused again 15 m later.
+    if (!road)
+    {
+      LOG(LINFO, ("No road next to the car, the pause set by itself stays after", std::round(m_offRoadM),
+                  "m off the roads"));
+      return false;
+    }
+  }
   m_pausedByItself = false;
   m_offRoadCar.reset();
   m_roadCandidate.reset();
@@ -652,17 +664,14 @@ void InertialNavigator::SetPaused(bool paused)
   m_fastSinceMs.reset();
   m_turning = false;
   if (paused || !m_deadReckoning.IsReady())
-    return;
+    return true;
 
-  double const heading = m_deadReckoning.GetHeading();
-  // The road next to where the car has maneuvered to, or to where its mark stands.
-  std::optional<RoadPoint> road;
-  if (car)
-    road = m_roads.Snap(*car, heading, kMaxSnapRadiusM);
+  // The road next to where the mark stands.
   if (!road)
     road = m_roads.Snap(m_deadReckoning.GetPosition(), heading, kMaxSnapRadiusM);
   if (road)
     SetRoadPosition(road->m_point, Orient(road->m_bearingDeg, heading));
+  return true;
 }
 
 void InertialNavigator::OnGyro(int64_t timestampNs, Vec3 const & gyro)

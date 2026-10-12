@@ -935,16 +935,56 @@ UNIT_TEST(NoGps_Engine_PauseSetByItselfWaitsForUser)
   TEST(env.m_map.m_offRoadCar, ());
   TEST_GREATER(East(*env.m_map.m_offRoadCar), 80, ());
 
-  // The user resumes the movement: there is no road next to the car, it goes on from its mark.
+  // The user resumes the movement, but there is no road next to the car to go on from: the pause stays, the car
+  // is where it was, and the user is told to mark it on a road.
   env.Drive(1000, 0, 0);
+  auto const car = *env.m_map.m_offRoadCar;
+  TEST(!env.m_delegate.HasEvent(Event::MarkNoRoad), ());
   env.m_engine.TogglePause();
+  status = env.m_engine.GetStatus();
+  TEST(status.m_paused, ());
+  TEST(status.m_pausedByItself, ());
+  TEST(env.m_delegate.HasEvent(Event::MarkNoRoad), ());
+  env.Drive(1000, 0, 0);
+  TEST(env.m_map.m_offRoadCar, ());
+  TestAlmostEqualAbs(East(*env.m_map.m_offRoadCar), East(car), 0.5);
+  TestAlmostEqualAbs(North(*env.m_map.m_offRoadCar), North(car), 0.5);
+  TestAlmostEqualAbs(East(env.Last().m_position), markEast, 0.5);
+  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
+
+  // The mark of the user ends the pause.
+  TEST(env.m_engine.PlaceMarkByTap(At(-100, 2)), ());
   status = env.m_engine.GetStatus();
   TEST(!status.m_paused, ());
   TEST(!status.m_pausedByItself, ());
   TEST(!env.m_map.m_offRoadCar, ());
-  env.Drive(1000, 0, 0);
-  TestAlmostEqualAbs(East(env.Last().m_position), markEast, 0.5);
-  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
+}
+
+UNIT_TEST(NoGps_Engine_PauseSetByItselfIsEndedByUserNextToRoad)
+{
+  // A street going east, and a street 40 m to the south of it going the same way.
+  PieceRoads roads({{-300, 0, 300, 0}, {-300, -40, 600, -40}}, {});
+  for (bool navigating : {true, false})
+  {
+    Env env(true /* inertial */, &roads);
+    env.m_map.m_navigating = navigating;
+    DriveIntoYard(env);
+    TEST(env.m_engine.GetStatus().m_pausedByItself, (navigating));
+
+    // The car turns left 16 m from the other street and stops. The user resumes the movement: the car goes on from
+    // that street, not from where it has left the first one.
+    env.Drive(1000, 9, -90);
+    env.Drive(1000, 0, 0);
+    env.m_engine.TogglePause();
+    auto const status = env.m_engine.GetStatus();
+    TEST(!status.m_paused, (navigating));
+    TEST(!status.m_pausedByItself, (navigating));
+    TEST(!env.m_delegate.HasEvent(Event::MarkNoRoad), (navigating));
+    env.Drive(1000, 0, 0);
+    TestAlmostEqualAbs(North(env.Last().m_position), -40, 0.5);
+    TestAlmostEqualAbs(*env.Last().m_bearingDeg, 90, 0.5);
+    TEST(!env.m_map.m_offRoadCar, (navigating));
+  }
 }
 
 UNIT_TEST(NoGps_Engine_MarkOfUserEndsPauseSetByItself)

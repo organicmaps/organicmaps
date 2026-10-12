@@ -215,7 +215,9 @@ public:
   void SetHeading(double headingDeg, HeadingSource source);
   /// Pauses the movement of the car while it maneuvers, or resumes it: the car is put on the road where it
   /// stands, looking the way it has turned to during the pause.
-  void SetPaused(bool paused);
+  /// \returns false if the pause set by itself stays: the car has maneuvered away from its mark, and there is no
+  /// road next to it to go on from.
+  bool SetPaused(bool paused);
   /// \returns true if the navigation has paused the movement by itself: the car has left the roads maneuvering.
   /// Its mark waits on the road until the car drives along a road again, or the user resumes the movement.
   bool IsPausedByItself() const { return m_pausedByItself; }

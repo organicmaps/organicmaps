@@ -813,7 +813,9 @@ void Engine::TogglePause()
 {
   if (!m_inertial)
     return;
-  m_inertial->SetPaused(!m_inertial->IsPaused());
+  // The pause set by itself stays if the car has no road to go on from: the user marks the car on a road.
+  if (!m_inertial->SetPaused(!m_inertial->IsPaused()))
+    Notify(Event::MarkNoRoad);
   ShowOffRoadCar();
 }
 
