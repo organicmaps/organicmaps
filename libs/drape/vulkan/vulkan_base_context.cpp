@@ -198,9 +198,8 @@ FrameStatus VulkanBaseContext::BeginRendering()
     return FrameStatus::RetryLater;
 
 #if defined(OMIM_OS_MAC)
-  // MoltenVK returns VK_SUBOPTIMAL_KHR in our configuration, it means that window is not resized that's expected
-  // in the developer sandbox for macOS
-  // https://github.com/KhronosGroup/MoltenVK/issues/1753
+  // A suboptimal acquisition still provides a usable image. The sandbox's resize
+  // callbacks update drawable and swapchain dimensions, including content-scale changes.
   if (res == VK_SUBOPTIMAL_KHR)
     res = VK_SUCCESS;
 #endif
@@ -904,8 +903,9 @@ void VulkanBaseContext::RecreateSwapchain()
 
 void VulkanBaseContext::DestroySwapchain()
 {
-  // Presentation fences retire image and semaphore payloads. Without maintenance support,
-  // resource retirement relies on the device-idle fallback in the surface teardown.
+  // Presentation fences guarantee that image and semaphore payloads can be retired.
+  // Unextended Vulkan provides no presentation-completion fence, so teardown uses
+  // the conventional device-idle fallback on devices without maintenance support.
   DestroyPresentFences();
   if (m_swapchain == VK_NULL_HANDLE)
     return;
