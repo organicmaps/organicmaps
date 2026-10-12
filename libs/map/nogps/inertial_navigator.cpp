@@ -1201,6 +1201,16 @@ void InertialNavigator::MatchTurn(int64_t timestampNs)
                 std::round(m_turnRotationDeg), "is a roundabout or a winding road"));
     return;
   }
+  // A car maneuvering off the roads turns where it is, in a yard or at a parking place, not at a crossing of the
+  // streets around. Of 3 such turns moved to a crossing on October 11 two were moved away from the car, by 17 and
+  // 28 m. Moving only to a single crossing that fits did not help: that day driven again, one of the two had a
+  // single crossing left by a meter, and was moved 26 m away.
+  if (!m_turnFromRoad && m_turnMaxKmh / 3.6 <= kMaxManeuverSpeedMps)
+  {
+    LOG(LINFO, ("Turn from", std::round(m_turnFromBearing), "to", std::round(toBearing),
+                "is not at a crossing: the car was maneuvering off the roads at up to", m_turnMaxKmh, "km/h"));
+    return;
+  }
   std::string whyNot;
   auto const crossing =
       TurnMatcher::FindCrossing(m_roads, corner, m_turnFromBearing, toBearing, m_deadReckoning.GetAccuracy(), &whyNot,
