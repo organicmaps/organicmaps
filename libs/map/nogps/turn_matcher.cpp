@@ -27,7 +27,8 @@ bool HasRoadFromCrossing(Roads & roads, ms::LatLon const & crossing, double bear
 }  // namespace
 
 std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
-                                                    double toBearingDeg, double searchM, std::string * whyNot)
+                                                    double toBearingDeg, double searchM, std::string * whyNot,
+                                                    bool onlyOne)
 {
   auto const no = [whyNot](std::string const & why)
   {
@@ -48,6 +49,7 @@ std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon co
 
   std::optional<ms::LatLon> best;
   double bestAlong = std::numeric_limits<double>::max();
+  std::vector<ms::LatLon> fitting;
   auto const crossings = roads.FindCrossings(corner, radius);
   size_t aside = 0;
   size_t noRoadBack = 0;
@@ -64,7 +66,7 @@ std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon co
       ++aside;
       continue;
     }
-    if (along >= bestAlong)
+    if (along >= bestAlong && !onlyOne)
       continue;
     if (!HasRoadFromCrossing(roads, crossing, fromBearingDeg + 180))
     {
@@ -76,8 +78,19 @@ std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon co
       ++noRoadAhead;
       continue;
     }
+    fitting.push_back(crossing);
+    if (along >= bestAlong)
+      continue;
     best = crossing;
     bestAlong = along;
+  }
+  if (best && onlyOne)
+  {
+    for (auto const & crossing : fitting)
+    {
+      if (Distance(crossing, *best) > kSameCrossingM)
+        return no(std::to_string(fitting.size()) + " crossings fit, and the car was not on a road to tell which");
+    }
   }
   if (!best)
   {

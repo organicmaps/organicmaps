@@ -283,6 +283,34 @@ UNIT_TEST(NoGps_Engine_InertialTurnFarFromCrossingIsNotMovedToIt)
   TEST_GREATER(env.Last().m_accuracyM, DeadReckoning::kBaseAccuracyM + 2, ());
 }
 
+UNIT_TEST(NoGps_Engine_TurnOffRoadsIsNotMovedToOneOfCrossings)
+{
+  for (bool twoStreets : {true, false})
+  {
+    // A street going east. 30 m to the south of it another one going east crosses a street going south, or two of
+    // them 30 m apart.
+    std::vector<PieceRoads::Piece> pieces = {{-300, 0, 300, 0}, {-100, -30, 100, -30}, {22, -10, 22, -60}};
+    if (twoStreets)
+      pieces.push_back({-8, -10, -8, -60});
+    PieceRoads roads(pieces, {{-8, -30}, {22, -30}});
+    Env env(true /* inertial */, &roads);
+    MarkCar(env, 0);
+    // The car leaves the street to the south at a walking speed, between the streets going south and 15 m from
+    // each, drives 10 m and turns east.
+    env.Drive(2000, 9, 0);
+    env.Drive(1000, 9, 90);
+    env.Drive(4000, 9, 0);
+    TEST(env.m_engine.GetTripLine().find(" road=0 ") != std::string::npos, (env.m_engine.GetTripLine()));
+    env.Drive(1000, 9, -90);
+    env.Drive(2000, 9, 0);
+    // With one crossing to turn at the car is moved to it. With two it is not known which one it was.
+    if (twoStreets)
+      TEST_EQUAL(TripField(env, "turn"), "NaN", ());
+    else
+      TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 20, 3);
+  }
+}
+
 UNIT_TEST(NoGps_Engine_TurnAlongBranchIsNotMovedToNextCrossing)
 {
   // A road branches off the street going east to the north-east at 100 m, and a street goes the same way from

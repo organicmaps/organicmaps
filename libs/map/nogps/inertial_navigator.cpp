@@ -1098,8 +1098,9 @@ void InertialNavigator::MatchTurn(int64_t timestampNs)
     return;
   }
   std::string whyNot;
-  auto const crossing = TurnMatcher::FindCrossing(m_roads, corner, m_turnFromBearing, toBearing,
-                                                  m_deadReckoning.GetAccuracy(), &whyNot);
+  auto const crossing =
+      TurnMatcher::FindCrossing(m_roads, corner, m_turnFromBearing, toBearing, m_deadReckoning.GetAccuracy(), &whyNot,
+                                !m_turnFromRoad /* onlyOne */);
   if (!crossing)
   {
     LOG(LINFO, ("Turn from", std::round(m_turnFromBearing), "to", std::round(toBearing), "is not at a crossing:",

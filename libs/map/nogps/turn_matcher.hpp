@@ -34,6 +34,8 @@ public:
   static double constexpr kMaxRoadDiffDeg = 35;
   // The road the car was on going the new way within this difference has bent, the car has followed it.
   static double constexpr kMaxBendEndDiffDeg = 25;
+  // A junction of the map is several crossings this close to each other, a turn is moved to any of them alike.
+  static double constexpr kSameCrossingM = 10;
   // The crossings this close to a turn are written to the trip log, a few closest ones: farther than they are
   // searched, to see on real trips where the crossing of a turn that was not moved to one really was.
   static double constexpr kLogRadiusM = 80;
@@ -44,9 +46,14 @@ public:
   /// \param toBearingDeg where the car looks after the turn.
   /// \param searchM how far along the road the crossing is searched, e.g. the accuracy of the calculation.
   /// \param whyNot why the turn is not at a crossing, for the log.
+  /// \param onlyOne nothing is returned if several crossings fit the turn. The closest one along the road is the
+  /// crossing of a car that drove along that road. A car that was not on a road, e.g. maneuvering in a yard, has
+  /// streets going its way on both sides: of 3 such turns moved to the closest crossing on October 11 two were
+  /// moved away from the car, with crossings 1 m closer than the others, and the one with a single crossing to it.
   /// \returns the crossing, or nothing if the turn is not at a crossing.
   static std::optional<ms::LatLon> FindCrossing(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
-                                                double toBearingDeg, double searchM, std::string * whyNot = nullptr);
+                                                double toBearingDeg, double searchM, std::string * whyNot = nullptr,
+                                                bool onlyOne = false);
 
   /// \returns the crossings around the corner for the trip log, the closest first, as "+40/-3/BA,-60/+0/B-": how
   /// far the crossing is ahead of the corner the way the car came, how far to the right, meters, whether it has the

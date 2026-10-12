@@ -138,6 +138,29 @@ UNIT_TEST(NoGps_TurnMatcher_DescribesCrossingsAround)
   TEST_EQUAL(TurnMatcher::DescribeCrossings(roads, At(-100, 0), 90, 0), "-", ());
 }
 
+UNIT_TEST(NoGps_TurnMatcher_DoesNotGuessAmongCrossings)
+{
+  // The car going south between two streets going that way, 15 m from each, turns east. A street going east
+  // crosses both 13 m ahead.
+  PieceRoads two({{-15, 50, -15, -100}, {15, 50, 15, -100}, {-200, -13, 200, -13}}, {{-15, -13}, {15, -13}});
+  TEST(TurnMatcher::FindCrossing(two, At(0, 0), 180, 90, 25), ());
+  std::string why;
+  TEST(!TurnMatcher::FindCrossing(two, At(0, 0), 180, 90, 25, &why, true /* onlyOne */), ());
+  TEST_EQUAL(why, "2 crossings fit, and the car was not on a road to tell which", ());
+
+  // A crossing without a street going south is not one of them.
+  PieceRoads one({{15, 50, 15, -100}, {-200, -13, 200, -13}}, {{-15, -13}, {15, -13}});
+  auto crossing = TurnMatcher::FindCrossing(one, At(0, 0), 180, 90, 25, &why, true /* onlyOne */);
+  TEST(crossing, (why));
+  TEST_ALMOST_EQUAL_ABS(East(*crossing), 15.0, 0.1, ());
+
+  // Nor is another crossing of the same junction, e.g. of the two carriageways of the street going east.
+  PieceRoads junction({{15, 50, 15, -100}, {-200, -13, 200, -13}, {-200, -19, 200, -19}}, {{15, -13}, {15, -19}});
+  crossing = TurnMatcher::FindCrossing(junction, At(0, 0), 180, 90, 25, &why, true /* onlyOne */);
+  TEST(crossing, (why));
+  TEST_ALMOST_EQUAL_ABS(North(*crossing), -13.0, 0.1, ());
+}
+
 UNIT_TEST(NoGps_TurnMatcher_MatchesTurnBeforeCrossing)
 {
   // The calculated distance lags: the car turned left at 200 m, but it is at 160 m by the calculation.
