@@ -177,9 +177,9 @@ final class SearchOnMapHeaderView: UIView {
       routeActionsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.searchBarInsets.left),
       routeActionsStackView.centerYAnchor.constraint(equalTo: searchBar.searchTextField.centerYAnchor),
 
-      currentLocationButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+      currentLocationButton.heightAnchor.constraint(equalTo: searchBar.searchTextField.heightAnchor),
       currentLocationButton.widthAnchor.constraint(equalTo: currentLocationButton.heightAnchor),
-      chooseOnMapButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+      chooseOnMapButton.heightAnchor.constraint(equalTo: searchBar.searchTextField.heightAnchor),
       chooseOnMapButton.widthAnchor.constraint(equalTo: chooseOnMapButton.heightAnchor),
 
       searchBar.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: Constants.searchBarInsets.top),
