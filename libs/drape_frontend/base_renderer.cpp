@@ -64,6 +64,15 @@ void BaseRenderer::IterateRenderLoopImpl()
   CheckRenderingEnabled();
 }
 
+bool BaseRenderer::ValidateContext()
+{
+  if (m_context->Validate())
+    return true;
+
+  ProcessFrameFailure(dp::FrameStatus::Suspended);
+  return false;
+}
+
 void BaseRenderer::ProcessFrameFailure(dp::FrameStatus status)
 {
   ASSERT(status != dp::FrameStatus::Ready, ());
