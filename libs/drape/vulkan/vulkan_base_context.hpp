@@ -30,7 +30,7 @@ public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
                     drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
-                    uint64_t imageAcquireTimeoutNanoseconds = UINT64_MAX);
+                    uint64_t imageAcquireTimeoutNanoseconds = UINT64_MAX, bool swapchainMaintenanceEnabled = false);
   ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
@@ -146,6 +146,8 @@ protected:
 
   void CreateSyncPrimitives();
   void DestroySyncPrimitives();
+  VkFence GetPresentFence();
+  void DestroyPresentFences();
 
   void DestroyRenderPassAndFramebuffers();
   void DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer);
@@ -168,6 +170,7 @@ protected:
   uint32_t const m_renderingQueueFamilyIndex;
   bool const m_hasPartialTextureUpdates;
   uint64_t const m_imageAcquireTimeoutNanoseconds;
+  bool const m_swapchainMaintenanceEnabled;
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};
@@ -180,6 +183,7 @@ protected:
   std::array<VkSemaphore, kMaxInflightFrames> m_acquireSemaphores = {};
   // One semaphore per image; its next acquisition wait makes presentation semaphore reuse safe.
   std::vector<VkSemaphore> m_renderSemaphores;
+  std::vector<VkFence> m_presentFences;
   // All rendering tasks completion.
   std::array<VkFence, kMaxInflightFrames> m_fences = {};
 

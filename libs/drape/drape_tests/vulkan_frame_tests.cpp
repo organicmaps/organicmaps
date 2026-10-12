@@ -3,8 +3,12 @@
 #include "drape/vulkan/vulkan_base_context.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
 
+#include <algorithm>
 #include <limits>
+#include <map>
+#include <string>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace vulkan_frame_tests
@@ -37,6 +41,10 @@ struct Calls
   VkSemaphore m_submitSignalSemaphore = VK_NULL_HANDLE;
   VkSemaphore m_presentWaitSemaphore = VK_NULL_HANDLE;
   uint32_t m_presentImage = 0;
+  VkFence m_presentFence = VK_NULL_HANDLE;
+  std::vector<VkFence> m_createdFences;
+  std::map<VkFence, VkResult> m_fenceStatus;
+  std::vector<std::string> m_retirement;
   std::vector<VkSemaphore> m_createdSemaphores;
   std::vector<VkSemaphore> m_destroyedSemaphores;
 } g_calls;
@@ -47,8 +55,14 @@ VKAPI_ATTR VkResult VKAPI_CALL DeviceWaitIdle(VkDevice)
   return VK_SUCCESS;
 }
 
-VKAPI_ATTR VkResult VKAPI_CALL WaitForFences(VkDevice, uint32_t, VkFence const *, VkBool32, uint64_t)
+VKAPI_ATTR VkResult VKAPI_CALL WaitForFences(VkDevice, uint32_t count, VkFence const * fences, VkBool32, uint64_t)
 {
+  if (g_calls.m_fenceStatus.contains(fences[0]))
+  {
+    g_calls.m_retirement.push_back("fences waited");
+    for (uint32_t i = 0; i < count; ++i)
+      g_calls.m_fenceStatus[fences[i]] = VK_SUCCESS;
+  }
   return g_calls.m_fenceResult;
 }
 
@@ -68,6 +82,8 @@ VKAPI_ATTR VkResult VKAPI_CALL ResetFences(VkDevice, uint32_t count, VkFence con
   TEST_EQUAL(count, 1, ());
   ++g_calls.m_fenceResets;
   g_calls.m_resetFence = fences[0];
+  if (g_calls.m_fenceStatus.contains(fences[0]))
+    g_calls.m_fenceStatus[fences[0]] = VK_NOT_READY;
   return VK_SUCCESS;
 }
 
@@ -99,6 +115,14 @@ VKAPI_ATTR VkResult VKAPI_CALL QueuePresent(VkQueue, VkPresentInfoKHR const * in
   TEST_EQUAL(info->swapchainCount, 1, ());
   g_calls.m_presentWaitSemaphore = info->pWaitSemaphores[0];
   g_calls.m_presentImage = info->pImageIndices[0];
+  g_calls.m_presentFence = VK_NULL_HANDLE;
+  if (info->pNext)
+  {
+    auto const * fences = static_cast<VkSwapchainPresentFenceInfoKHR const *>(info->pNext);
+    TEST_EQUAL(fences->sType, VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR, ());
+    TEST_EQUAL(fences->swapchainCount, 1, ());
+    g_calls.m_presentFence = fences->pFences[0];
+  }
   return g_calls.m_presentResult;
 }
 
@@ -113,6 +137,7 @@ VKAPI_ATTR VkResult VKAPI_CALL CreateSemaphore(VkDevice, VkSemaphoreCreateInfo c
 VKAPI_ATTR void VKAPI_CALL DestroySemaphore(VkDevice, VkSemaphore semaphore, VkAllocationCallbacks const *)
 {
   g_calls.m_destroyedSemaphores.push_back(semaphore);
+  g_calls.m_retirement.push_back("semaphore destroyed");
 }
 
 VKAPI_ATTR VkResult VKAPI_CALL CreateSwapchain(VkDevice, VkSwapchainCreateInfoKHR const *,
@@ -122,7 +147,10 @@ VKAPI_ATTR VkResult VKAPI_CALL CreateSwapchain(VkDevice, VkSwapchainCreateInfoKH
   return VK_SUCCESS;
 }
 
-VKAPI_ATTR void VKAPI_CALL DestroySwapchain(VkDevice, VkSwapchainKHR, VkAllocationCallbacks const *) {}
+VKAPI_ATTR void VKAPI_CALL DestroySwapchain(VkDevice, VkSwapchainKHR, VkAllocationCallbacks const *)
+{
+  g_calls.m_retirement.push_back("swapchain destroyed");
+}
 
 VKAPI_ATTR VkResult VKAPI_CALL GetSwapchainImages(VkDevice, VkSwapchainKHR, uint32_t * count, VkImage * images)
 {
@@ -141,6 +169,25 @@ VKAPI_ATTR VkResult VKAPI_CALL CreateImageView(VkDevice, VkImageViewCreateInfo c
 }
 
 VKAPI_ATTR void VKAPI_CALL DestroyImageView(VkDevice, VkImageView, VkAllocationCallbacks const *) {}
+
+VKAPI_ATTR VkResult VKAPI_CALL CreateFence(VkDevice, VkFenceCreateInfo const *, VkAllocationCallbacks const *,
+                                           VkFence * fence)
+{
+  *fence = Handle<VkFence>(g_calls.m_nextHandle++);
+  g_calls.m_createdFences.push_back(*fence);
+  g_calls.m_fenceStatus[*fence] = VK_NOT_READY;
+  return VK_SUCCESS;
+}
+
+VKAPI_ATTR void VKAPI_CALL DestroyFence(VkDevice, VkFence fence, VkAllocationCallbacks const *)
+{
+  g_calls.m_fenceStatus.erase(fence);
+}
+
+VKAPI_ATTR VkResult VKAPI_CALL FenceStatus(VkDevice, VkFence fence)
+{
+  return g_calls.m_fenceStatus.at(fence);
+}
 
 VKAPI_ATTR VkResult VKAPI_CALL CreateBuffer(VkDevice, VkBufferCreateInfo const *, VkAllocationCallbacks const *,
                                             VkBuffer * buffer)
@@ -217,6 +264,9 @@ private:
   ScopedEntryPoint<PFN_vkGetSwapchainImagesKHR> m_images{vkGetSwapchainImagesKHR, &GetSwapchainImages};
   ScopedEntryPoint<PFN_vkCreateImageView> m_createView{vkCreateImageView, &CreateImageView};
   ScopedEntryPoint<PFN_vkDestroyImageView> m_destroyView{vkDestroyImageView, &DestroyImageView};
+  ScopedEntryPoint<PFN_vkCreateFence> m_createFence{vkCreateFence, &CreateFence};
+  ScopedEntryPoint<PFN_vkDestroyFence> m_destroyFence{vkDestroyFence, &DestroyFence};
+  ScopedEntryPoint<PFN_vkGetFenceStatus> m_fenceStatus{vkGetFenceStatus, &FenceStatus};
   ScopedEntryPoint<PFN_vkCreateBuffer> m_createBuffer{vkCreateBuffer, &CreateBuffer};
   ScopedEntryPoint<PFN_vkDestroyBuffer> m_destroyBuffer{vkDestroyBuffer, &DestroyBuffer};
   ScopedEntryPoint<PFN_vkGetBufferMemoryRequirements> m_requirements{vkGetBufferMemoryRequirements,
@@ -282,8 +332,8 @@ class FrameContext : public BaseContext
 {
 public:
   FrameContext(ref_ptr<dp::vulkan::VulkanObjectManager> manager, bool supportsTimeout)
-    : BaseContext(VK_NULL_HANDLE, VK_NULL_HANDLE, {}, VK_NULL_HANDLE, 0, manager, nullptr, false,
-                  AcquireArgument(supportsTimeout))
+    : BaseContext(VK_NULL_HANDLE, VK_NULL_HANDLE, VkPhysicalDeviceProperties{}, VK_NULL_HANDLE, 0, manager, nullptr,
+                  false, AcquireArgument(supportsTimeout))
   {
     this->m_surface = Handle<VkSurfaceKHR>(1);
     this->m_surfaceFormat = VkSurfaceFormatKHR{VK_FORMAT_R8G8B8A8_UNORM, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR};
@@ -329,6 +379,14 @@ private:
     else
       return finite;
   }
+};
+
+class MaintenanceContext : public dp::vulkan::VulkanBaseContext
+{
+public:
+  template <typename... Args>
+  explicit MaintenanceContext(Args &&... args) : VulkanBaseContext(std::forward<Args>(args)..., true)
+  {}
 };
 
 using Context = FrameContext<dp::vulkan::VulkanBaseContext>;
@@ -496,5 +554,58 @@ UNIT_TEST(VulkanFrame_DeviceLossReportedAtSubmissionAndPresentation)
       ExpectCheck([&context] { context.Present(); }, "vkQueuePresentKHR");
     }
   }
+}
+
+UNIT_TEST(VulkanFrame_PresentationFencesReuseOnlyCompletedOperationsAndRetireResources)
+{
+  VulkanCalls calls;
+  dp::vulkan::VulkanObjectManager manager(VK_NULL_HANDLE, Limits(), MemoryProperties(), 0);
+  manager.RegisterThread(dp::vulkan::VulkanObjectManager::Frontend);
+  FrameContext<MaintenanceContext> context(make_ref(&manager), true);
+  context.Init(dp::ApiVersion::Vulkan);
+  auto draw = [&context]
+  {
+    g_calls.m_acquireResult = VK_SUCCESS;
+    TEST(Ready(context.BeginRendering()), ());
+    context.StartRenderPass();
+    context.EndRendering();
+    context.Present();
+    TEST(g_calls.m_presentFence != VK_NULL_HANDLE, ());
+  };
+  draw();
+  auto const first = g_calls.m_presentFence;
+  draw();
+  TEST(g_calls.m_presentFence != first, ());
+  TEST_EQUAL(g_calls.m_createdFences.size(), 2, ());
+  g_calls.m_fenceStatus[first] = VK_SUCCESS;
+  draw();
+  TEST(g_calls.m_presentFence == first, ());
+  TEST_EQUAL(g_calls.m_createdFences.size(), 2, ());
+
+  g_calls.m_retirement.clear();
+  context.RecreatePresentationSemaphores(4);
+  auto const waited = std::find(g_calls.m_retirement.begin(), g_calls.m_retirement.end(), "fences waited");
+  auto const semaphore = std::find(g_calls.m_retirement.begin(), g_calls.m_retirement.end(), "semaphore destroyed");
+  auto const swapchain = std::find(g_calls.m_retirement.begin(), g_calls.m_retirement.end(), "swapchain destroyed");
+  TEST(waited != g_calls.m_retirement.end(), ());
+  TEST(waited < semaphore, ());
+  TEST(waited < swapchain, ());
+  TEST(g_calls.m_fenceStatus.empty(), ());
+}
+
+UNIT_TEST(VulkanFrame_UnextendedPresentationUsesNoPresentationFences)
+{
+  VulkanCalls calls;
+  dp::vulkan::VulkanObjectManager manager(VK_NULL_HANDLE, Limits(), MemoryProperties(), 0);
+  manager.RegisterThread(dp::vulkan::VulkanObjectManager::Frontend);
+  Context context(make_ref(&manager), true);
+  context.Init(dp::ApiVersion::Vulkan);
+  g_calls.m_acquireResult = VK_SUCCESS;
+  TEST(Ready(context.BeginRendering()), ());
+  context.StartRenderPass();
+  context.EndRendering();
+  context.Present();
+  TEST(g_calls.m_presentFence == VK_NULL_HANDLE, ());
+  TEST(g_calls.m_createdFences.empty(), ());
 }
 }  // namespace vulkan_frame_tests

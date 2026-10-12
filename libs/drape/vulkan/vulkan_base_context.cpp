@@ -34,7 +34,7 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
                                      VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
                                      uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
                                      drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
-                                     uint64_t imageAcquireTimeoutNanoseconds)
+                                     uint64_t imageAcquireTimeoutNanoseconds, bool swapchainMaintenanceEnabled)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
   , m_gpuProperties(gpuProperties)
@@ -42,6 +42,7 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
   , m_hasPartialTextureUpdates(hasPartialTextureUpdates)
   , m_imageAcquireTimeoutNanoseconds(imageAcquireTimeoutNanoseconds)
+  , m_swapchainMaintenanceEnabled(swapchainMaintenanceEnabled)
   , m_objectManager(std::move(objectManager))
   , m_pipeline(std::move(pipeline))
   , m_presentAvailable(true)
@@ -521,6 +522,17 @@ void VulkanBaseContext::Present()
   presentInfo.pWaitSemaphores = &m_renderSemaphores[m_imageIndex];
   presentInfo.waitSemaphoreCount = 1;
 
+  VkFence presentFence = VK_NULL_HANDLE;
+  VkSwapchainPresentFenceInfoKHR fenceInfo = {};
+  if (m_swapchainMaintenanceEnabled)
+  {
+    presentFence = GetPresentFence();
+    fenceInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR;
+    fenceInfo.swapchainCount = 1;
+    fenceInfo.pFences = &presentFence;
+    presentInfo.pNext = &fenceInfo;
+  }
+
   auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
   if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR &&
       res != VK_ERROR_SURFACE_LOST_KHR)
@@ -892,6 +904,9 @@ void VulkanBaseContext::RecreateSwapchain()
 
 void VulkanBaseContext::DestroySwapchain()
 {
+  // Presentation fences retire image and semaphore payloads. Without maintenance support,
+  // resource retirement relies on the device-idle fallback in the surface teardown.
+  DestroyPresentFences();
   if (m_swapchain == VK_NULL_HANDLE)
     return;
 
@@ -1024,6 +1039,37 @@ void VulkanBaseContext::DestroySyncPrimitives()
     vkDestroySemaphore(m_device, s, nullptr);
     s = VK_NULL_HANDLE;
   }
+}
+
+VkFence VulkanBaseContext::GetPresentFence()
+{
+  for (auto const fence : m_presentFences)
+  {
+    auto const status = vkGetFenceStatus(m_device, fence);
+    if (status == VK_NOT_READY)
+      continue;
+    CHECK_RESULT_VK_CALL(vkGetFenceStatus, status);
+    CHECK_VK_CALL(vkResetFences(m_device, 1, &fence));
+    return fence;
+  }
+
+  VkFenceCreateInfo info = {};
+  info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+  VkFence fence = VK_NULL_HANDLE;
+  CHECK_VK_CALL(vkCreateFence(m_device, &info, nullptr, &fence));
+  m_presentFences.push_back(fence);
+  return fence;
+}
+
+void VulkanBaseContext::DestroyPresentFences()
+{
+  if (m_presentFences.empty())
+    return;
+  CHECK_VK_CALL(vkWaitForFences(m_device, static_cast<uint32_t>(m_presentFences.size()), m_presentFences.data(),
+                                VK_TRUE, UINT64_MAX));
+  for (auto const fence : m_presentFences)
+    vkDestroyFence(m_device, fence, nullptr);
+  m_presentFences.clear();
 }
 
 void VulkanBaseContext::RecreateDepthTexture()
