@@ -155,6 +155,55 @@ void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bear
   SetHeading(bearingDeg, HeadingSource::Road);
 }
 
+void InertialNavigator::SetMarkOnRoad(ms::LatLon const & position, double bearingDeg)
+{
+  // The rest of the turn the car is making: from where it looks to along the road, the way it was turning.
+  std::optional<double> restOfTurn;
+  if (m_turning && m_deadReckoning.HasHeading())
+  {
+    double const heading = m_deadReckoning.GetHeading();
+    double const rest = AngleDiff(bearingDeg, heading);
+    double const turned = AngleDiff(heading, m_turnFromBearing);
+    if (rest * turned > 0 && std::fabs(rest) + std::fabs(turned) <= 180)
+      restOfTurn = rest;
+  }
+  SetRoadPosition(position, bearingDeg);
+  if (!restOfTurn || std::fabs(*restOfTurn) < kMinMarkTurnDeg)
+    return;
+  m_markTurnLeftDeg = restOfTurn;
+  m_markTurnCalmPathM.reset();
+  LOG(LINFO, ("The car is marked while it turns: the rest of the turn,", std::round(*restOfTurn),
+              "degrees, doesn't turn the mark away from its road"));
+}
+
+double InertialNavigator::AbsorbMarkTurn(double yawDeltaDeg, double dtSec)
+{
+  if (!m_markTurnLeftDeg)
+    return yawDeltaDeg;
+  // The turn is over when the car has driven straight for some meters.
+  if (std::fabs(yawDeltaDeg / dtSec) >= kTurnEndRateDeg)
+  {
+    m_markTurnCalmPathM.reset();
+  }
+  else if (!m_markTurnCalmPathM)
+  {
+    m_markTurnCalmPathM = m_pathM;
+  }
+  else if (m_pathM - *m_markTurnCalmPathM >= kMarkTurnEndM)
+  {
+    m_markTurnLeftDeg.reset();
+    return yawDeltaDeg;
+  }
+  // The car rotating the way the turn went on is making the rest of it. Another way, or farther than the road
+  // goes, it turns away from the road.
+  double & left = *m_markTurnLeftDeg;
+  if (yawDeltaDeg * left <= 0)
+    return yawDeltaDeg;
+  double const absorbed = std::fabs(yawDeltaDeg) < std::fabs(left) ? yawDeltaDeg : left;
+  left -= absorbed;
+  return yawDeltaDeg - absorbed;
+}
+
 void InertialNavigator::OnPositionCorrected(ms::LatLon const & position, double bearingDeg, double appliedM)
 {
   m_speedScale.OnCorrection(appliedM);
@@ -236,6 +285,7 @@ void InertialNavigator::SetHeading(double headingDeg, HeadingSource source)
 {
   m_deadReckoning.SetHeading(headingDeg);
   m_headingSource = source;
+  m_markTurnLeftDeg.reset();
 }
 
 std::optional<double> InertialNavigator::GetHeading() const
@@ -877,11 +927,9 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
         startDeg += rotation.second;
       double const startSec = std::max(dtSec, (now - m_standRotation.front().first) / 1000.0);
       m_standRotation.clear();
-      Rotate(startDeg, startSec, timestampNs, trackTurn);
-      rotatedDeg += startDeg;
+      rotatedDeg += Rotate(startDeg, startSec, timestampNs, trackTurn);
     }
-    Rotate(yawDeltaDeg, dtSec, timestampNs, trackTurn);
-    rotatedDeg += yawDeltaDeg;
+    rotatedDeg += Rotate(yawDeltaDeg, dtSec, timestampNs, trackTurn);
   }
   else if (calibrated)
   {
@@ -958,12 +1006,15 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
   }
 }
 
-void InertialNavigator::Rotate(double yawDeltaDeg, double dtSec, int64_t timestampNs, bool trackTurn)
+double InertialNavigator::Rotate(double yawDeltaDeg, double dtSec, int64_t timestampNs, bool trackTurn)
 {
+  // The gyroscope is compared with GPS by all it has measured.
+  m_turnSignChecker.OnGyro(yawDeltaDeg);
+  yawDeltaDeg = AbsorbMarkTurn(yawDeltaDeg, dtSec);
   if (trackTurn)
     TrackTurn(yawDeltaDeg, dtSec, timestampNs);
   m_deadReckoning.Rotate(yawDeltaDeg);
-  m_turnSignChecker.OnGyro(yawDeltaDeg);
+  return yawDeltaDeg;
 }
 
 double InertialNavigator::DistanceWithLag(double dtSec)

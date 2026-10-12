@@ -107,6 +107,15 @@ public:
   static double constexpr kAccelFadeSec = 10;
   // A turn at a crossing rotates the car faster than a bend of a road.
   static double constexpr kTurnStartRateDeg = 10;
+  // The user marks the car on the road it turns into before the turn is over: the mark looks along the road at
+  // once, and the rest of the turn has turned it away from that road. On October 11 a mark set 81 degrees before
+  // the end of a turn was turned by the other 79 and looked across the road; the user had to mark it again. A car
+  // marked this far or farther from the direction of the road while it turns is finishing that turn, if the road
+  // is farther the way it was turning: a mark the other way, as another one of that day, means the heading was
+  // wrong. That car crept on for a second, stood for three and turned on: the turn is over when the car has
+  // driven this far without turning, not after a while.
+  static double constexpr kMinMarkTurnDeg = 10;
+  static double constexpr kMarkTurnEndM = 15;
   // The turn is over when the car goes straight for a while.
   static double constexpr kTurnEndRateDeg = 4;
   static int64_t constexpr kTurnEndCalmNs = 1'000'000'000;
@@ -211,6 +220,9 @@ public:
   /// The position is on a road: its direction is more reliable than the calculated one.
   /// \param bearingDeg direction of the road in the direction of the movement.
   void SetRoadPosition(ms::LatLon const & position, double bearingDeg);
+  /// The user has marked the car on a road, the mark looks along it. A car turning at that moment is turning
+  /// into the marked road: the rest of its turn is not a turn away from that road.
+  void SetMarkOnRoad(ms::LatLon const & position, double bearingDeg);
   /// The user has corrected the lag of the calculated position along the road.
   /// \param appliedM the distance the position was moved by, negative if it was moved back.
   void OnPositionCorrected(ms::LatLon const & position, double bearingDeg, double appliedM);
@@ -354,7 +366,10 @@ private:
   void PutOnRoad(ms::LatLon const & point, double bearingDeg);
   double DistanceWithLag(double dtSec);
   // Rotates the car, following its turn at a crossing if |trackTurn|.
-  void Rotate(double yawDeltaDeg, double dtSec, int64_t timestampNs, bool trackTurn);
+  // \returns what the car is rotated by, see AbsorbMarkTurn().
+  double Rotate(double yawDeltaDeg, double dtSec, int64_t timestampNs, bool trackTurn);
+  // \returns the part of the rotation that is not the rest of the turn the car was marked in.
+  double AbsorbMarkTurn(double yawDeltaDeg, double dtSec);
   void SnapToRoad();
   void MatchBend();
   void TrackTurn(double yawDeltaDeg, double dtSec, int64_t timestampNs);
@@ -441,6 +456,10 @@ private:
   bool m_turnFromRoad = false;
   // The turn has been calm since then: the car goes straight.
   std::optional<int64_t> m_turnCalmSinceNs;
+  // What is left of the turn the car was marked in, see kMinMarkTurnDeg, and what the car had driven when it
+  // began to go straight.
+  std::optional<double> m_markTurnLeftDeg;
+  std::optional<double> m_markTurnCalmPathM;
   // The rotation of the turn both ways together.
   double m_turnRotationDeg = 0;
   // For the trip log: when the turn has started, all the car had driven by then, and its speeds in the turn.

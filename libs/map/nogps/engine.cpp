@@ -995,7 +995,7 @@ bool Engine::SetManualLocation(ms::LatLon const & position)
   // The mark looks along the road whatever the gyroscope has counted. A heading kept 18 degrees aside of the road
   // has drawn the car across it on October 10, and no tap could put it right.
   if (m_inertial)
-    m_inertial->SetRoadPosition(road->m_point, road->m_bearingDeg);
+    m_inertial->SetMarkOnRoad(road->m_point, road->m_bearingDeg);
   ApplyManualLocation();
   ShowOffRoadCar();
   return true;
