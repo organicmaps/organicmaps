@@ -55,12 +55,14 @@ UNIT_TEST(VulkanSurface_ZeroExtentDefersAllocation)
 VkSurfaceCapabilitiesKHR g_capabilities;
 VkResult g_capabilitiesResult;
 unsigned g_queries;
+unsigned g_idleWaits;
 VkResult g_fenceResult;
 uint64_t g_fenceTimeout;
 dp::GraphicsContext * g_pauseDuringFenceWait;
 
 VKAPI_ATTR VkResult VKAPI_CALL FakeDeviceWaitIdle(VkDevice)
 {
+  ++g_idleWaits;
   return VK_SUCCESS;
 }
 
@@ -89,6 +91,7 @@ public:
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR = &FakeGetSurfaceCapabilities;
     vkWaitForFences = &FakeWaitForFences;
     g_queries = 0;
+    g_idleWaits = 0;
     g_capabilities = Capabilities();
     g_capabilitiesResult = VK_SUCCESS;
     g_fenceResult = VK_TIMEOUT;
@@ -139,6 +142,7 @@ UNIT_TEST(VulkanSurface_ContextSuspendsBeforeAllocatingAtZeroExtent)
   g_capabilities.currentExtent = {};
   TEST(context.BeginRendering() == dp::FrameStatus::Suspended, ());
   TEST_EQUAL(g_queries, 1, ());
+  TEST_EQUAL(g_idleWaits, 0, ());
 }
 
 UNIT_TEST(VulkanSurface_UnavailablePresentationDoesNotQueryOrAllocate)
@@ -157,6 +161,7 @@ UNIT_TEST(VulkanSurface_ZeroResizeDefersAllocation)
   context.Resize(0, 480);
   TEST(context.BeginRendering() == dp::FrameStatus::Suspended, ());
   TEST_EQUAL(g_queries, 2, ());
+  TEST_EQUAL(g_idleWaits, 0, ());
 }
 
 UNIT_TEST(VulkanSurface_LostSurfaceRetainsTransientRetry)
@@ -165,6 +170,7 @@ UNIT_TEST(VulkanSurface_LostSurfaceRetainsTransientRetry)
   TestContext context;
   g_capabilitiesResult = VK_ERROR_SURFACE_LOST_KHR;
   TEST(context.BeginRendering() == dp::FrameStatus::RetryLater, ());
+  TEST_EQUAL(g_idleWaits, 0, ());
 }
 
 UNIT_TEST(VulkanSurface_FenceTimeoutRemainsRetryable)
