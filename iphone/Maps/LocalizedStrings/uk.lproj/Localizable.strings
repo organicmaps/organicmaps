@@ -1207,14 +1207,11 @@
 /* VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates. */
 "menu_map_updates_count" = "Доступні оновлення мап: %d";
 
-/* VoiceOver label for the handle that expands the iOS search sheet. */
-"search_accessibility_expand" = "Розгорнути пошук";
-
 /* VoiceOver label for the progress indicator while iOS search is running. */
 "search_accessibility_searching" = "Пошук";
 
 /* VoiceOver announcement after an iOS search completes. %d is the number of results. */
-"search_accessibility_results_count" = "Результатів пошуку: %d";
+"search_accessibility_results_count" = "Знайдено результатів: %d";
 
 /* VoiceOver value for the distance to a place in an iOS search result. %@ is a localized distance with unit. */
 "search_accessibility_distance" = "Відстань: %@";

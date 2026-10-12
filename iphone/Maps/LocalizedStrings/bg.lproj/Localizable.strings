@@ -1207,9 +1207,6 @@
 /* VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates. */
 "menu_map_updates_count" = "Map updates available: %d";
 
-/* VoiceOver label for the handle that expands the iOS search sheet. */
-"search_accessibility_expand" = "Expand search";
-
 /* VoiceOver label for the progress indicator while iOS search is running. */
 "search_accessibility_searching" = "Searching";
 
