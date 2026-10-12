@@ -22,6 +22,10 @@ private class HeaderCell: UICollectionViewCell {
   private var selectedAttributes: [NSAttributedString.Key: Any] = [:]
   private var deselectedAttributes: [NSAttributedString.Key: Any] = [:]
 
+  override var isSelected: Bool {
+    didSet { accessibilityTraits = isSelected ? [.button, .selected] : .button }
+  }
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     contentView.addSubview(label)
@@ -72,10 +76,6 @@ private class HeaderCell: UICollectionViewCell {
     } else {
       label.textColor = deselectedColor ?? selectedColor
     }
-  }
-
-  func setAccessibilitySelected(_ selected: Bool) {
-    accessibilityTraits = selected ? [.button, .selected] : .button
   }
 }
 
@@ -278,10 +278,6 @@ class TabView: UIView {
     tabsCollectionView.selectItem(at: IndexPath(item: selectedIndex, section: 0),
                                   animated: false,
                                   scrollPosition: [])
-    for indexPath in tabsCollectionView.indexPathsForVisibleItems {
-      (tabsCollectionView.cellForItem(at: indexPath) as? HeaderCell)?
-        .setAccessibilitySelected(indexPath.item == selectedIndex)
-    }
     updateHeaderSelectionProgress()
   }
 
@@ -350,7 +346,6 @@ extension TabView: UICollectionViewDataSource {
                                  text: title,
                                  selectionProgress: headerSelectionProgress(for: indexPath.item,
                                                                             selectedPosition: currentSelectedPosition()))
-        headerCell.setAccessibilitySelected(indexPath.item == selectedIndex)
         if indexPath.item == selectedIndex {
           collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         }
