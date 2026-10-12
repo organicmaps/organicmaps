@@ -15,15 +15,12 @@
 
 namespace df
 {
-IsHatchingTerritoryChecker::TwoLevel45::TwoLevel45()
-  : ftypes::BaseCheckerEx({{"amenity", "prison"},
-                           {"boundary", "aboriginal_lands"},
-                           {"boundary", "national_park"},
-                           {"landuse", "military"},
-                           {"leisure", "nature_reserve"}})
-{}
-
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
+  : m_2level45({{"amenity", "prison"},
+                {"boundary", "aboriginal_lands"},
+                {"boundary", "national_park"},
+                {"landuse", "military"},
+                {"leisure", "nature_reserve"}})
 {
   Classificator const & c = classif();
   m_3level45 = c.GetTypeByPath({"boundary", "protected_area", "1"});
@@ -45,29 +42,12 @@ std::string_view IsHatchingTerritoryChecker::GetHatch(uint32_t type) const
   return {};
 }
 
-std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const & types) const
-{
-  for (uint32_t t : types)
-  {
-    auto s = GetHatch(t);
-    if (!s.empty())
-      return s;
-  }
-  return {};
-}
-
-IsAreaPatternChecker::Stipple::Stipple()
-  : ftypes::BaseCheckerEx({{"natural", "beach"},  // natural=sand is a beach subtype
-                           {"natural", "desert"}})
+IsAreaPatternChecker::IsAreaPatternChecker()
+  : m_stipple({{"natural", "beach"}, {"natural", "desert"}})
+  , m_intermittentWater({{"natural", "water", "intermittent"}, {"landuse", "basin", "intermittent"}})
+  , m_speckle({{"natural", "scree"}, {"natural", "bare_rock"}, {"natural", "shingle"}, {"landuse", "quarry"}})
+  , m_grid({{"landuse", "orchard"}, {"landuse", "vineyard"}})
 {}
-
-IsAreaPatternChecker::IntermittentWater::IntermittentWater()
-  : ftypes::BaseCheckerEx({{"natural", "water", "intermittent"}, {"landuse", "basin", "intermittent"}})
-{}
-
-IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
-
-IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard"}, {"landuse", "vineyard"}}) {}
 
 std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
 {
@@ -77,17 +57,6 @@ std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
     return dp::kSpecklePattern;
   if (m_grid(type))
     return dp::kGridPattern;
-  return {};
-}
-
-std::string_view IsAreaPatternChecker::GetPattern(feature::TypesHolder const & types) const
-{
-  for (uint32_t t : types)
-  {
-    auto s = GetPattern(t);
-    if (!s.empty())
-      return s;
-  }
   return {};
 }
 
@@ -156,7 +125,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
   }
 }
 
-void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
+void Stylist::ProcessKey(FeatureType & f, drule::Key const & key, feature::TypesHolder const & types)
 {
   drule::BaseRule const * const dRule = m_rulesHolder.Find(key);
 #ifdef DEBUG
@@ -192,18 +161,24 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
     m_lineRules.push_back(dRule->GetLine());
     break;
   case drule::area:
+  {
     ASSERT(dRule->GetArea() && geomType == GeomType::Area, (geomType, f.DebugString()));
+    ASSERT_LESS(key.m_sourceTypeIndex, types.Size(), (f.DebugString()));
+    uint32_t const sourceType = types.begin()[key.m_sourceTypeIndex];
     if (key.m_hatching)
     {
       ASSERT(!m_hatchingRule, (f.DebugString()));
       m_hatchingRule = dRule->GetArea();
+      m_hatchingPattern = IsHatchingTerritoryChecker::Instance().GetHatch(sourceType);
     }
     else
     {
       ASSERT(!m_areaRule, (f.DebugString()));
       m_areaRule = dRule->GetArea();
+      m_areaPattern = IsAreaPatternChecker::Instance().GetPattern(sourceType);
     }
     break;
+  }
   // TODO(pastk) : check if circle/waymarker support exists still (not used in styles ATM).
   case drule::circle:
   case drule::waymarker:
@@ -252,24 +227,28 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
   auto const geomType = types.GetGeomType();
 
   drule::KeysT keys;
-  for (uint32_t t : types)
+  static_assert(feature::kMaxTypesCount <= std::numeric_limits<uint8_t>::max());
+  for (size_t typeIndex = 0; typeIndex < types.Size(); ++typeIndex)
   {
+    uint32_t const t = types.begin()[typeIndex];
     drule::KeysT typeKeys;
     cl.GetObject(t)->GetSuitable(zoomLevel, geomType, typeKeys);
-    bool const hasHatching = hatchingChecker(t);
 
     for (auto & k : typeKeys)
     {
-      // The intermittent fill wins on the same feature, while separate permanent-water polygons draw above it.
-      if (types.Size() > 1 && k.m_type == drule::area && areaPatternChecker.IsIntermittentWater(t))
-        k.m_priority += kIntermittentWaterSelectionBoost;
-
       // Take overlay drules from the main type only.
       if (t == mainOverlayType || (k.m_type != drule::caption && k.m_type != drule::symbol &&
                                    k.m_type != drule::shield && k.m_type != drule::pathtext))
       {
-        if (hasHatching && k.m_type == drule::area)
-          k.m_hatching = true;
+        if (k.m_type == drule::area)
+        {
+          // Preserve the rule's source through filtering and selection so its pattern follows its fill.
+          k.m_sourceTypeIndex = static_cast<uint8_t>(typeIndex);
+          k.m_hatching = hatchingChecker(t);
+          // The intermittent fill wins on the same feature; separate permanent water draws above it.
+          if (types.Size() > 1 && areaPatternChecker.IsIntermittentWater(t))
+            k.m_priority += kIntermittentWaterSelectionBoost;
+        }
         keys.push_back(k);
       }
     }
@@ -280,11 +259,23 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
   if (keys.empty())
     return;
 
+  // Only surviving area rules can supply a modifier; it belongs on the fill, independently of its source.
+  bool const hasIntermittentWater = std::any_of(keys.begin(), keys.end(), [&](drule::Key const & key)
+  {
+    if (key.m_type != drule::area)
+      return false;
+    ASSERT_LESS(key.m_sourceTypeIndex, types.Size(), (f.DebugString()));
+    return areaPatternChecker.IsIntermittentWater(types.begin()[key.m_sourceTypeIndex]);
+  });
+
   // Leave only one area drule and an optional hatching drule.
   drule::MakeUnique(keys);
 
   for (auto const & key : keys)
-    ProcessKey(f, key);
+    ProcessKey(f, key, types);
+
+  if (m_areaRule && hasIntermittentWater)
+    m_areaPattern = dp::kStipplePattern;
 
   if (m_captionRule || m_pathtextRule)
   {

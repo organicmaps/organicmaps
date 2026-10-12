@@ -21,20 +21,12 @@ public:
   DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
 
   std::string_view GetHatch(uint32_t type) const;
-  std::string_view GetHatch(feature::TypesHolder const & types) const;
 
-  template <class T>
-  bool operator()(T && t) const
-  {
-    return !GetHatch(t).empty();
-  }
+  bool operator()(uint32_t type) const { return !GetHatch(type).empty(); }
 
 private:
   // 45d hatch.
-  struct TwoLevel45 : ftypes::BaseCheckerEx
-  {
-    TwoLevel45();
-  } m_2level45;
+  ftypes::BaseCheckerEx m_2level45;
   uint32_t m_3level45;
 
   uint32_t m_2levelDash;  // dash hatch
@@ -42,34 +34,23 @@ private:
 
 // Maps area types to an analytic, single-pass fill pattern. The dots modulate the surface colour in place:
 // they darken light fills and lighten dark fills, while hatching uses a transparent overlay.
+// Keep the markers of these types in the styles' Basemap.mapcss files in sync.
 class IsAreaPatternChecker
 {
-  IsAreaPatternChecker() = default;
+  IsAreaPatternChecker();
 
 public:
   DECLARE_CHECKER_INSTANCE(IsAreaPatternChecker);
 
   std::string_view GetPattern(uint32_t type) const;
-  std::string_view GetPattern(feature::TypesHolder const & types) const;
+  // Intermittent water marks the selected fill even when another type supplies it.
   bool IsIntermittentWater(uint32_t type) const { return m_intermittentWater(type); }
 
 private:
-  struct Stipple : ftypes::BaseCheckerEx
-  {
-    Stipple();
-  } m_stipple;  // beach (incl. sand subtype) / desert
-  struct IntermittentWater : ftypes::BaseCheckerEx
-  {
-    IntermittentWater();
-  } m_intermittentWater;
-  struct Speckle : ftypes::BaseCheckerEx
-  {
-    Speckle();
-  } m_speckle;  // scree / bare_rock
-  struct Grid : ftypes::BaseCheckerEx
-  {
-    Grid();
-  } m_grid;  // orchard / vineyard
+  ftypes::BaseCheckerEx m_stipple;
+  ftypes::BaseCheckerEx m_intermittentWater;
+  ftypes::BaseCheckerEx m_speckle;
+  ftypes::BaseCheckerEx m_grid;
 };
 
 struct CaptionDescription
@@ -110,6 +91,8 @@ public:
   drule::ShieldRule const * m_shieldRule = nullptr;
   drule::AreaRule const * m_areaRule = nullptr;
   drule::AreaRule const * m_hatchingRule = nullptr;
+  std::string_view m_areaPattern;
+  std::string_view m_hatchingPattern;
 
   using LineRulesT = buffer_vector<drule::LineRule const *, 4>;
   LineRulesT m_lineRules;
@@ -121,7 +104,7 @@ public:
   Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle);
 
 private:
-  void ProcessKey(FeatureType & f, drule::Key const & key);
+  void ProcessKey(FeatureType & f, drule::Key const & key, feature::TypesHolder const & types);
 
   drule::RulesHolder const & m_rulesHolder;
 };
