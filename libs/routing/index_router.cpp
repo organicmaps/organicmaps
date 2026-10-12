@@ -349,6 +349,12 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                     ? IRoadGraph::Mode::IgnoreOnewayTag
                     : IRoadGraph::Mode::ObeyOnewayTag,
                 m_vehicleModelFactory)
+  , m_positionDataSource(dataSource, m_numMwmIds)
+  , m_positionRoadGraph(m_positionDataSource,
+                        vehicleType == VehicleType::Pedestrian || vehicleType == VehicleType::Transit
+                            ? IRoadGraph::Mode::IgnoreOnewayTag
+                            : IRoadGraph::Mode::ObeyOnewayTag,
+                        m_vehicleModelFactory)
   , m_estimator(EdgeEstimator::Create(m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory, m_vehicleType),
                                       CalcOffroadSpeed(*m_vehicleModelFactory), m_trafficStash, &dataSource,
                                       m_numMwmIds))
@@ -388,6 +394,15 @@ void IndexRouter::ClearState()
   m_lastAltFakeEdges.reset();
   // A new route starts from the default variant again.
   m_activeStrategy = EdgeEstimator::Strategy::Normal;
+  m_clearPositionState = true;
+}
+
+void IndexRouter::ClearPositionStateIfNeeded()
+{
+  if (!m_clearPositionState.exchange(false))
+    return;
+  m_positionRoadGraph.ClearState();
+  m_positionDataSource.FreeHandles();
 }
 
 void IndexRouter::SwapAltRouteToActive()
@@ -404,11 +419,12 @@ void IndexRouter::SwapAltRouteToActive()
 bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                               EdgeProj & proj)
 {
+  ClearPositionStateIfNeeded();
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, radius);
   std::vector<EdgeProjectionT> candidates;
 
   uint32_t const count = direction.IsAlmostZero() ? 1 : 4;
-  m_roadGraph.FindClosestEdges(rect, count, candidates);
+  m_positionRoadGraph.FindClosestEdges(rect, count, candidates);
 
   if (candidates.empty())
     return false;
@@ -441,10 +457,11 @@ bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::Poin
 
 void IndexRouter::FindRoadCrossings(m2::RectD const & rect, std::vector<m2::PointD> & crossings)
 {
+  ClearPositionStateIfNeeded();
   // Counts the ways out of every road point: two for an inner point of a road, one for its end. A point
   // with three or more ways out is a crossing, two ways out are just a road split into several features.
   std::map<m2::PointD, uint32_t> waysOut;
-  for (auto const & road : m_roadGraph.FindRoads(rect, nullptr /* isGoodFeature */))
+  for (auto const & road : m_positionRoadGraph.FindRoads(rect, nullptr /* isGoodFeature */))
   {
     // A point repeated in a road is one point of it, not a crossing of two pieces.
     std::vector<m2::PointD> points;
@@ -488,6 +505,7 @@ m2::PointD MoveAlongRoad(IRoadGraph::PointWithAltitudeVec const & junctions, siz
 
 bool IndexRouter::FindMainRoad(m2::PointD const & point, double radiusM, m2::PointD & projected, double & angleRad)
 {
+  ClearPositionStateIfNeeded();
   // Roads this much farther than the closest one are the same place for a tap on the map: at a branch of a
   // driveway the tap is on both of them.
   double constexpr kSamePlaceM = 3.0;
@@ -503,7 +521,7 @@ bool IndexRouter::FindMainRoad(m2::PointD const & point, double radiusM, m2::Poi
     m2::PointD m_point;
   };
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, 2.0 * radiusM);
-  auto const roads = m_roadGraph.FindRoads(rect, nullptr /* isGoodFeature */);
+  auto const roads = m_positionRoadGraph.FindRoads(rect, nullptr /* isGoodFeature */);
   std::vector<Candidate> candidates;
   for (size_t roadIdx = 0; roadIdx < roads.size(); ++roadIdx)
   {
@@ -531,7 +549,7 @@ bool IndexRouter::FindMainRoad(m2::PointD const & point, double radiusM, m2::Poi
   auto const getClass = [this, &roads](size_t roadIdx)
   {
     feature::TypesHolder types;
-    m_roadGraph.GetFeatureTypes(roads[roadIdx].m_featureId, types);
+    m_positionRoadGraph.GetFeatureTypes(roads[roadIdx].m_featureId, types);
     auto const cls = ftypes::GetHighwayClass(types);
     return cls == ftypes::HighwayClass::Undefined ? ftypes::HighwayClass::Count : cls;
   };
@@ -558,9 +576,36 @@ bool IndexRouter::FindMainRoad(m2::PointD const & point, double radiusM, m2::Poi
   return true;
 }
 
+bool IndexRouter::IsRoundaboutNear(m2::PointD const & point, double radiusM)
+{
+  ClearPositionStateIfNeeded();
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, 2.0 * radiusM);
+  for (auto const & road : m_positionRoadGraph.FindRoads(rect, nullptr /* isGoodFeature */))
+  {
+    feature::TypesHolder types;
+    m_positionRoadGraph.GetFeatureTypes(road.m_featureId, types);
+    if (!ftypes::IsRoundAboutChecker::Instance()(types))
+      continue;
+    // The roads are found by their rectangles: a piece of this one is to be that close.
+    auto const & junctions = road.m_roadInfo.m_junctions;
+    for (size_t i = 0; i + 1 < junctions.size(); ++i)
+    {
+      auto const & start = junctions[i].GetPoint();
+      auto const & end = junctions[i + 1].GetPoint();
+      if (start == end)
+        continue;
+      auto const closest = m2::ParametrizedSegment<m2::PointD>(start, end).ClosestPointTo(point);
+      if (mercator::DistanceOnEarth(point, closest) <= radiusM)
+        return true;
+    }
+  }
+  return false;
+}
+
 bool IndexRouter::FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
                                 m2::PointD & projected, double & angleRad)
 {
+  ClearPositionStateIfNeeded();
   // A road going farther aside is a crossing street, not the road the car drives along.
   double constexpr kMaxDiffDeg = 45.0;
   // A bend of the road is weighed against the distance to it: a road bending aside a bit is still closer than
@@ -573,7 +618,7 @@ bool IndexRouter::FindRoadAlong(m2::PointD const & point, m2::PointD const & dir
   double const carAngle = hasDirection ? ang::AngleTo(m2::PointD::Zero(), direction) : 0.0;
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, 2.0 * radiusM);
   double bestCost = std::numeric_limits<double>::max();
-  for (auto const & road : m_roadGraph.FindRoads(rect, nullptr /* isGoodFeature */))
+  for (auto const & road : m_positionRoadGraph.FindRoads(rect, nullptr /* isGoodFeature */))
   {
     auto const & junctions = road.m_roadInfo.m_junctions;
     for (size_t i = 0; i + 1 < junctions.size(); ++i)

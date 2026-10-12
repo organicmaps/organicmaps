@@ -684,6 +684,12 @@ bool RoutingSession::FindMainRoad(m2::PointD const & point, double radiusM, m2::
   return m_router && m_router->FindMainRoad(point, radiusM, projected, angleRad);
 }
 
+bool RoutingSession::IsRoundaboutNear(m2::PointD const & point, double radiusM) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_router && m_router->IsRoundaboutNear(point, radiusM);
+}
+
 bool RoutingSession::FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
                                    m2::PointD & projected, double & angleRad) const
 {

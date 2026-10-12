@@ -3,7 +3,7 @@ NoGPS Maps is offline navigation for drivers that keeps guiding the car when GPS
 <b>How it works</b>
 • GPS positions are checked against the cell tower and Wi-Fi position and against how far the car could drive. Wrong positions are ignored.
 • When GPS is lost, the manual mode turns on: tap the map to place the car, it snaps to the road.
-• With an OBD-II ELM327 adapter (Bluetooth) or an ESP32 sensor box (Wi-Fi) the app drives the car by itself: turns from the gyroscope, distance from the car speed.
+• With an OBD-II ELM327 adapter (Bluetooth) or an ESP32 sensor box (Bluetooth) the app drives the car by itself: turns from the gyroscope, distance from the car speed.
 • The car stays on the roads: it snaps to the road, and a turn is moved to the crossing where it happened.
 • Speedometer and gyroscope corrections are measured automatically while GPS works.
 • The app returns to GPS by itself as soon as it is reliable again.

@@ -33,6 +33,9 @@
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Vietos aptikimas yra būtinas navigacijai ir naujų trasų įrašymui.";
 
+/* Needed to explain why we require access to Bluetooth: the sensor box of the car is reached over Bluetooth LE. */
+"NSBluetoothAlwaysUsageDescription" = "The sensor box in the car gives the turns and the speed of the car over Bluetooth.";
+
 /* Login to OSM button text */
 "login_osm_credentials" = "Prisijungimas su slaptažodžiu";
 

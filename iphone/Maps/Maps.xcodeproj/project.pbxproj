@@ -679,6 +679,9 @@
 		FA853BEF26BC5BA40026D455 /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BEE26BC5BA40026D455 /* libdescriptions.a */; };
 		FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BF226BC5DE50026D455 /* libshaders.a */; };
 		FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */; };
+		3AB2A51C1DF5ED4103358BAF /* MWMNoGps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */; };
+		CF816FBCBE80AAE1FFDC7E66 /* NoGpsControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */; };
+		11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1822,6 +1825,10 @@
 		FAF9A8A82CE0CEC000F6604D /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lv; path = lv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libharfbuzz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
+		B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNoGps.h; sourceTree = "<group>"; };
+		7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoGps.mm; sourceTree = "<group>"; };
+		EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsControls.swift; sourceTree = "<group>"; };
+		FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsSensorsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2730,6 +2737,8 @@
 		ED82C39B2F90180300FA103D /* MapViewControls */ = {
 			isa = PBXGroup;
 			children = (
+				EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */,
+				FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */,
 				ED82C3912F90180300FA103D /* SideButtons */,
 				ED82C3952F90180300FA103D /* TrafficButton */,
 				ED82C3962F90180300FA103D /* MWMMapViewControlsCommon.h */,
@@ -3919,6 +3928,7 @@
 		ED82C73F2F90186300FA103D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7B3C39D4B9E6F6AB446F32C8 /* NoGps */,
 				ED82C6742F90186300FA103D /* AppDelegate */,
 				ED82C6792F90186300FA103D /* BackgroundFetchScheduler */,
 				ED82C6902F90186300FA103D /* CarPlay */,
@@ -4179,6 +4189,15 @@
 				FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7B3C39D4B9E6F6AB446F32C8 /* NoGps */ = {
+			isa = PBXGroup;
+			children = (
+				B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */,
+				7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */,
+			);
+			path = NoGps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4509,6 +4528,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF816FBCBE80AAE1FFDC7E66 /* NoGpsControls.swift in Sources */,
+				11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */,
+				3AB2A51C1DF5ED4103358BAF /* MWMNoGps.mm in Sources */,
 				ED82BCB22F900F8200FA103D /* main.mm in Sources */,
 				ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */,
 				ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */,

@@ -39,10 +39,10 @@
       android:text="@string/nogps_source_phone"
       android:textSize="16sp" />
     <RadioButton
-      android:id="@+id/nogps_source_esp32"
+      android:id="@+id/nogps_source_esp32_bt"
       android:layout_width="match_parent"
       android:layout_height="48dp"
-      android:text="@string/nogps_source_esp32"
+      android:text="@string/nogps_source_esp32_bt"
       android:textSize="16sp" />
   </RadioGroup>
 
@@ -57,7 +57,8 @@
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="52dp"
+    android:layout_height="wrap_content"
+    android:minHeight="52dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
     <TextView
@@ -72,6 +73,27 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/nogps_sensors_choose" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/nogps_firmware_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="52dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="gone">
+    <TextView
+      android:id="@+id/nogps_firmware"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:textSize="16sp" />
+    <Button
+      android:id="@+id/nogps_firmware_button"
+      style="?borderlessButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
   </LinearLayout>
 
   <TextView
@@ -102,7 +124,8 @@
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="52dp"
+    android:layout_height="wrap_content"
+    android:minHeight="52dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
     <TextView
@@ -119,9 +142,38 @@
       android:text="@string/nogps_clear_speed" />
   </LinearLayout>
 
+  <TextView
+    android:id="@+id/nogps_lag"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:textSize="16sp"
+    android:visibility="gone" />
+
+  <TextView
+    android:id="@+id/nogps_box_calibration_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:text="@string/nogps_box_calibration"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    android:visibility="gone" />
+
+  <TextView
+    android:id="@+id/nogps_box_calibration_hint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:text="@string/nogps_box_calibration_hint"
+    android:textColor="?android:textColorSecondary"
+    android:textSize="14sp"
+    android:visibility="gone" />
+
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="52dp"
+    android:layout_height="wrap_content"
+    android:minHeight="52dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
     <TextView

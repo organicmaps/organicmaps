@@ -81,6 +81,13 @@ namespace descriptions
 class Loader;
 }
 
+namespace nogps
+{
+class Delegate;
+class Engine;
+class Service;
+}  // namespace nogps
+
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 // #define FIXED_LOCATION
@@ -194,6 +201,9 @@ protected:
   RoutingManager m_routingManager;
 
   TrafficManager m_trafficManager;
+
+  // Note. |m_noGps| should be declared after |m_routingManager|: it uses the roads and the route.
+  std::unique_ptr<nogps::Service> m_noGps;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
@@ -403,6 +413,12 @@ public:
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
   location::EMyPositionMode GetMyPositionMode() const;
+
+  /// @name Navigation without GPS.
+  /// Creates it, the platform does its part through |delegate|, which must outlive the Framework.
+  nogps::Engine & CreateNoGps(nogps::Delegate & delegate);
+  /// \returns nullptr until it is created.
+  nogps::Engine * GetNoGps();
 
 private:
   void OnUserPositionChanged(m2::PointD const & position, bool hasPosition);

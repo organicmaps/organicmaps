@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.ViewConfiguration;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
@@ -22,20 +21,6 @@ import app.organicmaps.sdk.util.log.Logger;
 public class MapView extends SurfaceView
 {
   private static final String TAG = MapView.class.getSimpleName();
-
-  public interface TapInterceptor
-  {
-    void onMapTap(float x, float y);
-  }
-
-  // When set, short taps on the map go to the interceptor instead of the core (e.g. to set own position manually).
-  @Nullable
-  private static TapInterceptor sTapInterceptor;
-
-  private boolean mTapCandidate;
-  private float mTapDownX;
-  private float mTapDownY;
-  private long mTapDownTime;
 
   private class SurfaceHolderCallback implements SurfaceHolder.Callback
   {
@@ -128,53 +113,9 @@ public class MapView extends SurfaceView
     }
     case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
     }
-
-    if (isInterceptedTap(event))
-    {
-      // Cancel the gesture in the core, so it doesn't select an object under the tap.
-      Map.onTouch(Map.NATIVE_ACTION_CANCEL, event, pointerIndex);
-      if (sTapInterceptor != null)
-        sTapInterceptor.onMapTap(event.getX(), event.getY());
-      return true;
-    }
-
     Map.onTouch(action, event, pointerIndex);
     performClick();
     return true;
-  }
-
-  public static void setTapInterceptor(@Nullable TapInterceptor interceptor)
-  {
-    sTapInterceptor = interceptor;
-  }
-
-  private boolean isInterceptedTap(@NonNull MotionEvent event)
-  {
-    switch (event.getActionMasked())
-    {
-    case MotionEvent.ACTION_DOWN ->
-    {
-      mTapCandidate = sTapInterceptor != null;
-      mTapDownX = event.getX();
-      mTapDownY = event.getY();
-      mTapDownTime = event.getEventTime();
-    }
-    case MotionEvent.ACTION_POINTER_DOWN, MotionEvent.ACTION_CANCEL -> mTapCandidate = false;
-    case MotionEvent.ACTION_MOVE ->
-    {
-      final int slop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-      if (Math.hypot(event.getX() - mTapDownX, event.getY() - mTapDownY) > slop)
-        mTapCandidate = false;
-    }
-    case MotionEvent.ACTION_UP ->
-    {
-      final boolean isTap = mTapCandidate && sTapInterceptor != null
-                         && event.getEventTime() - mTapDownTime < ViewConfiguration.getLongPressTimeout();
-      mTapCandidate = false;
-      return isTap;
-    }
-    }
-    return false;
   }
 
   @Override

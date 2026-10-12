@@ -88,6 +88,9 @@ public:
     return false;
   }
 
+  /// Returns true if a roundabout is within |radiusM| of |point|.
+  virtual bool IsRoundaboutNear(m2::PointD const & /* point */, double /* radiusM */) { return false; }
+
   /// How many meters of the distance to a road a degree of the difference between its direction and the
   /// direction of a car is worth when the road the car is on is chosen.
   static double constexpr kRoadMetersPerDeg = 0.2;

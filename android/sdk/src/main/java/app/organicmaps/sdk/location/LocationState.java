@@ -3,7 +3,6 @@ package app.organicmaps.sdk.location;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import app.organicmaps.sdk.Map;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -51,61 +50,6 @@ public final class LocationState
 
   static native void nativeLocationUpdated(long time, double lat, double lon, float accuracyH, double altitude,
                                            float accuracyV, float speed, float bearing);
-
-  /**
-   * Converts a point on the map view (in pixels) to geographic coordinates.
-   * @return {latitude, longitude}
-   */
-  @NonNull
-  static native double[] nativeScreenToLatLon(float x, float y);
-
-  /**
-   * @param bearing the direction the car goes, negative if it is unknown: the route is built that way.
-   */
-  static native void nativeRebuildRouteIfOffRoute(long time, double lat, double lon, float accuracy,
-                                                  float bearing);
-
-  /**
-   * Snaps a position to the closest road, preferring the one going in the bearing direction.
-   * @param bearing the direction of the movement, negative if it is unknown.
-   * @param matchRoute prefer the followed route to the roads around.
-   * @return {latitude, longitude, road bearing}, or null if there is no route or road within the radius.
-   */
-  @Nullable
-  static native double[] nativeSnapToRoad(double lat, double lon, double bearing, double radius, boolean matchRoute);
-
-  /**
-   * Moves a position to the closest point of the followed route.
-   * @return {latitude, longitude, route bearing}, or null if there is no route within the radius.
-   */
-  @Nullable
-  static native double[] nativeProjectToRoute(double lat, double lon, double radius);
-
-  /**
-   * Snaps a position set by the user to the closest road, preferring a main road to a driveway branching
-   * off it nearly as close.
-   * @return {latitude, longitude, road bearing}, or null if there is no road within the radius.
-   */
-  @Nullable
-  static native double[] nativeSnapToMainRoad(double lat, double lon, double radius);
-
-  /**
-   * @return {latitude, longitude} pairs of the points where three or more roads meet within the radius.
-   */
-  @NonNull
-  static native double[] nativeFindRoadCrossings(double lat, double lon, double radius);
-
-  /**
-   * Moves a position along the followed route, stopping at the closest turn or crossing in both directions.
-   * @param bearing where the car looks, negative if it is unknown. Parts of the route going another way are
-   * skipped: they are streets the car has already left or has not reached yet.
-   * @param distance meters to move forward, negative to move back.
-   * @return {latitude, longitude, route bearing, applied distance (negative when moved back), 1 if stopped
-   * at a turn or crossing and 0 otherwise}, or null if there is no followed route, the position is not on
-   * it or it is moved back from the start of the route.
-   */
-  @Nullable
-  static native double[] nativeShiftAlongRoute(double lat, double lon, double bearing, double distance);
 
   private LocationState() {}
 

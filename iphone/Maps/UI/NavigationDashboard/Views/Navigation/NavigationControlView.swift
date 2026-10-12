@@ -271,6 +271,7 @@ final class NavigationControlView: SolidTouchView {
     }
     speedLegendLabel.textColor = speedLabel.textColor
     speedWithLegendLabel.textColor = speedLabel.textColor
+    showNoCarData(numberAttributes: routingNumberAttributes, legendAttributes: routingLegendAttributes)
 
     routingProgress.constant = progressView.width * info.progress / 100
   }
@@ -379,5 +380,28 @@ extension NavigationControlView: MWMTextToSpeechObserver {
       ttsButton.isSelected = MWMTextToSpeech.tts().active
     }
     refreshDiminishTimer()
+  }
+}
+
+private extension NavigationControlView {
+  /// Shows that the car speed doesn't come instead of the speed: 0 km/h of a standing car looks the same with and
+  /// without the car connected, and without it the position is not calculated when GPS is lost.
+  func showNoCarData(numberAttributes: [NSAttributedString.Key: Any],
+                     legendAttributes: [NSAttributedString.Key: Any]) {
+    let status = NoGps.status()
+    guard status.inertialStarted, status.sourceState != .connected else { return }
+    // The part to look at: the box itself or the adapter in the car.
+    let noBox = [.disconnected, .connecting, .boxSleeping].contains(status.sourceState)
+    let value = L("nogps_speed_no_data")
+    let units = L(noBox ? "nogps_speed_no_box" : "nogps_speed_no_elm")
+    speedLabel.text = value
+    speedLegendLabel.text = units
+    let valueWithUnits = NSMutableAttributedString(string: value, attributes: numberAttributes)
+    valueWithUnits.append(NSAttributedString(string: units, attributes: legendAttributes))
+    speedWithLegendLabel.attributedText = valueWithUnits
+    speedLabel.textColor = .buttonRed
+    speedLegendLabel.textColor = .buttonRed
+    speedWithLegendLabel.textColor = .buttonRed
+    speedBackground.backgroundColor = .clear
   }
 }

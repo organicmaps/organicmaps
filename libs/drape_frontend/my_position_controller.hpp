@@ -183,6 +183,8 @@ private:
 
   bool m_enablePerspectiveInRouting;
   bool m_enableAutoZoomInRouting;
+  // The zoom level the navigation has started with.
+  int m_routingZoomLevel;
   double m_autoScale2d;
   double m_autoScale3d;
 

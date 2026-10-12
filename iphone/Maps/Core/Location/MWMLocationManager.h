@@ -31,6 +31,10 @@ NS_SWIFT_NAME(LocationManager)
 
 + (void)enableLocationAlert;
 
+/// The position chosen by the navigation without GPS, see MWMNoGps.
+/// @param fromGps false for a position set by the user or calculated by the inertial navigation.
++ (void)onNoGpsPosition:(CLLocation *)location fromGps:(BOOL)fromGps;
+
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));

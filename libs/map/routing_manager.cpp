@@ -1800,6 +1800,11 @@ std::vector<ms::LatLon> RoutingManager::FindRoadCrossings(ms::LatLon const & cen
   return result;
 }
 
+bool RoutingManager::IsRoundaboutNear(ms::LatLon const & center, double radiusM) const
+{
+  return m_routingSession.IsRoundaboutNear(mercator::FromLatLon(center), radiusM);
+}
+
 bool RoutingManager::ProjectToRoute(ms::LatLon const & latLon, double radiusM, ms::LatLon & projected,
                                     double & bearingDeg)
 {

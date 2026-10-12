@@ -194,6 +194,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
       return false;
 
     nativeInitFramework(onComplete);
+    mLocationHelper.initNoGps();
 
     initNativeStrings();
     SearchEngine.INSTANCE.initialize();

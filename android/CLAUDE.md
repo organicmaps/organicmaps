@@ -75,7 +75,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 - Keep the diff reviewable — large files can be ported incrementally
 
 ## Important notes
-- Minimum SDK: 21; target SDK: latest stable
+- Minimum SDK: 21, and 24 for the `google` flavor (the automatic protection of Google Play needs it); target SDK: latest stable
 - Java 17 source/target; Kotlin enabled in `app` module, other modules can opt in via `enableKotlin = true` in `build.gradle`
 - Run `ktlint --editorconfig=android/.editorconfig --format <file.kt>` after creating or editing Kotlin files
 - Run `cd android && ./gradlew :app:detektCheck` to verify Kotlin naming and code quality; config in `android/detekt.yml`

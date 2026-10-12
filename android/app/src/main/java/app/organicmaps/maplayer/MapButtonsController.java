@@ -5,17 +5,17 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.TypedValue;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,22 +32,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingPlanViewModel;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.downloader.UpdateInfo;
-import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.NoGps;
 import app.organicmaps.sdk.location.TrackRecorder;
-import app.organicmaps.sdk.location.inertial.InertialNavigator;
-import app.organicmaps.sdk.location.inertial.MotionSource;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -64,6 +63,20 @@ import java.util.Map;
 
 public class MapButtonsController extends Fragment
 {
+  private static final String TAG = MapButtonsController.class.getSimpleName();
+  // The moments of a test drive marked in the log, see the button flag_log.
+  private static int sLogFlags;
+
+  // In debug builds a hidden control of the car keeps its place in the row: the button marking the log at the start
+  // of the row stays where it is, whatever controls are shown.
+  private static void showCarControl(boolean show, @NonNull View control)
+  {
+    if (BuildConfig.DEBUG)
+      UiUtils.visibleIf(show, control);
+    else
+      UiUtils.showIf(show, control);
+  }
+
   Map<MapButtons, View> mButtonsMap;
   private View mFrame;
   private View mInnerLeftButtonsFrame;
@@ -82,13 +95,13 @@ public class MapButtonsController extends Fragment
   private FloatingActionButton mManualPositionButton;
   @Nullable
   private View mReverseButton;
-  // The motion source of the inertial navigation gave the car speed, the user is told when it stops.
-  private boolean mMotionSourceWorked;
-  private long mMotionSourceWarnedMs;
   @Nullable
   private TextView mPositionStatus;
   @Nullable
   private FloatingActionButton mPauseButton;
+  // The color of the icon of the pause button as its style sets it.
+  @Nullable
+  private ColorStateList mPauseButtonIconTint;
   @Nullable
   private View mShiftPositionContainer;
   @Nullable
@@ -97,8 +110,6 @@ public class MapButtonsController extends Fragment
   private View mShiftPositionForward;
   @Nullable
   private View mShiftPositionBack;
-  // Meters the position is moved by, the user chooses one of them.
-  private static final int[] SHIFT_STEPS_M = {10, 20, 50, 100};
   private static final long POSITION_STATUS_UPDATE_INTERVAL_MS = 1000;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private final Runnable mPositionStatusUpdater = new Runnable() {
@@ -170,8 +181,7 @@ public class MapButtonsController extends Fragment
     mCarControls = mFrame.findViewById(R.id.car_controls);
     mManualPositionButton = mFrame.findViewById(R.id.manual_position);
     mPositionStatus = mFrame.findViewById(R.id.position_status);
-    mPositionStatus.setOnClickListener(
-        (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.positionStatus));
+    mPositionStatus.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.positionStatus));
     mManualPositionButton.setOnClickListener(
         (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.manualPosition));
     mShiftPositionContainer = mFrame.findViewById(R.id.shift_position_container);
@@ -184,16 +194,24 @@ public class MapButtonsController extends Fragment
         (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.shiftPositionBack));
     mReverseButton = mFrame.findViewById(R.id.reverse_direction);
     mReverseButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.reverseDirection));
+    // The log of a test drive is analysed afterwards: the tester marks the moments the car was shown wrong at.
+    final View flagLog = mFrame.findViewById(R.id.flag_log);
+    UiUtils.showIf(BuildConfig.DEBUG, flagLog);
+    flagLog.setOnClickListener((v) -> {
+      Logger.i(TAG, "FLAG " + ++sLogFlags);
+      v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+      Toast.makeText(v.getContext(), "\u2691 " + sLogFlags, Toast.LENGTH_SHORT).show();
+    });
     mPauseButton = mFrame.findViewById(R.id.pause_movement);
+    mPauseButtonIconTint = mPauseButton.getImageTintList();
     mPauseButton.setOnClickListener((v) -> {
       mMapButtonClickListener.onMapButtonClick(MapButtons.pauseMovement);
       updatePositionStatus();
     });
     mShiftPositionStep.setOnClickListener((v) -> {
-      Config.setPositionShiftStepM(nextShiftStep());
-      updateShiftPositionStep();
+      NoGps.nativeCycleShiftStep();
+      updatePositionStatus();
     });
-    updateShiftPositionStep();
 
     // Some buttons do not exist in navigation mode
     mToggleMapLayerButton = mFrame.findViewById(R.id.layers_button);
@@ -297,8 +315,8 @@ public class MapButtonsController extends Fragment
   private void updatePositionStatus()
   {
     final Context context = requireContext();
-    final LocationHelper locationHelper = MwmApplication.from(context).getLocationHelper();
-    final LocationHelper.PositionSource source = locationHelper.getPositionSource();
+    final NoGps.Status status = NoGps.getStatus();
+    final NoGps.PositionSource source = status.getSource();
 
     if (mPositionStatus != null)
     {
@@ -313,21 +331,20 @@ public class MapButtonsController extends Fragment
       }
       case NETWORK ->
       {
-        final String accuracy = formatAccuracy(locationHelper.getPositionAccuracy());
-        text = getString(locationHelper.isGpsSpoofed() ? R.string.nogps_status_network_spoofed
-                                                       : R.string.nogps_status_network_no_gps, accuracy);
+        final String accuracy = formatAccuracy(status.accuracyM);
+        text = getString(
+            status.gpsSpoofed ? R.string.nogps_status_network_spoofed : R.string.nogps_status_network_no_gps, accuracy);
         color = R.color.nogps_status_network;
       }
       case INERTIAL ->
       {
-        text = locationHelper.isPaused()
-                 ? getString(R.string.nogps_status_paused)
-                 : getString(R.string.nogps_status_inertial, formatAccuracy(locationHelper.getPositionAccuracy()));
+        text = status.paused ? getString(R.string.nogps_status_paused)
+                             : getString(R.string.nogps_status_inertial, formatAccuracy(status.accuracyM));
         color = R.color.nogps_status_inertial;
       }
       case MANUAL ->
       {
-        final long minutes = locationHelper.getManualPositionAgeMs() / 60_000;
+        final long minutes = status.manualAgeMs / 60_000;
         text = minutes == 0 ? getString(R.string.nogps_status_manual_just_now)
                             : getString(R.string.nogps_status_manual_minutes, minutes);
         color = R.color.nogps_status_manual;
@@ -340,82 +357,55 @@ public class MapButtonsController extends Fragment
       }
       // The position is not taken from GPS or towers now, but the user has to see whether they work: in the
       // manual mode GPS is not used even when it is back.
-      if (locationHelper.isManualMode() || source == LocationHelper.PositionSource.INERTIAL)
+      if (status.manualMode || source == NoGps.PositionSource.INERTIAL)
       {
-        final SpannableString status = new SpannableString(text + "\n" + getOtherSourcesStatus(locationHelper));
-        status.setSpan(new RelativeSizeSpan(0.8f), text.length() + 1, status.length(),
-                       Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mPositionStatus.setText(status);
+        final SpannableString withOthers = new SpannableString(text + "\n" + getOtherSourcesStatus(status));
+        withOthers.setSpan(new RelativeSizeSpan(0.8f), text.length() + 1, withOthers.length(),
+                           Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mPositionStatus.setText(withOthers);
       }
       else
         mPositionStatus.setText(text);
       mPositionStatus.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, color)));
     }
 
-    // The position is moved by hand only when it does not come from GPS: a GPS one is moved by the car. The
-    // buttons moving it along the road calibrate the speed, they are shown while the user calibrates it.
-    final boolean movedByHand = locationHelper.isManualMode() || source == LocationHelper.PositionSource.INERTIAL
-                             || source == LocationHelper.PositionSource.MANUAL;
+    // The buttons moving the position along the road calibrate the speed, they are shown while the user calibrates
+    // it.
     if (mShiftPositionContainer != null)
-      UiUtils.showIf(movedByHand && Config.isNoGpsShiftButtonsShown(), mShiftPositionContainer);
+      UiUtils.showIf(status.movedByHand && status.shiftButtonsShown, mShiftPositionContainer);
+    if (mShiftPositionStep != null)
+      mShiftPositionStep.setText(getString(R.string.nogps_meters, status.shiftStepM));
     if (mReverseButton != null)
-      UiUtils.showIf(movedByHand, mReverseButton);
+      showCarControl(status.movedByHand, mReverseButton);
 
     // The movement is paused only when it is calculated from the car speed.
     if (mPauseButton != null)
     {
-      UiUtils.showIf(movedByHand && locationHelper.isInertialNavigationEnabled(), mPauseButton);
-      mPauseButton.setImageResource(locationHelper.isPaused() ? R.drawable.ic_play : R.drawable.ic_pause);
-      mPauseButton.setContentDescription(
-          getString(locationHelper.isPaused() ? R.string.nogps_resume : R.string.nogps_pause));
+      showCarControl(status.movedByHand && status.inertialEnabled, mPauseButton);
+      mPauseButton.setImageResource(status.paused ? R.drawable.ic_play : R.drawable.ic_pause);
+      mPauseButton.setContentDescription(getString(status.paused ? R.string.nogps_resume : R.string.nogps_pause));
+      // The pause set by the navigation itself is to be noticed: the mark waits until the car drives along a
+      // road again or the user resumes the movement.
+      final boolean byItself = status.paused && status.pausedByItself;
+      // The style tints the background by the attribute of the view, not of the button: the tint of the button
+      // is not seen under it.
+      final Drawable background = mPauseButton.getBackground();
+      if (background != null)
+        background.setTint(byItself ? ContextCompat.getColor(context, R.color.nogps_paused_by_itself)
+                                    : ThemeUtils.getColor(context, R.attr.menuBackground));
+      mPauseButton.setImageTintList(byItself ? ColorStateList.valueOf(Color.WHITE) : mPauseButtonIconTint);
     }
 
     // The position waits at a turn until the car leaves it, otherwise it would go to another street.
-    setShiftEnabled(mShiftPositionForward, !locationHelper.isShiftBlocked(true));
-    setShiftEnabled(mShiftPositionBack, !locationHelper.isShiftBlocked(false));
-
-    warnIfMotionSourceStopped(locationHelper);
+    setShiftEnabled(mShiftPositionForward, !status.shiftForwardBlocked);
+    setShiftEnabled(mShiftPositionBack, !status.shiftBackBlocked);
 
     // The icon tells where the position comes from now: from satellites or from the user.
     if (mManualPositionButton != null)
     {
-      mManualPositionButton.setImageResource(locationHelper.isManualMode() ? R.drawable.ic_manual_position
-                                                                          : R.drawable.ic_gps_position);
+      mManualPositionButton.setImageResource(status.manualMode ? R.drawable.ic_manual_position
+                                                               : R.drawable.ic_gps_position);
     }
-  }
-
-  /**
-   * Tells the user when the car speed stops coming while the car is followed without GPS: the position stands
-   * still then, and the user would not know why.
-   */
-  private void warnIfMotionSourceStopped(@NonNull LocationHelper locationHelper)
-  {
-    // Repeated while it lasts: a message is easily missed while driving.
-    final long warningIntervalMs = 30_000;
-    final InertialNavigator inertial = locationHelper.getInertialNavigator();
-    if (inertial == null || !locationHelper.isInertialNavigationEnabled())
-    {
-      mMotionSourceWorked = false;
-      return;
-    }
-    if (inertial.getSourceState() == MotionSource.State.CONNECTED)
-    {
-      mMotionSourceWorked = true;
-      mMotionSourceWarnedMs = 0;
-      return;
-    }
-    // The box sleeps with the engine stopped: the car stands, nothing is lost.
-    final MotionSource.State state = inertial.getSourceState();
-    if (state == MotionSource.State.BOX_SLEEPING || state == MotionSource.State.OBD_SLEEPING)
-      return;
-    final long now = SystemClock.elapsedRealtime();
-    if (!mMotionSourceWorked || !locationHelper.isManualMode() || now - mMotionSourceWarnedMs < warningIntervalMs)
-      return;
-    mMotionSourceWarnedMs = now;
-    Toast.makeText(requireContext(), locationHelper.isEsp32Source() ? R.string.nogps_box_stopped
-                                                                    : R.string.nogps_obd_stopped,
-                   Toast.LENGTH_LONG)
-        .show();
   }
 
   private static void setShiftEnabled(@Nullable View button, boolean enabled)
@@ -427,33 +417,16 @@ public class MapButtonsController extends Fragment
   }
 
   @NonNull
-  private String getOtherSourcesStatus(@NonNull LocationHelper locationHelper)
+  private String getOtherSourcesStatus(@NonNull NoGps.Status status)
   {
-    final Location gps = locationHelper.getWorkingGps();
-    if (gps != null)
-      return getString(R.string.nogps_status_gps_back, formatAccuracy(gps.getAccuracy()));
+    if (status.workingGpsAccuracyM >= 0)
+      return getString(R.string.nogps_status_gps_back, formatAccuracy(status.workingGpsAccuracyM));
 
     final String gpsStatus =
-        getString(locationHelper.isGpsSpoofed() ? R.string.nogps_status_gps_spoofed : R.string.nogps_status_no_gps);
-    final Location network = locationHelper.getWorkingNetwork();
-    if (network == null)
+        getString(status.gpsSpoofed ? R.string.nogps_status_gps_spoofed : R.string.nogps_status_no_gps);
+    if (status.workingNetworkAccuracyM < 0)
       return gpsStatus;
-    return gpsStatus + " · " + getString(R.string.nogps_status_towers, formatAccuracy(network.getAccuracy()));
-  }
-
-  private static int nextShiftStep()
-  {
-    final int current = Config.getPositionShiftStepM();
-    for (int i = 0; i < SHIFT_STEPS_M.length; i++)
-      if (SHIFT_STEPS_M[i] == current)
-        return SHIFT_STEPS_M[(i + 1) % SHIFT_STEPS_M.length];
-    return SHIFT_STEPS_M[0];
-  }
-
-  private void updateShiftPositionStep()
-  {
-    if (mShiftPositionStep != null)
-      mShiftPositionStep.setText(getString(R.string.nogps_meters, Config.getPositionShiftStepM()));
+    return gpsStatus + " · " + getString(R.string.nogps_status_towers, formatAccuracy(status.workingNetworkAccuracyM));
   }
 
   @NonNull

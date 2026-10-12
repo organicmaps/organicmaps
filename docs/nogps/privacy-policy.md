@@ -20,7 +20,7 @@ NoGPS Maps — застосунок для офлайн-навігації ав�
 | Точне й приблизне місцеположення (GPS, вишки, Wi-Fi) | Показати вас на карті, прокласти маршрут, розпізнати хибні позиції GPS | Лише на телефоні |
 | Дані датчиків руху (гіроскоп, акселерометр) | Інерціальна навігація, коли немає GPS | Лише на телефоні |
 | Швидкість автомобіля від адаптера OBD-II ELM327 (Bluetooth) | Розрахунок пройденої відстані | Лише на телефоні |
-| Дані блоку датчиків ESP32 (Wi-Fi мережа блоку) | Поворот і швидкість автомобіля | Лише на телефоні; блок не має доступу до інтернету |
+| Дані блоку датчиків ESP32 (Bluetooth) | Поворот і швидкість автомобіля | Лише на телефоні; блок не має доступу до інтернету |
 | Журнал поїздки (якщо ви ввімкнули логування в налаштуваннях) | Розбір помилок навігації | Лише на телефоні, доки ви самі його не надішлете |
 | Закладки, треки, маршрути, налаштування | Робота застосунку | Лише на телефоні |
 
@@ -87,7 +87,7 @@ Developer: Ramzess (NoGPS Maps), contact: most05062014@gmail.com.
 | Precise and approximate location (GPS, cell towers, Wi-Fi) | Show you on the map, build routes, detect wrong GPS positions | The phone only |
 | Motion sensors (gyroscope, accelerometer) | Dead reckoning without GPS | The phone only |
 | Car speed from an OBD-II ELM327 adapter (Bluetooth) | Distance driven | The phone only |
-| ESP32 sensor box data (the box's own Wi-Fi network) | Car rotation and speed | The phone only; the box has no internet access |
+| ESP32 sensor box data (Bluetooth) | Car rotation and speed | The phone only; the box has no internet access |
 | Trip log (if you turn logging on in the settings) | Investigating navigation errors | The phone only, until you send it yourself |
 | Bookmarks, tracks, routes, settings | App features | The phone only |
 

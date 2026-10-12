@@ -20,6 +20,7 @@
   <color name="nogps_status_network">#FFEF7D00</color>
   <color name="nogps_status_manual">#FF249CF2</color>
   <color name="nogps_status_none">#FFD32F2F</color>
+  <color name="nogps_paused_by_itself">#FFD32F2F</color>
   <color name="nogps_status_inertial">#FF7B1FA2</color>
   <color name="dark_red">#F51E30</color>
   <color name="base_yellow">#FFFFC30A</color>

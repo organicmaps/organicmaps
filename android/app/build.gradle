@@ -86,6 +86,9 @@ android {
 
     google {
       dimension 'default'
+      // The automatic protection of Google Play, which checks the installer of the app, needs Android 7.
+      // The native code is built in the sdk module for the common minSdk and is not rebuilt for it.
+      minSdk = 24
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"most05062014@gmail.com"'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=ua.nogps.maps"'
@@ -290,9 +293,11 @@ def allowedPermissions = [
     "name='android.permission.POST_NOTIFICATIONS'",
     // wake lock
     "name='android.permission.WAKE_LOCK'",
-    // ELM327 OBD-II adapter
+    // ELM327 OBD-II adapter and the ESP32 sensor box
     "name='android.permission.BLUETOOTH' maxSdkVersion='30'",
     "name='android.permission.BLUETOOTH_CONNECT'",
+    "name='android.permission.BLUETOOTH_ADMIN' maxSdkVersion='30'",
+    "name='android.permission.BLUETOOTH_SCAN' usesPermissionFlags='neverForLocation'",
     // Android Auto
     "name='androidx.car.app.NAVIGATION_TEMPLATES'",
     "name='androidx.car.app.ACCESS_SURFACE'",

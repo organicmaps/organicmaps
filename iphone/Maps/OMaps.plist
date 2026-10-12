@@ -246,6 +246,8 @@
 			<string>app.organicmaps.3daction.report_bug</string>
 		</dict>
 	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>The sensor box in the car gives the turns and the speed of the car over Bluetooth.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

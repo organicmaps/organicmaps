@@ -15,8 +15,7 @@ import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.location.LocationHelper;
-import app.organicmaps.sdk.location.inertial.InertialNavigator;
-import app.organicmaps.sdk.location.inertial.MotionSource;
+import app.organicmaps.sdk.location.NoGps;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.StringUtils;
@@ -238,7 +237,7 @@ public class NavMenu implements DefaultLifecycleObserver
   private void updateSpeedView(@NonNull RoutingInfo info)
   {
     final LocationHelper locationHelper = MwmApplication.from(mActivity).getLocationHelper();
-    if (showNoCarData(locationHelper))
+    if (showNoCarData())
       return;
 
     final Location last = locationHelper.getSavedLocation();
@@ -267,19 +266,19 @@ public class NavMenu implements DefaultLifecycleObserver
    * and without the car connected, and without it the position is not calculated when GPS is lost.
    * @return whether it is shown.
    */
-  private boolean showNoCarData(@NonNull LocationHelper locationHelper)
+  private boolean showNoCarData()
   {
-    final InertialNavigator inertial = locationHelper.getInertialNavigator();
-    if (inertial == null || !locationHelper.isInertialNavigationEnabled())
+    final NoGps.Status status = NoGps.getStatus();
+    if (!status.inertialStarted)
       return false;
-    final MotionSource.State state = inertial.getSourceState();
-    if (state == MotionSource.State.CONNECTED)
+    final NoGps.SourceState state = status.getSourceState();
+    if (state == NoGps.SourceState.CONNECTED)
       return false;
 
     // The part to look at: the box itself or the adapter in the car.
-    final boolean noBox = locationHelper.isEsp32Source()
-                       && (state == MotionSource.State.DISCONNECTED || state == MotionSource.State.CONNECTING
-                           || state == MotionSource.State.BOX_SLEEPING);
+    final boolean noBox = status.esp32Source
+                       && (state == NoGps.SourceState.DISCONNECTED || state == NoGps.SourceState.CONNECTING
+                           || state == NoGps.SourceState.BOX_SLEEPING);
     mSpeedValue.setText(R.string.nogps_speed_no_data);
     mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_red));
     mSpeedUnits.setText(noBox ? R.string.nogps_speed_no_box : R.string.nogps_speed_no_elm);

@@ -47,9 +47,12 @@
     Services (FGS)) notifications from an app.
   //-->
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-  <!-- ELM327 OBD-II adapter for the inertial navigation. -->
+  <!-- ELM327 OBD-II adapter and the ESP32 sensor box for the inertial navigation. -->
   <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
   <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+  <!-- The sensor box is searched over Bluetooth LE. The scan is not used to find out where the phone is. -->
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+  <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />
 
   <queries>
     <intent>

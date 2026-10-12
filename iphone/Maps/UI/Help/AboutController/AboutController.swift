@@ -261,7 +261,7 @@ private extension AboutController {
         case .faq:
           self?.navigationController?.pushViewController(FaqController(), animated: true)
         case .reportABug:
-          MailComposer.sendBugReportWith(title: "Organic Maps Bug Report")
+          MailComposer.sendBugReportWith(title: "NoGPS Maps Bug Report")
         case .reportMapDataProblem, .volunteer, .news:
           self?.openUrl(aboutInfo.link)
         case .rateTheApp:

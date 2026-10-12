@@ -1,4 +1,4 @@
-First release of NoGPS Maps:
-• detection of wrong GPS positions and the manual mode;
-• dead reckoning with ELM327 or an ESP32 sensor box;
-• automatic return to GPS.
+• The ESP32 sensor box works over Bluetooth too.
+• The firmware of the box is updated from the app.
+• The app asks to calibrate the box on a level place once it is plugged in.
+• More accurate turns on the map without GPS.
