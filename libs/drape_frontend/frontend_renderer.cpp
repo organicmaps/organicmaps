@@ -1851,11 +1851,8 @@ void FrontendRenderer::RenderFrame()
   }
 #endif
 
-  // Skip starting a new GPU frame if rendering is being disabled (e.g. the app is going to the
-  // background). SetRenderingEnabled(false) sets the flag on the UI thread and then blocks until this
-  // render thread reaches CheckRenderingEnabled(); bailing out here (before BeginRendering, so GPU frame
-  // scope stays balanced) lets that handshake complete after at most the already in-flight frame instead
-  // of waiting for a full PrepareScene + RenderScene + present. Prevents ANRs in Framework::DetachSurface.
+  // Leave GPU frame scope unopened after a disable request so this thread can
+  // acknowledge the request in CheckRenderingEnabled().
   if (!IsRenderingEnabled())
     return;
 
