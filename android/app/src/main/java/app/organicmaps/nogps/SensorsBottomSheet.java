@@ -403,8 +403,8 @@ public class SensorsBottomSheet extends BottomSheetDialogFragment
 
     // The box works with the firmware the application is tested with: there is nothing to install. A debug
     // build sends it again to try the update itself.
-    final boolean install = !status.bundledFirmware.isEmpty()
-                         && (BuildConfig.DEBUG || !status.bundledFirmware.equals(status.boxFirmware));
+    final boolean install =
+        !status.bundledFirmware.isEmpty() && (BuildConfig.DEBUG || !status.bundledFirmware.equals(status.boxFirmware));
     // A box that has taken the firmware restarts by itself.
     final boolean cancel = updating && update != NoGps.FirmwareUpdate.RESTARTING;
     mFirmwareButton.setVisibility(install || cancel ? View.VISIBLE : View.GONE);
@@ -417,7 +417,7 @@ public class SensorsBottomSheet extends BottomSheetDialogFragment
   private static boolean isUpdating(@NonNull NoGps.FirmwareUpdate update)
   {
     return update == NoGps.FirmwareUpdate.STARTING || update == NoGps.FirmwareUpdate.SENDING
-        || update == NoGps.FirmwareUpdate.VERIFYING || update == NoGps.FirmwareUpdate.RESTARTING;
+ || update == NoGps.FirmwareUpdate.VERIFYING || update == NoGps.FirmwareUpdate.RESTARTING;
   }
 
   private void onFirmwareButton()

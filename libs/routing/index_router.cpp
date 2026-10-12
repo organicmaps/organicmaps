@@ -542,8 +542,9 @@ bool IndexRouter::FindMainRoad(m2::PointD const & point, double radiusM, m2::Poi
     return false;
 
   double const closestM =
-      std::min_element(candidates.cbegin(), candidates.cend(), [](Candidate const & a, Candidate const & b)
-  { return a.m_distanceM < b.m_distanceM; })->m_distanceM;
+      std::min_element(candidates.cbegin(), candidates.cend(), [](Candidate const & a, Candidate const & b) {
+    return a.m_distanceM < b.m_distanceM;
+  })->m_distanceM;
 
   // A lower class is a more important road: a street rather than a driveway or a parking aisle.
   auto const getClass = [this, &roads](size_t roadIdx)
@@ -571,8 +572,9 @@ bool IndexRouter::FindMainRoad(m2::PointD const & point, double radiusM, m2::Poi
   m2::PointD const back = MoveAlongRoad(junctions, best->m_segIdx, best->m_point, -kDirectionM);
   m2::PointD const ahead = MoveAlongRoad(junctions, best->m_segIdx, best->m_point, kDirectionM);
   projected = best->m_point;
-  angleRad = back != ahead ? ang::AngleTo(back, ahead)
-                           : ang::AngleTo(junctions[best->m_segIdx].GetPoint(), junctions[best->m_segIdx + 1].GetPoint());
+  angleRad = back != ahead
+               ? ang::AngleTo(back, ahead)
+               : ang::AngleTo(junctions[best->m_segIdx].GetPoint(), junctions[best->m_segIdx + 1].GetPoint());
   return true;
 }
 

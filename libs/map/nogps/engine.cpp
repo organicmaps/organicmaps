@@ -1259,9 +1259,9 @@ std::string Engine::GetTripLine()
     if (!fix || AgeMs(*fix) > kGpsStatusMaxAgeMs)
       return;
     auto const speedKmh = fix->m_speedMps ? std::optional<double>(*fix->m_speedMps * 3.6) : std::nullopt;
-    std::snprintf(buf, sizeof(buf), " %s=%.6f,%.6f/%.1f/%s/%s/%.2f", name, fix->m_position.m_lat,
-                  fix->m_position.m_lon, fix->m_accuracyM, FormatOptional(speedKmh).c_str(),
-                  FormatOptional(fix->m_bearingDeg).c_str(), AgeMs(*fix) / 1000.0);
+    std::snprintf(buf, sizeof(buf), " %s=%.6f,%.6f/%.1f/%s/%s/%.2f", name, fix->m_position.m_lat, fix->m_position.m_lon,
+                  fix->m_accuracyM, FormatOptional(speedKmh).c_str(), FormatOptional(fix->m_bearingDeg).c_str(),
+                  AgeMs(*fix) / 1000.0);
     line += buf;
   };
   addRaw("gps", m_rawGps);

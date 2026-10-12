@@ -205,8 +205,8 @@ void InertialNavigator::SaveSpeedTable()
 void InertialNavigator::LogSpeedCalibration() const
 {
   // For the trip log: the path of a trip is calculated again with these.
-  LOG(LINFO, ("Speed table =", m_speedTable.ToString(), "lag =", m_speedLag.Get(), "measured =",
-              m_speedLag.IsMeasured(), "scale =", m_speedScale.Get()));
+  LOG(LINFO, ("Speed table =", m_speedTable.ToString(), "lag =", m_speedLag.Get(),
+              "measured =", m_speedLag.IsMeasured(), "scale =", m_speedScale.Get()));
 }
 
 void InertialNavigator::ClearSpeedCalibration()
@@ -575,8 +575,8 @@ void InertialNavigator::CheckBackOnRoad()
   if (!IsRoadConfirmed(*road, heading))
   {
     m_lastSnapResult = std::fabs(*m_lastSnapBearingDiffDeg) > DeadReckoning::kMaxSnapHeadingDiffDeg
-                           ? SnapResult::Angle
-                           : SnapResult::Unconfirmed;
+                         ? SnapResult::Angle
+                         : SnapResult::Unconfirmed;
     return;
   }
   LOG(LINFO, ("The car drives along a road again", std::round(shift), "m aside, after", std::round(m_offRoadM),
@@ -1033,10 +1033,11 @@ void InertialNavigator::MatchTurn(int64_t timestampNs)
   // For the trip log, to try other rules on real trips: the turn with the second the car went straight after it,
   // and the crossings around where it has started by the calculation.
   char buf[160];
-  std::snprintf(buf, sizeof(buf), "from=%ld to=%ld rot=%ld sec=%.1f m=%ld kmh=%d-%d road=%d acc=%ld cr=",
-                std::lround(m_turnFromBearing), std::lround(toBearing), std::lround(m_turnRotationDeg),
-                (timestampNs - m_turnStartNs) / 1e9, std::lround(m_pathM - m_turnStartPathM), m_turnMinKmh,
-                m_turnMaxKmh, m_turnFromRoad ? 1 : 0, std::lround(m_deadReckoning.GetAccuracy()));
+  std::snprintf(buf, sizeof(buf),
+                "from=%ld to=%ld rot=%ld sec=%.1f m=%ld kmh=%d-%d road=%d acc=%ld cr=", std::lround(m_turnFromBearing),
+                std::lround(toBearing), std::lround(m_turnRotationDeg), (timestampNs - m_turnStartNs) / 1e9,
+                std::lround(m_pathM - m_turnStartPathM), m_turnMinKmh, m_turnMaxKmh, m_turnFromRoad ? 1 : 0,
+                std::lround(m_deadReckoning.GetAccuracy()));
   LOG(LINFO, ("TURN", buf + TurnMatcher::DescribeCrossings(m_roads, corner, m_turnFromBearing, toBearing)));
   if (m_turnRotationDeg - turnDeg > kMaxExtraTurnRotationDeg)
   {
@@ -1045,12 +1046,12 @@ void InertialNavigator::MatchTurn(int64_t timestampNs)
     return;
   }
   std::string whyNot;
-  auto const crossing = TurnMatcher::FindCrossing(m_roads, corner, m_turnFromBearing, toBearing,
-                                                  m_deadReckoning.GetAccuracy(), &whyNot);
+  auto const crossing =
+      TurnMatcher::FindCrossing(m_roads, corner, m_turnFromBearing, toBearing, m_deadReckoning.GetAccuracy(), &whyNot);
   if (!crossing)
   {
-    LOG(LINFO, ("Turn from", std::round(m_turnFromBearing), "to", std::round(toBearing), "is not at a crossing:",
-                whyNot));
+    LOG(LINFO,
+        ("Turn from", std::round(m_turnFromBearing), "to", std::round(toBearing), "is not at a crossing:", whyNot));
     return;
   }
 

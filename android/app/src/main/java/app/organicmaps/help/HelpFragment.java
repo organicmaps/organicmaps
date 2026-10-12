@@ -30,10 +30,20 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   private static final String OSM_COPYRIGHT_URL = "https://www.openstreetmap.org/copyright";
   private static final String SOURCE_CODE_URL = "https://github.com/Ramzess-II/NoGPSMaps";
   // The channels, documents and support of Organic Maps, not of NoGPS Maps.
-  private static final int[] ORGANIC_MAPS_ITEMS = {R.id.news,      R.id.web,     R.id.email,   R.id.telegram,
-                                                   R.id.instagram, R.id.facebook, R.id.twitter, R.id.matrix,
-                                                   R.id.mastodon,  R.id.faq,     R.id.report,  R.id.support_us,
-                                                   R.id.term_of_use_link, R.id.privacy_policy};
+  private static final int[] ORGANIC_MAPS_ITEMS = {R.id.news,
+                                                   R.id.web,
+                                                   R.id.email,
+                                                   R.id.telegram,
+                                                   R.id.instagram,
+                                                   R.id.facebook,
+                                                   R.id.twitter,
+                                                   R.id.matrix,
+                                                   R.id.mastodon,
+                                                   R.id.faq,
+                                                   R.id.report,
+                                                   R.id.support_us,
+                                                   R.id.term_of_use_link,
+                                                   R.id.privacy_policy};
 
   private String mDonateUrl;
 
@@ -97,8 +107,8 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   /**
    * Makes the names in the text clickable links, the second name is optional.
    */
-  private void linkNames(@NonNull TextView view, @NonNull String name, @NonNull String url,
-                         @Nullable String secondName, @Nullable String secondUrl)
+  private void linkNames(@NonNull TextView view, @NonNull String name, @NonNull String url, @Nullable String secondName,
+                         @Nullable String secondUrl)
   {
     final SpannableString text = new SpannableString(view.getText());
     linkName(text, name, url);

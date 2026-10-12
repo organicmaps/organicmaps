@@ -1526,8 +1526,8 @@ bool RoutingManager::SnapToRoad(ms::LatLon const & latLon, double bearingDeg, do
     double cost = mercator::DistanceOnEarth(point, p);
     if (bearingDeg >= 0.0)
     {
-      double const diffDeg = std::fabs(math::RadToDeg(
-          ang::GetShortestDistance(ang::AngleTo(m2::PointD::Zero(), direction), roadAngle)));
+      double const diffDeg =
+          std::fabs(math::RadToDeg(ang::GetShortestDistance(ang::AngleTo(m2::PointD::Zero(), direction), roadAngle)));
       cost += std::min(diffDeg, 180.0 - diffDeg) * routing::IRouter::kRoadMetersPerDeg;
     }
     return cost;
@@ -1591,8 +1591,8 @@ double FindRouteAnchor(std::vector<m2::PointD> const & points, m2::PointD const 
     // the route. Only a part going the way the car looks is the one the car drives along now.
     if (bearingDeg >= 0.0)
     {
-      double const diffDeg = std::fabs(
-          math::RadToDeg(ang::GetShortestDistance(ang::AngleTo(points[i], points[i + 1]), carAngle)));
+      double const diffDeg =
+          std::fabs(math::RadToDeg(ang::GetShortestDistance(ang::AngleTo(points[i], points[i + 1]), carAngle)));
       if (diffDeg > kMaxBearingDiffDeg)
         continue;
     }
@@ -1691,8 +1691,8 @@ bool RoutingManager::ShiftAlongRoute(ms::LatLon const & latLon, double bearingDe
   // The position must not be moved past a turn or a crossing: the car may take another street there,
   // even one the route does not go along, and the car that has already turned must not be dragged back
   // to the street it has left.
-  size_t const stopIdx = forward ? FindTurnAfterIdx(*route, anchorIdx, points.size() - 1)
-                                 : FindTurnBeforeIdx(*route, anchorIdx);
+  size_t const stopIdx =
+      forward ? FindTurnAfterIdx(*route, anchorIdx, points.size() - 1) : FindTurnBeforeIdx(*route, anchorIdx);
   // Crossings the route goes straight through are not turns of the route, they are taken from the roads.
   std::vector<m2::PointD> crossings;
   m_routingSession.FindRoadCrossings(
@@ -1765,14 +1765,13 @@ bool RoutingManager::IsAgainstRoute(location::GpsInfo const & info)
 {
   ms::LatLon projected;
   double routeBearingDeg;
-  if (!info.HasBearing() ||
-      !ProjectToRoute(ms::LatLon(info.m_latitude, info.m_longitude), info.m_horizontalAccuracy, projected,
-                      routeBearingDeg))
+  if (!info.HasBearing() || !ProjectToRoute(ms::LatLon(info.m_latitude, info.m_longitude), info.m_horizontalAccuracy,
+                                            projected, routeBearingDeg))
   {
     return false;
   }
-  double const diffDeg = std::fabs(math::RadToDeg(
-      ang::GetShortestDistance(math::DegToRad(info.m_bearing), math::DegToRad(routeBearingDeg))));
+  double const diffDeg = std::fabs(
+      math::RadToDeg(ang::GetShortestDistance(math::DegToRad(info.m_bearing), math::DegToRad(routeBearingDeg))));
   return diffDeg > 90.0;
 }
 
