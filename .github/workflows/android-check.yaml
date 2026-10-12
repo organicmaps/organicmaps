@@ -61,13 +61,6 @@ jobs:
           reporter: github-pr-review
           level: warning
 
-      - name: Upload Android Lint Report
-        uses: actions/upload-artifact@v7
-        with:
-          name: android-lint-report
-          path: android/build/reports/lint/lint.xml
-          retention-days: 30
-
   android-check:
     name: Build Android Debug
     runs-on: ubuntu-latest
@@ -156,11 +149,3 @@ jobs:
             ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
             :wear:testGoogleDebugUnitTest :libs:wear-protocol-gms:testDebugUnitTest
             :sdk:wear:core:testDebugUnitTest sdk:connectedDebugAndroidTest
-
-      - name: Upload ${{ matrix.flavor }} apk
-        uses: actions/upload-artifact@v7
-        with:
-          name: android-${{ matrix.flavor }}
-          path: android/app/build/outputs/apk/**/NoGPSMaps-*.apk
-          if-no-files-found: error
-          retention-days: 30
