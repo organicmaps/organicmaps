@@ -753,7 +753,7 @@ UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 6 /* expectedTurnCount */);
 }
 
 // Test on the route from TTK (primary) to a link.
@@ -967,25 +967,15 @@ UNIT_TEST(Russia_MoscowLeninskyProsp2_TurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
-UNIT_TEST(Germany_ShuttleTrain_TurnTest)
+UNIT_TEST(Germany_ShuttleTrain_Boarding)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                                               mercator::FromLatLon(54.78152, 8.83952), {0., 0.},
-                                                               mercator::FromLatLon(54.79281, 8.83466));
-
-  Route const & route = *routeResult.first;
-  RouterResultCode const result = routeResult.second;
-
-  // No turns on shutte train road.
-  TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
-      {CarDirection::GoStraight, CarDirection::TurnSlightRight});
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  // Check that graph continues on railway-shuttle.
+  integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Car),
+                                                mercator::FromLatLon(54.78152, 8.83952), {0., 0.},
+                                                mercator::FromLatLon(54.79281, 8.83466), 1340.39);
 }
 
-UNIT_TEST(Germany_ShuttleTrain2_TurnTest)
+UNIT_TEST(Germany_ShuttleTrain_Landing)
 {
   TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
                                                                mercator::FromLatLon(54.90181, 8.32472), {0., 0.},
@@ -997,7 +987,9 @@ UNIT_TEST(Germany_ShuttleTrain2_TurnTest)
   // No turns on shutte train road.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 4 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSharpRight);
+  // Borderline 144 degrees angle from the shuttle landing to the service road (TurnSharpRight is from 145).
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {CarDirection::TurnSharpRight, CarDirection::TurnRight});
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);

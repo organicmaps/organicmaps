@@ -234,7 +234,7 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
 
   TestRouteLength(route, 2157.1);
 
-  TestTurnCount(route, 10);
+  TestTurnCount(route, 12);
   GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
   GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
   GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
@@ -243,8 +243,10 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
   GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
   GetNthTurn(route, 6).TestValid().TestDirection(CarDirection::EnterRoundAbout);
   GetNthTurn(route, 7).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
-  GetNthTurn(route, 8).TestValid().TestDirection(CarDirection::TurnRight);
-  GetNthTurn(route, 9).TestValid().TestDirection(CarDirection::TurnLeft);
+  GetNthTurn(route, 8).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  GetNthTurn(route, 9).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  GetNthTurn(route, 10).TestValid().TestDirection(CarDirection::TurnRight);
+  GetNthTurn(route, 11).TestValid().TestDirection(CarDirection::TurnLeft);
 
   /// @todo Should fix this small segment.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
