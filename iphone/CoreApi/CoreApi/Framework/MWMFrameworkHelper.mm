@@ -8,6 +8,8 @@
 
 #include "Framework.h"
 
+#include "geometry/mercator.hpp"
+
 #include "base/sunrise_sunset.hpp"
 
 #include "platform/local_country_file_utils.hpp"
@@ -252,7 +254,8 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 
 + (NSString *)formattedCoordinatesAtMercatorPoint:(CGPoint)point
 {
-  auto const coordinates = measurement_utils::FormatMercatorAsDMS(m2::PointD(point.x, point.y), 2);
+  auto const coordinates =
+      measurement_utils::FormatLatLon(mercator::YToLat(point.y), mercator::XToLon(point.x), true /* withComma */);
   return @(coordinates.c_str());
 }
 
