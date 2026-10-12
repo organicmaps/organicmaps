@@ -183,8 +183,7 @@ FrameStatus VulkanBaseContext::BeginRendering()
   if (res == VK_TIMEOUT)
     return FrameStatus::RetryLater;
 
-  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
-    CHECK_RESULT_VK_CALL(vkWaitForFences, res);
+  CHECK_RESULT_VK_CALL(vkWaitForFences, res);
 
   // The surface can become unavailable while vkWaitForFences is blocked.
   if (!m_presentAvailable)
@@ -285,16 +284,7 @@ void VulkanBaseContext::EndRendering()
   submitInfo.commandBufferCount = 2;
   submitInfo.pCommandBuffers = commandBuffers;
 
-  auto const res = vkQueueSubmit(m_queue, 1, &submitInfo, m_fences[m_inflightFrameIndex]);
-  if (res != VK_ERROR_DEVICE_LOST)
-  {
-    m_needPresent = true;
-    CHECK_RESULT_VK_CALL(vkQueueSubmit, res);
-  }
-  else
-  {
-    m_needPresent = false;
-  }
+  CHECK_VK_CALL(vkQueueSubmit(m_queue, 1, &submitInfo, m_fences[m_inflightFrameIndex]));
 }
 
 void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
@@ -526,22 +516,19 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
 void VulkanBaseContext::Present()
 {
-  if (m_needPresent)
-  {
-    VkPresentInfoKHR presentInfo = {};
-    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-    presentInfo.pNext = nullptr;
-    presentInfo.swapchainCount = 1;
-    presentInfo.pSwapchains = &m_swapchain;
-    presentInfo.pImageIndices = &m_imageIndex;
-    presentInfo.pWaitSemaphores = &m_renderSemaphores[m_imageIndex];
-    presentInfo.waitSemaphoreCount = 1;
+  VkPresentInfoKHR presentInfo = {};
+  presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+  presentInfo.pNext = nullptr;
+  presentInfo.swapchainCount = 1;
+  presentInfo.pSwapchains = &m_swapchain;
+  presentInfo.pImageIndices = &m_imageIndex;
+  presentInfo.pWaitSemaphores = &m_renderSemaphores[m_imageIndex];
+  presentInfo.waitSemaphoreCount = 1;
 
-    auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
-    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR &&
-        res != VK_ERROR_SURFACE_LOST_KHR && res != VK_ERROR_DEVICE_LOST)
-      CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
-  }
+  auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
+  if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR &&
+      res != VK_ERROR_SURFACE_LOST_KHR)
+    CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
 
   m_inflightFrameIndex = (m_inflightFrameIndex + 1) % kMaxInflightFrames;
 

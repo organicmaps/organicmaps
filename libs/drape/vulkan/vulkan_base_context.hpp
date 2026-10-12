@@ -221,7 +221,6 @@ protected:
   std::array<drape_ptr<VulkanStagingBuffer>, kMaxInflightFrames> m_defaultStagingBuffers = {};
   std::atomic<bool> m_presentAvailable;
   uint32_t m_frameCounter = 0;
-  bool m_needPresent = true;
   uint32_t m_inflightFrameIndex = 0;
 };
 }  // namespace vulkan
