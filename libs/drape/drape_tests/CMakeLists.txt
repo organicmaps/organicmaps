@@ -31,6 +31,7 @@ set(SRC
   uniform_value_tests.cpp
   vertex_buffer_tests.cpp
   vulkan_frame_tests.cpp
+  vulkan_layers_tests.cpp
   vulkan_memory_manager_tests.cpp
   vulkan_surface_tests.cpp
 )

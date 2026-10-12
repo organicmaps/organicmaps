@@ -33,11 +33,12 @@ public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
                     ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, uint32_t appVersionCode,
-                    bool hasPartialTextureUpdates, uint64_t imageAcquireTimeoutNanoseconds)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex,
-                                    objectManager,
-                                    make_unique_dp<dp::vulkan::VulkanPipeline>(device, gpuProperties, appVersionCode),
-                                    hasPartialTextureUpdates, imageAcquireTimeoutNanoseconds)
+                    bool hasPartialTextureUpdates, uint64_t imageAcquireTimeoutNanoseconds,
+                    bool swapchainMaintenanceEnabled)
+    : dp::vulkan::VulkanBaseContext(
+          vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex, objectManager,
+          make_unique_dp<dp::vulkan::VulkanPipeline>(device, gpuProperties, appVersionCode), hasPartialTextureUpdates,
+          imageAcquireTimeoutNanoseconds, swapchainMaintenanceEnabled)
   {
     VkQueue queue;
     vkGetDeviceQueue(device, renderingQueueFamilyIndex, 0, &queue);
@@ -228,6 +229,14 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
     deviceCreateInfo.pEnabledFeatures = &enabledFeatures;
   }
 
+  VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR maintenanceFeatures = {};
+  if (m_layers->IsSwapchainMaintenanceEnabled())
+  {
+    maintenanceFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR;
+    maintenanceFeatures.swapchainMaintenance1 = VK_TRUE;
+    deviceCreateInfo.pNext = &maintenanceFeatures;
+  }
+
   statusCode = vkCreateDevice(m_gpu, &deviceCreateInfo, nullptr, &m_device);
   if (statusCode != VK_SUCCESS)
   {
@@ -246,9 +255,10 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
       sdkVersion, gpuProperties.deviceName, apiVersion, driverVersion);
   uint64_t const imageAcquireTimeoutNanoseconds = ImageAcquireTimeoutNanoseconds(sdkVersion);
 
-  m_drawContext = make_unique_dp<DrawVulkanContext>(
-      m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex, make_ref(m_objectManager),
-      appVersionCode, hasPartialTextureUpdates, imageAcquireTimeoutNanoseconds);
+  m_drawContext =
+      make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
+                                        make_ref(m_objectManager), appVersionCode, hasPartialTextureUpdates,
+                                        imageAcquireTimeoutNanoseconds, m_layers->IsSwapchainMaintenanceEnabled());
   m_uploadContext =
       make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
                                           make_ref(m_objectManager), hasPartialTextureUpdates);
