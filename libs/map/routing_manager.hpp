@@ -165,8 +165,8 @@ public:
   void CloseRouting(bool removeRoutePoints);
 
   /// \brief Activate alternative |idx| (typically triggered by tapping its ETA balloon).
-  /// Returns false if the index is out of range or already active. Re-renders the drape so
-  /// the newly-active variant is highlighted and the previously-active becomes the alternative.
+  /// Returns false if the index is out of range, already active, or its adjustment caches are
+  /// unavailable or belong to another result. Re-renders the drape to highlight the selected variant.
   bool SwapActiveAlternative(size_t idx);
 
   /// \brief Hit-tests |mercator| against the alternative-route polylines. If one is closer than
@@ -338,8 +338,7 @@ private:
   void CreateRouteAltMarks(routing::RoutesResult const & result);
 
   // Synchronously remove the alternative-route subroutes from drape and clear the alt ETA
-  // balloons. Used when entering navigation mode (FollowRoute) so the alts drawn at build
-  // time disappear immediately. The active route is left untouched.
+  // balloons when rebuilding or entering navigation. The active route is left untouched.
   void ClearAlternativeRoutes();
 
   /// \returns false if the location could not be matched to the route and should be matched to the
