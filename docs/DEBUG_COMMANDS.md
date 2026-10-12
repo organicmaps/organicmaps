@@ -70,6 +70,7 @@ All the following commands require an app restart:
 
 ## GPS
 
+- `?navsim`: Toggles location simulation, Sailfish OS only. The position starts at the current location or the map centre, and while navigating it drives along the route at a walking, cycling or driving speed. The source code is at [`MapItem::SimulateLocation`](../sailfish/map_item.cpp).
 - `?gpstrackaccuracy:XXX`: Changes the accuracy of the GPS while recording tracks. Replace `XXX` by the desired horizontal accuracy. Works only on iOS for now.
 
 ## Place Page
