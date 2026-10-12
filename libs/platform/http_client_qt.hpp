@@ -10,6 +10,12 @@
 #include <cstdint>
 #include <optional>
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+#include <QEvent>
+
+#include <functional>
+#endif
+
 namespace platform
 {
 // True for OpenStreetMap hosts: production www.openstreetmap.org / api.openstreetmap.org and
@@ -106,5 +112,14 @@ public:
   // Parent = this ensures the manager is a child QObject and moves
   // together with the worker when moveToThread() is called.
   QNetworkAccessManager m_manager{this};
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+  // Runs the task on the worker thread. Qt 5.6 has no functor QMetaObject::invokeMethod(), and its
+  // QTimer::singleShot() starts the timer on the calling thread, so it never fires from a non-Qt thread.
+  void Post(std::function<void()> task);
+
+protected:
+  bool event(QEvent * event) override;
+#endif
 };
 }  // namespace platform

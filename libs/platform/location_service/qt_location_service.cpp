@@ -17,7 +17,11 @@ location::GpsInfo GpsInfoFromQGeoPositionInfo(QGeoPositionInfo const & i, locati
   if (coord.type() == QGeoCoordinate::Coordinate3D)
     info.m_altitude = coord.altitude();
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
   info.m_timestamp = static_cast<double>(i.timestamp().toSecsSinceEpoch());
+#else
+  info.m_timestamp = static_cast<double>(i.timestamp().toMSecsSinceEpoch() / 1000);
+#endif
 
   if (i.hasAttribute(QGeoPositionInfo::HorizontalAccuracy))
     info.m_horizontalAccuracy = i.attribute(QGeoPositionInfo::HorizontalAccuracy);
@@ -42,7 +46,9 @@ static location::TLocationError TLocationErrorFromQGeoPositionInfoError(QGeoPosi
   case QGeoPositionInfoSource::AccessError: result = location::TLocationError::EDenied; break;
   case QGeoPositionInfoSource::ClosedError: result = location::TLocationError::EGPSIsOff; break;
   case QGeoPositionInfoSource::NoError: result = location::TLocationError::ENoError; break;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
   case QGeoPositionInfoSource::UpdateTimeoutError: result = location::TLocationError::ETimeout; break;
+#endif
   case QGeoPositionInfoSource::UnknownSourceError: result = location::TLocationError::EUnknown; break;
   default: break;
   }
@@ -51,7 +57,9 @@ static location::TLocationError TLocationErrorFromQGeoPositionInfoError(QGeoPosi
 
 location::TLocationSource QStringToTLocationSource(QString const & sourceName)
 {
-  if ("geoclue2" == sourceName)
+  // Qt 5 on Sailfish OS uses the GeoClue 1 plugin ("geoclue"). An undefined source makes GpsInfo invalid,
+  // which drops every fix.
+  if ("geoclue2" == sourceName || "geoclue" == sourceName)
     return location::TLocationSource::EGeoClue2;
 
   return location::TLocationSource::EUndefined;
@@ -61,9 +69,13 @@ location::TLocationSource QStringToTLocationSource(QString const & sourceName)
 QtLocationService::QtLocationService(location::LocationObserver & observer, std::string const & sourceName)
   : LocationService(observer)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
   QVariantMap params;
   params["desktopId"] = "app.organicmaps.desktop";
   m_positionSource = QGeoPositionInfoSource::createSource(QString::fromStdString(sourceName), params, this);
+#else
+  m_positionSource = QGeoPositionInfoSource::createSource(QString::fromStdString(sourceName), this);
+#endif
 
   if (!m_positionSource)
   {
@@ -79,13 +91,20 @@ QtLocationService::QtLocationService(location::LocationObserver & observer, std:
 
   LOG(LDEBUG, ("Signal successfully connected:", "positionUpdated"));
 
-  if (!connect(m_positionSource, &QGeoPositionInfoSource::errorOccurred, this, &QtLocationService::OnErrorOccurred))
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+  auto const errorSignal = &QGeoPositionInfoSource::errorOccurred;
+#else
+  auto const errorSignal =
+      static_cast<void (QGeoPositionInfoSource::*)(QGeoPositionInfoSource::Error)>(&QGeoPositionInfoSource::error);
+#endif
+  if (!connect(m_positionSource, errorSignal, this, &QtLocationService::OnErrorOccurred))
   {
     LOG(LERROR, ("Failed to connect the signal:", "errorOccurred"));
     return;
   }
   LOG(LDEBUG, ("Signal successfully connected:", "errorOccurred"));
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
   if (!connect(m_positionSource, &QGeoPositionInfoSource::supportedPositioningMethodsChanged, this,
                &QtLocationService::OnSupportedPositioningMethodsChanged))
   {
@@ -93,6 +112,7 @@ QtLocationService::QtLocationService(location::LocationObserver & observer, std:
     return;
   }
   LOG(LDEBUG, ("Signal successfully connected:", "supportedPositioningMethodsChanged"));
+#endif
 
   m_positionSource->setUpdateInterval(1000);
   m_positionSource->setPreferredPositioningMethods(QGeoPositionInfoSource::AllPositioningMethods);
@@ -141,9 +161,16 @@ void QtLocationService::Start()
   if (m_positionSource)
   {
     LOG(LDEBUG, ("Starting Updates from:", m_positionSource->sourceName().toStdString()));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     // Request the first update with a timeout to 30 minutes which is needed on devices that don't make use of `A-GNSS`
     // and can't get a lock within Qt's default `UPDATE_TIMEOUT_COLDSTART` (currently 2 minutes).
     m_positionSource->requestUpdate(1800000);
+#else
+    // Qt 5 (the GeoClue 1 plugin on Sailfish OS) emits a timeout at once from requestUpdate() without a fix,
+    // so subscribe right away.
+    m_positionSource->startUpdates();
+    m_clientIsActive = true;
+#endif
   }
 }
 
