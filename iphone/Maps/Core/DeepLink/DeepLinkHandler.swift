@@ -78,7 +78,7 @@
   private func handleFileImport(url: URL, openInPlace: Bool) -> Bool {
     LOG(.info, "handleFileImport: \(url), openInPlace: \(openInPlace)")
     guard openInPlace else {
-      DeepLinkParser.addBookmarksFile(url, isTemporaryFile: true)
+      DeepLinkParser.addBookmarksFile(url, isTemporaryFile: true, ownsParentDirectory: false)
       return true
     }
 
@@ -94,7 +94,8 @@
     var copyError: Error?
     fileCoordinator.coordinate(readingItemAt: url, options: [], error: &error) { fileURL in
       do {
-        try DeepLinkParser.addBookmarksFile(copyFileToTemporaryDirectory(fileURL), isTemporaryFile: true)
+        let localCopy = try copyFileToTemporaryDirectory(fileURL)
+        DeepLinkParser.addBookmarksFile(localCopy, isTemporaryFile: true, ownsParentDirectory: true)
       } catch {
         copyError = error
       }
@@ -121,7 +122,12 @@
     try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true)
 
     let localCopyURL = temporaryDirectory.appendingPathComponent(url.lastPathComponent)
-    try FileManager.default.copyItem(at: url, to: localCopyURL)
+    do {
+      try FileManager.default.copyItem(at: url, to: localCopyURL)
+    } catch {
+      try? FileManager.default.removeItem(at: temporaryDirectory)
+      throw error
+    }
     return localCopyURL
   }
 
