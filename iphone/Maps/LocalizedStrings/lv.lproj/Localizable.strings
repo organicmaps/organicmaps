@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!";
+"share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās Organic Maps lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!";
 
 /* message title of loading file */
 "load_kmz_title" = "Ielādē grāmatzīmes";
@@ -393,7 +393,7 @@
 "blue_gray" = "Zilpelēka";
 
 /* Prints version number in About dialog */
-"version" = "„Organic Maps“ versija: %@";
+"version" = "Organic Maps versija: %@";
 
 /* Settings «Map» category: «Appearance» title */
 "pref_appearance_title" = "Izskats";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operators: %@";
 "editor_category_unsuitable_title" = "Vai neatrodat atbilstošu kategoriju?";
-"editor_category_unsuitable_text" = "„Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">rokasgrāmatā</a>.";
+"editor_category_unsuitable_text" = "Organic Maps ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">rokasgrāmatā</a>.";
 "downloader_no_downloaded_maps_title" = "Ierīcē nav lejupielādētu karšu";
 "downloader_no_downloaded_maps_message" = "Lai darbotos nesaistes navigācija un meklēšana, lejupielādējiet kartes.";
 "current_location_unknown_error_title" = "Pašreizējā vieta nav zināma.";
@@ -818,9 +818,9 @@
 
 /* Error dialog no space */
 "migration_no_space_message" = "Lejupielādei nepieciešams vairāk vietas. Izdzēsiet liekos datus.";
-"editor_sharing_title" = "Es uzlaboju „Organic Maps“ kartes";
+"editor_sharing_title" = "Es uzlaboju Organic Maps kartes";
 "editor_detailed_description_hint" = "Sīkāks komentārs";
-"editor_detailed_description" = "Jūsu izmaiņu priekšlikumu nosūtīsim „OpenStreetMap“ kopienai. Lūdzu, sniedziet jebkādu papildu informāciju, ko nevarat norādīt „Organic Maps“ lietotnē.";
+"editor_detailed_description" = "Jūsu izmaiņu priekšlikumu nosūtīsim „OpenStreetMap“ kopienai. Lūdzu, sniedziet jebkādu papildu informāciju, ko nevarat norādīt Organic Maps lietotnē.";
 "current_location_unknown_error_message" = "Nosakot jūsu atrašanās vietu, radās kļūda. Pārleicinieties, ka ierīce darbojas korekti un mēģiniet vēlreiz.";
 "location_services_disabled_header" = "Vietas noteikšanas servisi ir izslēgti";
 "location_services_disabled_message" = "Ierīces iestatījumos ieslēdziet pieeju ģeolokācijai.";
@@ -832,7 +832,7 @@
 "location_services_disabled_on_device_2" = "2. Atlasiet „Privātums“";
 "location_services_disabled_on_device_3" = "3. Atlasiet atrašanās vietas pakalpojumus";
 "location_services_disabled_on_device_4" = "4. Ieslēdziet atrašanāš vietas noteikšanas pakalpojumus";
-"location_services_disabled_on_device_additional_message" = "Vai turpiniet izmantot „Organic Maps“ bez vietas";
+"location_services_disabled_on_device_additional_message" = "Vai turpiniet izmantot Organic Maps bez vietas";
 "placepage_call_button" = "Zvanīt";
 "placepage_bookmark_name_hint" = "Grāmatzīmes nosaukums";
 "placepage_delete_bookmark_button" = "Dzēst grāmatzīmi";
@@ -843,7 +843,7 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vai izslēgt pēdējā noietā vai nobrauktā maršuta ierakstīšanu?";
 "off_recent_track_background_button" = "Izslēgt";
-"recent_track_background_dialog_message" = "„Organic Maps“ fonā izmantos ierīces atrašanās vietas datus, lai reģistrētu pēdējo noieto vai nobraukto maršrutu.";
+"recent_track_background_dialog_message" = "Organic Maps fonā izmantos ierīces atrašanās vietas datus, lai reģistrētu pēdējo noieto vai nobraukto maršrutu.";
 "general_settings" = "Pamata iestatījumi";
 
 /* "traffic" as in road congestion */
@@ -954,10 +954,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Tagad „Organic Maps“ izmantojat tālruņa ekrānā";
+"car_used_on_the_phone_screen" = "Tagad Organic Maps izmantojat tālruņa ekrānā";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Tagad „Organic Maps“ izmantojat automobiļa ekrānā";
+"car_used_on_the_car_screen" = "Tagad Organic Maps izmantojat automobiļa ekrānā";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Turpināt tālrunī";
@@ -1037,7 +1037,7 @@
 "map" = "Karte";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "Vai vēlaties izstrādātājiem nosūtīt ziņojumu par kļūdu?\nMēs paļaujamies uz šiem ziņojumiem, jo „Organic Maps“ automātiski nevāc nekādus datus par kļūdām. Jau iepriekš pateicamies par „Organic Maps“ atbalstīšanu!";
+"bugreport_alert_message" = "Vai vēlaties izstrādātājiem nosūtīt ziņojumu par kļūdu?\nMēs paļaujamies uz šiem ziņojumiem, jo Organic Maps automātiski nevāc nekādus datus par kļūdām. Jau iepriekš pateicamies par Organic Maps atbalstīšanu!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Ieslēgta „iCloud“ sinhronizācija";

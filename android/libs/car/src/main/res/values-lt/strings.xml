@@ -36,7 +36,7 @@
 
     <!-- SECTION: Other translations -->
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
-    <string name="data_version">„OpenStreetMap“ duomenys: %s</string>
+    <string name="data_version">OpenStreetMap duomenys: %s</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Nakties veiksena</string>
     <!-- Generic «Off» string -->
@@ -105,7 +105,7 @@
     <string name="downloader_loading_ios">Atsiunčiama</string>
     <string name="download_map_title">Atsisiųsti bendrą pasaulio žemėlapį</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Kad „Android Auto“ sistemoje „Organic Maps“ veiktų efektyviai, reikia leidimo nustatyti buvimo vietą</string>
+    <string name="aa_request_permission_activity_text">Kad „Android Auto“ sistemoje Organic Maps veiktų efektyviai, reikia leidimo nustatyti buvimo vietą</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Suteikti leidimą</string>
 </resources>
