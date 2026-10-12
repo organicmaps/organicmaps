@@ -889,9 +889,14 @@ void VulkanBaseContext::RecreateSwapchain()
 
   m_swapchainImages.resize(swapchainImageCount);
   CHECK_VK_CALL(vkGetSwapchainImagesKHR(m_device, m_swapchain, &swapchainImageCount, m_swapchainImages.data()));
-  CreateRenderSemaphores();
 
   m_swapchainImageViews.resize(swapchainImageCount);
+  m_renderSemaphores.resize(swapchainImageCount);
+  VkSemaphoreCreateInfo semaphoreCI = {};
+  semaphoreCI.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+  for (auto & semaphore : m_renderSemaphores)
+    CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &semaphore));
+
   for (size_t i = 0; i < m_swapchainImageViews.size(); ++i)
   {
     VkImageViewCreateInfo swapchainImageViewCI = {};
@@ -912,8 +917,6 @@ void VulkanBaseContext::RecreateSwapchain()
 
 void VulkanBaseContext::DestroySwapchain()
 {
-  DestroyRenderSemaphores();
-
   if (m_swapchain == VK_NULL_HANDLE)
     return;
 
@@ -921,6 +924,9 @@ void VulkanBaseContext::DestroySwapchain()
     vkDestroyImageView(m_device, imageView, nullptr);
   m_swapchainImageViews.clear();
   m_swapchainImages.clear();
+  for (auto const semaphore : m_renderSemaphores)
+    vkDestroySemaphore(m_device, semaphore, nullptr);
+  m_renderSemaphores.clear();
   vkDestroySwapchainKHR(m_device, m_swapchain, nullptr);
   m_swapchain = VK_NULL_HANDLE;
 }
@@ -1043,24 +1049,6 @@ void VulkanBaseContext::DestroySyncPrimitives()
     vkDestroySemaphore(m_device, s, nullptr);
     s = VK_NULL_HANDLE;
   }
-}
-
-void VulkanBaseContext::CreateRenderSemaphores()
-{
-  CHECK(m_renderSemaphores.empty(), ());
-  m_renderSemaphores.resize(m_swapchainImages.size());
-
-  VkSemaphoreCreateInfo semaphoreCI = {};
-  semaphoreCI.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-  for (auto & s : m_renderSemaphores)
-    CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &s));
-}
-
-void VulkanBaseContext::DestroyRenderSemaphores()
-{
-  for (auto const s : m_renderSemaphores)
-    vkDestroySemaphore(m_device, s, nullptr);
-  m_renderSemaphores.clear();
 }
 
 void VulkanBaseContext::RecreateDepthTexture()
