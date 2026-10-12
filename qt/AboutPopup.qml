@@ -6,12 +6,13 @@ import Map
 Popup {
     id: aboutPopup
     required property Item rootItem
+    required property bool windowIsVertical
     required property MainWindow map
     property string copyrightText
 
     modal: true
     height: rootItem.height
-    width: expandToolButton.checked || rootItem.height / rootItem.width > 16 / 9 ? rootItem.width : 400
+    width: expandToolButton.checked || windowIsVertical ? rootItem.width : 400
     topPadding: 0
 
     Material.theme: parent.Material.theme
@@ -46,7 +47,7 @@ Popup {
                 checkable: true
                 anchors.right: parent.right
                 icon.name: aboutPopup.width === aboutPopup.rootItem.width ? "arrow-left-symbolic" : "arrow-right-symbolic"
-                visible: aboutPopup.rootItem.height / aboutPopup.rootItem.width < 16 / 9
+                visible: !aboutPopup.windowIsVertical
             }
         }
 
