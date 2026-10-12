@@ -224,7 +224,7 @@ private extension NavigationDashboard.RoutePoints {
     let viewModel = RoutePointCollectionViewCell.PointViewModel(
       title: title(for: index),
       image: image(for: index),
-      showCloseButton: point?.type == .intermediate,
+      showCloseButton: point != nil,
       maskedCorners: maskedCorners,
       isPlaceholder: point == nil,
       showSeparator: hasStartAndFinish ? true : index < points.count,
