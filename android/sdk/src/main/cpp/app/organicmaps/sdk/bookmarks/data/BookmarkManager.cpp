@@ -60,7 +60,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_onBookmarksLoadingFinishedMethod =
       jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingFinished", "()V");
   g_onBookmarksImportFinishedMethod =
-      jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksImportFinished", "(Z)V");
+      jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksImportFinished", "(ZZ[J[Ljava/lang/String;)V");
   g_onPreparedFileForSharingMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                                                       "(Lapp/organicmaps/sdk/bookmarks/data/BookmarkSharingResult;)V");
 
@@ -138,13 +138,18 @@ void OnAsyncLoadingFinished(JNIEnv * env)
 
 void OnBookmarksImportFinished(JNIEnv * env, BookmarkManager::BookmarkImportResult const & result)
 {
-  bool hasFailure = false;
+  auto const presentation = frm()->SetBookmarkImportResult(result);
+  std::vector<std::string> failedFileNames;
   for (auto const & source : result.m_sourceResults)
-    hasFailure |= source.m_groupIds.empty();
+    failedFileNames.insert(failedFileNames.end(), source.m_failedFileNames.begin(), source.m_failedFileNames.end());
 
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
-  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksImportFinishedMethod, static_cast<jboolean>(!hasFailure));
+  jni::TScopedLocalLongArrayRef const categories(env, jni::ToJavaLongArray(env, presentation.m_groupIds));
+  jni::TScopedLocalObjectArrayRef const errors(env, jni::ToJavaStringArray(env, failedFileNames));
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksImportFinishedMethod,
+                      static_cast<jboolean>(presentation.m_hasContent),
+                      static_cast<jboolean>(presentation.m_notificationOnly), categories.get(), errors.get());
   jni::HandleJavaException(env);
 }
 
@@ -225,6 +230,24 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeShowBookmarkCategoryOnMap(JNIEnv *, jobject, jlong catId)
 {
   frm()->ShowBookmarkCategory(static_cast<kml::MarkGroupId>(catId), true /* animated */);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeShowPendingBookmarkImport(JNIEnv *, jobject)
+{
+  return static_cast<jboolean>(frm()->ShowPendingBookmarkImport());
+}
+
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeIsRoutingFollowing(JNIEnv *,
+                                                                                                            jobject)
+{
+  return static_cast<jboolean>(frm()->GetRoutingManager().IsRoutingFollowing());
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeClearPendingBookmarkImport(JNIEnv *, jobject)
+{
+  frm()->SetBookmarkImportResult({});
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIEnv * env, jclass)

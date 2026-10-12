@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладак";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Закладкі паспяхова загружаны! Вы можаце іх убачыць на карце або ў захаваных закладках.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Закладкі паспяхова загружаны! Вы можаце іх убачыць на карце або ў захаваных закладках.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Не ўдалося загрузіць закладкі. Файл можа быць пашкоджаны або няспраўны.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Закладкі паспяхова загружаны! Выберыце спіс, каб убачыць яго на мапе:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Не ўдалося загрузіць файлы. Яны могуць быць пашкоджаныя або няспраўныя:";
 
 /* resource for context menu */
 "edit" = "Рэдагаваць";

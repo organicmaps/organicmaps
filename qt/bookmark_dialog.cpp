@@ -8,7 +8,6 @@
 #include "platform/measurement_utils.hpp"
 
 #include <QtCore/QPointer>
-
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -69,45 +68,6 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
 
   setWindowTitle(tr("Bookmarks and tracks"));
   resize(700, 600);
-
-  BookmarkManager::AsyncLoadingCallbacks callbacks;
-  callbacks.m_onStarted = std::bind(&BookmarkDialog::OnAsyncLoadingStarted, this);
-  callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
-  callbacks.m_onImportFinished = [this](BookmarkManager::BookmarkImportResult const & result)
-  {
-    for (auto const & source : result.m_sourceResults)
-      if (source.m_groupIds.empty())
-        OnAsyncLoadingFileError(source.m_context.m_filePath, source.m_context.m_isTemporaryFile);
-      else
-        OnAsyncLoadingFileSuccess(source.m_context.m_filePath, source.m_context.m_isTemporaryFile);
-  };
-  m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
-}
-
-BookmarkDialog::~BookmarkDialog()
-{
-  // Loading notifications read these callbacks when they reach the GUI thread.
-  m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks({});
-}
-
-void BookmarkDialog::OnAsyncLoadingStarted()
-{
-  FillTree();
-}
-
-void BookmarkDialog::OnAsyncLoadingFinished()
-{
-  FillTree();
-}
-
-void BookmarkDialog::OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LINFO, ("OnAsyncLoadingFileSuccess", fileName, isTemporaryFile));
-}
-
-void BookmarkDialog::OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LERROR, ("OnAsyncLoadingFileError", fileName, isTemporaryFile));
 }
 
 void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)

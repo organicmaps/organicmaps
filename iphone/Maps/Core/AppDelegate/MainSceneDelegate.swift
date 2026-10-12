@@ -26,6 +26,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     let sceneWindow = UIWindow(windowScene: windowScene)
     window = sceneWindow
     sceneWindow.rootViewController = app.mainNavigationController
+    _ = BookmarksManager.shared()
 
     // File URLs must be imported synchronously while their security-scoped resources are available.
     // Keep the last non-file URL before showing the window because makeKeyAndVisible() can trigger the

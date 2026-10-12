@@ -51,10 +51,12 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
+import app.organicmaps.bookmarks.BookmarksImportDialog;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.downloader.OnmapDownloader;
 import app.organicmaps.editor.EditorActivity;
@@ -182,6 +184,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Nullable
   private Dialog mAlertDialog;
+  private boolean mPresentingBookmarkImport;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
@@ -248,6 +251,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     processIntent();
     migrateOAuthCredentials();
+    presentPendingBookmarkImport();
   }
 
   /**
@@ -1028,6 +1032,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResumeFragments();
     RoutingController.get().restore();
+    presentPendingBookmarkImport();
+  }
+
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus)
+  {
+    super.onWindowFocusChanged(hasFocus);
+    if (hasFocus)
+      presentPendingBookmarkImport();
   }
 
   @Override
@@ -1049,6 +1062,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     Framework.nativePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
+    presentPendingBookmarkImport();
     MwmApplication.from(getApplicationContext()).getIsolinesManager().attach(this::onIsolinesStateChanged);
     updateDrivingOptionCount();
     RoutingController.get().applyPendingRoutingOptions();
@@ -1912,55 +1926,94 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onBookmarksFileUnsupported(@NonNull Uri uri)
+  public void onBookmarksImportAvailable()
   {
-    dismissAlertDialog();
-    mAlertDialog =
-        new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-            .setTitle(R.string.load_kmz_title)
-            .setMessage(getString(R.string.unknown_file_type, uri))
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.report_a_bug,
-                               (dialog, which)
-                                   -> Utils.sendBugReport(mShareLauncher, this, getString(R.string.load_kmz_title),
-                                                          getString(R.string.unknown_file_type, uri)))
-            .setOnDismissListener(dialog -> mAlertDialog = null)
-            .show();
+    presentPendingBookmarkImport();
+  }
+
+  public void onImportSearchSheetHidden()
+  {
+    presentPendingBookmarkImport();
   }
 
   @Override
-  public void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String error)
+  public void onImportPlacePageSheetHidden()
   {
-    dismissAlertDialog();
-    mAlertDialog =
-        new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-            .setTitle(R.string.load_kmz_title)
-            .setMessage(getString(R.string.failed_to_open_file, uri, error))
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.report_a_bug,
-                               (dialog, which)
-                                   -> Utils.sendBugReport(mShareLauncher, this, getString(R.string.load_kmz_title),
-                                                          getString(R.string.failed_to_open_file, uri, error)))
-            .setOnDismissListener(dialog -> mAlertDialog = null)
-            .show();
+    presentPendingBookmarkImport();
   }
 
-  @Override
-  public void onBookmarksFileImportSuccessful()
+  private void presentPendingBookmarkImport()
   {
-    Utils.showSnackbar(this, findViewById(R.id.coordinator), R.string.load_kmz_successful);
-  }
+    if (mPresentingBookmarkImport)
+      return;
+    BookmarkManager.ImportOutcome outcome = BookmarkManager.INSTANCE.peekImportOutcome();
+    if (outcome == null || !getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED) || !hasWindowFocus())
+      return;
 
-  @Override
-  public void onBookmarksFileImportFailed()
-  {
-    dismissAlertDialog();
-    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-                       .setTitle(R.string.load_kmz_title)
-                       .setMessage(R.string.load_kmz_failed)
-                       .setPositiveButton(R.string.ok, null)
-                       .setOnDismissListener(dialog -> mAlertDialog = null)
-                       .show();
+    if (outcome.notificationOnly || BookmarkManager.INSTANCE.isRoutingFollowing())
+    {
+      BookmarkManager.INSTANCE.takeImportOutcome();
+      if (outcome.hasContent)
+        BookmarkManager.INSTANCE.showPendingBookmarkImport();
+      if (!outcome.errors.isEmpty())
+        Toast.makeText(this, R.string.load_kmz_failed, Toast.LENGTH_LONG).show();
+      else if (outcome.hasContent)
+        Toast.makeText(this, R.string.load_kmz_successful_toast, Toast.LENGTH_LONG).show();
+      return;
+    }
+
+    if (outcome.hasContent)
+    {
+      if (!Map.isEngineCreated() || !mMapController.isRenderingActive())
+        return;
+
+      closeBottomSheet(MAIN_MENU_ID);
+      closeBottomSheet(LAYERS_MENU_ID);
+      forceCloseSearchFragment();
+      Fragment search = getSupportFragmentManager().findFragmentById(R.id.search_container_fragment);
+      if (search instanceof SearchFragmentController controller && !controller.isSheetHidden())
+        return;
+
+      if (mPlacePageViewModel.getMapObject().getValue() != null)
+      {
+        closePlacePage();
+        return;
+      }
+      Fragment placePage = getSupportFragmentManager().findFragmentById(R.id.place_page_container_fragment);
+      if (placePage instanceof PlacePageController controller && !controller.isSheetHidden())
+        return;
+    }
+
+    mPresentingBookmarkImport = true;
+    try
+    {
+      BookmarkManager.INSTANCE.takeImportOutcome();
+      if (outcome.categoryIds.length == 1 && outcome.errors.isEmpty())
+      {
+        boolean shown = BookmarkManager.INSTANCE.showPendingBookmarkImport();
+        if (shown)
+          Toast.makeText(this, R.string.load_kmz_successful_toast, Toast.LENGTH_LONG).show();
+      }
+      else if (outcome.categoryIds.length > 0 || !outcome.errors.isEmpty())
+      {
+        BookmarkManager.INSTANCE.discardPendingBookmarkImport();
+        dismissAlertDialog();
+        mAlertDialog = BookmarksImportDialog.show(this, outcome, BookmarkManager.INSTANCE::showBookmarkCategoryOnMap);
+        if (mAlertDialog != null)
+          mAlertDialog.setOnDismissListener(dialog -> {
+            if (mAlertDialog == dialog)
+              mAlertDialog = null;
+            presentPendingBookmarkImport();
+          });
+      }
+    }
+    finally
+    {
+      mPresentingBookmarkImport = false;
+    }
+
+    if (mAlertDialog == null && BookmarkManager.INSTANCE.peekImportOutcome() != null)
+      findViewById(R.id.coordinator).post(this::presentPendingBookmarkImport);
   }
 
   @Override

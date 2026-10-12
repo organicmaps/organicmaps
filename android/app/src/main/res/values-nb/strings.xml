@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Laster inn bokmerker</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Filtypen gjenkjennes ikke av appen:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Kunne ikke åpne filen %1$s\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Bokmerkene ble lastet inn! Velg en liste for å se den på kartet:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Kunne ikke laste inn filene. De kan være skadet eller defekte:</string>
     <!-- resource for context menu -->
     <string name="edit">Rediger</string>
     <!-- Warning message when doing search around current position -->

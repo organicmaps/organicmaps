@@ -112,6 +112,12 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(strong, nonatomic) BookmarksCoordinator * bookmarksCoordinator;
 
 @property(strong, nonatomic) NSHashTable<id<MWMLocationModeListener>> * listeners;
+@property(strong, nonatomic) NSArray<NSString *> * pendingImportedErrors;
+@property(strong, nonatomic) NSArray<NSNumber *> * pendingImportedCategoryIds;
+@property(strong, nonatomic) NSArray<NSString *> * pendingImportFailureErrors;
+@property(nonatomic) BOOL importClosingPlacePage;
+@property(nonatomic) BOOL importClosingSearch;
+@property(nonatomic) BOOL importMapDidAppear;
 
 @property(nonatomic) BOOL needDeferFocusNotification;
 @property(nonatomic) BOOL deferredFocusValue;
@@ -265,12 +271,18 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)hideRegularPlacePage
 {
   [self stopObservingTrackRecordingUpdates];
-  [self.placePageVC closeWithCompletion:^{
-    [self.placePageVC.view removeFromSuperview];
-    [self.placePageVC willMoveToParentViewController:nil];
-    [self.placePageVC removeFromParentViewController];
-    self.placePageVC = nil;
-    self.placePageContainer.hidden = YES;
+  PlacePageViewController * closingPage = self.placePageVC;
+  [closingPage closeWithCompletion:^{
+    [closingPage.view removeFromSuperview];
+    [closingPage willMoveToParentViewController:nil];
+    [closingPage removeFromParentViewController];
+    if (self.placePageVC == closingPage)
+    {
+      self.placePageVC = nil;
+      self.placePageContainer.hidden = YES;
+    }
+    self.importClosingPlacePage = NO;
+    [self presentPendingBookmarkImport];
   }];
 }
 
@@ -467,11 +479,14 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.needDeferFocusNotification = (self.mapView == nil);
   self.deferredFocusValue = isOnFocus;
   [self.mapView setPresentAvailable:isOnFocus];
+  if (isOnFocus)
+    [self presentPendingBookmarkImport];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  self.importMapDidAppear = NO;
 
   [self updateMapFontScaleFactor];
 
@@ -551,10 +566,12 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
+  self.importMapDidAppear = YES;
   // Cold start deep links should be handled when the map is initialized.
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
   if (DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
     (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
+  [self presentPendingBookmarkImport];
 }
 
 - (void)viewDidLayoutSubviews
@@ -562,6 +579,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [super viewDidLayoutSubviews];
   if (!self.mapView.drapeEngineCreated && !MapsAppDelegate.isTestsEnvironment)
     [self.mapView createDrapeEngine];
+  [self presentPendingBookmarkImport];
 }
 
 - (void)applyTheme
@@ -624,6 +642,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
+  self.importMapDidAppear = NO;
 
   if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
@@ -697,6 +716,122 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 {
   [[MWMBookmarksManager sharedManager] removeObserver:self];
   [MWMFrameworkListener removeObserver:self];
+}
+
+- (void)showImportResultsWithCategoryIds:(NSArray<NSNumber *> *)categoryIds
+                                  errors:(NSArray<NSString *> *)errors
+                          fromController:(UIViewController *)controller
+{
+  NSMutableArray<NSString *> * sections = [NSMutableArray array];
+  if (errors.count != 0)
+    [sections addObject:[NSString stringWithFormat:@"%@\n%@", L(@"load_kmz_failed"),
+                                                   [errors componentsJoinedByString:@"\n"]]];
+  if (categoryIds.count != 0)
+    [sections addObject:L(@"load_kmz_successful")];
+
+  UIAlertController * alert = [UIAlertController alertControllerWithTitle:L(@"load_kmz_title")
+                                                                  message:[sections componentsJoinedByString:@"\n\n"]
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+  __weak auto weakSelf = self;
+  for (NSNumber * categoryId in categoryIds)
+  {
+    NSString * name = [[MWMBookmarksManager sharedManager] getCategoryName:categoryId.unsignedLongLongValue];
+    [alert addAction:[UIAlertAction actionWithTitle:name
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(__unused UIAlertAction * action) {
+                                              GetFramework().ShowBookmarkCategory(categoryId.unsignedLongLongValue);
+                                              dispatch_async(dispatch_get_main_queue(),
+                                                             ^{ [weakSelf presentPendingBookmarkImport]; });
+                                            }]];
+  }
+  [alert addAction:[UIAlertAction actionWithTitle:L(@"ok")
+                                            style:UIAlertActionStyleCancel
+                                          handler:^(__unused UIAlertAction * action) {
+                                            dispatch_async(dispatch_get_main_queue(),
+                                                           ^{ [weakSelf presentPendingBookmarkImport]; });
+                                          }]];
+  [controller presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)presentPendingBookmarkImport
+{
+  if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
+    return;
+
+  if ((self.pendingImportedCategoryIds || self.pendingImportFailureErrors) &&
+      GetFramework().GetRoutingManager().IsRoutingFollowing())
+  {
+    NSArray<NSString *> * errors = self.pendingImportedErrors ?: self.pendingImportFailureErrors;
+    self.pendingImportedErrors = nil;
+    self.pendingImportedCategoryIds = nil;
+    self.pendingImportFailureErrors = nil;
+    [[MWMBookmarksManager sharedManager] showPendingImportedBookmarks];
+    [Toast showWithText:errors.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful_toast")];
+    return;
+  }
+
+  if (self.pendingImportFailureErrors)
+  {
+    UIViewController * visibleController = self.navigationController.visibleViewController;
+    if (!visibleController.isViewLoaded || visibleController.view.window != [MapsAppDelegate theApp].window ||
+        visibleController.presentedViewController)
+      return;
+
+    NSArray<NSString *> * errors = self.pendingImportFailureErrors;
+    self.pendingImportFailureErrors = nil;
+    [self showImportResultsWithCategoryIds:@[] errors:errors fromController:visibleController];
+    return;
+  }
+
+  if (!self.pendingImportedCategoryIds || !self.importMapDidAppear || !self.isViewLoaded || !self.view.window ||
+      self.view.window != [MapsAppDelegate theApp].window || self.navigationController.visibleViewController != self ||
+      !self.mapView.drapeEngineCreated)
+    return;
+
+  if (self.navigationController.presentedViewController)
+  {
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{ [self presentPendingBookmarkImport]; }];
+    return;
+  }
+
+  if (self.searchManager.isSearching)
+  {
+    if (!self.importClosingSearch)
+    {
+      self.importClosingSearch = YES;
+      [self.searchManager close];
+    }
+    return;
+  }
+  self.importClosingSearch = NO;
+
+  if (self.placePageVC)
+  {
+    if (!self.importClosingPlacePage)
+    {
+      self.importClosingPlacePage = YES;
+      GetFramework().DeactivateMapSelection();
+    }
+    return;
+  }
+
+  NSArray<NSString *> * errors = self.pendingImportedErrors;
+  NSArray<NSNumber *> * categoryIds = self.pendingImportedCategoryIds;
+  self.pendingImportedErrors = nil;
+  self.pendingImportedCategoryIds = nil;
+  if (GetFramework().GetRoutingManager().IsRoutingFollowing())
+  {
+    [Toast showWithText:errors.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful_toast")];
+    return;
+  }
+  if (categoryIds.count == 1 && errors.count == 0)
+  {
+    if ([[MWMBookmarksManager sharedManager] showPendingImportedBookmarks])
+      [Toast showWithText:L(@"load_kmz_successful_toast")];
+    return;
+  }
+  [[MWMBookmarksManager sharedManager] discardPendingImportedBookmarks];
+  [self showImportResultsWithCategoryIds:categoryIds errors:errors fromController:self];
 }
 
 - (void)addListener:(id<MWMLocationModeListener>)listener
@@ -1019,14 +1154,30 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 #pragma mark - MWMBookmarksObserver
-- (void)onBookmarksFileLoadSuccess
+- (void)onBookmarksImportFinishedWithContent:(BOOL)hasContent
+                            notificationOnly:(BOOL)notificationOnly
+                                 categoryIds:(NSArray<NSNumber *> *)categoryIds
+                             failedFileNames:(NSArray<NSString *> *)failedFileNames
 {
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_successful")];
-}
+  self.pendingImportedErrors = nil;
+  self.pendingImportedCategoryIds = nil;
+  self.pendingImportFailureErrors = nil;
+  if (notificationOnly)
+  {
+    if (hasContent || failedFileNames.count != 0)
+      [Toast showWithText:failedFileNames.count != 0 ? L(@"load_kmz_failed") : L(@"load_kmz_successful_toast")];
+    return;
+  }
+  if (hasContent)
+  {
+    self.pendingImportedCategoryIds = categoryIds;
+    self.pendingImportedErrors = failedFileNames;
+    [[MapsAppDelegate theApp] showMap];
+  }
+  else if (failedFileNames.count != 0)
+    self.pendingImportFailureErrors = failedFileNames;
 
-- (void)onBookmarksFileLoadError
-{
-  [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_failed")];
+  dispatch_async(dispatch_get_main_queue(), ^{ [self presentPendingBookmarkImport]; });
 }
 
 - (BOOL)canBecomeFirstResponder

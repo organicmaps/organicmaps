@@ -664,10 +664,16 @@ BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath)
 
     if (kmlData->m_tracksData.empty() && kmlData->m_bookmarksData.empty())
     {
-      if (!preparedFile.m_isKmzIndex)
+      if (!preparedFile.m_isKmzIndex && GetFileType(filePath) != FileType::Kmz)
         result.m_failedFileNames.push_back(std::move(preparedFile.m_displayName));
       continue;
     }
+
+    kmlData->m_categoryData.m_visible = true;
+    for (auto & bookmark : kmlData->m_bookmarksData)
+      bookmark.m_visible = true;
+    for (auto & track : kmlData->m_tracksData)
+      track.m_visible = true;
 
     // A category with no timestamp of its own inherits the source file's modification time. For KMZ files, this is
     // the archive timestamp rather than the extracted temporary file's timestamp.
@@ -685,8 +691,6 @@ BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath)
     result.m_kmlData.emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
   }
 
-  if (result.m_kmlData.empty() && result.m_failedFileNames.empty())
-    result.m_failedFileNames.push_back(base::FileNameFromFullPath(filePath));
   return result;
 }
 

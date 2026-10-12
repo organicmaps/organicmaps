@@ -9,10 +9,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.DocumentsContract
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
+import app.organicmaps.MwmActivity
 import app.organicmaps.MwmApplication
 import app.organicmaps.R
 import app.organicmaps.base.BaseMwmRecyclerFragment
@@ -92,6 +94,7 @@ class BookmarkCategoriesFragment :
     override fun onStart() {
         super.onStart()
         BookmarkManager.INSTANCE.addLoadingListener(this)
+        onBookmarksImportAvailable()
     }
 
     override fun onStop() {
@@ -236,8 +239,36 @@ class BookmarkCategoriesFragment :
         importDialog = null
     }
 
-    override fun onBookmarksFileImportFailed() {
-        Utils.showSnackbar(requireActivity(), requireView(), R.string.load_kmz_failed)
+    override fun onBookmarksImportAvailable() {
+        val outcome = BookmarkManager.INSTANCE.peekImportOutcome() ?: return
+        if (outcome.notificationOnly || BookmarkManager.INSTANCE.isRoutingFollowing) {
+            BookmarkManager.INSTANCE.takeImportOutcome()
+            if (outcome.hasContent) BookmarkManager.INSTANCE.showPendingBookmarkImport()
+            if (outcome.errors.isNotEmpty()) {
+                Toast.makeText(requireContext(), R.string.load_kmz_failed, Toast.LENGTH_LONG).show()
+            } else if (outcome.hasContent) {
+                Toast.makeText(requireContext(), R.string.load_kmz_successful_toast, Toast.LENGTH_LONG).show()
+            }
+            return
+        }
+        if (outcome.hasContent) {
+            val intent = Intent(requireActivity(), MwmActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+            startActivity(intent)
+            requireActivity().finish()
+            return
+        }
+
+        BookmarkManager.INSTANCE.takeImportOutcome()
+        if (outcome.errors.isNotEmpty()) {
+            MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
+                .setTitle(R.string.load_kmz_title)
+                .setMessage(getString(R.string.load_kmz_failed) + "\n" + TextUtils.join("\n", outcome.errors))
+                .setPositiveButton(R.string.ok, null)
+                .setOnDismissListener { onBookmarksImportAvailable() }
+                .show()
+        }
     }
 
     private fun requireSelectedCategory(): BookmarkCategory =

@@ -124,6 +124,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
           }
           // setSearchPageLastState() filters non-stable states (DRAGGING/SETTLING/HIDDEN).
           mViewModel.setSearchPageLastState(newState);
+          if (PlacePageUtils.isHiddenState(newState))
+            ((MwmActivity) requireActivity()).onImportSearchSheetHidden();
         }
 
         @Override
@@ -390,6 +392,11 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
   // The sheet is kept non-hideable while visible so a swipe can't dismiss it. Re-enable hideable here so
   // this programmatic close is the only path to STATE_HIDDEN (setState(HIDDEN) is rejected when !hideable).
+  public boolean isSheetHidden()
+  {
+    return mBottomSheetBehavior == null || mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN;
+  }
+
   private void hideSearchSheet()
   {
     // Dismiss the keyboard on every programmatic close path (X button, back, place page, forceCloseSearchFragment).

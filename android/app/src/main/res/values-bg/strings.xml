@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Здравейте!\n\nПриложени са моите отметки; моля, отворете ги в Organic Maps. Ако нямате инсталирана програма, можете да я изтеглите оттук: https://omaps.app/get?kmz\n\nНаслаждавайте се на пътуванията с Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Зареждане на отметки</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Качването на отметките се провали. Файлът може да бъде повреден или дефектен.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Типът на файла не се разпознава от приложението:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Неуспешно отваряне на файл %1$s\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Отметките са заредени успешно! Изберете списък, за да го видите на картата:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Файловете не можаха да бъдат заредени. Възможно е да са повредени или дефектни:</string>
     <!-- resource for context menu -->
     <string name="edit">Редакция</string>
     <!-- Warning message when doing search around current position -->

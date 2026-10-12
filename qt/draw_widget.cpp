@@ -99,8 +99,11 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
 {
   setFocusPolicy(Qt::StrongFocus);
 
-  m_framework.SetPlacePageListeners([this]() { ShowPlacePage(); }, {} /* onClose */, {} /* onUpdate */,
-                                    {} /*onSwitchFullScreen */);
+  m_framework.SetPlacePageListeners([this]() { ShowPlacePage(); }, [this]()
+  {
+    if (auto * mw = qobject_cast<MainWindow *>(this->parent()))
+      mw->HidePlacePageForCore();
+  }, {} /* onUpdate */, {} /*onSwitchFullScreen */);
 
   auto & routingManager = m_framework.GetRoutingManager();
 
