@@ -2,7 +2,7 @@ name: Code style check - Swift
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - '.github/workflows/code-style-check-swift.yaml'
       - 'iphone/.swift-version'

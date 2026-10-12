@@ -2,7 +2,7 @@ name: Code style check
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
     # Filter by extension, not by directory: per-module directory lists silently drift
     # when modules move or get added (this filter missed all of android/libs/* since the
     # module split). Same extensions as CLANG_FORMAT_TARGETS in tools/hooks/format-config.bash.

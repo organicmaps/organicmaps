@@ -20,7 +20,7 @@ final class NoGpsControls: NSObject {
     static let inertialColor = UIColor(red: 0x7B / 255, green: 0x1F / 255, blue: 0xA2 / 255, alpha: 1)
   }
 
-  private static weak var shared: NoGpsControls?
+  private weak static var shared: NoGpsControls?
   private static var availableArea = CGRect.zero
 
   private weak var owner: MapViewController?
@@ -111,8 +111,8 @@ final class NoGpsControls: NSObject {
     buttons.alignment = .center
     buttons.spacing = Constants.spacing
     buttons.translatesAutoresizingMaskIntoConstraints = false
-    [shiftForwardButton, shiftStepButton, shiftBackButton, pauseButton, reverseButton, manualButton].forEach {
-      buttons.addArrangedSubview($0)
+    for item in [shiftForwardButton, shiftStepButton, shiftBackButton, pauseButton, reverseButton, manualButton] {
+      buttons.addArrangedSubview(item)
     }
     superview.addSubview(buttons)
 
@@ -172,7 +172,7 @@ final class NoGpsControls: NSObject {
     pauseButton.accessibilityLabel = L(status.paused ? "nogps_resume" : "nogps_pause")
     // The icon tells where the position comes from now: from satellites or from the user.
     manualButton.setImage(UIImage(systemName: status.manualMode ? "hand.point.up.left.fill"
-                                                                : "antenna.radiowaves.left.and.right"), for: .normal)
+        : "antenna.radiowaves.left.and.right"), for: .normal)
     updateLayout()
   }
 
@@ -185,7 +185,7 @@ final class NoGpsControls: NSObject {
       return (String(format: L(key), formatAccuracy(status.accuracyM)), Constants.networkColor)
     case .inertial:
       let text = status.paused ? L("nogps_status_paused")
-                               : String(format: L("nogps_status_inertial"), formatAccuracy(status.accuracyM))
+        : String(format: L("nogps_status_inertial"), formatAccuracy(status.accuracyM))
       return (text, Constants.inertialColor)
     case .manual:
       let minutes = Int(status.manualAge / 60)

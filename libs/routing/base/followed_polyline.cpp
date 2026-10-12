@@ -135,7 +135,7 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect, DistanceFn c
 }
 
 Iter FollowedPolyline::GetBestMatchingProjection(m2::RectD const & posRect, std::optional<double> directionRad,
-                                                double maxOvershootM) const
+                                                 double maxOvershootM) const
 {
   CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
   // At first trying to find a projection to two closest route segments of route which is close
@@ -217,8 +217,8 @@ void FollowedPolyline::GetCurrentDirectionPoint(m2::PointD & pt, double toleranc
   pt = point;
 }
 
-Iter FollowedPolyline::GetClosestMatchingProjectionInInterval(m2::RectD const & posRect, size_t startIdx,
-                                                              size_t endIdx, std::optional<double> directionRad,
+Iter FollowedPolyline::GetClosestMatchingProjectionInInterval(m2::RectD const & posRect, size_t startIdx, size_t endIdx,
+                                                              std::optional<double> directionRad,
                                                               double maxOvershootM) const
 {
   // A car goes along the road, a segment going more aside is another street.

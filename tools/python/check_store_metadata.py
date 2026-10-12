@@ -150,6 +150,9 @@ IOS_METADATA_LIMITS = {
 }
 IOS_URL_FILES = ('support_url.txt', 'marketing_url.txt', 'privacy_url.txt')
 
+# NoGPS Maps lists Ukrainian first on Google Play, see docs/nogps/google-play.md.
+ANDROID_DEFAULT_LANGUAGE = 'uk'
+
 # Pre-compiled path patterns dispatched by check_path().
 _LISTINGS_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/listings/([^/]+)/([^/]+\.txt)$')
 _RELEASE_NOTES_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/release-notes/([^/]+)/([^/]+\.txt)$')
@@ -256,7 +259,7 @@ def check_android():
     flavor = 'android/app/src/fdroid/play/'
     ok = check_url(flavor + 'contact-website.txt') and ok
     ok = check_email(flavor + 'contact-email.txt') and ok
-    ok = check_exact(flavor + 'default-language.txt', 'en-US') and ok
+    ok = check_exact(flavor + 'default-language.txt', ANDROID_DEFAULT_LANGUAGE) and ok
     all_locales = set(GPLAY_LOCALES + HUAWEI_ONLY_LOCALES)
     for locale in glob.glob(flavor + 'listings/*/'):
         if locale.split('/')[-2] not in all_locales:
@@ -352,7 +355,7 @@ def check_path(path, fix=False):
         match m[1]:
             case 'contact-website.txt': return check_url(path, fix=fix)
             case 'contact-email.txt':   return check_email(path, fix=fix)
-            case 'default-language.txt': return check_exact(path, 'en-US', fix=fix)
+            case 'default-language.txt': return check_exact(path, ANDROID_DEFAULT_LANGUAGE, fix=fix)
         return True
 
     # iOS metadata.

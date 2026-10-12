@@ -46,5 +46,4 @@ public enum Router
   private static native void nativeSet(int routerType);
 
   private static native int nativeGet();
-
 }

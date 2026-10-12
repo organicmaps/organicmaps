@@ -92,8 +92,8 @@ void Esp32Source::StartUpdate(Firmware const & firmware)
 void Esp32Source::OnInfo(esp32::Info const & info)
 {
   if (!m_info || m_info->m_firmware != info.m_firmware)
-    LOG(LINFO, ("Box", info.m_id, "firmware =", info.m_firmware, info.m_chip, info.m_board, "updates =",
-               info.m_canUpdate));
+    LOG(LINFO,
+        ("Box", info.m_id, "firmware =", info.m_firmware, info.m_chip, info.m_board, "updates =", info.m_canUpdate));
   m_info = info;
   m_update.OnBoxFirmware(info.m_firmware);
 }
