@@ -131,6 +131,13 @@ public:
   // car on the route ahead of a farther one: it moves along the route forward only, and the car would be
   // shown ahead of the mark, e.g. after a mark behind the previous one. The route is rebuilt from it then.
   static double constexpr kManualOffRouteDistanceM = 10;
+  // A car driving along a road farther than this from the route for this long has left the route, see
+  // LeaveRouteIfBesideIt(). Two roads side by side are farther apart, a mark on the road of the route is
+  // nearer: it is on the line of the route.
+  static double constexpr kBesideRouteM = 15;
+  static int64_t constexpr kBesideRouteMs = 2000;
+  // A mark this near to the route is on its road.
+  static double constexpr kOnRouteRoadM = 3;
   // Trusted GPS positions are preferred over the inertial ones while they are this fresh. GPS gives a
   // position every second, so it is lost after a missed one.
   static int64_t constexpr kGpsFreshMs = 2000;
@@ -287,6 +294,7 @@ private:
   Firmware const * FindBoxFirmware();
   void OnGpsSpoofingChanged(bool spoofed);
   void RebuildRouteIfOffRoute(Fix const & fix);
+  void LeaveRouteIfBesideIt(Fix const & inertial);
   void SaveTrustedPosition();
   void RestoreTrustedPosition();
   void StartInertialNavigation();
@@ -346,6 +354,11 @@ private:
   // The start of the location updates.
   int64_t m_startTimeMs = 0;
   std::optional<int64_t> m_lastInertialUsedMs;
+  // Since when the car has driven along a road beside the route.
+  std::optional<int64_t> m_besideRouteSinceMs;
+  // The mark has been on the road of the route since the route was left by a car beside it: a route that
+  // does not start from the road of the car is not rebuilt again and again.
+  bool m_wasOnRouteRoad = true;
   // The car maneuvering off the roads as the map shows it now, see ShowOffRoadCar().
   std::optional<ms::LatLon> m_shownOffRoadCar;
   // The motion source of the inertial navigation gave the car speed, the user is told when it stops.

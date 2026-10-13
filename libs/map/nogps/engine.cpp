@@ -911,8 +911,42 @@ void Engine::OnInertialLocation(Fix const & inertial)
   m_savedLocation = location;
   if (m_lastPositionSource != PositionSource::Inertial)
     RebuildRouteIfOffRoute(location);
+  else
+    LeaveRouteIfBesideIt(location);
   m_lastPositionSource = PositionSource::Inertial;
   NotifyLocationUpdated();
+}
+
+void Engine::LeaveRouteIfBesideIt(Fix const & inertial)
+{
+  // The core takes a car for one on the route while it is nearer to the route than its position may be wrong,
+  // 50 m and more, and shows it on the route. The mark on a road is wrong along the road and not across it: a
+  // car driving along a road beside the route has left the route. On October 13 the car was shown on the route
+  // for 26 s where another road goes beside it, 20-40 m apart.
+  bool const alongRoad = m_inertial->IsOnRoad() && !m_inertial->IsTurning() && !m_inertial->IsPaused() &&
+                         inertial.m_bearingDeg && inertial.m_speedMps.value_or(0) > 0 && m_map.IsNavigating();
+  auto const aside =
+      alongRoad ? m_map.GetRouteAside(inertial.m_position, *inertial.m_bearingDeg) : std::optional<double>();
+  // A car farther from the route than its position may be wrong is seen leaving the route by the core.
+  if (!aside || std::fabs(*aside) <= kBesideRouteM ||
+      std::fabs(*aside) > std::max(inertial.m_accuracyM, kMinOffRouteDistanceM))
+  {
+    m_besideRouteSinceMs.reset();
+    if (aside && std::fabs(*aside) <= kOnRouteRoadM)
+      m_wasOnRouteRoad = true;
+    return;
+  }
+  if (!m_wasOnRouteRoad)
+    return;
+  if (!m_besideRouteSinceMs)
+    m_besideRouteSinceMs = m_clock.NowMs();
+  if (MsSince(m_besideRouteSinceMs) < kBesideRouteMs)
+    return;
+
+  LOG(LINFO, ("The car drives along a road", std::round(*aside), "m beside the route, the route is left"));
+  m_besideRouteSinceMs.reset();
+  m_wasOnRouteRoad = false;
+  m_map.LeaveRoute(inertial);
 }
 
 void Engine::OnRoadLost()
@@ -1280,6 +1314,10 @@ std::string Engine::GetTripLine()
   if (navigating)
     if (auto const left = m_map.GetDistanceLeft(); !left.empty())
       line += " left=" + left;
+  // How far aside the route is: the core shows a car driving along a road beside the route on the route.
+  if (navigating && m_savedLocation && m_savedLocation->m_bearingDeg)
+    if (auto const aside = m_map.GetRouteAside(m_savedLocation->m_position, *m_savedLocation->m_bearingDeg))
+      line += " rte=" + std::to_string(std::lround(*aside));
   if (m_networkLocation)
   {
     std::snprintf(buf, sizeof(buf), " net=%.5f,%.5f acc=%.0f age=%s", m_networkLocation->m_position.m_lat,

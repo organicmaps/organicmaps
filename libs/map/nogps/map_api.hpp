@@ -26,8 +26,16 @@ public:
   /// off-route positions as for GPS. The route goes the |bearingDeg| way if it is known.
   virtual void RebuildRouteIfOffRoute(Fix const & fix, double offRouteDistanceM, std::optional<double> bearingDeg) = 0;
 
+  /// The car drives along a road beside the route, see GetRouteAside(): the route is left at once. The core
+  /// would wait until the car is farther from the route than its position may be wrong.
+  virtual void LeaveRoute(Fix const & fix) = 0;
+
   /// \returns the closest point of the followed route within |radiusM| and the direction of the route there.
   virtual std::optional<RoadPoint> ProjectToRoute(ms::LatLon const & position, double radiusM) = 0;
+
+  /// \returns how far aside of the car the closest part of the followed route going the |bearingDeg| way is, in
+  /// meters, positive on the right of the car; nothing if the route is not followed or has no such part.
+  virtual std::optional<double> GetRouteAside(ms::LatLon const & position, double bearingDeg) = 0;
 
   /// Moves the position along the followed route, stopping at the closest turn or crossing in both directions.
   /// \param bearingDeg where the car looks.
