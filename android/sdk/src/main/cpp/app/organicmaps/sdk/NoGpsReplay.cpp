@@ -198,8 +198,10 @@ public:
 
   SessionRoute & Get() { return m_route; }
 
-  // The router works in its own thread and its route comes later: the trip waits for it.
-  bool IsBuilding() const { return m_session.IsBuilding(); }
+  // The router works in its own thread and its route comes later: the trip waits for it. The state of the session
+  // does not tell it: a car that has left the route for a road beside it is on the old route for the session again
+  // at its next position.
+  bool IsBuilding() const { return m_isBuilding; }
 
   // The states of the session are logged by the session while the trip is driven, see Replay::RunChunk().
   void SetDriving(bool driving) { m_driving = driving; }
@@ -223,6 +225,7 @@ public:
   {
     m_session.Reset();
     m_following = false;
+    m_isBuilding = false;
   }
 
   // A position the navigation shows. The application gives the route every position 10 times in 2 seconds, moved
@@ -280,6 +283,7 @@ private:
 
   void OnBuilt(char const * what, routing::RoutesResult const & result, routing::RouterResultCode code)
   {
+    m_isBuilding = false;
     std::ostringstream out;
     out << "ROUTE is " << what << ": " << DebugPrint(code);
     // The session has taken the route by now.
@@ -293,6 +297,8 @@ private:
 
   void OnState(routing::SessionState from, routing::SessionState to)
   {
+    if (to == routing::SessionState::RouteBuilding || to == routing::SessionState::RouteRebuilding)
+      m_isBuilding = true;
     if (!m_driving)
       m_log("Routing session state: " + DebugPrint(from) + " -> " + DebugPrint(to));
   }
@@ -303,6 +309,7 @@ private:
   SessionRoute m_route;
   bool m_driving = false;
   bool m_following = false;
+  bool m_isBuilding = false;
   location::GpsInfo m_beforeLast;
   location::GpsInfo m_last;
   uint64_t m_runs = 0;
