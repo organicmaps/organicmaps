@@ -27,7 +27,9 @@ public:
   bool IsNavigating() const override;
   Roads & GetRoads(bool matchRoute) override { return matchRoute ? m_routeRoads : m_roads; }
   void RebuildRouteIfOffRoute(Fix const & fix, double offRouteDistanceM, std::optional<double> bearingDeg) override;
+  void LeaveRoute(Fix const & fix) override;
   std::optional<RoadPoint> ProjectToRoute(ms::LatLon const & position, double radiusM) override;
+  std::optional<double> GetRouteAside(ms::LatLon const & position, double bearingDeg) override;
   std::optional<RoadWalker::Result> ShiftAlongRoute(ms::LatLon const & position, std::optional<double> bearingDeg,
                                                     double distanceM) override;
   std::optional<RoadPoint> SnapToMainRoad(ms::LatLon const & position, double radiusM) override;

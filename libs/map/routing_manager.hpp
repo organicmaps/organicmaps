@@ -82,6 +82,9 @@ public:
   // is off the route, without waiting for the several consecutive off-route updates as for GPS.
   // The route goes the |info| bearing way if it is known.
   void RebuildRouteIfOffRoute(location::GpsInfo const & info);
+  // The car is known to drive along a road beside the route: the route is left at once, as in
+  // CheckLocationForRouting() for a car seen leaving it.
+  void LeaveRoute(location::GpsInfo const & info);
   // Snaps a dead reckoning position (not from GPS) to the closest road within |radiusM|, preferring the
   // one going in the |bearingDeg| direction (negative if the direction is unknown). With |matchRoute| the
   // followed route is preferred, it is where the car really is. Returns false if there is no road.
@@ -98,6 +101,9 @@ public:
   // Moves |latLon| to the closest point of the followed route within |radiusM|, |bearingDeg| is the
   // direction of the route there. Returns false if there is no route so close.
   bool ProjectToRoute(ms::LatLon const & latLon, double radiusM, ms::LatLon & projected, double & bearingDeg);
+  // Returns how far aside of the car the closest part of the followed route going the |bearingDeg| way is, in
+  // meters, positive on the right of the car. Nothing if the route is not followed or has no such part.
+  std::optional<double> GetRouteAside(ms::LatLon const & latLon, double bearingDeg) const;
   // Returns true if the car is on the route but goes the other way, i.e. it has turned around.
   bool IsAgainstRoute(location::GpsInfo const & info);
   // Snaps a position set by the user to the closest road within |radiusM|, preferring a main road to a

@@ -479,6 +479,66 @@ UNIT_TEST(NoGps_Engine_BranchOfForkIsToldByHeading)
   }
 }
 
+UNIT_TEST(NoGps_Engine_CarOnRoadBesideRouteHasLeftRoute)
+{
+  Env env(true /* inertial */);
+  env.m_map.m_navigating = true;
+  env.m_map.m_routeAsideM = 0;
+  MarkCar(env, 0);
+  env.Drive(5000, 54, 0);
+  int const lefts = env.m_map.m_routeLefts;
+
+  // The road of the car leaves the route: the car is on the route for the core while it is nearer to the route
+  // than its position may be wrong, tens of meters. A road beside the route for a moment is a wide crossing.
+  env.m_map.m_routeAsideM = -25;
+  env.Drive(1500, 54, 0);
+  TEST_EQUAL(env.m_map.m_routeLefts, lefts, ());
+  env.Drive(2000, 54, 0);
+  TEST_EQUAL(env.m_map.m_routeLefts, lefts + 1, ());
+
+  // The route built anew does not start from the road of the car: it is not built again and again.
+  env.Drive(8000, 54, 0);
+  TEST_EQUAL(env.m_map.m_routeLefts, lefts + 1, ());
+
+  // The car has been on the road of the route since, and has left it again, to the other side.
+  env.m_map.m_routeAsideM = 1;
+  env.Drive(2000, 54, 0);
+  env.m_map.m_routeAsideM = 40;
+  env.Drive(4000, 54, 0);
+  TEST_EQUAL(env.m_map.m_routeLefts, lefts + 2, ());
+}
+
+UNIT_TEST(NoGps_Engine_CarNearRouteOrTurningHasNotLeftRoute)
+{
+  Env env(true /* inertial */);
+  env.m_map.m_navigating = true;
+  env.m_map.m_routeAsideM = 0;
+  MarkCar(env, 0);
+  env.Drive(5000, 54, 0);
+  int const lefts = env.m_map.m_routeLefts;
+
+  // The other carriageway of the street of the route, or the route cutting a bend of its road.
+  env.m_map.m_routeAsideM = 12;
+  env.Drive(8000, 54, 0);
+  TEST_EQUAL(env.m_map.m_routeLefts, lefts, ());
+
+  // The car turns at a crossing: the mark is off the roads there, and the route is beside it for a while.
+  env.m_map.m_routeAsideM = 30;
+  env.Drive(4500, 20, 20);
+  TEST_EQUAL(env.m_map.m_routeLefts, lefts, ());
+
+  // The core sees a car that far from the route leaving it by itself.
+  env.m_map.m_routeAsideM = 2000;
+  env.Drive(5000, 54, 0);
+  TEST_EQUAL(env.m_map.m_routeLefts, lefts, ());
+
+  // No route is followed.
+  env.m_map.m_routeAsideM = 30;
+  env.m_map.m_navigating = false;
+  env.Drive(5000, 54, 0);
+  TEST_EQUAL(env.m_map.m_routeLefts, lefts, ());
+}
+
 UNIT_TEST(NoGps_Engine_OtherCarriagewayIsNotBranchOfFork)
 {
   // The street going east splits in two carriageways at 100 m, as before a roundabout: the one of the car leaves

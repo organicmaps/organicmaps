@@ -1460,6 +1460,21 @@ void SessionRoute::CheckLocationForRouting(location::GpsInfo const & info)
   }
 }
 
+void SessionRoute::LeaveRoute(location::GpsInfo const & info)
+{
+  if (!m_session.IsActive() || !m_session.IsOnRoute())
+    return;
+
+  if (SwapToAlternativeUnderCar(info))
+  {
+    m_session.OnLocationPositionChanged(info);
+    return;
+  }
+  m_session.RebuildRoute(mercator::FromLatLon(info.m_latitude, info.m_longitude), m_onRebuilt,
+                         nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                         RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+}
+
 void SessionRoute::RebuildRouteIfOffRoute(location::GpsInfo const & info)
 {
   if (!m_session.IsActive())
@@ -1827,6 +1842,30 @@ std::vector<ms::LatLon> SessionRoute::FindRoadCrossings(ms::LatLon const & cente
 bool SessionRoute::IsRoundaboutNear(ms::LatLon const & center, double radiusM) const
 {
   return m_session.IsRoundaboutNear(mercator::FromLatLon(center), radiusM);
+}
+
+std::optional<double> SessionRoute::GetRouteAside(ms::LatLon const & latLon, double bearingDeg) const
+{
+  if (!m_session.IsActive() || !m_session.IsOnRoute())
+    return {};
+
+  Route const * route = m_session.GetRoute();
+  if (route == nullptr || !route->IsValid())
+    return {};
+
+  auto const & points = route->GetPoly().GetPoints();
+  if (points.size() < 2)
+    return {};
+
+  size_t anchorIdx = 0;
+  m2::PointD anchor;
+  m2::PointD const point = mercator::FromLatLon(latLon);
+  double const distanceM = FindRouteAnchor(points, point, bearingDeg, anchorIdx, anchor);
+  if (distanceM == std::numeric_limits<double>::max())
+    return {};
+  // The route is on the right of a car that is on the left of it.
+  bool const carOnLeft = m2::CrossProduct(points[anchorIdx + 1] - points[anchorIdx], point - anchor) > 0.0;
+  return carOnLeft ? distanceM : -distanceM;
 }
 
 bool SessionRoute::ProjectToRoute(ms::LatLon const & latLon, double radiusM, ms::LatLon & projected,

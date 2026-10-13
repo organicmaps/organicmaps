@@ -145,12 +145,31 @@ void RoutingMapApi::RebuildRouteIfOffRoute(Fix const & fix, double offRouteDista
   m_route.RebuildRouteIfOffRoute(info);
 }
 
+void RoutingMapApi::LeaveRoute(Fix const & fix)
+{
+  location::GpsInfo info;
+  info.m_source = location::EUser;
+  info.m_timestamp = m_clock.UnixNowMs() / 1000.0;
+  info.m_latitude = fix.m_position.m_lat;
+  info.m_longitude = fix.m_position.m_lon;
+  info.m_horizontalAccuracy = fix.m_accuracyM;
+  info.m_bearing = ToCoreBearing(fix.m_bearingDeg);
+  if (fix.m_speedMps)
+    info.m_speed = *fix.m_speedMps;
+  m_route.LeaveRoute(info);
+}
+
 std::optional<RoadPoint> RoutingMapApi::ProjectToRoute(ms::LatLon const & position, double radiusM)
 {
   RoadPoint road;
   if (!m_route.ProjectToRoute(position, radiusM, road.m_point, road.m_bearingDeg))
     return {};
   return road;
+}
+
+std::optional<double> RoutingMapApi::GetRouteAside(ms::LatLon const & position, double bearingDeg)
+{
+  return m_route.GetRouteAside(position, bearingDeg);
 }
 
 std::optional<RoadWalker::Result> RoutingMapApi::ShiftAlongRoute(ms::LatLon const & position,

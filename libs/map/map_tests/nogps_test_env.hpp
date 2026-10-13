@@ -129,7 +129,9 @@ public:
   bool IsNavigating() const override { return m_navigating; }
   nogps::Roads & GetRoads(bool) override { return m_roads ? *m_roads : m_grid; }
   void RebuildRouteIfOffRoute(nogps::Fix const &, double, std::optional<double>) override { ++m_rebuilds; }
+  void LeaveRoute(nogps::Fix const &) override { ++m_routeLefts; }
   std::optional<nogps::RoadPoint> ProjectToRoute(ms::LatLon const &, double) override { return {}; }
+  std::optional<double> GetRouteAside(ms::LatLon const &, double) override { return m_routeAsideM; }
   std::optional<nogps::RoadWalker::Result> ShiftAlongRoute(ms::LatLon const &, std::optional<double>, double) override
   {
     return {};
@@ -150,6 +152,9 @@ public:
   std::optional<ms::LatLon> m_offRoadCar;
   int m_offRoadCarShows = 0;
   int m_rebuilds = 0;
+  int m_routeLefts = 0;
+  // How far aside of the car the followed route is.
+  std::optional<double> m_routeAsideM;
   std::optional<double> m_carHeading;
   GridRoads m_grid;
   // Other roads instead of the grid.
