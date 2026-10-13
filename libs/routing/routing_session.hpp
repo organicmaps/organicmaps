@@ -80,6 +80,9 @@ public:
   /// Finds the road a car going the |direction| way drives along, see IRouter::FindRoadAlong.
   bool FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM, m2::PointD & projected,
                      double & angleRad) const;
+  /// Collects every road a car going the |direction| way may drive along, see IRouter::FindRoadsAlong.
+  void FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                      std::vector<RoadAlong> & roads) const;
   bool IsFollowing() const;
   void Reset();
 

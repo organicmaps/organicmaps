@@ -697,6 +697,14 @@ bool RoutingSession::FindRoadAlong(m2::PointD const & point, m2::PointD const & 
   return m_router && m_router->FindRoadAlong(point, direction, radiusM, projected, angleRad);
 }
 
+void RoutingSession::FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                                    std::vector<RoadAlong> & roads) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_router)
+    m_router->FindRoadsAlong(point, direction, radiusM, roads);
+}
+
 bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

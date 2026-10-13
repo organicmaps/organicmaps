@@ -1795,6 +1795,23 @@ bool SessionRoute::SnapToMainRoad(ms::LatLon const & latLon, double radiusM, ms:
   return true;
 }
 
+std::vector<std::pair<ms::LatLon, double>> SessionRoute::FindRoadsAlong(ms::LatLon const & latLon, double bearingDeg,
+                                                                        double radiusM) const
+{
+  double const angle = math::DegToRad(location::BearingToAngle(bearingDeg));
+  std::vector<routing::RoadAlong> roads;
+  m_session.FindRoadsAlong(mercator::FromLatLon(latLon), m2::PointD(std::cos(angle), std::sin(angle)), radiusM, roads);
+  std::vector<std::pair<ms::LatLon, double>> result;
+  result.reserve(roads.size());
+  for (auto const & road : roads)
+  {
+    if (road.m_wrongWay)
+      continue;
+    result.emplace_back(mercator::ToLatLon(road.m_point), location::AngleToBearing(math::RadToDeg(road.m_angleRad)));
+  }
+  return result;
+}
+
 std::vector<ms::LatLon> SessionRoute::FindRoadCrossings(ms::LatLon const & center, double radiusM) const
 {
   std::vector<m2::PointD> crossings;

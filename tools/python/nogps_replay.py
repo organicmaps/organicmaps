@@ -439,6 +439,7 @@ EVENTS = [
     ('started backward', r'has started backward'), ('way of a start changed', r'by the accelerometer, it has felt'),
     ('mark moved to the road of the car', r'the mark is put on the road going its way'),
     ('no road at the tap', r'^No road at the tap'), ('bend moved', r'^Bend: moved'),
+    ('seconds on another branch of a fork', r'^FORK '),
     ('route asked for', r'Routing session state: \w+ -> RouteBuilding'),
     ('route rebuilt: the car left it', r'Routing session state: RouteNeedRebuild -> RouteRebuilding'),
     ('route rebuilt: the mark put off it', r'^Manual position is off the route'),

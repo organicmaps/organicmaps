@@ -93,6 +93,8 @@ public:
   bool IsRoundaboutNear(m2::PointD const & point, double radiusM) override;
   bool FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM, m2::PointD & projected,
                      double & angleRad) override;
+  void FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                      std::vector<RoadAlong> & roads) override;
 
   void SwapAltRouteToActive() override;
 

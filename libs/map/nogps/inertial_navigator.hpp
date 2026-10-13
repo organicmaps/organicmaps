@@ -93,6 +93,17 @@ public:
   static double constexpr kSnapRadiusM = 20;
   // The road the car is put on when the user marks it or the movement resumes may be farther.
   static double constexpr kMaxSnapRadiusM = 60;
+  // Roads going apart by this much around the car are a fork: a ramp, a slip road, an exit of a roundabout. Less
+  // is the same road or two carriageways, more is a crossing, which a turn of the car tells.
+  static double constexpr kMinForkDeg = 3;
+  static double constexpr kMaxForkDeg = 35;
+  // At a fork the branch is told by the heading: the branches begin at one point, so the distance to them tells
+  // nothing, and the route the car follows takes one of them whatever the car does. On October 11 it pulled the
+  // mark to its branch 50 m away from the car. A degree between a branch and the heading is worth this many
+  // meters to the branch, 5 times more than elsewhere.
+  static double constexpr kForkMetersPerDeg = 1;
+  // Places of roads closer than this are the same branch.
+  static double constexpr kSameForkBranchM = 2;
   // The bends of the road are compared with the rotation of the car this often: it takes tens of road lookups.
   static int64_t constexpr kBendMatchIntervalMs = 2000;
   // The position is searched this far along the road at least, and never farther than the maximum: a longer
@@ -371,6 +382,8 @@ private:
   // \returns the part of the rotation that is not the rest of the turn the car was marked in.
   double AbsorbMarkTurn(double yawDeltaDeg, double dtSec);
   void SnapToRoad();
+  // \returns the branch the car drives along by its heading if the road forks at the position.
+  std::optional<RoadPoint> ChooseBranch(ms::LatLon const & position, double headingDeg);
   void MatchBend();
   void TrackTurn(double yawDeltaDeg, double dtSec, int64_t timestampNs);
   void MatchTurn(int64_t timestampNs);

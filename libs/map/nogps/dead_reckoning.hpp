@@ -41,8 +41,10 @@ public:
   /// Pulls the position to the road the car is on: it removes the side error. The heading is corrected
   /// towards the road direction, it removes the gyroscope drift on straight roads.
   /// \param roadBearingDeg direction of the road, the opposite direction is the same road.
+  /// \param pullHeading false where the road forks: the heading tells the branch there, and a branch taken by
+  /// mistake must not turn it.
   /// \returns false if the road goes in another direction and it is ignored.
-  bool SnapToRoad(ms::LatLon const & road, double roadBearingDeg);
+  bool SnapToRoad(ms::LatLon const & road, double roadBearingDeg, bool pullHeading = true);
 
   bool HasPosition() const { return m_hasPosition; }
   bool HasHeading() const { return m_hasHeading; }

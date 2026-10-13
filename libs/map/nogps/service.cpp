@@ -100,6 +100,14 @@ std::optional<RoadPoint> RoutingMapApi::RoutingRoads::Snap(ms::LatLon const & po
   return road;
 }
 
+std::vector<RoadPoint> RoutingMapApi::RoutingRoads::SnapAll(ms::LatLon const & point, double bearingDeg, double radiusM)
+{
+  std::vector<RoadPoint> roads;
+  for (auto const & [roadPoint, roadBearingDeg] : m_route.FindRoadsAlong(point, bearingDeg, radiusM))
+    roads.push_back({roadPoint, roadBearingDeg});
+  return roads;
+}
+
 std::vector<ms::LatLon> RoutingMapApi::RoutingRoads::FindCrossings(ms::LatLon const & center, double radiusM)
 {
   return m_route.FindRoadCrossings(center, radiusM);
