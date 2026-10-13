@@ -8,6 +8,7 @@
 #include <QtGui/QOpenGLContext>
 
 #include <atomic>
+#include <functional>
 #include <memory>
 #include <mutex>
 
@@ -18,7 +19,7 @@ namespace common
 class QtRenderOGLContext : public dp::OGLContext
 {
 public:
-  QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
+  QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface, bool exactSize);
 
   void Present() override;
   void MakeCurrent() override;
@@ -29,10 +30,15 @@ public:
   bool AcquireFrame();
   GLuint GetTextureHandle() const;
   QRectF const & GetTexRect() const;
+  // Called on the render thread after each new frame.
+  void SetPresentListener(std::function<void()> fn);
 
 private:
   QOffscreenSurface * m_surface = nullptr;
   std::unique_ptr<QOpenGLContext> m_ctx;
+  // Otherwise the framebuffers are rounded up to powers of two, so that resizing a window rarely reallocates them.
+  bool const m_exactSize;
+  std::function<void()> m_onPresent;
 
   std::unique_ptr<QOpenGLFramebufferObject> m_frontFrame;
   std::unique_ptr<QOpenGLFramebufferObject> m_backFrame;
