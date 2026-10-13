@@ -607,6 +607,22 @@ bool IndexRouter::IsRoundaboutNear(m2::PointD const & point, double radiusM)
 bool IndexRouter::FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
                                 m2::PointD & projected, double & angleRad)
 {
+  std::vector<RoadAlong> roads;
+  FindRoadsAlong(point, direction, radiusM, roads);
+  RoadAlong const * best = nullptr;
+  for (auto const & road : roads)
+    if (best == nullptr || road.m_cost < best->m_cost)
+      best = &road;
+  if (best == nullptr)
+    return false;
+  projected = best->m_point;
+  angleRad = best->m_angleRad;
+  return true;
+}
+
+void IndexRouter::FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                                 std::vector<RoadAlong> & roads)
+{
   ClearPositionStateIfNeeded();
   // A road going farther aside is a crossing street, not the road the car drives along.
   double constexpr kMaxDiffDeg = 45.0;
@@ -619,9 +635,11 @@ bool IndexRouter::FindRoadAlong(m2::PointD const & point, m2::PointD const & dir
   bool const hasDirection = !direction.IsAlmostZero();
   double const carAngle = hasDirection ? ang::AngleTo(m2::PointD::Zero(), direction) : 0.0;
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, 2.0 * radiusM);
-  double bestCost = std::numeric_limits<double>::max();
   for (auto const & road : m_positionRoadGraph.FindRoads(rect, nullptr /* isGoodFeature */))
   {
+    // The place of the road that fits the car best.
+    RoadAlong best;
+    best.m_cost = std::numeric_limits<double>::max();
     auto const & junctions = road.m_roadInfo.m_junctions;
     for (size_t i = 0; i + 1 < junctions.size(); ++i)
     {
@@ -651,15 +669,12 @@ bool IndexRouter::FindRoadAlong(m2::PointD const & point, m2::PointD const & dir
           continue;
         cost += diffDeg * kMetersPerDeg;
       }
-      if (cost < bestCost)
-      {
-        bestCost = cost;
-        projected = closest;
-        angleRad = angle;
-      }
+      if (cost < best.m_cost)
+        best = {closest, angle, cost};
     }
+    if (best.m_cost != std::numeric_limits<double>::max())
+      roads.push_back(best);
   }
-  return bestCost != std::numeric_limits<double>::max();
 }
 
 void IndexRouter::SetGuides(GuidesTracks && guides)

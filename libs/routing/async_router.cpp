@@ -100,6 +100,12 @@ bool AsyncRouter::FindRoadAlong(m2::PointD const & point, m2::PointD const & dir
   return m_router->FindRoadAlong(point, direction, radiusM, projected, angleRad);
 }
 
+void AsyncRouter::FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                                 std::vector<RoadAlong> & roads)
+{
+  m_router->FindRoadsAlong(point, direction, radiusM, roads);
+}
+
 void AsyncRouter::RouterDelegateProxy::OnProgress(float progress)
 {
   ProgressCallback onProgress = nullptr;

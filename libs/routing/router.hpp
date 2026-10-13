@@ -28,6 +28,17 @@ struct EdgeProj
   m2::PointD m_point;
 };
 
+/// A road a car may drive along, see IRouter::FindRoadsAlong().
+struct RoadAlong
+{
+  // The closest point of the road.
+  m2::PointD m_point;
+  // The direction along the road the car goes.
+  double m_angleRad = 0.0;
+  // How far the road is, with its direction weighed in: the road of the least cost is the one the car is on.
+  double m_cost = 0.0;
+};
+
 /// Routing engine type.
 enum class RouterType
 {
@@ -108,6 +119,12 @@ public:
   {
     return false;
   }
+
+  /// Collects every road FindRoadAlong() chooses from, the closest place of a road each: where a road forks, the
+  /// branch a car has taken is told by what the car does next.
+  virtual void FindRoadsAlong(m2::PointD const & /* point */, m2::PointD const & /* direction */, double /* radiusM */,
+                              std::vector<RoadAlong> & /* roads */)
+  {}
 
   /// Swap the saved last-route state with the alternative's saved state. Called when the user
   /// picks an alternative variant so subsequent adjustments and full rebuilds (off-route rebuilds)

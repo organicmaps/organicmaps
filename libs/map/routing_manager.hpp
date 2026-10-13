@@ -103,6 +103,11 @@ public:
   // Snaps a position set by the user to the closest road within |radiusM|, preferring a main road to a
   // driveway branching off it nearly as close. Returns false if there is no road.
   bool SnapToMainRoad(ms::LatLon const & latLon, double radiusM, ms::LatLon & snapped, double & bearingDeg);
+  // Returns the closest point of every road within |radiusM| a car going the |bearingDeg| way may drive along,
+  // with the bearing of the road there. The followed route is not preferred: where a road forks, the car is on
+  // the branch that fits what it does, not on the one the route takes.
+  std::vector<std::pair<ms::LatLon, double>> FindRoadsAlong(ms::LatLon const & latLon, double bearingDeg,
+                                                            double radiusM) const;
   // Returns the points where three or more roads meet within |radiusM| of |center|.
   std::vector<ms::LatLon> FindRoadCrossings(ms::LatLon const & center, double radiusM) const;
   // Returns true if a roundabout is within |radiusM| of |center|.
