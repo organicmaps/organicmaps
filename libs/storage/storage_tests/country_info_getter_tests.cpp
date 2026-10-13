@@ -6,6 +6,7 @@
 #include "storage/country.hpp"
 #include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"
+#include "storage/country_info_reader_light.hpp"
 #include "storage/storage.hpp"
 #include "storage/storage_helpers.hpp"
 
@@ -165,6 +166,31 @@ UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
   TEST_EQUAL(info.m_name, "Japan, Kinki Region_Osaka_Osaka", ());
 }
 
+using LightweightCountryInfoReader = lightweight::CountryInfoReader;
+
+UNIT_CLASS_TEST(LightweightCountryInfoReader, FractionalLookup)
+{
+  auto const getter = CreateCountryInfoGetter();
+  struct TestCase
+  {
+    ms::LatLon point;
+    char const * countryId;
+  };
+  TestCase const testCases[] = {
+      {{-16.8415, -179.9747}, "Fiji"},
+      {{52.7600266, 173.8999264}, "US_Alaska"},
+      {{-16.8415, -178.0}, ""},        // Pacific Ocean east of Fiji.
+      {{59.1444374, 174.793276}, ""},  // Bering Sea north of the Aleutians.
+      {{35.51914613092363, 46.01312669564558}, "Iran_North"},
+  };
+  for (auto const & test : testCases)
+  {
+    auto const point = mercator::FromLatLon(test.point);
+    TEST_EQUAL(GetRegionCountryId(point), test.countryId, (test.point));
+    TEST_EQUAL(getter->GetRegionCountryId(point), test.countryId, (test.point));
+  }
+}
+
 UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 {
   auto const getter = CreateCountryInfoGetter();
@@ -189,12 +215,11 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 
   // Inside mwm (rough).
   auto const countries4 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), true /* rough */);
-  TEST_EQUAL(countries, vector<storage::CountryId>{"Russia_Bryansk Oblast"}, ());
+  TEST_EQUAL(countries4, vector<storage::CountryId>{"Russia_Bryansk Oblast"}, ());
 
   // Several countries (rough).
   auto const countries5 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
-  // US_Alaska was in the old expected list because its rect was [-180, 180] (intersected everything).
-  // With extended rects, Alaska's rect is compact and no longer intersects Belarus area.
+  // Alaska's compact extended rectangle excludes this viewport.
   auto const expected2 = vector<storage::CountryId>{"Belarus_Homiel Region", "Belarus_Maglieu Region",
                                                     "Russia_Bryansk Oblast", "Ukraine_Chernihiv Oblast"};
   TEST_EQUAL(countries5, expected2, ());
@@ -492,7 +517,7 @@ UNIT_TEST(CountryInfoGetter_ExtendedRect_WestExtended)
   // Point inside western portion (canonical coords [-180, -160]).
   TEST_EQUAL(getter.GetRegionCountryId({-170.0, -15.0}), "WestCountry", ());
 
-  // Point inside eastern portion [166, 180] — wrapped by WrapX to [-175, ...], matches via -360 shift.
+  // Canonical longitude 175 matches the west-extended rectangle via the -360 shift.
   TEST_EQUAL(getter.GetRegionCountryId({175.0, -15.0}), "WestCountry", ());
 
   // Point outside.
