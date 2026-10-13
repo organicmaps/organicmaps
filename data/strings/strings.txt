@@ -45321,9 +45321,9 @@ uk = Вказати своє місцезнаходження вручну
 
 [nogps_manual_mode_on]
 tags = android-app,apple-maps
-en = GPS is ignored. Tap the map where you are.
-ru = GPS отключён. Нажмите на карту там, где вы находитесь.
-uk = GPS вимкнено. Торкніться карти там, де ви знаходитеся.
+en = GPS is ignored. Double-tap the map where you are.
+ru = GPS отключён. Дважды нажмите на карту там, где вы находитесь.
+uk = GPS вимкнено. Двічі торкніться мапи там, де ви знаходитеся.
 
 [nogps_manual_mode_off]
 tags = android-app,apple-maps
