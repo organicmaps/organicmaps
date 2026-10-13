@@ -1,6 +1,8 @@
-#import "MWMRouterTransitStepInfo.h"
+#import "MWMRouterTransitStepInfo+Core.h"
 
-#include "map/routing_manager.hpp"
+#include "map/transit/transit_display.hpp"
+
+#include "base/assert.hpp"
 
 namespace
 {
@@ -16,15 +18,16 @@ MWMRouterTransitType convertType(TransitType type)
   case TransitType::Monorail: return MWMRouterTransitTypeMonorail;
   case TransitType::Tram: return MWMRouterTransitTypeTram;
   case TransitType::Bus: return MWMRouterTransitTypeBus;
+  case TransitType::Ferry: return MWMRouterTransitTypeFerry;
+  case TransitType::CableTram: return MWMRouterTransitTypeCableTram;
+  case TransitType::AerialLift: return MWMRouterTransitTypeAerialLift;
+  case TransitType::Funicular: return MWMRouterTransitTypeFunicular;
   // Trolleybus stops are not visually distinguished from buses in known cities; reuse the bus icon.
   case TransitType::Trolleybus: return MWMRouterTransitTypeBus;
-  // This is temporary solution for compiling iOS project after adding new
-  // TransitType values. When these values will be approved we'll add them
-  // above in switch(type) and remove this line.
-  // TODO(o.khlopkova) Replace this return with more cases when transit
-  // types are ready.
-  default: return MWMRouterTransitTypePedestrian;
+  case TransitType::AirService: return MWMRouterTransitTypeAirService;
+  case TransitType::WaterService: return MWMRouterTransitTypeWaterService;
   }
+  UNREACHABLE();
 }
 
 UIColor * convertColor(uint32_t colorARGB)

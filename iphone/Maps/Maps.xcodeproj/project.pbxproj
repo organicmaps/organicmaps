@@ -631,6 +631,8 @@
 		ED9BEED62FFEB5C8008DB423 /* ColorGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
 		AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */; };
+		A13803000000000000000002 /* MWMRouterTransitStepInfoTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */; };
+		A13803000000000000000004 /* TransportTransitStepsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13803000000000000000003 /* TransportTransitStepsTests.swift */; };
 		A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */; };
 		D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */; };
 		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
@@ -1516,6 +1518,7 @@
 		ED82C6D22F90186300FA103D /* MWMRouter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouter.mm; sourceTree = "<group>"; };
 		ED82C6D32F90186300FA103D /* MWMRouter+RouteManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMRouter+RouteManager.mm"; sourceTree = "<group>"; };
 		ED82C6D42F90186300FA103D /* MWMRouterRecommendation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterRecommendation.h; sourceTree = "<group>"; };
+		A13810000000000000000001 /* MWMRouterTransitStepInfo+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMRouterTransitStepInfo+Core.h"; sourceTree = "<group>"; };
 		ED82C6D52F90186300FA103D /* MWMRouterTransitStepInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterTransitStepInfo.h; sourceTree = "<group>"; };
 		ED82C6D62F90186300FA103D /* MWMRouterTransitStepInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterTransitStepInfo.mm; sourceTree = "<group>"; };
 		ED82C6D72F90186300FA103D /* MWMRouterTransitType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterTransitType.h; sourceTree = "<group>"; };
@@ -1722,6 +1725,8 @@
 		ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridViewController.swift; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
 		AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointTests.swift; sourceTree = "<group>"; };
+		A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterTransitStepInfoTests.mm; sourceTree = "<group>"; };
+		A13803000000000000000003 /* TransportTransitStepsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitStepsTests.swift; sourceTree = "<group>"; };
 		A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingOptionsSettingsTests.swift; sourceTree = "<group>"; };
 		B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointSelectionTests.swift; sourceTree = "<group>"; };
 		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
@@ -3763,6 +3768,7 @@
 				ED82C6D32F90186300FA103D /* MWMRouter+RouteManager.mm */,
 				ED82C6D42F90186300FA103D /* MWMRouterRecommendation.h */,
 				ED82C6D52F90186300FA103D /* MWMRouterTransitStepInfo.h */,
+				A13810000000000000000001 /* MWMRouterTransitStepInfo+Core.h */,
 				ED82C6D62F90186300FA103D /* MWMRouterTransitStepInfo.mm */,
 				ED82C6D72F90186300FA103D /* MWMRouterTransitType.h */,
 				ED82C6D82F90186300FA103D /* MWMRouterType.h */,
@@ -4078,6 +4084,8 @@
 			isa = PBXGroup;
 			children = (
 				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
+				A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */,
+				A13803000000000000000003 /* TransportTransitStepsTests.swift */,
 				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
 				A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */,
 			);
@@ -5044,6 +5052,8 @@
 				EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */,
 				ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */,
 				AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */,
+				A13803000000000000000002 /* MWMRouterTransitStepInfoTests.mm in Sources */,
+				A13803000000000000000004 /* TransportTransitStepsTests.swift in Sources */,
 				A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */,
 				D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
