@@ -1035,6 +1035,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
+    // Without GPS and without a mark of the user there is nowhere to build the route from: the plan of the route
+    // would open and wait, as if the application hung.
+    final NoGps.Status noGps = NoGps.getStatus();
+    if (noGps.manualMode && noGps.getSource() == NoGps.PositionSource.NONE)
+    {
+      Toast.makeText(this, R.string.nogps_no_position_for_route, Toast.LENGTH_LONG).show();
+      return;
+    }
+
     closeFloatingPanels();
     if (isFullscreen())
       exitFullscreen();

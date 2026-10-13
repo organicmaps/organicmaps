@@ -11,7 +11,7 @@
   android:elevation="2dp"
   android:ellipsize="end"
   android:gravity="center"
-  android:maxLines="2"
+  android:maxLines="3"
   android:paddingHorizontal="14dp"
   android:paddingVertical="3dp"
   android:textColor="@color/white_primary"
