@@ -258,6 +258,11 @@ void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
   m_myPositionListener = std::move(fn);
 }
 
+void Framework::SetUserPositionListener(std::function<void(bool hasPosition)> && fn)
+{
+  m_userPositionListener = std::move(fn);
+}
+
 EMyPositionMode Framework::GetMyPositionMode() const
 {
   return m_drapeEngine ? m_drapeEngine->GetMyPositionMode() : PendingPosition;
@@ -291,6 +296,9 @@ void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosit
 
   m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
+
+  if (m_userPositionListener != nullptr)
+    m_userPositionListener(hasPosition);
 }
 
 void Framework::OnViewportChanged(ScreenBase const & screen)
