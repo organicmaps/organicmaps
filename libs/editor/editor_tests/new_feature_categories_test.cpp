@@ -9,6 +9,7 @@
 #include <pugixml.hpp>
 
 #include <algorithm>
+#include <map>
 #include <string>
 
 // A regional locale translates only a handful of categories: data/categories.txt has 34 "es-MX"
@@ -72,4 +73,74 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
       TEST(false, ("Please look at output above"));
     }
   }
+}
+
+UNIT_TEST(NewFeatureCategories_LocalizedNamesAndKeywords)
+{
+  classificator::Load();
+  pugi::xml_document doc;
+  TEST(doc.load_string(R"(
+    <omaps><editor><types>
+      <type id="healthcare-blood_donation" />
+      <type id="craft-handicraft" />
+      <type id="shop-hearing_aids" />
+      <type id="amenity-cafe" can_add="no" />
+    </types></editor></omaps>
+  )"),
+       ());
+  editor::EditorConfig config;
+  config.SetConfig(doc);
+  osm::NewFeatureCategories categories(config);
+  categories.AddLanguage("en");
+
+  TEST_EQUAL(categories.GetAllCreatableTypeNames().size(), 3, ());
+  TEST(categories.Search("Canolfan Roi Gwaed").empty(), ());
+
+  std::map<std::string, std::string> const labels = {
+      {"healthcare-blood_donation", "Canolfan Roi Gwaed"},
+      {"craft-handicraft", "Crefft Llaw"},
+      {"shop-hearing_aids", "Siop Gymhorthion Clyw"},
+  };
+  size_t calls = 0;
+  categories.AddLocalizedNames([&](std::string const & type)
+  {
+    ++calls;
+    return labels.at(type);
+  });
+  TEST_EQUAL(calls, labels.size(), ());
+
+  auto check = [&](std::string const & query, std::string const & type)
+  { TEST_EQUAL(categories.Search(query), osm::NewFeatureCategories::TypeNames({type}), (query)); };
+  for (auto const & [type, name] : labels)
+    check(name, type);
+  check("Crêfft LLÁW", "craft-handicraft");
+  check("orthion cly", "shop-hearing_aids");
+  check("blood", "healthcare-blood_donation");
+  check("gwaed blood", "healthcare-blood_donation");
+  TEST(categories.Search("cafe").empty(), ());
+  TEST(categories.Search("").empty(), ());
+}
+
+UNIT_TEST(NewFeatureCategories_DisplayLocaleReset)
+{
+  classificator::Load();
+  pugi::xml_document doc;
+  TEST(doc.load_string(R"(
+    <omaps><editor><types><type id="healthcare-blood_donation" /></types></editor></omaps>
+  )"),
+       ());
+  editor::EditorConfig config;
+  config.SetConfig(doc);
+  osm::NewFeatureCategories categories(config);
+  categories.AddLocalizedNames([](std::string const &) { return "Canolfan Roi Gwaed"; });
+  categories.AddLanguage("en");
+  TEST(!categories.Search("gwaed").empty(), ());
+
+  // A picker with a new display locale replaces its index, so names from the old locale do not accumulate.
+  categories = osm::NewFeatureCategories(config);
+  categories.AddLocalizedNames([](std::string const &) { return "Centre de don du sang"; });
+  categories.AddLanguage("en");
+  TEST(categories.Search("gwaed").empty(), ());
+  TEST_EQUAL(categories.Search("DON DU SANG"), osm::NewFeatureCategories::TypeNames({"healthcare-blood_donation"}), ());
+  TEST(!categories.Search("blood").empty(), ());
 }

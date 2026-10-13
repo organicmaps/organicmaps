@@ -8,6 +8,7 @@
 #include "base/macros.hpp"
 #include "base/small_set.hpp"
 
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -23,7 +24,7 @@ public:
   NewFeatureCategories() = default;
   explicit NewFeatureCategories(editor::EditorConfig const & config);
 
-  NewFeatureCategories(NewFeatureCategories && other) noexcept;
+  NewFeatureCategories(NewFeatureCategories && other) noexcept = default;
   NewFeatureCategories & operator=(NewFeatureCategories && other) = default;
 
   // Adds all known synonyms in language |lang| for all categories that
@@ -33,10 +34,13 @@ public:
   // If |lang| is not supported, "en" is used.
   void AddLanguage(std::string lang);
 
-  // Returns names (in language |queryLang|) and types of categories that have a synonym containing
-  // the substring |query| (in any language that was added before).
-  // If |lang| is not supported, "en" is used.
-  // The returned list is sorted.
+  // Adds the names shown by the picker to the same index as search keywords. The resolver receives
+  // a readable classifier identifier and is called synchronously for every creatable type.
+  // Call once for a picker's display locale; use a new instance when that locale changes.
+  void AddLocalizedNames(std::function<std::string(TypeName const &)> const & localize);
+
+  // Returns readable classifier identifiers whose indexed names contain every normalized query token
+  // as a substring. Matches display names and synonyms in every language added with AddLanguage().
   TypeNames Search(std::string const & query) const;
 
   TypeNames GetRecentCategories() const;
