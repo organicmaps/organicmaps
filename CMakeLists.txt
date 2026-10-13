@@ -261,3 +261,7 @@ omim_add_test_subdirectory(libs/qt_tstfrm)
 if (PLATFORM_ANDROID)
   add_subdirectory(android/sdk/src/main/cpp)
 endif()
+
+if (PLATFORM_SAILFISH)
+  add_subdirectory(sailfish)
+endif()
