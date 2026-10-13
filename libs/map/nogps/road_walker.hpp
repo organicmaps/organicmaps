@@ -39,7 +39,10 @@ public:
 
   /// \param bearingDeg the direction the car looks at.
   /// \param distanceM meters to move forward, negative to move back.
+  /// \param stopAtCrossing false for a car known to have driven that way: it goes straight on through the
+  /// crossings.
   /// \returns nothing if there is no road at the position.
-  static std::optional<Result> Walk(Roads & roads, ms::LatLon const & position, double bearingDeg, double distanceM);
+  static std::optional<Result> Walk(Roads & roads, ms::LatLon const & position, double bearingDeg, double distanceM,
+                                    bool stopAtCrossing = true);
 };
 }  // namespace nogps
