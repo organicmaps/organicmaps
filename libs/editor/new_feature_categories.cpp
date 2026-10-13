@@ -32,11 +32,6 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
   std::sort(m_types.begin(), m_types.end());
 }
 
-NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other) noexcept
-  : m_index(std::move(other.m_index))
-  , m_types(std::move(other.m_types))
-{}
-
 void NewFeatureCategories::AddLanguage(std::string lang)
 {
   // Regional translations cover only some categories, so index their base language too.
@@ -56,6 +51,19 @@ void NewFeatureCategories::AddLanguage(std::string lang)
     m_index.AddCategoryByTypeAndLang(c.GetTypeByReadableObjectName(type), langCode);
 
   m_addedLangs.Insert(langCode);
+}
+
+void NewFeatureCategories::AddLocalizedNames(std::function<std::string(TypeName const &)> const & localize)
+{
+  ASSERT(!m_namesAdded, ());
+  auto const & c = classif();
+  for (auto const & type : m_types)
+  {
+    auto const name = localize(type);
+    ASSERT(!name.empty(), (type));
+    m_index.AddCategoryName(c.GetTypeByReadableObjectName(type), name);
+  }
+  m_namesAdded = true;
 }
 
 NewFeatureCategories::TypeNames NewFeatureCategories::Search(std::string const & query) const
