@@ -72,6 +72,12 @@ void DBusInbox::openUrl(QStringList const & urls)
     m_queued.append(urls);
 }
 
+void DBusInbox::cancelDownloads()
+{
+  if (m_handler)
+    emit m_handler->cancelDownloadsRequested();
+}
+
 void UrlHandler::openUrl(QStringList const & urls)
 {
   emit activated();

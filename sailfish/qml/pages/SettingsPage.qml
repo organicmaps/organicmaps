@@ -65,6 +65,12 @@ Page {
                 onClicked: appSettings.buildings3d = !appSettings.buildings3d
             }
             TextSwitch {
+                text: qsTrId("autodownload")
+                automaticCheck: false
+                checked: appSettings.autoDownload
+                onClicked: appSettings.autoDownload = !checked
+            }
+            TextSwitch {
                 text: qsTrId("show_downloaded_regions")
                 automaticCheck: false
                 checked: appSettings.showDownloadedRegions
@@ -82,6 +88,11 @@ Page {
                 checked: appSettings.transliteration
                 onClicked: appSettings.transliteration = !checked
             }
+            ValueButton {
+                label: qsTrId("maps_storage")
+                value: mapsStorage.currentName
+                onClicked: pageStack.push(Qt.resolvedUrl("StoragePage.qml"))
+            }
             TextSwitch {
                 text: qsTrId("enable_logging")
                 description: qsTrId("enable_logging_warning_message")
@@ -92,6 +103,17 @@ Page {
                 onClicked: {
                     appSettings.logging = !checked
                     page.logSize = appSettings.logSize()
+                }
+            }
+            ComboBox {
+                label: qsTrId("mobile_data")
+                description: qsTrId("mobile_data_description")
+                currentIndex: appSettings.mobileData
+                menu: ContextMenu {
+                    onActivated: appSettings.mobileData = index
+                    MenuItem { text: qsTrId("mobile_data_option_ask") }
+                    MenuItem { text: qsTrId("mobile_data_option_always") }
+                    MenuItem { text: qsTrId("mobile_data_option_never") }
                 }
             }
             ComboBox {
