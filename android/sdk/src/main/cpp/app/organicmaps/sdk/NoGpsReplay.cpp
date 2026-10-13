@@ -399,10 +399,10 @@ private:
       int64_t const boxMs = ms - durationMs + durationMs * i / kLines;
       m_clock.AdvanceTo(boxMs);
       char body[200];
-      int const length = std::snprintf(body, sizeof(body), "NGD,1,%lld,%lld,%lld,0,0,%d,0,%s",
-                                       static_cast<long long>(++m_seq), static_cast<long long>(boxMs),
-                                       static_cast<long long>(startMdeg + yawMdeg * i / kLines), speedKmh,
-                                       flags.c_str());
+      int const length =
+          std::snprintf(body, sizeof(body), "NGD,1,%lld,%lld,%lld,0,0,%d,0,%s", static_cast<long long>(++m_seq),
+                        static_cast<long long>(boxMs), static_cast<long long>(startMdeg + yawMdeg * i / kLines),
+                        speedKmh, flags.c_str());
       if (hasAccel)
         std::snprintf(body + length, sizeof(body) - length, ",%s,%d,%d,0", h1.c_str(), h2, up);
       char crc[8];
