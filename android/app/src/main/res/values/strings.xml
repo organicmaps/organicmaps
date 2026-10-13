@@ -938,7 +938,7 @@
 
     <!-- SECTION: NoGPS Maps -->
     <string name="nogps_manual_position">Set my position manually</string>
-    <string name="nogps_manual_mode_on">GPS is ignored. Tap the map where you are.</string>
+    <string name="nogps_manual_mode_on">GPS is ignored. Double-tap the map where you are.</string>
     <string name="nogps_manual_mode_off">GPS is on again</string>
     <string name="nogps_gps_spoofed">GPS is spoofed! Using cell towers and Wi-Fi. You can also set your position manually.</string>
     <string name="nogps_gps_restored">GPS is fine again</string>

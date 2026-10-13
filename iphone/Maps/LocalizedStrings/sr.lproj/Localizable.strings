@@ -1202,7 +1202,7 @@
 /********** NoGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
-"nogps_manual_mode_on" = "GPS is ignored. Tap the map where you are.";
+"nogps_manual_mode_on" = "GPS is ignored. Double-tap the map where you are.";
 "nogps_manual_mode_off" = "GPS is on again";
 "nogps_gps_spoofed" = "GPS is spoofed! Using cell towers and Wi-Fi. You can also set your position manually.";
 "nogps_gps_restored" = "GPS is fine again";
