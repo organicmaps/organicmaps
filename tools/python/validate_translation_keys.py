@@ -57,6 +57,11 @@ _IOS_PLIST_TITLE_RE = re.compile(
     r"<key>UIApplicationShortcutItemTitle</key>\s*<string>(\w+)</string>"
 )
 _XML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+# appInfo.localized() in Sailfish OS QML may receive a ternary expression, so every literal in the call is a key.
+_SAILFISH_CALL_RE = re.compile(r"\blocalized\(([^)]*)\)")
+_SAILFISH_LITERAL_RE = re.compile(r"[\"'](\w+)[\"']")
+# The Sailfish OS C++ passes keys through its own helpers and tables, so every lowercase identifier literal counts.
+_SAILFISH_CPP_RE = re.compile(r'"([a-z][a-z0-9_]*)"')
 
 
 @dataclass
@@ -119,6 +124,10 @@ def _category_source_matcher(text) -> dict[str, int]:
     return _match_references(text, _CATEGORY_LIST_RE, _CORE_LITERAL_RE)
 
 
+def _sailfish_qml_matcher(text) -> dict[str, int]:
+    return _match_references(text, _SAILFISH_CALL_RE, _SAILFISH_LITERAL_RE)
+
+
 def _ios_source_matcher(text) -> dict[str, int]:
     references = _match_references(text, _IOS_L_CALL_RE, _IOS_LITERAL_RE)
     references.update(_match_references(text, _IOS_NS_RE))
@@ -146,10 +155,15 @@ _SCANNERS = {
         ((".xml",), _xml_matcher(_ANDROID_XML_RE)),
     ],
     "ios": _IOS_RESOURCE_SCANNERS + _IOS_INFOPLIST_SCANNERS,
+    # Sailfish OS reads strings.txt at runtime, so its tag generates nothing and isn't checked.
+    "sailfish": [
+        ((".cpp", ".hpp"), _regex_matcher(_SAILFISH_CPP_RE)),
+        ((".qml", ".js"), _sailfish_qml_matcher),
+    ],
 }
 
 # Which source tree each scanner reads.
-_ROOTS = (("core", "libs"), ("core", "qt"), ("android", "android"), ("ios", "iphone"))
+_ROOTS = (("core", "libs"), ("core", "qt"), ("android", "android"), ("ios", "iphone"), ("sailfish", "sailfish"))
 
 # Apple code and resources have unambiguous generated localization targets. Core
 # references belong to the Maps app. Chart has no localization lookups or resources,
@@ -176,6 +190,7 @@ _STRICT_SCANNERS = {
     + [
         ((".plist",), _xml_matcher(_IOS_PLIST_TITLE_RE)),
     ],
+    "sailfish": [((".qml", ".js"), _sailfish_qml_matcher)],
 }
 
 
@@ -329,7 +344,9 @@ def main():
         "referenced by an Apple target their tags leave out",
         find_undertagged_targets(tags_by_key, apple_referenced),
     )
-    strict = strict_referenced["ios"] | strict_referenced["core"]
+    strict = {}
+    for references in strict_referenced.values():
+        strict |= references
     failures += report_references(
         "referenced in code but missing from strings.txt",
         sorted(strict.keys() - set(tags_by_key)),
