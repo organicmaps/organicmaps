@@ -25,6 +25,8 @@ set(SRC
   app_settings.hpp
   bundled_html.cpp
   bundled_html.hpp
+  countries_model.cpp
+  countries_model.hpp
   file_log.cpp
   file_log.hpp
   framework_access.hpp
@@ -32,6 +34,8 @@ set(SRC
   helpers.hpp
   map_item.cpp
   map_item.hpp
+  maps_storage.cpp
+  maps_storage.hpp
   url_handler.cpp
   url_handler.hpp
   ${OMIM_ROOT}/qt/qt_common/qtoglcontext.cpp

@@ -1,5 +1,7 @@
 #include "sailfish/map_item.hpp"
 
+#include "sailfish/app_settings.hpp"
+#include "sailfish/countries_model.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/helpers.hpp"
 
@@ -9,6 +11,10 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/map_style.hpp"
+
+#include "storage/country_info_getter.hpp"
+#include "storage/storage.hpp"
+#include "storage/storage_helpers.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -94,13 +100,19 @@ MapItem::MapItem(QQuickItem * parent)
 
   connect(this, &QQuickItem::windowChanged, this, &MapItem::OnWindowChanged);
   connect(qGuiApp, &QGuiApplication::applicationStateChanged, this, &MapItem::OnApplicationStateChanged);
+
+  m_storageSlot = m_framework.GetStorage().Subscribe([this](storage::CountryId const &) {
+    UpdateCurrentCountry();
+  }, [this](storage::CountryId const &, downloader::Progress const &) { UpdateCurrentCountry(); });
 }
 
 MapItem::~MapItem()
 {
   // The listeners capture this.
   m_framework.GetIsolinesManager().SetStateListener({});
+  m_framework.SetCurrentCountryChangedListener({});
   m_framework.SetMyPositionModeListener(nullptr);
+  m_framework.GetStorage().Unsubscribe(m_storageSlot);
   m_locationService->Stop();
   if (!m_contextFactory)
     return;
@@ -234,6 +246,31 @@ QString MapItem::myPositionShareText() const
   return QString::fromStdString(m_framework.GetShareDataForMyPosition(mercator::ToLatLon(*position)).m_text);
 }
 
+void MapItem::OnCurrentCountryChanged(std::string const & countryId)
+{
+  m_currentCountryId = countryId;
+  UpdateCurrentCountry();
+
+  // Auto-download only on Wi-Fi, in that region and with enough space.
+  if (countryId.empty() || !AppSettings::IsAutoDownloadEnabled())
+    return;
+  auto & storage = m_framework.GetStorage();
+  if (MapAttrs(storage, countryId).m_status != storage::NodeStatus::NotDownloaded)
+    return;
+  auto const position = m_framework.GetCurrentPosition();
+  if (!position || m_framework.GetCountryInfoGetter().GetRegionCountryId(*position) != countryId)
+    return;
+  if (!AppSettings::IsOnWifi())
+    return;
+  if (storage::IsEnoughSpaceForDownload(countryId, storage))
+    storage.DownloadNode(countryId);
+}
+
+void MapItem::downloadMap(QString const & countryId)
+{
+  DownloadMap(m_framework.GetStorage(), countryId.toStdString());
+}
+
 bool MapItem::needUpdateForRoutes() const
 {
   return m_framework.NeedUpdateForRoutes();
@@ -264,6 +301,21 @@ void MapItem::UpdatePositionInfo()
     m_positionInfo = info;
     emit positionInfoChanged();
   }
+}
+
+void MapItem::UpdateCurrentCountry()
+{
+  auto const country = MissingMapInfo(m_framework.GetStorage(), m_currentCountryId);
+  if (country != m_currentCountry)
+  {
+    m_currentCountry = country;
+    emit currentCountryChanged();
+  }
+}
+
+void MapItem::cancelMap(QString const & countryId)
+{
+  m_framework.GetStorage().CancelDownloadNode(countryId.toStdString());
 }
 
 void MapItem::OnCompassReading()
@@ -361,6 +413,8 @@ void MapItem::CreateEngine()
         emit self->isolinesNeedMaps();
     });
   });
+  m_framework.SetCurrentCountryChangedListener([this](storage::CountryId const & countryId)
+  { OnCurrentCountryChanged(countryId); });
   m_framework.CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));
   m_framework.EnterForeground();
   m_contextFactory->WaitForInitialization(nullptr);

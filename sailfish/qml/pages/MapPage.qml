@@ -2,6 +2,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Nemo.KeepAlive 1.2
 import app.organicmaps 1.0
+import "downloads.js" as Downloads
 import "notices.js" as Toast
 
 Page {
@@ -21,6 +22,8 @@ Page {
     readonly property real topControlsBottom: topInset + buttonMargin
     // Silica keeps landscape pages clear of the camera notch.
     readonly property real topInset: page.orientation === Orientation.Portrait ? Screen.topCutout.height : 0
+    // For the downloader layout that keeps the Android sizes.
+    readonly property real androidDp: myPositionButton.androidDp
     readonly property real buttonMargin: Theme.paddingMedium
 
     objectName: "mapPage"
@@ -55,7 +58,11 @@ Page {
         target: map
         onEngineCreated: urlHandler.processPending()
         onNotice: Toast.showLong(message)
-        onIsolinesNeedMaps: Toast.showLong(appInfo.localized("isolines_activation_error_dialog"))
+        onIsolinesNeedMaps: pageStack.push(Qt.resolvedUrl("MessageDialog.qml"), {
+            title: appInfo.localized("downloader_update_maps"),
+            message: appInfo.localized("isolines_activation_error_dialog"),
+            acceptAction: function() { pageStack.push(Qt.resolvedUrl("MapsPage.qml")) }
+        })
     }
 
     MapButton {
@@ -161,6 +168,83 @@ Page {
             source: "image://theme/icon-m-menu"
             description: appInfo.localized("menu")
             onClicked: pageStack.push(Qt.resolvedUrl("MenuPage.qml"), { mapPage: page })
+
+            // Map updates are waiting.
+            // Placed like the Material badge with the offsets of MapButtonsController, relative to the button.
+            Rectangle {
+                visible: downloads.updateCount > 0
+                x: parent.width * 35 / 48 - width / 2
+                y: parent.height * 9 / 48 - height / 2
+                width: Math.max(height, badgeLabel.implicitWidth + Theme.paddingMedium)
+                height: parent.height / 3
+                radius: height / 2
+                color: Theme.highlightBackgroundColor
+
+                Label {
+                    id: badgeLabel
+                    anchors.centerIn: parent
+                    text: downloads.updateCount
+                    font.pixelSize: Theme.fontSizeTiny
+                    font.bold: true
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        id: onMapDownloader
+
+        readonly property var country: map.currentCountry
+        readonly property bool busy: Downloads.busy(country.status)
+
+        visible: !!country.countryId
+        anchors.centerIn: parent
+        // As wide as the Android onmap_downloader with its 180dp button and margin_base padding, or wider for
+        // the Silica button.
+        width: Math.min(parent.width - 2 * Theme.horizontalPageMargin,
+                        Math.max(180 * page.androidDp, downloadButton.implicitWidth) + 2 * downloaderColumn.x)
+        height: downloaderColumn.height + 2 * downloaderColumn.x
+        radius: 14 * page.androidDp
+        color: Theme.rgba(Theme.overlayBackgroundColor, 0.9)
+
+        Column {
+            id: downloaderColumn
+            x: 16 * page.androidDp
+            anchors.verticalCenter: parent.verticalCenter
+            width: parent.width - 2 * x
+            spacing: Theme.paddingMedium
+
+            Label {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                text: onMapDownloader.country.name || ""
+                font.pixelSize: Theme.fontSizeLarge
+                color: Theme.highlightColor
+                wrapMode: Text.Wrap
+            }
+            Label {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                text: onMapDownloader.country.status === CountriesModel.Error
+                      ? appInfo.localized("country_status_download_failed")
+                      : onMapDownloader.country.size || ""
+                color: onMapDownloader.country.status === CountriesModel.Error ? Theme.errorColor
+                                                                               : Theme.secondaryHighlightColor
+            }
+            ProgressBar {
+                width: parent.width
+                visible: onMapDownloader.busy
+                indeterminate: onMapDownloader.country.status !== CountriesModel.Downloading
+                value: onMapDownloader.country.progress || 0
+            }
+            Button {
+                id: downloadButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: onMapDownloader.busy ? appInfo.localized("cancel")
+                    : onMapDownloader.country.status === CountriesModel.Error ? appInfo.localized("downloader_retry")
+                    : appInfo.localized("downloader_download_map")
+                onClicked: Downloads.toggle(pageStack, map, onMapDownloader.country)
+            }
         }
     }
 

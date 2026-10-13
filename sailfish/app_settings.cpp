@@ -24,12 +24,19 @@ std::string_view constexpr kMapAppearance = "SailfishMapAppearance";
 std::string_view constexpr kZoomButtons = "SailfishZoomButtons";
 std::string_view constexpr kKeepScreenOn = "SailfishKeepScreenOn";
 std::string_view constexpr kLogging = "SailfishFileLogging";
+std::string_view constexpr kAutoDownload = "SailfishAutoDownload";
+std::string_view constexpr kMobileData = "SailfishMobileData";
 
 struct Mode3d
 {
   bool m_allow3d;
   bool m_buildings;
 };
+
+bool IsOnMobileData()
+{
+  return Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WWAN;
+}
 
 static_assert(AppSettings::PowerEconomyMaximum == static_cast<int>(power_management::Scheme::EconomyMaximum));
 static_assert(AppSettings::PowerAuto == static_cast<int>(power_management::Scheme::Auto));
@@ -208,6 +215,51 @@ qint64 AppSettings::logSize() const
 void AppSettings::InitLogging()
 {
   file_log::Enable(LoadSetting(kLogging, false));
+}
+
+// static
+bool AppSettings::IsAutoDownloadEnabled()
+{
+  return LoadSetting(kAutoDownload, true);
+}
+
+bool AppSettings::IsOnWifi()
+{
+  return Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
+}
+
+void AppSettings::setAutoDownload(bool enabled)
+{
+  SaveUiSetting(kAutoDownload, enabled);
+}
+
+int AppSettings::mobileData() const
+{
+  return LoadSetting(kMobileData, static_cast<int>(MobileDataAsk));
+}
+
+void AppSettings::setMobileData(int mobileData)
+{
+  SaveUiSetting(kMobileData, mobileData);
+}
+
+int AppSettings::downloadPermission() const
+{
+  if (!IsOnMobileData())
+    return DownloadAllowed;
+  switch (mobileData())
+  {
+  case MobileDataAlways: return DownloadAllowed;
+  case MobileDataNever: return DownloadDenied;
+  default: return DownloadAsk;
+  }
+}
+
+void AppSettings::confirmDownload()
+{
+  // The core's automatic retries may use cellular data then too, for an hour; they never do when it is denied.
+  if (IsOnMobileData())
+    m_framework.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
 int AppSettings::powerScheme() const

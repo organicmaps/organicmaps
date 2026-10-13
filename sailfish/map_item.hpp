@@ -11,6 +11,7 @@
 #include <QVariantMap>
 
 #include <memory>
+#include <string>
 
 class Framework;
 class QCompass;
@@ -35,6 +36,9 @@ class MapItem
   Q_PROPERTY(qreal rightInset READ rightInset WRITE setRightInset NOTIFY horizontalInsetsChanged)
   // {address, coordinates, altitude, speed} for the app cover; empty without a position.
   Q_PROPERTY(QVariantMap positionInfo READ positionInfo NOTIFY positionInfoChanged)
+  // The region in the middle of the map while its map isn't downloaded: {countryId, name, size, status (a
+  // CountriesModel::Status), progress (0..1)}; empty otherwise.
+  Q_PROPERTY(QVariantMap currentCountry READ currentCountry NOTIFY currentCountryChanged)
   // The scale line and attribution stay above it.
   Q_PROPERTY(
       qreal bottomWidgetsOffset READ bottomWidgetsOffset WRITE setBottomWidgetsOffset NOTIFY bottomWidgetsOffsetChanged)
@@ -76,6 +80,8 @@ public:
   // Empty without a position.
   Q_INVOKABLE QString myPositionShareText() const;
 
+  Q_INVOKABLE void downloadMap(QString const & countryId);
+  Q_INVOKABLE void cancelMap(QString const & countryId);
   // Hiking and cycling routes need newer maps here.
   Q_INVOKABLE bool needUpdateForRoutes() const;
   // Contour lines are on but not shown at this zoom.
@@ -93,6 +99,7 @@ public:
   void setTopWidgetsOffset(qreal offset);
   int enabledLayers() const;
   int newLayers() const;
+  QVariantMap currentCountry() const { return m_currentCountry; }
 
 signals:
   void engineCreated();
@@ -105,6 +112,7 @@ signals:
   // Contour lines need newer maps here.
   void isolinesNeedMaps();
   void horizontalInsetsChanged();
+  void currentCountryChanged();
 
 protected:
   QSGNode * updatePaintNode(QSGNode * oldNode, UpdatePaintNodeData *) override;
@@ -131,7 +139,10 @@ private:
   // again.
   void UpdateLocationService(bool restart = false);
   void OnCompassReading();
+  // Auto-downloads the map of the region the user is in.
+  void OnCurrentCountryChanged(std::string const & countryId);
   void UpdatePositionInfo();
+  void UpdateCurrentCountry();
 
   // location::LocationObserver
   void OnLocationError(location::TLocationError errorCode) override;
@@ -160,5 +171,8 @@ private:
   double m_speed = -1;
   qint64 m_positionInfoMs = 0;
   bool m_calibrationShown = false;
+  std::string m_currentCountryId;
+  QVariantMap m_currentCountry;
+  int m_storageSlot = 0;
 };
 }  // namespace sailfish

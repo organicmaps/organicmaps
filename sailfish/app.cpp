@@ -1,7 +1,9 @@
 #include "sailfish/app_info.hpp"
 #include "sailfish/app_settings.hpp"
+#include "sailfish/countries_model.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/map_item.hpp"
+#include "sailfish/maps_storage.hpp"
 #include "sailfish/url_handler.hpp"
 
 #include "map/framework.hpp"
@@ -13,16 +15,21 @@
 
 #include <qqml.h>
 #include <QDir>
+#include <QEventLoop>
 #include <QGuiApplication>
 #include <QQmlContext>
 #include <QQmlError>
+#include <QQuickItem>
 #include <QQuickView>
 #include <QStandardPaths>
 #include <QSurfaceFormat>
+#include <QTimer>
 
+#include <atomic>
 #include <clocale>
 #include <cstdlib>
 #include <memory>
+#include <thread>
 
 #include <sailfishapp.h>
 
@@ -48,11 +55,39 @@ void SetDefaultSurfaceFormat()
   QSurfaceFormat::setDefaultFormat(format);
 }
 
+// The copy can take minutes, e.g. to a slow memory card, so its progress is shown meanwhile. Without text: the
+// strings come from the platform, which may only start once the maps folder is known.
+QString MoveMaps()
+{
+  if (!sailfish::MapsStorage::HasPendingMove())
+    return sailfish::MapsStorage::ApplyPendingMove([](double) {});
+
+  std::unique_ptr<QQuickView> view(SailfishApp::createView());
+  view->setSource(SailfishApp::pathTo(QStringLiteral("qml/MovingMaps.qml")));
+  view->show();
+  std::atomic<double> progress{0};
+  QString dir;
+  QEventLoop loop;
+  std::thread worker([&]
+  {
+    dir = sailfish::MapsStorage::ApplyPendingMove([&](double copied) { progress = copied; });
+    QMetaObject::invokeMethod(&loop, "quit", Qt::QueuedConnection);
+  });
+  QTimer timer;
+  QObject::connect(&timer, &QTimer::timeout, [&] { view->rootObject()->setProperty("progress", progress.load()); });
+  timer.start(500);
+  loop.exec();
+  worker.join();
+  return dir;
+}
+
 void SetupPlatform()
 {
   // Platform reads these on first use; the defaults match the installed RPM layout and Sailjail.
   SetEnvIfUnset("MWM_RESOURCES_DIR", SailfishApp::pathTo(QStringLiteral("data")).toLocalFile());
-  QString const writableDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+  QString writableDir = MoveMaps();
+  if (writableDir.isEmpty())
+    writableDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
   QDir().mkpath(writableDir);
   SetEnvIfUnset("MWM_WRITABLE_DIR", writableDir);
 
@@ -64,6 +99,7 @@ void SetupPlatform()
 void RegisterQmlTypes()
 {
   qmlRegisterType<sailfish::MapItem>("app.organicmaps", 1, 0, "MapItem");
+  qmlRegisterType<sailfish::CountriesModel>("app.organicmaps", 1, 0, "CountriesModel");
   qmlRegisterUncreatableType<sailfish::AppSettings>("app.organicmaps", 1, 0, "AppSettings", "Use appSettings");
 }
 }  // namespace
@@ -108,12 +144,16 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
   // Declared before the view, which uses them until it is destroyed.
   sailfish::AppInfo appInfo;
   sailfish::AppSettings appSettings(framework);
+  sailfish::MapsStorage mapsStorage(framework);
+  sailfish::DownloadStatus downloads(framework.GetStorage());
   sailfish::UrlHandler urlHandler(framework);
   dbusInbox.SetHandler(urlHandler);
   std::unique_ptr<QQuickView> view(SailfishApp::createView());
   view->rootContext()->setContextProperty(QStringLiteral("appInfo"), &appInfo);
   view->rootContext()->setContextProperty(QStringLiteral("appSettings"), &appSettings);
   view->rootContext()->setContextProperty(QStringLiteral("urlHandler"), &urlHandler);
+  view->rootContext()->setContextProperty(QStringLiteral("mapsStorage"), &mapsStorage);
+  view->rootContext()->setContextProperty(QStringLiteral("downloads"), &downloads);
   // A local file loads synchronously.
   view->setSource(SailfishApp::pathToMainQml());
   if (view->status() != QQuickView::Ready)
