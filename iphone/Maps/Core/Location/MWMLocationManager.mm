@@ -240,12 +240,16 @@ void setShowLocationAlert(BOOL needShow)
 
 + (void)applicationWillResignActive
 {
-  BOOL const keepRunning = keepRunningInBackground();
-  MWMLocationManager * manager = [self manager];
-  CLLocationManager * locationManager = manager.locationManager;
+  CLLocationManager * locationManager = [self manager].locationManager;
   if ([locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
-    [locationManager setAllowsBackgroundLocationUpdates:keepRunning];
-  manager.started = keepRunning;
+    [locationManager setAllowsBackgroundLocationUpdates:keepRunningInBackground()];
+}
+
++ (void)applicationDidEnterBackground
+{
+  // Not when the app becomes inactive: Control Center or a notification does it for a moment, and the navigation
+  // without GPS would stop and drop its sensor box, which took 3 minutes to connect again on October 13.
+  [self manager].started = keepRunningInBackground();
 }
 
 #pragma mark - Getters
