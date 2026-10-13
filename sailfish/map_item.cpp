@@ -4,6 +4,7 @@
 #include "sailfish/countries_model.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/helpers.hpp"
+#include "sailfish/place_page.hpp"
 #include "sailfish/touch_events.hpp"
 
 #include "qt/qt_common/translations.hpp"
@@ -41,6 +42,7 @@
 #include <QTouchEvent>
 
 #include <algorithm>
+#include <optional>
 #include <utility>
 
 namespace sailfish
@@ -93,6 +95,7 @@ MapItem::MapItem(QQuickItem * parent)
   : QQuickItem(parent)
   , m_framework(GetFramework())
   , m_locationService(CreateDesktopLocationService(*this))
+  , m_placePage(std::make_unique<PlacePage>(m_framework))
   , m_compass(new QCompass(this))
 {
   m_compass->setSkipDuplicates(true);
@@ -239,6 +242,8 @@ void MapItem::OnLocationUpdated(location::GpsInfo const & info)
   if (m_inBackground && QDateTime::currentMSecsSinceEpoch() - m_positionInfoMs > 10000)
     UpdatePositionInfo(mercator::FromLatLon(info.m_latitude, info.m_longitude));
   m_framework.OnLocationUpdate(info);
+  m_placePage->UpdateDistance();
+  m_placePage->UpdateMyPosition(info.HasAltitude(), info.m_altitude, info.m_speed);
 }
 
 QString MapItem::myPositionShareText() const
@@ -247,6 +252,37 @@ QString MapItem::myPositionShareText() const
   if (!position)
     return {};
   return QString::fromStdString(m_framework.GetShareDataForMyPosition(mercator::ToLatLon(*position)).m_text);
+}
+
+void MapItem::startChoosingPosition()
+{
+  std::optional<m2::PointD> position;
+  if (m_framework.HasPlacePageInfo())
+    position = m_framework.GetCurrentPlacePageInfo().GetMercator();
+  m_placePage->close();
+  m_framework.BlockTapEvents(true);
+  m_framework.EnableChoosePositionMode(true, false /* enableBounds */, position ? &*position : nullptr,
+                                       true /* shouldChangeViewport */);
+  m_choosingPosition = true;
+  emit choosingPositionChanged();
+}
+
+void MapItem::stopChoosingPosition()
+{
+  if (!m_choosingPosition)
+    return;
+  m_framework.EnableChoosePositionMode(false, false /* enableBounds */, nullptr, false /* shouldChangeViewport */);
+  m_framework.BlockTapEvents(false);
+  m_choosingPosition = false;
+  emit choosingPositionChanged();
+}
+
+QVariantList MapItem::confirmChosenPosition()
+{
+  auto const center = m_framework.GetViewportCenter();
+  stopChoosingPosition();
+  auto const latLon = mercator::ToLatLon(center);
+  return {latLon.m_lat, latLon.m_lon};
 }
 
 void MapItem::OnCurrentCountryChanged(std::string const & countryId)
@@ -334,6 +370,7 @@ void MapItem::OnCompassReading()
   location::CompassInfo info;
   info.m_bearing = ang::AngleIn2PI(math::DegToRad(static_cast<double>(reading->azimuth() + rotation)));
   m_framework.OnCompassUpdate(info);
+  m_placePage->SetNorth(info.m_bearing);
 
   // Warn once per session. Sensors without a calibration level report zero.
   auto const calibration = reading->calibrationLevel();
@@ -434,6 +471,15 @@ void MapItem::Resize(int width, int height)
   UpdateVisibleViewport();
 }
 
+void MapItem::setViewportBottomInset(qreal inset)
+{
+  if (inset == m_viewportBottomInset)
+    return;
+  m_viewportBottomInset = inset;
+  emit viewportBottomInsetChanged();
+  UpdateVisibleViewport();
+}
+
 void MapItem::setLeftInset(qreal inset)
 {
   if (inset == m_leftInset)
@@ -459,8 +505,9 @@ void MapItem::setRightInset(qreal inset)
 void MapItem::UpdateVisibleViewport()
 {
   // Ignored by the framework until the drape engine exists.
+  double const bottom = std::max<double>(1.0, height() - m_viewportBottomInset);
   double const right = std::max<double>(m_leftInset + 1.0, width() - m_rightInset);
-  m_framework.SetVisibleViewport(m2::RectD(m_leftInset, 0, right, height()));
+  m_framework.SetVisibleViewport(m2::RectD(m_leftInset, 0, right, bottom));
 }
 
 void MapItem::setBottomWidgetsOffset(qreal offset)

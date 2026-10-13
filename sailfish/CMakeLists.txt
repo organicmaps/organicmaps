@@ -16,6 +16,8 @@ set(DBUS_PATH /app/organicmaps)
 find_package(Qt5 COMPONENTS REQUIRED DBus Gui Qml Quick Sensors)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(SAILFISHAPP REQUIRED sailfishapp)
+# The Sailfish clock format, see Is24HourClock().
+pkg_check_modules(MLITE REQUIRED mlite5)
 
 set(SRC
   app.cpp
@@ -36,6 +38,12 @@ set(SRC
   map_item.hpp
   maps_storage.cpp
   maps_storage.hpp
+  opening_hours_editor.cpp
+  opening_hours_editor.hpp
+  place_page.cpp
+  place_page.hpp
+  search_model.cpp
+  search_model.hpp
   touch_events.cpp
   touch_events.hpp
   url_handler.cpp
@@ -57,7 +65,7 @@ target_compile_definitions(${PROJECT_NAME}_lib PRIVATE "SAILFISH_APP_NAME=\"${AP
                            "SAILFISH_DBUS_SERVICE=\"${DBUS_SERVICE}\"" "SAILFISH_DBUS_PATH=\"${DBUS_PATH}\"")
 # Keep the bundled 3party libraries (FreeType, ICU, ...) from interposing the system copies Qt uses.
 target_link_options(${PROJECT_NAME}_lib PRIVATE -Wl,--exclude-libs,ALL)
-target_include_directories(${PROJECT_NAME}_lib PRIVATE ${SAILFISHAPP_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME}_lib PRIVATE ${SAILFISHAPP_INCLUDE_DIRS} ${MLITE_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME}_lib
   PRIVATE
     Boost::headers
@@ -70,6 +78,7 @@ target_link_libraries(${PROJECT_NAME}_lib
     Qt5::Quick
     Qt5::Sensors
     ${SAILFISHAPP_LIBRARIES}
+    ${MLITE_LIBRARIES}
 )
 
 # Run by the Sailfish OS CI job, like qt_translations_check.
@@ -125,6 +134,12 @@ install(FILES "${ANDROID_RES}/drawable/ic_openstreetmap_color.webp" "${ANDROID_R
 install(FILES "${ANDROID_RES}/drawable-xxxhdpi/ic_layers_isoline.webp" DESTINATION ${APP_DATA_DIR}/icons/layers)
 install(FILES "${ANDROID_RES}/drawable-night-xxxhdpi/ic_layers_isoline.webp" DESTINATION ${APP_DATA_DIR}/icons/layers
         RENAME ic_layers_isoline_night.webp)
+# The Wikipedia logos are traced from the iOS ones.
+install(FILES "${ANDROID_RES}/drawable-xxhdpi/ic_direction_pagepreview.webp"
+              "${ANDROID_RES}/drawable-sw600dp-xxhdpi/ic_direction_fullscreen.png"
+              "${ANDROID_RES}/drawable-xxxhdpi/ic_entrance.webp"
+              icons/placepage/ic_wiki.svg icons/placepage/ic_wikimedia_commons.svg
+        DESTINATION ${APP_DATA_DIR}/icons/placepage)
 configure_file(organicmaps.desktop.in ${APP_NAME}.desktop @ONLY)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.desktop" DESTINATION share/applications)
 foreach(size 86 108 128 172)
