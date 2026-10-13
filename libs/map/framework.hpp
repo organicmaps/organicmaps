@@ -319,6 +319,20 @@ public:
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   m2::PointD GetMinDistanceBetweenResults() const override;
 
+#ifdef DEBUG
+  // Starts (if not already running) a recurring once-a-second replay tick after Settings arm.
+  // Idempotent — safe after every successful arm/re-arm.
+  void ScheduleGpxReplayTick();
+#endif  // DEBUG
+
+private:
+#ifdef DEBUG
+  // One tick of the chain above: advances playback once and reschedules itself, stopping (and
+  // clearing m_gpxReplayTickerRunning) once GpxReplayProvider::HasMoreReadings() goes false.
+  void GpxReplayTick();
+  bool m_gpxReplayTickerRunning = false;
+#endif  // DEBUG
+
 private:
   void UpdateBookmarksTextPlacement();
 

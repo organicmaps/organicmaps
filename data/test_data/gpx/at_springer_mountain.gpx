@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="organicmaps" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Appalachian Trail — Springer Mountain trailhead</name>
+    <trkseg>
+      <trkpt lat="34.6267694" lon="-84.1938787"><ele>1150.0</ele></trkpt>
+      <trkpt lat="34.6268429" lon="-84.1938853"><ele>1150.0</ele></trkpt>
+      <trkpt lat="34.6268913" lon="-84.1939"><ele>1149.6</ele></trkpt>
+      <trkpt lat="34.6269485" lon="-84.1939274"><ele>1148.7</ele></trkpt>
+      <trkpt lat="34.6270046" lon="-84.1939527"><ele>1147.8</ele></trkpt>
+      <trkpt lat="34.627039" lon="-84.1939557"><ele>1147.6</ele></trkpt>
+      <trkpt lat="34.6270625" lon="-84.1939622"><ele>1147.3</ele></trkpt>
+      <trkpt lat="34.6271186" lon="-84.1939755"><ele>1146.8</ele></trkpt>
+      <trkpt lat="34.6271616" lon="-84.1939888"><ele>1146.3</ele></trkpt>
+      <trkpt lat="34.6271941" lon="-84.1939851"><ele>1146.3</ele></trkpt>
+      <trkpt lat="34.62731" lon="-84.1939806"><ele>1146.3</ele></trkpt>
+      <trkpt lat="34.6273381" lon="-84.1939842"><ele>1146.1</ele></trkpt>
+      <trkpt lat="34.6273651" lon="-84.1939957"><ele>1145.8</ele></trkpt>
+      <trkpt lat="34.6274104" lon="-84.1940101"><ele>1145.4</ele></trkpt>
+      <trkpt lat="34.62747" lon="-84.1940283"><ele>1145.0</ele></trkpt>
+      <trkpt lat="34.6275241" lon="-84.1940451"><ele>1144.5</ele></trkpt>
+      <trkpt lat="34.6276118" lon="-84.1940791"><ele>1143.2</ele></trkpt>
+      <trkpt lat="34.6276636" lon="-84.1941217"><ele>1142.2</ele></trkpt>
+      <trkpt lat="34.6277183" lon="-84.1941708"><ele>1141.1</ele></trkpt>
+      <trkpt lat="34.6277965" lon="-84.194246"><ele>1139.3</ele></trkpt>
+      <trkpt lat="34.627862" lon="-84.194296"><ele>1138.2</ele></trkpt>
+      <trkpt lat="34.6279696" lon="-84.194365"><ele>1137.0</ele></trkpt>
+      <trkpt lat="34.6279946" lon="-84.1943851"><ele>1136.7</ele></trkpt>
+      <trkpt lat="34.6280349" lon="-84.1944134"><ele>1136.4</ele></trkpt>
+      <trkpt lat="34.6280677" lon="-84.1944198"><ele>1136.3</ele></trkpt>
+      <trkpt lat="34.6281104" lon="-84.1944297"><ele>1136.0</ele></trkpt>
+      <trkpt lat="34.6281573" lon="-84.1944312"><ele>1135.8</ele></trkpt>
+      <trkpt lat="34.6282058" lon="-84.1944324"><ele>1135.6</ele></trkpt>
+      <trkpt lat="34.6282845" lon="-84.1944206"><ele>1135.4</ele></trkpt>
+      <trkpt lat="34.6283174" lon="-84.1944158"><ele>1135.4</ele></trkpt>
+      <trkpt lat="34.6283547" lon="-84.1944176"><ele>1135.2</ele></trkpt>
+      <trkpt lat="34.6284552" lon="-84.1944306"><ele>1134.7</ele></trkpt>
+      <trkpt lat="34.6285655" lon="-84.1944687"><ele>1133.5</ele></trkpt>
+      <trkpt lat="34.6286338" lon="-84.1944901"><ele>1132.5</ele></trkpt>
+      <trkpt lat="34.628688" lon="-84.1945108"><ele>1131.5</ele></trkpt>
+      <trkpt lat="34.628756" lon="-84.1945363"><ele>1130.1</ele></trkpt>
+      <trkpt lat="34.6288157" lon="-84.1945412"><ele>1129.5</ele></trkpt>
+      <trkpt lat="34.6288924" lon="-84.1945327"><ele>1129.1</ele></trkpt>
+      <trkpt lat="34.6289959" lon="-84.1945156"><ele>1128.6</ele></trkpt>
+      <trkpt lat="34.6290606" lon="-84.1945146"><ele>1128.0</ele></trkpt>
+      <trkpt lat="34.6291333" lon="-84.1945012"><ele>1127.7</ele></trkpt>
+      <trkpt lat="34.6292435" lon="-84.1944711"><ele>1128.5</ele></trkpt>
+      <trkpt lat="34.6292746" lon="-84.1944625"><ele>1128.9</ele></trkpt>
+      <trkpt lat="34.6293303" lon="-84.1944565"><ele>1129.2</ele></trkpt>
+      <trkpt lat="34.6294289" lon="-84.1944613"><ele>1129.5</ele></trkpt>
+      <trkpt lat="34.6294837" lon="-84.1944511"><ele>1130.1</ele></trkpt>
+      <trkpt lat="34.6295324" lon="-84.194448"><ele>1130.5</ele></trkpt>
+      <trkpt lat="34.6295802" lon="-84.1944275"><ele>1131.3</ele></trkpt>
+      <trkpt lat="34.6296458" lon="-84.1943948"><ele>1132.2</ele></trkpt>
+      <trkpt lat="34.6296916" lon="-84.1943924"><ele>1132.5</ele></trkpt>
+      <trkpt lat="34.6297514" lon="-84.1944093"><ele>1132.8</ele></trkpt>
+      <trkpt lat="34.6297872" lon="-84.1944335"><ele>1132.8</ele></trkpt>
+      <trkpt lat="34.6298412" lon="-84.1944767"><ele>1132.4</ele></trkpt>
+      <trkpt lat="34.6298858" lon="-84.1945422"><ele>1131.0</ele></trkpt>
+      <trkpt lat="34.6299409" lon="-84.1945919"><ele>1130.1</ele></trkpt>
+      <trkpt lat="34.6300805" lon="-84.1946789"><ele>1129.0</ele></trkpt>
+      <trkpt lat="34.630298" lon="-84.1948225"><ele>1127.6</ele></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

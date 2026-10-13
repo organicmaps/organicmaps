@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA732B4350E34784B28D177E /* settings_contribution_registry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216681B77AC844C28778941B /* settings_contribution_registry.cpp */; };
+		ECD7E0AFB1484E6B9E885CEA /* location_provider_registry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78670E03EE194E368BA77BE8 /* location_provider_registry.cpp */; };
 		1669C8402A30DCD200530AD1 /* distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1669C83E2A30DCD200530AD1 /* distance.cpp */; };
 		1669C8412A30DCD200530AD1 /* distance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1669C83E2A30DCD200530AD1 /* distance.cpp */; };
 		1669C8422A30DCD200530AD1 /* distance.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1669C83F2A30DCD200530AD1 /* distance.hpp */; };
@@ -145,6 +147,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7AEC499CD2AA4412B446F68C /* settings_contribution.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = settings_contribution.hpp; sourceTree = "<group>"; };
+		A0A3430BBA704EFFAB4CD708 /* settings_contribution_registry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = settings_contribution_registry.hpp; sourceTree = "<group>"; };
+		216681B77AC844C28778941B /* settings_contribution_registry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = settings_contribution_registry.cpp; sourceTree = "<group>"; };
+		D2C0AFB758E64CF9B52F7126 /* location_provider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = location_provider.hpp; sourceTree = "<group>"; };
+		652C6176EAD24DF9AAF9E322 /* location_fusion_strategy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = location_fusion_strategy.hpp; sourceTree = "<group>"; };
+		AC2178A8D3DA4D888B16B1D6 /* location_provider_registry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = location_provider_registry.hpp; sourceTree = "<group>"; };
+		78670E03EE194E368BA77BE8 /* location_provider_registry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = location_provider_registry.cpp; sourceTree = "<group>"; };
 		0960A58440A5A6B69B1952FB /* os_grid_utils.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; path = os_grid_utils.hpp; sourceTree = "<group>"; };
 		1669C83E2A30DCD200530AD1 /* distance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = distance.cpp; sourceTree = "<group>"; };
 		1669C83F2A30DCD200530AD1 /* distance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = distance.hpp; sourceTree = "<group>"; };
@@ -443,6 +452,7 @@
 				3DA587412550116C002E024C /* localization.cpp */,
 				3D15ACDF214A707800F725D5 /* localization.mm */,
 				675343971A3F5D5A00A0A8C3 /* location.hpp */,
+				261B3349BBA2430D9D691075 /* location_provider */,
 				675343861A3F5D5900A0A8C3 /* location_service/apple_location_service.mm */,
 				675343961A3F5D5A00A0A8C3 /* location_service/location_service.hpp */,
 				675343951A3F5D5A00A0A8C3 /* location_service/location_service.cpp */,
@@ -480,6 +490,7 @@
 				675343A71A3F5D5A00A0A8C3 /* servers_list.hpp */,
 				675343A61A3F5D5A00A0A8C3 /* servers_list.cpp */,
 				675343A91A3F5D5A00A0A8C3 /* settings.hpp */,
+				714D65767C9C4C88AD2AF1F7 /* settings_contribution */,
 				675343A81A3F5D5A00A0A8C3 /* settings.cpp */,
 				34C624BC1DABCCD100510300 /* socket.hpp */,
 				34C624BB1DABCCD100510300 /* socket_apple.mm */,
@@ -506,6 +517,27 @@
 			);
 			name = Resources;
 			path = ../../data;
+			sourceTree = "<group>";
+		};
+		261B3349BBA2430D9D691075 /* location_provider */ = {
+			isa = PBXGroup;
+			children = (
+				D2C0AFB758E64CF9B52F7126 /* location_provider.hpp */,
+				652C6176EAD24DF9AAF9E322 /* location_fusion_strategy.hpp */,
+				AC2178A8D3DA4D888B16B1D6 /* location_provider_registry.hpp */,
+				78670E03EE194E368BA77BE8 /* location_provider_registry.cpp */,
+			);
+			path = location_provider;
+			sourceTree = "<group>";
+		};
+		714D65767C9C4C88AD2AF1F7 /* settings_contribution */ = {
+			isa = PBXGroup;
+			children = (
+				7AEC499CD2AA4412B446F68C /* settings_contribution.hpp */,
+				A0A3430BBA704EFFAB4CD708 /* settings_contribution_registry.hpp */,
+				216681B77AC844C28778941B /* settings_contribution_registry.cpp */,
+			);
+			path = settings_contribution;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -722,6 +754,8 @@
 				EB60B4DC204C130300E4953B /* network_policy_ios.mm in Sources */,
 				6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */,
 				ED49D7402CEE438E004AF27E /* products.cpp in Sources */,
+				ECD7E0AFB1484E6B9E885CEA /* location_provider_registry.cpp in Sources */,
+				DA732B4350E34784B28D177E /* settings_contribution_registry.cpp in Sources */,
 				670E8C761BB318AB00094197 /* platform_ios.mm in Sources */,
 				67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */,
 				56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */,

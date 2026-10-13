@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.ListPreference;
@@ -72,6 +74,120 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
     initNightNavigationPrefsCallbacks();
+    initSettingsContributions();
+  }
+
+  private String mPendingContributionPickId;
+
+  private final ActivityResultLauncher<String[]> mPickGpxLauncher = registerForActivityResult(
+      new ActivityResultContracts.OpenDocument(), uri -> {
+        if (uri == null || mPendingContributionPickId == null)
+          return;
+        final String path = copyUriToCache(uri);
+        if (path == null)
+          return;
+        Framework.nativeSettingsContributionDidPickFile(mPendingContributionPickId, path);
+        mPendingContributionPickId = null;
+        refreshSettingsContributionSummaries();
+      });
+
+  private void initSettingsContributions()
+  {
+    final Object[] contributions = Framework.nativeGetSettingsContributions();
+    if (contributions == null || contributions.length == 0)
+      return;
+
+    PreferenceCategory debugCategory = null;
+    for (Object rowObj : contributions)
+    {
+      final String[] row = (String[]) rowObj;
+      if (row == null || row.length < 5)
+        continue;
+      final String id = row[0];
+      final String title = row[1];
+      final String sectionId = row[2];
+      final String detail = row[3];
+      final String extensionsJoined = row[4];
+
+      if (!"debug".equals(sectionId))
+        continue;
+
+      if (debugCategory == null)
+      {
+        debugCategory = new PreferenceCategory(requireContext());
+        debugCategory.setKey("pref_settings_debug_plugins");
+        debugCategory.setTitle("Debug");
+        debugCategory.setOrder(1000);
+        getPreferenceScreen().addPreference(debugCategory);
+      }
+
+      final Preference pref = new Preference(requireContext());
+      pref.setKey("pref_settings_contribution_" + id);
+      pref.setTitle(title);
+      pref.setSummary(detail);
+      pref.setPersistent(false);
+      final boolean needsPicker = extensionsJoined != null && !extensionsJoined.isEmpty();
+      pref.setOnPreferenceClickListener(preference -> {
+        if (needsPicker)
+        {
+          mPendingContributionPickId = id;
+          final String[] mimeTypes = new String[] {"application/gpx+xml", "application/octet-stream", "*/*"};
+          mPickGpxLauncher.launch(mimeTypes);
+        }
+        else
+        {
+          Framework.nativeSelectSettingsContribution(id);
+          refreshSettingsContributionSummaries();
+        }
+        return true;
+      });
+      debugCategory.addPreference(pref);
+    }
+  }
+
+  private void refreshSettingsContributionSummaries()
+  {
+    final Object[] contributions = Framework.nativeGetSettingsContributions();
+    if (contributions == null)
+      return;
+    for (Object rowObj : contributions)
+    {
+      final String[] row = (String[]) rowObj;
+      if (row == null || row.length < 4)
+        continue;
+      final Preference pref = findPreference("pref_settings_contribution_" + row[0]);
+      if (pref != null)
+      {
+        pref.setTitle(row[1]);
+        pref.setSummary(row[3]);
+      }
+    }
+  }
+
+  @Nullable
+  private String copyUriToCache(@NonNull android.net.Uri uri)
+  {
+    try
+    {
+      final java.io.InputStream in = requireContext().getContentResolver().openInputStream(uri);
+      if (in == null)
+        return null;
+      final java.io.File outFile =
+          new java.io.File(requireContext().getCacheDir(), "mock_gpx_" + System.currentTimeMillis() + ".gpx");
+      try (java.io.InputStream input = in;
+           java.io.OutputStream output = new java.io.FileOutputStream(outFile))
+      {
+        final byte[] buffer = new byte[8192];
+        int read;
+        while ((read = input.read(buffer)) != -1)
+          output.write(buffer, 0, read);
+      }
+      return outFile.getAbsolutePath();
+    }
+    catch (java.io.IOException e)
+    {
+      return null;
+    }
   }
 
   private void updateVoiceInstructionsPrefsSummary()

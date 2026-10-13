@@ -39,6 +39,7 @@ typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 
 @class ProductsConfiguration;
 @class Product;
+@class MWMSettingsContributionInfo;
 
 @protocol ProductsManager <NSObject>
 
@@ -97,6 +98,20 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (BOOL)canShowRateUsRequest;
 + (void)didShowRateUsRequest;
 
+/// Plugin Settings rows registered with SettingsContributionRegistry (empty when none).
++ (NSArray<MWMSettingsContributionInfo *> *)settingsContributions;
++ (void)selectSettingsContributionWithId:(NSString *)contributionId;
++ (void)settingsContributionWithId:(NSString *)contributionId didPickFileAtPath:(NSString *)path;
+
+@end
+
+NS_SWIFT_NAME(SettingsContributionInfo)
+@interface MWMSettingsContributionInfo : NSObject
+@property (nonatomic, readonly) NSString *contributionId;
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSString *sectionId;
+@property (nonatomic, readonly) NSString *detail;
+@property (nonatomic, readonly) NSArray<NSString *> *pickFileExtensions;
 @end
 
 NS_ASSUME_NONNULL_END
