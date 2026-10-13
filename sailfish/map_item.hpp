@@ -215,7 +215,6 @@ private:
   bool m_choosingPosition = false;
   QCompass * m_compass = nullptr;
   location::EMyPositionMode m_myPositionMode = location::PendingPosition;
-  QTimer m_updateTimer;
   df::TouchEvent m_heldTouches;
   bool m_touchActive = false;
   double m_visualScale = 1.0;

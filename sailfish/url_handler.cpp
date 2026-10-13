@@ -135,7 +135,8 @@ void UrlHandler::Process(QString const & url)
     }
     auto const request = m_framework.GetParsedSearchRequest();
     // Search runs "?" debug commands, e.g. changing the map server: not for links, which any app can send.
-    if (!request.m_query.empty() && request.m_query.front() == '?')
+    // Trimmed too, in case a command is ever matched after trimming.
+    if (QString::fromStdString(request.m_query).trimmed().startsWith(QLatin1Char('?')))
     {
       LOG(LWARNING, ("Ignored a debug command in a link"));
       break;

@@ -51,35 +51,43 @@ ApplicationWindow {
         onCancelDownloadsRequested: downloads.cancelAll()
     }
 
-    // Retries until the user is back on the map, e.g. after a start by a link.
+    // Offered once, when the user is on the map: e.g. a start by a link opens other pages first.
+    property bool updateOfferPending: false
+    function offerUpdate() {
+        if (!updateOfferPending || pageStack.depth !== 1 || pageStack.busy)
+            return
+        updateOfferPending = false
+        if (!downloads.shouldOfferUpdate() || appSettings.downloadPermission() === AppSettings.DownloadDenied)
+            return
+        // Accepting also confirms a download over mobile data, which the dialog explains then.
+        downloads.setUpdateOffered()
+        var mobile = appSettings.downloadPermission() === AppSettings.DownloadAsk
+        pageStack.push(Qt.resolvedUrl("pages/MessageDialog.qml"), {
+            title: appInfo.localized("whats_new_auto_update_title"),
+            message: appInfo.localized("whats_new_auto_update_message")
+                     + (mobile ? "\n\n" + appInfo.localized("download_over_mobile_header") + " "
+                                 + appInfo.localized("download_over_mobile_message") : ""),
+            acceptText: appInfo.localized("whats_new_auto_update_button_size", [downloads.updateSize]),
+            cancelText: appInfo.localized("later"),
+            acceptAction: function() {
+                appSettings.confirmDownload()
+                downloads.updateAll()
+            }
+        })
+    }
+    // Not the moment the map appears.
     Timer {
         running: true
-        repeat: true
         interval: 3000
         onTriggered: {
-            if (!downloads.shouldOfferUpdate() || appSettings.downloadPermission() === AppSettings.DownloadDenied) {
-                stop()
-                return
-            }
-            if (pageStack.depth === 1 && !pageStack.busy) {
-                stop()
-                // Accepting also confirms a download over mobile data, which the dialog explains then.
-                downloads.setUpdateOffered()
-                var mobile = appSettings.downloadPermission() === AppSettings.DownloadAsk
-                pageStack.push(Qt.resolvedUrl("pages/MessageDialog.qml"), {
-                    title: appInfo.localized("whats_new_auto_update_title"),
-                    message: appInfo.localized("whats_new_auto_update_message")
-                             + (mobile ? "\n\n" + appInfo.localized("download_over_mobile_header") + " "
-                                         + appInfo.localized("download_over_mobile_message") : ""),
-                    acceptText: appInfo.localized("whats_new_auto_update_button_size", [downloads.updateSize]),
-                    cancelText: appInfo.localized("later"),
-                    acceptAction: function() {
-                        appSettings.confirmDownload()
-                        downloads.updateAll()
-                    }
-                })
-            }
+            updateOfferPending = true
+            offerUpdate()
         }
+    }
+    Connections {
+        target: pageStack
+        onDepthChanged: offerUpdate()
+        onBusyChanged: offerUpdate()
     }
 
     // Keep the device from suspending while maps download, so a blanked screen doesn't stall them.

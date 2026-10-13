@@ -30,6 +30,9 @@ namespace
 {
 char constexpr kStorageKey[] = "mapsStorage";
 char constexpr kPendingKey[] = "pendingMove";
+// An interrupted move leaves files in this folder that are also in the kept one.
+char constexpr kCleanupKey[] = "moveCleanup";
+char constexpr kKeptKey[] = "moveKept";
 
 QString DefaultDir()
 {
@@ -47,12 +50,12 @@ QString CurrentDir()
   return QDir::cleanPath(QString::fromStdString(GetPlatform().WritableDir()));
 }
 
-// Copies every file of the folder, keeping the tree, and returns the copies; on failure they are removed.
-std::optional<std::vector<std::string>> CopyTree(QString const & from, QString const & to,
-                                                 std::function<void(double)> const & onProgress)
+using FilePairs = std::vector<std::pair<std::string, std::string>>;
+
+// Every file of the folder with its place in the new one, keeping the tree; none if one is there already.
+std::optional<FilePairs> ListTree(QString const & from, QString const & to)
 {
-  std::vector<std::pair<std::string, std::string>> files;
-  qint64 total = 0;
+  FilePairs files;
   for (QDirIterator it(from, QDir::Files | QDir::Hidden, QDirIterator::Subdirectories); it.hasNext();)
   {
     QString const file = it.next();
@@ -64,26 +67,52 @@ std::optional<std::vector<std::string>> CopyTree(QString const & from, QString c
       return {};
     }
     files.emplace_back(file.toStdString(), target.toStdString());
-    total += it.fileInfo().size();
   }
+  return files;
+}
 
-  std::vector<std::string> copied;
+// On failure the copies are removed.
+bool CopyFiles(FilePairs const & files, std::function<void(double)> const & onProgress)
+{
+  qint64 total = 0;
+  for (auto const & file : files)
+    total += QFileInfo(QString::fromStdString(file.first)).size();
   qint64 done = 0;
-  for (auto const & [source, target] : files)
+  for (size_t i = 0; i < files.size(); ++i)
   {
+    auto const & [source, target] = files[i];
     if (!QDir().mkpath(QFileInfo(QString::fromStdString(target)).path()) || !base::CopyFileX(source, target))
     {
       LOG(LWARNING, ("Can't copy", source, "to", target));
-      for (auto const & file : copied)
-        base::DeleteFileX(file);
-      return {};
+      for (size_t j = 0; j < i; ++j)
+        base::DeleteFileX(files[j].second);
+      return false;
     }
-    copied.push_back(target);
     done += QFileInfo(QString::fromStdString(target)).size();
     if (total > 0)
       onProgress(static_cast<double>(done) / total);
   }
-  return copied;
+  return true;
+}
+
+// Deletes the files of the folder that the kept one has too.
+void RemoveDuplicates(QString const & dir, QString const & kept)
+{
+  for (QDirIterator it(dir, QDir::Files | QDir::Hidden, QDirIterator::Subdirectories); it.hasNext();)
+  {
+    QString const file = it.next();
+    if (QFileInfo::exists(QDir(kept).filePath(QDir(dir).relativeFilePath(file))))
+      base::DeleteFileX(file.toStdString());
+  }
+}
+
+// Saved before files are copied or deleted: the folder an interruption would leave duplicates in.
+bool SetCleanup(QSettings & settings, QString const & dir, QString const & kept)
+{
+  settings.setValue(kCleanupKey, dir);
+  settings.setValue(kKeptKey, kept);
+  settings.sync();
+  return settings.status() == QSettings::NoError;
 }
 }  // namespace
 
@@ -101,7 +130,15 @@ bool MapsStorage::HasPendingMove()
 QString MapsStorage::ApplyPendingMove(std::function<void(double)> const & onProgress)
 {
   QSettings settings(SettingsPath(), QSettings::IniFormat);
-  QString dir = settings.value(kStorageKey).toString();
+  if (QString const cleanup = settings.value(kCleanupKey).toString(); !cleanup.isEmpty())
+  {
+    LOG(LWARNING, ("Removing what an interrupted maps move left in", cleanup.toStdString()));
+    RemoveDuplicates(cleanup, settings.value(kKeptKey).toString());
+    SetCleanup(settings, {}, {});
+  }
+
+  QString const configured = settings.value(kStorageKey).toString();
+  QString dir = configured;
   // E.g. the memory card was removed: use the app folder until it is back.
   if (!dir.isEmpty() && !(QFileInfo(dir).isDir() && QFileInfo(dir).isWritable()))
     dir.clear();
@@ -118,23 +155,29 @@ QString MapsStorage::ApplyPendingMove(std::function<void(double)> const & onProg
   s_moveFailed = true;
   if (settings.status() != QSettings::NoError || !QDir().mkpath(to))
     return dir;
-  auto const copies = CopyTree(from, to, onProgress);
-  if (!copies)
+  auto const files = ListTree(from, to);
+  // An interruption while copying leaves copies only, which the next start removes.
+  if (!files || !SetCleanup(settings, to, from))
     return dir;
+  if (!CopyFiles(*files, onProgress))
+  {
+    SetCleanup(settings, {}, {});
+    return dir;
+  }
 
   // The originals go only after the new folder is saved, so that an interruption leaves usable maps.
   QString const newDir = to == QDir::cleanPath(DefaultDir()) ? QString() : to;
   settings.setValue(kStorageKey, newDir);
-  settings.sync();
-  if (settings.status() != QSettings::NoError)
+  if (!SetCleanup(settings, from, to))
   {
     LOG(LERROR, ("Can't save the maps folder", to.toStdString(), "to", SettingsPath().toStdString()));
-    for (auto const & file : *copies)
-      base::DeleteFileX(file);
+    settings.setValue(kStorageKey, configured);
+    RemoveDuplicates(to, from);
+    SetCleanup(settings, {}, {});
     return dir;
   }
-  for (QDirIterator it(from, QDir::Files | QDir::Hidden, QDirIterator::Subdirectories); it.hasNext();)
-    base::DeleteFileX(it.next().toStdString());
+  RemoveDuplicates(from, to);
+  SetCleanup(settings, {}, {});
   s_moveFailed = false;
   return newDir;
 }

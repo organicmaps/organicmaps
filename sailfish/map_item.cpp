@@ -64,8 +64,8 @@ static_assert(MapItem::NotFollow == static_cast<int>(location::NotFollow));
 static_assert(MapItem::Follow == static_cast<int>(location::Follow));
 static_assert(MapItem::FollowAndRotate == static_cast<int>(location::FollowAndRotate));
 
-// Drape presents into a power-of-two framebuffer and reports the used part as a normalized rect. The framebuffers
-// rotate, so the texture wrapper is recreated for each new frame; that only wraps the id, without a copy.
+// Drape presents into a framebuffer and reports the used part as a normalized rect. The framebuffers rotate, so the
+// texture wrapper is recreated for each new frame; that only wraps the id, without a copy.
 class MapTextureNode : public QSGSimpleTextureNode
 {
 public:
@@ -114,10 +114,6 @@ MapItem::MapItem(QQuickItem * parent)
   m_storageSlot = m_framework.GetStorage().Subscribe([this](storage::CountryId const &) {
     UpdateCurrentCountry();
   }, [this](storage::CountryId const &, downloader::Progress const &) { UpdateCurrentCountry(); });
-
-  // Drape renders on its own threads, so poll for new frames like the desktop map widget.
-  m_updateTimer.setInterval(1000 / 60);
-  connect(&m_updateTimer, &QTimer::timeout, this, &QQuickItem::update);
 
   m_simulationTimer.setInterval(1000);
   connect(&m_simulationTimer, &QTimer::timeout, this, &MapItem::SimulateLocation);
@@ -579,7 +575,6 @@ void MapItem::OnApplicationStateChanged(Qt::ApplicationState state)
   if (inBackground)
   {
     UpdatePositionInfo();
-    m_updateTimer.stop();
     UpdateLocationService();
     m_framework.SetRenderingDisabled(false /* destroySurface */);
     m_framework.EnterBackground();
@@ -588,7 +583,6 @@ void MapItem::OnApplicationStateChanged(Qt::ApplicationState state)
   {
     m_framework.EnterForeground();
     m_framework.SetRenderingEnabled();
-    m_updateTimer.start();
     UpdateLocationService();
   }
 }
@@ -606,7 +600,10 @@ void MapItem::CreateEngine()
   m_visualScale = dpi > 0 ? df::DPI2VS(dpi) : 2.0;
   LOG(LINFO, ("Screen DPI:", dpi, "visual scale:", m_visualScale));
 
-  m_contextFactory = std::make_unique<qt::common::QtOGLContextFactory>(shareContext);
+  // The screen size only changes on rotation, so the framebuffers needn't be rounded up.
+  m_contextFactory = std::make_unique<qt::common::QtOGLContextFactory>(shareContext, true /* exactSize */);
+  // Redraws only for new frames: drape renders on its own threads and idles when nothing changes.
+  m_contextFactory->SetPresentListener([this] { QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection); });
 
   Framework::DrapeCreationParams p;
   p.m_apiVersion = dp::ApiVersion::OpenGLES3;
@@ -646,7 +643,6 @@ void MapItem::CreateEngine()
   // as Android's offset of the panel height does; the default offset is too high on short landscape screens.
   m_framework.UpdateMyPositionRoutingOffset(false /* useDefault */, 0);
 
-  m_updateTimer.start();
   // E.g. a recording restored after a restart.
   UpdateLocationService();
   emit engineCreated();

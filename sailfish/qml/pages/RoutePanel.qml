@@ -418,12 +418,18 @@ MapPanel {
                                     MenuItem {
                                         text: appInfo.localized("delete")
                                         onClicked: {
-                                            var removed = index
-                                            var point = JSON.stringify(modelData)
+                                            var removed = modelData
                                             pointSlot.remorseDelete(function() {
-                                                // The points may have changed meanwhile: never delete another one.
-                                                if (JSON.stringify(routing.points[removed]) === point)
-                                                    routing.removePoint(removed)
+                                                // The points may have been reordered or removed meanwhile.
+                                                var points = routing.points
+                                                for (var i = 0; i < points.length; ++i) {
+                                                    var p = points[i]
+                                                    if (removed.isMyPosition ? p.isMyPosition
+                                                                             : p.x === removed.x && p.y === removed.y) {
+                                                        routing.removePoint(i)
+                                                        return
+                                                    }
+                                                }
                                             })
                                         }
                                     }

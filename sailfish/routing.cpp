@@ -453,6 +453,8 @@ QVariantList Routing::points() const
     item["isMyPosition"] = point.m_isMyPosition;
     item["title"] = point.m_isMyPosition ? Localized("core_my_position") : QString::fromStdString(point.m_title);
     item["subtitle"] = QString::fromStdString(point.m_subTitle);
+    item["x"] = point.m_position.x;
+    item["y"] = point.m_position.y;
     points.append(item);
   }
   return points;
@@ -1259,7 +1261,9 @@ void Routing::Build()
   ++m_resultGeneration;
   ClearResult();
   // Before navigation starts, so that the first instruction has the voice. Also picks up newly installed voices.
-  m_voice->Refresh();
+  // Not while voice is off: that would start Speech Note for nothing.
+  if (LoadSetting(kVoiceEnabledSetting, true))
+    m_voice->Refresh();
   manager.SetRouter(manager.GetLastUsedRouter());
   m_building = true;
   m_buildCancelled = false;

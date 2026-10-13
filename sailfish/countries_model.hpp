@@ -7,6 +7,7 @@
 #include <QString>
 #include <QVariantMap>
 
+#include <memory>
 #include <vector>
 
 namespace downloader
@@ -188,8 +189,13 @@ private:
   void RefreshRows();
   void OnCountryChanged(storage::CountryId const & countryId);
   void OnProgress(storage::CountryId const & countryId);
+  // Cached, as a delegate reads all roles of its row: each MapAttrs() walks the subtree and checks the files.
+  storage::NodeAttrs const & Attrs(storage::CountryId const & countryId) const;
 
   storage::Storage & m_storage;
+  // Until the storage changes.
+  mutable std::shared_ptr<storage::NodeAttrs const> m_attrs;
+  mutable storage::CountryId m_attrsId;
   storage::CountryId m_parentId;
   storage::CountriesVec m_children;
   // The first rows are "Near me" ones.

@@ -156,7 +156,8 @@ QString UserStyledText(std::string const & text)
 {
   if (strings::IsHTML(text))
   {
-    static QRegularExpression const kImage(QStringLiteral("<img\\b[^>]*>"), QRegularExpression::CaseInsensitiveOption);
+    static QRegularExpression const kImage(QStringLiteral("<\\s*img\\b[^>]*>"),
+                                           QRegularExpression::CaseInsensitiveOption);
     return QString::fromStdString(text).remove(kImage);
   }
   return QString::fromStdString(text).toHtmlEscaped().replace('\n', QStringLiteral("<br>"));

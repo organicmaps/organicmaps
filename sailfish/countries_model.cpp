@@ -350,8 +350,19 @@ void CountriesModel::RefreshRows()
     emit dataChanged(index(0), index(static_cast<int>(m_children.size()) - 1));
 }
 
+storage::NodeAttrs const & CountriesModel::Attrs(storage::CountryId const & countryId) const
+{
+  if (!m_attrs || m_attrsId != countryId)
+  {
+    m_attrs = std::make_shared<storage::NodeAttrs const>(MapAttrs(m_storage, countryId));
+    m_attrsId = countryId;
+  }
+  return *m_attrs;
+}
+
 void CountriesModel::OnProgress(storage::CountryId const & countryId)
 {
+  m_attrs.reset();
   // Storage reports the map and then every group above it. A map can be listed twice: near the user and by name.
   for (size_t i = 0; i < m_children.size(); ++i)
     if (m_children[i] == countryId)
@@ -360,6 +371,7 @@ void CountriesModel::OnProgress(storage::CountryId const & countryId)
 
 void CountriesModel::OnCountryChanged(storage::CountryId const & countryId)
 {
+  m_attrs.reset();
   // E.g. a queued, downloaded or deleted map joins or leaves the downloaded list; unchanged rows are kept.
   if (m_query.isEmpty())
     Reload();
@@ -399,7 +411,7 @@ QVariant CountriesModel::data(QModelIndex const & index, int role) const
   if (role == NameRole)
     return QString::fromStdString(m_storage.GetNodeLocalName(countryId));
 
-  auto const attrs = MapAttrs(m_storage, countryId);
+  auto const & attrs = Attrs(countryId);
   switch (role)
   {
   case StatusRole: return static_cast<int>(attrs.m_status);

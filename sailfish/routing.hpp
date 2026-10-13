@@ -29,7 +29,7 @@ class Routing : public QObject
   Q_OBJECT
   Q_PROPERTY(bool active READ active NOTIFY pointsChanged)
   Q_PROPERTY(int routerType READ routerType WRITE setRouterType NOTIFY routerTypeChanged)
-  // {type, title, subtitle, isMyPosition}; type is a PointType.
+  // {type, title, subtitle, isMyPosition, x, y}; type is a PointType, x and y are Mercator.
   Q_PROPERTY(QVariantList points READ points NOTIFY pointsChanged)
   Q_PROPERTY(bool building READ building NOTIFY stateChanged)
   Q_PROPERTY(bool built READ built NOTIFY stateChanged)

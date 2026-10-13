@@ -44368,7 +44368,6 @@ vi = Lỗi đăng nhập.
 zh-Hans = 无法登录。
 zh-Hant = 無法登入。
 
-
 [elevation_profile_time]
 comment = Sailfish OS: track statistics on the place page, the duration of the track
 tags = sailfish
@@ -44403,7 +44402,7 @@ ja = 時間
 ko = 소요 시간
 lo = ເວລາ
 lt = Laikas
-lv = Ceļā
+lv = Laiks
 mr = वेळ
 mt = Ħin
 nb = Tid

@@ -228,12 +228,12 @@ Platform::EConnectionType Platform::ConnectionStatus()
   QNetworkConfigurationManager const manager;
   if (!manager.isOnline())
     return EConnectionType::CONNECTION_NONE;
-  switch (manager.defaultConfiguration().bearerTypeFamily())
+  // Qt 5.6 knows no 5G bearer, so anything unknown is taken for cellular.
+  switch (manager.defaultConfiguration().bearerType())
   {
-  case QNetworkConfiguration::Bearer2G:
-  case QNetworkConfiguration::Bearer3G:
-  case QNetworkConfiguration::Bearer4G: return EConnectionType::CONNECTION_WWAN;
-  default: return EConnectionType::CONNECTION_WIFI;
+  case QNetworkConfiguration::BearerWLAN:
+  case QNetworkConfiguration::BearerEthernet: return EConnectionType::CONNECTION_WIFI;
+  default: return EConnectionType::CONNECTION_WWAN;
   }
 #else
   int socketFd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);

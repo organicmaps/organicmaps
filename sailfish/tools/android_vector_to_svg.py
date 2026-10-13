@@ -72,7 +72,8 @@ BOOKMARKS = ["ic_show", "ic_hide"]
 # My position button states.
 MY_POSITION = ["ic_location_off", "ic_not_follow", "ic_follow", "ic_follow_and_rotate"]
 # The logo of the help button and the about page, and the icons of the about page rows, as in about.xml on Android.
-# Donate and the social networks of the editor are reused from the menu and editor copies.
+# Donate and the social networks of the editor are reused from the menu and editor copies. The Telegram and
+# Mastodon logos keep their colors, as on Android.
 HELP = [
     "logo",
     "ic_question_mark",
@@ -88,8 +89,7 @@ HELP = [
 # The New Year promo of the help button keeps its colors.
 HELP_PROMO = ["ic_christmas_tree"]
 # Main menu entries and the recording status button. Android tints the single color ones at runtime, so
-# they are made white (WHITE) for Silica to colorize; ic_track_recording_on keeps its two colors. So do
-# the Telegram and Mastodon logos, which Android shows in their colors too.
+# they are made white (WHITE) for Silica to colorize; ic_track_recording_on keeps its two colors.
 MENU = [
     "ic_donate",
     "ic_track_recording_off",
