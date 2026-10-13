@@ -1,12 +1,15 @@
 #include "sailfish/map_item.hpp"
 
 #include "sailfish/app_settings.hpp"
+#include "sailfish/bookmarks_model.hpp"
 #include "sailfish/countries_model.hpp"
+#include "sailfish/elevation.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/helpers.hpp"
 #include "sailfish/place_page.hpp"
 
 #include "map/framework.hpp"
+#include "map/gps_tracker.hpp"
 
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -112,9 +115,11 @@ MapItem::MapItem(QQuickItem * parent)
 MapItem::~MapItem()
 {
   // The listeners capture this.
+  m_framework.SetTrackRecordingUpdateHandler(nullptr);
   m_framework.GetIsolinesManager().SetStateListener({});
   m_framework.SetCurrentCountryChangedListener({});
   m_framework.SetMyPositionModeListener(nullptr);
+  m_framework.SetUserPositionListener(nullptr);
   m_framework.GetStorage().Unsubscribe(m_storageSlot);
   m_locationService->Stop();
   if (!m_contextFactory)
@@ -205,14 +210,15 @@ void MapItem::OnMyPositionModeChanged(location::EMyPositionMode mode)
 
 void MapItem::UpdateLocationService(bool restart)
 {
-  bool const active = !m_inBackground && m_myPositionMode != location::NotFollowNoPosition;
+  bool const active =
+      m_framework.IsTrackRecordingEnabled() || (!m_inBackground && m_myPositionMode != location::NotFollowNoPosition);
   if (active && (restart || !m_locationActive))
     m_locationService->Start();
   else if (!active && m_locationActive)
     m_locationService->Stop();
   m_locationActive = active;
 
-  if (active)
+  if (active && !m_inBackground)
     m_compass->start();
   else
     m_compass->stop();
@@ -225,13 +231,22 @@ void MapItem::OnLocationError(location::TLocationError errorCode)
   // Timeouts just mean no fix yet, e.g. indoors.
   bool const disabled =
       errorCode == location::EDenied || errorCode == location::EGPSIsOff || errorCode == location::ENotSupported;
+  if (!std::exchange(m_locationLost, true))
+    emit locationLostChanged();
   if (disabled && !std::exchange(m_locationErrorShown, true))
     emit notice(Localized("location_is_disabled_long_text"));
 }
 
 void MapItem::OnLocationUpdated(location::GpsInfo const & info)
 {
+  UpdateLocation(info);
+}
+
+void MapItem::UpdateLocation(location::GpsInfo const & info)
+{
   m_locationErrorShown = false;
+  if (std::exchange(m_locationLost, false))
+    emit locationLostChanged();
   m_hasAltitude = info.HasAltitude();
   m_altitude = info.m_altitude;
   m_speed = info.m_speed;
@@ -239,8 +254,71 @@ void MapItem::OnLocationUpdated(location::GpsInfo const & info)
   if (m_inBackground && QDateTime::currentMSecsSinceEpoch() - m_positionInfoMs > 10000)
     UpdatePositionInfo();
   m_framework.OnLocationUpdate(info);
+  GpsTracker::Instance().OnLocationUpdated(info);
   m_placePage->UpdateDistance();
   m_placePage->UpdateMyPosition(info.HasAltitude(), info.m_altitude, info.m_speed);
+}
+
+void MapItem::OnUserPositionChanged(bool hasPosition)
+{
+  bool const found = hasPosition && !m_hasPosition;
+  m_hasPosition = hasPosition;
+  if (!found)
+    return;
+  emit BookmarksNotifier::Instance().positionFound();
+}
+
+bool MapItem::trackRecording() const
+{
+  return m_framework.IsTrackRecordingEnabled();
+}
+
+void MapItem::startTrackRecording()
+{
+  m_framework.StartTrackRecording();
+  UpdateLocationService();
+  WatchRecording();
+  emit trackRecordingChanged();
+}
+
+void MapItem::stopTrackRecording()
+{
+  m_framework.SetTrackRecordingUpdateHandler(nullptr);
+  m_framework.StopTrackRecording();
+  UpdateLocationService();
+  emit trackRecordingChanged();
+}
+
+bool MapItem::saveAndStopTrackRecording()
+{
+  // Stopping discards the recording.
+  bool const saved = !m_framework.IsTrackRecordingEmpty();
+  if (saved)
+    m_framework.SaveTrackRecordingWithName({});
+  stopTrackRecording();
+  return saved;
+}
+
+void MapItem::WatchRecording()
+{
+  if (!m_framework.IsTrackRecordingEnabled())
+    return;
+  // Called on the GUI thread with every recorded point, and right away. SafeCallback posts a copy of the
+  // handler, which can run after this item is gone.
+  m_framework.SetTrackRecordingUpdateHandler([self = QPointer<MapItem>(this), this](TrackStatistics const & stats)
+  {
+    if (!self)
+      return;
+    m_recordingSummary = JoinDetails(
+        {QString::fromStdString(stats.GetFormattedLength()), FormatDuration(static_cast<long>(stats.m_duration))});
+    m_recordingElevation.clear();
+    if (!m_framework.IsTrackRecordingEmpty())
+    {
+      m_recordingElevation =
+          ElevationChart(Framework::GetTrackRecordingElevationInfo(), stats.m_minElevation, stats.m_maxElevation);
+    }
+    emit recordingStatsChanged();
+  });
 }
 
 QString MapItem::myPositionShareText() const
@@ -438,6 +516,7 @@ void MapItem::CreateEngine()
 
   m_framework.SetMyPositionModeListener([this](location::EMyPositionMode mode, bool /* routingActive */)
   { OnMyPositionModeChanged(mode); });
+  m_framework.SetUserPositionListener([this](bool hasPosition) { OnUserPositionChanged(hasPosition); });
   m_framework.GetIsolinesManager().SetStateListener([this](IsolinesManager::IsolinesState state)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [self = QPointer<MapItem>(this), state]
@@ -453,11 +532,14 @@ void MapItem::CreateEngine()
   m_framework.SetCurrentCountryChangedListener([this](storage::CountryId const & countryId)
   { OnCurrentCountryChanged(countryId); });
   m_framework.CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));
+  // A recording goes on after a restart.
+  WatchRecording();
   m_framework.EnterForeground();
   m_contextFactory->WaitForInitialization(nullptr);
   UpdateWidgetLayout();
   UpdateVisibleViewport();
 
+  // E.g. a recording restored after a restart.
   UpdateLocationService();
   emit engineCreated();
 }

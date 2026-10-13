@@ -1,13 +1,15 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 
-// Items are {name, selected}; picked is called with the index, then the page goes back.
+// Items are {name, color, selected}; picked is called with the index, then the page goes back.
 Page {
     id: page
 
     property string title
     property var items: []
     property var picked
+    property string addText
+    property var addAction
 
     allowedOrientations: Orientation.All
 
@@ -25,10 +27,18 @@ Page {
                 pageStack.pop()
             }
 
+            ColorDot {
+                id: colorDot
+                x: Theme.horizontalPageMargin
+                anchors.verticalCenter: parent.verticalCenter
+                visible: !!modelData.color
+                width: visible ? Theme.iconSizeSmall : 0
+                color: modelData.color || "transparent"
+            }
             Label {
                 anchors {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
+                    left: colorDot.right
+                    leftMargin: colorDot.visible ? Theme.paddingLarge : Theme.horizontalPageMargin
                     right: parent.right
                     rightMargin: Theme.horizontalPageMargin
                     verticalCenter: parent.verticalCenter
@@ -45,6 +55,14 @@ Page {
                     positionViewAtIndex(i, ListView.Center)
                     break
                 }
+            }
+        }
+
+        PullDownMenu {
+            visible: !!page.addAction
+            MenuItem {
+                text: page.addText
+                onClicked: page.addAction()
             }
         }
 

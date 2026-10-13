@@ -9,11 +9,18 @@
 #include <QString>
 #include <QStringList>
 
+#include <cstdint>
 #include <string>
 #include <string_view>
 #include <vector>
 
+class BookmarkManager;
 class QTime;
+
+namespace dp
+{
+struct Color;
+}  // namespace dp
 
 namespace sailfish
 {
@@ -31,6 +38,16 @@ QString ToQString(std::string_view s);
 std::string GetInputLocale();
 // Sorted by their native names.
 std::vector<StringUtf8Multilang::Lang> SortedLanguages();
+
+// "#rrggbb" for QML.
+QString ColorName(dp::Color const & color);
+// In the order of the shared color pickers.
+QStringList PresetColors();
+dp::Color PresetColor(int index);
+// The index of a preset color, -1 for another color.
+int PresetIndex(dp::Color const & color);
+// Not deleted, nor the temporary track of a route relation, which the core can't edit or delete.
+bool IsSavedUserItem(BookmarkManager const & manager, uint64_t id, bool isTrack);
 
 QString FormatDuration(long seconds);
 // Sailfish sets the clock format apart from the language.

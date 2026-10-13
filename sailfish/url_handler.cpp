@@ -1,5 +1,7 @@
 #include "sailfish/url_handler.hpp"
 
+#include "sailfish/bookmarks_io.hpp"
+
 #include "map/framework.hpp"
 #include "map/mwm_url.hpp"
 
@@ -22,7 +24,11 @@ char constexpr kPath[] = SAILFISH_DBUS_PATH;
 int constexpr kLinkZoom = 16;
 }  // namespace
 
-UrlHandler::UrlHandler(Framework & framework, QObject * parent) : QObject(parent), m_framework(framework) {}
+UrlHandler::UrlHandler(Framework & framework, BookmarksIO & bookmarksIO, QObject * parent)
+  : QObject(parent)
+  , m_framework(framework)
+  , m_bookmarksIO(bookmarksIO)
+{}
 
 bool DBusInbox::Claim()
 {
@@ -65,10 +71,21 @@ void DBusInbox::cancelDownloads()
     emit m_handler->cancelDownloadsRequested();
 }
 
+void DBusInbox::stopTrackRecording()
+{
+  if (m_handler)
+    emit m_handler->stopTrackRecordingRequested();
+}
+
 void UrlHandler::openUrl(QStringList const & urls)
 {
   emit activated();
-  m_pending.append(urls);
+  for (auto const & url : urls)
+  {
+    // Files don't need the map.
+    if (!m_bookmarksIO.OpenFile(url))
+      m_pending.append(url);
+  }
   processPending();
 }
 

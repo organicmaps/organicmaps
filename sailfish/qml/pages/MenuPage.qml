@@ -47,6 +47,22 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
             }
             MenuRow {
+                icon: map.trackRecording ? "../../icons/menu/ic_track_recording_on.svg"
+                                         : "../../icons/menu/ic_track_recording_off.svg"
+                text: map.trackRecording ? appInfo.localized("stop_track_recording")
+                                         : appInfo.localized("start_track_recording")
+                // While recording it shows the recording.
+                onClicked: {
+                    pageStack.pop(mapPage)
+                    if (map.trackRecording) {
+                        mapPage.showRecording()
+                    } else {
+                        map.startTrackRecording()
+                        Toast.show(appInfo.localized("track_recording"))
+                    }
+                }
+            }
+            MenuRow {
                 icon: "image://theme/icon-m-share"
                 text: appInfo.localized("share_my_location")
                 onClicked: {

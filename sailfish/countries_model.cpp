@@ -1,5 +1,6 @@
 #include "sailfish/countries_model.hpp"
 
+#include "sailfish/bookmarks_model.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/helpers.hpp"
 
@@ -110,6 +111,7 @@ DownloadStatus::DownloadStatus(storage::Storage & storage, QObject * parent)
   m_storageSlot = m_storage.Subscribe([this](storage::CountryId const & countryId)
   { OnCountryChanged(countryId); }, [this](storage::CountryId const & countryId, downloader::Progress const & progress)
   { OnProgress(countryId, progress); });
+  connect(&BookmarksNotifier::Instance(), &BookmarksNotifier::positionFound, this, &DownloadStatus::positionMapChanged);
 }
 
 DownloadStatus::~DownloadStatus()

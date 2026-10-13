@@ -1,14 +1,23 @@
 #include "sailfish/place_page.hpp"
 
 #include "sailfish/countries_model.hpp"
+#include "sailfish/elevation.hpp"
 #include "sailfish/helpers.hpp"
 #include "sailfish/opening_hours_editor.hpp"
 
+#include "map/bookmark_helpers.hpp"
+#include "map/bookmark_manager.hpp"
+#include "map/elevation_info.hpp"
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
+#include "map/track.hpp"
+
+#include "kml/type_utils.hpp"
+#include "kml/types.hpp"
 
 #include "ge0/url_generator.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
@@ -26,8 +35,10 @@
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
 #include "base/math.hpp"
 
+#include <QColor>
 #include <QDateTime>
 #include <QLocale>
 #include <QRegularExpression>
@@ -97,6 +108,23 @@ QVariantList MakeWeekSchedule(editor::ui::TimeTableSet & tts)
 int32_t SavedCoordinatesFormat()
 {
   return LoadSetting(kCoordinatesFormatSetting, static_cast<int32_t>(place_page::CoordinatesFormat::LatLonDecimal));
+}
+
+QVariantList MakeTrackCandidates(place_page::Info const & info)
+{
+  QVariantList result;
+  if (auto const & candidates = info.GetTrackCandidates(); candidates.size() > 1)
+  {
+    for (auto const & candidate : candidates)
+    {
+      bool const selected = info.IsRelationTrack() ? candidate.m_relationId == info.GetTrackRelationId()
+                                                   : candidate.m_trackId == info.GetTrackId();
+      result.append(QVariantMap{{"title", QString::fromStdString(candidate.m_title)},
+                                {"color", ColorName(candidate.m_color)},
+                                {"selected", selected}});
+    }
+  }
+  return result;
 }
 
 void AddDetail(QVariantList & details, QString const & icon, QString const & text, QString const & url = {})
@@ -236,6 +264,9 @@ PlacePage::PlacePage(Framework & framework, QObject * parent) : QObject(parent),
     m_open = false;
     emit changed();
   }, [this] { Update(); }, [this] { emit switchFullScreen(); });
+  auto & manager = m_framework.GetBookmarkManager();
+  manager.SetElevationActivePointChangedCallback([this](kml::TrackId, double) { emit elevationPointsChanged(); });
+  manager.SetElevationMyPositionChangedCallback([this](kml::TrackId, double) { emit elevationPointsChanged(); });
   m_storageSlot = m_framework.GetStorage().Subscribe(
       [this](storage::CountryId const & id)
   {
@@ -252,6 +283,27 @@ PlacePage::~PlacePage()
 {
   m_framework.GetStorage().Unsubscribe(m_storageSlot);
   m_framework.SetPlacePageListeners({}, {}, {}, {});
+  auto & manager = m_framework.GetBookmarkManager();
+  manager.SetElevationActivePointChangedCallback({});
+  manager.SetElevationMyPositionChangedCallback({});
+}
+
+double PlacePage::elevationActivePoint() const
+{
+  auto const & manager = m_framework.GetBookmarkManager();
+  return m_isTrack && manager.HasTrack(m_userMarkId) ? manager.GetElevationActivePoint(m_userMarkId) : -1.0;
+}
+
+double PlacePage::elevationMyPosition() const
+{
+  auto const & manager = m_framework.GetBookmarkManager();
+  return m_isTrack && manager.HasTrack(m_userMarkId) ? manager.GetElevationMyPosition(m_userMarkId) : -1.0;
+}
+
+void PlacePage::setElevationActivePoint(double distance)
+{
+  if (m_isTrack && m_framework.GetBookmarkManager().HasTrack(m_userMarkId))
+    m_framework.GetBookmarkManager().SetElevationActivePoint(m_userMarkId, distance);
 }
 
 void PlacePage::close()
@@ -270,6 +322,49 @@ void PlacePage::nextCoordinatesFormat()
   Update();
 }
 
+void PlacePage::toggleBookmark()
+{
+  if (!m_framework.HasPlacePageInfo())
+    return;
+
+  auto const & info = m_framework.GetCurrentPlacePageInfo();
+  auto & manager = m_framework.GetBookmarkManager();
+  auto buildInfo = info.GetBuildInfo();
+  if (info.IsBookmark())
+  {
+    // Deleted from the bookmark list while the page was open.
+    if (!IsSavedUserItem(manager, info.GetBookmarkId(), false /* isTrack */))
+    {
+      m_framework.DeactivateMapSelection();
+      return;
+    }
+    manager.GetEditSession().DeleteBookmark(info.GetBookmarkId());
+    buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
+    buildInfo.m_userMarkId = kml::kInvalidMarkId;
+    buildInfo.m_source = place_page::BuildInfo::Source::Other;
+  }
+  else
+  {
+    kml::BookmarkData data;
+    data.m_name = info.FormatNewBookmarkName();
+    data.m_point = info.GetMercator();
+    data.m_color = m_framework.LastEditedBMColor();
+    if (info.IsFeature())
+      SaveFeatureTypes(info.GetTypes(), data);
+    auto const * bookmark =
+        manager.GetEditSession().CreateBookmark(std::move(data), m_framework.LastEditedBMCategory());
+    buildInfo.m_match = place_page::BuildInfo::Match::Everything;
+    buildInfo.m_userMarkId = bookmark->GetId();
+  }
+  // Reselecting the place updates the page.
+  m_framework.UpdatePlacePageInfoForCurrentSelection(buildInfo);
+}
+
+bool PlacePage::canRestoreBookmark() const
+{
+  return m_framework.GetBookmarkManager().HasRecentlyDeletedBookmark();
+}
+
 void PlacePage::Update()
 {
   if (!m_framework.HasPlacePageInfo())
@@ -285,16 +380,31 @@ void PlacePage::Update()
   m_osmDescription = QString::fromStdString(info.GetOSMDescription());
   m_countryId = info.IsMyPosition() ? std::string() : info.GetCountryId();
   UpdateCountry();
+  m_trackCandidates = MakeTrackCandidates(info);
   UpdateCoordinates(info);
 
-  m_shareText = QString::fromStdString(m_framework.GetShareData(info).m_text);
-  m_geoUri = QString::fromStdString(
-      ge0::GenerateGeoUri(info.GetLatLon().m_lat, info.GetLatLon().m_lon, m_framework.GetDrawScale(), info.GetTitle()));
+  m_isBookmark = info.IsBookmark();
+  m_isTrack = info.IsTrack();
+  m_isRelationTrack = m_isTrack && info.IsRelationTrack();
+  m_userMarkId = m_isTrack ? info.GetTrackId() : info.GetBookmarkId();
+  // Tracks are shared as files and have no single point to open elsewhere.
+  m_shareText.clear();
+  m_geoUri.clear();
+  if (!m_isTrack)
+  {
+    m_shareText = QString::fromStdString(m_framework.GetShareData(info).m_text);
+    m_geoUri = QString::fromStdString(ge0::GenerateGeoUri(info.GetLatLon().m_lat, info.GetLatLon().m_lon,
+                                                          m_framework.GetDrawScale(), info.GetTitle()));
+  }
   UpdateOpeningHours(info.GetOpeningHours());
   m_wikiDescription = UserStyledText(info.GetWikiDescription());
   auto const wikipedia = info.GetMetadata(Metadata::FMD_WIKIPEDIA);
   m_wikiUrl = wikipedia.empty() ? QString() : QString::fromStdString(Metadata::ToWikiURL(std::string(wikipedia)));
   m_details = MakeDetails(info);
+  UpdateRoutes(info);
+
+  UpdateTrack();
+  UpdateList();
   UpdateDistance();
   emit changed();
 }
@@ -312,6 +422,60 @@ void PlacePage::UpdateCoordinates(place_page::Info const & info)
   }
 }
 
+void PlacePage::UpdateRoutes(place_page::Info const & info)
+{
+  m_routes.clear();
+  m_routeIds.clear();
+  for (auto const & route : info.GetRoutes())
+  {
+    QString label = QString::fromStdString(route.m_ref);
+    if (!route.m_from.empty() || !route.m_to.empty())
+    {
+      label += ": " + QString::fromStdString(route.m_from);
+      if (!route.m_to.empty())
+        label += " → " + QString::fromStdString(route.m_to);
+    }
+    uint32_t const argb = route.m_color.GetARGB();
+    // No alpha means the relation has no color.
+    QString const color = (argb >> 24) == 0 ? QString() : QColor::fromRgba(argb).name();
+    m_routes.append(QVariantMap{{"label", label}, {"color", color}});
+    m_routeIds.push_back(route.m_relID);
+  }
+  static uint32_t const kTramStop = classif().GetTypeByPath({"railway", "tram_stop"});
+  m_isTramStop = info.GetTypes().Has(kTramStop);
+  UpdateRouteRefs();
+}
+
+void PlacePage::UpdateList()
+{
+  m_listName.clear();
+  m_listId = kml::kInvalidMarkGroupId;
+  m_color.clear();
+  m_notes.clear();
+  auto const & manager = m_framework.GetBookmarkManager();
+  if (m_isBookmark)
+  {
+    auto const * bookmark = manager.GetBookmark(m_userMarkId);
+    if (!bookmark)
+      return;
+    m_listId = bookmark->GetGroupId();
+    m_listName = QString::fromStdString(manager.GetCategoryName(m_listId));
+    m_color = ColorName(bookmark->GetColorForRendering());
+    m_notes = UserStyledText(bookmark->GetDescription());
+  }
+  else if (m_isTrack)
+  {
+    auto const * track = manager.GetTrack(m_userMarkId);
+    // Public transport route tracks belong to no list.
+    if (!track || track->GetGroupId() == kml::kInvalidMarkGroupId)
+      return;
+    m_listId = track->GetGroupId();
+    m_listName = QString::fromStdString(manager.GetCategoryName(m_listId));
+    m_color = ColorName(track->GetColor(0));
+    m_notes = QString::fromStdString(kml::GetDefaultStr(track->GetData().m_description));
+  }
+}
+
 void PlacePage::UpdateCountry()
 {
   // Outdated maps are offered for update too.
@@ -321,6 +485,43 @@ void PlacePage::UpdateCountry()
     m_country = std::move(country);
     emit countryChanged();
   }
+}
+
+void PlacePage::setList(quint64 listId)
+{
+  ASSERT_NOT_EQUAL(m_listId, kml::kInvalidMarkGroupId, ());
+  {
+    // Reads the current list: the bookmark may have moved since this page was updated.
+    auto session = m_framework.GetBookmarkManager().GetEditSession();
+    if (m_isTrack)
+      session.MoveBookmarksAndTracks({}, {m_userMarkId}, listId);
+    else
+      session.MoveBookmarksAndTracks({m_userMarkId}, {}, listId);
+  }
+  m_framework.UpdatePlacePageInfoForCurrentSelection();
+}
+
+void PlacePage::setColor(int colorIndex)
+{
+  auto const color = PresetColor(colorIndex);
+  {
+    auto session = m_framework.GetBookmarkManager().GetEditSession();
+    if (m_isTrack)
+      session.ChangeTrackColor(m_userMarkId, color);
+    else
+      session.SetBookmarksAndTracksColor({m_userMarkId}, {}, color);
+  }
+  m_framework.UpdatePlacePageInfoForCurrentSelection();
+}
+
+void PlacePage::selectTrackCandidate(int index)
+{
+  if (!m_framework.HasPlacePageInfo())
+    return;
+  auto const & candidates = m_framework.GetCurrentPlacePageInfo().GetTrackCandidates();
+  ASSERT(index >= 0 && static_cast<size_t>(index) < candidates.size(), (index));
+  auto const & candidate = candidates[static_cast<size_t>(index)];
+  m_framework.SelectTrackCandidate(candidate.m_trackId, candidate.m_relationId);
 }
 
 void PlacePage::UpdateMyPosition(bool hasAltitude, double altitude, double speed)
@@ -338,6 +539,67 @@ void PlacePage::UpdateMyPosition(bool hasAltitude, double altitude, double speed
     m_subtitle = subtitle;
     emit changed();
   }
+}
+
+void PlacePage::UpdateRouteRefs()
+{
+  // Both directions of a line share a ref.
+  QStringList seen;
+  QStringList refs;
+  QString const active = QString::fromStdString(m_framework.GetActiveTransitRouteRef());
+  if (m_framework.HasPlacePageInfo())
+  {
+    for (auto const & route : m_framework.GetCurrentPlacePageInfo().GetRoutes())
+    {
+      QString const ref = QString::fromStdString(route.m_ref);
+      if (seen.contains(ref))
+        continue;
+      seen.append(ref);
+      refs.append(ref == active ? "<b><u>" + ref.toHtmlEscaped() + "</u></b>" : ref.toHtmlEscaped());
+    }
+  }
+  m_routeRefs = JoinDetails(refs);
+}
+
+void PlacePage::showRoute(int index)
+{
+  ASSERT(index >= 0 && index < static_cast<int>(m_routeIds.size()), (index));
+  m_framework.ShowRouteTransit(m_routeIds[static_cast<size_t>(index)]);
+  UpdateRouteRefs();
+  emit changed();
+}
+
+void PlacePage::UpdateTrack()
+{
+  m_trackStats.clear();
+  m_elevation.clear();
+  auto & manager = m_framework.GetBookmarkManager();
+  auto const * track = m_isTrack ? manager.GetTrack(m_userMarkId) : nullptr;
+  if (!track)
+    return;
+
+  auto const add = [this](char const * label, QString const & value)
+  { m_trackStats.append(QVariantMap{{"label", Localized(label)}, {"value", value}}); };
+  auto const stats = track->GetStatistics();
+  add("length", QString::fromStdString(stats.GetFormattedLength()));
+  if (stats.m_duration > 0)
+    add("elevation_profile_time", FormatDuration(static_cast<long>(stats.m_duration)));
+
+  auto const * elevation = track->GetElevationInfo();
+  if (!elevation || elevation->IsEmpty())
+    return;
+  m_elevation = ElevationChart(*elevation, stats.m_minElevation, stats.m_maxElevation);
+  add("elevation_profile_ascent", QString::fromStdString(stats.GetFormattedAscent()));
+  add("elevation_profile_descent", QString::fromStdString(stats.GetFormattedDescent()));
+  add("elevation_profile_max_elevation", m_elevation["max"].toString());
+  add("elevation_profile_min_elevation", m_elevation["min"].toString());
+  char const * const difficulties[] = {nullptr, "elevation_profile_diff_level_easy",
+                                       "elevation_profile_diff_level_moderate", "elevation_profile_diff_level_hard"};
+  if (auto const difficulty = elevation->GetDifficulty(); difficulty > 0 && difficulty < std::size(difficulties))
+    add("elevation_profile_difficulty", Localized(difficulties[difficulty]));
+
+  // The position marker follows location updates along the track.
+  manager.UpdateElevationMyPosition(m_userMarkId);
 }
 
 void PlacePage::UpdateOpeningHours(std::string_view openingHours)
@@ -400,8 +662,9 @@ void PlacePage::UpdateDistance()
   {
     if (auto const position = m_framework.GetCurrentPosition())
     {
+      // Tracks have no single point to head to.
       auto const & info = m_framework.GetCurrentPlacePageInfo();
-      if (!info.IsMyPosition())
+      if (!info.IsMyPosition() && !info.IsTrack())
       {
         auto const ll = mercator::ToLatLon(*position);
         platform::Distance d;

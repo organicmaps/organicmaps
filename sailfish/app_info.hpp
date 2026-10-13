@@ -13,6 +13,7 @@ class AppInfo : public QObject
   Q_OBJECT
   Q_PROPERTY(QString version READ version CONSTANT)
   Q_PROPERTY(QDate dataVersion READ dataVersion CONSTANT)
+  Q_PROPERTY(QStringList bookmarkColors READ bookmarkColors CONSTANT)
   // organicmaps, or harbour-organicmaps in the Harbour package.
   Q_PROPERTY(QString name READ name CONSTANT)
 
@@ -21,6 +22,7 @@ public:
 
   QString version() const;
   QDate dataVersion() const;
+  QStringList bookmarkColors() const;
   QString name() const { return QStringLiteral(SAILFISH_APP_NAME); }
 
   Q_INVOKABLE QString localized(QString const & key, QStringList const & args = {}) const;

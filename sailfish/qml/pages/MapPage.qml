@@ -1,10 +1,12 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Nemo.KeepAlive 1.2
+import Nemo.Notifications 1.0
 import app.organicmaps 1.0
 import "clipboard.js" as ClipboardHelper
 import "downloads.js" as Downloads
 import "notices.js" as Toast
+import "notifications.js" as Notifications
 
 Page {
     id: page
@@ -19,10 +21,11 @@ Page {
         }
         return false
     }
-    readonly property real bottomPanelsSize: placePagePanel.visibleSize
+    readonly property real bottomPanelsSize: Math.max(placePagePanel.visibleSize, recordingPanel.visibleSize)
     // The lowest of the controls along the top right edge, or the padded camera notch in portrait; the compass
     // goes below it.
-    readonly property real topControlsBottom: topInset + buttonMargin
+    readonly property real topControlsBottom: recordingButton.visible ? recordingButton.y + recordingButton.height
+                                                                      : topInset + buttonMargin
     // Silica keeps landscape pages clear of the camera notch.
     readonly property real topInset: page.orientation === Orientation.Portrait ? Screen.topCutout.height : 0
     // For the downloader layout that keeps the Android sizes.
@@ -64,6 +67,12 @@ Page {
             page.placeFromSearch = true
         })
     }
+    function openBookmarks() {
+        pageStack.push(Qt.resolvedUrl("BookmarksPage.qml"))
+    }
+    function showRecording() {
+        recordingPanel.open = true
+    }
 
     objectName: "mapPage"
     allowedOrientations: Orientation.All
@@ -71,8 +80,18 @@ Page {
 
     onMapIsDarkChanged: appSettings.applyMapAppearance(mapIsDark)
     onChoosingPositionChanged: if (choosingPosition) fullscreen = false
-    Component.onCompleted: appSettings.applyMapAppearance(mapIsDark)
+    Component.onCompleted: {
+        appSettings.applyMapAppearance(mapIsDark)
+        // A recording goes on after a restart.
+        if (map.trackRecording)
+            recordingNotification.publish()
+    }
+    Component.onDestruction: recordingNotification.close()
 
+    // Recording keeps the device awake.
+    KeepAlive {
+        enabled: map.trackRecording
+    }
     DisplayBlanking {
         preventBlanking: appSettings.keepScreenOn && Qt.application.active
     }
@@ -110,6 +129,13 @@ Page {
             message: appInfo.localized("isolines_activation_error_dialog"),
             acceptAction: function() { pageStack.push(Qt.resolvedUrl("MapsPage.qml")) }
         })
+        onTrackRecordingChanged: {
+            if (map.trackRecording)
+                recordingNotification.publish()
+            else
+                recordingNotification.close()
+        }
+        onLocationLostChanged: if (map.trackRecording) recordingNotification.publish()
     }
     Connections {
         target: map.placePage
@@ -151,6 +177,11 @@ Page {
             page.apiBackUrl = backUrl
             map.startChoosingPosition()
         })
+        // The notification promises a save, so an empty recording is told.
+        onStopTrackRecordingRequested: {
+            if (map.trackRecording && !map.saveAndStopTrackRecording())
+                Toast.show(appInfo.localized("track_recording_toast_nothing_to_save"))
+        }
     }
 
     MapButton {
@@ -246,7 +277,7 @@ Page {
             bottom: parent.bottom
             bottomMargin: page.buttonMargin
         }
-        spacing: (Math.min(parent.width, 6 * menuButton.width) - 2 * inset - 3 * menuButton.width) / 2
+        spacing: (Math.min(parent.width, 6 * menuButton.width) - 2 * inset - 4 * menuButton.width) / 3
 
         MapButton {
             square: true
@@ -265,25 +296,35 @@ Page {
             onClicked: page.openSearch()
         }
         MapButton {
+            square: true
+            source: "image://theme/icon-m-favorite"
+            description: appInfo.localized("bookmarks")
+            onClicked: page.openBookmarks()
+        }
+        MapButton {
             id: menuButton
             square: true
             source: "image://theme/icon-m-menu"
             description: appInfo.localized("menu")
             onClicked: pageStack.push(Qt.resolvedUrl("MenuPage.qml"), { mapPage: page })
 
-            // Map updates are waiting.
+            // Map updates are waiting; without them a dot tells of a recording.
             // Placed like the Material badge with the offsets of MapButtonsController, relative to the button.
             Rectangle {
-                visible: downloads.updateCount > 0
+                // Not badgeLabel.visible: a child of a hidden item is never visible.
+                readonly property bool counted: downloads.updateCount > 0
+
+                visible: counted || map.trackRecording
                 x: parent.width * 35 / 48 - width / 2
                 y: parent.height * 9 / 48 - height / 2
-                width: Math.max(height, badgeLabel.implicitWidth + Theme.paddingMedium)
-                height: parent.height / 3
+                width: counted ? Math.max(height, badgeLabel.implicitWidth + Theme.paddingMedium) : height
+                height: counted ? parent.height / 3 : parent.height / 8
                 radius: height / 2
                 color: Theme.highlightBackgroundColor
 
                 Label {
                     id: badgeLabel
+                    visible: parent.counted
                     anchors.centerIn: parent
                     text: downloads.updateCount
                     font.pixelSize: Theme.fontSizeTiny
@@ -291,6 +332,41 @@ Page {
                 }
             }
         }
+    }
+
+    MapButton {
+        id: recordingButton
+        anchors {
+            top: parent.top
+            topMargin: page.topInset + page.buttonMargin
+            right: parent.right
+            rightMargin: page.buttonMargin
+        }
+        visible: map.trackRecording && !page.fullscreen
+        highlighted: true
+        source: Qt.resolvedUrl("../../icons/menu/ic_track_recording_status.svg")
+        description: appInfo.localized("track_recording")
+        onClicked: recordingPanel.open = !recordingPanel.open
+
+        SequentialAnimation on opacity {
+            running: recordingButton.visible && Qt.application.active
+            loops: Animation.Infinite
+            NumberAnimation { to: 0.4; duration: 800 }
+            NumberAnimation { to: 1.0; duration: 800 }
+        }
+    }
+
+    Notification {
+        id: recordingNotification
+        appName: "Organic Maps"
+        appIcon: appInfo.name
+        // Without a position the recording stalls.
+        summary: map.locationLost ? appInfo.localized("current_location_unknown_error_title")
+                                  : appInfo.localized("track_recording")
+        body: map.locationLost ? appInfo.localized("dialog_routing_location_turn_wifi") : ""
+        remoteActions: [Notifications.openApp(),
+                        Notifications.action("stop", appInfo.localized("track_recording_stop_and_save"),
+                                             "stopTrackRecording")]
     }
 
     Rectangle {
@@ -439,6 +515,11 @@ Page {
                 page.openSearch()
             }
         }
+    }
+
+    TrackRecordingPanel {
+        id: recordingPanel
+        map: page.mapItem
     }
 
     MapPanel {

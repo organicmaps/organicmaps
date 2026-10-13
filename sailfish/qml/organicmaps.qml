@@ -1,5 +1,6 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import Sailfish.Share 1.0
 import Nemo.KeepAlive 1.2
 import Nemo.Notifications 1.0
 import app.organicmaps 1.0
@@ -28,6 +29,21 @@ ApplicationWindow {
     allowedOrientations: defaultAllowedOrientations
     Component.onDestruction: downloadNotification.close()
     Component.onCompleted: if (mapsStorage.moveFailed) Toast.showLong(appInfo.localized("move_maps_error"))
+
+    ShareAction {
+        id: fileShare
+    }
+    Connections {
+        target: bookmarksIO
+        onExportReady: {
+            fileShare.mimeType = mimeType
+            fileShare.resources = [fileUrl]
+            fileShare.trigger()
+        }
+        onExportFailed: Toast.show(message)
+        onImportFinished: Toast.show(message)
+        onBackupFinished: if (!success) Toast.show(appInfo.localized("backup_failed"))
+    }
 
     Connections {
         target: urlHandler

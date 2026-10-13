@@ -2,6 +2,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Sailfish.Share 1.0
 import app.organicmaps 1.0
+import "bookmarks.js" as Bookmarks
 import "clipboard.js" as ClipboardHelper
 import "colors.js" as Colors
 import "downloads.js" as Downloads
@@ -70,7 +71,7 @@ MapPanel {
                     }
 
                     Label {
-                        width: parent.width
+                        width: parent.width - (candidatesButton.visible ? candidatesButton.width : 0)
                         text: placePage.title
                         font.pixelSize: Theme.fontSizeLarge
                         color: Theme.highlightColor
@@ -80,6 +81,23 @@ MapPanel {
                             anchors.fill: parent
                             onPressAndHold: ClipboardHelper.copy(placePage.title)
                         }
+                        // Several tracks under the tap: choose another one.
+                        IconButton {
+                            id: candidatesButton
+                            anchors {
+                                left: parent.right
+                                verticalCenter: parent.verticalCenter
+                            }
+                            visible: placePage.trackCandidates.length > 1
+                            icon.source: "image://theme/icon-m-down"
+                            onClicked: pageStack.push(Qt.resolvedUrl("ListPickerPage.qml"), {
+                                title: appInfo.localized("tracks_title"),
+                                items: placePage.trackCandidates.map(function(track) {
+                                    return { name: track.title, color: track.color, selected: track.selected }
+                                }),
+                                picked: function(index) { placePage.selectTrackCandidate(index) }
+                            })
+                        }
                     }
                     Label {
                         width: parent.width
@@ -88,9 +106,10 @@ MapPanel {
                         color: Theme.highlightColor
                         wrapMode: Text.Wrap
                     }
+                    // Tracks show their statistics instead.
                     Label {
                         width: parent.width
-                        visible: text !== ""
+                        visible: text !== "" && !placePage.isTrack
                         text: placePage.subtitle
                         font.pixelSize: Theme.fontSizeSmall
                         color: Theme.secondaryHighlightColor
@@ -116,8 +135,17 @@ MapPanel {
                         right: closeButton.left
                         top: closeButton.top
                     }
+                    visible: !placePage.isRelationTrack
                     icon.source: "image://theme/icon-m-share"
-                    onClicked: shareAction.trigger()
+                    // A track is shared as a file.
+                    onClicked: {
+                        if (!placePage.isTrack) {
+                            shareAction.trigger()
+                            return
+                        }
+                        var trackId = placePage.userMarkId
+                        Bookmarks.pickExportFormat(pageStack, function(type) { bookmarksIO.exportTrack(trackId, type) })
+                    }
                 }
                 IconButton {
                     id: closeButton
@@ -168,14 +196,69 @@ MapPanel {
                 }
             }
 
-            // The OpenStreetMap description is plain text.
-            PageLabel {
-                visible: text !== ""
-                text: placePage.osmDescription
-                textFormat: Text.PlainText
-                font.pixelSize: Theme.fontSizeSmall
-                color: Theme.secondaryHighlightColor
-                bottomPadding: Theme.paddingMedium
+            ListItem {
+                id: categoryRow
+                visible: placePage.listName !== ""
+                contentHeight: Theme.itemSizeSmall
+                onClicked: Bookmarks.pickList(pageStack, placePage.listId,
+                                              function(id) { placePage.setList(id) })
+
+                ColorDot {
+                    id: colorDot
+                    x: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: Theme.iconSizeSmallPlus
+                    color: placePage.color || "transparent"
+
+                    MouseArea {
+                        anchors {
+                            fill: parent
+                            margins: -Theme.paddingMedium
+                        }
+                        onClicked: pageStack.push(Qt.resolvedUrl("ColorPickerPage.qml"), {
+                            title: appInfo.localized("choose_color"),
+                            current: placePage.color,
+                            chosen: function(colorIndex) { placePage.setColor(colorIndex) }
+                        })
+                    }
+                }
+                Label {
+                    anchors {
+                        left: colorDot.right
+                        leftMargin: Theme.paddingLarge
+                        right: editButton.left
+                        verticalCenter: parent.verticalCenter
+                    }
+                    text: placePage.listName
+                    truncationMode: TruncationMode.Fade
+                    highlighted: categoryRow.highlighted
+                }
+                IconButton {
+                    id: editButton
+                    anchors {
+                        right: parent.right
+                        rightMargin: Theme.horizontalPageMargin - Theme.paddingMedium
+                        verticalCenter: parent.verticalCenter
+                    }
+                    icon.source: "image://theme/icon-m-edit"
+                    onClicked: pageStack.push(Qt.resolvedUrl("EditBookmarkPage.qml"),
+                                              { itemId: placePage.userMarkId, isTrack: placePage.isTrack })
+                }
+            }
+            Repeater {
+                model: [placePage.notes, placePage.osmDescription]
+
+                PageLabel {
+                    visible: modelData !== ""
+                    text: modelData
+                    // The OpenStreetMap description is plain text.
+                    textFormat: index === 0 ? Text.StyledText : Text.PlainText
+                    font.pixelSize: Theme.fontSizeSmall
+                    color: Theme.secondaryHighlightColor
+                    bottomPadding: Theme.paddingMedium
+                    linkColor: Theme.highlightColor
+                    onLinkActivated: Bookmarks.openUserLink(link)
+                }
             }
             ListItem {
                 id: countryRow
@@ -220,6 +303,68 @@ MapPanel {
                     }
                     truncationMode: TruncationMode.Fade
                     highlighted: countryRow.highlighted
+                }
+            }
+
+            ElevationProfile {
+                visible: placePage.isTrack
+                placePage: panel.placePage
+            }
+
+            ListItem {
+                id: routesRow
+                visible: placePage.routeRefs !== ""
+                contentHeight: Math.max(Theme.itemSizeMedium, routesLabel.height + 2 * Theme.paddingMedium)
+                onClicked: openMenu()
+                menu: ContextMenu {
+                    Repeater {
+                        model: placePage.routes
+
+                        MenuItem {
+                            text: modelData.label
+                            truncationMode: TruncationMode.Fade
+                            onClicked: placePage.showRoute(index)
+
+                            Rectangle {
+                                visible: modelData.color !== ""
+                                anchors {
+                                    left: parent.left
+                                    leftMargin: Theme.paddingMedium
+                                    verticalCenter: parent.verticalCenter
+                                }
+                                width: Theme.paddingSmall
+                                height: parent.height * 0.6
+                                radius: width / 2
+                                color: modelData.color || "transparent"
+                            }
+                        }
+                    }
+                }
+
+                Icon {
+                    id: routesIcon
+                    x: Theme.horizontalPageMargin
+                    anchors.verticalCenter: routesLabel.verticalCenter
+                    width: Theme.iconSizeMedium
+                    height: width
+                    sourceSize: Qt.size(width, height)
+                    source: "../../icons/placepage/" + (placePage.isTramStop ? "ic_category_tram.svg"
+                                                                             : "ic_category_bus.svg")
+                    highlighted: routesRow.highlighted
+                }
+                Label {
+                    id: routesLabel
+                    anchors {
+                        left: routesIcon.right
+                        leftMargin: Theme.paddingLarge
+                        right: parent.right
+                        rightMargin: Theme.horizontalPageMargin
+                        verticalCenter: parent.verticalCenter
+                    }
+                    text: placePage.routeRefs
+                    textFormat: Text.StyledText
+                    wrapMode: Text.Wrap
+                    highlighted: routesRow.highlighted
                 }
             }
 
@@ -367,7 +512,9 @@ MapPanel {
                     }
                 }
             }
+            // Tracks have no single point to show or open elsewhere.
             MenuRow {
+                visible: !placePage.isTrack
                 icon: "image://theme/icon-m-whereami"
                 text: placePage.coordinates
                 onClicked: placePage.nextCoordinatesFormat()
@@ -385,6 +532,7 @@ MapPanel {
             }
             // Hands the geo: link to the default handler, e.g. Pure Maps.
             MenuRow {
+                visible: !placePage.isTrack
                 icon: "image://theme/icon-m-shortcut"
                 text: appInfo.localized("open_in_app")
                 onClicked: Qt.openUrlExternally(placePage.geoUri)
@@ -396,14 +544,37 @@ MapPanel {
 
     Row {
         id: actions
+
+        readonly property bool canDeleteTrack: placePage.isTrack && !placePage.isRelationTrack
+        readonly property int count: 1 + (placePage.apiBackUrl !== "" ? 1 : 0) + (canDeleteTrack ? 1 : 0)
+
         width: parent.width
 
         PlaceAction {
             visible: placePage.apiBackUrl !== ""
-            width: actions.width
+            width: actions.width / actions.count
             icon: "image://theme/icon-m-back"
             text: appInfo.localized("back")
             onClicked: Qt.openUrlExternally(placePage.apiBackUrl)
+        }
+        PlaceAction {
+            width: actions.width / actions.count
+            icon: placePage.isBookmark ? "image://theme/icon-m-favorite-selected" : "image://theme/icon-m-favorite"
+            text: placePage.isBookmark ? appInfo.localized("delete")
+                : appInfo.localized(placePage.canRestoreBookmark ? "restore" : "save")
+            onClicked: placePage.toggleBookmark()
+        }
+        PlaceAction {
+            visible: actions.canDeleteTrack
+            width: actions.width / actions.count
+            icon: "image://theme/icon-m-delete"
+            text: appInfo.localized("delete")
+            onClicked: {
+                var trackId = placePage.userMarkId
+                Remorse.popupAction(panel, appInfo.localized("delete"), function() {
+                    bookmarksIO.deleteItems([{ id: trackId, isTrack: true }])
+                })
+            }
         }
     }
 

@@ -25,10 +25,18 @@ set(SRC
   app_info.hpp
   app_settings.cpp
   app_settings.hpp
+  bookmark_editor.cpp
+  bookmark_editor.hpp
+  bookmarks_io.cpp
+  bookmarks_io.hpp
+  bookmarks_model.cpp
+  bookmarks_model.hpp
   bundled_html.cpp
   bundled_html.hpp
   countries_model.cpp
   countries_model.hpp
+  elevation.cpp
+  elevation.hpp
   file_log.cpp
   file_log.hpp
   framework_access.hpp
