@@ -127,7 +127,7 @@ struct SubrouteParams
   TransitMarkInfo m_transitMarkInfo;
   TransitType m_transitType = TransitType::Pedestrian;
   double m_prevDistance = 0.0;
-  double m_prevTime = 0.0;
+  int m_prevTime = 0;
 };
 
 struct SubrouteSegmentParams
