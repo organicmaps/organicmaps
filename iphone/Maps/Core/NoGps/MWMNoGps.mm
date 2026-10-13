@@ -176,6 +176,11 @@ std::optional<double> NonNegative(double value)
   Engine().OnFix(fix);
 }
 
++ (void)onHeading:(CLHeading *)heading
+{
+  Engine().OnCompass(heading.trueHeading >= 0 ? heading.trueHeading : heading.magneticHeading, heading.headingAccuracy);
+}
+
 + (void)start
 {
   Engine().Start();

@@ -292,6 +292,7 @@ void setShowLocationAlert(BOOL needShow)
   self.lastHeadingInfo = headingInfo;
   if (!location_util::isValidHeading(headingInfo))
     return;
+  [MWMNoGps onHeading:headingInfo];
   GetFramework().OnCompassUpdate(location_util::compassInfoFromHeading(headingInfo));
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onHeadingUpdate:)])
