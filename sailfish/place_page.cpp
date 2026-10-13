@@ -269,7 +269,8 @@ QString OpensDescription(time_t now, time_t nextTimeOpen)
 
 PlacePage::PlacePage(Framework & framework, QObject * parent) : QObject(parent), m_framework(framework)
 {
-  m_framework.SetPlacePageListeners([this]
+  m_framework.SetPlacePageListeners(
+      [this]
   {
     Update();
     emit selected();

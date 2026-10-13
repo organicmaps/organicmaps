@@ -111,8 +111,7 @@ DownloadStatus::DownloadStatus(storage::Storage & storage, QObject * parent)
   m_storageSlot = m_storage.Subscribe([this](storage::CountryId const & countryId)
   { OnCountryChanged(countryId); }, [this](storage::CountryId const & countryId, downloader::Progress const & progress)
   { OnProgress(countryId, progress); });
-  connect(&BookmarksNotifier::Instance(), &BookmarksNotifier::positionFound, this,
-          &DownloadStatus::positionMapChanged);
+  connect(&BookmarksNotifier::Instance(), &BookmarksNotifier::positionFound, this, &DownloadStatus::positionMapChanged);
 }
 
 DownloadStatus::~DownloadStatus()
