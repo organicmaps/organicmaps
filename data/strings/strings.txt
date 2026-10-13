@@ -480,7 +480,7 @@ zh-Hant = 英哩
 
 [later]
 comment = Update maps later button text
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Later
 af = Later
 ar = لاحقاً
@@ -2118,7 +2118,7 @@ zh-Hant = 繼續
 
 [download_country_failed]
 comment = Show popup notification on top of the map when country download has failed.
-tags = android-app
+tags = android-app,qt
 en = %@ download has failed
 af = Aflaai van %@ het misluk
 ar = فشلت عملية تنزيل %@
@@ -2648,7 +2648,7 @@ zh-Hant = 設定
 
 [maps_storage]
 comment = Header of settings activity where user defines storage path
-tags = android-app
+tags = android-app,qt
 en = Save maps to
 af = Bewaar kaarte in
 ar = مكان تخزين الخرائط
@@ -2707,7 +2707,7 @@ zh-Hant = 將地圖儲存至
 
 [maps_storage_summary]
 comment = Detailed description of Maps Storage settings button
-tags = android-app
+tags = android-app,qt
 en = Select the folder to download maps to.
 af = Kies die vouer om kaarte na af te laai.
 ar = اختر المكان الذي ينبغي تنزيل الخرائط إليه.
@@ -2767,7 +2767,7 @@ zh-Hant = 選擇下載地圖的資料夾。
 
 [maps_storage_downloaded]
 comment = E.g. "Downloaded maps: 500Mb" in Maps Storage settings
-tags = android-app
+tags = android-app,qt
 en = Downloaded maps
 af = Afgelaaide kaarte
 ar = الخرائط المنزلة
@@ -2826,7 +2826,7 @@ zh-Hant = 已下載的地圖
 
 [maps_storage_free_size]
 comment = Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB"
-tags = android-app
+tags = android-app,qt
 en = %1$@ free of %2$@
 af = %1$@ van %2$@ beskikbaar
 ar = %1$@ فارغ من %2$@
@@ -2884,7 +2884,7 @@ zh-Hant = 剩餘 %1$@ / 總計 %2$@
 
 [move_maps]
 comment = Question dialog for transferring maps from one storage to another
-tags = android-app
+tags = android-app,qt
 en = Move maps?
 af = Skuif kaarte?
 ar = هل تريد نقل الخرائط؟
@@ -2940,7 +2940,7 @@ zh-Hant = 移動地圖？
 
 [move_maps_error]
 comment = Error moving map files from one storage to another
-tags = android-app
+tags = android-app,qt
 en = Error moving map files
 af = Fout by die skuig van kaartlêers
 ar = فشلت عملية نقل ملفات الخرائط
@@ -9056,7 +9056,7 @@ zh-Hant = 再次長按地圖即可查看介面
 
 [downloader_update_all_button]
 comment = Update all button text
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Update All
 af = Werk alles by
 ar = تحديث الكل
@@ -9113,7 +9113,7 @@ zh-Hant = 更新全部
 
 [downloader_cancel_all]
 comment = Cancel all button text
-tags = android-app
+tags = android-app,qt
 en = Cancel All
 af = Kanselleer aflaai
 ar = إلغاء الكل
@@ -9169,7 +9169,7 @@ zh-Hant = 取消全部
 
 [downloader_downloaded_subtitle]
 comment = Downloaded maps list header
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Downloaded
 af = Afgelaai
 ar = التي تم تنزيلها
@@ -9283,7 +9283,7 @@ zh-Hans = 已加入到下载队列
 zh-Hant = 已加入到下載清單
 
 [downloader_near_me_subtitle]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Near me
 af = Naby my
 ar = قريب مني
@@ -9339,7 +9339,7 @@ zh-Hant = 在我附近
 
 [downloader_status_maps]
 comment = In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10"
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Maps
 af = Kaarte
 ar = الخرائط
@@ -9395,7 +9395,7 @@ zh-Hans = 地图
 zh-Hant = 地圖
 
 [downloader_download_all_button]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Download All
 af = Laai alles af
 ar = تنزيل الكل
@@ -9452,7 +9452,7 @@ zh-Hans = 下载全部
 zh-Hant = 下載全部
 
 [downloader_downloading]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Downloading:
 af = Laai tans af:
 ar = يتم التنزيل:
@@ -9627,7 +9627,7 @@ zh-Hant = 路線只能完全處在同一地圖裡時才能被規劃。
 
 [downloader_download_map]
 comment = Context menu item for downloader.
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Download map
 af = Laai kaart af
 ar = تنزيل الخريطة
@@ -9802,7 +9802,7 @@ zh-Hant = 刪除地圖
 
 [downloader_update_map]
 comment = Item in context menu.
-tags = android-app,android-libs-routing
+tags = android-app,android-libs-routing,qt
 en = Update Map
 af = Werk kaart by
 ar = تحديث الخريطة
@@ -11879,7 +11879,7 @@ zh-Hant = 電子郵件發送失敗
 
 [downloader_available_maps]
 comment = Downloaded maps category
-tags = apple-maps
+tags = apple-maps,qt
 en = Available
 af = Beskikbaar
 ar = متوفر
@@ -11990,7 +11990,7 @@ zh-Hant = 已找到
 
 [downloader_status_outdated]
 comment = Status of outdated country in the list
-tags = apple-maps
+tags = apple-maps,qt
 en = Update
 af = Werk by
 ar = تحديث
@@ -13938,7 +13938,7 @@ zh-Hans = 要开始搜索和规划路线，请下载地图，然后您就不再�
 zh-Hant = 要開始搜索和規劃路線，請下載地圖，然後您就不再需要網絡連接了。
 
 [search_select_map]
-tags = android-app
+tags = android-app,qt
 en = Select Map
 af = Kies kaart
 ar = اختيار الخريطة
@@ -14221,7 +14221,7 @@ zh-Hans = 历史
 zh-Hant = 歷史
 
 [search_not_found]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Oops, no results found.
 af = Oeps, geen resultate gevind.
 ar = المعذرة، لم أعثر على أية نتائج.
@@ -14279,7 +14279,7 @@ zh-Hant = 很抱歉，沒有搜尋到任何地點。
 
 [search_not_found_query]
 comment = The message when user did not find anything in the search.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Download the region where you are searching or try adding a nearby town/village name.
 af = Laai die streek af waar jy soek of probeer om 'n nabygeleë dorp/dorpnaam by te voeg.
 ar = قم بتنزيل المنطقة التي تبحث فيها أو حاول إضافة اسم بلدة/قرية قريبة.
@@ -16106,7 +16106,7 @@ zh-Hans = 发送
 zh-Hant = 傳送
 
 [autodownload]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Auto-download maps
 af = Laai kaarte outomaties af
 ar = التنزيل التلقائي
@@ -18371,7 +18371,7 @@ zh-Hans = 为了规划路线，您需要更新全部地图并重新规划路线�
 zh-Hant = 為了規劃路線，您需要更新全部地圖並重新規劃路線。
 
 [downloader_search_field_hint]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Find map
 af = Vind kaart
 ar = ابحث عن خريطة
@@ -18427,7 +18427,7 @@ zh-Hans = 搜索地图
 zh-Hant = 搜尋地圖
 
 [common_check_internet_connection_dialog]
-tags = android-app,android-libs-downloader,apple-maps
+tags = android-app,android-libs-downloader,apple-maps,qt
 en = Please make sure your device is connected to the Internet.
 af = Maak asb. seker u toestel het ’n internetverbinding.
 ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
@@ -18484,7 +18484,7 @@ zh-Hans = 请检查您的设置并确保您的设备已连接至网络。
 zh-Hant = 請檢查您的設定並確保您的裝置已連接至網路。
 
 [downloader_no_space_title]
-tags = android-app,android-libs-downloader,apple-maps
+tags = android-app,android-libs-downloader,apple-maps,qt
 en = Not enough space
 af = Nie genoeg spasie nie
 ar = لا تتوفر مساحة كافية
@@ -18543,7 +18543,7 @@ zh-Hant = 沒有足夠的空間
 
 [downloader_no_space_message]
 comment = Message shown when there is not enough space to download maps
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Please delete any unnecessary data
 af = Skrap asb. enige onnodige data
 ar = من فضلك، قم بإزالة البيانات غير الضرورية
@@ -19338,7 +19338,7 @@ zh-Hans = %1$d / %2$d
 zh-Hant = %1$d / %2$d
 
 [download_over_mobile_header]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Download over a cellular network connection?
 af = Laai af oor ’n mobieledataverbinding?
 ar = تنزيل باستخدام بيانات الجوال؟
@@ -19395,7 +19395,7 @@ zh-Hans = 用手机网络连接下载吗？
 zh-Hant = 用行動數據連線下載嗎？
 
 [download_over_mobile_message]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = This could be considerably expensive with some plans or if roaming.
 af = Dit kan behoorlik duur wees met sommige planne of indien dooldata aktief is.
 ar = قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.
@@ -20308,7 +20308,7 @@ zh-Hans = Organic Maps 只允许添加简单的点类别，即无法添加城镇
 zh-Hant = Organic Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。請直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 新增此類類別。請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。
 
 [downloader_no_downloaded_maps_title]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = You haven't downloaded any maps
 af = U het geen kaarte afgelaai nie
 ar = لم تقم بتنزيل أية خرائط
@@ -20365,7 +20365,7 @@ zh-Hans = 您尚未下载任何地图
 zh-Hant = 您尚未下載任何地圖
 
 [downloader_no_downloaded_maps_message]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Download maps to search and navigate offline.
 af = Laai kaarte af om die ligging te soek en vanlyn te navigeer.
 ar = قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.
@@ -22488,7 +22488,7 @@ zh-Hans = 使用移动网络显示更多详细信息吗？
 zh-Hant = 使用手機網路顯示更多詳細資訊嗎？
 
 [mobile_data_option_always]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Use Always
 af = Gebruik altyd
 ar = استخدام دائمًا
@@ -22661,7 +22661,7 @@ zh-Hans = 今天不使用
 zh-Hant = 今天不使用
 
 [mobile_data]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Mobile Internet
 af = Mobiele internet
 ar = بيانات الجوال
@@ -22718,7 +22718,7 @@ zh-Hant = 手機網路
 
 [mobile_data_description]
 comment = NOTE to translators: please synchronize your translation with the English one.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Mobile internet is required for map update notifications and uploading edits.
 af = Mobiele internet is nodig vir kaartbywerkkennisgewings en om wysigings op te laai.
 ar = إننا نحتاج بيانات الجوال لعرض معلومات تفصيلية عن الأماكن والإشارات المرجعية.
@@ -22775,7 +22775,7 @@ zh-Hans = 要显示地点的详细信息（例如照片、价格和评价），�
 zh-Hant = 要顯示地點的詳細資訊（例如照片、價格和評價），需要使用手機網絡。
 
 [mobile_data_option_never]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Never Use
 af = Gebruik nooit
 ar = عدم الاستخدام مطلقًا
@@ -22831,7 +22831,7 @@ zh-Hans = 从不使用
 zh-Hant = 絕不使用
 
 [mobile_data_option_ask]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Always Ask
 af = Vra altyd
 ar = السؤال دوماً
@@ -40911,7 +40911,7 @@ zh-Hant = 更新
 
 [whats_new_auto_update_title]
 comment = Autoupdate dialog on start
-tags = apple-maps
+tags = apple-maps,qt
 en = Update downloaded maps
 af = Werk afgelaaide kaarte by
 ar = قم بتحديث الخرائط المُنزلة
@@ -40970,7 +40970,7 @@ zh-Hant = 更新已下載的地圖
 
 [whats_new_auto_update_message]
 comment = Autoupdate dialog on start
-tags = apple-maps
+tags = apple-maps,qt
 en = Updating maps keeps the information about objects up to date
 af = Die bywerk van kaarte hou die inligting oor voorwerpe aktueel
 ar = تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة
@@ -41028,7 +41028,7 @@ zh-Hant = 更新地圖以讓對象的資訊保持在最新狀態
 
 [whats_new_auto_update_button_size]
 comment = Autoupdate dialog on start
-tags = apple-maps
+tags = apple-maps,qt
 en = Update (%@)
 af = Werk by (%@)
 ar = تحديث (%@)
@@ -43022,7 +43022,7 @@ zh-Hant = 我的地點
 
 [maps_storage_internal]
 comment = Internal storage type in Maps Storage settings (not accessible by the user)
-tags = android-sdk
+tags = android-sdk,qt
 en = Internal private storage
 af = Interne privaat berging
 ar = وحدة التخزين الداخلية الخاصة
@@ -43137,7 +43137,7 @@ zh-Hant = 內部共享儲存
 
 [maps_storage_removable]
 comment = Removable external storage type in Maps Storage settings, e.g. an SD card
-tags = android-sdk
+tags = android-sdk,qt
 en = SD card
 af = SD-kaart
 ar = بطاقة الذاكرة
@@ -46635,3 +46635,27 @@ uk = Трамвай
 vi = Xe điện
 zh-Hans = 有轨电车
 zh-Hant = 路面電車
+
+[[Sailfish OS]]
+
+[mobile_data_downloads_off]
+comment = Sailfish OS: a map download was not started because mobile internet is off in the settings
+tags = qt
+en = Map downloads over mobile internet are turned off in the settings.
+de = Kartendownloads über mobiles Internet sind in den Einstellungen deaktiviert.
+es = Las descargas de mapas por internet móvil están desactivadas en los ajustes.
+fr = Les téléchargements de cartes via l’internet mobile sont désactivés dans les paramètres.
+ru = Загрузка карт через мобильный интернет отключена в настройках.
+sv = Kartnedladdningar via mobilt internet är avstängda i inställningarna.
+uk = Завантаження мап через мобільні дані вимкнено в налаштуваннях.
+
+[maps_storage_restart]
+comment = Sailfish OS: the maps are moved to the chosen folder when the app starts next time
+tags = qt
+en = The maps will be moved the next time Organic Maps starts. This can take several minutes.
+de = Die Karten werden beim nächsten Start von Organic Maps verschoben. Das kann einige Minuten dauern.
+es = Los mapas se moverán la próxima vez que se inicie Organic Maps. Esto puede tardar varios minutos.
+fr = Les cartes seront déplacées au prochain lancement d’Organic Maps. Cela peut prendre plusieurs minutes.
+ru = Карты будут перемещены при следующем запуске Organic Maps. Это может занять несколько минут.
+sv = Kartorna flyttas nästa gång Organic Maps startar. Det kan ta flera minuter.
+uk = Мапи буде переміщено під час наступного запуску Organic Maps. Це може тривати кілька хвилин.
