@@ -59,8 +59,12 @@ CATEGORIES = [
 PLACE_PAGE = [
     "ic_wheelchair_white",
     "ic_capacity_white",
+    "ic_category_bus",
+    "ic_category_tram",
     "ic_network_white",
 ]
+# Bookmark list visibility toggles.
+BOOKMARKS = ["ic_show", "ic_hide"]
 # My position button states.
 MY_POSITION = ["ic_location_off", "ic_not_follow", "ic_follow", "ic_follow_and_rotate"]
 # The logo of the help button and the about page, and the icons of the about page rows, as in about.xml on Android.
@@ -80,9 +84,13 @@ HELP = [
 ]
 # The New Year promo of the help button keeps its colors.
 HELP_PROMO = ["ic_christmas_tree"]
-# Main menu entries. Android tints them at runtime, so they are made white (WHITE) for Silica to colorize.
+# Main menu entries and the recording status button. Android tints the single color ones at runtime, so
+# they are made white (WHITE) for Silica to colorize; ic_track_recording_on keeps its two colors.
 MENU = [
     "ic_donate",
+    "ic_track_recording_off",
+    "ic_track_recording_on",
+    "ic_track_recording_status",
 ]
 # Place editor icons that other pages reuse. The social networks only have white variants for the dark theme on
 # Android.
@@ -104,6 +112,8 @@ SOCIAL = {
 WHITE = (
     {
         "ic_donate",
+        "ic_track_recording_off",
+        "ic_track_recording_status",
     }
     | set(EDITOR)
     | set(HELP) - {"ic_telegram", "ic_mastodon"}
@@ -112,6 +122,7 @@ OUTPUTS = [
     ("layers", LAYERS),
     ("categories", CATEGORIES),
     ("placepage", PLACE_PAGE),
+    ("bookmarks", BOOKMARKS),
     ("myposition", MY_POSITION),
     ("help", HELP + HELP_PROMO),
     ("menu", MENU),

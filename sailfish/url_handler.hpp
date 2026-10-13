@@ -8,6 +8,8 @@ class Framework;
 
 namespace sailfish
 {
+class BookmarksIO;
+
 class UrlHandler;
 
 // The D-Bus interface of the launcher and notifications; the service, object path and interface are set in
@@ -38,14 +40,15 @@ public slots:
   Q_SCRIPTABLE void openUrl(QStringList const & urls);
   // Notification actions.
   Q_SCRIPTABLE void cancelDownloads();
+  Q_SCRIPTABLE void stopTrackRecording();
 
 private:
   UrlHandler * m_handler = nullptr;
   QStringList m_queued;
 };
 
-// Opens geo:, om:// and ge0:// links, which come as arguments or over D-Bus from the launcher, see organicmaps.desktop,
-// and https://omaps.app links given as arguments.
+// Opens bookmark and track files, and geo:, om:// and ge0:// links, which come as arguments or over D-Bus from the
+// launcher, see organicmaps.desktop, and https://omaps.app links given as arguments.
 class UrlHandler : public QObject
 {
   Q_OBJECT
@@ -53,7 +56,7 @@ class UrlHandler : public QObject
   Q_PROPERTY(QString dbusPath READ dbusPath CONSTANT)
 
 public:
-  explicit UrlHandler(Framework & framework, QObject * parent = nullptr);
+  UrlHandler(Framework & framework, BookmarksIO & bookmarksIO, QObject * parent = nullptr);
 
   QString dbusService() const { return QStringLiteral(SAILFISH_DBUS_SERVICE); }
   QString dbusPath() const { return QStringLiteral(SAILFISH_DBUS_PATH); }
@@ -69,11 +72,13 @@ signals:
   // An om://crosshair link: pick a position for the app named, which may give a link back.
   void crosshairRequested(QString const & appName, QString const & backUrl);
   void cancelDownloadsRequested();
+  void stopTrackRecordingRequested();
 
 private:
   void Process(QString const & url);
 
   Framework & m_framework;
+  BookmarksIO & m_bookmarksIO;
   // Links wait for the map, which their requests move.
   QStringList m_pending;
 };

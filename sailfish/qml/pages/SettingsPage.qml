@@ -93,6 +93,12 @@ Page {
                 value: mapsStorage.currentName
                 onClicked: pageStack.push(Qt.resolvedUrl("StoragePage.qml"))
             }
+            ValueButton {
+                label: qsTrId("backup_automatic")
+                value: bookmarksIO.backupPeriod === 0 ? qsTrId("off")
+                     : qsTrId(bookmarksIO.backupPeriod === 1 ? "daily" : "backup_weekly")
+                onClicked: pageStack.push(Qt.resolvedUrl("BackupPage.qml"))
+            }
             TextSwitch {
                 text: qsTrId("enable_logging")
                 description: qsTrId("enable_logging_warning_message")
@@ -129,6 +135,17 @@ Page {
                     MenuItem { text: qsTrId("power_managment_setting_never") }
                     MenuItem { text: qsTrId("power_managment_setting_manual_max") }
                     MenuItem { text: qsTrId("power_managment_setting_auto") }
+                }
+            }
+            ComboBox {
+                label: qsTrId("bookmarks_text_placement_title")
+                description: qsTrId("bookmarks_text_placement_description")
+                currentIndex: appSettings.bookmarksTextPlacement
+                menu: ContextMenu {
+                    onActivated: appSettings.bookmarksTextPlacement = index
+                    MenuItem { text: qsTrId("hide") }
+                    MenuItem { text: qsTrId("show_to_the_right") }
+                    MenuItem { text: qsTrId("show_at_the_bottom") }
                 }
             }
             TextSwitch {
