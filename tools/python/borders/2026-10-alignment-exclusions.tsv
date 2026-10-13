@@ -1,0 +1,15 @@
+file	x1	y1	x2	y2	reason
+Vietnam_North.poly	104.7457	20.19953	104.746	20.19964	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+Brazil_Bahia.poly	-38.08038	-10.71366	-38.0801	-10.7139	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+Japan_Chubu Region_Ishikawa.poly	136.754	36.08608	136.7543	36.08629	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+Czech_Stredni Cechy_East.poly	15.13182	50.34636	15.13448	50.34511	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+Canada_Quebek_North.poly	-63.533	51.99728	-57.10776	51.99849	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+Canada_Quebek_North.poly	-57.10776	51.99849	-57.10549	51.65645	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+US_Louisiana_New Orleans.poly	-89.42158	30.177	-89.41671	30.17764	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+US_Virginia_Roanoke.poly	-81.49904	37.25782	-81.49887	37.25803	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+Ukraine_Chernihiv Oblast.poly	31.54744	52.12081	31.58218	52.11785	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+South Korea_North.poly	126.8693	38.08395	126.8696	38.08449	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+Thailand_North.poly	101.0817	17.50596	101.0818	17.50589	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+India_Andhra Pradesh.poly	76.9332	14.03033	76.93788	14.04781	Reviewed insertion introduced uncovered or overlapping area in Mercator.
+Canada_Nunavut_South.poly	-109.3344	64.83363	-102.0006	64.23366	Reviewed insertion introduced about 31.63 m² of overlap.
+Canada_Nunavut_South.poly	-111.9762	65.50032	-110.6678	65.50033	Reviewed insertion introduced about 1190.04 m² of uncovered area.

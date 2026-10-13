@@ -1,0 +1,113 @@
+name: Border tools
+
+on:
+  workflow_dispatch:
+    inputs:
+      baseline_revision:
+        description: 'Baseline commit SHA for source and packed geometry comparison'
+        required: true
+        type: string
+  pull_request:
+    paths:
+      - '.github/workflows/borders-check.yaml'
+      - 'tools/python/borders/**'
+      - 'data/borders/**'
+      - 'data/packed_polygons.bin'
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/borders-check.yaml'
+      - 'tools/python/borders/**'
+      - 'data/borders/**'
+      - 'data/packed_polygons.bin'
+
+permissions:
+  contents: read
+
+jobs:
+  borders-check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dependencies: legacy
+            numpy: numpy==1.26.4
+            shapely: shapely==2.0.7
+          - dependencies: current
+            numpy: numpy>=2
+            shapely: shapely>=2
+    name: Border tools (${{ matrix.dependencies }})
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: >-
+          python -m pip install -r tools/python/borders/requirements.txt
+          '${{ matrix.numpy }}' '${{ matrix.shapely }}'
+
+      - name: Run border regression tests
+        run: python -m unittest discover -s tools/python/borders -p 'test_*.py'
+
+      - name: Extract geometry baseline
+        shell: bash
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PUSH_BASE: ${{ github.event.before }}
+          DISPATCH_BASE: ${{ inputs.baseline_revision }}
+        run: |
+          case "$GITHUB_EVENT_NAME" in
+            pull_request) baseline="$PR_BASE" ;;
+            push) baseline="$PUSH_BASE" ;;
+            workflow_dispatch) baseline="$DISPATCH_BASE" ;;
+          esac
+          if [[ ! "$baseline" =~ ^[0-9a-fA-F]{40}$ || "$baseline" == 0000000000000000000000000000000000000000 ]]; then
+            echo 'A nonzero baseline commit SHA is required.' >&2
+            exit 1
+          fi
+          if ! git cat-file -e "$baseline^{commit}"; then
+            git fetch --no-tags origin "$baseline"
+          fi
+          baseline_dir=$(mktemp -d "$RUNNER_TEMP/borders-baseline.XXXXXX")
+          git archive "$baseline" data/borders data/packed_polygons.bin libs/storage/country_decl.hpp | tar -x -C "$baseline_dir"
+          bounds_format() {
+            if grep -q 'Int64ToRectObsolete' "$1"; then
+              echo legacy
+            elif grep -q 'SaveBoundRect' "$1"; then
+              echo wrapped
+            else
+              echo 'Unsupported CountryDef serialization in comparison revision.' >&2
+              return 1
+            fi
+          }
+          echo "BORDER_BASELINE_DIR=$baseline_dir" >> "$GITHUB_ENV"
+          echo "BORDER_BASELINE_REVISION=$baseline" >> "$GITHUB_ENV"
+          current_bounds_format=$(bounds_format libs/storage/country_decl.hpp)
+          baseline_bounds_format=$(bounds_format "$baseline_dir/libs/storage/country_decl.hpp")
+          echo "BORDER_BOUNDS_FORMAT=$current_bounds_format" >> "$GITHUB_ENV"
+          echo "BORDER_BASELINE_BOUNDS_FORMAT=$baseline_bounds_format" >> "$GITHUB_ENV"
+
+      - name: Compare source polygons and packed paths
+        run: |
+          python tools/python/borders/check_border_geometry.py \
+            --source data/borders --packed data/packed_polygons.bin \
+            --baseline-source "$BORDER_BASELINE_DIR/data/borders" \
+            --baseline-packed "$BORDER_BASELINE_DIR/data/packed_polygons.bin" \
+            --bounds-format "$BORDER_BOUNDS_FORMAT" --baseline-bounds-format "$BORDER_BASELINE_BOUNDS_FORMAT" \
+            --minimum-area 0.01 --report border-geometry.json
+
+      - name: Upload geometry comparison
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: border-geometry-${{ matrix.dependencies }}
+          path: border-geometry.json
+          if-no-files-found: ignore
