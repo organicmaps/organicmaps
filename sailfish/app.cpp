@@ -4,6 +4,8 @@
 #include "sailfish/framework_access.hpp"
 #include "sailfish/map_item.hpp"
 #include "sailfish/maps_storage.hpp"
+#include "sailfish/place_page.hpp"
+#include "sailfish/search_model.hpp"
 #include "sailfish/url_handler.hpp"
 
 #include "map/framework.hpp"
@@ -100,6 +102,8 @@ void RegisterQmlTypes()
 {
   qmlRegisterType<sailfish::MapItem>("app.organicmaps", 1, 0, "MapItem");
   qmlRegisterType<sailfish::CountriesModel>("app.organicmaps", 1, 0, "CountriesModel");
+  qmlRegisterType<sailfish::SearchModel>("app.organicmaps", 1, 0, "SearchModel");
+  qmlRegisterUncreatableType<sailfish::PlacePage>("app.organicmaps", 1, 0, "PlacePage", "Owned by MapItem");
   qmlRegisterUncreatableType<sailfish::AppSettings>("app.organicmaps", 1, 0, "AppSettings", "Use appSettings");
 }
 }  // namespace

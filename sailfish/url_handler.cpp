@@ -3,6 +3,8 @@
 #include "map/framework.hpp"
 #include "map/mwm_url.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/logging.hpp"
 
 #include <QDBusConnection>
@@ -16,6 +18,8 @@ namespace
 {
 char constexpr kService[] = SAILFISH_DBUS_SERVICE;
 char constexpr kPath[] = SAILFISH_DBUS_PATH;
+// SEARCH_IN_VIEWPORT_ZOOM on Android.
+int constexpr kLinkZoom = 16;
 }  // namespace
 
 UrlHandler::UrlHandler(Framework & framework, QObject * parent) : QObject(parent), m_framework(framework) {}
@@ -85,6 +89,33 @@ void UrlHandler::Process(QString const & url)
   switch (type)
   {
   case UrlType::Map: m_framework.ExecuteMapApiRequest(); break;
+  case UrlType::Search:
+  case UrlType::Crosshair:
+  {
+    if (auto const center = m_framework.GetParsedCenterLatLon(); center.IsValid())
+    {
+      m_framework.StopLocationFollow();
+      m_framework.SetViewportCenter(mercator::FromLatLon(center), kLinkZoom);
+    }
+    if (type == UrlType::Crosshair)
+    {
+      emit crosshairRequested(QString::fromStdString(m_framework.GetParsedAppName()),
+                              QString::fromStdString(m_framework.GetParsedBackUrl()));
+      break;
+    }
+    auto const request = m_framework.GetParsedSearchRequest();
+    // Search runs "?" debug commands, e.g. changing the map server: not for links, which any app can send.
+    // Trimmed too, in case a command is ever matched after trimming.
+    if (QString::fromStdString(request.m_query).trimmed().startsWith(QLatin1Char('?')))
+    {
+      LOG(LWARNING, ("Ignored a debug command in a link"));
+      break;
+    }
+    if (!request.m_query.empty())
+      emit searchRequested(QString::fromStdString(request.m_query), QString::fromStdString(request.m_locale),
+                           request.m_isSearchOnMap);
+    break;
+  }
   default: LOG(LWARNING, ("Unsupported link", url.toStdString())); break;
   }
 }

@@ -159,6 +159,16 @@ Page {
             }
 
             SectionHeader {
+                text: appInfo.localized("privacy")
+            }
+            TextSwitch {
+                text: appInfo.localized("search_history_title")
+                automaticCheck: false
+                checked: appSettings.searchHistory
+                onClicked: appSettings.searchHistory = !checked
+            }
+
+            SectionHeader {
                 text: appInfo.localized("prefs_group_information")
             }
             TextRow {

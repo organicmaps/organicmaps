@@ -27,6 +27,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Sensors)
 BuildRequires:  pkgconfig(sailfishapp)
 BuildRequires:  pkgconfig(glesv2)
+BuildRequires:  pkgconfig(mlite5)
 # QML modules, the linked Qt libraries are found automatically. Harbour allows no Requires for the other
 # imported modules, which are on every device.
 Requires:       sailfishsilica-qt5

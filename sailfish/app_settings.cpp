@@ -24,6 +24,7 @@ std::string_view constexpr kMapAppearance = "SailfishMapAppearance";
 std::string_view constexpr kZoomButtons = "SailfishZoomButtons";
 std::string_view constexpr kKeepScreenOn = "SailfishKeepScreenOn";
 std::string_view constexpr kLogging = "SailfishFileLogging";
+std::string_view constexpr kSearchHistory = "SailfishSearchHistory";
 std::string_view constexpr kAutoDownload = "SailfishAutoDownload";
 std::string_view constexpr kMobileData = "SailfishMobileData";
 
@@ -147,6 +148,25 @@ bool AppSettings::keepScreenOn() const
 void AppSettings::setKeepScreenOn(bool enabled)
 {
   SaveUiSetting(kKeepScreenOn, enabled);
+}
+
+// static
+bool AppSettings::IsSearchHistoryEnabled()
+{
+  return LoadSetting(kSearchHistory, true);
+}
+
+bool AppSettings::searchHistory() const
+{
+  return IsSearchHistoryEnabled();
+}
+
+void AppSettings::setSearchHistory(bool enabled)
+{
+  // Turning the history off forgets it.
+  if (!enabled)
+    m_framework.GetSearchAPI().ClearSearchHistory();
+  SaveUiSetting(kSearchHistory, enabled);
 }
 
 QString AppSettings::mapLanguage() const

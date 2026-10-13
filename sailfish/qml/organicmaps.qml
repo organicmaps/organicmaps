@@ -22,6 +22,7 @@ ApplicationWindow {
     cover: Component {
         CoverPage {
             mapPage: appWindow.mapPage
+            onActivateRequested: appWindow.activate()
         }
     }
     allowedOrientations: defaultAllowedOrientations
