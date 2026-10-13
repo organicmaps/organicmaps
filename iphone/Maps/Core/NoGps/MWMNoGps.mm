@@ -17,9 +17,13 @@ NSString * const MWMNoGpsEventKey = @"event";
 
 namespace
 {
-/// The iOS part of the navigation without GPS: the car movement comes from the ESP32 sensor box only. The phone with
-/// an ELM327 adapter is not offered: iOS has no Bluetooth SPP for the adapters. The box is reached over Bluetooth
-/// LE, which is not made here yet: see Esp32BleOpen() of the delegate and docs/nogps/ios-notes.md.
+NSData * ToData(std::string const & bytes)
+{
+  return [NSData dataWithBytes:bytes.data() length:bytes.size()];
+}
+
+/// The iOS part of the navigation without GPS: the car movement comes from the ESP32 sensor box only, over Bluetooth
+/// LE. The phone with an ELM327 adapter is not offered: iOS has no Bluetooth SPP for the adapters.
 class NoGpsDelegate : public nogps::Delegate
 {
 public:
@@ -29,6 +33,13 @@ public:
   void Elm327Connect(std::string const &) override {}
   void Elm327Write(std::string const &) override {}
   void Elm327Close() override {}
+
+  void Esp32BleOpen() override { [m_esp32 open]; }
+  void Esp32BleSend(std::string const & line) override { [m_esp32 send:ToData(line)]; }
+  void Esp32BleSendFirmware(std::string const & piece) override { [m_esp32 sendFirmware:ToData(piece)]; }
+  void Esp32BleClose() override { [m_esp32 close]; }
+
+  bool IsBoxPairing() const { return m_esp32.isPairing; }
 
   void OnPosition(nogps::Fix const & fix) override
   {
@@ -53,15 +64,23 @@ public:
                                                       MWMNoGpsEventKey: @(static_cast<NSInteger>(event))
                                                     }];
   }
+
+private:
+  Esp32BleTransport * m_esp32 = [[Esp32BleTransport alloc] init];
 };
+
+NoGpsDelegate & Delegate()
+{
+  static NoGpsDelegate delegate;
+  return delegate;
+}
 
 nogps::Engine & Engine()
 {
-  static NoGpsDelegate delegate;
   static nogps::Engine * engine = nullptr;
   if (!engine)
   {
-    engine = &GetFramework().CreateNoGps(delegate);
+    engine = &GetFramework().CreateNoGps(Delegate());
     // The box is the only source of the car movement on iOS.
     if (!engine->GetStatus().m_esp32Source)
       engine->SetEsp32Source(true);
@@ -106,6 +125,7 @@ std::optional<double> NonNegative(double value)
     _inertialEnabled = status.m_inertialEnabled;
     _inertialStarted = status.m_inertialStarted;
     _sourceState = static_cast<MWMNoGpsSourceState>(status.m_sourceState);
+    _bleState = static_cast<MWMNoGpsBleState>(status.m_bleState);
     _deviceName = @(status.m_deviceName.c_str());
     _speedKmh = status.m_speedKmh;
     _hasCarInfo = status.m_carInfo.has_value();
@@ -167,7 +187,11 @@ std::optional<double> NonNegative(double value)
 
 + (MWMNoGpsStatus *)status
 {
-  return [[MWMNoGpsStatus alloc] initWithStatus:Engine().GetStatus()];
+  auto status = Engine().GetStatus();
+  // The core doesn't know about the pairing: iOS doesn't tell it, see Esp32BleTransport.isPairing.
+  if (Delegate().IsBoxPairing())
+    status.m_bleState = nogps::BleState::Pairing;
+  return [[MWMNoGpsStatus alloc] initWithStatus:status];
 }
 
 + (BOOL)isManualMode
@@ -223,6 +247,16 @@ std::optional<double> NonNegative(double value)
 + (void)setShiftButtonsShown:(BOOL)shown
 {
   Engine().SetShiftButtonsShown(shown);
+}
+
++ (void)onEsp32BleBytes:(NSData *)data
+{
+  Engine().OnEsp32BleBytes({static_cast<char const *>(data.bytes), data.length});
+}
+
++ (void)onEsp32BleState:(MWMNoGpsBleState)state
+{
+  Engine().OnEsp32BleState(static_cast<nogps::BleState>(state));
 }
 
 @end
