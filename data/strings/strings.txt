@@ -2177,7 +2177,7 @@ zh-Hant = %@的地圖下載失敗
 
 [add_new_set]
 comment = "Add new bookmark list" dialog title
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Add a New List
 af = Voeg ’n nuwe lys toe
 ar = إضافة قائمة جديدة
@@ -2237,7 +2237,7 @@ zh-Hant = 新增新的書籤列表
 
 [bookmark_set_name]
 comment = Add Bookmark list dialog - hint when the list name is empty
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Bookmark List Name
 af = Boekmerklysnaam
 ar = اسم قائمة الإشارات المرجعية
@@ -2531,7 +2531,7 @@ zh-Hant = 地址
 
 [list]
 comment = Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell.
-tags = android-app
+tags = android-app,qt
 en = List
 af = Lys
 ar = قائمة
@@ -4702,7 +4702,7 @@ zh-Hant = 露營車設施
 
 [description]
 comment = Notes field in Bookmarks view
-tags = android-app
+tags = android-app,qt
 en = Notes
 af = Notas
 ar = ملاحظات
@@ -4934,7 +4934,7 @@ zh-Hant = 正在載入書籤
 
 [load_kmz_successful]
 comment = Kmz file successful loading
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
 af = Boekmerke is suksesvol gelaai! U kan dit op die kaart of op die boekmerkbestuurderskerm vind.
 ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
@@ -4992,7 +4992,7 @@ zh-Hant = 書籤載入成功！ 您可以在地圖或書籤管理畫面中找到
 
 [load_kmz_failed]
 comment = Kml file loading failed
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Failed to load bookmarks. The file may be corrupted or defective.
 af = Kon nie boekmerke laai nie. Die lêer is dalk gekorrupteer of defektief.
 ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف أو غير صالح.
@@ -5165,7 +5165,7 @@ zh-Hant = 無法打開檔案 %1$@\n\n%2$@
 
 [edit]
 comment = resource for context menu
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Edit
 af = Wysig
 ar = تعديل
@@ -6155,7 +6155,7 @@ zh-Hant = 軌跡
 
 [length]
 comment = Length of track in cell that describes route
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Length
 af = Lengte
 ar = الطول
@@ -10208,7 +10208,7 @@ zh-Hans = 请启用位置服务
 zh-Hant = 請啟用定位服務
 
 [save]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Save
 af = Bewaar
 ar = حفظ
@@ -10265,7 +10265,7 @@ zh-Hans = 保存
 zh-Hant = 儲存
 
 [create]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = create
 af = skep
 ar = إنشاء
@@ -12627,7 +12627,7 @@ zh-Hans = 无法规划路线。无法识别当前 GPS 坐标。
 zh-Hant = 無法規劃路線。無法識別目前 GPS 座標。
 
 [dialog_routing_location_turn_wifi]
-tags = android-app,android-libs-routing,apple-maps
+tags = android-app,android-libs-routing,apple-maps,qt
 en = Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.
 af = Kaan asb. u GPS-sein na. Met Wi-Fi sal u liggingakkuraatheid verbeter.
 ar = الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.
@@ -13425,7 +13425,7 @@ zh-Hans = 请调整您的途径点。
 zh-Hant = 請調整您的途經點。
 
 [dialog_routing_system_error]
-tags = android-app,android-libs-routing,apple-maps
+tags = android-app,android-libs-routing,apple-maps,qt
 en = System error
 af = Stelselfout
 ar = خطأ في النظام
@@ -13994,7 +13994,7 @@ zh-Hant = 選擇地圖
 
 [show]
 comment = «Show» context menu
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Show
 af = Toon
 ar = عرض
@@ -14051,7 +14051,7 @@ zh-Hant = 顯示
 
 [hide]
 comment = «Hide» context menu
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Hide
 af = Versteek
 ar = إخفاء
@@ -16165,7 +16165,7 @@ zh-Hant = 自動下載
 
 [daily]
 comment = Place Page opening hours text
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Daily
 af = Daagliks
 ar = يومياً
@@ -20422,7 +20422,7 @@ zh-Hans = 下载地图来查找位置和离线浏览。
 zh-Hant = 下載地圖來尋找位置和離線瀏覽。
 
 [current_location_unknown_error_title]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Current location is unknown.
 af = Huidige ligging is onbekend.
 ar = الموقع الحالي غير معروف.
@@ -20880,7 +20880,7 @@ zh-Hant = 更多
 
 [placepage_edit_bookmark_button]
 comment = Toolbar title of the Edit Bookmark screen.
-tags = android-app
+tags = android-app,qt
 en = Edit Bookmark
 af = Wysig boekmerk
 ar = تحرير العلامة المرجعية
@@ -20937,7 +20937,7 @@ zh-Hans = 编辑书签
 zh-Hant = 編輯書籤
 
 [placepage_personal_notes_hint]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Personal notes (text or html)
 af = Persoonlike notas (teks of html)
 ar = ملاحظات شخصية (نص أو html)
@@ -22256,7 +22256,7 @@ zh-Hant = 停止
 
 [track_recording]
 comment = Shown while a track is being recorded: the start toast, the notification title and the home screen widget status.
-tags = android-app
+tags = android-app,qt
 en = Recording the track
 af = Opname van die spoor
 ar = تسجيل المسار
@@ -23995,7 +23995,7 @@ zh-Hans = 请输入正确的名称
 zh-Hant = 請輸入正確的名稱
 
 [bookmark_lists]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Lists
 af = Lyste
 ar = قوائم
@@ -24052,7 +24052,7 @@ zh-Hant = 列表
 
 [bookmark_lists_hide_all]
 comment = Do not display all bookmark lists on the map
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Hide all
 af = Versteek alles
 ar = إخفاء الكل
@@ -24107,7 +24107,7 @@ zh-Hans = 全部隐藏
 zh-Hant = 全部隱藏
 
 [bookmark_lists_show_all]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Show all
 af = Toon alles
 ar = إظهار الكل
@@ -24314,7 +24314,7 @@ zh-Hant:zero = 沒有書籤
 zh-Hant:other = %d 個書籤
 
 [bookmarks_create_new_group]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Create a new list
 af = Skep ’n nuwe lys
 ar = إنشاء قائمة جديدة
@@ -24486,7 +24486,7 @@ zh-Hans = 由于应用程序出错，导致无法分享
 zh-Hant = 由於應用程式出錯，導致無法分享
 
 [bookmarks_error_title_share_empty]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Sharing error
 af = Deelfout
 ar = خطأ في المشاركة
@@ -24770,7 +24770,7 @@ zh-Hans = 新的列表
 zh-Hant = 新的列表
 
 [bookmarks_error_title_list_name_already_taken]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = This name is already taken
 af = Die naam is reeds in gebruik
 ar = هذا الاسم موجود سابقا
@@ -25220,7 +25220,7 @@ zh-Hant:one = 找到 %d 個文件，轉換後您可以看到它。
 zh-Hant:other = 找到 %d 個文件，轉換後您可以看到它們。
 
 [restore]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Restore
 af = Stel terug
 ar = استعادة
@@ -26106,7 +26106,7 @@ zh-Hans = 地图样式和图层
 zh-Hant = 地圖樣式和圖層
 
 [bookmarks_empty_list_title]
-tags = android-app
+tags = android-app,qt
 en = This list is empty
 af = Hierdie lys is leeg
 ar = هذه اللائحة فارغة
@@ -26162,7 +26162,7 @@ zh-Hans = 该列表为空
 zh-Hant = 該列表為空
 
 [bookmarks_empty_list_message]
-tags = android-app
+tags = android-app,qt
 en = To add a bookmark, tap a place on the map and then tap the star icon
 af = Tik op ’n plek op die kaart en dan op die sterikoon om ’n boekmerk toe te voeg
 ar = لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة
@@ -26220,7 +26220,7 @@ zh-Hant = 要增加新書籤，請點擊對象卡片中的星型圖標
 
 [change_all_bookmarks_color]
 comment = Button to change the color of all bookmarks in the current list
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Change color of all bookmarks
 af = Verander die kleur van alle boekmerke
 ar = تغيير لون جميع الإشارات المرجعية
@@ -26276,7 +26276,7 @@ zh-Hant = 更改所有書籤顏色
 
 [change_all_tracks_color]
 comment = Button to change the color of all tracks in the current list
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Change color of all tracks
 af = Verander die kleur van alle spore
 ar = تغيير لون جميع المسارات
@@ -26559,7 +26559,7 @@ zh-Hans = 导出为 GeoJSON
 zh-Hant = 導出為 GeoJSON
 
 [delete_list]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Delete list
 af = Skrap lys
 ar = حذف القائمة
@@ -27306,7 +27306,7 @@ zh-Hans = 地图上的书签名称
 zh-Hant = 將地圖上的名稱加入書籤
 
 [bookmarks_text_placement_description]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = If there are too many bookmarks, displaying their names on the map may slow down the app.
 af = As daar te veel boekmerke is, kan die vertoning van hul name op die kaart die app vertraag.
 ar = إذا كان هناك عدد كبير جدًا من الإشارات المرجعية، فقد يؤدي عرض أسمائها على الخريطة إلى إبطاء التطبيق.
@@ -29188,7 +29188,7 @@ zh-Hant = 排序…
 
 [sort_bookmarks]
 comment = Android, title, max 20-22 symbols
-tags = android-app,android-libs-car
+tags = android-app,android-libs-car,qt
 en = Sort bookmarks
 af = Sorteer boekmerke
 ar = رتّب العلامات المرجعية
@@ -32018,7 +32018,7 @@ zh-Hans = 呼叫
 zh-Hant = 呼叫
 
 [placepage_bookmark_name_hint]
-tags = apple-maps
+tags = apple-maps,qt
 en = Bookmark Name
 af = Boekmerknaam
 ar = اسم العلامة المرجعية
@@ -34682,7 +34682,7 @@ zh-Hant = 第 %@ 个出口
 
 [sort_default]
 comment = iOS
-tags = apple-maps
+tags = apple-maps,qt
 en = Sort by default
 af = Versteksortering
 ar = ترتيب افتراضي
@@ -34739,7 +34739,7 @@ zh-Hans = 默认排序
 zh-Hant = 默認排序
 
 [sort_type]
-tags = apple-maps
+tags = apple-maps,qt
 en = Sort by type
 af = Sorteer volgens tipe
 ar = رتّب حسب النوع
@@ -34795,7 +34795,7 @@ zh-Hans = 按类型排序
 zh-Hant = 按類型排序
 
 [sort_distance]
-tags = apple-maps
+tags = apple-maps,qt
 en = Sort by distance
 af = Sorteer volgens afstand
 ar = رتّب حسب المسافة
@@ -34850,7 +34850,7 @@ zh-Hans = 按距离排序
 zh-Hant = 按距離排序
 
 [sort_date]
-tags = apple-maps
+tags = apple-maps,qt
 en = Sort by date
 af = Sorteer volgens datum
 ar = رتّب حسب التاريخ
@@ -34905,7 +34905,7 @@ zh-Hans = 按日期排序
 zh-Hant = 按日期排序
 
 [sort_name]
-tags = apple-maps
+tags = apple-maps,qt
 en = Sort by name
 af = Sorteer volgens naam
 ar = الترتيب حسب الاسم
@@ -35758,7 +35758,7 @@ zh-Hans = 医疗
 zh-Hant = 醫療
 
 [search_in_the_list]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Search in the list
 af = Soek in die lys
 ar = ابحث في القائمة
@@ -35874,7 +35874,7 @@ zh-Hant = 宗教場所
 
 [select]
 comment = Button that starts multi-selection in a bookmark list.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Select
 af = Kies
 ar = تحديد
@@ -35931,7 +35931,7 @@ zh-Hant = 選擇
 
 [select_all]
 comment = Action that selects every bookmark and track in a bookmark list.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Select All
 af = Kies alles
 ar = تحديد الكل
@@ -35988,7 +35988,7 @@ zh-Hant = 全選
 
 [deselect_all]
 comment = Action that clears the multi-selection in a bookmark list.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Deselect All
 af = Ontkies alles
 ar = إلغاء تحديد الكل
@@ -36044,7 +36044,7 @@ zh-Hans = 取消全选
 zh-Hant = 取消全選
 
 [select_list]
-tags = android-app
+tags = android-app,qt
 en = Select list
 af = Kies lys
 ar = اختر القائمة
@@ -36393,7 +36393,7 @@ zh-Hans = 更新该地区以查看等高线
 zh-Hant = 更新該地區以查看等高線
 
 [elevation_profile_ascent]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Ascent
 af = Styging
 ar = تصاعدي
@@ -36449,7 +36449,7 @@ zh-Hans = 上坡
 zh-Hant = 上坡
 
 [elevation_profile_descent]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Descent
 af = Daling
 ar = تنازلي
@@ -36505,7 +36505,7 @@ zh-Hans = 下坡
 zh-Hant = 下坡
 
 [elevation_profile_min_elevation]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Min. elevation
 af = Min. hoogte
 ar = أقل ارتفاع
@@ -36563,7 +36563,7 @@ zh-Hans = 最低高度
 zh-Hant = 最低高度
 
 [elevation_profile_max_elevation]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Max. elevation
 af = Maks. hoogte
 ar = أعلى ارتفاع
@@ -36680,7 +36680,7 @@ zh-Hans = 开始移动以查看海拔剖面
 zh-Hant = 開始移動以查看海拔剖面
 
 [elevation_profile_difficulty]
-tags = android-app
+tags = android-app,qt
 en = Difficulty
 af = Moeilikheid
 ar = درجة الصعوبة
@@ -37699,7 +37699,7 @@ zh-Hant = https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap
 
 [comma_separated_pair]
 comment = A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks
-tags = android-app
+tags = android-app,qt
 en = %1$@, %2$@
 af = %1$@, %2$@
 ar = %1$@, %2$@
@@ -39031,7 +39031,7 @@ zh-Hant = 音量
 
 [bookmarks_export]
 comment = Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Export all Bookmarks and Tracks
 af = Voer alle boekmerke en snitte uit
 ar = تصدير كافة الإشارات المرجعية والمسارات
@@ -39913,7 +39913,7 @@ zh-Hant = 為避免螢幕關閉時軌跡記錄中斷，請將 Organic Maps 排�
 
 [start_track_recording]
 comment = Prompt to start recording a track.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Record Track
 af = Registreer roete
 ar = تسجيل المسار
@@ -39971,7 +39971,7 @@ zh-Hant = 錄製軌跡
 
 [stop_track_recording]
 comment = Prompt for stopping a track recording.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Stop Track Recording
 af = Stop roete-opname
 ar = إيقاف تسجيل المسار
@@ -40030,7 +40030,7 @@ zh-Hant = 停止軌跡記錄
 
 [track_recording_title]
 comment = Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.
-tags = android-app
+tags = android-app,qt
 en = Track Recording
 af = Spooropname
 ar = تسجيل المسار
@@ -40088,7 +40088,7 @@ zh-Hant = 軌跡記錄
 
 [track_recording_toast_nothing_to_save]
 comment = Message for the toast when saving the track recording is finished but nothing to save.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Track is empty - nothing to save
 af = Roete is leeg - niks om te red nie
 ar = المسار فارغ - لا يوجد شيء للحفظ
@@ -40261,7 +40261,7 @@ zh-Hans = 选择颜色
 zh-Hant = 選擇顏色
 
 [edit_track]
-tags = android-app
+tags = android-app,qt
 en = Edit Track
 af = Wysig Roete
 ar = تعديل المسار
@@ -41259,7 +41259,7 @@ zh-Hant = 您確定要刪除該軌跡嗎？
 
 [placepage_track_name_hint]
 comment = Placeholder for track name input on track edit screen
-tags = apple-maps
+tags = apple-maps,qt
 en = Track Name
 af = Trajeknaam
 ar = اسم المسار
@@ -41317,7 +41317,7 @@ zh-Hant = 軌跡名稱
 
 [move]
 comment = move track or bookmark from the list button text
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Move
 af = Skuif
 ar = نقل
@@ -41432,7 +41432,7 @@ zh-Hant = 軌跡
 
 [change_color]
 comment = Text for the editing the Track's color button.
-tags = apple-maps,android-app
+tags = android-app,apple-maps,qt
 en = Change Color
 af = Verander kleur
 ar = غير اللون
@@ -41489,7 +41489,7 @@ zh-Hant = 更改顏色
 
 [hide_track]
 comment = Text for the hiding track.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Hide track
 af = Versteek roete
 ar = إخفاء المسار
@@ -41537,7 +41537,7 @@ zh-Hant = 隱藏軌跡
 
 [show_track]
 comment = Text for the showing track.
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Show track
 af = Wys roete
 ar = عرض المسار
@@ -41986,7 +41986,7 @@ zh-Hant = 啟用
 
 [backup]
 comment = Title for the "Enable iCloud Syncronization" alert's "Backup" action button.
-tags = apple-maps
+tags = apple-maps,qt
 en = Backup
 af = Ondersteuning
 ar = دعم
@@ -42274,7 +42274,7 @@ zh-Hant = 錯誤：iCloud 不可用
 
 [bookmarks_recently_deleted]
 comment = Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen.
-tags = apple-maps
+tags = apple-maps,qt
 en = Recently Deleted Lists
 af = Onlangs geskrap lyste
 ar = القوائم المحذوفة مؤخراً
@@ -42390,7 +42390,7 @@ zh-Hant = 清除
 
 [delete_all]
 comment = Title for the "Delete All" button on the Recently Deleted Lists screen.
-tags = apple-maps
+tags = apple-maps,qt
 en = Delete All
 af = Vee alles uit
 ar = حذف الكل
@@ -42448,7 +42448,7 @@ zh-Hant = 刪除所有
 
 [recover]
 comment = Title for the "Recover" button on the Recently Deleted Lists screen.
-tags = apple-maps
+tags = apple-maps,qt
 en = Recover
 af = Herstel
 ar = استرداد
@@ -42504,7 +42504,7 @@ zh-Hant = 恢復
 
 [recover_all]
 comment = Title for the "Recover All" button on the Recently Deleted Lists screen.
-tags = apple-maps
+tags = apple-maps,qt
 en = Recover All
 af = Herstel Alles
 ar = استرداد الكل
@@ -45892,7 +45892,7 @@ zh-Hant = 移動並縮放地圖以定位十字
 
 [track_recording_stop_and_save]
 comment = Track recording notification button: stops the recording and saves the recorded track.
-tags = android-app
+tags = android-app,qt
 en = Stop and Save
 af = Stop en stoor
 ar = إيقاف وحفظ
@@ -46602,6 +46602,94 @@ ru = Копировать %@
 sv = Kopiera %@
 uk = Копіювати %@
 
+[backup_description]
+comment = Sailfish OS: explanation on the bookmarks backup settings page
+tags = qt
+en = Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.
+de = Lesezeichen und Tracks werden als KMZ-Dateien in einem Ordner gespeichert. Importiere eine Datei auf der Lesezeichenseite, um sie wiederherzustellen.
+es = Los marcadores y los trayectos se guardan como archivos KMZ en una carpeta. Importe un archivo en la página de marcadores para restaurarlo.
+fr = Les signets et les parcours sont enregistrés dans des fichiers KMZ dans un dossier. Importez un fichier depuis la page des signets pour le restaurer.
+ru = Метки и треки сохраняются в файлы KMZ в папке. Чтобы восстановить их, импортируйте файл на странице меток.
+sv = Bokmärken och spår sparas som KMZ-filer i en mapp. Importera en fil på bokmärkessidan för att återställa den.
+uk = Мітки та треки зберігаються у файли KMZ у теці. Щоб відновити їх, імпортуйте файл на сторінці міток.
+
+[backup_automatic]
+comment = Sailfish OS: setting for how often bookmarks are backed up automatically
+tags = qt
+en = Automatic backup
+de = Automatische Sicherung
+es = Copia de seguridad automática
+fr = Sauvegarde automatique
+ru = Автоматическое резервное копирование
+sv = Automatisk säkerhetskopiering
+uk = Автоматичне резервне копіювання
+
+[backup_weekly]
+comment = Sailfish OS: automatic backup option
+tags = qt
+en = Weekly
+de = Wöchentlich
+es = Semanal
+fr = Hebdomadaire
+ru = Еженедельно
+sv = Varje vecka
+uk = Щотижня
+
+[backup_folder]
+comment = Sailfish OS: setting for the folder bookmark backups are saved to
+tags = qt
+en = Backup folder
+de = Sicherungsordner
+es = Carpeta de copias de seguridad
+fr = Dossier de sauvegarde
+ru = Папка для резервных копий
+sv = Mapp för säkerhetskopior
+uk = Тека для резервних копій
+
+[backup_now]
+comment = Sailfish OS: button that backs up all bookmarks and tracks
+tags = qt
+en = Back up now
+de = Jetzt sichern
+es = Hacer copia ahora
+fr = Sauvegarder maintenant
+ru = Создать копию сейчас
+sv = Säkerhetskopiera nu
+uk = Створити копію зараз
+
+[backup_last]
+comment = Sailfish OS: date of the last bookmarks backup
+tags = qt
+en = Last backup: %@
+de = Letzte Sicherung: %@
+es = Última copia: %@
+fr = Dernière sauvegarde : %@
+ru = Последняя копия: %@
+sv = Senaste säkerhetskopia: %@
+uk = Остання копія: %@
+
+[backup_none]
+comment = Sailfish OS: shown when bookmarks were never backed up
+tags = qt
+en = No backups yet
+de = Noch keine Sicherungen
+es = Aún no hay copias
+fr = Aucune sauvegarde pour le moment
+ru = Резервных копий ещё нет
+sv = Inga säkerhetskopior än
+uk = Резервних копій ще немає
+
+[backup_failed]
+comment = Sailfish OS: error when bookmarks could not be backed up
+tags = qt
+en = Backup failed
+de = Sicherung fehlgeschlagen
+es = No se pudo hacer la copia
+fr = Échec de la sauvegarde
+ru = Не удалось создать копию
+sv = Säkerhetskopieringen misslyckades
+uk = Не вдалося створити копію
+
 [mobile_data_downloads_off]
 comment = Sailfish OS: a map download was not started because mobile internet is off in the settings
 tags = qt
@@ -46623,3 +46711,227 @@ fr = Les cartes seront déplacées au prochain lancement d’Organic Maps. Cela 
 ru = Карты будут перемещены при следующем запуске Organic Maps. Это может занять несколько минут.
 sv = Kartorna flyttas nästa gång Organic Maps startar. Det kan ta flera minuter.
 uk = Мапи буде переміщено під час наступного запуску Organic Maps. Це може тривати кілька хвилин.
+
+[elevation_profile_time]
+comment = Sailfish OS: track statistics on the place page, the duration of the track
+tags = qt
+en = Time
+af = Tyd
+ar = المدة
+ast = Tiempu
+az = Müddət
+be = Час
+bg = Време
+ca = Temps
+cs = Čas
+da = Tid
+de = Dauer
+el = Διάρκεια
+es = Tiempo
+et = Aeg
+eu = Denbora
+fa = زمان
+fi = Aika
+fr = Temps
+gl = Tempo
+he = זמן
+hi = समय
+hr = Vrijeme
+hu = Idő
+hy = Ժամ.
+id = Waktu
+is = Tími
+it = Tempo
+ja = 時間
+ko = 소요 시간
+lo = ເວລາ
+lt = Laikas
+lv = Laiks
+mr = वेळ
+mt = Ħin
+nb = Tid
+nl = Tijd
+pl = Czas
+pt = Tempo
+ro = Timp
+ru = В пути
+sk = Čas
+sl = Čas
+sq = Koha
+sr = Време
+sv = Tid
+sw = Muda
+th = เวลา
+tr = Süre
+uk = Час
+vi = Giờ
+zh-Hans = 时间
+zh-Hant = 時間
+
+[elevation_profile_diff_level_easy]
+comment = Sailfish OS: track statistics on the place page, an easy difficulty
+tags = qt
+en = Easy
+af = Maklik
+ar = سهل
+ast = Fácil
+az = Asan
+be = Лёгкі
+bg = Лесно
+ca = Fàcil
+cs = Snadný
+da = Let
+de = Leicht
+el = Εύκολο
+es = Fácil
+et = Lihtne
+eu = Erraza
+fa = آسان
+fi = Helppo
+fr = Facile
+gl = Fácil
+he = קל
+hr = Jednostavno
+hi = आसान
+hu = Könnyű
+hy = Հեշտ
+id = Mudah
+is = Auðvelt
+it = Facile
+ja = 簡単
+ko = 쉬움
+lo = ງ່າຍ
+lt = Lengvas
+lv = Viegls
+mr = सोपे
+mt = Faċli
+nb = Lett
+nl = Gemakkelijk
+pl = Łatwy
+pt = Fácil
+ro = Ușor
+ru = Лёгкий
+sk = Jednoduchá
+sl = Lahka
+sq = E lehtë
+sr = Лако
+sv = Lätt
+sw = Rahisi
+th = ง่าย
+tr = Kolay
+uk = Простий
+vi = Dễ
+zh-Hans = 容易
+zh-Hant = 容易
+
+[elevation_profile_diff_level_moderate]
+comment = Sailfish OS: track statistics on the place page, a moderate difficulty
+tags = qt
+en = Moderate
+af = Matig
+ar = معتدل
+ast = Moderáu
+az = Orta
+be = Сярэдні
+bg = Умерен
+ca = Moderat
+cs = Mírný
+da = Middel
+de = Mittel
+el = Μέτριο
+es = Moderado
+et = Keskmine
+eu = Moderatua
+fa = متوسط
+fi = Kohtuullinen
+fr = Moyen
+gl = Moderado
+he = מתון
+hr = Umjereno
+hi = मध्यम
+hu = Mérsékelt
+hy = Միջին
+id = Sedang
+is = Miðlungs
+it = Moderato
+ja = 普通
+ko = 보통
+lo = ປານກາງ
+lt = Vidutinis
+lv = Vidējs
+mr = मध्यम
+mt = Moderata
+nb = Middels
+nl = Gemiddeld
+pl = Umiarkowany
+pt = Moderado
+ro = Mediu
+ru = Умеренный
+sk = Mierna
+sl = Zmerna
+sq = Mesatare
+sr = Умерено
+sv = Måttlig
+sw = Wastani
+th = ปานกลาง
+tr = Orta
+uk = Помірний
+vi = Trung bình
+zh-Hans = 中等
+zh-Hant = 中等
+
+[elevation_profile_diff_level_hard]
+comment = Sailfish OS: track statistics on the place page, a hard difficulty
+tags = qt
+en = Hard
+af = Moeilik
+ar = صعب
+ast = Difícil
+az = Çətin
+be = Цяжкі
+bg = Трудно
+ca = Difícil
+cs = Těžký
+da = Svær
+de = Schwer
+el = Δύσκολο
+es = Difícil
+et = Raske
+eu = Zaila
+fa = دشوار
+fi = Vaikea
+fr = Difficile
+gl = Difícil
+he = קשה
+hr = Teško
+hi = कठिन
+hu = Nehéz
+hy = Բարդ
+id = Sulit
+is = Erfitt
+it = Difficile
+ja = 困難
+ko = 어려움
+lo = ຍາກ
+lt = Sunkus
+lv = Sarežģīts
+mr = कठिण
+mt = Ċast
+nb = Vanskelig
+nl = Moeilijk
+pl = Trudny
+pt = Difícil
+ro = Dificil
+ru = Сложный
+sk = Náročná
+sl = Težka
+sq = E vështirë
+sr = Тешко
+sv = Svår
+sw = Ngumu
+th = ยาก
+tr = Zor
+uk = Складний
+vi = Khó
+zh-Hans = 困难
+zh-Hant = 困難
