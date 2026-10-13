@@ -45,12 +45,9 @@ final class TransportTransitStepsCollectionView: UICollectionView {
     switch step.type {
     case .intermediatePoint: return TransportTransitIntermediatePoint.self
     case .pedestrian: return TransportTransitPedestrian.self
-    case .train: fallthrough
-    case .subway: fallthrough
-    case .lightRail: fallthrough
-    case .monorail: fallthrough
-    case .tram: fallthrough
-    case .bus: return TransportTransitTrain.self
+    case .train, .subway, .lightRail, .monorail, .tram, .bus,
+         .ferry, .cableTram, .aerialLift, .funicular, .airService, .waterService:
+      return TransportTransitTrain.self
     case .ruler: return TransportRuler.self
     }
   }
