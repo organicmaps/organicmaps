@@ -1,0 +1,499 @@
+{
+  "width": 900,
+  "height": 700,
+  "dpi_scale": 2,
+  "map_version": "260714",
+  "locations": {
+    "tram": [
+      48.574216,
+      7.8017
+    ],
+    "monorail": [
+      51.2531,
+      7.1367
+    ],
+    "funicular": [
+      49.40695,
+      8.71501
+    ],
+    "narrow-gauge": [
+      46.68078,
+      9.67597
+    ]
+  },
+  "groups": [
+    {
+      "role": "master",
+      "group": "default-light",
+      "ref": "de19d9eba6029815a1774b26c42ee84be99ec5a1",
+      "rules_sha256": "5f4bf613b6f003682ea637d4e8aa12dc9af2eae51e4c886a8702eb3307e69650",
+      "points": [
+        [
+          "funicular",
+          18
+        ],
+        [
+          "funicular",
+          19
+        ],
+        [
+          "monorail",
+          16
+        ],
+        [
+          "monorail",
+          17
+        ],
+        [
+          "narrow-gauge",
+          18
+        ],
+        [
+          "tram",
+          17
+        ]
+      ]
+    },
+    {
+      "role": "pr",
+      "group": "default-light",
+      "ref": "decb26e6b6f8981461e49f02e5376691046ece74",
+      "rules_sha256": "fae0eb7a26ce289ef9c15b48c56774ee1f9c1b60bc8afb1b2593bfcd7a71045c",
+      "points": [
+        [
+          "funicular",
+          18
+        ],
+        [
+          "funicular",
+          19
+        ],
+        [
+          "monorail",
+          16
+        ],
+        [
+          "monorail",
+          17
+        ],
+        [
+          "narrow-gauge",
+          18
+        ],
+        [
+          "tram",
+          17
+        ]
+      ]
+    },
+    {
+      "role": "master",
+      "group": "default-dark",
+      "ref": "de19d9eba6029815a1774b26c42ee84be99ec5a1",
+      "rules_sha256": "5f4bf613b6f003682ea637d4e8aa12dc9af2eae51e4c886a8702eb3307e69650",
+      "points": [
+        [
+          "funicular",
+          18
+        ],
+        [
+          "funicular",
+          19
+        ],
+        [
+          "monorail",
+          16
+        ],
+        [
+          "monorail",
+          17
+        ],
+        [
+          "narrow-gauge",
+          18
+        ],
+        [
+          "tram",
+          17
+        ]
+      ]
+    },
+    {
+      "role": "pr",
+      "group": "default-dark",
+      "ref": "decb26e6b6f8981461e49f02e5376691046ece74",
+      "rules_sha256": "fae0eb7a26ce289ef9c15b48c56774ee1f9c1b60bc8afb1b2593bfcd7a71045c",
+      "points": [
+        [
+          "funicular",
+          18
+        ],
+        [
+          "funicular",
+          19
+        ],
+        [
+          "monorail",
+          16
+        ],
+        [
+          "monorail",
+          17
+        ],
+        [
+          "narrow-gauge",
+          18
+        ],
+        [
+          "tram",
+          17
+        ]
+      ]
+    },
+    {
+      "role": "master",
+      "group": "outdoors-light",
+      "ref": "de19d9eba6029815a1774b26c42ee84be99ec5a1",
+      "rules_sha256": "793a949661f107b00b7f1b9c5a286ac4a76e1d476a8350a4df9fa8b5b27dcb52",
+      "points": [
+        [
+          "narrow-gauge",
+          18
+        ]
+      ]
+    },
+    {
+      "role": "pr",
+      "group": "outdoors-light",
+      "ref": "decb26e6b6f8981461e49f02e5376691046ece74",
+      "rules_sha256": "bb1eab1955aa89e629eb3f04dc9bf2b77adb13faeeda9b70d82a8b4d6ae239ad",
+      "points": [
+        [
+          "narrow-gauge",
+          18
+        ]
+      ]
+    },
+    {
+      "role": "master",
+      "group": "outdoors-dark",
+      "ref": "de19d9eba6029815a1774b26c42ee84be99ec5a1",
+      "rules_sha256": "793a949661f107b00b7f1b9c5a286ac4a76e1d476a8350a4df9fa8b5b27dcb52",
+      "points": [
+        [
+          "narrow-gauge",
+          18
+        ]
+      ]
+    },
+    {
+      "role": "pr",
+      "group": "outdoors-dark",
+      "ref": "decb26e6b6f8981461e49f02e5376691046ece74",
+      "rules_sha256": "bb1eab1955aa89e629eb3f04dc9bf2b77adb13faeeda9b70d82a8b4d6ae239ad",
+      "points": [
+        [
+          "narrow-gauge",
+          18
+        ]
+      ]
+    },
+    {
+      "role": "master",
+      "group": "vehicle-light",
+      "ref": "de19d9eba6029815a1774b26c42ee84be99ec5a1",
+      "rules_sha256": "f52a786b09408de5a0433e0b1e399ee91c9abbcd88536763ae9a8783a9d2d3ad",
+      "points": [
+        [
+          "monorail",
+          17
+        ],
+        [
+          "narrow-gauge",
+          18
+        ],
+        [
+          "tram",
+          19
+        ],
+        [
+          "tram",
+          20
+        ]
+      ]
+    },
+    {
+      "role": "pr",
+      "group": "vehicle-light",
+      "ref": "decb26e6b6f8981461e49f02e5376691046ece74",
+      "rules_sha256": "2adf50bb435a974ff242e4afe2a861a727b3f7d4a36df280a80a5a5f6fd7e90d",
+      "points": [
+        [
+          "monorail",
+          17
+        ],
+        [
+          "narrow-gauge",
+          18
+        ],
+        [
+          "tram",
+          19
+        ],
+        [
+          "tram",
+          20
+        ]
+      ]
+    },
+    {
+      "role": "master",
+      "group": "vehicle-dark",
+      "ref": "de19d9eba6029815a1774b26c42ee84be99ec5a1",
+      "rules_sha256": "f52a786b09408de5a0433e0b1e399ee91c9abbcd88536763ae9a8783a9d2d3ad",
+      "points": [
+        [
+          "monorail",
+          17
+        ],
+        [
+          "narrow-gauge",
+          18
+        ],
+        [
+          "tram",
+          19
+        ],
+        [
+          "tram",
+          20
+        ]
+      ]
+    },
+    {
+      "role": "pr",
+      "group": "vehicle-dark",
+      "ref": "decb26e6b6f8981461e49f02e5376691046ece74",
+      "rules_sha256": "2adf50bb435a974ff242e4afe2a861a727b3f7d4a36df280a80a5a5f6fd7e90d",
+      "points": [
+        [
+          "monorail",
+          17
+        ],
+        [
+          "narrow-gauge",
+          18
+        ],
+        [
+          "tram",
+          19
+        ],
+        [
+          "tram",
+          20
+        ]
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "image": "funicular-default-dark-z18.png",
+      "dimensions": "1800x752",
+      "master_sha256": "e9c1ea1831d68125e098ca44d28b5b661d7f5e93c4cc13d741984ce5d1df64df",
+      "pr_sha256": "060fce94b52de3f5f39b8830b798c1005d53b0f71e202571bed4219f761fa1c4",
+      "comparison_sha256": "13b211bd8c01a86918289b0a18324b83d70789e557582c109f949078b5f21831",
+      "difference_metric": "35.4127 (5.62107e-05)",
+      "bytes": 148990
+    },
+    {
+      "image": "funicular-default-dark-z19.png",
+      "dimensions": "1800x752",
+      "master_sha256": "e85f4385d3af4e61247154277232d0a995371eeb70b1c0844397001f88006854",
+      "pr_sha256": "e68df721d51208f81663ec42a490bd30e3ee8b48a36b99dccc7a85c88cd37679",
+      "comparison_sha256": "6c2be8be7ec8be5b6f304b7f928d30c6ef8a6226be840efe1c84b254370ca9bf",
+      "difference_metric": "82.0225 (0.000130195)",
+      "bytes": 135391
+    },
+    {
+      "image": "funicular-default-light-z18.png",
+      "dimensions": "1800x752",
+      "master_sha256": "31313a4c6593716ba202187a5d8e0b6ce1f9f7e185d6808e0b47e89e6c0f08c2",
+      "pr_sha256": "f0b1e908195639c96ddf4b998601f8197861e2b4a64bc41a002811d4c49525d2",
+      "comparison_sha256": "1c6915512394ab52761dc29cdd76d38684c2cbef337de5093ec4e938d5c895db",
+      "difference_metric": "86.5725 (0.000137417)",
+      "bytes": 163332
+    },
+    {
+      "image": "funicular-default-light-z19.png",
+      "dimensions": "1800x752",
+      "master_sha256": "c5b7239f032d018d8f10a460cf2f69fe5d661269c6407fd3ad29262d4f3b070d",
+      "pr_sha256": "52b65a5aef32c3d6e2bf05ffbf9d767dd5b5cecccdadf520c60a9d033a9caa31",
+      "comparison_sha256": "917982faa0855f8d7aaad4f9523651cfbb28009994bbdcb8341749cd993f30c5",
+      "difference_metric": "203.977 (0.000323774)",
+      "bytes": 145583
+    },
+    {
+      "image": "monorail-default-dark-z16.png",
+      "dimensions": "1800x752",
+      "master_sha256": "04a6bf8bf23d9b8fc49424205da3a1b753ee49dcbfc001f5b301b7f727cf716d",
+      "pr_sha256": "fb681a820036fcf2650ea055d01c3a58be2e110834f5dbd664df3957dd189791",
+      "comparison_sha256": "169279927a9c1e287ea9c77354f19370283d58ecb98ce47f035eb869dd62b8a4",
+      "difference_metric": "211.823 (0.000336226)",
+      "bytes": 446542
+    },
+    {
+      "image": "monorail-default-dark-z17.png",
+      "dimensions": "1800x752",
+      "master_sha256": "dccf4ec30a769c91594754b51a55dda2dc73e9a7c48d92d579856d590f7d7b89",
+      "pr_sha256": "6d5233e561464c6e163cd4a8764d066dd8e7c02b340d09355f7f66756a5c169c",
+      "comparison_sha256": "0b37691a6d5cfb43f0e24648dbe7ac404c110753e317015f384f2ec93dbda42c",
+      "difference_metric": "447.677 (0.000710599)",
+      "bytes": 324465
+    },
+    {
+      "image": "monorail-default-light-z16.png",
+      "dimensions": "1800x752",
+      "master_sha256": "cc1fae7eb06fcab0d6f072a723f493ec83bd4d0beb9b8854815e402a272468e4",
+      "pr_sha256": "0fa2f7198f1f51e8a73cdcb1d46890955d504f343097bc11f3d1b274cd83bb61",
+      "comparison_sha256": "0dd4d9e7bedb20fa1b16d0c419923fc8524523d6189a0397f61978f1fca00b3d",
+      "difference_metric": "405.28 (0.000643302)",
+      "bytes": 449457
+    },
+    {
+      "image": "monorail-default-light-z17.png",
+      "dimensions": "1800x752",
+      "master_sha256": "38fb59004ebf6561ac78c7486136d5b4c23489f88169eed0607a0b2230a12590",
+      "pr_sha256": "15866bf3d4f274ff0063021288e463166594583baf4c834a99246e077e127ffd",
+      "comparison_sha256": "78df78bb0199267367e1ca20ed2579db045852d27b2dd17aab11f36545e0ff03",
+      "difference_metric": "715.249 (0.00113532)",
+      "bytes": 336632
+    },
+    {
+      "image": "monorail-vehicle-dark-z17.png",
+      "dimensions": "1800x752",
+      "master_sha256": "721add2669b991d2c3203342094c5234c0699487e868aefc127a435bf39acf18",
+      "pr_sha256": "a19cabe3cb3f7e5dd0e69af5eff5f2e39baac4485574aeb2b4d313a4100db12c",
+      "comparison_sha256": "cd94a68012adf0ff79cb4177a176cad6106324678e4197909ed2eb4f293806d4",
+      "difference_metric": "348.05 (0.00055246)",
+      "bytes": 266015
+    },
+    {
+      "image": "monorail-vehicle-light-z17.png",
+      "dimensions": "1800x752",
+      "master_sha256": "2d522efb892ed798a278579df1b0ae7982567800a2b8ec6b4238aa032a47c2ea",
+      "pr_sha256": "8475ac26941b13c5f5b38d41cd97da932e742311c34fac6a29ee1d8c2aa588e8",
+      "comparison_sha256": "ce64c6db5f145f8da23738340c00e58fc5eeee473d7190f67d4826d572d6130e",
+      "difference_metric": "916.411 (0.00145462)",
+      "bytes": 272371
+    },
+    {
+      "image": "narrow-gauge-default-dark-z18.png",
+      "dimensions": "1800x752",
+      "master_sha256": "76daaaf64bf930a992e44b027ed18c249c777b7be576032b92ef92965fa18984",
+      "pr_sha256": "ce8a1f8e0a214cce3c7ebea0bbcdfa5b6783d46a055615d3051d0bd9fba892b9",
+      "comparison_sha256": "b896ac8cf2f90bfa7140570d13fca45109e3a1dd3e20f48c1fddb626867c1919",
+      "difference_metric": "156.203 (0.000247941)",
+      "bytes": 122680
+    },
+    {
+      "image": "narrow-gauge-default-light-z18.png",
+      "dimensions": "1800x752",
+      "master_sha256": "1bd2c344793399bb4f76e5f14d874d1e226197314523eb78fbad82e992bd4502",
+      "pr_sha256": "367f22099eaba65e232adf5226a526509b366fe9b2f3ac826f5a9c0dfee6dadc",
+      "comparison_sha256": "04a1ca905fb05a51aa26e90c0f65eb3b4e45bf9409833ca3ccdbb5457633be35",
+      "difference_metric": "531.12 (0.000843047)",
+      "bytes": 151696
+    },
+    {
+      "image": "narrow-gauge-outdoors-dark-z18.png",
+      "dimensions": "1800x752",
+      "master_sha256": "0ec48ccf5614b61a03e2e1a6c6583e29ce007c4dc9e0d5eebb251f19f049ad24",
+      "pr_sha256": "96c96c2e7204138c17da929a9c4f44c47f297aabd6851e4d2897357f64fbb0b2",
+      "comparison_sha256": "6dfc9a8f8c0ae3b76679471013d5b85aa880e3b555482991c2ce2874f1c45e74",
+      "difference_metric": "164.754 (0.000261514)",
+      "bytes": 124931
+    },
+    {
+      "image": "narrow-gauge-outdoors-light-z18.png",
+      "dimensions": "1800x752",
+      "master_sha256": "38d917469c8fe8049db81a27007dad94c5f176c4e71d43fa768c3f54580ab6fe",
+      "pr_sha256": "2a3ac2854dc184e53e083e40ffdefaf6717928be3b5be22ccdddd6bd4dd48863",
+      "comparison_sha256": "f0a0d1c2c85d769930e9b4e678442f6cccb5ef3611640c12928473eb049697cd",
+      "difference_metric": "548.13 (0.000870048)",
+      "bytes": 153416
+    },
+    {
+      "image": "narrow-gauge-vehicle-dark-z18.png",
+      "dimensions": "1800x752",
+      "master_sha256": "65689c2a133c48f49e2c51f480ec25a9d8327803c5840fb6fc38d06349dd8bda",
+      "pr_sha256": "456d5be34700c26e0d7693a8eac27a3ec28d52222665ce1d0037024fbe7efecb",
+      "comparison_sha256": "d5ebd8568bc4ffd5447f04651665f33d7f3e8d108af4b09e566723629eb34380",
+      "difference_metric": "161.272 (0.000255987)",
+      "bytes": 164761
+    },
+    {
+      "image": "narrow-gauge-vehicle-light-z18.png",
+      "dimensions": "1800x752",
+      "master_sha256": "b24c0e7536d2e41e89c517ed65928dccc40d442eb4f376e2e0c202ddba2cd59e",
+      "pr_sha256": "9abec7f0bdc82c34cdb2377f862bf290ef08187a7c651181726c1076f3a59bcf",
+      "comparison_sha256": "12a28f75bafe03486805e3b27ce8cc2079129b9e1190b4f45d197996c21ba0c0",
+      "difference_metric": "481.686 (0.000764581)",
+      "bytes": 188813
+    },
+    {
+      "image": "tram-default-dark-z17.png",
+      "dimensions": "1800x752",
+      "master_sha256": "6bbc693e5efccb2d05c5295d0bfa872ec93867f3762612a0ec276ba182399da3",
+      "pr_sha256": "4ec17d23a7faecf47d1e8d16a34f07128286d6291aa33f2b9d05cc0f9b0f1cce",
+      "comparison_sha256": "3e51c8bfcd85d667e007bd9f36caf43e97fb7e0d4c8173a8534a6e39000a404c",
+      "difference_metric": "341.145 (0.0005415)",
+      "bytes": 158186
+    },
+    {
+      "image": "tram-default-light-z17.png",
+      "dimensions": "1800x752",
+      "master_sha256": "ff2e01ffc3f762e3435a182d06d0cd991f47296b9d39d4f86ff9546b3cec8dc3",
+      "pr_sha256": "a5025cb565b5f3d4411c8cee441dc37b564fc4577a1ec4a06f4e094c466d4b78",
+      "comparison_sha256": "df310300f32e3f8e373ccdc8b643f55da570c3f87f7231d6fa07fd4e4947704a",
+      "difference_metric": "835.244 (0.00132578)",
+      "bytes": 162216
+    },
+    {
+      "image": "tram-vehicle-dark-z19.png",
+      "dimensions": "1800x752",
+      "master_sha256": "dc18fb0e0702e816900ecbfd1a02eed9ccc7ae867282e276f6b98b81d052d236",
+      "pr_sha256": "26d1a0df0b05b8d0504df8eb4816db3a840e4a5d5ea1824b91ca85029d7a3686",
+      "comparison_sha256": "987a489ba52227598b5b3ddcb912f9d91c7fe45ed13d1ffc05397ce7067362ca",
+      "difference_metric": "967.837 (0.00153625)",
+      "bytes": 71118
+    },
+    {
+      "image": "tram-vehicle-dark-z20.png",
+      "dimensions": "1800x752",
+      "master_sha256": "091b7daf7cb1f2f78c1ed1d1f1c0d4da6885d5c0fe6d32122c6e8bc0743d8ec4",
+      "pr_sha256": "efb3a5253e12c0c20dc2d095c9535f8249b21ab3b9dc55fa510715fbceffb511",
+      "comparison_sha256": "d33cfce4866b469e3aa3764e7a25fd925b63fc07dab144fd7436f9c9c5b43e3b",
+      "difference_metric": "960.191 (0.00152411)",
+      "bytes": 74333
+    },
+    {
+      "image": "tram-vehicle-light-z19.png",
+      "dimensions": "1800x752",
+      "master_sha256": "6262dcdd46208337c54a941ac14347c6e99cf5b9c91696b0bb5f71b364d65132",
+      "pr_sha256": "ef655dec2a611bd01deb9d607f1ff474456a284ae9402a7e303213af3d17eda1",
+      "comparison_sha256": "e15f446b15090dcbf92da847de51fddaadd1cbcba2235b7b5f54e3cd7de5633c",
+      "difference_metric": "2814.02 (0.00446671)",
+      "bytes": 76838
+    },
+    {
+      "image": "tram-vehicle-light-z20.png",
+      "dimensions": "1800x752",
+      "master_sha256": "552989b102be962869f2eedcf665b228311da16cb47a7f9a76db42600e3dbc2b",
+      "pr_sha256": "098df8e6ed3ff797b008d01206d7407930f353a0a7cbf22453a371818e6cabc9",
+      "comparison_sha256": "61bcc64d89d4e8decb424b1a6c702d3682f27f3aa8bc58290a0ecb234f14f321",
+      "difference_metric": "2795.88 (0.0044379)",
+      "bytes": 80487
+    }
+  ],
+  "renderer": "Organic Maps Qt desktop, OpenGL ES 3, macOS arm64"
+}
