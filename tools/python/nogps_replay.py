@@ -443,6 +443,7 @@ EVENTS = [
     ('route asked for', r'Routing session state: \w+ -> RouteBuilding'),
     ('route rebuilt: the car left it', r'Routing session state: RouteNeedRebuild -> RouteRebuilding'),
     ('route rebuilt: the mark put off it', r'^Manual position is off the route'),
+    ('route left: the car on a road beside it', r'beside the route, the route is left'),
     ('alternative route followed', r'is on the alternative route'),
 ]
 
