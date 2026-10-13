@@ -949,7 +949,7 @@
 
     <!-- SECTION: NoGPS Maps -->
     <string name="nogps_manual_position">Вказати своє місцезнаходження вручну</string>
-    <string name="nogps_manual_mode_on">GPS вимкнено. Торкніться карти там, де ви знаходитеся.</string>
+    <string name="nogps_manual_mode_on">GPS вимкнено. Двічі торкніться мапи там, де ви знаходитеся.</string>
     <string name="nogps_manual_mode_off">GPS знову увімкнено</string>
     <string name="nogps_gps_spoofed">GPS підмінено! Використовуємо вежі та Wi-Fi. Також можна вказати позицію вручну.</string>
     <string name="nogps_gps_restored">GPS знову в нормі</string>

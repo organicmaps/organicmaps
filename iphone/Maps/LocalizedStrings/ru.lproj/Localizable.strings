@@ -1202,7 +1202,7 @@
 /********** NoGPS Maps **********/
 
 "nogps_manual_position" = "Указать своё местоположение вручную";
-"nogps_manual_mode_on" = "GPS отключён. Нажмите на карту там, где вы находитесь.";
+"nogps_manual_mode_on" = "GPS отключён. Дважды нажмите на карту там, где вы находитесь.";
 "nogps_manual_mode_off" = "GPS снова включён";
 "nogps_gps_spoofed" = "GPS подменён! Используем вышки и Wi-Fi. Можно также указать позицию вручную.";
 "nogps_gps_restored" = "GPS снова в норме";
