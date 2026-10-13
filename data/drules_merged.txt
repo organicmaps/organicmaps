@@ -23,23 +23,9 @@ named-colors:
   BookmarkRed #00E51B23
   BookmarkTeal #0000A58C
   BookmarkYellow #00FFC800
-  DefaultTrackColor #001E96F0
   GuiText #244D4D4D
-  GuideCityMarkText #006639BF
-  GuideOutdoorMarkText #003C8C3C
-  HotelPriceText #00000000
-  LocalAdsPrimaryText #00000000
-  LocalAdsPrimaryTextOutline #00FFFFFF
-  LocalAdsSecondaryText #00000000
-  LocalAdsSecondaryTextOutline #00FFFFFF
   MyPositionAccuracy #EB000000
   PoiDeletedMask #B3FFFFFF
-  PoiHotelTextOutline #66FFFFFF
-  PoiVisitedMask #4DFFFFFF
-  RatingBad #00F06432
-  RatingGood #003C8C3C
-  RatingNone #00249CF2
-  RatingText #00FFFFFF
   RoadShieldBlackText #00000000
   RoadShieldBlueBackground #001A5EC1
   RoadShieldGreenBackground #00309302
@@ -74,9 +60,6 @@ named-colors:
   RouteTrafficG2 #00E82705
   RouteTrafficG3 #FFFFE500
   SearchmarkDefault #00249CF2
-  SearchmarkNotAvailable #00597380
-  SearchmarkPreparing #00597380
-  SearchmarkSelectedNotAvailable #00F06432
   Selection #5C1E96F0
   SpeedCameraMarkBg #00F51E30
   SpeedCameraMarkOutline #00FFFFFF
@@ -100,11 +83,9 @@ named-colors:
   TransitMarkPrimaryText #00000000
   TransitMarkPrimaryTextOutline #00FFFFFF
   TransitMarkSecondaryText #00000000
-  TransitMarkSecondaryTextOutline #00FFFFFF
   TransitStopInnerMarker #00FFFFFF
   TransitTransferInnerMarker #00FFFFFF
   TransitTransferOuterMarker #00000000
-  UGCRatingText #00000000
 type aerialway-cable_car
   z12
     line width=2.5 color=#4D444444 join=bevel cap=butt dash=[2.5,15] priority=380
