@@ -41,13 +41,13 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.Distance;
-import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
 import com.google.android.material.snackbar.Snackbar;
 import java.lang.ref.WeakReference;
-import java.time.LocalTime;
+import java.time.Instant;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @Keep
@@ -461,10 +461,11 @@ public class Utils
   }
 
   @NonNull
-  public static String formatArrivalTime(int seconds)
+  public static String formatArrivalTime(@NonNull Context context, int seconds)
   {
-    final LocalTime time = LocalTime.now().plusSeconds(seconds);
-    return StringUtils.formatUsingUsLocale("%d:%02d", time.getHour(), time.getMinute());
+    // Add elapsed time on the timeline so arrival clocks account for daylight-saving transitions.
+    final Date arrival = Date.from(Instant.now().plusSeconds(seconds));
+    return android.text.format.DateFormat.getTimeFormat(context).format(arrival);
   }
 
   @NonNull
