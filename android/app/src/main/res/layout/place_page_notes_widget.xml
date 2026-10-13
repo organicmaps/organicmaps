@@ -12,7 +12,7 @@
       android:id="@+id/tv__notes"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textAppearance="?android:attr/textAppearance"
+      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
       android:visibility="gone"
       tools:text="Long, long text Long, long text Long, long text Long, long text Long, long text "/>
 
