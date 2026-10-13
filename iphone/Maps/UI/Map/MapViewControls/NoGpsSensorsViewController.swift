@@ -185,6 +185,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
     case .boxSleeping: return "nogps_box_sleeping"
     case .obdSleeping: return "nogps_box_obd_sleeping"
     case .connected: return "nogps_elm_connected"
+    case .updating: return "nogps_box_updating"
     @unknown default: return "nogps_unknown"
     }
   }

@@ -145,6 +145,7 @@ std::optional<double> NonNegative(double value)
     _hasInertialPosition = status.m_hasInertialPosition;
     _paused = status.m_paused;
     _pausedByItself = status.m_pausedByItself;
+    _roadLost = status.m_roadLost;
   }
   return self;
 }

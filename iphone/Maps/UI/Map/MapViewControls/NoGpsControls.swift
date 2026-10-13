@@ -13,6 +13,9 @@ final class NoGpsControls: NSObject {
     static let statusMaxWidth = CGFloat(260)
     static let refreshInterval: TimeInterval = 1
     static let disabledAlpha = CGFloat(0.4)
+    static let blinkKey = "blink"
+    static let blinkDuration: CFTimeInterval = 0.4
+    static let blinkOpacity = Float(0.2)
     static let gpsColor = UIColor(red: 0x2E / 255, green: 0x9E / 255, blue: 0x48 / 255, alpha: 1)
     static let networkColor = UIColor(red: 0xEF / 255, green: 0x7D / 255, blue: 0x00 / 255, alpha: 1)
     static let manualColor = UIColor(red: 0x24 / 255, green: 0x9C / 255, blue: 0xF2 / 255, alpha: 1)
@@ -83,7 +86,7 @@ final class NoGpsControls: NSObject {
     statusButton.layer.shadowOpacity = 0.25
     statusButton.layer.shadowOffset = CGSize(width: 0, height: 1)
     statusButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 14, bottom: 3, right: 14)
-    statusButton.titleLabel?.numberOfLines = 2
+    statusButton.titleLabel?.numberOfLines = 3
     statusButton.titleLabel?.textAlignment = .center
     statusButton.titleLabel?.lineBreakMode = .byTruncatingTail
     statusButton.addTarget(self, action: #selector(showSensors), for: .touchUpInside)
@@ -144,18 +147,31 @@ final class NoGpsControls: NSObject {
 
   private func refresh() {
     let status = NoGps.status()
-    let (text, color) = sourceText(status)
-    // The position is not taken from GPS or towers now, but the user has to see whether they work: in the manual mode
-    // GPS is not used even when it is back.
+    var (text, color) = sourceText(status)
+    var details = [String]()
+    if status.roadLost {
+      // The mark stands and waits for the user: a toast about it is easy to miss while driving.
+      text = L("nogps_status_road_lost")
+      color = Constants.noneColor
+      details.append(L("nogps_status_road_lost_hint"))
+    } else if status.manualMode || status.source == .inertial {
+      // The position is not taken from GPS or towers now, but the user has to see whether they work: in the manual
+      // mode GPS is not used even when it is back.
+      details.append(otherSourcesText(status))
+    }
+    // The panel of a followed route tells whether the car speed comes, nothing does without a route.
+    if !MWMRouter.isOnRoute(), let link = linkText(status) {
+      details.append(link)
+    }
     let title = NSMutableAttributedString(string: text, attributes: [.font: UIFont.boldSystemFont(ofSize: 15),
                                                                      .foregroundColor: UIColor.white])
-    if status.manualMode || status.source == .inertial {
-      title.append(NSAttributedString(string: "\n" + otherSourcesText(status),
-                                      attributes: [.font: UIFont.boldSystemFont(ofSize: 12),
-                                                   .foregroundColor: UIColor.white]))
+    for line in details {
+      title.append(NSAttributedString(string: "\n" + line, attributes: [.font: UIFont.boldSystemFont(ofSize: 12),
+                                                                        .foregroundColor: UIColor.white]))
     }
     statusButton.setAttributedTitle(title, for: .normal)
     statusButton.backgroundColor = color
+    blinkStatus(status.roadLost)
 
     // The buttons moving the position along the road calibrate the speed, they are shown while the user calibrates it.
     shiftForwardButton.isHidden = !(status.movedByHand && status.shiftButtonsShown)
@@ -170,6 +186,12 @@ final class NoGpsControls: NSObject {
     pauseButton.isHidden = !(status.movedByHand && status.inertialEnabled)
     pauseButton.setImage(UIImage(systemName: status.paused ? "play.fill" : "pause.fill"), for: .normal)
     pauseButton.accessibilityLabel = L(status.paused ? "nogps_resume" : "nogps_pause")
+    // A pause is to be noticed, whoever has set it: the mark stands while the car drives.
+    let pauseStyle = status.paused ? MapStyleSheet.mapNoGpsPausedButton.rawValue
+      : GlobalStyleSheet.bottomTabBarButton.rawValue
+    if pauseButton.styleName != pauseStyle {
+      pauseButton.setStyleNameAndApply(pauseStyle)
+    }
     // The icon tells where the position comes from now: from satellites or from the user.
     manualButton.setImage(UIImage(systemName: status.manualMode ? "hand.point.up.left.fill"
         : "antenna.radiowaves.left.and.right"), for: .normal)
@@ -205,6 +227,34 @@ final class NoGpsControls: NSObject {
     let gps = L(status.gpsSpoofed ? "nogps_status_gps_spoofed" : "nogps_status_no_gps")
     guard status.workingNetworkAccuracyM >= 0 else { return gps }
     return gps + " · " + String(format: L("nogps_status_towers"), formatAccuracy(status.workingNetworkAccuracyM))
+  }
+
+  /// Whether the car speed comes from the sensor box, the only source of it on iOS.
+  private func linkText(_ status: NoGpsStatus) -> String? {
+    guard status.inertialEnabled, status.inertialStarted else { return nil }
+    switch status.sourceState {
+    case .connected: return L("nogps_status_box_ok")
+    case .disconnected, .connecting, .boxSleeping: return L("nogps_status_box_none")
+    case .updating: return L("nogps_box_updating")
+    default: return L("nogps_status_box_no_car")
+    }
+  }
+
+  private func blinkStatus(_ blink: Bool) {
+    // The system removes the animation in the background, the next refresh adds it again.
+    let layer = statusButton.layer
+    guard blink != (layer.animation(forKey: Constants.blinkKey) != nil) else { return }
+    guard blink else {
+      layer.removeAnimation(forKey: Constants.blinkKey)
+      return
+    }
+    let animation = CABasicAnimation(keyPath: "opacity")
+    animation.fromValue = 1
+    animation.toValue = Constants.blinkOpacity
+    animation.duration = Constants.blinkDuration
+    animation.autoreverses = true
+    animation.repeatCount = .infinity
+    layer.add(animation, forKey: Constants.blinkKey)
   }
 
   private func formatAccuracy(_ meters: Double) -> String {
