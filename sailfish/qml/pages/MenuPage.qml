@@ -30,6 +30,12 @@ Page {
                 title: qsTrId("menu")
             }
             MenuRow {
+                icon: "image://theme/icon-m-cloud-download"
+                text: qsTrId("download_maps")
+                      + (downloads.updateCount > 0 ? " (" + downloads.updateCount + ")" : "")
+                onClicked: pageStack.push(Qt.resolvedUrl("MapsPage.qml"))
+            }
+            MenuRow {
                 visible: appSettings.donateUrl !== ""
                 icon: "../../icons/menu/ic_donate.svg"
                 text: qsTrId("donate")

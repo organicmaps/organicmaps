@@ -7,6 +7,9 @@ CoverBackground {
     property Item mapPage
     readonly property QtObject map: mapPage ? mapPage.mapItem : null
     readonly property var position: map ? map.positionInfo : ({})
+    readonly property string mode: !map ? "idle"
+        : downloads.inProgress && downloads.downloadingName !== "" ? "download"
+        : "idle"
 
     Row {
         id: header
@@ -40,12 +43,27 @@ CoverBackground {
         }
         spacing: Theme.paddingSmall
 
+        Icon {
+            anchors.horizontalCenter: parent.horizontalCenter
+            visible: cover.mode === "download"
+            width: Theme.iconSizeLarge
+            height: width
+            sourceSize: Qt.size(width, height)
+            source: "image://theme/icon-m-cloud-download"
+            color: Theme.primaryColor
+        }
         Label {
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
             visible: text !== ""
-            text: position.address || ""
-            font.pixelSize: Theme.fontSizeMedium
+            text: {
+                switch (cover.mode) {
+                case "download": return Math.round(downloads.downloadingProgress * 100) + "%"
+                default: return position.address || ""
+                }
+            }
+            font.pixelSize: cover.mode === "idle" ? Theme.fontSizeMedium : Theme.fontSizeLarge
+            font.bold: cover.mode === "download"
             wrapMode: Text.Wrap
             maximumLineCount: 3
             elide: Text.ElideRight
@@ -54,7 +72,12 @@ CoverBackground {
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
             visible: text !== ""
-            text: position.coordinates || ""
+            text: {
+                switch (cover.mode) {
+                case "download": return downloads.downloadingName
+                default: return position.coordinates || ""
+                }
+            }
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.secondaryColor
             wrapMode: Text.Wrap
@@ -65,9 +88,33 @@ CoverBackground {
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
             visible: text !== ""
-            text: [position.altitude, position.speed].filter(function(part) { return !!part }).join("   ")
+            text: {
+                if (cover.mode !== "idle")
+                    return ""
+                return [position.altitude, position.speed].filter(function(part) { return !!part }).join("   ")
+            }
             font.pixelSize: Theme.fontSizeExtraSmall
             color: Theme.secondaryHighlightColor
+        }
+        Rectangle {
+            visible: cover.mode === "download"
+            width: parent.width
+            height: Theme.paddingSmall / 2
+            color: Theme.rgba(Theme.primaryColor, 0.2)
+
+            Rectangle {
+                width: parent.width * downloads.downloadingProgress
+                height: parent.height
+                color: Theme.highlightColor
+            }
+        }
+    }
+
+    CoverActionList {
+        enabled: cover.mode === "download"
+        CoverAction {
+            iconSource: "image://theme/icon-cover-cancel"
+            onTriggered: downloads.cancelAll()
         }
     }
 }
