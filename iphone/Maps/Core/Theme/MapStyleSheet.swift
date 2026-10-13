@@ -16,6 +16,7 @@ enum MapStyleSheet: String, CaseIterable {
   case mapSecondTurnView = "SecondTurnView"
   case mapAutoupdateView = "MapAutoupdateView"
   case mapGuidesNavigationBar = "GuidesNavigationBar"
+  case mapNoGpsPausedButton = "NoGpsPausedButton"
 }
 
 extension MapStyleSheet: IStyleSheet {
@@ -116,6 +117,12 @@ extension MapStyleSheet: IStyleSheet {
         s.shadowImage = UIImage()
         s.fontStyle = .dynamic(.regular18)
         s.fontColor = .blackPrimaryText
+      }
+    case .mapNoGpsPausedButton:
+      // A pause of the navigation without GPS is to be noticed: the mark stands while the car drives.
+      return .addFrom(GlobalStyleSheet.bottomTabBarButton) { s in
+        s.backgroundColor = .buttonRed
+        s.coloring = .white
       }
     }
   }

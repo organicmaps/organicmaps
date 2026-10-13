@@ -26,6 +26,8 @@ typedef NS_ENUM(NSInteger, MWMNoGpsSourceState) {
   MWMNoGpsSourceStateBoxSleeping,
   MWMNoGpsSourceStateObdSleeping,
   MWMNoGpsSourceStateConnected,
+  // The sensor box takes a new firmware: it sends no data until it restarts with it.
+  MWMNoGpsSourceStateUpdating,
 } NS_SWIFT_NAME(NoGpsSourceState);
 
 /// What the phone does to reach the ESP32 sensor box over Bluetooth LE.
@@ -119,6 +121,8 @@ NS_SWIFT_NAME(NoGpsStatus)
 @property(nonatomic, readonly) BOOL paused;
 /// The pause is set by the navigation itself: the car maneuvers off the roads, its mark waits on the road.
 @property(nonatomic, readonly) BOOL pausedByItself;
+/// The mark waits for the user to put it on a road: the road is lost.
+@property(nonatomic, readonly) BOOL roadLost;
 
 @end
 
