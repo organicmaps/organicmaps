@@ -16,7 +16,8 @@ class Info;
 
 namespace routing_jni
 {
-jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, RoutingManager & rm);
+jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, bool speedCamLimitExceeded,
+                          bool shouldPlayWarningSignal);
 jobject GetRouteRecommendationType(JNIEnv * env, RoutingManager::Recommendation recommendation);
 jobject CreateTransitRouteInfo(JNIEnv * env, TransitRouteInfo const & routeInfo);
 jobjectArray CreateJunctionInfoArray(JNIEnv * env, std::vector<geometry::PointWithAltitude> const & junctionPoints);

@@ -25,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 
 public class NavMenu implements DefaultLifecycleObserver
 {
@@ -209,10 +210,10 @@ public class NavMenu implements DefaultLifecycleObserver
 
   private void updateTimeLeft(int seconds)
   {
-    final long totalMinutes = Utils.getRoundedRoutingTimeMinutes(seconds);
-    final long hours = totalMinutes / 60;
+    final long totalMinutes = Utils.getRoutingMinutes(seconds);
+    final long hours = TimeUnit.MINUTES.toHours(totalMinutes);
     final long minutes = totalMinutes % 60;
-    mTimeMinuteValue.setText(Utils.getRoutingMinuteValue(seconds));
+    mTimeMinuteValue.setText(String.valueOf(minutes));
     String min = mActivity.getResources().getString(R.string.minute);
     mTimeMinuteUnits.setText(min);
     UiUtils.showIf(hours == 0 || minutes > 0, mTimeMinuteUnits, mTimeMinuteValue);

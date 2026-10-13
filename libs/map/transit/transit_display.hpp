@@ -149,7 +149,8 @@ public:
   bool ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute);
   void CreateTransitMarks();
 
-  /// Finalizes the summary using the route's total duration after all subroutes have been processed.
+  /// Use the raw route total so ceiling transit durations to seconds does not affect the summary's minute rounding.
+  /// Call after processing all subroutes.
   TransitRouteInfo const & GetRouteInfo(double totalTimeSec);
 
 private:

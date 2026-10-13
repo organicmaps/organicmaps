@@ -384,7 +384,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void runViewportOnlySearch(@NonNull String query, @Nullable String locale)
   {
-    // Match the pre-refactor flow: clear any prior interactive search + API points before starting.
+    // Clear prior search results and API points so only the new query owns the map markers.
     SearchEngine.INSTANCE.cancel();
 
     final String lang = locale != null ? locale : Language.getKeyboardLocale(this);

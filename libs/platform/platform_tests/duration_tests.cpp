@@ -3,6 +3,7 @@
 #include "platform/duration.hpp"
 
 #include <chrono>
+#include <limits>
 
 namespace platform
 {
@@ -124,29 +125,39 @@ UNIT_TEST(Duration_Localization)
 UNIT_TEST(Duration_RoutingString)
 {
   for (unsigned long seconds = 0; seconds < 60; ++seconds)
-    TEST_EQUAL(Duration(seconds).GetRoutingString(), "\u2066<1\u2069" + kNonBreakingSpace + m, (seconds));
+    TEST_EQUAL(Duration(seconds).GetRoutingString(), Duration(60).GetPlatformLocalizedString(), (seconds));
 
   struct Case
   {
     unsigned long m_seconds;
-    std::string m_expected;
+    unsigned long m_expectedSeconds;
   };
   Case const cases[] = {
-      {60, "1" + kNonBreakingSpace + m},
-      {4 * 60 + 29, "4" + kNonBreakingSpace + m},
-      {4 * 60 + 30, "5" + kNonBreakingSpace + m},
-      {27 * 60 + 29, "27" + kNonBreakingSpace + m},
-      {27 * 60 + 30, "28" + kNonBreakingSpace + m},
-      {34 * 60 + 45, "35" + kNonBreakingSpace + m},
-      {59 * 60 + 29, "59" + kNonBreakingSpace + m},
-      {59 * 60 + 30, "1" + kNonBreakingSpace + h},
-      {60 * 60, "1" + kNonBreakingSpace + h},
-      {60 * 60 + 29, "1" + kNonBreakingSpace + h},
-      {60 * 60 + 30, "1" + kNonBreakingSpace + h + kNonBreakingSpace + "1" + kNonBreakingSpace + m},
-      {24 * 60 * 60, "24" + kNonBreakingSpace + h},
-      {26 * 60 * 60 + 14 * 60 + 45, "26" + kNonBreakingSpace + h + kNonBreakingSpace + "15" + kNonBreakingSpace + m},
+      {60, 60},
+      {89, 60},
+      {90, 120},
+      {4 * 60 + 29, 4 * 60},
+      {4 * 60 + 30, 5 * 60},
+      {27 * 60 + 29, 27 * 60},
+      {27 * 60 + 30, 28 * 60},
+      {34 * 60 + 45, 35 * 60},
+      {59 * 60 + 29, 59 * 60},
+      {59 * 60 + 30, 60 * 60},
+      {60 * 60, 60 * 60},
+      {60 * 60 + 29, 60 * 60},
+      {60 * 60 + 30, 61 * 60},
+      {24 * 60 * 60, 24 * 60 * 60},
+      {26 * 60 * 60 + 14 * 60 + 45, 26 * 60 * 60 + 15 * 60},
+      {std::numeric_limits<int>::max(), 2147483640},
   };
+  auto const locale = GetCurrentLocale();
   for (auto const & test : cases)
-    TEST_EQUAL(Duration(test.m_seconds).GetRoutingString(), test.m_expected, (test.m_seconds));
+  {
+    Duration const duration(test.m_seconds);
+    TEST_EQUAL(
+        duration.GetRoutingString(),
+        Duration(test.m_expectedSeconds).GetLocalizedString({Duration::Units::Hours, Duration::Units::Minutes}, locale),
+        (test.m_seconds));
+  }
 }
 }  // namespace platform

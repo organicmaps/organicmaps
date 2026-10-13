@@ -70,9 +70,8 @@ UNIT_TEST(TransitDisplay_TotalUsesRouteDuration)
     TEST_EQUAL(info.m_steps[1].m_type, TransitType::IntermediatePoint, ());
     if (timeSec == 1649.5)
     {
-      auto const minute = platform::Duration::GetUnitsString(platform::Duration::Units::Minutes);
       TEST_EQUAL(platform::Duration(info.m_totalTimeInSec).GetRoutingString(),
-                 "27" + platform::kNonBreakingSpace + minute, ());
+                 platform::Duration(27 * 60).GetPlatformLocalizedString(), ());
       TEST_EQUAL(info.m_steps[0].m_timeInSec, 121, ());
       TEST_EQUAL(info.m_steps[2].m_timeInSec, 1529, ());
     }

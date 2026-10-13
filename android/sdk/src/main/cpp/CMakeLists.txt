@@ -92,6 +92,8 @@ set(SRC
 
 omim_add_library(${PROJECT_NAME} SHARED ${SRC})
 
+target_sources(${PROJECT_NAME} PRIVATE $<$<CONFIG:Debug>:../../androidTest/cpp/routing_info_test.cpp>)
+
 target_include_directories(${PROJECT_NAME} PRIVATE .)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE

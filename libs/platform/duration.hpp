@@ -26,9 +26,8 @@ public:
   std::string GetLocalizedString(std::initializer_list<Units> units, Locale const & locale) const;
   std::string GetPlatformLocalizedString() const;
 
-  /// Routing estimates rounded to the nearest minute, with half minutes rounded up.
-  /// Durations below one minute read "<1 min". Longer durations use hours and minutes,
-  /// omitting zero minutes and retaining hours above 24.
+  /// Duration label rounded to the nearest minute (half up), with a one-minute minimum.
+  /// Omits zero minutes and retains hours above 24; arrival calculations must use the raw duration.
   std::string GetRoutingString() const;
 
 private:

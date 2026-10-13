@@ -1,59 +1,27 @@
 package app.organicmaps.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import app.organicmaps.R;
-import java.text.Bidi;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
 public class RoutingTimeFormattingTest
 {
-  @Test
-  public void roundsAtHalfMinuteBoundaries()
-  {
-    int[][] cases = {{60, 1},    {269, 4},   {270, 5},   {1649, 27}, {1650, 28},    {1665, 28},   {2085, 35},
-                     {3569, 59}, {3570, 60}, {3600, 60}, {3630, 61}, {86400, 1440}, {94485, 1575}};
-    for (int[] test : cases)
-      assertEquals(test[0] + " seconds", test[1], Utils.getRoundedRoutingTimeMinutes(test[0]));
-  }
-
-  @Test
-  public void displaysSubMinuteDurationsWithoutZeroMinutes()
-  {
-    for (int seconds = 0; seconds < 60; ++seconds)
-      assertEquals("\u2066<1\u2069", Utils.getRoutingMinuteValue(seconds));
-    assertEquals("1", Utils.getRoutingMinuteValue(60));
-    assertEquals("0", Utils.getRoutingMinuteValue(3570));
-    assertEquals("15", Utils.getRoutingMinuteValue(94485));
-  }
-
-  @Test
-  public void roundingDoesNotOverflowAtLargestIntegerDuration()
-  {
-    assertEquals(35791394L, Utils.getRoundedRoutingTimeMinutes(Integer.MAX_VALUE));
-  }
-
-  @Test
-  public void lessThanComparisonRemainsLeftToRightWithRtlUnits()
-  {
-    for (String unit : new String[] {"min", "د", "ד׳", "دقیقه"})
-    {
-      Bidi bidi = new Bidi(Utils.getRoutingMinuteValue(20) + "\u00A0" + unit, Bidi.DIRECTION_DEFAULT_LEFT_TO_RIGHT);
-      assertEquals(unit, 0, bidi.getLevelAt(1) % 2);
-    }
-  }
-
   @Test
   public void routeAndRecordedDurationsUseTheirOwnPolicies()
   {
@@ -79,18 +47,49 @@ public class RoutingTimeFormattingTest
       });
 
       int size = R.dimen.text_size_routing_number;
-      assertEquals("\u2066<1\u2069\u00A0min", Utils.formatRoutingTime(context, 45, size).toString());
+      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 0, size).toString());
+      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 20, size).toString());
+      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 59, size).toString());
+      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 60, size).toString());
+      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 89, size).toString());
+      assertEquals("2\u00A0min", Utils.formatRoutingTime(context, 90, size).toString());
       assertEquals("4\u00A0min", Utils.formatRoutingTime(context, 269, size).toString());
       assertEquals("5\u00A0min", Utils.formatRoutingTime(context, 270, size).toString());
+      assertEquals("27\u00A0min", Utils.formatRoutingTime(context, 1649, size).toString());
+      assertEquals("28\u00A0min", Utils.formatRoutingTime(context, 1650, size).toString());
       assertEquals("28\u00A0min", Utils.formatRoutingTime(context, 1665, size).toString());
       assertEquals("35\u00A0min", Utils.formatRoutingTime(context, 2085, size).toString());
+      assertEquals("59\u00A0min", Utils.formatRoutingTime(context, 3569, size).toString());
       assertEquals("1\u00A0h", Utils.formatRoutingTime(context, 3570, size).toString());
+      assertEquals("1\u00A0h", Utils.formatRoutingTime(context, 3600, size).toString());
       assertEquals("1\u00A0h\u00A01\u00A0min", Utils.formatRoutingTime(context, 3630, size).toString());
+      assertEquals("24\u00A0h", Utils.formatRoutingTime(context, 86400, size).toString());
       assertEquals("26\u00A0h\u00A015\u00A0min", Utils.formatRoutingTime(context, 94485, size).toString());
+      assertEquals("596523\u00A0h\u00A014\u00A0min",
+                   Utils.formatRoutingTime(context, Integer.MAX_VALUE, size).toString());
       assertEquals("0\u00A0min", Utils.formatDuration(context, 0, size).toString());
       assertEquals("4\u00A0min", Utils.formatDuration(context, 269, size).toString());
       assertEquals("27\u00A0min", Utils.formatDuration(context, 1665, size).toString());
       assertEquals("1\u00A0h\u00A00\u00A0min", Utils.formatDuration(context, 3600, size).toString());
+
+      clearInvocations(context);
+      Utils.formatRoutingTime(context, 3600, size);
+      verify(context, times(0)).getString(R.string.minute);
+      verify(context).getString(R.string.hour);
+
+      clearInvocations(context);
+      Utils.formatDuration(context, 269, size);
+      verify(context, times(0)).getString(R.string.hour);
+      verify(context).getString(R.string.minute);
     }
+  }
+
+  @Test
+  public void routingFormatterRejectsNegativeEstimates()
+  {
+    Context context = mock(Context.class);
+    for (int seconds : new int[] {-1, Integer.MIN_VALUE})
+      assertThrows(AssertionError.class,
+                   () -> Utils.formatRoutingTime(context, seconds, R.dimen.text_size_routing_number));
   }
 }

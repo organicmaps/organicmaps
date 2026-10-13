@@ -1,5 +1,7 @@
 package app.organicmaps.widget.menu;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.mock;
@@ -12,13 +14,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import app.organicmaps.R;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import org.junit.Test;
 
 public class NavMenuTest
 {
   @Test
-  public void minuteAndHourFieldsRecoverAfterWholeHourAndSubMinuteEstimates() throws Exception
+  public void minuteAndHourFieldsRecoverAfterWholeHourAndOneMinuteEstimates() throws Exception
   {
     NavMenu menu = mock(NavMenu.class, CALLS_REAL_METHODS);
     AppCompatActivity activity = mock(AppCompatActivity.class);
@@ -46,10 +49,10 @@ public class NavMenuTest
     verify(minuteUnits).setVisibility(View.GONE);
 
     clearInvocations(hours, hourUnits, minutes, minuteUnits);
-    update.invoke(menu, 45);
+    update.invoke(menu, 59);
     verify(hours).setVisibility(View.GONE);
     verify(hourUnits).setVisibility(View.GONE);
-    verify(minutes).setText("\u2066<1\u2069");
+    verify(minutes).setText("1");
     verify(minutes).setVisibility(View.VISIBLE);
     verify(minuteUnits).setVisibility(View.VISIBLE);
 
@@ -67,5 +70,19 @@ public class NavMenuTest
     Field field = NavMenu.class.getDeclaredField(name);
     field.setAccessible(true);
     field.set(menu, value);
+  }
+
+  @Test
+  public void rejectsNegativeEstimates() throws Exception
+  {
+    NavMenu menu = mock(NavMenu.class, CALLS_REAL_METHODS);
+    Method update = NavMenu.class.getDeclaredMethod("updateTimeLeft", int.class);
+    update.setAccessible(true);
+    for (int seconds : new int[] {-1, Integer.MIN_VALUE})
+    {
+      InvocationTargetException exception =
+          assertThrows(InvocationTargetException.class, () -> update.invoke(menu, seconds));
+      assertEquals(AssertionError.class, exception.getCause().getClass());
+    }
   }
 }

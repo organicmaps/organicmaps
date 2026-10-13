@@ -2,6 +2,8 @@
 
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
+
 /// @todo(KK): move the formatting code from the platform namespace
 namespace platform
 {
@@ -49,6 +51,24 @@ std::string_view GetUnitsGroupingSeparator(Locale const & locale)
   bool const isEmptySeparator = base::IsExist(kEmptyGroupingSeparatorLocales, locale.m_language);
   return isEmptySeparator ? kNoSpace : kNonBreakingSpace;
 }
+
+struct PlatformSeparators
+{
+  std::string_view m_unitSep, m_groupingSep;
+
+  PlatformSeparators()
+  {
+    auto const locale = GetCurrentLocale();
+    m_unitSep = GetUnitSeparator(locale);
+    m_groupingSep = GetUnitsGroupingSeparator(locale);
+  }
+};
+
+PlatformSeparators const & GetPlatformSeparators()
+{
+  static PlatformSeparators const separators;
+  return separators;
+}
 }  // namespace
 
 Duration::Duration(unsigned long seconds) : m_seconds(seconds) {}
@@ -60,18 +80,7 @@ std::string Duration::GetLocalizedString(std::initializer_list<Units> units, Loc
 
 std::string Duration::GetPlatformLocalizedString() const
 {
-  struct InitSeparators
-  {
-    std::string_view m_unitSep, m_groupingSep;
-    InitSeparators()
-    {
-      auto const loc = GetCurrentLocale();
-      m_unitSep = GetUnitSeparator(loc);
-      m_groupingSep = GetUnitsGroupingSeparator(loc);
-    }
-  };
-  static InitSeparators seps;
-
+  auto const & seps = GetPlatformSeparators();
   return GetString({Units::Days, Units::Hours, Units::Minutes, Units::Seconds}, seps.m_unitSep, seps.m_groupingSep);
 }
 
@@ -109,25 +118,10 @@ std::string Duration::GetString(std::initializer_list<Units> units, std::string_
 
 std::string Duration::GetRoutingString() const
 {
-  // Isolate the comparison so RTL units don't mirror the less-than sign.
-  if (m_seconds < seconds(60))
-    return std::string("\u2066<1\u2069").append(kNonBreakingSpace).append(GetUnitsString(Units::Minutes));
-
-  long const totalMinutes = duration_cast<minutes>(m_seconds + seconds(30)).count();
-  long const h = totalMinutes / 60;
-  long const m = totalMinutes % 60;
-
-  std::string result;
-  if (h > 0)
-    result.append(std::to_string(h)).append(kNonBreakingSpace).append(GetUnitsString(Units::Hours));
-
-  if (h == 0 || m > 0)
-  {
-    if (!result.empty())
-      result.append(kNonBreakingSpace);
-    result.append(std::to_string(m)).append(kNonBreakingSpace).append(GetUnitsString(Units::Minutes));
-  }
-  return result;
+  seconds const rounded = std::max(minutes(1), duration_cast<minutes>(m_seconds + seconds(30)));
+  auto const & seps = GetPlatformSeparators();
+  return Duration(static_cast<unsigned long>(rounded.count()))
+      .GetString({Units::Hours, Units::Minutes}, seps.m_unitSep, seps.m_groupingSep);
 }
 
 std::string Duration::GetUnitsString(Units unit)

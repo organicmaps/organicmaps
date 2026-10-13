@@ -264,10 +264,8 @@ private:
 void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* = kTestTurnsReachOnly */,
                        vector<double> const & times /* = kTestTimes */)
 {
-  // Build segments from the route's actual polyline points (not the global kTestRoute) so segments
-  // are consistent with the followed polyline. This matters because RouteBase no longer stores
-  // the polyline: promoting a sliced RouteBase back to a Route reconstructs the FollowedPolyline
-  // from segments (subroute.front().GetStart() + each segment's junction).
+  // Promoting RouteBase to Route reconstructs the followed polyline from the subroute start and
+  // segment junctions, so the segments must use this route's geometry.
   auto const & polyPts = route.GetPoly().GetPoints();
 
   vector<geometry::PointWithAltitude> junctions;
@@ -795,14 +793,13 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativeEstimatesPr
   TimedSignal checkedSignal;
   GetPlatform().RunTask(Platform::Thread::Gui, [this, &checkedSignal]()
   {
-    auto const minute = platform::Duration::GetUnitsString(platform::Duration::Units::Minutes);
     for (size_t const idx : {0, 1, 0})
     {
       m_session->SwapActiveAlternative(idx);
       FollowingInfo info;
       m_session->GetRouteFollowingInfo(info);
       TEST_EQUAL(info.m_time, idx == 0 ? 1665 : 2085, ());
-      auto const expected = (idx == 0 ? "28" : "35") + platform::kNonBreakingSpace + minute;
+      auto const expected = platform::Duration(idx == 0 ? 1680 : 2100).GetPlatformLocalizedString();
       TEST_EQUAL(platform::Duration(info.m_time).GetRoutingString(), expected, ());
       TEST_EQUAL(
           platform::Duration(static_cast<unsigned long>(m_session->GetRoute()->GetTotalTimeSec())).GetRoutingString(),

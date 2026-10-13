@@ -18,12 +18,12 @@ final class CarPlayServiceTests: XCTestCase {
     super.tearDown()
   }
 
-  func testCreateEstimates() throws {
-    let cases: [(TimeInterval, TimeInterval)] = [
-      (0, 60), (0.9, 60), (20, 60), (29, 60), (30, 60), (59.99, 60),
-      (60, 60), (60.5, 60.5), (100, 100), (1665, 1665), (2085, 2085),
+  func testTripEstimatesPreserveRawSeconds() {
+    let cases: [TimeInterval] = [
+      0, 0.9, 20, 29, 30, 59.99, 60, 60.5, 89.99, 90, 100,
+      269, 270, 1665, 2085, 3569, 3570, 3630, 86400, 94485, 2_147_483_647,
     ]
-    for (seconds, expected) in cases {
+    for seconds in cases {
       let routeInfo = RouteInfo(timeToTarget: seconds,
                                 targetDistance: 25.2,
                                 targetUnitsIndex: 1, // km
@@ -40,10 +40,10 @@ final class CarPlayServiceTests: XCTestCase {
                                 speedLimitMps: 60,
                                 roundExitNumber: 0,
                                 isLeftHandTraffic: false)
-      let estimates = try XCTUnwrap(carPlayService.createEstimates(routeInfo: routeInfo))
+      let estimates = routeInfo.tripTravelEstimates
 
       XCTAssertEqual(estimates.distanceRemaining, Measurement<UnitLength>(value: 25.2, unit: .kilometers))
-      XCTAssertEqual(estimates.timeRemaining, expected, "\(seconds) seconds")
+      XCTAssertEqual(estimates.timeRemaining, seconds, "\(seconds) seconds")
       XCTAssertEqual(routeInfo.timeToTarget, seconds)
     }
   }
