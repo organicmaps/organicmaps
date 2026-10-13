@@ -23,6 +23,7 @@ class AppSettings : public QObject
   Q_PROPERTY(bool largeFonts READ largeFonts WRITE setLargeFonts NOTIFY changed)
   Q_PROPERTY(bool transliteration READ transliteration WRITE setTransliteration NOTIFY changed)
   Q_PROPERTY(bool keepScreenOn READ keepScreenOn WRITE setKeepScreenOn NOTIFY changed)
+  Q_PROPERTY(bool searchHistory READ searchHistory WRITE setSearchHistory NOTIFY changed)
   Q_PROPERTY(QString mapLanguage READ mapLanguage WRITE setMapLanguage NOTIFY changed)
   Q_PROPERTY(QString mapLanguageName READ mapLanguageName NOTIFY changed)
   // Map languages as {code, name}.
@@ -107,6 +108,8 @@ public:
   void setTransliteration(bool enabled);
   bool keepScreenOn() const;
   void setKeepScreenOn(bool enabled);
+  bool searchHistory() const;
+  void setSearchHistory(bool enabled);
   QString mapLanguage() const;
   void setMapLanguage(QString const & code);
   QString mapLanguageName() const;
@@ -142,6 +145,7 @@ public:
   Q_INVOKABLE void applyMapAppearance(bool dark);
 
   static void InitLogging();
+  static bool IsSearchHistoryEnabled();
   static bool IsAutoDownloadEnabled();
   // Automatic map downloads only run on Wi-Fi.
   static bool IsOnWifi();

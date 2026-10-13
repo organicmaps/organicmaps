@@ -55,6 +55,10 @@ public:
 
 signals:
   void activated();
+  // The locale is empty when the link has none.
+  void searchRequested(QString const & query, QString const & locale, bool onMap);
+  // An om://crosshair link: pick a position for the app named, which may give a link back.
+  void crosshairRequested(QString const & appName, QString const & backUrl);
   void cancelDownloadsRequested();
 
 private:

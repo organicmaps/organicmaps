@@ -34,5 +34,8 @@ gdbus call --session --dest app.organicmaps.organicmaps --object-path /app/organ
 
 - `icons/*/organicmaps.png`: the launcher icons, downscaled from `android/app/ic_launcher-playstore.png` and cut to
   the leaf shape.
+- `icons/placepage/ic_wiki.svg` and `ic_wikimedia_commons.svg`: traced with potrace from the iOS
+  `ic_placepage_wiki@3x.png` and the Android `ic_wikimedia_commons_white`, whose clip path Qt's SVG renderer
+  ignores.
 - The other icons are installed from the Android resources at build time, the vector drawables converted to SVG by
   `tools/android_vector_to_svg.py`.

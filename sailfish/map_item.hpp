@@ -8,6 +8,7 @@
 #include "platform/location_service/location_service.hpp"
 
 #include <QQuickItem>
+#include <QVariantList>
 #include <QVariantMap>
 
 #include <memory>
@@ -18,6 +19,8 @@ class QCompass;
 
 namespace sailfish
 {
+class PlacePage;
+
 // Hosts the drape engine inside Qt Quick. Drape renders into offscreen framebuffers in
 // contexts shared through QOpenGLContext::globalShareContext(); the item shows the last
 // presented frame as a scene graph texture.
@@ -31,11 +34,17 @@ class MapItem
   Q_PROPERTY(int enabledLayers READ enabledLayers NOTIFY layersChanged)
   // Bit mask of the layers marked as new until first tapped.
   Q_PROPERTY(int newLayers READ newLayers NOTIFY layersChanged)
+  Q_PROPERTY(sailfish::PlacePage * placePage READ placePage CONSTANT)
+  // Height covered by panels at the bottom; routes and searches are fitted into the map above it.
+  Q_PROPERTY(
+      qreal viewportBottomInset READ viewportBottomInset WRITE setViewportBottomInset NOTIFY viewportBottomInsetChanged)
   // Width hidden by the camera cutout on each side, which the map is drawn under in landscape.
   Q_PROPERTY(qreal leftInset READ leftInset WRITE setLeftInset NOTIFY horizontalInsetsChanged)
   Q_PROPERTY(qreal rightInset READ rightInset WRITE setRightInset NOTIFY horizontalInsetsChanged)
   // {address, coordinates, altitude, speed} for the app cover; empty without a position.
   Q_PROPERTY(QVariantMap positionInfo READ positionInfo NOTIFY positionInfoChanged)
+  // Taps don't select places meanwhile.
+  Q_PROPERTY(bool choosingPosition READ choosingPosition NOTIFY choosingPositionChanged)
   // The region in the middle of the map while its map isn't downloaded: {countryId, name, size, status (a
   // CountriesModel::Status), progress (0..1)}; empty otherwise.
   Q_PROPERTY(QVariantMap currentCountry READ currentCountry NOTIFY currentCountryChanged)
@@ -80,6 +89,12 @@ public:
   // Empty without a position.
   Q_INVOKABLE QString myPositionShareText() const;
 
+  // Starts at the selected place, if any.
+  Q_INVOKABLE void startChoosingPosition();
+  Q_INVOKABLE void stopChoosingPosition();
+  // Ends choosing and returns [lat, lon] of the cross.
+  Q_INVOKABLE QVariantList confirmChosenPosition();
+
   Q_INVOKABLE void downloadMap(QString const & countryId);
   Q_INVOKABLE void cancelMap(QString const & countryId);
   // Hiking and cycling routes need newer maps here.
@@ -88,11 +103,15 @@ public:
   Q_INVOKABLE bool isolinesNeedZoom() const;
 
   int myPositionMode() const { return m_myPositionMode; }
+  PlacePage * placePage() const { return m_placePage.get(); }
+  qreal viewportBottomInset() const { return m_viewportBottomInset; }
+  void setViewportBottomInset(qreal inset);
   qreal leftInset() const { return m_leftInset; }
   void setLeftInset(qreal inset);
   qreal rightInset() const { return m_rightInset; }
   void setRightInset(qreal inset);
   QVariantMap positionInfo() const { return m_positionInfo; }
+  bool choosingPosition() const { return m_choosingPosition; }
   qreal bottomWidgetsOffset() const { return m_bottomWidgetsOffset; }
   void setBottomWidgetsOffset(qreal offset);
   qreal topWidgetsOffset() const { return m_topWidgetsOffset; }
@@ -111,6 +130,8 @@ signals:
   void notice(QString const & message);
   // Contour lines need newer maps here.
   void isolinesNeedMaps();
+  void choosingPositionChanged();
+  void viewportBottomInsetChanged();
   void horizontalInsetsChanged();
   void currentCountryChanged();
 
@@ -152,6 +173,8 @@ private:
   std::unique_ptr<qt::common::QtOGLContextFactory> m_contextFactory;
   std::unique_ptr<gui::Skin> m_skin;
   std::unique_ptr<location::LocationService> m_locationService;
+  std::unique_ptr<PlacePage> m_placePage;
+  bool m_choosingPosition = false;
   QCompass * m_compass = nullptr;
   location::EMyPositionMode m_myPositionMode = location::PendingPosition;
   df::TouchEvent m_heldTouches;
@@ -159,6 +182,7 @@ private:
   double m_visualScale = 1.0;
   qreal m_bottomWidgetsOffset = 0;
   qreal m_topWidgetsOffset = 0;
+  qreal m_viewportBottomInset = 0;
   qreal m_leftInset = 0;
   qreal m_rightInset = 0;
   bool m_inBackground = false;

@@ -2,6 +2,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Nemo.KeepAlive 1.2
 import app.organicmaps 1.0
+import "clipboard.js" as ClipboardHelper
 import "downloads.js" as Downloads
 import "notices.js" as Toast
 
@@ -10,6 +11,7 @@ Page {
 
     // For children, where "map: map" would bind to their own property.
     readonly property QtObject mapItem: map
+    readonly property bool choosingPosition: map.choosingPosition
     readonly property bool mapIsDark: {
         switch (appSettings.mapAppearance) {
         case AppSettings.AppearanceDark: return true
@@ -17,6 +19,7 @@ Page {
         }
         return false
     }
+    readonly property real bottomPanelsSize: placePagePanel.visibleSize
     // The lowest of the controls along the top right edge, or the padded camera notch in portrait; the compass
     // goes below it.
     readonly property real topControlsBottom: topInset + buttonMargin
@@ -25,12 +28,49 @@ Page {
     // For the downloader layout that keeps the Android sizes.
     readonly property real androidDp: myPositionButton.androidDp
     readonly property real buttonMargin: Theme.paddingMedium
+    // While the user types on a keepsUserInput page, the action waits for it to close rather than drop the input.
+    property var pendingAction
+    // A long tap on the empty map toggles the map buttons.
+    property bool fullscreen
+    // The position chooser picks a position for another app.
+    property string apiAppName
+    property string apiBackUrl
+    // Closing a search result's place page returns to the results; another selection or a map tap forgets it.
+    property bool placeFromSearch
+    property string searchResultTitle
+
+    function openSearchFromCover() {
+        runOnMap(openSearch)
+    }
+    function runOnMap(action) {
+        for (var p = pageStack.currentPage; p && p !== page; p = pageStack.previousPage(p)) {
+            if (p.keepsUserInput) {
+                pendingAction = action
+                return
+            }
+        }
+        pendingAction = null
+        pageStack.pop(page, PageStackAction.Immediate)
+        action()
+    }
+    function runPendingAction() {
+        if (pendingAction && !pageStack.busy)
+            runOnMap(pendingAction)
+    }
+    function openSearch() {
+        var searchPage = pageStack.push(Qt.resolvedUrl("SearchPage.qml"), { search: search, map: map })
+        searchPage.resultActivated.connect(function() {
+            page.searchResultTitle = ""
+            page.placeFromSearch = true
+        })
+    }
 
     objectName: "mapPage"
     allowedOrientations: Orientation.All
     backNavigation: false
 
     onMapIsDarkChanged: appSettings.applyMapAppearance(mapIsDark)
+    onChoosingPositionChanged: if (choosingPosition) fullscreen = false
     Component.onCompleted: appSettings.applyMapAppearance(mapIsDark)
 
     DisplayBlanking {
@@ -50,10 +90,17 @@ Page {
         leftInset: page.orientation === Orientation.Landscape ? Screen.topCutout.height : 0
         rightInset: page.orientation === Orientation.LandscapeInverted ? Screen.topCutout.height : 0
         // Keeps the scale line and attribution above the bottom row with its padding.
-        bottomWidgetsOffset: bottomButtons.height + 2 * page.buttonMargin
+        bottomWidgetsOffset: bottomButtons.visible ? bottomButtons.height + 2 * page.buttonMargin : 0
         topWidgetsOffset: page.topControlsBottom
+        // Searches are fitted into the map above the open sheets.
+        viewportBottomInset: page.bottomPanelsSize
     }
 
+    Connections {
+        target: pageStack
+        onCurrentPageChanged: page.runPendingAction()
+        onBusyChanged: page.runPendingAction()
+    }
     Connections {
         target: map
         onEngineCreated: urlHandler.processPending()
@@ -64,8 +111,50 @@ Page {
             acceptAction: function() { pageStack.push(Qt.resolvedUrl("MapsPage.qml")) }
         })
     }
+    Connections {
+        target: map.placePage
+        onSwitchFullScreen: {
+            page.fullscreen = !page.fullscreen
+            if (page.fullscreen) {
+                map.placePage.close()
+                // Every time, so that the way back isn't forgotten.
+                Toast.showLong(appInfo.localized("long_tap_toast"))
+            }
+        }
+        onChanged: {
+            if (!page.placeFromSearch)
+                return
+            if (!map.placePage.open)
+                forgetSearchResult.restart()
+            else if (page.searchResultTitle === "")
+                page.searchResultTitle = map.placePage.title
+            else if (map.placePage.title !== page.searchResultTitle)
+                page.placeFromSearch = false
+        }
+    }
+    // The close button and swipe report closedByUser right after the place page closes; else it was a map tap.
+    Timer {
+        id: forgetSearchResult
+        interval: 100
+        onTriggered: page.placeFromSearch = false
+    }
+    Connections {
+        target: urlHandler
+        onSearchRequested: page.runOnMap(function() {
+            // The query already shows the results in the viewport.
+            search.searchFromLink(query, locale)
+            if (!onMap)
+                page.openSearch()
+        })
+        onCrosshairRequested: page.runOnMap(function() {
+            page.apiAppName = appName
+            page.apiBackUrl = backUrl
+            map.startChoosingPosition()
+        })
+    }
 
     MapButton {
+        visible: !page.choosingPosition && !page.fullscreen
         anchors {
             top: parent.top
             topMargin: page.topInset + page.buttonMargin
@@ -81,6 +170,7 @@ Page {
     // Positions follow Android's layout-h400dp/map_buttons_layout_regular.xml and layout-land, in Silica sizes.
     Column {
         id: rightButtons
+        visible: !page.choosingPosition && !page.fullscreen
         anchors {
             right: parent.right
             rightMargin: page.buttonMargin
@@ -90,11 +180,16 @@ Page {
             bottomMargin: page.isPortrait ? 3 * myPositionButton.size : page.buttonMargin
         }
         spacing: page.buttonMargin
+        transform: Translate {
+            id: rightButtonsShift
+            y: -Math.max(0, page.bottomPanelsSize - (page.height - rightButtons.y - rightButtons.height)
+                            + page.buttonMargin)
+        }
 
         // Buttons pushed above the top controls are hidden. Only faded out, so that the
         // column keeps its layout.
         function fits(button) {
-            return y + button.y >= page.topControlsBottom + page.buttonMargin
+            return y + button.y + rightButtonsShift.y >= page.topControlsBottom + page.buttonMargin
         }
 
         MapButton {
@@ -144,13 +239,14 @@ Page {
         id: bottomButtons
         readonly property real inset: page.buttonMargin * (page.isPortrait ? 2 : 1)
 
+        visible: !page.choosingPosition && !page.fullscreen
         // Positioned by x: switching between left and horizontalCenter anchors on rotation can leave both set.
         x: page.isPortrait ? (parent.width - width) / 2 : inset
         anchors {
             bottom: parent.bottom
             bottomMargin: page.buttonMargin
         }
-        spacing: Math.min(parent.width, 6 * menuButton.width) - 2 * inset - 2 * menuButton.width
+        spacing: (Math.min(parent.width, 6 * menuButton.width) - 2 * inset - 3 * menuButton.width) / 2
 
         MapButton {
             square: true
@@ -161,6 +257,12 @@ Page {
                                      ? "../../icons/help/ic_christmas_tree.svg" : "../../icons/help/logo.svg")
             description: appInfo.localized("help")
             onClicked: pageStack.push(Qt.resolvedUrl("HelpPage.qml"))
+        }
+        MapButton {
+            square: true
+            source: "image://theme/icon-m-search"
+            description: appInfo.localized("search")
+            onClicked: page.openSearch()
         }
         MapButton {
             id: menuButton
@@ -197,7 +299,7 @@ Page {
         readonly property var country: map.currentCountry
         readonly property bool busy: Downloads.busy(country.status)
 
-        visible: !!country.countryId
+        visible: !!country.countryId && !page.choosingPosition && page.bottomPanelsSize === 0
         anchors.centerIn: parent
         // As wide as the Android onmap_downloader with its 180dp button and margin_base padding, or wider for
         // the Silica button.
@@ -244,6 +346,97 @@ Page {
                     : onMapDownloader.country.status === CountriesModel.Error ? appInfo.localized("downloader_retry")
                     : appInfo.localized("downloader_download_map")
                 onClicked: Downloads.toggle(pageStack, map, onMapDownloader.country)
+            }
+        }
+    }
+
+    // The core draws the cross in the middle of the map; this bar explains it.
+    Rectangle {
+        id: positionChooser
+
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        height: chooserColumn.height + 2 * Theme.paddingMedium + page.topInset
+        visible: page.choosingPosition
+        color: Theme.overlayBackgroundColor
+
+        PanelBackground {
+            anchors.fill: parent
+        }
+
+        IconButton {
+            id: chooserCancel
+            anchors {
+                left: parent.left
+                verticalCenter: chooserColumn.verticalCenter
+            }
+            icon.source: "image://theme/icon-m-cancel"
+            onClicked: map.stopChoosingPosition()
+        }
+
+        Column {
+            id: chooserColumn
+            anchors {
+                left: chooserCancel.right
+                right: chooserDone.left
+                bottom: parent.bottom
+                bottomMargin: Theme.paddingMedium
+            }
+            spacing: Theme.paddingSmall
+
+            Label {
+                width: parent.width
+                text: page.apiAppName !== "" ? page.apiAppName : appInfo.localized("choose_on_map")
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeLarge
+                truncationMode: TruncationMode.Fade
+            }
+            Label {
+                width: parent.width
+                text: appInfo.localized("choose_point_on_map_hint")
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                wrapMode: Text.Wrap
+            }
+        }
+
+        IconButton {
+            id: chooserDone
+            anchors {
+                right: parent.right
+                verticalCenter: chooserColumn.verticalCenter
+            }
+            icon.source: "image://theme/icon-m-acknowledge"
+            onClicked: {
+                // Sailfish has no app results: the position is copied, and passed to the app's back link if any.
+                var chosen = map.confirmChosenPosition()
+                var ll = chosen[0].toFixed(6) + "," + chosen[1].toFixed(6)
+                ClipboardHelper.copy(ll)
+                if (page.apiBackUrl !== "")
+                    Qt.openUrlExternally(page.apiBackUrl + (page.apiBackUrl.indexOf("?") >= 0 ? "&" : "?") + "ll=" + ll)
+            }
+        }
+    }
+
+    // Lives with the map so the last query and its results come back when search is reopened.
+    SearchModel {
+        id: search
+        highlightColor: Theme.highlightColor
+    }
+
+    PlacePagePanel {
+        id: placePagePanel
+        placePage: map.placePage
+        map: page.mapItem
+        onDirectionClicked: directionOverlay.shown = true
+        onClosedByUser: {
+            if (page.placeFromSearch) {
+                forgetSearchResult.stop()
+                page.placeFromSearch = false
+                page.openSearch()
             }
         }
     }
@@ -325,5 +518,11 @@ Page {
                 }
             }
         }
+    }
+
+    // Last, to cover the map and all panels.
+    DirectionOverlay {
+        id: directionOverlay
+        placePage: map.placePage
     }
 }
