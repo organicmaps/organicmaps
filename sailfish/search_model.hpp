@@ -3,10 +3,12 @@
 #include <QAbstractListModel>
 #include <QColor>
 #include <QStringList>
+#include <QTimer>
 #include <QVariantList>
 
 #include <cstdint>
 #include <memory>
+#include <string>
 
 class Framework;
 
@@ -67,6 +69,8 @@ public:
   // As {key, name} in the search language.
   Q_INVOKABLE QVariantList categories() const;
   Q_INVOKABLE void searchCategory(QString const & name, bool addToHistory = true);
+  // In the language of the link, if it has one, until the query changes.
+  Q_INVOKABLE void searchFromLink(QString const & query, QString const & locale);
   // Returns false for a suggestion, which replaces the query instead of selecting a place.
   Q_INVOKABLE bool activate(int row);
   Q_INVOKABLE void showOnMap();
@@ -86,8 +90,11 @@ private:
   Framework & m_framework;
   QString m_query;
   QString m_categoryQuery;
+  std::string m_linkLocale;
   std::unique_ptr<search::Results> m_results;
   uint64_t m_timestamp = 0;
+  // Waits for a pause in typing, as on Android.
+  QTimer m_runTimer;
   bool m_searching = false;
   QColor m_highlightColor;
 };

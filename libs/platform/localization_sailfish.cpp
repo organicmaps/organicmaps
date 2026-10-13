@@ -21,7 +21,7 @@ using Strings = std::unordered_map<std::string, std::string>;
 // Stops a ref cycle.
 int constexpr kMaxRefDepth = 8;
 
-// Translations of one key in decreasing priority: current language, its base language, English.
+// Translations of one key in decreasing priority: the regional language, e.g. pt-BR, its base language, English.
 struct Entry
 {
   std::string m_values[3];
@@ -81,10 +81,21 @@ void ParseTwineFile(std::istream & in, std::string const & lang, std::string con
   }
 }
 
+// The system language with its region in Twine form, e.g. pt_BR.UTF-8 -> pt-BR; Chinese goes by script.
+std::string RegionalTwine(std::string const & twine)
+{
+  if (twine.find('-') != std::string::npos)
+    return twine;
+  auto tag = languages::GetCurrentOrig();
+  tag.erase(std::min(tag.find_first_of(".@"), tag.size()));
+  std::replace(tag.begin(), tag.end(), '_', '-');
+  return tag;
+}
+
 Strings LoadStrings()
 {
-  std::string const lang = languages::GetCurrentTwine();
-  std::string const baseLang = lang.substr(0, lang.find('-'));
+  std::string const baseLang = languages::GetCurrentTwine();
+  std::string const lang = RegionalTwine(baseLang);
 
   std::unordered_map<std::string, Entry> entries;
   for (char const * file : {"strings/types_strings.txt", "strings/strings.txt"})

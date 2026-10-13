@@ -1,7 +1,6 @@
 #include "sailfish/url_handler.hpp"
 
 #include "sailfish/bookmarks_io.hpp"
-#include "sailfish/maps_storage.hpp"
 
 #include "map/framework.hpp"
 #include "map/mwm_url.hpp"
@@ -14,6 +13,8 @@
 #include <QDBusMessage>
 #include <QVariantMap>
 
+#include <utility>
+
 namespace sailfish
 {
 namespace
@@ -24,70 +25,75 @@ char constexpr kPath[] = SAILFISH_DBUS_PATH;
 int constexpr kLinkZoom = 16;
 }  // namespace
 
-UrlHandler::UrlHandler(Framework & framework, BookmarksIO & bookmarksIO, MapsStorage const & mapsStorage,
-                       QObject * parent)
+UrlHandler::UrlHandler(Framework & framework, BookmarksIO & bookmarksIO, QObject * parent)
   : QObject(parent)
   , m_framework(framework)
   , m_bookmarksIO(bookmarksIO)
-  , m_mapsStorage(mapsStorage)
-{
-  m_retryTimer.setInterval(200);
-  connect(&m_retryTimer, &QTimer::timeout, this, &UrlHandler::ProcessPending);
-}
+{}
 
-// static
-bool UrlHandler::ClaimService()
+bool DBusInbox::Claim()
 {
   auto bus = QDBusConnection::sessionBus();
+  if (!bus.registerObject(kPath, this, QDBusConnection::ExportScriptableSlots))
+    LOG(LWARNING, ("Can't serve the D-Bus interface: links from other apps won't open"));
   if (bus.registerService(kService))
     return true;
   LOG(LINFO, ("D-Bus service taken by another instance", bus.lastError().message().toStdString()));
+  bus.unregisterObject(kPath);
   return false;
 }
 
-bool UrlHandler::RegisterOnDBus()
-{
-  return QDBusConnection::sessionBus().registerObject(kPath, this, QDBusConnection::ExportScriptableSlots);
-}
-
 // static
-void UrlHandler::OpenInRunningApp(QStringList const & urls)
+void DBusInbox::OpenInRunningApp(QStringList const & urls)
 {
   auto message = QDBusMessage::createMethodCall(kService, kPath, kService, QStringLiteral("openUrl"));
   message << urls;
   QDBusConnection::sessionBus().call(message);
 }
 
+void DBusInbox::SetHandler(UrlHandler & handler)
+{
+  m_handler = &handler;
+  if (!m_queued.isEmpty())
+    handler.openUrl(std::exchange(m_queued, {}));
+}
+
+void DBusInbox::openUrl(QStringList const & urls)
+{
+  if (m_handler)
+    m_handler->openUrl(urls);
+  else
+    m_queued.append(urls);
+}
+
+void DBusInbox::cancelDownloads()
+{
+  if (m_handler)
+    emit m_handler->cancelDownloadsRequested();
+}
+
+void DBusInbox::stopTrackRecording()
+{
+  if (m_handler)
+    emit m_handler->stopTrackRecordingRequested();
+}
+
 void UrlHandler::openUrl(QStringList const & urls)
 {
   emit activated();
-  if (m_mapsStorage.Locked())
-  {
-    LOG(LWARNING, ("Ignoring links while the maps move", urls.join(' ').toStdString()));
-    return;
-  }
   for (auto const & url : urls)
   {
     // Files don't need the map.
     if (!m_bookmarksIO.OpenFile(url))
       m_pending.append(url);
   }
-  ProcessPending();
+  processPending();
 }
 
-void UrlHandler::ProcessPending()
+void UrlHandler::processPending()
 {
-  if (m_pending.isEmpty())
-  {
-    m_retryTimer.stop();
+  if (m_pending.isEmpty() || !m_framework.IsDrapeEngineCreated())
     return;
-  }
-  if (!m_framework.IsDrapeEngineCreated())
-  {
-    m_retryTimer.start();
-    return;
-  }
-  m_retryTimer.stop();
   auto const pending = std::move(m_pending);
   m_pending.clear();
   for (auto const & url : pending)
@@ -135,7 +141,8 @@ void UrlHandler::Process(QString const & url)
       break;
     }
     if (!request.m_query.empty())
-      emit searchRequested(QString::fromStdString(request.m_query), request.m_isSearchOnMap);
+      emit searchRequested(QString::fromStdString(request.m_query), QString::fromStdString(request.m_locale),
+                           request.m_isSearchOnMap);
     break;
   }
   case UrlType::OAuth2: emit oauth2CodeReceived(QString::fromStdString(m_framework.GetParsedOAuth2Code())); break;

@@ -13,10 +13,12 @@
 #include "platform/measurement_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
 #include <QGuiApplication>
 #include <QInputMethod>
 #include <QLocale>
+#include <QRegularExpression>
 #include <QTime>
 
 #include <algorithm>
@@ -148,6 +150,16 @@ QString FormatLatLon(double lat, double lon)
 QString JoinDetails(QStringList const & parts)
 {
   return parts.join(QStringLiteral(" • "));
+}
+
+QString UserStyledText(std::string const & text)
+{
+  if (strings::IsHTML(text))
+  {
+    static QRegularExpression const kImage(QStringLiteral("<img\\b[^>]*>"), QRegularExpression::CaseInsensitiveOption);
+    return QString::fromStdString(text).remove(kImage);
+  }
+  return QString::fromStdString(text).toHtmlEscaped().replace('\n', QStringLiteral("<br>"));
 }
 
 MapStyle BaseMapStyle(bool dark, bool outdoors)

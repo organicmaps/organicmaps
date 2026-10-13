@@ -50,7 +50,9 @@ public:
 
   // Falls back to the app language, any Speech Note voice, or English.
   void SetPreferredLanguage(std::string const & preferred, std::string const & appLanguage);
-  // changed() follows.
+  // changed() follows. Without starting Speech Note: its voices are known after Refresh().
+  void FindPrograms();
+  // Also asks Speech Note for its voices, which starts it. changed() follows the reply.
   void Refresh();
   void OpenSpeechNote();
 
@@ -109,6 +111,7 @@ private:
   Engine const * m_engine = nullptr;
   QString m_program;
   QString m_voice;
+  // The player reads it whole, and the next text is synthesized after playback: one file serves all.
   QString m_wavFile;
   QProcess m_process;
   // Stop() killed it: what it wrote is not played, even when it finished just before.

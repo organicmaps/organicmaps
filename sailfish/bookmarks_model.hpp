@@ -24,7 +24,7 @@ signals:
   void changed();
   void loaded();
   void fileLoaded(QString const & path, bool success);
-  // The first fix, or the first after the position was lost: sorting by distance becomes available.
+  // The core has a position again, or for the first time: sorting by distance becomes available.
   void positionFound();
 };
 
@@ -161,6 +161,8 @@ private:
     uint64_t m_id;
     bool m_isTrack;
     QString m_block;
+
+    bool operator==(Item const &) const = default;
   };
 
   void Reset();
@@ -170,7 +172,6 @@ private:
   // Null for a stale row.
   Item const * ItemAt(int row) const;
   QString ItemName(Item const & item) const;
-  void SetColor(std::vector<uint64_t> const & marks, std::vector<uint64_t> const & tracks, int colorIndex);
 
   Framework & m_framework;
   quint64 m_listId = 0;

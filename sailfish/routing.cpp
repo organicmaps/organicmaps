@@ -34,6 +34,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
 #include "base/sunrise_sunset.hpp"
 
 #include <QColor>
@@ -361,7 +362,11 @@ void Routing::SetupRouteBuildingListener()
     for (auto const & id : absent)
       ids.append(QString::fromStdString(id));
     // Queued: the result can arrive inside BuildRoute(), which OnRouteBuilt() may call again.
-    QTimer::singleShot(0, this, [this, code = static_cast<int>(code), ids] { OnRouteBuilt(code, ids); });
+    QTimer::singleShot(0, this, [this, code = static_cast<int>(code), ids, generation = m_resultGeneration]
+    {
+      if (generation == m_resultGeneration)
+        OnRouteBuilt(code, ids);
+    });
   });
 }
 
@@ -473,18 +478,11 @@ bool Routing::downloadingMissingMaps() const
 
 double Routing::missingMapsProgress() const
 {
-  int64_t total = 0;
-  int64_t downloaded = 0;
+  storage::CountriesVec ids;
   for (auto const & id : m_missingMaps)
-  {
-    auto const attrs = MapAttrs(m_framework.GetStorage(), id.toStdString());
-    total += static_cast<int64_t>(attrs.m_mwmSize);
-    if (attrs.m_status == storage::NodeStatus::OnDisk)
-      downloaded += static_cast<int64_t>(attrs.m_mwmSize);
-    else if (attrs.m_status == storage::NodeStatus::Downloading && !attrs.m_downloadingProgress.IsUnknown())
-      downloaded += attrs.m_downloadingProgress.m_bytesDownloaded;
-  }
-  return total > 0 ? static_cast<double>(downloaded) / total : 0;
+    ids.push_back(id.toStdString());
+  auto const progress = m_framework.GetStorage().GetOverallProgress(ids);
+  return progress.m_bytesTotal > 0 ? static_cast<double>(progress.m_bytesDownloaded) / progress.m_bytesTotal : 0;
 }
 
 int Routing::avoidRoads() const
@@ -596,16 +594,16 @@ void Routing::start()
   cancelPick();
   manager.FollowRoute();
   m_navigating = true;
+  SaveRouteForRestart();
   m_darkOutsideCheckMs = 0;
-  // Picks up voices installed since the start.
-  m_voice->Refresh();
   manager.EnableTurnNotifications(voiceEnabled());
   SetNavigationStyle(true);
+  emit navigatingChanged();
   emit navigationChanged();
   UpdateNavigation(-1.0);
 }
 
-void Routing::stopNavigation()
+void Routing::close()
 {
   m_voice->Stop();
   EndNavigation();
@@ -614,8 +612,9 @@ void Routing::stopNavigation()
 void Routing::EndNavigation()
 {
   // First, so that the route panel doesn't show the closing route.
-  close();
-  LeaveNavigation();
+  CloseRoute();
+  if (m_navigating)
+    LeaveNavigation();
 }
 
 void Routing::LeaveNavigation()
@@ -623,6 +622,7 @@ void Routing::LeaveNavigation()
   m_navigating = false;
   m_navigation.clear();
   SetNavigationStyle(false);
+  emit navigatingChanged();
   emit navigationChanged();
 }
 
@@ -653,7 +653,8 @@ void Routing::SetupVoice()
   });
   m_voice->SetPreferredLanguage(LoadSetting(kVoiceLanguageSetting, std::string()), AppVoiceLanguage());
   m_voice->SetVolume(voiceVolume());
-  m_voice->Refresh();
+  // Speech Note is asked when a route is planned.
+  m_voice->FindPrograms();
 }
 
 bool Routing::voiceAvailable() const
@@ -843,11 +844,9 @@ void Routing::UpdateDarkOutside()
     emit darkOutsideChanged();
 }
 
-void Routing::OnLocationUpdated()
+void Routing::OnPositionFound()
 {
-  // The core takes the position from the my position mark, which drape updates after the fix, so a later fix
-  // builds the route.
-  if (m_waitingForPosition && active() && m_framework.GetCurrentPosition())
+  if (m_waitingForPosition && active())
     Build();
 }
 
@@ -1206,13 +1205,14 @@ void Routing::LoadElevation()
                              QString::fromStdString(platform::Distance::FormatAltitude(info.GetTotalDescent())));
 }
 
-void Routing::close()
+void Routing::CloseRoute()
 {
   cancelPick();
   m_startWhenBuilt = false;
   m_framework.GetRoutingManager().CloseRouting(true /* removeRoutePoints */);
   m_framework.GetRoutingManager().DeleteSavedRoutePoints();
   m_building = false;
+  ++m_resultGeneration;
   ClearResult();
   emit pointsChanged();
   emit stateChanged();
@@ -1249,27 +1249,23 @@ void Routing::OnPointsChanged()
 void Routing::Build()
 {
   auto & manager = m_framework.GetRoutingManager();
-  // The core closes the followed route to rebuild it, which also leaves the 3D follow view, so the new route is
-  // planned and started again, as on Android.
+  // The core closes the followed route to rebuild it, which also leaves the 3D follow view, so navigation ends and
+  // the new route is planned, as on Android.
   if (m_navigating)
   {
     m_voice->Stop();
     LeaveNavigation();
   }
+  ++m_resultGeneration;
   ClearResult();
-  if (manager.GetRoutePointsCount() < 2)
-  {
-    m_building = false;
-    manager.RemoveRoute(false /* deactivateFollowing */);
-    emit stateChanged();
-    return;
-  }
+  // Before navigation starts, so that the first instruction has the voice. Also picks up newly installed voices.
+  m_voice->Refresh();
   manager.SetRouter(manager.GetLastUsedRouter());
   m_building = true;
   m_buildCancelled = false;
   emit stateChanged();
   manager.BuildRoute();
-  // E.g. two points at the same place: the core closes the route without building it.
+  // E.g. fewer than two points or two at the same place: the core closes the route without building it.
   if (m_buildCancelled)
   {
     m_building = false;
@@ -1287,10 +1283,19 @@ void Routing::OnRouteBuilt(int code, QStringList const & absentCountries)
 {
   auto const result = static_cast<RouterResultCode>(code);
   m_building = false;
+  // Also reported without Build(): for reroutes and a chosen alternative route.
+  ClearResult();
+  // The core changes the points too, e.g. drops passed ones or adds a ruler point.
+  emit pointsChanged();
   if (result == RouterResultCode::NoError || result == RouterResultCode::HasWarnings)
+  {
+    ASSERT_GREATER_OR_EQUAL(m_framework.GetRoutingManager().GetRoutePointsCount(), 2, ());
     SetRouteSummary();
+  }
   else
+  {
     SetRouteError(code, absentCountries);
+  }
   // Avoided roads explain a failed car route best.
   if (!m_built && result != RouterResultCode::NeedMoreMaps && m_missingMaps.isEmpty() && routerType() == Vehicle &&
       avoidRoads() != 0)

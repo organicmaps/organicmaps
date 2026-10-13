@@ -12,10 +12,6 @@
 #include <QUrl>
 #include <QtGlobal>  // QT_VERSION, QT_VERSION_CHECK
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-#include <QCoreApplication>
-#endif
-
 namespace
 {
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
@@ -53,21 +49,6 @@ NetworkThread & GetNetworkThread()
   return nt;
 }
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-QEvent::Type TaskEventType()
-{
-  static auto const type = static_cast<QEvent::Type>(QEvent::registerEventType());
-  return type;
-}
-
-struct TaskEvent : QEvent
-{
-  explicit TaskEvent(std::function<void()> && task) : QEvent(TaskEventType()), m_task(std::move(task)) {}
-
-  std::function<void()> m_task;
-};
-#endif
-
 // Runs the task on the network thread. Callable from any thread.
 template <typename Task>
 void RunOnNetworkThread(Task && task)
@@ -75,7 +56,10 @@ void RunOnNetworkThread(Task && task)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
   QMetaObject::invokeMethod(GetNetworkThread().worker, std::forward<Task>(task), Qt::QueuedConnection);
 #else
-  GetNetworkThread().worker->Post(std::forward<Task>(task));
+  // No functor invokeMethod() before Qt 5.10: the queued destroyed() of a temporary sender runs the task.
+  QObject sender;
+  QObject::connect(&sender, &QObject::destroyed, GetNetworkThread().worker, std::forward<Task>(task),
+                   Qt::QueuedConnection);
 #endif
 }
 
@@ -125,21 +109,6 @@ QNetworkReply * IssueRequest(QNetworkAccessManager & manager, std::string const 
 
 namespace platform
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-void NetworkWorker::Post(std::function<void()> task)
-{
-  QCoreApplication::postEvent(this, new TaskEvent(std::move(task)));
-}
-
-bool NetworkWorker::event(QEvent * event)
-{
-  if (event->type() != TaskEventType())
-    return QObject::event(event);
-  static_cast<TaskEvent *>(event)->m_task();
-  return true;
-}
-#endif
-
 bool IsOsmHost(QString const & host)
 {
   return host.compare(QLatin1String("openstreetmap.org"), Qt::CaseInsensitive) == 0 ||
@@ -268,7 +237,7 @@ bool HttpClientReply::TryRetryOnGoAway()
   // Force HTTP/1.1 for the retry so we cannot multiplex onto another HTTP/2
   // connection from the same poisoned pool. The GOAWAY'd HTTP/2 connection is
   // already closed by the server; Qt will open a fresh TCP/TLS leg naturally.
-#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
   m_request.setAttribute(QNetworkRequest::Http2AllowedAttribute, false);
 #endif
 
@@ -565,7 +534,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   request.setAttribute(kTransferTimeoutAttribute, static_cast<int>(m_timeoutSec * 1000));
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0) && QT_VERSION < QT_VERSION_CHECK(6, 5, 1)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0) && QT_VERSION < QT_VERSION_CHECK(6, 5, 1)
   // QTBUG-111417: on Qt <= 6.4 an HTTP/2 QNetworkReply can stall without ever emitting
   // finished() until the peer closes the connection, hanging the blocking RunHttpRequest()
   // far past setTransferTimeout. OSM login/OAuth (www) and the editing API negotiate HTTP/2,

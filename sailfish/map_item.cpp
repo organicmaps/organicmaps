@@ -6,7 +6,6 @@
 #include "sailfish/elevation.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/helpers.hpp"
-#include "sailfish/maps_storage.hpp"
 #include "sailfish/place_page.hpp"
 #include "sailfish/routing.hpp"
 
@@ -65,8 +64,8 @@ static_assert(MapItem::NotFollow == static_cast<int>(location::NotFollow));
 static_assert(MapItem::Follow == static_cast<int>(location::Follow));
 static_assert(MapItem::FollowAndRotate == static_cast<int>(location::FollowAndRotate));
 
-// Drape presents into a power-of-two framebuffer and reports the used part as a normalized
-// rect, so the texture wrapper is recreated whenever the framebuffer or its size changes.
+// Drape presents into a power-of-two framebuffer and reports the used part as a normalized rect. The framebuffers
+// rotate, so the texture wrapper is recreated for each new frame; that only wraps the id, without a copy.
 class MapTextureNode : public QSGSimpleTextureNode
 {
 public:
@@ -110,6 +109,7 @@ MapItem::MapItem(QQuickItem * parent)
 
   connect(this, &QQuickItem::windowChanged, this, &MapItem::OnWindowChanged);
   connect(qGuiApp, &QGuiApplication::applicationStateChanged, this, &MapItem::OnApplicationStateChanged);
+  connect(m_routing.get(), &Routing::navigatingChanged, this, [this] { UpdateLocationService(); });
 
   m_storageSlot = m_framework.GetStorage().Subscribe([this](storage::CountryId const &) {
     UpdateCurrentCountry();
@@ -130,6 +130,7 @@ MapItem::~MapItem()
   m_framework.GetIsolinesManager().SetStateListener({});
   m_framework.SetCurrentCountryChangedListener({});
   m_framework.SetMyPositionModeListener(nullptr);
+  m_framework.SetUserPositionListener(nullptr);
   m_framework.GetStorage().Unsubscribe(m_storageSlot);
   m_locationService->Stop();
   if (!m_contextFactory)
@@ -210,15 +211,28 @@ void MapItem::setLayerEnabled(int layer, bool enabled)
 
 void MapItem::OnMyPositionModeChanged(location::EMyPositionMode mode)
 {
-  // Drape asks for a position by entering PendingPosition, either on start or from the button.
-  if (mode == location::PendingPosition && !m_inBackground)
-    m_locationService->Start();
-
-  if (mode != m_myPositionMode)
-  {
-    m_myPositionMode = mode;
+  bool const changed = mode != m_myPositionMode;
+  m_myPositionMode = mode;
+  // Drape asks for a position by entering PendingPosition, either on start or from the button, e.g. after GPS was off.
+  UpdateLocationService(mode == location::PendingPosition);
+  if (changed)
     emit myPositionModeChanged();
-  }
+}
+
+void MapItem::UpdateLocationService(bool restart)
+{
+  bool const active = m_framework.IsTrackRecordingEnabled() || m_routing->navigating() ||
+                      (!m_inBackground && m_myPositionMode != location::NotFollowNoPosition);
+  if (active && (restart || !m_locationActive))
+    m_locationService->Start();
+  else if (!active && m_locationActive)
+    m_locationService->Stop();
+  m_locationActive = active;
+
+  if (active && !m_inBackground)
+    m_compass->start();
+  else
+    m_compass->stop();
 }
 
 void MapItem::OnLocationError(location::TLocationError errorCode)
@@ -320,8 +334,7 @@ void MapItem::SimulateLocation()
 void MapItem::UpdateLocation(location::GpsInfo const & info)
 {
   m_locationErrorShown = false;
-  bool const regained = std::exchange(m_locationLost, false);
-  if (regained)
+  if (std::exchange(m_locationLost, false))
     emit locationLostChanged();
   m_hasAltitude = info.HasAltitude();
   m_altitude = info.m_altitude;
@@ -331,12 +344,19 @@ void MapItem::UpdateLocation(location::GpsInfo const & info)
     UpdatePositionInfo();
   m_framework.OnLocationUpdate(info);
   GpsTracker::Instance().OnLocationUpdated(info);
-  if (regained || !std::exchange(m_hadPosition, true))
-    emit BookmarksNotifier::Instance().positionFound();
   m_placePage->UpdateDistance();
   m_placePage->UpdateMyPosition(info.HasAltitude(), info.m_altitude, info.m_speed);
-  m_routing->OnLocationUpdated();
   m_routing->UpdateNavigation(info.m_speed);
+}
+
+void MapItem::OnUserPositionChanged(bool hasPosition)
+{
+  bool const found = hasPosition && !m_hasPosition;
+  m_hasPosition = hasPosition;
+  if (!found)
+    return;
+  emit BookmarksNotifier::Instance().positionFound();
+  m_routing->OnPositionFound();
 }
 
 bool MapItem::trackRecording() const
@@ -347,8 +367,7 @@ bool MapItem::trackRecording() const
 void MapItem::startTrackRecording()
 {
   m_framework.StartTrackRecording();
-  // Recording needs fixes even when the my position button is off.
-  m_locationService->Start();
+  UpdateLocationService();
   WatchRecording();
   emit trackRecordingChanged();
 }
@@ -357,8 +376,7 @@ void MapItem::stopTrackRecording()
 {
   m_framework.SetTrackRecordingUpdateHandler(nullptr);
   m_framework.StopTrackRecording();
-  if (m_inBackground && !m_routing->navigating())
-    m_locationService->Stop();
+  UpdateLocationService();
   emit trackRecordingChanged();
 }
 
@@ -443,7 +461,7 @@ void MapItem::OnCurrentCountryChanged(std::string const & countryId)
   UpdateCurrentCountry();
 
   // Auto-download only on Wi-Fi, in that region and with enough space.
-  if (countryId.empty() || !AppSettings::IsAutoDownloadEnabled() || MapsStorage::IsLocked())
+  if (countryId.empty() || !AppSettings::IsAutoDownloadEnabled())
     return;
   auto & storage = m_framework.GetStorage();
   if (MapAttrs(storage, countryId).m_status != storage::NodeStatus::NotDownloaded)
@@ -562,10 +580,7 @@ void MapItem::OnApplicationStateChanged(Qt::ApplicationState state)
   {
     UpdatePositionInfo();
     m_updateTimer.stop();
-    // Track recording and navigation need location in the background.
-    if (!m_framework.IsTrackRecordingEnabled() && !m_routing->navigating())
-      m_locationService->Stop();
-    m_compass->stop();
+    UpdateLocationService();
     m_framework.SetRenderingDisabled(false /* destroySurface */);
     m_framework.EnterBackground();
   }
@@ -574,9 +589,7 @@ void MapItem::OnApplicationStateChanged(Qt::ApplicationState state)
     m_framework.EnterForeground();
     m_framework.SetRenderingEnabled();
     m_updateTimer.start();
-    if (m_myPositionMode != location::NotFollowNoPosition)
-      m_locationService->Start();
-    m_compass->start();
+    UpdateLocationService();
   }
 }
 
@@ -607,6 +620,7 @@ void MapItem::CreateEngine()
 
   m_framework.SetMyPositionModeListener([this](location::EMyPositionMode mode, bool /* routingActive */)
   { OnMyPositionModeChanged(mode); });
+  m_framework.SetUserPositionListener([this](bool hasPosition) { OnUserPositionChanged(hasPosition); });
   m_framework.GetIsolinesManager().SetStateListener([this](IsolinesManager::IsolinesState state)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [self = QPointer<MapItem>(this), state]
@@ -633,7 +647,9 @@ void MapItem::CreateEngine()
   m_framework.UpdateMyPositionRoutingOffset(false /* useDefault */, 0);
 
   m_updateTimer.start();
-  m_compass->start();
+  // E.g. a recording restored after a restart.
+  UpdateLocationService();
+  emit engineCreated();
 }
 
 void MapItem::Resize(int width, int height)

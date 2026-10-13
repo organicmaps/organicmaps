@@ -161,6 +161,8 @@ public:
   Q_INVOKABLE qint64 logSize() const;
   // The mobileData setting applies only to cellular connections.
   Q_INVOKABLE int downloadPermission() const;
+  // Before a download the permission allows, or the user agreed to.
+  Q_INVOKABLE void confirmDownload();
   Q_INVOKABLE void setBackgroundTiles(bool enabled, QString const & url, int cacheSizeMb, int opacityPct);
   Q_INVOKABLE bool isWellFormedTilesUrl(QString const & url) const;
   Q_INVOKABLE void applyMapAppearance(bool dark);

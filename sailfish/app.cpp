@@ -24,14 +24,21 @@
 
 #include <qqml.h>
 #include <QDir>
+#include <QEventLoop>
 #include <QGuiApplication>
 #include <QQmlContext>
+#include <QQmlError>
+#include <QQuickItem>
 #include <QQuickView>
 #include <QStandardPaths>
 #include <QSurfaceFormat>
+#include <QTimer>
 
+#include <atomic>
 #include <clocale>
+#include <cstdlib>
 #include <memory>
+#include <thread>
 
 #include <sailfishapp.h>
 
@@ -57,11 +64,37 @@ void SetDefaultSurfaceFormat()
   QSurfaceFormat::setDefaultFormat(format);
 }
 
+// The copy can take minutes, e.g. to a slow memory card, so its progress is shown meanwhile. Without text: the
+// strings come from the platform, which may only start once the maps folder is known.
+QString MoveMaps()
+{
+  if (!sailfish::MapsStorage::HasPendingMove())
+    return sailfish::MapsStorage::ApplyPendingMove([](double) {});
+
+  std::unique_ptr<QQuickView> view(SailfishApp::createView());
+  view->setSource(SailfishApp::pathTo(QStringLiteral("qml/MovingMaps.qml")));
+  view->show();
+  std::atomic<double> progress{0};
+  QString dir;
+  QEventLoop loop;
+  std::thread worker([&]
+  {
+    dir = sailfish::MapsStorage::ApplyPendingMove([&](double copied) { progress = copied; });
+    QMetaObject::invokeMethod(&loop, "quit", Qt::QueuedConnection);
+  });
+  QTimer timer;
+  QObject::connect(&timer, &QTimer::timeout, [&] { view->rootObject()->setProperty("progress", progress.load()); });
+  timer.start(500);
+  loop.exec();
+  worker.join();
+  return dir;
+}
+
 void SetupPlatform()
 {
   // Platform reads these on first use; the defaults match the installed RPM layout and Sailjail.
   SetEnvIfUnset("MWM_RESOURCES_DIR", SailfishApp::pathTo(QStringLiteral("data")).toLocalFile());
-  QString writableDir = sailfish::MapsStorage::ConfiguredDir();
+  QString writableDir = MoveMaps();
   if (writableDir.isEmpty())
     writableDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
   QDir().mkpath(writableDir);
@@ -100,20 +133,21 @@ Framework & GetFramework()
 
 __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv[])
 {
-  // Our double parsing code (base/string_utils.hpp) needs dots as a floating point delimiters.
-  std::setlocale(LC_NUMERIC, "C");
-
   SetDefaultSurfaceFormat();
 
   std::unique_ptr<QGuiApplication> app(SailfishApp::application(argc, argv));
+  // After the application, which sets the system locale: strtod() in platform/measurement_utils.cpp and
+  // search/latlon_match.cpp needs dots as decimal separators.
+  std::setlocale(LC_NUMERIC, "C");
   app->setOrganizationName(QStringLiteral("app.organicmaps"));
   app->setApplicationName(QStringLiteral("organicmaps"));
 
   QStringList const urls = app->arguments().mid(1);
   // Single instance: a second one would write the same settings, bookmarks and edits.
-  if (!sailfish::UrlHandler::ClaimService())
+  sailfish::DBusInbox dbusInbox;
+  if (!dbusInbox.Claim())
   {
-    sailfish::UrlHandler::OpenInRunningApp(urls);
+    sailfish::DBusInbox::OpenInRunningApp(urls);
     return 0;
   }
 
@@ -134,12 +168,11 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
   sailfish::BookmarksIO bookmarksIO(framework);
   sailfish::MapsStorage mapsStorage(framework);
   sailfish::DownloadStatus downloads(framework.GetStorage());
-  sailfish::UrlHandler urlHandler(framework, bookmarksIO, mapsStorage);
+  sailfish::UrlHandler urlHandler(framework, bookmarksIO);
   // The OpenStreetMap login in the browser returns by an om:// link.
   QObject::connect(&urlHandler, &sailfish::UrlHandler::oauth2CodeReceived, &osmAccount,
                    &sailfish::OsmAccount::LoginWithCode);
-  if (!urlHandler.RegisterOnDBus())
-    LOG(LWARNING, ("Can't serve the D-Bus interface: links from other apps won't open"));
+  dbusInbox.SetHandler(urlHandler);
   std::unique_ptr<QQuickView> view(SailfishApp::createView());
   view->rootContext()->setContextProperty(QStringLiteral("appInfo"), &appInfo);
   view->rootContext()->setContextProperty(QStringLiteral("appSettings"), &appSettings);
@@ -148,7 +181,14 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
   view->rootContext()->setContextProperty(QStringLiteral("urlHandler"), &urlHandler);
   view->rootContext()->setContextProperty(QStringLiteral("mapsStorage"), &mapsStorage);
   view->rootContext()->setContextProperty(QStringLiteral("downloads"), &downloads);
+  // A local file loads synchronously.
   view->setSource(SailfishApp::pathToMainQml());
+  if (view->status() != QQuickView::Ready)
+  {
+    for (auto const & error : view->errors())
+      LOG(LERROR, (error.toString().toStdString()));
+    return EXIT_FAILURE;
+  }
   view->show();
   if (!urls.isEmpty())
     urlHandler.openUrl(urls);

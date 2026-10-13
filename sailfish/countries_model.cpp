@@ -1,5 +1,6 @@
 #include "sailfish/countries_model.hpp"
 
+#include "sailfish/bookmarks_model.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/helpers.hpp"
 
@@ -110,6 +111,8 @@ DownloadStatus::DownloadStatus(storage::Storage & storage, QObject * parent)
   m_storageSlot = m_storage.Subscribe([this](storage::CountryId const & countryId)
   { OnCountryChanged(countryId); }, [this](storage::CountryId const & countryId, downloader::Progress const & progress)
   { OnProgress(countryId, progress); });
+  connect(&BookmarksNotifier::Instance(), &BookmarksNotifier::positionFound, this,
+          &DownloadStatus::positionMapChanged);
 }
 
 DownloadStatus::~DownloadStatus()
@@ -169,20 +172,26 @@ void DownloadStatus::cancelAll()
 
 void DownloadStatus::OnProgress(storage::CountryId const & countryId, downloader::Progress const & progress)
 {
+  // Storage reports the map and then every group above it.
+  if (!m_storage.IsLeaf(countryId))
+    return;
   if (countryId != m_downloadingId)
   {
     m_downloadingId = countryId;
-    m_downloadingName = QString::fromStdString(MapAttrs(m_storage, countryId).m_nodeLocalName);
+    m_downloadingName = QString::fromStdString(m_storage.GetNodeLocalName(countryId));
   }
   m_downloadingProgress = ProgressFraction(progress);
   emit progressChanged();
+  emit positionMapChanged();
 }
 
 void DownloadStatus::OnCountryChanged(storage::CountryId const & countryId)
 {
-  auto const attrs = MapAttrs(m_storage, countryId);
-  if (attrs.m_status == NodeStatus::Error)
-    emit downloadFailed(QString::fromStdString(attrs.m_nodeLocalName));
+  // Groups above a failed map are in error too.
+  storage::NodeStatuses statuses;
+  m_storage.GetNodeStatuses(countryId, statuses);
+  if (statuses.m_status == NodeStatus::Error && !statuses.m_groupNode)
+    emit downloadFailed(QString::fromStdString(m_storage.GetNodeLocalName(countryId)));
   bool const inProgress = m_storage.IsDownloadInProgress();
   if (inProgress != m_inProgress)
   {
@@ -196,6 +205,7 @@ void DownloadStatus::OnCountryChanged(storage::CountryId const & countryId)
     emit inProgressChanged();
   }
   emit progressChanged();
+  emit positionMapChanged();
   emit mapsChanged();
 }
 
@@ -232,7 +242,7 @@ void CountriesModel::setParentId(QString const & parentId)
 
 QString CountriesModel::title() const
 {
-  return QString::fromStdString(MapAttrs(m_storage, m_parentId).m_nodeLocalName);
+  return QString::fromStdString(m_storage.GetNodeLocalName(m_parentId));
 }
 
 void CountriesModel::setDownloadedOnly(bool downloadedOnly)
@@ -301,7 +311,7 @@ void CountriesModel::SetChildren(storage::CountriesVec && children)
   std::vector<std::pair<QString, storage::CountryId>> named;
   named.reserve(children.size());
   for (auto & id : children)
-    named.emplace_back(QString::fromStdString(MapAttrs(m_storage, id).m_nodeLocalName), std::move(id));
+    named.emplace_back(QString::fromStdString(m_storage.GetNodeLocalName(id)), std::move(id));
   std::sort(named.begin(), named.end(),
             [&collator](auto const & lhs, auto const & rhs) { return collator.compare(lhs.first, rhs.first) < 0; });
 
@@ -322,40 +332,39 @@ void CountriesModel::SetChildren(storage::CountriesVec && children)
   for (auto & item : named)
     result.push_back(std::move(item.second));
 
+  if (result == m_children)
+  {
+    // A reset would scroll the list to the top.
+    RefreshRows();
+    return;
+  }
   beginResetModel();
   m_children = std::move(result);
   endResetModel();
 }
 
+void CountriesModel::RefreshRows()
+{
+  // A leaf change also changes every group above it, and the lists are short, so refresh all rows.
+  if (!m_children.empty())
+    emit dataChanged(index(0), index(static_cast<int>(m_children.size()) - 1));
+}
+
 void CountriesModel::OnProgress(storage::CountryId const & countryId)
 {
-  // Only the row of the map and those of the groups above it show the progress.
-  auto const updateRow = [this](storage::CountryId const & id)
-  {
-    auto const it = std::find(m_children.cbegin(), m_children.cend(), id);
-    if (it == m_children.cend())
-      return;
-    auto const row = index(static_cast<int>(it - m_children.cbegin()));
-    emit dataChanged(row, row, {ProgressRole});
-  };
-  updateRow(countryId);
-  m_storage.ForEachAncestorExceptForTheRoot(countryId,
-                                            [&](storage::CountryId const & id, auto const &) { updateRow(id); });
+  // Storage reports the map and then every group above it. A map can be listed twice: near the user and by name.
+  for (size_t i = 0; i < m_children.size(); ++i)
+    if (m_children[i] == countryId)
+      emit dataChanged(index(static_cast<int>(i)), index(static_cast<int>(i)), {ProgressRole});
 }
 
 void CountriesModel::OnCountryChanged(storage::CountryId const & countryId)
 {
-  // A map that finished downloading or was deleted moves between the downloaded and available lists.
-  auto const status = MapAttrs(m_storage, countryId).m_status;
-  if (m_query.isEmpty() && (status == NodeStatus::OnDisk || status == NodeStatus::NotDownloaded))
-  {
+  // E.g. a queued, downloaded or deleted map joins or leaves the downloaded list; unchanged rows are kept.
+  if (m_query.isEmpty())
     Reload();
-    return;
-  }
-
-  // A leaf change also changes every group above it, and the lists are short, so refresh all rows.
-  if (!m_children.empty())
-    emit dataChanged(index(0), index(static_cast<int>(m_children.size()) - 1));
+  else
+    RefreshRows();
   emit updatesChanged();
 }
 
@@ -387,11 +396,12 @@ QVariant CountriesModel::data(QModelIndex const & index, int role) const
     return QString::fromStdString(countryId);
   if (role == IsGroupRole)
     return !m_storage.IsLeaf(countryId);
+  if (role == NameRole)
+    return QString::fromStdString(m_storage.GetNodeLocalName(countryId));
 
   auto const attrs = MapAttrs(m_storage, countryId);
   switch (role)
   {
-  case NameRole: return QString::fromStdString(attrs.m_nodeLocalName);
   case StatusRole: return static_cast<int>(attrs.m_status);
   case ErrorRole: return static_cast<int>(attrs.m_error);
   case SizeRole: return static_cast<qint64>(attrs.m_mwmSize);

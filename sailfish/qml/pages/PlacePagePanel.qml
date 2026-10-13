@@ -45,8 +45,8 @@ MapPanel {
     }
     Connections {
         target: panel.placePage
-        onChanged: {
-            panel.open = panel.placePage.open
+        onChanged: panel.open = panel.placePage.open
+        onSelected: {
             hoursExpanded = false
             wikiExpanded = false
             flickable.contentY = 0
@@ -259,12 +259,13 @@ MapPanel {
                 PageLabel {
                     visible: modelData !== ""
                     text: modelData
-                    textFormat: Text.StyledText
+                    // The OpenStreetMap description is plain text.
+                    textFormat: index === 0 ? Text.StyledText : Text.PlainText
                     font.pixelSize: Theme.fontSizeSmall
                     color: Theme.secondaryHighlightColor
                     bottomPadding: Theme.paddingMedium
                     linkColor: Theme.highlightColor
-                    onLinkActivated: Qt.openUrlExternally(link)
+                    onLinkActivated: Bookmarks.openUserLink(link)
                 }
             }
             ListItem {

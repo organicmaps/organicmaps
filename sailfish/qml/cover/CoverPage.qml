@@ -148,14 +148,14 @@ CoverBackground {
         }
         CoverAction {
             iconSource: "image://theme/icon-cover-cancel"
-            onTriggered: routing.stopNavigation()
+            onTriggered: routing.close()
         }
     }
     CoverActionList {
         enabled: cover.mode === "navigation" && !routing.voiceAvailable
         CoverAction {
             iconSource: "image://theme/icon-cover-cancel"
-            onTriggered: routing.stopNavigation()
+            onTriggered: routing.close()
         }
     }
     CoverActionList {

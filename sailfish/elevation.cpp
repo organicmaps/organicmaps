@@ -6,6 +6,8 @@
 
 #include <QVariantList>
 
+#include <algorithm>
+
 namespace sailfish
 {
 QVariantMap ElevationChart(ElevationInfo const & elevation, geometry::Altitude minAltitude,
@@ -16,7 +18,7 @@ QVariantMap ElevationChart(ElevationInfo const & elevation, geometry::Altitude m
   QVariantList profile;
   double length = 0;
   size_t const count = elevation.GetSize();
-  size_t const step = count / kMaxPoints + 1;
+  size_t const step = std::max<size_t>(1, (count + kMaxPoints - 1) / kMaxPoints);
   size_t i = 0;
   elevation.ForEachPoint([&](double distance, geometry::Altitude altitude)
   {

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+#include <QTimer>
 #include <QVariantList>
 
 #include <cstdint>
@@ -83,5 +84,7 @@ private:
 
   Framework & m_framework;
   bool m_backingUp = false;
+  // The app may stay open for days, mostly as its cover.
+  QTimer m_backupTimer;
 };
 }  // namespace sailfish

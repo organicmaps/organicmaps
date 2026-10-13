@@ -151,11 +151,13 @@ void AddDetail(QVariantList & details, QString const & icon, QString const & tex
 void AddWebsite(QVariantList & details, place_page::Info const & info, char const * icon, Metadata::EType type,
                 QString const & text = {})
 {
-  QString const url = QUrl::fromPercentEncoding(ToQString(info.GetMetadata(type)).toUtf8());
+  QString const url = ToQString(info.GetMetadata(type));
   if (url.isEmpty())
     return;
+  // Decoded only for display: e.g. %26 in a query must stay encoded for the link.
   static QRegularExpression const kSchemeAndTrailingSlash(QStringLiteral("^https?://|/$"));
-  AddDetail(details, icon, text.isEmpty() ? QString(url).remove(kSchemeAndTrailingSlash) : text,
+  AddDetail(details, icon,
+            text.isEmpty() ? QUrl::fromPercentEncoding(url.toUtf8()).remove(kSchemeAndTrailingSlash) : text,
             url.contains("://") ? url : "https://" + url);
 }
 
@@ -267,7 +269,11 @@ QString OpensDescription(time_t now, time_t nextTimeOpen)
 
 PlacePage::PlacePage(Framework & framework, QObject * parent) : QObject(parent), m_framework(framework)
 {
-  m_framework.SetPlacePageListeners([this] { Update(); }, [this]
+  m_framework.SetPlacePageListeners([this]
+  {
+    Update();
+    emit selected();
+  }, [this]
   {
     m_open = false;
     emit changed();
@@ -411,7 +417,7 @@ void PlacePage::Update()
                                                           m_framework.GetDrawScale(), info.GetTitle()));
   }
   UpdateOpeningHours(info.GetOpeningHours());
-  m_wikiDescription = QString::fromStdString(info.GetWikiDescription());
+  m_wikiDescription = UserStyledText(info.GetWikiDescription());
   auto const wikipedia = info.GetMetadata(Metadata::FMD_WIKIPEDIA);
   m_wikiUrl = wikipedia.empty() ? QString() : QString::fromStdString(Metadata::ToWikiURL(std::string(wikipedia)));
   m_details = MakeDetails(info);
@@ -475,7 +481,7 @@ void PlacePage::UpdateList()
     m_listId = bookmark->GetGroupId();
     m_listName = QString::fromStdString(manager.GetCategoryName(m_listId));
     m_color = ColorName(bookmark->GetColorForRendering());
-    m_notes = QString::fromStdString(bookmark->GetDescription());
+    m_notes = UserStyledText(bookmark->GetDescription());
   }
   else if (m_isTrack)
   {
@@ -505,11 +511,12 @@ void PlacePage::setList(quint64 listId)
 {
   ASSERT_NOT_EQUAL(m_listId, kml::kInvalidMarkGroupId, ());
   {
+    // Reads the current list: the bookmark may have moved since this page was updated.
     auto session = m_framework.GetBookmarkManager().GetEditSession();
     if (m_isTrack)
-      session.MoveTrack(m_userMarkId, m_listId, listId);
+      session.MoveBookmarksAndTracks({}, {m_userMarkId}, listId);
     else
-      session.MoveBookmark(m_userMarkId, m_listId, listId);
+      session.MoveBookmarksAndTracks({m_userMarkId}, {}, listId);
   }
   m_framework.UpdatePlacePageInfoForCurrentSelection();
 }
@@ -594,7 +601,7 @@ void PlacePage::UpdateTrack()
   auto const add = [this](char const * label, QString const & value)
   { m_trackStats.append(QVariantMap{{"label", Localized(label)}, {"value", value}}); };
   auto const stats = track->GetStatistics();
-  add("elevation_profile_distance", QString::fromStdString(stats.GetFormattedLength()));
+  add("length", QString::fromStdString(stats.GetFormattedLength()));
   if (stats.m_duration > 0)
     add("elevation_profile_time", FormatDuration(static_cast<long>(stats.m_duration)));
 

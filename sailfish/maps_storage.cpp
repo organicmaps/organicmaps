@@ -21,6 +21,7 @@
 #include <QStorageInfo>
 #include <QVariantMap>
 
+#include <optional>
 #include <vector>
 
 namespace sailfish
@@ -28,6 +29,7 @@ namespace sailfish
 namespace
 {
 char constexpr kStorageKey[] = "mapsStorage";
+char constexpr kPendingKey[] = "pendingMove";
 
 QString DefaultDir()
 {
@@ -45,10 +47,12 @@ QString CurrentDir()
   return QDir::cleanPath(QString::fromStdString(GetPlatform().WritableDir()));
 }
 
-// Moves every file of the folder, keeping the tree; on failure the copies are removed and the folder is left.
-bool MoveTree(QString const & from, QString const & to, std::atomic<bool> const & cancelled)
+// Copies every file of the folder, keeping the tree, and returns the copies; on failure they are removed.
+std::optional<std::vector<std::string>> CopyTree(QString const & from, QString const & to,
+                                                 std::function<void(double)> const & onProgress)
 {
   std::vector<std::pair<std::string, std::string>> files;
+  qint64 total = 0;
   for (QDirIterator it(from, QDir::Files | QDir::Hidden, QDirIterator::Subdirectories); it.hasNext();)
   {
     QString const file = it.next();
@@ -57,54 +61,82 @@ bool MoveTree(QString const & from, QString const & to, std::atomic<bool> const 
     if (QFileInfo::exists(target))
     {
       LOG(LWARNING, ("Not moving maps over the existing", target.toStdString()));
-      return false;
+      return {};
     }
     files.emplace_back(file.toStdString(), target.toStdString());
+    total += it.fileInfo().size();
   }
 
-  // Copy all first, so that a full card doesn't leave the maps split.
   std::vector<std::string> copied;
+  qint64 done = 0;
   for (auto const & [source, target] : files)
   {
-    if (cancelled || !QDir().mkpath(QFileInfo(QString::fromStdString(target)).path()) ||
-        !base::CopyFileX(source, target))
+    if (!QDir().mkpath(QFileInfo(QString::fromStdString(target)).path()) || !base::CopyFileX(source, target))
     {
       LOG(LWARNING, ("Can't copy", source, "to", target));
       for (auto const & file : copied)
         base::DeleteFileX(file);
-      return false;
+      return {};
     }
     copied.push_back(target);
+    done += QFileInfo(QString::fromStdString(target)).size();
+    if (total > 0)
+      onProgress(static_cast<double>(done) / total);
   }
-  for (auto const & file : files)
-    base::DeleteFileX(file.first);
-  return true;
+  return copied;
 }
 }  // namespace
 
-std::atomic<bool> MapsStorage::s_locked = false;
+bool MapsStorage::s_moveFailed = false;
 
-MapsStorage::MapsStorage(Framework & framework, QObject * parent) : QObject(parent), m_framework(framework)
-{
-  connect(this, &MapsStorage::treeMoved, this, &MapsStorage::OnMoved, Qt::QueuedConnection);
-}
+MapsStorage::MapsStorage(Framework & framework, QObject * parent) : QObject(parent), m_framework(framework) {}
 
-MapsStorage::~MapsStorage()
+// static
+bool MapsStorage::HasPendingMove()
 {
-  m_cancelled = true;
-  if (m_thread.joinable())
-    m_thread.join();
+  return !QSettings(SettingsPath(), QSettings::IniFormat).value(kPendingKey).toString().isEmpty();
 }
 
 // static
-QString MapsStorage::ConfiguredDir()
+QString MapsStorage::ApplyPendingMove(std::function<void(double)> const & onProgress)
 {
-  QString const dir = QSettings(SettingsPath(), QSettings::IniFormat).value(kStorageKey).toString();
-  if (dir.isEmpty())
-    return {};
+  QSettings settings(SettingsPath(), QSettings::IniFormat);
+  QString dir = settings.value(kStorageKey).toString();
   // E.g. the memory card was removed: use the app folder until it is back.
-  QFileInfo const info(dir);
-  return info.isDir() && info.isWritable() ? dir : QString();
+  if (!dir.isEmpty() && !(QFileInfo(dir).isDir() && QFileInfo(dir).isWritable()))
+    dir.clear();
+
+  QString const pending = settings.value(kPendingKey).toString();
+  if (pending.isEmpty())
+    return dir;
+  // Tried once: a failed or interrupted move leaves the maps where they are.
+  settings.remove(kPendingKey);
+  settings.sync();
+  QString const from = dir.isEmpty() ? DefaultDir() : dir;
+  QString const to = QDir::cleanPath(pending);
+  LOG(LINFO, ("Moving maps from", from.toStdString(), "to", to.toStdString()));
+  s_moveFailed = true;
+  if (settings.status() != QSettings::NoError || !QDir().mkpath(to))
+    return dir;
+  auto const copies = CopyTree(from, to, onProgress);
+  if (!copies)
+    return dir;
+
+  // The originals go only after the new folder is saved, so that an interruption leaves usable maps.
+  QString const newDir = to == QDir::cleanPath(DefaultDir()) ? QString() : to;
+  settings.setValue(kStorageKey, newDir);
+  settings.sync();
+  if (settings.status() != QSettings::NoError)
+  {
+    LOG(LERROR, ("Can't save the maps folder", to.toStdString(), "to", SettingsPath().toStdString()));
+    for (auto const & file : *copies)
+      base::DeleteFileX(file);
+    return dir;
+  }
+  for (QDirIterator it(from, QDir::Files | QDir::Hidden, QDirIterator::Subdirectories); it.hasNext();)
+    base::DeleteFileX(it.next().toStdString());
+  s_moveFailed = false;
+  return newDir;
 }
 
 QVariantList MapsStorage::locations() const
@@ -139,12 +171,6 @@ QString MapsStorage::downloadedSize() const
   return FormatSize(static_cast<qint64>(MapAttrs(storage, storage.GetRootId()).m_localMwmSize));
 }
 
-bool MapsStorage::canMove() const
-{
-  return !Locked() && !m_framework.GetStorage().IsDownloadInProgress() &&
-         !m_framework.GetRoutingManager().IsRoutingActive() && !m_framework.IsTrackRecordingEnabled();
-}
-
 QString MapsStorage::currentName() const
 {
   for (auto const & location : locations())
@@ -158,46 +184,17 @@ QString MapsStorage::currentName() const
 
 bool MapsStorage::moveTo(QString const & path)
 {
-  if (!canMove())
-    return false;
-  QString const from = CurrentDir();
   QString const to = QDir::cleanPath(path);
-  if (to == from)
-    return true;
-  if (!QDir().mkpath(to))
+  QSettings settings(SettingsPath(), QSettings::IniFormat);
+  settings.setValue(kPendingKey, to);
+  settings.sync();
+  if (settings.status() != QSettings::NoError)
   {
-    emit moveFinished(false);
-    return true;
+    LOG(LERROR, ("Can't save the maps move to", to.toStdString(), "in", SettingsPath().toStdString()));
+    return false;
   }
-
-  m_moving = true;
-  s_locked = true;
+  m_movePending = true;
   emit changed();
-  m_framework.DeregisterAllMaps();
-  if (m_thread.joinable())
-    m_thread.join();
-  m_thread = std::thread([this, from, to] { emit treeMoved(to, MoveTree(from, to, m_cancelled)); });
   return true;
-}
-
-void MapsStorage::OnMoved(QString const & path, bool success)
-{
-  m_moving = false;
-  s_locked = success;
-  m_moved = success;
-  if (success)
-  {
-    QSettings settings(SettingsPath(), QSettings::IniFormat);
-    settings.setValue(kStorageKey, path == QDir::cleanPath(DefaultDir()) ? QString() : path);
-    settings.sync();
-    if (settings.status() != QSettings::NoError)
-      LOG(LERROR, ("Can't save the maps folder", path.toStdString(), "to", SettingsPath().toStdString()));
-  }
-  else
-  {
-    m_framework.RegisterAllMaps();
-  }
-  emit changed();
-  emit moveFinished(success);
 }
 }  // namespace sailfish

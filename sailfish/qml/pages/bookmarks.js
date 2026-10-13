@@ -38,3 +38,9 @@ function pickExportFormat(pageStack, exportFile) {
         picked: function(index) { exportFile(formats[index].type) }
     })
 }
+
+// A link in notes from a shared file must not open the app's own om: links or local files.
+function openUserLink(link) {
+    if (/^(https?|mailto|tel|geo):/i.test(link))
+        Qt.openUrlExternally(link)
+}

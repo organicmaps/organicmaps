@@ -167,7 +167,10 @@ public:
   void SetNorth(double north);
 
 signals:
+  // Also for updates in place, e.g. of my position with every fix.
   void changed();
+  // Another place was selected.
+  void selected();
   void distanceChanged();
   void elevationPointsChanged();
   void countryChanged();

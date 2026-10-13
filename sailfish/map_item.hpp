@@ -148,6 +148,7 @@ public:
   QVariantMap currentCountry() const { return m_currentCountry; }
 
 signals:
+  void engineCreated();
   void myPositionModeChanged();
   void layersChanged();
   void bottomWidgetsOffsetChanged();
@@ -186,6 +187,9 @@ private:
   // Drape needs the touches of a gesture to end it: Qt sends TouchCancel without points.
   void CancelTouch();
   void OnMyPositionModeChanged(location::EMyPositionMode mode);
+  // Location runs for recording and navigation, and in the foreground while the position is on; the compass only
+  // with it in the foreground. Restart also starts a running service again.
+  void UpdateLocationService(bool restart = false);
   void OnCompassReading();
   // Auto-downloads the map of the region the user is in.
   void OnCurrentCountryChanged(std::string const & countryId);
@@ -194,6 +198,8 @@ private:
   void UpdatePositionInfo();
   void UpdateCurrentCountry();
   void UpdateLocation(location::GpsInfo const & info);
+  // After the core has the position, which follows the fix.
+  void OnUserPositionChanged(bool hasPosition);
   void SimulateLocation();
 
   // location::LocationObserver
@@ -219,9 +225,10 @@ private:
   qreal m_leftInset = 0;
   qreal m_rightInset = 0;
   bool m_inBackground = false;
+  bool m_locationActive = false;
   bool m_locationErrorShown = false;
   bool m_locationLost = false;
-  bool m_hadPosition = false;
+  bool m_hasPosition = false;
   QTimer m_simulationTimer;
   m2::PointD m_simulatedPoint;
   // The simulated route is told apart from a rebuilt one by its start and size.

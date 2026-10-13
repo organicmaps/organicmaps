@@ -172,7 +172,7 @@ class SailfishMatcherTest(unittest.TestCase):
     def test_cpp_key_like_literals(self):
         match = v._regex_matcher(v._SAILFISH_CPP_RE)
         source = 'add("elevation_profile_time", value);\nQString("Organic Maps");\nGet("url");'
-        self.assertEqual(match(source), {"elevation_profile_time": 0})
+        self.assertEqual(match(source), {"elevation_profile_time": 0, "url": 2})
 
 
 class PlistAndXibMatcherTest(unittest.TestCase):
@@ -302,6 +302,13 @@ class StrictMatcherTest(unittest.TestCase):
             self._match("core", ".cpp", line),
             {"category_bank", "category_children"},
         )
+
+    def test_sailfish_accepts_the_qml_accessor_only(self):
+        # A misspelled key would be shown raw, as GetString() falls back to it.
+        self.assertEqual(self._match("sailfish", ".qml", 'appInfo.localized("k")'), {"k"})
+        self.assertEqual(self._match("sailfish", ".js", 'x.localized(a ? "k" : "l")'), {"k", "l"})
+        # Any lowercase literal in the C++ is only a possible key.
+        self.assertEqual(self._match("sailfish", ".cpp", 'add("k", value);'), set())
 
     def test_android_is_not_scanned(self):
         # R.string may resolve to donottranslate.xml or a framework resource.

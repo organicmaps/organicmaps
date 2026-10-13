@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <filesystem>
+#include <fstream>
 #include <functional>  // bind
 #include <initializer_list>
 #include <optional>
@@ -34,6 +35,10 @@
 #include <netinet/in.h>
 
 #include <QStandardPaths>  // writableLocation GenericConfigLocation
+
+#ifdef OMIM_OS_SAILFISH
+#include <QNetworkConfigurationManager>
+#endif
 
 namespace
 {
@@ -218,6 +223,19 @@ std::string Platform::DeviceModel() const
 
 Platform::EConnectionType Platform::ConnectionStatus()
 {
+#ifdef OMIM_OS_SAILFISH
+  // A phone: the downloading policy keeps maps off cellular data unless allowed. Doesn't block, unlike connect().
+  QNetworkConfigurationManager const manager;
+  if (!manager.isOnline())
+    return EConnectionType::CONNECTION_NONE;
+  switch (manager.defaultConfiguration().bearerTypeFamily())
+  {
+  case QNetworkConfiguration::Bearer2G:
+  case QNetworkConfiguration::Bearer3G:
+  case QNetworkConfiguration::Bearer4G: return EConnectionType::CONNECTION_WWAN;
+  default: return EConnectionType::CONNECTION_WIFI;
+  }
+#else
   int socketFd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   SCOPE_GUARD(closeSocket, std::bind(&close, socketFd));
   if (socketFd < 0)
@@ -233,6 +251,7 @@ Platform::EConnectionType Platform::ConnectionStatus()
     return EConnectionType::CONNECTION_NONE;
 
   return EConnectionType::CONNECTION_WIFI;
+#endif
 }
 
 Platform::ChargingStatus Platform::GetChargingStatus()
@@ -242,6 +261,18 @@ Platform::ChargingStatus Platform::GetChargingStatus()
 
 uint8_t Platform::GetBatteryLevel()
 {
+#ifdef OMIM_OS_SAILFISH
+  // The phone's battery, for the automatic power saving.
+  std::error_code ec;
+  for (auto const & supply : std::filesystem::directory_iterator("/sys/class/power_supply", ec))
+  {
+    std::string type;
+    int capacity = -1;
+    if (std::ifstream(supply.path() / "type") >> type && type == "Battery" &&
+        std::ifstream(supply.path() / "capacity") >> capacity && capacity >= 0 && capacity <= 100)
+      return static_cast<uint8_t>(capacity);
+  }
+#endif
   // This value is always 100 for desktop.
   return 100;
 }

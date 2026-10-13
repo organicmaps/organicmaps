@@ -80,7 +80,7 @@ MapPanel {
         // isn't taken for the only way to stop.
         PlaceAction {
             width: parent.width / 2
-            enabled: panel.map.recordingElevation.length > 0
+            enabled: !!panel.map.recordingElevation.profile
             icon: "image://theme/icon-m-device-download"
             text: appInfo.localized("save")
             onClicked: panel.map.saveAndStopTrackRecording()

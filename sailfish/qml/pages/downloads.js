@@ -18,6 +18,7 @@ function toggle(pageStack, map, country) {
 function start(pageStack, action) {
     switch (appSettings.downloadPermission()) {
     case OM.AppSettings.DownloadAllowed:
+        appSettings.confirmDownload()
         action()
         break
     case OM.AppSettings.DownloadAsk:
@@ -25,7 +26,10 @@ function start(pageStack, action) {
             title: appInfo.localized("download_over_mobile_header"),
             message: appInfo.localized("download_over_mobile_message"),
             acceptText: appInfo.localized("download"),
-            acceptAction: action
+            acceptAction: function() {
+                appSettings.confirmDownload()
+                action()
+            }
         })
         break
     default:

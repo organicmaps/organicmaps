@@ -3,7 +3,8 @@
   sailfish/tools/android_vector_to_svg.py <output dir>
 
 Only the subset used by those icons is supported: groups with transforms, clip paths, paths with
-fill/stroke colors and alphas, and layer lists of an oval shape under a vector.
+fill/stroke colors, linear gradients and alphas, vector alphas and color tints, and layer lists of an oval
+shape under a vector. Anything else fails the conversion rather than ship a broken icon.
 """
 
 import os
@@ -11,6 +12,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 A = "{http://schemas.android.com/apk/res/android}"
+AAPT_ATTR = "{http://schemas.android.com/aapt}attr"
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 # The app resources, then the SDK and branding ones.
 RES_DIRS = [
@@ -86,7 +88,8 @@ HELP = [
 # The New Year promo of the help button keeps its colors.
 HELP_PROMO = ["ic_christmas_tree"]
 # Main menu entries and the recording status button. Android tints the single color ones at runtime, so
-# they are made white (WHITE) for Silica to colorize; ic_track_recording_on keeps its two colors.
+# they are made white (WHITE) for Silica to colorize; ic_track_recording_on keeps its two colors. So do
+# the Telegram and Mastodon logos, which Android shows in their colors too.
 MENU = [
     "ic_donate",
     "ic_track_recording_off",
@@ -137,7 +140,7 @@ WHITE = (
         "ic_track_recording_status",
     }
     | set(EDITOR)
-    | set(HELP)
+    | set(HELP) - {"ic_telegram", "ic_mastodon"}
 )
 OUTPUTS = [
     ("layers", LAYERS),
@@ -182,7 +185,25 @@ def group_transform(group):
     return "translate(%g %g) rotate(%g) scale(%g %g) translate(%g %g)" % (tx + px, ty + py, rotation, sx, sy, -px, -py)
 
 
-def convert(node, out, clip_ids):
+def gradient(attr, defs):
+    # Adds the gradient of an aapt:attr to defs, and returns the reference to it.
+    (child,) = attr
+    if child.tag != "gradient" or child.get(A + "type") != "linear":
+        raise ValueError("Unsupported gradient: " + ET.tostring(child, encoding="unicode"))
+    gradient_id = "gradient%d" % len(defs)
+    coords = {
+        svg: child.get(A + name) for svg, name in zip(("x1", "y1", "x2", "y2"), ("startX", "startY", "endX", "endY"))
+    }
+    element = ET.SubElement(defs, "linearGradient", id=gradient_id, gradientUnits="userSpaceOnUse", **coords)
+    for item in child:
+        rgb, alpha = color(item.get(A + "color"))
+        stop = ET.SubElement(element, "stop", {"offset": item.get(A + "offset"), "stop-color": rgb})
+        if alpha is not None and alpha < 1:
+            stop.set("stop-opacity", "%.3f" % alpha)
+    return "url(#%s)" % gradient_id
+
+
+def convert(node, out, clip_ids, defs):
     for child in node:
         tag = child.tag
         if tag == "group":
@@ -190,7 +211,7 @@ def convert(node, out, clip_ids):
             transform = group_transform(child)
             if transform:
                 group.set("transform", transform)
-            convert(child, group, clip_ids)
+            convert(child, group, clip_ids, defs)
         elif tag == "clip-path":
             clip_id = "clip%d" % len(clip_ids)
             clip_ids.append(clip_id)
@@ -200,9 +221,17 @@ def convert(node, out, clip_ids):
             out = ET.SubElement(out, "g", {"clip-path": "url(#%s)" % clip_id})
         elif tag == "path":
             attrs = {"d": child.get(A + "pathData")}
+            gradients = {}
+            for attr in child:
+                if attr.tag != AAPT_ATTR or attr.get("name") not in ("android:fillColor", "android:strokeColor"):
+                    raise ValueError("Unsupported path child: " + attr.tag)
+                gradients[attr.get("name").removeprefix("android:")] = gradient(attr, defs)
             for kind in ("fill", "stroke"):
                 value = child.get(A + kind + "Color")
-                rgb, alpha = color(value) if value else ("none", None)
+                if kind + "Color" in gradients:
+                    rgb, alpha = gradients[kind + "Color"], None
+                else:
+                    rgb, alpha = color(value) if value else ("none", None)
                 attrs[kind] = rgb
                 # Android multiplies the color's alpha by fillAlpha / strokeAlpha.
                 alpha = (1 if alpha is None else alpha) * float(child.get(A + kind + "Alpha", 1))
@@ -214,17 +243,24 @@ def convert(node, out, clip_ids):
                 value = child.get(A + android_name)
                 if value is not None:
                     attrs[svg_name] = value.lower()
+            if attrs["fill"] == "none" and attrs["stroke"] == "none":
+                raise ValueError("Path without a fill or stroke")
             ET.SubElement(out, "path", attrs)
+        else:
+            raise ValueError("Unsupported vector element: " + tag)
 
 
-def make_white(svg):
+def recolor(svg, rgb):
     for element in svg.iter():
         for attr in ("fill", "stroke"):
-            if element.get(attr) not in (None, "none"):
-                element.set(attr, "#ffffff")
+            value = element.get(attr)
+            if value is not None and value.startswith("url("):
+                raise ValueError("A gradient can't be recolored")
+            if value not in (None, "none"):
+                element.set(attr, rgb)
 
 
-def to_svg(root):
+def to_svg(root, white):
     # A layer list stretches every item over the same bounds, so the vector viewport is the canvas.
     items = [item[0] for item in root] if root.tag == "layer-list" else [root]
     vector = next(item for item in items if item.tag == "vector")
@@ -232,9 +268,13 @@ def to_svg(root):
     svg = ET.Element(
         "svg", xmlns="http://www.w3.org/2000/svg", width="%g" % w, height="%g" % h, viewBox="0 0 %g %g" % (w, h)
     )
+    defs = ET.SubElement(svg, "defs")
     for item in items:
         if item.tag == "vector":
-            convert(item, svg, [])
+            content = svg
+            if float(item.get(A + "alpha", 1)) < 1:
+                content = ET.SubElement(svg, "g", opacity=item.get(A + "alpha"))
+            convert(item, content, [], defs)
         elif item.tag == "shape" and item.get(A + "shape") == "oval":
             rgb, alpha = color(item.find("solid").get(A + "color"))
             circle = ET.SubElement(
@@ -244,6 +284,17 @@ def to_svg(root):
                 circle.set("fill-opacity", "%.3f" % alpha)
         else:
             raise ValueError("Unsupported drawable item: " + item.tag)
+    if len(defs) == 0:
+        svg.remove(defs)
+    # A tint replaces the colors; a theme one is left to Silica, as white.
+    tint = vector.get(A + "tint")
+    if white:
+        recolor(svg, "#ffffff")
+    elif tint is not None:
+        rgb, alpha = color(tint) if tint.startswith(("#", "@android:color/")) else (None, None)
+        if rgb is None or alpha is not None:
+            raise ValueError("Unsupported tint: " + tint)
+        recolor(svg, rgb)
     ET.indent(svg)
     return ET.ElementTree(svg)
 
@@ -261,9 +312,10 @@ def main():
                 if not path and not suffix:
                     raise FileNotFoundError(source)
                 if path:
-                    tree = to_svg(ET.parse(path).getroot())
-                    if name in WHITE:
-                        make_white(tree.getroot())
+                    try:
+                        tree = to_svg(ET.parse(path).getroot(), name in WHITE)
+                    except ValueError as e:
+                        raise ValueError("%s: %s" % (path, e)) from e
                     tree.write(os.path.join(out_dir, name + suffix + ".svg"), encoding="unicode")
 
 

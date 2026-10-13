@@ -38,22 +38,23 @@ SearchModel::OpenState GetOpenState(search::Result const & result)
   return SearchModel::OpenUnknown;
 }
 
-// The highlight ranges index the UTF-16 text.
+// The highlight ranges index the code points (strings::UniString), not the UTF-16 text.
 template <typename RangeFn>
 QString Highlighted(std::string const & text, size_t rangesCount, RangeFn && range, QColor const & color)
 {
-  QString const str = QString::fromStdString(text);
+  auto const codePoints = QString::fromStdString(text).toUcs4();
+  auto const part = [&codePoints](int first, int length)
+  { return QString::fromUcs4(codePoints.constData() + first, length).toHtmlEscaped(); };
   QString const open = QStringLiteral("<font color=\"%1\">").arg(color.name());
   QString styled;
   int pos = 0;
   for (size_t i = 0; i < rangesCount; ++i)
   {
     auto const & [first, length] = range(i);
-    styled += str.mid(pos, first - pos).toHtmlEscaped();
-    styled += open + str.mid(first, length).toHtmlEscaped() + QStringLiteral("</font>");
+    styled += part(pos, first - pos) + open + part(first, length) + QStringLiteral("</font>");
     pos = first + length;
   }
-  return styled + str.mid(pos).toHtmlEscaped();
+  return styled + part(pos, codePoints.size() - pos);
 }
 }  // namespace
 
@@ -61,7 +62,11 @@ SearchModel::SearchModel(QObject * parent)
   : QAbstractListModel(parent)
   , m_framework(GetFramework())
   , m_results(std::make_unique<search::Results>())
-{}
+{
+  m_runTimer.setSingleShot(true);
+  m_runTimer.setInterval(200);
+  connect(&m_runTimer, &QTimer::timeout, this, &SearchModel::Run);
+}
 
 SearchModel::~SearchModel()
 {
@@ -132,8 +137,12 @@ void SearchModel::setQuery(QString const & query)
   if (query == m_query)
     return;
   m_query = query;
+  m_linkLocale.clear();
   emit queryChanged();
-  Run();
+  if (m_query.isEmpty())
+    Run();
+  else
+    m_runTimer.start();
 }
 
 QVariantList SearchModel::categories() const
@@ -167,6 +176,12 @@ void SearchModel::searchCategory(QString const & name, bool addToHistory)
   setQuery(m_categoryQuery);
   if (addToHistory)
     SaveToHistory(name);
+}
+
+void SearchModel::searchFromLink(QString const & query, QString const & locale)
+{
+  setQuery(query);
+  m_linkLocale = locale.toStdString();
 }
 
 bool SearchModel::activate(int row)
@@ -215,14 +230,15 @@ void SearchModel::SaveToHistory(QString const & query)
 
 void SearchModel::Run()
 {
+  m_runTimer.stop();
+  // The old results stay until the new ones arrive.
   auto const timestamp = ++m_timestamp;
-  beginResetModel();
-  m_results->Clear();
-  endResetModel();
-
   auto & api = m_framework.GetSearchAPI();
   if (m_query.isEmpty())
   {
+    beginResetModel();
+    m_results->Clear();
+    endResetModel();
     api.CancelAllSearches();
     SetSearching(false);
     return;
@@ -230,7 +246,7 @@ void SearchModel::Run()
 
   bool const isCategory = m_query == m_categoryQuery;
   // The keyboard may have changed since the last search.
-  auto const locale = GetInputLocale();
+  auto const locale = m_linkLocale.empty() ? GetInputLocale() : m_linkLocale;
   // Draws the result marks; SearchAPI repeats it whenever the map moves, until the query is cleared.
   api.SearchInViewport(
       {m_query.toStdString(), locale, {} /* timeout */, isCategory, {} /* onStarted */, {} /* onCompleted */});

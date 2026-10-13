@@ -158,8 +158,6 @@ find_package(Threads REQUIRED)
 # Scripts
 
 if (PLATFORM_SAILFISH)
-  # The app is a shared library, so the core must be PIC.
-  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
   # Sailfish OS ships Qt 5.6, which Silica needs.
   set(OMIM_QT Qt5)
   find_package(Qt5 5.6 COMPONENTS REQUIRED Core Network)

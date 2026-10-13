@@ -40,7 +40,7 @@ class DownloadStatus : public QObject
   Q_PROPERTY(QString downloadingName READ downloadingName NOTIFY progressChanged)
   Q_PROPERTY(double downloadingProgress READ downloadingProgress NOTIFY progressChanged)
   // MissingMapInfo() of the map at the position, empty without a position, offered while no map is downloaded.
-  Q_PROPERTY(QVariantMap positionMap READ positionMap NOTIFY progressChanged)
+  Q_PROPERTY(QVariantMap positionMap READ positionMap NOTIFY positionMapChanged)
   Q_PROPERTY(bool noMaps READ noMaps NOTIFY mapsChanged)
   // Downloaded maps with a newer version, and the download size of all their updates.
   Q_PROPERTY(int updateCount READ updateCount NOTIFY mapsChanged)
@@ -67,6 +67,7 @@ public:
 signals:
   void inProgressChanged();
   void progressChanged();
+  void positionMapChanged();
   void mapsChanged();
   void downloadFailed(QString const & name);
 
@@ -184,6 +185,7 @@ signals:
 private:
   void Reload();
   void SetChildren(storage::CountriesVec && children);
+  void RefreshRows();
   void OnCountryChanged(storage::CountryId const & countryId);
   void OnProgress(storage::CountryId const & countryId);
 

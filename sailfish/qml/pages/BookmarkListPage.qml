@@ -77,7 +77,7 @@ Page {
                 color: Theme.secondaryHighlightColor
                 bottomPadding: Theme.paddingMedium
                 linkColor: Theme.highlightColor
-                onLinkActivated: Qt.openUrlExternally(link)
+                onLinkActivated: Bookmarks.openUserLink(link)
             }
             SearchField {
                 width: parent.width

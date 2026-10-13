@@ -107,10 +107,19 @@ BookmarkCategoriesModel::BookmarkCategoriesModel(QObject * parent)
 
 void BookmarkCategoriesModel::Reset()
 {
-  beginResetModel();
   auto const ids = m_framework.GetBookmarkManager().GetSortedBmGroupIdList();
-  m_ids.assign(ids.begin(), ids.end());
-  endResetModel();
+  // A reset would scroll the list to the top, e.g. after a visibility change.
+  if (std::equal(ids.begin(), ids.end(), m_ids.begin(), m_ids.end()))
+  {
+    if (!m_ids.empty())
+      emit dataChanged(index(0), index(rowCount() - 1));
+  }
+  else
+  {
+    beginResetModel();
+    m_ids.assign(ids.begin(), ids.end());
+    endResetModel();
+  }
   emit visibilityChanged();
   emit recentlyDeletedChanged();
 }
@@ -162,10 +171,8 @@ QHash<int, QByteArray> BookmarkCategoriesModel::roleNames() const
 void BookmarkCategoriesModel::setVisible(int row, bool visible)
 {
   ASSERT(row >= 0 && row < rowCount(), (row));
+  // The changed callback updates the row.
   m_framework.GetBookmarkManager().GetEditSession().SetIsVisible(m_ids[static_cast<size_t>(row)], visible);
-  // Visibility doesn't trigger the changed callback.
-  emit dataChanged(index(row), index(row), {VisibleRole});
-  emit visibilityChanged();
 }
 
 void BookmarkCategoriesModel::deleteList(quint64 listId)
@@ -269,8 +276,7 @@ QString BookmarksModel::descriptionText() const
   auto text = kml::GetDefaultStr(data.m_annotation);
   if (text.empty())
     text = kml::GetDefaultStr(data.m_description);
-  // Plain text keeps its line breaks in HTML.
-  return QString::fromStdString(text).replace('\n', QStringLiteral("<br>"));
+  return UserStyledText(text);
 }
 
 int BookmarksModel::bookmarksCount() const
@@ -450,6 +456,13 @@ void BookmarksModel::SetDefaultOrder()
 
 void BookmarksModel::SetItems(std::vector<Item> && items)
 {
+  // A reset would scroll the list to the top, e.g. after recoloring or editing an item.
+  if (items == m_items)
+  {
+    if (!m_items.empty())
+      emit dataChanged(index(0), index(rowCount() - 1));
+    return;
+  }
   beginResetModel();
   m_items = std::move(items);
   endResetModel();
@@ -572,9 +585,8 @@ void BookmarksModel::setTrackVisible(int row, bool visible)
   if (!item)
     return;
   ASSERT(item->m_isTrack, ());
+  // The changed callback updates the row.
   m_framework.SetTrackVisibility(item->m_id, visible);
-  // Visibility doesn't trigger the changed callback.
-  emit dataChanged(index(row), index(row), {VisibleRole});
 }
 
 void BookmarksModel::moveItems(QVariantList const & items, quint64 listId)
@@ -592,29 +604,19 @@ void BookmarksModel::setItemsColor(QVariantList const & items, int colorIndex)
   kml::MarkIdCollection marks;
   kml::TrackIdCollection tracks;
   SplitItems(items, marks, tracks);
-  SetColor(marks, tracks, colorIndex);
+  m_framework.GetBookmarkManager().GetEditSession().SetBookmarksAndTracksColor(marks, tracks, PresetColor(colorIndex));
 }
 
 void BookmarksModel::setAllColor(bool tracks, int colorIndex)
 {
-  auto const & manager = m_framework.GetBookmarkManager();
+  auto & manager = m_framework.GetBookmarkManager();
   if (!manager.HasBmCategory(m_listId))
     return;
+  auto session = manager.GetEditSession();
   if (tracks)
-  {
-    auto const & ids = manager.GetTrackIds(m_listId);
-    SetColor({}, {ids.begin(), ids.end()}, colorIndex);
-  }
+    session.SetCategoryTracksColor(m_listId, PresetColor(colorIndex));
   else
-  {
-    auto const & ids = manager.GetUserMarkIds(m_listId);
-    SetColor({ids.begin(), ids.end()}, {}, colorIndex);
-  }
-}
-
-void BookmarksModel::SetColor(std::vector<uint64_t> const & marks, std::vector<uint64_t> const & tracks, int colorIndex)
-{
-  m_framework.GetBookmarkManager().GetEditSession().SetBookmarksAndTracksColor(marks, tracks, PresetColor(colorIndex));
+    session.SetCategoryBookmarksColor(m_listId, PresetColor(colorIndex));
 }
 
 void BookmarksModel::showListOnMap()

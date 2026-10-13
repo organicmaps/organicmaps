@@ -28,6 +28,7 @@ ApplicationWindow {
     }
     allowedOrientations: defaultAllowedOrientations
     Component.onDestruction: downloadNotification.close()
+    Component.onCompleted: if (mapsStorage.moveFailed) Toast.showLong(appInfo.localized("move_maps_error"))
 
     ShareAction {
         id: fileShare
@@ -72,7 +73,10 @@ ApplicationWindow {
                                          + appInfo.localized("download_over_mobile_message") : ""),
                     acceptText: appInfo.localized("whats_new_auto_update_button_size", [downloads.updateSize]),
                     cancelText: appInfo.localized("later"),
-                    acceptAction: function() { downloads.updateAll() }
+                    acceptAction: function() {
+                        appSettings.confirmDownload()
+                        downloads.updateAll()
+                    }
                 })
             }
         }

@@ -9,23 +9,21 @@
 
 #include "kml/type_utils.hpp"
 
-#include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QGuiApplication>
 #include <QPointer>
 #include <QStandardPaths>
 #include <QUrl>
 #include <QVariantMap>
 
 #include <array>
-#include <functional>
 #include <string_view>
 
 namespace sailfish
@@ -74,6 +72,19 @@ BookmarksIO::BookmarksIO(Framework & framework, QObject * parent) : QObject(pare
   });
   connect(&notifier, &BookmarksNotifier::loaded, this, &BookmarksIO::BackUpIfDue);
   connect(&notifier, &BookmarksNotifier::changed, this, &BookmarksIO::listsChanged);
+
+  m_backupTimer.setInterval(60 * 60 * 1000);
+  connect(&m_backupTimer, &QTimer::timeout, this, &BookmarksIO::BackUpIfDue);
+  connect(qApp, &QGuiApplication::applicationStateChanged, this, [this](Qt::ApplicationState state)
+  {
+    if (state != Qt::ApplicationActive)
+    {
+      m_backupTimer.stop();
+      return;
+    }
+    m_backupTimer.start();
+    BackUpIfDue();
+  });
 }
 
 QVariantList BookmarksIO::lists() const
@@ -101,10 +112,6 @@ void BookmarksIO::deleteItems(QVariantList const & items)
   kml::MarkIdCollection marks;
   kml::TrackIdCollection tracks;
   SplitItems(items, marks, tracks);
-  // A remorse timer runs this later, when some may be gone, which the core CHECKs.
-  auto const & manager = m_framework.GetBookmarkManager();
-  base::EraseIf(marks, [&manager](kml::MarkId id) { return !manager.HasBookmark(id); });
-  base::EraseIf(tracks, [&manager](kml::TrackId id) { return !manager.HasTrack(id); });
   m_framework.DeleteBookmarksAndTracks(marks, tracks);
 }
 
@@ -164,35 +171,24 @@ bool BookmarksIO::OpenFile(QString const & file)
 
 namespace
 {
-// BookmarkManager calls sharing handlers on the File thread.
-BookmarkManager::SharingHandler OnGuiThread(
-    QPointer<BookmarksIO> io, std::function<void(BookmarksIO &, BookmarkManager::SharingResult const &)> f)
-{
-  return [io, f = std::move(f)](BookmarkManager::SharingResult const & result)
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [io, f, result]
-    {
-      if (io)
-        f(*io, result);
-    });
-  };
-}
-
+// SharingHandler runs on the GUI thread, maybe after BookmarksIO is gone.
 BookmarkManager::SharingHandler MakeSharingHandler(QPointer<BookmarksIO> io)
 {
-  return OnGuiThread(io, [](BookmarksIO & io, BookmarkManager::SharingResult const & result)
+  return [io](BookmarkManager::SharingResult const & result)
   {
+    if (!io)
+      return;
     using Code = BookmarkManager::SharingResult::Code;
     switch (result.m_code)
     {
     case Code::Success:
-      emit io.exportReady(QUrl::fromLocalFile(QString::fromStdString(result.m_sharingPath)).toString(),
-                          QString::fromStdString(result.m_mimeType));
+      emit io->exportReady(QUrl::fromLocalFile(QString::fromStdString(result.m_sharingPath)).toString(),
+                           QString::fromStdString(result.m_mimeType));
       break;
-    case Code::EmptyCategory: emit io.exportFailed(Localized("bookmarks_error_title_share_empty")); break;
-    default: emit io.exportFailed(Localized("dialog_routing_system_error")); break;
+    case Code::EmptyCategory: emit io->exportFailed(Localized("bookmarks_error_title_share_empty")); break;
+    default: emit io->exportFailed(Localized("dialog_routing_system_error")); break;
     }
-  });
+  };
 }
 
 FileType ToFileType(int fileType)
@@ -234,12 +230,13 @@ void BookmarksIO::backUpNow()
     return;
   m_backingUp = true;
   emit backupChanged();
-  manager.PrepareAllFilesForSharing(OnGuiThread(this,
-                                                [](BookmarksIO & io, BookmarkManager::SharingResult const & result)
+  manager.PrepareAllFilesForSharing([io = QPointer<BookmarksIO>(this)](BookmarkManager::SharingResult const & result)
   {
+    if (!io)
+      return;
     bool const success = result.m_code == BookmarkManager::SharingResult::Code::Success;
-    io.OnBackupFile(success ? QString::fromStdString(result.m_sharingPath) : QString());
-  }));
+    io->OnBackupFile(success ? QString::fromStdString(result.m_sharingPath) : QString());
+  });
 }
 
 bool BookmarksIO::isListNameTaken(QString const & name) const

@@ -157,7 +157,7 @@ void VoiceGuide::SetPreferredLanguage(std::string const & preferred, std::string
   ChooseLanguage();
 }
 
-void VoiceGuide::Refresh()
+void VoiceGuide::FindPrograms()
 {
   if (!kVoiceSupported)
     return;
@@ -181,8 +181,15 @@ void VoiceGuide::Refresh()
     }
   }
   ChooseLanguage();
+}
 
-  // Asks an installed Speech Note for its voices; this starts its service. Not installed, the call fails.
+void VoiceGuide::Refresh()
+{
+  if (!kVoiceSupported)
+    return;
+
+  FindPrograms();
+  // Not installed, the call fails.
   auto const watcher = new QDBusPendingCallWatcher(QDBusConnection::sessionBus().asyncCall(
       QDBusMessage::createMethodCall(kSpeechNoteService, QStringLiteral("/"),
                                      QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("Get"))
@@ -237,7 +244,6 @@ void VoiceGuide::OnSpeechNoteLanguages(QDBusPendingCallWatcher * watcher)
 
 void VoiceGuide::ChooseLanguage()
 {
-  Stop();
   auto const languages = Languages();
   auto const has = [&languages](std::string const & code) { return base::IsExist(languages, code); };
   std::string language;
@@ -250,25 +256,30 @@ void VoiceGuide::ChooseLanguage()
   else if (has("en"))
     language = "en";
 
-  m_language = language;
-  m_speechNoteLanguage.clear();
-  m_speechNoteVoice.clear();
-  m_engine = nullptr;
+  QString speechNoteLanguage;
+  Program program{nullptr, {}};
   if (auto const it = m_speechNoteVoices.find(language); it != m_speechNoteVoices.end())
-  {
-    m_speechNoteLanguage = it->second;
-    LOG(LINFO, ("Voice instructions in", language, "with Speech Note"));
-  }
+    speechNoteLanguage = it->second;
   else if (auto const it = m_programVoices.find(language); it != m_programVoices.end())
+    program = it->second;
+
+  // Refreshes mostly find the same voice: what is being said goes on then.
+  if (language != m_language || speechNoteLanguage != m_speechNoteLanguage || program.m_engine != m_engine ||
+      program.m_path != m_program)
   {
-    m_engine = it->second.m_engine;
-    m_program = it->second.m_path;
-    m_voice = m_engine->m_voice(language);
-    LOG(LINFO, ("Voice instructions in", language, "with", m_program.toStdString()));
-  }
-  else
-  {
-    LOG(LINFO, ("No voice for voice instructions"));
+    Stop();
+    m_language = language;
+    m_speechNoteLanguage = speechNoteLanguage;
+    m_speechNoteVoice.clear();
+    m_engine = program.m_engine;
+    m_program = program.m_path;
+    m_voice = m_engine ? m_engine->m_voice(language) : QString();
+    if (!m_speechNoteLanguage.isEmpty())
+      LOG(LINFO, ("Voice instructions in", language, "with Speech Note"));
+    else if (m_engine)
+      LOG(LINFO, ("Voice instructions in", language, "with", m_program.toStdString()));
+    else
+      LOG(LINFO, ("No voice for voice instructions"));
   }
   emit changed();
 }
@@ -381,10 +392,12 @@ void VoiceGuide::SynthesizeNext()
     });
     return;
   }
-  // Two files take turns, so that a new one never replaces the media being played.
-  QString const dir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-  QDir().mkpath(dir);
-  m_wavFile = dir + (m_wavFile.endsWith("speech0.wav") ? "/speech1.wav" : "/speech0.wav");
+  if (m_wavFile.isEmpty())
+  {
+    QString const dir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    QDir().mkpath(dir);
+    m_wavFile = dir + "/speech.wav";
+  }
   m_process.start(m_program, m_engine->m_arguments(m_voice, m_queue.takeFirst(), m_wavFile));
 }
 

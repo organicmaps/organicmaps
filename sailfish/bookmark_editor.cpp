@@ -53,8 +53,6 @@ void BookmarkEditor::save(QString const & name, QString const & description, int
   // May have been deleted meanwhile, e.g. from the list page.
   if (!IsSavedUserItem(manager, m_id, m_isTrack))
     return;
-  if (!manager.HasBmCategory(listId))
-    listId = m_listId;
   auto const newName = name.trimmed().toStdString();
   // Presets are stored as custom colors too.
   bool const colorChanged = colorIndex != m_colorIndex;
@@ -68,8 +66,8 @@ void BookmarkEditor::save(QString const & name, QString const & description, int
       session.UpdateTrack(m_id, data);
       if (colorChanged)
         session.ChangeTrackColor(m_id, PresetColor(colorIndex));
-      if (listId != m_listId)
-        session.MoveTrack(m_id, m_listId, listId);
+      // Reads the current list, which may have changed since load(), and skips a deleted one.
+      session.MoveBookmarksAndTracks({}, {m_id}, listId);
     }
     else
     {
@@ -82,8 +80,7 @@ void BookmarkEditor::save(QString const & name, QString const & description, int
       if (colorChanged)
         data.m_color = kml::MakeCustomBookmarkColorData(PresetColor(colorIndex));
       session.UpdateBookmark(m_id, data);
-      if (listId != m_listId)
-        session.MoveBookmark(m_id, m_listId, listId);
+      session.MoveBookmarksAndTracks({m_id}, {}, listId);
     }
   }
   if (m_isTrack)

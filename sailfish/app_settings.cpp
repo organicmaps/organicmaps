@@ -8,12 +8,11 @@
 #include "coding/string_utf8_multilang.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
 #include <QDesktopServices>
 #include <QFileInfo>
-#include <QNetworkConfiguration>
-#include <QNetworkConfigurationManager>
 #include <QUrl>
 #include <QVariantMap>
 
@@ -38,20 +37,9 @@ struct Mode3d
   bool m_buildings;
 };
 
-QNetworkConfiguration DefaultNetwork()
-{
-  return QNetworkConfigurationManager().defaultConfiguration();
-}
-
 bool IsOnMobileData()
 {
-  switch (DefaultNetwork().bearerTypeFamily())
-  {
-  case QNetworkConfiguration::Bearer2G:
-  case QNetworkConfiguration::Bearer3G:
-  case QNetworkConfiguration::Bearer4G: return true;
-  default: return false;
-  }
+  return Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WWAN;
 }
 
 static_assert(AppSettings::PowerEconomyMaximum == static_cast<int>(power_management::Scheme::EconomyMaximum));
@@ -302,7 +290,7 @@ bool AppSettings::IsAutoDownloadEnabled()
 
 bool AppSettings::IsOnWifi()
 {
-  return DefaultNetwork().bearerType() == QNetworkConfiguration::BearerWLAN;
+  return Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
 }
 
 void AppSettings::setAutoDownload(bool enabled)
@@ -330,6 +318,13 @@ int AppSettings::downloadPermission() const
   case MobileDataNever: return DownloadDenied;
   default: return DownloadAsk;
   }
+}
+
+void AppSettings::confirmDownload()
+{
+  // The core's automatic retries may use cellular data then too, for an hour; they never do when it is denied.
+  if (IsOnMobileData())
+    m_framework.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
 int AppSettings::powerScheme() const

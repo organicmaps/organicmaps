@@ -4,20 +4,15 @@ import "notices.js" as Toast
 
 Page {
     allowedOrientations: Orientation.All
-    // After a move the app only closes: the maps are gone from the folder it still uses.
-    backNavigation: !mapsStorage.moving && !mapsStorage.moved
+    // The maps move on the next start.
+    backNavigation: !mapsStorage.movePending
     showNavigationIndicator: backNavigation
     onStatusChanged: if (status === PageStatus.Activating) mapsStorage.refresh()
-
-    Connections {
-        target: mapsStorage
-        onMoveFinished: if (!success) Toast.showLong(appInfo.localized("move_maps_error"))
-    }
 
     SilicaListView {
         id: listView
         anchors.fill: parent
-        visible: !mapsStorage.moving && !mapsStorage.moved
+        visible: !mapsStorage.movePending
         model: mapsStorage.locations
 
         header: Column {
@@ -45,15 +40,10 @@ Page {
             onClicked: {
                 if (modelData.current)
                     return
-                if (!mapsStorage.canMove()) {
-                    Toast.showLong(appInfo.localized("cant_change_this_setting"))
-                    return
-                }
                 var path = modelData.path
                 remorseAction(appInfo.localized("move_maps"), function() {
-                    // Something may have started writing into the folder meanwhile.
                     if (!mapsStorage.moveTo(path))
-                        Toast.showLong(appInfo.localized("cant_change_this_setting"))
+                        Toast.showLong(appInfo.localized("move_maps_error"))
                 })
             }
 
@@ -80,15 +70,10 @@ Page {
         VerticalScrollDecorator {}
     }
 
-    BusyLabel {
-        running: mapsStorage.moving
-        text: appInfo.localized("wait_several_minutes")
-    }
-
     Column {
         anchors.centerIn: parent
         width: parent.width - 2 * Theme.horizontalPageMargin
-        visible: mapsStorage.moved
+        visible: mapsStorage.movePending
         spacing: Theme.paddingLarge
 
         Label {

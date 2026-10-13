@@ -153,6 +153,7 @@ Page {
     }
     Connections {
         target: map
+        onEngineCreated: urlHandler.processPending()
         onNotice: Toast.showLong(message)
         onIsolinesNeedMaps: pageStack.push(Qt.resolvedUrl("MessageDialog.qml"), {
             title: appInfo.localized("downloader_update_maps"),
@@ -205,10 +206,9 @@ Page {
         target: urlHandler
         onRouteRequested: page.runOnMap(function() { map.routing.planRoute(routerType, points) })
         onSearchRequested: page.runOnMap(function() {
-            search.query = query
-            if (onMap)
-                search.showOnMap()
-            else
+            // The query already shows the results in the viewport.
+            search.searchFromLink(query, locale)
+            if (!onMap)
                 page.openSearch()
         })
         onCrosshairRequested: page.runOnMap(function() {
@@ -491,7 +491,7 @@ Page {
         navigation: map.routing.navigation
         routing: map.routing
         androidDp: page.androidDp
-        onStopClicked: map.routing.stopNavigation()
+        onStopClicked: map.routing.close()
         onSettingsClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"), { routing: map.routing })
         onVoiceSettingsClicked: pageStack.push(Qt.resolvedUrl("VoicePage.qml"), { routing: map.routing })
     }
@@ -539,7 +539,7 @@ Page {
     Connections {
         target: search
         onQueryChanged: {
-            if (search.query.trim() !== "?navsim")
+            if (search.query !== "?navsim")
                 return
             map.simulatingLocation = !map.simulatingLocation
             Toast.show(map.simulatingLocation ? "Location simulation on" : "Location simulation off")

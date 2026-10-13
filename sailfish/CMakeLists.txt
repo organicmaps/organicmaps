@@ -132,13 +132,16 @@ install(DIRECTORY qml DESTINATION ${APP_DATA_DIR} PATTERN organicmaps.qml EXCLUD
 install(FILES qml/organicmaps.qml DESTINATION ${APP_DATA_DIR}/qml RENAME ${APP_NAME}.qml)
 # SVG icons converted from the Android vector drawables.
 set(SVG_ICONS_DIR "${CMAKE_CURRENT_BINARY_DIR}/icons")
+# The RES_DIRS of the converter.
+file(GLOB ANDROID_DRAWABLES CONFIGURE_DEPENDS
+  "${OMIM_ROOT}/android/*/src/main/res/drawable*/*.xml" "${OMIM_ROOT}/android/libs/*/src/main/res/drawable*/*.xml")
 add_custom_command(
   OUTPUT "${SVG_ICONS_DIR}/.stamp"
   # Starts afresh, so that icons no longer converted aren't installed.
   COMMAND ${CMAKE_COMMAND} -E remove_directory "${SVG_ICONS_DIR}"
   COMMAND ${Python3_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/tools/android_vector_to_svg.py" "${SVG_ICONS_DIR}"
   COMMAND ${CMAKE_COMMAND} -E touch "${SVG_ICONS_DIR}/.stamp"
-  DEPENDS tools/android_vector_to_svg.py
+  DEPENDS tools/android_vector_to_svg.py ${ANDROID_DRAWABLES}
   COMMENT "Converting Android vector drawables to SVG icons"
 )
 add_custom_target(${PROJECT_NAME}_icons DEPENDS "${SVG_ICONS_DIR}/.stamp")

@@ -174,6 +174,7 @@ Page {
                 }
                 ResultLine {
                     text: model.description
+                    textFormat: Text.PlainText
                     trailingText: model.openStatus
                     trailingColor: model.openState === SearchModel.Open ? Colors.open
                                  : model.openState === SearchModel.ClosingSoon ? Colors.closingSoon : Colors.closed

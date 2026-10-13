@@ -60,6 +60,9 @@ QString FormatAltitude(double meters);
 QString FormatLatLon(double lat, double lon);
 // The parts of one line of details, like "5 km • 10 min".
 QString JoinDetails(QStringList const & parts);
+// For StyledText from files and other users: HTML without images, which would load by themselves, or escaped plain
+// text with its line breaks.
+QString UserStyledText(std::string const & text);
 
 // Without the vehicle style used while navigating.
 MapStyle BaseMapStyle(bool dark, bool outdoors);

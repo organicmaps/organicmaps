@@ -24,9 +24,6 @@
 # Qt.
 /qt/ @organicmaps/qt
 
-# Sailfish OS.
-/sailfish/ @organicmaps/sailfish
-
 # Rendering (updated paths).
 /libs/drape/ @organicmaps/rendering
 /libs/drape_frontend/ @organicmaps/rendering

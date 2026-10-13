@@ -17,11 +17,7 @@ location::GpsInfo GpsInfoFromQGeoPositionInfo(QGeoPositionInfo const & i, locati
   if (coord.type() == QGeoCoordinate::Coordinate3D)
     info.m_altitude = coord.altitude();
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-  info.m_timestamp = static_cast<double>(i.timestamp().toSecsSinceEpoch());
-#else
   info.m_timestamp = static_cast<double>(i.timestamp().toMSecsSinceEpoch() / 1000);
-#endif
 
   if (i.hasAttribute(QGeoPositionInfo::HorizontalAccuracy))
     info.m_horizontalAccuracy = i.attribute(QGeoPositionInfo::HorizontalAccuracy);

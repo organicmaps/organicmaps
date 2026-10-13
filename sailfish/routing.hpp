@@ -63,7 +63,7 @@ class Routing : public QObject
   // The route failed while roads are avoided, the likely cause.
   Q_PROPERTY(bool optionsError READ optionsError NOTIFY stateChanged)
   Q_PROPERTY(bool routeSaved READ routeSaved NOTIFY stateChanged)
-  Q_PROPERTY(bool navigating READ navigating NOTIFY navigationChanged)
+  Q_PROPERTY(bool navigating READ navigating NOTIFY navigatingChanged)
   // turnIcon, distanceToTurn, street, streetParts, nextTurnIcon, hoursLeft, minutesLeft, hourUnits, minuteUnits,
   // arrival, distanceLeftValue, distanceLeftUnits, speed, speedUnits, speedLimit, speedLimitExceeded,
   // speedCamLimitExceeded, lanes as {icon, active} and progress (0..1).
@@ -164,8 +164,8 @@ public:
 
   // Called on every location update.
   void UpdateNavigation(double speedMps);
-  // Rebuilds a route that failed for lack of a position once there is one.
-  void OnLocationUpdated();
+  // Rebuilds a route that failed for lack of a position.
+  void OnPositionFound();
 
   // Use the place shown in the place page.
   Q_INVOKABLE void routeFromPlace();
@@ -197,11 +197,10 @@ public:
   // Saves the built route as a track.
   Q_INVOKABLE void saveRoute();
   Q_INVOKABLE void setElevationActivePoint(double distance);
+  // Also ends navigation.
   Q_INVOKABLE void close();
   // Moves the start to the position first if needed.
   Q_INVOKABLE void start();
-  // Also closes the route.
-  Q_INVOKABLE void stopNavigation();
 
   bool voiceAvailable() const;
   bool voiceEnabled() const;
@@ -231,6 +230,8 @@ signals:
   void routerTypeChanged();
   void stateChanged();
   void optionsChanged();
+  void navigatingChanged();
+  // With every position while navigating.
   void navigationChanged();
   void voiceChanged();
   void disclaimerChanged();
@@ -266,6 +267,8 @@ private:
   void StartDarkOutsideTimer();
   void UpdateDarkOutside();
   QVariantMap MakeNavigation(routing::FollowingInfo const & info, double speedMps) const;
+  void CloseRoute();
+  // Closes the route without stopping the voice, e.g. to hear the arrival.
   void EndNavigation();
   // Keeps the route.
   void LeaveNavigation();
@@ -276,6 +279,8 @@ private:
   Framework & m_framework;
   bool m_building = false;
   bool m_buildCancelled = false;
+  // Changes on every build and close, so that a queued result of an earlier one is dropped.
+  uint32_t m_resultGeneration = 0;
   bool m_built = false;
   bool m_routeSaved = false;
   bool m_optionsError = false;
