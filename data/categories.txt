@@ -1,47 +1,47 @@
 # Category @groups allow to apply same set of search terms to different categories.
 # The @groups should be defined before being referenced in categories.
-# In the example below a "groceries" query will result in POIs of both shop-greengrocers and
-# shop-supermarket categories, while a "fruit" search will result in shop-greengrocers only.
+# In the example below a "groceries" query will result in POIs of both shop-greengrocer and
+# shop-supermarket categories, while a "fruit" search will result in shop-greengrocer only.
 # ---
 # @category_food
 # en:Groceries|food
 #
-# shop-greengrocers|@category_food
+# shop-greengrocer|@category_food
 # en:Greengrocer|vegetables|fruit
 #
 # shop-supermarket|@category_food
 # en:Supermarket
 # ---
 # All groups starting with a "@category_" prefix belong to a list of pre-defined search categories
-# displayed in the app's search screen (see search/displayed_categories.cpp).
+# displayed in the app's search screen (see libs/search/displayed_categories.cpp).
 # They have a special requirement of a first keyword matching a corresponding definition in strings.txt
 # (e.g. it should be "en = Groceries" in "[category_food]" there).
 #
-# Categories match their sub-categories, e.g. a search term defined for historic-memorial
-# will also match historic-memorial-statue, historic-memorial-plaque, etc.
-# UPD (VNG): Nope, purposely the logic is more complicated here (from GetCategoryTypes):
-# Truncate |t| up to 2 levels and choose the best category match to find explicit category if any
-#  and not distinguish types like highway-primary-bridge and highway-primary-tunnel or
-#  amenity-parking-fee and amenity-parking-underground-fee _if we do not have such explicit categories_.
-# So subtypes of parking will be searchable, but historic-memorial-plaque is not, because it has an explicit entry.
+# Map indexing uses the most specific explicitly defined category for each feature type.
+# If no such entry exists, the type is truncated towards its two-level parent until a category is found.
+# Parent search terms therefore cover subtypes without their own category entry, such as
+# amenity-parking-underground-fee. A subtype with its own entry, such as historic-memorial-plaque,
+# uses that entry's search terms and does not inherit its parent's terms.
+# Types with no categorized ancestor are omitted from the category search index.
 #
 # Syntax:
 # @   - indicates the beginning of the group of search terms translations
 # :   - used to separate the name of the language and translated search synonyms.
 # |   - used to separate several categories/groups or translated synonyms.
-# 1-9 - digits in front of a synonym indicate the number of symbols that need to be
-#       typed in a search query to make this synonym appear in the list of suggestions.
+# 1-9 - digits in front of a synonym set the minimum normalized prefix length for autocomplete.
 #       Located immediately after the separating characters ':' or '|'. At most one
 #       digit per synonym is allowed.
-# Its possible to use emoji codes as search synonyms, e.g. U+1F6B0 for Potable water.
+# Synonyms without a digit are searchable but do not produce autocomplete suggestions.
+# A fully typed synonym is not suggested.
+# It is possible to use emoji codes as search synonyms, e.g. U+1F6B0 for Potable water.
 # Each category must end with an empty line.
 #
 # Note: some features are not searchable unless they have a [name=] tag,
-# e.g. roads, rivers, offices (see search/types_skipper.cpp)
+# e.g. roads, rivers, offices (see libs/search/types_skipper.cpp)
 #
 # BNF:
 # <category>           ::= <category_title> '\n' <category_item_list> '\n'
-# <category_title>     ::= <osm_type_list> '|' <group_title_list>
+# <category_title>     ::= <osm_type_list> ['|' <group_title_list>]
 # <group_translations> ::= <group_title> '\n' <category_item_list>
 # <osm_type_list>      ::= <osm_type> ['|' <osm_type_list>]
 # <group_title_list>   ::= <group_title> ['|' <group_title_list>]
@@ -56,23 +56,17 @@
 # <translation>        ::= translation into corresponding language
 # <lang>               ::= 'en'|'cs'|'sk'|'de'|'es'|'fr'|'it'|'ja' etc.
 #
-# For all languages with nominative and gentive cases (e.g. Slavic languagues like Russian,
-# Ukrainian, Belarus, Serbian), state _short_ nouns in nominative and genitive case, e.g.:
+# For languages with nominative and genitive cases (e.g. Russian, Ukrainian, Belarusian, Serbian),
+# provide short nouns in both cases so searches can use either form, e.g.:
 # ---
 # shop-wine|@shop
 # ru:Вино|вина
 # ---
-# so that both (e.g. Russian) searches for "вино" and "магазин вина" returns wine shops.
-# For longer nouns (6 letters or longer) this is not necessary, because error correction
-# can fix 1 or 2 letters, e.g:
-# ---
-# shop-furniture|@shop
-# ru:Мебель
-# ---
-# Searcing for "магазин мебели" will also match the category name (1 letter difference).
-#
-# Exact treshold may be different for different languages. For Serbian, error correction
-# kicks in only for 8-letter or longer words.
+# Both "вино" and "магазин вина" then find wine shops.
+# Category fuzzy matching counts normalized query-token characters: fewer than seven permits no edits,
+# seven to nine permits one, and ten or more permits two. These thresholds apply to every language.
+# First-character edits are restricted by BuildLevenshteinDFA_Category() in libs/indexer/search_string_utils.cpp.
+# Inflected forms that cannot be matched within these limits need explicit synonyms.
 
 # First keyword should match [category_eat] definition in strings.txt!
 @category_eat
@@ -11503,7 +11497,7 @@ zh-Hans:自行车运动|自行车|自行车赛|赛车场
 zh-Hant:自行車運動|自行車|自行車賽|賽車場
 
 sport-four_square
-en:Four Square|4 square
+en:Four Square
 ar:أربع مربعات
 be:Чатыры квадраты
 bg:Четири квадрата
@@ -14382,7 +14376,7 @@ pt-BR:3Internet
 ro:3Internet
 ru:3Интернет|вайфай
 sk:3Internet
-sl:4Plaža|Obala|Kopališče
+sl:4Internet
 sr:3Интернет|3Internet
 sv:3Internet|trådlöst nätverk
 sw:4Intaneti
@@ -16254,7 +16248,7 @@ lt:5Degalų kolonėlė|5Benzino kolonėlė
 lv:Degvielas sūknis
 mr:इंधन विक्रीयंत्र
 ru:Топливная колонка|бензоколонка|топливораздаточная колонка
-sl:4Počivališče
+sl:Črpalka za gorivo
 sr:Самоуслужно точење горива|samouslužno točenje goriva
 tr:Yakıt dağıtıcı
 uk:Паливна колонка|бензоколонка|пальнороздавальна колонка
@@ -19630,7 +19624,7 @@ nl:Stoffenwinkel
 pt:Loja de tecidos
 pt-BR:Loja de aviamentos
 ru:Текстиль|ткани|магазин тканей
-sl:Posojilodajalec
+sl:Trgovina z blagom
 sr:Текстил|Метража|Tekstil|Metraža
 tr:Kumaş mağazası|Tekstil mağazası
 lt:5Audinių parduotuvė|5tekstilė|audiniai
@@ -20699,7 +20693,7 @@ pt-BR:Loja de atacado
 ro:Magazin cu ridicata
 ru:Опт|оптовый|оптовый магазин
 sk:Veľkoobchod
-sl:5Elektrarna|veleprodajna trgovina
+sl:veleprodajna trgovina
 sr:Велепродаја|Veleprodaja
 sv:Grossistbutik
 sw:Duka la Jumla
@@ -20880,7 +20874,7 @@ pt-BR:Coletor|colecionáveis
 ro:Colector|colecții
 ru:Коллекционер|коллекции
 sk:Zberateľ|zberateľské predmety
-sl:5Športna dvorana|zbirateljstvo
+sl:zbirateljstvo
 sr:Колекционар|kolekcionar|колекционарство
 sv:Samlare|samlingsföremål
 sw:Mkusanyaji|mikusanyiko
@@ -21303,7 +21297,7 @@ pt-BR:Boutique
 ro:Butic
 ru:Бутик
 sk:Butik
-sl:Kotiček s hrano|restavracije|butik
+sl:butik
 sr:Бутик|Butik
 sv:Boutique|butik
 sw:Boutique
@@ -21421,7 +21415,7 @@ pt-BR:Distribuidora de gás
 ro:Magazin de gaze
 ru:Газовый магазин
 sk:Obchod s plynom
-sl:Nega živali|pasji frizer
+sl:Trgovina s plinom
 sr:Плинске боце|pliske boce|индустријски гасови
 sv:Gasaffär
 sw:Duka la gesi
@@ -21523,7 +21517,7 @@ pt-BR:Loja de áudio Hi-Fi
 ro:Audio HiFi
 ru:Hi-Fi аудио
 sk:HiFi audio
-sl:Konferenčni center
+sl:HiFi avdio trgovina
 sr:ХајФај аудио|hifi audio|hifi аудио
 sv:HiFi ljud
 sw:Sauti ya HiFi
@@ -21747,7 +21741,7 @@ pt-BR:Loja de acessórios de moda
 ro:Acesorii de modă
 ru:Модные аксессуары
 sk:Módne doplnky
-sl:Zbirni center za odpadke|pretovorna postaja za odpadke|modni dodatki
+sl:modni dodatki
 sr:Модни аксесоари|Аксесоари|Modni aksesoari|Aksesoari
 sv:Modeaccessoarer
 sw:Vifaa vya Mtindo
@@ -21896,7 +21890,7 @@ en:Attraction|amusement ride|carousel|roller coaster|maze|historic attraction|bi
 cy:Atyniad|reid|carwsél|ffigar-êt|drysfa|atyniad hanesyddol|olwyn fawr|ceir bwmpio|Reid Difyrrwch|Car Bwmper
 lt:5Atrakcija|5pramogos|atrakcionų atrakcionas|karuselė|amerikietiški kalneliai|labirintas|istorinė atrakcija|apžvalgos ratas|autodromas
 ru:Аттракцион|карусель|американские горки|лабиринт|исторический аттракцион|колесо обозрения|автодром
-sl:4Varnostnik|vratarnica|zabaviščna vožnja|vrtiljak|vlak smrti|labirint|zgodovinska znamenitost|veliko kolo|avtočki
+sl:zabaviščna vožnja|vrtiljak|vlak smrti|labirint|zgodovinska znamenitost|veliko kolo|avtočki
 
 leisure-escape_game
 en:4Escape Room|quest|game
