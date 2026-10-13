@@ -62,7 +62,7 @@ void DeadReckoning::ReverseBy(double distanceM)
   m_odometerM += distanceM;
 }
 
-bool DeadReckoning::SnapToRoad(ms::LatLon const & road, double roadBearingDeg)
+bool DeadReckoning::SnapToRoad(ms::LatLon const & road, double roadBearingDeg, bool pullHeading)
 {
   if (!IsReady())
     return false;
@@ -73,6 +73,8 @@ bool DeadReckoning::SnapToRoad(ms::LatLon const & road, double roadBearingDeg)
     return false;
 
   m_position = road;
+  if (!pullHeading)
+    return true;
   double const sign = diff > 0 ? 1 : (diff < 0 ? -1 : 0);
   if (std::fabs(diff) <= kMaxHeadingPullDiffDeg)
   {

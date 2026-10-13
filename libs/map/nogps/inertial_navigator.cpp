@@ -1060,11 +1060,59 @@ std::optional<double> InertialNavigator::GetPhoneAccelAheadM() const
   return m_phoneAheadM;
 }
 
+std::optional<RoadPoint> InertialNavigator::ChooseBranch(ms::LatLon const & position, double headingDeg)
+{
+  auto const roads = m_roads.SnapAll(position, headingDeg, kSnapRadiusM);
+  bool forks = false;
+  for (size_t i = 0; i < roads.size() && !forks; ++i)
+  {
+    for (size_t j = i + 1; j < roads.size() && !forks; ++j)
+    {
+      double const apart =
+          std::fabs(AngleDiff(Orient(roads[i].m_bearingDeg, headingDeg), Orient(roads[j].m_bearingDeg, headingDeg)));
+      forks = apart >= kMinForkDeg && apart <= kMaxForkDeg;
+    }
+  }
+  if (!forks)
+    return {};
+
+  RoadPoint const * best = nullptr;
+  double bestCost = 0;
+  for (auto const & road : roads)
+  {
+    double const cost = Distance(position, road.m_point) +
+                        kForkMetersPerDeg * std::fabs(AngleDiff(Orient(road.m_bearingDeg, headingDeg), headingDeg));
+    if (best == nullptr || cost < bestCost)
+    {
+      best = &road;
+      bestCost = cost;
+    }
+  }
+  return *best;
+}
+
 void InertialNavigator::SnapToRoad()
 {
   auto const position = m_deadReckoning.GetPosition();
   double const heading = m_deadReckoning.GetHeading();
-  auto const snapped = m_roads.Snap(position, heading, kSnapRadiusM);
+  auto snapped = m_roads.Snap(position, heading, kSnapRadiusM);
+  // A maneuvering car is among the driveways of a yard, they are not branches of its road.
+  bool atFork = false;
+  if (snapped && m_deadReckoning.GetSpeed() > kMaxManeuverSpeedMps)
+  {
+    if (auto const branch = ChooseBranch(position, heading))
+    {
+      atFork = true;
+      if (Distance(branch->m_point, snapped->m_point) > kSameForkBranchM)
+      {
+        LOG(LINFO, ("FORK the car goes along the branch", std::round(Distance(position, branch->m_point)), "m aside,",
+                    std::round(AngleDiff(Orient(branch->m_bearingDeg, heading), heading)),
+                    "degrees off its heading, not along the one", std::round(Distance(position, snapped->m_point)),
+                    "m aside,", std::round(AngleDiff(Orient(snapped->m_bearingDeg, heading), heading)), "degrees off"));
+      }
+      snapped = branch;
+    }
+  }
   if (!snapped)
   {
     m_onRoad = false;
@@ -1097,7 +1145,7 @@ void InertialNavigator::SnapToRoad()
     return;
   }
   m_roadCandidate.reset();
-  m_onRoad = shift <= kSnapRadiusM && m_deadReckoning.SnapToRoad(snapped->m_point, snapped->m_bearingDeg);
+  m_onRoad = shift <= kSnapRadiusM && m_deadReckoning.SnapToRoad(snapped->m_point, snapped->m_bearingDeg, !atFork);
   m_lastSnapResult = m_onRoad ? SnapResult::OnRoad : shift > kSnapRadiusM ? SnapResult::Far : SnapResult::Angle;
   if (m_onRoad)
   {
