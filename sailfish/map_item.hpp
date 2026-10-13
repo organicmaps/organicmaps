@@ -41,8 +41,13 @@ class MapItem
   // Width hidden by the camera cutout on each side, which the map is drawn under in landscape.
   Q_PROPERTY(qreal leftInset READ leftInset WRITE setLeftInset NOTIFY horizontalInsetsChanged)
   Q_PROPERTY(qreal rightInset READ rightInset WRITE setRightInset NOTIFY horizontalInsetsChanged)
+  Q_PROPERTY(bool trackRecording READ trackRecording NOTIFY trackRecordingChanged)
+  Q_PROPERTY(QString recordingSummary READ recordingSummary NOTIFY recordingStatsChanged)
+  // ElevationChart() data, empty while nothing is recorded.
+  Q_PROPERTY(QVariantMap recordingElevation READ recordingElevation NOTIFY recordingStatsChanged)
   // {address, coordinates, altitude, speed} for the app cover; empty without a position.
   Q_PROPERTY(QVariantMap positionInfo READ positionInfo NOTIFY positionInfoChanged)
+  Q_PROPERTY(bool locationLost READ locationLost NOTIFY locationLostChanged)
   // Taps don't select places meanwhile.
   Q_PROPERTY(bool choosingPosition READ choosingPosition NOTIFY choosingPositionChanged)
   // The region in the middle of the map while its map isn't downloaded: {countryId, name, size, status (a
@@ -86,6 +91,12 @@ public:
   Q_INVOKABLE void switchMyPositionMode();
 
   Q_INVOKABLE void setLayerEnabled(int layer, bool enabled);
+  // Location keeps running in the background while recording.
+  Q_INVOKABLE void startTrackRecording();
+  // Discards the recorded track.
+  Q_INVOKABLE void stopTrackRecording();
+  // Saves under the default name; false when there was nothing to save.
+  Q_INVOKABLE bool saveAndStopTrackRecording();
   // Empty without a position.
   Q_INVOKABLE QString myPositionShareText() const;
 
@@ -110,7 +121,11 @@ public:
   void setLeftInset(qreal inset);
   qreal rightInset() const { return m_rightInset; }
   void setRightInset(qreal inset);
+  QString recordingSummary() const { return m_recordingSummary; }
   QVariantMap positionInfo() const { return m_positionInfo; }
+  bool locationLost() const { return m_locationLost; }
+  QVariantMap recordingElevation() const { return m_recordingElevation; }
+  bool trackRecording() const;
   bool choosingPosition() const { return m_choosingPosition; }
   qreal bottomWidgetsOffset() const { return m_bottomWidgetsOffset; }
   void setBottomWidgetsOffset(qreal offset);
@@ -126,7 +141,10 @@ signals:
   void layersChanged();
   void bottomWidgetsOffsetChanged();
   void topWidgetsOffsetChanged();
+  void trackRecordingChanged();
+  void recordingStatsChanged();
   void positionInfoChanged();
+  void locationLostChanged();
   void notice(QString const & message);
   void choosingPositionChanged();
   void viewportBottomInsetChanged();
@@ -154,14 +172,19 @@ private:
   // Drape needs the touches of a gesture to end it: Qt sends TouchCancel without points.
   void CancelTouch();
   void OnMyPositionModeChanged(location::EMyPositionMode mode);
-  // Location and the compass run in the foreground while the position is on. Restart also starts a running service
-  // again.
+  // Location runs for recording, and in the foreground while the position is on; the compass only
+  // with it in the foreground. Restart also starts a running service again.
   void UpdateLocationService(bool restart = false);
   void OnCompassReading();
   // Auto-downloads the map of the region the user is in.
   void OnCurrentCountryChanged(std::string const & countryId);
+  // Statistics follow a running recording.
+  void WatchRecording();
   void UpdatePositionInfo();
   void UpdateCurrentCountry();
+  void UpdateLocation(location::GpsInfo const & info);
+  // After the core has the position, which follows the fix.
+  void OnUserPositionChanged(bool hasPosition);
 
   // location::LocationObserver
   void OnLocationError(location::TLocationError errorCode) override;
@@ -186,6 +209,8 @@ private:
   bool m_inBackground = false;
   bool m_locationActive = false;
   bool m_locationErrorShown = false;
+  bool m_locationLost = false;
+  bool m_hasPosition = false;
   QVariantMap m_positionInfo;
   // The last fix for the cover, and when positionInfo was updated.
   bool m_hasAltitude = false;
@@ -193,6 +218,8 @@ private:
   double m_speed = -1;
   qint64 m_positionInfoMs = 0;
   bool m_calibrationShown = false;
+  QString m_recordingSummary;
+  QVariantMap m_recordingElevation;
   std::string m_currentCountryId;
   QVariantMap m_currentCountry;
   int m_storageSlot = 0;

@@ -19,6 +19,11 @@ QString AppInfo::version() const
   return QString::fromStdString(GetPlatform().Version());
 }
 
+QStringList AppInfo::bookmarkColors() const
+{
+  return PresetColors();
+}
+
 QDate AppInfo::dataVersion() const
 {
   auto const yymmdd = static_cast<uint32_t>(GetFramework().GetCurrentDataVersion());

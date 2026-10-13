@@ -1,5 +1,10 @@
 #include "sailfish/helpers.hpp"
 
+#include "map/bookmark_manager.hpp"
+
+#include "kml/type_utils.hpp"
+#include "kml/types.hpp"
+
 #include "indexer/categories_holder.hpp"
 
 #include "platform/distance.hpp"
@@ -7,6 +12,7 @@
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 
+#include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
 #include <QGuiApplication>
@@ -16,6 +22,7 @@
 #include <QTime>
 
 #include <algorithm>
+#include <iterator>
 
 #include <MDConfItem>
 
@@ -57,6 +64,41 @@ std::vector<StringUtf8Multilang::Lang> SortedLanguages()
   std::vector<StringUtf8Multilang::Lang> languages(supported.begin(), supported.end());
   std::sort(languages.begin(), languages.end(), [](auto const & a, auto const & b) { return a.m_name < b.m_name; });
   return languages;
+}
+
+QString ColorName(dp::Color const & color)
+{
+  return QStringLiteral("#%1").arg(color.GetRGBA() >> 8, 6, 16, QLatin1Char('0'));
+}
+
+QStringList PresetColors()
+{
+  QStringList colors;
+  for (auto const preset : kml::kOrderedPredefinedColors)
+    colors.append(ColorName(kml::ColorFromPredefinedColor(preset)));
+  return colors;
+}
+
+dp::Color PresetColor(int index)
+{
+  auto const & presets = kml::kOrderedPredefinedColors;
+  ASSERT(index >= 0 && index < static_cast<int>(presets.size()), (index));
+  return kml::ColorFromPredefinedColor(presets[static_cast<size_t>(index)]);
+}
+
+int PresetIndex(dp::Color const & color)
+{
+  auto const & presets = kml::kOrderedPredefinedColors;
+  auto const it = std::find_if(presets.begin(), presets.end(), [&color](kml::PredefinedColor preset)
+  { return kml::ColorFromPredefinedColor(preset).GetRGBA() == color.GetRGBA(); });
+  return it != presets.end() ? static_cast<int>(std::distance(presets.begin(), it)) : -1;
+}
+
+bool IsSavedUserItem(BookmarkManager const & manager, uint64_t id, bool isTrack)
+{
+  if (isTrack)
+    return id != kml::kInvalidTrackId && id != kml::kTempRelationTrackId && manager.HasTrack(id);
+  return BookmarkManager::IsBookmark(id) && manager.HasBookmark(id);
 }
 
 QString FormatDuration(long seconds)

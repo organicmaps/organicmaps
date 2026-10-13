@@ -1,5 +1,8 @@
 #include "sailfish/app_info.hpp"
 #include "sailfish/app_settings.hpp"
+#include "sailfish/bookmark_editor.hpp"
+#include "sailfish/bookmarks_io.hpp"
+#include "sailfish/bookmarks_model.hpp"
 #include "sailfish/countries_model.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/map_item.hpp"
@@ -103,8 +106,12 @@ void RegisterQmlTypes()
   qmlRegisterType<sailfish::MapItem>("app.organicmaps", 1, 0, "MapItem");
   qmlRegisterType<sailfish::CountriesModel>("app.organicmaps", 1, 0, "CountriesModel");
   qmlRegisterType<sailfish::SearchModel>("app.organicmaps", 1, 0, "SearchModel");
+  qmlRegisterType<sailfish::BookmarkCategoriesModel>("app.organicmaps", 1, 0, "BookmarkCategoriesModel");
+  qmlRegisterType<sailfish::BookmarksModel>("app.organicmaps", 1, 0, "BookmarksModel");
+  qmlRegisterType<sailfish::BookmarkEditor>("app.organicmaps", 1, 0, "BookmarkEditor");
   qmlRegisterUncreatableType<sailfish::PlacePage>("app.organicmaps", 1, 0, "PlacePage", "Owned by MapItem");
   qmlRegisterUncreatableType<sailfish::AppSettings>("app.organicmaps", 1, 0, "AppSettings", "Use appSettings");
+  qmlRegisterUncreatableType<sailfish::BookmarksIO>("app.organicmaps", 1, 0, "BookmarksIO", "Use bookmarksIO");
 }
 }  // namespace
 
@@ -142,19 +149,22 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
   framework.SetupMeasurementSystem();
   framework.GetStorage().SetLocale(languages::GetCurrentTwine());
   g_framework = &framework;
+  sailfish::BookmarksNotifier::LoadBookmarks(framework);
 
   RegisterQmlTypes();
 
   // Declared before the view, which uses them until it is destroyed.
   sailfish::AppInfo appInfo;
   sailfish::AppSettings appSettings(framework);
+  sailfish::BookmarksIO bookmarksIO(framework);
   sailfish::MapsStorage mapsStorage(framework);
   sailfish::DownloadStatus downloads(framework.GetStorage());
-  sailfish::UrlHandler urlHandler(framework);
+  sailfish::UrlHandler urlHandler(framework, bookmarksIO);
   dbusInbox.SetHandler(urlHandler);
   std::unique_ptr<QQuickView> view(SailfishApp::createView());
   view->rootContext()->setContextProperty(QStringLiteral("appInfo"), &appInfo);
   view->rootContext()->setContextProperty(QStringLiteral("appSettings"), &appSettings);
+  view->rootContext()->setContextProperty(QStringLiteral("bookmarksIO"), &bookmarksIO);
   view->rootContext()->setContextProperty(QStringLiteral("urlHandler"), &urlHandler);
   view->rootContext()->setContextProperty(QStringLiteral("mapsStorage"), &mapsStorage);
   view->rootContext()->setContextProperty(QStringLiteral("downloads"), &downloads);

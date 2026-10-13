@@ -8,6 +8,7 @@ CoverBackground {
     readonly property QtObject map: mapPage ? mapPage.mapItem : null
     readonly property var position: map ? map.positionInfo : ({})
     readonly property string mode: !map ? "idle"
+        : map.trackRecording ? "recording"
         : downloads.inProgress && downloads.downloadingName !== "" ? "download"
         : "idle"
 
@@ -47,12 +48,13 @@ CoverBackground {
 
         Icon {
             anchors.horizontalCenter: parent.horizontalCenter
-            visible: cover.mode === "download"
+            visible: cover.mode === "recording" || cover.mode === "download"
             width: Theme.iconSizeLarge
             height: width
             sourceSize: Qt.size(width, height)
-            source: "image://theme/icon-m-cloud-download"
-            color: Theme.primaryColor
+            source: cover.mode === "recording" ? "../../icons/menu/ic_track_recording_status.svg"
+                                               : "image://theme/icon-m-cloud-download"
+            color: cover.mode === "recording" ? Theme.errorColor : Theme.primaryColor
         }
         Label {
             width: parent.width
@@ -60,6 +62,7 @@ CoverBackground {
             visible: text !== ""
             text: {
                 switch (cover.mode) {
+                case "recording": return appInfo.localized("track_recording_title")
                 case "download": return Math.round(downloads.downloadingProgress * 100) + "%"
                 default: return position.address || ""
                 }
@@ -76,6 +79,7 @@ CoverBackground {
             visible: text !== ""
             text: {
                 switch (cover.mode) {
+                case "recording": return map.recordingSummary
                 case "download": return downloads.downloadingName
                 default: return position.coordinates || ""
                 }
@@ -112,6 +116,13 @@ CoverBackground {
         }
     }
 
+    CoverActionList {
+        enabled: cover.mode === "recording"
+        CoverAction {
+            iconSource: "image://theme/icon-cover-favorite"
+            onTriggered: map.saveAndStopTrackRecording()
+        }
+    }
     CoverActionList {
         enabled: cover.mode === "download"
         CoverAction {
