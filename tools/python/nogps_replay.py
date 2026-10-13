@@ -5,9 +5,11 @@ A debug build of the Android application drives the file nogps-replay-in.txt put
 (/sdcard/Android/data/<package>/files/) through a navigation of its own when it starts, and writes the trip log of
 that drive to nogps-replay-out.txt, and nogps-replay-out.txt.done when it is over. See NoGpsReplay.cpp.
 
-  nogps_replay.py input app*.log --day 10-11 -o nogps-replay-in.txt [--no-taps] [--from HH:MM] [--to HH:MM]
+  nogps_replay.py input app*.log --day 10-11 -o nogps-replay-in.txt [--no-taps] [--no-route] [--from HH:MM]
+      [--to HH:MM]
       makes the file to drive from the trip logs of a day: the rotation, the speed and the acceleration of the
-      sensor box, the marks and the buttons of the user. --no-taps leaves only the mark each trip starts with.
+      sensor box, the marks and the buttons of the user, the routes the user asked for. --no-taps leaves only the
+      mark each trip starts with, --no-route drives without the routes.
 
   nogps_replay.py compare app*.log --day 10-11 --replay nogps-replay-out.txt
       how far the mark was from GPS on the trip and how far it is driven again, where GPS was seen.
@@ -25,6 +27,7 @@ FIELD = re.compile(r' (\w+)=(\S+)')
 SOURCE = re.compile(r'^\S+:\d+ (\w+)\(\): (.*)$')
 TAP = re.compile(r'tap = ms::LatLon\((-?[\d.]+), (-?[\d.]+)\) location = ms::LatLon\((-?[\d.]+), (-?[\d.]+)\) '
                  r'bearing = (-?[\d.]+)')
+CHECKPOINT = re.compile(r'ms::LatLon\((-?[\d.]+), (-?[\d.]+)\)')
 SLICE_MS = 200
 # A break of the box data longer than this is another trip.
 MAX_STAND_FILL_MS = 600_000
@@ -122,6 +125,9 @@ def make_input(args):
     actions = [(ms, 0, 'S %d 2' % ms, False) for ms in started]
     total_before = None
     by_itself_ms = None
+    # The routes: (ms, the points the user asked a route through or None, the route is followed or closed).
+    routes = []
+    asked_ms = None
     for ms, text, function in others:
         if text.startswith('GYRO '):
             parts = text.split()
@@ -172,6 +178,28 @@ def make_input(args):
                 actions.append((ms, 6, 'M %d %s' % (ms, m.group(1)), True))
         elif text.startswith('paused = '):
             actions.append((ms, 6, 'P %d %s' % (ms, text.split()[2]), True))
+        elif function == 'SetState' and text.startswith('Routing session state: '):
+            # A route the user asks for is built, a route the car has left is rebuilt: the latter is done again by
+            # the route of the trip driven again.
+            state = text.split()[-1]
+            if state == 'RouteBuilding':
+                asked_ms = ms
+            elif state == 'NoValidRoute':
+                routes.append((ms, None, False))
+        elif function == 'CalculateRoute' and text.startswith('Calculating the route') and asked_ms is not None:
+            points = CHECKPOINT.findall(text.split('startDirection')[0])
+            if len(points) >= 2 and ms - asked_ms <= 5000:
+                routes.append((asked_ms, points, False))
+            asked_ms = None
+        elif function == 'EnableFollowMode' and text.split()[-1] in ('OnRoute', 'RouteNotStarted'):
+            routes.append((ms, None, True))
+    if args.no_route:
+        routes = []
+    for ms, points, follow in routes:
+        if points:
+            actions.append((ms, 7, 'N %d %s' % (ms, ' '.join('%s %s' % p for p in points)), False))
+        else:
+            actions.append((ms, 7, 'F %d %d' % (ms, follow), False))
 
     # GPS as the application has seen it, a position a second. What it has told to be spoofed is left out: it is
     # told so by the network positions, which are not driven again.
@@ -323,6 +351,23 @@ def make_input(args):
             heading = number(state, 'hdg')
             if heading is not None:
                 records.append((first, -1, 'H %d %.0f' % (first, heading)))
+        # The route the car follows when the file begins is asked for from where the car is.
+        asked = None
+        followed = False
+        for ms, points, follow in routes:
+            if ms >= first:
+                break
+            if points:
+                asked, followed = points, False
+            elif follow:
+                followed = asked is not None
+            else:
+                asked = None
+        if asked and position:
+            there = ' '.join('%s %s' % p for p in asked[1:])
+            records.append((first, 0, 'N %d %.6f %.6f %s' % (first, position[0], position[1], there)))
+            if followed:
+                records.append((first, 1, 'F %d 1' % first))
 
     records.sort(key=lambda r: (r[0], r[1]))
     with open(args.output, 'w', encoding='ascii', newline='\n') as f:
@@ -331,9 +376,9 @@ def make_input(args):
             f.write(text + '\n')
     kinds = collections.Counter(r[2][0] for r in records)
     print('written %s: %.1f h of the box in %d pieces, GPS %d, taps %d, reverse %d, pause %d, moved %d, '
-          'GPS switched %d, manual mode %d, starts %d' % (
+          'GPS switched %d, manual mode %d, starts %d, routes asked for %d' % (
               args.output, kinds['B'] * SLICE_MS / 3.6e6, kinds['J'], kinds['G'], kinds['T'], kinds['R'], kinds['P'],
-              kinds['M'], kinds['X'], kinds['A'], kinds['S']))
+              kinds['M'], kinds['X'], kinds['A'], kinds['S'], kinds['N']))
 
 
 def meters(a, b):
@@ -394,6 +439,10 @@ EVENTS = [
     ('started backward', r'has started backward'), ('way of a start changed', r'by the accelerometer, it has felt'),
     ('mark moved to the road of the car', r'the mark is put on the road going its way'),
     ('no road at the tap', r'^No road at the tap'), ('bend moved', r'^Bend: moved'),
+    ('route asked for', r'Routing session state: \w+ -> RouteBuilding'),
+    ('route rebuilt: the car left it', r'Routing session state: RouteNeedRebuild -> RouteRebuilding'),
+    ('route rebuilt: the mark put off it', r'^Manual position is off the route'),
+    ('alternative route followed', r'is on the alternative route'),
 ]
 
 
@@ -488,6 +537,7 @@ def main():
         if name == 'input':
             sub.add_argument('-o', '--output', default='nogps-replay-in.txt')
             sub.add_argument('--no-taps', action='store_true', help='only the mark every trip starts with')
+            sub.add_argument('--no-route', action='store_true', help='without the routes the user asked for')
         else:
             sub.add_argument('--replay', required=True, help='nogps-replay-out.txt of the application')
             sub.add_argument('--change', type=float, default=15, help='meters that count as a change')

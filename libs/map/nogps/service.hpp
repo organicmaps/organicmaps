@@ -9,7 +9,7 @@
 
 #include <functional>
 
-class RoutingManager;
+class SessionRoute;
 
 namespace nogps
 {
@@ -20,7 +20,7 @@ public:
   using ShowCarHeadingFn = std::function<void(double bearingDeg)>;
   using ShowOffRoadCarFn = std::function<void(std::optional<ms::LatLon> const & position)>;
 
-  RoutingMapApi(RoutingManager & routing, Clock const & clock, ShowCarHeadingFn && showCarHeading,
+  RoutingMapApi(SessionRoute & route, Clock const & clock, ShowCarHeadingFn && showCarHeading,
                 ShowOffRoadCarFn && showOffRoadCar);
 
   // MapApi overrides:
@@ -39,18 +39,18 @@ private:
   class RoutingRoads : public Roads
   {
   public:
-    RoutingRoads(RoutingManager & routing, bool matchRoute) : m_routing(routing), m_matchRoute(matchRoute) {}
+    RoutingRoads(SessionRoute & route, bool matchRoute) : m_route(route), m_matchRoute(matchRoute) {}
 
     std::optional<RoadPoint> Snap(ms::LatLon const & point, std::optional<double> bearingDeg, double radiusM) override;
     std::vector<ms::LatLon> FindCrossings(ms::LatLon const & center, double radiusM) override;
     bool IsRoundaboutNear(ms::LatLon const & center, double radiusM) override;
 
   private:
-    RoutingManager & m_routing;
+    SessionRoute & m_route;
     bool const m_matchRoute;
   };
 
-  RoutingManager & m_routing;
+  SessionRoute & m_route;
   Clock const & m_clock;
   ShowCarHeadingFn m_showCarHeading;
   ShowOffRoadCarFn m_showOffRoadCar;
@@ -62,7 +62,7 @@ private:
 class Service
 {
 public:
-  Service(Delegate & delegate, RoutingManager & routing, RoutingMapApi::ShowCarHeadingFn && showCarHeading,
+  Service(Delegate & delegate, SessionRoute & route, RoutingMapApi::ShowCarHeadingFn && showCarHeading,
           RoutingMapApi::ShowOffRoadCarFn && showOffRoadCar);
 
   Engine & GetEngine() { return m_engine; }

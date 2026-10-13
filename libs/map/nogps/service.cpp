@@ -95,34 +95,34 @@ std::optional<RoadPoint> RoutingMapApi::RoutingRoads::Snap(ms::LatLon const & po
                                                            double radiusM)
 {
   RoadPoint road;
-  if (!m_routing.SnapToRoad(point, ToCoreBearing(bearingDeg), radiusM, m_matchRoute, road.m_point, road.m_bearingDeg))
+  if (!m_route.SnapToRoad(point, ToCoreBearing(bearingDeg), radiusM, m_matchRoute, road.m_point, road.m_bearingDeg))
     return {};
   return road;
 }
 
 std::vector<ms::LatLon> RoutingMapApi::RoutingRoads::FindCrossings(ms::LatLon const & center, double radiusM)
 {
-  return m_routing.FindRoadCrossings(center, radiusM);
+  return m_route.FindRoadCrossings(center, radiusM);
 }
 
 bool RoutingMapApi::RoutingRoads::IsRoundaboutNear(ms::LatLon const & center, double radiusM)
 {
-  return m_routing.IsRoundaboutNear(center, radiusM);
+  return m_route.IsRoundaboutNear(center, radiusM);
 }
 
-RoutingMapApi::RoutingMapApi(RoutingManager & routing, Clock const & clock, ShowCarHeadingFn && showCarHeading,
+RoutingMapApi::RoutingMapApi(SessionRoute & route, Clock const & clock, ShowCarHeadingFn && showCarHeading,
                              ShowOffRoadCarFn && showOffRoadCar)
-  : m_routing(routing)
+  : m_route(route)
   , m_clock(clock)
   , m_showCarHeading(std::move(showCarHeading))
   , m_showOffRoadCar(std::move(showOffRoadCar))
-  , m_roads(routing, false /* matchRoute */)
-  , m_routeRoads(routing, true /* matchRoute */)
+  , m_roads(route, false /* matchRoute */)
+  , m_routeRoads(route, true /* matchRoute */)
 {}
 
 bool RoutingMapApi::IsNavigating() const
 {
-  return m_routing.IsRoutingActive() && m_routing.IsRoutingFollowing();
+  return m_route.GetSession().IsActive() && m_route.GetSession().IsFollowing();
 }
 
 void RoutingMapApi::RebuildRouteIfOffRoute(Fix const & fix, double offRouteDistanceM, std::optional<double> bearingDeg)
@@ -134,13 +134,13 @@ void RoutingMapApi::RebuildRouteIfOffRoute(Fix const & fix, double offRouteDista
   info.m_longitude = fix.m_position.m_lon;
   info.m_horizontalAccuracy = offRouteDistanceM;
   info.m_bearing = ToCoreBearing(bearingDeg);
-  m_routing.RebuildRouteIfOffRoute(info);
+  m_route.RebuildRouteIfOffRoute(info);
 }
 
 std::optional<RoadPoint> RoutingMapApi::ProjectToRoute(ms::LatLon const & position, double radiusM)
 {
   RoadPoint road;
-  if (!m_routing.ProjectToRoute(position, radiusM, road.m_point, road.m_bearingDeg))
+  if (!m_route.ProjectToRoute(position, radiusM, road.m_point, road.m_bearingDeg))
     return {};
   return road;
 }
@@ -149,8 +149,8 @@ std::optional<RoadWalker::Result> RoutingMapApi::ShiftAlongRoute(ms::LatLon cons
                                                                  std::optional<double> bearingDeg, double distanceM)
 {
   RoadWalker::Result result;
-  if (!m_routing.ShiftAlongRoute(position, ToCoreBearing(bearingDeg), distanceM, result.m_position, result.m_bearingDeg,
-                                 result.m_appliedM, result.m_atCrossing))
+  if (!m_route.ShiftAlongRoute(position, ToCoreBearing(bearingDeg), distanceM, result.m_position, result.m_bearingDeg,
+                               result.m_appliedM, result.m_atCrossing))
   {
     return {};
   }
@@ -160,25 +160,25 @@ std::optional<RoadWalker::Result> RoutingMapApi::ShiftAlongRoute(ms::LatLon cons
 std::optional<RoadPoint> RoutingMapApi::SnapToMainRoad(ms::LatLon const & position, double radiusM)
 {
   RoadPoint road;
-  if (!m_routing.SnapToMainRoad(position, radiusM, road.m_point, road.m_bearingDeg))
+  if (!m_route.SnapToMainRoad(position, radiusM, road.m_point, road.m_bearingDeg))
     return {};
   return road;
 }
 
 std::string RoutingMapApi::GetDistanceLeft() const
 {
-  if (!m_routing.IsRoutingActive())
+  if (!m_route.GetSession().IsActive())
     return {};
   routing::FollowingInfo info;
-  m_routing.GetRouteFollowingInfo(info);
+  m_route.GetSession().GetRouteFollowingInfo(info);
   if (!info.IsValid())
     return {};
   return info.m_distToTarget.GetDistanceString() + info.m_distToTarget.GetUnitsString();
 }
 
-Service::Service(Delegate & delegate, RoutingManager & routing, RoutingMapApi::ShowCarHeadingFn && showCarHeading,
+Service::Service(Delegate & delegate, SessionRoute & route, RoutingMapApi::ShowCarHeadingFn && showCarHeading,
                  RoutingMapApi::ShowOffRoadCarFn && showOffRoadCar)
-  : m_map(routing, m_clock, std::move(showCarHeading), std::move(showOffRoadCar))
+  : m_map(route, m_clock, std::move(showCarHeading), std::move(showOffRoadCar))
   , m_engine(delegate, m_map, m_storage, m_clock, m_scheduler)
 {
   m_engine.SetFirmwares(LoadFirmwares());
