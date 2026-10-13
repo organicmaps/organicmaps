@@ -151,7 +151,7 @@ class ReplayMap : public MapApi
 {
 public:
   ReplayMap(RoutingManager & routing, Clock const & clock)
-    : m_map(routing, clock, [](double) {}, [](std::optional<ms::LatLon> const &) {})
+    : m_map(routing.GetSessionRoute(), clock, [](double) {}, [](std::optional<ms::LatLon> const &) {})
   {}
 
   bool IsNavigating() const override { return false; }

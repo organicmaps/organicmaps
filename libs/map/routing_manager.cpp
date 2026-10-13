@@ -328,6 +328,8 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
 
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(std::move(callbacks))
+  , m_sessionRoute(m_routingSession, std::bind_front(&RoutingManager::OnRebuildRouteReady, this),
+                   std::bind_front(&RoutingManager::SwapActiveAlternative, this))
   , m_delegate(delegate)
   , m_extrapolator([this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
 {
@@ -521,9 +523,15 @@ void RoutingManager::Init(std::shared_ptr<routing::NumMwmIds> ptr)
 
 void RoutingManager::SetRouterImpl(RouterType type)
 {
-  VehicleType const vehicleType = GetVehicleType(type);
+  m_loadAltitudes = GetVehicleType(type) != VehicleType::Car;
+  InitSession(m_routingSession, type);
+  m_currentRouterType = type;
+}
 
-  m_loadAltitudes = vehicleType != VehicleType::Car;
+void RoutingManager::InitSession(routing::RoutingSession & session, RouterType type) const
+{
+  VehicleType const vehicleType = GetVehicleType(type);
+  bool const loadAltitudes = vehicleType != VehicleType::Car;
 
   std::unique_ptr<IRouter> router;
   std::unique_ptr<AbsentRegionsFinder> absentFinder;
@@ -555,15 +563,14 @@ void RoutingManager::SetRouterImpl(RouterType type)
     auto const getMwmRectByName = [this](std::string const & countryId)
     { return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId); };
 
-    router = std::make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
-                                           countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree,
-                                           m_routingSession, dataSource);
+    router = std::make_unique<IndexRouter>(vehicleType, loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
+                                           countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree, session,
+                                           dataSource);
     absentFinder = std::make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, m_numMwmIDs, dataSource);
   }
 
-  m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
-  m_routingSession.SetRouter(std::move(router), std::move(absentFinder));
-  m_currentRouterType = type;
+  session.SetRoutingSettings(GetRoutingSettings(vehicleType));
+  session.SetRouter(std::move(router), std::move(absentFinder));
 }
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
@@ -952,18 +959,25 @@ double FindRouteAnchor(std::vector<m2::PointD> const & points, m2::PointD const 
                        size_t & anchorIdx, m2::PointD & anchor);
 }  // namespace
 
-bool RoutingManager::SwapToAlternativeUnderCar(location::GpsInfo const & info)
+SessionRoute::SessionRoute(routing::RoutingSession & session, routing::ReadyCallback && onRebuilt,
+                           SwapAlternativeFn && swapAlternative)
+  : m_session(session)
+  , m_onRebuilt(std::move(onRebuilt))
+  , m_swapAlternative(std::move(swapAlternative))
+{}
+
+bool SessionRoute::SwapToAlternativeUnderCar(location::GpsInfo const & info)
 {
   // The car is on the road of an alternative, not on a road beside it.
   double constexpr kOnAlternativeM = 20.0;
-  if (!m_routingSession.IsFollowing() || !m_routingSession.IsRouteValid())
+  if (!m_session.IsFollowing() || !m_session.IsRouteValid())
     return false;
 
   m2::PointD const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
   double const bearingDeg = info.HasBearing() ? info.m_bearing : kAnyBearing;
   int targetIdx = -1;
   double bestDistanceM = kOnAlternativeM;
-  m_routingSession.RouteCall([&](routing::RoutesResult const & result)
+  m_session.RouteCall([&](routing::RoutesResult const & result)
   {
     for (size_t i = 0; i < result.m_routes.size(); ++i)
     {
@@ -989,14 +1003,14 @@ bool RoutingManager::SwapToAlternativeUnderCar(location::GpsInfo const & info)
     return false;
 
   LOG(LINFO, ("The car is on the alternative route", targetIdx, "at", bestDistanceM, "m, following it"));
-  return SwapActiveAlternative(targetIdx);
+  return m_swapAlternative(static_cast<size_t>(targetIdx));
 }
 
-bool RoutingManager::IsLeavingRoute(SessionState state) const
+bool SessionRoute::IsLeavingRoute(SessionState state) const
 {
   return state == SessionState::RouteNeedRebuild ||
          ((state == SessionState::OnRoute || state == SessionState::RouteNotStarted) &&
-          m_routingSession.IsMovingAwayFromRoute());
+          m_session.IsMovingAwayFromRoute());
 }
 
 bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, double mercatorPerPixel)
@@ -1429,28 +1443,26 @@ bool RoutingManager::DisableFollowMode()
   return disabled;
 }
 
-void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
+void SessionRoute::CheckLocationForRouting(location::GpsInfo const & info)
 {
-  if (!IsRoutingActive())
+  if (!m_session.IsActive())
     return;
 
-  SessionState state = m_routingSession.OnLocationPositionChanged(info);
+  SessionState state = m_session.OnLocationPositionChanged(info);
   // The car has left the route for an alternative: it is followed at once instead of a rebuild.
   if (IsLeavingRoute(state) && SwapToAlternativeUnderCar(info))
-    state = m_routingSession.OnLocationPositionChanged(info);
+    state = m_session.OnLocationPositionChanged(info);
   if (state == SessionState::RouteNeedRebuild)
   {
-    m_routingSession.RebuildRoute(mercator::FromLatLon(info.m_latitude, info.m_longitude),
-                                  [this](RoutesResult const & result, RouterResultCode code)
-    { OnRebuildRouteReady(result, code); }, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
-                                  RouterDelegate::kNoTimeout, SessionState::RouteRebuilding,
-                                  true /* adjustToPrevRoute */);
+    m_session.RebuildRoute(mercator::FromLatLon(info.m_latitude, info.m_longitude), m_onRebuilt,
+                           nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                           RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
   }
 }
 
-void RoutingManager::RebuildRouteIfOffRoute(location::GpsInfo const & info)
+void SessionRoute::RebuildRouteIfOffRoute(location::GpsInfo const & info)
 {
-  if (!IsRoutingActive())
+  if (!m_session.IsActive())
     return;
 
   // A position set by hand has no track of positions behind it, so the router does not know where the car
@@ -1463,16 +1475,16 @@ void RoutingManager::RebuildRouteIfOffRoute(location::GpsInfo const & info)
     double const angle = math::DegToRad(location::BearingToAngle(info.m_bearing));
     m2::PointD const behind =
         current - m2::PointD(std::cos(angle), std::sin(angle)) * mercator::MetersToMercator(kTrackLengthM);
-    m_routingSession.ClearPositionAccumulator();
-    m_routingSession.PushPositionAccumulator(behind);
-    m_routingSession.PushPositionAccumulator(current);
+    m_session.ClearPositionAccumulator();
+    m_session.PushPositionAccumulator(behind);
+    m_session.PushPositionAccumulator(current);
   }
 
   // Moves the route iterator to the closest point ahead, so the passed part of the route is cut off.
-  SessionState state = m_routingSession.OnLocationPositionChanged(info);
+  SessionState state = m_session.OnLocationPositionChanged(info);
   // The car is on an alternative route: it is followed instead of a rebuild.
   if ((IsLeavingRoute(state) || IsAgainstRoute(info)) && SwapToAlternativeUnderCar(info))
-    state = m_routingSession.OnLocationPositionChanged(info);
+    state = m_session.OnLocationPositionChanged(info);
   // A route just built is not started until the car is matched to it: the car set off it is off the route.
   if (state != SessionState::OnRoute && state != SessionState::RouteNotStarted &&
       state != SessionState::RouteNeedRebuild)
@@ -1487,7 +1499,7 @@ void RoutingManager::RebuildRouteIfOffRoute(location::GpsInfo const & info)
   {
     location::GpsInfo matched(info);
     location::RouteMatchingInfo routeMatchingInfo;
-    m_routingSession.MatchLocationToRoute(matched, routeMatchingInfo);
+    m_session.MatchLocationToRoute(matched, routeMatchingInfo);
     if (routeMatchingInfo.IsMatched())
       shownAwayM = mercator::DistanceOnEarth(routeMatchingInfo.GetPosition(), position);
     if (routeMatchingInfo.IsMatched() && shownAwayM <= info.m_horizontalAccuracy && !IsAgainstRoute(info))
@@ -1496,14 +1508,12 @@ void RoutingManager::RebuildRouteIfOffRoute(location::GpsInfo const & info)
 
   LOG(LINFO, ("Manual position is off the route, rebuilding, bearing", info.m_bearing, "shown", shownAwayM,
               "m away on the route"));
-  m_routingSession.RebuildRoute(position, [this](RoutesResult const & result, RouterResultCode code)
-  { OnRebuildRouteReady(result, code); }, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
-                                RouterDelegate::kNoTimeout, SessionState::RouteRebuilding,
-                                false /* adjustToPrevRoute */);
+  m_session.RebuildRoute(position, m_onRebuilt, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                         RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, false /* adjustToPrevRoute */);
 }
 
-bool RoutingManager::SnapToRoad(ms::LatLon const & latLon, double bearingDeg, double radiusM, bool matchRoute,
-                                ms::LatLon & snapped, double & snappedBearingDeg)
+bool SessionRoute::SnapToRoad(ms::LatLon const & latLon, double bearingDeg, double radiusM, bool matchRoute,
+                              ms::LatLon & snapped, double & snappedBearingDeg)
 {
   // A part of the route farther than the road by more than this is not where the car is: the car has left the
   // route, e.g. gone straight where the route turns, and the route would pull it back to the turn.
@@ -1518,7 +1528,7 @@ bool RoutingManager::SnapToRoad(ms::LatLon const & latLon, double bearingDeg, do
   }
   m2::PointD projected;
   double angleRad = 0.0;
-  bool found = m_routingSession.FindRoadAlong(point, direction, radiusM, projected, angleRad);
+  bool found = m_session.FindRoadAlong(point, direction, radiusM, projected, angleRad);
   // The route and the road are compared as the road is chosen: by the distance and the direction. A route
   // branching away at a fork would pull the car from the road it goes straight along otherwise.
   auto const cost = [&](m2::PointD const & p, double roadAngle)
@@ -1534,11 +1544,11 @@ bool RoutingManager::SnapToRoad(ms::LatLon const & latLon, double bearingDeg, do
   };
   double const roadCost = found ? cost(projected, angleRad) : std::numeric_limits<double>::max();
 
-  if (matchRoute && IsRoutingActive() && m_routingSession.IsOnRoute())
+  if (matchRoute && m_session.IsActive() && m_session.IsOnRoute())
   {
     // The position is projected to the route itself. The route iterator is where the previous position was
     // matched, snapping to it would move the car back by the distance driven since on every snap.
-    Route const * route = m_routingSession.GetRoute();
+    Route const * route = m_session.GetRoute();
     if (route != nullptr && route->IsValid() && route->GetPoly().GetPoints().size() >= 2)
     {
       auto const & points = route->GetPoly().GetPoints();
@@ -1636,9 +1646,8 @@ size_t FindTurnBeforeIdx(Route const & route, size_t segIdx)
 }
 }  // namespace
 
-bool RoutingManager::ShiftAlongRoute(ms::LatLon const & latLon, double bearingDeg, double distanceM,
-                                     ms::LatLon & shifted, double & shiftedBearingDeg, double & appliedM,
-                                     bool & atCrossing)
+bool SessionRoute::ShiftAlongRoute(ms::LatLon const & latLon, double bearingDeg, double distanceM, ms::LatLon & shifted,
+                                   double & shiftedBearingDeg, double & appliedM, bool & atCrossing)
 {
   // A sharp bend of the route is a turn to another street, the position must not be shifted past it.
   double constexpr kTurnBendDeg = 45.0;
@@ -1653,10 +1662,10 @@ bool RoutingManager::ShiftAlongRoute(ms::LatLon const & latLon, double bearingDe
 
   appliedM = 0.0;
   atCrossing = false;
-  if (!IsRoutingActive() || !m_routingSession.IsOnRoute())
+  if (!m_session.IsActive() || !m_session.IsOnRoute())
     return false;
 
-  Route const * route = m_routingSession.GetRoute();
+  Route const * route = m_session.GetRoute();
   if (route == nullptr || !route->IsValid())
     return false;
 
@@ -1695,8 +1704,8 @@ bool RoutingManager::ShiftAlongRoute(ms::LatLon const & latLon, double bearingDe
       forward ? FindTurnAfterIdx(*route, anchorIdx, points.size() - 1) : FindTurnBeforeIdx(*route, anchorIdx);
   // Crossings the route goes straight through are not turns of the route, they are taken from the roads.
   std::vector<m2::PointD> crossings;
-  m_routingSession.FindRoadCrossings(
-      mercator::RectByCenterXYAndSizeInMeters(anchor, 2.0 * (remainingM + kCrossingMarginM)), crossings);
+  m_session.FindRoadCrossings(mercator::RectByCenterXYAndSizeInMeters(anchor, 2.0 * (remainingM + kCrossingMarginM)),
+                              crossings);
   auto const isCrossing = [&crossings](m2::PointD const & p)
   {
     return std::any_of(crossings.cbegin(), crossings.cend(), [&p](m2::PointD const & crossing)
@@ -1761,7 +1770,7 @@ bool RoutingManager::ShiftAlongRoute(ms::LatLon const & latLon, double bearingDe
   return true;
 }
 
-bool RoutingManager::IsAgainstRoute(location::GpsInfo const & info)
+bool SessionRoute::IsAgainstRoute(location::GpsInfo const & info)
 {
   ms::LatLon projected;
   double routeBearingDeg;
@@ -1775,23 +1784,22 @@ bool RoutingManager::IsAgainstRoute(location::GpsInfo const & info)
   return diffDeg > 90.0;
 }
 
-bool RoutingManager::SnapToMainRoad(ms::LatLon const & latLon, double radiusM, ms::LatLon & snapped,
-                                    double & bearingDeg)
+bool SessionRoute::SnapToMainRoad(ms::LatLon const & latLon, double radiusM, ms::LatLon & snapped, double & bearingDeg)
 {
   m2::PointD projected;
   double angleRad = 0.0;
-  if (!m_routingSession.FindMainRoad(mercator::FromLatLon(latLon), radiusM, projected, angleRad))
+  if (!m_session.FindMainRoad(mercator::FromLatLon(latLon), radiusM, projected, angleRad))
     return false;
   snapped = mercator::ToLatLon(projected);
   bearingDeg = location::AngleToBearing(math::RadToDeg(angleRad));
   return true;
 }
 
-std::vector<ms::LatLon> RoutingManager::FindRoadCrossings(ms::LatLon const & center, double radiusM) const
+std::vector<ms::LatLon> SessionRoute::FindRoadCrossings(ms::LatLon const & center, double radiusM) const
 {
   std::vector<m2::PointD> crossings;
-  m_routingSession.FindRoadCrossings(
-      mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(center), 2.0 * radiusM), crossings);
+  m_session.FindRoadCrossings(mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(center), 2.0 * radiusM),
+                              crossings);
   std::vector<ms::LatLon> result;
   result.reserve(crossings.size());
   for (auto const & crossing : crossings)
@@ -1799,18 +1807,18 @@ std::vector<ms::LatLon> RoutingManager::FindRoadCrossings(ms::LatLon const & cen
   return result;
 }
 
-bool RoutingManager::IsRoundaboutNear(ms::LatLon const & center, double radiusM) const
+bool SessionRoute::IsRoundaboutNear(ms::LatLon const & center, double radiusM) const
 {
-  return m_routingSession.IsRoundaboutNear(mercator::FromLatLon(center), radiusM);
+  return m_session.IsRoundaboutNear(mercator::FromLatLon(center), radiusM);
 }
 
-bool RoutingManager::ProjectToRoute(ms::LatLon const & latLon, double radiusM, ms::LatLon & projected,
-                                    double & bearingDeg)
+bool SessionRoute::ProjectToRoute(ms::LatLon const & latLon, double radiusM, ms::LatLon & projected,
+                                  double & bearingDeg)
 {
-  if (!IsRoutingActive())
+  if (!m_session.IsActive())
     return false;
 
-  Route const * route = m_routingSession.GetRoute();
+  Route const * route = m_session.GetRoute();
   if (route == nullptr || !route->IsValid())
     return false;
 
@@ -1827,7 +1835,7 @@ bool RoutingManager::ProjectToRoute(ms::LatLon const & latLon, double radiusM, m
   // would pull the position to the crossing.
   double constexpr kSameRoadM = 3.0;
   routing::EdgeProj closest;
-  if (m_routingSession.FindClosestProjectionToRoad(point, m2::PointD::Zero(), radiusM, closest) &&
+  if (m_session.FindClosestProjectionToRoad(point, m2::PointD::Zero(), radiusM, closest) &&
       mercator::DistanceOnEarth(point, closest.m_point) + kSameRoadM < distanceToRouteM)
   {
     return false;
@@ -1857,7 +1865,7 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location
 
 location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)
 {
-  CheckLocationForRouting(info);
+  m_sessionRoute.CheckLocationForRouting(info);
 
   location::RouteMatchingInfo routeMatchingInfo;
   MatchLocationToRoute(info, routeMatchingInfo);

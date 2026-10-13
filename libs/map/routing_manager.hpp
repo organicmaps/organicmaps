@@ -59,6 +59,67 @@ struct RoutePointInfo
   m2::PointD m_position;
 };
 
+/// The followed route of a routing session and the roads around it, as the navigation without GPS asks for them.
+/// Everything is asked from the session, so a recorded trip driven again (NoGpsReplay.cpp of Android) follows a
+/// route of its own through the same code, apart from the route of the user.
+class SessionRoute
+{
+public:
+  using SwapAlternativeFn = std::function<bool(size_t idx)>;
+
+  /// \param onRebuilt is called with the route the session has built instead of the one the car has left.
+  /// \param swapAlternative makes the alternative route |idx| of the session the followed one.
+  SessionRoute(routing::RoutingSession & session, routing::ReadyCallback && onRebuilt,
+               SwapAlternativeFn && swapAlternative);
+
+  routing::RoutingSession & GetSession() { return m_session; }
+  routing::RoutingSession const & GetSession() const { return m_session; }
+
+  // Takes the next position of the car: an alternative route the car has turned to is followed, the route the
+  // car has left is rebuilt.
+  void CheckLocationForRouting(location::GpsInfo const & info);
+  // The user has set own position manually (e.g. GPS is jammed). Rebuilds the route at once if the position
+  // is off the route, without waiting for the several consecutive off-route updates as for GPS.
+  // The route goes the |info| bearing way if it is known.
+  void RebuildRouteIfOffRoute(location::GpsInfo const & info);
+  // Snaps a dead reckoning position (not from GPS) to the closest road within |radiusM|, preferring the
+  // one going in the |bearingDeg| direction (negative if the direction is unknown). With |matchRoute| the
+  // followed route is preferred, it is where the car really is. Returns false if there is no road.
+  bool SnapToRoad(ms::LatLon const & latLon, double bearingDeg, double radiusM, bool matchRoute, ms::LatLon & snapped,
+                  double & snappedBearingDeg);
+  // Moves |latLon| along the followed route by |distanceM| (negative moves back), e.g. when a dead
+  // reckoning position lags behind the car. |bearingDeg| is where the car looks, negative if it is unknown.
+  // The movement stops at the closest turn or crossing in both directions, so the position never jumps
+  // to another street. |appliedM| is the distance the position was really moved by, negative when moved back.
+  // |atCrossing| is true if the position has stopped at a turn or crossing. Returns false if there is no
+  // followed route, the position is not on it or it is at the start of the route and is moved back.
+  bool ShiftAlongRoute(ms::LatLon const & latLon, double bearingDeg, double distanceM, ms::LatLon & shifted,
+                       double & shiftedBearingDeg, double & appliedM, bool & atCrossing);
+  // Moves |latLon| to the closest point of the followed route within |radiusM|, |bearingDeg| is the
+  // direction of the route there. Returns false if there is no route so close.
+  bool ProjectToRoute(ms::LatLon const & latLon, double radiusM, ms::LatLon & projected, double & bearingDeg);
+  // Returns true if the car is on the route but goes the other way, i.e. it has turned around.
+  bool IsAgainstRoute(location::GpsInfo const & info);
+  // Snaps a position set by the user to the closest road within |radiusM|, preferring a main road to a
+  // driveway branching off it nearly as close. Returns false if there is no road.
+  bool SnapToMainRoad(ms::LatLon const & latLon, double radiusM, ms::LatLon & snapped, double & bearingDeg);
+  // Returns the points where three or more roads meet within |radiusM| of |center|.
+  std::vector<ms::LatLon> FindRoadCrossings(ms::LatLon const & center, double radiusM) const;
+  // Returns true if a roundabout is within |radiusM| of |center|.
+  bool IsRoundaboutNear(ms::LatLon const & center, double radiusM) const;
+  // Makes the alternative route the car is on the active one, e.g. the car has turned to it while
+  // navigating. Returns false if the car is not on any alternative.
+  bool SwapToAlternativeUnderCar(location::GpsInfo const & info);
+  // Returns true if the car has left the followed route or is leaving it now, by the |state| after the last
+  // position.
+  bool IsLeavingRoute(routing::SessionState state) const;
+
+private:
+  routing::RoutingSession & m_session;
+  routing::ReadyCallback m_onRebuilt;
+  SwapAlternativeFn m_swapAlternative;
+};
+
 class RoutingManager final
 {
 public:
@@ -120,6 +181,9 @@ public:
 
   routing::RoutingSession const & RoutingSession() const { return m_routingSession; }
   routing::RoutingSession & RoutingSession() { return m_routingSession; }
+  SessionRoute & GetSessionRoute() { return m_sessionRoute; }
+  /// Gives |session| a router as the one of the session of the manager, for a route followed apart from it.
+  void InitSession(routing::RoutingSession & session, routing::RouterType type) const;
   void SetRouter(routing::RouterType type);
   routing::RouterType GetRouter() const { return m_currentRouterType; }
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
@@ -170,12 +234,6 @@ public:
   /// Returns false if the index is out of range or already active. Re-renders the drape so
   /// the newly-active variant is highlighted and the previously-active becomes the alternative.
   bool SwapActiveAlternative(size_t idx);
-  // Makes the alternative route the car is on the active one, e.g. the car has turned to it while
-  // navigating. Returns false if the car is not on any alternative.
-  bool SwapToAlternativeUnderCar(location::GpsInfo const & info);
-  // Returns true if the car has left the followed route or is leaving it now, by the |state| after the last
-  // position.
-  bool IsLeavingRoute(routing::SessionState state) const;
 
   /// \brief Hit-tests |mercator| against the alternative-route polylines. If one is closer than
   /// a tap-area threshold (kTapPixels * |mercatorPerPixel|), swaps it to active and returns true.
@@ -239,36 +297,6 @@ public:
 
   void RemoveRoute(bool deactivateFollowing);
 
-  void CheckLocationForRouting(location::GpsInfo const & info);
-  // The user has set own position manually (e.g. GPS is jammed). Rebuilds the route at once if the position
-  // is off the route, without waiting for the several consecutive off-route updates as for GPS.
-  // The route goes the |info| bearing way if it is known.
-  void RebuildRouteIfOffRoute(location::GpsInfo const & info);
-  // Snaps a dead reckoning position (not from GPS) to the closest road within |radiusM|, preferring the
-  // one going in the |bearingDeg| direction (negative if the direction is unknown). With |matchRoute| the
-  // followed route is preferred, it is where the car really is. Returns false if there is no road.
-  bool SnapToRoad(ms::LatLon const & latLon, double bearingDeg, double radiusM, bool matchRoute, ms::LatLon & snapped,
-                  double & snappedBearingDeg);
-  // Moves |latLon| along the followed route by |distanceM| (negative moves back), e.g. when a dead
-  // reckoning position lags behind the car. |bearingDeg| is where the car looks, negative if it is unknown.
-  // The movement stops at the closest turn or crossing in both directions, so the position never jumps
-  // to another street. |appliedM| is the distance the position was really moved by, negative when moved back.
-  // |atCrossing| is true if the position has stopped at a turn or crossing. Returns false if there is no
-  // followed route, the position is not on it or it is at the start of the route and is moved back.
-  bool ShiftAlongRoute(ms::LatLon const & latLon, double bearingDeg, double distanceM, ms::LatLon & shifted,
-                       double & shiftedBearingDeg, double & appliedM, bool & atCrossing);
-  // Moves |latLon| to the closest point of the followed route within |radiusM|, |bearingDeg| is the
-  // direction of the route there. Returns false if there is no route so close.
-  bool ProjectToRoute(ms::LatLon const & latLon, double radiusM, ms::LatLon & projected, double & bearingDeg);
-  // Returns true if the car is on the route but goes the other way, i.e. it has turned around.
-  bool IsAgainstRoute(location::GpsInfo const & info);
-  // Snaps a position set by the user to the closest road within |radiusM|, preferring a main road to a
-  // driveway branching off it nearly as close. Returns false if there is no road.
-  bool SnapToMainRoad(ms::LatLon const & latLon, double radiusM, ms::LatLon & snapped, double & bearingDeg);
-  // Returns the points where three or more roads meet within |radiusM| of |center|.
-  std::vector<ms::LatLon> FindRoadCrossings(ms::LatLon const & center, double radiusM) const;
-  // Returns true if a roundabout is within |radiusM| of |center|.
-  bool IsRoundaboutNear(ms::LatLon const & center, double radiusM) const;
   void CallRouteBuilded(routing::RouterResultCode code, storage::CountriesSet const & absentCountries);
   void OnBuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
   void OnRebuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
@@ -394,6 +422,7 @@ private:
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
   bool m_loadAltitudes = false;
   routing::RoutingSession m_routingSession;
+  SessionRoute m_sessionRoute;
   Delegate & m_delegate;
 
   BookmarkManager * m_bmManager = nullptr;
