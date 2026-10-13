@@ -2,7 +2,7 @@
 
 [back]
 comment = Button text (should be short)
-tags = android-app
+tags = android-app,qt
 en = Back
 af = Terug
 ar = رجوع
@@ -3173,7 +3173,7 @@ zh-Hant = 選擇公里或英哩
 
 [cancel_download]
 comment = Button which interrupts country download
-tags = apple-maps
+tags = apple-maps,qt
 en = Cancel Download
 af = Kanselleer aflaai
 ar = إلغاء التنزيل
@@ -8022,7 +8022,7 @@ zh-Hans = 距离
 zh-Hant = 距離
 
 [search_show_on_map]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = View on map
 af = Bekyk op kaart
 ar = مشاهدة على الخريطة
@@ -8998,7 +8998,7 @@ zh-Hant = 以 8 字形移動手機以校準指北針，並在地圖上固定箭�
 
 [long_tap_toast]
 comment = Toast text when user hides UI with a long tap anywhere on the map
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Long-tap on the map again to see the interface
 af = Langtik weer op die kaart om die koppelvlak te sien
 ar = اضغط مطولاً على الخريطة مرة أخرى لرؤية الواجهة
@@ -13881,7 +13881,7 @@ zh-Hant = 下載或更新沿預期路線的所有地圖，以規劃路線。
 [[Strings for downloading map from search]]
 
 [search_without_internet_advertisement]
-tags = android-app
+tags = android-app,qt
 en = To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.
 af = Om te begin met soek en roetebeskrywings te kan maak moet u die kaart aflaai. U het daarna nie meer ’n internetverbinding nodig nie.
 ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.
@@ -14164,7 +14164,7 @@ zh-Hans = 类别
 zh-Hant = 類別
 
 [history]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = History
 af = Geskiedenis
 ar = سجل البحث
@@ -14336,7 +14336,7 @@ zh-Hans = 下载您要搜索的区域的地图，或尝试输入附近的城镇�
 zh-Hant = 下載您要搜尋的區域的地圖，或嘗試輸入附近的城鎮或村莊名稱。
 
 [search_history_title]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Search History
 af = Soekgeskiedenis
 ar = سجل البحث
@@ -14569,7 +14569,7 @@ zh-Hans = 查看您最近的搜索记录。
 zh-Hant = 查看您最近的搜尋記錄。
 
 [clear_search]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Clear Search History
 af = Wis soekgeskiedenis
 ar = مسح سجل البحث
@@ -15426,7 +15426,7 @@ zh-Hant = 刪除排程
 
 [editor_time_allday]
 comment = Text for allday switch.
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = All Day (24 hours)
 af = Heeldag (24 uur)
 ar = طوال اليوم (٢٤ ساعة)
@@ -15483,7 +15483,7 @@ zh-Hans = 全天（24 小时）
 zh-Hant = 全天 (24 小時)
 
 [editor_time_open]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Open
 af = Oop
 ar = مفتوح
@@ -16220,7 +16220,7 @@ zh-Hans = 每天
 zh-Hant = 每天
 
 [twentyfour_seven]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = 24/7
 af = 24/7
 ar = ٢٤/٧(ليلاً ونهاراً)
@@ -16332,7 +16332,7 @@ zh-Hans = 今天不营业
 zh-Hant = 今天不營業
 
 [day_off]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Closed
 af = Gesluit
 ar = مغلق
@@ -16387,7 +16387,7 @@ zh-Hans = 不营业
 zh-Hant = 不營業
 
 [midnight]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Midnight
 af = Middernag
 ar = منتصف الليل
@@ -16443,7 +16443,7 @@ zh-Hans = 午夜
 zh-Hant = 午夜
 
 [noon]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Noon
 af = Middaguur
 ar = الظهر
@@ -16555,7 +16555,7 @@ zh-Hans = 今天
 zh-Hant = 今天
 
 [opens_in]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Opens in %@
 af = Open oor %@
 ar = يفتح بعد %@
@@ -16610,7 +16610,7 @@ zh-Hans = 将于 %@ 后营业
 zh-Hant = 將於 %@ 後開業
 
 [closes_in]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Closes in %@
 af = Sluit oor %@
 ar = يغلق في غضون %@
@@ -16665,7 +16665,7 @@ zh-Hans = 将于 %@ 后不营业
 zh-Hant = 將於 %@ 後歇業
 
 [closed]
-tags = android-app,android-libs-car,apple-maps
+tags = android-app,android-libs-car,apple-maps,qt
 en = Closed
 af = Gesluit
 ar = مغلق
@@ -18145,7 +18145,7 @@ zh-Hant = 樓層
 
 [level_value_generic]
 comment = Building level
-tags = android-app
+tags = android-app,qt
 en = Level: %@
 af = Vlak: %@
 ar = المستوى: %@
@@ -20138,7 +20138,7 @@ zh-Hant = 運營方
 
 [operator]
 comment = To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Operator: %@
 af = Operateur: %@
 ar = المشغل: %@
@@ -25588,7 +25588,7 @@ zh-Hant:other = %d 軌跡
 
 [privacy]
 comment = Settings privacy group in settings screen
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Privacy
 af = Privaatheid
 ar = خصوصية
@@ -28845,7 +28845,7 @@ zh-Hant = 否
 
 [yes_available]
 comment = E.g. "WiFi:Yes"
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Yes
 af = Ja
 ar = نعم
@@ -28902,7 +28902,7 @@ zh-Hant = 是
 
 [no_available]
 comment = E.g. "WiFi:No"
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = No
 af = Nee
 ar = لا
@@ -28959,7 +28959,7 @@ zh-Hant = 否
 
 [capacity]
 comment = To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations…
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Capacity: %@
 af = Kapasiteit: %@
 ar = السعة: %@
@@ -29016,7 +29016,7 @@ zh-Hant = 容量：%@
 
 [network]
 comment = To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations…
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Network: %@
 af = Netwerk: %@
 ar = الشبكة: %@
@@ -30151,7 +30151,7 @@ zh-Hant = 與朋友分享
 
 [closed_now]
 comment = Place Page opening hours text
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Closed now
 af = Nou gesluit
 ar = مغلق الآن
@@ -30207,7 +30207,7 @@ zh-Hans = 现已关门
 zh-Hant = 現已關門
 
 [opens_tomorrow_at]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Opens tomorrow at %@
 af = Open môre om %@
 ar = يُفتتح غداً في %@
@@ -30264,7 +30264,7 @@ zh-Hans = 明天 %@ 营业
 zh-Hant = 明天 %@ 營業
 
 [opens_dayoftheweek_at]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Opens %1$@ at %2$@
 af = Open %1$@ om %2$@
 ar = يفتح %1$@ في %2$@
@@ -30321,7 +30321,7 @@ zh-Hans = %1$@ %2$@ 营业
 zh-Hant = %1$@ %2$@ 營業
 
 [opens_at]
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Opens at %@
 af = Open om %@
 ar = يفتح في %@
@@ -30378,7 +30378,7 @@ zh-Hans = %@ 营业
 zh-Hant = %@ 營業
 
 [closes_at]
-tags = apple-maps,android-app
+tags = android-app,apple-maps,qt
 en = Closes at %@
 af = Sluit om %@
 ar = يغلق في %@
@@ -32246,7 +32246,7 @@ zh-Hans = 您的说明将发送至 OpenStreetMap
 zh-Hant = 您的註解將發送至 OpenStreetMap
 
 [text_more_button]
-tags = apple-maps
+tags = apple-maps,qt
 en = …more
 af = …meer
 ar = …المزيد
@@ -39494,7 +39494,7 @@ zh-Hant = 選單連結
 
 [view_menu]
 comment = Button in the Place Page which opens a restaurant or other food place's menu in a browser
-tags = android-app
+tags = android-app,qt
 en = View Menu
 af = Bekyk spyskaart
 ar = عرض القائمة
@@ -45401,7 +45401,7 @@ zh-Hant = 語音搜尋
 
 [choose_on_map]
 comment = Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Choose on map
 af = Kies op die kaart
 ar = اختر على الخريطة
@@ -45889,7 +45889,7 @@ zh-Hant = 無法將路線儲存為軌跡
 
 [choose_point_on_map_hint]
 comment = Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it
-tags = android-app,apple-maps
+tags = android-app,apple-maps,qt
 en = Move and zoom the map to place the cross
 af = Skuif en zoem die kaart om die kruis te plaas
 ar = حرك الخريطة وقم بتكبيرها أو تصغيرها لوضع الصليب
@@ -46637,6 +46637,28 @@ zh-Hans = 有轨电车
 zh-Hant = 路面電車
 
 [[Sailfish OS]]
+
+[less]
+comment = Sailfish OS: collapses the expanded Wikipedia description on the place page
+tags = qt
+en = Less
+de = Weniger
+es = Menos
+fr = Moins
+ru = Свернуть
+sv = Mindre
+uk = Згорнути
+
+[copy_value]
+comment = Sailfish OS: menu item that copies the shown value to the clipboard
+tags = qt
+en = Copy %@
+de = %@ kopieren
+es = Copiar %@
+fr = Copier %@
+ru = Копировать %@
+sv = Kopiera %@
+uk = Копіювати %@
 
 [mobile_data_downloads_off]
 comment = Sailfish OS: a map download was not started because mobile internet is off in the settings
