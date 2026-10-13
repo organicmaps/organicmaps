@@ -52,9 +52,9 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
   editor::EditorConfig config;
   osm::NewFeatureCategories categories(config);
 
-  for (auto const & locale : CategoriesHolder::kLocaleMapping)
+  for (auto const locale : CategoriesHolder::kLocales)
   {
-    std::string const lang(locale.m_name);
+    std::string const lang(locale);
     categories.AddLanguage(lang);
     // GetAllCreatableTypeNames() returns a sorted vector.
     auto names = categories.GetAllCreatableTypeNames();

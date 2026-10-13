@@ -120,11 +120,6 @@ CategoriesHolder::CategoriesHolder(std::unique_ptr<Reader> && reader)
   ReaderStreamBuf buffer(std::move(reader));
   std::istream s(&buffer);
   LoadFromStream(s);
-
-#if defined(DEBUG)
-  for (auto const & entry : kLocaleMapping)
-    ASSERT_LESS_OR_EQUAL(uint8_t(entry.m_code), kLocaleMapping.size(), ());
-#endif
 }
 
 void CategoriesHolder::AddCategory(Category & cat, std::vector<uint32_t> & types)
@@ -301,14 +296,10 @@ bool CategoriesHolder::IsTypeExist(uint32_t type) const
 // static
 int8_t CategoriesHolder::MapLocaleToInteger(std::string_view const locale)
 {
-  ASSERT(!kLocaleMapping.empty(), ());
-  ASSERT_EQUAL(kLocaleMapping[0].m_name, std::string_view("en"), ());
-  ASSERT_EQUAL(kLocaleMapping[0].m_code, kEnglishCode, ());
-
   // Reverse order so that a regional variant ("en-GB") wins over its base language ("en").
-  for (auto it = kLocaleMapping.crbegin(); it != kLocaleMapping.crend(); ++it)
-    if (languages::StartsWithSubtags(locale, it->m_name))
-      return it->m_code;
+  for (size_t i = kLocales.size(); i > 0; --i)
+    if (languages::StartsWithSubtags(locale, kLocales[i - 1]))
+      return static_cast<int8_t>(i);
 
   // Special cases for different Chinese variations
   switch (languages::GetChineseScript(locale))
@@ -324,7 +315,7 @@ int8_t CategoriesHolder::MapLocaleToInteger(std::string_view const locale)
 // static
 std::string CategoriesHolder::MapIntegerToLocale(int8_t code)
 {
-  if (code <= 0 || static_cast<size_t>(code) > kLocaleMapping.size())
+  if (code <= 0 || static_cast<size_t>(code) > kLocales.size())
     return {};
-  return kLocaleMapping[code - 1].m_name;
+  return std::string(kLocales[code - 1]);
 }
