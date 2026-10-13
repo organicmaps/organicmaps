@@ -87,10 +87,8 @@ std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon co
   if (best && onlyOne)
   {
     for (auto const & crossing : fitting)
-    {
       if (Distance(crossing, *best) > kSameCrossingM)
         return no(std::to_string(fitting.size()) + " crossings fit, and the car was not on a road to tell which");
-    }
   }
   if (!best)
   {

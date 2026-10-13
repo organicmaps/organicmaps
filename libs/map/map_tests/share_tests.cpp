@@ -103,7 +103,8 @@ UNIT_TEST(Share_Build_UnnamedBuilding)
   Result const r = Build(place, TestStrings());
   TEST_EQUAL(r.m_text,
              "5 Avenue Anatole France\n48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
-             "#map=17/48.858093/2.294694", ());
+             "#map=17/48.858093/2.294694",
+             ());
   TEST_EQUAL(Count(r.m_html, "5 Avenue Anatole France"), 1, (r.m_html));
 }
 
@@ -118,8 +119,10 @@ UNIT_TEST(Share_Build_UnknownPlace)
   place.m_zoom = 17;
 
   Result const r = Build(place, TestStrings());
-  TEST_EQUAL(r.m_text, "Champ de Mars\n48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
-                       "#map=17/48.858093/2.294694", ());
+  TEST_EQUAL(r.m_text,
+             "Champ de Mars\n48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
+             "#map=17/48.858093/2.294694",
+             ());
   TEST_EQUAL(Count(r.m_html, "48.858093, 2.294694"), 1, (r.m_html));
 }
 
@@ -133,8 +136,10 @@ UNIT_TEST(Share_Build_BareMapPoint)
   place.m_zoom = 17;
 
   Result const r = Build(place, TestStrings());
-  TEST_EQUAL(r.m_text, "48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
-                       "#map=17/48.858093/2.294694", ());
+  TEST_EQUAL(r.m_text,
+             "48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
+             "#map=17/48.858093/2.294694",
+             ());
   TEST(r.m_subjectBasis.empty(), (r.m_subjectBasis));
   TEST(!r.m_html.starts_with("<br>"), (r.m_html));
   TEST(r.m_html.starts_with("<a href="), (r.m_html));

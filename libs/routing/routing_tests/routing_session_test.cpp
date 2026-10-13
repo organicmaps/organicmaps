@@ -666,9 +666,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
   }
 }
 
-// Alternatives are drawn only outside navigation (RoutingManager::InsertRoute), so a rebuild in
-// follow mode must not pay for computing them.
-UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativesSkippedWhileFollowing)
+// Alternatives are followed while navigating too: the car that turns to one of them goes on along it
+// without a rebuild. So a rebuild in follow mode computes them as well.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativesComputedWhileFollowing)
 {
   size_t counter = 0;
   vector<bool> flags;
@@ -695,7 +695,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativesSkippedWhi
                             RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
   });
   TEST(rebuiltSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
-  TEST_EQUAL(flags, vector<bool>({true, false}), ("A rebuild while navigating skips alternatives."));
+  TEST_EQUAL(flags, vector<bool>({true, true}), ("A rebuild while navigating computes alternatives too."));
 }
 
 // Picking an alternative route must reach the router: IndexRouter remembers the chosen variant

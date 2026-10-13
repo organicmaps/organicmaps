@@ -131,7 +131,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
     case .readiness:
       let missing = missingParts()
       content.text = missing.isEmpty ? L("nogps_sensors_ready")
-                                     : String(format: L("nogps_sensors_not_ready"), missing.joined(separator: ", "))
+        : String(format: L("nogps_sensors_not_ready"), missing.joined(separator: ", "))
       content.textProperties.color = missing.isEmpty ? .linkBlue : .buttonRed
     case .scale:
       let scale = status.inertialStarted ? String(format: "×%.2f", status.speedScale) : L("nogps_unknown")
@@ -206,7 +206,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
     // the speed.
     let unknown = L(status.speedKmh > 0 ? "nogps_not_while_driving" : "nogps_unknown")
     let engine = status.engineRunning < 0 ? L("nogps_unknown")
-                                          : L(status.engineRunning > 0 ? "nogps_engine_running" : "nogps_engine_stopped")
+      : L(status.engineRunning > 0 ? "nogps_engine_running" : "nogps_engine_stopped")
     let rpm = status.rpm >= 0 ? String(format: L("nogps_rpm"), status.rpm) : unknown
     let box = status.boxMillivolts >= 0 ? volts(status.boxMillivolts) : L("nogps_unknown")
     let elm = status.elmMillivolts >= 0 ? volts(status.elmMillivolts) : unknown

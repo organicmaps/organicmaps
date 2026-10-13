@@ -325,10 +325,9 @@ UNIT_TEST(NoGps_Engine_TurnAlongBranchIsNotMovedToNextCrossing)
   // the crossing at 115 m, 13 m aside of the branch. The branch leaves the street not at a crossing of the map.
   double const sin30 = 0.5;
   double const cos30 = std::sqrt(0.75);
-  PieceRoads roads({{-300, 0, 500, 0},
-                    {100, 0, 100 + 300 * sin30, 300 * cos30},
-                    {115, 0, 115 + 300 * sin30, 300 * cos30}},
-                   {{115, 0}});
+  PieceRoads roads(
+      {{-300, 0, 500, 0}, {100, 0, 100 + 300 * sin30, 300 * cos30}, {115, 0, 115 + 300 * sin30, 300 * cos30}},
+      {{115, 0}});
   Env env(true /* inertial */, &roads);
   MarkCar(env, 0);
   // 10 m/s east, then the car takes the branch, 60 degrees to the left: the turn of 19 m radius starts 11 m
@@ -573,9 +572,7 @@ UNIT_TEST(NoGps_Engine_AdvisesToCalibratePluggedBox)
 {
   Env env(true /* inertial */);
   auto const count = [&env]
-  {
-    return std::count(env.m_delegate.m_events.begin(), env.m_delegate.m_events.end(), Event::BoxCalibrationAdvised);
-  };
+  { return std::count(env.m_delegate.m_events.begin(), env.m_delegate.m_events.end(), Event::BoxCalibrationAdvised); };
   auto const advised = [&env] { return env.m_engine.GetStatus().m_boxCalibrationAdvised; };
   // The first event of the journal of the box: how it has started.
   auto const boot = [&env](std::string const & reason)
@@ -651,9 +648,7 @@ UNIT_TEST(NoGps_Engine_AdvisesToCalibrateBoxByItsPowerOns)
 {
   Env env(true /* inertial */);
   auto const count = [&env]
-  {
-    return std::count(env.m_delegate.m_events.begin(), env.m_delegate.m_events.end(), Event::BoxCalibrationAdvised);
-  };
+  { return std::count(env.m_delegate.m_events.begin(), env.m_delegate.m_events.end(), Event::BoxCalibrationAdvised); };
   // The box tells how many times it was powered on.
   auto const info = [&env](std::string const & id, int powerOns)
   {
@@ -1233,10 +1228,9 @@ public:
       m_env.m_clock.Advance(20);
       m_boxTimeMs += 20;
       char body[160];
-      int const length =
-          std::snprintf(body, sizeof(body), "NGD,1,%lld,%lld,%lld,0,0,%d,0,%X", static_cast<long long>(++m_seq),
-                        static_cast<long long>(m_boxTimeMs), static_cast<long long>(std::llround(m_yawMdeg)),
-                        reportedKmh, kCalibratedFlags);
+      int const length = std::snprintf(body, sizeof(body), "NGD,1,%lld,%lld,%lld,0,0,%d,0,%X",
+                                       static_cast<long long>(++m_seq), static_cast<long long>(m_boxTimeMs),
+                                       static_cast<long long>(std::llround(m_yawMdeg)), reportedKmh, kCalibratedFlags);
       // A little of the gravity is left in the other axes.
       if (m_accelerometer)
         std::snprintf(body + length, sizeof(body) - length, ",%d,50,-60,100",
