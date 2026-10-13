@@ -10,7 +10,9 @@
 #include "base/scope_guard.hpp"
 #include "base/timer.hpp"
 
+#include <algorithm>
 #include <map>
+#include <tuple>
 #include <vector>
 
 namespace search
@@ -19,26 +21,27 @@ namespace
 {
 class InitSuggestions
 {
-  std::map<std::pair<strings::UniString, int8_t>, uint8_t> m_suggests;
+  std::vector<Suggest> & m_suggests;
+  std::map<std::pair<strings::UniString, int8_t>, size_t> m_indices;
 
 public:
+  explicit InitSuggestions(std::vector<Suggest> & suggests) : m_suggests(suggests) {}
+
   void operator()(CategoriesHolder::Category::Name const & name)
   {
-    if (name.m_prefixLengthToSuggest != CategoriesHolder::Category::kEmptyPrefixLength)
+    if (name.m_prefixLengthToSuggest == CategoriesHolder::Category::kEmptyPrefixLength)
+      return;
+
+    // Keep the first spelling for each normalized name and locale, with the shortest suggestion threshold.
+    auto const [it, inserted] = m_indices.try_emplace(
+        std::make_pair(NormalizeAndSimplifyString(name.m_name), name.m_locale), m_suggests.size());
+    if (inserted)
+      m_suggests.emplace_back(name.m_name, it->first.first, name.m_prefixLengthToSuggest, name.m_locale);
+    else
     {
-      strings::UniString const uniName = NormalizeAndSimplifyString(name.m_name);
-
-      uint8_t & score = m_suggests[std::make_pair(uniName, name.m_locale)];
-      if (score == 0 || score > name.m_prefixLengthToSuggest)
-        score = name.m_prefixLengthToSuggest;
+      auto & suggest = m_suggests[it->second];
+      suggest.m_prefixLength = std::min(suggest.m_prefixLength, name.m_prefixLengthToSuggest);
     }
-  }
-
-  void GetSuggests(std::vector<Suggest> & suggests) const
-  {
-    suggests.reserve(suggests.size() + m_suggests.size());
-    for (auto const & s : m_suggests)
-      suggests.emplace_back(s.first.first, s.second, s.first.second);
   }
 };
 }  // namespace
@@ -78,9 +81,10 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
                storage::CountryInfoGetter const & infoGetter, Params const & params)
   : m_shutdown(false)
 {
-  InitSuggestions doInit;
-  categories.ForEachName(doInit);
-  doInit.GetSuggests(m_suggests);
+  categories.ForEachName(InitSuggestions(m_suggests));
+  // Preserve normalized-name order before the five-suggestion limit is applied.
+  std::sort(m_suggests.begin(), m_suggests.end(), [](Suggest const & a, Suggest const & b)
+  { return std::tie(a.m_normalizedName, a.m_locale) < std::tie(b.m_normalizedName, b.m_locale); });
 
   m_contexts.resize(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
