@@ -22,8 +22,8 @@ QT_LOGGING_TO_CONSOLE=1 /usr/bin/organicmaps
 
 ## Files and links
 
-The launcher passes map links (`geo:`, `om:`, `ge0:`, ...) to the app's `openUrl` D-Bus method, see
-`organicmaps.desktop.in`. To try a link:
+The launcher passes bookmark and track files and map links (`geo:`, `om:`, `ge0:`, ...) to the app's `openUrl`
+D-Bus method, see `organicmaps.desktop.in`. To try a link:
 
 ```bash
 gdbus call --session --dest app.organicmaps.organicmaps --object-path /app/organicmaps \

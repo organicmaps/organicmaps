@@ -40,6 +40,8 @@ class AppSettings : public QObject
   Q_PROPERTY(QString logUrl READ logUrl CONSTANT)
   // PowerScheme.
   Q_PROPERTY(int powerScheme READ powerScheme WRITE setPowerScheme NOTIFY changed)
+  // settings::Placement.
+  Q_PROPERTY(int bookmarksTextPlacement READ bookmarksTextPlacement WRITE setBookmarksTextPlacement NOTIFY changed)
   // Imagery from a user provided XYZ tile server.
   Q_PROPERTY(bool bgTilesEnabled READ bgTilesEnabled NOTIFY changed)
   Q_PROPERTY(QString bgTilesUrl READ bgTilesUrl NOTIFY changed)
@@ -127,6 +129,8 @@ public:
   QString logUrl() const;
   int powerScheme() const;
   void setPowerScheme(int scheme);
+  int bookmarksTextPlacement() const;
+  void setBookmarksTextPlacement(int placement);
   bool bgTilesEnabled() const;
   QString bgTilesUrl() const;
   int bgTilesCacheSize() const;

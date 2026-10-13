@@ -293,6 +293,17 @@ void AppSettings::setPowerScheme(int scheme)
   emit changed();
 }
 
+int AppSettings::bookmarksTextPlacement() const
+{
+  return static_cast<int>(Framework::GetBookmarksTextPlacement());
+}
+
+void AppSettings::setBookmarksTextPlacement(int placement)
+{
+  m_framework.SetBookmarksTextPlacement(static_cast<settings::Placement>(placement));
+  emit changed();
+}
+
 bool AppSettings::bgTilesEnabled() const
 {
   return Framework::IsBackgroundTilesEnabled();
