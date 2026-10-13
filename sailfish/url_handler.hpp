@@ -10,8 +10,8 @@ namespace sailfish
 {
 class UrlHandler;
 
-// The D-Bus interface of the launcher; the service, object path and interface are set in CMakeLists.txt. It is
-// served before the name is taken, so that calls while the app starts wait for UrlHandler.
+// The D-Bus interface of the launcher and notifications; the service, object path and interface are set in
+// CMakeLists.txt. It is served before the name is taken, so that calls while the app starts wait for UrlHandler.
 class DBusInbox : public QObject
 {
   Q_OBJECT
@@ -27,6 +27,8 @@ public:
 public slots:
   // The X-Maemo-Method of organicmaps.desktop.
   Q_SCRIPTABLE void openUrl(QStringList const & urls);
+  // Notification actions.
+  Q_SCRIPTABLE void cancelDownloads();
 
 private:
   UrlHandler * m_handler = nullptr;
@@ -38,9 +40,14 @@ private:
 class UrlHandler : public QObject
 {
   Q_OBJECT
+  Q_PROPERTY(QString dbusService READ dbusService CONSTANT)
+  Q_PROPERTY(QString dbusPath READ dbusPath CONSTANT)
 
 public:
   explicit UrlHandler(Framework & framework, QObject * parent = nullptr);
+
+  QString dbusService() const { return QStringLiteral(SAILFISH_DBUS_SERVICE); }
+  QString dbusPath() const { return QStringLiteral(SAILFISH_DBUS_PATH); }
 
   void openUrl(QStringList const & urls);
   // Opens the links that waited for the map.
@@ -48,6 +55,7 @@ public:
 
 signals:
   void activated();
+  void cancelDownloadsRequested();
 
 private:
   void Process(QString const & url);

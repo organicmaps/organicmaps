@@ -31,6 +31,9 @@ class AppSettings : public QObject
   // The Promo the help button shows instead of the logo.
   Q_PROPERTY(int helpPromo READ helpPromo NOTIFY changed)
   Q_PROPERTY(bool buildings3d READ buildings3d WRITE setBuildings3d NOTIFY changed)
+  Q_PROPERTY(bool autoDownload READ autoDownload WRITE setAutoDownload NOTIFY changed)
+  // MobileData: map downloads over a cellular connection.
+  Q_PROPERTY(int mobileData READ mobileData WRITE setMobileData NOTIFY changed)
   // The file log that "Report a bug" shares.
   Q_PROPERTY(bool logging READ logging WRITE setLogging NOTIFY changed)
   Q_PROPERTY(QString logUrl READ logUrl CONSTANT)
@@ -50,6 +53,14 @@ public:
     AppearanceDark
   };
   Q_ENUM(MapAppearance)
+
+  enum MobileData
+  {
+    MobileDataAsk,
+    MobileDataAlways,
+    MobileDataNever
+  };
+  Q_ENUM(MobileData)
 
   enum Promo
   {
@@ -71,6 +82,14 @@ public:
     PowerAuto
   };
   Q_ENUM(PowerScheme)
+
+  enum DownloadPermission
+  {
+    DownloadAllowed,
+    DownloadAsk,
+    DownloadDenied
+  };
+  Q_ENUM(DownloadPermission)
 
   explicit AppSettings(Framework & framework, QObject * parent = nullptr);
 
@@ -96,6 +115,10 @@ public:
   int helpPromo() const;
   bool buildings3d() const;
   void setBuildings3d(bool enabled);
+  bool autoDownload() const { return IsAutoDownloadEnabled(); }
+  void setAutoDownload(bool enabled);
+  int mobileData() const;
+  void setMobileData(int mobileData);
   bool logging() const;
   void setLogging(bool enabled);
   QString logUrl() const;
@@ -110,11 +133,18 @@ public:
   Q_INVOKABLE void openDonatePage();
   // Read when shown: the file grows without a change signal.
   Q_INVOKABLE qint64 logSize() const;
+  // The mobileData setting applies only to cellular connections.
+  Q_INVOKABLE int downloadPermission() const;
+  // Before a download the permission allows, or the user agreed to.
+  Q_INVOKABLE void confirmDownload();
   Q_INVOKABLE void setBackgroundTiles(bool enabled, QString const & url, int cacheSizeMb, int opacityPct);
   Q_INVOKABLE bool isWellFormedTilesUrl(QString const & url) const;
   Q_INVOKABLE void applyMapAppearance(bool dark);
 
   static void InitLogging();
+  static bool IsAutoDownloadEnabled();
+  // Automatic map downloads only run on Wi-Fi.
+  static bool IsOnWifi();
 
 signals:
   void changed();

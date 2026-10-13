@@ -30,6 +30,12 @@ Page {
                 title: appInfo.localized("menu")
             }
             MenuRow {
+                icon: "image://theme/icon-m-cloud-download"
+                text: appInfo.localized("download_maps")
+                      + (downloads.updateCount > 0 ? " (" + downloads.updateCount + ")" : "")
+                onClicked: pageStack.push(Qt.resolvedUrl("MapsPage.qml"))
+            }
+            MenuRow {
                 visible: appSettings.donateUrl !== ""
                 icon: "../../icons/menu/ic_donate.svg"
                 text: appInfo.localized("donate")
