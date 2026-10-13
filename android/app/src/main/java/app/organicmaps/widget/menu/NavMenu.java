@@ -20,10 +20,9 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 public class NavMenu implements DefaultLifecycleObserver
@@ -226,10 +225,7 @@ public class NavMenu implements DefaultLifecycleObserver
 
   private void updateTimeEstimate(int seconds)
   {
-    final String format =
-        android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext()) ? "HH:mm" : "h:mm a";
-    final LocalTime localTime = LocalTime.now().plusSeconds(seconds);
-    mTimeEstimate.setText(localTime.format(DateTimeFormatter.ofPattern(format)));
+    mTimeEstimate.setText(Utils.formatArrivalTime(mActivity, seconds));
   }
 
   private void updateSpeedView(@NonNull RoutingInfo info)
