@@ -11,6 +11,8 @@ CoverBackground {
         : downloads.inProgress && downloads.downloadingName !== "" ? "download"
         : "idle"
 
+    signal activateRequested()
+
     Row {
         id: header
         x: Theme.paddingLarge
@@ -115,6 +117,16 @@ CoverBackground {
         CoverAction {
             iconSource: "image://theme/icon-cover-cancel"
             onTriggered: downloads.cancelAll()
+        }
+    }
+    CoverActionList {
+        enabled: cover.mode === "idle"
+        CoverAction {
+            iconSource: "image://theme/icon-cover-search"
+            onTriggered: {
+                cover.activateRequested()
+                mapPage.openSearchFromCover()
+            }
         }
     }
 }

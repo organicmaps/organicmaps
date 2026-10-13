@@ -159,6 +159,16 @@ Page {
             }
 
             SectionHeader {
+                text: qsTrId("privacy")
+            }
+            TextSwitch {
+                text: qsTrId("search_history_title")
+                automaticCheck: false
+                checked: appSettings.searchHistory
+                onClicked: appSettings.searchHistory = !checked
+            }
+
+            SectionHeader {
                 text: qsTrId("prefs_group_information")
             }
             TextRow {

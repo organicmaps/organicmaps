@@ -25,6 +25,42 @@ LAYERS = [
     "ic_layers_subway",
     "ic_layers_satellite",
 ]
+# Keys of search::DisplayedCategories.
+CATEGORIES = [
+    "ic_category_" + key
+    for key in (
+        "eat",
+        "hotel",
+        "food",
+        "tourism",
+        "wifi",
+        "transport",
+        "fuel",
+        "parking",
+        "shopping",
+        "secondhand",
+        "atm",
+        "nightlife",
+        "children",
+        "bank",
+        "entertainment",
+        "water",
+        "hospital",
+        "pharmacy",
+        "recycling",
+        "rv",
+        "police",
+        "toilet",
+        "post",
+    )
+]
+# Place page row icons missing from the Silica theme.
+# Cuisine, drive-through and outdoor seating use the editor copies.
+PLACE_PAGE = [
+    "ic_wheelchair_white",
+    "ic_capacity_white",
+    "ic_network_white",
+]
 # My position button states.
 MY_POSITION = ["ic_location_off", "ic_not_follow", "ic_follow", "ic_follow_and_rotate"]
 # The logo of the help button and the about page, and the icons of the about page rows, as in about.xml on Android.
@@ -51,12 +87,19 @@ MENU = [
 # Place editor icons that other pages reuse. The social networks only have white variants for the dark theme on
 # Android.
 EDITOR = [
+    "ic_cuisine",
+    "ic_drive_through_white",
     "ic_email",
+    "ic_outdoor_seating",
+    "ic_self_service",
+    "ic_website_menu",
 ]
 SOCIAL = {
     "ic_facebook": "ic_facebook_white",
     "ic_instagram": "ic_instagram_white",
+    "ic_line": "ic_line_white",
     "ic_twitterx": "ic_twitterx_white",
+    "ic_vk": "ic_vk_white",
 }
 WHITE = (
     {
@@ -67,6 +110,8 @@ WHITE = (
 )
 OUTPUTS = [
     ("layers", LAYERS),
+    ("categories", CATEGORIES),
+    ("placepage", PLACE_PAGE),
     ("myposition", MY_POSITION),
     ("help", HELP + HELP_PROMO),
     ("menu", MENU),
