@@ -2,11 +2,11 @@ package app.organicmaps.sdk.routing;
 
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.settings.RoadType;
-import java.util.HashSet;
-import java.util.Set;
 
 public final class RoutingOptions
 {
+  private static final int ROAD_TYPES_MASK = (1 << RoadType.values().length) - 1;
+
   public static void addOption(@NonNull RoadType roadType)
   {
     nativeAddOption(roadType.ordinal());
@@ -19,17 +19,12 @@ public final class RoutingOptions
 
   public static boolean hasOption(@NonNull RoadType roadType)
   {
-    return nativeHasOption(roadType.ordinal());
+    return (getOptions() & (1 << roadType.ordinal())) != 0;
   }
 
   public static boolean hasAnyOptions()
   {
-    for (RoadType each : RoadType.values())
-    {
-      if (hasOption(each))
-        return true;
-    }
-    return false;
+    return getOptions() != 0;
   }
 
   public static boolean isRouteOptimizationEnabled()
@@ -42,16 +37,10 @@ public final class RoutingOptions
     nativeSetRouteOptimizationEnabled(enabled);
   }
 
-  @NonNull
-  public static Set<RoadType> getActiveRoadTypes()
+  public static int getOptions()
   {
-    Set<RoadType> roadTypes = new HashSet<>();
-    for (RoadType each : RoadType.values())
-    {
-      if (hasOption(each))
-        roadTypes.add(each);
-    }
-    return roadTypes;
+    // Only expose bits represented by RoadType; the settings badge counts those same options.
+    return nativeGetOptions() & ROAD_TYPES_MASK;
   }
 
   private RoutingOptions() throws IllegalAccessException
@@ -62,7 +51,7 @@ public final class RoutingOptions
 
   private static native void nativeRemoveOption(int option);
 
-  private static native boolean nativeHasOption(int option);
+  private static native int nativeGetOptions();
 
   private static native boolean nativeIsRouteOptimizationEnabled();
 

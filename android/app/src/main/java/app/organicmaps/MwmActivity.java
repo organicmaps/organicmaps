@@ -631,7 +631,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void updateDrivingOptionCount()
   {
-    mRoutingPlanViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes().size());
+    mRoutingPlanViewModel.setDrivingOptionsCount(Integer.bitCount(RoutingOptions.getOptions()));
   }
 
   private void initPositionChooser()

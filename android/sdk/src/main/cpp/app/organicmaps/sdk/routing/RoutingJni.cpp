@@ -365,12 +365,9 @@ jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> c
 
 extern "C"
 {
-JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeHasOption(JNIEnv *, jclass, jint option)
+JNIEXPORT jint Java_app_organicmaps_sdk_routing_RoutingOptions_nativeGetOptions(JNIEnv *, jclass)
 {
-  using routing::RoutingOptions;
-
-  RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
-  return static_cast<jboolean>(routingOptions.Has(routing_jni::ToRoutingOptionsRoad(option)));
+  return routing::RoutingOptions::LoadCarOptionsFromSettings().GetOptions();
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeAddOption(JNIEnv *, jclass, jint option)
