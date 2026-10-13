@@ -479,6 +479,24 @@ UNIT_TEST(NoGps_Engine_BranchOfForkIsToldByHeading)
   }
 }
 
+UNIT_TEST(NoGps_Engine_OtherCarriagewayIsNotBranchOfFork)
+{
+  // The street going east splits in two carriageways at 100 m, as before a roundabout: the one of the car leaves
+  // 15 degrees to the right, the one of the cars coming back, one-way to the west, goes straight on.
+  double const tan15 = std::tan(math::DegToRad(15.0));
+  PieceRoads roads({{-300, 0, 100, 0}, {100, 0, 700, -600 * tan15}, {700, 0, 100, 0}}, {{100, 0}});
+  roads.SetOneWay(2);
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 0);
+  // The mark is ahead of the car: it has passed the split and the car has not turned yet, so it looks along the
+  // carriageway coming back. That one is not a branch the car may take: the mark follows its own carriageway,
+  // within the 4 m it drives off it in a second.
+  env.Drive(8500, 54, 0);
+  double const east = East(env.Last().m_position);
+  TEST_GREATER(east, 115, ());
+  TestAlmostEqualAbs(North(env.Last().m_position), -(east - 100) * tan15 + 2, 3);
+}
+
 UNIT_TEST(NoGps_Engine_MarkSetDuringTurnKeepsLookingAlongRoad)
 {
   // The street going east, a street going north crosses it at 100 m, and another street going east 200 m to the

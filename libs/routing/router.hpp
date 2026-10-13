@@ -37,6 +37,8 @@ struct RoadAlong
   double m_angleRad = 0.0;
   // How far the road is, with its direction weighed in: the road of the least cost is the one the car is on.
   double m_cost = 0.0;
+  // A one-way road going against the car, e.g. the other carriageway.
+  bool m_wrongWay = false;
 };
 
 /// Routing engine type.

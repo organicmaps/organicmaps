@@ -1804,7 +1804,11 @@ std::vector<std::pair<ms::LatLon, double>> SessionRoute::FindRoadsAlong(ms::LatL
   std::vector<std::pair<ms::LatLon, double>> result;
   result.reserve(roads.size());
   for (auto const & road : roads)
+  {
+    if (road.m_wrongWay)
+      continue;
     result.emplace_back(mercator::ToLatLon(road.m_point), location::AngleToBearing(math::RadToDeg(road.m_angleRad)));
+  }
   return result;
 }
 

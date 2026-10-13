@@ -122,12 +122,15 @@ public:
   {
     std::vector<nogps::RoadPoint> result;
     for (auto const & road : FindRoads(point, bearingDeg, radiusM))
-      result.push_back(road.m_road);
+      if (!road.m_wrongWay)
+        result.push_back(road.m_road);
     return result;
   }
 
   /// The followed route goes along the piece.
   void SetRoutePiece(size_t index) { m_routePiece = index; }
+  /// The piece is a one-way road from its first point to the second.
+  void SetOneWay(size_t index) { m_oneWayPiece = index; }
 
   std::vector<ms::LatLon> FindCrossings(ms::LatLon const &, double) override
   {
@@ -154,6 +157,7 @@ private:
     nogps::RoadPoint m_road;
     double m_cost = 0;
     bool m_isRoute = false;
+    bool m_wrongWay = false;
   };
 
   // The closest place of every piece the car may drive along.
@@ -180,14 +184,20 @@ private:
                                              (py - y) * std::cos(math::DegToRad(*bearingDeg));
       if (distance > radiusM || diff > 45 || (projection != t && along < -0.5))
         continue;
-      result.push_back(
-          {{At(px, py), nogps::Normalize(roadBearing)}, distance + diff * 0.2, m_routePiece && *m_routePiece == i});
+      // A one-way road going against the car is where the car is only if there is nothing else, as on the map.
+      bool const wrongWay = bearingDeg && m_oneWayPiece && *m_oneWayPiece == i &&
+                            std::fabs(nogps::AngleDiff(roadBearing, *bearingDeg)) > 90;
+      result.push_back({{At(px, py), nogps::Normalize(roadBearing)},
+                        distance + diff * 0.2 + (wrongWay ? 20 : 0),
+                        m_routePiece && *m_routePiece == i,
+                        wrongWay});
     }
     return result;
   }
 
   std::vector<Piece> m_pieces;
   std::optional<size_t> m_routePiece;
+  std::optional<size_t> m_oneWayPiece;
   std::vector<std::pair<double, double>> m_crossings;
   std::vector<std::array<double, 3>> m_roundabouts;
 };

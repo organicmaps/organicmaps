@@ -25,7 +25,8 @@ public:
   virtual std::optional<RoadPoint> Snap(ms::LatLon const & point, std::optional<double> bearingDeg, double radiusM) = 0;
 
   /// \returns the closest point of every road within |radiusM| the car may drive along, the roads Snap() chooses
-  /// from, in no order. Where a road forks, these are its branches. The followed route is not preferred.
+  /// from, in no order. Where a road forks, these are its branches. The followed route is not preferred, a
+  /// one-way road going against the car is left out.
   virtual std::vector<RoadPoint> SnapAll(ms::LatLon const & point, double bearingDeg, double radiusM)
   {
     if (auto const road = Snap(point, bearingDeg, radiusM))
