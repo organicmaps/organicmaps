@@ -230,6 +230,9 @@ public final class NoGps
     // The pause is set by the navigation itself: the car maneuvers off the roads, its mark waits on the road.
     @Keep
     public boolean pausedByItself;
+    // The mark waits for the user to put it on a road: the road is lost.
+    @Keep
+    public boolean roadLost;
     // The firmware of the ESP32 sensor box, empty until the box tells it.
     @Keep
     @NonNull

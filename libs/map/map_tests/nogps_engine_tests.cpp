@@ -391,11 +391,13 @@ UNIT_TEST(NoGps_Engine_StopsCarThatLeftRoads)
 {
   Env env(true /* inertial */);
   MarkCar(env, 50);
+  TEST(!env.m_engine.GetStatus().m_roadLost, ());
   // The heading goes wrong slowly, slower than a turn: the car leaves the road.
   env.Drive(12'000, 36, -5);
   env.Drive(5000, 36, 0);
   TEST(env.m_delegate.HasEvent(Event::RoadLost), ());
-  // The car stands where it was on the road the last time until the user marks it.
+  // The car stands where it was on the road the last time until the user marks it, and the status tells it.
+  TEST(env.m_engine.GetStatus().m_roadLost, ());
   auto const stopped = env.Last().m_position;
   env.Drive(2000, 36, 0);
   TestAlmostEqualAbs(Distance(env.Last().m_position, stopped), 0, 0.01);
@@ -1148,6 +1150,8 @@ UNIT_TEST(NoGps_Engine_PauseSetByItselfWaitsForUser)
   env.m_map.m_navigating = true;
   DriveIntoYard(env);
   TEST(env.m_engine.GetStatus().m_pausedByItself, ());
+  // A car maneuvering off the roads is not lost.
+  TEST(!env.m_engine.GetStatus().m_roadLost, ());
   double const markEast = East(env.Last().m_position);
 
   // The car turns east and drives fast where the map has no roads: nobody maneuvers so, but there is no road
@@ -1157,6 +1161,7 @@ UNIT_TEST(NoGps_Engine_PauseSetByItselfWaitsForUser)
   auto status = env.m_engine.GetStatus();
   TEST(status.m_paused, ());
   TEST(status.m_pausedByItself, ());
+  TEST(status.m_roadLost, ());
   TEST(env.m_delegate.HasEvent(Event::RoadLost), ());
   TestAlmostEqualAbs(East(env.Last().m_position), markEast, 0.01);
   TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
@@ -1184,6 +1189,7 @@ UNIT_TEST(NoGps_Engine_PauseSetByItselfWaitsForUser)
   TEST(env.m_engine.PlaceMarkByTap(At(-100, 2)), ());
   status = env.m_engine.GetStatus();
   TEST(!status.m_paused, ());
+  TEST(!status.m_roadLost, ());
   TEST(!status.m_pausedByItself, ());
   TEST(!env.m_map.m_offRoadCar, ());
 }

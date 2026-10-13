@@ -84,6 +84,8 @@ struct Status
   // The navigation has paused the movement by itself: the car maneuvers off the roads. The mark waits on the
   // road until the car drives along a road again or the user resumes the movement.
   bool m_pausedByItself = false;
+  // The mark waits for the user to put it on a road: the road is lost. It is to be noticed at once.
+  bool m_roadLost = false;
 
   // The firmware of the ESP32 sensor box, empty until the box tells it.
   std::string m_boxFirmware;
