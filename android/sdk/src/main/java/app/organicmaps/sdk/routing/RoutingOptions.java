@@ -28,11 +28,6 @@ public final class RoutingOptions
     return (nativeGetSupportedOptions(router.getType()) & roadType.nativeValue) != 0;
   }
 
-  public static boolean hasSupportedOptions(@NonNull Router router)
-  {
-    return nativeGetSupportedOptions(router.getType()) != 0;
-  }
-
   public static boolean hasSettings(@NonNull Router router)
   {
     // Transit still offers global route optimization; Ruler preserves the measured point order.
