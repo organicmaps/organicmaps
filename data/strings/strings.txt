@@ -45051,6 +45051,28 @@ zh-Hant = 反轉路線
 
 [[Sailfish OS]]
 
+[less]
+comment = Sailfish OS: collapses the expanded Wikipedia description on the place page
+tags = sailfish
+en = Less
+de = Weniger
+es = Menos
+fr = Moins
+ru = Свернуть
+sv = Mindre
+uk = Згорнути
+
+[copy_value]
+comment = Sailfish OS: menu item that copies the shown value to the clipboard
+tags = sailfish
+en = Copy %@
+de = %@ kopieren
+es = Copiar %@
+fr = Copier %@
+ru = Копировать %@
+sv = Kopiera %@
+uk = Копіювати %@
+
 [mobile_data_downloads_off]
 comment = Sailfish OS: a map download was not started because mobile internet is off in the settings
 tags = sailfish
