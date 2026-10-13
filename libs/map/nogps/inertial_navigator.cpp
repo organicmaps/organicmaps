@@ -639,6 +639,7 @@ void InertialNavigator::PauseByItself()
               std::round(m_offRoadMaxSpeedMps * 3.6), "km/h, paused by itself, the mark waits at", *m_roadPoint));
   m_paused = true;
   m_pausedByItself = true;
+  m_fastWithoutRoad = false;
   m_fastSinceMs.reset();
   m_turning = false;
   // The car is followed from where it is, its mark waits where it has left the roads.
@@ -884,10 +885,14 @@ void InertialNavigator::OnSpeed(int speedKmh, int64_t timeMs)
                 "m aside, after", std::round(m_offRoadM), "m off the roads"));
     PutOnRoad(road->m_point, Orient(road->m_bearingDeg, heading));
   }
-  else if (now - m_roadLostNotifiedMs >= kRoadLostReminderMs)
+  else
   {
-    LOG(LINFO, ("The car drives fast, but no road goes its way around"));
-    NotifyRoadLost();
+    m_fastWithoutRoad = true;
+    if (now - m_roadLostNotifiedMs >= kRoadLostReminderMs)
+    {
+      LOG(LINFO, ("The car drives fast, but no road goes its way around"));
+      NotifyRoadLost();
+    }
   }
 }
 

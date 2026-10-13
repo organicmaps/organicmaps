@@ -314,6 +314,9 @@ public:
   bool IsPaused() const { return m_paused; }
   /// \returns true if the car has left the roads and stands where it was on a road the last time.
   bool IsRoadLost() const { return m_roadLost; }
+  /// \returns true if the mark waits for the user to put it on a road: the road is lost, or the car drives fast
+  /// during the pause set by itself and no road goes its way around.
+  bool IsUserNeeded() const { return m_roadLost || (m_pausedByItself && m_fastWithoutRoad); }
   /// \returns true if the last position was snapped to a road or the route.
   bool IsOnRoad() const { return m_onRoad; }
   /// \returns how far the closest road was from the calculated position.
@@ -489,6 +492,8 @@ private:
   bool m_paused = false;
   // The pause is set by the navigation itself, not by the user: the car has left the roads maneuvering.
   bool m_pausedByItself = false;
+  // The car has driven fast during that pause where no road goes its way.
+  bool m_fastWithoutRoad = false;
   // Where the car is by the calculation while the pause set by itself keeps its mark on the road.
   std::optional<ms::LatLon> m_offRoadCar;
   // The fastest the car has driven off the roads since the last road point.

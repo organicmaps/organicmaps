@@ -347,6 +347,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeGetStatus(JNIEnv * 
   SetNoGpsField(env, out, "hasInertialPosition", status.m_hasInertialPosition);
   SetNoGpsField(env, out, "paused", status.m_paused);
   SetNoGpsField(env, out, "pausedByItself", status.m_pausedByItself);
+  SetNoGpsField(env, out, "roadLost", status.m_roadLost);
   SetNoGpsString(env, out, "boxFirmware", status.m_boxFirmware);
   SetNoGpsString(env, out, "bundledFirmware", status.m_bundledFirmware);
   SetNoGpsField(env, out, "firmwareUpdate", static_cast<int>(status.m_firmwareUpdate));

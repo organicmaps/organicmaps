@@ -124,6 +124,9 @@ public class MapButtonsController extends Fragment
   private BadgeDrawable mBadgeDrawable;
   @Nullable
   private ObjectAnimator mBlinkingAnimator;
+  // The status of the position blinks while the user must do something about it.
+  @Nullable
+  private ObjectAnimator mStatusBlinkingAnimator;
   private float mContentHeight;
   private float mContentWidth;
 
@@ -320,8 +323,8 @@ public class MapButtonsController extends Fragment
 
     if (mPositionStatus != null)
     {
-      final String text;
-      final int color;
+      String text;
+      int color;
       switch (source)
       {
       case GPS ->
@@ -355,18 +358,34 @@ public class MapButtonsController extends Fragment
         color = R.color.nogps_status_none;
       }
       }
+      final StringBuilder details = new StringBuilder();
+      if (status.roadLost)
+      {
+        // The mark stands and waits for the user: a toast about it is easy to miss while driving.
+        text = getString(R.string.nogps_status_road_lost);
+        color = R.color.nogps_status_none;
+        details.append('\n').append(getString(R.string.nogps_status_road_lost_hint));
+      }
       // The position is not taken from GPS or towers now, but the user has to see whether they work: in the
       // manual mode GPS is not used even when it is back.
-      if (status.manualMode || source == NoGps.PositionSource.INERTIAL)
+      else if (status.manualMode || source == NoGps.PositionSource.INERTIAL)
+        details.append('\n').append(getOtherSourcesStatus(status));
+      // The panel of a route tells whether the car speed comes, nothing does without a route.
+      final String link = isInNavigationMode() ? "" : getLinkStatus(status);
+      if (!link.isEmpty())
+        details.append('\n').append(link);
+
+      if (details.length() > 0)
       {
-        final SpannableString withOthers = new SpannableString(text + "\n" + getOtherSourcesStatus(status));
-        withOthers.setSpan(new RelativeSizeSpan(0.8f), text.length() + 1, withOthers.length(),
-                           Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mPositionStatus.setText(withOthers);
+        final SpannableString withDetails = new SpannableString(text + details);
+        withDetails.setSpan(new RelativeSizeSpan(0.8f), text.length() + 1, withDetails.length(),
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mPositionStatus.setText(withDetails);
       }
       else
         mPositionStatus.setText(text);
       mPositionStatus.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, color)));
+      blinkPositionStatus(status.roadLost);
     }
 
     // The buttons moving the position along the road calibrate the speed, they are shown while the user calibrates
@@ -384,16 +403,14 @@ public class MapButtonsController extends Fragment
       showCarControl(status.movedByHand && status.inertialEnabled, mPauseButton);
       mPauseButton.setImageResource(status.paused ? R.drawable.ic_play : R.drawable.ic_pause);
       mPauseButton.setContentDescription(getString(status.paused ? R.string.nogps_resume : R.string.nogps_pause));
-      // The pause set by the navigation itself is to be noticed: the mark waits until the car drives along a
-      // road again or the user resumes the movement.
-      final boolean byItself = status.paused && status.pausedByItself;
+      // A pause is to be noticed, whoever has set it: the mark stands while the car drives.
       // The style tints the background by the attribute of the view, not of the button: the tint of the button
       // is not seen under it.
       final Drawable background = mPauseButton.getBackground();
       if (background != null)
-        background.setTint(byItself ? ContextCompat.getColor(context, R.color.nogps_paused_by_itself)
-                                    : ThemeUtils.getColor(context, R.attr.menuBackground));
-      mPauseButton.setImageTintList(byItself ? ColorStateList.valueOf(Color.WHITE) : mPauseButtonIconTint);
+        background.setTint(status.paused ? ContextCompat.getColor(context, R.color.nogps_paused)
+                                         : ThemeUtils.getColor(context, R.attr.menuBackground));
+      mPauseButton.setImageTintList(status.paused ? ColorStateList.valueOf(Color.WHITE) : mPauseButtonIconTint);
     }
 
     // The position waits at a turn until the car leaves it, otherwise it would go to another street.
@@ -427,6 +444,45 @@ public class MapButtonsController extends Fragment
     if (status.workingNetworkAccuracyM < 0)
       return gpsStatus;
     return gpsStatus + " · " + getString(R.string.nogps_status_towers, formatAccuracy(status.workingNetworkAccuracyM));
+  }
+
+  /**
+   * Whether the speed of the car comes: from the sensor box or from the ELM327 adapter of the phone.
+   */
+  @NonNull
+  private String getLinkStatus(@NonNull NoGps.Status status)
+  {
+    if (!status.inertialEnabled || !status.inertialStarted)
+      return "";
+    final boolean box = status.esp32Source;
+    final int text = switch (status.getSourceState())
+    {
+      case CONNECTED -> box ? R.string.nogps_status_box_ok : R.string.nogps_status_elm_ok;
+      case DISCONNECTED, CONNECTING, BOX_SLEEPING ->
+        box ? R.string.nogps_status_box_none : R.string.nogps_status_elm_none;
+      // The adapter of the phone does not answer, or the one of the box that is heard itself.
+      case NO_ADAPTER -> box ? R.string.nogps_status_box_no_car : R.string.nogps_status_elm_none;
+      default -> box ? R.string.nogps_status_box_no_car : R.string.nogps_status_elm_no_car;
+    };
+    return getString(text);
+  }
+
+  private void blinkPositionStatus(boolean blink)
+  {
+    if (mPositionStatus == null || blink == (mStatusBlinkingAnimator != null))
+      return;
+    if (mStatusBlinkingAnimator != null)
+    {
+      mStatusBlinkingAnimator.cancel();
+      mStatusBlinkingAnimator = null;
+      mPositionStatus.setAlpha(1f);
+      return;
+    }
+    mStatusBlinkingAnimator = ObjectAnimator.ofFloat(mPositionStatus, View.ALPHA, 1f, 0.2f);
+    mStatusBlinkingAnimator.setDuration(400);
+    mStatusBlinkingAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+    mStatusBlinkingAnimator.setRepeatMode(ObjectAnimator.REVERSE);
+    mStatusBlinkingAnimator.start();
   }
 
   @NonNull
@@ -727,6 +783,7 @@ public class MapButtonsController extends Fragment
   {
     super.onStop();
     mHandler.removeCallbacks(mPositionStatusUpdater);
+    blinkPositionStatus(false);
     if (mBlinkingAnimator != null)
     {
       mBlinkingAnimator.cancel();

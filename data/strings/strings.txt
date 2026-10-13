@@ -45713,6 +45713,62 @@ en = Pause
 ru = Пауза
 uk = Пауза
 
+[nogps_status_road_lost]
+comment = Status of the position: the mark of the car stands and waits for the user
+tags = android-app,apple-maps
+en = Road lost
+ru = Дорога потеряна
+uk = Дорогу втрачено
+
+[nogps_status_road_lost_hint]
+comment = Second line of the status "Road lost"
+tags = android-app,apple-maps
+en = double-tap the map where you are
+ru = дважды нажмите на карту, где вы
+uk = двічі торкніться мапи, де ви
+
+[nogps_status_box_ok]
+comment = Line of the status of the position: the sensor box gives the car speed
+tags = android-app,apple-maps
+en = box connected
+ru = блок на связи
+uk = блок підключено
+
+[nogps_status_box_none]
+comment = Line of the status of the position: the sensor box is not heard
+tags = android-app,apple-maps
+en = no box
+ru = нет связи с блоком
+uk = блок не підключено
+
+[nogps_status_box_no_car]
+comment = Line of the status of the position: the sensor box is heard, the car speed does not come
+tags = android-app,apple-maps
+en = box connected, no car data
+ru = блок на связи, машина молчит
+uk = блок підключено, машина мовчить
+
+[nogps_status_elm_ok]
+comment = Line of the status of the position: the ELM327 adapter gives the car speed
+tags = android-app,apple-maps
+en = ELM327 connected
+ru = ELM327 на связи
+uk = ELM327 підключено
+
+[nogps_status_elm_none]
+comment = Line of the status of the position: the ELM327 adapter is not heard
+tags = android-app,apple-maps
+en = no ELM327
+ru = нет связи с ELM327
+uk = ELM327 не підключено
+
+[nogps_status_elm_no_car]
+comment = Line of the status of the position: the ELM327 adapter is heard, the car speed does not come
+tags = android-app,apple-maps
+en = ELM327 connected, no car data
+ru = ELM327 на связи, машина молчит
+uk = ELM327 підключено, машина мовчить
+
 [nogps_source_phone]
 tags = android-app,apple-maps
 en = Phone + ELM327 (Bluetooth)
@@ -45880,6 +45936,13 @@ tags = android-app,apple-maps
 en = The road is lost, the car is stopped. Mark yourself on the map
 ru = Дорога потеряна, машина остановлена. Отметьте себя на карте
 uk = Дорогу втрачено, машину зупинено. Позначте себе на мапі
+
+[nogps_no_position_for_route]
+comment = A route is asked for while there is no GPS and no mark of the user
+tags = android-app,apple-maps
+en = No position: the route has nowhere to start from. Double-tap the map where you are
+ru = Нет позиции: маршрут строить неоткуда. Дважды нажмите на карту там, где вы находитесь
+uk = Немає позиції: маршрут будувати нізвідки. Двічі торкніться мапи там, де ви знаходитеся
 
 [nogps_shift_buttons]
 tags = android-app,apple-maps

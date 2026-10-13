@@ -1244,6 +1244,7 @@ Status Engine::GetStatus()
     status.m_hasInertialPosition = m_inertial->HasPosition();
     status.m_paused = m_inertial->IsPaused();
     status.m_pausedByItself = m_inertial->IsPausedByItself();
+    status.m_roadLost = m_inertial->IsUserNeeded();
     if (auto const * box = m_inertial->GetEsp32())
     {
       if (box->GetInfo())
