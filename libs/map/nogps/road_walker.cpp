@@ -34,7 +34,7 @@ std::optional<ms::LatLon> FindCrossingOnPiece(std::vector<ms::LatLon> const & cr
 }  // namespace
 
 std::optional<RoadWalker::Result> RoadWalker::Walk(Roads & roads, ms::LatLon const & position, double bearingDeg,
-                                                   double distanceM)
+                                                   double distanceM, bool stopAtCrossing)
 {
   bool const forward = distanceM >= 0;
   double heading = forward ? bearingDeg : bearingDeg + 180;
@@ -44,7 +44,9 @@ std::optional<RoadWalker::Result> RoadWalker::Walk(Roads & roads, ms::LatLon con
 
   ms::LatLon pos = start->m_point;
   heading = Orient(start->m_bearingDeg, heading);
-  auto const crossings = roads.FindCrossings(pos, std::fabs(distanceM) + kCrossingSearchMarginM);
+  std::vector<ms::LatLon> crossings;
+  if (stopAtCrossing)
+    crossings = roads.FindCrossings(pos, std::fabs(distanceM) + kCrossingSearchMarginM);
 
   double remaining = std::fabs(distanceM);
   double applied = 0;

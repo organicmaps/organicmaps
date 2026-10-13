@@ -51,6 +51,21 @@ UNIT_TEST(NoGps_RoadWalker_StopsAtCrossing)
   TEST(walked->m_atCrossing, ());
 }
 
+UNIT_TEST(NoGps_RoadWalker_GoesThroughCrossingsOfCarThatDroveThatWay)
+{
+  GridRoads grid;
+  // The bends of the road have told the car is 100 m ahead or behind: it drove straight on through the crossings.
+  for (double distance : {100.0, -100.0})
+  {
+    auto const walked = RoadWalker::Walk(grid, At(60, 0), 90, distance, false /* stopAtCrossing */);
+    TEST(walked, ());
+    TestAt(60 + distance, 0, walked->m_position);
+    TEST_ALMOST_EQUAL_ABS(walked->m_bearingDeg, 90.0, 1.0, ());
+    TEST_ALMOST_EQUAL_ABS(walked->m_appliedM, distance, 0.5, ());
+    TEST(!walked->m_atCrossing, ());
+  }
+}
+
 UNIT_TEST(NoGps_RoadWalker_WalksBackKeepingDirection)
 {
   GridRoads grid;

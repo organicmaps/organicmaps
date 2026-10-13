@@ -1177,8 +1177,10 @@ void InertialNavigator::MatchBend()
     LOG(LINFO, ("Bend: ahead by", std::round(*aheadM), "m, but the car is too slow to trust it"));
     return;
   }
-  auto const walked = RoadWalker::Walk(m_roads, position, heading, -*aheadM);
-  // A crossing on the way: the road after it may be another one.
+  // Through the crossings on the way: the bends were compared with the road going straight on through them, and
+  // they fit it. A car back on a road after a parking lot was 32 m behind its mark by the bends, as GPS told
+  // too, and was left there because of a crossing on these 32 m.
+  auto const walked = RoadWalker::Walk(m_roads, position, heading, -*aheadM, false /* stopAtCrossing */);
   if (!walked || std::fabs(walked->m_appliedM + *aheadM) > 1)
   {
     LOG(LINFO, ("Bend: ahead by", std::round(*aheadM), "m, but the road is not followed that far"));
