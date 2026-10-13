@@ -132,6 +132,12 @@ void Engine::Stop()
   m_active = false;
 }
 
+void Engine::OnCompass(double headingDeg, double accuracyDeg)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_compass = Compass{headingDeg, accuracyDeg, m_clock.NowMs()};
+}
+
 void Engine::OnFix(Fix const & location)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1306,6 +1312,14 @@ std::string Engine::GetTripLine()
   };
   addRaw("gps", m_rawGps);
   addRaw("fused", m_rawFused);
+  // The compass of the phone: heading/accuracy in degrees/age in seconds. Compared with the bearing of GPS, it tells
+  // how far the compass errs in a car and how the phone is turned in its holder.
+  if (m_compass && MsSince(m_compass->m_timeMs) <= kGpsStatusMaxAgeMs)
+  {
+    std::snprintf(buf, sizeof(buf), " cmp=%.0f/%.0f/%.2f", m_compass->m_headingDeg, m_compass->m_accuracyDeg,
+                  MsSince(m_compass->m_timeMs) / 1000.0);
+    line += buf;
+  }
   line += " gpsAge=" + (m_lastTrustedGpsMs ? FormatSeconds(MsSince(m_lastTrustedGpsMs)) : "-");
   line += std::string(" spoofed=") + (m_spoofingDetector.IsSpoofed() ? "1" : "0");
   line += std::string(" paused=") + (m_inertial && m_inertial->IsPaused() ? "1" : "0");

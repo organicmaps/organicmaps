@@ -1033,6 +1033,20 @@ UNIT_TEST(NoGps_Engine_TripLineHasPlatformPositions)
   TEST(line.find(" gps=") == std::string::npos && line.find(" fused=") == std::string::npos, (line));
 }
 
+UNIT_TEST(NoGps_Engine_TripLineHasCompass)
+{
+  Env env(true /* inertial */);
+  TEST(env.m_engine.GetTripLine().find(" cmp=") == std::string::npos, ());
+
+  env.m_engine.OnCompass(271.4, 15);
+  env.m_clock.Advance(250);
+  TEST_EQUAL(TripField(env, "cmp"), "271/15/0.25", ());
+
+  // An old heading tells nothing about the car now.
+  env.m_clock.Advance(Engine::kGpsStatusMaxAgeMs);
+  TEST(env.m_engine.GetTripLine().find(" cmp=") == std::string::npos, ());
+}
+
 UNIT_TEST(NoGps_Engine_TripLineTellsWhyCarIsNotOnRoad)
 {
   PieceRoads roads({{-2000, 0, 3000, 0}}, {});
