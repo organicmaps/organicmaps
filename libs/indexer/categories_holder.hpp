@@ -60,12 +60,9 @@ public:
   static int8_t constexpr kUnsupportedLocaleCode = -1;
   static int8_t constexpr kSimplifiedChineseCode = 47;
   static int8_t constexpr kTraditionalChineseCode = 48;
-  // *NOTE* These constants should be updated when adding new
-  // translation to categories.txt. When editing, keep in mind to check
-  // CategoriesHolder::MapLocaleToInteger() and
-  // CategoriesHolder::MapIntegerToLocale() as their implementations
-  // strongly depend on the contents of the variable.
-  // TODO: Refactor for more flexibility and to avoid breaking rules in two methods mentioned above.
+  // Codes are the 1-based array indices used by MapIntegerToLocale(); English must remain first.
+  // Append new locales with the next code. Regional and script variants must follow their base locale
+  // so reverse lookup prefers them. The named constants above must match their corresponding entries.
   static auto constexpr kLocaleMapping = std::to_array<CategoriesHolder::Mapping>({
       {"en", kEnglishCode},
       {"en-AU", 2},
