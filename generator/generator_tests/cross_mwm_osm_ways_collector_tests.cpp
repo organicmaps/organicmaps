@@ -13,14 +13,10 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/assert.hpp"
-#include "base/scope_guard.hpp"
-
-#include <cstdint>
+#include <algorithm>
 #include <fstream>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace cross_mwm_osm_ways_collector_tests
@@ -55,6 +51,14 @@ public:
 
   feature::CountriesFilesAffiliation const & GetCountries() { return *m_affiliation; }
 
+  void CheckCountries(ms::LatLon const & point, std::vector<std::string> expected) const
+  {
+    auto countries = m_affiliation->GetAffiliations(mercator::FromLatLon(point));
+    std::sort(countries.begin(), countries.end());
+    std::sort(expected.begin(), expected.end());
+    TEST_EQUAL(countries, expected, (point));
+  }
+
   ~CrossMwmWayCollectorTest() { Platform::RmDirRecursively(m_intermediateDir); }
 
   std::shared_ptr<CollectorCollection> InitCollection()
@@ -67,14 +71,15 @@ public:
   void Check(std::string const & countryName, std::vector<std::string> const & answers) const
   {
     std::ifstream stream(FormatPath(countryName));
-    size_t pos = 0;
+    TEST(stream.is_open(), (countryName));
+
+    std::vector<std::string> actual;
     std::string line;
-    while (std::getline(stream, line).good())
-    {
-      TEST_EQUAL(line, answers[pos], (countryName));
-      pos++;
-    }
-    TEST_EQUAL(pos, answers.size(), (countryName));
+    while (std::getline(stream, line))
+      actual.push_back(std::move(line));
+
+    TEST(!stream.bad(), (countryName));
+    TEST_EQUAL(actual, answers, (countryName));
   }
 
 private:
@@ -226,8 +231,10 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Belarus_Lithuania_Kamenny_Log)
   auto collection = InitCollection();
 
   ms::LatLon const connected{54.5443346, 25.6997363};
-  auto const countries = GetCountries().GetAffiliations(mercator::FromLatLon(connected));
-  TEST_EQUAL(countries.size(), 2, ());
+  CheckCountries(connected, {"Belarus_Hrodna Region", "Lithuania_East"});
+
+  ms::LatLon const insideLithuania{54.5443587, 25.6996293};
+  CheckCountries(insideLithuania, {"Lithuania_East"});
 
   // https://www.openstreetmap.org/way/533044131
   AddOsmWayByPoints(1,
@@ -242,15 +249,33 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Belarus_Lithuania_Kamenny_Log)
   AddOsmWayByPoints(2,
                     {
                         connected,
-                        {54.5443587, 25.6996293},
+                        insideLithuania,
                         {54.5443765, 25.6995660},
                     },
                     collection);
 
   collection->Finalize();
 
-  Check("Belarus_Hrodna Region", {kOsmWayId_1 + " 1 1 0 ", kOsmWayId_2 + " 2 0 1 1 0 "});
-  Check("Lithuania_East", {kOsmWayId_1 + " 1 1 1 ", kOsmWayId_2 + " 2 0 1 1 1 "});
+  Check("Belarus_Hrodna Region", {kOsmWayId_1 + " 1 1 0 ", kOsmWayId_2 + " 1 0 0 "});
+  Check("Lithuania_East", {kOsmWayId_1 + " 1 1 1 ", kOsmWayId_2 + " 1 0 1 "});
+}
+
+UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Shared_Belarus_Lithuania_Kamenny_Log)
+{
+  auto collection = InitCollection();
+
+  // A synthetic way along the same border edge in both source .poly files.
+  ms::LatLon const borderStart{54.54325, 25.69848};
+  ms::LatLon const borderEnd{54.54603, 25.7017};
+  for (auto const & point : {borderStart, borderEnd})
+    CheckCountries(point, {"Belarus_Hrodna Region", "Lithuania_East"});
+
+  AddOsmWayByPoints(1, {borderStart, borderEnd}, collection);
+  collection->Finalize();
+
+  std::vector<std::string> const sharedSegment{kOsmWayId_1 + " 1 0 1 "};
+  Check("Belarus_Hrodna Region", sharedSegment);
+  Check("Lithuania_East", sharedSegment);
 }
 
 }  // namespace cross_mwm_osm_ways_collector_tests
