@@ -8,6 +8,7 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
@@ -17,6 +18,7 @@
 #include <initializer_list>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -253,10 +255,8 @@ private:
 
 void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* = kTestTurnsReachOnly */)
 {
-  // Build segments from the route's actual polyline points (not the global kTestRoute) so segments
-  // are consistent with the followed polyline. This matters because RouteBase no longer stores
-  // the polyline: promoting a sliced RouteBase back to a Route reconstructs the FollowedPolyline
-  // from segments (subroute.front().GetStart() + each segment's junction).
+  // Promotion reconstructs the followed polyline from the first subroute's start and the segment
+  // junctions, so the segments must describe this route's geometry.
   auto const & polyPts = route.GetPoly().GetPoints();
 
   vector<geometry::PointWithAltitude> junctions;
@@ -269,6 +269,162 @@ void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* =
   route.SetRouteSegments(std::move(segmentInfo));
   route.SetSubroutes(vector<Route::SubrouteAttrs>(
       {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));
+}
+
+class RebuildRouter : public IRouter
+{
+public:
+  static double constexpr kSpeedMps = 10.0;
+
+  explicit RebuildRouter(optional<m2::PointD> middlePoint) : m_middlePoint(middlePoint) {}
+
+  string GetName() const override { return "rebuild test"; }
+  void ClearState() override {}
+  void SetGuides(GuidesTracks &&) override {}
+
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
+                                  RouterDelegate const &, RoutesResult & result) override
+  {
+    auto const & start = checkpoints.GetPointFrom();
+    auto const & finish = checkpoints.GetFinish();
+    vector<m2::PointD> const points = {start, start, m_middlePoint.value_or((start + finish) / 2.0), finish};
+    Route route;
+    route.SetGeometry(points.begin(), points.end());
+    FillSubroutesInfo(route);
+    for (auto & segment : route.GetRouteSegments())
+    {
+      segment.SetDistancesAndTime(segment.GetDistFromBeginningMeters(), segment.GetDistFromBeginningMerc(),
+                                  segment.GetDistFromBeginningMeters() / kSpeedMps);
+    }
+    result.MakeFrom(GetName(), std::move(route));
+    return RouterResultCode::NoError;
+  }
+
+  bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, EdgeProj &) override
+  {
+    return false;
+  }
+
+private:
+  optional<m2::PointD> m_middlePoint;
+};
+
+struct RebuildCase
+{
+  char const * m_name;
+  m2::PointD m_start;
+  vector<m2::PointD> m_pendingPositions;
+  m2::PointD m_expectedPosition;
+  optional<m2::PointD> m_middlePoint;
+  bool m_follow = true;
+  VehicleType m_vehicle = VehicleType::Car;
+  bool m_rebuildAgain = false;
+};
+
+void TestRebuildAdoption(AsyncGuiThreadTestWithRoutingSession & fixture, RebuildCase const & test)
+{
+  m2::PointD const finish(0, 0.04);
+  TimedSignal built;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&fixture, &test, &built, finish]
+  {
+    fixture.InitRoutingSession();
+    fixture.m_session->SetRoutingSettings(GetRoutingSettings(test.m_vehicle));
+    fixture.m_session->SetRouter(make_unique<RebuildRouter>(test.m_middlePoint), nullptr);
+    fixture.m_session->SetRoutingCallbacks([&built](RoutesResult const &, RouterResultCode) { built.Signal(); },
+                                           nullptr, nullptr, nullptr);
+    fixture.m_session->BuildRoute(Checkpoints({0, 0}, finish), RouterDelegate::kNoTimeout);
+  });
+  TEST(built.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), (test.m_name));
+
+  struct PositionInfo
+  {
+    m2::PointD m_position;
+    double m_distance;
+    double m_time;
+    int m_followingTime;
+  };
+  vector<PositionInfo> positions;
+  TimedSignal adopted;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&fixture, &test, &positions, &adopted]
+  {
+    auto & session = *fixture.m_session;
+    if (test.m_follow)
+      session.EnableFollowMode();
+    auto const move = [&session](m2::PointD const & position)
+    {
+      auto const latLon = mercator::ToLatLon(position);
+      location::GpsInfo gps;
+      gps.m_latitude = latLon.m_lat;
+      gps.m_longitude = latLon.m_lon;
+      gps.m_horizontalAccuracy = 0.0;
+      session.OnLocationPositionChanged(gps);
+    };
+    move({0, 0.01});
+    auto const record = [&fixture, &positions]
+    {
+      auto const & session = *fixture.m_session;
+      auto const & route = *session.GetRoute();
+      FollowingInfo info;
+      session.GetRouteFollowingInfo(info);
+      positions.push_back({route.GetCurrentIter().m_pt, route.GetCurrentDistanceToEndMeters(),
+                           route.GetCurrentTimeToEndSec(), info.m_time});
+    };
+    session.RebuildRoute(test.m_start, [&fixture, &test, &adopted, record](RoutesResult const &, RouterResultCode)
+    {
+      record();
+      if (test.m_rebuildAgain)
+      {
+        auto & session = *fixture.m_session;
+        session.RebuildRoute(session.GetRoute()->GetCurrentIter().m_pt,
+                             [&adopted, record](RoutesResult const &, RouterResultCode)
+        {
+          record();
+          adopted.Signal();
+        }, nullptr, nullptr, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, false);
+      }
+      else
+      {
+        adopted.Signal();
+      }
+    }, nullptr, nullptr, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, false);
+    // The ready callback cannot run until this GUI task has processed all pending movement.
+    for (auto const & position : test.m_pendingPositions)
+      move(position);
+  });
+  TEST(adopted.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), (test.m_name));
+
+  double const remaining = test.m_middlePoint && test.m_expectedPosition == test.m_start
+                             ? mercator::DistanceOnEarth(test.m_start, *test.m_middlePoint) +
+                                   mercator::DistanceOnEarth(*test.m_middlePoint, finish)
+                             : mercator::DistanceOnEarth(test.m_expectedPosition, finish);
+  TEST_EQUAL(positions.size(), test.m_rebuildAgain ? 2 : 1, (test.m_name));
+  for (auto const & position : positions)
+  {
+    TEST_ALMOST_EQUAL_ABS(position.m_position, test.m_expectedPosition, 1e-8, (test.m_name));
+    TEST_ALMOST_EQUAL_ABS(position.m_distance, remaining, 0.01, (test.m_name));
+    TEST_ALMOST_EQUAL_ABS(position.m_time, remaining / RebuildRouter::kSpeedMps, 0.01, (test.m_name));
+    TEST_EQUAL(position.m_followingTime, static_cast<int>(remaining / RebuildRouter::kSpeedMps), (test.m_name));
+  }
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRebuildAdoptsLatestMatchedPosition)
+{
+  TestRebuildAdoption(*this, {"pending movement", {0, 0.01}, {{0, 0.03}}, {0, 0.03}, nullopt});
+  TestRebuildAdoption(
+      *this, {"consecutive replacements", {0, 0.01}, {{0, 0.03}}, {0, 0.03}, nullopt, true, VehicleType::Car, true});
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRebuildKeepsUnmatchedAndPreviewOrigins)
+{
+  vector<RebuildCase> const tests = {
+      {"divergent geometry", {0.01, 0.01}, {{0, 0.03}}, {0.01, 0.01}, nullopt},
+      {"off-route connector", {0.01, 0.01}, {{0.01, 0.01}}, {0.01, 0.01}, m2::PointD(0, 0.01)},
+      {"matched then off-route", {0.01, 0.01}, {{0, 0.01}, {0.01, 0.01}}, {0.01, 0.01}, m2::PointD(0, 0.01)},
+      {"preview", {0, 0.01}, {{0, 0.03}}, {0, 0.01}, nullopt, false},
+      {"no pending GPS", {0, 0.02}, {}, {0, 0.02}, nullopt},
+      {"pedestrian threshold", {0.0012, 0.01}, {{0, 0.03}}, {0.0012, 0.01}, nullopt, true, VehicleType::Pedestrian}};
+  for (auto const & test : tests)
+    TestRebuildAdoption(*this, test);
 }
 
 void TestMovingByUpdatingLat(SessionStateTest const & sessionState, vector<double> const & lats,
