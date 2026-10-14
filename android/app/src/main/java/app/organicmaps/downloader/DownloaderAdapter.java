@@ -488,17 +488,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       UiUtils.showIf(mSearchResultsMode && !TextUtils.isEmpty(found), mFoundName);
 
-      long size;
-      if (mItem.status == CountryItem.STATUS_ENQUEUED || mItem.status == CountryItem.STATUS_PROGRESS
-          || mItem.status == CountryItem.STATUS_APPLYING)
-      {
-        size = mItem.enqueuedSize;
-      }
-      else
-      {
-        size = ((!mSearchResultsMode && mMyMapsMode) ? mItem.size : mItem.totalSize);
-      }
-
+      long size = mItem.getDisplaySize(!mSearchResultsMode && mMyMapsMode);
       mSize.setText(StringUtils.getFileSizeString(mFragment.requireContext(), size));
       mStatusIcon.update(mItem);
     }

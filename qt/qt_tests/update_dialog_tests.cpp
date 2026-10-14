@@ -60,7 +60,7 @@ UNIT_TEST(UpdateDialog_EntireTreeIsSortedAlphabetically)
   TEST_EQUAL(tree.sortColumn(), kCountryColumn, ());
 }
 
-UNIT_TEST(UpdateDialog_TerrainProgressKeepsIdleMapRow)
+UNIT_TEST(UpdateDialog_MapAndTerrainUseTheSameProgressRow)
 {
   EnsureApp();
 
@@ -77,8 +77,10 @@ UNIT_TEST(UpdateDialog_TerrainProgressKeepsIdleMapRow)
   auto const size = row->text(2);
   TEST(!size.isEmpty(), (id));
 
-  // Terrain-only callbacks carry no map transfer bytes and must not replace an idle map size with 0%.
+  // Terrain-only updates advance the same country row.
   dialog.OnCountryDownloadProgress(id, {0, 0, 5, 10});
   TEST_EQUAL(row->text(1).toStdString(), status.toStdString(), (id));
-  TEST_EQUAL(row->text(2).toStdString(), size.toStdString(), (id));
+  TEST_EQUAL(row->text(2).toStdString(), "50%", (id));
+  dialog.OnCountryDownloadProgress(id, {100, 100, 15, 30});
+  TEST_EQUAL(row->text(2).toStdString(), "88%", (id));
 }

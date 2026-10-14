@@ -76,8 +76,6 @@
                                   unselectedAttrs:@{NSFontAttributeName: UIFont.regular17.dynamic}];
 
   uint64_t size = 0;
-  BOOL isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;
-
   switch (nodeAttrs.nodeStatus)
   {
   case MWMMapNodeStatusUndefined:
@@ -86,11 +84,11 @@
   case MWMMapNodeStatusNotDownloaded:
   case MWMMapNodeStatusApplying:
   case MWMMapNodeStatusInQueue:
-  case MWMMapNodeStatusPartly: size = isModeDownloaded ? nodeAttrs.downloadedSize : nodeAttrs.totalSize; break;
-  case MWMMapNodeStatusDownloading:
-    size = isModeDownloaded ? nodeAttrs.totalUpdateSizeBytes : nodeAttrs.totalSize - nodeAttrs.downloadingSize;
+  case MWMMapNodeStatusDownloading: size = nodeAttrs.downloadingSize; break;
+  case MWMMapNodeStatusPartly:
+    size = self.mode == MWMMapDownloaderModeDownloaded ? nodeAttrs.downloadedSize : nodeAttrs.downloadingSize;
     break;
-  case MWMMapNodeStatusOnDisk: size = isModeDownloaded ? nodeAttrs.totalSize : 0; break;
+  case MWMMapNodeStatusOnDisk: size = nodeAttrs.downloadedSize; break;
   }
 
   self.downloadSize.text = formattedSize(size);

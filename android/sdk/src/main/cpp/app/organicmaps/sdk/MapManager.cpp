@@ -66,7 +66,7 @@ struct CountryItemBuilder
   jclass m_class;
   jmethodID m_ctor, m_updateProgress, m_updateTerrainProgress;
   jfieldID m_Id, m_Name, m_DirectParentId, m_TopmostParentId, m_DirectParentName, m_TopmostParentName, m_Description,
-      m_Size, m_EnqueuedSize, m_TotalSize, m_TerrainSize, m_RemainingTerrainSize, m_TerrainStatus, m_ChildCount,
+      m_Size, m_DownloadSize, m_TotalSize, m_TerrainSize, m_RemainingTerrainSize, m_TerrainStatus, m_ChildCount,
       m_TotalChildCount, m_Present, m_Category, m_Status, m_ErrorCode;
 
   CountryItemBuilder(JNIEnv * env)
@@ -84,7 +84,7 @@ struct CountryItemBuilder
     m_TopmostParentName = env->GetFieldID(m_class, "topmostParentName", "Ljava/lang/String;");
     m_Description = env->GetFieldID(m_class, "description", "Ljava/lang/String;");
     m_Size = env->GetFieldID(m_class, "size", "J");
-    m_EnqueuedSize = env->GetFieldID(m_class, "enqueuedSize", "J");
+    m_DownloadSize = env->GetFieldID(m_class, "downloadSize", "J");
     m_TotalSize = env->GetFieldID(m_class, "totalSize", "J");
     m_TerrainSize = env->GetFieldID(m_class, "terrainSize", "J");
     m_RemainingTerrainSize = env->GetFieldID(m_class, "remainingTerrainSize", "J");
@@ -244,7 +244,7 @@ static void UpdateItem(JNIEnv * env, jobject item, storage::CountryId const & co
 
   // Sizes
   env->SetLongField(item, ciBuilder.m_Size, attrs.m_localMwmSize);
-  env->SetLongField(item, ciBuilder.m_EnqueuedSize, attrs.m_downloadingMwmSize);
+  env->SetLongField(item, ciBuilder.m_DownloadSize, attrs.m_downloadSize);
   env->SetLongField(item, ciBuilder.m_TotalSize, attrs.m_mwmSize);
   UpdateTerrainItem(env, item, countryId);
 

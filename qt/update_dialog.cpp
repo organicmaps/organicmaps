@@ -29,8 +29,8 @@ enum
 {
   //  KItemIndexFlag = 0,
   KColumnIndexCountry,
-  KColumnIndexStatus,  // The MWM status.
-  KColumnIndexSize,    // The MWM size.
+  KColumnIndexStatus,  // The combined map and terrain status.
+  KColumnIndexSize,    // The combined map and terrain size.
   KColumnIndexMatchedBy,
   KColumnIndexPositionInRanking,
   KNumberOfColumns
@@ -75,7 +75,7 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(KNumberOfColumns);
   QStringList columnLabels;
-  columnLabels << tr("Country") << tr("MWM (Click for action)") << tr("MWM Size") << tr("Matched by") << tr("Rank");
+  columnLabels << tr("Country") << tr("Map (Click for action)") << tr("Size") << tr("Matched by") << tr("Rank");
   m_tree->setHeaderLabels(columnLabels);
 
   m_tree->setColumnHidden(KColumnIndexPositionInRanking, true);
@@ -142,7 +142,7 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
   st.GetChildren(countryId, children);
 
   // For group process only click on the column #.
-  if (!children.empty() && column != 1)
+  if (!children.empty() && column != KColumnIndexStatus)
     return;
 
   switch (attrs.m_status)
@@ -492,37 +492,20 @@ void UpdateDialog::OnCountryChanged(CountryId const & countryId)
 {
   UpdateRowWithCountryInfo(countryId);
 
-  // Core status notifications include ancestors except the root.
-  auto const & rootId = GetStorage().GetRootId();
-  if (countryId != rootId)
-    UpdateRowWithCountryInfo(rootId);
+  // Core reports ancestors except the root.
+  auto const & root = GetStorage().GetRootId();
+  if (countryId != root)
+    UpdateRowWithCountryInfo(root);
 }
 
-void UpdateDialog::OnCountryDownloadProgress(CountryId const & countryId, storage::Progress const & progress)
+void UpdateDialog::OnCountryDownloadProgress(CountryId const & countryId, storage::Progress const & snapshot)
 {
-  if (progress.m_mwmTotal == 0)
+  auto const progress = snapshot.GetCombined();
+  if (progress.m_bytesTotal == 0)
     return;
-
-  int const halfMb = 512 * 1024;
-  int const Mb = 1024 * 1024;
-  for (auto * item : GetTreeItemsByCountryId(countryId))
-  {
-    if (progress.m_mwmTotal > Mb)
-    {
-      item->setText(KColumnIndexSize,
-                    QString("%1/%2 MB")
-                        .arg(uint((progress.m_mwmDownloaded + halfMb) / Mb))
-                        .arg(uint((progress.m_mwmTotal + halfMb) / Mb)));
-    }
-    else
-    {
-      item->setText(KColumnIndexSize,
-                    QString("%1/%2 kB")
-                        .arg(uint((progress.m_mwmDownloaded + 1023) / 1024))
-                        .arg(uint((progress.m_mwmTotal + 1023) / 1024)));
-    }
-    item->setData(KColumnIndexSize, Qt::UserRole, QVariant(static_cast<qint64>(progress.m_mwmTotal)));
-  }
+  auto const items = GetTreeItemsByCountryId(countryId);
+  for (auto const item : items)
+    item->setText(KColumnIndexSize, QString("%1%").arg(progress.m_bytesDownloaded * 100 / progress.m_bytesTotal));
 }
 
 void UpdateDialog::ShowModal()

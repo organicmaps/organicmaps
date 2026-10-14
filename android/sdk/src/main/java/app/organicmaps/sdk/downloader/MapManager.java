@@ -27,7 +27,7 @@ public final class MapManager
     }
   }
 
-  // Used by JNI. A complete snapshot for a country or group; inactive flows have zero totals.
+  // Used by JNI. Completed parts remain in the snapshot until the country/group batch finishes.
   @Keep
   public static final class Progress
   {
@@ -42,6 +42,16 @@ public final class MapManager
       this.mwmTotal = mwmTotal;
       this.twmDownloaded = twmDownloaded;
       this.twmTotal = twmTotal;
+    }
+
+    public long getDownloadedBytes()
+    {
+      return mwmDownloaded + twmDownloaded;
+    }
+
+    public long getTotalBytes()
+    {
+      return mwmTotal + twmTotal;
     }
   }
 
@@ -160,7 +170,7 @@ public final class MapManager
    *   <li>topmostParentName;</li>
    *   <li>description;</li>
    *   <li>size;</li>
-   *   <li>enqueuedSize;</li>
+   *   <li>downloadSize;</li>
    *   <li>totalSize;</li>
    *   <li>childCount;</li>
    *   <li>totalChildCount;</li>

@@ -533,10 +533,12 @@ void MainWindow::CreateCountryStatusControls()
       onChanged(countryId);
   }, [this](storage::CountryId const & countryId, storage::Progress const & progress)
   {
-    if (countryId != m_lastCountry || progress.m_mwmTotal == 0)
+    if (countryId != m_lastCountry || progress.GetCombined().m_bytesTotal == 0)
       return;
 
-    auto const percent = progress.m_mwmTotal == 0 ? 0 : progress.m_mwmDownloaded * 100 / progress.m_mwmTotal;
+    auto const percent = progress.GetCombined().m_bytesTotal == 0
+                           ? 0
+                           : progress.GetCombined().m_bytesDownloaded * 100 / progress.GetCombined().m_bytesTotal;
     std::stringstream str;
     str << "Downloading (" << countryId << ") " << percent << "%";
     m_downloadingStatusLabel->setText(str.str().c_str());

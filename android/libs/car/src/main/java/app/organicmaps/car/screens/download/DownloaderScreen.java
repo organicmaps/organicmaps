@@ -65,7 +65,7 @@ class DownloaderScreen extends BaseScreen
     @Override
     public void onProgress(String countryId, MapManager.Progress progress)
     {
-      if (progress.mwmTotal == 0)
+      if (progress.getTotalBytes() == 0)
         return;
 
       if (!mIsAppRefreshEnabled)
