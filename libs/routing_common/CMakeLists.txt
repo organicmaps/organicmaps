@@ -9,6 +9,7 @@ set(SRC
   maxspeed_conversion.cpp
   maxspeed_conversion.hpp
   num_mwm_id.hpp
+  num_mwm_tree.hpp
   pedestrian_model.cpp
   pedestrian_model.hpp
   vehicle_model.cpp

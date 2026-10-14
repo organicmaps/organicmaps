@@ -7,7 +7,6 @@
 #include "base/math.hpp"
 
 #include <cmath>
-
 #include <vector>
 
 UNIT_TEST(Mercator_Grid)
@@ -195,6 +194,39 @@ UNIT_TEST(Mercator_ForEachRectWrapped)
     auto const p = parts({-540, 0, 540, 5});
     TEST_EQUAL(p.size(), 1, ());
     TEST(AlmostEqualAbs(p[0], m2::RectD{-180, 0, 180, 5}, kEps), ());
+  }
+}
+
+UNIT_TEST(Mercator_ForEachRectWrapped_CanonicalCoverage)
+{
+  for (auto const & rect :
+       {m2::RectD(-10, 0, 10, 2), m2::RectD(170, 0, 190, 2), m2::RectD(-190, 0, -170, 2), m2::RectD(184, 0, 193, 2),
+        m2::RectD(-225, 0, -204, 2), m2::RectD(530, 0, 550, 2), m2::RectD(-180, 0, 180, 2),
+        m2::RectD(-180.000001, 0, 180.000001, 2), m2::RectD(-720, 0, 720, 2), m2::RectD(180, 0, 180, 2),
+        m2::RectD(-180, 0, -180, 2), m2::RectD(170, 0, 180, 2), m2::RectD(-180, 0, -170, 2), m2::RectD(540, 0, 540, 2),
+        m2::RectD(-540, 0, -540, 2)})
+  {
+    std::vector<m2::RectD> parts;
+    mercator::ForEachRectWrapped(rect, [&](m2::RectD const & part)
+    {
+      TEST(part.IsValid(), (rect, part));
+      TEST_GREATER_OR_EQUAL(part.minX(), -180.0, (rect, part));
+      TEST_LESS_OR_EQUAL(part.maxX(), 180.0, (rect, part));
+      parts.push_back(part);
+    });
+    TEST(!parts.empty() && parts.size() <= 2, (rect));
+    for (double x : {-180.0, -179.5, -175.0, -170.0, -165.0, -10.0, 0.0, 10.0, 170.0, 175.0, 179.5, 180.0})
+    {
+      for (double y : {-1.0, 0.0, 1.0, 2.0, 3.0})
+      {
+        bool expected = false, actual = false;
+        for (int copy = -3; copy <= 3; ++copy)
+          expected |= rect.IsPointInside({x + copy * 360.0, y});
+        for (auto const & part : parts)
+          actual |= part.IsPointInside({x, y});
+        TEST_EQUAL(actual, expected, (rect, x, y));
+      }
+    }
   }
 }
 
