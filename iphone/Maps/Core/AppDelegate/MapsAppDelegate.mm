@@ -200,6 +200,7 @@ using namespace osm_auth_ios;
   [self runBackgroundTasks:tasks completionHandler:nil];
 
   [MWMRouter saveRouteIfNeeded];
+  [MWMLocationManager applicationDidEnterBackground];
   LOG(LINFO, ("applicationDidEnterBackground - end"));
 }
 
