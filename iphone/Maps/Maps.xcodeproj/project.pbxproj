@@ -686,6 +686,7 @@
 		FA853BEF26BC5BA40026D455 /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BEE26BC5BA40026D455 /* libdescriptions.a */; };
 		FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BF226BC5DE50026D455 /* libshaders.a */; };
 		FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */; };
+		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
 		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -1835,6 +1836,7 @@
 		FAF9A8A82CE0CEC000F6604D /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lv; path = lv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libharfbuzz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
+		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
 		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -4079,6 +4081,7 @@
 		AA01B2C3D4E5F60718293A03 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				A13812000000000000000001 /* TransportTransitRTLTests.swift */,
 				A13813000000000000000001 /* TransportRulerAppearanceTests.swift */,
 				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
 				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
@@ -5036,6 +5039,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */,
 				A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */,
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
