@@ -46,8 +46,7 @@ extension NavigationDashboard.RoutePoints {
     case count - 1:
       return UIImage(resource: .icRouteManagerFinish)
     default:
-      let imageName = "route-point-\(index)"
-      return UIImage(named: imageName) ?? UIImage(resource: .routePoint20)
+      return RoutePointIconRenderer.image(number: index)
     }
   }
 
