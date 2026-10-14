@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.util;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
@@ -21,6 +22,19 @@ public class Language
   {
     final Locale locale = Locale.getDefault();
     // toLanguageTag() spells a language-less locale as "und", so test the language itself.
+    if (locale.getLanguage().isEmpty())
+      return Locale.US.toLanguageTag();
+
+    return toLanguageTag(locale);
+  }
+
+  /** Returns the resource locale used to display strings in this context, including per-app overrides. */
+  @NonNull
+  public static String getResourceLocale(@NonNull Context context)
+  {
+    final Configuration configuration = context.getResources().getConfiguration();
+    final Locale locale =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? configuration.getLocales().get(0) : configuration.locale;
     if (locale.getLanguage().isEmpty())
       return Locale.US.toLanguageTag();
 

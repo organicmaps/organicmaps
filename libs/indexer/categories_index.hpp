@@ -13,7 +13,7 @@ namespace indexer
 // synonyms to their names (in various languages).
 // An example usage is helping a user who is trying to add
 // a new feature with our editor.
-// All category data is taken from data/categories.txt.
+// Synonyms come from the holder; callers can also index display names without modifying its records.
 // All types returned are those from classificator.
 class CategoriesIndex
 {
@@ -30,25 +30,26 @@ public:
   CategoriesIndex & operator=(CategoriesIndex &&) = default;
 
   // Adds all categories that match |type|. Only synonyms
-  // in language |lang| are added. See indexer/categories_holder.cpp
+  // in language |lang| are added. See indexer/categories_holder.hpp
   // for language enumeration.
   void AddCategoryByTypeAndLang(uint32_t type, int8_t lang);
+
+  // Indexes an additional name for |type| using the same token normalization as category synonyms.
+  void AddCategoryName(uint32_t type, std::string const & name);
 
   // Adds all categories that match |type|. All known synonyms
   // are added.
   void AddCategoryByTypeAllLangs(uint32_t type);
 
-  // Adds all categories from data/classificator.txt. Only
+  // Adds all categories from the holder. Only
   // names in language |lang| are added.
   void AddAllCategoriesInLang(int8_t lang);
 
-  // Adds all categories from data/classificator.txt.
+  // Adds all categories from the holder.
   void AddAllCategoriesInAllLangs();
 
-  // Returns all categories that have |query| as a substring. Note
-  // that all synonyms for a category are contained in a returned
-  // value even if only one language was used when adding this
-  // category's name to index.
+  // Returns holder records for the matched types, including synonyms in languages not added to this index.
+  // Additional names indexed with AddCategoryName() do not alter those records.
   // Beware weird results when query is a malformed UTF-8 string.
   void GetCategories(std::string const & query, std::vector<Category> & result) const;
 
@@ -62,9 +63,7 @@ public:
 #endif
 
 private:
-  // There is a raw pointer instead of const reference
-  // here because this class may be used from Objectvie-C
-  // so a default constructor is needed.
+  // A non-owning pointer keeps the index move-assignable. The holder must outlive the index.
   CategoriesHolder const * m_catHolder = nullptr;
   base::MemTrie<std::string, base::VectorValues<uint32_t>> m_trie;
 };

@@ -32,13 +32,6 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
   std::sort(m_types.begin(), m_types.end());
 }
 
-NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other) noexcept
-  : m_index(std::move(other.m_index))
-  , m_types(std::move(other.m_types))
-{
-  // Do not move m_addedLangs, see Framework::GetEditorCategories() usage.
-}
-
 void NewFeatureCategories::AddLanguage(std::string lang)
 {
   // A regional locale translates only a handful of categories ("es-MX" has 34 synonyms against 518
@@ -64,6 +57,17 @@ void NewFeatureCategories::AddLanguage(std::string lang)
     m_index.AddCategoryByTypeAndLang(c.GetTypeByReadableObjectName(type), langCode);
 
   m_addedLangs.Insert(langCode);
+}
+
+void NewFeatureCategories::AddLocalizedNames(std::function<std::string(TypeName const &)> const & localize)
+{
+  auto const & c = classif();
+  for (auto const & type : m_types)
+  {
+    auto const name = localize(type);
+    ASSERT(!name.empty(), (type));
+    m_index.AddCategoryName(c.GetTypeByReadableObjectName(type), name);
+  }
 }
 
 NewFeatureCategories::TypeNames NewFeatureCategories::Search(std::string const & query) const
@@ -107,6 +111,6 @@ NewFeatureCategories::TypeNames NewFeatureCategories::GetRecentCategories() cons
   if (recentlyUsedCategories.size() > kMaxRecentlyUsedCategoriesCount)
     recentlyUsedCategories.resize(kMaxRecentlyUsedCategoriesCount);
   return recentlyUsedCategories;
-}  // namespace search
+}
 
 }  // namespace osm

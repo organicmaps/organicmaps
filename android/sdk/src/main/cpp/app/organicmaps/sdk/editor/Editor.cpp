@@ -22,6 +22,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <optional>
 #include <set>
 #include <vector>
 
@@ -57,8 +58,33 @@ jobject ToJavaStreet(JNIEnv * env, osm::LocalizedStreet const & street)
 
 osm::NewFeatureCategories & GetFeatureCategories()
 {
-  /// @todo Non-const static object -> making AddLanguage (see usages), is definitely not a good pattern.
+  // Reuse the index across filter edits; picker entrypoints refresh it for the display locale.
   static osm::NewFeatureCategories categories = frm()->GetEditorCategories();
+  return categories;
+}
+
+osm::NewFeatureCategories & GetFeatureCategories(JNIEnv * env, jobject context, std::string const & locale)
+{
+  auto & categories = GetFeatureCategories();
+  static std::optional<std::string> displayLocale;
+  if (!displayLocale || *displayLocale != locale)
+  {
+    // Activity resources can have a different language from the application context or system locale.
+    // Rebuild the index so a locale change replaces its displayed names and keyword languages together.
+    categories = frm()->GetEditorCategories();
+    static auto const method =
+        jni::GetStaticMethodID(env, g_utilsClazz, "getLocalizedFeatureType",
+                               "(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;");
+    categories.AddLocalizedNames([env, context](std::string const & type)
+    {
+      jni::TScopedLocalRef const key(env, jni::ToJavaString(env, type));
+      jni::TScopedLocalRef const name(env, env->CallStaticObjectMethod(g_utilsClazz, method, context, key.get()));
+      return jni::ToNativeString(env, static_cast<jstring>(name.get()));
+    });
+    categories.AddLanguage(locale);
+    categories.AddLanguage("en");
+    displayLocale = locale;
+  }
   return categories;
 }
 }  // namespace
@@ -375,24 +401,19 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeRollbackMapObject(JN
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv * env,
                                                                                                 jclass clazz,
+                                                                                                jobject context,
                                                                                                 jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
-  auto & categories = GetFeatureCategories();
-  categories.AddLanguage(lang);
-  categories.AddLanguage("en");
+  auto & categories = GetFeatureCategories(env, context, lang);
   return jni::ToJavaStringArray(env, categories.GetAllCreatableTypeNames());
 }
 
-JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeSearchCreatableFeatureTypes(JNIEnv * env,
-                                                                                                jclass clazz,
-                                                                                                jstring query,
-                                                                                                jstring jLang)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeSearchCreatableFeatureTypes(
+    JNIEnv * env, jclass clazz, jobject context, jstring query, jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
-  auto & categories = GetFeatureCategories();
-  categories.AddLanguage(lang);
-  categories.AddLanguage("en");
+  auto & categories = GetFeatureCategories(env, context, lang);
   return jni::ToJavaStringArray(env, categories.Search(jni::ToNativeString(env, query)));
 }
 
