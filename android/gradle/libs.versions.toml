@@ -44,6 +44,9 @@ google-material = "1.13.0"
 
 huawei-plugin = "1.5.0"
 
+# The version androidx.work and androidx.lifecycle already bring in.
+kotlinx-coroutines = "1.8.1"
+
 microg-gms-location = "0.3.14.250932"
 
 mockito-core = "5.23.0"
@@ -52,6 +55,8 @@ mockito-inline = "5.2.0"
 nmcp = "1.4.4"
 
 okhttp = "5.3.2"
+
+org-json = "20250517"
 
 triplet-play-publisher = "4.0.0"
 
@@ -93,12 +98,16 @@ google-material = { module = "com.google.android.material:material", version.ref
 
 ktlint-cli = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
 
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+
 microg-gms-location = { module = "org.microg.gms:play-services-location", version.ref = "microg-gms-location" }
 
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
 
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+org-json = { module = "org.json:json", version.ref = "org-json" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
