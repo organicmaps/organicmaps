@@ -54,8 +54,8 @@ void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
 
 void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
 {
-  for (size_t i = 1; i <= CategoriesHolder::kLocaleMapping.size(); ++i)
-    AddCategoryByTypeAndLang(type, i);
+  m_catHolder->ForEachNameByType(
+      type, [&](Category::Name const & name) { TokenizeAndAddAllSubstrings(m_trie, name.m_name, type); });
 }
 
 void CategoriesIndex::AddAllCategoriesInLang(int8_t lang)

@@ -26,25 +26,20 @@ public:
   NewFeatureCategories(NewFeatureCategories && other) noexcept;
   NewFeatureCategories & operator=(NewFeatureCategories && other) = default;
 
-  // Adds all known synonyms in language |lang| for all categories that
-  // can be applied to a newly added feature.
-  // If one language is added more than once, all the calls except for the
-  // first one are ignored.
-  // If |lang| is not supported, "en" is used.
+  // Indexes synonyms in |lang| for creatable types, including the base language for regional locales.
+  // Unsupported locales use English. Repeated locale codes do not add duplicate index entries.
   void AddLanguage(std::string lang);
 
-  // Returns names (in language |queryLang|) and types of categories that have a synonym containing
-  // the substring |query| (in any language that was added before).
-  // If |lang| is not supported, "en" is used.
-  // The returned list is sorted.
+  // Returns readable classifier identifiers whose indexed synonyms contain every normalized query
+  // token as a substring. Tokens may match different synonyms or languages.
+  // Results are ordered by classifier type.
   TypeNames Search(std::string const & query) const;
 
   TypeNames GetRecentCategories() const;
 
   void AddToRecentCategories(std::string const & category);
 
-  // Returns all registered classifier category types (GetReadableObjectName).
-  // The returned list is sorted.
+  // Returns readable classifier identifiers allowed for new features, sorted lexicographically.
   TypeNames const & GetAllCreatableTypeNames() const { return m_types; }
 
 private:
