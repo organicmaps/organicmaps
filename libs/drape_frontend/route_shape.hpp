@@ -14,7 +14,13 @@
 #include <array>
 #include <cmath>
 #include <memory>
+#include <optional>
 #include <vector>
+
+namespace route_shape_tests
+{
+void UnitTest_RouteShape_BoundaryMarkerCoversJoiningLines();
+}  // namespace route_shape_tests
 
 namespace df
 {
@@ -121,6 +127,8 @@ struct SubrouteMarker
   m2::PointD m_up = m2::PointD(0.0, 1.0);
   // Scale (1.0 when the radius is equal to route line half-width).
   float m_scale = 1.0f;
+  // A boundary ring keeps its incoming subroute's depth so it covers both joining lines.
+  std::optional<double> m_baseDepthIndex;
 };
 
 struct Subroute
@@ -215,6 +223,8 @@ public:
                                double baseDepthIndex, SubrouteArrowsData & routeArrowsData);
 
 private:
+  friend void route_shape_tests::UnitTest_RouteShape_BoundaryMarkerCoversJoiningLines();
+
   template <typename GeometryBufferType>
   struct GeometryBufferData
   {

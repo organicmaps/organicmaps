@@ -891,7 +891,9 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     case RouterType::Transit:
     {
       subroute->m_routeType = df::RouteType::Transit;
-      if (!transitRouteDisplay->ProcessSubroute(segments, *subroute.get()))
+      bool const isLastSubroute =
+          route.GetSubrouteAttrs(subrouteIndex).GetEndSegmentIdx() == route.GetRouteSegments().size();
+      if (!transitRouteDisplay->ProcessSubroute(segments, *subroute.get(), isLastSubroute))
         continue;
       break;
     }

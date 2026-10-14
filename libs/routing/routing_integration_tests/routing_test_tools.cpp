@@ -221,7 +221,8 @@ TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents,
     auto const begin = route.GetSubrouteAttrs(i).GetBeginSegmentIdx();
     if (begin > 0)
       subroute.m_baseDistance = route.GetRouteSegments()[begin - 1].GetDistFromBeginningMerc();
-    display.ProcessSubroute(segments, subroute);
+    display.ProcessSubroute(segments, subroute,
+                            route.GetSubrouteAttrs(i).GetEndSegmentIdx() == route.GetRouteSegments().size());
   }
 
   return display.GetRouteInfo();

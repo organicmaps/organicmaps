@@ -38,7 +38,7 @@ TransitRouteInfo MakeRouteInfo(std::vector<double> const & times, std::vector<si
     df::Subroute subroute;
     subroute.m_baseDistance = begin * 0.00001;
     subroute.m_polyline.Add({begin * 0.00001, 0});
-    TEST(display.ProcessSubroute(segments, subroute), (begin, end));
+    TEST(display.ProcessSubroute(segments, subroute, end == times.size()), (begin, end));
     begin = end;
   }
   TEST_EQUAL(begin, times.size(), ());

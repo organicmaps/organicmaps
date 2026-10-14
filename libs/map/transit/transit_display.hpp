@@ -26,6 +26,16 @@ void UnitTest_TransitDisplay_WaypointDoesNotDuplicateStopMarks();
 void UnitTest_TransitDisplay_DirectionRoundingKeepsTransferAxis();
 void UnitTest_TransitDisplay_WalkSeparatesRideStopsAndColors();
 void UnitTest_TransitDisplay_UnavailableLegClearsPendingStop();
+void UnitTest_TransitDisplay_WaypointTransferHasOneRing();
+void UnitTest_TransitDisplay_RemainingTransferKeepsIncomingStyle();
+void UnitTest_TransitDisplay_RemainingGateKeepsStopPresentation();
+void UnitTest_TransitDisplay_StationaryConnectorPreservesVisualContext();
+void UnitTest_TransitDisplay_EmptyWaypointsKeepOneBoundaryRing();
+void UnitTest_TransitDisplay_RemainingGroupedBoardingKeepsRenderedDirection();
+void UnitTest_TransitDisplay_ExitSeparatesStationaryReboarding();
+void UnitTest_TransitDisplay_MissingPreviousMapKeepsAvailableSummary();
+void UnitTest_TransitDisplay_NewRouteDoesNotInventPreviousRide();
+void UnitTest_TransitDisplay_TransferConnectionKeepsCanonicalRideStart();
 }  // namespace transit_rendering_tests
 
 enum class TransitType : uint32_t
@@ -159,13 +169,15 @@ public:
                       GetStringsBundleFn const & getStringsBundleFn, BookmarkManager * bmManager,
                       std::map<std::string, m2::PointF> const & transitSymbolSizes);
 
-  // Initialize a new display so route info starts at the active subroute and waypoint indices
-  // refer to the original route. Segment distances stay cumulative from the route start.
+  // Initialize remaining totals and incoming station context at the active subroute.
+  // Waypoint indices and cumulative segment distances refer to the original route.
   void SetRouteOrigin(routing::RouteBase const & route);
 
   // The caller seeds the polyline with the subroute start and sets m_baseDistance to its
-  // route-relative Mercator distance. Process subroutes in route order.
-  bool ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute);
+  // route-relative Mercator distance. Process subroutes in route order. The final range flushes
+  // its alighting ring; other boundary rings wait until the following range classifies the stop.
+  bool ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute,
+                       bool isLastSubroute);
   void CreateTransitMarks();
 
   // Empty when transit data for any subroute is unavailable.
@@ -180,6 +192,16 @@ private:
   friend void transit_rendering_tests::UnitTest_TransitDisplay_DirectionRoundingKeepsTransferAxis();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_WalkSeparatesRideStopsAndColors();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_UnavailableLegClearsPendingStop();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_WaypointTransferHasOneRing();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_RemainingTransferKeepsIncomingStyle();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_RemainingGateKeepsStopPresentation();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_StationaryConnectorPreservesVisualContext();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_EmptyWaypointsKeepOneBoundaryRing();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_RemainingGroupedBoardingKeepsRenderedDirection();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_ExitSeparatesStationaryReboarding();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_MissingPreviousMapKeepsAvailableSummary();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_NewRouteDoesNotInventPreviousRide();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_TransferConnectionKeepsCanonicalRideStart();
 
   using StopId = routing::transit::StopId;
   void FlushPendingStop(df::Subroute & subroute, SubrouteParams & sp);
@@ -212,5 +234,6 @@ private:
   bool m_pendingEntrance = false;
   // A boundary stop can continue as a boarding stop or precede an exit gate.
   std::optional<size_t> m_pendingStopIndex;
+  SubrouteParams m_subrouteParams;
   bool m_transitDataUnavailable = false;
 };

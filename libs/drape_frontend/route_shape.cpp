@@ -407,8 +407,6 @@ void RouteShape::PrepareMarkersGeometry(std::vector<SubrouteMarker> const & mark
   static float const kInnerRadius = 0.6f;
   static float const kOuterRadius = 1.0f;
 
-  float const depth = baseDepth - 0.5f;
-  float const innerDepth = baseDepth + 0.5f;
   for (SubrouteMarker const & marker : markers)
   {
     if (marker.m_colors.empty())
@@ -417,6 +415,12 @@ void RouteShape::PrepareMarkersGeometry(std::vector<SubrouteMarker> const & mark
       continue;
     }
 
+    auto const markerDepth =
+        marker.m_baseDepthIndex
+            ? static_cast<float>(*marker.m_baseDepthIndex * rs::kDepthPerSubroute + rs::kMarkersDepth)
+            : baseDepth;
+    float const depth = markerDepth - 0.5f;
+    float const innerDepth = markerDepth + 0.5f;
     float const innerRadius = kInnerRadius * marker.m_scale;
     float const outerRadius = kOuterRadius * marker.m_scale;
 
