@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_manager.hpp"
 #include "routing/speed_camera_ser_des.hpp"
 
@@ -179,17 +180,13 @@ std::shared_ptr<Route> MakeCameraDistanceRoute(std::vector<m2::PointD> const & p
   auto route = std::make_shared<Route>();
   route->SetGeometry(points.begin(), points.end());
   std::vector<RouteSegment> segments;
-  double lengthMeters = 0;
-  double lengthMercator = 0;
   for (uint32_t i = 0; i + 1 < points.size(); ++i)
   {
     auto const segment = i == 0 || i + 2 == points.size() ? Segment{} : Segment(0, 5, i, true);
     segments.emplace_back(segment, turns::TurnItem{}, geometry::PointWithAltitude(points[i + 1], 0),
                           RouteSegment::RoadNameInfo{});
-    lengthMeters += mercator::DistanceOnEarth(points[i], points[i + 1]);
-    lengthMercator += points[i].Length(points[i + 1]);
-    segments.back().SetDistancesAndTime(lengthMeters, lengthMercator, i + 1);
   }
+  FillSegmentInfo(std::vector<double>(segments.size(), 0.0), segments);
   route->SetRouteSegments(std::move(segments));
   route->SetSubroutes(
       std::vector<Route::SubrouteAttrs>{{geometry::PointWithAltitude(points.front(), 0),
@@ -209,6 +206,7 @@ UNIT_TEST(SpeedCamera_DistanceStartsAtTheSegmentBeginning)
   manager.OnLocationPositionChanged(gps);
   auto const & camera = manager.GetClosestCamForTests();
   TEST(camera.IsValid(), ());
+  TEST(AlmostEqualAbs(camera.m_position, m2::PointD(0.00025, 0), 1e-12), (camera.m_position));
   TEST_ALMOST_EQUAL_ABS(camera.m_distFromBeginMeters, mercator::DistanceOnEarth({0, 0}, {0.00025, 0}), 1e-8, ());
 }
 
@@ -226,6 +224,7 @@ UNIT_TEST(SpeedCamera_LongSegmentDoesNotHideANearbyCamera)
   manager.OnLocationPositionChanged(gps);
   auto const & camera = manager.GetClosestCamForTests();
   TEST(camera.IsValid(), ());
+  TEST(AlmostEqualAbs(camera.m_position, m2::PointD(0.0003, 0), 1e-12), (camera.m_position));
   TEST_ALMOST_EQUAL_ABS(camera.m_distFromBeginMeters, mercator::DistanceOnEarth({0, 0}, {0.0003, 0}), 1e-8, ());
 
   // The next segment enters the lookahead range after we move along the long segment.
@@ -234,6 +233,7 @@ UNIT_TEST(SpeedCamera_LongSegmentDoesNotHideANearbyCamera)
   manager.OnLocationPositionChanged(gps);
   TEST(camera.IsValid(), ());
   TEST_EQUAL(camera.m_maxSpeedKmH, 30, ());
+  TEST(AlmostEqualAbs(camera.m_position, m2::PointD(0.0305, 0), 1e-12), (camera.m_position));
   double const nextCameraDistance = mercator::DistanceOnEarth({0, 0}, {0.0305, 0});
   TEST_ALMOST_EQUAL_ABS(camera.m_distFromBeginMeters, nextCameraDistance, 1e-8, ());
 
