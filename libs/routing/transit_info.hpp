@@ -66,7 +66,9 @@ public:
     transit::StopId m_stop2Id = transit::kInvalidStopId;
   };
 
-  TransitInfo(transit::Gate const & gate, bool isEntrance) : m_type(Type::Gate), m_gateSubway(gate, isEntrance) {}
+  explicit TransitInfo(GateSubway const & gate) : m_type(Type::Gate), m_gateSubway(gate) {}
+
+  TransitInfo(transit::Gate const & gate, bool isEntrance) : TransitInfo(GateSubway(gate, isEntrance)) {}
 
   explicit TransitInfo(transit::Edge const & edge)
     : m_type(edge.GetTransfer() ? Type::Transfer : Type::Edge)

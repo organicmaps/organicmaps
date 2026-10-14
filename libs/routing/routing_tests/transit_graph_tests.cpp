@@ -12,6 +12,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/geo_object_id.hpp"
+
 #include <algorithm>
 #include <string>
 #include <string_view>
@@ -20,6 +22,8 @@ namespace transit_graph_tests
 {
 namespace
 {
+routing::transit::FeatureId constexpr kGateFeatureId = 117;
+
 struct Fixture
 {
   explicit Fixture(std::string_view graphJson = {})
@@ -56,7 +60,7 @@ struct Fixture
       "networks": [{"id": 1, "title": "Transit test"}]
     })"
                                                  : graphJson,
-                               {});
+                               {{base::GeoObjectId(10), {kGateFeatureId}}});
     if (!graphJson.empty())
     {
       m_data.Sort();
@@ -152,18 +156,25 @@ private:
 
 UNIT_TEST(TransitGraph_GateMetadataPreservesTraversal)
 {
-  Fixture fixture;
-  auto const graph = fixture.MakeGraph();
-  auto world = fixture.MakeWorldGraph();
+  std::unique_ptr<routing::TransitGraph> graph;
+  std::unique_ptr<routing::TransitWorldGraph> world;
+  {
+    Fixture fixture;
+    graph = fixture.MakeGraph();
+    world = fixture.MakeWorldGraph();
+  }
+  // Cached metadata and gate costs must outlive the source graph data.
   for (bool const isEntrance : {true, false})
   {
     auto const segment = Gate(*graph, isEntrance);
     // A gate at its stop has identical endpoints in both directions.
     TEST_EQUAL(graph->GetJunction(segment, false), graph->GetJunction(segment, true), ());
-    TEST_EQUAL(graph->FindGate(segment)->m_isEntrance, isEntrance, ());
     auto const info = world->GetTransitInfo(segment);
     TEST(info, ());
     TEST_EQUAL(info->GetGateSubway().m_isEntrance, isEntrance, ());
+    TEST_EQUAL(info->GetGateSubway().m_featureId, kGateFeatureId, ());
+    TEST_EQUAL(graph->CalcSegmentWeight(segment, routing::EdgeEstimator::Purpose::ETA).GetWeight(), 60.0, ());
+    TEST_EQUAL(world->CalculateETAWithoutPenalty(segment), 60.0, ());
   }
 }
 

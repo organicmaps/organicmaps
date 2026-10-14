@@ -49,7 +49,7 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimat
   double time;
   if (auto const * gate = FindGate(segment))
   {
-    time = gate->m_gate.GetWeight();
+    time = gate->m_weight;
   }
   else if (auto const * edge = FindEdge(segment))
   {
@@ -250,7 +250,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
                             isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
       m_fake.AddVertex(projectionSegment, gateSegment, gateVertex, isEnter /* isOutgoing */, false /* isPartOfReal */,
                        dummy /* realSegment */);
-      m_segmentToGateSubway.emplace(gateSegment, GateInfo{gate, isEnter});
+      m_segmentToGateSubway.emplace(gateSegment, GateInfo{TransitInfo::GateSubway(gate, isEnter), gate.GetWeight()});
       if (isEnter)
         stopToFront[stopId].insert(gateSegment);
       else
