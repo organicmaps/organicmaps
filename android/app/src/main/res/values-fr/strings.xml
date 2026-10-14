@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Sauvegarde des signets et des parcours</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Les signets et les parcours peuvent être inclus dans les sauvegardes système d\'Android si la sauvegarde est activée sur cet appareil et qu\'ils ne dépassent pas sa limite de taille.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Synchronisation Google Drive (bêta)</string>
+    <string name="bookmarks_sync_enabled">Synchroniser les signets et parcours</string>
+    <string name="bookmarks_sync_account">Compte Google</string>
+    <string name="bookmarks_sync_manage_storage">Gérer l\'espace de stockage Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s utilisés sur %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Synchroniser via les données mobiles</string>
+    <string name="bookmarks_sync_now">Synchroniser maintenant</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Dernière synchronisation : %s</string>
+    <string name="bookmarks_sync_status_running">Synchronisation…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">En attente du Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Connexion requise</string>
+    <string name="bookmarks_sync_status_quota">Google Drive est plein</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Échec de la synchronisation : %s</string>
+    <string name="bookmarks_sync_delete_cloud">Supprimer les données de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Supprimer les signets et parcours synchronisés de Google Drive ? Les signets et parcours de cet appareil sont conservés.</string>
+    <string name="bookmarks_sync_beta_warning">La synchronisation est en bêta. Exportez une sauvegarde de tous les signets et parcours avant de l\'activer.</string>
     <string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
     <string name="clear_search">Effacer l\'historique de recherche</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -871,6 +891,8 @@
     <string name="hide_track">Cacher le tracé</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Afficher le tracé</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activer</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

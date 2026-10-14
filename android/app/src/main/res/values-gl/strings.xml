@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Copia de seguridade de marcadores e traxectos</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Os marcadores e traxectos poden incluírse nas copias de seguridade do sistema Android se a copia de seguridade está activada neste dispositivo e non superan o seu límite de tamaño.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronización con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar marcadores e traxectos</string>
+    <string name="bookmarks_sync_account">Conta de Google</string>
+    <string name="bookmarks_sync_manage_storage">Xestionar o almacenamento de Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s de %2$s usados</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar cos datos móbiles</string>
+    <string name="bookmarks_sync_now">Sincronizar agora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronización: %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Agardando pola wifi</string>
+    <string name="bookmarks_sync_status_sign_in">É necesario iniciar sesión</string>
+    <string name="bookmarks_sync_status_quota">Google Drive está cheo</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Erro de sincronización: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eliminar os datos de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Eliminar os marcadores e traxectos sincronizados de Google Drive? Os marcadores e traxectos deste dispositivo consérvanse.</string>
+    <string name="bookmarks_sync_beta_warning">A sincronización está en beta. Exporta unha copia de seguridade de todos os marcadores e traxectos antes de activala.</string>
     <string name="search_history_text">Ver procuras recentes.</string>
     <string name="clear_search">Baleirar historial de procuras</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -868,6 +888,8 @@
     <string name="move">Mover</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Cambiar cor</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

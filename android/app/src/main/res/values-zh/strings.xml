@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">书签和轨迹备份</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">如果此设备已启用备份，且书签和轨迹未超过其容量上限，它们可以包含在 Android 系统备份中。</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google 云端硬盘同步（测试版）</string>
+    <string name="bookmarks_sync_enabled">同步书签和轨迹</string>
+    <string name="bookmarks_sync_account">Google 账号</string>
+    <string name="bookmarks_sync_manage_storage">管理 Google 存储空间</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">已使用 %1$s，共 %2$s</string>
+    <string name="bookmarks_sync_mobile_data">使用移动数据同步</string>
+    <string name="bookmarks_sync_now">立即同步</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">上次同步：%s</string>
+    <string name="bookmarks_sync_status_running">正在同步…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">正在等待 WLAN</string>
+    <string name="bookmarks_sync_status_sign_in">需要登录</string>
+    <string name="bookmarks_sync_status_quota">Google 云端硬盘空间已满</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">同步失败：%s</string>
+    <string name="bookmarks_sync_delete_cloud">从 Google 云端硬盘删除数据</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">要从 Google 云端硬盘删除已同步的书签和轨迹吗？此设备上的书签和轨迹会保留。</string>
+    <string name="bookmarks_sync_beta_warning">同步功能处于测试阶段。启用前请导出所有书签和轨迹的备份。</string>
     <string name="search_history_text">查看您最近的搜索记录。</string>
     <string name="clear_search">清除搜索记录</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -868,6 +888,8 @@
     <string name="hide_track">隐藏轨迹</string>
     <!-- Text for the showing track. -->
     <string name="show_track">显示轨迹</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">启用</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

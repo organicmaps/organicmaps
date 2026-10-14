@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Резервна копија маркера и путања</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Маркери и путање могу бити укључени у резервне копије система Android ако је на овом уређају укључено прављење резервних копија и не прелазе његово ограничење величине.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Синхронизација са Google диском (бета)</string>
+    <string name="bookmarks_sync_enabled">Синхронизуј маркере и путање</string>
+    <string name="bookmarks_sync_account">Google налог</string>
+    <string name="bookmarks_sync_manage_storage">Управљај Google меморијским простором</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Искоришћено %1$s од %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Синхронизуј преко мобилних података</string>
+    <string name="bookmarks_sync_now">Синхронизуј сада</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Последња синхронизација: %s</string>
+    <string name="bookmarks_sync_status_running">Синхронизација…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Чека се Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Потребна је пријава</string>
+    <string name="bookmarks_sync_status_quota">Google диск је пун</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Синхронизација није успела: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Обриши податке са Google диска</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Обрисати синхронизоване маркере и путање са Google диска? Маркери и путање на овом уређају остају.</string>
+    <string name="bookmarks_sync_beta_warning">Синхронизација је у бета фази. Пре укључивања извезите резервну копију свих маркера и путања.</string>
     <string name="search_history_text">Погледајте ваше недавне претраге.</string>
     <string name="clear_search">Обриши историју претраге</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -866,6 +886,8 @@
     <string name="move">Премести</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Промени боју</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Укључи</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

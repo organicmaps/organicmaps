@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Sicherung von Lesezeichen und Tracks</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Lesezeichen und Tracks können in Android-Systemsicherungen aufgenommen werden, wenn die Sicherung auf diesem Gerät aktiviert ist und ihr Größenlimit nicht überschritten wird.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive-Synchronisierung (Beta)</string>
+    <string name="bookmarks_sync_enabled">Lesezeichen und Tracks synchronisieren</string>
+    <string name="bookmarks_sync_account">Google-Konto</string>
+    <string name="bookmarks_sync_manage_storage">Google-Speicher verwalten</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s von %2$s belegt</string>
+    <string name="bookmarks_sync_mobile_data">Über mobile Daten synchronisieren</string>
+    <string name="bookmarks_sync_now">Jetzt synchronisieren</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Zuletzt synchronisiert: %s</string>
+    <string name="bookmarks_sync_status_running">Synchronisierung…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Warten auf WLAN</string>
+    <string name="bookmarks_sync_status_sign_in">Anmeldung erforderlich</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ist voll</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Synchronisierung fehlgeschlagen: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Daten aus Google Drive löschen</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Synchronisierte Lesezeichen und Tracks aus Google Drive löschen? Lesezeichen und Tracks auf diesem Gerät bleiben erhalten.</string>
+    <string name="bookmarks_sync_beta_warning">Die Synchronisierung ist in der Beta. Exportiere vor dem Aktivieren eine Sicherung aller Lesezeichen und Tracks.</string>
     <string name="search_history_text">Hier werden deine letzten Suchanfragen angezeigt.</string>
     <string name="clear_search">Suchverlauf löschen</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -871,6 +891,8 @@
     <string name="hide_track">Track ausblenden</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Track anzeigen</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivieren</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

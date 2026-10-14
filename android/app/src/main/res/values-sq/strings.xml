@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Kopje rezervë e faqeshënuesve dhe gjurmëve</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Faqeshënuesit dhe gjurmët mund të përfshihen në kopjet rezervë të sistemit Android, nëse kopjimi rezervë është aktivizuar në këtë pajisje dhe nuk e tejkalojnë kufirin e tij të madhësisë.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sinkronizimi me Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinkronizo faqeshënuesit dhe gjurmët</string>
+    <string name="bookmarks_sync_account">Llogaria e Google</string>
+    <string name="bookmarks_sync_manage_storage">Menaxho hapësirën ruajtëse të Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Përdorur %1$s nga %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sinkronizo me të dhëna celulare</string>
+    <string name="bookmarks_sync_now">Sinkronizo tani</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Sinkronizimi i fundit: %s</string>
+    <string name="bookmarks_sync_status_running">Po sinkronizohet…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Në pritje të Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Kërkohet hyrja</string>
+    <string name="bookmarks_sync_status_quota">Google Drive është plot</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinkronizimi dështoi: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Fshi të dhënat nga Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Të fshihen faqeshënuesit dhe gjurmët e sinkronizuara nga Google Drive? Faqeshënuesit dhe gjurmët në këtë pajisje mbeten.</string>
+    <string name="bookmarks_sync_beta_warning">Sinkronizimi është në version beta. Para se ta aktivizoni, eksportoni një kopje rezervë të të gjithë faqeshënuesve dhe gjurmëve.</string>
     <string name="search_history_text">Shikoni kërkimet tuaja të fundit.</string>
     <string name="clear_search">Pastro Historikun e Kërkimit</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -841,6 +861,8 @@
     <string name="move">Lëviz</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Ndrysho Ngjyrën</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivizo</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

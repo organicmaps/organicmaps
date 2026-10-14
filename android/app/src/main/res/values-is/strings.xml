@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Öryggisafrit bókamerkja og ferla</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Bókamerki og ferlar geta verið tekin með í kerfisöryggisafritum Android þegar öryggisafritun er virk á þessu tæki og þau fara ekki yfir stærðarmörk hennar.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Samstilling við Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Samstilla bókamerki og ferla</string>
+    <string name="bookmarks_sync_account">Google-reikningur</string>
+    <string name="bookmarks_sync_manage_storage">Stjórna Google-geymslu</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s af %2$s í notkun</string>
+    <string name="bookmarks_sync_mobile_data">Samstilla um farsímagögn</string>
+    <string name="bookmarks_sync_now">Samstilla núna</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Síðast samstillt: %s</string>
+    <string name="bookmarks_sync_status_running">Samstillir…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Bíður eftir Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Innskráningar krafist</string>
+    <string name="bookmarks_sync_status_quota">Google Drive er fullt</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Samstilling mistókst: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eyða gögnum af Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Eyða samstilltum bókamerkjum og ferlum af Google Drive? Bókamerki og ferlar á þessu tæki haldast.</string>
+    <string name="bookmarks_sync_beta_warning">Samstilling er í prófun. Fluttu út öryggisafrit af öllum bókamerkjum og ferlum áður en þú kveikir á henni.</string>
     <string name="search_history_text">Skoðaðu nýlegar leitir þínar.</string>
     <string name="clear_search">Hreinsa leitarferil</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -868,6 +888,8 @@
     <string name="move">Færa</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Breyta lit</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Virkja</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">खूणपत्रे आणि ट्रॅकचा बॅकअप</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">या डिव्हाइसवर बॅकअप सुरू असल्यास आणि खूणपत्रे व ट्रॅक त्याच्या आकार मर्यादेपेक्षा जास्त नसल्यास, ते Android सिस्टम बॅकअपमध्ये समाविष्ट केले जाऊ शकतात.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google ड्राइव्ह सिंक (बीटा)</string>
+    <string name="bookmarks_sync_enabled">खूणपत्रे आणि ट्रॅक सिंक करा</string>
+    <string name="bookmarks_sync_account">Google खाते</string>
+    <string name="bookmarks_sync_manage_storage">Google स्टोरेज व्यवस्थापित करा</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s पैकी %1$s वापरले</string>
+    <string name="bookmarks_sync_mobile_data">मोबाइल डेटावर सिंक करा</string>
+    <string name="bookmarks_sync_now">आता सिंक करा</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">शेवटचे सिंक: %s</string>
+    <string name="bookmarks_sync_status_running">सिंक होत आहे…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">वाय-फायची प्रतीक्षा आहे</string>
+    <string name="bookmarks_sync_status_sign_in">साइन इन आवश्यक आहे</string>
+    <string name="bookmarks_sync_status_quota">Google ड्राइव्ह भरले आहे</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">सिंक अयशस्वी: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google ड्राइव्ह मधून डेटा हटवा</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">सिंक केलेली खूणपत्रे आणि ट्रॅक Google ड्राइव्ह मधून हटवायचे? या डिव्हाइसवरील खूणपत्रे आणि ट्रॅक राहतील.</string>
+    <string name="bookmarks_sync_beta_warning">सिंक बीटामध्ये आहे. ते सुरू करण्यापूर्वी सर्व खूणपत्रे आणि ट्रॅकचा बॅकअप निर्यात करा.</string>
     <string name="search_history_text">अलीकडील शोध पहा.</string>
     <string name="clear_search">शोध इतिहास पुसून टाका</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -859,6 +879,8 @@
     <string name="hide_track">मार्ग लपवा</string>
     <!-- Text for the showing track. -->
     <string name="show_track">मार्ग दाखवा</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">सक्षम करा</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

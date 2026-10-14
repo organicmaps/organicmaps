@@ -343,6 +343,30 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Lawrlwythwch y rhanbarth lle rydych chi\'n chwilio neu ceisiwch ychwanegu enw tref/pentref cyfagos.</string>
     <string name="search_history_title">Hanes chwilio</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Copi wrth gefn o nodau tudalen a thraciau</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Gellir cynnwys nodau tudalen a thraciau yng nghopïau wrth gefn system Android pan fydd copïo wrth gefn wedi\'i alluogi ar y ddyfais hon a\'u bod o fewn ei derfyn maint.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Cysoni â Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Cysoni nodau tudalen a thraciau</string>
+    <string name="bookmarks_sync_account">Cyfrif Google</string>
+    <string name="bookmarks_sync_manage_storage">Rheoli storfa Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s o %2$s wedi\'i ddefnyddio</string>
+    <string name="bookmarks_sync_mobile_data">Cysoni dros ddata symudol</string>
+    <string name="bookmarks_sync_now">Cysoni nawr</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Cysoni diwethaf: %s</string>
+    <string name="bookmarks_sync_status_running">Yn cysoni…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Yn aros am Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Rhaid mewngofnodi</string>
+    <string name="bookmarks_sync_status_quota">Mae Google Drive yn llawn</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Methodd cysoni: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Dileu data o Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Dileu nodau tudalen a thraciau wedi\'u cysoni o Google Drive? Bydd nodau tudalen a thraciau ar y ddyfais hon yn aros.</string>
+    <string name="bookmarks_sync_beta_warning">Mae cysoni mewn beta. Allforiwch gopi wrth gefn o\'r holl nodau tudalen a thraciau cyn ei alluogi.</string>
     <string name="search_history_text">Gwelwch eich chwiliadau diweddar.</string>
     <string name="clear_search">Clirio hanes chwilio</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -883,6 +907,8 @@
     <string name="hide_track">Cuddio trac</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Dangos trac</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Galluogi</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Copia de seguridad de marcadores y trayectos</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Los marcadores y trayectos pueden incluirse en las copias de seguridad del sistema Android si la copia de seguridad está activada en este dispositivo y no superan su límite de tamaño.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronización con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar marcadores y trayectos</string>
+    <string name="bookmarks_sync_account">Cuenta de Google</string>
+    <string name="bookmarks_sync_manage_storage">Administrar el almacenamiento de Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s de %2$s usados</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar con datos móviles</string>
+    <string name="bookmarks_sync_now">Sincronizar ahora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronización: %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Esperando Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Es necesario iniciar sesión</string>
+    <string name="bookmarks_sync_status_quota">Google Drive está lleno</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Error de sincronización: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eliminar los datos de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">¿Eliminar los marcadores y trayectos sincronizados de Google Drive? Los marcadores y trayectos de este dispositivo se conservan.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronización está en beta. Exporta una copia de seguridad de todos los marcadores y trayectos antes de activarla.</string>
     <string name="search_history_text">Ver búsquedas recientes.</string>
     <string name="clear_search">Vaciar historial de búsquedas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -877,6 +897,8 @@
     <string name="hide_track">Ocultar trayecto</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostrar trayecto</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
