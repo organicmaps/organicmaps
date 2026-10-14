@@ -506,10 +506,17 @@ using namespace routing;
   if (!info.IsValid())
     return;
   auto navManager = [MWMNavigationDashboardManager sharedManager];
-  if ([MWMRouter type] == MWMRouterTypePublicTransport)
-    [navManager updateTransitInfo:rm.GetTransitRouteInfo()];
-  else
-    [navManager updateFollowingInfo:info routePoints:[MWMRouter points] type:[MWMRouter type]];
+  auto const type = [MWMRouter type];
+  if (type == MWMRouterTypePublicTransport)
+  {
+    auto const transitInfo = rm.GetTransitRouteInfo();
+    if (!transitInfo.m_steps.empty())
+    {
+      [navManager updateTransitInfo:transitInfo];
+      return;
+    }
+  }
+  [navManager updateFollowingInfo:info routePoints:[MWMRouter points] type:type];
 }
 
 #pragma mark - MWMLocationObserver

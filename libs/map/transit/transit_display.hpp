@@ -25,6 +25,7 @@ void UnitTest_TransitDisplay_WalkClearsExitIconContext();
 void UnitTest_TransitDisplay_WaypointDoesNotDuplicateStopMarks();
 void UnitTest_TransitDisplay_DirectionRoundingKeepsTransferAxis();
 void UnitTest_TransitDisplay_WalkSeparatesRideStopsAndColors();
+void UnitTest_TransitDisplay_UnavailableLegClearsPendingStop();
 }  // namespace transit_rendering_tests
 
 enum class TransitType : uint32_t
@@ -167,6 +168,7 @@ public:
   bool ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute);
   void CreateTransitMarks();
 
+  // Empty when transit data for any subroute is unavailable.
   TransitRouteInfo const & GetRouteInfo();
 
 private:
@@ -177,6 +179,7 @@ private:
   friend void transit_rendering_tests::UnitTest_TransitDisplay_WaypointDoesNotDuplicateStopMarks();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_DirectionRoundingKeepsTransferAxis();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_WalkSeparatesRideStopsAndColors();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_UnavailableLegClearsPendingStop();
 
   using StopId = routing::transit::StopId;
   void FlushPendingStop(df::Subroute & subroute, SubrouteParams & sp);
@@ -209,4 +212,5 @@ private:
   bool m_pendingEntrance = false;
   // A boundary stop can continue as a boarding stop or precede an exit gate.
   std::optional<size_t> m_pendingStopIndex;
+  bool m_transitDataUnavailable = false;
 };
