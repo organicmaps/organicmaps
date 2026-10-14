@@ -514,15 +514,12 @@ void Processor::EmitWithMetadata(feature::Metadata::EType type)
 
 Locales Processor::GetCategoryLocales() const
 {
-  static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
   Locales result;
 
-  // Prepare array of processing locales. English locale is always present for category matching.
-  result.Insert(static_cast<uint64_t>(enLocaleCode));
-  if (m_currentLocaleCode != -1)
-    result.Insert(static_cast<uint64_t>(m_currentLocaleCode));
-  if (m_inputLocaleCode != -1)
-    result.Insert(static_cast<uint64_t>(m_inputLocaleCode));
+  // Always match English; Locales ignores unsupported locale codes.
+  result.Insert(static_cast<uint64_t>(CategoriesHolder::kEnglishCode));
+  result.Insert(static_cast<uint64_t>(m_currentLocaleCode));
+  result.Insert(static_cast<uint64_t>(m_inputLocaleCode));
 
   return result;
 }
