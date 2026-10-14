@@ -108,7 +108,8 @@ inline TransitRouteInfo ProcessSubroutes(TransitRouteDisplay & display,
     df::Subroute subroute;
     subroute.m_baseDistance = begin == 0 ? 0.0 : segments[begin - 1].GetDistFromBeginningMerc();
     subroute.m_polyline.Add(begin == 0 ? m2::PointD{} : segments[begin - 1].GetJunction().GetPoint());
-    TEST(display.ProcessSubroute({segments.begin() + begin, segments.begin() + end}, subroute), (begin, end));
+    TEST(display.ProcessSubroute({segments.begin() + begin, segments.begin() + end}, subroute, end == segments.size()),
+         (begin, end));
     begin = end;
   }
   TEST_EQUAL(begin, segments.size(), ());

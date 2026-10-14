@@ -41,7 +41,9 @@ TransitRouteInfo ProcessRemainingRoute(TransitRouteDisplay & display, TestRoute 
     auto const begin = route.GetSubrouteAttrs(i).GetBeginSegmentIdx();
     subroute.m_baseDistance = begin == 0 ? 0.0 : route.GetRouteSegments()[begin - 1].GetDistFromBeginningMerc();
     subroute.m_polyline.Add(route.GetSubrouteAttrs(i).GetStart().GetPoint());
-    TEST(display.ProcessSubroute(segments, subroute), (i));
+    TEST(display.ProcessSubroute(segments, subroute,
+                                 route.GetSubrouteAttrs(i).GetEndSegmentIdx() == route.GetRouteSegments().size()),
+         (i));
   }
   return display.GetRouteInfo();
 }
@@ -103,7 +105,7 @@ UNIT_TEST(TransitDisplay_RoutingManagerInitializesRemainingOrigin)
       {
         auto remainingDisplay = fixture.MakeDisplay();
         remainingDisplay.SetRouteOrigin(*remainingRoute);
-        TEST(remainingDisplay.ProcessSubroute(segments, *subroute), ());
+        TEST(remainingDisplay.ProcessSubroute(segments, *subroute, true /* isLastSubroute */), ());
       }
       // The renderer subtracts the subroute base from route-global following progress.
       TEST_ALMOST_EQUAL_ABS(segments.back().GetDistFromBeginningMerc() - subroute->m_baseDistance,
@@ -119,7 +121,7 @@ UNIT_TEST(TransitDisplay_RoutingManagerInitializesRemainingOrigin)
   auto subroute = manager.MakeDrapeSubroute(rideRoute, 1, ride, 10.0);
   auto remainingDisplay = fixture.MakeDisplay();
   remainingDisplay.SetRouteOrigin(rideRoute);
-  TEST(remainingDisplay.ProcessSubroute(ride, *subroute), ());
+  TEST(remainingDisplay.ProcessSubroute(ride, *subroute, true /* isLastSubroute */), ());
   TEST_EQUAL(subroute->m_baseDistance, segments[1].GetDistFromBeginningMerc(), ());
   TEST_EQUAL(subroute->m_markers.size(), 2, ());
   TEST_EQUAL(subroute->m_markers.front().m_distance, 0.0, ());
@@ -196,18 +198,18 @@ UNIT_TEST(TransitDisplay_OriginPreservesMarkerDistances)
   auto fullDisplay = fixture.MakeDisplay();
   df::Subroute prefix;
   prefix.m_polyline.Add({0, 0});
-  TEST(fullDisplay.ProcessSubroute({segments.begin(), segments.begin() + 2}, prefix), ());
+  TEST(fullDisplay.ProcessSubroute({segments.begin(), segments.begin() + 2}, prefix, false /* isLastSubroute */), ());
   df::Subroute full;
   full.m_baseDistance = segments[1].GetDistFromBeginningMerc();
   full.m_polyline.Add(route.GetSubrouteAttrs(1).GetStart().GetPoint());
-  TEST(fullDisplay.ProcessSubroute({segments[2]}, full), ());
+  TEST(fullDisplay.ProcessSubroute({segments[2]}, full, true /* isLastSubroute */), ());
 
   auto remainingDisplay = fixture.MakeDisplay();
   remainingDisplay.SetRouteOrigin(route);
   df::Subroute remaining;
   remaining.m_baseDistance = segments[1].GetDistFromBeginningMerc();
   remaining.m_polyline.Add(route.GetSubrouteAttrs(1).GetStart().GetPoint());
-  TEST(remainingDisplay.ProcessSubroute({segments[2]}, remaining), ());
+  TEST(remainingDisplay.ProcessSubroute({segments[2]}, remaining, true /* isLastSubroute */), ());
 
   auto const & info = remainingDisplay.GetRouteInfo();
   TEST_EQUAL(info.m_totalTimeInSec, 120, ());

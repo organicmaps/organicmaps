@@ -10,6 +10,7 @@ set(SRC
   navigator_test.cpp
   path_text_test.cpp
   rainbow_line_gpu_test.cpp
+  route_shape_tests.cpp
   screen_operations_tests.cpp
   search_mark_overlay_filter_tests.cpp
   read_cancellation_tests.cpp
