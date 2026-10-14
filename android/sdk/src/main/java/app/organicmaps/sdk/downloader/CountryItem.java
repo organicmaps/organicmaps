@@ -50,7 +50,7 @@ public final class CountryItem implements Comparable<CountryItem>
   public String description;
 
   public long size;
-  public long enqueuedSize;
+  public long downloadSize;
   public long totalSize;
   public long terrainSize;
   public long remainingTerrainSize;
@@ -139,7 +139,7 @@ public final class CountryItem implements Comparable<CountryItem>
 
   public void updateProgress(MapManager.Progress progress)
   {
-    updateProgress(progress.mwmDownloaded, progress.mwmTotal);
+    updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
     updateTerrainProgress(progress.twmDownloaded, progress.twmTotal);
   }
 
@@ -170,6 +170,15 @@ public final class CountryItem implements Comparable<CountryItem>
       case TERRAIN_UPDATABLE -> STATUS_UPDATABLE;
       default -> STATUS_UNKNOWN;
     };
+  }
+
+  public long getDisplaySize(boolean downloadedMode)
+  {
+    if (status == STATUS_DONE || (status == STATUS_PARTLY && downloadedMode))
+      return size;
+    if (status == STATUS_ENQUEUED || status == STATUS_PROGRESS || status == STATUS_APPLYING)
+      return bytesToDownload;
+    return downloadSize;
   }
 
   @NonNull
@@ -203,7 +212,7 @@ public final class CountryItem implements Comparable<CountryItem>
     return "{ id: \"" + id + "\", directParentId: \"" + directParentId + "\", topmostParentId: \"" + topmostParentId
   + "\", category: \"" + category + "\", name: \"" + name + "\", directParentName: \"" + directParentName
   + "\", topmostParentName: \"" + topmostParentName + "\", present: " + present + ", status: " + status
-  + ", errorCode: " + errorCode + ", headerId: " + headerId + ", size: " + size + ", enqueuedSize: " + enqueuedSize
+  + ", errorCode: " + errorCode + ", headerId: " + headerId + ", size: " + size + ", downloadSize: " + downloadSize
   + ", totalSize: " + totalSize + ", childCount: " + childCount + ", totalChildCount: " + totalChildCount
   + ", progress: " + StringUtils.formatUsingUsLocale("%.2f", progress) + "% }";
   }

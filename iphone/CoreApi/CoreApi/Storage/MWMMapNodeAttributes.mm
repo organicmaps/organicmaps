@@ -78,11 +78,7 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     _downloadedMwmCount = attributes.m_localMwmCounter;
     _totalSize = attributes.m_mwmSize;
     _downloadedSize = attributes.m_localMwmSize;
-    // A shrunken-on-update map can make the local part exceed the remote sum: clamp,
-    // the unsigned difference must not wrap.
-    _downloadingSize = attributes.m_downloadingMwmSize > attributes.m_localMwmSize
-                         ? attributes.m_downloadingMwmSize - attributes.m_localMwmSize
-                         : 0;
+    _downloadingSize = attributes.m_downloadSize;
     _nodeName = @(attributes.m_nodeLocalName.c_str());
     _nodeDescription = @(attributes.m_nodeLocalDescription.c_str());
     _nodeStatus = convertStatus(attributes.m_status);

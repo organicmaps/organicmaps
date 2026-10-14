@@ -66,6 +66,7 @@ NS_SWIFT_NAME(Storage)
 - (NSArray<NSString *> *)downloadedCountries;
 - (NSArray<NSString *> *)downloadedCountriesWithParent:(NSString *)countryId;
 - (MWMMapNodeAttributes *)attributesForCountry:(NSString *)countryId;
+- (uint64_t)downloadSizeForCountry:(NSString *)countryId NS_SWIFT_NAME(downloadSize(forCountry:));
 - (MWMMapNodeAttributes *)attributesForRoot;
 - (NSString *)getRootId;
 - (NSString *)nameForCountry:(NSString *)countryId;

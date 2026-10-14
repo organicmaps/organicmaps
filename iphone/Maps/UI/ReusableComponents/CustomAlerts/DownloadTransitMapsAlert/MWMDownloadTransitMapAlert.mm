@@ -111,12 +111,14 @@ CGFloat const kAnimationDuration = .05;
 - (void)updateCountriesList
 {
   auto const & s = GetFramework().GetStorage();
-  m_countries.erase(remove_if(m_countries.begin(), m_countries.end(), [&s](storage::CountryId const & countryId)
+  m_countries.erase(remove_if(m_countries.begin(), m_countries.end(),
+                              [&s](storage::CountryId const & countryId)
   {
     storage::NodeStatuses statuses;
     s.GetNodeStatuses(countryId, statuses);
     return statuses.m_status == storage::NodeStatus::OnDisk;
-  }), m_countries.end());
+  }),
+                    m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const & countryId : m_countries)
   {
@@ -174,7 +176,7 @@ CGFloat const kAnimationDuration = .05;
 
 - (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if (progress.mwmTotal == 0 || !self.rightButton.hidden ||
+  if (progress.mwmTotal + progress.twmTotal == 0 || !self.rightButton.hidden ||
       find(m_countries.begin(), m_countries.end(), countryId.UTF8String) == m_countries.end())
     return;
   auto const overallProgress = GetFramework().GetStorage().GetOverallProgress(m_countries);

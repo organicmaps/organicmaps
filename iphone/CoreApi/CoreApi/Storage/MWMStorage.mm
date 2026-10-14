@@ -96,6 +96,11 @@ using namespace storage;
   return NO;
 }
 
+- (uint64_t)downloadSizeForCountry:(NSString *)countryId
+{
+  return GetFramework().GetStorage().GetDownloadSize({countryId.UTF8String});
+}
+
 - (void)retryDownloadNode:(NSString *)countryId
 {
   if ([self checkConnection:nil])

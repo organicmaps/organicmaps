@@ -436,10 +436,10 @@ int main(int argc, char * argv[])
       onCountryChanged(countryId);
   }, [&](storage::CountryId const & countryId, storage::Progress const & progress)
   {
-    if (countryId != lastCountry || progress.m_mwmTotal == 0)
+    if (countryId != lastCountry || progress.GetCombined().m_bytesTotal == 0)
       return;
 
-    auto const percent = progress.m_mwmDownloaded * 100 / progress.m_mwmTotal;
+    auto const percent = progress.GetCombined().m_bytesDownloaded * 100 / progress.GetCombined().m_bytesTotal;
     std::stringstream str;
     str << "Downloading (" << countryId << ") " << percent << "%";
     downloadStatusLabel = str.str();

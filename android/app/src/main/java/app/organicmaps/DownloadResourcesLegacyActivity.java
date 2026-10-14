@@ -168,8 +168,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       if (!countryId.equals(mCurrentCountry))
         return;
 
-      if (progress.mwmTotal > 0)
-        mProgress.setProgressCompat((int) (progress.mwmDownloaded * 1000 / progress.mwmTotal), true);
+      if (progress.getTotalBytes() > 0)
+        mProgress.setProgressCompat((int) (progress.getDownloadedBytes() * 1000 / progress.getTotalBytes()), true);
     }
   };
 

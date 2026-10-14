@@ -152,7 +152,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
       @Override
       public void onProgress(String countryId, MapManager.Progress progress)
       {
-        if (progress.mwmTotal == 0)
+        if (progress.getTotalBytes() == 0)
           return;
 
         if (mMaps.contains(countryId))

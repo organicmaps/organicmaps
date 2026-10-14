@@ -67,12 +67,12 @@ public class OnmapDownloader
     @Override
     public void onProgress(String countryId, MapManager.Progress progress)
     {
-      if (progress.mwmTotal == 0)
+      if (progress.getTotalBytes() == 0)
         return;
 
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
       {
-        mCurrentCountry.updateProgress(progress.mwmDownloaded, progress.mwmTotal);
+        mCurrentCountry.updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
         updateProgressState(false);
       }
     }
@@ -152,7 +152,7 @@ public class OnmapDownloader
           }
           else
           {
-            sizeText = StringUtils.getFileSizeString(mContext, mCurrentCountry.totalSize);
+            sizeText = StringUtils.getFileSizeString(mContext, mCurrentCountry.downloadSize);
 
             if (shouldAutoDownload && Config.isAutodownloadEnabled() && !sAutodownloadLocked && !failed
                 && ConnectionState.INSTANCE.isWifiConnected())

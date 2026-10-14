@@ -242,8 +242,9 @@ using namespace storage;
 
 - (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if (self.superview && m_countryId == countryId.UTF8String && progress.mwmTotal > 0)
-    [self showDownloading:(CGFloat)progress.mwmDownloaded / progress.mwmTotal];
+  auto const total = progress.mwmTotal + progress.twmTotal;
+  if (self.superview && m_countryId == countryId.UTF8String && total > 0)
+    [self showDownloading:(CGFloat)(progress.mwmDownloaded + progress.twmDownloaded) / total];
 }
 
 #pragma mark - MWMCircularProgressDelegate

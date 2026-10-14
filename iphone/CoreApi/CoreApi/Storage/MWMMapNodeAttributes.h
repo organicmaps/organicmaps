@@ -42,6 +42,7 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) NSUInteger downloadedMwmCount;
 @property(nonatomic, readonly) uint64_t totalSize;
 @property(nonatomic, readonly) uint64_t downloadedSize;
+/// Transfer size for downloading/updating this node, including terrain.
 @property(nonatomic, readonly) uint64_t downloadingSize;
 @property(nonatomic, readonly) uint64_t totalUpdateSizeBytes;
 @property(nonatomic, readonly) NSString * nodeName;
@@ -52,7 +53,7 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) NSArray<MWMCountryIdAndName *> * parentInfo;
 @property(nonatomic, readonly, nullable) NSArray<MWMCountryIdAndName *> * topmostParentInfo;
 @property(nonatomic, readonly) float downloadingProgress;
-/// Total bytes represented by downloadingProgress, for map downloads.
+/// Total bytes represented by downloadingProgress, including terrain.
 @property(nonatomic, readonly) uint64_t downloadingProgressTotalBytes;
 @property(nonatomic, readonly) MWMTerrainStatus terrainStatus;
 @property(nonatomic, readonly) uint64_t terrainLocalSize;

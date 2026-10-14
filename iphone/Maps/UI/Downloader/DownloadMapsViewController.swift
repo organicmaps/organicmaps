@@ -25,7 +25,7 @@ class DownloadMapsViewController: MWMViewController {
   var dataSource: IDownloaderDataSource!
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
-  private var footerShowsMapProgress = false
+  private var footerShowsProgress = false
   private var hasAddMapSection: Bool { dataSource.isRoot && mode == .downloaded }
 
   lazy var noSerchResultViewController: SearchNoResultsViewController = {
@@ -162,7 +162,7 @@ class DownloadMapsViewController: MWMViewController {
         })
       case .download:
         let prefix = nodeAttrs.totalMwmCount == 1 ? L("downloader_download_map") : L("downloader_download_all_button")
-        action = UIAlertAction(title: "\(prefix) (\(formattedSize(nodeAttrs.totalSize)))",
+        action = UIAlertAction(title: "\(prefix) (\(formattedSize(nodeAttrs.downloadingSize)))",
                                style: .default,
                                handler: { _ in
                                  Storage.shared().downloadNode(nodeAttrs.countryId)
@@ -216,10 +216,10 @@ class DownloadMapsViewController: MWMViewController {
     var isSizeHidden = false
     let parentAttributes = dataSource.parentAttributes()
     let error = parentAttributes.nodeStatus == .error || parentAttributes.nodeStatus == .undefined
-    footerShowsMapProgress = parentAttributes.nodeStatus == .downloading
-      || parentAttributes.nodeStatus == .inQueue || parentAttributes.nodeStatus == .applying
     let rootDownloading = dataSource.isRoot && dataSource is DownloadedMapsDataSource && Storage.shared().downloadInProgress()
-    let downloading = rootDownloading || footerShowsMapProgress
+    footerShowsProgress = rootDownloading || parentAttributes.nodeStatus == .downloading
+      || parentAttributes.nodeStatus == .inQueue || parentAttributes.nodeStatus == .applying
+    let downloading = footerShowsProgress
     switch mode {
     case .available:
       if dataSource.isRoot {
@@ -232,7 +232,7 @@ class DownloadMapsViewController: MWMViewController {
       } else if parentAttributes.downloadedMwmCount < parentAttributes.totalMwmCount {
         state = .ready
         downloadAllView.style = .download
-        downloadAllView.downloadSize = parentAttributes.totalSize - parentAttributes.downloadedSize
+        downloadAllView.downloadSize = Storage.shared().downloadSize(forCountry: parentAttributes.countryId)
       }
     case .downloaded:
       let isUpdate = parentAttributes.totalUpdateSizeBytes > 0
@@ -255,7 +255,7 @@ class DownloadMapsViewController: MWMViewController {
       fatalError()
     }
     if state == .dowloading {
-      downloadAllView.downloadProgress = footerShowsMapProgress ? CGFloat(parentAttributes.downloadingProgress) : 0
+      downloadAllView.downloadProgress = footerShowsProgress ? CGFloat(parentAttributes.downloadingProgress) : 0
       downloadAllView.downloadSize = parentAttributes.downloadingProgressTotalBytes
     }
     downloadAllView.isSizeHidden = isSizeHidden
@@ -434,17 +434,18 @@ extension DownloadMapsViewController: StorageObserver {
   }
 
   func processCountry(_ countryId: String, progress: StorageProgress) {
-    guard progress.mwmTotal > 0 else { return }
-    let mapProgress = CGFloat(progress.mwmDownloaded) / CGFloat(progress.mwmTotal)
+    let total = progress.mwmTotal + progress.twmTotal
+    guard total > 0 else { return }
+    let fraction = CGFloat(progress.mwmDownloaded + progress.twmDownloaded) / CGFloat(total)
     for cell in tableView.visibleCells {
       guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell,
             downloaderCell.nodeAttrs.countryId == countryId else { continue }
-      downloaderCell.setDownloadProgress(mapProgress)
+      downloaderCell.setDownloadProgress(fraction)
     }
 
-    if footerShowsMapProgress, countryId == dataSource.getParentCountryId() {
-      downloadAllView.downloadProgress = mapProgress
-      downloadAllView.downloadSize = progress.mwmTotal
+    if footerShowsProgress, countryId == dataSource.getParentCountryId() {
+      downloadAllView.downloadProgress = fraction
+      downloadAllView.downloadSize = total
     }
   }
 }
@@ -507,7 +508,6 @@ extension DownloadMapsViewController: DownloadAllViewDelegate {
     skipCountryEvent = true
     let id = dataSource.getParentCountryId()
     Storage.shared().cancelDownloadNode(id)
-    Storage.shared().cancelTerrain(id)
     skipCountryEvent = false
     processCountryEvent(id)
     reloadTableView()

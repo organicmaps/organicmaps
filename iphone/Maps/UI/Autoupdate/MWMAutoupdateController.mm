@@ -313,12 +313,14 @@ using namespace storage;
 
 - (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if (progress.mwmTotal > 0 && [countryId isEqualToString:RootId()])
+  auto const total = progress.mwmTotal + progress.twmTotal;
+  auto const downloaded = progress.mwmDownloaded + progress.twmDownloaded;
+  if (total > 0 && [countryId isEqualToString:RootId()])
   {
     auto view = static_cast<MWMAutoupdateView *>(self.view);
-    downloader::Progress const maps{static_cast<int64_t>(progress.mwmDownloaded), static_cast<int64_t>(progress.mwmTotal)};
-    [view setProgress:maps];
-    if (progress.mwmDownloaded == progress.mwmTotal)
+    downloader::Progress const combined{static_cast<int64_t>(downloaded), static_cast<int64_t>(total)};
+    [view setProgress:combined];
+    if (downloaded == total)
       self.progressFinished = YES;
   }
 }

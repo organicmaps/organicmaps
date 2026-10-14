@@ -2,8 +2,6 @@
 
 #include "map/framework.hpp"
 
-#include "platform/downloader_defines.hpp"
-
 #include "base/thread_checker.hpp"
 
 #include <cstdint>
