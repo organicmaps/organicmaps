@@ -47,6 +47,11 @@ namespace power_management
 class PowerManager;
 }
 
+namespace transit_origin_tests
+{
+void UnitTest_TransitDisplay_RoutingManagerInitializesRemainingOrigin();
+}
+
 struct RoutePointInfo
 {
   std::string m_name;
@@ -295,6 +300,8 @@ public:
   routing::RouterType GetCurrentRouterType() const { return m_currentRouterType; }
 
 private:
+  friend void transit_origin_tests::UnitTest_TransitDisplay_RoutingManagerInitializesRemainingOrigin();
+
   void SetRouterImpl(routing::RouterType type);
 
   struct RoadInfo
@@ -324,6 +331,10 @@ private:
   void InsertSingleRoute(routing::RouteBase const & route, bool isActive, double depthOffset,
                          std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
                          RoadWarningsCollection & roadWarnings);
+
+  drape_ptr<df::Subroute> MakeDrapeSubroute(routing::RouteBase const & route, size_t subrouteIndex,
+                                            std::vector<routing::RouteSegment> const & segments,
+                                            double baseDepth) const;
 
   // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.
   void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,

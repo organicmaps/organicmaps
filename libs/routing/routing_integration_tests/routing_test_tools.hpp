@@ -124,7 +124,7 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents, Checkpoi
 // Like CalculateRoute but keeps every alternative route (primary first), for alt-route testing.
 TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkpoints const & checkpoints);
 
-// Builds the transit Place Page breakdown (TransitRouteInfo with per-leg steps and line numbers) for
+// Builds the remaining transit Place Page breakdown (TransitRouteInfo with per-leg steps and line numbers) for
 // |route| via the real TransitRouteDisplay, reading the transit section through the components'
 // DataSource — same path the app uses to render the route summary.
 TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route);
