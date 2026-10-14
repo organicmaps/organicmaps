@@ -552,14 +552,27 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
     return;
   }
 
+  // Promote the active alternative (RouteBase) to a followed Route.
+  auto route = std::make_shared<Route>(result->GetActive());
+  route->SetRoutingSettings(m_routingSettings);
+  // An unmatched fix can leave OnRoute set with a stale iterator that would skip a return connector.
+  if (m_isFollowing && IsOnRoute() && m_lastDistance == 0.0)
+  {
+    ASSERT(IsRouteValid(), ());
+    auto const position = mercator::ToLatLon(m_route->GetCurrentIter().m_pt);
+    GpsInfo gps;
+    gps.m_latitude = position.m_lat;
+    gps.m_longitude = position.m_lon;
+    gps.m_horizontalAccuracy = 0.0;
+    // Divergent geometry may refuse the projection and retain the request origin.
+    route->MoveIterator(gps);
+  }
+
   RemoveRoute();
   SetState(SessionState::RouteNotStarted);
   m_lastCompletionPercent = 0;
 
-  // Promote the active alternative (RouteBase) to a followed Route.
-  auto route = std::make_shared<Route>(result->GetActive());
   m_checkpoints.SetPointFrom(route->GetPoly().Front());
-  route->SetRoutingSettings(m_routingSettings);
   m_route = route;
 
   m_lastResult = result;
