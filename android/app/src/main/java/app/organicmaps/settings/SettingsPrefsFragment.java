@@ -1,9 +1,11 @@
 package app.organicmaps.settings;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,6 +72,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initShowDownloadedRegionsPrefsCallbacks();
     initPlayServicesPrefsCallbacks();
     initSearchPrivacyPrefsCallbacks();
+    initBookmarksBackupPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
     initNightNavigationPrefsCallbacks();
@@ -157,6 +160,26 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       }
     }
     return super.onPreferenceTreeClick(preference);
+  }
+
+  private void openSystemBackupSettings()
+  {
+    final Intent[] intents = {new Intent("com.android.settings.BACKUP_SETTINGS").setPackage("com.android.settings"),
+                              Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
+                                  ? new Intent(Settings.ACTION_PRIVACY_SETTINGS)
+                                  : new Intent().setClassName("com.android.settings",
+                                                              "com.android.settings.backup.UserBackupSettingsActivity"),
+                              new Intent(Settings.ACTION_SETTINGS)};
+    for (Intent intent : intents)
+    {
+      try
+      {
+        startActivity(intent);
+        return;
+      }
+      catch (ActivityNotFoundException | SecurityException ignored)
+      {}
+    }
   }
 
   private void initLargeFontSizePrefsCallbacks()
@@ -317,6 +340,20 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         else
           SearchRecents.clear();
       }
+      return true;
+    });
+  }
+
+  private void initBookmarksBackupPrefsCallbacks()
+  {
+    final Preference pref = getPreference(getString(R.string.pref_bookmarks_backup));
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+    {
+      removePreference(getString(R.string.pref_privacy), pref);
+      return;
+    }
+    pref.setOnPreferenceClickListener(preference -> {
+      openSystemBackupSettings();
       return true;
     });
   }
