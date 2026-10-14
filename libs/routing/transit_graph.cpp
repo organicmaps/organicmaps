@@ -48,7 +48,7 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
 
   if (auto const * gate = FindGate(segment))
   {
-    auto const weight = gate->GetWeight();
+    auto const weight = gate->m_gate.GetWeight();
     return RouteWeight(weight, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
                        0 /* numAccessConditionalPenalties */, weight /* transitTime */);
   }
@@ -178,7 +178,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
   AddConnections(ingoing, stopToBack, stopToFront, false /* isOutgoing */);
 }
 
-transit::Gate const * TransitGraph::FindGate(Segment const & segment) const
+TransitGraph::GateInfo const * TransitGraph::FindGate(Segment const & segment) const
 {
   auto const it = m_segmentToGateSubway.find(segment);
   return it != m_segmentToGateSubway.cend() ? &it->second : nullptr;
@@ -195,7 +195,7 @@ Segment TransitGraph::GetTransitSegment(uint32_t featureId) const
   CHECK(IsTransitFeature(featureId), ("Feature id is out of transit id interval."));
   // All transit segments are oneway forward segments.
   // Edge segment has tail in stop1 and head in stop2.
-  // Gate segment has tail in gate and head in stop.
+  // Gate segments follow the traversal direction, from gate to stop or from stop to gate.
   // Pedestrian projection and parts of real have tail in |0| and head in |1|.
   // We rely on this rule in cross-mwm to have same behaviour of transit and
   // non-transit segments.
@@ -254,7 +254,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
                             isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
       m_fake.AddVertex(projectionSegment, gateSegment, gateVertex, isEnter /* isOutgoing */, false /* isPartOfReal */,
                        dummy /* realSegment */);
-      m_segmentToGateSubway[gateSegment] = gate;
+      m_segmentToGateSubway.emplace(gateSegment, GateInfo{gate, isEnter});
       if (isEnter)
         stopToFront[stopId].insert(gateSegment);
       else
