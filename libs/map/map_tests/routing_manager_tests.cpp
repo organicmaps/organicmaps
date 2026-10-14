@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <future>
 #include <memory>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -1028,7 +1029,6 @@ UNIT_TEST(RoutingManager_RebuildGuidanceUsesLatestGps)
     }
   };
 
-  Platform::ThreadRunner threadRunner;
   auto & platform = GetPlatform();
   auto gui = std::make_unique<TestGuiThread>();
   auto * guiThread = gui.get();
@@ -1039,7 +1039,11 @@ UNIT_TEST(RoutingManager_RebuildGuidanceUsesLatestGps)
     static StringsBundle const bundle;
     return bundle;
   }, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr));
-  RoutingManager manager(RoutingManager::Callbacks(nullptr, nullptr, nullptr, nullptr, nullptr), delegate);
+  // Stop the extrapolator's background loop before destroying the manager, including on test failure.
+  std::optional<RoutingManager> managerStorage;
+  Platform::ThreadRunner threadRunner;
+  auto & manager =
+      managerStorage.emplace(RoutingManager::Callbacks(nullptr, nullptr, nullptr, nullptr, nullptr), delegate);
   manager.SetBookmarkManager(&bookmarks);
   auto & session = manager.RoutingSession();
   session.SetRouter(std::make_unique<Router>(), nullptr);
