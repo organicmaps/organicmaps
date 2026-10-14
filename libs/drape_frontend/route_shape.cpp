@@ -436,6 +436,7 @@ void RouteShape::PrepareMarkersGeometry(std::vector<SubrouteMarker> const & mark
     }
     else if (marker.m_colors.size() >= 2)
     {
+      ASSERT(AlmostEqualAbs(marker.m_up.Length(), 1.0, 1e-6), (marker.m_up));
       dp::Color const color1 = df::GetColorConstant(marker.m_colors[0]);
       dp::Color const color2 = df::GetColorConstant(marker.m_colors[1]);
       dp::Color const innerColor = df::GetColorConstant(marker.m_innerColor);

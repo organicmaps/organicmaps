@@ -21,6 +21,7 @@ namespace transit_rendering_tests
 void UnitTest_TransitDisplay_GateLabelsFollowTraversal();
 void UnitTest_TransitDisplay_EntranceIconSurvivesWaypoint();
 void UnitTest_TransitDisplay_WaypointDoesNotDuplicateStopMarks();
+void UnitTest_TransitDisplay_DirectionRoundingKeepsTransferAxis();
 }  // namespace transit_rendering_tests
 
 enum class TransitType : uint32_t
@@ -169,6 +170,7 @@ private:
   friend void transit_rendering_tests::UnitTest_TransitDisplay_GateLabelsFollowTraversal();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_EntranceIconSurvivesWaypoint();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_WaypointDoesNotDuplicateStopMarks();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_DirectionRoundingKeepsTransferAxis();
 
   using StopId = routing::transit::StopId;
   void AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
