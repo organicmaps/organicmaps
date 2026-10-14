@@ -107,7 +107,6 @@ public:
 
   // Retain the service episode in the A* label so all edge penalties are additive.
   void EnablePassThroughStateRouting(bool enable = true);
-  bool IsPassThroughStateRouting() const { return m_passThroughStateRouting; }
   bool HasNonPassThroughEndings() const
   {
     return HasNoPassThroughAllowed(m_start) || HasNoPassThroughAllowed(m_finish);

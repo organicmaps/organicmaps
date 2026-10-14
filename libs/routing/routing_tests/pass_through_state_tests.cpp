@@ -9,9 +9,13 @@
 
 #include "traffic/traffic_cache.hpp"
 
+#include "defines.hpp"
+
 #include <algorithm>
+#include <memory>
 #include <optional>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -65,22 +69,16 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughStateTransitions)
   SetStarter(MakeFakeEnding(0, 0, {0, 0}, *m_graph), MakeFakeEnding(1, 0, {0.002, 0}, *m_graph));
   auto const road = [](bool isPublic) { return Segment(kTestNumMwmId, isPublic ? 0 : 1, 0, true); };
 
-  TEST_EQUAL(m_starter->GetPassThroughStates(road(true)), SmallList<State>({State::None}), ());
   m_starter->EnablePassThroughStateRouting();
   for (bool const isPublic : {false, true})
   {
-    auto segment = road(isPublic);
+    auto const segment = road(isPublic);
     auto const states = m_starter->GetPassThroughStates(segment);
     TEST_EQUAL(states.size(), isPublic ? 2 : 3, ());
     for (State const state : {State::InitialService, State::NoPaidExit, State::OnePaidExit})
     {
       bool const allowed = state != State::InitialService || !isPublic;
       TEST_EQUAL(std::find(states.begin(), states.end(), state) != states.end(), allowed, ());
-      segment.SetPassThroughState(state);
-      auto const labelledStates = m_starter->GetPassThroughStates(segment);
-      TEST_EQUAL(labelledStates.size(), allowed ? 1 : 0, ());
-      if (allowed)
-        TEST_EQUAL(labelledStates.front(), state, ());
     }
   }
 
@@ -184,34 +182,29 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughSequenceRouteWeights)
   }
 }
 
-std::unique_ptr<SingleVehicleWorldGraph> BuildLeapGraph(bool publicTwin)
+std::unique_ptr<SingleVehicleWorldGraph> BuildRepeatedMapLeapGraph()
 {
   traffic::TrafficCache const trafficCache;
   auto estimator = CreateEstimatorForCar(trafficCache);
   auto indexLoader = std::make_unique<TestIndexGraphLoader>();
-  auto west = std::make_unique<TestGeometryLoader>();
-  std::vector<RoadGeometry::Points> const roads = {
-      {{0, 0}, {0.001, 0}},           {{0.001, 0}, {0.002, 0.0005}},  {{0.002, 0.0005}, {0.003, 0}},
-      {{0.001, 0}, {0.002, -0.0001}}, {{0.002, -0.0001}, {0.003, 0}}, {{0.003, 0}, {0.004, 0}},
+  auto const addMap =
+      [&](NumMwmId mwmId, std::vector<std::pair<int, int>> const & intervals, std::vector<Joint> const & joints)
+  {
+    auto loader = std::make_unique<TestGeometryLoader>();
+    for (uint32_t i = 0; i < intervals.size(); ++i)
+    {
+      auto const [from, to] = intervals[i];
+      loader->AddRoad(i, false /* oneWay */, 50.0 /* speed */, {{0.001 * from, 0}, {0.001 * to, 0}});
+      loader->SetPassThroughAllowed(i, true);
+    }
+    indexLoader->AddGraph(mwmId, routing_test::BuildIndexGraph(std::move(loader), estimator, joints));
   };
-  for (uint32_t i = 0; i < roads.size(); ++i)
-  {
-    west->AddRoad(i, false /* oneWay */, 50.0 /* speed */, roads[i]);
-    west->SetPassThroughAllowed(i, i == 3 || i == 4);
-  }
-  indexLoader->AddGraph(0, routing_test::BuildIndexGraph(std::move(west), estimator,
-                                                         {MakeJoint({{0, 0}}), MakeJoint({{0, 1}, {1, 0}, {3, 0}}),
-                                                          MakeJoint({{1, 1}, {2, 0}}), MakeJoint({{3, 1}, {4, 0}}),
-                                                          MakeJoint({{2, 1}, {4, 1}, {5, 0}}), MakeJoint({{5, 1}})}));
-  auto east = std::make_unique<TestGeometryLoader>();
-  for (uint32_t i = 0; i < 3; ++i)
-  {
-    east->AddRoad(i, false /* oneWay */, 50.0 /* speed */, {{0.001 * (i + 3), 0}, {0.001 * (i + 4), 0}});
-    east->SetPassThroughAllowed(i, i == 1 || (i == 0 && publicTwin));
-  }
-  indexLoader->AddGraph(1, routing_test::BuildIndexGraph(std::move(east), estimator,
-                                                         {MakeJoint({{0, 0}}), MakeJoint({{0, 1}, {1, 0}}),
-                                                          MakeJoint({{1, 1}, {2, 0}}), MakeJoint({{2, 1}})}));
+  addMap(0, {{0, 1}, {1, 2}, {4, 5}, {5, 6}, {2, 4}},
+         {MakeJoint({{0, 0}}), MakeJoint({{0, 1}, {1, 0}}), MakeJoint({{1, 1}, {4, 0}}), MakeJoint({{4, 1}, {2, 0}}),
+          MakeJoint({{2, 1}, {3, 0}}), MakeJoint({{3, 1}})});
+  addMap(1, {{1, 2}, {2, 4}, {4, 5}, {5, 6}, {6, 7}},
+         {MakeJoint({{0, 0}}), MakeJoint({{0, 1}, {1, 0}}), MakeJoint({{1, 1}, {2, 0}}), MakeJoint({{2, 1}, {3, 0}}),
+          MakeJoint({{3, 1}, {4, 0}}), MakeJoint({{4, 1}})});
   auto ids = std::make_shared<NumMwmIds>();
   ids->RegisterFile(platform::CountryFile("Test_West"));
   ids->RegisterFile(platform::CountryFile("Test_East"));
@@ -220,45 +213,27 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildLeapGraph(bool publicTwin)
                                                    std::move(hierarchy));
 }
 
-UNIT_CLASS_TEST(RestrictionTest, NonPassThroughLeapComposition)
+UNIT_CLASS_TEST(RestrictionTest, LeapCompositionRepeatedMaps)
 {
-  for (bool const publicTwin : {false, true})
-  {
-    Init(BuildLeapGraph(publicTwin));
-    auto const start = MakeFakeEnding({Segment(0, 0, 0, true)}, {0, 0}, *m_graph);
-    auto const finish = MakeFakeEnding({Segment(1, 2, 0, true)}, {0.006, 0}, *m_graph);
-    for (bool const reverse : {false, true})
-    {
-      SetStarter(reverse ? finish : start, reverse ? start : finish);
-      m_starter->EnablePassThroughStateRouting();
-      Segment const westTwin(0, 5, 0, !reverse);
-      Segment const eastTwin(1, 0, 0, !reverse);
-      std::vector<Segment> const input = {m_starter->GetStartSegment(), reverse ? eastTwin : westTwin,
-                                          reverse ? westTwin : eastTwin, m_starter->GetFinishSegment()};
-      RouterDelegate delegate;
-      RoutingResult<Segment, RouteWeight> result;
-      TEST_EQUAL(IndexRouterTest::RefineLeaps(input, *m_starter, delegate, result), RouterResultCode::NoError,
-                 (publicTwin, reverse));
-      TEST_EQUAL(result.m_distance.GetNumPassThroughChanges(), 0, (publicTwin, reverse));
-      std::vector<m2::PointD> expected = {{0, 0},     {0.001, 0}, {0.002, 0.0005}, {0.003, 0},
-                                          {0.004, 0}, {0.005, 0}, {0.006, 0}};
-      if (reverse)
-        std::reverse(expected.begin(), expected.end());
-      std::vector<m2::PointD> geometry;
-      for (auto const & segment : result.m_path)
-      {
-        auto const point = mercator::FromLatLon(m_starter->GetPoint(segment, false /* front */));
-        if (geometry.empty() || geometry.back() != point)
-          geometry.push_back(point);
-      }
-      TEST_EQUAL(geometry.size(), expected.size(), (publicTwin, reverse, geometry, expected));
-      for (size_t i = 0; i < geometry.size(); ++i)
-        TEST(AlmostEqualAbs(geometry[i], expected[i], 1e-8), (publicTwin, reverse, i, geometry, expected));
+  Init(BuildRepeatedMapLeapGraph());
+  auto const start = MakeFakeEnding({Segment(0, 0, 0, true)}, {0, 0}, *m_graph);
+  auto const finish = MakeFakeEnding({Segment(1, 4, 0, true)}, {0.007, 0}, *m_graph);
+  SetStarter(start, finish);
+  m_starter->EnablePassThroughStateRouting(false);
+  RouterDelegate delegate;
+  RoutingResult<Segment, RouteWeight> result;
+  std::vector<Segment> const direct = {m_starter->GetStartSegment(), Segment(0, 1, 0, true), Segment(1, 0, 0, true),
+                                       m_starter->GetFinishSegment()};
+  TEST_EQUAL(IndexRouterTest::RefineLeaps(direct, *m_starter, delegate, result), RouterResultCode::NoError, ());
+  TEST(!result.Empty(), ());
 
-      delegate.Cancel();
-      result.Clear();
-      TEST_EQUAL(IndexRouterTest::RefineLeaps(input, *m_starter, delegate, result), RouterResultCode::Cancelled, ());
-    }
-  }
+  // Each twin pair shares geometry; every individual map piece is connected and has positive length.
+  // Visiting both endpoint maps twice also produces an invalid loop-removal pair, (start=5, finish=2).
+  std::vector<Segment> const repeated = {
+      m_starter->GetStartSegment(), Segment(0, 1, 0, true), Segment(1, 0, 0, true), Segment(1, 2, 0, true),
+      Segment(0, 2, 0, true),       Segment(0, 3, 0, true), Segment(1, 3, 0, true), m_starter->GetFinishSegment()};
+  result.Clear();
+  TEST_EQUAL(IndexRouterTest::RefineLeaps(repeated, *m_starter, delegate, result), RouterResultCode::NoError, ());
+  TEST(!result.Empty(), ());
 }
 }  // namespace pass_through_state_tests

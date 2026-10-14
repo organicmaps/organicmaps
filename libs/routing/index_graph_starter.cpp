@@ -169,19 +169,10 @@ void IndexGraphStarter::EnablePassThroughStateRouting(bool enable)
 
 SmallList<PassThroughState> IndexGraphStarter::GetPassThroughStates(Segment const & segment) const
 {
-  if (!m_passThroughStateRouting)
-    return {PassThroughState::None};
-
-  SmallList<PassThroughState> states;
-  for (auto const state :
-       {PassThroughState::InitialService, PassThroughState::NoPaidExit, PassThroughState::OnePaidExit})
-  {
-    if (state == PassThroughState::InitialService && !IsNoPassThroughAllowed(segment))
-      continue;
-    if (segment.GetPassThroughState() == PassThroughState::None || segment.GetPassThroughState() == state)
-      states.push_back(state);
-  }
-  return states;
+  ASSERT(m_passThroughStateRouting, ());
+  if (IsNoPassThroughAllowed(segment))
+    return {PassThroughState::InitialService, PassThroughState::NoPaidExit, PassThroughState::OnePaidExit};
+  return {PassThroughState::NoPaidExit, PassThroughState::OnePaidExit};
 }
 
 std::optional<PassThroughState> IndexGraphStarter::AdvancePassThroughState(PassThroughState state, Segment const & from,

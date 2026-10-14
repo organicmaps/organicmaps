@@ -215,8 +215,6 @@ private:
       , m_delegate(delegate)
     {}
 
-    bool IsCancelled() const { return m_delegate.IsCancelled(); }
-
     using ProgressPtrT = std::shared_ptr<AStarProgress>;
     RoutingResultT const * Calc(Segment const & beg, Segment const & end, ProgressPtrT const & progress,
                                 double progressCoef);

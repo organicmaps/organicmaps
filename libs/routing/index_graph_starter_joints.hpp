@@ -115,20 +115,6 @@ private:
 
   void InitEnding(Segment const & ending, bool start);
 
-  bool IsPassThroughStateRouting() const
-  {
-    if constexpr (requires { m_graph.IsPassThroughStateRouting(); })
-      return m_graph.IsPassThroughStateRouting();
-    return false;
-  }
-
-  static bool IsEndingSegment(Segment const & segment, Segment const & ending)
-  {
-    return segment.WithoutPassThroughState() == ending.WithoutPassThroughState() &&
-           (ending.GetPassThroughState() == PassThroughState::None ||
-            segment.GetPassThroughState() == ending.GetPassThroughState());
-  }
-
   void AddFakeJoints(Segment const & segment, bool isOutgoing, EdgeListT & edges);
 
   void GetEdgeList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing, EdgeListT & edges);
@@ -314,8 +300,7 @@ std::vector<Segment> IndexGraphStarterJoints<Graph>::ReconstructJoint(JointSegme
 
     auto path = it->second.m_path;
     ASSERT(!path.empty(), ());
-    if ((!IsPassThroughStateRouting() || !IsRealSegment(m_endSegment)) &&
-        IsEndingSegment(path.front(), m_startSegment) && IsEndingSegment(path.back(), m_endSegment))
+    if (path.front() == m_startSegment && path.back() == m_endSegment)
       path.pop_back();
 
     return path;
@@ -377,7 +362,7 @@ std::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(JointSeg
     // It happens when start and finish are close to each other.
     // If we want A* stop, we should add |endJoint| to its queue, then A* will see the vertex: |endJoint|
     // where it has already been and stop working.
-    if (IsEndingSegment(*parentSegment, endSegment))
+    if (*parentSegment == endSegment)
     {
       auto const & endJoint = isOutgoing ? m_endJoint : m_startJoint;
       if (isOutgoing)
@@ -398,7 +383,7 @@ std::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(JointSeg
 
 #ifdef DEBUG
     auto const & startSegment = isOutgoing ? m_startSegment : m_endSegment;
-    ASSERT(IsEndingSegment(fakeJointSegment.GetSegment(!opposite /* start */), startSegment), ());
+    ASSERT_EQUAL(fakeJointSegment.GetSegment(!opposite /* start */), startSegment, ());
 #endif  // DEBUG
   }
   else
@@ -557,29 +542,9 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
   std::map<Segment, uint32_t> firstFeatures;
   EdgeListT result;
 
-  auto const addSeed = [&](Segment const & seed)
-  {
-    queue.push(seed);
-    weight.emplace(seed, RouteWeight(0.0));
-    firstFeatures.emplace(seed, kInvalidFeatureId);
-  };
-  bool seeded = false;
-  if constexpr (requires { m_graph.GetPassThroughStates(startSegment); })
-  {
-    if (IsPassThroughStateRouting() && IsRealSegment(startSegment) &&
-        startSegment.GetPassThroughState() == PassThroughState::None)
-    {
-      for (auto const state : m_graph.GetPassThroughStates(startSegment))
-      {
-        auto seed = startSegment;
-        seed.SetPassThroughState(state);
-        addSeed(seed);
-      }
-      seeded = true;
-    }
-  }
-  if (!seeded)
-    addSeed(startSegment);
+  queue.push(startSegment);
+  weight.emplace(startSegment, RouteWeight(0.0));
+  firstFeatures.emplace(startSegment, kInvalidFeatureId);
 
   auto const reconstructPath = [&](Segment current, bool forward)
   {
@@ -591,7 +556,7 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
       current = it->second;
       path.emplace_back(current);
     }
-    ASSERT(IsEndingSegment(current, startSegment), (current, startSegment));
+    ASSERT_EQUAL(current, startSegment, ());
 
     if (forward)
       std::reverse(path.begin(), path.end());
@@ -642,7 +607,7 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
       continue;
     }
 
-    if (IsEndingSegment(beforeConvert, endSegment))
+    if (beforeConvert == endSegment)
     {
       addFake(segment, beforeConvert);
       continue;

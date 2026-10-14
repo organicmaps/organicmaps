@@ -266,6 +266,10 @@ private:
   std::vector<EdgeRequest> m_edgeRequests;
 };
 
+std::unique_ptr<IndexGraph> BuildIndexGraph(std::unique_ptr<TestGeometryLoader> loader,
+                                            std::shared_ptr<EdgeEstimator> estimator,
+                                            std::vector<Joint> const & joints);
+
 std::unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<TestGeometryLoader> loader,
                                                          std::shared_ptr<EdgeEstimator> estimator,
                                                          std::vector<Joint> const & joints);
