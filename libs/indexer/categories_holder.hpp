@@ -151,11 +151,11 @@ public:
   template <class ToDo>
   void ForEachNameByType(uint32_t type, ToDo && toDo) const
   {
-    auto it = m_type2cat.find(type);
-    if (it == m_type2cat.end())
-      return;
-    for (auto const & name : it->second->m_synonyms)
-      toDo(name);
+    // A type can appear in multiple category records with different synonyms.
+    auto const [begin, end] = m_type2cat.equal_range(type);
+    for (auto it = begin; it != end; ++it)
+      for (auto const & name : it->second->m_synonyms)
+        toDo(name);
   }
 
   template <class ToDo>
