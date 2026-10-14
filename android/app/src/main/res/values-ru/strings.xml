@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Загрузите регион, в котором ищете, или попробуйте добавить название близлежащего города/деревни.</string>
     <string name="search_history_title">История поиска</string>
+    <string name="bookmarks_backup_title">Резервная копия меток</string>
+    <string name="bookmarks_backup_description">Метки и треки сохраняются в системную резервную копию Android, если она включена на устройстве и они не превышают её ограничение по размеру.</string>
     <string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
     <string name="clear_search">Очистить историю поиска</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

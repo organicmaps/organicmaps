@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Ներբեռնեք այն տարածաշրջանի քարտեզը, որտեղ որոնում եք կատարում, կամ փորձեք ավելացնել մոտակա քաղաքի/գյուղի անունը:</string>
     <string name="search_history_title">Որոնման պատմություն</string>
+    <string name="bookmarks_backup_title">Էջանիշների պահուստավորում</string>
+    <string name="bookmarks_backup_description">Էջանիշները և հետագծերը պահվում են Android համակարգի պահուստային պատճենում, եթե այն միացված է այս սարքում, և դրանք չեն գերազանցում դրա չափի սահմանաչափը։</string>
     <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
     <string name="clear_search">Մաքրել որոնման պատմությունը</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

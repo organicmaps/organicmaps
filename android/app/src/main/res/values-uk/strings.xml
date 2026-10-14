@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Завантажте регіон пошуку або спробуйте вказати назву найближчого міста чи села.</string>
     <string name="search_history_title">Історія пошуку</string>
+    <string name="bookmarks_backup_title">Резервна копія міток</string>
+    <string name="bookmarks_backup_description">Мітки та треки зберігаються в системній резервній копії Android, якщо її увімкнено на пристрої та вони не перевищують її обмеження за розміром.</string>
     <string name="search_history_text">Швидкий доступ до нещодавніх результатів пошуку.</string>
     <string name="clear_search">Очистити історію пошуку</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

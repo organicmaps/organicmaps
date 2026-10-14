@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Изтеглете региона, в който търсите, или опитайте да добавите име на близък град/село.</string>
     <string name="search_history_title">История на търсенията</string>
+    <string name="bookmarks_backup_title">Резервно копие на отметките</string>
+    <string name="bookmarks_backup_description">Отметките и пътеките се запазват в системното резервно копие на Android, ако то е включено на устройството и не надвишават ограничението му за размер.</string>
     <string name="search_history_text">Преглед на последните търсения.</string>
     <string name="clear_search">Изчистване на историята на търсенията</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

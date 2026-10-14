@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Lade die Region herunter, in der du suchst, oder füge den Namen einer nahe gelegenen Stadt oder eines Dorfes hinzu.</string>
     <string name="search_history_title">Suchverlauf</string>
+    <string name="bookmarks_backup_title">Sicherung der Lesezeichen</string>
+    <string name="bookmarks_backup_description">Lesezeichen und Tracks werden in der Android-Systemsicherung gespeichert, wenn sie auf diesem Gerät aktiviert ist und ihr Größenlimit nicht überschritten wird.</string>
     <string name="search_history_text">Hier werden deine letzten Suchanfragen angezeigt.</string>
     <string name="clear_search">Suchverlauf löschen</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

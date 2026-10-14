@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Download de regio waar u zoekt of probeer een nabijgelegen stad/dorpnaam toe te voegen.</string>
     <string name="search_history_title">Zoekgeschiedenis</string>
+    <string name="bookmarks_backup_title">Back-up van bladwijzers</string>
+    <string name="bookmarks_backup_description">Bladwijzers en tracks worden opgeslagen in de Android-systeemback-up als deze op dit apparaat is ingeschakeld en ze de maximale grootte ervan niet overschrijden.</string>
     <string name="search_history_text">Snel toegang tot recente zoekopdrachten.</string>
     <string name="clear_search">Wis zoekgeschiedenis</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

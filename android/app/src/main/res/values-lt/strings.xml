@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Atsisiųskite regioną, kuriame ieškote, arba pabandykite įvesti kito netoliese esančio miesto ar kaimo pavadinimą.</string>
     <string name="search_history_title">Paieškų žurnalas</string>
+    <string name="bookmarks_backup_title">Žymių atsarginė kopija</string>
+    <string name="bookmarks_backup_description">Žymės ir trasos išsaugomos Android sistemos atsarginėje kopijoje, jei ji įjungta šiame įrenginyje ir jos neviršija leistino dydžio.</string>
     <string name="search_history_text">Rodyti paskiausias paieškas.</string>
     <string name="clear_search">Valyti paieškų žurnalą</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

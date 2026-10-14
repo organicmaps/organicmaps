@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Descarregue a região onde está a pesquisar ou tente adicionar o nome de uma cidade ou aldeia próxima.</string>
     <string name="search_history_title">Histórico de pesquisas</string>
+    <string name="bookmarks_backup_title">Cópia de segurança dos favoritos</string>
+    <string name="bookmarks_backup_description">Os favoritos e trajetos são guardados na cópia de segurança do sistema Android, se estiver ativada neste dispositivo e não excederem o respetivo limite de tamanho.</string>
     <string name="search_history_text">Ver as pesquisas recentes.</string>
     <string name="clear_search">Limpar histórico de pesquisas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Preuzmi regiju u kojoj tražiš ili pokušavaš dodati ime obližnjeg grada/sela.</string>
     <string name="search_history_title">Povijest pretrage</string>
+    <string name="bookmarks_backup_title">Sigurnosna kopija zabilješki</string>
+    <string name="bookmarks_backup_description">Zabilješke i putevi spremaju se u sigurnosnu kopiju sustava Android ako je uključena na ovom uređaju i ne prelaze njezino ograničenje veličine.</string>
     <string name="search_history_text">Pogledaj svoje nedavne pretrage.</string>
     <string name="clear_search">Izbriši povijest pretraživanja</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

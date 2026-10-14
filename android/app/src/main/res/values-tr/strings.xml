@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Arama yapmak istediğiniz bölgenin haritasını indirin veya yakındaki bir yerleşim yeri adını eklemeyi deneyin.</string>
     <string name="search_history_title">Arama Geçmişi</string>
+    <string name="bookmarks_backup_title">Yer imleri yedeği</string>
+    <string name="bookmarks_backup_description">Bu cihazda Android sistem yedeklemesi etkinse ve yer imleri ile izler yedeğin boyut sınırını aşmıyorsa, bunlar yedeğe kaydedilir.</string>
     <string name="search_history_text">Son aramalarınızı görüntüleyin.</string>
     <string name="clear_search">Arama Geçmişini Temizle</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

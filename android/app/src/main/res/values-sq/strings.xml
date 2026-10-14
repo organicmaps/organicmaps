@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Shkarkoni rajonin ku po kërkoni ose provoni të shtoni emrin e një qyteti/fshati të afërt.</string>
     <string name="search_history_title">Historiku i Kërkimit</string>
+    <string name="bookmarks_backup_title">Kopje rezervë e faqeshënuesve</string>
+    <string name="bookmarks_backup_description">Faqeshënuesit dhe gjurmët ruhen në kopjen rezervë të sistemit Android, nëse ajo është aktivizuar në këtë pajisje dhe nuk e tejkalojnë kufirin e saj të madhësisë.</string>
     <string name="search_history_text">Shikoni kërkimet tuaja të fundit.</string>
     <string name="clear_search">Pastro Historikun e Kërkimit</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
