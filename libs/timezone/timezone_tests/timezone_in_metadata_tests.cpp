@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+#include "testing/testing.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -8,7 +8,7 @@
 
 using namespace om::tz;
 
-TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
+UNIT_TEST(TimeZoneInMetadata_ShouldCorrectlyStoreAndLoadTimeZone)
 {
   TimeZone const tz{.generation_year_offset = 0,
                     .base_offset = 68,  // UTC+1
@@ -22,9 +22,11 @@ TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
 
   feature::RegionData rd;
   auto const result = Serialize(tz);
-  EXPECT_TRUE(result.has_value());
+  TEST(result.has_value(), ());
   rd.Set(feature::RegionData::RD_TIMEZONE, result.value());
-  EXPECT_EQ(tz, Deserialize(rd.Get(feature::RegionData::RD_TIMEZONE)).value());
+  auto const stored = Deserialize(rd.Get(feature::RegionData::RD_TIMEZONE));
+  TEST(stored.has_value(), ());
+  TEST(tz == stored.value(), ());
 
   std::vector<uint8_t> buf;
 
@@ -37,5 +39,7 @@ TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
   ReaderSource src(reader);
   feature::RegionData rd2;
   rd2.Deserialize(src);
-  EXPECT_EQ(tz, Deserialize(rd2.Get(feature::RegionData::RD_TIMEZONE)).value());
+  auto const restored = Deserialize(rd2.Get(feature::RegionData::RD_TIMEZONE));
+  TEST(restored.has_value(), ());
+  TEST(tz == restored.value(), ());
 }
