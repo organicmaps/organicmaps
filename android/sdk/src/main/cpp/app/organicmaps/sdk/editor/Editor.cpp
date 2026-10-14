@@ -81,6 +81,8 @@ osm::NewFeatureCategories & GetFeatureCategories(JNIEnv * env, jobject context, 
       jni::TScopedLocalRef const name(env, env->CallStaticObjectMethod(g_utilsClazz, method, context, key.get()));
       return jni::ToNativeString(env, static_cast<jstring>(name.get()));
     });
+    categories.AddLanguage(locale);
+    categories.AddLanguage("en");
     displayLocale = locale;
   }
   return categories;
@@ -404,8 +406,6 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetAllCreata
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   auto & categories = GetFeatureCategories(env, context, lang);
-  categories.AddLanguage(lang);
-  categories.AddLanguage("en");
   return jni::ToJavaStringArray(env, categories.GetAllCreatableTypeNames());
 }
 
@@ -414,8 +414,6 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeSearchCreata
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   auto & categories = GetFeatureCategories(env, context, lang);
-  categories.AddLanguage(lang);
-  categories.AddLanguage("en");
   return jni::ToJavaStringArray(env, categories.Search(jni::ToNativeString(env, query)));
 }
 
