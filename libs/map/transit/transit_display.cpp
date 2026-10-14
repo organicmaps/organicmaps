@@ -339,10 +339,15 @@ TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
 {
 #ifdef DEBUG
   double distance = 0.0;
+  int time = 0;
   for (auto const & step : m_routeInfo.m_steps)
+  {
     distance += step.m_distanceInMeters;
+    time += step.m_timeInSec;
+  }
   // Every segment belongs to a step; allow submillimetre summation error.
   ASSERT(AlmostEqualAbs(distance, m_routeInfo.m_totalDistInMeters, 1e-3), (distance, m_routeInfo.m_totalDistInMeters));
+  ASSERT_EQUAL(time, m_routeInfo.m_totalTimeInSec, ());
 #endif
   m_routeInfo.UpdateDistanceStrings();
   LOG(LDEBUG, ("Transit route:", m_routeInfo.m_steps.size(), "steps,", m_routeInfo.m_totalDistInMeters, "m,",
@@ -566,10 +571,13 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   for (size_t i = 0; i < segments.size(); ++i)
   {
     auto const & s = segments[i];
-    auto const time = static_cast<int>(ceil(s.GetTimeFromBeginningSec() - sp.m_prevTime));
+    // Round cumulative timestamps before differencing so rounding errors do not accumulate.
+    auto const timeFromBeginning = static_cast<int>(ceil(s.GetTimeFromBeginningSec()));
+    ASSERT_GREATER_OR_EQUAL(timeFromBeginning, sp.m_prevTime, ());
+    auto const time = timeFromBeginning - sp.m_prevTime;
     auto const distance = s.GetDistFromBeginningMeters() - sp.m_prevDistance;
     sp.m_prevDistance = s.GetDistFromBeginningMeters();
-    sp.m_prevTime = s.GetTimeFromBeginningSec();
+    sp.m_prevTime = timeFromBeginning;
 
     if (!s.HasTransitInfo())
     {
@@ -616,7 +624,7 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   }
 
   m_routeInfo.m_totalDistInMeters = sp.m_prevDistance;
-  m_routeInfo.m_totalTimeInSec = static_cast<int>(ceil(sp.m_prevTime));
+  m_routeInfo.m_totalTimeInSec = sp.m_prevTime;
 
   bool const isValidSubroute = subroute.m_polyline.GetSize() > 1;
   if (!isValidSubroute)

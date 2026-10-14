@@ -27,6 +27,7 @@ set(SRC
   relation_track_tests.cpp
   routing_manager_tests.cpp
   transit_accounting_tests.cpp
+  transit_time_tests.cpp
   track_tests.cpp
   transit_rendering_tests.cpp
 )
