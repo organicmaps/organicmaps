@@ -20,6 +20,8 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
     register(Config.separator, forDecorationViewOfKind: Config.separatorKind)
   }
 
+  override var flipsHorizontallyInOppositeLayoutDirection: Bool { true }
+
   override var collectionViewContentSize: CGSize {
     let width = collectionView?.frame.width ?? 0
     let height = cellsLayoutAttrs.reduce(0) { max($0, $1.frame.maxY) }
@@ -32,6 +34,7 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
 
     let section = 0
     let width = cv.width
+    let isRightToLeft = cv.effectiveUserInterfaceLayoutDirection == .rightToLeft
     var x = CGFloat(0)
     var y = CGFloat(0)
 
@@ -43,6 +46,10 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
       if item != 0 {
         let sepAttr = UICollectionViewLayoutAttributes(forDecorationViewOfKind: Config.separatorKind, with: ip)
         sepAttr.frame = CGRect(origin: CGPoint(x: x, y: y), size: Config.separatorSize)
+        // UIKit mirrors positions; the separator artwork also follows the route direction.
+        if isRightToLeft {
+          sepAttr.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
         decoratorsLayoutAttrs.append(sepAttr)
 
         x += Config.separatorSize.width
