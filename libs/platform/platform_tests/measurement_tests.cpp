@@ -58,10 +58,8 @@ UNIT_TEST(FormatOsmLink)
   TEST_EQUAL(FormatOsmLink(-34.6061, -58.4360, 10), "https://osm.org/go/Mnx6SB?m", ());
 
   // Formally, lat = -90 and lat = 90 are the same for OSM links, but Mercator is valid until 85.
-  auto link = FormatOsmLink(-90, -180, 10);
-  TEST(link == "https://osm.org/go/AAAAAA?m" || link == "https://osm.org/go/~~~~~~?m", (link));
-  link = FormatOsmLink(90, 180, 10);
-  TEST(link == "https://osm.org/go/AAAAAA?m" || link == "https://osm.org/go/~~~~~~?m", (link));
+  TEST_EQUAL(FormatOsmLink(-90, -180, 10), "https://osm.org/go/AAAAAA?m", ());
+  TEST_EQUAL(FormatOsmLink(90, 180, 10), "https://osm.org/go/AAAAAA?m", ());
 }
 
 UNIT_TEST(FormatSpeedNumeric)

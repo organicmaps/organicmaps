@@ -74,6 +74,8 @@
 
     <!-- SECTION: Types: Recycling -->
     <string name="type.barrier.block">Blok</string>
+    <string name="type.waterway.ditch">Odvodni jarak</string>
+    <string name="type.waterway.ditch.intermittent">Povremeni odvodni jarak</string>
     <string name="type.craft.photographer">Fotograf</string>
     <string name="type.cuisine.noodle">Rezanci</string>
     <string name="type.cuisine.uzbek">Uzbečka</string>
@@ -136,6 +138,20 @@
     <string name="type.sport.running">Trčanje</string>
     <string name="type.sport.softball">Softball</string>
     <string name="type.waterway.access_point">Pristupna točka plovnom putu</string>
+    <string name="type.waterway.canal">Kanal</string>
+    <string name="type.waterway.canal.intermittent">Povremeni kanal</string>
+    <string name="type.waterway.fish_pass">Riblji prolaz</string>
+    <string name="type.waterway.fish_pass.intermittent">Povremeni riblji prolaz</string>
+    <string name="type.natural.water.ditch">Odvodni jarak</string>
+    <string name="type.waterway.drain">Odvodni kanal</string>
+    <string name="type.waterway.drain.intermittent">Povremeni odvodni kanal</string>
+    <string name="type.natural.water.drain">Odvodni kanal</string>
+    <string name="type.waterway.river">Rijeka</string>
+    <string name="type.waterway.river.intermittent">Povremena rijeka</string>
+    <string name="type.waterway.river.tunnel">Rijeka</string>
+    <string name="type.waterway.stream">Potok</string>
+    <string name="type.waterway.stream.intermittent">Povremeni potok</string>
+    <string name="type.waterway.stream.tunnel">Potok</string>
     <string name="type.amenity.stage">Scena</string>
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Ruševina</string>

@@ -3,12 +3,14 @@ enum SettingsViewControllerAction<Item: Hashable> {
   case willAppear
   case didAppear
   case willDisappear
+  case didDisappear
   case didSelect(Item)
   case didTapAccessory(Item)
   case didChangeSwitch(Item, isOn: Bool)
   case didChangeText(Item, text: String)
   case didEndEditingText(Item, text: String)
   case didChangeSlider(Item, value: Float)
+  case didTapPreview(Item)
   case didCompleteBookmarkBackupSharing(Bool)
 }
 
@@ -24,7 +26,8 @@ protocol SettingsViewControllerInteractor<Section, Item>: AnyObject {
 class BaseSettingsViewController: MWMTableViewController {}
 
 final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSettingsViewController,
-  SettingsTableViewSwitchCellDelegate, SettingsTextFieldCellDelegate, SettingsSliderCellDelegate {
+  SettingsTableViewSwitchCellDelegate, SettingsTextFieldCellDelegate, SettingsSliderCellDelegate,
+  TTSSettingsPreviewCellDelegate {
   private var interactor: (any SettingsViewControllerInteractor<Section, Item>)?
 
   private var dataSource: SettingsTableViewDataSource<Section, Item>!
@@ -65,6 +68,11 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
     interactor?.handle(.willDisappear)
   }
 
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    interactor?.handle(.didDisappear)
+  }
+
   private func configureTableView() {
     tableView.register(cell: SettingsTableViewLinkCell.self)
     tableView.register(cell: SettingsTableViewSelectableCell.self)
@@ -73,6 +81,7 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
     tableView.register(cell: SettingsTextFieldCell.self)
     tableView.register(cell: SettingsMessageCell.self)
     tableView.register(cell: SettingsSliderCell.self)
+    tableView.register(cell: TTSSettingsPreviewCell.self)
     tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 44
 
@@ -128,6 +137,15 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
                      maximumValue: maximumValue,
                      valueTitle: valueTitle,
                      isEnabled: isEnabled)
+      return cell
+    case .preview(let isSelected, let isPlaying, let showsDisclosure):
+      let cell = tableView.dequeueReusableCell(cell: TTSSettingsPreviewCell.self, indexPath: indexPath)
+      cell.configure(delegate: self,
+                     title: itemViewModel.title ?? "",
+                     detail: itemViewModel.detail,
+                     isSelected: isSelected,
+                     isPlaying: isPlaying,
+                     showsDisclosure: showsDisclosure)
       return cell
     }
   }
@@ -200,6 +218,12 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
     guard let indexPath = tableView.indexPath(for: cell),
           let item = item(at: indexPath) else { return }
     interactor?.handle(.didChangeSlider(item, value: value))
+  }
+
+  func previewCellDidTapPlay(_ cell: TTSSettingsPreviewCell) {
+    guard let indexPath = tableView.indexPath(for: cell),
+          let item = item(at: indexPath) else { return }
+    interactor?.handle(.didTapPreview(item))
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

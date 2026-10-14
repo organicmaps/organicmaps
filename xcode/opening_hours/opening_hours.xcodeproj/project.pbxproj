@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,18 +11,6 @@
 		E91738921BECCB5400717F6E /* opening_hours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E91738881BECCB5400717F6E /* opening_hours.cpp */; };
 		E91738931BECCB5400717F6E /* opening_hours.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E91738891BECCB5400717F6E /* opening_hours.hpp */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		670C61FD1AC351AC00C38A8C /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		11302EE04CEFA7ABF87D85EE /* eval.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = eval.hpp; path = oh/eval.hpp; sourceTree = "<group>"; };
@@ -118,7 +106,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					670C61E61AC3511700C38A8C = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -142,9 +130,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		670C61E31AC3511700C38A8C /* Sources */ = {

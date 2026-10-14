@@ -17,7 +17,7 @@ namespace df
 {
 using MarksIDGroups = std::map<kml::MarkGroupId, drape_ptr<IDCollections>>;
 
-/// Created and initialize in DrapeEngine::GenerateMarkRenderInfo only.
+/// Prepared by DrapeEngine::GenerateMarkRenderInfo for user-mark geometry and overlays.
 struct UserMarkRenderParams
 {
   kml::MarkId m_markId = kml::kInvalidMarkId;
@@ -164,6 +164,10 @@ struct UserMarkRenderData
 };
 
 using TUserMarksRenderData = std::vector<UserMarkRenderData>;
+
+// Hit testing and search-symbol suppression need the same anchor and pixel offset as the sprite vertices.
+drape_ptr<dp::OverlayHandle> CreateUserMarkOverlayHandle(UserMarkRenderParams const & renderInfo,
+                                                         TileKey const & tileKey, m2::RectD const & pixelRect);
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     MarksSource const & source, UserMarksRenderCollection const & renderParams, dp::Batcher & batcher);

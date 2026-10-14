@@ -52,8 +52,8 @@
 		56D1865824FF80E4009747D2 /* xmltok.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xmltok.h; path = expat/lib/xmltok.h; sourceTree = "<group>"; };
 		56D1865924FF80E4009747D2 /* winconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = winconfig.h; path = expat/lib/winconfig.h; sourceTree = "<group>"; };
 		56D1865A24FF80E5009747D2 /* xmltok.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xmltok.c; path = expat/lib/xmltok.c; sourceTree = "<group>"; };
-		AB3905E70F1A4B2C8D6E0001 /* random_arc4random_buf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = random_arc4random_buf.c; path = expat/lib/random_arc4random_buf.c; sourceTree = "<group>"; };
 		670D04F81B0BAEE50013A7AC /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB3905E70F1A4B2C8D6E0001 /* random_arc4random_buf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = random_arc4random_buf.c; path = expat/lib/random_arc4random_buf.c; sourceTree = "<group>"; };
 		FAEB4C5B29195DC00044B82E /* expat_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = expat_config.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,7 +168,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					670D04F71B0BAEE50013A7AC = {
 						CreatedOnToolsVersion = 6.3.2;

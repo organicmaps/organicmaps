@@ -20,6 +20,16 @@ public class TrackRecorder
 
   public static native ElevationInfo nativeGetElevationInfo();
 
+  /** Saves the recorded track, if there is anything to save, stops the recording and reports whether it saved. */
+  public static boolean saveAndStop()
+  {
+    final boolean saved = !nativeIsTrackRecordingEmpty();
+    if (saved)
+      nativeSaveTrackRecordingWithName("");
+    nativeStopTrackRecording();
+    return saved;
+  }
+
   public interface TrackRecordingUpdateHandler
   {
     @Keep

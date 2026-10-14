@@ -100,6 +100,8 @@
 		675344DE1A3F68F900A0A8C3 /* binary_operators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344DB1A3F68F900A0A8C3 /* binary_operators.cpp */; };
 		675344DF1A3F68F900A0A8C3 /* binary_operators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344DC1A3F68F900A0A8C3 /* binary_operators.hpp */; };
 		675344E01A3F68F900A0A8C3 /* boost_concept.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344DD1A3F68F900A0A8C3 /* boost_concept.hpp */; };
+		AB0000020000000000000002 /* geodesy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB0000010000000000000001 /* geodesy.cpp */; };
+		AB0000040000000000000004 /* geodesy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB0000030000000000000003 /* geodesy.hpp */; };
 		BBB7061323E48E0400A7F29A /* smoothing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7061123E48E0400A7F29A /* smoothing.cpp */; };
 		BBB7061423E48E0400A7F29A /* smoothing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB7061223E48E0400A7F29A /* smoothing.hpp */; };
 		D501ACA3238FDC6000B8C08E /* point_with_altitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D501ACA1238FDC6000B8C08E /* point_with_altitude.cpp */; };
@@ -115,8 +117,6 @@
 		FACB76E626B8A43E00810C9C /* polyline_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D7006362463F6AD00AF8ADC /* polyline_tests.cpp */; };
 		FACB76E726B8A45800810C9C /* nearby_points_sweeper_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 344A713E1F3DA08300B8DDB8 /* nearby_points_sweeper_test.cpp */; };
 		FACB76EA26B8A4D900810C9C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76E926B8A4D900810C9C /* libbase.a */; };
-		AB0000020000000000000002 /* geodesy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB0000010000000000000001 /* geodesy.cpp */; };
-		AB0000040000000000000004 /* geodesy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AB0000030000000000000003 /* geodesy.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -232,6 +232,8 @@
 		675344DB1A3F68F900A0A8C3 /* binary_operators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = binary_operators.cpp; sourceTree = "<group>"; };
 		675344DC1A3F68F900A0A8C3 /* binary_operators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = binary_operators.hpp; sourceTree = "<group>"; };
 		675344DD1A3F68F900A0A8C3 /* boost_concept.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = boost_concept.hpp; sourceTree = "<group>"; };
+		AB0000010000000000000001 /* geodesy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geodesy.cpp; sourceTree = "<group>"; };
+		AB0000030000000000000003 /* geodesy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geodesy.hpp; sourceTree = "<group>"; };
 		BBB7061123E48E0400A7F29A /* smoothing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = smoothing.cpp; sourceTree = "<group>"; };
 		BBB7061223E48E0400A7F29A /* smoothing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = smoothing.hpp; sourceTree = "<group>"; };
 		D501ACA1238FDC6000B8C08E /* point_with_altitude.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_with_altitude.cpp; sourceTree = "<group>"; };
@@ -243,8 +245,6 @@
 		E92D8BD21C15AFAA00A98D17 /* mercator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mercator.cpp; sourceTree = "<group>"; };
 		E92D8BD31C15AFAA00A98D17 /* mercator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mercator.hpp; sourceTree = "<group>"; };
 		FACB76E926B8A4D900810C9C /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB0000010000000000000001 /* geodesy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geodesy.cpp; sourceTree = "<group>"; };
-		AB0000030000000000000003 /* geodesy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geodesy.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,7 +527,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					670F295B1BA9D39A00F2ABF4 = {
 						CreatedOnToolsVersion = 6.4;

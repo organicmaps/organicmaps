@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "För att hämta en röst med högre kvalitet, öppna appen Inställningar och gå till Hjälpmedel → VoiceOver → Tal → Röst.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testa röstinstruktioner (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Automatisk zoom";
 "placepage_distance" = "Avstånd";
 "search_show_on_map" = "Visa på kartan";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Ljusblå grå";
 
-/* place preview title */
-"info" = "Info";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps-version: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Mörkt";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Övrigt";
 
 /* Tex label above the Donate button */
 "donate_description" = "Ge bort gratis kartor utan annonser till miljontals användare!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "Dygnet runt";
 "day_off_today" = "Stängt idag";
 "day_off" = "Stängt";
+"midnight" = "Midnatt";
+"noon" = "Middagstid";
 "today" = "Idag";
 "opens_in" = "Öppnar om %@";
 "closes_in" = "Stänger om %@";
@@ -602,9 +604,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Mer";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Redigera bokmärke";
 "placepage_personal_notes_hint" = "Personlig anteckning (text eller html)";
 "editor_comment_hint" = "Kommentar…";
 "editor_reset_edits_message" = "Återställ alla lokala ändringar?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "Trafikdata är inte tillgänglig";
 "enable_logging" = "Aktivera loggning";
 "transliteration_title" = "Translitterera till latinska alfabetet";
-"planning_route_manage_route" = "Hantera rutt";
-"button_plan" = "Planera";
 "placepage_remove_stop" = "Ta bort stoppet";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Lägg till stopp";
-"saved" = "Sparade";
 "error_enter_correct_name" = "Ange ett korrekt namn";
 "bookmark_lists" = "Listor";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "Visa till höger";
 "show_at_the_bottom" = "Visa längst ner";
 "enable_logging_warning_message" = "Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Bil";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cykel";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Till fots";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Alla färdsätt";
 "driving_options_title" = "Ruttinställningar";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ruttoptimering";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Ordnar automatiskt om mellanstoppen för att skapa en effektivare rutt.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Undvik avgiftsbelagda vägar";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "Undvik motorvägen";
 "unable_to_calc_alert_title" = "Det går inte att hitta rutt";
 "unable_to_calc_alert_subtitle" = "Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.";
-"define_to_avoid_btn" = "Definiera oönskade vägar";
-"change_driving_options_btn" = "Ruttinställningar aktiverade";
 "toll_road" = "Betalväg";
 "unpaved_road" = "Oasfalterad väg";
 "ferry_crossing" = "Färjetrafik";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ruttplaneringen misslyckades";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
 "editor_done_dialog_1" = "Du har ändrat världskartan. Dela det med dina vänner och redigera den tillsammans.";
@@ -813,7 +824,6 @@
 "please_note" = "Observera";
 "migration_download_error_dialog" = "Nedladdningsfel";
 "editor_add_select_category" = "Välj kategori";
-"editor_add_select_category_popular_subtitle" = "Populärt";
 "editor_add_select_category_all_subtitle" = "Alla kategorier";
 "whatsnew_editor_message_1" = "Lägg till nya platser på kartan och redigera de befintliga direkt i appen.";
 "dialog_incorrect_feature_position" = "Ändra plats";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. Välj Platstjänster";
 "location_services_disabled_on_device_4" = "4. Aktivera platstjänster";
 "location_services_disabled_on_device_additional_message" = "Eller fortsätt använda Organic Maps utan Plats";
-"book_button" = "Boka";
 "placepage_call_button" = "Ring";
 "placepage_bookmark_name_hint" = "Bokmärkesnamn";
 "placepage_delete_bookmark_button" = "Radera bokmärke";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Applikationen måste uppdateras för att trafikdata ska kunna visas.";
 "log_file_size" = "Loggfilens storlek: %@";
-"planning_route_remove_title" = "Dra hit för att ta bort";
 "placepage_replace_stop" = "Byt ut stopp";
-"start_from_my_position" = "Starta från";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer";
@@ -874,15 +881,8 @@
 "popular_place" = "Populär";
 "hide_from_map" = "Dölj från karta";
 "tags_loading_error_subtitle" = "Ett fel uppstod när taggarna laddades, försök igen";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Rätt";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Botten";
 "trip_start" = "Nu åker vi";
 "pick_destination" = "Destination";
-"follow_my_position" = "Placera i mitten";
 "search_results" = "Sökresultat";
 "then_turn" = "Sedan";
 "redirect_route_alert" = "Vill du räkna om rutten?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Tack för att du använder våra community-byggda kartor!";
-
-/* App tip #01 */
-"app_tip_01" = "Med dina donationer och stöd kan vi skapa de bästa kartorna i världen!";
-
-/* App tip #02 */
-"app_tip_02" = "Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du den inte ännu? Meddela oss, så fixar vi det!";
-
-/* App tip #03 */
-"app_tip_03" = "Om du känner en mjukvaruutvecklare kan du be honom eller henne att implementera en funktion som du behöver.";
-
-/* App tip #04 */
-"app_tip_04" = "Tryck var som helst på kartan för att välja något. Tryck länge för att dölja och visa gränssnittet igen.";
-
-/* App tip #05 */
-"app_tip_05" = "Vet du att du kan välja din nuvarande plats på kartan?";
-
-/* App tip #06 */
-"app_tip_06" = "Du kan hjälpa till att översätta vår app till ditt språk.";
-
-/* App tip #07 */
-"app_tip_07" = "Vår app är utvecklad av ett fåtal entusiaster och communityn.";
-
-/* App tip #08 */
-"app_tip_08" = "Du kan enkelt fixa och förbättra kartdata.";
-
-/* App tip #09 */
-"app_tip_09" = "Vårt huvudmål är att bygga snabba, integritetsfokuserade, lättanvända kartor som du kommer att älska.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Du använder nu Organic Maps på telefonens skärm";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Routen är tom - inget att spara";
-"edit_track" = "Redigera spår";
-"elevation_profile_diff_level" = "Svårighetsgrad";
-"elevation_profile_diff_level_easy" = "Lätt";
-"elevation_profile_diff_level_moderate" = "Måttlig";
-"elevation_profile_diff_level_hard" = "Svår";
 "downloader_updating_ios" = "Uppdaterar";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktivera iCloud i enhetens inställningar för att kunna använda denna funktion.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktivera";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Spårfärg ändrad";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Välj på kartan";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Startplats";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Ändra startplats";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Ändra destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Ändra stopp";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Maximalt antal stopp har uppnåtts";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Flytta och zooma på kartan för att placera korset";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Vänd rutten";

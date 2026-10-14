@@ -1,7 +1,19 @@
 #include "base/file_name_utils.hpp"
 
+#include <string_view>
+
 namespace base
 {
+namespace
+{
+#ifdef OMIM_OS_WINDOWS
+// Windows accepts forward slashes too, and CMake or URL derived paths use them.
+std::string_view constexpr kSeparators = "/\\";
+#else
+std::string_view constexpr kSeparators = "/";
+#endif
+}  // namespace
+
 void GetNameWithoutExt(std::string & name)
 {
   std::string::size_type const i = name.rfind('.');
@@ -43,15 +55,12 @@ std::string GetNameFromFullPathWithoutExt(std::string path)
 
 std::string GetDirectory(std::string const & name)
 {
-  auto const sep = GetNativeSeparator();
-  size_t const sepSize = sizeof(sep);
-
-  std::string::size_type i = name.rfind(sep);
-  if (i == std::string::npos)
+  auto const last = name.find_last_of(kSeparators);
+  if (last == std::string::npos)
     return ".";
-  while (i > sepSize && (name[i - sepSize] == sep))
-    i -= sepSize;
-  return name.substr(0, i ? i : sepSize);
+  // Drop the run of separators before the file name, but keep a leading one.
+  auto const end = name.find_last_not_of(kSeparators, last);
+  return name.substr(0, end == std::string::npos ? 1 : end + 1);
 }
 
 std::string::value_type GetNativeSeparator()
@@ -65,10 +74,8 @@ std::string::value_type GetNativeSeparator()
 
 std::string AddSlashIfNeeded(std::string const & path)
 {
-  auto const sep = GetNativeSeparator();
-  std::string::size_type const pos = path.rfind(sep);
-  if (pos != std::string::npos && pos + sizeof(sep) == path.size())
+  if (!path.empty() && kSeparators.find(path.back()) != std::string_view::npos)
     return path;
-  return path + sep;
+  return path + GetNativeSeparator();
 }
 }  // namespace base

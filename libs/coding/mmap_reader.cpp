@@ -22,7 +22,9 @@ public:
   explicit MmapData(std::string const & fileName, Advice advice)
   {
 #ifdef OMIM_OS_WINDOWS
-    m_hFile = CreateFileA(fileName.c_str(), GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+    // Share reads and deletes like POSIX does: other readers open the same map, and tests delete it.
+    m_hFile = CreateFileA(fileName.c_str(), GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_DELETE, nullptr, OPEN_EXISTING,
+                          FILE_ATTRIBUTE_NORMAL, nullptr);
     if (m_hFile == INVALID_HANDLE_VALUE)
       MYTHROW(Reader::OpenException, ("Can't open file:", fileName, "win last error:", GetLastError()));
 

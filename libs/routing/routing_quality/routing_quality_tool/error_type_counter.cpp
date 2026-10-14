@@ -30,7 +30,7 @@ void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels, std::
   for (auto const & [errorName, errorCount] : counter.GetErrorsDistribution())
   {
     labels.emplace_back(errorName);
-    errorsTypeDistribution.emplace_back(errorCount);
+    errorsTypeDistribution.emplace_back(static_cast<double>(errorCount));
   }
 }
 
@@ -44,6 +44,6 @@ void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels,
   FillLabelsAndErrorTypeDistribution(labels, errorsTypeDistribution[0], counter);
 
   for (auto const & [_, errorCount] : counterOld.GetErrorsDistribution())
-    errorsTypeDistribution[1].emplace_back(errorCount);
+    errorsTypeDistribution[1].emplace_back(static_cast<double>(errorCount));
 }
 }  // namespace routing_quality::routing_quality_tool

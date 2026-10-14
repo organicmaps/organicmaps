@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "За да изтеглите глас с по-високо качество, отворете приложението Настройки и отидете в Достъпност → VoiceOver → Реч → Глас.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Тестване на гласови указания (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Автоматично мащабиране";
 "placepage_distance" = "Разстояние";
 "search_show_on_map" = "Преглед на картата";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Синкаво Сиво";
 
-/* place preview title */
-"info" = "Информация";
-
 /* Prints version number in About dialog */
 "version" = "Версия на Organic Maps: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Тъмен";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Друго";
 
 /* Tex label above the Donate button */
 "donate_description" = "Подарете безплатни карти без реклами на милиони потребители!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24 часа";
 "day_off_today" = "Затворено днес";
 "day_off" = "Затворено";
+"midnight" = "Полунощ";
+"noon" = "Пладне";
 "today" = "Днес";
 "opens_in" = "Отваря се в %@";
 "closes_in" = "Приключва в %@";
@@ -602,9 +604,6 @@
 "day" = "д";
 "second" = "сек";
 "placepage_more_button" = "Още";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Редакция на отметка";
 "placepage_personal_notes_hint" = "Лични бележки (текст или html)";
 "editor_comment_hint" = "Коментиране…";
 "editor_reset_edits_message" = "Отхвърляне на всички локални промени?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "Няма налични данни за трафика";
 "enable_logging" = "Активиране на запис на дневник";
 "transliteration_title" = "Изпиши на латиница";
-"planning_route_manage_route" = "Управление на маршрут";
-"button_plan" = "Планиране";
 "placepage_remove_stop" = "Премахване на спирка";
-"placepage_add_stop" = "Добавяне на спирка";
-"saved" = "Запазено";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Добави спирка";
 "error_enter_correct_name" = "Моля, въведете правилно име";
 "bookmark_lists" = "Списъци";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "Показване вдясно";
 "show_at_the_bottom" = "Показване в долната част";
 "enable_logging_warning_message" = "Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "С автомобил";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "С велосипед";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Пеша";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Всички начини на придвижване";
 "driving_options_title" = "Опции за маршрутизация";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Оптимизация на маршрута";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Автоматично пренарежда междинните спирки, за да създаде по-ефективен маршрут.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Избягвайте платените пътища";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "Избягвайте магистралата";
 "unable_to_calc_alert_title" = "Не е възможнос изчисляване на маршрут";
 "unable_to_calc_alert_subtitle" = "За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.";
-"define_to_avoid_btn" = "Определяне пътищата, които да се избягват";
-"change_driving_options_btn" = "Разрешени опции за маршрутизиране";
 "toll_road" = "Път с винетка";
 "unpaved_road" = "Път без настилка";
 "ferry_crossing" = "Преминаване с ферибот";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Неуспешно планиране на маршрут";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Пристигане в %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Изтеглете и актуализирайте всички карти по проектирания път, за да изчислите маршрута.";
 "editor_done_dialog_1" = "Променили сте картата на света. Не го крийте, кажете на приятелите си и редактирайте заедно.";
@@ -813,7 +824,6 @@
 "please_note" = "Моля, имайте предвид";
 "migration_download_error_dialog" = "Грешка при изтегляне";
 "editor_add_select_category" = "Избор на категория";
-"editor_add_select_category_popular_subtitle" = "Популярно";
 "editor_add_select_category_all_subtitle" = "Всички категории";
 "whatsnew_editor_message_1" = "Добавяне на нови места в картата и редакция на съществуващите директно от приложението.";
 "dialog_incorrect_feature_position" = "Смяна на местоположение";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. Изберете Услуги за местоположение";
 "location_services_disabled_on_device_4" = "4. Включете услугите за местоположение";
 "location_services_disabled_on_device_additional_message" = "Или продължете да използвате Organic Maps без местоположение";
-"book_button" = "Резервиране";
 "placepage_call_button" = "Обаждане";
 "placepage_bookmark_name_hint" = "Име на отметка";
 "placepage_delete_bookmark_button" = "Изтриване на отметки";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "За да се показват данни за трафика, приложението трябва да се актуализира.";
 "log_file_size" = "Размер на регистрационния файл: %@";
-"planning_route_remove_title" = "Плъзнете тук, за да премахнете";
 "placepage_replace_stop" = "Замяна на спирката";
-"start_from_my_position" = "Започнете от";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече";
@@ -874,15 +881,8 @@
 "popular_place" = "Популярно";
 "hide_from_map" = "Скриване от картата";
 "tags_loading_error_subtitle" = "Възникна грешка при зареждането на таговете, моля, опитайте отново";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Вдясно";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Дъно";
 "trip_start" = "Да вървим";
 "pick_destination" = "Дестинация";
-"follow_my_position" = "Повторно съсредоточаване на";
 "search_results" = "Резултати от търсенето";
 "then_turn" = "След това";
 "redirect_route_alert" = "Искате ли да възстановите маршрута?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Bg:About";
 
-/* App Tip #00 */
-"app_tip_00" = "Благодарим ви, че използвате нашите карти, създадени от общността!";
-
-/* App tip #01 */
-"app_tip_01" = "С вашите дарения и подкрепа можем да създадем най-добрите карти в света!";
-
-/* App tip #02 */
-"app_tip_02" = "Харесвате ли нашето приложение? Моля, дарете, за да подкрепите развитието! Все още не ви харесва? Моля, уведомете ни и ние ще го поправим!";
-
-/* App tip #03 */
-"app_tip_03" = "Ако познавате разработчик на софтуер, можете да го помолите да внедри функция, от която се нуждаете.";
-
-/* App tip #04 */
-"app_tip_04" = "Докоснете навсякъде в картата, за да изберете нещо. Докоснете дълго, за да скриете и покажете интерфейса.";
-
-/* App tip #05 */
-"app_tip_05" = "Знаете ли, че можете да изберете текущото си местоположение на картата?";
-
-/* App tip #06 */
-"app_tip_06" = "Можете да помогнете за превода на нашето приложение на вашия език.";
-
-/* App tip #07 */
-"app_tip_07" = "Нашето приложение е разработено от няколко ентусиасти и общността.";
-
-/* App tip #08 */
-"app_tip_08" = "Можете лесно да коригирате и подобрите картографските данни.";
-
-/* App tip #09 */
-"app_tip_09" = "Нашата основна цел е да създаваме бързи, фокусирани върху поверителността, лесни за използване карти, които ще харесате.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Вече използвате Organic Maps на екрана на телефона";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрутът е празен - няма какво да запазвате";
-"edit_track" = "Редактиране на маршрут";
-"elevation_profile_diff_level" = "Степен на трудност";
-"elevation_profile_diff_level_easy" = "Лесно";
-"elevation_profile_diff_level_moderate" = "Умерен";
-"elevation_profile_diff_level_hard" = "Трудно";
 "downloader_updating_ios" = "Актуализиране на";
 
 /* Autoupdate dialog on start */
@@ -1098,8 +1063,8 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "За да използвате тази функция, разрешете iCloud в настройките на устройството си.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "Активиране на";
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
+"enable" = "Активиране";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Резервно копие";
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Цветът на маршрутите е променен";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Избери на картата";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Начало";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Дестинация";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Смени началото";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Смени дестинацията";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Смени спирката";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Достигнат е максималният брой спирки";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Преместете и мащабирайте картата, за да позиционирате кръстчето";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Обърни маршрута";

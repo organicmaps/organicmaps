@@ -1,6 +1,7 @@
 #include "search/latlon_match.hpp"
 
 #include "base/macros.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <array>
@@ -116,7 +117,7 @@ double EatDouble(char const * str, char ** strEnd)
       gotMark = true;
       markPos = p;
     }
-    else if (isdigit(*p))
+    else if (strings::IsASCIIDigit(*p))
     {
       if (gotMark)
         gotDigitAfterMark = true;

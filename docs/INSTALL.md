@@ -90,10 +90,6 @@ sudo apt update && sudo apt install -y \
     libicu-dev \
     libqt6svg6-dev \
     libsqlite3-dev \
-    libxrandr-dev \
-    libxinerama-dev \
-    libxcursor-dev \
-    libxi-dev \
     zlib1g-dev
 ```
 
@@ -159,6 +155,24 @@ sudo apk add \
 brew install cmake ninja qt@6
 ```
 
+#### Optional developer sandbox
+
+The developer graphics sandbox is enabled by default. Qt-only and command-line
+builds can omit it and its GLFW/ImGui dependencies with `-DBUILD_DEV_SANDBOX=OFF`.
+Selecting `--target desktop` alone does not skip CMake's dependency discovery.
+
+On Linux the sandbox currently uses X11. Install these additional development
+packages only when building it:
+
+| Distribution | Packages |
+| --- | --- |
+| Ubuntu | `libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev` |
+| Fedora | `libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel` |
+| Alpine | `libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev` |
+
+To enable the sandbox again in an existing build directory, configure with
+`-DBUILD_DEV_SANDBOX=ON` and build the `dev_sandbox` target.
+
 #### Note: Homebrew (Linuxbrew) Qt6 on Linux with NVIDIA
 
 Installing Qt6 via Homebrew (Linuxbrew) on a Linux machine that uses the
@@ -172,17 +186,17 @@ Prefer the distribution's Qt6 packages listed in the sections above. If
 Linuxbrew's Qt6 must be used, preload the system libGL at runtime:
 
 ```bash
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 ./OMaps   # Debian/Ubuntu
-LD_PRELOAD=/usr/lib64/libGL.so.1 ./OMaps                  # Fedora/RHEL
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 ./OrganicMaps   # Debian/Ubuntu
+LD_PRELOAD=/usr/lib64/libGL.so.1 ./OrganicMaps                  # Fedora/RHEL
 ```
 
 ### Windows
 
-Native Windows builds of Organic Maps are not actively maintained, but building on Windows is still possible. Some parts of the build system may require updates, and there is ongoing work on the [windows](https://github.com/organicmaps/organicmaps/tree/windows) branch. Contributions are welcome.
+Native Windows builds are compiled and unit-tested by CI with MSVC (see the `windows-2025-vs2026` in `.github/workflows/build-cmake.yaml` and `ci-windows` presets in `CMakePresets.json`). Contributions are welcome.
 
-You'll need to have python3, cmake, ninja, and QT6 in the PATH, and Visual Studio 2022 or Visual Studio 2022 Build Tools installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
+You'll need to have python3, cmake, ninja, and Qt 6 in the PATH, and Visual Studio 2022 or newer (or its Build Tools) installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
 
-However, it is possible to use the WSL (Windows Subsystem for Linux) to run GUI applications.
+Alternatively, WSL (Windows Subsystem for Linux) can be used to run GUI applications.
 
 #### Windows 11 (WSL)
 
@@ -221,7 +235,7 @@ run from the repository root. List configure/build/test presets with
 To configure and build the desktop app in Debug (binaries go into `build/debug`):
 
 ```bash
-cmake --preset debug
+cmake --preset debug -DBUILD_DEV_SANDBOX=OFF
 cmake --build --preset debug --target desktop
 ```
 
@@ -257,27 +271,32 @@ tools/unix/build_omim.sh -r desktop
 A preset build puts binaries in `build/<preset>` (e.g. `build/release`); the
 `build_omim.sh` wrapper uses `../omim-build-<buildtype>` instead.
 
-A desktop app binary is `OMaps`. To run e.g. a release version built with the
+A desktop app binary is `OrganicMaps`. To run e.g. a release version built with the
 `release` preset:
 
 _Linux:_
 
 ```bash
-build/release/OMaps
+build/release/OrganicMaps
 ```
 
 _macOS:_
 
 ```bash
-build/release/OMaps.app/Contents/MacOS/OMaps
+build/release/OrganicMaps.app/Contents/MacOS/OrganicMaps
 ```
+
+On Linux, close older `OMaps` instances before the first `OrganicMaps` launch.
+It moves legacy directories under the XDG config and data roots to
+`OrganicMaps`. Populated destinations, symlinked legacy directories, and
+failed moves leave the old data intact for manual recovery.
 
 ### Testing
 
 Configure and compile all unit tests in Debug mode:
 
 ```bash
-cmake --preset debug
+cmake --preset debug -DBUILD_DEV_SANDBOX=OFF
 cmake --build --preset debug
 ```
 
@@ -349,12 +368,12 @@ There are also other commands for turning on/off isolines, anti-aliasing, etc. C
 To make the desktop app display maps in a different language add a `-lang` option, e.g. for the Russian language:
 
 ```bash
-build/release/OMaps -lang ru
+build/release/OrganicMaps -lang ru
 ```
 
-By default `OMaps` expects a repository's `data` folder to be present in the current working directory, add a `-data_path` option to override it.
+By default `OrganicMaps` expects a repository's `data` folder to be present in the current working directory, add a `-data_path` option to override it.
 
-Check `OMaps -help` for a list of all run-time options.
+Check `OrganicMaps -help` for a list of all run-time options.
 
 When running the desktop app with lots of maps, increase the open files limit. In macOS the default value is only 256.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
@@ -443,7 +462,7 @@ There is a matrix of different build variants:
   - ...and other flavors like `Huawei`.
 
 You can choose a build variant in Android Studio's "Build > Select Build Variant..." menu. There you can also choose a target architecture (Active ABI) like _x86_64_ (for e.g. emulator) or _arm64-v8a_ (many modern devices).
-In order to build the Google variant, you need a special key which only the core developers have. For community members who want to contribute, the best selection is "fdroidBeta" or "fdroidDebug" depending on the use case.
+In order to build the "googleBeta" variant, you need a special key which only the core developers have. For community members who want to contribute, the best selection is "googleDebug", "fdroidDebug" or "fdroidBeta" depending on the use case.
 The Active ABI can be set to "arm64-v8a".
 
 To build and run the app in the emulator or on a hardware device use a "Run > Run (android)" menu item or press the Play / Debug button on the top right of the IDE.

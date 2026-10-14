@@ -1,28 +1,33 @@
-• Le nouveau paramètre « Enregistrer l’historique de recherche » vous aide à préserver la confidentialité de votre historique de recherche au besoin
+## Calcul d’itinéraire
+• Amélioration des itinéraires de rechange et de leurs heures d’arrivée estimées
+• Ajout de boutons permettant d’ajouter ou de remplacer un arrêt dans un itinéraire planifié
+• Ajout d’un paramètre permettant d’optimiser l’ordre des arrêts intermédiaires d’un itinéraire
+• L’itinéraire de rechange sélectionné est désormais conservé lorsque la navigation recalcule l’itinéraire
+• L’ordre des arrêts de l’itinéraire est désormais rétabli après le redémarrage de l’application
 
-## Carte et lieux
-• Données OpenStreetMap à la date du 14 juillet
-• Les notes OpenStreetMap sont désormais placées à l’emplacement exact que vous sélectionnez, et non plus au milieu de la forêt
-• Amélioration de la sélection des cartes pour les régions traversant l’antiméridien de 180°
-• Les profils d’altitude des tracés n’affichent plus de graphiques obsolètes ou vides après la suppression d’un tracé
-• Amélioration du graphique d’altitude vide pour les tracés enregistrés
-• Le bouton permettant de supprimer les signets est plus facile à trouver
-• Enregistrement automatique des signets lorsque vous quittez l’écran d’édition
-• La palette de couleurs comprend des couleurs prédéfinies et vous permet de choisir n’importe quelle couleur personnalisée
-• Autres améliorations de l’interface utilisateur
+## Carte
+• Données OpenStreetMap en date du 28 septembre
+• Données de Wikipédia en date du 21 septembre
+• Les réservoirs d’eau sont désormais visibles lorsque l’on effectue un zoom arrière
+• Les tunnels de cours d’eau n’apparaissent plus sur la carte
+• Correction des icônes des stations et des entrées du métro de Suzhou
+• Correction de rares cas où les étiquettes se déplaçaient hors de leur position sur la couche cartographique du métro
 
-## Transports en commun
-• Les noms des arrêts, des correspondances et des stations sont désormais entourés d’un contour blanc pour rester lisibles aussi bien avec le thème clair qu’avec le thème sombre
-• La couche « métro » réapparaît correctement après la fermeture de l’aperçu d’un itinéraire en transports en commun
+## CarPlay
+• Ajout d’instructions de manœuvre sur les affichages tête haute (HUD) des autos compatibles et sur le tableau de bord CarPlay
+• Correction des boutons CarPlay et de la fonction de recherche
 
-## Calcul d’itinéraire et navigation
-• Correction de problèmes liés à des indications erronées ou manquantes
-• Les avertissements d’itinéraire (péages, ferries, routes non goudronnées, escaliers, etc.) s’affichent désormais pour tous les itinéraires alternatifs
-• Correction d’un rare blocage lors de la création d’un itinéraire et amélioration de la gestion des impasses et des points de départ/d’arrivée sur une route à circulation restreinte
-• Amélioration de l’affichage de la progression de l’itinéraire sur le bouton « Démarrer »
-• Le réordonnancement des étapes d’un itinéraire ne provoque plus de sauts dans la liste
+## Tracés
+• Ajout d’une icône en forme d’œil pour masquer des tracés individuels
+• Correction de bogues et amélioration de l’enregistrement des tracés
+• Correction de l’importation des fichiers KMB
 
-## Traductions
-• Amélioration de la formulation en chinois
-• Mise à jour des traductions en ukrainien
-• Correction des traductions des régions cartographiques en italien
+## Recherche
+• Correction des recherches lorsque la zone visible de la carte traverse le méridien de 180° (longitude ±180°)
+• La recherche par catégorie a été rétablie dans Spotlight
+
+## Interface utilisateur
+• Les heures d’ouverture affichent désormais « Midi » pour 12 h et « Minuit » pour 00 h ou 24 h
+• Correction de divers bogues et amélioration de l’interface utilisateur
+• Corrections apportées aux traductions en anglais, en français et en asturien
+• Ajout de la possibilité de choisir une voix de navigation installée et d’en écouter un extrait

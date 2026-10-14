@@ -3,6 +3,7 @@ package app.organicmaps.widget.placepage;
 import android.content.Context;
 import android.graphics.Color;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.R;
 import app.organicmaps.sdk.settings.UnitLocale;
@@ -122,40 +123,41 @@ public final class ElevationChartUtils
     chart.post(chart::fitScreen);
   }
 
+  /** Altitude axis bounds: {@code [lower, upper]} split into {@code stepCount} equal steps. */
+  record YAxisBounds(float lower, float upper, int stepCount)
+  {
+  }
+
   public static void configureYAxisBounds(@NonNull LineChart chart, float minAltitude, float maxAltitude)
   {
     // Step size in meters: 50m for metric, 100ft (30.48m) for imperial.
     boolean isImperial = UnitLocale.getUnits() == UnitLocale.UNITS_FOOT;
-    float altitudeStep = isImperial ? 30.48f : 50f;
+    YAxisBounds bounds = computeYAxisBounds(minAltitude, maxAltitude, isImperial ? 30.48f : 50f);
 
+    YAxis y = chart.getAxisLeft();
+    y.setAxisMinimum(bounds.lower());
+    y.setAxisMaximum(bounds.upper());
+    y.setLabelCount(bounds.stepCount() + 1, true);
+  }
+
+  @VisibleForTesting
+  static YAxisBounds computeYAxisBounds(float minAltitude, float maxAltitude, float altitudeStep)
+  {
+    // Pad by 10% of the range, but stretch it to at least one step: rounding to step boundaries
+    // otherwise glues a nearly flat track to the top or the bottom of the chart.
     float range = maxAltitude - minAltitude;
-    float lower;
-    float upper;
-    if (range < 1f)
-    {
-      // Flat track: expand to at least one step on each side.
-      lower = minAltitude - altitudeStep;
-      upper = maxAltitude + altitudeStep;
-    }
-    else
-    {
-      float padding = Math.round(range / 10f);
-      lower = minAltitude - padding;
-      upper = maxAltitude + padding;
-    }
+    float padding = Math.max(range / 10f, (altitudeStep - range) / 2f);
+    float lower = minAltitude - padding;
+    float upper = maxAltitude + padding;
 
     // Round to step boundaries.
     lower = (float) (Math.floor(lower / altitudeStep) * altitudeStep);
     upper = (float) (Math.ceil(upper / altitudeStep) * altitudeStep);
 
-    // Guard against degenerate range after rounding.
-    if (upper <= lower)
-      upper = lower + altitudeStep;
-
     // Determine label count: double step size while more than CHART_Y_MAX_STEP_COUNT labels.
     float effectiveStep = altitudeStep;
     int stepCount = (int) Math.ceil((upper - lower) / effectiveStep);
-    while (stepCount > CHART_Y_MAX_STEP_COUNT && effectiveStep < upper - lower)
+    while (stepCount > CHART_Y_MAX_STEP_COUNT)
     {
       effectiveStep *= 2;
       stepCount = (int) Math.ceil((upper - lower) / effectiveStep);
@@ -163,10 +165,7 @@ public final class ElevationChartUtils
     // Ensure range is an exact multiple of effectiveStep so labels land on step boundaries.
     upper = lower + stepCount * effectiveStep;
 
-    YAxis y = chart.getAxisLeft();
-    y.setAxisMinimum(lower);
-    y.setAxisMaximum(upper);
-    y.setLabelCount(stepCount + 1, true);
+    return new YAxisBounds(lower, upper, stepCount);
   }
 
   public static void addSegmentSeparators(@NonNull LineChart chart, @NonNull double[] segmentDistances,

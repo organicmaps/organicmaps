@@ -1,8 +1,9 @@
-• Datas da la carta OSM dals 14 da fanadur
-• Ils nums da fermadas, da midada e da staziuns dal traffic public han ussa in ur alv
-• Meglra preschentaziun dals uraris d'avertura
-• Corregì indicaziuns incorrectas u mancantas
-• Segnapaginas e percurs modifitgads vegnan ussa memorisads automaticamain
-• Avis da ruta (pedagis, ferrys, vias nunpavimentadas, stgalas e.u.v.) vegnan mussads per tuttas rutas alternativas
-• Notas OSM vegnan creadas exact là nua che Vus tschernis
+• Datas OSM dals 28 da settember; Wikipedia dals 21 da settember
+• Megliers percurs alternativs e temps stimads d’arrivada
+• Nova opziun per optimar l’urden da las fermadas intermediaras
+• Novs buttuns per agiuntar u remplazzar ina fermada sin in percurs planisà
+• Il percurs alternativ tschernì resta tschernì durant la navigaziun
+• Registraziun dals percurs curregida e meglierada
+• Import da datotecas KMB curregì
+• Interfatscha d’utilisader meglierada e curregida
 …dapli sin omaps.org/news

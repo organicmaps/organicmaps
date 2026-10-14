@@ -95,4 +95,24 @@ UNIT_TEST(FilePath_Join)
   TEST_EQUAL("../../omim/strings.txt", base::JoinPath("../", "..", "omim/", "strings.txt"), ());
 }
 
+#else
+
+UNIT_TEST(FileName_GetDirectory_Windows)
+{
+  TEST_EQUAL("C:/dir", base::GetDirectory("C:/dir/file.mwm"), ());
+  TEST_EQUAL("C:\\dir", base::GetDirectory("C:\\dir\\file.mwm"), ());
+  TEST_EQUAL("C:/dir", base::GetDirectory("C:/dir\\file.mwm"), ());
+  TEST_EQUAL("/", base::GetDirectory("/file.mwm"), ());
+  TEST_EQUAL(".", base::GetDirectory("file.mwm"), ());
+}
+
+UNIT_TEST(FilePath_Slash_Windows)
+{
+  TEST_EQUAL("data\\", base::AddSlashIfNeeded("data"), ());
+  TEST_EQUAL("data\\", base::AddSlashIfNeeded("data\\"), ());
+  TEST_EQUAL("data/", base::AddSlashIfNeeded("data/"), ());
+  TEST_EQUAL("/dir/x", base::JoinPath("/dir/", "x"), ());
+  TEST_EQUAL("C:\\dir\\x", base::JoinPath("C:\\dir", "x"), ());
+}
+
 #endif  // OMIM_OS_WINDOWS

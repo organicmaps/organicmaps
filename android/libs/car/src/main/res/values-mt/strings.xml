@@ -68,6 +68,8 @@
     <string name="editor_time_open">Miftuħ</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Magħluq illum</string>
+    <string name="midnight">Nofsillejl</string>
+    <string name="noon">Nofsinhar</string>
     <string name="opens_in">Jiftaħ f’ %s</string>
     <string name="closes_in">Jagħlaq f’ %s</string>
     <string name="closed">Magħluq</string>

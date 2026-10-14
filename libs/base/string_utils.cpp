@@ -283,11 +283,6 @@ bool IsASCIIString(std::string_view sv)
   return true;
 }
 
-bool IsASCIILatin(UniChar c)
-{
-  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-}
-
 bool StartsWith(UniString const & s, UniString const & p)
 {
   return StartsWith(s.begin(), s.end(), p.begin(), p.end());

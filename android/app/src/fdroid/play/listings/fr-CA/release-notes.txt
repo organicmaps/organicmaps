@@ -1,6 +1,9 @@
-• Données OSM à jour au 14 juillet
-• Les noms des arrêts de transports en commun, des correspondances et des stations sont désormais entourés d’un contour blanc
-• Amélioration de l’affichage des horaires d’ouverture
-• Correction des indications incorrectes ou manquantes
-• Les favoris et les tracés modifiés sont désormais enregistrés automatiquement
-… plus d’informations sur omaps.org/fr/news
+• OSM : 28 sept.; Wikipédia : 21 sept.
+• Itinéraires de rechange et heures d’arrivée estimées améliorés
+• Nouveau réglage pour optimiser l’ordre des étapes
+• Boutons pour ajouter ou remplacer une étape d’un itinéraire prévu
+• L’itinéraire de rechange choisi reste actif en navigation
+• Enregistrement des tracés corrigé et amélioré
+• Importation des fichiers KMB corrigée
+• Interface améliorée et bogues corrigés
+…plus sur omaps.org/fr/news

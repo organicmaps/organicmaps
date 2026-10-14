@@ -1,28 +1,33 @@
-• Tetapan baharu "Simpan sejarah carian" membantu anda mengekalkan privasi sejarah carian anda jika diperlukan
+## Penyusunan laluan
+• Laluan alternatif yang dipertingkatkan dan anggaran masa ketibaan mereka
+• Butang untuk menambah atau menggantikan hentian dalam laluan yang dirancang telah ditambah
+• Telah ditambah satu tetapan untuk mengoptimumkan susunan hentian laluan pertengahan
+• Laluan alternatif yang dipilih kini dikekalkan apabila navigasi mengira semula laluan
+• Susunan hentian laluan kini dipulihkan selepas memulakan semula aplikasi
 
-## Peta & tempat
-• Data OpenStreetMap setakat 14 Julai
-• Nota OpenStreetMap kini diletakkan di lokasi tepat yang anda pilih, bukannya di tengah hutan
-• Pilihan peta yang dipertingkatkan untuk kawasan yang melintasi antimeridian 180°
-• Profil ketinggian laluan tidak lagi memaparkan carta lapuk atau kosong selepas laluan dipadamkan
-• Dipertingkatkan carta ketinggian kosong untuk laluan yang direkodkan
-• Butang untuk memadam penanda buku kini lebih mudah ditemui
-• Penyimpanan penanda buku secara automatik apabila anda meninggalkan skrin suntingan
-• Palet warna merangkumi warna yang telah ditetapkan dan membolehkan anda memilih mana-mana warna tersuai
-• Penambahbaikan UI lain
+## Peta
+• Data OpenStreetMap setakat 28 September
+• Data Wikipedia setakat 21 September
+• Takungan air kini dapat dilihat apabila zum keluar lebih jauh
+• Terowong air tidak lagi dipaparkan pada peta
+• Ikon stesen dan pintu masuk Metro Suzhou telah diperbetulkan
+• Diperbaiki kes jarang di mana label teralih daripada kedudukan pada lapisan peta metro
 
-## Pengangkutan awam
-• Nama perhentian, pertukaran, dan stesen kini menggunakan garis putih untuk kekal boleh dibaca dalam tema cerah dan gelap
-• Lapisan kereta bawah tanah muncul semula dengan betul selepas anda menutup pratonton laluan pengangkutan awam
+## CarPlay
+• Tambah arahan manuver pada paparan HUD kereta yang disokong dan papan pemuka CarPlay
+• Butang CarPlay dan carian telah diperbaiki
 
-## Laluan & navigasi
-• Masalah arahan yang salah dan hilang telah diperbaiki
-• Amaran laluan (cukai jalan, feri, jalan tidak berturap, tangga, dan lain-lain) kini dipaparkan untuk semua laluan alternatif
-• Masalah beku yang jarang berlaku semasa membina laluan telah diperbaiki dan pengendalian jalan buntu serta titik permulaan/pengakhiran di jalan terhad telah dipertingkatkan
-• Meningkatkan kemajuan laluan pada butang mula
-• Mengatur semula hentian laluan tidak lagi menyebabkan senarai melompat-lompat
+## Jejak
+• Tambah ikon mata untuk menyembunyikan jejak individu
+• Diperbaiki pepijat dan dipertingkatkan rakaman jejak
+• Masalah pengimportan fail KMB telah diperbaiki
 
-## Terjemahan
-• Meningkatkan istilah bahasa Cina
-• Mengemas kini terjemahan Ukraine
-• Membetulkan terjemahan wilayah peta dalam bahasa Itali
+## Cari
+• Diperbaiki carian apabila kawasan peta yang dipaparkan melintasi meridian 180° (bujur ±180°)
+• Carian mengikut kategori dalam Spotlight telah dipulihkan
+
+## Antaramuka pengguna
+• Waktu buka kini memaparkan "Tengah hari" untuk 12:00 dan "Tengah malam" untuk 00:00 atau 24:00
+• Pelbagai pepijat telah diperbaiki dan antara muka pengguna telah dipertingkatkan
+• Terjemahan Bahasa Inggeris, Perancis dan Asturian telah diperbetulkan
+• Ditambah sokongan untuk memilih suara navigasi yang dipasang dan mendengar sampelnya

@@ -5,10 +5,8 @@
 
 #include "indexer/feature_decl.hpp"
 
-#include "base/exception.hpp"
 #include "base/macros.hpp"
 
-#include <atomic>
 #include <set>
 #include <vector>
 
@@ -21,8 +19,6 @@ class MapDataProvider;
 class TileInfo
 {
 public:
-  DECLARE_EXCEPTION(ReadCanceledException, RootException);
-
   TileInfo(drape_ptr<EngineContext> && engineContext);
 
   void ReadFeatures(MapDataProvider const & model);
@@ -34,7 +30,6 @@ public:
 
 private:
   void ReadFeatureIndex(MapDataProvider const & model);
-  void ThrowIfCancelled() const;
   bool DoNeedReadIndex() const;
 
   int GetZoomLevel() const;
@@ -42,7 +37,6 @@ private:
 private:
   drape_ptr<EngineContext> m_context;
   std::vector<FeatureID> m_featureInfo;
-  std::atomic<bool> m_isCanceled;
   std::set<MwmSet::MwmId> m_mwms;
 
   DISALLOW_COPY_AND_MOVE(TileInfo);

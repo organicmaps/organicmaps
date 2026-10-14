@@ -1,7 +1,9 @@
-• OSM duomenys atnaujinti liepos 14 d.
-• Viešojo transporto stotelių, persėdimo punktų ir stočių pavadinimai dabar pažymėti baltu kontūru
-• Pagerintas darbo valandų rodymas
-• Ištaisyti neteisingi arba trūkstami nurodymai
-• Redaguotos žymės ir trasos dabar išsaugomos automatiškai
-• Maršruto įspėjimai (mokesčiai už pravažiavimą, keltai, neasfaltuoti keliai, laiptai ir pan.) dabar rodomi visiems alternatyviems maršrutams
+• OSM: rugsėjo 28 d.; „Wikipedia“: rugsėjo 21 d.
+• Geresni alternatyvūs maršrutai ir numatomas atvykimo laikas
+• Naujas nustatymas optimizuoja tarpinių taškų tvarką
+• Nauji mygtukai leidžia pridėti arba pakeisti taškus planuojamuose maršrutuose
+• Naviguojant išlaikomas pasirinktas alternatyvus maršrutas
+• Trasų įrašymo pataisymai ir patobulinimai
+• Ištaisyta KMB importo klaida
+• Naudotojo sąsajos pataisymai ir patobulinimai
 …daugiau informacijos rasite omaps.org/lt/news

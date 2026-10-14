@@ -49,7 +49,10 @@ public class PlacePageTrackRecordingFragment
   public void onStart()
   {
     super.onStart();
-    TrackRecorder.nativeSetTrackRecordingStatsListener(this);
+    // The listener can only be attached while recording is enabled; it may have been stopped
+    // from the notification while the activity was stopped.
+    if (TrackRecorder.nativeIsTrackRecordingEnabled())
+      TrackRecorder.nativeSetTrackRecordingStatsListener(this);
   }
 
   @Override

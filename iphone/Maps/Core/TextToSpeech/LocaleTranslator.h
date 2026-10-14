@@ -5,6 +5,6 @@
 namespace locale_translator
 {
 
-std::string bcp47ToTwineLanguage(NSString const * bcp47LangName);
+std::string bcp47ToTwineLanguage(NSString * bcp47LangName);
 
 }  // namespace locale_translator

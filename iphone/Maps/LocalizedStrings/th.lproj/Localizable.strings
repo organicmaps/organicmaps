@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "หากต้องการดาวน์โหลดเสียงคุณภาพสูงขึ้น ให้เปิดแอปการตั้งค่า แล้วไปที่ การช่วยการเข้าถึง → VoiceOver → การพูด → เสียง";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "ทดสอบเส้นทางด้วยเสียง (TTS, การอ่านออกเสียงข้อความ)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "ซูมอัตโนมัติ";
 "placepage_distance" = "ระยะห่าง";
 "search_show_on_map" = "ดูบนแผนที่";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "สีฟ้าอมเทา";
 
-/* place preview title */
-"info" = "ข้อมูล";
-
 /* Prints version number in About dialog */
 "version" = "เวอร์ชัน Organic Maps: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "มืด";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "อื่น ๆ";
 
 /* Tex label above the Donate button */
 "donate_description" = "มอบแผนที่ฟรีไม่มีโฆษณาให้แก่ผู้ใช้นับล้าน!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "ทั้งกลางวันและกลางคืน";
 "day_off_today" = "วันนี้ปิด";
 "day_off" = "ปิด";
+"midnight" = "เที่ยงคืน";
+"noon" = "เที่ยงวัน";
 "today" = "วันนี้";
 "opens_in" = "เปิดใน %@";
 "closes_in" = "ปิดใน %@";
@@ -602,9 +604,6 @@
 "day" = "วัน";
 "second" = "วิ";
 "placepage_more_button" = "เพิ่มเติม";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "แก้ไข Bookmark";
 "placepage_personal_notes_hint" = "ข้อความส่วนตัว (ข้อความหรือ html)";
 "editor_comment_hint" = "ข้อคิดเห็น…";
 "editor_reset_edits_message" = "ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 "enable_logging" = "เปิดใช้งานการเก็บล็อก";
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
-"planning_route_manage_route" = "จัดการเส้นทาง";
-"button_plan" = "วางแผน";
 "placepage_remove_stop" = "ลบจุดแวะพัก";
-"placepage_add_stop" = "เพิ่มจุดแวะพัก";
-"saved" = "บันทึกแล้ว";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "เพิ่มจุดหยุด";
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 "bookmark_lists" = "รายการ";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "แสดงทางขวา";
 "show_at_the_bottom" = "แสดงที่ด้านล่าง";
 "enable_logging_warning_message" = "ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "ขับรถ";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "ปั่นจักรยาน";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "เดิน";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "ทุกรูปแบบการเดินทาง";
 "driving_options_title" = "ทางเลือกเส้นทางขับขี่";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "การปรับเส้นทางให้เหมาะสม";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "จัดเรียงจุดแวะระหว่างทางใหม่โดยอัตโนมัติเพื่อสร้างเส้นทางที่มีประสิทธิภาพยิ่งขึ้น";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "หลีกเลี่ยงมอเตอร์เวย์";
 "unable_to_calc_alert_title" = "ไม่สามารถคำนวณเส้นทาง";
 "unable_to_calc_alert_subtitle" = "ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง";
-"define_to_avoid_btn" = "กำหนดถนนที่ต้องการเลี่ยง";
-"change_driving_options_btn" = "เปิดใช้การค้นหาเส้นทางขับขี่แล้ว";
 "toll_road" = "ถนนแบบเสียค่าผ่านทาง";
 "unpaved_road" = "ถนนดิน";
 "ferry_crossing" = "เรือข้ามฟาก";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "การวางแผนเส้นทางล้มเหลว";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "มาถึง: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง";
 "editor_done_dialog_1" = "คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน";
@@ -813,7 +824,6 @@
 "please_note" = "โปรดทราบ";
 "migration_download_error_dialog" = "ข้อผิดพลาดในการดาวน์โหลด";
 "editor_add_select_category" = "เลือกหมวดหมู่";
-"editor_add_select_category_popular_subtitle" = "ยอดนิยม";
 "editor_add_select_category_all_subtitle" = "หมวดหมูทั้งหมด";
 "whatsnew_editor_message_1" = "เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง";
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. เลือกบริการระบุตำแหน่ง";
 "location_services_disabled_on_device_4" = "4. เปิดบริการระบุตำแหน่ง";
 "location_services_disabled_on_device_additional_message" = "หรือใช้ต่อที่ Organic Maps โดยไม่ต้องระบุตำแหน่ง";
-"book_button" = "จอง";
 "placepage_call_button" = "โทร";
 "placepage_bookmark_name_hint" = "ชื่อของ Bookmark";
 "placepage_delete_bookmark_button" = "ลบ Bookmark";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน";
 "log_file_size" = "ขนาดไฟล์บันทึก: %@";
-"planning_route_remove_title" = "ลากมาที่นี่เพื่อเอาออก";
 "placepage_replace_stop" = "แทนที่หยุด";
-"start_from_my_position" = "เริ่มจาก";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม";
@@ -874,15 +881,8 @@
 "popular_place" = "ยอดนิยม";
 "hide_from_map" = "ซ่อนจากแผนที่";
 "tags_loading_error_subtitle" = "เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "ถูกต้อง";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "ด้านล่าง";
 "trip_start" = "ไปกันเลย";
 "pick_destination" = "จุดหมาย";
-"follow_my_position" = "รีเซ็นเตอร์";
 "search_results" = "ผลการค้นหา";
 "then_turn" = "จากนั้น";
 "redirect_route_alert" = "ต้องการสร้างเส้นทางใหม่หรือไม่";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "ขอขอบคุณที่ใช้แผนที่ที่สร้างโดยชุมชนของเรา!";
-
-/* App tip #01 */
-"app_tip_01" = "ด้วยการบริจาคและการสนับสนุนของคุณ เราสามารถสร้างแผนที่ที่ดีที่สุดในโลกได้!";
-
-/* App tip #02 */
-"app_tip_02" = "คุณชอบแอพของเราหรือไม่? กรุณาบริจาคเพื่อสนับสนุนการพัฒนา! ยังไม่ชอบมันเหรอ? โปรดแจ้งให้เราทราบ และเราจะแก้ไขมัน!";
-
-/* App tip #03 */
-"app_tip_03" = "หากคุณรู้จักนักพัฒนาซอฟต์แวร์ คุณสามารถขอให้เขาหรือเธอใช้คุณลักษณะที่คุณต้องการได้";
-
-/* App tip #04 */
-"app_tip_04" = "แตะที่ใดก็ได้บนแผนที่เพื่อเลือกอะไรก็ได้ แตะยาวเพื่อซ่อนและแสดงอินเทอร์เฟซ";
-
-/* App tip #05 */
-"app_tip_05" = "คุณรู้หรือไม่ว่าคุณสามารถเลือกตำแหน่งปัจจุบันของคุณบนแผนที่ได้?";
-
-/* App tip #06 */
-"app_tip_06" = "คุณสามารถช่วยแปลแอปของเราเป็นภาษาของคุณได้";
-
-/* App tip #07 */
-"app_tip_07" = "แอพของเราได้รับการพัฒนาโดยผู้ที่ชื่นชอบและชุมชนบางส่วน";
-
-/* App tip #08 */
-"app_tip_08" = "คุณสามารถแก้ไขและปรับปรุงข้อมูลแผนที่ได้อย่างง่ายดาย";
-
-/* App tip #09 */
-"app_tip_09" = "เป้าหมายหลักของเราคือการสร้างแผนที่ที่รวดเร็ว เน้นความเป็นส่วนตัว และใช้งานง่ายที่คุณจะหลงรัก";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "ขณะนี้คุณกำลังใช้ Organic Maps บนหน้าจอโทรศัพท์";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก";
-"edit_track" = "แก้ไขเส้นทาง";
-"elevation_profile_diff_level" = "ระดับความยาก";
-"elevation_profile_diff_level_easy" = "ง่าย";
-"elevation_profile_diff_level_moderate" = "ปานกลาง";
-"elevation_profile_diff_level_hard" = "ยาก";
 "downloader_updating_ios" = "การอัปเดต";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "โปรดเปิดใช้งาน iCloud ในการตั้งค่าอุปกรณ์ของคุณเพื่อใช้คุณสมบัตินี้";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "เปิดใช้งาน";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "สีแทร็กเปลี่ยนแล้ว";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "เลือกบนแผนที่";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "จุดเริ่มต้น";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "จุดหมาย";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "เปลี่ยนจุดเริ่มต้น";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "เปลี่ยนจุดหมาย";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "เปลี่ยนจุดหยุด";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "ถึงจำนวนจุดหยุดสูงสุดแล้ว";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "เลื่อนและซูมแผนที่เพื่อวางกากบาท";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "กลับทิศทางเส้นทาง";

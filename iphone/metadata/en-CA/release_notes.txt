@@ -1,28 +1,33 @@
-• New "Save search history" setting helps you keep your search history private if needed
+## Routing
+• Improved alternative routes and their estimated arrival times
+• Added buttons for adding or replacing a stop in a planned route
+• Added a setting to optimize the order of intermediate route stops
+• The selected alternative route is now preserved when navigation recalculates the route
+• The order of route stops is now restored after restarting the app
 
-## Map & places
-• OpenStreetMap data as of July 14
-• OpenStreetMap notes are now placed at the exact location you select, instead of in the middle of the forest
-• Improved map selection for regions that cross the 180° antimeridian
-• Track elevation profiles no longer show stale or empty charts after a track is removed
-• Improved the empty elevation chart for recorded tracks
-• The button for removing bookmarks is easier to find
-• Automatic bookmark saving when you leave the edit screen
-• The colour palette includes predefined colours and lets you choose any custom colour
-• Other UI improvements
+## Map
+• OpenStreetMap data as of September 28
+• Wikipedia data as of September 21
+• Water reservoirs are now visible when zoomed further out
+• Waterway tunnels are no longer shown on the map
+• Fixed Suzhou Metro station and entrance icons
+• Fixed rare cases where labels shifted out of position on the metro map layer
 
-## Public transport
-• Stop, transfer, and station names now use a white outline to remain readable in both light and dark themes
-• The subway layer reappears correctly after you close a public transport route preview
+## CarPlay
+• Added manoeuvre instructions on supported car head-up displays (HUDs) and the CarPlay dashboard
+• Fixed CarPlay buttons and search
 
-## Routing & navigation
-• Fixed issues with wrong and missing directions
-• Route warnings (tolls, ferries, unpaved roads, stairs, etc.) are now shown for all alternative routes
-• Fixed a rare freeze while building a route and improved handling of dead ends and start/finish points on a restricted road
-• Improved route progress on the start button
-• Reordering route stops no longer makes the list jump around
+## Tracks
+• Added an eye icon to hide individual tracks
+• Fixed bugs and improved track recording
+• Fixed importing KMB files
 
-## Translations
-• Improved Chinese wording
-• Updated Ukrainian translations
-• Fixed translations of map regions in Italian
+## Search
+• Fixed searches when the visible map area crosses the 180° meridian (±180° longitude)
+• Restored category search in Spotlight
+
+## UI
+• Opening hours now display “Noon” for 12:00 and “Midnight” for 00:00 or 24:00
+• Fixed various bugs and improved the user interface
+• Corrected English, French and Asturian translations
+• Added support for choosing and previewing an installed navigation voice

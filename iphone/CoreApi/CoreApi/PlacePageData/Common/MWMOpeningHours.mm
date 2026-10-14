@@ -8,9 +8,27 @@ using namespace osmoh;
 
 namespace
 {
-NSString * stringFromTimeSpan(Timespan const & timeSpan)
+// Shows the noon and midnight labels instead of 12:00 and 00:00/24:00. In 12-hour locales both
+// render as "12:00 PM" / "12:00 AM", so the labels are the only way to tell them apart at a
+// glance. Only whole hours are labelled: 00:30 and 12:30 stay numeric. Sun events (sunrise-sunset)
+// have no clock value here, and their 00:00 placeholder must not be labelled as midnight.
+NSString * formatTime(Time const & time, id<IOpeningHoursLocalization> localization)
 {
-  return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()), stringFromTime(timeSpan.GetEnd())];
+  if (time.IsHoursMinutes() && time.GetMinutesCount() == 0)
+  {
+    auto const hours = time.GetHoursCount();
+    if (hours == 12)
+      return localization.noonString;
+    if (hours == 0 || hours == 24)
+      return localization.midnightString;
+  }
+  return stringFromTime(time);
+}
+
+NSString * stringFromTimeSpan(Timespan const & timeSpan, id<IOpeningHoursLocalization> localization)
+{
+  return [NSString stringWithFormat:@"%@ - %@", formatTime(timeSpan.GetStart(), localization),
+                                    formatTime(timeSpan.GetEnd(), localization)];
 }
 
 NSString * breaksFromClosedTime(TTimespans const & closedTimes, id<IOpeningHoursLocalization> localization)
@@ -21,8 +39,8 @@ NSString * breaksFromClosedTime(TTimespans const & closedTimes, id<IOpeningHours
   {
     if (i)
       [breaks appendString:@"\n"];
-    [breaks appendString:[NSString
-                             stringWithFormat:@"%@ %@", localization.breakString, stringFromTimeSpan(closedTimes[i])]];
+    [breaks appendString:[NSString stringWithFormat:@"%@ %@", localization.breakString,
+                                                    stringFromTimeSpan(closedTimes[i], localization)]];
   }
   return [breaks copy];
 }
@@ -43,7 +61,7 @@ void addToday(ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningH
   else
   {
     workingDays = everyDay ? localization.dailyString : localization.todayString;
-    workingTimes = stringFromTimeSpan(tt.GetOpeningTime());
+    workingTimes = stringFromTimeSpan(tt.GetOpeningTime(), localization);
     breaks = breaksFromClosedTime(tt.GetExcludeTime(), localization);
   }
 
@@ -66,7 +84,7 @@ void addDay(ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningHou
   }
   else
   {
-    workingTimes = stringFromTimeSpan(tt.GetOpeningTime());
+    workingTimes = stringFromTimeSpan(tt.GetOpeningTime(), localization);
     breaks = breaksFromClosedTime(tt.GetExcludeTime(), localization);
   }
   allDays.emplace_back(workingDays, workingTimes, breaks);

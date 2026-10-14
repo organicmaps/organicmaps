@@ -308,38 +308,6 @@
     <string name="enable_location_services">Kapcsolja be a helymeghatározási szolgáltatást</string>
     <string name="save">Mentés</string>
     <string name="create">létrehozás</string>
-    <!-- red color -->
-    <string name="red">Piros</string>
-    <!-- yellow color -->
-    <string name="yellow">Sárga</string>
-    <!-- blue color -->
-    <string name="blue">Kék</string>
-    <!-- green color -->
-    <string name="green">Zöld</string>
-    <!-- purple color -->
-    <string name="purple">Lila</string>
-    <!-- orange color -->
-    <string name="orange">Narancssárga</string>
-    <!-- brown color -->
-    <string name="brown">Barna</string>
-    <!-- pink color -->
-    <string name="pink">Rózsaszín</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Mély lila</string>
-    <!-- light blue color -->
-    <string name="light_blue">Világoskék</string>
-    <!-- cyan color -->
-    <string name="cyan">Cián</string>
-    <!-- teal color -->
-    <string name="teal">Zöldeskék</string>
-    <!-- lime color -->
-    <string name="lime">Lime</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Mély narancssárga</string>
-    <!-- gray color -->
-    <string name="gray">Szürke</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Kékes szürke</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Megjelenés</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -409,20 +377,15 @@
     <string name="editor_example_values">Példaértékek</string>
     <string name="editor_correct_mistake">Hiba javítása</string>
     <string name="editor_add_select_location">Hely kiválasztása</string>
-    <string name="editor_report_problem_desription_1">Írja le részletesen a problémát, hogy az OpenStreetMap csapata kijavíthassa.</string>
-    <string name="editor_report_problem_desription_2">Vagy javítsa ki Ön itt: https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Küldés</string>
-    <string name="editor_report_problem_title">Hibajegy</string>
-    <string name="editor_report_problem_no_place_title">A hely nem létezik</string>
-    <string name="editor_report_problem_under_construction_title">Karbantartás miatt nem érhető el</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
     <string name="autodownload">Automatikus térképletöltés</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Naponta</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Ma zárva</string>
     <string name="day_off">Zárva</string>
-    <string name="today">Ma</string>
+    <string name="midnight">Éjfél</string>
+    <string name="noon">Dél</string>
     <string name="opens_in">Kinyit %s múlva</string>
     <string name="closes_in">Bezár %s múlva</string>
     <string name="closed">Zárva</string>
@@ -465,7 +428,6 @@
     <string name="downloader_no_space_title">Nincs elegendő tárhely</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Törölje a felesleges adatokat</string>
-    <string name="editor_login_error_dialog">Bejelentkezési hiba.</string>
     <string name="editor_profile_changes">Jóváhagyott módosítás</string>
     <string name="editor_focus_map_on_location">Húzza a térképet, hogy a keresztet a hely vagy üzlet helyére helyezze.</string>
     <string name="editor_edit_place_title">Szerkesztés</string>
@@ -474,8 +436,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Ahogyan az, a helyi nyelven írva van</string>
     <string name="editor_edit_place_category_title">Kategória</string>
-    <string name="detailed_problem_description">A probléma részletes leírása</string>
-    <string name="editor_report_problem_other_title">Más jellegű probléma</string>
     <string name="placepage_add_business_button">Vállalkozás hozzáadása</string>
     <string name="message_invalid_feature_position">Itt nem található objektum</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -518,7 +478,7 @@
     <string name="day">nap</string>
     <string name="second">mp</string>
     <string name="placepage_more_button">Tovább</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
     <string name="placepage_personal_notes_hint">Személyes jegyzetek (szöveg vagy html)</string>
     <string name="editor_comment_hint">Megjegyzés…</string>
@@ -571,12 +531,10 @@
     <string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
     <string name="transliteration_title">Átírás latin betűkre</string>
     <string name="learn_more">Tudjon meg többet</string>
-    <string name="planning_route_manage_route">Útvonal kezelése</string>
-    <string name="button_plan">Tervezés</string>
     <string name="placepage_remove_stop">Megálló eltávolítása</string>
-    <string name="placepage_add_stop">Köztes célpont hozzáadása</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">Új megálló</string>
     <string name="drag_to_reorder">Átsorolás</string>
-    <string name="saved">Mentve</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>
     <string name="dialog_error_storage_title">Tárhelyhozzáférési probléma</string>
@@ -665,7 +623,19 @@
     <string name="show_to_the_right">Megjelenítés jobb oldalon</string>
     <string name="show_at_the_bottom">Megjelenítés alul</string>
     <string name="enable_logging_warning_message">Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Autóval</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Kerékpárral</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Gyalog</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Minden közlekedési mód</string>
     <string name="driving_options_title">Útvonaltervezési beállítások</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Útvonal-optimalizálás</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Automatikusan átrendezi a köztes célpontokat egy hatékonyabb útvonal létrehozásához.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Díjköteles utak elkerülése</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -675,8 +645,6 @@
     <string name="avoid_motorways">Autópályák elkerülése</string>
     <string name="unable_to_calc_alert_title">Nem lehet kiszámítani az útvonalat</string>
     <string name="unable_to_calc_alert_subtitle">Nem sikerült útvonalat találni. Ennek oka lehet az útvonaltervezési beállítások vagy a hiányos OpenStreetMap-adatok. Módosítsa az útvonaltervezési beállításokat, és próbálja meg újra.</string>
-    <string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
-    <string name="change_driving_options_btn">Útvonaltervezési beállítások engedélyezve</string>
     <string name="toll_road">Díjköteles utak</string>
     <string name="unpaved_road">Burkolatlan utak</string>
     <string name="ferry_crossing">Kompátkelők</string>
@@ -761,8 +729,6 @@
     <string name="elevation_profile_min_elevation">Legkisebb magasság</string>
     <string name="elevation_profile_max_elevation">Legnagyobb magasság</string>
     <string name="elevation_profile_difficulty">Nehézség</string>
-    <string name="elevation_profile_distance">Távolság:</string>
-    <string name="elevation_profile_time">Idő:</string>
     <string name="isolines_toast_zooms_1_10">Nagyítás az izovonalak felfedezéséhez</string>
     <string name="downloader_loading_ios">Letöltés</string>
     <string name="download_map_title">Áttekintő világtérkép letöltése</string>
@@ -867,12 +833,6 @@
     <string name="stop_track_recording">Nyomvonal rögzítésének megállítása</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Nyomvonal rögzítése</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Megállítás mentés nélkül</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Rögzítés folytatása</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Menti a könyvjelzők és nyomvonalakba?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">A nyomvonal üres – nincs mit menteni</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -880,8 +840,6 @@
     <string name="choose_color">Válasszon színt</string>
     <string name="edit_track">Nyomvonal szerkesztése</string>
     <string name="uri_open_location_failed">Nincs telepített alkalmazás, amely meg tudja nyitni a helyet</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automatikus navigáció</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Rendszer követése</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -909,11 +867,11 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Nyomvonal megjelenítése</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Ön</string>
+
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Bejelentkezés jelszóval</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Bejelentkezés böngésző használatával</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Legutóbb használt</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->
@@ -936,4 +894,24 @@
     <string name="color_picker_grid">Rács</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Hangkeresés</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Kiválasztás a térképen</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Kiindulás</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Úticél</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Kiindulás módosítása</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Úticél módosítása</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Megálló módosítása</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Elérte a megállók maximális számát</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Mozgassa és nagyítsa/kicsinyítse a térképet a kereszt elhelyezéséhez</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Megállítás és mentés</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Útvonal megfordítása</string>
 </resources>

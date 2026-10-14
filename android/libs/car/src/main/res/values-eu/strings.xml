@@ -68,6 +68,8 @@
     <string name="editor_time_open">Ireki</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Gaur atseden eguna</string>
+    <string name="midnight">Gauerdia</string>
+    <string name="noon">Eguerdia</string>
     <string name="opens_in">%s barru irekiko da</string>
     <string name="closes_in">%s barru itxiko da</string>
     <string name="closed">Itxita</string>

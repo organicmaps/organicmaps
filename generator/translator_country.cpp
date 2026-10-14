@@ -26,6 +26,7 @@
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
+#include "base/string_utils.hpp"
 
 #include "defines.hpp"
 
@@ -63,7 +64,7 @@ bool WikiDataValidator(std::string const & tagValue)
     return false;
 
   while (pos != tagValue.size())
-    if (!std::isdigit(tagValue[pos++]))
+    if (!strings::IsASCIIDigit(tagValue[pos++]))
       return false;
 
   return true;

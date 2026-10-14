@@ -56,9 +56,9 @@ void Transliteration::Init(std::string const & icuDataDir)
 
   for (auto const & lang : StringUtf8Multilang::GetSupportedLanguages())
   {
-    for (auto const & t : lang.m_transliteratorsIds)
-      if (m_transliterators.count(t) == 0)
-        m_transliterators.emplace(t, std::make_unique<TransliteratorInfo>());
+    auto const id = lang.m_transliteratorId;
+    if (!id.empty() && m_transliterators.count(id) == 0)
+      m_transliterators.emplace(id, std::make_unique<TransliteratorInfo>());
   }
 
   // We need "Hiragana-Katakana" for strings normalization, not for latin transliteration.
@@ -131,15 +131,12 @@ bool Transliteration::Transliterate(std::string_view sv, int8_t langCode, std::s
   if (sv.empty() || strings::IsASCIIString(sv))
     return false;
 
-  auto const * transliteratorsIds = StringUtf8Multilang::GetTransliteratorsIdsByCode(langCode);
-  if (transliteratorsIds == nullptr || transliteratorsIds->size() == 0)
+  auto const id = StringUtf8Multilang::GetTransliteratorIdByCode(langCode);
+  if (id.empty())
     return false;
 
   icu::UnicodeString ustr(sv.data(), static_cast<int32_t>(sv.size()));
-  for (auto const & id : *transliteratorsIds)
-    Transliterate(id, ustr);
-
-  if (ustr.isEmpty())
+  if (!Transliterate(id, ustr))
     return false;
 
   ustr.toUTF8String(out);

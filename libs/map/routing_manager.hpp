@@ -165,8 +165,8 @@ public:
   void CloseRouting(bool removeRoutePoints);
 
   /// \brief Activate alternative |idx| (typically triggered by tapping its ETA balloon).
-  /// Returns false if the index is out of range or already active. Re-renders the drape so
-  /// the newly-active variant is highlighted and the previously-active becomes the alternative.
+  /// Returns false if the index is out of range, already active, or its adjustment caches are
+  /// unavailable or belong to another result. Re-renders the drape to highlight the selected variant.
   bool SwapActiveAlternative(size_t idx);
 
   /// \brief Hit-tests |mercator| against the alternative-route polylines. If one is closer than
@@ -214,7 +214,18 @@ public:
   /// will not return previous data, only newer.
   void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
 
-  void AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
+  /// Appends an intermediate stop before the finish, ignoring markData.m_intermediateIndex; Start/Finish replace the
+  /// existing endpoint instead. A new stop is dropped at capacity, except when it takes over an existing My Position
+  /// mark. optimize places only the new stop at the predicted position (needs both endpoints, ignored in Ruler mode,
+  /// still applied while following). Returns false when a new point cannot be added at capacity.
+  bool AddRoutePoint(RouteMarkData && markData, bool optimize);
+  /// Replaces an existing slot without optimization. If the target is gone, adds the point normally; otherwise the
+  /// target slot's current type overrides markData.
+  void ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
+  /// Reorders stops after the last passed mark in place, keeping endpoints, passed marks, and earlier stops fixed.
+  /// Returns whether the order changed; the caller rebuilds. No-op while following, in Ruler mode, or without
+  /// both endpoints.
+  bool OptimizeRoutePoints();
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;
@@ -225,6 +236,9 @@ public:
   void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
   void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType targetType,
                       size_t targetIntermediateIndex);
+  /// Reverses the complete route, including intermediate points. Returns false without changing points if either
+  /// endpoint is missing.
+  bool ReverseRoutePoints();
   void HideRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   bool CouldAddIntermediatePoint() const;
   bool IsMyPosition(RouteMarkType type, size_t intermediateIndex = 0);
@@ -324,8 +338,7 @@ private:
   void CreateRouteAltMarks(routing::RoutesResult const & result);
 
   // Synchronously remove the alternative-route subroutes from drape and clear the alt ETA
-  // balloons. Used when entering navigation mode (FollowRoute) so the alts drawn at build
-  // time disappear immediately. The active route is left untouched.
+  // balloons when rebuilding or entering navigation. The active route is left untouched.
   void ClearAlternativeRoutes();
 
   /// \returns false if the location could not be matched to the route and should be matched to the
@@ -336,7 +349,9 @@ private:
 
   void SetPointsFollowingMode(bool enabled);
 
-  void ReorderIntermediatePoints();
+  /// Places |added| among the unpassed stops, keeping their relative order, or re-inserts all of them if it is null.
+  /// Returns whether any stop index changed.
+  bool ReorderIntermediatePoints(RoutePointsLayout & layout, RouteMarkPoint const * added);
 
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();

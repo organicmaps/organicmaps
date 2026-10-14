@@ -68,6 +68,8 @@
     <string name="editor_time_open">개점</string>
     <string name="twentyfour_seven">24 시간</string>
     <string name="day_off_today">오늘 영업 종료됨</string>
+    <string name="midnight">자정</string>
+    <string name="noon">정오</string>
     <string name="opens_in">%s에서 열립니다</string>
     <string name="closes_in">%s로 마감</string>
     <string name="closed">닫음</string>

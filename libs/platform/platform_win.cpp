@@ -18,32 +18,35 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-static bool GetUserWritableDir(std::string & outDir)
+namespace
 {
-  char pathBuf[MAX_PATH] = {0};
-  if (SUCCEEDED(::SHGetFolderPathA(NULL, CSIDL_LOCAL_APPDATA | CSIDL_FLAG_CREATE, NULL, SHGFP_TYPE_CURRENT, pathBuf)))
-  {
-    outDir = pathBuf;
-    ::CreateDirectoryA(outDir.c_str(), NULL);
-    outDir += "\\OrganicMaps\\";
-    ::CreateDirectoryA(outDir.c_str(), NULL);
-    return true;
-  }
-  return false;
+bool GetUserWritableDir(std::string & outDir)
+{
+  char pathBuf[MAX_PATH] = {};
+  if (FAILED(::SHGetFolderPathA(nullptr, CSIDL_LOCAL_APPDATA, nullptr, SHGFP_TYPE_CURRENT, pathBuf)))
+    return false;
+
+  outDir = pathBuf;
+  outDir += "\\OrganicMaps\\";
+#if OMIM_WINDOWS_DISTRIBUTION_DIRECT
+  outDir += "WindowsDirect\\";
+#elif OMIM_WINDOWS_DISTRIBUTION_STORE
+  outDir += "WindowsStore\\";
+#endif
+  return Platform::MkDirRecursively(outDir);
 }
 
 /// @return Full path to the executable file
-static bool GetPathToBinary(std::string & outPath)
+bool GetPathToBinary(std::string & outPath)
 {
-  // get path to executable
-  char pathBuf[MAX_PATH] = {0};
-  if (0 < ::GetModuleFileNameA(NULL, pathBuf, MAX_PATH))
-  {
-    outPath = pathBuf;
-    return true;
-  }
-  return false;
+  char pathBuf[MAX_PATH] = {};
+  DWORD const length = ::GetModuleFileNameA(nullptr, pathBuf, MAX_PATH);
+  if (length == 0 || length >= MAX_PATH)
+    return false;
+  outPath = pathBuf;
+  return true;
 }
+}  // namespace
 
 namespace platform
 {
@@ -58,9 +61,7 @@ Platform::Platform()
   std::string path;
   CHECK(GetPathToBinary(path), ("Can't get path to binary"));
 
-  // resources path:
-  // 1. try to use data folder in the same path as executable
-  // 2. if not found, try to use ..\..\..\data (for development only)
+  // Resources are read from data next to the executable; Debug builds also try ../../data.
   path.erase(path.find_last_of('\\'));
   if (IsFileExistsByFullPath(path + "\\data\\"))
     m_resourcesDir = path + "\\data\\";
@@ -76,9 +77,7 @@ Platform::Platform()
 #endif
   }
 
-  // writable path:
-  // 1. the same as resources if we have write access to this folder
-  // 2. otherwise, use system-specific folder
+#if OMIM_WINDOWS_DISTRIBUTION_DEVELOPMENT
   auto const tmpFilePath = base::JoinPath(m_resourcesDir, "mapswithmetmptestfile");
   try
   {
@@ -91,11 +90,15 @@ Platform::Platform()
     CHECK(GetUserWritableDir(m_writableDir), ("Can't get writable directory"));
   }
   FileWriter::DeleteFileX(tmpFilePath);
+#else
+  CHECK(GetUserWritableDir(m_writableDir), ("Can't get writable directory"));
+#endif
 
   m_settingsDir = m_writableDir;
-  char pathBuf[MAX_PATH] = {0};
-  GetTempPathA(MAX_PATH, pathBuf);
-  m_tmpDir = pathBuf;
+  char tempPath[MAX_PATH + 1] = {};
+  DWORD const tempLength = ::GetTempPathA(MAX_PATH + 1, tempPath);
+  CHECK(tempLength != 0 && tempLength < sizeof(tempPath), ("Can't get temporary directory"));
+  m_tmpDir = tempPath;
 
   m_guiThread = std::make_unique<platform::GuiThread>();
 

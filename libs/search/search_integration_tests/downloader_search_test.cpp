@@ -209,8 +209,6 @@ void TestResults(vector<T> received, vector<T> expected)
   TEST_EQUAL(expected, received, ());
 }
 
-}  // namespace
-
 UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
 {
   AddRegion("Flatland", "Squareland One", m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0));
@@ -248,4 +246,5 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
                                        storage::DownloaderSearchResult("Squareland Two", "Squareland Two capital")});
   }
 }
+}  // namespace
 }  // namespace downloader_search_test

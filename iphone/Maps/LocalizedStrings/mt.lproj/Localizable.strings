@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Biex tniżżel vuċi ta' kwalità ogħla, iftaħ l-app Settings u mur Aċċessibbiltà → VoiceOver → Diskors → Vuċi.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Ittestja id-Direzzjonijiet tal-vuċi (TTS, Test għad-diskors)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Iżżumja awtomatikament";
 "placepage_distance" = "Distanza";
 "search_show_on_map" = "Uri fuq il-mappa";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Blu Griż";
 
-/* place preview title */
-"info" = "Informazzjoni";
-
 /* Prints version number in About dialog */
 "version" = "Verżjoni ta' Organic Maps: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Skur";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Oħrajn";
 
 /* Tex label above the Donate button */
 "donate_description" = "Agħti mapep b'xejn u bla reklami lil miljuni ta' utenti!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Magħluq illum";
 "day_off" = "Magħluq";
+"midnight" = "Nofsillejl";
+"noon" = "Nofsinhar";
 "today" = "Illum";
 "opens_in" = "Jiftaħ f’ %@";
 "closes_in" = "Jagħlaq f’ %@";
@@ -602,9 +604,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Aktar";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Editja l-Bookmark";
 "placepage_personal_notes_hint" = "Noti personali (kitba jew html)";
 "editor_comment_hint" = "Kumment…";
 "editor_reset_edits_message" = "Armi l-bidliet lokali kollha?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "L-Informazzjoni dwar it-traffiku mhijiex disponibbli";
 "enable_logging" = "Attiva l-illoggjar";
 "transliteration_title" = "Jittraduċi ruħu fl-alfabett Latin";
-"planning_route_manage_route" = "Immaniġġja r-Rotta";
-"button_plan" = "Pjan";
 "placepage_remove_stop" = "Neħħi l-Waqfa";
-"placepage_add_stop" = "Żid Waqfa";
-"saved" = "Salvat";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Żid waqfa";
 "error_enter_correct_name" = "Daħħal isem korrett";
 "bookmark_lists" = "Listi";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "Uri fuq il-lemin";
 "show_at_the_bottom" = "Uri fil-qiegħ";
 "enable_logging_warning_message" = "Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Bil-karozza";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Bir-rota";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Bil-mixi";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Il-modi kollha tal-ivvjaġġar";
 "driving_options_title" = "Għażliet tar-rotta";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ottimizzazzjoni tar-rotta";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Tirranġa mill-ġdid il-waqfiet intermedji awtomatikament biex toħloq rotta aktar effiċjenti.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evita ħlasijiet għall-użu tat-triq";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "Evita l-passaġġi ħielsa";
 "unable_to_calc_alert_title" = "Ir-rotta ma' tistax tiġi kalkulata";
 "unable_to_calc_alert_subtitle" = "Ma setgħetx tinstab rotta. Dan jista’ jkun ikkawżat mill-għażliet tar-rotta tiegħek jew mil-informazzjoni mhux kompluta ta’ OpenStreetMap. Ibdel l-għażliet tar-rotta tiegħek u erġa ’pprova.";
-"define_to_avoid_btn" = "Iddefinixxi t-toroq li tixtieq tevita";
-"change_driving_options_btn" = "Għażliet tar-rotta attivati";
 "toll_road" = "Triq għall-pedaġġ";
 "unpaved_road" = "Triq mhux pavimentata";
 "ferry_crossing" = "Qsim bil-lanċa";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "L-Ippjanar tar-rotta ma rnexxiex";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Wasla fil-%@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Niżżel u aġġorna l-mappa kollha tul il-mogħdija proġettata biex tikkalkula r-rotta.";
 "editor_done_dialog_1" = "Biddilt il-mappa tad-dinja! Iżżommhiex għalik innifsek; għid lil sħabek u editjawha flimkien.";
@@ -813,7 +824,6 @@
 "please_note" = "Jekk jogħġbok innota";
 "migration_download_error_dialog" = "Żball fit-tniżżil";
 "editor_add_select_category" = "Agħżel kategorija";
-"editor_add_select_category_popular_subtitle" = "Popolari";
 "editor_add_select_category_all_subtitle" = "Kategoriji kollha";
 "whatsnew_editor_message_1" = "Żid postijiet ġodda mal-mappa, u editja dawk eżistenti direttament mill-app.";
 "dialog_incorrect_feature_position" = "Biddel il-post";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. Agħżel Servizzi tal-Post";
 "location_services_disabled_on_device_4" = "4. Ixgħel is-Servizzi tal-Post";
 "location_services_disabled_on_device_additional_message" = "Jew kompli tuża Organic Maps mingħajr il-pożizzjoni";
-"book_button" = "Ktieb";
 "placepage_call_button" = "Sejħa";
 "placepage_bookmark_name_hint" = "Isem tal-marka tal-paġna";
 "placepage_delete_bookmark_button" = "Ħassar il-marka tal-paġna";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Biex turi d-dejta tat-traffiku, l-applikazzjoni trid tiġi aġġornata.";
 "log_file_size" = "Daqs tal-fajl tal-log: %@";
-"planning_route_remove_title" = "Iġbed hawn biex tneħħi";
 "placepage_replace_stop" = "Biddel Waqaf";
-"start_from_my_position" = "Ibda minn";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Jekk jogħġbok idħol f'OpenStreetMap biex ittella' awtomatikament il-bidliet kollha tal-mappa tiegħek. Tgħallem aktar";
@@ -874,15 +881,8 @@
 "popular_place" = "Popolari";
 "hide_from_map" = "Aħbi mill-mappa";
 "tags_loading_error_subtitle" = "Seħħ żball waqt it-tagħbija tat-tikketti, jekk jogħġbok ipprova mill-ġdid";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Lemin";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Qiegħ";
 "trip_start" = "Ejja mmorru";
 "pick_destination" = "Destinazzjoni";
-"follow_my_position" = "Irriċentra";
 "search_results" = "Riżultati tat-tfittxija";
 "then_turn" = "Imbagħad";
 "redirect_route_alert" = "Trid terġa' tibni r-rotta?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Grazzi talli użajtu l-mapep tagħna mibnija mill-komunita’!";
-
-/* App tip #01 */
-"app_tip_01" = "Bid-donazzjonijiet u l-appoġġ tiegħek, nistgħu noħolqu l-aqwa mapep fid-dinja!";
-
-/* App tip #02 */
-"app_tip_02" = "Togħġbok l-app tagħna? Jekk jogħġbok agħti donazzjoni biex tappoġġja l-iżvilupp! Għadha ma togħġbokx? Jekk jogħġbok għidilna għaliex, u nirranġawha!";
-
-/* App tip #03 */
-"app_tip_03" = "Jekk taf żviluppatur tas-softwer, tista’ titolbu jimplimenta il-karatteristika li għandek bżonn.";
-
-/* App tip #04 */
-"app_tip_04" = "Għafas kullimkien fuq il-mappa biex tagħżel xi ħaġa. Tgħafisa twila tista' tintuża biex taħbi u turi l-interface.";
-
-/* App tip #05 */
-"app_tip_05" = "Kont taf li l-post attwali tiegħek fuq il-mappa jista’ jintgħażel?";
-
-/* App tip #06 */
-"app_tip_06" = "Tista’ tgħin sabiex tittraduċi l-applikazzjoni tagħna fil-lingwa tiegħek.";
-
-/* App tip #07 */
-"app_tip_07" = "L-app tagħna hija żviluppata minn ftit dilettanti u l-komunita’.";
-
-/* App tip #08 */
-"app_tip_08" = "Tista’ faċilment tirranġa u ttejjeb l-informazzjoni tal-mappa.";
-
-/* App tip #09 */
-"app_tip_09" = "L-għan ewlieni tagħna huwa li nibnu mapep veloċi, iffukati fuq il-privatezza, u faċli biex jintużaw li se jinħabbu.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Issa qed tuża Organic Maps fuq l-iskrin tat-telefown";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Il-Korsija hija vojta - xejn x’ tissejvja";
-"edit_track" = "Editja l-Korsija";
-"elevation_profile_diff_level" = "Livell ta' diffikultà";
-"elevation_profile_diff_level_easy" = "Faċli";
-"elevation_profile_diff_level_moderate" = "Moderata";
-"elevation_profile_diff_level_hard" = "Ċast";
 "downloader_updating_ios" = "Qed taġġorna";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Jekk jogħġbok,attiva l-iCloud fl-issettjar tal-apparat tiegħek biex tuża din il-karatteristika.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Attiva";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Il-kulur tat-tracks inbidel";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Agħżel fuq il-mappa";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Punt tal-bidu";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destinazzjoni";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Biddel il-bidu";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Biddel id-destinazzjoni";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Biddel il-waqfa";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Inkiseb in-numru massimu ta' waqfiet";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Mexxi u kabbar il-mappa biex tqiegħed is-salib";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Aqleb ir-rotta";

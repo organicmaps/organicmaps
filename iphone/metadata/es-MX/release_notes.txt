@@ -1,28 +1,33 @@
-• La nueva configuración «Guardar historial de búsqueda» te ayuda a mantener privado tu historial de búsqueda si lo necesitas
+## Rutas
+• Rutas alternativas mejoradas y sus tiempos estimados de llegada
+• Se agregaron botones para agregar o reemplazar una parada en una ruta planificada
+• Se agregó una configuración para optimizar el orden de las paradas intermedias de la ruta
+• Ahora se conserva la ruta alternativa seleccionada cuando la navegación vuelve a calcular la ruta
+• Ahora se restaura el orden de las paradas de la ruta después de reiniciar la aplicación
 
-## Mapas y lugares
-• Datos de OpenStreetMap al 14 de julio
-• Las notas de OpenStreetMap ahora se colocan en la ubicación exacta que selecciones, en lugar de en medio del bosque
-• Se ha mejorado la selección de mapas para las regiones que cruzan el antimeridiano de 180°
-• Los perfiles de elevación de los recorridos ya no muestran gráficos obsoletos o vacíos después de eliminar un recorrido
-• Se ha mejorado el gráfico de elevación vacío para los recorridos grabados
-• El botón para eliminar marcadores es más fácil de encontrar
-• Se guardan automáticamente los marcadores al salir de la pantalla de edición
-• La paleta de colores incluye colores predefinidos y te permite elegir cualquier color personalizado
-• Otras mejoras en la interfaz de usuario
+## Mapa
+• Datos de OpenStreetMap al 28 de septiembre
+• Datos de Wikipedia al 21 de septiembre
+• Ahora los embalses de agua son visibles al alejar el zoom
+• Los túneles de agua ya no se muestran en el mapa
+• Se corrigieron los íconos de las estaciones y entradas del Metro de Suzhou
+• Se corrigieron casos poco frecuentes en los que las etiquetas se desplazaban fuera de su posición en la capa del mapa del metro
 
-## Transporte público
-• Los nombres de las paradas, transbordos y estaciones ahora tienen un contorno blanco para que se puedan leer tanto en el tema claro como en el oscuro
-• La capa del metro vuelve a aparecer correctamente después de cerrar la vista previa de una ruta de transporte público
+## CarPlay
+• Se agregaron instrucciones de maniobra en las pantallas de visualización frontal (HUD) compatibles de los autos y en el tablero de CarPlay
+• Se corrigieron los botones y la búsqueda de CarPlay
 
-## Rutas y navegación
-• Se corrigieron problemas con indicaciones erróneas o faltantes
-• Las advertencias de ruta (peajes, transbordadores, caminos sin pavimentar, escaleras, etc.) ahora se muestran para todas las rutas alternativas
-• Se corrigió un congelamiento poco frecuente al trazar una ruta y se mejoró el manejo de callejones sin salida y puntos de inicio/fin en una vía con restricciones
-• Se ha mejorado la indicación del progreso de la ruta en el botón de inicio
-• Al reordenar las paradas de la ruta, la lista ya no salta de un lado a otro
+## Trazas
+• Se agregó un ícono de ojo para ocultar trazas individuales
+• Se corrigieron errores y se mejoró el registro de trazas
+• Se corrigió la importación de archivos KMB
 
-## Traducciones
-• Se ha mejorado la redacción en chino
-• Se han actualizado las traducciones al ucraniano
-• Se han corregido las traducciones de las regiones del mapa en italiano
+## Buscar
+• Se corrigió el funcionamiento de las búsquedas cuando el área visible del mapa cruza el meridiano de 180° (±180° de longitud).
+• Se restableció la búsqueda por categoría en Spotlight
+
+## Interfaz de usuario
+• Los horarios de apertura ahora muestran «Mediodía» para las 12:00 y «Medianoche» para las 00:00 o 24:00
+• Se corrigieron varios errores y se mejoró la interfaz de usuario
+• Se corrigieron las traducciones al inglés, francés y asturiano
+• Se agregó la posibilidad de elegir y escuchar una muestra de la voz de navegación instalada

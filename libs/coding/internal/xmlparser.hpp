@@ -8,6 +8,7 @@
 #pragma clang diagnostic ignored "-Wunused-parameter"
 #endif
 
+#include <exception>
 #include <memory>
 #include <sstream>
 #include <string>
@@ -47,21 +48,21 @@ public:
   {
     CHECK(userData, (name));
     auto * xmlParser = static_cast<XmlParser *>(userData);
-    xmlParser->OnStartElement(name, attrs);
+    xmlParser->CallHandler([&] { xmlParser->OnStartElement(name, attrs); });
   }
 
   static void EndElementHandler(void * userData, XML_Char const * name)
   {
     CHECK(userData, (name));
     auto * xmlParser = static_cast<XmlParser *>(userData);
-    xmlParser->OnEndElement(name);
+    xmlParser->CallHandler([&] { xmlParser->OnEndElement(name); });
   }
 
   static void CharacterDataHandler(void * userData, XML_Char const * data, int length)
   {
     CHECK(userData, (data));
     auto * xmlParser = static_cast<XmlParser *>(userData);
-    xmlParser->OnCharacterData(data, length);
+    xmlParser->CallHandler([&] { xmlParser->OnCharacterData(data, length); });
   }
 
   void * GetBuffer(int len)
@@ -73,7 +74,10 @@ public:
   XML_Status ParseBuffer(int len, int isFinal)
   {
     CHECK(m_parser, ());
-    return XML_ParseBuffer(m_parser.get(), len, isFinal);
+    auto const status = XML_ParseBuffer(m_parser.get(), len, isFinal);
+    if (m_exception)
+      std::rethrow_exception(m_exception);
+    return status;
   }
 
   void OnPostCreate()
@@ -150,6 +154,27 @@ private:
   std::string m_charData;
   bool m_enableCharHandler;
   std::unique_ptr<XML_ParserStruct, decltype(&XML_ParserFree)> m_parser;
+  std::exception_ptr m_exception;
+
+  // Exceptions must not unwind through expat's C frames: with the default /EHsc MSVC assumes that
+  // extern "C" functions never throw, and Release builds terminated instead of reaching the catch
+  // around XML_ParseBuffer. Stop the parser instead and rethrow when XML_ParseBuffer returns.
+  template <typename Fn>
+  void CallHandler(Fn && fn)
+  {
+    // Expat may still report some events after XML_StopParser, e.g. the end of an empty element.
+    if (m_exception)
+      return;
+    try
+    {
+      fn();
+    }
+    catch (...)
+    {
+      m_exception = std::current_exception();
+      XML_StopParser(m_parser.get(), XML_FALSE);
+    }
+  }
 
   void CheckCharData()
   {

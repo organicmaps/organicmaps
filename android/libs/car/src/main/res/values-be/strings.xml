@@ -68,6 +68,8 @@
     <string name="editor_time_open">Адкрыта</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Сёння закрыта</string>
+    <string name="midnight">Поўнач</string>
+    <string name="noon">Поўдзень</string>
     <string name="opens_in">Адчыняецца праз %s</string>
     <string name="closes_in">Зачыняецца праз %s</string>
     <string name="closed">Закрыта</string>

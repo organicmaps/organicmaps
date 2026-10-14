@@ -15,8 +15,7 @@
 
 namespace df
 {
-// Analytic area patterns (hatches and solid-fill speckles) repeat every kHatchTilePx 'base' pixels - the
-// size of the legacy mask tiles, kept so the on-screen scale is unchanged. The fragment shaders interpret
+// Analytic area patterns repeat every kHatchTilePx base pixels. The fragment shaders interpret
 // v_maskTexCoords * kHatchTilePx as the in-tile pixel coordinate.
 uint32_t constexpr kHatchTilePx = 16;
 

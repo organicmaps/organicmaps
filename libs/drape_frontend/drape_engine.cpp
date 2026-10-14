@@ -685,7 +685,7 @@ void DrapeEngine::ClearGpsTrackPoints()
 }
 
 void DrapeEngine::EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles,
-                                           m2::PointD const * optionalPosition)
+                                           m2::PointD const * optionalPosition, bool shouldChangeViewport)
 {
   m_choosePositionMode = enable;
   bool kineticScroll = m_kineticScrollEnabled;
@@ -702,7 +702,8 @@ void DrapeEngine::EnableChoosePositionMode(bool enable, std::vector<m2::Triangle
   }
   m_threadCommutator->PostMessage(
       ThreadsCommutator::RenderThread,
-      make_unique_dp<SetAddNewPlaceModeMessage>(enable, std::move(boundAreaTriangles), kineticScroll, optionalPosition),
+      make_unique_dp<SetAddNewPlaceModeMessage>(enable, std::move(boundAreaTriangles), kineticScroll, optionalPosition,
+                                                shouldChangeViewport),
       MessagePriority::Normal);
 }
 

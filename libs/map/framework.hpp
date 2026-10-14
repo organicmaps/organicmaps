@@ -356,7 +356,8 @@ public:
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
 
-  void EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition);
+  void EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition,
+                                bool shouldChangeViewport = true);
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = std::function<void(storage::CountryId const &)>;
@@ -500,7 +501,8 @@ private:
   std::optional<RouteTransitSelection> m_routeTransitSelection;
 
 public:
-  // Moves viewport to the search result and taps on it.
+  // Stops location follow, opens the result's place page and centers the viewport
+  // without cancelling searches or clearing their marks.
   void SelectSearchResult(search::Result const & res, bool animation);
 
   // Highlights a public-transport route line on the map, using the current place page's feature
@@ -515,8 +517,7 @@ public:
   // Is called on PT PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
   void HideRouteTransitIfNeeded();
 
-  // Cancels all searches, stops location follow and then selects
-  // search result.
+  // Cancels all searches, then selects the result via SelectSearchResult.
   void ShowSearchResult(search::Result const & res, bool animation = true);
 
   // Applies the search results viewport policy, see search::AdjustViewportToSearchResults().

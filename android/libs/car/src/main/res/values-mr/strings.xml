@@ -68,6 +68,8 @@
     <string name="editor_time_open">उघडे</string>
     <string name="twentyfour_seven">२४/७</string>
     <string name="day_off_today">आज बंद</string>
+    <string name="midnight">मध्यरात्र</string>
+    <string name="noon">मध्यान्ह</string>
     <string name="opens_in">आणखी %s मध्ये उघडेल</string>
     <string name="closes_in">आणखी %s मध्ये बंद होईल</string>
     <string name="closed">बंद</string>

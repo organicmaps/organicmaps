@@ -68,6 +68,8 @@
     <string name="editor_time_open">Nyitva</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Ma zárva</string>
+    <string name="midnight">Éjfél</string>
+    <string name="noon">Dél</string>
     <string name="opens_in">Kinyit %s múlva</string>
     <string name="closes_in">Bezár %s múlva</string>
     <string name="closed">Zárva</string>

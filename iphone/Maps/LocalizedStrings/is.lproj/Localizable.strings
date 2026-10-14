@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Til að sækja rödd í meiri gæðum skaltu opna Stillingar-forritið og fara í Aðgengi → VoiceOver → Tal → Rödd.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Prófa raddleiðsögn (TTS, texti-í-tal)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Sjálfvirkur aðdráttur";
 "placepage_distance" = "Vegalengd";
 "search_show_on_map" = "Skoða á korti";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Blágrátt";
 
-/* place preview title */
-"info" = "Upplýsingar";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps útgáfa: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Dökkt";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Annað";
 
 /* Tex label above the Donate button */
 "donate_description" = "Gefðu milljónum notenda ókeypis kort án auglýsinga!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Lokað í dag";
 "day_off" = "Lokað";
+"midnight" = "Miðnætti";
+"noon" = "Hádegi";
 "today" = "Í dag";
 "opens_in" = "Opnar eftir %@";
 "closes_in" = "Lokar eftir %@";
@@ -602,9 +604,6 @@
 "day" = "d";
 "second" = "sek";
 "placepage_more_button" = "Meira";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Breyta bókamerki";
 "placepage_personal_notes_hint" = "Persónulegir minnispunktar (texti eða html)";
 "editor_comment_hint" = "Athugasemd…";
 "editor_reset_edits_message" = "Henda öllum staðværum breytingum?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "Umferðargögn eru ekki tiltæk";
 "enable_logging" = "Virkja atvikaskráningu";
 "transliteration_title" = "Umrita yfir í latneskt stafróf";
-"planning_route_manage_route" = "Sýsla með leið";
-"button_plan" = "Skipuleggja";
 "placepage_remove_stop" = "Fjarlægja stopp";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Bæta við stoppi";
-"saved" = "Vistað";
 "error_enter_correct_name" = "Settu inn rétt nafn";
 "bookmark_lists" = "Listar";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "Birta hægra megin";
 "show_at_the_bottom" = "Birta neðst";
 "enable_logging_warning_message" = "Virkjaðu þennan valkost tímabundið til að skrá og senda síðan handvirkt nákvæma greiningarskrá um vandamálið þitt með því að nota \"Tilkynna um villu\" í hjálparglugganum. Slíkar atvikaskrár geta innihaldið upplýsingar um staðsetningu.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Akstur";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Hjólreiðar";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Ganga";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Allir ferðamátar";
 "driving_options_title" = "Valkostir leiðagerðar";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Bestun leiðar";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Endurraðar millistöðvum sjálfkrafa til að búa til skilvirkari leið.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Forðast gjaldskyldu";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "Forðast hraðbrautir";
 "unable_to_calc_alert_title" = "Tókst ekki að reikna leið";
 "unable_to_calc_alert_subtitle" = "Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.";
-"define_to_avoid_btn" = "Skilgreindu vegi sem á að forðast";
-"change_driving_options_btn" = "Valkostir leiðagerðar virkir";
 "toll_road" = "Vegur með gjaldskyldu";
 "unpaved_road" = "Óbundið slitlag";
 "ferry_crossing" = "Þverun með ferju";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Skipulagning ferðar mistókst";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Koma kl. %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Sæktu og uppfærðu öll landakort meðfram áætluðum ferli til að reikna leið.";
 "editor_done_dialog_1" = "Þú hefur breytt heimskortinu! Ekki halda því leyndu; segðu vinum þínum frá og þið getið haldið áfram að laga það saman.";
@@ -813,7 +824,6 @@
 "please_note" = "Athugaðu";
 "migration_download_error_dialog" = "Villa við að sækja gögn";
 "editor_add_select_category" = "Veldu flokk";
-"editor_add_select_category_popular_subtitle" = "Vinsælt";
 "editor_add_select_category_all_subtitle" = "Allir flokkar";
 "whatsnew_editor_message_1" = "Bættu nýjum stöðum á kortið og breyttu fyrirliggjandi stöðum beint úr forritinu.";
 "dialog_incorrect_feature_position" = "Breyta staðsetningu";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. Veldu staðsetningarþjónustur";
 "location_services_disabled_on_device_4" = "4. Kveiktu á staðsetningarþjónustum";
 "location_services_disabled_on_device_additional_message" = "Eða haltu áfram að nota Organic Maps án staðsetningar";
-"book_button" = "Bóka";
 "placepage_call_button" = "Hringja";
 "placepage_bookmark_name_hint" = "Heiti bókamerkis";
 "placepage_delete_bookmark_button" = "Eyða bókamerki";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Til að birta umferðargögn, þarf að uppfæra forritið.";
 "log_file_size" = "Stærð atvikaskrár: %@";
-"planning_route_remove_title" = "Dragðu hingað til að fjarlægja";
 "placepage_replace_stop" = "Skipta út stoppi";
-"start_from_my_position" = "Byrja frá";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar";
@@ -874,15 +881,8 @@
 "popular_place" = "Vinsælt";
 "hide_from_map" = "Fela á korti";
 "tags_loading_error_subtitle" = "Villa kom upp við að hlaða inn merkjum, reyndu aftur";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Hægri";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Neðst";
 "trip_start" = "Hefjumst handa";
 "pick_destination" = "Ákvörðunarstaður";
-"follow_my_position" = "Endurmiðja";
 "search_results" = "Leitarniðurstöður";
 "then_turn" = "síðan";
 "redirect_route_alert" = "Viltu endurhanna þessa leið?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Takk fyrir að nota landakortin frá samfélaginu okkar!";
-
-/* App tip #01 */
-"app_tip_01" = "Með framlögum þínum og stuðningi getum við búið til bestu landakortin í heiminum!";
-
-/* App tip #02 */
-"app_tip_02" = "Líkar þér forritið okkar? Styrktu okkur til að styðja áframhaldandi þróun þess! Líkar þér ekki eitthvað? Láttu okkur vita og við munum laga það!";
-
-/* App tip #03 */
-"app_tip_03" = "Ef þú þekkir einhvern hforritara/ugbúnaðarhönnuð, þá geturðu beðið hana/hann um að búa til einhvern eiginleika sem þér finnst vanta.";
-
-/* App tip #04 */
-"app_tip_04" = "Ýttu einhversstaðar á kortið til að velja atriði. Að ýta lengi er notað til að sýna viðmótið.";
-
-/* App tip #05 */
-"app_tip_05" = "Veist þú hvernig hægt er að velja núverandi staðsetningu þína?";
-
-/* App tip #06 */
-"app_tip_06" = "Hjálpaðu við að þýða þetta forrit yfir á tungumálið þitt.";
-
-/* App tip #07 */
-"app_tip_07" = "Forritið er hannað af nokkrum áhugasömum notendum og samfélaginu í kringum þá.";
-
-/* App tip #08 */
-"app_tip_08" = "Þú getur auðveldlega lagfært og bætt kortagögnin.";
-
-/* App tip #09 */
-"app_tip_09" = "Meginmarkmið okkar er að byggja hraðvirk og auðveld landakort sm þú kannt að meta og sem passa upp á persónuupplýsingar þínar.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Þú ert núna að nota Organic Maps á símaskjánum";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ferill er tómur - ekkert til að vista";
-"edit_track" = "Breyta ferli";
-"elevation_profile_diff_level" = "Erfiðleikastig";
-"elevation_profile_diff_level_easy" = "Auðvelt";
-"elevation_profile_diff_level_moderate" = "Miðlungs";
-"elevation_profile_diff_level_hard" = "Erfitt";
 "downloader_updating_ios" = "Uppfæri";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Virkjaðu iCloud í stillingum tækisins þíns til að nota þennan eiginleika.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Virkja";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Litur ferla breytt";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Velja á korti";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Upphafsstaður";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Áfangastaður";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Breyta upphafsstað";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Breyta áfangastað";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Breyta stoppi";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Hámarksfjölda stoppa er náð";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Hreyfðu og stækkaðu kortið til að staðsetja krossinn";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Snúa leið við";

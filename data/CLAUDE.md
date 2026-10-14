@@ -22,7 +22,8 @@ Search categories and synonyms. **Syntax (from file header BNF):**
 - `@group` references must be defined before use; `@category_*` groups appear in the search screen
 - Digits `1-9` before a synonym set minimum chars to trigger suggestion: `en:3Supermarket`
 - Emoji Unicode codes can be used as synonyms: `U+1F6B0`
-- Categories match sub-categories (e.g., `historic-memorial` matches `historic-memorial-statue`)
+- A category also matches its sub-types unless a sub-type has its own entry: `historic-memorial`
+  does not match `historic-memorial-statue`, which has one (see the note in the `categories.txt` header)
 
 Example:
 ```
@@ -67,7 +68,7 @@ After editing, run `tools/unix/generate_drules.sh` and commit generated files se
 ## Map data files
 - `countries.json` -- map file hierarchy and checksums
 - `countries_meta.txt` -- country/region languages and driving sides
-- `borders/` -- 1156 country/region border polygons
+- `borders/` -- country/region border polygons
 - `minsk-pass.mwm` -- small test map
 
 ## Adding a new map feature / search category

@@ -1,28 +1,33 @@
-• Mit der neuen Einstellung „Suchverlauf speichern“ können Sie Ihren Suchverlauf bei Bedarf privat halten
+## Routenplanung
+• Verbesserte Alternativrouten und deren voraussichtliche Ankunftszeiten
+• Es wurden Schaltflächen zum Hinzufügen oder Ersetzen eines Zwischenstopps in einer geplanten Route hinzugefügt
+• Es wurde eine Einstellung hinzugefügt, um die Reihenfolge der Zwischenstopps auf der Route zu optimieren
+• Die ausgewählte alternative Route bleibt nun erhalten, wenn die Navigation die Route neu berechnet
+• Die Reihenfolge der Routenstopps wird nun nach einem Neustart der App wiederhergestellt
 
-## Karte & Orte
-• OpenStreetMap-Daten vom 14. Juli
-• OpenStreetMap-Notizen werden nun genau an der von Ihnen ausgewählten Stelle platziert und nicht mehr mitten im Wald
-• Verbesserte Kartenauswahl für Regionen, die den 180°-Antimeridian überschreiten
-• Höhenprofile von Tracks zeigen nach dem Löschen eines Tracks keine veralteten oder leeren Diagramme mehr an
-• Das leere Höhendiagramm für aufgezeichnete Tracks wurde verbessert
-• Die Schaltfläche zum Löschen von Lesezeichen ist leichter zu finden
-• Automatisches Speichern von Lesezeichen beim Verlassen des Bearbeitungsbildschirms
-• Die Farbpalette enthält vordefinierte Farben und ermöglicht die Auswahl beliebiger benutzerdefinierter Farben
-• Weitere Verbesserungen der Benutzeroberfläche
+## Karte
+• OpenStreetMap-Daten vom 28. September
+• Wikipedia-Daten vom 21. September
+• Wasserreservoire sind nun sichtbar, wenn weiter herausgezoomt wird
+• Wassertunnel werden nicht mehr auf der Karte angezeigt
+• Die Symbole für die Stationen und Eingänge der Suzhou-U-Bahn wurden korrigiert
+• Seltene Fälle behoben, in denen Beschriftungen auf der U-Bahn-Kartenebene verschoben wurden
 
-## Öffentlicher Nahverkehr
-• Haltestellen-, Umsteige- und Bahnhofsnamen werden nun mit weißem Umriss dargestellt, um sowohl im hellen als auch im dunklen Design lesbar zu bleiben
-• Die U-Bahn-Ebene wird nach dem Schließen der Vorschau einer ÖPNV-Route wieder korrekt angezeigt
+## CarPlay
+• Abbiegehinweise werden nun auf unterstützten Head-up-Displays (HUDs) im Auto und auf dem CarPlay-Dashboard angezeigt
+• CarPlay-Schaltflächen und Suche korrigiert
 
-## Routenplanung & Navigation
-• Probleme mit falschen und fehlenden Wegbeschreibungen wurden behoben
-• Routenwarnungen (Maut, Fähren, unbefestigte Straßen, Treppen usw.) werden nun für alle alternativen Routen angezeigt
-• Ein selten auftretender Absturz beim Erstellen einer Route wurde behoben und die Behandlung von Sackgassen sowie Start- und Endpunkten auf einer gesperrten Straße verbessert
-• Der Routenfortschritt auf der Startschaltfläche wurde verbessert
-• Beim Neuanordnen von Routenpunkten springt die Liste nicht mehr unregelmäßig hin und her
+## Tracks
+• Ein Augensymbol zum Ausblenden einzelner Tracks wurde hinzugefügt
+• Fehler behoben und die Trackaufzeichnung verbessert
+• Fehler beim Import von KMB-Dateien behoben
 
-## Übersetzungen
-• Die chinesischen Formulierungen wurden verbessert
-• Die ukrainischen Übersetzungen wurden aktualisiert
-• Die Übersetzungen der Kartenregionen im Italienischen wurden korrigiert
+## Suche
+• Fehler bei der Suche behoben, wenn der sichtbare Kartenbereich den 180°-Meridian (±180° Längengrad) überschreitet
+• Die Kategoriesuche in Spotlight wurde wiederhergestellt
+
+## Benutzeroberfläche
+• Bei den Öffnungszeiten wird nun für 12:00 Uhr „Mittag“ und für 00:00 Uhr bzw. 24:00 Uhr „Mitternacht“ angezeigt
+• Verschiedene Fehler wurden behoben und die Benutzeroberfläche verbessert
+• Korrigierte Übersetzungen ins Englische, Französische und Asturische
+• Unterstützung für die Auswahl und das Probehören einer installierten Navigationsstimme hinzugefügt

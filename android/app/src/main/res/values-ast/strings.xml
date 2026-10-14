@@ -136,10 +136,6 @@
     <string name="routing_not_enough_space">Nun hai espaciu bastante</string>
     <string name="save">Guardar</string>
     <string name="create">crear</string>
-    <!-- blue color -->
-    <string name="blue">Azul</string>
-    <!-- green color -->
-    <string name="green">Verde</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aspeutu</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -174,11 +170,10 @@
     <string name="editor_time_simple">Mou simplificáu</string>
     <string name="editor_example_values">Valores d’exemplu</string>
     <string name="editor_report_problem_send_button">Unviar</string>
-    <string name="editor_report_problem_no_place_title">Esti llugar nun esiste</string>
-    <string name="editor_report_problem_duplicate_place_title">Llugar duplicáu</string>
     <string name="autodownload">Baxar mapes n’automático</string>
     <string name="twentyfour_seven">24/7</string>
-    <string name="today">Güei</string>
+    <string name="midnight">Medianueche</string>
+    <string name="noon">Mediudía</string>
     <string name="password">Contraseña</string>
     <string name="forgot_password">¿Escaeciesti la contraseña?</string>
     <string name="edit_place">Editar llugar</string>
@@ -219,7 +214,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Más</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Notes personales (testu o HTML)</string>
     <string name="editor_comment_hint">Comentariu…</string>
@@ -241,8 +236,8 @@
     <string name="mobile_data_option_ask">Entrugar siempres</string>
     <string name="learn_more">Deprende más</string>
     <string name="placepage_remove_stop">Desaniciar parada</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Amestar parada</string>
-    <string name="saved">Guardáu</string>
     <string name="bookmark_lists">Llistes</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d marcador</item>
@@ -288,7 +283,19 @@
     <string name="power_managment_title">Mou d’aforru d’enerxía</string>
     <string name="power_managment_setting_never">Enxamás</string>
     <string name="power_managment_setting_manual_max">Siempres</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">En coche</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">En bicicleta</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">A pie</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Tolos moos de desplazamientu</string>
     <string name="driving_options_title">Opciones d’encaminamientu</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Optimización de la ruta</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Reordena automáticamente les paraes intermedies pa crear una ruta más eficiente.</string>
     <string name="unable_to_calc_alert_subtitle">Nun pudo alcontrase una ruta. Quiciabes se deba a les opciones d’encaminamientu o a datos faltantes n’OpenStreetMap. Revisa les tos opciones d’encaminamientu y vuelvi intentalo.</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sí</string>
@@ -334,7 +341,6 @@
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
     <string name="elevation_profile_max_elevation">Elevación máx.</string>
     <string name="elevation_profile_difficulty">Dificultá</string>
-    <string name="elevation_profile_time">Tiempu:</string>
     <string name="downloader_loading_ios">Baxando</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error_title">Error nel discu</string>
@@ -365,12 +371,6 @@
     <string name="start_track_recording">Grabar trayeutu</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Parar grabación del trayeutu</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar ensin guardar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Siguir grabando</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">¿Quies guardalu en Marcadores y trayeutos?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">El trayeutu ta baleru; nun hai nada pa guardar</string>
     <string name="choose_color">Escueyi un color</string>
@@ -387,4 +387,14 @@
         <item quantity="one">¿Desaniciar %d elementu?</item>
         <item quantity="other">¿Desaniciar %d elementos?</item>
     </plurals>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Tu</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Parar y guardar</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Invertir la ruta</string>
 </resources>

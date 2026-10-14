@@ -125,7 +125,10 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
     case routePoints.count:
       interactor?.process(.addRoutePointButtonDidTap)
     default:
-      interactor?.process(.selectRoutePoint(routePoints[indexPath.item]))
+      let selection = MWMRoutePointSelection(point: routePoints[indexPath.item],
+                                             type: routePoints.type(for: indexPath.item),
+                                             shouldAppend: false)
+      interactor?.process(.selectRoutePoint(selection))
     }
   }
 }
@@ -183,11 +186,7 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
           configure(cell, at: indexPath)
         }
         coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
-        if !routePoints.hasStartAndFinish {
-          interactor?.process(.swapStartAndFinishPoints)
-        } else {
-          interactor?.process(.moveRoutePoint(from: sourceIndexPath.row, to: destinationIndexPath.row))
-        }
+        interactor?.process(.moveRoutePoint(from: sourceIndexPath.row, to: destinationIndexPath.row))
       }
     }
   }

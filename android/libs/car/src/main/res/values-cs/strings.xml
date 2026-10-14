@@ -68,6 +68,8 @@
     <string name="editor_time_open">Otevřeno</string>
     <string name="twentyfour_seven">Nonstop</string>
     <string name="day_off_today">Dnes zavřeno</string>
+    <string name="midnight">Půlnoc</string>
+    <string name="noon">Poledne</string>
     <string name="opens_in">Otevírá za %s</string>
     <string name="closes_in">Zavírá za %s</string>
     <string name="closed">Zavřeno</string>

@@ -62,6 +62,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
@@ -1514,6 +1515,8 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     return;
   }
 
+  StopLocationFollow();
+  DeactivateHotelSearchMark();
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
 
   if (result.GetResultType() == Result::Type::Postcode)
@@ -1533,7 +1536,6 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 void Framework::ShowSearchResult(search::Result const & res, bool animation)
 {
   GetSearchAPI().CancelAllSearches();
-  StopLocationFollow();
   SelectSearchResult(res, animation);
 }
 
@@ -2047,7 +2049,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, loc
     ASSERT_LESS_OR_EQUAL(toRemove.first, toRemove.second, ());
     indicesRemove.reserve(toRemove.second - toRemove.first + 1);
     for (size_t i = toRemove.first; i <= toRemove.second; ++i)
-      indicesRemove.emplace_back(i);
+      indicesRemove.emplace_back(base::asserted_cast<uint32_t>(i));
   }
 
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
@@ -2301,21 +2303,8 @@ void Framework::InvalidateUserMarks()
 
 void Framework::DeactivateHotelSearchMark()
 {
-  if (!m_currentPlacePageInfo)
-    return;
-
-  if (m_currentPlacePageInfo->IsHotel())
-  {
-    auto const & featureId = m_currentPlacePageInfo->GetID();
-    if (m_searchMarks.IsThereSearchMarkForFeature(featureId))
-    {
-      m_searchMarks.SetVisited(featureId);
-      m_searchMarks.OnDeactivate(featureId);
-    }
-
-    if (!GetSearchAPI().IsViewportSearchActive())
-      GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
-  }
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->IsHotel())
+    m_searchMarks.OnDeactivate(m_currentPlacePageInfo->GetID());
 }
 
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
@@ -3141,12 +3130,14 @@ void Framework::SetCyclingEnabled(bool enabled)
   Invalidate();
 }
 
-void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition)
+void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition,
+                                         bool shouldChangeViewport)
 {
   if (m_drapeEngine != nullptr)
   {
-    m_drapeEngine->EnableChoosePositionMode(
-        enable, enableBounds ? GetSelectedFeatureTriangles() : std::vector<m2::TriangleD>(), optionalPosition);
+    m_drapeEngine->EnableChoosePositionMode(enable,
+                                            enableBounds ? GetSelectedFeatureTriangles() : std::vector<m2::TriangleD>(),
+                                            optionalPosition, shouldChangeViewport);
   }
 }
 

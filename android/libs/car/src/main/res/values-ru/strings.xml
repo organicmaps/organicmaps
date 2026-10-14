@@ -68,6 +68,8 @@
     <string name="editor_time_open">Открыто</string>
     <string name="twentyfour_seven">Круглосуточно</string>
     <string name="day_off_today">Сегодня закрыто</string>
+    <string name="midnight">Полночь</string>
+    <string name="noon">Полдень</string>
     <string name="opens_in">Открывается через %s</string>
     <string name="closes_in">Закроется через %s</string>
     <string name="closed">Закрыто</string>

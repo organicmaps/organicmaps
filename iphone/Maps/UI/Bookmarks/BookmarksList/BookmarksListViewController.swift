@@ -10,6 +10,7 @@ final class BookmarksListViewController: MWMViewController {
 
   private var canEdit = false
   private var isSearchActive = false
+  private var searchStateBeforeShowingOnMap: (isTyping: Bool, text: String?)?
   private var defaultToolbarItems: [UIBarButtonItem] = []
   private var selectedItemIds = Set<BookmarksListItemId>()
 
@@ -83,19 +84,15 @@ final class BookmarksListViewController: MWMViewController {
     searchController.searchBar.placeholder = L("search_in_the_list")
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.hidesNavigationBarDuringPresentation = alternativeSizeClass(iPhone: true, iPad: false)
+    searchController.delegate = self
     searchController.searchBar.delegate = self
     searchController.searchBar.applyTheme()
     navigationItem.searchController = searchController
     navigationItem.hidesSearchBarWhenScrolling = false
 
+    tableView.keyboardDismissMode = .onDrag
     tableView.allowsMultipleSelectionDuringEditing = true
     cellStrategy.registerCells(tableView)
-    cellStrategy.cellCheckHandler = { [weak self] viewModel, index, checked in
-      self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
-    }
-    cellStrategy.cellVisibilityHandler = { [weak self] viewModel in
-      self?.presenter.toggleVisibility(in: viewModel)
-    }
     cellStrategy.cellEditHandler = { [weak self] cell in
       self?.editItem(in: cell)
     }
@@ -105,6 +102,22 @@ final class BookmarksListViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    if let searchState = searchStateBeforeShowingOnMap {
+      searchController.searchBar.text = searchState.text
+      let wasSearchActive = searchController.isActive
+      searchController.isActive = true
+      isSearchActive = true
+      updateNavigationButton()
+      toolBar.setHidden(searchState.isTyping)
+      // Keep the presenter's query aligned with the restored field before reloading the category.
+      presenter.restoreSearchText(searchState.text)
+      if wasSearchActive {
+        if searchState.isTyping {
+          searchController.searchBar.becomeFirstResponder()
+        }
+        searchStateBeforeShowingOnMap = nil
+      }
+    }
     presenter.viewDidAppear()
   }
 
@@ -305,14 +318,6 @@ extension BookmarksListViewController: UITableViewDelegate {
     return cellStrategy.headerView(tableView, for: section)
   }
 
-  func tableView(_: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-    if isEditing {
-      guard let section = sections?[indexPath.section] else { fatalError() }
-      return section.canEdit ? indexPath : nil
-    }
-    return indexPath
-  }
-
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard !isEditing else {
       if let itemId = itemId(at: indexPath) {
@@ -327,14 +332,8 @@ extension BookmarksListViewController: UITableViewDelegate {
     presenter.selectItem(in: section, at: indexPath.row)
   }
 
-  func tableView(_: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    guard let section = sections?[indexPath.section] else { fatalError() }
-    return canEdit && section.canEdit
-  }
-
-  func tableView(_: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-    guard let section = sections?[indexPath.section] else { fatalError() }
-    return section.canEdit
+  func tableView(_: UITableView, canEditRowAt _: IndexPath) -> Bool {
+    canEdit
   }
 
   func tableView(_: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -377,12 +376,24 @@ extension BookmarksListViewController: UITableViewDelegate {
   }
 }
 
+extension BookmarksListViewController: UISearchControllerDelegate {
+  func didPresentSearchController(_ searchController: UISearchController) {
+    if searchStateBeforeShowingOnMap?.isTyping == true {
+      // The integrated search field is attached to its window after this callback on iOS 26.
+      DispatchQueue.main.async { [weak searchController] in
+        guard let searchController, searchController.isActive else { return }
+        searchController.searchBar.becomeFirstResponder()
+      }
+    }
+    searchStateBeforeShowingOnMap = nil
+  }
+}
+
 extension BookmarksListViewController: UISearchBarDelegate {
-  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+  func searchBarTextDidBeginEditing(_: UISearchBar) {
     isSearchActive = true
     updateNavigationButton()
     toolBar.setHidden(true)
-    searchBar.setShowsCancelButton(true, animated: true)
     presenter.activateSearch()
   }
 
@@ -390,8 +401,6 @@ extension BookmarksListViewController: UISearchBarDelegate {
     isSearchActive = !(searchBar.text?.isEmpty ?? true)
     updateNavigationButton()
     toolBar.setHidden(false)
-    searchBar.setShowsCancelButton(false, animated: true)
-    presenter.deactivateSearch()
   }
 
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -413,6 +422,16 @@ extension BookmarksListViewController: UISearchBarDelegate {
 }
 
 extension BookmarksListViewController: IBookmarksListView {
+  func saveSearchStateBeforeShowingOnMap(searchText: String?) {
+    // Hiding the list dismisses search; the presenter retains the query if UIKit has cleared the field.
+    let text = searchController.searchBar.text.flatMap { $0.isEmpty ? nil : $0 } ?? searchText
+    if searchController.isActive || text != nil {
+      searchStateBeforeShowingOnMap = (searchController.searchBar.searchTextField.isFirstResponder, text)
+    } else {
+      searchStateBeforeShowingOnMap = nil
+    }
+  }
+
   func setInfo(_ info: IBookmarksListInfoViewModel) {
     navigationItem.backButtonTitle = info.title
     infoViewController.info = info

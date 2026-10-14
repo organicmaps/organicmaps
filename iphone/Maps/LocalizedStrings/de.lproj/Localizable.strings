@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Um eine Stimme mit höherer Qualität zu laden, öffne die App „Einstellungen“ und geh zu Bedienungshilfen → VoiceOver → Sprachausgabe → Stimme.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Sprachanweisungen testen (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Auto-Zoom";
 "placepage_distance" = "Entfernung";
 "search_show_on_map" = "Auf der Karte ansehen";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Graublau";
 
-/* place preview title */
-"info" = "Infos";
-
 /* Prints version number in About dialog */
 "version" = "„Organic Maps“-Version: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Dunkel";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Weitere";
 
 /* Tex label above the Donate button */
 "donate_description" = "Schenke Millionen von Nutzern kostenlose und werbefreie Karten!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Heute geschlossen";
 "day_off" = "Geschlossen";
+"midnight" = "Mitternacht";
+"noon" = "Mittag";
 "today" = "Heute";
 "opens_in" = "Öffnet in %@";
 "closes_in" = "Schließt in %@";
@@ -602,9 +604,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Mehr";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Lesezeichen bearbeiten";
 "placepage_personal_notes_hint" = "Persönliche Notizen (Text oder HTML)";
 "editor_comment_hint" = "Kommentar…";
 "editor_reset_edits_message" = "Alle lokalen Korrekturen verwerfen?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
 "enable_logging" = "Protokollierung aktivieren";
 "transliteration_title" = "Transliteration ins lateinische Alphabet";
-"planning_route_manage_route" = "Route verwalten";
-"button_plan" = "Planen";
 "placepage_remove_stop" = "Stopp entfernen";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Stopp einfügen";
-"saved" = "Gespeichert";
 "error_enter_correct_name" = "Bitte gib einen korrekten Namen ein";
 "bookmark_lists" = "Listen";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "Rechts anzeigen";
 "show_at_the_bottom" = "Unten anzeigen";
 "enable_logging_warning_message" = "Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche „App-Fehler melden“ unter „Hilfe“. Protokolle können Standortformationen enthalten.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Auto";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Fahrrad";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Zu Fuß";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Alle Fortbewegungsarten";
 "driving_options_title" = "Routenbeschränkungen";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Routenoptimierung";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Ordnet Zwischenstopps automatisch neu, um eine effizientere Route zu erstellen.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Mautstraßen vermeiden";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "Autobahnen vermeiden";
 "unable_to_calc_alert_title" = "Route kann nicht berechnet werden";
 "unable_to_calc_alert_subtitle" = "Eine Route konnte nicht gefunden werden. Dies kann an deinen Routenbeschränkungen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändere deine Routenbeschränkungen und versuche es erneut.";
-"define_to_avoid_btn" = "Routenbeschränkung einstellen";
-"change_driving_options_btn" = "Routenbeschränkungen aktiv";
 "toll_road" = "Mautstraße";
 "unpaved_road" = "Unbefestigte Straße";
 "ferry_crossing" = "Fährstelle";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Routenplanung fehlgeschlagen";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankunft: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lade alle Karten entlang der geplanten Route herunter und aktualisiere sie, um die Route zu berechnen.";
 "editor_done_dialog_1" = "Du hast die Weltkarte geändert. Behalte das nicht für dich! Erzähle deine Freunden davon und bearbeitet sie zusammen.";
@@ -813,7 +824,6 @@
 "please_note" = "Bitte beachten";
 "migration_download_error_dialog" = "Fehler beim Herunterladen";
 "editor_add_select_category" = "Kategorie auswählen";
-"editor_add_select_category_popular_subtitle" = "Beliebt";
 "editor_add_select_category_all_subtitle" = "Alle Kategorien";
 "whatsnew_editor_message_1" = "Füge auf der Karte einen neuen Ort hinzu und bearbeite existierende Orte direkt in der App.";
 "dialog_incorrect_feature_position" = "Standort wechseln";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. Standortdienste auswählen";
 "location_services_disabled_on_device_4" = "4. Standortdienste einschalten";
 "location_services_disabled_on_device_additional_message" = "Oder verwende Organic Maps weiterhin ohne Standort";
-"book_button" = "Buchen";
 "placepage_call_button" = "Anrufen";
 "placepage_bookmark_name_hint" = "Name des Lesezeichens";
 "placepage_delete_bookmark_button" = "Lesezeichen löschen";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Zum Anzeigen von Verkehrsdaten muss die Anwendung aktualisiert werden.";
 "log_file_size" = "Größe der Protokolldatei: %@";
-"planning_route_remove_title" = "Hierher ziehen zum Entfernen";
 "placepage_replace_stop" = "Stopp ersetzen";
-"start_from_my_position" = "Starten von";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr";
@@ -874,15 +881,8 @@
 "popular_place" = "Beliebt";
 "hide_from_map" = "Auf der Karte ausblenden";
 "tags_loading_error_subtitle" = "Während dem Laden der Tags ist ein Fehler aufgetreten, bitte versuche es erneut";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Rechts";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Unten";
 "trip_start" = "Los";
 "pick_destination" = "Ziel";
-"follow_my_position" = "Zentrieren";
 "search_results" = "Suchergebnisse";
 "then_turn" = "Danach";
 "redirect_route_alert" = "Möchtest du die Route neu erstellen?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/DE:Über_OSM";
 
-/* App Tip #00 */
-"app_tip_00" = "Danke, dass du unsere von der Community erstellten Karten benutzt!";
-
-/* App tip #01 */
-"app_tip_01" = "Mit deinen Spenden und deiner Unterstützung können wir die besten Karten der Welt erstellen!";
-
-/* App tip #02 */
-"app_tip_02" = "Gefällt dir unsere App? Bitte spende, um die Entwicklung zu unterstützen! Gefällt sie dir noch nicht? Bitte lass uns den Grund dafür wissen, damit wir das Problem beheben können!";
-
-/* App tip #03 */
-"app_tip_03" = "Wenn du einen Softwareentwickler kennst, kannst du ihn oder sie bitten, eine Funktion zu implementieren, die du benötigst.";
-
-/* App tip #04 */
-"app_tip_04" = "Tippe irgendwo auf die Karte, um etwas auszuwählen. Tipp lange, um die Oberfläche aus- und wieder einzublenden.";
-
-/* App tip #05 */
-"app_tip_05" = "Wusstest du, dass du deinen aktuellen Standort auf der Karte auswählen kannst?";
-
-/* App tip #06 */
-"app_tip_06" = "Du kannst dabei helfen, unsere App in deine Sprache zu übersetzen.";
-
-/* App tip #07 */
-"app_tip_07" = "Unsere App wird von einigen Enthusiasten und der Community entwickelt.";
-
-/* App tip #08 */
-"app_tip_08" = "Du kannst die Kartendaten einfach korrigieren und verbessern.";
-
-/* App tip #09 */
-"app_tip_09" = "Unser Hauptziel ist es, schnelle, datenschutzorientierte und benutzerfreundliche Karten zu erstellen, die du liebst.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Du verwendest jetzt Organic Maps auf dem Telefondisplay";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track ist leer – nichts zu speichern";
-"edit_track" = "Track bearbeiten";
-"elevation_profile_diff_level" = "Anspruchsniveau";
-"elevation_profile_diff_level_easy" = "Leicht";
-"elevation_profile_diff_level_moderate" = "Mittel";
-"elevation_profile_diff_level_hard" = "Schwer";
 "downloader_updating_ios" = "Aktualisierung";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Bitte aktiviere iCloud in den Einstellungen deines Geräts, um diese Funktion zu nutzen.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktivieren";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Trackfarbe geändert";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Auf der Karte auswählen";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Startpunkt";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Ziel";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Start ändern";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Ziel ändern";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Stopp ändern";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Die maximale Anzahl an Stopps wurde erreicht";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Verschiebe und zoome die Karte, um das Kreuz zu platzieren";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Route umkehren";

@@ -1,8 +1,9 @@
-• Data OSM per 14 Juli
-• Nama halte, titik transfer, dan stasiun angkutan umum kini memiliki garis tepi putih
-• Tampilan jam operasional telah ditingkatkan
-• Petunjuk arah yang salah atau hilang telah diperbaiki
-• Bookmark dan jejak yang diedit kini disimpan secara otomatis
-• Peringatan rute (tol, feri, jalan tidak beraspal, tangga, dll.) kini ditampilkan untuk semua rute alternatif
-• Catatan OSM dibuat tepat di lokasi yang Anda pilih
+• OSM: 28 September; Wikipedia: 21 September
+• Rute alternatif yang lebih baik dan perkiraan waktu tiba
+• Pengaturan baru mengoptimalkan urutan perhentian
+• Tombol-tombol baru memungkinkan penambahan atau penggantian titik perhentian pada rute yang direncanakan
+• Rute alternatif yang dipilih tetap dipertahankan selama navigasi
+• Perekaman trek diperbaiki dan ditingkatkan
+• Masalah impor KMB telah diperbaiki
+• Perbaikan dan peningkatan antarmuka pengguna
 …selengkapnya di omaps.org/id/news

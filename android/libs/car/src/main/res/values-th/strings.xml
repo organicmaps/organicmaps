@@ -68,6 +68,8 @@
     <string name="editor_time_open">เปิด</string>
     <string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
     <string name="day_off_today">วันนี้ปิด</string>
+    <string name="midnight">เที่ยงคืน</string>
+    <string name="noon">เที่ยงวัน</string>
     <string name="opens_in">เปิดใน %s</string>
     <string name="closes_in">ปิดใน %s</string>
     <string name="closed">ปิด</string>

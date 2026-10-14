@@ -68,6 +68,8 @@
     <string name="editor_time_open">פתוח</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">סגור היום</string>
+    <string name="midnight">חצות</string>
+    <string name="noon">צהריים</string>
     <string name="opens_in">נפתח עוד %s</string>
     <string name="closes_in">נסגר עוד %s</string>
     <string name="closed">סגור</string>

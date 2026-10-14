@@ -50,7 +50,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
   @Nullable
   private MapObject mMapObject;
-  private boolean mIsBuildError = false;
 
   @NonNull
   private final RoutingController mRoutingController;
@@ -156,7 +155,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     final Pane.Builder builder = new Pane.Builder();
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
 
-    if (routingInfo == null && !mIsBuildError)
+    if (routingInfo == null && !mRoutingController.isErrorEncountered())
     {
       builder.setLoading(true);
       return builder.build();
@@ -227,8 +226,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       builder.addAction(openDialBuilder.build());
     }
 
-    // Don't show `Start` button when build error.
-    if (mIsBuildError)
+    if (!mRoutingController.isBuilt())
       return;
 
     final Action.Builder startRouteBuilder = new Action.Builder();
@@ -313,6 +311,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
+    // Saved route points are loaded after this screen is created.
+    if (mMapObject == null)
+      mMapObject = Objects.requireNonNull(mRoutingController.getEndPoint());
     if (ResultCodesHelper.isDownloadable(lastResultCode, lastMissingMaps.length))
       getScreenManager().pushForResult(
           new DownloadMapsScreenBuilder(getCarContext(), getOrganicMapsContext())
@@ -323,8 +324,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
           (result) -> {
             if (Boolean.FALSE.equals(result))
             {
-              CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
-              mIsBuildError = true;
+              // Declining maps for a found route only gives up a better one.
+              if (!mRoutingController.isBuilt())
+                CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
             }
             else
               mRoutingController.checkAndBuildRoute();
@@ -333,7 +335,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     else
     {
       CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
-      mIsBuildError = true;
       invalidate();
     }
   }

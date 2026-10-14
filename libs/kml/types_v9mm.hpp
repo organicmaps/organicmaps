@@ -53,12 +53,6 @@ struct TrackDataV9MM : TrackDataV8MM
     data.m_timestamp = m_timestamp;
     data.m_geometry = mergeGeometry(std::move(m_multiGeometry));
 
-    // MultiGeometry's invariant (see MultiGeometry::IsValid) requires m_timestamps.size()
-    // to match m_lines.size(). V9MM's MultiGeometry visitor only populates m_lines, so
-    // pad m_timestamps here so downstream consumers (e.g. SaveTrackGeometry) don't trip
-    // on the size mismatch.
-    data.m_geometry.m_timestamps.resize(data.m_geometry.m_lines.size());
-
     // V11 per-point timestamps arrive as a single flat vector covering every point across
     // all lines of a gx:MultiTrack. Split it back by line length so the per-line invariant
     // timestamps[i].size() == lines[i].size() holds downstream.
@@ -81,7 +75,7 @@ struct TrackDataV9MM : TrackDataV8MM
       }
       else
       {
-        LOG(LWARNING, ("V9MM track point timestamps count", m_pointTimestamps.m_values.size(),
+        LOG(LWARNING, ("MapsMe track point timestamps count", m_pointTimestamps.m_values.size(),
                        "doesn't match total points count", totalPoints, "- dropping timestamps"));
       }
     }

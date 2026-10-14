@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
@@ -27,6 +28,7 @@ import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationState;
+import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
@@ -134,6 +136,12 @@ public class MwmApplication extends Application implements Application.ActivityL
     // bridge is present; the initial publish corrects stale state left by a force-killed session.
     RoutingController.get().addNavigationStateListener(WearBridge::publishNavigating);
     WearBridge.publishNavigating(RoutingController.get().isNavigating());
+    // Navigation can end in the background (notification, Android Auto, arrival). The routing state owner
+    // covers every trigger, including a stop when NavigationService was never started.
+    RoutingController.get().addNavigationStateListener(navigating -> {
+      if (!navigating)
+        onNavigationOrRecordingStopped();
+    });
     TrackRecordingService.createNotificationChannel(this);
 
     registerActivityLifecycleCallbacks(this);
@@ -217,7 +225,27 @@ public class MwmApplication extends Application implements Application.ActivityL
     Logger.d(TAG);
 
     OsmUploadWork.startActionUploadOsmChanges(this);
+    stopLocationInBackgroundIfUnused();
+  }
 
+  /**
+   * Navigation and track recording keep the location running in the background and at a faster refresh
+   * interval, and both can end while the app is in the background (notification action, arrival).
+   */
+  public void onNavigationOrRecordingStopped()
+  {
+    if (!ProcessLifecycleOwner.get().getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED))
+      stopLocationInBackgroundIfUnused();
+    // Whatever is still running goes back to the regular refresh interval.
+    if (getLocationHelper().isActive() && LocationUtils.checkLocationPermission(this))
+      getLocationHelper().restartWithNewMode();
+  }
+
+  /**
+   * Stops location updates while the app is in the background unless a feature still needs them there.
+   */
+  private void stopLocationInBackgroundIfUnused()
+  {
     if (!mDisplayManager.isDeviceDisplayUsed())
       Logger.i(LOCATION_TAG, "Android Auto is active, keeping location in the background");
     else if (RoutingController.get().isNavigating())

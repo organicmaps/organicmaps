@@ -747,7 +747,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)openDrivingOptions
 {
-  [self.navigationController pushViewController:[SettingsBuilder buildDrivingOptions] animated:YES];
+  [self.navigationController pushViewController:[SettingsBuilder buildRoutingOptionsWithRouterType:MWMRouter.type]
+                                       animated:YES];
 }
 
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
@@ -1006,6 +1007,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)enableCarPlayRepresentation
 {
+  [_searchManager close];
   UIViewController * presentedController = self.presentedViewController;
   if (presentedController != nil)
     [presentedController dismissViewControllerAnimated:NO completion:nil];

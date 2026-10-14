@@ -308,38 +308,6 @@
     <string name="enable_location_services">Virkjaðu staðsetningarþjónustur</string>
     <string name="save">Vista</string>
     <string name="create">búa til</string>
-    <!-- red color -->
-    <string name="red">Rautt</string>
-    <!-- yellow color -->
-    <string name="yellow">Gult</string>
-    <!-- blue color -->
-    <string name="blue">Blátt</string>
-    <!-- green color -->
-    <string name="green">Grænt</string>
-    <!-- purple color -->
-    <string name="purple">Purpurablátt</string>
-    <!-- orange color -->
-    <string name="orange">Appelsínugult</string>
-    <!-- brown color -->
-    <string name="brown">Brúnt</string>
-    <!-- pink color -->
-    <string name="pink">Bleikt</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Dökkpurpurablátt</string>
-    <!-- light blue color -->
-    <string name="light_blue">Ljósblátt</string>
-    <!-- cyan color -->
-    <string name="cyan">Grænblátt (cyan)</string>
-    <!-- teal color -->
-    <string name="teal">Blágrænt</string>
-    <!-- lime color -->
-    <string name="lime">Límónugrænt</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Dimmappelsínugult</string>
-    <!-- gray color -->
-    <string name="gray">Grátt</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Blágrátt</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Útlit</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -409,20 +377,15 @@
     <string name="editor_example_values">Dæmi um gildi</string>
     <string name="editor_correct_mistake">Leiðrétta mistök</string>
     <string name="editor_add_select_location">Veldu staðsetningu</string>
-    <string name="editor_report_problem_desription_1">Lýstu vandamálinu nákvæmlega svo meðlimir OpenStreetMap samfélagsins geti lagfært það.</string>
-    <string name="editor_report_problem_desription_2">Eða gerðu það sjálf/ur á https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Senda</string>
-    <string name="editor_report_problem_title">Vandamál</string>
-    <string name="editor_report_problem_no_place_title">Þessi staður er ekki til</string>
-    <string name="editor_report_problem_under_construction_title">Lokað vegna viðhalds</string>
-    <string name="editor_report_problem_duplicate_place_title">Tvítekinn staður</string>
     <string name="autodownload">Sækja kort sjálfvirkt</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Daglega</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Lokað í dag</string>
     <string name="day_off">Lokað</string>
-    <string name="today">Í dag</string>
+    <string name="midnight">Miðnætti</string>
+    <string name="noon">Hádegi</string>
     <string name="opens_in">Opnar eftir %s</string>
     <string name="closes_in">Lokar eftir %s</string>
     <string name="closed">Lokað</string>
@@ -465,7 +428,6 @@
     <string name="downloader_no_space_title">Ekki nægilegt pláss</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Eyddu öllum ónauðsynlegum gögnum</string>
-    <string name="editor_login_error_dialog">Villa við innskráningu.</string>
     <string name="editor_profile_changes">Staðfestar breytingar</string>
     <string name="editor_focus_map_on_location">Dragðu kortið þannig að krossinn lendi á staðnum eða fyrirtækinu.</string>
     <string name="editor_edit_place_title">Breytingar</string>
@@ -474,8 +436,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Eins og það er skrifað á tungumáli staðarins</string>
     <string name="editor_edit_place_category_title">Flokkur</string>
-    <string name="detailed_problem_description">Nánari lýsing á vandamálinu</string>
-    <string name="editor_report_problem_other_title">Annað vandamál</string>
     <string name="placepage_add_business_button">Bæta við fyrirtæki</string>
     <string name="message_invalid_feature_position">Ekki er hægt að staðsetja neitt atriði hér</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -518,7 +478,7 @@
     <string name="day">d</string>
     <string name="second">sek</string>
     <string name="placepage_more_button">Meira</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Breyta bókamerki</string>
     <string name="placepage_personal_notes_hint">Persónulegir minnispunktar (texti eða html)</string>
     <string name="editor_comment_hint">Athugasemd…</string>
@@ -571,12 +531,10 @@
     <string name="prefs_languages_information_off_link">Til að sjá nánari upplýsingar, ættirðu að skoða þessar leiðbeiningar.</string>
     <string name="transliteration_title">Umrita yfir í latneskt stafróf</string>
     <string name="learn_more">Kanna nánar</string>
-    <string name="planning_route_manage_route">Sýsla með leið</string>
-    <string name="button_plan">Skipuleggja</string>
     <string name="placepage_remove_stop">Fjarlægja stopp</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Bæta við stoppi</string>
     <string name="drag_to_reorder">Endurraða</string>
-    <string name="saved">Vistað</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hér</a>.</string>
     <string name="dialog_error_storage_title">Vandamál við aðgang að gagnageymslu</string>
@@ -665,7 +623,19 @@
     <string name="show_to_the_right">Birta hægra megin</string>
     <string name="show_at_the_bottom">Birta neðst</string>
     <string name="enable_logging_warning_message">Virkjaðu þennan valkost tímabundið til að skrá og senda síðan handvirkt nákvæma greiningarskrá um vandamálið þitt með því að nota \"Tilkynna um villu\" í hjálparglugganum. Slíkar atvikaskrár geta innihaldið upplýsingar um staðsetningu.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Akstur</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Hjólreiðar</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Ganga</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Allir ferðamátar</string>
     <string name="driving_options_title">Valkostir leiðagerðar</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Bestun leiðar</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Endurraðar millistöðvum sjálfkrafa til að búa til skilvirkari leið.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Forðast gjaldskyldu</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -675,8 +645,6 @@
     <string name="avoid_motorways">Forðast hraðbrautir</string>
     <string name="unable_to_calc_alert_title">Tókst ekki að reikna leið</string>
     <string name="unable_to_calc_alert_subtitle">Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.</string>
-    <string name="define_to_avoid_btn">Skilgreindu vegi sem á að forðast</string>
-    <string name="change_driving_options_btn">Valkostir leiðagerðar virkir</string>
     <string name="toll_road">Vegur með gjaldskyldu</string>
     <string name="unpaved_road">Óbundið slitlag</string>
     <string name="ferry_crossing">Þverun með ferju</string>
@@ -761,8 +729,6 @@
     <string name="elevation_profile_min_elevation">Lágm.hæð</string>
     <string name="elevation_profile_max_elevation">Hám.hæð</string>
     <string name="elevation_profile_difficulty">Erfiðleikastig</string>
-    <string name="elevation_profile_distance">Fjarl.:</string>
-    <string name="elevation_profile_time">Tími:</string>
     <string name="isolines_toast_zooms_1_10">Renndu að til að skoða hæðarlínur</string>
     <string name="downloader_loading_ios">Sæki</string>
     <string name="download_map_title">Sækja heims-yfirlitskortið</string>
@@ -867,12 +833,6 @@
     <string name="stop_track_recording">Stöðva skráningu ferils</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Upptaka ferils</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stöðva án þess að vista</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Halda áfram skráningu</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Vista inn í bókamerki og ferla?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Ferill er tómur - ekkert til að vista</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -880,8 +840,6 @@
     <string name="choose_color">Veldu lit</string>
     <string name="edit_track">Breyta ferli</string>
     <string name="uri_open_location_failed">Ekkert forrit er uppsett sem gæti opnað staðsetninguna</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Sjálfvirkt við leiðsögn</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Fylgja kerfi</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -905,11 +863,11 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Breyta lit</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Þú</string>
+
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Innskráning með lykilorði</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Innskráning með vafra</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Nýlega notað</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->
@@ -932,4 +890,24 @@
     <string name="color_picker_grid">Rist</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Raddaleit</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Velja á korti</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Upphafsstaður</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Áfangastaður</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Breyta upphafsstað</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Breyta áfangastað</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Breyta stoppi</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Hámarksfjölda stoppa er náð</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Hreyfðu og stækkaðu kortið til að staðsetja krossinn</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Stöðva og vista</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Snúa leið við</string>
 </resources>

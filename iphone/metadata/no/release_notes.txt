@@ -1,28 +1,33 @@
-• Den nye innstillingen «Lagre søkehistorikk» hjelper deg med å holde søkehistorikken din privat ved behov
+## Ruteplanlegging
+• Forbedrede alternative ruter og deres estimerte ankomsttider
+• Det er lagt til knapper for å legge til eller erstatte et stopp på en planlagt rute
+• Lagt til en innstilling for å optimalisere rekkefølgen på mellomliggende rutestopp
+• Den valgte alternative ruten beholdes nå når navigasjonen beregner ruten på nytt
+• Rekkefølgen på rutestoppene gjenopprettes nå etter at appen har blitt startet på nytt
 
-## Kart og steder
-• OpenStreetMap-data per 14. juli
-• OpenStreetMap-notater plasseres nå på det nøyaktige stedet du velger, i stedet for midt i skogen
-• Forbedret kartvalg for regioner som krysser 180°-antimeridianen
-• Høydeprofiler for ruter viser ikke lenger utdaterte eller tomme diagrammer etter at en rute er fjernet
-• Det tomme høydediagrammet for registrerte ruter er forbedret
-• Knappen for å fjerne bokmerker er lettere å finne
-• Automatisk lagring av bokmerker når du forlater redigeringsskjermen
-• Fargepaletten inneholder forhåndsdefinerte farger og lar deg velge hvilken som helst egendefinert farge
-• Andre forbedringer av brukergrensesnittet
+## Kart
+• OpenStreetMap-data per 28. september
+• Wikipedia-data per 21. september
+• Vannreservoarer er nå synlige når du zoomer lenger ut
+• Vanntunneler vises ikke lenger på kartet
+• Ikonene for Suzhou Metro-stasjoner og innganger er rettet
+• Løste sjeldne tilfeller der etiketter ble forskjøvet på metrokartlaget
 
-## Offentlig transport
-• Navn på holdeplasser, byttepunkter og stasjoner har nå en hvit kontur for å forbli lesbare både i lyse og mørke temaer
-• T-banelaget vises igjen korrekt etter at du har lukket forhåndsvisningen av en rute for offentlig transport
+## CarPlay
+• Lagt til manøvreringsinstruksjoner på støttede head-up-displayer (HUD-er) i biler og på CarPlay-dashbordet
+• Fikset CarPlay-knapper og søk
 
-## Ruteplanlegging og navigasjon
-• Løste problemer med feilaktige og manglende veibeskrivelser
-• Ruteadvarsler (bompenger, ferger, grusveier, trapper osv.) vises nå for alle alternative ruter
-• Løste et sjeldent frysingsproblem under ruteplanlegging og forbedret håndtering av blindveier og start-/målpunkter på en vei med kjøreforbud
-• Rutefremdriften på startknappen er forbedret
-• Omorganisering av rutestoppene fører ikke lenger til at listen hopper rundt
+## Spor
+• Lagt til et øyeikon for å skjule enkeltspor
+• Feil er rettet, og sporopptak er forbedret
+• Feil ved import av KMB-filer er løst
 
-## Oversettelser
-• Forbedret kinesisk ordlyd
-• Oppdaterte ukrainske oversettelser
-• Rettet oversettelser av kartregioner på italiensk
+## Søk
+• Løst problem med søk når det synlige kartområdet krysser 180°-meridianen (±180° lengdegrad)
+• Kategorisøk i Spotlight er gjenopprettet
+
+## Brukergrensesnitt
+• Åpningstider viser nå «Midt på dagen» for kl. 12:00 og «Midnatt» for kl. 00:00 eller 24:00
+• Fikset ulike feil og forbedret brukergrensesnittet
+• Korrigerte oversettelser til engelsk, fransk og asturisk
+• Det er nå mulig å velge en installert navigasjonsstemme og lytte til en prøve av den

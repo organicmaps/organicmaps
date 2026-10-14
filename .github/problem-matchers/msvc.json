@@ -1,0 +1,19 @@
+{
+  "//": "Surfaces MSVC diagnostics as inline GitHub annotations. Registered via ::add-matcher:: from the CMake workflow. Matches: file(line[,col]): [fatal ]warning|error CNNNN: message",
+  "problemMatcher": [
+    {
+      "owner": "msvc",
+      "pattern": [
+        {
+          "regexp": "^(.+?)\\((\\d+)(?:,(\\d+))?\\)\\s*:\\s*(?:fatal\\s+)?(warning|error)\\s+([A-Z]+\\d+)\\s*:\\s*(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "code": 5,
+          "message": 6
+        }
+      ]
+    }
+  ]
+}

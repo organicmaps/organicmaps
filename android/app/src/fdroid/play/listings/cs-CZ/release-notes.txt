@@ -1,8 +1,9 @@
-• Data OSM k 14. červenci
-• Názvy zastávek veřejné dopravy, přestupních míst a stanic mají nyní bílý obrys
-• Vylepšené zobrazení otevíracích hodin
-• Opraveny nesprávné nebo chybějící pokyny k trase
-• Upravené záložky a trasy se nyní ukládají automaticky
-• Varování na trase (mýtné, trajekty, nezpevněné silnice, schody atd.) se nyní zobrazují u všech alternativních tras
-• Poznámky OSM se vytvářejí přesně na místě, které vyberete
-…více na omaps.org/cs/news
+• Údaje OSM k 28. září, Wikipedie k 21. září
+• Vylepšené alternativní trasy a jejich odhadované časy příjezdu
+• Bylo přidáno nastavení pro optimalizaci pořadí mezilehlých zastávek na trase
+• Přidána tlačítka pro přidání nebo nahrazení zastávky v naplánované trase
+• Vybraná alternativní trasa se nyní během navigace zachovává
+• Opraveno a vylepšeno zaznamenávání tras
+• Opraven import souborů KMB
+• Vylepšení a opravy uživatelského rozhraní
+…více podrobností na omaps.org/cs/news

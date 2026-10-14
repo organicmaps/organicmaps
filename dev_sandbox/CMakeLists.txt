@@ -44,6 +44,26 @@ if (PLATFORM_MAC)
   )
 endif()
 
+set(GLFW_BUILD_DOCS OFF)
+set(GLFW_BUILD_EXAMPLES OFF)
+set(GLFW_BUILD_TESTS OFF)
+set(GLFW_INSTALL OFF)
+set(GLFW_VULKAN_STATIC OFF)
+set(GLFW_BUILD_WAYLAND OFF)
+if (PLATFORM_LINUX)
+  # The native Linux context factories still require GLFW's X11 backend.
+  set(GLFW_BUILD_X11 ON)
+endif()
+
+function(add_sandbox_glfw)
+  # Function scope disables ARC for GLFW without changing the sandbox's flags.
+  set(CMAKE_OBJC_FLAGS "")
+  add_subdirectory(${OMIM_ROOT}/3party/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
+  set_target_properties(glfw PROPERTIES UNITY_BUILD OFF XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC NO)
+endfunction()
+add_sandbox_glfw()
+add_subdirectory(${OMIM_ROOT}/3party/imgui ${CMAKE_CURRENT_BINARY_DIR}/imgui)
+
 if (${PLATFORM_LINUX})
   append(SRC
     main_linux.cpp
@@ -112,38 +132,36 @@ set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
 function(copy_resources)
-  execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER})
   foreach(file ${ARGN})
-    execute_process(
-      COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
-      COMMAND_ERROR_IS_FATAL ANY
-    )
+    file(COPY ${DATA_DIR}/${file} DESTINATION ${RESOURCES_FOLDER})
   endforeach()
 endfunction()
 
-copy_resources(
-  fonts
-  symbols
-  countries-strings
-  vulkan_shaders
+# The bundle resources are only read on macOS, the other platforms resolve the data directory at run time.
+if (PLATFORM_MAC)
+  copy_resources(
+    fonts
+    symbols
+    countries-strings
+    vulkan_shaders
 
-  categories.txt
-  categories_cuisines.txt
-  classificator.txt
-  colors.txt
-  countries.json
-  drules_default.bin
-  drules_outdoors.bin
-  drules_vehicle.bin
-  editor.config
-  packed_polygons.bin
-  patterns.txt
-  transit_colors.txt
-  types.txt
-  World.mwm
-  WorldCoasts.mwm
-)
-
-if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
-  copy_resources(icudt78l.dat)
+    categories.txt
+    categories_cuisines.txt
+    classificator.txt
+    colors.txt
+    countries.json
+    drules_default.bin
+    drules_outdoors.bin
+    drules_vehicle.bin
+    editor.config
+    packed_polygons.bin
+    patterns.txt
+    transit_colors.txt
+    types.txt
+    World.mwm
+    WorldCoasts.mwm
+  )
+  if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
+    copy_resources(icudt78l.dat)
+  endif()
 endif()

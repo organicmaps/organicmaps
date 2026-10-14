@@ -6,7 +6,6 @@ enum SettingsScreen {
   case bookmarksTextPlacement
   case appearance
   case voiceInstructions
-  case drivingOptions
   case mapTiles
 }
 
@@ -39,8 +38,6 @@ final class SettingsBuilder: NSObject {
       return buildAppearance()
     case .voiceInstructions:
       return buildTTSSettings()
-    case .drivingOptions:
-      return buildDrivingOptions()
     case .mapTiles:
       return buildMapTiles()
     }
@@ -82,10 +79,10 @@ final class SettingsBuilder: NSObject {
     return viewController
   }
 
-  static func buildDrivingOptions() -> UIViewController {
+  static func buildRoutingOptions(routerType: MWMRouterType) -> UIViewController {
     let viewController = RoutingOptionsSettingsViewController()
     let presenter = RoutingOptionsSettingsPresenter(viewController: viewController)
-    let interactor = RoutingOptionsSettingsInteractor()
+    let interactor = RoutingOptionsSettingsInteractor(routerType: routerType)
     interactor.presenter = presenter
     viewController.configure(interactor: interactor)
     return viewController
@@ -122,6 +119,15 @@ final class SettingsBuilder: NSObject {
     let viewController = TTSLanguageSettingsViewController()
     let presenter = TTSLanguageSettingsPresenter(viewController: viewController)
     let interactor = TTSLanguageSettingsInteractor()
+    interactor.presenter = presenter
+    viewController.configure(interactor: interactor)
+    return viewController
+  }
+
+  static func buildTTSVoice(_ language: TTSLanguage) -> UIViewController {
+    let viewController = TTSVoiceSettingsViewController()
+    let presenter = TTSVoiceSettingsPresenter(viewController: viewController)
+    let interactor = TTSVoiceSettingsInteractor(language: language)
     interactor.presenter = presenter
     viewController.configure(interactor: interactor)
     return viewController

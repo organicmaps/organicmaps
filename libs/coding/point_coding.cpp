@@ -7,6 +7,16 @@
 
 #include <algorithm>
 
+#if defined(__clang__)
+#pragma float_control(push)
+#pragma float_control(precise, on)
+#elif defined(__GNUC__)
+#pragma GCC push_options
+#pragma GCC optimize("no-fast-math", "fp-contract=off")
+#elif defined(_MSC_VER)
+#pragma fp_contract(off)
+#endif
+
 namespace
 {
 double CoordSize(uint8_t coordBits)
@@ -50,7 +60,10 @@ double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits)
   // It doesn't work because of possible floating errors.
   // ASSERT(d >= min && d <= max, (d, x, min, max, coordBits));
 
-  return math::Clamp(d, min, max);
+  // Inline the clamp deliberately.
+  if (d > max)
+    return max;
+  return d < min ? min : d;
 }
 
 m2::PointU PointDToPointU(double x, double y, uint8_t coordBits)
@@ -144,3 +157,11 @@ m2::PointU Uint64ToPointUObsolete(uint64_t v)
   bits::BitwiseSplit(v, res.x, res.y);
   return res;
 }
+
+#if defined(__clang__)
+#pragma float_control(pop)
+#elif defined(__GNUC__)
+#pragma GCC pop_options
+#elif defined(_MSC_VER)
+#pragma fp_contract(on)
+#endif

@@ -13,7 +13,6 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include <cctype>
 #include <memory>
 
 #include "defines.hpp"
@@ -314,7 +313,7 @@ bool ParseVersion(string const & s, int64_t & version)
   int64_t v = 0;
   for (char const c : s)
   {
-    if (!isdigit(c))
+    if (!strings::IsASCIIDigit(c))
       return false;
     v = v * 10 + c - '0';
   }

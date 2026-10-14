@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Kalitate handiagoko ahotsa deskargatzeko, ireki Ezarpenak aplikazioa eta joan Irisgarritasuna → VoiceOver → Ahotsa → Ahotsa.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Probatu ahots bidezko jarraibideak (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Zoom automatikoa";
 "placepage_distance" = "Distantzia";
 "search_show_on_map" = "Ikusi mapan";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Gris urdinxka";
 
-/* place preview title */
-"info" = "Informazioa";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps bertsioa: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Iluna";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Beste batzuk";
 
 /* Tex label above the Donate button */
 "donate_description" = "Oparitu doako mapak iragarkirik gabe milioika erabiltzaileri!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Gaur atseden eguna";
 "day_off" = "Itxita";
+"midnight" = "Gauerdia";
+"noon" = "Eguerdia";
 "today" = "Gaur";
 "opens_in" = "%@ barru irekiko da";
 "closes_in" = "%@ barru itxiko da";
@@ -602,9 +604,6 @@
 "day" = "e";
 "second" = "s";
 "placepage_more_button" = "Gehiago";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Editatu markagailua";
 "placepage_personal_notes_hint" = "Ohar pertsonalak (testua edo html)";
 "editor_comment_hint" = "Iruzkina…";
 "editor_reset_edits_message" = "Tokiko aldaketa guztiak berrezarri nahi dituzu?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "Trafiko datuak ez daude eskuragarri";
 "enable_logging" = "Historia gaitu";
 "transliteration_title" = "Latinezko transliterazioa";
-"planning_route_manage_route" = "Kudeatu ibilbidea";
-"button_plan" = "Planifikatu";
 "placepage_remove_stop" = "Kendu geltokia";
-"placepage_add_stop" = "Gehitu geltokia";
-"saved" = "Gordeta";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "Gehitu geldialdia";
 "error_enter_correct_name" = "Mesedez, idatzi baliozko izen bat";
 "bookmark_lists" = "Zerrendak";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "Erakutsi eskuinean";
 "show_at_the_bottom" = "Erakutsi behean";
 "enable_logging_warning_message" = "Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Autoz";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Bizikletaz";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Oinez";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Garraiobide guztiak";
 "driving_options_title" = "Bideratzeko aukerak";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ibilbidearen optimizazioa";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Tarteko geldialdiak automatikoki berrantolatzen ditu ibilbide eraginkorragoa sortzeko.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Bidesariak saihestea";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "Autobideak saihestea";
 "unable_to_calc_alert_title" = "Ezin da ibilbidea proposatu";
 "unable_to_calc_alert_subtitle" = "Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro.";
-"define_to_avoid_btn" = "Zehaztu saihestu beharreko bideak";
-"change_driving_options_btn" = "Bideratze aukerak gaituta";
 "toll_road" = "Ordainpeko errepidea";
 "unpaved_road" = "Asfaltatu gabeko errepidea";
 "ferry_crossing" = "Ferry zeharkaldia";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ibilbidea planifikatzeko errorea";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Iristeko unea: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Deskargatu eta eguneratu proiektatutako bideko mapa guztiak ibilbidea kalkulatzeko.";
 "editor_done_dialog_1" = "Munduko mapa aldatu duzu. Ez ezazu zeuretzat gorde. Esan zure lagunei eta editatu elkarrekin.";
@@ -813,7 +824,6 @@
 "please_note" = "Abisua";
 "migration_download_error_dialog" = "Deskargaren errorea";
 "editor_add_select_category" = "Hautatu kategoria";
-"editor_add_select_category_popular_subtitle" = "Ospetsua";
 "editor_add_select_category_all_subtitle" = "Kategoria guztiak";
 "whatsnew_editor_message_1" = "Gehitu toki berriak mapan eta editatu uneko tokiak zuzenean aplikaziotik.";
 "dialog_incorrect_feature_position" = "Aldatu kokapena";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. Hautatu Kokapen zerbitzuak";
 "location_services_disabled_on_device_4" = "4. Aktibatu Kokapen Zerbitzuak";
 "location_services_disabled_on_device_additional_message" = "Edo jarraitu kokapenik gabeko Organic Maps erabiltzen";
-"book_button" = "Erreserba";
 "placepage_call_button" = "Deitu";
 "placepage_bookmark_name_hint" = "Markagailuaren izena";
 "placepage_delete_bookmark_button" = "Ezabatu markagailua";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafiko datuak bistaratzeko, aplikazioa eguneratu behar duzu.";
 "log_file_size" = "Erregistro fitxategiaren tamaina: %@";
-"planning_route_remove_title" = "Arrastatu hona kentzeko";
 "placepage_replace_stop" = "Ordeztu geldialdia";
-"start_from_my_position" = "Hasi hemendik";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago";
@@ -874,15 +881,8 @@
 "popular_place" = "Ospetsua";
 "hide_from_map" = "Ezkutatu mapan";
 "tags_loading_error_subtitle" = "Errore bat gertatu da etiketak kargatzean. Saiatu berriro";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Eskubidea";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Behealdea";
 "trip_start" = "Goazen";
 "pick_destination" = "Helmuga";
-"follow_my_position" = "Berriz zentratu";
 "search_results" = "Bilaketa emaitzak";
 "then_turn" = "Gero";
 "redirect_route_alert" = "Ibilbidea berreraiki nahi duzu?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Eskerrik asko gure komunitateak eraikitako mapak erabiltzeagatik!";
-
-/* App tip #01 */
-"app_tip_01" = "Zure dohaintza eta laguntzarekin, Munduko mapa onenak sor ditzakegu!";
-
-/* App tip #02 */
-"app_tip_02" = "Gure aplikazioa gustatzen zaizu? Mesedez, eman dohaintza garapena laguntzeko! Oraindik ez al zaizu gustatzen? Mesedez, jakinarazi iezaguzu, eta konponduko dugu!";
-
-/* App tip #03 */
-"app_tip_03" = "Software garatzaile bat ezagutzen baduzu, behar duzun funtzio bat ezartzeko eska diezaiokezu.";
-
-/* App tip #04 */
-"app_tip_04" = "Sakatu mapako edozein tokitan edozer hautatzeko. Luze sakatu interfazea ezkutatzeko eta berriro erakusteko.";
-
-/* App tip #05 */
-"app_tip_05" = "Ba al dakizu zure uneko kokapena mapan hauta dezakezula?";
-
-/* App tip #06 */
-"app_tip_06" = "Gure aplikazioa zure hizkuntzara itzultzen lagun dezakezu.";
-
-/* App tip #07 */
-"app_tip_07" = "Gure aplikazioa zale gutxi batzuek eta komunitateak garatzen dute.";
-
-/* App tip #08 */
-"app_tip_08" = "Maparen datuak erraz konpondu eta hobetu ditzakezu.";
-
-/* App tip #09 */
-"app_tip_09" = "Gure helburu nagusia maite dituzun mapa azkarrak, pribatutasunari begira eta erabilerrazak sortzea da.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Organic Maps telefonoaren pantailan erabiltzen ari zara";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Arrastoa hutsik dago; ez dago ezer gordetzeko";
-"edit_track" = "Editatu arrastoa";
-"elevation_profile_diff_level" = "Zailtasun maila";
-"elevation_profile_diff_level_easy" = "Erraza";
-"elevation_profile_diff_level_moderate" = "Moderatua";
-"elevation_profile_diff_level_hard" = "Zaila";
 "downloader_updating_ios" = "Eguneratzen";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Mesedez, gaitu iCloud zure gailuaren ezarpenetan eginbide hau erabiltzeko.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Gaitu";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Ibilbideen kolorea aldatu da";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Aukeratu mapan";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Abiapuntua";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Helmuga";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Aldatu abiapuntua";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Aldatu helmuga";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Aldatu geldialdia";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Geldialdien kopuru maximoa lortu da";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Mugitu eta handitu mapa gurutzea kokatzeko";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Ibilbidea alderantzikatu";

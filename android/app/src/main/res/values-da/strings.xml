@@ -308,38 +308,6 @@
     <string name="enable_location_services">Aktiver venligst placeringstjenester</string>
     <string name="save">Gem</string>
     <string name="create">opret</string>
-    <!-- red color -->
-    <string name="red">Rød</string>
-    <!-- yellow color -->
-    <string name="yellow">Gul</string>
-    <!-- blue color -->
-    <string name="blue">Blå</string>
-    <!-- green color -->
-    <string name="green">Grøn</string>
-    <!-- purple color -->
-    <string name="purple">Lilla</string>
-    <!-- orange color -->
-    <string name="orange">Orange</string>
-    <!-- brown color -->
-    <string name="brown">Brun</string>
-    <!-- pink color -->
-    <string name="pink">Lyserød</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Mørkelilla</string>
-    <!-- light blue color -->
-    <string name="light_blue">Lyseblå</string>
-    <!-- cyan color -->
-    <string name="cyan">Cyan</string>
-    <!-- teal color -->
-    <string name="teal">Blågrøn</string>
-    <!-- lime color -->
-    <string name="lime">Kalk</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Dyb orange</string>
-    <!-- gray color -->
-    <string name="gray">Grå</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Blågrå</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Udseende</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -409,20 +377,15 @@
     <string name="editor_example_values">Eksempelværdier</string>
     <string name="editor_correct_mistake">Ret fejl</string>
     <string name="editor_add_select_location">Vælg placering</string>
-    <string name="editor_report_problem_desription_1">Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.</string>
-    <string name="editor_report_problem_desription_2">Eller gør det selv på https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Send</string>
-    <string name="editor_report_problem_title">Problem</string>
-    <string name="editor_report_problem_no_place_title">Stedet findes ikke</string>
-    <string name="editor_report_problem_under_construction_title">Lukket for vedligeholdelse</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplikeret sted</string>
     <string name="autodownload">Download kort automatisk</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Daglig</string>
     <string name="twentyfour_seven">Døgnet rundt</string>
     <string name="day_off_today">Lukket i dag</string>
     <string name="day_off">Lukket</string>
-    <string name="today">I dag</string>
+    <string name="midnight">Midnat</string>
+    <string name="noon">Middag</string>
     <string name="opens_in">Åbner om %s</string>
     <string name="closes_in">Lukker om %s</string>
     <string name="closed">Lukket</string>
@@ -465,7 +428,6 @@
     <string name="downloader_no_space_title">Ikke nok plads</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Slet unødvendig data</string>
-    <string name="editor_login_error_dialog">Login-fejl.</string>
     <string name="editor_profile_changes">Bekræftede ændringer</string>
     <string name="editor_focus_map_on_location">Træk i kortet for at placere korset på stedet eller virksomheden.</string>
     <string name="editor_edit_place_title">Redigerer</string>
@@ -474,8 +436,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Som det står skrevet på det lokale sprog</string>
     <string name="editor_edit_place_category_title">Kategori</string>
-    <string name="detailed_problem_description">Detaljeret beskrivelse af problemet</string>
-    <string name="editor_report_problem_other_title">Et andet problem</string>
     <string name="placepage_add_business_button">Tilføj virksomhed</string>
     <string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -518,7 +478,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Mere</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Rediger bogmærke</string>
     <string name="placepage_personal_notes_hint">Personlige notater (tekst eller html)</string>
     <string name="editor_comment_hint">Kommentar…</string>
@@ -571,12 +531,10 @@
     <string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
     <string name="transliteration_title">Translitterer til det latinske alfabet</string>
     <string name="learn_more">Flere oplysninger</string>
-    <string name="planning_route_manage_route">Administrer rute</string>
-    <string name="button_plan">Planlæg</string>
     <string name="placepage_remove_stop">Fjern stop</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Tilføj stop</string>
     <string name="drag_to_reorder">Omordn</string>
-    <string name="saved">Gemt</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
     <string name="dialog_error_storage_title">Problem med lageradgang</string>
@@ -662,7 +620,19 @@
     <string name="show_to_the_right">Vis til højre</string>
     <string name="show_at_the_bottom">Vis i bunden</string>
     <string name="enable_logging_warning_message">Aktivér denne mulighed midlertidigt for at registrere og manuelt sende detaljerede diagnostiske logfiler om dit problem til os ved hjælp af \"Rapportér en fejl\" i Hjælp-dialogen. Logfiler kan indeholde placeringsoplysninger.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Kørsel</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Cykling</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Gang</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Alle transportformer</string>
     <string name="driving_options_title">Indstillinger for ruteberegning</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Ruteoptimering</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Omarrangerer automatisk mellemstop for at oprette en mere effektiv rute.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Undgå betalingsveje</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -672,8 +642,6 @@
     <string name="avoid_motorways">Undgå motorveje</string>
     <string name="unable_to_calc_alert_title">Kan ikke beregne rute</string>
     <string name="unable_to_calc_alert_subtitle">Der kunne ikke findes en rute. Dette kan skyldes dine ruteindstillinger eller ufuldstændige OpenStreetMap-data. Ændr dine ruteindstillinger, og prøv igen.</string>
-    <string name="define_to_avoid_btn">Definer veje du vil undgå</string>
-    <string name="change_driving_options_btn">Indstillinger for ruteberegning aktiveret</string>
     <string name="toll_road">Betalingsvej</string>
     <string name="unpaved_road">Ikke-asfalteret vej</string>
     <string name="ferry_crossing">Færgeoverfart</string>
@@ -758,8 +726,6 @@
     <string name="elevation_profile_min_elevation">Min. højde</string>
     <string name="elevation_profile_max_elevation">Maks. højde</string>
     <string name="elevation_profile_difficulty">Sværhedsgrad</string>
-    <string name="elevation_profile_distance">Afs.:</string>
-    <string name="elevation_profile_time">Tid:</string>
     <string name="isolines_toast_zooms_1_10">Zoom ind for at udforske isolinjer</string>
     <string name="downloader_loading_ios">Downloader</string>
     <string name="download_map_title">Download oversigtskortet over verden</string>
@@ -862,12 +828,6 @@
     <string name="stop_track_recording">Stop optagelse af spor</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Optagelse af rute</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stop uden at gemme</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Fortsæt optagelse</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Gem i bogmærker og spor?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Sporet er tomt - der er ikke noget at gemme</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -875,8 +835,6 @@
     <string name="choose_color">Vælg farve</string>
     <string name="edit_track">Rediger spor</string>
     <string name="uri_open_location_failed">Ingen app installeret, der kan åbne stedet</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto ved navigation</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Følg systemet</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -902,11 +860,11 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Vis spor</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Du</string>
+
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Login med adgangskode</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Login ved hjælp af browser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Nyligt brugt</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->
@@ -929,4 +887,24 @@
     <string name="color_picker_grid">Gitter</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Stemmesøgning</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Vælg på kortet</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Startsted</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Destination</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Skift startsted</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Skift destination</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Skift stop</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Det maksimale antal stop er nået</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Flyt og zoom på kortet for at placere korset</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Stop og gem</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Vend ruten om</string>
 </resources>

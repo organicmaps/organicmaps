@@ -1,7 +1,9 @@
-• Dades d'OSM a data de 14 de juliol
-• Els noms de les parades de transport públic, de transbordament i d'estacions ara tenen un contorn blanc
-• Millora de la visualització dels horaris d'obertura
-• S'han corregit indicacions incorrectes o que faltaven
-• Els marcadors i els recorreguts editats ara es guarden automàticament
-• Ara es mostren avisos de ruta (peatges, ferris, camins sense asfaltar, escales, etc.) per a totes les rutes alternatives
+• OSM: 28 de setembre; Wikipedia: 21 de setembre
+• Millors rutes alternatives i estimacions d'arribada
+• Una nova configuració optimitza l'ordre de les parades
+• Nous botons per afegir o substituir parades en rutes planificades
+• Es manté la ruta alternativa escollida durant la navegació
+• Correccions i millores en l'enregistrament de traçats
+• Corregida la importació de fitxers KMB
+• Correccions i millores de la interfície d'usuari
 …més a omaps.org/ca/news

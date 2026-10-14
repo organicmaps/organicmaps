@@ -26,7 +26,7 @@
             android:layout_height="@dimen/place_page_top_button"
             android:layout_gravity="end|center_vertical"
             android:background="?selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cancel"
+            android:contentDescription="@string/close"
             android:scaleType="center"
             android:src="@drawable/ic_close"
             app:tint="?iconTint" />

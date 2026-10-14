@@ -35,14 +35,44 @@
 #include "geometry/triangle2d.hpp"
 
 #include <condition_variable>
+#include <cstdint>
 #include <functional>
 #include <map>
+#include <memory>
 #include <mutex>
 #include <optional>
 #include <vector>
 
 namespace df
 {
+#ifdef SCENARIO_ENABLE
+struct ScenarioViewportRequest;
+
+class ScenarioViewportMessage : public Message
+{
+public:
+  ScenarioViewportMessage(std::shared_ptr<ScenarioViewportRequest> request, bool fence, uint64_t revision = 0,
+                          bool afterReads = false)
+    : m_request(std::move(request))
+    , m_fence(fence)
+    , m_revision(revision)
+    , m_afterReads(afterReads)
+  {}
+
+  Type GetType() const override { return Type::ScenarioViewport; }
+  std::shared_ptr<ScenarioViewportRequest> const & GetRequest() const { return m_request; }
+  bool IsFence() const { return m_fence; }
+  uint64_t GetRevision() const { return m_revision; }
+  bool IsAfterReads() const { return m_afterReads; }
+
+private:
+  std::shared_ptr<ScenarioViewportRequest> m_request;
+  bool m_fence;
+  uint64_t m_revision;
+  bool m_afterReads;
+};
+#endif
+
 class BaseBlockingMessage : public Message
 {
 public:
@@ -384,10 +414,11 @@ class SetAddNewPlaceModeMessage : public Message
 {
 public:
   SetAddNewPlaceModeMessage(bool enable, std::vector<m2::TriangleD> && boundArea, bool enableKineticScroll,
-                            m2::PointD const * optionalPosition)
+                            m2::PointD const * optionalPosition, bool shouldChangeViewport)
     : m_enable(enable)
     , m_boundArea(std::move(boundArea))
     , m_enableKineticScroll(enableKineticScroll)
+    , m_shouldChangeViewport(shouldChangeViewport)
   {
     if (optionalPosition)
       m_position = *optionalPosition;
@@ -398,12 +429,14 @@ public:
   std::vector<m2::TriangleD> && AcceptBoundArea() { return std::move(m_boundArea); }
   bool IsEnabled() const { return m_enable; }
   bool IsKineticScrollEnabled() const { return m_enableKineticScroll; }
+  bool ShouldChangeViewport() const { return m_shouldChangeViewport; }
   auto const & GetOptionalPosition() const { return m_position; }
 
 private:
   bool m_enable;
   std::vector<m2::TriangleD> m_boundArea;
   bool m_enableKineticScroll;
+  bool m_shouldChangeViewport;
   std::optional<m2::PointD> m_position;
 };
 

@@ -15,7 +15,6 @@ if (MSVC)
   target_compile_options(${PROJECT_NAME}
     PRIVATE
       /GR-
-      /EHsc-
       /Zc:threadSafeInit-
   )
 else()

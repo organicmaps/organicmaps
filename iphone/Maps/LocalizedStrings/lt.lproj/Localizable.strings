@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Norėdami atsisiųsti aukštesnės kokybės balsą, atidarykite programą Nustatymai ir eikite į Prieinamumas → VoiceOver → Kalba → Balsas.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Išbandyti balso instrukcijas (kalbos sintezę)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Automatinis mastelis";
 "placepage_distance" = "Atstumas";
 "search_show_on_map" = "Rodyti žemėlapyje";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Mėlynai pilkas";
 
-/* place preview title */
-"info" = "Informacija";
-
 /* Prints version number in About dialog */
 "version" = "„Organic Maps“ versija: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Tamsi";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Kita";
 
 /* Tex label above the Donate button */
 "donate_description" = "Padovanokite nemokamus žemėlapius be skelbimų milijonams vartotojų!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24×7";
 "day_off_today" = "Šiandien uždaryta";
 "day_off" = "Uždaryta";
+"midnight" = "Vidurnaktis";
+"noon" = "Vidurdienis";
 "today" = "Šiandien";
 "opens_in" = "Atsidaro už %@";
 "closes_in" = "Užsidaro už %@";
@@ -602,9 +604,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Išsamiau";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Taisyti žymę";
 "placepage_personal_notes_hint" = "Asmeninės pastabos (tekstas arba HTML)";
 "editor_comment_hint" = "Komentaras…";
 "editor_reset_edits_message" = "Anuliuoti visus vietinius pakeitimus?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "Eismo duomenys neprieinami";
 "enable_logging" = "Įgalinti derinimo žurnalą";
 "transliteration_title" = "Transliteruoti užrašus lotyniškais rašmenimis";
-"planning_route_manage_route" = "Tvarkyti maršrutą";
-"button_plan" = "Planas";
 "placepage_remove_stop" = "Šalinti stotelę";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Pridėti stotelę";
-"saved" = "Įrašyta";
 "error_enter_correct_name" = "Įveskite teisingą pavadinimą";
 "bookmark_lists" = "Sąrašai";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "Rodyti dešinėje";
 "show_at_the_bottom" = "Rodyti apačioje";
 "enable_logging_warning_message" = "Įjunkite šią parinktį, jei norite kurį laiką rašyti derinimo žurnalą. Pasinaudodami mygtuku „Pranešti apie klaidą“, esančiu žinyno dialogo lange, galėsite pranešti apie problemą, pridėdami sukauptą žurnalą. Žurnaluose gali būti vietos duomenų.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Automobiliu";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Dviračiu";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Pėsčiomis";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Visi keliavimo būdai";
 "driving_options_title" = "Maršruto apskaičiavimo parinktys";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Maršruto optimizavimas";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Automatiškai pertvarko tarpinius sustojimus, kad sukurtų efektyvesnį maršrutą.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vengti mokamų kelių";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "Vengti greitkelių";
 "unable_to_calc_alert_title" = "Nepavyko apskaičiuoti maršruto";
 "unable_to_calc_alert_subtitle" = "Deja, nepavyko rasti maršruto. Tikėtina, jog taip yra dėl jūsų pasirinktų parinkčių arba trūkstamų „OpenStreetMap“ duomenų. Pakeiskite parinktis ir bandykite dar kartą.";
-"define_to_avoid_btn" = "Nurodykite vengtinus kelius";
-"change_driving_options_btn" = "Yra įjungtų maršruto parinkčių";
 "toll_road" = "Mokamas kelias";
 "unpaved_road" = "Negrįstas kelias";
 "ferry_crossing" = "Persikėlimas keltu";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Maršruto planavimas nepavyko";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Atvykimas %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Prieš planuodami maršrutą, atsiųskite ir atnaujinkite visus žemėlapius, į kuriuos jis patenka.";
 "editor_done_dialog_1" = "Pakeitėte pasaulio žemėlapį! Nelaikykite šio pokyčio tik sau – papasakokite apie jį savo draugams ir taisykite žemėlapį kartu.";
@@ -813,7 +824,6 @@
 "please_note" = "Atkreipkite dėmesį";
 "migration_download_error_dialog" = "Atsiuntimo klaida";
 "editor_add_select_category" = "Pasirinkite kategoriją";
-"editor_add_select_category_popular_subtitle" = "Populiarios";
 "editor_add_select_category_all_subtitle" = "Visos kategorijos";
 "whatsnew_editor_message_1" = "Pridėkite naujų vietų į žemėlapį ir redaguokite esamas tiesiai iš programėlės.";
 "dialog_incorrect_feature_position" = "Keisti vietą";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. Pasirinkite „Vietos nustatymo paslaugos“";
 "location_services_disabled_on_device_4" = "4. Įjunkite vietos nustatymo paslaugas";
 "location_services_disabled_on_device_additional_message" = "Arba toliau naudokitės „Organic Maps“ be vietos nustatymo";
-"book_button" = "Užsakyti";
 "placepage_call_button" = "Skambinti";
 "placepage_bookmark_name_hint" = "Žymės pavadinimas";
 "placepage_delete_bookmark_button" = "Naikinti žymę";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Jeigu norite matyti eismo duomenis, reikia atnaujinti programėlę.";
 "log_file_size" = "Žurnalo failo dydis: %@";
-"planning_route_remove_title" = "Vilkite čia, kad pašalintumėte";
 "placepage_replace_stop" = "Pakeisti Stop";
-"start_from_my_position" = "Pradėti iš";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Prisijunkite prie „OpenStreetMap“, kad galėtumėte automatiškai įkelti visus savo žemėlapio pakeitimus. Išsamesnė informacija –";
@@ -874,15 +881,8 @@
 "popular_place" = "Populiarūs";
 "hide_from_map" = "Nerodyti žemėlapyje";
 "tags_loading_error_subtitle" = "Įvyko klaida įkeliant gaires, bandykite iš naujo";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Dešinėje";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Apačioje";
 "trip_start" = "Pirmyn";
 "pick_destination" = "Tikslas";
-"follow_my_position" = "Centruoti";
 "search_results" = "Paieškos rezultatai";
 "then_turn" = "Tada";
 "redirect_route_alert" = "Norite perskaičiuoti maršrutą?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Dėkojame, kad naudojatės mūsų bendruomenės sukurtais žemėlapiais!";
-
-/* App tip #01 */
-"app_tip_01" = "Su jūsų parama ir palaikymu mes galime sukurti geriausius žemėlapius pasaulyje!";
-
-/* App tip #02 */
-"app_tip_02" = "Patinka šį programėlė? Paremkite, paaukodami jos vystymui! Dar ne? Papasakokite mums, kodėl, ir mes pasistengsime tai pataisyti!";
-
-/* App tip #03 */
-"app_tip_03" = "Jeigu turite pažįstamą programuotoją, galite jo(s) paprašyti realizuoti funkciją, kurios jums reikia.";
-
-/* App tip #04 */
-"app_tip_04" = "Bakstelėkite bet kurį žemėlapio tašką norimam objektui pasirinkti. Bakstelėkite ir palaikykite, kad paslėptumėte ar vėl pamatytumėte programėlės sąsają.";
-
-/* App tip #05 */
-"app_tip_05" = "Ar žinote, jog galite pasirinkti savo dabartinę vietą žemėlapyje?";
-
-/* App tip #06 */
-"app_tip_06" = "Galite padėti išversti šią programėlę į savo kalbą.";
-
-/* App tip #07 */
-"app_tip_07" = "Šią programėlę vysto keletas entuziastų ir suburta bendruomenė.";
-
-/* App tip #08 */
-"app_tip_08" = "Galite pataisyti ar papildyti žemėlapio duomenis.";
-
-/* App tip #09 */
-"app_tip_09" = "Mūsų pagrindinis tikslas – sukurti spartų, privatų ir paprastą naudotis žemėlapį, kuris patiktų visiems.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Dabar naudojatės „Organic Maps“ telefono ekrane";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa tuščia – nėra ką įrašyti";
-"edit_track" = "Redaguoti trasą";
-"elevation_profile_diff_level" = "Sudėtingumo lygis";
-"elevation_profile_diff_level_easy" = "Lengvas";
-"elevation_profile_diff_level_moderate" = "Normalus";
-"elevation_profile_diff_level_hard" = "Sunkus";
 "downloader_updating_ios" = "Naujinama";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Jei norite naudotis šia funkcija, įjunkite „iCloud“ įrenginio nustatymuose.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Įjungti";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Trasų spalva pakeista";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Pasirinkti žemėlapyje";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Pradžia";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Tikslas";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Keisti pradžią";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Keisti tikslą";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Keisti stotelę";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Pasiektas maksimalus stotelių skaičius";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Slinkite ir keiskite žemėlapio mastelį, kad nustatytumėte kryžiuko padėtį";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Apgręžti maršrutą";

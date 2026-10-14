@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Kõrgema kvaliteediga hääle allalaadimiseks ava rakendus Seaded ja mine jaotisse Juurdepääsetavus → VoiceOver → Kõne → Hääl.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testi hääljuhised (Kõnesüntees, TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Automaatne suum";
 "placepage_distance" = "Kaugus";
 "search_show_on_map" = "Vaata kaardil";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Sinakashall";
 
-/* place preview title */
-"info" = "Teave";
-
 /* Prints version number in About dialog */
 "version" = "Organic Mapsi versioon: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Tume kujundus";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Muu";
 
 /* Tex label above the Donate button */
 "donate_description" = "Kingi miljonitele kasutajatele tasuta ja reklaamideta kaardid!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "24/7";
 "day_off_today" = "Täna suletud";
 "day_off" = "Suletud";
+"midnight" = "Kesköö";
+"noon" = "Keskpäev";
 "today" = "Täna";
 "opens_in" = "Avatakse %@ jooksul";
 "closes_in" = "Suletakse %@ jooksul";
@@ -602,9 +604,6 @@
 "day" = "p";
 "second" = "sek";
 "placepage_more_button" = "Veel";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Muuda järjehoidjat";
 "placepage_personal_notes_hint" = "Isiklikud märkmed (tekst või html)";
 "editor_comment_hint" = "Kommenteeri…";
 "editor_reset_edits_message" = "Kas loobud kõigist kohalikest muudatustest?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "Liiklusinfo ei ole saadaval";
 "enable_logging" = "Luba logimine";
 "transliteration_title" = "Transliteratsioon ladina tähestikku";
-"planning_route_manage_route" = "Halda teekonda";
-"button_plan" = "Kavanda";
 "placepage_remove_stop" = "Eemalda peatus";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Lisa peatus";
-"saved" = "Salvestatud";
 "error_enter_correct_name" = "Palun sisesta korrektne nimi";
 "bookmark_lists" = "Loendid";
 
@@ -723,10 +721,28 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Kaardil leiduvate järjehoidjate nimed";
 "bookmarks_text_placement_description" = "Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.";
-"show_to_the_right" = "Näita paremale";
-"show_at_the_bottom" = "Näita alla";
+"show_to_the_right" = "Näita paremal";
+"show_at_the_bottom" = "Näita all";
 "enable_logging_warning_message" = "Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Autoga";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Jalgrattaga";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Jalgsi";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Kõik liikumisviisid";
 "driving_options_title" = "Tee juhatamise valikud";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Marsruudi optimeerimine";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Järjestab vahepeatused automaatselt ümber, et luua tõhusam marsruut.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Väldi tasulisi teid";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "Väldi kiirteed";
 "unable_to_calc_alert_title" = "Teekonna koostamine ei õnnestu";
 "unable_to_calc_alert_subtitle" = "Teekonda ei õnnestunud koostada. See võib olla põhjustatud sinu seatud tingimustest või OpenStreetMapi andmete puudumisest. Muuda algtingimusi ja proovi uuesti.";
-"define_to_avoid_btn" = "Määra välditavad teed";
-"change_driving_options_btn" = "Lubatud valikud teekonna koostamisel";
 "toll_road" = "Tasuline tee";
 "unpaved_road" = "Sillutamata tee";
 "ferry_crossing" = "Praamiületus";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Teekonna planeerimine ei õnnestunud";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Saabumine: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Marsruudi arvutamiseks laadi alla ja värskenda kõik kavandatud teekonnale jäävad kaardid.";
 "editor_done_dialog_1" = "Oled muutnud maailmakaarti. Ära hoia seda ainult enda teada! Räägi ka oma sõpradele ja muutke seda koos.";
@@ -813,7 +824,6 @@
 "please_note" = "Palun arvesta";
 "migration_download_error_dialog" = "Viga allalaadimisel";
 "editor_add_select_category" = "Vali kategooria";
-"editor_add_select_category_popular_subtitle" = "Populaarne";
 "editor_add_select_category_all_subtitle" = "Kõik kategooriad";
 "whatsnew_editor_message_1" = "Lisa kaardile uusi kohti ja muuda olemasolevaid otse rakenduses.";
 "dialog_incorrect_feature_position" = "Muuda asukohta";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. Vali „Asukohateenused“";
 "location_services_disabled_on_device_4" = "4. Lülita sisse asukohateenused";
 "location_services_disabled_on_device_additional_message" = "Või jätka Organic Mapsi kasutamist ilma asukohata";
-"book_button" = "Reserveeri";
 "placepage_call_button" = "Helista";
 "placepage_bookmark_name_hint" = "Järjehoidja nimi";
 "placepage_delete_bookmark_button" = "Kustuta järjehoidja";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Liiklusinfo kuvamiseks pead rakendust uuendama.";
 "log_file_size" = "Logifaili suurus: %@";
-"planning_route_remove_title" = "Eemaldamiseks lohista siia";
 "placepage_replace_stop" = "Asenda peatus";
-"start_from_my_position" = "Alusta kohast";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Oma kaardimuudatuste automaatseks üleslaadimiseks palun logi sisse OpenStreetMappi. Lisateave";
@@ -874,15 +881,8 @@
 "popular_place" = "Populaarne";
 "hide_from_map" = "Peida kaardilt";
 "tags_loading_error_subtitle" = "Siltide laadimisel tekkis viga, palun proovi uuesti";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Paremal";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "All";
 "trip_start" = "Läksime";
 "pick_destination" = "Sihtkoht";
-"follow_my_position" = "Säti keskele";
 "search_results" = "Otsingutulemused";
 "then_turn" = "Seejärel";
 "redirect_route_alert" = "Kas soovid teekonna uuesti luua?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "Aitäh, et kasutad meie kogukonna koostatud kaarte!";
-
-/* App tip #01 */
-"app_tip_01" = "Sinu annetuste ja toetusega saame luua maailma parimaid kaarte!";
-
-/* App tip #02 */
-"app_tip_02" = "Kas sulle meeldib meie rakendus? Palun anneta arendustöö toetamiseks! Ei meeldi veel? Palun anna põhjusest meile teada ja me parandame selle!";
-
-/* App tip #03 */
-"app_tip_03" = "Kui tead mõnda tarkvaraarendajat, võid paluda tal osaleda vajaliku funktsionaalsuse loomisel.";
-
-/* App tip #04 */
-"app_tip_04" = "Puuduta kaardil ükskõik kus, et valida midagi. Pika puudutusega saad peita ja kuvada kasutajaliidest.";
-
-/* App tip #05 */
-"app_tip_05" = "Kas tead, et saad kaardil valida oma praeguse asukoha?";
-
-/* App tip #06 */
-"app_tip_06" = "Saad aidata meie rakendust oma keelde tõlkida.";
-
-/* App tip #07 */
-"app_tip_07" = "Meie rakenduse on loonud mõned entusiastid ja kogukond.";
-
-/* App tip #08 */
-"app_tip_08" = "Saad hõlpsasti kaardiandmeid parandada ja täiustada.";
-
-/* App tip #09 */
-"app_tip_09" = "Meie põhieesmärk on luua kiireid, privaatsusele keskenduvaid ja hõlpsasti kasutatavaid kaarte, mis sulle meeldivad.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Nüüd kasutad telefoni ekraanil Organic Mapsi";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
-"edit_track" = "Muuda rada";
-"elevation_profile_diff_level" = "Raskusaste";
-"elevation_profile_diff_level_easy" = "Lihtne";
-"elevation_profile_diff_level_moderate" = "Keskmine";
-"elevation_profile_diff_level_hard" = "Raske";
 "downloader_updating_ios" = "Uuendamine";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Selle funktsionaalsuse kasutamiseks luba nutiseadme seadistustes iCloud.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Luba";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Radade värv on muudetud";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Vali kaardilt";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Alguskoht";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Sihtkoht";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Muuda alguskohta";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Muuda sihtkohta";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Muuda peatust";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Peatuste maksimaalne arv on saavutatud";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Liiguta ja suumi kaarti, et paigutada rist õigesse kohta";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Pööra marsruut ümber";

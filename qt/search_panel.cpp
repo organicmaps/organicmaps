@@ -70,7 +70,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
 
   m_isCategory = new QCheckBox(tr("Category request"));
   m_isCategory->setCheckState(Qt::Unchecked);
-  connect(m_isCategory, &QCheckBox::stateChanged, std::bind(&SearchPanel::RunSearch, this));
+  connect(m_isCategory, &QCheckBox::toggled, this, &SearchPanel::RunSearch);
 
   QHBoxLayout * requestLayout = new QHBoxLayout();
   requestLayout->addWidget(m_pEditor);
@@ -254,7 +254,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
                                   {} /* timeout */,
                                   isCategory,
                                   // m_onResults
-                                  [this, timestamp](Results results, std::vector<ProductInfo> /* productInfo */)
+                                  [this, timestamp](Results results)
     { OnEverywhereSearchResults(timestamp, std::move(results)); }};
 
     if (GetFramework().GetSearchAPI().SearchEverywhere(std::move(params)))
@@ -327,8 +327,8 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
   }
   else
   {
-    // center viewport on clicked item
-    GetFramework().ShowSearchResult(m_results[row]);
+    // Select the result without cancelling the search or clearing its marks.
+    GetFramework().SelectSearchResult(m_results[row], true /* animation */);
   }
 }
 

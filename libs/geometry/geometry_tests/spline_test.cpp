@@ -11,12 +11,23 @@ using namespace std;
 using m2::PointD;
 using m2::Spline;
 
+// Deliberately not using ULPs for comparison.
+double constexpr kEps = 1e-12;
+
+// Compares directions, so the lengths are normalized away.
 void TestPointDDir(PointD const & dst, PointD const & src)
 {
   double const len1 = dst.Length();
   double const len2 = src.Length();
-  TEST_ALMOST_EQUAL_ULPS(dst.x / len1, src.x / len2, ());
-  TEST_ALMOST_EQUAL_ULPS(dst.y / len1, src.y / len2, ());
+  TEST_ALMOST_EQUAL_ABS(dst.x / len1, src.x / len2, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(dst.y / len1, src.y / len2, kEps, ());
+}
+
+// Positions are compared as is: normalizing them would ignore the distance from
+// the origin and divide by zero for the origin itself.
+void TestPointDPos(PointD const & dst, PointD const & src)
+{
+  TEST(AlmostEqualAbs(dst, src, kEps), (dst, src));
 }
 
 UNIT_TEST(SmoothedDirections)
@@ -52,10 +63,7 @@ UNIT_TEST(SmoothedDirections)
   itr.Attach(spl2);
   TestPointDDir(itr.m_avrDir, dir1);
   itr.Advance(sqrt2 * 80.0 + 40.0);
-#if defined(DEBUG) || __apple_build_version__ < 15000000
-  // TODO(AB): Fails on Mac's clang with any optimization enabled and -ffp-contract=fast
   TestPointDDir(itr.m_avrDir, dir12);
-#endif
   itr.Attach(spl2);
   itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_avrDir, dir1);
@@ -115,23 +123,17 @@ UNIT_TEST(Positions)
   double const sqrt2 = sqrt(2.0);
   Spline::iterator itr;
   itr.Attach(spl0);
-  TestPointDDir(itr.m_pos, PointD(0, 0));
+  TestPointDPos(itr.m_pos, PointD(0, 0));
   itr.Advance(sqrt2 * 40.0);
-  TestPointDDir(itr.m_pos, PointD(40, 40));
+  TestPointDPos(itr.m_pos, PointD(40, 40));
   itr.Advance(sqrt2 * 40.0);
-#if defined(DEBUG) || __apple_build_version__ < 15000000
-  // TODO(AB): Fails on Mac's clang with any optimization enabled and -ffp-contract=fast
-  TestPointDDir(itr.m_pos, PointD(80, 0));
-#endif
+  TestPointDPos(itr.m_pos, PointD(80, 0));
   itr.Attach(spl4);
-  TestPointDDir(itr.m_pos, PointD(0, 0));
+  TestPointDPos(itr.m_pos, PointD(0, 0));
   itr.Advance(sqrt2 * 40.0);
-  TestPointDDir(itr.m_pos, PointD(40, 40));
+  TestPointDPos(itr.m_pos, PointD(40, 40));
   itr.Advance(sqrt2 * 40.0);
-#if defined(DEBUG) || __apple_build_version__ < 15000000
-  // TODO(AB): Fails on Mac's clang with any optimization enabled and -ffp-contract=fast
-  TestPointDDir(itr.m_pos, PointD(80, 0));
-#endif
+  TestPointDPos(itr.m_pos, PointD(80, 0));
 
   path.clear();
 
@@ -143,21 +145,18 @@ UNIT_TEST(Positions)
   Spline spl2(path);
   Spline spl3 = spl2;
   itr.Attach(spl3);
-  TestPointDDir(itr.m_pos, PointD(0, 0));
+  TestPointDPos(itr.m_pos, PointD(0, 0));
   itr.Advance(sqrt2 * 80.0 + 40.0);
-#if defined(DEBUG) || __apple_build_version__ < 15000000
-  // TODO(AB): Fails on Mac's clang with any optimization enabled and -ffp-contract=fast
-  TestPointDDir(itr.m_pos, PointD(120, 0));
-#endif
+  TestPointDPos(itr.m_pos, PointD(120, 0));
   itr.Attach(spl2);
   itr.Advance(sqrt2 * 40.0);
-  TestPointDDir(itr.m_pos, PointD(40, 40));
+  TestPointDPos(itr.m_pos, PointD(40, 40));
   itr.Advance(2.0);
-  TestPointDDir(itr.m_pos, PointD(42, 40));
+  TestPointDPos(itr.m_pos, PointD(42, 40));
   itr.Advance(20.0);
-  TestPointDDir(itr.m_pos, PointD(62, 40));
+  TestPointDPos(itr.m_pos, PointD(62, 40));
   itr.Advance(18.0);
-  TestPointDDir(itr.m_pos, PointD(80, 40));
+  TestPointDPos(itr.m_pos, PointD(80, 40));
 }
 
 UNIT_TEST(BeginAgain)

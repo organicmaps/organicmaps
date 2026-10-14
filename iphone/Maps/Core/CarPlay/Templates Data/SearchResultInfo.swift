@@ -1,3 +1,3 @@
 struct SearchResultInfo: InfoMetadata {
-  let originalRow: Int
+  let result: MWMCarPlaySearchResultObject
 }

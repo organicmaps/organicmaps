@@ -308,38 +308,6 @@
     <string name="enable_location_services">Молим вас укључите Локацијске сервисе</string>
     <string name="save">Сачувај</string>
     <string name="create">креирај</string>
-    <!-- red color -->
-    <string name="red">Црвена</string>
-    <!-- yellow color -->
-    <string name="yellow">Жута</string>
-    <!-- blue color -->
-    <string name="blue">Плава</string>
-    <!-- green color -->
-    <string name="green">Зелена</string>
-    <!-- purple color -->
-    <string name="purple">Љубичаста</string>
-    <!-- orange color -->
-    <string name="orange">Наранџаста</string>
-    <!-- brown color -->
-    <string name="brown">Браон</string>
-    <!-- pink color -->
-    <string name="pink">Розе</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Тамно љубичаста</string>
-    <!-- light blue color -->
-    <string name="light_blue">Светло плава</string>
-    <!-- cyan color -->
-    <string name="cyan">Цијан</string>
-    <!-- teal color -->
-    <string name="teal">Теал</string>
-    <!-- lime color -->
-    <string name="lime">Лимета</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Тамно наранџаста</string>
-    <!-- gray color -->
-    <string name="gray">Сива</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Плаво сива</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Изглед</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -409,20 +377,15 @@
     <string name="editor_example_values">Примери</string>
     <string name="editor_correct_mistake">Исправи грешку</string>
     <string name="editor_add_select_location">Изаберите локацију</string>
-    <string name="editor_report_problem_desription_1">Молим Вас да детаљно опишете проблем како би OpenStreetMap заједница могла да га поправи.</string>
-    <string name="editor_report_problem_desription_2">Или то учините сами на https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Пошаљи</string>
-    <string name="editor_report_problem_title">Проблем</string>
-    <string name="editor_report_problem_no_place_title">Ово место не постоји</string>
-    <string name="editor_report_problem_under_construction_title">Затворено због одржавања</string>
-    <string name="editor_report_problem_duplicate_place_title">Дуплирано место</string>
     <string name="autodownload">Аутоматско преузимање мапа</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Сваки дан</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Данас не ради</string>
     <string name="day_off">Затворено</string>
-    <string name="today">Данас</string>
+    <string name="midnight">Поноћ</string>
+    <string name="noon">Подне</string>
     <string name="opens_in">Отвара се за %s</string>
     <string name="closes_in">Затвара се за %s</string>
     <string name="closed">Затворено</string>
@@ -465,7 +428,6 @@
     <string name="downloader_no_space_title">Нема довољно простора</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Молим Вас да обришете непотребне податке</string>
-    <string name="editor_login_error_dialog">Грешка приликом пријаве.</string>
     <string name="editor_profile_changes">Верификоване промене</string>
     <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
     <string name="editor_edit_place_title">Измена</string>
@@ -474,8 +436,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Као што је написано на локалном језику</string>
     <string name="editor_edit_place_category_title">Категорија</string>
-    <string name="detailed_problem_description">Детаљан опис проблема</string>
-    <string name="editor_report_problem_other_title">Други проблем</string>
     <string name="placepage_add_business_button">Додај фирму</string>
     <string name="message_invalid_feature_position">Објекат не може бити на овом месту</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -518,7 +478,7 @@
     <string name="day">д</string>
     <string name="second">с</string>
     <string name="placepage_more_button">Више</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Измени маркер</string>
     <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
     <string name="editor_comment_hint">Коментар…</string>
@@ -571,12 +531,10 @@
     <string name="prefs_languages_information_off_link">За више информација погледајте ово упутство.</string>
     <string name="transliteration_title">Транслитерација у латиницу</string>
     <string name="learn_more">Сазнај више</string>
-    <string name="planning_route_manage_route">Измени руту</string>
-    <string name="button_plan">План</string>
     <string name="placepage_remove_stop">Уклони међуодредиште</string>
-    <string name="placepage_add_stop">Међуодредиште</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">Додај међуодредиште</string>
     <string name="drag_to_reorder">Преуредити</string>
-    <string name="saved">Сачувано</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
@@ -665,7 +623,19 @@
     <string name="show_to_the_right">Прикажи десно</string>
     <string name="show_at_the_bottom">Прикажи на дну</string>
     <string name="enable_logging_warning_message">Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције \"Пријавите проблем\" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Аутомобилом</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Бициклом</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Пешке</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Сви начини кретања</string>
     <string name="driving_options_title">Опције рутирања</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Оптимизација руте</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Аутоматски мења редослед међуодредишта ради ефикасније руте.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избегавај путарине</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -675,8 +645,6 @@
     <string name="avoid_motorways">Избегавај аутопутеве</string>
     <string name="unable_to_calc_alert_title">Није могуће израчунати руту</string>
     <string name="unable_to_calc_alert_subtitle">Рута није пронађена. Узрок могу бити опције рутирања или непотпуни OpenStreetMap подаци. Молим Вас да промените ваше опције рутирања и покушате поново.</string>
-    <string name="define_to_avoid_btn">Изабери путеве за избегавање</string>
-    <string name="change_driving_options_btn">Опције рутирања су укључене</string>
     <string name="toll_road">Путеви са путаринама</string>
     <string name="unpaved_road">Неасфалтирани путеви</string>
     <string name="ferry_crossing">Линије трајекта</string>
@@ -761,8 +729,6 @@
     <string name="elevation_profile_min_elevation">Минимална висина</string>
     <string name="elevation_profile_max_elevation">Максимална висина</string>
     <string name="elevation_profile_difficulty">Тежина</string>
-    <string name="elevation_profile_distance">Удаљ.:</string>
-    <string name="elevation_profile_time">Време:</string>
     <string name="isolines_toast_zooms_1_10">Увећајте да бисте видели изолиније</string>
     <string name="downloader_loading_ios">Преузимање</string>
     <string name="download_map_title">Преузми мапу света</string>
@@ -865,12 +831,6 @@
     <string name="stop_track_recording">Заустави снимање путање</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Снимање путање</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Заустави без чувања</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Настави снимање</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Сачувати у маркерима и путањама?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Путања је празна, нема шта да се сачува</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -878,8 +838,6 @@
     <string name="choose_color">Изаберите боју</string>
     <string name="edit_track">Измените путању</string>
     <string name="uri_open_location_failed">Нема инсталираних апликација које могу да отворе локацију.</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Аутоматски у навигацији</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Прати систем</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -903,11 +861,11 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Промени боју</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Ви</string>
+
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Пријава са лозинком</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Пријава преко прегледача</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Недавно коришћено</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->
@@ -930,4 +888,24 @@
     <string name="color_picker_grid">Решетка</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Претрага гласом</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Изабери на мапи</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Полазак</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Одредиште</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Промени полазак</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Промени одредиште</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Промени међуодредиште</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Постигнут максималан број међуодредишта</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Померите и зумирајте мапу да бисте поставили крст</string>
+    <!-- Track recording notification button: stops the recording and saves the recorded track. -->
+    <string name="track_recording_stop_and_save">Заустави и сачувај</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Обрни руту</string>
 </resources>

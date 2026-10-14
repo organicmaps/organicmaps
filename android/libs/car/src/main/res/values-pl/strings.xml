@@ -68,6 +68,8 @@
     <string name="editor_time_open">Otwarte</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="day_off_today">Dziś nieczynne</string>
+    <string name="midnight">Północ</string>
+    <string name="noon">Południe</string>
     <string name="opens_in">Otwarcie za %s</string>
     <string name="closes_in">Zamknięcie za %s</string>
     <string name="closed">Zamknięte</string>

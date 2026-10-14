@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "उच्च-गुणवत्तेचा आवाज डाउनलोड करण्यासाठी, सेटिंग्ज अॅप उघडा आणि प्रवेशयोग्यता → VoiceOver → स्पीच → व्हॉइस येथे जा.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "चाचणी आवाज दिशानिर्देश (TTS, टेक्स्ट-टू-स्पीच)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "स्वयं झूम";
 "placepage_distance" = "अंतर";
 "search_show_on_map" = "नकाशावर पहा";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "निळा राखाडी";
 
-/* place preview title */
-"info" = "माहिती";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps आवृत्ती: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "अंधार";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "इतर";
 
 /* Tex label above the Donate button */
 "donate_description" = "लाखो वापरकर्त्यांना जाहिरातीशिवाय विनामूल्य नकाशे भेट द्या!";
@@ -519,6 +519,8 @@
 "twentyfour_seven" = "२४/७";
 "day_off_today" = "आज बंद";
 "day_off" = "बंद";
+"midnight" = "मध्यरात्र";
+"noon" = "मध्यान्ह";
 "today" = "आज";
 "opens_in" = "आणखी %@ मध्ये उघडेल";
 "closes_in" = "आणखी %@ मध्ये बंद होईल";
@@ -602,9 +604,6 @@
 "day" = "दि";
 "second" = "सेकंद";
 "placepage_more_button" = "अधिक";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "खूणपत्र संपादित करा";
 "placepage_personal_notes_hint" = "वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)";
 "editor_comment_hint" = "टिप्पणी…";
 "editor_reset_edits_message" = "सर्व स्थानिक बदल टाकून द्यायचे?";
@@ -649,11 +648,10 @@
 "traffic_data_unavailable" = "वाहतूक माहिती उपलब्ध नाही";
 "enable_logging" = "लॉग चालू करा";
 "transliteration_title" = "रोमन लिपीत लिप्यंतरण";
-"planning_route_manage_route" = "मार्ग व्यवस्थापन";
-"button_plan" = "नियोजन";
 "placepage_remove_stop" = "थांबा काढा";
-"placepage_add_stop" = "स्टॉप जोडा";
-"saved" = "जतन केले";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "थांबा जोडा";
 "error_enter_correct_name" = "कृपया योग्य नाव प्रविष्ट करा";
 "bookmark_lists" = "याद्या";
 
@@ -726,7 +724,25 @@
 "show_to_the_right" = "उजवीकडे दाखवा";
 "show_at_the_bottom" = "तळाशी दाखवा";
 "enable_logging_warning_message" = "निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "गाडीने";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "सायकलने";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "चालत";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "प्रवासाच्या सर्व पद्धती";
 "driving_options_title" = "मार्गशोधी पर्याय";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "मार्ग अनुकूलन";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "अधिक कार्यक्षम मार्ग तयार करण्यासाठी मधले थांबे आपोआप पुनर्क्रमित करते.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "टोल रस्ते टाळा";
@@ -739,8 +755,6 @@
 "avoid_motorways" = "मोटरवे टाळा";
 "unable_to_calc_alert_title" = "मार्गाची गणना करण्यात अक्षम";
 "unable_to_calc_alert_subtitle" = "दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.";
-"define_to_avoid_btn" = "टाळण्याचे मार्ग निवडा";
-"change_driving_options_btn" = "मार्गशोधी पर्याय चालू केले";
 "toll_road" = "टोल मार्ग";
 "unpaved_road" = "कच्चे मार्ग";
 "ferry_crossing" = "जल मार्ग";
@@ -786,9 +800,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "मार्ग नियोजन अयशस्वी";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "%@ वाजता आगमन";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "मार्गाची गणना करण्यासाठी प्रक्षेपित वाटेवरील सर्व नकाशा डाउनलोड आणि अद्ययावत करा.";
 "editor_done_dialog_1" = "तुम्ही जगाचा नकाशा बदलला आहे. हे स्वतःपुरते ठेऊ नका! मित्रांना पण सांगा आणि एकत्र संपादित करा.";
@@ -813,7 +824,6 @@
 "please_note" = "कृपया नोंद घ्या";
 "migration_download_error_dialog" = "डाउनलोड त्रुटी";
 "editor_add_select_category" = "प्रवर्ग निवडा";
-"editor_add_select_category_popular_subtitle" = "लोकप्रिय";
 "editor_add_select_category_all_subtitle" = "सर्व प्रवर्ग";
 "whatsnew_editor_message_1" = "नकाशावर नवीन ठिकाणे जोडा आणि विद्यमान ठिकाणे थेट ऍप मधून संपादित करा.";
 "dialog_incorrect_feature_position" = "स्थान बदला";
@@ -835,7 +845,6 @@
 "location_services_disabled_on_device_3" = "3. स्थान सेवा निवडा";
 "location_services_disabled_on_device_4" = "4. स्थान सेवा चालू करा";
 "location_services_disabled_on_device_additional_message" = "किंवा स्थानशिवाय Organic Maps वापरणे सुरू ठेवा";
-"book_button" = "पुस्तक";
 "placepage_call_button" = "फोन करा";
 "placepage_bookmark_name_hint" = "खूणपत्राचे नाव";
 "placepage_delete_bookmark_button" = "खूणपत्र पुसा";
@@ -852,9 +861,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "वाहतूक माहिती दाखवण्यासाठी ऍप अद्ययावत करणे आवश्यक आहे.";
 "log_file_size" = "लॉग फाइल आकारमान: %@";
-"planning_route_remove_title" = "काढण्यासाठी इथे सरकवा";
 "placepage_replace_stop" = "स्टॉप बदला";
-"start_from_my_position" = "पासून प्रारंभ";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. अधिक जाणून घ्या";
@@ -874,15 +881,8 @@
 "popular_place" = "लोकप्रिय";
 "hide_from_map" = "नकाशावरून लपवा";
 "tags_loading_error_subtitle" = "टॅग लोड करताना त्रुटी आढळली, कृपया पुन्हा प्रयत्न करा";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "उजवे";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "तळ";
 "trip_start" = "चल जाऊया";
 "pick_destination" = "गंतव्यस्थाना";
-"follow_my_position" = "पुनरकेंद्रित करा";
 "search_results" = "शोध परिणाम";
 "then_turn" = "मग";
 "redirect_route_alert" = "तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?";
@@ -965,36 +965,6 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
-/* App Tip #00 */
-"app_tip_00" = "आमचे समुदाय-निर्मित नकाशे वापरल्याबद्दल धन्यवाद!";
-
-/* App tip #01 */
-"app_tip_01" = "तुमच्या देणग्या आणि समर्थनासह, आम्ही जगातील सर्वोत्तम नकाशे तयार करू शकतो!";
-
-/* App tip #02 */
-"app_tip_02" = "तुम्हाला आमचे अॅप आवडते का? कृपया विकासाला पाठिंबा देण्यासाठी देणगी द्या! अजून आवडत नाही? कृपया आम्हाला कळवा आणि आम्ही त्याचे निराकरण करू!";
-
-/* App tip #03 */
-"app_tip_03" = "तुम्हाला सॉफ्टवेअर डेव्हलपर माहीत असल्यास, तुम्ही त्याला किंवा तिला तुम्हाला आवश्यक असलेले वैशिष्ट्य लागू करण्यास सांगू शकता.";
-
-/* App tip #04 */
-"app_tip_04" = "काहीही निवडण्यासाठी नकाशावर कुठेही टॅप करा. इंटरफेस लपवण्यासाठी आणि परत दर्शविण्यासाठी दीर्घ-टॅप करा.";
-
-/* App tip #05 */
-"app_tip_05" = "तुम्हाला माहीत आहे का की तुम्ही नकाशावर तुमचे वर्तमान स्थान निवडू शकता?";
-
-/* App tip #06 */
-"app_tip_06" = "तुम्ही आमच्या अॅपचे तुमच्या भाषेत भाषांतर करण्यात मदत करू शकता.";
-
-/* App tip #07 */
-"app_tip_07" = "आमचे अॅप काही उत्साही आणि समुदायाने विकसित केले आहे.";
-
-/* App tip #08 */
-"app_tip_08" = "तुम्ही नकाशा डेटा सहजपणे दुरुस्त करू शकता आणि सुधारू शकता.";
-
-/* App tip #09 */
-"app_tip_09" = "आमचे मुख्य ध्येय जलद, गोपनीयता-केंद्रित, वापरण्यास-सुलभ नकाशे तयार करणे आहे जे तुम्हाला आवडतील.";
-
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "आपण आता फोन स्क्रीनवर Organic Maps वापरत आहात";
 
@@ -1037,11 +1007,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - साठवण्यासाठी काहीही नाही";
-"edit_track" = "मार्ग संपादित करा";
-"elevation_profile_diff_level" = "काठिण्य पातळी";
-"elevation_profile_diff_level_easy" = "सोपे";
-"elevation_profile_diff_level_moderate" = "मध्यम";
-"elevation_profile_diff_level_hard" = "कठिण";
 "downloader_updating_ios" = "अद्ययावत करत आहे";
 
 /* Autoupdate dialog on start */
@@ -1098,7 +1063,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "कृपया हे वैशिष्ट्य वापरण्यासाठी तुमच्या डिव्हाइसच्या सेटिंग्जमध्ये iCloud सक्षम करा.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "सक्षम करा";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1195,3 +1160,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "ट्रॅकांचा रंग बदलला";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "नकाशावर निवडा";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "प्रारंभ स्थान";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "गंतव्य";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "प्रारंभ बदला";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "गंतव्य बदला";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "थांबा बदला";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "थांब्यांची कमाल संख्या गाठली आहे";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "मार्ग उलटा करा";

@@ -65,16 +65,9 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     // Remove all existing route points.
     Framework.nativeRemoveRoutePoints();
 
-    // First, add the destination point.
-    Framework.addRoutePoint(newRoutePoints.get(newRoutePoints.size() - 1));
+    for (RouteMarkData point : newRoutePoints)
+      Framework.addRoutePoint(point, false /* allowOptimization */);
 
-    // Secondly, add the starting point.
-    Framework.addRoutePoint(newRoutePoints.get(0));
-
-    // And then, add all intermediate points (with no reordering).
-    for (int pos = 1; pos < newRoutePoints.size() - 1; pos++)
-      Framework.addRoutePoint(newRoutePoints.get(pos), false);
-    // Launch route planning.
     RoutingController.get().launchPlanning();
   }
 
@@ -106,7 +99,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   public void onRoutePointClicked(int position)
   {
     ArrayList<RouteMarkData> routePoints = mManageRouteAdapter.getRoutePoints();
-    if (position < 0 || routePoints == null || position >= routePoints.size())
+    if (position < 0 || position >= routePoints.size())
     {
       return;
     }
@@ -115,8 +108,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
                                                               : RouteMarkType.Intermediate;
 
     RouteMarkData point = routePoints.get(position);
-    RoutingController.get().waitForPoiPick(type);
-    RoutingController.get().replaceStopPoiPick(type == RouteMarkType.Intermediate ? point.mIntermediateIndex : 0);
+    RoutingController.get().waitForPoiReplacement(type,
+                                                  type == RouteMarkType.Intermediate ? point.mIntermediateIndex : 0);
     mCallback.onOpenRouteSearch();
   }
 
@@ -130,8 +123,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   @Override
   public void onPartialSlotReplaceClicked(@NonNull RouteMarkType realType)
   {
-    RoutingController.get().waitForPoiPick(realType);
-    RoutingController.get().replaceStopPoiPick(0);
+    RoutingController.get().waitForPoiReplacement(realType, 0);
     mCallback.onOpenRouteSearch();
   }
 

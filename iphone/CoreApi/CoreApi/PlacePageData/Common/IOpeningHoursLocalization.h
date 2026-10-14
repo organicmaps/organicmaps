@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) NSString * dailyString;
 @property(nonatomic, readonly) NSString * todayString;
 @property(nonatomic, readonly) NSString * dayOffString;
+@property(nonatomic, readonly) NSString * noonString;
+@property(nonatomic, readonly) NSString * midnightString;
 
 @end
 

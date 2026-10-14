@@ -87,7 +87,8 @@ public:
 
   RoutePointsLayout(BookmarkManager & manager);
 
-  void AddRoutePoint(RouteMarkData && data);
+  /// Returns the created mark, or nullptr at capacity.
+  RouteMarkPoint * AddRoutePoint(RouteMarkData && data);
   RouteMarkPoint const * GetRoutePoint(RouteMarkType type, size_t intermediateIndex = 0) const;
   RouteMarkPoint * GetRoutePointForEdit(RouteMarkType type, size_t intermediateIndex = 0);
   RouteMarkPoint const * GetMyPositionPoint() const;
@@ -261,8 +262,8 @@ bool IsWarningShownFor(RoadWarningMarkType type, routing::RouterType router);
 // being silently dropped.
 RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::RouterType router);
 
-// True for warnings backed by a car driving-option the user can toggle (Toll/Ferry/Dirty), i.e.
-// the ones that should surface the "driving options" affordance. Steps/gate/lift_gate are not.
+// Warnings backed by road-avoidance controls: Toll/Dirty for driving and Ferry for driving/cycling/walking.
+// The caller decides whether to signal available routing options. Steps/gate/lift_gate are not avoidable.
 bool IsAvoidableRoadWarning(RoadWarningMarkType type);
 
 /// \brief ETA balloon attached to a route variant (active or alternative). Tappable so the user can

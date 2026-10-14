@@ -147,6 +147,7 @@ bool EqualNoCase(std::string const & s1, std::string const & s2);
 UniString MakeUniString(std::string_view utf8s);
 std::string ToUtf8(UniString const & s);
 std::u16string ToUtf16(std::string_view utf8);
+
 bool IsASCIIString(std::string_view sv);
 
 // std::isdigit is locale-dependent and fails for trailing UTF-8 characters.
@@ -182,7 +183,11 @@ inline constexpr bool IsASCIISpace(T c)
   }
 }
 
-bool IsASCIILatin(UniChar c);
+template <std::integral T>
+bool IsASCIILatin(T c)
+{
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+}
 
 inline std::string DebugPrint(UniString const & s)
 {

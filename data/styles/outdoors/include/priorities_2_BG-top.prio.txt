@@ -7,8 +7,7 @@
 # because ordering by size doesn't always work with e.g. water mapped over a forest,
 # so water should be on top of other landcover always, but linear waterways should be hidden beneath it.
 # Still, e.g. a layer=-1 BG-top feature will be rendered under a layer=0 BG-by-size feature
-# (so areal water tunnels are hidden beneath other landcover area) and a layer=1 landcover areas
-# are displayed above layer=0 BG-top.
+# and layer=1 landcover areas are displayed above layer=0 BG-top.
 #
 # Priorities ranges' rendering order overview:
 # - overlays (icons, captions...)
@@ -16,17 +15,10 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-organicapp-mwm_border                               # area z1-7
-=== 30
-
 natural-water-ditch                                 # area z13- (also has caption z17-)
 natural-water-drain                                 # area z13- (also has caption z17-)
 natural-water-wastewater                            # area z12- (also has caption z17-)
-=== 27
-
-landuse-basin-intermittent                          # area z12-
-natural-water-intermittent                          # area z1- (also has caption z10-)
-=== 25
+=== 50
 
 landuse-basin                                       # area z12-
 landuse-salt_pond                                   # area z1-
@@ -39,16 +31,27 @@ natural-water-pond                                  # area z1- (also has caption
 natural-water-reservoir                             # area z1- (also has caption z10-)
 natural-water-river                                 # area z1- (also has caption z10-)
 waterway-dock                                       # area z1-
+=== 40
+
+organicapp-mwm_border                               # area z1-7
+=== 30
+
+landuse-basin-intermittent                          # area z12-
+natural-water-intermittent                          # area z1- (also has caption z10-)
 === 20
 
 natural-strait                                      # line z11- (also has caption z13-)
 waterway-canal                                      # line z12- (also has pathtext z13-)
+waterway-canal-intermittent                         # line z12- (also has pathtext z13-)
 waterway-ditch                                      # line z13-
+waterway-ditch-intermittent                         # line z13-
 waterway-drain                                      # line z13-
+waterway-drain-intermittent                         # line z13-
 waterway-fish_pass                                  # line z13- (also has pathtext z13-)
+waterway-fish_pass-intermittent                     # line z13- (also has pathtext z13-)
 waterway-river                                      # line z10- (also has pathtext z11-)
+waterway-river-intermittent                         # line z10- (also has pathtext z11-)
 waterway-stream                                     # line z12- (also has pathtext z13-)
-waterway-stream-ephemeral                           # line z13- (also has pathtext z13-)
 waterway-stream-intermittent                        # line z13- (also has pathtext z13-)
 === 10
 

@@ -332,9 +332,10 @@ std::string GetBackgroundSymbolName(std::string const & symbolName)
     res.append(kDelimiter).append(tokens[2]);
   return res;
 }
+}  // namespace
 
-drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
-                                                       m2::PointF const & symbolOffset, m2::RectD const & pixelRect)
+drape_ptr<dp::OverlayHandle> CreateUserMarkOverlayHandle(UserMarkRenderParams const & renderInfo,
+                                                         TileKey const & tileKey, m2::RectD const & pixelRect)
 {
   if (!renderInfo.m_isSymbolSelectable)
     return nullptr;
@@ -343,11 +344,10 @@ drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams cons
                           kStartUserMarkOverlayIndex + renderInfo.m_index);
   m2::PointD const pivot(renderInfo.m_pivot.x + tileKey.GetTileXOffset(), renderInfo.m_pivot.y);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(
-      overlayId, renderInfo.m_anchor, pivot, pixelRect.RightTop() - pixelRect.LeftBottom(), m2::PointD(symbolOffset),
+      overlayId, renderInfo.m_anchor, pivot, pixelRect.RightTop() - pixelRect.LeftBottom(), renderInfo.m_pixelOffset,
       0 /*priority*/, true /* isBound */, renderInfo.m_minZoom, true /* isBillboard */);
   return handle;
 }
-}  // namespace
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     MarksSource const & source, UserMarksRenderCollection const & renderParams, dp::Batcher & batcher)
@@ -436,7 +436,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         for (auto const & vertex : buffer)
           rect.Add(glsl::FromVec2(glsl::vec2(vertex.m_normalAndAnimateOrZ)));
 
-        drape_ptr<dp::OverlayHandle> overlayHandle = CreateSymbolOverlayHandle(renderInfo, tileKey, symbolOffset, rect);
+        drape_ptr<dp::OverlayHandle> overlayHandle = CreateUserMarkOverlayHandle(renderInfo, tileKey, rect);
 
         gpu::Program program;
         gpu::Program program3d;

@@ -37,9 +37,6 @@ NS_SWIFT_NAME(Settings)
 + (BOOL)routingDisclaimerApproved;
 + (void)setRoutingDisclaimerApproved;
 
-+ (NSString *)spotlightLocaleLanguageId;
-+ (void)setSpotlightLocaleLanguageId:(NSString *)spotlightLocaleLanguageId;
-
 + (BOOL)largeFontSize;
 + (void)setLargeFontSize:(BOOL)largeFontSize;
 

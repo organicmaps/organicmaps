@@ -66,27 +66,11 @@ using namespace storage;
 - (void)routeAddStop:(PlacePageData *)data
 {
   MWMNavigationDashboardManager * navigationManager = [MWMNavigationDashboardManager sharedManager];
-  if (navigationManager.shouldAppendNewPoints)
-  {
-    MWMRoutePoint * newFinishPoint = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:0];
-    [MWMRouter continueRouteToPointAndRebuild:newFinishPoint];
-  }
-  else if (navigationManager.selectedRoutePoint)
-  {
-    MWMRoutePoint * pointToReplace = navigationManager.selectedRoutePoint;
-    MWMRoutePoint * withPoint = [self routePoint:data
-                                        withType:pointToReplace.type
-                               intermediateIndex:pointToReplace.intermediateIndex];
-    [MWMRouter replacePointAndRebuild:pointToReplace withPoint:withPoint];
-    pointToReplace = nil;
-  }
+  MWMRoutePoint * point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:0];
+  if (navigationManager.isRoutePointSelectionActive)
+    [navigationManager selectRoutePoint:point];
   else
-  {
-    MWMRoutePoint * pointBeforeFinish = [self routePoint:data
-                                                withType:MWMRoutePointTypeIntermediate
-                                       intermediateIndex:0];
-    [MWMRouter addPointAndRebuild:pointBeforeFinish];
-  }
+    [MWMRouter addPointAndRebuild:point];
 
   [self.searchManager close];
   [self closePlacePage];

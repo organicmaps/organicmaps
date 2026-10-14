@@ -90,6 +90,31 @@ void CheckInvariant(FilesContainerR & reader, string const & tag, int64_t test)
 }
 }  // namespace
 
+UNIT_TEST(FilesContainer_DeleteSection)
+{
+  string const fName = "files_container_delete.tmp";
+  FileWriter::DeleteFileX(fName);
+
+  int64_t constexpr kKept = 123;
+  {
+    FilesContainerW writer(fName);
+    writer.Write(&kKept, sizeof(kKept), "keep");
+    int64_t constexpr kRemoved = 456;
+    writer.Write(&kRemoved, sizeof(kRemoved), "remove");
+  }
+  {
+    FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
+    writer.DeleteSection("remove");
+  }
+  {
+    FilesContainerR reader(fName);
+    CheckInvariant(reader, "keep", kKept);
+    TEST(!reader.IsExist("remove"), ());
+  }
+
+  FileWriter::DeleteFileX(fName);
+}
+
 UNIT_TEST(FilesContainer_Shared)
 {
   string const fName = "files_container.tmp";

@@ -3,7 +3,7 @@
 <plist version="0.9">
   <dict>
     <key>CFBundleName</key>
-    <string>@BUNDLE_NAME@</string>
+    <string>@BUNDLE_DISPLAY_NAME@</string>
 
     <key>CFBundleDisplayName</key>
     <string>@BUNDLE_DISPLAY_NAME@</string>
