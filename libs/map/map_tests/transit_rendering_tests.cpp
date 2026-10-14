@@ -223,6 +223,72 @@ UNIT_TEST(TransitDisplay_EntranceIconSurvivesWaypoint)
   TEST_EQUAL(it->m_symbolName, "transit_subway", ());
 }
 
+UNIT_TEST(TransitDisplay_ExitIconSurvivesWaypoint)
+{
+  Fixture fixture;
+  auto const segments = MakeSegments();
+  auto wholeDisplay = fixture.MakeDisplay();
+  auto const whole = Process(wholeDisplay, segments, 0, segments.size());
+  auto const countKeyStops = [](auto const & marks)
+  {
+    return std::count_if(marks.begin(), marks.end(),
+                         [](auto const & mark) { return mark.m_type == TransitMarkInfo::Type::KeyStop; });
+  };
+  TEST_EQUAL(countKeyStops(wholeDisplay.m_transitMarks), 2, ());
+  for (std::vector<size_t> const & ends : {std::vector<size_t>{3, 5}, {1, 2, 3, 4, 5}})
+  {
+    auto splitDisplay = fixture.MakeDisplay();
+    size_t markerCount = 0;
+    size_t begin = 0;
+    for (size_t const end : ends)
+    {
+      markerCount += Process(splitDisplay, segments, begin, end).m_markers.size();
+      begin = end;
+    }
+    TEST_EQUAL(countKeyStops(splitDisplay.m_transitMarks), 2, (ends));
+    TEST_EQUAL(markerCount, whole.m_markers.size(), (ends));
+    TEST_EQUAL(splitDisplay.m_transitMarks.size(), wholeDisplay.m_transitMarks.size(), (ends));
+    for (size_t i = 0; i < wholeDisplay.m_transitMarks.size(); ++i)
+    {
+      auto const & actual = splitDisplay.m_transitMarks[i];
+      auto const & expected = wholeDisplay.m_transitMarks[i];
+      TEST(actual.m_type == expected.m_type, (ends, i));
+      TEST_EQUAL(actual.m_point, expected.m_point, (ends, i));
+      TEST_EQUAL(actual.m_symbolName, expected.m_symbolName, (ends, i));
+      TEST_EQUAL(actual.m_color, expected.m_color, (ends, i));
+    }
+  }
+}
+
+UNIT_TEST(TransitDisplay_WalkClearsExitIconContext)
+{
+  Fixture fixture;
+  auto segments = MakeSegments();
+  segments[3].SetTransitInfo({});
+  segments[4].SetTransitInfo(std::make_unique<routing::TransitInfo>(routing::transit::Gate(), false));
+  for (bool const splitWalk : {false, true})
+  {
+    auto display = fixture.MakeDisplay();
+    Process(display, segments, 0, 3);
+    if (splitWalk)
+    {
+      Process(display, segments, 3, 4);
+      Process(display, segments, 4, 5);
+    }
+    else
+    {
+      Process(display, segments, 3, 5);
+    }
+    TEST_EQUAL(display.m_transitMarks.size(), 4, (splitWalk));
+    TEST_EQUAL(std::count_if(display.m_transitMarks.begin(), display.m_transitMarks.end(),
+                             [](auto const & mark) { return mark.m_type == TransitMarkInfo::Type::KeyStop; }),
+               1, (splitWalk));
+    auto const & alighting = display.m_transitMarks[2];
+    TEST(alighting.m_type == TransitMarkInfo::Type::Stop, (splitWalk));
+    TestPoint(alighting.m_point, segments[2].GetJunction().GetPoint());
+  }
+}
+
 UNIT_TEST(TransitDisplay_MarkersUseSubrouteMercatorDistances)
 {
   Fixture fixture;

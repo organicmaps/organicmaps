@@ -537,6 +537,14 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
     sp.m_transitMarkInfo.m_color = sp.m_lastColor;
     FlushPendingStop(subroute, sp);
   }
+  else if (!gate.m_isEntrance && m_pendingStopIndex)
+  {
+    ASSERT_LESS(*m_pendingStopIndex, m_transitMarks.size(), ());
+    auto & mark = m_transitMarks[*m_pendingStopIndex];
+    ASSERT(!mark.m_symbolName.empty(), ());
+    mark.m_type = TransitMarkInfo::Type::KeyStop;
+    m_pendingStopIndex.reset();
+  }
   auto gateMarkInfo = TransitMarkInfo();
   gateMarkInfo.m_point = gatePoint;
   gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
@@ -644,6 +652,9 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   // Keep the alighting stop when a waypoint or the destination ends the ride.
   if (!sp.m_marker.m_colors.empty())
   {
+    // A following exit gate needs the vehicle symbol even when it starts another subroute.
+    sp.m_transitMarkInfo.m_symbolName = kTransitSymbols.at(sp.m_transitType);
+    sp.m_transitMarkInfo.m_color = sp.m_lastColor;
     FlushPendingStop(subroute, sp);
     m_pendingStopIndex = m_transitMarks.size() - 1;
   }

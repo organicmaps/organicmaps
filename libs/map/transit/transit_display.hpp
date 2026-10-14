@@ -20,6 +20,8 @@ namespace transit_rendering_tests
 {
 void UnitTest_TransitDisplay_GateLabelsFollowTraversal();
 void UnitTest_TransitDisplay_EntranceIconSurvivesWaypoint();
+void UnitTest_TransitDisplay_ExitIconSurvivesWaypoint();
+void UnitTest_TransitDisplay_WalkClearsExitIconContext();
 void UnitTest_TransitDisplay_WaypointDoesNotDuplicateStopMarks();
 void UnitTest_TransitDisplay_DirectionRoundingKeepsTransferAxis();
 void UnitTest_TransitDisplay_WalkSeparatesRideStopsAndColors();
@@ -170,6 +172,8 @@ public:
 private:
   friend void transit_rendering_tests::UnitTest_TransitDisplay_GateLabelsFollowTraversal();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_EntranceIconSurvivesWaypoint();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_ExitIconSurvivesWaypoint();
+  friend void transit_rendering_tests::UnitTest_TransitDisplay_WalkClearsExitIconContext();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_WaypointDoesNotDuplicateStopMarks();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_DirectionRoundingKeepsTransferAxis();
   friend void transit_rendering_tests::UnitTest_TransitDisplay_WalkSeparatesRideStopsAndColors();
@@ -203,6 +207,6 @@ private:
   float m_maxSubrouteWidth = -1.0f;
   // The entrance and boarding stop can be in different subroutes.
   bool m_pendingEntrance = false;
-  // A stop at a subroute boundary may also be the next subroute's boarding stop.
+  // A boundary stop can continue as a boarding stop or precede an exit gate.
   std::optional<size_t> m_pendingStopIndex;
 };
