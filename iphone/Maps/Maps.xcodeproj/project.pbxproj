@@ -686,6 +686,8 @@
 		FA853BEF26BC5BA40026D455 /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BEE26BC5BA40026D455 /* libdescriptions.a */; };
 		FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BF226BC5DE50026D455 /* libshaders.a */; };
 		FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */; };
+		A13814000000000000000002 /* RoutePointIconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13814000000000000000001 /* RoutePointIconTests.swift */; };
+		A13814000000000000000004 /* RoutePointIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13814000000000000000003 /* RoutePointIconRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1834,6 +1836,8 @@
 		FAF9A8A82CE0CEC000F6604D /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lv; path = lv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libharfbuzz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
+		A13814000000000000000001 /* RoutePointIconTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointIconTests.swift; sourceTree = "<group>"; };
+		A13814000000000000000003 /* RoutePointIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointIconRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2809,6 +2813,7 @@
 		ED82C3B52F90180300FA103D /* RoutePoints */ = {
 			isa = PBXGroup;
 			children = (
+				A13814000000000000000003 /* RoutePointIconRenderer.swift */,
 				ED82C3B22F90180300FA103D /* RoutePointCollectionViewCell.swift */,
 				ED82C3B32F90180300FA103D /* RoutePoints.swift */,
 				ED82C3B42F90180300FA103D /* RoutePointsView.swift */,
@@ -4077,6 +4082,7 @@
 		AA01B2C3D4E5F60718293A03 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				A13814000000000000000001 /* RoutePointIconTests.swift */,
 				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
 				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
 				A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */,
@@ -4532,6 +4538,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13814000000000000000004 /* RoutePointIconRenderer.swift in Sources */,
 				ED82BCB22F900F8200FA103D /* main.mm in Sources */,
 				ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */,
 				ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */,
@@ -5033,6 +5040,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13814000000000000000002 /* RoutePointIconTests.swift in Sources */,
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
 				ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */,
