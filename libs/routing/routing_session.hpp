@@ -184,8 +184,9 @@ private:
   EdgeProj m_proj;
   bool m_projectedToRoadGraph = false;
 
-  /// Current position metrics to check for RouteNeedRebuild state.
+  // Last unmatched GPS distance from the route, reset on matching. Also gates retained guidance during rebuilds.
   double m_lastDistance = 0.0;
+  /// Current position metrics to check for RouteNeedRebuild state.
   int m_moveAwayCounter = 0;
   m2::PointD m_lastGoodPosition;
 
