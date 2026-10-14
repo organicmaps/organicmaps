@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Nakala rudufu ya alamisho na njia</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Alamisho na njia zinaweza kujumuishwa kwenye nakala rudufu za mfumo wa Android wakati kuhifadhi nakala rudufu kumewashwa kwenye kifaa hiki na hazizidi kikomo chake cha ukubwa.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Usawazishaji wa Hifadhi ya Google (Beta)</string>
+    <string name="bookmarks_sync_enabled">Sawazisha alamisho na njia</string>
+    <string name="bookmarks_sync_account">Akaunti ya Google</string>
+    <string name="bookmarks_sync_manage_storage">Dhibiti nafasi ya hifadhi ya Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s kati ya %2$s zimetumika</string>
+    <string name="bookmarks_sync_mobile_data">Sawazisha kupitia data ya simu</string>
+    <string name="bookmarks_sync_now">Sawazisha sasa</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Usawazishaji wa mwisho: %s</string>
+    <string name="bookmarks_sync_status_running">Inasawazisha…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Inasubiri Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Unahitaji kuingia</string>
+    <string name="bookmarks_sync_status_quota">Hifadhi ya Google imejaa</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Usawazishaji umeshindwa: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Futa data kutoka Hifadhi ya Google</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ungependa kufuta alamisho na njia zilizosawazishwa kutoka Hifadhi ya Google? Alamisho na njia kwenye kifaa hiki zitabaki. Kwanza zima usawazishaji kwenye vifaa vyako vingine, la sivyo vitapakia tena alamisho na njia zao.</string>
+    <string name="bookmarks_sync_beta_warning">Usawazishaji uko katika toleo la beta. Hamisha nakala rudufu ya alamisho na njia zote kabla ya kuuwasha.</string>
     <string name="search_history_text">Tazama utafutaji wako wa hivi karibuni.</string>
     <string name="clear_search">Futa historia ya utafutaji</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -848,6 +868,8 @@
     <string name="hide_track">Ficha njia</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Onyesha njia</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Wezesha</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
