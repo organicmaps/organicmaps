@@ -5,6 +5,8 @@
 
 #include "routing/routing_session.hpp"
 
+#include "base/math.hpp"
+
 #include <algorithm>
 #include <cstdlib>
 #include <memory>
@@ -336,6 +338,13 @@ TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager
 
 TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
 {
+#ifdef DEBUG
+  double distance = 0.0;
+  for (auto const & step : m_routeInfo.m_steps)
+    distance += step.m_distanceInMeters;
+  // Every segment belongs to a step; allow submillimetre summation error.
+  ASSERT(AlmostEqualAbs(distance, m_routeInfo.m_totalDistInMeters, 1e-3), (distance, m_routeInfo.m_totalDistInMeters));
+#endif
   m_routeInfo.UpdateDistanceStrings();
   LOG(LDEBUG, ("Transit route:", m_routeInfo.m_steps.size(), "steps,", m_routeInfo.m_totalDistInMeters, "m,",
                m_routeInfo.m_totalTimeInSec, "s, steps:", m_routeInfo.m_steps));
@@ -491,8 +500,6 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
 
   if (!gate.m_isEntrance && sp.m_lastLineId != routing::transit::kInvalidLineId)
   {
-    m_routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, ssp.m_distance, ssp.m_time));
-
     subroute.m_markers.push_back(sp.m_marker);
     sp.m_marker = df::SubrouteMarker();
 
@@ -566,10 +573,12 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
     sp.m_prevDistance = s.GetDistFromBeginningMeters();
     sp.m_prevTime = s.GetTimeFromBeginningSec();
 
+    if (!s.HasTransitInfo() || s.GetTransitInfo().GetType() != routing::TransitInfo::Type::Edge)
+      m_routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, distance, time));
+
     if (!s.HasTransitInfo())
     {
       m_pendingStopIndex = -1;
-      m_routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, distance, time));
 
       AddTransitPedestrianSegment(s.GetJunction().GetPoint(), subroute);
       sp.m_lastColor = "";
@@ -587,10 +596,15 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
     ssp.m_startDistanceMerc = i == 0 ? subroute.m_baseDistance : segments[i - 1].GetDistFromBeginningMerc();
     ssp.m_mwmId = mwmId;
 
-    if (ssp.m_transitInfo.GetType() == routing::TransitInfo::Type::Edge)
+    switch (ssp.m_transitInfo.GetType())
+    {
+    case routing::TransitInfo::Type::Edge:
       AddEdgeSubwayForSubroute(s, subroute, sp, ssp, legStops[i].first, legStops[i].second);
-    else if (ssp.m_transitInfo.GetType() == routing::TransitInfo::Type::Gate)
-      AddGateSubwayForSubroute(s, subroute, sp, ssp);
+      break;
+    case routing::TransitInfo::Type::Gate: AddGateSubwayForSubroute(s, subroute, sp, ssp); break;
+    case routing::TransitInfo::Type::Transfer: break;
+    default: UNREACHABLE();
+    }
   }
 
   // Keep the alighting stop when a waypoint or the destination ends the ride.
