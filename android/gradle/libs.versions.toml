@@ -37,6 +37,9 @@ devnullorthrow-mpandroidchart = "3.2.0-alpha"
 google-firebase = "33.11.0"
 google-firebase-crashlytics = "3.0.6"
 google-firebase-appdistribution = "5.2.0"
+# Newer versions require minSdk 23
+# noinspection GradleDependency
+google-gms-auth = "21.4.0"
 google-gms-location = "21.3.0"
 google-gms-services = "4.4.4"
 google-gms-wearable = "19.0.0"
@@ -92,6 +95,7 @@ google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlyti
 # Version managed by firebase-bom
 google-firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
 
+google-gms-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "google-gms-auth" }
 google-gms-location = { module = "com.google.android.gms:play-services-location", version.ref = "google-gms-location" }
 google-gms-wearable = { module = "com.google.android.gms:play-services-wearable", version.ref = "google-gms-wearable" }
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
@@ -107,6 +111,7 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-cor
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
 
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver3", version.ref = "okhttp" }
 org-json = { module = "org.json:json", version.ref = "org-json" }
 
 [plugins]
