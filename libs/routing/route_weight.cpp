@@ -82,29 +82,9 @@ RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
 
 bool RouteWeight::operator<(RouteWeight const & rhs) const
 {
-  /*
-  if (m_numPassThroughChanges != rhs.m_numPassThroughChanges)
-    return m_numPassThroughChanges < rhs.m_numPassThroughChanges;
-  // We compare m_numAccessChanges after m_numPassThroughChanges because we can have multiple
-  // nodes with access tags on the way from the area with limited access and no access tags on the
-  // ways inside this area. So we probably need to make access restriction less strict than pass
-  // through restrictions e.g. allow to cross access={private, destination} and build the route
-  // with the least possible number of such crosses or introduce some maximal number of
-  // access={private, destination} crosses.
-  if (m_numAccessChanges != rhs.m_numAccessChanges)
-    return m_numAccessChanges < rhs.m_numAccessChanges;
-
-  if (m_numAccessConditionalPenalties != rhs.m_numAccessConditionalPenalties)
-    return m_numAccessConditionalPenalties < rhs.m_numAccessConditionalPenalties;
-
-  if (m_weight != rhs.m_weight)
-    return m_weight < rhs.m_weight;
-  */
-
-  // The reason behind that is described here:
+  // Integrate pass-through penalties into travel cost so a short restricted route
+  // can compete with an excessive detour.
   // https://github.com/organicmaps/organicmaps/issues/1788
-  // Before that change, a very small weight but with m_numPassThroughChanges > 0 was *always worse* than
-  // a very big weight but with m_numPassThroughChanges == 0.
   auto const w1 = GetIntegratedWeight();
   auto const w2 = rhs.GetIntegratedWeight();
   if (w1 != w2)

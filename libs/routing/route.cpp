@@ -80,8 +80,8 @@ void RouteBase::SetRouteSegments(std::vector<RouteSegment> && routeSegments)
 
 RouteBase::SubrouteAttrs const & RouteBase::GetFirstNonEmptySubroute() const
 {
-  // Leading subroutes can be empty because PushPassedSubroutes() (index_router.cpp:140)
-  // emplaces a [0, 0) subroute per already-passed checkpoint.
+  // Passed checkpoint legs retain empty leading slots to keep subroute indices
+  // aligned with the original route.
   auto const it = std::find_if(m_subrouteAttrs.begin(), m_subrouteAttrs.end(),
                                [](SubrouteAttrs const & attrs) { return attrs.GetSize() != 0; });
   CHECK(it != m_subrouteAttrs.end(), ());
