@@ -43,9 +43,11 @@ public:
   struct GateSubway
   {
     GateSubway() = default;
-    explicit GateSubway(transit::Gate const & gate) : m_featureId(gate.GetFeatureId()) {}
+    GateSubway(transit::Gate const & gate, bool isEntrance) : m_featureId(gate.GetFeatureId()), m_isEntrance(isEntrance)
+    {}
 
     transit::FeatureId m_featureId = kInvalidFeatureId;
+    bool m_isEntrance = false;
   };
 
   struct TransferSubway
@@ -60,7 +62,7 @@ public:
     transit::StopId m_stop2Id = transit::kInvalidStopId;
   };
 
-  explicit TransitInfo(transit::Gate const & gate) : m_type(Type::Gate), m_gateSubway(gate) {}
+  TransitInfo(transit::Gate const & gate, bool isEntrance) : m_type(Type::Gate), m_gateSubway(gate, isEntrance) {}
 
   explicit TransitInfo(transit::Edge const & edge)
     : m_type(edge.GetTransfer() ? Type::Transfer : Type::Edge)

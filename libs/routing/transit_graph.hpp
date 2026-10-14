@@ -30,6 +30,12 @@ public:
   // Fake endings for transit gates.
   using Endings = std::map<transit::OsmId, FakeEnding>;
 
+  struct GateInfo
+  {
+    transit::Gate m_gate;
+    bool m_isEntrance;
+  };
+
   static bool IsTransitFeature(uint32_t featureId);
   static bool IsTransitSegment(Segment const & segment);
 
@@ -56,7 +62,7 @@ public:
   void Fill(transit::GraphData const & transitData, Endings const & gateEndings);
 
   // Return nullptr if |segment| is not a gate/edge.
-  transit::Gate const * FindGate(Segment const & segment) const;
+  GateInfo const * FindGate(Segment const & segment) const;
   transit::Edge const * FindEdge(Segment const & segment) const;
 
 private:
@@ -88,7 +94,7 @@ private:
   GateAccessesT m_gateAccesses;
 
   std::map<Segment, transit::Edge> m_segmentToEdgeSubway;
-  std::map<Segment, transit::Gate> m_segmentToGateSubway;
+  std::map<Segment, GateInfo> m_segmentToGateSubway;
   std::map<transit::LineId, double> m_transferPenaltiesSubway;
 };
 
