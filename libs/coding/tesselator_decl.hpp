@@ -16,7 +16,7 @@ struct Edge
   // -  1 - this edge intersects 2-0 rib;
   int8_t m_side;
 
-  Edge(int from, int to, uint64_t delta, char side) : m_delta(delta), m_side(side)
+  Edge(int from, int to, uint64_t delta, int side) : m_delta(delta), m_side(side)
   {
     m_p[0] = from;
     m_p[1] = to;
