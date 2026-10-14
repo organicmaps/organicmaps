@@ -12,6 +12,7 @@ void DeadReckoning::SetPosition(ms::LatLon const & position)
   m_hasPosition = true;
   m_position = position;
   m_distanceSinceFixM = 0;
+  ++m_fixCount;
 }
 
 void DeadReckoning::MoveTo(ms::LatLon const & position)

@@ -641,6 +641,43 @@ UNIT_TEST(NoGps_Engine_MarkAheadOnBendComesBackToRoad)
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
+UNIT_TEST(NoGps_Engine_BendsToldRepeatedlyMoveSlowCar)
+{
+  // The street going east bends evenly by 30 degrees to the left at 200 m: by 5 degrees in a second at 20 km/h.
+  double constexpr kBendStartM = 200;
+  double constexpr kPieceM = 20 / 3.6;
+  std::vector<PieceRoads::Piece> pieces = {{-300, 0, kBendStartM, 0}};
+  double endEast = kBendStartM;
+  double endNorth = 0;
+  for (int i = 0; i < 6; ++i)
+  {
+    double const bearing = math::DegToRad(87.5 - 5 * i);
+    pieces.push_back(
+        {endEast, endNorth, endEast + kPieceM * std::sin(bearing), endNorth + kPieceM * std::cos(bearing)});
+    endEast = pieces.back()[2];
+    endNorth = pieces.back()[3];
+  }
+  double const sin60 = std::sin(math::DegToRad(60.0));
+  double const cos60 = std::cos(math::DegToRad(60.0));
+  pieces.push_back({endEast, endNorth, endEast + 600 * sin60, endNorth + 600 * cos60});
+  PieceRoads roads(pieces, {});
+  Env env(true /* inertial */, &roads);
+
+  // The user marks the car 15 m ahead of it. The car drives slower than a single look at the bends is trusted at.
+  MarkCar(env, 15);
+  while (East(env.Last().m_position) < kBendStartM + 15)
+    env.Drive(100, 20, 0);
+  double const bendOdometerM = std::stod(TripField(env, "odo"));
+  env.Drive(6000, 20, -5);
+  env.Drive(20000, 20, 0);
+
+  // The bends have told the mark is ahead several times while the car drove on: it is where the car is.
+  double const afterBendM = std::stod(TripField(env, "odo")) - bendOdometerM - 6 * kPieceM;
+  TEST_GREATER(afterBendM, 50, ());
+  auto const car = At(endEast + afterBendM * sin60, endNorth + afterBendM * cos60);
+  TestAlmostEqualAbs(Distance(env.Last().m_position, car), 0, 4);
+}
+
 UNIT_TEST(NoGps_Engine_TellsThatMovedBoxDoesNotFollowCar)
 {
   Env env(true /* inertial */);

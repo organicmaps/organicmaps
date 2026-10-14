@@ -1177,7 +1177,8 @@ void InertialNavigator::MatchBend()
     m_deadReckoning.SetPosition(position);
     return;
   }
-  if (m_deadReckoning.GetSpeed() < kMinBendMoveSpeedMps)
+  bool const slow = m_deadReckoning.GetSpeed() < kMinBendMoveSpeedMps;
+  if (slow && !IsSlowBendConfirmed(*aheadM))
   {
     LOG(LINFO, ("Bend: ahead by", std::round(*aheadM), "m, but the car is too slow to trust it"));
     return;
@@ -1191,8 +1192,24 @@ void InertialNavigator::MatchBend()
     LOG(LINFO, ("Bend: ahead by", std::round(*aheadM), "m, but the road is not followed that far"));
     return;
   }
-  LOG(LINFO, ("Bend: moved along the road by", std::round(-*aheadM), "m"));
+  if (slow)
+    LOG(LINFO, ("Bend: moved along the road by", std::round(-*aheadM), "m, told repeatedly to a slow car"));
+  else
+    LOG(LINFO, ("Bend: moved along the road by", std::round(-*aheadM), "m"));
   SetRoadPosition(walked->m_position, walked->m_bearingDeg);
+}
+
+bool InertialNavigator::IsSlowBendConfirmed(double aheadM)
+{
+  double const distanceM = m_deadReckoning.GetDistanceSinceFix();
+  if (!m_slowBends || m_slowBends->m_fixCount != m_deadReckoning.GetFixCount() ||
+      std::fabs(aheadM - m_slowBends->m_firstAheadM) > kSlowBendAgreeM)
+  {
+    m_slowBends = SlowBends{m_deadReckoning.GetFixCount(), aheadM, distanceM, 1};
+    return false;
+  }
+  ++m_slowBends->m_count;
+  return m_slowBends->m_count >= kSlowBendCount && distanceM - m_slowBends->m_firstDistanceM >= kSlowBendDriveM;
 }
 
 void InertialNavigator::TrackTurn(double yawDeltaDeg, double dtSec, int64_t timestampNs)
