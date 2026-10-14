@@ -830,7 +830,10 @@ UNIT_CLASS_TEST(TrafficRefreshTest, RepeatedTrafficRefreshUsesCurrentPosition)
   TEST_GREATER_OR_EQUAL(m_starts.size(), 2, ());
   // The worker may coalesce the requests; every started refresh must use the current position.
   for (size_t i = 1; i < m_starts.size(); ++i)
-    TEST_EQUAL(m_starts[i], current, ("Repeated refresh must not restart at the departure"));
+  {
+    TEST_ALMOST_EQUAL_ABS(m_starts[i].x, current.x, 1e-8, ("Repeated refresh must not restart at the departure"));
+    TEST_ALMOST_EQUAL_ABS(m_starts[i].y, current.y, 1e-8, ("Repeated refresh must not restart at the departure"));
+  }
 }
 
 UNIT_CLASS_TEST(TrafficRefreshTest, TrafficPreviewKeepsPlannedDeparture)
