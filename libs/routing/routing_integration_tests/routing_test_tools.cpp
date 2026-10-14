@@ -233,7 +233,7 @@ double GetWalkDistanceMeters(Route const & route)
   for (auto const & s : route.GetRouteSegments())
   {
     double const curMeters = s.GetDistFromBeginningMeters();
-    if (!s.HasTransitInfo())
+    if (!s.HasTransitInfo() || s.GetTransitInfo().GetType() != TransitInfo::Type::Edge)
       walkMeters += curMeters - prevMeters;
     prevMeters = curMeters;
   }
