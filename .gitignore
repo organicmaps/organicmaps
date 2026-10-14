@@ -102,3 +102,7 @@ CMakeUserPresets.json
 /screenshots/
 /keywords/
 /iphone/metadata/**/keywords.txt
+
+# Sailfish OS RPM build (sfdk) outputs
+/.sfdk/
+/RPMS/

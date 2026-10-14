@@ -132,8 +132,13 @@ Platform::Platform()
   auto const homeDir = GetEnv("HOME");
   CHECK(homeDir, ("Can't retrieve home directory"));
 
+#ifdef OMIM_OS_SAILFISH
+  // Sailjail only exposes the per-application config directory.
+  m_settingsDir = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).toStdString();
+#else
   m_settingsDir = platform::MigrateDesktopDirectory(
       QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation).toStdString(), isDesktopApp);
+#endif
   if (!IsFileExistsByFullPath(JoinPath(m_settingsDir, SETTINGS_FILE_NAME)) && !MkDirRecursively(m_settingsDir))
     MYTHROW(FileSystemException, ("Can't create directory", m_settingsDir));
   m_settingsDir += '/';

@@ -56,11 +56,13 @@ private:
   {
     uint32_t const len = ReadCount();
     std::string s;
-    s.resize_and_overwrite(len, [this](char * p, size_t n)
+    // Read exactly len bytes: libstdc++ on GCC 12 (Aurora OS) passes the allocated capacity to the
+    // operation instead of the requested size, so n must not be used as the read count.
+    s.resize_and_overwrite(len, [this, len](char * p, size_t /* n */)
     {
-      if (n > 0)
-        m_src.Read(p, n);
-      return n;
+      if (len > 0)
+        m_src.Read(p, len);
+      return static_cast<size_t>(len);
     });
     return s;
   }
