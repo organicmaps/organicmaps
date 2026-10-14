@@ -8,6 +8,7 @@
 #include "map/nogps/esp32_source.hpp"
 #include "map/nogps/gyro_calibrator.hpp"
 #include "map/nogps/motion_source.hpp"
+#include "map/nogps/path_matcher.hpp"
 #include "map/nogps/speed_lag.hpp"
 #include "map/nogps/speed_scale.hpp"
 #include "map/nogps/speed_table.hpp"
@@ -395,6 +396,8 @@ private:
   // \returns the branch the car drives along by its heading if the road forks at the position.
   std::optional<RoadPoint> ChooseBranch(ms::LatLon const & position, double headingDeg);
   void MatchBend();
+  // \returns true if the car has been moved to where the way of a turn around lies on the roads, see PathMatcher.
+  bool MatchLoop(double toBearingDeg);
   // \returns true if the bends of a slow car have told the same place enough times, see kSlowBendCount.
   bool IsSlowBendConfirmed(double aheadM);
   void TrackTurn(double yawDeltaDeg, double dtSec, int64_t timestampNs);
@@ -440,6 +443,7 @@ private:
   SpeedScale m_speedScale;
   TurnSignChecker m_turnSignChecker;
   BendMatcher m_bendMatcher;
+  PathMatcher m_pathMatcher;
   int64_t m_lastBendMatchMs = 0;
   // The places told by the bends of a slow car since the position was set.
   struct SlowBends

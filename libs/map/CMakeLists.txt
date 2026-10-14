@@ -74,6 +74,8 @@ set(SRC
   nogps/map_api.hpp
   nogps/motion_source.cpp
   nogps/motion_source.hpp
+  nogps/path_matcher.cpp
+  nogps/path_matcher.hpp
   nogps/phone_motion.cpp
   nogps/phone_motion.hpp
   nogps/road_walker.cpp
