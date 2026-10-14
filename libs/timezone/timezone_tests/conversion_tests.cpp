@@ -1,9 +1,13 @@
-#include <gtest/gtest.h>
-#include <iomanip>
+#include "testing/testing.hpp"
 
 #include "timezone/serdes.hpp"
 
 #include "base/timegm.hpp"
+
+#include <ctime>
+#include <iomanip>
+#include <sstream>
+#include <string>
 
 using namespace om::tz;
 
@@ -26,16 +30,16 @@ std::string TimeToString(time_t const t)
 }
 }  // namespace
 
-#define EXPECT_EQ_TIME(expected, actual) EXPECT_EQ(TimeToString(expected), TimeToString(actual))
+#define TEST_EQUAL_TIME(expected, actual) TEST_EQUAL(TimeToString(expected), TimeToString(actual), ())
 
-TEST(TimeZoneConvert, ShoudNotChangeTimeWhenEqualTimeZones)
+UNIT_TEST(TimeZoneConvert_ShoudNotChangeTimeWhenEqualTimeZones)
 {
   time_t const time = CreateTime(2026, 12, 13, 21, 18, 16);
 
-  EXPECT_EQ_TIME(time, Convert(time, kZeroTz, kZeroTz));
+  TEST_EQUAL_TIME(time, Convert(time, kZeroTz, kZeroTz));
 }
 
-TEST(TimeZoneConvert, ShoudAdd1Hour)
+UNIT_TEST(TimeZoneConvert_ShoudAdd1Hour)
 {
   TimeZone const dstTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
 
@@ -43,19 +47,19 @@ TEST(TimeZoneConvert, ShoudAdd1Hour)
     time_t const srcTime = CreateTime(2026, 12, 13, 21, 18, 16);
     time_t const dstTime = CreateTime(2026, 12, 13, 22, 18, 16);
 
-    EXPECT_EQ_TIME(dstTime, Convert(srcTime, kZeroTz, dstTz));
-    EXPECT_EQ_TIME(srcTime, Convert(dstTime, dstTz, kZeroTz));
+    TEST_EQUAL_TIME(dstTime, Convert(srcTime, kZeroTz, dstTz));
+    TEST_EQUAL_TIME(srcTime, Convert(dstTime, dstTz, kZeroTz));
   }
   {
     time_t const srcTime = CreateTime(2026, 12, 13, 23, 18, 16);
     time_t const dstTime = CreateTime(2026, 12, 14, 0, 18, 16);
 
-    EXPECT_EQ_TIME(dstTime, Convert(srcTime, kZeroTz, dstTz));
-    EXPECT_EQ_TIME(srcTime, Convert(dstTime, dstTz, kZeroTz));
+    TEST_EQUAL_TIME(dstTime, Convert(srcTime, kZeroTz, dstTz));
+    TEST_EQUAL_TIME(srcTime, Convert(dstTime, dstTz, kZeroTz));
   }
 }
 
-TEST(TimeZoneConvert, ShoudDecrease1Hour)
+UNIT_TEST(TimeZoneConvert_ShoudDecrease1Hour)
 {
   TimeZone const srcTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
 
@@ -63,19 +67,19 @@ TEST(TimeZoneConvert, ShoudDecrease1Hour)
     time_t const srcTime = CreateTime(2026, 12, 13, 22, 18, 16);
     time_t const dstTime = CreateTime(2026, 12, 13, 21, 18, 16);
 
-    EXPECT_EQ_TIME(dstTime, Convert(srcTime, srcTz, kZeroTz));
-    EXPECT_EQ_TIME(srcTime, Convert(dstTime, kZeroTz, srcTz));
+    TEST_EQUAL_TIME(dstTime, Convert(srcTime, srcTz, kZeroTz));
+    TEST_EQUAL_TIME(srcTime, Convert(dstTime, kZeroTz, srcTz));
   }
   {
     time_t const srcTime = CreateTime(2026, 12, 13, 0, 18, 16);
     time_t const dstTime = CreateTime(2026, 12, 12, 23, 18, 16);
 
-    EXPECT_EQ_TIME(dstTime, Convert(srcTime, srcTz, kZeroTz));
-    EXPECT_EQ_TIME(srcTime, Convert(dstTime, kZeroTz, srcTz));
+    TEST_EQUAL_TIME(dstTime, Convert(srcTime, srcTz, kZeroTz));
+    TEST_EQUAL_TIME(srcTime, Convert(dstTime, kZeroTz, srcTz));
   }
 }
 
-TEST(TimeZoneConvert, ShouldApplyDst)
+UNIT_TEST(TimeZoneConvert_ShouldApplyDst)
 {
   // Example: base offset = 0, DST +60 minutes
   TimeZone const dstTz{.generation_year_offset = 0,
@@ -84,8 +88,8 @@ TEST(TimeZoneConvert, ShouldApplyDst)
                        .transitions = {
                            Transition{.day_delta = 67, .minute_of_day = 120},   // DST starts 2026, Mar 9, 2:00
                            Transition{.day_delta = 238, .minute_of_day = 120},  // DST ends 2026, Nov 2, 2:00
-                           Transition{.day_delta = 127, .minute_of_day = 120},  // DST starts 2026, Mar 9, 2:00
-                           Transition{.day_delta = 238, .minute_of_day = 120},  // DST ends 2026, Nov 2, 2:00
+                           Transition{.day_delta = 127, .minute_of_day = 120},  // DST starts 2027, Mar 9, 2:00
+                           Transition{.day_delta = 238, .minute_of_day = 120},  // DST ends 2027, Nov 2, 2:00
                        }};
 
   for (int const year : {2026, 2027})
@@ -94,37 +98,37 @@ TEST(TimeZoneConvert, ShouldApplyDst)
       // Before DST starts
       time_t const timeBeforeDst = CreateTime(year, 3, 9, 1, 30, 0);
       time_t const expected = CreateTime(year, 3, 9, 1, 30, 0);  // no offset yet
-      EXPECT_EQ_TIME(expected, Convert(timeBeforeDst, kZeroTz, dstTz));
-      EXPECT_EQ_TIME(timeBeforeDst, Convert(expected, dstTz, kZeroTz));
+      TEST_EQUAL_TIME(expected, Convert(timeBeforeDst, kZeroTz, dstTz));
+      TEST_EQUAL_TIME(timeBeforeDst, Convert(expected, dstTz, kZeroTz));
     }
 
     {
       // After DST starts
       time_t const timeAfterDst = CreateTime(year, 3, 9, 3, 30, 0);
       time_t const expected = CreateTime(year, 3, 9, 4, 30, 0);  // +1 hour DST
-      EXPECT_EQ_TIME(expected, Convert(timeAfterDst, kZeroTz, dstTz));
-      EXPECT_EQ_TIME(timeAfterDst, Convert(expected, dstTz, kZeroTz));
+      TEST_EQUAL_TIME(expected, Convert(timeAfterDst, kZeroTz, dstTz));
+      TEST_EQUAL_TIME(timeAfterDst, Convert(expected, dstTz, kZeroTz));
     }
 
     {
       // Before DST ends
       time_t const timeBeforeEnd = CreateTime(year, 11, 2, 1, 30, 0);
       time_t const expected = CreateTime(year, 11, 2, 2, 30, 0);  // still DST
-      EXPECT_EQ_TIME(expected, Convert(timeBeforeEnd, kZeroTz, dstTz));
-      // EXPECT_EQ_TIME(timeBeforeEnd, Convert(expected, dstTz, kZeroTz));
+      TEST_EQUAL_TIME(expected, Convert(timeBeforeEnd, kZeroTz, dstTz));
+      // A repeated local hour has two UTC instants, so the inverse is not unique.
     }
 
     {
       // After DST ends
       time_t const timeAfterEnd = CreateTime(year, 11, 2, 2, 30, 0);
       time_t const expected = CreateTime(year, 11, 2, 2, 30, 0);  // back to a standard
-      EXPECT_EQ_TIME(expected, Convert(timeAfterEnd, kZeroTz, dstTz));
-      EXPECT_EQ_TIME(timeAfterEnd, Convert(expected, dstTz, kZeroTz));
+      TEST_EQUAL_TIME(expected, Convert(timeAfterEnd, kZeroTz, dstTz));
+      TEST_EQUAL_TIME(timeAfterEnd, Convert(expected, dstTz, kZeroTz));
     }
   }
 }
 
-TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
+UNIT_TEST(TimeZoneConvert_CrossTimeZoneWithOffsets)
 {
   // Source timezone: -2:30 (minutes = -150), no DST
   TimeZone const srcTz{.generation_year_offset = 0,
@@ -146,10 +150,10 @@ TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
     time_t const localSrc = CreateTime(2026, 3, 8, 21, 0, 0);     // local in srcTz
     time_t const utcTime = CreateTime(2026, 3, 8, 23, 30, 0);     // +2:30 = UTC 23:30
     time_t const expectedDst = CreateTime(2026, 3, 9, 7, 30, 0);  // UTC = 23:30, +8:00 = 7:30 (next day)
-    EXPECT_EQ_TIME(utcTime, Convert(localSrc, srcTz, kZeroTz));
-    EXPECT_EQ_TIME(expectedDst, Convert(utcTime, kZeroTz, dstTz));
-    EXPECT_EQ_TIME(expectedDst, Convert(localSrc, srcTz, dstTz));
-    EXPECT_EQ_TIME(localSrc, Convert(expectedDst, dstTz, srcTz));
+    TEST_EQUAL_TIME(utcTime, Convert(localSrc, srcTz, kZeroTz));
+    TEST_EQUAL_TIME(expectedDst, Convert(utcTime, kZeroTz, dstTz));
+    TEST_EQUAL_TIME(expectedDst, Convert(localSrc, srcTz, dstTz));
+    TEST_EQUAL_TIME(localSrc, Convert(expectedDst, dstTz, srcTz));
   }
 
   // Test after DST starts
@@ -157,10 +161,10 @@ TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
     time_t const localSrc = CreateTime(2026, 3, 9, 5, 1, 1);       // local in srcTz
     time_t const utcTime = CreateTime(2026, 3, 9, 7, 31, 1);       // +2:30 = UTC 7:31:01
     time_t const expectedDst = CreateTime(2026, 3, 9, 16, 31, 1);  // UTC = 7:31:01, +8:00 + 1:00 DST = 16:31:01
-    EXPECT_EQ_TIME(utcTime, Convert(localSrc, srcTz, kZeroTz));
-    EXPECT_EQ_TIME(expectedDst, Convert(utcTime, kZeroTz, dstTz));
-    EXPECT_EQ_TIME(expectedDst, Convert(localSrc, srcTz, dstTz));
-    EXPECT_EQ_TIME(localSrc, Convert(expectedDst, dstTz, srcTz));
+    TEST_EQUAL_TIME(utcTime, Convert(localSrc, srcTz, kZeroTz));
+    TEST_EQUAL_TIME(expectedDst, Convert(utcTime, kZeroTz, dstTz));
+    TEST_EQUAL_TIME(expectedDst, Convert(localSrc, srcTz, dstTz));
+    TEST_EQUAL_TIME(localSrc, Convert(expectedDst, dstTz, srcTz));
   }
 
   // Test before DST ends
@@ -169,10 +173,10 @@ TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
     time_t const utcTime = CreateTime(2026, 11, 1, 18, 37, 59);  // +2:30 = UTC 18:37:59
     time_t const expectedDst =
         CreateTime(2026, 11, 2, 3, 37, 59);  // UTC = 18:37:59, +8:00 + 1:00 DST = 3:37:59 (next day)
-    EXPECT_EQ_TIME(utcTime, Convert(localSrc, srcTz, kZeroTz));
-    EXPECT_EQ_TIME(expectedDst, Convert(utcTime, kZeroTz, dstTz));
-    EXPECT_EQ_TIME(expectedDst, Convert(localSrc, srcTz, dstTz));
-    EXPECT_EQ_TIME(localSrc, Convert(expectedDst, dstTz, srcTz));
+    TEST_EQUAL_TIME(utcTime, Convert(localSrc, srcTz, kZeroTz));
+    TEST_EQUAL_TIME(expectedDst, Convert(utcTime, kZeroTz, dstTz));
+    TEST_EQUAL_TIME(expectedDst, Convert(localSrc, srcTz, dstTz));
+    TEST_EQUAL_TIME(localSrc, Convert(expectedDst, dstTz, srcTz));
   }
 
   // Test after DST ends
@@ -180,9 +184,9 @@ TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
     time_t const localSrc = CreateTime(2026, 11, 2, 3, 0, 0);       // local in srcTz
     time_t const utcTime = CreateTime(2026, 11, 2, 5, 30, 0);       // +2:30 = UTC 5:30
     time_t const expectedDst = CreateTime(2026, 11, 2, 13, 30, 0);  // UTC = 5:30, +8:00 = 13:30
-    EXPECT_EQ_TIME(utcTime, Convert(localSrc, srcTz, kZeroTz));
-    EXPECT_EQ_TIME(expectedDst, Convert(utcTime, kZeroTz, dstTz));
-    EXPECT_EQ_TIME(expectedDst, Convert(localSrc, srcTz, dstTz));
-    EXPECT_EQ_TIME(localSrc, Convert(expectedDst, dstTz, srcTz));
+    TEST_EQUAL_TIME(utcTime, Convert(localSrc, srcTz, kZeroTz));
+    TEST_EQUAL_TIME(expectedDst, Convert(utcTime, kZeroTz, dstTz));
+    TEST_EQUAL_TIME(expectedDst, Convert(localSrc, srcTz, dstTz));
+    TEST_EQUAL_TIME(localSrc, Convert(expectedDst, dstTz, srcTz));
   }
 }

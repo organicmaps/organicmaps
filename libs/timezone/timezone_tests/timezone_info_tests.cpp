@@ -1,12 +1,11 @@
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "testing/testing.hpp"
 
 #include "timezone/timezone.hpp"
 
 using namespace om::tz;
 
-TEST(TimeZoneImport, ShouldSuccessfullyImportTimeZoneDb)
+UNIT_TEST(TimeZoneImport_ShouldSuccessfullyImportTimeZoneDb)
 {
   TimeZoneDb const & db = TimeZoneDb::Instance();
-  EXPECT_FALSE(db.IsEmpty());
+  TEST(!db.IsEmpty(), ());
 }

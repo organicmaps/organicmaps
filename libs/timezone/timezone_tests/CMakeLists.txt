@@ -7,7 +7,7 @@ set(SRC
   timezone_info_tests.cpp
 )
 
-omim_add_test(${PROJECT_NAME} ${SRC} GTEST)
+omim_add_test(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
