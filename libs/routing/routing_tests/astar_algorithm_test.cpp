@@ -116,6 +116,72 @@ UNIT_TEST(AStarAlgorithm_CheckLength)
   TEST_EQUAL(result, Algorithm::Result::NoPath, ());
 }
 
+UNIT_TEST(AStarAlgorithm_CheckLengthAfterWavesMeet)
+{
+  UndirectedGraph graph;
+  // Both waves propagate before meeting; each partial path fits the smaller limit.
+  for (uint32_t i = 0; i < 300; ++i)
+    graph.AddEdge(i, i + 1, 1);
+
+  for (double const limit : {200.0, 301.0})
+  {
+    auto checkLength = [limit](double weight) { return weight < limit; };
+    Algorithm::ParamsForTests<decltype(checkLength)> params(graph, 0u, 300u, std::move(checkLength));
+    auto const expected = limit > 300 ? Algorithm::Result::OK : Algorithm::Result::NoPath;
+    RoutingResult<uint32_t, double> result;
+    TEST_EQUAL(Algorithm().FindPath(params, result), expected, (limit));
+    result.Clear();
+    TEST_EQUAL(Algorithm().FindPathBidirectional(params, result), expected, (limit));
+    if (expected == Algorithm::Result::OK)
+    {
+      TEST_EQUAL(result.m_distance, 300.0, ());
+      TEST_EQUAL(result.m_path.size(), 301, ());
+      TEST(checkLength(result.m_distance), ());
+    }
+    else
+    {
+      TEST(result.Empty(), ());
+    }
+  }
+}
+
+UNIT_TEST(AStarAlgorithm_CheckLengthBeforeEmitting)
+{
+  UndirectedGraph graph;
+  for (uint32_t i = 0; i < 300; ++i)
+    graph.AddEdge(i, i + 1, 1);
+
+  for (double const limit : {200.0, 301.0})
+  {
+    for (bool const stopAfterFirst : {false, true})
+    {
+      auto checkLength = [limit](double weight) { return weight < limit; };
+      Algorithm::ParamsForTests<decltype(checkLength)> params(graph, 0u, 300u, std::move(checkLength));
+      size_t emitted = 0;
+      bool allAccepted = true;
+      auto const code = Algorithm().FindPathBidirectionalEx(params, [&](RoutingResult<uint32_t, double> && result)
+      {
+        ++emitted;
+        allAccepted = allAccepted && checkLength(result.m_distance);
+        return stopAfterFirst;
+      });
+      auto const expected = limit > 300 ? Algorithm::Result::OK : Algorithm::Result::NoPath;
+      TEST_EQUAL(code, expected, (limit, stopAfterFirst, emitted));
+      TEST(allAccepted, (limit, stopAfterFirst, emitted));
+      if (expected == Algorithm::Result::OK)
+      {
+        TEST_GREATER(emitted, 0, ());
+        if (stopAfterFirst)
+          TEST_EQUAL(emitted, 1, ());
+      }
+      else
+      {
+        TEST_EQUAL(emitted, 0, ());
+      }
+    }
+  }
+}
+
 UNIT_TEST(AdjustRoute)
 {
   UndirectedGraph graph;

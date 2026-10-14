@@ -85,9 +85,8 @@ public:
     std::function<bool(Weight, Weight)> m_badReducedWeight = [](Weight, Weight) { return true; };
   };
 
-  // |LengthChecker| callback used to check path length from start/finish to the edge (including the
-  // edge itself) before adding the edge to AStar queue. Can be used to clip some path which does
-  // not meet restrictions.
+  // |LengthChecker| clips partial paths before enqueueing. Path searches also check
+  // complete candidates before accepting them, so combined paths must meet the restrictions.
   template <typename Visitor = astar::DefaultVisitor, typename LengthChecker = astar::DefaultLengthChecker>
   struct Params : public ParamsBase
   {
@@ -554,9 +553,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
 
   auto const EmitResult = [&forward, &backward, &bestPathRealLength, &emitter]()
   {
-    // No problem if length check fails, but we still emit the result.
-    // Happens with "transit" route because of length, haven't seen with regular car route.
-    // ASSERT(params.m_checkLengthCallback(bestPathRealLength), ());
+    // Best-path candidates already satisfy the complete-route length check.
 
     RoutingResult<Vertex, Weight> result;
     ReconstructPathBidirectional(forward.bestVertex, backward.bestVertex, forward.parent, backward.parent,
@@ -664,15 +661,19 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
         if ((!foundAnyPath || bestPathReducedLength > curPathReducedLength) &&
             graph.AreWavesConnectible(forwardParents, stateW.vertex, backwardParents))
         {
-          bestPathReducedLength = curPathReducedLength;
+          auto curPathRealLength = stateV.distance + weight + distW;
+          curPathRealLength += cur->pS - pV;
+          curPathRealLength += nxt->pS - nxt->ConsistentHeuristic(stateW.vertex);
 
-          bestPathRealLength = stateV.distance + weight + distW;
-          bestPathRealLength += cur->pS - pV;
-          bestPathRealLength += nxt->pS - nxt->ConsistentHeuristic(stateW.vertex);
-
-          foundAnyPath = foundAnyPathEver = true;
-          cur->bestVertex = stateV.vertex;
-          nxt->bestVertex = stateW.vertex;
+          // Two valid partial paths can exceed the restrictions when combined.
+          if (params.m_checkLengthCallback(curPathRealLength))
+          {
+            bestPathReducedLength = curPathReducedLength;
+            bestPathRealLength = curPathRealLength;
+            foundAnyPath = foundAnyPathEver = true;
+            cur->bestVertex = stateV.vertex;
+            nxt->bestVertex = stateW.vertex;
+          }
         }
       }
 

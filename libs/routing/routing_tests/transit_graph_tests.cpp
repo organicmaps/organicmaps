@@ -15,6 +15,7 @@
 #include "base/geo_object_id.hpp"
 
 #include <algorithm>
+#include <map>
 #include <string>
 #include <string_view>
 
@@ -151,6 +152,35 @@ public:
 
 private:
   routing::TransitWorldGraph & m_world;
+};
+
+class BudgetGraph final : public routing::AStarGraph<routing::Segment, routing::SegmentEdge, routing::RouteWeight>
+{
+public:
+  static Vertex Node(uint32_t id) { return {0, id, 0, true}; }
+
+  void AddEdge(uint32_t from, uint32_t to, Weight const & weight)
+  {
+    m_outgoing[Node(from)].emplace_back(Node(to), weight);
+    m_ingoing[Node(to)].emplace_back(Node(from), weight);
+  }
+
+  Weight HeuristicCostEstimate(Vertex const &, Vertex const &) override { return Weight(0); }
+  Weight GetAStarWeightEpsilon() override { return Weight(1e-6); }
+
+  void GetOutgoingEdgesList(routing::astar::VertexData<Vertex, Weight> const & data, EdgeListT & edges) override
+  {
+    edges = m_outgoing[data.m_vertex];
+  }
+
+  void GetIngoingEdgesList(routing::astar::VertexData<Vertex, Weight> const & data, EdgeListT & edges) override
+  {
+    edges = m_ingoing[data.m_vertex];
+  }
+
+private:
+  std::map<Vertex, EdgeListT> m_outgoing;
+  std::map<Vertex, EdgeListT> m_ingoing;
 };
 }  // namespace
 
@@ -309,6 +339,63 @@ UNIT_TEST(TransitWorldGraph_StationConnectionsHaveSymmetricSearchWeights)
   checkConnection(fixture.Edge(2, 3), fixture.Edge(3, 4), 120.0);
   checkConnection(fixture.Edge(3, 4), fixture.Edge(4, 5), 345.5);
   checkConnection(Gate(*graph, true), fixture.Edge(1, 2), 350.0);
+}
+
+UNIT_TEST(TransitWorldGraph_BidirectionalSearchKeepsWalkingBudget)
+{
+  Fixture fixture;
+  auto world = fixture.MakeWorldGraph();
+  BudgetGraph graph;
+  for (uint32_t i = 0; i < 300; ++i)
+    graph.AddEdge(i, i + 1, routing::RouteWeight(12));
+
+  // A winding walk between nearby endpoints exceeds the full walking budget.
+  auto checkLength = [&](routing::RouteWeight const & weight) { return world->CheckLength(weight, 50); };
+  TEST(checkLength(routing::RouteWeight(1800)), ());
+  TEST(!checkLength(routing::RouteWeight(3600)), ());
+  using Algorithm = routing::AStarAlgorithm<routing::Segment, routing::SegmentEdge, routing::RouteWeight>;
+  Algorithm::ParamsForTests<decltype(checkLength)> params(graph, BudgetGraph::Node(0), BudgetGraph::Node(300),
+                                                          std::move(checkLength));
+  routing::RoutingResult<routing::Segment, routing::RouteWeight> result;
+  TEST_EQUAL(Algorithm().FindPath(params, result), Algorithm::Result::NoPath, ());
+  result.Clear();
+  TEST_EQUAL(Algorithm().FindPathBidirectional(params, result), Algorithm::Result::NoPath, ());
+  TEST(result.Empty(), ());
+}
+
+UNIT_TEST(TransitWorldGraph_BidirectionalSearchContinuesAfterRejectedCandidate)
+{
+  Fixture fixture;
+  auto world = fixture.MakeWorldGraph();
+  BudgetGraph graph;
+  for (uint32_t i = 0; i < 300; ++i)
+    graph.AddEdge(i, i + 1, routing::RouteWeight(12));
+  // The cheaper walk fails the budget. Continue its valid prefix to a slower ride
+  // whose physical transit time does not consume the walking budget.
+  graph.AddEdge(174, 300, routing::RouteWeight(2000, 0, 0, 0, 2000));
+
+  auto checkLength = [&](routing::RouteWeight const & weight) { return world->CheckLength(weight, 50); };
+  using Algorithm = routing::AStarAlgorithm<routing::Segment, routing::SegmentEdge, routing::RouteWeight>;
+  Algorithm::ParamsForTests<decltype(checkLength)> params(graph, BudgetGraph::Node(0), BudgetGraph::Node(300),
+                                                          std::move(checkLength));
+  routing::RoutingResult<routing::Segment, routing::RouteWeight> result;
+  TEST_EQUAL(Algorithm().FindPathBidirectional(params, result), Algorithm::Result::OK, ());
+  TEST_EQUAL(result.m_distance.GetWeight(), 174.0 * 12 + 2000, ());
+  TEST_EQUAL(result.m_distance.GetTransitTime(), 2000.0, ());
+  TEST(world->CheckLength(result.m_distance, 50), ());
+  TEST_EQUAL(result.m_path.size(), 176, ());
+  TEST_EQUAL(result.m_path[result.m_path.size() - 2], BudgetGraph::Node(174), ());
+  TEST_EQUAL(result.m_path.back(), BudgetGraph::Node(300), ());
+
+  size_t emitted = 0;
+  auto const code = Algorithm().FindPathBidirectionalEx(params, [&](auto && route)
+  {
+    ++emitted;
+    TEST(world->CheckLength(route.m_distance, 50), ());
+    return false;
+  });
+  TEST_EQUAL(code, Algorithm::Result::OK, ());
+  TEST_GREATER(emitted, 0, ());
 }
 
 UNIT_TEST(TransitWorldGraph_SearchSelectsFasterParallelLine)
