@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <memory>
 #include <sstream>
+#include <utility>
 #include <vector>
 
 std::map<TransitType, std::string> const kTransitSymbols = {{TransitType::Subway, "transit_subway"},
@@ -368,6 +369,17 @@ TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
   return m_routeInfo;
 }
 
+void TransitRouteDisplay::FlushPendingStop(df::Subroute & subroute, SubrouteParams & sp)
+{
+  if (sp.m_marker.m_colors.empty())
+    return;
+
+  subroute.m_markers.push_back(std::move(sp.m_marker));
+  sp.m_marker = {};
+  AddStopMark(sp.m_transitMarkInfo);
+  sp.m_transitMarkInfo = {};
+}
+
 void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
                                                    SubrouteParams & sp, SubrouteSegmentParams & ssp, StopId legBoardId,
                                                    StopId legAlightId)
@@ -481,11 +493,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
       sp.m_marker.m_up = -sp.m_marker.m_up;
   }
 
-  subroute.m_markers.push_back(sp.m_marker);
-  sp.m_marker = df::SubrouteMarker();
-
-  AddStopMark(sp.m_transitMarkInfo);
-  sp.m_transitMarkInfo = TransitMarkInfo();
+  FlushPendingStop(subroute, sp);
 
   sp.m_lastDir = currentDir;
 
@@ -524,14 +532,10 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
 
   if (!gate.m_isEntrance && sp.m_lastLineId != routing::transit::kInvalidLineId)
   {
-    subroute.m_markers.push_back(sp.m_marker);
-    sp.m_marker = df::SubrouteMarker();
-
     sp.m_transitMarkInfo.m_type = TransitMarkInfo::Type::KeyStop;
     sp.m_transitMarkInfo.m_symbolName = kTransitSymbols.at(sp.m_transitType);
     sp.m_transitMarkInfo.m_color = sp.m_lastColor;
-    m_transitMarks.push_back(sp.m_transitMarkInfo);
-    sp.m_transitMarkInfo = TransitMarkInfo();
+    FlushPendingStop(subroute, sp);
   }
   auto gateMarkInfo = TransitMarkInfo();
   gateMarkInfo.m_point = gatePoint;
@@ -602,6 +606,7 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
 
     if (!s.HasTransitInfo())
     {
+      FlushPendingStop(subroute, sp);
       m_pendingStopIndex.reset();
       m_routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, distance, time));
 
@@ -639,8 +644,7 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   // Keep the alighting stop when a waypoint or the destination ends the ride.
   if (!sp.m_marker.m_colors.empty())
   {
-    subroute.m_markers.push_back(sp.m_marker);
-    AddStopMark(sp.m_transitMarkInfo);
+    FlushPendingStop(subroute, sp);
     m_pendingStopIndex = m_transitMarks.size() - 1;
   }
 

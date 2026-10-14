@@ -394,4 +394,68 @@ UNIT_TEST(TransitDisplay_DirectionRoundingKeepsTransferAxis)
     }
   }
 }
+
+UNIT_TEST(TransitDisplay_WalkSeparatesRideStopsAndColors)
+{
+  Fixture fixture(R"({
+    "stops": [
+      {"id": 1, "osm_id": "1", "line_ids": [1], "point": {"x": 0.00001, "y": 0}},
+      {"id": 2, "osm_id": "2", "line_ids": [1], "point": {"x": 0.00002, "y": 0}},
+      {"id": 3, "osm_id": "3", "line_ids": [2], "point": {"x": 0.00002, "y": 0}},
+      {"id": 4, "osm_id": "4", "line_ids": [2], "point": {"x": 0.00004, "y": 0}}
+    ],
+    "lines": [
+      {"id": 1, "interval": 60, "network_id": 1, "number": "1", "stop_ids": [1, 2],
+       "type": "bus", "color": "red"},
+      {"id": 2, "interval": 60, "network_id": 1, "number": "2", "stop_ids": [3, 4],
+       "type": "bus", "color": "blue"}
+    ],
+    "networks": [{"id": 1, "title": "Transit test"}]
+  })");
+  // Walking away and back separates the co-located alighting and boarding stops.
+  std::vector<m2::PointD> const points = {{0.00001, 0}, {0.00002, 0}, {0.00003, 0},
+                                          {0.00002, 0}, {0.00004, 0}, {0.00005, 0}};
+  std::vector<double> const distances = {0.00001, 0.00002, 0.00003, 0.00004, 0.00006, 0.00007};
+  std::vector<double> const times = {10, 160, 170, 180, 330, 340};
+  std::vector<routing::RouteSegment> segments;
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    segments.emplace_back(routing::Segment(0, routing::FakeFeatureIds::kTransitGraphFeaturesStart + i, 0, true),
+                          routing::turns::TurnItem(), geometry::PointWithAltitude(points[i], 0),
+                          routing::RouteSegment::RoadNameInfo());
+    segments.back().SetDistancesAndTime((i + 1) * 10, distances[i], times[i]);
+  }
+  for (size_t const index : {1, 4})
+    segments[index].SetTransitInfo(std::make_unique<routing::TransitInfo>(
+        routing::transit::Edge(index == 1 ? 1 : 3, index == 1 ? 2 : 4, 120, index == 1 ? 1 : 2, false,
+                               std::vector<routing::transit::ShapeId>{})));
+
+  for (std::vector<size_t> const & ends : {std::vector<size_t>{6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}, {1, 2, 3, 4, 5, 6}})
+  {
+    auto display = fixture.MakeDisplay();
+    std::vector<df::SubrouteMarker> markers;
+    size_t begin = 0;
+    for (size_t const end : ends)
+    {
+      auto const subroute = Process(display, segments, begin, end);
+      markers.insert(markers.end(), subroute.m_markers.begin(), subroute.m_markers.end());
+      begin = end;
+    }
+    TEST_EQUAL(markers.size(), 4, (ends));
+    TEST_EQUAL(display.m_transitMarks.size(), 4, (ends));
+    size_t const stopIndices[] = {0, 1, 3, 4};
+    for (size_t i = 0; i < markers.size(); ++i)
+    {
+      TestPoint(markers[i].m_position, points[stopIndices[i]]);
+      TestPoint(display.m_transitMarks[i].m_point, points[stopIndices[i]]);
+      TEST_EQUAL(markers[i].m_colors.size(), 1, (ends, i));
+      TEST_EQUAL(markers[i].m_colors.front(), df::GetTransitColorName(i < 2 ? "red" : "blue"), (ends, i));
+    }
+    auto const & info = display.GetRouteInfo();
+    TEST_EQUAL(info.m_totalTimeInSec, 340, (ends));
+    TEST_EQUAL(info.m_totalPedestrianTimeInSec, 40, (ends));
+    TEST_EQUAL(info.m_totalDistInMeters, 60, (ends));
+    TEST_EQUAL(info.m_totalPedestrianDistInMeters, 40, (ends));
+  }
+}
 }  // namespace transit_rendering_tests
