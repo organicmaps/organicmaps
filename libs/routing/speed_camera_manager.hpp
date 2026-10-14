@@ -127,8 +127,6 @@ private:
   bool SetNotificationFlags(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & camera);
   bool IsSpeedHigh(double distanceToCameraMeters, double speedMpS, SpeedCameraOnRoute const & camera) const;
 
-  /// \brief Returns true if we should change |m_closestCamera| to |nextCamera|. False otherwise.
-  bool NeedToUpdateClosestCamera(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & nextCamera);
   bool IsHighlightedCameraExpired(double distToCameraMeters) const;
   bool IsCameraCloseEnough(double distToCameraMeters) const;
 
