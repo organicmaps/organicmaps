@@ -245,6 +245,7 @@ void CountryInfoReader::GetTriangles(RegionId id, FeatureType & ft) const
   if (!isFound)
   {
     ReaderSource<ModelReaderPtr> src(m_reader.GetReader("t" + std::to_string(id)));
+    trgs.clear();
     serial::LoadOuterTriangles(src, serial::GeometryCodingParams(), trgs);
   }
 
