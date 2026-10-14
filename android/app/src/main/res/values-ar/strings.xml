@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">قم بتنزيل المنطقة التي تبحث فيها أو حاول إضافة اسم بلدة/قرية قريبة.</string>
     <string name="search_history_title">سجل البحث</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">النسخ الاحتياطي للإشارات المرجعية والمسارات</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">يمكن تضمين الإشارات المرجعية والمسارات في النسخ الاحتياطية لنظام Android عندما يكون النسخ الاحتياطي مفعّلًا على هذا الجهاز ولا تتجاوز حدّ الحجم المسموح به.</string>
     <string name="search_history_text">عرض عمليات البحث الأخيرة.</string>
     <string name="clear_search">مسح سجل البحث</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

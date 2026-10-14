@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Proszę pobrać region, w którym Państwo szukają lub spróbować dodać nazwę pobliskiego miasta/wsi.</string>
     <string name="search_history_title">Historia wyszukiwania</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Kopia zapasowa zakładek i tras</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Zakładki i trasy mogą być dołączane do systemowych kopii zapasowych Androida, jeśli na tym urządzeniu włączone jest tworzenie kopii zapasowych i nie przekraczają one limitu rozmiaru.</string>
     <string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
     <string name="clear_search">Wyczyść historię wyszukiwania</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
