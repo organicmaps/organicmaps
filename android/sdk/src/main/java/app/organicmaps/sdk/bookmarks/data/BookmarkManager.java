@@ -42,6 +42,7 @@ public enum BookmarkManager {
 
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
+  private final List<BookmarksChangedListener> mChangedListeners = new ArrayList<>();
 
   @NonNull
   private final List<BookmarksSortingListener> mSortingListeners = new ArrayList<>();
@@ -69,6 +70,16 @@ public enum BookmarkManager {
   public void removeLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.remove(listener);
+  }
+
+  public void addBookmarksChangedListener(@NonNull BookmarksChangedListener listener)
+  {
+    mChangedListeners.add(listener);
+  }
+
+  public void removeBookmarksChangedListener(@NonNull BookmarksChangedListener listener)
+  {
+    mChangedListeners.remove(listener);
   }
 
   public void addSortingListener(@NonNull BookmarksSortingListener listener)
@@ -108,6 +119,8 @@ public enum BookmarkManager {
   public void onBookmarksChanged()
   {
     updateCache();
+    for (BookmarksChangedListener listener : mChangedListeners)
+      listener.onBookmarksChanged();
   }
 
   // Called from JNI.
@@ -761,6 +774,14 @@ public enum BookmarkManager {
     default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
     default void onBookmarksFileImportSuccessful() {}
     default void onBookmarksFileImportFailed() {}
+  }
+
+  /**
+   * Notified on every change of categories, bookmarks or tracks, before core saves them to files.
+   */
+  public interface BookmarksChangedListener
+  {
+    void onBookmarksChanged();
   }
 
   public interface BookmarksSortingListener

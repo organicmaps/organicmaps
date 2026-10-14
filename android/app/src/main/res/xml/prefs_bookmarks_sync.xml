@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <SwitchPreferenceCompat
+      android:key="@string/pref_bookmarks_sync_enabled"
+      android:title="@string/bookmarks_sync_enabled"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="1" />
+  <Preference
+      android:key="@string/pref_bookmarks_sync_account"
+      app:singleLineTitle="false"
+      android:selectable="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="2" />
+  <Preference
+      android:key="@string/pref_bookmarks_sync_status"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="3" />
+  <Preference
+      android:key="@string/pref_bookmarks_sync_now"
+      android:title="@string/bookmarks_sync_now"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="4" />
+  <Preference
+      android:key="@string/pref_bookmarks_sync_delete"
+      android:title="@string/bookmarks_sync_delete_cloud"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="5" />
+</androidx.preference.PreferenceScreen>

@@ -37,6 +37,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.wear.WearBridge;
+import app.organicmaps.sync.BookmarksSync;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import java.io.IOException;
@@ -154,6 +155,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     return mOrganicMaps.init(() -> {
       ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
+      BookmarksSync.init(this);
       if (onComplete != null)
         onComplete.run();
     });
@@ -218,6 +220,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     Logger.d(TAG);
 
     getLocationHelper().resumeLocationInForeground();
+    BookmarksSync.onForeground(this);
   }
 
   private void onBackground()
@@ -225,6 +228,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     Logger.d(TAG);
 
     OsmUploadWork.startActionUploadOsmChanges(this);
+    BookmarksSync.onBackground(this);
     stopLocationInBackgroundIfUnused();
   }
 
