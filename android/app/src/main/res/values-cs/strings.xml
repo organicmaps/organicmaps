@@ -345,6 +345,19 @@
     <string name="search_history_title">Historie vyhledávání</string>
     <string name="bookmarks_backup_title">Záloha záložek</string>
     <string name="bookmarks_backup_description">Záložky a stopy se ukládají do systémové zálohy Androidu, pokud je na tomto zařízení zapnutá a nepřekračují její limit velikosti.</string>
+    <string name="bookmarks_sync_title">Synchronizace s Diskem Google (beta)</string>
+    <string name="bookmarks_sync_enabled">Synchronizovat záložky a stopy</string>
+    <string name="bookmarks_sync_now">Synchronizovat nyní</string>
+    <string name="bookmarks_sync_status_synced">Synchronizováno v %s</string>
+    <string name="bookmarks_sync_status_running">Synchronizace…</string>
+    <string name="bookmarks_sync_status_sign_in">Je nutné přihlášení</string>
+    <string name="bookmarks_sync_status_quota">Disk Google je plný</string>
+    <string name="bookmarks_sync_status_error">Synchronizace se nezdařila: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Smazat data z Disku Google</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Smazat synchronizované záložky a stopy z Disku Google? Záložky a stopy v tomto zařízení zůstanou.</string>
+    <string name="bookmarks_sync_beta_warning">Synchronizace je ve verzi beta. Před zapnutím exportujte zálohu všech záložek a stop.</string>
+    <string name="bookmarks_sync_export">Exportovat</string>
+    <string name="bookmarks_sync_enable">Povolit</string>
     <string name="search_history_text">Získejte rychlý přístup k hledaným výrazům.</string>
     <string name="clear_search">Vymazat historii vyhledávání</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

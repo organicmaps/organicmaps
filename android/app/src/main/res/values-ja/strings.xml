@@ -345,6 +345,19 @@
     <string name="search_history_title">検索履歴</string>
     <string name="bookmarks_backup_title">ブックマークのバックアップ</string>
     <string name="bookmarks_backup_description">このデバイスで Android のシステムバックアップが有効で、ブックマークとトラックがそのサイズ上限内に収まる場合、それらはバックアップに保存されます。</string>
+    <string name="bookmarks_sync_title">Google ドライブ同期（ベータ）</string>
+    <string name="bookmarks_sync_enabled">ブックマークとトラックを同期</string>
+    <string name="bookmarks_sync_now">今すぐ同期</string>
+    <string name="bookmarks_sync_status_synced">%s に同期済み</string>
+    <string name="bookmarks_sync_status_running">同期中…</string>
+    <string name="bookmarks_sync_status_sign_in">ログインが必要です</string>
+    <string name="bookmarks_sync_status_quota">Google ドライブの容量がいっぱいです</string>
+    <string name="bookmarks_sync_status_error">同期に失敗しました: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google ドライブからデータを削除</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">同期したブックマークとトラックを Google ドライブから削除しますか？このデバイスのブックマークとトラックは残ります。</string>
+    <string name="bookmarks_sync_beta_warning">同期はベータ版です。有効にする前に、すべてのブックマークとトラックのバックアップをエクスポートしてください。</string>
+    <string name="bookmarks_sync_export">エクスポート</string>
+    <string name="bookmarks_sync_enable">有効にする</string>
     <string name="search_history_text">最近の検索を表示します。</string>
     <string name="clear_search">検索履歴を消去</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

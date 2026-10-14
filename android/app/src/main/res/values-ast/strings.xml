@@ -161,6 +161,18 @@
     <string name="search_history_title">Historial de guetes</string>
     <string name="bookmarks_backup_title">Copia de seguranza de marcadores</string>
     <string name="bookmarks_backup_description">Los marcadores y trayeutos guárdense na copia de seguranza del sistema Android si ta activada nesti preséu y nun superen la so llende de tamañu.</string>
+    <string name="bookmarks_sync_title">Sincronización con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar marcadores y trayeutos</string>
+    <string name="bookmarks_sync_now">Sincronizar agora</string>
+    <string name="bookmarks_sync_status_synced">Sincronizóse a les %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_sign_in">Ríquese aniciar sesión</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ta enllenu</string>
+    <string name="bookmarks_sync_status_error">Falló la sincronización: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Desaniciar los datos de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">¿Quies desaniciar de Google Drive los marcadores y trayeutos sincronizaos? Los marcadores y trayeutos d\'esti preséu caltiénense.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronización ta en beta. Esporta una copia de seguranza de tolos marcadores y trayeutos enantes d\'activala.</string>
+    <string name="bookmarks_sync_export">Esportar</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
     <string name="p2p_start">Entamar</string>

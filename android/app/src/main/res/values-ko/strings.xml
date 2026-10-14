@@ -345,6 +345,19 @@
     <string name="search_history_title">검색 기록</string>
     <string name="bookmarks_backup_title">북마크 백업</string>
     <string name="bookmarks_backup_description">이 기기에서 Android 시스템 백업이 켜져 있고 북마크와 트랙이 백업 용량 한도를 넘지 않으면 백업에 저장됩니다.</string>
+    <string name="bookmarks_sync_title">Google 드라이브 동기화(베타)</string>
+    <string name="bookmarks_sync_enabled">북마크 및 트랙 동기화</string>
+    <string name="bookmarks_sync_now">지금 동기화</string>
+    <string name="bookmarks_sync_status_synced">%s에 동기화됨</string>
+    <string name="bookmarks_sync_status_running">동기화 중…</string>
+    <string name="bookmarks_sync_status_sign_in">로그인이 필요합니다</string>
+    <string name="bookmarks_sync_status_quota">Google 드라이브 용량이 가득 찼습니다</string>
+    <string name="bookmarks_sync_status_error">동기화 실패: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google 드라이브에서 데이터 삭제</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">동기화된 북마크와 트랙을 Google 드라이브에서 삭제할까요? 이 기기의 북마크와 트랙은 그대로 유지됩니다.</string>
+    <string name="bookmarks_sync_beta_warning">동기화는 베타 버전입니다. 사용하기 전에 모든 북마크와 트랙의 백업을 내보내세요.</string>
+    <string name="bookmarks_sync_export">내보내기</string>
+    <string name="bookmarks_sync_enable">사용</string>
     <string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
     <string name="clear_search">이력 검색 지우기</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

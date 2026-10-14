@@ -345,6 +345,19 @@
     <string name="search_history_title">शोध इतिहास</string>
     <string name="bookmarks_backup_title">खूणपत्रांचा बॅकअप</string>
     <string name="bookmarks_backup_description">या डिव्हाइसवर Android सिस्टम बॅकअप सुरू असल्यास आणि खूणपत्रे व ट्रॅक त्याच्या आकार मर्यादेपेक्षा जास्त नसल्यास, ते त्यात जतन केले जातात.</string>
+    <string name="bookmarks_sync_title">Google Drive सिंक (बीटा)</string>
+    <string name="bookmarks_sync_enabled">खूणपत्रे आणि ट्रॅक सिंक करा</string>
+    <string name="bookmarks_sync_now">आता सिंक करा</string>
+    <string name="bookmarks_sync_status_synced">%s वाजता सिंक केले</string>
+    <string name="bookmarks_sync_status_running">सिंक होत आहे…</string>
+    <string name="bookmarks_sync_status_sign_in">साइन इन आवश्यक आहे</string>
+    <string name="bookmarks_sync_status_quota">Google Drive भरले आहे</string>
+    <string name="bookmarks_sync_status_error">सिंक अयशस्वी: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google Drive मधून डेटा हटवा</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">सिंक केलेली खूणपत्रे आणि ट्रॅक Google Drive मधून हटवायचे? या डिव्हाइसवरील खूणपत्रे आणि ट्रॅक राहतील.</string>
+    <string name="bookmarks_sync_beta_warning">सिंक बीटामध्ये आहे. ते सुरू करण्यापूर्वी सर्व खूणपत्रे आणि ट्रॅकचा बॅकअप निर्यात करा.</string>
+    <string name="bookmarks_sync_export">निर्यात करा</string>
+    <string name="bookmarks_sync_enable">सक्षम करा</string>
     <string name="search_history_text">अलीकडील शोध पहा.</string>
     <string name="clear_search">शोध इतिहास पुसून टाका</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

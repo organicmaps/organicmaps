@@ -345,6 +345,19 @@
     <string name="search_history_title">سجل البحث</string>
     <string name="bookmarks_backup_title">النسخ الاحتياطي للإشارات المرجعية</string>
     <string name="bookmarks_backup_description">تُحفظ الإشارات المرجعية والمسارات في النسخة الاحتياطية لنظام Android إذا كانت مفعّلة على هذا الجهاز ولم تتجاوز حدّ الحجم المسموح به.</string>
+    <string name="bookmarks_sync_title">المزامنة مع Google Drive (تجريبية)</string>
+    <string name="bookmarks_sync_enabled">مزامنة الإشارات المرجعية والمسارات</string>
+    <string name="bookmarks_sync_now">المزامنة الآن</string>
+    <string name="bookmarks_sync_status_synced">تمت المزامنة في %s</string>
+    <string name="bookmarks_sync_status_running">جارٍ المزامنة…</string>
+    <string name="bookmarks_sync_status_sign_in">يلزم تسجيل الدخول</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ممتلئ</string>
+    <string name="bookmarks_sync_status_error">فشلت المزامنة: %s</string>
+    <string name="bookmarks_sync_delete_cloud">حذف البيانات من Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">هل تريد حذف الإشارات المرجعية والمسارات المتزامنة من Google Drive؟ ستبقى الإشارات المرجعية والمسارات على هذا الجهاز.</string>
+    <string name="bookmarks_sync_beta_warning">المزامنة تجريبية. صدِّر نسخة احتياطية من جميع الإشارات المرجعية والمسارات قبل تفعيلها.</string>
+    <string name="bookmarks_sync_export">تصدير</string>
+    <string name="bookmarks_sync_enable">تفعيل</string>
     <string name="search_history_text">عرض عمليات البحث الأخيرة.</string>
     <string name="clear_search">مسح سجل البحث</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">Historique de recherche</string>
     <string name="bookmarks_backup_title">Sauvegarde des signets</string>
     <string name="bookmarks_backup_description">Les signets et parcours sont enregistrés dans la sauvegarde système d\'Android si elle est activée sur cet appareil et qu\'ils ne dépassent pas sa limite de taille.</string>
+    <string name="bookmarks_sync_title">Synchronisation Google Drive (bêta)</string>
+    <string name="bookmarks_sync_enabled">Synchroniser les signets et parcours</string>
+    <string name="bookmarks_sync_now">Synchroniser maintenant</string>
+    <string name="bookmarks_sync_status_synced">Synchronisé à %s</string>
+    <string name="bookmarks_sync_status_running">Synchronisation…</string>
+    <string name="bookmarks_sync_status_sign_in">Connexion requise</string>
+    <string name="bookmarks_sync_status_quota">Google Drive est plein</string>
+    <string name="bookmarks_sync_status_error">Échec de la synchronisation : %s</string>
+    <string name="bookmarks_sync_delete_cloud">Supprimer les données de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Supprimer les signets et parcours synchronisés de Google Drive ? Les signets et parcours de cet appareil sont conservés.</string>
+    <string name="bookmarks_sync_beta_warning">La synchronisation est en bêta. Exportez une sauvegarde de tous les signets et parcours avant de l\'activer.</string>
+    <string name="bookmarks_sync_export">Exporter</string>
+    <string name="bookmarks_sync_enable">Activer</string>
     <string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
     <string name="clear_search">Effacer l\'historique de recherche</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

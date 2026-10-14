@@ -345,6 +345,19 @@
     <string name="search_history_title">Soekgeskiedenis</string>
     <string name="bookmarks_backup_title">Rugsteun van boekmerke</string>
     <string name="bookmarks_backup_description">Boekmerke en paaie word in die Android-stelselrugsteun gestoor as dit op hierdie toestel geaktiveer is en hulle binne die groottelimiet daarvan pas.</string>
+    <string name="bookmarks_sync_title">Google Drive-sinchronisasie (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinchroniseer boekmerke en paaie</string>
+    <string name="bookmarks_sync_now">Sinchroniseer nou</string>
+    <string name="bookmarks_sync_status_synced">Gesinchroniseer om %s</string>
+    <string name="bookmarks_sync_status_running">Sinchroniseer tans…</string>
+    <string name="bookmarks_sync_status_sign_in">Aanmelding vereis</string>
+    <string name="bookmarks_sync_status_quota">Google Drive is vol</string>
+    <string name="bookmarks_sync_status_error">Sinchronisasie het misluk: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Skrap data uit Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Skrap gesinchroniseerde boekmerke en paaie uit Google Drive? Boekmerke en paaie op hierdie toestel bly.</string>
+    <string name="bookmarks_sync_beta_warning">Sinchronisasie is in beta. Voer \'n rugsteun van alle boekmerke en paaie uit voordat jy dit aktiveer.</string>
+    <string name="bookmarks_sync_export">Voer uit</string>
+    <string name="bookmarks_sync_enable">Aktiveer</string>
     <string name="search_history_text">Bekyk al u onlangse soektogte.</string>
     <string name="clear_search">Wis soekgeskiedenis</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">Søkehistorikk</string>
     <string name="bookmarks_backup_title">Sikkerhetskopi av bokmerker</string>
     <string name="bookmarks_backup_description">Bokmerker og ruter lagres i Androids systemsikkerhetskopi hvis den er aktivert på denne enheten og de ikke overskrider dens størrelsesgrense.</string>
+    <string name="bookmarks_sync_title">Synkronisering med Google Disk (beta)</string>
+    <string name="bookmarks_sync_enabled">Synkroniser bokmerker og ruter</string>
+    <string name="bookmarks_sync_now">Synkroniser nå</string>
+    <string name="bookmarks_sync_status_synced">Synkronisert kl. %s</string>
+    <string name="bookmarks_sync_status_running">Synkroniserer…</string>
+    <string name="bookmarks_sync_status_sign_in">Pålogging kreves</string>
+    <string name="bookmarks_sync_status_quota">Google Disk er full</string>
+    <string name="bookmarks_sync_status_error">Synkronisering mislyktes: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Slett data fra Google Disk</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Vil du slette synkroniserte bokmerker og ruter fra Google Disk? Bokmerker og ruter på denne enheten beholdes.</string>
+    <string name="bookmarks_sync_beta_warning">Synkronisering er i beta. Eksporter en sikkerhetskopi av alle bokmerker og ruter før du slår den på.</string>
+    <string name="bookmarks_sync_export">Eksporter</string>
+    <string name="bookmarks_sync_enable">Aktiver</string>
     <string name="search_history_text">Vis de siste søkene raskt.</string>
     <string name="clear_search">Tøm søkehistorikk</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

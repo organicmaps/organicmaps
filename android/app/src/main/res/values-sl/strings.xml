@@ -345,6 +345,19 @@
     <string name="search_history_title">Zgodovina iskanja</string>
     <string name="bookmarks_backup_title">Varnostna kopija zaznamkov</string>
     <string name="bookmarks_backup_description">Zaznamki in sledi se shranijo v sistemsko varnostno kopijo Androida, če je na tej napravi vklopljena in ne presegajo njene omejitve velikosti.</string>
+    <string name="bookmarks_sync_title">Sinhronizacija z Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinhroniziraj zaznamke in sledi</string>
+    <string name="bookmarks_sync_now">Sinhroniziraj zdaj</string>
+    <string name="bookmarks_sync_status_synced">Sinhronizirano ob %s</string>
+    <string name="bookmarks_sync_status_running">Sinhroniziranje…</string>
+    <string name="bookmarks_sync_status_sign_in">Potrebna je prijava</string>
+    <string name="bookmarks_sync_status_quota">Google Drive je poln</string>
+    <string name="bookmarks_sync_status_error">Sinhronizacija ni uspela: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Izbriši podatke iz Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ali želite izbrisati sinhronizirane zaznamke in sledi iz Google Drive? Zaznamki in sledi v tej napravi ostanejo.</string>
+    <string name="bookmarks_sync_beta_warning">Sinhronizacija je v različici beta. Pred vklopom izvozite varnostno kopijo vseh zaznamkov in sledi.</string>
+    <string name="bookmarks_sync_export">Izvozi</string>
+    <string name="bookmarks_sync_enable">Omogoči</string>
     <string name="search_history_text">Oglejte si svoja nedavna iskanja.</string>
     <string name="clear_search">Počisti zgodovino iskanja</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

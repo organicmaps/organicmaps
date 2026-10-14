@@ -345,6 +345,19 @@
     <string name="search_history_title">Гісторыя пошуку</string>
     <string name="bookmarks_backup_title">Рэзервовая копія закладак</string>
     <string name="bookmarks_backup_description">Закладкі і трэкі захоўваюцца ў сістэмнай рэзервовай копіі Android, калі яна ўключана на прыладзе і яны не перавышаюць яе ліміт памеру.</string>
+    <string name="bookmarks_sync_title">Сінхранізацыя з Google Дыскам (бэта)</string>
+    <string name="bookmarks_sync_enabled">Сінхранізаваць закладкі і трэкі</string>
+    <string name="bookmarks_sync_now">Сінхранізаваць зараз</string>
+    <string name="bookmarks_sync_status_synced">Сінхранізавана а %s</string>
+    <string name="bookmarks_sync_status_running">Сінхранізацыя…</string>
+    <string name="bookmarks_sync_status_sign_in">Патрэбны ўваход</string>
+    <string name="bookmarks_sync_status_quota">Google Дыск запоўнены</string>
+    <string name="bookmarks_sync_status_error">Памылка сінхранізацыі: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Выдаліць даныя з Google Дыска</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Выдаліць сінхранізаваныя закладкі і трэкі з Google Дыска? Закладкі і трэкі на гэтай прыладзе застануцца.</string>
+    <string name="bookmarks_sync_beta_warning">Сінхранізацыя ў бэта-версіі. Перад уключэннем экспартуйце рэзервовую копію ўсіх закладак і трэкаў.</string>
+    <string name="bookmarks_sync_export">Экспартаваць</string>
+    <string name="bookmarks_sync_enable">Уключыць</string>
     <string name="search_history_text">Прагляд апошніх выкарыстаных пошукавых запытаў.</string>
     <string name="clear_search">Ачысціць гісторыю пошуку</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

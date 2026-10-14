@@ -345,6 +345,19 @@
     <string name="search_history_title">Cronologia delle ricerche</string>
     <string name="bookmarks_backup_title">Backup dei preferiti</string>
     <string name="bookmarks_backup_description">I preferiti e le tracce vengono salvati nel backup di sistema di Android, se è attivo su questo dispositivo e non superano il suo limite di dimensione.</string>
+    <string name="bookmarks_sync_title">Sincronizzazione con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizza preferiti e tracce</string>
+    <string name="bookmarks_sync_now">Sincronizza ora</string>
+    <string name="bookmarks_sync_status_synced">Sincronizzato alle %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizzazione…</string>
+    <string name="bookmarks_sync_status_sign_in">Accesso richiesto</string>
+    <string name="bookmarks_sync_status_quota">Google Drive è pieno</string>
+    <string name="bookmarks_sync_status_error">Sincronizzazione non riuscita: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Elimina i dati da Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Eliminare i preferiti e le tracce sincronizzati da Google Drive? I preferiti e le tracce su questo dispositivo restano.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronizzazione è in beta. Esporta un backup di tutti i preferiti e le tracce prima di attivarla.</string>
+    <string name="bookmarks_sync_export">Esporta</string>
+    <string name="bookmarks_sync_enable">Attiva</string>
     <string name="search_history_text">Visualizza le ricerche recenti.</string>
     <string name="clear_search">Elimina cronologia ricerche</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">Hakuhistoria</string>
     <string name="bookmarks_backup_title">Kirjanmerkkien varmuuskopio</string>
     <string name="bookmarks_backup_description">Kirjanmerkit ja reitit tallennetaan Androidin järjestelmävarmuuskopioon, jos se on käytössä tässä laitteessa eivätkä ne ylitä sen kokorajoitusta.</string>
+    <string name="bookmarks_sync_title">Google Drive -synkronointi (beta)</string>
+    <string name="bookmarks_sync_enabled">Synkronoi kirjanmerkit ja reitit</string>
+    <string name="bookmarks_sync_now">Synkronoi nyt</string>
+    <string name="bookmarks_sync_status_synced">Synkronoitu klo %s</string>
+    <string name="bookmarks_sync_status_running">Synkronoidaan…</string>
+    <string name="bookmarks_sync_status_sign_in">Kirjautuminen vaaditaan</string>
+    <string name="bookmarks_sync_status_quota">Google Drive on täynnä</string>
+    <string name="bookmarks_sync_status_error">Synkronointi epäonnistui: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Poista tiedot Google Drivesta</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Poistetaanko synkronoidut kirjanmerkit ja reitit Google Drivesta? Tämän laitteen kirjanmerkit ja reitit säilyvät.</string>
+    <string name="bookmarks_sync_beta_warning">Synkronointi on beta-vaiheessa. Vie varmuuskopio kaikista kirjanmerkeistä ja reiteistä ennen sen käyttöönottoa.</string>
+    <string name="bookmarks_sync_export">Vie</string>
+    <string name="bookmarks_sync_enable">Ota käyttöön</string>
     <string name="search_history_text">Näytä viimeaikaiset hakusi.</string>
     <string name="clear_search">Poista hakuhistoria</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

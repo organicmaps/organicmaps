@@ -345,6 +345,19 @@
     <string name="search_history_title">História vyhľadávania</string>
     <string name="bookmarks_backup_title">Záloha záložiek</string>
     <string name="bookmarks_backup_description">Záložky a stopy sa ukladajú do systémovej zálohy Androidu, ak je na tomto zariadení zapnutá a neprekračujú jej limit veľkosti.</string>
+    <string name="bookmarks_sync_title">Synchronizácia s Diskom Google (beta)</string>
+    <string name="bookmarks_sync_enabled">Synchronizovať záložky a stopy</string>
+    <string name="bookmarks_sync_now">Synchronizovať teraz</string>
+    <string name="bookmarks_sync_status_synced">Synchronizované o %s</string>
+    <string name="bookmarks_sync_status_running">Synchronizácia…</string>
+    <string name="bookmarks_sync_status_sign_in">Vyžaduje sa prihlásenie</string>
+    <string name="bookmarks_sync_status_quota">Disk Google je plný</string>
+    <string name="bookmarks_sync_status_error">Synchronizácia zlyhala: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Odstrániť údaje z Disku Google</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Odstrániť synchronizované záložky a stopy z Disku Google? Záložky a stopy v tomto zariadení zostanú.</string>
+    <string name="bookmarks_sync_beta_warning">Synchronizácia je vo verzii beta. Pred zapnutím exportujte zálohu všetkých záložiek a stôp.</string>
+    <string name="bookmarks_sync_export">Exportovať</string>
+    <string name="bookmarks_sync_enable">Povoliť</string>
     <string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
     <string name="clear_search">Vymazať históriu vyhľadávania</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

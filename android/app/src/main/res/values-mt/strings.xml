@@ -345,6 +345,19 @@
     <string name="search_history_title">Kronoloġija tat-tiftix</string>
     <string name="bookmarks_backup_title">Rizerva tal-werrejja</string>
     <string name="bookmarks_backup_description">Il-werrejja u l-korsiji jiġu ssejvjati fir-rizerva tas-sistema Android jekk tkun attivata f’dan it-tagħmir u ma jaqbżux il-limitu tad-daqs tagħha.</string>
+    <string name="bookmarks_sync_title">Sinkronizzazzjoni ma’ Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Issinkronizza l-werrejja u l-korsiji</string>
+    <string name="bookmarks_sync_now">Issinkronizza issa</string>
+    <string name="bookmarks_sync_status_synced">Sinkronizzat fil-%s</string>
+    <string name="bookmarks_sync_status_running">Qed jissinkronizza…</string>
+    <string name="bookmarks_sync_status_sign_in">Meħtieġ id-dħul</string>
+    <string name="bookmarks_sync_status_quota">Google Drive hu mimli</string>
+    <string name="bookmarks_sync_status_error">Is-sinkronizzazzjoni falliet: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ħassar id-data minn Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Tħassar il-werrejja u l-korsiji sinkronizzati minn Google Drive? Il-werrejja u l-korsiji f’dan it-tagħmir jibqgħu.</string>
+    <string name="bookmarks_sync_beta_warning">Is-sinkronizzazzjoni hija f’verżjoni beta. Qabel tattivaha, esporta kopja ta’ riżerva tal-werrejja u l-korsiji kollha.</string>
+    <string name="bookmarks_sync_export">Esporta</string>
+    <string name="bookmarks_sync_enable">Attiva</string>
     <string name="search_history_text">Ara t-tfittxijiet riċenti tiegħek.</string>
     <string name="clear_search">Neħħi l-kronoloġija tat-tiftix</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">Riwayat Pencarian</string>
     <string name="bookmarks_backup_title">Cadangan penanda</string>
     <string name="bookmarks_backup_description">Penanda dan jalur disimpan di cadangan sistem Android jika diaktifkan di perangkat ini dan tidak melebihi batas ukurannya.</string>
+    <string name="bookmarks_sync_title">Sinkronisasi Google Drive (Beta)</string>
+    <string name="bookmarks_sync_enabled">Sinkronkan penanda dan jalur</string>
+    <string name="bookmarks_sync_now">Sinkronkan sekarang</string>
+    <string name="bookmarks_sync_status_synced">Disinkronkan pada %s</string>
+    <string name="bookmarks_sync_status_running">Menyinkronkan…</string>
+    <string name="bookmarks_sync_status_sign_in">Perlu masuk</string>
+    <string name="bookmarks_sync_status_quota">Google Drive penuh</string>
+    <string name="bookmarks_sync_status_error">Sinkronisasi gagal: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Hapus data dari Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Hapus penanda dan jalur yang disinkronkan dari Google Drive? Penanda dan jalur di perangkat ini tetap ada.</string>
+    <string name="bookmarks_sync_beta_warning">Sinkronisasi masih beta. Ekspor cadangan semua penanda dan jalur sebelum mengaktifkannya.</string>
+    <string name="bookmarks_sync_export">Ekspor</string>
+    <string name="bookmarks_sync_enable">Aktifkan</string>
     <string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
     <string name="clear_search">Bersihkan riwayat pencarian</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

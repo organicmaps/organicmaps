@@ -345,6 +345,19 @@
     <string name="search_history_title">खोज इतिहास</string>
     <string name="bookmarks_backup_title">बुकमार्क बैकअप</string>
     <string name="bookmarks_backup_description">अगर इस डिवाइस पर Android सिस्टम बैकअप चालू है और बुकमार्क व ट्रैक उसकी आकार सीमा से ज़्यादा नहीं हैं, तो वे उसमें सहेजे जाते हैं।</string>
+    <string name="bookmarks_sync_title">Google Drive सिंक (बीटा)</string>
+    <string name="bookmarks_sync_enabled">बुकमार्क और ट्रैक सिंक करें</string>
+    <string name="bookmarks_sync_now">अभी सिंक करें</string>
+    <string name="bookmarks_sync_status_synced">%s पर सिंक किया गया</string>
+    <string name="bookmarks_sync_status_running">सिंक हो रहा है…</string>
+    <string name="bookmarks_sync_status_sign_in">साइन इन करना ज़रूरी है</string>
+    <string name="bookmarks_sync_status_quota">Google Drive भर गया है</string>
+    <string name="bookmarks_sync_status_error">सिंक विफल रहा: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google Drive से डेटा हटाएँ</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">सिंक किए गए बुकमार्क और ट्रैक Google Drive से हटाएँ? इस डिवाइस पर बुकमार्क और ट्रैक बने रहेंगे।</string>
+    <string name="bookmarks_sync_beta_warning">सिंक बीटा में है। इसे चालू करने से पहले सभी बुकमार्क और ट्रैक का बैकअप एक्सपोर्ट करें।</string>
+    <string name="bookmarks_sync_export">एक्सपोर्ट करें</string>
+    <string name="bookmarks_sync_enable">सक्षम करें</string>
     <string name="search_history_text">अपनी हालिया खोजें देखें।</string>
     <string name="clear_search">स्पष्ट इतिहास की खोज</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">Історія пошуку</string>
     <string name="bookmarks_backup_title">Резервна копія міток</string>
     <string name="bookmarks_backup_description">Мітки та треки зберігаються в системній резервній копії Android, якщо її увімкнено на пристрої та вони не перевищують її обмеження за розміром.</string>
+    <string name="bookmarks_sync_title">Синхронізація з Google Диском (бета)</string>
+    <string name="bookmarks_sync_enabled">Синхронізувати мітки та треки</string>
+    <string name="bookmarks_sync_now">Синхронізувати зараз</string>
+    <string name="bookmarks_sync_status_synced">Синхронізовано о %s</string>
+    <string name="bookmarks_sync_status_running">Синхронізація…</string>
+    <string name="bookmarks_sync_status_sign_in">Потрібен вхід</string>
+    <string name="bookmarks_sync_status_quota">Google Диск заповнений</string>
+    <string name="bookmarks_sync_status_error">Помилка синхронізації: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Видалити дані з Google Диска</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Видалити синхронізовані мітки та треки з Google Диска? Мітки та треки на цьому пристрої залишаться.</string>
+    <string name="bookmarks_sync_beta_warning">Синхронізація в бета-версії. Перед увімкненням експортуйте резервну копію всіх міток і треків.</string>
+    <string name="bookmarks_sync_export">Експортувати</string>
+    <string name="bookmarks_sync_enable">Увімкнути</string>
     <string name="search_history_text">Швидкий доступ до нещодавніх результатів пошуку.</string>
     <string name="clear_search">Очистити історію пошуку</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

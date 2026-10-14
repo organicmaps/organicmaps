@@ -345,6 +345,19 @@
     <string name="search_history_title">Sökhistorik</string>
     <string name="bookmarks_backup_title">Säkerhetskopiering av bokmärken</string>
     <string name="bookmarks_backup_description">Bokmärken och rutter sparas i Androids systemsäkerhetskopia om den är aktiverad på den här enheten och de inte överskrider dess storleksgräns.</string>
+    <string name="bookmarks_sync_title">Synkronisering med Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Synkronisera bokmärken och rutter</string>
+    <string name="bookmarks_sync_now">Synkronisera nu</string>
+    <string name="bookmarks_sync_status_synced">Synkroniserades %s</string>
+    <string name="bookmarks_sync_status_running">Synkroniserar…</string>
+    <string name="bookmarks_sync_status_sign_in">Inloggning krävs</string>
+    <string name="bookmarks_sync_status_quota">Google Drive är fullt</string>
+    <string name="bookmarks_sync_status_error">Synkroniseringen misslyckades: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Radera data från Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Vill du radera synkroniserade bokmärken och rutter från Google Drive? Bokmärken och rutter på den här enheten finns kvar.</string>
+    <string name="bookmarks_sync_beta_warning">Synkronisering är i beta. Exportera en säkerhetskopia av alla bokmärken och rutter innan du aktiverar den.</string>
+    <string name="bookmarks_sync_export">Exportera</string>
+    <string name="bookmarks_sync_enable">Aktivera</string>
     <string name="search_history_text">Se senaste sökningar.</string>
     <string name="clear_search">Rensa sökhistorik</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
