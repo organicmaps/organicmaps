@@ -2433,6 +2433,28 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
   TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_TrashCategoryByFilePath)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  std::string const filePath = base::JoinPath(GetBookmarksDirectory(), "file" + std::string{kKmlExtension});
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(filePath, LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml));
+  FileWriter(filePath).Write(kmlString, std::strlen(kmlString));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+
+  auto const groupId = bmManager.GetCategoryByFileName(filePath);
+  TEST_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+  TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */), ());
+
+  TEST_EQUAL(bmManager.GetCategoryByFileName(filePath), kml::kInvalidMarkGroupId, ());
+  TEST(!Platform::IsFileExistsByFullPath(filePath), ());
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategoriesCount(), 1, ());
+
+  bmManager.DeleteRecentlyDeletedCategoriesAtPaths({bmManager.GetRecentlyDeletedCategories()->front().first});
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
 {
   BookmarkManager bmManager(BM_CALLBACKS);

@@ -2,6 +2,7 @@
 #include "app/organicmaps/sdk/bookmarks/data/Bookmark.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkCategory.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/MapObject.hpp"
+#include "app/organicmaps/sdk/core/ScopedEnv.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
 
@@ -13,6 +14,7 @@
 #include "coding/zip_creator.hpp"
 
 #include "platform/localization.hpp"
+#include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "base/macros.hpp"
@@ -266,6 +268,44 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativ
   // `permanently` should be set to false when the Recently Deleted Lists feature be implemented
   return static_cast<jboolean>(
       frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(categoryId, true /* permanently */));
+}
+
+JNIEXPORT jstring Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetBookmarksDir(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, GetBookmarksDirectory());
+}
+
+JNIEXPORT jlong Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetCategoryIdByFile(JNIEnv * env, jclass,
+                                                                                                  jstring path)
+{
+  return static_cast<jlong>(frm()->GetBookmarkManager().GetCategoryByFileName(jni::ToNativeString(env, path)));
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeReloadCategoryFile(JNIEnv * env, jclass,
+                                                                                                jstring path)
+{
+  frm()->GetBookmarkManager().ReloadBookmark(jni::ToNativeString(env, path));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeMoveCategoryToTrash(JNIEnv *, jclass,
+                                                                                                     jlong catId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(
+      static_cast<kml::MarkGroupId>(catId), false /* permanently */));
+}
+
+// Core saves category files on its File thread, so tasks queued here run after every pending save.
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeRunOnFileThread(JNIEnv *, jclass,
+                                                                                             jobject task)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [task = jni::make_global_ref_safe(task)]()
+  {
+    ScopedEnv env(jni::GetJVM());
+    if (!env)
+      return;
+    env->CallVoidMethod(*task, jni::GetMethodID(env.get(), *task, "run", "()V"));
+    jni::HandleJavaException(env.get());
+  });
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject,
