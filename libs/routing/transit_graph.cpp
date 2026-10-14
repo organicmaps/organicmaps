@@ -63,9 +63,9 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimat
     // Gate projections connect a platform or entrance to its road projection. Use realistic offroad
     // time so a few metres of road width do not dominate station choice; apply walking bias separately.
     // Parts of real roads are priced by TransitWorldGraph as a fraction of the real segment weight.
-    ASSERT(m_fake.GetVertex(segment).GetType() == FakeVertex::Type::PureFake, (segment));
-    time = m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
-                                    GetJunction(segment, true /* front */).GetLatLon(), EdgeEstimator::Purpose::ETA);
+    auto const & vertex = m_fake.GetVertex(segment);
+    ASSERT(vertex.GetType() == FakeVertex::Type::PureFake, (segment));
+    time = m_estimator->CalcOffroad(vertex.GetPointFrom(), vertex.GetPointTo(), EdgeEstimator::Purpose::ETA);
   }
 
   double const weight =
