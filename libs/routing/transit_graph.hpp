@@ -8,6 +8,7 @@
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
+#include "routing/transit_info.hpp"
 
 #include "transit/transit_graph_data.hpp"
 #include "transit/transit_types.hpp"
@@ -32,8 +33,8 @@ public:
 
   struct GateInfo
   {
-    transit::Gate m_gate;
-    bool m_isEntrance;
+    TransitInfo::GateSubway m_gate;
+    transit::Weight m_weight;
   };
 
   static bool IsTransitFeature(uint32_t featureId);

@@ -230,7 +230,7 @@ std::unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & s
 
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
   if (auto const * gate = transitGraph.FindGate(segment))
-    return std::make_unique<TransitInfo>(gate->m_gate, gate->m_isEntrance);
+    return std::make_unique<TransitInfo>(gate->m_gate);
 
   if (auto const * edge = transitGraph.FindEdge(segment))
     return std::make_unique<TransitInfo>(*edge);
