@@ -215,6 +215,52 @@ UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_ForEach)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_RepeatedType)
+{
+  char const kCategories[] =
+      "amenity-bench\n"
+      "en:bench\n"
+      "de:bank\n"
+      "\n"
+      "amenity-bench\n"
+      "en:seat\n"
+      "de:sitz\n";
+
+  CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
+  auto const type = classif().GetTypeByPath({"amenity", "bench"});
+
+  vector<string> names;
+  holder.ForEachNameByType(type, [&](CategoriesHolder::Category::Name const & name) { names.push_back(name.m_name); });
+  sort(names.begin(), names.end());
+  TEST_EQUAL(names, (vector<string>{"bank", "bench", "seat", "sitz"}), ());
+
+  holder.ForEachNameByType(classif().GetTypeByPath({"place", "village"}),
+                           [&](CategoriesHolder::Category::Name const &) { TEST(false, ("Type has no records")); });
+
+  auto check = [type](CategoriesIndex const & index, string const & query, bool matches)
+  {
+    vector<uint32_t> result;
+    index.GetAssociatedTypes(query, result);
+    TEST_EQUAL(result, (matches ? vector<uint32_t>{type} : vector<uint32_t>{}), (query));
+  };
+
+  CategoriesIndex index(holder);
+  index.AddCategoryByTypeAndLang(type, CategoriesHolder::kEnglishCode);
+  for (auto const query : {"bench", "seat"})
+    check(index, query, true);
+  for (auto const query : {"bank", "sitz"})
+    check(index, query, false);
+
+  index.AddCategoryByTypeAndLang(type, CategoriesHolder::MapLocaleToInteger("de"));
+  for (auto const query : {"bank", "sitz"})
+    check(index, query, true);
+
+  CategoriesIndex allLanguages(holder);
+  allLanguages.AddCategoryByTypeAllLangs(type);
+  for (auto const query : {"bench", "seat", "bank", "sitz"})
+    check(allLanguages, query, true);
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_Smoke)
 {
   CategoriesHolder holder(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));

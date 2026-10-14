@@ -43,6 +43,27 @@ UNIT_TEST(NewFeatureCategories_RegionalLocaleKeepsBaseLanguage)
   TEST_GREATER(search("zh-TW", "自動櫃員機"), 0, ("zh-TW must keep the Traditional names"));
 }
 
+UNIT_TEST(NewFeatureCategories_RepeatedTypeRecords)
+{
+  classificator::Load();
+
+  pugi::xml_document doc;
+  TEST(doc.load_string(R"(
+    <omaps><editor><types><type id="shop-car_repair" /></types></editor></omaps>
+  )"),
+       ());
+  editor::EditorConfig config;
+  config.SetConfig(doc);
+  osm::NewFeatureCategories categories(config);
+  categories.AddLanguage("en");
+
+  osm::NewFeatureCategories::TypeNames const expected = {"shop-car_repair"};
+  TEST_EQUAL(categories.GetAllCreatableTypeNames(), expected, ());
+  for (auto const query : {"Car Repair Workshop", "garage", "Tyre Repair", "tyres", "puncture repair",
+                           "tyre puncture repair", "flat tyre repair", "tyre replacement"})
+    TEST_EQUAL(categories.Search(query), expected, (query));
+}
+
 UNIT_TEST(NewFeatureCategories_UniqueNames)
 {
   classificator::Load();
