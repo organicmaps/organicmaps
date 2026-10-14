@@ -28,6 +28,9 @@ final class Esp32BleTransport: NSObject {
     static let connectTimeout: TimeInterval = 15
     // A new box waits this long for a paired one to be found: both may be near.
     static let newBoxDelay: TimeInterval = 3
+    // A paired box answers HELLO at once over an encrypted connection. One that stays silent is connected again: the
+    // connection has stayed unencrypted, and the box would drop it only after 60 s (October 13, three times in a row).
+    static let silenceTimeout: TimeInterval = 5
     // The box doesn't answer the commands, a few of them wait for the previous one to leave at most.
     static let maxOutgoing = 16
     // The box takes the pieces of a firmware 4096 bytes ahead of what it has written: 17 pieces.
@@ -44,8 +47,12 @@ final class Esp32BleTransport: NSObject {
   private var ota: CBCharacteristic?
   /// Subscribed to the lines of the box.
   private var isReady = false
-  // The box has sent data over this connection: it is encrypted, so the box is paired.
+  /// The box has sent data over this connection: it is encrypted, so the box is paired.
   private var isHeard = false
+  /// The box accepted a new phone when it was found: the user may be entering its code.
+  private var acceptsNewPhone = false
+  // A line written with a response waits for it.
+  private var isWriting = false
   private var outgoing: [Data] = []
   // The pieces of a firmware go after the lines: a line a second keeps the connection with the box.
   private var firmware: [Data] = []
@@ -160,9 +167,10 @@ final class Esp32BleTransport: NSObject {
       && bytes[3] & Constants.pairingOpenFlag != 0
   }
 
-  private func connect(_ peripheral: CBPeripheral) {
+  private func connect(_ peripheral: CBPeripheral, acceptsNewPhone: Bool) {
     central?.stopScan()
     self.peripheral = peripheral
+    self.acceptsNewPhone = acceptsNewPhone
     peripheral.delegate = self
     setState(.connecting)
     central?.connect(peripheral)
@@ -185,6 +193,8 @@ final class Esp32BleTransport: NSObject {
     ota = nil
     isReady = false
     isHeard = false
+    acceptsNewPhone = false
+    isWriting = false
     outgoing.removeAll()
     firmware.removeAll()
   }
@@ -205,6 +215,14 @@ final class Esp32BleTransport: NSObject {
 
   private func writeNext() {
     guard let peripheral, let rx else { return }
+    // Until the box is heard the connection may be unencrypted. The box drops a write without response then silently,
+    // and refuses a write with a response: iOS encrypts the connection on that, or asks for the code of a new box.
+    if !isHeard {
+      guard !isWriting, !outgoing.isEmpty else { return }
+      isWriting = true
+      peripheral.writeValue(outgoing.removeFirst(), for: rx, type: .withResponse)
+      return
+    }
     // Without a response: the box answers a command with a line, and its data are the answer to HELLO. It tells how
     // much of a firmware it has got in lines too. A write iOS can't take now would be dropped.
     while peripheral.canSendWriteWithoutResponse {
@@ -234,9 +252,10 @@ extension Esp32BleTransport: CBCentralManagerDelegate {
                       advertisementData: [String: Any], rssi RSSI: NSNumber) {
     guard isOpen, self.peripheral == nil else { return }
     let known = knownBoxes.contains(peripheral.identifier.uuidString)
+    let pairingOpen = isPairingOpen(advertisementData)
     if !known {
       // The box accepts a new phone for two minutes after it is powered, the system asks for its code.
-      guard isPairingOpen(advertisementData) else {
+      guard pairingOpen else {
         setState(.pairingClosed)
         return
       }
@@ -246,8 +265,8 @@ extension Esp32BleTransport: CBCentralManagerDelegate {
         return
       }
     }
-    LOG(.info, "Found \(peripheral.identifier) rssi \(RSSI) known \(known)")
-    connect(peripheral)
+    LOG(.info, "Found \(peripheral.identifier) rssi \(RSSI) known \(known) pairing open \(pairingOpen)")
+    connect(peripheral, acceptsNewPhone: pairingOpen)
   }
 
   func centralManager(_: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -308,16 +327,39 @@ extension Esp32BleTransport: CBPeripheralDelegate {
     }
     LOG(.info, "Subscribed")
     isReady = true
+    // The core sends HELLO now.
     setState(.connected)
+    // A box accepting a new phone may wait for the user to enter its code, even a paired one: the phone may have
+    // forgotten it.
+    if knownBoxes.contains(peripheral.identifier.uuidString), !acceptsNewPhone {
+      schedule(after: Constants.silenceTimeout) { [weak self] in
+        LOG(.warning, "No data from the box")
+        self?.restartLater()
+      }
+    }
   }
 
   func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
     guard peripheral === self.peripheral, error == nil, let data = characteristic.value, !data.isEmpty else { return }
     if !isHeard {
       isHeard = true
+      timer?.cancel()
       remember(peripheral)
+      // The lines waiting for a write with a response go without it now.
+      writeNext()
     }
     NoGps.onEsp32BleBytes(data)
+  }
+
+  func peripheral(_ peripheral: CBPeripheral, didWriteValueFor _: CBCharacteristic, error: Error?) {
+    guard peripheral === self.peripheral else { return }
+    isWriting = false
+    // E.g. "Insufficient Authentication" while iOS encrypts the connection. The box has forgotten the phone if it
+    // keeps coming (docs/nogps/esp32-firmware-spec.md, BLE-15).
+    if let error {
+      LOG(.warning, "Not written: \(error)")
+    }
+    writeNext()
   }
 
   func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
