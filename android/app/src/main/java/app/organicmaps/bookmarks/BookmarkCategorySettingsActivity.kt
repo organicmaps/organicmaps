@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import app.organicmaps.R
 import app.organicmaps.base.BaseMwmFragmentActivity
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory
+import app.organicmaps.sync.BookmarksSync
 
 class BookmarkCategorySettingsActivity : BaseMwmFragmentActivity() {
 
@@ -27,6 +28,18 @@ class BookmarkCategorySettingsActivity : BaseMwmFragmentActivity() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return
         val state = window.attributes.softInputMode and WindowManager.LayoutParams.SOFT_INPUT_MASK_ADJUST.inv()
         window.setSoftInputMode(state or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+    }
+
+    // Counts as a bookmarks screen, so sync never trashes the category edited here: core aborts on a category id
+    // that is gone.
+    override fun onResume() {
+        super.onResume()
+        BookmarksSync.onBookmarksScreenResumed()
+    }
+
+    override fun onPause() {
+        BookmarksSync.onBookmarksScreenPaused(this)
+        super.onPause()
     }
 
     override fun getContentLayoutResId(): Int = R.layout.fragment_container_layout
