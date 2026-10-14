@@ -4,18 +4,13 @@
 
 #include "indexer/classificator.hpp"
 
-#include "platform/preferred_languages.hpp"
-
 #include <QtWidgets/QAbstractButton>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
 
-CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories & cats) : QDialog(parent)
+CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories const & cats) : QDialog(parent)
 {
-  cats.AddLanguage("en");
-  cats.AddLanguage(languages::GetCurrentNorm());
-
   QListWidget * allSortedList = new QListWidget();
 
   for (auto const & name : cats.GetAllCreatableTypeNames())
