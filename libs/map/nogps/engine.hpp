@@ -197,6 +197,9 @@ public:
 
   /// A position from the platform: GPS, cell towers or both mixed.
   void OnFix(Fix const & fix);
+  /// The compass of the phone, degrees: it is only written to the log of a drive, to see if it can tell the way the
+  /// car looks when GPS has not told it.
+  void OnCompass(double headingDeg, double accuracyDeg);
   /// The last known network position at the start: GPS is verified against it before a fresh one comes.
   void OnLastKnownNetworkFix(Fix const & fix);
 
@@ -336,6 +339,13 @@ private:
   // the mix, Android may have both.
   std::optional<Fix> m_rawGps;
   std::optional<Fix> m_rawFused;
+  struct Compass
+  {
+    double m_headingDeg = 0;
+    double m_accuracyDeg = 0;
+    int64_t m_timeMs = 0;
+  };
+  std::optional<Compass> m_compass;
   // After the manual mode the next real position must replace the manual one, even if it is less accurate.
   bool m_acceptNextLocation = false;
   // The source of the last position passed to the core, used to check the route when the source changes.

@@ -133,6 +133,8 @@ NS_SWIFT_NAME(NoGps)
 
 /// A position from CoreLocation. The chosen position comes back to MWMLocationManager.
 + (void)onLocation:(CLLocation *)location;
+/// A valid heading of the compass, only written to the log of a drive.
++ (void)onHeading:(CLHeading *)heading;
 
 + (void)start;
 + (void)stop;
