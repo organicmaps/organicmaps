@@ -200,7 +200,14 @@ void Engine::OnFix(Fix const & location)
   bool const goodGps = SourceOf(location) == PositionSource::Gps && AgeMs(location) <= kGpsMaxAgeMs &&
                        IsAccuracySatisfied(location) && location.m_accuracyM <= kGpsMaxAccuracyM;
   if (goodGps)
+  {
+    // A position given twice tells nothing about how often they come.
+    if (!m_lastGoodGps)
+      m_lastGoodGpsGapMs = std::numeric_limits<int64_t>::max();
+    else if (location.m_timeMs != m_lastGoodGps->m_timeMs)
+      m_lastGoodGpsGapMs = location.m_timeMs - m_lastGoodGps->m_timeMs;
     m_lastGoodGps = location;
+  }
   if (m_manualMode && goodGps && IsGpsBack(location))
   {
     LOG(LINFO, ("GPS is trusted again, leaving the manual mode, location =", location.m_position));
@@ -1185,8 +1192,11 @@ void Engine::ApplyManualLocation()
 
 std::optional<Fix> Engine::GetWorkingGps() const
 {
-  if (!m_lastGoodGps || m_spoofingDetector.IsSpoofed() || AgeMs(*m_lastGoodGps) > kGpsStatusMaxAgeMs)
+  if (!m_lastGoodGps || m_spoofingDetector.IsSpoofed() || AgeMs(*m_lastGoodGps) > kGpsStatusMaxAgeMs ||
+      m_lastGoodGpsGapMs > kGpsStatusMaxGapMs)
+  {
     return {};
+  }
   return m_lastGoodGps;
 }
 

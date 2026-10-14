@@ -1665,6 +1665,41 @@ UNIT_TEST(NoGps_Engine_ManualModeWhenGpsIsLostWhileNavigating)
   TEST_EQUAL(env.Last().m_provider, Provider::Gps, ());
 }
 
+UNIT_TEST(NoGps_Engine_SeldomAccuratePositionsAreNotGpsBack)
+{
+  Env env(false /* inertial */);
+  env.m_map.m_navigating = true;
+  env.DriveGps(10, 0, 10);
+  env.m_clock.Advance(Engine::kGpsLostMs + 1500);
+  TEST(env.m_engine.IsManualMode(), ());
+
+  // The fused provider repeats the Wi-Fi positions as accurate ones now and then, sometimes twice.
+  auto const fused = [&env]
+  {
+    auto fix = GpsAt(env.m_clock, 90, 0, {}, 0.0, 3);
+    fix.m_provider = Provider::Fused;
+    return fix;
+  };
+  for (int i = 0; i < 5; ++i)
+  {
+    env.m_clock.Advance(6000);
+    env.m_engine.OnFix(fused());
+    env.m_engine.OnFix(fused());
+  }
+  TEST(!env.m_engine.GetStatus().m_workingGpsAccuracyM, ());
+  TEST(env.m_engine.IsManualMode(), ());
+
+  // GPS gives a position every second.
+  for (int i = 0; i < 2; ++i)
+  {
+    env.m_clock.Advance(1000);
+    env.m_engine.OnFix(GpsAt(env.m_clock, 90, 0, {}, 0.0));
+  }
+  auto const accuracyM = env.m_engine.GetStatus().m_workingGpsAccuracyM;
+  TEST(accuracyM, ());
+  TEST_EQUAL(*accuracyM, 5, ());
+}
+
 UNIT_TEST(NoGps_Engine_ManualModeWhenGpsIsSpoofed)
 {
   Env env(false /* inertial */);

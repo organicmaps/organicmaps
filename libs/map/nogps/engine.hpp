@@ -14,6 +14,7 @@
 #include "base/thread_checker.hpp"
 
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <string>
@@ -168,6 +169,10 @@ public:
   static int64_t constexpr kTripLogIntervalMs = 1000;
   // GPS gives a position every second, a longer pause means it is lost.
   static int64_t constexpr kGpsStatusMaxAgeMs = 10'000;
+  // GPS works when it gives a position every second, every 3 while the map does not follow it. The fused provider
+  // of Android repeats the cell tower and Wi-Fi positions as accurate ones every 6: without GPS in the phone on
+  // October 14 they were 3 m accurate, and the user was told that GPS was back.
+  static int64_t constexpr kGpsStatusMaxGapMs = 4000;
   // Cell tower positions come once in several seconds.
   static int64_t constexpr kNetworkStatusMaxAgeMs = 60'000;
   // The trusted position is saved not more often than this.
@@ -334,6 +339,8 @@ private:
   // The last GPS position good enough to be used. It is kept in the manual mode too, where GPS is not used,
   // to tell the user that GPS works again.
   std::optional<Fix> m_lastGoodGps;
+  // Since the good GPS position before it.
+  int64_t m_lastGoodGpsGapMs = std::numeric_limits<int64_t>::max();
   // The last positions as the platform gave them, also not trusted or ignored: the log of a drive has them to
   // compare the shown position with. The satellites alone, and mixed with Wi-Fi and cell towers: iOS has only
   // the mix, Android may have both.
