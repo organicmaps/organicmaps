@@ -274,12 +274,17 @@ final class RoutingBottomMenuController
   void showTransitInfo(@NonNull TransitRouteInfo info)
   {
     refreshManageRoute();
-    View transit_time = mAltitudeChartFrame.findViewById(R.id.transit_time);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.hide(mError, mTimeElevationLine, mTimeVehicle);
     setStartState(StartState.DISABLED);
-    UiUtils.show(transit_time, mTransitRecyclerView);
-    mTransitAdapter.setItems(info.getTransitSteps());
+    List<TransitStepInfo> steps = info.getTransitSteps();
+    mTransitAdapter.setItems(steps);
+    if (steps.isEmpty())
+    {
+      notifyVisibilityChanged();
+      return;
+    }
+    UiUtils.show(mTransitTime, mTransitRecyclerView);
 
     TextView totalTimeView = mAltitudeChartFrame.findViewById(R.id.total_time);
     totalTimeView.setText(Utils.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));

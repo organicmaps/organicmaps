@@ -572,6 +572,21 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   ASSERT_EQUAL(subroute.m_polyline.GetSize(), 1, ());
   ASSERT_GREATER_OR_EQUAL(subroute.m_baseDistance, 0.0, ());
 
+  if (m_transitDataUnavailable)
+    return false;
+
+  TransitDisplayInfos transitDisplayInfos;
+  CollectTransitDisplayInfo(segments, transitDisplayInfos);
+  if (!m_transitReadManager.GetTransitDisplayInfo(transitDisplayInfos))
+  {
+    // All subroutes share cumulative counters, so one unread leg makes the summary incomplete.
+    m_transitDataUnavailable = true;
+    m_routeInfo = {};
+    m_transitMarks.clear();
+    m_pendingStopIndex.reset();
+    return false;
+  }
+
   if (m_subrouteIndex > 0)
   {
     TransitStepInfo step;
@@ -581,13 +596,6 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   }
 
   ++m_subrouteIndex;
-
-  TransitDisplayInfos transitDisplayInfos;
-  CollectTransitDisplayInfo(segments, transitDisplayInfos);
-
-  // Read transit display info.
-  if (!m_transitReadManager.GetTransitDisplayInfo(transitDisplayInfos))
-    return false;
 
   subroute.m_maxPixelWidth = m_maxSubrouteWidth;
   subroute.m_styleType = df::SubrouteStyleType::Multiple;

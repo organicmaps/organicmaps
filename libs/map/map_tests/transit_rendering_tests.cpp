@@ -55,10 +55,19 @@ public:
     });
   }
 
-  TransitRouteDisplay MakeDisplay()
+  TransitRouteDisplay MakeDisplay(BookmarkManager * bookmarks = nullptr)
   {
     return TransitRouteDisplay(m_reader, [this](routing::NumMwmId) { return m_id; },
-                               [this]() -> StringsBundle const & { return m_strings; }, nullptr, m_symbols);
+                               [this]() -> StringsBundle const & { return m_strings; }, bookmarks, m_symbols);
+  }
+
+  void UnregisterMap() { TEST(m_dataSource.DeregisterMap(m_files.back().GetCountryFile()), ()); }
+
+  void RestoreMap()
+  {
+    auto const result = m_dataSource.RegisterMap(m_files.back());
+    TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
+    m_id = result.first;
   }
 
 private:
@@ -159,6 +168,55 @@ void TestTransferMarkerAxis(routing::transit::StopId firstStop)
   {
     TEST_ALMOST_EQUAL_ABS(m2::DotProduct(transfer.m_up, (points[3] - points[2]).Normalize()), 0.0, 1e-12, ());
   }
+}
+
+void TestUnavailableSummary(bool hasPrefix)
+{
+  Fixture fixture;
+  StringsBundle const strings;
+  BookmarkManager bookmarks(BookmarkManager::Callbacks([&strings]() -> StringsBundle const & { return strings; },
+                                                       nullptr, nullptr, nullptr, nullptr, nullptr, nullptr));
+  auto display = fixture.MakeDisplay(&bookmarks);
+  auto const segments = MakeSegments();
+  auto makeSubroute = [&](size_t begin)
+  {
+    df::Subroute subroute;
+    subroute.m_polyline.Add(begin == 0 ? m2::PointD{} : segments[begin - 1].GetJunction().GetPoint());
+    subroute.m_baseDistance = begin == 0 ? 0 : segments[begin - 1].GetDistFromBeginningMerc();
+    return subroute;
+  };
+  if (hasPrefix)
+  {
+    Process(display, segments, 0, 3);
+    TEST(!display.GetRouteInfo().m_steps.empty(), ());
+  }
+  fixture.UnregisterMap();
+  size_t const begin = hasPrefix ? 3 : 0;
+  auto subroute = makeSubroute(begin);
+  TEST(!display.ProcessSubroute({segments.begin() + begin, segments.end()}, subroute), (hasPrefix));
+  TEST(display.GetRouteInfo().m_steps.empty(), (hasPrefix));
+
+  routing::RouteSegment walk(routing::Segment(0, 0, 5, true), routing::turns::TurnItem(),
+                             geometry::PointWithAltitude({0.00006, 0.00002}, 0), routing::RouteSegment::RoadNameInfo());
+  walk.SetDistancesAndTime(60, 0.00006, 270);
+  subroute = makeSubroute(segments.size());
+  TEST(!display.ProcessSubroute({walk}, subroute), (hasPrefix));
+  auto const & info = display.GetRouteInfo();
+  TEST(info.m_steps.empty(), (hasPrefix));
+  TEST_EQUAL(info.m_totalTimeInSec, 0, ());
+  TEST_EQUAL(info.m_totalDistInMeters, 0, ());
+  TEST_EQUAL(info.m_totalPedestrianTimeInSec, 0, ());
+  TEST_EQUAL(info.m_totalPedestrianDistInMeters, 0, ());
+  TEST(info.m_totalDistanceStr.empty(), ());
+  display.CreateTransitMarks();
+  TEST(bookmarks.GetUserMarkIds(UserMark::Type::TRANSIT).empty(), (hasPrefix));
+
+  fixture.RestoreMap();
+  subroute = makeSubroute(0);
+  TEST(!display.ProcessSubroute(segments, subroute), (hasPrefix));
+  auto rebuiltDisplay = fixture.MakeDisplay();
+  TEST(rebuiltDisplay.ProcessSubroute(segments, subroute), (hasPrefix));
+  TEST(!rebuiltDisplay.GetRouteInfo().m_steps.empty(), ());
 }
 }  // namespace
 
@@ -523,5 +581,43 @@ UNIT_TEST(TransitDisplay_WalkSeparatesRideStopsAndColors)
     TEST_EQUAL(info.m_totalDistInMeters, 60, (ends));
     TEST_EQUAL(info.m_totalPedestrianDistInMeters, 40, (ends));
   }
+}
+
+UNIT_TEST(TransitDisplay_UnavailableFirstLegStaysUnavailable)
+{
+  TestUnavailableSummary(false);
+}
+
+UNIT_TEST(TransitDisplay_UnavailableLegDiscardsPrefix)
+{
+  TestUnavailableSummary(true);
+}
+
+UNIT_TEST(TransitDisplay_UnavailableLegClearsPendingStop)
+{
+  Fixture fixture;
+  auto display = fixture.MakeDisplay();
+  auto const segments = MakeSegments();
+  Process(display, segments, 0, 3);
+  TEST(display.m_pendingStopIndex, ());
+  fixture.UnregisterMap();
+  df::Subroute subroute;
+  subroute.m_polyline.Add(segments[2].GetJunction().GetPoint());
+  subroute.m_baseDistance = segments[2].GetDistFromBeginningMerc();
+  TEST(!display.ProcessSubroute({segments[3]}, subroute), ());
+  TEST(!display.m_pendingStopIndex, ());
+}
+
+UNIT_TEST(TransitDisplay_WalkingOnlyZeroTimeSummaryIsAvailable)
+{
+  Fixture fixture;
+  auto display = fixture.MakeDisplay();
+  auto walk = MakeSegments().front();
+  walk.SetDistancesAndTime(10, 0.00001, 0);
+  Process(display, {walk}, 0, 1);
+  auto const & info = display.GetRouteInfo();
+  TEST_EQUAL(info.m_steps.size(), 1, ());
+  TEST_EQUAL(info.m_steps.front().m_type, TransitType::Pedestrian, ());
+  TEST_EQUAL(info.m_totalTimeInSec, 0, ());
 }
 }  // namespace transit_rendering_tests
