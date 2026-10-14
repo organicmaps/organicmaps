@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Cadangan penanda dan jalur</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Penanda dan jalur dapat disertakan dalam cadangan sistem Android jika pencadangan diaktifkan di perangkat ini dan tidak melebihi batas ukurannya.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sinkronisasi Google Drive (Beta)</string>
+    <string name="bookmarks_sync_enabled">Sinkronkan penanda dan jalur</string>
+    <string name="bookmarks_sync_account">Akun Google</string>
+    <string name="bookmarks_sync_manage_storage">Kelola penyimpanan Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s dari %2$s digunakan</string>
+    <string name="bookmarks_sync_mobile_data">Sinkronkan melalui data seluler</string>
+    <string name="bookmarks_sync_now">Sinkronkan sekarang</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Sinkronisasi terakhir: %s</string>
+    <string name="bookmarks_sync_status_running">Menyinkronkan…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Menunggu Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Perlu masuk</string>
+    <string name="bookmarks_sync_status_quota">Google Drive penuh</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinkronisasi gagal: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Hapus data dari Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Hapus penanda dan jalur yang disinkronkan dari Google Drive? Penanda dan jalur di perangkat ini tetap ada. Matikan sinkronisasi di perangkat Anda yang lain terlebih dahulu, jika tidak perangkat tersebut akan mengunggah ulang penanda dan jalurnya.</string>
+    <string name="bookmarks_sync_beta_warning">Sinkronisasi masih beta. Ekspor cadangan semua penanda dan jalur sebelum mengaktifkannya.</string>
     <string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
     <string name="clear_search">Bersihkan riwayat pencarian</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -855,6 +875,8 @@
     <string name="hide_track">Sembunyikan jalur</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Tampilkan jalur</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktifkan</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

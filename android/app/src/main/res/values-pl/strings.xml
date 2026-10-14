@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Kopia zapasowa zakładek i tras</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Zakładki i trasy mogą być dołączane do systemowych kopii zapasowych Androida, jeśli na tym urządzeniu włączone jest tworzenie kopii zapasowych i nie przekraczają one limitu rozmiaru.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Synchronizacja z Dyskiem Google (beta)</string>
+    <string name="bookmarks_sync_enabled">Synchronizuj zakładki i trasy</string>
+    <string name="bookmarks_sync_account">Konto Google</string>
+    <string name="bookmarks_sync_manage_storage">Zarządzaj miejscem na dane Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Wykorzystano %1$s z %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Synchronizuj przez dane komórkowe</string>
+    <string name="bookmarks_sync_now">Synchronizuj teraz</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Ostatnia synchronizacja: %s</string>
+    <string name="bookmarks_sync_status_running">Synchronizowanie…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Oczekiwanie na Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Wymagane logowanie</string>
+    <string name="bookmarks_sync_status_quota">Dysk Google jest pełny</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Synchronizacja nie powiodła się: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Usuń dane z Dysku Google</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Usunąć zsynchronizowane zakładki i trasy z Dysku Google? Zakładki i trasy na tym urządzeniu pozostaną. Najpierw wyłącz synchronizację na innych urządzeniach, inaczej ponownie prześlą swoje zakładki i trasy.</string>
+    <string name="bookmarks_sync_beta_warning">Synchronizacja jest w wersji beta. Przed jej włączeniem wyeksportuj kopię zapasową wszystkich zakładek i tras.</string>
     <string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
     <string name="clear_search">Wyczyść historię wyszukiwania</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -877,6 +897,8 @@
     <string name="hide_track">Ukryj trasę</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Pokaż trasę</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Włącz</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

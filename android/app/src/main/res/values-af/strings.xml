@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Rugsteun van boekmerke en paaie</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Boekmerke en paaie kan by Android-stelselrugsteune ingesluit word wanneer rugsteun op hierdie toestel geaktiveer is en hulle binne die groottelimiet daarvan pas.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive-sinchronisasie (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinchroniseer boekmerke en paaie</string>
+    <string name="bookmarks_sync_account">Google-rekening</string>
+    <string name="bookmarks_sync_manage_storage">Bestuur Google-berging</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s van %2$s gebruik</string>
+    <string name="bookmarks_sync_mobile_data">Sinchroniseer oor mobiele data</string>
+    <string name="bookmarks_sync_now">Sinchroniseer nou</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Laaste sinchronisasie: %s</string>
+    <string name="bookmarks_sync_status_running">Sinchroniseer tans…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wag tans vir Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Aanmelding vereis</string>
+    <string name="bookmarks_sync_status_quota">Google Drive is vol</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinchronisasie het misluk: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Skrap data uit Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Skrap gesinchroniseerde boekmerke en paaie uit Google Drive? Boekmerke en paaie op hierdie toestel bly. Skakel eers sinchronisasie op jou ander toestelle af, anders laai hulle hul boekmerke en paaie weer op.</string>
+    <string name="bookmarks_sync_beta_warning">Sinchronisasie is in beta. Voer \'n rugsteun van alle boekmerke en paaie uit voordat jy dit aktiveer.</string>
     <string name="search_history_text">Bekyk al u onlangse soektogte.</string>
     <string name="clear_search">Wis soekgeskiedenis</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -855,6 +875,8 @@
     <string name="hide_track">Versteek roete</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Wys roete</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktiveer</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

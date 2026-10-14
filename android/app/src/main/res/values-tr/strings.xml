@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Yer imleri ve izler yedeği</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Bu cihazda yedekleme etkinse ve yer imleri ile izler yedeğin boyut sınırını aşmıyorsa, bunlar Android sistem yedeklerine dahil edilebilir.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive senkronizasyonu (beta)</string>
+    <string name="bookmarks_sync_enabled">Yer imlerini ve izleri senkronize et</string>
+    <string name="bookmarks_sync_account">Google Hesabı</string>
+    <string name="bookmarks_sync_manage_storage">Google depolama alanını yönet</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s alanın %1$s kadarı kullanılıyor</string>
+    <string name="bookmarks_sync_mobile_data">Mobil veriyle senkronize et</string>
+    <string name="bookmarks_sync_now">Şimdi senkronize et</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Son senkronizasyon: %s</string>
+    <string name="bookmarks_sync_status_running">Senkronize ediliyor…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wi-Fi bekleniyor</string>
+    <string name="bookmarks_sync_status_sign_in">Oturum açılması gerekiyor</string>
+    <string name="bookmarks_sync_status_quota">Google Drive dolu</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Senkronizasyon başarısız: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google Drive\'daki verileri sil</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Senkronize edilen yer imleri ve izler Google Drive\'dan silinsin mi? Bu aygıttaki yer imleri ve izler kalır. Önce diğer aygıtlarınızda senkronizasyonu kapatın, aksi takdirde bu aygıtlar yer imlerini ve izlerini yeniden karşıya yükler.</string>
+    <string name="bookmarks_sync_beta_warning">Senkronizasyon beta aşamasında. Etkinleştirmeden önce tüm yer imlerinin ve izlerin yedeğini dışa aktarın.</string>
     <string name="search_history_text">Son aramalarınızı görüntüleyin.</string>
     <string name="clear_search">Arama Geçmişini Temizle</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -871,6 +891,8 @@
     <string name="hide_track">İzi gizle</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göster</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Etkinleştir</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

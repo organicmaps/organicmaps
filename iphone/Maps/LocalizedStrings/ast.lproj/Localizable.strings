@@ -1097,7 +1097,7 @@
 "icloud_disabled_message" = "Please enable iCloud in your device's settings to use this feature.";
 
 /* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
-"enable" = "Enable";
+"enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Backup";

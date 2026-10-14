@@ -241,6 +241,26 @@
     <string name="bookmarks_backup_title">Backup de favoritos e trilhas</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Favoritos e trilhas podem ser incluídos nos backups do sistema Android quando o backup estiver ativado neste dispositivo e não excederem o limite de tamanho dele.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronização com o Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar favoritos e trilhas</string>
+    <string name="bookmarks_sync_account">Conta do Google</string>
+    <string name="bookmarks_sync_manage_storage">Gerenciar o armazenamento do Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s de %2$s usados</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar usando dados móveis</string>
+    <string name="bookmarks_sync_now">Sincronizar agora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronização: %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Aguardando Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">É necessário fazer login</string>
+    <string name="bookmarks_sync_status_quota">O Google Drive está cheio</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Falha na sincronização: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Excluir dados do Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Excluir os favoritos e trilhas sincronizados do Google Drive? Os favoritos e trilhas neste dispositivo serão mantidos. Desative primeiro a sincronização nos seus outros dispositivos; caso contrário, eles enviarão de novo os favoritos e trilhas deles.</string>
+    <string name="bookmarks_sync_beta_warning">A sincronização está em beta. Exporte um backup de todos os favoritos e trilhas antes de ativá-la.</string>
     <string name="search_history_text">Visualizar as buscas recentes.</string>
     <string name="clear_search">Limpar histórico de pesquisa</string>
     <string name="p2p_your_location">Sua localização</string>

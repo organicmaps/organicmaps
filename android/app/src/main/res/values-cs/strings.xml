@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Záloha záložek a stop</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Záložky a stopy mohou být zahrnuty do systémových záloh Androidu, pokud je na tomto zařízení zapnuté zálohování a nepřekračují jeho limit velikosti.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Synchronizace s Diskem Google (beta)</string>
+    <string name="bookmarks_sync_enabled">Synchronizovat záložky a stopy</string>
+    <string name="bookmarks_sync_account">Účet Google</string>
+    <string name="bookmarks_sync_manage_storage">Spravovat úložiště Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Využito %1$s z %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Synchronizovat přes mobilní data</string>
+    <string name="bookmarks_sync_now">Synchronizovat nyní</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Poslední synchronizace: %s</string>
+    <string name="bookmarks_sync_status_running">Synchronizace…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Čeká se na Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Je nutné přihlášení</string>
+    <string name="bookmarks_sync_status_quota">Disk Google je plný</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Synchronizace se nezdařila: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Smazat data z Disku Google</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Smazat synchronizované záložky a stopy z Disku Google? Záložky a stopy v tomto zařízení zůstanou. Nejdřív vypněte synchronizaci na ostatních zařízeních, jinak znovu nahrají své záložky a stopy.</string>
+    <string name="bookmarks_sync_beta_warning">Synchronizace je ve verzi beta. Před zapnutím exportujte zálohu všech záložek a stop.</string>
     <string name="search_history_text">Získejte rychlý přístup k hledaným výrazům.</string>
     <string name="clear_search">Vymazat historii vyhledávání</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -877,6 +897,8 @@
     <string name="hide_track">Skrýt stopu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Zobrazit stopu</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Povolit</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

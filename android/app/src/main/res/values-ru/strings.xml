@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Резервная копия меток и треков</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Метки и треки могут попадать в системные резервные копии Android, если на устройстве включено резервное копирование и они не превышают ограничение по размеру.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Синхронизация с Google Диском (бета)</string>
+    <string name="bookmarks_sync_enabled">Синхронизировать метки и треки</string>
+    <string name="bookmarks_sync_account">Аккаунт Google</string>
+    <string name="bookmarks_sync_manage_storage">Управление хранилищем Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Использовано %1$s из %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Синхронизировать через мобильный интернет</string>
+    <string name="bookmarks_sync_now">Синхронизировать сейчас</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Последняя синхронизация: %s</string>
+    <string name="bookmarks_sync_status_running">Синхронизация…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Ожидание Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Требуется вход</string>
+    <string name="bookmarks_sync_status_quota">Google Диск заполнен</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Ошибка синхронизации: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Удалить данные с Google Диска</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Удалить синхронизированные метки и треки с Google Диска? Метки и треки на этом устройстве останутся. Сначала отключите синхронизацию на других устройствах, иначе они снова загрузят туда свои метки и треки.</string>
+    <string name="bookmarks_sync_beta_warning">Синхронизация в бета-версии. Перед включением экспортируйте резервную копию всех меток и треков.</string>
     <string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
     <string name="clear_search">Очистить историю поиска</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -878,6 +898,8 @@
     <string name="hide_track">Скрыть трек</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Показать трек</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Включить</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

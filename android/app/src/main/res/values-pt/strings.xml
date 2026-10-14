@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Cópia de segurança de favoritos e trajetos</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Os favoritos e trajetos podem ser incluídos nas cópias de segurança do sistema Android, se a cópia de segurança estiver ativada neste dispositivo e não excederem o respetivo limite de tamanho.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronização com o Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar favoritos e trajetos</string>
+    <string name="bookmarks_sync_account">Conta Google</string>
+    <string name="bookmarks_sync_manage_storage">Gerir o armazenamento Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s de %2$s utilizados</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar com dados móveis</string>
+    <string name="bookmarks_sync_now">Sincronizar agora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronização: %s</string>
+    <string name="bookmarks_sync_status_running">A sincronizar…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">A aguardar Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">É necessário iniciar sessão</string>
+    <string name="bookmarks_sync_status_quota">O Google Drive está cheio</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Falha na sincronização: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eliminar dados do Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Eliminar os favoritos e trajetos sincronizados do Google Drive? Os favoritos e trajetos neste dispositivo mantêm-se. Desative primeiro a sincronização nos outros dispositivos; caso contrário, voltarão a carregar os seus favoritos e trajetos.</string>
+    <string name="bookmarks_sync_beta_warning">A sincronização está em beta. Exporte uma cópia de segurança de todos os favoritos e trajetos antes de a ativar.</string>
     <string name="search_history_text">Ver as pesquisas recentes.</string>
     <string name="clear_search">Limpar histórico de pesquisas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -873,6 +893,8 @@
     <string name="hide_track">Ocultar trajeto</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostrar trajeto</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ativar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
