@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_manager.hpp"
 #include "routing/speed_camera_ser_des.hpp"
 
@@ -181,28 +182,23 @@ UNIT_TEST(SpeedCamera_TraversalKeepsPositionsAndTravelOrder)
     for (bool const atEndpoints : {false, true})
     {
       auto route = std::make_shared<Route>();
-      std::vector<m2::PointD> const points = forward
-                                               ? std::vector<m2::PointD>{{0, 0}, {0, 0}, {0.001, 0}, {0.003, 0}}
-                                               : std::vector<m2::PointD>{{0.001, 0}, {0.001, 0}, {0, 0}, {-0.002, 0}};
+      // The leading road has no cameras, so both camera distances include its length.
+      std::vector<m2::PointD> const points =
+          forward ? std::vector<m2::PointD>{{-0.001, 0}, {-0.001, 0}, {0, 0}, {0.001, 0}, {0.003, 0}}
+                  : std::vector<m2::PointD>{{0.002, 0}, {0.002, 0}, {0.001, 0}, {0, 0}, {-0.002, 0}};
       route->SetGeometry(points.begin(), points.end());
       std::vector<RouteSegment> segments;
-      double distance = 0;
-      double mercatorDistance = 0;
-      for (uint32_t i = 0; i < 3; ++i)
-      {
-        distance += mercator::DistanceOnEarth(points[i], points[i + 1]);
-        mercatorDistance += points[i].Length(points[i + 1]);
-        segments.emplace_back(i == 1 ? Segment(0, 5, 0, forward) : Segment(), turns::TurnItem{},
+      for (uint32_t i = 0; i < 4; ++i)
+        segments.emplace_back(i == 0 || i == 3 ? Segment() : Segment(0, i, 0, forward), turns::TurnItem{},
                               geometry::PointWithAltitude(points[i + 1], 0), RouteSegment::RoadNameInfo{});
-        segments.back().SetDistancesAndTime(distance, mercatorDistance, i + 1);
-      }
+      FillSegmentInfo({0, 1, 2, 3}, segments);
       double const lowCoef = atEndpoints ? 0.0 : 0.25;
       double const highCoef = atEndpoints ? 1.0 : 0.75;
       // The loader orders events by ascending coefficient forward, descending backward.
-      segments[1].SetSpeedCameraInfo({{forward ? lowCoef : highCoef, 40}, {forward ? highCoef : lowCoef, 50}});
+      segments[2].SetSpeedCameraInfo({{forward ? lowCoef : highCoef, 40}, {forward ? highCoef : lowCoef, 50}});
       route->SetRouteSegments(std::move(segments));
       route->SetSubroutes(std::vector<Route::SubrouteAttrs>{
-          {geometry::PointWithAltitude(points.front(), 0), geometry::PointWithAltitude(points.back(), 0), 0, 3}});
+          {geometry::PointWithAltitude(points.front(), 0), geometry::PointWithAltitude(points.back(), 0), 0, 4}});
       turns::sound::NotificationManager notifications;
       SpeedCameraManager manager(notifications);
       manager.SetRoute(route);
@@ -216,6 +212,9 @@ UNIT_TEST(SpeedCamera_TraversalKeepsPositionsAndTravelOrder)
       TEST_ALMOST_EQUAL_ABS(first.m_position.x, forward ? lowPosition : highPosition, 1e-12, ());
       TEST_EQUAL(first.m_position.y, 0.0, ());
       TEST_EQUAL(first.m_maxSpeedKmH, 40, ());
+      TEST_ALMOST_EQUAL_ABS(first.m_distFromBeginMeters,
+                            mercator::DistanceOnEarth(points.front(), {forward ? lowPosition : highPosition, 0}), 1e-8,
+                            ());
 
       gps.m_longitude = forward ? 0.0015 : -0.0005;
       gps.m_latitude = 0;
@@ -227,8 +226,9 @@ UNIT_TEST(SpeedCamera_TraversalKeepsPositionsAndTravelOrder)
       TEST_ALMOST_EQUAL_ABS(second.m_position.x, forward ? highPosition : lowPosition, 1e-12, ());
       TEST_EQUAL(second.m_position.y, 0.0, ());
       TEST_EQUAL(second.m_maxSpeedKmH, 50, ());
-      TEST_ALMOST_EQUAL_ABS(second.m_distFromBeginMeters - first.m_distFromBeginMeters,
-                            mercator::DistanceOnEarth({lowPosition, 0}, {highPosition, 0}), 1e-8, ());
+      TEST_ALMOST_EQUAL_ABS(second.m_distFromBeginMeters,
+                            mercator::DistanceOnEarth(points.front(), {forward ? highPosition : lowPosition, 0}), 1e-8,
+                            ());
     }
   }
 }
