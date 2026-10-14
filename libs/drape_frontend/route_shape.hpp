@@ -150,6 +150,10 @@ struct Subroute
   // Per-subroute alpha multiplier, applied to all style colors at render time. 1.0 is fully opaque.
   // Used by alternative-route rendering to visually dim non-active alternatives.
   float m_alphaMul = 1.0f;
+
+  // An alternative goes along the active route from their start this far, in the units of m_baseDistance: the part
+  // of it the car has passed is hidden there as on the active route.
+  double m_sharedWithActiveDistance = 0.0;
 };
 
 using SubrouteConstPtr = std::shared_ptr<Subroute const>;

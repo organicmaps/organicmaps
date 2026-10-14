@@ -316,6 +316,10 @@ public:
   /// (subway/bus) segments that carry no meaningful, reload-stable feature id.
   std::optional<m2::PointD> FindMaxDiffMidpointByGeometry(std::vector<RouteSegment> const & origin) const;
 
+  /// \returns how far the route goes along |other| from their start, in mercator units along the route: an
+  /// alternative built from the same place as the active route goes along it for a while.
+  double GetSharedStartMerc(RouteBase const & other) const;
+
   /// \brief Polyline midpoint of segments [beginIdx, endIdx] interpolated to half their geodesic
   /// length. The 0-based indexing is into m_routeSegments; the previous "junction" of segment 0
   /// is the start point of the first subroute containing segments. Both bounds are inclusive.
