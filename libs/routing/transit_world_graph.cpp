@@ -36,8 +36,8 @@ void TransitWorldGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> cons
     {
       auto const & from = isOutgoing ? segment : s;
       auto const & to = isOutgoing ? s : segment;
-      edges.emplace_back(
-          s, CalcSegmentWeight(to, EdgeEstimator::Purpose::Weight) + transitGraph.GetTransferPenalty(from, to));
+      edges.emplace_back(s, CalcSegmentWeight(to, EdgeEstimator::Purpose::Weight) +
+                                transitGraph.GetTransferPenalty(transitGraph.GetRideLineId(from), to));
     }
 
     Segment real;
@@ -187,11 +187,19 @@ RouteWeight TransitWorldGraph::CalcOffroadWeight(ms::LatLon const & from, ms::La
 
 double TransitWorldGraph::CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime)
 {
-  if (TransitGraph::IsTransitSegment(from))
-    return CalcSegmentWeight(to, EdgeEstimator::Purpose::ETA).GetWeight();
-
-  if (TransitGraph::IsTransitSegment(to))
-    return CalcSegmentWeight(to, EdgeEstimator::Purpose::ETA).GetWeight();
+  if (TransitGraph::IsTransitSegment(from) || TransitGraph::IsTransitSegment(to))
+  {
+    double eta = CalcSegmentWeight(to, EdgeEstimator::Purpose::ETA).GetWeight();
+    if (TransitGraph::IsTransitSegment(to))
+    {
+      auto const fromLineId = TransitGraph::IsTransitSegment(from)
+                                ? GetTransitGraph(from.GetMwmId()).GetRideLineId(from)
+                                : transit::kInvalidLineId;
+      // Only physical waiting time belongs in ETA; the alternative boarding bias does not.
+      eta += GetTransitGraph(to.GetMwmId()).GetTransferPenalty(fromLineId, to).GetTransitTime();
+    }
+    return eta;
+  }
 
   if (from.GetMwmId() != to.GetMwmId())
   {

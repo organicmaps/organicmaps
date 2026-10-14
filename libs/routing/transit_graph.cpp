@@ -72,28 +72,23 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
                                               EdgeEstimator::Purpose::ETA));
 }
 
-RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
+transit::LineId TransitGraph::GetRideLineId(Segment const & segment) const
 {
-  // We need to wait transport and apply additional penalty only if we change to transit::Edge.
-  auto const * edgeTo = FindEdge(to);
-  if (!edgeTo)
-    return GetAStarWeightZero<RouteWeight>();
+  auto const * edge = FindEdge(segment);
+  return edge && !edge->GetTransfer() ? edge->GetLineId() : transit::kInvalidLineId;
+}
 
-  // We are changing to transfer and do not need to apply extra penalty here. We'll do it while
-  // changing from transfer.
-  if (edgeTo->GetTransfer())
+RouteWeight TransitGraph::GetTransferPenalty(transit::LineId fromLineId, Segment const & to) const
+{
+  auto const * edgeTo = FindEdge(to);
+  if (!edgeTo || edgeTo->GetTransfer())
     return GetAStarWeightZero<RouteWeight>();
 
   auto const lineIdTo = edgeTo->GetLineId();
-
-  auto const * edgeFrom = FindEdge(from);
-  if (edgeFrom && edgeFrom->GetLineId() == lineIdTo)
+  if (fromLineId == lineIdTo)
     return GetAStarWeightZero<RouteWeight>();
 
-  // We need to apply extra penalty when:
-  // 1. |from| is gate, |to| is edge
-  // 2. |from| is transfer, |to| is edge
-  // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
+  // Boarding after a walking connection or a line change incurs the line's mean wait.
   auto const it = m_transferPenaltiesSubway.find(lineIdTo);
   CHECK(it != m_transferPenaltiesSubway.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
   // The alternative route adds a fixed penalty per boarding to the routing weight only (not to
@@ -130,7 +125,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
   // We assume arrival time has uniform distribution with min value |0| and max value |line.GetInterval()|.
   // Expected value of time to wait transport for particular line is |line.GetInterval() / 2|.
   for (auto const & line : transitData.GetLines())
-    m_transferPenaltiesSubway[line.GetId()] = line.GetInterval() / 2;
+    m_transferPenaltiesSubway[line.GetId()] = line.GetInterval() / 2.0;
 
   std::map<transit::StopId, LatLonWithAltitude> stopCoords;
   for (auto const & stop : transitData.GetStops())

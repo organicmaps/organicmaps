@@ -27,14 +27,18 @@ public:
     EdgeSubway() = default;
     explicit EdgeSubway(transit::Edge const & edge)
       : m_lineId(edge.GetLineId())
+      , m_rideTimeSec(edge.GetWeight())
       , m_stop1Id(edge.GetStop1Id())
       , m_stop2Id(edge.GetStop2Id())
       , m_shapeIds(edge.GetShapeIds())
     {
       ASSERT(!edge.GetTransfer(), ());
+      ASSERT_GREATER_OR_EQUAL(m_rideTimeSec, 0, ());
     }
 
     transit::LineId m_lineId = transit::kInvalidLineId;
+    // Physical ride duration; the cumulative route ETA also includes any wait before boarding.
+    transit::Weight m_rideTimeSec = 0;
     transit::StopId m_stop1Id = transit::kInvalidStopId;
     transit::StopId m_stop2Id = transit::kInvalidStopId;
     std::vector<transit::ShapeId> m_shapeIds;
