@@ -16,6 +16,7 @@
 #include "base/strings_bundle.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace transit_rendering_tests
 {
@@ -102,6 +103,62 @@ void TestPoint(m2::PointD const & actual, m2::PointD const & expected)
 {
   // Transit points are quantized in the map section.
   TEST_LESS(actual.SquaredLength(expected), 1e-12, (actual, expected));
+}
+
+void TestTransferMarkerAxis(routing::transit::StopId firstStop)
+{
+  Fixture fixture(R"({
+    "stops": [
+      {"id": 1, "osm_id": "1", "line_ids": [1], "point": {"x": 0, "y": 0}},
+      {"id": 2, "osm_id": "2", "line_ids": [1], "point": {"x": 0.00001, "y": 0}},
+      {"id": 3, "osm_id": "3", "line_ids": [1, 2], "point": {"x": 0.00002, "y": 0}},
+      {"id": 4, "osm_id": "4", "line_ids": [1, 2], "point": {"x": 0.00003, "y": 0}},
+      {"id": 5, "osm_id": "5", "line_ids": [1], "point": {"x": 0.00003, "y": 0}},
+      {"id": 6, "osm_id": "6", "line_ids": [1, 2], "point": {"x": 0.00003, "y": 0}},
+      {"id": 7, "osm_id": "7", "line_ids": [2], "point": {"x": 0.00003, "y": 0}}
+    ],
+    "lines": [
+      {"id": 1, "interval": 60, "network_id": 1, "number": "1", "stop_ids": [1, 2, 3, 4, 5, 6],
+       "type": "bus", "color": "red"},
+      {"id": 2, "interval": 60, "network_id": 1, "number": "2", "stop_ids": [3, 4, 6, 7],
+       "type": "bus", "color": "blue"}
+    ],
+    "networks": [{"id": 1, "title": "Transit test"}]
+  })");
+  bool const coincident = firstStop == 4;
+  std::vector<routing::RouteSegment> segments;
+  for (size_t i = 0; i < 3; ++i)
+  {
+    m2::PointD const point(coincident ? 0.00003 : (i + 1) * 0.00001, 0);
+    segments.emplace_back(routing::Segment(0, routing::FakeFeatureIds::kTransitGraphFeaturesStart + i, 0, true),
+                          routing::turns::TurnItem(), geometry::PointWithAltitude(point, 0),
+                          routing::RouteSegment::RoadNameInfo());
+    segments.back().SetDistancesAndTime(coincident ? 0 : (i + 1) * 10, coincident ? 0 : point.x,
+                                        (i + 1) * 120 + (i < 2 ? 30 : 60));
+    segments.back().SetTransitInfo(std::make_unique<routing::TransitInfo>(routing::transit::Edge(
+        firstStop + i, firstStop + i + 1, 120, i < 2 ? 1 : 2, false, std::vector<routing::transit::ShapeId>{})));
+  }
+  auto display = fixture.MakeDisplay();
+  df::Subroute subroute;
+  subroute.m_polyline.Add(m2::PointD(coincident ? 0.00003 : 0, 0));
+  TEST(display.ProcessSubroute(segments, subroute), ());
+  TEST_EQUAL(subroute.m_markers.size(), 4, ());
+  auto const & transfer = subroute.m_markers[2];
+  TEST_EQUAL(transfer.m_colors.size(), 2, ());
+  TEST_EQUAL(transfer.m_colors.front(), subroute.m_markers[1].m_colors.front(), ());
+  TEST_EQUAL(transfer.m_colors.back(), subroute.m_markers[3].m_colors.front(), ());
+  TEST_NOT_EQUAL(transfer.m_colors.front(), transfer.m_colors.back(), ());
+  TEST_ALMOST_EQUAL_ABS(transfer.m_up.Length(), 1.0, 1e-12, (transfer.m_up));
+  auto const & points = subroute.m_polyline.GetPoints();
+  if (coincident)
+  {
+    TEST_EQUAL(points[1], points[2], ());
+    TEST_EQUAL(points[2], points[3], ());
+  }
+  else
+  {
+    TEST_ALMOST_EQUAL_ABS(m2::DotProduct(transfer.m_up, (points[3] - points[2]).Normalize()), 0.0, 1e-12, ());
+  }
 }
 }  // namespace
 
@@ -283,6 +340,57 @@ UNIT_TEST(TransitDisplay_LineIdentitySeparatesMatchingBadges)
       TEST_EQUAL(step.m_colorARGB, info.m_steps.front().m_colorARGB, ());
       TEST_EQUAL(step.m_timeInSec, changesLine ? 150 : 270, ());
       TEST_EQUAL(step.m_distanceInMeters, changesLine ? 10 : 20, ());
+    }
+  }
+}
+
+UNIT_TEST(TransitDisplay_StraightTransferKeepsColoredRing)
+{
+  TestTransferMarkerAxis(1);
+}
+
+UNIT_TEST(TransitDisplay_CoincidentStopsKeepColoredRing)
+{
+  TestTransferMarkerAxis(4);
+}
+
+UNIT_TEST(TransitDisplay_DirectionRoundingKeepsTransferAxis)
+{
+  Fixture fixture;
+  auto const segments = MakeSegments();
+  auto const & segment = segments[2];
+  auto display = fixture.MakeDisplay();
+  TransitDisplayInfos infos;
+  display.CollectTransitDisplayInfo({segment}, infos);
+  TEST(display.m_transitReadManager.GetTransitDisplayInfo(infos), ());
+  auto const & info = *infos.begin()->second;
+  auto const & start = info.m_stopsSubway.at(1).GetPoint();
+  auto const & finish = info.m_stopsSubway.at(2).GetPoint();
+  auto const direction = (finish - start).Normalize();
+  for (bool const almostStraight : {false, true})
+  {
+    df::Subroute subroute;
+    subroute.m_polyline.Add(start);
+    SubrouteParams sp;
+    sp.m_lastLineId = 2;
+    sp.m_lastColor = df::GetTransitColorName("green");
+    // Normalizing collinear legs of different lengths can change a component by one ULP.
+    sp.m_lastDir = almostStraight ? m2::PointD(std::nextafter(direction.x, 0.0), direction.y) : m2::PointD(0, 1);
+    sp.m_marker.m_colors.push_back(sp.m_lastColor);
+    SubrouteSegmentParams ssp(segment.GetTransitInfo(), info);
+    ssp.m_mwmId = infos.begin()->first;
+    display.AddEdgeSubwayForSubroute(segment, subroute, sp, ssp, 1, 2);
+    TEST_EQUAL(subroute.m_markers.size(), 1, ());
+    auto const & marker = subroute.m_markers.front();
+    TEST_EQUAL(marker.m_colors,
+               (std::vector<std::string>{df::GetTransitColorName("green"), df::GetTransitColorName("red")}), ());
+    TEST_ALMOST_EQUAL_ABS(marker.m_up.Length(), 1.0, 1e-12, (almostStraight));
+    if (almostStraight)
+      TEST_ALMOST_EQUAL_ABS(m2::DotProduct(marker.m_up, direction), 0.0, 1e-12, (marker.m_up));
+    else
+    {
+      TEST_ALMOST_EQUAL_ABS(marker.m_up.x, -std::sqrt(0.5), 1e-12, ());
+      TEST_ALMOST_EQUAL_ABS(marker.m_up.y, std::sqrt(0.5), 1e-12, ());
     }
   }
 }

@@ -470,7 +470,13 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   if (sp.m_marker.m_colors.size() > 1)
   {
     sp.m_marker.m_innerColor = df::kTransitStopInnerMarkerColor;
-    sp.m_marker.m_up = (currentDir - sp.m_lastDir).Normalize();
+    auto const bisector = currentDir - sp.m_lastDir;
+    // Normalized directions can differ by rounding noise on a straight transfer.
+    if (!AlmostEqualAbs(currentDir, sp.m_lastDir, 1e-12))
+      sp.m_marker.m_up = bisector.Normalize();
+    else if (!currentDir.IsAlmostZero())
+      // Straight transfers split the two colors along the travel normal.
+      sp.m_marker.m_up = m2::PointD(-currentDir.y, currentDir.x);
     if (m2::CrossProduct(sp.m_marker.m_up, -sp.m_lastDir) < 0)
       sp.m_marker.m_up = -sp.m_marker.m_up;
   }
