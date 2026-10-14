@@ -154,6 +154,10 @@ public:
                       GetStringsBundleFn const & getStringsBundleFn, BookmarkManager * bmManager,
                       std::map<std::string, m2::PointF> const & transitSymbolSizes);
 
+  // Initialize a new display so route info starts at the active subroute and waypoint indices
+  // refer to the original route. Segment distances stay cumulative from the route start.
+  void SetRouteOrigin(routing::RouteBase const & route);
+
   // The caller seeds the polyline with the subroute start and sets m_baseDistance to its
   // route-relative Mercator distance. Process subroutes in route order.
   bool ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute);
@@ -188,6 +192,9 @@ private:
   std::vector<TransitMarkInfo> m_transitMarks;
 
   int m_subrouteIndex = 0;
+  int m_intermediateIndexOffset = 0;
+  double m_distanceOrigin = 0.0;
+  int m_timeOrigin = 0;
   float m_maxSubrouteWidth = -1.0f;
   // The entrance and boarding stop can be in different subroutes.
   bool m_pendingEntrance = false;

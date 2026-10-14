@@ -209,9 +209,10 @@ TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents,
   static std::map<std::string, m2::PointF> const kNoSymbols;
   TransitRouteDisplay display(readManager, getMwmIdFn, []() -> StringsBundle const & { return kEmptyBundle; },
                               nullptr /* bmManager */, kNoSymbols);
+  display.SetRouteOrigin(route);
 
   vector<RouteSegment> segments;
-  for (size_t i = 0; i < route.GetSubrouteCount(); ++i)
+  for (size_t i = route.GetCurrentSubrouteIdx(); i < route.GetSubrouteCount(); ++i)
   {
     route.GetSubrouteInfo(i, segments);
     df::Subroute subroute;

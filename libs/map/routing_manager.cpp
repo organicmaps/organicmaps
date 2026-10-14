@@ -835,6 +835,17 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   return hasDrivingOptionsWarning;
 }
 
+drape_ptr<df::Subroute> RoutingManager::MakeDrapeSubroute(RouteBase const & route, size_t subrouteIndex,
+                                                          std::vector<RouteSegment> const & segments,
+                                                          double baseDepth) const
+{
+  auto const & attrs = route.GetSubrouteAttrs(subrouteIndex);
+  auto const begin = attrs.GetBeginSegmentIdx();
+  ASSERT_EQUAL(segments.size(), attrs.GetSize(), ());
+  auto const baseDistance = begin == 0 ? 0.0 : route.GetRouteSegments()[begin - 1].GetDistFromBeginningMerc();
+  return CreateDrapeSubroute(segments, attrs.GetStart().GetPoint(), baseDistance, baseDepth, m_currentRouterType);
+}
+
 void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, double depthOffset,
                                        std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
                                        RoadWarningsCollection & roadWarnings)
@@ -842,23 +853,23 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
   if (!route.IsValid())
     return;
 
+  if (transitRouteDisplay)
+    transitRouteDisplay->SetRouteOrigin(route);
+
   float const alphaMul = isActive ? 1.0f : kAlternativeRouteAlphaMul;
 
   std::vector<RouteSegment> segments;
-  double distance = 0.0;
   auto const subroutesCount = route.GetSubrouteCount();
   for (size_t subrouteIndex = route.GetCurrentSubrouteIdx(); subrouteIndex < subroutesCount; ++subrouteIndex)
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
 
     auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
-    auto subroute =
-        CreateDrapeSubroute(segments, startPt, distance,
-                            static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, m_currentRouterType);
+    auto subroute = MakeDrapeSubroute(route, subrouteIndex, segments,
+                                      static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset);
     if (!subroute)
       continue;
     subroute->m_alphaMul = alphaMul;
-    distance = segments.back().GetDistFromBeginningMerc();
     switch (m_currentRouterType)
     {
     case RouterType::Vehicle:

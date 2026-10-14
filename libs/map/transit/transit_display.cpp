@@ -335,6 +335,19 @@ TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager
   m_maxSubrouteWidth = maxSymbolSize * kGateBgScale / kStopMarkerScale;
 }
 
+void TransitRouteDisplay::SetRouteOrigin(routing::RouteBase const & route)
+{
+  ASSERT_EQUAL(m_subrouteIndex, 0, ());
+  auto const currentSubroute = route.GetCurrentSubrouteIdx();
+  auto const begin = route.GetSubrouteAttrs(currentSubroute).GetBeginSegmentIdx();
+  auto const & segments = route.GetRouteSegments();
+  CHECK_LESS_OR_EQUAL(begin, segments.size(), ());
+  m_intermediateIndexOffset = static_cast<int>(currentSubroute);
+  m_distanceOrigin = begin == 0 ? 0.0 : segments[begin - 1].GetDistFromBeginningMeters();
+  // A whole-second origin keeps remaining durations in the route's cumulative time frame.
+  m_timeOrigin = begin == 0 ? 0 : static_cast<int>(ceil(segments[begin - 1].GetTimeFromBeginningSec()));
+}
+
 TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
 {
 #ifdef DEBUG
@@ -543,7 +556,7 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   {
     TransitStepInfo step;
     step.m_type = TransitType::IntermediatePoint;
-    step.m_intermediateIndex = m_subrouteIndex - 1;
+    step.m_intermediateIndex = m_intermediateIndexOffset + m_subrouteIndex - 1;
     m_routeInfo.AddStep(step);
   }
 
@@ -562,8 +575,8 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   subroute.m_style.reserve(segments.size());
 
   SubrouteParams sp;
-  sp.m_prevDistance = m_routeInfo.m_totalDistInMeters;
-  sp.m_prevTime = m_routeInfo.m_totalTimeInSec;
+  sp.m_prevDistance = m_distanceOrigin + m_routeInfo.m_totalDistInMeters;
+  sp.m_prevTime = m_timeOrigin + m_routeInfo.m_totalTimeInSec;
 
   // Boarding/alighting stops per transit leg, so parallel lines are enumerated for the whole leg.
   auto const legStops = helpers::ComputeTransitLegStops(segments);
@@ -623,8 +636,8 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
     m_pendingStopIndex = m_transitMarks.size() - 1;
   }
 
-  m_routeInfo.m_totalDistInMeters = sp.m_prevDistance;
-  m_routeInfo.m_totalTimeInSec = sp.m_prevTime;
+  m_routeInfo.m_totalDistInMeters = sp.m_prevDistance - m_distanceOrigin;
+  m_routeInfo.m_totalTimeInSec = sp.m_prevTime - m_timeOrigin;
 
   bool const isValidSubroute = subroute.m_polyline.GetSize() > 1;
   if (!isValidSubroute)
