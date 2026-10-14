@@ -62,11 +62,13 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
     }
   }
 
-  // Step 2. Check cached cameras. Do it only after pass through closest camera.
+  // Step 2. Drop expired cached cameras, then check the next camera after passing the closest one.
+  while (!m_cachedSpeedCameras.empty() &&
+         m_cachedSpeedCameras.front().m_distFromBeginMeters - passedDistanceMeters <= -kInfluenceZoneMeters)
+    m_cachedSpeedCameras.pop();
+
   if (!m_cachedSpeedCameras.empty() && distFromCurrentPosAndClosestCam < 0)
   {
-    // Do not use reference here, because ProcessCameraWarning() can
-    // invalidate |closestSpeedCam|.
     auto const closestSpeedCam = m_cachedSpeedCameras.front();
 
     if (NeedToUpdateClosestCamera(passedDistanceMeters, info.m_speed, closestSpeedCam))
