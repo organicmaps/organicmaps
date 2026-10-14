@@ -43,6 +43,7 @@
 
 #include <glaze/json.hpp>
 
+#include <algorithm>
 #include <cmath>
 #include <map>
 
@@ -699,8 +700,39 @@ namespace
 {
 // Multiplier applied to the alpha channel of subroute colors for alternative (non-active) routes.
 float constexpr kAlternativeRouteAlphaMul = 0.5f;
-
 }  // namespace
+
+std::string DescribeDrawnRoutes(RoutesResult const & result)
+{
+  auto const & active = result.GetActive().GetRouteSegments();
+  std::string description;
+  for (size_t i = 0; i < result.m_routes.size(); ++i)
+  {
+    auto const & segments = result.m_routes[i].GetRouteSegments();
+    if (segments.empty())
+      continue;
+    description += i == result.m_activeIdx ? " active " : " alternative ";
+    description += std::to_string(std::lround(segments.back().GetDistFromBeginningMeters())) + " m";
+    if (i == result.m_activeIdx)
+      continue;
+    size_t shared = 0;
+    while (shared < std::min(segments.size(), active.size()) &&
+           segments[shared].GetJunction().GetPoint().EqualDxDy(active[shared].GetJunction().GetPoint(),
+                                                               mercator::kPointEqualityEps))
+    {
+      ++shared;
+    }
+    if (shared == 0)
+    {
+      description += " shared 0 m";
+      continue;
+    }
+    auto const & last = segments[shared - 1];
+    description += " shared " + std::to_string(std::lround(last.GetDistFromBeginningMeters())) + " m (" +
+                   std::to_string(last.GetDistFromBeginningMerc()) + ")";
+  }
+  return description;
+}
 
 void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
 {
@@ -804,6 +836,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // Lift the active route by 10 so it stays above alternative subroutes even when polylines overlap.
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
+  LOG(LINFO, ("ROUTES drawn:", DescribeDrawnRoutes(result)));
 
   if (!isFollowing && m_currentRouterType != RouterType::Ruler && result.m_routes.size() >= 2)
     CreateRouteAltMarks(result);
