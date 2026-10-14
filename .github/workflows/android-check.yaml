@@ -138,6 +138,12 @@ jobs:
         working-directory: android
         run: ./gradlew :wear:assembleGoogleDebug
 
+      - name: Compile and test Google Drive sync
+        if: matrix.flavor == 'WebDebug'
+        shell: bash
+        working-directory: android
+        run: ./gradlew :sdk:sync:gms:assembleDebug :sdk:sync:gms:testDebugUnitTest
+
       - name: Free disk space for emulator
         if: matrix.run-tests == true
         run: |
