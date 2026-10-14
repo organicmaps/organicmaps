@@ -15,7 +15,7 @@ import app.organicmaps.R;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
 
-abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
+public abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
 {
   protected abstract @XmlRes int getXmlResources();
 

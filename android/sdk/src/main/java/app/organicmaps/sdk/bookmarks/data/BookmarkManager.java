@@ -42,6 +42,9 @@ public enum BookmarkManager {
 
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
+  private final List<BookmarksChangedListener> mChangedListeners = new ArrayList<>();
+  // Changes that core saves to files only once notifications are enabled again.
+  private boolean mHasDeferredChanges;
 
   @NonNull
   private final List<BookmarksSortingListener> mSortingListeners = new ArrayList<>();
@@ -69,6 +72,11 @@ public enum BookmarkManager {
   public void removeLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.remove(listener);
+  }
+
+  public void addBookmarksChangedListener(@NonNull BookmarksChangedListener listener)
+  {
+    mChangedListeners.add(listener);
   }
 
   public void addSortingListener(@NonNull BookmarksSortingListener listener)
@@ -108,6 +116,16 @@ public enum BookmarkManager {
   public void onBookmarksChanged()
   {
     updateCache();
+    if (nativeAreNotificationsEnabled())
+      notifyBookmarksChanged();
+    else
+      mHasDeferredChanges = true;
+  }
+
+  private void notifyBookmarksChanged()
+  {
+    for (BookmarksChangedListener listener : mChangedListeners)
+      listener.onBookmarksChanged();
   }
 
   // Called from JNI.
@@ -589,6 +607,11 @@ public enum BookmarkManager {
   public void setNotificationsEnabled(boolean enabled)
   {
     nativeSetNotificationsEnabled(enabled);
+    if (enabled && mHasDeferredChanges)
+    {
+      mHasDeferredChanges = false;
+      notifyBookmarksChanged();
+    }
   }
 
   /**
@@ -773,6 +796,15 @@ public enum BookmarkManager {
     default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
     default void onBookmarksFileImportSuccessful() {}
     default void onBookmarksFileImportFailed() {}
+  }
+
+  /**
+   * Notified when core is about to save changed categories, bookmarks or tracks to files: right away, or once
+   * notifications are enabled again (see setNotificationsEnabled()).
+   */
+  public interface BookmarksChangedListener
+  {
+    void onBookmarksChanged();
   }
 
   public interface BookmarksSortingListener

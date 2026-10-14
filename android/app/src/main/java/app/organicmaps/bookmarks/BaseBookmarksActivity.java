@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseToolbarActivity;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sync.BookmarksSync;
 
 /**
  * A bookmarks screen whose toolbar continues the card surface of the list below it.
@@ -34,6 +35,7 @@ public abstract class BaseBookmarksActivity extends BaseToolbarActivity
     // It allows to significantly improve performance in case of bookmarks
     // modification. All notifications will be sent on activity's disappearance.
     BookmarkManager.INSTANCE.setNotificationsEnabled(false);
+    BookmarksSync.onBookmarksScreenResumed();
   }
 
   @CallSuper
@@ -42,6 +44,7 @@ public abstract class BaseBookmarksActivity extends BaseToolbarActivity
   {
     // Allow to send all notifications in BM.
     BookmarkManager.INSTANCE.setNotificationsEnabled(true);
+    BookmarksSync.onBookmarksScreenPaused(this);
 
     super.onPause();
   }
