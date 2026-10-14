@@ -822,6 +822,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
     // projections to their transit board/alight segments.
     subrouteStarter.ConnectGateAccessesToTransit(startGateAccesses, true /* isStart */);
     subrouteStarter.ConnectGateAccessesToTransit(finishGateAccesses, false /* isStart */);
+    if (m_vehicleType == VehicleType::Car)
+      subrouteStarter.EnablePassThroughStateRouting();
 
     std::vector<Segment> subroute;
     double contributionCoef = kAlmostZeroContribution;
@@ -839,6 +841,9 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
     if (result != RouterResultCode::NoError)
       return result;
 
+    subrouteStarter.EnablePassThroughStateRouting(false);
+    for (auto & segment : subroute)
+      segment = segment.WithoutPassThroughState();
     IndexGraphStarter::CheckValidRoute(subroute);
 
     segments.insert(segments.end(), subroute.begin(), subroute.end());
@@ -901,8 +906,14 @@ std::vector<Segment> ProcessJoints(std::vector<JointSegment> const & jointsPath,
     }
 
     auto begIter = jointPath.begin();
-    if (path.back() == jointPath.front())
+    if (path.back().WithoutPassThroughState() == jointPath.front().WithoutPassThroughState())
+    {
+      if (path.back().GetPassThroughState() == PassThroughState::None)
+        path.back() = jointPath.front();
+      else if (jointPath.front().GetPassThroughState() != PassThroughState::None)
+        ASSERT_EQUAL(path.back().GetPassThroughState(), jointPath.front().GetPassThroughState(), ());
       ++begIter;
+    }
     path.insert(path.end(), begIter, jointPath.end());
   }
 
@@ -916,22 +927,25 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 bool guidesActive /* = false */)
 {
   subroute.clear();
-
   SetupAlgorithmMode(starter, guidesActive);
-
   WorldGraphMode const mode = starter.GetGraph().GetMode();
   LOG(LINFO, ("Routing in mode:", mode));
 
   base::ScopedTimerWithLog timer("Route build");
+  if (delegate.IsCancelled())
+    return RouterResultCode::Cancelled;
+
+  RouterResultCode result;
   switch (mode)
   {
-  case WorldGraphMode::Joints: return CalculateSubrouteJointsMode(starter, delegate, progress, subroute);
-  case WorldGraphMode::NoLeaps: return CalculateSubrouteNoLeapsMode(starter, delegate, progress, subroute);
+  case WorldGraphMode::Joints: result = CalculateSubrouteJointsMode(starter, delegate, progress, subroute); break;
+  case WorldGraphMode::NoLeaps: result = CalculateSubrouteNoLeapsMode(starter, delegate, progress, subroute); break;
   case WorldGraphMode::LeapsOnly:
-    return CalculateSubrouteLeapsOnlyMode(checkpoints, subrouteIdx, starter, delegate, progress, subroute);
-  default: CHECK(false, ("Wrong WorldGraphMode here:", mode));
+    result = CalculateSubrouteLeapsOnlyMode(checkpoints, subrouteIdx, starter, delegate, progress, subroute);
+    break;
+  default: CHECK(false, ("Wrong WorldGraphMode here:", mode)); UNREACHABLE();
   }
-  UNREACHABLE();
+  return delegate.IsCancelled() ? RouterResultCode::Cancelled : result;
 }
 
 RouterResultCode IndexRouter::CalculateSubrouteJointsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
@@ -1159,6 +1173,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
 
   RoutesCalculator calculator(starter, delegate);
   RoutingResultT const * bestC = nullptr;
+  std::vector<std::pair<RouteWeight, RoutingResultT const *>> viableCandidates;
 
   {
     SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
@@ -1179,6 +1194,8 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
       if (r1 && r2)
       {
         RouteWeight const w = r1->m_distance + candidateMidWeights[i] + r2->m_distance;
+        if (starter.IsPassThroughStateRouting())
+          viableCandidates.emplace_back(w, &c);
         if (w < bestW)
         {
           bestW = w;
@@ -1194,9 +1211,31 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
   if (bestC == nullptr)
     return RouterResultCode::RouteNotFound;
 
-  // Calculate route for the best candidate.
   RoutingResultT result;
-  ProcessLeapsJoints(bestC->m_path, starter, progress, calculator, result);
+  if (starter.IsPassThroughStateRouting())
+  {
+    std::sort(viableCandidates.begin(), viableCandidates.end(),
+              [](auto const & lhs, auto const & rhs) { return lhs.first < rhs.first; });
+    for (auto const & candidate : viableCandidates)
+    {
+      // Independent wildcard predictions can reuse endpoint allowances. Compare the completed
+      // routes after reconciling their states; the first viable candidate need not be cheapest.
+      progress->AppendSubProgress(AStarSubProgress(1.0 / viableCandidates.size()));
+      SCOPE_GUARD(candidateProgressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
+      RoutingResultT refined;
+      auto const code = ProcessLeapsJoints(candidate.second->m_path, starter, progress, calculator, refined);
+      if (code == RouterResultCode::NoError && (result.Empty() || refined.m_distance < result.m_distance))
+        result = std::move(refined);
+      else if (code != RouterResultCode::NoError && code != RouterResultCode::RouteNotFound)
+        return code;
+    }
+  }
+  else
+  {
+    auto const code = ProcessLeapsJoints(bestC->m_path, starter, progress, calculator, result);
+    if (code != RouterResultCode::NoError)
+      return code;
+  }
 
   if (result.Empty())
     return RouterResultCode::RouteNotFound;
@@ -1244,11 +1283,21 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
   starter.Append(*m_lastFakeEdges);
 
+  // Cached suffixes have no service-episode state. Rebuild when endpoint allowances could affect the join.
+  if (m_vehicleType == VehicleType::Car && starter.HasNonPassThroughEndings())
+    return RouterResultCode::RouteNotFound;
+
   std::vector<SegmentEdge> prevEdges;
   CHECK_LESS_OR_EQUAL(rebuiltSubroute.GetEndSegmentIdx(), steps.size(), ());
   for (size_t i = rebuiltSubroute.GetBeginSegmentIdx(); i < rebuiltSubroute.GetEndSegmentIdx(); ++i)
   {
     auto const & step = steps[i];
+    auto real = step.GetSegment();
+    if (m_vehicleType == VehicleType::Car && starter.ConvertToReal(real) && !IndexGraphStarter::IsGuidesSegment(real) &&
+        !graph->IsPassThroughAllowed(real.GetMwmId(), real.GetFeatureId()))
+    {
+      return RouterResultCode::RouteNotFound;
+    }
     prevEdges.emplace_back(step.GetSegment(),
                            starter.CalcSegmentWeight(step.GetSegment(), EdgeEstimator::Purpose::Weight));
   }
@@ -1726,6 +1775,148 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(std::vector<Segment> const & in
 
   size_t const variantsCount = arrBeg.size() * arrEnd.size();
   ASSERT(variantsCount > 0, ());
+
+  if (starter.IsPassThroughStateRouting())
+  {
+    // A cheaper prefix with a spent allowance cannot replace a prefix which can still leave
+    // the starting neighbourhood for free. Keep each boundary state through the refinement.
+    struct Prefix
+    {
+      RouteWeight m_weight;
+      RoutingResultT const * m_piece = nullptr;
+      Prefix const * m_previous = nullptr;
+    };
+    using Frontier = std::map<PassThroughState, Prefix>;
+    for (size_t const startLeapEnd : arrBeg)
+      for (size_t const finishLeapStart : arrEnd)
+      {
+        if (startLeapEnd >= finishLeapStart)
+          continue;
+        std::vector<std::pair<size_t, size_t>> pieces = {{0, startLeapEnd}};
+        for (size_t i = startLeapEnd + 1; i < finishLeapStart; i += 2)
+          pieces.emplace_back(i, i + 1);
+        pieces.emplace_back(finishLeapStart, input.size() - 1);
+
+        std::vector<Frontier> frontiers(pieces.size() + 1);
+        frontiers.front().emplace(PassThroughState::None, Prefix{});
+
+        auto const refine = [&](size_t from, size_t to, WorldGraphMode mode)
+        {
+          size_t const start = pieces[from].first;
+          size_t const end = pieces[to].second;
+          auto const & prefixes = frontiers[from];
+          auto & destinations = frontiers[to + 1];
+          SmallList<PassThroughState> endStates;
+          if (input[end] == starter.GetFinishSegment())
+            endStates.push_back(PassThroughState::None);
+          else
+            endStates = starter.GetPassThroughStates(input[end]);
+          bool allPrefixesReachable = true;
+          for (auto const & [state, prefix] : prefixes)
+          {
+            bool reachable = false;
+            Segment begin = input[start];
+            auto beginState = state;
+            RouteWeight boundaryWeight;
+            if (prefix.m_piece)
+            {
+              auto const & previous = prefix.m_piece->m_path.back();
+              auto const next = starter.AdvancePassThroughState(state, previous, begin);
+              if (!next)
+              {
+                allPrefixesReachable = false;
+                continue;
+              }
+              beginState = *next;
+              boundaryWeight = worldGraph.GetCrossBorderPenalty(previous.GetMwmId(), begin.GetMwmId()) +
+                               RouteWeight(0.0, starter.GetPassThroughPenalty(state, beginState), 0, 0, 0.0);
+            }
+            begin.SetPassThroughState(beginState);
+            auto const accept = [&](RoutingResultT const & piece)
+            {
+              CHECK(!piece.Empty(), ());
+              auto const endState = piece.m_path.back().GetPassThroughState();
+              RouteWeight const weight = prefix.m_weight + boundaryWeight + piece.m_distance;
+              if (!starter.CheckLength(weight))
+                return;
+              reachable = true;
+              auto it = destinations.find(endState);
+              if (it == destinations.end() || weight < it->second.m_weight)
+                destinations.insert_or_assign(endState, Prefix{weight, &piece, &prefix});
+            };
+
+            // Later states have spent more budget, so only earlier states can improve a continuation.
+            double const contribution = 1.0 / (2 * variantsCount * pieces.size() * prefixes.size() * endStates.size());
+            worldGraph.SetMode(mode);
+            auto const * best = calculator.Calc(begin, input[end].WithoutPassThroughState(), progress, contribution);
+            if (calculator.IsCancelled())
+              return std::optional<bool>{};
+            if (!best)
+            {
+              allPrefixesReachable = false;
+              continue;
+            }
+            accept(*best);
+            auto const bestState = best->m_path.back().GetPassThroughState();
+            for (auto const endState : endStates)
+            {
+              if (endState >= bestState || (beginState != PassThroughState::None && endState < beginState))
+                continue;
+              Segment finish = input[end];
+              finish.SetPassThroughState(endState);
+              worldGraph.SetMode(mode);
+              auto const * piece = calculator.Calc(begin, finish, progress, contribution);
+              if (calculator.IsCancelled())
+                return std::optional<bool>{};
+              if (!piece)
+                continue;
+              CHECK_EQUAL(piece->m_path.back().GetPassThroughState(), endState, ());
+              accept(*piece);
+            }
+            allPrefixesReachable = allPrefixesReachable && reachable;
+          }
+          return std::optional<bool>{allPrefixesReachable};
+        };
+
+        for (size_t i = 0; i < pieces.size(); ++i)
+        {
+          if (calculator.IsCancelled())
+            return RouterResultCode::Cancelled;
+          if (frontiers[i].empty())
+            continue;
+          auto const normal = refine(i, i, WorldGraphMode::JointSingleMwm);
+          if (!normal)
+            return RouterResultCode::Cancelled;
+          if (!*normal)
+          {
+            // Avoided roads can make a leap unusable. Rebuild it together with its neighbours.
+            size_t const from = i == 0 ? 0 : i - 1;
+            size_t const to = std::min(i + 1, pieces.size() - 1);
+            if (!refine(from, to, WorldGraphMode::Joints))
+              return RouterResultCode::Cancelled;
+          }
+        }
+
+        auto const it = frontiers.back().find(PassThroughState::None);
+        if (it == frontiers.back().end() || (!result.Empty() && !(it->second.m_weight < result.m_distance)))
+          continue;
+
+        std::vector<RoutingResultT const *> path;
+        for (auto const * prefix = &it->second; prefix->m_piece; prefix = prefix->m_previous)
+          path.push_back(prefix->m_piece);
+        result.Clear();
+        for (auto piece = path.rbegin(); piece != path.rend(); ++piece)
+        {
+          auto first = (*piece)->m_path.begin();
+          // Adjacent pieces share a border segment and its twin.
+          if (!result.Empty())
+            ++first;
+          result.m_path.insert(result.m_path.end(), first, (*piece)->m_path.end());
+        }
+        result.m_distance = it->second.m_weight;
+      }
+    return result.Empty() ? RouterResultCode::RouteNotFound : RouterResultCode::NoError;
+  }
 
   for (size_t startLeapEnd : arrBeg)
     for (size_t finishLeapStart : arrEnd)

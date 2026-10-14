@@ -89,7 +89,15 @@ LatLonWithAltitude const & IndexGraphStarter::GetFinishJunction() const
 
 bool IndexGraphStarter::ConvertToReal(Segment & segment) const
 {
-  return IsFakeSegment(segment) ? m_fake.FindReal(segment, segment) : true;
+  if (!IsFakeSegment(segment))
+    return true;
+  auto const state = segment.GetPassThroughState();
+  Segment real;
+  if (!m_fake.FindReal(segment.WithoutPassThroughState(), real))
+    return false;
+  real.SetPassThroughState(state);
+  segment = real;
+  return true;
 }
 
 LatLonWithAltitude const & IndexGraphStarter::GetJunction(Segment const & segment, bool front) const
@@ -98,12 +106,12 @@ LatLonWithAltitude const & IndexGraphStarter::GetJunction(Segment const & segmen
     return m_regionsGraph->GetJunction(segment, front);
 
   if (IsGuidesSegment(segment))
-    return m_guides.GetJunction(segment, front);
+    return m_guides.GetJunction(segment.WithoutPassThroughState(), front);
 
   if (!IsFakeSegment(segment))
     return m_graph.GetJunction(segment, front);
 
-  auto const & vertex = m_fake.GetVertex(segment);
+  auto const & vertex = m_fake.GetVertex(segment.WithoutPassThroughState());
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
@@ -134,7 +142,7 @@ RoutingOptions IndexGraphStarter::GetRoutingOptions(Segment const & segment) con
     return m_graph.GetRoutingOptions(segment);
 
   Segment real;
-  if (!m_fake.FindReal(segment, real))
+  if (!m_fake.FindReal(segment.WithoutPassThroughState(), real))
     return {};
 
   return m_graph.GetRoutingOptions(real);
@@ -150,22 +158,150 @@ std::set<NumMwmId> IndexGraphStarter::GetMwms() const
 
 bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
 {
-  // Avoid transit through living neighbourhoods.
-  // Assume that start or end belongs to the living neighbourhood (HasNoPassThroughAllowed),
-  // if at least one of the projections is non-pass-through road (service, living_street).
-  // Interesting example here: https://github.com/organicmaps/organicmaps/issues/1008
-
-  // Allow pass-through <-> non-pass-through zone changes if start or end belongs
-  // to no-pass-through zone (have to leave or arrive at living neighbourhood).
-
-  /// @todo By VNG: Additional 2 changes to relax this restriction. Or should enchance this mechanics to allow
-  /// pass through say living_street into lower class road (track/road/unclassified?).
-  /// This additional penalty will be included in RouteWeight::GetIntegratedWeight().
-  /// @see RussiaMoscowNotCrossingTollRoadTest
-
-  // The mandatory "leave start / arrive finish" crossings of an NA-zone ending are already credited
-  // in CreditEndingPassThrough, so |weight| counts genuine pass-throughs only; allow up to one.
+  // Allow one interior non-pass-through episode; the initial and final episodes are free.
   return weight.GetNumPassThroughChanges() <= 2 && m_graph.CheckLength(weight, m_startToFinishDistanceM);
+}
+
+void IndexGraphStarter::EnablePassThroughStateRouting(bool enable)
+{
+  m_passThroughStateRouting = enable;
+}
+
+SmallList<PassThroughState> IndexGraphStarter::GetPassThroughStates(Segment const & segment) const
+{
+  if (!m_passThroughStateRouting)
+    return {PassThroughState::None};
+
+  SmallList<PassThroughState> states;
+  for (auto const state :
+       {PassThroughState::InitialService, PassThroughState::NoPaidExit, PassThroughState::OnePaidExit})
+  {
+    if (state == PassThroughState::InitialService && !IsNoPassThroughAllowed(segment))
+      continue;
+    if (segment.GetPassThroughState() == PassThroughState::None || segment.GetPassThroughState() == state)
+      states.push_back(state);
+  }
+  return states;
+}
+
+std::optional<PassThroughState> IndexGraphStarter::AdvancePassThroughState(PassThroughState state, Segment const & from,
+                                                                           Segment const & to) const
+{
+  ASSERT_NOT_EQUAL(state, PassThroughState::None, (from, to));
+  if (!IsNoPassThroughAllowed(from) || IsNoPassThroughAllowed(to))
+    return state;
+
+  // The initial service episode and the final one are free. Only completed interior episodes count.
+  switch (state)
+  {
+  case PassThroughState::InitialService: return PassThroughState::NoPaidExit;
+  case PassThroughState::NoPaidExit: return PassThroughState::OnePaidExit;
+  case PassThroughState::OnePaidExit: return std::nullopt;
+  case PassThroughState::None: UNREACHABLE();
+  }
+  UNREACHABLE();
+}
+
+int8_t IndexGraphStarter::GetPassThroughPenalty(PassThroughState from, PassThroughState to)
+{
+  return from == PassThroughState::NoPaidExit && to == PassThroughState::OnePaidExit ? 2 : 0;
+}
+
+void IndexGraphStarter::ApplyPassThroughState(Segment const & source, bool isOutgoing, EdgeListT & edges) const
+{
+  EdgeListT result;
+  auto const start = GetStartSegment();
+  auto const finish = GetFinishSegment();
+  auto const physicalSource = source.WithoutPassThroughState();
+  for (auto const & edge : edges)
+  {
+    auto const target = edge.GetTarget().WithoutPassThroughState();
+    auto const from = isOutgoing ? physicalSource : target;
+    auto const to = isOutgoing ? target : physicalSource;
+    auto const append = [&](PassThroughState state, int8_t charged)
+    {
+      auto labelled = target;
+      labelled.SetPassThroughState(state);
+      auto const raw = edge.GetWeight().GetNumPassThroughChanges();
+      result.emplace_back(labelled, edge.GetWeight() + RouteWeight(0.0, charged - raw, 0, 0, 0.0));
+    };
+    if (from == start)
+    {
+      auto const initial = IsNoPassThroughAllowed(to) ? PassThroughState::InitialService : PassThroughState::NoPaidExit;
+      if (isOutgoing)
+        append(initial, 0);
+      else if (source.GetPassThroughState() == initial)
+        append(PassThroughState::None, 0);
+    }
+    else if (to == finish)
+    {
+      if (isOutgoing)
+        append(PassThroughState::None, 0);
+      else
+        for (auto const state : GetPassThroughStates(target))
+          append(state, 0);
+    }
+    else if (isOutgoing)
+    {
+      if (auto const next = AdvancePassThroughState(source.GetPassThroughState(), from, to))
+        append(*next, GetPassThroughPenalty(source.GetPassThroughState(), *next));
+    }
+    else
+    {
+      for (auto const state : GetPassThroughStates(target))
+        if (AdvancePassThroughState(state, from, to) == source.GetPassThroughState())
+          append(state, GetPassThroughPenalty(state, source.GetPassThroughState()));
+    }
+  }
+  edges = std::move(result);
+}
+
+void IndexGraphStarter::ApplyPassThroughState(Segment const & source, bool isOutgoing, JointEdgeListT & edges,
+                                              WeightListT & parentWeights) const
+{
+  if (!m_passThroughStateRouting)
+    return;
+  JointEdgeListT result;
+  WeightListT weights;
+  ASSERT_EQUAL(edges.size(), parentWeights.size(), ());
+  for (size_t i = 0; i < edges.size(); ++i)
+  {
+    // Ending joints were already labelled and charged by the segment search.
+    if (edges[i].GetTarget().IsFake())
+    {
+      result.push_back(edges[i]);
+      weights.push_back(parentWeights[i]);
+      continue;
+    }
+    auto const target = edges[i].GetTarget().GetSegment(true);
+    auto const append = [&](PassThroughState state, int8_t charged)
+    {
+      auto edge = edges[i];
+      auto parentWeight = parentWeights[i];
+      edge.GetTarget().SetPassThroughState(state);
+      auto & weight = isOutgoing ? edge.GetWeight() : parentWeight;
+      weight += RouteWeight(0.0, charged - weight.GetNumPassThroughChanges(), 0, 0, 0.0);
+      // Outgoing fake ending joints use the first-child weight instead of the full joint weight.
+      if (isOutgoing)
+        parentWeight += RouteWeight(0.0, charged - parentWeight.GetNumPassThroughChanges(), 0, 0, 0.0);
+      result.push_back(edge);
+      weights.push_back(parentWeight);
+    };
+    // Twin roads may have different country-specific pass-through rules.
+    if (isOutgoing)
+    {
+      if (auto const next = AdvancePassThroughState(source.GetPassThroughState(), source, target))
+        append(*next, GetPassThroughPenalty(source.GetPassThroughState(), *next));
+    }
+    else
+    {
+      for (auto const state : GetPassThroughStates(target))
+        if (AdvancePassThroughState(state, target, source) == source.GetPassThroughState())
+          append(state, GetPassThroughPenalty(state, source.GetPassThroughState()));
+    }
+  }
+  edges = std::move(result);
+  parentWeights = std::move(weights);
 }
 
 void IndexGraphStarter::CreditEndingPassThrough(Segment const & segment, bool isOutgoing, EdgeListT & edges) const
@@ -202,15 +338,16 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
   if (IsFakeSegment(segment))
   {
     Segment real;
-    if (m_fake.FindReal(segment, real))
+    if (m_fake.FindReal(segment.WithoutPassThroughState(), real))
     {
+      real.SetPassThroughState(segment.GetPassThroughState());
       bool const haveSameFront = GetJunction(segment, true /* front */) == GetJunction(real, true);
       bool const haveSameBack = GetJunction(segment, false /* front */) == GetJunction(real, false);
       if ((isOutgoing && haveSameFront) || (!isOutgoing && haveSameBack))
       {
         if (IsGuidesSegment(real))
         {
-          m_guides.GetEdgeList(real, isOutgoing, edges, ingoingSegmentWeight);
+          m_guides.GetEdgeList(real.WithoutPassThroughState(), isOutgoing, edges, ingoingSegmentWeight);
         }
         else if (IsRegionsGraphMode())
         {
@@ -225,12 +362,12 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
       }
     }
 
-    for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
+    for (auto const & s : m_fake.GetEdges(segment.WithoutPassThroughState(), isOutgoing))
       edges.emplace_back(s, isOutgoing ? CalcSegmentWeight(s, EdgeEstimator::Purpose::Weight) : ingoingSegmentWeight);
   }
   else if (IsGuidesSegment(segment))
   {
-    m_guides.GetEdgeList(segment, isOutgoing, edges, ingoingSegmentWeight);
+    m_guides.GetEdgeList(segment.WithoutPassThroughState(), isOutgoing, edges, ingoingSegmentWeight);
   }
   else if (IsRegionsGraphMode())
   {
@@ -242,15 +379,18 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
   }
 
   AddFakeEdges(segment, isOutgoing, edges);
-  CreditEndingPassThrough(segment, isOutgoing, edges);
+  if (m_passThroughStateRouting)
+    ApplyPassThroughState(segment, isOutgoing, edges);
+  else
+    CreditEndingPassThrough(segment, isOutgoing, edges);
 }
 
 RouteWeight IndexGraphStarter::CalcGuidesSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
 {
   if (purpose == EdgeEstimator::Purpose::Weight)
-    return m_guides.CalcSegmentWeight(segment);
+    return m_guides.CalcSegmentWeight(segment.WithoutPassThroughState());
 
-  auto [from, to] = m_guides.GetFromTo(segment);
+  auto [from, to] = m_guides.GetFromTo(segment.WithoutPassThroughState());
   return m_graph.CalcOffroadWeight(from.GetLatLon(), to.GetLatLon(), purpose);
 }
 
@@ -265,9 +405,9 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment, EdgeEs
   if (!IsFakeSegment(segment))
     return m_graph.CalcSegmentWeight(segment, purpose);
 
-  auto const & vertex = m_fake.GetVertex(segment);
+  auto const & vertex = m_fake.GetVertex(segment.WithoutPassThroughState());
   Segment real;
-  if (m_fake.FindReal(segment, real))
+  if (m_fake.FindReal(segment.WithoutPassThroughState(), real))
   {
     double const partLen = ms::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
 
@@ -478,13 +618,12 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
   m_fake.AddStandaloneVertex(fakeSegment, fakeVertex);
   for (auto const & projection : thisEnding.m_projections)
   {
-    if (isStart)
-      m_start.m_real.insert(projection.m_segment);
-    else
-      m_finish.m_real.insert(projection.m_segment);
+    auto & ending = isStart ? m_start : m_finish;
+    ending.m_real.insert(projection.m_segment);
 
     // Add projection edges
     auto const projectionSegment = GetFakeSegmentAndIncr();
+    ending.m_projections.emplace(projectionSegment, projection.m_segment);
     FakeVertex projectionVertex(
         projection.m_segment.GetMwmId(), isStart ? thisEnding.m_originJunction : projection.m_junction,
         isStart ? projection.m_junction : thisEnding.m_originJunction, FakeVertex::Type::PureFake);
@@ -544,7 +683,7 @@ HighwayCategory IndexGraphStarter::GetHighwayCategory(Segment seg) const
   if (IsFakeSegment(seg))
   {
     Segment real;
-    if (m_fake.FindReal(seg, real))
+    if (m_fake.FindReal(seg.WithoutPassThroughState(), real))
       seg = real;
     else
       return HighwayCategory::Unknown;
@@ -589,7 +728,7 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, E
   EdgeListT fakeEdges;
   for (auto const & edge : edges)
   {
-    for (auto const & s : m_fake.GetFake(edge.GetTarget()))
+    for (auto const & s : m_fake.GetFake(edge.GetTarget().WithoutPassThroughState()))
     {
       //     |segment|       |s|
       //  *------------>*----------->
@@ -610,18 +749,26 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, E
   edges.append(fakeEdges.begin(), fakeEdges.end());
 }
 
+bool IndexGraphStarter::IsNoPassThroughAllowed(Segment const & segment) const
+{
+  auto real = segment.WithoutPassThroughState();
+  if (IsFakeSegment(real))
+  {
+    if (auto const it = m_start.m_projections.find(real); it != m_start.m_projections.end())
+      real = it->second;
+    else if (auto const it = m_finish.m_projections.find(real); it != m_finish.m_projections.end())
+      real = it->second;
+    else if (!ConvertToReal(real))
+      return false;
+  }
+  return !IsRegionsGraphMode() && !IsGuidesSegment(real) &&
+         !m_graph.IsPassThroughAllowed(real.GetMwmId(), real.GetFeatureId());
+}
+
 bool IndexGraphStarter::HasNoPassThroughAllowed(Ending const & ending) const
 {
-  if (IsRegionsGraphMode())
-    return false;
-
-  return std::any_of(ending.m_real.cbegin(), ending.m_real.cend(), [this](Segment const & s)
-  {
-    if (IsGuidesSegment(s))
-      return false;
-
-    return !m_graph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
-  });
+  return std::any_of(ending.m_real.cbegin(), ending.m_real.cend(),
+                     [this](Segment const & segment) { return IsNoPassThroughAllowed(segment); });
 }
 
 Segment IndexGraphStarter::GetFakeSegmentAndIncr()

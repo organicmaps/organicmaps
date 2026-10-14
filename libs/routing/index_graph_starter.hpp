@@ -16,7 +16,9 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
+#include <map>
 #include <memory>
+#include <optional>
 #include <set>
 #include <vector>
 
@@ -102,6 +104,20 @@ public:
   // Checks whether |weight| meets non-pass-through crossing restrictions according to placement of
   // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
   bool CheckLength(RouteWeight const & weight);
+
+  // Retain the service episode in the A* label so all edge penalties are additive.
+  void EnablePassThroughStateRouting(bool enable = true);
+  bool IsPassThroughStateRouting() const { return m_passThroughStateRouting; }
+  bool HasNonPassThroughEndings() const
+  {
+    return HasNoPassThroughAllowed(m_start) || HasNoPassThroughAllowed(m_finish);
+  }
+  SmallList<PassThroughState> GetPassThroughStates(Segment const & segment) const;
+  std::optional<PassThroughState> AdvancePassThroughState(PassThroughState state, Segment const & from,
+                                                          Segment const & to) const;
+  static int8_t GetPassThroughPenalty(PassThroughState from, PassThroughState to);
+  void ApplyPassThroughState(Segment const & source, bool isOutgoing, JointEdgeListT & edges,
+                             WeightListT & parentWeights) const;
 
   void GetEdgeList(astar::VertexData<JointSegment, Weight> const & parentVertexData, Segment const & segment,
                    bool isOutgoing, JointEdgeListT & edges, WeightListT & parentWeights) const
@@ -190,6 +206,8 @@ public:
     uint32_t m_id = 0;
     // Real segments connected to the ending.
     std::set<Segment> m_real;
+    // Pure fake projection segments and their corresponding roads.
+    std::map<Segment, Segment> m_projections;
     // Mwm ids of connected segments to the ending.
     std::set<NumMwmId> m_mwmIds;
   };
@@ -237,6 +255,10 @@ private:
   // remain. See the .cpp for why the whole allowance is banked at the start rather than split.
   void CreditEndingPassThrough(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
 
+  void ApplyPassThroughState(Segment const & source, bool isOutgoing, EdgeListT & edges) const;
+
+  bool IsNoPassThroughAllowed(Segment const & segment) const;
+
   // Checks whether ending belongs to non-pass-through zone (service, living street, etc).
   bool HasNoPassThroughAllowed(Ending const & ending) const;
 
@@ -249,6 +271,7 @@ private:
   FakeGraph m_fake;
   GuidesGraph m_guides;
   uint32_t m_fakeNumerationStart;
+  bool m_passThroughStateRouting = false;
 
   std::vector<FakeEnding> m_otherEndings;
 

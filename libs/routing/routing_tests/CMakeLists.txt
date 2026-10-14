@@ -25,6 +25,7 @@ set(SRC
   mwm_hierarchy_test.cpp
   nearest_edge_finder_tests.cpp
   opening_hours_serdes_tests.cpp
+  pass_through_state_tests.cpp
   position_accumulator_tests.cpp
   restriction_test.cpp
   road_access_test.cpp

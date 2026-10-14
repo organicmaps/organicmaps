@@ -26,6 +26,8 @@ JointSegment::JointSegment(Segment const & from, Segment const & to)
 
   m_startSegmentId = from.GetSegmentIdx();
   m_endSegmentId = to.GetSegmentIdx();
+  ASSERT_EQUAL(from.GetPassThroughState(), to.GetPassThroughState(), ());
+  m_passThroughState = from.GetPassThroughState();
 }
 
 void JointSegment::AssignID(Segment const & seg)
@@ -69,7 +71,9 @@ bool JointSegment::IsFake() const
 
 Segment JointSegment::GetSegment(bool start) const
 {
-  return {m_numMwmId, m_featureId, start ? m_startSegmentId : m_endSegmentId, m_forward};
+  Segment segment(m_numMwmId, m_featureId, start ? m_startSegmentId : m_endSegmentId, m_forward);
+  segment.SetPassThroughState(m_passThroughState);
+  return segment;
 }
 
 bool JointSegment::operator<(JointSegment const & rhs) const
@@ -86,13 +90,16 @@ bool JointSegment::operator<(JointSegment const & rhs) const
   if (m_endSegmentId != rhs.m_endSegmentId)
     return m_endSegmentId < rhs.m_endSegmentId;
 
-  return m_numMwmId < rhs.m_numMwmId;
+  if (m_numMwmId != rhs.m_numMwmId)
+    return m_numMwmId < rhs.m_numMwmId;
+  return m_passThroughState < rhs.m_passThroughState;
 }
 
 bool JointSegment::operator==(JointSegment const & rhs) const
 {
   return m_featureId == rhs.m_featureId && m_forward == rhs.m_forward && m_startSegmentId == rhs.m_startSegmentId &&
-         m_endSegmentId == rhs.m_endSegmentId && m_numMwmId == rhs.m_numMwmId;
+         m_endSegmentId == rhs.m_endSegmentId && m_numMwmId == rhs.m_numMwmId &&
+         m_passThroughState == rhs.m_passThroughState;
 }
 
 std::string DebugPrint(JointSegment const & jointSegment)
@@ -103,7 +110,10 @@ std::string DebugPrint(JointSegment const & jointSegment)
 
   out << std::boolalpha << "JointSegment(" << jointSegment.GetMwmId() << ", " << jointSegment.GetFeatureId() << ", "
       << "[" << jointSegment.GetStartSegmentId() << " => " << jointSegment.GetEndSegmentId() << "], "
-      << jointSegment.IsForward() << ")";
+      << jointSegment.IsForward();
+  if (jointSegment.GetPassThroughState() != PassThroughState::None)
+    out << ", state=" << DebugPrint(jointSegment.GetPassThroughState());
+  out << ")";
   return out.str();
 }
 }  // namespace routing
@@ -118,6 +128,7 @@ size_t std::hash<routing::JointSegment>::operator()(routing::JointSegment const 
   boost::hash_combine(seed, jointSegment.GetStartSegmentId());
   boost::hash_combine(seed, jointSegment.GetEndSegmentId());
   boost::hash_combine(seed, jointSegment.IsForward());
+  boost::hash_combine(seed, jointSegment.GetPassThroughState());
   return seed;
 }
 }  // namespace std

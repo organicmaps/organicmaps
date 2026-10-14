@@ -215,6 +215,8 @@ private:
       , m_delegate(delegate)
     {}
 
+    bool IsCancelled() const { return m_delegate.IsCancelled(); }
+
     using ProgressPtrT = std::shared_ptr<AStarProgress>;
     RoutingResultT const * Calc(Segment const & beg, Segment const & end, ProgressPtrT const & progress,
                                 double progressCoef);
@@ -225,9 +227,10 @@ private:
 
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
-  RouterResultCode ProcessLeapsJoints(std::vector<Segment> const & input, IndexGraphStarter & starter,
-                                      std::shared_ptr<AStarProgress> const & progress, RoutesCalculator & calculator,
-                                      RoutingResultT & result);
+  friend struct IndexRouterTest;
+  static RouterResultCode ProcessLeapsJoints(std::vector<Segment> const & input, IndexGraphStarter & starter,
+                                             std::shared_ptr<AStarProgress> const & progress,
+                                             RoutesCalculator & calculator, RoutingResultT & result);
 
   RouterResultCode RedressRoute(std::vector<Segment> const & segments, base::Cancellable const & cancellable,
                                 IndexGraphStarter & starter, Route & route);
