@@ -76,7 +76,7 @@ std::string DebugPrint(TransitStepInfo const & info);
 
 struct TransitRouteInfo
 {
-  void AddStep(TransitStepInfo const & step);
+  void AddStep(TransitStepInfo const & step, bool allowMerge = true);
   void UpdateDistanceStrings();
 
   double m_totalDistInMeters = 0.0;
