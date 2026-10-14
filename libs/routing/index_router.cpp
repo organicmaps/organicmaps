@@ -25,6 +25,7 @@
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
+#include "routing_common/num_mwm_tree.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
 #include "indexer/classificator.hpp"
@@ -1990,7 +1991,7 @@ bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
   {
     m2::RectD const & rect = m_countryRectFn(m_numMwmIds->GetFile(startMwmId).GetName());
     bool found = false;
-    m_numMwmTree->ForEachInRect(rect, [&finishMwmIds, &found](NumMwmId id)
+    ForEachNumMwmInRect(*m_numMwmTree, rect, [&finishMwmIds, &found](NumMwmId id)
     {
       if (!found && finishMwmIds.count(id) > 0)
         found = true;
