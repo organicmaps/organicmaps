@@ -45,7 +45,8 @@ public:
   // Gate/edge weights come from the data and the gate projection hop is always ETA-priced, so the
   // weight does not depend on EdgeEstimator::Purpose.
   RouteWeight CalcSegmentWeight(Segment const & segment) const;
-  RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
+  transit::LineId GetRideLineId(Segment const & segment) const;
+  RouteWeight GetTransferPenalty(transit::LineId fromLineId, Segment const & to) const;
 
   // Fake (transit graph) neighbours of a transit |segment|.
   std::set<Segment> const & GetFakeEdges(Segment const & segment, bool isOutgoing) const
