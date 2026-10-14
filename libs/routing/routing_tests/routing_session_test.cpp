@@ -833,4 +833,44 @@ UNIT_CLASS_TEST(TrafficRefreshTest, RepeatedTrafficRefreshUsesCurrentPosition)
     TEST_EQUAL(m_starts[i], current, ("Repeated refresh must not restart at the departure"));
 }
 
+UNIT_CLASS_TEST(TrafficRefreshTest, TrafficPreviewKeepsPlannedDeparture)
+{
+  BuildRoute();
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]
+  {
+    m_session->SetUserCurrentPosition({0, 2});
+    location::GpsInfo gps;
+    gps.m_latitude = mercator::YToLat(2);
+    gps.m_longitude = 0;
+    gps.m_horizontalAccuracy = 5;
+    m_locationState = m_session->OnLocationPositionChanged(gps);
+    m_followingEnabled = m_session->IsFollowing();
+    m_session->OnTrafficInfoClear();
+  });
+  TEST(m_rebuilt.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST_EQUAL(m_locationState, SessionState::OnRoute, ());
+  TEST(!m_followingEnabled, ());
+  TEST_EQUAL(m_starts.back(), kTestRoute.front(), ("GPS matching must not move a preview's departure"));
+}
+
+UNIT_CLASS_TEST(TrafficRefreshTest, TrafficAfterGpsBeforeRenderUsesRouteIterator)
+{
+  BuildRoute();
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]
+  {
+    m_followingEnabled = m_session->EnableFollowMode();
+    location::GpsInfo gps;
+    gps.m_latitude = mercator::YToLat(2);
+    gps.m_longitude = 0;
+    gps.m_horizontalAccuracy = 5;
+    m_locationState = m_session->OnLocationPositionChanged(gps);
+    m_session->OnTrafficInfoClear();
+  });
+  TEST(m_rebuilt.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST(m_followingEnabled, ());
+  TEST_EQUAL(m_locationState, SessionState::OnRoute, ());
+  TEST_ALMOST_EQUAL_ABS(m_starts.back().x, 0.0, 1e-8, ());
+  TEST_ALMOST_EQUAL_ABS(m_starts.back().y, 2.0, 1e-8, ());
+}
+
 }  // namespace routing_session_test

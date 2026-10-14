@@ -81,6 +81,11 @@ namespace descriptions
 class Loader;
 }
 
+namespace routing_manager_tests
+{
+class FrameworkPositionTest;
+}
+
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 // #define FIXED_LOCATION
@@ -104,6 +109,7 @@ class Framework
 {
   DISALLOW_COPY(Framework);
   friend class SelectionProcessor;
+  friend class routing_manager_tests::FrameworkPositionTest;
 
 #ifdef FIXED_LOCATION
   class FixedPosition

@@ -982,4 +982,116 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
 }
+
+class FrameworkPositionTest
+{
+  class Router final : public routing::IRouter
+  {
+  public:
+    explicit Router(std::vector<m2::PointD> & starts) : m_starts(starts) {}
+
+    std::string GetName() const override { return "traffic origin test"; }
+    void ClearState() override {}
+    void SetGuides(routing::GuidesTracks &&) override {}
+    bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, routing::EdgeProj &) override
+    {
+      return false;
+    }
+    routing::RouterResultCode CalculateRoute(routing::Checkpoints const & checkpoints, m2::PointD const & direction,
+                                             bool adjust, bool alternatives, routing::RouterDelegate const & delegate,
+                                             routing::RoutesResult & result) override
+    {
+      m_starts.push_back(checkpoints.GetPointFrom());
+      return static_cast<routing::IRouter &>(m_ruler).CalculateRoute(checkpoints, direction, adjust, alternatives,
+                                                                     delegate, result);
+    }
+
+  private:
+    std::vector<m2::PointD> & m_starts;
+    routing::RulerRouter m_ruler;
+  };
+
+public:
+  FrameworkPositionTest()
+  {
+    auto gui = std::make_unique<TestGuiThread>();
+    m_guiThread = gui.get();
+    GetPlatform().SetGuiThread(std::move(gui));
+  }
+
+  ~FrameworkPositionTest()
+  {
+    // Framework stops its runner and joins routing before captured state or queued callbacks expire.
+    m_framework.reset();
+    GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>());
+  }
+
+  void BuildRoute()
+  {
+    m_framework = std::make_unique<Framework>(FrameworkParams{}, false /* loadMaps */);
+    auto & manager = m_framework->GetRoutingManager();
+    auto & session = manager.RoutingSession();
+    session.SetRouter(std::make_unique<Router>(m_starts), nullptr);
+    auto const ready = [this](routing::RoutesResult const &, routing::RouterResultCode code)
+    {
+      m_code = code;
+      m_ready = true;
+    };
+    session.SetRoutingCallbacks(ready, ready, nullptr, nullptr);
+    manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, -1.0), false /* optimize */);
+    manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 10.0), false /* optimize */);
+    manager.BuildRoute();
+    WaitForRoute();
+    TEST(session.EnableFollowMode(), ());
+  }
+
+  void SetPosition(m2::PointD const & position, bool hasPosition)
+  {
+    m_framework->OnUserPositionChanged(position, hasPosition);
+  }
+
+  m2::PointD RefreshTraffic()
+  {
+    m_framework->GetRoutingManager().RoutingSession().OnTrafficInfoClear();
+    WaitForRoute();
+    return m_starts.back();
+  }
+
+  std::unique_ptr<Framework> m_framework;
+
+private:
+  void WaitForRoute()
+  {
+    while (!m_ready)
+      m_guiThread->RunNext();
+    TEST_EQUAL(m_code, routing::RouterResultCode::NoError, ());
+    m_ready = false;
+  }
+
+  TestGuiThread * m_guiThread = nullptr;
+  std::vector<m2::PointD> m_starts;
+  bool m_ready = false;
+  routing::RouterResultCode m_code = routing::RouterResultCode::Cancelled;
+};
+
+UNIT_CLASS_TEST(FrameworkPositionTest, UnavailablePositionKeepsSeededTrafficOrigin)
+{
+  BuildRoute();
+  SetPosition(m2::PointD::Zero(), false /* hasPosition */);
+  TEST(!m_framework->GetCurrentPosition(), ());
+  auto const origin = RefreshTraffic();
+  TEST_EQUAL(origin, m2::PointD(-1, 0), ());
+}
+
+UNIT_CLASS_TEST(FrameworkPositionTest, UnavailablePositionKeepsLastValidTrafficOrigin)
+{
+  BuildRoute();
+  m2::PointD const current(2, 0);
+  SetPosition(current, true /* hasPosition */);
+  TEST_EQUAL(m_framework->GetCurrentPosition(), std::optional<m2::PointD>(current), ());
+  SetPosition(m2::PointD::Zero(), false /* hasPosition */);
+  TEST(!m_framework->GetCurrentPosition(), ());
+  auto const origin = RefreshTraffic();
+  TEST_EQUAL(origin, current, ());
+}
 }  // namespace routing_manager_tests
