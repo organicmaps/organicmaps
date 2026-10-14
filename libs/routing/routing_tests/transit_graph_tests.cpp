@@ -2,6 +2,7 @@
 
 #include "routing/routing_tests/index_graph_tools.hpp"
 
+#include "routing/base/astar_algorithm.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/transit_graph.hpp"
@@ -12,6 +13,8 @@
 #include "geometry/mercator.hpp"
 
 #include <algorithm>
+#include <string>
+#include <string_view>
 
 namespace transit_graph_tests
 {
@@ -19,11 +22,11 @@ namespace
 {
 struct Fixture
 {
-  Fixture()
+  explicit Fixture(std::string_view graphJson = {})
     : m_estimator(routing::EdgeEstimator::Create(routing::VehicleType::Pedestrian, 60, routing::SpeedKMpH(3), nullptr,
                                                  nullptr, nullptr))
   {
-    m_data.DeserializeFromJson(R"({
+    m_data.DeserializeFromJson(graphJson.empty() ? R"({
       "stops": [
         {"id": 1, "osm_id": "1", "line_ids": [1], "point": {"x": 0, "y": 0}},
         {"id": 2, "osm_id": "2", "line_ids": [1], "point": {"x": 0.001, "y": 0}},
@@ -51,13 +54,24 @@ struct Fixture
          "type": "subway", "color": "blue"}
       ],
       "networks": [{"id": 1, "title": "Transit test"}]
-    })",
+    })"
+                                                 : graphJson,
                                {});
-    routing::LatLonWithAltitude const roadPoint(mercator::ToLatLon({-0.00001, 0}), 0);
-    routing::FakeEnding ending;
-    ending.m_originJunction = routing::LatLonWithAltitude(mercator::ToLatLon({0, 0}), 0);
-    ending.m_projections.emplace_back(routing::Segment(0, 0, 0, true), true, roadPoint, roadPoint, roadPoint);
-    m_endings.emplace(m_data.GetGates().front().GetOsmId(), ending);
+    if (!graphJson.empty())
+    {
+      m_data.Sort();
+      m_data.CheckValidSortedUnique();
+    }
+    auto const & gates = m_data.GetGates();
+    for (size_t i = 0; i < gates.size(); ++i)
+    {
+      auto const & gate = gates[i];
+      routing::LatLonWithAltitude const roadPoint(mercator::ToLatLon(gate.GetPoint() - m2::PointD(0.00001, 0)), 0);
+      routing::FakeEnding ending;
+      ending.m_originJunction = routing::LatLonWithAltitude(mercator::ToLatLon(gate.GetPoint()), 0);
+      ending.m_projections.emplace_back(routing::Segment(0, i, 0, true), true, roadPoint, roadPoint, roadPoint);
+      m_endings.emplace(gate.GetOsmId(), ending);
+    }
   }
 
   std::unique_ptr<routing::TransitGraph> MakeGraph(routing::NumMwmId mwmId = 0)
@@ -95,10 +109,10 @@ struct Fixture
   routing::TransitGraph::Endings m_endings;
 };
 
-routing::Segment Gate(routing::TransitGraph const & graph, bool isEntrance)
+routing::Segment Gate(routing::TransitGraph const & graph, bool isEntrance, m2::PointD const & point = {})
 {
   routing::GateAccessesT accesses;
-  graph.GetGatesNear({0, 0}, 100, isEntrance, accesses);
+  graph.GetGatesNear(point, 100, isEntrance, accesses);
   TEST_EQUAL(accesses.size(), 1, ());
   for (auto const & segment : graph.GetFakeEdges(accesses.front().m_entrySegment, isEntrance))
     if (graph.FindGate(segment))
@@ -106,6 +120,34 @@ routing::Segment Gate(routing::TransitGraph const & graph, bool isEntrance)
   TEST(false, ("Missing gate segment"));
   return {};
 }
+
+class WorldGraphAdapter final : public routing::AStarGraph<routing::Segment, routing::SegmentEdge, routing::RouteWeight>
+{
+public:
+  explicit WorldGraphAdapter(routing::TransitWorldGraph & world) : m_world(world) {}
+
+  Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
+  {
+    return m_world.HeuristicCostEstimate(m_world.GetPoint(from, true), m_world.GetPoint(to, true));
+  }
+
+  void GetOutgoingEdgesList(routing::astar::VertexData<Vertex, Weight> const & data, EdgeListT & edges) override
+  {
+    edges.clear();
+    m_world.GetEdgeList(data, true, false, false, edges);
+  }
+
+  void GetIngoingEdgesList(routing::astar::VertexData<Vertex, Weight> const & data, EdgeListT & edges) override
+  {
+    edges.clear();
+    m_world.GetEdgeList(data, false, false, false, edges);
+  }
+
+  Weight GetAStarWeightEpsilon() override { return Weight(1e-6); }
+
+private:
+  routing::TransitWorldGraph & m_world;
+};
 }  // namespace
 
 UNIT_TEST(TransitGraph_GateMetadataPreservesTraversal)
@@ -256,6 +298,87 @@ UNIT_TEST(TransitWorldGraph_StationConnectionsHaveSymmetricSearchWeights)
   checkConnection(fixture.Edge(2, 3), fixture.Edge(3, 4), 120.0);
   checkConnection(fixture.Edge(3, 4), fixture.Edge(4, 5), 345.5);
   checkConnection(Gate(*graph, true), fixture.Edge(1, 2), 350.0);
+}
+
+UNIT_TEST(TransitWorldGraph_SearchSelectsFasterParallelLine)
+{
+  struct Case
+  {
+    std::string m_type;
+    int m_fastRideTime;
+    int m_interval;
+  };
+  for (auto const & test : {Case{"train", 100, 60}, Case{"air_service", 100, 60}, Case{"train", 0, 0}})
+  {
+    Fixture fixture(R"({
+      "stops": [
+        {"id": 1, "osm_id": "1", "line_ids": [1, 2], "point": {"x": 0, "y": 0}},
+        {"id": 2, "osm_id": "2", "line_ids": [1, 2], "point": {"x": 0.1, "y": 0}}
+      ],
+      "edges": [
+        {"stop1_id": 1, "stop2_id": 2, "weight": 120, "line_id": 1, "transfer": false},
+        {"stop1_id": 1, "stop2_id": 2, "weight": )" +
+                    std::to_string(test.m_fastRideTime) + R"(,
+         "line_id": 2, "transfer": false}
+      ],
+      "gates": [
+        {"osm_id": "1000001", "entrance": true, "exit": false, "weight": 60,
+         "stop_ids": [1], "point": {"x": 0, "y": 0}},
+        {"osm_id": "1000002", "entrance": false, "exit": true, "weight": 60,
+         "stop_ids": [2], "point": {"x": 0.1, "y": 0}}
+      ],
+      "lines": [
+        {"id": 1, "interval": )" +
+                    std::to_string(test.m_interval) + R"(, "network_id": 1, "number": "A",
+         "stop_ids": [1, 2], "type": ")" +
+                    test.m_type + R"(", "color": "red"},
+        {"id": 2, "interval": )" +
+                    std::to_string(test.m_interval) + R"(, "network_id": 1, "number": "B",
+         "stop_ids": [1, 2], "type": ")" +
+                    test.m_type + R"(", "color": "blue"}
+      ],
+      "networks": [{"id": 1, "title": "Parallel transit"}]
+    })");
+    auto const graph = fixture.MakeGraph();
+    auto world = fixture.MakeWorldGraph();
+    auto const start = Gate(*graph, true);
+    auto const finish = Gate(*graph, false, {0.1, 0});
+    WorldGraphAdapter adapter(*world);
+    using Algorithm = routing::AStarAlgorithm<routing::Segment, routing::SegmentEdge, routing::RouteWeight>;
+    size_t negativeReweights = 0;
+    Algorithm::ParamsForTests<> params(adapter, start, finish);
+    params.m_badReducedWeight = [&](auto const &, auto const &)
+    {
+      ++negativeReweights;
+      return false;
+    };
+    routing::RoutingResult<routing::Segment, routing::RouteWeight> result;
+    TEST_EQUAL(Algorithm().FindPathBidirectional(params, result), Algorithm::Result::OK, ());
+    TEST_EQUAL(result.m_path.size(), 3, ());
+    TEST_EQUAL(result.m_path.front(), start, ());
+    TEST_EQUAL(result.m_path.back(), finish, ());
+
+    routing::RouteWeight edgeSum;
+    for (size_t i = 1; i < result.m_path.size(); ++i)
+    {
+      routing::WorldGraph::SegmentEdgeListT edges;
+      routing::astar::VertexData const vertex(result.m_path[i - 1], edgeSum);
+      world->GetEdgeList(vertex, true, false, false, edges);
+      auto const edge =
+          std::find_if(edges.begin(), edges.end(), [&](auto const & e) { return e.GetTarget() == result.m_path[i]; });
+      TEST(edge != edges.end(), ());
+      edgeSum += edge->GetWeight();
+    }
+    auto const info = world->GetTransitInfo(result.m_path[1]);
+    TEST(info && info->GetType() == routing::TransitInfo::Type::Edge, ());
+    TEST_EQUAL(info->GetEdgeSubway().m_lineId, 2,
+               (result.m_distance.GetWeight(), edgeSum.GetWeight(), negativeReweights, test.m_type));
+    // The search starts on the entrance segment, so only the ride, boarding wait and exit are charged.
+    double const expected = test.m_fastRideTime + test.m_interval / 2.0 + 60;
+    TEST_EQUAL(result.m_distance.GetWeight(), expected, ());
+    TEST_EQUAL(edgeSum.GetWeight(), expected, ());
+    TEST_EQUAL(negativeReweights, 0, ());
+  }
 }
 
 UNIT_TEST(TransitRoute_BoardingWaitPrecedesRideProgress)

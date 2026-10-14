@@ -71,8 +71,8 @@ uint32_t constexpr kVisitPeriod = 40;
 double constexpr kLeapsStageContribution = 0.15;
 double constexpr kCandidatesStageContribution = 0.55;
 double constexpr kAlmostZeroContribution = 1e-7;
-// A* heuristic speed bound for transit; deliberately ignores high-speed rail.
-double constexpr kTransitMaxSpeedKMpH = 60.0;
+// The transit estimator uses this speed to price guide-track edges.
+double constexpr kTransitEstimatorSpeedKMpH = 60.0;
 
 // Distance-biased alternatives must not trade a small distance saving for an excessive ETA.
 // Transit alternatives are exempt because they intentionally trade time for less walking.
@@ -110,7 +110,7 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds, VehicleModelFactoryInterface co
                     VehicleType vehicleType)
 {
   if (vehicleType == VehicleType::Transit)
-    return kTransitMaxSpeedKMpH;
+    return kTransitEstimatorSpeedKMpH;
 
   double maxSpeed = 0.0;
   numMwmIds.ForEachId([&](NumMwmId id)

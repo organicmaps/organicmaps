@@ -143,9 +143,10 @@ void TransitWorldGraph::ClearCachedGraphs()
   m_transitLoader->Clear();
 }
 
-RouteWeight TransitWorldGraph::HeuristicCostEstimate(ms::LatLon const & from, ms::LatLon const & to)
+RouteWeight TransitWorldGraph::HeuristicCostEstimate(ms::LatLon const &, ms::LatLon const &)
 {
-  return RouteWeight(m_estimator->CalcHeuristic(from, to));
+  // Stored transit durations provide no global speed bound for a distance-based estimate.
+  return RouteWeight(0.0);
 }
 
 RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose)
