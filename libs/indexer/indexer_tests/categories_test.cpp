@@ -107,14 +107,16 @@ UNIT_CLASS_TEST(TestWithClassificator, LoadCategories)
 
 UNIT_TEST(CategoriesHolder_Smoke)
 {
-  auto const & mappings = CategoriesHolder::kLocaleMapping;
-  for (size_t i = 0; i < mappings.size(); ++i)
+  auto const & locales = CategoriesHolder::kLocales;
+  for (size_t i = 0; i < locales.size(); ++i)
   {
-    auto const & mapping = mappings[i];
-    TEST_EQUAL(static_cast<int8_t>(i + 1), mapping.m_code, ());
-    TEST_EQUAL(static_cast<int8_t>(i + 1), CategoriesHolder::MapLocaleToInteger(mapping.m_name), (mapping.m_name));
-    TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(i + 1), mapping.m_name, ());
+    TEST_EQUAL(static_cast<int8_t>(i + 1), CategoriesHolder::MapLocaleToInteger(locales[i]), (locales[i]));
+    TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(i + 1), locales[i], ());
   }
+
+  TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(0), "", ());
+  TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(-1), "", ());
+  TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(locales.size() + 1), "", ());
 }
 
 // Android 14+ appends regional preferences to the locale as Unicode extensions, e.g.

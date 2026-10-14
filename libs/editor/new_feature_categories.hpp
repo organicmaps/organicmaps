@@ -48,7 +48,7 @@ public:
   TypeNames const & GetAllCreatableTypeNames() const { return m_types; }
 
 private:
-  using Langs = base::SmallSet<CategoriesHolder::kLocaleMapping.size() + 1>;
+  using Langs = base::SmallSet<CategoriesHolder::kLocales.size() + 1>;
 
   indexer::CategoriesIndex m_index;
   Langs m_addedLangs;

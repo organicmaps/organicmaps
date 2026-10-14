@@ -5,8 +5,10 @@
 
 #include <algorithm>
 #include <array>
+#include <limits>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -34,12 +36,6 @@ public:
     void Swap(Category & r) { m_synonyms.swap(r.m_synonyms); }
   };
 
-  struct Mapping
-  {
-    char const * m_name;
-    int8_t m_code;
-  };
-
   using GroupTranslations = std::unordered_map<std::string, std::vector<Category::Name>>;
 
 private:
@@ -55,66 +51,35 @@ private:
   GroupTranslations m_groupTranslations;
 
 public:
-  // Should match codes in the array below.
-  static int8_t constexpr kEnglishCode = 1;
   static int8_t constexpr kUnsupportedLocaleCode = -1;
-  static int8_t constexpr kSimplifiedChineseCode = 46;
-  static int8_t constexpr kTraditionalChineseCode = 47;
-  // *NOTE* These constants should be updated when adding new
-  // translation to categories.txt. When editing, keep in mind to check
-  // CategoriesHolder::MapLocaleToInteger() and
-  // CategoriesHolder::MapIntegerToLocale() as their implementations
-  // strongly depend on the contents of the variable.
-  // TODO: Refactor for more flexibility and to avoid breaking rules in two methods mentioned above.
-  static auto constexpr kLocaleMapping = std::to_array<CategoriesHolder::Mapping>({
-      {"en", kEnglishCode},
-      {"en-AU", 2},
-      {"en-GB", 3},
-      {"en-US", 4},
-      {"ar", 5},
-      {"be", 6},
-      {"bg", 7},
-      {"ca", 8},
-      {"cs", 9},
-      {"da", 10},
-      {"de", 11},
-      {"el", 12},
-      {"es", 13},
-      {"es-MX", 14},
-      {"et", 15},
-      {"eu", 16},
-      {"fa", 17},
-      {"fi", 18},
-      {"fr", 19},
-      {"he", 20},
-      {"hi", 21},
-      {"hu", 22},
-      {"id", 23},
-      {"it", 24},
-      {"ja", 25},
-      {"ko", 26},
-      {"lt", 27},
-      {"lv", 28},
-      {"mr", 29},
-      {"nb", 30},
-      {"nl", 31},
-      {"pl", 32},
-      {"pt", 33},
-      {"pt-BR", 34},
-      {"ro", 35},
-      {"ru", 36},
-      {"sk", 37},
-      {"sl", 38},
-      {"sr", 39},
-      {"sv", 40},
-      {"sw", 41},
-      {"th", 42},
-      {"tr", 43},
-      {"uk", 44},
-      {"vi", 45},
-      {"zh-Hans", kSimplifiedChineseCode},
-      {"zh-Hant", kTraditionalChineseCode},
+  // Codes are 1-based positions used only within the process. Keep English first and place variants
+  // after their base language so the reverse scan prefers them. Named codes are derived from this table.
+  static auto constexpr kLocales = std::to_array<std::string_view>({
+      "en", "en-AU", "en-GB", "en-US", "ar", "be", "bg", "ca", "cs", "da", "de", "el", "es", "es-MX",   "et",      "eu",
+      "fa", "fi",    "fr",    "he",    "hi", "hu", "id", "it", "ja", "ko", "lt", "lv", "mr", "nb",      "nl",      "pl",
+      "pt", "pt-BR", "ro",    "ru",    "sk", "sl", "sr", "sv", "sw", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant",
   });
+
+  static_assert(kLocales.size() <= std::numeric_limits<int8_t>::max(), "Category locale codes must fit in int8_t");
+  static_assert([]
+  {
+    for (size_t i = 0; i < kLocales.size(); ++i)
+      for (size_t j = i + 1; j < kLocales.size(); ++j)
+        if (kLocales[i] == kLocales[j])
+          return false;
+    return true;
+  }(), "Category locales must be unique");
+
+  static int8_t constexpr kEnglishCode = std::find(kLocales.begin(), kLocales.end(), "en") - kLocales.begin() + 1;
+  static int8_t constexpr kSimplifiedChineseCode =
+      std::find(kLocales.begin(), kLocales.end(), "zh-Hans") - kLocales.begin() + 1;
+  static int8_t constexpr kTraditionalChineseCode =
+      std::find(kLocales.begin(), kLocales.end(), "zh-Hant") - kLocales.begin() + 1;
+
+  static_assert(kEnglishCode == 1, "English must be the first category locale");
+  static_assert(kSimplifiedChineseCode > 0 && kSimplifiedChineseCode <= kLocales.size(), "Missing Simplified Chinese");
+  static_assert(kTraditionalChineseCode > 0 && kTraditionalChineseCode <= kLocales.size(),
+                "Missing Traditional Chinese");
 
   explicit CategoriesHolder(std::unique_ptr<Reader> && reader);
 
