@@ -285,17 +285,9 @@ private:
       auto const piF = graph.HeuristicCostEstimate(v, finalVertex);
       auto const piR = graph.HeuristicCostEstimate(v, startVertex);
       if (forward)
-      {
-        /// @todo careful: with this "return" here and below in the Backward case
-        /// the heuristic becomes inconsistent but still seems to work.
-        /// return HeuristicCostEstimate(v, finalVertex);
         return 0.5 * (piF - piR);
-      }
       else
-      {
-        // return HeuristicCostEstimate(v, startVertex);
         return 0.5 * (piR - piF);
-      }
     }
 
     bool ExistsStateWithBetterDistance(State const & state, Weight const & eps = Weight(0.0)) const
@@ -633,7 +625,8 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
 
       if (reducedWeight < -epsilon && params.m_badReducedWeight(reducedWeight, std::max(pW, pV)))
       {
-        // Break in Debug, log in Release and safe continue: std::max(reducedWeight, kZeroDistance).
+        // Clamping permits continuation after a heuristic bound violation,
+        // but it cannot guarantee the shortest path.
         LOG(LERROR,
             ("Invariant violated for:", "v =", stateV.vertex, "w =", stateW.vertex, "reduced weight =", reducedWeight));
       }
