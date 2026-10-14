@@ -1196,7 +1196,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv *, jcla
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass)
 {
-  return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
+  return jni::ToJavaString(env, GetBookmarksDirectory());
 }
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetWritableDir(JNIEnv * env, jclass)

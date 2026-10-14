@@ -2463,9 +2463,11 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
   TEST_EQUAL(bmManager.GetRecentlyDeletedCategoriesCount(), 0, ());
 
   auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  TEST_EQUAL(bmManager.GetCategoryByFileName(filePath), groupId, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */);
+  TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */), ());
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
+  TEST_EQUAL(bmManager.GetCategoryByFileName(filePath), kml::kInvalidMarkGroupId, ());
 
   auto const deletedCategories = bmManager.GetRecentlyDeletedCategories();
   TEST_EQUAL(deletedCategories->size(), 1, ());

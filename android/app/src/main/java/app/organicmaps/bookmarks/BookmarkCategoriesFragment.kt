@@ -193,7 +193,8 @@ class BookmarkCategoriesFragment :
     private fun onShowActionSelected(category: BookmarkCategory) = category.toggleVisibility()
 
     private fun onDeleteActionSelected(category: BookmarkCategory) {
-        BookmarkManager.INSTANCE.deleteCategory(category.id)
+        // `permanently` should be set to false when the Recently Deleted Lists feature be implemented
+        BookmarkManager.INSTANCE.deleteCategory(category.id, true)
     }
 
     private fun showNoFileManagerError() {
