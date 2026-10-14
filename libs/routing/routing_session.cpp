@@ -403,7 +403,12 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     return;
   }
 
-  if (!IsNavigable())
+  // A traffic refresh retains geometry that can still guide while the latest position matches it.
+  bool const retainedGuidance =
+      m_isFollowing && m_state == SessionState::RouteRebuilding &&
+      (!m_userCurrentPositionValid || mercator::DistanceOnEarth(m_route->GetCurrentIter().m_pt, m_userCurrentPosition) <
+                                          m_routingSettings.m_matchingThresholdM);
+  if (!IsNavigable() && !retainedGuidance)
   {
     info = FollowingInfo();
     info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetTotalDistanceMeters());

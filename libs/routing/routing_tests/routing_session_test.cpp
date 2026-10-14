@@ -8,12 +8,14 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
 
 #include <chrono>
+#include <future>
 #include <initializer_list>
 #include <memory>
 #include <mutex>
@@ -735,4 +737,75 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSwapActiveAlternative)
   });
   TEST(swappedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative was not swapped."));
 }
+
+class TrafficGuidanceTest : public AsyncGuiThreadTestWithRoutingSession
+{
+public:
+  ~TrafficGuidanceTest()
+  {
+    // Cancel callbacks and join the worker before captured state expires, including on test failure.
+    auto done = make_shared<promise<void>>();
+    auto future = done->get_future();
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, done]
+    {
+      m_session.reset();
+      done->set_value();
+    });
+    future.wait();
+  }
+
+  size_t m_builds = 0;
+  TimedSignal m_built, m_captured;
+  FollowingInfo m_beforeGps, m_before, m_pending, m_offRoute, m_preview;
+};
+
+UNIT_CLASS_TEST(TrafficGuidanceTest, TrafficRefreshKeepsMatchingGuidance)
+{
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]
+  {
+    InitRoutingSession();
+    m_session->SetRouter(make_unique<DummyRouter>(m_builds, kTestTurns), nullptr);
+    m_session->SetRoutingCallbacks([this](RoutesResult const &, RouterResultCode) { m_built.Signal(); },
+                                   [](RoutesResult const &, RouterResultCode) {}, nullptr, nullptr);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(m_built.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ());
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]
+  {
+    m_session->EnableFollowMode();
+    m_session->OnTrafficInfoClear();
+    m_session->GetRouteFollowingInfo(m_beforeGps);
+
+    m_session->SetUserCurrentPosition({0, 2});
+    location::GpsInfo gps;
+    gps.m_latitude = mercator::YToLat(2);
+    gps.m_longitude = 0;
+    gps.m_horizontalAccuracy = 5;
+    m_session->OnLocationPositionChanged(gps);
+    m_session->GetRouteFollowingInfo(m_before);
+
+    // Ready callbacks run on the GUI thread after this task, so the refresh is still pending.
+    m_session->OnTrafficInfoClear();
+    m_session->GetRouteFollowingInfo(m_pending);
+    m_session->SetUserCurrentPosition({1, 2});
+    m_session->GetRouteFollowingInfo(m_offRoute);
+
+    // A traffic update during a new build must not show guidance from the previous route.
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+    m_session->OnTrafficInfoClear();
+    m_session->GetRouteFollowingInfo(m_preview);
+    m_captured.Signal();
+  });
+  TEST(m_captured.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ());
+  TEST(m_beforeGps.m_distToTurn.IsValid(), ("Keep guidance until the first GPS update"));
+  TEST(m_before.m_distToTurn.IsValid(), ());
+  TEST(m_pending.m_distToTurn.IsValid(), ());
+  TEST_EQUAL(m_pending.m_distToTarget.GetDistance(), m_before.m_distToTarget.GetDistance(), ());
+  TEST_EQUAL(m_pending.m_distToTurn.GetDistance(), m_before.m_distToTurn.GetDistance(), ());
+  TEST_EQUAL(m_pending.m_turn, m_before.m_turn, ());
+  TEST_EQUAL(m_pending.m_time, m_before.m_time, ());
+  TEST(!m_offRoute.m_distToTurn.IsValid(), ("An off-route rebuild must still suppress guidance"));
+  TEST(!m_preview.m_distToTurn.IsValid(), ("A new build must not retain navigation guidance"));
+}
+
 }  // namespace routing_session_test
