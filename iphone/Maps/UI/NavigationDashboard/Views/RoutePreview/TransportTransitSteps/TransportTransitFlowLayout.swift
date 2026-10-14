@@ -61,9 +61,8 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
       if spaceLeft < minimumSpaceRequired {
         x = 0
         y += Config.separatorSize.height + Config.lineSpacing
-      } else {
-        cellSize.width = min(cellSize.width, spaceLeft)
       }
+      cellSize.width = min(cellSize.width, max(0, width - x - Config.separatorSize.width))
 
       let cellAttr = UICollectionViewLayoutAttributes(forCellWith: ip)
       cellAttr.frame = CGRect(origin: CGPoint(x: x, y: y), size: cellSize)
