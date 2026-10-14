@@ -435,8 +435,8 @@ public:
   /// The auto-retry (userRequest = false) is transport-only: it skips the blocks whose
   /// recorded failure is not retryable, while a user request re-tries everything.
   void DownloadTerrain(CountryId const & countryId, bool userRequest = true);
-  /// Remaining remote bytes of the not-on-disk, not-queued maps in |countries|.
-  MwmSize GetDownloadSize(CountriesVec const & countries) const;
+  /// Remaining remote bytes of maps in |countries|, including their terrain unless disabled.
+  MwmSize GetDownloadSize(CountriesVec const & countries, bool withTerrain = true) const;
   /// Missing current terrain blocks for the batch, counting shared blocks once.
   /// Folder downloads cover installed MWMs; leaf downloads retain full coverage.
   MwmSize GetTerrainDownloadSize(CountriesVec const & countries) const;
@@ -563,7 +563,8 @@ public:
   /// \brief Downloads/update one node (expandable or not) by countryId.
   /// If node is expandable downloads/update all children (grandchildren) by the node
   /// until they haven't been downloaded before.
-  void DownloadNode(CountryId const & countryId, bool isUpdate = false);
+  /// Routing requests disable terrain, which is not needed to build a route.
+  void DownloadNode(CountryId const & countryId, bool isUpdate = false, bool withTerrain = true);
 
   /// \brief Delete node with all children (expandable or not).
   void DeleteNode(CountryId const & countryId);
@@ -578,7 +579,7 @@ public:
   /// If the downloading a updating map is in process cancels the downloading,
   /// deletes the downloaded part of the map and leaves as is the old map (before the update)
   /// had been downloaded. It works for leaf and for group mwms.
-  void CancelDownloadNode(CountryId const & countryId);
+  void CancelDownloadNode(CountryId const & countryId, bool withTerrain = true);
 
   /// \brief Downloading process could be interupted because of bad internet connection
   /// and some other reason.
@@ -676,9 +677,10 @@ public:
   int Subscribe(ChangeCountryFunction change, ProgressFunction progress);
   void Unsubscribe(int slotId);
 
-  /// Returns combined map and terrain download progress, counting shared files once.
+  /// Returns download progress for the watched maps, including terrain unless disabled.
+  /// Counts shared files once and retains completed maps while the batch is active.
   /// |countries| - watched CountryId, ONLY leaf expected.
-  downloader::Progress GetOverallProgress(CountriesVec const & countries) const;
+  downloader::Progress GetOverallProgress(CountriesVec const & countries, bool withTerrain = true) const;
   /// Progress of active map and terrain requests, counting shared files once.
   Progress GetDownloadingProgress(CountryId const & countryId) const;
 

@@ -50,7 +50,8 @@ NS_SWIFT_NAME(Storage)
 - (void)cancelTerrain:(NSString *)countryId;
 - (void)deleteTerrain:(NSString *)countryId;
 - (void)showNode:(NSString *)countryId;
-- (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;
+/// Downloads routing maps without terrain.
+- (BOOL)downloadMaps:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;
 
 - (BOOL)haveDownloadedCountries;
 - (BOOL)downloadInProgress;

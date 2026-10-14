@@ -389,6 +389,174 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, FailedDownloadSizeMatchesRetry)
   }
 }
 
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, RoutingDownloadsOnlyMapsAndIgnoresTerrainProgress)
+{
+  tests_support::ScopedFile countries("routing_maps.json", R"({"id":"Countries","v":260101,
+    "g":[{"id":"Group","g":[{"id":"West","s":100},{"id":"East","s":200}]}]})");
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, R"({"v":1,"blocks":[
+    {"id":"N45E008","sx":3,"sy":2,"s":30,"h":"aA"},
+    {"id":"N45E011","sx":3,"sy":2,"s":10,"h":"aA"}],
+    "mwms":{"West":["N45E008","N45E011"],"East":["N45E008"]}})");
+  tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
+  Storage storage("routing_maps.json");
+  storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
+  storage.SetEnabledIntegrityValidationForTesting(false);
+  storage.OnTerrainScanned({});
+  auto downloader = std::make_unique<PendingTerrainDownloader>();
+  auto & pending = *downloader;
+  storage.SetDownloaderForTesting(std::move(downloader));
+  CountriesVec const maps = {"West", "East", "West"};
+  TEST_EQUAL(storage.GetDownloadSize(maps, false /* withTerrain */), 300, ());
+  TEST_EQUAL(storage.GetDownloadSize(maps), 340, ());
+  storage.DownloadNode("Group", false /* isUpdate */, false /* withTerrain */);
+  TEST_EQUAL(pending.GetQueue().Count(), 2, ());
+  pending.GetQueue().ForEachCountry([](QueuedCountry const & country)
+  { TEST_EQUAL(country.GetFileType(), MapFileType::Map, ()); });
+  auto const checkProgress = [&](int64_t downloaded)
+  {
+    auto const progress = storage.GetOverallProgress(maps, false /* withTerrain */);
+    TEST_EQUAL(progress.m_bytesDownloaded, downloaded, ());
+    TEST_EQUAL(progress.m_bytesTotal, 300, ());
+  };
+  pending.Start();
+  pending.Progress(50);
+  checkProgress(50);
+  // An independent terrain request must not inflate routing progress or be cancelled with its maps.
+  storage.DownloadTerrain("West");
+  TEST_EQUAL(pending.GetQueue().Count(), 4, ());
+  TEST_EQUAL(storage.GetOverallProgress(maps).m_bytesTotal, 340, ());
+  pending.Complete(std::string(100, 'm'));
+  TEST(storage.HasLatestVersion("West"), ());
+  NodeStatuses status;
+  storage.GetNodeStatuses("West", status);
+  TEST_EQUAL(status.m_status, NodeStatus::Downloading, ());
+  checkProgress(100);
+  pending.Start();
+  pending.Progress(100);
+  checkProgress(200);
+  pending.Complete(std::string(200, 'm'));
+  checkProgress(300);
+  TEST(storage.HasLatestVersion("East"), ());
+  TEST(storage.IsDownloadInProgress(), ());
+  storage.CancelDownloadNode("Group", false /* withTerrain */);
+  TEST_EQUAL(pending.GetQueue().Count(), 2, ());
+  storage.DownloadNode("West", false /* isUpdate */, false /* withTerrain */);
+  TEST_EQUAL(pending.GetQueue().Count(), 2, ());
+  storage.CancelTerrain("Group");
+  TEST(!storage.IsDownloadInProgress(), ());
+  checkProgress(300);
+  TEST_EQUAL(storage.GetDownloadSize(maps, false /* withTerrain */), 0, ());
+  TEST_EQUAL(storage.GetDownloadSize(maps), 40, ());
+}
+
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, RestorePreservesMapAndTerrainRequests)
+{
+  tests_support::ScopedFile countries("restore_maps.json", R"({"id":"Countries","v":260101,
+    "g":[{"id":"West","s":100}]})");
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, R"({"v":1,"blocks":[
+    {"id":"N45E008","sx":3,"sy":2,"s":30,"h":"aA"}],"mwms":{"West":["N45E008"]}})");
+  for (bool const withTerrain : {false, true})
+  {
+    tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
+    tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
+    std::map<std::string, std::string> saved;
+    {
+      Storage storage("restore_maps.json");
+      storage.OnTerrainScanned({});
+      storage.SetDownloaderForTesting(std::make_unique<PendingTerrainDownloader>());
+      storage.DownloadNode("West", false /* isUpdate */, withTerrain);
+      for (auto const * key : {"DownloadQueue", "TerrainDownloadQueue", "TerrainRequestedRegions"})
+        settings::TryGet(key, saved[key]);
+      TEST_EQUAL(saved["DownloadQueue"], "West", (withTerrain));
+      TEST_EQUAL(saved["TerrainDownloadQueue"], withTerrain ? "West" : "", (withTerrain));
+    }
+    for (bool const scanFirst : {false, true})
+    {
+      for (auto const & [key, value] : saved)
+        settings::Set(key, value);
+      Storage restored("restore_maps.json");
+      auto downloader = std::make_unique<PendingTerrainDownloader>();
+      auto const & queue = downloader->GetQueue();
+      restored.SetDownloaderForTesting(std::move(downloader));
+      if (scanFirst)
+        restored.OnTerrainScanned({});
+      restored.RestoreDownloadQueue();
+      if (!scanFirst)
+      {
+        TEST(queue.IsEmpty(), (withTerrain));
+        restored.OnTerrainScanned({});
+      }
+      TEST_EQUAL(queue.Count(), withTerrain ? 2u : 1u, (withTerrain, scanFirst));
+      TEST_EQUAL(static_cast<Queue const &>(queue).GetFirstCountry().GetFileType(), MapFileType::Map, ());
+      TEST_EQUAL(queue.Contains("N45E008"), withTerrain, (scanFirst));
+      restored.CancelDownloadNode(restored.GetRootId());
+    }
+  }
+}
+
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, ManualRetryPreservesMapAndTerrainRequests)
+{
+  tests_support::ScopedFile countries("manual_retry_maps.json", R"({"id":"Countries","v":260101,
+    "g":[{"id":"West","s":100}]})");
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, R"({"v":1,"blocks":[
+    {"id":"N45E008","sx":3,"sy":2,"s":30,"h":"aA"}],"mwms":{"West":["N45E008"]}})");
+  for (bool const withTerrain : {false, true})
+  {
+    tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
+    Storage storage("manual_retry_maps.json");
+    storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
+    storage.OnTerrainScanned({});
+    auto downloader = std::make_unique<PendingTerrainDownloader>();
+    auto & pending = *downloader;
+    storage.SetDownloaderForTesting(std::move(downloader));
+    storage.DownloadNode("West", false /* isUpdate */, withTerrain);
+    while (!pending.GetQueue().IsEmpty())
+      pending.Fail(downloader::DownloadStatus::FileNotFound);
+    for (auto const & id : {CountryId("West"), storage.GetRootId()})
+    {
+      NodeAttrs attrs;
+      storage.GetNodeAttrs(id, attrs);
+      TEST_EQUAL(attrs.m_status, NodeStatus::Error, (withTerrain, id));
+      TEST_EQUAL(attrs.m_downloadSize, withTerrain ? 130u : 100u, (id));
+    }
+    storage.RetryDownloadNode(storage.GetRootId());
+    TEST_EQUAL(pending.GetQueue().Count(), withTerrain ? 2u : 1u, (withTerrain));
+    TEST_EQUAL(pending.GetQueue().Contains("N45E008"), withTerrain, ());
+    TEST_EQUAL(storage.GetOverallProgress({"West"}, false /* withTerrain */).m_bytesTotal, 100, (withTerrain));
+    storage.CancelDownloadNode(storage.GetRootId());
+  }
+}
+
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, RoutingMapRetryDoesNotDownloadTerrain)
+{
+  class RetryPolicy : public DownloadingPolicy
+  {
+  public:
+    void ScheduleRetry(CountriesSet const &, TProcessFunc const & retry) override { m_retry = retry; }
+    TProcessFunc m_retry;
+  } policy;
+  tests_support::ScopedFile countries("routing_retry.json", R"({"id":"Countries","v":260101,
+    "g":[{"id":"West","s":100}]})");
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, R"({"v":1,"blocks":[
+    {"id":"N45E008","sx":3,"sy":2,"s":30,"h":"aA"}],"mwms":{"West":["N45E008"]}})");
+  tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
+  Storage storage("routing_retry.json");
+  storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
+  storage.SetDownloadingPolicy(&policy);
+  storage.OnTerrainScanned({});
+  auto downloader = std::make_unique<PendingTerrainDownloader>();
+  auto & pending = *downloader;
+  storage.SetDownloaderForTesting(std::move(downloader));
+  storage.DownloadNode("West", false /* isUpdate */, false /* withTerrain */);
+  pending.Fail(downloader::DownloadStatus::Failed);
+  TEST(static_cast<bool>(policy.m_retry), ());
+  policy.m_retry({"West"});
+  TEST_EQUAL(pending.GetQueue().Count(), 1, ());
+  pending.GetQueue().ForEachCountry([](QueuedCountry const & country)
+  { TEST_EQUAL(country.GetFileType(), MapFileType::Map, ()); });
+  storage.CancelDownloadNode("West", false /* withTerrain */);
+}
+
 UNIT_CLASS_TEST(StorageTerrainDownloadTest, PublishDownloadedBlock)
 {
   auto const content = TerrainHeaderContent();

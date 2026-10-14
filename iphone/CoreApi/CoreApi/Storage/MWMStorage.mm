@@ -200,7 +200,7 @@ using namespace storage;
   GetFramework().ShowNode(countryId.UTF8String);
 }
 
-- (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error
+- (BOOL)downloadMaps:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error
 {
   auto & s = GetFramework().GetStorage();
 
@@ -209,13 +209,13 @@ using namespace storage;
   for (NSString * countryId in countryIds)
     countries.emplace_back(countryId.UTF8String);
 
-  if (storage::IsEnoughSpaceForDownload(s.GetDownloadSize(countries)))
+  if (storage::IsEnoughSpaceForDownload(s.GetDownloadSize(countries, false /* withTerrain */)))
   {
     NSError * connectionError;
     if ([self checkConnection:&connectionError])
     {
       for (NSString * countryId in countryIds)
-        s.DownloadNode(countryId.UTF8String);
+        s.DownloadNode(countryId.UTF8String, false /* isUpdate */, false /* withTerrain */);
       return YES;
     }
     else if (error)

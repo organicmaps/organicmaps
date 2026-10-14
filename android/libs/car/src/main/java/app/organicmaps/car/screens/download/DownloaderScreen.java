@@ -29,6 +29,7 @@ class DownloaderScreen extends BaseScreen
   private final String[] mMaps;
   private final boolean mIsCancelActionDisabled;
   private final boolean mIsAppRefreshEnabled;
+  private final boolean mWithTerrain;
 
   private int mSubscriptionSlot = 0;
   private boolean mIsDownloadFailed = false;
@@ -43,14 +44,14 @@ class DownloaderScreen extends BaseScreen
         if (!mMissingMaps.contains(item.countryId))
           continue;
 
-        if (item.newStatus == CountryItem.STATUS_FAILED)
+        if (item.newStatus == CountryItem.STATUS_DONE
+            || (!mWithTerrain && MapManager.nativeHasLatestVersion(item.countryId)))
+          mMissingMaps.remove(item.countryId);
+        else if (item.newStatus == CountryItem.STATUS_FAILED)
         {
           onError(item);
           return;
         }
-
-        if (item.newStatus == CountryItem.STATUS_DONE)
-          mMissingMaps.remove(item.countryId);
       }
 
       if (mMissingMaps.isEmpty())
@@ -65,7 +66,7 @@ class DownloaderScreen extends BaseScreen
     @Override
     public void onProgress(String countryId, MapManager.Progress progress)
     {
-      if (progress.getTotalBytes() == 0)
+      if ((mWithTerrain ? progress.getTotalBytes() : progress.mwmTotal) == 0)
         return;
 
       if (!mIsAppRefreshEnabled)
@@ -77,7 +78,8 @@ class DownloaderScreen extends BaseScreen
   };
 
   DownloaderScreen(@NonNull final CarContext carContext, @NonNull OrganicMaps organicMapsContext,
-                   @NonNull final List<CountryItem> missingMaps, final boolean isCancelActionDisabled)
+                   @NonNull final List<CountryItem> missingMaps, final boolean isCancelActionDisabled,
+                   final boolean withTerrain)
   {
     super(carContext, organicMapsContext);
     setMarker(DownloadMapsScreen.MARKER);
@@ -90,6 +92,7 @@ class DownloaderScreen extends BaseScreen
       mMissingMaps.add(item.id);
     mMaps = mMissingMaps.toArray(new String[0]);
     mIsCancelActionDisabled = isCancelActionDisabled;
+    mWithTerrain = withTerrain;
     mIsAppRefreshEnabled = carContext.getCarService(ConstraintManager.class).isAppDrivenRefreshEnabled();
   }
 
@@ -97,9 +100,17 @@ class DownloaderScreen extends BaseScreen
   public void onResume(@NonNull LifecycleOwner owner)
   {
     super.onResume(owner);
+    if (!mWithTerrain)
+      mMissingMaps.removeIf(MapManager::nativeHasLatestVersion);
+    if (mMissingMaps.isEmpty())
+    {
+      setResult(true);
+      UiThread.runLater(this::finish);
+      return;
+    }
     if (mSubscriptionSlot == 0)
       mSubscriptionSlot = MapManager.nativeSubscribe(mStorageCallback);
-    MapManager.startDownload(mMissingMaps.toArray(new String[0]));
+    MapManager.startDownload(mMissingMaps.toArray(new String[0]), mWithTerrain);
   }
 
   @Override
@@ -139,7 +150,7 @@ class DownloaderScreen extends BaseScreen
     if (!mIsAppRefreshEnabled)
       return getCarContext().getString(R.string.downloader_loading_ios);
 
-    final long[] progress = MapManager.nativeGetOverallProgressBytes(mMaps);
+    final long[] progress = MapManager.nativeGetOverallProgressBytes(mMaps, mWithTerrain);
     final double fraction = progress[1] == 0 ? 0 : (double) progress[0] / progress[1];
     final String progressPercent = StringUtils.formatPercent(fraction, true);
     final String totalSizeStr = StringUtils.getFileSizeString(getCarContext(), progress[1]);
@@ -163,6 +174,6 @@ class DownloaderScreen extends BaseScreen
   private void cancelMapsDownloading()
   {
     for (final String map : mMissingMaps)
-      MapManager.nativeCancel(map);
+      MapManager.nativeCancel(map, mWithTerrain);
   }
 }
