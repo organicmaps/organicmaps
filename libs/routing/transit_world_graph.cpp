@@ -167,7 +167,7 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment, EdgeEs
       return (fullLen == 0.0 ? 0.0 : partLen / fullLen) * weight;
     }
 
-    return transitGraph.CalcSegmentWeight(segment);
+    return transitGraph.CalcSegmentWeight(segment, purpose);
   }
 
   return RouteWeight(m_estimator->CalcSegmentWeight(

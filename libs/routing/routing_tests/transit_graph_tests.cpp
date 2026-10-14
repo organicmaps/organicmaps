@@ -11,6 +11,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include <algorithm>
+
 namespace transit_graph_tests
 {
 namespace
@@ -170,6 +172,90 @@ UNIT_TEST(TransitStarter_ETAIncludesWaitAfterFakeConnection)
   ending.m_originJunction = world->GetJunction(ride, false);
   routing::IndexGraphStarter starter(ending, ending, 0, false, *world);
   TEST_EQUAL(starter.CalculateETA(starter.GetStartSegment(), ride, 0), 150.0, ());
+}
+
+UNIT_TEST(TransitWorldGraph_StationWalkingUsesAlternativeFactors)
+{
+  using Purpose = routing::EdgeEstimator::Purpose;
+  Fixture fixture;
+  auto const graph = fixture.MakeGraph();
+  auto world = fixture.MakeWorldGraph();
+  std::vector<routing::Segment> walking = {Gate(*graph, true), Gate(*graph, false), fixture.Edge(3, 4)};
+  for (bool const isEntrance : {true, false})
+  {
+    routing::GateAccessesT accesses;
+    graph->GetGatesNear({0, 0}, 100, isEntrance, accesses);
+    TEST_EQUAL(accesses.size(), 1, ());
+    auto const projection = accesses.front().m_entrySegment;
+    walking.push_back(projection);
+    double const physicalTime =
+        fixture.m_estimator->CalcOffroad(graph->GetJunction(projection, false).GetLatLon(),
+                                         graph->GetJunction(projection, true).GetLatLon(), Purpose::ETA);
+    TEST_EQUAL(world->CalcSegmentWeight(projection, Purpose::ETA).GetWeight(), physicalTime, ());
+  }
+
+  for (double const factor : {3.0, 1.0})
+  {
+    fixture.m_estimator->SetTransitAltFactors(factor, 200.0);
+    for (auto const & segment : walking)
+    {
+      auto const eta = world->CalcSegmentWeight(segment, Purpose::ETA);
+      auto const weight = world->CalcSegmentWeight(segment, Purpose::Weight);
+      TEST_EQUAL(weight.GetWeight(), factor * eta.GetWeight(), (segment));
+      TEST_EQUAL(weight.GetTransitTime(), 0.0, (segment));
+      TEST_EQUAL(eta.GetTransitTime(), 0.0, (segment));
+    }
+    auto const ride = world->CalcSegmentWeight(fixture.Edge(2, 3), Purpose::Weight);
+    TEST_EQUAL(ride.GetWeight(), 80.0, ());
+    TEST_EQUAL(ride.GetTransitTime(), 80.0, ());
+    TEST_EQUAL(world->CalculateETAWithoutPenalty(fixture.Edge(3, 4)), 40.0, ());
+  }
+}
+
+UNIT_TEST(TransitWorldGraph_StationWalkingCountsTowardBudget)
+{
+  using Purpose = routing::EdgeEstimator::Purpose;
+  Fixture fixture;
+  auto const graph = fixture.MakeGraph();
+  auto world = fixture.MakeWorldGraph();
+  auto const gate = world->CalcSegmentWeight(Gate(*graph, true), Purpose::Weight);
+  auto const transfer = world->CalcSegmentWeight(fixture.Edge(3, 4), Purpose::Weight);
+  TEST(world->CheckLength(50.0 * gate, 0), ());
+  TEST(!world->CheckLength(51.0 * gate, 0), ());
+  TEST(world->CheckLength(51.0 * gate, 1000), ());
+  TEST(!world->CheckLength(76.0 * transfer, 0), ());
+  auto const ride = world->CalcSegmentWeight(fixture.Edge(1, 2), Purpose::Weight);
+  TEST(world->CheckLength(100.0 * ride, 0), ());
+
+  fixture.m_estimator->SetTransitAltFactors(3.0, 200.0);
+  auto const altGate = world->CalcSegmentWeight(Gate(*graph, true), Purpose::Weight);
+  TEST(world->CheckLength(16.0 * altGate, 0), ());
+  TEST(!world->CheckLength(17.0 * altGate, 0), ());
+}
+
+UNIT_TEST(TransitWorldGraph_StationConnectionsHaveSymmetricSearchWeights)
+{
+  Fixture fixture;
+  fixture.m_estimator->SetTransitAltFactors(3.0, 200.0);
+  auto const graph = fixture.MakeGraph();
+  auto world = fixture.MakeWorldGraph();
+  auto const checkConnection = [&](routing::Segment const & from, routing::Segment const & to, double expected)
+  {
+    for (bool const isOutgoing : {true, false})
+    {
+      routing::WorldGraph::SegmentEdgeListT edges;
+      routing::astar::VertexData const vertex(isOutgoing ? from : to, routing::RouteWeight(0));
+      world->GetEdgeList(vertex, isOutgoing, false, false, edges);
+      auto const target = isOutgoing ? to : from;
+      auto const it =
+          std::find_if(edges.begin(), edges.end(), [&](auto const & edge) { return edge.GetTarget() == target; });
+      TEST(it != edges.end(), (from, to));
+      TEST_EQUAL(it->GetWeight().GetWeight(), expected, (isOutgoing));
+    }
+  };
+  checkConnection(fixture.Edge(2, 3), fixture.Edge(3, 4), 120.0);
+  checkConnection(fixture.Edge(3, 4), fixture.Edge(4, 5), 345.5);
+  checkConnection(Gate(*graph, true), fixture.Edge(1, 2), 350.0);
 }
 
 UNIT_TEST(TransitRoute_BoardingWaitPrecedesRideProgress)

@@ -42,34 +42,35 @@ LatLonWithAltitude const & TransitGraph::GetJunction(Segment const & segment, bo
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
+RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
 {
   ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
 
+  double time;
   if (auto const * gate = FindGate(segment))
   {
-    auto const weight = gate->m_gate.GetWeight();
-    return RouteWeight(weight, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
-                       0 /* numAccessConditionalPenalties */, weight /* transitTime */);
+    time = gate->m_gate.GetWeight();
   }
-
-  if (auto const * edge = FindEdge(segment))
+  else if (auto const * edge = FindEdge(segment))
   {
-    auto const weight = edge->GetWeight();
-    return RouteWeight(weight, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
-                       0 /* numAccessConditionalPenalties */, weight /* transitTime */);
+    time = edge->GetWeight();
+    if (!edge->GetTransfer())
+      return RouteWeight(time, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
+                         0 /* numAccessConditionalPenalties */, time /* transitTime */);
+  }
+  else
+  {
+    // Gate projections connect a platform or entrance to its road projection. Use realistic offroad
+    // time so a few metres of road width do not dominate station choice; apply walking bias separately.
+    // Parts of real roads are priced by TransitWorldGraph as a fraction of the real segment weight.
+    ASSERT(m_fake.GetVertex(segment).GetType() == FakeVertex::Type::PureFake, (segment));
+    time = m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
+                                    GetJunction(segment, true /* front */).GetLatLon(), EdgeEstimator::Purpose::ETA);
   }
 
-  // Gate projection: the hop between the gate point and its road projection (parts of real roads
-  // are priced by TransitWorldGraph as a fraction of the real segment weight). Bus and tram gates
-  // are stop positions on the carriageway or rails, so the hop is the platform-to-vehicle step,
-  // not a snapping choice: price it at the realistic offroad ETA speed for both purposes. The
-  // offroad weight speed (0.5 km/h for pedestrians) would charge a minute per 8 m of road width,
-  // biasing the router towards subway entrances that lie right on the footways.
-  ASSERT(m_fake.GetVertex(segment).GetType() == FakeVertex::Type::PureFake, (segment));
-  return RouteWeight(m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
-                                              GetJunction(segment, true /* front */).GetLatLon(),
-                                              EdgeEstimator::Purpose::ETA));
+  double const weight =
+      purpose == EdgeEstimator::Purpose::Weight ? time * m_estimator->GetTransitWalkWeightFactor() : time;
+  return RouteWeight(weight);
 }
 
 transit::LineId TransitGraph::GetRideLineId(Segment const & segment) const
