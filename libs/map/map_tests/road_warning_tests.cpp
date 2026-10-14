@@ -1,11 +1,20 @@
 #include "testing/testing.hpp"
 
+#include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
 
+#include "routing/fake_feature_ids.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_options.hpp"
 
+#include "indexer/data_source.hpp"
+
+#include "platform/platform.hpp"
+
+#include "geometry/mercator.hpp"
+
 #include <initializer_list>
+#include <optional>
 
 namespace road_warning_tests
 {
@@ -22,6 +31,22 @@ RoutingOptions MakeOptions(std::initializer_list<Road> const roads)
     options.Add(r);
   return options;
 }
+
+class TestRoute : public routing::RouteBase
+{
+public:
+  TestRoute(std::vector<routing::RouteSegment> segments, bool remaining)
+  {
+    SetRouteSegments(std::move(segments));
+    size_t const begin = remaining ? 2 : 0;
+    geometry::PointWithAltitude const origin({}, 0);
+    auto const start = begin == 0 ? origin : m_routeSegments[begin - 1].GetJunction();
+    if (remaining)
+      m_subrouteAttrs.emplace_back(origin, start, 0, begin);
+    m_subrouteAttrs.emplace_back(start, m_routeSegments.back().GetJunction(), begin, m_routeSegments.size());
+    SetCurrentSubrouteIdx(remaining ? 1 : 0);
+  }
+};
 }  // namespace
 
 UNIT_TEST(RoadWarning_IsWarningShownFor)
@@ -107,5 +132,68 @@ UNIT_TEST(RoadWarning_IsAvoidableRoadWarning)
   TEST(!IsAvoidableRoadWarning(Steps), ());
   TEST(!IsAvoidableRoadWarning(Gate), ());
   TEST(!IsAvoidableRoadWarning(LiftGate), ());
+}
+
+UNIT_TEST(RoutingManager_RoadWarningBoundaries)
+{
+  class Delegate final : public RoutingManager::Delegate
+  {
+    void OnRouteFollow(routing::RouterType) override {}
+  } delegate;
+  FrozenDataSource dataSource;
+  // Join the extrapolator's background tasks before destroying the manager.
+  std::optional<RoutingManager> managerHolder;
+  Platform::ThreadRunner const runner;
+  auto & manager = managerHolder.emplace(RoutingManager::Callbacks([&dataSource]() -> DataSource &
+  { return dataSource; }, nullptr, nullptr, nullptr, nullptr),
+                                         delegate);
+  manager.m_numMwmIDs = std::make_shared<routing::NumMwmIds>();
+  manager.m_numMwmIDs->RegisterFile(platform::CountryFile("RoadWarningTest"));
+  manager.m_currentRouterType = routing::RouterType::Vehicle;
+
+  std::vector<routing::RouteSegment> segments;
+  for (size_t i = 0; i < 8; ++i)
+  {
+    m2::PointD const point(0.01 * i, 0);
+    auto const featureId = i == 0 ? routing::FakeFeatureIds::kIndexGraphStarterId : 0;
+    segments.emplace_back(routing::Segment(0, featureId, i, true), routing::turns::TurnItem(),
+                          geometry::PointWithAltitude(point, 0), routing::RouteSegment::RoadNameInfo());
+    segments.back().SetDistancesAndTime(mercator::DistanceOnEarth({}, point), point.x, 100.0 * i);
+  }
+  segments[2].SetRoadTypes(MakeOptions({Road::Toll}));
+  segments[3].SetRoadTypes(MakeOptions({Road::Ferry}));
+  segments[4].SetRoadTypes(MakeOptions({Road::Ferry}));
+  segments[6].SetRoadTypes(MakeOptions({Road::Toll}));
+  segments[7].SetRoadTypes(MakeOptions({Road::Toll}));
+
+  for (bool const remaining : {false, true})
+  {
+    TestRoute const route(segments, remaining);
+    auto const index = route.GetCurrentSubrouteIdx();
+    std::vector<routing::RouteSegment> subroute;
+    route.GetSubrouteInfo(index, subroute);
+    RoutingManager::RoadWarningsCollection warnings;
+    manager.CollectRoadWarnings(route, index, subroute, warnings);
+    TEST_EQUAL(warnings.size(), 2, (remaining));
+    auto const & tolls = warnings.at(RoadWarningMarkType::Toll);
+    TEST_EQUAL(tolls.size(), 2, (remaining));
+    TEST_EQUAL(tolls[0].m_startPoint, segments[1].GetJunction().GetPoint(), (remaining));
+    TEST_ALMOST_EQUAL_ABS(
+        tolls[0].m_distance,
+        mercator::DistanceOnEarth(segments[1].GetJunction().GetPoint(), segments[2].GetJunction().GetPoint()), 1e-8,
+        (remaining));
+    TEST_EQUAL(tolls[1].m_startPoint, segments[5].GetJunction().GetPoint(), (remaining));
+    TEST_ALMOST_EQUAL_ABS(
+        tolls[1].m_distance,
+        mercator::DistanceOnEarth(segments[5].GetJunction().GetPoint(), segments[7].GetJunction().GetPoint()), 1e-8,
+        (remaining));
+    auto const & ferries = warnings.at(RoadWarningMarkType::Ferry);
+    TEST_EQUAL(ferries.size(), 1, (remaining));
+    TEST_EQUAL(ferries[0].m_startPoint, segments[2].GetJunction().GetPoint(), (remaining));
+    TEST_ALMOST_EQUAL_ABS(
+        ferries[0].m_distance,
+        mercator::DistanceOnEarth(segments[2].GetJunction().GetPoint(), segments[4].GetJunction().GetPoint()), 1e-8,
+        (remaining));
+  }
 }
 }  // namespace road_warning_tests

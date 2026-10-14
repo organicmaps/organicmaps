@@ -52,6 +52,11 @@ namespace transit_origin_tests
 void UnitTest_TransitDisplay_RoutingManagerInitializesRemainingOrigin();
 }
 
+namespace road_warning_tests
+{
+void UnitTest_RoutingManager_RoadWarningBoundaries();
+}  // namespace road_warning_tests
+
 struct RoutePointInfo
 {
   std::string m_name;
@@ -301,6 +306,7 @@ public:
 
 private:
   friend void transit_origin_tests::UnitTest_TransitDisplay_RoutingManagerInitializesRemainingOrigin();
+  friend void road_warning_tests::UnitTest_RoutingManager_RoadWarningBoundaries();
 
   void SetRouterImpl(routing::RouterType type);
 
@@ -312,6 +318,7 @@ private:
 
     m2::PointD m_startPoint;
     FeatureID m_featureId;
+    // Span length in metres; zero for point warnings.
     double m_distance = 0.0;
   };
   using RoadWarningsCollection = std::map<RoadWarningMarkType, std::vector<RoadInfo>>;
@@ -320,8 +327,8 @@ private:
 
   /// \brief Renders every route in |result| via drape subroutes. The active alternative
   /// (result.m_activeIdx) is drawn with normal styling; the rest are dimmed. Also creates
-  /// road-warning marks for the active route.
-  /// \returns true if the active route has an avoidable warning (toll/ferry/dirty) on a car route,
+  /// road-warning marks for the displayed routes.
+  /// \returns true if displayed car routes include an avoidable warning (toll/ferry/dirty),
   /// i.e. one that should surface the "driving options" affordance (RouterResultCode::HasWarnings).
   bool InsertRoute(routing::RoutesResult const & result);
 
@@ -337,8 +344,8 @@ private:
                                             double baseDepth) const;
 
   // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.
-  void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
-                           double baseDistance, RoadWarningsCollection & roadWarnings);
+  void CollectRoadWarnings(routing::RouteBase const & route, size_t subrouteIndex,
+                           std::vector<routing::RouteSegment> const & segments, RoadWarningsCollection & roadWarnings);
   // Point warnings (gate/lift_gate): barrier nodes precomputed on the routing thread and stored in
   // the route (see routing::RouteBase::GetWarnings); here we just map them to mark types.
   void CollectRoadPointWarnings(routing::RouteBase const & route, RoadWarningsCollection & roadWarnings);
