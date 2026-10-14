@@ -273,6 +273,17 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
 
+    if (m_isFollowing)
+    {
+      // GPS can advance navigation before the renderer reports its position.
+      auto matchedInfo = info;
+      RouteMatchingInfo matchingInfo;
+      m_route->MatchLocationToRoute(matchedInfo, matchingInfo);
+      SetUserCurrentPosition(mercator::FromLatLon(matchedInfo.m_latitude, matchedInfo.m_longitude));
+    }
+    if (m_userCurrentPositionValid)
+      m_lastGoodPosition = m_userCurrentPosition;
+
     PassCheckpoints();
 
     if (m_checkpoints.IsFinished())
@@ -286,9 +297,6 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
       m_speedCameraManager.OnLocationPositionChanged(info);
     }
 
-    if (m_userCurrentPositionValid)
-      m_lastGoodPosition = m_userCurrentPosition;
-
     auto const curIter = m_route->GetCurrentIteratorTurn();
     // If we are moving to the next segment after passing the turn
     // it means the turn is changed. So the |m_onNewTurn| should be called.
@@ -297,6 +305,9 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
     return m_state;
   }
+
+  if (m_isFollowing)
+    SetUserCurrentPosition(mercator::FromLatLon(info.m_latitude, info.m_longitude));
 
   if (m_state != SessionState::RouteNeedRebuild && m_state != SessionState::RouteRebuilding)
   {
