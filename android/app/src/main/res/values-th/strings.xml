@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">ดาวน์โหลดภูมิภาคที่คุณกำลังค้นหาหรือลองเพิ่มชื่อเมือง/หมู่บ้านใกล้เคียง</string>
     <string name="search_history_title">ประวัติการค้นหา</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">สำรองข้อมูลบุ๊กมาร์กและแทร็ก</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">บุ๊กมาร์กและแทร็กสามารถรวมอยู่ในการสำรองข้อมูลระบบ Android ได้ เมื่อเปิดใช้การสำรองข้อมูลในอุปกรณ์นี้และมีขนาดไม่เกินขีดจำกัด</string>
     <string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
     <string name="clear_search">ล้างการค้นหาประวัติ</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

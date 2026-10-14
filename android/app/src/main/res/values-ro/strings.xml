@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Descărcați regiunea în care căutați sau încercați să adăugați numele unei localități din apropiere.</string>
     <string name="search_history_title">Istoricul căutărilor</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Backup pentru locurile preferate și trasee</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Locurile preferate și traseele pot fi incluse în backupurile de sistem Android, dacă backupul este activat pe acest dispozitiv și nu depășesc limita sa de dimensiune.</string>
     <string name="search_history_text">Arată căutările recente.</string>
     <string name="clear_search">Șterge istoricul căutărilor</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

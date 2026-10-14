@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Спампуйце рэгіён, у якім вы шукаеце, або паспрабуйце дадаць назву бліжэйшага горада/вёскі.</string>
     <string name="search_history_title">Гісторыя пошуку</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Рэзервовая копія закладак і трэкаў</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Закладкі і трэкі могуць трапляць у сістэмныя рэзервовыя копіі Android, калі на прыладзе ўключана рэзервовае капіраванне і яны не перавышаюць яго ліміт памеру.</string>
     <string name="search_history_text">Прагляд апошніх выкарыстаных пошукавых запытаў.</string>
     <string name="clear_search">Ачысціць гісторыю пошуку</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

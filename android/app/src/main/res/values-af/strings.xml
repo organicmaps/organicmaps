@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Laai die streek af waar jy soek of probeer om \'n nabygeleë dorp/dorpnaam by te voeg.</string>
     <string name="search_history_title">Soekgeskiedenis</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Rugsteun van boekmerke en paaie</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Boekmerke en paaie kan by Android-stelselrugsteune ingesluit word wanneer rugsteun op hierdie toestel geaktiveer is en hulle binne die groottelimiet daarvan pas.</string>
     <string name="search_history_text">Bekyk al u onlangse soektogte.</string>
     <string name="clear_search">Wis soekgeskiedenis</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

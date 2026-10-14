@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Prenesite regijo, kjer iščete, ali poskusite dodati ime bližnjega mesta/vasi.</string>
     <string name="search_history_title">Zgodovina iskanja</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Varnostna kopija zaznamkov in sledi</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Zaznamki in sledi so lahko vključeni v sistemske varnostne kopije Androida, če je na tej napravi vklopljeno varnostno kopiranje in ne presegajo njegove omejitve velikosti.</string>
     <string name="search_history_text">Oglejte si svoja nedavna iskanja.</string>
     <string name="clear_search">Počisti zgodovino iskanja</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

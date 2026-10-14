@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Laadi alla otsitav piirkond või proovi lisada lähedalasuva linna/küla nimi.</string>
     <string name="search_history_title">Otsinguajalugu</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Järjehoidjate ja radade varundus</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Järjehoidjad ja rajad võivad sattuda Androidi süsteemi varukoopiatesse, kui varundamine on selles seadmes sisse lülitatud ja need ei ületa selle mahupiirangut.</string>
     <string name="search_history_text">Vaata hiljutisi otsinguid.</string>
     <string name="clear_search">Kustuta otsinguajalugu</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

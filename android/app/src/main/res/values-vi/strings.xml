@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Tải xuống khu vực bạn đang tìm kiếm hoặc thử thêm tên thị trấn/làng gần đó.</string>
     <string name="search_history_title">Lịch sử tìm kiếm</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Sao lưu đánh dấu và dấu vết</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Các đánh dấu và dấu vết có thể được đưa vào bản sao lưu hệ thống Android khi tính năng sao lưu được bật trên thiết bị này và không vượt quá giới hạn dung lượng của nó.</string>
     <string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
     <string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

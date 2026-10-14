@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Sæktu kortið af því svæði sem þú ert að leita á eða prófaðu að bæta við nafni á nálægum bæ eða þorpi.</string>
     <string name="search_history_title">Leitarferill</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Öryggisafrit bókamerkja og ferla</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Bókamerki og ferlar geta verið tekin með í kerfisöryggisafritum Android þegar öryggisafritun er virk á þessu tæki og þau fara ekki yfir stærðarmörk hennar.</string>
     <string name="search_history_text">Skoðaðu nýlegar leitir þínar.</string>
     <string name="clear_search">Hreinsa leitarferil</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
