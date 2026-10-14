@@ -215,9 +215,11 @@ TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents,
   {
     route.GetSubrouteInfo(i, segments);
     df::Subroute subroute;
-    // ProcessSubroute appends to the polyline and asserts it is non-empty; production seeds it with
-    // the subroute start point in CreateDrapeSubroute, so do the same here.
+    // Geometry and marker progress share the subroute's route-relative origin.
     subroute.m_polyline.Add(route.GetSubrouteAttrs(i).GetStart().GetPoint());
+    auto const begin = route.GetSubrouteAttrs(i).GetBeginSegmentIdx();
+    if (begin > 0)
+      subroute.m_baseDistance = route.GetRouteSegments()[begin - 1].GetDistFromBeginningMerc();
     display.ProcessSubroute(segments, subroute);
   }
 

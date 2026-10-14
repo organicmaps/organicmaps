@@ -164,6 +164,24 @@ UNIT_TEST(TransitDisplay_EntranceIconSurvivesWaypoint)
   TEST_EQUAL(it->m_symbolName, "transit_subway", ());
 }
 
+UNIT_TEST(TransitDisplay_MarkersUseSubrouteMercatorDistances)
+{
+  Fixture fixture;
+  auto const segments = MakeSegments();
+  for (size_t begin : {0, 1, 2})
+  {
+    auto display = fixture.MakeDisplay();
+    if (begin > 0)
+      Process(display, segments, 0, begin);
+    auto const subroute = Process(display, segments, begin, segments.size());
+    TEST_EQUAL(subroute.m_markers.size(), 2, (begin));
+    TEST_ALMOST_EQUAL_ABS(subroute.m_markers.front().m_distance,
+                          segments[1].GetDistFromBeginningMerc() - subroute.m_baseDistance, 1e-12, (begin));
+    TEST_ALMOST_EQUAL_ABS(subroute.m_markers.back().m_distance,
+                          segments[2].GetDistFromBeginningMerc() - subroute.m_baseDistance, 1e-12, (begin));
+  }
+}
+
 UNIT_TEST(TransitDisplay_GroupedBoardingStopConnectsToRide)
 {
   Fixture fixture(R"({

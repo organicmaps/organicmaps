@@ -138,6 +138,7 @@ struct SubrouteSegmentParams
   {}
   int m_time = 0;
   double m_distance = 0.0;
+  double m_startDistanceMerc = 0.0;
   routing::TransitInfo const & m_transitInfo;
   TransitDisplayInfo const & m_displayInfo;
   MwmSet::MwmId m_mwmId;

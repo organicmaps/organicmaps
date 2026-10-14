@@ -368,7 +368,9 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   bool const isTransfer1 = stop1.GetTransferId() != routing::transit::kInvalidTransferId;
   bool const isTransfer2 = stop2.GetTransferId() != routing::transit::kInvalidTransferId;
 
-  sp.m_marker.m_distance = sp.m_prevDistance;
+  ASSERT_GREATER_OR_EQUAL(ssp.m_startDistanceMerc, subroute.m_baseDistance, ());
+  ASSERT_GREATER_OR_EQUAL(segment.GetDistFromBeginningMerc(), ssp.m_startDistanceMerc, ());
+  sp.m_marker.m_distance = ssp.m_startDistanceMerc - subroute.m_baseDistance;
   sp.m_marker.m_scale = kStopMarkerScale;
   sp.m_marker.m_innerColor = currentColor;
   if (isTransfer1)
@@ -452,7 +454,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
 
   sp.m_lastDir = currentDir;
 
-  sp.m_marker.m_distance = segment.GetDistFromBeginningMeters();
+  sp.m_marker.m_distance = segment.GetDistFromBeginningMerc() - subroute.m_baseDistance;
   sp.m_marker.m_scale = kStopMarkerScale;
   sp.m_marker.m_innerColor = currentColor;
   sp.m_marker.m_colors.push_back(currentColor);
@@ -580,6 +582,7 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
 
     ssp.m_time = time;
     ssp.m_distance = distance;
+    ssp.m_startDistanceMerc = i == 0 ? subroute.m_baseDistance : segments[i - 1].GetDistFromBeginningMerc();
     ssp.m_mwmId = mwmId;
 
     if (ssp.m_transitInfo.GetType() == routing::TransitInfo::Type::Edge)
