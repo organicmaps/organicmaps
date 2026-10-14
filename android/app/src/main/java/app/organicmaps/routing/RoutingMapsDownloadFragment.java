@@ -41,7 +41,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
       mMapsArray[i] = item.id;
     }
 
-    MapManagerHelper.startDownload(builder.getContext(), mMapsArray);
+    MapManagerHelper.startDownload(builder.getContext(), mMapsArray, false /* withTerrain */);
   }
 
   private View setupFrame(View frame)
@@ -80,7 +80,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
 
   private void updateWheel(WheelProgressView wheel)
   {
-    int progress = MapManager.nativeGetOverallProgress(mMapsArray);
+    int progress = MapManager.nativeGetOverallProgress(mMapsArray, false /* withTerrain */);
     if (progress == 0)
       wheel.setPending(true);
     else
@@ -103,7 +103,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
   {
     if (mCancelled)
       for (String item : mMaps)
-        MapManager.nativeCancel(item);
+        MapManager.nativeCancel(item, false /* withTerrain */);
 
     super.onDismiss(dialog);
   }
@@ -113,6 +113,10 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
   {
     super.onStart();
     setCancelable(false);
+
+    mMaps.removeIf(MapManager::nativeHasLatestVersion);
+    if (finishIfComplete())
+      return;
 
     mSubscribeSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback() {
       {
@@ -132,16 +136,11 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
         for (MapManager.StorageCallbackData item : data)
           if (mMaps.contains(item.countryId))
           {
-            if (item.newStatus == CountryItem.STATUS_DONE)
+            if (MapManager.nativeHasLatestVersion(item.countryId))
             {
               mMaps.remove(item.countryId);
-              if (mMaps.isEmpty())
-              {
-                mCancelled = false;
-                RoutingController.get().checkAndBuildRoute();
-                dismissAllowingStateLoss();
+              if (finishIfComplete())
                 return;
-              }
             }
 
             update();
@@ -152,13 +151,23 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
       @Override
       public void onProgress(String countryId, MapManager.Progress progress)
       {
-        if (progress.getTotalBytes() == 0)
+        if (progress.mwmTotal == 0)
           return;
 
         if (mMaps.contains(countryId))
           update();
       }
     });
+  }
+
+  private boolean finishIfComplete()
+  {
+    if (!mMaps.isEmpty())
+      return false;
+    mCancelled = false;
+    RoutingController.get().checkAndBuildRoute();
+    dismissAllowingStateLoss();
+    return true;
   }
 
   @Override

@@ -35,13 +35,13 @@ public final class DownloaderHelpers
     return countryItems;
   }
 
-  static long getMapsSize(@NonNull final Collection<CountryItem> countries)
+  static long getMapsSize(@NonNull final Collection<CountryItem> countries, boolean withTerrain)
   {
     final String[] countryIds = new String[countries.size()];
     int index = 0;
     for (final CountryItem item : countries)
       countryIds[index++] = item.id;
-    return MapManager.nativeGetDownloadSize(countryIds);
+    return MapManager.nativeGetDownloadSize(countryIds, withTerrain);
   }
 
   @NonNull

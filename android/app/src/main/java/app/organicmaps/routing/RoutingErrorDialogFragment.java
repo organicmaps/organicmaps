@@ -97,21 +97,22 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
       return;
     }
 
-    MapManagerHelper.warnOn3g(requireActivity(), MapManager.nativeGetDownloadSize(mMapsArray), () -> {
-      // The mobile-data confirmation may outlive this dialog fragment.
-      if (!isAdded())
-        return;
+    MapManagerHelper.warnOn3g(
+        requireActivity(), MapManager.nativeGetDownloadSize(mMapsArray, false /* withTerrain */), () -> {
+          // The mobile-data confirmation may outlive this dialog fragment.
+          if (!isAdded())
+            return;
 
-      final FragmentManager manager = getParentFragmentManager();
-      if (manager.isStateSaved() || manager.isDestroyed())
-        return;
+          final FragmentManager manager = getParentFragmentManager();
+          if (manager.isStateSaved() || manager.isDestroyed())
+            return;
 
-      RoutingMapsDownloadFragment downloader =
-          RoutingMapsDownloadFragment.create(manager.getFragmentFactory(), getAppContextOrThrow(), mMapsArray);
-      downloader.show(manager, downloader.getClass().getSimpleName());
-      mCancelled = false;
-      dismiss();
-    });
+          RoutingMapsDownloadFragment downloader =
+              RoutingMapsDownloadFragment.create(manager.getFragmentFactory(), getAppContextOrThrow(), mMapsArray);
+          downloader.show(manager, downloader.getClass().getSimpleName());
+          mCancelled = false;
+          dismiss();
+        });
   }
 
   @Override

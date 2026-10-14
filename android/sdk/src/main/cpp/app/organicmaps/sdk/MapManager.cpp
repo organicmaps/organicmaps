@@ -138,9 +138,10 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasSpace
   return storage::IsEnoughSpaceForDownload(jni::ToNativeString(env, root), GetStorage());
 }
 
-// static long nativeGetDownloadSize(String[] countries);
+// static long nativeGetDownloadSize(String[] countries, boolean withTerrain);
 JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetDownloadSize(JNIEnv * env, jclass,
-                                                                                     jobjectArray jcountries)
+                                                                                     jobjectArray jcountries,
+                                                                                     jboolean withTerrain)
 {
   int const size = env->GetArrayLength(jcountries);
   storage::CountriesVec countries;
@@ -150,7 +151,7 @@ JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetDownload
     jni::TScopedLocalRef const item(env, env->GetObjectArrayElement(jcountries, i));
     countries.push_back(jni::ToNativeString(env, static_cast<jstring>(item.get())));
   }
-  return static_cast<jlong>(GetStorage().GetDownloadSize(countries));
+  return static_cast<jlong>(GetStorage().GetDownloadSize(countries, withTerrain));
 }
 
 // static boolean nativeHasSpaceToUpdate(String root);
@@ -336,6 +337,12 @@ JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeGetStatus(JN
   return static_cast<jint>(ns.m_status);
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasLatestVersion(JNIEnv * env, jclass,
+                                                                                         jstring countryId)
+{
+  return GetStorage().HasLatestVersion(jni::ToNativeString(env, countryId));
+}
+
 // static void nativeGetError(String root);
 JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeGetError(JNIEnv * env, jclass clazz, jstring root)
 {
@@ -412,11 +419,12 @@ static void EndBatchingCallbacks(JNIEnv * env)
   g_isBatched = false;
 }
 
-// static void nativeDownload(String root);
-JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownload(JNIEnv * env, jclass clazz, jstring root)
+// static void nativeDownload(String root, boolean withTerrain);
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownload(JNIEnv * env, jclass clazz, jstring root,
+                                                                             jboolean withTerrain)
 {
   StartBatchingCallbacks();
-  GetStorage().DownloadNode(jni::ToNativeString(env, root));
+  GetStorage().DownloadNode(jni::ToNativeString(env, root), false /* isUpdate */, withTerrain);
   EndBatchingCallbacks(env);
 }
 
@@ -436,11 +444,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeUpdate(JNIEn
   EndBatchingCallbacks(env);
 }
 
-// static void nativeCancel(String root);
-JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeCancel(JNIEnv * env, jclass clazz, jstring root)
+// static void nativeCancel(String root, boolean withTerrain);
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeCancel(JNIEnv * env, jclass clazz, jstring root,
+                                                                           jboolean withTerrain)
 {
   StartBatchingCallbacks();
-  GetStorage().CancelDownloadNode(GetRootId(env, root));
+  GetStorage().CancelDownloadNode(GetRootId(env, root), withTerrain);
   EndBatchingCallbacks(env);
 }
 
@@ -580,9 +589,9 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasUnsav
   return frm()->HasUnsavedEdits(jni::ToNativeString(env, root));
 }
 
-// static long[] nativeGetOverallProgressBytes(String[] countries);
+// static long[] nativeGetOverallProgressBytes(String[] countries, boolean withTerrain);
 JNIEXPORT jlongArray Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOverallProgressBytes(
-    JNIEnv * env, jclass clazz, jobjectArray jcountries)
+    JNIEnv * env, jclass clazz, jobjectArray jcountries, jboolean withTerrain)
 {
   int const size = env->GetArrayLength(jcountries);
   storage::CountriesVec countries;
@@ -594,7 +603,7 @@ JNIEXPORT jlongArray Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOve
     countries.push_back(jni::ToNativeString(env, static_cast<jstring>(item.get())));
   }
 
-  downloader::Progress const progress = GetStorage().GetOverallProgress(countries);
+  downloader::Progress const progress = GetStorage().GetOverallProgress(countries, withTerrain);
 
   return jni::ToJavaLongArray(env, std::array<jlong, 2>{static_cast<jlong>(progress.m_bytesDownloaded),
                                                         static_cast<jlong>(progress.m_bytesTotal)});

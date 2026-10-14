@@ -25,6 +25,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   private static final String ACTION_START_UPDATE = "ACTION_START_UPDATE";
   private static final String ACTION_START_TERRAIN_DOWNLOAD = "ACTION_START_TERRAIN_DOWNLOAD";
   private static final String EXTRA_COUNTRY_IDS = "EXTRA_COUNTRY_IDS";
+  private static final String EXTRA_WITH_TERRAIN = "EXTRA_WITH_TERRAIN";
 
   private final DownloaderNotifier mNotifier = new DownloaderNotifier(this);
   private int mSubscriptionSlot;
@@ -85,8 +86,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
         {
           if (ACTION_START_DOWNLOAD.equals(action))
           {
-            for (String countryId : countryIds)
-              MapManager.startDownload(countryId);
+            MapManager.startDownload(countryIds, intent.getBooleanExtra(EXTRA_WITH_TERRAIN, true));
           }
           else if (ACTION_RETRY_DOWNLOAD.equals(action))
             MapManager.retryDownload(countryIds[0]);
@@ -208,10 +208,16 @@ public class DownloaderService extends Service implements MapManager.StorageCall
    */
   static void startDownload(Context context, String... countryIds)
   {
+    startDownload(context, countryIds, true);
+  }
+
+  static void startDownload(Context context, @NonNull String[] countryIds, boolean withTerrain)
+  {
     Logger.i(TAG);
     Intent intent = new Intent(context, DownloaderService.class);
     intent.setAction(ACTION_START_DOWNLOAD);
     intent.putExtra(EXTRA_COUNTRY_IDS, countryIds);
+    intent.putExtra(EXTRA_WITH_TERRAIN, withTerrain);
     ContextCompat.startForegroundService(context, intent);
   }
 

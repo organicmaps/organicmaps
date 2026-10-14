@@ -113,7 +113,7 @@ CountriesSet GetQueuedCountries(QueueInterface const & queue)
   return result;
 }
 
-downloader::Progress Storage::GetOverallProgress(CountriesVec const & countries) const
+downloader::Progress Storage::GetOverallProgress(CountriesVec const & countries, bool withTerrain) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -127,9 +127,12 @@ downloader::Progress Storage::GetOverallProgress(CountriesVec const & countries)
     overallProgress.m_bytesDownloaded += progress.m_bytesDownloaded;
     overallProgress.m_bytesTotal += progress.m_bytesTotal;
   }
-  auto const terrain = GetTerrainDownloadingProgress(regions, true /* includeCompleted */);
-  overallProgress.m_bytesDownloaded += terrain.m_bytesDownloaded;
-  overallProgress.m_bytesTotal += terrain.m_bytesTotal;
+  if (withTerrain)
+  {
+    auto const terrain = GetTerrainDownloadingProgress(regions, true /* includeCompleted */);
+    overallProgress.m_bytesDownloaded += terrain.m_bytesDownloaded;
+    overallProgress.m_bytesTotal += terrain.m_bytesTotal;
+  }
   return overallProgress;
 }
 
@@ -577,7 +580,7 @@ bool Storage::HasOlderTerrain(m2::RectD const & rect, int64_t version) const
   });
 }
 
-MwmSize Storage::GetDownloadSize(CountriesVec const & countries) const
+MwmSize Storage::GetDownloadSize(CountriesVec const & countries, bool withTerrain) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -601,7 +604,9 @@ MwmSize Storage::GetDownloadSize(CountriesVec const & countries) const
         m_downloadingCountries.count(country) == 0 && !IsDiffApplyingInProgressToCountry(country))
       size += GetCountryFile(country).GetRemoteSize();
   }
-  return size + GetTerrainDownloadSize(CountriesVec(uniqueCountries.begin(), uniqueCountries.end()));
+  if (withTerrain)
+    size += GetTerrainDownloadSize(CountriesVec(uniqueCountries.begin(), uniqueCountries.end()));
+  return size;
 }
 
 MwmSize Storage::GetTerrainDownloadSize(CountriesVec const & countries) const
@@ -1709,7 +1714,7 @@ void Storage::RestoreDownloadQueue()
       std::string const s(v);
       auto localFile = GetLatestLocalFile(s);
       auto isUpdate = localFile && localFile->OnDisk(MapFileType::Map);
-      DownloadNode(s, isUpdate);
+      DownloadNode(s, isUpdate, false /* withTerrain */);
     }
   });
   for (auto const & s : updatedTerrain)
@@ -2591,7 +2596,7 @@ int64_t Storage::GetVersion(CountryId const & countryId) const
   return localMap->GetVersion();
 }
 
-void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false */)
+void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false */, bool withTerrain /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -2613,7 +2618,7 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
   };
 
   node->ForEachInSubtree(downloadAction);
-  if (!isUpdate && m_terrainScanned)
+  if (withTerrain && !isUpdate && m_terrainScanned)
     ForEachCoverageLeaf(countryId, [this](CountryId const & id, auto const &) { DownloadTerrain(id); });
 }
 
@@ -2838,7 +2843,7 @@ void Storage::OnFinishDownloading()
       NodeStatuses status;
       GetNodeStatuses(country, status);
       if (status.m_error == NodeErrorCode::NoInetConnection && m_failedCountries.count(country) != 0)
-        DownloadNode(country, m_diffsDataSource->HasDiffFor(country));
+        DownloadNode(country, m_diffsDataSource->HasDiffFor(country), false /* withTerrain */);
     }
   });
 }
@@ -2984,11 +2989,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
       if (groupNode || !visited.insert(id).second)
         return;
       if (m_failedCountries.contains(id))
-      {
         nodeAttrs.m_downloadSize += GetRemoteSize(GetCountryFile(id));
-        if (!m_diffsDataSource->HasDiffFor(id))
-          terrainRegions.insert(id);
-      }
       if (failedTerrain.contains(id))
         terrainRegions.insert(id);
     });
@@ -3157,7 +3158,7 @@ void Storage::UpdateNode(CountryId const & countryId)
     DownloadTerrain(id);
 }
 
-void Storage::CancelDownloadNode(CountryId const & countryId)
+void Storage::CancelDownloadNode(CountryId const & countryId, bool withTerrain /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -3180,7 +3181,10 @@ void Storage::CancelDownloadNode(CountryId const & countryId)
     if (needNotify)
       NotifyStatusChangedForHierarchy(descendantId);
   });
-  CancelTerrain(countryId);
+  if (withTerrain)
+    CancelTerrain(countryId);
+  else
+    OnFinishDownloading();
 }
 
 void Storage::CancelTerrain(CountryId const & countryId)
@@ -3254,12 +3258,13 @@ void Storage::CancelTerrain(CountryId const & countryId)
 
 void Storage::RetryDownloadNode(CountryId const & countryId)
 {
+  // Retry each file type separately to preserve map-only routing requests.
   ForEachInSubtree(countryId, [this](CountryId const & descendantId, bool groupNode)
   {
     if (!groupNode && m_failedCountries.count(descendantId) != 0)
     {
       bool const isUpdateRequest = m_diffsDataSource->HasDiffFor(descendantId);
-      DownloadNode(descendantId, isUpdateRequest);
+      DownloadNode(descendantId, isUpdateRequest, false /* withTerrain */);
     }
   });
   auto const failed = GetFailedTerrainRegions(false /* retryableOnly */);

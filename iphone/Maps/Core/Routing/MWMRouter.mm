@@ -617,7 +617,7 @@ using namespace routing;
           NSMutableArray * array = [NSMutableArray arrayWithCapacity:downloadCountries.size()];
           for (auto const & cid : downloadCountries)
             [array addObject:@(cid.c_str())];
-          [[MWMStorage sharedStorage] downloadNodes:array onSuccess:onSuccess];
+          [[MWMStorage sharedStorage] downloadMaps:array onSuccess:onSuccess];
         }
         downloadCompleteBlock:^{ [MWMRouter rebuildWithBestRouter:NO]; }];
   }

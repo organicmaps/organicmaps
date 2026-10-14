@@ -112,12 +112,7 @@ CGFloat const kAnimationDuration = .05;
 {
   auto const & s = GetFramework().GetStorage();
   m_countries.erase(remove_if(m_countries.begin(), m_countries.end(),
-                              [&s](storage::CountryId const & countryId)
-  {
-    storage::NodeStatuses statuses;
-    s.GetNodeStatuses(countryId, statuses);
-    return statuses.m_status == storage::NodeStatus::OnDisk;
-  }),
+                              [&s](storage::CountryId const & countryId) { return s.HasLatestVersion(countryId); }),
                     m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const & countryId : m_countries)
@@ -127,7 +122,7 @@ CGFloat const kAnimationDuration = .05;
     [titles addObject:@(attrs.m_nodeLocalName.c_str())];
   }
   self.countriesNames = titles;
-  self.countriesSize = formattedSize(s.GetDownloadSize(m_countries));
+  self.countriesSize = formattedSize(s.GetDownloadSize(m_countries, false /* withTerrain */));
 }
 
 #pragma mark - MWMCircularProgressProtocol
@@ -135,7 +130,7 @@ CGFloat const kAnimationDuration = .05;
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
   for (auto const & countryId : m_countries)
-    [[MWMStorage sharedStorage] cancelDownloadNode:@(countryId.c_str())];
+    GetFramework().GetStorage().CancelDownloadNode(countryId, false /* withTerrain */);
   [self cancelButtonTap];
 }
 
@@ -155,12 +150,8 @@ CGFloat const kAnimationDuration = .05;
         [self close:nil];
       return;
     }
-    bool const completed = std::all_of(m_countries.begin(), m_countries.end(), [&s](storage::CountryId const & id)
-    {
-      storage::NodeStatuses statuses;
-      s.GetNodeStatuses(id, statuses);
-      return statuses.m_status == storage::NodeStatus::OnDisk;
-    });
+    bool const completed = std::all_of(m_countries.begin(), m_countries.end(),
+                                       [&s](storage::CountryId const & id) { return s.HasLatestVersion(id); });
     if (completed)
       [self close:self.downloadCompleteBlock];
   }
@@ -176,10 +167,10 @@ CGFloat const kAnimationDuration = .05;
 
 - (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if (progress.mwmTotal + progress.twmTotal == 0 || !self.rightButton.hidden ||
+  if (progress.mwmTotal == 0 || !self.rightButton.hidden ||
       find(m_countries.begin(), m_countries.end(), countryId.UTF8String) == m_countries.end())
     return;
-  auto const overallProgress = GetFramework().GetStorage().GetOverallProgress(m_countries);
+  auto const overallProgress = GetFramework().GetStorage().GetOverallProgress(m_countries, false /* withTerrain */);
   if (overallProgress.m_bytesTotal == 0)
     return;
   CGFloat const progressValue = static_cast<CGFloat>(overallProgress.m_bytesDownloaded) / overallProgress.m_bytesTotal;
