@@ -245,9 +245,9 @@ bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
   return true;
 }
 
-void TransitRouteInfo::AddStep(TransitStepInfo const & step)
+void TransitRouteInfo::AddStep(TransitStepInfo const & step, bool allowMerge)
 {
-  if (!m_steps.empty() && m_steps.back().IsEqualType(step))
+  if (allowMerge && !m_steps.empty() && m_steps.back().IsEqualType(step))
   {
     m_steps.back().m_distanceInMeters += step.m_distanceInMeters;
     m_steps.back().m_timeInSec += step.m_timeInSec;
@@ -388,7 +388,9 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   if (number.empty())
     number = line.GetNumber();
 
-  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor)));
+  // Different routed lines can share a badge and still require a transfer.
+  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor)),
+                      sp.m_lastLineId == currentLineId);
 
   auto const & stop1 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop2Id);
