@@ -97,6 +97,8 @@ enum Status
 {
   STATUS_SUCCESS = 0,
   STATUS_FAILED = 1,
+  // The suite wrapper distinguishes filtered-out binaries from failed tests.
+  STATUS_NO_TESTS = 2,
   STATUS_BROKEN_FRAMEWORK = 5,
 };
 
@@ -115,7 +117,7 @@ void Usage(char const * name)
 {
   std::cerr << "USAGE: " << name << " [options]\n\n";
   std::cerr << "OPTIONS:\n";
-  DisplayOption(std::cerr, kFilterOption, "<ECMA Regexp>", "Run tests with names corresponding to regexp.");
+  DisplayOption(std::cerr, kFilterOption, "<ECMA Regexp>", "Run tests matching regexp against filename.cpp::TestName.");
   DisplayOption(std::cerr, kSuppressOption, "<ECMA Regexp>", "Do not run tests with names corresponding to regexp.");
   DisplayOption(std::cerr, kDataPathOptions, "<Path>", "Path to data files.");
   DisplayOption(std::cerr, kResourcePathOptions, "<Path>", "Path to resources, styles and classificators.");
@@ -251,6 +253,7 @@ int main(int argc, char * argv[])
     return 0;
   }
 
+  bool hasSelectedTests = false;
   int testIndex = 0;
   for (TestRegister * test = TestRegister::FirstRegister(); test; ++testIndex, test = test->m_next)
   {
@@ -260,6 +263,7 @@ int main(int argc, char * argv[])
     if (g_testingOptions.m_suppressRegExp && regex_search(testname.begin(), testname.end(), suppressRegExp))
       continue;
 
+    hasSelectedTests = true;
     LOG(LINFO, ("Running", testname));
     if (!g_lastTestOK)
     {
@@ -309,6 +313,13 @@ int main(int argc, char * argv[])
 
     uint64_t const elapsed = timer.ElapsedNanoseconds();
     LOG(LINFO, ("Test took", elapsed / 1000000, "ms\n"));
+  }
+
+  if (g_testingOptions.m_filterRegExp && !hasSelectedTests)
+  {
+    LOG(LINFO, ("No tests selected after filtering and suppression. Regex subject: filename.cpp::TestName. Filter:",
+                g_testingOptions.m_filterRegExp));
+    return STATUS_NO_TESTS;
   }
 
   if (numFailedTests != 0)
