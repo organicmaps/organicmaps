@@ -1265,9 +1265,6 @@
 "nogps_gps_lost_auto" = "GPS зник або збився, увімкнено ручний режим";
 "nogps_disable_gps" = "Вимкнути GPS";
 "nogps_disable_gps_hint" = "Для перевірки: застосунок не бачить GPS, як під час глушіння, решта геолокації працює. Вимикається під час перезапуску застосунку.";
-"nogps_pause" = "Пауза: машина маневрує";
-"nogps_resume" = "Продовжити рух";
-"nogps_status_paused" = "Пауза";
 
 /* Status of the position: the mark of the car stands and waits for the user */
 "nogps_status_road_lost" = "Дорогу втрачено";
