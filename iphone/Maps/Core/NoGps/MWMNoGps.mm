@@ -143,8 +143,6 @@ std::optional<double> NonNegative(double value)
     _calibration = static_cast<MWMNoGpsCalibrationState>(status.m_calibration);
     _calibrationProgress = status.m_calibrationProgress;
     _hasInertialPosition = status.m_hasInertialPosition;
-    _paused = status.m_paused;
-    _pausedByItself = status.m_pausedByItself;
     _roadLost = status.m_roadLost;
   }
   return self;
@@ -218,11 +216,6 @@ std::optional<double> NonNegative(double value)
 + (void)reverseDirection
 {
   Engine().ReverseDirection();
-}
-
-+ (void)togglePause
-{
-  Engine().TogglePause();
 }
 
 + (void)setGpsDisabled:(BOOL)disabled
