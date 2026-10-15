@@ -139,6 +139,8 @@ public class Framework
   /** Returns the best available offline address at a WGS84 latitude and longitude in degrees. */
   public static native String nativeGetAddress(double lat, double lon);
 
+  public static native long nativeGetMwmVersion(double lat, double lon);
+
   /** Replaces the process-wide map-selection listener; remove it when its host ends. */
   public static native void nativePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
@@ -177,6 +179,8 @@ public class Framework
   }
 
   public static native void nativeClearApiPoints();
+
+  public static native void nativeSetContactMarks(double[] latitudes, double[] longitudes, String[] names);
 
   @NonNull
   public static native @RequestType int nativeParseAndSetApiUrl(String url);

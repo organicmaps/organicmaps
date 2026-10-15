@@ -31,6 +31,12 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     void onAddressResolved(long requestId, boolean found, double lat, double lon);
   }
 
+  public interface ContactViewportListener
+  {
+    void onContactViewportChanged(int scale, @NonNull String mapRegions, long mapVersion, double left, double bottom,
+                                  double right, double top);
+  }
+
   // Query, which results are shown on the map.
   @Nullable
   private String mQuery;
@@ -91,6 +97,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private final Map<Long, AddressResolutionListener> mAddressResolutionListeners = new HashMap<>();
   private long mNextAddressRequestId;
+  @Nullable
+  private ContactViewportListener mContactViewportListener;
 
   /**
    * Registers an ordinary search listener; registration does not replay cached results.
@@ -150,6 +158,21 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   {
     for (long requestId : new ArrayList<>(mAddressResolutionListeners.keySet()))
       cancelAddressResolution(requestId);
+  }
+
+  @MainThread
+  public void setContactViewportListener(@Nullable ContactViewportListener listener)
+  {
+    mContactViewportListener = listener;
+    nativeSetContactViewportEnabled(listener != null);
+  }
+
+  @Keep
+  private void onContactViewportChanged(int scale, @NonNull String mapRegions, long mapVersion, double left,
+                                        double bottom, double right, double top)
+  {
+    if (mContactViewportListener != null)
+      mContactViewportListener.onContactViewportChanged(scale, mapRegions, mapVersion, left, bottom, right, top);
   }
 
   @MainThread
@@ -402,6 +425,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private static native void nativeResolveAddress(String[] queries, String[] expectedStreets, String language,
                                                   long requestId, boolean background);
+
+  private static native void nativeSetContactViewportEnabled(boolean enabled);
 
   private static native void nativeCancelAddressResolution(long requestId);
 

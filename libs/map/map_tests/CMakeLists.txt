@@ -31,6 +31,7 @@ set(SRC
   transit_display_tests.cpp
   transit_rendering_tests.cpp
   transit_route_info_tests.cpp
+  user_mark_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)

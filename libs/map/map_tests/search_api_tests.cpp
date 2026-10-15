@@ -211,6 +211,54 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionFindsMappedBuildingInBothModes)
   }
 }
 
+UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionPrefetchesOnlyNearbyMappedAddresses)
+{
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
+  TestBuilding building(m2::PointD(0, 0.00001), "", "123", "Main Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  for (bool nearby : {true, false})
+  {
+    auto const viewport = nearby ? m2::RectD(-0.002, 0.00002, 0.002, 0.0001) : m2::RectD(-0.002, 0.0002, 0.002, 0.0004);
+    api.OnViewportChanged(viewport, 16);
+    bool delivered = false;
+    api.ResolveAddress(nearby ? 1 : 2, {{"123 Main Street", "123 Main Street"}}, "en", true, [&](auto result)
+    {
+      TEST_EQUAL(result.has_value(), nearby, ());
+      if (result)
+        TEST_ALMOST_EQUAL_ABS(result->GetFeatureCenter().y, building.GetCenter().y, 3e-6, ());
+      delivered = true;
+    });
+    TEST(delegate.WaitUntil([&] { return delivered; }), ());
+  }
+}
+
+UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionValidatesLocalityAfterStreetLookup)
+{
+  TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
+  TestBuilding building(m2::PointD(0, 0.00001), "", "123", "Main Street", "en");
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
+  bool delivered = false;
+  api.ResolveAddress(1, {{"123 Main Street Wrongtown", "123 Main Street"}}, "en", true, [&](auto result)
+  {
+    TEST(!result, ());
+    delivered = true;
+  });
+  TEST(delegate.WaitUntil([&] { return delivered; }), ());
+}
+
 UNIT_CLASS_TEST(SearchAPITest, TypedAddressRankingIsExplicitAndNeverInventsMissingAddresses)
 {
   TestCity city(m2::PointD(0, 0), "Surrey", "en", 100);
