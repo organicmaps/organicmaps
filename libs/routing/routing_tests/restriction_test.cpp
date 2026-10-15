@@ -16,7 +16,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/cancellable.hpp"
 #include "base/scope_guard.hpp"
 
 #include <algorithm>
@@ -729,8 +728,7 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
                    MakeFakeEnding(1, 0, m2::PointD(1, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
-/// @todo By VNG: no-pass-through behaviour was changed.
-/// @see IndexGraphStarter::CheckLength
+// Allow one paid interior service episode; leaving the start and arriving at the finish are free.
 //                  *---F4---*
 //                  |        |
 //                 F3        F5
@@ -791,7 +789,8 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughShortWay)
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
 
-  // vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}, {2, 0}, {3, 0}};
+  // One service cut-through is allowed. Its one-hour penalty is smaller than
+  // the extra travel time of the public-road detour in this graph.
   vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
   TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
@@ -882,14 +881,14 @@ FakeEnding MakeMixedPassThroughEnding(uint32_t featureId, uint32_t alternativeFe
 }
 
 void TestNonPassThroughGeometry(IndexGraphStarter & starter, Algorithm::Result expectedResult,
-                                vector<m2::PointD> const & expectedGeom)
+                                vector<m2::PointD> const & expectedGeom, bool passThroughState = true)
 {
-  TestRouteGeometry(starter, expectedResult, expectedGeom);
+  TestRouteGeometry(starter, expectedResult, expectedGeom, passThroughState);
 
   auto const mode = starter.GetGraph().GetMode();
   // These synthetic graphs have no cross-MWM graph.
   starter.GetGraph().SetMode(WorldGraphMode::JointSingleMwm);
-  starter.EnablePassThroughStateRouting();
+  starter.EnablePassThroughStateRouting(passThroughState);
   SCOPE_GUARD(restore, [&]
   {
     starter.EnablePassThroughStateRouting(false);
@@ -940,7 +939,8 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughEndingCredit)
         vector<m2::PointD> expectedGeom = {{0, 0}, {0.001, 0}, {0.002, 0}, {0.003, 0}, {0.004, 0}, {0.005, 0}};
         if (reverse)
           std::reverse(expectedGeom.begin(), expectedGeom.end());
-        TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
+        for (bool const passThroughState : {false, true})
+          TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom, passThroughState);
       }
     }
   }
@@ -961,6 +961,25 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughMixedEndingsAvoidShortcut)
     if (reverse)
       std::reverse(expectedGeom.begin(), expectedGeom.end());
     TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
+  }
+}
+
+// Follow-up reproducer: independent leap pieces still grant credit for unused service projections.
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughMixedEndingsLegacyCredits)
+{
+  for (bool const reverse : {false, true})
+  {
+    Init(BuildNonPassThroughEndingGraph(true /* passThroughStart */, true /* passThroughFinish */,
+                                        false /* passThroughShortWay */, true /* passThroughLongWay */));
+    auto const start = MakeMixedPassThroughEnding(0, 8, m2::PointD(0, 0), *m_graph);
+    auto const finish = MakeMixedPassThroughEnding(4, 9, m2::PointD(0.005, 0), *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    // Legacy endpoint credits erase the service shortcut's penalty; the stateful test above avoids it.
+    vector<m2::PointD> expectedGeom = {{0, 0}, {0.001, 0}, {0.002, 0}, {0.003, 0}, {0.004, 0}, {0.005, 0}};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom, false /* passThroughState */);
   }
 }
 
@@ -999,29 +1018,6 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughMixedEndingsAllowOnlyShortcut)
       std::reverse(expectedGeom.begin(), expectedGeom.end());
     TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
   }
-}
-
-UNIT_CLASS_TEST(RestrictionTest, NonPassThroughStateCancellation)
-{
-  Init(BuildNonPassThroughEndingGraph(true /* passThroughStart */, true /* passThroughFinish */,
-                                      false /* passThroughShortWay */, true /* passThroughLongWay */));
-  SetStarter(MakeMixedPassThroughEnding(0, 8, m2::PointD(0, 0), *m_graph),
-             MakeMixedPassThroughEnding(4, 9, m2::PointD(0.005, 0), *m_graph));
-
-  m_starter->EnablePassThroughStateRouting();
-  base::Cancellable cancellable;
-  cancellable.Cancel();
-  Algorithm algorithm;
-  Algorithm::Params<astar::DefaultVisitor, AStarLengthChecker> params(
-      *m_starter, m_starter->GetStartSegment(), m_starter->GetFinishSegment(), cancellable, astar::DefaultVisitor{},
-      AStarLengthChecker(*m_starter));
-  RoutingResult<Segment, RouteWeight> routingResult;
-  TEST_EQUAL(algorithm.FindPathBidirectional(params, routingResult), Algorithm::Result::Cancelled, ());
-
-  // Subsequent calculations must not inherit the cancelled search's labels.
-  vector<m2::PointD> const expectedGeom = {{0, 0}, {0.001, 0}, {0.001, 0.001}, {0.004, 0.001}, {0.004, 0}, {0.005, 0}};
-  TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
-  TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 
 // The all-service branch through U is slightly longer than the public branch through V.

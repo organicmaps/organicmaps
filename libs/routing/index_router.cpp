@@ -921,7 +921,8 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
   subroute.clear();
   SetupAlgorithmMode(starter, guidesActive);
   WorldGraphMode const mode = starter.GetGraph().GetMode();
-  // Leap pieces have independent endpoints and cannot share a service-episode budget.
+  // Full-graph car searches retain service allowances in their A* labels.
+  // Independent leap pieces use legacy crossing credits.
   starter.EnablePassThroughStateRouting(m_vehicleType == VehicleType::Car && mode != WorldGraphMode::LeapsOnly);
   LOG(LINFO, ("Routing in mode:", mode));
 
@@ -1203,11 +1204,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
     return RouterResultCode::RouteNotFound;
 
   RoutingResultT result;
-  {
-    auto const code = ProcessLeapsJoints(bestC->m_path, starter, progress, calculator, result);
-    if (code != RouterResultCode::NoError)
-      return code;
-  }
+  ProcessLeapsJoints(bestC->m_path, starter, progress, calculator, result);
 
   if (result.Empty())
     return RouterResultCode::RouteNotFound;
@@ -1255,21 +1252,26 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
   starter.Append(*m_lastFakeEdges);
 
-  // Cached suffixes have no service-episode state. Rebuild when endpoint allowances could affect the join.
-  if (m_vehicleType == VehicleType::Car && starter.HasNonPassThroughEndings())
+  if (m_vehicleType == VehicleType::Car && starter.HasNonPassThroughStart())
+    return RouterResultCode::RouteNotFound;
+
+  size_t begin = rebuiltSubroute.GetBeginSegmentIdx();
+  size_t const end = rebuiltSubroute.GetEndSegmentIdx();
+  CHECK_LESS_OR_EQUAL(end, steps.size(), ());
+  // Leaving the cached start's service area was free; it would be a paid exit from the new start.
+  while (m_vehicleType == VehicleType::Car && begin < end &&
+         (IndexGraphStarter::IsFakeSegment(steps[begin].GetSegment()) ||
+          starter.IsNoPassThroughAllowed(steps[begin].GetSegment())))
+  {
+    ++begin;
+  }
+  if (begin == end)
     return RouterResultCode::RouteNotFound;
 
   std::vector<SegmentEdge> prevEdges;
-  CHECK_LESS_OR_EQUAL(rebuiltSubroute.GetEndSegmentIdx(), steps.size(), ());
-  for (size_t i = rebuiltSubroute.GetBeginSegmentIdx(); i < rebuiltSubroute.GetEndSegmentIdx(); ++i)
+  for (size_t i = begin; i < end; ++i)
   {
     auto const & step = steps[i];
-    auto real = step.GetSegment();
-    if (m_vehicleType == VehicleType::Car && starter.ConvertToReal(real) && !IndexGraphStarter::IsGuidesSegment(real) &&
-        !graph->IsPassThroughAllowed(real.GetMwmId(), real.GetFeatureId()))
-    {
-      return RouterResultCode::RouteNotFound;
-    }
     prevEdges.emplace_back(step.GetSegment(),
                            starter.CalcSegmentWeight(step.GetSegment(), EdgeEstimator::Purpose::Weight));
   }

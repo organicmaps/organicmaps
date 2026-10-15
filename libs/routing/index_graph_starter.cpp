@@ -167,19 +167,17 @@ void IndexGraphStarter::EnablePassThroughStateRouting(bool enable)
   m_passThroughStateRouting = enable;
 }
 
-SmallList<PassThroughState> IndexGraphStarter::GetPassThroughStates(Segment const & segment) const
+SmallList<PassThroughState> IndexGraphStarter::GetPassThroughStates(bool isService)
 {
-  ASSERT(m_passThroughStateRouting, ());
-  if (IsNoPassThroughAllowed(segment))
+  if (isService)
     return {PassThroughState::InitialService, PassThroughState::NoPaidExit, PassThroughState::OnePaidExit};
   return {PassThroughState::NoPaidExit, PassThroughState::OnePaidExit};
 }
 
-std::optional<PassThroughState> IndexGraphStarter::AdvancePassThroughState(PassThroughState state, Segment const & from,
-                                                                           Segment const & to) const
+std::optional<PassThroughState> IndexGraphStarter::AdvancePassThroughState(PassThroughState state, bool exitsService)
 {
-  ASSERT_NOT_EQUAL(state, PassThroughState::None, (from, to));
-  if (!IsNoPassThroughAllowed(from) || IsNoPassThroughAllowed(to))
+  ASSERT_NOT_EQUAL(state, PassThroughState::None, ());
+  if (!exitsService)
     return state;
 
   // The initial service episode and the final one are free. Only completed interior episodes count.
@@ -198,17 +196,40 @@ int8_t IndexGraphStarter::GetPassThroughPenalty(PassThroughState from, PassThrou
   return from == PassThroughState::NoPaidExit && to == PassThroughState::OnePaidExit ? 2 : 0;
 }
 
+namespace
+{
+template <typename Append>
+void ForEachPassThroughState(PassThroughState source, bool isOutgoing, bool exitsService, bool targetService,
+                             Append && append)
+{
+  if (isOutgoing)
+  {
+    if (auto const next = IndexGraphStarter::AdvancePassThroughState(source, exitsService))
+      append(*next, IndexGraphStarter::GetPassThroughPenalty(source, *next));
+  }
+  else
+  {
+    for (auto const state : IndexGraphStarter::GetPassThroughStates(targetService))
+      if (IndexGraphStarter::AdvancePassThroughState(state, exitsService) == source)
+        append(state, IndexGraphStarter::GetPassThroughPenalty(state, source));
+  }
+}
+}  // namespace
+
 void IndexGraphStarter::ApplyPassThroughState(Segment const & source, bool isOutgoing, EdgeListT & edges) const
 {
   EdgeListT result;
   auto const start = GetStartSegment();
   auto const finish = GetFinishSegment();
   auto const physicalSource = source.WithoutPassThroughState();
+  bool const sourceService = IsNoPassThroughAllowed(physicalSource);
   for (auto const & edge : edges)
   {
     auto const target = edge.GetTarget().WithoutPassThroughState();
     auto const from = isOutgoing ? physicalSource : target;
     auto const to = isOutgoing ? target : physicalSource;
+    bool const targetService = IsNoPassThroughAllowed(target);
+    bool const exitsService = isOutgoing ? sourceService && !targetService : targetService && !sourceService;
     auto const append = [&](PassThroughState state, int8_t charged)
     {
       auto labelled = target;
@@ -218,7 +239,8 @@ void IndexGraphStarter::ApplyPassThroughState(Segment const & source, bool isOut
     };
     if (from == start)
     {
-      auto const initial = IsNoPassThroughAllowed(to) ? PassThroughState::InitialService : PassThroughState::NoPaidExit;
+      bool const toService = isOutgoing ? targetService : sourceService;
+      auto const initial = toService ? PassThroughState::InitialService : PassThroughState::NoPaidExit;
       if (isOutgoing)
         append(initial, 0);
       else if (source.GetPassThroughState() == initial)
@@ -229,19 +251,12 @@ void IndexGraphStarter::ApplyPassThroughState(Segment const & source, bool isOut
       if (isOutgoing)
         append(PassThroughState::None, 0);
       else
-        for (auto const state : GetPassThroughStates(target))
+        for (auto const state : GetPassThroughStates(targetService))
           append(state, 0);
-    }
-    else if (isOutgoing)
-    {
-      if (auto const next = AdvancePassThroughState(source.GetPassThroughState(), from, to))
-        append(*next, GetPassThroughPenalty(source.GetPassThroughState(), *next));
     }
     else
     {
-      for (auto const state : GetPassThroughStates(target))
-        if (AdvancePassThroughState(state, from, to) == source.GetPassThroughState())
-          append(state, GetPassThroughPenalty(state, source.GetPassThroughState()));
+      ForEachPassThroughState(source.GetPassThroughState(), isOutgoing, exitsService, targetService, append);
     }
   }
   edges = std::move(result);
@@ -254,17 +269,14 @@ void IndexGraphStarter::ApplyPassThroughState(Segment const & source, bool isOut
     return;
   JointEdgeListT result;
   WeightListT weights;
+  bool const sourceService = IsNoPassThroughAllowed(source);
   ASSERT_EQUAL(edges.size(), parentWeights.size(), ());
   for (size_t i = 0; i < edges.size(); ++i)
   {
-    // Ending joints were already labelled and charged by the segment search.
-    if (edges[i].GetTarget().IsFake())
-    {
-      result.push_back(edges[i]);
-      weights.push_back(parentWeights[i]);
-      continue;
-    }
+    ASSERT(!edges[i].GetTarget().IsFake(), (edges[i].GetTarget()));
     auto const target = edges[i].GetTarget().GetSegment(true);
+    bool const targetService = IsNoPassThroughAllowed(target);
+    bool const exitsService = isOutgoing ? sourceService && !targetService : targetService && !sourceService;
     auto const append = [&](PassThroughState state, int8_t charged)
     {
       auto edge = edges[i];
@@ -279,17 +291,7 @@ void IndexGraphStarter::ApplyPassThroughState(Segment const & source, bool isOut
       weights.push_back(parentWeight);
     };
     // Twin roads may have different country-specific pass-through rules.
-    if (isOutgoing)
-    {
-      if (auto const next = AdvancePassThroughState(source.GetPassThroughState(), source, target))
-        append(*next, GetPassThroughPenalty(source.GetPassThroughState(), *next));
-    }
-    else
-    {
-      for (auto const state : GetPassThroughStates(target))
-        if (AdvancePassThroughState(state, target, source) == source.GetPassThroughState())
-          append(state, GetPassThroughPenalty(state, source.GetPassThroughState()));
-    }
+    ForEachPassThroughState(source.GetPassThroughState(), isOutgoing, exitsService, targetService, append);
   }
   edges = std::move(result);
   parentWeights = std::move(weights);

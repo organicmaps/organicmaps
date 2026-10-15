@@ -107,22 +107,17 @@ public:
 
   // Retain the service episode in the A* label so all edge penalties are additive.
   void EnablePassThroughStateRouting(bool enable = true);
-  bool HasNonPassThroughEndings() const
-  {
-    return HasNoPassThroughAllowed(m_start) || HasNoPassThroughAllowed(m_finish);
-  }
-  SmallList<PassThroughState> GetPassThroughStates(Segment const & segment) const;
-  std::optional<PassThroughState> AdvancePassThroughState(PassThroughState state, Segment const & from,
-                                                          Segment const & to) const;
+  bool HasNonPassThroughStart() const { return HasNoPassThroughAllowed(m_start); }
+  bool IsNoPassThroughAllowed(Segment const & segment) const;
+  static SmallList<PassThroughState> GetPassThroughStates(bool isService);
+  static std::optional<PassThroughState> AdvancePassThroughState(PassThroughState state, bool exitsService);
   static int8_t GetPassThroughPenalty(PassThroughState from, PassThroughState to);
-  void ApplyPassThroughState(Segment const & source, bool isOutgoing, JointEdgeListT & edges,
-                             WeightListT & parentWeights) const;
 
   void GetEdgeList(astar::VertexData<JointSegment, Weight> const & parentVertexData, Segment const & segment,
                    bool isOutgoing, JointEdgeListT & edges, WeightListT & parentWeights) const
   {
-    return m_graph.GetEdgeList(parentVertexData, segment, isOutgoing, true /* useAccessConditional */, edges,
-                               parentWeights);
+    m_graph.GetEdgeList(parentVertexData, segment, isOutgoing, true /* useAccessConditional */, edges, parentWeights);
+    ApplyPassThroughState(segment, isOutgoing, edges, parentWeights);
   }
 
   // AStarGraph overridings:
@@ -256,7 +251,8 @@ private:
 
   void ApplyPassThroughState(Segment const & source, bool isOutgoing, EdgeListT & edges) const;
 
-  bool IsNoPassThroughAllowed(Segment const & segment) const;
+  void ApplyPassThroughState(Segment const & source, bool isOutgoing, JointEdgeListT & edges,
+                             WeightListT & parentWeights) const;
 
   // Checks whether ending belongs to non-pass-through zone (service, living street, etc).
   bool HasNoPassThroughAllowed(Ending const & ending) const;

@@ -423,8 +423,6 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(astar::VertexDat
 
     Segment const & parentSegment = *optional;
     m_graph.GetEdgeList(vertexData, parentSegment, isOutgoing, edges, parentWeights);
-    if constexpr (requires { m_graph.ApplyPassThroughState(parentSegment, isOutgoing, edges, parentWeights); })
-      m_graph.ApplyPassThroughState(parentSegment, isOutgoing, edges, parentWeights);
 
     firstFakeId = edges.size();
     for (size_t i = 0; i < firstFakeId; ++i)
@@ -480,9 +478,8 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(astar::VertexData<Vertex, Weigh
       auto & w = edges[i].GetWeight();
       auto const & t = edges[i].GetTarget();
 
-      // By VNG: Revert to the MM original code, since Cross-MWM borders penalty is assigned in the end of this
-      // function.
-      /// @todo I still have doubts on how we "fetch" weight for ingoing edges with m_savedWeight.
+      // Keep the cached joint weight free of cross-MWM penalties: those are
+      // added after assembling both real and fake edges below.
       m_savedWeight[t] = w;
 
       // For parent JointSegment we know its weight without last segment, because for each child
@@ -536,27 +533,32 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
 {
   Segment const & endSegment = fromStart ? m_endSegment : m_startSegment;
 
+  struct SearchData
+  {
+    RouteWeight m_weight;
+    Segment m_parent;
+    uint32_t m_firstFeature = kInvalidFeatureId;
+  };
+
   std::queue<Segment> queue;
-  std::map<Segment, Segment> parent;
-  std::map<Segment, RouteWeight> weight;
-  std::map<Segment, uint32_t> firstFeatures;
+  std::map<Segment, SearchData> search;
   EdgeListT result;
 
   queue.push(startSegment);
-  weight.emplace(startSegment, RouteWeight(0.0));
-  firstFeatures.emplace(startSegment, kInvalidFeatureId);
+  search.emplace(startSegment, SearchData{RouteWeight(0.0), startSegment});
 
   auto const reconstructPath = [&](Segment current, bool forward)
   {
     std::vector<Segment> path;
     path.emplace_back(current);
 
-    for (auto it = parent.find(current); it != parent.end(); it = parent.find(current))
+    while (current != startSegment)
     {
-      current = it->second;
+      auto const it = search.find(current);
+      ASSERT(it != search.end(), (current));
+      current = it->second.m_parent;
       path.emplace_back(current);
     }
-    ASSERT_EQUAL(current, startSegment, ());
 
     if (forward)
       std::reverse(path.begin(), path.end());
@@ -565,11 +567,11 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
 
   auto const addFake = [&](Segment const & segment, Segment const & beforeConvert)
   {
-    auto const firstFeatureId = firstFeatures.at(beforeConvert);
+    auto const & data = search.at(beforeConvert);
     auto const state = segment.GetPassThroughState();
-    JointSegment const fakeJoint = fromStart ? CreateFakeJoint(startSegment, segment, firstFeatureId, state)
+    JointSegment const fakeJoint = fromStart ? CreateFakeJoint(startSegment, segment, data.m_firstFeature, state)
                                              : CreateFakeJoint(segment, startSegment, kInvalidFeatureId, state);
-    result.emplace_back(fakeJoint, weight.at(beforeConvert));
+    result.emplace_back(fakeJoint, data.m_weight);
 
     std::vector<Segment> path = reconstructPath(beforeConvert, fromStart);
     m_reconstructedFakeJoints.emplace(fakeJoint, ReconstructedPath(std::move(path), fromStart));
@@ -595,9 +597,9 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
 
     // Get first real feature id and assign it below into future fake joint, that will pass over this feature.
     // Its important for IndexGraph::IsRestricted. See https://github.com/organicmaps/organicmaps/issues/1565.
-    auto & firstFeatureId = firstFeatures.at(beforeConvert);
-    if (isRealPart && firstFeatureId == kInvalidFeatureId)
-      firstFeatureId = segment.GetFeatureId();
+    auto & data = search.at(beforeConvert);
+    if (isRealPart && data.m_firstFeature == kInvalidFeatureId)
+      data.m_firstFeature = segment.GetFeatureId();
 
     // Either the segment is fake and it can be converted to real one with |Joint| end (RoadPoint),
     // or it's the real one and its end (RoadPoint) is |Joint|.
@@ -619,12 +621,11 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
     for (auto const & edge : edges)
     {
       Segment child = edge.GetTarget();
-      auto const & newWeight = weight[beforeConvert] + edge.GetWeight();
-      if (weight.find(child) == weight.end() || weight[child] > newWeight)
+      auto const newWeight = data.m_weight + edge.GetWeight();
+      auto const [it, inserted] = search.try_emplace(child);
+      if (inserted || newWeight < it->second.m_weight)
       {
-        parent[child] = beforeConvert;
-        weight[child] = newWeight;
-        firstFeatures[child] = firstFeatureId;
+        it->second = {newWeight, beforeConvert, data.m_firstFeature};
         queue.push(child);
       }
     }

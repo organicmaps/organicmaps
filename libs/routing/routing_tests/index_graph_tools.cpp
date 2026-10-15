@@ -487,9 +487,9 @@ unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geo
 }
 
 AlgorithmForWorldGraph::Result CalculateRoute(IndexGraphStarter & starter, vector<Segment> & roadPoints,
-                                              double & timeSec)
+                                              double & timeSec, bool passThroughState)
 {
-  starter.EnablePassThroughStateRouting();
+  starter.EnablePassThroughStateRouting(passThroughState);
   AlgorithmForWorldGraph algorithm;
   RoutingResult<Segment, RouteWeight> routingResult;
   AlgorithmForWorldGraph::ParamsForTests<AStarLengthChecker> params(
@@ -506,9 +506,16 @@ AlgorithmForWorldGraph::Result CalculateRoute(IndexGraphStarter & starter, vecto
 void TestRouteGeometry(IndexGraphStarter & starter, AlgorithmForWorldGraph::Result expectedRouteResult,
                        vector<m2::PointD> const & expectedRouteGeom)
 {
+  for (bool const passThroughState : {false, true})
+    TestRouteGeometry(starter, expectedRouteResult, expectedRouteGeom, passThroughState);
+}
+
+void TestRouteGeometry(IndexGraphStarter & starter, AlgorithmForWorldGraph::Result expectedRouteResult,
+                       vector<m2::PointD> const & expectedRouteGeom, bool passThroughState)
+{
   vector<Segment> routeSegs;
   double timeSec = 0.0;
-  auto const resultCode = CalculateRoute(starter, routeSegs, timeSec);
+  auto const resultCode = CalculateRoute(starter, routeSegs, timeSec, passThroughState);
 
   TEST_EQUAL(resultCode, expectedRouteResult, ());
 
