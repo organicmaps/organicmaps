@@ -12,10 +12,20 @@
 #include "drape/hatching_decl.hpp"
 
 #include <algorithm>
+#include <array>
 #include <initializer_list>
 
 namespace
 {
+auto constexpr kStyles = []
+{
+  std::array<MapStyle, MapStyleCount - 1> styles{};
+  for (size_t i = 0, s = 0; s < MapStyleCount; ++s)
+    if (auto const style = static_cast<MapStyle>(s); style != MapStyleMerged)
+      styles[i++] = style;
+  return styles;
+}();
+
 class WaterArea : public osm::MapObject
 {
 public:
@@ -27,6 +37,50 @@ public:
       m_types.Add(type);
   }
 };
+
+class SampleFeature : public osm::MapObject
+{
+public:
+  SampleFeature(uint32_t type, feature::GeomType geomType)
+  {
+    m_geomType = geomType;
+    m_points = {{0.0, 0.0}, {0.01, 0.01}};
+    m_triangles = {{0.0, 0.0}, {0.01, 0.0}, {0.0, 0.01}};
+    m_types.Add(type);
+    m_name.Add("en", "Sample");
+    m_houseNumber = "12";
+  }
+};
+
+class StyleSnapshotFixture
+{
+public:
+  StyleSnapshotFixture() : m_originalStyle(GetStyleReader().GetCurrentStyle())
+  {
+    classificator::Load();
+    for (auto const style : kStyles)
+      classificator::EnsureStyleLoaded(style);
+  }
+
+  ~StyleSnapshotFixture() { GetStyleReader().SetCurrentStyle(m_originalStyle); }
+
+private:
+  MapStyle const m_originalStyle;
+};
+
+void TestSameRules(df::Stylist const & actual, df::Stylist const & expected)
+{
+  TEST_EQUAL(actual.m_symbolRule, expected.m_symbolRule, ());
+  TEST_EQUAL(actual.m_captionRule, expected.m_captionRule, ());
+  TEST_EQUAL(actual.m_houseNumberRule, expected.m_houseNumberRule, ());
+  TEST_EQUAL(actual.m_pathtextRule, expected.m_pathtextRule, ());
+  TEST_EQUAL(actual.m_shieldRule, expected.m_shieldRule, ());
+  TEST_EQUAL(actual.m_areaRule, expected.m_areaRule, ());
+  TEST_EQUAL(actual.m_hatchingRule, expected.m_hatchingRule, ());
+  TEST(std::equal(actual.m_lineRules.begin(), actual.m_lineRules.end(), expected.m_lineRules.begin(),
+                  expected.m_lineRules.end()),
+       ());
+}
 }  // namespace
 
 UNIT_TEST(Stylist_IsHatching)
@@ -93,10 +147,10 @@ UNIT_TEST(Stylist_IntermittentWaterAreaPriority)
     auto const river = cl.GetTypeByPath({"waterway", "river"});
     auto const basin = cl.GetTypeByPath({"landuse", "basin"});
     auto const intermittentBasin = cl.GetTypeByPath({"landuse", "basin", "intermittent"});
-    auto const areaPriority = [](std::initializer_list<uint32_t> types, uint8_t zoom)
+    auto const areaPriority = [style](std::initializer_list<uint32_t> types, uint8_t zoom)
     {
       auto feature = FeatureType::CreateFromMapObject(WaterArea(types));
-      df::Stylist stylist(*feature, zoom, StringUtf8Multilang::kEnglishCode, false);
+      df::Stylist stylist(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
       CHECK(stylist.m_areaRule != nullptr, ());
       return stylist.m_areaRule->priority;
     };
@@ -118,4 +172,42 @@ UNIT_TEST(Stylist_IntermittentWaterAreaPriority)
   }
   reader.SetCurrentStyle(kDefaultMapStyle);
   classificator::Load();
+}
+
+UNIT_CLASS_TEST(StyleSnapshotFixture, Stylist_ExplicitStyleIgnoresGlobalSwitches)
+{
+  using feature::GeomType;
+  struct Sample
+  {
+    uint32_t m_type;
+    GeomType m_geomType;
+  };
+  auto const & cl = classif(MapStyleDefaultLight);
+  std::array const samples = {Sample{cl.GetTypeByPath({"highway", "motorway"}), GeomType::Line},
+                              Sample{cl.GetTypeByPath({"highway", "path"}), GeomType::Line},
+                              Sample{cl.GetTypeByPath({"amenity", "cafe"}), GeomType::Point},
+                              Sample{cl.GetTypeByPath({"building"}), GeomType::Area},
+                              Sample{cl.GetTypeByPath({"natural", "water", "lake"}), GeomType::Area}};
+
+  for (auto const style : kStyles)
+  {
+    for (auto const & sample : samples)
+    {
+      auto feature = FeatureType::CreateFromMapObject(SampleFeature(sample.m_type, sample.m_geomType));
+      bool hasRules = false;
+      for (uint8_t zoom = 1; zoom <= 19; ++zoom)
+      {
+        GetStyleReader().SetCurrentStyle(style);
+        df::Stylist const expected(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
+        hasRules = hasRules || expected.m_symbolRule || expected.m_areaRule || !expected.m_lineRules.empty();
+        for (auto const current : kStyles)
+        {
+          GetStyleReader().SetCurrentStyle(current);
+          df::Stylist const actual(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
+          TestSameRules(actual, expected);
+        }
+      }
+      TEST(hasRules, (style, sample.m_type));
+    }
+  }
 }

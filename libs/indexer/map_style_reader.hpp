@@ -14,7 +14,6 @@ public:
 
   void SetCurrentStyle(MapStyle mapStyle);
   MapStyle GetCurrentStyle() const;
-  bool IsCarNavigationStyle() const;
 
   // Reader for the bundled drawing-rules family file of mapStyle (drules_<family>.bin). Takes an
   // explicit style (not the current one) so a family can be loaded without flipping the global

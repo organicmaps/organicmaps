@@ -2,6 +2,7 @@
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/map_style.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -118,12 +119,11 @@ public:
 
   CaptionDescription m_captionDescriptor;
 
-  Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle);
+  // Use the caller's style snapshot for both rule keys and their holder.
+  Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle style);
 
 private:
-  void ProcessKey(FeatureType & f, drule::Key const & key);
-
-  drule::RulesHolder const & m_rulesHolder;
+  void ProcessKey(FeatureType & f, drule::Key const & key, drule::RulesHolder const & rules);
 };
 
 }  // namespace df

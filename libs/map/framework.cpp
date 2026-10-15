@@ -807,7 +807,7 @@ std::vector<Track::TrackSelectionInfo> Framework::FindRelationTracksInTapPositio
   std::vector<Track::TrackSelectionInfo> candidates;
 
   df::RelationsDrawSettings sett;
-  sett.Load();
+  sett.Load(GetMapStyle());
   if (sett.IsEmpty())
     return candidates;
 
