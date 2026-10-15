@@ -248,11 +248,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeReverseDirection(JN
   NoGpsEngine().ReverseDirection();
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeTogglePause(JNIEnv *, jclass)
-{
-  NoGpsEngine().TogglePause();
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeSetGpsDisabled(JNIEnv *, jclass, jboolean disabled)
 {
   NoGpsEngine().SetGpsDisabled(disabled);
@@ -345,8 +340,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeGetStatus(JNIEnv * 
   SetNoGpsField(env, out, "calibration", static_cast<int>(status.m_calibration));
   SetNoGpsField(env, out, "calibrationProgress", status.m_calibrationProgress);
   SetNoGpsField(env, out, "hasInertialPosition", status.m_hasInertialPosition);
-  SetNoGpsField(env, out, "paused", status.m_paused);
-  SetNoGpsField(env, out, "pausedByItself", status.m_pausedByItself);
   SetNoGpsField(env, out, "roadLost", status.m_roadLost);
   SetNoGpsString(env, out, "boxFirmware", status.m_boxFirmware);
   SetNoGpsString(env, out, "bundledFirmware", status.m_bundledFirmware);

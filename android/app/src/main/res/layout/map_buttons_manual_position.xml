@@ -16,12 +16,6 @@
     android:importantForAccessibility="no"
     app:srcCompat="@drawable/ic_flag_log" />
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/pause_movement"
-    style="@style/MwmWidget.MapButton.Zoom"
-    android:layout_marginEnd="@dimen/margin_half"
-    app:srcCompat="@drawable/ic_pause"
-    android:contentDescription="@string/nogps_pause" />
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/reverse_direction"
     style="@style/MwmWidget.MapButton.Zoom"
     android:layout_marginEnd="@dimen/margin_half"
