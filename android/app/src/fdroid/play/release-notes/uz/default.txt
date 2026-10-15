@@ -1,1 +1,0 @@
-../../listings/uz/release-notes.txt

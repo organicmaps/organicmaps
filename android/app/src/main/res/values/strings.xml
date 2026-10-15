@@ -52,7 +52,7 @@
     <string name="unsupported_phone">The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.</string>
     <string name="download">Download</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
+    <string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use NoGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
     <string name="download_resources">Before you start using the app, please download the world overview map to your device.\nIt will use %s of storage.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Maps bookmarks were shared with you</string>
-    <string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don\'t have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">NoGPS Maps bookmarks were shared with you</string>
+    <string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks; please open them in NoGPS Maps. If you don\'t have it installed you can download it here: https://github.com/Ramzess-II/NoGPSMaps\n\nEnjoy travelling with NoGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Loading Bookmarks</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Share</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s on Organic Maps</string>
+    <string name="share_place_subject">%1$s on NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">A place on Organic Maps</string>
+    <string name="share_place_subject_default">A place on NoGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Email</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Community-created OpenStreetMap data as of %s. Learn more about how to edit and update the map at OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) is a community project to build a free and open map. It\'s the main source of map data in Organic Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.\nJoin the community and help to make a better map for everyone!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) is a community project to build a free and open map. It\'s the main source of map data in NoGPS Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.\nJoin the community and help to make a better map for everyone!</string>
     <string name="login_to_make_edits_visible">Create an OpenStreetMap account or log in to publish your map edits to the world.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d of %2$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Note to OpenStreetMap volunteers (optional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Describe errors on the map or things that cannot be edited with Organic Maps</string>
+    <string name="editor_note_hint">Describe errors on the map or things that cannot be edited with NoGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Your edits are uploaded to the public <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> database. Please do not add personal or copyrighted information.</string>
     <string name="editor_more_about_osm">More about OpenStreetMap</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operator: %s</string>
     <string name="editor_category_unsuitable_title">Can\'t find a suitable category?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.</string>
     <string name="downloader_no_downloaded_maps_title">You haven\'t downloaded any maps</string>
     <string name="downloader_no_downloaded_maps_message">Download maps to search and navigate offline.</string>
     <string name="current_location_unknown_error_title">Current location is unknown.</string>
@@ -781,9 +781,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">You are now using Organic Maps on the phone screen</string>
+    <string name="car_used_on_the_phone_screen">You are now using NoGPS Maps on the phone screen</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">You are now using Organic Maps on the car screen</string>
+    <string name="car_used_on_the_car_screen">You are now using NoGPS Maps on the car screen</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">You are connected to Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -791,7 +791,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">To the car screen</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps needs location access. When it\'s safe, check the notification on your phone.</string>
+    <string name="aa_location_permissions_request">NoGPS Maps needs location access. When it\'s safe, check the notification on your phone.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">This app needs your permission</string>
     <!-- Grant Permissions button. -->
@@ -909,4 +909,203 @@
     <string name="track_recording_stop_and_save">Stop and Save</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Reverse route</string>
+
+    <!-- SECTION: NoGPS Maps -->
+    <string name="nogps_manual_position">Set my position manually</string>
+    <string name="nogps_manual_mode_on">GPS is ignored. Double-tap the map where you are.</string>
+    <string name="nogps_manual_mode_off">GPS is on again</string>
+    <string name="nogps_gps_spoofed">GPS is spoofed! Using cell towers and Wi-Fi. You can also set your position manually.</string>
+    <string name="nogps_gps_restored">GPS is fine again</string>
+    <string name="nogps_status_gps">GPS</string>
+    <string name="nogps_status_network_spoofed">GPS spoofed · towers ±%s</string>
+    <string name="nogps_status_network_no_gps">No GPS · towers ±%s</string>
+    <string name="nogps_status_manual_just_now">Manual · just now</string>
+    <string name="nogps_status_manual_minutes">Manual · %d min ago</string>
+    <string name="nogps_status_none">No position</string>
+    <string name="nogps_meters">%d m</string>
+    <string name="nogps_kilometers">%.1f km</string>
+    <string name="nogps_status_inertial">Inertial · ±%s</string>
+    <string name="nogps_sensors_title">Inertial navigation</string>
+    <string name="nogps_sensors_enable">Enabled</string>
+    <string name="nogps_sensors_hint">Fix the phone so it doesn\'t move. Zero the gyroscope while the car stands still.</string>
+    <string name="nogps_sensors_adapter">Adapter: %1$s</string>
+    <string name="nogps_sensors_adapter_none">not chosen</string>
+    <string name="nogps_sensors_choose">Choose</string>
+    <string name="nogps_elm_disconnected">no connection</string>
+    <string name="nogps_elm_connecting">connecting…</string>
+    <string name="nogps_elm_no_adapter">ELM327 doesn\'t answer</string>
+    <string name="nogps_box_obd_disabled">ELM327 is off in the box</string>
+    <string name="nogps_box_obd_connecting">ELM327 connects…</string>
+    <string name="nogps_elm_error">ELM327 error</string>
+    <string name="nogps_elm_no_car">the car doesn\'t answer</string>
+    <string name="nogps_elm_connected">connected</string>
+    <string name="nogps_sensors_speed">Speed: %s</string>
+    <string name="nogps_speed_kmh">%d km/h</string>
+    <string name="nogps_unknown">—</string>
+    <string name="nogps_sensors_gyro">Gyroscope: %s</string>
+    <string name="nogps_gyro_none">not zeroed</string>
+    <string name="nogps_gyro_calibrating">zeroing… %d%%</string>
+    <string name="nogps_gyro_done">zeroed</string>
+    <string name="nogps_gyro_failed">failed, the phone or the car moved</string>
+    <string name="nogps_sensors_calibrate">Zero</string>
+    <string name="nogps_sensors_ready">Ready</string>
+    <string name="nogps_sensors_not_ready">Not ready: %s</string>
+    <string name="nogps_missing_speed">no speed</string>
+    <string name="nogps_missing_gyro">zero the gyroscope</string>
+    <string name="nogps_missing_position">no start position</string>
+    <string name="nogps_choose_adapter">Choose the OBD adapter</string>
+    <string name="nogps_no_paired">No paired Bluetooth devices. Pair ELM327 in the Bluetooth settings (PIN is usually 1234).</string>
+    <string name="nogps_bt_permission_denied">The adapter can\'t be used without Bluetooth access</string>
+    <string name="nogps_shift_forward">Move the position forward along the road</string>
+    <string name="nogps_shift_back">Move the position back along the road</string>
+    <string name="nogps_shift_step">Distance to move the position by</string>
+    <string name="nogps_shift_limited">Moved by %1$d m, up to the crossing</string>
+    <string name="nogps_shift_failed">There is nowhere to move the position</string>
+    <string name="nogps_sensors_scale">Speed correction: %1$s · measured ranges: %2$d</string>
+    <string name="nogps_sensors_lag_measured">Speed delay: %s s (measured by GPS)</string>
+    <string name="nogps_sensors_lag_usual">Speed delay: %s s (usual, not measured by GPS yet)</string>
+    <string name="nogps_shift_at_turn">The position is at a crossing, it can not be moved further</string>
+    <string name="nogps_status_gps_back">GPS is back ±%s</string>
+    <string name="nogps_status_gps_spoofed">GPS spoofed</string>
+    <string name="nogps_status_no_gps">No GPS</string>
+    <string name="nogps_status_towers">towers ±%s</string>
+    <string name="nogps_gps_back_auto">GPS is trusted again, the manual mode is off</string>
+    <string name="nogps_reverse_direction">Turn the car around on the road</string>
+    <string name="nogps_mark_no_road">There is no road here, set the mark on a road</string>
+    <string name="nogps_gps_lost_auto">GPS is lost or wrong, the manual mode is on</string>
+    <string name="nogps_disable_gps">Disable GPS</string>
+    <string name="nogps_disable_gps_hint">For testing: the app ignores GPS as if it were jammed, the rest of the location works. It is turned off when the app restarts.</string>
+    <string name="nogps_pause">Pause: the car maneuvers</string>
+    <string name="nogps_resume">Resume the movement</string>
+    <string name="nogps_status_paused">Pause</string>
+    <!-- Status of the position: the mark of the car stands and waits for the user -->
+    <string name="nogps_status_road_lost">Road lost</string>
+    <!-- Second line of the status "Road lost" -->
+    <string name="nogps_status_road_lost_hint">double-tap the map where you are</string>
+    <!-- Line of the status of the position: the sensor box gives the car speed -->
+    <string name="nogps_status_box_ok">box connected</string>
+    <!-- Line of the status of the position: the sensor box is not heard -->
+    <string name="nogps_status_box_none">no box</string>
+    <!-- Line of the status of the position: the sensor box is heard, the car speed does not come -->
+    <string name="nogps_status_box_no_car">box connected, no car data</string>
+    <!-- Line of the status of the position: the ELM327 adapter gives the car speed -->
+    <string name="nogps_status_elm_ok">ELM327 connected</string>
+    <!-- Line of the status of the position: the ELM327 adapter is not heard -->
+    <string name="nogps_status_elm_none">no ELM327</string>
+    <!-- Line of the status of the position: the ELM327 adapter is heard, the car speed does not come -->
+    <string name="nogps_status_elm_no_car">ELM327 connected, no car data</string>
+    <string name="nogps_source_phone">Phone + ELM327 (Bluetooth)</string>
+    <!-- Choice of where the car speed and turns come from, next to "Phone + ELM327 (Bluetooth)" -->
+    <string name="nogps_source_esp32_bt">ESP32 sensor box (Bluetooth)</string>
+    <string name="nogps_sensors_box">Box: %1$s</string>
+    <!-- State of the sensor box, shown after its name: "Box: ESP32 · searching by Bluetooth" -->
+    <string name="nogps_box_bt_searching">searching by Bluetooth</string>
+    <!-- State of the sensor box, shown after its name -->
+    <string name="nogps_box_bt_no_permission">the app is not allowed to use Bluetooth</string>
+    <!-- State of the sensor box, shown after its name -->
+    <string name="nogps_box_bt_disabled">Bluetooth is off on the phone</string>
+    <!-- State of the sensor box, shown after its name. The box accepts a new phone only for two minutes after it gets power -->
+    <string name="nogps_box_bt_pairing_closed">found, but not paired with this phone. Unplug the box and plug it back: it accepts a new phone for 2 minutes</string>
+    <!-- State of the sensor box, shown after its name -->
+    <string name="nogps_box_bt_connecting">connecting by Bluetooth</string>
+    <!-- State of the sensor box, shown after its name while the system asks for the pairing code -->
+    <string name="nogps_box_bt_pairing">enter the code of the box in the pairing window: 123456 unless it was changed</string>
+    <!-- State of the sensor box, shown after its name -->
+    <string name="nogps_box_bt_waiting">connected by Bluetooth, waiting for the data</string>
+    <string name="nogps_sensors_calibrate_box">Calibrate</string>
+    <string name="nogps_gyro_mount_moved">the box has been moved, calibrate it</string>
+    <string name="nogps_sensors_hint_box">Fix the box firmly. It zeroes the gyroscope on every stop by itself.</string>
+    <!-- Heading of the block about the calibration of the sensor box and the title of the question about it -->
+    <string name="nogps_box_calibration">Sensor box calibration</string>
+    <!-- Under the heading "Sensor box calibration": when and how the box is calibrated -->
+    <string name="nogps_box_calibration_hint">Needed once the box is installed and every time it was taken out or moved. The car must stand on a level surface, not on a slope.</string>
+    <!-- Question shown when the sensor box has been powered on: it is new in the car or was taken out. The buttons are "Calibrate" and "Later" -->
+    <string name="nogps_box_calibration_offer">The sensor box has been plugged in. Calibrate the sensors: the car must stand on a level surface, not on a slope.</string>
+    <!-- Row of the sensors screen: the state of the calibration of the sensor box -->
+    <string name="nogps_sensors_box_sensors">Sensors: %s</string>
+    <!-- State of the sensors of the box, shown after "Sensors:" -->
+    <string name="nogps_box_not_calibrated">not calibrated</string>
+    <!-- State of the sensors of the box, shown after "Sensors:", with the percent done -->
+    <string name="nogps_box_calibrating">calibrating… %d%%</string>
+    <!-- State of the sensors of the box, shown after "Sensors:" -->
+    <string name="nogps_box_calibrated">calibrated</string>
+    <!-- State of the sensors of the box, shown after "Sensors:" -->
+    <string name="nogps_box_calibration_failed">failed, the car moved</string>
+    <!-- State of the sensors of the box, shown after "Sensors:": the box has been powered on since its calibration -->
+    <string name="nogps_box_calibration_advised">the box has been plugged in, calibrate it</string>
+    <!-- What is missing for the navigation without GPS, shown after "Not ready:" -->
+    <string name="nogps_missing_box_calibration">calibrate the box</string>
+    <string name="nogps_turns_reversed">The gyroscope turns the car the other way than GPS. Check the axes of the sensor driver: without GPS the car would turn wrong</string>
+    <string name="nogps_road_lost">The road is lost, the car is stopped. Mark yourself on the map</string>
+    <!-- A route is asked for while there is no GPS and no mark of the user -->
+    <string name="nogps_no_position_for_route">No position: the route has nowhere to start from. Double-tap the map where you are</string>
+    <string name="nogps_shift_buttons">Calibration</string>
+    <string name="nogps_shift_buttons_hint">Shows the buttons moving the car along the road by 10 m. Moving it where the car really is corrects the speed of the car.</string>
+    <string name="nogps_obd_stopped">No speed from the OBD adapter, the car stands still on the map. Check the adapter or mark yourself</string>
+    <string name="nogps_box_stopped">No data from the sensor box, the car stands still on the map. Check the box or mark yourself</string>
+    <!-- Warning shown while driving without GPS: the sensor box tells it has been moved in the car since its calibration -->
+    <string name="nogps_box_moved_stopped">The sensor box has been moved, the car stands still on the map. Stop and calibrate the box</string>
+    <!-- Warning shown while driving without GPS: the sensor box is not calibrated -->
+    <string name="nogps_box_uncalibrated_stopped">The sensor box is not calibrated, the car stands still on the map. Stop and calibrate the box</string>
+    <!-- Warning shown while driving without GPS: the gyroscope of the phone is not zeroed -->
+    <string name="nogps_gyro_stopped">The gyroscope is not zeroed, the car stands still on the map. Stop and zero it</string>
+    <!-- State of the sensor box, shown after its name while it takes a new firmware -->
+    <string name="nogps_box_updating">takes a new firmware</string>
+    <!-- Row of the sensors screen: the version of the firmware of the sensor box or what its update does now -->
+    <string name="nogps_sensors_firmware">Box firmware: %1$s</string>
+    <!-- Button: sends the firmware that comes with the app to the sensor box, with its version -->
+    <string name="nogps_firmware_install">Install %1$s</string>
+    <!-- Title of the question about the firmware of the sensor box -->
+    <string name="nogps_firmware_title">Sensor box firmware</string>
+    <!-- Question shown when the sensor box works with another firmware than the app comes with: the version of the box and of the app -->
+    <string name="nogps_firmware_offer">The box works with firmware %1$s, this version of the app is tested with %2$s. Install it? It takes a few minutes: keep the car standing and the box plugged in.</string>
+    <!-- State of the update of the sensor box firmware, shown after "Box firmware:" -->
+    <string name="nogps_firmware_starting">preparing…</string>
+    <!-- State of the update of the sensor box firmware, shown after "Box firmware:", with the percent sent -->
+    <string name="nogps_firmware_sending">sending, %d%%</string>
+    <!-- State of the update of the sensor box firmware, shown after "Box firmware:" -->
+    <string name="nogps_firmware_verifying">the box checks it…</string>
+    <!-- State of the update of the sensor box firmware, shown after "Box firmware:" -->
+    <string name="nogps_firmware_restarting">the box restarts…</string>
+    <!-- Message: the sensor box works with the new firmware, with its version -->
+    <string name="nogps_firmware_done">Firmware %1$s is installed in the sensor box</string>
+    <!-- Message: the firmware of the sensor box is not updated, with the reason -->
+    <string name="nogps_firmware_failed">The box firmware is not installed: %1$s</string>
+    <!-- Why the firmware of the sensor box is not installed -->
+    <string name="nogps_firmware_error_moving">the car drives</string>
+    <!-- Why the firmware of the sensor box is not installed -->
+    <string name="nogps_firmware_error_voltage">the car battery is below 11.8 V</string>
+    <!-- Why the firmware of the sensor box is not installed -->
+    <string name="nogps_firmware_error_link">the connection to the box was lost</string>
+    <!-- Why the firmware of the sensor box is not installed -->
+    <string name="nogps_firmware_error_canceled">canceled</string>
+    <!-- Why the firmware of the sensor box is not installed: the new one didn't start -->
+    <string name="nogps_firmware_error_rollback">the box has returned to its previous firmware</string>
+    <!-- Why the firmware of the sensor box is not installed: the box has just been updated and still checks that -->
+    <string name="nogps_firmware_error_pending">the box still checks its previous update, try again later</string>
+    <!-- Why the firmware of the sensor box is not installed: an error code of the box, e.g. SIGNATURE -->
+    <string name="nogps_firmware_error_code">error %1$s</string>
+    <string name="nogps_clear_speed">Reset</string>
+    <string name="nogps_clear_speed_title">Reset the speed calibration?</string>
+    <string name="nogps_clear_speed_message">The speed corrections learned from GPS at different speeds and from your corrections will be forgotten. Do it after new tyres or another car. They are learned anew while GPS works.</string>
+    <string name="nogps_about_title">About NoGPS Maps</string>
+    <string name="nogps_about_menu">About · Organic Maps</string>
+    <string name="nogps_about_headline">Navigation when GPS is jammed or spoofed</string>
+    <string name="nogps_about_description">Without GPS the car is driven by the inertial navigation: the turns come from the gyroscope, the distance from the car speed via OBD-II. The car is kept on the roads of the offline map.</string>
+    <string name="nogps_based_on">Based on Organic Maps</string>
+    <string name="nogps_map_data">Map data © OpenStreetMap and Organic Maps</string>
+    <string name="nogps_source_code">Source code on GitHub</string>
+    <string name="nogps_speed_no_data">NO</string>
+    <string name="nogps_speed_no_box">ESP32</string>
+    <string name="nogps_speed_no_elm">ELM</string>
+    <string name="nogps_delete_recent_query">Delete from the history?</string>
+    <string name="nogps_box_sleeping">sleeps: the engine is stopped</string>
+    <string name="nogps_box_obd_sleeping">ELM327 sleeps: the engine is stopped</string>
+    <string name="nogps_sensors_car">Engine: %1$s\nEngine speed: %2$s\nVoltage, box ADC: %3$s\nVoltage, ELM327: %4$s\nVoltage, car control unit: %5$s</string>
+    <string name="nogps_engine_running">running</string>
+    <string name="nogps_engine_stopped">stopped</string>
+    <string name="nogps_rpm">%d rpm</string>
+    <string name="nogps_volts">%s V</string>
+    <string name="nogps_not_while_driving">not asked while driving</string>
+    <string name="nogps_voltage_mismatch">The voltage measured by the box differs from the car by more than 10%: check the voltage divider of the box</string>
 </resources>

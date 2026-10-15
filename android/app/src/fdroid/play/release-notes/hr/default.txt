@@ -1,1 +1,0 @@
-../../listings/hr/release-notes.txt

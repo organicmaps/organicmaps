@@ -1,1 +1,0 @@
-../../listings/pl-PL/release-notes.txt

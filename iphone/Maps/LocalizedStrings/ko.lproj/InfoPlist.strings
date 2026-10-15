@@ -29,3 +29,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "현재 위치를 확인하는 것은 내비게이션과 최근 이동한 트랙 저장에 필요합니다.";
+
+/* Needed to explain why we require access to Bluetooth: the sensor box of the car is reached over Bluetooth LE. */
+"NSBluetoothAlwaysUsageDescription" = "The sensor box in the car gives the turns and the speed of the car over Bluetooth.";

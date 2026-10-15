@@ -1,1 +1,0 @@
-../../listings/sl/release-notes.txt

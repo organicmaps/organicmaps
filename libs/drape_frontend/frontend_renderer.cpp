@@ -2233,7 +2233,16 @@ void FrontendRenderer::OnForceTap(m2::PointD const & pt)
 
 void FrontendRenderer::OnDoubleTap(m2::PointD const & pt)
 {
-  m_userEventStream.AddEvent(make_unique_dp<ScaleEvent>(2.0 /* scale factor */, pt, true /* animated */));
+  if (m_blockTapEvents)
+  {
+    m_userEventStream.AddEvent(make_unique_dp<ScaleEvent>(2.0 /* scale factor */, pt, true /* animated */));
+    return;
+  }
+
+  // The application zooms the map in, or puts the car there in the navigation without GPS.
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+  m_tapEventInfoHandler({PtoGWrap(screen.P3dtoP(pt), screen), false /* isLong */, false /* isMyPosition */, FeatureID(),
+                         kml::kInvalidMarkId, true /* isDouble */, pt});
 }
 
 void FrontendRenderer::OnTwoFingersTap()
@@ -2629,7 +2638,8 @@ void FrontendRenderer::Routine::Do()
 
   m_renderer.CreateContext();
 
-#if defined(DEBUG) || defined(DEBUG_DRAPE_XCODE) || defined(SCENARIO_ENABLE)
+// The scale and FPS take the place of the position status, they are shown by the ?debug-info command only.
+#if defined(DEBUG_DRAPE_XCODE) || defined(SCENARIO_ENABLE)
   gui::DrapeGui::Instance().GetScaleFpsHelper().SetVisible(true);
 #endif
 

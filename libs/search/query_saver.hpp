@@ -21,6 +21,9 @@ public:
   /// @see kMaxSuggestionsCount in implementation file.
   std::list<SearchRequest> const & Get() const { return m_topQueries; }
 
+  /// Removes the saved queries with the given text, whatever locale they were typed in.
+  void Remove(std::string const & query);
+
   /// Clear last queries storage. All data will be lost.
   void Clear();
 

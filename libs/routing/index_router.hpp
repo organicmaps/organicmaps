@@ -26,6 +26,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/tree4d.hpp"
 
+#include <atomic>
 #include <memory>
 #include <optional>
 #include <set>
@@ -88,6 +89,14 @@ public:
 
   bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                    EdgeProj & proj) override;
+
+  void FindRoadCrossings(m2::RectD const & rect, std::vector<m2::PointD> & crossings) override;
+  bool FindMainRoad(m2::PointD const & point, double radiusM, m2::PointD & projected, double & angleRad) override;
+  bool IsRoundaboutNear(m2::PointD const & point, double radiusM) override;
+  bool FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM, m2::PointD & projected,
+                     double & angleRad) override;
+  void FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                      std::vector<RoadAlong> & roads) override;
 
   void SwapAltRouteToActive() override;
 
@@ -277,6 +286,8 @@ private:
 
   std::vector<Segment> GetBestOutgoingSegments(m2::PointD const & checkpoint, WorldGraph & graph);
 
+  void ClearPositionStateIfNeeded();
+
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
   std::string const m_name;
@@ -289,6 +300,12 @@ private:
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<TrafficStash> m_trafficStash;
   FeaturesRoadGraphBase m_roadGraph;
+  // The roads around the position are searched on the GUI thread while a route is calculated on the router
+  // one. The road graph and the data source keep caches, which are not made for two threads at once, so the
+  // position has its own ones. They are cleared on the GUI thread too, when the router asks for it.
+  MwmDataSource m_positionDataSource;
+  FeaturesRoadGraphBase m_positionRoadGraph;
+  std::atomic<bool> m_clearPositionState{false};
 
   std::shared_ptr<EdgeEstimator> m_estimator;
   std::unique_ptr<DirectionsEngine> m_directionsEngine;

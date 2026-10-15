@@ -1,9 +1,0 @@
-• OSM: 28. septembris; Vikipēdija: 21. septembris
-• Labāki alternatīvie maršruti un paredzamie ierašanās laiki
-• Jauns iestatījums optimizē starppunktu secību
-• Jaunās pogas ļauj pievienot vai aizstāt starppunktus plānotajos maršrutos
-• Navigācijas laikā tiek saglabāts izvēlētais alternatīvais maršruts
-• Pēdojumu ierakstīšanas labojumi un uzlabojumi
-• KMB importēšanas problēma novērsta
-• Lietotāja saskarnes labojumi un uzlabojumi
-…vairāk šeit omaps.org/news

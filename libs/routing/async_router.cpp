@@ -85,6 +85,33 @@ bool AsyncRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::Poin
   return m_router->FindClosestProjectionToRoad(point, direction, radius, proj);
 }
 
+void AsyncRouter::FindRoadCrossings(m2::RectD const & rect, std::vector<m2::PointD> & crossings)
+{
+  m_router->FindRoadCrossings(rect, crossings);
+}
+
+bool AsyncRouter::FindMainRoad(m2::PointD const & point, double radiusM, m2::PointD & projected, double & angleRad)
+{
+  return m_router->FindMainRoad(point, radiusM, projected, angleRad);
+}
+
+bool AsyncRouter::IsRoundaboutNear(m2::PointD const & point, double radiusM)
+{
+  return m_router->IsRoundaboutNear(point, radiusM);
+}
+
+bool AsyncRouter::FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                                m2::PointD & projected, double & angleRad)
+{
+  return m_router->FindRoadAlong(point, direction, radiusM, projected, angleRad);
+}
+
+void AsyncRouter::FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                                 std::vector<RoadAlong> & roads)
+{
+  m_router->FindRoadsAlong(point, direction, radiusM, roads);
+}
+
 void AsyncRouter::RouterDelegateProxy::OnProgress(float progress)
 {
   ProgressCallback onProgress = nullptr;

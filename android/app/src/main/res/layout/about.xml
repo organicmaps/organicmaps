@@ -24,8 +24,7 @@
         android:layout_marginTop="@dimen/margin_base"
         android:layout_marginBottom="@dimen/margin_half"
         android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/logo"
-        app:tint="?attr/colorLogo" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/version"
@@ -42,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_base"
-        android:text="@string/about_headline"
+        android:text="@string/nogps_about_headline"
         android:textAlignment="center"
         android:textAppearance="@style/MwmTextAppearance.Headline"
         android:textColor="?android:textColorPrimary" />
@@ -51,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/margin_half"
-        android:text="@string/about_proposition_1"
+        android:text="@string/nogps_about_description"
         android:textAppearance="@style/MwmTextAppearance.Body1"
         android:textColor="?android:textColorPrimary" />
 
@@ -59,7 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_half"
-        android:text="@string/about_proposition_2"
+        android:id="@+id/based_on"
+        android:text="@string/nogps_based_on"
         android:textAppearance="@style/MwmTextAppearance.Body1"
         android:textColor="?android:textColorPrimary" />
 
@@ -67,7 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_half"
-        android:text="@string/about_proposition_3"
+        android:id="@+id/map_data"
+        android:text="@string/nogps_map_data"
         android:textAppearance="@style/MwmTextAppearance.Body1"
         android:textColor="?android:textColorPrimary" />
 
@@ -77,6 +78,7 @@
         android:layout_marginBottom="@dimen/margin_half"
         android:fontFamily="@string/robotoRegular"
         android:text="@string/about_developed_by_enthusiasts"
+        android:visibility="gone"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         android:textColor="?android:textColorPrimary"
         android:textStyle="bold" />

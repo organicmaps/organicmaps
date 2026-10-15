@@ -689,6 +689,10 @@
 		A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13811000000000000000001 /* TransportTransitWrappingTests.swift */; };
 		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
 		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
+		3AB2A51C1DF5ED4103358BAF /* MWMNoGps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */; };
+		9B5728946390BF79AAED06E1 /* Esp32BleTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */; };
+		CF816FBCBE80AAE1FFDC7E66 /* NoGpsControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */; };
+		11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1840,6 +1844,11 @@
 		A13811000000000000000001 /* TransportTransitWrappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitWrappingTests.swift; sourceTree = "<group>"; };
 		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
 		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
+		B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNoGps.h; sourceTree = "<group>"; };
+		7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoGps.mm; sourceTree = "<group>"; };
+		0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Esp32BleTransport.swift; sourceTree = "<group>"; };
+		EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsControls.swift; sourceTree = "<group>"; };
+		FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsSensorsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2753,6 +2762,8 @@
 		ED82C39B2F90180300FA103D /* MapViewControls */ = {
 			isa = PBXGroup;
 			children = (
+				EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */,
+				FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */,
 				ED82C3912F90180300FA103D /* SideButtons */,
 				ED82C3952F90180300FA103D /* TrafficButton */,
 				ED82C3962F90180300FA103D /* MWMMapViewControlsCommon.h */,
@@ -3939,6 +3950,7 @@
 		ED82C73F2F90186300FA103D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7B3C39D4B9E6F6AB446F32C8 /* NoGps */,
 				ED82C6742F90186300FA103D /* AppDelegate */,
 				ED82C6792F90186300FA103D /* BackgroundFetchScheduler */,
 				ED82C6902F90186300FA103D /* CarPlay */,
@@ -4213,6 +4225,16 @@
 				FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7B3C39D4B9E6F6AB446F32C8 /* NoGps */ = {
+			isa = PBXGroup;
+			children = (
+				B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */,
+				7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */,
+				0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */,
+			);
+			path = NoGps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4541,6 +4563,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF816FBCBE80AAE1FFDC7E66 /* NoGpsControls.swift in Sources */,
+				11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */,
+				3AB2A51C1DF5ED4103358BAF /* MWMNoGps.mm in Sources */,
+				9B5728946390BF79AAED06E1 /* Esp32BleTransport.swift in Sources */,
 				ED82BCB22F900F8200FA103D /* main.mm in Sources */,
 				ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */,
 				ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */,
@@ -5354,14 +5380,24 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_TEAM = VTWF79TU37;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_KEY_CFBundleDisplayName = "${PRODUCT_NAME}";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Determining your location is necessary for navigation and for saving your recently travelled track.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2022.11.17;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.debug;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -5375,14 +5411,24 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = VTWF79TU37;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_KEY_CFBundleDisplayName = "${PRODUCT_NAME}";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Determining your location is necessary for navigation and for saving your recently travelled track.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2022.11.17;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
@@ -5395,7 +5441,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.tests;
+				DEVELOPMENT_TEAM = VTWF79TU37;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.tests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Organic Maps (Debug).app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Organic Maps (Debug)";
 			};
@@ -5409,7 +5456,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.tests;
+				DEVELOPMENT_TEAM = VTWF79TU37;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.tests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Organic Maps (Debug).app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Organic Maps (Debug)";
 			};
@@ -5421,6 +5469,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = VTWF79TU37;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -5437,7 +5486,7 @@
 				);
 				MARKETING_VERSION = 2022.11.17;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug.widgetextension;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.debug.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -5465,7 +5514,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2022.11.17;
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.widgetextension;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;

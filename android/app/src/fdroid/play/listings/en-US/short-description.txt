@@ -1,1 +1,1 @@
-Get reliable offline maps with GPS navigation for hiking, cycling, and travel.
+Offline maps for drivers that keep the car on the map when GPS is lost or wrong

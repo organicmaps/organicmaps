@@ -39,6 +39,12 @@ public final class SearchRecents
     return true;
   }
 
+  public static void remove(@NonNull String query)
+  {
+    nativeRemove(query);
+    refresh();
+  }
+
   public static void clear()
   {
     nativeClear();
@@ -48,6 +54,8 @@ public final class SearchRecents
   private static native void nativeGetList(List<String> result);
 
   private static native void nativeAdd(String locale, String query);
+
+  private static native void nativeRemove(String query);
 
   private static native void nativeClear();
 }

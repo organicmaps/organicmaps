@@ -29,3 +29,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Определение местоположения используется в движении по маршруту и сохранении недавно пройденного пути.";
+
+/* Needed to explain why we require access to Bluetooth: the sensor box of the car is reached over Bluetooth LE. */
+"NSBluetoothAlwaysUsageDescription" = "Блок датчиков в машине передаёт повороты и скорость машины по Bluetooth.";

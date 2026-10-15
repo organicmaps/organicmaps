@@ -122,4 +122,23 @@ UNIT_TEST(FollowedPolylineGetDistanceFromBeginM)
   double const masterDistance = mercator::DistanceOnEarth(kTestDirectedPolyline1.Front(), point);
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
 }
+
+UNIT_TEST(FollowedPolylineCarGoesStraightWhereRouteTurns)
+{
+  // The route goes ~110 m east and turns north, the car goes on east.
+  m2::PolylineD const testPolyline(std::vector<m2::PointD>{{0, 0}, {0.001, 0}, {0.001, 0.001}});
+  double const eastRad = 0.0;
+  auto const rect = [](double x) { return mercator::RectByCenterXYAndSizeInMeters({x, 0}, 100); };
+
+  FollowedPolyline polyline(testPolyline.Begin(), testPolyline.End());
+  // ~11 m past the turn: still on the route, at the turn.
+  TEST(polyline.UpdateMatchingProjection(rect(0.0011), eastRad, 20.0), ());
+  TEST_EQUAL(polyline.GetCurrentIter().m_pt, testPolyline.GetPoint(1), ());
+  // ~28 m past it: has left the route, though it is within the matching rect.
+  TEST(!polyline.UpdateMatchingProjection(rect(0.00125), eastRad, 20.0), ());
+  // A larger position error lets it be farther.
+  TEST(polyline.UpdateMatchingProjection(rect(0.00125), eastRad, 40.0), ());
+  // Without a direction the car may be turning: it is not known to have left the route.
+  TEST(polyline.UpdateMatchingProjection(rect(0.00125), std::nullopt, 20.0), ());
+}
 }  // namespace followed_polyline_test

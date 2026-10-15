@@ -1,9 +1,0 @@
-• OSM: 28. September; Wikipedia: 21. September
-• Alternative Routen und voraussichtliche Ankunftszeiten verbessert
-• Neue Einstellung optimiert die Reihenfolge der Zwischenstopps
-• Neue Schaltflächen zum Hinzufügen/Ersetzen von Stopps in geplanten Routen
-• Gewählte Alternativroute bleibt bei der Navigation erhalten
-• Fehler bei der Trackaufzeichnung behoben; Aufzeichnung verbessert
-• KMB-Import korrigiert
-• Oberfläche verbessert und Fehler behoben
-…mehr auf omaps.org/de/news

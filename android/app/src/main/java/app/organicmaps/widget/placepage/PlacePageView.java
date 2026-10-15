@@ -36,6 +36,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -712,7 +713,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
         mIvRouteRef.setImageResource(R.drawable.ic_category_bus);
     }
 
-    if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
+    if (!BuildConfig.MAP_EDITING || RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
       UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mEditTopSpace);
     }

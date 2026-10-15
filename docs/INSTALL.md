@@ -192,7 +192,7 @@ LD_PRELOAD=/usr/lib64/libGL.so.1 ./OrganicMaps                  # Fedora/RHEL
 
 ### Windows
 
-Native Windows builds are compiled and unit-tested by CI with MSVC (see the `windows-2025-vs2026` in `.github/workflows/build-cmake.yaml` and `ci-windows` presets in `CMakePresets.json`). Contributions are welcome.
+Native Windows builds use MSVC (see the `ci-windows` presets in `CMakePresets.json`). Contributions are welcome.
 
 You'll need to have python3, cmake, ninja, and Qt 6 in the PATH, and Visual Studio 2022 or newer (or its Build Tools) installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
 

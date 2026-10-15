@@ -1,9 +1,0 @@
-• OSM: 28 sentyabr; Wikipedia: 21 sentyabr
-• Daha yaxşı alternativ marşrutlar və gəliş təxminləri
-• Yeni parametr dayanacaqların sırasını optimallaşdırır
-• Yeni düymələr planlaşdırılmış marşrutlardakı dayanacaqları əlavə edir və ya əvəz edir
-• Seçilmiş alternativ marşrut naviqasiya zamanı saxlanılır
-• Trek yazılmasında düzəlişlər və təkmilləşdirmələr
-• KMB idxalı düzəldildi
-• UI düzəlişləri və təkmilləşdirmələri
-…daha çox omaps.org/news

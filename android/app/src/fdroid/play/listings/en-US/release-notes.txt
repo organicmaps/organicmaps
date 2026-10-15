@@ -1,9 +1,4 @@
-• OSM data as of September 28, Wikipedia as of September 21
-• Improved alternative routes and their estimated arrival times
-• Added a setting to optimize the order of intermediate route stops
-• Added buttons for adding or replacing a stop in a planned route
-• The selected alternative route is now preserved during navigation
-• Fixed and improved track recording
-• Fixed importing KMB files
-• User interface improvements and fixes
-…more details at omaps.org/news
+• The ESP32 sensor box works over Bluetooth too.
+• The firmware of the box is updated from the app.
+• The app asks to calibrate the box on a level place once it is plugged in.
+• More accurate turns on the map without GPS.

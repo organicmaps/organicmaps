@@ -3,6 +3,7 @@
 #include "geometry/polyline2d.hpp"
 
 #include <limits>
+#include <optional>
 #include <vector>
 
 namespace routing
@@ -73,7 +74,11 @@ public:
   void SetFakeSegmentIndexes(std::vector<size_t> && fakeSegmentIndexes);
 
   /// \brief Updates projection to the closest matched segment if it's possible.
-  bool UpdateMatchingProjection(m2::RectD const & posRect);
+  /// \param directionRad where the car goes, segments going another way are not matched: the car has left
+  /// the route there, e.g. it has gone straight where the route turns.
+  /// \param maxOvershootM how far the car going in |directionRad| may be past the point where the route turns.
+  bool UpdateMatchingProjection(m2::RectD const & posRect, std::optional<double> directionRad = std::nullopt,
+                                double maxOvershootM = std::numeric_limits<double>::max());
 
   Iter UpdateProjection(m2::RectD const & posRect);
 
@@ -116,7 +121,9 @@ public:
     return res;
   }
 
-  Iter GetClosestMatchingProjectionInInterval(m2::RectD const & posRect, size_t startIdx, size_t endIdx) const;
+  Iter GetClosestMatchingProjectionInInterval(m2::RectD const & posRect, size_t startIdx, size_t endIdx,
+                                              std::optional<double> directionRad = std::nullopt,
+                                              double maxOvershootM = std::numeric_limits<double>::max()) const;
 
   bool IsFakeSegment(size_t index) const;
 
@@ -128,7 +135,8 @@ private:
   template <typename DistanceFn>
   Iter GetBestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 
-  Iter GetBestMatchingProjection(m2::RectD const & posRect) const;
+  Iter GetBestMatchingProjection(m2::RectD const & posRect, std::optional<double> directionRad,
+                                 double maxOvershootM) const;
 
   void Update();
 

@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Привіт!\n\nДодаю мої мітки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!";
+"share_bookmarks_email_body" = "Привіт!\n\nДодаю мої мітки; відкрийте їх у NoGPS Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://github.com/Ramzess-II/NoGPSMaps\n\nНасолоджуйтесь подорожами з NoGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Завантаження міток";
@@ -178,10 +178,10 @@
 "share_my_position" = "Я тут на мапі Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ в Organic Maps";
+"share_place_subject" = "%1$@ в NoGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Місце в Organic Maps";
+"share_place_subject_default" = "Місце в NoGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Відкрити в Organic Maps або браузері";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Оператор: %@";
 "editor_category_unsuitable_title" = "Не можете знайти відповідну категорію?";
-"editor_category_unsuitable_text" = "Organic Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">детальними інструкціями та іншими додатками для редагування мапи</a>.";
+"editor_category_unsuitable_text" = "NoGPS Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">детальними інструкціями та іншими додатками для редагування мапи</a>.";
 "downloader_no_downloaded_maps_title" = "Ви не маєте завантажених мап";
 "downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без інтернету.";
 "current_location_unknown_error_title" = "Місцезнаходження не знайдено.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Uk:Про_проект";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Зараз ви використовуєте Organic Maps на екрані телефону";
+"car_used_on_the_phone_screen" = "Зараз ви використовуєте NoGPS Maps на екрані телефону";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Ви використовуєте Organic Maps на екрані автомобіля";
+"car_used_on_the_car_screen" = "Ви використовуєте NoGPS Maps на екрані автомобіля";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Продовжуйте в телефоні";
@@ -1187,3 +1187,252 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Розвернути маршрут";
+
+
+/********** NoGPS Maps **********/
+
+"nogps_manual_position" = "Вказати своє місцезнаходження вручну";
+"nogps_manual_mode_on" = "GPS вимкнено. Двічі торкніться мапи там, де ви знаходитеся.";
+"nogps_manual_mode_off" = "GPS знову увімкнено";
+"nogps_gps_spoofed" = "GPS підмінено! Використовуємо вежі та Wi-Fi. Також можна вказати позицію вручну.";
+"nogps_gps_restored" = "GPS знову в нормі";
+"nogps_status_gps" = "GPS";
+"nogps_status_network_spoofed" = "GPS підмінено · вежі ±%@";
+"nogps_status_network_no_gps" = "Немає GPS · вежі ±%@";
+"nogps_status_manual_just_now" = "Ручний режим · щойно";
+"nogps_status_manual_minutes" = "Ручний режим · %d хв тому";
+"nogps_status_none" = "Немає позиції";
+"nogps_meters" = "%d м";
+"nogps_kilometers" = "%.1f км";
+"nogps_status_inertial" = "Інерціально · ±%@";
+"nogps_sensors_title" = "Інерціальна навігація";
+"nogps_sensors_enable" = "Увімкнено";
+"nogps_sensors_hint" = "Закріпіть телефон нерухомо. Обнуляйте гіроскоп, коли машина стоїть.";
+"nogps_sensors_adapter" = "Адаптер: %1$@";
+"nogps_sensors_adapter_none" = "не вибрано";
+"nogps_sensors_choose" = "Вибрати";
+"nogps_elm_disconnected" = "немає зв'язку";
+"nogps_elm_connecting" = "підключення…";
+"nogps_elm_no_adapter" = "ELM327 не відповідає";
+"nogps_box_obd_disabled" = "ELM327 вимкнено в блоці";
+"nogps_box_obd_connecting" = "ELM327 підключається…";
+"nogps_elm_error" = "помилка ELM327";
+"nogps_elm_no_car" = "машина не відповідає";
+"nogps_elm_connected" = "підключено";
+"nogps_sensors_speed" = "Швидкість: %@";
+"nogps_speed_kmh" = "%d км/год";
+"nogps_unknown" = "—";
+"nogps_sensors_gyro" = "Гіроскоп: %@";
+"nogps_gyro_none" = "не обнулено";
+"nogps_gyro_calibrating" = "обнулення… %d%%";
+"nogps_gyro_done" = "обнулено";
+"nogps_gyro_failed" = "не вийшло, телефон або машина рухалися";
+"nogps_sensors_calibrate" = "Обнулити";
+"nogps_sensors_ready" = "Готово до роботи";
+"nogps_sensors_not_ready" = "Не готово: %@";
+"nogps_missing_speed" = "немає швидкості";
+"nogps_missing_gyro" = "обнуліть гіроскоп";
+"nogps_missing_position" = "немає стартової точки";
+"nogps_choose_adapter" = "Виберіть OBD-адаптер";
+"nogps_no_paired" = "Немає спарених Bluetooth-пристроїв. Спарте ELM327 у налаштуваннях Bluetooth (PIN зазвичай 1234).";
+"nogps_bt_permission_denied" = "Без доступу до Bluetooth адаптер не підключити";
+"nogps_shift_forward" = "Перенести позицію вперед по дорозі";
+"nogps_shift_back" = "Перенести позицію назад по дорозі";
+"nogps_shift_step" = "На скільки переносити позицію";
+"nogps_shift_limited" = "Перенесення на %1$d м, до перехрестя";
+"nogps_shift_failed" = "Позицію нікуди переносити";
+"nogps_sensors_scale" = "Поправка швидкості: %1$@ · діапазонів виміряно: %2$d";
+"nogps_sensors_lag_measured" = "Запізнення швидкості: %@ с (виміряно за GPS)";
+"nogps_sensors_lag_usual" = "Запізнення швидкості: %@ с (звичайне, GPS ще не виміряв)";
+"nogps_shift_at_turn" = "Позиція біля перехрестя, далі переносити не можна";
+"nogps_status_gps_back" = "GPS знову є ±%@";
+"nogps_status_gps_spoofed" = "GPS підмінено";
+"nogps_status_no_gps" = "Немає GPS";
+"nogps_status_towers" = "вежі ±%@";
+"nogps_gps_back_auto" = "GPS знову надійний, ручний режим вимкнено";
+"nogps_reverse_direction" = "Розвернути машину на дорозі";
+"nogps_mark_no_road" = "Тут немає дороги, поставте мітку на дорогу";
+"nogps_gps_lost_auto" = "GPS зник або збився, увімкнено ручний режим";
+"nogps_disable_gps" = "Вимкнути GPS";
+"nogps_disable_gps_hint" = "Для перевірки: застосунок не бачить GPS, як під час глушіння, решта геолокації працює. Вимикається під час перезапуску застосунку.";
+"nogps_pause" = "Пауза: машина маневрує";
+"nogps_resume" = "Продовжити рух";
+"nogps_status_paused" = "Пауза";
+
+/* Status of the position: the mark of the car stands and waits for the user */
+"nogps_status_road_lost" = "Дорогу втрачено";
+
+/* Second line of the status "Road lost" */
+"nogps_status_road_lost_hint" = "двічі торкніться мапи, де ви";
+
+/* Line of the status of the position: the sensor box gives the car speed */
+"nogps_status_box_ok" = "блок підключено";
+
+/* Line of the status of the position: the sensor box is not heard */
+"nogps_status_box_none" = "блок не підключено";
+
+/* Line of the status of the position: the sensor box is heard, the car speed does not come */
+"nogps_status_box_no_car" = "блок підключено, машина мовчить";
+
+/* Line of the status of the position: the ELM327 adapter gives the car speed */
+"nogps_status_elm_ok" = "ELM327 підключено";
+
+/* Line of the status of the position: the ELM327 adapter is not heard */
+"nogps_status_elm_none" = "ELM327 не підключено";
+
+/* Line of the status of the position: the ELM327 adapter is heard, the car speed does not come */
+"nogps_status_elm_no_car" = "ELM327 підключено, машина мовчить";
+"nogps_source_phone" = "Телефон + ELM327 (Bluetooth)";
+
+/* Choice of where the car speed and turns come from, next to "Phone + ELM327 (Bluetooth)" */
+"nogps_source_esp32_bt" = "Блок ESP32 (Bluetooth)";
+"nogps_sensors_box" = "Блок: %1$@";
+
+/* State of the sensor box, shown after its name: "Box: ESP32 · searching by Bluetooth" */
+"nogps_box_bt_searching" = "шукаю блок через Bluetooth";
+
+/* State of the sensor box, shown after its name */
+"nogps_box_bt_no_permission" = "застосунку не дозволено Bluetooth";
+
+/* State of the sensor box, shown after its name */
+"nogps_box_bt_disabled" = "Bluetooth на телефоні вимкнено";
+
+/* State of the sensor box, shown after its name. The box accepts a new phone only for two minutes after it gets power */
+"nogps_box_bt_pairing_closed" = "знайдено, але не спарено з цим телефоном. Вийміть блок із роз'єму й вставте назад: 2 хвилини він приймає новий телефон";
+
+/* State of the sensor box, shown after its name */
+"nogps_box_bt_connecting" = "підключаюся через Bluetooth";
+
+/* State of the sensor box, shown after its name while the system asks for the pairing code */
+"nogps_box_bt_pairing" = "введіть код блока у вікні спарювання: 123456, якщо його не змінювали";
+
+/* State of the sensor box, shown after its name */
+"nogps_box_bt_waiting" = "підключено через Bluetooth, чекаю на дані";
+"nogps_sensors_calibrate_box" = "Калібрувати";
+"nogps_gyro_mount_moved" = "блок зсунули, відкалібруйте";
+"nogps_sensors_hint_box" = "Закріпіть блок нерухомо. Гіроскоп він обнуляє сам на кожній зупинці.";
+
+/* Heading of the block about the calibration of the sensor box and the title of the question about it */
+"nogps_box_calibration" = "Калібрування блока датчиків";
+
+/* Under the heading "Sensor box calibration": when and how the box is calibrated */
+"nogps_box_calibration_hint" = "Потрібне після встановлення блока та щоразу, коли його виймали або зсували. Машина має стояти на рівній поверхні без ухилів.";
+
+/* Question shown when the sensor box has been powered on: it is new in the car or was taken out. The buttons are "Calibrate" and "Later" */
+"nogps_box_calibration_offer" = "Блок датчиків підключали заново. Відкалібруйте датчики: машина має стояти на рівній поверхні без ухилів.";
+
+/* Row of the sensors screen: the state of the calibration of the sensor box */
+"nogps_sensors_box_sensors" = "Датчики: %@";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_not_calibrated" = "не відкалібровано";
+
+/* State of the sensors of the box, shown after "Sensors:", with the percent done */
+"nogps_box_calibrating" = "калібрування… %d%%";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_calibrated" = "відкалібровано";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_calibration_failed" = "не вийшло, машина рухалася";
+
+/* State of the sensors of the box, shown after "Sensors:": the box has been powered on since its calibration */
+"nogps_box_calibration_advised" = "блок підключали заново, відкалібруйте";
+
+/* What is missing for the navigation without GPS, shown after "Not ready:" */
+"nogps_missing_box_calibration" = "відкалібруйте блок";
+"nogps_turns_reversed" = "Гіроскоп повертає машину не в той бік, що GPS. Перевірте осі в драйвері датчика: без GPS машина повертатиме неправильно";
+"nogps_road_lost" = "Дорогу втрачено, машину зупинено. Позначте себе на мапі";
+
+/* A route is asked for while there is no GPS and no mark of the user */
+"nogps_no_position_for_route" = "Немає позиції: маршрут будувати нізвідки. Двічі торкніться мапи там, де ви знаходитеся";
+"nogps_shift_buttons" = "Калібрування";
+"nogps_shift_buttons_hint" = "Показує кнопки зсуву машини вздовж дороги на 10 м. Зсуваючи її туди, де машина насправді, ви уточнюєте швидкість машини.";
+"nogps_obd_stopped" = "Немає швидкості від OBD-адаптера, машина на мапі стоїть. Перевірте адаптер або позначте себе";
+"nogps_box_stopped" = "Немає даних від блока датчиків, машина на мапі стоїть. Перевірте блок або позначте себе";
+
+/* Warning shown while driving without GPS: the sensor box tells it has been moved in the car since its calibration */
+"nogps_box_moved_stopped" = "Блок датчиків зсунули, машина на мапі стоїть. Зупиніться й відкалібруйте блок";
+
+/* Warning shown while driving without GPS: the sensor box is not calibrated */
+"nogps_box_uncalibrated_stopped" = "Блок датчиків не відкалібровано, машина на мапі стоїть. Зупиніться й відкалібруйте блок";
+
+/* Warning shown while driving without GPS: the gyroscope of the phone is not zeroed */
+"nogps_gyro_stopped" = "Гіроскоп не обнулено, машина на мапі стоїть. Зупиніться й обнуліть його";
+
+/* State of the sensor box, shown after its name while it takes a new firmware */
+"nogps_box_updating" = "приймає нову прошивку";
+
+/* Row of the sensors screen: the version of the firmware of the sensor box or what its update does now */
+"nogps_sensors_firmware" = "Прошивка блока: %1$@";
+
+/* Button: sends the firmware that comes with the app to the sensor box, with its version */
+"nogps_firmware_install" = "Встановити %1$@";
+
+/* Title of the question about the firmware of the sensor box */
+"nogps_firmware_title" = "Прошивка блока датчиків";
+
+/* Question shown when the sensor box works with another firmware than the app comes with: the version of the box and of the app */
+"nogps_firmware_offer" = "У блоці прошивка %1$@, а цю версію застосунку перевірено з %2$@. Встановити її? Це триватиме кілька хвилин: автомобіль має стояти, блок не виймайте.";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_starting" = "підготовка…";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:", with the percent sent */
+"nogps_firmware_sending" = "передавання, %d%%";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_verifying" = "блок перевіряє…";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_restarting" = "блок перезавантажується…";
+
+/* Message: the sensor box works with the new firmware, with its version */
+"nogps_firmware_done" = "У блок датчиків встановлено прошивку %1$@";
+
+/* Message: the firmware of the sensor box is not updated, with the reason */
+"nogps_firmware_failed" = "Прошивку блока не встановлено: %1$@";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_moving" = "автомобіль їде";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_voltage" = "напруга нижча за 11,8 В";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_link" = "зв'язок із блоком перервався";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_canceled" = "скасовано";
+
+/* Why the firmware of the sensor box is not installed: the new one didn't start */
+"nogps_firmware_error_rollback" = "блок повернувся до попередньої прошивки";
+
+/* Why the firmware of the sensor box is not installed: the box has just been updated and still checks that */
+"nogps_firmware_error_pending" = "блок ще перевіряє попереднє оновлення, спробуйте пізніше";
+
+/* Why the firmware of the sensor box is not installed: an error code of the box, e.g. SIGNATURE */
+"nogps_firmware_error_code" = "помилка %1$@";
+"nogps_clear_speed" = "Скинути";
+"nogps_clear_speed_title" = "Скинути калібрування швидкості?";
+"nogps_clear_speed_message" = "Поправки швидкості, виміряні за GPS на різних швидкостях і за вашими зсувами, буде забуто. Робіть це після заміни шин або машини. Поки працює GPS, вони вимірюються наново.";
+"nogps_about_title" = "Про NoGPS Maps";
+"nogps_about_menu" = "Про застосунок · Organic Maps";
+"nogps_about_headline" = "Навігація, коли GPS глушать або підміняють";
+"nogps_about_description" = "Без GPS машину веде інерціальна навігація: повороти — за гіроскопом, відстань — за швидкістю автомобіля з OBD-II. Машина тримається доріг офлайн-карти.";
+"nogps_based_on" = "На основі Organic Maps";
+"nogps_map_data" = "Дані карт © OpenStreetMap і Organic Maps";
+"nogps_source_code" = "Вихідний код на GitHub";
+"nogps_speed_no_data" = "NO";
+"nogps_speed_no_box" = "ESP32";
+"nogps_speed_no_elm" = "ELM";
+"nogps_delete_recent_query" = "Видалити з історії?";
+"nogps_box_sleeping" = "спить: двигун заглушено";
+"nogps_box_obd_sleeping" = "ELM327 спить: двигун заглушено";
+"nogps_sensors_car" = "Двигун: %1$@\nОберти: %2$@\nНапруга, АЦП блоку: %3$@\nНапруга, ELM327: %4$@\nНапруга, блок керування машини: %5$@";
+"nogps_engine_running" = "працює";
+"nogps_engine_stopped" = "заглушено";
+"nogps_rpm" = "%d об/хв";
+"nogps_volts" = "%@ В";
+"nogps_not_while_driving" = "під час руху не запитується";
+"nogps_voltage_mismatch" = "Напруга з АЦП блоку розходиться з машиною більше ніж на 10 %: перевірте дільник напруги блоку";

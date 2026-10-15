@@ -15,9 +15,10 @@ public enum Router
     this.type = type;
   }
 
+  // The app is for driving only, other routers are never used.
   public static void set(@NonNull Router routerType)
   {
-    nativeSet(routerType.type);
+    nativeSet(Vehicle.type);
   }
 
   public static Router get()
@@ -27,12 +28,12 @@ public enum Router
 
   public static Router getLastUsed()
   {
-    return valueOf(nativeGetLastUsed());
+    return Vehicle;
   }
 
   public static Router getBest(double srcLat, double srcLon, double dstLat, double dstLon)
   {
-    return valueOf(nativeGetBest(srcLat, srcLon, dstLat, dstLon));
+    return Vehicle;
   }
 
   public static Router valueOf(int type)
@@ -53,8 +54,4 @@ public enum Router
   private static native void nativeSet(int routerType);
 
   private static native int nativeGet();
-
-  private static native int nativeGetLastUsed();
-
-  private static native int nativeGetBest(double srcLat, double srcLon, double dstLat, double dstLon);
 }

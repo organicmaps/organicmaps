@@ -1,7 +1,20 @@
 #include "routing/router.hpp"
 
+#include "geometry/mercator.hpp"
+
 namespace routing
 {
+bool IRouter::IsRoadBehind(m2::PointD const & point, m2::PointD const & roadPoint, m2::PointD const & direction)
+{
+  // The end of the piece the car has just passed, the next piece goes on from it.
+  double constexpr kBehindM = 0.5;
+  m2::PointD const shift = roadPoint - point;
+  if (shift.IsAlmostZero() || direction.IsAlmostZero())
+    return false;
+  double const cosAngle = m2::DotProduct(shift, direction) / (shift.Length() * direction.Length());
+  return mercator::DistanceOnEarth(point, roadPoint) * cosAngle < -kBehindM;
+}
+
 std::string ToString(RouterType type)
 {
   switch (type)

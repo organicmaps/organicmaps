@@ -115,6 +115,64 @@
 		FAA8388026BB3C92002E54C6 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8387F26BB3C92002E54C6 /* libplatform.a */; };
 		FAA8388626BB3CC3002E54C6 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388526BB3CC3002E54C6 /* libexpat.a */; };
 		FAA8388A26BB3CE4002E54C6 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388926BB3CE4002E54C6 /* libdrape.a */; };
+		7736A9BB6869456F306433E7 /* accel_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8D0B18D46AFF8DF17A333 /* accel_log.cpp */; };
+		D9E68D355F8AB8ED03845A7F /* accel_log.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3B60D0DAA1E78B1F9D133270 /* accel_log.hpp */; };
+		3A922311C693E25B42BE7526 /* bend_matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ED51162C857ACE77004B111 /* bend_matcher.cpp */; };
+		378B227BB02AA457C5D8E1B9 /* bend_matcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7944F4F9E1DDCC576E8EE1E8 /* bend_matcher.hpp */; };
+		631DBB0128269BF8F49D6D44 /* dead_reckoning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FECAD6707B90A21905BC90D6 /* dead_reckoning.cpp */; };
+		8899F827303964D4582FA0BB /* dead_reckoning.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CDC6C24320D7C660D4791D0B /* dead_reckoning.hpp */; };
+		76C515A3D75338DBFBC05AF2 /* elm327_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49BA0CF1A436396F918DE650 /* elm327_parser.cpp */; };
+		FD3191F55B06E9157D82073E /* elm327_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 597D159FCFE5CBF66F3AE54D /* elm327_parser.hpp */; };
+		7D77BBB551C774A1356AC624 /* esp32_protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A41B15702095B5E94B20C0A /* esp32_protocol.cpp */; };
+		56147852772837136A4FB8CF /* esp32_protocol.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 10AFCFA77245FD82568E769A /* esp32_protocol.hpp */; };
+		02D188929BAE7FB641DAA5BE /* geo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A74A1935676E570DD32249C7 /* geo.cpp */; };
+		C3EE67F9D59E7C5367F7965A /* geo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 721F95394CC6AA09C429F3A2 /* geo.hpp */; };
+		488A063C8071A3D13B764B39 /* gps_return_detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1F374DD37082A0D21D18B /* gps_return_detector.cpp */; };
+		D2CDE9D663021F7F0B9FDF35 /* gps_return_detector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 42F4445A670A8A9A893BF1D3 /* gps_return_detector.hpp */; };
+		66120100BA3D0ADBE9DA04A5 /* gps_spoofing_detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCA7DF49E976C7AF53FDA3A9 /* gps_spoofing_detector.cpp */; };
+		0A1460D5E54A7CBF34CEB91D /* gps_spoofing_detector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FCB7C8C02B0070E140A4BED0 /* gps_spoofing_detector.hpp */; };
+		2409603079E79F8B6BBF7304 /* gyro_calibrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA027630F0AA85A7CAF9E622 /* gyro_calibrator.cpp */; };
+		229E30B830394557828458AA /* gyro_calibrator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 36B1165F0DC051AC0EA353E8 /* gyro_calibrator.hpp */; };
+		11704F8149A26272366C8258 /* motion_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BE5BD55F72F5E97A70212BAA /* motion_source.hpp */; };
+		B7734FC13841017184B2D519 /* road_walker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC6EA51D144E53F213662BC4 /* road_walker.cpp */; };
+		A9E74AED1C87A0EA776EE5CE /* road_walker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4242C5E46B517BBC884777EF /* road_walker.hpp */; };
+		DD01704E41A0A7BDCC814FA3 /* roads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8364534503AB5BAB69FBC273 /* roads.hpp */; };
+		9091BF969B1D021845CA8C37 /* speed_lag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F6D64E365296ED11316D4C1 /* speed_lag.cpp */; };
+		A5C3E1D07B2F4A6C9D8E0F11 /* accel_speed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5C3E1D07B2F4A6C9D8E0F12 /* accel_speed.cpp */; };
+		020CC1351768B3E0D57A9F7A /* speed_lag.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 25FE8A0CFD0C586255CE1919 /* speed_lag.hpp */; };
+		A5C3E1D07B2F4A6C9D8E0F13 /* accel_speed.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A5C3E1D07B2F4A6C9D8E0F14 /* accel_speed.hpp */; };
+		A7EE0A780B205A4338E83DB3 /* speed_scale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2D6863CE7B7993D3CD36F0 /* speed_scale.cpp */; };
+		2A4F0ED3B9BA4DCD1D021BD2 /* speed_scale.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 84E5685CF48337457CEAFDD5 /* speed_scale.hpp */; };
+		F0FC65A90BEB258C6BA1DEFC /* speed_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB66C7892568C94468ECBE34 /* speed_table.cpp */; };
+		B42CFD0375AD5867BD532C42 /* speed_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5C843ADD0823FCE255F98D72 /* speed_table.hpp */; };
+		EE696953E78EF779665CE7CC /* turn_matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ACCB9020EFB1059444689D /* turn_matcher.cpp */; };
+		88A572F8B0B013C7B52DA7C7 /* turn_matcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 504D60F473E5BB1E677C87EF /* turn_matcher.hpp */; };
+		D8FA8798D205EFF4B2C131F7 /* turn_sign_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C415F450F2374806C248B /* turn_sign_checker.cpp */; };
+		BD19462370CC8C05491A13E9 /* turn_sign_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EBEC24975A4AD3578356B3A5 /* turn_sign_checker.hpp */; };
+		D567A97AC1295A8683C2F7A5 /* clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F824D4B2330EF5DB4FE04B /* clock.cpp */; };
+		608965C3920EFF14DB99D0E7 /* clock.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 11F3ED56F3B91A860CB9CE97 /* clock.hpp */; };
+		CBB2E1FDAEE9C20B881FA3AA /* delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09902338C0AF2C5309CC891A /* delegate.cpp */; };
+		28914BC8EC5AA59F15A8D5CF /* delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 88D39DF09AB3A7D5B7B21A9F /* delegate.hpp */; };
+		12D4198924069FB90BBC66EB /* elm327_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA76DE19E82C8932AE1516 /* elm327_session.cpp */; };
+		22ECC73EBF87E8B7B341C147 /* elm327_session.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3E71307A992E0BB3EDBF83C4 /* elm327_session.hpp */; };
+		983069152901763EEC9448AE /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BA25916F7947DD531CA56171 /* engine.cpp */; };
+		205E01232CF45A9588DCA75E /* engine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D7E30E0A0B2A772D86C3DB8D /* engine.hpp */; };
+		E793DE6AA83FC12D2DE3AEF4 /* esp32_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE8958AC9A22EDA4173C308 /* esp32_source.cpp */; };
+		EA028C66D059DB8F5FDADD05 /* esp32_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6E4B54C3FDDBADF0D6B99552 /* esp32_source.hpp */; };
+		A7C10B5E2E98F00100E5D2A1 /* esp32_update.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C10B602E98F00100E5D2A1 /* esp32_update.cpp */; };
+		A7C10B5F2E98F00100E5D2A1 /* esp32_update.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A7C10B612E98F00100E5D2A1 /* esp32_update.hpp */; };
+		1C5409F39F6C18B09C389D00 /* inertial_navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B645D7BF39FF5E94AC075D4D /* inertial_navigator.cpp */; };
+		7FE05A6E13EC417A84352102 /* inertial_navigator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D07F2DFB8EED09937FA87D0F /* inertial_navigator.hpp */; };
+		8A50E93EC62CB714D9C23487 /* map_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1462255FBD1C062C7DFD5223 /* map_api.hpp */; };
+		61FF3CDF8DFAE152B84F53D1 /* motion_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346B03C4DEFF198B6A2CD9ED /* motion_source.cpp */; };
+		F48364C194A6810D714F1A43 /* phone_motion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C9B356A2EA74A26578D42 /* phone_motion.cpp */; };
+		31020396F993FF96B99D52BF /* phone_motion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9E7DD5AE4FB416223BD36BED /* phone_motion.hpp */; };
+		5EE2F1681AC2B4DC80AD1155 /* scheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1CF93AD7F8DDBF8B8D3C815 /* scheduler.cpp */; };
+		E7495B394376D44DBF6279E2 /* scheduler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = DF541F14DFD115B823F247F5 /* scheduler.hpp */; };
+		A9222C817F624200328C7E07 /* service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB4778F3BD4DF6A709ABAB09 /* service.cpp */; };
+		AA78EC1F862F0EEC92E4FEB5 /* service.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EF5994229B5AA14E7319784A /* service.hpp */; };
+		32B3B035A2469E95B32D3678 /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88D607DC5FC258370F808B15 /* storage.cpp */; };
+		4E42F6DDF67564ACC056C267 /* storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 31E610E4A4C1E2E6FB1C51E4 /* storage.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -259,6 +317,64 @@
 		FAA8387F26BB3C92002E54C6 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388526BB3CC3002E54C6 /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388926BB3CE4002E54C6 /* libdrape.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdrape.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CE8D0B18D46AFF8DF17A333 /* accel_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = accel_log.cpp; sourceTree = "<group>"; };
+		3B60D0DAA1E78B1F9D133270 /* accel_log.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = accel_log.hpp; sourceTree = "<group>"; };
+		4ED51162C857ACE77004B111 /* bend_matcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bend_matcher.cpp; sourceTree = "<group>"; };
+		7944F4F9E1DDCC576E8EE1E8 /* bend_matcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bend_matcher.hpp; sourceTree = "<group>"; };
+		FECAD6707B90A21905BC90D6 /* dead_reckoning.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dead_reckoning.cpp; sourceTree = "<group>"; };
+		CDC6C24320D7C660D4791D0B /* dead_reckoning.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dead_reckoning.hpp; sourceTree = "<group>"; };
+		49BA0CF1A436396F918DE650 /* elm327_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = elm327_parser.cpp; sourceTree = "<group>"; };
+		597D159FCFE5CBF66F3AE54D /* elm327_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = elm327_parser.hpp; sourceTree = "<group>"; };
+		1A41B15702095B5E94B20C0A /* esp32_protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = esp32_protocol.cpp; sourceTree = "<group>"; };
+		10AFCFA77245FD82568E769A /* esp32_protocol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = esp32_protocol.hpp; sourceTree = "<group>"; };
+		A74A1935676E570DD32249C7 /* geo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geo.cpp; sourceTree = "<group>"; };
+		721F95394CC6AA09C429F3A2 /* geo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geo.hpp; sourceTree = "<group>"; };
+		2AB1F374DD37082A0D21D18B /* gps_return_detector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_return_detector.cpp; sourceTree = "<group>"; };
+		42F4445A670A8A9A893BF1D3 /* gps_return_detector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_return_detector.hpp; sourceTree = "<group>"; };
+		BCA7DF49E976C7AF53FDA3A9 /* gps_spoofing_detector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_spoofing_detector.cpp; sourceTree = "<group>"; };
+		FCB7C8C02B0070E140A4BED0 /* gps_spoofing_detector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_spoofing_detector.hpp; sourceTree = "<group>"; };
+		FA027630F0AA85A7CAF9E622 /* gyro_calibrator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gyro_calibrator.cpp; sourceTree = "<group>"; };
+		36B1165F0DC051AC0EA353E8 /* gyro_calibrator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gyro_calibrator.hpp; sourceTree = "<group>"; };
+		BE5BD55F72F5E97A70212BAA /* motion_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = motion_source.hpp; sourceTree = "<group>"; };
+		DC6EA51D144E53F213662BC4 /* road_walker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_walker.cpp; sourceTree = "<group>"; };
+		4242C5E46B517BBC884777EF /* road_walker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_walker.hpp; sourceTree = "<group>"; };
+		8364534503AB5BAB69FBC273 /* roads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = roads.hpp; sourceTree = "<group>"; };
+		0F6D64E365296ED11316D4C1 /* speed_lag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_lag.cpp; sourceTree = "<group>"; };
+		A5C3E1D07B2F4A6C9D8E0F12 /* accel_speed.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = accel_speed.cpp; sourceTree = "<group>"; };
+		25FE8A0CFD0C586255CE1919 /* speed_lag.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_lag.hpp; sourceTree = "<group>"; };
+		A5C3E1D07B2F4A6C9D8E0F14 /* accel_speed.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = accel_speed.hpp; sourceTree = "<group>"; };
+		0C2D6863CE7B7993D3CD36F0 /* speed_scale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_scale.cpp; sourceTree = "<group>"; };
+		84E5685CF48337457CEAFDD5 /* speed_scale.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_scale.hpp; sourceTree = "<group>"; };
+		DB66C7892568C94468ECBE34 /* speed_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_table.cpp; sourceTree = "<group>"; };
+		5C843ADD0823FCE255F98D72 /* speed_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_table.hpp; sourceTree = "<group>"; };
+		46ACCB9020EFB1059444689D /* turn_matcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turn_matcher.cpp; sourceTree = "<group>"; };
+		504D60F473E5BB1E677C87EF /* turn_matcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turn_matcher.hpp; sourceTree = "<group>"; };
+		3D7C415F450F2374806C248B /* turn_sign_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turn_sign_checker.cpp; sourceTree = "<group>"; };
+		EBEC24975A4AD3578356B3A5 /* turn_sign_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turn_sign_checker.hpp; sourceTree = "<group>"; };
+		D0F824D4B2330EF5DB4FE04B /* clock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clock.cpp; sourceTree = "<group>"; };
+		11F3ED56F3B91A860CB9CE97 /* clock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clock.hpp; sourceTree = "<group>"; };
+		09902338C0AF2C5309CC891A /* delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = delegate.cpp; sourceTree = "<group>"; };
+		88D39DF09AB3A7D5B7B21A9F /* delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = delegate.hpp; sourceTree = "<group>"; };
+		0FEA76DE19E82C8932AE1516 /* elm327_session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = elm327_session.cpp; sourceTree = "<group>"; };
+		3E71307A992E0BB3EDBF83C4 /* elm327_session.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = elm327_session.hpp; sourceTree = "<group>"; };
+		BA25916F7947DD531CA56171 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
+		D7E30E0A0B2A772D86C3DB8D /* engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = engine.hpp; sourceTree = "<group>"; };
+		CCE8958AC9A22EDA4173C308 /* esp32_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = esp32_source.cpp; sourceTree = "<group>"; };
+		6E4B54C3FDDBADF0D6B99552 /* esp32_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = esp32_source.hpp; sourceTree = "<group>"; };
+		A7C10B602E98F00100E5D2A1 /* esp32_update.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = esp32_update.cpp; sourceTree = "<group>"; };
+		A7C10B612E98F00100E5D2A1 /* esp32_update.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = esp32_update.hpp; sourceTree = "<group>"; };
+		B645D7BF39FF5E94AC075D4D /* inertial_navigator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = inertial_navigator.cpp; sourceTree = "<group>"; };
+		D07F2DFB8EED09937FA87D0F /* inertial_navigator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = inertial_navigator.hpp; sourceTree = "<group>"; };
+		1462255FBD1C062C7DFD5223 /* map_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_api.hpp; sourceTree = "<group>"; };
+		346B03C4DEFF198B6A2CD9ED /* motion_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = motion_source.cpp; sourceTree = "<group>"; };
+		9D5C9B356A2EA74A26578D42 /* phone_motion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = phone_motion.cpp; sourceTree = "<group>"; };
+		9E7DD5AE4FB416223BD36BED /* phone_motion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = phone_motion.hpp; sourceTree = "<group>"; };
+		A1CF93AD7F8DDBF8B8D3C815 /* scheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scheduler.cpp; sourceTree = "<group>"; };
+		DF541F14DFD115B823F247F5 /* scheduler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scheduler.hpp; sourceTree = "<group>"; };
+		EB4778F3BD4DF6A709ABAB09 /* service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = service.cpp; sourceTree = "<group>"; };
+		EF5994229B5AA14E7319784A /* service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = service.hpp; sourceTree = "<group>"; };
+		88D607DC5FC258370F808B15 /* storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage.cpp; sourceTree = "<group>"; };
+		31E610E4A4C1E2E6FB1C51E4 /* storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = storage.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +497,7 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				C711A0A3142CF9596DD86A9E /* nogps */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
 				45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */,
@@ -470,6 +587,71 @@
 			name = transit;
 			sourceTree = "<group>";
 		};
+		C711A0A3142CF9596DD86A9E /* nogps */ = {
+			isa = PBXGroup;
+			children = (
+				D0F824D4B2330EF5DB4FE04B /* clock.cpp */,
+				11F3ED56F3B91A860CB9CE97 /* clock.hpp */,
+				09902338C0AF2C5309CC891A /* delegate.cpp */,
+				88D39DF09AB3A7D5B7B21A9F /* delegate.hpp */,
+				0FEA76DE19E82C8932AE1516 /* elm327_session.cpp */,
+				3E71307A992E0BB3EDBF83C4 /* elm327_session.hpp */,
+				BA25916F7947DD531CA56171 /* engine.cpp */,
+				D7E30E0A0B2A772D86C3DB8D /* engine.hpp */,
+				CCE8958AC9A22EDA4173C308 /* esp32_source.cpp */,
+				6E4B54C3FDDBADF0D6B99552 /* esp32_source.hpp */,
+				A7C10B602E98F00100E5D2A1 /* esp32_update.cpp */,
+				A7C10B612E98F00100E5D2A1 /* esp32_update.hpp */,
+				B645D7BF39FF5E94AC075D4D /* inertial_navigator.cpp */,
+				D07F2DFB8EED09937FA87D0F /* inertial_navigator.hpp */,
+				1462255FBD1C062C7DFD5223 /* map_api.hpp */,
+				346B03C4DEFF198B6A2CD9ED /* motion_source.cpp */,
+				9D5C9B356A2EA74A26578D42 /* phone_motion.cpp */,
+				9E7DD5AE4FB416223BD36BED /* phone_motion.hpp */,
+				A1CF93AD7F8DDBF8B8D3C815 /* scheduler.cpp */,
+				DF541F14DFD115B823F247F5 /* scheduler.hpp */,
+				EB4778F3BD4DF6A709ABAB09 /* service.cpp */,
+				EF5994229B5AA14E7319784A /* service.hpp */,
+				88D607DC5FC258370F808B15 /* storage.cpp */,
+				31E610E4A4C1E2E6FB1C51E4 /* storage.hpp */,
+				4CE8D0B18D46AFF8DF17A333 /* accel_log.cpp */,
+				3B60D0DAA1E78B1F9D133270 /* accel_log.hpp */,
+				4ED51162C857ACE77004B111 /* bend_matcher.cpp */,
+				7944F4F9E1DDCC576E8EE1E8 /* bend_matcher.hpp */,
+				FECAD6707B90A21905BC90D6 /* dead_reckoning.cpp */,
+				CDC6C24320D7C660D4791D0B /* dead_reckoning.hpp */,
+				49BA0CF1A436396F918DE650 /* elm327_parser.cpp */,
+				597D159FCFE5CBF66F3AE54D /* elm327_parser.hpp */,
+				1A41B15702095B5E94B20C0A /* esp32_protocol.cpp */,
+				10AFCFA77245FD82568E769A /* esp32_protocol.hpp */,
+				A74A1935676E570DD32249C7 /* geo.cpp */,
+				721F95394CC6AA09C429F3A2 /* geo.hpp */,
+				2AB1F374DD37082A0D21D18B /* gps_return_detector.cpp */,
+				42F4445A670A8A9A893BF1D3 /* gps_return_detector.hpp */,
+				BCA7DF49E976C7AF53FDA3A9 /* gps_spoofing_detector.cpp */,
+				FCB7C8C02B0070E140A4BED0 /* gps_spoofing_detector.hpp */,
+				FA027630F0AA85A7CAF9E622 /* gyro_calibrator.cpp */,
+				36B1165F0DC051AC0EA353E8 /* gyro_calibrator.hpp */,
+				BE5BD55F72F5E97A70212BAA /* motion_source.hpp */,
+				DC6EA51D144E53F213662BC4 /* road_walker.cpp */,
+				4242C5E46B517BBC884777EF /* road_walker.hpp */,
+				8364534503AB5BAB69FBC273 /* roads.hpp */,
+				0F6D64E365296ED11316D4C1 /* speed_lag.cpp */,
+				A5C3E1D07B2F4A6C9D8E0F12 /* accel_speed.cpp */,
+				25FE8A0CFD0C586255CE1919 /* speed_lag.hpp */,
+				A5C3E1D07B2F4A6C9D8E0F14 /* accel_speed.hpp */,
+				0C2D6863CE7B7993D3CD36F0 /* speed_scale.cpp */,
+				84E5685CF48337457CEAFDD5 /* speed_scale.hpp */,
+				DB66C7892568C94468ECBE34 /* speed_table.cpp */,
+				5C843ADD0823FCE255F98D72 /* speed_table.hpp */,
+				46ACCB9020EFB1059444689D /* turn_matcher.cpp */,
+				504D60F473E5BB1E677C87EF /* turn_matcher.hpp */,
+				3D7C415F450F2374806C248B /* turn_sign_checker.cpp */,
+				EBEC24975A4AD3578356B3A5 /* turn_sign_checker.hpp */,
+			);
+			path = nogps;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -477,6 +659,36 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				608965C3920EFF14DB99D0E7 /* clock.hpp in Headers */,
+				28914BC8EC5AA59F15A8D5CF /* delegate.hpp in Headers */,
+				22ECC73EBF87E8B7B341C147 /* elm327_session.hpp in Headers */,
+				205E01232CF45A9588DCA75E /* engine.hpp in Headers */,
+				EA028C66D059DB8F5FDADD05 /* esp32_source.hpp in Headers */,
+				A7C10B5F2E98F00100E5D2A1 /* esp32_update.hpp in Headers */,
+				7FE05A6E13EC417A84352102 /* inertial_navigator.hpp in Headers */,
+				8A50E93EC62CB714D9C23487 /* map_api.hpp in Headers */,
+				31020396F993FF96B99D52BF /* phone_motion.hpp in Headers */,
+				E7495B394376D44DBF6279E2 /* scheduler.hpp in Headers */,
+				AA78EC1F862F0EEC92E4FEB5 /* service.hpp in Headers */,
+				4E42F6DDF67564ACC056C267 /* storage.hpp in Headers */,
+				D9E68D355F8AB8ED03845A7F /* accel_log.hpp in Headers */,
+				378B227BB02AA457C5D8E1B9 /* bend_matcher.hpp in Headers */,
+				8899F827303964D4582FA0BB /* dead_reckoning.hpp in Headers */,
+				FD3191F55B06E9157D82073E /* elm327_parser.hpp in Headers */,
+				56147852772837136A4FB8CF /* esp32_protocol.hpp in Headers */,
+				C3EE67F9D59E7C5367F7965A /* geo.hpp in Headers */,
+				D2CDE9D663021F7F0B9FDF35 /* gps_return_detector.hpp in Headers */,
+				0A1460D5E54A7CBF34CEB91D /* gps_spoofing_detector.hpp in Headers */,
+				229E30B830394557828458AA /* gyro_calibrator.hpp in Headers */,
+				11704F8149A26272366C8258 /* motion_source.hpp in Headers */,
+				A9E74AED1C87A0EA776EE5CE /* road_walker.hpp in Headers */,
+				DD01704E41A0A7BDCC814FA3 /* roads.hpp in Headers */,
+				020CC1351768B3E0D57A9F7A /* speed_lag.hpp in Headers */,
+				A5C3E1D07B2F4A6C9D8E0F13 /* accel_speed.hpp in Headers */,
+				2A4F0ED3B9BA4DCD1D021BD2 /* speed_scale.hpp in Headers */,
+				B42CFD0375AD5867BD532C42 /* speed_table.hpp in Headers */,
+				88A572F8B0B013C7B52DA7C7 /* turn_matcher.hpp in Headers */,
+				BD19462370CC8C05491A13E9 /* turn_sign_checker.hpp in Headers */,
 				BB4E5F261FCC664A00A77250 /* transit_display.hpp in Headers */,
 				347B60771DD9926D0050FA24 /* traffic_manager.hpp in Headers */,
 				45F6EE9E1FB1C77600019892 /* mwm_tree.hpp in Headers */,
@@ -668,6 +880,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D567A97AC1295A8683C2F7A5 /* clock.cpp in Sources */,
+				CBB2E1FDAEE9C20B881FA3AA /* delegate.cpp in Sources */,
+				12D4198924069FB90BBC66EB /* elm327_session.cpp in Sources */,
+				983069152901763EEC9448AE /* engine.cpp in Sources */,
+				E793DE6AA83FC12D2DE3AEF4 /* esp32_source.cpp in Sources */,
+				A7C10B5E2E98F00100E5D2A1 /* esp32_update.cpp in Sources */,
+				1C5409F39F6C18B09C389D00 /* inertial_navigator.cpp in Sources */,
+				61FF3CDF8DFAE152B84F53D1 /* motion_source.cpp in Sources */,
+				F48364C194A6810D714F1A43 /* phone_motion.cpp in Sources */,
+				5EE2F1681AC2B4DC80AD1155 /* scheduler.cpp in Sources */,
+				A9222C817F624200328C7E07 /* service.cpp in Sources */,
+				32B3B035A2469E95B32D3678 /* storage.cpp in Sources */,
+				7736A9BB6869456F306433E7 /* accel_log.cpp in Sources */,
+				3A922311C693E25B42BE7526 /* bend_matcher.cpp in Sources */,
+				631DBB0128269BF8F49D6D44 /* dead_reckoning.cpp in Sources */,
+				76C515A3D75338DBFBC05AF2 /* elm327_parser.cpp in Sources */,
+				7D77BBB551C774A1356AC624 /* esp32_protocol.cpp in Sources */,
+				02D188929BAE7FB641DAA5BE /* geo.cpp in Sources */,
+				488A063C8071A3D13B764B39 /* gps_return_detector.cpp in Sources */,
+				66120100BA3D0ADBE9DA04A5 /* gps_spoofing_detector.cpp in Sources */,
+				2409603079E79F8B6BBF7304 /* gyro_calibrator.cpp in Sources */,
+				B7734FC13841017184B2D519 /* road_walker.cpp in Sources */,
+				9091BF969B1D021845CA8C37 /* speed_lag.cpp in Sources */,
+				A5C3E1D07B2F4A6C9D8E0F11 /* accel_speed.cpp in Sources */,
+				A7EE0A780B205A4338E83DB3 /* speed_scale.cpp in Sources */,
+				F0FC65A90BEB258C6BA1DEFC /* speed_table.cpp in Sources */,
+				EE696953E78EF779665CE7CC /* turn_matcher.cpp in Sources */,
+				D8FA8798D205EFF4B2C131F7 /* turn_sign_checker.cpp in Sources */,
 				456E1B3A1F9A3C2A009C32E1 /* search_mark.cpp in Sources */,
 				F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */,
 				675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */,

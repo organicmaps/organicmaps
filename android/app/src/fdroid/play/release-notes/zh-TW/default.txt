@@ -1,1 +1,0 @@
-../../listings/zh-TW/release-notes.txt

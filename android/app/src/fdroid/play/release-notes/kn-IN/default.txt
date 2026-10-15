@@ -1,1 +1,0 @@
-../../listings/kn-IN/release-notes.txt

@@ -1,1 +1,0 @@
-../../listings/sv-SE/release-notes.txt

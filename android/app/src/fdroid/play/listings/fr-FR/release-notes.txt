@@ -1,9 +1,0 @@
-• OSM : 28 sept. ; Wikipédia : 21 sept.
-• Itinéraires alternatifs et heures d’arrivée estimées améliorés
-• Nouveau réglage pour optimiser l’ordre des étapes
-• Boutons pour ajouter ou remplacer une étape d’un itinéraire prévu
-• L’itinéraire alternatif choisi reste actif en navigation
-• Enregistrement des tracés corrigé et amélioré
-• Importation des fichiers KMB corrigée
-• Interface améliorée et bugs corrigés
-…plus sur omaps.org/fr/news

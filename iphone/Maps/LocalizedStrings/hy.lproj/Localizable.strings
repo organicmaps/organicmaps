@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք Organic Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://omaps.app/get?kmz\nՎայելեք ճանապարհորդությունը Organic Maps-ի հետ:";
+"share_bookmarks_email_body" = "Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք NoGPS Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://github.com/Ramzess-II/NoGPSMaps\nՎայելեք ճանապարհորդությունը NoGPS Maps-ի հետ:";
 
 /* message title of loading file */
 "load_kmz_title" = "Էջանիշների բեռնում";
@@ -178,10 +178,10 @@
 "share_my_position" = "Ես այստեղ եմ Organic Maps-ում";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ Organic Maps-ում";
+"share_place_subject" = "%1$@ NoGPS Maps-ում";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Վայր Organic Maps-ում";
+"share_place_subject_default" = "Վայր NoGPS Maps-ում";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Բացել Organic Maps-ում կամ դիտարկիչում";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Օպերատոր՝ %@";
 "editor_category_unsuitable_title" = "Չե՞ք գտնում համապատասխան կատեգորիա:";
-"editor_category_unsuitable_text" = "Organic Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ուղեցույցը</a>:";
+"editor_category_unsuitable_text" = "NoGPS Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ուղեցույցը</a>:";
 "downloader_no_downloaded_maps_title" = "Դուք դեռ քարտեզներ չեք ներբեռնել";
 "downloader_no_downloaded_maps_message" = "Ներբեռնեք քարտեզներ՝ օֆլայն որոնման և նավիգացիայի համար:";
 "current_location_unknown_error_title" = "Ընթացիկ դիրքն անհայտ է:";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Դուք այժմ օգտագործում եք Organic Maps-ը հեռախոսի էկրանին";
+"car_used_on_the_phone_screen" = "Դուք այժմ օգտագործում եք NoGPS Maps-ը հեռախոսի էկրանին";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Դուք այժմ օգտագործում եք Organic Maps-ը մեքենայի էկրանին";
+"car_used_on_the_car_screen" = "Դուք այժմ օգտագործում եք NoGPS Maps-ը մեքենայի էկրանին";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Շարունակել հեռախոսով";
@@ -1187,3 +1187,252 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Շրջել երթուղին";
+
+
+/********** NoGPS Maps **********/
+
+"nogps_manual_position" = "Set my position manually";
+"nogps_manual_mode_on" = "GPS is ignored. Double-tap the map where you are.";
+"nogps_manual_mode_off" = "GPS is on again";
+"nogps_gps_spoofed" = "GPS is spoofed! Using cell towers and Wi-Fi. You can also set your position manually.";
+"nogps_gps_restored" = "GPS is fine again";
+"nogps_status_gps" = "GPS";
+"nogps_status_network_spoofed" = "GPS spoofed · towers ±%@";
+"nogps_status_network_no_gps" = "No GPS · towers ±%@";
+"nogps_status_manual_just_now" = "Manual · just now";
+"nogps_status_manual_minutes" = "Manual · %d min ago";
+"nogps_status_none" = "No position";
+"nogps_meters" = "%d m";
+"nogps_kilometers" = "%.1f km";
+"nogps_status_inertial" = "Inertial · ±%@";
+"nogps_sensors_title" = "Inertial navigation";
+"nogps_sensors_enable" = "Enabled";
+"nogps_sensors_hint" = "Fix the phone so it doesn't move. Zero the gyroscope while the car stands still.";
+"nogps_sensors_adapter" = "Adapter: %1$@";
+"nogps_sensors_adapter_none" = "not chosen";
+"nogps_sensors_choose" = "Choose";
+"nogps_elm_disconnected" = "no connection";
+"nogps_elm_connecting" = "connecting…";
+"nogps_elm_no_adapter" = "ELM327 doesn't answer";
+"nogps_box_obd_disabled" = "ELM327 is off in the box";
+"nogps_box_obd_connecting" = "ELM327 connects…";
+"nogps_elm_error" = "ELM327 error";
+"nogps_elm_no_car" = "the car doesn't answer";
+"nogps_elm_connected" = "connected";
+"nogps_sensors_speed" = "Speed: %@";
+"nogps_speed_kmh" = "%d km/h";
+"nogps_unknown" = "—";
+"nogps_sensors_gyro" = "Gyroscope: %@";
+"nogps_gyro_none" = "not zeroed";
+"nogps_gyro_calibrating" = "zeroing… %d%%";
+"nogps_gyro_done" = "zeroed";
+"nogps_gyro_failed" = "failed, the phone or the car moved";
+"nogps_sensors_calibrate" = "Zero";
+"nogps_sensors_ready" = "Ready";
+"nogps_sensors_not_ready" = "Not ready: %@";
+"nogps_missing_speed" = "no speed";
+"nogps_missing_gyro" = "zero the gyroscope";
+"nogps_missing_position" = "no start position";
+"nogps_choose_adapter" = "Choose the OBD adapter";
+"nogps_no_paired" = "No paired Bluetooth devices. Pair ELM327 in the Bluetooth settings (PIN is usually 1234).";
+"nogps_bt_permission_denied" = "The adapter can't be used without Bluetooth access";
+"nogps_shift_forward" = "Move the position forward along the road";
+"nogps_shift_back" = "Move the position back along the road";
+"nogps_shift_step" = "Distance to move the position by";
+"nogps_shift_limited" = "Moved by %1$d m, up to the crossing";
+"nogps_shift_failed" = "There is nowhere to move the position";
+"nogps_sensors_scale" = "Speed correction: %1$@ · measured ranges: %2$d";
+"nogps_sensors_lag_measured" = "Speed delay: %@ s (measured by GPS)";
+"nogps_sensors_lag_usual" = "Speed delay: %@ s (usual, not measured by GPS yet)";
+"nogps_shift_at_turn" = "The position is at a crossing, it can not be moved further";
+"nogps_status_gps_back" = "GPS is back ±%@";
+"nogps_status_gps_spoofed" = "GPS spoofed";
+"nogps_status_no_gps" = "No GPS";
+"nogps_status_towers" = "towers ±%@";
+"nogps_gps_back_auto" = "GPS is trusted again, the manual mode is off";
+"nogps_reverse_direction" = "Turn the car around on the road";
+"nogps_mark_no_road" = "There is no road here, set the mark on a road";
+"nogps_gps_lost_auto" = "GPS is lost or wrong, the manual mode is on";
+"nogps_disable_gps" = "Disable GPS";
+"nogps_disable_gps_hint" = "For testing: the app ignores GPS as if it were jammed, the rest of the location works. It is turned off when the app restarts.";
+"nogps_pause" = "Pause: the car maneuvers";
+"nogps_resume" = "Resume the movement";
+"nogps_status_paused" = "Pause";
+
+/* Status of the position: the mark of the car stands and waits for the user */
+"nogps_status_road_lost" = "Road lost";
+
+/* Second line of the status "Road lost" */
+"nogps_status_road_lost_hint" = "double-tap the map where you are";
+
+/* Line of the status of the position: the sensor box gives the car speed */
+"nogps_status_box_ok" = "box connected";
+
+/* Line of the status of the position: the sensor box is not heard */
+"nogps_status_box_none" = "no box";
+
+/* Line of the status of the position: the sensor box is heard, the car speed does not come */
+"nogps_status_box_no_car" = "box connected, no car data";
+
+/* Line of the status of the position: the ELM327 adapter gives the car speed */
+"nogps_status_elm_ok" = "ELM327 connected";
+
+/* Line of the status of the position: the ELM327 adapter is not heard */
+"nogps_status_elm_none" = "no ELM327";
+
+/* Line of the status of the position: the ELM327 adapter is heard, the car speed does not come */
+"nogps_status_elm_no_car" = "ELM327 connected, no car data";
+"nogps_source_phone" = "Phone + ELM327 (Bluetooth)";
+
+/* Choice of where the car speed and turns come from, next to "Phone + ELM327 (Bluetooth)" */
+"nogps_source_esp32_bt" = "ESP32 sensor box (Bluetooth)";
+"nogps_sensors_box" = "Box: %1$@";
+
+/* State of the sensor box, shown after its name: "Box: ESP32 · searching by Bluetooth" */
+"nogps_box_bt_searching" = "searching by Bluetooth";
+
+/* State of the sensor box, shown after its name */
+"nogps_box_bt_no_permission" = "the app is not allowed to use Bluetooth";
+
+/* State of the sensor box, shown after its name */
+"nogps_box_bt_disabled" = "Bluetooth is off on the phone";
+
+/* State of the sensor box, shown after its name. The box accepts a new phone only for two minutes after it gets power */
+"nogps_box_bt_pairing_closed" = "found, but not paired with this phone. Unplug the box and plug it back: it accepts a new phone for 2 minutes";
+
+/* State of the sensor box, shown after its name */
+"nogps_box_bt_connecting" = "connecting by Bluetooth";
+
+/* State of the sensor box, shown after its name while the system asks for the pairing code */
+"nogps_box_bt_pairing" = "enter the code of the box in the pairing window: 123456 unless it was changed";
+
+/* State of the sensor box, shown after its name */
+"nogps_box_bt_waiting" = "connected by Bluetooth, waiting for the data";
+"nogps_sensors_calibrate_box" = "Calibrate";
+"nogps_gyro_mount_moved" = "the box has been moved, calibrate it";
+"nogps_sensors_hint_box" = "Fix the box firmly. It zeroes the gyroscope on every stop by itself.";
+
+/* Heading of the block about the calibration of the sensor box and the title of the question about it */
+"nogps_box_calibration" = "Sensor box calibration";
+
+/* Under the heading "Sensor box calibration": when and how the box is calibrated */
+"nogps_box_calibration_hint" = "Needed once the box is installed and every time it was taken out or moved. The car must stand on a level surface, not on a slope.";
+
+/* Question shown when the sensor box has been powered on: it is new in the car or was taken out. The buttons are "Calibrate" and "Later" */
+"nogps_box_calibration_offer" = "The sensor box has been plugged in. Calibrate the sensors: the car must stand on a level surface, not on a slope.";
+
+/* Row of the sensors screen: the state of the calibration of the sensor box */
+"nogps_sensors_box_sensors" = "Sensors: %@";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_not_calibrated" = "not calibrated";
+
+/* State of the sensors of the box, shown after "Sensors:", with the percent done */
+"nogps_box_calibrating" = "calibrating… %d%%";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_calibrated" = "calibrated";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_calibration_failed" = "failed, the car moved";
+
+/* State of the sensors of the box, shown after "Sensors:": the box has been powered on since its calibration */
+"nogps_box_calibration_advised" = "the box has been plugged in, calibrate it";
+
+/* What is missing for the navigation without GPS, shown after "Not ready:" */
+"nogps_missing_box_calibration" = "calibrate the box";
+"nogps_turns_reversed" = "The gyroscope turns the car the other way than GPS. Check the axes of the sensor driver: without GPS the car would turn wrong";
+"nogps_road_lost" = "The road is lost, the car is stopped. Mark yourself on the map";
+
+/* A route is asked for while there is no GPS and no mark of the user */
+"nogps_no_position_for_route" = "No position: the route has nowhere to start from. Double-tap the map where you are";
+"nogps_shift_buttons" = "Calibration";
+"nogps_shift_buttons_hint" = "Shows the buttons moving the car along the road by 10 m. Moving it where the car really is corrects the speed of the car.";
+"nogps_obd_stopped" = "No speed from the OBD adapter, the car stands still on the map. Check the adapter or mark yourself";
+"nogps_box_stopped" = "No data from the sensor box, the car stands still on the map. Check the box or mark yourself";
+
+/* Warning shown while driving without GPS: the sensor box tells it has been moved in the car since its calibration */
+"nogps_box_moved_stopped" = "The sensor box has been moved, the car stands still on the map. Stop and calibrate the box";
+
+/* Warning shown while driving without GPS: the sensor box is not calibrated */
+"nogps_box_uncalibrated_stopped" = "The sensor box is not calibrated, the car stands still on the map. Stop and calibrate the box";
+
+/* Warning shown while driving without GPS: the gyroscope of the phone is not zeroed */
+"nogps_gyro_stopped" = "The gyroscope is not zeroed, the car stands still on the map. Stop and zero it";
+
+/* State of the sensor box, shown after its name while it takes a new firmware */
+"nogps_box_updating" = "takes a new firmware";
+
+/* Row of the sensors screen: the version of the firmware of the sensor box or what its update does now */
+"nogps_sensors_firmware" = "Box firmware: %1$@";
+
+/* Button: sends the firmware that comes with the app to the sensor box, with its version */
+"nogps_firmware_install" = "Install %1$@";
+
+/* Title of the question about the firmware of the sensor box */
+"nogps_firmware_title" = "Sensor box firmware";
+
+/* Question shown when the sensor box works with another firmware than the app comes with: the version of the box and of the app */
+"nogps_firmware_offer" = "The box works with firmware %1$@, this version of the app is tested with %2$@. Install it? It takes a few minutes: keep the car standing and the box plugged in.";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_starting" = "preparing…";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:", with the percent sent */
+"nogps_firmware_sending" = "sending, %d%%";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_verifying" = "the box checks it…";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_restarting" = "the box restarts…";
+
+/* Message: the sensor box works with the new firmware, with its version */
+"nogps_firmware_done" = "Firmware %1$@ is installed in the sensor box";
+
+/* Message: the firmware of the sensor box is not updated, with the reason */
+"nogps_firmware_failed" = "The box firmware is not installed: %1$@";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_moving" = "the car drives";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_voltage" = "the car battery is below 11.8 V";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_link" = "the connection to the box was lost";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_canceled" = "canceled";
+
+/* Why the firmware of the sensor box is not installed: the new one didn't start */
+"nogps_firmware_error_rollback" = "the box has returned to its previous firmware";
+
+/* Why the firmware of the sensor box is not installed: the box has just been updated and still checks that */
+"nogps_firmware_error_pending" = "the box still checks its previous update, try again later";
+
+/* Why the firmware of the sensor box is not installed: an error code of the box, e.g. SIGNATURE */
+"nogps_firmware_error_code" = "error %1$@";
+"nogps_clear_speed" = "Reset";
+"nogps_clear_speed_title" = "Reset the speed calibration?";
+"nogps_clear_speed_message" = "The speed corrections learned from GPS at different speeds and from your corrections will be forgotten. Do it after new tyres or another car. They are learned anew while GPS works.";
+"nogps_about_title" = "About NoGPS Maps";
+"nogps_about_menu" = "About · Organic Maps";
+"nogps_about_headline" = "Navigation when GPS is jammed or spoofed";
+"nogps_about_description" = "Without GPS the car is driven by the inertial navigation: the turns come from the gyroscope, the distance from the car speed via OBD-II. The car is kept on the roads of the offline map.";
+"nogps_based_on" = "Based on Organic Maps";
+"nogps_map_data" = "Map data © OpenStreetMap and Organic Maps";
+"nogps_source_code" = "Source code on GitHub";
+"nogps_speed_no_data" = "NO";
+"nogps_speed_no_box" = "ESP32";
+"nogps_speed_no_elm" = "ELM";
+"nogps_delete_recent_query" = "Delete from the history?";
+"nogps_box_sleeping" = "sleeps: the engine is stopped";
+"nogps_box_obd_sleeping" = "ELM327 sleeps: the engine is stopped";
+"nogps_sensors_car" = "Engine: %1$@\nEngine speed: %2$@\nVoltage, box ADC: %3$@\nVoltage, ELM327: %4$@\nVoltage, car control unit: %5$@";
+"nogps_engine_running" = "running";
+"nogps_engine_stopped" = "stopped";
+"nogps_rpm" = "%d rpm";
+"nogps_volts" = "%@ V";
+"nogps_not_while_driving" = "not asked while driving";
+"nogps_voltage_mismatch" = "The voltage measured by the box differs from the car by more than 10%: check the voltage divider of the box";

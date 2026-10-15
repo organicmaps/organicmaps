@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Forritið krefst OpenGL-vélbúnaðarhröðunar. Því miður er tækið þitt ekki stutt.</string>
     <string name="download">Sækja</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Aftengdu USB-kapal eða settu inn minniskort til að nota Organic Maps</string>
+    <string name="disconnect_usb_cable">Aftengdu USB-kapal eða settu inn minniskort til að nota NoGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Losaðu fyrst um eitthvað pláss á SD-minniskorti/USB-geymslu til að nota forritið</string>
     <string name="download_resources">Áður en þú byrjar skaltu sækja heims-yfirlitskortið yfir á tækið þitt.\nÞað mun nota %s af tiltæku minni.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Minnispunktar</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Maps bókamerkjum var deilt með þér</string>
-    <string name="share_bookmarks_email_body">Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í Organic Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://omaps.app/get?kmz \n\nNjóttu ferðarinnar með Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">NoGPS Maps bókamerkjum var deilt með þér</string>
+    <string name="share_bookmarks_email_body">Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í NoGPS Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://github.com/Ramzess-II/NoGPSMaps \n\nNjóttu ferðarinnar með NoGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Hleð inn bókamerkjum</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deila</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s í Organic Maps</string>
+    <string name="share_place_subject">%1$s í NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Staður í Organic Maps</string>
+    <string name="share_place_subject_default">Staður í NoGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Tölvupóstur</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">OpenStreetMap-gögn gerð af þátttakendum eins og þau voru %s. Fræðstu betur um hvernig hægt sé að breyta og uppfæra landakortið á OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) er samfélagsverkefni sem stefnir að uppbyggingu á frjálsu og opnu landakorti. Þetta er meginuppistaðan í Organic Maps og virkar svipað og Wikipedia. Þú getur bætt við eð breytt stöðum, og verða þeir þá aðgengilegir milljónum notenda um víða veröld.\nTaktu þátt og hjálpaðu til við að gera betri landakort fyrir alla!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) er samfélagsverkefni sem stefnir að uppbyggingu á frjálsu og opnu landakorti. Þetta er meginuppistaðan í NoGPS Maps og virkar svipað og Wikipedia. Þú getur bætt við eð breytt stöðum, og verða þeir þá aðgengilegir milljónum notenda um víða veröld.\nTaktu þátt og hjálpaðu til við að gera betri landakort fyrir alla!</string>
     <string name="login_to_make_edits_visible">Útbúðu OpenStreetMap aðgang eða skráðu þig inn til að birta breytingarnar þínar.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d af %2$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Minnispunktur til sjálfboðaliða OpenStreetMap (valfrjálst)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Lýstu villum á kortinu eða atriðum sem ekki er hægt að breyta með Organic Maps</string>
+    <string name="editor_note_hint">Lýstu villum á kortinu eða atriðum sem ekki er hægt að breyta með NoGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Breytingarnar þínar eru sendar inn í opinbera <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-gagnagrunninn. Ekki bæta við neinum persónulegum upplýsingum eða upplýsingum með höfundarrétti.</string>
     <string name="editor_more_about_osm">Meira um OpenStreetMap</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Rekstraraðili: %s</string>
     <string name="editor_category_unsuitable_title">Finnurðu ekki hentugan flokk?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Skoðaðu <a href="https://organicmaps.app/faq/editing/advanced-map-editing">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Skoðaðu <a href="https://organicmaps.app/faq/editing/advanced-map-editing">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.</string>
     <string name="downloader_no_downloaded_maps_title">Þú hefur ekki sótt nein kort</string>
     <string name="downloader_no_downloaded_maps_message">Sæktu landakort til að leita og rata um án nettengingar.</string>
     <string name="current_location_unknown_error_title">Fyrirliggjandi staðsetning er óþekkt.</string>
@@ -784,9 +784,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Meginmarkmið okkar er að byggja hraðvirk og auðveld landakort sm þú kannt að meta og sem passa upp á persónuupplýsingar þínar.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Þú ert núna að nota Organic Maps á símaskjánum</string>
+    <string name="car_used_on_the_phone_screen">Þú ert núna að nota NoGPS Maps á símaskjánum</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Þú ert núna að nota Organic Maps á bílskjánum</string>
+    <string name="car_used_on_the_car_screen">Þú ert núna að nota NoGPS Maps á bílskjánum</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Þú ert tengd(ur) við Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -794,7 +794,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Yfir á skjá bílsins</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps þarf aðgang að staðsetningu. Við gott tækifæri, þegar það er öruggt, skaltu skoða tilkynninguna á símanum þínum.</string>
+    <string name="aa_location_permissions_request">NoGPS Maps þarf aðgang að staðsetningu. Við gott tækifæri, þegar það er öruggt, skaltu skoða tilkynninguna á símanum þínum.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Þetta forrit þarf heimild frá þér</string>
     <!-- Grant Permissions button. -->

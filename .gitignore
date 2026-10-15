@@ -102,3 +102,6 @@ CMakeUserPresets.json
 /screenshots/
 /keywords/
 /iphone/metadata/**/keywords.txt
+
+# Trip logs pulled from the phone: they have real coordinates, never commit them.
+/trip-logs/

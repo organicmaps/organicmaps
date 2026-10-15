@@ -1,9 +1,0 @@
-• OSM: 28 września; Wikipedia: 21 września
-• Lepsze trasy alternatywne i szacowane czasy przyjazdu
-• Nowe ustawienie optymalizuje kolejność punktów pośrednich
-• Nowe przyciski dodają lub zastępują punkty na zaplanowanej trasie
-• Wybrana trasa alternatywna jest zachowywana podczas nawigacji
-• Poprawki i ulepszenia rejestrowania śladów
-• Naprawiono import plików KMB
-• Poprawki i ulepszenia interfejsu użytkownika
-…więcej na stronie omaps.org/pl/news

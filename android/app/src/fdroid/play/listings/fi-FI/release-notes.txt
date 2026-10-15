@@ -1,9 +1,0 @@
-• OSM-tiedot: 28. syyskuuta; Wikipedia-tiedot: 21. syyskuuta
-• Parannetut vaihtoehtoiset reitit ja arvioidut saapumisajat
-• Uusi asetus optimoi välipysähdysten järjestyksen
-• Uudet painikkeet lisäävät tai korvaavat välipysähdyksiä suunnitellulla reitillä
-• Valittu vaihtoehtoinen reitti pysyy valittuna navigoinnin aikana
-• Jälkien tallennus korjattu ja parannettu
-• KMB-tiedostojen tuonti korjattu
-• Käyttöliittymän parannukset ja korjaukset
-…lisätietoja osoitteessa omaps.org/news

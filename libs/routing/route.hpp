@@ -496,6 +496,9 @@ public:
   /// \returns Information about turn from RouteSegment according to current iterator set with MoveIterator() method.
   turns::TurnItem GetCurrentIteratorTurn() const;
 
+  /// \brief Returns the closest turn after |segIdx|, which can be any segment, not the current one.
+  void GetTurnAfterIdx(size_t segIdx, turns::TurnItem & turn) const { GetClosestTurnAfterIdx(segIdx, turn); }
+
   /// \brief Returns first non-empty name info of a street starting from segIdx.
   void GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameInfo & roadNameInfo) const;
 

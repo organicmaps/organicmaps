@@ -1,9 +1,0 @@
-• OSM: 28 sentyabr; Wikipedia: 21 sentyabr
-• Yaxshiroq muqobil yo'nalishlar va yetib kelish taxminlari
-• Yangi sozlama to'xtashlar tartibini optimallashtiradi
-• Yangi tugmalar rejalashtirilgan yo'nalishlardagi to'xtash joylarini qo'shadi yoki almashtiradi
-• Tanlangan muqobil yo'l navigatsiya paytida saqlanadi
-• Trek yozuvidagi xatolar tuzatildi va yozuv yaxshilandi
-• KMB importi tuzatildi
-• Foydalanuvchi interfeysi bo'yicha tuzatishlar va yaxshilanishlar
-…batafsil ma'lumot omaps.org/news

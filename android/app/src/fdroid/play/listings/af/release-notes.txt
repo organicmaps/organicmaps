@@ -1,9 +1,0 @@
-• OSM-data: 28 September; Wikipedia-data: 21 September
-• Verbeterde alternatiewe roetes en aankomstydskattinge
-• Nuwe instelling optimaliseer die volgorde van tussenstoppe
-• Nuwe knoppies voeg 'n tussenstop by of vervang een op 'n beplande roete
-• Gekose alternatiewe roete bly gekies tydens navigasie
-• Spooropname is reggestel en verbeter
-• KMB-lêerinvoer reggestel
-• UI-verbeterings en -regstellings
-…meer besonderhede by omaps.org/af/news

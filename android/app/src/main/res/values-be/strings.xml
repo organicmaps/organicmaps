@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Для працы праграмы патрабуецца апаратнае паскарэнне OpenGL. На жаль, ваша прылада не падтрымліваецца.</string>
     <string name="download">Спампаваць</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Адключыце кабель USB або ўстаўце карту памяці, каб карыстацца Organic Maps</string>
+    <string name="disconnect_usb_cable">Адключыце кабель USB або ўстаўце карту памяці, каб карыстацца NoGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Вызваліце месца на SD-карце/USB-сховішчы, каб карыстацца праграмай</string>
     <string name="download_resources">Перш чым пачаць карыстацца праграмай, спампуйце на сваю прыладу аглядную мапу свету. \nДля яе спатрэбіцца %s у сховішчы.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Нататкі</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">З вамі падзяліліся закладкамі Organic Maps</string>
-    <string name="share_bookmarks_email_body">Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай Organic Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">З вамі падзяліліся закладкамі NoGPS Maps</string>
+    <string name="share_bookmarks_email_body">Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай NoGPS Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://github.com/Ramzess-II/NoGPSMaps\n\nПрыемных падарожжаў з NoGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Загрузка закладак</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Абагуліць</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s у Organic Maps</string>
+    <string name="share_place_subject">%1$s у NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Месца ў Organic Maps</string>
+    <string name="share_place_subject_default">Месца ў NoGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Электронная пошта</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Створаныя супольнасцю даныя OpenStreetMap па стане на %s. Даведайцеся больш пра тое, як рэдагаваць і абнаўляць мапу на OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - гэта грамадскі праект па стварэнні бясплатнай і адкрытай мапы, і асноўная крыніца картаграфічных даных у Organic Maps, якая працуе падобна на Вікіпедыю. Кожны можа дадаваць або рэдагаваць месцы, якія ўбачаць мільёны карыстальнікаў па ўсім свеце. \nДалучайцеся да супольнасці і дапамажыце зрабіць лепшую мапу для ўсіх!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - гэта грамадскі праект па стварэнні бясплатнай і адкрытай мапы, і асноўная крыніца картаграфічных даных у NoGPS Maps, якая працуе падобна на Вікіпедыю. Кожны можа дадаваць або рэдагаваць месцы, якія ўбачаць мільёны карыстальнікаў па ўсім свеце. \nДалучайцеся да супольнасці і дапамажыце зрабіць лепшую мапу для ўсіх!</string>
     <string name="login_to_make_edits_visible">Стварыце ўліковы запіс OpenStreetMap або ўвайдзіце ў сістэму, каб апублікаваць праўкі мапы ўсім на свеце.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d з %2$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Заўвага для валанцёраў OpenStreetMap (неабавязкова)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Апішыце памылкі на карце або рэчы, якія немагчыма адрэдагаваць з дапамогай Organic Maps</string>
+    <string name="editor_note_hint">Апішыце памылкі на карце або рэчы, якія немагчыма адрэдагаваць з дапамогай NoGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Вашы праўкі запампоўваюцца ў публічную базу даных <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Не дадавайце асабістую інфармацыю або інфармацыю, якая абаронена аўтарскім правам.</string>
     <string name="editor_more_about_osm">Падрабязней пра OpenStreetMap</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Аператар: %s</string>
     <string name="editor_category_unsuitable_title">Няма прыдатнай катэгорыі?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps дазваляе дадаваць на мапу толькі простыя тыпы аб\'ектаў, гэта значыць без гарадоў, дарог, азёр і будынкаў. Калі ласка, дадавайце такія катэгорыі на сайце <a href="https://www.openstreetmap.org/">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца з <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">падрабязнымі інструкцыямі і іншымі праграмамі для рэдагавання мапы</a>.</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps дазваляе дадаваць на мапу толькі простыя тыпы аб\'ектаў, гэта значыць без гарадоў, дарог, азёр і будынкаў. Калі ласка, дадавайце такія катэгорыі на сайце <a href="https://www.openstreetmap.org/">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца з <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">падрабязнымі інструкцыямі і іншымі праграмамі для рэдагавання мапы</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Вы не спампавалі ніводнай мапы</string>
     <string name="downloader_no_downloaded_maps_message">Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.</string>
     <string name="current_location_unknown_error_title">Месцазнаходжанне невядома.</string>
@@ -790,9 +790,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Наша галоўная мэта - ствараць хуткія, арыентаваныя на прыватнасць і простыя ў выкарыстанні мапы, якія вам спадабаюцца.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Вы выкарыстоўваеце Organic Maps на экране тэлефона</string>
+    <string name="car_used_on_the_phone_screen">Вы выкарыстоўваеце NoGPS Maps на экране тэлефона</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Вы выкарыстоўваеце Organic Maps на экране аўтамабіля</string>
+    <string name="car_used_on_the_car_screen">Вы выкарыстоўваеце NoGPS Maps на экране аўтамабіля</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Вы падключаны да Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -800,7 +800,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">На экран аўто</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps патрабуе доступу да месцазнаходжання. Калі будзе бяспечна, праверце апавяшчэнне на тэлефоне.</string>
+    <string name="aa_location_permissions_request">NoGPS Maps патрабуе доступу да месцазнаходжання. Калі будзе бяспечна, праверце апавяшчэнне на тэлефоне.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Гэтай праграме патрабуецца ваш дазвол</string>
     <!-- Grant Permissions button. -->

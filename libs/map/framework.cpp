@@ -2,6 +2,7 @@
 #include "base/assert.hpp"
 #include "map/benchmark_tools.hpp"
 #include "map/gps_tracker.hpp"
+#include "map/nogps/service.hpp"
 #include "map/place_page_info.hpp"
 #include "map/raster_tile_provider.hpp"
 #include "map/relation_track.hpp"
@@ -243,8 +244,41 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
   CompassInfo const & rInfo = info;
 #endif
 
+  // The car direction is shown instead: the compass of a phone in a car or in hands looks anywhere.
+  if (m_noGps && m_noGps->GetEngine().IsCarHeadingShown())
+    return;
+
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetCompassInfo(rInfo);
+}
+
+nogps::Engine & Framework::CreateNoGps(nogps::Delegate & delegate)
+{
+  CHECK(!m_noGps, ());
+  m_noGps = std::make_unique<nogps::Service>(delegate, m_routingManager.GetSessionRoute(),
+                                             [this](double bearingDeg)
+  {
+    if (m_drapeEngine != nullptr)
+      m_drapeEngine->SetCompassInfo(CompassInfo{math::DegToRad(bearingDeg)});
+  }, [this](std::optional<ms::LatLon> const & position)
+  {
+    // A circle of the color of the position without GPS, see nogps_status_inertial of Android. Nothing else
+    // uses the group.
+    auto editSession = GetBookmarkManager().GetEditSession();
+    editSession.ClearGroup(UserMark::Type::COLORED);
+    if (!position)
+      return;
+    editSession.SetIsVisible(UserMark::Type::COLORED, true);
+    auto * mark = editSession.CreateUserMark<ColoredMarkPoint>(mercator::FromLatLon(*position));
+    mark->SetColor(dp::Color(123, 31, 162, 200));
+    mark->SetRadius(9.0f);
+  });
+  return m_noGps->GetEngine();
+}
+
+nogps::Engine * Framework::GetNoGps()
+{
+  return m_noGps ? &m_noGps->GetEngine() : nullptr;
 }
 
 void Framework::SwitchMyPositionNextMode()
@@ -2312,6 +2346,26 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   if (buildInfo.m_isLongTap)
   {
     SwitchFullScreen();
+    return;
+  }
+
+  if (buildInfo.m_isDoubleTap)
+  {
+    // In the manual mode of the navigation without GPS a double tap on the map shows where the car is. A single
+    // one did it before, and the car was thrown away by a hand that touched the screen by chance; it selects a
+    // place now, as without the manual mode, e.g. to build a route there.
+    if (!m_noGps || !m_noGps->GetEngine().IsManualMode())
+    {
+      Scale(2.0 /* factor */, buildInfo.m_pixel, true /* isAnim */);
+      return;
+    }
+    // The map moved away by the user comes back to the car by itself in a while, and the car seems to drive along
+    // the road then. It comes back at once instead, the user has just shown where the car is.
+    if (m_noGps->GetEngine().PlaceMarkByTap(mercator::ToLatLon(buildInfo.m_mercator)) &&
+        GetMyPositionMode() == location::NotFollow)
+    {
+      SwitchMyPositionNextMode();
+    }
     return;
   }
 

@@ -265,7 +265,7 @@ void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen, PrepareRouteAr
 
     // Calculate arrow borders.
     double dist = kInvalidDistance;
-    if (m_followingEnabled)
+    if (IsFollowed(subrouteInfo))
       dist = m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance;
 
     // We run asynchronous task to calculate new positions of route arrows.
@@ -482,7 +482,7 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
 
   auto const screenHalfWidth = static_cast<float>(currentHalfWidth * screen.GetScale());
   auto dist = static_cast<float>(kInvalidDistance);
-  if (m_followingEnabled)
+  if (IsFollowed(subrouteInfo))
   {
     auto const distanceOffset = subrouteInfo.m_subroute->m_baseDistance + subrouteData->m_distanceOffset;
     dist = static_cast<float>(m_distanceFromBegin - distanceOffset);
@@ -588,7 +588,7 @@ void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, 
   }
 
   auto dist = static_cast<float>(kInvalidDistance);
-  if (m_followingEnabled)
+  if (IsFollowed(subrouteInfo))
     dist = static_cast<float>(m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance);
 
   dp::RenderState const & state = subrouteInfo.m_markersData->m_renderProperty.m_state;
@@ -662,13 +662,6 @@ void RouteRenderer::RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
 void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context, drape_ptr<SubrouteData> && subrouteData,
                                     ref_ptr<gpu::ProgramManager> mng)
 {
-  // Drop late-arriving alternatives once navigation has started. UpdateContextDependentResources
-  // (UpdateMapStyle / context recreation) re-issues AddSubroute for every entry currently in
-  // m_subroutes, and on Android the style sync runs before nativeFollowRoute, so the recache
-  // can outrace RemoveAlternativeSubroutes and resurrect alts via the resulting FlushSubroute.
-  if (m_followingEnabled && subrouteData->m_subroute->IsAlternative())
-    return;
-
   auto const it = FindSubroute(m_subroutes, subrouteData->m_subrouteId);
   if (it != m_subroutes.end())
   {

@@ -2,6 +2,8 @@ package app.organicmaps;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.BLUETOOTH_CONNECT;
+import static android.Manifest.permission.BLUETOOTH_SCAN;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static app.organicmaps.sdk.location.LocationState.FOLLOW;
@@ -67,6 +69,7 @@ import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
+import app.organicmaps.nogps.SensorsBottomSheet;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutePointLabels;
@@ -95,6 +98,7 @@ import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.location.LocationUtils;
+import app.organicmaps.sdk.location.NoGps;
 import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesState;
@@ -189,6 +193,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String> mPostNotificationPermissionRequest;
+  private ActivityResultLauncher<String[]> mBoxBluetoothPermissionRequest;
+  // Once for a start of the app: after two refusals the system doesn't ask any more by itself.
+  private static boolean sBoxBluetoothPermissionAsked;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
@@ -202,6 +209,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
+  private final LocationHelper.NoGpsListener mNoGpsListener = this::onNoGpsEvent;
 
   private boolean mRemoveDisplayListener = true;
   private static int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
@@ -217,10 +225,28 @@ public class MwmActivity extends BaseMwmFragmentActivity
     checkMeasurementSystem();
   }
 
+  // A debug build drives a recorded trip again when its file is put to the folder of the application, e.g. with
+  // adb, and writes the trip log of that drive next to it. See NoGpsReplay.cpp.
+  private void replayTripIfAsked()
+  {
+    final java.io.File dir = getExternalFilesDir(null);
+    if (dir == null)
+      return;
+    final java.io.File input = new java.io.File(dir, "nogps-replay-in.txt");
+    final java.io.File taken = new java.io.File(dir, "nogps-replay-running.txt");
+    if (!input.exists())
+      return;
+    taken.delete();
+    if (input.renameTo(taken))
+      NoGps.nativeReplay(taken.getAbsolutePath(), new java.io.File(dir, "nogps-replay-out.txt").getAbsolutePath());
+  }
+
   @Override
   @Keep
   public void onRenderingInitializationFinished()
   {
+    if (BuildConfig.DEBUG)
+      replayTripIfAsked();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
 
     Framework.nativeRestoreDownloadQueue();
@@ -309,6 +335,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       // Remove old OAuth v1 secrets
       OsmOAuth.clearOAuth1Credentials();
+      if (!BuildConfig.MAP_EDITING)
+        return;
 
       // Notify user to re-login
       dismissAlertDialog();
@@ -531,6 +559,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                            this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
                                                                    this::onPostNotificationPermissionResult);
+    // The state of the box tells whether it is given.
+    mBoxBluetoothPermissionRequest =
+        registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {});
     mPowerSaveSettings =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onPowerSaveResult);
 
@@ -821,7 +852,168 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     case help -> showHelp();
     case trackRecordingStatus -> toggleTrackRecordingPP();
+    case manualPosition -> toggleManualPositionMode();
+    case positionStatus -> new SensorsBottomSheet().show(getSupportFragmentManager(), SensorsBottomSheet.TAG);
+    case shiftPositionForward -> shiftPosition(true /* forward */);
+    case shiftPositionBack -> shiftPosition(false /* forward */);
+    case reverseDirection -> NoGps.nativeReverseDirection();
+    case pauseMovement -> NoGps.nativeTogglePause();
     }
+  }
+
+  /**
+   * Moves the position along the road when it lags behind the car or has run ahead of it.
+   * @param forward true to move it forward by the chosen step, false to move it back.
+   */
+  private void shiftPosition(boolean forward)
+  {
+    final NoGps.Status status = NoGps.getStatus();
+    final int distanceM = forward ? status.shiftStepM : -status.shiftStepM;
+    // The position stands at a crossing, it is moved that way after the car passes it.
+    if (forward ? status.shiftForwardBlocked : status.shiftBackBlocked)
+    {
+      Toast.makeText(this, R.string.nogps_shift_at_turn, Toast.LENGTH_SHORT).show();
+      return;
+    }
+
+    final double applied = NoGps.nativeShiftPosition(distanceM);
+    final NoGps.Status after = NoGps.getStatus();
+    if (applied == 0 && (forward ? after.shiftForwardBlocked : after.shiftBackBlocked))
+    {
+      Toast.makeText(this, R.string.nogps_shift_at_turn, Toast.LENGTH_SHORT).show();
+      return;
+    }
+    // The position stops at the closest turn, so the user has to know when it was moved by less.
+    final long appliedM = Math.round(Math.abs(applied));
+    if (appliedM >= Math.abs(distanceM))
+      return;
+    Toast
+        .makeText(
+            this,
+            appliedM == 0 ? getString(R.string.nogps_shift_failed) : getString(R.string.nogps_shift_limited, appliedM),
+            Toast.LENGTH_SHORT)
+        .show();
+  }
+
+  private void toggleManualPositionMode()
+  {
+    final boolean enable = !NoGps.nativeIsManualMode();
+    NoGps.nativeSetManualMode(enable);
+    Toast.makeText(this, enable ? R.string.nogps_manual_mode_on : R.string.nogps_manual_mode_off, Toast.LENGTH_LONG)
+        .show();
+  }
+
+  private void onNoGpsEvent(@NonNull NoGps.Event event)
+  {
+    final int message = switch (event)
+    {
+      case FIRMWARE_UPDATE_AVAILABLE, FIRMWARE_UPDATE_DONE, FIRMWARE_UPDATE_FAILED -> onFirmwareEvent(event);
+      case BOX_CALIBRATION_ADVISED -> onBoxCalibrationAdvised();
+      // The buttons show the mode, they are updated every second.
+      case MANUAL_MODE_CHANGED -> 0;
+      case GPS_BACK -> R.string.nogps_gps_back_auto;
+      case GPS_LOST -> R.string.nogps_gps_lost_auto;
+      case GPS_SPOOFED -> R.string.nogps_gps_spoofed;
+      case GPS_RESTORED -> R.string.nogps_gps_restored;
+      case ROAD_LOST -> R.string.nogps_road_lost;
+      case TURNS_REVERSED -> R.string.nogps_turns_reversed;
+      // The part to look at: the box itself or the adapter in the car.
+      case MOTION_SOURCE_STOPPED ->
+        NoGps.getStatus().esp32Source ? R.string.nogps_box_stopped : R.string.nogps_obd_stopped;
+      // The car is always on a road.
+      case MARK_NO_ROAD -> R.string.nogps_mark_no_road;
+      case NOT_CALIBRATED -> notCalibratedMessage(NoGps.getStatus());
+    };
+    if (message != 0)
+      Toast.makeText(this, message, event == NoGps.Event.MARK_NO_ROAD ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG).show();
+  }
+
+  /**
+   * The firmware of the sensor box: asks the user to install the one of the application and tells how it ended.
+   * @return 0, there is no message of a fixed text.
+   */
+  private int onFirmwareEvent(@NonNull NoGps.Event event)
+  {
+    final NoGps.Status status = NoGps.getStatus();
+    if (event == NoGps.Event.FIRMWARE_UPDATE_DONE)
+    {
+      Toast.makeText(this, getString(R.string.nogps_firmware_done, status.boxFirmware), Toast.LENGTH_LONG).show();
+    }
+    else if (event == NoGps.Event.FIRMWARE_UPDATE_FAILED)
+    {
+      final String reason = firmwareError(status.firmwareUpdateError);
+      Toast.makeText(this, getString(R.string.nogps_firmware_failed, reason), Toast.LENGTH_LONG).show();
+    }
+    else if (!status.bundledFirmware.isEmpty() && !isFinishing() && !getSupportFragmentManager().isStateSaved())
+    {
+      new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+          .setTitle(R.string.nogps_firmware_title)
+          .setMessage(getString(R.string.nogps_firmware_offer, status.boxFirmware, status.bundledFirmware))
+          .setPositiveButton(getString(R.string.nogps_firmware_install, status.bundledFirmware),
+                             (dialog, which) -> {
+                               NoGps.nativeStartFirmwareUpdate();
+                               // It shows how the update goes.
+                               showSensorsSheet();
+                             })
+          .setNegativeButton(R.string.later, null)
+          .show();
+    }
+    return 0;
+  }
+
+  /**
+   * The sensor box has been plugged in: asks the user to calibrate it, the car should stand on a level place.
+   * @return 0, there is no message of a fixed text.
+   */
+  private int onBoxCalibrationAdvised()
+  {
+    if (isFinishing() || getSupportFragmentManager().isStateSaved())
+      return 0;
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.nogps_box_calibration)
+        .setMessage(R.string.nogps_box_calibration_offer)
+        .setPositiveButton(R.string.nogps_sensors_calibrate_box,
+                           (dialog, which) -> {
+                             NoGps.nativeCalibrate();
+                             // It shows how the calibration goes.
+                             showSensorsSheet();
+                           })
+        .setNegativeButton(R.string.later, null)
+        .show();
+    return 0;
+  }
+
+  private void showSensorsSheet()
+  {
+    if (!getSupportFragmentManager().isStateSaved()
+        && getSupportFragmentManager().findFragmentByTag(SensorsBottomSheet.TAG) == null)
+      new SensorsBottomSheet().show(getSupportFragmentManager(), SensorsBottomSheet.TAG);
+  }
+
+  @NonNull
+  private String firmwareError(@NonNull String code)
+  {
+    return switch (code)
+    {
+      case "MOVING" -> getString(R.string.nogps_firmware_error_moving);
+      case "LOW_VOLTAGE" -> getString(R.string.nogps_firmware_error_voltage);
+      case "LINK" -> getString(R.string.nogps_firmware_error_link);
+      case "CANCELED", "ABORTED" -> getString(R.string.nogps_firmware_error_canceled);
+      case "ROLLBACK" -> getString(R.string.nogps_firmware_error_rollback);
+      case "PENDING" -> getString(R.string.nogps_firmware_error_pending);
+      default -> getString(R.string.nogps_firmware_error_code, code);
+    };
+  }
+
+  /**
+   * The car is not followed while it drives: what is to be calibrated.
+   */
+  private static int notCalibratedMessage(@NonNull NoGps.Status status)
+  {
+    if (!status.esp32Source)
+      return R.string.nogps_gyro_stopped;
+    return status.getCalibration() == NoGps.CalibrationState.MOUNT_MOVED ? R.string.nogps_box_moved_stopped
+                                                                         : R.string.nogps_box_uncalibrated_stopped;
   }
 
   private boolean closeBottomSheet(String id)
@@ -896,6 +1088,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
+    // Without GPS and without a mark of the user there is nowhere to build the route from: the plan of the route
+    // would open and wait, as if the application hung.
+    final NoGps.Status noGps = NoGps.getStatus();
+    if (noGps.manualMode && noGps.getSource() == NoGps.PositionSource.NONE)
+    {
+      Toast.makeText(this, R.string.nogps_no_position_for_route, Toast.LENGTH_LONG).show();
+      return;
+    }
+
     closeFloatingPanels();
     if (isFullscreen())
       exitFullscreen();
@@ -1055,6 +1256,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().applyPendingRoutingOptions();
     LocationState.nativeSetListener(this);
     MwmApplication.from(this).getLocationHelper().addListener(this);
+    MwmApplication.from(this).getLocationHelper().addNoGpsListener(mNoGpsListener);
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
   }
 
@@ -1066,6 +1268,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeRemovePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     MwmApplication.from(this).getLocationHelper().removeListener(this);
+    MwmApplication.from(this).getLocationHelper().removeNoGpsListener(mNoGpsListener);
     if (mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
       LocationState.nativeRemoveListener();
     // Attached unconditionally in onStart()
@@ -1588,7 +1791,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Logger.i(LOCATION_TAG, "Requesting ACCESS_FINE_LOCATION permission for " + LocationState.nameOf(newMode));
       dismissLocationErrorDialog();
       mLocationPermissionRequest.launch(new String[] {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION});
+      return;
     }
+    requestBoxBluetoothPermission();
+  }
+
+  /**
+   * The navigation without GPS looks for the sensor box over Bluetooth LE out of the box, without the sensors
+   * screen opened. Asked after the location is settled: only one request is shown at a time, and its dialogs
+   * are dismissed when another one comes.
+   */
+  private void requestBoxBluetoothPermission()
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || sBoxBluetoothPermissionAsked
+        || !LocationUtils.checkFineLocationPermission(this))
+      return;
+    final NoGps.Status status = NoGps.getStatus();
+    if (!status.inertialEnabled || !status.esp32Source)
+      return;
+    sBoxBluetoothPermissionAsked = true;
+    if (ActivityCompat.checkSelfPermission(this, BLUETOOTH_SCAN) == PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(this, BLUETOOTH_CONNECT) == PERMISSION_GRANTED)
+      return;
+    Logger.i(TAG, "Requesting BLUETOOTH_SCAN + BLUETOOTH_CONNECT permissions for the sensor box");
+    mBoxBluetoothPermissionRequest.launch(new String[] {BLUETOOTH_SCAN, BLUETOOTH_CONNECT});
   }
 
   /**
@@ -2098,8 +2324,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (id.equals(MAIN_MENU_ID))
     {
       ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-      items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus,
-                                        this::onAddPlaceOptionSelected));
+      if (BuildConfig.MAP_EDITING)
+        items.add(new MenuBottomSheetItem(R.string.placepage_add_place_button, R.drawable.ic_plus,
+                                          this::onAddPlaceOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.download_maps, R.drawable.ic_download, getDownloadMapsCounter(),
                                         this::onDownloadMapsOptionSelected));
       mDonatesUrl = Utils.getDonateUrl(getApplicationContext());
@@ -2110,6 +2337,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                         this::onTrackRecordingOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share,
                                         this::onShareLocationOptionSelected));
+      // The map data and the project it is based on are credited in a place every user sees.
+      items.add(new MenuBottomSheetItem(R.string.nogps_about_menu, R.drawable.ic_question_mark, this::showHelp));
       return items;
     }
     return null;

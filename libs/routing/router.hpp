@@ -28,6 +28,19 @@ struct EdgeProj
   m2::PointD m_point;
 };
 
+/// A road a car may drive along, see IRouter::FindRoadsAlong().
+struct RoadAlong
+{
+  // The closest point of the road.
+  m2::PointD m_point;
+  // The direction along the road the car goes.
+  double m_angleRad = 0.0;
+  // How far the road is, with its direction weighed in: the road of the least cost is the one the car is on.
+  double m_cost = 0.0;
+  // A one-way road going against the car, e.g. the other carriageway.
+  bool m_wrongWay = false;
+};
+
 /// Routing engine type.
 enum class RouterType
 {
@@ -76,6 +89,44 @@ public:
 
   virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                            EdgeProj & proj) = 0;
+
+  /// Collects the points in |rect| where roads cross or branch, i.e. where a car can turn.
+  virtual void FindRoadCrossings(m2::RectD const & /* rect */, std::vector<m2::PointD> & /* crossings */) {}
+
+  /// Finds the closest point of a road within |radiusM| of |point|, preferring a main road to a driveway or
+  /// a yard road branching off it nearly as close. |angleRad| is the direction of the road there.
+  virtual bool FindMainRoad(m2::PointD const & /* point */, double /* radiusM */, m2::PointD & /* projected */,
+                            double & /* angleRad */)
+  {
+    return false;
+  }
+
+  /// Returns true if a roundabout is within |radiusM| of |point|.
+  virtual bool IsRoundaboutNear(m2::PointD const & /* point */, double /* radiusM */) { return false; }
+
+  /// How many meters of the distance to a road a degree of the difference between its direction and the
+  /// direction of a car is worth when the road the car is on is chosen.
+  static double constexpr kRoadMetersPerDeg = 0.2;
+
+  /// Returns true if the end |roadPoint| of a road piece, the closest point of it, is behind a car at |point| going
+  /// the |direction| way: the road ends behind the car, e.g. a driveway, and snapping to it would pull the car back on
+  /// every snap. A point inside a piece is on a road going on, even a bit behind the car on a bend.
+  static bool IsRoadBehind(m2::PointD const & point, m2::PointD const & roadPoint, m2::PointD const & direction);
+
+  /// Finds the road a car at |point| going the |direction| way drives along: the closest one, but a road going
+  /// the car's way is preferred to a closer one bending aside, and a road crossing the car's way is not taken.
+  /// Without the direction it is the closest road. |angleRad| is the direction along the road the car goes.
+  virtual bool FindRoadAlong(m2::PointD const & /* point */, m2::PointD const & /* direction */, double /* radiusM */,
+                             m2::PointD & /* projected */, double & /* angleRad */)
+  {
+    return false;
+  }
+
+  /// Collects every road FindRoadAlong() chooses from, the closest place of a road each: where a road forks, the
+  /// branch a car has taken is told by what the car does next.
+  virtual void FindRoadsAlong(m2::PointD const & /* point */, m2::PointD const & /* direction */, double /* radiusM */,
+                              std::vector<RoadAlong> & /* roads */)
+  {}
 
   /// Swap the saved last-route state with the alternative's saved state. Called when the user
   /// picks an alternative variant so subsequent adjustments and full rebuilds (off-route rebuilds)

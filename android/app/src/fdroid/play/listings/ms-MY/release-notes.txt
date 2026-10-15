@@ -1,9 +1,0 @@
-• Data OSM: 28 September; Data Wikipedia: 21 September
-• Penambahbaikan laluan alternatif dan anggaran masa ketibaan
-• Pilihan baharu mengoptimumkan susunan hentian pertengahan
-• Butang baharu menambah atau menggantikan hentian pada laluan yang dirancang
-• Laluan alternatif yang dipilih kekal dipilih semasa navigasi
-• Perekodan jejak telah diperbaiki dan dipertingkatkan
-• Import fail KMB telah diperbaiki
-• Peningkatan dan pembetulan UI
-…lebih banyak butiran di omaps.org/news

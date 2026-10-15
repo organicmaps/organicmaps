@@ -83,6 +83,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
     mStreetFrame = mTopFrame.findViewById(R.id.street_frame);
     mNextStreet = mStreetFrame.findViewById(R.id.street);
+    // The street height is 0 until the street is laid out, and the next update comes with a position only.
+    mStreetFrame.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+      if (UiUtils.isVisible(mFrame))
+        updateTopButtonsMargin();
+    });
 
     mLanesView = mTopFrame.findViewById(R.id.lanes);
 
@@ -188,8 +193,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     if (!TextUtils.isEmpty(info.nextStreet))
       mNextStreet.setText(RoadShieldUtils.createStreetTextWithShields(info.nextStreet, info.nextStreetRoadShields,
                                                                       mNextStreet.getTextSize()));
+    updateTopButtonsMargin();
+  }
+
+  private void updateTopButtonsMargin()
+  {
     int margin = dimen(mFrame.getContext(), R.dimen.nav_frame_padding);
-    if (hasStreet)
+    if (UiUtils.isVisible(mStreetFrame))
       margin += mStreetFrame.getHeight();
     mMapButtonsViewModel.setTopButtonsMarginTop(margin);
   }

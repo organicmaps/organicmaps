@@ -1,9 +1,0 @@
-• OSM: 28 september; Wikipedia: 21 september
-• Betere alternatieve routes en geschatte aankomsttijden
-• Nieuwe instelling optimaliseert de volgorde van tussenstops
-• Met nieuwe knoppen kun je stops toevoegen of vervangen op geplande routes
-• De gekozen alternatieve route blijft behouden tijdens het navigeren
-• Opnemen van tracks verbeterd en fouten verholpen
-• KMB-import gerepareerd
-• UI-correcties en verbeteringen
-…meer op omaps.org/nl/news

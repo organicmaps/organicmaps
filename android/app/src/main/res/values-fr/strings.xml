@@ -52,7 +52,7 @@
     <string name="unsupported_phone">L\'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n\'est pas pris en charge.</string>
     <string name="download">Télécharger</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps</string>
+    <string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser NoGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Veuillez d\'abord libérer de l\'espace sur la carte SD/le stockage USB afin d\'utiliser l\'appli</string>
     <string name="download_resources">Avant d\'utiliser l\'application, veuillez télécharger la carte du monde sur votre appareil.\nElle utilisera %s d\'espace de stockage.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Signets Organic Maps partagés</string>
-    <string name="share_bookmarks_email_body">Bonjour !\n\nVous trouverez ci-joint mes signets de l\'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l\'avez pas, téléchargez l\'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps !</string>
+    <string name="share_bookmarks_email_subject">Signets NoGPS Maps partagés</string>
+    <string name="share_bookmarks_email_body">Bonjour !\n\nVous trouverez ci-joint mes signets de l\'appli NoGPS Maps. Veuillez les ouvrir si vous avez installé NoGPS Maps. Si vous ne l\'avez pas, téléchargez l\'application pour votre appareil iOS ou Android en suivant ce lien : https://github.com/Ramzess-II/NoGPSMaps\n\nBon voyage avec NoGPS Maps !</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Chargement des signets</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Partager</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s sur Organic Maps</string>
+    <string name="share_place_subject">%1$s sur NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Un lieu sur Organic Maps</string>
+    <string name="share_place_subject_default">Un lieu sur NoGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Courriel</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Données OpenStreetMap créées par la communauté en date du %s. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consultez le site OpenStreetMap.org.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) est un projet communautaire visant à créer une carte libre et ouverte. C\'est la principale source de données cartographiques d\'Organic Maps et son fonctionnement est similaire à celui de Wikipédia. Vous pouvez ajouter ou modifier des lieux et ils deviennent accessibles à des millions d\'utilisateurs dans le monde entier.\nRejoignez la communauté et aidez-nous à créer une meilleure carte pour tout le monde !</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) est un projet communautaire visant à créer une carte libre et ouverte. C\'est la principale source de données cartographiques d\'NoGPS Maps et son fonctionnement est similaire à celui de Wikipédia. Vous pouvez ajouter ou modifier des lieux et ils deviennent accessibles à des millions d\'utilisateurs dans le monde entier.\nRejoignez la communauté et aidez-nous à créer une meilleure carte pour tout le monde !</string>
     <string name="login_to_make_edits_visible">Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de cartes dans le monde entier.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d sur %2$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Note aux volontaires OpenStreetMap (facultatif)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec Organic Maps.</string>
+    <string name="editor_note_hint">Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec NoGPS Maps.</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vos modifications sont téléchargées dans la base de données publique <a href="https://wiki.openstreetmap.org/wiki/FR:About_OpenStreetMap">OpenStreetMap</a>. Veuillez ne pas ajouter d\'informations personnelles ou protégées par le droit d\'auteur.</string>
     <string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Opérateur : %s</string>
     <string name="editor_category_unsuitable_title">Vous ne trouvez pas de catégorie appropriée ?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultez notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultez notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
     <string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
     <string name="downloader_no_downloaded_maps_message">Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne</string>
     <string name="current_location_unknown_error_title">L\'emplacement actuel est inconnu.</string>
@@ -785,9 +785,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Notre objectif principal est de créer des cartes rapides, axées sur la confidentialité et faciles à utiliser que vous allez adorer.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Vous utilisez maintenant Organic Maps sur le téléphone</string>
+    <string name="car_used_on_the_phone_screen">Vous utilisez maintenant NoGPS Maps sur le téléphone</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Vous utilisez maintenant Organic Maps dans la voiture</string>
+    <string name="car_used_on_the_car_screen">Vous utilisez maintenant NoGPS Maps dans la voiture</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Vous êtes connecté à Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -795,7 +795,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Afficher dans la voiture</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps a besoin d\'un accès à la localisation. Lorsque c\'est sûr, vérifiez la notification sur votre téléphone.</string>
+    <string name="aa_location_permissions_request">NoGPS Maps a besoin d\'un accès à la localisation. Lorsque c\'est sûr, vérifiez la notification sur votre téléphone.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Cette application a besoin de votre permission</string>
     <!-- Grant Permissions button. -->

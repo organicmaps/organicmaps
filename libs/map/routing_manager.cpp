@@ -29,12 +29,14 @@
 #include "platform/platform.hpp"
 
 #include "geometry/algorithm.hpp"
+#include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"  // kPointEqualityEps
 #include "geometry/parametrized_segment.hpp"
 
 #include "coding/file_writer.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
@@ -42,6 +44,7 @@
 
 #include <glaze/json.hpp>
 
+#include <cmath>
 #include <map>
 
 using namespace routing;
@@ -312,6 +315,8 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
 
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(std::move(callbacks))
+  , m_sessionRoute(m_routingSession, std::bind_front(&RoutingManager::OnRebuildRouteReady, this),
+                   std::bind_front(&RoutingManager::SwapActiveAlternative, this))
   , m_delegate(delegate)
   , m_extrapolator([this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
 {
@@ -512,9 +517,16 @@ void RoutingManager::Init(std::shared_ptr<routing::NumMwmIds> ptr)
 void RoutingManager::SetRouterImpl(RouterType type)
 {
   // Ruler has no road profile and uses Transit session settings.
-  VehicleType const vehicleType = RoutingOptions::GetVehicleType(type).value_or(VehicleType::Transit);
+  m_loadAltitudes = RoutingOptions::GetVehicleType(type).value_or(VehicleType::Transit) != VehicleType::Car;
+  InitSession(m_routingSession, type);
+  m_currentRouterType = type;
+}
 
-  m_loadAltitudes = vehicleType != VehicleType::Car;
+void RoutingManager::InitSession(routing::RoutingSession & session, RouterType type) const
+{
+  // Ruler has no road profile and uses Transit session settings.
+  VehicleType const vehicleType = RoutingOptions::GetVehicleType(type).value_or(VehicleType::Transit);
+  bool const loadAltitudes = vehicleType != VehicleType::Car;
 
   std::unique_ptr<IRouter> router;
   std::unique_ptr<AbsentRegionsFinder> absentFinder;
@@ -546,15 +558,14 @@ void RoutingManager::SetRouterImpl(RouterType type)
     auto const getMwmRectByName = [this](std::string const & countryId)
     { return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId); };
 
-    router = std::make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
-                                           countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree,
-                                           m_routingSession, dataSource);
+    router = std::make_unique<IndexRouter>(vehicleType, loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
+                                           countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree, session,
+                                           dataSource);
     absentFinder = std::make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, m_numMwmIDs, dataSource);
   }
 
-  m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
-  m_routingSession.SetRouter(std::move(router), std::move(absentFinder));
-  m_currentRouterType = type;
+  session.SetRoutingSettings(GetRoutingSettings(vehicleType));
+  session.SetRouter(std::move(router), std::move(absentFinder));
 }
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
@@ -787,22 +798,20 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   if (isTransitRoute)
     transitRouteDisplay = makeTransitRouteDisplay();
 
-  // In follow (navigation) mode only the active route is drawn — alternatives and ETA balloons
-  // would clutter the moving map and the ETA is shown in the navigation UI instead.
+  // Alternatives are drawn in follow (navigation) mode too: the car may turn to one of them, and it is
+  // followed then without a rebuild. ETA balloons would clutter the moving map, the ETA is shown in the
+  // navigation UI instead.
   bool const isFollowing = m_routingSession.IsFollowing();
-  if (!isFollowing)
+  for (size_t i = 0; i < result.m_routes.size(); ++i)
   {
-    for (size_t i = 0; i < result.m_routes.size(); ++i)
-    {
-      if (i == result.m_activeIdx)
-        continue;
-      // A TransitRouteDisplay accumulates steps/distance across all subroutes fed to it, so an
-      // alternative route must use its own throwaway display: it draws just its (muted) polyline,
-      // without corrupting the active route's distance/steps or duplicating its stop marks (the
-      // alt's display is never asked for route info or marks).
-      auto const altDisplay = isTransitRoute ? makeTransitRouteDisplay() : transitRouteDisplay;
-      InsertSingleRoute(result.m_routes[i], false /* isActive */, 0.0 /* depthOffset */, altDisplay, roadWarnings);
-    }
+    if (i == result.m_activeIdx)
+      continue;
+    // A TransitRouteDisplay accumulates steps/distance across all subroutes fed to it, so an
+    // alternative route must use its own throwaway display: it draws just its (muted) polyline,
+    // without corrupting the active route's distance/steps or duplicating its stop marks (the
+    // alt's display is never asked for route info or marks).
+    auto const altDisplay = isTransitRoute ? makeTransitRouteDisplay() : transitRouteDisplay;
+    InsertSingleRoute(result.m_routes[i], false /* isActive */, 0.0 /* depthOffset */, altDisplay, roadWarnings);
   }
   // Lift the active route by 10 so it stays above alternative subroutes even when polylines overlap.
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
@@ -932,7 +941,8 @@ void RoutingManager::FollowRoute()
   HideRoutePoint(RouteMarkType::Start);
   SetPointsFollowingMode(true /* enabled */);
 
-  ClearAlternativeRoutes();
+  // The alternatives stay on the map while navigating, only their ETA balloons are removed.
+  m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROUTE_ALT);
 
   CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
 }
@@ -950,6 +960,69 @@ bool RoutingManager::SwapActiveAlternative(size_t idx)
   { hasWarnings = InsertRoute(result); });
   CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : RouterResultCode::NoError, storage::CountriesSet());
   return true;
+}
+
+namespace
+{
+// A negative bearing is unknown, NaN can't be used with -ffast-math.
+double constexpr kAnyBearing = -1.0;
+
+double FindRouteAnchor(std::vector<m2::PointD> const & points, m2::PointD const & point, double bearingDeg,
+                       size_t & anchorIdx, m2::PointD & anchor);
+}  // namespace
+
+SessionRoute::SessionRoute(routing::RoutingSession & session, routing::ReadyCallback && onRebuilt,
+                           SwapAlternativeFn && swapAlternative)
+  : m_session(session)
+  , m_onRebuilt(std::move(onRebuilt))
+  , m_swapAlternative(std::move(swapAlternative))
+{}
+
+bool SessionRoute::SwapToAlternativeUnderCar(location::GpsInfo const & info)
+{
+  // The car is on the road of an alternative, not on a road beside it.
+  double constexpr kOnAlternativeM = 20.0;
+  if (!m_session.IsFollowing() || !m_session.IsRouteValid())
+    return false;
+
+  m2::PointD const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
+  double const bearingDeg = info.HasBearing() ? info.m_bearing : kAnyBearing;
+  int targetIdx = -1;
+  double bestDistanceM = kOnAlternativeM;
+  m_session.RouteCall([&](routing::RoutesResult const & result)
+  {
+    for (size_t i = 0; i < result.m_routes.size(); ++i)
+    {
+      if (i == result.m_activeIdx)
+        continue;
+      std::vector<m2::PointD> points;
+      result.m_routes[i].ForEachPoint([&points](geometry::PointWithAltitude const & p)
+      { points.push_back(p.GetPoint()); });
+      if (points.size() < 2)
+        continue;
+      size_t anchorIdx = 0;
+      m2::PointD anchor;
+      // Only a part going the way the car goes: the alternative may pass the car the other way.
+      double const distanceM = FindRouteAnchor(points, position, bearingDeg, anchorIdx, anchor);
+      if (distanceM < bestDistanceM)
+      {
+        bestDistanceM = distanceM;
+        targetIdx = static_cast<int>(i);
+      }
+    }
+  });
+  if (targetIdx < 0)
+    return false;
+
+  LOG(LINFO, ("The car is on the alternative route", targetIdx, "at", bestDistanceM, "m, following it"));
+  return m_swapAlternative(static_cast<size_t>(targetIdx));
+}
+
+bool SessionRoute::IsLeavingRoute(SessionState state) const
+{
+  return state == SessionState::RouteNeedRebuild ||
+         ((state == SessionState::OnRoute || state == SessionState::RouteNotStarted) &&
+          m_session.IsMovingAwayFromRoute());
 }
 
 bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, double mercatorPerPixel)
@@ -1492,20 +1565,463 @@ bool RoutingManager::DisableFollowMode()
   return disabled;
 }
 
-void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
+void SessionRoute::CheckLocationForRouting(location::GpsInfo const & info)
 {
-  if (!IsRoutingActive())
+  if (!m_session.IsActive())
     return;
 
-  SessionState const state = m_routingSession.OnLocationPositionChanged(info);
+  SessionState state = m_session.OnLocationPositionChanged(info);
+  // The car has left the route for an alternative: it is followed at once instead of a rebuild.
+  if (IsLeavingRoute(state) && SwapToAlternativeUnderCar(info))
+    state = m_session.OnLocationPositionChanged(info);
   if (state == SessionState::RouteNeedRebuild)
   {
-    m_routingSession.RebuildRoute(mercator::FromLatLon(info.m_latitude, info.m_longitude),
-                                  [this](RoutesResult const & result, RouterResultCode code)
-    { OnRebuildRouteReady(result, code); }, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
-                                  RouterDelegate::kNoTimeout, SessionState::RouteRebuilding,
-                                  true /* adjustToPrevRoute */);
+    m_session.RebuildRoute(mercator::FromLatLon(info.m_latitude, info.m_longitude), m_onRebuilt,
+                           nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                           RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
   }
+}
+
+void SessionRoute::LeaveRoute(location::GpsInfo const & info)
+{
+  if (!m_session.IsActive() || !m_session.IsOnRoute())
+    return;
+
+  if (SwapToAlternativeUnderCar(info))
+  {
+    m_session.OnLocationPositionChanged(info);
+    return;
+  }
+  m_session.RebuildRoute(mercator::FromLatLon(info.m_latitude, info.m_longitude), m_onRebuilt,
+                         nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                         RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+}
+
+void SessionRoute::RebuildRouteIfOffRoute(location::GpsInfo const & info)
+{
+  if (!m_session.IsActive())
+    return;
+
+  // A position set by hand has no track of positions behind it, so the router does not know where the car
+  // goes and turns it around to the fastest way. The direction along the road is known, a track is made.
+  if (info.HasBearing())
+  {
+    // Long enough for the track, the shorter segments are ignored.
+    double constexpr kTrackLengthM = 40.0;
+    m2::PointD const current = mercator::FromLatLon(info.m_latitude, info.m_longitude);
+    double const angle = math::DegToRad(location::BearingToAngle(info.m_bearing));
+    m2::PointD const behind =
+        current - m2::PointD(std::cos(angle), std::sin(angle)) * mercator::MetersToMercator(kTrackLengthM);
+    m_session.ClearPositionAccumulator();
+    m_session.PushPositionAccumulator(behind);
+    m_session.PushPositionAccumulator(current);
+  }
+
+  // Moves the route iterator to the closest point ahead, so the passed part of the route is cut off.
+  SessionState state = m_session.OnLocationPositionChanged(info);
+  // The car is on an alternative route: it is followed instead of a rebuild.
+  if ((IsLeavingRoute(state) || IsAgainstRoute(info)) && SwapToAlternativeUnderCar(info))
+    state = m_session.OnLocationPositionChanged(info);
+  // A route just built is not started until the car is matched to it: the car set off it is off the route.
+  if (state != SessionState::OnRoute && state != SessionState::RouteNotStarted &&
+      state != SessionState::RouteNeedRebuild)
+  {
+    return;
+  }
+
+  m2::PointD const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
+  // How far the car is shown from the position on the route, for the log of a drive.
+  double shownAwayM = -1.0;
+  if (state == SessionState::OnRoute)
+  {
+    location::GpsInfo matched(info);
+    location::RouteMatchingInfo routeMatchingInfo;
+    m_session.MatchLocationToRoute(matched, routeMatchingInfo);
+    if (routeMatchingInfo.IsMatched())
+      shownAwayM = mercator::DistanceOnEarth(routeMatchingInfo.GetPosition(), position);
+    if (routeMatchingInfo.IsMatched() && shownAwayM <= info.m_horizontalAccuracy && !IsAgainstRoute(info))
+      return;
+  }
+
+  LOG(LINFO, ("Manual position is off the route, rebuilding, bearing", info.m_bearing, "shown", shownAwayM,
+              "m away on the route"));
+  m_session.RebuildRoute(position, m_onRebuilt, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                         RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, false /* adjustToPrevRoute */);
+}
+
+bool SessionRoute::SnapToRoad(ms::LatLon const & latLon, double bearingDeg, double radiusM, bool matchRoute,
+                              ms::LatLon & snapped, double & snappedBearingDeg)
+{
+  // A part of the route farther than the road by more than this is not where the car is: the car has left the
+  // route, e.g. gone straight where the route turns, and the route would pull it back to the turn.
+  double constexpr kSameRoadM = 3.0;
+
+  m2::PointD const point = mercator::FromLatLon(latLon);
+  m2::PointD direction = m2::PointD::Zero();
+  if (bearingDeg >= 0.0)
+  {
+    double const angle = math::DegToRad(location::BearingToAngle(bearingDeg));
+    direction = m2::PointD(std::cos(angle), std::sin(angle));
+  }
+  m2::PointD projected;
+  double angleRad = 0.0;
+  bool found = m_session.FindRoadAlong(point, direction, radiusM, projected, angleRad);
+  // The route and the road are compared as the road is chosen: by the distance and the direction. A route
+  // branching away at a fork would pull the car from the road it goes straight along otherwise.
+  auto const cost = [&](m2::PointD const & p, double roadAngle)
+  {
+    double cost = mercator::DistanceOnEarth(point, p);
+    if (bearingDeg >= 0.0)
+    {
+      double const diffDeg =
+          std::fabs(math::RadToDeg(ang::GetShortestDistance(ang::AngleTo(m2::PointD::Zero(), direction), roadAngle)));
+      cost += std::min(diffDeg, 180.0 - diffDeg) * routing::IRouter::kRoadMetersPerDeg;
+    }
+    return cost;
+  };
+  double const roadCost = found ? cost(projected, angleRad) : std::numeric_limits<double>::max();
+
+  if (matchRoute && m_session.IsActive() && m_session.IsOnRoute())
+  {
+    // The position is projected to the route itself. The route iterator is where the previous position was
+    // matched, snapping to it would move the car back by the distance driven since on every snap.
+    Route const * route = m_session.GetRoute();
+    if (route != nullptr && route->IsValid() && route->GetPoly().GetPoints().size() >= 2)
+    {
+      auto const & points = route->GetPoly().GetPoints();
+      size_t anchorIdx = 0;
+      m2::PointD anchor;
+      double const routeM = FindRouteAnchor(points, point, bearingDeg, anchorIdx, anchor);
+      bool const atEnd = anchor == points[anchorIdx] || anchor == points[anchorIdx + 1];
+      if (routeM <= radiusM && !(atEnd && routing::IRouter::IsRoadBehind(point, anchor, direction)) &&
+          cost(anchor, ang::AngleTo(points[anchorIdx], points[anchorIdx + 1])) <= roadCost + kSameRoadM)
+      {
+        found = true;
+        projected = anchor;
+        angleRad = ang::AngleTo(points[anchorIdx], points[anchorIdx + 1]);
+      }
+    }
+  }
+  if (!found)
+    return false;
+
+  snapped = mercator::ToLatLon(projected);
+  snappedBearingDeg = location::AngleToBearing(math::RadToDeg(angleRad));
+  return true;
+}
+
+namespace
+{
+// The route repeats a point, e.g. where it starts from a point on a road. Such a segment has no direction.
+bool IsSamePoint(m2::PointD const & a, m2::PointD const & b)
+{
+  double constexpr kSamePointM = 0.01;
+  return mercator::DistanceOnEarth(a, b) < kSamePointM;
+}
+
+// Returns the distance in meters from |point| to the closest part of the route going the |bearingDeg| way
+// (any way if it is negative), |anchorIdx| is the index of its segment and |anchor| is the closest point on it.
+double FindRouteAnchor(std::vector<m2::PointD> const & points, m2::PointD const & point, double bearingDeg,
+                       size_t & anchorIdx, m2::PointD & anchor)
+{
+  // A part of the route going another way is a street the car has already left or has not reached yet.
+  double constexpr kMaxBearingDiffDeg = 60.0;
+
+  double const carAngle = bearingDeg < 0.0 ? 0.0 : math::DegToRad(location::BearingToAngle(bearingDeg));
+  double distanceToRouteM = std::numeric_limits<double>::max();
+  for (size_t i = 0; i + 1 < points.size(); ++i)
+  {
+    if (IsSamePoint(points[i], points[i + 1]))
+      continue;
+
+    // The route passes the car several times, e.g. the street it has just turned from is still a part of
+    // the route. Only a part going the way the car looks is the one the car drives along now.
+    if (bearingDeg >= 0.0)
+    {
+      double const diffDeg =
+          std::fabs(math::RadToDeg(ang::GetShortestDistance(ang::AngleTo(points[i], points[i + 1]), carAngle)));
+      if (diffDeg > kMaxBearingDiffDeg)
+        continue;
+    }
+
+    m2::PointD const projection = m2::ParametrizedSegment<m2::PointD>(points[i], points[i + 1]).ClosestPointTo(point);
+    double const distanceM = mercator::DistanceOnEarth(projection, point);
+    // At a crossing the route parts before and after it are equally close. The one before is taken: the
+    // car stopped at the crossing has not passed it yet, and a turned car is told by its direction.
+    if (distanceM < distanceToRouteM)
+    {
+      distanceToRouteM = distanceM;
+      anchor = projection;
+      anchorIdx = i;
+    }
+  }
+  return distanceToRouteM;
+}
+
+// Returns the point index of the closest turn after |segIdx|, |lastIdx| if there is no turn.
+size_t FindTurnAfterIdx(Route const & route, size_t segIdx, size_t lastIdx)
+{
+  turns::TurnItem turn;
+  route.GetTurnAfterIdx(segIdx, turn);
+  return std::min(static_cast<size_t>(turn.m_index), lastIdx);
+}
+
+// Returns the point index of the closest turn before |segIdx|, 0 if there is no turn.
+size_t FindTurnBeforeIdx(Route const & route, size_t segIdx)
+{
+  turns::TurnItem turn;
+  size_t found = 0;
+  for (size_t idx = 0; idx <= segIdx;)
+  {
+    route.GetTurnAfterIdx(idx, turn);
+    if (turn.m_index > segIdx)
+      break;
+    found = turn.m_index;
+    idx = turn.m_index + 1;
+  }
+  return found;
+}
+}  // namespace
+
+bool SessionRoute::ShiftAlongRoute(ms::LatLon const & latLon, double bearingDeg, double distanceM, ms::LatLon & shifted,
+                                   double & shiftedBearingDeg, double & appliedM, bool & atCrossing)
+{
+  // A sharp bend of the route is a turn to another street, the position must not be shifted past it.
+  double constexpr kTurnBendDeg = 45.0;
+  // A position farther than this is not on the route, moving it along the route would teleport the car.
+  double constexpr kMaxDistanceToRouteM = 25.0;
+  // Crossings are searched a bit farther than the position can be moved.
+  double constexpr kCrossingMarginM = 20.0;
+  // Less than this is no movement at all.
+  double constexpr kMinShiftM = 0.5;
+  // The route goes through the road points, so its point at a crossing is the crossing itself.
+  static double constexpr kSameCrossingM = 1.0;
+
+  appliedM = 0.0;
+  atCrossing = false;
+  if (!m_session.IsActive() || !m_session.IsOnRoute())
+    return false;
+
+  Route const * route = m_session.GetRoute();
+  if (route == nullptr || !route->IsValid())
+    return false;
+
+  auto const & points = route->GetPoly().GetPoints();
+  if (points.size() < 2)
+    return false;
+
+  // The position is moved from where the user sees it and not from the route iterator: the iterator
+  // lags behind when the position is off the route, and the car would jump back to it.
+  size_t anchorIdx = 0;
+  m2::PointD anchor;
+  m2::PointD const point = mercator::FromLatLon(latLon);
+  double distanceToRouteM = FindRouteAnchor(points, point, bearingDeg, anchorIdx, anchor);
+  // No part of the route close by goes the way the car looks: the direction is a stale guess, e.g. from
+  // old marks, and the car is on the route anyway, it drives the way the route goes.
+  if (distanceToRouteM > kMaxDistanceToRouteM && bearingDeg >= 0.0)
+    distanceToRouteM = FindRouteAnchor(points, point, kAnyBearing, anchorIdx, anchor);
+  if (distanceToRouteM > kMaxDistanceToRouteM)
+  {
+    LOG(LINFO, ("The position is", distanceToRouteM, "m from the route, not moving it along the route"));
+    return false;
+  }
+
+  bool const forward = distanceM >= 0.0;
+  // The end of the current segment in the order of the movement and the direction of the movement.
+  size_t to = forward ? anchorIdx + 1 : anchorIdx;
+  double moveAngle = forward ? ang::AngleTo(points[anchorIdx], points[anchorIdx + 1])
+                             : ang::AngleTo(points[anchorIdx + 1], points[anchorIdx]);
+  m2::PointD position = anchor;
+  double remainingM = std::fabs(distanceM);
+
+  // The position must not be moved past a turn or a crossing: the car may take another street there,
+  // even one the route does not go along, and the car that has already turned must not be dragged back
+  // to the street it has left.
+  size_t const stopIdx =
+      forward ? FindTurnAfterIdx(*route, anchorIdx, points.size() - 1) : FindTurnBeforeIdx(*route, anchorIdx);
+  // Crossings the route goes straight through are not turns of the route, they are taken from the roads.
+  std::vector<m2::PointD> crossings;
+  m_session.FindRoadCrossings(mercator::RectByCenterXYAndSizeInMeters(anchor, 2.0 * (remainingM + kCrossingMarginM)),
+                              crossings);
+  auto const isCrossing = [&crossings](m2::PointD const & p)
+  {
+    return std::any_of(crossings.cbegin(), crossings.cend(), [&p](m2::PointD const & crossing)
+    { return mercator::DistanceOnEarth(crossing, p) < kSameCrossingM; });
+  };
+
+  // Why the position has stopped, for the log of a drive.
+  std::string_view stopReason = "distance";
+  while (remainingM > 0.0)
+  {
+    double const segmentM = mercator::DistanceOnEarth(position, points[to]);
+    if (remainingM <= segmentM)
+    {
+      position += (points[to] - position) * (remainingM / segmentM);
+      appliedM += remainingM;
+      break;
+    }
+    position = points[to];
+    appliedM += segmentM;
+    remainingM -= segmentM;
+
+    if (forward ? to >= stopIdx : to <= stopIdx)
+    {
+      // The route starts where the position was when it was built, e.g. after the previous move back.
+      stopReason = !forward && to == 0 ? "start" : "turn";
+      break;
+    }
+    if (isCrossing(position))
+    {
+      stopReason = "crossing";
+      break;
+    }
+
+    size_t const following = forward ? to + 1 : to - 1;
+    if (!IsSamePoint(points[to], points[following]))
+    {
+      // A turn is not crossed in either direction: the car may have taken another street there, and going
+      // back through it would drag the position to a street the car is not on.
+      double const nextAngle = ang::AngleTo(points[to], points[following]);
+      if (std::fabs(math::RadToDeg(ang::GetShortestDistance(moveAngle, nextAngle))) > kTurnBendDeg)
+      {
+        stopReason = "bend";
+        break;
+      }
+      moveAngle = nextAngle;
+    }
+    to = following;
+  }
+
+  shifted = mercator::ToLatLon(position);
+  // The car looks along the route also when it is moved back.
+  shiftedBearingDeg = location::AngleToBearing(math::RadToDeg(forward ? moveAngle : moveAngle + math::pi));
+  if (!forward)
+    appliedM = -appliedM;
+  LOG(LINFO, ("Moved along the route by", appliedM, "of", distanceM, "m, stopped by", stopReason, "at point", to, "of",
+              points.size(), "anchor", anchorIdx, distanceToRouteM, "m away, crossings", crossings.size()));
+  // The car has come from behind the start of the route along the same road, so it is moved there without
+  // the route. At a turn or crossing the position is on the route and must not be moved another way.
+  if (stopReason == "start" && std::fabs(appliedM) < kMinShiftM)
+    return false;
+  atCrossing = stopReason == "turn" || stopReason == "crossing" || stopReason == "bend";
+  return true;
+}
+
+bool SessionRoute::IsAgainstRoute(location::GpsInfo const & info)
+{
+  ms::LatLon projected;
+  double routeBearingDeg;
+  if (!info.HasBearing() || !ProjectToRoute(ms::LatLon(info.m_latitude, info.m_longitude), info.m_horizontalAccuracy,
+                                            projected, routeBearingDeg))
+  {
+    return false;
+  }
+  double const diffDeg = std::fabs(
+      math::RadToDeg(ang::GetShortestDistance(math::DegToRad(info.m_bearing), math::DegToRad(routeBearingDeg))));
+  return diffDeg > 90.0;
+}
+
+bool SessionRoute::SnapToMainRoad(ms::LatLon const & latLon, double radiusM, ms::LatLon & snapped, double & bearingDeg)
+{
+  m2::PointD projected;
+  double angleRad = 0.0;
+  if (!m_session.FindMainRoad(mercator::FromLatLon(latLon), radiusM, projected, angleRad))
+    return false;
+  snapped = mercator::ToLatLon(projected);
+  bearingDeg = location::AngleToBearing(math::RadToDeg(angleRad));
+  return true;
+}
+
+std::vector<std::pair<ms::LatLon, double>> SessionRoute::FindRoadsAlong(ms::LatLon const & latLon, double bearingDeg,
+                                                                        double radiusM) const
+{
+  double const angle = math::DegToRad(location::BearingToAngle(bearingDeg));
+  std::vector<routing::RoadAlong> roads;
+  m_session.FindRoadsAlong(mercator::FromLatLon(latLon), m2::PointD(std::cos(angle), std::sin(angle)), radiusM, roads);
+  std::vector<std::pair<ms::LatLon, double>> result;
+  result.reserve(roads.size());
+  for (auto const & road : roads)
+  {
+    if (road.m_wrongWay)
+      continue;
+    result.emplace_back(mercator::ToLatLon(road.m_point), location::AngleToBearing(math::RadToDeg(road.m_angleRad)));
+  }
+  return result;
+}
+
+std::vector<ms::LatLon> SessionRoute::FindRoadCrossings(ms::LatLon const & center, double radiusM) const
+{
+  std::vector<m2::PointD> crossings;
+  m_session.FindRoadCrossings(mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(center), 2.0 * radiusM),
+                              crossings);
+  std::vector<ms::LatLon> result;
+  result.reserve(crossings.size());
+  for (auto const & crossing : crossings)
+    result.push_back(mercator::ToLatLon(crossing));
+  return result;
+}
+
+bool SessionRoute::IsRoundaboutNear(ms::LatLon const & center, double radiusM) const
+{
+  return m_session.IsRoundaboutNear(mercator::FromLatLon(center), radiusM);
+}
+
+std::optional<double> SessionRoute::GetRouteAside(ms::LatLon const & latLon, double bearingDeg) const
+{
+  if (!m_session.IsActive() || !m_session.IsOnRoute())
+    return {};
+
+  Route const * route = m_session.GetRoute();
+  if (route == nullptr || !route->IsValid())
+    return {};
+
+  auto const & points = route->GetPoly().GetPoints();
+  if (points.size() < 2)
+    return {};
+
+  size_t anchorIdx = 0;
+  m2::PointD anchor;
+  m2::PointD const point = mercator::FromLatLon(latLon);
+  double const distanceM = FindRouteAnchor(points, point, bearingDeg, anchorIdx, anchor);
+  if (distanceM == std::numeric_limits<double>::max())
+    return {};
+  // The route is on the right of a car that is on the left of it.
+  bool const carOnLeft = m2::CrossProduct(points[anchorIdx + 1] - points[anchorIdx], point - anchor) > 0.0;
+  return carOnLeft ? distanceM : -distanceM;
+}
+
+bool SessionRoute::ProjectToRoute(ms::LatLon const & latLon, double radiusM, ms::LatLon & projected,
+                                  double & bearingDeg)
+{
+  if (!m_session.IsActive())
+    return false;
+
+  Route const * route = m_session.GetRoute();
+  if (route == nullptr || !route->IsValid())
+    return false;
+
+  auto const & points = route->GetPoly().GetPoints();
+  size_t anchorIdx = 0;
+  m2::PointD anchor;
+  m2::PointD const point = mercator::FromLatLon(latLon);
+  double const distanceToRouteM =
+      points.size() < 2 ? radiusM + 1 : FindRouteAnchor(points, point, kAnyBearing, anchorIdx, anchor);
+  if (distanceToRouteM > radiusM)
+    return false;
+
+  // Another road closer to the tap, e.g. a street crossing the route: the car is on it, and the route
+  // would pull the position to the crossing.
+  double constexpr kSameRoadM = 3.0;
+  routing::EdgeProj closest;
+  if (m_session.FindClosestProjectionToRoad(point, m2::PointD::Zero(), radiusM, closest) &&
+      mercator::DistanceOnEarth(point, closest.m_point) + kSameRoadM < distanceToRouteM)
+  {
+    return false;
+  }
+
+  projected = mercator::ToLatLon(anchor);
+  bearingDeg = location::AngleToBearing(math::RadToDeg(ang::AngleTo(points[anchorIdx], points[anchorIdx + 1])));
+  return true;
 }
 
 void RoutingManager::CallRouteBuilded(RouterResultCode code, storage::CountriesSet const & absentCountries)
@@ -1527,7 +2043,7 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location
 
 location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)
 {
-  CheckLocationForRouting(info);
+  m_sessionRoute.CheckLocationForRouting(info);
 
   location::RouteMatchingInfo routeMatchingInfo;
   MatchLocationToRoute(info, routeMatchingInfo);

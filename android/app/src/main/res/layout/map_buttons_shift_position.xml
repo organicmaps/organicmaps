@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/shift_position_container"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:gravity="center_vertical"
+  android:orientation="horizontal">
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/shift_position_back"
+    style="@style/MwmWidget.MapButton.Zoom"
+    app:srcCompat="@drawable/ic_minus"
+    android:contentDescription="@string/nogps_shift_back" />
+  <TextView
+    android:id="@+id/shift_position_step"
+    android:layout_width="wrap_content"
+    android:layout_height="28dp"
+    android:layout_marginHorizontal="@dimen/margin_quarter"
+    android:background="@drawable/bg_position_status"
+    android:backgroundTint="?menuBackground"
+    android:contentDescription="@string/nogps_shift_step"
+    android:gravity="center"
+    android:minWidth="@dimen/map_button_size"
+    android:paddingHorizontal="@dimen/margin_half"
+    android:textColor="?android:textColorPrimary"
+    android:textSize="13sp"
+    android:textStyle="bold" />
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/shift_position_forward"
+    style="@style/MwmWidget.MapButton.Zoom"
+    app:srcCompat="@drawable/ic_plus"
+    android:contentDescription="@string/nogps_shift_forward" />
+</LinearLayout>

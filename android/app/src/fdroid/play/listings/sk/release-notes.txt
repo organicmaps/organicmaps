@@ -1,9 +1,0 @@
-• Údaje OSM k 28. septembru, Wikipédia k 21. septembru
-• Vylepšené alternatívne trasy a ich odhadované časy príchodu
-• Pridané nastavenie na optimalizáciu poradia medzizastávok na trase
-• Pridané tlačidlá na pridanie alebo nahradenie zastávky v naplánovanej trase
-• Vybraná alternatívna trasa sa teraz zachováva počas navigácie
-• Opravené a vylepšené zaznamenávanie trasy
-• Opravený import súborov KMB
-• Vylepšenia a opravy používateľského rozhrania
-…viac podrobností na omaps.org/news

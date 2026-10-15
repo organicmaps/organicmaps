@@ -111,7 +111,7 @@
       android:title="@string/enable_keep_screen_on"
       app:singleLineTitle="false"
       android:summary="@string/enable_keep_screen_on_description"
-      android:defaultValue="false"
+      android:defaultValue="true"
       android:order="17"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_show_on_lock_screen"

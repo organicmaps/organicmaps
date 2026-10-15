@@ -1,9 +1,0 @@
-• OSM: 28 shtator; Wikipedia: 21 shtator
-• Rrugë alternative më të mira dhe vlerësime të mbërritjes
-• Caktim i ri optimizon renditjen e ndalesave
-• Butonat e rinj shtojnë ose zëvendësojnë ndalesat në rrugët e planifikuara
-• Rruga alternative e zgjedhur ruhet gjatë navigimit
-• Korrigjime dhe përmirësime në regjistrimin e gjurmëve
-• Importi i KMB-së është rregulluar
-• Rregullime dhe përmirësime të ndërfaqes
-…më shumë në omaps.org/news

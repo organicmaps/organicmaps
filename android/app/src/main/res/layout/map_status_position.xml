@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/position_status"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:minHeight="36dp"
+  android:maxWidth="260dp"
+  android:background="@drawable/bg_position_status"
+  android:backgroundTint="@color/nogps_status_none"
+  android:elevation="2dp"
+  android:ellipsize="end"
+  android:gravity="center"
+  android:maxLines="3"
+  android:paddingHorizontal="14dp"
+  android:paddingVertical="3dp"
+  android:textColor="@color/white_primary"
+  android:textSize="15sp"
+  android:textStyle="bold" />

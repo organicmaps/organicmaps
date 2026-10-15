@@ -1,9 +1,0 @@
-• OSM: rugsėjo 28 d.; „Wikipedia“: rugsėjo 21 d.
-• Geresni alternatyvūs maršrutai ir numatomas atvykimo laikas
-• Naujas nustatymas optimizuoja tarpinių taškų tvarką
-• Nauji mygtukai leidžia pridėti arba pakeisti taškus planuojamuose maršrutuose
-• Naviguojant išlaikomas pasirinktas alternatyvus maršrutas
-• Trasų įrašymo pataisymai ir patobulinimai
-• Ištaisyta KMB importo klaida
-• Naudotojo sąsajos pataisymai ir patobulinimai
-…daugiau informacijos rasite omaps.org/lt/news

@@ -197,7 +197,8 @@ public final class Config
 
   public static boolean isKeepScreenOnEnabled()
   {
-    return getBool(KEY_MISC_KEEP_SCREEN_ON, false);
+    // A driver must see the map and the position status all the time.
+    return getBool(KEY_MISC_KEEP_SCREEN_ON, true);
   }
 
   public static void setKeepScreenOnEnabled(boolean enabled)

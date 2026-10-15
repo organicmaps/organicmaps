@@ -2,6 +2,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMLocationObserver.h"
 #import "MWMLocationPredictor.h"
+#import "MWMNoGps.h"
 #import "MWMRouter.h"
 #import "SwiftBridge.h"
 #import "location_util.h"
@@ -97,27 +98,29 @@ struct GeoModeSettings
   DesiredAccuracy accuracy;
 };
 
+// The navigation without GPS trusts GPS again after it has given a position every second for a while: a standing car
+// must get the positions too.
 std::map<GeoMode, GeoModeSettings> const kGeoSettings{
     {GeoMode::Pending,
      {.distanceFilter = kCLDistanceFilterNone,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBestForNavigation}}},
     {GeoMode::InPosition,
-     {.distanceFilter = 2,
+     {.distanceFilter = kCLDistanceFilterNone,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
     {GeoMode::NotInPosition,
-     {.distanceFilter = 5,
+     {.distanceFilter = kCLDistanceFilterNone,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
     {GeoMode::FollowAndRotate,
-     {.distanceFilter = 2,
+     {.distanceFilter = kCLDistanceFilterNone,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
     {GeoMode::VehicleRouting,
      {.distanceFilter = kCLDistanceFilterNone,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
     {GeoMode::PedestrianRouting,
-     {.distanceFilter = 2,
+     {.distanceFilter = kCLDistanceFilterNone,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
     {GeoMode::BicycleRouting,
-     {.distanceFilter = 2,
+     {.distanceFilter = kCLDistanceFilterNone,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}}};
 
 BOOL keepRunningInBackground()
@@ -237,12 +240,16 @@ void setShowLocationAlert(BOOL needShow)
 
 + (void)applicationWillResignActive
 {
-  BOOL const keepRunning = keepRunningInBackground();
-  MWMLocationManager * manager = [self manager];
-  CLLocationManager * locationManager = manager.locationManager;
+  CLLocationManager * locationManager = [self manager].locationManager;
   if ([locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
-    [locationManager setAllowsBackgroundLocationUpdates:keepRunning];
-  manager.started = keepRunning;
+    [locationManager setAllowsBackgroundLocationUpdates:keepRunningInBackground()];
+}
+
++ (void)applicationDidEnterBackground
+{
+  // Not when the app becomes inactive: Control Center or a notification does it for a moment, and the navigation
+  // without GPS would stop and drop its sensor box, which took 3 minutes to connect again on October 13.
+  [self manager].started = keepRunningInBackground();
 }
 
 #pragma mark - Getters
@@ -289,6 +296,7 @@ void setShowLocationAlert(BOOL needShow)
   self.lastHeadingInfo = headingInfo;
   if (!location_util::isValidHeading(headingInfo))
     return;
+  [MWMNoGps onHeading:headingInfo];
   GetFramework().OnCompassUpdate(location_util::compassInfoFromHeading(headingInfo));
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onHeadingUpdate:)])
@@ -302,6 +310,16 @@ void setShowLocationAlert(BOOL needShow)
   [self onLocationUpdate:locationInfo source:self.locationSource];
   if (![self.lastLocationInfo isEqual:locationInfo])
     [self.predictor reset:locationInfo];
+}
+
++ (void)onNoGpsPosition:(CLLocation *)location fromGps:(BOOL)fromGps
+{
+  MWMLocationManager * manager = [self manager];
+  [manager onLocationUpdate:location source:manager.locationSource];
+  // A position not from GPS is not extrapolated: e.g. when the car speed stops coming, the car stands.
+  [manager.predictor reset:fromGps ? location
+                                   : [[CLLocation alloc] initWithLatitude:location.coordinate.latitude
+                                                                longitude:location.coordinate.longitude]];
 }
 
 - (void)onLocationUpdate:(CLLocation *)locationInfo source:(location::TLocationSource)source
@@ -527,7 +545,8 @@ void setShowLocationAlert(BOOL needShow)
 
   self.lastLocationStatus = MWMLocationStatusNoError;
   self.locationSource = location::EAppleNative;
-  [self processLocationUpdate:location];
+  // The navigation without GPS chooses the position to show, see onNoGpsPosition.
+  [MWMNoGps onLocation:location];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -578,6 +597,8 @@ void setShowLocationAlert(BOOL needShow)
   NSNotificationCenter * notificationCenter = NSNotificationCenter.defaultCenter;
   if (started)
   {
+    // The navigation without GPS works without the location services too: the user marks the car.
+    [MWMNoGps start];
     _started = [self start];
     if (_started)
     {
@@ -595,6 +616,7 @@ void setShowLocationAlert(BOOL needShow)
   {
     _started = NO;
     [self stop];
+    [MWMNoGps stop];
     [notificationCenter removeObserver:self];
   }
 }

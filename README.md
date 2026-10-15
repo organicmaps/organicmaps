@@ -1,203 +1,160 @@
-<div align="center">
-  <img src="qt/res/logo.png" height="100"/>
-</div>
-<h1 align="center">Organic Maps</h1>
+# NoGPS Maps
 
-**Organic Maps** is a privacy-first offline maps & GPS app for hiking, cycling, biking, and driving. Absolutely free. No ads. No tracking. Created and maintained by MapsWithMe (MAPS.ME) founders, developed with love by the open-source community. Powered by [OpenStreetMap](https://www.openstreetmap.org) data. Installed by [over 6 million users worldwide](https://organicmaps.app/news/2025-12-31/organic-maps-2025-year-in-review/).
+**Офлайн-навігація для водіїв, яка працює там, де GPS глушать або підміняють.**
 
-[<img src="docs/badges/apple-appstore.png" alt="App Store" width="140">](https://apps.apple.com/app/organic-maps/id1567437057)
-[<img src="docs/badges/google-play.png" alt="Google Play" width="140">](https://play.google.com/store/apps/details?id=app.organicmaps)
-[<img src="docs/badges/huawei-appgallery.png" alt="AppGallery" width="140">](https://appgallery.huawei.com/#/app/C104325611)
-[<img src="docs/badges/obtainium.png" alt="Obtainium" width="140">](https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)
-[<img src="docs/badges/fdroid.png" alt="F-Droid" width="140">](https://f-droid.org/en/packages/app.organicmaps/)
-[<img src="docs/badges/accrescent.png" alt="Accrescent" width="140">](https://accrescent.app/app/app.organicmaps)
+NoGPS Maps — Android-застосунок на основі [Organic Maps](https://organicmaps.app) ([GitHub](https://github.com/organicmaps/organicmaps)).
+Коли супутникова навігація зникає або показує машину в іншому місті, застосунок помічає це сам і веде
+машину за інерціальною навігацією: повороти бере з гіроскопа, а пройдену відстань — зі швидкості
+автомобіля через OBD-II.
 
-<p float="left">
-  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="400" />
-  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/2.jpg" width="400" />
-  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/3.jpg" width="400" />
-  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/4.jpg" width="400" />
+> 🚧 **Статус: активна розробка (альфа).** Застосунок тестується в реальних поїздках по Дніпру.
+> Мета — стабільний випуск у Google Play.
+
+*English summary: an Android fork of Organic Maps for driving under GPS jamming and spoofing. It
+detects spoofed positions, switches to a manual mode and keeps the car on the roads with dead
+reckoning from the phone gyroscope (or an external ESP32 sensor box) and the car speed from an OBD-II
+ELM327 adapter. The firmware of the sensor box: [ELMandIMU](https://github.com/Ramzess-II/ELMandIMU).*
+
+<p align="center">
+  <img src="docs/nogps/inertial.png" width="260" alt="Інерціальна навігація в центрі Дніпра">
+  <img src="docs/nogps/manual.png" width="260" alt="Ручний режим: позначка на карті">
+  <img src="docs/nogps/sensors.png" width="260" alt="Налаштування датчиків">
 </p>
 
-## Features
+---
 
-Organic Maps is the ultimate companion app for travellers, tourists, hikers, and cyclists:
+## Що вміє
 
-- Detailed offline maps with places that don't exist on other maps, thanks to [OpenStreetMap](https://openstreetmap.org)
-- Cycling routes, hiking trails, and walking paths
-- Contour lines, elevation profiles, peaks, and slopes
-- Turn-by-turn walking, cycling, and car navigation with voice guidance
-- Subway maps and public transport routes
-- Fast offline search on the map
-- Bookmarks and tracks import and export in KML, KMZ, GPX, GeoJSON formats
-- Dark Mode to protect your eyes
-- Countries and regions don't take a lot of space
-- Wikipedia articles for places of interest
-- Free and open-source
+### 🛰️ Захист від глушіння та підміни GPS
+- Позиція GPS звіряється з позицією за вишками та Wi-Fi і з тим, як далеко машина могла проїхати.
+  Підмінений GPS ігнорується, а одиночна хибна позиція за мережею не вимикає справний GPS.
+- Коли GPS зникає або підмінений, застосунок сам вмикає ручний режим.
+- До GPS повертається автоматично, коли той знову надійний: працює без розривів і стрибків, збігається
+  з позицією машини або їде разом з машиною дорогами з тією ж швидкістю.
 
-## Why Organic?
+### 🚗 Інерціальна навігація
+- **Телефон + ELM327:** гіроскоп телефона, закріпленого на панелі, і швидкість з OBD-II через
+  Bluetooth-адаптер ELM327.
+- **Блок ESP32 (Bluetooth):** зовнішній блок датчиків, жорстко закріплений у машині, передає поворот і
+  швидкість. Прошивка блоку — в окремому репозиторії [ELMandIMU](https://github.com/Ramzess-II/ELMandIMU),
+  технічне завдання на неї і протокол: [`docs/nogps/esp32-firmware-spec.md`](docs/nogps/esp32-firmware-spec.md).
+- Машина тримається доріг і маршруту: позиція прив'язується до дороги, поворот переноситься на
+  перехрестя, де він справді був, а плавний вигин дороги поворотом не вважається.
+- Якщо розрахунок вивів машину з доріг, позначка зупиняється на дорозі й просить відмітитися.
 
-Organic Maps is pure and organic, made with love:
+### 🎯 Самокалібрування
+- **Таблиця поправок швидкості:** похибку спідометра OBD застосунок вимірює за надійним GPS окремо для
+  кожного діапазону швидкостей (по 10 км/год). Таблиця вчиться постійно і зберігається між поїздками.
+- **Гіроскоп** обнуляється на кожній зупинці. Замір застосовується, лише якщо його підтверджує наступний,
+  тож рушання з місця не псує калібрування.
 
-- Respects your privacy
-- Saves your battery
-- No unexpected mobile data charges
-- Offline and fast
-- Open-source alternative to Google Maps, Apple Maps, and MAPS.ME
+### ✋ Ручний режим
+- Позначка ставиться дотиком до карти й лягає вздовж дороги. Напрямок береться з гіроскопа або з двох
+  позначок, кнопка розвертає машину.
+- Пауза руху на час маневрів: паркування, розворот у кілька прийомів.
+- Маршрут перебудовується від позначки в той бік, куди їде машина.
 
-Organic Maps is free from trackers and other bad stuff:
+### 🧭 Для водія
+- Плашка вгорі завжди показує джерело позиції (GPS, інерціально, вручну) і її точність.
+- Попередження, якщо OBD-адаптер перестав передавати швидкість.
+- Тільки автомобільні маршрути, екран не гасне під час руху.
+- Журнал поїздки для розбору складних випадків (у налаштуваннях, увімкнено логування).
 
-- No ads
-- No tracking
-- No data collection
-- No phoning home
-- No annoying registration
-- No mandatory tutorials
-- No noisy email spam
-- No push notifications
-- No crapware
-- ~~No pesticides~~ Purely organic!
+Усе інше — офлайн-карти OpenStreetMap, пошук, маршрути, закладки — успадковано від Organic Maps.
 
-The Android application is verified by the <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
-<img src="docs/privacy/exodus.png" width="400"></a>
+---
 
-The iOS application is verified by <a href="https://ios.trackercontrol.org/analysis/app.organicmaps">TrackerControl for iOS:
-<img src="docs/privacy/trackercontrol-ios.png" width="400"></a>
+## Обладнання
 
-<br/>
+| Варіант | Що потрібно | Примітки |
+|---|---|---|
+| Телефон + ELM327 | Bluetooth-адаптер ELM327 (класичний Bluetooth), тримач на панелі | Телефон має бути закріплений нерухомо |
+| Блок ESP32 | Блок з гіроскопом і швидкістю з OBD, підключення по Bluetooth LE | Точніше: датчик жорстко закріплений на кузові |
 
-Organic Maps doesn't request excessive permissions to spy on you:
+---
 
-<p float="left">
-  <img src="docs/privacy/om.jpg" width="400">
-  <img src="docs/privacy/mm.jpg" width="400">
-</p>
+## Збірка
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+Потрібні JDK 17, Android SDK та NDK (див. [docs/INSTALL.md](docs/INSTALL.md)).
 
-- Organic Maps is an indie community-driven open-source project
-- We protect your privacy from Big Tech's prying eyes
-- Stay safe no matter where you are
+```bash
+git clone --recurse-submodules https://github.com/Ramzess-II/NoGPSMaps.git
+cd NoGPSMaps/android
+./gradlew assembleFdroidDebug -Parm64     # APK: app/build/outputs/apk/fdroid/debug/
+```
 
-Reject surveillance - embrace your freedom.
+Модульні тести навігації — у ядрі C++, разом із тестами Organic Maps:
 
-[**Give Organic Maps a try!**](#install)
+```bash
+cmake --preset debug -B build
+cmake --build build --target map_tests
+QT_QPA_PLATFORM=offscreen ./build/map_tests --filter=NoGps_
+```
 
-## Who is paying for the development?
+iOS збирається з `xcode/omim.xcworkspace`, схема `OMaps` (див. [iphone/CLAUDE.md](iphone/CLAUDE.md)). На iOS
+рух машини береться тільки з блоку ESP32: iOS не дає застосункам Bluetooth SPP для адаптерів ELM327.
 
-The app is free for everyone, so we rely on your donations. Please donate at [organicmaps.app/donate](https://organicmaps.app/donate/) to support the project!
+Карти завантажуються в самому застосунку. Код навігації без GPS спільний для Android та iOS:
+- [`libs/map/nogps`](libs/map/nogps) — детектор підміни, повернення до GPS, ручний режим, інерціальна
+  навігація, калібрування, протоколи ELM327 та ESP32;
+- [`libs/routing`](libs/routing), [`libs/map`](libs/map) — прив'язка до доріг і маршруту;
+- [`android/sdk/.../location/`](android/sdk/src/main/java/app/organicmaps/sdk/location/) та
+  [`iphone/Maps/Core/NoGps/`](iphone/Maps/Core/NoGps/) — те, що залежить від платформи: позиції, датчики,
+  з'єднання з адаптером і блоком.
 
-Beloved institutional sponsors below have provided targeted grants to cover some infrastructure costs and fund development of new selected features:
+---
 
-<table>
-  <tr>
-    <td>
-      <a href="https://nlnet.nl/"><img src="docs/sponsors/nlnet.svg" alt="The NLnet Foundation" width="200px"></a>
-    </td>
-    <td>
-      <a href="https://github.com/organicmaps/organicmaps/milestone/7">The Search & Fonts improvement project</a> has been <a href="https://nlnet.nl/project/OrganicMaps/">funded</a> through NGI0 Entrust Fund. <a href="https://nlnet.nl/entrust/">NGI0 Entrust Fund</a> is established by the <a href="https://nlnet.nl/">NLnet Foundation</a> with financial support from the European Commission's <a href="https://www.ngi.eu/">Next Generation Internet programme</a>, under the aegis of DG Communications Networks, Content and Technology under grant agreement No 101069594.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://summerofcode.withgoogle.com/"><img src="docs/sponsors/gsoc.svg" alt="Google Summer of Code" width="200px"></a>
-    </td>
-    <td>
-      <a href="https://summerofcode.withgoogle.com/">Google</a> backed 5 student's projects in the Google Summer of Code program during <a href="https://summerofcode.withgoogle.com/programs/2022/organizations/organic-maps">2022</a> and <a href="https://summerofcode.withgoogle.com/programs/2023/organizations/organic-maps">2023</a> programs. Noteworthy projects included Android Auto and Wikipedia Dump Extractor.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://www.mythic-beasts.com/"><img src="docs/sponsors/mythic-beasts.png" alt="Mythic Beasts" width="200px"></a>
-    </td>
-    <td>
-      <a href="https://www.mythic-beasts.com/">Mythic Beasts</a> ISP <a href="https://www.mythic-beasts.com/blog/2021/10/06/improving-the-world-bit-by-expensive-bit/">provides us</a> two virtual servers with 400 TB/month of free bandwidth to host and serve maps downloads and updates.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://44plus.vn"><img src="docs/sponsors/44plus.svg" alt="44+ Technologies" width="200px"></a>
-    </td>
-    <td>
-      <a href="https://44plus.vn">44+ Technologies</a> is <a href="https://44plus.vn/organicmaps">providing us </a>with a free dedicated server worth around $12,000/year to serve maps across Vietnam & Southeast Asia.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://futo.org"><img src="docs/sponsors/futo.svg" alt="FUTO" width="200px"></a>
-    </td>
-    <td>
-      <a href="https://futo.org">FUTO</a> has <a href="https://www.youtube.com/watch?v=fJJclgBHrEw">awarded $1000 micro-grant</a> to Organic Maps in February 2023.
-    </td>
-  </tr>
-</table>
+## Шлях до продакшну
 
-The majority of all expenses have been funded by founders of the project since its inception. The project is far from achieving any sort of financial sustainability. The current level of voluntary donations falls significantly short of covering efforts needed to sustain the app. Any new developments of features are beyond the scope of possibility due to the absence of the necessary financial resources.
+- [x] Власна назва та іконка, тексти застосунку називають його NoGPS Maps.
+- [x] Дозвіл команди Organic Maps на використання їхніх карт і серверів (див. нижче).
+- [x] Екран «Про застосунок» у головному меню з посиланнями на Organic Maps і OpenStreetMap.
+- [ ] Власна колірна схема замість зеленого кольору Organic Maps.
+- [x] Адреса підтримки для звітів про помилки: most05062014@gmail.com.
+- [x] [Політика конфіденційності](docs/nogps/privacy-policy.md), тексти й графіка для сторінки в магазині,
+      [інструкція з публікації в Google Play](docs/nogps/google-play.md).
+- [x] Релізна збірка: підпис ключем із `app/secure.properties`, нативні бібліотеки вирівняні під 16 КБ.
+- [x] «Поділитися» надсилає посилання openstreetmap.org, нові скриншоти для магазину.
+- [ ] Закритий тест у Google Play (12 тестувальників, 14 днів).
+- [ ] Зовнішній блок датчиків ESP32: [прошивка](https://github.com/Ramzess-II/ELMandIMU) в роботі, корпус,
+      кріплення.
+- [ ] Перевірка в поїздках: кільця, розв'язки, розвилки, затори.
+- [ ] Збір звітів про збої без персональних даних.
 
-Please consider [donating](https://organicmaps.app/donate/) if you want to see this open-source project thriving, not dying. There are [other ways how to support the project](#contributing). No coding skills required.
+---
 
-## Governance
+## Ліцензії
 
-See [docs/GOVERNANCE.md](docs/GOVERNANCE.md).
+NoGPS Maps — похідна робота від Organic Maps і розповсюджується на тих самих умовах.
 
-<a name="contributing">
+| Що | Ліцензія | Файл |
+|---|---|---|
+| Вихідний код Organic Maps і наші зміни | Apache License 2.0 | [LICENSE](LICENSE), [NOTICE](NOTICE) |
+| Скомпільовані дані карт (`.mwm`, `.bin`) | Окрема ліцензія Organic Maps на основі ODbL | [DATA_LICENSE.txt](DATA_LICENSE.txt) |
+| Дані OpenStreetMap | Open Database License (ODbL) 1.0 | [LICENSES/ODbL-1.0.txt](LICENSES/ODbL-1.0.txt) |
+| Сторонні бібліотеки | MIT, BSD, Boost, zlib та інші | [LICENSES/](LICENSES), [3party/](3party), [data/copyright.html](data/copyright.html) |
 
-## Contributing
+**Обов'язкова атрибуція:** «Map data © OpenStreetMap and Organic Maps» з посиланнями на
+https://www.openstreetmap.org/copyright і https://organicmaps.app — на карті, в меню та в розділі
+«Про застосунок». У NoGPS Maps вона є в пункті головного меню «Про застосунок · Organic Maps».
 
-If you want to build the project, check [docs/INSTALL.md](docs/INSTALL.md). If you want to help the project,
-see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can [help in many ways](https://organicmaps.app/support-us/), the ability to code is not necessary.
+**Дозвіл Organic Maps.** Ліцензія на дані карт забороняє ребрендинг без письмового дозволу. Команда
+Organic Maps (жовтень 2026) дозволила NoGPS Maps використовувати їхні карти та сервери, поки
+користувачів не більше тисячі, за умови атрибуції з назвою, на яку можна натиснути, і посиланням на
+проєкт у місці, видимому всім користувачам. Для більшої кількості користувачів умови треба узгодити
+з ними окремо.
 
-## Beta
+Organic Maps — торгова марка Organic Maps Project. NoGPS Maps — незалежний проєкт і не пов'язаний з
+командою Organic Maps та не підтримується нею.
 
-Please join our beta program, suggest your features, and report bugs:
+---
 
-- [iOS Beta (TestFlight)](https://testflight.apple.com/join/lrKCl08I)
-- [Android Beta (Firebase)](https://appdistribution.firebase.dev/i/f3e918f9abc40c9c)
+## Безпека
 
-## Feedback
+Інерціальна навігація накопичує похибку, особливо без калібрування. Звіряйтеся з дорогою і знаками,
+не відволікайтеся від керування. Позначку ставте, коли це безпечно, або доручіть пасажиру.
 
-- **Rate us on the [App Store](https://apps.apple.com/app/organic-maps/id1567437057)
-and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)**.
-- **Star us on Github**.
-- Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
-- Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) or to the [[matrix] space](https://matrix.to/#/#organicmaps:matrix.org) for updates.
-- Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
-  - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
-  - Diğer kullanıcılarla tartışmak için [Telegram Grubumuza](https://t.me/OrganicMapsTR) katılın.
-  - Rejoignez notre groupe [Telegram](https://t.me/OrganicMapsFR) pour obtenir de l'aide.
-- Contact us by [email](mailto:hello@organicmaps.app).
-- Follow our updates in social media:
-   - [Mastodon](https://fosstodon.org/@organicmaps)
-   - [Facebook](https://facebook.com/OrganicMaps)
-   - [X (Twitter)](https://x.com/OrganicMapsApp)
-   - [Instagram](https://instagram.com/organicmaps.app/)
-   - [Bluesky](https://bsky.app/profile/organicmaps.bsky.social)
-   - [Threads](https://www.threads.net/@organicmaps)
-   - [Reddit](https://www.reddit.com/r/organicmaps/)
-   - [LinkedIn](https://www.linkedin.com/company/organic-maps/)
-   - [TikTok](https://www.tiktok.com/@organicmaps)
+## Подяки
 
-The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
-
-## License and Copyrights
-
-The code is Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE), [NOTICE](NOTICE),
-[data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html) and [.reuse/dep5](https://github.com/organicmaps/organicmaps/blob/master/.reuse/dep5) for more information.
-
-Binary data files (including, but not limited to `.mwm` map files) are provided under a separate license.
-See [DATA_LICENSE.txt](https://github.com/organicmaps/organicmaps/blob/master/DATA_LICENSE.txt) for details.
-
-[![REUSE status](https://api.reuse.software/badge/github.com/organicmaps/organicmaps)](https://api.reuse.software/info/github.com/organicmaps/organicmaps)
-
-### Attribution for forks and derivative apps based on Organic Maps
-
-If you use Organic Maps binary data (e.g. maps), source code, or its user interface in your project, include a visible, human-readable mention of the “Organic Maps Project” and a clickable link to https://organicmaps.app.
-To respect the work of all project contributors and to comply with license attribution terms, this notice should appear in user-visible locations, such as the product’s “About” and “Main Menu” screens.
-
-### 🤝 White-label
-
-For inquiries about white-labeling or using our servers for your products, please contact us in advance at:
-
-**legal@organicmaps.app**
-
-Thank you!
+Команді та спільноті [Organic Maps](https://github.com/organicmaps/organicmaps), учасникам
+[OpenStreetMap](https://www.openstreetmap.org) та авторам бібліотек, на яких побудовано проєкт.

@@ -100,8 +100,9 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
-  // RoutingManager::InsertRoute draws alternatives only outside navigation, don't pay for them.
-  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
+  // Alternatives are followed while navigating too: the car that turns to one of them goes on along it
+  // without a rebuild.
+  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, true /* needAlternatives */,
                            [this, readyCallback](std::shared_ptr<RoutesResult> const & result, RouterResultCode code)
   {
     AssignRoute(result, code);
@@ -242,6 +243,8 @@ void RoutingSession::Reset()
 void RoutingSession::SetState(SessionState state)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_state != state)
+    LOG(LINFO, ("Routing session state:", m_state, "->", state));
   if (m_changeSessionStateCallback && m_state != state)
     m_changeSessionStateCallback(m_state, state);
 
@@ -660,6 +663,48 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
   }
 
   m_proj = proj;
+}
+
+bool RoutingSession::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
+                                                 EdgeProj & proj) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_router && m_router->FindClosestProjectionToRoad(point, direction, radius, proj);
+}
+
+void RoutingSession::FindRoadCrossings(m2::RectD const & rect, std::vector<m2::PointD> & crossings) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_router)
+    m_router->FindRoadCrossings(rect, crossings);
+}
+
+bool RoutingSession::FindMainRoad(m2::PointD const & point, double radiusM, m2::PointD & projected,
+                                  double & angleRad) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_router && m_router->FindMainRoad(point, radiusM, projected, angleRad);
+}
+
+bool RoutingSession::IsRoundaboutNear(m2::PointD const & point, double radiusM) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_router && m_router->IsRoundaboutNear(point, radiusM);
+}
+
+bool RoutingSession::FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                                   m2::PointD & projected, double & angleRad) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_router && m_router->FindRoadAlong(point, direction, radiusM, projected, angleRad);
+}
+
+void RoutingSession::FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                                    std::vector<RoadAlong> & roads) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_router)
+    m_router->FindRoadsAlong(point, direction, radiusM, roads);
 }
 
 bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo)

@@ -13,7 +13,7 @@ dependencyResolutionManagement {
         maven { url = 'https://www.jitpack.io' } // MPAndroidChart
     }
 }
-rootProject.name = 'Organic Maps'
+rootProject.name = 'NoGPS Maps'
 
 include ':app'
 

@@ -113,6 +113,8 @@
   <dimen name="elevation_profile_separator_gap">4dp</dimen>
   <dimen name="elevation_profile_marker_width">25dp</dimen>
   <dimen name="map_button_size">48dp</dimen>
+  <!-- The buttons left of the my position one are touchable only inside their container. -->
+  <dimen name="map_buttons_right_min_width">300dp</dimen>
   <dimen name="map_button_icon_size">32dp</dimen>
   <dimen name="map_button_arrow_icon_size">34dp</dimen>
 

@@ -29,6 +29,8 @@ set(SRC
   app/organicmaps/sdk/routing/RoutingJni.hpp
   app/organicmaps/sdk/ChoosePositionMode.cpp
   app/organicmaps/sdk/MapStyle.cpp
+  app/organicmaps/sdk/NoGps.cpp
+  app/organicmaps/sdk/NoGpsReplay.cpp
   app/organicmaps/sdk/OrganicMaps.cpp
   app/organicmaps/sdk/Router.cpp
   app/organicmaps/sdk/core/jni_helper.cpp

@@ -1,1 +1,0 @@
-../../listings/ka-GE/release-notes.txt

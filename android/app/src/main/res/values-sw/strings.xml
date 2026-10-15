@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Programu inahitaji OpenGL iliyoharakishwa na vifaa. Kwa bahati mbaya, kifaa chako hakijaungwa mkono.</string>
     <string name="download">Pakua</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Tafadhali toa kebo ya USB au weka kadi ya kumbukumbu ili kutumia Organic Maps</string>
+    <string name="disconnect_usb_cable">Tafadhali toa kebo ya USB au weka kadi ya kumbukumbu ili kutumia NoGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Tafadhali toa nafasi kidogo kwenye kadi ya SD/hifadhi ya USB kwanza ili kutumia programu</string>
     <string name="download_resources">Kabla ya kuanza kutumia programu, tafadhali pakua ramani ya muhtasari wa dunia kwenye kifaa chako.  Itatumia %s ya hifadhi.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Maelezo</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Maps alama za ukurasa zimeshirikiwa nawe</string>
-    <string name="share_bookmarks_email_body">Habari!\n\nNimeambatanisha alamisho zangu; tafadhali zifungue kwenye Organic Maps. Ikiwa haujaweka, unaweza kupakua hapa: https://omaps.app/get?kmz\n\nFurahia kusafiri na Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">NoGPS Maps alama za ukurasa zimeshirikiwa nawe</string>
+    <string name="share_bookmarks_email_body">Habari!\n\nNimeambatanisha alamisho zangu; tafadhali zifungue kwenye NoGPS Maps. Ikiwa haujaweka, unaweza kupakua hapa: https://github.com/Ramzess-II/NoGPSMaps\n\nFurahia kusafiri na NoGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Inapakia alamisho</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Shiriki</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s kwenye Organic Maps</string>
+    <string name="share_place_subject">%1$s kwenye NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Mahali kwenye Organic Maps</string>
+    <string name="share_place_subject_default">Mahali kwenye NoGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Barua pepe</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ni mradi wa jamii wa kuunda ramani huru na wazi. Ni chanzo kikuu cha data za ramani katika Organic Maps na inafanya kazi kwa njia inayofanana na Wikipedia. Unaweza kuongeza au kuhariri maeneo na yanapatikana kwa mamilioni ya watumiaji kote ulimwenguni. Jiunge na jamii na usaidie kutengeneza ramani bora kwa kila mtu!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ni mradi wa jamii wa kuunda ramani huru na wazi. Ni chanzo kikuu cha data za ramani katika NoGPS Maps na inafanya kazi kwa njia inayofanana na Wikipedia. Unaweza kuongeza au kuhariri maeneo na yanapatikana kwa mamilioni ya watumiaji kote ulimwenguni. Jiunge na jamii na usaidie kutengeneza ramani bora kwa kila mtu!</string>
     <string name="login_to_make_edits_visible">Fungua akaunti ya OpenStreetMap au ingia ili kuchapisha mabadiliko yako ya ramani kwa ulimwengu.</string>
     <string name="download_over_mobile_header">Pakua kupitia muunganisho wa mtandao wa selula?</string>
     <string name="download_over_mobile_message">Hii inaweza kuwa ghali sana kwa baadhi ya mipango au ikiwa uko kwenye roaming.</string>
@@ -454,7 +454,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Eleza makosa kwenye ramani au vitu ambavyo haviwezi kuhaririwa kwa kutumiaOrganic Maps</string>
+    <string name="editor_note_hint">Eleza makosa kwenye ramani au vitu ambavyo haviwezi kuhaririwa kwa kutumiaNoGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Mabadiliko yako yanapakiwa kwenye hifadhidata ya <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> ya umma. Tafadhali usiongeze maelezo ya kibinafsi au yenye hakimiliki.</string>
     <string name="editor_more_about_osm">Zaidi kuhusu OpenStreetMap</string>
@@ -464,7 +464,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Mwendeshaji: %s</string>
     <string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps inakuwezesha kuongeza tu aina rahisi za alama, ikimaanisha hakuna miji, barabara, maziwa, mipaka ya majengo, n.k. Tafadhali ongeza aina hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo</a> wetu kwa maelekezo ya kina hatua kwa hatua.</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps inakuwezesha kuongeza tu aina rahisi za alama, ikimaanisha hakuna miji, barabara, maziwa, mipaka ya majengo, n.k. Tafadhali ongeza aina hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo</a> wetu kwa maelekezo ya kina hatua kwa hatua.</string>
     <string name="downloader_no_downloaded_maps_title">Haujapakua ramani yoyote</string>
     <string name="downloader_no_downloaded_maps_message">Pakua ramani ili kutafuta na kuvinjari bila muunganisho.</string>
     <string name="current_location_unknown_error_title">Mahali pa sasa halijulikani.</string>
@@ -762,9 +762,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Lengo letu kuu ni kujenga ramani za haraka, zinazozingatia faragha, na rahisi kutumia ambazo utapenda.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Sasa unatumia Organic Maps kwenye skrini ya simu</string>
+    <string name="car_used_on_the_phone_screen">Sasa unatumia NoGPS Maps kwenye skrini ya simu</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Sasa unatumia Organic Maps kwenye skrini ya gari</string>
+    <string name="car_used_on_the_car_screen">Sasa unatumia NoGPS Maps kwenye skrini ya gari</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Umeunganishwa kwenye Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -772,7 +772,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Kwa skrini ya gari</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps zinahitaji ufikiaji wa eneo. Ikiwa salama, angalia arifa kwenye simu yako.</string>
+    <string name="aa_location_permissions_request">NoGPS Maps zinahitaji ufikiaji wa eneo. Ikiwa salama, angalia arifa kwenye simu yako.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Programu hii inahitaji idhini yako</string>
     <!-- Grant Permissions button. -->

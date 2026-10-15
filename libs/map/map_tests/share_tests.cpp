@@ -40,15 +40,16 @@ UNIT_TEST(Share_Build_Poi)
 
   Result const r = Build(place, TestStrings());
 
-  // The ge0 short link, shared until ParseClearCoordinates is out in the wild (see share.cpp).
-  TEST_EQUAL(r.m_url, "https://omaps.app/w4CNuoc9QN/Eiffel_Tower", ());
+  // An OpenStreetMap link: it opens in a browser for everyone and in the app for its users.
+  TEST_EQUAL(r.m_url, "https://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694#map=16/48.858093/2.294694", ());
   TEST_EQUAL(r.m_subjectBasis, "Eiffel Tower", ());
   TEST(!r.m_isMyPosition, ());
 
   // Plain body: name, address, coordinates, link (no metadata, no geo:).
   TEST_EQUAL(r.m_text,
              "Eiffel Tower\nChamp de Mars, 5 Av. Anatole France\n"
-             "48.858093, 2.294694\nhttps://omaps.app/w4CNuoc9QN/Eiffel_Tower",
+             "48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
+             "#map=16/48.858093/2.294694",
              ());
 
   // HTML body: heading, type, address, metadata (multiple phones), action links, coordinates.
@@ -63,7 +64,7 @@ UNIT_TEST(Share_Build_Poi)
        (r.m_html));
   TEST(r.m_html.find("Open in Organic Maps or in a browser") != std::string::npos, (r.m_html));
   TEST(r.m_html.find("<a href=\"geo:") != std::string::npos, (r.m_html));
-  TEST(r.m_html.find("https://omaps.app/get") != std::string::npos, (r.m_html));
+  TEST(r.m_html.find("https://github.com/Ramzess-II/NoGPSMaps") != std::string::npos, (r.m_html));
 }
 
 UNIT_TEST(Share_Build_MyPosition)
@@ -77,12 +78,13 @@ UNIT_TEST(Share_Build_MyPosition)
   Result const r = Build(place, TestStrings());
 
   // No name in the link; the my-position heading is used instead.
-  TEST_EQUAL(r.m_url, "https://omaps.app/04CNuoc9QN", ());
+  TEST_EQUAL(r.m_url, "https://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694#map=17/48.858093/2.294694", ());
   // No name, so the subject basis falls back to the address.
   TEST_EQUAL(r.m_subjectBasis, "5 Av. Anatole France", ());
   TEST_EQUAL(r.m_text,
              "I am here on Organic Maps\n5 Av. Anatole France\n"
-             "48.858093, 2.294694\nhttps://omaps.app/04CNuoc9QN",
+             "48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
+             "#map=17/48.858093/2.294694",
              ());
   TEST(r.m_html.find("<b>I am here on Organic Maps</b>") != std::string::npos, (r.m_html));
   TEST(r.m_isMyPosition, ());
@@ -100,7 +102,9 @@ UNIT_TEST(Share_Build_UnnamedBuilding)
 
   Result const r = Build(place, TestStrings());
   TEST_EQUAL(r.m_text,
-             "5 Avenue Anatole France\n48.858093, 2.294694\nhttps://omaps.app/04CNuoc9QN/5_Avenue_Anatole_France", ());
+             "5 Avenue Anatole France\n48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
+             "#map=17/48.858093/2.294694",
+             ());
   TEST_EQUAL(Count(r.m_html, "5 Avenue Anatole France"), 1, (r.m_html));
 }
 
@@ -115,7 +119,10 @@ UNIT_TEST(Share_Build_UnknownPlace)
   place.m_zoom = 17;
 
   Result const r = Build(place, TestStrings());
-  TEST_EQUAL(r.m_text, "Champ de Mars\n48.858093, 2.294694\nhttps://omaps.app/04CNuoc9QN", ());
+  TEST_EQUAL(r.m_text,
+             "Champ de Mars\n48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
+             "#map=17/48.858093/2.294694",
+             ());
   TEST_EQUAL(Count(r.m_html, "48.858093, 2.294694"), 1, (r.m_html));
 }
 
@@ -129,7 +136,10 @@ UNIT_TEST(Share_Build_BareMapPoint)
   place.m_zoom = 17;
 
   Result const r = Build(place, TestStrings());
-  TEST_EQUAL(r.m_text, "48.858093, 2.294694\nhttps://omaps.app/04CNuoc9QN", ());
+  TEST_EQUAL(r.m_text,
+             "48.858093, 2.294694\nhttps://www.openstreetmap.org/?mlat=48.858093&mlon=2.294694"
+             "#map=17/48.858093/2.294694",
+             ());
   TEST(r.m_subjectBasis.empty(), (r.m_subjectBasis));
   TEST(!r.m_html.starts_with("<br>"), (r.m_html));
   TEST(r.m_html.starts_with("<a href="), (r.m_html));

@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Հավելվածը պահանջում է ապարատային արագացմամբ OpenGL: Ցավոք, ձեր սարքը չի աջակցվում:</string>
     <string name="download">Ներբեռնել</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps-ից օգտվելու համար խնդրում ենք անջատել USB մալուխը կամ տեղադրել հիշողության քարտը</string>
+    <string name="disconnect_usb_cable">NoGPS Maps-ից օգտվելու համար խնդրում ենք անջատել USB մալուխը կամ տեղադրել հիշողության քարտը</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Հավելվածից օգտվելու համար խնդրում ենք ազատել տեղ SD քարտի/USB կրիչի վրա</string>
     <string name="download_resources">Նախքան հավելվածից օգտվելը, խնդրում ենք ներբեռնել աշխարհի ընդհանուր քարտեզը.\nԱյն կզբաղեցնի %s հիշողություն:</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Նշումներ</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Ձեզ հետ կիսվել են Organic Maps-ի էջանիշներով</string>
-    <string name="share_bookmarks_email_body">Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք Organic Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://omaps.app/get?kmz\nՎայելեք ճանապարհորդությունը Organic Maps-ի հետ:</string>
+    <string name="share_bookmarks_email_subject">Ձեզ հետ կիսվել են NoGPS Maps-ի էջանիշներով</string>
+    <string name="share_bookmarks_email_body">Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք NoGPS Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://github.com/Ramzess-II/NoGPSMaps\nՎայելեք ճանապարհորդությունը NoGPS Maps-ի հետ:</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Էջանիշների բեռնում</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Կիսվել</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s Organic Maps-ում</string>
+    <string name="share_place_subject">%1$s NoGPS Maps-ում</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Վայր Organic Maps-ում</string>
+    <string name="share_place_subject_default">Վայր NoGPS Maps-ում</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Էլ․ փոստ</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Համայնքի կողմից ստեղծված OpenStreetMap տվյալներ՝ %s թ. դրությամբ։ Իմացեք ավելին քարտեզի խմբագրման և թարմացման մասին OpenStreetMap.org կայքում:</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM)-ը համայնքային նախագիծ է՝ անվճար և բաց քարտեզ ստեղծելու համար: Այն Organic Maps-ի քարտեզային տվյալների հիմնական աղբյուրն է և աշխատում է Վիքիպեդիայի նման: Դուք կարող եք ավելացնել կամ խմբագրել վայրեր, և դրանք հասանելի կդառնան միլիոնավոր օգտատերերի ամբողջ աշխարհում.\nՄիացեք համայնքին և օգնեք ստեղծել ավելի լավ քարտեզ բոլորի համար!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM)-ը համայնքային նախագիծ է՝ անվճար և բաց քարտեզ ստեղծելու համար: Այն NoGPS Maps-ի քարտեզային տվյալների հիմնական աղբյուրն է և աշխատում է Վիքիպեդիայի նման: Դուք կարող եք ավելացնել կամ խմբագրել վայրեր, և դրանք հասանելի կդառնան միլիոնավոր օգտատերերի ամբողջ աշխարհում.\nՄիացեք համայնքին և օգնեք ստեղծել ավելի լավ քարտեզ բոլորի համար!</string>
     <string name="login_to_make_edits_visible">Ստեղծեք OpenStreetMap հաշիվ կամ մուտք գործեք՝ ձեր քարտեզային խմբագրումները հրապարակելու համար:</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d՝ %2$d-ից</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Նշում OpenStreetMap կամավորների համար (ոչ պարտադիր)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Նկարագրեք քարտեզի սխալները կամ այն, ինչը հնարավոր չէ խմբագրել Organic Maps-ով</string>
+    <string name="editor_note_hint">Նկարագրեք քարտեզի սխալները կամ այն, ինչը հնարավոր չէ խմբագրել NoGPS Maps-ով</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ձեր խմբագրումները բեռնվում են հանրային <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> տվյալների բազա։ Խնդրում ենք չավելացնել անձնական կամ հեղինակային իրավունքով պաշտպանված տեղեկություններ:</string>
     <string name="editor_more_about_osm">Ավելին OpenStreetMap-ի մասին</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Օպերատոր՝ %s</string>
     <string name="editor_category_unsuitable_title">Չե՞ք գտնում համապատասխան կատեգորիա:</string>
-    <string name="editor_category_unsuitable_text">Organic Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ուղեցույցը</a>:</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ուղեցույցը</a>:</string>
     <string name="downloader_no_downloaded_maps_title">Դուք դեռ քարտեզներ չեք ներբեռնել</string>
     <string name="downloader_no_downloaded_maps_message">Ներբեռնեք քարտեզներ՝ օֆլայն որոնման և նավիգացիայի համար:</string>
     <string name="current_location_unknown_error_title">Ընթացիկ դիրքն անհայտ է:</string>
@@ -781,9 +781,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Մեր հիմնական նպատակն է ստեղծել արագ, գաղտնիությանը միտված և հեշտ օգտագործվող քարտեզներ, որոնք դուք կսիրեք։</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Դուք այժմ օգտագործում եք Organic Maps-ը հեռախոսի էկրանին</string>
+    <string name="car_used_on_the_phone_screen">Դուք այժմ օգտագործում եք NoGPS Maps-ը հեռախոսի էկրանին</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Դուք այժմ օգտագործում եք Organic Maps-ը մեքենայի էկրանին</string>
+    <string name="car_used_on_the_car_screen">Դուք այժմ օգտագործում եք NoGPS Maps-ը մեքենայի էկրանին</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Դուք միացված եք Android Auto-ին</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -791,7 +791,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Դեպի մեքենայի էկրան</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps-ին անհրաժեշտ է տեղադիրքի հասանելիություն։ Երբ անվտանգ լինի, ստուգեք ծանուցումը ձեր հեռախոսում։</string>
+    <string name="aa_location_permissions_request">NoGPS Maps-ին անհրաժեշտ է տեղադիրքի հասանելիություն։ Երբ անվտանգ լինի, ստուգեք ծանուցումը ձեր հեռախոսում։</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Այս հավելվածին անհրաժեշտ է ձեր թույլտվությունը</string>
     <!-- Grant Permissions button. -->

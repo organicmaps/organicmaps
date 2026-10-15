@@ -1,9 +1,0 @@
-• OSM-data: 28. september; Wikipedia-data: 21. september
-• Forbedrede alternative ruter og ankomstestimater
-• Ny indstilling optimerer rækkefølgen af mellemliggende stop
-• Nye knapper til at tilføje eller erstatte stop på en planlagt rute
-• Den valgte alternative rute forbliver valgt under navigationen
-• Sporoptagelse rettet og forbedret
-• Import af KMB-filer er rettet
-• Forbedringer og rettelser af brugergrænsefladen
-…flere detaljer på omaps.org/news

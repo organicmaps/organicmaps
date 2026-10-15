@@ -52,7 +52,7 @@
     <string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
     <string name="download">ダウンロード</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
+    <string name="disconnect_usb_cable">NoGPS Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
     <string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。\nこれには%sの空き容量が必要です。</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">メモ</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Mapsのお気に入りリストが共有されました</string>
-    <string name="share_bookmarks_email_body">こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!</string>
+    <string name="share_bookmarks_email_subject">NoGPS Mapsのお気に入りリストが共有されました</string>
+    <string name="share_bookmarks_email_body">こんにちは！\n\n添付ファイルNoGPS Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://github.com/Ramzess-II/NoGPSMaps\n\n旅行を楽しむときはNoGPS Mapsを使用してください!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">お気に入りをロード中</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">共有</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s - Organic Maps</string>
+    <string name="share_place_subject">%1$s - NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Organic Mapsの場所</string>
+    <string name="share_place_subject_default">NoGPS Mapsの場所</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Eメール</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">コミュニティが作成した%s時点の OpenStreetMap のデータ。地図の編集や更新の方法については、OpenStreetMap.org を参照してください。</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org(OSM)は、フリーでオープンな地図を構築するコミュニティ・プロジェクトです。OSMは、Organic Mapsの地図データの主要なソースであり、ウィキペディアと同じように機能します。あなたが場所を追加したり編集したりすると、世界中の何百万人ものユーザーがその場所を利用できるようになります！</string>
+    <string name="login_osm_presentation">OpenStreetMap.org(OSM)は、フリーでオープンな地図を構築するコミュニティ・プロジェクトです。OSMは、NoGPS Mapsの地図データの主要なソースであり、ウィキペディアと同じように機能します。あなたが場所を追加したり編集したりすると、世界中の何百万人ものユーザーがその場所を利用できるようになります！</string>
     <string name="login_to_make_edits_visible">OpenStreetMapのアカウントを作成するかログインして、あなたの地図編集を世界中に公開しましょう。</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%2$dのうち%1$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMapボランティアへの注意（オプション）</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">地図上のエラーやOrganic Mapsで編集できないものについて説明します。</string>
+    <string name="editor_note_hint">地図上のエラーやNoGPS Mapsで編集できないものについて説明します。</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">あなたの編集は公開されている<a href="https://wiki.openstreetmap.org/wiki/JA:参加する">OpenStreetMap</a>データベースにアップロードされます。個人情報や著作権のある情報は追加しないでください。</string>
     <string name="editor_more_about_osm">OpenStreetMapについての詳細</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">運営者: %s</string>
     <string name="editor_category_unsuitable_title">適切なカテゴリーが見つからない？</string>
-    <string name="editor_category_unsuitable_text">Organic Maps このアプリでは、シンプルな地点カテゴリのみを追加できます。つまり、町、道路、湖、建物の輪郭などは追加できません。そのようなカテゴリは、<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してください。詳細な手順については、<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>をご確認ください。</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps このアプリでは、シンプルな地点カテゴリのみを追加できます。つまり、町、道路、湖、建物の輪郭などは追加できません。そのようなカテゴリは、<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してください。詳細な手順については、<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>をご確認ください。</string>
     <string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
     <string name="downloader_no_downloaded_maps_message">ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。</string>
     <string name="current_location_unknown_error_title">現在地は不明です。</string>
@@ -778,9 +778,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">私たちの主な目標は、ユーザーに気に入っていただける、プライバシーを重視した使いやすいマップを高速に構築することです。</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">端末の画面でOrganic Mapsを使用している</string>
+    <string name="car_used_on_the_phone_screen">端末の画面でNoGPS Mapsを使用している</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">現在、車の画面でOrganic Mapsをご利用中です</string>
+    <string name="car_used_on_the_car_screen">現在、車の画面でNoGPS Mapsをご利用中です</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">アンドロイド・オートに接続している</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -788,7 +788,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">車のスクリーンへ</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps 位置情報のアクセスが必要です。安全な場所にいる際は、スマートフォンの通知をご確認ください。</string>
+    <string name="aa_location_permissions_request">NoGPS Maps 位置情報のアクセスが必要です。安全な場所にいる際は、スマートフォンの通知をご確認ください。</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">このアプリはあなたの許可を必要とする</string>
     <!-- Grant Permissions button. -->

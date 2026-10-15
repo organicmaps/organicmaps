@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
     <string name="download">Загрузить</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Для использования приложения Organic Maps отсоедините USB-кабель или вставьте карту памяти</string>
+    <string name="disconnect_usb_cable">Для использования приложения NoGPS Maps отсоедините USB-кабель или вставьте карту памяти</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
     <string name="download_resources">Для начала работы скачайте, пожалуйста, обзорную карту мира на ваше устройство.\nПотребуется %s данных.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Примечание</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">С вами поделились метками Organic Maps</string>
-    <string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!</string>
+    <string name="share_bookmarks_email_subject">С вами поделились метками NoGPS Maps</string>
+    <string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт NoGPS Maps. Для того чтобы открыть этот файл, вам потребуется приложение NoGPS Maps, которое можно установить по ссылке: https://github.com/Ramzess-II/NoGPSMaps\n\nСпасибо!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Загрузка меток</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Поделиться</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s в Organic Maps</string>
+    <string name="share_place_subject">%1$s в NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Место в Organic Maps</string>
+    <string name="share_place_subject_default">Место в NoGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Электронная почта</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Созданные сообществом данные OpenStreetMap по состоянию на %s. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в Organic Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.\nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в NoGPS Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.\nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!</string>
     <string name="login_to_make_edits_visible">Создайте учетную запись OpenStreetMap или войдите в нее, чтобы опубликовать свои правки на карте для всего мира.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d из %2$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Примечание для волонтеров OpenStreetMap (необязательно)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Опишите ошибки на карте или то, что нельзя редактировать с помощью Organic Maps</string>
+    <string name="editor_note_hint">Опишите ошибки на карте или то, что нельзя редактировать с помощью NoGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ваши правки будут загружены в общедоступную базу данных <a href="https://wiki.openstreetmap.org/wiki/RU:О_проекте">OpenStreetMap</a>. Пожалуйста, не добавляйте личную информацию или информацию, защищенную авторским правом.</string>
     <string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Нет подходящей категории?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
     <string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
     <string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
     <string name="current_location_unknown_error_title">Местоположение не найдено.</string>
@@ -788,9 +788,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Наша главная цель — создать быстрые, конфиденциальные и простые в использовании карты, которые вам понравятся.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Сейчас Вы используете Organic Maps на экране телефона</string>
+    <string name="car_used_on_the_phone_screen">Сейчас Вы используете NoGPS Maps на экране телефона</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Сейчас Вы используете Organic Maps на экране автомобиля</string>
+    <string name="car_used_on_the_car_screen">Сейчас Вы используете NoGPS Maps на экране автомобиля</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Вы подключены к Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -798,7 +798,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Продолжить в авто</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.</string>
+    <string name="aa_location_permissions_request">NoGPS Maps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Этому приложению нужно ваше разрешение</string>
     <!-- Grant Permissions button. -->
@@ -920,4 +920,199 @@
     <string name="track_recording_stop_and_save">Остановить и сохранить</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Развернуть маршрут</string>
+
+    <!-- SECTION: NoGPS Maps -->
+    <string name="nogps_manual_position">Указать своё местоположение вручную</string>
+    <string name="nogps_manual_mode_on">GPS отключён. Дважды нажмите на карту там, где вы находитесь.</string>
+    <string name="nogps_manual_mode_off">GPS снова включён</string>
+    <string name="nogps_gps_spoofed">GPS подменён! Используем вышки и Wi-Fi. Можно также указать позицию вручную.</string>
+    <string name="nogps_gps_restored">GPS снова в норме</string>
+    <string name="nogps_status_network_spoofed">GPS подменён · вышки ±%s</string>
+    <string name="nogps_status_network_no_gps">Нет GPS · вышки ±%s</string>
+    <string name="nogps_status_manual_just_now">Ручной режим · только что</string>
+    <string name="nogps_status_manual_minutes">Ручной режим · %d мин назад</string>
+    <string name="nogps_status_none">Нет позиции</string>
+    <string name="nogps_meters">%d м</string>
+    <string name="nogps_kilometers">%.1f км</string>
+    <string name="nogps_status_inertial">Инерциально · ±%s</string>
+    <string name="nogps_sensors_title">Инерциальная навигация</string>
+    <string name="nogps_sensors_enable">Включена</string>
+    <string name="nogps_sensors_hint">Закрепите телефон неподвижно. Обнуляйте гироскоп, когда машина стоит.</string>
+    <string name="nogps_sensors_adapter">Адаптер: %1$s</string>
+    <string name="nogps_sensors_adapter_none">не выбран</string>
+    <string name="nogps_sensors_choose">Выбрать</string>
+    <string name="nogps_elm_disconnected">нет связи</string>
+    <string name="nogps_elm_connecting">подключение…</string>
+    <string name="nogps_elm_no_adapter">ELM327 не отвечает</string>
+    <string name="nogps_box_obd_disabled">ELM327 выключен в блоке</string>
+    <string name="nogps_box_obd_connecting">ELM327 подключается…</string>
+    <string name="nogps_elm_error">ошибка ELM327</string>
+    <string name="nogps_elm_no_car">машина не отвечает</string>
+    <string name="nogps_elm_connected">подключён</string>
+    <string name="nogps_sensors_speed">Скорость: %s</string>
+    <string name="nogps_speed_kmh">%d км/ч</string>
+    <string name="nogps_unknown">—</string>
+    <string name="nogps_sensors_gyro">Гироскоп: %s</string>
+    <string name="nogps_gyro_none">не обнулён</string>
+    <string name="nogps_gyro_calibrating">обнуление… %d%%</string>
+    <string name="nogps_gyro_done">обнулён</string>
+    <string name="nogps_gyro_failed">не вышло, телефон или машина двигались</string>
+    <string name="nogps_sensors_calibrate">Обнулить</string>
+    <string name="nogps_sensors_ready">Готово к работе</string>
+    <string name="nogps_sensors_not_ready">Не готово: %s</string>
+    <string name="nogps_missing_speed">нет скорости</string>
+    <string name="nogps_missing_gyro">обнулите гироскоп</string>
+    <string name="nogps_missing_position">нет стартовой точки</string>
+    <string name="nogps_choose_adapter">Выберите OBD-адаптер</string>
+    <string name="nogps_no_paired">Нет сопряжённых Bluetooth-устройств. Сопрягите ELM327 в настройках Bluetooth (PIN обычно 1234).</string>
+    <string name="nogps_bt_permission_denied">Без доступа к Bluetooth адаптер не подключить</string>
+    <string name="nogps_shift_forward">Перенести позицию вперёд по дороге</string>
+    <string name="nogps_shift_back">Перенести позицию назад по дороге</string>
+    <string name="nogps_shift_step">На сколько переносить позицию</string>
+    <string name="nogps_shift_limited">Перенос на %1$d м, до перекрёстка</string>
+    <string name="nogps_shift_failed">Позицию некуда переносить</string>
+    <string name="nogps_sensors_scale">Поправка скорости: %1$s · диапазонов измерено: %2$d</string>
+    <string name="nogps_sensors_lag_measured">Опоздание скорости: %s с (измерено по GPS)</string>
+    <string name="nogps_sensors_lag_usual">Опоздание скорости: %s с (обычное, GPS ещё не измерил)</string>
+    <string name="nogps_shift_at_turn">Позиция у перекрёстка, дальше переносить нельзя</string>
+    <string name="nogps_status_gps_back">GPS снова есть ±%s</string>
+    <string name="nogps_status_gps_spoofed">GPS подменён</string>
+    <string name="nogps_status_no_gps">Нет GPS</string>
+    <string name="nogps_status_towers">вышки ±%s</string>
+    <string name="nogps_gps_back_auto">GPS снова надёжный, ручной режим выключен</string>
+    <string name="nogps_reverse_direction">Развернуть машину на дороге</string>
+    <string name="nogps_mark_no_road">Здесь нет дороги, поставьте метку на дорогу</string>
+    <string name="nogps_gps_lost_auto">GPS пропал или сбился, включён ручной режим</string>
+    <string name="nogps_disable_gps">Отключить GPS</string>
+    <string name="nogps_disable_gps_hint">Для проверки: приложение не видит GPS, как при глушении, остальная геолокация работает. Выключается при перезапуске приложения.</string>
+    <string name="nogps_pause">Пауза: машина маневрирует</string>
+    <string name="nogps_resume">Продолжить движение</string>
+    <string name="nogps_status_paused">Пауза</string>
+    <!-- Status of the position: the mark of the car stands and waits for the user -->
+    <string name="nogps_status_road_lost">Дорога потеряна</string>
+    <!-- Second line of the status "Road lost" -->
+    <string name="nogps_status_road_lost_hint">дважды нажмите на карту, где вы</string>
+    <!-- Line of the status of the position: the sensor box gives the car speed -->
+    <string name="nogps_status_box_ok">блок на связи</string>
+    <!-- Line of the status of the position: the sensor box is not heard -->
+    <string name="nogps_status_box_none">нет связи с блоком</string>
+    <!-- Line of the status of the position: the sensor box is heard, the car speed does not come -->
+    <string name="nogps_status_box_no_car">блок на связи, машина молчит</string>
+    <!-- Line of the status of the position: the ELM327 adapter gives the car speed -->
+    <string name="nogps_status_elm_ok">ELM327 на связи</string>
+    <!-- Line of the status of the position: the ELM327 adapter is not heard -->
+    <string name="nogps_status_elm_none">нет связи с ELM327</string>
+    <!-- Line of the status of the position: the ELM327 adapter is heard, the car speed does not come -->
+    <string name="nogps_status_elm_no_car">ELM327 на связи, машина молчит</string>
+    <string name="nogps_source_phone">Телефон + ELM327 (Bluetooth)</string>
+    <!-- Choice of where the car speed and turns come from, next to "Phone + ELM327 (Bluetooth)" -->
+    <string name="nogps_source_esp32_bt">Блок ESP32 (Bluetooth)</string>
+    <string name="nogps_sensors_box">Блок: %1$s</string>
+    <!-- State of the sensor box, shown after its name: "Box: ESP32 · searching by Bluetooth" -->
+    <string name="nogps_box_bt_searching">ищу блок по Bluetooth</string>
+    <!-- State of the sensor box, shown after its name -->
+    <string name="nogps_box_bt_no_permission">приложению не разрешён Bluetooth</string>
+    <!-- State of the sensor box, shown after its name -->
+    <string name="nogps_box_bt_disabled">Bluetooth на телефоне выключен</string>
+    <!-- State of the sensor box, shown after its name. The box accepts a new phone only for two minutes after it gets power -->
+    <string name="nogps_box_bt_pairing_closed">найден, но не сопряжён с этим телефоном. Выньте блок из разъёма и вставьте обратно: 2 минуты он принимает новый телефон</string>
+    <!-- State of the sensor box, shown after its name -->
+    <string name="nogps_box_bt_connecting">подключаюсь по Bluetooth</string>
+    <!-- State of the sensor box, shown after its name while the system asks for the pairing code -->
+    <string name="nogps_box_bt_pairing">введите код блока в окне сопряжения: 123456, если его не меняли</string>
+    <!-- State of the sensor box, shown after its name -->
+    <string name="nogps_box_bt_waiting">подключён по Bluetooth, жду данные</string>
+    <string name="nogps_sensors_calibrate_box">Калибровать</string>
+    <string name="nogps_gyro_mount_moved">блок сдвинули, откалибруйте</string>
+    <string name="nogps_sensors_hint_box">Закрепите блок неподвижно. Гироскоп он обнуляет сам на каждой остановке.</string>
+    <!-- Heading of the block about the calibration of the sensor box and the title of the question about it -->
+    <string name="nogps_box_calibration">Калибровка блока датчиков</string>
+    <!-- Under the heading "Sensor box calibration": when and how the box is calibrated -->
+    <string name="nogps_box_calibration_hint">Нужна после установки блока и каждый раз, когда его вынимали или сдвигали. Машина должна стоять на ровной поверхности без уклонов.</string>
+    <!-- Question shown when the sensor box has been powered on: it is new in the car or was taken out. The buttons are "Calibrate" and "Later" -->
+    <string name="nogps_box_calibration_offer">Блок датчиков подключали заново. Откалибруйте датчики: машина должна стоять на ровной поверхности без уклонов.</string>
+    <!-- Row of the sensors screen: the state of the calibration of the sensor box -->
+    <string name="nogps_sensors_box_sensors">Датчики: %s</string>
+    <!-- State of the sensors of the box, shown after "Sensors:" -->
+    <string name="nogps_box_not_calibrated">не откалиброваны</string>
+    <!-- State of the sensors of the box, shown after "Sensors:", with the percent done -->
+    <string name="nogps_box_calibrating">калибровка… %d%%</string>
+    <!-- State of the sensors of the box, shown after "Sensors:" -->
+    <string name="nogps_box_calibrated">откалиброваны</string>
+    <!-- State of the sensors of the box, shown after "Sensors:" -->
+    <string name="nogps_box_calibration_failed">не вышло, машина двигалась</string>
+    <!-- State of the sensors of the box, shown after "Sensors:": the box has been powered on since its calibration -->
+    <string name="nogps_box_calibration_advised">блок подключали заново, откалибруйте</string>
+    <!-- What is missing for the navigation without GPS, shown after "Not ready:" -->
+    <string name="nogps_missing_box_calibration">откалибруйте блок</string>
+    <string name="nogps_turns_reversed">Гироскоп поворачивает машину не в ту сторону, что GPS. Проверьте оси в драйвере датчика: без GPS машина будет поворачивать неправильно</string>
+    <string name="nogps_road_lost">Дорога потеряна, машина остановлена. Отметьте себя на карте</string>
+    <!-- A route is asked for while there is no GPS and no mark of the user -->
+    <string name="nogps_no_position_for_route">Нет позиции: маршрут строить неоткуда. Дважды нажмите на карту там, где вы находитесь</string>
+    <string name="nogps_shift_buttons">Калибровка</string>
+    <string name="nogps_shift_buttons_hint">Показывает кнопки сдвига машины вдоль дороги на 10 м. Сдвигая её туда, где машина на самом деле, вы уточняете скорость машины.</string>
+    <string name="nogps_obd_stopped">Нет скорости от OBD-адаптера, машина на карте стоит. Проверьте адаптер или отметьте себя</string>
+    <string name="nogps_box_stopped">Нет данных от блока датчиков, машина на карте стоит. Проверьте блок или отметьте себя</string>
+    <!-- Warning shown while driving without GPS: the sensor box tells it has been moved in the car since its calibration -->
+    <string name="nogps_box_moved_stopped">Блок датчиков сдвинули, машина на карте стоит. Остановитесь и откалибруйте блок</string>
+    <!-- Warning shown while driving without GPS: the sensor box is not calibrated -->
+    <string name="nogps_box_uncalibrated_stopped">Блок датчиков не откалиброван, машина на карте стоит. Остановитесь и откалибруйте блок</string>
+    <!-- Warning shown while driving without GPS: the gyroscope of the phone is not zeroed -->
+    <string name="nogps_gyro_stopped">Гироскоп не обнулён, машина на карте стоит. Остановитесь и обнулите его</string>
+    <!-- State of the sensor box, shown after its name while it takes a new firmware -->
+    <string name="nogps_box_updating">принимает новую прошивку</string>
+    <!-- Row of the sensors screen: the version of the firmware of the sensor box or what its update does now -->
+    <string name="nogps_sensors_firmware">Прошивка блока: %1$s</string>
+    <!-- Button: sends the firmware that comes with the app to the sensor box, with its version -->
+    <string name="nogps_firmware_install">Установить %1$s</string>
+    <!-- Title of the question about the firmware of the sensor box -->
+    <string name="nogps_firmware_title">Прошивка блока датчиков</string>
+    <!-- Question shown when the sensor box works with another firmware than the app comes with: the version of the box and of the app -->
+    <string name="nogps_firmware_offer">В блоке прошивка %1$s, а эта версия приложения проверена с %2$s. Установить её? Это займёт несколько минут: машина должна стоять, блок не вынимайте.</string>
+    <!-- State of the update of the sensor box firmware, shown after "Box firmware:" -->
+    <string name="nogps_firmware_starting">подготовка…</string>
+    <!-- State of the update of the sensor box firmware, shown after "Box firmware:", with the percent sent -->
+    <string name="nogps_firmware_sending">передача, %d%%</string>
+    <!-- State of the update of the sensor box firmware, shown after "Box firmware:" -->
+    <string name="nogps_firmware_verifying">блок проверяет…</string>
+    <!-- State of the update of the sensor box firmware, shown after "Box firmware:" -->
+    <string name="nogps_firmware_restarting">блок перезагружается…</string>
+    <!-- Message: the sensor box works with the new firmware, with its version -->
+    <string name="nogps_firmware_done">В блок датчиков установлена прошивка %1$s</string>
+    <!-- Message: the firmware of the sensor box is not updated, with the reason -->
+    <string name="nogps_firmware_failed">Прошивка блока не установлена: %1$s</string>
+    <!-- Why the firmware of the sensor box is not installed -->
+    <string name="nogps_firmware_error_moving">машина едет</string>
+    <!-- Why the firmware of the sensor box is not installed -->
+    <string name="nogps_firmware_error_voltage">напряжение ниже 11,8 В</string>
+    <!-- Why the firmware of the sensor box is not installed -->
+    <string name="nogps_firmware_error_link">связь с блоком прервалась</string>
+    <!-- Why the firmware of the sensor box is not installed -->
+    <string name="nogps_firmware_error_canceled">отменено</string>
+    <!-- Why the firmware of the sensor box is not installed: the new one didn't start -->
+    <string name="nogps_firmware_error_rollback">блок вернулся к прежней прошивке</string>
+    <!-- Why the firmware of the sensor box is not installed: the box has just been updated and still checks that -->
+    <string name="nogps_firmware_error_pending">блок ещё проверяет прошлое обновление, попробуйте позже</string>
+    <!-- Why the firmware of the sensor box is not installed: an error code of the box, e.g. SIGNATURE -->
+    <string name="nogps_firmware_error_code">ошибка %1$s</string>
+    <string name="nogps_clear_speed">Сбросить</string>
+    <string name="nogps_clear_speed_title">Сбросить калибровку скорости?</string>
+    <string name="nogps_clear_speed_message">Поправки скорости, измеренные по GPS на разных скоростях и по вашим сдвигам, будут забыты. Делайте это после смены шин или машины. Пока работает GPS, они измеряются заново.</string>
+    <string name="nogps_about_title">О NoGPS Maps</string>
+    <string name="nogps_about_menu">О приложении · Organic Maps</string>
+    <string name="nogps_about_headline">Навигация, когда GPS глушат или подменяют</string>
+    <string name="nogps_about_description">Без GPS машину ведёт инерциальная навигация: повороты — по гироскопу, расстояние — по скорости автомобиля из OBD-II. Машина держится дорог офлайн-карты.</string>
+    <string name="nogps_based_on">На основе Organic Maps</string>
+    <string name="nogps_map_data">Данные карт © OpenStreetMap и Organic Maps</string>
+    <string name="nogps_source_code">Исходный код на GitHub</string>
+    <string name="nogps_delete_recent_query">Удалить из истории?</string>
+    <string name="nogps_box_sleeping">спит: двигатель заглушен</string>
+    <string name="nogps_box_obd_sleeping">ELM327 спит: двигатель заглушен</string>
+    <string name="nogps_sensors_car">Двигатель: %1$s\nОбороты: %2$s\nНапряжение, АЦП блока: %3$s\nНапряжение, ELM327: %4$s\nНапряжение, блок управления машины: %5$s</string>
+    <string name="nogps_engine_running">работает</string>
+    <string name="nogps_engine_stopped">заглушен</string>
+    <string name="nogps_rpm">%d об/мин</string>
+    <string name="nogps_volts">%s В</string>
+    <string name="nogps_not_while_driving">на ходу не запрашивается</string>
+    <string name="nogps_voltage_mismatch">Напряжение с АЦП блока расходится с машиной больше чем на 10 %: проверьте делитель напряжения блока</string>
 </resources>

@@ -1,9 +1,0 @@
-• OSM: 28 de setembro; Wikipédia: 21 de setembro
-• Melhores percursos alternativos e estimativas de chegada
-• Nova configuração otimiza a ordem das paragens
-• Novos botões permitem adicionar ou substituir paragens nas rotas planeadas
-• A rota alternativa escolhida é mantida durante a navegação
-• Correções e melhorias na gravação de percursos
-• Importação de KMB corrigida
-• Correções e melhorias na interface do utilizador
-…mais em omaps.org/pt/news

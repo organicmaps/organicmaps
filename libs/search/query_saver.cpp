@@ -72,6 +72,21 @@ void QuerySaver::Add(SearchRequest const & localeAndQuery)
   Save();
 }
 
+void QuerySaver::Remove(std::string const & query)
+{
+  // The same trimming as in Add(): the history shows the query as it was typed.
+  std::string trimmedQuery(query);
+  strings::Trim(trimmedQuery);
+  size_t const count = m_topQueries.size();
+  m_topQueries.remove_if([&trimmedQuery](SearchRequest request)
+  {
+    strings::Trim(request.second);
+    return request.second == trimmedQuery;
+  });
+  if (m_topQueries.size() != count)
+    Save();
+}
+
 void QuerySaver::Clear()
 {
   m_topQueries.clear();

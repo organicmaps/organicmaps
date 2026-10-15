@@ -66,7 +66,9 @@ android {
     println('Version: ' + versionName)
     println('VersionCode: ' + versionCode)
     applicationId rootProject.ext.appId
-    buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
+    buildConfigField 'String', 'SUPPORT_MAIL', '"most05062014@gmail.com"'
+    // Editing OpenStreetMap needs an OAuth application of NoGPS Maps, the one of Organic Maps is not used.
+    buildConfigField 'boolean', 'MAP_EDITING', 'false'
     // Should be customized in flavors.
     buildConfigField 'String', 'REVIEW_URL', '""'
     resourceConfigurations += [project.ext.supportedLocalizations]
@@ -85,30 +87,33 @@ android {
     google {
       dimension 'default'
       isDefault = true
+      // The automatic protection of Google Play, which checks the installer of the app, needs Android 7.
+      // The native code is built in the sdk module for the common minSdk and is not rebuilt for it.
+      minSdk = 24
       versionName = android.defaultConfig.versionName + '-Google'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@organicmaps.app"'
-      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"most05062014@gmail.com"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=ua.nogps.maps"'
     }
 
     web {
       dimension 'default'
       applicationIdSuffix '.web'
       versionName = android.defaultConfig.versionName + '-Web'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"apk@organicmaps.app"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"most05062014@gmail.com"'
     }
 
     fdroid {
       dimension 'default'
       versionName = android.defaultConfig.versionName + '-FDroid'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"fdroid@organicmaps.app"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"most05062014@gmail.com"'
     }
 
     huawei {
       dimension 'default'
       versionName = android.defaultConfig.versionName + '-Huawei'
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
-      buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@organicmaps.app"'
-      buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.organicmaps"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"most05062014@gmail.com"'
+      buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=ua.nogps.maps"'
     }
   }
 
@@ -289,6 +294,11 @@ def allowedPermissions = [
     "name='android.permission.POST_NOTIFICATIONS'",
     // wake lock
     "name='android.permission.WAKE_LOCK'",
+    // ELM327 OBD-II adapter and the ESP32 sensor box
+    "name='android.permission.BLUETOOTH' maxSdkVersion='30'",
+    "name='android.permission.BLUETOOTH_CONNECT'",
+    "name='android.permission.BLUETOOTH_ADMIN' maxSdkVersion='30'",
+    "name='android.permission.BLUETOOTH_SCAN' usesPermissionFlags='neverForLocation'",
     // Android Auto
     "name='androidx.car.app.NAVIGATION_TEMPLATES'",
     "name='androidx.car.app.ACCESS_SURFACE'",
@@ -303,7 +313,7 @@ def allowedPermissions = [
     // app.organicmaps.(debug|beta|profileable)
     // app.organicmaps.web
     // app.organicmaps.web.(debug|beta|profileable)
-    ~/name='app\.organicmaps(\.web)?(\.debug|\.beta|\.profileable)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
+    ~/name='ua\.nogps\.maps(\.web)?(\.debug|\.beta|\.profileable)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
 ]
 registerCheckApkPermissionsTasks(project, allowedPermissions)
 

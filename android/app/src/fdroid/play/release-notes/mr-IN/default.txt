@@ -1,1 +1,0 @@
-../../listings/mr-IN/release-notes.txt

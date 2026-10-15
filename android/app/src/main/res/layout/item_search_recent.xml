@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  style="@style/MwmWidget.TextView.Search"
-  android:textAlignment="viewStart"
-  app:drawableStartCompat="@drawable/ic_search_recent"
-  tools:text="Some recent query"/>
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/search_item_height"
+  android:gravity="center_vertical"
+  android:orientation="horizontal">
+  <TextView
+    android:id="@+id/text"
+    style="@style/MwmWidget.TextView.Search"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:paddingEnd="@dimen/margin_half"
+    android:textAlignment="viewStart"
+    app:drawableStartCompat="@drawable/ic_search_recent"
+    tools:text="Some recent query" />
+  <ImageButton
+    android:id="@+id/delete"
+    android:layout_width="@dimen/search_item_height"
+    android:layout_height="match_parent"
+    android:background="?selectableItemBackgroundBorderless"
+    android:contentDescription="@string/delete"
+    app:srcCompat="@drawable/ic_close"
+    app:tint="?android:textColorSecondary" />
+</LinearLayout>

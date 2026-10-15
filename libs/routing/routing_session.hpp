@@ -67,6 +67,21 @@ public:
   bool IsFinished() const;
   bool IsNoFollowing() const;
   bool IsOnRoute() const;
+  /// Finds the closest point on a road within |radius| meters, going in |direction| (zero means any).
+  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
+                                   EdgeProj & proj) const;
+  /// Collects the points in |rect| where roads cross or branch.
+  void FindRoadCrossings(m2::RectD const & rect, std::vector<m2::PointD> & crossings) const;
+  /// Finds the closest road, preferring a main road to a driveway branching off it.
+  bool FindMainRoad(m2::PointD const & point, double radiusM, m2::PointD & projected, double & angleRad) const;
+  /// Returns true if a roundabout is within |radiusM| of |point|.
+  bool IsRoundaboutNear(m2::PointD const & point, double radiusM) const;
+  /// Finds the road a car going the |direction| way drives along, see IRouter::FindRoadAlong.
+  bool FindRoadAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM, m2::PointD & projected,
+                     double & angleRad) const;
+  /// Collects every road a car going the |direction| way may drive along, see IRouter::FindRoadsAlong.
+  void FindRoadsAlong(m2::PointD const & point, m2::PointD const & direction, double radiusM,
+                      std::vector<RoadAlong> & roads) const;
   bool IsFollowing() const;
   void Reset();
 
@@ -154,6 +169,8 @@ public:
   /// already active, or the router refuses the swap (it is calculating, or the result is stale).
   /// The follow state (m_route) is rebuilt from the newly-promoted RouteBase.
   bool SwapActiveAlternative(size_t idx);
+  // Returns true if the last positions were off the route, before it is rebuilt.
+  bool IsMovingAwayFromRoute() const { return m_moveAwayCounter > 0; }
 
   bool IsSpeedCamLimitExceeded() const { return m_speedCameraManager.IsSpeedLimitExceeded(); }
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }

@@ -1,9 +1,0 @@
-• OSM: 28 settembre; Wikipedia: 21 settembre
-• Percorsi alternativi e orari d’arrivo stimati migliorati
-• Nuova impostazione per ottimizzare l’ordine delle tappe
-• Pulsanti per aggiungere o sostituire tappe su un percorso pianificato
-• Il percorso alternativo scelto resta selezionato durante la navigazione
-• Registrazione dei tracciati corretta e migliorata
-• Importazione dei file KMB corretta
-• Interfaccia migliorata e bug corretti
-…altro su omaps.org/it/news

@@ -1,9 +1,0 @@
-• Podatki OSM: 28. september; podatki Wikipedije: 21. september
-• Izboljšane alternativne poti in ocene časa prihoda
-• Nova nastavitev optimizira vrstni red vmesnih postankov
-• Novi gumbi dodajajo ali zamenjujejo postanke na načrtovani poti
-• Izbrana alternativna pot ostane izbrana med navigacijo
-• Popravljeno in izboljšano snemanje sledi
-• Popravljen uvoz datotek KMB
-• Izboljšave in popravki uporabniškega vmesnika
-…več podrobnosti na omaps.org/news

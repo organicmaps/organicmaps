@@ -8,6 +8,9 @@
 
 #include "base/string_utils.hpp"
 
+#include <algorithm>
+#include <iomanip>
+#include <sstream>
 #include <string_view>
 
 namespace share
@@ -16,6 +19,17 @@ using feature::Metadata;
 
 namespace
 {
+// NoGPS Maps has no web page of its own: OpenStreetMap shows the point to everyone in a browser, and
+// the app opens such links.
+std::string GenerateOsmUrl(ms::LatLon const & ll, int zoom)
+{
+  int constexpr kMaxOsmZoom = 19;
+  std::ostringstream oss;
+  oss << std::fixed << std::setprecision(6) << "https://www.openstreetmap.org/?mlat=" << ll.m_lat
+      << "&mlon=" << ll.m_lon << "#map=" << std::clamp(zoom, 1, kMaxOsmZoom) << '/' << ll.m_lat << '/' << ll.m_lon;
+  return oss.str();
+}
+
 std::string EscapeHtml(std::string_view s)
 {
   std::string out;
@@ -133,18 +147,8 @@ Result Build(Place const & place, Strings const & strings)
   result.m_isMyPosition = place.m_isMyPosition;
   result.m_subjectBasis = !place.m_name.empty() ? place.m_name : place.m_address;
 
-  // Staged rollout of the human-readable link, see https://github.com/organicmaps/organicmaps/pull/13100.
-  //
-  // Every app released before Ge0Parser::ParseClearCoordinates shipped claims omaps.app links
-  // (Android app links, iOS universal links) and decodes them as ge0 base64 only, so a
-  // "https://omaps.app/<lat>,<lon>" link silently opens such an app on the wrong place. Until that
-  // parser is out in the wild we keep sharing the ge0 short link, which every version understands.
-  //
-  // TODO: when enough users run a version with ParseClearCoordinates (~a year after its release):
-  //   1. call ge0::GenerateClearShowMapUrl(lat, lon, place.m_zoom, place.m_name) here;
-  //   2. drop the coordinates line from the plain body below - the link then carries them itself;
-  //   3. update the share_tests expectations.
-  result.m_url = ge0::GenerateHttpShowMapUrl(place.m_ll.m_lat, place.m_ll.m_lon, place.m_zoom, place.m_name);
+  // omaps.app links open Organic Maps or its web page, not NoGPS Maps.
+  result.m_url = GenerateOsmUrl(place.m_ll, place.m_zoom);
 
   std::string const geoUri = ge0::GenerateGeoUri(place.m_ll.m_lat, place.m_ll.m_lon, place.m_zoom, place.m_name);
   std::string const coords = measurement_utils::FormatLatLon(place.m_ll.m_lat, place.m_ll.m_lon, true /* withComma */);
@@ -196,7 +200,7 @@ Result Build(Place const & place, Strings const & strings)
   html += "<br>\n";
   AppendText(html, coords);
   html += "<br>\n";
-  AppendAnchor(html, "https://omaps.app/get", strings.m_getApp);
+  AppendAnchor(html, "https://github.com/Ramzess-II/NoGPSMaps", strings.m_getApp);
 
   return result;
 }

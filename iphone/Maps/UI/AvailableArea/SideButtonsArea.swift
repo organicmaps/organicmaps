@@ -13,6 +13,7 @@ final class SideButtonsArea: AvailableArea {
 
   override func notifyObserver() {
     MWMSideButtons.updateAvailableArea(areaFrame)
+    NoGpsControls.updateAvailableArea(areaFrame)
   }
 }
 

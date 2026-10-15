@@ -35,6 +35,64 @@ set(SRC
   isolines_manager.hpp
   mwm_url.cpp
   mwm_url.hpp
+  nogps/accel_log.cpp
+  nogps/accel_log.hpp
+  nogps/accel_speed.cpp
+  nogps/accel_speed.hpp
+  nogps/bend_matcher.cpp
+  nogps/bend_matcher.hpp
+  nogps/clock.cpp
+  nogps/clock.hpp
+  nogps/dead_reckoning.cpp
+  nogps/dead_reckoning.hpp
+  nogps/delegate.cpp
+  nogps/delegate.hpp
+  nogps/elm327_parser.cpp
+  nogps/elm327_parser.hpp
+  nogps/elm327_session.cpp
+  nogps/elm327_session.hpp
+  nogps/engine.cpp
+  nogps/engine.hpp
+  nogps/esp32_protocol.cpp
+  nogps/esp32_protocol.hpp
+  nogps/esp32_source.cpp
+  nogps/esp32_source.hpp
+  nogps/esp32_update.cpp
+  nogps/esp32_update.hpp
+  nogps/geo.cpp
+  nogps/geo.hpp
+  nogps/gps_return_detector.cpp
+  nogps/gps_return_detector.hpp
+  nogps/gps_spoofing_detector.cpp
+  nogps/gps_spoofing_detector.hpp
+  nogps/gyro_calibrator.cpp
+  nogps/gyro_calibrator.hpp
+  nogps/inertial_navigator.cpp
+  nogps/inertial_navigator.hpp
+  nogps/map_api.hpp
+  nogps/motion_source.cpp
+  nogps/motion_source.hpp
+  nogps/phone_motion.cpp
+  nogps/phone_motion.hpp
+  nogps/road_walker.cpp
+  nogps/road_walker.hpp
+  nogps/roads.hpp
+  nogps/scheduler.cpp
+  nogps/scheduler.hpp
+  nogps/service.cpp
+  nogps/service.hpp
+  nogps/speed_lag.cpp
+  nogps/speed_lag.hpp
+  nogps/speed_scale.cpp
+  nogps/speed_scale.hpp
+  nogps/speed_table.cpp
+  nogps/speed_table.hpp
+  nogps/storage.cpp
+  nogps/storage.hpp
+  nogps/turn_matcher.cpp
+  nogps/turn_matcher.hpp
+  nogps/turn_sign_checker.cpp
+  nogps/turn_sign_checker.hpp
   place_page_info.cpp
   place_page_info.hpp
   share.cpp

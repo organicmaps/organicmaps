@@ -1,9 +1,0 @@
-• OSM: irailaren 28a; Wikipedia: irailaren 21a
-• Ibilbide alternatibo hobeak eta iritsiera-estimazioak
-• Ezarpen berri batek geldialdien ordena optimizatzen du
-• Botoi berriek planifikatutako ibilbideetako geldialdiak gehitu edo ordezkatzen dituzte
-• Aukeratutako ibilbide alternatiboa nabigatzean mantentzen da
-• Arrastoen grabazioaren konponketak eta hobekuntzak
-• KMB inportazioa konpondu da
-• UIko konponketak eta hobekuntzak
-…gehiago hemen omaps.org/eu/news

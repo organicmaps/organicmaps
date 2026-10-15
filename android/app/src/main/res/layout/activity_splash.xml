@@ -11,7 +11,7 @@
       android:layout_marginTop="3dp"
       android:layout_marginEnd="1dp"
       android:contentDescription="@null"
-      app:srcCompat="@drawable/ic_splash"
+      app:srcCompat="@drawable/logo"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -28,21 +28,12 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent" >
 
+    <!-- The same name in debug and beta builds, unlike app_name. -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_eighth"
-        android:text="@string/app_name"
+        android:text="@string/nogps_brand_name"
         android:gravity="center_horizontal"
         android:textAppearance="@style/MwmTextAppearance.Title.Splash" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/splash_subtitle"
-        android:layout_marginStart="@dimen/margin_double"
-        android:layout_marginEnd="@dimen/margin_double"
-        android:gravity="center_horizontal"
-        android:textAppearance="@style/MwmTextAppearance.Toolbar" />
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

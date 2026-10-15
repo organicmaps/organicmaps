@@ -33,6 +33,24 @@ UNIT_TEST(QuerySaverClearTest)
   TEST_EQUAL(saver.Get().size(), 0, ());
 }
 
+UNIT_TEST(QuerySaverRemoveTest)
+{
+  QuerySaver saver;
+  saver.Clear();
+  saver.Add(record1);
+  saver.Add(record2);
+  saver.Remove(record1.second);
+  TEST_EQUAL(saver.Get().size(), 1, ());
+  TEST_EQUAL(saver.Get().front(), record2, ());
+  // Removing a query that is not saved changes nothing.
+  saver.Remove(record1.second);
+  TEST_EQUAL(saver.Get().size(), 1, ());
+  // The history is saved without the removed query.
+  QuerySaver const loaded;
+  TEST_EQUAL(loaded.Get().size(), 1, ());
+  saver.Clear();
+}
+
 UNIT_TEST(QuerySaverOrderingTest)
 {
   QuerySaver saver;

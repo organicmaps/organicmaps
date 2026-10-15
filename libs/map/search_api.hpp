@@ -99,6 +99,7 @@ public:
 
   std::list<search::QuerySaver::SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(search::QuerySaver::SearchRequest const & query) { m_searchQuerySaver.Add(query); }
+  void RemoveSearchQuery(std::string const & query) { m_searchQuerySaver.Remove(query); }
   void ClearSearchHistory() { m_searchQuerySaver.Clear(); }
 
   void EnableIndexingOfBookmarksDescriptions(bool enable);

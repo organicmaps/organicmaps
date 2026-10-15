@@ -1,9 +1,0 @@
-• OSM: 28 septembrie; Wikipedia: 21 septembrie
-• Rute alternative mai bune și estimări de sosire
-• O nouă setare optimizează ordinea opririlor
-• Noile butoane adaugă sau înlocuiesc opriri pe traseele planificate
-• Traseul alternativ ales este păstrat pe durata navigării
-• Corecții și îmbunătățiri privind înregistrarea traseelor
-• S-a remediat problema cu importul KMB
-• Corecții și îmbunătățiri ale interfeței utilizatorului
-…mai multe informații la omaps.org/news

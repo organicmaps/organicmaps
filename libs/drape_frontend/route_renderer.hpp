@@ -101,6 +101,13 @@ public:
   bool HasPreviewData() const;
 
 private:
+  // The passed part of the followed route is hidden. The distance is along the active route, so it does
+  // not apply to the alternatives drawn beside it.
+  bool IsFollowed(SubrouteInfo const & subrouteInfo) const
+  {
+    return m_followingEnabled && !subrouteInfo.m_subroute->IsAlternative();
+  }
+
   // Preview dots live in dynamic circle-pack buffers; keep the screen inputs that
   // affect them to avoid rewriting unchanged buffers every frame.
   struct PreviewState

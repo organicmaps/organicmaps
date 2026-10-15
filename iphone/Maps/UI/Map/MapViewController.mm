@@ -87,6 +87,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic, readwrite) SearchOnMapManager * searchManager;
 @property(nonatomic, readwrite) TrackRecordingManager * trackRecordingManager;
+@property(nonatomic) NoGpsControls * noGpsControls;
 
 @property(nonatomic) BOOL disableStandbyOnLocationStateMode;
 
@@ -530,6 +531,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (self.trackRecordingManager.isActive)
     [self showTrackRecordingPlacePage];
 
+  self.noGpsControls = [[NoGpsControls alloc] initWithOwner:self];
+
   /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
   /*
   if (!DeepLinkHandler.shared.isLaunchedByDeepLink)
@@ -811,7 +814,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
     else if ([action isEqualToString:@"app.organicmaps.3daction.route"])
       [self.controlsManager onRoutePrepare];
     else if ([action isEqualToString:@"app.organicmaps.3daction.report_bug"])
-      [MailComposer sendBugReportWithTitle:@"Bug Report / Organic Maps"];
+      [MailComposer sendBugReportWithTitle:@"Bug Report / NoGPS Maps"];
   }
   else
     dispatch_async(dispatch_get_main_queue(), ^{ [self performAction:action]; });

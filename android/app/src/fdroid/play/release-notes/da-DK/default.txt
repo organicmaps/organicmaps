@@ -1,1 +1,0 @@
-../../listings/da-DK/release-notes.txt

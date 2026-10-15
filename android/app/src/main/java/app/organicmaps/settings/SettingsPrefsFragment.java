@@ -11,6 +11,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.TwoStatePreference;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.OnmapDownloader;
@@ -100,6 +101,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   private void updateProfileSettingsPrefsSummary()
   {
     final Preference pref = getPreference(getString(R.string.pref_osm_profile));
+    pref.setVisible(BuildConfig.MAP_EDITING);
     if (OsmOAuth.isAuthorized())
     {
       final String username = OsmOAuth.getUsername();

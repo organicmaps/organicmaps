@@ -134,6 +134,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_oldDrawDirection(0.0)
   , m_enablePerspectiveInRouting(false)
   , m_enableAutoZoomInRouting(params.m_isAutozoomEnabled)
+  , m_routingZoomLevel(kDoNotChangeZoom)
   , m_autoScale2d(GetScreenScale(kDefaultAutoZoom))
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearingTimer(false)
@@ -363,15 +364,23 @@ void MyPositionController::NextMode(ScreenBase const & screen)
 
   // Calculate preferred zoom level.
   int const currentZoom = GetZoomLevel(screen);
-  int preferredZoomLevel = kDoNotChangeZoom;
-  if (currentZoom < kZoomThreshold)
-    preferredZoomLevel = std::min(GetZoomLevel(screen, m_position, m_errorRadius), kMaxScaleZoomLevel);
+  int const positionZoom = std::min(GetZoomLevel(screen, m_position, m_errorRadius), kMaxScaleZoomLevel);
+  int preferredZoomLevel = currentZoom < kZoomThreshold ? positionZoom : kDoNotChangeZoom;
 
   // In routing not-follow -> follow-and-rotate, otherwise not-follow -> follow.
   if (m_mode == location::NotFollow)
   {
+    // The map comes back to the position as close as the navigation shows it: a map left zoomed out would show
+    // where the position is, but not what is around it.
+    int const closeZoom = m_isInRouting ? m_routingZoomLevel : positionZoom;
+    if (currentZoom < closeZoom)
+      preferredZoomLevel = closeZoom;
+
     ChangeMode(m_isInRouting ? location::FollowAndRotate : location::Follow);
-    UpdateViewport(preferredZoomLevel);
+    // The user asks to show the position now: the scale by the speed doesn't wait until the map calms down.
+    m_needBlockAutoZoom = false;
+    if (!UpdateViewportWithAutoZoom())
+      UpdateViewport(preferredZoomLevel);
     return;
   }
 
@@ -844,6 +853,7 @@ void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom, b
     m_isInRouting = true;
     m_isArrowGluedInRouting = isArrowGlued;
     m_enableAutoZoomInRouting = enableAutoZoom;
+    m_routingZoomLevel = zoomLevel;
 
     ChangeMode(location::FollowAndRotate);
     ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0, GetRoutingRotationPixelCenter(),

@@ -1,9 +1,0 @@
-• OSM: 28 tháng 9; Wikipedia: 21 tháng 9
-• Các lộ trình thay thế tốt hơn và ước tính thời gian đến
-• Cài đặt mới tối ưu hóa thứ tự các điểm dừng
-• Các nút mới cho phép thêm hoặc thay thế các điểm dừng trên các lộ trình đã lên kế hoạch
-• Lộ trình thay thế đã chọn sẽ được duy trì trong quá trình điều hướng
-• Đã sửa lỗi và cải thiện tính năng ghi lại hành trình
-• Đã khắc phục lỗi nhập dữ liệu KMB
-• Sửa lỗi và cải tiến giao diện người dùng
-…xem thêm tại omaps.org/news

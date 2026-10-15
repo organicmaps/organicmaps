@@ -74,8 +74,9 @@ public final class LogsManager
     Log.i(TAG, "isFileLoggingEnabled preference: " + mIsFileLoggingEnabled);
     mIsFileLoggingEnabled = mIsFileLoggingEnabled && ensureLogsFolder() != null;
 
-    // Set native logging level, save into shared preferences.
-    switchFileLoggingEnabled(mIsFileLoggingEnabled);
+    // Set native logging level. The preference is kept as the user has set it: the storage can be not
+    // ready yet right after an update, and the logs of the next run would be lost silently.
+    switchFileLoggingEnabled(mIsFileLoggingEnabled, false /* savePreference */);
   }
 
   private void assertFileLoggingInit()
@@ -165,6 +166,11 @@ public final class LogsManager
 
   private void switchFileLoggingEnabled(boolean enabled)
   {
+    switchFileLoggingEnabled(enabled, true /* savePreference */);
+  }
+
+  private void switchFileLoggingEnabled(boolean enabled, boolean savePreference)
+  {
     if (!enabled)
     {
       Logger.flushFileLogs();
@@ -174,7 +180,8 @@ public final class LogsManager
     mIsFileLoggingEnabled = enabled;
     // Only Debug builds log DEBUG level to Android system log.
     nativeToggleCoreDebugLogs(enabled || BuildConfig.DEBUG);
-    mPrefs.edit().putBoolean(mApplicationContext.getString(R.string.pref_enable_logging), enabled).apply();
+    if (savePreference)
+      mPrefs.edit().putBoolean(mApplicationContext.getString(R.string.pref_enable_logging), enabled).apply();
     Log.i(TAG, "Logging to " + (enabled ? "logs folder " + mLogsFolder : "system log"));
   }
 

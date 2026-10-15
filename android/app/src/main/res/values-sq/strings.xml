@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Aplikacioni kërkon OpenGL të përshpejtuar nga hardueri. Fatkeqësisht, pajisja juaj nuk mbështetet.</string>
     <string name="download">Shkarko</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Ju lutemi shkëputni kabllon USB ose futni kartën e memories për të përdorur Organic Maps</string>
+    <string name="disconnect_usb_cable">Ju lutemi shkëputni kabllon USB ose futni kartën e memories për të përdorur NoGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Ju lutemi lironi pak hapësirë në kartën SD/ruajtjen USB fillimisht për të përdorur aplikacionin</string>
     <string name="download_resources">Para se të filloni të përdorni aplikacionin, ju lutemi shkarkoni hartën e përgjithshme të botës në pajisjen tuaj.\nAjo do të përdorë %s të hapësirës.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Shënime</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Faqeshënuesit e Organic Maps u ndanë me ju</string>
-    <string name="share_bookmarks_email_body">Përshëndetje!\n\nBashkëngjitur janë faqeshënuesit e mi; ju lutemi hapini ato në Organic Maps. Nëse nuk e keni të instaluar, mund ta shkarkoni këtu: https://omaps.app/get?kmz\n\nShijoni udhëtimin me Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">Faqeshënuesit e NoGPS Maps u ndanë me ju</string>
+    <string name="share_bookmarks_email_body">Përshëndetje!\n\nBashkëngjitur janë faqeshënuesit e mi; ju lutemi hapini ato në NoGPS Maps. Nëse nuk e keni të instaluar, mund ta shkarkoni këtu: https://github.com/Ramzess-II/NoGPSMaps\n\nShijoni udhëtimin me NoGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Duke ngarkuar Faqeshënuesit</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Ndaj</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s në Organic Maps</string>
+    <string name="share_place_subject">%1$s në NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Një vend në Organic Maps</string>
+    <string name="share_place_subject_default">Një vend në NoGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Email</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Të dhëna të OpenStreetMap të krijuara nga komuniteti që nga %s. Mësoni më shumë për mënyrën se si të redaktoni dhe përditësoni hartën në OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) është një projekt komunitar për të ndërtuar një hartë të lirë dhe të hapur. Është burimi kryesor i të dhënave të hartës në Organic Maps dhe funksionon ngjashëm me Wikipedia. Ju mund të shtoni ose redaktoni vende dhe ato bëhen të disponueshme për miliona përdorues në të gjithë botën.\nBashkohuni me komunitetin dhe ndihmoni për të bërë një hartë më të mirë për të gjithë!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) është një projekt komunitar për të ndërtuar një hartë të lirë dhe të hapur. Është burimi kryesor i të dhënave të hartës në NoGPS Maps dhe funksionon ngjashëm me Wikipedia. Ju mund të shtoni ose redaktoni vende dhe ato bëhen të disponueshme për miliona përdorues në të gjithë botën.\nBashkohuni me komunitetin dhe ndihmoni për të bërë një hartë më të mirë për të gjithë!</string>
     <string name="login_to_make_edits_visible">Krijoni një llogari OpenStreetMap ose hyni për të publikuar ndryshimet tuaja të hartës për botën.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d nga %2$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Shënim për vullnetarët e OpenStreetMap (opsionale)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Përshkruani gabimet në hartë ose gjërat që nuk mund të redaktohen me Organic Maps</string>
+    <string name="editor_note_hint">Përshkruani gabimet në hartë ose gjërat që nuk mund të redaktohen me NoGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ndryshimet tuaja ngarkohen në bazën e të dhënave publike <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Ju lutemi mos shtoni informacione personale ose të mbrojtura nga e drejta e autorit.</string>
     <string name="editor_more_about_osm">Më shumë rreth OpenStreetMap</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatori: %s</string>
     <string name="editor_category_unsuitable_title">Nuk mund të gjeni një kategori të përshtatshme?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps lejon shtimin e kategorive të thjeshta të pikave, që do të thotë jo qytete, rrugë, liqene, konture ndërtesash, etj. Ju lutemi shtoni kategori të tilla drejtpërdrejt në <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrolloni <a href="https://organicmaps.app/faq/editing/advanced-map-editing">udhëzuesin tonë</a> për udhëzime të detajuara hap pas hapi.</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps lejon shtimin e kategorive të thjeshta të pikave, që do të thotë jo qytete, rrugë, liqene, konture ndërtesash, etj. Ju lutemi shtoni kategori të tilla drejtpërdrejt në <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrolloni <a href="https://organicmaps.app/faq/editing/advanced-map-editing">udhëzuesin tonë</a> për udhëzime të detajuara hap pas hapi.</string>
     <string name="downloader_no_downloaded_maps_title">Nuk keni shkarkuar asnjë hartë</string>
     <string name="downloader_no_downloaded_maps_message">Shkarkoni harta për të kërkuar dhe lundruar jashtë linje.</string>
     <string name="current_location_unknown_error_title">Vendndodhja aktuale është e panjohur.</string>
@@ -769,9 +769,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Qëllimi ynë kryesor është të ndërtojmë harta të shpejta, të fokusuara te privatësia dhe të lehta për t\'u përdorur që do t\'i doni.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Tani jeni duke përdorur Organic Maps në ekranin e telefonit</string>
+    <string name="car_used_on_the_phone_screen">Tani jeni duke përdorur NoGPS Maps në ekranin e telefonit</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Tani jeni duke përdorur Organic Maps në ekranin e makinës</string>
+    <string name="car_used_on_the_car_screen">Tani jeni duke përdorur NoGPS Maps në ekranin e makinës</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Jeni lidhur me Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -779,7 +779,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Te ekrani i makinës</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps ka nevojë për qasje në vendndodhje. Kur të jetë e sigurt, kontrolloni njoftimin në telefonin tuaj.</string>
+    <string name="aa_location_permissions_request">NoGPS Maps ka nevojë për qasje në vendndodhje. Kur të jetë e sigurt, kontrolloni njoftimin në telefonin tuaj.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ky aplikacion ka nevojë për lejen tuaj</string>
     <!-- Grant Permissions button. -->

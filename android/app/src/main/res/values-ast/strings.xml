@@ -79,13 +79,13 @@
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
-    <string name="share_bookmarks_email_body">¡Hola!\n\nLos mios marcadores tán axuntos; ábrilos n’Organic Maps. Si nun lu tienes instaláu, te lu puedes baxar equí: https://omaps.app/get?kmz\n\n¡Gocia viaxar con Organic Maps!</string>
+    <string name="share_bookmarks_email_body">¡Hola!\n\nLos mios marcadores tán axuntos; ábrilos n’NoGPS Maps. Si nun lu tienes instaláu, te lu puedes baxar equí: https://github.com/Ramzess-II/NoGPSMaps\n\n¡Gocia viaxar con NoGPS Maps!</string>
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s n’Organic Maps</string>
+    <string name="share_place_subject">%1$s n’NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Un llugar n’Organic Maps</string>
+    <string name="share_place_subject_default">Un llugar n’NoGPS Maps</string>
     <!-- Text for message when used successfully copied something -->
     <string name="copied_to_clipboard">Copióse nel cartafueyu: %s</string>
     <!-- Used for bookmark editing -->
@@ -353,9 +353,9 @@
     <!-- App tip #06 -->
     <string name="app_tip_06">Pues ayudar a traducir la nuesa aplicación na to llingua.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Agora tas utilizando Organic Maps na pantalla del teléfonu</string>
+    <string name="car_used_on_the_phone_screen">Agora tas utilizando NoGPS Maps na pantalla del teléfonu</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Agora tas utilizando Organic Maps na pantalla del coche</string>
+    <string name="car_used_on_the_car_screen">Agora tas utilizando NoGPS Maps na pantalla del coche</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
     <string name="car_continue_on_the_phone">Siguir nel móvil</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->

@@ -1,9 +1,0 @@
-• OSM podaci od 28. rujna, Wikipedija od 21. rujna
-• Poboljšane alternativne rute i njihova procijenjena vremena dolaska
-• Dodana je postavka za optimizaciju redoslijeda međutočaka na ruti
-• Dodani su gumbi za dodavanje ili zamjenu usputne točke u planiranoj ruti
-• Odabrana alternativna ruta sada se čuva tijekom navigacije
-• Popravljeno i poboljšano snimanje staze
-• Popravljen je uvoz KMB datoteka
-• Poboljšanja i ispravci korisničkog sučelja
-…više detalja na omaps.org/news

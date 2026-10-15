@@ -30,6 +30,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeAdd(JNIEnv * 
   g_framework->NativeFramework()->GetSearchAPI().SaveSearchQuery(sr);
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeRemove(JNIEnv * env, jclass, jstring query)
+{
+  g_framework->NativeFramework()->GetSearchAPI().RemoveSearchQuery(jni::ToNativeString(env, query));
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeClear(JNIEnv * env, jclass)
 {
   g_framework->NativeFramework()->GetSearchAPI().ClearSearchHistory();

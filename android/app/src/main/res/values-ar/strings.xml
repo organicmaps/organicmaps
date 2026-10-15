@@ -52,7 +52,7 @@
     <string name="unsupported_phone">يتطلب التطبيق OpenGL مع تسريع الأجهزة. لسوء الحظ، جهازك غير مدعوم.</string>
     <string name="download">تنزيل</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps</string>
+    <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام NoGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة أولاً في بطاقة SD/تخزين USB لاستخدام التطبيق.</string>
     <string name="download_resources">قبل البدء في استخدام التطبيق، يرجى تنزيل خريطة نظرة عامة على العالم على جهازك.\nسيستخدم %s من مساحة التخزين.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">ملاحظات</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">تم مشاركة إشارات Organic Maps المرجعية معك</string>
-    <string name="share_bookmarks_email_body">مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">تم مشاركة إشارات NoGPS Maps المرجعية معك</string>
+    <string name="share_bookmarks_email_body">مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق NoGPS Maps. الرجاء فتحهم إذا لديك تطبيق NoGPS Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://github.com/Ramzess-II/NoGPSMaps \n\nاستمتع بالسفر مع NoGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">يتم تحميل الإشارات المرجعية</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">مشاركة</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s على Organic Maps</string>
+    <string name="share_place_subject">%1$s على NoGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">مكان على Organic Maps</string>
+    <string name="share_place_subject_default">مكان على NoGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">البريد الالكتروني</string>
     <!-- Text for message when used successfully copied something -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">بيانات OpenStreetMap التي أنشأها المجتمع اعتبارًا من %s. تعرف على المزيد حول كيفية تعديل الخريطة وتحديثها على OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) هو مشروع مجتمعي يهدف إلى إنشاء خريطة مجانية ومفتوحة. وهو المصدر الرئيسي لبيانات الخرائط في Organic Maps ويعمل بشكل مشابه لـويكيبيديا. يمكنك إضافة أو تعديل الأماكن لتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم.\nانضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) هو مشروع مجتمعي يهدف إلى إنشاء خريطة مجانية ومفتوحة. وهو المصدر الرئيسي لبيانات الخرائط في NoGPS Maps ويعمل بشكل مشابه لـويكيبيديا. يمكنك إضافة أو تعديل الأماكن لتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم.\nانضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!</string>
     <string name="login_to_make_edits_visible">أنشئ حساباً على OpenStreetMap أو سجّل الدخول لنشر تعديلاتك على الخريطة للعالم.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d من%2$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">ملاحظة لمتطوعي OpenStreetMap (اختياري)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">يرجى وصف الأخطاء الموجودة على الخريطة أو العناصر التي لا يمكن تعديلها عبر البريد الإلكتروني Organic Maps</string>
+    <string name="editor_note_hint">يرجى وصف الأخطاء الموجودة على الخريطة أو العناصر التي لا يمكن تعديلها عبر البريد الإلكتروني NoGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">يتم تحميل تعديلاتك على قاعدة البيانات العامة <a href="https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap">OpenStreetMap</a>. يرجى عدم إضافة معلومات شخصية أو محمية بحقوق الطبع والنشر.</string>
     <string name="editor_more_about_osm">المزيد عن خريطة الشارع المفتوحة</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">المشغل: %s</string>
     <string name="editor_category_unsuitable_title">لا يمكن العثور على فئة مناسبة؟</string>
-    <string name="editor_category_unsuitable_text">Organic Maps تسمح بإضافة فئات النقاط البسيطة فقط، وهذا يعني عدم إضافة المدن والطرق والبحيرات وخطوط المباني، إلخ. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليلنا</a> للحصول على إرشادات تفصيلية خطوة بخطوة.</string>
+    <string name="editor_category_unsuitable_text">NoGPS Maps تسمح بإضافة فئات النقاط البسيطة فقط، وهذا يعني عدم إضافة المدن والطرق والبحيرات وخطوط المباني، إلخ. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليلنا</a> للحصول على إرشادات تفصيلية خطوة بخطوة.</string>
     <string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
     <string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.</string>
     <string name="current_location_unknown_error_title">الموقع الحالي غير معروف.</string>
@@ -793,9 +793,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">هدفنا الرئيسي هو إنشاء خرائط سريعة وسهلة الاستخدام تركز على الخصوصية والتي ستعجبك.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">أنت تستخدم الآن Organic Maps على شاشة الهاتف</string>
+    <string name="car_used_on_the_phone_screen">أنت تستخدم الآن NoGPS Maps على شاشة الهاتف</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">أنت تستخدم الآن Organic Maps على شاشة السيارة</string>
+    <string name="car_used_on_the_car_screen">أنت تستخدم الآن NoGPS Maps على شاشة السيارة</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">أنت متصل بـ Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -803,7 +803,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">إلى شاشة السيارة</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps تحتاج إلى الوصول إلى الموقع. عندما يكون الوضع آمنًا، تحقق من الإشعار على هاتفك.</string>
+    <string name="aa_location_permissions_request">NoGPS Maps تحتاج إلى الوصول إلى الموقع. عندما يكون الوضع آمنًا، تحقق من الإشعار على هاتفك.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">هذا التطبيق يحتاج إلى إذنك</string>
     <!-- Grant Permissions button. -->

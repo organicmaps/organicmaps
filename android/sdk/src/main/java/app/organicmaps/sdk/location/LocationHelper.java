@@ -16,7 +16,9 @@ import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 import androidx.core.location.GnssStatusCompat;
+import androidx.core.location.LocationListenerCompat;
 import androidx.core.location.LocationManagerCompat;
+import androidx.core.location.LocationRequestCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -40,6 +42,17 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
   private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
+
+  // Network (cell towers and Wi-Fi) positions are used to detect spoofed GPS.
+  private static final long INTERVAL_NETWORK_MS = 5000;
+
+  /**
+   * The events of the navigation without GPS, on the UI thread.
+   */
+  public interface NoGpsListener
+  {
+    void onNoGpsEvent(@NonNull NoGps.Event event);
+  }
 
   @NonNull
   private final Context mContext;
@@ -65,6 +78,93 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private boolean mActive;
   private final Handler mHandler;
   private final Runnable mLocationTimeoutRunnable = this::notifyLocationUpdateTimeout;
+
+  private final ObserverList<NoGpsListener> mNoGpsListeners = new ObserverList<>();
+  @NonNull
+  private final MotionSensors mMotionSensors;
+  @NonNull
+  private final Elm327Transport mElm327 = new Elm327Transport();
+  @NonNull
+  private final Esp32BleTransport mEsp32Ble;
+  // Some providers (e.g. Google fused) don't report network positions separately, so request them explicitly.
+  private final LocationListenerCompat mNetworkListener = this::onLocationChanged;
+
+  /**
+   * The platform part of the navigation without GPS.
+   */
+  private final NoGps.Delegate mNoGpsDelegate = new NoGps.Delegate() {
+    @Override
+    public void startMotionSensors(boolean gyroscope)
+    {
+      mMotionSensors.start(gyroscope);
+    }
+
+    @Override
+    public void stopMotionSensors()
+    {
+      mMotionSensors.stop();
+    }
+
+    @Override
+    public void elm327Connect(@NonNull String address)
+    {
+      mElm327.connect(address);
+    }
+
+    @Override
+    public void elm327Write(@NonNull byte[] data)
+    {
+      mElm327.write(data);
+    }
+
+    @Override
+    public void elm327Close()
+    {
+      mElm327.close();
+    }
+
+    @Override
+    public void esp32BleOpen()
+    {
+      mEsp32Ble.open();
+    }
+
+    @Override
+    public void esp32BleSend(@NonNull byte[] line)
+    {
+      mEsp32Ble.send(line);
+    }
+
+    @Override
+    public void esp32BleSendFirmware(@NonNull byte[] piece)
+    {
+      mEsp32Ble.sendFirmware(piece);
+    }
+
+    @Override
+    public void esp32BleClose()
+    {
+      mEsp32Ble.close();
+    }
+
+    @Override
+    public void onPosition(@NonNull Location location)
+    {
+      mSavedLocation = location;
+      mMyPosition = null;
+      notifyLocationUpdated();
+    }
+
+    @Override
+    public void onEvent(int event)
+    {
+      final NoGps.Event noGpsEvent = NoGps.toEvent(event);
+      if (noGpsEvent == null)
+        return;
+      for (NoGpsListener listener : mNoGpsListeners)
+        listener.onNoGpsEvent(noGpsEvent);
+    }
+  };
 
   @NonNull
   private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback() {
@@ -109,6 +209,17 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mSensorHelper = sensorHelper;
     mLocationProvider = mLocationProviderFactory.getProvider(mContext, this);
     mHandler = new Handler(Looper.getMainLooper());
+    mMotionSensors = new MotionSensors(context);
+    mEsp32Ble = new Esp32BleTransport(context);
+  }
+
+  /**
+   * Creates the navigation without GPS in the core, when the core is initialized.
+   */
+  @UiThread
+  public void initNoGps()
+  {
+    NoGps.create(mNoGpsDelegate);
   }
 
   /**
@@ -195,6 +306,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
       mListenersIterator.next().onLocationUpdateTimeout();
   }
 
+  /**
+   * GPS, cell towers or both mixed: the navigation without GPS in the core chooses the position to show from them,
+   * the marks of the user and the inertial navigation, and passes it back to {@link NoGps.Delegate#onPosition}.
+   */
   @Override
   public void onLocationChanged(@NonNull Location location)
   {
@@ -206,24 +321,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    if (!LocationUtils.isAccuracySatisfied(location))
-    {
-      Logger.w(TAG, "Unsatisfied accuracy for location = " + location);
-      return;
-    }
-
-    if (mSavedLocation != null)
-    {
-      if (!LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
-      {
-        Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
-        return;
-      }
-    }
-
-    mSavedLocation = location;
-    mMyPosition = null;
-    notifyLocationUpdated();
+    NoGps.onLocation(location, false /* lastKnownNetwork */);
   }
 
   // Used by GoogleFusedLocationProvider.
@@ -263,6 +361,44 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mLocationProvider = new AndroidNativeProvider(mContext, this);
     mActive = true;
     mLocationProvider.start(mInterval);
+  }
+
+  @UiThread
+  public void addNoGpsListener(@NonNull NoGpsListener listener)
+  {
+    mNoGpsListeners.addObserver(listener);
+  }
+
+  @UiThread
+  public void removeNoGpsListener(@NonNull NoGpsListener listener)
+  {
+    mNoGpsListeners.removeObserver(listener);
+  }
+
+  @SuppressLint("MissingPermission")
+  private void startNetworkUpdates()
+  {
+    final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+    {
+      Logger.w(TAG, "Network provider is disabled, GPS spoofing detection is limited");
+      return;
+    }
+    // Verify the very first GPS positions too, the fresh network position may arrive only several seconds later.
+    final Location lastNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+    if (lastNetworkLocation != null)
+      NoGps.onLocation(lastNetworkLocation, true /* lastKnownNetwork */);
+    final LocationRequestCompat request = new LocationRequestCompat.Builder(INTERVAL_NETWORK_MS).build();
+    LocationManagerCompat.requestLocationUpdates(locationManager, LocationManager.NETWORK_PROVIDER, request,
+                                                 mNetworkListener, Looper.getMainLooper());
+  }
+
+  // Removing the updates requires no permission.
+  @SuppressLint("MissingPermission")
+  private void stopNetworkUpdates()
+  {
+    final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    LocationManagerCompat.removeUpdates(locationManager, mNetworkListener);
   }
 
   // RouteSimulationProvider doesn't really require location permissions.
@@ -392,9 +528,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
     Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " mInFirstRun = " + mInFirstRun
                       + " oldInterval = " + oldInterval + " interval = " + mInterval);
     mActive = true;
+    NoGps.nativeStart();
     mLocationProvider.start(mInterval);
     mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
     subscribeToGnssStatusUpdates();
+    startNetworkUpdates();
   }
 
   /**
@@ -411,6 +549,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     Logger.i(TAG);
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
+    stopNetworkUpdates();
+    NoGps.nativeStop();
     mSensorHelper.stop();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
     mActive = false;
