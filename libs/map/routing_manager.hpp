@@ -59,11 +59,6 @@ struct RoutePointInfo
   m2::PointD m_position;
 };
 
-/// Temporary, to find why the passed part of the route stayed on the map on October 14: the routes drawn and how far
-/// each alternative goes along the active route from their start, in meters and in the units of the renderer. The
-/// passed part is hidden on the active route only.
-std::string DescribeDrawnRoutes(routing::RoutesResult const & result);
-
 /// The followed route of a routing session and the roads around it, as the navigation without GPS asks for them.
 /// Everything is asked from the session, so a recorded trip driven again (NoGpsReplay.cpp of Android) follows a
 /// route of its own through the same code, apart from the route of the user.

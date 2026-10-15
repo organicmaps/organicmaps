@@ -5,7 +5,6 @@
 
 #include "shaders/programs.hpp"
 
-#include "base/logging.hpp"
 #include "base/math.hpp"
 
 #include "drape/drape_routine.hpp"
@@ -13,7 +12,6 @@
 
 #include <algorithm>
 #include <array>
-#include <chrono>
 #include <cmath>
 
 namespace df
@@ -802,20 +800,6 @@ void RouteRenderer::ClearContextDependentResources()
 void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
 {
   m_distanceFromBegin = distanceFromBegin;
-
-  // Temporary, see the "ROUTES drawn" line of RoutingManager::InsertRoute(): which routes the passed part is hidden
-  // on, as far as the car has driven along the active one.
-  auto const now = std::chrono::steady_clock::now();
-  if (now - m_lastRouteLogTime < std::chrono::seconds(5))
-    return;
-  m_lastRouteLogTime = now;
-  std::string subroutes;
-  for (auto const & subrouteInfo : m_subroutes)
-  {
-    subroutes += subrouteInfo.m_subroute->IsAlternative() ? " alternative" : " active";
-    subroutes += " hidden to " + std::to_string(m_followingEnabled ? GetPassedDistance(subrouteInfo) : 0.0);
-  }
-  LOG(LINFO, ("ROUTE drawn: following =", m_followingEnabled, "passed =", distanceFromBegin, "subroutes:", subroutes));
 }
 
 void RouteRenderer::SetFollowingEnabled(bool enabled)

@@ -12,7 +12,6 @@
 #include "geometry/screenbase.hpp"
 
 #include <algorithm>
-#include <chrono>
 #include <functional>
 #include <string>
 #include <unordered_map>
@@ -144,8 +143,6 @@ private:
 
   double m_distanceFromBegin;
   bool m_followingEnabled;
-  // Temporary, see UpdateDistanceFromBegin().
-  std::chrono::steady_clock::time_point m_lastRouteLogTime;
   Subroutes m_subroutes;
   std::unordered_set<dp::DrapeID> m_hiddenSubroutes;
 

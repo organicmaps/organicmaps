@@ -290,7 +290,7 @@ private:
     if (auto const * route = m_session.GetRoute(); code == routing::RouterResultCode::NoError && route != nullptr)
     {
       out << ", " << std::lround(route->GetTotalDistanceMeters()) << " m, " << route->GetPoly().GetPoints().size()
-          << " points, routes = " << result.m_routes.size() << ":" << DescribeDrawnRoutes(result);
+          << " points, routes = " << result.m_routes.size();
     }
     m_log(out.str());
   }
