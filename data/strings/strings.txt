@@ -45695,24 +45695,6 @@ en = For testing: the app ignores GPS as if it were jammed, the rest of the loca
 ru = Для проверки: приложение не видит GPS, как при глушении, остальная геолокация работает. Выключается при перезапуске приложения.
 uk = Для перевірки: застосунок не бачить GPS, як під час глушіння, решта геолокації працює. Вимикається під час перезапуску застосунку.
 
-[nogps_pause]
-tags = android-app,apple-maps
-en = Pause: the car maneuvers
-ru = Пауза: машина маневрирует
-uk = Пауза: машина маневрує
-
-[nogps_resume]
-tags = android-app,apple-maps
-en = Resume the movement
-ru = Продолжить движение
-uk = Продовжити рух
-
-[nogps_status_paused]
-tags = android-app,apple-maps
-en = Pause
-ru = Пауза
-uk = Пауза
-
 [nogps_status_road_lost]
 comment = Status of the position: the mark of the car stands and waits for the user
 tags = android-app,apple-maps
