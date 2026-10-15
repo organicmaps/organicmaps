@@ -11,6 +11,7 @@
 
 #include "geometry/screenbase.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <string>
 #include <unordered_map>
@@ -101,11 +102,13 @@ public:
   bool HasPreviewData() const;
 
 private:
-  // The passed part of the followed route is hidden. The distance is along the active route, so it does
-  // not apply to the alternatives drawn beside it.
-  bool IsFollowed(SubrouteInfo const & subrouteInfo) const
+  // The passed part of the followed route is hidden. The distance is along the active route: an alternative drawn
+  // beside it is hidden only where it goes along the active route from their start.
+  double GetPassedDistance(SubrouteInfo const & subrouteInfo) const
   {
-    return m_followingEnabled && !subrouteInfo.m_subroute->IsAlternative();
+    if (!subrouteInfo.m_subroute->IsAlternative())
+      return m_distanceFromBegin;
+    return std::min(m_distanceFromBegin, subrouteInfo.m_subroute->m_sharedWithActiveDistance);
   }
 
   // Preview dots live in dynamic circle-pack buffers; keep the screen inputs that

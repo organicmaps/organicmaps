@@ -225,6 +225,22 @@ std::optional<m2::PointD> RouteBase::FindMaxDiffMidpointByGeometry(std::vector<R
   });
 }
 
+double RouteBase::GetSharedStartMerc(RouteBase const & other) const
+{
+  auto const & otherSegments = other.GetRouteSegments();
+  double sharedMerc = 0.0;
+  for (size_t i = 0; i < std::min(m_routeSegments.size(), otherSegments.size()); ++i)
+  {
+    if (!m_routeSegments[i].GetJunction().GetPoint().EqualDxDy(otherSegments[i].GetJunction().GetPoint(),
+                                                               mercator::kPointEqualityEps))
+    {
+      break;
+    }
+    sharedMerc = m_routeSegments[i].GetDistFromBeginningMerc();
+  }
+  return sharedMerc;
+}
+
 m2::RectD RouteBase::GetLimitRect() const
 {
   m2::RectD rect;

@@ -225,11 +225,6 @@ public final class NoGps
     public int calibrationProgress;
     @Keep
     public boolean hasInertialPosition;
-    @Keep
-    public boolean paused;
-    // The pause is set by the navigation itself: the car maneuvers off the roads, its mark waits on the road.
-    @Keep
-    public boolean pausedByItself;
     // The mark waits for the user to put it on a road: the road is lost.
     @Keep
     public boolean roadLost;
@@ -451,8 +446,6 @@ public final class NoGps
   public static native double nativeShiftPosition(double distanceM);
 
   public static native void nativeReverseDirection();
-
-  public static native void nativeTogglePause();
 
   /// Drives a recorded trip again through a navigation of its own and writes its trip log to the file, for
   /// debug builds. The input is made from a trip log by a script, see NoGpsReplay.cpp. Called on the UI thread.

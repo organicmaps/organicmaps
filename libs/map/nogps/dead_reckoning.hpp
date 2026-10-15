@@ -53,6 +53,8 @@ public:
   double GetHeading() const { return m_headingDeg; }
   double GetSpeed() const { return m_speedMps; }
   double GetDistanceSinceFix() const { return m_distanceSinceFixM; }
+  /// How many times the position has been set: what was told about it before is not about the new one.
+  int GetFixCount() const { return m_fixCount; }
   double GetAccuracy() const { return kBaseAccuracyM + kAccuracyPerMeter * m_distanceSinceFixM; }
 
 private:
@@ -62,6 +64,7 @@ private:
   double m_headingDeg = 0;
   double m_speedMps = 0;
   double m_distanceSinceFixM = 0;
+  int m_fixCount = 0;
   double m_odometerM = 0;
   // The heading went aside from the road to the side of |m_asideSign| at this odometer.
   bool m_isAside = false;

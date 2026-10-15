@@ -8,6 +8,7 @@
 #include "map/nogps/esp32_source.hpp"
 #include "map/nogps/gyro_calibrator.hpp"
 #include "map/nogps/motion_source.hpp"
+#include "map/nogps/path_matcher.hpp"
 #include "map/nogps/speed_lag.hpp"
 #include "map/nogps/speed_scale.hpp"
 #include "map/nogps/speed_table.hpp"
@@ -91,7 +92,7 @@ public:
   // It did at the end of a street with the position ahead of the car, and between the ramps of a junction.
   // Off the roads the car is stopped (kLostRoadM) until the user marks it.
   static double constexpr kSnapRadiusM = 20;
-  // The road the car is put on when the user marks it or the movement resumes may be farther.
+  // The road the car is put on when the user marks it may be farther.
   static double constexpr kMaxSnapRadiusM = 60;
   // Roads going apart by this much around the car are a fork: a ramp, a slip road, an exit of a roundabout. Less
   // is the same road or two carriageways, more is a crossing, which a turn of the car tells.
@@ -114,6 +115,13 @@ public:
   static double constexpr kMinBendShiftM = 8;
   // A slow car weaves around holes and parked cars, that looks like a bend of the road.
   static double constexpr kMinBendMoveSpeedMps = 25 / 3.6;
+  // Unless the bends tell the same place several times while the car drives on. On October 14 they told the mark was
+  // 12-14 m ahead six times in 20 s at 16-26 km/h, and nothing else told the place for 6 km. The trips of October
+  // 11-14 driven again with this rule moved a slow car 4 times: the bends told it was in place after every move, the
+  // one with GPS brought the mark from 8 m to 2 m from it.
+  static int constexpr kSlowBendCount = 3;
+  static double constexpr kSlowBendAgreeM = 3;
+  static double constexpr kSlowBendDriveM = 20;
   // What the accelerometer has added to the position fades away in this time.
   static double constexpr kAccelFadeSec = 10;
   // A turn at a crossing rotates the car faster than a bend of a road.
@@ -153,9 +161,9 @@ public:
   // car was lost 5 s before it went straight. It leaves a roundabout for this distance, and is put on the road
   // going its way as far aside as a mark of the user is, after it has driven along it without turning.
   static double constexpr kRoundaboutExitM = 100;
-  // The pause is over when the car drives this fast for a while: nobody drives so fast backwards.
-  static int constexpr kAutoResumeSpeedKmh = 15;
-  static int64_t constexpr kAutoResumeMs = 3000;
+  // Nobody maneuvers or drives backwards this fast: a car followed apart that drives so for a while is on a road.
+  static int constexpr kNotManeuveringSpeedKmh = 15;
+  static int64_t constexpr kNotManeuveringMs = 3000;
   // A car drives this far off the roads only in a yard or a parking lot missing on the map, or the calculation
   // has gone wrong, e.g. with a wrong heading. The car is stopped on the road then until the user marks it.
   static double constexpr kLostRoadM = 30;
@@ -164,10 +172,10 @@ public:
   // A car driving this slowly off the roads maneuvers: it parks, or drives through a yard or a parking lot missing
   // on the map. The calculation gone wrong takes a car off the roads at any speed.
   static double constexpr kMaxManeuverSpeedMps = 20 / 3.6;
-  // A maneuvering car this far off the roads has left them: the movement is paused by itself, the mark waits on
-  // the road and the car is followed apart. On the trips checked a car that was not parking drove so far off the
-  // roads that slowly twice an hour, for a few seconds.
-  static double constexpr kManeuverPauseM = 15;
+  // A maneuvering car this far off the roads has left them: it is followed apart, the mark waits on the road. On
+  // the trips checked a car that was not parking drove so far off the roads that slowly twice an hour, for a few
+  // seconds.
+  static double constexpr kManeuverOffRoadM = 15;
   // A maneuvering car is not thrown to a road this far aside at once, as a car driving along a road is: next to a
   // yard that road is a street behind the houses. 13 of 31 maneuvers at a parking place had such a throw.
   static double constexpr kMaxManeuverSnapM = 10;
@@ -247,15 +255,8 @@ public:
   void SetPosition(ms::LatLon const & position);
   /// \param headingDeg the direction the car looks at, clockwise from the north.
   void SetHeading(double headingDeg, HeadingSource source);
-  /// Pauses the movement of the car while it maneuvers, or resumes it: the car is put on the road where it
-  /// stands, looking the way it has turned to during the pause.
-  /// \returns false if the pause set by itself stays: the car has maneuvered away from its mark, and there is no
-  /// road next to it to go on from.
-  bool SetPaused(bool paused);
-  /// \returns true if the navigation has paused the movement by itself: the car has left the roads maneuvering.
-  /// Its mark waits on the road until the car drives along a road again, or the user resumes the movement.
-  bool IsPausedByItself() const { return m_pausedByItself; }
-  /// \returns where the car is by the calculation while the pause set by itself keeps its mark on the road.
+  /// \returns where the car that has left the roads maneuvering is by the calculation: it is followed apart, its
+  /// mark waits on the road until the car drives along a road again or the user marks it. Nothing on a road.
   std::optional<ms::LatLon> const & GetOffRoadCar() const { return m_offRoadCar; }
   /// \returns true if the car drives backwards by the accelerometer of the box.
   bool IsDrivingBack() const { return m_direction < 0; }
@@ -311,12 +312,11 @@ public:
   /// \returns how far the last turn has moved the car to its crossing.
   std::optional<double> GetLastTurnShiftM() const { return m_lastTurnShiftM; }
   double GetDistanceSinceFix() const { return m_deadReckoning.GetDistanceSinceFix(); }
-  bool IsPaused() const { return m_paused; }
   /// \returns true if the car has left the roads and stands where it was on a road the last time.
   bool IsRoadLost() const { return m_roadLost; }
-  /// \returns true if the mark waits for the user to put it on a road: the road is lost, or the car drives fast
-  /// during the pause set by itself and no road goes its way around.
-  bool IsUserNeeded() const { return m_roadLost || (m_pausedByItself && m_fastWithoutRoad); }
+  /// \returns true if the mark waits for the user to put it on a road: the road is lost, or the car followed apart
+  /// drives fast and no road goes its way around.
+  bool IsUserNeeded() const { return m_roadLost || (m_offRoadCar && m_fastWithoutRoad); }
   /// \returns true if the last position was snapped to a road or the route.
   bool IsOnRoad() const { return m_onRoad; }
   /// \returns how far the closest road was from the calculated position.
@@ -352,8 +352,8 @@ private:
   void SetRoadPoint(ms::LatLon const & position);
   void TrackOffRoad(double distanceM);
   void NotifyRoadLost();
-  void PauseByItself();
-  void EndPauseByItself();
+  void StartFollowingApart();
+  void EndFollowingApart();
   // Tells by the accelerometer of the box which way the car drives, forward or backward.
   void TrackDirection();
   void SetDirection(int direction);
@@ -368,7 +368,7 @@ private:
   // Looks if the car that is not on a road is next to a roundabout.
   void CheckRoundabout();
   void LeaveRoundabout();
-  // The car paused by itself is put on the road it drives along, if there is one.
+  // The car followed apart is put on the road it drives along, if there is one.
   void CheckBackOnRoad();
   /// \returns true if the car has driven along the road far enough to be put on it. |candidate| is that road
   /// while the car drives along it.
@@ -388,6 +388,10 @@ private:
   // \returns the branch the car drives along by its heading if the road forks at the position.
   std::optional<RoadPoint> ChooseBranch(ms::LatLon const & position, double headingDeg);
   void MatchBend();
+  // \returns true if the car has been moved to where the way of a turn around lies on the roads, see PathMatcher.
+  bool MatchLoop(double toBearingDeg);
+  // \returns true if the bends of a slow car have told the same place enough times, see kSlowBendCount.
+  bool IsSlowBendConfirmed(double aheadM);
   void TrackTurn(double yawDeltaDeg, double dtSec, int64_t timestampNs);
   void MatchTurn(int64_t timestampNs);
 
@@ -431,7 +435,17 @@ private:
   SpeedScale m_speedScale;
   TurnSignChecker m_turnSignChecker;
   BendMatcher m_bendMatcher;
+  PathMatcher m_pathMatcher;
   int64_t m_lastBendMatchMs = 0;
+  // The places told by the bends of a slow car since the position was set.
+  struct SlowBends
+  {
+    int m_fixCount = 0;
+    double m_firstAheadM = 0;
+    double m_firstDistanceM = 0;
+    int m_count = 0;
+  };
+  std::optional<SlowBends> m_slowBends;
   // The speed errors measured by trusted GPS at different speeds.
   SpeedTable m_speedTable;
   SpeedLag m_speedLag;
@@ -486,15 +500,9 @@ private:
   // How far the last turn has moved the car to its crossing, for the log of a drive.
   std::optional<double> m_lastTurnShiftM;
 
-  // While the car maneuvers, e.g. parks or turns around in several moves, the speed from the car is always
-  // positive and would move the car forward. The car stays where it is then, the gyroscope still follows
-  // its rotation.
-  bool m_paused = false;
-  // The pause is set by the navigation itself, not by the user: the car has left the roads maneuvering.
-  bool m_pausedByItself = false;
-  // The car has driven fast during that pause where no road goes its way.
+  // The car has driven fast while followed apart where no road goes its way.
   bool m_fastWithoutRoad = false;
-  // Where the car is by the calculation while the pause set by itself keeps its mark on the road.
+  // Where the car that has left the roads maneuvering is by the calculation, its mark waits on the road.
   std::optional<ms::LatLon> m_offRoadCar;
   // The fastest the car has driven off the roads since the last road point.
   double m_offRoadMaxSpeedMps = 0;
@@ -509,7 +517,7 @@ private:
   std::optional<RoadCandidate> m_roadCandidate;
   // The road the car leaves a roundabout by, see kRoundaboutExitM.
   std::optional<RoadCandidate> m_exitCandidate;
-  // All the car has driven, paused or not.
+  // All the car has driven, followed apart or not.
   double m_pathM = 0;
   // The way the car drives since its last start: 1 forward, -1 backward. A standing car is ready to drive forward.
   int m_direction = 1;
@@ -535,7 +543,7 @@ private:
   // The box the accelerometer is learned with, and when it was saved.
   std::string m_boxAccelId;
   int64_t m_boxAccelSavedMs = 0;
-  // Since when the car drives fast enough to end the pause.
+  // Since when the car followed apart drives fast enough to be on a road.
   std::optional<int64_t> m_fastSinceMs;
 };
 

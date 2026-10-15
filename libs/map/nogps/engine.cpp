@@ -200,7 +200,14 @@ void Engine::OnFix(Fix const & location)
   bool const goodGps = SourceOf(location) == PositionSource::Gps && AgeMs(location) <= kGpsMaxAgeMs &&
                        IsAccuracySatisfied(location) && location.m_accuracyM <= kGpsMaxAccuracyM;
   if (goodGps)
+  {
+    // A position given twice tells nothing about how often they come.
+    if (!m_lastGoodGps)
+      m_lastGoodGpsGapMs = std::numeric_limits<int64_t>::max();
+    else if (location.m_timeMs != m_lastGoodGps->m_timeMs)
+      m_lastGoodGpsGapMs = location.m_timeMs - m_lastGoodGps->m_timeMs;
     m_lastGoodGps = location;
+  }
   if (m_manualMode && goodGps && IsGpsBack(location))
   {
     LOG(LINFO, ("GPS is trusted again, leaving the manual mode, location =", location.m_position));
@@ -815,16 +822,6 @@ void Engine::ReverseDirection()
   NotifyLocationUpdated();
 }
 
-void Engine::TogglePause()
-{
-  if (!m_inertial)
-    return;
-  // The pause set by itself stays if the car has no road to go on from: the user marks the car on a road.
-  if (!m_inertial->SetPaused(!m_inertial->IsPaused()))
-    Notify(Event::MarkNoRoad);
-  ShowOffRoadCar();
-}
-
 std::optional<double> Engine::GetCarBearing() const
 {
   if (m_inertial && IsInertialNavigationEnabled())
@@ -929,7 +926,7 @@ void Engine::LeaveRouteIfBesideIt(Fix const & inertial)
   // 50 m and more, and shows it on the route. The mark on a road is wrong along the road and not across it: a
   // car driving along a road beside the route has left the route. On October 13 the car was shown on the route
   // for 26 s where another road goes beside it, 20-40 m apart.
-  bool const alongRoad = m_inertial->IsOnRoad() && !m_inertial->IsTurning() && !m_inertial->IsPaused() &&
+  bool const alongRoad = m_inertial->IsOnRoad() && !m_inertial->IsTurning() && !m_inertial->GetOffRoadCar() &&
                          inertial.m_bearingDeg && inertial.m_speedMps.value_or(0) > 0 && m_map.IsNavigating();
   auto const aside =
       alongRoad ? m_map.GetRouteAside(inertial.m_position, *inertial.m_bearingDeg) : std::optional<double>();
@@ -1185,8 +1182,11 @@ void Engine::ApplyManualLocation()
 
 std::optional<Fix> Engine::GetWorkingGps() const
 {
-  if (!m_lastGoodGps || m_spoofingDetector.IsSpoofed() || AgeMs(*m_lastGoodGps) > kGpsStatusMaxAgeMs)
+  if (!m_lastGoodGps || m_spoofingDetector.IsSpoofed() || AgeMs(*m_lastGoodGps) > kGpsStatusMaxAgeMs ||
+      m_lastGoodGpsGapMs > kGpsStatusMaxGapMs)
+  {
     return {};
+  }
   return m_lastGoodGps;
 }
 
@@ -1248,8 +1248,6 @@ Status Engine::GetStatus()
     status.m_calibration = m_inertial->GetCalibrationState();
     status.m_calibrationProgress = m_inertial->GetCalibrationProgressPercent();
     status.m_hasInertialPosition = m_inertial->HasPosition();
-    status.m_paused = m_inertial->IsPaused();
-    status.m_pausedByItself = m_inertial->IsPausedByItself();
     status.m_roadLost = m_inertial->IsUserNeeded();
     if (auto const * box = m_inertial->GetEsp32())
     {
@@ -1322,7 +1320,6 @@ std::string Engine::GetTripLine()
   }
   line += " gpsAge=" + (m_lastTrustedGpsMs ? FormatSeconds(MsSince(m_lastTrustedGpsMs)) : "-");
   line += std::string(" spoofed=") + (m_spoofingDetector.IsSpoofed() ? "1" : "0");
-  line += std::string(" paused=") + (m_inertial && m_inertial->IsPaused() ? "1" : "0");
   bool const navigating = m_map.IsNavigating();
   line += std::string(" nav=") + (navigating ? "1" : "0");
   // The route left tells if the route follows the car: the passed part is cut off by it.
@@ -1400,7 +1397,7 @@ std::string Engine::GetTripLine()
     line += buf;
     auto const candidate = m_inertial->GetRoadCandidateM();
     line += " cand=" + (candidate ? std::to_string(std::lround(*candidate)) : std::string("-"));
-    // The pause set by the navigation itself and where the car maneuvers by the calculation.
+    // The car followed apart off the roads, where it is by the calculation.
     if (auto const & car = m_inertial->GetOffRoadCar())
     {
       std::snprintf(buf, sizeof(buf), " self=1 car=%.6f,%.6f", car->m_lat, car->m_lon);
@@ -1413,7 +1410,7 @@ std::string Engine::GetTripLine()
       std::snprintf(buf, sizeof(buf), " snap=NaN");
     line += buf;
     // How much to the right of the road found by the last look for it the car looks, and what the look has ended
-    // with. While the pause set by itself keeps the mark on the road, the car followed apart is looked for.
+    // with. While the car is followed apart, the road is looked for next to it.
     auto const roadDiff = m_inertial->GetLastSnapBearingDiffDeg();
     line += " rdiff=" + (roadDiff ? std::to_string(std::lround(*roadDiff)) : std::string("-"));
     line += " snapwhy=" + DebugPrint(m_inertial->GetLastSnapResult());

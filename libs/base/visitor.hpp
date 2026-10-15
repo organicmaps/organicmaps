@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/internal/message.hpp"
+
 #include <sstream>
 #include <string>
 

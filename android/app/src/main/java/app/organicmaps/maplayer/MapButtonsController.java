@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -97,11 +96,6 @@ public class MapButtonsController extends Fragment
   private View mReverseButton;
   @Nullable
   private TextView mPositionStatus;
-  @Nullable
-  private FloatingActionButton mPauseButton;
-  // The color of the icon of the pause button as its style sets it.
-  @Nullable
-  private ColorStateList mPauseButtonIconTint;
   @Nullable
   private View mShiftPositionContainer;
   @Nullable
@@ -204,12 +198,6 @@ public class MapButtonsController extends Fragment
       Logger.i(TAG, "FLAG " + ++sLogFlags);
       v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
       Toast.makeText(v.getContext(), "\u2691 " + sLogFlags, Toast.LENGTH_SHORT).show();
-    });
-    mPauseButton = mFrame.findViewById(R.id.pause_movement);
-    mPauseButtonIconTint = mPauseButton.getImageTintList();
-    mPauseButton.setOnClickListener((v) -> {
-      mMapButtonClickListener.onMapButtonClick(MapButtons.pauseMovement);
-      updatePositionStatus();
     });
     mShiftPositionStep.setOnClickListener((v) -> {
       NoGps.nativeCycleShiftStep();
@@ -341,8 +329,7 @@ public class MapButtonsController extends Fragment
       }
       case INERTIAL ->
       {
-        text = status.paused ? getString(R.string.nogps_status_paused)
-                             : getString(R.string.nogps_status_inertial, formatAccuracy(status.accuracyM));
+        text = getString(R.string.nogps_status_inertial, formatAccuracy(status.accuracyM));
         color = R.color.nogps_status_inertial;
       }
       case MANUAL ->
@@ -396,22 +383,6 @@ public class MapButtonsController extends Fragment
       mShiftPositionStep.setText(getString(R.string.nogps_meters, status.shiftStepM));
     if (mReverseButton != null)
       showCarControl(status.movedByHand, mReverseButton);
-
-    // The movement is paused only when it is calculated from the car speed.
-    if (mPauseButton != null)
-    {
-      showCarControl(status.movedByHand && status.inertialEnabled, mPauseButton);
-      mPauseButton.setImageResource(status.paused ? R.drawable.ic_play : R.drawable.ic_pause);
-      mPauseButton.setContentDescription(getString(status.paused ? R.string.nogps_resume : R.string.nogps_pause));
-      // A pause is to be noticed, whoever has set it: the mark stands while the car drives.
-      // The style tints the background by the attribute of the view, not of the button: the tint of the button
-      // is not seen under it.
-      final Drawable background = mPauseButton.getBackground();
-      if (background != null)
-        background.setTint(status.paused ? ContextCompat.getColor(context, R.color.nogps_paused)
-                                         : ThemeUtils.getColor(context, R.attr.menuBackground));
-      mPauseButton.setImageTintList(status.paused ? ColorStateList.valueOf(Color.WHITE) : mPauseButtonIconTint);
-    }
 
     // The position waits at a turn until the car leaves it, otherwise it would go to another street.
     setShiftEnabled(mShiftPositionForward, !status.shiftForwardBlocked);
@@ -820,8 +791,7 @@ public class MapButtonsController extends Fragment
     positionStatus,
     shiftPositionForward,
     shiftPositionBack,
-    reverseDirection,
-    pauseMovement
+    reverseDirection
   }
 
   public interface MapButtonClickListener

@@ -398,8 +398,9 @@ private:
   // Helper: build drape subroutes for a single route. |isActive| controls styling
   // (alternatives are dimmed). |roadWarnings| is appended for every route (active and alternatives)
   // so warning marks of all routes are shown together.
-  void InsertSingleRoute(routing::RouteBase const & route, bool isActive, double depthOffset,
-                         std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
+  /// \param sharedWithActiveMerc how far an alternative goes along the active route from their start.
+  void InsertSingleRoute(routing::RouteBase const & route, bool isActive, double sharedWithActiveMerc,
+                         double depthOffset, std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
                          RoadWarningsCollection & roadWarnings);
 
   // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.

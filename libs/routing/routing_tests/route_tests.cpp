@@ -500,6 +500,22 @@ UNIT_TEST(RouteBase_GetMidpoint_Subrange)
   TEST_ALMOST_EQUAL_ABS(mid.y, 0.0, 1e-6, (mid));
 }
 
+UNIT_TEST(RouteBase_GetSharedStartMerc)
+{
+  vector<Segment> segs;
+  for (uint32_t i = 0; i < 5; ++i)
+    segs.emplace_back(0, 0, i, true);
+  auto const route = MakeRoute({{0, 0}, {0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}}, segs);
+  // The alternative parts from the route at (2, 0).
+  auto const alternative = MakeRoute({{0, 0}, {0, 0}, {1, 0}, {2, 0}, {2, 1}, {2, 2}}, segs);
+  TEST_ALMOST_EQUAL_ABS(alternative.GetSharedStartMerc(route), 2.0, 1e-9, ());
+  TEST_ALMOST_EQUAL_ABS(route.GetSharedStartMerc(alternative), 2.0, 1e-9, ());
+  TEST_ALMOST_EQUAL_ABS(route.GetSharedStartMerc(route), 4.0, 1e-9, ());
+  // Another one parts from it at once.
+  auto const other = MakeRoute({{0, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4}}, segs);
+  TEST_ALMOST_EQUAL_ABS(other.GetSharedStartMerc(route), 0.0, 1e-9, ());
+}
+
 // Same featureId set on both sides → every segment matches → no divergence → nullopt.
 UNIT_TEST(RouteBase_FindMaxDiffMidpoint_NoDiff)
 {

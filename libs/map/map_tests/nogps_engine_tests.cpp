@@ -241,6 +241,12 @@ std::string TripField(Env & env, std::string const & name)
   return line.substr(from, line.find(' ', from) - from);
 }
 
+// The car maneuvering off the roads is followed apart, its mark waits on the road.
+bool FollowedApart(Env & env)
+{
+  return env.m_engine.GetTripLine().find(" self=1 car=") != std::string::npos;
+}
+
 // The car driving 10 m/s east turns left at the crossing at 200 m, the calculated position lags behind it: it is
 // |beforeTurnM| east when the turn starts. Then the car drives north.
 void TurnLeftAtCrossing(Env & env, double beforeTurnM)
@@ -377,7 +383,7 @@ UNIT_TEST(NoGps_Engine_CarAtRoundaboutIsNotLost)
     if (!roundabout)
       continue;
     // The car is on the street it has left the roundabout by.
-    TEST(!env.m_engine.GetStatus().m_paused, ());
+    TEST(!FollowedApart(env), ());
     std::string const after = env.m_engine.GetTripLine();
     TEST(after.find(" road=1 ") != std::string::npos, (after));
     TEST(after.find(" ring=0") != std::string::npos, (after));
@@ -639,6 +645,43 @@ UNIT_TEST(NoGps_Engine_MarkAheadOnBendComesBackToRoad)
   auto const & position = env.Last().m_position;
   TestAlmostEqualAbs((East(position) - 100) * cos65 - North(position) * sin65, 0, 1);
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+}
+
+UNIT_TEST(NoGps_Engine_BendsToldRepeatedlyMoveSlowCar)
+{
+  // The street going east bends evenly by 30 degrees to the left at 200 m: by 5 degrees in a second at 20 km/h.
+  double constexpr kBendStartM = 200;
+  double constexpr kPieceM = 20 / 3.6;
+  std::vector<PieceRoads::Piece> pieces = {{-300, 0, kBendStartM, 0}};
+  double endEast = kBendStartM;
+  double endNorth = 0;
+  for (int i = 0; i < 6; ++i)
+  {
+    double const bearing = math::DegToRad(87.5 - 5 * i);
+    pieces.push_back(
+        {endEast, endNorth, endEast + kPieceM * std::sin(bearing), endNorth + kPieceM * std::cos(bearing)});
+    endEast = pieces.back()[2];
+    endNorth = pieces.back()[3];
+  }
+  double const sin60 = std::sin(math::DegToRad(60.0));
+  double const cos60 = std::cos(math::DegToRad(60.0));
+  pieces.push_back({endEast, endNorth, endEast + 600 * sin60, endNorth + 600 * cos60});
+  PieceRoads roads(pieces, {});
+  Env env(true /* inertial */, &roads);
+
+  // The user marks the car 15 m ahead of it. The car drives slower than a single look at the bends is trusted at.
+  MarkCar(env, 15);
+  while (East(env.Last().m_position) < kBendStartM + 15)
+    env.Drive(100, 20, 0);
+  double const bendOdometerM = std::stod(TripField(env, "odo"));
+  env.Drive(6000, 20, -5);
+  env.Drive(20000, 20, 0);
+
+  // The bends have told the mark is ahead several times while the car drove on: it is where the car is.
+  double const afterBendM = std::stod(TripField(env, "odo")) - bendOdometerM - 6 * kPieceM;
+  TEST_GREATER(afterBendM, 50, ());
+  auto const car = At(endEast + afterBendM * sin60, endNorth + afterBendM * cos60);
+  TestAlmostEqualAbs(Distance(env.Last().m_position, car), 0, 4);
 }
 
 UNIT_TEST(NoGps_Engine_TellsThatMovedBoxDoesNotFollowCar)
@@ -1073,26 +1116,6 @@ UNIT_TEST(NoGps_Engine_TripLineTellsWhyCarIsNotOnRoad)
   TEST(line.find(" rdiff=- snapwhy=NOROAD ") != std::string::npos, (line));
 }
 
-UNIT_TEST(NoGps_Engine_PauseResumesByItself)
-{
-  Env env(true /* inertial */);
-  MarkCar(env, 50);
-  env.Drive(2000, 36, 0);
-  env.m_engine.TogglePause();
-  TEST(env.m_engine.GetStatus().m_paused, ());
-  // The car maneuvers: the speed is positive, but the position stays. The positions are sent 5 times a second, the
-  // first one after the pause is where the car has stopped.
-  env.Drive(2 * InertialNavigator::kOutputIntervalMs, 10, 0);
-  double const pausedAtM = East(env.Last().m_position);
-  env.Drive(2000, 10, 0);
-  TestAlmostEqualAbs(East(env.Last().m_position), pausedAtM, 0.01);
-  // Nobody drives so fast backwards: the pause is over.
-  env.Drive(3500, 20, 0);
-  TEST(!env.m_engine.GetStatus().m_paused, ());
-  env.Drive(1000, 20, 0);
-  TEST_GREATER(East(env.Last().m_position), pausedAtM, ());
-}
-
 /// The car marked on the street going east leaves it to the right at a walking speed and drives 24 m into a yard.
 void DriveIntoYard(Env & env)
 {
@@ -1102,7 +1125,7 @@ void DriveIntoYard(Env & env)
   env.Drive(9000, 9, 0);
 }
 
-UNIT_TEST(NoGps_Engine_ManeuverOffRoadsPausesByItself)
+UNIT_TEST(NoGps_Engine_ManeuveringCarIsFollowedApart)
 {
   // A street going east, and a street 40 m to the south of it going the same way.
   PieceRoads roads({{-300, 0, 300, 0}, {-300, -40, 600, -40}}, {});
@@ -1111,11 +1134,9 @@ UNIT_TEST(NoGps_Engine_ManeuverOffRoadsPausesByItself)
     Env env(true /* inertial */, &roads);
     env.m_map.m_navigating = navigating;
     DriveIntoYard(env);
-    auto status = env.m_engine.GetStatus();
-    TEST(status.m_paused, (navigating));
-    TEST(status.m_pausedByItself, (navigating));
+    TEST(FollowedApart(env), (navigating, env.m_engine.GetTripLine()));
+    TEST(!env.m_engine.GetStatus().m_roadLost, (navigating));
     TEST(!env.m_delegate.HasEvent(Event::RoadLost), (navigating));
-    TEST(env.m_engine.GetTripLine().find(" self=1 car=") != std::string::npos, (env.m_engine.GetTripLine()));
     if (navigating)
     {
       // The mark waits on the street of the route, the car is shown apart in the yard.
@@ -1137,12 +1158,10 @@ UNIT_TEST(NoGps_Engine_ManeuverOffRoadsPausesByItself)
     // the car at once.
     env.Drive(1000, 9, -90);
     env.Drive(3000, 9, 0);
-    TEST(env.m_engine.GetStatus().m_pausedByItself, (navigating));
+    TEST(FollowedApart(env), (navigating));
     // The car has driven along it for 15 m: it is on it, looking along it.
     env.Drive(6000, 9, 0);
-    status = env.m_engine.GetStatus();
-    TEST(!status.m_paused, (navigating));
-    TEST(!status.m_pausedByItself, (navigating));
+    TEST(!FollowedApart(env), (navigating));
     TEST(!env.m_map.m_offRoadCar, (navigating));
     TestAlmostEqualAbs(North(env.Last().m_position), -40, 0.5);
     TestAlmostEqualAbs(*env.Last().m_bearingDeg, 90, 0.5);
@@ -1156,14 +1175,14 @@ UNIT_TEST(NoGps_Engine_ManeuverOffRoadsPausesByItself)
   }
 }
 
-UNIT_TEST(NoGps_Engine_PauseSetByItselfWaitsForUser)
+UNIT_TEST(NoGps_Engine_CarFollowedApartWaitsForUser)
 {
   // The street ends 20 m to the east of the car, there are no other roads.
   PieceRoads roads({{-300, 0, 20, 0}}, {});
   Env env(true /* inertial */, &roads);
   env.m_map.m_navigating = true;
   DriveIntoYard(env);
-  TEST(env.m_engine.GetStatus().m_pausedByItself, ());
+  TEST(FollowedApart(env), ());
   // A car maneuvering off the roads is not lost.
   TEST(!env.m_engine.GetStatus().m_roadLost, ());
   double const markEast = East(env.Last().m_position);
@@ -1172,96 +1191,37 @@ UNIT_TEST(NoGps_Engine_PauseSetByItselfWaitsForUser)
   // to put the car on. The mark waits, the user is told.
   env.Drive(1000, 9, -90);
   env.Drive(8000, 36, 0);
-  auto status = env.m_engine.GetStatus();
-  TEST(status.m_paused, ());
-  TEST(status.m_pausedByItself, ());
-  TEST(status.m_roadLost, ());
+  TEST(FollowedApart(env), ());
+  TEST(env.m_engine.GetStatus().m_roadLost, ());
   TEST(env.m_delegate.HasEvent(Event::RoadLost), ());
   TestAlmostEqualAbs(East(env.Last().m_position), markEast, 0.01);
   TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
   TEST(env.m_map.m_offRoadCar, ());
   TEST_GREATER(East(*env.m_map.m_offRoadCar), 80, ());
 
-  // The user resumes the movement, but there is no road next to the car to go on from: the pause stays, the car
-  // is where it was, and the user is told to mark it on a road.
-  env.Drive(1000, 0, 0);
-  auto const car = *env.m_map.m_offRoadCar;
-  TEST(!env.m_delegate.HasEvent(Event::MarkNoRoad), ());
-  env.m_engine.TogglePause();
-  status = env.m_engine.GetStatus();
-  TEST(status.m_paused, ());
-  TEST(status.m_pausedByItself, ());
-  TEST(env.m_delegate.HasEvent(Event::MarkNoRoad), ());
-  env.Drive(1000, 0, 0);
-  TEST(env.m_map.m_offRoadCar, ());
-  TestAlmostEqualAbs(East(*env.m_map.m_offRoadCar), East(car), 0.5);
-  TestAlmostEqualAbs(North(*env.m_map.m_offRoadCar), North(car), 0.5);
-  TestAlmostEqualAbs(East(env.Last().m_position), markEast, 0.5);
-  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
-
-  // The mark of the user ends the pause.
+  // The mark of the user ends it.
   TEST(env.m_engine.PlaceMarkByTap(At(-100, 2)), ());
-  status = env.m_engine.GetStatus();
-  TEST(!status.m_paused, ());
-  TEST(!status.m_roadLost, ());
-  TEST(!status.m_pausedByItself, ());
+  TEST(!env.m_engine.GetStatus().m_roadLost, ());
+  TEST(!FollowedApart(env), ());
   TEST(!env.m_map.m_offRoadCar, ());
 }
 
-UNIT_TEST(NoGps_Engine_PauseSetByItselfIsEndedByUserNextToRoad)
-{
-  // A street going east, and a street 40 m to the south of it going the same way.
-  PieceRoads roads({{-300, 0, 300, 0}, {-300, -40, 600, -40}}, {});
-  for (bool navigating : {true, false})
-  {
-    Env env(true /* inertial */, &roads);
-    env.m_map.m_navigating = navigating;
-    DriveIntoYard(env);
-    TEST(env.m_engine.GetStatus().m_pausedByItself, (navigating));
-
-    // The car turns left 16 m from the other street and stops. The user resumes the movement: the car goes on from
-    // that street, not from where it has left the first one.
-    env.Drive(1000, 9, -90);
-    env.Drive(1000, 0, 0);
-    env.m_engine.TogglePause();
-    auto const status = env.m_engine.GetStatus();
-    TEST(!status.m_paused, (navigating));
-    TEST(!status.m_pausedByItself, (navigating));
-    TEST(!env.m_delegate.HasEvent(Event::MarkNoRoad), (navigating));
-    env.Drive(1000, 0, 0);
-    TestAlmostEqualAbs(North(env.Last().m_position), -40, 0.5);
-    TestAlmostEqualAbs(*env.Last().m_bearingDeg, 90, 0.5);
-    TEST(!env.m_map.m_offRoadCar, (navigating));
-  }
-}
-
-UNIT_TEST(NoGps_Engine_MarkOfUserEndsPauseSetByItself)
+UNIT_TEST(NoGps_Engine_MarkOfUserEndsFollowingApart)
 {
   PieceRoads roads({{-300, 0, 300, 0}}, {});
   Env env(true /* inertial */, &roads);
   env.m_map.m_navigating = true;
   DriveIntoYard(env);
-  TEST(env.m_engine.GetStatus().m_pausedByItself, ());
+  TEST(FollowedApart(env), ());
   TEST(env.m_map.m_offRoadCar, ());
 
   // The car is where the user tells, not where it has maneuvered to by the calculation.
   TEST(env.m_engine.PlaceMarkByTap(At(100, 2)), ());
-  auto const status = env.m_engine.GetStatus();
-  TEST(!status.m_paused, ());
-  TEST(!status.m_pausedByItself, ());
+  TEST(!FollowedApart(env), ());
   TEST(!env.m_map.m_offRoadCar, ());
   env.Drive(2000, 0, 0);
   TestAlmostEqualAbs(East(env.Last().m_position), 100, 0.5);
   TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
-
-  // The pause of the user is not the one set by itself: the car is not followed apart.
-  env.Drive(2000, 9, 0);
-  env.m_engine.TogglePause();
-  env.Drive(1000, 9, 90);
-  env.Drive(9000, 9, 0);
-  TEST(env.m_engine.GetStatus().m_paused, ());
-  TEST(!env.m_engine.GetStatus().m_pausedByItself, ());
-  TEST(!env.m_map.m_offRoadCar, ());
 }
 
 UNIT_TEST(NoGps_Engine_FastCarComesBackToRoadFarAside)
@@ -1271,14 +1231,14 @@ UNIT_TEST(NoGps_Engine_FastCarComesBackToRoadFarAside)
   Env env(true /* inertial */, &roads);
   env.m_map.m_navigating = true;
   DriveIntoYard(env);
-  TEST(env.m_engine.GetStatus().m_pausedByItself, ());
+  TEST(FollowedApart(env), ());
   // The car turns east and drives 30 m from the other street, too far to be put on it while it maneuvers.
   env.Drive(1000, 9, -90);
   env.Drive(8000, 9, 0);
-  TEST(env.m_engine.GetStatus().m_pausedByItself, ());
+  TEST(FollowedApart(env), ());
   // It drives fast for 3 s: nobody maneuvers so, it is on the street going its way.
   env.Drive(3500, 36, 0);
-  TEST(!env.m_engine.GetStatus().m_paused, ());
+  TEST(!FollowedApart(env), ());
   TEST(!env.m_map.m_offRoadCar, ());
   env.Drive(1000, 36, 0);
   TestAlmostEqualAbs(North(env.Last().m_position), -55, 0.5);
@@ -1307,16 +1267,16 @@ UNIT_TEST(NoGps_Engine_ManeuveringCarIsNotThrownToRoadAside)
       // A maneuvering car is not on that street yet: next to a yard such a street is behind the houses.
       TEST_GREATER(East(env.Last().m_position), 14, ());
       TEST_LESS(East(env.Last().m_position), 19.5, ());
-      TEST(!env.m_engine.GetStatus().m_paused, ());
-      // It has driven along the street for 15 m: it is put on it, and was not paused meanwhile.
+      TEST(!FollowedApart(env), ());
+      // It has driven along the street for 15 m: it is put on it, and was not followed apart meanwhile.
       env.Drive(2000, speedKmh, 0);
-      TEST(!env.m_engine.GetStatus().m_paused, ());
+      TEST(!FollowedApart(env), ());
       env.Drive(4000, speedKmh, 0);
     }
     // A car driving along a road is thrown to it at once.
     TestAlmostEqualAbs(East(env.Last().m_position), 30, 0.5);
     TestAlmostEqualAbs(*env.Last().m_bearingDeg, 180, 1);
-    TEST(!env.m_engine.GetStatus().m_paused, (speedKmh));
+    TEST(!FollowedApart(env), (speedKmh));
     TEST(!env.m_delegate.HasEvent(Event::RoadLost), (speedKmh));
   }
 }
@@ -1413,7 +1373,7 @@ UNIT_TEST(NoGps_Engine_AccelerometerTellsCarInYardDrivesBack)
     car.Drive(8, 0, 0);
     car.Drive(2.5, -1, 0);
     car.Drive(4, 0, 0);
-    TEST(env.m_engine.GetStatus().m_pausedByItself, (accelerometer));
+    TEST(FollowedApart(env), (accelerometer));
     TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
     double const stoppedNorth = North(env.Last().m_position);
     TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
@@ -1426,7 +1386,7 @@ UNIT_TEST(NoGps_Engine_AccelerometerTellsCarInYardDrivesBack)
     car.Drive(2, 0, 0);
     car.Drive(2, 1, 0);
     car.Drive(3, 0, 0);
-    TEST(env.m_engine.GetStatus().m_pausedByItself, (accelerometer));
+    TEST(FollowedApart(env), (accelerometer));
     if (accelerometer)
     {
       TestAlmostEqualAbs(North(env.Last().m_position), stoppedNorth + 12, 3);
@@ -1487,7 +1447,7 @@ UNIT_TEST(NoGps_Engine_AccelerometerTellsCarOnRoadDrivesBack)
     TestAlmostEqualAbs(North(env.Last().m_position), 0, 1);
     // The car looks where it did.
     TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 90), 0, 3);
-    TEST(!env.m_engine.GetStatus().m_paused, (accelerometer));
+    TEST(!FollowedApart(env), (accelerometer));
 
     // And forward again.
     car.Drive(2, 1, 0);
@@ -1534,7 +1494,7 @@ UNIT_TEST(NoGps_Engine_CarBackingIntoSideStreetIsFollowed)
   TestAlmostEqualAbs(car.North(), 10, 0.5);
   TestAlmostEqualAbs(East(env.Last().m_position), 0, 1);
   TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
-  TEST(!env.m_engine.GetStatus().m_paused, ());
+  TEST(!FollowedApart(env), ());
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
@@ -1663,6 +1623,41 @@ UNIT_TEST(NoGps_Engine_ManualModeWhenGpsIsLostWhileNavigating)
   TEST(!env.m_engine.IsManualMode(), ());
   TEST(env.m_delegate.HasEvent(Event::GpsBack), ());
   TEST_EQUAL(env.Last().m_provider, Provider::Gps, ());
+}
+
+UNIT_TEST(NoGps_Engine_SeldomAccuratePositionsAreNotGpsBack)
+{
+  Env env(false /* inertial */);
+  env.m_map.m_navigating = true;
+  env.DriveGps(10, 0, 10);
+  env.m_clock.Advance(Engine::kGpsLostMs + 1500);
+  TEST(env.m_engine.IsManualMode(), ());
+
+  // The fused provider repeats the Wi-Fi positions as accurate ones now and then, sometimes twice.
+  auto const fused = [&env]
+  {
+    auto fix = GpsAt(env.m_clock, 90, 0, {}, 0.0, 3);
+    fix.m_provider = Provider::Fused;
+    return fix;
+  };
+  for (int i = 0; i < 5; ++i)
+  {
+    env.m_clock.Advance(6000);
+    env.m_engine.OnFix(fused());
+    env.m_engine.OnFix(fused());
+  }
+  TEST(!env.m_engine.GetStatus().m_workingGpsAccuracyM, ());
+  TEST(env.m_engine.IsManualMode(), ());
+
+  // GPS gives a position every second.
+  for (int i = 0; i < 2; ++i)
+  {
+    env.m_clock.Advance(1000);
+    env.m_engine.OnFix(GpsAt(env.m_clock, 90, 0, {}, 0.0));
+  }
+  auto const accuracyM = env.m_engine.GetStatus().m_workingGpsAccuracyM;
+  TEST(accuracyM, ());
+  TEST_EQUAL(*accuracyM, 5, ());
 }
 
 UNIT_TEST(NoGps_Engine_ManualModeWhenGpsIsSpoofed)

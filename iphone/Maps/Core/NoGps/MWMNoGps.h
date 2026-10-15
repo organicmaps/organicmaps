@@ -118,9 +118,6 @@ NS_SWIFT_NAME(NoGpsStatus)
 @property(nonatomic, readonly) MWMNoGpsCalibrationState calibration;
 @property(nonatomic, readonly) NSInteger calibrationProgress;
 @property(nonatomic, readonly) BOOL hasInertialPosition;
-@property(nonatomic, readonly) BOOL paused;
-/// The pause is set by the navigation itself: the car maneuvers off the roads, its mark waits on the road.
-@property(nonatomic, readonly) BOOL pausedByItself;
 /// The mark waits for the user to put it on a road: the road is lost.
 @property(nonatomic, readonly) BOOL roadLost;
 
@@ -147,7 +144,6 @@ NS_SWIFT_NAME(NoGps)
 /// @return the distance it was moved by, 0 if it can not be moved.
 + (double)shiftPosition:(double)distanceM;
 + (void)reverseDirection;
-+ (void)togglePause;
 + (void)setGpsDisabled:(BOOL)disabled;
 + (void)setInertialNavigationEnabled:(BOOL)enabled;
 + (void)calibrate;

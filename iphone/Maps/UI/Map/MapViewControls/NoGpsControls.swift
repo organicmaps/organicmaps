@@ -32,7 +32,6 @@ final class NoGpsControls: NSObject {
   private let shiftForwardButton = NoGpsControls.makeButton("chevron.up")
   private let shiftStepButton = UIButton(type: .system)
   private let shiftBackButton = NoGpsControls.makeButton("chevron.down")
-  private let pauseButton = NoGpsControls.makeButton("pause.fill")
   private let reverseButton = NoGpsControls.makeButton("arrow.uturn.left")
   private let manualButton = NoGpsControls.makeButton("antenna.radiowaves.left.and.right")
   private var statusTop = NSLayoutConstraint()
@@ -102,7 +101,6 @@ final class NoGpsControls: NSObject {
 
     shiftForwardButton.addTarget(self, action: #selector(shiftForward), for: .touchUpInside)
     shiftBackButton.addTarget(self, action: #selector(shiftBack), for: .touchUpInside)
-    pauseButton.addTarget(self, action: #selector(togglePause), for: .touchUpInside)
     reverseButton.addTarget(self, action: #selector(reverseDirection), for: .touchUpInside)
     manualButton.addTarget(self, action: #selector(toggleManualMode), for: .touchUpInside)
     shiftForwardButton.accessibilityLabel = L("nogps_shift_forward")
@@ -114,7 +112,7 @@ final class NoGpsControls: NSObject {
     buttons.alignment = .center
     buttons.spacing = Constants.spacing
     buttons.translatesAutoresizingMaskIntoConstraints = false
-    for item in [shiftForwardButton, shiftStepButton, shiftBackButton, pauseButton, reverseButton, manualButton] {
+    for item in [shiftForwardButton, shiftStepButton, shiftBackButton, reverseButton, manualButton] {
       buttons.addArrangedSubview(item)
     }
     superview.addSubview(buttons)
@@ -182,16 +180,6 @@ final class NoGpsControls: NSObject {
     shiftForwardButton.alpha = status.shiftForwardBlocked ? Constants.disabledAlpha : 1
     shiftBackButton.alpha = status.shiftBackBlocked ? Constants.disabledAlpha : 1
     reverseButton.isHidden = !status.movedByHand
-    // The movement is paused only when it is calculated from the car speed.
-    pauseButton.isHidden = !(status.movedByHand && status.inertialEnabled)
-    pauseButton.setImage(UIImage(systemName: status.paused ? "play.fill" : "pause.fill"), for: .normal)
-    pauseButton.accessibilityLabel = L(status.paused ? "nogps_resume" : "nogps_pause")
-    // A pause is to be noticed, whoever has set it: the mark stands while the car drives.
-    let pauseStyle = status.paused ? MapStyleSheet.mapNoGpsPausedButton.rawValue
-      : GlobalStyleSheet.bottomTabBarButton.rawValue
-    if pauseButton.styleName != pauseStyle {
-      pauseButton.setStyleNameAndApply(pauseStyle)
-    }
     // The icon tells where the position comes from now: from satellites or from the user.
     manualButton.setImage(UIImage(systemName: status.manualMode ? "hand.point.up.left.fill"
         : "antenna.radiowaves.left.and.right"), for: .normal)
@@ -206,9 +194,7 @@ final class NoGpsControls: NSObject {
       let key = status.gpsSpoofed ? "nogps_status_network_spoofed" : "nogps_status_network_no_gps"
       return (String(format: L(key), formatAccuracy(status.accuracyM)), Constants.networkColor)
     case .inertial:
-      let text = status.paused ? L("nogps_status_paused")
-        : String(format: L("nogps_status_inertial"), formatAccuracy(status.accuracyM))
-      return (text, Constants.inertialColor)
+      return (String(format: L("nogps_status_inertial"), formatAccuracy(status.accuracyM)), Constants.inertialColor)
     case .manual:
       let minutes = Int(status.manualAge / 60)
       let text = minutes == 0 ? L("nogps_status_manual_just_now") : String(format: L("nogps_status_manual_minutes"), minutes)
@@ -282,12 +268,6 @@ final class NoGpsControls: NSObject {
   @objc
   private func reverseDirection() {
     NoGps.reverseDirection()
-  }
-
-  @objc
-  private func togglePause() {
-    NoGps.togglePause()
-    refresh()
   }
 
   @objc

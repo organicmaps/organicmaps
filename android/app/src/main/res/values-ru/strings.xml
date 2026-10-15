@@ -985,9 +985,6 @@
     <string name="nogps_gps_lost_auto">GPS пропал или сбился, включён ручной режим</string>
     <string name="nogps_disable_gps">Отключить GPS</string>
     <string name="nogps_disable_gps_hint">Для проверки: приложение не видит GPS, как при глушении, остальная геолокация работает. Выключается при перезапуске приложения.</string>
-    <string name="nogps_pause">Пауза: машина маневрирует</string>
-    <string name="nogps_resume">Продолжить движение</string>
-    <string name="nogps_status_paused">Пауза</string>
     <!-- Status of the position: the mark of the car stands and waits for the user -->
     <string name="nogps_status_road_lost">Дорога потеряна</string>
     <!-- Second line of the status "Road lost" -->

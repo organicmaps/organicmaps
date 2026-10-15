@@ -118,7 +118,9 @@
 		7736A9BB6869456F306433E7 /* accel_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8D0B18D46AFF8DF17A333 /* accel_log.cpp */; };
 		D9E68D355F8AB8ED03845A7F /* accel_log.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3B60D0DAA1E78B1F9D133270 /* accel_log.hpp */; };
 		3A922311C693E25B42BE7526 /* bend_matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ED51162C857ACE77004B111 /* bend_matcher.cpp */; };
+		A5067CD687F88D5F126A3197 /* path_matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D783DE71BC09EEEE83761179 /* path_matcher.cpp */; };
 		378B227BB02AA457C5D8E1B9 /* bend_matcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7944F4F9E1DDCC576E8EE1E8 /* bend_matcher.hpp */; };
+		50FE7E3A2B506C1AEA4C7157 /* path_matcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1445C1765FE4012AD055290 /* path_matcher.hpp */; };
 		631DBB0128269BF8F49D6D44 /* dead_reckoning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FECAD6707B90A21905BC90D6 /* dead_reckoning.cpp */; };
 		8899F827303964D4582FA0BB /* dead_reckoning.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CDC6C24320D7C660D4791D0B /* dead_reckoning.hpp */; };
 		76C515A3D75338DBFBC05AF2 /* elm327_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49BA0CF1A436396F918DE650 /* elm327_parser.cpp */; };
@@ -320,7 +322,9 @@
 		4CE8D0B18D46AFF8DF17A333 /* accel_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = accel_log.cpp; sourceTree = "<group>"; };
 		3B60D0DAA1E78B1F9D133270 /* accel_log.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = accel_log.hpp; sourceTree = "<group>"; };
 		4ED51162C857ACE77004B111 /* bend_matcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bend_matcher.cpp; sourceTree = "<group>"; };
+		D783DE71BC09EEEE83761179 /* path_matcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path_matcher.cpp; sourceTree = "<group>"; };
 		7944F4F9E1DDCC576E8EE1E8 /* bend_matcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bend_matcher.hpp; sourceTree = "<group>"; };
+		A1445C1765FE4012AD055290 /* path_matcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = path_matcher.hpp; sourceTree = "<group>"; };
 		FECAD6707B90A21905BC90D6 /* dead_reckoning.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dead_reckoning.cpp; sourceTree = "<group>"; };
 		CDC6C24320D7C660D4791D0B /* dead_reckoning.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dead_reckoning.hpp; sourceTree = "<group>"; };
 		49BA0CF1A436396F918DE650 /* elm327_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = elm327_parser.cpp; sourceTree = "<group>"; };
@@ -617,7 +621,9 @@
 				4CE8D0B18D46AFF8DF17A333 /* accel_log.cpp */,
 				3B60D0DAA1E78B1F9D133270 /* accel_log.hpp */,
 				4ED51162C857ACE77004B111 /* bend_matcher.cpp */,
+				D783DE71BC09EEEE83761179 /* path_matcher.cpp */,
 				7944F4F9E1DDCC576E8EE1E8 /* bend_matcher.hpp */,
+				A1445C1765FE4012AD055290 /* path_matcher.hpp */,
 				FECAD6707B90A21905BC90D6 /* dead_reckoning.cpp */,
 				CDC6C24320D7C660D4791D0B /* dead_reckoning.hpp */,
 				49BA0CF1A436396F918DE650 /* elm327_parser.cpp */,
@@ -673,6 +679,7 @@
 				4E42F6DDF67564ACC056C267 /* storage.hpp in Headers */,
 				D9E68D355F8AB8ED03845A7F /* accel_log.hpp in Headers */,
 				378B227BB02AA457C5D8E1B9 /* bend_matcher.hpp in Headers */,
+				50FE7E3A2B506C1AEA4C7157 /* path_matcher.hpp in Headers */,
 				8899F827303964D4582FA0BB /* dead_reckoning.hpp in Headers */,
 				FD3191F55B06E9157D82073E /* elm327_parser.hpp in Headers */,
 				56147852772837136A4FB8CF /* esp32_protocol.hpp in Headers */,
@@ -894,6 +901,7 @@
 				32B3B035A2469E95B32D3678 /* storage.cpp in Sources */,
 				7736A9BB6869456F306433E7 /* accel_log.cpp in Sources */,
 				3A922311C693E25B42BE7526 /* bend_matcher.cpp in Sources */,
+				A5067CD687F88D5F126A3197 /* path_matcher.cpp in Sources */,
 				631DBB0128269BF8F49D6D44 /* dead_reckoning.cpp in Sources */,
 				76C515A3D75338DBFBC05AF2 /* elm327_parser.cpp in Sources */,
 				7D77BBB551C774A1356AC624 /* esp32_protocol.cpp in Sources */,
