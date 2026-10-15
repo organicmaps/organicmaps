@@ -447,7 +447,7 @@
     <string name="power_save_dialog_summary">Para una navegación más precisa, recomendamos desactivar el modo de ahorro de energía en los ajustes de la batería del teléfono.</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Detener grabación de pista</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle for the active track recording on the Android place page. -->
     <string name="track_recording_title">Grabación de pistas</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">La pista está vacía - no hay nada que guardar</string>

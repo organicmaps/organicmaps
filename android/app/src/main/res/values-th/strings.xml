@@ -817,7 +817,7 @@
     <string name="start_track_recording">บันทึกเส้นทาง</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">หยุดการบันทึกเส้นทาง</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle for the active track recording on the Android place page. -->
     <string name="track_recording_title">บันทึกเส้นทาง</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก</string>

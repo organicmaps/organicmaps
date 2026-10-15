@@ -829,7 +829,7 @@
     <string name="start_track_recording">Сними путању</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Заустави снимање путање</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle for the active track recording on the Android place page. -->
     <string name="track_recording_title">Снимање путање</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Путања је празна, нема шта да се сачува</string>

@@ -1,0 +1,31 @@
+
+
+/********** Strings **********/
+
+
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
+"search" = "Chwilio";
+
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
+"bookmarks_and_tracks" = "Nodau tudalen a thraciau";
+
+
+/********** Other translations **********/
+
+
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
+"report_a_bug" = "Rhoi gwybod am fyg";
+
+
+/********** 3d touch strings **********/
+
+
+/* Used in home screen quick actions. */
+"route" = "Llwybr";
+
+
+/********** gps strings **********/
+
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "Mae pennu eich lleoliad yn angenrheidiol ar gyfer llywio ac ar gyfer cadw trac eich taith ddiweddar.";
