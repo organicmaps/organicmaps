@@ -304,7 +304,11 @@ def allowedPermissions = [
     // app.organicmaps.web.(debug|beta|profileable)
     ~/name='app\.organicmaps(\.web)?(\.debug|\.beta|\.profileable)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
 ]
-registerCheckApkPermissionsTasks(project, allowedPermissions)
+def allowedSdk23Permissions = [
+    // opt-in contact address search; unavailable on Android 5.x
+    "android.permission.READ_CONTACTS"
+]
+registerCheckApkPermissionsTasks(project, allowedPermissions, allowedSdk23Permissions)
 
 
 androidComponents {

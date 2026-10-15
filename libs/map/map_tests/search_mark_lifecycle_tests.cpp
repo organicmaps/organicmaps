@@ -10,6 +10,37 @@
 
 namespace search_mark_lifecycle_tests
 {
+UNIT_TEST(ContactMarksRetainIdentityAcrossAreaUpdates)
+{
+  Framework framework({}, false /* loadMaps */);
+  auto & manager = framework.GetBookmarkManager();
+  m2::PointD const vancouver(-123.125801, 49.210456);
+  m2::PointD const surrey(-122.857036, 49.121039);
+  framework.SetContactMarks({{vancouver, "First contact"}});
+  auto const id = *manager.GetUserMarkIds(UserMark::Type::CONTACT).begin();
+  framework.SetContactMarks({{vancouver, "First contact"}, {surrey, "Second contact"}});
+  TEST_EQUAL(manager.GetMark<ContactMarkPoint>(id)->GetPivot(), vancouver, ());
+  framework.SetContactMarks({{vancouver, "Updated name"}, {surrey, "Second contact"}});
+  TEST_EQUAL(manager.GetMark<ContactMarkPoint>(id)->GetPivot(), vancouver, ());
+  TEST_EQUAL(manager.GetMark<ContactMarkPoint>(id)->GetTitleDecl()->front().m_primaryText, "Updated name", ());
+  framework.SetContactMarks({{vancouver, "Updated name"}});
+  TEST_EQUAL(manager.GetUserMarkIds(UserMark::Type::CONTACT).size(), 1, ());
+  TEST_EQUAL(*manager.GetUserMarkIds(UserMark::Type::CONTACT).begin(), id, ());
+  framework.SetContactMarks({});
+  TEST(manager.GetUserMarkIds(UserMark::Type::CONTACT).empty(), ());
+}
+
+UNIT_TEST(ResolvedAddressSelectionPreservesCoordinates)
+{
+  Framework framework({}, false /* loadMaps */);
+  auto const point = mercator::FromLatLon(49.121039, -122.857036);
+  search::Result result(point, "6498, 131A Street");
+  result.SetType(search::Result::Type::LatLon);
+  framework.SelectSearchResult(result, false /* animation */);
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetMercator(), point, ());
+  TEST(!framework.GetCurrentPlacePageInfo().GetID().IsValid(), ());
+}
+
 class RegisteredMwmInfo : public MwmInfo
 {
 public:
