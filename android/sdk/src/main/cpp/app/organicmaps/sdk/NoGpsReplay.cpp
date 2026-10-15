@@ -332,7 +332,7 @@ public:
     , m_donePath(outputPath + ".done")
     , m_route(routing, m_clock, [this](std::string const & text) { Write(text); })
     , m_delegate([this](Fix const & fix) { m_route.OnPosition(fix); })
-    , m_map(m_route.Get(), m_clock, [](double) {})
+    , m_map(m_route.Get(), m_clock, [](double) {}, [](std::optional<ms::LatLon> const &) {})
   {
     std::remove(m_donePath.c_str());
     NewEngine();

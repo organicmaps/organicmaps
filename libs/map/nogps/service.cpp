@@ -118,10 +118,12 @@ bool RoutingMapApi::RoutingRoads::IsRoundaboutNear(ms::LatLon const & center, do
   return m_route.IsRoundaboutNear(center, radiusM);
 }
 
-RoutingMapApi::RoutingMapApi(SessionRoute & route, Clock const & clock, ShowCarHeadingFn && showCarHeading)
+RoutingMapApi::RoutingMapApi(SessionRoute & route, Clock const & clock, ShowCarHeadingFn && showCarHeading,
+                             ShowOffRoadCarFn && showOffRoadCar)
   : m_route(route)
   , m_clock(clock)
   , m_showCarHeading(std::move(showCarHeading))
+  , m_showOffRoadCar(std::move(showOffRoadCar))
   , m_roads(route, false /* matchRoute */)
   , m_routeRoads(route, true /* matchRoute */)
 {}
@@ -201,8 +203,9 @@ std::string RoutingMapApi::GetDistanceLeft() const
   return info.m_distToTarget.GetDistanceString() + info.m_distToTarget.GetUnitsString();
 }
 
-Service::Service(Delegate & delegate, SessionRoute & route, RoutingMapApi::ShowCarHeadingFn && showCarHeading)
-  : m_map(route, m_clock, std::move(showCarHeading))
+Service::Service(Delegate & delegate, SessionRoute & route, RoutingMapApi::ShowCarHeadingFn && showCarHeading,
+                 RoutingMapApi::ShowOffRoadCarFn && showOffRoadCar)
+  : m_map(route, m_clock, std::move(showCarHeading), std::move(showOffRoadCar))
   , m_engine(delegate, m_map, m_storage, m_clock, m_scheduler)
 {
   m_engine.SetFirmwares(LoadFirmwares());

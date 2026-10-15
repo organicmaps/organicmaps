@@ -55,5 +55,9 @@ public:
   /// Shows the car direction instead of the compass: without GPS the car looks along its road, and the compass of
   /// a phone in a car or in hands looks anywhere.
   virtual void ShowCarHeading(double bearingDeg) = 0;
+
+  /// Shows where the car is by the calculation while it maneuvers off the roads and its mark waits on the road
+  /// of the followed route. Nothing hides it.
+  virtual void ShowOffRoadCar(std::optional<ms::LatLon> const & position) = 0;
 };
 }  // namespace nogps

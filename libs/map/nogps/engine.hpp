@@ -303,6 +303,7 @@ private:
   bool IsInertialActive() const;
   std::optional<double> GetCarBearing() const;
   void ShowCarHeading();
+  void ShowOffRoadCar();
   void NotifyLocationUpdated();
   void ApplyManualLocation();
   void BlockShift(bool forward, ms::LatLon const & at);
@@ -369,6 +370,8 @@ private:
   // The mark has been on the road of the route since the route was left by a car beside it: a route that
   // does not start from the road of the car is not rebuilt again and again.
   bool m_wasOnRouteRoad = true;
+  // The car maneuvering off the roads as the map shows it now, see ShowOffRoadCar().
+  std::optional<ms::LatLon> m_shownOffRoadCar;
   // The motion source of the inertial navigation gave the car speed, the user is told when it stops.
   bool m_motionSourceWorked = false;
   std::optional<int64_t> m_motionSourceWarnedMs;

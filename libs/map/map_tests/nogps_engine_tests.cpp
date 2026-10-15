@@ -241,6 +241,12 @@ std::string TripField(Env & env, std::string const & name)
   return line.substr(from, line.find(' ', from) - from);
 }
 
+// The car maneuvering off the roads is followed apart, its mark waits on the road.
+bool FollowedApart(Env & env)
+{
+  return env.m_engine.GetTripLine().find(" self=1 car=") != std::string::npos;
+}
+
 // The car driving 10 m/s east turns left at the crossing at 200 m, the calculated position lags behind it: it is
 // |beforeTurnM| east when the turn starts. Then the car drives north.
 void TurnLeftAtCrossing(Env & env, double beforeTurnM)
@@ -377,7 +383,7 @@ UNIT_TEST(NoGps_Engine_CarAtRoundaboutIsNotLost)
     if (!roundabout)
       continue;
     // The car is on the street it has left the roundabout by.
-    TEST(!env.m_engine.GetStatus().m_roadLost, ());
+    TEST(!FollowedApart(env), ());
     std::string const after = env.m_engine.GetTripLine();
     TEST(after.find(" road=1 ") != std::string::npos, (after));
     TEST(after.find(" ring=0") != std::string::npos, (after));
@@ -1093,7 +1099,7 @@ UNIT_TEST(NoGps_Engine_TripLineTellsWhyCarIsNotOnRoad)
   std::string line = env.m_engine.GetTripLine();
   TEST(line.find(" rdiff=0 snapwhy=ROAD ") != std::string::npos, (line));
   TEST(line.find(" speed=9 sage=0 ") != std::string::npos, (line));
-  TEST(line.find(" turning=0 odo=7 offm=0 cand=- ") != std::string::npos, (line));
+  TEST(line.find(" turning=0 odo=7 offm=0 offv=0 cand=- ") != std::string::npos, (line));
 
   // The car turns right by 40 degrees: the street goes another way than it looks.
   env.Drive(1000, 9, 40);
@@ -1101,7 +1107,7 @@ UNIT_TEST(NoGps_Engine_TripLineTellsWhyCarIsNotOnRoad)
   env.Drive(2500, 9, 0);
   line = env.m_engine.GetTripLine();
   TEST(line.find(" rdiff=40 snapwhy=ANGLE ") != std::string::npos, (line));
-  TEST(line.find(" turning=0 odo=16 offm=4 cand=- ") != std::string::npos, (line));
+  TEST(line.find(" turning=0 odo=16 offm=4 offv=9 cand=- ") != std::string::npos, (line));
 
   // And to the south: no street goes that way.
   env.Drive(1000, 9, 50);
@@ -1119,36 +1125,125 @@ void DriveIntoYard(Env & env)
   env.Drive(9000, 9, 0);
 }
 
-UNIT_TEST(NoGps_Engine_CarIntoYardIsLost)
+UNIT_TEST(NoGps_Engine_ManeuveringCarIsFollowedApart)
 {
-  PieceRoads roads({{-300, 0, 300, 0}}, {});
+  // A street going east, and a street 40 m to the south of it going the same way.
+  PieceRoads roads({{-300, 0, 300, 0}, {-300, -40, 600, -40}}, {});
   for (bool navigating : {true, false})
   {
     Env env(true /* inertial */, &roads);
     env.m_map.m_navigating = navigating;
-    // The mark follows the car off the roads.
     DriveIntoYard(env);
+    TEST(FollowedApart(env), (navigating, env.m_engine.GetTripLine()));
     TEST(!env.m_engine.GetStatus().m_roadLost, (navigating));
-    TestAlmostEqualAbs(North(env.Last().m_position), -24, 3);
-    TestAlmostEqualAbs(East(env.Last().m_position), 7, 3);
+    TEST(!env.m_delegate.HasEvent(Event::RoadLost), (navigating));
+    if (navigating)
+    {
+      // The mark waits on the street of the route, the car is shown apart in the yard.
+      TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
+      TEST(env.m_map.m_offRoadCar, ());
+      TestAlmostEqualAbs(North(*env.m_map.m_offRoadCar), -24, 3);
+      TestAlmostEqualAbs(East(*env.m_map.m_offRoadCar), 7, 3);
+    }
+    else
+    {
+      // The mark follows the car, there is nothing to show apart.
+      TestAlmostEqualAbs(North(env.Last().m_position), -24, 3);
+      TestAlmostEqualAbs(East(env.Last().m_position), 7, 3);
+      TEST(!env.m_map.m_offRoadCar, ());
+    }
     TestAlmostEqualAbs(*env.Last().m_bearingDeg, 180, 1);
 
-    // 30 m off the roads the road is lost: the mark stands where the car has left the street, the user is told.
-    env.Drive(8000, 9, 0);
-    TEST(env.m_engine.GetStatus().m_roadLost, (navigating));
-    TEST(env.m_delegate.HasEvent(Event::RoadLost), (navigating));
-    TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
-    double const markEast = East(env.Last().m_position);
-    env.Drive(2000, 9, 0);
-    TestAlmostEqualAbs(East(env.Last().m_position), markEast, 0.01);
-
-    // The user marks the car.
-    TEST(env.m_engine.PlaceMarkByTap(At(100, 2)), (navigating));
-    TEST(!env.m_engine.GetStatus().m_roadLost, (navigating));
-    env.Drive(2000, 0, 0);
-    TestAlmostEqualAbs(East(env.Last().m_position), 100, 0.5);
-    TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
+    // The car turns left and drives east, the other street is 15 m to the right of it. It is not the street of
+    // the car at once.
+    env.Drive(1000, 9, -90);
+    env.Drive(3000, 9, 0);
+    TEST(FollowedApart(env), (navigating));
+    // The car has driven along it for 15 m: it is on it, looking along it.
+    env.Drive(6000, 9, 0);
+    TEST(!FollowedApart(env), (navigating));
+    TEST(!env.m_map.m_offRoadCar, (navigating));
+    TestAlmostEqualAbs(North(env.Last().m_position), -40, 0.5);
+    TestAlmostEqualAbs(*env.Last().m_bearingDeg, 90, 0.5);
+    double const east = East(env.Last().m_position);
+    TEST_GREATER(east, 20, ());
+    env.Drive(4000, 9, 0);
+    TestAlmostEqualAbs(North(env.Last().m_position), -40, 0.5);
+    TestAlmostEqualAbs(East(env.Last().m_position), east + 10, 3);
+    TEST(!env.m_delegate.HasEvent(Event::RoadLost), (navigating));
+    TEST(env.m_engine.GetTripLine().find(" self=1") == std::string::npos, (env.m_engine.GetTripLine()));
   }
+}
+
+UNIT_TEST(NoGps_Engine_CarFollowedApartWaitsForUser)
+{
+  // The street ends 20 m to the east of the car, there are no other roads.
+  PieceRoads roads({{-300, 0, 20, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  env.m_map.m_navigating = true;
+  DriveIntoYard(env);
+  TEST(FollowedApart(env), ());
+  // A car maneuvering off the roads is not lost.
+  TEST(!env.m_engine.GetStatus().m_roadLost, ());
+  double const markEast = East(env.Last().m_position);
+
+  // The car turns east and drives fast where the map has no roads: nobody maneuvers so, but there is no road
+  // to put the car on. The mark waits, the user is told.
+  env.Drive(1000, 9, -90);
+  env.Drive(8000, 36, 0);
+  TEST(FollowedApart(env), ());
+  TEST(env.m_engine.GetStatus().m_roadLost, ());
+  TEST(env.m_delegate.HasEvent(Event::RoadLost), ());
+  TestAlmostEqualAbs(East(env.Last().m_position), markEast, 0.01);
+  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
+  TEST(env.m_map.m_offRoadCar, ());
+  TEST_GREATER(East(*env.m_map.m_offRoadCar), 80, ());
+
+  // The mark of the user ends it.
+  TEST(env.m_engine.PlaceMarkByTap(At(-100, 2)), ());
+  TEST(!env.m_engine.GetStatus().m_roadLost, ());
+  TEST(!FollowedApart(env), ());
+  TEST(!env.m_map.m_offRoadCar, ());
+}
+
+UNIT_TEST(NoGps_Engine_MarkOfUserEndsFollowingApart)
+{
+  PieceRoads roads({{-300, 0, 300, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  env.m_map.m_navigating = true;
+  DriveIntoYard(env);
+  TEST(FollowedApart(env), ());
+  TEST(env.m_map.m_offRoadCar, ());
+
+  // The car is where the user tells, not where it has maneuvered to by the calculation.
+  TEST(env.m_engine.PlaceMarkByTap(At(100, 2)), ());
+  TEST(!FollowedApart(env), ());
+  TEST(!env.m_map.m_offRoadCar, ());
+  env.Drive(2000, 0, 0);
+  TestAlmostEqualAbs(East(env.Last().m_position), 100, 0.5);
+  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.5);
+}
+
+UNIT_TEST(NoGps_Engine_FastCarComesBackToRoadFarAside)
+{
+  // A street going east that ends 20 m ahead of the car, and a street 55 m to the south of it going the same way.
+  PieceRoads roads({{-300, 0, 20, 0}, {-300, -55, 900, -55}}, {});
+  Env env(true /* inertial */, &roads);
+  env.m_map.m_navigating = true;
+  DriveIntoYard(env);
+  TEST(FollowedApart(env), ());
+  // The car turns east and drives 30 m from the other street, too far to be put on it while it maneuvers.
+  env.Drive(1000, 9, -90);
+  env.Drive(8000, 9, 0);
+  TEST(FollowedApart(env), ());
+  // It drives fast for 3 s: nobody maneuvers so, it is on the street going its way.
+  env.Drive(3500, 36, 0);
+  TEST(!FollowedApart(env), ());
+  TEST(!env.m_map.m_offRoadCar, ());
+  env.Drive(1000, 36, 0);
+  TestAlmostEqualAbs(North(env.Last().m_position), -55, 0.5);
+  TestAlmostEqualAbs(*env.Last().m_bearingDeg, 90, 0.5);
+  TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
 UNIT_TEST(NoGps_Engine_ManeuveringCarIsNotThrownToRoadAside)
@@ -1172,15 +1267,16 @@ UNIT_TEST(NoGps_Engine_ManeuveringCarIsNotThrownToRoadAside)
       // A maneuvering car is not on that street yet: next to a yard such a street is behind the houses.
       TEST_GREATER(East(env.Last().m_position), 14, ());
       TEST_LESS(East(env.Last().m_position), 19.5, ());
-      // It has driven along the street for 15 m: it is put on it, and was not lost meanwhile.
+      TEST(!FollowedApart(env), ());
+      // It has driven along the street for 15 m: it is put on it, and was not followed apart meanwhile.
       env.Drive(2000, speedKmh, 0);
-      TEST(!env.m_engine.GetStatus().m_roadLost, ());
+      TEST(!FollowedApart(env), ());
       env.Drive(4000, speedKmh, 0);
     }
     // A car driving along a road is thrown to it at once.
     TestAlmostEqualAbs(East(env.Last().m_position), 30, 0.5);
     TestAlmostEqualAbs(*env.Last().m_bearingDeg, 180, 1);
-    TEST(!env.m_engine.GetStatus().m_roadLost, (speedKmh));
+    TEST(!FollowedApart(env), (speedKmh));
     TEST(!env.m_delegate.HasEvent(Event::RoadLost), (speedKmh));
   }
 }
@@ -1271,42 +1367,44 @@ UNIT_TEST(NoGps_Engine_AccelerometerTellsCarInYardDrivesBack)
     car.SpeedUpAndBrake();
     TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 5);
 
-    // It turns right into a yard at a walking speed, drives 10 m and stops there. The road is lost 30 m off the
-    // roads, back and forth.
+    // It turns right into a yard at a walking speed, drives 20 m and stops there.
     car.Drive(2.5, 1, 0);
     car.Drive(1, 0, 90);
-    car.Drive(3, 0, 0);
+    car.Drive(8, 0, 0);
     car.Drive(2.5, -1, 0);
     car.Drive(4, 0, 0);
+    TEST(FollowedApart(env), (accelerometer));
     TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
     double const stoppedNorth = North(env.Last().m_position);
     TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
 
-    // It drives 8 m backwards. The speed of the car tells the same as if it drove forward.
+    // It drives 12 m backwards. The speed of the car tells the same as if it drove forward.
     car.Drive(2, -1, 0);
     car.Drive(2, 0, 0);
     TEST_EQUAL(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, accelerometer,
                (env.m_engine.GetTripLine()));
+    car.Drive(2, 0, 0);
     car.Drive(2, 1, 0);
     car.Drive(3, 0, 0);
+    TEST(FollowedApart(env), (accelerometer));
     if (accelerometer)
     {
-      TestAlmostEqualAbs(North(env.Last().m_position), stoppedNorth + 8, 3);
+      TestAlmostEqualAbs(North(env.Last().m_position), stoppedNorth + 12, 3);
       TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
     }
     else
     {
-      TestAlmostEqualAbs(North(env.Last().m_position), stoppedNorth - 8, 3);
+      TestAlmostEqualAbs(North(env.Last().m_position), stoppedNorth - 12, 3);
     }
 
-    // And forward again.
+    // And forward again, 12 m more than it has driven back.
     car.Drive(2, 1, 0);
+    car.Drive(10, 0, 0);
     car.Drive(2, -1, 0);
     car.Drive(3, 0, 0);
     TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
     if (accelerometer)
       TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
-    TEST(!env.m_engine.GetStatus().m_roadLost, (accelerometer));
   }
 }
 
@@ -1349,7 +1447,7 @@ UNIT_TEST(NoGps_Engine_AccelerometerTellsCarOnRoadDrivesBack)
     TestAlmostEqualAbs(North(env.Last().m_position), 0, 1);
     // The car looks where it did.
     TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 90), 0, 3);
-    TEST(!env.m_engine.GetStatus().m_roadLost, (accelerometer));
+    TEST(!FollowedApart(env), (accelerometer));
 
     // And forward again.
     car.Drive(2, 1, 0);
@@ -1396,7 +1494,7 @@ UNIT_TEST(NoGps_Engine_CarBackingIntoSideStreetIsFollowed)
   TestAlmostEqualAbs(car.North(), 10, 0.5);
   TestAlmostEqualAbs(East(env.Last().m_position), 0, 1);
   TestAlmostEqualAbs(North(env.Last().m_position), car.North(), 4);
-  TEST(!env.m_engine.GetStatus().m_roadLost, ());
+  TEST(!FollowedApart(env), ());
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
