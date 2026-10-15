@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import patch
 
 import numpy as np
-from shapely.geometry import MultiPolygon, Polygon
+from shapely.geometry import LineString, MultiPolygon, Point, Polygon
 
 from check_border_geometry import (Dataset, check, compare, cross_ring_contacts, rectangle_mask,
                                    point_contacts_fit, ring_contact_kinds)
@@ -152,6 +152,36 @@ class BorderGeometryCheckTests(unittest.TestCase):
         report = compare(new, old, .01)
         self.assertTrue(report["new_invalid_file_contacts"])
         self.assertTrue(report["regressions"])
+
+    def test_shared_outer_seam_does_not_hide_an_isolated_point_contact(self):
+        left = [(0, 0), (2, 0), (2, 1), (1, 1), (1, 2), (2, 2), (2, 3), (0, 3)]
+        right = [(2, 0), (4, 0), (4, 3), (3, 3), (3, 2), (1, 1.5), (3, 1), (2, 1)]
+        self.assertTrue(Polygon(left).is_valid)
+        self.assertTrue(Polygon(right).is_valid)
+        self.assertEqual(Polygon(left).intersection(Polygon(right)).area, 0)
+        contacts = cross_ring_contacts([
+            ("1", np.asarray(left), False, True), ("2", np.asarray(right), False, True),
+        ])
+        self.assertTrue(contacts["1", "2"].equals(Point(1, 1.5)))
+
+    def test_invalid_outer_retrace_keeps_its_cross_ring_line_contact(self):
+        retraced = [(0, 0), (2, 0), (2, 2), (0, 2), (0, 0), (-2, 0), (0, 0)]
+        neighbor = [(-2, -1), (-1, -1), (-1, 0), (-2, 0)]
+        self.assertFalse(Polygon(retraced).is_valid)
+        self.assertEqual(ring_coverage(np.asarray(retraced), False).intersection(Polygon(neighbor)).area, 0)
+        contacts = cross_ring_contacts([
+            ("1", np.asarray(retraced), False, False), ("2", np.asarray(neighbor), False, True),
+        ])
+        self.assertTrue(contacts["1", "2"].equals(LineString([(-2, 0), (-1, 0)])))
+
+    def test_outer_hole_line_contact_is_not_a_partition_seam(self):
+        outer = [(0, 0), (2, 0), (2, 2), (0, 2)]
+        outside_hole = [(2, .5), (3, .5), (3, 1.5), (2, 1.5)]
+        self.assertEqual(Polygon(outer).intersection(Polygon(outside_hole)).area, 0)
+        contacts = cross_ring_contacts([
+            ("1", np.asarray(outer), False, True), ("!hole", np.asarray(outside_hole), True, True),
+        ])
+        self.assertTrue(contacts["1", "!hole"].equals(LineString([(2, .5), (2, 1.5)])))
 
     def test_old_physical_ambiguity_is_inherited_across_rename(self):
         regions = {"A": [(0, 0), (2, 0), (2, 1), (0, 1)], "B": [(1, 0), (3, 0), (3, 1), (1, 1)]}

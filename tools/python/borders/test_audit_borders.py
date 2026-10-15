@@ -77,6 +77,41 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(result["introduced_uncovered_parts"], [])
         self.assertEqual(result["introduced_overlap_parts"], [])
 
+    def test_moving_an_internal_outer_partition_keeps_coverage(self):
+        self.write_rings(self.baseline, "A", [
+            ("1", [(0, 0), (1, 0), (1, 1), (0, 1)]),
+            ("2", [(1, 0), (2, 0), (2, 1), (1, 1)]),
+        ])
+        self.write_rings(self.candidate, "A", [
+            ("1", [(0, 0), (1.5, 0), (1.5, .5), (1.5, 1), (0, 1)]),
+            ("2", [(1.5, 1), (2, 1), (2, 0), (1.5, 0)]),
+        ])
+        old, new = source_dataset(self.baseline), source_dataset(self.candidate)
+        self.assertTrue(old.shapes[0].equals(new.shapes[0]))
+        self.assertEqual(old.invalid_files, ["A.poly"])
+        self.assertEqual(new.invalid_files, old.invalid_files)
+        result = audit(self.candidate, self.baseline)
+        self.assertEqual(result["new_invalid_file_contacts"], [])
+        self.assertFalse(result["regressions"])
+
+    def test_moving_an_outer_partition_preserves_an_enclosed_hole(self):
+        self.write_rings(self.baseline, "A", [
+            ("1", [(0, 0), (2, 0), (2, 1), (1, 1), (1, 3), (2, 3), (2, 4), (0, 4)]),
+            ("2", [(2, 0), (4, 0), (4, 4), (2, 4), (2, 3), (3, 3), (3, 1), (2, 1)]),
+        ])
+        self.write_rings(self.candidate, "A", [
+            ("1", [(0, 0), (4, 0), (4, 2), (3, 2), (3, 1), (1, 1), (1, 2), (0, 2)]),
+            ("2", [(0, 2), (1, 2), (1, 3), (3, 3), (3, 2), (4, 2), (4, 4), (0, 4)]),
+        ])
+        old, new = source_dataset(self.baseline), source_dataset(self.candidate)
+        self.assertTrue(old.shapes[0].equals(new.shapes[0]))
+        self.assertEqual(len(new.shapes[0].interiors), 1)
+        self.assertFalse(new.shapes[0].covers(Point(project(np.array([[2., 2.]]))[0])))
+        result = audit(self.candidate, self.baseline, groups=["*"])
+        self.assertEqual(result["introduced_interior_holes"], [])
+        self.assertEqual(result["new_invalid_file_contacts"], [])
+        self.assertFalse(result["regressions"])
+
     def test_neighbor_retains_only_part_of_an_exterior_loss(self):
         self.write(self.baseline, "A", [(0, 0), (1, 0), (1, 1), (0, 1)])
         self.write(self.candidate, "A", [(0, 0), (.9, 0), (.9, 1), (0, 1)])
