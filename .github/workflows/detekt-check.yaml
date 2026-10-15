@@ -2,7 +2,7 @@ name: Static analysis - Kotlin (detekt)
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - '.github/workflows/detekt-check.yaml'
       - 'android/**/*.kt'
