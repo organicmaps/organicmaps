@@ -10,6 +10,7 @@
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_utils.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/preferred_languages.hpp"
@@ -23,6 +24,7 @@
 #include <cmath>
 #include <iterator>
 #include <limits>
+#include <numeric>
 #include <string>
 #include <type_traits>
 
@@ -137,6 +139,13 @@ private:
   SearchAPI::Delegate & m_delegate;
   OnResults m_onResults;
 };
+
+// Countries, states, cities, towns and villages are looked for by their names, wherever they are.
+bool IsPlace(Result const & result)
+{
+  return result.GetResultType() != Result::Type::Feature ||
+         ftypes::IsLocalityChecker::Instance().GetType(result.GetFeatureType()) != ftypes::LocalityType::None;
+}
 }  // namespace
 
 SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
@@ -193,8 +202,19 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
-  p.m_onResults = [this, onResults = std::move(params.m_onResults)](Results const & results)
-  { RunUITask([onResults, results]() mutable { onResults(std::move(results)); }); };
+  // The list is ordered nearest first from where the core counts the distance from: the position while it is on
+  // the screen, the middle of the screen otherwise.
+  std::optional<m2::PointD> pivot = p.m_position;
+  if (m_isViewportInitialized && (!pivot || !p.m_viewport.IsPointInside(*pivot)))
+    pivot = p.m_viewport.Center();
+  p.m_onResults = [this, pivot, onResults = std::move(params.m_onResults)](Results const & results)
+  {
+    // The core adds the results batch by batch: a near one found later is put first.
+    Results ordered = results;
+    if (pivot)
+      OrderNearestFirst(*pivot, IsPlace, ordered);
+    RunUITask([onResults, results = std::move(ordered)]() mutable { onResults(std::move(results)); });
+  };
 
   return Search(std::move(p), true /* forceSearch */);
 }
@@ -553,5 +573,30 @@ bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewp
 
   viewport.Inflate(viewport.GetLocalRect().SizeX() * kMarginFactor, viewport.GetLocalRect().SizeY() * kMarginFactor);
   return true;
+}
+
+void OrderNearestFirst(m2::PointD const & pivot, std::function<bool(Result const &)> const & isOnTop, Results & results)
+{
+  size_t const count = results.GetCount();
+  // The results staying first are nearer than any.
+  std::vector<double> distances(count, -1);
+  for (size_t i = 0; i < count; ++i)
+  {
+    auto const & result = results[i];
+    ASSERT_EQUAL(result.GetPositionInResults(), static_cast<int32_t>(i), ());
+    if (IsMatchedResult(result) && !isOnTop(result))
+      distances[i] = mercator::DistanceOnEarth(pivot, result.GetFeatureCenter());
+  }
+  std::vector<size_t> order(count);
+  std::iota(order.begin(), order.end(), 0);
+  std::stable_sort(order.begin(), order.end(),
+                   [&distances](size_t a, size_t b) { return distances[a] < distances[b]; });
+
+  // Results::SortBy is not stable: sorting by the place in |order| keeps the equally near results in their order.
+  std::vector<size_t> place(count);
+  for (size_t i = 0; i < count; ++i)
+    place[order[i]] = i;
+  results.SortBy([&place](Result const & a, Result const & b)
+  { return place[a.GetPositionInResults()] < place[b.GetPositionInResults()]; });
 }
 }  // namespace search

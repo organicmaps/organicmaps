@@ -34,6 +34,7 @@ set(SRC
   share_tests.cpp
   search_api_tests.cpp
   search_mark_lifecycle_tests.cpp
+  search_nearest_first_tests.cpp
   search_viewport_tests.cpp
   transliteration_test.cpp
   relation_track_tests.cpp

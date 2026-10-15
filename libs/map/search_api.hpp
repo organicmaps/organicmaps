@@ -177,4 +177,10 @@ namespace search
 // - otherwise shows the top ranked one at its own scale.
 // Returns true if |viewport| was changed.
 bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewport);
+
+// Orders the results nearest to |pivot| first. The suggestions, the results without a point and the results
+// |isOnTop| tells stay first, in their order. The core weighs the distance little: a street of the same name in a
+// bigger town far away is ranked above the near one.
+void OrderNearestFirst(m2::PointD const & pivot, std::function<bool(Result const &)> const & isOnTop,
+                       Results & results);
 }  // namespace search
