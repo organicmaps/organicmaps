@@ -69,6 +69,12 @@
 
 ## Журнал
 
+### 15 октября 2026
+
+| Коммит | Что изменилось | Что это значит для iOS |
+|---|---|---|
+| ветка `feature/nogps-no-pause` (поверх `feature/nogps-loop-match`) | **Паузы больше нет: ни кнопки, ни автопаузы.** Просьба Ramzess после поездки 15 октября: навигация стала устойчивой, пауза не нужна. Машина вне дорог: метка едет за ней. После 30 м вне дорог (`kLostRoadM`) дорога потеряна: метка стоит там, где машина ушла с дороги, плашка статуса красная и мигает, пользователь ставит метку двойным нажатием — как до 10 октября. Метры вне дорог считаются и задним ходом, так что манёвры на парковке туда-сюда тоже набирают 30 м. Не менялись: задний ход по акселерометру, правило «медленную машину не перебрасывать сразу на дорогу дальше 10 м», кольца. Ядро: убраны `Engine::TogglePause`, поля `Status::m_paused` и `m_pausedByItself` (`m_roadLost` теперь просто `IsRoadLost()`), `InertialNavigator::SetPaused`, `IsPaused`, `IsPausedByItself`, `GetOffRoadCar`, `IsUserNeeded`, `MapApi::ShowOffRoadCar` и последний аргумент `nogps::Service` — вторая метка машины (`ColoredMarkPoint` в `Framework::CreateNoGps`). `kAutoResumeSpeedKmh` переименована в `kForwardOnlySpeedKmh`: теперь она значит только «так быстро назад не ездят». В строке `TRIP` больше нет `paused=`, `offv=`, `self=1 car=`. Строки `nogps_pause`, `nogps_resume`, `nogps_status_paused` удалены, локализации перегенерированы. Проигрыватель пропускает строки `P` старых поездок. | В этой же ветке убраны кнопка паузы из `NoGpsControls.swift`, свойства `paused`, `pausedByItself` и метод `togglePause` из `MWMNoGps.h/.mm`, стиль `mapNoGpsPausedButton` из `MapStyleSheet.swift`. Сборкой Xcode не проверено: если что-то ещё читает `paused`, удалите это. |
+
 ### 14 октября 2026
 
 | Коммит | Что изменилось | Что это значит для iOS |
