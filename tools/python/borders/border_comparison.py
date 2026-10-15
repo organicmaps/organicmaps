@@ -196,7 +196,7 @@ def new_ring_contacts(candidate, baseline, key):
 
 
 def cross_ring_contacts(rings):
-    """Boundary contacts and unintended interior overlap between ring pairs."""
+    """Cross-ring defects, allowing internal seams between valid disjoint outers."""
     if len(rings) < 2:
         return {}
     lines, coverage = [], []
@@ -214,7 +214,12 @@ def cross_ring_contacts(rings):
             contact = line.intersection(lines[j])
             # An outer intentionally contains its hole's interior.
             if rings[i][2] == rings[j][2]:
-                contact = contact.union(coverage[i].intersection(coverage[j]))
+                overlap = coverage[i].intersection(coverage[j])
+                contact = contact.union(overlap)
+                if not rings[i][2] and rings[i][3] and rings[j][3] and not overlap.area:
+                    # A shared edge partitions coverage without a gap or overlap.
+                    # Keep isolated point contacts and all invalid-ring defects.
+                    contact = unary_union([part for part in geometry_parts(contact) if part.geom_type == "Point"])
             if not contact.is_empty:
                 contacts[rings[i][0], rings[j][0]] = contact
     return contacts

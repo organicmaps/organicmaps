@@ -65,15 +65,19 @@ example threshold is 0.01 square metres. Inherited defects are reported and are
 not a certificate that the complete dataset is valid. Overlap entries describe
 region pairs and can cover the same area; their areas are not a unique-area sum.
 
-Source-ring contacts remain spatially strict. In an already invalid packed ring,
-proper crossings and point touches may move only when each matches a distinct
+Contacts within a source ring remain spatially strict. In an already invalid
+packed ring, proper crossings and point touches must each match a distinct
 baseline contact of the same kind within 0.003570556640625 Mercator degrees
 (`2 * 360 * 1.3 / (256 << 10)`, twice the outer-path scale-10 simplification
 epsilon). This is a conservative inspection policy for inherited contacts,
 not a theoretical bound on intersection movement. New contact kinds or counts,
 distant replacements, and any spatial growth of retraced lines fail. A repair can
 leave point contacts on a previously retraced line; those contacts are inherited.
-Contacts and interior overlaps between different rings remain spatially strict.
+
+Between different rings, internal shared line segments are excluded from
+contact-location checks only when both outer rings are individually valid and
+their intersection has exactly zero area. Isolated point contacts, contacts
+involving holes or invalid rings, and interior overlaps remain spatially strict.
 Gap and region-overlap checks still apply to all rings. Area comparisons subtract
 coverage without rounding coordinates or applying a distance tolerance, including
 mixed point/line contacts and near-collinear source boundaries.
