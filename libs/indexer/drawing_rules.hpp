@@ -130,9 +130,8 @@ private:
 };
 
 RulesHolder & GetCurrentRules();
-RulesHolder & GetOutdoorRules();
-// Accessor for a specific style's holder; used by the loader to fill a family without changing the
-// global current style.
+// Accessor for a specific style's holder, for the loader and tile readers that must not observe a
+// concurrent style switch.
 RulesHolder & GetRules(MapStyle mapStyle);
 
 // Decodes mapStyle's drawing-rules file (a valid WritableDir override if present, else the bundled

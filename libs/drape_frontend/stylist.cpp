@@ -211,18 +211,25 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   }
 }
 
-Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle)
-  : m_rulesHolder(forceOutdoorStyle ? drule::GetOutdoorRules() : drule::GetCurrentRules())
+namespace
 {
-#ifdef DEBUG
+MapStyle GetStyle(bool forceOutdoorStyle)
+{
   auto const style = GetStyleReader().GetCurrentStyle();
-  ASSERT(classificator::IsStyleLoaded(
-             forceOutdoorStyle ? (MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight) : style),
-         ("Drawing rules for the current style are not loaded", style, forceOutdoorStyle));
-#endif  // DEBUG
+  if (!forceOutdoorStyle)
+    return style;
+  return MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
+}
+}  // namespace
+
+Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle)
+  : m_style(GetStyle(forceOutdoorStyle))
+  , m_rulesHolder(drule::GetRules(m_style))
+{
+  ASSERT(classificator::IsStyleLoaded(m_style), ("Drawing rules for the style are not loaded", m_style));
 
   feature::TypesHolder const types(f);
-  Classificator const & cl = forceOutdoorStyle ? GetOutdoorClassif() : classif();
+  Classificator const & cl = classif(m_style);
 
   uint32_t mainOverlayType = 0;
   if (types.Size() == 1)
