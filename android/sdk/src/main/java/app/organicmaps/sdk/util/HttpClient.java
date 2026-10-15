@@ -311,27 +311,38 @@ public final class HttpClient
     }
 
     long bytesWritten = 0;
-    try (RandomAccessFile raf = new RandomAccessFile(targetFile, "rw");
-         okio.BufferedSource source = responseBody.source())
+    try (okio.BufferedSource source = responseBody.source())
     {
-      raf.seek(p.outputFileOffset);
-      // 64 KB buffer: RandomAccessFile.write is unbuffered, so each iteration is a
-      // syscall + JNI crossing. Matches typical 512 KB segment chunks at ~8 iterations.
-      byte[] buffer = new byte[65536];
-      int bytesRead;
-      while ((bytesRead = source.read(buffer)) != -1)
+      final RandomAccessFile raf = new RandomAccessFile(targetFile, "rw");
+      try
       {
-        long remaining = p.outputFileSegmentBytes - bytesWritten;
-        if (bytesRead > remaining)
+        raf.seek(p.outputFileOffset);
+        // 64 KB buffer: RandomAccessFile.write is unbuffered, so each iteration is a
+        // syscall + JNI crossing. Matches typical 512 KB segment chunks at ~8 iterations.
+        byte[] buffer = new byte[65536];
+        int bytesRead;
+        while ((bytesRead = source.read(buffer)) != -1)
         {
-          Logger.w(TAG, "Segment overflow: " + bytesRead + " bytes received, only " + remaining + " expected");
-          p.httpResponseCode = kInconsistentFileSize;
-          return;
+          long remaining = p.outputFileSegmentBytes - bytesWritten;
+          if (bytesRead > remaining)
+          {
+            Logger.w(TAG, "Segment overflow: " + bytesRead + " bytes received, only " + remaining + " expected");
+            p.httpResponseCode = kInconsistentFileSize;
+            return;
+          }
+          raf.write(buffer, 0, bytesRead);
+          bytesWritten += bytesRead;
+          if (hasProgressHandler)
+            nativeOnProgress(nativeCtxPtr, bytesWritten, p.outputFileSegmentBytes);
         }
-        raf.write(buffer, 0, bytesRead);
-        bytesWritten += bytesRead;
-        if (hasProgressHandler)
-          nativeOnProgress(nativeCtxPtr, bytesWritten, p.outputFileSegmentBytes);
+      }
+      finally
+      {
+        // Some FUSE-mounted removable volumes report EPERM from close() although the segment
+        // was written. Retrying cannot fix that volume-specific error, while every errno that
+        // does report lost data (ENOSPC, EIO, EROFS, ...) still fails the segment. Data lost
+        // without any error at all is caught by the BLAKE3 check of the assembled map.
+        Utils.closeIgnoringEperm(raf, p.outputFilePath + " after writing " + bytesWritten + " bytes");
       }
     }
     catch (IOException e)

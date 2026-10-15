@@ -175,9 +175,8 @@ class FileHttpRequest : public HttpRequest
 
   void SaveResumeChunks()
   {
-    // No writer flush needed — each chunk's transport closes its own file handle
-    // before the completion callback fires. Completed chunks are durable on disk
-    // (modulo kernel buffer flushing, same as the historical FileWriter::Flush() path).
+    // A completion callback runs only after that chunk's transport has finished with its
+    // file handle, so the saved resume state never describes a write still in progress.
     m_strategy.SaveChunks(m_progress.m_bytesTotal, m_filePath + RESUME_FILE_EXTENSION);
   }
 

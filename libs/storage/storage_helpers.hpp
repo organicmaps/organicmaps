@@ -5,9 +5,12 @@
 
 #include "platform/country_defines.hpp"
 #include "platform/country_file.hpp"
+#include "platform/downloader_defines.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+
+#include <string>
 
 namespace storage
 {
@@ -25,6 +28,10 @@ bool IsDownloadFailed(Status status);
 bool IsEnoughSpaceForDownload(MwmSize mwmSize);
 bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & storage);
 bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage);
+
+// Performs blocking I/O. Callers are responsible for running it off the GUI thread.
+// A file that does not match |expectedHash| is deleted before failure is returned.
+downloader::DownloadStatus ValidateDownloadedFile(std::string const & path, std::string const & expectedHash);
 
 /// \brief Calculates limit rect for |countryId| (expandable or not).
 /// \returns bounding box in mercator coordinates.
