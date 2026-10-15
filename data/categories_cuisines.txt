@@ -35,6 +35,7 @@ sr:Fast Food|Фаст фуд|Брза храна|Fast fud|Brza hrana
 fa:غذای حاضری
 
 cuisine-bagel
+cy:Bagel
 en:Bagel|bagels
 ru:Бубличная|бублики
 bg:Бейгъл|бейгъли
@@ -70,6 +71,7 @@ he:בייגל
 sk:Bagely
 
 cuisine-breakfast
+cy:Brecwast
 en:Breakfast
 ru:Завтраки|завтрак|позавтракать
 bg:Закуска
@@ -106,6 +108,7 @@ sk:Raňajky
 sr:Доручак|doručak
 
 cuisine-shawarma|@fastfood
+cy:Shawarma
 en:4Shawarma
 ar:شاورما|الشاورما
 be:Шаўрма
@@ -150,6 +153,7 @@ zh-Hans:沙威玛|沙瓦玛
 zh-Hant:沙威瑪|沙瓦瑪
 
 cuisine-burger|@fastfood
+cy:Byrgyr
 en:Burger
 ru:Бургеры
 bg:Бургер
@@ -186,6 +190,7 @@ sk:Hamburger
 sr:Бургер|Хамбургер|Burger|Hamburger
 
 cuisine-bubble_tea
+cy:Te Swigod
 en:Bubble Tea|boba tea
 fr:Thé aux perles
 ru:Чай с шариками
@@ -199,6 +204,7 @@ zh-Hant:珍珠奶茶
 sr:Боба чај|бабл ти|Чај с мехурићима|Boba čaj|babl ti|Čaj s mehurićima
 
 cuisine-cake
+cy:Cacen
 en:Cake|bakery
 ru:Кондитерская|выпечка|пекарня
 bg:Торта|пекарна
@@ -235,6 +241,7 @@ sk:Koláče
 sr:Колачи|Торта|Kolači|Torta
 
 cuisine-coffee_shop
+cy:Coffi
 en:Coffee|coffee shop
 ru:Кофе|кофейня
 bg:Кафе|кафене
@@ -272,6 +279,7 @@ sw:Kahawa
 sr:Кафа|кофи шоп|кафетерија|Kafa|kofi šop|kafeterija
 
 cuisine-curry
+cy:Cyri
 en:Curry
 ru:Блюда карри
 bg:Къри
@@ -308,6 +316,7 @@ sk:Kari
 sr:Јела од карија|Кари|Jela od karija|Kari
 
 cuisine-diner
+cy:Diner
 en:Diner
 ru:Дайнер
 bg:Крайпътен ресторант
@@ -344,6 +353,7 @@ sk:Diner
 sr:Дајнер|Dajner
 
 cuisine-donut
+cy:Toesen
 en:Donuts
 ru:Пончики
 bg:Понички
@@ -380,6 +390,7 @@ sk:Šišky
 sr:Крофне|Krofne
 
 cuisine-fish_and_chips
+cy:Pysgod a Sglodion
 en:Fish and Chips
 ru:Рыба и картофель фри|фиш энд чипс
 bg:Фиш енд чипс
@@ -416,6 +427,7 @@ sk:Ryba s hranolkami
 sr:Риба и чипс|Фиш енд чипс|Riba i čips|Fiš end čips
 
 cuisine-friture|@fastfood
+cy:Sglodion
 en:Friture
 ru:Блюда во фритюре
 bg:Пържено
@@ -452,6 +464,7 @@ sk:Vyprážané jedlá
 sr:Пржена храна|Пржено|Pržena hrana|Prženo
 
 cuisine-grill
+cy:Gril
 en:Grill
 ru:Гриль
 bg:Грил
@@ -488,6 +501,7 @@ sk:Gril
 sr:Грил|Роштиљ|Јела са роштиља|Gril|Roštilj|Jela sa roštilja
 
 cuisine-hotdog|@fastfood
+cy:Ci Poeth
 en:Hotdog|hot dog
 ar:هوت دوغ
 bg:Хотдог
@@ -525,6 +539,7 @@ zh-Hant:熱狗
 sr:Хотдог|Хот дог|Хот-дог|Hotdog|Hot dog|Hot-dog
 
 cuisine-ice_cream
+cy:Hufen Iâ
 en:Ice Cream|gelato
 ar:مُثَلّجات
 be:Кафе-марозіва
@@ -562,6 +577,7 @@ zh-Hant:冰淇淋
 sr:Сладолед|Sladoled
 
 cuisine-kebab|@fastfood
+cy:Cebab
 en:Kebab
 ar:كباب
 be:Кебабы|кебаб|шаурма
@@ -599,6 +615,7 @@ zh-Hant:烤肉
 sr:Кебаб|Kebab
 
 cuisine-noodle
+cy:Nwdls
 en:Noodles
 ru:Лапшичная|Лапша
 bg:Нудъли|Юфка
@@ -635,6 +652,7 @@ sk:Rezance
 sr:Нудле|Nudle
 
 cuisine-pancake|cuisine-crepe
+cy:Crempog|Crêp
 en:Pancake|pancakes|crepes|crepe
 ar:بان كيك|كريب
 be:Бліны|панкейкі
@@ -672,6 +690,7 @@ zh-Hant:煎餅|可麗餅
 sr:Палачинка|Палачинке|Palačinka|Palačinke
 
 cuisine-pasta
+cy:Pasta
 en:Pasta
 ru:Паста
 bg:Паста
@@ -708,6 +727,7 @@ sk:Cestoviny
 sr:Тестенина|Паста|Testenina|Pasta
 
 cuisine-pizza|@fastfood
+cy:Pitsa
 en:Pizza|pizzeria
 ru:Пиццерия|пицца
 bg:Пица|пицария
@@ -744,6 +764,7 @@ sk:Pizza
 sr:Пица|пицерија|Pica|picerija
 
 cuisine-ramen
+cy:Ramen
 en:Ramen
 ru:Рамен
 bg:Рамен
@@ -779,6 +800,7 @@ sk:Rámen
 sr:Рамен|Ramen
 
 cuisine-sandwich|@fastfood
+cy:Brechdan
 en:Sandwich
 ru:Сэндвичи
 bg:Сандвич
@@ -815,6 +837,7 @@ sk:Sendvič
 sr:Сендвич|Sendvič
 
 cuisine-sausage|@fastfood
+cy:Selsig
 en:Sausage
 ru:Сосисочная
 bg:Наденица
@@ -851,6 +874,7 @@ sk:Klobása
 sr:Кобасица|Kobasica
 
 cuisine-seafood|cuisine-fish
+cy:Bwyd Môr|Pysgod
 en:Seafood|fish
 ar:مأكولات بحرية|سمك
 be:Морапрадукты|рыба|рыбны
@@ -888,6 +912,7 @@ zh-Hant:海鮮|魚
 sr:Морски плодови|Плодови мора|риба|Morski plodovi|Plodovi mora|riba
 
 cuisine-soba
+cy:Soba
 en:Soba
 ru:Соба|лапша
 bg:Соба
@@ -923,6 +948,7 @@ he:אטריות סובה
 sk:Soba
 
 cuisine-steak_house
+cy:Tŷ Stêc
 en:Steak House
 ru:Стейк-хаус|стейки
 bg:Пържоли
@@ -959,6 +985,7 @@ sk:Steak house
 sr:Бифтек|Одрезак|Стек|Biftek|Odrezak|Stek
 
 cuisine-sushi
+cy:Sushi
 en:Sushi
 ru:Суши|роллы
 bg:Суши
@@ -995,6 +1022,7 @@ sk:Suši
 sr:Суши|Suši
 
 cuisine-tapas
+cy:Tapas
 en:Tapas
 ru:5Тапас-бар
 bg:Тапас
@@ -1031,6 +1059,7 @@ sk:Tapas
 sr:Тапас|Tapas
 
 cuisine-tea
+cy:Te
 en:Tea
 ru:3Чайная
 bg:Чай
@@ -1067,6 +1096,7 @@ sk:Čaj
 sr:Чај|Čaj
 
 cuisine-vegetarian
+cy:Llysieuol
 en:Vegetarian
 ru:Вегетарианская кухня
 ar:مطبخ نباتي
@@ -1104,6 +1134,7 @@ sr:Вегетаријанска|Вегетаријанци|Vegetarijanska|Vegeta
 
 # Vegan is also Vegetarian
 cuisine-vegan
+cy:Fegan
 en:Vegan|Vegetarian|veg cafe
 ru:Веганская кухня|Вегетарианская кухня
 ar:مطبخ نباتي
