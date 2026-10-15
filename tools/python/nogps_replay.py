@@ -433,7 +433,8 @@ def summary(name, errors):
 
 
 EVENTS = [
-    ('road lost', r'road is lost after'), ('paused by itself', r'paused by itself'),
+    # Before October 16 the car followed apart was "paused by itself".
+    ('road lost', r'road is lost after'), ('followed apart off the roads', r'paused by itself|it is followed apart'),
     ('turn moved to a crossing', r'is moved to the crossing'), ('turn not at a crossing', r'is not at a crossing'),
     ('roundabout or winding road', r'roundabout or a winding'), ('off the roads at a roundabout', r'at a roundabout'),
     ('started backward', r'has started backward'), ('way of a start changed', r'by the accelerometer, it has felt'),
@@ -496,7 +497,8 @@ def compare(args):
         a = sum(1 for ms, text, _ in others if start <= ms <= end and rx.search(text))
         b = sum(1 for ms, text, _ in replayed_others if start <= ms <= end and rx.search(text))
         print('%-34s %8d %8d' % (name, a, b))
-    for name, key in (('seconds stopped as lost', 'lost'), ('seconds paused', 'paused')):
+    for name, key in (('seconds stopped as lost', 'lost'), ('seconds followed apart', 'self'),
+                      ('seconds paused', 'paused')):
         a = sum(1 for f in trips if start <= f['ms'] <= end and f.get(key) == '1' and number(f, 'speed', 0) > 0)
         b = sum(1 for f in replayed if start <= f['ms'] <= end and f.get(key) == '1' and number(f, 'speed', 0) > 0)
         print('%-34s %8d %8d' % (name, a, b))
