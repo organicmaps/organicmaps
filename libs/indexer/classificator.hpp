@@ -269,7 +269,6 @@ private:
 };
 
 Classificator & classif();
-// Accessor for a specific style's tree; used by the loader to fill a family without changing the
-// global current style (which background tile readers observe).
+// Accessor for a specific style's tree, for the loader and tile readers that must not observe a
+// concurrent style switch.
 Classificator & classif(MapStyle mapStyle);
-Classificator & GetOutdoorClassif();

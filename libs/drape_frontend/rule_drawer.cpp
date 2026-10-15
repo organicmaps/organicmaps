@@ -159,6 +159,7 @@ RuleDrawer::RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<Engi
   : m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
+  , m_mapStyle(GetStyleReader().GetCurrentStyle())
   , m_deviceLang(deviceLang)
 {
   m_applyParams.Init(m_context->GetTileKey());
@@ -166,11 +167,11 @@ RuleDrawer::RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<Engi
 
   m_mapShapes[df::OverlayType].reserve(200 /* average overlays count */);
 
-  if (!GetStyleReader().IsCarNavigationStyle())
+  if (m_mapStyle != MapStyleVehicleLight && m_mapStyle != MapStyleVehicleDark)
   {
     /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
     /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
-    m_relsSettings.Load();
+    m_relsSettings.Load(m_mapStyle);
   }
 
   m_applyParams.m_insertShape = [this](drape_ptr<MapShape> && shape)
@@ -412,18 +413,17 @@ void RuleDrawer::operator()(FeatureType & f)
 
   feature::GeomType const geomType = f.GetGeomType();
 
-  // Force use Outdoor style (mainly because of visibility), for the hiking/cycling related Features
-  // (has correspondent Relation references). Otherwise, we get routes torn to separate pieces
-  // (e.g. highway=path is visible from z15, but highway=secondary from z13 in a regular Map style).
-  bool forceOutdoorStyle = false;
+  // Outdoors rules give hiking/cycling relation members consistent low-zoom visibility, so routes
+  // remain continuous even when their member roads have different visibility in the base style.
+  auto style = m_mapStyle;
   if (m_applyParams.IsRelationRoutes() && geomType == feature::GeomType::Line && !m_relsSettings.IsEmpty())
   {
     RelationsDrawInfo drawInfo(m_relsSettings);
     if (drawInfo.HasHikingOrCycling(f))
-      forceOutdoorStyle = true;
+      style = MapStyleIsDark(m_mapStyle) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
   }
 
-  Stylist const s(f, m_zoomLevel, m_deviceLang, forceOutdoorStyle);
+  Stylist const s(f, m_zoomLevel, m_deviceLang, style);
 
   // No drawing rules.
   if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&
