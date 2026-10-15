@@ -19,9 +19,13 @@ import java.util.List;
 public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.ViewHolder>
 {
   private List<String> phonesData = new ArrayList<>();
+  private final String rawPhonesData; // Source phone list
+  private boolean hasEdits = false;
 
   public PhoneListAdapter(String phoneList)
   {
+    rawPhonesData = phoneList;
+
     if (TextUtils.isEmpty(phoneList))
     {
       phonesData.add("");
@@ -68,6 +72,9 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
 
   public String getPhoneList()
   {
+    if (!hasEdits)
+      return rawPhonesData; // Return unchanged phones value
+
     StringBuilder sb = new StringBuilder();
     for (String p : phonesData)
     {
@@ -150,6 +157,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
   {
     if (position == -1)
       return;
+    hasEdits = true;
     phonesData.set(position, text);
     if (position == phonesData.size() - 1 && !text.isEmpty())
     {
@@ -160,13 +168,17 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
 
   void deleteItem(int position)
   {
+    hasEdits = true;
     phonesData.remove(position);
     notifyItemRemoved(position);
   }
 
   public int findInvalidPhone()
   {
-    for (int i=0; i<phonesData.size(); i++)
+    if (!hasEdits)
+      return -1; // Do not validate phones if there were no edits
+
+    for (int i = 0; i < phonesData.size(); i++)
     {
       String number = phonesData.get(i);
       if (!Editor.nativeIsPhoneValid(number))
