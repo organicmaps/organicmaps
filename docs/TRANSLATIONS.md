@@ -27,6 +27,8 @@ Qt also needs the `qt` tag on messages requested by the shared core. Feature-typ
 
 Python 3.10+ is required to run the `tools/unix/generate_localizations.sh` script.
 
+Android's `supportedLocalizations` property in [gradle.properties](../android/gradle.properties) controls packaged languages and the per-app language picker. After changing it, run the script to regenerate `android/app/src/main/res/xml/locales_config.xml`.
+
 ## Components
 
 - App translations [strings.txt](../data/strings/strings.txt)
