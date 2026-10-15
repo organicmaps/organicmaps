@@ -794,8 +794,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSearchCanceled()
   {
-    mMapButtonsViewModel.setSearchOption(null);
+    cancelNavigationSearch();
     forceCloseSearchFragment();
+  }
+
+  private void cancelNavigationSearch()
+  {
+    mMapButtonsViewModel.setSearchOption(null);
+    // The navigation search wheel runs a viewport search without the sheet, so closing the sheet doesn't cancel it.
+    SearchEngine.INSTANCE.cancelInteractiveSearch();
   }
 
   @Override
@@ -1353,7 +1360,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     NavigationService.stopService(this);
-    mMapButtonsViewModel.setSearchOption(null);
+    cancelNavigationSearch();
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled(), getWindow());
@@ -1415,7 +1422,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     NavigationService.stopService(this);
-    mMapButtonsViewModel.setSearchOption(null);
+    cancelNavigationSearch();
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
     refreshLightStatusBar();
   }
