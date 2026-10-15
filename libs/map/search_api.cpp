@@ -190,7 +190,12 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
-  p.m_onResults = EverywhereSearchCallback(*this, std::move(params.m_onResults));
+  // The list is ordered nearest first from where the core counts the distance from: the position while it is on
+  // the screen, the middle of the screen otherwise.
+  std::optional<m2::PointD> pivot = p.m_position;
+  if (m_isViewportInitialized && (!pivot || !p.m_viewport.IsPointInside(*pivot)))
+    pivot = p.m_viewport.Center();
+  p.m_onResults = EverywhereSearchCallback(*this, std::move(params.m_onResults), pivot);
 
   return Search(std::move(p), true /* forceSearch */);
 }
