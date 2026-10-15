@@ -18231,7 +18231,7 @@ zh-Hans = 道路
 zh-Hant = 道路
 
 [type.highway.road.bridge]
-comment = These translations are used for all type.highway.*.bridge.
+comment = Default translation for type.highway.*.bridge aliases; individual types can override it.
 en = Bridge
 af = Brug
 ar = جسر
@@ -18287,7 +18287,7 @@ comment = A bridge structure outline.
 ref = type.highway.road.bridge
 
 [type.highway.road.tunnel]
-comment = These translations are used for all type.highway.*.tunnel.
+comment = Default translation for type.highway.*.tunnel aliases; individual types can override it.
 en = Tunnel
 af = Tonnel
 ar = نفق
@@ -42751,6 +42751,7 @@ zh-Hant = 保齡球
 [type.sport.9pin]
 ref = type.sport.10pin
 ca = Bitlles (9pin)
+cy = Bowlio Naw Pin
 et = Keegel
 hu = Teke
 
