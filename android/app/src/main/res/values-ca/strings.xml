@@ -834,7 +834,7 @@
     <string name="start_track_recording">Enregistra el recorregut</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Atura l’enregistrament del recorregut</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle for the active track recording on the Android place page. -->
     <string name="track_recording_title">Enregistrament de trajecte</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">El recorregut està buit; no hi ha res a desar</string>

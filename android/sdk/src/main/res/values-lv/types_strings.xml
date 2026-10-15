@@ -40,9 +40,9 @@
     <string name="type.emergency.mountain_rescue">Kalnu glābšanas stacija</string>
 
     <!-- SECTION: Types: Roads -->
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">Tilts</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">Tunelis</string>
     <string name="type.highway.bus_stop">Pietura</string>
 

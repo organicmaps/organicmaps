@@ -379,49 +379,49 @@
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">כביש</string>
     <string name="type.highway.bridleway">שביל סוסים</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.bridleway.bridge">גשר סוסים</string>
     <string name="type.highway.bridleway.permissive">דרך מותרת לרכיבת סוסים</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.bridleway.tunnel">מנהרה לסוסים</string>
     <string name="type.highway.busway">כביש יעודי לאוטובוס/מת\"צ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">מִנהָרָה</string>
     <string name="type.highway.bus_stop">תחנת אוטובוס</string>
     <string name="type.highway.construction">כביש בבנייה</string>
     <string name="type.highway.cycleway">שביל אופניים</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.cycleway.bridge">גשר לאופניים</string>
     <string name="type.highway.cycleway.permissive">דרך מותרת לרכיבת אופניים</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.cycleway.tunnel">מנהרה לאופניים</string>
     <string name="type.highway.elevator">מעלית</string>
     <string name="type.highway.footway">שביל הליכה</string>
     <string name="type.highway.footway.sidewalk">מדרכה</string>
     <string name="type.highway.footway.crossing">מעבר הולכי רגל</string>
     <string name="type.highway.footway.area">אזור להולכי רגל</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.footway.bridge">גשר הולכי רגל</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.footway.tunnel">מנהרה להולכי רגל</string>
     <string name="type.highway.ford">מקום צליחה</string>
     <string name="type.highway.living_street">רחוב משולב</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.living_street.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.living_street.tunnel">מִנהָרָה</string>
     <string name="type.highway.motorway">כביש מהיר</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway.tunnel">מִנהָרָה</string>
     <string name="type.highway.motorway_junction">יציאה</string>
     <string name="type.highway.motorway_link">כביש מהיר</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.tunnel">מִנהָרָה</string>
     <string name="type.highway.path">שביל</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
@@ -430,102 +430,102 @@
     <string name="type.highway.path.expert">מסלול קשה מאוד או בלתי ניתן להבחנה</string>
     <string name="type.highway.path.bicycle">שביל להולכי רגל ואופניים</string>
     <string name="type.highway.footway.bicycle">שביל להולכי רגל ואופניים</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.path.bridge">גשר</string>
     <string name="type.highway.path.horse">שביל לרכיבת סוסים</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.path.tunnel">מִנהָרָה</string>
     <string name="type.highway.pedestrian">מדרחוב</string>
     <string name="type.highway.pedestrian.area">אזור הולכי רגל</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.bridge">גשר הולכי רגל</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">מנהרה להולכי רגל</string>
     <string name="type.highway.platform">רציף תחבורה</string>
     <string name="type.highway.primary">כביש ראשי</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary.tunnel">מִנהָרָה</string>
     <string name="type.highway.primary_link">כביש ראשי</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary_link.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary_link.tunnel">מִנהָרָה</string>
     <string name="type.highway.raceway">מסלול מרוצים</string>
     <string name="type.highway.residential">רחוב מגורים</string>
     <string name="type.highway.residential.area">רחוב מגורים</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.residential.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">מִנהָרָה</string>
     <string name="type.highway.rest_area">תחנת ריענון</string>
     <string name="type.highway.road">כביש</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.road.bridge">גשר</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.road.tunnel">מִנהָרָה</string>
     <string name="type.highway.secondary">כביש משני</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary.tunnel">מִנהָרָה</string>
     <string name="type.highway.secondary_link">כביש משני</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.tunnel">מִנהָרָה</string>
     <string name="type.highway.service">כביש שירות</string>
     <string name="type.highway.service.area">כביש שירות</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.service.bridge">גשר</string>
     <string name="type.highway.service.driveway">כביש גישה</string>
     <string name="type.highway.service.parking_aisle">מעבר במגרש חנייה</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.service.tunnel">מִנהָרָה</string>
     <string name="type.highway.services">מתחם שירות</string>
     <string name="type.highway.speed_camera">מצלמת מהירות</string>
     <string name="type.highway.steps">מדרגות</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.steps.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.steps.tunnel">מִנהָרָה</string>
     <string name="type.highway.tertiary">כביש שלישוני</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary.tunnel">מִנהָרָה</string>
     <string name="type.highway.tertiary_link">כביש שלישוני</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.tunnel">מִנהָרָה</string>
     <string name="type.highway.track">מסלול</string>
     <string name="type.highway.track.area">מסלול</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.track.bridge">גשר</string>
     <string name="type.highway.track.grade1">מסלול</string>
     <string name="type.highway.track.no.access">מסלול ללא גישה</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.track.tunnel">מִנהָרָה</string>
     <string name="type.highway.traffic_signals">רמזור</string>
     <string name="type.highway.trunk">כביש בין עירוני</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk.tunnel">מִנהָרָה</string>
     <string name="type.highway.trunk_link">כביש בין עירוני</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.tunnel">מִנהָרָה</string>
     <string name="type.highway.unclassified">כביש לא מסומן/מזערי</string>
     <string name="type.highway.unclassified.area">כביש לא מסומן/מזערי</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.unclassified.bridge">גשר</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.unclassified.tunnel">מִנהָרָה</string>
     <string name="type.area_highway.cycleway">שביל אופניים</string>
     <string name="type.area_highway.footway">שביל הליכה</string>

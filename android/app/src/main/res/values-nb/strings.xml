@@ -818,7 +818,7 @@
     <string name="start_track_recording">Ta opp rute</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Stopp opptak av rute</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle for the active track recording on the Android place page. -->
     <string name="track_recording_title">Opptak av rute</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Ruten er tom - ingenting å lagre</string>

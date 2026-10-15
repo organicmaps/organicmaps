@@ -20,7 +20,7 @@
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.elevator">Lift</string>
     <string name="type.highway.footway.sidewalk">Pavement</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">Tunnel</string>
 
     <!-- SECTION: Types: Historic -->
