@@ -142,15 +142,8 @@ public:
   }
   std::string GetDistanceLeft() const override { return {}; }
   void ShowCarHeading(double bearingDeg) override { m_carHeading = bearingDeg; }
-  void ShowOffRoadCar(std::optional<ms::LatLon> const & position) override
-  {
-    m_offRoadCar = position;
-    ++m_offRoadCarShows;
-  }
 
   bool m_navigating = false;
-  std::optional<ms::LatLon> m_offRoadCar;
-  int m_offRoadCarShows = 0;
   int m_rebuilds = 0;
   int m_routeLefts = 0;
   // How far aside of the car the followed route is.

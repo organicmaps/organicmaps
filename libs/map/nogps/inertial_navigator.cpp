@@ -106,7 +106,6 @@ void InertialNavigator::Calibrate()
 
 void InertialNavigator::OnGpsPosition(Fix const & gps)
 {
-  EndPauseByItself();
   m_deadReckoning.SetPosition(gps.m_position);
   SetRoadPoint(gps.m_position);
   m_turning = false;
@@ -146,8 +145,6 @@ void InertialNavigator::CheckTurnSign(Fix const & gps)
 
 void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bearingDeg)
 {
-  // The car is where it is told to be, not where it has maneuvered to by the calculation.
-  EndPauseByItself();
   m_deadReckoning.SetPosition(position);
   SetRoadPoint(position);
   m_turning = false;
@@ -271,7 +268,6 @@ void InertialNavigator::ClearSpeedCalibration()
 
 void InertialNavigator::SetPosition(ms::LatLon const & position)
 {
-  EndPauseByItself();
   m_deadReckoning.SetPosition(position);
   SetRoadPoint(position);
   if (m_deadReckoning.HasHeading())
@@ -359,7 +355,6 @@ void InertialNavigator::SetRoadPoint(ms::LatLon const & position)
 {
   m_roadPoint = position;
   m_offRoadM = 0;
-  m_offRoadMaxSpeedMps = 0;
   m_roadLost = false;
 }
 
@@ -370,14 +365,6 @@ void InertialNavigator::TrackOffRoad(double distanceM)
   if (m_onRoad || m_turning || m_atRoundabout || !m_roadPoint || m_roadLost)
     return;
   m_offRoadM += distanceM;
-  m_offRoadMaxSpeedMps = std::max(m_offRoadMaxSpeedMps, m_deadReckoning.GetSpeed());
-  // A car driving along a road aside is put on it in a moment, see SnapToRoad(): it is not paused meanwhile.
-  if (m_offRoadMaxSpeedMps <= kMaxManeuverSpeedMps &&
-      (m_offRoadM >= kLostRoadM || (m_offRoadM >= kManeuverPauseM && !m_roadCandidate)))
-  {
-    PauseByItself();
-    return;
-  }
   if (m_offRoadM < kLostRoadM)
     return;
   LOG(LINFO, ("The road is lost after", std::round(m_offRoadM), "m, stopping at", *m_roadPoint));
@@ -581,7 +568,7 @@ void InertialNavigator::TrackDirection()
     }
   }
   // Nobody drives that fast backwards.
-  if (m_speedKmh >= kAutoResumeSpeedKmh && direction < 0)
+  if (m_speedKmh >= kForwardOnlySpeedKmh && direction < 0)
   {
     LOG(LINFO, ("The car drives fast: it has driven forward since the start,", std::round(m_startM), "m"));
     direction = 1;
@@ -596,9 +583,7 @@ void InertialNavigator::SetDirection(int direction)
   // What the car has driven since the start was counted the other way.
   int const turned = direction - m_direction;
   double const heading = m_deadReckoning.GetHeading();
-  if (m_offRoadCar)
-    m_offRoadCar = Move(*m_offRoadCar, heading, turned * m_startM);
-  else if (m_deadReckoning.IsReady() && !m_paused && !m_roadLost)
+  if (m_deadReckoning.IsReady() && !m_roadLost)
     m_deadReckoning.MoveTo(Move(m_deadReckoning.GetPosition(), heading, turned * m_startMarkM));
   m_direction = direction;
   if (direction > 0)
@@ -634,32 +619,6 @@ void InertialNavigator::ResetLag()
   m_phoneAheadM = 0;
 }
 
-void InertialNavigator::PauseByItself()
-{
-  LOG(LINFO, ("The car maneuvers", std::round(m_offRoadM), "m off the roads at up to",
-              std::round(m_offRoadMaxSpeedMps * 3.6), "km/h, paused by itself, the mark waits at", *m_roadPoint));
-  m_paused = true;
-  m_pausedByItself = true;
-  m_fastWithoutRoad = false;
-  m_fastSinceMs.reset();
-  m_turning = false;
-  // The car is followed from where it is, its mark waits where it has left the roads.
-  m_offRoadCar = m_deadReckoning.GetPosition();
-  m_deadReckoning.MoveTo(*m_roadPoint);
-}
-
-void InertialNavigator::EndPauseByItself()
-{
-  if (!m_pausedByItself)
-    return;
-  LOG(LINFO, ("The pause set by itself is over after", std::round(m_offRoadM), "m off the roads"));
-  m_paused = false;
-  m_pausedByItself = false;
-  m_offRoadCar.reset();
-  m_roadCandidate.reset();
-  m_fastSinceMs.reset();
-}
-
 bool InertialNavigator::IsRoadConfirmed(RoadPoint const & road, double headingDeg)
 {
   return IsRoadConfirmed(road, headingDeg, m_roadCandidate);
@@ -686,7 +645,6 @@ bool InertialNavigator::IsRoadConfirmed(RoadPoint const & road, double headingDe
 
 void InertialNavigator::PutOnRoad(ms::LatLon const & point, double bearingDeg)
 {
-  EndPauseByItself();
   // Not a known place along the road: the accuracy is not what it is after a mark of the user.
   m_deadReckoning.MoveTo(point);
   SetRoadPoint(point);
@@ -698,84 +656,11 @@ void InertialNavigator::PutOnRoad(ms::LatLon const & point, double bearingDeg)
   SetHeading(bearingDeg, HeadingSource::Road);
 }
 
-void InertialNavigator::CheckBackOnRoad()
-{
-  double const heading = m_deadReckoning.GetHeading();
-  auto const road = m_roads.Snap(*m_offRoadCar, heading, kSnapRadiusM);
-  if (!road)
-  {
-    m_lastSnapShiftM.reset();
-    m_lastSnapBearingDiffDeg.reset();
-    m_lastSnapResult = SnapResult::NoRoad;
-    m_roadCandidate.reset();
-    return;
-  }
-  double const shift = Distance(*m_offRoadCar, road->m_point);
-  m_lastSnapShiftM = shift;
-  m_lastSnapBearingDiffDeg = AngleDiff(heading, Orient(road->m_bearingDeg, heading));
-  // A car driving backwards along a road is not driving along it yet.
-  if (shift > kSnapRadiusM || m_direction < 0)
-  {
-    m_lastSnapResult = shift > kSnapRadiusM ? SnapResult::Far : SnapResult::Unconfirmed;
-    m_roadCandidate.reset();
-    return;
-  }
-  if (!IsRoadConfirmed(*road, heading))
-  {
-    m_lastSnapResult = std::fabs(*m_lastSnapBearingDiffDeg) > DeadReckoning::kMaxSnapHeadingDiffDeg
-                         ? SnapResult::Angle
-                         : SnapResult::Unconfirmed;
-    return;
-  }
-  LOG(LINFO, ("The car drives along a road again", std::round(shift), "m aside, after", std::round(m_offRoadM),
-              "m off the roads"));
-  PutOnRoad(road->m_point, Orient(road->m_bearingDeg, heading));
-}
-
 std::optional<double> InertialNavigator::GetRoadCandidateM() const
 {
   if (!m_roadCandidate)
     return {};
   return m_pathM - m_roadCandidate->m_pathM;
-}
-
-bool InertialNavigator::SetPaused(bool paused)
-{
-  // The pause set by itself is taken over by the user: resumed, or it is the pause of the user since now.
-  bool const byItself = m_pausedByItself;
-  if (m_paused == paused && !byItself)
-    return true;
-  LOG(LINFO, ("paused =", paused));
-  double const heading = m_deadReckoning.GetHeading();
-  // The car goes on from the road next to where it has maneuvered to.
-  std::optional<RoadPoint> road;
-  if (byItself && !paused && m_offRoadCar && m_deadReckoning.IsReady())
-  {
-    road = m_roads.Snap(*m_offRoadCar, heading, kMaxSnapRadiusM);
-    // Going on from the mark, which waits where the car has left the roads, would throw away where the car is:
-    // on October 11 it was thrown back so three times, and paused again 15 m later.
-    if (!road)
-    {
-      LOG(LINFO,
-          ("No road next to the car, the pause set by itself stays after", std::round(m_offRoadM), "m off the roads"));
-      return false;
-    }
-  }
-  m_pausedByItself = false;
-  m_offRoadCar.reset();
-  m_roadCandidate.reset();
-  m_paused = paused;
-  m_fastSinceMs.reset();
-  m_turning = false;
-  if (paused || !m_deadReckoning.IsReady())
-    return true;
-
-  // The road next to where the mark stands.
-  if (!road)
-    road = m_roads.Snap(m_deadReckoning.GetPosition(), heading, kMaxSnapRadiusM);
-  if (road)
-    SetRoadPosition(road->m_point, Orient(road->m_bearingDeg, heading));
-  return true;
 }
 
 void InertialNavigator::OnGyro(int64_t timestampNs, Vec3 const & gyro)
@@ -853,48 +738,10 @@ void InertialNavigator::OnSpeed(int speedKmh, int64_t timeMs)
   {
     accelSpeed->SetLag(m_speedLag.Get());
     // A car driving backwards slows down when its speed grows, and its start backward is not always told.
-    accelSpeed->SetLearning(!m_paused && !HasDrivenBackLately() && speedKmh >= kAutoResumeSpeedKmh);
+    accelSpeed->SetLearning(!HasDrivenBackLately() && speedKmh >= kForwardOnlySpeedKmh);
     accelSpeed->OnCarSpeed(now, speedMps);
   }
   m_moving = speedKmh > 0;
-  if (!m_paused)
-    return;
-  if (speedKmh < kAutoResumeSpeedKmh)
-  {
-    m_fastSinceMs.reset();
-    return;
-  }
-  if (!m_fastSinceMs)
-    m_fastSinceMs = timeMs;
-  if (timeMs - *m_fastSinceMs < kAutoResumeMs)
-    return;
-  if (!m_pausedByItself)
-  {
-    SetPaused(false);
-    return;
-  }
-  // Nobody maneuvers that fast: the car is on a road. With no road going its way around, the calculation has gone
-  // wrong, and the mark waits for the user.
-  double const heading = m_deadReckoning.GetHeading();
-  std::optional<RoadPoint> road;
-  if (m_offRoadCar)
-    road = m_roads.Snap(*m_offRoadCar, heading, kMaxSnapRadiusM);
-  if (road &&
-      std::fabs(AngleDiff(Orient(road->m_bearingDeg, heading), heading)) <= DeadReckoning::kMaxSnapHeadingDiffDeg)
-  {
-    LOG(LINFO, ("The car drives fast again, a road is", std::round(Distance(*m_offRoadCar, road->m_point)),
-                "m aside, after", std::round(m_offRoadM), "m off the roads"));
-    PutOnRoad(road->m_point, Orient(road->m_bearingDeg, heading));
-  }
-  else
-  {
-    m_fastWithoutRoad = true;
-    if (now - m_roadLostNotifiedMs >= kRoadLostReminderMs)
-    {
-      LOG(LINFO, ("The car drives fast, but no road goes its way around"));
-      NotifyRoadLost();
-    }
-  }
 }
 
 void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t timestampNs)
@@ -914,8 +761,8 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
   else
     ResetDirection();
   bool const back = m_direction < 0;
-  // The car stands where it is while it maneuvers or after it has left the roads.
-  bool const stopped = m_paused || m_roadLost;
+  // The car stands where it is after it has left the roads.
+  bool const stopped = m_roadLost;
   int64_t const now = m_clock.NowMs();
   // A standing car can't turn, so the remaining gyroscope drift doesn't rotate the heading at stops. The car
   // reports 0 km/h standing, and 1 km/h, which is below kMovingSpeedMps, while it turns crawling in a jam.
@@ -953,12 +800,6 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
     double const step = m_deadReckoning.GetSpeed() * dtSec;
     m_pathM += step;
     m_startM += step;
-    // The car paused by itself is followed apart from its mark.
-    if (m_pausedByItself && m_offRoadCar)
-    {
-      m_offRoadCar = Move(*m_offRoadCar, m_deadReckoning.GetHeading(), step * m_direction);
-      m_offRoadM += step;
-    }
   }
   if (back)
     m_lastBackMs = now;
@@ -991,12 +832,6 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
 
   if (m_roadLost && m_deadReckoning.GetSpeed() > kMovingSpeedMps && now - m_roadLostNotifiedMs >= kRoadLostReminderMs)
     NotifyRoadLost();
-  if (IsReady() && m_pausedByItself && m_offRoadCar && m_deadReckoning.GetSpeed() > kMovingSpeedMps &&
-      now - m_lastSnapMs >= kSnapIntervalMs)
-  {
-    m_lastSnapMs = now;
-    CheckBackOnRoad();
-  }
   if (IsReady() && !stopped && m_deadReckoning.GetSpeed() > kMovingSpeedMps && now - m_lastSnapMs >= kSnapIntervalMs)
   {
     m_lastSnapMs = now;
@@ -1161,7 +996,6 @@ void InertialNavigator::SnapToRoad()
   {
     m_roadPoint = snapped->m_point;
     m_offRoadM = 0;
-    m_offRoadMaxSpeedMps = 0;
   }
 }
 

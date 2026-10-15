@@ -81,10 +81,6 @@ struct Status
   CalibrationState m_calibration = CalibrationState::None;
   int m_calibrationProgress = 0;
   bool m_hasInertialPosition = false;
-  bool m_paused = false;
-  // The navigation has paused the movement by itself: the car maneuvers off the roads. The mark waits on the
-  // road until the car drives along a road again or the user resumes the movement.
-  bool m_pausedByItself = false;
   // The mark waits for the user to put it on a road: the road is lost. It is to be noticed at once.
   bool m_roadLost = false;
 
@@ -238,10 +234,6 @@ public:
   /// Turns the car around on its road: the car looks one of the two ways of the road, the user chooses the
   /// other one.
   void ReverseDirection();
-  /// Pauses the movement of the car calculated by the inertial navigation while the car maneuvers, e.g.
-  /// parks or turns around in several moves: the speed from the car is always positive. It is resumed by
-  /// itself when the car drives on.
-  void TogglePause();
   /// Ignores GPS as if it were jammed, e.g. to test the navigation without GPS where GPS works. It is not
   /// kept after a restart, so it is not left on by mistake.
   void SetGpsDisabled(bool disabled);
@@ -311,7 +303,6 @@ private:
   bool IsInertialActive() const;
   std::optional<double> GetCarBearing() const;
   void ShowCarHeading();
-  void ShowOffRoadCar();
   void NotifyLocationUpdated();
   void ApplyManualLocation();
   void BlockShift(bool forward, ms::LatLon const & at);
@@ -378,8 +369,6 @@ private:
   // The mark has been on the road of the route since the route was left by a car beside it: a route that
   // does not start from the road of the car is not rebuilt again and again.
   bool m_wasOnRouteRoad = true;
-  // The car maneuvering off the roads as the map shows it now, see ShowOffRoadCar().
-  std::optional<ms::LatLon> m_shownOffRoadCar;
   // The motion source of the inertial navigation gave the car speed, the user is told when it stops.
   bool m_motionSourceWorked = false;
   std::optional<int64_t> m_motionSourceWarnedMs;

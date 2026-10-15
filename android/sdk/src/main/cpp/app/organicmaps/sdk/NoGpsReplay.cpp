@@ -58,8 +58,8 @@
 //   T <ms> <lat> <lon>            the user taps the map
 //   H <ms> <bearing>              the mark looked this way after that tap: it is turned if it doesn't
 //   R <ms>   P <ms> <0|1>   M <ms> <meters>
-//                                 the reverse button, the pause button pressed to resume or to pause, the mark
-//                                 moved along the road
+//                                 the reverse button, the pause button of the trips before October 16 (there is no
+//                                 pause since then), the mark moved along the road
 //   N <ms> <lat> <lon> <lat> <lon> ...
 //                                 the user asks for a route through the points, the first one is where the car is
 //   F <ms> <0|1>                  the user closes the route, or starts to follow it
@@ -332,7 +332,7 @@ public:
     , m_donePath(outputPath + ".done")
     , m_route(routing, m_clock, [this](std::string const & text) { Write(text); })
     , m_delegate([this](Fix const & fix) { m_route.OnPosition(fix); })
-    , m_map(m_route.Get(), m_clock, [](double) {}, [](std::optional<ms::LatLon> const &) {})
+    , m_map(m_route.Get(), m_clock, [](double) {})
   {
     std::remove(m_donePath.c_str());
     NewEngine();
@@ -509,14 +509,6 @@ private:
       if (engine.IsManualMode())
         engine.ReverseDirection();
       break;
-    case 'P':
-    {
-      // The button was pressed to pause or to resume. The pause may be over by itself here, or never set.
-      int paused = 0;
-      if ((in >> paused) && engine.GetStatus().m_paused != (paused != 0))
-        engine.TogglePause();
-      break;
-    }
     case 'M':
     {
       double meters = 0;
