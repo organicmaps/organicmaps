@@ -44133,3 +44133,43 @@ en = Distance: %@
 pl = Odległość: %@
 ru = Расстояние: %@
 uk = Відстань: %@
+
+[placepage_copy]
+comment = VoiceOver action for copying a place page information row, such as an address or phone number.
+tags = apple-maps
+en = Copy
+pl = Kopiuj
+ru = Скопировать
+uk = Копіювати
+
+[placepage_choose_coordinate_format]
+comment = VoiceOver label for the coordinate format menu in the iOS place page.
+tags = apple-maps
+en = Choose coordinate format
+pl = Wybierz format współrzędnych
+ru = Выбрать формат координат
+uk = Вибрати формат координат
+
+[placepage_show_direction]
+comment = VoiceOver hint for opening the full-screen direction view from the place page distance control.
+tags = apple-maps
+en = Show direction
+pl = Pokaż kierunek
+ru = Показать направление
+uk = Показати напрямок
+
+[placepage_hours_collapsed]
+comment = VoiceOver value of the expandable opening-hours row when only today's hours are shown.
+tags = apple-maps
+en = Other days hidden
+pl = Pozostałe dni ukryte
+ru = Другие дни скрыты
+uk = Інші дні приховано
+
+[placepage_hours_expanded]
+comment = VoiceOver value of the expandable opening-hours row when all days are shown.
+tags = apple-maps
+en = Other days shown
+pl = Pozostałe dni widoczne
+ru = Другие дни показаны
+uk = Інші дні показано

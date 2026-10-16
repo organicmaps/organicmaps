@@ -6,10 +6,15 @@ class DirectionView: SolidTouchView {
   @IBOutlet private var distanceLabel: UILabel!
   @IBOutlet private var directionArrow: UIImageView!
   @IBOutlet private var contentView: UIView!
+  weak var accessibilityReturnFocus: UIView?
 
   override func awakeFromNib() {
     distanceLabel.font = alternative(iPhone: .regular32, iPad: .regular52)
     typeLabel.font = alternative(iPhone: .regular16, iPad: .regular24)
+    isAccessibilityElement = true
+    accessibilityTraits = .button
+    accessibilityHint = L("close")
+    directionArrow.isAccessibilityElement = false
   }
 
   override func didMoveToSuperview() {
@@ -46,15 +51,20 @@ class DirectionView: SolidTouchView {
     superview.addSubview(self)
     alignToSuperview()
     setNeedsLayout()
+    if UIAccessibility.isVoiceOverRunning {
+      UIAccessibility.post(notification: .screenChanged, argument: self)
+    }
   }
 
   func updateTitle(_ title: String?, subtitle: String?) {
     titleLabel.text = title
     typeLabel.text = subtitle
+    updateAccessibilityLabel()
   }
 
   func updateDistance(_ distance: String?) {
     distanceLabel?.text = distance
+    updateAccessibilityLabel()
   }
 
   func updateHeading(_ angle: CGFloat) {
@@ -68,5 +78,28 @@ class DirectionView: SolidTouchView {
 
   @IBAction func onTap(_: Any) {
     removeFromSuperview()
+  }
+
+  override func accessibilityActivate() -> Bool {
+    close()
+    return true
+  }
+
+  override func accessibilityPerformEscape() -> Bool {
+    close()
+    return true
+  }
+
+  private func close() {
+    removeFromSuperview()
+    if UIAccessibility.isVoiceOverRunning {
+      UIAccessibility.post(notification: .screenChanged, argument: accessibilityReturnFocus)
+    }
+  }
+
+  private func updateAccessibilityLabel() {
+    accessibilityLabel = [titleLabel.text, typeLabel.text, distanceLabel.text]
+      .compactMap { $0?.isEmpty == false ? $0 : nil }
+      .joined(separator: ", ")
   }
 }

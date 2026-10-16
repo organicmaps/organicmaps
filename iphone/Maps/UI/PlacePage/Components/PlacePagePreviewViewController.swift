@@ -1,6 +1,14 @@
 final class PlacePageDirectionView: UIView {
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var label: UILabel!
+
+  var onAccessibilityActivate: (() -> Void)?
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilityActivate else { return false }
+    onAccessibilityActivate()
+    return true
+  }
 }
 
 final class PlacePagePreviewViewController: UIViewController {
@@ -96,6 +104,7 @@ final class PlacePagePreviewViewController: UIViewController {
     }
     placePageDirectionView?.imageView.changeColoringToOpposite()
     configSchedule()
+    updateDirectionAccessibility()
   }
 
   func updateDistance(_ distance: String) {
@@ -103,6 +112,7 @@ final class PlacePagePreviewViewController: UIViewController {
     placePageDirectionView?.isHidden = false
     placePageDirectionView?.label.text = distance
     fullScreenDirectionView.updateDistance(distance)
+    updateDirectionAccessibility()
   }
 
   func updateHeading(_ angle: CGFloat) {
@@ -116,6 +126,7 @@ final class PlacePagePreviewViewController: UIViewController {
                    })
     fullScreenDirectionView.updateHeading(angle)
     heading = angle
+    updateDirectionAccessibility()
   }
 
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
@@ -137,7 +148,23 @@ final class PlacePagePreviewViewController: UIViewController {
                                         subtitle: placePagePreviewData.subtitle ?? placePagePreviewData.coordinates)
     fullScreenDirectionView.updateHeading(heading)
     fullScreenDirectionView.updateDistance(distance)
+    fullScreenDirectionView.accessibilityReturnFocus = placePageDirectionView
     fullScreenDirectionView.show()
+  }
+
+  private func updateDirectionAccessibility() {
+    for directionView in [subtitleDirectionView, addressDirectionView] {
+      directionView?.isAccessibilityElement = true
+      directionView?.imageView.isAccessibilityElement = false
+      directionView?.label.isAccessibilityElement = false
+      directionView?.accessibilityLabel = L("placepage_distance")
+      directionView?.accessibilityValue = distance
+      directionView?.accessibilityTraits = heading == nil ? .staticText : .button
+      directionView?.accessibilityHint = heading == nil ? nil : L("placepage_show_direction")
+      directionView?.onAccessibilityActivate = heading == nil ? nil : { [weak self] in
+        self?.onDirectionPressed(0)
+      }
+    }
   }
 
   // MARK: private
