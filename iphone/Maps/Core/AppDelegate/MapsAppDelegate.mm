@@ -226,7 +226,7 @@ using namespace osm_auth_ios;
   if ([MWMSettings isTrackWarningAlertShown])
     return;
 
-  [topVc.alertController presentTrackWarningAlertWithCancelBlock:^{ GpsTracker::Instance().SetEnabled(false); }];
+  [topVc.alertController presentTrackWarningAlertWithCancelBlock:^{ GetFramework().DiscardTrackRecording(); }];
 
   [MWMSettings setTrackWarningAlertShown:YES];
   LOG(LINFO, ("applicationWillEnterForeground - end"));

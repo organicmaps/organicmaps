@@ -1998,6 +1998,12 @@ void Framework::StopTrackRecording()
     m_drapeEngine->ClearGpsTrackPoints();
 }
 
+void Framework::DiscardTrackRecording()
+{
+  StopTrackRecording();
+  GpsTracker::Instance().Clear();
+}
+
 void Framework::SaveTrackRecordingWithName(std::string const & name)
 {
   auto const trackId = GetBookmarkManager().SaveTrackRecording(name);
