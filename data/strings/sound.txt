@@ -61,7 +61,7 @@ nl = Neem
 
 [make_a_right_turn]
 en = Turn right.
-ar = انعطف يميناً.
+ar = انعطف لليمين.
 be = Павярніце направа.
 bg = Завийте надясно.
 ca = Gireu a la dreta.
@@ -355,7 +355,7 @@ nl = Neem
 
 [make_a_left_turn]
 en = Turn left.
-ar = انعطف يساراً.
+ar = انعطف لليسار.
 be = Павярніце налева.
 bg = Завийте наляво.
 ca = Gireu a l'esquerra.
