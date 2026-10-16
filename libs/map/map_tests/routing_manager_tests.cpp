@@ -10,8 +10,9 @@
 #include "storage/routing_helpers.hpp"
 
 #include "platform/gui_thread.hpp"
-#include "platform/platform.hpp"
 #include "platform/localization.hpp"
+#include "platform/measurement_utils.hpp"
+#include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
 #include "geometry/mercator.hpp"
@@ -992,7 +993,6 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   while (!recovered)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
-
 }
 
 // Only drain this fixture's GUI tasks: other Framework fixtures can leave callbacks on the OS queue.
@@ -1302,6 +1302,23 @@ UNIT_CLASS_TEST(RoutingManagerTest, ExecutesApiRouteRequest)
   TEST_EQUAL(static_cast<int>(routePoints[3].m_pointType), static_cast<int>(RouteMarkType::Finish), ());
   TEST_EQUAL(routePoints[3].m_title, "Finish", ());
   TEST_EQUAL(routePoints[3].m_callback, "app://finish", ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, UnnamedApiRoutePointsGetCoordinateTitles)
+{
+  // Android previously labelled unnamed API route points with decimal coordinates; keep that
+  // display behavior when ExecuteRouteApiRequest materializes RouteMarkData titles.
+  url_scheme::ParsedMapApi const api("om://v2/dir?origin=1,1&destination=2,2&waypoints=1.5,1.5");
+  TEST_EQUAL(api.GetRequestType(), url_scheme::ParsedMapApi::UrlType::Route, ());
+
+  m_manager.SetRouteBuildingListener([](routing::RouterResultCode, storage::CountriesSet const &) {});
+  api.ExecuteRouteApiRequest(m_framework);
+
+  auto const routePoints = m_manager.GetRoutePoints();
+  TEST_EQUAL(routePoints.size(), 3, ());
+  TEST_EQUAL(routePoints[0].m_title, measurement_utils::FormatLatLon(1.0, 1.0, true /* withComma */), ());
+  TEST_EQUAL(routePoints[1].m_title, measurement_utils::FormatLatLon(1.5, 1.5, true /* withComma */), ());
+  TEST_EQUAL(routePoints[2].m_title, measurement_utils::FormatLatLon(2.0, 2.0, true /* withComma */), ());
 }
 
 UNIT_CLASS_TEST(RoutingManagerTest, DoesNotMaterializeOriginCallbackOnStartMark)

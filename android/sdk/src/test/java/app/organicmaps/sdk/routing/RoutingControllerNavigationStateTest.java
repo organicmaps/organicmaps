@@ -89,8 +89,7 @@ public class RoutingControllerNavigationStateTest
         true /* startNavigation */, MapObject.createMapObject(originType, "Origin", "", 1.0, 2.0));
   }
 
-  private static boolean getBooleanField(RoutingController controller, String name)
-      throws ReflectiveOperationException
+  private static boolean getBooleanField(RoutingController controller, String name) throws ReflectiveOperationException
   {
     final Field field = RoutingController.class.getDeclaredField(name);
     field.setAccessible(true);

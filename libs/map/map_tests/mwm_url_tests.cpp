@@ -193,7 +193,6 @@ UNIT_TEST(RouteApiV2NavigationIgnoresExplicitOrigin)
   TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
   TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
   TEST(test.ShouldStartRouteNavigation(), ());
-
 }
 
 UNIT_TEST(RouteApiV2DirWithExplicitOriginIsPreview)
@@ -251,6 +250,34 @@ UNIT_TEST(RouteApiV2AllowsEmptyWaypoints)
   TEST_NOT_EQUAL(gap.GetRoutePoints()[1].m_callback, "app://2", ());
   TEST_NOT_EQUAL(gap.GetRoutePoints()[2].m_name, "B", ());
   TEST_NOT_EQUAL(gap.GetRoutePoints()[2].m_callback, "app://2", ());
+}
+
+UNIT_TEST(RouteApiV2TrimsListItemsAndNames)
+{
+  // Documented contract: surrounding whitespace on each list item is trimmed before
+  // emptiness and coordinate parse checks; names and callbacks are trimmed the same way.
+  ParsedMapApi spaced(
+      "om://v2/dir?origin=1,1&origin_name=%20Start%20&destination=4,4&destination_name=%20Finish%20"
+      "&destination_callback=%20app%3A%2F%2Ffinish%20&waypoints=2,2|%203,3%20|%20%20|3.5,3.5"
+      "&waypoint_names=%20A%20|%20B%20|drop|%20C%20"
+      "&waypoint_callbacks=%20app%3A%2F%2Fa%20|app%3A%2F%2Fb|drop|%20app%3A%2F%2Fc%20"
+      "&callback=%20app%3A%2F%2Fback%20&ref_name=%20Caller%20");
+  TEST_EQUAL(spaced.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(spaced.GetRoutePoints().size(), 5, ());
+  TEST_EQUAL(spaced.GetRoutePoints()[0].m_name, "Start", ());
+  TEST_EQUAL(spaced.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
+  TEST_EQUAL(spaced.GetRoutePoints()[1].m_name, "A", ());
+  TEST_EQUAL(spaced.GetRoutePoints()[1].m_callback, "app://a", ());
+  TEST_EQUAL(spaced.GetRoutePoints()[2].m_org, mercator::FromLatLon(3, 3), ());
+  TEST_EQUAL(spaced.GetRoutePoints()[2].m_name, "B", ());
+  TEST_EQUAL(spaced.GetRoutePoints()[2].m_callback, "app://b", ());
+  TEST_EQUAL(spaced.GetRoutePoints()[3].m_org, mercator::FromLatLon(3.5, 3.5), ());
+  TEST_EQUAL(spaced.GetRoutePoints()[3].m_name, "C", ());
+  TEST_EQUAL(spaced.GetRoutePoints()[3].m_callback, "app://c", ());
+  TEST_EQUAL(spaced.GetRoutePoints()[4].m_name, "Finish", ());
+  TEST_EQUAL(spaced.GetRoutePoints()[4].m_callback, "app://finish", ());
+  TEST_EQUAL(spaced.GetAppName(), "Caller", ());
+  TEST_EQUAL(spaced.GetGlobalBackUrl(), "app://back", ());
 }
 
 UNIT_TEST(RouteApiV2CurrentPositionKeepsOriginFields)

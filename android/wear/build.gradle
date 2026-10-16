@@ -11,9 +11,8 @@ android {
 
     defaultConfig {
         applicationId rootProject.ext.appId
-        // Keep the Wear artifact version code unique from the phone app while preserving
-        // the same base Organic Maps version code for Google Play multi-form-factor uploads.
-        versionCode rootProject.ext.versionCode * 10 + 1
+        // Stay above the legacy 10x code range while leaving headroom for three-digit daily commit counts.
+        versionCode rootProject.ext.versionCode + 10_00_00_00_00
         versionName rootProject.ext.versionName
         minSdk 26
     }

@@ -613,7 +613,6 @@ public:
   // only what their UI needs around that call.
   struct ParsedRoutingData
   {
-
     routing::RouterType m_type;
     bool m_startRouteNavigation = false;
     m2::PointD m_startDirection = m2::PointD::Zero();

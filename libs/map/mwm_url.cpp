@@ -9,6 +9,7 @@
 #include "ge0/parser.hpp"
 
 #include "coding/url.hpp"
+#include "platform/measurement_utils.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
@@ -155,7 +156,6 @@ bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePo
   return true;
 }
 
-
 std::vector<std::string> SplitRouteListWithEncodedSeparators(std::string_view value)
 {
   constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
@@ -178,11 +178,15 @@ std::vector<std::string> SplitRouteListWithEncodedSeparators(std::string_view va
 
     if (delimiter == std::string_view::npos)
     {
-      result.push_back(url::UrlDecode(value.substr(from)));
+      auto item = url::UrlDecode(value.substr(from));
+      strings::Trim(item);
+      result.push_back(std::move(item));
       break;
     }
 
-    result.push_back(url::UrlDecode(value.substr(from, delimiter - from)));
+    auto item = url::UrlDecode(value.substr(from, delimiter - from));
+    strings::Trim(item);
+    result.push_back(std::move(item));
     from = delimiter + delimiterSize;
   }
   return result;
@@ -237,11 +241,15 @@ std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string
 
     if (delimiter == std::string_view::npos)
     {
-      result.push_back(DecodeRouteCallback(value.substr(from)));
+      auto item = DecodeRouteCallback(value.substr(from));
+      strings::Trim(item);
+      result.push_back(std::move(item));
       break;
     }
 
-    result.push_back(DecodeRouteCallback(value.substr(from, delimiter - from)));
+    auto item = DecodeRouteCallback(value.substr(from, delimiter - from));
+    strings::Trim(item);
+    result.push_back(std::move(item));
     from = delimiter + delimiterSize;
   }
   return result;
@@ -569,7 +577,6 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
   }
   ParseCommonParam(key, value);
 
-
   // Legacy links consume this sequence and ignore parameters outside it, including trailing duplicates.
   constexpr std::array<std::string_view, 5> kParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
   if (paramIndex == kParams.size() || key != kParams[paramIndex])
@@ -620,13 +627,25 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kDestination)
       destination = value;
     else if (key == kOriginName)
+    {
       start.m_name = value;
+      strings::Trim(start.m_name);
+    }
     else if (key == kDestinationName)
+    {
       finish.m_name = value;
+      strings::Trim(finish.m_name);
+    }
     else if (key == kOriginCallback)
+    {
       start.m_callback = DecodeRouteCallback(rawValue);
+      strings::Trim(start.m_callback);
+    }
     else if (key == kDestinationCallback)
+    {
       finish.m_callback = DecodeRouteCallback(rawValue);
+      strings::Trim(finish.m_callback);
+    }
     else if (key == kOriginHeading)
     {
       heading = value;
@@ -645,15 +664,20 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kOptimize)
       m_optimizeRoutePoints = ParseBool(value);
     else if (key == kRefName)
+    {
       m_appName = value;
+      strings::Trim(m_appName);
+    }
     else if (key == kCallback)
+    {
       m_globalBackUrl = DecodeRouteCallback(rawValue);
+      strings::Trim(m_globalBackUrl);
+    }
     else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
       LOG(LWARNING, ("Route API v2 parameter is not applied:", key, value));
     else
       LOG(LWARNING, ("Unsupported Route API v2 parameter:", key, value));
   });
-
   if (!dirAction.empty() && dirAction != "navigate")
     LOG(LWARNING, ("Unsupported route action:", dirAction));
   m_startRouteNavigation = url.GetPath() == kPathNav || dirAction == "navigate";
@@ -825,7 +849,14 @@ void ParsedMapApi::ExecuteRouteApiRequest(Framework & fm) const
   for (auto const & point : m_routePoints)
   {
     RouteMarkData data;
-    data.m_title = point.m_name;
+    // Match Android's previous unnamed-point labels and iOS NormalizeTitle: bare coordinates.
+    if (!point.m_name.empty())
+      data.m_title = point.m_name;
+    else if (!point.m_isMyPosition)
+    {
+      auto const ll = mercator::ToLatLon(point.m_org);
+      data.m_title = measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true /* withComma */);
+    }
     data.m_isMyPosition = point.m_isMyPosition;
     data.m_position = point.m_org;
     data.m_callback = point.m_callback;

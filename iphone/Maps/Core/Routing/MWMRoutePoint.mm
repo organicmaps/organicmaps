@@ -71,8 +71,6 @@ NSString * NormalizeSubtitle(NSString * subtitle)
   return self;
 }
 
-
-
 - (instancetype)initWithRouteMarkData:(RouteMarkData const &)point
 {
   self = [super init];

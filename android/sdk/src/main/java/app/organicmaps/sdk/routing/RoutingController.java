@@ -12,7 +12,6 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
-
 import java.util.List;
 import org.chromium.base.ObserverList;
 
@@ -293,7 +292,7 @@ public class RoutingController
         if (startPoint == null || endPoint == null)
           updatePlan();
         else
-          build();
+          build(mStartNavigationAfterBuild);
       });
     }
   }
@@ -346,7 +345,13 @@ public class RoutingController
 
   private void build()
   {
-    mStartNavigationAfterBuild = false;
+    build(false /* preserveStartNavigationAfterBuild */);
+  }
+
+  private void build(boolean preserveStartNavigationAfterBuild)
+  {
+    if (!preserveStartNavigationAfterBuild)
+      mStartNavigationAfterBuild = false;
     mContainsCachedResult = false;
 
     Framework.nativeRemoveRoute();
@@ -519,7 +524,7 @@ public class RoutingController
     }
     else
     {
-      build();
+      build(mStartNavigationAfterBuild);
     }
   }
 
@@ -1105,23 +1110,20 @@ public class RoutingController
   private static void replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int replaceStopIndex)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
-    if (type == RouteMarkType.Intermediate)
-      Framework.nativeRemoveRoutePoint(type, replaceStopIndex);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, "" /* callback */,
-                                  type, replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
-                                  point.getLon(), false /* reorderIntermediatePoints */);
+    Framework.nativeReplaceRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+                                      replaceStopIndex, point.isMyPosition(), point.getLat(), point.getLon());
   }
 
   private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
-    return Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, "" /* callback */,
-                                         type, 0 /* intermediateIndex */, point.isMyPosition(), point.getLat(),
-                                         point.getLon(), true /* reorderIntermediatePoints */);
+    return Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */,
+                                         "" /* callback */, type, 0 /* intermediateIndex */, point.isMyPosition(),
+                                         point.getLat(), point.getLon(), true /* reorderIntermediatePoints */);
   }
 
   private static void replaceRoutePoints(@NonNull List<MapObject> routePoints, @Nullable List<String> callbacks,
-                                     boolean optimizeRoutePoints)
+                                         boolean optimizeRoutePoints)
   {
     // Pass the itinerary in source (URL) order with each callback aligned to its point.
     // Core ReplaceRoutePoints owns slot assignment and optimization; do not pre-reorder here.
@@ -1130,8 +1132,9 @@ public class RoutingController
     for (int i = 0; i < size; ++i)
     {
       final MapObject point = routePoints.get(i);
-      final RouteMarkType type = i == 0 ? RouteMarkType.Start
-                                        : i + 1 == size ? RouteMarkType.Finish : RouteMarkType.Intermediate;
+      final RouteMarkType type = i == 0        ? RouteMarkType.Start
+                               : i + 1 == size ? RouteMarkType.Finish
+                                               : RouteMarkType.Intermediate;
       final int intermediateIndex = type == RouteMarkType.Intermediate ? i - 1 : 0;
       final Pair<String, String> description = getDescriptionForPoint(point);
       final boolean isMyPosition = point.isMyPosition();
@@ -1158,7 +1161,6 @@ public class RoutingController
     return Framework.nativeContinueRouteToPoint(description.first /* title */, description.second /* subtitle */,
                                                 point.isMyPosition(), point.getLat(), point.getLon());
   }
-
 
   @NonNull
   private static Pair<String, String> getDescriptionForPoint(@NonNull MapObject point)

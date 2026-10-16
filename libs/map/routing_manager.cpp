@@ -1199,7 +1199,6 @@ void RoutingManager::ReplaceRoutePoints(std::vector<RouteMarkData> points, bool 
     if (optimize && m_currentRouterType != RouterType::Ruler && addedPoint != nullptr)
       ReorderIntermediatePoints(layout, addedPoint);
   }
-
 }
 
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)

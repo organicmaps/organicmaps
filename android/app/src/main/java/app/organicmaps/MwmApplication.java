@@ -60,7 +60,6 @@ public class MwmApplication extends Application implements Application.ActivityL
   @Nullable
   private WeakReference<Activity> mTopActivity;
 
-
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   public static MwmApplication sInstance;
@@ -177,7 +176,6 @@ public class MwmApplication extends Application implements Application.ActivityL
     final boolean launched = Utils.openUri(activity, Uri.parse(callback), null);
     if (launched && activity instanceof MwmActivity)
       ((MwmActivity) activity).skipParsedBackUrlOnNextStop();
-
   }
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
     @Override

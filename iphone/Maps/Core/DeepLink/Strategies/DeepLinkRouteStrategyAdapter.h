@@ -6,7 +6,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeepLinkRouteStrategyAdapter : NSObject
 
-
 @property(nonatomic, readonly) BOOL startRouteNavigation;
 @property(nonatomic, readonly) CGPoint startDirection;
 @property(nonatomic, readonly) MWMRouterType type;

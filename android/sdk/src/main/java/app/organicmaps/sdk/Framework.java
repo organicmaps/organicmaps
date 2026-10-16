@@ -199,7 +199,6 @@ public class Framework
   public static native @Nullable String nativeGetParsedBackUrl();
   public static native boolean nativeHasLegacyBackUrl();
 
-
   /// One-shot back URL consumption, see ParsedMapApi::ClearGlobalBackUrl().
   public static native void nativeClearParsedBackUrl();
 

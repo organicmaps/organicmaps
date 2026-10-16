@@ -1467,11 +1467,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCi
   return g_framework->DeactivateMapSelectionCircle(restoreViewport);
 }
 
-JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
-                                                                          jstring subtitle, jstring callback,
-                                                                          jobject markType, jint intermediateIndex,
-                                                                          jboolean isMyPosition, jdouble lat, jdouble lon,
-                                                                          jboolean reorderIntermediatePoints)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(
+    JNIEnv * env, jclass, jstring title, jstring subtitle, jstring callback, jobject markType, jint intermediateIndex,
+    jboolean isMyPosition, jdouble lat, jdouble lon, jboolean reorderIntermediatePoints)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
@@ -1495,7 +1493,6 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeContinueRouteToPoint
       MakeRouteMarkData(env, title, subtitle, RouteMarkType::Finish, isMyPosition, lat, lon));
 }
 
-
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoint(JNIEnv * env, jclass, jstring title,
                                                                           jstring subtitle, jobject markType,
                                                                           jint intermediateIndex, jboolean isMyPosition,
@@ -1510,7 +1507,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeReplaceRoutePoints(JNIEn
                                                                            jboolean optimize)
 {
   frm()->GetRoutingManager().ReplaceRoutePoints(routing_jni::ToNativeRouteMarkDataArray(env, points),
-                                                 static_cast<bool>(optimize));
+                                                static_cast<bool>(optimize));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,

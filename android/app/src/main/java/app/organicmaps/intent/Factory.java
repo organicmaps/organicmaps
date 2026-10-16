@@ -75,13 +75,10 @@ public class Factory
       {
       case "content":
       case "file":
-      case "data":
-        return true;
+      case "data": return true;
       case "http":
-      case "https":
-        return isBookmarksMimeType(mimeType);
-      default:
-        return false;
+      case "https": return isBookmarksMimeType(mimeType);
+      default: return false;
       }
     }
 
@@ -99,10 +96,8 @@ public class Factory
       case "application/vnd.google-earth.kmz+xml":
       case "application/geo+json":
       case "application/vnd.geo+json":
-      case "application/json":
-        return true;
-      default:
-        return false;
+      case "application/json": return true;
+      default: return false;
       }
     }
   }
