@@ -112,20 +112,14 @@ m2::RectD CountryInfoGetter::CalcLimitRect(std::string const & prefix) const
 
 m2::RectD CountryInfoGetter::GetLimitRectForLeaf(CountryId const & leafCountryId) const
 {
-  /// @todo Check use-cases. Take into account that this function returns FullRect for the obsolete MWMs.
-  /// And we are going to split MWMs a lot for now.
-
   auto const it = m_countryIndex.find(leafCountryId);
-  if (it != m_countryIndex.end())
+  if (it == m_countryIndex.end())
   {
-    ASSERT_LESS(it->second, m_countries.size(), ());
-    return m_countries[it->second].m_rect;
-  }
-  else
-  {
-    // Full rect for World files.
+    // World files and obsolete country names may be absent from the current border index.
     return mercator::Bounds::FullRect();
   }
+  ASSERT_LESS(it->second, m_countries.size(), ());
+  return m_countries[it->second].m_rect;
 }
 
 void CountryInfoGetter::GetMatchedRegions(std::string const & affiliation, RegionIdVec & regions) const
@@ -328,6 +322,7 @@ CountryInfoGetterForTesting::CountryInfoGetterForTesting(std::vector<CountryDef>
 
 void CountryInfoGetterForTesting::AddCountry(CountryDef const & country)
 {
+  m_countryIndex[country.m_countryId] = m_countries.size();
   m_countries.push_back(country);
 }
 
