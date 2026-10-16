@@ -12,16 +12,6 @@
 
 namespace storage_routing_helpers_tests
 {
-class Getter : public storage::CountryInfoGetterForTesting
-{
-public:
-  explicit Getter(std::vector<storage::CountryDef> const & countries) : CountryInfoGetterForTesting(countries)
-  {
-    for (size_t i = 0; i < m_countries.size(); ++i)
-      m_countryIndex.emplace(m_countries[i].m_countryId, i);
-  }
-};
-
 UNIT_TEST(NumMwmTree_WrappedBounds)
 {
   std::vector<storage::CountryDef> const countries = {{"East", {170, -10, 190, 10}},
@@ -36,7 +26,7 @@ UNIT_TEST(NumMwmTree_WrappedBounds)
                                                       {"WestTouch", {-180, 70, -170, 80}},
                                                       {"EastPoint", {180, 90, 180, 90}},
                                                       {"WestPoint", {-180, 90, -180, 90}}};
-  Getter getter(countries);
+  storage::CountryInfoGetterForTesting getter(countries);
   routing::NumMwmIds ids;
   for (auto const & country : countries)
     ids.RegisterFile(platform::CountryFile(country.m_countryId));
