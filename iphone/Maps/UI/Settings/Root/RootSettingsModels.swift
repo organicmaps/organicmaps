@@ -170,6 +170,7 @@ extension SettingsSectionViewModel where Section == RootSettingsSection, Item ==
 struct RootSettingsState {
   let osmUserName: String
   let measurementUnits: Units
+  let altitudeUnits: Units
   let zoomButtonsEnabled: Bool
   let buildings3DEnabled: Bool
   let buildings3DEditable: Bool

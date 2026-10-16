@@ -8,13 +8,18 @@ final class UnitsSettingsInteractor {
   }
 
   func loadSettings() {
-    present(UnitsSettingsState(units: settings.measurementUnits()),
+    present(UnitsSettingsState(units: settings.measurementUnits(), altitudeUnits: settings.altitudeUnits()),
             animatingDifferences: false)
   }
 
-  private func select(_ units: Units) {
-    settings.setMeasurementUnits(units)
-    present(UnitsSettingsState(units: units), animatingDifferences: false)
+  private func select(_ item: UnitsSettingsItem) {
+    switch item {
+    case .distance(let units):
+      settings.setMeasurementUnits(units)
+    case .altitude(let units):
+      settings.setAltitudeUnits(units)
+    }
+    loadSettings()
   }
 
   private func present(_ state: UnitsSettingsState, animatingDifferences: Bool = true) {
@@ -24,9 +29,9 @@ final class UnitsSettingsInteractor {
 
 extension UnitsSettingsInteractor: SettingsViewControllerInteractor {
   typealias Section = UnitsSettingsSection
-  typealias Item = Units
+  typealias Item = UnitsSettingsItem
 
-  func handle(_ action: SettingsViewControllerAction<Units>) {
+  func handle(_ action: SettingsViewControllerAction<UnitsSettingsItem>) {
     switch action {
     case .didLoad:
       loadSettings()

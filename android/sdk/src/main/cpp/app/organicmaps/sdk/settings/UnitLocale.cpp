@@ -17,4 +17,16 @@ JNIEXPORT jint Java_app_organicmaps_sdk_settings_UnitLocale_getCurrentUnits(JNIE
   measurement_utils::Units u;
   return static_cast<jint>(settings::Get(settings::kMeasurementUnits, u) ? u : measurement_utils::Units::Metric);
 }
+
+JNIEXPORT void Java_app_organicmaps_sdk_settings_UnitLocale_setCurrentAltitudeUnits(JNIEnv * env, jobject thiz,
+                                                                                    jint units)
+{
+  settings::Set(settings::kAltitudeUnits, static_cast<measurement_utils::Units>(units));
+  g_framework->SetupMeasurementSystem();
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_settings_UnitLocale_getCurrentAltitudeUnits(JNIEnv * env, jobject thiz)
+{
+  return static_cast<jint>(measurement_utils::GetAltitudeUnits());
+}
 }

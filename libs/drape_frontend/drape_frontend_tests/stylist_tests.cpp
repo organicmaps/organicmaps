@@ -11,6 +11,12 @@
 
 #include "drape/hatching_decl.hpp"
 
+#include "platform/distance.hpp"
+#include "platform/measurement_utils.hpp"
+#include "platform/settings.hpp"
+
+#include "base/scope_guard.hpp"
+
 #include <algorithm>
 #include <initializer_list>
 
@@ -27,7 +33,70 @@ public:
       m_types.Add(type);
   }
 };
+
+class NamedLine : public osm::MapObject
+{
+public:
+  NamedLine(uint32_t type, std::string_view name)
+  {
+    m_geomType = feature::GeomType::Line;
+    m_points = {{0.0, 0.0}, {0.01, 0.01}};
+    m_types.Add(type);
+    m_name.Add(StringUtf8Multilang::kDefaultCode, name);
+    m_featureID = FeatureID(MwmSet::MwmId(std::make_shared<MwmInfo>()), 0);
+  }
+};
 }  // namespace
+
+UNIT_TEST(Stylist_ContourAltitudeUnits)
+{
+  classificator::Load();
+  auto const & cl = classif();
+
+  std::string oldUnits;
+  bool const hadUnits = settings::Get(settings::kAltitudeUnits, oldUnits);
+  SCOPE_GUARD(restoreUnits, [&]
+  {
+    if (hadUnits)
+      settings::Set(settings::kAltitudeUnits, oldUnits);
+    else
+      settings::Delete(settings::kAltitudeUnits);
+  });
+
+  auto const caption = [](FeatureType & f)
+  {
+    df::CaptionDescription description;
+    description.Init(f, StringUtf8Multilang::kEnglishCode, 18, feature::GeomType::Line, false);
+    TEST(description.GetAuxText().empty(), ());
+    return description.GetMainText();
+  };
+
+  for (auto const subtype : {"step_10", "step_50", "step_100", "step_500", "step_1000", "zero"})
+  {
+    auto const type = cl.GetTypeByPath({"isoline", subtype});
+    for (auto const name : {"100", "0", "-50", ""})
+    {
+      auto f = FeatureType::CreateFromMapObject(NamedLine(type, name));
+      settings::Set(settings::kAltitudeUnits, measurement_utils::Units::Metric);
+      auto const metric = std::string(name).empty() ? "" : std::string(name) + platform::kNarrowNonBreakingSpace + "m";
+      TEST_EQUAL(caption(*f), metric, (subtype, name));
+
+      settings::Set(settings::kAltitudeUnits, measurement_utils::Units::Imperial);
+      std::string const feet = std::string(name) == "100" ? "328" : std::string(name) == "-50" ? "-164" : name;
+      auto const imperial = feet.empty() ? "" : feet + platform::kNarrowNonBreakingSpace + "ft";
+      TEST_EQUAL(caption(*f), imperial, (subtype, name));
+      // Switching units reuses the same map data without modifying its stored height.
+      TEST_EQUAL(f->GetName(StringUtf8Multilang::kDefaultCode), name, ());
+      settings::Set(settings::kAltitudeUnits, measurement_utils::Units::Metric);
+      TEST_EQUAL(caption(*f), metric, (subtype, name));
+    }
+  }
+
+  // A numeric road name must never be interpreted as an elevation.
+  auto road = FeatureType::CreateFromMapObject(NamedLine(cl.GetTypeByPath({"highway", "residential"}), "100"));
+  settings::Set(settings::kAltitudeUnits, measurement_utils::Units::Imperial);
+  TEST_EQUAL(caption(*road), "100", ());
+}
 
 UNIT_TEST(Stylist_IsHatching)
 {

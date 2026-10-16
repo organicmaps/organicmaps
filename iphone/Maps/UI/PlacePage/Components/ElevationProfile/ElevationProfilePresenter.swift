@@ -112,6 +112,11 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.isChartViewHidden = false
 
     switch state {
+    case .track(let data), .trackRecording(let data), .routePreview(let data):
+      descriptionModels = Self.descriptionModels(for: data.trackInfo)
+    }
+
+    switch state {
     case .track(let data), .routePreview(let data):
       configureInteractiveProfile(data)
     case .trackRecording(let data):

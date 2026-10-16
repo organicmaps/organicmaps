@@ -401,6 +401,12 @@ void DrapeEngine::InvalidateRect(m2::RectD const & rect)
                                   MessagePriority::High);
 }
 
+void DrapeEngine::InvalidateMap()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<InvalidateMapMessage>(),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::UpdateMapStyle()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<UpdateMapStyleMessage>(),

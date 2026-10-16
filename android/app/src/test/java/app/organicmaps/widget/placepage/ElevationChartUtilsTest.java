@@ -2,11 +2,19 @@ package app.organicmaps.widget.placepage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.widget.placepage.ElevationChartUtils.YAxisBounds;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import java.util.List;
 import org.junit.Test;
+import org.mockito.MockedStatic;
 
 public class ElevationChartUtilsTest
 {
@@ -90,6 +98,35 @@ public class ElevationChartUtilsTest
     assertEquals(2 * IMPERIAL_STEP, bounds.lower(), EPS);
     assertEquals(4 * IMPERIAL_STEP, bounds.upper(), EPS);
     assertEquals(0.62f, peakPosition(bounds, 99f), EPS);
+  }
+
+  @Test
+  public void feetAxisWithKilometerDistances()
+  {
+    assertYAxisUnits(UnitLocale.UNITS_METRIC, UnitLocale.UNITS_FOOT, 2 * IMPERIAL_STEP, 4 * IMPERIAL_STEP);
+  }
+
+  @Test
+  public void metersAxisWithMileDistances()
+  {
+    assertYAxisUnits(UnitLocale.UNITS_FOOT, UnitLocale.UNITS_METRIC, 50f, 150f);
+  }
+
+  private static void assertYAxisUnits(int distanceUnits, int altitudeUnits, float expectedLower, float expectedUpper)
+  {
+    try (MockedStatic<UnitLocale> units = mockStatic(UnitLocale.class))
+    {
+      units.when(UnitLocale::getUnits).thenReturn(distanceUnits);
+      units.when(UnitLocale::getAltitudeUnits).thenReturn(altitudeUnits);
+      LineChart chart = mock(LineChart.class);
+      YAxis axis = mock(YAxis.class);
+      when(chart.getAxisLeft()).thenReturn(axis);
+
+      ElevationChartUtils.configureYAxisBounds(chart, 98f, 99f);
+
+      verify(axis).setAxisMinimum(expectedLower);
+      verify(axis).setAxisMaximum(expectedUpper);
+    }
   }
 
   @Test

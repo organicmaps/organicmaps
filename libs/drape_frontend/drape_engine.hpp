@@ -157,6 +157,8 @@ public:
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool const destroySurface);
   void InvalidateRect(m2::RectD const & rect);
+  // Reread all map tiles, including prefetched tiles.
+  void InvalidateMap();
   void UpdateMapStyle();
 
   void SetCompassInfo(location::CompassInfo const & info);

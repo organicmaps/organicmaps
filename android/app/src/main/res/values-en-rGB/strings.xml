@@ -4,6 +4,8 @@
     <!-- SECTION: Strings -->
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometres</string>
+    <!-- Elevation unit option in settings -->
+    <string name="altitude_units_meters">Metres</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choose between miles and kilometres</string>
 

@@ -14,14 +14,19 @@ final class UnitsSettingsPresenter {
 
   private func sections(from state: UnitsSettingsState) -> [UnitsSettingsSectionViewModel] {
     [
-      SettingsSectionViewModel(section: .options,
-                               items: Units.settingsOptions.map { item($0, state: state) }),
+      SettingsSectionViewModel(section: .distance,
+                               items: Units.settingsOptions.map {
+                                 SettingsItemViewModel(item: .distance($0),
+                                                       title: $0.title,
+                                                       kind: .selectable(isSelected: $0 == state.units))
+                               }),
+      SettingsSectionViewModel(section: .altitude,
+                               header: L("altitude_units"),
+                               items: Units.settingsOptions.map {
+                                 SettingsItemViewModel(item: .altitude($0),
+                                                       title: $0.altitudeTitle,
+                                                       kind: .selectable(isSelected: $0 == state.altitudeUnits))
+                               }),
     ]
-  }
-
-  private func item(_ units: Units, state: UnitsSettingsState) -> UnitsSettingsItemViewModel {
-    SettingsItemViewModel(item: units,
-                          title: units.title,
-                          kind: .selectable(isSelected: units == state.units))
   }
 }

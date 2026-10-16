@@ -131,7 +131,7 @@ public final class ElevationChartUtils
   public static void configureYAxisBounds(@NonNull LineChart chart, float minAltitude, float maxAltitude)
   {
     // Step size in meters: 50m for metric, 100ft (30.48m) for imperial.
-    boolean isImperial = UnitLocale.getUnits() == UnitLocale.UNITS_FOOT;
+    boolean isImperial = UnitLocale.getAltitudeUnits() == UnitLocale.UNITS_FOOT;
     YAxisBounds bounds = computeYAxisBounds(minAltitude, maxAltitude, isImperial ? 30.48f : 50f);
 
     YAxis y = chart.getAxisLeft();

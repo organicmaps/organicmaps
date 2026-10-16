@@ -69,6 +69,15 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Unit Pengukuran";
 
+/* Independent elevation unit setting, used for contour lines, heights, and elevation profiles */
+"altitude_units" = "Elevation units";
+
+/* Elevation unit option in settings */
+"altitude_units_meters" = "Meters";
+
+/* Elevation unit option in settings */
+"altitude_units_feet" = "Feet";
+
 /* Button which interrupts country download */
 "cancel_download" = "Batalkan Pengunduhan";
 

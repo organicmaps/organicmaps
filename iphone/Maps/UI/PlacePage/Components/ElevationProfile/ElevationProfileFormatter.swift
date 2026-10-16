@@ -10,22 +10,20 @@ final class ElevationProfileFormatter {
 
   private let distanceFormatter: DistanceFormatter.Type
   private let altitudeFormatter: AltitudeFormatter.Type
-  private let unitSystemMultiplier: CGFloat
-  private let altitudeStep: CGFloat
+  private let settings: Settings.Type
 
-  init(units: Units = Settings.measurementUnits()) {
+  private var unitSystemMultiplier: CGFloat {
+    settings.altitudeUnits() == .imperial ? Constants.metricToImperialMultiplier : 1
+  }
+
+  private var altitudeStep: CGFloat {
+    settings.altitudeUnits() == .imperial ? Constants.imperialAltitudeStep : Constants.metricAltitudeStep
+  }
+
+  init(settings: Settings.Type = Settings.self) {
     distanceFormatter = DistanceFormatter.self
     altitudeFormatter = AltitudeFormatter.self
-    switch units {
-    case .metric:
-      altitudeStep = Constants.metricAltitudeStep
-      unitSystemMultiplier = 1
-    case .imperial:
-      altitudeStep = Constants.imperialAltitudeStep
-      unitSystemMultiplier = Constants.metricToImperialMultiplier
-    @unknown default:
-      fatalError("Unsupported units")
-    }
+    self.settings = settings
   }
 }
 
@@ -50,7 +48,7 @@ extension ElevationProfileFormatter: ChartFormatter {
     let lower = yAxisLowerBound(from: lowerBound)
     let upper = yAxisUpperBound(from: upperBound)
     let range = upper - lower
-    var stepSize = altitudeStep
+    var stepSize = altitudeStep * unitSystemMultiplier
     var stepsCount = Int((range / stepSize).rounded(.up))
 
     while stepsCount > 6 {

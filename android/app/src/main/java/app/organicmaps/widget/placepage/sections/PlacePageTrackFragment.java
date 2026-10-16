@@ -13,6 +13,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
 import app.organicmaps.widget.placepage.PlacePageStateListener;
@@ -25,6 +26,7 @@ public class PlacePageTrackFragment extends Fragment
   private PlacePageViewModel mViewModel;
   @Nullable
   private Track mTrack;
+  private int mAltitudeUnits = UnitLocale.UNITS_UNDEFINED;
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
 
   @Nullable
@@ -78,8 +80,13 @@ public class PlacePageTrackFragment extends Fragment
     Track track = (Track) mapObject;
     if (track.getElevationInfo() != null)
     {
-      if (mTrack == null || mTrack.getTrackId() != track.getTrackId() || track.isRelationTrack())
+      int altitudeUnits = UnitLocale.getAltitudeUnits();
+      if (mTrack == null || mTrack.getTrackId() != track.getTrackId() || track.isRelationTrack()
+          || mAltitudeUnits != altitudeUnits)
+      {
         mElevationProfileViewRenderer.render(track, track.getElevationInfo(), track.getTrackStatistics());
+        mAltitudeUnits = altitudeUnits;
+      }
       UiUtils.show(requireView());
     }
     else

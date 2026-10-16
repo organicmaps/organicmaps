@@ -84,6 +84,14 @@ Units GetMeasurementUnits()
   return units;
 }
 
+Units GetAltitudeUnits()
+{
+  Units units;
+  if (settings::Get(settings::kAltitudeUnits, units))
+    return units;
+  return GetMeasurementUnits();
+}
+
 double ToSpeedKmPH(double speed, Units units)
 {
   switch (units)

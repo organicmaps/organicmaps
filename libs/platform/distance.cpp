@@ -76,8 +76,8 @@ Distance Distance::CreateFormatted(double distanceInMeters)
 
 std::string Distance::FormatAltitude(double meters)
 {
-  Distance elevation = Distance(fabs(meters))
-                           .To(GetMeasurementUnits() == measurement_utils::Units::Metric ? Units::Meters : Units::Feet);
+  Distance elevation =
+      Distance(fabs(meters)).To(GetAltitudeUnits() == measurement_utils::Units::Metric ? Units::Meters : Units::Feet);
 
   ASSERT(elevation.IsLowUnits(), ());
   elevation.m_distance = WithPrecision(elevation.m_distance, 0);

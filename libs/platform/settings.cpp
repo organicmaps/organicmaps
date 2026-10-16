@@ -21,6 +21,7 @@ namespace settings
 using std::string;
 
 std::string_view kMeasurementUnits = "Units";
+std::string_view kAltitudeUnits = "AltitudeUnits";
 std::string_view kMapLanguageCode = "MapLanguageCode";
 std::string_view kDeveloperMode = "DeveloperMode";
 std::string_view kDonateUrl = "DonateUrl";

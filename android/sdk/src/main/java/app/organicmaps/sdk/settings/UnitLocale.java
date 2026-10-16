@@ -25,6 +25,10 @@ public class UnitLocale
 
   private static native void setCurrentUnits(int u);
 
+  private static native int getCurrentAltitudeUnits();
+
+  private static native void setCurrentAltitudeUnits(int units);
+
   public static int getUnits()
   {
     return getCurrentUnits();
@@ -33,6 +37,16 @@ public class UnitLocale
   public static void setUnits(int units)
   {
     setCurrentUnits(units);
+  }
+
+  public static int getAltitudeUnits()
+  {
+    return getCurrentAltitudeUnits();
+  }
+
+  public static void setAltitudeUnits(int units)
+  {
+    setCurrentAltitudeUnits(units);
   }
 
   public static void initializeCurrentUnits()
