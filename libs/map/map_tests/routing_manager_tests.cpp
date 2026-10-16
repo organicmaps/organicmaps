@@ -11,6 +11,7 @@
 
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
+#include "platform/localization.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
 #include "geometry/mercator.hpp"
@@ -182,7 +183,7 @@ void TestSavedRouteOrder(bool myPositionStart, size_t passedStops, bool hasCurre
     if (restoreMyPosition && hasCurrentPosition)
     {
       expected.front().m_position = currentPosition;
-      expected.front().m_title.clear();
+      expected.front().m_title = platform::GetLocalizedString("core_my_position");
       expected.front().m_subTitle.clear();
     }
 

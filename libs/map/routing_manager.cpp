@@ -1839,6 +1839,9 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
       {
         points.front().m_isMyPosition = true;
         points.front().m_position = myPosMark.GetPivot();
+        points.front().m_title.clear();
+        points.front().m_subTitle.clear();
+        points.front().m_replaceWithMyPositionAfterRestart = false;
       }
       ReplaceRoutePoints(std::move(points));
 
