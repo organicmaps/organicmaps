@@ -45050,7 +45050,7 @@ zh-Hans = 反转路线
 zh-Hant = 反轉路線
 
 [transit_details_title]
-comment = Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip.
+comment = Title of the transit route details screen, shown when the user taps the public transport summary tile.
 tags = android-app
 en = Transit details
 ar = تفاصيل الرحلة
@@ -45154,11 +45154,6 @@ uk = Пішки
 vi = Đi bộ
 zh-Hans = 步行
 zh-Hant = 步行
-
-[transit_arrive_at]
-comment = Final row of the transit route details, naming where the route ends (%1$s = destination).
-tags = android-app
-en = Arrive at %1$s
 
 [transit_waypoint_label]
 comment = Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1).
