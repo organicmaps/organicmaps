@@ -149,9 +149,8 @@ private:
       if (!strings::to_uint(strings::ToUtf8(parse[0].m_value), candidate))
         continue;
       uint64_t const difference = requested > candidate ? requested - candidate : candidate - requested;
-      // Keep the range narrow enough to avoid unrelated address blocks while allowing two nearby
-      // same-parity addresses to support a conservative position estimate.
-      if (difference <= 24 && difference % 2 == 0)
+      // Return nearby mapped addresses under their real numbers, not estimates of the requested address.
+      if (difference <= 24)
         return true;
     }
     return false;

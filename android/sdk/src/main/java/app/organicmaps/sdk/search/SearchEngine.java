@@ -26,7 +26,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   public interface ContactViewportListener
   {
-    void onContactViewportChanged(int scale, @NonNull String mapRegions, long mapVersion, double left, double bottom,
+    void onContactViewportChanged(int scale, @NonNull String mapRegions, long mapRevision, double left, double bottom,
                                   double right, double top);
   }
 
@@ -155,17 +155,23 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   @Keep
-  private void onContactViewportChanged(int scale, @NonNull String mapRegions, long mapVersion, double left,
+  private void onContactViewportChanged(int scale, @NonNull String mapRegions, long mapRevision, double left,
                                         double bottom, double right, double top)
   {
     if (mContactViewportListener != null)
-      mContactViewportListener.onContactViewportChanged(scale, mapRegions, mapVersion, left, bottom, right, top);
+      mContactViewportListener.onContactViewportChanged(scale, mapRegions, mapRevision, left, bottom, right, top);
   }
 
   @MainThread
   public void selectResolvedAddress(double lat, double lon, @NonNull String address)
   {
-    nativeSelectResolvedAddress(lat, lon, address);
+    selectResolvedAddress(lat, lon, address, "");
+  }
+
+  @MainThread
+  public void selectResolvedAddress(double lat, double lon, @NonNull String name, @NonNull String address)
+  {
+    nativeSelectResolvedAddress(lat, lon, name, address);
   }
 
   @Keep
@@ -345,7 +351,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private static native void nativeCancelAddressResolution(long requestId);
 
-  private static native void nativeSelectResolvedAddress(double lat, double lon, String address);
+  private static native void nativeSelectResolvedAddress(double lat, double lon, String name, String address);
 
   private static native void nativeShowResult(int index);
 

@@ -19,6 +19,7 @@ public final class SearchRequest
   public final String locale;
   /** True when the query was triggered by a category chip — preserves categorial engine ranking. */
   public final boolean isCategory;
+  public final boolean isContactDerived;
 
   public SearchRequest(@Nullable String query, @Nullable String locale)
   {
@@ -27,8 +28,14 @@ public final class SearchRequest
 
   public SearchRequest(@Nullable String query, @Nullable String locale, boolean isCategory)
   {
+    this(query, locale, isCategory, false);
+  }
+
+  public SearchRequest(@Nullable String query, @Nullable String locale, boolean isCategory, boolean isContactDerived)
+  {
     this.query = query;
     this.locale = locale;
     this.isCategory = isCategory;
+    this.isContactDerived = isContactDerived;
   }
 }

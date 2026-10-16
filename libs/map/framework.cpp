@@ -521,6 +521,8 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
     m_storage.DeleteCustomCountryVersion(localFile);
+    // A deferred deregistration can finish after the initial deletion notification.
+    GetSearchAPI().ClearCaches();
   };
 
   // Call action on thread in which the framework was created
@@ -662,6 +664,13 @@ bool Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
   case UserMark::Type::API: FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo); break;
   case UserMark::Type::BOOKMARK: FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo); break;
   case UserMark::Type::SEARCH: FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo); break;
+  case UserMark::Type::CONTACT:
+  {
+    auto const & contact = *static_cast<ContactMarkPoint const *>(mark);
+    GetSelectionProcessor().FillNotMatchedPlaceInfo(outInfo, contact.GetPivot(), contact.GetName());
+    outInfo.SetCustomNames(contact.GetName(), contact.GetAddress());
+    break;
+  }
   case UserMark::Type::ROUTING: FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo); break;
   case UserMark::Type::ROAD_WARNING: FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo); break;
   case UserMark::Type::TRACK_INFO:
@@ -1481,6 +1490,20 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
 
 void Framework::SelectSearchResult(search::Result const & result, bool animation)
 {
+  SelectSearchResult(result, animation, {}, {});
+}
+
+void Framework::SelectResolvedAddress(m2::PointD const & point, std::string const & name, std::string const & address,
+                                      bool animation)
+{
+  search::Result result(point, name);
+  result.SetType(search::Result::Type::LatLon);
+  SelectSearchResult(result, animation, name, address);
+}
+
+void Framework::SelectSearchResult(search::Result const & result, bool animation, std::string const & title,
+                                   std::string const & subtitle)
+{
   using namespace search;
   place_page::BuildInfo info;
   info.m_source = place_page::BuildInfo::Source::Search;
@@ -1520,6 +1543,8 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 
   if (result.GetResultType() == Result::Type::Postcode)
     m_currentPlacePageInfo->SetCustomNames(result.GetString(), m_stringsBundle.GetString("postal_code"));
+  if (!title.empty() || !subtitle.empty())
+    m_currentPlacePageInfo->SetCustomNames(title.empty() ? subtitle : title, title.empty() ? "" : subtitle);
 
   if (m_drapeEngine)
   {
@@ -1698,10 +1723,18 @@ void Framework::SetContactMarks(std::vector<ContactMarkData> const & marks)
   {
     auto const it = existing.find(std::pair{mark.m_point.x, mark.m_point.y});
     if (it == existing.end())
-      editSession.CreateUserMark<ContactMarkPoint>(mark.m_point)->SetName(mark.m_name);
+    {
+      auto * contact = editSession.CreateUserMark<ContactMarkPoint>(mark.m_point);
+      contact->SetName(mark.m_name);
+      contact->SetAddress(mark.m_address);
+    }
     else
     {
-      editSession.GetMarkForEdit<ContactMarkPoint>(it->second)->SetName(mark.m_name);
+      {
+        auto * contact = editSession.GetMarkForEdit<ContactMarkPoint>(it->second);
+        contact->SetName(mark.m_name);
+        contact->SetAddress(mark.m_address);
+      }
       existing.erase(it);
     }
   }
@@ -2538,8 +2571,13 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     {
       double constexpr kEps = 1e-7;
       auto const rect = df::TapInfo::GetPreciseTapRect(outInfo.GetMercator(), kEps);
-      UserMark const * mark = GetBookmarkManager().FindNearestUserMark([&rect](UserMark::Type) { return rect; },
-                                                                       [](UserMark::Type) { return true; });
+      UserMark const * mark = GetBookmarkManager().FindNearestUserMark([this, &rect, &buildInfo](UserMark::Type type)
+      {
+        if (type == UserMark::Type::CONTACT && buildInfo.m_source == place_page::BuildInfo::Source::User &&
+            GetDrawScale() < ContactMarkPoint::kMinZoom)
+          return m2::AnyRectD();
+        return rect;
+      }, [](UserMark::Type) { return true; });
       // On a stale track mark keep the feature info filled above and fall back to the POI selection.
       if (mark && FillUserMarkInfo(mark, outInfo))
       {
@@ -2696,6 +2734,9 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
 {
   UserMark const * mark = GetBookmarkManager().FindNearestUserMark([this, &buildInfo](UserMark::Type type)
   {
+    if (type == UserMark::Type::CONTACT && buildInfo.m_source == place_page::BuildInfo::Source::User &&
+        GetDrawScale() < ContactMarkPoint::kMinZoom)
+      return m2::AnyRectD();
     double constexpr kEps = 1e-7;
     if (buildInfo.m_source != place_page::BuildInfo::Source::User)
       return df::TapInfo::GetPreciseTapRect(buildInfo.m_mercator, kEps);

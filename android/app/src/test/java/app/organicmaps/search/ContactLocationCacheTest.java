@@ -62,7 +62,7 @@ public class ContactLocationCacheTest
     final CacheMocks mocks = new CacheMocks();
     final String address = "11378 158A Street Surrey";
     final String key = ContactLocationCache.hash(address);
-    when(mocks.preferences.getString(key, null)).thenReturn("7|42|49.12345|-122.98765");
+    when(mocks.preferences.getString(key, null)).thenReturn("9|42|49.12345|-122.98765");
 
     mocks.mapVersion = 43L;
     assertNull(mocks.cache.get(address));
@@ -75,7 +75,7 @@ public class ContactLocationCacheTest
   {
     final CacheMocks mocks = new CacheMocks();
     final String key = ContactLocationCache.hash("address");
-    when(mocks.preferences.getString(key, null)).thenReturn("7|42|49.12345|-122.98765");
+    when(mocks.preferences.getString(key, null)).thenReturn("9|42|49.12345|-122.98765");
     mocks.mapVersion = 42L;
     final ContactLocationCache.Entry restored = mocks.cache.get("address");
     assertEquals(49.12345, restored.lat, 0);
@@ -91,17 +91,18 @@ public class ContactLocationCacheTest
     mocks.mapVersion = 42L;
     mocks.cache.put(address, new ContactLocationCache.Entry(49.1234567, -122.9876543));
 
-    verify(mocks.editor).putString(ContactLocationCache.hash(address), "7|42|49.12346|-122.98765");
+    verify(mocks.editor).putString(ContactLocationCache.hash(address), "9|42|49.12346|-122.98765");
   }
 
   @Test
   public void removesLocationsComputedByPreviousEstimator()
   {
-    for (int version : new int[] {3, 4, 5, 6})
+    for (int version : new int[] {3, 4, 5, 6, 7, 8})
     {
       final CacheMocks mocks = new CacheMocks();
       final String key = ContactLocationCache.hash("address");
-      when(mocks.preferences.getString(key, null)).thenReturn(version + "|42|49.12345|-122.98765|true");
+      when(mocks.preferences.getString(key, null))
+          .thenReturn(version + "|42|49.12345|-122.98765" + (version < 7 ? "|true" : ""));
       mocks.mapVersion = 42L;
 
       assertNull(mocks.cache.get("address"));

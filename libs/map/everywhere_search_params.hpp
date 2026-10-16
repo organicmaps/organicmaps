@@ -20,7 +20,8 @@ struct EverywhereSearchParams
 
   OnResults m_onResults;
 
-  // Callers opt in; ordinary queries retain their existing ranking and house-number matching.
+  // Enables nearby-number retrieval and callback ordering of alternate mapped addresses.
+  // Recognized ordinary address queries already use shared core address ranking on all platforms.
   bool m_prioritizeAddressMatches = false;
 };
 }  // namespace search

@@ -175,6 +175,8 @@ private:
   RegionInfo m_region;
   feature::TypesHolder m_types;
   std::string m_str;
+  std::string m_houseNumber;
+  std::string m_street;
   Result::Details m_details;
 
   StoredRankingInfo m_info;

@@ -80,7 +80,9 @@ public:
   void ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
                       AddressCallback callback);
   void CancelAddressResolution(uint64_t id);
-  void SetAddressViewportCallback(std::function<void(m2::RectD const &, int)> callback);
+  // Revision changes also notify consumers when map data changes without viewport movement.
+  using AddressViewportCallback = std::function<void(m2::RectD const &, int, uint64_t)>;
+  void SetAddressViewportCallback(AddressViewportCallback callback);
 
   void InitAfterWorldLoaded() { m_engine.InitAfterWorldLoaded(); }
 
@@ -106,7 +108,7 @@ public:
 
   void CancelSearch(search::Mode mode);
   void CancelAllSearches();
-  void ClearCaches() { return m_engine.ClearCaches(); }
+  void ClearCaches();
 
   // *SearchCallback::Delegate overrides:
   void RunUITask(std::function<void()> fn) override;
@@ -159,7 +161,6 @@ private:
     AddressCallback m_callback;
     size_t m_queryIndex = 0;
     base::Timer m_timer;
-    double m_backgroundTimeSec = 0.0;
   };
   void StartAddressResolution();
   void SuspendAddressResolution();
@@ -188,7 +189,8 @@ private:
   std::weak_ptr<search::ProcessorHandle> m_addressHandle;
   bool m_addressRunning = false;
   uint64_t m_addressGeneration = 0;
-  std::function<void(m2::RectD const &, int)> m_addressViewportCallback;
+  AddressViewportCallback m_addressViewportCallback;
+  uint64_t m_mapDataRevision = 0;
   int m_viewportScale = 0;
 
   m2::RectD m_viewport;

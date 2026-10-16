@@ -19,8 +19,6 @@ final class ContactAddressNormalizer
   private static final Pattern UNIT_PREFIX =
       Pattern.compile("(?i)^\\s*(?:(?:unit|suite|apt\\.?|apartment|cpo)\\s*#?\\s*|#)\\w+[,.\\s]+(?=\\d+\\s)");
   private static final Pattern BASEMENT_PREFIX = Pattern.compile("(?i)^\\s*basement\\s+(?=\\d+\\s)");
-  private static final Pattern LEADING_NUMBER_SEPARATOR =
-      Pattern.compile("^\\s*(\\d+[A-Za-z]?)\\s*[-/]\\s*(\\d+[A-Za-z]?)\\s+(.+)$");
   private static final Pattern TRAILING_UNIT =
       Pattern.compile("(?i)\\s+(?:(?:unit|suite|apt\\.?|apartment)\\s*|#)\\w+\\s*$");
   private static final Pattern CANADIAN_POSTAL_CODE =
@@ -271,8 +269,12 @@ final class ContactAddressNormalizer
       return false;
     if (addressTokens.contains("canada"))
       return mapTokens.contains("canada");
-    if (addressTokens.contains("usa") || addressTokens.contains("us") || addressTokens.contains("united"))
-      return mapTokens.contains("us") || mapTokens.contains("usa") || mapTokens.contains("united");
+    if (addressTokens.contains("uk") || (addressTokens.contains("united") && addressTokens.contains("kingdom")))
+      return mapTokens.contains("uk") || (mapTokens.contains("united") && mapTokens.contains("kingdom"));
+    if (addressTokens.contains("usa") || addressTokens.contains("us")
+        || (addressTokens.contains("united") && addressTokens.contains("states")))
+      return mapTokens.contains("us") || mapTokens.contains("usa")
+   || (mapTokens.contains("united") && mapTokens.contains("states"));
     // No geographical clue: the native resolver still limits the search and result to the viewport.
     return true;
   }
@@ -298,13 +300,11 @@ final class ContactAddressNormalizer
     address = address.replaceAll("[\\r\\n]+", " ").replace('|', ' ');
     address = UNIT_PREFIX.matcher(address).replaceFirst("");
     address = BASEMENT_PREFIX.matcher(address).replaceFirst("");
-    if (northAmerican)
-      address = normalizeLeadingNumberSeparator(address);
-    else if (australian)
+    if (australian)
       address = address.replaceFirst("^\\d+[A-Za-z]?\\s*/\\s*(\\d+[A-Za-z]?)\\s+", "$1 ");
     address = TRAILING_UNIT.matcher(address).replaceFirst("");
 
-    if (northAmerican && !address.matches("^\\d+[A-Za-z]?(?:\\s|,)+\\S.*"))
+    if (northAmerican && !address.matches("^\\d+[A-Za-z]?(?:[-/]\\d+[A-Za-z]?)*(?:\\s|,)+\\S.*"))
     {
       final String extracted = extractAddressFromText(address);
       if (!extracted.isEmpty())
@@ -341,19 +341,6 @@ final class ContactAddressNormalizer
         normalized.add(value);
     }
     return String.join(", ", normalized);
-  }
-
-  @NonNull
-  private static String normalizeLeadingNumberSeparator(@NonNull String value)
-  {
-    final Matcher matcher = LEADING_NUMBER_SEPARATOR.matcher(value);
-    if (!matcher.matches())
-      return value;
-    final long first = leadingNumber(matcher.group(1));
-    final long second = leadingNumber(matcher.group(2));
-    if (first < second)
-      return matcher.group(2) + " " + matcher.group(3);
-    return matcher.group(1) + " " + matcher.group(2) + " " + matcher.group(3);
   }
 
   private static long leadingNumber(@NonNull String token)

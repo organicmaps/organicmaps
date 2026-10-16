@@ -818,7 +818,12 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetAddress(JNIEnv * e
 JNIEXPORT jlong Java_app_organicmaps_sdk_Framework_nativeGetMwmVersion(JNIEnv * env, jclass clazz, jdouble lat,
                                                                        jdouble lon)
 {
-  return frm()->GetMwmVersion(mercator::FromLatLon(lat, lon));
+  auto const point = mercator::FromLatLon(lat, lon);
+  auto const country = frm()->GetCountryInfoGetter().GetRegionCountryId(point);
+  // A map pending deletion may still have live routing/search handles, but is no longer usable for new locations.
+  if (country.empty() || !frm()->IsCountryLoadedByName(country))
+    return 0;
+  return frm()->GetMwmVersion(point);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
@@ -828,11 +833,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeClearApiPoints(JNIEnv * 
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetContactMarks(JNIEnv * env, jclass clazz,
                                                                         jdoubleArray latitudes, jdoubleArray longitudes,
-                                                                        jobjectArray names)
+                                                                        jobjectArray names, jobjectArray addresses)
 {
   jsize const count = env->GetArrayLength(latitudes);
   CHECK_EQUAL(count, env->GetArrayLength(longitudes), ());
   CHECK_EQUAL(count, env->GetArrayLength(names), ());
+  CHECK_EQUAL(count, env->GetArrayLength(addresses), ());
 
   std::vector<jdouble> latitudeValues(static_cast<size_t>(count));
   std::vector<jdouble> longitudeValues(static_cast<size_t>(count));
@@ -843,8 +849,10 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetContactMarks(JNIEnv *
   for (jsize i = 0; i < count; ++i)
   {
     jni::TScopedLocalRef name(env, env->GetObjectArrayElement(names, i));
+    jni::TScopedLocalRef address(env, env->GetObjectArrayElement(addresses, i));
     marks.push_back({mercator::FromLatLon(latitudeValues[i], longitudeValues[i]),
-                     jni::ToNativeString(env, static_cast<jstring>(name.get()))});
+                     jni::ToNativeString(env, static_cast<jstring>(name.get())),
+                     jni::ToNativeString(env, static_cast<jstring>(address.get()))});
   }
   frm()->SetContactMarks(marks);
 }

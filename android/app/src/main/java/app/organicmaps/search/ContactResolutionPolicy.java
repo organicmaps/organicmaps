@@ -14,15 +14,15 @@ final class ContactResolutionPolicy
   private double mRight;
   private double mTop;
   private String mRegions;
-  private long mMapVersion;
+  private long mMapRevision;
 
-  boolean updateArea(@NonNull String regions, long mapVersion, double left, double bottom, double right, double top)
+  boolean updateArea(@NonNull String regions, long mapRevision, double left, double bottom, double right, double top)
   {
     double width = mRight - mLeft;
     double height = mTop - mBottom;
     double centerX = (left + right) / 2;
     double centerY = (bottom + top) / 2;
-    if (regions.equals(mRegions) && mapVersion == mMapVersion && width > 0 && height > 0
+    if (regions.equals(mRegions) && mapRevision == mMapRevision && width > 0 && height > 0
         && Math.abs(centerX - (mLeft + mRight) / 2) <= width / 4
         && Math.abs(centerY - (mBottom + mTop) / 2) <= height / 4 && right - left <= width * 2
         && top - bottom <= height * 2)
@@ -32,7 +32,7 @@ final class ContactResolutionPolicy
     mRight = right;
     mTop = top;
     mRegions = regions;
-    mMapVersion = mapVersion;
+    mMapRevision = mapRevision;
     mMisses.clear();
     return true;
   }

@@ -8,6 +8,17 @@ import org.junit.Test;
 public class ContactAddressTest
 {
   @Test
+  public void preservesQueensCivicNumbersAndBritishMapContext()
+  {
+    final ContactAddress compound = new ContactAddress("A", "", "12-34 56th St, Queens, NY, USA", "", "");
+    final ContactAddress ordinary = new ContactAddress("B", "", "34 56th St, Queens, NY, USA", "", "");
+    assertEquals("12-34 56th Street", compound.getNormalizedStreet());
+    assertNotEquals(compound.getAddressKey(), ordinary.getAddressKey());
+    assertNotEquals(compound.getSearchQueries(), ordinary.getSearchQueries());
+    assertTrue(ContactAddressNormalizer.matchesMapRegion("London United Kingdom", "UK_England_Greater London"));
+    assertFalse(ContactAddressNormalizer.matchesMapRegion("London United Kingdom", "US_New York"));
+  }
+  @Test
   public void preservesStreetAndGeographicalContext()
   {
     final ContactAddress address =
