@@ -992,6 +992,8 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
 
+}
+
 // Only drain this fixture's GUI tasks: other Framework fixtures can leave callbacks on the OS queue.
 class RoutingTestGuiThread : public base::TaskLoop
 {
