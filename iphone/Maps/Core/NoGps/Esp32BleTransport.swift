@@ -1,9 +1,12 @@
 import CoreBluetooth
+import UIKit
 
 /// The Bluetooth LE connection to the NoGPS ESP32 sensor box for the navigation without GPS in the core: the core talks
 /// to the box, this class searches the box by its service, connects, subscribes to its lines and passes the received
 /// bytes back on the main queue. It keeps doing it until closed: the box switches its radio off while the car is parked.
 /// The service and the pairing are described in docs/nogps/esp32-firmware-spec.md, section 17.
+///
+/// It works in the background too (bluetooth-central in Info.plist): iOS wakes the app up for the events of the box.
 ///
 /// iOS doesn't tell an app if a device is paired, and pairs by itself when the box asks for it. So the boxes that have
 /// sent data are remembered as the paired ones, and a new box is connected only while it accepts a new phone.
@@ -59,6 +62,8 @@ final class Esp32BleTransport: NSObject {
   private var retryDelay = Constants.retryDelay
   // The next search or the end of a connection attempt.
   private var timer: DispatchWorkItem?
+  /// Nothing wakes the app up in the background while it waits to search again: it would stay suspended.
+  private var backgroundWait = UIBackgroundTaskIdentifier.invalid
   private lazy var knownBoxes = Set(UserDefaults.standard.stringArray(forKey: Constants.knownBoxesKey) ?? [])
 
   /// The system asks the user for the code of a new box, or is about to: the box asks for it 1.5 s after the
@@ -111,6 +116,7 @@ final class Esp32BleTransport: NSObject {
     guard isOpen else { return }
     isOpen = false
     timer?.cancel()
+    endBackgroundWait()
     if central?.state == .poweredOn {
       central?.stopScan()
     }
@@ -135,6 +141,7 @@ final class Esp32BleTransport: NSObject {
   /// Searches the box, or waits until it can be searched.
   private func start() {
     timer?.cancel()
+    endBackgroundWait()
     guard isOpen, peripheral == nil, let central else { return }
     switch central.state {
     case .poweredOn:
@@ -206,6 +213,19 @@ final class Esp32BleTransport: NSObject {
     setState(.searching)
     retryDelay = worked ? Constants.retryDelay : min(Constants.maxRetryDelay, retryDelay * 2)
     schedule(after: retryDelay) { [weak self] in self?.start() }
+    // The search, a connection and the box wake the app up, the wait doesn't. The system gives some time to finish it
+    // in the background, about 30 s; the box is searched earlier if that is not enough.
+    if backgroundWait == .invalid {
+      backgroundWait = UIApplication.shared.beginBackgroundTask(withName: "NoGpsBoxRetry") { [weak self] in
+        self?.start()
+      }
+    }
+  }
+
+  private func endBackgroundWait() {
+    guard backgroundWait != .invalid else { return }
+    UIApplication.shared.endBackgroundTask(backgroundWait)
+    backgroundWait = .invalid
   }
 
   private func remember(_ peripheral: CBPeripheral) {

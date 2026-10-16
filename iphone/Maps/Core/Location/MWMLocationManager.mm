@@ -248,7 +248,8 @@ void setShowLocationAlert(BOOL needShow)
 + (void)applicationDidEnterBackground
 {
   // Not when the app becomes inactive: Control Center or a notification does it for a moment, and the navigation
-  // without GPS would stop and drop its sensor box, which took 3 minutes to connect again on October 13.
+  // without GPS would stop and drop its sensor box, which took 3 minutes to connect again on October 13. In the
+  // background only the location stops, see setStarted.
   [self manager].started = keepRunningInBackground();
 }
 
@@ -616,7 +617,10 @@ void setShowLocationAlert(BOOL needShow)
   {
     _started = NO;
     [self stop];
-    [MWMNoGps stop];
+    // In the background the navigation without GPS keeps following the car by the sensor box, which stays connected
+    // over Bluetooth: the screen may be locked or another app open while driving.
+    if (UIApplication.sharedApplication.applicationState != UIApplicationStateBackground)
+      [MWMNoGps stop];
     [notificationCenter removeObserver:self];
   }
 }
