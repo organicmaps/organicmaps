@@ -5302,7 +5302,7 @@ zh-Hant = 地圖下載進行中。
 
 [share]
 comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-tags = android-app
+tags = android-app,apple-maps
 en = Share
 af = Deel
 ar = مشاركة
