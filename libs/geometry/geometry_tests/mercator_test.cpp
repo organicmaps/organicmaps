@@ -168,8 +168,7 @@ UNIT_TEST(Mercator_ForEachRectWrapped)
     TEST(AlmostEqualAbs(p[0], m2::RectD{-180, 0, -170, 5}, kEps), ());
     TEST(AlmostEqualAbs(p[1], m2::RectD{170, 0, 180, 5}, kEps), ());
   }
-  {  // Entirely beyond the west antimeridian (a Wake-like region stored around -204):
-     // shifted back wholesale, never an inverted rect.
+  {  // Entirely beyond the west antimeridian: shifted back wholesale.
     auto const p = parts({-210, 11, -204, 25});
     TEST_EQUAL(p.size(), 1, ());
     TEST(AlmostEqualAbs(p[0], m2::RectD{150, 11, 156, 25}, kEps), ());
