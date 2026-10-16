@@ -1990,13 +1990,7 @@ bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
   for (auto const startMwmId : startMwmIds)
   {
     m2::RectD const & rect = m_countryRectFn(m_numMwmIds->GetFile(startMwmId).GetName());
-    bool found = false;
-    ForEachNumMwmInRect(*m_numMwmTree, rect, [&finishMwmIds, &found](NumMwmId id)
-    {
-      if (!found && finishMwmIds.count(id) > 0)
-        found = true;
-    });
-    if (found)
+    if (ForAnyNumMwmInRect(*m_numMwmTree, rect, [&finishMwmIds](NumMwmId id) { return finishMwmIds.contains(id); }))
       return true;
   }
 
