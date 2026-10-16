@@ -29,7 +29,7 @@
     <string name="fuel_places">Petrol Stations</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
     <string name="transit_details_title">Journey details</string>
     <!-- Label for a walking leg in transit details. -->
     <string name="transit_walk_label">Walk</string>

@@ -897,7 +897,7 @@
     <string name="track_recording_stop_and_save">중지 및 저장</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">경로를 반대로 설정</string>
-    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
     <string name="transit_details_title">경로 세부 정보</string>
     <!-- Label for a walking leg in transit details. -->
     <string name="transit_walk_label">도보</string>

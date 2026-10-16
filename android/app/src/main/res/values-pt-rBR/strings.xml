@@ -627,7 +627,7 @@
     <string name="track_recording_stop_and_save">Parar e salvar</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Inverter rota</string>
-    <!-- Title of the transit route details bottom sheet, shown when the user taps the public transport summary strip. -->
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
     <string name="transit_details_title">Detalhes do trajeto</string>
     <!-- Label for a walking leg in transit details. -->
     <string name="transit_walk_label">A pé</string>
