@@ -83,6 +83,7 @@ final class SearchOnMapHeaderView: UIView {
   private func setupSearchBar() {
     searchBar.setStyle(.searchOnMapSearchBar)
     searchBar.placeholder = L("search")
+    searchBar.searchTextField.accessibilityLabel = searchBar.placeholder
     searchBar.showsCancelButton = false
     searchBar.searchBarStyle = .minimal
     searchBar.searchTextField.clearButtonMode = .always
@@ -235,6 +236,7 @@ final class SearchOnMapHeaderView: UIView {
   func setRoutePointActions(_ actions: SearchOnMap.ViewModel.RoutePointActions?) {
     hasRouteActions = actions != nil
     searchBar.placeholder = actions?.title ?? L("search")
+    searchBar.searchTextField.accessibilityLabel = searchBar.placeholder
     currentLocationButton.isHidden = actions?.canSelectCurrentLocation != true
     chooseOnMapButton.isHidden = actions == nil
     updateRouteActionButtonsVisibility()
@@ -247,6 +249,8 @@ final class SearchOnMapHeaderView: UIView {
   func setSeparatorHidden(_ hidden: Bool) {
     separator?.isHidden = hidden
   }
+
+  var accessibilitySearchField: UITextField { searchBar.searchTextField }
 
   private func updateRouteActionButtonsVisibility() {
     let shouldShow = hasRouteActions && (searchBar.text?.isEmpty ?? true)

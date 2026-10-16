@@ -1,3 +1,13 @@
+final class InfoItemTextLabel: InsetsLabel {
+  var onAccessibilityActivate: (() -> Void)?
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilityActivate else { return false }
+    onAccessibilityActivate()
+    return true
+  }
+}
+
 final class InfoItemView: UIView {
   private enum Constants {
     static let contentInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
@@ -20,7 +30,7 @@ final class InfoItemView: UIView {
   private let contentStackView = UIStackView()
 
   let iconButton = UIButton()
-  let textLabel = InsetsLabel()
+  let textLabel = InfoItemTextLabel()
   let accessoryButton = UIButton()
 
   var infoLabelTapHandler: TapHandler?
@@ -47,6 +57,7 @@ final class InfoItemView: UIView {
     textLabel.lineBreakMode = .byWordWrapping
     textLabel.numberOfLines = 0
     textLabel.isUserInteractionEnabled = false
+    textLabel.isAccessibilityElement = true
 
     iconButton.imageView?.contentMode = .scaleAspectFit
     iconButton.addTarget(self, action: #selector(onIconButtonTap), for: .touchUpInside)
@@ -120,7 +131,11 @@ final class InfoItemView: UIView {
 
   // MARK: - Public methods
 
-  func setTitle(_ title: String, style: Style = .regular, tapHandler: TapHandler? = nil, longPressHandler: TapHandler? = nil) {
+  func setTitle(_ title: String,
+                style: Style = .regular,
+                tapHandler: TapHandler? = nil,
+                longPressHandler: TapHandler? = nil,
+                isCopyable: Bool = false) {
     switch style {
     case .regular:
       textLabel.text = title
@@ -141,6 +156,25 @@ final class InfoItemView: UIView {
     if let longPressHandler {
       infoLabelLongPressHandler = longPressHandler
     }
+    textLabel.accessibilityLabel = title
+    textLabel.onAccessibilityActivate = infoLabelTapHandler
+    switch style {
+    case .regular:
+      textLabel.accessibilityTraits = infoLabelTapHandler == nil ? .staticText : .button
+    case .link:
+      textLabel.accessibilityTraits = infoLabelTapHandler == nil ? .staticText : .link
+    case .header:
+      textLabel.accessibilityTraits = infoLabelTapHandler == nil ? .header : [.header, .button]
+    }
+    if isCopyable, infoLabelLongPressHandler != nil {
+      textLabel.accessibilityCustomActions = [UIAccessibilityCustomAction(name: L("placepage_copy"), actionHandler: { [weak self] _ in
+        guard let handler = self?.infoLabelLongPressHandler else { return false }
+        handler()
+        return true
+      })]
+    } else {
+      textLabel.accessibilityCustomActions = nil
+    }
     updateTextLabelLayout()
   }
 
@@ -151,10 +185,13 @@ final class InfoItemView: UIView {
       if let tapHandler {
         iconButtonTapHandler = tapHandler
       }
+      iconButton.isAccessibilityElement = tapHandler != nil
+      iconButton.accessibilityLabel = tapHandler == nil ? nil : textLabel.accessibilityLabel
     } else {
       iconButton.setImage(nil, for: .normal)
       iconButton.isHidden = true
       iconButtonTapHandler = nil
+      iconButton.isAccessibilityElement = false
     }
     updateTextLabelLayout()
   }
@@ -170,11 +207,14 @@ final class InfoItemView: UIView {
       } else {
         accessoryButton.setStyleAndApply(.black)
       }
+      accessoryButton.isAccessibilityElement = tapHandler != nil
+      accessoryButton.accessibilityLabel = tapHandler == nil ? nil : textLabel.accessibilityLabel
     } else {
       accessoryButton.setTitle("", for: .normal)
       accessoryButton.setImage(nil, for: .normal)
       accessoryButton.isHidden = true
       accessoryImageTapHandler = nil
+      accessoryButton.isAccessibilityElement = false
     }
     updateTextLabelLayout()
   }
@@ -183,5 +223,7 @@ final class InfoItemView: UIView {
     accessoryButton.menu = menu
     accessoryButton.showsMenuAsPrimaryAction = true
     accessoryButton.setStyleAndApply(.blue)
+    accessoryButton.isAccessibilityElement = true
+    accessoryButton.accessibilityLabel = textLabel.accessibilityLabel
   }
 }

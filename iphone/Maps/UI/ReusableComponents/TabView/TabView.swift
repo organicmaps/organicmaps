@@ -22,16 +22,24 @@ private class HeaderCell: UICollectionViewCell {
   private var selectedAttributes: [NSAttributedString.Key: Any] = [:]
   private var deselectedAttributes: [NSAttributedString.Key: Any] = [:]
 
+  override var isSelected: Bool {
+    didSet { accessibilityTraits = isSelected ? [.button, .selected] : .button }
+  }
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     contentView.addSubview(label)
     label.textAlignment = .center
+    isAccessibilityElement = true
+    accessibilityTraits = .button
   }
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     contentView.addSubview(label)
     label.textAlignment = .center
+    isAccessibilityElement = true
+    accessibilityTraits = .button
   }
 
   override func prepareForReuse() {
@@ -51,6 +59,7 @@ private class HeaderCell: UICollectionViewCell {
     self.selectedAttributes = selectedAttributes
     self.deselectedAttributes = deselectedAttributes
     label.text = text.uppercased()
+    accessibilityLabel = text
     label.font = deselectedAttributes[.font] as? UIFont
     label.adjustsFontForContentSizeCategory = true
     label.configureSingleLineAutoScaling()

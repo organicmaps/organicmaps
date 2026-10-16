@@ -70,6 +70,7 @@ final class TrackRecordingButtonViewController: MWMViewController {
     button.tintColor = Constants.color.darker
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setImage(UIImage(resource: .icMenuTrackRecording), for: .normal)
+    button.accessibilityLabel = L("track_recording_title")
     button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
     button.isHidden = true
   }

@@ -30,6 +30,7 @@
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Помилка завантаження";
+"about_menu_title" = "Про Organic Maps";
 
 /* Text in About screen */
 "about_headline" = "Безкоштовно для всіх, зроблене з любов'ю";
@@ -174,6 +175,9 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваше місце розташування не визначено";
 
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "Поділитись";
+
 /* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
 "share_my_position" = "Я тут на мапі Organic Maps";
 
@@ -275,6 +279,9 @@
 "pref_map_auto_zoom" = "Автозум";
 "placepage_distance" = "Відстань";
 "search_show_on_map" = "Подивитись на мапі";
+
+/* Menu button */
+"menu" = "Меню";
 
 /* Text in menu */
 "website" = "Вебсайт";
@@ -1005,6 +1012,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Зупинити запис треку";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"track_recording_title" = "Запис треку";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек порожній - нічого зберігати";
 "downloader_updating_ios" = "Оновлення";
@@ -1187,3 +1197,51 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Розвернути маршрут";
+
+/* VoiceOver value of the location button while the iOS map is determining the user's position. */
+"map_location_searching" = "Визначення вашого місцезнаходження";
+
+/* VoiceOver value of the location button while the iOS map follows the user's position without rotating. */
+"map_location_following" = "Відстеження вашого місцезнаходження";
+
+/* VoiceOver value of the location button while the iOS map follows both the user's position and heading. */
+"map_location_following_direction" = "Відстеження вашого місцезнаходження та напрямку";
+
+/* VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available. */
+"map_updates_available" = "Доступні оновлення мап";
+
+/* VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers. */
+"map_layers_turn_off" = "Вимкнути шари мапи";
+
+/* VoiceOver hint for the tappable app version in the iOS About screen. */
+"about_copy_version_hint" = "Копіює версію застосунку до буфера обміну";
+
+/* VoiceOver label for the email icon in the iOS About screen's social links. */
+"about_contact_email" = "Написати в Organic Maps електронною поштою";
+
+/* VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates. */
+"menu_map_updates_count" = "Доступні оновлення мап: %d";
+
+/* VoiceOver label for the progress indicator while iOS search is running. */
+"search_accessibility_searching" = "Пошук";
+
+/* VoiceOver announcement after an iOS search completes. %d is the number of results. */
+"search_accessibility_results_count" = "Знайдено результатів: %d";
+
+/* VoiceOver value for the distance to a place in an iOS search result. %@ is a localized distance with unit. */
+"search_accessibility_distance" = "Відстань: %@";
+
+/* VoiceOver action for copying a place page information row, such as an address or phone number. */
+"placepage_copy" = "Копіювати";
+
+/* VoiceOver label for the coordinate format menu in the iOS place page. */
+"placepage_choose_coordinate_format" = "Вибрати формат координат";
+
+/* VoiceOver hint for opening the full-screen direction view from the place page distance control. */
+"placepage_show_direction" = "Показати напрямок";
+
+/* VoiceOver value of the expandable opening-hours row when only today's hours are shown. */
+"placepage_hours_collapsed" = "Інші дні приховано";
+
+/* VoiceOver value of the expandable opening-hours row when all days are shown. */
+"placepage_hours_expanded" = "Інші дні показано";

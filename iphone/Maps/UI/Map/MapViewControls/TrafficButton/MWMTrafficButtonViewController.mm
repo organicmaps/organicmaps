@@ -160,10 +160,21 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   }
 }
 
+- (BOOL)hasActiveLayers
+{
+  return [MWMMapOverlayManager trafficEnabled] || [MWMMapOverlayManager transitEnabled] ||
+         [MWMMapOverlayManager isoLinesEnabled] || [MWMMapOverlayManager outdoorEnabled] ||
+         [MWMMapOverlayManager hikingEnabled] || [MWMMapOverlayManager cyclingEnabled];
+}
+
 - (void)applyTheme
 {
   MWMButton * btn = static_cast<MWMButton *>(self.view);
   UIImageView * iv = btn.imageView;
+  BOOL const hasActiveLayers = [self hasActiveLayers];
+  btn.accessibilityLabel = L(hasActiveLayers ? @"map_layers_turn_off" : @"layers_title");
+  btn.accessibilityTraits =
+      hasActiveLayers ? UIAccessibilityTraitButton | UIAccessibilityTraitSelected : UIAccessibilityTraitButton;
 
   // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
   [iv stopAnimating];

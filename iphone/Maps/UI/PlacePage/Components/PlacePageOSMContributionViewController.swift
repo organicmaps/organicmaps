@@ -55,6 +55,7 @@ final class PlacePageOSMContributionViewController: UIViewController {
                                tapHandler: { [weak self] in
                                  self?.onOSMInfo()
                                })
+    osmHeaderView.accessoryButton.accessibilityLabel = L("editor_more_about_osm")
 
     configureButton(addPlaceButton, enabledTitle: L("contribute_to_osm_add_place"), action: #selector(onAddPlace))
     configureButton(editPlaceButton, enabledTitle: L("edit_place"), action: #selector(onEditPlace))

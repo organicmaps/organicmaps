@@ -103,6 +103,8 @@ class PlacePageInfoViewController: UIViewController {
                                      accessoryImageTapHandler: { [weak self] in
                                        self?.showRoutesSelector()
                                      })
+      routeRefsView?.iconButton.isAccessibilityElement = false
+      routeRefsView?.accessoryButton.isAccessibilityElement = false
       selectedRouteRelId = routes.first { $0.ref == FrameworkHelper.activeTransitRouteRef() }?.relId
       updateRouteRefsLabel()
     }
@@ -227,6 +229,7 @@ class PlacePageInfoViewController: UIViewController {
       })
     })
     coordinatesView?.setAccessoryMenu(menu)
+    coordinatesView?.accessoryButton.accessibilityLabel = L("placepage_choose_coordinate_format")
   }
 
   /// The format index actually shown: the saved one if available here, otherwise the next available.
@@ -392,7 +395,11 @@ class PlacePageInfoViewController: UIViewController {
                               accessoryImageTapHandler: TapHandler? = nil) -> InfoItemView {
     let view = InfoItemView()
     addToStack(view)
-    view.setTitle(info, style: style, tapHandler: tapHandler, longPressHandler: longPressHandler)
+    view.setTitle(info,
+                  style: style,
+                  tapHandler: tapHandler,
+                  longPressHandler: longPressHandler,
+                  isCopyable: longPressHandler != nil)
     view.setIcon(image: icon?.withRenderingMode(.alwaysTemplate), tapHandler: tapIconHandler)
     view.setAccessory(image: accessoryImage, tapHandler: accessoryImageTapHandler)
     return view

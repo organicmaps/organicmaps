@@ -1,5 +1,15 @@
 import OSLog
 
+private final class AboutVersionLabel: UILabel {
+  var onAccessibilityActivate: (() -> Void)?
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilityActivate else { return false }
+    onAccessibilityActivate()
+    return true
+  }
+}
+
 final class AboutController: MWMViewController {
   fileprivate struct AboutInfoTableViewCellModel {
     let title: String
@@ -9,6 +19,7 @@ final class AboutController: MWMViewController {
 
   fileprivate struct SocialMediaCollectionViewCellModel {
     let image: UIImage
+    let accessibilityTitle: String
     let didTapHandler: (() -> Void)?
   }
 
@@ -79,13 +90,18 @@ final class AboutController: MWMViewController {
 private extension AboutController {
   func setupViews() {
     func setupTitle() {
-      let titleView = UILabel()
+      let titleView = AboutVersionLabel()
       titleView.text = Self.formattedAppVersion()
       titleView.setFontStyle(.semibold17, color: .whitePrimary)
       titleView.isUserInteractionEnabled = true
       titleView.configureSingleLineAutoScaling()
       let titleDidTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(appVersionButtonTapped))
       titleView.addGestureRecognizer(titleDidTapGestureRecognizer)
+      titleView.accessibilityTraits = .button
+      titleView.accessibilityHint = L("about_copy_version_hint")
+      titleView.onAccessibilityActivate = { [weak self] in
+        self?.appVersionButtonTapped()
+      }
       navigationItem.titleView = titleView
     }
 
@@ -102,6 +118,7 @@ private extension AboutController {
     func setupLogo() {
       logoImageView.contentMode = .scaleAspectFit
       logoImageView.image = UIImage(named: "logo")
+      logoImageView.isAccessibilityElement = false
     }
 
     func setupHeaderTitle() {
@@ -109,6 +126,7 @@ private extension AboutController {
       headerTitleLabel.text = L("about_headline")
       headerTitleLabel.textAlignment = .center
       headerTitleLabel.configureSingleLineAutoScaling()
+      headerTitleLabel.accessibilityTraits.insert(.header)
     }
 
     func setupAdditionalInfo() {
@@ -149,6 +167,7 @@ private extension AboutController {
       socialMediaHeaderLabel.setFontStyle(.regular16, color: .blackPrimary)
       socialMediaHeaderLabel.text = L("follow_us")
       socialMediaHeaderLabel.configureSingleLineAutoScaling()
+      socialMediaHeaderLabel.accessibilityTraits.insert(.header)
 
       socialMediaCollectionView.backgroundColor = .clear
       socialMediaCollectionView.isScrollEnabled = false
@@ -276,7 +295,7 @@ private extension AboutController {
   func buildSocialMediaCollectionViewData() -> [SocialMediaCollectionViewCellModel] {
     let socialMediaContent = SocialMedia.allCases
     return socialMediaContent.map { [weak self] socialMedia in
-      SocialMediaCollectionViewCellModel(image: socialMedia.image, didTapHandler: {
+      SocialMediaCollectionViewCellModel(image: socialMedia.image, accessibilityTitle: socialMedia.accessibilityTitle, didTapHandler: {
         switch socialMedia {
         case .telegram: fallthrough
         case .github: fallthrough
@@ -371,6 +390,9 @@ extension AboutController: UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(cell: InfoTableViewCell.self, indexPath: indexPath)
     let aboutInfo = infoTableViewData[indexPath.row]
     cell.set(image: aboutInfo.image, title: aboutInfo.title)
+    cell.isAccessibilityElement = true
+    cell.accessibilityLabel = aboutInfo.title
+    cell.accessibilityTraits.insert(.button)
     return cell
   }
 }
@@ -384,7 +406,11 @@ extension AboutController: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(cell: SocialMediaCollectionViewCell.self, indexPath: indexPath)
-    cell.setImage(socialMediaCollectionViewData[indexPath.row].image)
+    let socialMedia = socialMediaCollectionViewData[indexPath.row]
+    cell.setImage(socialMedia.image)
+    cell.isAccessibilityElement = true
+    cell.accessibilityLabel = socialMedia.accessibilityTitle
+    cell.accessibilityTraits.insert(.button)
     return cell
   }
 }

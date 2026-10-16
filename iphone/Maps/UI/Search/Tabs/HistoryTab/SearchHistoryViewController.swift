@@ -81,6 +81,7 @@ final class SearchHistoryViewController: MWMViewController {
   private func clearSearchHistory() {
     frameworkHelper.clearSearchHistory()
     reload()
+    UIAccessibility.post(notification: .layoutChanged, argument: emptyHistoryView.accessibilityTitle)
   }
 
   // MARK: - Public methods
@@ -88,6 +89,7 @@ final class SearchHistoryViewController: MWMViewController {
   func reload() {
     guard isViewLoaded else { return }
     lastQueries = frameworkHelper.lastSearchQueries()
+    tableView.accessibilityElementsHidden = lastQueries.isEmpty
     showEmptyHistoryView(lastQueries.isEmpty ? true : false)
     tableView.reloadData()
   }

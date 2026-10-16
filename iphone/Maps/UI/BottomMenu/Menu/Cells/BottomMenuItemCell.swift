@@ -23,5 +23,9 @@ final class BottomMenuItemCell: UITableViewCell {
     badgeBackground.isHidden = badgeCount == 0
     badgeCountLabel.text = "\(badgeCount)"
     badgeCountLabel.setFontStyleAndApply(.medium14, color: .whitePrimary)
+    isAccessibilityElement = true
+    accessibilityLabel = title
+    accessibilityValue = badgeCount == 0 ? nil : String(format: L("menu_map_updates_count"), Int(badgeCount))
+    accessibilityTraits = enabled ? [.button] : [.button, .notEnabled]
   }
 }

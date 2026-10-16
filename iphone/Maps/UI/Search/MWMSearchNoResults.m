@@ -17,7 +17,10 @@ static CGFloat const kExtraCompactHeight = 52;
 {
   MWMSearchNoResults * view = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   if (title)
+  {
     view.title.text = title;
+    view.title.accessibilityTraits |= UIAccessibilityTraitHeader;
+  }
   else
     [view.title removeFromSuperview];
   view.text.text = text;

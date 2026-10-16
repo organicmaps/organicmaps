@@ -42,6 +42,8 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 - (void)configButton:(BOOL)isSelected enabled:(BOOL)isEnabled
 {
   self.label.text = titleForButton(self.type, isSelected);
+  self.label.isAccessibilityElement = NO;
+  self.button.accessibilityLabel = self.label.text;
   self.button.coloring = MWMButtonColoringBlack;
   [self.button.imageView setContentMode:UIViewContentModeScaleAspectFit];
 
@@ -165,6 +167,7 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     self.button.selected = false;
     break;
   }
+  self.button.accessibilityLabel = self.label.text;
 }
 
 - (BOOL)needsToHighlightRouteToButton

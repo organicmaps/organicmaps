@@ -1,5 +1,15 @@
 import UIKit
 
+final class OpeningHoursTodayView: UIView {
+  var onAccessibilityActivate: (() -> Void)?
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilityActivate else { return false }
+    onAccessibilityActivate()
+    return true
+  }
+}
+
 class OpeningHoursTodayViewController: UIViewController {
   @IBOutlet var todayLabel: UILabel!
   @IBOutlet var scheduleLabel: UILabel!
@@ -9,7 +19,12 @@ class OpeningHoursTodayViewController: UIViewController {
 
   var workingDay: WorkingDay!
   var closedNow = false
-  var onExpand: MWMVoidBlock?
+  var onExpand: MWMVoidBlock? {
+    didSet {
+      (view as? OpeningHoursTodayView)?.onAccessibilityActivate = onExpand
+      view.accessibilityTraits = onExpand == nil ? .staticText : .button
+    }
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -18,6 +33,15 @@ class OpeningHoursTodayViewController: UIViewController {
     scheduleLabel.text = workingDay.workingTimes
     breaksLabel.text = workingDay.breaks
     closedLabel.isHidden = !closedNow
+    view.isAccessibilityElement = true
+    view.accessibilityTraits = .staticText
+    view.accessibilityLabel = [todayLabel.text, scheduleLabel.text, breaksLabel.text, closedNow ? closedLabel.text : nil]
+      .compactMap { $0?.isEmpty == false ? $0 : nil }
+      .joined(separator: ", ")
+    for label in [todayLabel, scheduleLabel, breaksLabel, closedLabel] {
+      label?.isAccessibilityElement = false
+    }
+    arrowImageView.isAccessibilityElement = false
   }
 
   @IBAction func onTap(_: UITapGestureRecognizer) {
@@ -76,6 +100,7 @@ class OpeningHoursViewController: UIViewController {
     todayView.onExpand = { [weak self] in
       guard let self else { return }
       self.expanded.toggle()
+      self.todayView.view.accessibilityValue = L(self.expanded ? "placepage_hours_expanded" : "placepage_hours_collapsed")
       UIView.animate(withDuration: AppConstants.defaultAnimationDuration) { [weak self] in
         guard let self else { return }
         for vc in self.otherDaysViews {
@@ -86,6 +111,7 @@ class OpeningHoursViewController: UIViewController {
         self.view.layoutIfNeeded()
       }
     }
+    todayView.view.accessibilityValue = L("placepage_hours_collapsed")
   }
 
   private func createDayItem(_ workingDay: WorkingDay) -> OpeningHoursDayViewController {

@@ -35,6 +35,18 @@
   [self.iconImageView setStyleNameAndApply:@"BlueBackground"];
   self.iconImageView.image = [UIImage imageNamed:result.iconImageName];
   self.separatorInset = UIEdgeInsetsMake(0, kSearchCellSeparatorInset, 0, 0);
+
+  NSMutableArray<NSString *> * details = [NSMutableArray array];
+  NSString * distance = result.distanceText.length > 0
+                          ? [NSString stringWithFormat:L(@"search_accessibility_distance"), result.distanceText]
+                          : @"";
+  for (NSString * detail in
+       @[result.infoText ?: @"", result.addressText ?: @"", distance, result.openStatusText ?: @""])
+  {
+    if (detail.length > 0)
+      [details addObject:detail];
+  }
+  self.accessibilityValue = details.count > 0 ? [details componentsJoinedByString:@", "] : nil;
 }
 
 - (void)layoutSubviews

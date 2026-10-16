@@ -13,6 +13,24 @@ enum SocialMedia: CaseIterable {
   case threads
   case bluesky
 
+  var accessibilityTitle: String {
+    switch self {
+    case .telegram: return "Telegram"
+    case .twitter: return "X"
+    case .instagram: return "Instagram"
+    case .facebook: return "Facebook"
+    case .reddit: return "Reddit"
+    case .matrix: return "Matrix"
+    case .fosstodon: return "Fosstodon"
+    case .linkedin: return "LinkedIn"
+    case .organicMapsEmail: return L("about_contact_email")
+    case .github: return "GitHub"
+    case .tiktok: return "TikTok"
+    case .threads: return "Threads"
+    case .bluesky: return "Bluesky"
+    }
+  }
+
   var link: String {
     switch self {
     case .telegram:

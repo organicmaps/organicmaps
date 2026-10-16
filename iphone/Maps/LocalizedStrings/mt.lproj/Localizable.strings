@@ -30,6 +30,7 @@
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "It-tniżżil falla";
+"about_menu_title" = "Dwar Organic Maps";
 
 /* Text in About screen */
 "about_headline" = "B' xejn għal kulħadd, magħmul bl-imħabba";
@@ -174,6 +175,9 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Il-lokażżjoni tiegħek mhuwiex determinat s'issa";
 
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "Aqsam";
+
 /* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
 "share_my_position" = "Jien hawn fuq Organic Maps";
 
@@ -275,6 +279,9 @@
 "pref_map_auto_zoom" = "Iżżumja awtomatikament";
 "placepage_distance" = "Distanza";
 "search_show_on_map" = "Uri fuq il-mappa";
+
+/* Menu button */
+"menu" = "Menu";
 
 /* Text in menu */
 "website" = "Websajt";
@@ -1005,6 +1012,9 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Waqqaf ir-reġistrazzjoni tal-korsa";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"track_recording_title" = "Irrekordjar tat-Traċċa";
+
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Il-Korsija hija vojta - xejn x’ tissejvja";
 "downloader_updating_ios" = "Qed taġġorna";
@@ -1187,3 +1197,51 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Aqleb ir-rotta";
+
+/* VoiceOver value of the location button while the iOS map is determining the user's position. */
+"map_location_searching" = "Finding your location";
+
+/* VoiceOver value of the location button while the iOS map follows the user's position without rotating. */
+"map_location_following" = "Following your location";
+
+/* VoiceOver value of the location button while the iOS map follows both the user's position and heading. */
+"map_location_following_direction" = "Following your location and direction";
+
+/* VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available. */
+"map_updates_available" = "Map updates available";
+
+/* VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers. */
+"map_layers_turn_off" = "Turn off map layers";
+
+/* VoiceOver hint for the tappable app version in the iOS About screen. */
+"about_copy_version_hint" = "Copies the app version to the clipboard";
+
+/* VoiceOver label for the email icon in the iOS About screen's social links. */
+"about_contact_email" = "Email Organic Maps";
+
+/* VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates. */
+"menu_map_updates_count" = "Map updates available: %d";
+
+/* VoiceOver label for the progress indicator while iOS search is running. */
+"search_accessibility_searching" = "Searching";
+
+/* VoiceOver announcement after an iOS search completes. %d is the number of results. */
+"search_accessibility_results_count" = "Search results: %d";
+
+/* VoiceOver value for the distance to a place in an iOS search result. %@ is a localized distance with unit. */
+"search_accessibility_distance" = "Distance: %@";
+
+/* VoiceOver action for copying a place page information row, such as an address or phone number. */
+"placepage_copy" = "Copy";
+
+/* VoiceOver label for the coordinate format menu in the iOS place page. */
+"placepage_choose_coordinate_format" = "Choose coordinate format";
+
+/* VoiceOver hint for opening the full-screen direction view from the place page distance control. */
+"placepage_show_direction" = "Show direction";
+
+/* VoiceOver value of the expandable opening-hours row when only today's hours are shown. */
+"placepage_hours_collapsed" = "Other days hidden";
+
+/* VoiceOver value of the expandable opening-hours row when all days are shown. */
+"placepage_hours_expanded" = "Other days shown";

@@ -95,6 +95,31 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(view.viewModel.isTyping, true)
   }
 
+  func test_SearchResultCountIsAnnouncedOncePerQueryUsingVisibleResults() {
+    interactor.handle(.openSearch)
+    let results = SearchResult.stubResults()
+    presenter.process(.startSearching)
+
+    presenter.process(.showResults(results, isSearchCompleted: false))
+    XCTAssertTrue(view.announcedResultCounts.isEmpty)
+
+    presenter.process(.showResults(results, isSearchCompleted: true))
+    presenter.process(.showResults(.empty, isSearchCompleted: true))
+    XCTAssertEqual(view.announcedResultCounts, [results.count])
+
+    presenter.process(.selectQuery(SearchQuery("cafe", source: .typedText)))
+    presenter.process(.showOnTheMap)
+    let regular = SearchResult(titleText: "Cafe", type: .regular, suggestion: "")
+    let suggestion = SearchResult(titleText: "Coffee", type: .suggestion, suggestion: "coffee")
+    presenter.process(.showResults(.init([regular, suggestion]), isSearchCompleted: true))
+    XCTAssertEqual(view.announcedResultCounts, [results.count, 1])
+
+    presenter.process(.selectQuery(SearchQuery("unknown", source: .typedText)))
+    presenter.process(.showOnTheMap)
+    presenter.process(.showResults(.init([suggestion]), isSearchCompleted: true))
+    XCTAssertEqual(view.announcedResultCounts, [results.count, 1, 0])
+  }
+
   func test_GivenInitialState_WhenSelectDebugCommandFromHistory_ThenShowNoResults() {
     interactor.handle(.openSearch)
 
@@ -587,10 +612,15 @@ private class SearchOnMapViewMock: SearchOnMapView {
   var closeCallCount = 0
   var renderCallCount = 0
   var mapPointPickerTitle: String?
+  var announcedResultCounts: [Int] = []
 
   func render(_ viewModel: SearchOnMap.ViewModel) {
     renderCallCount += 1
     self.viewModel = viewModel
+  }
+
+  func announceSearchResults(count: Int) {
+    announcedResultCounts.append(count)
   }
 
   func close() {

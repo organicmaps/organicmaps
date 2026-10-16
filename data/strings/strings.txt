@@ -1014,7 +1014,7 @@ zh-Hans = 再试一次
 zh-Hant = 再試一次
 
 [about_menu_title]
-tags = android-app
+tags = android-app,apple-maps
 en = About Organic Maps
 af = Oor Organic Maps
 ar = حول Organic Maps
@@ -5395,7 +5395,7 @@ zh-Hant = 地圖下載進行中。
 
 [share]
 comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-tags = android-app
+tags = android-app,apple-maps
 en = Share
 af = Deel
 ar = مشاركة
@@ -8077,7 +8077,7 @@ zh-Hant = 在地圖上查看
 
 [menu]
 comment = Menu button
-tags = android-app
+tags = android-app,apple-maps
 en = Menu
 af = Kieslys
 ar = القائمة
@@ -39552,7 +39552,7 @@ zh-Hant = 停止軌跡記錄
 
 [track_recording_title]
 comment = Title for the "Stop Without Saving" action for the alert when saving a track recording.
-tags = android-app
+tags = android-app,apple-maps
 en = Track Recording
 af = Spooropname
 ar = تسجيل المسار
@@ -45048,3 +45048,131 @@ uk = Розвернути маршрут
 vi = Đảo ngược tuyến đường
 zh-Hans = 反转路线
 zh-Hant = 反轉路線
+
+[map_location_searching]
+comment = VoiceOver value of the location button while the iOS map is determining the user's position.
+tags = apple-maps
+en = Finding your location
+pl = Ustalanie Twojej lokalizacji
+ru = Определение вашего местоположения
+uk = Визначення вашого місцезнаходження
+
+[map_location_following]
+comment = VoiceOver value of the location button while the iOS map follows the user's position without rotating.
+tags = apple-maps
+en = Following your location
+pl = Mapa podąża za Twoją lokalizacją
+ru = Отслеживание вашего местоположения
+uk = Відстеження вашого місцезнаходження
+
+[map_location_following_direction]
+comment = VoiceOver value of the location button while the iOS map follows both the user's position and heading.
+tags = apple-maps
+en = Following your location and direction
+pl = Mapa podąża za Twoją lokalizacją i kierunkiem
+ru = Отслеживание вашего местоположения и направления
+uk = Відстеження вашого місцезнаходження та напрямку
+
+[map_updates_available]
+comment = VoiceOver value of the iOS map's Menu button when its badge indicates map updates are available.
+tags = apple-maps
+en = Map updates available
+pl = Dostępne aktualizacje map
+ru = Доступны обновления карт
+uk = Доступні оновлення мап
+
+[map_layers_turn_off]
+comment = VoiceOver label of the iOS map-layer button when pressing it will turn off the active layers.
+tags = apple-maps
+en = Turn off map layers
+pl = Wyłącz warstwy mapy
+ru = Отключить слои карты
+uk = Вимкнути шари мапи
+
+[about_copy_version_hint]
+comment = VoiceOver hint for the tappable app version in the iOS About screen.
+tags = apple-maps
+en = Copies the app version to the clipboard
+pl = Kopiuje wersję aplikacji do schowka
+ru = Копирует версию приложения в буфер обмена
+uk = Копіює версію застосунку до буфера обміну
+
+[about_contact_email]
+comment = VoiceOver label for the email icon in the iOS About screen's social links.
+tags = apple-maps
+en = Email Organic Maps
+pl = Napisz e-mail do Organic Maps
+ru = Написать в Organic Maps по электронной почте
+uk = Написати в Organic Maps електронною поштою
+
+[menu_map_updates_count]
+comment = VoiceOver value for the Download Maps row's badge in the iOS main menu. %d is the number of maps with available updates.
+tags = apple-maps
+en = Map updates available: %d
+pl = Dostępne aktualizacje map: %d
+ru = Доступны обновления карт: %d
+uk = Доступні оновлення мап: %d
+
+[search_accessibility_searching]
+comment = VoiceOver label for the progress indicator while iOS search is running.
+tags = apple-maps
+en = Searching
+pl = Wyszukiwanie
+ru = Поиск
+uk = Пошук
+
+[search_accessibility_results_count]
+comment = VoiceOver announcement after an iOS search completes. %d is the number of results.
+tags = apple-maps
+en = Search results: %d
+pl = Wyniki wyszukiwania: %d
+ru = Найдено результатов: %d
+uk = Знайдено результатів: %d
+
+[search_accessibility_distance]
+comment = VoiceOver value for the distance to a place in an iOS search result. %@ is a localized distance with unit.
+tags = apple-maps
+en = Distance: %@
+pl = Odległość: %@
+ru = Расстояние: %@
+uk = Відстань: %@
+
+[placepage_copy]
+comment = VoiceOver action for copying a place page information row, such as an address or phone number.
+tags = apple-maps
+en = Copy
+pl = Kopiuj
+ru = Скопировать
+uk = Копіювати
+
+[placepage_choose_coordinate_format]
+comment = VoiceOver label for the coordinate format menu in the iOS place page.
+tags = apple-maps
+en = Choose coordinate format
+pl = Wybierz format współrzędnych
+ru = Выбрать формат координат
+uk = Вибрати формат координат
+
+[placepage_show_direction]
+comment = VoiceOver hint for opening the full-screen direction view from the place page distance control.
+tags = apple-maps
+en = Show direction
+pl = Pokaż kierunek
+ru = Показать направление
+uk = Показати напрямок
+
+[placepage_hours_collapsed]
+comment = VoiceOver value of the expandable opening-hours row when only today's hours are shown.
+tags = apple-maps
+en = Other days hidden
+pl = Pozostałe dni ukryte
+ru = Другие дни скрыты
+uk = Інші дні приховано
+
+[placepage_hours_expanded]
+comment = VoiceOver value of the expandable opening-hours row when all days are shown.
+tags = apple-maps
+en = Other days shown
+pl = Pozostałe dni widoczne
+ru = Другие дни показаны
+uk = Інші дні показано
