@@ -1215,3 +1215,18 @@
 
 /* VoiceOver value for the distance to a place in an iOS search result. %@ is a localized distance with unit. */
 "search_accessibility_distance" = "Відстань: %@";
+
+/* VoiceOver action for copying a place page information row, such as an address or phone number. */
+"placepage_copy" = "Копіювати";
+
+/* VoiceOver label for the coordinate format menu in the iOS place page. */
+"placepage_choose_coordinate_format" = "Вибрати формат координат";
+
+/* VoiceOver hint for opening the full-screen direction view from the place page distance control. */
+"placepage_show_direction" = "Показати напрямок";
+
+/* VoiceOver value of the expandable opening-hours row when only today's hours are shown. */
+"placepage_hours_collapsed" = "Інші дні приховано";
+
+/* VoiceOver value of the expandable opening-hours row when all days are shown. */
+"placepage_hours_expanded" = "Інші дні показано";

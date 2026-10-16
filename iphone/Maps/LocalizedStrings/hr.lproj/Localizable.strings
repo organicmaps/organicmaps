@@ -1215,3 +1215,18 @@
 
 /* VoiceOver value for the distance to a place in an iOS search result. %@ is a localized distance with unit. */
 "search_accessibility_distance" = "Distance: %@";
+
+/* VoiceOver action for copying a place page information row, such as an address or phone number. */
+"placepage_copy" = "Copy";
+
+/* VoiceOver label for the coordinate format menu in the iOS place page. */
+"placepage_choose_coordinate_format" = "Choose coordinate format";
+
+/* VoiceOver hint for opening the full-screen direction view from the place page distance control. */
+"placepage_show_direction" = "Show direction";
+
+/* VoiceOver value of the expandable opening-hours row when only today's hours are shown. */
+"placepage_hours_collapsed" = "Other days hidden";
+
+/* VoiceOver value of the expandable opening-hours row when all days are shown. */
+"placepage_hours_expanded" = "Other days shown";
