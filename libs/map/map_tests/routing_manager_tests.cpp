@@ -1325,14 +1325,14 @@ UNIT_CLASS_TEST(RoutingManagerTest, DoesNotMaterializeOriginCallbackOnStartMark)
   TEST_EQUAL(routePoints[1].m_callback, "app://finish", ());
 }
 
-UNIT_CLASS_TEST(RoutingManagerTest, AddsRoutePointsInBatch)
+UNIT_CLASS_TEST(RoutingManagerTest, ReplacesRoutePointsInBatch)
 {
   std::vector<RouteMarkData> points;
   points.push_back(MakePoint(RouteMarkType::Start, 1.0, 1.0, "app://start"));
   points.push_back(MakePoint(RouteMarkType::Intermediate, 1.5, 1.5, "app://stop", 0));
   points.push_back(MakePoint(RouteMarkType::Finish, 2.0, 2.0, "app://finish"));
 
-  m_manager.AddRoutePoints(std::move(points), false /* reorderIntermediatePoints */);
+  m_manager.ReplaceRoutePoints(std::move(points));
 
   auto const routePoints = m_manager.GetRoutePoints();
   TEST_EQUAL(routePoints.size(), 3, ());

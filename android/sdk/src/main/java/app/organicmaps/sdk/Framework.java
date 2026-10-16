@@ -294,7 +294,7 @@ public class Framework
                                                    boolean isMyPosition, double lat, double lon,
                                                    boolean reorderIntermediatePoints);
 
-  public static native void nativeReplaceRoutePoints(@NonNull RouteMarkData[] points);
+  public static native void nativeReplaceRoutePoints(@NonNull RouteMarkData[] points, boolean optimize);
 
   public static native void nativeReplaceRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
                                                     int intermediateIndex, boolean isMyPosition, double lat,
@@ -308,14 +308,6 @@ public class Framework
    */
   public static native boolean nativeContinueRouteToPoint(String title, String subtitle, boolean isMyPosition,
                                                           double lat, double lon);
-
-  public static native void nativeAddRoutePoints(@NonNull String[] titles, @NonNull String[] subtitles,
-                                                 @NonNull String[] callbacks, @NonNull int[] pointTypes,
-                                                 @NonNull int[] intermediateIndices, @NonNull boolean[] isMyPositions,
-                                                 @NonNull double[] lats, @NonNull double[] lons,
-                                                 boolean reorderIntermediatePoints);
-
-  public static native void nativeRemoveRoutePoints();
 
   public static native void nativeRemoveRoutePoint(@NonNull RouteMarkType markType, int intermediateIndex);
 

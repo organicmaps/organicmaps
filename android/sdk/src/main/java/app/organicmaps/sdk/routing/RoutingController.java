@@ -492,7 +492,6 @@ public class RoutingController
     // that itinerary by default, but allow API callers to request the existing
     // intermediate-point optimization when stop order is not important.
     cancel();
-    Framework.nativeRemoveRoutePoints();
     setState(State.PREPARE);
 
     mLastRouterType = routerType;
@@ -510,7 +509,7 @@ public class RoutingController
     if (mContainer != null)
       mContainer.onStartRouteBuilding();
 
-    addRoutePoints(routePoints, callbacks, optimizeRoutePoints);
+    replaceRoutePoints(routePoints, callbacks, optimizeRoutePoints);
 
     if (mContainer != null)
       mContainer.updateMenu();
@@ -1091,63 +1090,27 @@ public class RoutingController
                                          point.getLon(), true /* reorderIntermediatePoints */);
   }
 
-  private static void addRoutePoints(@NonNull List<MapObject> routePoints, @Nullable List<String> callbacks,
-                                     boolean reorderIntermediatePoints)
+  private static void replaceRoutePoints(@NonNull List<MapObject> routePoints, @Nullable List<String> callbacks,
+                                     boolean optimizeRoutePoints)
   {
+    // Pass the itinerary in source (URL) order with each callback aligned to its point.
+    // Core ReplaceRoutePoints owns slot assignment and optimization; do not pre-reorder here.
     final int size = routePoints.size();
-    final String[] titles = new String[size];
-    final String[] subtitles = new String[size];
-    final String[] pointCallbacks = new String[size];
-    final int[] pointTypes = new int[size];
-    final int[] intermediateIndices = new int[size];
-    final boolean[] isMyPositions = new boolean[size];
-    final double[] lats = new double[size];
-    final double[] lons = new double[size];
-
-    fillRoutePoint(0, RouteMarkType.Start, routePoints.get(0), 0 /* intermediateIndex */, getCallback(callbacks, 0),
-                   titles, subtitles, pointCallbacks, pointTypes, intermediateIndices, isMyPositions, lats, lons);
-    int outputIndex = 1;
-    if (reorderIntermediatePoints)
+    final RouteMarkData[] points = new RouteMarkData[size];
+    for (int i = 0; i < size; ++i)
     {
-      // The optimizer needs a known finish before it predicts positions for
-      // intermediate points.
-      fillRoutePoint(outputIndex++, RouteMarkType.Finish, routePoints.get(size - 1), 0 /* intermediateIndex */,
-                     getCallback(callbacks, size - 1), titles, subtitles, pointCallbacks, pointTypes,
-                     intermediateIndices, isMyPositions, lats, lons);
-      for (int i = 1; i + 1 < size; ++i)
-        fillRoutePoint(outputIndex++, RouteMarkType.Intermediate, routePoints.get(i), 0 /* intermediateIndex */,
-                       getCallback(callbacks, i), titles, subtitles, pointCallbacks, pointTypes, intermediateIndices,
-                       isMyPositions, lats, lons);
-    }
-    else
-    {
-      for (int i = 1; i + 1 < size; ++i)
-        fillRoutePoint(outputIndex++, RouteMarkType.Intermediate, routePoints.get(i), i - 1, getCallback(callbacks, i),
-                       titles, subtitles, pointCallbacks, pointTypes, intermediateIndices, isMyPositions, lats, lons);
-      fillRoutePoint(outputIndex, RouteMarkType.Finish, routePoints.get(size - 1), 0 /* intermediateIndex */,
-                     getCallback(callbacks, size - 1), titles, subtitles, pointCallbacks, pointTypes,
-                     intermediateIndices, isMyPositions, lats, lons);
+      final MapObject point = routePoints.get(i);
+      final RouteMarkType type = i == 0 ? RouteMarkType.Start
+                                        : i + 1 == size ? RouteMarkType.Finish : RouteMarkType.Intermediate;
+      final int intermediateIndex = type == RouteMarkType.Intermediate ? i - 1 : 0;
+      final Pair<String, String> description = getDescriptionForPoint(point);
+      final boolean isMyPosition = point.isMyPosition();
+      points[i] = new RouteMarkData(description.first /* title */, description.second /* subtitle */, type,
+                                    intermediateIndex, getCallback(callbacks, i), !isMyPosition /* isVisible */,
+                                    isMyPosition, false /* isPassed */, point.getLat(), point.getLon());
     }
 
-    Framework.nativeAddRoutePoints(titles, subtitles, pointCallbacks, pointTypes, intermediateIndices, isMyPositions,
-                                   lats, lons, reorderIntermediatePoints);
-  }
-
-  private static void fillRoutePoint(int outputIndex, @NonNull RouteMarkType type, @NonNull MapObject point,
-                                     int intermediateIndex, @NonNull String callback, @NonNull String[] titles,
-                                     @NonNull String[] subtitles, @NonNull String[] callbacks,
-                                     @NonNull int[] pointTypes, @NonNull int[] intermediateIndices,
-                                     @NonNull boolean[] isMyPositions, @NonNull double[] lats, @NonNull double[] lons)
-  {
-    Pair<String, String> description = getDescriptionForPoint(point);
-    titles[outputIndex] = description.first;
-    subtitles[outputIndex] = description.second;
-    callbacks[outputIndex] = callback;
-    pointTypes[outputIndex] = type.ordinal();
-    intermediateIndices[outputIndex] = intermediateIndex;
-    isMyPositions[outputIndex] = point.isMyPosition();
-    lats[outputIndex] = point.getLat();
-    lons[outputIndex] = point.getLon();
+    Framework.nativeReplaceRoutePoints(points, optimizeRoutePoints);
   }
 
   @NonNull
