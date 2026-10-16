@@ -1,6 +1,6 @@
 #include "map/track_statistics.hpp"
 
-#include "geometry/mercator.hpp"
+#include "map/elevation_info.hpp"
 
 #include "platform/distance.hpp"
 #include "platform/duration.hpp"
@@ -22,44 +22,14 @@ void TrackStatistics::CalculateDuration(kml::MultiGeometry const & geometry)
   }
 }
 
-void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
+void TrackStatistics::CalculateAltitudes(ElevationInfo const & elevation, geometry::Altitude threshold)
 {
-  ASSERT_GREATER_OR_EQUAL(point.m_timestamp, 0, ());
-  auto const pt = mercator::FromLatLon(point.m_latitude, point.m_longitude);
-
-  if (m_previousTimestamp >= 0)
-  {
-    m_length += mercator::DistanceOnEarth(m_previousPoint, pt);
-    ASSERT_GREATER_OR_EQUAL(point.m_timestamp, m_previousTimestamp, ());
-    m_duration += point.m_timestamp - m_previousTimestamp;
-  }
-
-  if (point.HasAltitude())
-  {
-    auto const altitude = geometry::Altitude(point.m_altitude);
-
-    if (m_previousAltitude != geometry::kInvalidAltitude)
-    {
-      m_minElevation = std::min(m_minElevation, altitude);
-      m_maxElevation = std::max(m_maxElevation, altitude);
-
-      auto const delta = altitude - m_previousAltitude;
-      if (delta > 0)
-        m_ascent += delta;
-      else
-        m_descent -= delta;
-    }
-    else
-    {
-      m_minElevation = altitude;
-      m_maxElevation = altitude;
-    }
-
-    m_previousAltitude = altitude;
-  }
-
-  m_previousPoint = pt;
-  m_previousTimestamp = point.m_timestamp;
+  ASSERT(!elevation.IsEmpty(), ());
+  auto const info = elevation.CalculateAltitudesInfo(threshold);
+  m_ascent = info.GetTotalAscent();
+  m_descent = info.GetTotalDescent();
+  m_minElevation = info.m_minAltitude;
+  m_maxElevation = info.m_maxAltitude;
 }
 
 std::string TrackStatistics::GetFormattedLength() const

@@ -6,6 +6,7 @@
 
 #include "base/thread.hpp"
 
+#include <atomic>
 #include <condition_variable>
 #include <functional>
 #include <memory>
@@ -32,7 +33,19 @@ public:
 
   /// Returns track statistics
   TrackStatistics GetTrackStatistics() const;
-  ElevationInfo const & GetElevationInfo() const;
+  /// Returns an owned profile. Graph processing runs outside the recording lock.
+  ElevationInfo GetElevationInfo() const;
+
+  using IsCancelled = std::function<bool()>;
+  struct ElevationSnapshot
+  {
+    uint64_t m_epoch;
+    size_t m_revision;
+    TrackStatistics m_statistics;
+    ElevationInfo m_elevation;
+  };
+  /// Safe on a background thread. An unchanged revision reuses the same immutable snapshot.
+  std::shared_ptr<ElevationSnapshot const> GetElevationSnapshot(IsCancelled const & isCancelled = {}) const;
 
   /// Clears any previous tracking info
   /// @note Callback is called with 'toRemove' points, if some points were removed.
@@ -44,9 +57,11 @@ public:
   /// @param toAdd - collection of points and ids to add.
   /// @param toRemove - range of point indices to remove, or pair(kInvalidId,kInvalidId) if nothing to remove
   /// @note Calling of a GpsTrack.SetCallback function from the callback causes deadlock.
+  // Invoke only synchronously inside the callback; the recording lock is already held.
+  using StatisticsGetter = std::function<TrackStatistics const &()>;
   using TGpsTrackDiffCallback =
       std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                         std::pair<size_t, size_t> const & toRemove, TrackStatistics const & trackStatistics)>;
+                         std::pair<size_t, size_t> const & toRemove, StatisticsGetter const & getStatistics)>;
 
   /// Sets callback on change of gps track.
   /// @param callback - callback callable object
@@ -99,4 +114,9 @@ private:
   bool m_threadExit;    // need exit thread
   bool m_threadWakeup;  // need wakeup thread
   std::condition_variable m_cv;
+
+  std::atomic<uint64_t> m_epoch = 0;  // cancels graph replay synchronously on Clear()
+  struct ElevationCache;
+  mutable std::mutex m_elevationGuard;
+  mutable std::unique_ptr<ElevationCache> m_elevationCache;
 };

@@ -1,7 +1,23 @@
 #include "map/gps_track.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
+
+struct GpsTrack::ElevationCache
+{
+  uint64_t m_epoch;
+  size_t m_cursor = 0;
+  size_t m_prefixSize = 0;
+  double m_distance = 0;
+  m2::PointD m_lastPoint;
+  TrackElevation m_processor;
+  std::shared_ptr<ElevationSnapshot const> m_snapshot;
+
+  explicit ElevationCache(uint64_t epoch) : m_epoch(epoch) {}
+};
 
 GpsTrack::GpsTrack(std::string const & filePath, std::unique_ptr<IGpsTrackFilter> && filter)
   : m_filePath(filePath)
@@ -53,31 +69,127 @@ void GpsTrack::AddPoints(std::vector<location::GpsInfo> const & points)
 TrackStatistics GpsTrack::GetTrackStatistics() const
 {
   std::lock_guard lg(m_threadGuard);
-  return m_collection ? m_collection->GetTrackStatistics() : TrackStatistics();
+  return m_collection && !m_needClear ? m_collection->GetTrackStatistics() : TrackStatistics();
 }
 
-ElevationInfo const & GpsTrack::GetElevationInfo() const
+ElevationInfo GpsTrack::GetElevationInfo() const
 {
-  std::lock_guard lg(m_threadGuard);
-  CHECK(m_collection, ());
-  return m_collection->UpdateAndGetElevationInfo();
+  auto const snapshot = GetElevationSnapshot();
+  return snapshot ? snapshot->m_elevation : ElevationInfo{};
 }
 /// @}
+
+std::shared_ptr<GpsTrack::ElevationSnapshot const> GpsTrack::GetElevationSnapshot(IsCancelled const & isCancelled) const
+{
+  auto const cancelled = [&] { return isCancelled && isCancelled(); };
+  if (cancelled())
+    return {};
+  // The recording worker never takes this lock. Serialize graph requests, not GPS updates.
+  std::lock_guard graphLock(m_elevationGuard);
+  bool discard = false;
+  SCOPE_GUARD(discardOldRecording, [&]
+  {
+    if (m_elevationCache && (discard || m_elevationCache->m_epoch != m_epoch.load(std::memory_order_relaxed)))
+      m_elevationCache.reset();
+  });
+  uint64_t epoch;
+  size_t revision;
+  TrackStatistics statistics;
+  std::vector<location::GpsInfo> input;
+  buffer_vector<TrackElevation::Point, TrackElevation::kMaxTailPoints> tail;
+  std::shared_ptr<ElevationSnapshot const> ready;
+  {
+    std::lock_guard lock(m_threadGuard);
+    if (!m_collection || m_needClear || !m_collection->HasAltitudes())
+    {
+      discard = true;
+      return {};
+    }
+    epoch = m_epoch.load(std::memory_order_relaxed);
+    revision = m_collection->GetSize();
+    if (m_elevationCache && m_elevationCache->m_epoch == epoch && m_elevationCache->m_cursor == revision)
+      ready = m_elevationCache->m_snapshot;
+    if (!ready)
+    {
+      size_t const cursor = m_elevationCache && m_elevationCache->m_epoch == epoch ? m_elevationCache->m_cursor : 0;
+      statistics = m_collection->GetTrackStatistics();
+      // Statistics already computed this bounded preview. Do not solve it again for the chart.
+      auto const preview = m_collection->GetElevationTail();
+      tail.assign(preview.begin(), preview.end());
+      input.reserve(revision - cursor);
+      m_collection->ForEach([&](location::GpsInfo const & point, size_t)
+      {
+        input.push_back(point);
+        return true;
+      }, cursor);
+    }
+  }
+  if (cancelled() || m_epoch.load(std::memory_order_relaxed) != epoch)
+    return {};
+  if (ready)
+    return ready;
+  if (!m_elevationCache || m_elevationCache->m_epoch != epoch)
+    m_elevationCache = std::make_unique<ElevationCache>(epoch);
+  auto & cache = *m_elevationCache;
+  auto processor = cache.m_processor;
+  auto lastPoint = cache.m_lastPoint;
+  double distance = cache.m_distance;
+  ElevationInfo::Points finalized;
+  TrackElevation::Output const output = [&](std::span<TrackElevation::Point const> points)
+  { finalized.insert(finalized.end(), points.begin(), points.end()); };
+  for (size_t i = 0; i < input.size(); ++i)
+  {
+    if (i % TrackElevation::kWindowIntervals == 0 && (cancelled() || m_epoch.load(std::memory_order_relaxed) != epoch))
+      return {};
+    auto const & gps = input[i];
+    auto const point = mercator::FromLatLon(gps.m_latitude, gps.m_longitude);
+    if (cache.m_cursor + i > 0)
+      distance += mercator::DistanceOnEarth(lastPoint, point);
+    lastPoint = point;
+    processor.Add({distance, static_cast<geometry::Altitude>(gps.m_altitude)}, output);
+  }
+  if (cancelled() || m_epoch.load(std::memory_order_relaxed) != epoch)
+    return {};
+  ElevationInfo::Points points;
+  points.reserve(cache.m_prefixSize + finalized.size() + tail.size());
+  if (cache.m_snapshot)
+  {
+    auto const & previous = cache.m_snapshot->m_elevation.GetLines().front();
+    points.insert(points.end(), previous.begin(), previous.begin() + cache.m_prefixSize);
+  }
+  points.insert(points.end(), finalized.begin(), finalized.end());
+  size_t const prefixSize = points.size();
+  points.insert(points.end(), tail.begin(), tail.end());
+  auto snapshot = std::make_shared<ElevationSnapshot>(epoch, revision, statistics, ElevationInfo(std::move(points)));
+  cache.m_processor = std::move(processor);
+  cache.m_lastPoint = lastPoint;
+  cache.m_distance = distance;
+  cache.m_cursor = revision;
+  cache.m_prefixSize = prefixSize;
+  cache.m_snapshot = snapshot;
+  return snapshot;
+}
 
 void GpsTrack::Clear()
 {
   {
+    std::lock_guard threadLock(m_threadGuard);
     std::lock_guard lg(m_dataGuard);
     m_points.clear();
     m_needClear = true;
+    ++m_epoch;
   }
   ScheduleTask();
+  // Release a dormant old profile without waiting for an in-flight graph request.
+  std::unique_lock graphLock(m_elevationGuard, std::try_to_lock);
+  if (graphLock && m_elevationCache && m_elevationCache->m_epoch != m_epoch.load(std::memory_order_relaxed))
+    m_elevationCache.reset();
 }
 
 bool GpsTrack::IsEmpty() const
 {
   std::lock_guard lg(m_threadGuard);
-  if (!m_collection)
+  if (!m_collection || m_needClear)
     return true;
   return m_collection->IsEmpty();
 }
@@ -202,7 +314,12 @@ void GpsTrack::ProcessPoints()
 
   // Create collection only if callback appears
   if (!m_collection && HasCallback())
-    InitCollection();
+  {
+    if (needClear)
+      m_collection = std::make_unique<GpsTrackCollection>();
+    else
+      InitCollection();
+  }
 
   // All origin points are written in the storage,
   // and filtered points are inserted in the runtime collection.
@@ -240,6 +357,7 @@ size_t GpsTrack::Finalize()
     m_threadWakeup = m_threadExit = false;
   }
 
+  std::lock_guard lock(m_threadGuard);
   std::vector<location::GpsInfo> points;
   m_filter->Finalize(points);
 
@@ -284,7 +402,6 @@ void GpsTrack::UpdateCollection(bool needClear, std::vector<location::GpsInfo> c
   // Apply Clear and Add points
   // Clear points from collection, if need.
   evictedIds = needClear ? m_collection->Clear(false /* resetIds */) : std::make_pair(kInvalidId, kInvalidId);
-  ;
 
   // Add points to the collection, if need
   if (!points.empty())
@@ -299,6 +416,9 @@ void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::p
 
   if (!m_callback)
     return;
+
+  StatisticsGetter const getStatistics = [this]() -> TrackStatistics const &
+  { return m_collection->GetTrackStatistics(); };
 
   if (m_needSendSnapshop)
   {
@@ -315,7 +435,7 @@ void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::p
     if (toAdd.empty())
       return;  // nothing to send
 
-    m_callback(std::move(toAdd), std::make_pair(kInvalidId, kInvalidId), m_collection->GetTrackStatistics());
+    m_callback(std::move(toAdd), std::make_pair(kInvalidId, kInvalidId), getStatistics);
   }
   else
   {
@@ -336,6 +456,6 @@ void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::p
     if (toAdd.empty() && evictedIds.first == kInvalidId)
       return;  // nothing to send
 
-    m_callback(std::move(toAdd), evictedIds, m_collection->GetTrackStatistics());
+    m_callback(std::move(toAdd), evictedIds, getStatistics);
   }
 }

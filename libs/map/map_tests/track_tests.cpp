@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "map/elevation_info.hpp"
+#include "map/gps_track_collection.hpp"
 #include "map/track.hpp"
 #include "map/track_statistics.hpp"
 
@@ -8,11 +9,14 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
+#include "geometry/simplification.hpp"
 
 #include "platform/platform.hpp"
 
 #include "coding/file_reader.hpp"
 
+#include <algorithm>
+#include <random>
 #include <vector>
 
 namespace track_tests
@@ -101,21 +105,61 @@ UNIT_TEST(ElevationInfo_MultipleLines_IndependentDistances)
   TEST_EQUAL(lines[1][0].m_distance, 0, ());
 }
 
-UNIT_TEST(ElevationInfo_BuildWithGpsPoints)
+UNIT_TEST(ElevationInfo_Simplify_SingleSegment)
 {
-  GpsTrackElevation gpsElevation;
-  gpsElevation.AddGpsPoints({
-      BuildGpsInfo(0.0, 0.0, 0),
-      BuildGpsInfo(1.0, 1.0, 50),
-      BuildGpsInfo(2.0, 2.0, 100),
-  });
-  gpsElevation.AddGpsPoints({BuildGpsInfo(3.0, 3.0, -50)});
-  gpsElevation.AddGpsPoints({BuildGpsInfo(4.0, 4.0, 0)});
-  gpsElevation.AddGpsPoints({});
+  for (size_t const count : {size_t{1}, size_t{2}, size_t{10000}})
+  {
+    std::vector<double> distances;
+    geometry::Altitudes altitudes(count, 100);
+    for (size_t i = 1; i < count; ++i)
+    {
+      distances.push_back(i * 20.0);
+      if (i + 1 < count)
+        altitudes[i] += i % 2;
+    }
+    ElevationInfo elevation;
+    elevation.Assign(distances, altitudes);
+    elevation.Simplify();
+    TEST_EQUAL(elevation.GetSize(), std::min(count, size_t{2}), ());
+    TEST_EQUAL(elevation.GetLength(), (count - 1) * 20.0, ());
+    auto const info = elevation.CalculateAltitudesInfo(10);
+    TEST_EQUAL(info.GetTotalAscent(), 0, ());
+    TEST_EQUAL(info.GetTotalDescent(), 0, ());
+  }
+}
 
-  auto const & lines = gpsElevation.GetLines();
-  TEST_EQUAL(5, gpsElevation.GetSize(), ());
-  TEST_EQUAL(1, lines.size(), ());
+UNIT_TEST(ElevationInfo_Simplify_MatchesGenericAlgorithm)
+{
+  std::mt19937 rng(42);
+  for (size_t sample = 0; sample < 100; ++sample)
+  {
+    std::vector<double> distances;
+    geometry::Altitudes altitudes;
+    for (size_t i = 0; i < 2 + sample % 50; ++i)
+    {
+      if (i > 0)
+        distances.push_back(i * 20.0);
+      altitudes.push_back(100 + int(rng() % (1 + sample % 20)));
+    }
+    for (double const deviation : {0.1, 1.415, 5.0})
+    {
+      ElevationInfo elevation;
+      elevation.Assign(distances, altitudes);
+      std::vector<m2::PointD> points;
+      elevation.ForEachPoint([&](double distance, auto altitude) { points.emplace_back(distance, altitude); });
+      std::vector<m2::PointD> expected;
+      SimplifyDefault(points.begin(), points.end(), math::Pow2(deviation), expected);
+
+      elevation.Simplify(deviation);
+      auto const & actual = elevation.GetLines().front();
+      TEST_EQUAL(actual.size(), expected.size(), (sample, deviation));
+      for (size_t i = 0; i < expected.size(); ++i)
+      {
+        TEST_EQUAL(actual[i].m_distance, expected[i].x, (sample, deviation));
+        TEST_EQUAL(actual[i].m_altitude, expected[i].y, (sample, deviation));
+      }
+    }
+  }
 }
 
 // ===================== Track::GetPoint tests =====================
@@ -369,15 +413,16 @@ UNIT_TEST(TrackStatistics_Duration_PartialTimestamps)
   TEST_EQUAL(ts.m_duration, 5, ());  // Only the first line contributes (5 - 0).
 }
 
-UNIT_TEST(TrackStatistics_GpsPoints)
+UNIT_TEST(GpsTrackCollection_Statistics)
 {
   GpsInfo const points[] = {BuildGpsInfo(0.0, 0.0, 0, 0), BuildGpsInfo(1.0, 1.0, 50, 1), BuildGpsInfo(2.0, 2.0, 100, 2),
                             BuildGpsInfo(3.0, 3.0, -50, 5), BuildGpsInfo(4.0, 4.0, 0, 10)};
 
-  TrackStatistics ts;
+  GpsTrackCollection collection;
   for (auto const & point : points)
-    ts.AddGpsInfoPoint(point);
+    collection.Add({point});
 
+  auto const ts = collection.GetTrackStatistics();
   TEST_EQUAL(ts.m_minElevation, -50, ());
   TEST_EQUAL(ts.m_maxElevation, 100, ());
   TEST_EQUAL(ts.m_ascent, 150, ());   // 0->50, 50->100, -50->0
