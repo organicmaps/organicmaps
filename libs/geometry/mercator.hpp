@@ -84,20 +84,18 @@ inline m2::RectD WrapRectX(m2::RectD rect)
   return rect;
 }
 
-/// Calls \a fn(rect) for the _canonical_ (x in [kMinX, kMaxX]) parts of \a rect.
-/// \a rect may cross the antimeridian (maxX > kMaxX or minX < kMinX) - its two canonical
-/// halves are emitted - or lie entirely beyond it (a geometry stored on the far side,
-/// e.g. Wake Island around -204) - then the rect is shifted back wholesale. Y is passed
-/// through untouched. The parts can be tested against rects and polygons that always
-/// live in the canonical range. Parts touching the antimeridian include both
-/// representations of that boundary.
+/// Calls \a fn for the one or two canonical parts (X in [kMinX, kMaxX]) of \a rect.
+/// Shifted rectangles are normalized and split at the antimeridian as needed. Widths
+/// of at least kRangeX emit one part covering all longitudes. Y is passed through untouched.
+/// For narrower rectangles, antimeridian contacts include both representations of the
+/// boundary, so an emitted part can have zero width.
 template <typename Fn>
 void ForEachRectWrapped(m2::RectD const & rect, Fn && fn)
 {
   ASSERT(rect.IsValid(), (rect));
   if (rect.SizeX() >= Bounds::kRangeX)
   {
-    // Wider than the world: covers every longitude.
+    // At least one world width covers every longitude.
     fn(m2::RectD(Bounds::kMinX, rect.minY(), Bounds::kMaxX, rect.maxY()));
     return;
   }
