@@ -6,7 +6,6 @@
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
 
-#include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
 #include <string>
@@ -40,14 +39,6 @@ struct CountryDef
   static Overlap IsIntersectOrInside(m2::RectD const & testRect, m2::RectD const & countryRect);
 
   bool IsRectOverlap(m2::RectD const & r) const { return IsIntersectOrInside(r, m_rect) != Overlap::NONE; }
-
-  /// Calls \a fn(p1, p2) for each side of the canonical parts of \a rect (4 + 4 = 8
-  /// segments when the wrapped rect crosses the antimeridian).
-  template <typename Fn>
-  static void ForEachRectSideWrapped(m2::RectD const & rect, Fn && fn)
-  {
-    mercator::ForEachRectWrapped(rect, [&fn](m2::RectD const & r) { r.ForEachSide(fn); });
-  }
 
   static m2::RectD SaveBoundRect() { return m2::RectD(-360, -180, 360, 180); }
 

@@ -264,39 +264,34 @@ bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, RegionId id) cons
 
 bool CountryInfoReader::IsIntersectedByRegion(m2::RectD const & rect, RegionId id) const
 {
-  auto contains = [&rect](std::vector<m2::RegionD> const & regions)
+  return WithRegion(id, [&rect](std::vector<m2::RegionD> const & regions)
   {
-    for (auto const & region : regions)
+    bool intersects = false;
+    mercator::ForEachRectWrapped(rect, [&](m2::RectD const & part)
     {
-      bool isIntersect = false;
-      // Country polygons are always canonical, but \a rect may cross the antimeridian: emit its sides
-      // in canonical coordinates (splitting a wrapped rect into its two halves).
-      CountryDef::ForEachRectSideWrapped(rect, [&](m2::PointD const & p1, m2::PointD const & p2)
+      for (auto const & region : regions)
       {
-        if (isIntersect)
+        if (intersects)
           return;
-        m2::PointD result;
-        isIntersect = region.FindIntersection(p1, p2, result);
-      });
-      if (isIntersect)
-        return true;
-    }
-    return false;
-  };
-
-  if (WithRegion(id, contains))
-    return true;
-
-  // Fallback for a rect fully inside the region (no side crosses its boundary). For a wrapped rect
-  // test both canonical positions of its center.
-  m2::PointD const c = rect.Center();
-  if (BelongsToRegion(c, id))
-    return true;
-  if (rect.maxX() > 180.0)
-    return BelongsToRegion({c.x - 360.0, c.y}, id);
-  if (rect.minX() < -180.0)
-    return BelongsToRegion({c.x + 360.0, c.y}, id);
-  return false;
+        ASSERT(region.IsValid(), ());
+        // Containment in either direction can have no boundary intersections.
+        if (part.IsPointInside(region.Data().front()) || region.Contains(part.Center()))
+        {
+          intersects = true;
+          return;
+        }
+        part.ForEachSide([&](m2::PointD const & p1, m2::PointD const & p2)
+        {
+          if (!intersects)
+          {
+            m2::PointD result;
+            intersects = region.FindIntersection(p1, p2, result);
+          }
+        });
+      }
+    });
+    return intersects;
+  });
 }
 
 bool CountryInfoReader::IsCloseEnough(RegionId id, m2::PointD const & pt, double distance) const
