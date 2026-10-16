@@ -200,7 +200,7 @@ final class PlacePageScrollView: UIScrollView {
     }
 
     scrollView.isScrollEnabled = true
-    beginDragging = false
+    beginDragging = scrollView.isDragging || scrollView.isDecelerating
     if let actionBar = layout.actionBar {
       hideActionBar(false)
       addActionBar(actionBar)
