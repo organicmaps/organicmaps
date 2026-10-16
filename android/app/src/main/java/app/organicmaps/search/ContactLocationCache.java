@@ -35,7 +35,7 @@ final class ContactLocationCache
   private static final String VALUE_SEPARATOR = "\\|";
   // Increment when address resolution changes so cached contact marks are recomputed with the
   // same mapped-address resolver used by contact-address resolution.
-  private static final int FORMAT_VERSION = 7;
+  private static final int FORMAT_VERSION = 9;
 
   @NonNull
   private final SharedPreferences mPreferences;

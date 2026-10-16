@@ -239,7 +239,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mSearchPageViewModel.setSearchPageLastState(mSearchPageViewModel.getPersistedSheetState());
       final SearchRequest restored = new SearchRequest(mSearchPageViewModel.getPersistedQuery(), null,
-                                                       mSearchPageViewModel.getPersistedIsCategory());
+                                                       mSearchPageViewModel.getPersistedIsCategory(),
+                                                       mSearchPageViewModel.getPersistedContactDerived());
       mSearchPageViewModel.setSearchEnabled(true, restored);
     }
 

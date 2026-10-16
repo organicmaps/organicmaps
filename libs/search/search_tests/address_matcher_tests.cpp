@@ -16,7 +16,37 @@ Result MakeAddress(double lat, double lon, std::string const & name, std::string
   Result result(mercator::FromLatLon(lat, lon), name);
   result.SetAddress(std::string(address));
   result.SetType(Result::Type::LatLon);
+  if (auto const parsed = ParseAddressQuery(name))
+  {
+    std::string street;
+    for (auto const & token : parsed->m_streetAndLocalityTokens)
+      street += (street.empty() ? "" : " ") + token;
+    result.SetAddressIdentity(parsed->m_houseIdentifier, std::move(street));
+  }
   return result;
+}
+
+UNIT_TEST(AddressMatcher_UsesMappedIdentityNotPresentation)
+{
+  auto named = MakeAddress(0, 0, "123 Main Street", "Springfield");
+  named = Result(named.GetFeatureCenter(), "Town Hall");
+  named.SetType(Result::Type::LatLon);
+  named.SetAddress("Springfield");
+  named.SetAddressIdentity("123", "Main Street");
+  TEST(IsAddressResultMatchingQuery("123 Main Street, Springfield, 12345", named), ());
+  TEST_EQUAL(ParseAddressQuery("123 Main Street, Springfield, 12345")->m_houseNumber, 123, ());
+  TEST_EQUAL(ParseAddressQuery("123 Main Street, 12345")->m_houseNumber, 123, ());
+  TEST(IsAddressResultMatchingQuery("Main Street, 123, Springfield, 12345", named), ());
+  TEST(IsAddressResultMatchingQuery("123, Main Street, Springfield, 12345", named), ());
+  auto numbered = MakeAddress(0, 0, "6492, 131A Street", "Surrey");
+  TEST(IsAddressResultMatchingQuery("131A Street, 6492, Surrey, 12345", numbered), ());
+  auto misleading = MakeAddress(0, 0, "123 Main Street", "Springfield");
+  misleading.SetAddressIdentity("999", "Other Street");
+  TEST(!IsAddressResultMatchingQuery("123 Main Street Springfield", misleading), ());
+  auto dach = MakeAddress(0, 0, "Hauptstraße, 12", "Berlin");
+  TEST(IsAddressResultMatchingQuery("12 Haupt Strasse, Berlin", dach, "12 Haupt Strasse"), ());
+  auto queens = MakeAddress(0, 0, "12-34 56th Street", "Queens, New York, USA");
+  TEST(IsAddressResultMatchingQuery("12-34 56th St #10, Queens, New York, USA", queens), ());
 }
 
 UNIT_TEST(AddressMatcher_PreservesExactAddress)

@@ -10,6 +10,35 @@
 namespace search
 {
 
+std::vector<std::vector<strings::UniString>> ModifyDACHStreet(std::vector<strings::UniString> const & streetTokens)
+{
+  auto const size = streetTokens.size();
+  ASSERT_GREATER(size, 0, ());
+  std::vector<std::vector<strings::UniString>> result;
+  for (auto const & sx : GetDACHStreets())
+  {
+    if (!strings::EndsWith(streetTokens.back(), sx.first))
+      continue;
+    if (streetTokens.back() == sx.first)
+    {
+      if (size == 1)
+        return {};
+      result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
+      result.back().back() += sx.first;
+      result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
+      result.back().back() += sx.second;
+      return result;
+    }
+    auto const name = strings::UniString(streetTokens.back().begin(), streetTokens.back().end() - sx.first.size());
+    result.push_back(streetTokens);
+    result.back().back() = name;
+    result.back().push_back(sx.first);
+    result.push_back(streetTokens);
+    result.back().back() = name + sx.second;
+  }
+  return result;
+}
+
 std::string RemoveAddressDetails(std::string const & query)
 {
   // Bound regex work for pasted text; unusually long queries use the normal tokenizer unchanged.
@@ -18,7 +47,7 @@ std::string RemoveAddressDetails(std::string const & query)
   static std::regex const unitPrefix(R"(^\s*(?:(?:apt|apartment|unit|suite)\.?\s*#?\s*|#\s*)[0-9]+[a-z]?[,\s]+)",
                                      std::regex::icase);
   static std::regex const street(
-      R"(^\s*[0-9]+[a-z]?[ ,]+[^,\r\n]+?\b(?:street|st|avenue|ave|road|rd|boulevard|blvd|drive|dr|lane|ln|court|ct|crescent|cres|place|pl|way|terrace|ter)\b)",
+      R"(^\s*[0-9]+[a-z]?(?:[-/][0-9]+[a-z]?)*[ ,]+[^,\r\n]+?\b(?:street|st|avenue|ave|road|rd|boulevard|blvd|drive|dr|lane|ln|court|ct|crescent|cres|place|pl|way|terrace|ter)\b)",
       std::regex::icase);
   static std::regex const unitSuffix(
       R"((?:[,\s]*#\s*|[,\s]+(?:apt|apartment|unit|suite)\.?\s*#?\s*)[0-9]+[a-z]?(?:-[0-9a-z]+)?\b)",

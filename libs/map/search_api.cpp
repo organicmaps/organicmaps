@@ -176,7 +176,7 @@ void SearchAPI::OnViewportChanged(m2::RectD const & viewport, int scale)
 
   PokeSearchInViewport(forceSearchInViewport);
   if (m_addressViewportCallback)
-    m_addressViewportCallback(m_viewport, scale);
+    m_addressViewportCallback(m_viewport, scale, m_mapDataRevision);
   StartAddressResolution();
 }
 
@@ -442,11 +442,21 @@ void SearchAPI::Search(SearchIntent & intent)
   intent.m_isDelayed = false;
 }
 
-void SearchAPI::SetAddressViewportCallback(std::function<void(m2::RectD const &, int)> callback)
+void SearchAPI::SetAddressViewportCallback(AddressViewportCallback callback)
 {
   m_addressViewportCallback = std::move(callback);
   if (m_addressViewportCallback && m_isViewportInitialized)
-    m_addressViewportCallback(m_viewport, m_viewportScale);
+    m_addressViewportCallback(m_viewport, m_viewportScale, m_mapDataRevision);
+}
+
+void SearchAPI::ClearCaches()
+{
+  SuspendAddressResolution();
+  m_engine.ClearCaches();
+  ++m_mapDataRevision;
+  if (m_addressViewportCallback && m_isViewportInitialized)
+    m_addressViewportCallback(m_viewport, m_viewportScale, m_mapDataRevision);
+  StartAddressResolution();
 }
 
 void SearchAPI::ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
@@ -507,47 +517,32 @@ void SearchAPI::StartAddressResolution()
     viewport.Inflate(viewport.SizeX() / 4.0, viewport.SizeY() / 4.0);
   SearchParams params;
   // The viewport supplies the geographic restriction. Avoid expanding country/city tokens
-  // for every contact; still validate the complete original query against the result address.
+  // for every address; still validate the complete original query against the result address.
   params.m_query =
       (request->m_background && !query.m_expectedStreet.empty() ? query.m_expectedStreet : query.m_query) + " ";
   params.m_inputLocale = request->m_locale;
   params.m_viewport = viewport;
   params.m_mode = request->m_background ? Mode::Viewport : Mode::Everywhere;
   params.m_needAddress = true;
-  double constexpr kBackgroundBudgetSec = 2.0;
-  if (request->m_background)
-    params.m_timeout = std::chrono::duration_cast<SearchParams::TimeDurationT>(
-        std::chrono::duration<double>(std::max(0.0, kBackgroundBudgetSec - request->m_backgroundTimeSec)));
-  auto const started = std::chrono::steady_clock::now();
-  params.m_onResults = [this, request, generation, query, viewport, started](Results const & results)
+  // Use the engine's normal bounded timeout. A shorter deadline can turn a cold-cache
+  // address into a false miss now that resolution waits for complete results.
+  params.m_onResults = [this, request, generation, query, viewport](Results const & results)
   {
-    std::optional<search::Result> earlyMatch;
     if (!results.IsEndMarker())
-    {
-      if (auto const * result = search::FindUniqueAddressResult(query.m_query, results, query.m_expectedStreet, true))
-        if (!request->m_background || viewport.IsPointInside(result->GetFeatureCenter()))
-          earlyMatch = *result;
-      if (!earlyMatch)
-        return;
-    }
-    std::optional<search::Result> match = earlyMatch;
-    if (!match)
-    {
+      return;
+    std::optional<search::Result> match;
+    if (!results.IsEndedCancelled())
       if (auto const * result = search::FindUniqueAddressResult(query.m_query, results, query.m_expectedStreet))
         if (!request->m_background || viewport.IsPointInside(result->GetFeatureCenter()))
           match = *result;
-    }
-    auto const elapsed = std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
-    RunUITask([this, request, generation, match = std::move(match), early = earlyMatch.has_value(), elapsed]() mutable
+    RunUITask([this, request, generation, match = std::move(match)]() mutable
     {
       // Cancelled or suspended attempts must not consume a query or deliver a stale coordinate.
       if (generation != m_addressGeneration)
         return;
       m_addressRunning = false;
-      request->m_backgroundTimeSec += elapsed;
-      // Deadlines retain useful results. Explicit cancellation/suspension is excluded by the generation guard.
-      if (!match && ++request->m_queryIndex < request->m_queries.size() &&
-          (!request->m_background || request->m_backgroundTimeSec < kBackgroundBudgetSec))
+      // A cancelled or timed-out search cannot establish uniqueness. Suspended attempts are excluded above.
+      if (!match && ++request->m_queryIndex < request->m_queries.size())
       {
         StartAddressResolution();
         return;
@@ -555,7 +550,7 @@ void SearchAPI::StartAddressResolution()
       SuspendAddressResolution();
       m_addressRequests.pop_front();
       LOG(LDEBUG, ("Address resolution", request->m_id, "background", request->m_background, "found", match.has_value(),
-                   "early", early, "milliseconds", request->m_timer.ElapsedMilliseconds()));
+                   "milliseconds", request->m_timer.ElapsedMilliseconds()));
       request->m_callback(std::move(match));
       StartAddressResolution();
     });

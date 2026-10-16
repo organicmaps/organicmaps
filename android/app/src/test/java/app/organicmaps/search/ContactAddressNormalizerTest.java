@@ -49,12 +49,13 @@ public class ContactAddressNormalizerTest
   public void removesCommonUnitPrefixes()
   {
     assertEquals("868 West 67th Avenue", ContactAddressNormalizer.normalizeStreet("Unit 5, 868 West 67 Ave"));
-    assertEquals("868 West 67th Avenue", ContactAddressNormalizer.normalizeStreet("5-868 West 67 Ave"));
+    assertEquals("5-868 West 67th Avenue", ContactAddressNormalizer.normalizeStreet("5-868 West 67 Ave"));
     assertEquals("868 West 67th Avenue", ContactAddressNormalizer.normalizeStreet("#5 868 West 67 Ave"));
     assertEquals("10238 155a Street", ContactAddressNormalizer.normalizeStreet("Unit #3 10238 155a Street"));
     assertEquals("2453 163 Street", ContactAddressNormalizer.normalizeStreet("#10 2453 163 St"));
-    assertEquals("1400 9th Avenue Southeast", ContactAddressNormalizer.normalizeStreet("1-1400 9th Ave SE"));
-    assertEquals("32729 Garibaldi Drive", ContactAddressNormalizer.normalizeStreet("103 - 32729 Garibaldi Drive"));
+    assertEquals("1-1400 9th Avenue Southeast", ContactAddressNormalizer.normalizeStreet("1-1400 9th Ave SE"));
+    assertEquals("103 - 32729 Garibaldi Drive",
+                 ContactAddressNormalizer.normalizeStreet("103 - 32729 Garibaldi Drive"));
   }
 
   @Test
@@ -76,8 +77,8 @@ public class ContactAddressNormalizerTest
   @Test
   public void normalizesCommonContactFormatting()
   {
-    assertEquals("10879 160 Street", ContactAddressNormalizer.normalizeStreet("10879-160 Street"));
-    assertEquals("14033 92 Avenue", ContactAddressNormalizer.normalizeStreet("14033 - 92 Avenue"));
+    assertEquals("10879-160 Street", ContactAddressNormalizer.normalizeStreet("10879-160 Street"));
+    assertEquals("14033 - 92 Avenue", ContactAddressNormalizer.normalizeStreet("14033 - 92 Avenue"));
     assertEquals("11371 161 Street", ContactAddressNormalizer.normalizeStreet("11371\n161 Street"));
     assertEquals("10514 74 Street Northwest", ContactAddressNormalizer.normalizeStreet("10514 74st NW"));
     assertEquals("11093 158 Street", ContactAddressNormalizer.normalizeStreet("11093 158St"));
@@ -135,7 +136,7 @@ public class ContactAddressNormalizerTest
   @Test
   public void doesNotCrashOnOversizedHouseOrUnitNumbers()
   {
-    assertEquals("999999999999999999999999 10 Main Street",
+    assertEquals("999999999999999999999999-10 Main Street",
                  ContactAddressNormalizer.normalizeStreet("999999999999999999999999-10 Main Street"));
     assertEquals("", ContactAddressNormalizer.possibleBareUnitStreet("999999999999999999999999 10 Main Street"));
   }

@@ -39,7 +39,7 @@ AddressResultMatch GetAddressResultMatch(std::string const & query, Result const
 
 // Returns no match when distinct locations satisfy the query, rather than choosing an arbitrary address.
 Result const * FindUniqueAddressResult(std::string const & query, Results const & results,
-                                       std::string const & expectedStreet = {}, bool early = false);
+                                       std::string const & expectedStreet = {});
 
 // Prioritize mapped matches and nearby house numbers without inventing a missing address.
 Results RankAddressResults(std::string const & query, Results const & results, std::string const & expectedStreet = {});
@@ -48,7 +48,4 @@ Results RankAddressResults(std::string const & query, Results const & results, s
 bool IsAddressResultMatchingQuery(std::string const & query, Result const & result,
                                   std::string const & expectedStreet = {});
 
-// Only mapped, fully qualified exact addresses can finish resolution before the search ends.
-bool IsEarlyAddressResultMatchingQuery(std::string const & query, Result const & result,
-                                       std::string const & expectedStreet);
 }  // namespace search

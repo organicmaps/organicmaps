@@ -386,7 +386,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSetContactView
     api.SetAddressViewportCallback({});
     return;
   }
-  api.SetAddressViewportCallback([](m2::RectD const & viewport, int scale)
+  api.SetAddressViewportCallback([](m2::RectD const & viewport, int scale, uint64_t mapRevision)
   {
     auto * env = jni::GetEnv();
     std::string mapRegions;
@@ -394,21 +394,18 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSetContactView
       for (auto const & region : g_framework->NativeFramework()->GetRegionsCountryIdByRect(viewport, false))
         mapRegions += region + " ";
     jni::TScopedLocalRef regions(env, jni::ToJavaString(env, mapRegions));
-    auto const version = g_framework->NativeFramework()->GetMwmVersion(viewport.Center());
-    env->CallVoidMethod(g_javaListener, g_contactViewportChangedId, scale, regions.get(), static_cast<jlong>(version),
-                        viewport.minX(), viewport.minY(), viewport.maxX(), viewport.maxY());
+    env->CallVoidMethod(g_javaListener, g_contactViewportChangedId, scale, regions.get(),
+                        static_cast<jlong>(mapRevision), viewport.minX(), viewport.minY(), viewport.maxX(),
+                        viewport.maxY());
   });
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResolvedAddress(JNIEnv * env, jclass clazz,
                                                                                         jdouble lat, jdouble lon,
-                                                                                        jstring address)
+                                                                                        jstring name, jstring address)
 {
-  auto const nativeAddress = jni::ToNativeString(env, address);
-  search::Result result(mercator::FromLatLon(lat, lon), nativeAddress);
-  result.SetAddress(std::string(nativeAddress));
-  result.SetType(search::Result::Type::LatLon);
-  g_framework->NativeFramework()->SelectSearchResult(result, true /* animation */);
+  g_framework->NativeFramework()->SelectResolvedAddress(mercator::FromLatLon(lat, lon), jni::ToNativeString(env, name),
+                                                        jni::ToNativeString(env, address), true /* animation */);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
