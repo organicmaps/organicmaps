@@ -142,7 +142,13 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   @MainThread
   public void selectResolvedAddress(double lat, double lon, @NonNull String address)
   {
-    nativeSelectResolvedAddress(lat, lon, address);
+    selectResolvedAddress(lat, lon, address, "");
+  }
+
+  @MainThread
+  public void selectResolvedAddress(double lat, double lon, @NonNull String name, @NonNull String address)
+  {
+    nativeSelectResolvedAddress(lat, lon, name, address);
   }
 
   @Keep
@@ -320,7 +326,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private static native void nativeCancelAddressResolution(long requestId);
 
-  private static native void nativeSelectResolvedAddress(double lat, double lon, String address);
+  private static native void nativeSelectResolvedAddress(double lat, double lon, String name, String address);
 
   private static native void nativeShowResult(int index);
 

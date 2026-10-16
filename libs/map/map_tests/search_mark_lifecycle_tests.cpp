@@ -10,6 +10,17 @@
 
 namespace search_mark_lifecycle_tests
 {
+UNIT_TEST(ResolvedAddressSelectionPreservesPresentationAndCoordinates)
+{
+  Framework framework({}, false);
+  auto const point = mercator::FromLatLon(49.121039, -122.857036);
+  framework.SelectResolvedAddress(point, "Address label", "6498, 131A Street", false);
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetMercator(), point, ());
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetTitle(), "Address label", ());
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetSubtitle(), "6498, 131A Street", ());
+  TEST(!framework.GetCurrentPlacePageInfo().GetID().IsValid(), ());
+}
+
 class RegisteredMwmInfo : public MwmInfo
 {
 public:

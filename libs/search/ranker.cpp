@@ -7,6 +7,7 @@
 #include "search/model.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_utils.hpp"
+#include "search/string_utils.hpp"
 #include "search/token_slice.hpp"
 
 #include "indexer/brands_holder.hpp"
@@ -46,48 +47,6 @@ template <typename Slice>
 void UpdateNameScores(TokensVector & tokens, uint8_t lang, Slice const & slice, NameScores & bestScores)
 {
   bestScores.UpdateIfBetter(GetNameScores(tokens, lang, slice));
-}
-
-// This function supports only street names like "abcdstrasse"/"abcd strasse".
-/// @see Also FeatureNameInserter::AddDACHNames
-std::vector<std::vector<strings::UniString>> ModifyDACHStreet(std::vector<strings::UniString> const & streetTokens)
-{
-  auto const size = streetTokens.size();
-  ASSERT_GREATER(size, 0, ());
-
-  std::vector<std::vector<strings::UniString>> result;
-  for (auto const & sx : GetDACHStreets())
-  {
-    if (!strings::EndsWith(streetTokens.back(), sx.first))
-      continue;
-
-    if (streetTokens.back() == sx.first)
-    {
-      if (size == 1)
-        return {};
-
-      // "Abcd strasse" -> "abcdstrasse".
-      result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
-      result.back().back() += sx.first;
-
-      // "Abcd strasse" -> "abcdstr".
-      result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
-      result.back().back() += sx.second;
-      return result;
-    }
-
-    // "Abcdstrasse" -> "abcd strasse".
-    auto const name = strings::UniString(streetTokens.back().begin(), streetTokens.back().end() - sx.first.size());
-    result.push_back(streetTokens);
-    result.back().back() = name;
-    result.back().push_back(sx.first);
-
-    // "Abcdstrasse" -> "abcdstr".
-    result.push_back(streetTokens);
-    result.back().back() = name + sx.second;
-  }
-
-  return result;
 }
 
 std::vector<strings::UniString> RemoveStreetSynonyms(std::vector<strings::UniString> const & tokens)
@@ -300,6 +259,15 @@ public:
       return {};
 
     RankerResult res(*ft, center, std::move(name), country);
+    if (m_ranker.m_params.m_needAddress || m_ranker.m_geocoderParams.m_isAddressQuery)
+    {
+      ReverseGeocoder::Address address;
+      if (m_reverseGeocoder.GetExactAddress(*ft, address, true /* placeAsStreet */))
+      {
+        res.m_houseNumber = address.GetHouseNumber();
+        res.m_street = address.GetStreetName();
+      }
+    }
     res.FillDetails(*ft, m_ranker.m_typeResolver.m_isBuilding(res.GetTypes()),
                     m_ranker.m_typeResolver.m_isHotel(res.GetTypes()));
 
@@ -763,7 +731,10 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   Result res(rankerResult.GetCenter(), rankerResult.m_str);
 
   if (needAddress)
+  {
     res.SetAddress(ResolveAddress(rankerResult));
+    res.SetAddressIdentity(rankerResult.m_houseNumber, rankerResult.m_street);
+  }
 
   switch (rankerResult.GetResultType())
   {

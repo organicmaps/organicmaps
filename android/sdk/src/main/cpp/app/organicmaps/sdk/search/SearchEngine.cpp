@@ -376,13 +376,10 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAddressR
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResolvedAddress(JNIEnv * env, jclass clazz,
                                                                                         jdouble lat, jdouble lon,
-                                                                                        jstring address)
+                                                                                        jstring name, jstring address)
 {
-  auto const nativeAddress = jni::ToNativeString(env, address);
-  search::Result result(mercator::FromLatLon(lat, lon), nativeAddress);
-  result.SetAddress(std::string(nativeAddress));
-  result.SetType(search::Result::Type::LatLon);
-  g_framework->NativeFramework()->SelectSearchResult(result, true /* animation */);
+  g_framework->NativeFramework()->SelectResolvedAddress(mercator::FromLatLon(lat, lon), jni::ToNativeString(env, name),
+                                                        jni::ToNativeString(env, address), true /* animation */);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)

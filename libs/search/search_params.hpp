@@ -94,7 +94,7 @@ struct SearchParams
   // True if you need *pure* category results only, without names/addresses/etc matching.
   bool m_categorialRequest = false;
 
-  // Allows a caller to retrieve close same-parity house numbers when an exact address is unavailable.
+  // Allows a caller to retrieve nearby mapped house numbers as alternate results, not guessed coordinates.
   bool m_allowNearbyHouseNumbers = false;
 
   // Set to true for debug logs and tests.

@@ -521,6 +521,8 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
     m_storage.DeleteCustomCountryVersion(localFile);
+    // A deferred deregistration can finish after the initial deletion notification.
+    GetSearchAPI().ClearCaches();
   };
 
   // Call action on thread in which the framework was created
@@ -1481,6 +1483,20 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
 
 void Framework::SelectSearchResult(search::Result const & result, bool animation)
 {
+  SelectSearchResult(result, animation, {}, {});
+}
+
+void Framework::SelectResolvedAddress(m2::PointD const & point, std::string const & name, std::string const & address,
+                                      bool animation)
+{
+  search::Result result(point, name);
+  result.SetType(search::Result::Type::LatLon);
+  SelectSearchResult(result, animation, name, address);
+}
+
+void Framework::SelectSearchResult(search::Result const & result, bool animation, std::string const & title,
+                                   std::string const & subtitle)
+{
   using namespace search;
   place_page::BuildInfo info;
   info.m_source = place_page::BuildInfo::Source::Search;
@@ -1520,6 +1536,8 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 
   if (result.GetResultType() == Result::Type::Postcode)
     m_currentPlacePageInfo->SetCustomNames(result.GetString(), m_stringsBundle.GetString("postal_code"));
+  if (!title.empty() || !subtitle.empty())
+    m_currentPlacePageInfo->SetCustomNames(title.empty() ? subtitle : title, title.empty() ? "" : subtitle);
 
   if (m_drapeEngine)
   {
