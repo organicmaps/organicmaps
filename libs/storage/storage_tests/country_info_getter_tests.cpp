@@ -127,10 +127,8 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Antimeridian)
 {
   auto const getter = CreateCountryInfoGetter();
 
-  // US_Alaska's bound rect crosses the antimeridian (stored as [-190.22 .. -129.97]); its Aleutian
-  // polygons live in the canonical [170, 180) and (-180, -170] ranges. A wrapped viewport rect that
-  // crosses 180 must still match them via the precise polygon test (rough == false ->
-  // IsIntersectedByRegion -> CountryDef::ForEachRectSideWrapped).
+  // Alaska's compact bounds cross the antimeridian. Precise rectangle lookup must check both
+  // canonical longitude parts against its country polygons.
   auto hasAlaska = [&](m2::RectD const & r)
   {
     auto const cs = getter->GetRegionsCountryIdByRect(r, false /* rough */);
@@ -147,6 +145,28 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Antimeridian)
   // Bering Strait point on the Alaska (negative lon) side, reached only by the wrapped-right part of
   // a thin rect spanning lon [170, 192]: the [180, 192] half wraps to [-180, -168] and must match.
   TEST(hasAlaska({mercator::FromLatLon(65.74, 170), mercator::FromLatLon(65.78, 192)}), ());
+}
+
+UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_ContainedPolygons)
+{
+  auto const reader = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  TEST(reader, ());
+  auto const & countries = reader->GetCountries();
+  for (size_t id = 0; id < countries.size(); ++id)
+  {
+    auto const regions = reader->LoadRegionsFromDisk(id);
+    if (regions.size() < 2)
+      continue;
+
+    // Enclosing one polygon need not enclose the country bounds or put the query center inside that polygon.
+    for (auto const & region : regions)
+    {
+      auto const rect = m2::Inflate(region.GetRect(), 1e-4, 1e-4);
+      auto const matches = reader->GetRegionsCountryIdByRect(rect, false /* rough */);
+      TEST(find(matches.begin(), matches.end(), countries[id].m_countryId) != matches.end(),
+           (countries[id].m_countryId, rect));
+    }
+  }
 }
 
 UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
