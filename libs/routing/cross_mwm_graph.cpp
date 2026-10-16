@@ -4,6 +4,8 @@
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
 
+#include "routing_common/num_mwm_tree.hpp"
+
 #include "base/assert.hpp"
 
 #include "defines.hpp"
@@ -37,7 +39,7 @@ bool CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId, std::vector<NumMwmI
   m2::RectD const rect = m_countryRectFn(m_numMwmIds->GetFile(numMwmId).GetName());
 
   bool allNeighborsHaveCrossMwmSection = true;
-  m_numMwmTree->ForEachInRect(rect, [&](NumMwmId id)
+  ForEachNumMwmInRect(*m_numMwmTree, rect, [&](NumMwmId id)
   {
     if (id == numMwmId)
       return;

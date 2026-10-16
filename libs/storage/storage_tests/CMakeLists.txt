@@ -9,6 +9,7 @@ set(SRC
   fake_map_files_downloader.hpp
   helpers.cpp
   helpers.hpp
+  routing_helpers_tests.cpp
   simple_tree_test.cpp
   storage_download_tests.cpp
   storage_tests.cpp

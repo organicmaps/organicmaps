@@ -1,5 +1,7 @@
 #include "storage/routing_helpers.hpp"
 
+#include "geometry/mercator.hpp"
+
 namespace routing
 {
 
@@ -11,7 +13,8 @@ std::unique_ptr<m4::Tree<NumMwmId>> MakeNumMwmTree(NumMwmIds const & numMwmIds,
   numMwmIds.ForEachId([&](NumMwmId numMwmId)
   {
     auto const & countryName = numMwmIds.GetFile(numMwmId).GetName();
-    tree->Add(numMwmId, countryInfoGetter.GetLimitRectForLeaf(countryName));
+    mercator::ForEachRectWrapped(countryInfoGetter.GetLimitRectForLeaf(countryName),
+                                 [&](m2::RectD const & rect) { tree->Add(numMwmId, rect); });
   });
 
   return tree;
