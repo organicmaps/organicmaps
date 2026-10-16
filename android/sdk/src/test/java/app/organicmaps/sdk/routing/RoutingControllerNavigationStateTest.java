@@ -1,8 +1,13 @@
 package app.organicmaps.sdk.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mockStatic;
 
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.log.Logger;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -66,6 +71,44 @@ public class RoutingControllerNavigationStateTest
       controller.restore();
     }
     assertEquals(List.of("new"), events);
+  }
+
+  @Test
+  public void explicitOriginNavRequestDoesNotAutoStart() throws ReflectiveOperationException
+  {
+    assertFalse(navRequestAutoStarts(MapObject.POI));
+  }
+
+  @Test
+  public void currentPositionNavRequestAutoStarts() throws ReflectiveOperationException
+  {
+    assertTrue(navRequestAutoStarts(MapObject.MY_POSITION));
+  }
+
+  private static boolean navRequestAutoStarts(int originType) throws ReflectiveOperationException
+  {
+    final RoutingController controller = new RoutingController();
+    try (MockedStatic<Logger> logger = mockStatic(Logger.class);
+         MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class);
+         MockedStatic<Framework> framework = mockStatic(Framework.class);
+         MockedStatic<Router> router = mockStatic(Router.class))
+    {
+      controller.attach(new RoutingController.Container() {});
+      controller.prepare(
+          List.of(MapObject.createMapObject(originType, "Origin", "", 1.0, 2.0),
+                  MapObject.createMapObject(MapObject.POI, "Destination", "", 3.0, 4.0)),
+          Router.Vehicle, false /* optimizeRoutePoints */, true /* startNavigation */, null /* callbacks */,
+          0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
+      return getBooleanField(controller, "mStartNavigationAfterBuild");
+    }
+  }
+
+  private static boolean getBooleanField(RoutingController controller, String name)
+      throws ReflectiveOperationException
+  {
+    final Field field = RoutingController.class.getDeclaredField(name);
+    field.setAccessible(true);
+    return (boolean) field.get(controller);
   }
 
   private static void cacheReadyApiRoute(RoutingController controller) throws ReflectiveOperationException

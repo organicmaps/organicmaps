@@ -497,9 +497,9 @@ public class RoutingController
 
     mLastRouterType = routerType;
     Router.set(mLastRouterType);
-    // The core sets the auto-start flag only for nav requests, which always route
-    // from the current position, so honor the parsed flag directly.
-    mStartNavigationAfterBuild = startNavigation;
+    // Auto-start only for a nav request whose origin is the user's current position.
+    // An explicit non-current origin keeps route preview, so the built route is not started.
+    mStartNavigationAfterBuild = startNavigation && routePoints.get(0).isMyPosition();
     mContainsCachedResult = false;
     // BUILDING must be set before the native call: a build that fails synchronously
     // (e.g. NoCurrentPosition) reports through onRoutingEvent during the call and
