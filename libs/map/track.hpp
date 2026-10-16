@@ -9,6 +9,7 @@
 
 #include "geometry/any_rect2d.hpp"
 
+#include <optional>
 #include <string>
 
 class Track : public df::UserLineMark
@@ -118,6 +119,8 @@ private:
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;
   mutable std::optional<ElevationInfo> m_elevationInfo;
+  mutable std::optional<TrackStatistics> m_statistics;
+  mutable std::optional<bool> m_hasAltitudes;
 
   struct InteractionData
   {

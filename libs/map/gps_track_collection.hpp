@@ -2,11 +2,12 @@
 
 #include "platform/location.hpp"
 
-#include "map/elevation_info.hpp"
+#include "map/track_elevation.hpp"
 #include "map/track_statistics.hpp"
 
 #include <deque>
 #include <limits>
+#include <span>
 #include <vector>
 
 class GpsTrackCollection final
@@ -37,11 +38,15 @@ public:
 
   /// Returns number of items in the collection
   size_t GetSize() const;
+  bool HasAltitudes() const { return m_hasAltitude && !m_invalidAltitude; }
 
   /// Returns track statistics.
-  TrackStatistics const & GetTrackStatistics() const { return m_statistics; }
-  /// Updates the elevation info with the missed points and returns a reference.
-  ElevationInfo const & UpdateAndGetElevationInfo();
+  TrackStatistics const & GetTrackStatistics() const;
+  /// Current statistical tail, excluding any already finalized anchor.
+  std::span<TrackElevation::Point const> GetElevationTail() const
+  {
+    return m_elevation.GetTail().subspan(m_elevation.HasPrefix() ? 1 : 0);
+  }
 
   /// Enumerates items in the collection.
   /// @param f - callable object, which is called with params - item and item id,
@@ -67,7 +72,10 @@ private:
   std::deque<TItem> m_items;  // asc. sorted by timestamp
 
   size_t m_lastId;
-  TrackStatistics m_statistics;
-  GpsTrackElevation m_elevationInfo;
-  bool m_elevationInfoDirty;
+  mutable TrackStatistics m_statistics;
+  TrackElevation m_elevation;
+  m2::PointD m_lastPoint;
+  mutable bool m_statisticsDirty = false;
+  bool m_invalidAltitude = false;
+  bool m_hasAltitude = false;
 };

@@ -3,8 +3,7 @@
 #include "map/gps_track.hpp"
 
 #include <atomic>
-#include <functional>
-#include <vector>
+#include <memory>
 
 class GpsTracker
 {
@@ -18,7 +17,9 @@ public:
   bool IsEmpty() const;
 
   TrackStatistics GetTrackStatistics();
-  ElevationInfo const & GetElevationInfo();
+  ElevationInfo GetElevationInfo();
+  std::shared_ptr<GpsTrack::ElevationSnapshot const> GetElevationSnapshot(
+      GpsTrack::IsCancelled const & isCancelled = {});
 
   using TGpsTrackDiffCallback = GpsTrack::TGpsTrackDiffCallback;
 

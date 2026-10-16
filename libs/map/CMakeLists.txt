@@ -59,6 +59,8 @@ set(SRC
   search_mark.hpp
   track.cpp
   track.hpp
+  track_elevation.cpp
+  track_elevation.hpp
   track_statistics.cpp
   track_statistics.hpp
   track_mark.cpp

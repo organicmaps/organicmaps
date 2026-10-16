@@ -2,9 +2,12 @@
 
 #include "geometry/parametrized_segment.hpp"
 
+#include "base/assert.hpp"
+
 #include <algorithm>
 #include <cstdint>
 #include <iterator>
+#include <span>
 #include <vector>
 
 // Polyline simplification algorithms.
@@ -89,7 +92,8 @@ void SimplifyDP(Iter beg, Iter end, double epsilon, DistanceFn distFn, Out out)
 // Essentially, it's a trade-off between optimality and performance.
 // Values around 20 - 200 are reasonable.
 template <typename DistanceFn, typename Iter, typename Out>
-void SimplifyNearOptimal(int maxFalseLookAhead, Iter beg, Iter end, double epsilon, DistanceFn distFn, Out out)
+void SimplifyNearOptimal(int maxFalseLookAhead, Iter beg, Iter end, double epsilon, DistanceFn distFn, Out out,
+                         std::span<simpl::SimplifyOptimalRes> scratch)
 {
   int32_t const n = static_cast<int32_t>(end - beg);
   if (n <= 2)
@@ -99,7 +103,9 @@ void SimplifyNearOptimal(int maxFalseLookAhead, Iter beg, Iter end, double epsil
     return;
   }
 
-  std::vector<simpl::SimplifyOptimalRes> F(n);
+  ASSERT_GREATER_OR_EQUAL(scratch.size(), static_cast<size_t>(n), ());
+  auto F = scratch.first(n);
+  std::fill(F.begin(), F.end(), simpl::SimplifyOptimalRes{});
   F[n - 1] = simpl::SimplifyOptimalRes(n, 1);
   for (int32_t i = n - 2; i >= 0; --i)
   {
@@ -125,17 +131,26 @@ void SimplifyNearOptimal(int maxFalseLookAhead, Iter beg, Iter end, double epsil
     out(*(beg + i));
 }
 
+template <typename DistanceFn, typename Iter, typename Out>
+void SimplifyNearOptimal(int maxFalseLookAhead, Iter beg, Iter end, double epsilon, DistanceFn distFn, Out out)
+{
+  if (end - beg <= 2)
+  {
+    for (auto it = beg; it != end; ++it)
+      out(*it);
+    return;
+  }
+  std::vector<simpl::SimplifyOptimalRes> scratch(end - beg);
+  SimplifyNearOptimal(maxFalseLookAhead, beg, end, epsilon, distFn, out, scratch);
+}
+
 // Additional points filter to use in simplification.
 // SimplifyDP can produce points that define degenerate triangle.
-template <typename DistanceFn, typename Point>
+template <typename DistanceFn, typename Point, typename Container = std::vector<Point>>
 class AccumulateSkipSmallTrg
 {
 public:
-  AccumulateSkipSmallTrg(DistanceFn & distFn, std::vector<Point> & vec, double eps)
-    : m_distFn(distFn)
-    , m_vec(vec)
-    , m_eps(eps)
-  {}
+  AccumulateSkipSmallTrg(DistanceFn & distFn, Container & vec, double eps) : m_distFn(distFn), m_vec(vec), m_eps(eps) {}
 
   void operator()(Point const & p) const
   {
@@ -152,9 +167,13 @@ public:
 
 private:
   DistanceFn & m_distFn;
-  std::vector<Point> & m_vec;
+  Container & m_vec;
   double m_eps;
 };
+
+template <typename DistanceFn, typename Container>
+AccumulateSkipSmallTrg(DistanceFn &, Container &, double)
+    -> AccumulateSkipSmallTrg<DistanceFn, typename Container::value_type, Container>;
 
 template <class IterT, class PointT>
 void SimplifyDefault(IterT beg, IterT end, double squareEps, std::vector<PointT> & out)
