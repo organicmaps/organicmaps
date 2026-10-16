@@ -285,6 +285,18 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
   TEST(AlmostEqualAbs(boundingBox, expectedBoundingBox, kRectCompareEpsilon), ());
 }
 
+UNIT_TEST(CountryInfoGetterForTesting_GetLimitRectForLeaf)
+{
+  m2::RectD const first(10, 20, 30, 40), second(50, 60, 70, 80);
+  CountryInfoGetterForTesting getter({{"First", first}});
+  TEST_EQUAL(getter.GetLimitRectForLeaf("First"), first, ());
+
+  getter.AddCountry({"Second", second});
+  TEST_EQUAL(getter.GetLimitRectForLeaf("Second"), second, ());
+  TEST_EQUAL(getter.GetLimitRectForLeaf("World"), mercator::Bounds::FullRect(), ());
+  TEST_EQUAL(getter.GetLimitRectForLeaf("Unknown"), mercator::Bounds::FullRect(), ());
+}
+
 // This is a test for consistency between data/countries.json and data/packed_polygons.bin.
 UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 {
