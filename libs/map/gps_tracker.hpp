@@ -17,7 +17,6 @@ public:
   bool IsEmpty() const;
 
   TrackStatistics GetTrackStatistics();
-  ElevationInfo GetElevationInfo();
   std::shared_ptr<GpsTrack::ElevationSnapshot const> GetElevationSnapshot(
       GpsTrack::IsCancelled const & isCancelled = {});
 

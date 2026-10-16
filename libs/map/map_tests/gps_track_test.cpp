@@ -531,8 +531,9 @@ UNIT_TEST(GpsTrack_ElevationSnapshots)
   track.AddPoints({makePoint(0, 100), makePoint(1, 100), makePoint(2, 150)});
   TEST(callback.WaitForAdded(3), ());
 
-  auto const & snapshot = track.GetElevationInfo();
-  TEST_EQUAL(snapshot.GetLines().front().back().m_altitude, 150, ());
+  auto const snapshot = track.GetElevationSnapshot();
+  TEST(snapshot, ());
+  TEST_EQUAL(snapshot->m_elevation.GetLines().front().back().m_altitude, 150, ());
 
   track.AddPoints({makePoint(3, 100), makePoint(4, 100)});
   TEST(callback.WaitForAdded(5), ());
@@ -540,9 +541,9 @@ UNIT_TEST(GpsTrack_ElevationSnapshots)
   TEST_EQUAL(callbackStatistics.m_ascent, 0, ());
   TEST_EQUAL(callbackStatistics.m_descent, 0, ());
   TEST_EQUAL(callbackStatistics.m_maxElevation, 100, ());
-  TEST_EQUAL(track.GetElevationInfo().GetSize(), 2, ());
+  TEST_EQUAL(track.GetElevationSnapshot()->m_elevation.GetSize(), 2, ());
   // The worker may replace its cached profile while a UI consumer holds an older snapshot.
-  TEST_EQUAL(snapshot.GetLines().front().back().m_altitude, 150, ());
+  TEST_EQUAL(snapshot->m_elevation.GetLines().front().back().m_altitude, 150, ());
 
   TEST_EQUAL(track.Finalize(), 5, ());
   kml::TrackData data;

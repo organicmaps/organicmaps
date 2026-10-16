@@ -78,11 +78,6 @@ TrackStatistics GpsTracker::GetTrackStatistics()
   return m_track.GetTrackStatistics();
 }
 
-ElevationInfo GpsTracker::GetElevationInfo()
-{
-  return m_track.GetElevationInfo();
-}
-
 std::shared_ptr<GpsTrack::ElevationSnapshot const> GpsTracker::GetElevationSnapshot(
     GpsTrack::IsCancelled const & isCancelled)
 {

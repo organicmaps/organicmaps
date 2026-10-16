@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage;
 
+import android.graphics.Rect;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -20,8 +21,13 @@ public class ElevationProfileViewRenderer
   @NonNull
   private final View[] mDifficultyLevels = new View[MAX_DIFFICULTY_LEVEL];
 
+  @Nullable
+  private ChartController mChartController;
   @NonNull
-  private final ChartController mChartController;
+  private final View mView;
+  @NonNull
+  private final ElevationProfileChart mPlot;
+  private final Rect mVisibleRect = new Rect();
   @NonNull
   private final TextView mAscent;
   @NonNull
@@ -35,7 +41,9 @@ public class ElevationProfileViewRenderer
 
   public ElevationProfileViewRenderer(@NonNull View view)
   {
-    mChartController = new ChartController(view);
+    mView = view;
+    mPlot = view.findViewById(R.id.elevation_profile_chart);
+    mPlot.setNoDataText("");
     mAscent = view.findViewById(R.id.ascent);
     mDescent = view.findViewById(R.id.descent);
     mMaxAltitude = view.findViewById(R.id.max_altitude);
@@ -46,10 +54,16 @@ public class ElevationProfileViewRenderer
     mDifficultyLevels[2] = mDifficultyContainer.findViewById(R.id.difficulty_level_3);
   }
 
-  public void render(@Nullable Track track, @NonNull ElevationInfo elevationInfo, @NonNull TrackStatistics stats)
+  public void renderGraph(@Nullable Track track, @NonNull ElevationInfo elevationInfo, @NonNull TrackStatistics stats)
   {
+    if (mChartController == null)
+      mChartController = new ChartController(mView);
     mChartController.setData(track, elevationInfo, stats);
     setDifficulty(elevationInfo.getDifficulty());
+  }
+
+  public void renderStatistics(@NonNull TrackStatistics stats)
+  {
     mAscent.setText(Framework.nativeFormatAltitude((int) stats.getAscent()));
     mDescent.setText(Framework.nativeFormatAltitude((int) stats.getDescent()));
     mMaxAltitude.setText(Framework.nativeFormatAltitude(stats.getMaxElevation()));
@@ -58,12 +72,30 @@ public class ElevationProfileViewRenderer
 
   public void onChartElevationActivePointChanged(double distance)
   {
-    mChartController.onElevationActivePointChanged(distance);
+    if (mChartController != null)
+      mChartController.onElevationActivePointChanged(distance);
   }
 
   public void onChartCurrentPositionChanged(double distance)
   {
-    mChartController.onCurrentPositionChanged(distance);
+    if (mChartController != null)
+      mChartController.onCurrentPositionChanged(distance);
+  }
+
+  public boolean isGraphVisible()
+  {
+    if (!mPlot.isShown() || mPlot.getWindowVisibility() != View.VISIBLE)
+      return false;
+    for (View view = mPlot; view != null; view = view.getParent() instanceof View parent ? parent : null)
+      if (view.getAlpha() <= 0)
+        return false;
+    return mPlot.getGlobalVisibleRect(mVisibleRect) && !mVisibleRect.isEmpty();
+  }
+
+  public void clearGraph()
+  {
+    if (mChartController != null)
+      mChartController.clear();
   }
 
   private void setDifficulty(int level)

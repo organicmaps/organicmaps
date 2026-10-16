@@ -1986,11 +1986,6 @@ void Framework::SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && tr
   GpsTracker::Instance().SetStatisticsCallback(callback);
 }
 
-ElevationInfo Framework::GetTrackRecordingElevationInfo()
-{
-  return GpsTracker::Instance().GetElevationInfo();
-}
-
 void Framework::StopTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();

@@ -88,6 +88,13 @@ public class ChartController implements OnChartValueSelectedListener
     mChart.setTouchEnabled(mTrack != null);
   }
 
+  public void clear()
+  {
+    mChart.clear();
+    mMinAltitude.setText("");
+    mMaxAltitude.setText("");
+  }
+
   private float interpolateAltitude(float distance)
   {
     if (mChart.getData() == null || mChart.getData().getDataSetCount() == 0)

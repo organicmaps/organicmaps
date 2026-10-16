@@ -458,11 +458,6 @@ public:
   bool IsTrackRecordingEnabled() const;
 
   void SaveRoute();
-  /// Returns a snapshot of the processed elevation profile of the currently recorded track.
-  /// To get the data on the every track recording state update, this function should be called after receiving the
-  /// callback from the `SetTrackRecordingUpdateHandler`.
-  static ElevationInfo GetTrackRecordingElevationInfo();
-
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;

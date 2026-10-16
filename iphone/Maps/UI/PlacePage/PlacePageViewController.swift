@@ -61,6 +61,10 @@ final class PlacePageScrollView: UIScrollView {
 
     setupView()
     setupLayout(layout)
+    NotificationCenter.default.addObserver(self, selector: #selector(updateElevationVisibility),
+                                           name: UIApplication.didBecomeActiveNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(suspendElevationUpdates),
+                                           name: UIApplication.willResignActiveNotification, object: nil)
   }
 
   override func viewDidLayoutSubviews() {
@@ -70,18 +74,21 @@ final class PlacePageScrollView: UIScrollView {
     panGesture.isEnabled = alternativeSizeClass(iPhone: false, iPad: true)
     previousTraitCollection = traitCollection
     updateBackgroundViewFrame()
+    updateElevationVisibility()
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     isVisible = true
     updatePreviewOffset()
+    updateElevationVisibility()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     currentScrollContentOffset = scrollView.contentOffset
     isVisible = false
+    suspendElevationUpdates()
     interactor?.viewWillDisappear()
   }
 
@@ -111,6 +118,7 @@ final class PlacePageScrollView: UIScrollView {
     view.minX = min(view.minX, 0)
     let alpha = view.maxX / view.width
     view.alpha = alpha
+    updateElevationVisibility()
 
     let state = gesture.state
     if state == .ended || state == .cancelled {
@@ -126,6 +134,20 @@ final class PlacePageScrollView: UIScrollView {
   }
 
   // MARK: - Private methods
+
+  @objc private func updateElevationVisibility() {
+    guard isViewLoaded else { return }
+    let active = isVisible && UIApplication.shared.applicationState == .active
+    for case let controller as ElevationProfileViewController in children {
+      controller.updateProfileVisibility(in: scrollView, active: active)
+    }
+  }
+
+  @objc private func suspendElevationUpdates() {
+    for case let controller as ElevationProfileViewController in children {
+      controller.updateProfileVisibility(in: scrollView, active: false)
+    }
+  }
 
   private func updateSteps() {
     layoutIfNeeded()
@@ -237,6 +259,7 @@ final class PlacePageScrollView: UIScrollView {
   }
 
   private func cleanupLayout() {
+    suspendElevationUpdates()
     guard let layout else { return }
     let childViewControllers = [layout.actionBar, layout.navigationBar] + layout.headerViewControllers + layout.bodyViewControllers
     for childViewController in childViewControllers {
@@ -397,6 +420,8 @@ extension PlacePageViewController: PlacePageViewProtocol {
   func close(completion: @escaping (() -> Void)) {
     // The completion removes the current Place Page, so it must run only once.
     guard closingAnimator?.state != .active else { return }
+    isVisible = false
+    suspendElevationUpdates()
     view.isUserInteractionEnabled = false
     updateTopBound(.zero)
     closingAnimator = ModalPresentationAnimator.animate(
@@ -434,6 +459,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
 
 extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    updateElevationVisibility()
     currentScrollContentOffset = scrollView.contentOffset
 
     if scrollView.contentOffset.y < -scrollView.height + 1, beginDragging, !layout.headerViewController.isEditingTitle {

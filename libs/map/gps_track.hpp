@@ -39,9 +39,6 @@ public:
 
   /// Returns track statistics
   TrackStatistics GetTrackStatistics() const;
-  /// Returns an owned profile. Graph processing runs outside the recording lock.
-  ElevationInfo GetElevationInfo() const;
-
   using IsCancelled = std::function<bool()>;
   struct ElevationSnapshot
   {

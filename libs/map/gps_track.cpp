@@ -76,12 +76,6 @@ TrackStatistics GpsTrack::GetTrackStatistics() const
   return m_needClear ? TrackStatistics{} : m_collection.GetTrackStatistics();
 }
 
-ElevationInfo GpsTrack::GetElevationInfo() const
-{
-  auto const snapshot = GetElevationSnapshot();
-  return snapshot ? snapshot->m_elevation : ElevationInfo{};
-}
-
 std::shared_ptr<GpsTrack::ElevationSnapshot const> GpsTrack::GetElevationSnapshot(IsCancelled const & isCancelled) const
 {
   auto const cancelled = [&] { return isCancelled && isCancelled(); };
