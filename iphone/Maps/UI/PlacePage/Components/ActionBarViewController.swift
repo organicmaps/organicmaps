@@ -66,25 +66,15 @@ final class ActionBarViewController: UIViewController {
     }
 
     var buttons: [ActionBarButtonType] = []
-    let addStopButton: ActionBarButtonType = shouldAppendNewPoints ? .routeAddDestination : .routeAddStop
+    let routePointButton: ActionBarButtonType = canReplaceStop ? .routeReplaceStop :
+      (shouldAppendNewPoints ? .routeAddDestination : .routeAddStop)
     switch placePageData.objectType {
-    case .POI, .bookmark:
+    case .POI, .bookmark, .track, .relationTrack:
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
-      if canAddStop {
-        buttons.append(canReplaceStop ? .routeReplaceStop : addStopButton)
-      }
-      buttons.append(.bookmark)
-      if canRouteToAndFrom {
-        buttons.append(.routeTo)
-      }
-    case .track, .relationTrack:
-      if canRouteToAndFrom {
-        buttons.append(.routeFrom)
-      }
-      if canAddStop {
-        buttons.append(addStopButton)
+      if canReplaceStop || canAddStop {
+        buttons.append(routePointButton)
       }
       buttons.append(.bookmark)
       if canRouteToAndFrom {
