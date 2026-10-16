@@ -55,6 +55,11 @@ final class PlacePagePreviewViewController: UIViewController {
 
     subtitleLabel.adjustsFontForContentSizeCategory = true
     scheduleLabel.adjustsFontForContentSizeCategory = true
+    addressLabel.accessibilityCustomActions = [UIAccessibilityCustomAction(name: L("placepage_copy"), actionHandler: { [weak self] _ in
+      guard let self, let address = self.addressLabel.text else { return false }
+      self.delegate?.previewDidCopy(address)
+      return true
+    })]
 
     if let distance = distance {
       placePageDirectionView?.isHidden = false

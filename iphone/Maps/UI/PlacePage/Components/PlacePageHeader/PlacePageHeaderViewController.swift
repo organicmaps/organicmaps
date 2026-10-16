@@ -80,11 +80,18 @@ final class PlacePageHeaderViewController: UIViewController {
     titleTextView.delegate = self
     if presenter?.canEditTitle != true {
       titleTextView.accessibilityTraits.insert(.header)
-      titleTextView.accessibilityCustomActions = [UIAccessibilityCustomAction(name: L("details"), actionHandler: { [weak self] _ in
-        guard let self else { return false }
-        self.presenter?.onExpandPress()
-        return true
-      })]
+      titleTextView.accessibilityCustomActions = [
+        UIAccessibilityCustomAction(name: L("details"), actionHandler: { [weak self] _ in
+          guard let self else { return false }
+          self.presenter?.onExpandPress()
+          return true
+        }),
+        UIAccessibilityCustomAction(name: L("placepage_copy"), actionHandler: { [weak self] _ in
+          guard let self else { return false }
+          self.presenter?.onCopy(self.titleTextView.text)
+          return true
+        }),
+      ]
     }
 
     let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTitleTextView(_:)))
