@@ -200,7 +200,9 @@ final class PlacePageScrollView: UIScrollView {
     }
 
     scrollView.isScrollEnabled = true
-    beginDragging = false
+    // Keep only an active drag: its release re-targets with the new steps.
+    // isDragging alone stays true while decelerating.
+    beginDragging = scrollView.isTracking && scrollView.isDragging
     if let actionBar = layout.actionBar {
       hideActionBar(false)
       addActionBar(actionBar)
