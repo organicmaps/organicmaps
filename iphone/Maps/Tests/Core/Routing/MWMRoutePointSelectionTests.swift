@@ -99,6 +99,55 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     waitUntilRouteReady()
   }
 
+  func test_GivenRoute_WhenStartIsRemoved_ThenFirstStopBecomesStart() throws {
+    seedRoute()
+
+    try MWMRouter.removePointAndRebuild(XCTUnwrap(MWMRouter.startPoint()))
+
+    XCTAssertEqual(MWMRouter.points().map(\.title), ["first stop", "second stop", "finish"])
+    XCTAssertEqual(MWMRouter.points().map(\.type), [.start, .intermediate, .finish])
+    waitUntilRouteReady()
+  }
+
+  func test_GivenRoute_WhenFinishIsRemoved_ThenLastStopBecomesFinish() throws {
+    seedRoute()
+
+    try MWMRouter.removePointAndRebuild(XCTUnwrap(MWMRouter.finishPoint()))
+
+    XCTAssertEqual(MWMRouter.points().map(\.title), ["start", "first stop", "second stop"])
+    XCTAssertEqual(MWMRouter.points().map(\.type), [.start, .intermediate, .finish])
+    waitUntilRouteReady()
+  }
+
+  func test_GivenTwoPoints_WhenEndpointIsRemoved_ThenOtherEndpointKeepsItsRole() throws {
+    seedEndpoints()
+
+    try MWMRouter.removePointAndRebuild(XCTUnwrap(MWMRouter.startPoint()))
+
+    XCTAssertEqual(MWMRouter.points().map(\.title), ["finish"])
+    XCTAssertEqual(MWMRouter.points().map(\.type), [.finish])
+    XCTAssertNil(MWMRouter.startPoint())
+
+    MWMRouter.stopRouting()
+    seedEndpoints()
+
+    try MWMRouter.removePointAndRebuild(XCTUnwrap(MWMRouter.finishPoint()))
+
+    XCTAssertEqual(MWMRouter.points().map(\.title), ["start"])
+    XCTAssertEqual(MWMRouter.points().map(\.type), [.start])
+    XCTAssertNil(MWMRouter.finishPoint())
+  }
+
+  func test_GivenOnePoint_WhenRemoved_ThenClosesRoutePlanning() throws {
+    select(type: .start, title: "start", coordinate: 10)
+    XCTAssertEqual(manager.state, .prepare)
+
+    try MWMRouter.removePointAndRebuild(XCTUnwrap(MWMRouter.startPoint()))
+
+    XCTAssertTrue(MWMRouter.points().isEmpty)
+    XCTAssertEqual(manager.state, .closed)
+  }
+
   func test_GivenIntermediatePoint_WhenReplaced_ThenPreservesItsIndexAndOtherPoints() throws {
     seedRoute()
     let secondStop = try XCTUnwrap(MWMRouter.points().first { $0.title == "second stop" })
