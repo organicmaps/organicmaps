@@ -17,8 +17,8 @@ import org.junit.Test;
 
 /**
  * Verifies how {@link TransitDetailsAdapter} maps the raw transit steps onto rows: ruler segments
- * are dropped, intermediate (Add Stop) points get their own row, and the ride-detection helpers
- * driving the transfer/exit labels treat walks and intermediate points as non-rides.
+ * are dropped, intermediate (Add Stop) points get their own row, walks and intermediate points are not
+ * rides, and only rides sharing a stop name are drawn as a joined transfer.
  *
  * The adapter is a {@link androidx.recyclerview.widget.RecyclerView.Adapter}, so it is spied and its
  * {@code notifyDataSetChanged()} stubbed (matching PlaceOpeningHoursAdapterTest); the private
@@ -31,6 +31,7 @@ public class TransitDetailsAdapterTest
   private int mTypeRide;
   private int mTypeIntermediate;
   private Method mIsRide;
+  private Method mIsSameStopTransfer;
 
   @Before
   public void setUp() throws Exception
@@ -44,6 +45,8 @@ public class TransitDetailsAdapterTest
 
     mIsRide = TransitDetailsAdapter.class.getDeclaredMethod("isRide", int.class);
     mIsRide.setAccessible(true);
+    mIsSameStopTransfer = TransitDetailsAdapter.class.getDeclaredMethod("isSameStopTransfer", int.class);
+    mIsSameStopTransfer.setAccessible(true);
   }
 
   @Test
@@ -81,7 +84,37 @@ public class TransitDetailsAdapterTest
     assertFalse(isRide(3)); // out of bounds
   }
 
+  @Test
+  public void sameStopTransfer_joinsRidesSharingTheStop() throws Exception
+  {
+    mAdapter.setItems(List.of(ride("U5", "A", "B"), ride("U6", "B", "C")));
+
+    assertFalse(isSameStopTransfer(0));
+    assertTrue(isSameStopTransfer(1));
+  }
+
+  @Test
+  public void transferBetweenDifferentlyNamedStops_keepsBothNames() throws Exception
+  {
+    mAdapter.setItems(List.of(ride("U5", "A", "Incoming station"), ride("U6", "Connecting station", "C")));
+
+    assertFalse(isSameStopTransfer(1));
+  }
+
+  @Test
+  public void walkBetweenRides_isNotATransfer() throws Exception
+  {
+    mAdapter.setItems(List.of(ride("U5", "A", "B"), walk(), ride("U6", "B", "C")));
+
+    assertFalse(isSameStopTransfer(2));
+  }
+
   // --- helpers ---
+
+  private boolean isSameStopTransfer(int position) throws Exception
+  {
+    return (boolean) mIsSameStopTransfer.invoke(mAdapter, position);
+  }
 
   private boolean isRide(int position) throws Exception
   {
@@ -97,12 +130,17 @@ public class TransitDetailsAdapterTest
 
   private static TransitStepInfo walk() throws Exception
   {
-    return step(TransitStepType.PEDESTRIAN, null);
+    return step(TransitStepType.PEDESTRIAN, null, null, null);
   }
 
   private static TransitStepInfo ride(String number) throws Exception
   {
-    return step(TransitStepType.SUBWAY, number);
+    return ride(number, null, null);
+  }
+
+  private static TransitStepInfo ride(String number, String startStop, String endStop) throws Exception
+  {
+    return step(TransitStepType.SUBWAY, number, startStop, endStop);
   }
 
   private static TransitStepInfo intermediate(int index)
@@ -117,12 +155,13 @@ public class TransitDetailsAdapterTest
 
   // TransitStepInfo's constructor is private (JNI-only); build test instances reflectively rather
   // than widening the production API.
-  private static TransitStepInfo step(TransitStepType type, String number) throws Exception
+  private static TransitStepInfo step(TransitStepType type, String number, String startStop, String endStop)
+      throws Exception
   {
     Constructor<TransitStepInfo> ctor = TransitStepInfo.class.getDeclaredConstructor(
         int.class, String.class, String.class, int.class, String.class, int.class, int.class, String.class,
-        String.class, int.class, String[].class, String.class);
+        String.class, int.class, String[].class);
     ctor.setAccessible(true);
-    return ctor.newInstance(type.ordinal(), null, null, 0, number, 0, 0, null, null, 0, null, null);
+    return ctor.newInstance(type.ordinal(), null, null, 0, number, 0, 0, startStop, endStop, 0, null);
   }
 }

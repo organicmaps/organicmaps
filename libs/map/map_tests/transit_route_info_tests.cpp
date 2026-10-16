@@ -113,4 +113,17 @@ UNIT_TEST(TransitRouteInfo_AddStep_EmptyEndStopNameDoesNotCorruptLeg)
   TEST_EQUAL(step.m_intermediateStopNames, std::vector<std::string>({"B"}), ());
   TEST_EQUAL(step.m_stopCount, 3, ());
 }
+
+UNIT_TEST(TransitRouteInfo_AddStep_UnnamedExitStillAdvances)
+{
+  TransitRouteInfo info;
+  info.AddStep(MakeTransitStep("5", kRed, "A", "B"));
+  info.AddStep(MakeTransitStep("5", kRed, "B", ""));
+
+  TEST_EQUAL(info.m_steps.size(), 1, ());
+  auto const & step = info.m_steps.front();
+  TEST_EQUAL(step.m_endStopName, "", ());
+  TEST_EQUAL(step.m_intermediateStopNames, std::vector<std::string>({"B"}), ());
+  TEST_EQUAL(step.m_stopCount, 2, ());
+}
 }  // namespace

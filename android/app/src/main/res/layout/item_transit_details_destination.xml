@@ -40,5 +40,5 @@
     android:maxLines="2"
     android:textColor="?android:attr/textColorPrimary"
     android:textSize="@dimen/transit_details_stop_text_size"
-    tools:text="Arrive at Alexanderplatz" />
+    tools:text="Alexanderplatz" />
 </LinearLayout>

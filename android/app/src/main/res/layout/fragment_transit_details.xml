@@ -7,8 +7,7 @@
 
   <include layout="@layout/toolbar_default" />
 
-  <!-- The per-leg breakdown (board/exit stops + line badges), reusing TransitDetailsAdapter. This screen
-       owns the scrolling, so unlike the old inline breakdown the list scrolls on its own. -->
+  <!-- The per-leg timeline (stops + line badges) rendered by TransitDetailsAdapter. -->
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/transit_details_recycler"
     android:layout_width="match_parent"

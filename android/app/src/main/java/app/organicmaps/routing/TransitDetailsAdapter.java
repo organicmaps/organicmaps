@@ -24,6 +24,7 @@ import app.organicmaps.util.Utils;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -135,16 +136,21 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       ((IntermediateViewHolder) holder).bind(info);
     else if (holder instanceof RideViewHolder)
     {
-      // Each ride is headed by its boarding stop. When the previous row was already a ride, this is a
-      // same-station transfer, so the heading reads "Transfer at <stop>" instead of "Board at <stop>".
-      boolean prevIsRide = isRide(position - 1);
-      // The exit stop is only drawn when the next row is not a ride: a direct transfer's stop is
-      // already shown as the next ride's heading, so repeating it at this leg's foot would duplicate it.
-      boolean nextIsRide = isRide(position + 1);
+      // A shared transfer stop is drawn once, as this ride's header; the previous ride then omits its exit.
+      boolean isTransfer = isSameStopTransfer(position);
+      boolean nextIsTransfer = isSameStopTransfer(position + 1);
       // The incoming line's color paints the top half of the transfer stub above this leg's bar.
-      int incomingColor = prevIsRide ? mItems.get(position - 1).getColor() : info.getColor();
-      ((RideViewHolder) holder).bind(info, prevIsRide, nextIsRide, mExpanded.contains(position), incomingColor);
+      int incomingColor = isTransfer ? mItems.get(position - 1).getColor() : info.getColor();
+      ((RideViewHolder) holder).bind(info, isTransfer, nextIsTransfer, mExpanded.contains(position), incomingColor);
     }
+  }
+
+  // Rides joined by a transfer edge may use differently named stops; those keep both the exit and the boarding stop.
+  private boolean isSameStopTransfer(int position)
+  {
+    if (!isRide(position - 1) || !isRide(position))
+      return false;
+    return Objects.equals(mItems.get(position - 1).getEndStopName(), mItems.get(position).getStartStopName());
   }
 
   // A transit ride is any leg that is neither a walk nor a user-added intermediate point.
@@ -175,8 +181,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     void bind(@Nullable String destination)
     {
-      mName.setText(
-          itemView.getContext().getString(R.string.transit_arrive_at, destination == null ? "" : destination));
+      mName.setText(destination);
     }
   }
 
@@ -240,8 +245,6 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final TextView mExitAt;
     @NonNull
     private final TextView mSubtitle;
-    @NonNull
-    private final TextView mRideDirection;
     // The disclosed intermediate-stops text (one stop per line); its height is animated open/closed.
     @NonNull
     private final TextView mIntermediates;
@@ -271,7 +274,6 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       mBoardAt = itemView.findViewById(R.id.board_at);
       mExitAt = itemView.findViewById(R.id.exit_at);
       mSubtitle = itemView.findViewById(R.id.ride_subtitle);
-      mRideDirection = itemView.findViewById(R.id.ride_direction);
       mIntermediates = itemView.findViewById(R.id.intermediate_stops);
       mBadge = itemView.findViewById(R.id.line_badge);
       mSummaryRow = itemView.findViewById(R.id.ride_summary_row);
@@ -283,7 +285,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       mTransferGap = itemView.findViewById(R.id.transfer_gap);
     }
 
-    void bind(@NonNull TransitStepInfo info, boolean isTransfer, boolean nextIsRide, boolean expanded,
+    void bind(@NonNull TransitStepInfo info, boolean isTransfer, boolean nextIsTransfer, boolean expanded,
               int incomingColor)
     {
       Context ctx = itemView.getContext();
@@ -291,9 +293,9 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       int lineColor = info.getColor();
       // Each colored segment is a rounded pill. The bar's top is rounded unless it continues up out of a
       // transfer stub (isTransfer); its bottom is rounded unless it continues down into the next leg's
-      // stub (nextIsRide). Where a stub and the bar share a color they meet square, so each run reads as
+      // stub (nextIsTransfer). Where a stub and the bar share a color they meet square, so each run reads as
       // one pill rounded only at its two ends.
-      mLineBar.setBackgroundResource(lineBarDrawable(!isTransfer, !nextIsRide));
+      mLineBar.setBackgroundResource(lineBarDrawable(!isTransfer, !nextIsTransfer));
       ViewCompat.setBackgroundTintList(mLineBar, ColorStateList.valueOf(lineColor));
 
       String startStop = info.getStartStopName();
@@ -331,26 +333,10 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
           isTransfer ? 0 : ctx.getResources().getDimensionPixelSize(R.dimen.transit_details_badge_top_margin);
       mSummaryRow.setLayoutParams(summaryLp);
 
-      if (nextIsRide)
-      {
-        mExitAt.setVisibility(View.GONE);
-      }
-      else
-      {
-        // The exit heading only shows when the next leg is not a train, so the rider always leaves the
-        // train here: "Exit at <stop>". A same-station line change is the other branch (exit hidden, the
-        // next leg draws the centered "Transfer at <stop>" header instead).
-        mExitAt.setVisibility(View.VISIBLE);
+      // At a same-stop transfer the next ride's header already names this exit.
+      mExitAt.setVisibility(nextIsTransfer ? View.GONE : View.VISIBLE);
+      if (!nextIsTransfer)
         mExitAt.setText(endStop == null ? "" : endStop);
-      }
-
-      // Direction: the line's terminus ("Hauptbahnhof") next to the badge, so the rider sees which way
-      // the train goes. Hidden when no terminus is known.
-      String terminus = info.getLineTerminusName();
-      boolean hasDirection = terminus != null && !terminus.isEmpty();
-      mRideDirection.setVisibility(hasDirection ? View.VISIBLE : View.GONE);
-      if (hasDirection)
-        mRideDirection.setText(terminus);
 
       CharSequence time = Utils.formatRoutingTime(ctx, info.getTimeInSec(), R.dimen.text_size_body_3);
       int stopCount = info.getStopCount();

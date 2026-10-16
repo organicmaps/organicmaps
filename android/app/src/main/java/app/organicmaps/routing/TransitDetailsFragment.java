@@ -18,9 +18,8 @@ import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.widget.ToolbarController;
 
 /**
- * Full-screen per-leg transit route breakdown, reached by tapping the transit summary row. Hosts the
- * same {@link TransitDetailsAdapter} timeline the summary used to expand inline; the route steps are
- * re-read from the cached transit info rather than passed in, so no marshaling is needed.
+ * Full-screen per-leg transit route breakdown, reached by tapping the transit summary tile. The route
+ * steps are re-read from the cached transit info rather than passed in, so no marshaling is needed.
  */
 public class TransitDetailsFragment extends BaseMwmToolbarFragment
 {
@@ -34,7 +33,7 @@ public class TransitDetailsFragment extends BaseMwmToolbarFragment
     RecyclerView recycler = root.findViewById(R.id.transit_details_recycler);
     recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
     // A ride row animates its own intermediate-stops height when toggled; the default change animation
-    // would fight that, so disable it (mirrors the old inline breakdown setup).
+    // would fight that, so disable it.
     recycler.setItemAnimator(null);
     TransitDetailsAdapter adapter = new TransitDetailsAdapter();
     recycler.setAdapter(adapter);

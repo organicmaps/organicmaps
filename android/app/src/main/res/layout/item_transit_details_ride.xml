@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- A transit ride leg drawn as a timeline: a line-colored bar runs down the left, spanning from the
-     boarding stop (first) to the exit stop (last). The middle holds the badge + direction and the
+     boarding stop (first) to the exit stop (last). The middle holds the line badge and the
      tappable stop-count summary that discloses the intermediate stops.
 
      For a same-station transfer the shared stop is drawn once, as the transfer header floating in the
@@ -106,8 +106,8 @@
         android:textSize="@dimen/transit_details_stop_text_size"
         tools:text="Sadovaya" />
 
-      <!-- Tappable disclosure: line badge + direction on the first line, stop count + duration (with the
-           expand chevron) on the second, so nothing wraps against the badge. -->
+      <!-- Tappable disclosure: line badge on the first line, stop count + duration (with the expand chevron)
+           on the second, so nothing wraps against the badge. -->
       <LinearLayout
         android:id="@+id/ride_summary_row"
         android:layout_width="match_parent"
@@ -116,36 +116,15 @@
         android:background="?clickableBackground"
         android:orientation="vertical">
 
-        <LinearLayout
-          android:layout_width="match_parent"
+        <app.organicmaps.routing.TransitStepView
+          android:id="@+id/line_badge"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:gravity="center_vertical"
-          android:orientation="horizontal">
-
-          <app.organicmaps.routing.TransitStepView
-            android:id="@+id/line_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/margin_base_plus"
-            android:paddingStart="@dimen/margin_quarter"
-            android:paddingEnd="@dimen/margin_quarter"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_body_0" />
-
-          <!-- Line direction (terminus, e.g. "Hönow"): where this train is headed. Hidden when unknown. -->
-          <TextView
-            android:id="@+id/ride_direction"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/margin_half_plus"
-            android:ellipsize="end"
-            android:fontFamily="@string/robotoMedium"
-            android:maxLines="1"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="@dimen/text_size_body_1"
-            tools:text="Hönow" />
-        </LinearLayout>
+          android:minHeight="@dimen/margin_base_plus"
+          android:paddingStart="@dimen/margin_quarter"
+          android:paddingEnd="@dimen/margin_quarter"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_size_body_0" />
 
         <TextView
           android:id="@+id/ride_subtitle"

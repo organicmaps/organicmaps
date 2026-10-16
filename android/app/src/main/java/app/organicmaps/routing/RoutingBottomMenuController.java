@@ -275,8 +275,6 @@ final class RoutingBottomMenuController
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
-    // Restore the driving-options gear that the transit type hides.
-    UiUtils.show(mAltitudeChartFrame.findViewById(R.id.driving_options_btn_container));
     notifyVisibilityChanged();
     refreshManageRoute();
   }
@@ -311,9 +309,6 @@ final class RoutingBottomMenuController
     hideAltitudeChartAndRoutingDetails();
     UiUtils.hide(mError, mTimeElevationLine, mTimeVehicle);
     setStartState(StartState.DISABLED);
-    // Driving options (avoid tolls/motorways/…) don't apply to transit, so hide the gear for this type.
-    UiUtils.hide(mAltitudeChartFrame.findViewById(R.id.driving_options_btn_container));
-
     bindRouteTile(info.getTotalTime(), info.getTotalPedestrianTimeInSec(), info.getTransitSteps());
 
     notifyVisibilityChanged();
@@ -329,7 +324,7 @@ final class RoutingBottomMenuController
     ((TextView) mTransitTime.findViewById(R.id.total_time))
         .setText(
             Utils.formatRoutingTime(mContext, totalSec, R.dimen.text_size_routing_dimension, R.dimen.text_size_title));
-    TextView walkView = mTransitTime.findViewById(R.id.total_distance);
+    TextView walkView = mTransitTime.findViewById(R.id.total_walk_time);
     UiUtils.showIf(walkSec > 0, walkView, mTransitTime.findViewById(R.id.pedestrian_icon));
     walkView.setText(Utils.formatRoutingTime(mContext, walkSec, R.dimen.text_size_body_3));
 
@@ -355,7 +350,6 @@ final class RoutingBottomMenuController
     setStartState(StartState.DISABLED);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.show(mAltitudeChartFrame, mTimeRuler);
-    UiUtils.show(mAltitudeChartFrame.findViewById(R.id.driving_options_btn_container));
 
     // The tile is shared with public transport routing, but a straight-line ruler route has no per-leg
     // details, so make it inert and hide the summary top line. Only the (waypoint) strip is meaningful;

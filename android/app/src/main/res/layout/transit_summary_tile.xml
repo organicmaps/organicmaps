@@ -30,9 +30,9 @@
       app:srcCompat="@drawable/ic_20px_route_planning_walk"
       app:tint="?iconTint" />
 
-    <!-- Walk total (time). Kept as id total_distance to limit churn; gated with the icon on walk > 0. -->
+    <!-- Walk total (time); shown together with the icon only when walk > 0. -->
     <TextView
-      android:id="@+id/total_distance"
+      android:id="@+id/total_walk_time"
       style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
