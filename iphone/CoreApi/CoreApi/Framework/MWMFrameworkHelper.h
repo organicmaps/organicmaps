@@ -33,7 +33,6 @@ typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 + (void)saveTrackRecordingWithName:(nonnull NSString *)name;
 + (BOOL)isTrackRecordingEnabled;
 + (BOOL)isTrackRecordingEmpty;
-+ (ElevationProfileData * _Nullable)trackRecordingElevationInfo;
 
 @end
 
@@ -50,6 +49,11 @@ typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 
 NS_SWIFT_NAME(FrameworkHelper)
 @interface MWMFrameworkHelper : NSObject <TrackRecorder, ProductsManager>
+
+/// Thread-safe recording snapshot request; avoids converting an unchanged profile again.
++ (ElevationProfileData * _Nullable)trackRecordingElevationInfoWithPrevious:(ElevationProfileData * _Nullable)previous
+                                                                isCancelled:(BOOL (^)(void))isCancelled
+    NS_SWIFT_NAME(trackRecordingElevationInfo(previous:isCancelled:));
 
 + (void)processFirstLaunch:(BOOL)hasLocation;
 + (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale;

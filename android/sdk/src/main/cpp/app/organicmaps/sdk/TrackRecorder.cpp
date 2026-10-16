@@ -41,15 +41,27 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetTrackRec
   });
 }
 
-JNIEXPORT jobject Java_app_organicmaps_sdk_location_TrackRecorder_nativeGetElevationInfo(JNIEnv * env, jclass clazz)
+JNIEXPORT jobject Java_app_organicmaps_sdk_location_TrackRecorder_nativeGetElevationInfo(JNIEnv * env, jclass clazz,
+                                                                                         jobject previous,
+                                                                                         jobject cancelled)
 {
-  ASSERT(frm()->IsTrackRecordingEnabled(), ("Track recording is not started"));
-  if (frm()->IsTrackRecordingEmpty())
+  static jmethodID const get = jni::GetMethodID(env, cancelled, "get", "()Z");
+  auto const isCancelled = [=] { return env->CallBooleanMethod(cancelled, get) == JNI_TRUE; };
+  auto const snapshot = GpsTracker::Instance().GetElevationSnapshot(isCancelled);
+  if (!snapshot || snapshot->m_revision < 2 || isCancelled())
     return nullptr;
-  auto const profile = frm()->GetTrackRecordingElevationInfo();
-  if (profile.IsEmpty())
-    return nullptr;
-  return ToJavaElevationInfo(env, profile);
+  static jfieldID const epoch = env->GetFieldID(g_elevationInfoClazz, "mRecordingEpoch", "J");
+  static jfieldID const revision = env->GetFieldID(g_elevationInfoClazz, "mRecordingRevision", "J");
+  if (previous && env->GetLongField(previous, epoch) == static_cast<jlong>(snapshot->m_epoch) &&
+      env->GetLongField(previous, revision) == static_cast<jlong>(snapshot->m_revision))
+    return previous;
+  auto result = ToJavaElevationInfo(env, snapshot->m_elevation, isCancelled);
+  if (result)
+  {
+    env->SetLongField(result, epoch, static_cast<jlong>(snapshot->m_epoch));
+    env->SetLongField(result, revision, static_cast<jlong>(snapshot->m_revision));
+  }
+  return result;
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeStopTrackRecording(JNIEnv * env, jclass clazz)

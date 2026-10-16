@@ -64,20 +64,11 @@ void GpsTrack::AddPoints(std::vector<location::GpsInfo> const & points)
   ScheduleTask();
 }
 
-/// @note These functions are called during recording, so should be synchronized with Collection writer thread.
-/// @{
 TrackStatistics GpsTrack::GetTrackStatistics() const
 {
   std::lock_guard lg(m_threadGuard);
   return m_collection && !m_needClear ? m_collection->GetTrackStatistics() : TrackStatistics();
 }
-
-ElevationInfo GpsTrack::GetElevationInfo() const
-{
-  auto const snapshot = GetElevationSnapshot();
-  return snapshot ? snapshot->m_elevation : ElevationInfo{};
-}
-/// @}
 
 std::shared_ptr<GpsTrack::ElevationSnapshot const> GpsTrack::GetElevationSnapshot(IsCancelled const & isCancelled) const
 {

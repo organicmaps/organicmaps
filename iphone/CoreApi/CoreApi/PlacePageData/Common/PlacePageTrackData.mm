@@ -3,6 +3,8 @@
 #import "PlacePageTrackSelectionData+Core.h"
 #import "TrackInfo+Core.h"
 
+#include "map/track_elevation.hpp"
+
 @interface PlacePageTrackData ()
 
 @property(nonatomic, readwrite) double activePointDistance;
@@ -32,6 +34,33 @@
   self.activePointDistance = distance;
   if (self.onActivePointChangedHandler)
     self.onActivePointChangedHandler();
+}
+
+- (nullable ElevationProfileLoader)makeElevationProfileLoader
+{
+  auto const * track = GetFramework().GetBookmarkManager().GetTrack(_trackId);
+  if (!track || !track->HasAltitudes())
+    return nil;
+  _trackInfo = [[TrackInfo alloc] initWithTrackStatistics:track->GetStatistics()];
+  auto const trackId = _trackId;
+  if (trackId == kml::kTempRelationTrackId)
+  {
+    auto const info = std::make_shared<ElevationInfo>(*track->GetElevationInfo());
+    return ^ElevationProfileData *(ElevationProfileData * previous, ElevationProfileCancellation isCancelled) {
+      if (isCancelled())
+        return nil;
+      return [[ElevationProfileData alloc] initWithTrackId:trackId elevationInfo:*info isCancelled:isCancelled];
+    };
+  }
+  auto const lines = std::make_shared<std::vector<ElevationInfo::GeometryLine>>(track->GetData().m_geometry.m_lines);
+  return ^ElevationProfileData *(ElevationProfileData * previous, ElevationProfileCancellation isCancelled) {
+    std::vector<ElevationInfo::Points> profile;
+    TrackElevation::Process(*lines, &profile, [isCancelled] { return bool(isCancelled()); });
+    if (isCancelled())
+      return nil;
+    ElevationInfo const info(std::move(profile));
+    return [[ElevationProfileData alloc] initWithTrackId:trackId elevationInfo:info isCancelled:isCancelled];
+  };
 }
 
 @end
@@ -89,10 +118,6 @@
       [trackSelectionCandidates addObject:selectionData];
     }
     _trackSelectionCandidates = trackSelectionCandidates;
-
-    auto const * elevationInfo = track.GetElevationInfo();
-    if (elevationInfo)
-      _elevationProfileData = [[ElevationProfileData alloc] initWithTrackId:_trackId elevationInfo:*elevationInfo];
   }
   return self;
 }

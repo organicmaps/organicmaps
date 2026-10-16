@@ -1,5 +1,7 @@
 #import "ElevationProfileData+Core.h"
 
+#include "map/track_elevation.hpp"
+
 static ElevationDifficulty convertDifficulty(uint8_t difficulty)
 {
   switch (difficulty)
@@ -13,6 +15,10 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty)
 }
 
 @implementation ElevationProfileData
+{
+  uint64_t m_recordingEpoch;
+  size_t m_recordingRevision;
+}
 
 @end
 
@@ -20,57 +26,73 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty)
 
 - (instancetype)initWithTrackId:(MWMTrackID)trackId elevationInfo:(ElevationInfo const &)elevationInfo
 {
+  return [self initWithTrackId:trackId elevationInfo:elevationInfo isCancelled:^BOOL { return NO; }];
+}
+
+- (nullable instancetype)initWithTrackId:(MWMTrackID)trackId
+                           elevationInfo:(ElevationInfo const &)elevationInfo
+                             isCancelled:(ElevationProfileCancellation)isCancelled
+{
   self = [super init];
   if (self)
   {
     _trackId = trackId;
     _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
-    [ElevationProfileData fillPoints:&_points segmentDistances:&_segmentDistances fromElevationInfo:elevationInfo];
+    if (![ElevationProfileData fillPoints:&_points
+                         segmentDistances:&_segmentDistances
+                        fromElevationInfo:elevationInfo
+                              isCancelled:isCancelled])
+      return nil;
     _isTrackRecording = false;
   }
   return self;
 }
 
-- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo
+- (nullable instancetype)initWithRecordingSnapshot:(GpsTrack::ElevationSnapshot const &)snapshot
+                                       isCancelled:(ElevationProfileCancellation)isCancelled
 {
-  self = [super init];
+  self = [self initWithTrackId:0 elevationInfo:snapshot.m_elevation isCancelled:isCancelled];
   if (self)
   {
-    _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
-    [ElevationProfileData fillPoints:&_points segmentDistances:&_segmentDistances fromElevationInfo:elevationInfo];
     _isTrackRecording = true;
+    m_recordingEpoch = snapshot.m_epoch;
+    m_recordingRevision = snapshot.m_revision;
   }
   return self;
 }
 
-+ (void)fillPoints:(NSArray<ElevationHeightPoint *> * __strong *)outPoints
+- (BOOL)matchesRecordingSnapshot:(GpsTrack::ElevationSnapshot const &)snapshot
+{
+  return _isTrackRecording && m_recordingEpoch == snapshot.m_epoch && m_recordingRevision == snapshot.m_revision;
+}
+
++ (BOOL)fillPoints:(NSArray<ElevationHeightPoint *> * __strong *)outPoints
      segmentDistances:(NSArray<NSNumber *> * __strong *)outSegmentDistances
     fromElevationInfo:(ElevationInfo const &)elevationInfo
+          isCancelled:(ElevationProfileCancellation)isCancelled
 {
-  NSMutableArray * pointsArray = [[NSMutableArray alloc] init];
+  NSMutableArray * pointsArray = [[NSMutableArray alloc] initWithCapacity:elevationInfo.GetSize()];
   NSMutableArray<NSNumber *> * distancesArray = [[NSMutableArray alloc] init];
-
   double cumulativeOffset = 0;
+  size_t count = 0;
   auto const & lines = elevationInfo.GetLines();
   for (size_t i = 0; i < lines.size(); ++i)
   {
     if (i > 0)
       [distancesArray addObject:@(cumulativeOffset)];
-
     for (auto const & point : lines[i])
     {
-      ElevationHeightPoint * elevationPoint =
-          [[ElevationHeightPoint alloc] initWithDistance:(cumulativeOffset + point.m_distance)
-                                                altitude:point.m_altitude];
-      [pointsArray addObject:elevationPoint];
+      if (count++ % TrackElevation::kWindowIntervals == 0 && isCancelled())
+        return NO;
+      [pointsArray addObject:[[ElevationHeightPoint alloc] initWithDistance:(cumulativeOffset + point.m_distance)
+                                                                   altitude:point.m_altitude]];
     }
-
     if (!lines[i].empty())
       cumulativeOffset += lines[i].back().m_distance;
   }
-
   *outPoints = pointsArray;
   *outSegmentDistances = distancesArray;
+  return YES;
 }
 
 @end

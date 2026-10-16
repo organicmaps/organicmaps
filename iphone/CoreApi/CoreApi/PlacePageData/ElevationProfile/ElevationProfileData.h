@@ -3,6 +3,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ElevationProfileData;
+typedef BOOL (^ElevationProfileCancellation)(void);
+typedef ElevationProfileData * _Nullable (^ElevationProfileLoader)(ElevationProfileData * _Nullable previous,
+                                                                   ElevationProfileCancellation isCancelled);
+
 typedef NS_ENUM(NSInteger, ElevationDifficulty) {
   ElevationDifficultyDisabled,
   ElevationDifficultyEasy,

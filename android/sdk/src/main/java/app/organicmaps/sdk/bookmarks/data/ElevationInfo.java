@@ -18,6 +18,9 @@ public class ElevationInfo implements PlacePageData
   @NonNull
   private final List<Point> mPoints;
   private final int mDifficulty;
+  // JNI cache identity only; a restored parcel starts without a recording snapshot.
+  private long mRecordingEpoch = -1;
+  private long mRecordingRevision = -1;
   @NonNull
   private final double[] mSegmentDistances;
 
