@@ -72,26 +72,6 @@ int GetDMSIndex(char const *& s)
   return -1;
 }
 
-bool HasHemisphereAhead(char const * s)
-{
-  while (kSpaces.find(*s) != std::string::npos || kCharsToSkip.find(*s) != std::string::npos)
-    ++s;
-  switch (*s)
-  {
-  case 'N':
-  case 'n':
-  case 'S':
-  case 's':
-  case 'E':
-  case 'e':
-  case 'W':
-  case 'w':
-    return true;
-  default:
-    return false;
-  }
-}
-
 bool SkipNSEW(char const *& s, char const * (&arrPos)[4])
 {
   Skip(s);
@@ -167,12 +147,190 @@ double EatDouble(char const * str, char ** strEnd)
 
   return strtod(str, strEnd);
 }
+
+bool IsHemisphereChar(char c)
+{
+  switch (c)
+  {
+  case 'N': case 'n': case 'S': case 's':
+  case 'E': case 'e': case 'W': case 'w':
+    return true;
+  default:
+    return false;
+  }
+}
+
+// Match one N/S/E/W letter. Advances |s|. Returns 0N/1S/2E/3W or -1.
+int MatchHemisphere(char const *& s)
+{
+  SkipSpaces(s);
+  int ind = -1;
+  switch (*s)
+  {
+  case 'N': case 'n': ind = 0; break;
+  case 'S': case 's': ind = 1; break;
+  case 'E': case 'e': ind = 2; break;
+  case 'W': case 'w': ind = 3; break;
+  default: return -1;
+  }
+  ++s;
+  return ind;
+}
+
+// Parse one complete hemisphere-qualified coordinate group:
+//   [H] D [M [S]] [H]
+// Exactly one hemisphere (prefix or suffix) is required. |s| advances past
+// the group. Multi-dot garbage like "1.2.3" is rejected.
+bool ParseHemisphereQualifiedGroup(char const *& s, double & signedDegrees, int & hemOut)
+{
+  Skip(s);
+
+  // Optional leading hemisphere only if a number follows.
+  int hemPrefix = -1;
+  {
+    char const * const before = s;
+    int const h = MatchHemisphere(s);
+    if (h >= 0)
+    {
+      char const * probe = s;
+      SkipSpaces(probe);
+      char * end = nullptr;
+      EatDouble(probe, &end);
+      if (end == probe)
+        s = before;  // not a prefix; rewind
+      else
+        hemPrefix = h;
+    }
+  }
+
+  double parts[3] = {};
+  int nParts = 0;
+  while (nParts < 3)
+  {
+    SkipSpaces(s);
+    if (!*s || IsHemisphereChar(*s))
+      break;
+    if (IsDecimalMark(*s))
+      return false;
+
+    char const * const numStart = s;
+    char * end = nullptr;
+    double const x = EatDouble(s, &end);
+    if (end == numStart)
+      break;
+
+    // "1.2.3 N" — first component must not leave another decimal mark.
+    if (IsDecimalMark(*end))
+      return false;
+
+    parts[nParts++] = x;
+    s = end;
+    SkipSpaces(s);
+    (void)GetDMSIndex(s);  // optional ° / ' / " between components
+  }
+
+  if (nParts < 1)
+    return false;
+
+  // If the group already has a leading hemisphere, do not consume a trailing
+  // one — that letter starts the next coordinate group (e.g. "N 37 0 0 W 8 0 0").
+  int hemSuffix = -1;
+  if (hemPrefix < 0)
+    hemSuffix = MatchHemisphere(s);
+  int const hem = (hemPrefix >= 0) ? hemPrefix : hemSuffix;
+  if (hem < 0)
+    return false;
+
+  if (nParts >= 2 && (parts[1] < 0.0 || parts[1] >= 60.0))
+    return false;
+  if (nParts >= 3 && (parts[2] < 0.0 || parts[2] >= 60.0))
+    return false;
+  if (nParts >= 2 && parts[0] < 0.0)
+    return false;
+
+  double absDeg = std::fabs(parts[0]);
+  if (nParts >= 2)
+    absDeg += parts[1] / 60.0;
+  if (nParts >= 3)
+    absDeg += parts[2] / 3600.0;
+
+  bool const isLat = (hem == 0 || hem == 1);
+  if (isLat && absDeg > 90.0)
+    return false;
+  if (!isLat && absDeg > 180.0)
+    return false;
+
+  signedDegrees = absDeg;
+  if (hem == 1 || hem == 3)
+    signedDegrees = -signedDegrees;
+  hemOut = hem;
+  return true;
+}
+
+// Two complete hemisphere-qualified groups (any order of axes).
+// Used for phone-friendly "37 00 27.73 N 08 56 41.59 W" and also covers
+// "51.5 N, 11.2 E". On failure the legacy parser runs unchanged.
+bool TryMatchTwoHemisphereGroups(char const * query, double & lat, double & lon)
+{
+  char const * s = query;
+  double v0 = 0.0;
+  double v1 = 0.0;
+  int h0 = -1;
+  int h1 = -1;
+
+  if (!ParseHemisphereQualifiedGroup(s, v0, h0))
+    return false;
+  if (!ParseHemisphereQualifiedGroup(s, v1, h1))
+    return false;
+
+  bool const lat0 = (h0 == 0 || h0 == 1);
+  bool const lat1 = (h1 == 0 || h1 == 1);
+  if (lat0 == lat1)
+    return false;
+
+  if (lat0)
+  {
+    lat = v0;
+    lon = v1;
+  }
+  else
+  {
+    lat = v1;
+    lon = v0;
+  }
+
+  // Extra numeric token after both groups → not this grammar.
+  {
+    char const * t = s;
+    Skip(t);
+    if (*t)
+    {
+      char * end = nullptr;
+      EatDouble(t, &end);
+      if (end != t)
+        return false;
+    }
+  }
+
+  if (std::fabs(lat) > 90.0)
+    return false;
+  if (lon < -180.0 || lon > 360.0)
+    return false;
+  if (lon > 180.0)
+    lon -= 360.0;
+  return true;
+}
 }  // namespace
 
 namespace search
 {
 bool MatchLatLonDegree(std::string const & query, double & lat, double & lon)
 {
+  // Prefer two complete hemisphere-qualified groups (space-separated DMS or
+  // decimal-with-suffix). Fall back to the historical free-form parser.
+  if (TryMatchTwoHemisphereGroups(query.c_str(), lat, lon))
+    return true;
+
   // should be default initialization (0, false)
   std::array<std::pair<double, bool>, 6> v;
 
@@ -232,13 +390,7 @@ bool MatchLatLonDegree(std::string const & query, double & lat, double & lon)
     if (i == -1)
     {
       // try to assign next possible value mark
-      // A bare number followed by a hemisphere marker is minutes (or seconds)
-      // of the coordinate that already has degrees, e.g. "37 00 27.73 N".
-      if (HasHemisphereAhead(s) && v[base].second)
-      {
-        i = v[base + 1].second ? 2 : 1;
-      }
-      else if (arrDegreeSymbol[base / 3])
+      if (arrDegreeSymbol[base / 3])
       {
         if (!v[base + 1].second)
           i = 1;
