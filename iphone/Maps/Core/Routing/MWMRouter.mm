@@ -403,7 +403,7 @@ void OpenRoutePointCallback(std::string const & callback)
   }
 
   RouteMarkData pt = point.routeMarkData;
-  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt), RoutingOptions::LoadRouteOptimizationFromSettings());
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
@@ -465,75 +465,6 @@ void OpenRoutePointCallback(std::string const & callback)
   // The core materializes the parsed itinerary as route points and starts the build.
   GetFramework().ExecuteRouteApiRequest();
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
-}
-
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
-                  finishPoint:(MWMRoutePoint *)finishPoint
-          optimizeRoutePoints:(BOOL)optimizeRoutePoints
-{
-  [self buildApiRouteWithType:type
-                   startPoint:startPoint
-           intermediatePoints:intermediatePoints
-                  finishPoint:finishPoint
-          optimizeRoutePoints:optimizeRoutePoints
-         startRouteNavigation:NO
-               startDirection:CGPointZero];
-}
-
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
-                  finishPoint:(MWMRoutePoint *)finishPoint
-          optimizeRoutePoints:(BOOL)optimizeRoutePoints
-         startRouteNavigation:(BOOL)startRouteNavigation
-{
-  [self buildApiRouteWithType:type
-                   startPoint:startPoint
-           intermediatePoints:intermediatePoints
-                  finishPoint:finishPoint
-          optimizeRoutePoints:optimizeRoutePoints
-         startRouteNavigation:startRouteNavigation
-               startDirection:CGPointZero];
-}
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
-                  finishPoint:(MWMRoutePoint *)finishPoint
-          optimizeRoutePoints:(BOOL)optimizeRoutePoints
-         startRouteNavigation:(BOOL)startRouteNavigation
-               startDirection:(CGPoint)startDirection
-{
-  if (!startPoint || !finishPoint)
-    return;
-
-  [self removePoints];
-  [MWMRouter setType:type];
-
-  auto router = [MWMRouter router];
-  // The core sets the auto-start flag only for nav requests, which always route
-  // from the current position, so honor the parsed flag directly.
-  router.startNavigationAfterBuild = startRouteNavigation;
-  router.isAPICall = YES;
-  [self addPoint:startPoint reorderIntermediatePoints:optimizeRoutePoints];
-  if (optimizeRoutePoints)
-  {
-    // The optimizer needs a known finish before it predicts positions for
-    // intermediate points.
-    [self addPoint:finishPoint reorderIntermediatePoints:optimizeRoutePoints];
-    for (MWMRoutePoint * point in intermediatePoints)
-      [self addPoint:point reorderIntermediatePoints:optimizeRoutePoints];
-  }
-  else
-  {
-    for (MWMRoutePoint * point in intermediatePoints)
-      [self addPoint:point reorderIntermediatePoints:optimizeRoutePoints];
-    [self addPoint:finishPoint reorderIntermediatePoints:optimizeRoutePoints];
-  }
-  router.isAPICall = NO;
-
-  [self rebuildWithBestRouter:NO startDirection:startDirection];
 }
 
 + (void)rebuildWithBestRouter:(BOOL)bestRouter

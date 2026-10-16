@@ -345,6 +345,41 @@ UNIT_TEST(RouteApiV2AcceptsEncodedAndRawPipeSeparators)
   TEST_EQUAL(encoded.GetRoutePoints()[2].m_callback, "app://two", ());
 }
 
+UNIT_TEST(RouteApiV2SplitsEncodedCallbacksWithQueryStrings)
+{
+  // Every encoded "%7C" is a list separator, even when an earlier callback carries
+  // its own query string: the old query-sniffing heuristic merged such lists into
+  // a single callback.
+  ParsedMapApi two(
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
+      "&waypoint_callbacks=app%3A%2F%2Fone%3Fid%3D1%7Capp%3A%2F%2Ftwo%3Fid%3D2");
+  TEST_EQUAL(two.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(two.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(two.GetRoutePoints()[1].m_callback, "app://one?id=1", ());
+  TEST_EQUAL(two.GetRoutePoints()[2].m_callback, "app://two?id=2", ());
+
+  // Three waypoints joined by two encoded separators, each callback carrying a
+  // query string: all three must survive as separate callbacks.
+  ParsedMapApi three(
+      "om://v2/dir?origin=1,1&destination=5,5&waypoints=2,2|3,3|4,4"
+      "&waypoint_callbacks=app%3A%2F%2Fone%3Fid%3D1%7Capp%3A%2F%2Ftwo%3Fid%3D2%7Capp%3A%2F%2Fthree%3Fid%3D3");
+  TEST_EQUAL(three.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(three.GetRoutePoints().size(), 5, ());
+  TEST_EQUAL(three.GetRoutePoints()[1].m_callback, "app://one?id=1", ());
+  TEST_EQUAL(three.GetRoutePoints()[2].m_callback, "app://two?id=2", ());
+  TEST_EQUAL(three.GetRoutePoints()[3].m_callback, "app://three?id=3", ());
+
+  // A double-encoded "%257C" stays a literal pipe inside one callback while the
+  // single-encoded "%7C" next to it still separates the list.
+  ParsedMapApi literal(
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
+      "&waypoint_callbacks=app%3A%2F%2Fone%3Fid%3Da%257Cb%7Capp%3A%2F%2Ftwo");
+  TEST_EQUAL(literal.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(literal.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(literal.GetRoutePoints()[1].m_callback, "app://one?id=a%7Cb", ());
+  TEST_EQUAL(literal.GetRoutePoints()[2].m_callback, "app://two", ());
+}
+
 UNIT_TEST(RouteApiV2DoubleEncodedPipeStaysLiteral)
 {
   // A literal '|' inside a value must be double-encoded as "%257C": it decodes once to the

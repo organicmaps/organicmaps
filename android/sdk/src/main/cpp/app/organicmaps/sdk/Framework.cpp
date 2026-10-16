@@ -1265,6 +1265,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv *, jcl
   frm()->GetRoutingManager().BuildRoute();
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeExecuteRouteApiRequest(JNIEnv *, jclass)
+{
+  frm()->ExecuteRouteApiRequest();
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoute(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveRoute(false /* deactivateFollowing */);

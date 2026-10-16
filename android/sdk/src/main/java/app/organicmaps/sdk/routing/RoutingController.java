@@ -287,19 +287,13 @@ public class RoutingController
 
   private void showRoutePlan(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
   {
-    showRoutePlan(startPoint, endPoint, 0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
-  }
-
-  private void showRoutePlan(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
-                             double startDirectionX, double startDirectionY)
-  {
     if (mContainer != null)
     {
       mContainer.showRoutePlan(true, () -> {
         if (startPoint == null || endPoint == null)
           updatePlan();
         else
-          build(startDirectionX, startDirectionY);
+          build();
       });
     }
   }
@@ -481,9 +475,13 @@ public class RoutingController
     startPlanning(startPoint, endPoint);
   }
 
+  static boolean shouldStartNavigationAfterBuild(boolean startNavigation, @NonNull MapObject startPoint)
+  {
+    return startNavigation && startPoint.isMyPosition();
+  }
+
   public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
-                      boolean startNavigation, @Nullable List<String> callbacks, double startDirectionX,
-                      double startDirectionY)
+                      boolean startNavigation, @Nullable List<String> callbacks)
   {
     if (routePoints.size() < 2)
       return;
@@ -498,7 +496,7 @@ public class RoutingController
     Router.set(mLastRouterType);
     // Auto-start only for a nav request whose origin is the user's current position.
     // An explicit non-current origin keeps route preview, so the built route is not started.
-    mStartNavigationAfterBuild = startNavigation && routePoints.get(0).isMyPosition();
+    mStartNavigationAfterBuild = shouldStartNavigationAfterBuild(startNavigation, routePoints.get(0));
     mContainsCachedResult = false;
     // BUILDING must be set before the native call: a build that fails synchronously
     // (e.g. NoCurrentPosition) reports through onRoutingEvent during the call and
@@ -517,12 +515,50 @@ public class RoutingController
     {
       mContainer.updateMenu();
       if (isPlanning())
-        startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1), startDirectionX, startDirectionY);
+        startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1));
     }
     else
     {
-      build(startDirectionX, startDirectionY);
+      build();
     }
+  }
+
+  /**
+   * API-route entry: the core owns the parsed itinerary (order, callbacks, optimization,
+   * start direction) and materializes it via ExecuteRouteApiRequest; here we only drive
+   * UI state and honor the explicit navigation intent.
+   */
+  public void prepareApiRoute(@NonNull Router routerType, boolean startNavigation)
+  {
+    // Match iOS buildApiRouteWithType:startRouteNavigation:: a new deep link replaces any
+    // active route, even when the router type does not change and the new build later fails.
+    cancel();
+    setState(State.PREPARE);
+
+    mLastRouterType = routerType;
+    Router.set(mLastRouterType);
+    // Navigation always starts at the current position (core forces origin to currentLocation
+    // for nav requests), so honor the parsed flag directly. Explicit-origin links arrive with
+    // startNavigation=false and stay in preview.
+    mStartNavigationAfterBuild = startNavigation;
+    mContainsCachedResult = false;
+    // BUILDING must be set before the native call: a build that fails synchronously
+    // (e.g. NoCurrentPosition) reports through onRoutingEvent during the call and
+    // overwrites this state with ERROR.
+    setBuildState(BuildState.BUILDING);
+    mLastBuildProgress = 0;
+    mRouteSaved = false;
+    if (mContainer != null)
+      mContainer.onStartRouteBuilding();
+
+    Framework.nativeExecuteRouteApiRequest();
+
+    if (mContainer != null)
+      mContainer.updateMenu();
+    // The core already set route marks and started the build (with direction); pass null points
+    // so the planning completion only updates the plan instead of rebuilding and clearing auto-start.
+    if (mContainer != null && isPlanning())
+      startPlanning(null, null);
   }
 
   public void start()
@@ -747,15 +783,9 @@ public class RoutingController
 
   private void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
   {
-    startPlanning(startPoint, endPoint, 0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
-  }
-
-  private void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
-                             double startDirectionX, double startDirectionY)
-  {
     if (mContainer != null)
     {
-      showRoutePlan(startPoint, endPoint, startDirectionX, startDirectionY);
+      showRoutePlan(startPoint, endPoint);
       mContainer.onPlanningStarted();
     }
   }

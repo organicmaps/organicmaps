@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mockStatic;
 
-import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.log.Logger;
 import java.lang.reflect.Field;
@@ -74,33 +72,21 @@ public class RoutingControllerNavigationStateTest
   }
 
   @Test
-  public void explicitOriginNavRequestDoesNotAutoStart() throws ReflectiveOperationException
+  public void explicitOriginNavRequestDoesNotAutoStart()
   {
     assertFalse(navRequestAutoStarts(MapObject.POI));
   }
 
   @Test
-  public void currentPositionNavRequestAutoStarts() throws ReflectiveOperationException
+  public void currentPositionNavRequestAutoStarts()
   {
     assertTrue(navRequestAutoStarts(MapObject.MY_POSITION));
   }
 
-  private static boolean navRequestAutoStarts(int originType) throws ReflectiveOperationException
+  private static boolean navRequestAutoStarts(int originType)
   {
-    final RoutingController controller = new RoutingController();
-    try (MockedStatic<Logger> logger = mockStatic(Logger.class);
-         MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class);
-         MockedStatic<Framework> framework = mockStatic(Framework.class);
-         MockedStatic<Router> router = mockStatic(Router.class))
-    {
-      controller.attach(new RoutingController.Container() {});
-      controller.prepare(
-          List.of(MapObject.createMapObject(originType, "Origin", "", 1.0, 2.0),
-                  MapObject.createMapObject(MapObject.POI, "Destination", "", 3.0, 4.0)),
-          Router.Vehicle, false /* optimizeRoutePoints */, true /* startNavigation */, null /* callbacks */,
-          0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
-      return getBooleanField(controller, "mStartNavigationAfterBuild");
-    }
+    return RoutingController.shouldStartNavigationAfterBuild(
+        true /* startNavigation */, MapObject.createMapObject(originType, "Origin", "", 1.0, 2.0));
   }
 
   private static boolean getBooleanField(RoutingController controller, String name)

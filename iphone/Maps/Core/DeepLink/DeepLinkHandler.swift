@@ -61,7 +61,6 @@
     return backUrl.isEmpty ? nil : backUrl
   }
 
-
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
     let data = featureHighlightData
     featureHighlightData = nil

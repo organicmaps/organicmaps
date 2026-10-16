@@ -63,13 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
 + (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
 + (void)buildApiRouteWithType:(MWMRouterType)type startRouteNavigation:(BOOL)startRouteNavigation;
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
-                  finishPoint:(MWMRoutePoint *)finishPoint
-          optimizeRoutePoints:(BOOL)optimizeRoutePoints
-         startRouteNavigation:(BOOL)startRouteNavigation
-               startDirection:(CGPoint)startDirection;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter startDirection:(CGPoint)startDirection;
 
