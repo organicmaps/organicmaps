@@ -175,6 +175,9 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "귀하의 위치를 아직 알아내지 못 했습니다";
 
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "공유";
+
 /* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
 "share_my_position" = "Organic Maps에서 여기에 있습니다";
 

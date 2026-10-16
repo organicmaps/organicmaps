@@ -175,6 +175,9 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "ຍັງບໍ່ທັນສາມາດລະບຸຕຳແໜ່ງຂອງທ່ານໄດ້";
 
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "ແບ່ງປັນ";
+
 /* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
 "share_my_position" = "ຂ້ອຍຢູ່ທີ່ນີ້ໃນ Organic Maps";
 

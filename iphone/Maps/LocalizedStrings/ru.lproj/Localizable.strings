@@ -175,6 +175,9 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваше местоположение ещё не определено";
 
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "Поделиться";
+
 /* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
 "share_my_position" = "Я здесь на карте Organic Maps";
 

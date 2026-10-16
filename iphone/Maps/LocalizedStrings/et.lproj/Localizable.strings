@@ -175,6 +175,9 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Sinu asukoht ei ole veel tuvastatud";
 
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "Jaga";
+
 /* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
 "share_my_position" = "Olen siin Organic Mapsis";
 

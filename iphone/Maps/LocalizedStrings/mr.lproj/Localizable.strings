@@ -175,6 +175,9 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "तुमचे स्थान अद्याप निश्चित केलेले नाही";
 
+/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
+"share" = "सामायिक";
+
 /* Text shown before a shared "my position" link, and the email subject when sharing the current location. */
 "share_my_position" = "मी Organic Maps वर येथे आहे";
 
