@@ -102,6 +102,7 @@ final class PopoverListSelectorViewController: UITableViewController, UIPopoverP
     cell.setStyle(.noStyleTableViewCell)
     cell.contentConfiguration = content
     cell.accessoryType = row.isSelected ? .checkmark : .none
+    cell.accessibilityTraits = row.isSelected ? [.button, .selected] : .button
     cell.tintColor = .linkBlue
     cell.backgroundColor = style == .background
       ? row.color?.withAlphaComponent(Constants.backgroundColorAlpha) ?? .clear

@@ -58,7 +58,7 @@ final class PlacePageHeaderViewController: UIViewController {
     shareButton.isHidden = !(presenter?.canShare ?? true)
 
     trackCandidatesButton.tintColor = .linkBlue
-    trackCandidatesButton.accessibilityLabel = L("select")
+    trackCandidatesButton.accessibilityLabel = L("placepage_select_track")
     trackCandidatesButton.isHidden = !(presenter?.canSelectTrackCandidates ?? false)
     trackCandidatesButton.addTarget(self, action: #selector(didTapTrackCandidatesButton), for: .touchUpInside)
 
@@ -78,6 +78,11 @@ final class PlacePageHeaderViewController: UIViewController {
     titleTextView.textContainerInset = .zero
     titleTextView.textContainer.lineFragmentPadding = .zero
     titleTextView.delegate = self
+    let copyTitleAction = UIAccessibilityCustomAction(name: L("placepage_copy"), actionHandler: { [weak self] _ in
+      guard let self else { return false }
+      self.presenter?.onCopy(self.isEditingTitle ? self.titleTextView.text : self.titleText ?? self.titleTextView.text)
+      return true
+    })
     if presenter?.canEditTitle != true {
       titleTextView.accessibilityTraits.insert(.header)
       titleTextView.accessibilityCustomActions = [
@@ -86,12 +91,10 @@ final class PlacePageHeaderViewController: UIViewController {
           self.presenter?.onExpandPress()
           return true
         }),
-        UIAccessibilityCustomAction(name: L("placepage_copy"), actionHandler: { [weak self] _ in
-          guard let self else { return false }
-          self.presenter?.onCopy(self.titleTextView.text)
-          return true
-        }),
+        copyTitleAction,
       ]
+    } else {
+      titleTextView.accessibilityCustomActions = [copyTitleAction]
     }
 
     let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTitleTextView(_:)))
@@ -221,9 +224,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     }
     titleTextView.attributedText = titleString
     subtitleLabel.text = subtitleText
-    if presenter?.canEditTitle != true {
-      titleTextView.accessibilityLabel = titleText
-    }
+    titleTextView.accessibilityLabel = isEditingTitle ? nil : titleText
   }
 
   func showShareTrackMenu() {

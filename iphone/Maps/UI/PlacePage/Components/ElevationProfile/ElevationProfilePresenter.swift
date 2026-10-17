@@ -121,6 +121,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
   private func configureInteractiveProfile(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
+    view?.setChartAccessibility(data.chartData, interactive: true)
     view?.reloadDescription()
     view?.isXAxisViewHidden = false
     view?.placeholderText = nil
@@ -132,6 +133,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
   private func configureTrackRecording(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
+    view?.setChartAccessibility(data.chartData, interactive: false)
     view?.reloadDescription()
     view?.isXAxisViewHidden = data.chartData.isPlaceholder
     view?.placeholderText = data.chartData.isPlaceholder ? Constants.placeholderText : nil
@@ -191,6 +193,7 @@ struct ElevationProfileChartData {
   let chartValues: [ChartValue]
   let chartLines: [Line]
   let distances: [Double]
+  let altitudes: [Double]
   let segmentBoundaryDistances: [Double]
   let maxDistance: Double
   let pointsCount: Int
@@ -205,6 +208,7 @@ struct ElevationProfileChartData {
     return ElevationProfileChartData(chartValues: values,
                                      chartLines: [Line(values: values, color: .clear, type: .line)],
                                      distances: [0, 1],
+                                     altitudes: [altitude, altitude + 1],
                                      segmentBoundaryDistances: [],
                                      isPlaceholder: true)
   }
@@ -219,6 +223,7 @@ struct ElevationProfileChartData {
     self.init(chartValues: chartValues,
               chartLines: [l1, l2],
               distances: points.map(\.distance),
+              altitudes: points.map(\.altitude),
               segmentBoundaryDistances: elevationData.segmentDistances.map(\.doubleValue),
               isPlaceholder: false)
   }
@@ -226,15 +231,30 @@ struct ElevationProfileChartData {
   private init(chartValues: [ChartValue],
                chartLines: [Line],
                distances: [Double],
+               altitudes: [Double],
                segmentBoundaryDistances: [Double],
                isPlaceholder: Bool) {
     self.chartValues = chartValues
     self.chartLines = chartLines
     self.distances = distances
+    self.altitudes = altitudes
     self.segmentBoundaryDistances = segmentBoundaryDistances
     self.isPlaceholder = isPlaceholder
     maxDistance = distances.last ?? 0
     pointsCount = chartValues.count
+  }
+
+  func altitude(at distance: Double) -> Double? {
+    guard !isPlaceholder else { return nil }
+    guard let upperIndex = distances.firstIndexAtOrAfter(distance, by: \.self) else {
+      return altitudes.last
+    }
+    guard upperIndex > 0 else { return altitudes.first }
+    let lowerIndex = upperIndex - 1
+    let span = distances[upperIndex] - distances[lowerIndex]
+    guard span > 0 else { return altitudes[upperIndex] }
+    let progress = (distance - distances[lowerIndex]) / span
+    return altitudes[lowerIndex] + progress * (altitudes[upperIndex] - altitudes[lowerIndex])
   }
 }
 
