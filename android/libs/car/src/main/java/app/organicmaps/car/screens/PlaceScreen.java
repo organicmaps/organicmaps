@@ -235,7 +235,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       builder.addAction(openDialBuilder.build());
     }
 
-    if (!mRoutingController.isBuilt())
+    if (!mRoutingController.canStartNavigation())
       return;
 
     final Action.Builder startRouteBuilder = new Action.Builder();
@@ -246,7 +246,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
     startRouteBuilder.setOnClickListener(() -> {
       // The host can deliver a cached road Start after the phone has opened a track preview.
-      if (mRoutingController.isFollowingTrack())
+      if (mRoutingController.isFollowingTrack() || !mRoutingController.canStartNavigation())
         return;
       Config.acceptRoutingDisclaimer();
       mRoutingController.start();

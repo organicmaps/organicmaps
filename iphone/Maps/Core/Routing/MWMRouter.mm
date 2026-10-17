@@ -29,6 +29,41 @@
 
 using namespace routing;
 
+namespace
+{
+// The core decodes callback parameters once. Normalize URL characters while preserving
+// existing percent escapes, which can encode nested URL data.
+NSURL * RoutePointCallbackURL(NSString * callbackString)
+{
+  if (callbackString.length == 0)
+    return nil;
+
+  static NSRegularExpression * danglingPercent =
+      [NSRegularExpression regularExpressionWithPattern:@"%(?![0-9A-Fa-f]{2})" options:0 error:nil];
+  NSString * fixed = [danglingPercent stringByReplacingMatchesInString:callbackString
+                                                               options:0
+                                                                 range:NSMakeRange(0, callbackString.length)
+                                                          withTemplate:@"%25"];
+  // RFC 3986 unreserved + gen-delims + sub-delims + '%'.
+  static NSCharacterSet * allowed = [NSCharacterSet
+      characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                                         @"-._~:/?#[]@!$&'()*+,;=%"];
+  NSString * encoded = [fixed stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+  return encoded ? [NSURL URLWithString:encoded] : nil;
+}
+
+void OpenRoutePointCallback(std::string const & callback)
+{
+  ASSERT(NSThread.isMainThread, ());
+  NSURL * url = RoutePointCallbackURL(@(callback.c_str()));
+  if (!url)
+    return;
+
+  [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+}
+
+}  // namespace
+
 @interface MWMFollowedTrackInfo ()
 
 - (instancetype)initWithCoreInfo:(FollowedTrackInfo const &)info;
@@ -58,6 +93,7 @@ using namespace routing;
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
+@property(nonatomic) BOOL startNavigationAfterBuild;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
 
 + (MWMRouter *)router;
@@ -157,6 +193,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   auto const result = GetFramework().GetRoutingManager().NavigateTrack(trackId);
   if (result == FollowTrackResult::Ok)
   {
+    [self router].startNavigationAfterBuild = NO;
     [self hideNavigationMapControls];
     [[MWMCarPlayService shared] preservePhoneTrackSession];
   }
@@ -281,6 +318,20 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
     [MWMBookmarksManager.sharedManager addObserver:self];
     _canAutoAddLastLocation = YES;
     _isRestoreProcessCompleted = NO;
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
+      GetFramework().GetRoutingManager().SetRoutePointCallback(&OpenRoutePointCallback);
+    [NSNotificationCenter.defaultCenter
+        addObserverForName:UIApplicationDidBecomeActiveNotification
+                    object:nil
+                     queue:NSOperationQueue.mainQueue
+                usingBlock:^(NSNotification *) {
+                  GetFramework().GetRoutingManager().SetRoutePointCallback(&OpenRoutePointCallback);
+                }];
+    [NSNotificationCenter.defaultCenter
+        addObserverForName:UIApplicationWillResignActiveNotification
+                    object:nil
+                     queue:NSOperationQueue.mainQueue
+                usingBlock:^(NSNotification *) { GetFramework().GetRoutingManager().SetRoutePointCallback({}); }];
   }
   return self;
 }
@@ -492,27 +543,22 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
     [self rebuildWithBestRouter:bestRouter];
 }
 
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-                  finishPoint:(MWMRoutePoint *)finishPoint
++ (void)buildApiRouteWithType:(MWMRouterType)type startRouteNavigation:(BOOL)startRouteNavigation
 {
-  if (!startPoint || !finishPoint)
-    return;
+  [self doStop:NO];
+  GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 
-  // Notify mark observers only after both endpoints have replaced the itinerary.
-  {
-    auto editSession = GetFramework().GetBookmarkManager().GetEditSession();
-    [self doStop:YES];
-    GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
-    [self addPoint:startPoint];
-    [self addPoint:finishPoint];
-  }
-
-  [self rebuildWithBestRouter:NO];
+  [MWMRouter router].startNavigationAfterBuild = startRouteNavigation;
+  // Install planning UI before the core can report a synchronous validation result.
+  [[MWMMapViewControlsManager manager] onRouteRebuild];
+  GetFramework().ExecuteRouteApiRequest();
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
+  // Editing a pending API itinerary requires a fresh Start action.
+  [self router].startNavigationAfterBuild = NO;
   auto & rm = GetFramework().GetRoutingManager();
   // Track previews rebuild through their profile and entry APIs, using their captured geometry.
   if (rm.IsFollowingTrack())
@@ -556,6 +602,11 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
     [tts playTurnNotifications:@[@(approach.c_str())]];
 }
 
++ (NSURL *)callbackURLFromString:(NSString *)callbackString
+{
+  return RoutePointCallbackURL(callbackString);
+}
+
 + (void)start
 {
   auto const doStart = ^{
@@ -580,11 +631,11 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
     auto const routePoints = rm.GetRoutePoints();
     if (routePoints.size() >= 2)
     {
-      auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
-      auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
+      auto start = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
+      auto finish = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
 
       CLLocation * lastLocation = [MWMLocationManager lastLocation];
-      if (p1.isMyPosition && lastLocation)
+      if (start.isMyPosition && lastLocation)
       {
         [[MWMRoutingManager routingManager] startRoute];
         [[MWMMapViewControlsManager manager] onRouteStart];
@@ -595,7 +646,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
         // restoreRouteIfNeeded.
         [self saveRoute];
 
-        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
+        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !finish.isMyPosition;
 
         [[MWMAlertViewController activeAlertController]
             presentPoint2PointAlertWithOkBlock:^{
@@ -633,6 +684,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 
 + (void)doStop:(BOOL)removeRoutePoints
 {
+  [MWMRouter router].startNavigationAfterBuild = NO;
   [[MWMRoutingManager routingManager] stopRoutingAndRemoveRoutePoints:removeRoutePoints];
   if (removeRoutePoints)
     [[MWMRoutingManager routingManager] deleteSavedRoutePoints];
@@ -683,14 +735,24 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
       [MWMRouter disableFollowMode];
   }
 
+  auto const & routingManager = GetFramework().GetRoutingManager();
+  auto const revision = routingManager.GetRouteRevision();
+
   [[MWMMapViewControlsManager manager] onRouteReady:hasWarnings];
   [self updateFollowingInfo];
+  if (self.startNavigationAfterBuild && revision == routingManager.GetRouteRevision())
+  {
+    self.startNavigationAfterBuild = NO;
+    [MWMRouter start];
+  }
 }
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::CountriesSet const &)absentCountries
 {
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
+  if (code != routing::RouterResultCode::NoError && code != routing::RouterResultCode::HasWarnings)
+    self.startNavigationAfterBuild = NO;
   switch (code)
   {
   case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;

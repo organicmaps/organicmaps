@@ -83,12 +83,17 @@
   XCTAssertEqual(self.observer.codes.count, 1);
 }
 
-- (void)testValidationObserverCanStartANewBuild
+- (void)testValidationObserverCanStartANewBuildAndSupersedeTheError
 {
   auto * manager = &GetFramework().GetRoutingManager();
   XCTestExpectation * built = [self expectationWithDescription:@"Replacement route built"];
+  built.expectedFulfillmentCount = 2;
+  MWMSynchronousRouteObserver * secondObserver = [[MWMSynchronousRouteObserver alloc] init];
+  secondObserver.codes = [NSMutableArray array];
+  [MWMFrameworkListener addObserver:secondObserver];
+
   __block bool requested = false;
-  self.observer.onEvent = ^(routing::RouterResultCode code) {
+  void (^onEvent)(routing::RouterResultCode) = ^(routing::RouterResultCode code) {
     if (!requested)
     {
       XCTAssertTrue(code == routing::RouterResultCode::Cancelled);
@@ -109,11 +114,31 @@
       [built fulfill];
     }
   };
+  self.observer.onEvent = onEvent;
+  secondObserver.onEvent = onEvent;
+
   manager->BuildRoute();
   XCTAssertTrue(requested);
   XCTAssertTrue(manager->IsRouteBuilding());
+  XCTAssertEqual(self.observer.codes.count + secondObserver.codes.count, 1);
   [self waitForExpectations:@[built] timeout:5];
   XCTAssertTrue(manager->IsRouteValid());
+  XCTAssertEqual(self.observer.codes.count + secondObserver.codes.count, 3);
+  [MWMFrameworkListener removeObserver:secondObserver];
+}
+
+- (void)testRepeatedApiRouteValidationErrorsAreDeliveredDuringEachBuild
+{
+  auto & framework = GetFramework();
+  auto const cancelled = @(static_cast<int>(routing::RouterResultCode::Cancelled));
+  for (NSUInteger i = 0; i < 2; ++i)
+  {
+    auto const type = framework.ParseAndSetApiURL("om://v2/dir?origin=1,1&destination=1,1");
+    XCTAssertTrue(type == url_scheme::ParsedMapApi::UrlType::Route);
+    [MWMRouter buildApiRouteWithType:MWMRouterTypeVehicle startRouteNavigation:NO];
+    XCTAssertEqual(self.observer.codes.count, i + 1);
+    XCTAssertEqualObjects(self.observer.codes.lastObject, cancelled);
+  }
 }
 
 @end

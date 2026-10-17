@@ -28,6 +28,18 @@ void NotifyObservers(Observers * observers, TLoopBlock block)
   for (Observer observer in observers.allObjects)
     block(observer);
 }
+
+void NotifyRouteObservers(Observers * observers, TLoopBlock block)
+{
+  auto const & routingManager = GetFramework().GetRoutingManager();
+  auto const revision = routingManager.GetRouteRevision();
+  NotifyObservers(observers, [&routingManager, revision, block](Observer observer)
+  {
+    // An observer can replace the itinerary before the rest of the callbacks run.
+    if (revision == routingManager.GetRouteRevision())
+      block(observer);
+  });
+}
 }  // namespace
 
 @interface MWMFrameworkListener ()
@@ -88,12 +100,12 @@ void NotifyObservers(Observers * observers, TLoopBlock block)
   auto & rm = GetFramework().GetRoutingManager();
   rm.SetRouteBuildingListener([observers](RouterResultCode code, CountriesSet const & absentCountries)
   {
-    NotifyObservers(observers, [code, &absentCountries](TRouteBuildingObserver observer)
+    NotifyRouteObservers(observers, [code, &absentCountries](TRouteBuildingObserver observer)
     { [observer processRouteBuilderEvent:code countries:absentCountries]; });
   });
   rm.SetRouteProgressListener([observers](float progress)
   {
-    NotifyObservers(observers, [progress](TRouteBuildingObserver observer)
+    NotifyRouteObservers(observers, [progress](TRouteBuildingObserver observer)
     {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];
@@ -108,7 +120,7 @@ void NotifyObservers(Observers * observers, TLoopBlock block)
       rec = MWMRouterRecommendationRebuildAfterPointsLoading;
       break;
     }
-    NotifyObservers(observers, [rec](TRouteBuildingObserver observer)
+    NotifyRouteObservers(observers, [rec](TRouteBuildingObserver observer)
     {
       if ([observer respondsToSelector:@selector(processRouteRecommendation:)])
         [observer processRouteRecommendation:rec];
