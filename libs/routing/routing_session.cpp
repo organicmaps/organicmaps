@@ -24,6 +24,10 @@ double constexpr kRunawayDistanceSensitivityMeters = 0.01;
 double constexpr kCompletionPercentAccuracy = 5;
 
 double constexpr kMinimumETASec = 60.0;
+
+// Minimum interval between two spoken "recalculating" announcements. A GPS glitch can trigger
+// several quick rebuilds; debounce the announcement so the voice does not repeat it over and over.
+std::chrono::seconds constexpr kRecalculatingAnnounceMinInterval{30};
 }  // namespace
 
 namespace routing
@@ -508,7 +512,13 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   if (m_routingRebuildCount > m_routingRebuildAnnounceCount)
   {
     m_routingRebuildAnnounceCount = m_routingRebuildCount;
-    notifications.emplace_back(m_turnNotificationsMgr.GenerateRecalculatingText());
+
+    auto const now = std::chrono::steady_clock::now();
+    if (now - m_lastRecalculatingAnnounceTime > kRecalculatingAnnounceMinInterval)
+    {
+      m_lastRecalculatingAnnounceTime = now;
+      notifications.emplace_back(m_turnNotificationsMgr.GenerateRecalculatingText());
+    }
     return;
   }
 
