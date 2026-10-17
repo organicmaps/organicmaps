@@ -302,7 +302,8 @@ double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to,
     return CalcSegmentWeight(to, EdgeEstimator::Purpose::ETA).GetWeight();
 
   if (IsFakeSegment(from))
-    return CalculateETAWithoutPenalty(to);
+    return FakeFeatureIds::IsTransitFeature(to.GetFeatureId()) ? m_graph.CalculateETA(from, to, arrivalTime)
+                                                               : CalculateETAWithoutPenalty(to);
 
   if (IsGuidesSegment(from) || IsGuidesSegment(to))
   {

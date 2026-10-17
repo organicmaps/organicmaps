@@ -42,58 +42,54 @@ LatLonWithAltitude const & TransitGraph::GetJunction(Segment const & segment, bo
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
+RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
 {
   ASSERT(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
 
+  double time;
   if (auto const * gate = FindGate(segment))
   {
-    auto const weight = gate->GetWeight();
-    return RouteWeight(weight, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
-                       0 /* numAccessConditionalPenalties */, weight /* transitTime */);
+    time = gate->m_gate.GetWeight();
   }
-
-  if (auto const * edge = FindEdge(segment))
+  else if (auto const * edge = FindEdge(segment))
   {
-    auto const weight = edge->GetWeight();
-    return RouteWeight(weight, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
-                       0 /* numAccessConditionalPenalties */, weight /* transitTime */);
+    time = edge->GetWeight();
+    if (!edge->GetTransfer())
+      return RouteWeight(time, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
+                         0 /* numAccessConditionalPenalties */, time /* transitTime */);
+  }
+  else
+  {
+    // Gate projections connect a platform or entrance to its road projection. Use realistic offroad
+    // time so a few metres of road width do not dominate station choice; apply walking bias separately.
+    // Parts of real roads are priced by TransitWorldGraph as a fraction of the real segment weight.
+    ASSERT(m_fake.GetVertex(segment).GetType() == FakeVertex::Type::PureFake, (segment));
+    time = m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
+                                    GetJunction(segment, true /* front */).GetLatLon(), EdgeEstimator::Purpose::ETA);
   }
 
-  // Gate projection: the hop between the gate point and its road projection (parts of real roads
-  // are priced by TransitWorldGraph as a fraction of the real segment weight). Bus and tram gates
-  // are stop positions on the carriageway or rails, so the hop is the platform-to-vehicle step,
-  // not a snapping choice: price it at the realistic offroad ETA speed for both purposes. The
-  // offroad weight speed (0.5 km/h for pedestrians) would charge a minute per 8 m of road width,
-  // biasing the router towards subway entrances that lie right on the footways.
-  ASSERT(m_fake.GetVertex(segment).GetType() == FakeVertex::Type::PureFake, (segment));
-  return RouteWeight(m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
-                                              GetJunction(segment, true /* front */).GetLatLon(),
-                                              EdgeEstimator::Purpose::ETA));
+  double const weight =
+      purpose == EdgeEstimator::Purpose::Weight ? time * m_estimator->GetTransitWalkWeightFactor() : time;
+  return RouteWeight(weight);
 }
 
-RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
+transit::LineId TransitGraph::GetRideLineId(Segment const & segment) const
 {
-  // We need to wait transport and apply additional penalty only if we change to transit::Edge.
-  auto const * edgeTo = FindEdge(to);
-  if (!edgeTo)
-    return GetAStarWeightZero<RouteWeight>();
+  auto const * edge = FindEdge(segment);
+  return edge && !edge->GetTransfer() ? edge->GetLineId() : transit::kInvalidLineId;
+}
 
-  // We are changing to transfer and do not need to apply extra penalty here. We'll do it while
-  // changing from transfer.
-  if (edgeTo->GetTransfer())
+RouteWeight TransitGraph::GetTransferPenalty(transit::LineId fromLineId, Segment const & to) const
+{
+  auto const * edgeTo = FindEdge(to);
+  if (!edgeTo || edgeTo->GetTransfer())
     return GetAStarWeightZero<RouteWeight>();
 
   auto const lineIdTo = edgeTo->GetLineId();
-
-  auto const * edgeFrom = FindEdge(from);
-  if (edgeFrom && edgeFrom->GetLineId() == lineIdTo)
+  if (fromLineId == lineIdTo)
     return GetAStarWeightZero<RouteWeight>();
 
-  // We need to apply extra penalty when:
-  // 1. |from| is gate, |to| is edge
-  // 2. |from| is transfer, |to| is edge
-  // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
+  // Boarding after a walking connection or a line change incurs the line's mean wait.
   auto const it = m_transferPenaltiesSubway.find(lineIdTo);
   CHECK(it != m_transferPenaltiesSubway.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
   // The alternative route adds a fixed penalty per boarding to the routing weight only (not to
@@ -130,7 +126,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
   // We assume arrival time has uniform distribution with min value |0| and max value |line.GetInterval()|.
   // Expected value of time to wait transport for particular line is |line.GetInterval() / 2|.
   for (auto const & line : transitData.GetLines())
-    m_transferPenaltiesSubway[line.GetId()] = line.GetInterval() / 2;
+    m_transferPenaltiesSubway[line.GetId()] = line.GetInterval() / 2.0;
 
   std::map<transit::StopId, LatLonWithAltitude> stopCoords;
   for (auto const & stop : transitData.GetStops())
@@ -178,7 +174,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
   AddConnections(ingoing, stopToBack, stopToFront, false /* isOutgoing */);
 }
 
-transit::Gate const * TransitGraph::FindGate(Segment const & segment) const
+TransitGraph::GateInfo const * TransitGraph::FindGate(Segment const & segment) const
 {
   auto const it = m_segmentToGateSubway.find(segment);
   return it != m_segmentToGateSubway.cend() ? &it->second : nullptr;
@@ -195,7 +191,7 @@ Segment TransitGraph::GetTransitSegment(uint32_t featureId) const
   CHECK(IsTransitFeature(featureId), ("Feature id is out of transit id interval."));
   // All transit segments are oneway forward segments.
   // Edge segment has tail in stop1 and head in stop2.
-  // Gate segment has tail in gate and head in stop.
+  // Gate segments follow the traversal direction, from gate to stop or from stop to gate.
   // Pedestrian projection and parts of real have tail in |0| and head in |1|.
   // We rely on this rule in cross-mwm to have same behaviour of transit and
   // non-transit segments.
@@ -254,7 +250,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
                             isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
       m_fake.AddVertex(projectionSegment, gateSegment, gateVertex, isEnter /* isOutgoing */, false /* isPartOfReal */,
                        dummy /* realSegment */);
-      m_segmentToGateSubway[gateSegment] = gate;
+      m_segmentToGateSubway.emplace(gateSegment, GateInfo{gate, isEnter});
       if (isEnter)
         stopToFront[stopId].insert(gateSegment);
       else

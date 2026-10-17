@@ -42,6 +42,7 @@ set(SRC
   speed_cameras_tests.cpp
   tools.cpp
   tools.hpp
+  transit_graph_tests.cpp
   turns_generator_test.cpp
   turns_sound_test.cpp
   turns_tts_text_tests.cpp

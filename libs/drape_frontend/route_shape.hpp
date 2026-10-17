@@ -111,7 +111,7 @@ struct SubrouteMarker
 {
   // Position in mercator.
   m2::PointD m_position = {};
-  // Distance from the beginning of route.
+  // Mercator distance from the beginning of this subroute, matching the renderer's progress.
   double m_distance = 0.0;
   // Array of colors in range [0;2].
   std::vector<std::string> m_colors;
