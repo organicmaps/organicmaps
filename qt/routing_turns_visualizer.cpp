@@ -37,6 +37,19 @@ std::string RoutingTurnsVisualizer::GetId(routing::turns::TurnItem const & turn)
 
   std::string const index = std::to_string(turn.m_index);
 
-  return index + " " + maneuver + (turn.m_exitNum != 0 ? ":" + std::to_string(turn.m_exitNum) : "");
+  // Car displays draw a roundabout from the circulation and the entrance-to-exit sweep, not from the
+  // exit number, so show all three here.
+  std::string roundabout;
+  if (turn.m_exitNum != 0)
+    roundabout = ":" + std::to_string(turn.m_exitNum);
+  auto const & info = turn.m_roundaboutInfo;
+  if (info.m_direction != routing::turns::RoundaboutDirection::Unknown)
+  {
+    roundabout += info.m_direction == routing::turns::RoundaboutDirection::Clockwise ? " CW" : " CCW";
+    if (info.m_exitAngle != 0)
+      roundabout += " " + std::to_string(info.m_exitAngle);
+  }
+
+  return index + " " + maneuver + roundabout;
 }
 }  // namespace qt

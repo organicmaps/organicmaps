@@ -173,7 +173,7 @@ public:
   /// a tap-area threshold (kTapPixels * |mercatorPerPixel|), swaps it to active and returns true.
   /// No-op when navigation is active (alts aren't drawn then) or there are no alternatives.
   bool TryTapOnAlternativeRoute(m2::PointD const & mercator, double mercatorPerPixel);
-  void GetRouteFollowingInfo(routing::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
+  routing::FollowingInfo GetRouteFollowingInfo() const { return m_routingSession.GetRouteFollowingInfo(); }
 
   TransitRouteInfo GetTransitRouteInfo() const;
 
