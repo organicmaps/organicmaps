@@ -1274,6 +1274,7 @@ Status Engine::GetStatus()
     status.m_carInfo = m_inertial->GetCarInfo();
     status.m_speedScale = m_inertial->GetSpeedScale();
     status.m_speedTableRanges = m_inertial->GetSpeedTableRanges();
+    status.m_roughSpeedTableRanges = m_inertial->GetRoughSpeedTableRanges();
     status.m_speedLagSec = m_inertial->GetSpeedLag();
     status.m_speedLagMeasured = m_inertial->IsSpeedLagMeasured();
     status.m_calibration = m_inertial->GetCalibrationState();

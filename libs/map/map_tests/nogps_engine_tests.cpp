@@ -849,6 +849,31 @@ UNIT_TEST(NoGps_Engine_RoadsTellNothingAfterGps)
   TEST_EQUAL(TripField(env, "scale"), "1.000", ());
 }
 
+UNIT_TEST(NoGps_Engine_GpsOffInSheetMeasuresSpeedOverRoughTable)
+{
+  // The roads have told the speedometer is 5% low at 30-40 km/h on the first trip.
+  SpeedTable rough;
+  rough.OnDistance(36, 1000, 1050);
+  Env env(true /* inertial */, nullptr,
+          [&rough](TestStorage & storage) { storage.Set(Storage::kRoughSpeedTable, rough.Serialize()); });
+  MarkCar(env, 0);
+  TEST_EQUAL(TripField(env, "scale"), "1.050", ());
+  TEST_EQUAL(env.m_engine.GetStatus().m_roughSpeedTableRanges, 1, ());
+  TEST_EQUAL(env.m_engine.GetStatus().m_speedTableRanges, 0, ());
+
+  // The user has switched GPS off in the sheet to drive without it, GPS works on: the car is not put where GPS
+  // tells, but GPS measures the speedometer 3% low.
+  env.m_engine.SetGpsDisabled(true);
+  for (int i = 0; i < 60; ++i)
+  {
+    env.Drive(1000, 36, 0);
+    env.m_engine.OnFix(GpsAt(env.m_clock, 10.3 * i, 0, 90.0, 10.3));
+  }
+  TEST_NOT_EQUAL(env.Last().m_provider, Provider::Gps, ());
+  TEST_GREATER_OR_EQUAL(env.m_engine.GetStatus().m_speedTableRanges, 1, ());
+  TestAlmostEqualAbs(std::stod(TripField(env, "scale")), 1.03, 0.005);
+}
+
 UNIT_TEST(NoGps_Engine_BendsToldRepeatedlyMoveSlowCar)
 {
   // The street going east bends evenly by 30 degrees to the left at 200 m: by 5 degrees in a second at 20 km/h.
