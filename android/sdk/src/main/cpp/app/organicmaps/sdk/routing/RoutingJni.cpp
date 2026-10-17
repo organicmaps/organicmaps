@@ -409,6 +409,27 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsRoute
   return static_cast<jboolean>(routing::RoutingOptions::LoadRouteOptimizationFromSettings());
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativePrefersSavedTracks(JNIEnv *, jclass,
+                                                                                            jint routerType)
+{
+  using routing::RoutingOptions;
+  auto const vehicle = RoutingOptions::GetVehicleType(static_cast<routing::RouterType>(routerType));
+  return static_cast<jboolean>(vehicle && RoutingOptions::LoadFromSettings(*vehicle).PreferSavedTracks());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetPreferSavedTracks(JNIEnv *, jclass,
+                                                                                          jint routerType,
+                                                                                          jboolean enabled)
+{
+  using routing::RoutingOptions;
+  auto const vehicle = RoutingOptions::GetVehicleType(static_cast<routing::RouterType>(routerType));
+  if (!vehicle || !RoutingOptions::SupportsSavedTracks(*vehicle))
+    return;
+  auto options = RoutingOptions::LoadFromSettings(*vehicle);
+  options.SetPreferSavedTracks(enabled);
+  RoutingOptions::SaveToSettings(*vehicle, options);
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetRouteOptimizationEnabled(JNIEnv *, jclass,
                                                                                                  jboolean enabled)
 {

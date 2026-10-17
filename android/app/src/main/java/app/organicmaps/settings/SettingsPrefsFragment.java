@@ -93,7 +93,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     final Preference pref = getPreference(getString(R.string.prefs_routing));
     boolean hasOptions = RoutingOptions.isRouteOptimizationEnabled();
     for (Router router : Router.values())
-      hasOptions |= RoutingOptions.hasAnyOptions(router);
+      hasOptions |= RoutingOptions.hasAnyOptions(router) || RoutingOptions.prefersSavedTracks(router);
     pref.setSummary(hasOptions ? R.string.on : R.string.off);
   }
 

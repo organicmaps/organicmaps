@@ -3,6 +3,9 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
+
+#include "routing/routing_options.hpp"
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -25,6 +28,8 @@
 
 namespace routing_manager_tests
 {
+using df::test_support::VisualParamsFixture;
+
 namespace
 {
 // Pump only this fixture's tasks, not callbacks left by earlier Framework instances.
@@ -893,7 +898,114 @@ UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
   TEST(passedPoint->IsPassed(), ());
   TEST(!passedPoint->IsVisible(), ());
 }
-UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
+UNIT_TEST(RoutingManager_SavedTracksRespectVisibilityAndSurviveRebuilds)
+{
+  class Router final : public routing::IRouter
+  {
+  public:
+    explicit Router(std::vector<routing::GuidesTracks> & requests) : m_requests(requests) {}
+    std::string GetName() const override { return "saved tracks test"; }
+    void ClearState() override {}
+    void SetGuides(routing::GuidesTracks && guides) override { m_guides = std::move(guides); }
+    bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, routing::EdgeProj &) override
+    {
+      return false;
+    }
+    routing::RouterResultCode CalculateRoute(routing::Checkpoints const & checkpoints, m2::PointD const & direction,
+                                             bool adjust, bool alternatives, routing::RouterDelegate const & delegate,
+                                             routing::RoutesResult & result) override
+    {
+      m_requests.push_back(m_guides);
+      return static_cast<routing::IRouter &>(m_ruler).CalculateRoute(checkpoints, direction, adjust, alternatives,
+                                                                     delegate, result);
+    }
+
+  private:
+    std::vector<routing::GuidesTracks> & m_requests;
+    routing::GuidesTracks m_guides;
+    routing::RulerRouter m_ruler;
+  };
+
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread & gui)
+  {
+    routing::RoutingOptionSetter walkingOptions(0, routing::VehicleType::Pedestrian);
+    routing::RoutingOptionSetter cyclingOptions(0, routing::VehicleType::Bicycle);
+    auto const originalRouter = manager.GetLastUsedRouter();
+    SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(originalRouter); });
+    auto mwmIds = std::make_shared<routing::NumMwmIds>();
+    mwmIds->RegisterFile(platform::CountryFile("Monaco"));
+    manager.Init(std::move(mwmIds));
+    manager.SetRouter(routing::RouterType::Pedestrian);
+
+    auto const visibleGroup = bookmarks.CreateBookmarkCategory("Visible tracks", false);
+    auto const hiddenGroup = bookmarks.CreateBookmarkCategory("Hidden tracks", false);
+    kml::TrackGeometry const first{{{1, 2}, 10}, {{2, 3}, 20}};
+    kml::TrackGeometry const second{{{4, 5}, 30}, {{5, 6}, 40}};
+    auto const addTrack = [&](kml::MarkGroupId groupId)
+    {
+      kml::TrackData data;
+      data.m_layers.emplace_back();
+      data.m_geometry.m_lines = {first, second};
+      data.m_geometry.m_timestamps.resize(2);
+      auto edit = bookmarks.GetEditSession();
+      auto const id = edit.CreateTrack(std::move(data))->GetId();
+      edit.AttachTrack(id, groupId);
+      return id;
+    };
+    auto const visibleTrack = addTrack(visibleGroup);
+    auto const hiddenTrack = addTrack(visibleGroup);
+    addTrack(hiddenGroup);
+    bookmarks.GetEditSession().SetIsVisible(hiddenGroup, false);
+    bookmarks.GetEditSession().SetTrackVisibility(hiddenTrack, false);
+
+    std::vector<routing::GuidesTracks> requests;
+    auto & session = manager.RoutingSession();
+    session.SetRouter(std::make_unique<Router>(requests), nullptr);
+    bool built = false;
+    session.SetRoutingCallbacks([&](routing::RoutesResult const &, routing::RouterResultCode) { built = true; },
+                                nullptr, nullptr, nullptr);
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1), false);
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 5), false);
+    auto const build = [&]
+    {
+      built = false;
+      manager.BuildRoute();
+      while (!built)
+        gui.RunNext();
+    };
+
+    auto options = routing::RoutingOptions::LoadFromSettings(routing::VehicleType::Pedestrian);
+    options.SetPreferSavedTracks(false);
+    routing::RoutingOptions::SaveToSettings(routing::VehicleType::Pedestrian, options);
+    build();
+    TEST(requests.back().empty(), ());
+
+    options.SetPreferSavedTracks(true);
+    routing::RoutingOptions::SaveToSettings(routing::VehicleType::Pedestrian, options);
+    build();
+    routing::GuidesTracks const expected{{visibleGroup, {first, second}}};
+    TEST_EQUAL(requests.back(), expected, ("Hidden tracks and gaps between segments must be excluded."));
+
+    bookmarks.GetEditSession().DeleteTrack(visibleTrack);
+    built = false;
+    session.RebuildRoute({2, 0}, [&](routing::RoutesResult const &, routing::RouterResultCode) {
+      built = true;
+    }, nullptr, nullptr, routing::RouterDelegate::kNoTimeout, routing::SessionState::RouteRebuilding, true);
+    while (!built)
+      gui.RunNext();
+    TEST_EQUAL(requests.back(), expected, ("Navigation must retain its geometry snapshot."));
+    build();
+    TEST(requests.back().empty(), ("A new route must refresh the saved tracks."));
+
+    addTrack(visibleGroup);
+    options.SetPreferSavedTracks(false);
+    routing::RoutingOptions::SaveToSettings(routing::VehicleType::Pedestrian, options);
+    build();
+    TEST(requests.back().empty(), ("Turning the preference off must remove the track snapshot."));
+  });
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, RoutingManager_RebuildClearsUnavailableAlternatives)
 {
   class Delegate final : public RoutingManager::Delegate
   {

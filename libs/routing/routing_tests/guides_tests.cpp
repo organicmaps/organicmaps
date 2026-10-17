@@ -132,4 +132,23 @@ UNIT_TEST(Guides_NotAttachIntermediatePoint)
       TEST(isAttached, ());
   }
 }
+
+UNIT_TEST(Guides_CheckpointAltitude)
+{
+  auto const start = mercator::FromLatLon(45.77, 14.36);
+  auto const finish = mercator::FromLatLon(45.79, 14.36);
+  GuidesTracks tracks;
+  tracks[10] = {{{start, 500}, {finish, 600}}};
+  GuidesConnections guides(std::move(tracks));
+  guides.ConnectToGuidesGraph({start, (start + finish) * 0.5, finish});
+
+  for (size_t i = 0; i < 3; ++i)
+  {
+    auto const ending = guides.GetFakeEnding(i);
+    TEST_EQUAL(ending.m_projections.size(), 1, ());
+    auto const altitude = ending.m_projections.front().m_junction.GetAltitude();
+    TEST_ALMOST_EQUAL_ABS(static_cast<double>(altitude), 500.0 + 50.0 * i, 1.0, ());
+    TEST_EQUAL(ending.m_originJunction.GetAltitude(), altitude, ());
+  }
+}
 }  // namespace

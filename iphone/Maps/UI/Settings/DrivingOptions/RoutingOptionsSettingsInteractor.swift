@@ -30,7 +30,7 @@ final class RoutingOptionsSettingsInteractor {
     let state = RoutingOptionsSettingsState(options: options, canChangeOptimization: canChangeOptimization)
     if option != .routeOptimization || state.canChangeOptimization {
       option.setEnabled(enabled, in: options)
-      // Optimization persists in its setter; only avoidance options need saving.
+      // Optimization persists in its setter; the profile options need saving.
       if option != .routeOptimization {
         options.save()
       }

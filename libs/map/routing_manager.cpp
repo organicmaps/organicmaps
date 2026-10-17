@@ -1363,7 +1363,7 @@ void RoutingManager::GenerateNotifications(std::vector<std::string> & turnNotifi
   m_routingSession.GenerateNotifications(turnNotifications, announceStreets);
 }
 
-void RoutingManager::BuildRoute(uint32_t timeoutSec)
+void RoutingManager::BuildRoute(uint32_t timeoutSec, GuidesTracks guides)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
@@ -1434,6 +1434,26 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
+  auto const vehicle = RoutingOptions::GetVehicleType(m_currentRouterType);
+  if (guides.empty() && vehicle && RoutingOptions::LoadFromSettings(*vehicle).PreferSavedTracks())
+  {
+    for (auto const groupId : m_bmManager->GetUnsortedBmGroupsIdList())
+    {
+      if (!m_bmManager->IsVisible(groupId))
+        continue;
+      for (auto const trackId : m_bmManager->GetTrackIds(groupId))
+      {
+        auto const * track = m_bmManager->GetTrack(trackId);
+        if (!track->IsVisible())
+          continue;
+        // Preserve gaps between GPX segments instead of inventing connecting paths.
+        for (auto const & line : track->GetData().m_geometry.m_lines)
+          if (line.size() > 1)
+            guides[groupId].push_back(line);
+      }
+    }
+  }
+  m_routingSession.SetGuides(std::move(guides));
   m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
 }
 

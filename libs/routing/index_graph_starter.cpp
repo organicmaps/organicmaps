@@ -305,20 +305,7 @@ double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to,
     return CalculateETAWithoutPenalty(to);
 
   if (IsGuidesSegment(from) || IsGuidesSegment(to))
-  {
-    double res = 0.0;
-    if (IsGuidesSegment(from))
-      res += CalcGuidesSegmentWeight(from, EdgeEstimator::Purpose::ETA).GetWeight();
-    else
-      res += CalculateETAWithoutPenalty(from);
-
-    if (IsGuidesSegment(to))
-      res += CalcGuidesSegmentWeight(to, EdgeEstimator::Purpose::ETA).GetWeight();
-    else
-      res += CalculateETAWithoutPenalty(to);
-
-    return res;
-  }
+    return CalculateETAWithoutPenalty(to);
 
   if (IsRegionsGraphMode())
     return m_regionsGraph->CalcSegmentWeight(from).GetWeight() + m_regionsGraph->CalcSegmentWeight(to).GetWeight();
