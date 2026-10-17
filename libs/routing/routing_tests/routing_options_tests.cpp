@@ -80,6 +80,39 @@ UNIT_CLASS_TEST(RoutingOptionsTests, GetSetTest)
   TEST_EQUAL(options.GetOptions(), fromSettings.GetOptions(), ());
 }
 
+UNIT_CLASS_TEST(RoutingOptionsTests, SavedTracksAreOptInAndProfileSpecific)
+{
+  settings::Delete("prefer_saved_tracks_bicycle");
+  settings::Delete("prefer_saved_tracks_pedestrian");
+  for (auto const vehicle : {VehicleType::Car, VehicleType::Bicycle, VehicleType::Pedestrian, VehicleType::Transit})
+    TEST(!RoutingOptions::LoadFromSettings(vehicle).PreferSavedTracks(), (vehicle));
+
+  auto options = RoutingOptions::LoadFromSettings(VehicleType::Bicycle);
+  options.Add(RoutingOptions::Ferry);
+  options.SetPreferSavedTracks(true);
+  RoutingOptions::SaveToSettings(VehicleType::Bicycle, options);
+  TEST(RoutingOptions::LoadFromSettings(VehicleType::Bicycle).PreferSavedTracks(), ());
+  TEST(RoutingOptions::LoadFromSettings(VehicleType::Bicycle).Has(RoutingOptions::Ferry), ());
+  TEST(!RoutingOptions::LoadFromSettings(VehicleType::Pedestrian).PreferSavedTracks(), ());
+
+  for (auto const vehicle : {VehicleType::Car, VehicleType::Transit})
+  {
+    TEST(!RoutingOptions::SupportsSavedTracks(vehicle), (vehicle));
+    RoutingOptions::SaveToSettings(vehicle, options);
+    TEST(!RoutingOptions::LoadFromSettings(vehicle).PreferSavedTracks(), (vehicle));
+  }
+  for (auto const vehicle : {VehicleType::Bicycle, VehicleType::Pedestrian})
+  {
+    TEST(RoutingOptions::SupportsSavedTracks(vehicle), (vehicle));
+    RoutingOptions::SaveToSettings(vehicle, options);
+    TEST(RoutingOptions::LoadFromSettings(vehicle).PreferSavedTracks(), (vehicle));
+    options.SetPreferSavedTracks(false);
+    RoutingOptions::SaveToSettings(vehicle, options);
+    TEST(!RoutingOptions::LoadFromSettings(vehicle).PreferSavedTracks(), (vehicle));
+    options.SetPreferSavedTracks(true);
+  }
+}
+
 UNIT_CLASS_TEST(RoutingOptionsTests, IndependentProfilesAndDefaults)
 {
   for (auto const key :

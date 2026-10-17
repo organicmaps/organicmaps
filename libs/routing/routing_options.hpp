@@ -35,6 +35,7 @@ public:
   static RoutingOptions LoadFromSettings(VehicleType vehicleType);
   static void SaveToSettings(VehicleType vehicleType, RoutingOptions options);
   static RoadType GetSupportedOptions(VehicleType vehicleType);
+  static bool SupportsSavedTracks(VehicleType vehicleType);
   static std::optional<VehicleType> GetVehicleType(RouterType routerType);
   static std::optional<Road> RoadFromId(uint32_t id);
 
@@ -46,9 +47,12 @@ public:
   bool Has(Road type) const;
 
   RoadType GetOptions() const { return m_options; }
+  bool PreferSavedTracks() const { return m_preferSavedTracks; }
+  void SetPreferSavedTracks(bool enabled) { m_preferSavedTracks = enabled; }
 
 private:
   RoadType m_options = 0;
+  bool m_preferSavedTracks = false;
 };
 
 class RoutingOptionsClassifier
@@ -76,5 +80,6 @@ public:
 private:
   VehicleType m_vehicleType;
   std::optional<std::string> m_saved;
+  std::optional<std::string> m_savedTracks;
 };
 }  // namespace routing

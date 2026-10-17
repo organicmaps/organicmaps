@@ -44,6 +44,8 @@ private:
   QComboBox * m_routerType;
   QCheckBox * m_showTurnsCheckbox;
   QCheckBox * m_useDebugGuideCheckbox;
+  QCheckBox * m_preferWalkingTracksCheckbox;
+  QCheckBox * m_preferCyclingTracksCheckbox;
   QCheckBox * m_saveSessionCheckbox;
 };
 }  // namespace qt
