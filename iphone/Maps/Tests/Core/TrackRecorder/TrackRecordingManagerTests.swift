@@ -112,19 +112,6 @@ final class TrackRecordingManagerTests: XCTestCase {
     XCTAssertFalse(mockTrackRecorder.saveTrackRecordingCalled)
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
   }
-
-  func test_GivenElevationInfoIsUnavailable_WhenGetTrackRecordingElevationProfileData_ThenReturnsNil() {
-    mockTrackRecorder.trackRecordingElevationProfileData = nil
-
-    XCTAssertNil(trackRecordingManager.trackRecordingElevationProfileData)
-  }
-
-  func test_GivenElevationInfoIsAvailable_WhenGetTrackRecordingElevationProfileData_ThenReturnsData() {
-    let elevationProfileData = ElevationProfileData()
-    mockTrackRecorder.trackRecordingElevationProfileData = elevationProfileData
-
-    XCTAssertTrue(trackRecordingManager.trackRecordingElevationProfileData === elevationProfileData)
-  }
 }
 
 // MARK: - Mock Classes
@@ -135,7 +122,6 @@ private final class MockTrackRecorder: TrackRecorder {
   static var startTrackRecordingCalled = false
   static var stopTrackRecordingCalled = false
   static var saveTrackRecordingCalled = false
-  static var trackRecordingElevationProfileData: ElevationProfileData?
 
   static func reset() {
     trackRecordingIsEnabled = false
@@ -143,7 +129,6 @@ private final class MockTrackRecorder: TrackRecorder {
     startTrackRecordingCalled = false
     stopTrackRecordingCalled = false
     saveTrackRecordingCalled = false
-    trackRecordingElevationProfileData = nil
   }
 
   static func isTrackRecordingEnabled() -> Bool {
@@ -169,10 +154,6 @@ private final class MockTrackRecorder: TrackRecorder {
   }
 
   static func setTrackRecordingUpdateHandler(_: ((TrackInfo) -> Void)?) {}
-
-  static func trackRecordingElevationInfo() -> ElevationProfileData? {
-    trackRecordingElevationProfileData
-  }
 }
 
 private final class MockLocationService: LocationService {
@@ -206,4 +187,110 @@ final class MockTrackRecordingActivityManager: TrackRecordingActivityManager {
   }
 
   func update(_: TrackInfo) {}
+}
+
+/// Profile requests are independent of the scalar recording/Live Activity stream.
+final class ElevationProfileVisibilityTests: XCTestCase {
+  private final class Counter {
+    private let lock = NSLock()
+    private var count = 0
+
+    func increment() -> Int {
+      lock.lock()
+      defer { lock.unlock() }
+      count += 1
+      return count
+    }
+
+    var value: Int {
+      lock.lock()
+      defer { lock.unlock() }
+      return count
+    }
+  }
+
+  private func makeChart() -> (UIWindow, UIScrollView, ElevationProfileViewController) {
+    let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 320, height: 640))
+    let root = UIViewController()
+    window.rootViewController = root
+    let viewport = UIScrollView(frame: CGRect(x: 0, y: 0, width: 320, height: 260))
+    viewport.contentSize = CGSize(width: 320, height: 1000)
+    root.view.addSubview(viewport)
+    let chart = ElevationProfileViewController(presentationStyle: .track)
+    chart.loadViewIfNeeded()
+    chart.view.frame = CGRect(x: 0, y: 400, width: 320, height: 236)
+    viewport.addSubview(chart.view)
+    chart.view.layoutIfNeeded()
+    window.isHidden = false
+    return (window, viewport, chart)
+  }
+
+  func testHiddenPlotDoesNotLoadAndShowingNeedsNoNewGpsFix() {
+    let (window, viewport, chart) = makeChart()
+    defer { window.isHidden = true }
+    let calls = Counter()
+    let loaded = expectation(description: "Visible graph loaded")
+    let value = ElevationProfileData()
+    chart.profileLoader = { _, _ in
+      _ = calls.increment()
+      return value
+    }
+    chart.onProfileDataChanged = { data in
+      XCTAssertTrue(data === value)
+      loaded.fulfill()
+    }
+    chart.updateProfileVisibility(in: viewport, active: true)
+    for _ in 0 ..< 100 {
+      chart.setNeedsProfileUpdate()
+    }
+    XCTAssertEqual(calls.value, 0)
+    viewport.contentOffset.y = 400
+    chart.updateProfileVisibility(in: viewport, active: true)
+    wait(for: [loaded], timeout: 5)
+    XCTAssertEqual(calls.value, 1)
+    chart.updateProfileVisibility(in: viewport, active: false)
+    chart.updateProfileVisibility(in: viewport, active: true)
+    XCTAssertEqual(calls.value, 1)
+  }
+
+  func testHidingCancelsAndDiscardsAnOldCompletionAfterReopening() {
+    let (window, viewport, chart) = makeChart()
+    defer { window.isHidden = true }
+    viewport.contentOffset.y = 400
+    let calls = Counter()
+    let started = expectation(description: "First request started")
+    let finished = expectation(description: "Cancelled request finished")
+    let applied = expectation(description: "Reopened graph loaded")
+    let release = DispatchSemaphore(value: 0)
+    defer { release.signal() }
+    let stale = ElevationProfileData()
+    let latest = ElevationProfileData()
+    chart.profileLoader = { _, isCancelled in
+      if calls.increment() == 1 {
+        started.fulfill()
+        _ = release.wait(timeout: .now() + 5)
+        XCTAssertTrue(isCancelled())
+        finished.fulfill()
+        return stale
+      }
+      return latest
+    }
+    chart.onProfileDataChanged = { data in
+      XCTAssertTrue(data === latest)
+      applied.fulfill()
+    }
+    chart.updateProfileVisibility(in: viewport, active: true)
+    wait(for: [started], timeout: 5)
+    for _ in 0 ..< 100 {
+      chart.setNeedsProfileUpdate()
+    }
+    XCTAssertEqual(calls.value, 1)
+    chart.updateProfileVisibility(in: viewport, active: false)
+    release.signal()
+    wait(for: [finished], timeout: 5)
+    chart.updateProfileVisibility(in: viewport, active: true)
+    wait(for: [applied], timeout: 5)
+    XCTAssertEqual(calls.value, 2)
+    chart.updateProfileVisibility(in: viewport, active: false)
+  }
 }

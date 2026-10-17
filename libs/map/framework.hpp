@@ -456,11 +456,6 @@ public:
   bool IsTrackRecordingEnabled() const;
 
   void SaveRoute();
-  /// Returns the elevation profile data of the currently recorded track.
-  /// To get the data on the every track recording state update, this function should be called after receiving the
-  /// callback from the `SetTrackRecordingUpdateHandler`.
-  static ElevationInfo const & GetTrackRecordingElevationInfo();
-
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
@@ -482,7 +477,7 @@ private:
 
   void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                                       std::pair<size_t, size_t> const & toRemove,
-                                      TrackStatistics const & trackStatistics);
+                                      std::function<TrackStatistics const &()> const & getStatistics);
 
   TrackRecordingUpdateHandler m_trackRecordingUpdateHandler;
 

@@ -53,11 +53,12 @@ class ElevationProfileBuilder {
     return .trackRecording(data)
   }
 
-  private static func makeTrackState(trackData: PlacePageTrackData) -> ElevationProfileState? {
-    guard trackData.trackInfo.hasElevationInfo,
-          let chartData = makeChartData(elevationProfileData: trackData.elevationProfileData) else {
+  static func makeTrackState(trackData: PlacePageTrackData) -> ElevationProfileState? {
+    guard trackData.trackInfo.hasElevationInfo else {
       return nil
     }
+    let chartData = makeChartData(elevationProfileData: trackData.elevationProfileData)
+      ?? makePlaceholderChartData(elevationProfileData: nil)
     let data = ElevationProfileDisplayData(trackInfo: trackData.trackInfo,
                                            chartData: chartData,
                                            activePointDistance: trackData.activePointDistance,

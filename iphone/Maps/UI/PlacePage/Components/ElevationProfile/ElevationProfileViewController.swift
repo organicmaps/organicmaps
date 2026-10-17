@@ -1,4 +1,5 @@
 import Chart
+import CoreApi
 
 protocol ElevationProfileViewProtocol: AnyObject {
   var presenter: ElevationProfilePresenterProtocol? { get set }
@@ -73,6 +74,26 @@ final class ElevationProfileViewController: UIViewController {
   private var forcedChartViewInfoHidden: Bool?
 
   var presenter: ElevationProfilePresenterProtocol?
+  var profileLoader: ElevationProfileLoader?
+  var prepareProfileLoader: (() -> ElevationProfileLoader?)?
+  var onProfileDataChanged: ((ElevationProfileData?) -> Void)?
+
+  private static let profileQueue: OperationQueue = {
+    let queue = OperationQueue()
+    queue.maxConcurrentOperationCount = 1
+    queue.qualityOfService = .userInitiated
+    return queue
+  }()
+
+  private var profileOperation: BlockOperation?
+  private var profileData: ElevationProfileData?
+  private var profileDirty = true
+  private weak var profileViewport: UIView?
+  private var profileActive = false
+
+  deinit {
+    profileOperation?.cancel()
+  }
 
   init(presentationStyle: PresentationStyle) {
     super.init(nibName: nil, bundle: nil)
@@ -114,6 +135,72 @@ final class ElevationProfileViewController: UIViewController {
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     descriptionCollectionView.reloadData()
+  }
+
+  func setNeedsProfileUpdate() {
+    profileDirty = true
+    requestProfileIfNeeded()
+  }
+
+  /// A child can remain appeared while its plot is clipped by the place-page scroll view.
+  func updateProfileVisibility(in viewport: UIView, active: Bool) {
+    profileViewport = viewport
+    profileActive = active
+    requestProfileIfNeeded()
+  }
+
+  private func isProfileVisible() -> Bool {
+    guard profileActive, isViewLoaded, let viewport = profileViewport, let window = view.window else { return false }
+    var rect = graphViewContainer.convert(graphViewContainer.bounds, to: window)
+    var ancestor: UIView? = graphViewContainer
+    while let current = ancestor {
+      if current.isHidden || current.alpha <= 0 {
+        return false
+      }
+      if current.clipsToBounds || current === viewport {
+        rect = rect.intersection(current.convert(current.bounds, to: window))
+      }
+      ancestor = current.superview
+    }
+    return !rect.intersection(window.bounds).isEmpty
+  }
+
+  private func requestProfileIfNeeded() {
+    guard isProfileVisible() else {
+      if let operation = profileOperation {
+        operation.cancel()
+        profileOperation = nil
+        profileDirty = true
+      }
+      return
+    }
+    guard profileDirty, profileOperation == nil else { return }
+    if profileLoader == nil {
+      profileLoader = prepareProfileLoader?()
+    }
+    guard let loader = profileLoader else { return }
+    profileDirty = false
+    let previous = profileData
+    let operation = BlockOperation()
+    operation.addExecutionBlock { [weak self, weak operation] in
+      guard let operation, !operation.isCancelled else { return }
+      let data = loader(previous) { operation.isCancelled }
+      DispatchQueue.main.async { [weak self] in
+        guard let self, self.profileOperation === operation else { return }
+        self.profileOperation = nil
+        guard self.isProfileVisible(), !operation.isCancelled else {
+          self.profileDirty = true
+          return
+        }
+        if data !== self.profileData {
+          self.profileData = data
+          self.onProfileDataChanged?(data)
+        }
+        self.requestProfileIfNeeded()
+      }
+    }
+    profileOperation = operation
+    Self.profileQueue.addOperation(operation)
   }
 
   // MARK: - Private methods

@@ -1,6 +1,7 @@
 #include "map/track.hpp"
 
 #include "map/bookmark_helpers.hpp"
+#include "map/track_elevation.hpp"
 #include "map/user_mark_id_storage.hpp"
 
 #include "geometry/mercator.hpp"
@@ -55,6 +56,8 @@ m2::RectD Track::GetLimitRectImpl() const
 
 bool Track::HasAltitudes() const
 {
+  if (m_hasAltitudes)
+    return *m_hasAltitudes;
   bool hasNonDefaultAltitude = false;
 
   for (auto const & line : m_data.m_geometry.m_lines)
@@ -62,13 +65,17 @@ bool Track::HasAltitudes() const
     for (auto const & pt : line)
     {
       if (pt.GetAltitude() == geometry::kInvalidAltitude)
+      {
+        m_hasAltitudes = false;
         return false;
+      }
       if (!hasNonDefaultAltitude && pt.GetAltitude() != geometry::kDefaultAltitudeMeters)
         hasNonDefaultAltitude = true;
     }
   }
 
-  return hasNonDefaultAltitude;
+  m_hasAltitudes = hasNonDefaultAltitude;
+  return *m_hasAltitudes;
 }
 
 std::string Track::GetName() const
@@ -99,6 +106,8 @@ void Track::SetData(kml::TrackData const & data)
   m_data = data;
 
   m_elevationInfo.reset();
+  m_statistics.reset();
+  m_hasAltitudes.reset();
   m_interactionData.reset();
 }
 
@@ -279,21 +288,20 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
 
 TrackStatistics Track::GetStatistics() const
 {
+  if (m_statistics)
+    return *m_statistics;
   TrackStatistics ts;
   ts.m_length = GetLengthMeters();
   ts.CalculateDuration(m_data.m_geometry);
 
-  if (auto const * ei = GetElevationInfo())
+  if (HasAltitudes())
   {
-    // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
-    auto const threshold =
-        (m_data.m_id == kml::kTempRelationTrackId) ? ElevationInfo::kDefThresholdMWM : ElevationInfo::kDefThresholdGPS;
-    auto const altInfo = ei->CalculateAltitudesInfo(threshold);
-    ts.m_ascent = altInfo.GetTotalAscent();
-    ts.m_descent = altInfo.GetTotalDescent();
-    ts.m_minElevation = altInfo.m_minAltitude;
-    ts.m_maxElevation = altInfo.m_maxAltitude;
+    if (m_data.m_id == kml::kTempRelationTrackId)
+      ts.CalculateAltitudes(*GetElevationInfo(), ElevationInfo::kDefThresholdMWM);
+    else
+      TrackElevation::Process(m_data.m_geometry.m_lines).Apply(ts);
   }
+  m_statistics = ts;
   return ts;
 }
 
@@ -303,12 +311,17 @@ ElevationInfo const * Track::GetElevationInfo() const
     return nullptr;
   if (!m_elevationInfo)
   {
-    m_elevationInfo = ElevationInfo(GetData().m_geometry.m_lines);
-
-    // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
-    if (m_data.m_id != kml::kTempRelationTrackId)
-      m_elevationInfo->SmoothSlopeOutliers();
-    m_elevationInfo->Simplify();
+    if (m_data.m_id == kml::kTempRelationTrackId)
+    {
+      m_elevationInfo = ElevationInfo(m_data.m_geometry.m_lines);
+      m_elevationInfo->Simplify();
+    }
+    else
+    {
+      std::vector<ElevationInfo::Points> lines;
+      TrackElevation::Process(m_data.m_geometry.m_lines, &lines);
+      m_elevationInfo = ElevationInfo(std::move(lines));
+    }
   }
   return &(*m_elevationInfo);
 }

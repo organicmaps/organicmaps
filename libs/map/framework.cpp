@@ -1984,11 +1984,6 @@ void Framework::SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && tr
     m_trackRecordingUpdateHandler(GpsTracker::Instance().GetTrackStatistics());
 }
 
-ElevationInfo const & Framework::GetTrackRecordingElevationInfo()
-{
-  return GpsTracker::Instance().GetElevationInfo();
-}
-
 void Framework::StopTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();
@@ -2026,7 +2021,7 @@ void Framework::SaveRoute()
 
 void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                                                std::pair<size_t, size_t> const & toRemove,
-                                               TrackStatistics const & trackStatistics)
+                                               std::function<TrackStatistics const &()> const & getStatistics)
 {
   ASSERT(m_drapeEngine, ());
 
@@ -2055,7 +2050,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, loc
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
 
   if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(trackStatistics);
+    m_trackRecordingUpdateHandler(getStatistics());
 }
 
 void Framework::MarkMapStyle(MapStyle mapStyle)

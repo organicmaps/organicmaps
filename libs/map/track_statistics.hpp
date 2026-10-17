@@ -1,8 +1,8 @@
 #pragma once
 
-#include "platform/location.hpp"
-
 #include "kml/types.hpp"
+
+class ElevationInfo;
 
 struct TrackStatistics
 {
@@ -23,11 +23,6 @@ struct TrackStatistics
   /// Calculates duration from timestamps in geometry.
   void CalculateDuration(kml::MultiGeometry const & geometry);
 
-  /// Incrementally adds a GPS point (for live track recording).
-  void AddGpsInfoPoint(location::GpsInfo const & point);
-
-private:
-  m2::PointD m_previousPoint;
-  geometry::Altitude m_previousAltitude = geometry::kInvalidAltitude;
-  double m_previousTimestamp = -1;
+  /// Calculates altitude statistics from the processed elevation profile.
+  void CalculateAltitudes(ElevationInfo const & elevation, geometry::Altitude threshold);
 };

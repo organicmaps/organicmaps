@@ -4,29 +4,36 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
-import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.util.StringUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
 import app.organicmaps.widget.placepage.PlacePageStateListener;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import app.organicmaps.widget.placepage.RecordingElevationProfileLoader;
 
 public class PlacePageTrackRecordingFragment
     extends Fragment implements PlacePageStateListener, TrackRecorder.TrackRecordingUpdateHandler
 {
   private PlacePageViewModel mViewModel;
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
+  @Nullable
+  private TrackStatistics mStatistics;
+  private RecordingElevationProfileLoader mProfileLoader;
+  private boolean mResumed;
+  private final ViewTreeObserver.OnGlobalLayoutListener mLayoutListener = this::updateGraphVisibility;
 
   @Nullable
   @Override
@@ -41,25 +48,59 @@ public class PlacePageTrackRecordingFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-
     mElevationProfileViewRenderer = new ElevationProfileViewRenderer(view.findViewById(R.id.elevation_profile));
+    mProfileLoader = new RecordingElevationProfileLoader(
+        ThreadPool.getWorker(), UiThread::run,
+        () -> mStatistics != null && isGraphVisible(), TrackRecorder::nativeGetElevationInfo, info -> {
+          if (info != null && mStatistics != null)
+            mElevationProfileViewRenderer.renderGraph(null, info, mStatistics);
+          else
+            mElevationProfileViewRenderer.clearGraph();
+        });
+    view.getViewTreeObserver().addOnGlobalLayoutListener(mLayoutListener);
+    mViewModel.getPlacePageDistanceToTop().observe(getViewLifecycleOwner(), top -> updateGraphVisibility());
+    mViewModel.getMapObject().observe(getViewLifecycleOwner(), object -> updateGraphVisibility());
   }
 
   @Override
   public void onStart()
   {
     super.onStart();
-    // The listener can only be attached while recording is enabled; it may have been stopped
-    // from the notification while the activity was stopped.
+    // It may have been stopped from the notification while the activity was stopped.
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
       TrackRecorder.nativeSetTrackRecordingStatsListener(this);
   }
 
   @Override
+  public void onResume()
+  {
+    super.onResume();
+    mResumed = true;
+    updateGraphVisibility();
+  }
+
+  @Override
+  public void onPause()
+  {
+    mResumed = false;
+    mProfileLoader.setVisible(false);
+    super.onPause();
+  }
+
+  @Override
   public void onStop()
   {
-    super.onStop();
     TrackRecorder.nativeSetTrackRecordingStatsListener(null);
+    super.onStop();
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    mProfileLoader.setVisible(false);
+    requireView().getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutListener);
+    mStatistics = null;
+    super.onDestroyView();
   }
 
   @Keep
@@ -67,26 +108,30 @@ public class PlacePageTrackRecordingFragment
   @Override
   public void onTrackRecordingUpdate(TrackStatistics trackStatistics)
   {
-    if (getContext() == null)
+    if (getView() == null || getContext() == null || !TrackRecorder.nativeIsTrackRecordingEnabled())
       return;
-    if (!TrackRecorder.nativeIsTrackRecordingEnabled())
+    MapObject object = mViewModel.getMapObject().getValue();
+    if (object == null || !object.isTrackRecording())
       return;
-
-    MapObject mo = mViewModel.getMapObject().getValue();
-    if (mo == null || !mo.isTrackRecording())
-      return;
-    ((TrackRecording) mViewModel.getMapObject().getValue())
+    ((TrackRecording) object)
         .setTrackRecordingPPDescription(
             StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(getContext()) + " • "
             + Utils.formatRoutingTime(getContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
-    ElevationInfo elevationInfo = TrackRecorder.nativeGetElevationInfo();
-    // elevationInfo can be null when Track Recording has just started and no elevation data exists yet.
-    if (elevationInfo != null)
-    {
-      mElevationProfileViewRenderer.render(/* track */ null, elevationInfo, trackStatistics);
-      UiUtils.show(requireView());
-    }
-    else
-      UiUtils.hide(requireView());
+    mStatistics = trackStatistics;
+    mElevationProfileViewRenderer.renderStatistics(trackStatistics);
+    mProfileLoader.invalidate();
+    updateGraphVisibility();
+  }
+
+  private void updateGraphVisibility()
+  {
+    mProfileLoader.setVisible(mStatistics != null && isGraphVisible());
+  }
+
+  private boolean isGraphVisible()
+  {
+    MapObject object = mViewModel.getMapObject().getValue();
+    return mResumed && getView() != null && object != null && object.isTrackRecording()
+ && TrackRecorder.nativeIsTrackRecordingEnabled() && mElevationProfileViewRenderer.isGraphVisible();
   }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,9 @@ public class PlacePageTrackFragment extends Fragment
   @Nullable
   private Track mTrack;
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
+  private boolean mGraphDirty;
+  private boolean mResumed;
+  private final ViewTreeObserver.OnGlobalLayoutListener mLayoutListener = this::updateGraph;
 
   @Nullable
   @Override
@@ -42,6 +46,8 @@ public class PlacePageTrackFragment extends Fragment
     super.onViewCreated(view, savedInstanceState);
 
     mElevationProfileViewRenderer = new ElevationProfileViewRenderer(view.findViewById(R.id.elevation_profile));
+    view.getViewTreeObserver().addOnGlobalLayoutListener(mLayoutListener);
+    mViewModel.getPlacePageDistanceToTop().observe(getViewLifecycleOwner(), top -> updateGraph());
   }
 
   @Override
@@ -50,7 +56,30 @@ public class PlacePageTrackFragment extends Fragment
     super.onStart();
     BookmarkManager.INSTANCE.setElevationActivePointChangedListener(this);
     BookmarkManager.INSTANCE.setElevationCurrentPositionChangedListener(this);
-    mViewModel.getMapObject().observe(requireActivity(), this);
+    mViewModel.getMapObject().observe(getViewLifecycleOwner(), this);
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+    mResumed = true;
+    updateGraph();
+  }
+
+  @Override
+  public void onPause()
+  {
+    mResumed = false;
+    super.onPause();
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    requireView().getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutListener);
+    mTrack = null;
+    super.onDestroyView();
   }
 
   @Override
@@ -71,20 +100,30 @@ public class PlacePageTrackFragment extends Fragment
     if (mapObject == null || !mapObject.isTrack())
     {
       mTrack = null;
+      mGraphDirty = false;
       UiUtils.hide(requireView());
       return;
     }
 
     Track track = (Track) mapObject;
-    if (track.getElevationInfo() != null)
-    {
-      if (mTrack == null || mTrack.getTrackId() != track.getTrackId() || track.isRelationTrack())
-        mElevationProfileViewRenderer.render(track, track.getElevationInfo(), track.getTrackStatistics());
-      UiUtils.show(requireView());
-    }
+    mGraphDirty |= mTrack != track || track.isRelationTrack();
+    mTrack = track;
+    mElevationProfileViewRenderer.renderStatistics(track.getTrackStatistics());
+    UiUtils.show(requireView());
+    updateGraph();
+  }
+
+  private void updateGraph()
+  {
+    if (!mResumed || getView() == null || mTrack == null || !mGraphDirty
+        || !mElevationProfileViewRenderer.isGraphVisible())
+      return;
+    mGraphDirty = false;
+    var elevation = mTrack.getElevationInfo();
+    if (elevation != null)
+      mElevationProfileViewRenderer.renderGraph(mTrack, elevation, mTrack.getTrackStatistics());
     else
       UiUtils.hide(requireView());
-    mTrack = track;
   }
 
   @Override
