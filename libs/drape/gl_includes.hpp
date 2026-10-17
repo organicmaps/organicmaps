@@ -22,6 +22,10 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include "android/sdk/src/main/cpp/app/organicmaps/sdk/opengl/gl3stub.h"
+#elif defined(OMIM_OS_SAILFISH)
+#include <GLES3/gl3.h>  // Before gl2ext.h, which needs its GL types.
+
+#include <GLES2/gl2ext.h>
 #elif defined(OMIM_OS_LINUX)
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
