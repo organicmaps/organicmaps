@@ -4,6 +4,7 @@
 #include "coding/string_utf8_multilang.hpp"
 #include "timezone/timezone.hpp"
 
+#include <chrono>
 #include <map>
 #include <string>
 #include <vector>
@@ -193,7 +194,7 @@ public:
     RD_ADDRESS_FORMAT,     // address format, re: mapzen
     RD_PHONE_FORMAT,       // list of strings in "+N NNN NN-NN-NN" format
     RD_POSTCODE_FORMAT,    // list of strings in "AAA ANN" format
-    RD_PUBLIC_HOLIDAYS,    // fixed PH dates
+    RD_PUBLIC_HOLIDAYS,    // encoded (reference, offset) holiday pairs
     RD_ALLOW_HOUSENAMES,   // 'y' if housenames are commonly used
     RD_LEAP_WEIGHT_SPEED,  // speed factor for leap weight computation
 
@@ -220,6 +221,7 @@ public:
   {
     MetadataBase::DeserializeFromMwmTmp(src);
     LoadTimeZone();
+    LoadPublicHolidays();
   }
 
   void Set(Type type, std::string const & s)
@@ -236,7 +238,17 @@ public:
   bool IsSingleLanguage(int8_t const lang) const;
 
   void AddPublicHoliday(int8_t month, int8_t offset);
-  // No public holidays getters until we know what to do with these.
+
+  using PublicHolidaysT = std::vector<std::chrono::year_month_day>;
+
+  // Expands the stored public-holiday references into concrete calendar dates for
+  // every year in [yearFrom, yearTo]. Handles fixed month/day holidays and the
+  // special references (Easter, Orthodox Easter, Victoria Day, Canada Day).
+  // Returns an empty vector when the region has no public holidays.
+  PublicHolidaysT GetPublicHolidays(int yearFrom, int yearTo) const;
+
+  // Holiday dates around the year when Deserialize() last ran.
+  PublicHolidaysT const & GetPublicHolidays() const { return m_publicHolidays; }
 
   void MergeFrom(RegionData const & rhs);
 
@@ -250,8 +262,10 @@ public:
 
 private:
   void LoadTimeZone();
+  void LoadPublicHolidays();
 
   std::optional<om::tz::TimeZone> m_timeZone = std::nullopt;
+  PublicHolidaysT m_publicHolidays;
 
   /// @see EdgeEstimator::GetLeapWeightSpeed
   //  double GetLeapWeightSpeed(double defaultValue) const

@@ -316,7 +316,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     {
       String descriptionString;
 
-      if (ohInfo.nextTimeClosed == OpeningHoursInfo.TIME_NEVER) // Will stay open forever
+      if (ohInfo.nextTimeClosed == OpeningHoursInfo.TIME_NEVER) // No closing found within the scan window.
         descriptionString = "";
       else
       {
@@ -343,7 +343,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     {
       String descriptionString;
 
-      if (ohInfo.nextTimeOpen == OpeningHoursInfo.TIME_NEVER) // Will stay closed forever
+      if (ohInfo.nextTimeOpen == OpeningHoursInfo.TIME_NEVER) // No opening found within the scan window.
         descriptionString = "";
       else
       {
