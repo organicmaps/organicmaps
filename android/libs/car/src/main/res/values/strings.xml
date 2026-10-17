@@ -72,6 +72,8 @@
     <string name="noon">Noon</string>
     <string name="opens_in">Opens in %s</string>
     <string name="closes_in">Closes in %s</string>
+    <string name="opens_in_less_than_a_minute">Opens in less than a minute</string>
+    <string name="closes_in_less_than_a_minute">Closes in less than a minute</string>
     <string name="closed">Closed</string>
     <string name="minute">min</string>
     <string name="big_font">Increase size for map labels</string>

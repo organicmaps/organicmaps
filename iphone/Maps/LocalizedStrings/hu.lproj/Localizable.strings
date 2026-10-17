@@ -524,6 +524,8 @@
 "today" = "Ma";
 "opens_in" = "Kinyit %@ múlva";
 "closes_in" = "Bezár %@ múlva";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Zárva";
 "no_osm_account" = "Nem rendelkezik még felhasználói fiókkal az OpenStreetMapen?";
 "register_at_openstreetmap" = "Regisztráció az OpenStreetMap oldalon";

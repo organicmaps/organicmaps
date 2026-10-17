@@ -524,6 +524,8 @@
 "today" = "Leo";
 "opens_in" = "Inafunguka katika %@";
 "closes_in" = "Inakaribia kwa %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Imefungwa";
 "no_osm_account" = "Huna akaunti ya OpenStreetMap?";
 "register_at_openstreetmap" = "Jisajili kwenye OpenStreetMap";
