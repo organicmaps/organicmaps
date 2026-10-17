@@ -12,7 +12,7 @@ import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.util.UiUtils;
 
-public class ElevationProfileViewRenderer implements PlacePageStateListener
+public class ElevationProfileViewRenderer
 {
   // Must be correspond to map/elevation_info.hpp constants.
   private static final int MAX_DIFFICULTY_LEVEL = 3;
