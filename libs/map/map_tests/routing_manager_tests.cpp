@@ -1,10 +1,13 @@
 #include "testing/testing.hpp"
 
 #include "map/framework.hpp"
+#include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
+#include "routing/route.hpp"
+#include "routing/router.hpp"
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -18,10 +21,16 @@
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 #include "base/thread_safe_queue.hpp"
+#include "platform/settings.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <future>
+#include <iomanip>
 #include <memory>
+#include <sstream>
+#include <string>
+#include <thread>
 #include <utility>
 #include <vector>
 
@@ -47,6 +56,21 @@ public:
     task();
   }
 
+  bool TryRunNext()
+  {
+    Task task;
+    if (!m_tasks.TryPop(task))
+      return false;
+    task();
+    return true;
+  }
+
+  void Drain()
+  {
+    while (TryRunNext())
+    {}
+  }
+
 private:
   threads::ThreadSafeQueue<Task> m_tasks;
 };
@@ -63,14 +87,10 @@ bool LoadRoutePoints(RoutingManager & routingManager, TestGuiThread & guiThread)
 {
   bool loaded = false;
   bool completed = false;
-  // Failures may call back from the file thread, so always finish on the test GUI thread.
   routingManager.LoadRoutePoints([&](bool success)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [&, success]
-    {
-      loaded = success;
-      completed = true;
-    });
+    loaded = success;
+    completed = true;
   });
   while (!completed)
     guiThread.RunNext();
@@ -174,7 +194,7 @@ void TestSavedRouteOrder(bool myPositionStart, size_t passedStops, bool hasCurre
     if (restoreMyPosition && hasCurrentPosition)
     {
       expected.front().m_position = currentPosition;
-      expected.front().m_title.clear();
+      expected.front().m_title = "My Position";
       expected.front().m_subTitle.clear();
     }
 
@@ -986,5 +1006,413 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   while (!recovered)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
+}
+
+class RoutingTestSettings
+{
+public:
+  RoutingTestSettings() : m_settingsDir(GetPlatform().SettingsDir()), m_hadRouter(settings::Get("router", m_router))
+  {
+    GetPlatform().SetSettingsDir(m_dir);
+    auto gui = std::make_unique<TestGuiThread>();
+    m_gui = gui.get();
+    GetPlatform().SetGuiThread(std::move(gui));
+  }
+  ~RoutingTestSettings()
+  {
+    if (m_hadRouter)
+      settings::Set("router", m_router);
+    else
+      settings::Delete("router");
+    GetPlatform().SetSettingsDir(m_settingsDir);
+    GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>());
+  }
+  void DrainGui() { m_gui->Drain(); }
+
+private:
+  TestGuiThread * m_gui = nullptr;
+  std::string const m_dir = GetPlatform().WritablePathForFile("routing_manager_test_settings");
+  platform::tests_support::ScopedDirCleanup m_dirCleanup{m_dir};
+  std::string m_settingsDir;
+  std::string m_router;
+  bool m_hadRouter;
+};
+
+class CheckpointRouter final : public routing::IRouter
+{
+public:
+  std::string GetName() const override { return "checkpoint test router"; }
+  void ClearState() override {}
+  void SetGuides(routing::GuidesTracks &&) override {}
+  bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, routing::EdgeProj &) override
+  {
+    return false;
+  }
+
+  routing::RouterResultCode CalculateRoute(routing::Checkpoints const & checkpoints, m2::PointD const & direction,
+                                           bool adjust, bool alternatives, routing::RouterDelegate const & delegate,
+                                           routing::RoutesResult & result) override
+  {
+    routing::RulerRouter ruler;
+    auto const code = static_cast<routing::IRouter &>(ruler).CalculateRoute(checkpoints, direction, adjust,
+                                                                            alternatives, delegate, result);
+    routing::Route route(result.GetActive());
+    // Checkpoint passing indexes itinerary legs, so each leg needs one subroute.
+    std::vector<routing::Route::SubrouteAttrs> legs;
+    for (auto const & subroute : route.GetSubroutes())
+      if (legs.empty() || legs.back().GetEndSegmentIdx() != subroute.GetEndSegmentIdx())
+        legs.push_back(subroute);
+    CHECK_EQUAL(legs.size(), checkpoints.GetNumSubroutes(), ());
+    route.SetSubroutes(std::move(legs));
+    result.MakeFrom(GetName(), std::move(route));
+    return code;
+  }
+};
+
+class RoutingManagerTest
+{
+public:
+  RoutingManagerTest()
+    : m_framework(FrameworkParams(false /* m_enableDiffs */))
+    , m_manager(m_framework.GetRoutingManager())
+  {
+    m_manager.RemoveRoutePoints();
+  }
+
+  ~RoutingManagerTest()
+  {
+    // Drain asynchronous saves before the fixture removes its settings directory.
+    std::promise<void> drained;
+    GetPlatform().RunTask(Platform::Thread::File, [&drained]() { drained.set_value(); });
+    drained.get_future().wait();
+    Platform::RemoveFileIfExists(GetPlatform().SettingsPathForFile("route_points.dat"));
+  }
+
+protected:
+  template <typename Predicate>
+  void WaitUntil(Predicate && ready)
+  {
+    auto const deadline = std::chrono::steady_clock::now() + std::chrono::seconds(5);
+    while (!ready() && std::chrono::steady_clock::now() < deadline)
+    {
+      m_settings.DrainGui();
+      std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    }
+    TEST(ready(), ("Asynchronous routing operation timed out"));
+  }
+
+  void BuildTestRoute(std::string const & callback = "app://finish")
+  {
+    m_manager.SetRouter(routing::RouterType::Ruler);
+    m_manager.RoutingSession().SetRouter(std::make_unique<CheckpointRouter>(), nullptr);
+    m_manager.ReplaceRoutePoints({MakePoint(RouteMarkType::Start, 1, 1),
+                                  MakePoint(RouteMarkType::Intermediate, 1.001, 1, "app://stop"),
+                                  MakePoint(RouteMarkType::Finish, 1.002, 1, callback)});
+    bool ready = false;
+    m_manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    {
+      TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
+      ready = true;
+    });
+    m_manager.BuildRoute();
+    WaitUntil([&] { return ready; });
+    m_manager.SetRouteBuildingListener([](routing::RouterResultCode, storage::CountriesSet const &) {});
+  }
+
+  void MoveAlongRoute(double fromLatitude = 1, double toLatitude = 1.002)
+  {
+    location::GpsInfo gps;
+    gps.m_longitude = 1;
+    gps.m_horizontalAccuracy = 1;
+    for (int i = 0; i <= 100; ++i)
+    {
+      gps.m_latitude = fromLatitude + (toLatitude - fromLatitude) * i / 100;
+      m_manager.CheckLocationForRouting(gps);
+    }
+  }
+
+  static RouteMarkData MakePoint(RouteMarkType type, double lat, double lon, std::string callback = {},
+                                 size_t intermediateIndex = 0)
+  {
+    RouteMarkData data;
+    data.m_pointType = type;
+    data.m_intermediateIndex = intermediateIndex;
+    data.m_position = mercator::FromLatLon(lat, lon);
+    data.m_callback = std::move(callback);
+    return data;
+  }
+
+  RoutingTestSettings m_settings;
+  Framework m_framework;
+  RoutingManager & m_manager;
+};
+
+UNIT_CLASS_TEST(RoutingManagerTest, FlushesLatestPendingRoutePointCallback)
+{
+  BuildTestRoute();
+  TEST(m_manager.RoutingSession().EnableFollowMode(), ());
+  MoveAlongRoute();
+  TEST(m_manager.IsRouteFinished(), ());
+  m_manager.CloseRouting(true);
+
+  // Only the most recent stop callback is kept while no platform callback is
+  // attached, and it is delivered exactly once.
+  std::vector<std::string> callbacks;
+  m_manager.SetRoutePointCallback([&callbacks](std::string const & callback) { callbacks.push_back(callback); });
+
+  TEST_EQUAL(callbacks.size(), 1, ());
+  TEST_EQUAL(callbacks[0], "app://finish", ());
+
+  callbacks.clear();
+  m_manager.SetRoutePointCallback([&callbacks](std::string const & callback) { callbacks.push_back(callback); });
+  TEST(callbacks.empty(), ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, PreviewDoesNotOpenCallbacks)
+{
+  BuildTestRoute();
+  size_t callbacks = 0;
+  m_manager.SetRoutePointCallback([&](std::string const &) { ++callbacks; });
+  MoveAlongRoute();
+  m_settings.DrainGui();
+  TEST_EQUAL(callbacks, 0, ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, OpensCallbacksAtTheirCheckpoints)
+{
+  BuildTestRoute();
+  TEST(m_manager.RoutingSession().EnableFollowMode(), ());
+  std::vector<std::string> callbacks;
+  m_manager.SetRoutePointCallback([&](std::string const & callback) { callbacks.push_back(callback); });
+
+  MoveAlongRoute(1, 1.001);
+  TEST_EQUAL(callbacks, (std::vector<std::string>{"app://stop"}), ());
+  TEST(!m_manager.IsRouteFinished(), ());
+
+  MoveAlongRoute(1.001, 1.002);
+  TEST_EQUAL(callbacks, (std::vector<std::string>{"app://stop", "app://finish"}), ());
+  TEST(m_manager.IsRouteFinished(), ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, CheckpointBelongsToTheRouteThatPassedIt)
+{
+  BuildTestRoute();
+  TEST(m_manager.RoutingSession().EnableFollowMode(), ());
+  std::vector<std::string> callbacks;
+  m_manager.SetRoutePointCallback([&](std::string const & callback) { callbacks.push_back(callback); });
+  MoveAlongRoute();
+  TEST_EQUAL(callbacks.size(), 2, ());
+  TEST_EQUAL(callbacks.back(), "app://finish", ());
+  m_manager.ReplaceRoutePoints(
+      {MakePoint(RouteMarkType::Start, 3, 3), MakePoint(RouteMarkType::Finish, 4, 4, "app://new")});
+  m_settings.DrainGui();
+  TEST_EQUAL(callbacks.size(), 2, ());
+  TEST(!m_manager.GetRoutePoints().back().m_isPassed, ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, ReplacementDiscardsPendingCallbacks)
+{
+  BuildTestRoute();
+  TEST(m_manager.RoutingSession().EnableFollowMode(), ());
+  MoveAlongRoute();
+  m_manager.ReplaceRoutePoints({MakePoint(RouteMarkType::Start, 3, 3), MakePoint(RouteMarkType::Finish, 4, 4)});
+  m_manager.SetRoutePointCallback([](std::string const &) { TEST(false, ("Callback belongs to a replaced route")); });
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, RestorePreservesOrderAndCallbacks)
+{
+  m_manager.ReplaceRoutePoints(
+      {MakePoint(RouteMarkType::Start, 1, 1), MakePoint(RouteMarkType::Intermediate, 1.001, 1, "A"),
+       MakePoint(RouteMarkType::Intermediate, 1.002, 1, "B"), MakePoint(RouteMarkType::Intermediate, 1.003, 1, "C"),
+       MakePoint(RouteMarkType::Finish, 1.004, 1, "finish")});
+  auto const before = m_manager.GetRoutePoints();
+  m_manager.SaveRoutePoints();
+  std::promise<void> saved;
+  GetPlatform().RunTask(Platform::Thread::File, [&] { saved.set_value(); });
+  saved.get_future().wait();
+  m_manager.RemoveRoutePoints();
+  bool loaded = false;
+  m_manager.LoadRoutePoints([&](bool success)
+  {
+    TEST(success, ());
+    loaded = true;
+  });
+  WaitUntil([&] { return loaded; });
+  auto const after = m_manager.GetRoutePoints();
+  TEST_EQUAL(after.size(), before.size(), ());
+  for (size_t i = 0; i < after.size(); ++i)
+  {
+    TEST_EQUAL(after[i].m_position, before[i].m_position, (i));
+    TEST_EQUAL(after[i].m_callback, before[i].m_callback, (i));
+    TEST_EQUAL(after[i].m_intermediateIndex, before[i].m_intermediateIndex, (i));
+  }
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, OptimizedBatchKeepsPointMetadataTogether)
+{
+  m_manager.ReplaceRoutePoints(
+      {MakePoint(RouteMarkType::Start, 1, 1), MakePoint(RouteMarkType::Intermediate, 1.003, 1, "C"),
+       MakePoint(RouteMarkType::Intermediate, 1.001, 1, "A"), MakePoint(RouteMarkType::Intermediate, 1.002, 1, "B"),
+       MakePoint(RouteMarkType::Finish, 1.004, 1, "finish")},
+      true);
+  auto const points = m_manager.GetRoutePoints();
+  TEST_EQUAL(points[1].m_callback, "A", ());
+  TEST_EQUAL(points[2].m_callback, "B", ());
+  TEST_EQUAL(points[3].m_callback, "C", ());
+  TEST_EQUAL(points.back().m_callback, "finish", ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, LoadingSavedPointsDoesNotReplaceANewItinerary)
+{
+  m_manager.ReplaceRoutePoints({MakePoint(RouteMarkType::Start, 1, 1), MakePoint(RouteMarkType::Finish, 2, 2)});
+  m_manager.SaveRoutePoints();
+  std::promise<void> saved;
+  GetPlatform().RunTask(Platform::Thread::File, [&] { saved.set_value(); });
+  saved.get_future().wait();
+  m_manager.RemoveRoutePoints();
+
+  bool done = false;
+  m_manager.LoadRoutePoints([&](bool success)
+  {
+    TEST(!success, ());
+    done = true;
+  });
+  m_manager.ReplaceRoutePoints({MakePoint(RouteMarkType::Start, 3, 3), MakePoint(RouteMarkType::Finish, 4, 4)});
+  WaitUntil([&] { return done; });
+  TEST_EQUAL(m_manager.GetRoutePoints().back().m_position, mercator::FromLatLon(4, 4), ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, PendingCallbackCanDetachItsListener)
+{
+  BuildTestRoute();
+  TEST(m_manager.RoutingSession().EnableFollowMode(), ());
+  MoveAlongRoute();
+  size_t calls = 0;
+  m_manager.SetRoutePointCallback([&](std::string const & callback)
+  {
+    m_manager.SetRoutePointCallback({});
+    TEST_EQUAL(callback, "app://finish", ());
+    ++calls;
+  });
+  TEST_EQUAL(calls, 1, ());
+  m_manager.SetRoutePointCallback([&](std::string const &) { ++calls; });
+  TEST_EQUAL(calls, 1, ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, ReplacesRoutePointsInBatch)
+{
+  std::vector<RouteMarkData> points;
+  points.push_back(MakePoint(RouteMarkType::Start, 1.0, 1.0, "app://start"));
+  points.push_back(MakePoint(RouteMarkType::Intermediate, 1.5, 1.5, "app://stop", 0));
+  points.push_back(MakePoint(RouteMarkType::Finish, 2.0, 2.0, "app://finish"));
+
+  m_manager.ReplaceRoutePoints(std::move(points));
+
+  auto const routePoints = m_manager.GetRoutePoints();
+  TEST_EQUAL(routePoints.size(), 3, ());
+  TEST_EQUAL(static_cast<int>(routePoints[0].m_pointType), static_cast<int>(RouteMarkType::Start), ());
+  TEST_EQUAL(routePoints[0].m_callback, "app://start", ());
+  TEST_EQUAL(static_cast<int>(routePoints[1].m_pointType), static_cast<int>(RouteMarkType::Intermediate), ());
+  TEST_EQUAL(routePoints[1].m_callback, "app://stop", ());
+  TEST_EQUAL(static_cast<int>(routePoints[2].m_pointType), static_cast<int>(RouteMarkType::Finish), ());
+  TEST_EQUAL(routePoints[2].m_callback, "app://finish", ());
+}
+UNIT_TEST(RoutingManager_LoadsRoutePointsWithoutCallbackField)
+{
+  auto const start = mercator::FromLatLon(1.0, 1.0);
+  auto const finish = mercator::FromLatLon(2.0, 2.0);
+
+  std::ostringstream data;
+  data << std::setprecision(17);
+  data << "["
+       << "{\"type\":0,\"title\":\"Start\",\"subtitle\":\"\",\"x\":" << start.x << ",\"y\":" << start.y
+       << ",\"replaceWithMyPosition\":false},"
+       << "{\"type\":2,\"title\":\"Finish\",\"subtitle\":\"\",\"x\":" << finish.x << ",\"y\":" << finish.y
+       << ",\"replaceWithMyPosition\":false}"
+       << "]";
+
+  auto const points = RoutingManager::DeserializeRoutePointsForTesting(data.str());
+  TEST_EQUAL(points.size(), 2, ());
+  TEST_EQUAL(points[0].m_title, "Start", ());
+  TEST_EQUAL(points[0].m_callback, "", ());
+  TEST_EQUAL(points[0].m_position, start, ());
+  TEST_EQUAL(points[1].m_title, "Finish", ());
+  TEST_EQUAL(points[1].m_callback, "", ());
+  TEST_EQUAL(points[1].m_position, finish, ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, DoesNotSaveCallbackForPassedRoutePoint)
+{
+  m_manager.AddRoutePoint(MakePoint(RouteMarkType::Start, 1.0, 1.0), false /* reorderIntermediatePoints */);
+  m_manager.AddRoutePoint(MakePoint(RouteMarkType::Intermediate, 1.5, 1.5, "app://passed", 0),
+                          false /* reorderIntermediatePoints */);
+  m_manager.AddRoutePoint(MakePoint(RouteMarkType::Intermediate, 1.7, 1.7, "app://next", 1),
+                          false /* reorderIntermediatePoints */);
+  m_manager.AddRoutePoint(MakePoint(RouteMarkType::Finish, 2.0, 2.0, "app://finish"),
+                          false /* reorderIntermediatePoints */);
+
+  m_manager.SetRoutePointCallback([](std::string const &) {});
+  m_manager.OnRoutePointPassed(RouteMarkType::Intermediate, 0);
+
+  auto const points = m_manager.GetRoutePointsToSaveForTesting();
+  TEST_EQUAL(points.size(), 3, ());
+  TEST_EQUAL(static_cast<int>(points[0].m_pointType), static_cast<int>(RouteMarkType::Start), ());
+  TEST_EQUAL(points[0].m_callback, "", ());
+  TEST_EQUAL(static_cast<int>(points[1].m_pointType), static_cast<int>(RouteMarkType::Intermediate), ());
+  TEST_EQUAL(points[1].m_callback, "app://next", ());
+  TEST_EQUAL(static_cast<int>(points[2].m_pointType), static_cast<int>(RouteMarkType::Finish), ());
+  TEST_EQUAL(points[2].m_callback, "app://finish", ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, OptimizedBatchDoesNotLengthenInput)
+{
+  std::vector<m2::PointD> positions = {
+      {8, 47}, {8.000425, 46.995241}, {8.0018, 47.001004}, {8.002479, 47.004599}, {8.01, 47}};
+  std::vector<RouteMarkData> points;
+  for (auto const & position : positions)
+  {
+    RouteMarkData point;
+    point.m_position = position;
+    points.push_back(std::move(point));
+  }
+  m_manager.ReplaceRoutePoints(points, false);
+  auto const originalLength = GetRouteLengthMeters(m_manager);
+  m_manager.ReplaceRoutePoints(points, true);
+  auto const optimizedLength = GetRouteLengthMeters(m_manager);
+  TEST_LESS_OR_EQUAL(optimizedLength, originalLength, (originalLength, optimizedLength));
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, MyPositionTitleUsesCoreLocalization)
+{
+  m_framework.AddString("core_my_position", "Localized position");
+  auto start = MakePoint(RouteMarkType::Start, 1, 1);
+  start.m_isMyPosition = true;
+  m_manager.ReplaceRoutePoints({start, MakePoint(RouteMarkType::Finish, 2, 2)});
+  TEST_EQUAL(m_manager.GetRoutePoints().front().m_title, "Localized position", ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, BatchUsesArrayOrderAtPointLimit)
+{
+  std::vector<RouteMarkData> points;
+  for (size_t i = 0; i < RoutePointsLayout::kMaxRoutePointsCount; ++i)
+  {
+    auto point = MakePoint(RouteMarkType::Start, 1 + i * 0.001, 1, std::to_string(i), 99);
+    points.push_back(std::move(point));
+  }
+  m_manager.ReplaceRoutePoints(points);
+  auto const actual = m_manager.GetRoutePoints();
+  TEST_EQUAL(actual.size(), points.size(), ());
+  TEST(actual.front().m_pointType == RouteMarkType::Start, ());
+  TEST(actual.back().m_pointType == RouteMarkType::Finish, ());
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    TEST_EQUAL(actual[i].m_position, points[i].m_position, (i));
+    TEST_EQUAL(actual[i].m_callback, points[i].m_callback, (i));
+    if (i > 0 && i + 1 < points.size())
+    {
+      TEST(actual[i].m_pointType == RouteMarkType::Intermediate, (i));
+      TEST_EQUAL(actual[i].m_intermediateIndex, i - 1, (i));
+    }
+  }
 }
 }  // namespace routing_manager_tests
