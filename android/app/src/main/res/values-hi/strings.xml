@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">उस क्षेत्र को डाउनलोड करें जहां आप खोज रहे हैं या पास के शहर/गांव का नाम जोड़ने का प्रयास करें।</string>
     <string name="search_history_title">खोज इतिहास</string>
+    <string name="bookmarks_backup_title">बुकमार्क बैकअप</string>
+    <string name="bookmarks_backup_description">अगर इस डिवाइस पर Android सिस्टम बैकअप चालू है और बुकमार्क व ट्रैक उसकी आकार सीमा से ज़्यादा नहीं हैं, तो वे उसमें सहेजे जाते हैं।</string>
     <string name="search_history_text">अपनी हालिया खोजें देखें।</string>
     <string name="clear_search">स्पष्ट इतिहास की खोज</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

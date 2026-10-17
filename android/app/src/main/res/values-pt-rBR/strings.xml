@@ -237,6 +237,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Faça o download da região onde está pesquisando ou tente adicionar o nome de uma cidade ou povoado ao redor.</string>
     <string name="search_history_title">Histórico de busca</string>
+    <string name="bookmarks_backup_title">Backup dos favoritos</string>
+    <string name="bookmarks_backup_description">Favoritos e trilhas são salvos no backup do sistema Android, se ele estiver ativado neste dispositivo e não excederem o limite de tamanho dele.</string>
     <string name="search_history_text">Visualizar as buscas recentes.</string>
     <string name="clear_search">Limpar histórico de pesquisa</string>
     <string name="p2p_your_location">Sua localização</string>

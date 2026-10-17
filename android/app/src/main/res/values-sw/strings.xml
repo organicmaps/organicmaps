@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
     <string name="search_history_title">Historia ya Utafutaji</string>
+    <string name="bookmarks_backup_title">Nakala rudufu ya alamisho</string>
+    <string name="bookmarks_backup_description">Alamisho na njia huhifadhiwa kwenye nakala rudufu ya mfumo wa Android ikiwa imewashwa kwenye kifaa hiki na hazizidi kikomo chake cha ukubwa.</string>
     <string name="search_history_text">Tazama utafutaji wako wa hivi karibuni.</string>
     <string name="clear_search">Futa historia ya utafutaji</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

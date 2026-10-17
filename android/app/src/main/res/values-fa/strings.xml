@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">منطقه ای را که در آن جستجو می کنید دانلود کنید یا نام شهر/ روستای اطراف را اضافه کنید.</string>
     <string name="search_history_title">سوابق جستجو</string>
+    <string name="bookmarks_backup_title">پشتیبان‌گیری از نشانک‌ها</string>
+    <string name="bookmarks_backup_description">اگر پشتیبان‌گیری سیستم Android در این دستگاه فعال باشد و نشانک‌ها و مسیرها از محدودیت حجم آن بیشتر نشوند، در آن ذخیره می‌شوند.</string>
     <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
     <string name="clear_search">پاک کردن سابقه جستجوها</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

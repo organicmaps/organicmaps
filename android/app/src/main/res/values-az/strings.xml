@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Axtardığınız bölgəni endirin və ya yaxınlıqdakı şəhər/kənd adını əlavə etməyə cəhd edin.</string>
     <string name="search_history_title">Axtarış tarixçəsi</string>
+    <string name="bookmarks_backup_title">Əlfəcinlərin ehtiyat nüsxəsi</string>
+    <string name="bookmarks_backup_description">Bu cihazda Android sistem ehtiyat nüsxəsi aktivdirsə və əlfəcinlərlə treklər onun ölçü limitini aşmırsa, onlar orada saxlanılır.</string>
     <string name="search_history_text">Son axtarışlara baxın.</string>
     <string name="clear_search">Axtarış Tarixçəsini silin</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

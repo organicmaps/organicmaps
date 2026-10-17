@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">יש להוריד את האזור בו החיפוש מתבצע או להוסיף שם עיר/כפר קרוב.</string>
     <string name="search_history_title">חיפושים קודמים</string>
+    <string name="bookmarks_backup_title">גיבוי סימניות</string>
+    <string name="bookmarks_backup_description">סימניות ומסלולים נשמרים בגיבוי המערכת של Android אם הוא מופעל במכשיר זה והם אינם חורגים ממגבלת הגודל שלו.</string>
     <string name="search_history_text">צפה בחיפושים האחרונים שלך.</string>
     <string name="clear_search">נקה היסטוריית חיפוש</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

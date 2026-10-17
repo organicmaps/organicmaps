@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">下载您要搜索的区域的地图，或尝试输入附近的城镇或村庄名称。</string>
     <string name="search_history_title">搜索历史记录</string>
+    <string name="bookmarks_backup_title">书签备份</string>
+    <string name="bookmarks_backup_description">如果此设备已启用 Android 系统备份，且书签和轨迹未超过其容量上限，它们就会保存在备份中。</string>
     <string name="search_history_text">查看您最近的搜索记录。</string>
     <string name="clear_search">清除搜索记录</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

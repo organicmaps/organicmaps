@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Töltse le a keresett régiót, vagy próbálja meg hozzáadni egy közeli város vagy település nevét.</string>
     <string name="search_history_title">Keresési előzmények</string>
+    <string name="bookmarks_backup_title">Könyvjelzők biztonsági mentése</string>
+    <string name="bookmarks_backup_description">A könyvjelzők és nyomvonalak az Android rendszer biztonsági mentésébe kerülnek, ha az be van kapcsolva ezen az eszközön, és nem lépik túl a mérethatárát.</string>
     <string name="search_history_text">Legutóbbi keresések megtekintése.</string>
     <string name="clear_search">A keresési előzmények törlése</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

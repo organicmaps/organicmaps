@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Baixeu la regió on esteu cercant o proveu d\'afegir un nom de ciutat o poble proper.</string>
     <string name="search_history_title">Historial de cerca</string>
+    <string name="bookmarks_backup_title">Còpia de seguretat dels marcadors</string>
+    <string name="bookmarks_backup_description">Els marcadors i recorreguts es desen a la còpia de seguretat del sistema Android si està activada en aquest dispositiu i no superen el seu límit de mida.</string>
     <string name="search_history_text">Mostra les cerques recents.</string>
     <string name="clear_search">Neteja l’historial de cerques</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

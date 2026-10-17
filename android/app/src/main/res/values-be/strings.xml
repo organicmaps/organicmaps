@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Спампуйце рэгіён, у якім вы шукаеце, або паспрабуйце дадаць назву бліжэйшага горада/вёскі.</string>
     <string name="search_history_title">Гісторыя пошуку</string>
+    <string name="bookmarks_backup_title">Рэзервовая копія закладак</string>
+    <string name="bookmarks_backup_description">Закладкі і трэкі захоўваюцца ў сістэмнай рэзервовай копіі Android, калі яна ўключана на прыладзе і яны не перавышаюць яе ліміт памеру.</string>
     <string name="search_history_text">Прагляд апошніх выкарыстаных пошукавых запытаў.</string>
     <string name="clear_search">Ачысціць гісторыю пошуку</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

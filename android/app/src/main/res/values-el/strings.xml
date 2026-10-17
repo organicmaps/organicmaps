@@ -343,6 +343,8 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Κατεβάστε την περιοχή στην οποία ψάχνετε ή δοκιμάστε να προσθέσετε το όνομα μιας κοντινής πόλης/χωριού.</string>
     <string name="search_history_title">Ιστορικό αναζητήσεων</string>
+    <string name="bookmarks_backup_title">Αντίγραφο ασφαλείας αγαπημένων</string>
+    <string name="bookmarks_backup_description">Τα αγαπημένα και οι διαδρομές αποθηκεύονται στο αντίγραφο ασφαλείας συστήματος του Android, εάν είναι ενεργοποιημένο σε αυτήν τη συσκευή και δεν υπερβαίνουν το όριο μεγέθους του.</string>
     <string name="search_history_text">Προβολή πρόσφατων αναζητήσεων.</string>
     <string name="clear_search">Εκκαθάριση ιστορικού αναζητήσεων</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
