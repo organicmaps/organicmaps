@@ -529,6 +529,19 @@
 <source>Walking</source>
 <translation>ຍ່າງ</translation>
 </message>
+<message id="prefer_saved_tracks_description">
+<extracomment>First version uses tracks near a start, finish, or intermediate route point</extracomment>
+<source>Use tracks shown on the map when a route point is nearby. Tracks can be followed in either direction.</source>
+<translation>Use tracks shown on the map when a route point is nearby. Tracks can be followed in either direction.</translation>
+</message>
+<message id="prefer_saved_tracks_walking">
+<source>Prefer saved tracks when walking</source>
+<translation>Prefer saved tracks when walking</translation>
+</message>
+<message id="prefer_saved_tracks_cycling">
+<source>Prefer saved tracks when cycling</source>
+<translation>Prefer saved tracks when cycling</translation>
+</message>
 <message id="toll_road">
 <source>Toll road</source>
 <translation>ທາງເສຍຄ່າທຳນຽມ</translation>
