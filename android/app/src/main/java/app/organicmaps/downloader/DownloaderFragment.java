@@ -91,15 +91,15 @@ public class DownloaderFragment
 
   void clearSearchQuery()
   {
+    // Outside the root the toolbar ignores query changes, so a pending search must be ended explicitly.
+    onSearchEnd();
     mToolbarController.clear();
   }
 
   void cancelSearch()
   {
-    if (mAdapter == null || !mAdapter.isSearchResultsMode())
-      return;
-
-    mAdapter.resetSearchResultsMode();
+    if (mAdapter != null && mAdapter.isSearchResultsMode())
+      mAdapter.resetSearchResultsMode();
     onSearchEnd();
   }
 
