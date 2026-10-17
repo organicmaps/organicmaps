@@ -55,7 +55,6 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   m_tree->setHeaderLabels(columnLabels);
   m_tree->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectItems);
   connect(m_tree, &QTreeWidget::itemClicked, this, &BookmarkDialog::OnItemClick);
-
   QHBoxLayout * horizontalLayout = new QHBoxLayout();
   horizontalLayout->addStretch();
   horizontalLayout->addWidget(importButton);
@@ -320,6 +319,17 @@ void BookmarkDialog::FillTree()
         auto trackItem = CreateTreeItem(Tr("track_title_with_type").arg(name), categoryItem);
         trackItem->setForeground(0, Qt::darkGreen);
         m_tracks[trackItem] = trackId;
+      }
+      for (auto areaId : bm.GetAreaIds(catId))
+      {
+        auto const & area = *bm.GetArea(areaId);
+        auto name = QString::fromStdString(GetPreferredBookmarkStr(area.m_name));
+        if (name.isEmpty())
+          name = Tr("unnamed_area");
+        auto * areaItem = CreateTreeItem(Tr("area_title_with_type").arg(name), categoryItem);
+        // Areas have category controls but no individual show/delete actions.
+        areaItem->setText(1, {});
+        areaItem->setFlags(areaItem->flags() & ~Qt::ItemIsSelectable);
       }
     }
   }

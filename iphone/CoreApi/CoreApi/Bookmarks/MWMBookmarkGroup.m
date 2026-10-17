@@ -56,6 +56,11 @@
   return [self.manager getCategoryTracksCount:self.categoryId];
 }
 
+- (NSInteger)areaCount
+{
+  return [self.manager getCategoryAreasCount:self.categoryId];
+}
+
 - (BOOL)isVisible
 {
   return [self.manager isCategoryVisible:self.categoryId];
