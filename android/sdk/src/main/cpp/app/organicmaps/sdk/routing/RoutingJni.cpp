@@ -215,7 +215,8 @@ routing::RoutingOptions::Road ToRoutingOptionsRoad(jint option)
 }
 }  // namespace
 
-jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, RoutingManager & rm)
+jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, bool speedCamLimitExceeded,
+                          bool shouldPlayWarningSignal)
 {
   using namespace jni;
 
@@ -258,11 +259,11 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     ToJavaCarDirection(env, info.m_nextTurn),
     ToJavaPedestrianDirection(env, info.m_pedestrianTurn),
     info.m_exitNum,
-    info.m_time,
+    static_cast<jint>(info.m_time),
     CreateLanesInfo(env, info.m_lanes),
     info.m_speedLimitMps,
-    static_cast<jboolean>(rm.IsSpeedCamLimitExceeded()),
-    static_cast<jboolean>(rm.GetSpeedCamManager().ShouldPlayBeepSignal())
+    static_cast<jboolean>(speedCamLimitExceeded),
+    static_cast<jboolean>(shouldPlayWarningSignal)
   );
   // clang-format on
   ASSERT(result, (DescribeException()));

@@ -447,17 +447,48 @@ public class Utils
     return formatRoutingTime(context, seconds, unitsSize, R.dimen.text_size_routing_number);
   }
 
+  /**
+   * Nearest minute (half up), with a one-minute minimum, for duration labels only.
+   * Keep in sync with platform::Duration::GetRoutingString() used by route balloons.
+   */
+  public static long getRoutingMinutes(int seconds)
+  {
+    if (BuildConfig.DEBUG && seconds < 0)
+      throw new AssertionError("Routing duration must not be negative");
+    return Math.max(1, (seconds + 30L) / 60);
+  }
+
   @NonNull
   public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize,
                                                @DimenRes int textSize)
   {
+    long totalMinutes = getRoutingMinutes(seconds);
+    long hours = totalMinutes / 60;
+    long minutes = totalMinutes % 60;
+    if (hours == 0)
+      return formatTime(context, textSize, unitsSize, String.valueOf(minutes), context.getString(R.string.minute));
+    CharSequence displayedH =
+        formatTime(context, textSize, unitsSize, String.valueOf(hours), context.getString(R.string.hour));
+    if (minutes == 0)
+      return displayedH;
+    return TextUtils.concat(
+        displayedH, "\u00A0",
+        formatTime(context, textSize, unitsSize, String.valueOf(minutes), context.getString(R.string.minute)));
+  }
+
+  @NonNull
+  public static CharSequence formatDuration(Context context, int seconds, @DimenRes int unitsSize)
+  {
+    int textSize = R.dimen.text_size_routing_number;
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
-    String min = context.getString(R.string.minute);
-    String hour = context.getString(R.string.hour);
-    SpannableStringBuilder displayedH = Utils.formatTime(context, textSize, unitsSize, String.valueOf(hours), hour);
-    SpannableStringBuilder displayedM = Utils.formatTime(context, textSize, unitsSize, String.valueOf(minutes), min);
-    return hours == 0 ? displayedM : TextUtils.concat(displayedH, "\u00A0", displayedM);
+    CharSequence displayedM =
+        formatTime(context, textSize, unitsSize, String.valueOf(minutes), context.getString(R.string.minute));
+    if (hours == 0)
+      return displayedM;
+    return TextUtils.concat(
+        formatTime(context, textSize, unitsSize, String.valueOf(hours), context.getString(R.string.hour)), "\u00A0",
+        displayedM);
   }
 
   @NonNull

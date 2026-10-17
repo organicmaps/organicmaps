@@ -300,10 +300,6 @@ extension CarPlayRouter {
 
     let maneuvers = createUpcomingManeuvers(routeInfo: routeInfo)
 
-    let tripEstimates = CPTravelEstimates(
-      distanceRemaining: Measurement(value: routeInfo.targetDistance, unit: routeInfo.targetUnits),
-      timeRemaining: routeInfo.timeToTarget
-    )
     // CPRouteInformation requires a current lane guidance even when the app has no lane data.
     let emptyLaneGuidance = CPLaneGuidance()
     emptyLaneGuidance.lanes = []
@@ -313,7 +309,7 @@ extension CarPlayRouter {
       laneGuidances: [],
       currentManeuvers: maneuvers,
       currentLaneGuidance: emptyLaneGuidance,
-      trip: tripEstimates,
+      trip: routeInfo.tripTravelEstimates,
       maneuverTravelEstimates: createEstimates(routeInfo)
     )
 

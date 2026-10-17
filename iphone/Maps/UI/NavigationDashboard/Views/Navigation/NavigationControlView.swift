@@ -219,7 +219,7 @@ final class NavigationControlView: SolidTouchView {
       ]
 
     if timePageControl.currentPage == 0 {
-      timeLabel.text = DurationFormatter.durationString(from: TimeInterval(info.timeToTarget))
+      timeLabel.text = DurationFormatter.routingDurationString(from: TimeInterval(info.timeToTarget))
     } else {
       timeLabel.text = info.arrival
     }
@@ -248,11 +248,11 @@ final class NavigationControlView: SolidTouchView {
     // @todo Draw speed limit sign similar to the CarPlay implemenation.
     // speedLimitMps >= 0 means known limited speed.
     if info.speedLimitMps >= 0 {
-      // Short delimeter to not overlap with timeToTarget longer than an hour.
-      let delimeter = info.timeToTarget < 60 * 60 ? " / " : "/"
+      // Use a compact separator when the duration label rounds to at least an hour.
+      let separator = info.timeToTarget < 60 * 60 - 30 ? " / " : "/"
       let speedLimitMeasure = Measure(asSpeed: info.speedLimitMps)
       // speedLimitMps == 0 means unlimited speed.
-      speed += delimeter + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString)
+      speed += separator + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString)
     }
 
     speedLabel.text = speed

@@ -339,8 +339,9 @@ TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager
   m_maxSubrouteWidth = maxSymbolSize * kGateBgScale / kStopMarkerScale;
 }
 
-TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
+TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo(double totalTimeSec)
 {
+  m_routeInfo.m_totalTimeInSec = static_cast<int>(totalTimeSec);
   m_routeInfo.UpdateDistanceStrings();
   LOG(LDEBUG, ("Transit route:", m_routeInfo.m_steps.size(), "steps,", m_routeInfo.m_totalDistInMeters, "m,",
                m_routeInfo.m_totalTimeInSec, "s, steps:", m_routeInfo.m_steps));
