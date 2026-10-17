@@ -4,7 +4,6 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.util.Distance;
 import java.util.Arrays;
 import java.util.List;
@@ -28,33 +27,11 @@ public final class Track extends MapObject
 
   // Called from JNI.
   @Keep
-  @SuppressWarnings("unused")
-  private Track(long id, long categoryId, boolean isRelationTrack, String name, Distance length, int color,
-                boolean visible)
-  {
-    super(TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, "", "",
-          RoadWarningMarkType.UNKNOWN.ordinal(), null);
-    mId = id;
-    mIsRelationTrack = isRelationTrack;
-    mCategoryId = categoryId;
-    mName = name;
-    mLength = length;
-    mColor = color;
-    mCandidates = List.of();
-    mVisible = visible;
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
   private Track(long categoryId, long id, boolean isRelationTrack, String title, @Nullable String secondaryTitle,
-                @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
-                @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
-                @Nullable String[] rawTypes, @ColorInt int color, Distance length, double lat, double lon,
-                @Nullable TrackSelectionCandidate[] candidates, boolean visible)
+                @NonNull String subtitle, @NonNull String address, @ColorInt int color, Distance length, double lat,
+                double lon, @Nullable TrackSelectionCandidate[] candidates, boolean visible)
   {
-    super(TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode, wikiArticle,
-          osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+    super(TRACK, title, secondaryTitle, subtitle, address, lat, lon);
     mId = id;
     mIsRelationTrack = isRelationTrack;
     mCategoryId = categoryId;

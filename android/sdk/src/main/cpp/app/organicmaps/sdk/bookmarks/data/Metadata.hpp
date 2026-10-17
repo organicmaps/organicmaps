@@ -4,5 +4,4 @@
 
 #include "indexer/map_object.hpp"
 
-// Fills mapobject's metadata.
-void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, osm::MapObject const & src);
+jobject CreateMetadata(JNIEnv * env, osm::MapObject const & mapObject);

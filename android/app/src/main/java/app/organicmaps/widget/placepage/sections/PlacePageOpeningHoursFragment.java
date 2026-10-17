@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class PlacePageOpeningHoursFragment extends Fragment implements Observer<MapObject>
 {
@@ -80,9 +81,9 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mFullWeekOpeningHours.setOnClickListener(v -> expandOpeningHours());
   }
 
-  private void refreshOpeningHours(MapObject mapObject)
+  private void refreshOpeningHours(@NonNull MapObject mapObject)
   {
-    final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    final String ohStr = Objects.requireNonNullElse(mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS), "");
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     mOhContainer.setOnLongClickListener((v) -> {
       PlacePageUtils.copyToClipboard(requireContext(), mOhContainer,
