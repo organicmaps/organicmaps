@@ -821,7 +821,8 @@ public class PlacePageController
   public void onResume()
   {
     super.onResume();
-    if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN && !Framework.nativeHasPlacePageInfo())
+    if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN
+        && (mMapObject == null || !mMapObject.isTrackRecording()) && !Framework.nativeHasPlacePageInfo())
       mViewModel.setMapObject(null);
   }
 
