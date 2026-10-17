@@ -19,12 +19,14 @@ public:
 
   kml::MarkIdSet const & GetUserMarks() const { return m_userMarks; }
   kml::TrackIdSet const & GetUserLines() const { return m_tracks; }
+  kml::AreaIdSet const & GetUserAreas() const { return m_areas; }
 
   void AttachUserMark(kml::MarkId markId);
   void DetachUserMark(kml::MarkId markId);
 
   void AttachTrack(kml::TrackId trackId);
   void DetachTrack(kml::TrackId trackId);
+  void AttachArea(kml::AreaId areaId);
 
   void Clear();
   bool IsEmpty() const;
@@ -38,6 +40,7 @@ protected:
 
   kml::MarkIdSet m_userMarks;
   kml::TrackIdSet m_tracks;
+  kml::AreaIdSet m_areas;
 
   bool m_isDirty = true;
   bool m_isVisible = true;

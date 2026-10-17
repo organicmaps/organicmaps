@@ -223,6 +223,18 @@ public class Holders
 
     private String getSizeString()
     {
+      final int areasCount = mEntity.getAreasCount();
+      if (areasCount == 0)
+        return getBookmarksAndTracksSizeString();
+      final Resources resources = mSize.getResources();
+      final String areas = getQuantified(resources, R.plurals.areas, areasCount);
+      if (mEntity.getBookmarksCount() == 0 && mEntity.getTracksCount() == 0)
+        return areas;
+      return resources.getString(R.string.comma_separated_pair, getBookmarksAndTracksSizeString(), areas);
+    }
+
+    private String getBookmarksAndTracksSizeString()
+    {
       final Resources resources = mSize.getResources();
       final int bookmarksCount = mEntity.getBookmarksCount();
       final int tracksCount = mEntity.getTracksCount();

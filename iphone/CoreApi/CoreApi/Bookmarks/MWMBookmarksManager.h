@@ -75,6 +75,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId;
+- (uint64_t)getCategoryAreasCount:(MWMMarkGroupID)groupId;
 - (MWMBookmarkGroupAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryAnnotation:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId;
