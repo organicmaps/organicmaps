@@ -20396,7 +20396,7 @@ zh-Hant = 更多
 
 [placepage_edit_bookmark_button]
 comment = Toolbar title of the Edit Bookmark screen.
-tags = android-app
+tags = android-app,apple-maps
 en = Edit Bookmark
 af = Wysig boekmerk
 ar = تحرير العلامة المرجعية
@@ -38860,7 +38860,7 @@ zh-Hans = 选择颜色
 zh-Hant = 選擇顏色
 
 [edit_track]
-tags = android-app
+tags = android-app,apple-maps
 en = Edit Track
 af = Wysig Roete
 ar = تعديل المسار
@@ -43921,7 +43921,7 @@ zh-Hant = 移動並縮放地圖以定位十字
 
 [track_recording_stop_and_save]
 comment = Track recording notification button: stops the recording and saves the recorded track.
-tags = android-app
+tags = android-app,apple-maps
 en = Stop and Save
 af = Stop en stoor
 ar = إيقاف وحفظ
@@ -44173,3 +44173,43 @@ en = Other days shown
 pl = Pozostałe dni widoczne
 ru = Другие дни показаны
 uk = Інші дні показано
+
+[placepage_translate_description]
+comment = VoiceOver label for the translation button next to an OpenStreetMap description in the iOS place page.
+tags = apple-maps
+en = Translate description
+pl = Przetłumacz opis
+ru = Перевести описание
+uk = Перекласти опис
+
+[placepage_elevation_profile]
+comment = VoiceOver label for the elevation profile graph on the iOS track place page.
+tags = apple-maps
+en = Elevation profile
+pl = Profil wysokości
+ru = Профиль высот
+uk = Профіль висот
+
+[placepage_discard_track_recording]
+comment = VoiceOver label for the button that discards an active track recording in the iOS place page.
+tags = apple-maps
+en = Discard track recording
+pl = Odrzuć nagrywanie trasy
+ru = Удалить запись трека
+uk = Видалити запис треку
+
+[placepage_select_track]
+comment = VoiceOver label for opening the track selector in the iOS place page header.
+tags = apple-maps
+en = Select track
+pl = Wybierz trasę
+ru = Выбрать трек
+uk = Вибрати трек
+
+[placepage_elevation_point]
+comment = VoiceOver value for a point on the iOS elevation profile. First %@ is distance along the track, second %@ is altitude.
+tags = apple-maps
+en = Distance %@, elevation %@
+pl = Odległość %@, wysokość %@
+ru = Расстояние %@, высота %@
+uk = Відстань %@, висота %@
