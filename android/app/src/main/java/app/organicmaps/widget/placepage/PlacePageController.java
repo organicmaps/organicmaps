@@ -595,6 +595,12 @@ public class PlacePageController
   {
     if (mMapObject == null)
       return;
+    final Activity activity = requireActivity();
+    if (!shouldReturnApiResult())
+    {
+      Utils.returnToCaller(activity);
+      return;
+    }
     final Intent result = new Intent();
     result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
         .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
@@ -603,6 +609,12 @@ public class PlacePageController
         .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
     requireActivity().setResult(Activity.RESULT_OK, result);
     requireActivity().finish();
+  }
+
+  boolean shouldReturnApiResult()
+  {
+    final Intent intent = requireActivity().getIntent();
+    return (intent != null && Factory.isStartedForApiResult(intent)) || Framework.nativeHasLegacyBackUrl();
   }
 
   private void onRouteFromBtnClicked()

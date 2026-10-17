@@ -5,6 +5,7 @@ protocol BottomMenuPresenterProtocol: UITableViewDelegate, UITableViewDataSource
 
 class BottomMenuPresenter: NSObject {
   enum CellType: Int, CaseIterable {
+    case returnToCaller
     case addPlace
     case recordTrack
     case downloadMaps
@@ -37,7 +38,13 @@ class BottomMenuPresenter: NSObject {
     self.interactor = interactor
     self.sections = sections
     let disableDonate = Settings.donateUrl() == nil
-    menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
+    menuCells = CellType.allCases.filter {
+      switch $0 {
+      case .donate: return !disableDonate
+      case .returnToCaller: return DeepLinkHandler.shared.getBackUrl() != nil
+      default: return true
+      }
+    }
     super.init()
   }
 
@@ -93,6 +100,8 @@ extension BottomMenuPresenter {
     case .items:
       let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
       switch menuCells[indexPath.row] {
+      case .returnToCaller:
+        cell.configure(image: UIImage(resource: .icNavBarBackSys), title: L("back"))
       case .addPlace:
         let enabled = addPlaceCountryId != nil
         let shouldUpdateMapToContribute = enabled && !FrameworkHelper.canEditMapAtViewportCenter()
@@ -143,6 +152,8 @@ extension BottomMenuPresenter {
       return;
     case .items:
       switch menuCells[indexPath.row] {
+      case .returnToCaller:
+        interactor.returnToCaller()
       case .addPlace:
         guard let countryId = addPlaceCountryId else { return }
         if FrameworkHelper.canEditMapAtViewportCenter() {
