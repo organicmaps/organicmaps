@@ -64,9 +64,6 @@ final class ElevationProfileDescriptionCell: UICollectionViewCell {
     subtitleLabel.text = subtitle
     valueLabel.text = value
     imageView.image = UIImage(named: imageName)
-    isAccessibilityElement = true
-    accessibilityLabel = subtitle
-    accessibilityValue = value
   }
 
   override func prepareForReuse() {
@@ -74,7 +71,5 @@ final class ElevationProfileDescriptionCell: UICollectionViewCell {
     valueLabel.text = ""
     subtitleLabel.text = ""
     imageView.image = nil
-    accessibilityLabel = nil
-    accessibilityValue = nil
   }
 }

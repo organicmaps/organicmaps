@@ -122,7 +122,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   private func configureInteractiveProfile(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
     view?.setChartAccessibility(data.chartData, interactive: true)
-    view?.reloadDescription()
+    reloadDescription()
     view?.isXAxisViewHidden = false
     view?.placeholderText = nil
     view?.userInteractionEnabled = true
@@ -134,7 +134,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   private func configureTrackRecording(_ data: ElevationProfileDisplayData) {
     view?.setChartData(ChartPresentationData(data.chartData, formatter: formatter))
     view?.setChartAccessibility(data.chartData, interactive: false)
-    view?.reloadDescription()
+    reloadDescription()
     view?.isXAxisViewHidden = data.chartData.isPlaceholder
     view?.placeholderText = data.chartData.isPlaceholder ? Constants.placeholderText : nil
     view?.userInteractionEnabled = false
@@ -143,6 +143,12 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
   func onSelectedPointChanged(_ distance: Double) {
     delegate?.updateMapPoint(distance: distance)
+  }
+
+  private func reloadDescription() {
+    view?.reloadDescription()
+    let summary = descriptionModels.map { "\($0.title): \($0.value)" }.joined(separator: ", ")
+    view?.setDescriptionAccessibility(summary)
   }
 }
 

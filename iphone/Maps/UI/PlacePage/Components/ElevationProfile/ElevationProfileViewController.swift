@@ -12,6 +12,7 @@ protocol ElevationProfileViewProtocol: AnyObject {
 
   func setChartData(_ data: ChartPresentationData)
   func setChartAccessibility(_ data: ElevationProfileChartData, interactive: Bool)
+  func setDescriptionAccessibility(_ summary: String)
   func setActivePointDistance(_ distance: Double)
   func setMyPositionDistance(_ distance: Double)
   func reloadDescription()
@@ -162,6 +163,8 @@ final class ElevationProfileViewController: UIViewController {
 
   private func setupDescriptionCollectionView() {
     descriptionCollectionView.backgroundColor = .clear
+    descriptionCollectionView.isAccessibilityElement = true
+    descriptionCollectionView.accessibilityTraits = .staticText
     descriptionCollectionView.register(cell: ElevationProfileDescriptionCell.self)
     descriptionCollectionView.dataSource = presenter
     descriptionCollectionView.delegate = presenter
@@ -312,6 +315,10 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
     chartView.accessibilityValue = data.isPlaceholder
       ? L("elevation_profile_placeholder")
       : chartAccessibilityValue(at: interactive ? 0 : data.maxDistance, data: data)
+  }
+
+  func setDescriptionAccessibility(_ summary: String) {
+    descriptionCollectionView.accessibilityLabel = summary
   }
 
   func setActivePointDistance(_ distance: Double) {
