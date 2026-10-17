@@ -572,6 +572,11 @@
         <item quantity="other">%d skrár fundust. Þú getur séð þær eftir umbreytingu.</item>
     </plurals>
     <string name="restore">Endurheimta</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d svæði</item>
+        <item quantity="other">%d svæði</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d ferlar</item>
         <item quantity="one">%d ferill</item>

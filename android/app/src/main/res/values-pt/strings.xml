@@ -573,6 +573,12 @@
         <item quantity="other">%d ficheiros encontrados. Pode vê-los depois da conversão.</item>
     </plurals>
     <string name="restore">Restaurar</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d área</item>
+        <item quantity="many">%d de áreas</item>
+        <item quantity="other">%d áreas</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d trajeto</item>
         <item quantity="many">%d de trajetos</item>

@@ -570,6 +570,11 @@
         <item quantity="other">%d फाईली सापडल्या. रूपांतरानंतर तुम्ही त्या पाहू शकता.</item>
     </plurals>
     <string name="restore">पूर्ववत् करा</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d क्षेत्र</item>
+        <item quantity="other">%d क्षेत्रे</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d ट्रॅक</item>
         <item quantity="other">%d ट्रॅक</item>

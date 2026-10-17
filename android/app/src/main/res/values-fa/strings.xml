@@ -570,6 +570,11 @@
         <item quantity="other">%d فایل پیدا شد. بعد از تبدیل آنها را خواهید دید.</item>
     </plurals>
     <string name="restore">بازیابی</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d ناحیه</item>
+        <item quantity="other">%d ناحیه</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d رد</item>
         <item quantity="other">%d رد</item>

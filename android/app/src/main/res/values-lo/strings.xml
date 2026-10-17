@@ -524,6 +524,10 @@
         <item quantity="other">ພົບເຫັນ %d ໄຟລ໌. ທ່ານສາມາດເບິ່ງມັນໄດ້ຫຼັງຈາກການແປງ.</item>
     </plurals>
     <string name="restore">ກູ້ຄືນ</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d ເຂດ</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d ຕິດຕ່າງໆ</item>
         <item quantity="other">%d ຕິດຕ່າງໆ</item>

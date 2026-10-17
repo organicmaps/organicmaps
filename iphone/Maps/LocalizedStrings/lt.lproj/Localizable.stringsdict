@@ -43,6 +43,28 @@
 		</dict>
 	</dict>
 
+<!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+	<key>areas</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d zona</string>
+			<key>few</key>
+			<string>%d zonos</string>
+			<key>many</key>
+			<string>%d zonos</string>
+			<key>other</key>
+			<string>%d zonų</string>
+		</dict>
+	</dict>
+
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

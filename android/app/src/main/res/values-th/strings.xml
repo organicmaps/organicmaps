@@ -569,6 +569,10 @@
         <item quantity="other">พบ %d ไฟล์ คุณจะเห็นพวกเขาหลังจากการแปลง</item>
     </plurals>
     <string name="restore">ฟื้นฟู</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d พื้นที่</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d ติดตาม</item>
         <item quantity="other">%d ติดตามต่าง ๆ</item>

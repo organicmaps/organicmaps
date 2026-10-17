@@ -572,6 +572,11 @@
         <item quantity="other">Atopáronse %d arquivos. Podes velos despois da conversión.</item>
     </plurals>
     <string name="restore">Restaurar</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d área</item>
+        <item quantity="other">%d áreas</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d traxectos</item>
         <item quantity="one">%d traxecto</item>

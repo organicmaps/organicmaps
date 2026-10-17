@@ -576,6 +576,14 @@
         <item quantity="other">Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</item>
     </plurals>
     <string name="restore">Irrestawra</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d żona</item>
+        <item quantity="two">%d żoni</item>
+        <item quantity="few">%d żoni</item>
+        <item quantity="many">%d żoni</item>
+        <item quantity="other">%d żoni</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">Trekk %d</item>
         <item quantity="two">%d Trekks</item>

@@ -570,6 +570,11 @@
         <item quantity="other">%d fitxategi aurkitu dira. Elkarrizketaren ondoren ikusiko dituzu.</item>
     </plurals>
     <string name="restore">Berreskuratu</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d eremu</item>
+        <item quantity="other">%d eremu</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d arrasto</item>
         <item quantity="other">%d arrastos</item>

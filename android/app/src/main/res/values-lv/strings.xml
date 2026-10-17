@@ -572,6 +572,12 @@
         <item quantity="other">Lietotne atrada %d jaunas datnes. Varat tās apskatīt pēc konvertācijas.</item>
     </plurals>
     <string name="restore">Atjaunot</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="zero">%d zonu</item>
+        <item quantity="one">%d zona</item>
+        <item quantity="other">%d zonas</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d pēdojumu</item>
         <item quantity="one">%d pēdojums</item>

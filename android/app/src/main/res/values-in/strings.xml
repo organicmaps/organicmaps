@@ -568,6 +568,10 @@
         <item quantity="other">%d file ditemukan. Anda akan melihatnya setelah konversi.</item>
     </plurals>
     <string name="restore">Mengembalikan</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d area</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d trek</item>
         <item quantity="other">%d trek</item>

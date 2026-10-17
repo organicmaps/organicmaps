@@ -572,6 +572,11 @@
         <item quantity="other">Leidsime %d faili. Näed neid peale teisendamist.</item>
     </plurals>
     <string name="restore">Taasta</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d piirkond</item>
+        <item quantity="other">%d piirkonda</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d rada</item>
         <item quantity="one">%d rada</item>

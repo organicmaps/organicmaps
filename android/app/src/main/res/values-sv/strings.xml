@@ -570,6 +570,11 @@
         <item quantity="other">%d filer hittades. Du kommer att se dem efter omvandlingen.</item>
     </plurals>
     <string name="restore">Återställa</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d område</item>
+        <item quantity="other">%d områden</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d spår</item>
         <item quantity="other">%d spår</item>

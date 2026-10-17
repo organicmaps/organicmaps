@@ -562,6 +562,11 @@
     <string name="phone_number">Numri i telefonit</string>
     <string name="profile">Profili OpenStreetMap</string>
     <string name="restore">Restauro</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d zonë</item>
+        <item quantity="other">%d zona</item>
+    </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privatësia</string>
     <string name="privacy_policy">Politika e privatësisë</string>

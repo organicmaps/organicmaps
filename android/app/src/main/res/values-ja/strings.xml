@@ -569,6 +569,10 @@
         <item quantity="other">ファイルが%d個見つかりました。変換後にそれを見ることができます。</item>
     </plurals>
     <string name="restore">復元</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d エリア</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d の追跡</item>
         <item quantity="other">%d件の経路</item>

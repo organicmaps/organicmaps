@@ -256,6 +256,11 @@
         <item quantity="one">Atopóse %d ficheru. Pues velu dempués de la conversión.</item>
         <item quantity="other">Atopáronse %d ficheros. Pues velos dempués de la conversión.</item>
     </plurals>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d área</item>
+        <item quantity="other">%d árees</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d trayeutu</item>
         <item quantity="other">%d trayeutos</item>

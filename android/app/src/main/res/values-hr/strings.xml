@@ -572,6 +572,12 @@
         <item quantity="other">Pronađeno je %d datoteka. Možeš ih vidjeti nakon konverzije.</item>
     </plurals>
     <string name="restore">Obnovi</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d područje</item>
+        <item quantity="few">%d područja</item>
+        <item quantity="other">%d područja</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d puteva</item>
         <item quantity="one">%d put</item>

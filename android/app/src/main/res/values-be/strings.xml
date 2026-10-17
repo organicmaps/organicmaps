@@ -576,6 +576,13 @@
         <item quantity="other">Знойдзена %d файлаў. Вы можаце ўбачыць іх пасля пераўтварэння.</item>
     </plurals>
     <string name="restore">Аднавіць</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d зона</item>
+        <item quantity="few">%d зоны</item>
+        <item quantity="many">%d зон</item>
+        <item quantity="other">%d зоны</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d сцежак</item>
         <item quantity="one">%d сцежка</item>

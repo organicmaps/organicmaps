@@ -571,6 +571,11 @@
         <item quantity="other">%d Dateien wurden gefunden. Du kannst sie nach der Konvertierung sehen.</item>
     </plurals>
     <string name="restore">Wiederherstellen</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d Gebiet</item>
+        <item quantity="other">%d Gebiete</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d Tracks</item>
         <item quantity="one">%d Track</item>

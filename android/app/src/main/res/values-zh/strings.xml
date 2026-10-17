@@ -571,6 +571,10 @@
         <item quantity="other">找到 %d 个文件，转换后您可以看到它们。</item>
     </plurals>
     <string name="restore">恢复</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d 个区域</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">无轨迹</item>
         <item quantity="other">%d 个轨迹</item>
