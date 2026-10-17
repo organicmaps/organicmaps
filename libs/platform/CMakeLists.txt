@@ -123,11 +123,16 @@ else() # neither iPhone nor Android
                   @ONLY)
 
   append(SRC
-    localization_dummy.cpp
     network_policy_dummy.cpp
     platform_qt.cpp
     "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
   )
+
+  if (${PLATFORM_SAILFISH})
+    append(SRC localization_sailfish.cpp)
+  else()
+    append(SRC localization_dummy.cpp)
+  endif()
 
   if (${PLATFORM_WIN})
     append(SRC
@@ -192,8 +197,8 @@ target_link_libraries(${PROJECT_NAME}
     geometry  # mercator::YToLat
     coding
     glaze::glaze
-    $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
-    $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
+    $<$<OR:$<BOOL:${PLATFORM_DESKTOP}>,$<BOOL:${PLATFORM_SAILFISH}>>:${OMIM_QT}::Core>
+    $<$<BOOL:${PLATFORM_LINUX}>:${OMIM_QT}::Network>
     $<$<BOOL:${PLATFORM_WIN}>:Qt6::Network>
     $<$<BOOL:${PLATFORM_WIN}>:shlwapi>  # PathIsDirectoryEmptyA
     $<$<BOOL:${PLATFORM_MAC}>:

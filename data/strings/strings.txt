@@ -45117,3 +45117,49 @@ uk = Розвернути маршрут
 vi = Đảo ngược tuyến đường
 zh-Hans = 反转路线
 zh-Hant = 反轉路線
+
+[[Sailfish OS]]
+
+[less]
+comment = Sailfish OS: collapses the expanded Wikipedia description on the place page
+tags = sailfish
+en = Less
+de = Weniger
+es = Menos
+fr = Moins
+ru = Свернуть
+sv = Mindre
+uk = Згорнути
+
+[copy_value]
+comment = Sailfish OS: menu item that copies the shown value to the clipboard
+tags = sailfish
+en = Copy %@
+de = %@ kopieren
+es = Copiar %@
+fr = Copier %@
+ru = Копировать %@
+sv = Kopiera %@
+uk = Копіювати %@
+
+[mobile_data_downloads_off]
+comment = Sailfish OS: a map download was not started because mobile internet is off in the settings
+tags = sailfish
+en = Map downloads over mobile internet are turned off in the settings.
+de = Kartendownloads über mobiles Internet sind in den Einstellungen deaktiviert.
+es = Las descargas de mapas por internet móvil están desactivadas en los ajustes.
+fr = Les téléchargements de cartes via l’internet mobile sont désactivés dans les paramètres.
+ru = Загрузка карт через мобильный интернет отключена в настройках.
+sv = Kartnedladdningar via mobilt internet är avstängda i inställningarna.
+uk = Завантаження мап через мобільні дані вимкнено в налаштуваннях.
+
+[maps_storage_restart]
+comment = Sailfish OS: the maps are moved to the chosen folder when the app starts next time
+tags = sailfish
+en = The maps will be moved the next time Organic Maps starts. This can take several minutes.
+de = Die Karten werden beim nächsten Start von Organic Maps verschoben. Das kann einige Minuten dauern.
+es = Los mapas se moverán la próxima vez que se inicie Organic Maps. Esto puede tardar varios minutos.
+fr = Les cartes seront déplacées au prochain lancement d’Organic Maps. Cela peut prendre plusieurs minutes.
+ru = Карты будут перемещены при следующем запуске Organic Maps. Это может занять несколько минут.
+sv = Kartorna flyttas nästa gång Organic Maps startar. Det kan ta flera minuter.
+uk = Мапи буде переміщено під час наступного запуску Organic Maps. Це може тривати кілька хвилин.

@@ -30,6 +30,7 @@ on:
       - data/strings/**
       - docs/**
       - packaging/**
+      - sailfish/**
       - tools/**
       - '!tools/windows/**'
       - '!tools/python/test_server/**'
