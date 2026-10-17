@@ -72,7 +72,7 @@ final class ActionBarViewController: UIViewController {
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
-      if canAddStop {
+      if shouldAppendNewPoints || canAddStop {
         buttons.append(canReplaceStop ? .routeReplaceStop : addStopButton)
       }
       buttons.append(.bookmark)
@@ -83,7 +83,7 @@ final class ActionBarViewController: UIViewController {
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
-      if canAddStop {
+      if shouldAppendNewPoints || canAddStop {
         buttons.append(addStopButton)
       }
       buttons.append(.bookmark)
