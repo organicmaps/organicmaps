@@ -2142,6 +2142,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void onTrackRecordingCancelled()
   {
+    TrackRecorder.nativeDiscardTrackRecording();
     stopTrackRecording();
   }
 

@@ -450,7 +450,9 @@ public:
   using TrackRecordingUpdateHandler = platform::SafeCallback<void(TrackStatistics const & trackStatistics)>;
   void StartTrackRecording();
   void SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate);
+  /// Finishes recording, retaining its backup until saved or explicitly discarded.
   void StopTrackRecording();
+  void DiscardTrackRecording();
   void SaveTrackRecordingWithName(std::string const & name);
   bool IsTrackRecordingEmpty() const;
   bool IsTrackRecordingEnabled() const;
