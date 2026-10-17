@@ -545,16 +545,19 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   auto impl = handle.m_impl;
   auto cancelChecker = handle.MakeCancelChecker();
 
-  // reply->abort() must be invoked on the reply's thread, so the inner cancel
-  // dispatches via QueuedConnection regardless of which thread Cancel() runs on.
+  // Queue the pointer check as well as abort() on the network thread: QPointer
+  // does not keep the reply alive while invokeMethod() inspects its target.
   auto const rebindCancel = [impl](QNetworkReply * reply)
   {
     QPointer<QNetworkReply> guardedReply(reply);
     std::lock_guard lock(impl->m_mu);
     impl->m_platformCancel = [guardedReply]
     {
-      if (guardedReply)
-        QMetaObject::invokeMethod(guardedReply.data(), "abort", Qt::QueuedConnection);
+      QMetaObject::invokeMethod(GetNetworkThread().worker, [guardedReply]
+      {
+        if (guardedReply)
+          guardedReply->abort();
+      }, Qt::QueuedConnection);
     };
   };
 
