@@ -78,6 +78,11 @@ ElevationInfo const & GpsTracker::GetElevationInfo()
   return m_track.GetElevationInfo();
 }
 
+void GpsTracker::SetStatisticsCallback(GpsTrack::StatisticsCallback callback)
+{
+  m_track.SetStatisticsCallback(std::move(callback));
+}
+
 void GpsTracker::Connect(TGpsTrackDiffCallback const & fn)
 {
   m_track.SetCallback(fn);

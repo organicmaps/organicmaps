@@ -12,6 +12,7 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
+#include <atomic>
 #include <chrono>
 #include <functional>
 #include <utility>
@@ -76,6 +77,138 @@ private:
 };
 
 seconds const kWaitForCallbackTimeout = seconds(5);
+
+class StatisticsObserver
+{
+public:
+  void OnUpdate(TrackStatistics const & statistics)
+  {
+    lock_guard lock(m_mutex);
+    m_updates.push_back(statistics);
+    m_cv.notify_one();
+  }
+
+  bool WaitForCount(size_t count)
+  {
+    unique_lock lock(m_mutex);
+    return m_cv.wait_for(lock, kWaitForCallbackTimeout, [&] { return m_updates.size() >= count; });
+  }
+
+  vector<TrackStatistics> GetUpdates()
+  {
+    lock_guard lock(m_mutex);
+    return m_updates;
+  }
+
+private:
+  mutex m_mutex;
+  condition_variable m_cv;
+  vector<TrackStatistics> m_updates;
+};
+
+vector<location::GpsInfo> MakeRecordingPoints()
+{
+  vector<location::GpsInfo> points;
+  for (size_t i = 0; i < 5; ++i)
+  {
+    auto point = Make(1000 + 20 * i, ms::LatLon(45 + 0.0003 * i, 10), 2);
+    point.m_altitude = 100 + i;
+    point.m_verticalAccuracy = 1;
+    points.push_back(point);
+  }
+  return points;
+}
+
+UNIT_TEST(GpsTrack_StatisticsSubscription)
+{
+  auto const filePath = GetGpsTrackFilePath();
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
+
+  StatisticsObserver statistics;
+  GpsTrackCallback map;
+  GpsTrack track(filePath);
+  track.SetStatisticsCallback([&](auto const & update) { statistics.OnUpdate(update); });
+  TEST(statistics.WaitForCount(1), ());
+  TEST_EQUAL(statistics.GetUpdates().back().m_length, 0, ());
+
+  auto const points = MakeRecordingPoints();
+  track.AddPoints(points);
+  TEST(statistics.WaitForCount(2), ());
+  TEST_GREATER(statistics.GetUpdates().back().m_length, 100, ());
+  track.SetCallback(bind(&GpsTrackCallback::OnUpdate, &map, placeholders::_1, placeholders::_2));
+  TEST(map.WaitForCallback(kWaitForCallbackTimeout), ());
+  TEST_EQUAL(statistics.GetUpdates().size(), 2, ());
+
+  track.SetCallback(nullptr);
+  auto next = points.back();
+  next.m_latitude += 0.0003;
+  next.m_timestamp += 20;
+  track.AddPoint(next);
+  TEST(statistics.WaitForCount(3), ());
+  TEST_GREATER(statistics.GetUpdates().back().m_length, statistics.GetUpdates()[1].m_length, ());
+
+  track.Clear();
+  TEST(statistics.WaitForCount(4), ());
+  TEST_EQUAL(statistics.GetUpdates().back().m_length, 0, ());
+  track.SetStatisticsCallback(nullptr);
+  track.AddPoints(points);
+  track.Finalize();
+  TEST_EQUAL(statistics.GetUpdates().size(), 4, ());
+}
+
+UNIT_TEST(GpsTrack_RestoreStatisticsWithoutMap)
+{
+  auto const filePath = GetGpsTrackFilePath();
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
+  auto const points = MakeRecordingPoints();
+  TrackStatistics expected;
+  for (auto const & point : points)
+    expected.AddGpsInfoPoint(point);
+  {
+    GpsTrack writer(filePath);
+    writer.AddPoints(points);
+    writer.Finalize();
+  }
+
+  StatisticsObserver statistics;
+  GpsTrack restored(filePath);
+  restored.SetStatisticsCallback([&](auto const & update) { statistics.OnUpdate(update); });
+  TEST(statistics.WaitForCount(1), ());
+  auto const update = statistics.GetUpdates().front();
+  TEST_ALMOST_EQUAL_ABS(update.m_length, expected.m_length, 1e-6, ());
+  TEST_EQUAL(update.m_duration, expected.m_duration, ());
+  TEST(!restored.IsEmpty(), ());
+  TEST_EQUAL(restored.Finalize(), points.size(), ());
+  TEST_EQUAL(statistics.GetUpdates().size(), 1, ());
+}
+
+UNIT_TEST(GpsTrack_ReplaceStatisticsCallbackDuringRecording)
+{
+  auto const filePath = GetGpsTrackFilePath();
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
+
+  atomic<size_t> calls = 0;
+  GpsTrack track(filePath);
+  auto const callback = [&](TrackStatistics const &) { ++calls; };
+  thread producer([&]
+  {
+    for (size_t i = 0; i < 500; ++i)
+      track.AddPoint(Make(1000 + i, ms::LatLon(45 + i * 0.0003, 10), 2));
+  });
+  for (size_t i = 0; i < 500; ++i)
+  {
+    track.SetStatisticsCallback(callback);
+    track.SetStatisticsCallback(nullptr);
+  }
+  producer.join();
+  track.SetStatisticsCallback(nullptr);
+  auto const callsAfterUnsubscribe = calls.load();
+  track.Finalize();
+  TEST_EQUAL(calls.load(), callsAfterUnsubscribe, ());
+}
 
 UNIT_TEST(GpsTrack_Simple)
 {

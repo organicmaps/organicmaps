@@ -92,6 +92,18 @@ void GpsTrack::SetCallback(TGpsTrackDiffCallback callback)
   ScheduleTask();
 }
 
+void GpsTrack::SetStatisticsCallback(StatisticsCallback callback)
+{
+  bool const subscribed = static_cast<bool>(callback);
+  {
+    std::lock_guard lg(m_callbackGuard);
+    m_statisticsCallback = std::move(callback);
+    m_needSendStatistics = subscribed;
+  }
+  if (subscribed)
+    ScheduleTask();
+}
+
 void GpsTrack::ScheduleTask()
 {
   std::lock_guard lg(m_threadGuard);
@@ -200,7 +212,7 @@ void GpsTrack::ProcessPoints()
     m_needClear = false;
   }
 
-  // Create collection only if callback appears
+  // Restore the collection for either kind of subscriber.
   if (!m_collection && HasCallback())
     InitCollection();
 
@@ -255,7 +267,7 @@ size_t GpsTrack::Finalize()
 bool GpsTrack::HasCallback()
 {
   std::lock_guard lg(m_callbackGuard);
-  return m_callback != nullptr;
+  return m_callback || m_statisticsCallback;
 }
 
 void GpsTrack::UpdateStorage(bool needClear, std::vector<location::GpsInfo> const & points)
@@ -296,6 +308,12 @@ void GpsTrack::UpdateCollection(bool needClear, std::vector<location::GpsInfo> c
 void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::pair<size_t, size_t> const & evictedIds)
 {
   std::lock_guard lg(m_callbackGuard);
+
+  if (m_statisticsCallback && (m_needSendStatistics || addedIds.first != kInvalidId || evictedIds.first != kInvalidId))
+  {
+    m_needSendStatistics = false;
+    m_statisticsCallback(m_collection->GetTrackStatistics());
+  }
 
   if (!m_callback)
     return;
