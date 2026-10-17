@@ -104,6 +104,11 @@ public class SpeedLimitView extends View
     mTextPaint.setColor(mTextColor);
     mTextPaint.setTextAlign(Paint.Align.CENTER);
     mTextPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+
+    // Collapsed until a valid limit arrives via setSpeedLimit; the edit-mode preview stays
+    // visible.
+    if (!isInEditMode())
+      setVisibility(GONE);
   }
 
   public void setSpeedLimit(final int speedLimit, boolean alert)
@@ -119,6 +124,9 @@ public class SpeedLimitView extends View
       configureTextSize();
     }
 
+    // The view owns the validity rule: an invalid limit (<= 0) collapses the sign instead of
+    // reserving an empty slot, so callers don't have to duplicate the check.
+    setVisibility(mSpeedLimit > 0 ? VISIBLE : GONE);
     invalidate();
   }
 

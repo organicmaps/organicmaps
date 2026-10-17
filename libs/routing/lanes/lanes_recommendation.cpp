@@ -61,14 +61,14 @@ bool impl::SetRecommendedLaneWays(CarDirection const carDirection, LanesInfo & l
   }
 
   bool isLaneConformed = false;
-  for (auto & [laneWays, recommendedWay] : lanesInfo)
+  for (auto & laneInfo : lanesInfo)
   {
-    if (laneWays.Contains(laneWay))
+    if (laneInfo.laneWays.Contains(laneWay))
     {
-      recommendedWay = laneWay;
+      laneInfo.recommendedWay = laneWay;
       isLaneConformed = true;
     }
-    FixRecommendedReverseLane(laneWays, recommendedWay);
+    FixRecommendedReverseLane(laneInfo.laneWays, laneInfo.recommendedWay);
   }
   return isLaneConformed;
 }
@@ -93,13 +93,13 @@ bool impl::SetRecommendedLaneWaysApproximately(CarDirection const carDirection, 
   }
 
   bool isLaneConformed = false;
-  for (auto & [laneWays, recommendedWay] : lanesInfo)
+  for (auto & laneInfo : lanesInfo)
   {
     for (auto const & laneWay : approximateLaneWays)
     {
-      if (laneWays.Contains(laneWay))
+      if (laneInfo.laneWays.Contains(laneWay))
       {
-        recommendedWay = laneWay;
+        laneInfo.recommendedWay = laneWay;
         isLaneConformed = true;
         break;
       }
