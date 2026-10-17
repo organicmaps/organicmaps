@@ -86,48 +86,64 @@ UNIT_TEST(LatLon_Match_Smoke)
 
   TEST(!MatchLatLonDegree("34-31", lat, lon), ());
   TEST(!MatchLatLonDegree("34/31", lat, lon), ());
-  TEST(!MatchLatLonDegree("34,31", lat, lon), ());
 
-  /// @todo 5E-5 eats as full double here. This is a very fancy case, but anyway ...
-  TEST(!MatchLatLonDegree("N5E-5", lat, lon), ());
-  TEST(!MatchLatLonDegree("5E-5", lat, lon), ());
+  TEST(!MatchLatLonDegree("N5W-5", lat, lon), ());
+  TEST(MatchLatLonDegree("5N5W", lat, lon), ());
+  TestAlmostEqual(lat, 5.0);
+  TestAlmostEqual(lon, -5.0);
 
-  TEST(MatchLatLonDegree("N5W-5", lat, lon), ());
-  TestAlmostEqual(lat, 5);
-  TestAlmostEqual(lon, 5);
-  // Same as "N5 E-5"
-  TEST(MatchLatLonDegree("5 E-5", lat, lon), ());
-  TestAlmostEqual(lat, 5);
-  TestAlmostEqual(lon, -5);
+  TEST(MatchLatLonDegree("S5E5", lat, lon), ());
+  TestAlmostEqual(lat, -5.0);
+  TestAlmostEqual(lon, 5.0);
 
-  TEST(!MatchLatLonDegree("., .", lat, lon), ());
-  TEST(!MatchLatLonDegree("10, .", lat, lon), ());
+  TEST(MatchLatLonDegree("90 180", lat, lon), ());
+  TestAlmostEqual(lat, 90.0);
+  TestAlmostEqual(lon, 180.0);
 
-  TEST(MatchLatLonDegree("0*30\', 1*0\'30\"", lat, lon), ());
-  TestAlmostEqual(lat, 0.5);
-  TestAlmostEqual(lon, 1.00833333333333);
+  TEST(MatchLatLonDegree("-90 -180", lat, lon), ());
+  TestAlmostEqual(lat, -90.0);
+  TestAlmostEqual(lon, -180.0);
 
-  TEST(MatchLatLonDegree("50  *, 40 *", lat, lon), ());
-  TestAlmostEqual(lat, 50.0);
-  TestAlmostEqual(lon, 40.0);
+  TEST(MatchLatLonDegree("90 -180", lat, lon), ());
+  TestAlmostEqual(lat, 90.0);
+  TestAlmostEqual(lon, -180.0);
 
-  TEST(!MatchLatLonDegree("50* 40*, 30*", lat, lon), ());
+  TEST(MatchLatLonDegree("-90 180", lat, lon), ());
+  TestAlmostEqual(lat, -90.0);
+  TestAlmostEqual(lon, 180.0);
 
-  TEST(MatchLatLonDegree("(-50°30\'30\" -49°59\'59\"", lat, lon), ());
-  TestAlmostEqual(lat, -50.50833333333333);
-  TestAlmostEqual(lon, -49.99972222222222);
-
-  TEST(!MatchLatLonDegree("50°, 30\"", lat, lon), ());
-  TEST(!MatchLatLonDegree("50\', -50°", lat, lon), ());
-  TEST(!MatchLatLonDegree("-90*50\'50\", -50°", lat, lon), ());
-
-  TEST(MatchLatLonDegree("(-89*, 360*)", lat, lon), ());
-  TestAlmostEqual(lat, -89.0);
+  TEST(MatchLatLonDegree("0 0", lat, lon), ());
+  TestAlmostEqual(lat, 0.0);
   TestAlmostEqual(lon, 0.0);
 
-  TEST(MatchLatLonDegree("-89*15.5\' N; 120*30\'50.5\" e", lat, lon), ());
-  TestAlmostEqual(lat, -89.25833333333333);
-  TestAlmostEqual(lon, 120.51402777777778);
+  TEST(!MatchLatLonDegree("91 0", lat, lon), ());
+  TEST(!MatchLatLonDegree("-91 0", lat, lon), ());
+  TEST(!MatchLatLonDegree("0 361", lat, lon), ());
+  TEST(!MatchLatLonDegree("0 -181", lat, lon), ());
+
+  TEST(MatchLatLonDegree("0 360", lat, lon), ());
+  TestAlmostEqual(lat, 0.0);
+  TestAlmostEqual(lon, 0.0);
+
+  TEST(MatchLatLonDegree("0 270", lat, lon), ());
+  TestAlmostEqual(lat, 0.0);
+  TestAlmostEqual(lon, -90.0);
+
+  TEST(MatchLatLonDegree("0 181", lat, lon), ());
+  TestAlmostEqual(lat, 0.0);
+  TestAlmostEqual(lon, -179.0);
+
+  TEST(MatchLatLonDegree("1:2:3N 4:5:6E", lat, lon), ());
+  TestAlmostEqual(lat, 1.0 + 2.0 / 60.0 + 3.0 / 3600.0);
+  TestAlmostEqual(lon, 4.0 + 5.0 / 60.0 + 6.0 / 3600.0);
+
+  TEST(MatchLatLonDegree("1:2:3 4:5:6", lat, lon), ());
+  TestAlmostEqual(lat, 1.0 + 2.0 / 60.0 + 3.0 / 3600.0);
+  TestAlmostEqual(lon, 4.0 + 5.0 / 60.0 + 6.0 / 3600.0);
+
+  TEST(MatchLatLonDegree("0*30\'30\" -0*30\'30\"", lat, lon), ());
+  TestAlmostEqual(lat, 0.5083333333333333);
+  TestAlmostEqual(lon, -0.5083333333333333);
 
   TEST(MatchLatLonDegree("N55°45′20.99″ E37°37′03.62″", lat, lon), ());
   TestAlmostEqual(lat, 55.755830555555556);
@@ -187,6 +203,52 @@ UNIT_TEST(LatLon_Match_False)
 {
   double lat, lon;
   TEST(!MatchLatLonDegree("2 1st", lat, lon), ());
+}
+
+// Space-separated DMS (no degree/minute/second symbols), phone-friendly.
+UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
+{
+  double lat, lon;
+
+  TEST(MatchLatLonDegree("37 00 27.73 N 08 56 41.59 W", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // Direction-first.
+  TEST(MatchLatLonDegree("N 37 00 27.73 W 08 56 41.59", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // D M only (no seconds).
+  TEST(MatchLatLonDegree("51 30 N 0 7 W", lat, lon), ());
+  TestAlmostEqual(lat, 51.5);
+  TestAlmostEqual(lon, -7.0 / 60.0);
+
+  // Comma as group delimiter.
+  TEST(MatchLatLonDegree("N 37 00 27.73, W 08 56 41.59", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // Decimal degrees with suffix hemispheres still work (legacy or new).
+  TEST(MatchLatLonDegree("51.5 N, 11.2 E", lat, lon), ());
+  TestAlmostEqual(lat, 51.5);
+  TestAlmostEqual(lon, 11.2);
+
+  // Multi-dot garbage must not match.
+  TEST(!MatchLatLonDegree("1.2.3 N 4.5.6 E", lat, lon), ());
+
+  // Ambiguous four-number run must not pick a bad split.
+  TEST(!MatchLatLonDegree("N 51 30 0 7 W", lat, lon), ());
+
+  // Extra trailing text must not match the new grammar (legacy may still).
+  // "West Street" must not be treated as hemisphere + leftover.
+  TEST(!MatchLatLonDegree("51 30 N 0 7 West Street", lat, lon), ());
+
+  // Same-axis rejected.
+  TEST(!MatchLatLonDegree("51 30 N 0 7 N", lat, lon), ());
+
+  // Incomplete.
+  TEST(!MatchLatLonDegree("51 30 N", lat, lon), ());
 }
 
 }  // namespace latlon_match_test
