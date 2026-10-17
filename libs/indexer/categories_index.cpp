@@ -12,21 +12,6 @@ namespace indexer
 {
 namespace
 {
-void AddAllNonemptySubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie, std::string const & s,
-                              uint32_t value)
-{
-  ASSERT(!s.empty(), ());
-  for (size_t i = 0; i < s.length(); ++i)
-  {
-    std::string t;
-    for (size_t j = i; j < s.length(); ++j)
-    {
-      t.push_back(s[j]);
-      trie.Add(t, value);
-    }
-  }
-}
-
 template <typename TF>
 void ForEachToken(std::string const & s, TF && fn)
 {
@@ -36,8 +21,12 @@ void ForEachToken(std::string const & s, TF && fn)
 void TokenizeAndAddAllSubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie, std::string const & s,
                                  uint32_t value)
 {
-  auto fn = [&](std::string const & token) { AddAllNonemptySubstrings(trie, token, value); };
-  ForEachToken(s, fn);
+  // Any substring is a prefix of a suffix, so subtree lookups need only suffix keys.
+  ForEachToken(s, [&](std::string const & token)
+  {
+    for (size_t i = 0; i < token.size(); ++i)
+      trie.Add(token.substr(i), value);
+  });
 }
 }  // namespace
 
