@@ -25,8 +25,82 @@
       android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
+      <TextView
+        android:text="@string/routing_options_all_modes"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base"
+        android:paddingTop="@dimen/margin_half_double_plus"
+        android:textColor="?android:attr/textColorSecondary"/>
       <LinearLayout
-        android:id="@+id/avoid_options"
+        android:orientation="horizontal"
+        android:minHeight="@dimen/height_block_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/margin_base"
+        android:paddingStart="@dimen/margin_base">
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:paddingTop="@dimen/margin_half"
+          android:paddingBottom="@dimen/margin_half">
+          <TextView
+            android:text="@string/route_optimization"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorPrimary"/>
+          <TextView
+            android:text="@string/route_optimization_description"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_quarter"
+            android:textColor="?android:attr/textColorSecondary"/>
+        </LinearLayout>
+        <androidx.appcompat.widget.SwitchCompat
+          android:id="@+id/route_optimization_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:padding="@dimen/margin_half_double_plus"/>
+      </LinearLayout>
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_base"
+        android:background="?windowBackgroundForced"/>
+      <RadioGroup
+        android:id="@+id/router_types"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_base"
+        android:background="@drawable/routing_toolbar_pill_bg"
+        android:padding="@dimen/routing_toolbar_pill_padding">
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/vehicle"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_car"
+          android:contentDescription="@string/routing_options_driving"/>
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/pedestrian"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_pedestrian"
+          android:contentDescription="@string/routing_options_walking"/>
+        <app.organicmaps.widget.RoutingToolbarButton
+          android:id="@+id/bicycle"
+          style="@style/MwmWidget.RoutingToolbarCell"
+          android:button="@drawable/ic_bike"
+          android:contentDescription="@string/routing_options_cycling"/>
+      </RadioGroup>
+      <LinearLayout
         android:layout_marginTop="@dimen/margin_half_double_plus"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -117,56 +191,6 @@
             android:padding="@dimen/margin_half_double_plus"
             android:layout_height="match_parent"/>
         </LinearLayout>
-      </LinearLayout>
-      <View
-        android:id="@+id/avoid_options_separator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_base"
-        android:background="?windowBackgroundForced"/>
-      <TextView
-        android:text="@string/routing_options_all_modes"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/margin_base"
-        android:paddingEnd="@dimen/margin_base"
-        android:paddingTop="@dimen/margin_half_double_plus"
-        android:textColor="?android:attr/textColorSecondary"/>
-      <LinearLayout
-        android:orientation="horizontal"
-        android:minHeight="@dimen/height_block_base"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/margin_base"
-        android:paddingStart="@dimen/margin_base">
-        <LinearLayout
-          android:orientation="vertical"
-          android:layout_width="0dp"
-          android:layout_weight="1"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:paddingTop="@dimen/margin_half"
-          android:paddingBottom="@dimen/margin_half">
-          <TextView
-            android:text="@string/route_optimization"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?android:attr/textColorPrimary"/>
-          <TextView
-            android:text="@string/route_optimization_description"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_quarter"
-            android:textColor="?android:attr/textColorSecondary"/>
-        </LinearLayout>
-        <androidx.appcompat.widget.SwitchCompat
-          android:id="@+id/route_optimization_btn"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:padding="@dimen/margin_half_double_plus"/>
       </LinearLayout>
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>
