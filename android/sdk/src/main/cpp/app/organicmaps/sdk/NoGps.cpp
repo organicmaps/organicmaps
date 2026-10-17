@@ -340,6 +340,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeGetStatus(JNIEnv * 
   }
   SetNoGpsDouble(env, out, "speedScale", status.m_speedScale);
   SetNoGpsField(env, out, "speedTableRanges", status.m_speedTableRanges);
+  SetNoGpsField(env, out, "roughSpeedTableRanges", status.m_roughSpeedTableRanges);
   SetNoGpsDouble(env, out, "speedLagSec", status.m_speedLagSec);
   SetNoGpsField(env, out, "speedLagMeasured", status.m_speedLagMeasured);
   SetNoGpsField(env, out, "calibration", static_cast<int>(status.m_calibration));

@@ -215,6 +215,9 @@ public final class NoGps
     public double speedScale = 1;
     @Keep
     public int speedTableRanges;
+    // The ranges of the rough table learned from the roads, it is used while GPS has measured none.
+    @Keep
+    public int roughSpeedTableRanges;
     @Keep
     public double speedLagSec;
     @Keep

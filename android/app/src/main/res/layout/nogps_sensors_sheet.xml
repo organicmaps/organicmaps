@@ -143,6 +143,14 @@
   </LinearLayout>
 
   <TextView
+    android:id="@+id/nogps_rough_speed"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:textSize="16sp"
+    android:visibility="gone" />
+
+  <TextView
     android:id="@+id/nogps_lag"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
