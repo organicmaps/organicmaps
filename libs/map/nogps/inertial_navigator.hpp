@@ -257,10 +257,11 @@ public:
   static int constexpr kSpeedTableSaveSamples = 30;
   // Before GPS has measured the speed table, e.g. on the first trip, a rough one is learned from the roads. From a
   // place known along the road, a crossing a turn is moved to or a bend, to the next bend, which tells how far the
-  // calculated position is ahead of the road, the error grown is the error of the speed driven there. On the trips
-  // of October 11-16 the error so grown on 2 km told the speed scale GPS had measured within 0.3%, without the table
-  // the position was wrong by 2.5%. A shorter stretch is dominated by the few meters a bend is matched within, a
-  // stretch wrong by more is between other places than they tell, e.g. at a crossing of the next street.
+  // calculated position is ahead of the road, the error grown is the error of the speed driven there. The trips of
+  // October 11-16 driven again as the first ones learned it within 0.2-1.1% of the GPS one on average, the car speed
+  // is 2.5% low, and the position was wrong by 6-10 m at the median instead of 11-21 m. A shorter stretch is
+  // dominated by the few meters a bend is matched within, a stretch wrong by more is between other places than they
+  // tell, e.g. at a crossing of the next street.
   static double constexpr kMinRoughStretchM = 200;
   static double constexpr kMaxRoughStretchError = 0.1;
 
