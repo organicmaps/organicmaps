@@ -30,10 +30,7 @@ public class Factory
 {
   public static boolean isStartedForApiResult(@NonNull Intent intent)
   {
-    // Previously, we relied on the implicit FORWARD_RESULT_FLAG to detect if the caller was
-    // waiting for a result. However, this approach proved to be less reliable than using
-    // the explicit EXTRA_PICK_POINT flag.
-    // https://github.com/organicmaps/organicmaps/pull/8910
+    // The explicit pick-point marker distinguishes result requests from ordinary navigation intents.
     return intent.getBooleanExtra(EXTRA_PICK_POINT, false);
   }
 
@@ -42,24 +39,34 @@ public class Factory
     @Override
     public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
-      // See KML/KMZ/KMB intent filters in manifest.
       final List<Uri> uris;
       if (Intent.ACTION_VIEW.equals(intent.getAction()))
         uris = Collections.singletonList(intent.getData());
       else if (Intent.ACTION_SEND.equals(intent.getAction()))
         uris = Collections.singletonList(IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class));
       else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction()))
-        uris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+        uris = IntentCompat.getParcelableArrayListExtra(intent, Intent.EXTRA_STREAM, Uri.class);
       else
-        uris = null;
-      if (uris == null)
         return false;
+      if (uris == null || uris.isEmpty())
+        return false;
+
+      // Other deep links reach this fallback, and filters do not constrain shared streams or explicit intents.
+      // IntentCompat does not check list element types on Android 13 and earlier.
+      for (Object stream : uris)
+      {
+        if (!(stream instanceof Uri uri))
+          return false;
+        final String scheme = uri.getScheme();
+        if (!ContentResolver.SCHEME_CONTENT.equals(scheme) && !ContentResolver.SCHEME_FILE.equals(scheme))
+          return false;
+      }
 
       MwmApplication app = MwmApplication.from(activity);
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = activity.getContentResolver();
       ThreadPool.getStorage().execute(() -> BookmarkManager.INSTANCE.importBookmarksFiles(resolver, uris, tempDir));
-      return false;
+      return true;
     }
   }
 
