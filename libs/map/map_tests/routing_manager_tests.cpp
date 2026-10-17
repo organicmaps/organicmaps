@@ -3,11 +3,13 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "routing/routing_helpers.hpp"
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
 
 #include "platform/gui_thread.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
@@ -20,6 +22,7 @@
 #include <algorithm>
 #include <future>
 #include <memory>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -981,5 +984,126 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   while (!recovered)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
+}
+
+UNIT_TEST(RoutingManager_RebuildGuidanceUsesLatestGps)
+{
+  class Delegate final : public RoutingManager::Delegate
+  {
+  public:
+    void OnRouteFollow(routing::RouterType) override {}
+  } delegate;
+  class Router final : public routing::IRouter
+  {
+  public:
+    std::string GetName() const override { return "guidance test"; }
+    void ClearState() override {}
+    void SetGuides(routing::GuidesTracks &&) override {}
+    bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, routing::EdgeProj &) override
+    {
+      return false;
+    }
+    routing::RouterResultCode CalculateRoute(routing::Checkpoints const &, m2::PointD const &, bool, bool,
+                                             routing::RouterDelegate const &, routing::RoutesResult & result) override
+    {
+      std::vector<m2::PointD> const points = {{0, 0.001}, {0, 0.001}, {0, 0.003}, {0, 0.004}};
+      std::vector<routing::RouteSegment> segments;
+      for (size_t i = 1; i < points.size(); ++i)
+      {
+        auto const turn = i == 2 ? routing::turns::CarDirection::TurnLeft
+                                 : (i == 3 ? routing::turns::CarDirection::ReachedYourDestination
+                                           : routing::turns::CarDirection::None);
+        segments.emplace_back(routing::Segment(0, 0, i - 1, true), routing::turns::TurnItem(i, turn),
+                              geometry::PointWithAltitude(points[i], geometry::kDefaultAltitudeMeters),
+                              routing::RouteSegment::RoadNameInfo{});
+      }
+      routing::FillSegmentInfo({5, 10, 15}, segments);
+      routing::Route route;
+      route.SetGeometry(points.begin(), points.end());
+      route.SetRouteSegments(std::move(segments));
+      route.SetSubroutes(std::vector<routing::Route::SubrouteAttrs>(
+          {{geometry::PointWithAltitude(points.front(), geometry::kDefaultAltitudeMeters),
+            geometry::PointWithAltitude(points.back(), geometry::kDefaultAltitudeMeters), 0, 3}}));
+      result.MakeFrom(GetName(), std::move(route));
+      return routing::RouterResultCode::NoError;
+    }
+  };
+
+  auto & platform = GetPlatform();
+  auto gui = std::make_unique<TestGuiThread>();
+  auto * guiThread = gui.get();
+  platform.SetGuiThread(std::move(gui));
+  SCOPE_GUARD(restoreGui, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
+  BookmarkManager bookmarks(BookmarkManager::Callbacks([]() -> StringsBundle const &
+  {
+    static StringsBundle const bundle;
+    return bundle;
+  }, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr));
+  // Stop the extrapolator's background loop before destroying the manager, including on test failure.
+  std::optional<RoutingManager> managerStorage;
+  Platform::ThreadRunner threadRunner;
+  auto & manager =
+      managerStorage.emplace(RoutingManager::Callbacks(nullptr, nullptr, nullptr, nullptr, nullptr), delegate);
+  manager.SetBookmarkManager(&bookmarks);
+  auto & session = manager.RoutingSession();
+  session.SetRouter(std::make_unique<Router>(), nullptr);
+  bool built = false;
+  session.SetRoutingCallbacks([&built](routing::RoutesResult const &, routing::RouterResultCode) { built = true; },
+                              [](routing::RoutesResult const &, routing::RouterResultCode) {}, nullptr, nullptr);
+  session.BuildRoute(routing::Checkpoints({0, 0.001}, {0, 0.004}), routing::RouterDelegate::kNoTimeout);
+  while (!built)
+    guiThread->RunNext();
+  TEST(session.EnableFollowMode(), ());
+
+  auto const guidance = [&manager]
+  {
+    routing::FollowingInfo info;
+    manager.GetRouteFollowingInfo(info);
+    return info;
+  };
+  m2::PointD const current(0, 0.002);
+  manager.SetUserCurrentPosition(current);
+  location::GpsInfo gps;
+  gps.m_latitude = mercator::YToLat(current.y);
+  gps.m_longitude = current.x;
+  gps.m_horizontalAccuracy = 5;
+  gps.m_speed = measurement_utils::KmphToMps(60);
+  manager.CheckLocationForRouting(gps);
+  auto const before = guidance();
+  TEST(before.m_distToTurn.IsValid(), ());
+  TEST_EQUAL(before.m_turn, routing::turns::CarDirection::TurnLeft, ());
+
+  // Leave the renderer at its last matched point while GPS starts an off-route rebuild.
+  // The manual GUI queue keeps replacement callbacks pending throughout these checks.
+  for (size_t i = 1; i <= 6; ++i)
+  {
+    gps.m_longitude = 0.001 * i;
+    manager.CheckLocationForRouting(gps);
+  }
+  TEST(session.IsRebuildingOnly(), ());
+  TEST(!guidance().m_distToTurn.IsValid(), ("Off-route GPS must suppress the retained turn"));
+  manager.SetUserCurrentPosition(current);
+  TEST(!guidance().m_distToTurn.IsValid(), ("An older rendering callback must not restore guidance"));
+
+  gps.m_longitude = 0;
+  manager.CheckLocationForRouting(gps);
+  TEST(session.IsOnRoute(), ());
+  TEST_EQUAL(guidance().m_turn, before.m_turn, ());
+
+  session.OnTrafficInfoClear();
+  TEST(guidance().m_distToTurn.IsValid(), ("Matching recovery must clear the off-route distance"));
+  gps.m_longitude = 0.008;
+  manager.CheckLocationForRouting(gps);
+  TEST(session.IsRebuildingOnly(), ());
+  TEST(!guidance().m_distToTurn.IsValid(), ("New GPS must suppress guidance during a traffic refresh"));
+
+  gps.m_longitude = 0;
+  manager.CheckLocationForRouting(gps);
+  TEST(session.IsOnRoute(), ());
+  auto const recovered = guidance();
+  TEST(recovered.m_distToTurn.IsValid(), ());
+  TEST_EQUAL(recovered.m_turn, before.m_turn, ());
+  TEST_EQUAL(recovered.m_distToTarget.GetDistance(), before.m_distToTarget.GetDistance(), ());
+  session.Reset();
 }
 }  // namespace routing_manager_tests
