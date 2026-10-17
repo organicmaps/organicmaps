@@ -74,7 +74,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     let navigationManager = MWMNavigationDashboardManager.shared()
     vc.placePageData = placePageData
     vc.isRoutePlanning = navigationManager.state != .closed
-    vc.canAddStop = MWMRouter.canAddIntermediatePoint()
+    // Unlike Add Stop, appending needs no built route; the points limit was checked when the selection started.
+    vc.canAddStop = navigationManager.shouldAppendNewPoints || MWMRouter.canAddIntermediatePoint()
     vc.canReplaceStop = navigationManager.selectedRoutePoint != nil
     vc.canRouteToAndFrom = !navigationManager.shouldAppendNewPoints && navigationManager.selectedRoutePoint == nil
     vc.shouldAppendNewPoints = navigationManager.shouldAppendNewPoints
