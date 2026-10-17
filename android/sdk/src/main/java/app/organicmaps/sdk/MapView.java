@@ -90,28 +90,30 @@ public class MapView extends SurfaceView
   @Override
   public boolean onTouchEvent(@NonNull MotionEvent event)
   {
+    @Map.MultiTouchAction
     int action = event.getActionMasked();
+    @Map.PointerIndex
     int pointerIndex = event.getActionIndex();
     switch (action)
     {
-    case MotionEvent.ACTION_POINTER_UP -> action = Map.NATIVE_ACTION_UP;
+    case MotionEvent.ACTION_POINTER_UP -> action = Map.MultiTouchAction.UP;
     case MotionEvent.ACTION_UP ->
     {
-      action = Map.NATIVE_ACTION_UP;
-      pointerIndex = 0;
+      action = Map.MultiTouchAction.UP;
+      pointerIndex = Map.PointerIndex.FIRST;
     }
-    case MotionEvent.ACTION_POINTER_DOWN -> action = Map.NATIVE_ACTION_DOWN;
+    case MotionEvent.ACTION_POINTER_DOWN -> action = Map.MultiTouchAction.DOWN;
     case MotionEvent.ACTION_DOWN ->
     {
-      action = Map.NATIVE_ACTION_DOWN;
-      pointerIndex = 0;
+      action = Map.MultiTouchAction.DOWN;
+      pointerIndex = Map.PointerIndex.FIRST;
     }
     case MotionEvent.ACTION_MOVE ->
     {
-      action = Map.NATIVE_ACTION_MOVE;
-      pointerIndex = Map.INVALID_POINTER_MASK;
+      action = Map.MultiTouchAction.MOVE;
+      pointerIndex = Map.PointerIndex.INVALID_MASKED_POINTER;
     }
-    case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
+    case MotionEvent.ACTION_CANCEL -> action = Map.MultiTouchAction.CANCEL;
     }
     Map.onTouch(action, event, pointerIndex);
     performClick();
