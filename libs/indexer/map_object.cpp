@@ -3,6 +3,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/mwm_set.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/mercator.hpp"
@@ -169,6 +170,11 @@ std::string_view MapObject::GetMetadata(MetadataID type) const
 std::string_view MapObject::GetOpeningHours() const
 {
   return m_metadata.Get(MetadataID::FMD_OPEN_HOURS);
+}
+
+std::optional<om::tz::TimeZone> const & MapObject::GetTimeZone() const
+{
+  return m_featureID.m_mwmId.GetTimeZone();
 }
 
 feature::Internet MapObject::GetInternet() const

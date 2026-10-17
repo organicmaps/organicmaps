@@ -33,6 +33,8 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 
 public class PlacePageOpeningHoursFragment extends Fragment implements Observer<MapObject>
 {
@@ -83,6 +85,13 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private void refreshOpeningHours(MapObject mapObject)
   {
     final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    resetWeeklyViewState();
+    if (ohStr.isEmpty())
+    {
+      UiUtils.hide(mFrame);
+      return;
+    }
+
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     mOhContainer.setOnLongClickListener((v) -> {
       PlacePageUtils.copyToClipboard(requireContext(), mOhContainer,
@@ -90,20 +99,13 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       return true;
     });
 
-    resetWeeklyViewState();
-
-    final boolean noOhString = ohStr.isEmpty();
-    final OpeningHoursInfo ohInfo = getOpeningHoursInfoFromString(ohStr);
+    final long currentTime = System.currentTimeMillis() / 1000L;
+    final OpeningHoursInfo ohInfo = OpeningHours.nativeGetPlacePageOpeningHoursInfo(currentTime);
     final boolean isEmptyTT = timetables == null || timetables.length == 0;
 
-    refreshSchedulePreview(ohInfo);
+    refreshSchedulePreview(ohInfo, currentTime);
 
-    if (noOhString)
-    {
-      // no 'opening_hours' tag
-      UiUtils.hide(mFrame);
-    }
-    else if (ohInfo == null)
+    if (ohInfo == null)
     {
       // couldn't read anything from 'opening_hours' tag
       UiUtils.show(mFrame);
@@ -125,7 +127,9 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       if (!ohInfo.isTwentyFourSeven) // Show whole week time table, except if it's open 24/7
       {
         UiUtils.show(mFullWeekOpeningHours);
-        int currentDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        Calendar poiNow = Calendar.getInstance(timeZoneForOffset(ohInfo.utcOffsetNowSeconds));
+        poiNow.setTimeInMillis(currentTime * 1000L);
+        int currentDayOfWeek = poiNow.get(Calendar.DAY_OF_WEEK);
         mScheduleBuilder.setTimetables(timetables, currentDayOfWeek);
         populateWeekSchedule();
         enableDropdownContent();
@@ -288,16 +292,13 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     return mDropdownContent.getMeasuredHeight();
   }
 
-  private OpeningHoursInfo getOpeningHoursInfoFromString(String ohStr)
+  private static TimeZone timeZoneForOffset(int offsetSeconds)
   {
-    final long currentTime = System.currentTimeMillis() / 1000L;
-    return OpeningHours.nativeGetOpeningHoursInfoFromString(ohStr, currentTime);
+    return new SimpleTimeZone(offsetSeconds * 1000, "POI");
   }
 
-  private void refreshSchedulePreview(OpeningHoursInfo ohInfo)
+  private void refreshSchedulePreview(OpeningHoursInfo ohInfo, long currentTime)
   {
-    final long currentTime = System.currentTimeMillis() / 1000L;
-
     if (ohInfo == null)
     {
       UiUtils.hide(mSchedulePreviewContainer);
@@ -324,6 +325,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
         Date closeDate = new Date(ohInfo.nextTimeClosed * 1000L);
         DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(requireContext());
+        dateFormat.setTimeZone(timeZoneForOffset(ohInfo.utcOffsetNextSeconds));
 
         if (timeLeftMinutes < 3 * 60) // Less than 3 hours
           descriptionString = getString(R.string.closes_in, getTimeIntervalString(timeLeftMinutes)) + " • "
@@ -349,25 +351,24 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       {
         final long timeLeftMinutes = (ohInfo.nextTimeOpen - currentTime) / 60;
 
-        final Calendar nowCal = Calendar.getInstance();
-
-        Calendar openCal = Calendar.getInstance();
+        Calendar openCal = Calendar.getInstance(timeZoneForOffset(ohInfo.utcOffsetNextSeconds));
         openCal.setTimeInMillis(ohInfo.nextTimeOpen * 1000L);
 
         Date openDate = new Date(ohInfo.nextTimeOpen * 1000L);
         DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(requireContext());
+        dateFormat.setTimeZone(timeZoneForOffset(ohInfo.utcOffsetNextSeconds));
 
-        boolean willOpenToday = nowCal.get(Calendar.DAY_OF_YEAR) == openCal.get(Calendar.DAY_OF_YEAR)
-                             && nowCal.get(Calendar.YEAR) == openCal.get(Calendar.YEAR);
+        long daysUntilOpen = (ohInfo.nextTimeOpen + ohInfo.utcOffsetNextSeconds) / 86400L
+                           - (currentTime + ohInfo.utcOffsetNowSeconds) / 86400L;
 
         if (timeLeftMinutes < 3 * 60) // Less than 3 hours
           descriptionString = getString(R.string.opens_in, getTimeIntervalString(timeLeftMinutes)) + " • "
                             + dateFormat.format(openDate);
-        else if (willOpenToday) // Today
+        else if (daysUntilOpen == 0) // Today in the POI's time zone
           descriptionString = getString(R.string.opens_at, dateFormat.format(openDate));
-        else if (timeLeftMinutes < 24 * 60) // Less than 24 hours
+        else if (daysUntilOpen == 1)
           descriptionString = getString(R.string.opens_tomorrow_at, dateFormat.format(openDate));
-        else if (timeLeftMinutes < 7 * 24 * 60) // Less than 1 week
+        else if (daysUntilOpen >= 2 && daysUntilOpen < 7)
         {
           final int openDay = openCal.get(Calendar.DAY_OF_WEEK);
           final String openDayName = DateFormatSymbols.getInstance().getWeekdays()[openDay];
