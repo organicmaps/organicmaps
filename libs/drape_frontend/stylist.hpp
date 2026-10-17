@@ -123,6 +123,8 @@ public:
 private:
   void ProcessKey(FeatureType & f, drule::Key const & key);
 
+  // Rules and classificator must come from the same style; the UI thread may switch the current one meanwhile.
+  MapStyle const m_style;
   drule::RulesHolder const & m_rulesHolder;
 };
 

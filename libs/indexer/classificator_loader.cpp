@@ -99,7 +99,7 @@ void Load()
 
   // Drop every loaded flag so the designer's rebuilt drules are re-read on reload, then load the
   // current and outdoors families now (others, e.g. vehicle, load lazily on first use). Outdoors is
-  // always made resident because GetOutdoorRules/GetOutdoorClassif render forced-outdoors tracks.
+  // always made resident because df::Stylist renders forced-outdoors tracks with it.
   for (size_t i = 0; i < MapStyleCount; ++i)
     classif(static_cast<MapStyle>(i)).SetLoaded(false);
 
