@@ -290,13 +290,7 @@ final class NavigationDashboardViewController: UIViewController {
     currentRouteElevationPreviewData = routeElevationPreviewData
     currentRouteElevationActivePointDistance = activePointDistance
 
-    guard let routeElevationPreviewData else {
-      removeElevationProfileIfNeeded()
-      elevationProfileContainerView.isHidden = true
-      return
-    }
-
-    guard let state = ElevationProfileBuilder.makeRoutePreviewState(
+    guard let routeElevationPreviewData, let state = ElevationProfileBuilder.makeRoutePreviewState(
       routeElevationPreviewData: routeElevationPreviewData,
       activePointDistance: activePointDistance ?? 0
     ) else {

@@ -232,8 +232,7 @@ final class CarPlayService: NSObject {
   }
 
   private func updateMapPlacement() {
-    guard let destination = mapState.desiredDisplay(for: mapAvailability) else { return }
-    guard mapState.attachedDisplay != destination || !isMapAttached(to: destination) else { return }
+    guard let destination = mapState.desiredDisplay(for: mapAvailability), mapState.attachedDisplay != destination || !isMapAttached(to: destination) else { return }
     moveMap(to: destination)
   }
 
@@ -493,8 +492,7 @@ final class CarPlayService: NSObject {
     isTemplateOperationInProgress = true
 
     interfaceController.presentTemplate(alert, animated: false) { [weak self, weak interfaceController] success, error in
-      guard let self else { return }
-      guard self.interfaceController === interfaceController else { return }
+      guard let self, self.interfaceController === interfaceController else { return }
       isTemplateOperationInProgress = false
       templateCompletion(success, error)
       if !success {
@@ -508,8 +506,7 @@ final class CarPlayService: NSObject {
   private func dismissPresentedTemplate(on interfaceController: CPInterfaceController) {
     isTemplateOperationInProgress = true
     interfaceController.dismissTemplate(animated: false) { [weak self, weak interfaceController] success, error in
-      guard let self else { return }
-      guard self.interfaceController === interfaceController else { return }
+      guard let self, self.interfaceController === interfaceController else { return }
       isTemplateOperationInProgress = false
       templateCompletion(success, error)
       guard success else { return }
@@ -686,8 +683,7 @@ final class CarPlayService: NSObject {
     guard let interfaceController else { return }
     isTemplateOperationInProgress = true
     interfaceController.setRootTemplate(mapTemplate, animated: true) { [weak self, weak interfaceController] success, error in
-      guard let self else { return }
-      guard self.interfaceController === interfaceController else { return }
+      guard let self, self.interfaceController === interfaceController else { return }
       isTemplateOperationInProgress = false
       templateCompletion(success, error)
       if success {
@@ -704,8 +700,7 @@ final class CarPlayService: NSObject {
     guard let interfaceController else { return }
     isTemplateOperationInProgress = true
     interfaceController.setRootTemplate(mapTemplate, animated: true) { [weak self, weak interfaceController] success, error in
-      guard let self else { return }
-      guard self.interfaceController === interfaceController else { return }
+      guard let self, self.interfaceController === interfaceController else { return }
       isTemplateOperationInProgress = false
       templateCompletion(success, error)
       if success {

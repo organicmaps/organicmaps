@@ -67,8 +67,7 @@ final class NavigationControlView: SolidTouchView {
       morphExtendButton()
     }
     didSet {
-      guard isVisible, superview != nil else { return }
-      guard isExtended != oldValue else { return }
+      guard isVisible, superview != nil, isExtended != oldValue else { return }
 
       dimBackground.setVisible(isExtended, completion: nil)
       extendedView.isHidden = !isExtended

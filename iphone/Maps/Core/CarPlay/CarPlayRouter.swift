@@ -436,8 +436,7 @@ extension CarPlayRouter: RoutingManagerListener {
   }
 
   func processRouteBuilderEvent(with code: RouterResultCode, countries: [String]) {
-    guard isRoutingPresentationActive else { return }
-    guard let trip = previewTrip else {
+    guard isRoutingPresentationActive, let trip = previewTrip else {
       return
     }
     switch code {
@@ -480,8 +479,7 @@ extension CarPlayRouter: RoutingManagerListener {
   }
 
   func didLocationUpdate(_ notifications: [String]) {
-    guard isRoutingPresentationActive else { return }
-    guard let trip = previewTrip else { return }
+    guard isRoutingPresentationActive, let trip = previewTrip else { return }
 
     let manager = RoutingManager.routingManager
     if manager.isRouteFinished {
