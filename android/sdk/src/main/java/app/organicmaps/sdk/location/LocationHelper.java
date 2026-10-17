@@ -581,6 +581,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mSystemLocationPaused = true;
   }
 
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   private void resumeSystemLocation()
   {
     if (!mSystemLocationPaused)
@@ -598,11 +599,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
    */
   public void resumeLocationInForeground()
   {
-    if (isActive())
-    {
-      resumeSystemLocation();
+    if (isActive() && !mSystemLocationPaused)
       return;
-    }
     else if (!Map.isEngineCreated())
     {
       // LocationState.nativeGetMode() is initialized only after drape creation.
@@ -621,7 +619,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    start();
+    if (isActive())
+      resumeSystemLocation();
+    else
+      start();
   }
 
   private void checkForAgpsUpdates()
