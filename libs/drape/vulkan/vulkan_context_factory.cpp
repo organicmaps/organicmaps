@@ -16,14 +16,14 @@ namespace vulkan
 {
 namespace
 {
-bool SupportsImageAcquireTimeout(int sdkVersion)
+uint64_t ImageAcquireTimeoutNanoseconds(int sdkVersion)
 {
 #if defined(OMIM_OS_ANDROID)
   // Android implemented finite vkAcquireNextImageKHR timeouts in API 30.
-  return sdkVersion >= 30;
+  return sdkVersion >= 30 ? 250'000'000 : UINT64_MAX;
 #else
   UNUSED_VALUE(sdkVersion);
-  return false;
+  return 250'000'000;
 #endif
 }
 
@@ -33,11 +33,12 @@ public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex,
                     ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, uint32_t appVersionCode,
-                    bool hasPartialTextureUpdates, bool supportsImageAcquireTimeout)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex,
-                                    objectManager,
-                                    make_unique_dp<dp::vulkan::VulkanPipeline>(device, gpuProperties, appVersionCode),
-                                    hasPartialTextureUpdates, supportsImageAcquireTimeout)
+                    bool hasPartialTextureUpdates, uint64_t imageAcquireTimeoutNanoseconds,
+                    bool swapchainMaintenanceEnabled)
+    : dp::vulkan::VulkanBaseContext(
+          vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex, objectManager,
+          make_unique_dp<dp::vulkan::VulkanPipeline>(device, gpuProperties, appVersionCode), hasPartialTextureUpdates,
+          imageAcquireTimeoutNanoseconds, swapchainMaintenanceEnabled)
   {
     VkQueue queue;
     vkGetDeviceQueue(device, renderingQueueFamilyIndex, 0, &queue);
@@ -53,11 +54,9 @@ class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
 public:
   UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                       VkDevice device, uint32_t renderingQueueFamilyIndex,
-                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, bool hasPartialTextureUpdates,
-                      bool supportsImageAcquireTimeout)
+                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, bool hasPartialTextureUpdates)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex,
-                                    objectManager, nullptr /* pipeline */, hasPartialTextureUpdates,
-                                    supportsImageAcquireTimeout)
+                                    objectManager, nullptr /* pipeline */, hasPartialTextureUpdates)
   {}
 
   void MakeCurrent() override { m_objectManager->RegisterThread(dp::vulkan::VulkanObjectManager::Backend); }
@@ -230,6 +229,14 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
     deviceCreateInfo.pEnabledFeatures = &enabledFeatures;
   }
 
+  VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR maintenanceFeatures = {};
+  if (m_layers->IsSwapchainMaintenanceEnabled())
+  {
+    maintenanceFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR;
+    maintenanceFeatures.swapchainMaintenance1 = VK_TRUE;
+    deviceCreateInfo.pNext = &maintenanceFeatures;
+  }
+
   statusCode = vkCreateDevice(m_gpu, &deviceCreateInfo, nullptr, &m_device);
   if (statusCode != VK_SUCCESS)
   {
@@ -246,14 +253,15 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
 
   bool const hasPartialTextureUpdates = !dp::SupportManager::Instance().IsVulkanTexturePartialUpdateBuggy(
       sdkVersion, gpuProperties.deviceName, apiVersion, driverVersion);
-  bool const supportsImageAcquireTimeout = SupportsImageAcquireTimeout(sdkVersion);
+  uint64_t const imageAcquireTimeoutNanoseconds = ImageAcquireTimeoutNanoseconds(sdkVersion);
 
-  m_drawContext = make_unique_dp<DrawVulkanContext>(
-      m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex, make_ref(m_objectManager),
-      appVersionCode, hasPartialTextureUpdates, supportsImageAcquireTimeout);
-  m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device,
-                                                        renderingQueueFamilyIndex, make_ref(m_objectManager),
-                                                        hasPartialTextureUpdates, supportsImageAcquireTimeout);
+  m_drawContext =
+      make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
+                                        make_ref(m_objectManager), appVersionCode, hasPartialTextureUpdates,
+                                        imageAcquireTimeoutNanoseconds, m_layers->IsSwapchainMaintenanceEnabled());
+  m_uploadContext =
+      make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
+                                          make_ref(m_objectManager), hasPartialTextureUpdates);
 }
 
 VulkanContextFactory::~VulkanContextFactory()
@@ -306,7 +314,7 @@ void VulkanContextFactory::SetPresentAvailable(bool available)
     m_drawContext->SetPresentAvailable(available);
 }
 
-bool VulkanContextFactory::QuerySurfaceSize()
+bool VulkanContextFactory::QuerySurfaceSize(m2::PointU const & framebufferSize)
 {
   auto statusCode = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, m_surface, &m_surfaceCapabilities);
   if (statusCode != VK_SUCCESS)
@@ -348,15 +356,9 @@ bool VulkanContextFactory::QuerySurfaceSize()
     return false;
   }
 
-#if !defined(OMIM_OS_WINDOWS)
-  if (!(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
-  {
-    LOG_ERROR_VK("Alpha channel is not supported.");
-    return false;
-  }
-#endif
-
   m_surfaceFormat = formats[chosenFormat];
+  m_surfaceCapabilities.currentExtent =
+      ChooseSurfaceExtent(m_surfaceCapabilities, {framebufferSize.x, framebufferSize.y});
   m_surfaceWidth = static_cast<int>(m_surfaceCapabilities.currentExtent.width);
   m_surfaceHeight = static_cast<int>(m_surfaceCapabilities.currentExtent.height);
   return true;

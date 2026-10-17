@@ -18,6 +18,10 @@ char const * kValidationFeaturesExtension = "VK_EXT_validation_features";
 
 char const * const kInstanceExtensions[] = {
     "VK_KHR_surface",
+    VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME,
+    VK_KHR_GET_SURFACE_CAPABILITIES_2_EXTENSION_NAME,
+    VK_KHR_SURFACE_MAINTENANCE_1_EXTENSION_NAME,
+    VK_EXT_SURFACE_MAINTENANCE_1_EXTENSION_NAME,
     "VK_KHR_android_surface",
     kDebugReportExtension,
     kValidationFeaturesExtension,
@@ -27,7 +31,6 @@ char const * const kInstanceExtensions[] = {
 #if defined(OMIM_OS_MAC)
     "VK_KHR_portability_enumeration",
     "VK_MVK_macos_surface",
-    "VK_KHR_get_physical_device_properties2",
 #endif
 #if defined(OMIM_OS_LINUX)
     "VK_KHR_xlib_surface",
@@ -250,6 +253,13 @@ Layers::Layers(bool enableDiagnostics)
   m_instanceExtensions =
       CheckExtensions(extensionsProperties, m_enableDiagnostics, kInstanceExtensions, ARRAY_SIZE(kInstanceExtensions));
 
+  if (!IsContained(VK_KHR_GET_SURFACE_CAPABILITIES_2_EXTENSION_NAME, m_instanceExtensions))
+    std::erase_if(m_instanceExtensions, [](char const * extension)
+    {
+      return strcmp(extension, VK_KHR_SURFACE_MAINTENANCE_1_EXTENSION_NAME) == 0 ||
+             strcmp(extension, VK_EXT_SURFACE_MAINTENANCE_1_EXTENSION_NAME) == 0;
+    });
+
   for (auto ext : m_instanceExtensions)
   {
     if (strcmp(ext, kValidationFeaturesExtension) == 0)
@@ -367,6 +377,40 @@ bool Layers::Initialize(VkInstance instance, VkPhysicalDevice physicalDevice)
 
   m_deviceExtensions =
       CheckExtensions(extensionsProperties, m_enableDiagnostics, kDeviceExtensions, ARRAY_SIZE(kDeviceExtensions));
+  if (IsContained(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME, m_instanceExtensions))
+  {
+    char const * maintenance = nullptr;
+    for (auto const extension :
+         {VK_KHR_SWAPCHAIN_MAINTENANCE_1_EXTENSION_NAME, VK_EXT_SWAPCHAIN_MAINTENANCE_1_EXTENSION_NAME})
+    {
+      auto const surfaceExtension = strcmp(extension, VK_KHR_SWAPCHAIN_MAINTENANCE_1_EXTENSION_NAME) == 0
+                                      ? VK_KHR_SURFACE_MAINTENANCE_1_EXTENSION_NAME
+                                      : VK_EXT_SURFACE_MAINTENANCE_1_EXTENSION_NAME;
+      if (IsContained(surfaceExtension, m_instanceExtensions) &&
+          std::any_of(extensionsProperties.begin(), extensionsProperties.end(), [extension](auto const & properties)
+      { return strcmp(properties.extensionName, extension) == 0; }))
+      {
+        maintenance = extension;
+        break;
+      }
+    }
+    if (maintenance)
+    {
+      auto const getFeatures = reinterpret_cast<PFN_vkGetPhysicalDeviceFeatures2KHR>(
+          vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFeatures2KHR"));
+      CHECK(getFeatures, ());
+      VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR maintenanceFeatures = {};
+      maintenanceFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR;
+      VkPhysicalDeviceFeatures2KHR features = {};
+      features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2_KHR;
+      features.pNext = &maintenanceFeatures;
+      getFeatures(physicalDevice, &features);
+      m_swapchainMaintenanceEnabled = maintenanceFeatures.swapchainMaintenance1 == VK_TRUE;
+      if (m_swapchainMaintenanceEnabled)
+        m_deviceExtensions.push_back(maintenance);
+    }
+  }
+
   for (auto ext : m_deviceExtensions)
     LOG(LINFO, ("Vulkan device extension prepared", ext));
 
@@ -442,6 +486,11 @@ char const * const * Layers::GetDeviceExtensions() const
 bool Layers::IsValidationFeaturesEnabled() const
 {
   return m_validationFeaturesEnabled;
+}
+
+bool Layers::IsSwapchainMaintenanceEnabled() const
+{
+  return m_swapchainMaintenanceEnabled;
 }
 }  // namespace vulkan
 }  // namespace dp
