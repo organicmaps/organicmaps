@@ -21,7 +21,7 @@ class DownloadedMapsDataSource {
     return countryIds.map {
       CountryIdAndName(countryId: $0, name: Storage.shared().name(forCountry: $0))
     }.sorted {
-      $0.countryName.compare($1.countryName) == .orderedAscending
+      $0.countryName.localizedStandardCompare($1.countryName) == .orderedAscending
     }.map(\.countryId)
   }
 
