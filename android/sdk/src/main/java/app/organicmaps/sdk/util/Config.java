@@ -40,6 +40,7 @@ public final class Config
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
   private static final String KEY_MISC_KEEP_SCREEN_ON = "KeepScreenOn";
+  private static final String KEY_MISC_SCREEN_ROTATION = "ScreenRotation";
 
   private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
@@ -204,6 +205,17 @@ public final class Config
   public static void setKeepScreenOnEnabled(boolean enabled)
   {
     setBool(KEY_MISC_KEEP_SCREEN_ON, enabled);
+  }
+
+  public static boolean isScreenRotationEnabled()
+  {
+    // A phone in a car holder turned the map over with the auto-rotation: the screens are upright unless asked.
+    return getBool(KEY_MISC_SCREEN_ROTATION, false);
+  }
+
+  public static void setScreenRotationEnabled(boolean enabled)
+  {
+    setBool(KEY_MISC_SCREEN_ROTATION, enabled);
   }
 
   public static boolean isShowOnLockScreenEnabled()

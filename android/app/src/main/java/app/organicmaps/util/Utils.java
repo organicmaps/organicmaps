@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -91,6 +92,22 @@ public class Utils
       showOnLockScreenOld(enable, activity);
     else
       activity.setShowWhenLocked(enable);
+  }
+
+  // The screens upright in AndroidManifest.xml turn with the phone if the user allows it, the other ones, e.g. of
+  // Android Auto, keep their orientation.
+  public static int getScreenOrientation(int requested, boolean rotationAllowed)
+  {
+    if (requested != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT && requested != ActivityInfo.SCREEN_ORIENTATION_FULL_USER)
+      return requested;
+    return rotationAllowed ? ActivityInfo.SCREEN_ORIENTATION_FULL_USER : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+  }
+
+  public static void allowScreenRotation(boolean allow, @NonNull Activity activity)
+  {
+    final int orientation = getScreenOrientation(activity.getRequestedOrientation(), allow);
+    if (orientation != activity.getRequestedOrientation())
+      activity.setRequestedOrientation(orientation);
   }
 
   public static void showSnackbar(@NonNull View view, @NonNull String message)
