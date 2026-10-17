@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "Nazaj";
+
+/* Button text (should be short) */
 "cancel" = "Prekliči";
 
 /* Button which deletes downloaded country */

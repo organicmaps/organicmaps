@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "返回";
+
+/* Button text (should be short) */
 "cancel" = "取消";
 
 /* Button which deletes downloaded country */

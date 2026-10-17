@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "ກັບຄືນ";
+
+/* Button text (should be short) */
 "cancel" = "ຍົກເລີກ";
 
 /* Button which deletes downloaded country */

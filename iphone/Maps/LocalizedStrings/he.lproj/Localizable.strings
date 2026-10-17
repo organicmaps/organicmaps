@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "חזור";
+
+/* Button text (should be short) */
 "cancel" = "בטל";
 
 /* Button which deletes downloaded country */
