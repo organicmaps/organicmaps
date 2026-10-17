@@ -438,6 +438,23 @@ UNIT_TEST(NoGps_Engine_TurnTellsWhichStreetCarIsOn)
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
+UNIT_TEST(NoGps_Engine_WayAfterTurnOffRoadsDropsNoMark)
+{
+  // The street going east ends at the crossing at 200 m, the calculated position is 19 m past it when the car turns:
+  // the turn starts off the roads, the rules put the car at the crossing. The way driven lies on the roads only there,
+  // but it is drawn along a heading that may be wrong, as on October 16 at 17:19.
+  PieceRoads roads({{-300, 0, 200, 0}, {200, 0, 200, 400}, {240, -10, 240, 400}}, {{200, 0}});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 219 - 112);
+  env.Drive(10'000, 36, 0);
+  env.Drive(3000, 36, -30);
+  env.Drive(8000, 36, 0);
+  TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
+  // The car may be on the other street still: both streets go on, it is followed too.
+  TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 1, (env.m_engine.GetTripLine()));
+  TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+}
+
 UNIT_TEST(NoGps_Engine_CarAtRoundaboutIsNotLost)
 {
   // The street the car leaves the roundabout by is where the car is, or 30 m to the left of it: the car came to

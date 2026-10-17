@@ -156,9 +156,10 @@ public:
   // A turn that fits several roads splits the mark: the shown mark goes on where the rules put it, the others along
   // the other roads, all as the car drives. On October 16 the road was lost 3 times after a turn put the mark on a
   // street 30-40 m beside the right one, which ended soon; the right one was another place the turn fitted. A mark is
-  // dropped when its road ends, when the car turns where its road has no road that way, or when the way driven does
-  // not lie on the roads there while it does at another mark; the shown one is replaced by another one then. The user
-  // switches the shown mark too. A mark of the user or trusted GPS tells where the car is: the others are dropped.
+  // dropped when its road ends or when the car turns where its road has no road that way; the shown one is replaced
+  // by another one then. The shown one is replaced also when the way driven does not lie on the roads there while it
+  // does at another mark, and by the user. A mark of the user or trusted GPS tells where the car is: the others are
+  // dropped.
   static size_t constexpr kMaxMarks = 3;
   // Places of roads farther apart across the car are other roads: two carriageways of a road are nearer.
   static double constexpr kOtherRoadAsideM = 20;
@@ -168,8 +169,9 @@ public:
   // lookups for every mark.
   static int64_t constexpr kMarksWayCheckMs = 5000;
   // The way driven lies on the roads at a place where it misses them at this many points or fewer: a few points of a
-  // turn are aside of both roads at any crossing. A place where it misses them at this many points more is not where
-  // the car is.
+  // turn are aside of both roads at any crossing. The car is shown rather at a place where it misses them at this many
+  // points fewer. Its mark elsewhere is not dropped: the way is drawn along a heading that may be wrong, on October 16
+  // at 17:19 18 degrees after a turn started off the roads, and the way lay on the street beside the right one.
   static int constexpr kWayFitMisses = 3;
   static int constexpr kWayMoreMisses = 3;
   // A car driving around a roundabout is off the road of the map for a while: on a small circle a few meters of

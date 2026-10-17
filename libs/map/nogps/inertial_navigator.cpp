@@ -1417,23 +1417,16 @@ bool InertialNavigator::CheckPlacesByWay(ms::LatLon const & position, TurnPlaces
   // The way lies on no roads, e.g. through a parking lot missing on the map: it tells nothing.
   if (std::min(*best, *chosenMisses) > kWayFitMisses)
     return true;
-  int chosen = *chosenMisses;
-  if (chosen >= *best + kWayMoreMisses)
+  if (*chosenMisses >= *best + kWayMoreMisses)
   {
     auto const index = static_cast<size_t>(best - misses.begin());
-    places.m_chosen = places.m_others[index];
-    chosen = misses[index];
-    places.m_others.erase(places.m_others.begin() + index);
-    misses.erase(misses.begin() + index);
+    auto const taken = places.m_others[index];
+    if (places.m_chosen)
+      places.m_others[index] = *places.m_chosen;
+    else
+      places.m_others.erase(places.m_others.begin() + index);
+    places.m_chosen = taken;
     why += ", the car is put where the way lies on the roads";
-  }
-  for (size_t i = misses.size(); i-- > 0;)
-  {
-    if (misses[i] >= chosen + kWayMoreMisses)
-    {
-      places.m_others.erase(places.m_others.begin() + i);
-      why += ", a place where it does not lie on them is dropped";
-    }
   }
   return true;
 }
@@ -1523,25 +1516,12 @@ void InertialNavigator::CheckMarksByWay()
   auto const best = std::min_element(misses.begin(), misses.end());
   if (std::min(*best, *shownMisses) > kWayFitMisses)
     return;
-  int shown = *shownMisses;
-  if (shown >= *best + kWayMoreMisses)
+  if (*shownMisses >= *best + kWayMoreMisses)
   {
     auto const index = static_cast<size_t>(best - misses.begin());
-    int const taken = misses[index];
-    misses.erase(misses.begin() + index);
-    TakeOtherMark(index, false /* keepShown */,
-                  "WAY misses the roads at " + std::to_string(shown) + " points where it was shown, at " +
-                      std::to_string(taken) + " there");
-    shown = taken;
-  }
-  for (size_t i = misses.size(); i-- > 0;)
-  {
-    if (misses[i] >= shown + kWayMoreMisses)
-    {
-      LOG(LINFO,
-          ("Other mark dropped: WAY misses the roads at", misses[i], "points there, left", m_otherMarks.size() - 1));
-      m_otherMarks.erase(m_otherMarks.begin() + i);
-    }
+    TakeOtherMark(index, !m_roadLost /* keepShown */,
+                  "WAY misses the roads at " + std::to_string(*shownMisses) + " points where it was shown, at " +
+                      std::to_string(*best) + " there");
   }
 }
 
