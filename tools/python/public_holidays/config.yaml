@@ -1,0 +1,394 @@
+env:
+  OM_ROOT_DIR: "../../.."
+  OM_DATA_DIR: "${OM_ROOT_DIR}/data"
+  TEMPLATES_DIR: "./templates"
+
+input:
+  metadata: "${OM_DATA_DIR}/countries_meta.txt"
+  generation-years:
+    - 2026
+    - 2027
+  holiday-types:
+    - Public
+    - Bank
+
+twine:
+  path: "${OM_DATA_DIR}/strings/public_holidays.txt"
+  supported-languages:
+    - "en"
+    - "af"
+    - "ar"
+    - "az"
+    - "be"
+    - "bg"
+    - "bn"
+    - "ca"
+    - "cs"
+    - "cy"
+    - "da"
+    - "de"
+    - "el"
+    - "es"
+    - "et"
+    - "eu"
+    - "fa"
+    - "fi"
+    - "fr"
+    - "gl"
+    - "he"
+    - "hi"
+    - "hr"
+    - "hu"
+    - "hy"
+    - "id"
+    - "is"
+    - "it"
+    - "ja"
+    - "ko"
+    - "lo"
+    - "lt"
+    - "lv"
+    - "ml"
+    - "mr"
+    - "mt"
+    - "nb"
+    - "nl"
+    - "oc"
+    - "pa"
+    - "pl"
+    - "pt"
+    - "ro"
+    - "ru"
+    - "sk"
+    - "sl"
+    - "sq"
+    - "sr"
+    - "sv"
+    - "sw"
+    - "te"
+    - "th"
+    - "tr"
+    - "uk"
+    - "vi"
+    - "zh-Hans"
+    - "zh-Hant"
+
+output:
+  data: "${OM_DATA_DIR}/generator/public_holidays/"
+  sources:
+    - libs_public_holidays_hpp:
+        template: "${TEMPLATES_DIR}/libs_public_holidays.hpp.jinja2"
+        output: "${OM_ROOT_DIR}/libs/public_holidays/holidays.hpp"
+    - libs_public_holidays_cpp:
+        template: "${TEMPLATES_DIR}/libs_public_holidays.cpp.jinja2"
+        output: "${OM_ROOT_DIR}/libs/public_holidays/holidays.cpp"
+    - android_public_holidays_java:
+        template: "${TEMPLATES_DIR}/android_public_holidays.java.jinja2"
+        output: "${OM_ROOT_DIR}/android/sdk/src/main/java/app/organicmaps/sdk/publicholidays/Holiday.java"
+    - android_public_holidays_cpp:
+        template: "${TEMPLATES_DIR}/android_public_holidays.cpp.jinja2"
+        output: "${OM_ROOT_DIR}/android/sdk/src/main/cpp/app/organicmaps/sdk/publicholidays/Holiday.cpp"
+
+data-sources:
+  - OpenHolidays.Api:
+      link: "https://www.openholidaysapi.org"
+      supported-countries:
+        - "AD"
+        - "AL"
+        - "AT"
+        - "BE"
+        - "BG"
+        - "BR"
+        - "BY"
+        - "CH"
+        - "CZ"
+        - "DE"
+        - "EE"
+        - "ES"
+        - "FR"
+        - "HR"
+        - "HU"
+        - "IE"
+        - "IT"
+        - "LI"
+        - "LT"
+        - "LV"
+        - "MC"
+        - "MD"
+        - "MT"
+        - "MX"
+        - "NL"
+        - "PL"
+        - "PT"
+        - "RO"
+        - "RS"
+        - "SE"
+        - "SI"
+        - "SK"
+        - "SM"
+        - "VA"
+        - "ZA"
+  - Nager.Date:
+      # We don't want to use Nager.Date for now
+      enabled: false
+      link: "https://date.nager.at"
+      supported-countries:
+        - "AD"
+        - "AL"
+        - "AM"
+        - "AR"
+        - "AT"
+        - "AU"
+        - "AX"
+        - "BA"
+        - "BB"
+        - "BE"
+        - "BG"
+        - "BJ"
+        - "BO"
+        - "BR"
+        - "BS"
+        - "BW"
+        - "BY"
+        - "BZ"
+        - "CA"
+        - "CD"
+        - "CG"
+        - "CH"
+        - "CL"
+        - "CN"
+        - "CO"
+        - "CR"
+        - "CU"
+        - "CY"
+        - "CZ"
+        - "DE"
+        - "DK"
+        - "DO"
+        - "EC"
+        - "EE"
+        - "EG"
+        - "ES"
+        - "FI"
+        - "FO"
+        - "FR"
+        - "GA"
+        - "GB"
+        - "GD"
+        - "GE"
+        - "GG"
+        - "GH"
+        - "GI"
+        - "GL"
+        - "GM"
+        - "GR"
+        - "GT"
+        - "GY"
+        - "HK"
+        - "HN"
+        - "HR"
+        - "HT"
+        - "HU"
+        - "ID"
+        - "IE"
+        - "IM"
+        - "IS"
+        - "IT"
+        - "JE"
+        - "JM"
+        - "JP"
+        - "KE"
+        - "KR"
+        - "KZ"
+        - "LI"
+        - "LS"
+        - "LT"
+        - "LU"
+        - "LV"
+        - "MA"
+        - "MC"
+        - "MD"
+        - "ME"
+        - "MG"
+        - "MK"
+        - "MN"
+        - "MS"
+        - "MT"
+        - "MX"
+        - "MZ"
+        - "NA"
+        - "NE"
+        - "NG"
+        - "NI"
+        - "NL"
+        - "NO"
+        - "NZ"
+        - "PA"
+        - "PE"
+        - "PG"
+        - "PH"
+        - "PL"
+        - "PR"
+        - "PT"
+        - "PY"
+        - "RO"
+        - "RS"
+        - "RU"
+        - "SC"
+        - "SE"
+        - "SG"
+        - "SI"
+        - "SJ"
+        - "SK"
+        - "SM"
+        - "SR"
+        - "SV"
+        - "TN"
+        - "TR"
+        - "UA"
+        - "UG"
+        - "US"
+        - "UY"
+        - "VA"
+        - "VE"
+        - "VN"
+        - "ZA"
+        - "ZW"
+
+duplicates-map:
+  # https://en.wikipedia.org/wiki/Assumption_of_Mary
+  "Assumption of Mary":
+    - "Assumption"
+    - "Assumption Day"
+    - "Assumption of the Virgin Mary"
+    - "Ferragosto (Assumption)"
+    - "Assumption of the Virgin Day"
+    - "Assumption's Day"
+    - "​​​Feast of the Assumption"
+  # https://en.wikipedia.org/wiki/Feast_of_the_Immaculate_Conception
+  "Feast of the Immaculate Conception":
+    - "Immaculate Conception"
+    - "Immaculate Conception Day"
+    - "The Feast of the Immaculate Conception"
+    - "The Immaculate Conception"
+    - "Feast of the Immaculate Conception of Mary"
+    - "​Feast of the Immaculate Conception"
+    - "Immaculate Conception's Day"
+  # https://en.wikipedia.org/wiki/Heroes%27_Day
+  "Heroes' Day":
+    - "Heroes's Day"
+    - "Heroes' day"
+  "Independence Day":
+    - "Cyprus Independence Day"
+    - "Greek Independence Day"
+    - "Independence Day (Moldova)"
+    - "Independence Day of the Republic of Moldova"
+    - "Independence of Cartagena"
+    - "Independence of Cuenca"
+    - "Independence of Guayaquil"
+    - "Nigerien Independence Day"
+    - "Paraguayan Independence"
+    - "Independence day"
+    - "​​​Independence Day"
+  # https://en.wikipedia.org/wiki/Saint_Andrew%27s_Day
+  "Saint Andrew's Day":
+    - "St. Andrew's Day"
+  # https://en.wikipedia.org/wiki/Thanksgiving
+  "Thanksgiving Day":
+    - "Thanksgiving"
+  # https://en.wikipedia.org/wiki/Ohi_Day
+  "Ohi Day":
+    - "Ochi Day"
+  # https://en.wikipedia.org/wiki/International_Workers%27_Day
+  "International Workers' Day":
+    - "Worker's Day"
+    - "Workers' Day"
+    - "International Workers Day"
+    - "International Working Day"
+  "International Women's Day":
+    - "Women's Day"
+    - "National Women's Day observed"
+    - "National Women's Day"
+  # https://en.wikipedia.org/wiki/Chinese_New_Year
+  "Chinese New Year":
+    - "Chinese New Year (Spring Festival)"
+  "New Year's Day":
+    - "New Year Holiday"
+    - "New Year holiday"
+    - "New Year’s Day"
+    - "New Year"
+    - "New Year's Day Holiday"
+  "New Year's Eve":
+    - "Last Day of The Year"
+  "Presidents' Day":
+    - "Presidents Day"
+  "Botswana Day Holiday":
+    - "Botswana Day holiday"
+  "Bank Closing Day":
+    - "Bank closing day"
+  "Chinese Arrival Day":
+    - "Chinese Arrival day"
+  # https://en.wikipedia.org/wiki/Victory_in_Europe_Day
+  "Victory in Europe Day":
+    - "Victory Day over fascism"
+    - "Day of Victory over Fascism"
+    - "Day of victory over fascism"
+  "All Souls' Day":
+    - "Deceased ones day"
+  "Africa Day and Heroes' Day":
+    - "Africa Day/ Heroes' Day"
+  "National Holiday":
+    - "National holiday"
+  "National Heroes' Day":
+    - "National Heroes Day"
+  # https://en.wikipedia.org/wiki/Martyrs%27_Day
+  "Martyrs' Day":
+    - "Martyr's Day"
+    - "Martyrs Day"
+  "Labour Day":
+    - "Labour day"
+    - "Labour Day (Moldova)"
+    - "Labor Day"
+  # https://en.wikipedia.org/wiki/All_Saints%27_Day
+  "All Saints' Day":
+    - "All Saints Day"
+    - "All Saints’ Day"
+  "Christmas Day (Catholic)":
+    - "​Christmas Day"
+    - "​​​​Christmas Day"
+    - "Christmas Day (Roman Catholic)"
+    - "Christmas Day (Observed)"
+    - "Christmas"
+    - "Catholic Christmas"
+    - "Christmas Day"
+  "Christmas Day (Orthodox)":
+    - "Christmas (Orthodox Christmas)"
+    - "Christmas (Orthodox)"
+  "Christmas Eve (Catholic)":
+    - "Christmas Eve (Roman Catholic)"
+    - "Christmas Eve"
+  "Indigenous Peoples' Day":
+    - "Indigenous People's Day"
+  "Republic Day":
+    - "​​​Republic Day"
+  "St. Stephen's Day":
+    - "St Stephen's Day"
+  "St. John's Day":
+    - "St John's Day"
+  "Unification Day":
+    - "Unification Day (Observed)"
+  "Human Rights Day":
+    - "Human Rights Day (Observed)"
+    - "Human Rights Day observed"
+  "Good Friday":
+    - "Good Friday (Orthodox)"
+  "Feast of Our Lady of Victories":
+    - "​​​Feast of Our Lady of Victories"
+  "Feast of Saints Peter and Paul":
+    - "​​​Feast of St.Peter and St.Paul"
+  "Sette Giugno":
+    - "​Sette Giugno"
+  "King's Day":
+    - "King’s Day"
+  "Commemoration Day (Radonitsa)":
+    - "Commemoration Day"
