@@ -8,7 +8,9 @@ namespace qt
 {
 namespace common
 {
-QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext) : m_rootContext(rootContext)
+QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext, bool exactSize)
+  : m_rootContext(rootContext)
+  , m_exactSize(exactSize)
 {
   m_uploadSurface = CreateSurface();
   m_drawSurface = CreateSurface();
@@ -26,6 +28,16 @@ QtOGLContextFactory::~QtOGLContextFactory()
 void QtOGLContextFactory::PrepareToShutdown()
 {
   m_preparedToShutdown = true;
+  // The listener may not outlive its owner, which shuts down next.
+  if (m_drawContext)
+    m_drawContext->SetPresentListener(nullptr);
+}
+
+void QtOGLContextFactory::SetPresentListener(std::function<void()> fn)
+{
+  // The render thread creates the draw context, which takes the listener then.
+  ASSERT(!m_drawContext, ("Set before the drape engine is created"));
+  m_onPresent = std::move(fn);
 }
 
 bool QtOGLContextFactory::AcquireFrame()
@@ -53,7 +65,8 @@ dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()
   if (!m_drawContext)
   {
     m_mainThreadReady.wait();
-    m_drawContext = std::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get());
+    m_drawContext = std::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get(), m_exactSize);
+    m_drawContext->SetPresentListener(std::move(m_onPresent));
   }
 
   return m_drawContext.get();
