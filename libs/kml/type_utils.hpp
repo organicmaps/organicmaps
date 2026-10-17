@@ -43,6 +43,7 @@ using Properties = std::map<std::string, std::string>;
 using MarkGroupId = uint64_t;
 using MarkId = uint64_t;
 using TrackId = uint64_t;
+using AreaId = uint64_t;
 using LocalId = uint8_t;
 
 using MarkIdCollection = std::vector<MarkId>;
@@ -50,6 +51,7 @@ using TrackIdCollection = std::vector<TrackId>;
 
 using MarkIdSet = std::set<MarkId, std::greater<MarkId>>;
 using TrackIdSet = std::set<TrackId>;
+using AreaIdSet = std::set<AreaId>;
 
 using GroupIdCollection = std::vector<MarkGroupId>;
 using GroupIdSet = std::set<MarkGroupId>;
@@ -58,6 +60,7 @@ MarkGroupId constexpr kInvalidMarkGroupId = std::numeric_limits<MarkGroupId>::ma
 MarkId constexpr kInvalidMarkId = std::numeric_limits<MarkId>::max();
 MarkId constexpr kDebugMarkId = kInvalidMarkId - 1;
 TrackId constexpr kInvalidTrackId = std::numeric_limits<TrackId>::max();
+AreaId constexpr kInvalidAreaId = std::numeric_limits<AreaId>::max();
 TrackId constexpr kTempRelationTrackId = kInvalidTrackId - 1;
 // The only values Organic Maps ever writes into the vestigial "Collections" slots,
 // see CategoryData::m_unusedCompilationId.

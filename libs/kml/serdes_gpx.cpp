@@ -586,6 +586,8 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
 
 void GpxWriter::Write(FileData const & fileData)
 {
+  if (!fileData.m_areasData.empty())
+    MYTHROW(WriteGpxException, ("GPX cannot store polygon areas. Use KML or KMZ."));
   m_writer << kGpxHeader;
   SaveCategoryData(m_writer, fileData.m_categoryData);
   for (auto const & bookmarkData : fileData.m_bookmarksData)
