@@ -702,11 +702,14 @@ UNIT_TEST(Slovenia_Croatia_CrossBorderPenalty)
                                    FromLatLon(45.22718, 13.596334), 156285);
 }
 
-UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
+UNIT_TEST(USA_Florida_CrossMwm)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(28.9666499, -82.127271), {0., 0.},
                                    FromLatLon(25.8633542, -80.3878891), 457734);
+}
 
+UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
+{
   auto const start = FromLatLon(33.5209837, -86.807945);
   auto const finish = FromLatLon(24.5534713, -81.7932587);
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'471'410);
@@ -1001,6 +1004,42 @@ UNIT_TEST(Russia_Nsk_NoPassThrough)
   // Detour route via "Порт-Артурская" avoiding pass through service
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(54.9886261, 82.8091597), {0., 0.},
                                    FromLatLon(54.9924478, 82.8082036), 1254.17);
+}
+
+UNIT_TEST(Russia_Nsk_ServiceStartAfterRerouting)
+{
+  auto & components = GetVehicleComponents(VehicleType::Car);
+  auto & router = components.GetRouter();
+  router.ClearState();
+  SCOPE_GUARD(clearRouter, [&router] { router.ClearState(); });
+
+  auto const previousStart = FromLatLon(54.988947, 82.80889);
+  auto const start = FromLatLon(54.989101, 82.814544);
+  auto const finish = FromLatLon(55.076779, 82.935965);
+  auto const calculate = [&](m2::PointD const & from, bool adjust)
+  {
+    RouterDelegate delegate;
+    RoutesResult result;
+    TEST_EQUAL(router.CalculateRoute(Checkpoints(from, finish), {} /* startDirection */, adjust,
+                                     false /* needAlternatives */, delegate, result),
+               RouterResultCode::NoError, ());
+    return result;
+  };
+
+  // The nearby cached route and destination over 10 km away make this a suffix-adjustment request.
+  auto const previous = calculate(previousStart, false /* adjust */);
+  TEST(previous.IsValid(), ());
+  auto const adjusted = calculate(start, true /* adjust */);
+  TEST(adjusted.IsValid(), ());
+
+  // Starting inside service must use the new route's allowance rather than reuse the cached suffix's state.
+  router.ClearState();
+  auto const rebuilt = calculate(start, false /* adjust */);
+  TEST(rebuilt.IsValid(), ());
+  TEST_ALMOST_EQUAL_ABS(Route(adjusted.GetActive()).GetTotalDistanceMeters(),
+                        Route(rebuilt.GetActive()).GetTotalDistanceMeters(), 1.0, ());
+  TEST_ALMOST_EQUAL_ABS(Route(adjusted.GetActive()).GetTotalTimeSec(), Route(rebuilt.GetActive()).GetTotalTimeSec(),
+                        0.1, ());
 }
 
 // The destination (43.5298373, 5.44563164) lies on Rue de la Treille. The route must

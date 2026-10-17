@@ -840,6 +840,9 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
     if (result != RouterResultCode::NoError)
       return result;
 
+    subrouteStarter.EnablePassThroughStateRouting(false);
+    for (auto & segment : subroute)
+      segment = segment.WithoutPassThroughState();
     IndexGraphStarter::CheckValidRoute(subroute);
 
     segments.insert(segments.end(), subroute.begin(), subroute.end());
@@ -917,22 +920,28 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 bool guidesActive /* = false */)
 {
   subroute.clear();
-
   SetupAlgorithmMode(starter, guidesActive);
-
   WorldGraphMode const mode = starter.GetGraph().GetMode();
+  // Full-graph car searches retain service allowances in their A* labels.
+  // Independent leap pieces use legacy crossing credits.
+  starter.EnablePassThroughStateRouting(m_vehicleType == VehicleType::Car && mode != WorldGraphMode::LeapsOnly);
   LOG(LINFO, ("Routing in mode:", mode));
 
   base::ScopedTimerWithLog timer("Route build");
+  if (delegate.IsCancelled())
+    return RouterResultCode::Cancelled;
+
+  RouterResultCode result;
   switch (mode)
   {
-  case WorldGraphMode::Joints: return CalculateSubrouteJointsMode(starter, delegate, progress, subroute);
-  case WorldGraphMode::NoLeaps: return CalculateSubrouteNoLeapsMode(starter, delegate, progress, subroute);
+  case WorldGraphMode::Joints: result = CalculateSubrouteJointsMode(starter, delegate, progress, subroute); break;
+  case WorldGraphMode::NoLeaps: result = CalculateSubrouteNoLeapsMode(starter, delegate, progress, subroute); break;
   case WorldGraphMode::LeapsOnly:
-    return CalculateSubrouteLeapsOnlyMode(checkpoints, subrouteIdx, starter, delegate, progress, subroute);
-  default: CHECK(false, ("Wrong WorldGraphMode here:", mode));
+    result = CalculateSubrouteLeapsOnlyMode(checkpoints, subrouteIdx, starter, delegate, progress, subroute);
+    break;
+  default: CHECK(false, ("Wrong WorldGraphMode here:", mode)); UNREACHABLE();
   }
-  UNREACHABLE();
+  return delegate.IsCancelled() ? RouterResultCode::Cancelled : result;
 }
 
 RouterResultCode IndexRouter::CalculateSubrouteJointsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
@@ -1195,7 +1204,6 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
   if (bestC == nullptr)
     return RouterResultCode::RouteNotFound;
 
-  // Calculate route for the best candidate.
   RoutingResultT result;
   ProcessLeapsJoints(bestC->m_path, starter, progress, calculator, result);
 
@@ -1245,9 +1253,24 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
   starter.Append(*m_lastFakeEdges);
 
+  if (m_vehicleType == VehicleType::Car && starter.HasNonPassThroughStart())
+    return RouterResultCode::RouteNotFound;
+
+  size_t begin = rebuiltSubroute.GetBeginSegmentIdx();
+  size_t const end = rebuiltSubroute.GetEndSegmentIdx();
+  CHECK_LESS_OR_EQUAL(end, steps.size(), ());
+  // Leaving the cached start's service area was free; it would be a paid exit from the new start.
+  while (m_vehicleType == VehicleType::Car && begin < end &&
+         (IndexGraphStarter::IsFakeSegment(steps[begin].GetSegment()) ||
+          starter.IsNoPassThroughAllowed(steps[begin].GetSegment())))
+  {
+    ++begin;
+  }
+  if (begin == end)
+    return RouterResultCode::RouteNotFound;
+
   std::vector<SegmentEdge> prevEdges;
-  CHECK_LESS_OR_EQUAL(rebuiltSubroute.GetEndSegmentIdx(), steps.size(), ());
-  for (size_t i = rebuiltSubroute.GetBeginSegmentIdx(); i < rebuiltSubroute.GetEndSegmentIdx(); ++i)
+  for (size_t i = begin; i < end; ++i)
   {
     auto const & step = steps[i];
     prevEdges.emplace_back(step.GetSegment(),
@@ -1731,6 +1754,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(std::vector<Segment> const & in
   for (size_t startLeapEnd : arrBeg)
     for (size_t finishLeapStart : arrEnd)
     {
+      if (startLeapEnd >= finishLeapStart)
+        continue;
       size_t maxStart = 0;
 
       auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode)
