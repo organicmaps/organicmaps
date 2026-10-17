@@ -342,6 +342,8 @@ UNIT_TEST(NoGps_Engine_TurnEnteredSmoothlyStartsOnRoad)
     env.Drive(2000, kmh, -30);
     // 30 m north.
     env.Drive(108'000 / kmh, kmh, 0);
+    // The car has left the street in the turn, it has not followed the roads: it is moved to the crossing.
+    TEST_NOT_EQUAL(TripField(env, "turn"), "NaN", (kmh));
     TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
     TEST_GREATER(North(env.Last().m_position), 20, (kmh));
     TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 5);
@@ -374,15 +376,17 @@ UNIT_TEST(NoGps_Engine_TurnAlongBranchIsNotMovedToNextCrossing)
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 }
 
-// A street going east, a street going north from the crossing at 200 m and another one 40 m to the east of it,
-// which has no crossing with the first street on the map and goes north |parallelEndM| m.
-PieceRoads TwoStreetsNorth(double parallelEndM)
+// A street going east, a street going north from the crossing at 200 m for |crossingEndM| m and another one 40 m to
+// the east of it, which has no crossing with the first street on the map and goes north |parallelEndM| m.
+PieceRoads TwoStreetsNorth(double crossingEndM, double parallelEndM)
 {
-  return PieceRoads({{-300, 0, 400, 0}, {200, 0, 200, 400}, {240, -10, 240, parallelEndM}}, {{200, 0}});
+  return PieceRoads({{-300, 0, 400, 0}, {200, 0, 200, crossingEndM}, {240, -10, 240, parallelEndM}}, {{200, 0}});
 }
 
 // The car turns left at the crossing at 200 m, its calculated position 19 m ahead: the turn ends next to the street
-// 40 m to the east, and the regular snapping keeps the car on it, as on October 16.
+// 40 m to the east, where the regular snapping takes the car, as on October 16. The car has left the roads in the
+// turn, it has not followed them there: it is moved to the crossing, and the street to the east is another place
+// it may be on.
 void TurnLeftBesideCrossing(Env & env)
 {
   MarkCar(env, 219 - 112);
@@ -390,20 +394,21 @@ void TurnLeftBesideCrossing(Env & env)
   TestAlmostEqualAbs(East(env.Last().m_position), 219, 2);
   env.Drive(3000, 36, -30);
   env.Drive(2000, 36, 0);
-  TestAlmostEqualAbs(East(env.Last().m_position), 240, 2);
+  TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
+  TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 24, 3);
 }
 
 UNIT_TEST(NoGps_Engine_TurnFittingTwoStreetsFollowsBoth)
 {
-  auto roads = TwoStreetsNorth(80);
+  auto roads = TwoStreetsNorth(80, 400);
   Env env(true /* inertial */, &roads);
   TurnLeftBesideCrossing(env);
-  // The car may be on either street: the mark stays on the one it is on, the other one is followed too.
+  // The car may be on either street: the mark stays where the rules put it, the other street is followed too.
   TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 1, (env.m_engine.GetTripLine()));
   TEST(env.m_engine.GetTripLine().find(" marks=2 ") != std::string::npos, (env.m_engine.GetTripLine()));
   // That street ends: the car is on the other one.
   env.Drive(10'000, 36, 0);
-  TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
+  TestAlmostEqualAbs(East(env.Last().m_position), 240, 2);
   TEST_GREATER(North(env.Last().m_position), 100, ());
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
   TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 0, ());
@@ -411,33 +416,33 @@ UNIT_TEST(NoGps_Engine_TurnFittingTwoStreetsFollowsBoth)
 
 UNIT_TEST(NoGps_Engine_UserSwitchesMarkToAnotherStreet)
 {
-  auto roads = TwoStreetsNorth(80);
+  auto roads = TwoStreetsNorth(80, 400);
   Env env(true /* inertial */, &roads);
   TurnLeftBesideCrossing(env);
   int const rebuilds = env.m_map.m_rebuilds;
   env.m_engine.SwitchMark();
   // The car is shown on the other street, the route goes from there.
-  TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
+  TestAlmostEqualAbs(East(env.Last().m_position), 240, 2);
   TEST_GREATER(env.m_map.m_rebuilds, rebuilds, ());
   // The street the car was shown on is followed too, until it ends.
   TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 1, ());
   env.Drive(10'000, 36, 0);
-  TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
+  TestAlmostEqualAbs(East(env.Last().m_position), 240, 2);
   TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 0, ());
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
 
   // The user switches again and again: the marks go round.
-  auto roads2 = TwoStreetsNorth(400);
+  auto roads2 = TwoStreetsNorth(400, 400);
   Env env2(true /* inertial */, &roads2);
   TurnLeftBesideCrossing(env2);
   env2.m_engine.SwitchMark();
-  TestAlmostEqualAbs(East(env2.Last().m_position), 200, 2);
-  env2.m_engine.SwitchMark();
   TestAlmostEqualAbs(East(env2.Last().m_position), 240, 2);
+  env2.m_engine.SwitchMark();
+  TestAlmostEqualAbs(East(env2.Last().m_position), 200, 2);
   TEST_EQUAL(env2.m_engine.GetStatus().m_otherMarks, 1, ());
   // A mark of the user tells where the car is.
   env2.Drive(500, 0, 0);
-  TEST(env2.m_engine.PlaceMarkByTap(At(240, 70)), ());
+  TEST(env2.m_engine.PlaceMarkByTap(At(200, 70)), ());
   TEST_EQUAL(env2.m_engine.GetStatus().m_otherMarks, 0, ());
 }
 
@@ -449,6 +454,9 @@ UNIT_TEST(NoGps_Engine_TurnTellsWhichStreetCarIsOn)
                    {{200, 0}, {200, 150}});
   Env env(true /* inertial */, &roads);
   TurnLeftBesideCrossing(env);
+  // The user shows the car on the street to the east, by mistake.
+  env.m_engine.SwitchMark();
+  TestAlmostEqualAbs(East(env.Last().m_position), 240, 2);
   TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 1, ());
   while (North(env.Last().m_position) < 140)
     env.Drive(100, 36, 0);

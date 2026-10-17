@@ -986,6 +986,8 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
   {
     m_lastSnapMs = now;
     SnapToRoad();
+    if (m_turning && !m_onRoad)
+      m_turnLeftRoad = true;
     CheckRoundabout();
     if (m_onRoad && !m_turning && now - m_lastBendMatchMs >= kBendMatchIntervalMs)
     {
@@ -1232,6 +1234,7 @@ void InertialNavigator::TrackTurn(double yawDeltaDeg, double dtSec, int64_t time
     m_turnStart = m_deadReckoning.GetPosition();
     m_turnEnd = m_turnStart;
     m_turnFromRoad = m_onRoad;
+    m_turnLeftRoad = false;
     m_turnSteadyFromBearing.reset();
     if (m_steadyRoad && m_pathM - m_steadyRoad->m_pathM <= kTurnFromRoadM && m_offRoadM <= kTurnFromRoadOffM)
       m_turnSteadyFromBearing = m_steadyRoad->m_bearingDeg;
@@ -1345,7 +1348,8 @@ void InertialNavigator::MatchTurn(int64_t timestampNs)
     LOG(LINFO, ("No road after the turn at the crossing", *crossing));
     places.m_chosen = stay;
   }
-  else if (m_turnFromRoad && here && Distance(here->m_point, moved->m_road.m_point) > kMaxFollowedTurnMoveM)
+  else if (m_turnFromRoad && !m_turnLeftRoad && here &&
+           Distance(here->m_point, moved->m_road.m_point) > kMaxFollowedTurnMoveM)
   {
     // The road the regular snapping keeps the car on, or takes it to in a moment.
     LOG(LINFO, ("Turn from", std::round(m_turnFromBearing), "to", std::round(toBearing),

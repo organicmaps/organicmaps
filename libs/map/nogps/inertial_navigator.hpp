@@ -148,7 +148,9 @@ public:
   // A car that was on a road before the turn and is on a road going the new way after it has followed the
   // roads through the turn. A crossing moving it farther than this is another one: the right one is not a
   // crossing for the map, e.g. a road branching off at a small angle. On the trips checked such a move brought
-  // the car closer to GPS in 2 of 18 and farther from it in 13.
+  // the car closer to GPS in 2 of 18 and farther from it in 13. The car was on a road all through the turn then:
+  // on October 16 at 17:38 the mark left the roads in the turn and the snapping put it on another road, and the
+  // right crossing 14 m away was refused.
   static double constexpr kMaxFollowedTurnMoveM = 5;
   // A car entering a turn smoothly drifts off its road before it rotates fast enough to start the turn. The turn
   // starts on the road the car was on looking along it within this distance, unless it has driven farther off the
@@ -599,6 +601,8 @@ private:
     double m_pathM;
   };
   std::optional<SteadyRoad> m_steadyRoad;
+  // The car has been off the roads during the turn it makes now.
+  bool m_turnLeftRoad = false;
   // The heading of the road the car was steadily on when the turn it makes now started, see kTurnFromRoadM.
   std::optional<double> m_turnSteadyFromBearing;
 
