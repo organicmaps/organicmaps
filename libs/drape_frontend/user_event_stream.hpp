@@ -38,6 +38,8 @@ public:
     SetAnyRect,
     Resize,
     Rotate,
+    TransformGesture,
+    RotateBy,
     FollowAndRotate,
     AutoPerspective,
     VisibleViewport,
@@ -340,6 +342,43 @@ private:
   TAnimationCreator m_parallelAnimCreator;
 };
 
+class TransformGestureEvent : public UserEvent
+{
+public:
+  enum class Phase
+  {
+    Begin,
+    End
+  };
+
+  explicit TransformGestureEvent(Phase phase) : m_phase(phase) {}
+
+  EventType GetType() const override { return EventType::TransformGesture; }
+
+  Phase GetPhase() const { return m_phase; }
+
+private:
+  Phase m_phase;
+};
+
+class RotateByEvent : public UserEvent
+{
+public:
+  RotateByEvent(double deltaRadians, m2::PointD const & pixelPoint)
+    : m_deltaRadians(deltaRadians)
+    , m_pixelPoint(pixelPoint)
+  {}
+
+  EventType GetType() const override { return EventType::RotateBy; }
+
+  double GetDeltaRadians() const { return m_deltaRadians; }
+  m2::PointD const & GetPixelPoint() const { return m_pixelPoint; }
+
+private:
+  double m_deltaRadians;
+  m2::PointD m_pixelPoint;
+};
+
 class ResizeEvent : public UserEvent
 {
 public:
@@ -474,6 +513,7 @@ private:
   bool OnScroll(ref_ptr<ScrollEvent> scrollEvent);
 
   bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
+  bool RotateBy(double deltaRadians, m2::PointD pixelPoint);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
                TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
@@ -562,6 +602,7 @@ private:
   AnimationSystem & m_animationSystem;
 
   bool m_modelViewChanged = false;
+  bool m_transformGestureInProgress = false;
 
   ref_ptr<Listener> m_listener;
 
