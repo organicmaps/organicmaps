@@ -1045,15 +1045,18 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::AssignTileBackgroundImage:
   {
     ref_ptr<AssignTileBackgroundImageMessage> msg = message;
-    if (m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3)
+    // Skip the GL upload for a uid we already hold: AssignTileBackgroundImage below would only dedupe
+    // and release this freshly-acquired texture, so uploading into it is wasted bandwidth. HasImage is
+    // checked after the API test so it runs only on the GL path (non-GL already uploaded in the backend).
+    if (m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3 && !m_tileBackgroundRenderer->HasImage(msg->GetUid()))
     {
       void * data = msg->GetBytes().data();
       msg->GetTexturePool()->UpdateTextureData(m_context, msg->GetTextureId(), 0, 0, msg->GetWidth(), msg->GetHeight(),
                                                make_ref(data));
     }
 
-    m_tileBackgroundRenderer->AssignTileBackgroundImage(m_context, msg->GetUid(), msg->GetTexturePool(),
-                                                        msg->GetTextureId(), msg->GetMode());
+    m_tileBackgroundRenderer->AssignTileBackgroundImage(m_context, msg->GetTileKey(), msg->GetUid(),
+                                                        msg->GetTexturePool(), msg->GetTextureId(), msg->GetMode());
     msg->MarkProcessed();
     break;
   }
@@ -1602,8 +1605,7 @@ void FrontendRenderer::RenderTileBackgroundLayer(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] RenderTileBackgroundLayer");
   DEBUG_LABEL(m_context, "Tile Background");
-  m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
-                                   m_frameValues);
+  m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, m_frameValues);
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
@@ -2473,7 +2475,10 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
-  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom());
+
+  int const bgZoom = GetTileBackgroundZoom(GetCurrentZoom(), screen.isPerspective());
+  CoverageResult const bgCoverage = CalcTilesCoverage(rect, bgZoom, nullptr /* processTile */);
+  m_tileBackgroundRenderer->OnUpdateViewport(m_context, bgCoverage, base::asserted_cast<uint8_t>(bgZoom));
 
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();

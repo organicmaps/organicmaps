@@ -2794,7 +2794,6 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
 {
   RasterTileProvider::Params rp;
   rp.m_urlTemplate = url;
-  rp.m_cacheSubdir = "bg_tiles";
   rp.m_maxZoom = 19;  // standard web-mercator detail; deeper OM tiles reuse the ancestor sub-rect.
   rp.m_maxCacheBytes = static_cast<uint64_t>(cacheSizeMB) * 1024 * 1024;
   // Global coverage (whole world) — min zoom and the lat/lon box keep their defaults.
@@ -2807,7 +2806,10 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
     // messages, so they are safe to call from any thread.
     if (m_drapeEngine)
     {
-      m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
+      // Report failed reads without an upload so the renderer can retain fallback imagery.
+      if (!imageUid.empty())
+        m_drapeEngine->AddTileBackgroundImage(tileKey, imageUid, width, height, dp::TextureFormat::RGBA8, mode,
+                                              std::move(rgba));
       m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, rect);
     }
   });
