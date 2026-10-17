@@ -821,7 +821,9 @@ public class PlacePageController
   public void onResume()
   {
     super.onResume();
-    if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN && !Framework.nativeHasPlacePageInfo())
+    // The track recording page has no selection in the core, see onTrackRecordingSelected().
+    if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN && !Framework.nativeHasPlacePageInfo()
+        && !(mMapObject != null && mMapObject.isTrackRecording()))
       mViewModel.setMapObject(null);
   }
 

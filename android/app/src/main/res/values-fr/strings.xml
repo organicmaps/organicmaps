@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir pas saisi de données personnelles.</string>
     <string name="editor_share_to_all_dialog_message_2">Les contributeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
     <string name="navigation_stop_button">Arrêter</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Enregistreur de traces</string>
     <!-- For the first routing -->
     <string name="accept">Accepter</string>
@@ -832,7 +832,7 @@
     <string name="start_track_recording">Enregistrer le trajet</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Arrêter l\'enregistrement de la trace</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Enregistrement de la trace</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">L\'itinéraire est vide - il n\'y a rien à sauvegarder</string>
@@ -911,6 +911,8 @@
     <string name="choose_point_on_map_hint">Déplacez et zoomez sur la carte pour positionner la croix</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Arrêter et sauvegarder</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Terminer</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Inverser l\'itinéraire</string>
 </resources>

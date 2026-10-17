@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="widget_track_recording_main_text_size">28sp</dimen>
+</resources>

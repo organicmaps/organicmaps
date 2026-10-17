@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
+import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.TrackRecording;
@@ -22,8 +22,7 @@ import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
 import app.organicmaps.widget.placepage.PlacePageStateListener;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 
-public class PlacePageTrackRecordingFragment
-    extends Fragment implements PlacePageStateListener, TrackRecorder.TrackRecordingUpdateHandler
+public class PlacePageTrackRecordingFragment extends Fragment implements PlacePageStateListener
 {
   private PlacePageViewModel mViewModel;
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
@@ -43,32 +42,14 @@ public class PlacePageTrackRecordingFragment
     super.onViewCreated(view, savedInstanceState);
 
     mElevationProfileViewRenderer = new ElevationProfileViewRenderer(view.findViewById(R.id.elevation_profile));
+    TrackRecordingService.getStatistics().observe(getViewLifecycleOwner(), trackStatistics -> {
+      if (trackStatistics != null)
+        render(trackStatistics);
+    });
   }
 
-  @Override
-  public void onStart()
+  private void render(@NonNull TrackStatistics trackStatistics)
   {
-    super.onStart();
-    // The listener can only be attached while recording is enabled; it may have been stopped
-    // from the notification while the activity was stopped.
-    if (TrackRecorder.nativeIsTrackRecordingEnabled())
-      TrackRecorder.nativeSetTrackRecordingStatsListener(this);
-  }
-
-  @Override
-  public void onStop()
-  {
-    super.onStop();
-    TrackRecorder.nativeSetTrackRecordingStatsListener(null);
-  }
-
-  @Keep
-  @SuppressWarnings("unused")
-  @Override
-  public void onTrackRecordingUpdate(TrackStatistics trackStatistics)
-  {
-    if (getContext() == null)
-      return;
     if (!TrackRecorder.nativeIsTrackRecordingEnabled())
       return;
 
@@ -77,8 +58,8 @@ public class PlacePageTrackRecordingFragment
       return;
     ((TrackRecording) mViewModel.getMapObject().getValue())
         .setTrackRecordingPPDescription(
-            StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(getContext()) + " • "
-            + Utils.formatRoutingTime(getContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
+            StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(requireContext()) + " • "
+            + Utils.formatRoutingTime(requireContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
     ElevationInfo elevationInfo = TrackRecorder.nativeGetElevationInfo();
     // elevationInfo can be null when Track Recording has just started and no elevation data exists yet.
     if (elevationInfo != null)

@@ -7,6 +7,7 @@ GpsTrack::GpsTrack(std::string const & filePath, std::unique_ptr<IGpsTrackFilter
   : m_filePath(filePath)
   , m_needClear(false)
   , m_needSendSnapshop(false)
+  , m_needSendStatistics(false)
   , m_filter(std::move(filter))
   , m_threadExit(false)
   , m_threadWakeup(false)
@@ -88,6 +89,16 @@ void GpsTrack::SetCallback(TGpsTrackDiffCallback callback)
     std::lock_guard lg(m_callbackGuard);
     m_callback = callback;
     m_needSendSnapshop = true;
+  }
+  ScheduleTask();
+}
+
+void GpsTrack::SetStatisticsCallback(TGpsTrackStatisticsCallback callback)
+{
+  {
+    std::lock_guard lg(m_callbackGuard);
+    m_statisticsCallback = std::move(callback);
+    m_needSendStatistics = true;
   }
   ScheduleTask();
 }
@@ -222,6 +233,7 @@ void GpsTrack::ProcessPoints()
   UpdateCollection(needClear, points, addedIds, evictedIds);
 
   NotifyCallback(addedIds, evictedIds);
+  NotifyStatisticsCallback(needClear || addedIds.first != kInvalidId);
 }
 
 size_t GpsTrack::Finalize()
@@ -255,7 +267,7 @@ size_t GpsTrack::Finalize()
 bool GpsTrack::HasCallback()
 {
   std::lock_guard lg(m_callbackGuard);
-  return m_callback != nullptr;
+  return m_callback || m_statisticsCallback;
 }
 
 void GpsTrack::UpdateStorage(bool needClear, std::vector<location::GpsInfo> const & points)
@@ -315,7 +327,7 @@ void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::p
     if (toAdd.empty())
       return;  // nothing to send
 
-    m_callback(std::move(toAdd), std::make_pair(kInvalidId, kInvalidId), m_collection->GetTrackStatistics());
+    m_callback(std::move(toAdd), std::make_pair(kInvalidId, kInvalidId));
   }
   else
   {
@@ -336,6 +348,14 @@ void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::p
     if (toAdd.empty() && evictedIds.first == kInvalidId)
       return;  // nothing to send
 
-    m_callback(std::move(toAdd), evictedIds, m_collection->GetTrackStatistics());
+    m_callback(std::move(toAdd), evictedIds);
   }
+}
+
+void GpsTrack::NotifyStatisticsCallback(bool changed)
+{
+  std::lock_guard lg(m_callbackGuard);
+  if (m_statisticsCallback && (changed || m_needSendStatistics))
+    m_statisticsCallback(m_collection->GetTrackStatistics());
+  m_needSendStatistics = false;
 }

@@ -39,6 +39,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.wear.WearBridge;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.TrackRecordingWidget;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
@@ -143,6 +144,8 @@ public class MwmApplication extends Application implements Application.ActivityL
         onNavigationOrRecordingStopped();
     });
     TrackRecordingService.createNotificationChannel(this);
+    // Drops the recording state that a killed process may have left on the home screen.
+    TrackRecordingWidget.update(this);
 
     registerActivityLifecycleCallbacks(this);
     mDisplayManager = new DisplayManager();
@@ -239,6 +242,18 @@ public class MwmApplication extends Application implements Application.ActivityL
     // Whatever is still running goes back to the regular refresh interval.
     if (getLocationHelper().isActive() && LocationUtils.checkLocationPermission(this))
       getLocationHelper().restartWithNewMode();
+  }
+
+  /**
+   * Unlike {@link #onNavigationOrRecordingStopped()}, stops location even without the map: a process that recorded
+   * from the home screen widget has nothing else that needs it.
+   */
+  public void onTrackRecordingStopped()
+  {
+    if (!Map.isEngineCreated() && mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
+      getLocationHelper().stop();
+    else
+      onNavigationOrRecordingStopped();
   }
 
   /**

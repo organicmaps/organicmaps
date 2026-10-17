@@ -507,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Gakktu úr skugga um að þú hafir ekki sett inn nein einkagögn eða persónulegar upplýsingar.</string>
     <string name="editor_share_to_all_dialog_message_2">Ritstjórar OpenStreetMap munu yfirfara breytingarnar og hafa samband við þig ef þeir eru með spurningar.</string>
     <string name="navigation_stop_button">Stöðva</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Skrái ferilinn</string>
     <!-- For the first routing -->
     <string name="accept">Samþykkja</string>
@@ -831,7 +831,7 @@
     <string name="start_track_recording">Skrá feril</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Stöðva skráningu ferils</string>
-    <!-- Subtitle for the active track recording on the Android place page. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Upptaka ferils</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Ferill er tómur - ekkert til að vista</string>
@@ -908,6 +908,8 @@
     <string name="choose_point_on_map_hint">Hreyfðu og stækkaðu kortið til að staðsetja krossinn</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stöðva og vista</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Ljúka</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Snúa leið við</string>
 </resources>
