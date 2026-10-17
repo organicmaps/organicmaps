@@ -1392,8 +1392,8 @@ std::string Engine::GetTripLine()
       if (auto const & update = box->GetUpdate(); update.GetState() != Esp32Update::State::None)
         line += " ota=" + DebugPrint(update.GetState()) + "/" + std::to_string(update.GetProgressPercent());
     }
-    std::snprintf(buf, sizeof(buf), " scale=%.3f table=%d lag=%.2f%s", m_inertial->GetSpeedScale(),
-                  m_inertial->GetSpeedTableRanges(), m_inertial->GetSpeedLag(),
+    std::snprintf(buf, sizeof(buf), " scale=%.3f table=%d rough=%d lag=%.2f%s", m_inertial->GetSpeedScale(),
+                  m_inertial->GetSpeedTableRanges(), m_inertial->GetRoughSpeedTableRanges(), m_inertial->GetSpeedLag(),
                   m_inertial->IsSpeedLagMeasured() ? "" : "/DEFAULT");
     line += buf;
     // The accelerometers against the car speed: how well each follows it, and how far ahead of the car speed

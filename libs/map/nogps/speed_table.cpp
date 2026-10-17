@@ -8,13 +8,10 @@
 
 namespace nogps
 {
-namespace
+int SpeedTable::Range(double carSpeedKmh)
 {
-int SpeedRange(double carSpeedKmh)
-{
-  return std::min(SpeedTable::kRanges - 1, static_cast<int>(carSpeedKmh / SpeedTable::kRangeKmh));
+  return std::min(kRanges - 1, static_cast<int>(carSpeedKmh / kRangeKmh));
 }
-}  // namespace
 
 void SpeedTable::OnSample(double carSpeedKmh, double gpsSpeedMps, double dtSec, double accelerationMps2)
 {
@@ -23,9 +20,16 @@ void SpeedTable::OnSample(double carSpeedKmh, double gpsSpeedMps, double dtSec, 
   {
     return;
   }
-  int const i = SpeedRange(carSpeedKmh);
-  m_carM[i] += carSpeedKmh / 3.6 * dtSec;
-  m_gpsM[i] += gpsSpeedMps * dtSec;
+  OnDistance(carSpeedKmh, carSpeedKmh / 3.6 * dtSec, gpsSpeedMps * dtSec);
+}
+
+void SpeedTable::OnDistance(double carSpeedKmh, double carM, double realM)
+{
+  if (carSpeedKmh < kMinSpeedKmh || carM <= 0 || realM < 0)
+    return;
+  int const i = Range(carSpeedKmh);
+  m_carM[i] += carM;
+  m_gpsM[i] += realM;
   if (m_carM[i] > kMaxDistanceM)
   {
     m_carM[i] /= 2;
@@ -40,7 +44,7 @@ double SpeedTable::ScaleOf(int i) const
 
 std::optional<double> SpeedTable::GetScale(double carSpeedKmh) const
 {
-  int const i = SpeedRange(carSpeedKmh);
+  int const i = Range(carSpeedKmh);
   if (IsKnown(i))
     return ScaleOf(i);
   int lower = i - 1;

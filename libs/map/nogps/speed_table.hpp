@@ -34,6 +34,13 @@ public:
   /// \param accelerationMps2 how fast the real speed changes.
   void OnSample(double carSpeedKmh, double gpsSpeedMps, double dtSec, double accelerationMps2);
 
+  /// Takes into account a distance driven in the range of the speed, measured otherwise than by GPS.
+  /// \param carM the distance by the car speed, \param realM the real one.
+  void OnDistance(double carSpeedKmh, double carM, double realM);
+
+  /// \returns the range of the speed.
+  static int Range(double carSpeedKmh);
+
   /// \returns the ratio the car speed is multiplied by, nothing if nothing is known yet. A speed not measured yet
   /// is interpolated from the closest measured ones.
   std::optional<double> GetScale(double carSpeedKmh) const;
@@ -56,6 +63,7 @@ private:
   double ScaleOf(int i) const;
 
   std::array<double, kRanges> m_carM{};
+  // The real distance: by GPS, or by the roads for a rough table.
   std::array<double, kRanges> m_gpsM{};
 };
 }  // namespace nogps
