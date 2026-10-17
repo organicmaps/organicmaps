@@ -897,4 +897,14 @@
     <string name="track_recording_stop_and_save">Dừng và lưu</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Đảo ngược tuyến đường</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Chi tiết hành trình</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Đi bộ</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Điểm dừng %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d trạm</item>
+    </plurals>
 </resources>
