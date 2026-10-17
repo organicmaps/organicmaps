@@ -70,6 +70,8 @@ class TransitGraphBuilder:
         self.transit_graph = None
         self.matched_colors = {}
         self.stop_names = {}
+        self.line_tracks = {}  # line_id -> list of (x, y) mercator points
+        self.segment_tracks = {}  # seg_key -> list of (x, y) mercator points
 
     def __get_average_stops_point(self, stop_ids):
         """Returns an average position of the stops."""
@@ -188,8 +190,14 @@ class TransitGraphBuilder:
                             }
                     line['color'] = self.__match_color(route_item.get('colour', ''), route_item.get('casing', ''))
 
-                    # TODO: Add processing of line_item['shape'] when this data will be available.
-                    # TODO: Add processing of line_item['trip_ids'] when this data will be available.
+                    # Store real track geometry if available (list of [lon, lat] pairs).
+                    raw_tracks = line_item.get('tracks', [])
+                    if raw_tracks:
+                        mercator_track = []
+                        for coord in raw_tracks:
+                            p = get_mercator_point(coord[1], coord[0])
+                            mercator_track.append((p['x'], p['y']))
+                        self.line_tracks[line_id] = mercator_track
 
                     # Create an edge for each connection of stops.
                     for i in range(len(line_stops)):
@@ -272,24 +280,124 @@ class TransitGraphBuilder:
                 prev_seg = seg
                 prev_id1 = id1
 
+    @staticmethod
+    def __find_nearest_on_polyline(px, py, polyline):
+        """Find where point (px, py) projects onto a polyline.
+        Returns (segment_index, fraction) where fraction is 0..1 along
+        polyline[segment_index] -> polyline[segment_index + 1].
+        """
+        min_dist_sq = float('inf')
+        best_seg = 0
+        best_frac = 0.0
+        for i in range(len(polyline) - 1):
+            ax, ay = polyline[i]
+            bx, by = polyline[i + 1]
+            dx, dy = bx - ax, by - ay
+            seg_len_sq = dx * dx + dy * dy
+            if seg_len_sq == 0:
+                frac = 0.0
+            else:
+                frac = max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / seg_len_sq))
+            proj_x = ax + frac * dx
+            proj_y = ay + frac * dy
+            dist_sq = (px - proj_x) ** 2 + (py - proj_y) ** 2
+            if dist_sq < min_dist_sq:
+                min_dist_sq = dist_sq
+                best_seg = i
+                best_frac = frac
+        return best_seg, best_frac
+
+    def __extract_real_track_segments(self):
+        """For each line with real track data, split the track at stop positions
+        and store per-segment polylines in self.segment_tracks."""
+        for line in self.lines:
+            track = self.line_tracks.get(line['id'])
+            if not track or len(track) < 2:
+                continue
+
+            stop_ids = line['stop_ids']
+            if len(stop_ids) < 2:
+                continue
+
+            # Project each stop onto the track. Use cumulative distance along the
+            # polyline to ensure monotonic ordering even if raw projections are noisy.
+            projections = []
+            for stop_id in stop_ids:
+                stop = self.stops[stop_id]
+                px, py = stop['point']['x'], stop['point']['y']
+                seg_idx, frac = self.__find_nearest_on_polyline(px, py, track)
+                projections.append((seg_idx, frac))
+
+            # Ensure projections are monotonically non-decreasing along the track.
+            for i in range(1, len(projections)):
+                prev_seg, prev_frac = projections[i - 1]
+                cur_seg, cur_frac = projections[i]
+                if (cur_seg < prev_seg) or (cur_seg == prev_seg and cur_frac < prev_frac):
+                    projections[i] = projections[i - 1]
+
+            # Extract sub-polyline for each pair of consecutive stops.
+            for i in range(len(stop_ids) - 1):
+                node1 = self.stops[stop_ids[i]]
+                node2 = self.stops[stop_ids[i + 1]]
+                id1 = node1.get('transfer_id', node1['id'])
+                id2 = node2.get('transfer_id', node2['id'])
+                if id1 == id2:
+                    continue
+                seg_key = tuple(sorted([id1, id2]))
+                if seg_key in self.segment_tracks:
+                    continue  # Already have track data for this segment.
+
+                seg1_idx, frac1 = projections[i]
+                seg2_idx, frac2 = projections[i + 1]
+
+                sub = []
+                # Start point (interpolated on track).
+                ax, ay = track[seg1_idx]
+                bx, by = track[min(seg1_idx + 1, len(track) - 1)]
+                sub.append((ax + frac1 * (bx - ax), ay + frac1 * (by - ay)))
+
+                # Intermediate track points.
+                for j in range(seg1_idx + 1, min(seg2_idx + 1, len(track))):
+                    sub.append(track[j])
+
+                # End point (interpolated on track).
+                ax, ay = track[seg2_idx]
+                bx, by = track[min(seg2_idx + 1, len(track) - 1)]
+                end_pt = (ax + frac2 * (bx - ax), ay + frac2 * (by - ay))
+                if not sub or sub[-1] != end_pt:
+                    sub.append(end_pt)
+
+                if len(sub) >= 2:
+                    self.segment_tracks[seg_key] = sub
+
     def __generate_shapes_for_segments(self):
-        """Generates a curve for each connection of two stops / transfer nodes."""
+        """Generates a polyline for each connection of two stops / transfer nodes.
+        Uses real track geometry when available, falls back to Catmull-Rom curves."""
         for (id1, id2), info in self.segments.items():
-            point1 = [self.__get_stop(id1)['point']['x'], self.__get_stop(id1)['point']['y']]
-            point2 = [self.__get_stop(id2)['point']['x'], self.__get_stop(id2)['point']['y']]
+            seg_key = (id1, id2)
+            real_track = self.segment_tracks.get(seg_key)
 
-            if info['guide_points'][id1]:
-                guide1 = self.__get_average_stops_point(info['guide_points'][id1])
+            if real_track and len(real_track) >= 2:
+                # Use real track geometry.
+                curve_points = real_track
             else:
-                guide1 = [2 * point1[0] - point2[0], 2 * point1[1] - point2[1]]
+                # Fall back to Catmull-Rom curve.
+                point1 = [self.__get_stop(id1)['point']['x'], self.__get_stop(id1)['point']['y']]
+                point2 = [self.__get_stop(id2)['point']['x'], self.__get_stop(id2)['point']['y']]
 
-            if info['guide_points'][id2]:
-                guide2 = self.__get_average_stops_point(info['guide_points'][id2])
-            else:
-                guide2 = [2 * point2[0] - point1[0], 2 * point2[1] - point1[1]]
+                if info['guide_points'][id1]:
+                    guide1 = self.__get_average_stops_point(info['guide_points'][id1])
+                else:
+                    guide1 = [2 * point1[0] - point2[0], 2 * point1[1] - point2[1]]
 
-            curve_points = bezier_curves.segment_to_Catmull_Rom_curve(guide1, point1, point2, guide2,
-                                                                      self.points_per_curve, self.alpha)
+                if info['guide_points'][id2]:
+                    guide2 = self.__get_average_stops_point(info['guide_points'][id2])
+                else:
+                    guide2 = [2 * point2[0] - point1[0], 2 * point2[1] - point1[1]]
+
+                curve_points = bezier_curves.segment_to_Catmull_Rom_curve(guide1, point1, point2, guide2,
+                                                                          self.points_per_curve, self.alpha)
+
             info['curve'] = np.array(curve_points)
 
             polyline = []
@@ -314,6 +422,7 @@ class TransitGraphBuilder:
 
     def __create_scheme_shapes(self):
         self.__collect_segments()
+        self.__extract_real_track_segments()
         self.__generate_shapes_for_segments()
         self.__assign_shapes_to_edges()
 
