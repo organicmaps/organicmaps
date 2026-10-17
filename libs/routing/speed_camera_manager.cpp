@@ -47,18 +47,14 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
   FindCamerasOnRouteAndCache(passedDistanceMeters);
 
   double distFromCurrentPosAndClosestCam = -1.0;
-  m_speedLimitExceeded = false;
   if (m_closestCamera.IsValid())
   {
     distFromCurrentPosAndClosestCam = m_closestCamera.m_distFromBeginMeters - passedDistanceMeters;
     if (distFromCurrentPosAndClosestCam < -kInfluenceZoneMeters)
     {
       m_closestCamera.Invalidate();
+      ResetNotifications();
       m_speedCamClearCallback();
-    }
-    else if (!m_closestCamera.NoSpeed())
-    {
-      m_speedLimitExceeded = IsSpeedHigh(distFromCurrentPosAndClosestCam, info.m_speed, m_closestCamera);
     }
   }
 
@@ -77,6 +73,10 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
       PassClosestCameraToUI();
     }
   }
+
+  m_speedLimitExceeded =
+      m_closestCamera.IsValid() && !m_closestCamera.NoSpeed() &&
+      IsSpeedHigh(m_closestCamera.m_distFromBeginMeters - passedDistanceMeters, info.m_speed, m_closestCamera);
 
   if (m_closestCamera.IsValid() && SetNotificationFlags(passedDistanceMeters, info.m_speed, m_closestCamera))
   {
