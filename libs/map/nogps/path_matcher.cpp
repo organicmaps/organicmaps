@@ -106,6 +106,20 @@ int PathMatcher::CountMisses(Roads & roads, ms::LatLon const & end, std::vector<
   return misses;
 }
 
+void PathMatcher::SetHeading(double headingDeg)
+{
+  for (auto & sample : m_history)
+    sample.m_headingDeg = Normalize(headingDeg - (m_yawDeg - sample.m_yawDeg));
+}
+
+std::optional<int> PathMatcher::CountMissesAt(Roads & roads, ms::LatLon const & end) const
+{
+  auto const way = GetWay();
+  if (way.empty())
+    return {};
+  return CountMisses(roads, end, way, static_cast<int>(way.size()));
+}
+
 std::optional<RoadPoint> PathMatcher::Match(Roads & roads, ms::LatLon const & position, std::string * why) const
 {
   auto const no = [why](std::string const & text)

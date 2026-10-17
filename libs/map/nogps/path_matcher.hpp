@@ -49,6 +49,10 @@ public:
   /// Forgets the way driven: the car drives backwards, or it is not followed.
   void Reset() { m_history.clear(); }
 
+  /// The car looks this way, e.g. the user has marked it on a road: the way driven is turned so. The calculated heading
+  /// it was turned by before was wrong, before the start of the navigation it was none.
+  void SetHeading(double headingDeg);
+
   /// \param yawDeltaDeg the clockwise rotation of the car measured by the gyroscope while it drove |distanceM|.
   /// \param headingDeg where the car looks after it by the calculation.
   void OnMotion(double yawDeltaDeg, double distanceM, double headingDeg);
@@ -57,6 +61,10 @@ public:
   /// \param why what is found, for the log.
   /// \returns where the car is if the way driven lies on the roads in one place, not around the calculated one.
   std::optional<RoadPoint> Match(Roads & roads, ms::LatLon const & position, std::string * why = nullptr) const;
+
+  /// \returns at how many points the way driven misses the roads were it to end at |end|, nothing if the way is too
+  /// short to tell. A place the car may be at after a turn that fits several, see InertialNavigator::kMaxMarks.
+  std::optional<int> CountMissesAt(Roads & roads, ms::LatLon const & end) const;
 
 private:
   struct Sample
