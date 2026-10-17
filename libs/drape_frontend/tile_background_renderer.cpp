@@ -2,7 +2,7 @@
 
 #include "drape_frontend/render_state_extension.hpp"
 
-#include "base/logging.hpp"
+#include "base/assert.hpp"
 
 #include <algorithm>
 
@@ -105,9 +105,10 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
   }
 }
 
-void TileBackgroundRenderer::AssignTileBackgroundImage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
-                                                       ref_ptr<dp::TexturePool> texturePool,
-                                                       dp::TexturePool::TextureId textureId, dp::BackgroundMode mode)
+void TileBackgroundRenderer::AssignTileBackgroundImage(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                                       std::string const & uid, ref_ptr<dp::TexturePool> texturePool,
+                                                       dp::TexturePool::TextureId textureId, dp::BackgroundMode mode,
+                                                       m2::RectF const & rect)
 {
   if (context == nullptr)
     return;
@@ -119,35 +120,12 @@ void TileBackgroundRenderer::AssignTileBackgroundImage(ref_ptr<dp::GraphicsConte
     return;
   }
 
-  // Dedupe: if the image is already registered (live or in the LRU), discard the redundant upload.
-  if (m_images.find(uid) != m_images.end())
-  {
+  // Over-zoomed tiles can share one image; keep its existing texture and discard duplicate uploads.
+  auto const inserted = m_images.emplace(uid, ImageInfo{texturePool, textureId}).second;
+  if (inserted)
+    m_unreferencedLRU.push_back(uid);
+  else
     texturePool->ReleaseTexture(context, textureId);
-    return;
-  }
-
-  m_images.emplace(uid, ImageInfo{texturePool, textureId, mode, 0});
-  m_unreferencedLRU.push_back(uid);
-
-  // Recycle the oldest unreferenced image if the LRU is over budget.
-  while (m_unreferencedLRU.size() > kMaxUnreferencedImages)
-  {
-    auto const & oldest = m_unreferencedLRU.front();
-    auto it = m_images.find(oldest);
-    if (it != m_images.end())
-    {
-      it->second.m_texturePool->ReleaseTexture(context, it->second.m_textureId);
-      m_images.erase(it);
-    }
-    m_unreferencedLRU.pop_front();
-  }
-}
-
-void TileBackgroundRenderer::SetTileBackgroundData(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                                                   std::string const & imageUid, m2::RectF const & rect)
-{
-  if (context == nullptr)
-    return;
 
   m_awaitingTiles.erase(tileKey);
 
@@ -155,55 +133,33 @@ void TileBackgroundRenderer::SetTileBackgroundData(ref_ptr<dp::GraphicsContext> 
   // from the viewport. Use the same visible-tile predicate as the viewport update (it also covers
   // the zoom check) so clipped tiles are not resurrected after cancellation.
   if (!IsInCoverage(tileKey, m_lastCoverage, m_lastCurrentZoomLevel))
-    return;
-
-  auto imageIt = m_images.find(imageUid);
-  if (imageIt == m_images.end())
   {
-    LOG(LWARNING, ("SetTileBackgroundData: unknown image uid", imageUid, "for tile", tileKey.Coord2String()));
+    TrimUnreferencedImages(context);
     return;
   }
 
-  // Image must match the current background mode.
-  if (imageIt->second.m_mode != m_currentMode)
-    return;
-
-  // If the tile was already bound, release the previous image first.
   auto tileIt = m_tiles.find(tileKey);
+  if (tileIt != m_tiles.end() && tileIt->second.m_imageUid == uid)
+  {
+    tileIt->second.m_rect = rect;
+    return;
+  }
+
+  // Pin the target before releasing the old image, which may evict an unreferenced texture.
+  AcquireImageRef(uid);
   if (tileIt != m_tiles.end())
-  {
-    if (tileIt->second.m_imageUid == imageUid)
-    {
-      tileIt->second.m_rect = rect;
-      return;
-    }
     ReleaseImageRef(context, tileIt->second.m_imageUid);
-  }
+  m_tiles[tileKey] = TileBinding{uid, rect};
 
-  m_tiles[tileKey] = TileBinding{imageUid, rect};
-  AcquireImageRef(imageUid);
-
-  // Drop any tile bindings for stale zoom levels (mirrors the prior behavior).
-  auto it = m_tiles.begin();
-  while (it != m_tiles.end())
-  {
-    if (it->first.m_zoomLevel != tileKey.m_zoomLevel)
-    {
-      ReleaseImageRef(context, it->second.m_imageUid);
-      it = m_tiles.erase(it);
-    }
-    else
-    {
-      ++it;
-    }
-  }
+  ASSERT(std::all_of(m_tiles.begin(), m_tiles.end(), [this](auto const & tile)
+  { return IsInCoverage(tile.first, m_lastCoverage, m_lastCurrentZoomLevel); }),
+         ());
 }
 
 void TileBackgroundRenderer::AcquireImageRef(std::string const & uid)
 {
-  auto it = m_images.find(uid);
-  if (it == m_images.end())
-    return;
+  auto const it = m_images.find(uid);
+  ASSERT(it != m_images.end(), (uid));
 
   if (it->second.m_refCount == 0)
     m_unreferencedLRU.remove(uid);
@@ -213,40 +169,42 @@ void TileBackgroundRenderer::AcquireImageRef(std::string const & uid)
 
 void TileBackgroundRenderer::ReleaseImageRef(ref_ptr<dp::GraphicsContext> context, std::string const & uid)
 {
-  auto it = m_images.find(uid);
-  if (it == m_images.end())
-    return;
+  auto const it = m_images.find(uid);
+  ASSERT(it != m_images.end(), (uid));
 
   CHECK_GREATER(it->second.m_refCount, 0, ());
   if (--it->second.m_refCount == 0)
   {
     m_unreferencedLRU.push_back(uid);
-    while (m_unreferencedLRU.size() > kMaxUnreferencedImages)
-    {
-      auto const & oldest = m_unreferencedLRU.front();
-      auto oldestIt = m_images.find(oldest);
-      if (oldestIt != m_images.end())
-      {
-        oldestIt->second.m_texturePool->ReleaseTexture(context, oldestIt->second.m_textureId);
-        m_images.erase(oldestIt);
-      }
-      m_unreferencedLRU.pop_front();
-    }
+    TrimUnreferencedImages(context);
+  }
+}
+
+void TileBackgroundRenderer::TrimUnreferencedImages(ref_ptr<dp::GraphicsContext> context)
+{
+  while (m_unreferencedLRU.size() > kMaxUnreferencedImages)
+  {
+    auto const & oldest = m_unreferencedLRU.front();
+    auto const it = m_images.find(oldest);
+    ASSERT(it != m_images.end(), (oldest));
+    ASSERT_EQUAL(it->second.m_refCount, 0, (oldest));
+    it->second.m_texturePool->ReleaseTexture(context, it->second.m_textureId);
+    m_images.erase(it);
+    m_unreferencedLRU.pop_front();
   }
 }
 
 void TileBackgroundRenderer::ReleaseTileBinding(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey)
 {
-  auto it = m_tiles.find(tileKey);
-  if (it == m_tiles.end())
-    return;
+  auto const it = m_tiles.find(tileKey);
+  ASSERT(it != m_tiles.end(), (tileKey));
 
   ReleaseImageRef(context, it->second.m_imageUid);
   m_tiles.erase(it);
 }
 
 void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                    ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
+                                    ScreenBase const & screen, FrameValues const & frameValues)
 {
   if (m_currentMode == dp::BackgroundMode::Default)
     return;
@@ -264,9 +222,8 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   {
     if (!screen.ClipRect().IsIntersect(tileKey.GetGlobalRect()))
       continue;
-    auto imgIt = m_images.find(binding.m_imageUid);
-    if (imgIt == m_images.end())
-      continue;
+    auto const imgIt = m_images.find(binding.m_imageUid);
+    ASSERT(imgIt != m_images.end(), (tileKey, binding.m_imageUid));
     m_sortedTiles.push_back({tileKey, &imgIt->second, binding.m_rect});
   }
   if (m_sortedTiles.empty())
@@ -340,12 +297,12 @@ void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::Graphics
 {
   CHECK(context != nullptr, ());
 
-  // Cancel awaiting tile background reading requests for the previous mode.
+  // Cancel unresolved reads before releasing image resources.
   for (auto const & tileKey : m_awaitingTiles)
     m_cancelTileBackgroundReadingFn(tileKey, m_currentMode);
   m_awaitingTiles.clear();
 
-  // Release all images (referenced or not) for the previous mode.
+  // Release both images bound to tiles and unused images retained in the cache.
   for (auto const & [uid, info] : m_images)
     info.m_texturePool->ReleaseTexture(context, info.m_textureId);
   m_images.clear();
@@ -353,9 +310,10 @@ void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::Graphics
   m_tiles.clear();
 }
 
-void TileBackgroundRenderer::SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode)
+void TileBackgroundRenderer::SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode,
+                                               bool resetImages /* = false */)
 {
-  if (m_currentMode == mode)
+  if (m_currentMode == mode && !resetImages)
     return;
 
   m_currentMode = mode;

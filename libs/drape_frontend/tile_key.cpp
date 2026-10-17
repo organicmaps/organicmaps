@@ -8,6 +8,8 @@
 
 #include "base/string_utils.hpp"
 
+#include "std/boost_container_hash.hpp"
+
 #include <sstream>
 
 namespace df
@@ -188,3 +190,15 @@ std::string DebugPrint(TileKey const & key)
   return out.str();
 }
 }  // namespace df
+
+namespace std
+{
+size_t hash<df::TileKey>::operator()(df::TileKey const & key) const
+{
+  size_t seed = 0;
+  boost::hash_combine(seed, key.m_x);
+  boost::hash_combine(seed, key.m_y);
+  boost::hash_combine(seed, key.m_zoomLevel);
+  return seed;
+}
+}  // namespace std

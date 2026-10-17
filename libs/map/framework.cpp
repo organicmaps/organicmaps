@@ -441,6 +441,9 @@ Framework::~Framework()
 {
   GetPowerManager().UnsubscribeAll();
 
+  // Rendering threads can still request tiles while the worker queues are shutting down.
+  if (m_rasterTileProvider)
+    m_rasterTileProvider->Shutdown();
   m_threadRunner.reset();
 
   osm::Editor & editor = osm::Editor::Instance();
@@ -1925,6 +1928,8 @@ ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
 
 void Framework::DestroyDrapeEngine()
 {
+  if (m_rasterTileProvider)
+    m_rasterTileProvider->Shutdown();
   if (m_drapeEngine != nullptr)
   {
     m_drapeApi.SetDrapeEngine(nullptr);
@@ -1939,6 +1944,8 @@ void Framework::DestroyDrapeEngine()
     GpsTracker::Instance().Disconnect();
     m_drapeEngine.reset();
   }
+  // DrapeEngine joins its rendering threads before the provider wrapper can be destroyed.
+  m_rasterTileProvider.reset();
 }
 
 void Framework::SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory)
@@ -2803,12 +2810,11 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
       std::move(rp), [this](df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & imageUid,
                             uint32_t width, uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba)
   {
-    // Invoked on a background thread; AddTileBackgroundImage/SetTileBackgroundData only post
-    // messages, so they are safe to call from any thread.
+    // Provider delivery and engine creation/destruction are serialized on the GUI thread.
     if (m_drapeEngine)
     {
-      m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
-      m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, rect);
+      m_drapeEngine->AddTileBackgroundImage(tileKey, imageUid, width, height, dp::TextureFormat::RGBA8, mode, rect,
+                                            std::move(rgba));
     }
   });
 }
@@ -2833,18 +2839,19 @@ void Framework::SetBackgroundTiles(bool enabled, std::string url, uint32_t cache
   settings::Set(kBgTilesAreaOpacityKey, areaOpacityPct);
 
   bool const active = !url.empty();
+  bool sourceChanged = false;
   if (active)
   {
     auto const cacheBytes = static_cast<uint64_t>(cacheSizeMB) * 1024 * 1024;
     if (m_rasterTileProvider)
-      m_rasterTileProvider->Reconfigure(url, cacheBytes);  // clears the cache if the URL changed
+      sourceChanged = m_rasterTileProvider->Reconfigure(url, cacheBytes);
     else
       CreateBackgroundTilesProvider(url, cacheSizeMB);
   }
 
   if (m_drapeEngine)
     m_drapeEngine->SetTileBackgroundMode(active ? dp::BackgroundMode::Satellite : dp::BackgroundMode::Default,
-                                         areaOpacityPct / 100.0f);
+                                         areaOpacityPct / 100.0f, sourceChanged);
 }
 
 uint32_t Framework::GetBackgroundTilesCacheSize()

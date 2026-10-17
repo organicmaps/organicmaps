@@ -989,28 +989,24 @@ void DrapeEngine::SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCusto
                                   MessagePriority::High);
 }
 
-void DrapeEngine::AddTileBackgroundImage(std::string const & uid, uint32_t width, uint32_t height,
-                                         dp::TextureFormat format, dp::BackgroundMode mode,
-                                         std::vector<uint8_t> && bytes)
+void DrapeEngine::AddTileBackgroundImage(df::TileKey const & tileKey, std::string const & uid, uint32_t width,
+                                         uint32_t height, dp::TextureFormat format, dp::BackgroundMode mode,
+                                         m2::RectF const & rect, std::vector<uint8_t> && bytes)
 {
   m_threadCommutator->PostMessage(
       ThreadsCommutator::ResourceUploadThread,
-      make_unique_dp<AddTileBackgroundImageMessage>(uid, width, height, format, mode, std::move(bytes)),
+      make_unique_dp<AddTileBackgroundImageMessage>(tileKey, uid, width, height, format, mode, rect, std::move(bytes)),
       MessagePriority::Normal);
 }
 
-void DrapeEngine::SetTileBackgroundData(df::TileKey const & tileKey, std::string const & imageUid,
-                                        m2::RectF const & rect)
+void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity /* = 0.5f */,
+                                        bool resetImages /* = false */)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<SetTileBackgroundDataMessage>(tileKey, imageUid, rect),
-                                  MessagePriority::Normal);
-}
-
-void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity /* = 0.5f */)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<SetTileBackgroundModeMessage>(mode, satelliteAreaOpacity),
-                                  MessagePriority::Normal);
+  // Source changes and image deliveries are posted from GUI. Keeping both messages Normal in
+  // the backend and frontend queues puts every old upload before its reset.
+  m_threadCommutator->PostMessage(
+      ThreadsCommutator::ResourceUploadThread,
+      make_unique_dp<SetTileBackgroundModeMessage>(mode, satelliteAreaOpacity, false /* needInvalidate */, resetImages),
+      MessagePriority::Normal);
 }
 }  // namespace df
