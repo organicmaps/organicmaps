@@ -297,12 +297,12 @@ void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::Graphics
 {
   CHECK(context != nullptr, ());
 
-  // Cancel awaiting tile background reading requests for the previous mode.
+  // Cancel unresolved reads before releasing image resources.
   for (auto const & tileKey : m_awaitingTiles)
     m_cancelTileBackgroundReadingFn(tileKey, m_currentMode);
   m_awaitingTiles.clear();
 
-  // Release all images (referenced or not) for the previous mode.
+  // Release both images bound to tiles and unused images retained in the cache.
   for (auto const & [uid, info] : m_images)
     info.m_texturePool->ReleaseTexture(context, info.m_textureId);
   m_images.clear();
