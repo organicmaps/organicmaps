@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notizen</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">„Organic Maps“-Lesezeichen wurden mit dir geteilt</string>
-    <string name="share_bookmarks_email_body">Hallo!\n\nIm Anhang sind meine Lesezeichen der „Organic Maps“-App. Du kannst sie mit Organic Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://omaps.app/get?kmz herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">Organic Maps-Lesezeichen wurden mit dir geteilt</string>
+    <string name="share_bookmarks_email_body">Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps-App. Du kannst sie mit Organic Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://omaps.app/get?kmz herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Lesezeichen werden geladen</string>
     <!-- Kmz file successful loading -->

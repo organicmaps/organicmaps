@@ -35,7 +35,7 @@
     <string name="country_status_download_failed">Lejupielāde neizdevās</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Mēģināt vēlreiz</string>
-    <string name="about_menu_title">Par „Organic Maps“</string>
+    <string name="about_menu_title">Par Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Bezmaksas, pieejama visiem un veidota ar mīlestību</string>
     <!-- Text in About screen -->
@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Lietotnei nepieciešams „OpenGL“ aparatūras paātrinājums, bet diemžēl Jūsu ierīce to neatbalsta.</string>
     <string name="download">Lejupielādēt</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Lai lietotu „Organic Maps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.</string>
+    <string name="disconnect_usb_cable">Lai lietotu Organic Maps, atvienojiet USB kabeli vai ievietojiet atmiņas karti.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Lietotnes izmantošanai atbrīvojiet vietu ierīces krātuvē</string>
     <string name="download_resources">Pirms sākt izmantot lietotni lejupielādējiet pasaules pārskata karti.\nTā ierīces krātuvē aizņems %s vietas.</string>
@@ -152,7 +152,7 @@
     <string name="description">Piezīmes</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps ar jums tika dalītas grāmatzīmes</string>
-    <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!</string>
+    <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās Organic Maps lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ielādē grāmatzīmes</string>
     <!-- Kmz file successful loading -->
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operators: %s</string>
     <string name="editor_category_unsuitable_title">Vai neatrodat atbilstošu kategoriju?</string>
-    <string name="editor_category_unsuitable_text">„Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Ierīcē nav lejupielādētu karšu</string>
     <string name="downloader_no_downloaded_maps_message">Lai darbotos nesaistes navigācija un meklēšana, lejupielādējiet kartes.</string>
     <string name="current_location_unknown_error_title">Pašreizējā vieta nav zināma.</string>
@@ -760,7 +760,7 @@
     <!-- App tip #01 -->
     <string name="app_tip_01">Ar jūsu ziedojumiem un atbalstu varam izveidot pasaulē labākās kartes!</string>
     <!-- App tip #02 -->
-    <string name="app_tip_02">Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!</string>
+    <string name="app_tip_02">Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam Organic Maps uzlabot!</string>
     <!-- App tip #03 -->
     <string name="app_tip_03">Ja pazīstat kādu programmatūras izstrādātāju, varat viņam vai viņai palūgt ieviest funkciju, kas jums pietrūkst.</string>
     <!-- App tip #04 -->
@@ -776,9 +776,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Mūsu mērķis ir izveidot viegli lietojamas kartes, kas respektē jūsu privātumu un kuras jums patiks.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Tagad „Organic Maps“ izmantojat tālruņa ekrānā</string>
+    <string name="car_used_on_the_phone_screen">Tagad Organic Maps izmantojat tālruņa ekrānā</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Tagad „Organic Maps“ izmantojat automobiļa ekrānā</string>
+    <string name="car_used_on_the_car_screen">Tagad Organic Maps izmantojat automobiļa ekrānā</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Savienots ar Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
