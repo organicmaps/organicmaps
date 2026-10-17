@@ -1,6 +1,5 @@
 #include "map/raster_tile_provider.hpp"
 
-#include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/blake3.hpp"
@@ -553,9 +552,9 @@ void RasterTileProvider::State::Deliver(df::TileKey const & tileKey, uint64_t re
                                         uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba,
                                         bool finished)
 {
-  // GuiThread is independent of ThreadRunner. Never post while holding a mutex: Qt can run inline.
-  platform::GuiThread().Push([state = shared_from_this(), tileKey, requestId, sourceEpoch, mode, uid, width, height,
-                              rect, rgba = std::move(rgba), finished]() mutable
+  // Never post while holding a mutex: Qt can run inline on the GUI thread.
+  GetPlatform().RunTask(Platform::Thread::Gui, [state = shared_from_this(), tileKey, requestId, sourceEpoch, mode, uid,
+                                                width, height, rect, rgba = std::move(rgba), finished]() mutable
   {
     CHECK_THREAD_CHECKER(state->m_guiThread, ());
     if (finished ? !state->DropActive(tileKey, requestId, sourceEpoch)

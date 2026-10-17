@@ -18,6 +18,7 @@
 #include <chrono>
 #include <future>
 #include <memory>
+#include <mutex>
 #include <thread>
 #include <utility>
 #include <vector>
@@ -96,6 +97,35 @@ void CompleteOnTransportThread(HttpClient::CompletionHandler handler, bool green
   std::thread worker([handler = std::move(handler), green] { handler(Success(green)); });
   worker.join();
 }
+
+class TestGuiThread : public base::TaskLoop
+{
+public:
+  PushResult Push(Task && task) override
+  {
+    std::lock_guard lock(m_mutex);
+    m_tasks.push_back(std::move(task));
+    return {true, kNoId};
+  }
+
+  PushResult Push(Task const & task) override { return Push(Task(task)); }
+
+  size_t ExecuteTasks()
+  {
+    std::vector<Task> tasks;
+    {
+      std::lock_guard lock(m_mutex);
+      tasks.swap(m_tasks);
+    }
+    for (auto & task : tasks)
+      task();
+    return tasks.size();
+  }
+
+private:
+  std::mutex m_mutex;
+  std::vector<Task> m_tasks;
+};
 
 struct Delivery
 {
@@ -193,6 +223,39 @@ private:
   platform::tests_support::ScopedDirCleanup m_cleanup;
 };
 
+void CheckInstalledGuiThreadDelivery(bool cacheHit)
+{
+  Fixture f(cacheHit ? "custom_gui_cache" : "custom_gui_http");
+  Platform::ThreadRunner runner;
+  auto guiThread = std::make_unique<TestGuiThread>();
+  auto & queue = *guiThread;
+  GetPlatform().SetGuiThread(std::move(guiThread));
+  SCOPE_GUARD(restoreGui, [] { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); });
+  if (cacheHit)
+  {
+    TEST(Platform::MkDirRecursively(f.CacheDir()), ());
+    FileWriter writer(f.CachePath());
+    writer.Write(kPng, sizeof(kPng));
+  }
+  auto provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  if (cacheHit)
+  {
+    TEST(f.m_pending.empty(), ("A disk-cache hit must not start an HTTP request"));
+  }
+  else
+  {
+    TEST_EQUAL(f.m_pending.size(), 1, ());
+    CompleteOnTransportThread(std::move(f.m_pending[0]));
+  }
+  TEST(f.m_deliveries.empty(), ());
+  auto const executed = queue.ExecuteTasks();
+  TEST_EQUAL(executed, 1, ("The installed GUI queue must receive the delivery"));
+  TEST_EQUAL(f.m_deliveries.size(), 1, ());
+  f.CheckDelivery();
+}
+
 class TestFramework : public Framework
 {
 public:
@@ -201,6 +264,16 @@ public:
   void SetProvider(std::unique_ptr<RasterTileProvider> provider) { m_rasterTileProvider = std::move(provider); }
 };
 }  // namespace
+
+UNIT_TEST(RasterTileProvider_HttpDeliveryUsesInstalledGuiThread)
+{
+  CheckInstalledGuiThreadDelivery(false /* cacheHit */);
+}
+
+UNIT_TEST(RasterTileProvider_CacheDeliveryUsesInstalledGuiThread)
+{
+  CheckInstalledGuiThreadDelivery(true /* cacheHit */);
+}
 
 UNIT_TEST(RasterTileProvider_HeldHttpSuccessAfterDestruction)
 {

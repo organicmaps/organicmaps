@@ -286,7 +286,8 @@ public:
   template <typename Task>
   base::TaskLoop::PushResult RunTask(Thread thread, Task && task)
   {
-    ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
+    // The GUI loop is independent of worker lifetime.
+    ASSERT(thread == Thread::Gui || (m_networkThread && m_fileThread && m_backgroundThread), ());
     switch (thread)
     {
     case Thread::File: return m_fileThread->Push(std::forward<Task>(task));
@@ -312,7 +313,7 @@ public:
     UNREACHABLE();
   }
 
-  // Use this method for testing purposes only.
+  // Replaces the GUI queue for a custom event loop or tests.
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
   platform::BatteryLevelTracker & GetBatteryTracker() { return m_batteryTracker; }
