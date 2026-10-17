@@ -484,6 +484,9 @@ using namespace routing;
 
 + (void)stop:(BOOL)removeRoutePoints
 {
+  // End transit previews even when quick actions stop without an active route.
+  GetFramework().HideRouteTransitIfNeeded();
+  GetFramework().DeactivateMapSelection();
   [self doStop:removeRoutePoints];
   [self hideNavigationMapControls];
   [MWMRouter router].canAutoAddLastLocation = YES;
