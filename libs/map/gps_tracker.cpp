@@ -39,7 +39,10 @@ GpsTracker & GpsTracker::Instance()
 }
 
 GpsTracker::GpsTracker() : m_enabled(GetSettingsIsEnabled()), m_track(GetFilePath(), std::make_unique<GpsTrackFilter>())
-{}
+{
+  if (m_enabled)
+    m_track.Restore();
+}
 
 void GpsTracker::SetEnabled(bool enabled)
 {
@@ -63,7 +66,7 @@ bool GpsTracker::IsEnabled() const
   return m_enabled;
 }
 
-bool GpsTracker::IsEmpty() const
+bool GpsTracker::IsEmpty()
 {
   return m_track.IsEmpty();
 }

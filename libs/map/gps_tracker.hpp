@@ -15,7 +15,7 @@ public:
   void SetEnabled(bool enabled);
   void Clear();
 
-  bool IsEmpty() const;
+  bool IsEmpty();
 
   TrackStatistics GetTrackStatistics();
   ElevationInfo const & GetElevationInfo();

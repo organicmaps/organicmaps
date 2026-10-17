@@ -30,6 +30,9 @@ public:
   void AddPoint(location::GpsInfo const & point);
   void AddPoints(std::vector<location::GpsInfo> const & points);
 
+  /// Restores persisted points on the worker, even when no callbacks are attached.
+  void Restore();
+
   /// Returns track statistics
   TrackStatistics GetTrackStatistics() const;
   ElevationInfo const & GetElevationInfo() const;
@@ -38,7 +41,8 @@ public:
   /// @note Callback is called with 'toRemove' points, if some points were removed.
   void Clear();
 
-  bool IsEmpty() const;
+  /// Waits for restoration and queued points before checking the accepted recording.
+  bool IsEmpty();
 
   /// Notification callback about a change of the gps track.
   /// @param toAdd - collection of points and ids to add.
@@ -69,7 +73,6 @@ private:
 
   void ScheduleTask();
   void ProcessPoints();  // called on the worker thread
-  bool HasCallback();
   void InitStorageIfNeed();
   void InitCollection();
   void UpdateStorage(bool needClear, std::vector<location::GpsInfo> const & points);

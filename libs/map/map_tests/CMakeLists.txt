@@ -13,6 +13,7 @@ set(SRC
   framework_viewport_tests.cpp
   gps_track_collection_test.cpp
   gps_track_filter_test.cpp
+  gps_track_lifecycle_test.cpp
   gps_track_storage_test.cpp
   gps_track_test.cpp
   kmz_unarchive_test.cpp
