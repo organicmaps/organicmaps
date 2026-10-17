@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "Tagasi";
+
+/* Button text (should be short) */
 "cancel" = "Katkesta";
 
 /* Button which deletes downloaded country */
