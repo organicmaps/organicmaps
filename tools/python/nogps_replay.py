@@ -172,6 +172,8 @@ def make_input(args):
                 actions.append((ms, 6, 'H %d %s' % (ms, m.group(5)), True))
         elif text.startswith('Reversed the car'):
             actions.append((ms, 6, 'R %d' % ms, True))
+        elif function == 'SwitchMark' and text == 'Switching the mark':
+            actions.append((ms, 6, 'W %d' % ms, True))
         elif text.startswith('Moved the position by'):
             m = re.match(r'Moved the position by (-?[\d.]+)', text)
             if m:
@@ -446,6 +448,10 @@ EVENTS = [
     ('route rebuilt: the mark put off it', r'^Manual position is off the route'),
     ('route left: the car on a road beside it', r'beside the route, the route is left'),
     ('alternative route followed', r'is on the alternative route'),
+    # A turn that fits several roads splits the mark, since October 17.
+    ('other mark added', r'^Other mark added'), ('other mark dropped', r'^Other mark dropped'),
+    ('mark switched to another road', r'^The car is shown on another road'),
+    ('turn place told by the way driven', r'^Turn from .* WAY misses'),
 ]
 
 

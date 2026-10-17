@@ -95,6 +95,8 @@ public class MapButtonsController extends Fragment
   @Nullable
   private View mReverseButton;
   @Nullable
+  private View mSwitchMarkButton;
+  @Nullable
   private TextView mPositionStatus;
   @Nullable
   private View mShiftPositionContainer;
@@ -191,6 +193,8 @@ public class MapButtonsController extends Fragment
         (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.shiftPositionBack));
     mReverseButton = mFrame.findViewById(R.id.reverse_direction);
     mReverseButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.reverseDirection));
+    mSwitchMarkButton = mFrame.findViewById(R.id.switch_mark);
+    mSwitchMarkButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.switchMark));
     // The log of a test drive is analysed afterwards: the tester marks the moments the car was shown wrong at.
     final View flagLog = mFrame.findViewById(R.id.flag_log);
     UiUtils.showIf(BuildConfig.DEBUG, flagLog);
@@ -383,6 +387,9 @@ public class MapButtonsController extends Fragment
       mShiftPositionStep.setText(getString(R.string.nogps_meters, status.shiftStepM));
     if (mReverseButton != null)
       showCarControl(status.movedByHand, mReverseButton);
+    // A turn has fitted several roads: the user may see the car is on another one.
+    if (mSwitchMarkButton != null)
+      UiUtils.showIf(status.movedByHand && status.otherMarks > 0, mSwitchMarkButton);
 
     // The position waits at a turn until the car leaves it, otherwise it would go to another street.
     setShiftEnabled(mShiftPositionForward, !status.shiftForwardBlocked);
@@ -791,7 +798,8 @@ public class MapButtonsController extends Fragment
     positionStatus,
     shiftPositionForward,
     shiftPositionBack,
-    reverseDirection
+    reverseDirection,
+    switchMark
   }
 
   public interface MapButtonClickListener

@@ -70,6 +70,18 @@ UNIT_TEST(NoGps_PathMatcher_FindsLoopStartedFromWrongPlace)
   TEST_ALMOST_EQUAL_ABS(place->m_bearingDeg, 270.0, 1.0, ());
 }
 
+UNIT_TEST(NoGps_PathMatcher_TurnsWayAsCarLooksNow)
+{
+  // The car drove 150 m east looking north by the calculation, then the user marked it looking east.
+  PieceRoads roads(Streets(), {});
+  PathMatcher matcher;
+  for (int i = 0; i < 150; ++i)
+    matcher.OnMotion(0, 1, 0);
+  TEST_GREATER_OR_EQUAL(*matcher.CountMissesAt(roads, At(100, 0)), PathMatcher::kMinMissesToMove, ());
+  matcher.SetHeading(90);
+  TEST_EQUAL(*matcher.CountMissesAt(roads, At(100, 0)), 0, ());
+}
+
 UNIT_TEST(NoGps_PathMatcher_KeepsCarWhereWayLiesOnRoads)
 {
   PieceRoads roads(Streets(), {});

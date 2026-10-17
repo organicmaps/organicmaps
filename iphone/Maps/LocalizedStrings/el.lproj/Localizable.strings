@@ -1251,6 +1251,9 @@
 "nogps_status_towers" = "towers ±%@";
 "nogps_gps_back_auto" = "GPS is trusted again, the manual mode is off";
 "nogps_reverse_direction" = "Turn the car around on the road";
+
+/* The button shown after a turn that fits several roads: it moves the mark of the car to the next of them. */
+"nogps_switch_mark" = "Show the car on another road it may be on";
 "nogps_mark_no_road" = "There is no road here, set the mark on a road";
 "nogps_gps_lost_auto" = "GPS is lost or wrong, the manual mode is on";
 "nogps_disable_gps" = "Disable GPS";

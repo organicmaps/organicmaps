@@ -857,6 +857,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     case shiftPositionForward -> shiftPosition(true /* forward */);
     case shiftPositionBack -> shiftPosition(false /* forward */);
     case reverseDirection -> NoGps.nativeReverseDirection();
+    case switchMark -> NoGps.nativeSwitchMark();
     }
   }
 

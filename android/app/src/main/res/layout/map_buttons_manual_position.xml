@@ -7,6 +7,15 @@
   android:layout_height="wrap_content"
   android:gravity="center_vertical"
   android:orientation="horizontal">
+  <!-- Shown while a turn has fitted several roads: shows the car on the next of them. The first one, so that the
+       others keep their places when it comes and goes. -->
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/switch_mark"
+    style="@style/MwmWidget.MapButton.Zoom"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:visibility="gone"
+    app:srcCompat="@drawable/ic_switch_mark"
+    android:contentDescription="@string/nogps_switch_mark" />
   <!-- For the test drives, shown in debug builds only: marks in the log the moment the car was shown wrong at. -->
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/flag_log"

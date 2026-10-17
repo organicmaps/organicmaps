@@ -981,6 +981,8 @@
     <string name="nogps_status_towers">вышки ±%s</string>
     <string name="nogps_gps_back_auto">GPS снова надёжный, ручной режим выключен</string>
     <string name="nogps_reverse_direction">Развернуть машину на дороге</string>
+    <!-- The button shown after a turn that fits several roads: it moves the mark of the car to the next of them. -->
+    <string name="nogps_switch_mark">Показать машину на другой возможной дороге</string>
     <string name="nogps_mark_no_road">Здесь нет дороги, поставьте метку на дорогу</string>
     <string name="nogps_gps_lost_auto">GPS пропал или сбился, включён ручной режим</string>
     <string name="nogps_disable_gps">Отключить GPS</string>

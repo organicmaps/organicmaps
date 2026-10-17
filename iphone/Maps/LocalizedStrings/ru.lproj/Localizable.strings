@@ -1251,6 +1251,9 @@
 "nogps_status_towers" = "вышки ±%@";
 "nogps_gps_back_auto" = "GPS снова надёжный, ручной режим выключен";
 "nogps_reverse_direction" = "Развернуть машину на дороге";
+
+/* The button shown after a turn that fits several roads: it moves the mark of the car to the next of them. */
+"nogps_switch_mark" = "Показать машину на другой возможной дороге";
 "nogps_mark_no_road" = "Здесь нет дороги, поставьте метку на дорогу";
 "nogps_gps_lost_auto" = "GPS пропал или сбился, включён ручной режим";
 "nogps_disable_gps" = "Отключить GPS";

@@ -806,7 +806,11 @@ void Engine::ReverseDirection()
   double const reversed = Normalize(*bearing + 180);
   LOG(LINFO, ("Reversed the car to", std::round(reversed)));
   if (m_inertial)
+  {
+    // The other roads were the car's way, not the other one.
+    m_inertial->DropOtherMarks();
     m_inertial->SetHeading(reversed, InertialNavigator::HeadingSource::Road);
+  }
   if (m_manualLocation)
     m_manualLocation->m_bearingDeg = reversed;
   // The crossings the position has stopped at are on the other side now.
@@ -819,6 +823,33 @@ void Engine::ReverseDirection()
   m_savedLocation = location;
   // The route goes the other way now.
   RebuildRouteIfOffRoute(location);
+  NotifyLocationUpdated();
+}
+
+void Engine::SwitchMark()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  LOG(LINFO, ("Switching the mark"));
+  // The navigator tells by OnMarkSwitched().
+  if (m_inertial)
+    m_inertial->SwitchMark();
+}
+
+void Engine::OnMarkSwitched()
+{
+  auto const location = m_inertial->GetLocation();
+  if (!location || !IsInertialActive())
+    return;
+  m_savedLocation = *location;
+  if (m_manualLocation)
+  {
+    m_manualLocation->m_position = location->m_position;
+    m_manualLocation->m_bearingDeg = location->m_bearingDeg;
+  }
+  // The car is on another road now: the route goes from there, as from a mark of the user.
+  m_besideRouteSinceMs.reset();
+  m_wasOnRouteRoad = true;
+  m_map.RebuildRouteIfOffRoute(*location, kManualOffRouteDistanceM, location->m_bearingDeg);
   NotifyLocationUpdated();
 }
 
@@ -1249,6 +1280,7 @@ Status Engine::GetStatus()
     status.m_calibrationProgress = m_inertial->GetCalibrationProgressPercent();
     status.m_hasInertialPosition = m_inertial->HasPosition();
     status.m_roadLost = m_inertial->IsUserNeeded();
+    status.m_otherMarks = static_cast<int>(m_inertial->GetOtherMarksCount());
     if (auto const * box = m_inertial->GetEsp32())
     {
       if (box->GetInfo())
@@ -1402,6 +1434,16 @@ std::string Engine::GetTripLine()
     {
       std::snprintf(buf, sizeof(buf), " self=1 car=%.6f,%.6f", car->m_lat, car->m_lon);
       line += buf;
+    }
+    // The other roads the car may be on after a turn that fitted several, where it is on them.
+    if (auto const others = m_inertial->GetOtherMarkPositions(); !others.empty())
+    {
+      line += " marks=" + std::to_string(others.size() + 1) + " others=";
+      for (size_t i = 0; i < others.size(); ++i)
+      {
+        std::snprintf(buf, sizeof(buf), "%s%.6f,%.6f", i == 0 ? "" : ";", others[i].m_lat, others[i].m_lon);
+        line += buf;
+      }
     }
     auto const snap = m_inertial->GetLastSnapShiftM();
     if (snap)

@@ -1251,6 +1251,9 @@
 "nogps_status_towers" = "вежі ±%@";
 "nogps_gps_back_auto" = "GPS знову надійний, ручний режим вимкнено";
 "nogps_reverse_direction" = "Розвернути машину на дорозі";
+
+/* The button shown after a turn that fits several roads: it moves the mark of the car to the next of them. */
+"nogps_switch_mark" = "Показати машину на іншій можливій дорозі";
 "nogps_mark_no_road" = "Тут немає дороги, поставте мітку на дорогу";
 "nogps_gps_lost_auto" = "GPS зник або збився, увімкнено ручний режим";
 "nogps_disable_gps" = "Вимкнути GPS";

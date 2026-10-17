@@ -228,6 +228,9 @@ public final class NoGps
     // The mark waits for the user to put it on a road: the road is lost.
     @Keep
     public boolean roadLost;
+    // How many other roads the car may be on after a turn that fitted several: the mark can be switched to them.
+    @Keep
+    public int otherMarks;
     // The firmware of the ESP32 sensor box, empty until the box tells it.
     @Keep
     @NonNull
@@ -446,6 +449,9 @@ public final class NoGps
   public static native double nativeShiftPosition(double distanceM);
 
   public static native void nativeReverseDirection();
+
+  /// Shows the car on the next of the other roads it may be on, see Status.otherMarks.
+  public static native void nativeSwitchMark();
 
   /// Drives a recorded trip again through a navigation of its own and writes its trip log to the file, for
   /// debug builds. The input is made from a trip log by a script, see NoGpsReplay.cpp. Called on the UI thread.

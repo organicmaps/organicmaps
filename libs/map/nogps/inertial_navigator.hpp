@@ -23,6 +23,7 @@
 #include <string>
 #include <string_view>
 #include <utility>
+#include <vector>
 
 namespace nogps
 {
@@ -73,6 +74,8 @@ public:
     virtual void OnRoadLost() = 0;
     /// The gyroscope turns the car the other way than GPS: the axes of its driver are wrong.
     virtual void OnTurnsReversed() = 0;
+    /// The car is shown on another road it may be on, see kMaxMarks: the route goes from there now.
+    virtual void OnMarkSwitched() = 0;
   };
 
   // Without fresh speed the position can't be calculated.
@@ -150,6 +153,27 @@ public:
   // A car turning at a crossing rotates one way. Rotating much more than it has turned, it has driven around
   // a roundabout or along a winding road, and the turn is not at the crossing where it has started.
   static double constexpr kMaxExtraTurnRotationDeg = 60;
+  // A turn that fits several roads splits the mark: the shown mark goes on where the rules put it, the others along
+  // the other roads, all as the car drives. On October 16 the road was lost 3 times after a turn put the mark on a
+  // street 30-40 m beside the right one, which ended soon; the right one was another place the turn fitted. A mark is
+  // dropped when its road ends or when the car turns where its road has no road that way; the shown one is replaced
+  // by another one then. The shown one is replaced also when the way driven does not lie on the roads there while it
+  // does at another mark, and by the user. A mark of the user or trusted GPS tells where the car is: the others are
+  // dropped.
+  static size_t constexpr kMaxMarks = 3;
+  // Places of roads farther apart across the car are other roads: two carriageways of a road are nearer.
+  static double constexpr kOtherRoadAsideM = 20;
+  // Marks this close to each other are one.
+  static double constexpr kSameMarkM = 10;
+  // The way driven, see PathMatcher, tells which marks are where the car is this often: it takes tens of road
+  // lookups for every mark.
+  static int64_t constexpr kMarksWayCheckMs = 5000;
+  // The way driven lies on the roads at a place where it misses them at this many points or fewer: a few points of a
+  // turn are aside of both roads at any crossing. The car is shown rather at a place where it misses them at this many
+  // points fewer. Its mark elsewhere is not dropped: the way is drawn along a heading that may be wrong, on October 16
+  // at 17:19 18 degrees after a turn started off the roads, and the way lay on the street beside the right one.
+  static int constexpr kWayFitMisses = 3;
+  static int constexpr kWayMoreMisses = 3;
   // A car driving around a roundabout is off the road of the map for a while: on a small circle a few meters of
   // the calculated distance are tens of degrees between the car and the road, and the car goes straight for a
   // moment in the middle of it, which ends its turn. With a roundabout this close, and for some distance after
@@ -338,6 +362,16 @@ public:
   /// \returns how far the maneuvering car has driven along the road it is to be put on, nothing without one.
   std::optional<double> GetRoadCandidateM() const;
 
+  /// \returns how many other roads the car may be on besides the one it is shown on, see kMaxMarks.
+  size_t GetOtherMarksCount() const { return m_otherMarks.size(); }
+  /// \returns where the car is on those roads, for the trip log.
+  std::vector<ms::LatLon> GetOtherMarkPositions() const;
+  /// The user shows the car on the next of the other roads, the road it was shown on becomes one of them.
+  /// \returns false if there are no other roads.
+  bool SwitchMark();
+  /// The user has told where the car is, e.g. has turned it around: the other roads are forgotten.
+  void DropOtherMarks();
+
 private:
   // MotionSource::Listener overrides:
   void OnSpeed(int speedKmh, int64_t timeMs) override;
@@ -394,6 +428,55 @@ private:
   bool IsSlowBendConfirmed(double aheadM);
   void TrackTurn(double yawDeltaDeg, double dtSec, int64_t timestampNs);
   void MatchTurn(int64_t timestampNs);
+  // \returns the road under the position going the way, the one the regular snapping keeps the car on.
+  std::optional<RoadPoint> RoadGoing(ms::LatLon const & position, double bearingDeg);
+
+  // Another road the car may be on, see kMaxMarks.
+  struct OtherMark
+  {
+    DeadReckoning m_deadReckoning;
+    bool m_onRoad = true;
+    // Driven off the roads since it was on one the last time.
+    double m_offRoadM = 0;
+    // Where it was and where it looked when the turn the car makes now has started, and if it was on a road; where the
+    // turn has taken it, without the snapping, see m_turnEnd.
+    ms::LatLon m_turnStart;
+    ms::LatLon m_turnEnd;
+    double m_turnFromBearing = 0;
+    bool m_turnFromRoad = true;
+  };
+  // A place a turn may have put the car at, and how far it was moved to a crossing for that.
+  struct TurnPlace
+  {
+    RoadPoint m_road;
+    std::optional<double> m_shiftM;
+  };
+  // Where the rules put the car after a turn, nothing if there is no road going the new way, and the other roads the
+  // turn fits.
+  struct TurnPlaces
+  {
+    std::optional<TurnPlace> m_chosen;
+    std::vector<TurnPlace> m_others;
+  };
+  // Moves the other marks as the car drives |distanceM|, rotating by |rotatedDeg|; |stepM| is driven off the roads.
+  void MoveOtherMarks(double rotatedDeg, double distanceM, double stepM);
+  // Snaps the other marks to their roads, drops the ones that are not where the car is.
+  void FollowOtherMarks();
+  // Moves the other marks through the turn the car has made, dropping the ones without a road going the new way
+  // |atCrossing|. \returns the first one with a road going the new way.
+  std::optional<size_t> TurnOtherMarks(double toBearingDeg, bool atCrossing);
+  // Splits the mark: the car may be on the road too.
+  void AddOtherMark(RoadPoint const & road, double headingDeg, std::string const & why);
+  // Shows the car on the other road |index|, keeping the road it was shown on as an other one if |keepShown|.
+  void TakeOtherMark(size_t index, bool keepShown, std::string const & why);
+  // \returns how far across |bearingDeg| the places are apart.
+  static double AsideM(ms::LatLon const & a, ms::LatLon const & b, double bearingDeg);
+  // Drops the places of a turn the way driven does not lie on the roads at while it lies at another one, see
+  // PathMatcher; the chosen one too. |position| is where the car is if it has no road. \returns true if the way was
+  // compared, |why| tells how for the log.
+  bool CheckPlacesByWay(ms::LatLon const & position, TurnPlaces & places, std::string & why);
+  // The same for the marks as the car drives on.
+  void CheckMarksByWay();
 
   Delegate & m_delegate;
   Scheduler & m_scheduler;
@@ -482,6 +565,8 @@ private:
   bool m_turning = false;
   double m_turnFromBearing = 0;
   ms::LatLon m_turnStart;
+  // Where the turn has taken the car by the calculation alone, the snapping to the roads during the turn left out.
+  ms::LatLon m_turnEnd;
   // The car was on a road when the turn has started.
   bool m_turnFromRoad = false;
   // The turn has been calm since then: the car goes straight.
@@ -499,6 +584,11 @@ private:
   int m_turnMaxKmh = 0;
   // How far the last turn has moved the car to its crossing, for the log of a drive.
   std::optional<double> m_lastTurnShiftM;
+
+  // The other roads the car may be on, see kMaxMarks, when they were snapped and checked by the way driven last.
+  std::vector<OtherMark> m_otherMarks;
+  int64_t m_lastOtherSnapMs = 0;
+  int64_t m_lastMarksWayCheckMs = 0;
 
   // The car has driven fast while followed apart where no road goes its way.
   bool m_fastWithoutRoad = false;

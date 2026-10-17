@@ -971,6 +971,8 @@
     <string name="nogps_status_towers">towers ±%s</string>
     <string name="nogps_gps_back_auto">GPS is trusted again, the manual mode is off</string>
     <string name="nogps_reverse_direction">Turn the car around on the road</string>
+    <!-- The button shown after a turn that fits several roads: it moves the mark of the car to the next of them. -->
+    <string name="nogps_switch_mark">Show the car on another road it may be on</string>
     <string name="nogps_mark_no_road">There is no road here, set the mark on a road</string>
     <string name="nogps_gps_lost_auto">GPS is lost or wrong, the manual mode is on</string>
     <string name="nogps_disable_gps">Disable GPS</string>

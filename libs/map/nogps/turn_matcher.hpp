@@ -6,6 +6,7 @@
 
 #include <optional>
 #include <string>
+#include <vector>
 
 namespace nogps
 {
@@ -50,10 +51,11 @@ public:
   /// crossing of a car that drove along that road. A car that was not on a road, e.g. maneuvering in a yard, has
   /// streets going its way on both sides: of 3 such turns moved to the closest crossing on October 11 two were
   /// moved away from the car, with crossings 1 m closer than the others, and the one with a single crossing to it.
+  /// \param fitting all the crossings that fit the turn, the closest one along the road first, if it is not nullptr.
   /// \returns the crossing, or nothing if the turn is not at a crossing.
   static std::optional<ms::LatLon> FindCrossing(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
                                                 double toBearingDeg, double searchM, std::string * whyNot = nullptr,
-                                                bool onlyOne = false);
+                                                bool onlyOne = false, std::vector<ms::LatLon> * fitting = nullptr);
 
   /// \returns the crossings around the corner for the trip log, the closest first, as "+40/-3/BA,-60/+0/B-": how
   /// far the crossing is ahead of the corner the way the car came, how far to the right, meters, whether it has the
