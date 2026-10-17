@@ -1,6 +1,7 @@
 #include "search/latlon_match.hpp"
 
 #include "base/macros.hpp"
+#include "base/math.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -70,6 +71,12 @@ int GetDMSIndex(char const *& s)
     return 1;
 
   return -1;
+}
+
+bool HasDMSSymbolAt(char const * s)
+{
+  char const * p = s;
+  return GetDMSIndex(p) >= 0;
 }
 
 bool SkipNSEW(char const *& s, char const * (&arrPos)[4])
@@ -171,94 +178,174 @@ int MatchHemisphere(char const *& s)
   case 'S': case 's': ind = 1; break;
   case 'E': case 'e': ind = 2; break;
   case 'W': case 'w': ind = 3; break;
-  default: return -1;
+  default: return false;
   }
+  // BUGFIX: return -1 not false for int function - fix below
   ++s;
   return ind;
 }
 
-// Parse one complete hemisphere-qualified coordinate group:
-//   [H] D [M [S]] [H]
-// Exactly one hemisphere (prefix or suffix) is required. |s| advances past
-// the group. Multi-dot garbage like "1.2.3" is rejected.
-bool ParseHemisphereQualifiedGroup(char const *& s, double & signedDegrees, int & hemOut)
+// Symbol-free hemisphere-qualified group with a fixed part count (2 or 3).
+// Grammar: [H] D M [S] [H]  — exactly one hemisphere (prefix or suffix).
+// DMS symbols are not consumed; those forms stay on the legacy parser.
+bool TryParseGroupFixedParts(char const *& s, int nParts, double & signedDegrees, int & hemOut)
 {
+  if (nParts < 2 || nParts > 3)
+    return false;
+
+  char const * const start = s;
   Skip(s);
 
-  // Optional leading hemisphere only if a number follows.
   int hemPrefix = -1;
   {
     char const * const before = s;
-    int const h = MatchHemisphere(s);
-    if (h >= 0)
+    SkipSpaces(s);
+    int ind = -1;
+    switch (*s)
     {
-      char const * probe = s;
+    case 'N': case 'n': ind = 0; break;
+    case 'S': case 's': ind = 1; break;
+    case 'E': case 'e': ind = 2; break;
+    case 'W': case 'w': ind = 3; break;
+    default: break;
+    }
+    if (ind >= 0)
+    {
+      char const * probe = s + 1;
       SkipSpaces(probe);
+      // Reject if a DMS symbol sits where a number should be.
+      if (HasDMSSymbolAt(probe))
+      {
+        s = start;
+        return false;
+      }
       char * end = nullptr;
       EatDouble(probe, &end);
       if (end == probe)
-        s = before;  // not a prefix; rewind
+        s = before;
       else
-        hemPrefix = h;
+      {
+        ++s;  // consume hemisphere
+        hemPrefix = ind;
+      }
     }
   }
 
   double parts[3] = {};
-  int nParts = 0;
-  while (nParts < 3)
+  for (int i = 0; i < nParts; ++i)
   {
     SkipSpaces(s);
-    if (!*s || IsHemisphereChar(*s))
-      break;
-    if (IsDecimalMark(*s))
+    if (!*s)
+    {
+      s = start;
       return false;
+    }
+    // New grammar stays symbol-free.
+    if (HasDMSSymbolAt(s))
+    {
+      s = start;
+      return false;
+    }
+    if (IsHemisphereChar(*s))
+    {
+      s = start;
+      return false;
+    }
+    if (IsDecimalMark(*s))
+    {
+      s = start;
+      return false;
+    }
 
     char const * const numStart = s;
     char * end = nullptr;
     double const x = EatDouble(s, &end);
     if (end == numStart)
-      break;
-
-    // "1.2.3 N" — first component must not leave another decimal mark.
-    if (IsDecimalMark(*end))
+    {
+      s = start;
       return false;
-
-    parts[nParts++] = x;
+    }
+    // Reject multi-dot components (e.g. 1.2.3).
+    if (IsDecimalMark(*end))
+    {
+      s = start;
+      return false;
+    }
+    if (!math::is_finite(x))
+    {
+      s = start;
+      return false;
+    }
+    parts[i] = x;
     s = end;
-    SkipSpaces(s);
-    (void)GetDMSIndex(s);  // optional ° / ' / " between components
   }
 
-  if (nParts < 1)
-    return false;
-
-  // If the group already has a leading hemisphere, do not consume a trailing
-  // one — that letter starts the next coordinate group (e.g. "N 37 0 0 W 8 0 0").
+  // Optional trailing hemisphere when there was no prefix.
   int hemSuffix = -1;
   if (hemPrefix < 0)
-    hemSuffix = MatchHemisphere(s);
+  {
+    char const * const before = s;
+    SkipSpaces(s);
+    int ind = -1;
+    switch (*s)
+    {
+    case 'N': case 'n': ind = 0; break;
+    case 'S': case 's': ind = 1; break;
+    case 'E': case 'e': ind = 2; break;
+    case 'W': case 'w': ind = 3; break;
+    default: break;
+    }
+    if (ind < 0)
+    {
+      s = start;
+      return false;
+    }
+    ++s;
+    hemSuffix = ind;
+  }
+
   int const hem = (hemPrefix >= 0) ? hemPrefix : hemSuffix;
   if (hem < 0)
+  {
+    s = start;
     return false;
+  }
 
-  if (nParts >= 2 && (parts[1] < 0.0 || parts[1] >= 60.0))
+  // Degrees may be signed only for the first component when no hemisphere
+  // would otherwise supply the sign; with a required hemisphere we reject
+  // negative degrees/minutes/seconds forms like "N -51 30".
+  if (parts[0] < 0.0 || parts[1] < 0.0 || parts[1] >= 60.0)
+  {
+    s = start;
     return false;
+  }
   if (nParts >= 3 && (parts[2] < 0.0 || parts[2] >= 60.0))
+  {
+    s = start;
     return false;
-  if (nParts >= 2 && parts[0] < 0.0)
-    return false;
+  }
 
-  double absDeg = std::fabs(parts[0]);
-  if (nParts >= 2)
-    absDeg += parts[1] / 60.0;
+  double absDeg = parts[0] + parts[1] / 60.0;
   if (nParts >= 3)
     absDeg += parts[2] / 3600.0;
 
+  if (!math::is_finite(absDeg))
+  {
+    s = start;
+    return false;
+  }
+
   bool const isLat = (hem == 0 || hem == 1);
   if (isLat && absDeg > 90.0)
+  {
+    s = start;
     return false;
+  }
   if (!isLat && absDeg > 180.0)
+  {
+    s = start;
     return false;
+  }
 
   signedDegrees = absDeg;
   if (hem == 1 || hem == 3)
@@ -267,60 +354,77 @@ bool ParseHemisphereQualifiedGroup(char const *& s, double & signedDegrees, int 
   return true;
 }
 
-// Two complete hemisphere-qualified groups (any order of axes).
-// Used for phone-friendly "37 00 27.73 N 08 56 41.59 W" and also covers
-// "51.5 N, 11.2 E". On failure the legacy parser runs unchanged.
+// Two symbol-free hemisphere-qualified D M [S] groups, full query consumed.
+// If several part-count splits succeed with different coordinates, reject as
+// ambiguous (e.g. "N 51 30 0 7 W").
 bool TryMatchTwoHemisphereGroups(char const * query, double & lat, double & lon)
 {
-  char const * s = query;
-  double v0 = 0.0;
-  double v1 = 0.0;
-  int h0 = -1;
-  int h1 = -1;
-
-  if (!ParseHemisphereQualifiedGroup(s, v0, h0))
-    return false;
-  if (!ParseHemisphereQualifiedGroup(s, v1, h1))
-    return false;
-
-  bool const lat0 = (h0 == 0 || h0 == 1);
-  bool const lat1 = (h1 == 0 || h1 == 1);
-  if (lat0 == lat1)
-    return false;
-
-  if (lat0)
+  struct Result
   {
-    lat = v0;
-    lon = v1;
-  }
-  else
-  {
-    lat = v1;
-    lon = v0;
-  }
+    double lat;
+    double lon;
+  };
+  Result found {};
+  int foundCount = 0;
 
-  // Extra numeric token after both groups → not this grammar.
+  int const partChoices[2] = {2, 3};
+  for (int n0 : partChoices)
   {
-    char const * t = s;
-    Skip(t);
-    if (*t)
+    for (int n1 : partChoices)
     {
-      char * end = nullptr;
-      EatDouble(t, &end);
-      if (end != t)
+      char const * s = query;
+      double v0 = 0.0;
+      double v1 = 0.0;
+      int h0 = -1;
+      int h1 = -1;
+
+      if (!TryParseGroupFixedParts(s, n0, v0, h0))
+        continue;
+      if (!TryParseGroupFixedParts(s, n1, v1, h1))
+        continue;
+
+      bool const lat0 = (h0 == 0 || h0 == 1);
+      bool const lat1 = (h1 == 0 || h1 == 1);
+      if (lat0 == lat1)
+        continue;
+
+      // Full query must be consumed (delimiters only).
+      Skip(s);
+      if (*s != '\0')
+        continue;
+
+      double la = lat0 ? v0 : v1;
+      double lo = lat0 ? v1 : v0;
+
+      if (std::fabs(la) > 90.0)
+        continue;
+      if (lo < -180.0 || lo > 360.0)
+        continue;
+      if (lo > 180.0)
+        lo -= 360.0;
+      if (!math::is_finite(la) || !math::is_finite(lo))
+        continue;
+
+      if (foundCount == 0)
+      {
+        found = {la, lo};
+        foundCount = 1;
+      }
+      else if (std::fabs(found.lat - la) > 1e-12 || std::fabs(found.lon - lo) > 1e-12)
+      {
+        // Ambiguous split between groups.
         return false;
+      }
     }
   }
 
-  if (std::fabs(lat) > 90.0)
+  if (foundCount != 1)
     return false;
-  if (lon < -180.0 || lon > 360.0)
-    return false;
-  if (lon > 180.0)
-    lon -= 360.0;
+
+  lat = found.lat;
+  lon = found.lon;
   return true;
 }
-}  // namespace
 
 namespace search
 {
