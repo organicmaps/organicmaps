@@ -574,6 +574,11 @@
         <item quantity="other">Βρέθηκαν %d αρχεία. Μπορείτε να τα δείτε μετά τη μετατροπή.</item>
     </plurals>
     <string name="restore">Επαναφορά</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d περιοχή</item>
+        <item quantity="other">%d περιοχές</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d ίχνη</item>
         <item quantity="one">%d ίχνος</item>

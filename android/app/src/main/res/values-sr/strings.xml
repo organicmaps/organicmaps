@@ -576,6 +576,12 @@
         <item quantity="other">%d фајлова је пронађено. Можете да их погледате након конверзије.</item>
     </plurals>
     <string name="restore">Реконструиши</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d зона</item>
+        <item quantity="few">%d зоне</item>
+        <item quantity="other">%d зона</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d путања</item>
         <item quantity="few">%d путање</item>

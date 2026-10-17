@@ -574,6 +574,12 @@
         <item quantity="other">נמצאו %d קבצים. תוכלו לראות אותם לאחר ההמרה.</item>
     </plurals>
     <string name="restore">שחזור</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d אזור</item>
+        <item quantity="two">%d אזורים</item>
+        <item quantity="other">%d אזורים</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">מסלול %d</item>
         <item quantity="other">%d מסלולים</item>

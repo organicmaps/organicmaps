@@ -574,6 +574,12 @@
         <item quantity="other">Au fost găsite %d fișiere. Le vei vedea după conversiune.</item>
     </plurals>
     <string name="restore">Restabilește</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d zonă</item>
+        <item quantity="few">%d zone</item>
+        <item quantity="other">%d de zone</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d traseu</item>
         <item quantity="other">%d trasee</item>

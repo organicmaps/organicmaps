@@ -582,6 +582,15 @@
         <item quantity="other">تم العثور على %d ملفًا. يمكنك رؤيتها بعد التحويل.</item>
     </plurals>
     <string name="restore">استعادة</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="zero">%d منطقة</item>
+        <item quantity="one">%d منطقة</item>
+        <item quantity="two">منطقتان</item>
+        <item quantity="few">%d مناطق</item>
+        <item quantity="many">%d منطقة</item>
+        <item quantity="other">%d منطقة</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d مسار</item>
         <item quantity="one">%d مسار</item>

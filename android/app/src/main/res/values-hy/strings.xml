@@ -574,6 +574,11 @@
         <item quantity="other">%d ֆայլ</item>
     </plurals>
     <string name="restore">Վերականգնել</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d տարածք</item>
+        <item quantity="other">%d տարածք</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d երթուղի</item>
         <item quantity="other">%d երթուղի</item>

@@ -574,6 +574,11 @@
         <item quantity="other">%d fayl tapıldı. Onları dönüşümdən sonra görəcəksiniz.</item>
     </plurals>
     <string name="restore">Bərpa</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d sahə</item>
+        <item quantity="other">%d sahə</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d istiqamət</item>
         <item quantity="other">%d istiqamətlər</item>
