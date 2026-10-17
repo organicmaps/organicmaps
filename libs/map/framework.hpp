@@ -173,6 +173,7 @@ protected:
   bool m_enabledDiffs;
 
   location::TMyPositionModeChanged m_myPositionListener;
+  std::function<void(bool hasPosition)> m_userPositionListener;
 
   std::unique_ptr<BookmarkManager> m_bmManager;
 
@@ -399,6 +400,8 @@ public:
   void SwitchMyPositionNextMode();
   /// Should be set before Drape initialization. Guarantees that fn is called in main thread context.
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
+  /// Called in main thread context once GetCurrentPosition() has the new position.
+  void SetUserPositionListener(std::function<void(bool hasPosition)> && fn);
 
   location::EMyPositionMode GetMyPositionMode() const;
 
