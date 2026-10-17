@@ -357,6 +357,8 @@
     <string name="p2p_to_here">Doties turp</string>
     <string name="p2p_only_from_current">Navigācija ir pieejama tikai no jūsu pašreizējās atrašanās vietas.</string>
     <string name="p2p_reroute_from_current">Vai vēlaties plānot maršrutu no savas pašreizējās atrašanās vietas?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Maršruts tiks apgriezts, lai tas sāktos no jūsu pašreizējās atrašanās vietas.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Tālāk</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

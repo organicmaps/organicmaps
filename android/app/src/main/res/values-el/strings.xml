@@ -357,6 +357,8 @@
     <string name="p2p_to_here">Διαδρομή προς</string>
     <string name="p2p_only_from_current">Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.</string>
     <string name="p2p_reroute_from_current">Θέλετε να σχεδιαστεί μια διαδρομή από την τρέχουσα τοποθεσία σας;</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Η διαδρομή θα αντιστραφεί ώστε να ξεκινά από την τρέχουσα τοποθεσία σας.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Επόμενο</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

@@ -357,6 +357,8 @@
     <string name="p2p_to_here">यहाँ तक</string>
     <string name="p2p_only_from_current">नेविगेशन केवल आपके वर्तमान स्थान से उपलब्ध है।</string>
     <string name="p2p_reroute_from_current">क्या आप अपने वर्तमान स्थान से मार्ग की योजना बनाना चाहते हैं?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">मार्ग को उलट दिया जाएगा ताकि वह आपके वर्तमान स्थान से शुरू हो।</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">अगला</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
