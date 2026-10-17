@@ -479,7 +479,9 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     m_estimator->SetStrategy(m_activeStrategy, !m_guides.IsActive() /* tightHeuristicAllowed */);
 
     bool doCalculate = true;
-    if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges && finalPoint == m_lastRoute->GetFinish())
+    // Track connections are rebuilt for the current checkpoints and cannot reuse cached fake edges.
+    if (adjustToPrevRoute && !m_guides.IsActive() && m_lastRoute && m_lastFakeEdges &&
+        finalPoint == m_lastRoute->GetFinish())
     {
       double const distanceToRoute = m_lastRoute->CalcDistance(startPoint);
       double const distanceToFinish = mercator::DistanceOnEarth(startPoint, finalPoint);
@@ -595,6 +597,7 @@ std::vector<Segment> IndexRouter::GetBestOutgoingSegments(m2::PointD const & che
   std::vector<Segment> segments;
 
   PointsOnEdgesSnapping snapping(*this, graph);
+  snapping.FillDeadEndsCache(checkpoint);
   snapping.FindBestSegments(checkpoint, m2::PointD::Zero() /* startDirection */, true /* isOutgoing */, segments,
                             dummy);
 
@@ -657,7 +660,9 @@ uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(CheckpointsGeometry const & che
     if (osmConnections.empty())
       continue;
 
-    bool foundSegmentsForProjection = false;
+    // A checkpoint on the track needs no OSM projection of its own, but the track's
+    // endpoints still need road connections to reach other tracks or checkpoints.
+    bool foundSegmentsForProjection = m_guides.FitsForDirectLinkToGuide(checkpointIdx, checkpoints.size());
     for (auto & link : osmConnections)
     {
       geometry::PointWithAltitude const & proj = link.m_projectedPoint;
