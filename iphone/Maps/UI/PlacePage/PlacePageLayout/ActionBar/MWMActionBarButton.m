@@ -82,12 +82,14 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     break;
   case MWMActionBarButtonTypeSaveTrackRecording:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_save_track_recording"] forState:UIControlStateNormal];
+    self.button.accessibilityLabel = L(@"track_recording_stop_and_save");
     break;
   case MWMActionBarButtonTypeDeleteTrackRecording:
     [self.button setImage:[[UIImage imageNamed:@"ic_route_manager_trash"]
                               imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                  forState:UIControlStateNormal];
     self.button.coloring = MWMButtonColoringRed;
+    self.button.accessibilityLabel = L(@"placepage_discard_track_recording");
     break;
   case MWMActionBarButtonTypeRouteFrom:
     [self.button setImage:[UIImage imageNamed:@"ic_route_from"] forState:UIControlStateNormal];
