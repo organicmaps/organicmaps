@@ -48,12 +48,17 @@ void GpsTrack::AddPoints(std::vector<location::GpsInfo> const & points)
   ScheduleTask();
 }
 
+void GpsTrack::Restore()
+{
+  ScheduleTask();
+}
+
 /// @note These functions are called during recording, so should be synchronized with Collection writer thread.
 /// @{
 TrackStatistics GpsTrack::GetTrackStatistics() const
 {
   std::lock_guard lg(m_threadGuard);
-  return m_collection ? m_collection->GetTrackStatistics() : TrackStatistics();
+  return m_collection && !m_needClear ? m_collection->GetTrackStatistics() : TrackStatistics();
 }
 
 ElevationInfo const & GpsTrack::GetElevationInfo() const
@@ -67,6 +72,7 @@ ElevationInfo const & GpsTrack::GetElevationInfo() const
 void GpsTrack::Clear()
 {
   {
+    std::lock_guard threadLock(m_threadGuard);
     std::lock_guard lg(m_dataGuard);
     m_points.clear();
     m_needClear = true;
@@ -74,22 +80,31 @@ void GpsTrack::Clear()
   ScheduleTask();
 }
 
-bool GpsTrack::IsEmpty() const
+bool GpsTrack::IsEmpty()
 {
-  std::lock_guard lg(m_threadGuard);
-  if (!m_collection)
-    return true;
+  {
+    std::lock_guard threadLock(m_threadGuard);
+    std::lock_guard dataLock(m_dataGuard);
+    if (m_collection && m_points.empty() && !m_needClear)
+      return m_collection->IsEmpty();
+  }
+  ScheduleTask();
+  std::unique_lock lock(m_threadGuard);
+  // The worker holds this lock until the collection update is complete.
+  m_cv.wait(lock, [this] { return !m_threadWakeup; });
   return m_collection->IsEmpty();
 }
 
 void GpsTrack::SetCallback(TGpsTrackDiffCallback callback)
 {
+  bool const subscribed = static_cast<bool>(callback);
   {
     std::lock_guard lg(m_callbackGuard);
-    m_callback = callback;
-    m_needSendSnapshop = true;
+    m_callback = std::move(callback);
+    m_needSendSnapshop = subscribed;
   }
-  ScheduleTask();
+  if (subscribed)
+    ScheduleTask();
 }
 
 void GpsTrack::ScheduleTask()
@@ -110,6 +125,7 @@ void GpsTrack::ScheduleTask()
         {
           m_threadWakeup = false;
           ProcessPoints();
+          m_cv.notify_all();
         }
 
         if (m_threadExit)
@@ -121,7 +137,7 @@ void GpsTrack::ScheduleTask()
   }
 
   m_threadWakeup = true;
-  m_cv.notify_one();
+  m_cv.notify_all();
 }
 
 void GpsTrack::InitStorageIfNeed()
@@ -200,17 +216,18 @@ void GpsTrack::ProcessPoints()
     m_needClear = false;
   }
 
-  // Create collection only if callback appears
-  if (!m_collection && HasCallback())
-    InitCollection();
+  if (!m_collection)
+  {
+    if (needClear)
+      m_collection = std::make_unique<GpsTrackCollection>();
+    else
+      InitCollection();
+  }
 
   // All origin points are written in the storage,
   // and filtered points are inserted in the runtime collection.
 
   UpdateStorage(needClear, originPoints);
-
-  if (!m_collection)
-    return;
 
   if (needClear)
     m_filter->Reset();
@@ -226,36 +243,26 @@ void GpsTrack::ProcessPoints()
 
 size_t GpsTrack::Finalize()
 {
-  if (m_thread.joinable())
+  // Saving must process persisted and queued points even if no earlier operation started the worker.
+  ScheduleTask();
   {
-    {
-      std::lock_guard lg(m_threadGuard);
-      m_threadWakeup = m_threadExit = true;
-      m_cv.notify_one();
-    }
-    m_thread.join();
-
-    // Initialize from scratch.
-    m_thread = {};
-    m_threadWakeup = m_threadExit = false;
+    std::lock_guard lg(m_threadGuard);
+    m_threadWakeup = m_threadExit = true;
+    m_cv.notify_all();
   }
+  m_thread.join();
+
+  std::lock_guard lock(m_threadGuard);
+  m_thread = {};
+  m_threadWakeup = m_threadExit = false;
 
   std::vector<location::GpsInfo> points;
   m_filter->Finalize(points);
-
-  if (!m_collection)  // If no worker thread was started.
-    return 0;
 
   if (!points.empty())
     m_collection->Add(points);
 
   return m_collection->GetSize();
-}
-
-bool GpsTrack::HasCallback()
-{
-  std::lock_guard lg(m_callbackGuard);
-  return m_callback != nullptr;
 }
 
 void GpsTrack::UpdateStorage(bool needClear, std::vector<location::GpsInfo> const & points)
