@@ -8,12 +8,14 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
 
 #include <chrono>
+#include <future>
 #include <initializer_list>
 #include <memory>
 #include <mutex>
@@ -735,4 +737,218 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSwapActiveAlternative)
   });
   TEST(swappedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative was not swapped."));
 }
+
+// Session ownership is shared by queued tasks and callbacks. Tear it down on the GUI queue,
+// including when a test times out before a callback arrives.
+class AsyncGuiThreadTestWithProgressSession : public AsyncGuiThreadTest
+{
+public:
+  struct State
+  {
+    unique_ptr<RoutingSession> m_session;
+  };
+
+  shared_ptr<State> const m_state = make_shared<State>();
+
+  ~AsyncGuiThreadTestWithProgressSession()
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state] { state->m_session.reset(); });
+  }
+};
+
+class ProgressRouter : public IRouter
+{
+public:
+  explicit ProgressRouter(bool failFirstRebuild = false) : m_failFirstRebuild(failFirstRebuild) {}
+
+  string GetName() const override { return "progress"; }
+  void ClearState() override {}
+  void SetGuides(GuidesTracks &&) override {}
+  bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, EdgeProj &) override
+  {
+    return false;
+  }
+
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
+                                  RouterDelegate const &, RoutesResult & result) override
+  {
+    if (++m_builds == 2 && m_failFirstRebuild)
+      return RouterResultCode::RouteNotFound;
+
+    auto const from = checkpoints.GetPointFrom();
+    auto const to = checkpoints.GetFinish();
+    vector<m2::PointD> const points = {from, from, (from + to) * 0.5, to};
+    Route route;
+    route.SetGeometry(points.begin(), points.end());
+    FillSubroutesInfo(route);
+    result.MakeFrom(GetName(), std::move(route));
+    return RouterResultCode::NoError;
+  }
+
+private:
+  size_t m_builds = 0;
+  bool const m_failFirstRebuild;
+};
+
+void MoveSessionTo(RoutingSession & session, m2::PointD const & point)
+{
+  session.SetUserCurrentPosition(point);
+  location::GpsInfo gps;
+  gps.m_latitude = mercator::YToLat(point.y);
+  gps.m_longitude = mercator::XToLon(point.x);
+  gps.m_horizontalAccuracy = 5;
+  session.OnLocationPositionChanged(gps);
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithProgressSession, TrafficRefreshKeepsTripProgress)
+{
+  for (m2::PointD const current : {m2::PointD(0, 2), m2::PointD(0, 2.5)})
+  {
+    auto built = make_shared<promise<void>>();
+    auto builtFuture = built->get_future();
+    auto rebuilt = make_shared<promise<double>>();
+    auto rebuiltFuture = rebuilt->get_future();
+    GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state, built, rebuilt, current]
+    {
+      state->m_session = make_unique<RoutingSession>();
+      state->m_session->Init(nullptr);
+      state->m_session->SetRouter(make_unique<ProgressRouter>(), nullptr);
+      state->m_session->SetRoutingCallbacks([built](RoutesResult const &, RouterResultCode) { built->set_value(); },
+                                            [state, rebuilt, current](RoutesResult const &, RouterResultCode)
+      {
+        MoveSessionTo(*state->m_session, current);
+        rebuilt->set_value(state->m_session->GetCompletionPercent());
+      }, nullptr, nullptr);
+      state->m_session->BuildRoute(Checkpoints({0, 1}, {0, 4}), RouterDelegate::kNoTimeout);
+    });
+    TEST(builtFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+    GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state, current]
+    {
+      state->m_session->EnableFollowMode();
+      MoveSessionTo(*state->m_session, {0, 2});
+      state->m_session->OnTrafficInfoClear();
+      // Ready callbacks cannot run until this GUI task ends, so this movement precedes adoption.
+      MoveSessionTo(*state->m_session, current);
+    });
+    TEST(rebuiltFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+    double const expected =
+        100 * mercator::DistanceOnEarth({0, 1}, current) / mercator::DistanceOnEarth({0, 1}, {0, 4});
+    double const percent = rebuiltFuture.get();
+    TEST_ALMOST_EQUAL_ABS(percent, expected, 0.1, (current));
+  }
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithProgressSession, FailedRebuildDoesNotCountPassedDistance)
+{
+  auto built = make_shared<promise<void>>();
+  auto builtFuture = built->get_future();
+  auto progress = make_shared<promise<vector<double>>>();
+  auto progressFuture = progress->get_future();
+  auto failed = make_shared<promise<RouterResultCode>>();
+  auto failedFuture = failed->get_future();
+  auto rebuilt = make_shared<promise<double>>();
+  auto rebuiltFuture = rebuilt->get_future();
+  GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state, built]
+  {
+    state->m_session = make_unique<RoutingSession>();
+    state->m_session->Init(nullptr);
+    state->m_session->SetRouter(make_unique<ProgressRouter>(true), nullptr);
+    state->m_session->SetRoutingCallbacks([built](RoutesResult const &, RouterResultCode) { built->set_value(); },
+                                          nullptr, nullptr, nullptr);
+    state->m_session->BuildRoute(Checkpoints({0, 1}, {0, 4}), RouterDelegate::kNoTimeout);
+  });
+  TEST(builtFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+  GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state, progress, failed]
+  {
+    auto & session = *state->m_session;
+    session.EnableFollowMode();
+    MoveSessionTo(session, {0, 2});
+    vector<double> percent = {session.GetCompletionPercent()};
+    for (size_t i = 1; i <= 12; ++i)
+      MoveSessionTo(session, {0.001 * i, 2});
+    percent.push_back(session.GetCompletionPercent());
+    MoveSessionTo(session, {0, 2});
+    percent.push_back(session.GetCompletionPercent());
+    progress->set_value(std::move(percent));
+    session.RebuildRoute({0, 2}, nullptr, nullptr, [failed](RouterResultCode code) { failed->set_value(code); },
+                         RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+  });
+  TEST(progressFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+  double const expected = 100 * mercator::DistanceOnEarth({0, 1}, {0, 2}) / mercator::DistanceOnEarth({0, 1}, {0, 4});
+  for (double const percent : progressFuture.get())
+    TEST_ALMOST_EQUAL_ABS(percent, expected, 0.1, ());
+  TEST(failedFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+  auto const code = failedFuture.get();
+  TEST_EQUAL(code, RouterResultCode::RouteNotFound, ());
+  GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state, rebuilt]
+  {
+    MoveSessionTo(*state->m_session, {0, 2});
+    state->m_session->RebuildRoute({0, 2}, [state, rebuilt](RoutesResult const &, RouterResultCode)
+    {
+      MoveSessionTo(*state->m_session, {0, 2});
+      rebuilt->set_value(state->m_session->GetCompletionPercent());
+    }, nullptr, nullptr, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+  });
+  TEST(rebuiltFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+  double const percent = rebuiltFuture.get();
+  TEST_ALMOST_EQUAL_ABS(percent, expected, 0.1, ());
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithProgressSession, RepeatedAndSupersededRebuildsKeepTripProgress)
+{
+  auto built = make_shared<promise<void>>();
+  auto builtFuture = built->get_future();
+  GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state, built]
+  {
+    state->m_session = make_unique<RoutingSession>();
+    state->m_session->Init(nullptr);
+    state->m_session->SetRouter(make_unique<ProgressRouter>(), nullptr);
+    state->m_session->SetRoutingCallbacks([built](RoutesResult const &, RouterResultCode) { built->set_value(); },
+                                          nullptr, nullptr, nullptr);
+    state->m_session->BuildRoute(Checkpoints({0, 1}, {0, 4}), RouterDelegate::kNoTimeout);
+  });
+  TEST(builtFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+  for (double const y : {2.0, 2.5})
+  {
+    auto superseded = make_shared<promise<void>>();
+    auto supersededFuture = superseded->get_future();
+    auto rebuilt = make_shared<promise<double>>();
+    auto rebuiltFuture = rebuilt->get_future();
+    GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state, superseded, rebuilt, y]
+    {
+      auto & session = *state->m_session;
+      session.EnableFollowMode();
+      MoveSessionTo(session, {0, y});
+      session.RebuildRoute({0, y}, [superseded](RoutesResult const &, RouterResultCode) { superseded->set_value(); },
+                           nullptr, nullptr, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, false);
+      MoveSessionTo(session, {0, y + 0.25});
+      session.RebuildRoute({0, y + 0.25}, [state, rebuilt, y](RoutesResult const &, RouterResultCode)
+      {
+        MoveSessionTo(*state->m_session, {0, y + 0.5});
+        rebuilt->set_value(state->m_session->GetCompletionPercent());
+      }, nullptr, nullptr, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, false);
+      MoveSessionTo(session, {0, y + 0.5});
+    });
+    TEST(rebuiltFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+    TEST(supersededFuture.wait_for(seconds(0)) != future_status::ready, ("The obsolete callback was delivered."));
+    double const expected =
+        100 * mercator::DistanceOnEarth({0, 1}, {0, y + 0.5}) / mercator::DistanceOnEarth({0, 1}, {0, 4});
+    double const percent = rebuiltFuture.get();
+    TEST_ALMOST_EQUAL_ABS(percent, expected, 0.1, (y));
+  }
+
+  auto newRoute = make_shared<promise<double>>();
+  auto newRouteFuture = newRoute->get_future();
+  GetPlatform().RunTask(Platform::Thread::Gui, [state = m_state, newRoute]
+  {
+    state->m_session->Reset();
+    state->m_session->SetRoutingCallbacks([state, newRoute](RoutesResult const &, RouterResultCode)
+    { newRoute->set_value(state->m_session->GetCompletionPercent()); }, nullptr, nullptr, nullptr);
+    state->m_session->BuildRoute(Checkpoints({0, 10}, {0, 13}), RouterDelegate::kNoTimeout);
+  });
+  TEST(newRouteFuture.wait_for(kRouteBuildingMaxDuration) == future_status::ready, ());
+  double const percent = newRouteFuture.get();
+  TEST_EQUAL(percent, 0, ("A new journey must not retain the previous distance."));
+}
+
 }  // namespace routing_session_test

@@ -164,7 +164,7 @@ public:
   double GetCompletionPercent() const;
 
 private:
-  void AssignRoute(std::shared_ptr<RoutesResult> const & result, RouterResultCode e);
+  void AssignRoute(std::shared_ptr<RoutesResult> const & result, RouterResultCode e, double passedDistance = 0.0);
   /// RemoveRoute() removes m_route and resets route attributes (m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();

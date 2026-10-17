@@ -98,13 +98,16 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
   auto const & direction =
       m_routingSettings.m_useDirectionForRouteBuilding ? m_positionAccumulator.GetDirection() : m2::PointD::Zero();
 
+  // The replacement starts at this request's position. Later movement belongs to its geometry.
+  double const passedDistance = m_isFollowing && IsRouteValid() ? m_route->GetCurrentDistanceFromBeginMeters() : 0.0;
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
   // RoutingManager::InsertRoute draws alternatives only outside navigation, don't pay for them.
-  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
-                           [this, readyCallback](std::shared_ptr<RoutesResult> const & result, RouterResultCode code)
+  m_router->CalculateRoute(
+      checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
+      [this, readyCallback, passedDistance](std::shared_ptr<RoutesResult> const & result, RouterResultCode code)
   {
-    AssignRoute(result, code);
+    AssignRoute(result, code, passedDistance);
     readyCallback(result ? *result : RoutesResult{}, code);
   }, needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
 }
@@ -316,10 +319,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     m_lastDistance = dist;
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
-    {
-      m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
       SetState(SessionState::RouteNeedRebuild);
-    }
   }
 
   return m_state;
@@ -539,7 +539,8 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
     LOG(LDEBUG, ("TTS:", n));
 }
 
-void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, RouterResultCode e)
+void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, RouterResultCode e,
+                                 double passedDistance)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -554,6 +555,8 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
     return;
   }
 
+  // Failed or superseded requests must not account the same followed geometry again.
+  m_passedDistanceOnRouteMeters += passedDistance;
   RemoveRoute();
   SetState(SessionState::RouteNotStarted);
   m_lastCompletionPercent = 0;
