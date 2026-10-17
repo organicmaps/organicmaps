@@ -325,6 +325,29 @@ UNIT_TEST(NoGps_Engine_TurnOfCarManeuveringOffRoadsIsNotMoved)
   TestAlmostEqualAbs(East(env.Last().m_position), 40, 1);
 }
 
+UNIT_TEST(NoGps_Engine_TurnEnteredSmoothlyStartsOnRoad)
+{
+  for (int kmh : {36, 15})
+  {
+    // The street going east crosses a street going north at 200 m.
+    PieceRoads roads({{-300, 0, 400, 0}, {200, -300, 200, 400}}, {{200, 0}});
+    Env env(true /* inertial */, &roads);
+    MarkCar(env, 0);
+    // 150 m east.
+    env.Drive(540'000 / kmh, kmh, 0);
+    // The car enters the turn smoothly: it rotates slower than a turn starts until it looks 35 degrees off the
+    // street, then turns left fast. The turn starts on the street, looking along it: the crossing is the one the
+    // car has come to by that street.
+    env.Drive(4000, kmh, -9);
+    env.Drive(2000, kmh, -30);
+    // 30 m north.
+    env.Drive(108'000 / kmh, kmh, 0);
+    TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
+    TEST_GREATER(North(env.Last().m_position), 20, (kmh));
+    TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 5);
+  }
+}
+
 UNIT_TEST(NoGps_Engine_TurnAlongBranchIsNotMovedToNextCrossing)
 {
   // A road branches off the street going east to the north-east at 100 m, and a street goes the same way from
