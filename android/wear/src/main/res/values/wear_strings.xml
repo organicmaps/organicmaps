@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="hour">h</string>
+    <string name="minute">min</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+
     <!-- SECTION: gps strings -->
     <!-- Displayed in the Wear OS app when no navigation is active on the phone. -->
     <string name="wear_no_navigation_message">Open Organic Maps on your phone to start navigation.</string>
