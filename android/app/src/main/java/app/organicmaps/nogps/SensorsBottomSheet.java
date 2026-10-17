@@ -69,6 +69,7 @@ public class SensorsBottomSheet extends BottomSheetDialogFragment
   private TextView mCar;
   private TextView mVoltageMismatch;
   private TextView mScale;
+  private TextView mRoughSpeed;
   private TextView mLag;
   private TextView mGyro;
   private TextView mReadiness;
@@ -92,6 +93,7 @@ public class SensorsBottomSheet extends BottomSheetDialogFragment
     mCar = view.findViewById(R.id.nogps_car);
     mVoltageMismatch = view.findViewById(R.id.nogps_voltage_mismatch);
     mScale = view.findViewById(R.id.nogps_scale);
+    mRoughSpeed = view.findViewById(R.id.nogps_rough_speed);
     mLag = view.findViewById(R.id.nogps_lag);
     view.findViewById(R.id.nogps_clear_speed).setOnClickListener(v -> confirmClearSpeed());
     mGyro = view.findViewById(R.id.nogps_gyro);
@@ -306,6 +308,13 @@ public class SensorsBottomSheet extends BottomSheetDialogFragment
         enabled ? String.format(Locale.US, "\u00D7%.2f", status.speedScale) : getString(R.string.nogps_unknown),
         enabled ? status.speedTableRanges : 0);
     mScale.setText(scale);
+    // Until GPS measures the speed, e.g. on the first trip, it is corrected roughly by the roads.
+    final boolean rough = enabled && status.speedTableRanges == 0;
+    mRoughSpeed.setVisibility(rough ? View.VISIBLE : View.GONE);
+    if (rough)
+      mRoughSpeed.setText(status.roughSpeedTableRanges > 0
+                              ? getString(R.string.nogps_sensors_rough_speed, status.roughSpeedTableRanges)
+                              : getString(R.string.nogps_sensors_rough_speed_learning));
     // On its own line: next to the button it took four lines of the two the row has room for.
     mLag.setVisibility(enabled ? View.VISIBLE : View.GONE);
     if (enabled)

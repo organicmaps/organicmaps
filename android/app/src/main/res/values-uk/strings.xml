@@ -974,6 +974,8 @@
     <string name="nogps_sensors_scale">Поправка швидкості: %1$s · діапазонів виміряно: %2$d</string>
     <string name="nogps_sensors_lag_measured">Запізнення швидкості: %s с (виміряно за GPS)</string>
     <string name="nogps_sensors_lag_usual">Запізнення швидкості: %s с (звичайне, GPS ще не виміряв)</string>
+    <string name="nogps_sensors_rough_speed">≈ Чорнова поправка за дорогами · діапазонів: %d · GPS її уточнить</string>
+    <string name="nogps_sensors_rough_speed_learning">≈ Поправка вчиться за дорогами, поки швидкість не виміряє GPS</string>
     <string name="nogps_shift_at_turn">Позиція біля перехрестя, далі переносити не можна</string>
     <string name="nogps_status_gps_back">GPS знову є ±%s</string>
     <string name="nogps_status_gps_spoofed">GPS підмінено</string>

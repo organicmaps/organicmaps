@@ -151,6 +151,19 @@ UNIT_TEST(NoGps_SpeedTable_ForgetsOldSamples)
   TEST_ALMOST_EQUAL_ABS(*table.GetScale(60), 1.0, 0.02, ());
 }
 
+UNIT_TEST(NoGps_SpeedTable_TakesDistancesAlongRoads)
+{
+  SpeedTable table;
+  // 400 m by the speed of the car at 45 km/h were 412 m along the roads.
+  table.OnDistance(45, 400, 412);
+  TEST_ALMOST_EQUAL_ABS(*table.GetScale(45), 412.0 / 400, 1e-9, ());
+  // Too short, too slow.
+  SpeedTable other;
+  other.OnDistance(45, 200, 206);
+  other.OnDistance(3, 400, 412);
+  TEST_EQUAL(other.GetKnownRanges(), 0, ());
+}
+
 UNIT_TEST(NoGps_SpeedTable_KeepsBetweenTrips)
 {
   SpeedTable table;

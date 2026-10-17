@@ -76,6 +76,8 @@ struct Status
   std::optional<CarInfo> m_carInfo;
   double m_speedScale = 1;
   int m_speedTableRanges = 0;
+  // The rough table learned from the roads is used while GPS has measured no range.
+  int m_roughSpeedTableRanges = 0;
   double m_speedLagSec = 0;
   bool m_speedLagMeasured = false;
   CalibrationState m_calibration = CalibrationState::None;

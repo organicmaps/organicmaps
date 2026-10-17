@@ -5,6 +5,7 @@
 #include "map/nogps/engine.hpp"
 #include "map/nogps/esp32_protocol.hpp"
 #include "map/nogps/geo.hpp"
+#include "map/nogps/speed_table.hpp"
 #include "map/nogps/storage.hpp"
 
 #include "base/math.hpp"
@@ -14,6 +15,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <deque>
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -28,11 +30,14 @@ class Env
 {
 public:
   /// \param roads the roads instead of the grid of streets.
-  explicit Env(bool inertial, Roads * roads = nullptr)
+  /// \param save what the application has saved before the start.
+  explicit Env(bool inertial, Roads * roads = nullptr, std::function<void(TestStorage &)> const & save = {})
   {
     // The inertial navigation takes the roads when it starts.
     m_map.m_roads = roads;
     m_storage.Set(Storage::kInertialEnabled, inertial);
+    if (save)
+      save(m_storage);
     m_engine.Start();
     ConnectBox();
   }
@@ -780,6 +785,93 @@ UNIT_TEST(NoGps_Engine_MarkAheadOnBendComesBackToRoad)
   auto const & position = env.Last().m_position;
   TestAlmostEqualAbs((East(position) - 100) * cos65 - North(position) * sin65, 0, 1);
   TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+}
+
+// A street going east bends 25 degrees left and right in turn every 800 m, 4 km on.
+PieceRoads ZigzagStreet()
+{
+  std::vector<PieceRoads::Piece> pieces;
+  double x = -300;
+  double y = 0;
+  for (int i = 0; i < 6; ++i)
+  {
+    double const heading = math::DegToRad(i % 2 == 0 ? 90.0 : 65.0);
+    double const length = i == 0 ? 1100 : 800;
+    pieces.push_back({x, y, x + length * std::sin(heading), y + length * std::cos(heading)});
+    x = pieces.back()[2];
+    y = pieces.back()[3];
+  }
+  return PieceRoads(pieces, {});
+}
+
+// The car marked on the street drives along it at 36 km/h by its speedometer, 3% faster really: it rotates at the
+// bends, which the calculated position comes to 3% later.
+void DriveZigzag(Env & env)
+{
+  MarkCar(env, 0);
+  double const realMps = 10 * 1.03;
+  // To the first bend at 800 m, then from bend to bend, rotating through 10 m of each.
+  env.Drive(std::llround((800 - realMps / 2) / realMps * 1000), 36, 0);
+  for (int i = 1; i < 6; ++i)
+  {
+    env.Drive(1000, 36, i % 2 == 1 ? -25 : 25);
+    env.Drive(std::llround((800 - realMps) / realMps * 1000), 36, 0);
+  }
+}
+
+UNIT_TEST(NoGps_Engine_RoadsTellSpeedErrorBeforeGps)
+{
+  auto roads = ZigzagStreet();
+  Env env(true /* inertial */, &roads);
+  TEST_EQUAL(TripField(env, "scale"), "1.000", ());
+  DriveZigzag(env);
+  // Without GPS the bends have told the car is 3% faster than it reports.
+  TEST_GREATER_OR_EQUAL(std::stoi(TripField(env, "rough")), 1, (env.m_engine.GetTripLine()));
+  TestAlmostEqualAbs(std::stod(TripField(env, "scale")), 1.03, 0.01);
+  TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+
+  // All the calibration is cleared: the next trip learns it again.
+  env.m_engine.ClearSpeedCalibration();
+  TEST_EQUAL(TripField(env, "rough"), "0", ());
+  TEST_EQUAL(TripField(env, "scale"), "1.000", ());
+}
+
+UNIT_TEST(NoGps_Engine_RoadsTellNothingAfterGps)
+{
+  // GPS has measured the speedometer right at 30-40 km/h.
+  SpeedTable table;
+  table.OnDistance(36, 400, 400);
+  auto roads = ZigzagStreet();
+  Env env(true /* inertial */, &roads,
+          [&table](TestStorage & storage) { storage.Set(Storage::kSpeedTable, table.Serialize()); });
+  DriveZigzag(env);
+  TEST_EQUAL(TripField(env, "rough"), "0", ());
+  TEST_EQUAL(TripField(env, "scale"), "1.000", ());
+}
+
+UNIT_TEST(NoGps_Engine_GpsOffInSheetMeasuresSpeedOverRoughTable)
+{
+  // The roads have told the speedometer is 5% low at 30-40 km/h on the first trip.
+  SpeedTable rough;
+  rough.OnDistance(36, 1000, 1050);
+  Env env(true /* inertial */, nullptr,
+          [&rough](TestStorage & storage) { storage.Set(Storage::kRoughSpeedTable, rough.Serialize()); });
+  MarkCar(env, 0);
+  TEST_EQUAL(TripField(env, "scale"), "1.050", ());
+  TEST_EQUAL(env.m_engine.GetStatus().m_roughSpeedTableRanges, 1, ());
+  TEST_EQUAL(env.m_engine.GetStatus().m_speedTableRanges, 0, ());
+
+  // The user has switched GPS off in the sheet to drive without it, GPS works on: the car is not put where GPS
+  // tells, but GPS measures the speedometer 3% low.
+  env.m_engine.SetGpsDisabled(true);
+  for (int i = 0; i < 60; ++i)
+  {
+    env.Drive(1000, 36, 0);
+    env.m_engine.OnFix(GpsAt(env.m_clock, 10.3 * i, 0, 90.0, 10.3));
+  }
+  TEST_NOT_EQUAL(env.Last().m_provider, Provider::Gps, ());
+  TEST_GREATER_OR_EQUAL(env.m_engine.GetStatus().m_speedTableRanges, 1, ());
+  TestAlmostEqualAbs(std::stod(TripField(env, "scale")), 1.03, 0.005);
 }
 
 UNIT_TEST(NoGps_Engine_BendsToldRepeatedlyMoveSlowCar)

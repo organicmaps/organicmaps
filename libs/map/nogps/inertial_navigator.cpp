@@ -29,6 +29,7 @@ InertialNavigator::InertialNavigator(Delegate & delegate, Scheduler & scheduler,
   , m_listener(listener)
 {
   m_speedTable.Deserialize(m_storage.Get<std::string>(Storage::kSpeedTable, ""));
+  m_roughSpeedTable.Deserialize(m_storage.Get<std::string>(Storage::kRoughSpeedTable, ""));
   m_speedLag.Deserialize(m_storage.Get<std::string>(Storage::kSpeedLag, ""));
 }
 
@@ -127,6 +128,7 @@ void InertialNavigator::OnGpsPosition(Fix const & gps)
   {
     m_turnSignChecker.OnNoGpsBearing();
   }
+  StartRoughStretch(0);
 }
 
 void InertialNavigator::CheckTurnSign(Fix const & gps)
@@ -157,6 +159,7 @@ void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bear
   LeaveRoundabout();
   SetHeading(bearingDeg, HeadingSource::Road);
   m_steadyRoad = SteadyRoad{bearingDeg, m_pathM};
+  StartRoughStretch(0);
 }
 
 void InertialNavigator::SetMarkOnRoad(ms::LatLon const & position, double bearingDeg)
@@ -173,6 +176,8 @@ void InertialNavigator::SetMarkOnRoad(ms::LatLon const & position, double bearin
   }
   DropOtherMarks();
   SetRoadPosition(position, bearingDeg);
+  // The user marks by eye, not as precisely as the roads tell.
+  m_roughStretch.reset();
   if (!restOfTurn || std::fabs(*restOfTurn) < kMinMarkTurnDeg)
     return;
   m_markTurnLeftDeg = restOfTurn;
@@ -215,6 +220,8 @@ void InertialNavigator::OnPositionCorrected(ms::LatLon const & position, double 
   m_storage.Set(Storage::kSpeedScale, m_speedScale.Get());
   LOG(LINFO, ("Corrected by", std::round(appliedM), "m, speed scale =", m_speedScale.Get()));
   SetRoadPosition(position, bearingDeg);
+  // The user corrects by eye, not as precisely as the roads tell.
+  m_roughStretch.reset();
 }
 
 double InertialNavigator::GetSpeedScale() const
@@ -224,7 +231,74 @@ double InertialNavigator::GetSpeedScale() const
 
 double InertialNavigator::GetSpeedScale(int speedKmh) const
 {
-  return m_speedTable.GetScale(speedKmh).value_or(m_speedScale.Get());
+  if (auto const scale = m_speedTable.GetScale(speedKmh))
+    return *scale;
+  return m_roughSpeedTable.GetScale(speedKmh).value_or(m_speedScale.Get());
+}
+
+void InertialNavigator::StartRoughStretch(double errorM)
+{
+  // GPS measures the speeds better.
+  if (m_speedTable.GetKnownRanges() > 0)
+  {
+    m_roughStretch.reset();
+    return;
+  }
+  m_roughStretch = RoughStretch{};
+  m_roughStretch->m_errorM = errorM;
+  m_roughStretch->m_lastPosition = m_deadReckoning.GetPosition();
+}
+
+void InertialNavigator::TrackRoughRoad()
+{
+  if (!m_roughStretch)
+    return;
+  auto const position = m_deadReckoning.GetPosition();
+  auto & stretch = *m_roughStretch;
+  double const movedM = Distance(stretch.m_lastPosition, position);
+  if (movedM > 0)
+  {
+    double const alongDeg = AngleDiff(Bearing(stretch.m_lastPosition, position), m_deadReckoning.GetHeading());
+    stretch.m_roadM += movedM * std::cos(math::DegToRad(alongDeg));
+  }
+  stretch.m_lastPosition = position;
+}
+
+void InertialNavigator::TrackRoughStretch(double stepM)
+{
+  if (!m_roughStretch)
+    return;
+  m_roughStretch->m_calculatedTotalM += stepM;
+  // As by GPS, slower speeds tell nothing.
+  if (m_speedKmh < SpeedTable::kMinSpeedKmh)
+    return;
+  int const i = SpeedTable::Range(m_speedKmh);
+  m_roughStretch->m_calculatedM[i] += stepM;
+  m_roughStretch->m_carM[i] += stepM / GetSpeedScale(m_speedKmh);
+}
+
+bool InertialNavigator::LearnRoughSpeed(double aheadM, char const * where)
+{
+  if (!m_roughStretch || m_speedTable.GetKnownRanges() > 0)
+    return true;
+  TrackRoughRoad();
+  auto const & stretch = *m_roughStretch;
+  double const calculatedM = stretch.m_calculatedTotalM;
+  // A bend is told again and again while the car drives through its window: the stretch goes on to the next one.
+  if (calculatedM < kMinRoughStretchM)
+    return false;
+  // The way of the position along the roads, the snapping to them included, and the errors at both ends.
+  double const realM = stretch.m_roadM - (aheadM - stretch.m_errorM);
+  double const errorM = calculatedM - realM;
+  if (std::fabs(errorM) > calculatedM * kMaxRoughStretchError)
+    return true;
+  double const real = realM / calculatedM;
+  for (int i = 0; i < SpeedTable::kRanges; ++i)
+    m_roughSpeedTable.OnDistance((i + 0.5) * SpeedTable::kRangeKmh, stretch.m_carM[i], stretch.m_calculatedM[i] * real);
+  m_storage.Set(Storage::kRoughSpeedTable, m_roughSpeedTable.Serialize());
+  LOG(LINFO, ("Rough speed table: the", where, "tells the calculated distance is", std::round(errorM), "m off in",
+              std::round(calculatedM), "m, table =", m_roughSpeedTable.ToString()));
+  return true;
 }
 
 void InertialNavigator::OnSpeedTableGps(Fix const & gps)
@@ -260,15 +334,19 @@ void InertialNavigator::SaveSpeedTable()
 void InertialNavigator::LogSpeedCalibration() const
 {
   // For the trip log: the path of a trip is calculated again with these.
-  LOG(LINFO, ("Speed table =", m_speedTable.ToString(), "lag =", m_speedLag.Get(),
-              "measured =", m_speedLag.IsMeasured(), "scale =", m_speedScale.Get()));
+  LOG(LINFO, ("Speed table =", m_speedTable.ToString(), "lag =", m_speedLag.Get(), "measured =",
+              m_speedLag.IsMeasured(), "scale =", m_speedScale.Get(), "rough =", m_roughSpeedTable.ToString()));
 }
 
 void InertialNavigator::ClearSpeedCalibration()
 {
-  LOG(LINFO, ("Speed table was", m_speedTable.ToString()));
+  LOG(LINFO, ("Speed table was", m_speedTable.ToString(), "rough", m_roughSpeedTable.ToString()));
   m_speedTable.Clear();
   m_speedLag.Clear();
+  // The next trip learns the rough table again, as the first one.
+  m_roughSpeedTable.Clear();
+  m_roughStretch.reset();
+  m_storage.Set(Storage::kRoughSpeedTable, m_roughSpeedTable.Serialize());
   SaveSpeedTable();
   m_speedScale.Reset();
   m_storage.Set(Storage::kSpeedScale, 1.0);
@@ -279,6 +357,7 @@ void InertialNavigator::SetPosition(ms::LatLon const & position)
   DropOtherMarks();
   EndFollowingApart();
   m_steadyRoad.reset();
+  m_roughStretch.reset();
   m_deadReckoning.SetPosition(position);
   SetRoadPoint(position);
   if (m_deadReckoning.HasHeading())
@@ -295,6 +374,8 @@ void InertialNavigator::SetHeading(double headingDeg, HeadingSource source)
   m_markTurnLeftDeg.reset();
   m_pathMatcher.SetHeading(headingDeg);
   m_steadyRoad.reset();
+  // A heading set anew, e.g. the car reversed by the user, is not the way the stretch was driven.
+  m_roughStretch.reset();
 }
 
 std::optional<double> InertialNavigator::GetHeading() const
@@ -401,6 +482,7 @@ void InertialNavigator::TrackOffRoad(double distanceM)
   }
   LOG(LINFO, ("The road is lost after", std::round(m_offRoadM), "m, stopping at", *m_roadPoint));
   m_roadLost = true;
+  m_roughStretch.reset();
   m_deadReckoning.MoveTo(*m_roadPoint);
   NotifyRoadLost();
 }
@@ -667,6 +749,7 @@ void InertialNavigator::StartFollowingApart()
   m_turning = false;
   // The car is followed from where it is, its mark waits where it has left the roads.
   m_steadyRoad.reset();
+  m_roughStretch.reset();
   m_offRoadCar = m_deadReckoning.GetPosition();
   m_deadReckoning.MoveTo(*m_roadPoint);
 }
@@ -951,6 +1034,7 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
     {
       m_deadReckoning.ReverseBy(distance);
       m_pathMatcher.Reset();
+      m_roughStretch.reset();
     }
     else
     {
@@ -959,6 +1043,7 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
         m_turnEnd = Move(m_turnEnd, m_deadReckoning.GetHeading(), distance);
       m_bendMatcher.OnMotion(rotatedDeg, distance);
       m_pathMatcher.OnMotion(rotatedDeg, distance, m_deadReckoning.GetHeading());
+      TrackRoughStretch(step);
     }
     m_speedScale.OnDistance(step);
     if (IsReady())
@@ -995,6 +1080,7 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
       MatchBend();
     }
   }
+  TrackRoughRoad();
   if (IsReady() && !m_otherMarks.empty() && m_deadReckoning.GetSpeed() > kMovingSpeedMps &&
       now - m_lastOtherSnapMs >= kSnapIntervalMs)
   {
@@ -1181,6 +1267,8 @@ void InertialNavigator::MatchBend()
     LOG(LINFO, ("Bend: the position fits the road, ahead by", std::round(*aheadM), "m"));
     // The place along the road is confirmed: the distance error is gone as after a move.
     m_deadReckoning.SetPosition(position);
+    if (LearnRoughSpeed(*aheadM, "bend"))
+      StartRoughStretch(*aheadM);
     return;
   }
   bool const slow = m_deadReckoning.GetSpeed() < kMinBendMoveSpeedMps;
@@ -1202,6 +1290,7 @@ void InertialNavigator::MatchBend()
     LOG(LINFO, ("Bend: moved along the road by", std::round(-*aheadM), "m, told repeatedly to a slow car"));
   else
     LOG(LINFO, ("Bend: moved along the road by", std::round(-*aheadM), "m"));
+  LearnRoughSpeed(*aheadM, "bend");
   SetRoadPosition(walked->m_position, walked->m_bearingDeg);
 }
 
@@ -1654,6 +1743,7 @@ void InertialNavigator::TakeOtherMark(size_t index, bool keepShown, std::string 
   m_markTurnLeftDeg.reset();
   m_steadyRoad.reset();
   m_turnSteadyFromBearing.reset();
+  m_roughStretch.reset();
   LeaveRoundabout();
   LOG(LINFO, ("The car is shown on another road it may be on:", why, ", marks", m_otherMarks.size() + 1, "at",
               m_deadReckoning.GetPosition()));

@@ -255,6 +255,15 @@ public:
   static int64_t constexpr kBoxAccelSaveMs = 60'000;
   // The speed table is saved once in a while, not on every position.
   static int constexpr kSpeedTableSaveSamples = 30;
+  // Before GPS has measured the speed table, e.g. on the first trip, a rough one is learned from the roads. From a
+  // place known along the road, a crossing a turn is moved to or a bend, to the next bend, which tells how far the
+  // calculated position is ahead of the road, the error grown is the error of the speed driven there. The trips of
+  // October 11-16 driven again as the first ones learned it within 0.2-1.1% of the GPS one on average, the car speed
+  // is 2.5% low, and the position was wrong by 6-10 m at the median instead of 11-21 m. A shorter stretch is
+  // dominated by the few meters a bend is matched within, a stretch wrong by more is between other places than they
+  // tell, e.g. at a crossing of the next street.
+  static double constexpr kMinRoughStretchM = 200;
+  static double constexpr kMaxRoughStretchError = 0.1;
 
   /// \param roads the roads and the followed route, the car is kept on them.
   InertialNavigator(Delegate & delegate, Scheduler & scheduler, Clock const & clock, Storage & storage, Roads & roads,
@@ -326,6 +335,7 @@ public:
   std::optional<double> GetPhoneAccelAheadM() const;
   /// \returns how many speed ranges of the table are measured by GPS.
   int GetSpeedTableRanges() const { return m_speedTable.GetKnownRanges(); }
+  int GetRoughSpeedTableRanges() const { return m_roughSpeedTable.GetKnownRanges(); }
   std::string GetSpeedTableDescription() const { return m_speedTable.ToString(); }
   std::optional<CarInfo> GetCarInfo() const;
   SourceState GetSourceState() const;
@@ -392,6 +402,15 @@ private:
   double GetSpeedScale(int speedKmh) const;
   void SaveSpeedTable();
   void LogSpeedCalibration() const;
+  // The position is known along the road, the error of the calculated distance is |errorM| there, see
+  // kMinRoughStretchM.
+  void StartRoughStretch(double errorM);
+  void TrackRoughStretch(double stepM);
+  // The position has moved along the road: driven, or put on a road by the snapping, e.g. onto the branch of a bend.
+  void TrackRoughRoad();
+  // The calculated position is |aheadM| ahead of the road here: the rough speed table learns from the stretch.
+  // \returns false if the stretch is too short yet and goes on.
+  bool LearnRoughSpeed(double aheadM, char const * where);
   bool IsSpeedFresh() const;
   void SetRoadPoint(ms::LatLon const & position);
   void TrackOffRoad(double distanceM);
@@ -541,6 +560,22 @@ private:
   std::optional<SlowBends> m_slowBends;
   // The speed errors measured by trusted GPS at different speeds.
   SpeedTable m_speedTable;
+  // The speed errors told by the roads until GPS has measured them, see kMinRoughStretchM.
+  SpeedTable m_roughSpeedTable;
+  // The distance driven since the place known along the road, in the ranges of the speed table: by the car speed
+  // and as calculated, and the error of the calculated distance at that place. The snapping moves the position
+  // along the road too, e.g. onto the next branch at a bend, which takes away a part of the error unnoticed: the way
+  // of the position along the roads is the real distance, not the calculated one.
+  struct RoughStretch
+  {
+    std::array<double, SpeedTable::kRanges> m_carM{};
+    std::array<double, SpeedTable::kRanges> m_calculatedM{};
+    double m_calculatedTotalM = 0;
+    double m_errorM = 0;
+    double m_roadM = 0;
+    ms::LatLon m_lastPosition;
+  };
+  std::optional<RoughStretch> m_roughStretch;
   SpeedLag m_speedLag;
   // The accelerometer for the trip log, nothing depends on it yet.
   AccelLog m_accelLog;

@@ -964,6 +964,8 @@
     <string name="nogps_sensors_scale">Speed correction: %1$s · measured ranges: %2$d</string>
     <string name="nogps_sensors_lag_measured">Speed delay: %s s (measured by GPS)</string>
     <string name="nogps_sensors_lag_usual">Speed delay: %s s (usual, not measured by GPS yet)</string>
+    <string name="nogps_sensors_rough_speed">≈ Rough correction from the roads · ranges: %d · GPS will refine it</string>
+    <string name="nogps_sensors_rough_speed_learning">≈ The correction is learned from the roads until GPS measures the speed</string>
     <string name="nogps_shift_at_turn">The position is at a crossing, it can not be moved further</string>
     <string name="nogps_status_gps_back">GPS is back ±%s</string>
     <string name="nogps_status_gps_spoofed">GPS spoofed</string>
