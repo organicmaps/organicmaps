@@ -925,10 +925,7 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
     break;
   case OUTDOORS:
     frm.SaveOutdoorsEnabled(enable);
-    if (enable)
-      m_pDrawWidget->SetMapStyleToOutdoors();
-    else
-      m_pDrawWidget->SetMapStyleToDefault();
+    frm.ApplyMapStyleForMode();
     break;
   case HIKING: frm.SetHikingEnabled(enable); break;
   case CYCLING: frm.SetCyclingEnabled(enable); break;
