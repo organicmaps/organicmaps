@@ -27,8 +27,8 @@ namespace qt
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   : QWidget(parent)
   , m_pDrawWidget(drawWidget)
-  , m_clearIcon(":/ui/x.png")
-  , m_busyIcon(":/ui/busy.png")
+  , m_clearIcon(":/ui/x.svg")
+  , m_busyIcon(":/ui/busy.svg")
   , m_mode(search::Mode::Everywhere)
   , m_timestamp(0)
 {

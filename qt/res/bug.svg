@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+	<path d="M0 0h80v80H0z" fill="none" />
+	<g fill="none">
+		<path fill="#f2c94c" stroke="#f2c94c" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M36 20h8l3.43 48.02C47.738 72.332 44.323 76 40 76s-7.738-3.668-7.43-7.98z" />
+		<path fill="#f2994a" fill-rule="evenodd" d="M20 20c0-8.837 7.163-16 16-16h12v2h6V4h6v16h-6v-2h-6v2z" clip-rule="evenodd" />
+		<path fill="#f2994a" d="M20 20h-2a2 2 0 0 0 2 2zM48 4h2a2 2 0 0 0-2-2zm0 2h-2a2 2 0 0 0 2 2zm6 0v2a2 2 0 0 0 2-2zm0-2V2a2 2 0 0 0-2 2zm6 0h2a2 2 0 0 0-2-2zm0 16v2a2 2 0 0 0 2-2zm-6 0h-2a2 2 0 0 0 2 2zm0-2h2a2 2 0 0 0-2-2zm-6 0v-2a2 2 0 0 0-2 2zm0 2v2a2 2 0 0 0 2-2zM36 2c-9.941 0-18 8.059-18 18h4c0-7.732 6.268-14 14-14zm12 0H36v4h12zm2 4V4h-4v2zm-2 2h6V4h-6zm4-4v2h4V4zm8-2h-6v4h6zm2 18V4h-4v16zm-8 2h6v-4h-6zm-2-4v2h4v-2zm2-2h-6v4h6zm-4 4v-2h-4v2zm-30 2h28v-4H20z" />
+	</g>
+</svg>
