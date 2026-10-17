@@ -5,6 +5,7 @@
 - [Desktop](#desktop-app)
 - [Android](#android-app)
 - [iOS](#ios-app)
+- [Sailfish OS](#sailfish-os-app)
 - [Map data and styles](#map-data-and-styles)
 
 ## System requirements
@@ -682,6 +683,64 @@ Select "OMaps" product scheme.
 - Choose either "iPhone _" or "iPad _" to run in the Simulator.
 
 Compile and run the project ("Product" → "Run").
+
+## Sailfish OS app
+
+### Preparing
+
+Ensure that you have at least 30GB of free space.
+
+Install the [Sailfish SDK](https://docs.sailfishos.org/Tools/Sailfish_SDK/) with a Sailfish OS 5.1 or newer build
+target: the core needs C++23, which the GCC of older targets can't build. The packages then run on phones with
+Sailfish OS 5.1 or newer.
+
+After [getting all sources](#getting-sources), make sure the submodules are initialized:
+
+```bash
+git submodule update --init --recursive
+```
+
+To run the app on a phone, enable developer mode on it ("Settings" → "Developer tools") and set a password
+for `devel-su`.
+
+### Building
+
+There are two packages:
+
+- `organicmaps` is the full version, with voice instructions through Speech Note or a local speech synthesizer such
+  as espeak-ng.
+- `harbour-organicmaps` is a version for the [Jolla Harbour](https://harbour.jolla.com/faq) store. It follows the
+  Harbour rules: the `harbour-` name prefix and only Harbour permissions, so it has no voice instructions.
+
+The two packages share their data and can't be installed together.
+
+List the available build targets with `sfdk tools list`, then build from the repository root, e.g. for 64-bit ARM:
+
+```bash
+sfdk -c target=SailfishOS-5.1.0.11-aarch64 -c specfile=sailfish/rpm/organicmaps.spec -c no-fix-version build -j$(nproc)
+```
+
+Use an `armv7hl` target for 32-bit phones. To build the Harbour package, append `-- --with harbour` and check it with
+the Harbour validator:
+
+```bash
+sfdk -c target=SailfishOS-5.1.0.11-aarch64 check --suites harbour RPMS/harbour-organicmaps-*.rpm
+```
+
+Generated RPMs are stored in `RPMS/`. sfdk builds in place, in the `build/` directory of the repository: a first
+build takes over an hour, rebuilds are incremental. Remove `build/` when switching targets.
+
+### Installing and running
+
+Copy the RPM to the phone and install it there:
+
+```bash
+scp RPMS/organicmaps-*.aarch64.rpm defaultuser@<phone>:/tmp/
+ssh -t defaultuser@<phone> devel-su rpm -Uvh /tmp/organicmaps-*.aarch64.rpm
+```
+
+Then start Organic Maps from the app grid. See [sailfish/README.md](../sailfish/README.md) for debugging and other
+port specifics.
 
 ## Map data and styles
 See readme for the [map generator](https://github.com/organicmaps/organicmaps/blob/master/docs/MAPS.md) and [styles](https://github.com/organicmaps/organicmaps/blob/master/docs/STYLES.md) if you need to customize the map files and styles.

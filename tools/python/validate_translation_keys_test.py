@@ -160,6 +160,21 @@ class AndroidMatcherTest(unittest.TestCase):
         self.assertEqual(match(source), {"real": 3})
 
 
+class SailfishMatcherTest(unittest.TestCase):
+    def test_qml_literals(self):
+        self.assertEqual(v._sailfish_qml_matcher('appInfo.localized("a")'), {"a": 0})
+        self.assertEqual(v._sailfish_qml_matcher("localized('b', [count])"), {"b": 0})
+
+    def test_qml_ternary(self):
+        line = 'localized(model.isVisible ? "hide_track" : "show_track")'
+        self.assertEqual(v._sailfish_qml_matcher(line), {"hide_track": 0, "show_track": 0})
+
+    def test_cpp_key_like_literals(self):
+        match = v._regex_matcher(v._SAILFISH_CPP_RE)
+        source = 'add("elevation_profile_time", value);\nQString("Organic Maps");\nGet("url");'
+        self.assertEqual(match(source), {"elevation_profile_time": 0, "url": 2})
+
+
 class PlistAndXibMatcherTest(unittest.TestCase):
     def test_plist_key(self):
         match = v._xml_matcher(v._IOS_PLIST_KEY_RE)
@@ -287,6 +302,13 @@ class StrictMatcherTest(unittest.TestCase):
             self._match("core", ".cpp", line),
             {"category_bank", "category_children"},
         )
+
+    def test_sailfish_accepts_the_qml_accessor_only(self):
+        # A misspelled key would be shown raw, as GetString() falls back to it.
+        self.assertEqual(self._match("sailfish", ".qml", 'appInfo.localized("k")'), {"k"})
+        self.assertEqual(self._match("sailfish", ".js", 'x.localized(a ? "k" : "l")'), {"k", "l"})
+        # Any lowercase literal in the C++ is only a possible key.
+        self.assertEqual(self._match("sailfish", ".cpp", 'add("k", value);'), set())
 
     def test_android_is_not_scanned(self):
         # R.string may resolve to donottranslate.xml or a framework resource.
