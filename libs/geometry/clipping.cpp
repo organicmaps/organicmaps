@@ -35,6 +35,10 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
     return;
   }
 
+  // A common outside half-plane excludes the entire triangle.
+  if ((detail::vcode(rect, p1) & detail::vcode(rect, p2) & detail::vcode(rect, p3)) != 0)
+    return;
+
   // Half-plane cuts preserve convexity and winding. The intersection has at most
   // seven vertices; the extra slot allows a duplicate closing point.
   std::array<m2::PointD, 8> buffers[2];
