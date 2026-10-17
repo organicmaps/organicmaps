@@ -28,8 +28,10 @@ bool HasRoadFromCrossing(Roads & roads, ms::LatLon const & crossing, double bear
 
 std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon const & corner, double fromBearingDeg,
                                                     double toBearingDeg, double searchM, std::string * whyNot,
-                                                    bool onlyOne)
+                                                    bool onlyOne, std::vector<ms::LatLon> * fittingOut)
 {
+  if (fittingOut)
+    fittingOut->clear();
   auto const no = [whyNot](std::string const & why)
   {
     if (whyNot)
@@ -49,7 +51,9 @@ std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon co
 
   std::optional<ms::LatLon> best;
   double bestAlong = std::numeric_limits<double>::max();
-  std::vector<ms::LatLon> fitting;
+  // The crossings that fit with how far along the road they are.
+  std::vector<std::pair<double, ms::LatLon>> fitting;
+  bool const all = onlyOne || fittingOut;
   auto const crossings = roads.FindCrossings(corner, radius);
   size_t aside = 0;
   size_t noRoadBack = 0;
@@ -66,7 +70,7 @@ std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon co
       ++aside;
       continue;
     }
-    if (along >= bestAlong && !onlyOne)
+    if (along >= bestAlong && !all)
       continue;
     if (!HasRoadFromCrossing(roads, crossing, fromBearingDeg + 180))
     {
@@ -78,16 +82,22 @@ std::optional<ms::LatLon> TurnMatcher::FindCrossing(Roads & roads, ms::LatLon co
       ++noRoadAhead;
       continue;
     }
-    fitting.push_back(crossing);
+    fitting.emplace_back(along, crossing);
     if (along >= bestAlong)
       continue;
     best = crossing;
     bestAlong = along;
   }
+  if (fittingOut)
+  {
+    std::sort(fitting.begin(), fitting.end(), [](auto const & a, auto const & b) { return a.first < b.first; });
+    for (auto const & item : fitting)
+      fittingOut->push_back(item.second);
+  }
   if (best && onlyOne)
   {
-    for (auto const & crossing : fitting)
-      if (Distance(crossing, *best) > kSameCrossingM)
+    for (auto const & item : fitting)
+      if (Distance(item.second, *best) > kSameCrossingM)
         return no(std::to_string(fitting.size()) + " crossings fit, and the car was not on a road to tell which");
   }
   if (!best)

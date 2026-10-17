@@ -83,6 +83,9 @@ struct Status
   bool m_hasInertialPosition = false;
   // The mark waits for the user to put it on a road: the road is lost. It is to be noticed at once.
   bool m_roadLost = false;
+  // How many other roads the car may be on after a turn that fitted several, see InertialNavigator::kMaxMarks: the
+  // user can switch the mark to them with SwitchMark().
+  int m_otherMarks = 0;
 
   // The firmware of the ESP32 sensor box, empty until the box tells it.
   std::string m_boxFirmware;
@@ -234,6 +237,9 @@ public:
   /// Turns the car around on its road: the car looks one of the two ways of the road, the user chooses the
   /// other one.
   void ReverseDirection();
+  /// Shows the car on the next of the other roads it may be on, see Status::m_otherMarks, and rebuilds the route
+  /// from there. The road it was shown on stays one of them.
+  void SwitchMark();
   /// Ignores GPS as if it were jammed, e.g. to test the navigation without GPS where GPS works. It is not
   /// kept after a restart, so it is not left on by mistake.
   void SetGpsDisabled(bool disabled);
@@ -272,6 +278,7 @@ private:
   void OnInertialLocation(Fix const & fix) override;
   void OnRoadLost() override;
   void OnTurnsReversed() override;
+  void OnMarkSwitched() override;
 
   static PositionSource SourceOf(Fix const & fix);
   int64_t AgeMs(Fix const & fix) const;
