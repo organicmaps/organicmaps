@@ -7,7 +7,6 @@
 #import "MWMOsmAuthAlert.h"
 #import "MWMOsmReauthAlert.h"
 #import "MWMPlaceDoesntExistAlert.h"
-#import "MWMRoutingDisclaimerAlert.h"
 
 #import "SwiftBridge.h"
 
@@ -21,11 +20,6 @@
 + (MWMAlert *)point2PointAlertWithOkBlock:(MWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
 {
   return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];
-}
-
-+ (MWMAlert *)routingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block
-{
-  return [MWMRoutingDisclaimerAlert alertWithOkBlock:block];
 }
 
 + (MWMAlert *)disabledLocationAlert
