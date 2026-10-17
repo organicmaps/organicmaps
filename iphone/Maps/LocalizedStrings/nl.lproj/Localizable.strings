@@ -611,6 +611,9 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Meer";
+
+/* Toolbar title of the Edit Bookmark screen. */
+"placepage_edit_bookmark_button" = "Bewerk bladwijzer";
 "placepage_personal_notes_hint" = "Persoonlijke aantekeningen (tekst of html)";
 "editor_comment_hint" = "Reactie…";
 "editor_reset_edits_message" = "Alle lokale wijzigingen negeren?";
@@ -1005,6 +1008,7 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Route is leeg - niets om op te slaan";
+"edit_track" = "Route bewerken";
 "downloader_updating_ios" = "Updaten";
 
 /* Autoupdate dialog on start */
@@ -1183,6 +1187,9 @@
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "Verplaats en zoom in of uit op de kaart om het kruis te plaatsen";
 
+/* Track recording notification button: stops the recording and saves the recorded track. */
+"track_recording_stop_and_save" = "Stoppen en opslaan";
+
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Route omkeren";
 
@@ -1233,3 +1240,18 @@
 
 /* VoiceOver value of the expandable opening-hours row when all days are shown. */
 "placepage_hours_expanded" = "Other days shown";
+
+/* VoiceOver label for the translation button next to an OpenStreetMap description in the iOS place page. */
+"placepage_translate_description" = "Translate description";
+
+/* VoiceOver label for the elevation profile graph on the iOS track place page. */
+"placepage_elevation_profile" = "Elevation profile";
+
+/* VoiceOver label for the button that discards an active track recording in the iOS place page. */
+"placepage_discard_track_recording" = "Discard track recording";
+
+/* VoiceOver label for opening the track selector in the iOS place page header. */
+"placepage_select_track" = "Select track";
+
+/* VoiceOver value for a point on the iOS elevation profile. First %@ is distance along the track, second %@ is altitude. */
+"placepage_elevation_point" = "Distance %@, elevation %@";

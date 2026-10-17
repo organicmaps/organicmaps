@@ -611,6 +611,9 @@
 "day" = "天";
 "second" = "秒";
 "placepage_more_button" = "更多";
+
+/* Toolbar title of the Edit Bookmark screen. */
+"placepage_edit_bookmark_button" = "編輯書籤";
 "placepage_personal_notes_hint" = "個人備註（文字或 html）";
 "editor_comment_hint" = "備註…";
 "editor_reset_edits_message" = "重設所有本機變更？";
@@ -1005,6 +1008,7 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "軌跡為空 - 沒有可保存的內容";
+"edit_track" = "編輯軌跡";
 "downloader_updating_ios" = "更新";
 
 /* Autoupdate dialog on start */
@@ -1183,6 +1187,9 @@
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "移動並縮放地圖以定位十字";
 
+/* Track recording notification button: stops the recording and saves the recorded track. */
+"track_recording_stop_and_save" = "停止並儲存";
+
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "反轉路線";
 
@@ -1233,3 +1240,18 @@
 
 /* VoiceOver value of the expandable opening-hours row when all days are shown. */
 "placepage_hours_expanded" = "Other days shown";
+
+/* VoiceOver label for the translation button next to an OpenStreetMap description in the iOS place page. */
+"placepage_translate_description" = "Translate description";
+
+/* VoiceOver label for the elevation profile graph on the iOS track place page. */
+"placepage_elevation_profile" = "Elevation profile";
+
+/* VoiceOver label for the button that discards an active track recording in the iOS place page. */
+"placepage_discard_track_recording" = "Discard track recording";
+
+/* VoiceOver label for opening the track selector in the iOS place page header. */
+"placepage_select_track" = "Select track";
+
+/* VoiceOver value for a point on the iOS elevation profile. First %@ is distance along the track, second %@ is altitude. */
+"placepage_elevation_point" = "Distance %@, elevation %@";

@@ -611,6 +611,9 @@
 "day" = "ມື້";
 "second" = "ວິ";
 "placepage_more_button" = "ເພີ່ມເຕີມ";
+
+/* Toolbar title of the Edit Bookmark screen. */
+"placepage_edit_bookmark_button" = "ແກ້ໄຂບຸກມາກ";
 "placepage_personal_notes_hint" = "ບັນທຶກສ່ວນຕົວ (ຂໍ້ຄວາມ ຫຼື html)";
 "editor_comment_hint" = "ສະແດງຄວາມຄິດເຫັນ…";
 "editor_reset_edits_message" = "ຍົກເລີກການປ່ຽນແປງພາຍໃນທັງໝົດບໍ່?";
@@ -1005,6 +1008,7 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "ເສັ້ນທາງວ່າງເປົ່າ - ບໍ່ມີຫຍັງໃຫ້ບັນທຶກ";
+"edit_track" = "ແກ້ໄຂເສັ້ນທາງ";
 "downloader_updating_ios" = "ກຳລັງອັບເດດ";
 
 /* Autoupdate dialog on start */
@@ -1183,6 +1187,9 @@
 /* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
 "choose_point_on_map_hint" = "ຍ້າຍ ແລະ ຊູມແຜນທີ່ເພື່ອວາງເຄື່ອງໝາຍບວກ";
 
+/* Track recording notification button: stops the recording and saves the recorded track. */
+"track_recording_stop_and_save" = "ຢຸດ ແລະ ບັນທຶກ";
+
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "ກັບທິດທາງເສັ້ນທາງ";
 
@@ -1233,3 +1240,18 @@
 
 /* VoiceOver value of the expandable opening-hours row when all days are shown. */
 "placepage_hours_expanded" = "Other days shown";
+
+/* VoiceOver label for the translation button next to an OpenStreetMap description in the iOS place page. */
+"placepage_translate_description" = "Translate description";
+
+/* VoiceOver label for the elevation profile graph on the iOS track place page. */
+"placepage_elevation_profile" = "Elevation profile";
+
+/* VoiceOver label for the button that discards an active track recording in the iOS place page. */
+"placepage_discard_track_recording" = "Discard track recording";
+
+/* VoiceOver label for opening the track selector in the iOS place page header. */
+"placepage_select_track" = "Select track";
+
+/* VoiceOver value for a point on the iOS elevation profile. First %@ is distance along the track, second %@ is altitude. */
+"placepage_elevation_point" = "Distance %@, elevation %@";
