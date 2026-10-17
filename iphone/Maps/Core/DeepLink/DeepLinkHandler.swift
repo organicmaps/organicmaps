@@ -1,18 +1,17 @@
 @objc @objcMembers class DeepLinkHandler: NSObject {
   static let shared = DeepLinkHandler()
 
-  private(set) var isLaunchedByDeepLink = false
   private(set) var hasPendingColdLaunchDeepLink = false
   private(set) var url: URL?
+  private var pendingFeatureHighlightData: DeepLinkInAppFeatureHighlightData?
 
   override private init() {
     super.init()
   }
 
-  /// Keeps the last link received during a cold launch. It is handled by handleDeepLinkAndReset()
+  /// Keeps the last link received during a cold launch. It is handled by handlePendingDeepLink()
   /// once the map is ready, because the place page and viewport animations need an initialized map.
   func prepareForColdLaunch(url: URL) {
-    isLaunchedByDeepLink = true
     hasPendingColdLaunchDeepLink = true
     self.url = url
   }
@@ -30,8 +29,6 @@
     }
 
     self.url = url
-    // Set before handling: handleDeepLink() opens the screen that reads getInAppFeatureHighlightData().
-    isLaunchedByDeepLink = true
 
     // A link arriving before the map is ready supersedes the previous pending link.
     guard !hasPendingColdLaunchDeepLink else { return true }
@@ -46,9 +43,9 @@
   }
 
   func reset() {
-    isLaunchedByDeepLink = false
     hasPendingColdLaunchDeepLink = false
     url = nil
+    pendingFeatureHighlightData = nil
   }
 
   func getBackUrl() -> String? {
@@ -58,21 +55,18 @@
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
-    guard isLaunchedByDeepLink, let url else { return nil }
-    // Highlight the feature once, but keep the URL: goBack() still reads getBackUrl() from it.
-    isLaunchedByDeepLink = false
-    return DeepLinkInAppFeatureHighlightData(DeepLinkParser.parseAndSetApiURL(url))
+    defer { pendingFeatureHighlightData = nil }
+    return pendingFeatureHighlightData
   }
 
-  func handleDeepLinkAndReset() -> Bool {
-    guard let url else {
-      LOG(.error, "handleDeepLink is called with nil URL")
+  func handlePendingDeepLink() -> Bool {
+    guard hasPendingColdLaunchDeepLink, let url else {
+      LOG(.error, "handlePendingDeepLink is called without a pending URL")
       return false
     }
 
-    let handled = handleDeepLink(url: url)
-    reset()
-    return handled
+    hasPendingColdLaunchDeepLink = false
+    return handleDeepLink(url: url)
   }
 
   private func handleFileImport(url: URL, openInPlace: Bool) -> Bool {
@@ -127,6 +121,7 @@
 
   private func handleDeepLink(url: URL) -> Bool {
     LOG(.info, "handleDeepLink: \(url)")
+    pendingFeatureHighlightData = nil
 
     var url = url
     if #available(iOS 18.4, *), let omURL = GeoNavigationToOMURLConverter.convert(url) {
@@ -171,9 +166,11 @@
       }
       return true
     case .menu:
+      pendingFeatureHighlightData = DeepLinkInAppFeatureHighlightData(urlType)
       MapsAppDelegate.theApp().mapViewController.openMenu()
       return true
     case .settings:
+      pendingFeatureHighlightData = DeepLinkInAppFeatureHighlightData(urlType)
       MapsAppDelegate.theApp().mapViewController.openSettings()
       return true
     case .crosshair:
