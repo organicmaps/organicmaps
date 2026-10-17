@@ -743,10 +743,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
     ref_ptr<SetTileBackgroundModeMessage> msg = message;
     m_readManager->SetBackgroundMode(msg->GetMode(), msg->GetAreaOpacity());
-    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<SetTileBackgroundModeMessage>(msg->GetMode(), msg->GetAreaOpacity(),
-                                                                           m_readManager->IsModeChanged()),
-                              MessagePriority::Normal);
+    m_commutator->PostMessage(
+        ThreadsCommutator::RenderThread,
+        make_unique_dp<SetTileBackgroundModeMessage>(msg->GetMode(), msg->GetAreaOpacity(),
+                                                     m_readManager->IsModeChanged(), msg->NeedResetImages()),
+        MessagePriority::Normal);
     break;
   }
 

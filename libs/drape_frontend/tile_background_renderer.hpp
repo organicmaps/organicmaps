@@ -45,7 +45,7 @@ public:
                                  ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
                                  dp::BackgroundMode mode, m2::RectF const & rect);
 
-  void SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode);
+  void SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode, bool resetImages = false);
   dp::BackgroundMode GetBackgroundMode() const;
 
 private:

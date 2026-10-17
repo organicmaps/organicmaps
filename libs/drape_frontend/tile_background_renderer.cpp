@@ -310,9 +310,10 @@ void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::Graphics
   m_tiles.clear();
 }
 
-void TileBackgroundRenderer::SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode)
+void TileBackgroundRenderer::SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode,
+                                               bool resetImages /* = false */)
 {
-  if (m_currentMode == mode)
+  if (m_currentMode == mode && !resetImages)
     return;
 
   m_currentMode = mode;

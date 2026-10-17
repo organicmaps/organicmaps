@@ -999,10 +999,14 @@ void DrapeEngine::AddTileBackgroundImage(df::TileKey const & tileKey, std::strin
       MessagePriority::Normal);
 }
 
-void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity /* = 0.5f */)
+void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity /* = 0.5f */,
+                                        bool resetImages /* = false */)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<SetTileBackgroundModeMessage>(mode, satelliteAreaOpacity),
-                                  MessagePriority::Normal);
+  // Source changes and image deliveries are posted from GUI. Keeping both messages Normal in
+  // the backend and frontend queues puts every old upload before its reset.
+  m_threadCommutator->PostMessage(
+      ThreadsCommutator::ResourceUploadThread,
+      make_unique_dp<SetTileBackgroundModeMessage>(mode, satelliteAreaOpacity, false /* needInvalidate */, resetImages),
+      MessagePriority::Normal);
 }
 }  // namespace df

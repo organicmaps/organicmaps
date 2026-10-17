@@ -77,9 +77,9 @@ public:
   // request so it is neither bound nor uploaded once it finishes.
   void CancelTile(df::TileKey const & tileKey, dp::BackgroundMode mode);
 
-  // Live-updates the URL and cache cap (thread-safe). A URL change clears the disk cache,
-  // since cached z/x/y now map to a different source.
-  void Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes);
+  // Called on the GUI thread. A URL change invalidates pending requests and returns true so the
+  // caller can reset renderer bindings. Source-specific disk entries share the same cache cap.
+  bool Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes);
 
 private:
   struct State;

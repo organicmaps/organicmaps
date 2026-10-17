@@ -1036,7 +1036,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetTileBackgroundMode:
   {
     ref_ptr<SetTileBackgroundModeMessage> msg = message;
-    m_tileBackgroundRenderer->SetBackgroundMode(m_context, msg->GetMode());
+    m_tileBackgroundRenderer->SetBackgroundMode(m_context, msg->GetMode(), msg->NeedResetImages());
     if (msg->NeedInvalidate())
       InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
     break;

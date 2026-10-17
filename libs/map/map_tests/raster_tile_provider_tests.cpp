@@ -7,8 +7,10 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
+#include "coding/blake3.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/hex.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
@@ -32,6 +34,8 @@ using namespace std::chrono_literals;
 using HttpClient = platform::HttpClient;
 auto constexpr kMode = dp::BackgroundMode::Satellite;
 df::TileKey const kTile(1, 1, 10);
+char constexpr kUrlA[] = "https://tiles.test/{z}/{x}/{y}.png";
+char constexpr kUrlB[] = "https://other.test/{z}/{x}/{y}.png?key=test-key";
 
 // A red RGBA pixel, encoded as PNG. Both the HTTP and disk-cache paths must decode it.
 uint8_t constexpr kPng[] = {0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x48,
@@ -40,12 +44,18 @@ uint8_t constexpr kPng[] = {0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00
                             0x9c, 0x63, 0xf8, 0xcf, 0xc0, 0xf0, 0x1f, 0x00, 0x05, 0x00, 0x01, 0xff, 0x89, 0x99,
                             0x3d, 0x1d, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82};
 
-HttpClient::Result Success()
+uint8_t constexpr kGreenPng[] = {0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x48,
+                                 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x08, 0x06, 0x00, 0x00,
+                                 0x00, 0x1f, 0x15, 0xc4, 0x89, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x44, 0x41, 0x54, 0x78,
+                                 0x9c, 0x63, 0x60, 0xf8, 0xcf, 0xf0, 0x1f, 0x00, 0x04, 0x01, 0x01, 0xff, 0x71, 0xeb,
+                                 0x47, 0xe5, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82};
+
+HttpClient::Result Success(bool green = false)
 {
   HttpClient::Result result;
   result.m_success = true;
   result.m_errorCode = 200;
-  result.m_serverResponse.assign(reinterpret_cast<char const *>(kPng), sizeof(kPng));
+  result.m_serverResponse.assign(reinterpret_cast<char const *>(green ? kGreenPng : kPng), sizeof(kPng));
   return result;
 }
 
@@ -81,15 +91,16 @@ void DrainGui()
   TEST(*drained, ());
 }
 
-void CompleteOnTransportThread(HttpClient::CompletionHandler handler)
+void CompleteOnTransportThread(HttpClient::CompletionHandler handler, bool green = false)
 {
-  std::thread worker([handler = std::move(handler)] { handler(Success()); });
+  std::thread worker([handler = std::move(handler), green] { handler(Success(green)); });
   worker.join();
 }
 
 struct Delivery
 {
   df::TileKey m_tile;
+  std::string m_uid;
   uint32_t m_width;
   uint32_t m_height;
   std::vector<uint8_t> m_rgba;
@@ -104,10 +115,10 @@ public:
     , m_cleanup(base::JoinPath(GetPlatform().WritableDir(), m_subdir))
   {}
 
-  RasterTileProvider::Params Params(uint64_t maxCacheBytes = 1024) const
+  RasterTileProvider::Params Params(uint64_t maxCacheBytes = 1024, std::string const & url = kUrlA) const
   {
     RasterTileProvider::Params params;
-    params.m_urlTemplate = "https://tiles.test/{z}/{x}/{y}.png";
+    params.m_urlTemplate = url;
     params.m_cacheSubdir = m_subdir;
     params.m_maxCacheBytes = maxCacheBytes;
     return params;
@@ -115,37 +126,67 @@ public:
 
   RasterTileProvider::TReadyFn Ready()
   {
-    return [this](df::TileKey const & tile, dp::BackgroundMode, std::string const &, uint32_t w, uint32_t h,
+    return [this](df::TileKey const & tile, dp::BackgroundMode, std::string const & uid, uint32_t w, uint32_t h,
                   m2::RectF const &, std::vector<uint8_t> && rgba)
-    { m_deliveries.push_back({tile, w, h, std::move(rgba), std::this_thread::get_id()}); };
+    { m_deliveries.push_back({tile, uid, w, h, std::move(rgba), std::this_thread::get_id()}); };
   }
 
   RasterTileProvider::TDownloadFn Download()
   {
     // Only the serial File queue appends; tests read after DrainFile synchronizes with it.
-    return [this](std::string const &, HttpClient::CompletionHandler handler)
-    { m_pending.push_back(std::move(handler)); };
+    return [this](std::string const & url, HttpClient::CompletionHandler handler)
+    {
+      m_urls.push_back(url);
+      m_pending.push_back(std::move(handler));
+    };
   }
 
-  std::unique_ptr<RasterTileProvider> MakeProvider(uint64_t maxCacheBytes = 1024)
+  std::unique_ptr<RasterTileProvider> MakeProvider(uint64_t maxCacheBytes = 1024, std::string const & url = kUrlA)
   {
-    return std::make_unique<RasterTileProvider>(Params(maxCacheBytes), Ready(), Download());
+    return std::make_unique<RasterTileProvider>(Params(maxCacheBytes, url), Ready(), Download());
   }
 
-  std::string CachePath() const { return base::JoinPath(GetPlatform().WritableDir(), m_subdir, "9_257_254.tile"); }
+  std::string CacheDir() const { return base::JoinPath(GetPlatform().WritableDir(), m_subdir); }
 
-  void CheckDelivery(size_t index = 0) const
+  // Fixtures that seed a known entry use the cache filename protocol without inspecting provider state.
+  std::string CachePath() const
+  {
+    return base::JoinPath(CacheDir(), ToHex(coding::Blake3::CalculateForString(kUrlA)) + "_9_257_254.tile");
+  }
+
+  Platform::FilesList CacheFiles() const
+  {
+    Platform::FilesList files;
+    Platform::GetFilesByRegExp(CacheDir(), ".*\\.tile$", files);
+    return files;
+  }
+
+  uint64_t CacheBytes() const
+  {
+    uint64_t total = 0;
+    for (auto const & name : CacheFiles())
+    {
+      uint64_t size = 0;
+      TEST(Platform::GetFileSizeByFullPath(base::JoinPath(CacheDir(), name), size), ());
+      total += size;
+    }
+    return total;
+  }
+
+  void CheckDelivery(size_t index = 0, bool green = false) const
   {
     TEST_LESS(index, m_deliveries.size(), ());
     auto const & delivered = m_deliveries[index];
     TEST_EQUAL(delivered.m_width, 1, ());
     TEST_EQUAL(delivered.m_height, 1, ());
-    TEST_EQUAL(delivered.m_rgba, (std::vector<uint8_t>{255, 0, 0, 255}), ());
+    TEST_EQUAL(delivered.m_rgba, (green ? std::vector<uint8_t>{0, 255, 0, 255} : std::vector<uint8_t>{255, 0, 0, 255}),
+               ());
     TEST(delivered.m_thread == std::this_thread::get_id(), ());
   }
 
   std::vector<Delivery> m_deliveries;
   std::vector<HttpClient::CompletionHandler> m_pending;
+  std::vector<std::string> m_urls;
 
 private:
   std::string const m_subdir;
@@ -404,5 +445,273 @@ UNIT_TEST(RasterTileProvider_FrameworkRecreationDropsOldGuiDelivery)
   TEST_EQUAL(f.m_deliveries.size(), 1, ());
   TEST_EQUAL(f.m_deliveries[0].m_tile.m_generation, 42, ());
   f.CheckDelivery();
+}
+
+UNIT_TEST(RasterTileProvider_SourceChangeRejectsOldHttpAndCacheWrite)
+{
+  for (bool const cancelled : {false, true})
+  {
+    Fixture f(cancelled ? "cancelled_source_http" : "pending_source_http");
+    Platform::ThreadRunner runner;
+    auto provider = f.MakeProvider();
+    TEST(provider->RequestTile(kTile, kMode), ());
+    DrainFile();
+    TEST_EQUAL(f.m_pending.size(), 1, ());
+    if (cancelled)
+      provider->CancelTile(kTile, kMode);
+    TEST(provider->Reconfigure(kUrlB, 1024), ());
+    TEST(provider->RequestTile(kTile, kMode), ());
+    DrainFile();
+    TEST_EQUAL(f.m_pending.size(), 2, ());
+    TEST_EQUAL(f.m_urls[1], "https://other.test/9/257/254.png?key=test-key", ());
+
+    CompleteOnTransportThread(std::move(f.m_pending[0]));
+    DrainGui();
+    TEST(f.m_deliveries.empty(), ());
+    TEST(f.CacheFiles().empty(), ("The obsolete success must not populate the disk cache"));
+    CompleteOnTransportThread(std::move(f.m_pending[1]), true /* green */);
+    DrainGui();
+    TEST_EQUAL(f.m_deliveries.size(), 1, ());
+    f.CheckDelivery(0, true /* green */);
+    TEST(f.m_deliveries[0].m_uid.find("test-key") == std::string::npos, ());
+
+    provider.reset();
+    provider = f.MakeProvider();
+    TEST(provider->RequestTile(kTile, kMode), ());
+    DrainFile();
+    TEST_EQUAL(f.m_pending.size(), 3, ("Returning to A must not find the rejected old response"));
+  }
+}
+
+UNIT_TEST(RasterTileProvider_SourceChangeRejectsQueuedGuiDelivery)
+{
+  Fixture f("source_gui");
+  Platform::ThreadRunner runner;
+  auto provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  CompleteOnTransportThread(std::move(f.m_pending[0]));
+  TEST(f.m_deliveries.empty(), ());
+
+  TEST(provider->Reconfigure(kUrlB, 1024), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  DrainGui();
+  TEST(f.m_deliveries.empty(), ());
+  TEST_EQUAL(f.m_pending.size(), 2, ("B must download its own bytes"));
+  CompleteOnTransportThread(std::move(f.m_pending[1]), true /* green */);
+  DrainGui();
+  f.CheckDelivery(0, true /* green */);
+
+  TEST(provider->Reconfigure(kUrlA, 1024), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  DrainGui();
+  TEST_EQUAL(f.m_deliveries.size(), 2, ());
+  TEST_EQUAL(f.m_pending.size(), 2, ("A was cached before the switch and remains reusable"));
+  f.CheckDelivery(1);
+  TEST_NOT_EQUAL(f.m_deliveries[0].m_uid, f.m_deliveries[1].m_uid, ());
+}
+
+UNIT_TEST(RasterTileProvider_ReconstructionUsesStableSourceIdentity)
+{
+  Fixture f("reconstructed_source");
+  Platform::ThreadRunner runner;
+  auto provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  CompleteOnTransportThread(std::move(f.m_pending[0]));
+  DrainGui();
+  f.CheckDelivery();
+  auto const uidA = f.m_deliveries[0].m_uid;
+
+  provider.reset();
+  provider = f.MakeProvider(1024, kUrlB);
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  DrainGui();
+  TEST_EQUAL(f.m_deliveries.size(), 1, ("A's persistent cache must not satisfy a new B provider"));
+  TEST_EQUAL(f.m_pending.size(), 2, ());
+  CompleteOnTransportThread(std::move(f.m_pending[1]), true /* green */);
+  DrainGui();
+  f.CheckDelivery(1, true /* green */);
+  TEST_NOT_EQUAL(f.m_deliveries[1].m_uid, uidA, ());
+
+  provider.reset();
+  provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  DrainGui();
+  TEST_EQUAL(f.m_pending.size(), 2, ("The same source reuses its cache across reconstruction"));
+  TEST_EQUAL(f.m_deliveries.size(), 3, ());
+  TEST_EQUAL(f.m_deliveries[2].m_uid, uidA, ());
+  f.CheckDelivery(2);
+}
+
+UNIT_TEST(RasterTileProvider_RapidSourceChangesRejectEarlierRequests)
+{
+  Fixture f("source_roundtrip");
+  Platform::ThreadRunner runner;
+  auto provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  TEST(provider->Reconfigure(kUrlB, 1024), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  TEST(provider->Reconfigure(kUrlA, 1024), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  TEST_EQUAL(f.m_pending.size(), 3, ());
+
+  CompleteOnTransportThread(std::move(f.m_pending[2]));
+  CompleteOnTransportThread(std::move(f.m_pending[1]), true /* green */);
+  CompleteOnTransportThread(std::move(f.m_pending[0]), true /* green */);
+  DrainGui();
+  TEST_EQUAL(f.m_deliveries.size(), 1, ());
+  f.CheckDelivery();
+
+  provider.reset();
+  provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  DrainGui();
+  TEST_EQUAL(f.m_pending.size(), 3, ());
+  TEST_EQUAL(f.m_deliveries.size(), 2, ());
+  f.CheckDelivery(1);
+}
+
+UNIT_TEST(RasterTileProvider_SourceChangeRejectsQueuedFileRead)
+{
+  Fixture f("source_file");
+  Platform::ThreadRunner runner;
+  auto provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  CompleteOnTransportThread(std::move(f.m_pending[0]));
+  DrainGui();
+
+  auto release = std::make_shared<std::promise<void>>();
+  auto released = release->get_future().share();
+  TEST(GetPlatform().RunTask(Platform::Thread::File, [released] { released.wait(); }).m_isSuccess, ());
+  SCOPE_GUARD(unblock, [release] { release->set_value(); });
+  TEST(provider->RequestTile(kTile, kMode), ());
+  TEST(provider->Reconfigure(kUrlB, 1024), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  release->set_value();
+  unblock.release();
+  DrainFile();
+  DrainGui();
+
+  TEST_EQUAL(f.m_deliveries.size(), 1, ("The queued A read must not deliver its cached pixel"));
+  TEST_EQUAL(f.m_pending.size(), 2, ());
+  CompleteOnTransportThread(std::move(f.m_pending[1]), true /* green */);
+  DrainGui();
+  TEST_EQUAL(f.m_deliveries.size(), 2, ());
+  f.CheckDelivery(1, true /* green */);
+}
+
+UNIT_TEST(RasterTileProvider_SameUrlAndCapChangesKeepRequestsAndCache)
+{
+  Fixture f("same_source");
+  Platform::ThreadRunner runner;
+  auto provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  TEST(!provider->Reconfigure(kUrlA, sizeof(kPng)), ());
+  DrainFile();
+  TEST_EQUAL(f.m_pending.size(), 1, ());
+  CompleteOnTransportThread(std::move(f.m_pending[0]));
+  DrainGui();
+  TEST_EQUAL(f.m_deliveries.size(), 1, ());
+
+  TEST(!provider->Reconfigure(kUrlA, 1024), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  DrainGui();
+  TEST_EQUAL(f.m_pending.size(), 1, ());
+  TEST_EQUAL(f.m_deliveries.size(), 2, ());
+  TEST_EQUAL(f.m_deliveries[0].m_uid, f.m_deliveries[1].m_uid, ());
+  f.CheckDelivery(1);
+
+  TEST(!provider->Reconfigure(kUrlA, 0), ());
+  TEST(f.CacheFiles().empty(), ("A cap-only change must still evict disk files"));
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  TEST_EQUAL(f.m_pending.size(), 2, ());
+}
+
+UNIT_TEST(RasterTileProvider_GlobalCapIncludesLegacyAndOtherSources)
+{
+  Fixture f("global_source_cap");
+  Platform::ThreadRunner runner;
+  TEST(Platform::MkDirRecursively(f.CacheDir()), ());
+  for (auto const & name : {"9_257_254.tile", "another_source.tile"})
+  {
+    FileWriter writer(base::JoinPath(f.CacheDir(), name));
+    writer.Write(kPng, sizeof(kPng));
+  }
+  auto provider = f.MakeProvider(3 * sizeof(kPng));
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  TEST_EQUAL(f.m_pending.size(), 1, ("Legacy coordinates cannot identify A's source"));
+  CompleteOnTransportThread(std::move(f.m_pending[0]));
+  DrainGui();
+  TEST_EQUAL(f.CacheBytes(), 3 * sizeof(kPng), ());
+
+  TEST(provider->Reconfigure(kUrlB, 4 * sizeof(kPng)), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  CompleteOnTransportThread(std::move(f.m_pending[1]), true /* green */);
+  DrainGui();
+  TEST_EQUAL(f.CacheBytes(), 4 * sizeof(kPng), ());
+  TEST(!provider->Reconfigure(kUrlB, sizeof(kPng)), ());
+  TEST_EQUAL(f.CacheBytes(), sizeof(kPng), ());
+  TEST_EQUAL(f.CacheFiles().size(), 1, ());
+
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  DrainGui();
+  TEST_EQUAL(f.m_pending.size(), 2, ("B is the most recent entry and must survive the smaller cap"));
+  f.CheckDelivery(2, true /* green */);
+  TEST(provider->Reconfigure(kUrlA, sizeof(kPng)), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  TEST_EQUAL(f.m_pending.size(), 3, ("The same global cap must have evicted A"));
+}
+
+UNIT_TEST(RasterTileProvider_SourceChangeBeforeInitialScanKeepsGlobalCap)
+{
+  Fixture f("source_before_scan");
+  Platform::ThreadRunner runner;
+  auto provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  CompleteOnTransportThread(std::move(f.m_pending[0]));
+  DrainGui();
+  provider.reset();
+  {
+    FileWriter writer(base::JoinPath(f.CacheDir(), "9_257_254.tile"));
+    writer.Write(kPng, sizeof(kPng));
+  }
+
+  auto release = std::make_shared<std::promise<void>>();
+  auto released = release->get_future().share();
+  TEST(GetPlatform().RunTask(Platform::Thread::File, [released] { released.wait(); }).m_isSuccess, ());
+  SCOPE_GUARD(unblock, [release] { release->set_value(); });
+  provider = f.MakeProvider();
+  TEST(provider->Reconfigure(kUrlB, sizeof(kPng)), ());
+  TEST(provider->RequestTile(kTile, kMode), ());
+  release->set_value();
+  unblock.release();
+  DrainFile();
+  DrainGui();
+
+  TEST_EQUAL(f.CacheBytes(), sizeof(kPng), ("The delayed scan must include legacy and A entries"));
+  TEST_EQUAL(f.m_deliveries.size(), 1, ());
+  TEST_EQUAL(f.m_pending.size(), 2, ());
+  CompleteOnTransportThread(std::move(f.m_pending[1]), true /* green */);
+  DrainGui();
+  TEST_EQUAL(f.CacheFiles().size(), 1, ("No pre-scan entry may escape the shared LRU cap"));
+  TEST_EQUAL(f.CacheBytes(), sizeof(kPng), ());
+  f.CheckDelivery(1, true /* green */);
 }
 }  // namespace raster_tile_provider_tests

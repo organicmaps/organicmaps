@@ -1532,10 +1532,12 @@ private:
 class SetTileBackgroundModeMessage : public Message
 {
 public:
-  SetTileBackgroundModeMessage(dp::BackgroundMode mode, float areaOpacity, bool needInvalidate = false)
+  SetTileBackgroundModeMessage(dp::BackgroundMode mode, float areaOpacity, bool needInvalidate = false,
+                               bool resetImages = false)
     : m_mode(mode)
     , m_areaOpacity(areaOpacity)
     , m_needInvalidate(needInvalidate)
+    , m_resetImages(resetImages)
   {}
 
   Type GetType() const override { return Type::SetTileBackgroundMode; }
@@ -1543,11 +1545,13 @@ public:
   dp::BackgroundMode GetMode() const { return m_mode; }
   float GetAreaOpacity() const { return m_areaOpacity; }
   bool NeedInvalidate() const { return m_needInvalidate; }
+  bool NeedResetImages() const { return m_resetImages; }
 
 private:
   dp::BackgroundMode m_mode;
   float m_areaOpacity;
   bool m_needInvalidate;
+  bool m_resetImages;
 };
 
 class AssignTileBackgroundImageMessage : public Message

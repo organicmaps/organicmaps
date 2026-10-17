@@ -232,6 +232,43 @@ UNIT_CLASS_TEST(TileBackgroundRendererTest, ModeChangeDiscardsLateUploads)
   CheckNoNewReads(Row(0, 2));
 }
 
+UNIT_CLASS_TEST(TileBackgroundRendererTest, SameModeSourceResetReleasesImagesAndRerequestsTiles)
+{
+  UpdateViewport(Row(0, 3));
+  auto const bound = Deliver(TileKey(0, 0, 17), "source-a/bound");
+  auto const cached = Deliver(TileKey(10, 0, 17), "source-a/cached");
+
+  // An A upload already accepted on GUI reaches the frontend before the source reset.
+  auto const queued = Deliver(TileKey(1, 0, 17), "source-a/queued");
+  m_reads.clear();
+  m_renderer.SetBackgroundMode(GetContext(), dp::BackgroundMode::Satellite, true /* resetImages */);
+
+  TEST(!m_pool.m_live.contains(bound), ());
+  TEST(!m_pool.m_live.contains(cached), ());
+  TEST(!m_pool.m_live.contains(queued), ("Queued source-A imagery must also be discarded"));
+  TEST_EQUAL(m_cancels, std::vector<TileKey>{TileKey(2, 0, 17)}, ());
+  TEST_EQUAL(m_reads.size(), 3, ("The reset must start new reads for both bound and awaited tiles"));
+  auto const fresh = Deliver(TileKey(0, 0, 17), "source-b/bound");
+  TEST(m_pool.m_live.contains(fresh), ("The new source must not reuse the old source's image"));
+  CheckNoNewReads(Row(0, 3));
+}
+
+UNIT_CLASS_TEST(TileBackgroundRendererTest, SameModeAndOpacityUpdatesPreserveImagery)
+{
+  UpdateViewport(Row(0, 2));
+  auto const bound = Deliver(TileKey(0, 0, 17), "source-a/bound");
+  auto const cached = Deliver(TileKey(10, 0, 17), "source-a/cached");
+  for (float const opacity : {0.5f, 0.9f})
+  {
+    df::SetTileBackgroundModeMessage const message(dp::BackgroundMode::Satellite, opacity);
+    m_renderer.SetBackgroundMode(GetContext(), message.GetMode(), message.NeedResetImages());
+    TEST(m_pool.m_live.contains(bound), ());
+    TEST(m_pool.m_live.contains(cached), ());
+    TEST(m_cancels.empty(), ("Opacity changes must retain the outstanding read"));
+    CheckNoNewReads(Row(0, 2));
+  }
+}
+
 UNIT_CLASS_TEST(TileBackgroundRendererTest, ResetReleasesBoundCachedAndQueuedTextures)
 {
   UpdateViewport(Row(0, 20));

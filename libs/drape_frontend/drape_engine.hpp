@@ -262,7 +262,7 @@ public:
   void AddTileBackgroundImage(df::TileKey const & tileKey, std::string const & uid, uint32_t width, uint32_t height,
                               dp::TextureFormat format, dp::BackgroundMode mode, m2::RectF const & rect,
                               std::vector<uint8_t> && bytes);
-  void SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity = 0.5f);
+  void SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity = 0.5f, bool resetImages = false);
 
   dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); }
 

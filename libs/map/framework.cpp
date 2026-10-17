@@ -2839,18 +2839,19 @@ void Framework::SetBackgroundTiles(bool enabled, std::string url, uint32_t cache
   settings::Set(kBgTilesAreaOpacityKey, areaOpacityPct);
 
   bool const active = !url.empty();
+  bool sourceChanged = false;
   if (active)
   {
     auto const cacheBytes = static_cast<uint64_t>(cacheSizeMB) * 1024 * 1024;
     if (m_rasterTileProvider)
-      m_rasterTileProvider->Reconfigure(url, cacheBytes);  // clears the cache if the URL changed
+      sourceChanged = m_rasterTileProvider->Reconfigure(url, cacheBytes);
     else
       CreateBackgroundTilesProvider(url, cacheSizeMB);
   }
 
   if (m_drapeEngine)
     m_drapeEngine->SetTileBackgroundMode(active ? dp::BackgroundMode::Satellite : dp::BackgroundMode::Default,
-                                         areaOpacityPct / 100.0f);
+                                         areaOpacityPct / 100.0f, sourceChanged);
 }
 
 uint32_t Framework::GetBackgroundTilesCacheSize()

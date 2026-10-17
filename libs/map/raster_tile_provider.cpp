@@ -3,7 +3,9 @@
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/blake3.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/hex.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include "geometry/mercator.hpp"
@@ -239,37 +241,37 @@ struct RasterTileProvider::State : std::enable_shared_from_this<State>
   void Shutdown();
   bool RequestTile(df::TileKey const & tileKey, dp::BackgroundMode mode);
   void CancelTile(df::TileKey const & tileKey);
-  void Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes);
-  void Deliver(df::TileKey const & tileKey, uint64_t requestId, dp::BackgroundMode mode, std::string const & uid,
-               uint32_t width, uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba,
-               bool finished = true);
+  bool Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes);
+  void Deliver(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch, dp::BackgroundMode mode,
+               std::string const & uid, uint32_t width, uint32_t height, m2::RectF const & rect,
+               std::vector<uint8_t> && rgba, bool finished = true);
 
   SourceTile ToSourceTile(df::TileKey const & tileKey) const;
 
   // Starts a non-blocking HTTP request; its completion handler decodes, caches and delivers the tile.
-  void StartDownload(df::TileKey const & tileKey, uint64_t requestId, dp::BackgroundMode mode, std::string const & url,
-                     std::string const & uid, std::string const & fileName, m2::RectF const & rect);
+  void StartDownload(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch, dp::BackgroundMode mode,
+                     std::string const & url, std::string const & uid, std::string const & fileName,
+                     m2::RectF const & rect);
 
 #ifdef ENABLE_STATUS_PLACEHOLDERS
   // Delivers a debug status placeholder image for the tile through m_onReady.
-  void DeliverPlaceholder(df::TileKey const & tileKey, uint64_t requestId, dp::BackgroundMode mode, Status status);
+  void DeliverPlaceholder(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch,
+                          dp::BackgroundMode mode, Status status);
 #endif
 
-  bool IsActive(df::TileKey const & tileKey, uint64_t requestId) const;
+  bool IsActive(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch) const;
   // A completion must match the particular request, including after cancel/re-request.
-  bool DropActive(df::TileKey const & tileKey, uint64_t requestId);
+  bool DropActive(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch);
 
   // Scans the cache dir (posted to the File thread from the constructor, ahead of any cache read)
   // and seeds the LRU order by file time.
   void InitDiskCache();
-  // Marks a cached tile (by file name) as most-recently-used (on a cache hit).
-  void TouchCacheEntry(std::string const & name);
+  // Marks a cache hit as most-recently-used if it still belongs to the current source epoch.
+  bool TouchCacheEntry(std::string const & name, uint64_t sourceEpoch);
   // Registers a freshly-written tile (by file name), then evicts least-recently-used files over the cap.
   void AddCacheEntryLocked(std::string const & name, uint64_t size);
   // Evicts oldest entries until the total is within the cap. Caller must hold m_cacheMutex.
   void EvictDiskCacheLocked();
-  // Deletes every cached file and resets the index. Caller must hold m_cacheMutex.
-  void ClearDiskCacheLocked();
 
   // Non-const: Reconfigure() mutates m_urlTemplate (under m_activeMutex) and m_maxCacheBytes
   // (under m_cacheMutex). All other fields are immutable after construction.
@@ -283,9 +285,11 @@ struct RasterTileProvider::State : std::enable_shared_from_this<State>
 #endif
 
   mutable std::mutex m_activeMutex;
+  std::string m_sourceId;
   std::unordered_map<df::TileKey, uint64_t> m_active;
   uint64_t m_nextRequestId = 0;
-  // Read under either mutex; Shutdown holds both so it also waits for any cache mutation.
+  // Read under either mutex; source changes and Shutdown hold both to serialize cache effects.
+  uint64_t m_sourceEpoch = 0;
   bool m_stopped = false;
 
   // On-disk cache index, keyed by tile file name. m_lru orders names front (LRU) -> back (MRU);
@@ -317,6 +321,7 @@ RasterTileProvider::State::State(Params params, TReadyFn onReady, TDownloadFn do
 {
   CHECK(m_onReady != nullptr, ());
 
+  m_sourceId = ToHex(coding::Blake3::CalculateForString(m_params.m_urlTemplate));
   m_cacheDir = GetPlatform().WritableDir() + m_params.m_cacheSubdir + "/";
   if (!Platform::MkDirRecursively(m_cacheDir))
     LOG(LWARNING, ("RasterTileProvider: failed to create cache dir", m_cacheDir));
@@ -367,9 +372,9 @@ void RasterTileProvider::CancelTile(df::TileKey const & tileKey, dp::BackgroundM
   m_state->CancelTile(tileKey);
 }
 
-void RasterTileProvider::Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes)
+bool RasterTileProvider::Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes)
 {
-  m_state->Reconfigure(std::move(urlTemplate), maxCacheBytes);
+  return m_state->Reconfigure(std::move(urlTemplate), maxCacheBytes);
 }
 
 RasterTileProvider::State::SourceTile RasterTileProvider::State::ToSourceTile(df::TileKey const & tileKey) const
@@ -436,43 +441,47 @@ bool RasterTileProvider::State::RequestTile(df::TileKey const & tileKey, dp::Bac
   if (m_active.count(tileKey) != 0)
     return true;  // already in flight
   uint64_t const requestId = ++m_nextRequestId;
+  uint64_t const sourceEpoch = m_sourceEpoch;
   m_active.emplace(tileKey, requestId);
 
   std::string const url = SubstituteZXY(m_params.m_urlTemplate, src.m_z, src.m_x, src.m_y);
-  std::string const uid = std::to_string(src.m_z) + "/" + std::to_string(src.m_x) + "/" + std::to_string(src.m_y);
+  std::string const uid =
+      m_sourceId + "/" + std::to_string(src.m_z) + "/" + std::to_string(src.m_x) + "/" + std::to_string(src.m_y);
   // Cache file name = the cache index key (the dir prefix is added only for filesystem ops).
   // Format-neutral extension: the bytes may be PNG or JPEG depending on the endpoint, and stb_image
   // sniffs the actual content on decode.
-  std::string const fileName =
-      std::to_string(src.m_z) + "_" + std::to_string(src.m_x) + "_" + std::to_string(src.m_y) + ".tile";
-
-  // LOG(LDEBUG, ("RasterTileProvider: OM", tileKey.Coord2String(), "-> XYZ", uid, "rect", src.m_rect, url));
+  // The stable source hash also isolates caches across provider/engine reconstruction without
+  // exposing URLs or API keys in file names. Legacy and other-source files still count toward the cap.
+  std::string const fileName = m_sourceId + "_" + std::to_string(src.m_z) + "_" + std::to_string(src.m_x) + "_" +
+                               std::to_string(src.m_y) + ".tile";
 
   // Disk cache read (and stb decode) runs on the File thread; on a miss the HTTP request is fully
   // async (see StartDownload), so no worker thread is ever parked waiting on the network.
   // Returning true from this method means the renderer may put tileKey into its awaiting set. That
   // is safe only if the task was actually posted: a later !IsActive() inside the task means the tile
   // was cancelled meanwhile, but a failed post means nothing can ever deliver or be cancelled.
-  auto const posted = GetPlatform().RunTask(Platform::Thread::File, [state = shared_from_this(), tileKey, requestId,
-                                                                     mode, url, uid, fileName, rect = src.m_rect]()
+  auto const posted = GetPlatform().RunTask(
+      Platform::Thread::File,
+      [state = shared_from_this(), tileKey, requestId, sourceEpoch, mode, url, uid, fileName, rect = src.m_rect]()
   {
-    if (!state->IsActive(tileKey, requestId))
+    if (!state->IsActive(tileKey, requestId, sourceEpoch))
       return;
 
     std::vector<uint8_t> rgba;
     uint32_t width = 0, height = 0;
     if (DecodeFileToRGBA(state->m_cacheDir + fileName, rgba, width, height))  // cache hit
     {
-      state->TouchCacheEntry(fileName);
-      state->Deliver(tileKey, requestId, mode, uid, width, height, rect, std::move(rgba));
+      if (!state->TouchCacheEntry(fileName, sourceEpoch))
+        return;
+      state->Deliver(tileKey, requestId, sourceEpoch, mode, uid, width, height, rect, std::move(rgba));
       return;
     }
 
     // Cache miss (file absent or unreadable): start the async download.
 #ifdef ENABLE_STATUS_PLACEHOLDERS
-    state->DeliverPlaceholder(tileKey, requestId, mode, Status::Downloading);
+    state->DeliverPlaceholder(tileKey, requestId, sourceEpoch, mode, Status::Downloading);
 #endif
-    state->StartDownload(tileKey, requestId, mode, url, uid, fileName, rect);
+    state->StartDownload(tileKey, requestId, sourceEpoch, mode, url, uid, fileName, rect);
   });
 
   if (!posted.m_isSuccess)
@@ -484,22 +493,23 @@ bool RasterTileProvider::State::RequestTile(df::TileKey const & tileKey, dp::Bac
   return true;
 }
 
-void RasterTileProvider::State::StartDownload(df::TileKey const & tileKey, uint64_t requestId, dp::BackgroundMode mode,
-                                              std::string const & url, std::string const & uid,
+void RasterTileProvider::State::StartDownload(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch,
+                                              dp::BackgroundMode mode, std::string const & url, std::string const & uid,
                                               std::string const & fileName, m2::RectF const & rect)
 {
   // Transport callbacks may run independently of Platform's worker threads and outlive the wrapper.
-  m_downloadFn(url, [state = shared_from_this(), tileKey, requestId, mode, uid, fileName,
+  m_downloadFn(url, [state = shared_from_this(), tileKey, requestId, sourceEpoch, mode, uid, fileName,
                      rect](platform::HttpClient::Result result)
   {
-    if (!state->IsActive(tileKey, requestId))
+    if (!state->IsActive(tileKey, requestId, sourceEpoch))
       return;
     if (!result.m_success || result.m_errorCode != 200)
     {
 #ifdef ENABLE_STATUS_PLACEHOLDERS
-      state->DeliverPlaceholder(tileKey, requestId, mode, result.m_errorCode == 404 ? Status::NotFound : Status::Error);
+      state->DeliverPlaceholder(tileKey, requestId, sourceEpoch, mode,
+                                result.m_errorCode == 404 ? Status::NotFound : Status::Error);
 #else
-      state->DropActive(tileKey, requestId);
+      state->DropActive(tileKey, requestId, sourceEpoch);
 #endif
       return;
     }
@@ -511,23 +521,24 @@ void RasterTileProvider::State::StartDownload(df::TileKey const & tileKey, uint6
     {
       LOG(LWARNING, ("RasterTileProvider: failed to decode", uid));
 #ifdef ENABLE_STATUS_PLACEHOLDERS
-      state->DeliverPlaceholder(tileKey, requestId, mode, Status::Error);
+      state->DeliverPlaceholder(tileKey, requestId, sourceEpoch, mode, Status::Error);
 #else
-      state->DropActive(tileKey, requestId);
+      state->DropActive(tileKey, requestId, sourceEpoch);
 #endif
       return;
     }
 
     {
       std::lock_guard lock(state->m_cacheMutex);
-      // Shutdown is a cache-mutation barrier: a replacement provider can reuse this directory.
-      if (state->m_stopped)
+      // A switch/shutdown must not let an old decode write, index or evict after its boundary.
+      // The epoch check and all cache effects share the same lock, including during A -> B -> A.
+      if (state->m_stopped || state->m_sourceEpoch != sourceEpoch)
         return;
       if (WriteTileCache(state->m_cacheDir + fileName, body.data(), body.size()))
         state->AddCacheEntryLocked(fileName, body.size());
     }
 
-    state->Deliver(tileKey, requestId, mode, uid, width, height, rect, std::move(rgba));
+    state->Deliver(tileKey, requestId, sourceEpoch, mode, uid, width, height, rect, std::move(rgba));
   });
 }
 
@@ -537,18 +548,20 @@ void RasterTileProvider::State::CancelTile(df::TileKey const & tileKey)
   m_active.erase(tileKey);
 }
 
-void RasterTileProvider::State::Deliver(df::TileKey const & tileKey, uint64_t requestId, dp::BackgroundMode mode,
-                                        std::string const & uid, uint32_t width, uint32_t height,
-                                        m2::RectF const & rect, std::vector<uint8_t> && rgba, bool finished)
+void RasterTileProvider::State::Deliver(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch,
+                                        dp::BackgroundMode mode, std::string const & uid, uint32_t width,
+                                        uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba,
+                                        bool finished)
 {
   // GuiThread is independent of ThreadRunner. Never post while holding a mutex: Qt can run inline.
-  platform::GuiThread().Push([state = shared_from_this(), tileKey, requestId, mode, uid, width, height, rect,
-                              rgba = std::move(rgba), finished]() mutable
+  platform::GuiThread().Push([state = shared_from_this(), tileKey, requestId, sourceEpoch, mode, uid, width, height,
+                              rect, rgba = std::move(rgba), finished]() mutable
   {
     CHECK_THREAD_CHECKER(state->m_guiThread, ());
-    if (finished ? !state->DropActive(tileKey, requestId) : !state->IsActive(tileKey, requestId))
+    if (finished ? !state->DropActive(tileKey, requestId, sourceEpoch)
+                 : !state->IsActive(tileKey, requestId, sourceEpoch))
       return;
-    // Shutdown and the recipient's destruction run on this same thread; no lock covers client code.
+    // Source changes, Shutdown and the recipient's destruction share this thread; client code is unlocked.
     state->m_onReady(tileKey, mode, uid, width, height, rect, std::move(rgba));
   });
 }
@@ -567,6 +580,7 @@ void RasterTileProvider::State::InitDiskCache()
     uint64_t m_size;
   };
 
+  // Source changes may precede this scan; all source hashes and legacy files share the same cap.
   // GetFilesByRegExp returns base names, which are exactly the cache index keys.
   Platform::FilesList names;
   Platform::GetFilesByRegExp(m_cacheDir, ".*\\.tile$", names);
@@ -603,16 +617,16 @@ void RasterTileProvider::State::InitDiskCache()
               m_params.m_maxCacheBytes / 1024, "KB)"));
 }
 
-void RasterTileProvider::State::TouchCacheEntry(std::string const & name)
+bool RasterTileProvider::State::TouchCacheEntry(std::string const & name, uint64_t sourceEpoch)
 {
   std::lock_guard lock(m_cacheMutex);
-  if (m_stopped)
-    return;
+  if (m_stopped || m_sourceEpoch != sourceEpoch)
+    return false;
   auto const it = m_cacheIndex.find(name);
-  if (it == m_cacheIndex.end())
-    return;
   // Move the node to the back (most-recently-used). Splice keeps the stored iterator valid.
-  m_lru.splice(m_lru.end(), m_lru, it->second.m_lruIt);
+  if (it != m_cacheIndex.end())
+    m_lru.splice(m_lru.end(), m_lru, it->second.m_lruIt);
+  return true;
 }
 
 void RasterTileProvider::State::AddCacheEntryLocked(std::string const & name, uint64_t size)
@@ -654,61 +668,48 @@ void RasterTileProvider::State::EvictDiskCacheLocked()
   }
 }
 
-void RasterTileProvider::State::ClearDiskCacheLocked()
+bool RasterTileProvider::State::Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes)
 {
-  for (auto const & name : m_lru)
-    base::DeleteFileX(m_cacheDir + name);
-  m_lru.clear();
-  m_cacheIndex.clear();
-  m_cacheBytes = 0;
-}
-
-void RasterTileProvider::State::Reconfigure(std::string urlTemplate, uint64_t maxCacheBytes)
-{
-  bool urlChanged = false;
-  {
-    std::lock_guard lock(m_activeMutex);  // guards m_params.m_urlTemplate (also read in RequestTile)
-    if (m_stopped)
-      return;
-    urlChanged = urlTemplate != m_params.m_urlTemplate;
-    m_params.m_urlTemplate = std::move(urlTemplate);
-  }
-
-  std::lock_guard lock(m_cacheMutex);
+  CHECK_THREAD_CHECKER(m_guiThread, ());
+  std::scoped_lock lock(m_activeMutex, m_cacheMutex);
   if (m_stopped)
-    return;
-  m_params.m_maxCacheBytes = maxCacheBytes;
-  // A different source reuses the same z/x/y file names for different imagery, so drop the cache.
-  // Same source with a smaller cap just needs eviction down to the new limit.
+    return false;
+  bool const urlChanged = urlTemplate != m_params.m_urlTemplate;
   if (urlChanged)
-    ClearDiskCacheLocked();
-  else
-    EvictDiskCacheLocked();
+  {
+    m_params.m_urlTemplate = std::move(urlTemplate);
+    m_sourceId = ToHex(coding::Blake3::CalculateForString(m_params.m_urlTemplate));
+    ++m_sourceEpoch;
+    m_active.clear();
+  }
+  m_params.m_maxCacheBytes = maxCacheBytes;
+  EvictDiskCacheLocked();
+  return urlChanged;
 }
 
 #ifdef ENABLE_STATUS_PLACEHOLDERS
 void RasterTileProvider::State::DeliverPlaceholder(df::TileKey const & tileKey, uint64_t requestId,
-                                                   dp::BackgroundMode mode, Status status)
+                                                   uint64_t sourceEpoch, dp::BackgroundMode mode, Status status)
 {
   auto const & ph = m_placeholders[static_cast<size_t>(status)];
   // Copy the bytes: the engine moves them in and dedupes by uid across tiles.
-  Deliver(tileKey, requestId, mode, ph.m_uid, ph.m_size, ph.m_size, m2::RectF(0.0f, 0.0f, 1.0f, 1.0f),
+  Deliver(tileKey, requestId, sourceEpoch, mode, ph.m_uid, ph.m_size, ph.m_size, m2::RectF(0.0f, 0.0f, 1.0f, 1.0f),
           std::vector<uint8_t>(ph.m_rgba), status != Status::Downloading);
 }
 #endif
 
-bool RasterTileProvider::State::IsActive(df::TileKey const & tileKey, uint64_t requestId) const
+bool RasterTileProvider::State::IsActive(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch) const
 {
   std::lock_guard lock(m_activeMutex);
   auto const it = m_active.find(tileKey);
-  return it != m_active.end() && it->second == requestId;
+  return m_sourceEpoch == sourceEpoch && it != m_active.end() && it->second == requestId;
 }
 
-bool RasterTileProvider::State::DropActive(df::TileKey const & tileKey, uint64_t requestId)
+bool RasterTileProvider::State::DropActive(df::TileKey const & tileKey, uint64_t requestId, uint64_t sourceEpoch)
 {
   std::lock_guard lock(m_activeMutex);
   auto const it = m_active.find(tileKey);
-  if (it == m_active.end() || it->second != requestId)
+  if (m_sourceEpoch != sourceEpoch || it == m_active.end() || it->second != requestId)
     return false;
   m_active.erase(it);
   return true;
