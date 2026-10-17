@@ -60,6 +60,7 @@
 //   R <ms>   P <ms> <0|1>   M <ms> <meters>
 //                                 the reverse button, the pause button of the trips before October 16 (there is no
 //                                 pause since then), the mark moved along the road
+//   W <ms>                        the button showing the car on another road it may be on
 //   N <ms> <lat> <lon> <lat> <lon> ...
 //                                 the user asks for a route through the points, the first one is where the car is
 //   F <ms> <0|1>                  the user closes the route, or starts to follow it
@@ -508,6 +509,10 @@ private:
     case 'R':
       if (engine.IsManualMode())
         engine.ReverseDirection();
+      break;
+    case 'W':
+      if (engine.IsManualMode())
+        engine.SwitchMark();
       break;
     case 'M':
     {
