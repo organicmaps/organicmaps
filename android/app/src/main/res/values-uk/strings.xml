@@ -748,6 +748,10 @@
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Якщо увімкнено, екран завжди буде увімкнений під час відображення мапи.</string>
     <!-- A preference title; keep short! -->
+    <string name="enable_screen_rotation">Повертати екран</string>
+    <!-- Description in preferences -->
+    <string name="enable_screen_rotation_description">Екрани повертаються разом із пристроєм. Якщо вимкнено, вони завжди вертикальні, наприклад у тримачі в машині.</string>
+    <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Показувати на заблокованому екрані</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.</string>

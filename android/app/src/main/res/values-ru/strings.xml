@@ -748,6 +748,10 @@
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Если эта функция включена, то при отображении карты экран будет всегда включен.</string>
     <!-- A preference title; keep short! -->
+    <string name="enable_screen_rotation">Поворачивать экран</string>
+    <!-- Description in preferences -->
+    <string name="enable_screen_rotation_description">Экраны поворачиваются вместе с устройством. Если выключено, они всегда вертикальные, например в держателе в машине.</string>
+    <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Показывать на экране блокировки</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.</string>

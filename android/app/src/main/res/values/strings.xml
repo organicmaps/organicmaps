@@ -741,6 +741,10 @@
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">When enabled, the screen will always be on when displaying the map.</string>
     <!-- A preference title; keep short! -->
+    <string name="enable_screen_rotation">Rotate the screen</string>
+    <!-- Description in preferences -->
+    <string name="enable_screen_rotation_description">The screens turn with the device. When off, they stay upright, e.g. in a car holder.</string>
+    <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Show on the lock screen</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">When enabled, the app will work on the lock screen even when the device is locked.</string>
