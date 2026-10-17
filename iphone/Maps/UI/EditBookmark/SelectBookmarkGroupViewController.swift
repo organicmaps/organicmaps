@@ -91,11 +91,13 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     case .addGroup:
       cell.textLabel?.text = L("add_new_set")
       cell.accessoryType = .disclosureIndicator
+      cell.accessibilityTraits = .button
     case .groups:
       let bookmarkGroup = currentGroups[indexPath.row]
       cell.textLabel?.text = bookmarkGroup.title
       cell.textLabel?.numberOfLines = 3
       cell.accessoryType = bookmarkGroup.categoryId == groupId ? .checkmark : .none
+      cell.accessibilityTraits = bookmarkGroup.categoryId == groupId ? [.button, .selected] : .button
     default:
       fatalError()
     }
