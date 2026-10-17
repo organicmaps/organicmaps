@@ -132,28 +132,13 @@ void RoutingSession::RemoveRoute()
 void RoutingSession::RebuildRouteOnTrafficUpdate()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  m2::PointD startPoint;
-
-  {
-    startPoint = m_lastGoodPosition;
-
-    switch (m_state)
-    {
-    case SessionState::NoValidRoute:
-    case SessionState::RouteFinished: return;
-
-    case SessionState::RouteBuilding:
-    case SessionState::RouteNotStarted:
-    case SessionState::RouteNoFollowing:
-    case SessionState::RouteRebuilding: startPoint = m_checkpoints.GetPointFrom(); break;
-
-    case SessionState::OnRoute:
-    case SessionState::RouteNeedRebuild: break;
-    }
-
-    // Cancel current route building.
-    m_router->ClearState();
-  }
+  if (m_state == SessionState::NoValidRoute || m_state == SessionState::RouteFinished)
+    return;
+  // Following survives a pending rebuild; the route iterator is valid before the first GPS fix.
+  auto const startPoint = m_isFollowing && IsRouteValid()
+                            ? (m_userCurrentPositionValid ? m_userCurrentPosition : m_route->GetCurrentIter().m_pt)
+                            : m_checkpoints.GetPointFrom();
+  m_router->ClearState();
 
   RebuildRoute(startPoint, m_rebuildReadyCallback, nullptr /* needMoreMapsCallback */,
                nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding,
@@ -285,9 +270,6 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
       SetState(SessionState::OnRoute);
       m_speedCameraManager.OnLocationPositionChanged(info);
     }
-
-    if (m_userCurrentPositionValid)
-      m_lastGoodPosition = m_userCurrentPosition;
 
     auto const curIter = m_route->GetCurrentIteratorTurn();
     // If we are moving to the next segment after passing the turn
