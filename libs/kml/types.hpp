@@ -1,5 +1,7 @@
 #pragma once
 
+#include "kml/area_data.hpp"
+
 #include "kml/type_utils.hpp"
 
 #include "coding/point_coding.hpp"
@@ -570,12 +572,12 @@ struct CategoryData
 struct FileData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_categoryData, "category"), visitor(m_bookmarksData, "bookmarks"),
-                                  visitor(m_tracksData, "tracks"))
+                                  visitor(m_tracksData, "tracks"), visitor(m_areasData, "areas"))
 
   bool operator==(FileData const & data) const
   {
     return m_categoryData == data.m_categoryData && m_bookmarksData == data.m_bookmarksData &&
-           m_tracksData == data.m_tracksData;
+           m_tracksData == data.m_tracksData && m_areasData == data.m_areasData;
   }
 
   bool operator!=(FileData const & data) const { return !operator==(data); }
@@ -588,6 +590,10 @@ struct FileData
   std::vector<BookmarkData> m_bookmarksData;
   // Tracks collection.
   std::vector<TrackData> m_tracksData;
+  // Polygon areas are persisted as KML; the KMB, GPX, and GeoJSON writers reject them.
+  std::vector<AreaData> m_areasData;
+
+  bool HasContent() const { return !m_bookmarksData.empty() || !m_tracksData.empty() || !m_areasData.empty(); }
 };
 
 void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom);

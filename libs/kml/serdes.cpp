@@ -634,6 +634,8 @@ bool ParsePointWithAltitude(std::string_view s, char const * delim, geometry::Po
 
 void KmlWriter::Write(FileData const & fileData)
 {
+  if (!fileData.m_areasData.empty())
+    MYTHROW(SerializerKml::SerializeException, ("KML area serialization is not implemented yet."));
   m_writer << kKmlHeader;
 
   // Save category.
