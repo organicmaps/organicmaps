@@ -55,7 +55,8 @@ public class PlacePageTrackRecordingFragment extends Fragment
     MapObject mo = mViewModel.getMapObject().getValue();
     if (mo == null || !mo.isTrackRecording())
       return;
-    ((TrackRecording) mViewModel.getMapObject().getValue())
+    mViewModel.setTrackRecordingSaveVisible(!TrackRecorder.nativeIsTrackRecordingEmpty());
+    ((TrackRecording) mo)
         .setTrackRecordingPPDescription(
             StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(requireContext()) + " • "
             + Utils.formatRoutingTime(requireContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
