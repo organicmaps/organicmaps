@@ -1105,4 +1105,8 @@
     <string name="nogps_volts">%s V</string>
     <string name="nogps_not_while_driving">not asked while driving</string>
     <string name="nogps_voltage_mismatch">The voltage measured by the box differs from the car by more than 10%: check the voltage divider of the box</string>
+    <!-- The name of the notification channel of the navigation without GPS working in the background -->
+    <string name="nogps_background_channel">Navigation without GPS</string>
+    <!-- The notification shown while the app is hidden and the car is followed by the sensor box -->
+    <string name="nogps_background_following">Following the car by the sensor box</string>
 </resources>
