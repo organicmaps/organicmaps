@@ -66,6 +66,11 @@
       android:largeScreens="true"
       android:xlargeScreens="true"/>
 
+  <queries>
+      <!-- Required to resolve the Samsung battery optimization settings deep-link -->
+      <package android:name="com.samsung.android.lool" />
+  </queries>
+
   <!-- "android:resizeableActivity" allows free-form and split-screen modes -->
   <application
       android:appCategory="maps"
