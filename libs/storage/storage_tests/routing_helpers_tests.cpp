@@ -12,16 +12,6 @@
 
 namespace storage_routing_helpers_tests
 {
-class Getter : public storage::CountryInfoGetterForTesting
-{
-public:
-  explicit Getter(std::vector<storage::CountryDef> const & countries) : CountryInfoGetterForTesting(countries)
-  {
-    for (size_t i = 0; i < m_countries.size(); ++i)
-      m_countryIndex.emplace(m_countries[i].m_countryId, i);
-  }
-};
-
 UNIT_TEST(NumMwmTree_WrappedBounds)
 {
   std::vector<storage::CountryDef> const countries = {{"East", {170, -10, 190, 10}},
@@ -36,7 +26,7 @@ UNIT_TEST(NumMwmTree_WrappedBounds)
                                                       {"WestTouch", {-180, 70, -170, 80}},
                                                       {"EastPoint", {180, 90, 180, 90}},
                                                       {"WestPoint", {-180, 90, -180, 90}}};
-  Getter getter(countries);
+  storage::CountryInfoGetterForTesting getter(countries);
   routing::NumMwmIds ids;
   for (auto const & country : countries)
     ids.RegisterFile(platform::CountryFile(country.m_countryId));
@@ -64,6 +54,13 @@ UNIT_TEST(NumMwmTree_WrappedBounds)
     routing::ForEachNumMwmInRect(*tree, query, [&](routing::NumMwmId id) { actual.push_back(id); });
     std::sort(actual.begin(), actual.end());
     TEST_EQUAL(actual, expected, (query));
+
+    for (routing::NumMwmId id = 0; id <= countries.size(); ++id)
+    {
+      TEST_EQUAL(
+          routing::ForAnyNumMwmInRect(*tree, query, [id](routing::NumMwmId candidate) { return candidate == id; }),
+          std::binary_search(expected.begin(), expected.end(), id), (query, id));
+    }
   }
 }
 
@@ -80,6 +77,13 @@ UNIT_TEST(NumMwmTree_QueryInflation)
     routing::ForEachNumMwmInRect(tree, {point, point}, [&](routing::NumMwmId id) { actual.push_back(id); });
     std::sort(actual.begin(), actual.end());
     TEST_EQUAL(actual, expected, (point));
+
+    for (routing::NumMwmId id = 0; id <= 3; ++id)
+    {
+      TEST_EQUAL(routing::ForAnyNumMwmInRect(tree, {point, point},
+                                             [id](routing::NumMwmId candidate) { return candidate == id; }),
+                 std::binary_search(expected.begin(), expected.end(), id), (point, id));
+    }
   };
 
   double constexpr kGap = kMwmPointAccuracy / 2;
@@ -97,5 +101,22 @@ UNIT_TEST(NumMwmTree_QueryInflation)
   test({15, 20 + 2 * kMwmPointAccuracy}, {});
   test({180 - 2 * kMwmPointAccuracy, 15}, {2});
   test({-180 + 2 * kMwmPointAccuracy, 15}, {1});
+}
+
+UNIT_TEST(NumMwmTree_QueryStopsOnMatch)
+{
+  m4::Tree<routing::NumMwmId> tree;
+  tree.Add(0, {-180, -10, -170, 10});
+  tree.Add(0, {170, -10, 180, 10});
+  tree.Add(1, {-10, -10, 10, 10});
+
+  size_t calls = 0;
+  bool const found = routing::ForAnyNumMwmInRect(tree, mercator::Bounds::FullRect(), [&](routing::NumMwmId)
+  {
+    ++calls;
+    return true;
+  });
+  TEST(found, ());
+  TEST_EQUAL(calls, 1, ());
 }
 }  // namespace storage_routing_helpers_tests
