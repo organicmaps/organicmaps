@@ -108,7 +108,21 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentRoutingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block
 {
-  [self displayAlert:[MWMAlert routingDisclaimerAlertWithOkBlock:block]];
+  NSString * message = [@[
+    L(@"dialog_routing_disclaimer_priority"), L(@"dialog_routing_disclaimer_precision"),
+    L(@"dialog_routing_disclaimer_recommendations"), L(@"dialog_routing_disclaimer_borders"),
+    L(@"dialog_routing_disclaimer_beware")
+  ] componentsJoinedByString:@"\n\n"];
+  UIAlertController * alert = [UIAlertController alertControllerWithTitle:L(@"dialog_routing_disclaimer_title")
+                                                                  message:message
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:L(@"decline") style:UIAlertActionStyleCancel handler:nil]];
+  UIAlertAction * acceptAction = [UIAlertAction actionWithTitle:L(@"accept")
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * action) { block(); }];
+  [alert addAction:acceptAction];
+  alert.preferredAction = acceptAction;
+  [self.ownerViewController presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)presentDisabledLocationAlert

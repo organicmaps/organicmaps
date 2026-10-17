@@ -329,7 +329,6 @@
 		ED82C5D42F90180300FA103D /* MWMOsmAuthAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4642F90180300FA103D /* MWMOsmAuthAlert.mm */; };
 		ED82C5D52F90180300FA103D /* MWMOsmReauthAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4682F90180300FA103D /* MWMOsmReauthAlert.mm */; };
 		ED82C5D62F90180300FA103D /* MWMPlaceDoesntExistAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C46C2F90180300FA103D /* MWMPlaceDoesntExistAlert.m */; };
-		ED82C5D72F90180300FA103D /* MWMRoutingDisclaimerAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4702F90180300FA103D /* MWMRoutingDisclaimerAlert.m */; };
 		ED82C5D82F90180300FA103D /* SpinnerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4742F90180300FA103D /* SpinnerAlert.swift */; };
 		ED82C5D92F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4762F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift */; };
 		ED82C5DA2F90180300FA103D /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4792F90180300FA103D /* MWMEditorViralAlert.mm */; };
@@ -456,7 +455,6 @@
 		ED82C6642F90180300FA103D /* MWMOsmAuthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4652F90180300FA103D /* MWMOsmAuthAlert.xib */; };
 		ED82C6652F90180300FA103D /* MWMOsmReauthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4692F90180300FA103D /* MWMOsmReauthAlert.xib */; };
 		ED82C6662F90180300FA103D /* MWMPlaceDoesntExistAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C46D2F90180300FA103D /* MWMPlaceDoesntExistAlert.xib */; };
-		ED82C6672F90180300FA103D /* MWMRoutingDisclaimerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4712F90180300FA103D /* MWMRoutingDisclaimerAlert.xib */; };
 		ED82C6682F90180300FA103D /* MWMSpinnerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4732F90180300FA103D /* MWMSpinnerAlert.xib */; };
 		ED82C6692F90180300FA103D /* MWMEditorViralAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C47A2F90180300FA103D /* MWMEditorViralAlert.xib */; };
 		ED82C66A2F90180300FA103D /* MWMSearchCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4BE2F90180300FA103D /* MWMSearchCommonCell.xib */; };
@@ -1353,9 +1351,6 @@
 		ED82C46B2F90180300FA103D /* MWMPlaceDoesntExistAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlaceDoesntExistAlert.h; sourceTree = "<group>"; };
 		ED82C46C2F90180300FA103D /* MWMPlaceDoesntExistAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMPlaceDoesntExistAlert.m; sourceTree = "<group>"; };
 		ED82C46D2F90180300FA103D /* MWMPlaceDoesntExistAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMPlaceDoesntExistAlert.xib; sourceTree = "<group>"; };
-		ED82C46F2F90180300FA103D /* MWMRoutingDisclaimerAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRoutingDisclaimerAlert.h; sourceTree = "<group>"; };
-		ED82C4702F90180300FA103D /* MWMRoutingDisclaimerAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMRoutingDisclaimerAlert.m; sourceTree = "<group>"; };
-		ED82C4712F90180300FA103D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
 		ED82C4732F90180300FA103D /* MWMSpinnerAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMSpinnerAlert.xib; sourceTree = "<group>"; };
 		ED82C4742F90180300FA103D /* SpinnerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerAlert.swift; sourceTree = "<group>"; };
 		ED82C4762F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+UnknownCurrentPosition.swift"; sourceTree = "<group>"; };
@@ -3252,16 +3247,6 @@
 			path = PlaceDoesntExist;
 			sourceTree = "<group>";
 		};
-		ED82C4722F90180300FA103D /* RoutingDisclaimerAlert */ = {
-			isa = PBXGroup;
-			children = (
-				ED82C46F2F90180300FA103D /* MWMRoutingDisclaimerAlert.h */,
-				ED82C4702F90180300FA103D /* MWMRoutingDisclaimerAlert.m */,
-				ED82C4712F90180300FA103D /* MWMRoutingDisclaimerAlert.xib */,
-			);
-			path = RoutingDisclaimerAlert;
-			sourceTree = "<group>";
-		};
 		ED82C4752F90180300FA103D /* SpinnerAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3302,7 +3287,6 @@
 				ED82C4662F90180300FA103D /* OsmAuthAlert */,
 				ED82C46A2F90180300FA103D /* OsmReautAlert */,
 				ED82C46E2F90180300FA103D /* PlaceDoesntExist */,
-				ED82C4722F90180300FA103D /* RoutingDisclaimerAlert */,
 				ED82C4752F90180300FA103D /* SpinnerAlert */,
 				ED82C4772F90180300FA103D /* UnknownCurrentPositionAlert */,
 				ED82C47B2F90180300FA103D /* ViralAlert */,
@@ -4522,7 +4506,6 @@
 				ED82C6642F90180300FA103D /* MWMOsmAuthAlert.xib in Resources */,
 				ED82C6652F90180300FA103D /* MWMOsmReauthAlert.xib in Resources */,
 				ED82C6662F90180300FA103D /* MWMPlaceDoesntExistAlert.xib in Resources */,
-				ED82C6672F90180300FA103D /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				ED82C6682F90180300FA103D /* MWMSpinnerAlert.xib in Resources */,
 				ED82C6692F90180300FA103D /* MWMEditorViralAlert.xib in Resources */,
 				ED82C66A2F90180300FA103D /* MWMSearchCommonCell.xib in Resources */,
@@ -4927,7 +4910,6 @@
 				ED82C5D42F90180300FA103D /* MWMOsmAuthAlert.mm in Sources */,
 				ED82C5D52F90180300FA103D /* MWMOsmReauthAlert.mm in Sources */,
 				ED82C5D62F90180300FA103D /* MWMPlaceDoesntExistAlert.m in Sources */,
-				ED82C5D72F90180300FA103D /* MWMRoutingDisclaimerAlert.m in Sources */,
 				ED82C5D82F90180300FA103D /* SpinnerAlert.swift in Sources */,
 				ED82C5D92F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift in Sources */,
 				ED82C5DA2F90180300FA103D /* MWMEditorViralAlert.mm in Sources */,
