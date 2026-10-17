@@ -6,6 +6,7 @@
 
 #include "base/matrix.hpp"
 
+#include <functional>
 #include <string>
 
 class ScreenBase;
@@ -22,14 +23,11 @@ struct TileKey
   TileKey(int x, int y, uint8_t zoomLevel);
   TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGeneration);
 
-  // Operators < and == do not consider parameter m_generation.
-  // m_generation is used to determine a generation of geometry for this tile key.
-  // Geometry with different generations must be able to group by (x, y, zoomlevel).
+  // Coordinate identity groups geometry across generations, including user marks.
   bool operator<(TileKey const & other) const;
   bool operator==(TileKey const & other) const;
 
-  // These methods implement strict comparison of tile keys. It's necessary to merger of
-  // batches which must not merge batches with different m_generation.
+  // Batches must not merge geometry from different generations.
   bool LessStrict(TileKey const & other) const;
   bool EqualStrict(TileKey const & other) const;
 
@@ -51,6 +49,7 @@ struct TileKey
   /// 0 for canonical tiles, +-360 for extended tiles past the antimeridian.
   double GetTileXOffset(bool clipByDataMaxZoom = true) const;
 
+  // GPU batching identity includes generations and bucket; world copies share data.
   uint64_t GetHashValue(BatcherBucket bucket) const;
 
   std::string Coord2String() const;
@@ -76,6 +75,6 @@ namespace std
 template <>
 struct hash<df::TileKey>
 {
-  size_t operator()(df::TileKey const & key) const { return key.GetHashValue(df::BatcherBucket::Default); }
+  size_t operator()(df::TileKey const & key) const;
 };
 }  // namespace std
