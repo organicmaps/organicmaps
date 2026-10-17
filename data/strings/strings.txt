@@ -45374,6 +45374,18 @@ en = Speed delay: %@ s (usual, not measured by GPS yet)
 ru = Опоздание скорости: %@ с (обычное, GPS ещё не измерил)
 uk = Запізнення швидкості: %@ с (звичайне, GPS ще не виміряв)
 
+[nogps_sensors_rough_speed]
+tags = android-app
+en = ≈ Rough correction from the roads · ranges: %d · GPS will refine it
+ru = ≈ Черновая поправка по дорогам · диапазонов: %d · GPS её уточнит
+uk = ≈ Чорнова поправка за дорогами · діапазонів: %d · GPS її уточнить
+
+[nogps_sensors_rough_speed_learning]
+tags = android-app
+en = ≈ The correction is learned from the roads until GPS measures the speed
+ru = ≈ Поправка учится по дорогам, пока скорость не измерит GPS
+uk = ≈ Поправка вчиться за дорогами, поки швидкість не виміряє GPS
+
 [nogps_shift_at_turn]
 tags = android-app,apple-maps
 en = The position is at a crossing, it can not be moved further
