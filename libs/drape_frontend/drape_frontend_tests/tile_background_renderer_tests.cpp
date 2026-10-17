@@ -194,11 +194,15 @@ UNIT_CLASS_TEST(TileBackgroundRendererTest, LateCompletionDoesNotRestoreCancelle
 
 UNIT_CLASS_TEST(TileBackgroundRendererTest, LateZoomCompletionDoesNotAnswerCurrentRead)
 {
-  UpdateViewport(Row(0, 1), 16);
+  UpdateViewport(Row(0, 2), 16);
+  auto const previous = Deliver(TileKey(1, 0, 16));
   UpdateViewport(Row(0, 1), 17);
   TEST_EQUAL(m_cancels, std::vector<TileKey>{TileKey(0, 0, 16)}, ());
 
   Deliver(TileKey(0, 0, 16));
+  for (int x = 10; x < 26; ++x)
+    Deliver(TileKey(x, 0, 16));
+  TEST(!m_pool.m_live.contains(previous), ("Zooming must unpin old images before current images arrive"));
   CheckNoNewReads(Row(0, 1));
   Deliver(TileKey(0, 0, 17));
   CheckNoNewReads(Row(0, 1));

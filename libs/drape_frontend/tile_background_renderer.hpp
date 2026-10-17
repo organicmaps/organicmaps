@@ -53,7 +53,6 @@ private:
   {
     ref_ptr<dp::TexturePool> m_texturePool;
     dp::TexturePool::TextureId m_textureId{};
-    dp::BackgroundMode m_mode = dp::BackgroundMode::Default;
     uint32_t m_refCount = 0;
   };
 
@@ -74,7 +73,7 @@ private:
   void ReleaseImageRef(ref_ptr<dp::GraphicsContext> context, std::string const & uid);
   // Increments refcount; if it was 0, removes uid from the unreferenced LRU.
   void AcquireImageRef(std::string const & uid);
-  // Drops the per-tile binding (if any) and decrements its image refcount.
+  // Drops the per-tile binding and decrements its image refcount.
   void ReleaseTileBinding(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey);
   void TrimUnreferencedImages(ref_ptr<dp::GraphicsContext> context);
 
