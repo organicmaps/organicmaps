@@ -112,6 +112,7 @@ void InertialNavigator::OnGpsPosition(Fix const & gps)
   m_deadReckoning.SetPosition(gps.m_position);
   SetRoadPoint(gps.m_position);
   m_turning = false;
+  m_steadyRoad.reset();
   // GPS bearing is noisy at low speeds, unless GPS tells it is accurate.
   bool const goodBearing = gps.m_bearingDeg && gps.m_speedMps &&
                            (*gps.m_speedMps >= kMinGpsHeadingSpeedMps ||
@@ -155,6 +156,7 @@ void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bear
   m_turning = false;
   LeaveRoundabout();
   SetHeading(bearingDeg, HeadingSource::Road);
+  m_steadyRoad = SteadyRoad{bearingDeg, m_pathM};
 }
 
 void InertialNavigator::SetMarkOnRoad(ms::LatLon const & position, double bearingDeg)
@@ -276,6 +278,7 @@ void InertialNavigator::SetPosition(ms::LatLon const & position)
 {
   DropOtherMarks();
   EndFollowingApart();
+  m_steadyRoad.reset();
   m_deadReckoning.SetPosition(position);
   SetRoadPoint(position);
   if (m_deadReckoning.HasHeading())
@@ -291,6 +294,7 @@ void InertialNavigator::SetHeading(double headingDeg, HeadingSource source)
   m_headingSource = source;
   m_markTurnLeftDeg.reset();
   m_pathMatcher.SetHeading(headingDeg);
+  m_steadyRoad.reset();
 }
 
 std::optional<double> InertialNavigator::GetHeading() const
@@ -662,6 +666,7 @@ void InertialNavigator::StartFollowingApart()
   m_fastSinceMs.reset();
   m_turning = false;
   // The car is followed from where it is, its mark waits where it has left the roads.
+  m_steadyRoad.reset();
   m_offRoadCar = m_deadReckoning.GetPosition();
   m_deadReckoning.MoveTo(*m_roadPoint);
 }
@@ -712,6 +717,7 @@ void InertialNavigator::PutOnRoad(ms::LatLon const & point, double bearingDeg)
   m_lastSnapResult = SnapResult::OnRoad;
   // The car drives along the road: what the gyroscope has counted through the maneuver is less sure.
   SetHeading(bearingDeg, HeadingSource::Road);
+  m_steadyRoad = SteadyRoad{bearingDeg, m_pathM};
 }
 
 void InertialNavigator::CheckBackOnRoad()
@@ -980,6 +986,8 @@ void InertialNavigator::OnMotion(double yawDeltaDeg, double dtSec, int64_t times
   {
     m_lastSnapMs = now;
     SnapToRoad();
+    if (m_turning && !m_onRoad)
+      m_turnLeftRoad = true;
     CheckRoundabout();
     if (m_onRoad && !m_turning && now - m_lastBendMatchMs >= kBendMatchIntervalMs)
     {
@@ -1153,6 +1161,8 @@ void InertialNavigator::SnapToRoad()
     m_roadPoint = snapped->m_point;
     m_offRoadM = 0;
     m_offRoadMaxSpeedMps = 0;
+    if (std::fabs(*m_lastSnapBearingDiffDeg) <= DeadReckoning::kMaxHeadingPullDiffDeg)
+      m_steadyRoad = SteadyRoad{Orient(snapped->m_bearingDeg, heading), m_pathM};
   }
 }
 
@@ -1224,6 +1234,10 @@ void InertialNavigator::TrackTurn(double yawDeltaDeg, double dtSec, int64_t time
     m_turnStart = m_deadReckoning.GetPosition();
     m_turnEnd = m_turnStart;
     m_turnFromRoad = m_onRoad;
+    m_turnLeftRoad = false;
+    m_turnSteadyFromBearing.reset();
+    if (m_steadyRoad && m_pathM - m_steadyRoad->m_pathM <= kTurnFromRoadM && m_offRoadM <= kTurnFromRoadOffM)
+      m_turnSteadyFromBearing = m_steadyRoad->m_bearingDeg;
     m_turnCalmSinceNs.reset();
     m_turnRotationDeg = 0;
     m_turnStartNs = timestampNs;
@@ -1260,6 +1274,14 @@ void InertialNavigator::TrackTurn(double yawDeltaDeg, double dtSec, int64_t time
 
 void InertialNavigator::MatchTurn(int64_t timestampNs)
 {
+  // See kTurnFromRoadM.
+  if (m_turnSteadyFromBearing && (m_turnFromRoad || m_turnMaxKmh / 3.6 > kMaxManeuverSpeedMps))
+  {
+    LOG(LINFO, ("The turn starts on the road the car was on, from", std::round(*m_turnSteadyFromBearing), "not",
+                std::round(m_turnFromBearing), m_turnFromRoad ? "" : "off the roads"));
+    m_turnFromRoad = true;
+    m_turnFromBearing = *m_turnSteadyFromBearing;
+  }
   double const toBearing = m_deadReckoning.GetHeading();
   double const turnDeg = std::fabs(AngleDiff(toBearing, m_turnFromBearing));
   auto const corner = Move(m_turnStart, m_turnFromBearing, kTurnCornerAheadM);
@@ -1326,7 +1348,8 @@ void InertialNavigator::MatchTurn(int64_t timestampNs)
     LOG(LINFO, ("No road after the turn at the crossing", *crossing));
     places.m_chosen = stay;
   }
-  else if (m_turnFromRoad && here && Distance(here->m_point, moved->m_road.m_point) > kMaxFollowedTurnMoveM)
+  else if (m_turnFromRoad && !m_turnLeftRoad && here &&
+           Distance(here->m_point, moved->m_road.m_point) > kMaxFollowedTurnMoveM)
   {
     // The road the regular snapping keeps the car on, or takes it to in a moment.
     LOG(LINFO, ("Turn from", std::round(m_turnFromBearing), "to", std::round(toBearing),
@@ -1629,6 +1652,8 @@ void InertialNavigator::TakeOtherMark(size_t index, bool keepShown, std::string 
   m_roadCandidate.reset();
   m_slowBends.reset();
   m_markTurnLeftDeg.reset();
+  m_steadyRoad.reset();
+  m_turnSteadyFromBearing.reset();
   LeaveRoundabout();
   LOG(LINFO, ("The car is shown on another road it may be on:", why, ", marks", m_otherMarks.size() + 1, "at",
               m_deadReckoning.GetPosition()));

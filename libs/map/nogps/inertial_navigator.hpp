@@ -148,8 +148,18 @@ public:
   // A car that was on a road before the turn and is on a road going the new way after it has followed the
   // roads through the turn. A crossing moving it farther than this is another one: the right one is not a
   // crossing for the map, e.g. a road branching off at a small angle. On the trips checked such a move brought
-  // the car closer to GPS in 2 of 18 and farther from it in 13.
+  // the car closer to GPS in 2 of 18 and farther from it in 13. The car was on a road all through the turn then:
+  // on October 16 at 17:38 the mark left the roads in the turn and the snapping put it on another road, and the
+  // right crossing 14 m away was refused.
   static double constexpr kMaxFollowedTurnMoveM = 5;
+  // A car entering a turn smoothly drifts off its road before it rotates fast enough to start the turn. The turn
+  // starts on the road the car was on looking along it within this distance, unless it has driven farther off the
+  // roads since: on October 16 at 17:19 the mark was 7-10 m off its road, 18 degrees off it, and the turn started
+  // off the roads moved it 25 m to the one crossing that fitted, onto the next street. A turn started off the roads
+  // not faster than a maneuver keeps its rule: on October 11 a turn in a yard at 2-5 km/h so started on the road was
+  // moved 17 m to a crossing.
+  static double constexpr kTurnFromRoadM = 50;
+  static double constexpr kTurnFromRoadOffM = 20;
   // A car turning at a crossing rotates one way. Rotating much more than it has turned, it has driven around
   // a roundabout or along a winding road, and the turn is not at the crossing where it has started.
   static double constexpr kMaxExtraTurnRotationDeg = 60;
@@ -584,6 +594,17 @@ private:
   int m_turnMaxKmh = 0;
   // How far the last turn has moved the car to its crossing, for the log of a drive.
   std::optional<double> m_lastTurnShiftM;
+  // The road the car was on looking along it the last time, and all the car had driven by then.
+  struct SteadyRoad
+  {
+    double m_bearingDeg;
+    double m_pathM;
+  };
+  std::optional<SteadyRoad> m_steadyRoad;
+  // The car has been off the roads during the turn it makes now.
+  bool m_turnLeftRoad = false;
+  // The heading of the road the car was steadily on when the turn it makes now started, see kTurnFromRoadM.
+  std::optional<double> m_turnSteadyFromBearing;
 
   // The other roads the car may be on, see kMaxMarks, when they were snapped and checked by the way driven last.
   std::vector<OtherMark> m_otherMarks;
