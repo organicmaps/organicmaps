@@ -3,9 +3,13 @@
 #include "map/api_mark_point.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
+#include "map/routing_mark.hpp"
 
 #include "ge0/geo_url_parser.hpp"
 #include "ge0/parser.hpp"
+
+#include "coding/url.hpp"
+#include "platform/measurement_utils.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
@@ -14,11 +18,16 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include <array>
+#include <cmath>
+#include <string_view>
 #include <tuple>
+#include <utility>
+#include <vector>
 
 namespace url_scheme
 {
@@ -26,6 +35,7 @@ namespace
 {
 std::string_view constexpr kCenterLatLon = "cll";
 std::string_view constexpr kAppName = "appname";
+std::string_view constexpr kVersion = "v";
 
 // Zoom of a shared clear-coordinate link (omaps.app/<lat>,<lon>), taken from "?z=". Mirrors
 // url-processor's normalizeZoom: an integer in [1, kMaxClearCoordinatesZoom], anything else
@@ -41,7 +51,6 @@ std::string_view constexpr kName = "n";
 std::string_view constexpr kId = "id";
 std::string_view constexpr kStyle = "s";
 std::string_view constexpr kBackUrl = "backurl";
-std::string_view constexpr kVersion = "v";
 std::string_view constexpr kBalloonAction = "balloonaction";
 }  // namespace map
 
@@ -58,6 +67,34 @@ std::string_view constexpr kRouteTypeBicycle = "bicycle";
 std::string_view constexpr kRouteTypeTransit = "transit";
 }  // namespace route
 
+namespace route_v2
+{
+std::string_view constexpr kPathDir = "dir";
+std::string_view constexpr kPathNav = "nav";
+std::string_view constexpr kOrigin = "origin";
+std::string_view constexpr kOriginCurrentLocation = "currentLocation";
+std::string_view constexpr kOriginCurrentLocationKebab = "current-location";
+std::string_view constexpr kOriginName = "origin_name";
+std::string_view constexpr kOriginCallback = "origin_callback";
+std::string_view constexpr kOriginHeading = "origin_heading";
+std::string_view constexpr kDestination = "destination";
+std::string_view constexpr kDestinationName = "destination_name";
+std::string_view constexpr kDestinationCallback = "destination_callback";
+std::string_view constexpr kWaypoints = "waypoints";
+std::string_view constexpr kWaypointNames = "waypoint_names";
+std::string_view constexpr kWaypointCallbacks = "waypoint_callbacks";
+std::string_view constexpr kApi = "api";
+std::string_view constexpr kMode = "mode";
+std::string_view constexpr kTravelMode = "travelmode";
+std::string_view constexpr kDirAction = "dir_action";
+std::string_view constexpr kOptimize = "optimize";
+std::string_view constexpr kRef = "ref";
+std::string_view constexpr kRefName = "ref_name";
+std::string_view constexpr kCallback = "callback";
+std::string_view constexpr kCallbackLabel = "callback_label";
+std::string_view constexpr kAvoid = "avoid";
+}  // namespace route_v2
+
 namespace search
 {
 std::string_view constexpr kQuery = "query";
@@ -72,6 +109,12 @@ std::string_view constexpr kHighlight = "highlight";
 
 // See also kGe0Prefixes in ge0/parser.hpp
 constexpr std::array<std::string_view, 3> kLegacyMwmPrefixes = {{"mapsme://", "mwm://", "mapswithme://"}};
+
+bool ParseBool(std::string const & value)
+{
+  std::string const lowerValue = strings::MakeLowerCase(value);
+  return lowerValue == "1" || lowerValue == "true" || lowerValue == "yes";
+}
 
 bool ParseLatLon(std::string const & key, std::string const & value, double & lat, double & lon)
 {
@@ -93,6 +136,181 @@ bool ParseLatLon(std::string const & key, std::string const & value, double & la
     LOG(LWARNING, ("Map API: incorrect value for lat and/or lon", key, value, lat, lon));
     return false;
   }
+  return true;
+}
+
+bool IsRouteCurrentLocation(std::string const & value)
+{
+  return value == route_v2::kOriginCurrentLocation || value == route_v2::kOriginCurrentLocationKebab;
+}
+
+bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePoint & point)
+{
+  double lat = 0.0;
+  double lon = 0.0;
+  if (!ParseLatLon(key, value, lat, lon))
+    return false;
+
+  point.m_org = mercator::FromLatLon(lat, lon);
+  point.m_isMyPosition = false;
+  return true;
+}
+
+std::vector<std::string> SplitRouteListWithEncodedSeparators(std::string_view value)
+{
+  constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
+  std::vector<std::string> result;
+  size_t from = 0;
+  while (from <= value.size())
+  {
+    size_t delimiter = value.find('|', from);
+    size_t delimiterSize = delimiter == std::string_view::npos ? 0 : 1;
+    for (auto const encodedPipe : kEncodedPipes)
+    {
+      size_t const encodedDelimiter = value.find(encodedPipe, from);
+      if (encodedDelimiter != std::string_view::npos &&
+          (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
+      {
+        delimiter = encodedDelimiter;
+        delimiterSize = encodedPipe.size();
+      }
+    }
+
+    if (delimiter == std::string_view::npos)
+    {
+      auto item = url::UrlDecode(value.substr(from));
+      strings::Trim(item);
+      result.push_back(std::move(item));
+      break;
+    }
+
+    auto item = url::UrlDecode(value.substr(from, delimiter - from));
+    strings::Trim(item);
+    result.push_back(std::move(item));
+    from = delimiter + delimiterSize;
+  }
+  return result;
+}
+
+bool IsHexDigit(char c)
+{
+  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'f');
+}
+
+std::string EscapeInvalidPercentSigns(std::string_view value)
+{
+  std::string result;
+  result.reserve(value.size());
+  for (size_t i = 0; i < value.size(); ++i)
+    if (value[i] == '%' && (i + 2 >= value.size() || !IsHexDigit(value[i + 1]) || !IsHexDigit(value[i + 2])))
+      result += "%25";
+    else
+      result += value[i];
+  return result;
+}
+
+std::string DecodeRouteCallback(std::string_view rawValue)
+{
+  return url::UrlDecode(EscapeInvalidPercentSigns(rawValue));
+}
+
+std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value)
+{
+  constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
+
+  // Documented list contract: every encoded "%7C" separates callbacks, even when an
+  // earlier callback contains a query string. A literal pipe inside one callback must
+  // be double-encoded as "%257C", which decodes once to the text "%7C" and never
+  // matches the "%7C" separator scan below (no '%' immediately precedes "7C" there).
+  std::vector<std::string> result;
+  size_t from = 0;
+  while (from <= value.size())
+  {
+    size_t delimiter = value.find('|', from);
+    size_t delimiterSize = delimiter == std::string_view::npos ? 0 : 1;
+    for (auto const encodedPipe : kEncodedPipes)
+    {
+      size_t const encodedDelimiter = value.find(encodedPipe, from);
+      if (encodedDelimiter != std::string_view::npos &&
+          (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
+      {
+        delimiter = encodedDelimiter;
+        delimiterSize = encodedPipe.size();
+      }
+    }
+
+    if (delimiter == std::string_view::npos)
+    {
+      auto item = DecodeRouteCallback(value.substr(from));
+      strings::Trim(item);
+      result.push_back(std::move(item));
+      break;
+    }
+
+    auto item = DecodeRouteCallback(value.substr(from, delimiter - from));
+    strings::Trim(item);
+    result.push_back(std::move(item));
+    from = delimiter + delimiterSize;
+  }
+  return result;
+}
+
+template <typename FnT>
+void ForEachRawParam(std::string_view rawUrl, FnT && fn)
+{
+  // Keep values raw here so route-list parsers can distinguish real separators from encoded content.
+  size_t start = rawUrl.find_first_of("?#");
+  if (start == std::string_view::npos || rawUrl[start] == '#')
+    return;
+
+  for (++start; start < rawUrl.size();)
+  {
+    size_t end = rawUrl.find_first_of("&#", start);
+    if (end == std::string_view::npos)
+      end = rawUrl.size();
+
+    if (end != start)
+    {
+      size_t const eq = rawUrl.find('=', start);
+      if (eq != std::string_view::npos && eq < end)
+        fn(url::UrlDecode(rawUrl.substr(start, eq - start)), rawUrl.substr(eq + 1, end - eq - 1));
+      else
+        fn(url::UrlDecode(rawUrl.substr(start, end - start)), std::string_view());
+    }
+
+    if (end != rawUrl.size() && rawUrl[end] == '#')
+      break;
+
+    start = end + 1;
+  }
+}
+bool ParseRouteMode(std::string const & value, std::string & routingType)
+{
+  using namespace route;
+
+  std::string const lowerValue = strings::MakeLowerCase(value);
+  if (lowerValue == "drive" || lowerValue == "driving" || lowerValue == "car" || lowerValue == kRouteTypeVehicle)
+    routingType = kRouteTypeVehicle;
+  else if (lowerValue == "walk" || lowerValue == "walking" || lowerValue == kRouteTypePedestrian)
+    routingType = kRouteTypePedestrian;
+  else if (lowerValue == "bike" || lowerValue == "bicycling" || lowerValue == kRouteTypeBicycle)
+    routingType = kRouteTypeBicycle;
+  else if (lowerValue == kRouteTypeTransit)
+    routingType = kRouteTypeTransit;
+  else
+    return false;
+  return true;
+}
+
+bool ParseOriginHeading(std::string const & value, m2::PointD & startDirection)
+{
+  double heading = 0.0;
+  if (!strings::to_double(value, heading) || !std::isfinite(heading) || heading < 0.0 || heading > 360.0)
+    return false;
+
+  // Heading is clockwise from north; convert to a counter-clockwise-from-east unit vector.
+  double const angle = math::DegToRad(90.0 - heading);
+  startDirection = {std::cos(angle), std::sin(angle)};
   return true;
 }
 
@@ -121,14 +339,21 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
 
   if (auto const [prefix, checkForGe0Link] = FindUrlPrefix(raw); prefix != std::string::npos)
   {
-    url::Url const url{"om://" + raw.substr(prefix)};
+    std::string const normalizedUrl = "om://" + raw.substr(prefix);
+    url::Url const url{normalizedUrl};
     if (!url.IsValid())
       return m_requestType = UrlType::Incorrect;
 
     std::string const & type = url.GetHost();
     // The URL is prefixed by one of the kGe0Prefixes or kLegacyMwmPrefixes prefixes
     // => check for well-known API methods first.
-    if (type == "map")
+    if (type == "v2" && (url.GetPath() == route_v2::kPathDir || url.GetPath() == route_v2::kPathNav))
+    {
+      // Fragments are not route parameters; the general URL parser also supports fragment parameters.
+      url::Url const queryUrl{normalizedUrl.substr(0, normalizedUrl.find('#'))};
+      return m_requestType = ParseRouteV2(queryUrl, normalizedUrl) ? UrlType::Route : UrlType::Incorrect;
+    }
+    else if (type == "map")
     {
       bool correctOrder = true;
       url.ForEachParam([&correctOrder, this](auto const & key, auto const & value)
@@ -141,19 +366,10 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
     }
     else if (type == "route")
     {
-      m_routePoints.clear();
-      using namespace route;
-      std::vector pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
-      url.ForEachParam([&pattern, this](auto const & key, auto const & value)
-      { ParseRouteParam(key, value, pattern); });
-
-      if (pattern.size() != 0)
-        return m_requestType = UrlType::Incorrect;
-
-      if (m_routePoints.size() != 2)
-        return m_requestType = UrlType::Incorrect;
-
-      return m_requestType = UrlType::Route;
+      size_t paramIndex = 0;
+      url.ForEachParam([this, &paramIndex](auto const & key, auto const & value)
+      { ParseRouteParam(key, value, paramIndex); });
+      return m_requestType = paramIndex == 5 ? UrlType::Route : UrlType::Incorrect;
     }
     else if (type == "search")
     {
@@ -350,48 +566,154 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
   }
 }
 
-void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value,
-                                   std::vector<std::string_view> & pattern)
+void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value, size_t & paramIndex)
 {
   using namespace route;
+  if (key == kVersion)
+  {
+    if (!strings::to_int(value, m_version))
+      m_version = 0;
+    return;
+  }
+  ParseCommonParam(key, value);
 
-  if (pattern.empty() || key != pattern.front())
+  // Legacy links consume this sequence and ignore parameters outside it, including trailing duplicates.
+  constexpr std::array<std::string_view, 5> kParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
+  if (paramIndex == kParams.size() || key != kParams[paramIndex])
     return;
 
   if (key == kSourceLatLon || key == kDestLatLon)
   {
-    double lat = 0.0;
-    double lon = 0.0;
-    if (!ParseLatLon(key, value, lat, lon))
-    {
-      LOG(LWARNING, ("Incorrect 'sll':", value));
+    RoutePoint point;
+    if (!ParseRoutePoint(key, value, point))
       return;
-    }
-
-    RoutePoint p;
-    p.m_org = mercator::FromLatLon(lat, lon);
-    m_routePoints.push_back(p);
-  }
-  else if (key == kSourceName || key == kDestName)
-  {
-    m_routePoints.back().m_name = value;
+    m_routePoints.push_back(std::move(point));
   }
   else if (key == kRouteType)
   {
-    std::string const lowerValue = strings::MakeLowerCase(value);
-    if (lowerValue == kRouteTypePedestrian || lowerValue == kRouteTypeVehicle || lowerValue == kRouteTypeBicycle ||
-        lowerValue == kRouteTypeTransit)
-    {
-      m_routingType = lowerValue;
-    }
-    else
-    {
-      LOG(LWARNING, ("Incorrect routing type:", value));
+    auto const type = strings::MakeLowerCase(value);
+    if (type != kRouteTypeVehicle && type != kRouteTypePedestrian && type != kRouteTypeBicycle &&
+        type != kRouteTypeTransit)
       return;
-    }
+    m_routingType = type;
   }
+  else
+    m_routePoints.back().m_name = value;
+  ++paramIndex;
+}
 
-  pattern.erase(pattern.begin());
+bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl)
+{
+  using namespace route_v2;
+  m_version = 2;
+  std::string origin = std::string(kOriginCurrentLocation);
+  std::string destination;
+  std::string mode = "drive";
+  std::string heading;
+  bool hasHeading = false;
+  std::string dirAction;
+  RoutePoint start, finish;
+  std::vector<std::string> waypoints, names, callbacks;
+  std::string waypointCallbacksRaw;
+
+  // Split literal and encoded separators in the raw list before decoding each item once.
+  // A separator that belongs to an item must be double-encoded.
+  // Collect first so each recognized parameter consistently uses its last occurrence.
+  ForEachRawParam(rawUrl, [&](auto const & key, auto const & rawValue)
+  {
+    std::string const value = url::UrlDecode(rawValue);
+    if (key == kOrigin)
+      origin = value;
+    else if (key == kDestination)
+      destination = value;
+    else if (key == kOriginName)
+    {
+      start.m_name = value;
+      strings::Trim(start.m_name);
+    }
+    else if (key == kDestinationName)
+    {
+      finish.m_name = value;
+      strings::Trim(finish.m_name);
+    }
+    else if (key == kOriginCallback)
+    {
+      start.m_callback = DecodeRouteCallback(rawValue);
+      strings::Trim(start.m_callback);
+    }
+    else if (key == kDestinationCallback)
+    {
+      finish.m_callback = DecodeRouteCallback(rawValue);
+      strings::Trim(finish.m_callback);
+    }
+    else if (key == kOriginHeading)
+    {
+      heading = value;
+      hasHeading = true;
+    }
+    else if (key == kMode || key == kTravelMode)
+      mode = value;
+    else if (key == kWaypoints)
+      waypoints = SplitRouteListWithEncodedSeparators(rawValue);
+    else if (key == kWaypointNames)
+      names = SplitRouteListWithEncodedSeparators(rawValue);
+    else if (key == kWaypointCallbacks)
+      waypointCallbacksRaw = rawValue;
+    else if (key == kDirAction)
+      dirAction = value;
+    else if (key == kOptimize)
+      m_optimizeRoutePoints = ParseBool(value);
+    else if (key == kRefName)
+    {
+      m_appName = value;
+      strings::Trim(m_appName);
+    }
+    else if (key == kCallback)
+    {
+      m_globalBackUrl = DecodeRouteCallback(rawValue);
+      strings::Trim(m_globalBackUrl);
+    }
+    else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
+      LOG(LWARNING, ("Route API v2 parameter is not applied:", key, value));
+    else
+      LOG(LWARNING, ("Unsupported Route API v2 parameter:", key, value));
+  });
+  if (!dirAction.empty() && dirAction != "navigate")
+    LOG(LWARNING, ("Unsupported route action:", dirAction));
+  m_startRouteNavigation = url.GetPath() == kPathNav || dirAction == "navigate";
+  // Navigation always starts at the current position, even if an explicit origin is malformed.
+  if (m_startRouteNavigation)
+    origin = std::string(kOriginCurrentLocation);
+  if (!ParseRouteMode(mode, m_routingType) || !ParseRoutePoint(std::string(kDestination), destination, finish))
+    return false;
+  if (hasHeading && !ParseOriginHeading(heading, m_startDirection))
+    return false;
+
+  // Navigation starts at the user's position; explicit origins only affect previews.
+  if (m_startRouteNavigation || IsRouteCurrentLocation(origin))
+    start.m_isMyPosition = true;
+  else if (!ParseRoutePoint(std::string(kOrigin), origin, start))
+    return false;
+  if (!waypointCallbacksRaw.empty())
+    callbacks = SplitRouteCallbackListWithEncodedSeparators(waypointCallbacksRaw);
+  m_routePoints.push_back(std::move(start));
+  for (size_t i = 0; i < waypoints.size(); ++i)
+  {
+    if (waypoints[i].empty())
+      continue;
+    if (m_routePoints.size() > RoutePointsLayout::kMaxIntermediatePointsCount)
+      return false;
+    RoutePoint point;
+    if (!ParseRoutePoint(std::string(kWaypoints), waypoints[i], point))
+      return false;
+    if (i < names.size())
+      point.m_name = std::move(names[i]);
+    if (i < callbacks.size())
+      point.m_callback = std::move(callbacks[i]);
+    m_routePoints.push_back(std::move(point));
+  }
+  m_routePoints.push_back(std::move(finish));
+  return true;
 }
 
 void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const & value)
@@ -450,6 +772,9 @@ void ParsedMapApi::Reset()
   m_appName = {};
   m_centerLatLon = ms::LatLon::Invalid();
   m_routingType = {};
+  m_startDirection = m2::PointD::Zero();
+  m_optimizeRoutePoints = false;
+  m_startRouteNavigation = false;
   m_version = 0;
   m_zoomLevel = 0.0;
   m_goBackOnBalloonClick = false;
@@ -513,6 +838,36 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
   info.m_mercator = mercator::FromLatLon(m_mapPoints[0].m_lat, m_mapPoints[0].m_lon);
   // Other details will be filled in by BuildPlacePageInfo().
   fm.BuildAndSetPlacePageInfo(info);
+}
+
+void ParsedMapApi::ExecuteRouteApiRequest(Framework & fm) const
+{
+  CHECK_EQUAL(m_requestType, UrlType::Route, ("Must be a Route API request"));
+  CHECK_GREATER_OR_EQUAL(m_routePoints.size(), 2, ());
+  std::vector<RouteMarkData> points;
+  points.reserve(m_routePoints.size());
+  for (auto const & point : m_routePoints)
+  {
+    RouteMarkData data;
+    // Match Android's previous unnamed-point labels and iOS NormalizeTitle: bare coordinates.
+    if (!point.m_name.empty())
+      data.m_title = point.m_name;
+    else if (!point.m_isMyPosition)
+    {
+      auto const ll = mercator::ToLatLon(point.m_org);
+      data.m_title = measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true /* withComma */);
+    }
+    data.m_isMyPosition = point.m_isMyPosition;
+    data.m_position = point.m_org;
+    data.m_callback = point.m_callback;
+    points.push_back(std::move(data));
+  }
+  // origin_callback is reserved, not an executable stop callback.
+  points.front().m_callback.clear();
+  auto & rm = fm.GetRoutingManager();
+  rm.SetRouter(routing::FromString(m_routingType));
+  rm.ReplaceRoutePoints(std::move(points), m_optimizeRoutePoints);
+  rm.BuildRoute(routing::RouterDelegate::kNoTimeout, m_startDirection);
 }
 
 std::string DebugPrint(ParsedMapApi::UrlType type)

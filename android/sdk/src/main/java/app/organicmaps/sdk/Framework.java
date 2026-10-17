@@ -14,6 +14,7 @@ import app.organicmaps.sdk.products.ProductsConfig;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
+import app.organicmaps.sdk.routing.RoutePointCallbackListener;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingListener;
 import app.organicmaps.sdk.routing.RoutingLoadPointsListener;
@@ -196,6 +197,10 @@ public class Framework
   @Size(2)
   public static native double[] nativeGetParsedCenterLatLon();
   public static native @Nullable String nativeGetParsedBackUrl();
+  public static native boolean nativeHasLegacyBackUrl();
+
+  /// One-shot back URL consumption, see ParsedMapApi::ClearGlobalBackUrl().
+  public static native void nativeClearParsedBackUrl();
 
   /// @return true if a transit route selection was recovered.
   public static native boolean nativeDeactivatePopup();
@@ -226,6 +231,12 @@ public class Framework
 
   public static native void nativeBuildRoute();
 
+  /**
+   * Materializes the parsed route deep link as route points and starts the build in the
+   * core; the caller only drives UI state around it.
+   */
+  public static native void nativeExecuteRouteApiRequest();
+
   public static native void nativeRemoveRoute();
 
   public static native void nativeFollowRoute();
@@ -235,6 +246,8 @@ public class Framework
   @FastNative
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
+
+  public static native void nativeSetRoutePointCallbackListener(@Nullable RoutePointCallbackListener listener);
 
   @Nullable
   /// @param[in] maxDistM Max distance between points in meters.
@@ -268,15 +281,19 @@ public class Framework
 
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
-  public static boolean addRoutePoint(RouteMarkData point, boolean allowOptimization)
+  public static boolean addRoutePoint(RouteMarkData point, boolean reorderIntermediatePoints)
   {
-    return Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIsMyPosition,
-                                         point.mLat, point.mLon, allowOptimization);
+    return Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mCallback, point.mPointType,
+                                         point.mIntermediateIndex, point.mIsMyPosition, point.mLat, point.mLon,
+                                         reorderIntermediatePoints);
   }
 
-  public static native boolean nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
+  public static native boolean nativeAddRoutePoint(String title, String subtitle, String callback,
+                                                   @NonNull RouteMarkType markType, int intermediateIndex,
                                                    boolean isMyPosition, double lat, double lon,
-                                                   boolean allowOptimization);
+                                                   boolean reorderIntermediatePoints);
+
+  public static native void nativeReplaceRoutePoints(@NonNull RouteMarkData[] points, boolean optimize);
 
   public static native void nativeReplaceRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
                                                     int intermediateIndex, boolean isMyPosition, double lat,
@@ -290,8 +307,6 @@ public class Framework
    */
   public static native boolean nativeContinueRouteToPoint(String title, String subtitle, boolean isMyPosition,
                                                           double lat, double lon);
-
-  public static native void nativeRemoveRoutePoints();
 
   public static native void nativeRemoveRoutePoint(@NonNull RouteMarkType markType, int intermediateIndex);
 

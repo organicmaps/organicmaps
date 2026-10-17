@@ -4,6 +4,7 @@
   private(set) var isLaunchedByDeepLink = false
   private(set) var hasPendingColdLaunchDeepLink = false
   private(set) var url: URL?
+  private var featureHighlightData: DeepLinkInAppFeatureHighlightData?
 
   override private init() {
     super.init()
@@ -49,19 +50,22 @@
     isLaunchedByDeepLink = false
     hasPendingColdLaunchDeepLink = false
     url = nil
+    featureHighlightData = nil
   }
 
   func getBackUrl() -> String? {
-    guard let urlString = url?.absoluteString else { return nil }
-    guard let url = URLComponents(string: urlString) else { return nil }
-    return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? nil)
+    // The core parses both the legacy map backurl= and the v2 route callback= into a single
+    // value while handling the deep link (see Framework::GetParsedBackUrl), so iOS just reads
+    // it back instead of re-parsing the URL and re-implementing the escaping here.
+    let backUrl = FrameworkHelper.parsedBackUrl()
+    return backUrl.isEmpty ? nil : backUrl
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
-    guard isLaunchedByDeepLink, let url else { return nil }
-    // Highlight the feature once, but keep the URL: goBack() still reads getBackUrl() from it.
+    let data = featureHighlightData
+    featureHighlightData = nil
     isLaunchedByDeepLink = false
-    return DeepLinkInAppFeatureHighlightData(DeepLinkParser.parseAndSetApiURL(url))
+    return data
   }
 
   func handleDeepLinkAndReset() -> Bool {
@@ -134,18 +138,17 @@
       url = omURL
     }
 
-    // TODO(AB): Rewrite API so iOS and Android will call only one C++ method to clear/set API state.
-    // This call is also required for DeepLinkParser.showMap, and it also clears old API points...
     let urlType = DeepLinkParser.parseAndSetApiURL(url)
+    // Menus consume a snapshot; opening them must not reparse a link and rearm its return callback.
+    featureHighlightData = (urlType == .menu || urlType == .settings) ? DeepLinkInAppFeatureHighlightData(urlType) : nil
     LOG(.info, "URL type: \(urlType)")
     switch urlType {
     case .route:
-      if let adapter = DeepLinkRouteStrategyAdapter(url) {
-        MWMRouter.buildApiRoute(with: adapter.type, start: adapter.p1, finish: adapter.p2)
-        MapsAppDelegate.theApp().showMap()
-        return true
-      }
-      return false
+      CarPlayService.shared.prepareForRouteOnPhone()
+      let adapter = DeepLinkRouteStrategyAdapter()
+      MWMRouter.buildApiRoute(with: adapter.type, startRouteNavigation: adapter.startRouteNavigation)
+      MapsAppDelegate.theApp().showMap()
+      return true
     case .map:
       DeepLinkParser.executeMapApiRequest()
       MapsAppDelegate.theApp().showMap()
