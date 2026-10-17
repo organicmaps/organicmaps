@@ -1,18 +1,17 @@
 @objc @objcMembers class DeepLinkHandler: NSObject {
   static let shared = DeepLinkHandler()
 
-  private(set) var isLaunchedByDeepLink = false
   private(set) var hasPendingColdLaunchDeepLink = false
   private(set) var url: URL?
+  private var featureHighlightData: DeepLinkInAppFeatureHighlightData?
 
   override private init() {
     super.init()
   }
 
-  /// Keeps the last link received during a cold launch. It is handled by handleDeepLinkAndReset()
+  /// Keeps the last link received during a cold launch. It is handled by handlePendingDeepLink()
   /// once the map is ready, because the place page and viewport animations need an initialized map.
   func prepareForColdLaunch(url: URL) {
-    isLaunchedByDeepLink = true
     hasPendingColdLaunchDeepLink = true
     self.url = url
   }
@@ -30,9 +29,6 @@
     }
 
     self.url = url
-    // Set before handling: handleDeepLink() opens the screen that reads getInAppFeatureHighlightData().
-    isLaunchedByDeepLink = true
-
     // A link arriving before the map is ready supersedes the previous pending link.
     guard !hasPendingColdLaunchDeepLink else { return true }
 
@@ -46,32 +42,33 @@
   }
 
   func reset() {
-    isLaunchedByDeepLink = false
     hasPendingColdLaunchDeepLink = false
     url = nil
+    featureHighlightData = nil
   }
 
   func getBackUrl() -> String? {
-    guard let urlString = url?.absoluteString, let url = URLComponents(string: urlString) else { return nil }
-    return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? nil)
+    // The core parses both the legacy map backurl= and the v2 route callback= into a single
+    // value while handling the deep link (see Framework::GetParsedBackUrl), so iOS just reads
+    // it back instead of re-parsing the URL and re-implementing the escaping here.
+    let backUrl = FrameworkHelper.parsedBackUrl()
+    return backUrl.isEmpty ? nil : backUrl
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
-    guard isLaunchedByDeepLink, let url else { return nil }
-    // Highlight the feature once, but keep the URL: goBack() still reads getBackUrl() from it.
-    isLaunchedByDeepLink = false
-    return DeepLinkInAppFeatureHighlightData(DeepLinkParser.parseAndSetApiURL(url))
+    defer { featureHighlightData = nil }
+    return featureHighlightData
   }
 
-  func handleDeepLinkAndReset() -> Bool {
-    guard let url else {
-      LOG(.error, "handleDeepLink is called with nil URL")
+  func handlePendingDeepLink() -> Bool {
+    guard hasPendingColdLaunchDeepLink, let url else {
+      LOG(.error, "handlePendingDeepLink is called without a pending URL")
       return false
     }
 
-    let handled = handleDeepLink(url: url)
-    reset()
-    return handled
+    // The destination consumes the highlight when its presentation finishes.
+    hasPendingColdLaunchDeepLink = false
+    return handleDeepLink(url: url)
   }
 
   private func handleFileImport(url: URL, openInPlace: Bool) -> Bool {
@@ -133,18 +130,17 @@
       url = omURL
     }
 
-    // TODO(AB): Rewrite API so iOS and Android will call only one C++ method to clear/set API state.
-    // This call is also required for DeepLinkParser.showMap, and it also clears old API points...
     let urlType = DeepLinkParser.parseAndSetApiURL(url)
+    // The destination consumes a snapshot without changing the core's parsed request.
+    featureHighlightData = (urlType == .menu || urlType == .settings) ? DeepLinkInAppFeatureHighlightData(urlType) : nil
     LOG(.info, "URL type: \(urlType)")
     switch urlType {
     case .route:
-      if let adapter = DeepLinkRouteStrategyAdapter(url) {
-        MWMRouter.buildApiRoute(with: adapter.type, start: adapter.p1, finish: adapter.p2)
-        MapsAppDelegate.theApp().showMap()
-        return true
-      }
-      return false
+      CarPlayService.shared.prepareForRouteOnPhone()
+      let adapter = DeepLinkRouteStrategyAdapter()
+      MWMRouter.buildApiRoute(with: adapter.type, startRouteNavigation: adapter.startRouteNavigation)
+      MapsAppDelegate.theApp().showMap()
+      return true
     case .map:
       DeepLinkParser.executeMapApiRequest()
       MapsAppDelegate.theApp().showMap()

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mockStatic;
 
 import app.organicmaps.sdk.util.log.Logger;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,83 @@ import org.mockito.MockedStatic;
 
 public class RoutingControllerNavigationStateTest
 {
+  @Test
+  public void apiAutoStartWaitsUntilSavedStateIsRestored() throws ReflectiveOperationException
+  {
+    final RoutingController controller = new RoutingController();
+    final List<String> events = new ArrayList<>();
+    controller.attach(new RoutingController.Container() {
+      @Override
+      public void onRouteReadyToAutoStart()
+      {
+        events.add("start");
+      }
+    });
+    try (MockedStatic<Logger> logger = mockStatic(Logger.class);
+         MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
+    {
+      controller.onSaveState();
+      cacheReadyApiRoute(controller);
+      processCachedResult(controller);
+      assertEquals(List.of(), events);
+      controller.restore();
+      controller.restore();
+    }
+    assertEquals(List.of("start"), events);
+  }
+
+  @Test
+  public void apiAutoStartSurvivesAChangedContainer() throws ReflectiveOperationException
+  {
+    final RoutingController controller = new RoutingController();
+    final List<String> events = new ArrayList<>();
+    try (MockedStatic<Logger> logger = mockStatic(Logger.class);
+         MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
+    {
+      controller.attach(new RoutingController.Container() {
+        @Override
+        public void onRouteReadyToAutoStart()
+        {
+          events.add("old");
+        }
+      });
+      controller.detach();
+      cacheReadyApiRoute(controller);
+      processCachedResult(controller);
+      controller.attach(new RoutingController.Container() {
+        @Override
+        public void onRouteReadyToAutoStart()
+        {
+          events.add("new");
+        }
+      });
+      controller.restore();
+    }
+    assertEquals(List.of("new"), events);
+  }
+
+  private static void cacheReadyApiRoute(RoutingController controller) throws ReflectiveOperationException
+  {
+    setField(controller, "mContainsCachedResult", true);
+    setField(controller, "mStartNavigationAfterBuild", true);
+    setField(controller, "mLastResultCode", ResultCodes.NO_ERROR);
+  }
+
+  private static void setField(RoutingController controller, String name, Object value)
+      throws ReflectiveOperationException
+  {
+    final Field field = RoutingController.class.getDeclaredField(name);
+    field.setAccessible(true);
+    field.set(controller, value);
+  }
+
+  private static void processCachedResult(RoutingController controller) throws ReflectiveOperationException
+  {
+    final Method process = RoutingController.class.getDeclaredMethod("processRoutingEvent");
+    process.setAccessible(true);
+    process.invoke(controller);
+  }
+
   @Test
   public void listenerReceivesOnlyNavigationBoundaryTransitions() throws ReflectiveOperationException
   {
