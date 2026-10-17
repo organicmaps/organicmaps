@@ -730,8 +730,9 @@ public class PlacePageController
         {
           buttons.add(PlacePageButtons.ButtonType.ROUTE_REPLACE);
         }
-        else if (RoutingController.get().isStopPointAllowed())
+        else
         {
+          // Unlike Add Stop, appending needs no built route; the points limit was checked when the pick started.
           buttons.add(PlacePageButtons.ButtonType.ROUTE_APPEND);
         }
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
