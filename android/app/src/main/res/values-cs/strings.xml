@@ -578,6 +578,13 @@
         <item quantity="other">Bylo nalezeno %d souborů. Uvidíte je po konverzi.</item>
     </plurals>
     <string name="restore">Obnovit</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d oblast</item>
+        <item quantity="few">%d oblasti</item>
+        <item quantity="many">%d oblasti</item>
+        <item quantity="other">%d oblastí</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d stop</item>
         <item quantity="one">%d stopa</item>

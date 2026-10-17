@@ -576,6 +576,13 @@
         <item quantity="other">Aptikta %d failų. Juos galėsite pamatyti, atlikus konvertavimą.</item>
     </plurals>
     <string name="restore">Atkurti</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d zona</item>
+        <item quantity="few">%d zonos</item>
+        <item quantity="many">%d zonos</item>
+        <item quantity="other">%d zonų</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d trasa</item>
         <item quantity="few">%d trasos</item>

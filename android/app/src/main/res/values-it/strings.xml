@@ -577,6 +577,12 @@
         <item quantity="other">%d file sono stati trovati. Li potrai vedere dopo la conversione.</item>
     </plurals>
     <string name="restore">Ripristina</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d area</item>
+        <item quantity="many">%d di aree</item>
+        <item quantity="other">%d aree</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d tracce</item>
         <item quantity="one">%d traccia</item>

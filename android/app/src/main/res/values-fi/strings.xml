@@ -574,6 +574,11 @@
         <item quantity="other">%d tiedostoa löydettiin. Näet ne muunnoksen jälkeen.</item>
     </plurals>
     <string name="restore">Palauta</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d alue</item>
+        <item quantity="other">%d aluetta</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d reitti</item>
         <item quantity="other">%d reittiä</item>

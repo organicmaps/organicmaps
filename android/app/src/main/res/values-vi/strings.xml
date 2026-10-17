@@ -572,6 +572,10 @@
         <item quantity="other">%d files were found. You can see them after conversion.</item>
     </plurals>
     <string name="restore">Khôi phục</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d khu vực</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d chặng đường</item>
         <item quantity="other">%d các chặng đường</item>

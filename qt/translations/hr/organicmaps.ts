@@ -1085,6 +1085,11 @@
 <source>No name</source>
 <translation>No name</translation>
 </message>
+<message id="unnamed_area">
+<extracomment>Placeholder for an imported polygon area without a name.</extracomment>
+<source>No name</source>
+<translation>Nema naziva</translation>
+</message>
 <message id="bookmark_title_with_type">
 <extracomment>Bookmark tree item or place page title. %@ is the name.</extracomment>
 <source>%1 (Bookmark)</source>
@@ -1094,6 +1099,11 @@
 <extracomment>Track tree item or place page title. %@ is the name.</extracomment>
 <source>%1 (Track)</source>
 <translation>%1 (Track)</translation>
+</message>
+<message id="area_title_with_type">
+<extracomment>Bookmark tree item title. %@ is the polygon area name.</extracomment>
+<source>%1 (Area)</source>
+<translation>%1 (Područje)</translation>
 </message>
 <message id="mwms_borders_selection_settings">
 <source>MWM borders selection settings</source>
