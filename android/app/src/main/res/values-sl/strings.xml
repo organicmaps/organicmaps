@@ -417,7 +417,8 @@
     <string name="select_cuisine">Izberite kuhinjo</string>
     <!-- login text field -->
     <string name="email_or_username">E-pošta ali uporabniško ime</string>
-    <string name="editor_add_phone">Dodaj telefon</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Nova telefonska številka</string>
     <string name="level">Nadstropje</string>
     <!-- Building level -->
     <string name="level_value_generic">Nadstropje: %s</string>
@@ -563,7 +564,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">To ime je že zasedeno</string>
     <string name="bookmarks_error_message_list_name_already_taken">Izberite drugo ime</string>
     <string name="please_wait">Prosimo, počakajte…</string>
-    <string name="phone_number">Telefonska številka</string>
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Najdena je bila %d datoteka. Po pretvorbi si jo lahko ogledate.</item>

@@ -417,7 +417,8 @@
     <string name="select_cuisine">Mutfak Seç</string>
     <!-- login text field -->
     <string name="email_or_username">E-posta veya kullanıcı adı</string>
-    <string name="editor_add_phone">Telefon Ekle</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Yeni Telefon</string>
     <string name="level">Kat</string>
     <!-- Building level -->
     <string name="level_value_generic">Kat sayısı: %s</string>
@@ -562,7 +563,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Bu ad zaten alınmış</string>
     <string name="bookmarks_error_message_list_name_already_taken">Lütfen başka ad seçin</string>
     <string name="please_wait">Lütfen bekleyin…</string>
-    <string name="phone_number">Telefon numarası</string>
     <string name="profile">OpenStreetMap profili</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">%d dosya bulundu.</item>

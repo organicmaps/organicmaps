@@ -417,7 +417,8 @@
     <string name="select_cuisine">选择菜肴</string>
     <!-- login text field -->
     <string name="email_or_username">电子邮件或用户名</string>
-    <string name="editor_add_phone">新增电话号码</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">新电话号码</string>
     <string name="level">楼层</string>
     <!-- Building level -->
     <string name="level_value_generic">楼层：%s</string>
@@ -561,7 +562,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">这个名称已经被使用了</string>
     <string name="bookmarks_error_message_list_name_already_taken">请选择其他名称</string>
     <string name="please_wait">请稍候…</string>
-    <string name="phone_number">电话号码</string>
     <string name="profile">OpenStreetMap 资料</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">未找到文件。</item>

@@ -284,7 +284,6 @@
     <string name="cuisine">Cozinha</string>
     <!-- login text field -->
     <string name="email_or_username">Email ou nome de usuário</string>
-    <string name="editor_add_phone">Adicionar número de telefone</string>
     <string name="level">Piso</string>
     <!-- Building level -->
     <string name="level_value_generic">Andar: %s</string>

@@ -417,7 +417,8 @@
     <string name="select_cuisine">Vali köök</string>
     <!-- login text field -->
     <string name="email_or_username">E-post või kasutajanimi</string>
-    <string name="editor_add_phone">Lisa telefon</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Uus telefon</string>
     <string name="level">Korrus</string>
     <!-- Building level -->
     <string name="level_value_generic">Korrus: %s</string>
@@ -562,7 +563,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">See nimi on juba kasutusel</string>
     <string name="bookmarks_error_message_list_name_already_taken">Palun vali teine nimi</string>
     <string name="please_wait">Palun oota…</string>
-    <string name="phone_number">Telefoni number</string>
     <string name="profile">OpenStreetMapi profiil</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">Leidsime %d faili.</item>

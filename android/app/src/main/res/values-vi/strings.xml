@@ -417,7 +417,8 @@
     <string name="select_cuisine">Chọn Ẩm thực</string>
     <!-- login text field -->
     <string name="email_or_username">Email hoặc tên người dùng</string>
-    <string name="editor_add_phone">Thêm số điện thoại</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Số điện thoại mới</string>
     <string name="level">Tầng</string>
     <!-- Building level -->
     <string name="level_value_generic">Cấp độ: %s</string>
@@ -560,7 +561,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Tên này đã được sử dụng</string>
     <string name="bookmarks_error_message_list_name_already_taken">Vui lòng chọn một tên khác</string>
     <string name="please_wait">Vui lòng chờ…</string>
-    <string name="phone_number">Số điện thoại</string>
     <string name="profile">Hồ sơ OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="other">%d files were found. You can see them after conversion.</item>

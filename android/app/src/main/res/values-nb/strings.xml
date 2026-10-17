@@ -417,7 +417,8 @@
     <string name="select_cuisine">Velg matrett</string>
     <!-- login text field -->
     <string name="email_or_username">E-postadresse eller brukernavn</string>
-    <string name="editor_add_phone">Legg til telefon</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Ny telefon</string>
     <string name="level">Gulv</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivå: %s</string>
@@ -561,7 +562,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Dette navnet er allerede tatt</string>
     <string name="bookmarks_error_message_list_name_already_taken">Vennligst velg et annet navn</string>
     <string name="please_wait">Vennligst vent…</string>
-    <string name="phone_number">Telefonnummer</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d fil funnet. Du vil se den etter konverteringen.</item>

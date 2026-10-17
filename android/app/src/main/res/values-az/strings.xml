@@ -417,7 +417,8 @@
     <string name="select_cuisine">Mətbəx seçin</string>
     <!-- login text field -->
     <string name="email_or_username">E-poçt və ya istifadəçi adı</string>
-    <string name="editor_add_phone">Telefon əlavə edin</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Yeni telefon</string>
     <string name="level">Mərtəbə</string>
     <!-- Building level -->
     <string name="level_value_generic">Səviyyə: %s</string>
@@ -561,7 +562,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Bu ad artıq götürülüb</string>
     <string name="bookmarks_error_message_list_name_already_taken">Zəhmət olmasa başqa ad seçin</string>
     <string name="please_wait">Zəhmət olmasa, gözləyin…</string>
-    <string name="phone_number">Telefon nömrəsi</string>
     <string name="profile">OpenStreetMap profili</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d fayl tapıldı. Onu dönüşümdən sonra görəcəksiniz.</item>

@@ -417,7 +417,8 @@
     <string name="select_cuisine">Trieu una cuina</string>
     <!-- login text field -->
     <string name="email_or_username">Adreça electrònica o nom d’usuari</string>
-    <string name="editor_add_phone">Afegeix un telèfon</string>
+    <!-- Placeholder for phone input in editor UI -->
+    <string name="editor_new_phone">Nou telèfon</string>
     <string name="level">Planta</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivell: %s</string>
@@ -563,7 +564,6 @@
     <string name="bookmarks_error_title_list_name_already_taken">Aquest nom ja és en ús</string>
     <string name="bookmarks_error_message_list_name_already_taken">Trieu-ne un altre</string>
     <string name="please_wait">Espereu…</string>
-    <string name="phone_number">Número de telèfon</string>
     <string name="profile">Perfil de l’OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">No s’ha trobat cap fitxer.</item>
