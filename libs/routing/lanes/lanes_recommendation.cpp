@@ -13,6 +13,34 @@ void FixRecommendedReverseLane(LaneWays & ways, LaneWay const recommendedWay)
   else if (recommendedWay == LaneWay::ReverseRight)
     ways.Remove(LaneWay::ReverseLeft);
 }
+
+void RecommendLanes(CarDirection direction, LanesInfo & lanes)
+{
+  if (!impl::SetRecommendedLaneWays(direction, lanes) && !impl::SetRecommendedLaneWaysApproximately(direction, lanes) &&
+      !impl::SetUnrestrictedLaneAsRecommended(direction, lanes))
+    lanes.clear();
+}
+
+void PropagateRecommendedLanes(LanesInfo const & next, size_t offset, LanesInfo & previous)
+{
+  if (next.empty())
+  {
+    previous.clear();
+    return;
+  }
+
+  ASSERT_LESS_OR_EQUAL(offset + next.size(), previous.size(), ());
+  for (size_t i = 0; i < next.size(); ++i)
+  {
+    auto const way = next[i].recommendedWay;
+    if (way == LaneWay::None)
+      continue;
+
+    auto & lane = previous[offset + i];
+    lane.recommendedWay = way;
+    FixRecommendedReverseLane(lane.laneWays, way);
+  }
+}
 }  // namespace
 
 void SelectRecommendedLanes(std::vector<RouteSegment> & routeSegments)
@@ -20,24 +48,17 @@ void SelectRecommendedLanes(std::vector<RouteSegment> & routeSegments)
   for (auto & segment : routeSegments)
   {
     auto & t = segment.GetTurn();
-    if (t.IsTurnNone() || t.m_lanes.empty())
+    if (t.IsTurnNone())
       continue;
+
     auto & lanesInfo = segment.GetTurnLanes();
-    // Check if there are elements in lanesInfo that correspond with the turn exactly.
-    // If so, fix up all the elements in lanesInfo that correspond with the turn.
-    if (impl::SetRecommendedLaneWays(t.m_turn, lanesInfo))
-      continue;
-    // If not, check if there are elements in lanesInfo that correspond with the turn
-    // approximately. If so, fix up all those elements.
-    if (impl::SetRecommendedLaneWaysApproximately(t.m_turn, lanesInfo))
-      continue;
-    // If not, check if there is an unrestricted lane that could correspond to the
-    // turn. If so, fix up that lane.
-    if (impl::SetUnrestrictedLaneAsRecommended(t.m_turn, lanesInfo))
-      continue;
-    // Otherwise, we don't have lane recommendations for the user, so we don't
-    // want to send the lane data any further.
-    segment.ClearTurnLanes();
+    RecommendLanes(t.m_turn, lanesInfo);
+    auto const * next = &lanesInfo;
+    for (auto & layout : segment.GetApproachLanes())
+    {
+      PropagateRecommendedLanes(*next, layout.m_offset, layout.m_lanes);
+      next = &layout.m_lanes;
+    }
   }
 }
 

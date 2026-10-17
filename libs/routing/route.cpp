@@ -58,7 +58,11 @@ void RouteSegment::MergeLanes(RouteSegment & from)
 {
   /// @todo Keep 'from' lanes now. Probably, can move and clear.
   if (m_turn.m_lanes.empty())
+  {
     m_turn.m_lanes = from.m_turn.m_lanes;
+    m_turn.m_approachLanes = from.m_turn.m_approachLanes;
+    m_turn.m_approachLanesBeginIndex = from.m_turn.m_approachLanesBeginIndex;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -546,6 +550,11 @@ void Route::GetNearestTurn(double & distanceToTurnMeters, TurnItem & turn) const
   auto const & curIter = m_poly.GetCurrentIter();
   GetClosestTurnAfterIdx(curIter.m_ind, turn);
   CHECK_LESS(curIter.m_ind, turn.m_index, ());
+
+  if (curIter.m_ind >= turn.m_approachLanesBeginIndex)
+    for (auto const & layout : turn.m_approachLanes)
+      if (curIter.m_ind < layout.m_splitIndex)
+        turn.m_lanes = layout.m_lanes;
 
   distanceToTurnMeters = m_poly.GetDistanceM(curIter, m_poly.GetIterToIndex(turn.m_index));
 }

@@ -5,6 +5,9 @@
 
 #include "geometry/mercator.hpp"
 
+#include <algorithm>
+#include <iterator>
+
 namespace routing
 {
 namespace turns
@@ -120,14 +123,61 @@ bool PathIsFakeLoop(RouteJunctions const & path)
   return path.size() == 2 && path[0] == path[1];
 }
 
-double CalcRouteDistanceM(RouteJunctions const & junctions, uint32_t start, uint32_t end)
+double CalcRouteDistanceM(RouteJunctions const & junctions)
 {
   double res = 0.0;
 
-  for (uint32_t i = start + 1; i < end; ++i)
+  for (size_t i = 1; i < junctions.size(); ++i)
     res += mercator::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
 
   return res;
+}
+
+void AddApproachLanes(TUnpackedPathSegments const & loadedSegments, size_t loadedSegmentIndex,
+                      std::vector<RouteSegment> const & routeSegments, TurnItem & turn)
+{
+  double constexpr kShortLanesSegmentDistM = 30.0;
+  double distance = 0.0;
+  size_t startIndex = turn.m_index - loadedSegments[loadedSegmentIndex].m_segments.size();
+  auto const * lanes = &turn.m_lanes;
+
+  for (size_t i = loadedSegmentIndex; i > 0; --i)
+  {
+    auto const & current = loadedSegments[i];
+    auto const & previous = loadedSegments[i - 1];
+    bool const sameLanes = previous.m_lanes == *lanes;
+    distance += CalcRouteDistanceM(current.m_path);
+    if (distance >= kShortLanesSegmentDistM && (!sameLanes || turn.m_approachLanes.empty()))
+      break;
+
+    // A preceding maneuver or a road change must not lend its lanes to this turn.
+    auto const & road = current.m_roadNameInfo;
+    auto const & previousRoad = previous.m_roadNameInfo;
+    if (!routeSegments[startIndex - 1].GetTurn().IsTurnNone() || road.m_name != previousRoad.m_name ||
+        road.m_ref != previousRoad.m_ref || road.m_isLink != previousRoad.m_isLink ||
+        (road.m_name.empty() && road.m_ref.empty()))
+      break;
+
+    if (!sameLanes)
+    {
+      auto const & previousLanes = previous.m_lanes;
+      if (previousLanes.size() <= lanes->size())
+        break;
+
+      auto const match = std::search(previousLanes.begin(), previousLanes.end(), lanes->begin(), lanes->end());
+      // Repeated identical lanes do not identify which one survives the fork.
+      if (match == previousLanes.end() ||
+          std::search(match + 1, previousLanes.end(), lanes->begin(), lanes->end()) != previousLanes.end())
+        break;
+
+      turn.m_approachLanes.push_back({static_cast<uint32_t>(startIndex),
+                                      static_cast<size_t>(std::distance(previousLanes.begin(), match)), previousLanes});
+      lanes = &previousLanes;
+    }
+    startIndex -= previous.m_segments.size();
+    if (!turn.m_approachLanes.empty())
+      turn.m_approachLanesBeginIndex = static_cast<uint32_t>(startIndex);
+  }
 }
 
 // TurnInfo ----------------------------------------------------------------------------------------
