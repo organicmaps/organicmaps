@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "Atrás";
+
+/* Button text (should be short) */
 "cancel" = "Cancelar";
 
 /* Button which deletes downloaded country */

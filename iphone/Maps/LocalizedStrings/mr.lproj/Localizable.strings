@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "मागे";
+
+/* Button text (should be short) */
 "cancel" = "रद्द करा";
 
 /* Button which deletes downloaded country */

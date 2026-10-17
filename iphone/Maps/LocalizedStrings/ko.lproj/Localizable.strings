@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "뒤로";
+
+/* Button text (should be short) */
 "cancel" = "취소하기";
 
 /* Button which deletes downloaded country */

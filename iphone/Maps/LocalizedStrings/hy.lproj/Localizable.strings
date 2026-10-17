@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "Հետ";
+
+/* Button text (should be short) */
 "cancel" = "Չեղարկել";
 
 /* Button which deletes downloaded country */
