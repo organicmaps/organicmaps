@@ -635,6 +635,10 @@
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Tous les modes de déplacement</string>
     <string name="driving_options_title">Paramètres des itinéraires</string>
+    <!-- Walking and cycling routing preference for saved, recorded, or imported tracks shown on the map -->
+    <string name="prefer_saved_tracks">Privilégier les traces enregistrées</string>
+    <!-- First version uses tracks near a start, finish, or intermediate route point -->
+    <string name="prefer_saved_tracks_description">Utilise les traces affichées sur la carte lorsqu’un point de l’itinéraire est à proximité. Les traces peuvent être suivies dans les deux sens.</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Optimisation de l’itinéraire</string>
     <!-- Explains that route optimization automatically reorders intermediate stops -->

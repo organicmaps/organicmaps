@@ -741,6 +741,12 @@
 "routing_options_all_modes" = "Tous les modes de déplacement";
 "driving_options_title" = "Paramètres des itinéraires";
 
+/* Walking and cycling routing preference for saved, recorded, or imported tracks shown on the map */
+"prefer_saved_tracks" = "Privilégier les traces enregistrées";
+
+/* First version uses tracks near a start, finish, or intermediate route point */
+"prefer_saved_tracks_description" = "Utilise les traces affichées sur la carte lorsqu’un point de l’itinéraire est à proximité. Les traces peuvent être suivies dans les deux sens.";
+
 /* Routing setting that automatically reorders intermediate stops */
 "route_optimization" = "Optimisation de l’itinéraire";
 
