@@ -1,6 +1,8 @@
 project(kml)
 
 set(SRC
+  area_data.cpp
+  area_data.hpp
   color_parser.cpp
   color_parser.hpp
   header_binary.hpp

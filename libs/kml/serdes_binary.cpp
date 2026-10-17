@@ -44,6 +44,8 @@ void ReadV10Strings(NonOwningReaderSource & source, coding::BlockedTextStorage<R
 
 SerializerKml::SerializerKml(FileData const & data) : m_data(data)
 {
+  if (!data.m_areasData.empty())
+    MYTHROW(SerializeException, ("KMB cannot store polygon areas."));
   // V8/V9 binary tracks store one line and no per-point times. Reject data that
   // cannot be represented before writing output or collecting strings.
   for (auto const & track : data.m_tracksData)
