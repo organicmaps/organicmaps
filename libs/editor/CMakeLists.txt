@@ -46,5 +46,5 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 omim_add_test_subdirectory(editor_tests)
-omim_add_test_subdirectory(editor_tests_support)
+add_subdirectory(editor_tests_support)
 omim_add_test_subdirectory(osm_auth_tests)
