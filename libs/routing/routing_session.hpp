@@ -49,10 +49,12 @@ public:
 
   /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
-  void BuildRoute(Checkpoints const & checkpoints, uint32_t timeoutSec);
+  void BuildRoute(Checkpoints const & checkpoints, uint32_t timeoutSec,
+                  m2::PointD const & startDirection = m2::PointD::Zero());
   void RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & readyCallback,
                     NeedMoreMapsCallback const & needMoreMapsCallback, RemoveRouteCallback const & removeRouteCallback,
-                    uint32_t timeoutSec, SessionState routeRebuildingState, bool adjustToPrevRoute);
+                    uint32_t timeoutSec, SessionState routeRebuildingState, bool adjustToPrevRoute,
+                    m2::PointD const & startDirection = m2::PointD::Zero());
 
   m2::PointD GetEndPoint() const;
 
@@ -105,7 +107,7 @@ public:
   /// Returns true if following was disabled, false if a route is not ready for the following yet.
   bool DisableFollowMode();
 
-  /// Now indicates only that user pushed start button. Route follows by default.
+  /// Marks navigation as explicitly started. Preview routes can also track progress.
   /// Returns true if following was enabled, false if a route is not ready for the following yet.
   bool EnableFollowMode();
 
