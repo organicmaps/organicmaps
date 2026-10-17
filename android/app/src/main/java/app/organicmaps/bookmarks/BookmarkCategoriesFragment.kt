@@ -211,12 +211,9 @@ class BookmarkCategoriesFragment :
         val tempDir = File(StorageUtils.getTempPath(MwmApplication.from(appContext)))
         val resolver = appContext.contentResolver
         ThreadPool.getStorage().execute {
-            var found = 0
-            StorageUtils.listContentProviderFilesRecursively(resolver, rootUri) { uri ->
-                if (BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir)) {
-                    found++
-                }
-            }
+            val uris = ArrayList<Uri>()
+            StorageUtils.listContentProviderFilesRecursively(resolver, rootUri) { uri -> uris.add(uri) }
+            val found = BookmarkManager.INSTANCE.importBookmarksFilesAndGetCount(resolver, uris, tempDir)
             UiThread.run {
                 dismissImportDialog()
                 val message = appContext.resources.getQuantityString(R.plurals.bookmarks_detect_message, found, found)

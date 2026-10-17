@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 // Lightweight non-owning view of a bookmark, delivered to BookmarkManager callbacks.
 // The pointed-to BookmarkData must outlive the BookmarkInfo: callbacks are invoked
@@ -63,6 +64,8 @@ std::string_view constexpr kKmbExtension = ".kmb";
 std::string_view constexpr kGpxExtension = ".gpx";
 std::string_view constexpr kGeoJsonExtension = ".geojson";
 std::string_view constexpr kJsonExtension = ".json";
+// Root KML index used in multi-category KMZ archives.
+inline constexpr char kKmzIndexFileName[] = "doc.kml";
 
 std::string_view constexpr kTrashDirectoryName = ".Trash";
 
@@ -127,7 +130,14 @@ std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileTyp
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fileType);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType);
 
-std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
+struct BookmarkFileImportData
+{
+  std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> m_kmlData;
+  std::vector<std::string> m_failedFileNames;
+};
+
+BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath);
+kml::Timestamp GetFileModificationTimestamp(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
 std::optional<FileType> GetFileType(std::string const & filePath);
 
