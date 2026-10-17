@@ -1,7 +1,6 @@
 #include "routing/guides_connections.hpp"
 
 #include "geometry/mercator.hpp"
-#include "geometry/parametrized_segment.hpp"
 
 namespace routing
 {
@@ -33,10 +32,11 @@ std::pair<geometry::PointWithAltitude, double> GetProjectionAndDistOnSegment(
     m2::PointD const & point, geometry::PointWithAltitude const & startPath,
     geometry::PointWithAltitude const & endPath)
 {
-  m2::PointD const projection =
-      m2::ParametrizedSegment<m2::PointD>(startPath.GetPoint(), endPath.GetPoint()).ClosestPointTo(point);
-  double const distM = mercator::DistanceOnEarth(projection, point);
-  return std::make_pair(geometry::PointWithAltitude(projection, 0 /* altitude */), distM);
+  auto const projection = CalcProjectionToSegment(LatLonWithAltitude(startPath.ToLatLon(), startPath.GetAltitude()),
+                                                  LatLonWithAltitude(endPath.ToLatLon(), endPath.GetAltitude()), point)
+                              .ToPointWithAltitude();
+  double const distM = mercator::DistanceOnEarth(projection.GetPoint(), point);
+  return std::make_pair(projection, distM);
 }
 
 bool GuidesConnections::IsActive() const
