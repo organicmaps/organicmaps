@@ -38,3 +38,7 @@ target_link_libraries(${PROJECT_NAME}
     platform_tests_support
     map
 )
+
+# These tests pump the GUI event loop and own their complete asynchronous lifecycle.
+omim_add_test(raster_tile_provider_tests raster_tile_provider_tests.cpp REQUIRE_QT REQUIRE_SERVER)
+target_link_libraries(raster_tile_provider_tests PRIVATE map platform_tests_support)
