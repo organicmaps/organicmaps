@@ -639,6 +639,32 @@ UNIT_TEST(RasterTileProvider_SameUrlAndCapChangesKeepRequestsAndCache)
   TEST_EQUAL(f.m_pending.size(), 2, ());
 }
 
+UNIT_TEST(RasterTileProvider_FailedCacheCommitDoesNotIndexOrLeak)
+{
+  Fixture f("failed_cache_commit");
+  Platform::ThreadRunner runner;
+  auto provider = f.MakeProvider();
+  TEST(provider->RequestTile(kTile, kMode), ());
+  DrainFile();
+  TEST_EQUAL(f.m_pending.size(), 1, ());
+  TEST_EQUAL(Platform::MkDir(f.CachePath()), Platform::ERR_OK, ());
+
+  CompleteOnTransportThread(std::move(f.m_pending[0]));
+  DrainGui();
+  TEST_EQUAL(f.m_deliveries.size(), 1, ());
+  f.CheckDelivery();
+
+  {
+    // Eviction must not try to remove a destination that was never cached.
+    base::ScopedLogAbortLevelChanger const noWarnings(LWARNING);
+    TEST(!provider->Reconfigure(kUrlA, 0), ());
+  }
+  TEST(Platform::IsDirectory(f.CachePath()), ("A failed cache commit must not index its destination"));
+  Platform::FilesList temporaryFiles;
+  Platform::GetFilesByRegExp(f.CacheDir(), ".*\\.tmp.*", temporaryFiles);
+  TEST(temporaryFiles.empty(), (temporaryFiles));
+}
+
 UNIT_TEST(RasterTileProvider_GlobalCapIncludesLegacyAndOtherSources)
 {
   Fixture f("global_source_cap");

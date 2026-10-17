@@ -195,15 +195,15 @@ bool WriteTileCache(std::string const & cachePath, char const * bytes, size_t si
       FileWriter writer(tmp);
       writer.Write(bytes, size);
     }
-    base::RenameFileX(tmp, cachePath);
+    if (base::RenameFileX(tmp, cachePath))
+      return true;
   }
   catch (RootException const & e)
   {
     LOG(LWARNING, ("RasterTileProvider: cache write failed", cachePath, e.what()));
-    base::DeleteFileX(tmp);
-    return false;
   }
-  return true;
+  base::DeleteFileX(tmp);
+  return false;
 }
 }  // namespace
 
