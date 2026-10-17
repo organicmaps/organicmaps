@@ -76,6 +76,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
+  // The system location is stopped while the car is followed by the box in the background.
+  private boolean mSystemLocationPaused;
   private final Handler mHandler;
   private final Runnable mLocationTimeoutRunnable = this::notifyLocationUpdateTimeout;
 
@@ -500,8 +502,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
 
     Logger.i(TAG, "update refresh interval: old = " + mInterval + " new = " + newInterval);
-    mLocationProvider.stop();
     mInterval = newInterval;
+    // It starts with the new interval when it resumes.
+    if (mSystemLocationPaused)
+      return;
+    mLocationProvider.stop();
     mLocationProvider.start(newInterval);
   }
 
@@ -547,9 +552,13 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
 
     Logger.i(TAG);
-    mLocationProvider.stop();
-    unsubscribeFromGnssStatusUpdates();
-    stopNetworkUpdates();
+    if (!mSystemLocationPaused)
+    {
+      mLocationProvider.stop();
+      unsubscribeFromGnssStatusUpdates();
+      stopNetworkUpdates();
+    }
+    mSystemLocationPaused = false;
     NoGps.nativeStop();
     mSensorHelper.stop();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
@@ -557,11 +566,40 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
+   * Stops the system location in the background while the navigation without GPS follows the car by the box: it
+   * doesn't need GPS, and the system gives no location in the background without its permission.
+   */
+  public void pauseSystemLocation()
+  {
+    if (!isActive() || mSystemLocationPaused)
+      return;
+    Logger.i(TAG);
+    mLocationProvider.stop();
+    unsubscribeFromGnssStatusUpdates();
+    stopNetworkUpdates();
+    mHandler.removeCallbacks(mLocationTimeoutRunnable);
+    mSystemLocationPaused = true;
+  }
+
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  private void resumeSystemLocation()
+  {
+    if (!mSystemLocationPaused)
+      return;
+    Logger.i(TAG);
+    mSystemLocationPaused = false;
+    mLocationProvider.start(mInterval);
+    mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
+    subscribeToGnssStatusUpdates();
+    startNetworkUpdates();
+  }
+
+  /**
    * Resume location services when entering the foreground.
    */
   public void resumeLocationInForeground()
   {
-    if (isActive())
+    if (isActive() && !mSystemLocationPaused)
       return;
     else if (!Map.isEngineCreated())
     {
@@ -581,7 +619,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    start();
+    if (isActive())
+      resumeSystemLocation();
+    else
+      start();
   }
 
   private void checkForAgpsUpdates()

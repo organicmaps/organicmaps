@@ -1114,4 +1114,8 @@
     <string name="nogps_volts">%s В</string>
     <string name="nogps_not_while_driving">під час руху не запитується</string>
     <string name="nogps_voltage_mismatch">Напруга з АЦП блоку розходиться з машиною більше ніж на 10 %: перевірте дільник напруги блоку</string>
+    <!-- The name of the notification channel of the navigation without GPS working in the background -->
+    <string name="nogps_background_channel">Навігація без GPS</string>
+    <!-- The notification shown while the app is hidden and the car is followed by the sensor box -->
+    <string name="nogps_background_following">Машина ведеться за блоком датчиків</string>
 </resources>

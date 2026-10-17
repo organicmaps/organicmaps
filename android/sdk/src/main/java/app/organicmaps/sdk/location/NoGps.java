@@ -251,6 +251,15 @@ public final class NoGps
     @Keep
     public boolean boxCalibrationAdvised;
 
+    /**
+     * The box or the adapter tells the speed of the car: the car is followed by it. Without the car data, e.g. on a
+     * parking with the engine stopped, the car stands where it is.
+     */
+    public boolean hasCarData()
+    {
+      return inertialStarted && speedKmh >= 0;
+    }
+
     @NonNull
     public PositionSource getSource()
     {
