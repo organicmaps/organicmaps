@@ -36906,6 +36906,20 @@ vi = Khi được bật, màn hình sẽ luôn sáng khi hiển thị bản đ�
 zh-Hans = 启用后，显示地图时屏幕将始终打开。
 zh-Hant = 啟用後，顯示地圖時畫面將始終開啟。
 
+[enable_screen_rotation]
+comment = A preference title; keep short!
+tags = android-app
+en = Rotate the screen
+ru = Поворачивать экран
+uk = Повертати екран
+
+[enable_screen_rotation_description]
+comment = Description in preferences
+tags = android-app
+en = The screens turn with the device. When off, they stay upright, e.g. in a car holder.
+ru = Экраны поворачиваются вместе с устройством. Если выключено, они всегда вертикальные, например в держателе в машине.
+uk = Екрани повертаються разом із пристроєм. Якщо вимкнено, вони завжди вертикальні, наприклад у тримачі в машині.
+
 [enable_show_on_lock_screen]
 comment = A preference title; keep short!
 tags = android-app
