@@ -501,6 +501,8 @@ public:
   // Stops location follow, opens the result's place page and centers the viewport
   // without cancelling searches or clearing their marks.
   void SelectSearchResult(search::Result const & res, bool animation);
+  void SelectResolvedAddress(m2::PointD const & point, std::string const & name, std::string const & address,
+                             bool animation);
 
   // Highlights a public-transport route line on the map, using the current place page's feature
   // to locate the relation. The current place page (stop) remains open.
@@ -642,6 +644,8 @@ private:
   /// @return false if @a outInfo was not filled (e.g. a stale track mark), so the caller should fall
   /// back to the regular tap matching instead of activating an empty selection.
   bool FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
+  void SelectSearchResult(search::Result const & res, bool animation, std::string const & title,
+                          std::string const & subtitle);
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const;
