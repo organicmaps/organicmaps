@@ -45117,3 +45117,15 @@ uk = Розвернути маршрут
 vi = Đảo ngược tuyến đường
 zh-Hans = 反转路线
 zh-Hant = 反轉路線
+
+[background_location_warning_title]
+tags = android-app
+en = Track recording may stop
+
+[background_location_warning_message]
+tags = android-app
+en = To prevent track recording from stopping when the app is in the background or the screen is off, please disable battery optimization or background restrictions for Organic Maps in your system settings.
+
+[background_location_samsung_warning_message]
+tags = android-app
+en = To prevent track recording from stopping when the screen is off, please tap OK to open Battery settings and add Organic Maps to the "Never sleeping apps" list.
