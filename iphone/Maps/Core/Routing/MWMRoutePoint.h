@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(copy, nonatomic, readonly) NSString * title;
 @property(copy, nonatomic, readonly) NSString * subtitle;
+@property(copy, nonatomic, readonly) NSString * callback;
 @property(copy, nonatomic, readonly) NSString * latLonString;
 @property(nonatomic, readonly) BOOL isMyPosition;
 @property(nonatomic) MWMRoutePointType type;

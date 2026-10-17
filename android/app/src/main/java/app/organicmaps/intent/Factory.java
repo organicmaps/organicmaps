@@ -15,9 +15,7 @@ import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.api.ParsedRoutingData;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
-import app.organicmaps.sdk.api.RoutePoint;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.util.StorageUtils;
@@ -97,12 +95,7 @@ public class Factory
         SearchEngine.INSTANCE.cancelInteractiveSearch();
         target.forceCloseSearchFragment();
         final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
-        RoutingController.get().setRouterType(data.mRouterType);
-        final RoutePoint from = data.mPoints[0];
-        final RoutePoint to = data.mPoints[1];
-        RoutingController.get().prepare(
-            MapObject.createMapObject(MapObject.API_POINT, from.mName, "", from.mLat, from.mLon),
-            MapObject.createMapObject(MapObject.API_POINT, to.mName, "", to.mLat, to.mLon));
+        RoutingController.get().prepareApiRoute(data.mRouterType, data.mStartRouteNavigation);
         return true;
       case RequestType.SEARCH:
       {

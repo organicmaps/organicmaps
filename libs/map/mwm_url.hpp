@@ -3,10 +3,15 @@
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
 class Framework;
+namespace url
+{
+class Url;
+}
 
 namespace url_scheme
 {
@@ -25,6 +30,8 @@ struct RoutePoint
   RoutePoint(m2::PointD const & org, std::string const & name) : m_org(org), m_name(name) {}
   m2::PointD m_org = m2::PointD::Zero();
   std::string m_name;
+  std::string m_callback;
+  bool m_isMyPosition = false;
 };
 
 struct SearchRequest
@@ -46,7 +53,7 @@ struct InAppFeatureHighlightRequest
   InAppFeatureType m_feature = InAppFeatureType::None;
 };
 
-/// Handles [mapswithme|mwm|mapsme]://map|route|search?params - everything related to displaying info on a map
+/// Parses supported map, route, navigation, search, and app-action deep links.
 class ParsedMapApi
 {
 public:
@@ -68,6 +75,12 @@ public:
   UrlType SetUrlAndParse(std::string const & url);
   UrlType GetRequestType() const { return m_requestType; }
   std::string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
+  // Only the legacy map API's backurl supports automatic return on Android.
+  bool HasLegacyBackUrl() const { return m_requestType == UrlType::Map && !m_globalBackUrl.empty(); }
+  // Identifies the parsed request across asynchronous platform operations, including identical repeated links.
+  uint64_t GetRequestGeneration() const { return m_requestGeneration; }
+  // Platforms consume the parsed back URL after a successful return launch.
+  void ClearGlobalBackUrl() { m_globalBackUrl.clear(); }
   std::string const & GetAppName() const { return m_appName; }
   ms::LatLon GetCenterLatLon() const { return m_centerLatLon; }
   int GetApiVersion() const { return m_version; }
@@ -75,6 +88,8 @@ public:
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
   void ExecuteMapApiRequest(Framework & fm) const;
+  /// Sets the router, replaces the itinerary, and builds it. Platforms drive planning UI and auto-start.
+  void ExecuteRouteApiRequest(Framework & fm) const;
 
   // Unit test only.
   std::vector<MapPoint> const & GetMapPoints() const
@@ -92,13 +107,31 @@ public:
 
   std::vector<RoutePoint> const & GetRoutePoints() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_routePoints;
+  }
+
+  bool ShouldOptimizeRoutePoints() const
+  {
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_optimizeRoutePoints;
+  }
+
+  bool ShouldStartRouteNavigation() const
+  {
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_startRouteNavigation;
+  }
+
+  m2::PointD const & GetRouteStartDirection() const
+  {
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_startDirection;
   }
 
   std::string const & GetRoutingType() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_routingType;
   }
 
@@ -122,11 +155,13 @@ public:
 
 private:
   void ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder);
-  void ParseRouteParam(std::string const & key, std::string const & value, std::vector<std::string_view> & pattern);
+  void ParseRouteParam(std::string const & key, std::string const & value, size_t & paramIndex);
   void ParseSearchParam(std::string const & key, std::string const & value);
+  bool ParseRouteV2(url::Url const & url, std::string const & rawUrl);
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);
 
+  uint64_t m_requestGeneration = 0;
   UrlType m_requestType = UrlType::Incorrect;
   std::vector<MapPoint> m_mapPoints;
   std::vector<RoutePoint> m_routePoints;
@@ -137,6 +172,9 @@ private:
   std::string m_oauth2code;
   ms::LatLon m_centerLatLon = ms::LatLon::Invalid();
   std::string m_routingType;
+  m2::PointD m_startDirection = m2::PointD::Zero();
+  bool m_optimizeRoutePoints = false;
+  bool m_startRouteNavigation = false;
   int m_version = 0;
   /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
   /// Taken into an account when calculating viewport rect, but only if points count is == 1

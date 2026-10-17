@@ -1119,9 +1119,22 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)goBack
 {
+  uint64_t const generation = [MWMFrameworkHelper parsedApiRequestGeneration];
   NSString * backURL = [DeepLinkHandler.shared getBackUrl];
-  if (backURL != nil)
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backURL] options:@{} completionHandler:nil];
+  if (backURL == nil)
+    return;
+  // Use the same lenient builder as per-stop callbacks: the back URL is core-decoded and may
+  // contain characters that -URLWithString: rejects verbatim.
+  NSURL * url = [MWMRouter callbackURLFromString:backURL];
+  if (!url)
+    return;
+  [UIApplication.sharedApplication openURL:url
+                                   options:@{}
+                         completionHandler:^(BOOL success) {
+                           // A receiving app can send a new request before this main-queue completion runs.
+                           if (success && generation == [MWMFrameworkHelper parsedApiRequestGeneration])
+                             [MWMFrameworkHelper clearParsedBackUrl];
+                         }];
 }
 
 - (void)closeCurrentView

@@ -226,7 +226,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       builder.addAction(openDialBuilder.build());
     }
 
-    if (!mRoutingController.isBuilt())
+    if (!mRoutingController.canStartNavigation())
       return;
 
     final Action.Builder startRouteBuilder = new Action.Builder();
@@ -236,6 +236,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     startRouteBuilder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
     startRouteBuilder.setOnClickListener(() -> {
+      if (!mRoutingController.canStartNavigation())
+        return;
       Config.acceptRoutingDisclaimer();
       mRoutingController.start();
     });

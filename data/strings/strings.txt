@@ -2,7 +2,7 @@
 
 [back]
 comment = Button text (should be short)
-tags = android-app
+tags = android-app,apple-maps
 en = Back
 af = Terug
 ar = رجوع
