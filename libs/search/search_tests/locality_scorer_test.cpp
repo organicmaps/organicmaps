@@ -278,6 +278,31 @@ UNIT_CLASS_TEST(LocalityScorerTest, Similarity)
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_CARLOS_APOQUINDO}), ());
 }
 
+// Query synonyms ("st" -> "saint", see QueryParams) must count as matched tokens, otherwise the
+// one-token range "petersburg" outscores the full range and the locality is never matched as a whole.
+UNIT_CLASS_TEST(LocalityScorerTest, Synonyms)
+{
+  enum
+  {
+    ID_SAINT_PETERSBURG
+  };
+
+  AddLocality("Saint Petersburg", ID_SAINT_PETERSBURG);
+
+  InitParams("st petersburg", false /* lastTokenIsPrefix */);
+  auto const localities = GetLocalities(1 /* limit */);
+  TEST_EQUAL(localities.size(), 1, ());
+  TEST_EQUAL(localities[0].GetFeatureIndex(), ID_SAINT_PETERSBURG, ());
+  TEST_EQUAL(localities[0].m_tokenRange, TokenRange(0, 2), ());
+
+  // "Saint" is spelled literally by the query, so it must not be re-spelled as a synonym of the
+  // trailing "st" (a street), or the city would be matched at [1, 3) instead.
+  InitParams("saint petersburg st", false /* lastTokenIsPrefix */);
+  auto const withStreet = GetLocalities(1 /* limit */);
+  TEST_EQUAL(withStreet.size(), 1, ());
+  TEST_EQUAL(withStreet[0].m_tokenRange, TokenRange(0, 2), ());
+}
+
 UNIT_CLASS_TEST(LocalityScorerTest, DistanceToPivot)
 {
   enum
