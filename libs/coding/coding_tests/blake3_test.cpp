@@ -3,6 +3,7 @@
 #include "coding/base64.hpp"
 #include "coding/blake3.hpp"
 #include "coding/hex.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
@@ -94,6 +95,8 @@ UNIT_TEST(BLAKE3_File_And_Truncation)
 
   auto const memHash = Blake3::CalculateForString(contents);
   TEST_EQUAL(Blake3::Calculate(path), memHash, ());
+  base::FileData file(path, base::FileData::Op::READ);
+  TEST_EQUAL(Blake3::Calculate(file), memHash, ());
 
   std::string_view const memView(reinterpret_cast<char const *>(memHash.data()), memHash.size());
 
@@ -106,6 +109,7 @@ UNIT_TEST(BLAKE3_File_And_Truncation)
   TEST_EQUAL(shortB64, base64::Encode(memView.substr(0, kShortBytes)), ());
   TEST_EQUAL(shortB64.size(), 12, ());
   TEST_EQUAL(shortB64.find('='), std::string::npos, ());
+  TEST_EQUAL(Blake3::CalculateMwmBase64(file), shortB64, ());
 
   // Streaming FinalizeToBase64 must agree with the one-shot truncated form.
   Blake3 hasher;

@@ -8,6 +8,11 @@
 #include <string>
 #include <string_view>
 
+namespace base
+{
+class FileData;
+}
+
 namespace coding
 {
 // BLAKE3 hash, used for fast integrity verification of map files.
@@ -41,10 +46,13 @@ public:
 
   // One-shot helpers.
   static Hash Calculate(std::string const & filePath);
+  // Open-file helpers propagate read errors so the caller can account for cancellation.
+  static Hash Calculate(base::FileData & file);
   static std::string CalculateBase64(std::string const & filePath, size_t numBytes = kHashSizeInBytes);
   // Same as CalculateBase64, but truncated to the per-map integrity hash size used
   // for map files referenced in countries.json. See the definition for details.
   static std::string CalculateMwmBase64(std::string const & filePath);
+  static std::string CalculateMwmBase64(base::FileData & file);
   static Hash CalculateForString(std::string_view str);
 
 private:
