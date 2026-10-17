@@ -773,25 +773,16 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       texturePool->UpdateTextureData(m_context, textureId, 0, 0, msg->GetWidth(), msg->GetHeight(), make_ref(data));
     }
 
-    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3
-                                  ? make_unique_dp<AssignTileBackgroundImageMessage>(
-                                        m_context, msg->GetUid(), texturePool, textureId, msg->GetMode(),
-                                        std::move(msg->GetBytes()), msg->GetWidth(), msg->GetHeight())
-                                  : make_unique_dp<AssignTileBackgroundImageMessage>(
-                                        m_context, msg->GetUid(), texturePool, textureId, msg->GetMode()),
-                              MessagePriority::Normal);
-
-    break;
-  }
-
-  case Message::Type::SetTileBackgroundData:
-  {
-    ref_ptr<SetTileBackgroundDataMessage> msg = message;
     m_commutator->PostMessage(
         ThreadsCommutator::RenderThread,
-        make_unique_dp<SetTileBackgroundDataMessage>(msg->GetTileKey(), msg->GetImageUid(), msg->GetRect()),
+        m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3
+            ? make_unique_dp<AssignTileBackgroundImageMessage>(
+                  m_context, msg->GetTileKey(), msg->GetUid(), texturePool, textureId, msg->GetMode(), msg->GetRect(),
+                  std::move(msg->GetBytes()), msg->GetWidth(), msg->GetHeight())
+            : make_unique_dp<AssignTileBackgroundImageMessage>(m_context, msg->GetTileKey(), msg->GetUid(), texturePool,
+                                                               textureId, msg->GetMode(), msg->GetRect()),
         MessagePriority::Normal);
+
     break;
   }
 

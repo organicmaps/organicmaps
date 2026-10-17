@@ -40,15 +40,10 @@ public:
 
   void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage, int currentZoomLevel);
 
-  // Registers an image (uploaded by the backend) with the given uid. The image starts unreferenced;
-  // it lives in the unreferenced LRU until SetTileBackgroundData binds it to a tile.
-  void AssignTileBackgroundImage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
+  // Register and bind in one delivery so cache eviction cannot overtake a visible tile's image.
+  void AssignTileBackgroundImage(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, std::string const & uid,
                                  ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
-                                 dp::BackgroundMode mode);
-
-  // Binds a tile to an image with a sub-rect (full image is (0, 0, 1, 1)).
-  void SetTileBackgroundData(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                             std::string const & imageUid, m2::RectF const & rect);
+                                 dp::BackgroundMode mode, m2::RectF const & rect);
 
   void SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode);
   dp::BackgroundMode GetBackgroundMode() const;
@@ -81,6 +76,7 @@ private:
   void AcquireImageRef(std::string const & uid);
   // Drops the per-tile binding (if any) and decrements its image refcount.
   void ReleaseTileBinding(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey);
+  void TrimUnreferencedImages(ref_ptr<dp::GraphicsContext> context);
 
   MapDataProvider::TTileBackgroundReadFn m_tileBackgroundReadFn;
   MapDataProvider::TCancelTileBackgroundReadingFn m_cancelTileBackgroundReadingFn;

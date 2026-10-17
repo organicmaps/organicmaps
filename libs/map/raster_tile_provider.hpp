@@ -24,7 +24,7 @@
 //
 // Encoded tiles are cached on disk under an LRU size cap (Params::m_maxCacheBytes): the
 // least-recently-used tiles are evicted once the total is exceeded. Content is delivered through a
-// callback that the caller wires to df::DrapeEngine::AddTileBackgroundImage + SetTileBackgroundData.
+// callback that the caller wires to df::DrapeEngine::AddTileBackgroundImage.
 
 // Debug visualization: renders status placeholders (DOWNLOADING / NOT FOUND / ERROR) into tiles.
 // Binding a placeholder moves the tile out of the renderer's awaiting set, which conflicts with
@@ -55,10 +55,8 @@ public:
     uint64_t m_maxCacheBytes = 100ull * 1024 * 1024;  // 100 MB
   };
 
-  // Delivers decoded RGBA8 pixels for an OM tile. Invoked on a background (Network) thread.
-  // Mirrors the df::DrapeEngine::AddTileBackgroundImage + SetTileBackgroundData call pair:
-  //   AddTileBackgroundImage(imageUid, width, height, RGBA8, mode, std::move(rgba));
-  //   SetTileBackgroundData(tileKey, imageUid, rect);
+  // Delivers decoded RGBA8 pixels on a background thread, ready to upload and bind with
+  // df::DrapeEngine::AddTileBackgroundImage.
   using TReadyFn =
       std::function<void(df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & imageUid,
                          uint32_t width, uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba)>;

@@ -112,7 +112,6 @@ public:
     Arrow3dRecache,
     VisualScaleChanged,
     AddTileBackgroundImage,
-    SetTileBackgroundData,
     SetTileBackgroundMode,
     ScenarioViewport,
     AssignTileBackgroundImage

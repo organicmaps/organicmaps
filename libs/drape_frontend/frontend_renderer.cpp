@@ -1052,16 +1052,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                                make_ref(data));
     }
 
-    m_tileBackgroundRenderer->AssignTileBackgroundImage(m_context, msg->GetUid(), msg->GetTexturePool(),
-                                                        msg->GetTextureId(), msg->GetMode());
+    m_tileBackgroundRenderer->AssignTileBackgroundImage(m_context, msg->GetTileKey(), msg->GetUid(),
+                                                        msg->GetTexturePool(), msg->GetTextureId(), msg->GetMode(),
+                                                        msg->GetRect());
     msg->MarkProcessed();
-    break;
-  }
-
-  case Message::Type::SetTileBackgroundData:
-  {
-    ref_ptr<SetTileBackgroundDataMessage> msg = message;
-    m_tileBackgroundRenderer->SetTileBackgroundData(m_context, msg->GetTileKey(), msg->GetImageUid(), msg->GetRect());
     break;
   }
 

@@ -259,9 +259,9 @@ public:
 
   void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl);
 
-  void AddTileBackgroundImage(std::string const & uid, uint32_t width, uint32_t height, dp::TextureFormat format,
-                              dp::BackgroundMode mode, std::vector<uint8_t> && bytes);
-  void SetTileBackgroundData(df::TileKey const & tileKey, std::string const & imageUid, m2::RectF const & rect);
+  void AddTileBackgroundImage(df::TileKey const & tileKey, std::string const & uid, uint32_t width, uint32_t height,
+                              dp::TextureFormat format, dp::BackgroundMode mode, m2::RectF const & rect,
+                              std::vector<uint8_t> && bytes);
   void SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity = 0.5f);
 
   dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); }

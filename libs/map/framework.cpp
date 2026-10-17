@@ -2803,12 +2803,11 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
       std::move(rp), [this](df::TileKey const & tileKey, dp::BackgroundMode mode, std::string const & imageUid,
                             uint32_t width, uint32_t height, m2::RectF const & rect, std::vector<uint8_t> && rgba)
   {
-    // Invoked on a background thread; AddTileBackgroundImage/SetTileBackgroundData only post
-    // messages, so they are safe to call from any thread.
+    // AddTileBackgroundImage queues the decoded result for the rendering threads.
     if (m_drapeEngine)
     {
-      m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
-      m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, rect);
+      m_drapeEngine->AddTileBackgroundImage(tileKey, imageUid, width, height, dp::TextureFormat::RGBA8, mode, rect,
+                                            std::move(rgba));
     }
   });
 }

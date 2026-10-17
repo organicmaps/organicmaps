@@ -1494,53 +1494,39 @@ private:
 class AddTileBackgroundImageMessage : public Message
 {
 public:
-  AddTileBackgroundImageMessage(std::string const & uid, uint32_t width, uint32_t height, dp::TextureFormat format,
-                                dp::BackgroundMode mode, std::vector<uint8_t> && bytes)
-    : m_uid(uid)
+  AddTileBackgroundImageMessage(df::TileKey const & tileKey, std::string const & uid, uint32_t width, uint32_t height,
+                                dp::TextureFormat format, dp::BackgroundMode mode, m2::RectF const & rect,
+                                std::vector<uint8_t> && bytes)
+    : m_tileKey(tileKey)
+    , m_uid(uid)
     , m_width(width)
     , m_height(height)
     , m_format(format)
     , m_mode(mode)
+    , m_rect(rect)
     , m_bytes(std::move(bytes))
   {}
 
   Type GetType() const override { return Type::AddTileBackgroundImage; }
 
+  df::TileKey const & GetTileKey() const { return m_tileKey; }
   std::string const & GetUid() const { return m_uid; }
   uint32_t GetWidth() const { return m_width; }
   uint32_t GetHeight() const { return m_height; }
   dp::TextureFormat GetFormat() const { return m_format; }
   dp::BackgroundMode GetMode() const { return m_mode; }
+  m2::RectF const & GetRect() const { return m_rect; }
   std::vector<uint8_t> & GetBytes() { return m_bytes; }
 
 private:
+  df::TileKey m_tileKey;
   std::string m_uid;
   uint32_t m_width;
   uint32_t m_height;
   dp::TextureFormat m_format;
   dp::BackgroundMode m_mode;
-  std::vector<uint8_t> m_bytes;
-};
-
-class SetTileBackgroundDataMessage : public Message
-{
-public:
-  SetTileBackgroundDataMessage(df::TileKey const & tileKey, std::string const & imageUid, m2::RectF const & rect)
-    : m_tileKey(tileKey)
-    , m_imageUid(imageUid)
-    , m_rect(rect)
-  {}
-
-  Type GetType() const override { return Type::SetTileBackgroundData; }
-
-  df::TileKey const & GetTileKey() const { return m_tileKey; }
-  std::string const & GetImageUid() const { return m_imageUid; }
-  m2::RectF const & GetRect() const { return m_rect; }
-
-private:
-  df::TileKey m_tileKey;
-  std::string m_imageUid;
   m2::RectF m_rect;
+  std::vector<uint8_t> m_bytes;
 };
 
 class SetTileBackgroundModeMessage : public Message
@@ -1567,25 +1553,31 @@ private:
 class AssignTileBackgroundImageMessage : public Message
 {
 public:
-  AssignTileBackgroundImageMessage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
-                                   ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
-                                   dp::BackgroundMode mode)
+  AssignTileBackgroundImageMessage(ref_ptr<dp::GraphicsContext> context, df::TileKey const & tileKey,
+                                   std::string const & uid, ref_ptr<dp::TexturePool> texturePool,
+                                   dp::TexturePool::TextureId textureId, dp::BackgroundMode mode,
+                                   m2::RectF const & rect)
     : m_context(context)
+    , m_tileKey(tileKey)
     , m_uid(uid)
     , m_texturePool(texturePool)
     , m_textureId(textureId)
     , m_mode(mode)
+    , m_rect(rect)
   {}
 
-  AssignTileBackgroundImageMessage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
-                                   ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
-                                   dp::BackgroundMode mode, std::vector<uint8_t> && bytes, uint32_t width,
+  AssignTileBackgroundImageMessage(ref_ptr<dp::GraphicsContext> context, df::TileKey const & tileKey,
+                                   std::string const & uid, ref_ptr<dp::TexturePool> texturePool,
+                                   dp::TexturePool::TextureId textureId, dp::BackgroundMode mode,
+                                   m2::RectF const & rect, std::vector<uint8_t> && bytes, uint32_t width,
                                    uint32_t height)
     : m_context(context)
+    , m_tileKey(tileKey)
     , m_uid(uid)
     , m_texturePool(texturePool)
     , m_textureId(textureId)
     , m_mode(mode)
+    , m_rect(rect)
     , m_bytes(std::move(bytes))
     , m_width(width)
     , m_height(height)
@@ -1604,10 +1596,12 @@ public:
   uint32_t GetWidth() const { return m_width; }
   uint32_t GetHeight() const { return m_height; }
 
+  df::TileKey const & GetTileKey() const { return m_tileKey; }
   std::string const & GetUid() const { return m_uid; }
   ref_ptr<dp::TexturePool> GetTexturePool() const { return m_texturePool; }
   dp::TexturePool::TextureId GetTextureId() const { return m_textureId; }
   dp::BackgroundMode GetMode() const { return m_mode; }
+  m2::RectF const & GetRect() const { return m_rect; }
 
   // Use this method to avoid texture release in destructor.
   void MarkProcessed()
@@ -1618,10 +1612,12 @@ public:
 
 private:
   ref_ptr<dp::GraphicsContext> m_context;
+  df::TileKey m_tileKey;
   std::string m_uid;
   ref_ptr<dp::TexturePool> m_texturePool;
   dp::TexturePool::TextureId m_textureId;
   dp::BackgroundMode m_mode;
+  m2::RectF m_rect;
   std::vector<uint8_t> m_bytes;
   uint32_t m_width = 0;
   uint32_t m_height = 0;
