@@ -1,7 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "geometry/clipping.hpp"
+#include "geometry/robust_orientation.hpp"
 
+#include <algorithm>
+#include <array>
+#include <cmath>
 #include <cstddef>
 #include <utility>
 #include <vector>
@@ -13,16 +17,45 @@ using namespace std;
 double constexpr kClipEps = 1.0E-6;
 double constexpr kSplitEps = 1.0E-10;
 
-bool CompareTriangleLists(vector<m2::PointD> const & list1, vector<m2::PointD> const & list2)
+void TestTriangleClip(m2::RectD const & rect, array<m2::PointD, 3> const & input,
+                      vector<m2::PointD> const & expectedPolygon)
 {
-  if (list1.size() != list2.size())
-    return false;
+  double expectedArea = 0;
+  for (size_t i = 1; i + 1 < expectedPolygon.size(); ++i)
+    expectedArea +=
+        abs(m2::CrossProduct(expectedPolygon[i] - expectedPolygon[0], expectedPolygon[i + 1] - expectedPolygon[0])) / 2;
 
-  for (size_t i = 0; i < list1.size(); i++)
-    if (!list1[i].EqualDxDy(list2[i], kClipEps))
-      return false;
-
-  return true;
+  for (bool reverse : {false, true})
+    for (size_t shift = 0; shift < input.size(); ++shift)
+    {
+      auto triangle = input;
+      if (reverse)
+        swap(triangle[1], triangle[2]);
+      rotate(triangle.begin(), triangle.begin() + shift, triangle.end());
+      auto const winding = m2::robust::OrientedS(triangle[0], triangle[1], triangle[2]);
+      vector<m2::PointD> vertices;
+      double area = 0;
+      m2::ClipTriangleByRect(rect, triangle[0], triangle[1], triangle[2],
+                             [&](auto const & a, auto const & b, auto const & c)
+      {
+        TEST(rect.IsPointInside(a) && rect.IsPointInside(b) && rect.IsPointInside(c), (a, b, c));
+        auto const cross = m2::CrossProduct(b - a, c - a);
+        TEST(winding > 0 ? cross >= 0 : cross <= 0, (triangle, a, b, c));
+        area += abs(cross) / 2;
+        for (auto const & point : {a, b, c})
+        {
+          TEST(any_of(expectedPolygon.begin(), expectedPolygon.end(),
+                      [&](auto const & expected) { return point.EqualDxDy(expected, kClipEps); }),
+               (triangle, point, expectedPolygon));
+          vertices.push_back(point);
+        }
+      });
+      for (auto const & expected : expectedPolygon)
+        TEST(any_of(vertices.begin(), vertices.end(),
+                    [&](auto const & point) { return point.EqualDxDy(expected, kClipEps); }),
+             (triangle, expected, vertices));
+      TEST_ALMOST_EQUAL_ABS(area, expectedArea, 1e-10, (triangle, vertices));
+    }
 }
 
 bool CompareSplineLists(vector<m2::SharedSpline> const & list1, vector<m2::SharedSpline> const & list2)
@@ -64,150 +97,98 @@ vector<m2::SharedSpline> ConstructSplineList(vector<vector<m2::PointD>> const & 
 
 UNIT_TEST(Clipping_ClipTriangleByRect)
 {
-  m2::RectD r(-1.0, -1.0, 1.0, 1.0);
+  m2::RectD const rect(-1.0, -1.0, 1.0, 1.0);
 
   // Completely inside.
-  vector<m2::PointD> result1;
-  m2::ClipTriangleByRect(r, m2::PointD(0.5, 0.5), m2::PointD(0.5, -0.5), m2::PointD(0.0, 0.0),
-                         [&result1](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result1.push_back(p1);
-    result1.push_back(p2);
-    result1.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult1 = {m2::PointD(0.5, 0.5), m2::PointD(0.5, -0.5), m2::PointD(0.0, 0.0)};
-  TEST(CompareTriangleLists(result1, expectedResult1), (result1, expectedResult1));
-
-  // 1 point inside.
-  vector<m2::PointD> result2;
-  m2::ClipTriangleByRect(r, m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0), m2::PointD(2.0, -2.0),
-                         [&result2](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result2.push_back(p1);
-    result2.push_back(p2);
-    result2.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult2 = {m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(1.0, -1.0)};
-  TEST(CompareTriangleLists(result2, expectedResult2), (result2, expectedResult2));
-
-  // 2 points inside.
-  vector<m2::PointD> result3;
-  m2::ClipTriangleByRect(r, m2::PointD(0.0, 0.5), m2::PointD(2.0, 0.0), m2::PointD(0.0, -0.5),
-                         [&result3](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result3.push_back(p1);
-    result3.push_back(p2);
-    result3.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult3 = {m2::PointD(0.0, 0.5), m2::PointD(1.0, 0.25),  m2::PointD(1.0, -0.25),
-                                        m2::PointD(0.0, 0.5), m2::PointD(1.0, -0.25), m2::PointD(0.0, -0.5)};
-  TEST(CompareTriangleLists(result3, expectedResult3), (result3, expectedResult3));
-
-  // 2 edges clipping.
-  vector<m2::PointD> result4;
-  m2::ClipTriangleByRect(r, m2::PointD(0.0, 0.0), m2::PointD(0.0, 1.5), m2::PointD(1.5, 0.0),
-                         [&result4](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result4.push_back(p1);
-    result4.push_back(p2);
-    result4.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult4 = {m2::PointD(0.0, 0.0), m2::PointD(0.0, 1.0), m2::PointD(0.5, 1.0),
-                                        m2::PointD(0.0, 0.0), m2::PointD(0.5, 1.0), m2::PointD(1.0, 0.5),
-                                        m2::PointD(0.0, 0.0), m2::PointD(1.0, 0.5), m2::PointD(1.0, 0.0)};
-  TEST(CompareTriangleLists(result4, expectedResult4), (result4, expectedResult4));
-
-  // 3 edges clipping.
-  vector<m2::PointD> result5;
-  m2::ClipTriangleByRect(r, m2::PointD(-1.5, 0.0), m2::PointD(0.0, 1.5), m2::PointD(1.5, 0.0),
-                         [&result5](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result5.push_back(p1);
-    result5.push_back(p2);
-    result5.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult5 = {m2::PointD(-1.0, 0.5), m2::PointD(-0.5, 1.0), m2::PointD(0.5, 1.0),
-                                        m2::PointD(-1.0, 0.5), m2::PointD(0.5, 1.0),  m2::PointD(1.0, 0.5),
-                                        m2::PointD(-1.0, 0.5), m2::PointD(1.0, 0.5),  m2::PointD(1.0, 0.0),
-                                        m2::PointD(-1.0, 0.5), m2::PointD(1.0, 0.0),  m2::PointD(-1.0, 0.0)};
-  TEST(CompareTriangleLists(result5, expectedResult5), (result5, expectedResult5));
-
+  TestTriangleClip(rect, {{{0.5, 0.5}, {0.5, -0.5}, {0, 0}}}, {{0.5, 0.5}, {0.5, -0.5}, {0, 0}});
+  // One point inside.
+  TestTriangleClip(rect, {{{0, 0}, {2, 2}, {2, -2}}}, {{0, 0}, {1, 1}, {1, -1}});
+  // Two points inside.
+  TestTriangleClip(rect, {{{0, 0.5}, {2, 0}, {0, -0.5}}}, {{0, 0.5}, {1, 0.25}, {1, -0.25}, {0, -0.5}});
+  // Two edges clipped.
+  TestTriangleClip(rect, {{{0, 0}, {0, 1.5}, {1.5, 0}}}, {{0, 0}, {0, 1}, {0.5, 1}, {1, 0.5}, {1, 0}});
+  // Three edges clipped.
+  TestTriangleClip(rect, {{{-1.5, 0}, {0, 1.5}, {1.5, 0}}},
+                   {{-1, 0.5}, {-0.5, 1}, {0.5, 1}, {1, 0.5}, {1, 0}, {-1, 0}});
+  // Seven-vertex intersection exercises the maximum polygon size.
+  TestTriangleClip(rect, {{{-2, 0.5}, {0.5, -2}, {2, 2}}},
+                   {{-1, -0.5}, {-1, 0.875}, {-2.0 / 3, 1}, {1, 1}, {1, -2.0 / 3}, {0.875, -1}, {-0.5, -1}});
   // Completely outside.
-  vector<m2::PointD> result6;
-  m2::ClipTriangleByRect(r, m2::PointD(1.5, 1.5), m2::PointD(1.5, -1.5), m2::PointD(2.0, 0.0),
-                         [&result6](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result6.push_back(p1);
-    result6.push_back(p2);
-    result6.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult6 = {};
-  TEST(CompareTriangleLists(result6, expectedResult6), (result6, expectedResult6));
+  TestTriangleClip(rect, {{{1.5, 1.5}, {1.5, -1.5}, {2, 0}}}, {});
+  // One rectangle corner covered.
+  TestTriangleClip(rect, {{{0.5, 0.5}, {0.5, 2}, {2, 0.5}}}, {{0.5, 0.5}, {0.5, 1}, {1, 1}, {1, 0.5}});
+  // Rectangle completely covered.
+  TestTriangleClip(rect, {{{0, 3}, {5, -2}, {-5, -2}}}, {{-1, 1}, {1, 1}, {1, -1}, {-1, -1}});
+  // Bottom-right rectangle corner covered.
+  TestTriangleClip(rect, {{{1.5, 0}, {1.5, -1.5}, {0, -1.5}}}, {{0.5, -1}, {1, -0.5}, {1, -1}});
+  // Bottom-left rectangle corner covered.
+  TestTriangleClip(rect, {{{-2, -0.5}, {-0.5, -0.5}, {-0.5, -2}}}, {{-1, -0.5}, {-0.5, -0.5}, {-0.5, -1}, {-1, -1}});
+  // Three rectangle corners covered.
+  TestTriangleClip(rect, {{{2, -3}, {-2, 1}, {2, 2}}}, {{0, -1}, {-1, 0}, {-1, 1}, {1, 1}, {1, -1}});
+}
 
-  // Clip with an angle of rect.
-  vector<m2::PointD> result7;
-  m2::ClipTriangleByRect(r, m2::PointD(0.5, 0.5), m2::PointD(0.5, 2.0), m2::PointD(2.0, 0.5),
-                         [&result7](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result7.push_back(p1);
-    result7.push_back(p2);
-    result7.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult7 = {m2::PointD(0.5, 0.5), m2::PointD(0.5, 1.0), m2::PointD(1.0, 1.0),
-                                        m2::PointD(0.5, 0.5), m2::PointD(1.0, 1.0), m2::PointD(1.0, 0.5)};
-  TEST(CompareTriangleLists(result7, expectedResult7), (result7, expectedResult7));
+UNIT_TEST(Clipping_TriangleTouchesRectangleCorner)
+{
+  m2::RectD const rect(-1.0, -1.0, 1.0, 1.0);
+  TestTriangleClip(rect, {{{-3, -2}, {-1, -1}, {2, 2}}}, {{-1, -0.4}, {0.75, 1}, {1, 1}, {-1, -1}});
+}
 
-  // Triangle covers rect.
-  vector<m2::PointD> result8;
-  m2::ClipTriangleByRect(r, m2::PointD(0.0, 3.0), m2::PointD(5.0, -2.0), m2::PointD(-5.0, -2.0),
-                         [&result8](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result8.push_back(p1);
-    result8.push_back(p2);
-    result8.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult8 = {m2::PointD(-1.0, 1.0), m2::PointD(1.0, 1.0),   m2::PointD(1.0, -1.0),
-                                        m2::PointD(1.0, -1.0), m2::PointD(-1.0, -1.0), m2::PointD(-1.0, 1.0)};
-  TEST(CompareTriangleLists(result8, expectedResult8), (result8, expectedResult8));
+UNIT_TEST(Clipping_TriangleCornerStaysExact)
+{
+  m2::RectD const rect(89.296875, 91.40625, 90, 92.109375);
+  TestTriangleClip(
+      rect,
+      {{{89.296875, 91.40625}, {132.81235882391525, 91.792016219990813}, {-177.73787701379288, -166.92971407780541}}},
+      {rect.LeftBottom(), {90, 91.412483226649357}, rect.RightBottom()});
+}
 
-  // Clip with an angle of rect.
-  vector<m2::PointD> result9;
-  m2::ClipTriangleByRect(r, m2::PointD(1.5, 0.0), m2::PointD(1.5, -1.5), m2::PointD(0.0, -1.5),
-                         [&result9](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result9.push_back(p1);
-    result9.push_back(p2);
-    result9.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult9 = {m2::PointD(0.5, -1.0), m2::PointD(1.0, -0.5), m2::PointD(1.0, -1.0)};
-  TEST(CompareTriangleLists(result9, expectedResult9), (result9, expectedResult9));
+UNIT_TEST(Clipping_TriangleVerticesOnRectangleEdges)
+{
+  m2::RectD const rect(-1.0, -1.0, 1.0, 1.0);
+  TestTriangleClip(rect, {{{-3, -3}, {-1, 0}, {0, -1}}}, {{-1, -1}, {-1, 0}, {0, -1}});
+  TestTriangleClip(rect, {{{-3, -3}, {-1, 0}, {1, 0}}}, {{-1, -1}, {-1, 0}, {1, 0}, {-1.0 / 3, -1}});
+  // Touching an edge or corner without covering any area emits no triangles.
+  TestTriangleClip(rect, {{{-2, 1}, {2, 1}, {0, 2}}}, {});
+  TestTriangleClip(rect, {{{-1, -1}, {-2, -1}, {-1, -2}}}, {});
+}
 
-  // Clip with an angle of rect.
-  vector<m2::PointD> result10;
-  m2::ClipTriangleByRect(r, m2::PointD(-2.0, -0.5), m2::PointD(-0.5, -0.5), m2::PointD(-0.5, -2.0),
-                         [&result10](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result10.push_back(p1);
-    result10.push_back(p2);
-    result10.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult10 = {m2::PointD(-1.0, -0.5), m2::PointD(-0.5, -0.5), m2::PointD(-0.5, -1.0),
-                                         m2::PointD(-1.0, -0.5), m2::PointD(-0.5, -1.0), m2::PointD(-1.0, -1.0)};
-  TEST(CompareTriangleLists(result10, expectedResult10), (result10, expectedResult10));
+UNIT_TEST(Clipping_DegenerateTriangles)
+{
+  m2::RectD const rect(-1.0, -1.0, 1.0, 1.0);
+  TestTriangleClip(rect, {{{0, 0}, {0, 0}, {0, 0}}}, {});
+  TestTriangleClip(rect, {{{-0.5, -0.5}, {-0.5, -0.5}, {0.5, 0.5}}}, {});
+  TestTriangleClip(rect, {{{-0.5, -0.5}, {0, 0}, {0.5, 0.5}}}, {});
+  TestTriangleClip(rect, {{{-3, -3}, {2, 2}, {-1, -1}}}, {});
+  TestTriangleClip(rect, {{{0, -3}, {0, 0}, {0, 3}}}, {});
+  TestTriangleClip(rect, {{{2, 2}, {3, 3}, {4, 4}}}, {});
+  // A small nonzero area is valid input, independent of the geometry's scale.
+  TestTriangleClip(rect, {{{0, 0}, {1, 0}, {0, 1e-12}}}, {{0, 0}, {1, 0}, {0, 1e-12}});
+}
 
-  // Clip with 3 angles of rect.
-  vector<m2::PointD> result11;
-  m2::ClipTriangleByRect(r, m2::PointD(2.0, -3.0), m2::PointD(-2.0, 1.0), m2::PointD(2.0, 2.0),
-                         [&result11](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-  {
-    result11.push_back(p1);
-    result11.push_back(p2);
-    result11.push_back(p3);
-  });
-  vector<m2::PointD> expectedResult11 = {m2::PointD(0.0, -1.0), m2::PointD(-1.0, 0.0), m2::PointD(-1.0, 1.0),
-                                         m2::PointD(0.0, -1.0), m2::PointD(-1.0, 1.0), m2::PointD(1.0, 1.0),
-                                         m2::PointD(0.0, -1.0), m2::PointD(1.0, 1.0),  m2::PointD(1.0, -1.0)};
-  TEST(CompareTriangleLists(result11, expectedResult11), (result11, expectedResult11));
+UNIT_TEST(Clipping_TriangleWindingPreservesCoveredRectangle)
+{
+  m2::RectD const rect(3.0, 3.01, 7.0, 7.02);
+  std::array<std::array<m2::PointD, 3>, 2> const triangles{
+      {{{{0, 0}, {10, 0}, {10, 10.05}}}, {{{0, 0}, {10, 10.05}, {0, 10.05}}}}};
+  for (bool clockwise : {false, true})
+    for (size_t shift = 0; shift < 3; ++shift)
+    {
+      double coveredArea = 0;
+      for (auto triangle : triangles)
+      {
+        if (clockwise)
+          std::swap(triangle[1], triangle[2]);
+        m2::ClipTriangleByRect(rect, triangle[shift], triangle[(shift + 1) % 3], triangle[(shift + 2) % 3],
+                               [&](auto const & a, auto const & b, auto const & c)
+        {
+          TEST(rect.IsPointInside(a) && rect.IsPointInside(b) && rect.IsPointInside(c), (a, b, c));
+          auto const cross = m2::CrossProduct(b - a, c - a);
+          TEST(clockwise ? cross <= 0 : cross >= 0, (cross));
+          coveredArea += std::abs(cross) / 2;
+        });
+      }
+      TEST_ALMOST_EQUAL_ABS(coveredArea, rect.Area(), 1e-10, (clockwise, shift));
+    }
 }
 
 UNIT_TEST(Clipping_ClipSplineByRect)
