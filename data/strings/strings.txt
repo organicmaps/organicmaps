@@ -45973,3 +45973,17 @@ tags = android-app,apple-maps
 en = The voltage measured by the box differs from the car by more than 10%: check the voltage divider of the box
 ru = Напряжение с АЦП блока расходится с машиной больше чем на 10 %: проверьте делитель напряжения блока
 uk = Напруга з АЦП блоку розходиться з машиною більше ніж на 10 %: перевірте дільник напруги блоку
+
+[nogps_background_channel]
+comment = The name of the notification channel of the navigation without GPS working in the background
+tags = android-app
+en = Navigation without GPS
+ru = Навигация без GPS
+uk = Навігація без GPS
+
+[nogps_background_following]
+comment = The notification shown while the app is hidden and the car is followed by the sensor box
+tags = android-app
+en = Following the car by the sensor box
+ru = Машина ведётся по блоку датчиков
+uk = Машина ведеться за блоком датчиків
