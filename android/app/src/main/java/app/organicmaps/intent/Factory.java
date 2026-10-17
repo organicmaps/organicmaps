@@ -65,8 +65,6 @@ public class Factory
 
   public static class UrlProcessor implements IntentProcessor
   {
-    private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
-
     @Override
     public boolean process(@NonNull Intent intent, @NonNull MwmActivity target)
     {
@@ -103,11 +101,11 @@ public class Factory
         if (latlon != null)
         {
           Framework.nativeStopLocationFollow();
-          Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
+          Framework.nativeSetViewportCenter(latlon[0], latlon[1], Framework.SEARCH_IN_VIEWPORT_ZOOM);
           // We need to update viewport for search api manually because of drape engine
           // will not notify subscribers when search is shown.
           if (!request.mIsSearchOnMap)
-            Framework.nativeSetSearchViewport(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
+            Framework.nativeSetSearchViewport(latlon[0], latlon[1], Framework.SEARCH_IN_VIEWPORT_ZOOM);
         }
         target.showSearch(request.mQuery, request.mLocale, request.mIsSearchOnMap);
         return true;
@@ -122,7 +120,7 @@ public class Factory
         if (latlon != null)
         {
           Framework.nativeStopLocationFollow();
-          Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
+          Framework.nativeSetViewportCenter(latlon[0], latlon[1], Framework.SEARCH_IN_VIEWPORT_ZOOM);
         }
 
         return true;
