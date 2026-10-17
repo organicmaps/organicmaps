@@ -345,6 +345,19 @@
     <string name="search_history_title">Lịch sử tìm kiếm</string>
     <string name="bookmarks_backup_title">Sao lưu đánh dấu</string>
     <string name="bookmarks_backup_description">Các đánh dấu và dấu vết được lưu trong bản sao lưu hệ thống Android nếu tính năng này được bật trên thiết bị và không vượt quá giới hạn dung lượng của bản sao lưu.</string>
+    <string name="bookmarks_sync_title">Đồng bộ Google Drive (Beta)</string>
+    <string name="bookmarks_sync_enabled">Đồng bộ đánh dấu và dấu vết</string>
+    <string name="bookmarks_sync_now">Đồng bộ ngay</string>
+    <string name="bookmarks_sync_status_synced">Đã đồng bộ lúc %s</string>
+    <string name="bookmarks_sync_status_running">Đang đồng bộ…</string>
+    <string name="bookmarks_sync_status_sign_in">Cần đăng nhập</string>
+    <string name="bookmarks_sync_status_quota">Google Drive đã đầy</string>
+    <string name="bookmarks_sync_status_error">Đồng bộ thất bại: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Xóa dữ liệu khỏi Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Xóa các đánh dấu và dấu vết đã đồng bộ khỏi Google Drive? Đánh dấu và dấu vết trên thiết bị này vẫn được giữ lại.</string>
+    <string name="bookmarks_sync_beta_warning">Tính năng đồng bộ đang ở bản beta. Hãy xuất bản sao lưu tất cả đánh dấu và dấu vết trước khi bật.</string>
+    <string name="bookmarks_sync_export">Xuất</string>
+    <string name="bookmarks_sync_enable">Cho phép</string>
     <string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
     <string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

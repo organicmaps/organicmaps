@@ -57,6 +57,12 @@
   <string name="pref_privacy" translatable="false">pref_privacy</string>
   <string name="pref_search_history" translatable="false">pref_search_history</string>
   <string name="pref_bookmarks_backup" translatable="false">pref_bookmarks_backup</string>
+  <string name="pref_bookmarks_sync" translatable="false">pref_bookmarks_sync</string>
+  <string name="pref_bookmarks_sync_enabled" translatable="false">pref_bookmarks_sync_enabled</string>
+  <string name="pref_bookmarks_sync_account" translatable="false">pref_bookmarks_sync_account</string>
+  <string name="pref_bookmarks_sync_status" translatable="false">pref_bookmarks_sync_status</string>
+  <string name="pref_bookmarks_sync_now" translatable="false">pref_bookmarks_sync_now</string>
+  <string name="pref_bookmarks_sync_delete" translatable="false">pref_bookmarks_sync_delete</string>
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>

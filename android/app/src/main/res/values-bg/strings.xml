@@ -345,6 +345,19 @@
     <string name="search_history_title">История на търсенията</string>
     <string name="bookmarks_backup_title">Резервно копие на отметките</string>
     <string name="bookmarks_backup_description">Отметките и пътеките се запазват в системното резервно копие на Android, ако то е включено на устройството и не надвишават ограничението му за размер.</string>
+    <string name="bookmarks_sync_title">Синхронизиране с Google Диск (бета)</string>
+    <string name="bookmarks_sync_enabled">Синхронизиране на отметки и пътеки</string>
+    <string name="bookmarks_sync_now">Синхронизиране сега</string>
+    <string name="bookmarks_sync_status_synced">Синхронизирано в %s</string>
+    <string name="bookmarks_sync_status_running">Синхронизиране…</string>
+    <string name="bookmarks_sync_status_sign_in">Изисква се вход</string>
+    <string name="bookmarks_sync_status_quota">Google Диск е пълен</string>
+    <string name="bookmarks_sync_status_error">Неуспешно синхронизиране: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Изтриване на данните от Google Диск</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Да се изтрият ли синхронизираните отметки и пътеки от Google Диск? Отметките и пътеките на това устройство остават.</string>
+    <string name="bookmarks_sync_beta_warning">Синхронизирането е в бета версия. Преди да го включите, експортирайте резервно копие на всички отметки и пътеки.</string>
+    <string name="bookmarks_sync_export">Експортиране</string>
+    <string name="bookmarks_sync_enable">Активиране</string>
     <string name="search_history_text">Преглед на последните търсения.</string>
     <string name="clear_search">Изчистване на историята на търсенията</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

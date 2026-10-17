@@ -299,6 +299,19 @@
     <string name="search_history_title">ປະຫວັດການຄົ້ນຫາ</string>
     <string name="bookmarks_backup_title">ສຳຮອງຂໍ້ມູນບຸກມາກ</string>
     <string name="bookmarks_backup_description">ບຸກມາກ ແລະ ເສັ້ນທາງຈະຖືກບັນທຶກໄວ້ໃນການສຳຮອງຂໍ້ມູນລະບົບ Android ຖ້າມັນເປີດໃຊ້ຢູ່ໃນອຸປະກອນນີ້ ແລະ ບໍ່ເກີນຂີດຈຳກັດຂະໜາດຂອງມັນ.</string>
+    <string name="bookmarks_sync_title">ຊິງກັບ Google Drive (ເບຕ້າ)</string>
+    <string name="bookmarks_sync_enabled">ຊິງບຸກມາກ ແລະ ເສັ້ນທາງ</string>
+    <string name="bookmarks_sync_now">ຊິງດຽວນີ້</string>
+    <string name="bookmarks_sync_status_synced">ຊິງແລ້ວເວລາ %s</string>
+    <string name="bookmarks_sync_status_running">ກຳລັງຊິງ…</string>
+    <string name="bookmarks_sync_status_sign_in">ຕ້ອງເຂົ້າສູ່ລະບົບ</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ເຕັມແລ້ວ</string>
+    <string name="bookmarks_sync_status_error">ການຊິງລົ້ມເຫຼວ: %s</string>
+    <string name="bookmarks_sync_delete_cloud">ລຶບຂໍ້ມູນອອກຈາກ Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">ລຶບບຸກມາກ ແລະ ເສັ້ນທາງທີ່ຊິງໄວ້ອອກຈາກ Google Drive ບໍ? ບຸກມາກ ແລະ ເສັ້ນທາງໃນອຸປະກອນນີ້ຍັງຄົງຢູ່.</string>
+    <string name="bookmarks_sync_beta_warning">ການຊິງຢູ່ໃນຊ່ວງເບຕ້າ. ສົ່ງອອກສຳເນົາສຳຮອງຂອງບຸກມາກ ແລະ ເສັ້ນທາງທັງໝົດກ່ອນເປີດໃຊ້.</string>
+    <string name="bookmarks_sync_export">ສົ່ງອອກ</string>
+    <string name="bookmarks_sync_enable">ເປີດໃຊ້ງານ</string>
     <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
     <string name="clear_search">ລຶບປະຫວັດການຄົ້ນຫາ</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

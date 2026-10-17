@@ -345,6 +345,19 @@
     <string name="search_history_title">חיפושים קודמים</string>
     <string name="bookmarks_backup_title">גיבוי סימניות</string>
     <string name="bookmarks_backup_description">סימניות ומסלולים נשמרים בגיבוי המערכת של Android אם הוא מופעל במכשיר זה והם אינם חורגים ממגבלת הגודל שלו.</string>
+    <string name="bookmarks_sync_title">סנכרון עם Google Drive (בטא)</string>
+    <string name="bookmarks_sync_enabled">סנכרון סימניות ומסלולים</string>
+    <string name="bookmarks_sync_now">סנכרון עכשיו</string>
+    <string name="bookmarks_sync_status_synced">סונכרן ב־%s</string>
+    <string name="bookmarks_sync_status_running">מסנכרן…</string>
+    <string name="bookmarks_sync_status_sign_in">נדרשת התחברות</string>
+    <string name="bookmarks_sync_status_quota">Google Drive מלא</string>
+    <string name="bookmarks_sync_status_error">הסנכרון נכשל: %s</string>
+    <string name="bookmarks_sync_delete_cloud">מחיקת הנתונים מ־Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">למחוק את הסימניות והמסלולים המסונכרנים מ־Google Drive? הסימניות והמסלולים במכשיר זה יישארו.</string>
+    <string name="bookmarks_sync_beta_warning">הסנכרון בגרסת בטא. לפני ההפעלה, יש לייצא גיבוי של כל הסימניות והמסלולים.</string>
+    <string name="bookmarks_sync_export">ייצוא</string>
+    <string name="bookmarks_sync_enable">הפעל</string>
     <string name="search_history_text">צפה בחיפושים האחרונים שלך.</string>
     <string name="clear_search">נקה היסטוריית חיפוש</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

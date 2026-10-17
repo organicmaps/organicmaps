@@ -345,6 +345,19 @@
     <string name="search_history_title">Søgehistorik</string>
     <string name="bookmarks_backup_title">Sikkerhedskopi af bogmærker</string>
     <string name="bookmarks_backup_description">Bogmærker og spor gemmes i Androids systemsikkerhedskopi, hvis den er slået til på denne enhed, og de ikke overskrider dens størrelsesgrænse.</string>
+    <string name="bookmarks_sync_title">Synkronisering med Google Drev (beta)</string>
+    <string name="bookmarks_sync_enabled">Synkroniser bogmærker og spor</string>
+    <string name="bookmarks_sync_now">Synkroniser nu</string>
+    <string name="bookmarks_sync_status_synced">Synkroniseret kl. %s</string>
+    <string name="bookmarks_sync_status_running">Synkroniserer…</string>
+    <string name="bookmarks_sync_status_sign_in">Login påkrævet</string>
+    <string name="bookmarks_sync_status_quota">Google Drev er fuldt</string>
+    <string name="bookmarks_sync_status_error">Synkronisering mislykkedes: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Slet data fra Google Drev</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Vil du slette synkroniserede bogmærker og spor fra Google Drev? Bogmærker og spor på denne enhed bevares.</string>
+    <string name="bookmarks_sync_beta_warning">Synkronisering er i beta. Eksportér en sikkerhedskopi af alle bogmærker og spor, før du slår den til.</string>
+    <string name="bookmarks_sync_export">Eksportér</string>
+    <string name="bookmarks_sync_enable">Aktivér</string>
     <string name="search_history_text">Se dine seneste søgninger.</string>
     <string name="clear_search">Ryd søgehistorik</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

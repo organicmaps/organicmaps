@@ -345,6 +345,19 @@
     <string name="search_history_title">سوابق جستجو</string>
     <string name="bookmarks_backup_title">پشتیبان‌گیری از نشانک‌ها</string>
     <string name="bookmarks_backup_description">اگر پشتیبان‌گیری سیستم Android در این دستگاه فعال باشد و نشانک‌ها و مسیرها از محدودیت حجم آن بیشتر نشوند، در آن ذخیره می‌شوند.</string>
+    <string name="bookmarks_sync_title">همگام‌سازی با Google Drive (آزمایشی)</string>
+    <string name="bookmarks_sync_enabled">همگام‌سازی نشانک‌ها و مسیرها</string>
+    <string name="bookmarks_sync_now">همگام‌سازی اکنون</string>
+    <string name="bookmarks_sync_status_synced">همگام‌سازی شده در %s</string>
+    <string name="bookmarks_sync_status_running">در حال همگام‌سازی…</string>
+    <string name="bookmarks_sync_status_sign_in">ورود لازم است</string>
+    <string name="bookmarks_sync_status_quota">Google Drive پر است</string>
+    <string name="bookmarks_sync_status_error">همگام‌سازی ناموفق بود: %s</string>
+    <string name="bookmarks_sync_delete_cloud">حذف داده‌ها از Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">نشانک‌ها و مسیرهای همگام‌شده از Google Drive حذف شوند؟ نشانک‌ها و مسیرهای این دستگاه باقی می‌مانند.</string>
+    <string name="bookmarks_sync_beta_warning">همگام‌سازی آزمایشی است. پیش از فعال کردن آن، از همه نشانک‌ها و مسیرها پشتیبان صادر کنید.</string>
+    <string name="bookmarks_sync_export">صادر کردن</string>
+    <string name="bookmarks_sync_enable">فعال کردن</string>
     <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
     <string name="clear_search">پاک کردن سابقه جستجوها</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">История поиска</string>
     <string name="bookmarks_backup_title">Резервная копия меток</string>
     <string name="bookmarks_backup_description">Метки и треки сохраняются в системную резервную копию Android, если она включена на устройстве и они не превышают её ограничение по размеру.</string>
+    <string name="bookmarks_sync_title">Синхронизация с Google Диском (бета)</string>
+    <string name="bookmarks_sync_enabled">Синхронизировать метки и треки</string>
+    <string name="bookmarks_sync_now">Синхронизировать сейчас</string>
+    <string name="bookmarks_sync_status_synced">Синхронизировано в %s</string>
+    <string name="bookmarks_sync_status_running">Синхронизация…</string>
+    <string name="bookmarks_sync_status_sign_in">Требуется вход</string>
+    <string name="bookmarks_sync_status_quota">Google Диск заполнен</string>
+    <string name="bookmarks_sync_status_error">Ошибка синхронизации: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Удалить данные из Google Диска</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Удалить синхронизированные метки и треки из Google Диска? Метки и треки на этом устройстве останутся.</string>
+    <string name="bookmarks_sync_beta_warning">Синхронизация в бете. Перед включением экспортируйте резервную копию всех меток и треков.</string>
+    <string name="bookmarks_sync_export">Экспортировать</string>
+    <string name="bookmarks_sync_enable">Включить</string>
     <string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
     <string name="clear_search">Очистить историю поиска</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

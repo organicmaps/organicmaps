@@ -345,6 +345,19 @@
     <string name="search_history_title">ประวัติการค้นหา</string>
     <string name="bookmarks_backup_title">สำรองข้อมูลบุ๊กมาร์ก</string>
     <string name="bookmarks_backup_description">บุ๊กมาร์กและแทร็กจะถูกบันทึกไว้ในการสำรองข้อมูลระบบ Android หากเปิดใช้งานในอุปกรณ์นี้และมีขนาดไม่เกินขีดจำกัด</string>
+    <string name="bookmarks_sync_title">ซิงค์กับ Google ไดรฟ์ (เบต้า)</string>
+    <string name="bookmarks_sync_enabled">ซิงค์บุ๊กมาร์กและแทร็ก</string>
+    <string name="bookmarks_sync_now">ซิงค์ตอนนี้</string>
+    <string name="bookmarks_sync_status_synced">ซิงค์เมื่อ %s</string>
+    <string name="bookmarks_sync_status_running">กำลังซิงค์…</string>
+    <string name="bookmarks_sync_status_sign_in">ต้องลงชื่อเข้าใช้</string>
+    <string name="bookmarks_sync_status_quota">Google ไดรฟ์เต็ม</string>
+    <string name="bookmarks_sync_status_error">ซิงค์ไม่สำเร็จ: %s</string>
+    <string name="bookmarks_sync_delete_cloud">ลบข้อมูลออกจาก Google ไดรฟ์</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">ลบบุ๊กมาร์กและแทร็กที่ซิงค์ไว้ออกจาก Google ไดรฟ์หรือไม่ บุ๊กมาร์กและแทร็กในอุปกรณ์นี้ยังคงอยู่</string>
+    <string name="bookmarks_sync_beta_warning">การซิงค์อยู่ในช่วงเบต้า ส่งออกข้อมูลสำรองของบุ๊กมาร์กและแทร็กทั้งหมดก่อนเปิดใช้งาน</string>
+    <string name="bookmarks_sync_export">ส่งออก</string>
+    <string name="bookmarks_sync_enable">เปิดใช้งาน</string>
     <string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
     <string name="clear_search">ล้างการค้นหาประวัติ</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

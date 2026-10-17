@@ -345,6 +345,19 @@
     <string name="search_history_title">Leitarferill</string>
     <string name="bookmarks_backup_title">Öryggisafrit bókamerkja</string>
     <string name="bookmarks_backup_description">Bókamerki og ferlar eru vistuð í kerfisöryggisafriti Android ef það er virkt á þessu tæki og þau fara ekki yfir stærðarmörk þess.</string>
+    <string name="bookmarks_sync_title">Samstilling við Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Samstilla bókamerki og ferla</string>
+    <string name="bookmarks_sync_now">Samstilla núna</string>
+    <string name="bookmarks_sync_status_synced">Samstillt kl. %s</string>
+    <string name="bookmarks_sync_status_running">Samstillir…</string>
+    <string name="bookmarks_sync_status_sign_in">Innskráningar krafist</string>
+    <string name="bookmarks_sync_status_quota">Google Drive er fullt</string>
+    <string name="bookmarks_sync_status_error">Samstilling mistókst: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eyða gögnum af Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Eyða samstilltum bókamerkjum og ferlum af Google Drive? Bókamerki og ferlar á þessu tæki haldast.</string>
+    <string name="bookmarks_sync_beta_warning">Samstilling er í prófun. Fluttu út öryggisafrit af öllum bókamerkjum og ferlum áður en þú kveikir á henni.</string>
+    <string name="bookmarks_sync_export">Flytja út</string>
+    <string name="bookmarks_sync_enable">Virkja</string>
     <string name="search_history_text">Skoðaðu nýlegar leitir þínar.</string>
     <string name="clear_search">Hreinsa leitarferil</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

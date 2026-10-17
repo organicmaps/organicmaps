@@ -236,6 +236,10 @@ dependencies {
   huaweiImplementation project(':sdk:location:gms:google')
   fdroidImplementation project(':sdk:location:gms:foss')
 
+  // Bookmarks sync: the core everywhere, the Google Drive provider only in the Google flavor.
+  implementation project(':sdk:sync:core')
+  googleImplementation project(':sdk:sync:gms')
+
   // Wear OS phone-side seam (interface + registry + no-op); wear-protocol arrives transitively.
   // The Google publisher that plugs into it is declared in the afterEvaluate block above.
   implementation project(':sdk:wear:core')

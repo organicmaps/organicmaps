@@ -345,6 +345,19 @@
     <string name="search_history_title">Zoekgeschiedenis</string>
     <string name="bookmarks_backup_title">Back-up van bladwijzers</string>
     <string name="bookmarks_backup_description">Bladwijzers en tracks worden opgeslagen in de Android-systeemback-up als deze op dit apparaat is ingeschakeld en ze de maximale grootte ervan niet overschrijden.</string>
+    <string name="bookmarks_sync_title">Synchronisatie met Google Drive (bèta)</string>
+    <string name="bookmarks_sync_enabled">Bladwijzers en tracks synchroniseren</string>
+    <string name="bookmarks_sync_now">Nu synchroniseren</string>
+    <string name="bookmarks_sync_status_synced">Gesynchroniseerd om %s</string>
+    <string name="bookmarks_sync_status_running">Synchroniseren…</string>
+    <string name="bookmarks_sync_status_sign_in">Inloggen vereist</string>
+    <string name="bookmarks_sync_status_quota">Google Drive is vol</string>
+    <string name="bookmarks_sync_status_error">Synchronisatie mislukt: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Gegevens uit Google Drive verwijderen</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Gesynchroniseerde bladwijzers en tracks uit Google Drive verwijderen? Bladwijzers en tracks op dit apparaat blijven behouden.</string>
+    <string name="bookmarks_sync_beta_warning">Synchronisatie is in bèta. Exporteer een back-up van alle bladwijzers en tracks voordat je het inschakelt.</string>
+    <string name="bookmarks_sync_export">Exporteren</string>
+    <string name="bookmarks_sync_enable">Schakel in</string>
     <string name="search_history_text">Snel toegang tot recente zoekopdrachten.</string>
     <string name="clear_search">Wis zoekgeschiedenis</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

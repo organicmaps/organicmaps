@@ -345,6 +345,19 @@
     <string name="search_history_title">Histórico de pesquisas</string>
     <string name="bookmarks_backup_title">Cópia de segurança dos favoritos</string>
     <string name="bookmarks_backup_description">Os favoritos e trajetos são guardados na cópia de segurança do sistema Android, se estiver ativada neste dispositivo e não excederem o respetivo limite de tamanho.</string>
+    <string name="bookmarks_sync_title">Sincronização com o Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar favoritos e trajetos</string>
+    <string name="bookmarks_sync_now">Sincronizar agora</string>
+    <string name="bookmarks_sync_status_synced">Sincronizado às %s</string>
+    <string name="bookmarks_sync_status_running">A sincronizar…</string>
+    <string name="bookmarks_sync_status_sign_in">É necessário iniciar sessão</string>
+    <string name="bookmarks_sync_status_quota">O Google Drive está cheio</string>
+    <string name="bookmarks_sync_status_error">Falha na sincronização: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eliminar dados do Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Eliminar os favoritos e trajetos sincronizados do Google Drive? Os favoritos e trajetos neste dispositivo mantêm-se.</string>
+    <string name="bookmarks_sync_beta_warning">A sincronização está em beta. Exporte uma cópia de segurança de todos os favoritos e trajetos antes de a ativar.</string>
+    <string name="bookmarks_sync_export">Exportar</string>
+    <string name="bookmarks_sync_enable">Ativar</string>
     <string name="search_history_text">Ver as pesquisas recentes.</string>
     <string name="clear_search">Limpar histórico de pesquisas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

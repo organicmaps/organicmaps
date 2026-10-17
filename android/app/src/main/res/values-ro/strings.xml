@@ -345,6 +345,19 @@
     <string name="search_history_title">Istoricul căutărilor</string>
     <string name="bookmarks_backup_title">Backup pentru locurile preferate</string>
     <string name="bookmarks_backup_description">Locurile preferate și traseele sunt salvate în backupul de sistem Android, dacă acesta este activat pe acest dispozitiv și nu depășesc limita sa de dimensiune.</string>
+    <string name="bookmarks_sync_title">Sincronizare cu Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizează locurile preferate și traseele</string>
+    <string name="bookmarks_sync_now">Sincronizează acum</string>
+    <string name="bookmarks_sync_status_synced">Sincronizat la %s</string>
+    <string name="bookmarks_sync_status_running">Se sincronizează…</string>
+    <string name="bookmarks_sync_status_sign_in">Este necesară autentificarea</string>
+    <string name="bookmarks_sync_status_quota">Google Drive este plin</string>
+    <string name="bookmarks_sync_status_error">Sincronizarea a eșuat: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Șterge datele din Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ștergi locurile preferate și traseele sincronizate din Google Drive? Locurile preferate și traseele de pe acest dispozitiv rămân.</string>
+    <string name="bookmarks_sync_beta_warning">Sincronizarea este în versiune beta. Exportă o copie de rezervă a tuturor locurilor preferate și traseelor înainte de a o activa.</string>
+    <string name="bookmarks_sync_export">Exportă</string>
+    <string name="bookmarks_sync_enable">Activați</string>
     <string name="search_history_text">Arată căutările recente.</string>
     <string name="clear_search">Șterge istoricul căutărilor</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

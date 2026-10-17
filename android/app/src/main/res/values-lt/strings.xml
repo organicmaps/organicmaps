@@ -345,6 +345,19 @@
     <string name="search_history_title">Paieškų žurnalas</string>
     <string name="bookmarks_backup_title">Žymių atsarginė kopija</string>
     <string name="bookmarks_backup_description">Žymės ir trasos išsaugomos Android sistemos atsarginėje kopijoje, jei ji įjungta šiame įrenginyje ir jos neviršija leistino dydžio.</string>
+    <string name="bookmarks_sync_title">Sinchronizavimas su „Google“ disku (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinchronizuoti žymes ir trasas</string>
+    <string name="bookmarks_sync_now">Sinchronizuoti dabar</string>
+    <string name="bookmarks_sync_status_synced">Sinchronizuota %s</string>
+    <string name="bookmarks_sync_status_running">Sinchronizuojama…</string>
+    <string name="bookmarks_sync_status_sign_in">Reikia prisijungti</string>
+    <string name="bookmarks_sync_status_quota">„Google“ diskas pilnas</string>
+    <string name="bookmarks_sync_status_error">Sinchronizuoti nepavyko: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ištrinti duomenis iš „Google“ disko</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ištrinti sinchronizuotas žymes ir trasas iš „Google“ disko? Šio įrenginio žymės ir trasos liks.</string>
+    <string name="bookmarks_sync_beta_warning">Sinchronizavimas yra beta versijos. Prieš įjungdami eksportuokite visų žymių ir trasų atsarginę kopiją.</string>
+    <string name="bookmarks_sync_export">Eksportuoti</string>
+    <string name="bookmarks_sync_enable">Įjungti</string>
     <string name="search_history_text">Rodyti paskiausias paieškas.</string>
     <string name="clear_search">Valyti paieškų žurnalą</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

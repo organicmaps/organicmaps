@@ -345,6 +345,19 @@
     <string name="search_history_title">Historia ya Utafutaji</string>
     <string name="bookmarks_backup_title">Nakala rudufu ya alamisho</string>
     <string name="bookmarks_backup_description">Alamisho na njia huhifadhiwa kwenye nakala rudufu ya mfumo wa Android ikiwa imewashwa kwenye kifaa hiki na hazizidi kikomo chake cha ukubwa.</string>
+    <string name="bookmarks_sync_title">Usawazishaji wa Google Drive (Beta)</string>
+    <string name="bookmarks_sync_enabled">Sawazisha alamisho na njia</string>
+    <string name="bookmarks_sync_now">Sawazisha sasa</string>
+    <string name="bookmarks_sync_status_synced">Imesawazishwa saa %s</string>
+    <string name="bookmarks_sync_status_running">Inasawazisha…</string>
+    <string name="bookmarks_sync_status_sign_in">Unahitaji kuingia</string>
+    <string name="bookmarks_sync_status_quota">Google Drive imejaa</string>
+    <string name="bookmarks_sync_status_error">Usawazishaji umeshindwa: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Futa data kutoka Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ungependa kufuta alamisho na njia zilizosawazishwa kutoka Google Drive? Alamisho na njia kwenye kifaa hiki zitabaki.</string>
+    <string name="bookmarks_sync_beta_warning">Usawazishaji uko katika toleo la beta. Hamisha nakala rudufu ya alamisho na njia zote kabla ya kuuwasha.</string>
+    <string name="bookmarks_sync_export">Hamisha</string>
+    <string name="bookmarks_sync_enable">Wezesha</string>
     <string name="search_history_text">Tazama utafutaji wako wa hivi karibuni.</string>
     <string name="clear_search">Futa historia ya utafutaji</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

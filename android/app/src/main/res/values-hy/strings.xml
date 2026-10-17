@@ -345,6 +345,19 @@
     <string name="search_history_title">Որոնման պատմություն</string>
     <string name="bookmarks_backup_title">Էջանիշների պահուստավորում</string>
     <string name="bookmarks_backup_description">Էջանիշները և հետագծերը պահվում են Android համակարգի պահուստային պատճենում, եթե այն միացված է այս սարքում, և դրանք չեն գերազանցում դրա չափի սահմանաչափը։</string>
+    <string name="bookmarks_sync_title">Համաժամացում Google Drive-ի հետ (բետա)</string>
+    <string name="bookmarks_sync_enabled">Համաժամացնել էջանիշները և հետագծերը</string>
+    <string name="bookmarks_sync_now">Համաժամացնել հիմա</string>
+    <string name="bookmarks_sync_status_synced">Համաժամացվել է՝ %s</string>
+    <string name="bookmarks_sync_status_running">Համաժամացում…</string>
+    <string name="bookmarks_sync_status_sign_in">Պահանջվում է մուտք</string>
+    <string name="bookmarks_sync_status_quota">Google Drive-ը լցված է</string>
+    <string name="bookmarks_sync_status_error">Համաժամացումը ձախողվեց՝ %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ջնջել տվյալները Google Drive-ից</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ջնջե՞լ համաժամացված էջանիշները և հետագծերը Google Drive-ից։ Այս սարքի էջանիշները և հետագծերը կմնան։</string>
+    <string name="bookmarks_sync_beta_warning">Համաժամացումը բետա տարբերակում է։ Միացնելուց առաջ արտահանեք բոլոր էջանիշների և հետագծերի պահուստային պատճենը։</string>
+    <string name="bookmarks_sync_export">Արտահանել</string>
+    <string name="bookmarks_sync_enable">Միացնել</string>
     <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
     <string name="clear_search">Մաքրել որոնման պատմությունը</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">Axtarış tarixçəsi</string>
     <string name="bookmarks_backup_title">Əlfəcinlərin ehtiyat nüsxəsi</string>
     <string name="bookmarks_backup_description">Bu cihazda Android sistem ehtiyat nüsxəsi aktivdirsə və əlfəcinlərlə treklər onun ölçü limitini aşmırsa, onlar orada saxlanılır.</string>
+    <string name="bookmarks_sync_title">Google Drive sinxronizasiyası (beta)</string>
+    <string name="bookmarks_sync_enabled">Əlfəcinləri və qeydləri sinxronlaşdır</string>
+    <string name="bookmarks_sync_now">İndi sinxronlaşdır</string>
+    <string name="bookmarks_sync_status_synced">%s-da sinxronlaşdırıldı</string>
+    <string name="bookmarks_sync_status_running">Sinxronlaşdırılır…</string>
+    <string name="bookmarks_sync_status_sign_in">Daxil olmaq tələb olunur</string>
+    <string name="bookmarks_sync_status_quota">Google Drive doludur</string>
+    <string name="bookmarks_sync_status_error">Sinxronizasiya alınmadı: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google Drive-dan məlumatları sil</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Sinxronlaşdırılmış əlfəcinlər və qeydlər Google Drive-dan silinsin? Bu cihazdakı əlfəcinlər və qeydlər qalır.</string>
+    <string name="bookmarks_sync_beta_warning">Sinxronizasiya beta mərhələsindədir. Aktivləşdirməzdən əvvəl bütün əlfəcinlərin və qeydlərin ehtiyat nüsxəsini ixrac edin.</string>
+    <string name="bookmarks_sync_export">İxrac et</string>
+    <string name="bookmarks_sync_enable">Aktivləşdirin</string>
     <string name="search_history_text">Son axtarışlara baxın.</string>
     <string name="clear_search">Axtarış Tarixçəsini silin</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

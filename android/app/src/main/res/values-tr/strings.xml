@@ -345,6 +345,19 @@
     <string name="search_history_title">Arama Geçmişi</string>
     <string name="bookmarks_backup_title">Yer imleri yedeği</string>
     <string name="bookmarks_backup_description">Bu cihazda Android sistem yedeklemesi etkinse ve yer imleri ile izler yedeğin boyut sınırını aşmıyorsa, bunlar yedeğe kaydedilir.</string>
+    <string name="bookmarks_sync_title">Google Drive eşitleme (beta)</string>
+    <string name="bookmarks_sync_enabled">Yer imlerini ve izleri eşitle</string>
+    <string name="bookmarks_sync_now">Şimdi eşitle</string>
+    <string name="bookmarks_sync_status_synced">Eşitlendi: %s</string>
+    <string name="bookmarks_sync_status_running">Eşitleniyor…</string>
+    <string name="bookmarks_sync_status_sign_in">Oturum açılması gerekiyor</string>
+    <string name="bookmarks_sync_status_quota">Google Drive dolu</string>
+    <string name="bookmarks_sync_status_error">Eşitleme başarısız: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google Drive\'daki verileri sil</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Eşitlenen yer imleri ve izler Google Drive\'dan silinsin mi? Bu cihazdaki yer imleri ve izler kalır.</string>
+    <string name="bookmarks_sync_beta_warning">Eşitleme beta aşamasında. Etkinleştirmeden önce tüm yer imlerinin ve izlerin yedeğini dışa aktarın.</string>
+    <string name="bookmarks_sync_export">Dışa aktar</string>
+    <string name="bookmarks_sync_enable">Etkinleştir</string>
     <string name="search_history_text">Son aramalarınızı görüntüleyin.</string>
     <string name="clear_search">Arama Geçmişini Temizle</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

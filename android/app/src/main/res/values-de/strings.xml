@@ -345,6 +345,19 @@
     <string name="search_history_title">Suchverlauf</string>
     <string name="bookmarks_backup_title">Sicherung der Lesezeichen</string>
     <string name="bookmarks_backup_description">Lesezeichen und Tracks werden in der Android-Systemsicherung gespeichert, wenn sie auf diesem Gerät aktiviert ist und ihr Größenlimit nicht überschritten wird.</string>
+    <string name="bookmarks_sync_title">Google Drive-Synchronisierung (Beta)</string>
+    <string name="bookmarks_sync_enabled">Lesezeichen und Tracks synchronisieren</string>
+    <string name="bookmarks_sync_now">Jetzt synchronisieren</string>
+    <string name="bookmarks_sync_status_synced">Synchronisiert um %s</string>
+    <string name="bookmarks_sync_status_running">Synchronisierung…</string>
+    <string name="bookmarks_sync_status_sign_in">Anmeldung erforderlich</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ist voll</string>
+    <string name="bookmarks_sync_status_error">Synchronisierung fehlgeschlagen: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Daten aus Google Drive löschen</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Synchronisierte Lesezeichen und Tracks aus Google Drive löschen? Lesezeichen und Tracks auf diesem Gerät bleiben erhalten.</string>
+    <string name="bookmarks_sync_beta_warning">Die Synchronisierung ist in der Beta. Exportiere vor dem Aktivieren eine Sicherung aller Lesezeichen und Tracks.</string>
+    <string name="bookmarks_sync_export">Exportieren</string>
+    <string name="bookmarks_sync_enable">Aktivieren</string>
     <string name="search_history_text">Hier werden deine letzten Suchanfragen angezeigt.</string>
     <string name="clear_search">Suchverlauf löschen</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

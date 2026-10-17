@@ -345,6 +345,19 @@
     <string name="search_history_title">Ιστορικό αναζητήσεων</string>
     <string name="bookmarks_backup_title">Αντίγραφο ασφαλείας αγαπημένων</string>
     <string name="bookmarks_backup_description">Τα αγαπημένα και οι διαδρομές αποθηκεύονται στο αντίγραφο ασφαλείας συστήματος του Android, εάν είναι ενεργοποιημένο σε αυτήν τη συσκευή και δεν υπερβαίνουν το όριο μεγέθους του.</string>
+    <string name="bookmarks_sync_title">Συγχρονισμός με το Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Συγχρονισμός αγαπημένων και διαδρομών</string>
+    <string name="bookmarks_sync_now">Συγχρονισμός τώρα</string>
+    <string name="bookmarks_sync_status_synced">Συγχρονίστηκε στις %s</string>
+    <string name="bookmarks_sync_status_running">Συγχρονισμός…</string>
+    <string name="bookmarks_sync_status_sign_in">Απαιτείται σύνδεση</string>
+    <string name="bookmarks_sync_status_quota">Το Google Drive είναι πλήρες</string>
+    <string name="bookmarks_sync_status_error">Ο συγχρονισμός απέτυχε: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Διαγραφή δεδομένων από το Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Διαγραφή των συγχρονισμένων αγαπημένων και διαδρομών από το Google Drive; Τα αγαπημένα και οι διαδρομές σε αυτήν τη συσκευή παραμένουν.</string>
+    <string name="bookmarks_sync_beta_warning">Ο συγχρονισμός είναι σε έκδοση beta. Εξαγάγετε ένα αντίγραφο ασφαλείας όλων των αγαπημένων και διαδρομών πριν τον ενεργοποιήσετε.</string>
+    <string name="bookmarks_sync_export">Εξαγωγή</string>
+    <string name="bookmarks_sync_enable">Ενεργοποίηση</string>
     <string name="search_history_text">Προβολή πρόσφατων αναζητήσεων.</string>
     <string name="clear_search">Εκκαθάριση ιστορικού αναζητήσεων</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

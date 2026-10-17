@@ -1,0 +1,23 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  namespace = 'app.organicmaps.sdk.sync.gms'
+  enableKotlin = true  // see app/build.gradle
+}
+
+dependencies {
+  implementation project(':sdk:sync:core')
+
+  implementation libs.google.gms.auth
+  implementation libs.okhttp
+
+  testImplementation libs.androidx.junit
+  testImplementation libs.kotlinx.coroutines.test
+  testImplementation libs.okhttp.mockwebserver
+  // android.jar stubs of org.json throw in JVM unit tests.
+  testImplementation libs.org.json
+}

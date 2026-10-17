@@ -345,6 +345,19 @@
     <string name="search_history_title">搜索历史记录</string>
     <string name="bookmarks_backup_title">书签备份</string>
     <string name="bookmarks_backup_description">如果此设备已启用 Android 系统备份，且书签和轨迹未超过其容量上限，它们就会保存在备份中。</string>
+    <string name="bookmarks_sync_title">Google 云端硬盘同步（测试版）</string>
+    <string name="bookmarks_sync_enabled">同步书签和轨迹</string>
+    <string name="bookmarks_sync_now">立即同步</string>
+    <string name="bookmarks_sync_status_synced">已于 %s 同步</string>
+    <string name="bookmarks_sync_status_running">正在同步…</string>
+    <string name="bookmarks_sync_status_sign_in">需要登录</string>
+    <string name="bookmarks_sync_status_quota">Google 云端硬盘空间已满</string>
+    <string name="bookmarks_sync_status_error">同步失败：%s</string>
+    <string name="bookmarks_sync_delete_cloud">从 Google 云端硬盘删除数据</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">要从 Google 云端硬盘删除已同步的书签和轨迹吗？此设备上的书签和轨迹会保留。</string>
+    <string name="bookmarks_sync_beta_warning">同步功能处于测试阶段。启用前请导出所有书签和轨迹的备份。</string>
+    <string name="bookmarks_sync_export">导出</string>
+    <string name="bookmarks_sync_enable">启用</string>
     <string name="search_history_text">查看您最近的搜索记录。</string>
     <string name="clear_search">清除搜索记录</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

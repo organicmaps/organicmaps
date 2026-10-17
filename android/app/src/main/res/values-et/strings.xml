@@ -345,6 +345,19 @@
     <string name="search_history_title">Otsinguajalugu</string>
     <string name="bookmarks_backup_title">Järjehoidjate varundus</string>
     <string name="bookmarks_backup_description">Järjehoidjad ja rajad salvestatakse Androidi süsteemi varukoopiasse, kui see on selles seadmes sisse lülitatud ja need ei ületa selle mahupiirangut.</string>
+    <string name="bookmarks_sync_title">Google Drive\'i sünkroonimine (beeta)</string>
+    <string name="bookmarks_sync_enabled">Sünkrooni järjehoidjad ja rajad</string>
+    <string name="bookmarks_sync_now">Sünkrooni kohe</string>
+    <string name="bookmarks_sync_status_synced">Sünkrooniti kell %s</string>
+    <string name="bookmarks_sync_status_running">Sünkroonimine…</string>
+    <string name="bookmarks_sync_status_sign_in">Vajalik on sisselogimine</string>
+    <string name="bookmarks_sync_status_quota">Google Drive on täis</string>
+    <string name="bookmarks_sync_status_error">Sünkroonimine ebaõnnestus: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Kustuta andmed Google Drive\'ist</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Kas kustutada sünkroonitud järjehoidjad ja rajad Google Drive\'ist? Selle seadme järjehoidjad ja rajad jäävad alles.</string>
+    <string name="bookmarks_sync_beta_warning">Sünkroonimine on beetaversioonis. Enne selle sisselülitamist ekspordi kõigi järjehoidjate ja radade varukoopia.</string>
+    <string name="bookmarks_sync_export">Ekspordi</string>
+    <string name="bookmarks_sync_enable">Luba</string>
     <string name="search_history_text">Vaata hiljutisi otsinguid.</string>
     <string name="clear_search">Kustuta otsinguajalugu</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

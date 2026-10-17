@@ -345,6 +345,19 @@
     <string name="search_history_title">Historial de cerca</string>
     <string name="bookmarks_backup_title">Còpia de seguretat dels marcadors</string>
     <string name="bookmarks_backup_description">Els marcadors i recorreguts es desen a la còpia de seguretat del sistema Android si està activada en aquest dispositiu i no superen el seu límit de mida.</string>
+    <string name="bookmarks_sync_title">Sincronització amb Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronitza els marcadors i recorreguts</string>
+    <string name="bookmarks_sync_now">Sincronitza ara</string>
+    <string name="bookmarks_sync_status_synced">Sincronitzat a les %s</string>
+    <string name="bookmarks_sync_status_running">S\'està sincronitzant…</string>
+    <string name="bookmarks_sync_status_sign_in">Cal iniciar la sessió</string>
+    <string name="bookmarks_sync_status_quota">Google Drive és ple</string>
+    <string name="bookmarks_sync_status_error">La sincronització ha fallat: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Suprimeix les dades de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Voleu suprimir de Google Drive els marcadors i recorreguts sincronitzats? Els marcadors i recorreguts d\'aquest dispositiu es conserven.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronització és en beta. Exporteu una còpia de seguretat de tots els marcadors i recorreguts abans d\'activar-la.</string>
+    <string name="bookmarks_sync_export">Exporta</string>
+    <string name="bookmarks_sync_enable">Activa</string>
     <string name="search_history_text">Mostra les cerques recents.</string>
     <string name="clear_search">Neteja l’historial de cerques</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

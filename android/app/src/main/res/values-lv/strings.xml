@@ -345,6 +345,19 @@
     <string name="search_history_title">Meklēšanas vēsture</string>
     <string name="bookmarks_backup_title">Grāmatzīmju dublējumkopija</string>
     <string name="bookmarks_backup_description">Grāmatzīmes un pēdojumi tiek saglabāti Android sistēmas dublējumkopijā, ja tā ir ieslēgta šajā ierīcē un tie nepārsniedz tās lieluma ierobežojumu.</string>
+    <string name="bookmarks_sync_title">Google Drive sinhronizācija (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinhronizēt grāmatzīmes un pēdojumus</string>
+    <string name="bookmarks_sync_now">Sinhronizēt tagad</string>
+    <string name="bookmarks_sync_status_synced">Sinhronizēts %s</string>
+    <string name="bookmarks_sync_status_running">Notiek sinhronizācija…</string>
+    <string name="bookmarks_sync_status_sign_in">Nepieciešama pierakstīšanās</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ir pilns</string>
+    <string name="bookmarks_sync_status_error">Sinhronizācija neizdevās: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Dzēst datus no Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Vai dzēst sinhronizētās grāmatzīmes un pēdojumus no Google Drive? Grāmatzīmes un pēdojumi šajā ierīcē paliek.</string>
+    <string name="bookmarks_sync_beta_warning">Sinhronizācija ir beta versijā. Pirms tās ieslēgšanas eksportējiet visu grāmatzīmju un pēdojumu dublējumkopiju.</string>
+    <string name="bookmarks_sync_export">Eksportēt</string>
+    <string name="bookmarks_sync_enable">Ieslēgt</string>
     <string name="search_history_text">Apskatiet meklēšanas vēsturi.</string>
     <string name="clear_search">Notīrīt vēsturi</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">Search History</string>
     <string name="bookmarks_backup_title">Bookmarks backup</string>
     <string name="bookmarks_backup_description">Bookmarks and tracks are saved in the Android system backup if it is enabled on this device and they fit within its size limit.</string>
+    <string name="bookmarks_sync_title">Google Drive sync (Beta)</string>
+    <string name="bookmarks_sync_enabled">Sync bookmarks and tracks</string>
+    <string name="bookmarks_sync_now">Sync now</string>
+    <string name="bookmarks_sync_status_synced">Synced at %s</string>
+    <string name="bookmarks_sync_status_running">Syncing…</string>
+    <string name="bookmarks_sync_status_sign_in">Sign-in required</string>
+    <string name="bookmarks_sync_status_quota">Google Drive is full</string>
+    <string name="bookmarks_sync_status_error">Sync failed: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Delete data from Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Delete synced bookmarks and tracks from Google Drive? Bookmarks and tracks on this device stay.</string>
+    <string name="bookmarks_sync_beta_warning">Sync is in beta. Export a backup of all bookmarks and tracks before enabling it.</string>
+    <string name="bookmarks_sync_export">Export</string>
+    <string name="bookmarks_sync_enable">Enable</string>
     <string name="search_history_text">View your recent searches.</string>
     <string name="clear_search">Clear Search History</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -345,6 +345,19 @@
     <string name="search_history_title">Bilaketa historia</string>
     <string name="bookmarks_backup_title">Markagailuen babeskopia</string>
     <string name="bookmarks_backup_description">Markagailuak eta arrastoak Android sistemaren babeskopian gordetzen dira, gailu honetan gaituta badago eta haren tamaina-muga gainditzen ez badute.</string>
+    <string name="bookmarks_sync_title">Google Drive sinkronizazioa (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinkronizatu markagailuak eta arrastoak</string>
+    <string name="bookmarks_sync_now">Sinkronizatu orain</string>
+    <string name="bookmarks_sync_status_synced">Sinkronizatuta: %s</string>
+    <string name="bookmarks_sync_status_running">Sinkronizatzen…</string>
+    <string name="bookmarks_sync_status_sign_in">Saioa hasi behar da</string>
+    <string name="bookmarks_sync_status_quota">Google Drive beteta dago</string>
+    <string name="bookmarks_sync_status_error">Sinkronizazioak huts egin du: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ezabatu datuak Google Drive-tik</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Sinkronizatutako markagailuak eta arrastoak Google Drive-tik ezabatu? Gailu honetako markagailuak eta arrastoak mantenduko dira.</string>
+    <string name="bookmarks_sync_beta_warning">Sinkronizazioa beta fasean dago. Gaitu aurretik, esportatu markagailu eta arrasto guztien babeskopia.</string>
+    <string name="bookmarks_sync_export">Esportatu</string>
+    <string name="bookmarks_sync_enable">Gaitu</string>
     <string name="search_history_text">Ikusi azken bilaketak.</string>
     <string name="clear_search">Garbitu bilaketa historia</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
