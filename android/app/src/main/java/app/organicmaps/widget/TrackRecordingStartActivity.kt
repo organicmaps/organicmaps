@@ -1,57 +1,86 @@
 package app.organicmaps.widget
 
-import android.app.Activity
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import app.organicmaps.MwmActivity
 import app.organicmaps.MwmApplication
+import app.organicmaps.R
 import app.organicmaps.location.TrackRecordingService
 import app.organicmaps.sdk.display.DisplayType
 import app.organicmaps.sdk.location.LocationUtils
 import app.organicmaps.sdk.util.log.Logger
+import app.organicmaps.util.BatteryOptimizationHelper
 import java.io.IOException
 
 /**
- * Starts track recording from the widget without opening the map.
+ * Starts recording from the widget without taking the map away from Android Auto.
  * Android allows starting a location foreground service only from the foreground.
  */
-class TrackRecordingStartActivity : Activity() {
+class TrackRecordingStartActivity : AppCompatActivity() {
+    private val locationPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+        if (LocationUtils.checkFineLocationPermission(this)) {
+            startRecording()
+        } else {
+            Toast.makeText(this, R.string.precise_location_is_disabled_long_text, Toast.LENGTH_LONG).show()
+            finishAndRemoveTask()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Normally done by SplashActivity, no-op if already initialized.
         MwmApplication.from(this).displayManager.init(DisplayType.Device)
-        if (!startTrackRecording()) {
-            // Let the map ask for permissions or report errors.
-            val intent =
-                Intent(this, MwmActivity::class.java)
-                    .putExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, true)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
+        supportFragmentManager.setFragmentResultListener(BatteryOptimizationHelper.DISMISS_REQUEST_KEY, this) { _, _ ->
+            finishAndRemoveTask()
         }
-        finish()
+        // A restored permission result resumes the start; a restored advisory only needs dismissal.
+        if (savedInstanceState == null) {
+            startRecording()
+        }
     }
 
-    private fun startTrackRecording(): Boolean {
-        // Before core init, so that a cold start still goes through SplashActivity.
-        if (!LocationUtils.checkFineLocationPermission(this) || !LocationUtils.areLocationServicesTurnedOn(this)) {
-            return false
+    private fun startRecording() {
+        if (!LocationUtils.checkFineLocationPermission(this)) {
+            locationPermission.launch(arrayOf(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION))
+            return
+        }
+        val app = MwmApplication.from(this)
+        if (!LocationUtils.areLocationServicesTurnedOn(this) && !app.displayManager.isCarDisplayUsed) {
+            openMap()
+            return
         }
 
-        val app = MwmApplication.from(this)
         if (!app.organicMaps.arePlatformAndCoreInitialized()) {
             try {
                 app.initOrganicMaps(null)
             } catch (e: IOException) {
                 Logger.e(TAG, "Failed to initialize the app", e)
-                return false
+                openMap()
+                return
             }
         }
 
         TrackRecordingService.startForegroundService(this)
-        return true
+        if (!BatteryOptimizationHelper.showWarningIfNeeded(this)) {
+            finishAndRemoveTask()
+        }
+    }
+
+    private fun openMap() {
+        startActivity(
+            Intent(this, MwmActivity::class.java)
+                .putExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, true)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+        )
+        finishAndRemoveTask()
     }
 
     companion object {

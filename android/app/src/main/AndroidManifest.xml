@@ -49,6 +49,8 @@
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
   <queries>
+    <!-- Required to resolve Samsung's Never sleeping apps settings -->
+    <package android:name="com.samsung.android.lool" />
     <intent>
       <action android:name="android.intent.action.TTS_SERVICE"/>
     </intent>
@@ -553,11 +555,10 @@
 
     <activity
       android:name=".widget.TrackRecordingStartActivity"
-      android:excludeFromRecents="true"
       android:exported="false"
-      android:noHistory="true"
+      android:launchMode="singleTask"
       android:taskAffinity=""
-      android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+      android:theme="@style/MwmTheme.TrackRecordingStart" />
 
     <receiver android:name=".widget.TrackRecordingWidget"
       android:exported="false"
