@@ -176,29 +176,26 @@ void SpeedCameraManager::FindCamerasOnRouteAndCache(double passedDistanceMeters)
   if (firstNotChecked == segments.size())
     return;
 
+  CHECK_GREATER(firstNotChecked, 0, ());
   CHECK_LESS(firstNotChecked, segments.size(), ());
 
-  double distToPrevSegment = segments[firstNotChecked].GetDistFromBeginningMeters();
-  double distFromCurPosToLatestCheckedSegmentM = distToPrevSegment - passedDistanceMeters;
+  double distToPrevSegment = segments[firstNotChecked - 1].GetDistFromBeginningMeters();
 
-  while (firstNotChecked < segments.size() && distFromCurPosToLatestCheckedSegmentM < kLookAheadDistanceMeters)
+  while (firstNotChecked < segments.size() && distToPrevSegment - passedDistanceMeters < kLookAheadDistanceMeters)
   {
-    CHECK_GREATER(firstNotChecked, 0, ());
-
     auto const & lastSegment = segments[firstNotChecked];
     auto const & prevSegment = segments[firstNotChecked - 1];
 
     auto const & endPoint = lastSegment.GetJunction().GetPoint();
     auto const & startPoint = prevSegment.GetJunction().GetPoint();
     auto const direction = endPoint - startPoint;
-    double const segmentLength = route->GetSegLenMeters(firstNotChecked);
+    double const segmentLength = lastSegment.GetDistFromBeginningMeters() - distToPrevSegment;
 
     for (auto const & speedCam : lastSegment.GetSpeedCams())
       m_cachedSpeedCameras.emplace(distToPrevSegment + segmentLength * speedCam.m_coef, speedCam.m_maxSpeedKmPH,
                                    startPoint + direction * speedCam.m_coef);
 
     distToPrevSegment = lastSegment.GetDistFromBeginningMeters();
-    distFromCurPosToLatestCheckedSegmentM = distToPrevSegment - passedDistanceMeters;
     ++firstNotChecked;
   }
 
