@@ -26,6 +26,17 @@ void loopWrappers(Observers * observers, TLoopBlock block)
         block(observer);
   });
 }
+
+void loopRouteWrappers(Observers * observers, TLoopBlock block)
+{
+  auto const revision = GetFramework().GetRoutingManager().GetRouteRevision();
+  loopWrappers(observers, [revision, block](Observer observer)
+  {
+    // A new route or edit can supersede an event before its main-queue delivery.
+    if (revision == GetFramework().GetRoutingManager().GetRouteRevision())
+      block(observer);
+  });
+}
 }  // namespace
 
 @interface MWMFrameworkListener ()
@@ -89,12 +100,12 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   auto & rm = GetFramework().GetRoutingManager();
   rm.SetRouteBuildingListener([observers](RouterResultCode code, CountriesSet const & absentCountries)
   {
-    loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer)
+    loopRouteWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer)
     { [observer processRouteBuilderEvent:code countries:absentCountries]; });
   });
   rm.SetRouteProgressListener([observers](float progress)
   {
-    loopWrappers(observers, [progress](TRouteBuildingObserver observer)
+    loopRouteWrappers(observers, [progress](TRouteBuildingObserver observer)
     {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];
@@ -109,7 +120,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
       rec = MWMRouterRecommendationRebuildAfterPointsLoading;
       break;
     }
-    loopWrappers(observers, [rec](TRouteBuildingObserver observer)
+    loopRouteWrappers(observers, [rec](TRouteBuildingObserver observer)
     {
       if ([observer respondsToSelector:@selector(processRouteRecommendation:)])
         [observer processRouteRecommendation:rec];

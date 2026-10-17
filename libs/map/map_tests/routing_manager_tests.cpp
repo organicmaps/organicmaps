@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "map/framework.hpp"
+#include "map/mwm_url.hpp"
 #include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
 
@@ -13,6 +14,7 @@
 #include "storage/routing_helpers.hpp"
 
 #include "platform/gui_thread.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
@@ -1297,6 +1299,131 @@ UNIT_CLASS_TEST(RoutingManagerTest, PendingCallbackCanDetachItsListener)
   TEST_EQUAL(calls, 1, ());
   m_manager.SetRoutePointCallback([&](std::string const &) { ++calls; });
   TEST_EQUAL(calls, 1, ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, SynchronousBuildErrorsKeepTheirRouteRevision)
+{
+  auto start = MakePoint(RouteMarkType::Start, 1, 1);
+  start.m_isMyPosition = true;
+  m_framework.GetBookmarkManager().MyPositionMark().SetUserPosition(start.m_position, false);
+
+  for (auto const & points :
+       {std::vector<RouteMarkData>{}, std::vector<RouteMarkData>{start, MakePoint(RouteMarkType::Finish, 2, 2)},
+        std::vector<RouteMarkData>{MakePoint(RouteMarkType::Start, 1, 1), MakePoint(RouteMarkType::Finish, 1, 1)}})
+  {
+    m_manager.RemoveRoutePoints();
+    if (!points.empty())
+      m_manager.ReplaceRoutePoints(points);
+
+    for (int attempt = 0; attempt < 2; ++attempt)
+    {
+      auto const previousRevision = m_manager.GetRouteRevision();
+      std::vector<uint64_t> reportedRevisions;
+      m_manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+      {
+        auto const expected = !points.empty() && points.front().m_isMyPosition
+                                ? routing::RouterResultCode::NoCurrentPosition
+                                : routing::RouterResultCode::Cancelled;
+        TEST(code == expected, ());
+        TEST(!m_manager.IsRoutingActive(), ());
+        reportedRevisions.push_back(m_manager.GetRouteRevision());
+      });
+
+      m_manager.BuildRoute();
+
+      TEST_EQUAL(reportedRevisions.size(), 1, ());
+      TEST_GREATER(reportedRevisions.front(), previousRevision, ());
+      TEST_EQUAL(reportedRevisions.front(), m_manager.GetRouteRevision(), ());
+    }
+  }
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, ExecutesApiRouteRequest)
+{
+  url_scheme::ParsedMapApi const api(
+      "om://v2/dir?destination=3,3&destination_name=Finish&destination_callback=app%3A%2F%2Ffinish"
+      "&waypoints=1.5,1.5|2,2&waypoint_names=A|B&waypoint_callbacks=app%3A%2F%2F1|app%3A%2F%2F2&mode=walk");
+  TEST_EQUAL(api.GetRequestType(), url_scheme::ParsedMapApi::UrlType::Route, ());
+
+  std::vector<routing::RouterResultCode> buildResults;
+  m_manager.SetRouteBuildingListener([&buildResults](routing::RouterResultCode code, storage::CountriesSet const &)
+  { buildResults.push_back(code); });
+
+  api.ExecuteRouteApiRequest(m_framework);
+
+  // The itinerary is materialized in URL order and the build starts right away; with no
+  // known position for the implicit my-position start it fails with NoCurrentPosition.
+  TEST_EQUAL(buildResults.size(), 1, ());
+  TEST_EQUAL(static_cast<int>(buildResults[0]), static_cast<int>(routing::RouterResultCode::NoCurrentPosition), ());
+
+  auto const routePoints = m_manager.GetRoutePoints();
+  TEST_EQUAL(routePoints.size(), 4, ());
+  TEST_EQUAL(static_cast<int>(routePoints[0].m_pointType), static_cast<int>(RouteMarkType::Start), ());
+  TEST(routePoints[0].m_isMyPosition, ());
+  TEST_EQUAL(routePoints[0].m_title, "My Position", ());
+  TEST_EQUAL(routePoints[1].m_title, "A", ());
+  TEST_EQUAL(routePoints[1].m_callback, "app://1", ());
+  TEST_EQUAL(routePoints[1].m_intermediateIndex, 0, ());
+  TEST_EQUAL(routePoints[2].m_title, "B", ());
+  TEST_EQUAL(routePoints[2].m_callback, "app://2", ());
+  TEST_EQUAL(routePoints[2].m_intermediateIndex, 1, ());
+  TEST_EQUAL(static_cast<int>(routePoints[3].m_pointType), static_cast<int>(RouteMarkType::Finish), ());
+  TEST_EQUAL(routePoints[3].m_title, "Finish", ());
+  TEST_EQUAL(routePoints[3].m_callback, "app://finish", ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, OptimizedApiRouteWithoutPositionKeepsUrlOrder)
+{
+  url_scheme::ParsedMapApi const api("om://v2/nav?destination=0,10&waypoints=0,9|0,3&waypoint_names=A|B&optimize=true");
+  TEST_EQUAL(api.GetRequestType(), url_scheme::ParsedMapApi::UrlType::Route, ());
+  m_manager.SetRouteBuildingListener([](routing::RouterResultCode code, storage::CountriesSet const &)
+  { TEST(code == routing::RouterResultCode::NoCurrentPosition, ()); });
+
+  api.ExecuteRouteApiRequest(m_framework);
+
+  auto const points = m_manager.GetRoutePoints();
+  TEST_EQUAL(points.size(), 4, ());
+  TEST(points.front().m_isMyPosition, ());
+  TEST_EQUAL(points[1].m_title, "A", ());
+  TEST_EQUAL(points[2].m_title, "B", ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, UnnamedApiRoutePointsGetCoordinateTitles)
+{
+  // Coordinate titles identify unnamed explicit points in either platform's route list.
+  url_scheme::ParsedMapApi const api("om://v2/dir?origin=1,1&destination=2,2&waypoints=1.5,1.5");
+  TEST_EQUAL(api.GetRequestType(), url_scheme::ParsedMapApi::UrlType::Route, ());
+
+  m_manager.SetRouteBuildingListener([](routing::RouterResultCode, storage::CountriesSet const &) {});
+  api.ExecuteRouteApiRequest(m_framework);
+
+  auto const routePoints = m_manager.GetRoutePoints();
+  TEST_EQUAL(routePoints.size(), 3, ());
+  TEST_EQUAL(routePoints[0].m_title, measurement_utils::FormatLatLon(1.0, 1.0, true /* withComma */), ());
+  TEST_EQUAL(routePoints[1].m_title, measurement_utils::FormatLatLon(1.5, 1.5, true /* withComma */), ());
+  TEST_EQUAL(routePoints[2].m_title, measurement_utils::FormatLatLon(2.0, 2.0, true /* withComma */), ());
+}
+
+UNIT_CLASS_TEST(RoutingManagerTest, DoesNotMaterializeOriginCallbackOnStartMark)
+{
+  // origin_callback is reserved: the start is departed from, never "passed", so it must
+  // never become an executable callback on the Start mark, even though the parser keeps it
+  // on the origin RoutePoint.
+  url_scheme::ParsedMapApi const api(
+      "om://v2/dir?origin=currentLocation&origin_callback=app%3A%2F%2Forigin"
+      "&destination=2,2&destination_callback=app%3A%2F%2Ffinish");
+  TEST_EQUAL(api.GetRequestType(), url_scheme::ParsedMapApi::UrlType::Route, ());
+  TEST_EQUAL(api.GetRoutePoints().front().m_callback, "app://origin", ());
+
+  // ExecuteRouteApiRequest starts a build, which reports completion through this listener.
+  m_manager.SetRouteBuildingListener([](routing::RouterResultCode, storage::CountriesSet const &) {});
+  api.ExecuteRouteApiRequest(m_framework);
+
+  auto const routePoints = m_manager.GetRoutePoints();
+  TEST_EQUAL(routePoints.size(), 2, ());
+  TEST_EQUAL(static_cast<int>(routePoints[0].m_pointType), static_cast<int>(RouteMarkType::Start), ());
+  TEST_EQUAL(routePoints[0].m_callback, "", ());
+  TEST_EQUAL(routePoints[1].m_callback, "app://finish", ());
 }
 
 UNIT_CLASS_TEST(RoutingManagerTest, ReplacesRoutePointsInBatch)

@@ -15,6 +15,8 @@ public final class RouteMarkData
   public final String mTitle;
   @Nullable
   public final String mSubtitle;
+  @Nullable
+  public final String mCallback;
   public RouteMarkType mPointType;
   public int mIntermediateIndex;
   public final boolean mIsVisible;
@@ -24,18 +26,28 @@ public final class RouteMarkData
   public final double mLon;
 
   private RouteMarkData(@Nullable String title, @Nullable String subtitle, int pointType, int intermediateIndex,
-                        boolean isVisible, boolean isMyPosition, boolean isPassed, double lat, double lon)
+                        @Nullable String callback, boolean isVisible, boolean isMyPosition, boolean isPassed,
+                        double lat, double lon)
   {
-    this(title, subtitle, RouteMarkType.values()[pointType], intermediateIndex, isVisible, isMyPosition, isPassed, lat,
-         lon);
+    this(title, subtitle, RouteMarkType.values()[pointType], intermediateIndex, callback, isVisible, isMyPosition,
+         isPassed, lat, lon);
   }
 
   public RouteMarkData(@Nullable String title, @Nullable String subtitle, RouteMarkType pointType,
                        int intermediateIndex, boolean isVisible, boolean isMyPosition, boolean isPassed, double lat,
                        double lon)
   {
+    this(title, subtitle, pointType, intermediateIndex, null /* callback */, isVisible, isMyPosition, isPassed, lat,
+         lon);
+  }
+
+  public RouteMarkData(@Nullable String title, @Nullable String subtitle, RouteMarkType pointType,
+                       int intermediateIndex, @Nullable String callback, boolean isVisible, boolean isMyPosition,
+                       boolean isPassed, double lat, double lon)
+  {
     mTitle = title;
     mSubtitle = subtitle;
+    mCallback = callback;
     mPointType = pointType;
     mIntermediateIndex = intermediateIndex;
     mIsVisible = isVisible;
