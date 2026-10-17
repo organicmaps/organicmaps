@@ -7,6 +7,8 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 
+#include <array>
+#include <cstdint>
 #include <string>
 #include <utility>
 
@@ -26,6 +28,18 @@ public:
     WorldCoasts,
     Country
   };
+
+  enum class FeatureGroup : uint8_t
+  {
+    Streets,
+    Pois,
+    Places,
+    Other,
+    Count
+  };
+
+  // Cumulative group ends; the first group starts at zero.
+  using FeatureOffsets = std::array<uint32_t, static_cast<size_t>(FeatureGroup::Count)>;
 
   /// Max possible geometry scales. @see arrays in feature_impl.hpp
   static constexpr size_t kMaxScalesCount = 4;
@@ -55,6 +69,10 @@ public:
 
   std::pair<int, int> GetScaleRange() const;
 
+  void SetFeatureOffsets(FeatureOffsets const & offsets);
+  std::pair<uint32_t, uint32_t> GetFeatureRange(FeatureGroup group) const;
+  uint32_t GetFeatureCount() const;
+
   void Save(FileWriter & w) const;
   void Load(FilesContainerR const & cont);
 
@@ -62,9 +80,10 @@ public:
   MapType GetType() const { return m_type; }
 
 private:
-  void Load(ModelReaderPtr const & r);
+  void Load(ModelReaderPtr const & r, bool hasFeatureRanges);
 
   MapType m_type = MapType::World;
+  FeatureOffsets m_featureOffsets = {};
 
   serial::GeometryCodingParams m_codingParams;
 
