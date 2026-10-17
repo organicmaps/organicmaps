@@ -290,6 +290,8 @@ def allowedPermissions = [
     "name='android.permission.FOREGROUND_SERVICE_LOCATION'",
     "name='android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK'",
     "name='android.permission.FOREGROUND_SERVICE_DATA_SYNC'",
+    // the car followed by the sensor box in the background
+    "name='android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE'",
     // notifications
     "name='android.permission.POST_NOTIFICATIONS'",
     // wake lock
