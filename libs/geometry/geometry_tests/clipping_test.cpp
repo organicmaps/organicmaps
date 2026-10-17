@@ -7,6 +7,8 @@
 #include <array>
 #include <cmath>
 #include <cstddef>
+#include <iterator>
+#include <map>
 #include <utility>
 #include <vector>
 
@@ -20,42 +22,69 @@ double constexpr kSplitEps = 1.0E-10;
 void TestTriangleClip(m2::RectD const & rect, array<m2::PointD, 3> const & input,
                       vector<m2::PointD> const & expectedPolygon)
 {
-  double expectedArea = 0;
+  // The fixture lists the convex intersection boundary in cyclic order.
+  double expectedOrientation = 0;
   for (size_t i = 1; i + 1 < expectedPolygon.size(); ++i)
-    expectedArea +=
-        abs(m2::CrossProduct(expectedPolygon[i] - expectedPolygon[0], expectedPolygon[i + 1] - expectedPolygon[0])) / 2;
+    expectedOrientation += m2::robust::OrientedS(expectedPolygon[0], expectedPolygon[i], expectedPolygon[i + 1]);
+  double const expectedArea = abs(expectedOrientation) / 2;
 
   for (bool reverse : {false, true})
     for (size_t shift = 0; shift < input.size(); ++shift)
-    {
-      auto triangle = input;
-      if (reverse)
-        swap(triangle[1], triangle[2]);
-      rotate(triangle.begin(), triangle.begin() + shift, triangle.end());
-      auto const winding = m2::robust::OrientedS(triangle[0], triangle[1], triangle[2]);
-      vector<m2::PointD> vertices;
-      double area = 0;
-      m2::ClipTriangleByRect(rect, triangle[0], triangle[1], triangle[2],
-                             [&](auto const & a, auto const & b, auto const & c)
+      for (bool precomputed : {false, true})
       {
-        TEST(rect.IsPointInside(a) && rect.IsPointInside(b) && rect.IsPointInside(c), (a, b, c));
-        auto const cross = m2::CrossProduct(b - a, c - a);
-        TEST(winding > 0 ? cross >= 0 : cross <= 0, (triangle, a, b, c));
-        area += abs(cross) / 2;
-        for (auto const & point : {a, b, c})
+        auto triangle = input;
+        if (reverse)
+          swap(triangle[1], triangle[2]);
+        rotate(triangle.begin(), triangle.begin() + shift, triangle.end());
+        auto const winding = m2::robust::OrientedS(triangle[0], triangle[1], triangle[2]);
+        vector<m2::PointD> vertices;
+        // Internal edges cancel; the remaining directed edges must match the boundary.
+        map<pair<size_t, size_t>, int> boundary;
+        auto const addEdge = [&](size_t from, size_t to, int direction)
         {
-          TEST(any_of(expectedPolygon.begin(), expectedPolygon.end(),
-                      [&](auto const & expected) { return point.EqualDxDy(expected, kClipEps); }),
-               (triangle, point, expectedPolygon));
-          vertices.push_back(point);
-        }
-      });
-      for (auto const & expected : expectedPolygon)
-        TEST(any_of(vertices.begin(), vertices.end(),
-                    [&](auto const & point) { return point.EqualDxDy(expected, kClipEps); }),
-             (triangle, expected, vertices));
-      TEST_ALMOST_EQUAL_ABS(area, expectedArea, 1e-10, (triangle, vertices));
-    }
+          if (from != to)
+            boundary[minmax(from, to)] += direction * (from < to ? 1 : -1);
+        };
+        double area = 0;
+        auto const emit = [&](auto const & a, auto const & b, auto const & c)
+        {
+          TEST(rect.IsPointInside(a) && rect.IsPointInside(b) && rect.IsPointInside(c), (a, b, c));
+          auto const orientation = m2::robust::OrientedS(a, b, c);
+          TEST(orientation != 0 && ((orientation > 0) == (winding > 0)), (triangle, a, b, c));
+          area += abs(orientation) / 2;
+          array<size_t, 3> indices;
+          size_t vertex = 0;
+          for (auto const & point : {a, b, c})
+          {
+            TEST(any_of(expectedPolygon.begin(), expectedPolygon.end(),
+                        [&](auto const & expected) { return point.EqualDxDy(expected, kClipEps); }),
+                 (triangle, point, expectedPolygon));
+            // The closest match distinguishes fixture vertices separated by less than kClipEps.
+            auto const closest =
+                min_element(expectedPolygon.begin(), expectedPolygon.end(), [&](auto const & lhs, auto const & rhs)
+            { return point.SquaredLength(lhs) < point.SquaredLength(rhs); });
+            indices[vertex++] = distance(expectedPolygon.begin(), closest);
+            vertices.push_back(point);
+          }
+          for (size_t i = 0; i < indices.size(); ++i)
+            addEdge(indices[i], indices[(i + 1) % indices.size()], 1);
+        };
+        if (precomputed)
+          m2::ClipTriangleByRect(rect, triangle[0], triangle[1], triangle[2], winding, emit);
+        else
+          m2::ClipTriangleByRect(rect, triangle[0], triangle[1], triangle[2], emit);
+        for (auto const & expected : expectedPolygon)
+          TEST(any_of(vertices.begin(), vertices.end(),
+                      [&](auto const & point) { return point.EqualDxDy(expected, kClipEps); }),
+               (triangle, expected, vertices));
+        int const direction = (winding > 0) == (expectedOrientation > 0) ? -1 : 1;
+        for (size_t i = 0; i < expectedPolygon.size(); ++i)
+          addEdge(i, (i + 1) % expectedPolygon.size(), direction);
+        for (auto const & [edge, count] : boundary)
+          TEST_EQUAL(count, 0, (triangle, vertices, edge));
+        double const tolerance = expectedArea == 0 ? 1e-10 : expectedArea * 1e-10;
+        TEST_ALMOST_EQUAL_ABS(area, expectedArea, tolerance, (triangle, vertices, precomputed));
+      }
 }
 
 bool CompareSplineLists(vector<m2::SharedSpline> const & list1, vector<m2::SharedSpline> const & list2)
@@ -142,6 +171,14 @@ UNIT_TEST(Clipping_TriangleCornerStaysExact)
       {rect.LeftBottom(), {90, 91.412483226649357}, rect.RightBottom()});
 }
 
+UNIT_TEST(Clipping_TriangleNearRectangleEdge)
+{
+  m2::RectD const rect(-45, 135, 0, 180);
+  // A vertex close to the bottom-right corner must not create a reversed sliver.
+  TestTriangleClip(rect, {{{-62.5, 176.25}, {43.5, 96.5}, {-1e-14, 135}}},
+                   {{-45, 164.7}, {-45, 176.25 - 79.75 * 17.5 / 106}, {-445.0 / 58, 135}, {-1e-14, 135}});
+}
+
 UNIT_TEST(Clipping_TriangleVerticesOnRectangleEdges)
 {
   m2::RectD const rect(-1.0, -1.0, 1.0, 1.0);
@@ -163,6 +200,7 @@ UNIT_TEST(Clipping_DegenerateTriangles)
   TestTriangleClip(rect, {{{2, 2}, {3, 3}, {4, 4}}}, {});
   // A small nonzero area is valid input, independent of the geometry's scale.
   TestTriangleClip(rect, {{{0, 0}, {1, 0}, {0, 1e-12}}}, {{0, 0}, {1, 0}, {0, 1e-12}});
+  TestTriangleClip(rect, {{{-2, 0}, {2, 0}, {0, 1e-12}}}, {{-1, 0}, {1, 0}, {1, 5e-13}, {0, 1e-12}, {-1, 5e-13}});
 }
 
 UNIT_TEST(Clipping_TriangleWindingPreservesCoveredRectangle)
@@ -182,9 +220,9 @@ UNIT_TEST(Clipping_TriangleWindingPreservesCoveredRectangle)
                                [&](auto const & a, auto const & b, auto const & c)
         {
           TEST(rect.IsPointInside(a) && rect.IsPointInside(b) && rect.IsPointInside(c), (a, b, c));
-          auto const cross = m2::CrossProduct(b - a, c - a);
-          TEST(clockwise ? cross <= 0 : cross >= 0, (cross));
-          coveredArea += std::abs(cross) / 2;
+          auto const orientation = m2::robust::OrientedS(a, b, c);
+          TEST(clockwise ? orientation < 0 : orientation > 0, (orientation));
+          coveredArea += std::abs(orientation) / 2;
         });
       }
       TEST_ALMOST_EQUAL_ABS(coveredArea, rect.Area(), 1e-10, (clockwise, shift));

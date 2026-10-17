@@ -11,10 +11,14 @@ namespace m2
 {
 using ClipTriangleByRectResultIt = std::function<void(m2::PointD const &, m2::PointD const &, m2::PointD const &)>;
 
-/// Emits the triangle/rectangle intersection as triangles with the input winding.
+/// Emits the triangle/rectangle intersection as nondegenerate triangles with the input winding.
 /// Degenerate input emits no triangles.
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
                         ClipTriangleByRectResultIt const & resultIterator);
+
+/// Reuses a precomputed orientation, whose sign and zero must match robust::OrientedS(p1, p2, p3).
+void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
+                        double orientation, ClipTriangleByRectResultIt const & resultIterator);
 
 /// Clips |path| against |rect| and back-inserts the resulting sub-splines into |out|.
 /// Caller is expected to have already classified the path against the rect

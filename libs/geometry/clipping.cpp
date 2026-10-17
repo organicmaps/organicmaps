@@ -4,20 +4,29 @@
 #include "geometry/robust_orientation.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <algorithm>
 #include <array>
 #include <cfloat>
 #include <cmath>
+#include <span>
+#include <utility>
 
 namespace m2
 {
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
                         ClipTriangleByRectResultIt const & resultIterator)
 {
+  ClipTriangleByRect(rect, p1, p2, p3, robust::OrientedS(p1, p2, p3), resultIterator);
+}
+
+void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
+                        double orientation, ClipTriangleByRectResultIt const & resultIterator)
+{
+  ASSERT_EQUAL(math::Sign(orientation), math::Sign(robust::OrientedS(p1, p2, p3)), (p1, p2, p3));
   // Collinear input must not acquire a fill through interpolation roundoff.
-  if (robust::OrientedS(p1, p2, p3) == 0)
+  if (orientation == 0)
     return;
 
   if (rect.IsPointInside(p1) && rect.IsPointInside(p2) && rect.IsPointInside(p3))
@@ -28,8 +37,12 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
 
   // Half-plane cuts preserve convexity and winding. The intersection has at most
   // seven vertices; the extra slot allows a duplicate closing point.
-  std::array<m2::PointD, 8> polygon{p1, p2, p3};
-  std::array<m2::PointD, 8> next;
+  std::array<m2::PointD, 8> buffers[2];
+  auto polygon = std::span(buffers[0]);
+  auto next = std::span(buffers[1]);
+  polygon[0] = p1;
+  polygon[1] = p2;
+  polygon[2] = p3;
   size_t count = 3;
   std::array<double, 4> const bounds{rect.minX(), rect.maxX(), rect.minY(), rect.maxY()};
   for (size_t side = 0; side < bounds.size() && count != 0; ++side)
@@ -62,8 +75,8 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
       if ((da < 0 && db > 0) || (da > 0 && db < 0))
       {
         double const t = da / (da - db);
-        m2::PointD point(std::lerp(a.x, b.x, t), std::lerp(a.y, b.y, t));
-        (vertical ? point.x : point.y) = bound;
+        m2::PointD const point =
+            vertical ? m2::PointD(bound, std::lerp(a.y, b.y, t)) : m2::PointD(std::lerp(a.x, b.x, t), bound);
         append(point);
       }
       if (db >= 0)
@@ -73,12 +86,17 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
     }
     if (nextCount > 1 && next[nextCount - 1] == next[0])
       --nextCount;
-    std::copy_n(next.begin(), nextCount, polygon.begin());
+    std::swap(polygon, next);
     count = nextCount;
   }
 
   for (size_t i = 1; i + 1 < count; ++i)
-    resultIterator(polygon[0], polygon[i], polygon[i + 1]);
+  {
+    // Interpolation roundoff can flatten or reverse a boundary sliver.
+    double const clippedOrientation = robust::OrientedS(polygon[0], polygon[i], polygon[i + 1]);
+    if (orientation > 0 ? clippedOrientation > 0 : clippedOrientation < 0)
+      resultIterator(polygon[0], polygon[i], polygon[i + 1]);
+  }
 }
 
 template <class FnT>
