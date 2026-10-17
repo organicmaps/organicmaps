@@ -204,7 +204,7 @@ void TileBackgroundRenderer::ReleaseTileBinding(ref_ptr<dp::GraphicsContext> con
 }
 
 void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                    ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
+                                    ScreenBase const & screen, FrameValues const & frameValues)
 {
   if (m_currentMode == dp::BackgroundMode::Default)
     return;

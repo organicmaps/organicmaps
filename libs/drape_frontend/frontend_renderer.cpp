@@ -1596,8 +1596,7 @@ void FrontendRenderer::RenderTileBackgroundLayer(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] RenderTileBackgroundLayer");
   DEBUG_LABEL(m_context, "Tile Background");
-  m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
-                                   m_frameValues);
+  m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, m_frameValues);
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
