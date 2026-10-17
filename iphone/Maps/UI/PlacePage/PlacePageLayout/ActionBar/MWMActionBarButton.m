@@ -170,6 +170,18 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   self.button.accessibilityLabel = self.label.text;
 }
 
+- (void)setDownloadAccessibilityLabel:(NSString *)label
+{
+  self.button.accessibilityLabel = label;
+  self.button.accessibilityValue = nil;
+}
+
+- (void)setDownloadAccessibilityProgress:(CGFloat)progress
+{
+  self.button.accessibilityValue = [NSNumberFormatter localizedStringFromNumber:@(progress)
+                                                                    numberStyle:NSNumberFormatterPercentStyle];
+}
+
 - (BOOL)needsToHighlightRouteToButton
 {
   return ![NSUserDefaults.standardUserDefaults boolForKey:kUDDidHighlightRouteToButton];

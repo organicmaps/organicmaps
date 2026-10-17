@@ -175,14 +175,19 @@ final class ActionBarViewController: UIViewController {
     switch mapNodeAttributes.nodeStatus {
     case .downloading:
       downloadButton.mapDownloadProgress?.state = .progress
+      downloadButton.setDownloadAccessibilityLabel(L("cancel_download"))
     case .applying, .inQueue:
       downloadButton.mapDownloadProgress?.state = .spinner
+      downloadButton.setDownloadAccessibilityLabel(L("cancel_download"))
     case .error:
       downloadButton.mapDownloadProgress?.state = .failed
+      downloadButton.setDownloadAccessibilityLabel(L("download"))
     case .onDisk, .undefined, .onDiskOutOfDate:
       downloadButton.mapDownloadProgress?.state = .completed
+      downloadButton.setDownloadAccessibilityLabel(L("download"))
     case .notDownloaded, .partly:
       downloadButton.mapDownloadProgress?.state = .normal
+      downloadButton.setDownloadAccessibilityLabel(L("download"))
     @unknown default:
       fatalError()
     }

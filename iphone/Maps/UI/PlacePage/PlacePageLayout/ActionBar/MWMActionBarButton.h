@@ -55,6 +55,8 @@ NS_SWIFT_NAME(ActionBarButton)
                                  isEnabled:(BOOL)isEnabled;
 
 - (void)setBookmarkButtonState:(MWMBookmarksButtonState)state;
+- (void)setDownloadAccessibilityLabel:(NSString *)label;
+- (void)setDownloadAccessibilityProgress:(CGFloat)progress;
 
 @end
 

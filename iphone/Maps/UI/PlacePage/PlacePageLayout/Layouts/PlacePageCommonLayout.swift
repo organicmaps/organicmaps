@@ -142,7 +142,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     }
     placePageData.onMapNodeProgressUpdate = { [weak self] downloadedBytes, totalBytes in
       guard let self = self, let downloadButton = self.actionBarViewController.downloadButton else { return }
-      downloadButton.mapDownloadProgress?.progress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
+      let progress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
+      downloadButton.mapDownloadProgress?.progress = progress
+      downloadButton.setDownloadAccessibilityProgress(progress)
     }
 
     return viewControllers

@@ -62,6 +62,13 @@ class OpeningHoursDayViewController: UIViewController {
     todayLabel.text = workingDay.workingDays
     scheduleLabel.text = workingDay.workingTimes
     breaksLabel.text = workingDay.breaks
+    view.isAccessibilityElement = true
+    view.accessibilityLabel = [todayLabel.text, scheduleLabel.text, breaksLabel.text]
+      .compactMap { $0?.isEmpty == false ? $0 : nil }
+      .joined(separator: ", ")
+    for label in [todayLabel, scheduleLabel, breaksLabel] {
+      label?.isAccessibilityElement = false
+    }
   }
 }
 
