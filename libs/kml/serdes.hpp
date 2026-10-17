@@ -62,6 +62,7 @@ public:
   bool IsValidAttribute(std::string_view type, std::string const & value, std::string const & attrInLowerCase) const;
 
   size_t GetDroppedCompilationsCount() const { return m_droppedCompilations; }
+  void ResolveAreaStyles();
 
   static kml::TrackLayer GetDefaultTrackLayer();
 
@@ -84,12 +85,52 @@ private:
   void ParseLineString(std::string const & s);
 
   bool MakeValid();
-  static void ParseColor(std::string const & value, uint32_t & color);
+  static bool ParseColor(std::string const & value, uint32_t & color);
   bool GetColorForStyle(std::string_view styleUrl, uint32_t & color) const;
   // Icon color is kept separate from line color so a <Style> with both IconStyle and LineStyle does
   // not leak a bookmark color into a track or vice versa.
   bool GetIconColorForStyle(std::string_view styleUrl, uint32_t & color) const;
   double GetTrackWidthForStyle(std::string_view styleUrl) const;
+
+  struct AreaStylePatch
+  {
+    std::optional<uint32_t> m_fillColor;
+    std::optional<uint32_t> m_outlineColor;
+    std::optional<double> m_outlineWidth;
+    std::optional<bool> m_fill;
+    std::optional<bool> m_outline;
+    template <typename Style>
+    void Apply(Style & style) const
+    {
+      if (m_fillColor)
+        style.m_fillColor = *m_fillColor;
+      if (m_outlineColor)
+        style.m_outlineColor = *m_outlineColor;
+      if (m_outlineWidth)
+        style.m_outlineWidth = *m_outlineWidth;
+      if (m_fill)
+        style.m_fill = *m_fill;
+      if (m_outline)
+        style.m_outline = *m_outline;
+    }
+  };
+  struct PendingAreaStyle
+  {
+    size_t m_areaIndex;
+    std::string m_reference;
+    AreaStylePatch m_inline;
+  };
+  void ParseAreaRing(std::string_view value, AreaRing & ring);
+
+  std::optional<AreaPolygon> m_polygon;
+  std::vector<AreaPolygon> m_areaPolygons;
+  bool m_invalidArea = false;
+  // A shared style or highlight must not replace accumulated placemark overrides.
+  AreaStylePatch m_areaStyle;
+  AreaStylePatch m_inlineAreaStyle;
+  std::string m_areaStyleReference;
+  std::map<std::string, AreaStylePatch, std::less<>> m_areaStyles;
+  std::vector<PendingAreaStyle> m_pendingAreaStyles;
 
   FileData & m_data;
 
@@ -159,6 +200,7 @@ public:
       MYTHROW(DeserializeException, ("Could not parse KML."));
     }
 
+    parser.ResolveAreaStyles();
     if (auto const count = parser.GetDroppedCompilationsCount(); count > 0)
       LOG(LWARNING, ("Ignored", count, "unsupported collections in a KML file"));
   }

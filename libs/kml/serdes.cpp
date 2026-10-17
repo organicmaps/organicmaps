@@ -13,6 +13,8 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include <glaze/util/zmij.hpp>
+
 namespace kml
 {
 namespace
@@ -587,6 +589,94 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   writer << kIndent2 << "</Placemark>\n";
 }
 
+void SaveAreaNumber(Writer & writer, double value)
+{
+  char buffer[64];
+  // The standard floating-point to_chars is unavailable on older supported iOS versions.
+  auto const end = glz::to_chars(buffer, value);
+  writer << std::string_view(buffer, end - buffer);
+}
+
+void SaveAreaRing(Writer & writer, AreaRing const & ring, std::string_view boundary)
+{
+  CHECK_GREATER_OR_EQUAL(ring.size(), 3, ());
+  writer << "      <" << boundary << "><LinearRing><coordinates>\n";
+  for (size_t i = 0; i <= ring.size(); ++i)
+  {
+    auto const & point = ring[i % ring.size()];
+    writer << kIndent8;
+    SaveAreaNumber(writer, point.m_point.x);
+    writer << ",";
+    SaveAreaNumber(writer, point.m_point.y);
+    if (point.m_altitude)
+    {
+      writer << ",";
+      SaveAreaNumber(writer, *point.m_altitude);
+    }
+    writer << "\n";
+  }
+  writer << "      </coordinates></LinearRing></" << boundary << ">\n";
+}
+
+void SaveAreaData(Writer & writer, AreaData const & area)
+{
+  CHECK(!area.m_polygons.empty(), ());
+  writer << kIndent2 << "<Placemark>\n";
+  if (auto const name = GetStringForExport(area.m_name); !name.empty())
+  {
+    writer << kIndent4 << "<name>";
+    SaveStringWithCDATA(writer, name);
+    writer << "</name>\n";
+  }
+  if (!area.m_visible)
+    writer << kIndent4 << "<visibility>0</visibility>\n";
+  if (auto const description = GetStringForExport(area.m_description); !description.empty())
+  {
+    writer << kIndent4 << "<description>";
+    SaveStringWithCDATA(writer, description);
+    writer << "</description>\n";
+  }
+  if (area.m_timestamp != Timestamp{})
+    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(area.m_timestamp) << "</when></TimeStamp>\n";
+  writer << kIndent4 << "<Style><LineStyle><color>";
+  SaveColorToABGR(writer, area.m_style.m_outlineColor);
+  writer << "</color><width>";
+  SaveAreaNumber(writer, area.m_style.m_outlineWidth);
+  writer << "</width></LineStyle><PolyStyle><color>";
+  SaveColorToABGR(writer, area.m_style.m_fillColor);
+  writer << "</color><fill>" << (area.m_style.m_fill ? "1" : "0") << "</fill><outline>"
+         << (area.m_style.m_outline ? "1" : "0") << "</outline></PolyStyle></Style>\n";
+  writer << kIndent4 << kExtendedDataHeader;
+  SaveLocalizableString(writer, area.m_name, "name", kIndent6);
+  SaveLocalizableString(writer, area.m_description, "description", kIndent6);
+  SaveStringsMap(writer, area.m_properties, "properties", kIndent6);
+  writer << kIndent4 << kExtendedDataFooter;
+  if (area.m_polygons.size() > 1)
+    writer << kIndent4 << "<MultiGeometry>\n";
+  for (auto const & polygon : area.m_polygons)
+  {
+    writer << kIndent4 << "<Polygon>\n";
+    if (polygon.m_extrude)
+      writer << kIndent6 << "<extrude>1</extrude>\n";
+    if (!polygon.m_altitudeMode.empty())
+    {
+      auto const tag = polygon.m_altitudeMode == "relativeToSeaFloor" || polygon.m_altitudeMode == "clampToSeaFloor"
+                         ? "gx:altitudeMode"
+                         : "altitudeMode";
+      writer << kIndent6 << "<" << tag << ">";
+      SaveStringWithCDATA(writer, polygon.m_altitudeMode);
+      writer << "</" << tag << ">\n";
+    }
+    SaveAreaRing(writer, polygon.m_outer, "outerBoundaryIs");
+    for (auto const & hole : polygon.m_holes)
+      SaveAreaRing(writer, hole, "innerBoundaryIs");
+    writer << kIndent4 << "</Polygon>\n";
+  }
+  if (area.m_polygons.size() > 1)
+    writer << kIndent4 << "</MultiGeometry>\n";
+  writer << kIndent2 << "</Placemark>\n";
+}
+
 bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt, geometry::Altitude & altitude)
 {
   // Order in string is: lon, lat, z.
@@ -634,8 +724,6 @@ bool ParsePointWithAltitude(std::string_view s, char const * delim, geometry::Po
 
 void KmlWriter::Write(FileData const & fileData)
 {
-  if (!fileData.m_areasData.empty())
-    MYTHROW(SerializerKml::SerializeException, ("KML area serialization is not implemented yet."));
   m_writer << kKmlHeader;
 
   // Save category.
@@ -651,6 +739,9 @@ void KmlWriter::Write(FileData const & fileData)
   // Saving tracks.
   for (auto const & trackData : fileData.m_tracksData)
     SaveTrackData(m_writer, trackData);
+
+  for (auto const & area : fileData.m_areasData)
+    SaveAreaData(m_writer, area);
 
   m_writer << kKmlFooter;
 }
@@ -691,6 +782,67 @@ void KmlParser::ResetPoint()
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
   m_skipTimes.clear();
   m_lastTrackPointsCount = std::numeric_limits<size_t>::max();
+  m_polygon.reset();
+  m_areaPolygons.clear();
+  m_invalidArea = false;
+  m_areaStyle = {};
+  m_inlineAreaStyle = {};
+  m_areaStyleReference.clear();
+}
+
+void KmlParser::ResolveAreaStyles()
+{
+  for (auto const & pending : m_pendingAreaStyles)
+  {
+    auto & style = m_data.m_areasData[pending.m_areaIndex].m_style;
+    auto reference = pending.m_reference;
+    std::set<std::string> visited;
+    while (reference.starts_with('#') && visited.insert(reference).second)
+    {
+      auto const id = reference.substr(1);
+      if (auto const it = m_areaStyles.find(id); it != m_areaStyles.end())
+      {
+        it->second.Apply(style);
+        break;
+      }
+      auto const alias = m_mapStyle2Style.find(id);
+      if (alias == m_mapStyle2Style.end())
+        break;
+      reference = alias->second;
+    }
+    pending.m_inline.Apply(style);
+  }
+}
+
+void KmlParser::ParseAreaRing(std::string_view value, AreaRing & ring)
+{
+  if (!ring.empty())
+    m_invalidArea = true;
+  strings::Tokenize(value, " \n\r\t", [&](std::string_view tuple)
+  {
+    auto const comma = tuple.find(',');
+    auto const altitude = comma == std::string_view::npos ? comma : tuple.find(',', comma + 1);
+    AreaPoint point;
+    if (comma == std::string_view::npos || !strings::to_double(tuple.substr(0, comma), point.m_point.x) ||
+        !strings::to_double(
+            tuple.substr(comma + 1, altitude == std::string_view::npos ? altitude : altitude - comma - 1),
+            point.m_point.y))
+    {
+      m_invalidArea = true;
+      return;
+    }
+    if (altitude != std::string_view::npos)
+    {
+      double z;
+      if (!strings::to_double(tuple.substr(altitude + 1), z))
+      {
+        m_invalidArea = true;
+        return;
+      }
+      point.m_altitude = z;
+    }
+    ring.push_back(point);
+  });
 }
 
 void KmlParser::SetOrigin(std::string const & s)
@@ -787,14 +939,15 @@ bool KmlParser::MakeValid()
 }
 
 // static
-void KmlParser::ParseColor(std::string const & value, uint32_t & color)
+bool KmlParser::ParseColor(std::string const & value, uint32_t & color)
 {
   auto const fromHex = FromHex(value);
   if (fromHex.size() != 4)
-    return;
+    return false;
 
   // Color positions in HEX – aabbggrr.
   color = ToRGBA(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
+  return true;
 }
 
 bool KmlParser::GetColorForStyle(std::string_view styleUrl, uint32_t & color) const
@@ -850,6 +1003,28 @@ bool KmlParser::Push(std::string movedTag)
   }
 
   m_tags.emplace_back(std::move(movedTag));
+
+  auto const & tag = m_tags.back();
+  if (tag == kStyle)
+  {
+    m_styleId.clear();
+    m_areaStyle = {};
+  }
+  else if (tag == kStyleMap)
+  {
+    m_mapStyleId.clear();
+    m_styleUrlKey.clear();
+  }
+  else if (tag == kPair)
+    m_styleUrlKey.clear();
+  if (tag == "Polygon" && m_tags.size() > 1 && (GetTagFromEnd(1) == kPlacemark || GetTagFromEnd(1) == "MultiGeometry"))
+  {
+    if (m_polygon)
+      m_invalidArea = true;
+    m_polygon.emplace();
+  }
+  else if (tag == "innerBoundaryIs" && m_polygon && GetTagFromEnd(1) == "Polygon")
+    m_polygon->m_holes.emplace_back();
 
   if (IsProcessTrackTag())
   {
@@ -911,6 +1086,23 @@ void KmlParser::Pop(std::string_view tag)
 
   if (tag == kPlacemark)
   {
+    if (!m_areaPolygons.empty())
+    {
+      if (!m_invalidArea && NormalizeAreaGeometry(m_areaPolygons))
+      {
+        AreaData area;
+        area.m_name = m_name;
+        area.m_description = m_description;
+        area.m_visible = m_visible;
+        area.m_timestamp = m_timestamp;
+        area.m_properties = m_properties;
+        area.m_polygons = std::move(m_areaPolygons);
+        m_pendingAreaStyles.push_back({m_data.m_areasData.size(), m_areaStyleReference, m_inlineAreaStyle});
+        m_data.m_areasData.push_back(std::move(area));
+      }
+      else
+        LOG(LWARNING, ("Ignoring invalid KML polygon", m_name));
+    }
     if (MakeValid())
     {
       if (GEOMETRY_TYPE_POINT == m_geometryType)
@@ -977,12 +1169,18 @@ void KmlParser::Pop(std::string_view tag)
     }
     ResetPoint();
   }
+  else if (tag == "Polygon" && m_polygon)
+  {
+    m_areaPolygons.push_back(std::move(*m_polygon));
+    m_polygon.reset();
+  }
   else if (tag == kStyle)
   {
     if (GetTagFromEnd(1) == kDocument)
     {
       if (!m_styleId.empty())
       {
+        m_areaStyles[m_styleId] = m_areaStyle;
         m_styleUrl2Color[m_styleId] = m_color;
         m_styleUrl2IconColor[m_styleId] = m_iconColor;
         m_styleUrl2Width[m_styleId] = m_trackWidth;
@@ -991,6 +1189,17 @@ void KmlParser::Pop(std::string_view tag)
         m_trackWidth = kDefaultTrackWidth;
       }
     }
+    else if (GetTagFromEnd(1) == kPlacemark)
+      m_areaStyle.Apply(m_inlineAreaStyle);
+    else if (m_tags.size() > 3 && GetTagFromEnd(1) == kPair && GetTagFromEnd(2) == kStyleMap &&
+             m_styleUrlKey == "normal")
+    {
+      if (GetTagFromEnd(3) == kPlacemark)
+        m_areaStyle.Apply(m_inlineAreaStyle);
+      else if (GetTagFromEnd(3) == kDocument && !m_mapStyleId.empty())
+        m_areaStyles[m_mapStyleId] = m_areaStyle;
+    }
+    m_areaStyle = {};
   }
   else if ((tag == "LineStyle" && m_tags.size() > 2 && GetTagFromEnd(2) == kPlacemark) ||
            (tag == "mwm:additionalLineStyle" && m_tags.size() > 3 && GetTagFromEnd(3) == kPlacemark))
@@ -1060,6 +1269,40 @@ void KmlParser::CharData(std::string & value)
     string const & prevTag = m_tags[count - 2];
     string_view const ppTag = count > 2 ? m_tags[count - 3] : string_view{};
     string_view const pppTag = count > 3 ? m_tags[count - 4] : string_view{};
+
+    if (m_polygon)
+    {
+      if (currTag == kCoordinates && prevTag == "LinearRing")
+      {
+        if (ppTag == "outerBoundaryIs")
+          ParseAreaRing(value, m_polygon->m_outer);
+        else if (ppTag == "innerBoundaryIs" && !m_polygon->m_holes.empty())
+          ParseAreaRing(value, m_polygon->m_holes.back());
+        return;
+      }
+      if (prevTag == "Polygon")
+      {
+        if (currTag == "altitudeMode" || currTag == "gx:altitudeMode")
+          m_polygon->m_altitudeMode = value;
+        if (currTag == "extrude")
+          m_polygon->m_extrude = value == "1" || value == "true";
+        return;
+      }
+    }
+    if (prevTag == "PolyStyle")
+    {
+      uint32_t color;
+      if (currTag == "color" && ParseColor(value, color))
+        m_areaStyle.m_fillColor = color;
+      if (value == "0" || value == "false" || value == "1" || value == "true")
+      {
+        if (currTag == "fill")
+          m_areaStyle.m_fill = value == "1" || value == "true";
+        if (currTag == "outline")
+          m_areaStyle.m_outline = value == "1" || value == "true";
+      }
+      return;
+    }
 
     auto const TrackTag = [this, &prevTag, &currTag, &value]()
     {
@@ -1194,12 +1437,12 @@ void KmlParser::CharData(std::string & value)
       }
       else if (currTag == "visibility")
       {
-        // Standard KML visibility of a Placemark; applied to the bookmark/track built at its close.
-        // Individual bookmarks can't be hidden in the UI, so this only has effect for tracks.
+        // Placemark visibility is retained independently of category visibility for all saved geometry kinds.
         m_visible = value != "0";
       }
       else if (currTag == kStyleUrl)
       {
+        m_areaStyleReference = value;
         // Bookmark draw style. Resolve a StyleMap alias to its target style first, so a StyleMap
         // that points at a preset (#placemark-red) is still classified as that preset.
         std::string effectiveStyle = value;
@@ -1249,13 +1492,18 @@ void KmlParser::CharData(std::string & value)
     {
       if (currTag == "color")
       {
-        ParseColor(value, m_color);
+        if (ParseColor(value, m_color) && prevTag == "LineStyle")
+          m_areaStyle.m_outlineColor = m_color;
       }
       else if (currTag == "width")
       {
         double val;
         if (strings::to_double(value, val))
+        {
           m_trackWidth = val;
+          if (prevTag == "LineStyle" && math::is_finite(val) && val >= 0)
+            m_areaStyle.m_outlineWidth = std::min(val, kMaxLineWidth);
+        }
       }
     }
     else if (prevTag == "IconStyle")
@@ -1268,7 +1516,9 @@ void KmlParser::CharData(std::string & value)
     }
     else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl && m_styleUrlKey == "normal")
     {
-      if (!m_mapStyleId.empty())
+      if (count > 3 && m_tags[count - 4] == kPlacemark)
+        m_areaStyleReference = value;
+      else if (!m_mapStyleId.empty())
         m_mapStyle2Style[m_mapStyleId] = value;
     }
     else if (ppTag == kStyleMap && prevTag == kPair && currTag == "key")

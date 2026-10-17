@@ -224,6 +224,8 @@ public:
   UserMark const * GetUserMark(kml::MarkId markId) const;
   Bookmark const * GetBookmark(kml::MarkId markId) const;
   Track const * GetTrack(kml::TrackId trackId) const;
+  kml::AreaData const * GetArea(kml::AreaId areaId) const;
+  kml::AreaIdSet const & GetAreaIds(kml::MarkGroupId groupId) const;
 
   kml::MarkIdSet const & GetUserMarkIds(kml::MarkGroupId groupId) const;
   kml::TrackIdSet const & GetTrackIds(kml::MarkGroupId groupId) const;
@@ -766,6 +768,8 @@ private:
   MarksCollection m_userMarks;
   BookmarksCollection m_bookmarks;
   TracksCollection m_tracks;
+  std::map<kml::AreaId, kml::AreaData> m_areas;
+  kml::AreaId m_lastAreaId = 0;
   std::unique_ptr<Track> m_tempRelationTrack;
 
   StaticMarkPoint * m_selectionMark = nullptr;

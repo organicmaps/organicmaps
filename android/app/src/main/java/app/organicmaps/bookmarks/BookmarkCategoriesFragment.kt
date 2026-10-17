@@ -132,7 +132,11 @@ class BookmarkCategoriesFragment :
                     if (category.isVisible) R.drawable.ic_hide else R.drawable.ic_show,
                 ) { onShowActionSelected(category) },
             )
-            addAll(exportMenuItems { fileType -> onShareActionSelected(category, fileType) })
+            addAll(
+                exportMenuItems(kmlOnly = category.areasCount > 0) { fileType ->
+                    onShareActionSelected(category, fileType)
+                },
+            )
             // Disallow deleting the last category
             if (adapter.bookmarkCategories.size > 1) {
                 add(MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete) { onDeleteActionSelected(category) })

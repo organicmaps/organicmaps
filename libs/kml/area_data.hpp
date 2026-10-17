@@ -25,6 +25,8 @@ struct AreaPolygon
 {
   AreaRing m_outer;
   std::vector<AreaRing> m_holes;
+  std::string m_altitudeMode = {};
+  bool m_extrude = false;
 
   bool operator==(AreaPolygon const &) const = default;
 };

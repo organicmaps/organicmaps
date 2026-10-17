@@ -54,6 +54,15 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   m_tree->setHeaderLabels(columnLabels);
   m_tree->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectItems);
   connect(m_tree, &QTreeWidget::itemClicked, this, &BookmarkDialog::OnItemClick);
+  connect(m_tree, &QTreeWidget::itemSelectionChanged, this, [this, exportGpxButton, exportGeoJsonButton]
+  {
+    auto const selected = m_tree->selectedItems();
+    auto const category = selected.empty() ? m_categories.end() : m_categories.find(selected.front());
+    bool const supported =
+        category != m_categories.end() && m_framework.GetBookmarkManager().GetAreaIds(category->second).empty();
+    exportGpxButton->setEnabled(supported);
+    exportGeoJsonButton->setEnabled(supported);
+  });
 
   QHBoxLayout * horizontalLayout = new QHBoxLayout();
   horizontalLayout->addStretch();
@@ -321,6 +330,17 @@ void BookmarkDialog::FillTree()
         auto trackItem = CreateTreeItem(name + " (Track)", categoryItem);
         trackItem->setForeground(0, Qt::darkGreen);
         m_tracks[trackItem] = trackId;
+      }
+      for (auto areaId : bm.GetAreaIds(catId))
+      {
+        auto const & area = *bm.GetArea(areaId);
+        auto name = GetPreferredBookmarkStr(area.m_name);
+        if (name.empty())
+          name = "No name";
+        auto * areaItem = CreateTreeItem(name + " (Area)", categoryItem);
+        // Areas have category controls but no individual show/delete actions.
+        areaItem->setText(1, {});
+        areaItem->setFlags(areaItem->flags() & ~Qt::ItemIsSelectable);
       }
     }
   }

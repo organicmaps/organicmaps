@@ -516,6 +516,19 @@ Track * BookmarkManager::GetTrackForEdit(kml::TrackId trackId)
   return it->second.get();
 }
 
+kml::AreaData const * BookmarkManager::GetArea(kml::AreaId areaId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const it = m_areas.find(areaId);
+  return it == m_areas.end() ? nullptr : &it->second;
+}
+
+kml::AreaIdSet const & BookmarkManager::GetAreaIds(kml::MarkGroupId groupId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return GetGroup(groupId)->GetUserAreas();
+}
+
 void BookmarkManager::MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1645,6 +1658,8 @@ void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
     m_changesTracker.OnDeleteLine(trackId);
     m_tracks.erase(trackId);
   }
+  for (auto areaId : group->GetUserAreas())
+    m_areas.erase(areaId);
   group->Clear();
 }
 
@@ -1709,10 +1724,40 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
   if (category->IsEmpty())
     return categoryRect;
 
+  m2::RectD areasRect;
+  for (auto areaId : category->GetUserAreas())
+  {
+    auto const * area = GetArea(areaId);
+    CHECK(area, (areaId));
+    for (auto const & polygon : area->m_polygons)
+    {
+      ASSERT_GREATER_OR_EQUAL(polygon.m_outer.size(), 3, (areaId));
+      m2::RectD polygonRect;
+      auto reference = polygon.m_outer.front().m_point.x;
+      for (auto const & point : polygon.m_outer)
+      {
+        auto projected = mercator::FromLatLon(point.m_point.y, point.m_point.x);
+        projected.x = mercator::NearestWrapX(projected.x, reference);
+        reference = projected.x;
+        polygonRect.Add(projected);
+      }
+      if (areasRect.IsValid())
+      {
+        auto const center = polygonRect.Center().x;
+        polygonRect.Offset(mercator::NearestWrapX(center, areasRect.Center().x) - center, 0);
+      }
+      areasRect.Add(polygonRect);
+    }
+  }
+
+  // Combine complete polygon bounds and other saved objects in the same world copy.
   for (auto markId : category->GetUserMarks())
   {
     auto const bookmark = GetBookmark(markId);
-    categoryRect.Add(bookmark->GetPivot());
+    auto pivot = bookmark->GetPivot();
+    if (areasRect.IsValid())
+      pivot.x = mercator::NearestWrapX(pivot.x, areasRect.Center().x);
+    categoryRect.Add(pivot);
   }
   if (addIconsSize && !category->GetUserMarks().empty())
   {
@@ -1722,10 +1767,17 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
   for (auto trackId : category->GetUserLines())
   {
     auto const track = GetTrack(trackId);
-    categoryRect.Add(track->GetLimitRect());
+    auto rect = track->GetLimitRect();
+    if (areasRect.IsValid())
+    {
+      auto const center = rect.Center().x;
+      rect.Offset(mercator::NearestWrapX(center, areasRect.Center().x) - center, 0);
+    }
+    categoryRect.Add(rect);
   }
+  categoryRect.Add(areasRect);
 
-  return categoryRect;
+  return areasRect.IsValid() ? mercator::WrapRectX(categoryRect) : categoryRect;
 }
 
 kml::CategoryData const & BookmarkManager::GetCategoryData(kml::MarkGroupId categoryId) const
@@ -2134,7 +2186,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
       if (m_needTeardown)
         return;
 
-      if (kmlData && (!kmlData->m_tracksData.empty() || !kmlData->m_bookmarksData.empty()))
+      if (kmlData && kmlData->HasContent())
       {
         // Set last modified date for imported tracks before saving them, if it wasn't set in KML/GPX file.
         if (kmlData->m_categoryData.m_lastModified == kml::Timestamp{})
@@ -2764,6 +2816,13 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       t->Attach(groupId);
       group->m_tracks.insert(t->GetId());
     }
+    for (auto & area : fileData.m_areasData)
+    {
+      CHECK_LESS(m_lastAreaId, kml::kInvalidAreaId - 1, ());
+      area.m_id = ++m_lastAreaId;
+      group->AttachArea(area.m_id);
+      m_areas.emplace(area.m_id, std::move(area));
+    }
     UpdateTrackMarksVisibility(groupId);
     UserMarkIdStorage::Instance().EnableSaving(true);
   }
@@ -2837,6 +2896,8 @@ std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCa
     auto const * track = GetTrack(trackId);
     kmlData->m_tracksData.emplace_back(track->GetData());
   }
+  for (auto areaId : group->GetUserAreas())
+    kmlData->m_areasData.push_back(*GetArea(areaId));
   return kmlData;
 }
 
@@ -2962,6 +3023,19 @@ void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection && categories
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
+  // Reject unsupported exports before copying polygon geometry or creating files.
+  if (fileType == FileType::Gpx || fileType == FileType::GeoJson)
+  {
+    for (auto const groupId : categoriesIds)
+    {
+      if (!GetAreaIds(groupId).empty())
+      {
+        handler(SharingResult({groupId}, SharingResult::Code::FileError,
+                              "Polygon areas can only be exported as KML or KMZ."));
+        return;
+      }
+    }
+  }
   if (categoriesIds.size() == 1 && IsCategoryEmpty(categoriesIds.front()))
   {
     handler(SharingResult(std::move(categoriesIds), SharingResult::Code::EmptyCategory));

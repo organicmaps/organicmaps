@@ -30,6 +30,7 @@ jobject ToJavaBookmarkCategory(JNIEnv * env, kml::MarkGroupId id)
     "Ljava/lang/String;"  // desc
     "I"                   // tracksCount
     "I"                   // bookmarksCount
+    "I"                   // areasCount
     "Z"                   // isVisible
     ")V"
   );
@@ -57,6 +58,7 @@ jobject ToJavaBookmarkCategory(JNIEnv * env, kml::MarkGroupId id)
     descriptionRef.get(),
     static_cast<jint>(tracksCount),
     static_cast<jint>(bookmarksCount),
+    static_cast<jint>(manager.GetAreaIds(data.m_id).size()),
     static_cast<jboolean>(isVisible)
   );
   // clang-format on
