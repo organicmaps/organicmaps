@@ -31,7 +31,26 @@ std::string_view SettingsKey(VehicleType vehicleType)
   CHECK(false, (vehicleType));
   return {};
 }
+
+std::string_view SavedTracksSettingsKey(VehicleType vehicleType)
+{
+  switch (vehicleType)
+  {
+  case VehicleType::Bicycle: return "prefer_saved_tracks_bicycle";
+  case VehicleType::Pedestrian: return "prefer_saved_tracks_pedestrian";
+  case VehicleType::Car:
+  case VehicleType::Transit: return {};
+  case VehicleType::Count: break;
+  }
+  CHECK(false, (vehicleType));
+  return {};
+}
 }  // namespace
+
+bool RoutingOptions::SupportsSavedTracks(VehicleType vehicleType)
+{
+  return !SavedTracksSettingsKey(vehicleType).empty();
+}
 
 RoutingOptions::RoadType RoutingOptions::GetSupportedOptions(VehicleType vehicleType)
 {
@@ -83,7 +102,11 @@ RoutingOptions RoutingOptions::LoadFromSettings(VehicleType vehicleType)
   uint32_t mask = 0;
   if (!key.empty())
     settings::TryGet(key, mask);
-  return RoutingOptions(static_cast<RoadType>(mask & GetSupportedOptions(vehicleType)));
+  RoutingOptions options(static_cast<RoadType>(mask & GetSupportedOptions(vehicleType)));
+  auto const tracksKey = SavedTracksSettingsKey(vehicleType);
+  if (!tracksKey.empty())
+    settings::TryGet(tracksKey, options.m_preferSavedTracks);
+  return options;
 }
 
 // static
@@ -92,6 +115,9 @@ void RoutingOptions::SaveToSettings(VehicleType vehicleType, RoutingOptions opti
   auto const key = SettingsKey(vehicleType);
   if (!key.empty())
     settings::Set(key, static_cast<uint32_t>(options.GetOptions() & GetSupportedOptions(vehicleType)));
+  auto const tracksKey = SavedTracksSettingsKey(vehicleType);
+  if (!tracksKey.empty())
+    settings::Set(tracksKey, options.PreferSavedTracks());
 }
 
 // static
@@ -188,7 +214,7 @@ std::string DebugPrint(RoutingOptions const & routingOptions)
   if (wasAppended)
     ss << " | ";
 
-  ss << "}";
+  ss << "} PreferSavedTracks: " << routingOptions.PreferSavedTracks();
 
   return ss.str();
 }
@@ -216,11 +242,24 @@ RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask, Veh
   std::string value;
   if (!key.empty() && settings::Get(key, value))
     m_saved = value;
-  RoutingOptions::SaveToSettings(vehicleType, RoutingOptions(roadsMask));
+  auto const tracksKey = SavedTracksSettingsKey(vehicleType);
+  if (!tracksKey.empty() && settings::Get(tracksKey, value))
+    m_savedTracks = value;
+  RoutingOptions options(roadsMask);
+  options.SetPreferSavedTracks(RoutingOptions::LoadFromSettings(vehicleType).PreferSavedTracks());
+  RoutingOptions::SaveToSettings(vehicleType, options);
 }
 
 RoutingOptionSetter::~RoutingOptionSetter()
 {
+  auto const tracksKey = SavedTracksSettingsKey(m_vehicleType);
+  if (!tracksKey.empty())
+  {
+    if (m_savedTracks)
+      settings::Set(tracksKey, *m_savedTracks);
+    else
+      settings::Delete(tracksKey);
+  }
   auto const key = SettingsKey(m_vehicleType);
   if (key.empty())
     return;

@@ -159,7 +159,8 @@ public:
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }
   SpeedCameraManager const & GetSpeedCamManager() const { return m_speedCameraManager; }
 
-  void SetGuidesForTests(GuidesTracks guides) { m_router->SetGuidesTracks(std::move(guides)); }
+  /// Keep a geometry snapshot for automatic rebuilds during navigation.
+  void SetGuides(GuidesTracks guides) { m_guides = std::move(guides); }
 
   double GetCompletionPercent() const;
 
@@ -173,6 +174,7 @@ private:
 
 private:
   std::unique_ptr<AsyncRouter> m_router;
+  GuidesTracks m_guides;
   std::shared_ptr<Route> m_route;
   // Latest delivered RoutesResult. Kept alongside m_route so callbacks can pass the whole
   // result (including alternative routes) to higher layers.

@@ -49,6 +49,21 @@ public final class RoutingOptions
     return nativeIsRouteOptimizationEnabled();
   }
 
+  public static boolean supportsSavedTracks(@NonNull Router router)
+  {
+    return router == Router.Pedestrian || router == Router.Bicycle;
+  }
+
+  public static boolean prefersSavedTracks(@NonNull Router router)
+  {
+    return nativePrefersSavedTracks(router.getType());
+  }
+
+  public static void setPreferSavedTracks(@NonNull Router router, boolean enabled)
+  {
+    nativeSetPreferSavedTracks(router.getType(), enabled);
+  }
+
   public static void setRouteOptimizationEnabled(boolean enabled)
   {
     nativeSetRouteOptimizationEnabled(enabled);
@@ -78,4 +93,8 @@ public final class RoutingOptions
   private static native boolean nativeIsRouteOptimizationEnabled();
 
   private static native void nativeSetRouteOptimizationEnabled(boolean enabled);
+
+  private static native boolean nativePrefersSavedTracks(int routerType);
+
+  private static native void nativeSetPreferSavedTracks(int routerType, boolean enabled);
 }

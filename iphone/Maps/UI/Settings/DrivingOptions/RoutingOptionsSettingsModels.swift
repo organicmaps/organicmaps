@@ -1,10 +1,12 @@
 enum RoutingOptionsSettingsSection: String {
   case options
+  case tracks
   case optimization
 }
 
 enum RoutingOption: String {
   case routeOptimization
+  case preferSavedTracks
   case tollRoads
   case unpavedRoads
   case ferryCrossings
@@ -17,6 +19,7 @@ extension RoutingOption {
   func isSupported(in options: RoutingOptions) -> Bool {
     switch self {
     case .routeOptimization: return true
+    case .preferSavedTracks: return options.supportsSavedTracks
     case .tollRoads: return options.supportedOptions.contains(.toll)
     case .unpavedRoads: return options.supportedOptions.contains(.dirty)
     case .ferryCrossings: return options.supportedOptions.contains(.ferry)
@@ -27,6 +30,7 @@ extension RoutingOption {
   var title: String {
     switch self {
     case .routeOptimization: return L("route_optimization")
+    case .preferSavedTracks: return L("prefer_saved_tracks")
     case .tollRoads: return L("avoid_tolls")
     case .unpavedRoads: return L("avoid_unpaved")
     case .ferryCrossings: return L("avoid_ferry")
@@ -45,6 +49,7 @@ extension RoutingOption {
   private var routingOptionsKeyPath: ReferenceWritableKeyPath<RoutingOptions, Bool> {
     switch self {
     case .routeOptimization: return \.routeOptimizationEnabled
+    case .preferSavedTracks: return \.preferSavedTracks
     case .tollRoads: return \.avoidToll
     case .unpavedRoads: return \.avoidDirty
     case .ferryCrossings: return \.avoidFerry

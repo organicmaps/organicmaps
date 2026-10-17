@@ -100,6 +100,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
+  m_router->SetGuidesTracks(GuidesTracks(m_guides));
   // RoutingManager::InsertRoute draws alternatives only outside navigation, don't pay for them.
   m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
                            [this, readyCallback](std::shared_ptr<RoutesResult> const & result, RouterResultCode code)
@@ -231,6 +232,7 @@ void RoutingSession::Reset()
   m_router->ClearState();
 
   m_passedDistanceOnRouteMeters = 0.0;
+  m_guides.clear();
   m_isFollowing = false;
   m_lastCompletionPercent = 0;
 

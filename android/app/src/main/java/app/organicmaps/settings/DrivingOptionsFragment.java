@@ -27,9 +27,11 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
   private static final String BUNDLE_ROAD_TYPES = "road_type_ids";
   private static final String BUNDLE_ROUTE_OPTIMIZATION = "route_optimization";
+  private static final String BUNDLE_PREFER_TRACKS = "prefer_saved_tracks";
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();
   private boolean mOptimizationEnabledOnLoad;
+  private boolean mPreferTracksOnLoad;
   private Router mRouter;
   private View mContent;
 
@@ -47,6 +49,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
                    : RoutingOptions.getActiveRoadTypes(mRouter);
     mOptimizationEnabledOnLoad = savedInstanceState != null ? savedInstanceState.getBoolean(BUNDLE_ROUTE_OPTIMIZATION)
                                                             : RoutingOptions.isRouteOptimizationEnabled();
+    mPreferTracksOnLoad = savedInstanceState != null ? savedInstanceState.getBoolean(BUNDLE_PREFER_TRACKS)
+                                                     : RoutingOptions.prefersSavedTracks(mRouter);
     return root;
   }
 
@@ -69,6 +73,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       savedRoadTypes.add(each.nativeValue);
     outState.putIntegerArrayList(BUNDLE_ROAD_TYPES, savedRoadTypes);
     outState.putBoolean(BUNDLE_ROUTE_OPTIMIZATION, mOptimizationEnabledOnLoad);
+    outState.putBoolean(BUNDLE_PREFER_TRACKS, mPreferTracksOnLoad);
   }
 
   @Override
@@ -83,16 +88,26 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     // A temporary switch to On must not reorder stops if the user switches back before leaving this screen.
     final boolean enabled = RoutingOptions.isRouteOptimizationEnabled();
     final boolean reordered = enabled && !mOptimizationEnabledOnLoad && RoutingController.get().optimizeRoutePoints();
-    if ((mRouter == RoutingController.get().getLastRouterType() && !mRoadTypes.equals(roadTypes)) || reordered)
+    final boolean preferTracks = RoutingOptions.prefersSavedTracks(mRouter);
+    if ((mRouter == RoutingController.get().getLastRouterType()
+         && (!mRoadTypes.equals(roadTypes) || preferTracks != mPreferTracksOnLoad))
+        || reordered)
       RoutingController.get().onRoutingOptionsChanged();
     // Re-baseline so leaving this screen again (e.g. after Home) reports only what changed since.
     mRoadTypes = roadTypes;
     mOptimizationEnabledOnLoad = enabled;
+    mPreferTracksOnLoad = preferTracks;
   }
 
   private void initViews(@NonNull View root)
   {
     mContent = root.findViewById(R.id.content);
+
+    UiUtils.showIf(RoutingOptions.supportsSavedTracks(mRouter), root, R.id.saved_tracks_options);
+    SwitchCompat tracksBtn = root.findViewById(R.id.prefer_saved_tracks_btn);
+    tracksBtn.setChecked(RoutingOptions.prefersSavedTracks(mRouter));
+    tracksBtn.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> RoutingOptions.setPreferSavedTracks(mRouter, isChecked));
 
     SwitchCompat optimizationBtn = root.findViewById(R.id.route_optimization_btn);
     optimizationBtn.setChecked(RoutingOptions.isRouteOptimizationEnabled());
