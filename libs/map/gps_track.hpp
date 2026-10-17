@@ -55,6 +55,11 @@ public:
   /// next time callbacks it receives only modifications. It simplifies getter/callback model.
   void SetCallback(TGpsTrackDiffCallback callback);
 
+  using StatisticsCallback = std::function<void(TrackStatistics const &)>;
+  /// Receives an initial snapshot and subsequent changes on the worker thread, independently of the map callback.
+  /// Like SetCallback, must not be called from a callback. Unsubscribing waits for an executing callback.
+  void SetStatisticsCallback(StatisticsCallback callback);
+
   size_t Finalize();
 
   /// @pre Finalize should be called before.
@@ -89,6 +94,8 @@ private:
   // is that GpsTrack.SetCallback must be never called from the callback.
   TGpsTrackDiffCallback m_callback;
   bool m_needSendSnapshop;  // need send initial snapshot
+  StatisticsCallback m_statisticsCallback;
+  bool m_needSendStatistics = false;
 
   std::unique_ptr<GpsTrackStorage> m_storage;        // used in the worker thread
   std::unique_ptr<GpsTrackCollection> m_collection;  // used in the worker thread

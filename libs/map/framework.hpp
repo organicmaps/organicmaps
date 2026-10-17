@@ -484,8 +484,6 @@ private:
                                       std::pair<size_t, size_t> const & toRemove,
                                       TrackStatistics const & trackStatistics);
 
-  TrackRecordingUpdateHandler m_trackRecordingUpdateHandler;
-
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
   SelectionProcessor m_selectionProcessor;
 

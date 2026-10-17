@@ -19,6 +19,7 @@ public:
 
   TrackStatistics GetTrackStatistics();
   ElevationInfo const & GetElevationInfo();
+  void SetStatisticsCallback(GpsTrack::StatisticsCallback callback);
 
   using TGpsTrackDiffCallback =
       std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
