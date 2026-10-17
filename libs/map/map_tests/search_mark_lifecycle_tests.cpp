@@ -10,6 +10,69 @@
 
 namespace search_mark_lifecycle_tests
 {
+UNIT_TEST(ContactMarksRetainIdentityAcrossAreaUpdates)
+{
+  Framework framework({}, false /* loadMaps */);
+  auto & manager = framework.GetBookmarkManager();
+  m2::PointD const vancouver(-123.125801, 49.210456);
+  m2::PointD const surrey(-122.857036, 49.121039);
+  framework.SetContactMarks({{vancouver, "First contact", {}}});
+  auto const id = *manager.GetUserMarkIds(UserMark::Type::CONTACT).begin();
+  framework.SetContactMarks({{vancouver, "First contact", {}}, {surrey, "Second contact", {}}});
+  TEST_EQUAL(manager.GetMark<ContactMarkPoint>(id)->GetPivot(), vancouver, ());
+  framework.SetContactMarks({{vancouver, "Updated name", {}}, {surrey, "Second contact", {}}});
+  TEST_EQUAL(manager.GetMark<ContactMarkPoint>(id)->GetPivot(), vancouver, ());
+  TEST_EQUAL(manager.GetMark<ContactMarkPoint>(id)->GetTitleDecl()->front().m_primaryText, "Updated name", ());
+  framework.SetContactMarks({{vancouver, "Updated name", {}}});
+  TEST_EQUAL(manager.GetUserMarkIds(UserMark::Type::CONTACT).size(), 1, ());
+  TEST_EQUAL(*manager.GetUserMarkIds(UserMark::Type::CONTACT).begin(), id, ());
+  framework.SetContactMarks({});
+  TEST(manager.GetUserMarkIds(UserMark::Type::CONTACT).empty(), ());
+}
+
+UNIT_TEST(ResolvedAddressSelectionPreservesCoordinates)
+{
+  Framework framework({}, false /* loadMaps */);
+  auto const point = mercator::FromLatLon(49.121039, -122.857036);
+  search::Result result(point, "6498, 131A Street");
+  result.SetType(search::Result::Type::LatLon);
+  framework.SelectSearchResult(result, false /* animation */);
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetMercator(), point, ());
+  TEST(!framework.GetCurrentPlacePageInfo().GetID().IsValid(), ());
+  framework.SelectResolvedAddress(point, "Contact Name", "6498, 131A Street", false);
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetMercator(), point, ());
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetTitle(), "Contact Name", ());
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetSubtitle(), "6498, 131A Street", ());
+}
+
+UNIT_TEST(ContactMarkSelectionPreservesPresentationAndCoordinates)
+{
+  Framework framework({}, false);
+  auto const point = mercator::FromLatLon(49.121039, -122.857036);
+  framework.SetContactMarks({{point, "Contact Name", "123 Main Street"}});
+  m2::AnyRectD const touchRect(m2::RectD(point.x - 0.0001, point.y - 0.0001, point.x + 0.0001, point.y + 0.0001));
+  auto const * mark = framework.GetBookmarkManager().FindNearestUserMark([&](UserMark::Type) { return touchRect; },
+                                                                         [](UserMark::Type) { return true; });
+  TEST(mark, ());
+  TEST_EQUAL(mark->GetMarkType(), UserMark::Type::CONTACT, ());
+  place_page::BuildInfo build;
+  build.m_mercator = point;
+  build.m_match = place_page::BuildInfo::Match::UserMarkOnly;
+  build.m_userMarkId = *framework.GetBookmarkManager().GetUserMarkIds(UserMark::Type::CONTACT).begin();
+  framework.BuildAndSetPlacePageInfo(build);
+  auto const & info = framework.GetCurrentPlacePageInfo();
+  TEST_EQUAL(info.GetTitle(), "Contact Name", ());
+  TEST_EQUAL(info.GetSubtitle(), "123 Main Street", ());
+  TEST_EQUAL(info.GetMercator(), point, ());
+  TEST(!info.GetID().IsValid(), ());
+  // At the initial low zoom, a nearby invisible contact must not intercept an ordinary map tap.
+  build.m_userMarkId = kml::kInvalidMarkId;
+  build.m_source = place_page::BuildInfo::Source::User;
+  framework.BuildAndSetPlacePageInfo(build);
+  if (framework.HasPlacePageInfo())
+    TEST_NOT_EQUAL(framework.GetCurrentPlacePageInfo().GetTitle(), "Contact Name", ());
+}
+
 class RegisteredMwmInfo : public MwmInfo
 {
 public:

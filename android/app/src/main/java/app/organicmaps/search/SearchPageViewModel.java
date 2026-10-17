@@ -13,12 +13,25 @@ public class SearchPageViewModel extends ViewModel
   private static final String KEY_SEARCH_QUERY = "search_query";
   private static final String KEY_SEARCH_STATE = "search_sheet_state";
   private static final String KEY_SEARCH_IS_CATEGORY = "search_is_category";
+  private static final String KEY_SEARCH_CONTACT_DERIVED = "search_contact_derived";
+  private boolean mCurrentQueryContactDerived;
+
+  public void setCurrentQueryContactDerived(boolean value)
+  {
+    mCurrentQueryContactDerived = value;
+  }
+
+  public boolean isCurrentQueryContactDerived()
+  {
+    return mCurrentQueryContactDerived;
+  }
 
   private final SavedStateHandle mSavedState;
 
   public SearchPageViewModel(@NonNull SavedStateHandle savedStateHandle)
   {
     mSavedState = savedStateHandle;
+    mCurrentQueryContactDerived = getPersistedContactDerived();
   }
 
   private final MutableLiveData<Integer> mSearchPageDistanceToTop = new MutableLiveData<>();
@@ -132,6 +145,8 @@ public class SearchPageViewModel extends ViewModel
 
   public void setSearchEnabled(boolean enabled, @Nullable SearchRequest request)
   {
+    if (!enabled || request != null)
+      mCurrentQueryContactDerived = enabled && request != null && request.isContactDerived;
     // Store the pending request before firing LiveData so observers read it synchronously.
     mPendingRequest = enabled ? request : null;
     mHiddenByPlacePage = false;
@@ -170,6 +185,7 @@ public class SearchPageViewModel extends ViewModel
     mSavedState.set(KEY_SEARCH_QUERY, query);
     mSavedState.set(KEY_SEARCH_STATE, sheetState);
     mSavedState.set(KEY_SEARCH_IS_CATEGORY, isCategory);
+    mSavedState.set(KEY_SEARCH_CONTACT_DERIVED, mCurrentQueryContactDerived);
   }
 
   public boolean isSearchPersistedActive()
@@ -193,5 +209,10 @@ public class SearchPageViewModel extends ViewModel
   public boolean getPersistedIsCategory()
   {
     return Boolean.TRUE.equals(mSavedState.get(KEY_SEARCH_IS_CATEGORY));
+  }
+
+  public boolean getPersistedContactDerived()
+  {
+    return Boolean.TRUE.equals(mSavedState.get(KEY_SEARCH_CONTACT_DERIVED));
   }
 }

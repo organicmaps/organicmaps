@@ -60,6 +60,13 @@ public:
   void FromFeature(FeatureID const & id, uint32_t mainType, uint32_t matchedType, Details const & details);
 
   void SetAddress(std::string && address) { m_address = std::move(address); }
+  void SetAddressIdentity(std::string houseNumber, std::string street)
+  {
+    m_houseNumber = std::move(houseNumber);
+    m_street = std::move(street);
+  }
+  std::string const & GetHouseNumber() const { return m_houseNumber; }
+  std::string const & GetStreet() const { return m_street; }
   void SetType(Result::Type type) { m_resultType = type; }
 
   // For Type::PureSuggest.
@@ -153,6 +160,8 @@ private:
   m2::PointD m_center;
   std::string m_str;
   std::string m_address;
+  std::string m_houseNumber;
+  std::string m_street;
   uint32_t m_mainType = 0;
   uint32_t m_matchedType = 0;
   std::string m_suggestionStr;
