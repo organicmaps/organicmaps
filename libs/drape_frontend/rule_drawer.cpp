@@ -336,11 +336,11 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
 {
   bool const isIsoline = m_isIsoline(f);
-  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings);
-  applyGeom.BuildGeometry(m_zoomLevel, isIsoline);
+  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings, isIsoline);
+  applyGeom.BuildGeometry(m_zoomLevel);
 
   if (applyGeom.HasGeometry())
-    applyGeom.ProcessLineRules(s.m_lineRules, isIsoline);
+    applyGeom.ProcessLineRules(s.m_lineRules);
 
   if (s.m_pathtextRule || s.m_shieldRule)
   {
@@ -360,7 +360,8 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
 
     if (!clippedSplines.empty())
     {
-      ApplyLineFeatureAdditional applyAdditional(m_applyParams, f, s.m_captionDescriptor, std::move(clippedSplines));
+      ApplyLineFeatureAdditional applyAdditional(m_applyParams, f, s.m_captionDescriptor, std::move(clippedSplines),
+                                                 isIsoline);
       applyAdditional.ProcessAdditionalLineRules(s.m_pathtextRule, s.m_shieldRule, m_context->GetTextureManager(),
                                                  s.m_roadShields, m_generatedRoadShields);
     }
@@ -692,6 +693,7 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
         textParams.m_textFont.m_color = dp::Color(25, 96, 168, 255);
 
       textParams.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+      textParams.m_allowRepositioning = true;
 
       auto shape = make_unique_dp<PathTextShape>(spline, textParams, m_applyParams.m_tileKey, textIndex);
       // The layout fails on splines too short for the text: no label then.
