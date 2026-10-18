@@ -22,7 +22,10 @@
 #include "indexer/terrain/terrain_normals.hpp"
 #include "indexer/terrain/terrain_utils.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
+
+#include "shaders/program_params.hpp"
 
 #include "coding/point_coding.hpp"
 
@@ -514,11 +517,6 @@ void RuleDrawer::DrawTerrain(MapDataProvider const & model)
   // it also completes the shade normals of the vertices near the tile border.
   m2::RectD queryRect = m_applyParams.m_tileRect;
   queryRect.Scale(kIsolineSmoothScale);
-  // The tile rect is canonical (TileKey::GetWrappedDataRect, the world copies render
-  // via the tile offset), only the inflation can poke past the +-180 seam, where the
-  // terrain mesh does not continue anyway: clip it back.
-  if (!queryRect.Intersect(mercator::Bounds::FullRect()))
-    return;
 
   terrain::TerrainData data;
   model.ReadTerrain(queryRect, m_zoomLevel, data, m_context->GetCancellable());
@@ -647,14 +645,9 @@ void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
   auto const & mesh = data.m_mesh;
   m2::RectD const & tileRect = m_applyParams.m_tileRect;
 
-  // The DEFAULT light direction (towards the light): azimuth 315 (NW), altitude 45
-  // degrees; +x = east, +y = north in mercator. The mesh ships per-vertex NORMALS and
-  // the LIVE light is the per-frame u_terrainLightDir uniform (see FrameValues and
-  // Framework::SetTerrainLight): moving it re-lights the standing geometry with no tile
-  // re-read. These constants only drive the near-flat culling estimate below, so a
-  // plain whose shade is invisible under the default light is not emitted at all.
-  double constexpr kLightX = -0.5, kLightY = 0.5, kLightZ = 0.70710678;
-  double constexpr kFlatIntensity = 0.70710678;
+  // Near-flat culling uses the default light; the shader uses the live per-frame light.
+  static auto constexpr kLight = gpu::kDefaultTerrainLightDir;
+  double constexpr kFlatIntensity = kLight.z;
   double constexpr kExaggeration = 1.0;
   // A triangle whose vertices are all this close to the flat intensity is invisible
   // (alpha under 1 of 255): skipped, the plains stay free.
@@ -696,17 +689,8 @@ void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
   if (CheckCancelled())
     return;
 
-  // Pass 2: normalize the smoothed per-vertex normals - the shader does the lighting
-  // (relative to the flat ground under the current light, the shadow half gamma-lifted,
-  // see terrain_shade.vsh.glsl). The intensity under the DEFAULT light is still
-  // computed here, post-gamma, as the culling estimate: a triangle invisible under the
-  // default light is skipped, so a moved light may reveal tiny missing patches on the
-  // plains - the prototype's accepted trade for keeping them free.
-  // Only the culling estimate below: the LIVE gamma rides in u_terrainLightDir.w and
-  // is changeable per frame (see Framework::SetTerrainLight).
-  double constexpr kShadowGamma = 0.5;
+  // Pass 2: normalize the smoothed normals; lighting is computed in the shader.
   std::vector<glsl::vec3> unitNormals(points.size(), glsl::vec3(0.0f, 0.0f, 1.0f));
-  std::vector<float> intensities(points.size(), 0.0f);
   for (size_t i = 0; i < normals.size(); ++i)
   {
     auto const & n = normals[i];
@@ -715,13 +699,16 @@ void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
       continue;
     unitNormals[i] =
         glsl::vec3(static_cast<float>(n.m_x / len), static_cast<float>(n.m_y / len), static_cast<float>(n.m_z / len));
-    double const intensity = (n.m_x * kLightX + n.m_y * kLightY + n.m_z * kLightZ) / len;
-    double relative =
-        (intensity - kFlatIntensity) / (intensity < kFlatIntensity ? kFlatIntensity : 1.0 - kFlatIntensity);
-    if (relative < 0.0)
-      relative = -std::pow(-relative, kShadowGamma);
-    intensities[i] = static_cast<float>(relative);
   }
+
+  // Under the default shadow gamma (1/2), these bounds select |relative intensity| < kFlatEps.
+  double constexpr kFlatMin = kFlatIntensity * (1.0 - kFlatEps * kFlatEps);
+  double constexpr kFlatMax = kFlatIntensity + kFlatEps * (1.0 - kFlatIntensity);
+  auto const isFlat = [](glsl::vec3 const & normal)
+  {
+    double const intensity = double{normal.x} * kLight.x + double{normal.y} * kLight.y + double{normal.z} * kLight.z;
+    return kFlatMin < intensity && intensity < kFlatMax;
+  };
 
   // Pass 3: clip to the tile (the alpha layer must not double-blend across the tiles)
   // and emit; the clip points interpolate the vertex normals barycentrically (the
@@ -738,29 +725,31 @@ void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
     m2::PointD const & pa = points[shadeTriangles[t]];
     m2::PointD const & pb = points[shadeTriangles[t + 1]];
     m2::PointD const & pc = points[shadeTriangles[t + 2]];
-    float const ia = intensities[shadeTriangles[t]];
-    float const ib = intensities[shadeTriangles[t + 1]];
-    float const ic = intensities[shadeTriangles[t + 2]];
-    if (std::fabs(ia) < kFlatEps && std::fabs(ib) < kFlatEps && std::fabs(ic) < kFlatEps)
-      continue;
     glsl::vec3 const & na = unitNormals[shadeTriangles[t]];
     glsl::vec3 const & nb = unitNormals[shadeTriangles[t + 1]];
     glsl::vec3 const & nc = unitNormals[shadeTriangles[t + 2]];
+    if (isFlat(na) && isFlat(nb) && isFlat(nc))
+      continue;
 
     double const orientation = m2::robust::OrientedS(pa, pb, pc);
     double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
     if (std::fabs(orientation) < kEmptyTriangleS)
       continue;
 
+    if (tileRect.IsPointInside(pa) && tileRect.IsPointInside(pb) && tileRect.IsPointInside(pc))
+    {
+      vertices.push_back(makeVertex(pa, na));
+      vertices.push_back(orientation < 0 ? makeVertex(pb, nb) : makeVertex(pc, nc));
+      vertices.push_back(orientation < 0 ? makeVertex(pc, nc) : makeVertex(pb, nb));
+      continue;
+    }
     auto const emit = [&](m2::PointD const & ca, m2::PointD const & cb, m2::PointD const & cc)
     {
       for (auto const & p : {ca, cb, cc})
       {
-        double const wa = m2::robust::OrientedS(p, pb, pc) / orientation;
-        double const wb = m2::robust::OrientedS(pa, p, pc) / orientation;
-        double const wc = 1.0 - wa - wb;
-        auto const fa = static_cast<float>(wa), fb = static_cast<float>(wb), fc = static_cast<float>(wc);
-        vertices.push_back(makeVertex(p, fa * na + fb * nb + fc * nc));
+        auto const fa = static_cast<float>(m2::CrossProduct(p - pc, pb - pc) / orientation);
+        auto const fb = static_cast<float>(m2::CrossProduct(pa - pc, p - pc) / orientation);
+        vertices.push_back(makeVertex(p, fa * na + fb * nb + (1.0f - fa - fb) * nc));
       }
     };
     if (orientation < 0)
@@ -828,8 +817,8 @@ void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
           {
             for (auto const & point : {ca, cb, cc})
             {
-              float const wa = static_cast<float>(m2::robust::OrientedS(point, pb, pc) / orientation);
-              float const wb = static_cast<float>(m2::robust::OrientedS(pa, point, pc) / orientation);
+              float const wa = static_cast<float>(m2::CrossProduct(point - pc, pb - pc) / orientation);
+              float const wb = static_cast<float>(m2::CrossProduct(pa - pc, point - pc) / orientation);
               vertices.push_back(makeVertex(
                   point, wa * gridNormals[v[0]] + wb * gridNormals[v[1]] + (1.0f - wa - wb) * gridNormals[v[2]]));
             }
@@ -856,6 +845,7 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
   // of the baked path texts); each shape reserves one index per repeated placement.
   uint32_t textIndex = 128;
 
+  auto const unitSuffix = units == measurement_utils::Units::Imperial ? " " + platform::GetLocalizedString("ft") : "";
   // The isolines come in the display units (see terrain::TraceIsolines).
   terrain::TraceIsolines(data, isolinesStyle.GetStep(), units, [&](terrain::Isoline && isoline)
   {
@@ -894,19 +884,13 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
       textParams.m_depthTestEnabled = false;
       // Pathtext drule priorities map to the overlay depth directly.
       textParams.m_depth = textRule->priority;
-      textParams.m_mainText = strings::to_string(isoline.m_altitude);
-      if (units == measurement_utils::Units::Imperial)
-        textParams.m_mainText += " ft";
-      float constexpr kMinVisibleFontSize = 8.0f;
-      textParams.m_textFont = dp::FontDecl(
-          ToDrapeColor(caption.color), std::max(kMinVisibleFontSize, static_cast<float>(caption.height * visScale)));
+      textParams.m_mainText = strings::to_string(isoline.m_altitude) + unitSuffix;
+      CaptionDefToFontDecl(&caption, visScale, textParams.m_textFont);
 
       /// @todo Add depth contours (negative altitudes) to the styles.
       if (isoline.m_altitude < 0)
         textParams.m_textFont.m_color = dp::Color(25, 96, 168, 255);
 
-      if (caption.stroke_color != 0)
-        textParams.m_textFont.m_outlineColor = ToDrapeColor(caption.stroke_color);
       textParams.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
 
       auto shape = make_unique_dp<PathTextShape>(spline, textParams, m_applyParams.m_tileKey, textIndex);

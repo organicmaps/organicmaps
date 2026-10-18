@@ -48,7 +48,7 @@ struct PointKeyHash
 // and blocks carry identical m2::PointU), and every consumer - the hillshading
 // normals, the isolines marching, the debug mesh - sews seamlessly over the single
 // indexed mesh. Filled directly by the geometry decoder (see DecodeChains), one dedup
-// map per tile; built once per tile read, see TerrainProvider::ReadMesh and
+// map per tile; built once per tile read, see TerrainProvider::ReadTerrain and
 // RuleDrawer::DrawTerrain.
 class TileMesh
 {

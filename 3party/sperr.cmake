@@ -1,5 +1,5 @@
 # Source-only mirror of NCAR/SPERR b8012586908aaabba993038d183b3937c8ea9c7c.
-# This experiment reduces CDF97's 2D scratch allocation; all arithmetic is unchanged.
+# CDF97 sizes its 2D scratch buffer to the maximum column; transform arithmetic is unchanged.
 # Its standalone CMake uses top-level paths,
 # enables installation/LTO and can add ISA flags to consumers.
 function(omim_add_sperr)

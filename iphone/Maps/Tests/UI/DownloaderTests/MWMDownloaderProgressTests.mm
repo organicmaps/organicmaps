@@ -4,6 +4,7 @@
 #import <XCTest/XCTest.h>
 
 #import "MWMAutoupdateController.h"
+#import "MWMMapDownloadDialog.h"
 
 @interface MWMAutoupdateController (ProgressTesting)
 - (void)dismiss;
@@ -28,6 +29,25 @@
 - (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress;
 @end
 
+@interface MWMMapDownloadDialog (ProgressTesting)
+- (void)configDialog;
+- (void)showDownloading:(CGFloat)progress;
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress;
+@end
+
+@interface MapDownloadProgressSpy : MWMMapDownloadDialog
+@property(nonatomic) NSMutableArray<NSNumber *> * received;
+@end
+
+@implementation MapDownloadProgressSpy
+- (void)configDialog
+{}
+- (void)showDownloading:(CGFloat)progress
+{
+  [self.received addObject:@(progress)];
+}
+@end
+
 @interface MWMDownloaderProgressTests : XCTestCase
 @end
 
@@ -49,6 +69,23 @@
   [controller setValue:@YES forKey:@"progressFinished"];
   [controller processCountryEvent:@(missing.c_str())];
   XCTAssertTrue(controller.dismissed);
+}
+
+- (void)testOnMapDialogShowsOnlyMapProgress
+{
+  auto dialog = [[MapDownloadProgressSpy alloc] initWithFrame:CGRectZero];
+  dialog.received = [NSMutableArray array];
+  [dialog processViewportCountryEvent:"Slovenia_East"];
+  [dialog processCountry:@"Slovenia_East" progress:MWMStorageProgress{1, 10, 2, 20}];
+  auto parent = [[UIView alloc] initWithFrame:CGRectZero];
+  [parent addSubview:dialog];
+  [dialog processCountry:@"Other" progress:MWMStorageProgress{1, 10, 2, 20}];
+  [dialog processCountry:@"Slovenia_East" progress:MWMStorageProgress{0, 0, 0, 0}];
+  [dialog processCountry:@"Slovenia_East" progress:MWMStorageProgress{5, 10, 100, 100}];
+  [dialog processCountry:@"Slovenia_East" progress:MWMStorageProgress{10, 10, 0, 999}];
+  [dialog processCountry:@"Slovenia_East" progress:MWMStorageProgress{0, 0, 15, 20}];
+  XCTAssertEqualObjects(dialog.received, (@[@0.5, @1]));
+  XCTAssertEqual(dialog.superview, parent);
 }
 
 - (void)testPlacePageCombinesMapAndTerrainProgress

@@ -1,6 +1,6 @@
 #include "indexer/terrain/terrain_normals.hpp"
 
-#include <unordered_map>
+#include "3party/skarupke/flat_hash_map.hpp"
 
 namespace terrain
 {
@@ -34,7 +34,7 @@ TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
   }
   if (data.m_rasterPatches.empty())
     return result;
-  std::unordered_map<uint64_t, TerrainNormal, impl::PointKeyHash> interface;
+  ska::flat_hash_map<uint64_t, TerrainNormal, impl::PointKeyHash> interface;
   for (auto const & patch : data.m_rasterPatches)
   {
     if (isCancellable.IsCancelled())

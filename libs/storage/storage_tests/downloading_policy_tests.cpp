@@ -40,6 +40,29 @@ UNIT_TEST(DownloadingPolicy_TerrainTerminalFailures)
   TEST(!policy.IsTerrainAutoRetryDownloadFailed(), ());
 }
 
+UNIT_TEST(DownloadingPolicy_TerrainTerminalFailureDoesNotBlockOtherTransportRetries)
+{
+  TestDownloadingPolicy policy;
+  policy.ScheduleTerrainRetry({}, {}, true /* hasNonRetryableFailures */);
+  TEST(policy.IsTerrainAutoRetryDownloadFailed(), ());
+  TEST(!policy.IsTerrainTransportRetryFailed(), ());
+
+  // Another region's 404 must not make this region's transport failure terminal.
+  policy.ScheduleTerrainRetry({"Other"}, {}, true /* hasNonRetryableFailures */);
+  TEST(policy.IsTerrainAutoRetryDownloadFailed(), ());
+  TEST(!policy.IsTerrainTransportRetryFailed(), ());
+
+  policy.m_allowed = false;
+  policy.ScheduleTerrainRetry({"Other"}, {}, true /* hasNonRetryableFailures */);
+  TEST(policy.IsTerrainTransportRetryFailed(), ());
+  policy.ScheduleTerrainRetry({}, {}, true /* hasNonRetryableFailures */);
+  TEST(policy.IsTerrainAutoRetryDownloadFailed(), ());
+  TEST(!policy.IsTerrainTransportRetryFailed(), ());
+  policy.ScheduleTerrainRetry({}, {});
+  TEST(!policy.IsTerrainAutoRetryDownloadFailed(), ());
+  TEST(!policy.IsTerrainTransportRetryFailed(), ());
+}
+
 UNIT_TEST(DownloadingPolicy_TerrainRetryExhaustion)
 {
   Platform::ThreadRunner runner;
@@ -59,6 +82,7 @@ UNIT_TEST(DownloadingPolicy_TerrainRetryExhaustion)
   }
   TEST_EQUAL(attempts, 3, ());
   TEST(policy.IsTerrainAutoRetryDownloadFailed(), ());
+  TEST(policy.IsTerrainTransportRetryFailed(), ());
   TEST(!policy.IsAutoRetryDownloadFailed(), ());
   policy.ScheduleTerrainRetry({"West"}, retry);
   TEST(policy.IsTerrainAutoRetryDownloadFailed(), ());

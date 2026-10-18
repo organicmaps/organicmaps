@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape/glsl_types.hpp"
+#include "shaders/program_params.hpp"
 
 #include "base/assert.hpp"
 
@@ -36,7 +36,7 @@ struct FrameValues
   glsl::mat4 m_pivotTransform{1.0f};
   float m_zScale = 1.0f;
   // The terrain hillshade light, see MapProgramParams::m_terrainLightDir.
-  glsl::vec4 m_terrainLightDir{-0.5f, 0.5f, 0.70710678f, 0.5f};
+  glsl::vec4 m_terrainLightDir = gpu::kDefaultTerrainLightDir;
 
   template <typename ParamsType>
   void SetTo(ParamsType & params) const

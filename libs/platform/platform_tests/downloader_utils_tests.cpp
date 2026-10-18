@@ -47,7 +47,7 @@ UNIT_TEST(Downloader_GetFilePathByUrl)
     auto const url = downloader::GetTerrainDownloadUrl(260728, "N40E040.twm");
     TEST_EQUAL(url, "terrain/260728/N40E040.twm", ());
     TEST_EQUAL(downloader::GetFilePathByUrl(url),
-               base::JoinPath(GetPlatform().WritableDir(), "terrain/260728/N40E040.twm.ready"), ());
+               base::JoinPath(GetPlatform().WritableDir(), "terrain", "260728", "N40E040.twm.ready"), ());
   }
 }
 

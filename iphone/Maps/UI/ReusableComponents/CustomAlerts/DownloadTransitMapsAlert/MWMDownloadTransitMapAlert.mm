@@ -116,11 +116,7 @@ CGFloat const kAnimationDuration = .05;
                     m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const & countryId : m_countries)
-  {
-    storage::NodeAttrs attrs;
-    s.GetNodeAttrs(countryId, attrs);
-    [titles addObject:@(attrs.m_nodeLocalName.c_str())];
-  }
+    [titles addObject:@(s.GetNodeLocalName(countryId).c_str())];
   self.countriesNames = titles;
   self.countriesSize = formattedSize(s.GetDownloadSize(m_countries, false /* withTerrain */));
 }

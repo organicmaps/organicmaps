@@ -12,16 +12,6 @@ typedef NS_ENUM(NSInteger, MWMMapNodeStatus) {
   MWMMapNodeStatusPartly
 } NS_SWIFT_NAME(MapNodeStatus);
 
-typedef NS_ENUM(NSInteger, MWMTerrainStatus) {
-  MWMTerrainStatusNotAvailable,
-  MWMTerrainStatusNotDownloaded,
-  MWMTerrainStatusDownloading,
-  MWMTerrainStatusPartly,
-  MWMTerrainStatusOnDisk,
-  MWMTerrainStatusFailed,
-  MWMTerrainStatusOnDiskOutOfDate
-} NS_SWIFT_NAME(TerrainStatus);
-
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(CountryIdAndName)
@@ -55,11 +45,6 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) float downloadingProgress;
 /// Total bytes represented by downloadingProgress, including terrain.
 @property(nonatomic, readonly) uint64_t downloadingProgressTotalBytes;
-@property(nonatomic, readonly) MWMTerrainStatus terrainStatus;
-@property(nonatomic, readonly) uint64_t terrainLocalSize;
-@property(nonatomic, readonly) uint64_t terrainRemainingSize;
-@property(nonatomic, readonly) float terrainDownloadingProgress;
-@property(nonatomic, readonly) uint64_t terrainDownloadingProgressTotalBytes;
 
 @end
 

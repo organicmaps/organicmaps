@@ -401,10 +401,14 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
       [this](terrain::TwmFile const & file)
   {
     m2::RectD invalidRect;
-    bool const registered = m_terrainProvider.RegisterBlock(file, invalidRect);
-    if (invalidRect.IsValid())
-      InvalidateRect(invalidRect);
-    m_isolinesManager.Invalidate();
+    bool const terrainScanned = m_storage.IsTerrainScanned();
+    bool const registered = m_terrainProvider.RegisterBlock(file, terrainScanned ? &invalidRect : nullptr);
+    if (terrainScanned)
+    {
+      if (invalidRect.IsValid())
+        InvalidateRect(invalidRect);
+      m_isolinesManager.Invalidate();
+    }
     return registered;
   }, [this](std::vector<terrain::TerrainId> const & ids)
   {
@@ -667,6 +671,7 @@ void Framework::RegisterAllMaps()
     if (terrainScanGeneration != m_terrainScanGeneration.load())
       return;
     m_storage.OnTerrainScanned(std::move(files));
+    InvalidateRect(mercator::Bounds::FullRect());
     m_isolinesManager.Invalidate();
   });
 }
@@ -2235,12 +2240,14 @@ void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
 
-  m_routingManager.SetTurnNotificationsUnits(measurement_utils::GetMeasurementUnits());
+  auto const units = measurement_utils::GetMeasurementUnits();
+  m_routingManager.SetTurnNotificationsUnits(units);
+  if (m_isolinesUnits == units)
+    return;
+  m_isolinesUnits = units;
 
-  // The dynamic isolines are traced in the measurement units: re-read the kept tiles.
-  // The world rect covers the off-screen margin tiles too (the viewport rect would
-  // leave them traced in the old units, showing mixed-units seams when panned in).
-  if (m_drapeEngine)
+  // Include off-screen tiles so panning cannot reveal contours in the old units.
+  if (m_drapeEngine && m_isolinesManager.IsEnabled())
     InvalidateRect(mercator::Bounds::FullRect());
 }
 

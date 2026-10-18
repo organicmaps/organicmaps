@@ -64,15 +64,6 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
   self = [super init];
   if (self)
   {
-    auto const terrain = GetFramework().GetStorage().GetTerrainAttrs(countryId.UTF8String);
-    _terrainStatus = static_cast<MWMTerrainStatus>(terrain.m_status);
-    _terrainLocalSize = terrain.m_localSize;
-    _terrainRemainingSize = terrain.m_remainingSize;
-    auto const terrainTotal = terrain.m_downloadingProgress.m_bytesTotal;
-    _terrainDownloadingProgressTotalBytes = terrainTotal;
-    if (terrainTotal > 0)
-      _terrainDownloadingProgress = static_cast<float>(terrain.m_downloadingProgress.m_bytesDownloaded) / terrainTotal;
-
     _countryId = [countryId copy];
     _totalMwmCount = attributes.m_mwmCounter;
     _downloadedMwmCount = attributes.m_localMwmCounter;
@@ -86,7 +77,9 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     _hasParent = hasParent;
 
     storage::Storage::UpdateInfo updateInfo;
-    if (GetFramework().GetStorage().GetUpdateInfo([countryId UTF8String], updateInfo))
+    if (attributes.m_status == storage::NodeStatus::OnDiskOutOfDate)
+      _totalUpdateSizeBytes = attributes.m_downloadSize;
+    else if (GetFramework().GetStorage().GetUpdateInfo([countryId UTF8String], updateInfo))
       _totalUpdateSizeBytes = updateInfo.m_totalDownloadSizeInBytes;
     else
       _totalUpdateSizeBytes = 0;

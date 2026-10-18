@@ -20,8 +20,9 @@ layout (binding = 0) uniform UBO
 void main()
 {
   // The interpolated intensity is relative to the flat ground: negative - the slope faces
-  // away from the light (black shadow), positive - towards it (white highlight). The max
-  // alphas match the legacy per-triangle palette (96 and 40 of 255).
+  // away from the light (black shadow), positive - towards it (white highlight).
+  // Shadows are capped at 96/255 opacity for relief contrast; highlights at 40/255
+  // keep the underlying map colors legible.
   const float kShadowMaxAlpha = 0.376;
   const float kHighlightMaxAlpha = 0.157;
   float shadow = clamp(-v_intensity, 0.0, 1.0);

@@ -20,6 +20,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <atomic>
 #include <functional>
 #include <list>
 #include <map>
@@ -236,8 +237,9 @@ public:
   };
 
   // Throws RootException on any inconsistency leaving the out params untouched.
-  static void ParseTwmGridJson(std::string const & jsonBuffer, int64_t & version, std::vector<TerrainBlock> & blocks,
-                               std::map<CountryId, std::vector<uint32_t>> & coverage);
+  static std::map<terrain::TerrainId, uint32_t> ParseTwmGridJson(std::string const & jsonBuffer, int64_t & version,
+                                                                 std::vector<TerrainBlock> & blocks,
+                                                                 std::map<CountryId, std::vector<uint32_t>> & coverage);
 
   // Reads local headers off the GUI thread; storage selects and registers them on publication.
   std::vector<terrain::TwmFile> ScanTerrainFiles() const;
@@ -247,8 +249,11 @@ public:
   void OnTerrainFileDeregistered(terrain::TwmFile const & file);
 
 private:
+  void DownloadTerrain(CountriesSet const & countryIds, bool userRequest);
+  bool EnqueueTerrain(CountryId const & countryId, bool userRequest);
   std::string GetTerrainDir() const;
   std::vector<TerrainBlock> m_twmGrid;
+  std::map<terrain::TerrainId, uint32_t> m_twmGridIndices;
   std::map<terrain::TerrainId, terrain::TwmFile> m_localTerrainFiles;
   std::map<terrain::TerrainId, uint64_t> m_localTerrainSizes;
   std::set<std::string> m_pendingTerrainFiles;
@@ -286,7 +291,7 @@ private:
   // whose interrupted downloads left artifacts behind, in addition to the saved queue.
   void RestoreTerrain();
   bool IsTerrainOnDisk(TerrainBlock const & block) const;
-  bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const;
+  bool HasOlderTerrain(TerrainBlock const & block) const;
   bool RegisterTerrainFile(terrain::TwmFile const & file);
   void DeleteTerrainFiles(std::vector<terrain::TerrainId> const & ids);
   TerrainRegisterFn m_terrainRegisterFn;
@@ -324,6 +329,9 @@ private:
   // request owners of each block. Only publication/deletion refreshes shared neighbors.
   TerrainQueueSubscriber m_terrainSubscriber{*this};
   std::map<terrain::TerrainId, TerrainBlockState> m_terrainQueue;
+  // Windows cannot delete a ready file while any cancelled or restarted validator has it open.
+  // Keep these counters across Clear; the file thread decrements only after closing its handle.
+  std::map<std::string, std::shared_ptr<std::atomic<size_t>>> m_terrainValidationReaders;
   uint64_t m_nextTerrainDownloadId = 0;
   // Only transport failures auto-retry. A 404 or a hash mismatch waits for an explicit
   // retry, avoiding repeated downloads of the same large broken block.
@@ -805,6 +813,7 @@ private:
 
   void NotifyStatusChanged(CountryId const & countryId);
   void NotifyStatusChangedForHierarchy(CountryId const & countryId);
+  void NotifyStatusChangedForHierarchy(CountriesSet const & countryIds);
 
   StatusAndError GetEffectiveStatus(StatusAndError mapStatus, TerrainAttrs const & terrain) const;
   downloader::Progress GetMapProgress(CountryId const & countryId, CountriesSet const & mwmsInQueue,

@@ -57,7 +57,8 @@ public class OnmapDownloader
         if (mCurrentCountry.id.equals(item.countryId))
         {
           mCurrentCountry.update();
-          updateProgressState(false);
+          refreshMapProgress();
+          updateState(false);
 
           return;
         }
@@ -67,13 +68,13 @@ public class OnmapDownloader
     @Override
     public void onProgress(String countryId, MapManager.Progress progress)
     {
-      if (progress.getTotalBytes() == 0)
+      if (progress.mwmTotal == 0)
         return;
 
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
       {
-        mCurrentCountry.updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
-        updateProgressState(false);
+        mCurrentCountry.updateProgress(progress.mwmDownloaded, progress.mwmTotal);
+        updateState(false);
       }
     }
   };
@@ -84,6 +85,7 @@ public class OnmapDownloader
         public void onCurrentCountryChanged(String countryId)
         {
           mCurrentCountry = (TextUtils.isEmpty(countryId) ? null : CountryItem.fill(countryId));
+          refreshMapProgress();
           updateState(true);
         }
       };
@@ -104,9 +106,14 @@ public class OnmapDownloader
     return enqueued || progress || applying;
   }
 
-  private void updateProgressState(boolean shouldAutoDownload)
+  private void refreshMapProgress()
   {
-    updateStateInternal(shouldAutoDownload);
+    if (!isMapDownloading(mCurrentCountry) || mCurrentCountry.present)
+      return;
+
+    long[] progress =
+        MapManager.nativeGetOverallProgressBytes(new String[] {mCurrentCountry.id}, false /* withTerrain */);
+    mCurrentCountry.updateProgress(progress[0], progress[1]);
   }
 
   private void updateStateInternal(boolean shouldAutoDownload)

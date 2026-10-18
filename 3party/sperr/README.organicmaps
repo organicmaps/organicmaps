@@ -2,6 +2,8 @@ NCAR/SPERR source mirror, revision b8012586908aaabba993038d183b3937c8ea9c7c.
 https://github.com/NCAR/SPERR
 
 include/, src/, LICENSE and SperrConfig.h.in come from the pinned upstream revision.
+CDF97.cpp sizes the copy_data/take_data 2D scratch buffer to max_col rather than
+max_slice; the transform arithmetic is unchanged.
 SPECK_INT.cpp and SPECK_FLT.cpp have a 32-bit portability patch: compare stream
 lengths in uint64_t before converting the bounded minimum to size_t.
 Bitstream.cpp restricts the 64-bit streaming store to x86-64; 32-bit x86 uses
@@ -17,5 +19,5 @@ On Android it stages sperr_helper.cpp with posix_memalign in place of aligned_al
 Terrain profile 1 uses the headerless 2D pointwise-error bitstream. The private
 C++ wrapper calls the same SPECK2D_FLT operations as the C API, checks both decode
 statuses, and owns the decoded vector directly (avoiding the C API's extra copy).
-Client code uses decompression only. Do not upgrade without comparing the frozen
-integer reconstruction fixtures on all supported architectures.
+Client code uses decompression only. Codec upgrades require checking integer
+height reconstruction on all supported architectures.

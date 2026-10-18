@@ -21,7 +21,7 @@ public class MapManagerHelper
   public static void showError(final Context context, final MapManager.StorageCallbackData errorData,
                                @Nullable final Consumer<Boolean> dialogClickListener)
   {
-    if (!MapManager.nativeIsAutoretryFailed())
+    if (!MapManager.isAutoRetryFailed(errorData.countryId))
       return;
 
     showErrorDialog(context, errorData, dialogClickListener);

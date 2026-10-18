@@ -39,9 +39,9 @@ struct TerrainShadeVertex : BaseVertex
   TerrainShadeVertex(TPosition const & position, TNormal3d const & normal);
 
   TPosition m_position;
-  // The unit surface normal in the mercator frame (+x east, +y north, +z up), altitudes
-  // pre-scaled by the vertical exaggeration (see RuleDrawer::DrawTerrainShade). The
-  // TerrainShade program lights it against the movable u_terrainLightDir uniform.
+  // Surface normal in the mercator frame (+x east, +y north, +z up), with altitudes
+  // scaled by the vertical exaggeration. Clipping interpolates these normals;
+  // TerrainShade normalizes them before applying the live light direction.
   TNormal3d m_normal;
 
   static dp::BindingInfo const & GetBindingInfo();

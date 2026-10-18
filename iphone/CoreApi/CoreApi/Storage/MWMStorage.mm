@@ -161,40 +161,6 @@ using namespace storage;
   GetFramework().GetStorage().CancelDownloadNode(countryId.UTF8String);
 }
 
-- (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
-{
-  return [self downloadTerrainNodes:@[countryId] error:error];
-}
-
-- (BOOL)downloadTerrainNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error
-{
-  auto & storage = GetFramework().GetStorage();
-  CountriesVec countries;
-  for (NSString * countryId in countryIds)
-    countries.emplace_back(countryId.UTF8String);
-  if (!storage::IsEnoughSpaceForDownload(storage.GetTerrainDownloadSize(countries)))
-  {
-    if (error)
-      *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
-    return NO;
-  }
-  if (![self checkConnection:error])
-    return NO;
-  for (auto const & countryId : countries)
-    storage.DownloadTerrain(countryId);
-  return YES;
-}
-
-- (void)cancelTerrain:(NSString *)countryId
-{
-  GetFramework().GetStorage().CancelTerrain(countryId.UTF8String);
-}
-
-- (void)deleteTerrain:(NSString *)countryId
-{
-  GetFramework().GetStorage().DeleteTerrain(countryId.UTF8String);
-}
-
 - (void)showNode:(NSString *)countryId
 {
   GetFramework().ShowNode(countryId.UTF8String);

@@ -21,6 +21,8 @@ namespace gpu
 // Note: value must be synchronized with shaders tile_background.vsh.glsl and tile_background.metal
 constexpr uint32_t kTileBackgroundMaxCount = 64;
 
+inline constexpr glsl::vec4 kDefaultTerrainLightDir{-0.5f, 0.5f, 0.70710678f, 0.5f};
+
 class ProgramParams
 {
 public:
@@ -80,7 +82,7 @@ struct ALIGNMENT MapProgramParams
   // flat ground intensity the shading is relative to), w is the shadow gamma (the lift
   // of the gentle slopes, 1 = linear). The default is the classic cartographic NW at 45
   // degrees; see Framework::SetTerrainLight.
-  glsl::vec4 m_terrainLightDir = glsl::vec4(-0.5f, 0.5f, 0.70710678f, 0.5f);
+  glsl::vec4 m_terrainLightDir = kDefaultTerrainLightDir;
 
   BIND_PROGRAMS(MapProgramParams, Program::Area, Program::Area3d, Program::Area3dOutline, Program::AreaOutline,
                 Program::Bookmark, Program::BookmarkAnim, Program::BookmarkAnimBillboard, Program::BookmarkBillboard,

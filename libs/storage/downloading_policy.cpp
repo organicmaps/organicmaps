@@ -27,7 +27,8 @@ bool StorageDownloadingPolicy::IsDownloadingAllowed()
 void StorageDownloadingPolicy::ScheduleTerrainRetry(storage::CountriesSet const & failedRegions,
                                                     TProcessFunc const & func, bool hasNonRetryableFailures)
 {
-  m_terrainDownloadRetryFailed = hasNonRetryableFailures;
+  m_hasNonRetryableTerrainFailures = hasNonRetryableFailures;
+  m_terrainDownloadRetryFailed = false;
   if (IsDownloadingAllowed() && !failedRegions.empty() && m_terrainRetryCounter > 0)
   {
     auto action = [this, func, failedRegions]
