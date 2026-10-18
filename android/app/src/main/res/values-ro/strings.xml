@@ -478,6 +478,12 @@
     <string name="day">z</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Mai mult</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotografii, comentarii, rezervări</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalii pe Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
     <string name="placepage_personal_notes_hint">Însemnări personale (text sau html)</string>
@@ -721,8 +727,7 @@
     <string name="deselect_all">Deselectează tot</string>
     <string name="select_list">Alege lista</string>
     <string name="button_layer_isolines">Înălțimi</string>
-    <string name="isolines_activation_error_dialog">Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei</string>
-    <string name="isolines_location_error_dialog">Stratul topografic nu este încă disponibil în această zonă</string>
+    <string name="isolines_location_error_dialog">Actualizați această regiune pentru a vedea curbele de nivel</string>
     <string name="elevation_profile_ascent">Urcare</string>
     <string name="elevation_profile_descent">Coborâre</string>
     <string name="elevation_profile_min_elevation">Min. altitudine</string>
@@ -903,4 +908,16 @@
     <string name="track_recording_stop_and_save">Oprire și salvare</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Inversează traseul</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Detalii traseu</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Pe jos</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Oprire %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d oprire</item>
+        <item quantity="few">%d opriri</item>
+        <item quantity="other">%d de opriri</item>
+    </plurals>
 </resources>

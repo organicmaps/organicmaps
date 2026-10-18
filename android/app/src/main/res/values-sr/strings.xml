@@ -478,6 +478,12 @@
     <string name="day">д</string>
     <string name="second">с</string>
     <string name="placepage_more_button">Више</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Фотографије, утисци, резервације</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Детаљи на Kayak-у</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Измени маркер</string>
     <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
@@ -724,8 +730,7 @@
     <string name="deselect_all">Поништи избор</string>
     <string name="select_list">Изаберите листу</string>
     <string name="button_layer_isolines">Изолиније</string>
-    <string name="isolines_activation_error_dialog">Приказивање изолинија захтева преузмање података са мапе за ову област</string>
-    <string name="isolines_location_error_dialog">Изолиније нису доступне за ову област</string>
+    <string name="isolines_location_error_dialog">Ажурирајте ову област да бисте видели изолиније</string>
     <string name="elevation_profile_ascent">Успон</string>
     <string name="elevation_profile_descent">Спуст</string>
     <string name="elevation_profile_min_elevation">Минимална висина</string>
@@ -910,4 +915,16 @@
     <string name="track_recording_stop_and_save">Заустави и сачувај</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Обрни руту</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Детаљи путовања</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Пешице</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Међуодредиште %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d станица</item>
+        <item quantity="few">%d станице</item>
+        <item quantity="other">%d станица</item>
+    </plurals>
 </resources>

@@ -478,6 +478,12 @@
     <string name="day">ngày</string>
     <string name="second">giây</string>
     <string name="placepage_more_button">Bổ sung</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Hình ảnh, đánh giá, đặt phòng</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ được dùng để phát triển Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Chi tiết trên Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
     <string name="placepage_personal_notes_hint">Ghi chú cá nhân (văn bản hoặc html)</string>
@@ -719,8 +725,7 @@
     <string name="deselect_all">Bỏ chọn tất cả</string>
     <string name="select_list">Chọn danh sách</string>
     <string name="button_layer_isolines">Độ cao</string>
-    <string name="isolines_activation_error_dialog">Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn</string>
-    <string name="isolines_location_error_dialog">Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này</string>
+    <string name="isolines_location_error_dialog">Cập nhật khu vực này để xem các đường đồng mức</string>
     <string name="elevation_profile_ascent">Đi lên</string>
     <string name="elevation_profile_descent">Đi xuống</string>
     <string name="elevation_profile_min_elevation">Min. độ cao</string>
@@ -897,4 +902,14 @@
     <string name="track_recording_stop_and_save">Dừng và lưu</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Đảo ngược tuyến đường</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Chi tiết hành trình</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Đi bộ</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Điểm dừng %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d trạm</item>
+    </plurals>
 </resources>

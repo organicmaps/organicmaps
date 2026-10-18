@@ -604,6 +604,15 @@
 "day" = "d";
 "second" = "eil";
 "placepage_more_button" = "Mwy";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Photos, reviews, booking";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "The referral bonus received for each booking through this link goes towards the development of Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Details on Kayak";
 "placepage_personal_notes_hint" = "Nodiadau personol (testun neu html)";
 "editor_comment_hint" = "Sylw…";
 "editor_reset_edits_message" = "Gwaredu pob newid lleol?";
@@ -649,6 +658,9 @@
 "enable_logging" = "Galluogi logio";
 "transliteration_title" = "Trosi i'r wyddor Ladin";
 "placepage_remove_stop" = "Dileu pwynt aros";
+
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Ychwanegu cyrchfan";
 
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Ychwanegu pwynt aros";
@@ -941,8 +953,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ni chanfuwyd unrhyw lwybr trên tanddaearol";
 "dialog_pedestrian_route_is_long_message" = "Dewiswch bwynt cychwyn neu derfyn yn agosach at orsaf trên tanddaearol";
 "button_layer_isolines" = "Llinellau cyfuchlin";
-"isolines_activation_error_dialog" = "Mae actifadu llinellau cyfuchlin yn gofyn am lawrlwytho data map ar gyfer yr ardal hon";
-"isolines_location_error_dialog" = "Nid yw llinellau cyfuchlin ar gael yn yr ardal hon eto";
+"isolines_location_error_dialog" = "Diweddarwch y rhanbarth hwn i weld llinellau cyfuchlin";
 "elevation_profile_ascent" = "Esgyniad";
 "elevation_profile_descent" = "Disgyniad";
 "elevation_profile_min_elevation" = "Uchder isaf";
