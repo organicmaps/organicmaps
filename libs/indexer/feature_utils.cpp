@@ -396,29 +396,6 @@ void GetReadableName(NameParamsIn const & in, NameParamsOut & out)
     GetReadableNameImpl(in, in.IsNativeOrSimilarLang(), out);
 }
 
-/*
-int8_t GetNameForSearchOnBooking(RegionData const & regionData, StrUtf8 const & src, string & name)
-{
-  if (src.GetString(StrUtf8::kDefaultCode, name))
-    return StrUtf8::kDefaultCode;
-
-  LangsBufferT mwmLangs;
-  regionData.GetLanguages(mwmLangs);
-
-  for (auto mwmLang : mwmLangs)
-  {
-    if (src.GetString(mwmLang, name))
-      return mwmLang;
-  }
-
-  if (src.GetString(StrUtf8::kEnglishCode, name))
-    return StrUtf8::kEnglishCode;
-
-  name.clear();
-  return StrUtf8::kUnsupportedLanguageCode;
-}
-*/
-
 bool GetPreferredName(StrUtf8 const & src, int8_t deviceLang, std::string_view & out)
 {
   auto const priorityList = MakeLanguagesPriorityList(deviceLang, true /* preferDefault */);
