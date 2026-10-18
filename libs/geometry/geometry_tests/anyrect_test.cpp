@@ -77,6 +77,15 @@ UNIT_TEST(AnyRect_TestIsIntersect)
   TEST(r0.IsIntersect(r3), ());
 }
 
+UNIT_TEST(AnyRect_IsIntersect_PreservesEdges)
+{
+  AnyRectD const a(RectD(0, 0, 1, 10));
+  AnyRectD const b(PointD(-5, 7), ang::AngleD(-math::pi / 6), RectD(0, 0, 15, 20));
+
+  TEST(a.IsIntersect(b), ());
+  TEST(b.IsIntersect(a), ());
+}
+
 UNIT_TEST(AnyRect_SetSizesToIncludePoint)
 {
   AnyRectD rect(PointD(100, 100), ang::Angle<double>(math::pi / 6), RectD(0, 0, 50, 50));
