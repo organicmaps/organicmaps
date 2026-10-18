@@ -86,8 +86,8 @@ struct NameParamsIn
 
 struct NameParamsOut
 {
-  /// In case when primary name is empty it will be propagated from secondary and secondary will be
-  /// cleared. In case when primary name contains secondary name then secondary will be cleared.
+  /// If GetPrimary() is empty, the secondary name is promoted to primary and cleared.
+  /// A secondary name contained in GetPrimary() is cleared.
   std::string_view primary, secondary;
   std::string transliterated;
 

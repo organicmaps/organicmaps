@@ -375,15 +375,13 @@ void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
 
   out.secondaryLang = GetBestName(in.src, secondaryCodes, out.secondary);
 
-  if (out.primary.empty() && !out.secondary.empty())
+  if (out.GetPrimary().empty() && !out.secondary.empty())
   {
-    // Promote secondary to primary (carry its lang too). The both-empty case is left untouched
-    // so GetPrimary() can fall back to out.transliterated, whose lang we set above.
     out.primary.swap(out.secondary);
     out.primaryLang = out.secondaryLang;
     out.secondaryLang = StrUtf8::kUnsupportedLanguageCode;
   }
-  else if (!out.secondary.empty() && out.primary.find(out.secondary) != std::string::npos)
+  else if (!out.secondary.empty() && out.GetPrimary().find(out.secondary) != std::string::npos)
   {
     out.secondary = {};
     out.secondaryLang = StrUtf8::kUnsupportedLanguageCode;

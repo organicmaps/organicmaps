@@ -292,7 +292,7 @@ void GetReadableName(feature::RegionData const & regionData, StrUtf8 const & src
 {
   feature::NameParamsIn in{src, regionData, deviceLang, allowTranslit};
   feature::NameParamsOut out;
-  feature::GetPreferredNames(in, out);
+  feature::GetReadableName(in, out);
   name = out.GetPrimary();
 }
 
