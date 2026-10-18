@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Sedang Mengunduh telah gagal</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Coba Lagi</string>
-    <string name="about_menu_title">Tentang Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Gratis untuk semua orang, dibuat dengan cinta</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Tidak ada iklan, tidak ada pelacakan, tidak ada pengumpulan data</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Tidak menguras baterai, bekerja secara offline</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Cepat, minimalis, dikembangkan oleh komunitas</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Aplikasi open-source yang dibuat oleh penggemar dan sukarelawan.</string>
     <!-- The button that opens system location settings -->
@@ -744,8 +735,6 @@
     <string name="enable_show_on_lock_screen_description">Ketika diaktifkan, aplikasi akan bekerja pada layar kunci bahkan ketika perangkat terkunci.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Bahasa peta</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Data peta dari OpenStreetMap</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/id/</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->

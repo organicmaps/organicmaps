@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">下载失败</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">再试一次</string>
-    <string name="about_menu_title">关于 Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">对每个人都免费，用爱制成</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• 没有广告，不会跟踪您，更不会收集您的数据</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• 无需耗费太多电量，可离线工作</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• 快速且简约，由社区开发</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">由爱好者和志愿者开发的开源应用程序。</string>
     <!-- The button that opens system location settings -->
@@ -747,12 +738,6 @@
     <string name="enable_show_on_lock_screen_description">启用后，即使设备已锁定，应用程序仍将在锁屏上运行。</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">地图语言</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">地图数据来自 OpenStreetMap</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/zh-Hans/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

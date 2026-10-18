@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Allalaadimine ei õnnestunud</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Proovi uuesti</string>
-    <string name="about_menu_title">Organic Mapsi teave</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Tasuta ja vaba kõigi jaoks, tehtud armastusega</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Pole reklaame, jälitamist ega andmekogumist</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Ei tühjenda akut, töötab võrguühenduseta</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Kiire, minimalistlik, kogukonna poolt väljatöötatud</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Huviliste ja vabatahtlike poolt loodud avatud lähtekoodil põhinev rakendus.</string>
     <!-- The button that opens system location settings -->
@@ -749,12 +740,6 @@
     <string name="enable_show_on_lock_screen_description">Kui see eelistus lubatud, siis rakendus töötab ka lukustusvaates.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Kaardi keel</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">OpenStreetMapi kaardiandmed</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/et/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

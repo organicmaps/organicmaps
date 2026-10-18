@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Atsiuntimas nepavyko</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Bandyti dar kartą</string>
-    <string name="about_menu_title">Apie „Organic Maps“</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Nemokama visiems, sukurta su meile</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Jokių reklamų, sekimo, duomenų rinkimo</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Neiškrauna akumuliatoriaus, nes veikia neprisijungus prie interneto</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Sparti, minimalistinė, vystoma bendruomenės</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Atvirojo kodo programėlė, sukurta entuziastų ir savanorių.</string>
     <!-- The button that opens system location settings -->
@@ -749,12 +740,6 @@
     <string name="enable_show_on_lock_screen_description">Įgalinę šią parinktį, žemėlapį matysite net tuomet, kai įrenginio ekranas užrakinamas.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Žemėlapio kalba</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Žemėlapio duomenys iš „OpenStreetMap“</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/lt/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

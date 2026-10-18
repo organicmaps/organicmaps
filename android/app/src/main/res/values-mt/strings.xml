@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">It-tniżżil falla</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Erġa prova</string>
-    <string name="about_menu_title">Dwar Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">B\' xejn għal kulħadd, magħmul bl-imħabba</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Bla reklami, bla traċċar, bla kollezjoni ta\' data</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Bla ħela ta\' batterija, jaħdem offline</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Malajr, minimalista, żvillupat mill-komunità</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Apliażżjoni tas-sors miftuħ magħmula min dilettanti u il-voluntiera</string>
     <!-- The button that opens system location settings -->
@@ -749,8 +740,6 @@
     <string name="enable_show_on_lock_screen_description">Meta tkun attivata, l-applikazzjoni taħdem fuq il-lockscreen anki meta t-tagħmir ikun imsakkar.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Lingwa tal-mappa</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Informazzjoni tal-mappa minn OpenStreetMap</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->

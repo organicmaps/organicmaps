@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Aflaai het misluk</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Probeer weer</string>
-    <string name="about_menu_title">Oor Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Gratis vir almal, gemaak met liefde</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Geen advertensies, geen nasporing, geen dataversameling</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Geen battery dreineer, werk vanlyn</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Vinnig, minimalisties, ontwikkel deur die gemeenskap</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Oopbrontoepassing geskep deur entoesiaste en vrywilligers.</string>
     <!-- The button that opens system location settings -->
@@ -743,8 +734,6 @@
     <string name="enable_show_on_lock_screen_description">Indien geaktiveer, sal die toep op die grendelskerm werk selfs indien die toestel vergrendel is.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Kaarttaal</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Kaartdata vanad OpenStreetMap</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/af/</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->

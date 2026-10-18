@@ -22,10 +22,6 @@
     <string name="country_status_download_failed">La descarga ha fallado</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Inténtelo de nuevo</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Sin anuncios, sin seguimiento, sin recopilación de datos</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• No consume batería, funciona sin conexión</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Ajustes de ubicación</string>
     <string name="unsupported_phone">La aplicación requiere OpenGL acelerado por hardware. Lamentablemente, tu dispositivo no es compatible.</string>
