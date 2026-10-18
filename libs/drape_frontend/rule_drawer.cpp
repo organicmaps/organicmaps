@@ -693,6 +693,7 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
         textParams.m_textFont.m_color = dp::Color(25, 96, 168, 255);
 
       textParams.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+      textParams.m_allowRepositioning = true;
 
       auto shape = make_unique_dp<PathTextShape>(spline, textParams, m_applyParams.m_tileKey, textIndex);
       // The layout fails on splines too short for the text: no label then.
