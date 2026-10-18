@@ -50,3 +50,5 @@ is listed in `docs/nogps/ios-notes.md`.
 - A change to how the mark moves: replay the recorded trips with `tools/python/nogps_replay.py` (Android debug
   build) and put the before/after numbers in the PR. If nobody replayed it, the PR says so.
 - Every behavior change gets a unit test.
+- Strings: tag a string in `data/strings/strings.txt` only for the platforms whose code uses it. On iOS, write the
+  key inside `L("key")`, not in a variable. Check with `python3 tools/python/validate_translation_keys.py`.
