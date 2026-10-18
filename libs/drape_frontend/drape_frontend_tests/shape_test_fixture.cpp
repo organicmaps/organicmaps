@@ -5,7 +5,6 @@
 
 #include "drape/gl_functions.hpp"
 #include "drape/gl_includes.hpp"
-#include "drape/oglcontext.hpp"
 #include "drape/support_manager.hpp"
 #include "drape/utils/projection.hpp"
 
@@ -25,22 +24,27 @@ namespace df::test_support
 {
 namespace
 {
-/// Lightweight OGLContext wrapper that assumes a GL context is already current
-/// (e.g., set up by RunTestInOpenGLOffscreenEnvironment).
-class CurrentOGLContext : public dp::OGLContext
-{
-public:
-  void MakeCurrent() override {}
-  void DoneCurrent() override {}
-  void Present() override { GLFunctions::glFinish(); }
-
-  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer>) override {}
-  void ForgetFramebuffer(ref_ptr<dp::BaseFramebuffer>) override {}
-  void ApplyFramebuffer(std::string const &) override {}
-};
-
 uint32_t constexpr kBatchSize = 5000;
 }  // namespace
+
+void CurrentOGLContext::Present()
+{
+  GLFunctions::glFinish();
+}
+
+void InitTextureManager(ref_ptr<dp::GraphicsContext> context, dp::TextureManager & texMng)
+{
+  dp::TextureManager::Params texParams;
+  texParams.m_resPostfix = df::VisualParams::GetResourcePostfix(1.0);
+  texParams.m_visualScale = 1.0;
+  texParams.m_colors = "colors.txt";
+  texParams.m_patterns = "patterns.txt";
+  texParams.m_glyphMngParams.m_uniBlocks = base::JoinPath("fonts", "unicode_blocks.txt");
+  texParams.m_glyphMngParams.m_whitelist = base::JoinPath("fonts", "whitelist.txt");
+  texParams.m_glyphMngParams.m_blacklist = base::JoinPath("fonts", "blacklist.txt");
+  GetPlatform().GetFontNames(texParams.m_glyphMngParams.m_fonts);
+  texMng.Init(context, texParams);
+}
 
 void ShapeTestFixture::Render(char const * title, uint32_t width, uint32_t height, ShapeCreatorFn const & createShapes)
 {
@@ -112,16 +116,7 @@ void ShapeTestFixture::Init(uint32_t width, uint32_t height)
 
   // Initialize TextureManager with real data.
   m_texMng = std::make_unique<dp::TextureManager>();
-  dp::TextureManager::Params texParams;
-  texParams.m_resPostfix = df::VisualParams::GetResourcePostfix(1.0);
-  texParams.m_visualScale = 1.0;
-  texParams.m_colors = "colors.txt";
-  texParams.m_patterns = "patterns.txt";
-  texParams.m_glyphMngParams.m_uniBlocks = base::JoinPath("fonts", "unicode_blocks.txt");
-  texParams.m_glyphMngParams.m_whitelist = base::JoinPath("fonts", "whitelist.txt");
-  texParams.m_glyphMngParams.m_blacklist = base::JoinPath("fonts", "blacklist.txt");
-  GetPlatform().GetFontNames(texParams.m_glyphMngParams.m_fonts);
-  m_texMng->Init(contextRef, texParams);
+  InitTextureManager(contextRef, *m_texMng);
 
   // Upload textures to GPU (creates hardware texture objects).
   m_texMng->UpdateDynamicTextures(contextRef);

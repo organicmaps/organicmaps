@@ -13,15 +13,20 @@ namespace df
 class PathTextContext
 {
 public:
-  PathTextContext(m2::SharedSpline const & spline, double xOffset = 0.0);
+  PathTextContext(m2::SharedSpline const & spline, double xOffset = 0.0, bool allowRepositioning = false);
 
   void SetLayout(drape_ptr<PathTextLayout> && layout, double baseGtoPScale);
   ref_ptr<PathTextLayout> const GetLayout() const;
   double GetVisualScale() const { return m_visualScale; }
 
   bool GetGlobalPivot(size_t textIndex, m2::PointD & pivot) const;
+  /// The pivot where the caption was placed last: moved off its original pivot, or the original one.
+  bool GetPlacedPivot(size_t textIndex, m2::PointD & pivot) const;
   bool GetPivot(size_t textIndex, ScreenBase const & screen, m2::PointD & pivot,
                 m2::Spline::iterator & centerPointIter);
+
+  bool CacheDynamicGeometry(size_t textIndex, ScreenBase const & screen, float depth, m2::PointD & pivot,
+                            gpu::TTextDynamicVertexBuffer & buffer);
 
   void BeforeUpdate();
   void Update(ScreenBase const & screen);
@@ -48,6 +53,8 @@ private:
 private:
   std::vector<m2::PointD> m_globalPivots;
   std::vector<double> m_globalOffsets;
+  // The offset of a caption moved off its pivot or -1, see CacheDynamicGeometry.
+  std::vector<double> m_movedOffsets;
   m2::SharedSpline m_globalSpline;
 
   std::vector<m2::SplineEx> m_pixel3dSplines;
@@ -57,6 +64,7 @@ private:
   drape_ptr<PathTextLayout> m_layout;
   double const m_visualScale;
   double m_xOffset = 0.0;
+  bool const m_allowRepositioning;
   bool m_updated = false;
 };
 
