@@ -236,8 +236,9 @@ public:
   };
 
   // Throws RootException on any inconsistency leaving the out params untouched.
-  static void ParseTwmGridJson(std::string const & jsonBuffer, int64_t & version, std::vector<TerrainBlock> & blocks,
-                               std::map<CountryId, std::vector<uint32_t>> & coverage);
+  static std::map<terrain::TerrainId, uint32_t> ParseTwmGridJson(std::string const & jsonBuffer, int64_t & version,
+                                                                 std::vector<TerrainBlock> & blocks,
+                                                                 std::map<CountryId, std::vector<uint32_t>> & coverage);
 
   // Reads local headers off the GUI thread; storage selects and registers them on publication.
   std::vector<terrain::TwmFile> ScanTerrainFiles() const;
@@ -247,8 +248,11 @@ public:
   void OnTerrainFileDeregistered(terrain::TwmFile const & file);
 
 private:
+  void DownloadTerrain(CountriesSet const & countryIds, bool userRequest);
+  bool EnqueueTerrain(CountryId const & countryId, bool userRequest);
   std::string GetTerrainDir() const;
   std::vector<TerrainBlock> m_twmGrid;
+  std::map<terrain::TerrainId, uint32_t> m_twmGridIndices;
   std::map<terrain::TerrainId, terrain::TwmFile> m_localTerrainFiles;
   std::map<terrain::TerrainId, uint64_t> m_localTerrainSizes;
   std::set<std::string> m_pendingTerrainFiles;
@@ -286,7 +290,7 @@ private:
   // whose interrupted downloads left artifacts behind, in addition to the saved queue.
   void RestoreTerrain();
   bool IsTerrainOnDisk(TerrainBlock const & block) const;
-  bool HasOlderTerrain(m2::RectD const & rect, int64_t version) const;
+  bool HasOlderTerrain(TerrainBlock const & block) const;
   bool RegisterTerrainFile(terrain::TwmFile const & file);
   void DeleteTerrainFiles(std::vector<terrain::TerrainId> const & ids);
   TerrainRegisterFn m_terrainRegisterFn;
@@ -805,6 +809,7 @@ private:
 
   void NotifyStatusChanged(CountryId const & countryId);
   void NotifyStatusChangedForHierarchy(CountryId const & countryId);
+  void NotifyStatusChangedForHierarchy(CountriesSet const & countryIds);
 
   StatusAndError GetEffectiveStatus(StatusAndError mapStatus, TerrainAttrs const & terrain) const;
   downloader::Progress GetMapProgress(CountryId const & countryId, CountriesSet const & mwmsInQueue,

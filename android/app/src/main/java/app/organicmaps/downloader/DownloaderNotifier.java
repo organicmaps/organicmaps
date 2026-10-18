@@ -53,7 +53,7 @@ public class DownloaderNotifier
     notificationManager.createNotificationChannel(channel);
   }
 
-  private boolean canNotify()
+  private boolean checkNotificationPermission()
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
         && ContextCompat.checkSelfPermission(mContext, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
@@ -66,7 +66,7 @@ public class DownloaderNotifier
 
   public void notifyDownloadFailed(@Nullable String countryId)
   {
-    if (!canNotify())
+    if (!checkNotificationPermission())
       return;
 
     final String title = mContext.getString(app.organicmaps.branding.R.string.app_name);
@@ -95,7 +95,7 @@ public class DownloaderNotifier
 
   public void notifyProgress(@Nullable String countryId, int maxProgress, int progress)
   {
-    if (!canNotify())
+    if (!checkNotificationPermission())
       return;
 
     NotificationManagerCompat.from(mContext).notify(NOTIFICATION_ID,

@@ -96,8 +96,7 @@ using Altitude = geometry::Altitude;
 // in the freq section, and the encoder builds them in a first walk over all the features of the
 // scale, so a blob still decodes on its own. The codes are length limited to impl::kFlatCodeBits,
 // which costs nothing measurable on the tiny token alphabets and lets the decoder resolve a code
-// with one flat table lookup. The encode side of this codec is generator only and lives in
-// topography_generator/mesh/twm_encoder.hpp (GeometryCoders, the chain walk, the package merge).
+// with one flat table lookup. Encoding is performed by the terrain generator.
 
 // The version byte stores the TIN version in its low nibble and the raster version in its high nibble.
 // Raster version 0 means a TIN-only file.
@@ -238,9 +237,9 @@ struct TwmHeader
 
 // The samples lattice of one mesh: the quantized mercator coordinates of its columns and rows.
 // A geometry codes the (column, row) index pairs, this table turns them back into the points.
-// The tables are built with the canonical formula (docs/TERRAIN.md) and frozen into the file,
-// so the borders of the neighbor meshes and blocks - the same physical parallels and meridians -
-// map to the identical points.
+// The generator projects each global integer DEM sample coordinate (sample / samplesPerDegree)
+// before quantizing it, rather than accumulating projected steps from a local origin. Freezing
+// these axes in the file makes shared parallels and meridians decode to identical points.
 struct MeshGrid
 {
   // Quantized mercator x per lattice column and y per lattice row, strictly increasing.
@@ -436,15 +435,17 @@ uint32_t constexpr kMaxEventToken = 7;
 // bit of the first byte - but this is a sibling of the latter rather than a replacement: it
 // peeks without consuming (the flat token tables index a fixed width prefix of the stream),
 // keeps a 64 bit window over a locally buffered chunk instead of a virtual reader call per
-// byte, and zero pads past the blob end so a fixed width peek never fails.
+// byte. The source starts at the blob offset and can include following blobs in the geometry
+// section; only the triangle count determines where decoding stops. Zero padding applies past
+// the source end, so a fixed width peek never reads outside the supplied section.
 template <typename Source>
 class BlobBitReader
 {
 public:
   explicit BlobBitReader(Source & src) : m_src(src), m_bytesLeft(src.Size()) {}
 
-  // Tops the window up to at least 56 bits, or to everything the blob has left: one unaligned
-  // load and three arithmetic ops, with the chunk boundary and the blob tail out of line.
+  // Tops the window up to at least 56 bits, or to everything the source has left: one unaligned
+  // load and three arithmetic ops, with the chunk boundary and the source tail out of line.
   void Refill()
   {
     // Both loads shift by m_bitsInWindow, so it must stay a defined shift count: the fast path
@@ -462,11 +463,11 @@ public:
     m_bitsInWindow |= 56;
   }
 
-  // The window a Refill() has just topped up: the next bits of the blob, least significant
-  // first, zero padded past its end. A code and its mantissa are read out of one window.
+  // The window a Refill() has just topped up: the next source bits, least significant first,
+  // zero padded past the source end. A code and its mantissa are read out of one window.
   uint64_t Window() const { return m_window; }
 
-  // Zero padded past the end of the blob, so a peek of a fixed width - a flat table lookup
+  // Zero padded past the end of the source, so a peek of a fixed width - a flat table lookup
   // always takes one - never fails.
   uint32_t PeekBits(uint32_t n)
   {
@@ -475,7 +476,7 @@ public:
     return static_cast<uint32_t>(m_window & bits::GetFullMask(static_cast<uint8_t>(n)));
   }
 
-  // Consuming what the blob does not have is the error a peek is not. Every skip follows a
+  // Consuming what the source does not have is the error a peek is not. Every skip follows a
   // peek or a refill of this read, so the window is already topped up and a shortfall means
   // the stream is truncated.
   void SkipPeekedBits(uint32_t n)
@@ -494,7 +495,7 @@ public:
 
 private:
   // The chunk is filled in one source call and the fast refill covers all but its last 7
-  // bytes, so this runs about once per 250 bytes of a blob.
+  // bytes, so this runs about once per 250 source bytes.
   void SlowRefill()
   {
     // Fewer than kWordBytes are buffered: compact them to the front and top the chunk up.
@@ -509,13 +510,13 @@ private:
       m_bytesLeft -= want;
       m_len += want;
     }
-    // The slack past the data is the zero padding a peek past the blob end must return.
+    // The slack past the data is the zero padding a peek past the source end must return.
     std::memset(m_buf + m_len, 0, kWordBytes);
     if (m_len >= kWordBytes)
       return Refill();
 
-    // The blob tail: the same load over the zero padding, counting in the buffered bytes only
-    // so that the window never claims bits the blob does not have. The count stops at 63 bits,
+    // The source tail: the same load over the zero padding, counting in the buffered bytes only
+    // so that the window never claims bits the source does not have. The count stops at 63 bits,
     // which keeps the shift of the next refill defined and is far above the 42 bits a token
     // and its mantissa take together; the bytes left over stay in the buffer.
     uint64_t next;
@@ -532,7 +533,7 @@ private:
   Source & m_src;
   uint64_t m_window = 0;
   uint32_t m_bitsInWindow = 0;
-  // The blob bytes the source still holds: the chunk refill needs the count to size its read,
+  // The unread source bytes: the chunk refill needs the count to size its read,
   // and Source::Size() is a virtual call down the reader chain.
   uint64_t m_bytesLeft = 0;
   uint32_t m_pos = 0;

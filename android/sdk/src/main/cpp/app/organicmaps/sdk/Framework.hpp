@@ -171,7 +171,7 @@ public:
   place_page::Info & GetPlacePageInfo();
 
   bool IsAutoRetryDownloadFailed();
-  bool IsTerrainAutoRetryDownloadFailed();
+  bool IsTerrainTransportRetryFailed();
   bool IsDownloadOn3gEnabled();
   void EnableDownloadOn3g();
 

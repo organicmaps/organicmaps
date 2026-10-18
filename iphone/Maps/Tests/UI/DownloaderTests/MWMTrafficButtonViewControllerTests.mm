@@ -1,6 +1,7 @@
 #import <CoreApi/MWMMapOverlayManager.h>
 #import <XCTest/XCTest.h>
 
+#import "MWMMapViewControlsManager.h"
 #import "MWMTrafficButtonViewController.h"
 #import "MapViewController.h"
 
@@ -88,6 +89,29 @@
   [self closeDownloader];
   [self.button handleIsolinesState:MWMMapOverlayIsolinesStateNoData];
   XCTAssertEqualObjects([self.button valueForKey:@"lastHandledIsolinesState"], @(MWMMapOverlayIsolinesStateNoData));
+}
+
+- (void)testTerrainHintsHandleTransitionsWhileLayersSheetIsPresented
+{
+  auto manager = MWMMapViewControlsManager.manager;
+  manager.menuState = MWMBottomMenuStateLayers;
+  NSPredicate * presented = [NSPredicate predicateWithBlock:^BOOL(id, NSDictionary *) {
+    auto sheet = self.mapController.presentedViewController;
+    return sheet != nil && !sheet.isBeingPresented && sheet.view.window != nil && self.mapController.view.window != nil;
+  }];
+  XCTestExpectation * opened = [self expectationForPredicate:presented evaluatedWithObject:nil handler:nil];
+  [self waitForExpectations:@[opened] timeout:2];
+
+  [self.button handleIsolinesState:MWMMapOverlayIsolinesStateEnabled];
+  XCTAssertEqualObjects([self.button valueForKey:@"lastHandledIsolinesState"], @(MWMMapOverlayIsolinesStateEnabled));
+  [self.button handleIsolinesState:MWMMapOverlayIsolinesStateNoData];
+  XCTAssertEqualObjects([self.button valueForKey:@"lastHandledIsolinesState"], @(MWMMapOverlayIsolinesStateNoData));
+
+  manager.menuState = MWMBottomMenuStateInactive;
+  NSPredicate * dismissed = [NSPredicate
+      predicateWithBlock:^BOOL(id, NSDictionary *) { return self.mapController.presentedViewController == nil; }];
+  XCTestExpectation * closed = [self expectationForPredicate:dismissed evaluatedWithObject:nil handler:nil];
+  [self waitForExpectations:@[closed] timeout:2];
 }
 
 - (void)testReturningToMapHandlesOverlayStateChangedInDownloader

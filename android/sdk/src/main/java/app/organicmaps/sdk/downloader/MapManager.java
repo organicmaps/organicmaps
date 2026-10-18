@@ -251,19 +251,13 @@ public final class MapManager
    */
   public static native void nativeDelete(String root);
 
-  /** Enqueues, updates, or retries terrain for this region or group independently of its maps. */
-  public static native void nativeDownloadTerrain(@NonNull String root);
+  /** Whether this country is a leaf of the map hierarchy. */
+  public static boolean isLeaf(@NonNull String countryId)
+  {
+    return nativeIsLeaf(countryId);
+  }
 
-  public static native void nativeCancelTerrain(@NonNull String root);
-
-  public static native void nativeDeleteTerrain(@NonNull String root);
-
-  /** Returns the missing terrain bytes, counting shared blocks once. */
-  public static native long nativeGetTerrainDownloadSize(@NonNull String[] countries);
-
-  /** Returns independent map and terrain bytes for active requests under this country or group. */
-  @NonNull
-  public static native Progress nativeGetDownloadingProgress(@NonNull String countryId);
+  private static native boolean nativeIsLeaf(@NonNull String countryId);
 
   /**
    * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link
@@ -315,15 +309,21 @@ public final class MapManager
   }
 
   @NonNull
-  public static native long[] nativeGetOverallProgressBytes(String[] countries, boolean withTerrain);
+  public static long[] nativeGetOverallProgressBytes(String[] countries, boolean withTerrain)
+  {
+    return nativeGetOverallProgressBytesImpl(countries, withTerrain);
+  }
 
-  /**
-   * Returns {@code true} if the core will NOT do attempts to download failed maps anymore.
-   */
-  public static native boolean nativeIsAutoretryFailed();
+  @NonNull
+  private static native long[] nativeGetOverallProgressBytesImpl(String[] countries, boolean withTerrain);
 
-  /** Returns {@code true} if the core will not retry failed terrain downloads automatically. */
-  public static native boolean nativeIsTerrainAutoretryFailed();
+  /** Whether this leaf's current download failure will no longer be retried automatically. */
+  public static boolean isAutoRetryFailed(@NonNull String countryId)
+  {
+    return nativeIsAutoRetryFailedForCountry(countryId);
+  }
+
+  private static native boolean nativeIsAutoRetryFailedForCountry(@NonNull String countryId);
 
   /**
    * Returns {@code true} if the core is allowed to download maps while on 3g network. {@code false} otherwise.

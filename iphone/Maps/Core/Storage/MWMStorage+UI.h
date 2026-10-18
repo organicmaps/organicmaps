@@ -5,8 +5,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWMStorage (UI)
 
 - (void)downloadNode:(NSString *)countryId;
-- (void)downloadTerrain:(NSString *)countryId;
-- (void)downloadTerrainNodes:(NSArray<NSString *> *)countryIds;
 - (void)downloadNode:(NSString *)countryId onSuccess:(nullable MWMVoidBlock)success;
 - (void)updateNode:(NSString *)countryId;
 - (void)updateNode:(NSString *)countryId onCancel:(nullable MWMVoidBlock)cancel;

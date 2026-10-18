@@ -38,7 +38,7 @@ std::vector<TwmFile> TerrainProvider::GetRegisteredFiles() const
   return files;
 }
 
-bool TerrainProvider::RegisterBlock(TwmFile const & file, m2::RectD & invalidRect)
+bool TerrainProvider::RegisterBlock(TwmFile const & file, m2::RectD * invalidRect)
 {
   auto const result = m_set.Register(file);
   if (result.second != TwmSet::RegResult::Success && result.second != TwmSet::RegResult::AlreadyRegistered)
@@ -46,7 +46,8 @@ bool TerrainProvider::RegisterBlock(TwmFile const & file, m2::RectD & invalidRec
     LOG(LWARNING, ("Can't register the terrain block", file.m_path, ":", result.second));
     return false;
   }
-  AddInvalidationRect(file.m_rect, invalidRect);
+  if (invalidRect)
+    AddInvalidationRect(file.m_rect, *invalidRect);
   return true;
 }
 

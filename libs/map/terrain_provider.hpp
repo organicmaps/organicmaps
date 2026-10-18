@@ -30,8 +30,8 @@ public:
   std::vector<TwmFile> GetRegisteredFiles() const;
   bool IsFileInUse(TwmFile const & file) const { return m_set.IsFileAlive(file); }
 
-  // Extend invalidRect over the affected registered files.
-  bool RegisterBlock(TwmFile const & file, m2::RectD & invalidRect);
+  // If requested, extend invalidRect over the affected registered files.
+  bool RegisterBlock(TwmFile const & file, m2::RectD * invalidRect = nullptr);
   void DeleteBlocks(std::vector<TerrainId> const & ids, m2::RectD & invalidRect);
 
   // Returns true if any registered terrain block intersects the mercator rect.

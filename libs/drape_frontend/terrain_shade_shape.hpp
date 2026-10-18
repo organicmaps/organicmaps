@@ -8,9 +8,8 @@
 
 namespace df
 {
-// The terrain hillshade mesh of one tile: tile-local positions with the per-vertex
-// Lambert intensity relative to the flat ground, smoothly interpolated by the
-// TerrainShade program (see RuleDrawer::DrawTerrainShade).
+// Tile-local terrain positions and surface normals. TerrainShade interpolates the
+// normals and computes lighting from the live light direction in the shader.
 class TerrainShadeShape : public MapShape
 {
 public:

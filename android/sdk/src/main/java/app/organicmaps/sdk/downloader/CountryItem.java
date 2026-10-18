@@ -52,20 +52,6 @@ public final class CountryItem implements Comparable<CountryItem>
   public long size;
   public long downloadSize;
   public long totalSize;
-  public long terrainSize;
-  public long remainingTerrainSize;
-  // Must correspond to TerrainStatus in storage.hpp.
-  public static final int TERRAIN_UNAVAILABLE = 0;
-  public static final int TERRAIN_DOWNLOADABLE = 1;
-  public static final int TERRAIN_PROGRESS = 2;
-  public static final int TERRAIN_PARTLY = 3;
-  public static final int TERRAIN_DONE = 4;
-  public static final int TERRAIN_FAILED = 5;
-  public static final int TERRAIN_UPDATABLE = 6;
-  public int terrainStatus;
-  public float terrainProgress;
-  public long terrainDownloadedBytes;
-  public long terrainBytesToDownload;
 
   public int childCount;
   public int totalChildCount;
@@ -140,7 +126,6 @@ public final class CountryItem implements Comparable<CountryItem>
   public void updateProgress(MapManager.Progress progress)
   {
     updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
-    updateTerrainProgress(progress.twmDownloaded, progress.twmTotal);
   }
 
   public void updateProgress(long downloadedBytes, long bytesToDownload)
@@ -149,27 +134,6 @@ public final class CountryItem implements Comparable<CountryItem>
     this.bytesToDownload = bytesToDownload;
     // Reserve the final 5% for validation, registration, and applying diffs.
     progress = bytesToDownload == 0 ? 0 : downloadedBytes * 95.0f / bytesToDownload;
-  }
-
-  public void updateTerrainProgress(long downloadedBytes, long bytesToDownload)
-  {
-    terrainDownloadedBytes = downloadedBytes;
-    terrainBytesToDownload = bytesToDownload;
-    terrainProgress = bytesToDownload == 0 ? 0 : downloadedBytes * 95.0f / bytesToDownload;
-  }
-
-  public int getTerrainNodeStatus()
-  {
-    return switch (terrainStatus)
-    {
-      case TERRAIN_DOWNLOADABLE -> STATUS_DOWNLOADABLE;
-      case TERRAIN_PROGRESS -> STATUS_PROGRESS;
-      case TERRAIN_PARTLY -> STATUS_PARTLY;
-      case TERRAIN_DONE -> STATUS_DONE;
-      case TERRAIN_FAILED -> STATUS_FAILED;
-      case TERRAIN_UPDATABLE -> STATUS_UPDATABLE;
-      default -> STATUS_UNKNOWN;
-    };
   }
 
   public long getDisplaySize(boolean downloadedMode)

@@ -1,12 +1,9 @@
 #import "PlacePageOSMContributionData.h"
 
-#include <CoreApi/Framework.h>
-
-@class MWMMapNodeAttributes;
+#include "map/place_page_info.hpp"
 
 @interface PlacePageOSMContributionData (Core)
 
-- (instancetype _Nullable)initWithRawData:(place_page::Info const &)rawData
-                            mapAttributes:(MWMMapNodeAttributes * _Nonnull)mapAttributes;
+- (instancetype _Nullable)initWithRawData:(place_page::Info const &)rawData;
 
 @end

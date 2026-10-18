@@ -227,13 +227,13 @@ protected:
       return false;
 
     std::shared_ptr<InfoT> const & info = id.GetInfo();
+    // Concurrent lockers may have returned several spare values.
+    ClearCache(id);
     if (info->m_numRefs == 0)
     {
       SetStatus(*info, SetInfoBase::STATUS_DEREGISTERED, events);
       auto & infos = m_registry[GetRegistryKey(*info)];
       infos.erase(std::remove(infos.begin(), infos.end(), info), infos.end());
-      // ALL the cached values: two concurrent lockers can push two values back.
-      ClearCache(id);
       return true;
     }
 

@@ -195,10 +195,6 @@ extension PlacePageInteractor: PlacePageOSMContributionViewControllerDelegate {
     MWMPlacePageManagerHelper.editPlace()
   }
 
-  func didPressUpdateMap() {
-    startMapDownloading()
-  }
-
   func didPressOSMInfo() {
     presenter?.openURL("https://welcome.openstreetmap.org")
   }

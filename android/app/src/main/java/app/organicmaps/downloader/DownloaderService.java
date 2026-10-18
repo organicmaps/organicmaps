@@ -23,7 +23,6 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   private static final String ACTION_START_DOWNLOAD = "ACTION_START_DOWNLOAD";
   private static final String ACTION_RETRY_DOWNLOAD = "ACTION_RETRY_DOWNLOAD";
   private static final String ACTION_START_UPDATE = "ACTION_START_UPDATE";
-  private static final String ACTION_START_TERRAIN_DOWNLOAD = "ACTION_START_TERRAIN_DOWNLOAD";
   private static final String EXTRA_COUNTRY_IDS = "EXTRA_COUNTRY_IDS";
   private static final String EXTRA_WITH_TERRAIN = "EXTRA_WITH_TERRAIN";
 
@@ -66,7 +65,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     // The download is deferred to here (instead of being started by MapManagerHelper) to
     // eliminate the race where a fast download completes before onStartCommand() runs.
     if (ACTION_START_DOWNLOAD.equals(action) || ACTION_RETRY_DOWNLOAD.equals(action)
-        || ACTION_START_UPDATE.equals(action) || ACTION_START_TERRAIN_DOWNLOAD.equals(action))
+        || ACTION_START_UPDATE.equals(action))
     {
       mNotifier.cancelError();
       var notification = mNotifier.buildProgressNotification();
@@ -92,11 +91,6 @@ public class DownloaderService extends Service implements MapManager.StorageCall
             MapManager.retryDownload(countryIds[0]);
           else if (ACTION_START_UPDATE.equals(action))
             MapManager.startUpdate(countryIds[0]);
-          else
-          {
-            for (String countryId : countryIds)
-              MapManager.nativeDownloadTerrain(countryId);
-          }
         }
       }
       finally
@@ -150,7 +144,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   @Override
   public void onProgress(String countryId, MapManager.Progress progress)
   {
-    if (CountryItem.isRoot(countryId))
+    // Core also reports ancestors; notify once per leaf.
+    if (!MapManager.isLeaf(countryId))
       return;
 
     long downloaded = progress.mwmDownloaded + progress.twmDownloaded;
@@ -167,7 +162,6 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     try
     {
       MapManager.nativeCancel(MapManager.nativeGetRoot());
-      MapManager.nativeCancelTerrain(MapManager.nativeGetRoot());
     }
     finally
     {
@@ -245,24 +239,13 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     ContextCompat.startForegroundService(context, intent);
   }
 
-  static void startTerrainDownload(Context context, String... countryIds)
-  {
-    Intent intent = new Intent(context, DownloaderService.class);
-    intent.setAction(ACTION_START_TERRAIN_DOWNLOAD);
-    intent.putExtra(EXTRA_COUNTRY_IDS, countryIds);
-    ContextCompat.startForegroundService(context, intent);
-  }
-
   private void notifyDownloadFailures(List<MapManager.StorageCallbackData> data)
   {
     for (MapManager.StorageCallbackData item : data)
     {
       if (!item.isLeafNode)
         continue;
-      boolean mapFailed = item.newStatus == CountryItem.STATUS_FAILED && MapManager.nativeIsAutoretryFailed();
-      boolean terrainFailed = CountryItem.fill(item.countryId).terrainStatus == CountryItem.TERRAIN_FAILED
-                           && MapManager.nativeIsTerrainAutoretryFailed();
-      if (mapFailed || terrainFailed)
+      if (item.newStatus == CountryItem.STATUS_FAILED && MapManager.isAutoRetryFailed(item.countryId))
       {
         mNotifier.notifyDownloadFailed(item.countryId);
         return;

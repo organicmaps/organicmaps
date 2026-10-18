@@ -153,8 +153,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   MapViewController * mapController = [MapViewController sharedController];
   // Overlay notifications continue while the Downloader covers the map. Leave
   // those transitions pending until the map appears again.
-  if (!self.view.window || mapController.navigationController.visibleViewController != mapController ||
-      mapController.presentedViewController)
+  if (!self.view.window || mapController.navigationController.topViewController != mapController)
     return;
 
   // applyTheme re-derives the state on every theme/overlay poke: the hints must fire
@@ -184,7 +183,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
   [iv stopAnimating];
   // The transition gate must see the layer going off, or the next NoData after a
-  // re-enable would read as a repeat and the alerts would stay silent.
+  // re-enable would read as a repeat and the hints would stay silent.
   if (![MWMMapOverlayManager isoLinesEnabled])
     self.lastHandledIsolinesState = MWMMapOverlayIsolinesStateDisabled;
   if ([MWMMapOverlayManager trafficEnabled])

@@ -98,7 +98,7 @@ void ConnectTerrainCallbacks(storage::Storage & storage, terrain::TerrainProvide
       [&](terrain::TwmFile const & file)
   {
     m2::RectD invalidRect;
-    return provider.RegisterBlock(file, invalidRect);
+    return provider.RegisterBlock(file, &invalidRect);
   }, [&](std::vector<terrain::TerrainId> const & ids)
   {
     m2::RectD invalidRect;
@@ -226,8 +226,8 @@ UNIT_TEST(TerrainProvider_DeleteByIdKeepsAdjacentBlocks)
     TEST_EQUAL(terrain::TwmSet::ReadFile(keptPath, 1, keptFile), terrain::TwmSet::RegResult::Success, ());
     terrain::TerrainProvider provider;
     m2::RectD invalidRect;
-    TEST(provider.RegisterBlock(deletedFile, invalidRect), ());
-    TEST(provider.RegisterBlock(keptFile, invalidRect), ());
+    TEST(provider.RegisterBlock(deletedFile, &invalidRect), ());
+    TEST(provider.RegisterBlock(keptFile, &invalidRect), ());
     std::vector<terrain::TerrainId> deregistered;
     provider.SetOnTerrainDeregisteredCallback([&](terrain::TwmFile const & file)
     { deregistered.push_back(file.m_id); });

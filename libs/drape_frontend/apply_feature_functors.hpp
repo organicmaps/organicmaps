@@ -32,6 +32,8 @@ struct BuildingOutline;
 /// Also used by the dynamic isolines path which has no FeatureType behind the lines.
 void ExtractLineParams(drule::LineRule const & lineRule, double visScale, LineViewParams & params);
 
+void CaptionDefToFontDecl(drule::CaptionDef const * capRule, double visScale, dp::FontDecl & params);
+
 struct ApplyFeatureParams;
 class BaseApplyFeature
 {

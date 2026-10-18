@@ -104,7 +104,8 @@ void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryI
     if (!m_queue.Contains(countryId))
       return;
 
-    if (status == downloader::DownloadStatus::Failed && !urls.empty())
+    if ((status == downloader::DownloadStatus::Failed || status == downloader::DownloadStatus::FileNotFound) &&
+        !urls.empty())
     {
       DownloadFromLastUrl(countryId, downloadPath, std::move(urls));
     }

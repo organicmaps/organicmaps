@@ -1060,7 +1060,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
     mDownloaderIcon.update(country);
 
-    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(requireContext(), country.totalSize));
+    StringBuilder sb =
+        new StringBuilder(StringUtils.getFileSizeString(requireContext(), country.getDisplaySize(false)));
     if (country.isExpandable())
       sb.append(StringUtils.formatUsingUsLocale(
           "  •  %s: %d", requireContext().getString(R.string.downloader_status_maps), country.totalChildCount));

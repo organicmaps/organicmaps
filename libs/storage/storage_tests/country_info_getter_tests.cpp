@@ -8,6 +8,7 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/country_info_reader_light.hpp"
 #include "storage/storage.hpp"
+#include "storage/storage_helpers.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -19,19 +20,13 @@
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/stats.hpp"
-#include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "defines.hpp"
-
-#include <algorithm>
 #include <map>
 #include <memory>
 #include <random>
-#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -604,5 +599,4 @@ UNIT_TEST(CountryInfoGetter_ExtendedRect_ExactLookup)
   countries = getter.GetRegionsCountryIdByRect(m2::RectD(200.0, 40.0, 220.0, 55.0), false);
   TEST(countries.empty(), ());
 }
-
 }  // namespace country_info_getter_tests

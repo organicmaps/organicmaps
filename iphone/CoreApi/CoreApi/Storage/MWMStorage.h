@@ -45,10 +45,6 @@ NS_SWIFT_NAME(Storage)
     ignoreUnsavedEdits:(BOOL)force
                  error:(NSError * __autoreleasing _Nullable *)error;
 - (void)cancelDownloadNode:(NSString *)countryId;
-- (BOOL)downloadTerrain:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
-- (BOOL)downloadTerrainNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;
-- (void)cancelTerrain:(NSString *)countryId;
-- (void)deleteTerrain:(NSString *)countryId;
 - (void)showNode:(NSString *)countryId;
 /// Downloads routing maps without terrain.
 - (BOOL)downloadMaps:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;

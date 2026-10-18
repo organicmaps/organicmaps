@@ -48,6 +48,7 @@
 
 #include "platform/distance.hpp"
 #include "platform/location.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/placement_settings.hpp"
 #include "platform/platform.hpp"
 #include "platform/products.hpp"
@@ -189,6 +190,7 @@ protected:
 
   TransitReadManager m_transitManager;
   IsolinesManager m_isolinesManager;
+  measurement_utils::Units m_isolinesUnits = measurement_utils::GetMeasurementUnits();
   // Dynamic isolines terrain data (.twm files).
   terrain::TerrainProvider m_terrainProvider;
   std::atomic<uint64_t> m_terrainScanGeneration{0};

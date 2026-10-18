@@ -41466,7 +41466,7 @@ zh-Hant = 請在您的裝置設定中啟用 iCloud 以使用此功能。
 
 [enable]
 comment = Action button that enables a disabled feature, such as iCloud synchronization or location services.
-tags = android-app,apple-maps
+tags = apple-maps
 en = Enable
 af = Aktiveer
 ar = تفعيل

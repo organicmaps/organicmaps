@@ -13,8 +13,8 @@ void TerrainShadeShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::B
                              ref_ptr<dp::TextureManager> /* textures */) const
 {
   // The geometry layer with the default alpha blending, drawn after every area fill and
-  // pattern in the program order (see the Program enum). The intensity is a vertex
-  // attribute, so no color texture is needed.
+  // pattern in the program order (see the Program enum). Lighting uses vertex
+  // normals and the live light direction, so no color texture is needed.
   auto state = CreateRenderState(gpu::Program::TerrainShade, DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(true);
 

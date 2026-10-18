@@ -22,7 +22,7 @@ final class DownloadMapsViewControllerTests: XCTestCase {
       attrs.setValue(count > 1, forKey: "hasChildren")
       let modes: [MWMMapDownloaderMode] = [.available, .downloaded]
       let statuses: [MapNodeStatus] = [.onDisk, .onDiskOutOfDate, .notDownloaded, .downloading,
-                                      .inQueue, .applying, .error, .partly]
+                                       .inQueue, .applying, .error, .partly]
       for mode in modes {
         cell.mode = mode
         for status in statuses {
@@ -105,13 +105,13 @@ private final class DownloaderDataSourceMock: IDownloaderDataSource {
   func getParentCountryId() -> String { parentAttrs.countryId }
   func parentAttributes() -> MapNodeAttributes { parentAttrs }
   func numberOfSections() -> Int { 1 }
-  func numberOfItems(in section: Int) -> Int { 1 }
-  func item(at indexPath: IndexPath) -> MapNodeAttributes { attrs }
-  func matchedName(at indexPath: IndexPath) -> String? { nil }
-  func title(for section: Int) -> String { headerTitle }
+  func numberOfItems(in _: Int) -> Int { 1 }
+  func item(at _: IndexPath) -> MapNodeAttributes { attrs }
+  func matchedName(at _: IndexPath) -> String? { nil }
+  func title(for _: Int) -> String { headerTitle }
   func indexTitles() -> [String]? { nil }
-  func dataSourceFor(_ childId: String) -> IDownloaderDataSource { self }
+  func dataSourceFor(_: String) -> IDownloaderDataSource { self }
   func reload() -> Bool { false }
-  func search(_ query: String, locale: String, update: @escaping (Bool) -> Void) { update(true) }
+  func search(_: String, locale _: String, update: @escaping (Bool) -> Void) { update(true) }
   func cancelSearch() {}
 }

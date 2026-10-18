@@ -50,7 +50,7 @@ struct TinView
   TileMesh const & m_mesh;
   std::vector<int32_t> m_feet;
   std::span<int32_t const> m_altitudes;
-  std::unordered_map<uint64_t, uint32_t> m_edges;
+  ska::flat_hash_map<uint64_t, uint32_t, impl::PointKeyHash> m_edges;
 
   explicit TinView(TileMesh const & mesh, measurement_utils::Units units) : m_mesh(mesh)
   {
