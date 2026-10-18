@@ -1,13 +1,14 @@
 name: Claude Code Review
 
 # Reviews a pull request once, when it opens or leaves draft. Comment `@claude review` to ask again.
+# Off unless the repository variable CLAUDE_REVIEW is `on` (Settings > Secrets and variables > Actions > Variables).
 on:
   pull_request:
     types: [opened, ready_for_review, reopened]
 
 jobs:
   review:
-    if: github.event.pull_request.draft == false
+    if: vars.CLAUDE_REVIEW == 'on' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:

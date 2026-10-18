@@ -16,8 +16,8 @@ merges stay clean. Fork rules go in `.claude/rules/nogps-*.md`, fork skills in `
    the issue. Skip the plan when the diff fits in one sentence.
 2. **Implement in a fresh session** (`/clear`, then "implement #N") on `feature/<name>` from current `origin/master`.
 3. **Finish with `/nogps-pr`**: tests, living docs, issue for the other platform, review in a fresh context, PR.
-4. **Merge only through a PR.** CI posts a Claude review when a PR opens. Comment `@claude <request>` on a PR to
-   ask for a re-review or a fix. If the PR changes the shared interface or the other person's platform, the other
+4. **Merge only through a PR.** When the repo variable `CLAUDE_REVIEW` is `on`, CI posts a Claude review when a PR
+   opens. Comment `@claude <request>` on a PR to ask for a re-review or a fix. If the PR changes the shared interface or the other person's platform, the other
    person approves it. Otherwise the author merges after CI passes.
 
 ## Shared interface
