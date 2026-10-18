@@ -101,7 +101,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> ContactMarkPoint::GetTitleDecl() const
   title.m_primaryText = m_name;
   title.m_primaryTextFont.m_color = dp::Color(55, 55, 55, 255);
   title.m_primaryTextFont.m_outlineColor = dp::Color::White();
-  title.m_primaryTextFont.m_size = 11.0f;
+  title.m_primaryTextFont.m_size = 10.0f;
   title.m_anchor = dp::Left;
   title.m_primaryOffset.x = 2.0f;
   auto titles = make_unique_dp<TitlesInfo>();

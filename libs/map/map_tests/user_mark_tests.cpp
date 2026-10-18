@@ -20,5 +20,6 @@ UNIT_TEST(ContactMark_RenderingProperties)
   TEST(titles != nullptr, ());
   TEST_EQUAL(titles->size(), 1, ());
   TEST_EQUAL(titles->front().m_primaryText, "Cody Ellis", ());
+  TEST_EQUAL(titles->front().m_primaryTextFont.m_size, 10.0f, ());
 }
 }  // namespace user_mark_tests
