@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Transit line bar rounded at the top only, for the very first ride leg (the start of the line).
+<!-- Transit line bar rounded at the top only: a line run that starts here and joins the segment below
+     (a ride bar continuing into a transfer stub, or the outgoing stub at a transfer).
      White so a runtime tint paints it with the line's own color. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
   android:shape="rectangle">

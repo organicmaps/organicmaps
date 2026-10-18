@@ -289,7 +289,8 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
               int incomingColor)
     {
       Context ctx = itemView.getContext();
-      mBadge.setTransitStepInfo(info);
+      // The stops below belong to the chosen line only, unlike the summary's parallel-line numbers.
+      mBadge.setTransitStepInfo(info, info.getLineNumber());
       int lineColor = info.getColor();
       // Each colored segment is a rounded pill. The bar's top is rounded unless it continues up out of a
       // transfer stub (isTransfer); its bottom is rounded unless it continues down into the next leg's
@@ -308,7 +309,7 @@ public class TransitDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       mBoardAt.setVisibility(isTransfer ? View.GONE : View.VISIBLE);
       if (isTransfer)
       {
-        // Just the stop name: the two-tone line break and the leading time already say "transfer here".
+        // Just the stop name: the two-color line break beside it already says "transfer here".
         mTransferHeader.setText(startStopText);
         // The stub is the pill end at the break: incoming run rounded at its foot, outgoing at its head.
         mTransferStubTop.setBackgroundResource(R.drawable.transit_line_bar_bottom);

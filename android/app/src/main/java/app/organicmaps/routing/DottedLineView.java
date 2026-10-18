@@ -12,9 +12,9 @@ import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 
 /**
- * A vertical column of evenly spaced dots, used as the walking-segment connector on the transit details
- * timeline (the dashed counterpart to the ride legs' solid colored bar). Drawn manually because an XML
- * shape/line can't render a dashed line of arbitrary height in a thin column.
+ * Four dots, two above and two below the view's center, used as the walking-segment connector on the
+ * transit details timeline (the dotted counterpart to the ride legs' solid colored bar). The dots keep a
+ * fixed span around the centered walk icon whatever the row height.
  */
 public class DottedLineView extends View
 {

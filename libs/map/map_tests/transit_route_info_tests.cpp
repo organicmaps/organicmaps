@@ -52,6 +52,22 @@ UNIT_TEST(TransitRouteInfo_AddStep_MergesSameLine)
   TEST_EQUAL(step.m_timeInSec, 180, ());
 }
 
+UNIT_TEST(TransitRouteInfo_AddStep_KeepsSelectedLineOfSharedNumbers)
+{
+  auto first = MakeTransitStep("1, 2", kRed, "A", "B");
+  first.m_lineNumber = "1";
+  auto second = MakeTransitStep("1, 2", kRed, "B", "C");
+  second.m_lineNumber = "1";
+
+  TransitRouteInfo info;
+  info.AddStep(first);
+  info.AddStep(second);
+
+  TEST_EQUAL(info.m_steps.size(), 1, ());
+  TEST_EQUAL(info.m_steps.front().m_number, "1, 2", ());
+  TEST_EQUAL(info.m_steps.front().m_lineNumber, "1", ());
+}
+
 UNIT_TEST(TransitRouteInfo_AddStep_DifferentLinesDoNotMerge)
 {
   TransitRouteInfo info;

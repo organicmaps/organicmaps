@@ -7,6 +7,7 @@
      gap above the bar so it centers between the previous leg's bar and this one's. In that case the
      in-bar boarding heading is hidden and the bar starts at the badge row. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -124,7 +125,8 @@
           android:paddingStart="@dimen/margin_quarter"
           android:paddingEnd="@dimen/margin_quarter"
           android:textColor="@android:color/white"
-          android:textSize="@dimen/text_size_body_0" />
+          android:textSize="@dimen/text_size_body_0"
+          app:fitParentWidth="true" />
 
         <TextView
           android:id="@+id/ride_subtitle"

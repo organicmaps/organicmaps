@@ -11,9 +11,8 @@
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base">
 
-  <!-- Legend column, on the same vertical axis as the ride legs' colored bars. A dotted grey line runs
-       the full height (the walking counterpart to the solid line bar) with the walk icon centered on it,
-       so the timeline reads as continuous between stops. -->
+  <!-- Legend column, on the same vertical axis as the ride legs' colored bars. Two grey dots above and
+       two below the centered walk icon (the walking counterpart to the solid line bar) link the stops. -->
   <FrameLayout
     android:layout_width="@dimen/transit_details_legend_width"
     android:layout_height="match_parent">

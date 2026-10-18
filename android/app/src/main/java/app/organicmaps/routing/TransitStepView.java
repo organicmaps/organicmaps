@@ -16,6 +16,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import app.organicmaps.R;
@@ -45,6 +46,10 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   private int mBackgroundCornerRadius;
   @Nullable
   private String mText;
+  // mText ellipsized to the parent width when mFitParentWidth is set.
+  @Nullable
+  private String mDrawnText;
+  private boolean mFitParentWidth;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private TransitStepType mStepType;
@@ -71,6 +76,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     mTextPaint.setTextSize(textSize);
     mTextPaint.setColor(textColor);
     mDrawable = a.getDrawable(R.styleable.TransitStepView_android_drawable);
+    mFitParentWidth = a.getBoolean(R.styleable.TransitStepView_fitParentWidth, false);
     if (mDrawable != null)
       mDrawable = DrawableCompat.wrap(mDrawable);
     mStepType = TransitStepType.PEDESTRIAN;
@@ -78,6 +84,12 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   }
 
   public void setTransitStepInfo(@NonNull TransitStepInfo info)
+  {
+    setTransitStepInfo(info, info.getNumber());
+  }
+
+  /** Shows {@code number} instead of all the parallel line numbers of a transit step. */
+  public void setTransitStepInfo(@NonNull TransitStepInfo info, @Nullable String number)
   {
     mStepType = info.getType();
     mBackgroundPaint.setColor(getBackgroundColor(getContext(), info));
@@ -95,10 +107,31 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     else
     {
       mDrawable = ResourcesCompat.getDrawable(getResources(), mStepType.getDrawable(), null);
-      mText = info.getNumber();
+      mText = number;
     }
+    setContentDescription(getAccessibilityText(getContext(), mStepType, mText));
     invalidate();
     requestLayout();
+  }
+
+  @Nullable
+  private static String getAccessibilityText(@NonNull Context context, @NonNull TransitStepType type,
+                                             @Nullable String text)
+  {
+    @StringRes
+    final int typeName = switch (type)
+    {
+      case SUBWAY -> R.string.transit_type_subway;
+      case TRAIN -> R.string.transit_type_train;
+      case LIGHT_RAIL -> R.string.transit_type_light_rail;
+      case MONORAIL -> R.string.transit_type_monorail;
+      case TRAM -> R.string.transit_type_tram;
+      case BUS, TROLLEYBUS -> R.string.transit_type_bus;
+      default -> 0;
+    };
+    if (typeName == 0)
+      return text;
+    return TextUtils.isEmpty(text) ? context.getString(typeName) : context.getString(typeName) + " " + text;
   }
 
   @ColorInt
@@ -117,7 +150,11 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
     int height = getDefaultSize(getSuggestedMinimumHeight(), MeasureSpec.UNSPECIFIED);
+    final int maxWidth = !mFitParentWidth || MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.UNSPECIFIED
+                           ? Integer.MAX_VALUE
+                           : MeasureSpec.getSize(widthMeasureSpec);
     int width = getPaddingStart() + getPaddingEnd();
+    mDrawnText = mText;
     if (mDrawable != null)
     {
       calculateDrawableBounds(height, mDrawable);
@@ -129,7 +166,12 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
       mTextPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
       if (height == 0)
         height = getPaddingTop() + mTextBounds.height() + getPaddingBottom();
-      final int computedTextWidth = (int) ((mDrawable != null ? getPaddingStart() : 0) + mTextPaint.measureText(mText));
+      final int textStart = mDrawable != null ? getPaddingStart() : 0;
+      final int availableTextWidth = maxWidth - width - textStart;
+      if (mTextPaint.measureText(mText) > availableTextWidth)
+        mDrawnText = TextUtils.ellipsize(mText, mTextPaint, Math.max(availableTextWidth, 0), TextUtils.TruncateAt.END)
+                         .toString();
+      final int computedTextWidth = (int) (textStart + mTextPaint.measureText(mDrawnText));
 
       if (mStepType == TransitStepType.INTERMEDIATE_POINT)
       {
@@ -189,12 +231,12 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     if (mDrawable != null)
       drawDrawable(getContext(), mStepType, mDrawable, canvas);
 
-    if (!TextUtils.isEmpty(mText))
+    if (!TextUtils.isEmpty(mDrawnText))
     {
       int yPos = (int) ((getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2));
       int xPos = mDrawable != null ? mDrawable.getBounds().right + getPaddingStart()
-                                   : (int) ((getWidth() - mTextPaint.measureText(mText)) / 2);
-      canvas.drawText(mText, xPos, yPos, mTextPaint);
+                                   : (int) ((getWidth() - mTextPaint.measureText(mDrawnText)) / 2);
+      canvas.drawText(mDrawnText, xPos, yPos, mTextPaint);
     }
   }
 

@@ -62,7 +62,7 @@ public class TransitDetailsAdapterTest
   @Test
   public void intermediatePoint_isKeptAsItsOwnRowBetweenWalks() throws Exception
   {
-    // walk -> Add Stop -> walk -> ride: the dropped point used to leave two adjacent walk rows.
+    // walk -> Add Stop -> walk -> ride: the waypoint separates its two walking legs.
     mAdapter.setItems(List.of(walk(), intermediate(0), walk(), ride("U5")));
 
     assertEquals(4, mAdapter.getItemCount());
@@ -160,8 +160,8 @@ public class TransitDetailsAdapterTest
   {
     Constructor<TransitStepInfo> ctor = TransitStepInfo.class.getDeclaredConstructor(
         int.class, String.class, String.class, int.class, String.class, int.class, int.class, String.class,
-        String.class, int.class, String[].class);
+        String.class, int.class, String[].class, String.class);
     ctor.setAccessible(true);
-    return ctor.newInstance(type.ordinal(), null, null, 0, number, 0, 0, startStop, endStop, 0, null);
+    return ctor.newInstance(type.ordinal(), null, null, 0, number, 0, 0, startStop, endStop, 0, null, number);
   }
 }

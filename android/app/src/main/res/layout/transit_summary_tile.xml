@@ -39,16 +39,15 @@
       android:layout_marginStart="@dimen/margin_quarter_plus"
       tools:text="16 min" />
 
-    <Space
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1" />
-
+    <!-- Fills the gap and may wrap at large text sizes, so the caret is never pushed out of the row. -->
     <TextView
       android:id="@+id/total_time"
       style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="end"
+      android:singleLine="false"
       tools:text="43 min" />
 
     <!-- Caret cueing that tapping the tile opens the full-screen transit details (slides in from the right). -->

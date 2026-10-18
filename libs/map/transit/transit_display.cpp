@@ -389,8 +389,10 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   auto const & stop1 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop2Id);
 
-  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor),
-                                      0 /* intermediateIndex */, GetStopName(ssp, stop1), GetStopName(ssp, stop2)));
+  TransitStepInfo step(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor),
+                       0 /* intermediateIndex */, GetStopName(ssp, stop1), GetStopName(ssp, stop2));
+  step.m_lineNumber = line.GetNumber();
+  m_routeInfo.AddStep(step);
   bool const isTransfer1 = stop1.GetTransferId() != routing::transit::kInvalidTransferId;
   bool const isTransfer2 = stop2.GetTransferId() != routing::transit::kInvalidTransferId;
 

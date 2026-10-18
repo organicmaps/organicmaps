@@ -30,10 +30,13 @@ public final class TransitStepInfo
   private final int mStopCount;
   @Nullable
   private final String[] mIntermediateStopNames;
+  @Nullable
+  private final String mLineNumber;
 
   private TransitStepInfo(int type, @Nullable String distance, @Nullable String distanceUnits, int timeInSec,
                           @Nullable String number, int color, int intermediateIndex, @Nullable String startStopName,
-                          @Nullable String endStopName, int stopCount, @Nullable String[] intermediateStopNames)
+                          @Nullable String endStopName, int stopCount, @Nullable String[] intermediateStopNames,
+                          @Nullable String lineNumber)
   {
     mType = TransitStepType.values()[type];
     mDistance = distance;
@@ -46,20 +49,21 @@ public final class TransitStepInfo
     mEndStopName = endStopName;
     mStopCount = stopCount;
     mIntermediateStopNames = intermediateStopNames;
+    mLineNumber = lineNumber;
   }
 
   @NonNull
   public static TransitStepInfo intermediatePoint(int intermediateIndex)
   {
     return new TransitStepInfo(TransitStepType.INTERMEDIATE_POINT.ordinal(), null, null, 0, null, 0, intermediateIndex,
-                               null, null, 0, null);
+                               null, null, 0, null, null);
   }
 
   @NonNull
   public static TransitStepInfo ruler(@NonNull String distance, @NonNull String distanceUnits)
   {
     return new TransitStepInfo(TransitStepType.RULER.ordinal(), distance, distanceUnits, 0, null, 0, -1, null, null, 0,
-                               null);
+                               null, null);
   }
 
   @NonNull
@@ -122,5 +126,12 @@ public final class TransitStepInfo
   public String[] getIntermediateStopNames()
   {
     return mIntermediateStopNames;
+  }
+
+  /** The line the route was built on; {@link #getNumber()} may also list parallel lines with other stops. */
+  @Nullable
+  public String getLineNumber()
+  {
+    return mLineNumber;
   }
 }

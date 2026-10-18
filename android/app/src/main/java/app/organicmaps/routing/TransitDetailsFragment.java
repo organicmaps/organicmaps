@@ -14,7 +14,7 @@ import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
-import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
+import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.widget.ToolbarController;
 
 /**
@@ -39,7 +39,7 @@ public class TransitDetailsFragment extends BaseMwmToolbarFragment
     recycler.setAdapter(adapter);
     // Pad the scrolling list past the nav bar (bottom) and the display cutout in landscape (left/right);
     // the toolbar above already consumes the top inset. Ctor order is (top, bottom, left, right).
-    ViewCompat.setOnApplyWindowInsetsListener(recycler, new PaddingInsetsListener(false, true, true, true));
+    ViewCompat.setOnApplyWindowInsetsListener(recycler, new BaselinePaddingInsetsListener(false, true, true, true));
 
     final TransitRouteInfo info = RoutingController.get().getCachedTransitInfo();
     if (info == null)
