@@ -1,9 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "geometry/clipping.hpp"
+#include "geometry/triangle2d.hpp"
 
-#include <cstddef>
-#include <utility>
 #include <vector>
 
 namespace clipping_test
@@ -210,6 +209,34 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
   TEST(CompareTriangleLists(result11, expectedResult11), (result11, expectedResult11));
 }
 
+UNIT_TEST(Clipping_ClipTriangleByRect_ArcticCoast)
+{
+  // Decoded WorldCoasts triangles: their diagonal almost touches the north-west tile's top-right corner.
+  m2::PointD const triangles[][3] = {
+      {{-180.0, 157.49999731779064405}, {-180.0, 180.0}, {-157.49999731779067247, 157.49999731779064405}},
+      {{-157.49999731779067247, 157.49999731779064405}, {-180.0, 180.0}, {-157.49999731779067247, 180.0}}};
+  m2::RectD const tiles[] = {{-180.0, 157.5, -168.75, 168.75}, {-168.75, 157.5, -157.5, 168.75}};
+
+  for (auto const & tile : tiles)
+  {
+    for (size_t start = 0; start < 3; ++start)
+    {
+      double area = 0.0;
+      for (auto const & triangle : triangles)
+      {
+        m2::ClipTriangleByRect(tile, triangle[start], triangle[(start + 1) % 3], triangle[(start + 2) % 3],
+                               [&](auto const & a, auto const & b, auto const & c)
+        {
+          TEST(tile.IsPointInside(a) && tile.IsPointInside(b) && tile.IsPointInside(c), (tile, a, b, c));
+          TEST_LESS_OR_EQUAL(m2::CrossProduct(b - a, c - a), 0.0, (tile, a, b, c));
+          area += m2::GetTriangleArea(a, b, c);
+        });
+      }
+      TEST_ALMOST_EQUAL_ABS(area, tile.Area(), kSplitEps, (tile, start));
+    }
+  }
+}
+
 UNIT_TEST(Clipping_ClipSplineByRect)
 {
   m2::RectD r(-1.0, -1.0, 1.0, 1.0);
@@ -278,8 +305,7 @@ UNIT_TEST(Clipping_ClipSplineByRect_InheritsTangentAndLength)
   // re-sqrt round trip.
   m2::RectD const r(-1.0, -1.0, 1.0, 1.0);
 
-  // Source: enters the rect from the left, two interior segments, then leaves
-  // to the right. The middle two source segments are entirely inside the rect.
+  // Source: enters the rect from the left, has one fully interior segment, then leaves to the right.
   m2::SharedSpline src =
       MakeSpline({m2::PointD(-2.0, 0.0), m2::PointD(-0.5, 0.0), m2::PointD(0.5, 0.5), m2::PointD(2.0, 1.0)});
   auto const result = m2::ClipSplineByRect(r, src);

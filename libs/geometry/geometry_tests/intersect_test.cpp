@@ -180,6 +180,24 @@ UNIT_TEST(IntersectRect_Clip)
   check_clip(r, P(-1, 1), P(1, -1), P(0, 0), P(0, 0), LEFT, BOT);
 }
 
+UNIT_TEST(IntersectRect_ClipCorner)
+{
+  using namespace m2::detail;
+
+  m2::RectD const r(0, 0, 10, 10);
+
+  // Clipping X reaches the other endpoint; its original Y outcode bit is now stale.
+  check_clip(r, P(-1, -1), P(0, 0), P(0, 0), P(0, 0), LEFT, 0);
+  check_clip(r, P(-1, 11), P(0, 10), P(0, 10), P(0, 10), LEFT, 0);
+  check_clip(r, P(11, -1), P(10, 0), P(10, 0), P(10, 0), RIGHT, 0);
+  check_clip(r, P(11, 11), P(10, 10), P(10, 10), P(10, 10), RIGHT, 0);
+
+  check_clip(r, P(0, 0), P(-1, -1), P(0, 0), P(0, 0), 0, LEFT);
+  check_clip(r, P(0, 10), P(-1, 11), P(0, 10), P(0, 10), 0, LEFT);
+  check_clip(r, P(10, 0), P(11, -1), P(10, 0), P(10, 0), 0, RIGHT);
+  check_clip(r, P(10, 10), P(11, 11), P(10, 10), P(10, 10), 0, RIGHT);
+}
+
 UNIT_TEST(IntersectRect_NoClip)
 {
   m2::RectD const r(0, 0, 10, 10);
