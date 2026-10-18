@@ -526,9 +526,9 @@ void ApplyAreaFeature::operator()(PointT const & p1, PointT const & p2, PointT c
   };
 
   if (crossProduct < 0)
-    m2::ClipTriangleByRect(m_params.m_tileRect, p1, p2, p3, clipFunctor);
+    m2::ClipTriangleByRect(m_params.m_tileRect, p1, p2, p3, crossProduct, clipFunctor);
   else
-    m2::ClipTriangleByRect(m_params.m_tileRect, p1, p3, p2, clipFunctor);
+    m2::ClipTriangleByRect(m_params.m_tileRect, p1, p3, p2, -crossProduct, clipFunctor);
 }
 
 void ApplyAreaFeature::ProcessBuildingPolygon(PointT const & p1, PointT const & p2, PointT const & p3,

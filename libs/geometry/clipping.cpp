@@ -1,136 +1,106 @@
 #include "geometry/clipping.hpp"
 
 #include "geometry/rect_intersect.hpp"
-#include "geometry/triangle2d.hpp"
+#include "geometry/robust_orientation.hpp"
 
-#include "base/buffer_vector.hpp"
+#include "base/assert.hpp"
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <algorithm>
+#include <array>
 #include <cfloat>
+#include <cmath>
+#include <span>
+#include <utility>
 
 namespace m2
 {
-namespace
-{
-int GetRectSideIndex(int code)
-{
-  if (code == m2::detail::LEFT)
-    return 0;
-  if (code == m2::detail::TOP)
-    return 1;
-  if (code == m2::detail::RIGHT)
-    return 2;
-  return 3;
-}
-
-using CornersT = std::array<m2::PointD, 4>;
-
-template <class AddPointFnT>
-void InsertCorners(CornersT const & corners, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
-                   AddPointFnT const & addPolygonPoint, int code1, int code2)
-{
-  int cornerInd = GetRectSideIndex(code1);
-  int endCornerInd = GetRectSideIndex(code2);
-
-  if (!IsPointInsideTriangle(corners[cornerInd], p1, p2, p3))
-  {
-    if (!IsPointInsideTriangle(corners[endCornerInd], p1, p2, p3))
-      return;
-    std::swap(cornerInd, endCornerInd);
-  }
-
-  while (cornerInd != endCornerInd)
-  {
-    addPolygonPoint(corners[cornerInd]);
-    cornerInd = (cornerInd + 1) % 4;
-  }
-}
-
-template <class AddPointFnT>
-bool IntersectEdge(m2::RectD const & rect, CornersT const & corners, m2::PointD const & pp1, m2::PointD const & pp2,
-                   m2::PointD const & pp3, AddPointFnT const & addPolygonPoint, int prevClipCode, int nextClipCode,
-                   int & firstClipCode, int & lastClipCode)
-{
-  m2::PointD p1 = pp1;
-  m2::PointD p2 = pp2;
-
-  if (m2::Intersect(rect, p1, p2, firstClipCode, lastClipCode))
-  {
-    if (firstClipCode != 0 && prevClipCode != 0 && ((firstClipCode & prevClipCode) == 0))
-      InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, prevClipCode, firstClipCode);
-
-    addPolygonPoint(p1);
-    addPolygonPoint(p2);
-
-    if (lastClipCode != 0 && nextClipCode != 0 && ((lastClipCode & nextClipCode) == 0) &&
-        firstClipCode != lastClipCode && prevClipCode != nextClipCode)
-      InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, lastClipCode, nextClipCode);
-
-    return true;
-  }
-  else if (prevClipCode != 0 && nextClipCode != 0)
-  {
-    InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, prevClipCode, nextClipCode);
-  }
-  return false;
-}
-}  // namespace
-
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
                         ClipTriangleByRectResultIt const & resultIterator)
 {
+  ClipTriangleByRect(rect, p1, p2, p3, robust::OrientedS(p1, p2, p3), resultIterator);
+}
+
+void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
+                        double orientation, ClipTriangleByRectResultIt const & resultIterator)
+{
+  ASSERT_EQUAL(math::Sign(orientation), math::Sign(robust::OrientedS(p1, p2, p3)), (p1, p2, p3));
+  // Collinear input must not acquire a fill through interpolation roundoff.
+  if (orientation == 0)
+    return;
+
   if (rect.IsPointInside(p1) && rect.IsPointInside(p2) && rect.IsPointInside(p3))
   {
     resultIterator(p1, p2, p3);
     return;
   }
 
-  static constexpr double kEps = 1e-8;
-  buffer_vector<m2::PointD, 8> polygon;
-  auto const addPolygonPoint = [&polygon](m2::PointD const & pt)
-  {
-    if (polygon.empty() || !polygon.back().EqualDxDy(pt, kEps))
-      polygon.push_back(pt);
-  };
-
-  CornersT const corners = {rect.LeftTop(), rect.RightTop(), rect.RightBottom(), rect.LeftBottom()};
-
-  int firstClipCode[3];
-  int lastClipCode[3];
-  bool intersected[3];
-
-  intersected[0] = IntersectEdge(rect, corners, p1, p2, p3, addPolygonPoint, 0, 0, firstClipCode[0], lastClipCode[0]);
-
-  intersected[1] =
-      IntersectEdge(rect, corners, p2, p3, p1, addPolygonPoint, lastClipCode[0], 0, firstClipCode[1], lastClipCode[1]);
-
-  intersected[2] = IntersectEdge(
-      rect, corners, p3, p1, p2, addPolygonPoint, lastClipCode[1] != 0 ? lastClipCode[1] : lastClipCode[0],
-      firstClipCode[0] != 0 ? firstClipCode[0] : firstClipCode[1], firstClipCode[2], lastClipCode[2]);
-
-  int const intersectCount = intersected[0] + intersected[1] + intersected[2];
-  if (intersectCount == 0)
-  {
-    if (IsPointInsideTriangle(rect.Center(), p1, p2, p3))
-    {
-      resultIterator(rect.LeftTop(), rect.RightTop(), rect.RightBottom());
-      resultIterator(rect.RightBottom(), rect.LeftBottom(), rect.LeftTop());
-    }
+  // A common outside half-plane excludes the entire triangle.
+  if ((detail::vcode(rect, p1) & detail::vcode(rect, p2) & detail::vcode(rect, p3)) != 0)
     return;
+
+  // Half-plane cuts preserve convexity and winding. The intersection has at most
+  // seven vertices; the extra slot allows a duplicate closing point.
+  std::array<m2::PointD, 8> buffers[2];
+  auto polygon = std::span(buffers[0]);
+  auto next = std::span(buffers[1]);
+  polygon[0] = p1;
+  polygon[1] = p2;
+  polygon[2] = p3;
+  size_t count = 3;
+  std::array<double, 4> const bounds{rect.minX(), rect.maxX(), rect.minY(), rect.maxY()};
+  for (size_t side = 0; side < bounds.size() && count != 0; ++side)
+  {
+    bool const vertical = side < 2;
+    double const bound = bounds[side];
+    auto const distance = [&](m2::PointD const & point)
+    {
+      double const d = (vertical ? point.x : point.y) - bound;
+      return side % 2 == 0 ? d : -d;
+    };
+
+    size_t nextCount = 0;
+    auto const append = [&](m2::PointD const & point)
+    {
+      if (nextCount == 0 || next[nextCount - 1] != point)
+      {
+        ASSERT_LESS(nextCount, next.size(), ());
+        next[nextCount++] = point;
+      }
+    };
+
+    auto a = polygon[count - 1];
+    double da = distance(a);
+    for (size_t i = 0; i < count; ++i)
+    {
+      auto const & b = polygon[i];
+      double const db = distance(b);
+      // Append boundary endpoints directly to avoid rounding them into reversed slivers.
+      if ((da < 0 && db > 0) || (da > 0 && db < 0))
+      {
+        double const t = da / (da - db);
+        m2::PointD const point =
+            vertical ? m2::PointD(bound, std::lerp(a.y, b.y, t)) : m2::PointD(std::lerp(a.x, b.x, t), bound);
+        append(point);
+      }
+      if (db >= 0)
+        append(b);
+      a = b;
+      da = db;
+    }
+    if (nextCount > 1 && next[nextCount - 1] == next[0])
+      --nextCount;
+    std::swap(polygon, next);
+    count = nextCount;
   }
 
-  if (intersectCount == 1 && intersected[2])
-    InsertCorners(corners, p1, p2, p3, addPolygonPoint, lastClipCode[2], firstClipCode[2]);
-
-  if (!polygon.empty() && polygon.back().EqualDxDy(polygon[0], kEps))
-    polygon.pop_back();
-
-  if (polygon.size() < 3)
-    return;
-
-  for (size_t i = 0; i < polygon.size() - 2; ++i)
-    resultIterator(polygon[0], polygon[i + 1], polygon[i + 2]);
+  for (size_t i = 1; i + 1 < count; ++i)
+  {
+    // Interpolation roundoff can flatten or reverse a boundary sliver.
+    double const clippedOrientation = robust::OrientedS(polygon[0], polygon[i], polygon[i + 1]);
+    if (orientation > 0 ? clippedOrientation > 0 : clippedOrientation < 0)
+      resultIterator(polygon[0], polygon[i], polygon[i + 1]);
+  }
 }
 
 template <class FnT>
