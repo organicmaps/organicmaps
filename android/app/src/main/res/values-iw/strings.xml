@@ -912,4 +912,16 @@
         <item quantity="many">%d תחנות</item>
         <item quantity="other">%d תחנות</item>
     </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">אוטובוס</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">רכבת תחתית</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">רכבת</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">חשמלית</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">רכבת קלה</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">מונורייל</string>
 </resources>

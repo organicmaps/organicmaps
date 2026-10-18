@@ -920,4 +920,16 @@
     <plurals name="transit_stops_count">
         <item quantity="other">%d 站</item>
     </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">公車</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">捷運</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">火車</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">路面電車</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">輕軌</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">單軌</string>
 </resources>
