@@ -19,7 +19,7 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams
   , m_tile(tileKey)
   , m_baseTextIndex(baseTextIndex)
 {
-  m_context = std::make_shared<PathTextContext>(m_spline, m_tile.xOffset);
+  m_context = std::make_shared<PathTextContext>(m_spline, m_tile.xOffset, m_params.m_allowRepositioning);
 }
 
 bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)

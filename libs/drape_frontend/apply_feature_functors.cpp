@@ -11,6 +11,7 @@
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
@@ -971,6 +972,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(drule::PathTextRule 
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
     params.m_lang = m_captions.GetMainTextLang();
+    params.m_allowRepositioning = ftypes::IsIsolineChecker::Instance()(m_f);
 
     uint32_t textIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)
