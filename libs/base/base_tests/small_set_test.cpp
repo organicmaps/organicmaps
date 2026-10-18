@@ -222,8 +222,7 @@ UNIT_TEST(SmallMap_Benchmark2)
   }
 
   TEST_EQUAL(sum1, sum2, ());
-  // std::hash(std::string) is better than std::less(std::string), the margin is ~2x.
-  TEST_LESS(t1, t2, ());
+  // Relative timings depend on the platform and runner load.
   LOG(LINFO, ("unordered_map time =", t1, "SmallMap time =", t2));
 }
 #endif
