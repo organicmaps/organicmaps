@@ -12526,6 +12526,21 @@ type organicapp-mwm_border
     area color=#807D8BE6 priority=-970
   z7
     area color=#807D8BE6 priority=-970
+type organicapp-twm_border
+  z1
+    area color=#80E6952E priority=-970
+  z2
+    area color=#80E6952E priority=-970
+  z3
+    area color=#80E6952E priority=-970
+  z4
+    area color=#80E6952E priority=-970
+  z5
+    area color=#80E6952E priority=-970
+  z6
+    area color=#80E6952E priority=-970
+  z7
+    area color=#80E6952E priority=-970
 type piste:type-connection
   z15
     line width=1.1 color=#66C47AFF/#66623D7F join=round cap=butt priority=120
