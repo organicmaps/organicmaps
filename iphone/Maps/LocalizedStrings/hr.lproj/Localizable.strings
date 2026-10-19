@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* App Tip #00 */
+"app_tip_00" = "Hvala što koristiš karte koje je izradila naša zajednica!";
+
+/* App tip #01 */
+"app_tip_01" = "Uz vaše donacije i podršku možemo stvoriti najbolje karte na svijetu!";
+
+/* App tip #02 */
+"app_tip_02" = "Sviđa li vam se naša aplikacija? Molimo donirajte kako biste podržali razvoj! Još vam se ne sviđa? Recite nam zašto i mi ćemo to popraviti!";
+
+/* App tip #03 */
+"app_tip_03" = "Ako poznajete programera, možete ga ili je zamoliti da implementira značajku koja vam je potrebna.";
+
+/* App tip #04 */
+"app_tip_04" = "Dodirnite bilo koje mjesto na karti da biste odabrali bilo što. Dugi dodir služi za skrivanje i prikazivanje sučelja.";
+
+/* App tip #05 */
+"app_tip_05" = "Jeste li znali da se vaša trenutna lokacija na karti može odabrati?";
+
+/* App tip #06 */
+"app_tip_06" = "Možete pomoći u prevođenju naše aplikacije na svoj jezik.";
+
+/* App tip #07 */
+"app_tip_07" = "Našu je aplikaciju razvilo nekoliko entuzijasta i zajednica.";
+
+/* App tip #08 */
+"app_tip_08" = "Možete jednostavno popraviti i poboljšati podatke karte.";
+
+/* App tip #09 */
+"app_tip_09" = "Naš glavni cilj je izraditi brze karte usmjerene na privatnost i jednostavne za korištenje koje ćete voljeti.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Sada koristiš Organic Maps na ekranu telefona";
 

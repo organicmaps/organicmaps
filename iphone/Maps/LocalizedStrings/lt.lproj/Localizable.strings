@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* App Tip #00 */
+"app_tip_00" = "Dėkojame, kad naudojatės mūsų bendruomenės sukurtais žemėlapiais!";
+
+/* App tip #01 */
+"app_tip_01" = "Su jūsų parama ir palaikymu mes galime sukurti geriausius žemėlapius pasaulyje!";
+
+/* App tip #02 */
+"app_tip_02" = "Patinka šį programėlė? Paremkite, paaukodami jos vystymui! Dar ne? Papasakokite mums, kodėl, ir mes pasistengsime tai pataisyti!";
+
+/* App tip #03 */
+"app_tip_03" = "Jeigu turite pažįstamą programuotoją, galite jo(s) paprašyti realizuoti funkciją, kurios jums reikia.";
+
+/* App tip #04 */
+"app_tip_04" = "Bakstelėkite bet kurį žemėlapio tašką norimam objektui pasirinkti. Bakstelėkite ir palaikykite, kad paslėptumėte ar vėl pamatytumėte programėlės sąsają.";
+
+/* App tip #05 */
+"app_tip_05" = "Ar žinote, jog galite pasirinkti savo dabartinę vietą žemėlapyje?";
+
+/* App tip #06 */
+"app_tip_06" = "Galite padėti išversti šią programėlę į savo kalbą.";
+
+/* App tip #07 */
+"app_tip_07" = "Šią programėlę vysto keletas entuziastų ir suburta bendruomenė.";
+
+/* App tip #08 */
+"app_tip_08" = "Galite pataisyti ar papildyti žemėlapio duomenis.";
+
+/* App tip #09 */
+"app_tip_09" = "Mūsų pagrindinis tikslas – sukurti spartų, privatų ir paprastą naudotis žemėlapį, kuris patiktų visiems.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Dabar naudojatės „Organic Maps“ telefono ekrane";
 

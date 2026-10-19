@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Zh-hans:关于";
 
+/* App Tip #00 */
+"app_tip_00" = "感谢您使用我们社区构建的地图！";
+
+/* App tip #01 */
+"app_tip_01" = "有了您的捐赠和支持，我们可以创造世界上最好的地图！";
+
+/* App tip #02 */
+"app_tip_02" = "您喜欢我们的应用程序吗？请捐款以支持发展！还不喜欢吗？请告诉我们，我们会修复您提到的问题！";
+
+/* App tip #03 */
+"app_tip_03" = "如果您认识软件开发人员，您可以要求他实现您需要的功能。";
+
+/* App tip #04 */
+"app_tip_04" = "轻点地图上的任意位置可选择任何内容。长按可隐藏或显示界面。";
+
+/* App tip #05 */
+"app_tip_05" = "您知道您可以在地图上选择您当前的位置吗？";
+
+/* App tip #06 */
+"app_tip_06" = "您可以帮助将我们的应用程序翻译成您的语言。";
+
+/* App tip #07 */
+"app_tip_07" = "我们的应用程序是由一些爱好者和社区开发的。";
+
+/* App tip #08 */
+"app_tip_08" = "您可以轻松修复和改进地图数据。";
+
+/* App tip #09 */
+"app_tip_09" = "我们的主要目标是构建您会喜欢的快速、注重隐私、易于使用的地图。";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "您现在正在手机屏幕上使用 Organic Maps";
 

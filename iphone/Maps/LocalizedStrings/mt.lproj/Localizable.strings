@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* App Tip #00 */
+"app_tip_00" = "Grazzi talli użajtu l-mapep tagħna mibnija mill-komunita’!";
+
+/* App tip #01 */
+"app_tip_01" = "Bid-donazzjonijiet u l-appoġġ tiegħek, nistgħu noħolqu l-aqwa mapep fid-dinja!";
+
+/* App tip #02 */
+"app_tip_02" = "Togħġbok l-app tagħna? Jekk jogħġbok agħti donazzjoni biex tappoġġja l-iżvilupp! Għadha ma togħġbokx? Jekk jogħġbok għidilna għaliex, u nirranġawha!";
+
+/* App tip #03 */
+"app_tip_03" = "Jekk taf żviluppatur tas-softwer, tista’ titolbu jimplimenta il-karatteristika li għandek bżonn.";
+
+/* App tip #04 */
+"app_tip_04" = "Għafas kullimkien fuq il-mappa biex tagħżel xi ħaġa. Tgħafisa twila tista' tintuża biex taħbi u turi l-interface.";
+
+/* App tip #05 */
+"app_tip_05" = "Kont taf li l-post attwali tiegħek fuq il-mappa jista’ jintgħażel?";
+
+/* App tip #06 */
+"app_tip_06" = "Tista’ tgħin sabiex tittraduċi l-applikazzjoni tagħna fil-lingwa tiegħek.";
+
+/* App tip #07 */
+"app_tip_07" = "L-app tagħna hija żviluppata minn ftit dilettanti u l-komunita’.";
+
+/* App tip #08 */
+"app_tip_08" = "Tista’ faċilment tirranġa u ttejjeb l-informazzjoni tal-mappa.";
+
+/* App tip #09 */
+"app_tip_09" = "L-għan ewlieni tagħna huwa li nibnu mapep veloċi, iffukati fuq il-privatezza, u faċli biex jintużaw li se jinħabbu.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Issa qed tuża Organic Maps fuq l-iskrin tat-telefown";
 

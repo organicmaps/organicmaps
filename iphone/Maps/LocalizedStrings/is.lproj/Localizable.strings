@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* App Tip #00 */
+"app_tip_00" = "Takk fyrir að nota landakortin frá samfélaginu okkar!";
+
+/* App tip #01 */
+"app_tip_01" = "Með framlögum þínum og stuðningi getum við búið til bestu landakortin í heiminum!";
+
+/* App tip #02 */
+"app_tip_02" = "Líkar þér forritið okkar? Styrktu okkur til að styðja áframhaldandi þróun þess! Líkar þér ekki eitthvað? Láttu okkur vita og við munum laga það!";
+
+/* App tip #03 */
+"app_tip_03" = "Ef þú þekkir einhvern hforritara/ugbúnaðarhönnuð, þá geturðu beðið hana/hann um að búa til einhvern eiginleika sem þér finnst vanta.";
+
+/* App tip #04 */
+"app_tip_04" = "Ýttu einhversstaðar á kortið til að velja atriði. Að ýta lengi er notað til að sýna viðmótið.";
+
+/* App tip #05 */
+"app_tip_05" = "Veist þú hvernig hægt er að velja núverandi staðsetningu þína?";
+
+/* App tip #06 */
+"app_tip_06" = "Hjálpaðu við að þýða þetta forrit yfir á tungumálið þitt.";
+
+/* App tip #07 */
+"app_tip_07" = "Forritið er hannað af nokkrum áhugasömum notendum og samfélaginu í kringum þá.";
+
+/* App tip #08 */
+"app_tip_08" = "Þú getur auðveldlega lagfært og bætt kortagögnin.";
+
+/* App tip #09 */
+"app_tip_09" = "Meginmarkmið okkar er að byggja hraðvirk og auðveld landakort sm þú kannt að meta og sem passa upp á persónuupplýsingar þínar.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Þú ert núna að nota Organic Maps á símaskjánum";
 
