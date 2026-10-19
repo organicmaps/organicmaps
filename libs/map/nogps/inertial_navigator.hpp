@@ -175,6 +175,12 @@ public:
   static double constexpr kOtherRoadAsideM = 20;
   // Marks this close to each other are one.
   static double constexpr kSameMarkM = 10;
+  // A mark on the road of the shown one is dropped: two marks of one road tell only how wrong the distance driven
+  // may be, and the button showing the car on another road stays for nothing. On October 19 a mark put on a
+  // driveway came onto the road of the shown one when the driveway ended, 3-16 m behind it, and lived 11 minutes.
+  // The road of the shown mark is walked to the other one, if it is this near, and passes it this close.
+  static double constexpr kSameRoadCheckM = 200;
+  static double constexpr kSameRoadAsideM = 4;
   // The way driven, see PathMatcher, tells which marks are where the car is this often: it takes tens of road
   // lookups for every mark.
   static int64_t constexpr kMarksWayCheckMs = 5000;
@@ -220,15 +226,23 @@ public:
   static double constexpr kMaxRoadConfirmBearingDiffDeg = 10;
   // The car speed has no sign. Which way the car has started, the accelerometer of the box tells: the speed it
   // has felt since the car stood, by the time the car reports that it moves and a little later. The car reports
-  // it late by the lag of its speed, so it stood for sure until the lag and a margin before that. On the trips
-  // checked 43 of 50 starts were felt as 0.5 m/s forward or more, 4 at a parking place as 0.3 m/s backward or
-  // more, 3 were in between.
+  // its speed late by the lag, so it stood for sure from when it has reported 0 until the lag and a margin before it
+  // has reported that it moves. A stand of 1.5 s between driving back and forth was too short to feel that way, on
+  // October 16 at 23:28 and October 18 at 21:23: a stand too short is taken from up to the lag before the report of
+  // 0, with the margin, only as much as it needs. Taken so always, the braking before a stand of 3 s was felt as
+  // standing on October 11 at 23:55:22, and a start backward was told forward. On the trips checked 43 of 50 starts
+  // were felt as 0.5 m/s forward or more, 4 at a parking place as 0.3 m/s backward or more, 3 were in between.
   static double constexpr kReverseStartSpeedMps = 0.3;
   static int64_t constexpr kStartFeltAfterMs = 300;
   static int64_t constexpr kStandMarginMs = 300;
   // What the accelerometer feels while the car stands is taken from this time at most and at least.
   static int64_t constexpr kMaxStandFeltMs = 2000;
   static int64_t constexpr kMinStandFeltMs = 300;
+  // A car changing the gear stands for a moment, but the speed it reports may not reach 0 then: on October 18 at
+  // 21:23:40 it reported 1 km/h for 1.4 s between driving backwards and forward. The speed rising again after it
+  // is a start too, told by what was felt at the last stand, but it only ends driving backwards: a car slowing down
+  // and speeding up forward was felt as driving backwards on October 11 at 12:58:55, and was driven so for 2 min.
+  static int constexpr kSlowSpeedKmh = 1;
   // A car maneuvering at a parking place stands for a second between driving back and forth, too short to feel
   // it standing: what was felt at its last longer stand is taken, while the car is about there and the slope
   // under it is the same. On the trips checked every such start was within 20 s and 16 m of that stand.
@@ -491,6 +505,8 @@ private:
   void MoveOtherMarks(double rotatedDeg, double distanceM, double stepM);
   // Snaps the other marks to their roads, drops the ones that are not where the car is.
   void FollowOtherMarks();
+  /// \returns true if the position is on the road of the shown mark, ahead of it or behind.
+  bool IsOnShownRoad(ms::LatLon const & position);
   // Moves the other marks through the turn the car has made, dropping the ones without a road going the new way
   // |atCrossing|. \returns the first one with a road going the new way.
   std::optional<size_t> TurnOtherMarks(double toBearingDeg, bool atCrossing);
@@ -670,6 +686,13 @@ private:
   // Since when it reports that it stands, and when it has reported that it moves after that.
   std::optional<int64_t> m_standMs;
   std::optional<int64_t> m_startMs;
+  // It has driven faster than kSlowSpeedKmh since the start, and since when it reports that speed or slower.
+  bool m_fasterSinceStart = false;
+  std::optional<int64_t> m_slowMs;
+  // The start is the speed rising again after it, the car didn't report that it stands. It had that speed the way it
+  // drove then, m/s with the sign.
+  bool m_startAfterSlow = false;
+  double m_startFromMps = 0;
   // The way of the start is told by the accelerometer already.
   bool m_startFelt = true;
   // Until when the car stood for sure before that start.

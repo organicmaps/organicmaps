@@ -444,6 +444,21 @@ UNIT_TEST(NoGps_Engine_TurnFittingTwoStreetsFollowsBoth)
   TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 0, ());
 }
 
+UNIT_TEST(NoGps_Engine_MarkOnRoadOfShownOneIsDropped)
+{
+  // The street 40 m to the east turns towards the street of the car 60 m north of the crossing and ends 10 m from
+  // it: the other mark comes onto the street of the car behind the shown one, as on October 19 at 17:36.
+  PieceRoads roads({{-300, 0, 400, 0}, {200, 0, 200, 600}, {240, -10, 240, 60}, {240, 60, 210, 124}}, {{200, 0}});
+  Env env(true /* inertial */, &roads);
+  TurnLeftBesideCrossing(env);
+  TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 1, (env.m_engine.GetTripLine()));
+  // The two marks are one road: there is no other road to show the car on.
+  env.Drive(20'000, 36, 0);
+  TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
+  TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 0, (env.m_engine.GetTripLine()));
+  TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+}
+
 UNIT_TEST(NoGps_Engine_UserSwitchesMarkToAnotherStreet)
 {
   auto roads = TwoStreetsNorth(80, 400);
@@ -1557,7 +1572,7 @@ public:
       m_east += m_speed * 0.02 * std::sin(math::DegToRad(m_headingDeg));
       m_north += m_speed * 0.02 * std::cos(math::DegToRad(m_headingDeg));
       m_speeds.push_back(std::fabs(m_speed));
-      int const reportedKmh = static_cast<int>(std::lround(m_speeds.front() * 3.6));
+      int const reportedKmh = std::max(m_minReportedKmh, static_cast<int>(std::lround(m_speeds.front() * 3.6)));
       m_speeds.pop_front();
 
       m_env.m_clock.Advance(20);
@@ -1592,6 +1607,8 @@ public:
 
   // The gravity the accelerometer feels along the car on a slope.
   double m_slopeMps2 = 0;
+  // The car reports at least this speed, e.g. 1 km/h while it changes the gear.
+  int m_minReportedKmh = 0;
 
 private:
   Env & m_env;
@@ -1818,6 +1835,82 @@ UNIT_TEST(NoGps_Engine_CarDrivingBackAfterShortStopIsFollowed)
   TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
   car.Drive(2, 1, 0);
   car.Drive(3, 0, 0);
+  TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 3);
+}
+
+UNIT_TEST(NoGps_Engine_CarDrivingBackAfterStopReportedLateIsFollowed)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, -450);
+  BoxCar car(env, -450, true /* accelerometer */);
+  car.SpeedUpAndBrake();
+
+  // The car drives 56 m and stops for 1.4 s: the stand before is too far to take what was felt there. The car reports
+  // 0 for as long, but the lag later: it has stood for sure from the lag before that.
+  car.Drive(4, 1, 0);
+  car.Drive(10, 0, 0);
+  car.Drive(4, -1, 0);
+  car.Drive(1.4, 0, 0);
+  double const stoppedEast = car.East();
+  // And backward, as on October 18 at 21:23:31.
+  car.Drive(2, -1, 0);
+  car.Drive(2, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+  car.Drive(2, 1, 0);
+  car.Drive(3, 0, 0);
+  TestAlmostEqualAbs(car.East(), stoppedEast - 8, 0.5);
+  TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 3);
+}
+
+UNIT_TEST(NoGps_Engine_CarChangingGearAt1KmhIsFollowed)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, -450);
+  BoxCar car(env, -450, true /* accelerometer */);
+  car.SpeedUpAndBrake();
+
+  // The car drives 6 m backward at 5 km/h.
+  car.Drive(1.4, -1, 0);
+  car.Drive(3.6, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+  // It changes the gear, and the speed it reports doesn't reach 0, as on October 18 at 21:23:40.
+  car.m_minReportedKmh = 1;
+  car.Drive(2.8, 1, 0);
+  car.m_minReportedKmh = 0;
+  // Forward at 5 km/h for 10 m.
+  car.Drive(7, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+  TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 3);
+
+  // It stops for 3 s and drives backward at 5 km/h again, then slower, at 1 km/h for 2 s, and faster again: it still
+  // drives backward.
+  car.Drive(1.4, -1, 0);
+  car.Drive(3, 0, 0);
+  car.Drive(1.4, -1, 0);
+  car.Drive(3, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+  car.Drive(1, 1.1, 0);
+  car.Drive(2, 0, 0);
+  car.Drive(1, -1.1, 0);
+  car.Drive(3, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+  TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 3);
+
+  // It stops for 3 s and drives forward at 5 km/h, then slower, at 1 km/h for 2 s on a slope the accelerometer feels
+  // as driving backwards, and faster again: it still drives forward, a slow moment only ends driving backwards.
+  car.Drive(1.4, 1, 0);
+  car.Drive(3, 0, 0);
+  car.Drive(1.4, 1, 0);
+  car.Drive(3, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
+  car.Drive(1, -1.1, 0);
+  car.m_slopeMps2 = -1;
+  car.Drive(2, 0, 0);
+  car.Drive(1, 1.1, 0);
+  car.Drive(3, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=0") != std::string::npos, (env.m_engine.GetTripLine()));
   TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 3);
 }
 

@@ -276,9 +276,13 @@ def make_input(args):
                 all(number(f, 'speed', -1) >= 0 and f.get('src') != 'GPS' for f in rows))
 
     def speed_at(ms):
+        """The speed of the nearest trip line. A second of the box is not written when the car reports 0 at its end:
+        the faster of the lines around drove on a car that stood, on October 18 at 21:23:30 a stand of 1.5 s was
+        driven again as 0.4 s."""
         i = bisect.bisect_right(trip_times, ms)
         rows = [f for f in trips[max(0, i - 1):i + 1] if abs(f['ms'] - ms) <= 1500]
-        return max((int(number(f, 'speed', 0)) for f in rows), default=0)
+        nearest = min(rows, key=lambda f: abs(f['ms'] - ms), default=None)
+        return int(number(nearest, 'speed', 0)) if nearest else 0
 
     records = []  # (ms, order at the same time, text)
     previous = None
@@ -338,11 +342,15 @@ def make_input(args):
         records.append((first, -3, 'S %d 1' % first))
         if state.get('link', '').endswith('/CONNECTED'):
             records.append((first, -3, 'L %d CONNECTED' % first))
+        # GPS switched off in the sheet stays so until the application is closed: on October 19 it was switched off
+        # the day before, and the first GPS position came minutes after the file begins.
         disabled = None
         for ms, text, function in others:
             if function == 'SetGpsDisabled' and ms <= first:
                 disabled = text.split()[2] == '1'
-            elif first <= ms <= first + 60_000 and text.startswith('GPS is disabled, ignoring') and disabled is None:
+            elif disabled is None and ms >= first and function == 'SetGpsDisabled':
+                break
+            elif disabled is None and ms >= first and text.startswith('GPS is disabled, ignoring'):
                 disabled = True
         if disabled:
             records.append((first, -2, 'X %d 1' % first))
