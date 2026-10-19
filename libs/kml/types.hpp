@@ -1,7 +1,6 @@
 #pragma once
 
 #include "kml/area_data.hpp"
-
 #include "kml/type_utils.hpp"
 
 #include "coding/point_coding.hpp"

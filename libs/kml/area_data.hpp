@@ -2,7 +2,7 @@
 
 #include "kml/type_utils.hpp"
 
-#include "geometry/point2d.hpp"
+#include "geometry/latlon.hpp"
 
 #include <optional>
 #include <string>
@@ -12,8 +12,7 @@ namespace kml
 {
 struct AreaPoint
 {
-  // Geographic coordinates, before Mercator projection: x is longitude, y is latitude.
-  m2::PointD m_point;
+  ms::LatLon m_latLon;
   std::optional<double> m_altitude;
 
   bool operator==(AreaPoint const &) const = default;
@@ -56,7 +55,7 @@ struct AreaData
   bool operator==(AreaData const & other) const;
 };
 
-// Removes consecutive exact duplicate vertices and normalizes ring winding.
+// Removes consecutive exact duplicates and the closing vertex, and normalizes ring winding.
 // Topology is validated in a continuous longitude frame; source coordinates and altitude are retained.
 // Independent polygons are allowed to overlap, as in KML MultiGeometry.
 bool NormalizeAreaGeometry(std::vector<AreaPolygon> & polygons);

@@ -52,7 +52,6 @@ using TrackIdCollection = std::vector<TrackId>;
 using MarkIdSet = std::set<MarkId, std::greater<MarkId>>;
 using TrackIdSet = std::set<TrackId>;
 using AreaIdSet = std::set<AreaId>;
-using AreaIdCollection = std::vector<AreaId>;
 
 using GroupIdCollection = std::vector<MarkGroupId>;
 using GroupIdSet = std::set<MarkGroupId>;

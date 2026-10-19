@@ -451,11 +451,6 @@ void FillEmptyNames(std::unique_ptr<kml::FileData> & kmlData, std::string const 
   if (kmlData->m_categoryData.m_name.empty())
     kmlData->m_categoryData.m_name[kml::kDefaultLang] = name;
 
-  size_t unnamedArea = 0;
-  for (auto & area : kmlData->m_areasData)
-    if (area.m_name.empty())
-      area.m_name[kml::kDefaultLang] = name + " " + std::to_string(++unnamedArea);
-
   if (kmlData->m_tracksData.empty())
     return;
 

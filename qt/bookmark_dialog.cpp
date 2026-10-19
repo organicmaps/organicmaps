@@ -54,16 +54,6 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   m_tree->setHeaderLabels(columnLabels);
   m_tree->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectItems);
   connect(m_tree, &QTreeWidget::itemClicked, this, &BookmarkDialog::OnItemClick);
-  connect(m_tree, &QTreeWidget::itemSelectionChanged, this, [this, exportGpxButton, exportGeoJsonButton]
-  {
-    auto const selected = m_tree->selectedItems();
-    auto const category = selected.empty() ? m_categories.end() : m_categories.find(selected.front());
-    bool const supported =
-        category != m_categories.end() && m_framework.GetBookmarkManager().GetAreaIds(category->second).empty();
-    exportGpxButton->setEnabled(supported);
-    exportGeoJsonButton->setEnabled(supported);
-  });
-
   QHBoxLayout * horizontalLayout = new QHBoxLayout();
   horizontalLayout->addStretch();
   horizontalLayout->addWidget(importButton);

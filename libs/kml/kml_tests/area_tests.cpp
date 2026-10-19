@@ -14,14 +14,15 @@
 #include "base/math.hpp"
 
 #include <algorithm>
+#include <utility>
 
 namespace area_tests
 {
-kml::AreaRing Ring(std::initializer_list<m2::PointD> points)
+kml::AreaRing Ring(std::initializer_list<std::pair<double, double>> lonLat)
 {
   kml::AreaRing ring;
-  for (auto const & point : points)
-    ring.push_back({point, {}});
+  for (auto const & [lon, lat] : lonLat)
+    ring.push_back({ms::LatLon(lat, lon), {}});
   return ring;
 }
 
@@ -34,16 +35,15 @@ kml::FileData ReadKml(std::string const & text)
 
 double SignedRingArea(kml::AreaRing const & ring)
 {
-  auto const origin = ring.front().m_point;
+  auto const origin = ring.front().m_latLon;
   auto previous = origin;
   double area = 0;
   for (size_t i = 1; i < ring.size(); ++i)
   {
-    auto point = ring[i].m_point;
-    point.x = mercator::NearestWrapX(point.x, previous.x);
-    auto const a = previous - origin;
-    auto const b = point - origin;
-    area += a.x * b.y - a.y * b.x;
+    auto point = ring[i].m_latLon;
+    point.m_lon = mercator::NearestWrapX(point.m_lon, previous.m_lon);
+    area += (previous.m_lon - origin.m_lon) * (point.m_lat - origin.m_lat) -
+            (previous.m_lat - origin.m_lat) * (point.m_lon - origin.m_lon);
     previous = point;
   }
   return area / 2;
@@ -57,7 +57,7 @@ UNIT_TEST(Area_NormalizeShellAndHoles)
   TEST(kml::NormalizeAreaGeometry(polygons), ());
   TEST_EQUAL(polygons.front().m_outer.size(), 4, ());
   TEST_EQUAL(polygons.front().m_holes.front().size(), 4, ());
-  TEST_EQUAL(polygons.front().m_outer.front().m_point, m2::PointD(0, 0), ());
+  TEST_EQUAL(polygons.front().m_outer.front().m_latLon, ms::LatLon(0, 0), ());
 }
 
 UNIT_TEST(Area_RejectInvalidGeometry)
@@ -70,14 +70,13 @@ UNIT_TEST(Area_RejectInvalidGeometry)
   polygons = {{shell, {Ring({{12, 12}, {14, 12}, {14, 14}, {12, 14}})}}};
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
   polygons = {{shell, {}}};
-  polygons.front().m_outer[1].m_point.x = math::Infinity();
+  polygons.front().m_outer[1].m_latLon.m_lon = math::Infinity();
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
   polygons = {{shell, {}}};
-  polygons.front().m_outer[1].m_point.y = 91;
+  polygons.front().m_outer[1].m_latLon.m_lat = 91;
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
   polygons = {{shell, {}}};
-  polygons.front().m_outer.front().m_altitude = 1;
-  polygons.front().m_outer.push_back({{0, 0}, 2});
+  polygons.front().m_outer[1].m_altitude = math::Infinity();
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
 }
 
@@ -188,6 +187,26 @@ UNIT_TEST(Area_KmlRoundTrip)
   TEST(loaded.m_bookmarksData.empty(), ());
 }
 
+UNIT_TEST(Area_KmlRetainsCoordinatePrecisionBeyondMercatorLimits)
+{
+  auto const data = ReadKml(R"(<kml><Document><Placemark><Polygon><outerBoundaryIs><LinearRing><coordinates>
+    12.123456789012345,87.12345678901235,123.45678901234567
+    13.123456789012345,87.12345678901235
+    12.123456789012345,88.12345678901235,0
+    12.123456789012345,87.12345678901235,123.45678901234567
+    </coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark></Document></kml>)");
+  TEST_EQUAL(data.m_areasData.size(), 1, ());
+  auto const & ring = data.m_areasData.front().m_polygons.front().m_outer;
+  TEST_EQUAL(ring.front().m_latLon, ms::LatLon(87.12345678901235, 12.123456789012345), ());
+  TEST_EQUAL(*ring.front().m_altitude, 123.45678901234567, ());
+  TEST(!ring[1].m_altitude, ());
+  TEST_EQUAL(*ring[2].m_altitude, 0, ());
+  std::string output;
+  MemWriter writer(output);
+  kml::KmlWriter(writer).Write(data);
+  TEST_EQUAL(ReadKml(output).m_areasData, data.m_areasData, (output));
+}
+
 UNIT_TEST(Area_KmlMixedGeometryAndForwardStyle)
 {
   std::string const text = R"(<kml><Document>
@@ -234,6 +253,77 @@ UNIT_TEST(Area_KmlRejectsBrokenRingWithoutJoiningAcrossBadCoordinates)
   kml::DeserializerKml(data).Deserialize(MemReader(text.data(), text.size()));
   TEST(data.m_areasData.empty(), ());
   TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+}
+
+UNIT_TEST(Area_KmlClosingVertexAltitude)
+{
+  for (std::string const coordinates : {"0,0,10 4,0,10 0,4,10 0,0,20", "0,0 4,0 0,4 0,0,0", "0,0,0 4,0 0,4 0,0"})
+  {
+    auto const data =
+        ReadKml("<kml><Document><Placemark><Polygon><outerBoundaryIs><LinearRing><coordinates>" + coordinates +
+                "</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark>"
+                "</Document></kml>");
+    TEST_EQUAL(data.m_areasData.size(), 1, (coordinates));
+    TEST_EQUAL(data.m_areasData.front().m_polygons.front().m_outer.size(), 3, ());
+    std::string output;
+    MemWriter writer(output);
+    kml::KmlWriter(writer).Write(data);
+    TEST_EQUAL(ReadKml(output).m_areasData, data.m_areasData, (output));
+  }
+}
+
+UNIT_TEST(Area_KmlMultipleInnerRings)
+{
+  auto const data = ReadKml(R"(<kml><Document><Placemark><Polygon>
+    <outerBoundaryIs><LinearRing><coordinates>0,0 10,0 10,10 0,10 0,0</coordinates></LinearRing></outerBoundaryIs>
+    <innerBoundaryIs>
+      <LinearRing><coordinates>1,1 2,1 2,2 1,2 1,1</coordinates></LinearRing>
+      <LinearRing><coordinates>3,3 4,3 4,4 3,4 3,3</coordinates></LinearRing>
+    </innerBoundaryIs>
+    <innerBoundaryIs><LinearRing><coordinates>5,5 6,5 6,6 5,6 5,5</coordinates></LinearRing></innerBoundaryIs>
+    </Polygon></Placemark></Document></kml>)");
+  TEST_EQUAL(data.m_areasData.size(), 1, ());
+  TEST_EQUAL(data.m_areasData.front().m_polygons.front().m_holes.size(), 3, ());
+  std::string output;
+  MemWriter writer(output);
+  kml::KmlWriter(writer).Write(data);
+  TEST_EQUAL(ReadKml(output).m_areasData, data.m_areasData, (output));
+}
+
+UNIT_TEST(Area_KmlRejectsInvalidTopology)
+{
+  for (std::string const polygon :
+       {"<outerBoundaryIs><LinearRing><coordinates>0,0 4,4 0,4 4,0 0,0</coordinates></LinearRing></outerBoundaryIs>",
+        "<outerBoundaryIs><LinearRing><coordinates>0,0 4,0 4,4 0,4 0,0</coordinates></LinearRing></outerBoundaryIs>"
+        "<innerBoundaryIs><LinearRing><coordinates>5,5 6,5 6,6 5,6 5,5</coordinates></LinearRing></innerBoundaryIs>",
+        "<outerBoundaryIs><LinearRing><coordinates>0,0 4,0 0,91 0,0</coordinates></LinearRing></outerBoundaryIs>"})
+  {
+    auto const data =
+        ReadKml("<kml><Document><Placemark><Polygon>" + polygon +
+                "</Polygon></Placemark>"
+                "<Placemark><Polygon><outerBoundaryIs><LinearRing><coordinates>0,0 4,0 0,4 0,0</coordinates>"
+                "</LinearRing></outerBoundaryIs></Polygon></Placemark></Document></kml>");
+    TEST_EQUAL(data.m_areasData.size(), 1, (polygon));
+    TEST_EQUAL(data.m_areasData.front().m_polygons.front().m_outer.size(), 3, ());
+  }
+}
+
+UNIT_TEST(Area_KmlCyclicAndMissingStylesKeepInlineOverrides)
+{
+  for (std::string const reference : {"#first", "#missing", "https://example.org/styles.kml#style"})
+  {
+    auto const data = ReadKml("<kml><Document><Placemark><styleUrl>" + reference + R"(</styleUrl>
+      <Style><PolyStyle><fill>0</fill></PolyStyle></Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>0,0 4,0 0,4 0,0</coordinates>
+      </LinearRing></outerBoundaryIs></Polygon></Placemark>
+      <StyleMap id="first"><Pair><key>normal</key><styleUrl>#second</styleUrl></Pair></StyleMap>
+      <StyleMap id="second"><Pair><key>normal</key><styleUrl>#first</styleUrl></Pair></StyleMap>
+      </Document></kml>)");
+    TEST_EQUAL(data.m_areasData.size(), 1, (reference));
+    kml::AreaStyle expected;
+    expected.m_fill = false;
+    TEST(data.m_areasData.front().m_style == expected, (reference));
+  }
 }
 
 UNIT_TEST(Area_KmlStyleMapScopesAndInlineOverrides)

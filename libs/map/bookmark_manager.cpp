@@ -1733,10 +1733,10 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
     {
       ASSERT_GREATER_OR_EQUAL(polygon.m_outer.size(), 3, (areaId));
       m2::RectD polygonRect;
-      auto reference = polygon.m_outer.front().m_point.x;
+      auto reference = polygon.m_outer.front().m_latLon.m_lon;
       for (auto const & point : polygon.m_outer)
       {
-        auto projected = mercator::FromLatLon(point.m_point.y, point.m_point.x);
+        auto projected = mercator::FromLatLon(point.m_latLon);
         projected.x = mercator::NearestWrapX(projected.x, reference);
         reference = projected.x;
         polygonRect.Add(projected);
@@ -2818,7 +2818,6 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     for (auto & area : fileData.m_areasData)
     {
-      CHECK_LESS(m_lastAreaId, kml::kInvalidAreaId - 1, ());
       area.m_id = ++m_lastAreaId;
       group->AttachArea(area.m_id);
       m_areas.emplace(area.m_id, std::move(area));

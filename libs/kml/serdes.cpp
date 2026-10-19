@@ -600,14 +600,14 @@ void SaveAreaNumber(Writer & writer, double value)
 void SaveAreaRing(Writer & writer, AreaRing const & ring, std::string_view boundary)
 {
   CHECK_GREATER_OR_EQUAL(ring.size(), 3, ());
-  writer << "      <" << boundary << "><LinearRing><coordinates>\n";
+  writer << kIndent6 << "<" << boundary << "><LinearRing><coordinates>\n";
   for (size_t i = 0; i <= ring.size(); ++i)
   {
     auto const & point = ring[i % ring.size()];
     writer << kIndent8;
-    SaveAreaNumber(writer, point.m_point.x);
+    SaveAreaNumber(writer, point.m_latLon.m_lon);
     writer << ",";
-    SaveAreaNumber(writer, point.m_point.y);
+    SaveAreaNumber(writer, point.m_latLon.m_lat);
     if (point.m_altitude)
     {
       writer << ",";
@@ -615,7 +615,7 @@ void SaveAreaRing(Writer & writer, AreaRing const & ring, std::string_view bound
     }
     writer << "\n";
   }
-  writer << "      </coordinates></LinearRing></" << boundary << ">\n";
+  writer << kIndent6 << "</coordinates></LinearRing></" << boundary << ">\n";
 }
 
 void SaveAreaData(Writer & writer, AreaData const & area)
@@ -823,10 +823,10 @@ void KmlParser::ParseAreaRing(std::string_view value, AreaRing & ring)
     auto const comma = tuple.find(',');
     auto const altitude = comma == std::string_view::npos ? comma : tuple.find(',', comma + 1);
     AreaPoint point;
-    if (comma == std::string_view::npos || !strings::to_double(tuple.substr(0, comma), point.m_point.x) ||
+    if (comma == std::string_view::npos || !strings::to_double(tuple.substr(0, comma), point.m_latLon.m_lon) ||
         !strings::to_double(
             tuple.substr(comma + 1, altitude == std::string_view::npos ? altitude : altitude - comma - 1),
-            point.m_point.y))
+            point.m_latLon.m_lat))
     {
       m_invalidArea = true;
       return;
@@ -1023,7 +1023,7 @@ bool KmlParser::Push(std::string movedTag)
       m_invalidArea = true;
     m_polygon.emplace();
   }
-  else if (tag == "innerBoundaryIs" && m_polygon && GetTagFromEnd(1) == "Polygon")
+  else if (tag == "LinearRing" && m_polygon && GetTagFromEnd(1) == "innerBoundaryIs" && GetTagFromEnd(2) == "Polygon")
     m_polygon->m_holes.emplace_back();
 
   if (IsProcessTrackTag())
@@ -1516,7 +1516,7 @@ void KmlParser::CharData(std::string & value)
     }
     else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl && m_styleUrlKey == "normal")
     {
-      if (count > 3 && m_tags[count - 4] == kPlacemark)
+      if (pppTag == kPlacemark)
         m_areaStyleReference = value;
       else if (!m_mapStyleId.empty())
         m_mapStyle2Style[m_mapStyleId] = value;
