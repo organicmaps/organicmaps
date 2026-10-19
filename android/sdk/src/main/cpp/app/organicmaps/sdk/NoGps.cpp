@@ -228,14 +228,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeOnEsp32BleState(JNI
   NoGpsEngine().OnEsp32BleState(static_cast<nogps::BleState>(state));
 }
 
-JNIEXPORT jboolean Java_app_organicmaps_sdk_location_NoGps_nativeIsManualMode(JNIEnv *, jclass)
+JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeSetMarkByTap(JNIEnv *, jclass, jboolean armed)
 {
-  return static_cast<jboolean>(NoGpsEngine().IsManualMode());
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeSetManualMode(JNIEnv *, jclass, jboolean enabled)
-{
-  NoGpsEngine().SetManualMode(enabled);
+  NoGpsEngine().SetMarkByTap(armed);
 }
 
 JNIEXPORT jdouble Java_app_organicmaps_sdk_location_NoGps_nativeShiftPosition(JNIEnv *, jclass, jdouble distanceM)
@@ -310,6 +305,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_NoGps_nativeGetStatus(JNIEnv * 
   SetNoGpsField(env, out, "source", static_cast<int>(status.m_source));
   SetNoGpsFloat(env, out, "accuracyM", status.m_accuracyM);
   SetNoGpsField(env, out, "manualMode", status.m_manualMode);
+  SetNoGpsField(env, out, "markByTap", status.m_markByTap);
   SetNoGpsLong(env, out, "manualAgeMs", status.m_manualAgeMs);
   SetNoGpsField(env, out, "gpsSpoofed", status.m_gpsSpoofed);
   SetNoGpsField(env, out, "gpsDisabled", status.m_gpsDisabled);

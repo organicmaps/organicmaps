@@ -47,6 +47,8 @@ struct Status
   PositionSource m_source = PositionSource::None;
   double m_accuracyM = 0;
   bool m_manualMode = false;
+  // The next tap on the map shows where the car is: the button for it is pressed.
+  bool m_markByTap = false;
   // Since the user has set the position in the manual mode.
   int64_t m_manualAgeMs = 0;
   bool m_gpsSpoofed = false;
@@ -224,7 +226,11 @@ public:
   /// Puts the car on the road at the position, e.g. tapped on the map. Works only in the manual mode.
   /// \returns false if there is no road at the position: the car is always on a road.
   bool SetManualLocation(ms::LatLon const & position);
-  /// The user has tapped the map in the manual mode to show where the car is.
+  /// The next tap on the map shows where the car is, see PlaceMarkByTap(): the user has pressed the button for it.
+  void SetMarkByTap(bool armed);
+  bool IsMarkByTap() const { return m_markByTap; }
+  /// The user has tapped the map to show where the car is. The car is followed from there without GPS, in the
+  /// manual mode, which is left by itself when GPS is trusted again. Ends SetMarkByTap().
   /// \returns false if there is no road at the position.
   bool PlaceMarkByTap(ms::LatLon const & position);
   /// Moves the position along the route, or along the road if there is no route, e.g. when the calculated
@@ -295,6 +301,9 @@ private:
   bool IsAlongRoad(ms::LatLon const & position, double bearingDeg);
   std::optional<RoadPoint> SnapMarkToRoad(ms::LatLon const & position, std::optional<double> bearingDeg, double radiusM,
                                           std::optional<Fix> const & turnedFrom);
+  /// The road the car is put on by a mark at the position, nothing if there is none.
+  std::optional<RoadPoint> FindMarkRoad(ms::LatLon const & position);
+  void PutMark(ms::LatLon const & position, RoadPoint const & road);
   void EnterManualModeByItself(std::string const & reason);
   void CheckGpsLost();
   void CheckMotionSourceStopped();
@@ -335,6 +344,8 @@ private:
   bool m_manualMode = false;
   bool m_gpsDisabled = false;
   std::optional<Fix> m_manualLocation;
+  // The next tap on the map shows where the car is.
+  bool m_markByTap = false;
   // The last position set by the user.
   int64_t m_manualSetTimeMs = 0;
   // The last GPS position good enough to be used. It is kept in the manual mode too, where GPS is not used,

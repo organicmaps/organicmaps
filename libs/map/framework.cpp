@@ -2349,16 +2349,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     return;
   }
 
-  if (buildInfo.m_isDoubleTap)
+  // The user has asked with the button of the navigation without GPS to show where the car is by the next tap. Any
+  // tap did it in the manual mode before, and a hand touching the screen by chance threw the car away.
+  if (buildInfo.m_source == place_page::BuildInfo::Source::User && m_noGps && m_noGps->GetEngine().IsMarkByTap())
   {
-    // In the manual mode of the navigation without GPS a double tap on the map shows where the car is. A single
-    // one did it before, and the car was thrown away by a hand that touched the screen by chance; it selects a
-    // place now, as without the manual mode, e.g. to build a route there.
-    if (!m_noGps || !m_noGps->GetEngine().IsManualMode())
-    {
-      Scale(2.0 /* factor */, buildInfo.m_pixel, true /* isAnim */);
-      return;
-    }
     // The map moved away by the user comes back to the car by itself in a while, and the car seems to drive along
     // the road then. It comes back at once instead, the user has just shown where the car is.
     if (m_noGps->GetEngine().PlaceMarkByTap(mercator::ToLatLon(buildInfo.m_mercator)) &&

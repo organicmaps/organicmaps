@@ -27,6 +27,7 @@ import androidx.annotation.OptIn;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
@@ -181,8 +182,10 @@ public class MapButtonsController extends Fragment
     mManualPositionButton = mFrame.findViewById(R.id.manual_position);
     mPositionStatus = mFrame.findViewById(R.id.position_status);
     mPositionStatus.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.positionStatus));
-    mManualPositionButton.setOnClickListener(
-        (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.manualPosition));
+    mManualPositionButton.setOnClickListener((v) -> {
+      mMapButtonClickListener.onMapButtonClick(MapButtons.manualPosition);
+      updatePositionStatus();
+    });
     mShiftPositionContainer = mFrame.findViewById(R.id.shift_position_container);
     mShiftPositionStep = mFrame.findViewById(R.id.shift_position_step);
     mShiftPositionForward = mFrame.findViewById(R.id.shift_position_forward);
@@ -395,11 +398,17 @@ public class MapButtonsController extends Fragment
     setShiftEnabled(mShiftPositionForward, !status.shiftForwardBlocked);
     setShiftEnabled(mShiftPositionBack, !status.shiftBackBlocked);
 
-    // The icon tells where the position comes from now: from satellites or from the user.
+    // The car is marked by hand only while the position does not come from GPS. The button is red while the next
+    // tap on the map shows where the car is, the tap is taken back when GPS is used again.
     if (mManualPositionButton != null)
     {
-      mManualPositionButton.setImageResource(status.manualMode ? R.drawable.ic_manual_position
-                                                               : R.drawable.ic_gps_position);
+      final boolean shown = source != NoGps.PositionSource.GPS;
+      if (!shown && status.markByTap)
+        NoGps.nativeSetMarkByTap(false);
+      showCarControl(shown, mManualPositionButton);
+      final int color = shown && status.markByTap ? ContextCompat.getColor(context, R.color.base_red)
+                                                  : ThemeUtils.getColor(context, R.attr.iconTint);
+      ImageViewCompat.setImageTintList(mManualPositionButton, ColorStateList.valueOf(color));
     }
   }
 

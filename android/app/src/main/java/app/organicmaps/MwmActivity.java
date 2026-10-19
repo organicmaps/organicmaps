@@ -852,7 +852,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     case help -> showHelp();
     case trackRecordingStatus -> toggleTrackRecordingPP();
-    case manualPosition -> toggleManualPositionMode();
+    case manualPosition -> toggleMarkByTap();
     case positionStatus -> new SensorsBottomSheet().show(getSupportFragmentManager(), SensorsBottomSheet.TAG);
     case shiftPositionForward -> shiftPosition(true /* forward */);
     case shiftPositionBack -> shiftPosition(false /* forward */);
@@ -895,12 +895,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-  private void toggleManualPositionMode()
+  /**
+   * The next tap on the map shows where the car is; the button pressed again takes it back. The car is followed
+   * without GPS from the mark, GPS is taken again by itself when it is trusted.
+   */
+  private void toggleMarkByTap()
   {
-    final boolean enable = !NoGps.nativeIsManualMode();
-    NoGps.nativeSetManualMode(enable);
-    Toast.makeText(this, enable ? R.string.nogps_manual_mode_on : R.string.nogps_manual_mode_off, Toast.LENGTH_LONG)
-        .show();
+    final boolean armed = !NoGps.getStatus().markByTap;
+    NoGps.nativeSetMarkByTap(armed);
+    if (armed)
+      Toast.makeText(this, R.string.nogps_mark_by_tap, Toast.LENGTH_SHORT).show();
   }
 
   private void onNoGpsEvent(@NonNull NoGps.Event event)

@@ -64,9 +64,6 @@ struct TapInfo
   bool const m_isMyPositionTapped;
   FeatureID const m_featureTapped;
   kml::MarkId const m_markTapped;
-  // A double tap zooms the map in around its pixel, unless the application has another use for it.
-  bool const m_isDouble = false;
-  m2::PointD const m_pixel = {};
 
   static m2::AnyRectD GetDefaultTapRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase const & screen);
