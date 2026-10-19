@@ -1023,7 +1023,39 @@ bool Engine::SetManualLocation(ms::LatLon const & position)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_manualMode, ("Manual mode is off"));
+  auto const road = FindMarkRoad(position);
+  if (!road)
+    return false;
+  PutMark(position, *road);
+  return true;
+}
 
+void Engine::SetMarkByTap(bool armed)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  LOG(LINFO, ("armed =", armed));
+  m_markByTap = armed;
+}
+
+bool Engine::PlaceMarkByTap(ms::LatLon const & position)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  // Without a road there the next tap still shows where the car is: the user taps the road once more.
+  auto const road = FindMarkRoad(position);
+  if (!road)
+  {
+    Notify(Event::MarkNoRoad);
+    return false;
+  }
+  // GPS may work: the mark tells that it is wrong, as the manual mode turned on by the user did.
+  SetManualMode(true);
+  PutMark(position, *road);
+  m_markByTap = false;
+  return true;
+}
+
+std::optional<RoadPoint> Engine::FindMarkRoad(ms::LatLon const & position)
+{
   // The car stands on the axis of a road and looks one of its two ways: the way it has looked before, the
   // user turns it around with the reverse button. The gyroscope has followed the turns since.
   auto const heading = GetCarBearing();
@@ -1041,20 +1073,21 @@ bool Engine::SetManualLocation(ms::LatLon const & position)
   if (!road)
     road = SnapMarkToRoad(position, heading, kManualSnapRadiusM, m_savedLocation);
   if (!road)
-  {
     LOG(LINFO, ("No road at the tap =", position));
-    return false;
-  }
+  return road;
+}
 
+void Engine::PutMark(ms::LatLon const & position, RoadPoint const & road)
+{
   Fix location;
   location.m_provider = Provider::Manual;
-  location.m_position = road->m_point;
+  location.m_position = road.m_point;
   location.m_accuracyM = kManualAccuracyM;
-  location.m_bearingDeg = road->m_bearingDeg;
+  location.m_bearingDeg = road.m_bearingDeg;
   location.m_timeMs = m_clock.NowMs();
   location.m_unixTimeMs = m_clock.UnixNowMs();
-  LOG(LINFO, ("tap =", position, "location =", location.m_position, "bearing =", road->m_bearingDeg,
-              "heading was =", heading));
+  LOG(LINFO, ("tap =", position, "location =", location.m_position, "bearing =", road.m_bearingDeg,
+              "heading was =", GetCarBearing()));
 
   m_manualLocation = location;
   m_manualSetTimeMs = m_clock.NowMs();
@@ -1063,18 +1096,9 @@ bool Engine::SetManualLocation(ms::LatLon const & position)
   // The mark looks along the road whatever the gyroscope has counted. A heading kept 18 degrees aside of the road
   // has drawn the car across it on October 10, and no tap could put it right.
   if (m_inertial)
-    m_inertial->SetMarkOnRoad(road->m_point, road->m_bearingDeg);
+    m_inertial->SetMarkOnRoad(road.m_point, road.m_bearingDeg);
   ApplyManualLocation();
   ShowOffRoadCar();
-  return true;
-}
-
-bool Engine::PlaceMarkByTap(ms::LatLon const & position)
-{
-  if (SetManualLocation(position))
-    return true;
-  Notify(Event::MarkNoRoad);
-  return false;
 }
 
 bool Engine::IsAlongRoad(ms::LatLon const & position, double bearingDeg)
@@ -1246,6 +1270,7 @@ Status Engine::GetStatus()
   status.m_source = GetPositionSource();
   status.m_accuracyM = m_savedLocation ? m_savedLocation->m_accuracyM : 0;
   status.m_manualMode = m_manualMode;
+  status.m_markByTap = m_markByTap;
   status.m_manualAgeMs = MsSince(m_manualSetTimeMs);
   status.m_gpsSpoofed = m_spoofingDetector.IsSpoofed();
   status.m_gpsDisabled = m_gpsDisabled;

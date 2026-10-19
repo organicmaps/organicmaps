@@ -209,6 +209,31 @@ UNIT_TEST(NoGps_Engine_MarkIsOnRoadAndShowsCarHeading)
   TEST_EQUAL(env.Last().m_bearingDeg, 270.0, ());
 }
 
+UNIT_TEST(NoGps_Engine_ButtonLetsNextTapMarkCar)
+{
+  Env env(false /* inertial */);
+  env.DriveGps(5, 0 /* eastM */, 10 /* speedMps */);
+  TEST(!env.m_engine.IsManualMode(), ());
+
+  env.m_engine.SetMarkByTap(true);
+  TEST(env.m_engine.GetStatus().m_markByTap, ());
+  // A tap between the streets is not where the car is: the next one may be.
+  TEST(!env.m_engine.PlaceMarkByTap(At(50, 50)), ());
+  TEST(env.m_delegate.HasEvent(Event::MarkNoRoad), ());
+  TEST(env.m_engine.IsMarkByTap(), ());
+  TEST(!env.m_engine.IsManualMode(), ());
+
+  // GPS works, but the user shows that the car is elsewhere: it is followed without GPS from there.
+  TEST(env.m_engine.PlaceMarkByTap(At(60, 4)), ());
+  TEST(env.m_engine.IsManualMode(), ());
+  TEST(env.m_delegate.HasEvent(Event::ManualModeChanged), ());
+  TEST_EQUAL(env.Last().m_provider, Provider::Manual, ());
+  TestAlmostEqualAbs(East(env.Last().m_position), 60, 0.5);
+  // The button is pressed for one tap.
+  TEST(!env.m_engine.IsMarkByTap(), ());
+  TEST(!env.m_engine.GetStatus().m_markByTap, ());
+}
+
 UNIT_TEST(NoGps_Engine_ShiftStopsAtCrossing)
 {
   Env env(false /* inertial */);

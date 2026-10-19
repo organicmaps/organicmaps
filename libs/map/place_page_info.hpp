@@ -109,8 +109,6 @@ struct BuildInfo
     , m_isMyPosition(info.m_isMyPositionTapped)
     , m_featureId(info.m_featureTapped)
     , m_userMarkId(info.m_markTapped)
-    , m_isDoubleTap(info.m_isDouble)
-    , m_pixel(info.m_pixel)
   {}
 
   bool IsFeatureMatchingEnabled() const { return m_match == Match::Everything || m_match == Match::FeatureOnly; }
@@ -129,9 +127,6 @@ struct BuildInfo
   kml::TrackId m_trackId = kml::kInvalidTrackId;
   bool m_isGeometrySelectionAllowed = false;
   bool m_needAnimationOnSelection = true;
-  bool m_isDoubleTap = false;
-  // Where the screen was tapped twice.
-  m2::PointD m_pixel;
 };
 
 class Info : public osm::MapObject
