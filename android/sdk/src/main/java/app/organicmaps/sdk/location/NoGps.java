@@ -151,6 +151,9 @@ public final class NoGps
     public float accuracyM;
     @Keep
     public boolean manualMode;
+    // The next tap on the map shows where the car is.
+    @Keep
+    public boolean markByTap;
     // Since the user has set the position in the manual mode.
     @Keep
     public long manualAgeMs;
@@ -454,9 +457,8 @@ public final class NoGps
    */
   static native void nativeOnEsp32BleState(int state);
 
-  public static native boolean nativeIsManualMode();
-
-  public static native void nativeSetManualMode(boolean enabled);
+  /// The next tap on the map shows where the car is, it ends this: the user has pressed the button for it.
+  public static native void nativeSetMarkByTap(boolean armed);
 
   public static native double nativeShiftPosition(double distanceM);
 
