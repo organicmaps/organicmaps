@@ -901,8 +901,6 @@
 
     <!-- SECTION: NoGPS Maps -->
     <string name="nogps_manual_position">Set my position manually</string>
-    <string name="nogps_manual_mode_on">GPS is ignored. Double-tap the map where you are.</string>
-    <string name="nogps_manual_mode_off">GPS is on again</string>
     <!-- The user has pressed the button to show on the map where the car is -->
     <string name="nogps_mark_by_tap">Tap the road where the car is</string>
     <string name="nogps_gps_spoofed">GPS is spoofed! Using cell towers and Wi-Fi. You can also set your position manually.</string>

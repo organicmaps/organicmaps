@@ -912,8 +912,6 @@
 
     <!-- SECTION: NoGPS Maps -->
     <string name="nogps_manual_position">Указать своё местоположение вручную</string>
-    <string name="nogps_manual_mode_on">GPS отключён. Дважды нажмите на карту там, где вы находитесь.</string>
-    <string name="nogps_manual_mode_off">GPS снова включён</string>
     <!-- The user has pressed the button to show on the map where the car is -->
     <string name="nogps_mark_by_tap">Коснитесь дороги, где сейчас машина</string>
     <string name="nogps_gps_spoofed">GPS подменён! Используем вышки и Wi-Fi. Можно также указать позицию вручную.</string>
