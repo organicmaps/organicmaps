@@ -10,7 +10,6 @@
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_utils.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/preferred_languages.hpp"
@@ -139,13 +138,6 @@ private:
   SearchAPI::Delegate & m_delegate;
   OnResults m_onResults;
 };
-
-// Countries, states, cities, towns and villages are looked for by their names, wherever they are.
-bool IsPlace(Result const & result)
-{
-  return result.GetResultType() != Result::Type::Feature ||
-         ftypes::IsLocalityChecker::Instance().GetType(result.GetFeatureType()) != ftypes::LocalityType::None;
-}
 }  // namespace
 
 SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
@@ -212,7 +204,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
     // The core adds the results batch by batch: a near one found later is put first.
     Results ordered = results;
     if (pivot)
-      OrderNearestFirst(*pivot, IsPlace, ordered);
+      OrderNearestFirst(*pivot, ordered);
     RunUITask([onResults, results = std::move(ordered)]() mutable { onResults(std::move(results)); });
   };
 
@@ -575,7 +567,7 @@ bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewp
   return true;
 }
 
-void OrderNearestFirst(m2::PointD const & pivot, std::function<bool(Result const &)> const & isOnTop, Results & results)
+void OrderNearestFirst(m2::PointD const & pivot, Results & results)
 {
   size_t const count = results.GetCount();
   // The results staying first are nearer than any.
@@ -584,7 +576,8 @@ void OrderNearestFirst(m2::PointD const & pivot, std::function<bool(Result const
   {
     auto const & result = results[i];
     ASSERT_EQUAL(result.GetPositionInResults(), static_cast<int32_t>(i), ());
-    if (IsMatchedResult(result) && !isOnTop(result))
+    // Coordinates and postcodes are what the user has typed.
+    if (IsMatchedResult(result) && result.GetResultType() == Result::Type::Feature)
       distances[i] = mercator::DistanceOnEarth(pivot, result.GetFeatureCenter());
   }
   std::vector<size_t> order(count);
