@@ -164,6 +164,7 @@ public:
   void SwitchMyPositionNextMode();
   void LoseLocation();
   void StopLocationFollow();
+  void SetLocationFollowPaused(bool paused);
 
   using TapEventInfoHandler = FrontendRenderer::TapEventInfoHandler;
   void SetTapEventInfoListener(TapEventInfoHandler && fn);

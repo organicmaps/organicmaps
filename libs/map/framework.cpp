@@ -2277,7 +2277,10 @@ bool Framework::DeactivateMapSelection()
     m_currentPlacePageInfo = {};
 
     if (m_drapeEngine != nullptr)
+    {
       m_drapeEngine->DeselectObject(false /* restoreViewport */);
+      m_drapeEngine->SetLocationFollowPaused(false);
+    }
   }
 
   return false;
@@ -2371,6 +2374,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   DeactivateHotelSearchMark();
 
   m_currentPlacePageInfo = placePageInfo;
+
+  // Keep the selected place visible without changing the location button's mode.
+  if (buildInfo.m_source == place_page::BuildInfo::Source::User && m_drapeEngine)
+    m_drapeEngine->SetLocationFollowPaused(true);
 
   auto const newTrackId = m_currentPlacePageInfo->GetTrackId();
   if (newTrackId != kml::kInvalidTrackId)
