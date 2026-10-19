@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap";
 
+/* App Tip #00 */
+"app_tip_00" = "Tak, fordi du bruger vores fællesskabsskabte kort!";
+
+/* App tip #01 */
+"app_tip_01" = "Med dine donationer og støtte kan vi skabe de bedste kort i verden!";
+
+/* App tip #02 */
+"app_tip_02" = "Kan du lide vores app? Donér venligst for at støtte udviklingen! Kan du ikke lide det endnu? Fortæl os det, så ordner vi det!";
+
+/* App tip #03 */
+"app_tip_03" = "Hvis du kender en softwareudvikler, kan du bede ham eller hende om at implementere en funktion, som du har brug for.";
+
+/* App tip #04 */
+"app_tip_04" = "Tryk hvor som helst på kortet for at vælge noget. Tryk længe for at skjule og vise grænsefladen igen.";
+
+/* App tip #05 */
+"app_tip_05" = "Ved du, at du kan vælge din nuværende placering på kortet?";
+
+/* App tip #06 */
+"app_tip_06" = "Du kan hjælpe med at oversætte vores app til dit sprog.";
+
+/* App tip #07 */
+"app_tip_07" = "Vores app er udviklet af nogle få entusiaster og fællesskabet.";
+
+/* App tip #08 */
+"app_tip_08" = "Du kan nemt rette og forbedre kortdataene.";
+
+/* App tip #09 */
+"app_tip_09" = "Vores hovedmål er at bygge hurtige, privatlivsfokuserede, brugervenlige kort, som du vil elske.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Du bruger nu Organic Maps på telefonens skærm";
 

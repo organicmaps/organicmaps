@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/DE:Über_OSM";
 
+/* App Tip #00 */
+"app_tip_00" = "Danke, dass du unsere von der Community erstellten Karten benutzt!";
+
+/* App tip #01 */
+"app_tip_01" = "Mit deinen Spenden und deiner Unterstützung können wir die besten Karten der Welt erstellen!";
+
+/* App tip #02 */
+"app_tip_02" = "Gefällt dir unsere App? Bitte spende, um die Entwicklung zu unterstützen! Gefällt sie dir noch nicht? Bitte lass uns den Grund dafür wissen, damit wir das Problem beheben können!";
+
+/* App tip #03 */
+"app_tip_03" = "Wenn du einen Softwareentwickler kennst, kannst du ihn oder sie bitten, eine Funktion zu implementieren, die du benötigst.";
+
+/* App tip #04 */
+"app_tip_04" = "Tippe irgendwo auf die Karte, um etwas auszuwählen. Tipp lange, um die Oberfläche aus- und wieder einzublenden.";
+
+/* App tip #05 */
+"app_tip_05" = "Wusstest du, dass du deinen aktuellen Standort auf der Karte auswählen kannst?";
+
+/* App tip #06 */
+"app_tip_06" = "Du kannst dabei helfen, unsere App in deine Sprache zu übersetzen.";
+
+/* App tip #07 */
+"app_tip_07" = "Unsere App wird von einigen Enthusiasten und der Community entwickelt.";
+
+/* App tip #08 */
+"app_tip_08" = "Du kannst die Kartendaten einfach korrigieren und verbessern.";
+
+/* App tip #09 */
+"app_tip_09" = "Unser Hauptziel ist es, schnelle, datenschutzorientierte und benutzerfreundliche Karten zu erstellen, die du liebst.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Du verwendest jetzt Organic Maps auf dem Telefondisplay";
 
