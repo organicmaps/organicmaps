@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* App Tip #00 */
+"app_tip_00" = "Faleminderit që përdorni hartat tona të ndërtuara nga komuniteti!";
+
+/* App tip #01 */
+"app_tip_01" = "Me donacionet dhe mbështetjen tuaj, ne mund të krijojmë hartat më të mira në Botë!";
+
+/* App tip #02 */
+"app_tip_02" = "A ju pëlqen aplikacioni ynë? Ju lutemi dhuroni për të mbështetur zhvillimin! Nuk ju pëlqen ende? Ju lutemi na tregoni pse, dhe ne do ta rregullojmë!";
+
+/* App tip #03 */
+"app_tip_03" = "Nëse njihni një zhvillues softuerësh, mund t'i kërkoni atij ose asaj të zbatojë një veçori që ju nevojitet.";
+
+/* App tip #04 */
+"app_tip_04" = "Prekni kudo në hartë për të zgjedhur çdo gjë. Një prekje e gjatë përdoret për të fshehur dhe shfaqur ndërfaqen.";
+
+/* App tip #05 */
+"app_tip_05" = "A e dinit që vendndodhja juaj aktuale në hartë mund të zgjidhet?";
+
+/* App tip #06 */
+"app_tip_06" = "Ju mund të ndihmoni në përkthimin e aplikacionit tonë në gjuhën tuaj.";
+
+/* App tip #07 */
+"app_tip_07" = "Aplikacioni ynë zhvillohet nga disa entuziastë dhe komuniteti.";
+
+/* App tip #08 */
+"app_tip_08" = "Ju mund të rregulloni dhe përmirësoni lehtësisht të dhënat e hartës.";
+
+/* App tip #09 */
+"app_tip_09" = "Qëllimi ynë kryesor është të ndërtojmë harta të shpejta, të fokusuara te privatësia dhe të lehta për t'u përdorur që do t'i doni.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Tani jeni duke përdorur Organic Maps në ekranin e telefonit";
 

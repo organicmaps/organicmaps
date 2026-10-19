@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/IT:About";
 
+/* App Tip #00 */
+"app_tip_00" = "Grazie per utilizzare le nostre mappe create dalla comunità!";
+
+/* App tip #01 */
+"app_tip_01" = "Con le tue donazioni e il tuo supporto, possiamo creare le migliori mappe del mondo!";
+
+/* App tip #02 */
+"app_tip_02" = "Ti piace la nostra app? Dona per sostenerne lo sviluppo! Non ti piace ancora? Facci sapere perché e risolveremo il problema!";
+
+/* App tip #03 */
+"app_tip_03" = "Se conosci uno sviluppatore di software, puoi chiedergli di implementare una funzionalità di cui hai bisogno.";
+
+/* App tip #04 */
+"app_tip_04" = "Tocca un punto qualsiasi della mappa per selezionare qualsiasi cosa. Toccare a lungo per nascondere e mostrare l'interfaccia.";
+
+/* App tip #05 */
+"app_tip_05" = "Lo sapevi che puoi selezionare la tua posizione attuale sulla mappa?";
+
+/* App tip #06 */
+"app_tip_06" = "Puoi aiutare a tradurre la nostra app nella tua lingua.";
+
+/* App tip #07 */
+"app_tip_07" = "La nostra app è sviluppata da alcuni appassionati e dalla comunità.";
+
+/* App tip #08 */
+"app_tip_08" = "Puoi correggere e migliorare facilmente i dati della mappa.";
+
+/* App tip #09 */
+"app_tip_09" = "Il nostro obiettivo principale è creare mappe veloci, incentrate sulla privacy e facili da usare che adorerai.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Stai utilizzando Organic Maps sullo schermo del telefono";
 

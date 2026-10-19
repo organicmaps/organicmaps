@@ -650,6 +650,9 @@
 "transliteration_title" = "Trosi i'r wyddor Ladin";
 "placepage_remove_stop" = "Dileu pwynt aros";
 
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Ychwanegu cyrchfan";
+
 /* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Ychwanegu pwynt aros";
 "error_enter_correct_name" = "Rhowch enw cywir";
@@ -964,6 +967,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Diolch i chi am ddefnyddio ein mapiau a adeiladwyd gan y gymuned!";
+
+/* App tip #01 */
+"app_tip_01" = "Gyda'ch rhoddion a'ch cefnogaeth, gallwn greu'r mapiau gorau yn y byd!";
+
+/* App tip #02 */
+"app_tip_02" = "Ydych chi'n hoffi ein ap? Cyfrannwch i gefnogi'r datblygiad! Ddim yn ei hoffi eto? Rhowch wybod i ni pam, a byddwn yn ei drwsio!";
+
+/* App tip #03 */
+"app_tip_03" = "Os ydych chi'n adnabod datblygydd meddalwedd, gallwch ofyn iddo neu iddi weithredu nodwedd sydd ei hangen arnoch.";
+
+/* App tip #04 */
+"app_tip_04" = "Tapiwch unrhyw le ar y map i ddewis unrhyw beth. Defnyddir tap hir i guddio a dangos y rhyngwyneb.";
+
+/* App tip #05 */
+"app_tip_05" = "Oeddech chi'n gwybod y gellir dewis eich lleoliad presennol ar y map?";
+
+/* App tip #06 */
+"app_tip_06" = "Gallwch chi helpu i gyfieithu ein ap i'ch iaith.";
+
+/* App tip #07 */
+"app_tip_07" = "Mae ein ap wedi'i ddatblygu gan ychydig o selogion a'r gymuned.";
+
+/* App tip #08 */
+"app_tip_08" = "Gallwch chi drwsio a gwella data'r map yn hawdd.";
+
+/* App tip #09 */
+"app_tip_09" = "Ein prif nod yw creu mapiau cyflym, hawdd eu defnyddio sy'n parchu eich preifatrwydd ac y byddwch yn eu caru.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Rydych chi nawr yn defnyddio Organic Maps ar sgrin y ffôn";

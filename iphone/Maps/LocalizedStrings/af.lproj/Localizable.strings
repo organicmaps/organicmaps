@@ -968,6 +968,36 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* App Tip #00 */
+"app_tip_00" = "Dankie dat u ons gemeenskapsgeboude kaarte gebruik!";
+
+/* App tip #01 */
+"app_tip_01" = "Met jou skenkings en ondersteuning kan ons die beste kaarte in die wêreld skep!";
+
+/* App tip #02 */
+"app_tip_02" = "Hou jy van ons app? Doner asseblief om die ontwikkeling te ondersteun! Hou jy nog nie daarvan nie? Laat weet ons asseblief hoekom, en ons sal dit regstel!";
+
+/* App tip #03 */
+"app_tip_03" = "As jy 'n sagtewareontwikkelaar ken, kan jy hom of haar vra om 'n funksie te implementeer wat jy nodig het.";
+
+/* App tip #04 */
+"app_tip_04" = "Tik enige plek op die kaart om enigiets te kies. Tik lank om te versteek en om die koppelvlak terug te wys.";
+
+/* App tip #05 */
+"app_tip_05" = "Het jy geweet dat jou huidige ligging op die kaart gekies kan word?";
+
+/* App tip #06 */
+"app_tip_06" = "Jy kan help om ons app in jou taal te vertaal.";
+
+/* App tip #07 */
+"app_tip_07" = "Ons app is ontwikkel deur 'n paar entoesiaste en die gemeenskap.";
+
+/* App tip #08 */
+"app_tip_08" = "Jy kan maklik die kaartdata regstel en verbeter.";
+
+/* App tip #09 */
+"app_tip_09" = "Ons hoofdoel is om vinnige, privaatheidsgerigte, maklik-om-te-gebruik kaarte te bou wat jy sal liefhê.";
+
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Jy gebruik nou Organic Maps op die foon se skerm";
 
