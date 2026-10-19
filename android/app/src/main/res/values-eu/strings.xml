@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Deskargak huts egin du</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Saiatu berriro</string>
-    <string name="about_menu_title">Organic Maps-i buruz</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Denontzat doan, maitasunez egina</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Ez iragarkirik, ez jarraipenik, ez datu-bilketarik</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Ez da bateria deskargatzen, konexiorik gabe funtzionatzen du</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Azkarra, minimalista, komunitateak garatua</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Zale eta bolondresek sortutako kode irekiko aplikazioa.</string>
     <!-- The button that opens system location settings -->
@@ -746,12 +737,6 @@
     <string name="enable_show_on_lock_screen_description">Gaituta dagoenean, ez duzu gailua desblokeatu beharrik aplikazioa abian dagoen bitartean.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Maparen hizkuntza</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">OpenStreetMap-eko mapa-datuak</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/eu/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

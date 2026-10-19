@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Nie udało się pobrać</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Spróbuj ponownie</string>
-    <string name="about_menu_title">O aplikacji Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Darmowa dla wszystkich, wykonana z miłością</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Bez reklam, bez śledzenia, bez gromadzenia danych</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Nie zużywa baterii, działa w trybie offline</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Szybki, minimalistyczny, opracowany przez społeczność</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Aplikacja typu open source stworzona przez entuzjastów i wolontariuszy.</string>
     <!-- The button that opens system location settings -->
@@ -752,12 +743,6 @@
     <string name="enable_show_on_lock_screen_description">Po włączeniu tej funkcji nie będziesz musieć odblokowywać urządzenia za każdym razem, gdy aplikacja jest uruchomiona.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Język mapy</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Dane mapy z OpenStreetMap</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/pl/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

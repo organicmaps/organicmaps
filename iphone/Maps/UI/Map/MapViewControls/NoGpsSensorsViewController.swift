@@ -111,7 +111,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
       cell.accessoryView = makeSwitch(isOn: status.inertialEnabled, action: #selector(enabledChanged))
     case .box:
       let name = status.inertialStarted && !status.deviceName.isEmpty ? status.deviceName : "ESP32"
-      let box = status.inertialStarted ? name + " · " + L(boxStateKey(status.sourceState)) : name
+      let box = status.inertialStarted ? name + " · " + boxStateText(status.sourceState) : name
       content.text = String(format: L("nogps_sensors_box"), box)
     case .calibrate:
       content.text = L("nogps_sensors_calibrate_box")
@@ -137,8 +137,8 @@ final class NoGpsSensorsViewController: MWMTableViewController {
       let scale = status.inertialStarted ? String(format: "×%.2f", status.speedScale) : L("nogps_unknown")
       var text = String(format: L("nogps_sensors_scale"), scale, status.inertialStarted ? status.speedTableRanges : 0)
       if status.inertialStarted {
-        let key = status.speedLagMeasured ? "nogps_sensors_lag_measured" : "nogps_sensors_lag_usual"
-        text += "\n" + String(format: L(key), String(format: "%.1f", status.speedLagSec))
+        let lag = L(status.speedLagMeasured ? "nogps_sensors_lag_measured" : "nogps_sensors_lag_usual")
+        text += "\n" + String(format: lag, String(format: "%.1f", status.speedLagSec))
       }
       content.text = text
     case .clearSpeed:
@@ -173,35 +173,35 @@ final class NoGpsSensorsViewController: MWMTableViewController {
 
   // MARK: - Texts
 
-  private func boxStateKey(_ state: NoGpsSourceState) -> String {
+  private func boxStateText(_ state: NoGpsSourceState) -> String {
     switch state {
-    case .disconnected: return "nogps_elm_disconnected"
-    case .connecting: return boxSearchKey()
-    case .noAdapter: return "nogps_elm_no_adapter"
-    case .obdDisabled: return "nogps_box_obd_disabled"
-    case .obdConnecting: return "nogps_box_obd_connecting"
-    case .obdError: return "nogps_elm_error"
-    case .noCarData: return "nogps_elm_no_car"
-    case .boxSleeping: return "nogps_box_sleeping"
-    case .obdSleeping: return "nogps_box_obd_sleeping"
-    case .connected: return "nogps_elm_connected"
-    case .updating: return "nogps_box_updating"
-    @unknown default: return "nogps_unknown"
+    case .disconnected: return L("nogps_elm_disconnected")
+    case .connecting: return boxSearchText()
+    case .noAdapter: return L("nogps_elm_no_adapter")
+    case .obdDisabled: return L("nogps_box_obd_disabled")
+    case .obdConnecting: return L("nogps_box_obd_connecting")
+    case .obdError: return L("nogps_elm_error")
+    case .noCarData: return L("nogps_elm_no_car")
+    case .boxSleeping: return L("nogps_box_sleeping")
+    case .obdSleeping: return L("nogps_box_obd_sleeping")
+    case .connected: return L("nogps_elm_connected")
+    case .updating: return L("nogps_box_updating")
+    @unknown default: return L("nogps_unknown")
     }
   }
 
   /// The box is not heard yet: what the phone does to reach it.
-  private func boxSearchKey() -> String {
+  private func boxSearchText() -> String {
     switch status.bleState {
-    case .noPermission: return "nogps_box_bt_no_permission"
+    case .noPermission: return L("nogps_box_bt_no_permission")
     // Off: the phone has no Bluetooth LE.
-    case .off, .disabled: return "nogps_box_bt_disabled"
-    case .searching: return "nogps_box_bt_searching"
-    case .pairingClosed: return "nogps_box_bt_pairing_closed"
-    case .connecting: return "nogps_box_bt_connecting"
-    case .pairing: return "nogps_box_bt_pairing"
-    case .connected: return "nogps_box_bt_waiting"
-    @unknown default: return "nogps_unknown"
+    case .off, .disabled: return L("nogps_box_bt_disabled")
+    case .searching: return L("nogps_box_bt_searching")
+    case .pairingClosed: return L("nogps_box_bt_pairing_closed")
+    case .connecting: return L("nogps_box_bt_connecting")
+    case .pairing: return L("nogps_box_bt_pairing")
+    case .connected: return L("nogps_box_bt_waiting")
+    @unknown default: return L("nogps_unknown")
     }
   }
 

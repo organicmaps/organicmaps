@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Nedladdningen misslyckades</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Försök igen</string>
-    <string name="about_menu_title">Om Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Gratis för alla, skapad med kärlek</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Inga annonser, ingen spårning, ingen datainsamling</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Låg batteriförbrukning, fungerar utan uppkoppling</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Snabb, minimalistisk, utvecklad av gemenskapen</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Öppen källkod-app skapad av entusiaster och frivilliga.</string>
     <!-- The button that opens system location settings -->
@@ -746,12 +737,6 @@
     <string name="enable_show_on_lock_screen_description">När den är aktiverad fungerar appen på låsskärmen även när enheten är låst.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Kartspråk</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Kartdata från OpenStreetMap</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/sv/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Laster ned mislyktes</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Prøv på nytt</string>
-    <string name="about_menu_title">Om Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Gratis for alle, laget med kjærlighet</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Ingen annonser, ingen sporing, ingen datainnsamling</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Ingen batterislitasje, fungerer offline</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Rask, minimalistisk, utviklet av fellesskapet</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Open source-applikasjon opprettet av entusiaster og frivillige.</string>
     <!-- The button that opens system location settings -->
@@ -746,8 +737,6 @@
     <string name="enable_show_on_lock_screen_description">Når dette er aktivert trenger du ikke låse opp enheten hver gang når appen kjører.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Kart-språk</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Kartdata fra OpenStreetMap</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->

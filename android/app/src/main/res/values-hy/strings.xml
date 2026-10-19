@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Ներբեռնումը ձախողվեց</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Փորձել նորից</string>
-    <string name="about_menu_title">Organic Maps-ի մասին</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Անվճար բոլորի համար՝ պատրաստված սիրով</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Ոչ մի գովազդ, հետևում կամ տվյալների հավաքագրում</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Չի սպառում մարտկոցը, աշխատում է օֆլայն</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Արագ, մինիմալիստական, մշակված համայնքի կողմից</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Էնտուզիաստների և կամավորների կողմից ստեղծված բաց կոդով հավելված:</string>
     <!-- The button that opens system location settings -->
@@ -746,12 +737,6 @@
     <string name="enable_show_on_lock_screen_description">Միացված լինելու դեպքում հավելվածը կաշխատի կողպէկրանին, նույնիսկ երբ սարքը կողպված է։</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Քարտեզի լեզուն</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Քարտեզի տվյալները՝ OpenStreetMap-ից</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

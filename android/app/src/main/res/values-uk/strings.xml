@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Помилка завантаження</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Спробуйте ще раз</string>
-    <string name="about_menu_title">Про Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Безкоштовно для всіх, зроблене з любов\'ю</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Без реклами, без трекінгу, без стеження</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Не розряджає батарею, працює в автономному режимі</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Швидкий, мінімалістичний, розроблений спільнотою</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Програма з відкритим кодом, створена ентузіастами та волонтерами.</string>
     <!-- The button that opens system location settings -->
@@ -757,12 +748,6 @@
     <string name="enable_show_on_lock_screen_description">Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Мова мапи</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Картографічні дані з OpenStreetMap</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/uk/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

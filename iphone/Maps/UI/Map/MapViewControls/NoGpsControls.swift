@@ -191,8 +191,8 @@ final class NoGpsControls: NSObject {
     case .gps:
       return (L("nogps_status_gps"), Constants.gpsColor)
     case .network:
-      let key = status.gpsSpoofed ? "nogps_status_network_spoofed" : "nogps_status_network_no_gps"
-      return (String(format: L(key), formatAccuracy(status.accuracyM)), Constants.networkColor)
+      let format = L(status.gpsSpoofed ? "nogps_status_network_spoofed" : "nogps_status_network_no_gps")
+      return (String(format: format, formatAccuracy(status.accuracyM)), Constants.networkColor)
     case .inertial:
       return (String(format: L("nogps_status_inertial"), formatAccuracy(status.accuracyM)), Constants.inertialColor)
     case .manual:
@@ -310,24 +310,24 @@ final class NoGpsControls: NSObject {
   @objc
   private func onEvent(_ notification: Notification) {
     guard let raw = notification.userInfo?[NoGps.eventKey] as? Int, let event = NoGpsEvent(rawValue: raw) else { return }
-    let key: String?
+    let text: String?
     switch event {
     // The buttons show the mode.
-    case .manualModeChanged: key = nil
-    case .gpsBack: key = "nogps_gps_back_auto"
-    case .gpsLost: key = "nogps_gps_lost_auto"
-    case .gpsSpoofed: key = "nogps_gps_spoofed"
-    case .gpsRestored: key = "nogps_gps_restored"
-    case .roadLost: key = "nogps_road_lost"
-    case .turnsReversed: key = "nogps_turns_reversed"
+    case .manualModeChanged: text = nil
+    case .gpsBack: text = L("nogps_gps_back_auto")
+    case .gpsLost: text = L("nogps_gps_lost_auto")
+    case .gpsSpoofed: text = L("nogps_gps_spoofed")
+    case .gpsRestored: text = L("nogps_gps_restored")
+    case .roadLost: text = L("nogps_road_lost")
+    case .turnsReversed: text = L("nogps_turns_reversed")
     // The box is the only source of the car movement on iOS.
-    case .motionSourceStopped: key = "nogps_box_stopped"
+    case .motionSourceStopped: text = L("nogps_box_stopped")
     // The car is always on a road.
-    case .markNoRoad: key = "nogps_mark_no_road"
-    @unknown default: key = nil
+    case .markNoRoad: text = L("nogps_mark_no_road")
+    @unknown default: text = nil
     }
-    if let key {
-      Toast.show(withText: L(key))
+    if let text {
+      Toast.show(withText: text)
     }
     refresh()
   }

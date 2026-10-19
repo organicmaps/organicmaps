@@ -23,7 +23,6 @@
     <string name="zoom_to_country">Amosar nel mapa</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Tentar de nueves</string>
-    <string name="about_menu_title">Tocante a Organic Maps</string>
     <string name="close">Zarrar</string>
     <string name="download">Baxar</string>
     <string name="download_resources_continue">Dir al mapa</string>
@@ -348,8 +347,6 @@
     <string name="connection_failure">Falló la conexón</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Llingua del mapa</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Datos cartográficos d’OpenStreetMap</string>
     <!-- App tip #06 -->
     <string name="app_tip_06">Pues ayudar a traducir la nuesa aplicación na to llingua.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->

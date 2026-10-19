@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">ההורדה נכשלה</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">נסה שוב</string>
-    <string name="about_menu_title">אודות Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">חינם לכולם, מיוצרים באהבה</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• ללא מודעות, ללא מעקב, ללא איסוף נתונים</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• אין ריקון סוללה, עובד במצב לא מקוון</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• מהיר, מינימליסטי, שפותח על ידי הקהילה</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">אפליקציית קוד פתוח שנוצרה על ידי חובבים ומתנדבים.</string>
     <!-- The button that opens system location settings -->
@@ -746,8 +737,6 @@
     <string name="enable_show_on_lock_screen_description">כאשר מופעל, האפליקציה תעבוד במסך הנעילה אפילו כשהמכשיר נעול.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">שפת המפה</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">נתוני מפה מ-OpenStreetMap</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->

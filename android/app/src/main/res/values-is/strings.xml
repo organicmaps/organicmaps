@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Mistókst að sækja</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Reyndu aftur</string>
-    <string name="about_menu_title">Um Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Ókeypis fyrir alla, unnið af alúð</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Engar auglýsingar, engar njósnir, engin gagnasöfnun</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Tæmir ekki rafhlöðuna, virkar án nettengingar</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Hraðvirkt, mínímalískt, hannað af notendunum</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Forrit með opinn grunnkóða sem útbúið er af áhugafólki og sjálfboðaliðum.</string>
     <!-- The button that opens system location settings -->
@@ -749,12 +740,6 @@
     <string name="enable_show_on_lock_screen_description">Þegar þetta er virkt mun forritið virka á læsiskjánum jafnvel þegar tækinu er læst.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Tungumál korts</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Kortagögn frá OpenStreetMap</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

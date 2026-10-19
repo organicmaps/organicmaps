@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Stahování selhalo</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Zkusit znovu</string>
-    <string name="about_menu_title">O aplikaci Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Zdarma pro všechny, vyrobené s láskou</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Žádné reklamy, žádné sledování, žádný sběr dat</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Žádné vybíjení baterie, funguje offline</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Rychlé, minimalistické, vyvinuté komunitou</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Otevřená aplikace vytvořená nadšenci a dobrovolníky.</string>
     <!-- The button that opens system location settings -->
@@ -752,12 +743,6 @@
     <string name="enable_show_on_lock_screen_description">Je-li povoleno, bude aplikace fungovat na zamykací obrazovce, i když je zařízení uzamčeno.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Jazyk mapy</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Mapová data z OpenStreetMap</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/cs/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

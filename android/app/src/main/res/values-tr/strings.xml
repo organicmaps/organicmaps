@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">İndirme başarısız oldu</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Yeniden Dene</string>
-    <string name="about_menu_title">Organic Maps Hakkında</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Sevgiyle yapılmış, herkes için ücretsiz harita</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Reklam yok, izleyici yok, veri toplama yok</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Pilinizi tüketmez, çevrim dışı çalışır</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Hızlı, minimalist, toplulukça geliştirilmiş</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllülerce oluşturulan açık kaynaklı uygulama.</string>
     <!-- The button that opens system location settings -->
@@ -748,12 +739,6 @@
     <string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, aygıt kilitli olsa da uygulama kilit ekranında çalışacaktır.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Harita dili</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Harita verileri OpenStreetMap\'ten</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsTR</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmapstr</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/tr/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

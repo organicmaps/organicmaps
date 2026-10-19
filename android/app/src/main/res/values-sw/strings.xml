@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Upakuaji umeshindikana</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Jaribu tena</string>
-    <string name="about_menu_title">Kuhusu Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Bure kwa kila mtu, iliyotengenezwa na upendo</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Hakuna matangazo, hakuna ufuatiliaji, hakuna mkusanyiko wa data</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Hakuna betri kuisha, inafanya kazi nje ya mtandao</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Haraka, minimalist, iliyotengenezwa na jumuiya</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.</string>
     <!-- The button that opens system location settings -->
@@ -737,8 +728,6 @@
     <string name="enable_show_on_lock_screen_description">Inapowezeshwa, programu itafanya kazi kwenye skrini ya kufuli hata wakati kifaa kimefungwa.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Lugha ya ramani</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Data ya ramani kutoka OpenStreetMap</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
