@@ -202,6 +202,7 @@
     <string name="type.barrier.city_wall">Miesto siena</string>
     <string name="type.barrier.cycle_barrier">Dviračių užtvara</string>
     <string name="type.waterway.ditch">Drenažo griovys</string>
+    <string name="type.waterway.ditch.intermittent">Periodinis drenažo griovys</string>
     <string name="type.natural.water.moat">Gynybinis griovys</string>
     <string name="type.natural.water.wastewater">Nuotekos</string>
     <string name="type.barrier.entrance">Įėjimas</string>
@@ -387,49 +388,49 @@
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Kelias</string>
     <string name="type.highway.bridleway">Jojimo takas</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.bridleway.bridge">Tiltas</string>
     <string name="type.highway.bridleway.permissive">Jojimo takas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.bridleway.tunnel">Tunelis</string>
     <string name="type.highway.busway">Autobusų kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">Tunelis</string>
     <string name="type.highway.bus_stop">Autobuso stotelė</string>
     <string name="type.highway.construction">Statomas kelias</string>
     <string name="type.highway.cycleway">Dviračių takas</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.cycleway.bridge">Tiltas</string>
     <string name="type.highway.cycleway.permissive">Dviračių takas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.cycleway.tunnel">Tunelis</string>
     <string name="type.highway.elevator">Liftas</string>
     <string name="type.highway.footway">Pėsčiųjų takas</string>
     <string name="type.highway.footway.sidewalk">Šaligatvis</string>
     <string name="type.highway.footway.crossing">Pėsčiųjų perėja</string>
     <string name="type.highway.footway.area">Pėsčiųjų takas</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.footway.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.footway.tunnel">Tunelis</string>
     <string name="type.highway.ford">Brasta</string>
     <string name="type.highway.living_street">Gyvenamoji zona</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.living_street.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.living_street.tunnel">Tunelis</string>
     <string name="type.highway.motorway">Automagistralė</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway.tunnel">Tunelis</string>
     <string name="type.highway.motorway_junction">Nuvažiavimas</string>
     <string name="type.highway.motorway_link">Automagistralė</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.tunnel">Tunelis</string>
     <string name="type.highway.path">Kelias</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
@@ -438,103 +439,103 @@
     <string name="type.highway.path.expert">Labai sudėtingas arba neišsiskiriantis takas</string>
     <string name="type.highway.path.bicycle">Kelias</string>
     <string name="type.highway.footway.bicycle">Kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.path.bridge">Tiltas</string>
     <string name="type.highway.path.horse">Kelias</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.path.tunnel">Tunelis</string>
     <string name="type.highway.pedestrian">Pėsčiųjų gatvė</string>
     <string name="type.highway.pedestrian.area">Pėsčiųjų gatvė</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Tunelis</string>
     <string name="type.highway.platform">Platforma</string>
     <string name="type.highway.primary">Pagrindinis kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary.tunnel">Tunelis</string>
     <string name="type.highway.primary_link">Pagrindinis kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary_link.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary_link.tunnel">Tunelis</string>
     <string name="type.highway.raceway">Lenktynių trasa</string>
     <string name="type.highway.residential">Gyvenamoji gatvė</string>
     <string name="type.highway.residential.area">Gyvenamoji gatvė</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.residential.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">Tunelis</string>
     <string name="type.highway.rest_area">Poilsio aikštelė</string>
     <string name="type.highway.road">Kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.road.bridge">Tiltas</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.road.tunnel">Tunelis</string>
     <string name="type.highway.secondary">Antraeilis kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary.tunnel">Tunelis</string>
     <string name="type.highway.secondary_link">Antraeilis kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.tunnel">Tunelis</string>
     <string name="type.highway.service">Privažiavimo kelias</string>
     <string name="type.highway.service.area">Privažiavimo kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.service.bridge">Tiltas</string>
     <string name="type.highway.service.driveway">Privažiavimo kelias</string>
     <string name="type.highway.service.parking_aisle">Privažiavimo kelias</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.service.tunnel">Tunelis</string>
     <string name="type.highway.services">Paslaugų zona</string>
     <string name="type.highway.speed_camera">Greičio matuoklis</string>
     <string name="type.highway.steps">Laiptai</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.steps.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.steps.tunnel">Tunelis</string>
     <string name="type.highway.ladder">Kopėčios</string>
     <string name="type.highway.tertiary">Trečiaeilis kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary.tunnel">Tunelis</string>
     <string name="type.highway.tertiary_link">Trečiaeilis kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.tunnel">Tunelis</string>
     <string name="type.highway.track">Lauko kelias</string>
     <string name="type.highway.track.area">Lauko kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.track.bridge">Tiltas</string>
     <string name="type.highway.track.grade1">Lauko kelias</string>
     <string name="type.highway.track.no.access">Lauko kelias</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.track.tunnel">Tunelis</string>
     <string name="type.highway.traffic_signals">Šviesoforas</string>
     <string name="type.highway.trunk">Svarbus užmiesčio kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk.tunnel">Tunelis</string>
     <string name="type.highway.trunk_link">Svarbus užmiesčio kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.tunnel">Tunelis</string>
     <string name="type.highway.unclassified">Kitas kelias</string>
     <string name="type.highway.unclassified.area">Kitas kelias</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.unclassified.bridge">Tiltas</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.unclassified.tunnel">Tunelis</string>
     <string name="type.area_highway.cycleway">Dviračių takas</string>
     <string name="type.area_highway.footway">Pėsčiųjų takas</string>
@@ -1376,21 +1377,24 @@
     <string name="type.waterway">Vandens kelias</string>
     <string name="type.waterway.access_point">Prieigos prie vandens kelių taškas</string>
     <string name="type.waterway.canal">Kanalas</string>
+    <string name="type.waterway.canal.intermittent">Periodinis kanalas</string>
     <string name="type.waterway.canal.tunnel">Kanalo tunelis</string>
     <string name="type.waterway.fish_pass">Žuvitakis</string>
+    <string name="type.waterway.fish_pass.intermittent">Periodinis žuvitakis</string>
     <string name="type.waterway.dam">Užtvanka</string>
     <string name="type.barrier.ditch">Griovys</string>
     <string name="type.natural.water.ditch">Drenažo griovys</string>
     <string name="type.waterway.ditch.tunnel">Pralaida</string>
     <string name="type.waterway.dock">Dokas</string>
     <string name="type.waterway.drain">Drenažas</string>
+    <string name="type.waterway.drain.intermittent">Periodinis drenažas</string>
     <string name="type.natural.water.drain">Drenažas</string>
     <string name="type.waterway.drain.tunnel">Pralaida</string>
     <string name="type.waterway.lock_gate">Šliuzo vartai</string>
     <string name="type.waterway.river">Upė</string>
+    <string name="type.waterway.river.intermittent">Periodinė upė</string>
     <string name="type.waterway.river.tunnel">Upė</string>
     <string name="type.waterway.stream">Upelis</string>
-    <string name="type.waterway.stream.ephemeral">Laikinas upelis</string>
     <string name="type.waterway.stream.intermittent">Periodinis upelis</string>
     <string name="type.waterway.stream.tunnel">Upelis</string>
     <string name="type.waterway.waterfall">Krioklys</string>

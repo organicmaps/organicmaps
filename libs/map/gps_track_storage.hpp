@@ -2,51 +2,35 @@
 
 #include "platform/location.hpp"
 
-#include "base/exception.hpp"
 #include "base/macros.hpp"
 
-#include <fstream>
-#include <functional>
 #include <string>
 #include <vector>
 
 class GpsTrackStorage final
 {
 public:
-  DECLARE_EXCEPTION(OpenException, RootException);
-  DECLARE_EXCEPTION(WriteException, RootException);
-  DECLARE_EXCEPTION(ReadException, RootException);
-
-  // Number of items for batch processing.
-  static size_t constexpr kItemBlockSize = 1000;
-
   using TItem = location::GpsInfo;
 
-  /// Opens storage with track data.
-  /// @param filePath - path to the file on disk
-  /// @exception OpenException if seek fails.
-  GpsTrackStorage(std::string const & filePath);
+  explicit GpsTrackStorage(std::string const & filePath);
 
-  /// Appends new point to the storage
+  /// Restores complete points from an existing backup without creating a file.
+  /// Logs errors and discards an unusable backup, returning no points.
+  /// Must be called before appending to an existing backup.
+  std::vector<TItem> Load();
+
+  /// Appends a batch of points to the backup.
   /// @param items - collection of gps track points.
-  /// @exceptions WriteException if write fails or ReadException if read fails.
-  void Append(std::vector<TItem> const & items);
+  /// @returns false on an I/O error; the batch can be retried.
+  /// @note A partially written batch must be retried in full.
+  bool Append(std::vector<TItem> const & items);
 
-  /// Removes all data from the storage
-  /// @exceptions WriteException if write fails.
+  /// Deletes the backup file.
   void Clear();
-
-  /// Reads the storage and calls functor for each item
-  /// @param fn - callable function, return true to stop ForEach
-  /// @exceptions ReadException if read fails.
-  void ForEach(std::function<bool(TItem const & item)> const & fn);
 
 private:
   DISALLOW_COPY_AND_MOVE(GpsTrackStorage);
 
-  size_t GetFirstItemIndex() const;
-
   std::string const m_filePath;
-  std::fstream m_stream;
-  size_t m_itemCount;
+  size_t m_itemCount = 0;
 };

@@ -62,6 +62,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
@@ -1997,6 +1998,12 @@ void Framework::StopTrackRecording()
     m_drapeEngine->ClearGpsTrackPoints();
 }
 
+void Framework::DiscardTrackRecording()
+{
+  StopTrackRecording();
+  GpsTracker::Instance().Clear();
+}
+
 void Framework::SaveTrackRecordingWithName(std::string const & name)
 {
   auto const trackId = GetBookmarkManager().SaveTrackRecording(name);
@@ -2048,7 +2055,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, loc
     ASSERT_LESS_OR_EQUAL(toRemove.first, toRemove.second, ());
     indicesRemove.reserve(toRemove.second - toRemove.first + 1);
     for (size_t i = toRemove.first; i <= toRemove.second; ++i)
-      indicesRemove.emplace_back(i);
+      indicesRemove.emplace_back(base::asserted_cast<uint32_t>(i));
   }
 
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
@@ -2793,7 +2800,6 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
 {
   RasterTileProvider::Params rp;
   rp.m_urlTemplate = url;
-  rp.m_cacheSubdir = "bg_tiles";
   rp.m_maxZoom = 19;  // standard web-mercator detail; deeper OM tiles reuse the ancestor sub-rect.
   rp.m_maxCacheBytes = static_cast<uint64_t>(cacheSizeMB) * 1024 * 1024;
   // Global coverage (whole world) — min zoom and the lat/lon box keep their defaults.
@@ -2806,7 +2812,10 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
     // messages, so they are safe to call from any thread.
     if (m_drapeEngine)
     {
-      m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
+      // Report failed reads without an upload so the renderer can retain fallback imagery.
+      if (!imageUid.empty())
+        m_drapeEngine->AddTileBackgroundImage(tileKey, imageUid, width, height, dp::TextureFormat::RGBA8, mode,
+                                              std::move(rgba));
       m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, rect);
     }
   });

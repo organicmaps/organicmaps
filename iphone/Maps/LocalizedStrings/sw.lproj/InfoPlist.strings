@@ -27,14 +27,5 @@
 /********** gps strings **********/
 
 
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Kugundua eneo katika nyuma ni muhimu ili kufurahia kikamilifu utendaji wa programu. Inatumika kwa urambazaji na kuhifadhi njia uliyopita hivi karibuni.";
-
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Kutambua eneo lako ni muhimu kwa urambazaji na kuhifadhi njia uliyopita hivi karibuni.";
-
-/* Login to OSM button text */
-"login_osm_credentials" = "Ingia kwa nenosiri";
-
-/* Login to OSM button text */
-"login_osm_browser" = "Ingia kwa kutumia kivinjari";

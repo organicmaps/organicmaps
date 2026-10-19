@@ -1,11 +1,9 @@
-• OSM-gegevens per 26 augustus
-• NIEUW: meervoudige selectie voor bladwijzers en tracks
-• NIEUW: afzonderlijke tracks verbergen met het oogpictogram
-• NIEUW: Wikipedia-artikelen in het Bengaals, Hindi, Marathi, Pools, Tamil, Telugu en Urdu
-• Crashes en vastlopers hersteld
-• Vogelkijkhutten, podia, heuvels en rotsbogen toegevoegd aan de kaart
-• Beter delen van plaatsen
-• Correcties voor Android Auto
-• Selectie van routestops hersteld
-• Openingstijden hersteld
+• OSM: 28 september; Wikipedia: 21 september
+• Betere alternatieve routes en geschatte aankomsttijden
+• Nieuwe instelling optimaliseert de volgorde van tussenstops
+• Met nieuwe knoppen kun je stops toevoegen of vervangen op geplande routes
+• De gekozen alternatieve route blijft behouden tijdens het navigeren
+• Opnemen van tracks verbeterd en fouten verholpen
+• KMB-import gerepareerd
+• UI-correcties en verbeteringen
 …meer op omaps.org/nl/news

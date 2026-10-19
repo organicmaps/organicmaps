@@ -92,6 +92,7 @@ final class TrackRecordingManagerTests: XCTestCase {
     }
     XCTAssertTrue(mockTrackRecorder.stopTrackRecordingCalled)
     XCTAssertTrue(mockTrackRecorder.saveTrackRecordingCalled)
+    XCTAssertFalse(mockTrackRecorder.discardTrackRecordingCalled)
     XCTAssertTrue(mockActivityManager.stopCalled)
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
   }
@@ -110,6 +111,18 @@ final class TrackRecordingManagerTests: XCTestCase {
     }
     wait(for: [expectation], timeout: 1.0)
     XCTAssertFalse(mockTrackRecorder.saveTrackRecordingCalled)
+    XCTAssertTrue(mockTrackRecorder.discardTrackRecordingCalled)
+    XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
+  }
+
+  func test_GivenActiveRecording_WhenDiscarded_ThenClearsRecording() {
+    mockTrackRecorder.trackRecordingIsEnabled = true
+
+    trackRecordingManager.discard()
+
+    XCTAssertTrue(mockTrackRecorder.discardTrackRecordingCalled)
+    XCTAssertFalse(mockTrackRecorder.saveTrackRecordingCalled)
+    XCTAssertTrue(mockActivityManager.stopCalled)
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
   }
 
@@ -134,6 +147,7 @@ private final class MockTrackRecorder: TrackRecorder {
   static var trackRecordingIsEmpty = false
   static var startTrackRecordingCalled = false
   static var stopTrackRecordingCalled = false
+  static var discardTrackRecordingCalled = false
   static var saveTrackRecordingCalled = false
   static var trackRecordingElevationProfileData: ElevationProfileData?
 
@@ -142,6 +156,7 @@ private final class MockTrackRecorder: TrackRecorder {
     trackRecordingIsEmpty = false
     startTrackRecordingCalled = false
     stopTrackRecordingCalled = false
+    discardTrackRecordingCalled = false
     saveTrackRecordingCalled = false
     trackRecordingElevationProfileData = nil
   }
@@ -161,6 +176,11 @@ private final class MockTrackRecorder: TrackRecorder {
 
   static func stopTrackRecording() {
     stopTrackRecordingCalled = true
+    trackRecordingIsEnabled = false
+  }
+
+  static func discardTrackRecording() {
+    discardTrackRecordingCalled = true
     trackRecordingIsEnabled = false
   }
 

@@ -52,8 +52,7 @@
   }
 
   func getBackUrl() -> String? {
-    guard let urlString = url?.absoluteString else { return nil }
-    guard let url = URLComponents(string: urlString) else { return nil }
+    guard let urlString = url?.absoluteString, let url = URLComponents(string: urlString) else { return nil }
     return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? nil)
   }
 

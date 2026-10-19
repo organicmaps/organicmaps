@@ -210,6 +210,7 @@
 "type.barrier.city_wall" = "Muret e qytetit";
 "type.barrier.cycle_barrier" = "Barrierë biçikletash";
 "type.waterway.ditch" = "Kanal kullues";
+"type.waterway.ditch.intermittent" = "Kanal kullues i përkohshëm";
 "type.natural.water.moat" = "Hendek";
 "type.natural.water.wastewater" = "Ujëra të zeza";
 "type.barrier.entrance" = "Hyrje";
@@ -407,28 +408,28 @@
 "type.highway" = "Autostradë";
 "type.highway.bridleway" = "Shteg kuajsh";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "Urë";
 "type.highway.bridleway.permissive" = "Shteg kuajsh";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "Tunel";
 "type.highway.busway" = "Rrugë autobusësh";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "Tunel";
 "type.highway.bus_stop" = "Stacion autobusi";
 "type.highway.construction" = "Rrugë në ndërtim";
 "type.highway.cycleway" = "Korsi biçikletash";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "Urë";
 "type.highway.cycleway.permissive" = "Korsi biçikletash";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "Tunel";
 "type.highway.elevator" = "Ashensor";
 "type.highway.footway" = "Shteg këmbësorësh";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "Vendkalim këmbësorësh";
 "type.highway.footway.area" = "Zonë këmbësorësh";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "Urë këmbësorësh";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "Tunel këmbësorësh";
 "type.highway.ford" = "Va";
 "type.highway.living_street" = "Rrugë banimi";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "Tunel";
 "type.highway.motorway" = "Autostradë";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "Urë autostrade";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "Tunel autostrade";
 "type.highway.motorway_junction" = "Dalje rruge";
 "type.highway.motorway_link" = "Hyrje/dalje autostrade";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "Tunel";
 "type.highway.path" = "Shteg";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "Shteg biçikletash dhe këmbësorësh";
 "type.highway.footway.bicycle" = "Shteg biçikletash dhe këmbësorësh";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "Urë";
 "type.highway.path.horse" = "Shteg kuajsh";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "Tunel";
 "type.highway.pedestrian" = "Rrugë këmbësorësh";
 "type.highway.pedestrian.area" = "Zonë këmbësorësh";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "Urë këmbësorësh";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Tunel këmbësorësh";
 "type.highway.platform" = "Platformë";
 "type.highway.primary" = "Rrugë kryesore";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "Tunel";
 "type.highway.primary_link" = "Hyrje/dalje rrugë kryesore";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "Tunel";
 "type.highway.raceway" = "Pistë garash";
 "type.highway.residential" = "Rrugë lagjeje";
 "type.highway.residential.area" = "Rrugë lagjeje";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "Tunel";
 "type.highway.rest_area" = "Zonë pushimi";
 "type.highway.road" = "Rrugë";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "Urë";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "Tunel";
 "type.highway.secondary" = "Rrugë dytësore";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "Tunel";
 "type.highway.secondary_link" = "Hyrje/dalje rrugë dytësore";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "Tunel";
 "type.highway.service" = "Rrugë shërbimi";
 "type.highway.service.area" = "Rrugë shërbimi";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "Urë";
 "type.highway.service.driveway" = "Rrugë hyrëse";
 "type.highway.service.parking_aisle" = "Korsi parkimi";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "Tunel";
 "type.highway.services" = "Zonë shërbimi";
 "type.highway.speed_camera" = "Kamera shpejtësie";
 "type.highway.steps" = "Shkallë";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "Tunel";
 "type.highway.ladder" = "Shkallë dore";
 "type.highway.tertiary" = "Rrugë tretësore";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "Tunel";
 "type.highway.tertiary_link" = "Hyrje/dalje rrugë tretësore";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "Tunel";
 "type.highway.track" = "Shteg fushe";
 "type.highway.track.area" = "Shteg fushe";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "Urë";
 "type.highway.track.grade1" = "Shteg fushe";
 "type.highway.track.no.access" = "Shteg fushe";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "Tunel";
 "type.highway.traffic_signals" = "Semaforë";
 "type.highway.trunk" = "Rrugë nacionale";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "Tunel";
 "type.highway.trunk_link" = "Hyrje/dalje rrugë nacionale";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "Tunel";
 "type.highway.unclassified" = "Rrugë e vogël";
 "type.highway.unclassified.area" = "Rrugë e vogël";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "Urë";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "Tunel";
 "type.area_highway.cycleway" = "Korsi biçikletash";
 "type.area_highway.footway" = "Shteg këmbësorësh";
@@ -1519,22 +1520,25 @@
 "type.waterway" = "Rrugë ujore";
 "type.waterway.access_point" = "Pika e aksesit në rrugën ujore";
 "type.waterway.canal" = "Kanal";
+"type.waterway.canal.intermittent" = "Kanal i përkohshëm";
 "type.waterway.canal.tunnel" = "Tunel kanali";
 "type.waterway.fish_pass" = "Kalim peshqish";
+"type.waterway.fish_pass.intermittent" = "Kalim peshqish i përkohshëm";
 "type.waterway.dam" = "Diga";
 "type.barrier.ditch" = "Kanal";
 "type.natural.water.ditch" = "Kanal kullues";
 "type.waterway.ditch.tunnel" = "Tombinë";
 "type.waterway.dock" = "Dok";
 "type.waterway.drain" = "Kullues";
+"type.waterway.drain.intermittent" = "Kullues i përkohshëm";
 "type.natural.water.drain" = "Kullues";
 "type.waterway.drain.tunnel" = "Tombinë";
 "type.waterway.lock_gate" = "Portë bllokimi";
 "type.waterway.river" = "Lumë";
+"type.waterway.river.intermittent" = "Lumë i përkohshëm";
 "type.waterway.river.tunnel" = "Lumë";
 "type.waterway.stream" = "Përrua";
-"type.waterway.stream.ephemeral" = "Përrua sezonal";
-"type.waterway.stream.intermittent" = "Përrua i ndërprerë";
+"type.waterway.stream.intermittent" = "Përrua i përkohshëm";
 "type.waterway.stream.tunnel" = "Përrua";
 "type.waterway.waterfall" = "Ujëvarë";
 "type.waterway.weir" = "Pendë";

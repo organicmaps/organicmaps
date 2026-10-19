@@ -1,11 +1,10 @@
 public extension NSAttributedString {
   @objc
   class func string(withHtml htmlString: String, defaultAttributes attributes: [NSAttributedString.Key: Any]) -> NSAttributedString? {
-    guard let data = htmlString.data(using: .utf8) else { return nil }
-    guard let text = try? NSMutableAttributedString(data: data,
-                                                    options: [.documentType: NSAttributedString.DocumentType.html,
-                                                              .characterEncoding: String.Encoding.utf8.rawValue],
-                                                    documentAttributes: nil) else { return nil }
+    guard let data = htmlString.data(using: .utf8), let text = try? NSMutableAttributedString(data: data,
+                                                                                              options: [.documentType: NSAttributedString.DocumentType.html,
+                                                                                                        .characterEncoding: String.Encoding.utf8.rawValue],
+                                                                                              documentAttributes: nil) else { return nil }
     text.addAttributes(attributes, range: NSMakeRange(0, text.length))
     return text
   }
@@ -78,17 +77,15 @@ extension NSMutableAttributedString {
   func enumerateAttachments(estimatedWidth: CGFloat) {
     enumerateAttribute(.attachment, in: NSMakeRange(0, length), options: []) { value, range, _ in
       if let attachement = value as? NSTextAttachment,
-         let image = attachement.image(forBounds: attachement.bounds, textContainer: NSTextContainer(), characterIndex: range.location) {
-        if image.size.width > estimatedWidth || attachement.bounds.width > estimatedWidth {
-          let resizedAttachment = NSTextAttachment()
-          if image.size.width > estimatedWidth {
-            let newImage = resizeImage(image: image, scale: estimatedWidth / image.size.width) ?? image
-            resizedAttachment.image = newImage
-          } else {
-            resizedAttachment.image = image
-          }
-          addAttribute(.attachment, value: resizedAttachment, range: range)
+         let image = attachement.image(forBounds: attachement.bounds, textContainer: NSTextContainer(), characterIndex: range.location), image.size.width > estimatedWidth || attachement.bounds.width > estimatedWidth {
+        let resizedAttachment = NSTextAttachment()
+        if image.size.width > estimatedWidth {
+          let newImage = resizeImage(image: image, scale: estimatedWidth / image.size.width) ?? image
+          resizedAttachment.image = newImage
+        } else {
+          resizedAttachment.image = image
         }
+        addAttribute(.attachment, value: resizedAttachment, range: range)
       }
     }
   }

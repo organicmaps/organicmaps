@@ -1,11 +1,9 @@
-• Data OSM per 26 Agustus
-• ANYAR: milih pirang-pirang tandha lan jalur
-• ANYAR: ndhelikake jalur siji-siji nganggo ikon mripat
-• ANYAR: artikel Wikipedia ing basa Bengali, Hindi, Marathi, Polandia, Tamil, Telugu, Urdu
-• Ditambahake ing peta: papan ngintip manuk, panggung, gumuk, lan gapura watu alam
-• Nuduhake papan luwih apik
-• Ndandani Android Auto
-• Ndandani pilihan mandhege rute
-• Ndandani jam buka
-• Panel panggolekan luwih apik
-…lan liya-liyané ana ing omaps.org/news
+• Data OSM per 28 September, Wikipedia per 21 September
+• Rute alternatif sing luwih apik lan perkiraan wektu teka
+• Ditambahaké setelan kanggo ngoptimalaké urutan mandhègan rute antaran
+• Ditambah tombol kanggo nambah utawa ngganti mandeg ing rute sing wis direncanakake
+• Rute alternatif sing dipilih saiki dijaga sajrone navigasi
+• Rekaman trek wis dibenerake lan ditingkatake
+• Masalah ngimpor berkas KMB wis didandani
+• Peningkatan lan perbaikan antarmuka pangguna
+…omaps.org/news

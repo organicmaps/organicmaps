@@ -27,14 +27,5 @@
 /********** gps strings **********/
 
 
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "バックグラウンドでの位置情報の取得は、アプリの機能を十分に利用するために必要です。ナビゲーションと最近移動したトラックの保存に使用されます。";
-
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "位置情報の取得は、ナビゲーションと最近移動したトラックの保存に使用されます。";
-
-/* Login to OSM button text */
-"login_osm_credentials" = "パスワードでログイン";
-
-/* Login to OSM button text */
-"login_osm_browser" = "ブラウザでログイン";

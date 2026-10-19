@@ -1,10 +1,9 @@
-• OSM datuak abuztuaren 26koak
-• BERRIA: markagailuen eta arrastoen hautaketa anitza
-• BERRIA: arrastoak banaka ezkutatu begi-ikonoarekin
-• BERRIA: Wikipediako artikuluak bengaleraz, hindiz, marathiz, polonieraz, tamileraz, teluguz eta urduz
-• Konponduta hutsegiteak eta blokeoak
-• Mapan gehitu dira hegazti-behatokiak, agertokiak, muinoak eta harri-arkuak
-• Lekuak partekatzeko modu hobea
-• Android Auto konponketak
-• Konponduta ibilbideko geldialdien hautaketa
-…gehiago: omaps.org/eu/news
+• OSM: irailaren 28a; Wikipedia: irailaren 21a
+• Ibilbide alternatibo hobeak eta iritsiera-estimazioak
+• Ezarpen berri batek geldialdien ordena optimizatzen du
+• Botoi berriek planifikatutako ibilbideetako geldialdiak gehitu edo ordezkatzen dituzte
+• Aukeratutako ibilbide alternatiboa nabigatzean mantentzen da
+• Arrastoen grabazioaren konponketak eta hobekuntzak
+• KMB inportazioa konpondu da
+• UIko konponketak eta hobekuntzak
+…gehiago hemen omaps.org/eu/news

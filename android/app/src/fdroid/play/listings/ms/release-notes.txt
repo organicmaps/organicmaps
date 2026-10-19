@@ -1,11 +1,9 @@
-• Data OSM setakat 26 Ogos
-• BARU: pemilihan berbilang untuk penanda buku dan jejak
-• BARU: sembunyikan jejak individu dengan ikon mata
-• BARU: rencana Wikipedia dalam bahasa Bengali, Hindi, Marathi, Poland, Tamil, Telugu, Urdu
-• Pembetulan ranap dan beku
-• Ditambah pada peta: pondok memerhati burung, pentas, bukit dan gerbang batu semula jadi
-• Perkongsian tempat lebih baik
-• Pembetulan Android Auto
-• Pembetulan pemilihan hentian laluan
-• Pembetulan waktu operasi
-…lebih banyak di omaps.org/news
+• Data OSM: 28 September; Data Wikipedia: 21 September
+• Penambahbaikan laluan alternatif dan anggaran masa ketibaan
+• Pilihan baharu mengoptimumkan susunan hentian pertengahan
+• Butang baharu menambah atau menggantikan hentian pada laluan yang dirancang
+• Laluan alternatif yang dipilih kekal dipilih semasa navigasi
+• Perekodan jejak telah diperbaiki dan dipertingkatkan
+• Import fail KMB telah diperbaiki
+• Peningkatan dan pembetulan UI
+…lebih banyak butiran di omaps.org/news

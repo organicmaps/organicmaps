@@ -210,6 +210,7 @@
 "type.barrier.city_wall" = "Τείχος της πόλης";
 "type.barrier.cycle_barrier" = "Εμπόδιο ποδηλάτου";
 "type.waterway.ditch" = "Αποστραγγιστική τάφρος";
+"type.waterway.ditch.intermittent" = "Προσωρινή αποστραγγιστική τάφρος";
 "type.natural.water.moat" = "Τάφρος";
 "type.natural.water.wastewater" = "Λύματα";
 "type.barrier.entrance" = "Είσοδος";
@@ -407,28 +408,28 @@
 "type.highway" = "Δρόμος";
 "type.highway.bridleway" = "Μονοπάτι με χαλινάρι";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "Γέφυρα";
 "type.highway.bridleway.permissive" = "Μονοπάτι με χαλινάρι";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "Σήραγγα";
 "type.highway.busway" = "Αφιερωμένος δρόμος λεωφορείων";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "Σήραγγα";
 "type.highway.bus_stop" = "Στάση λεωφορείου";
 "type.highway.construction" = "Δρόμος υπό κατασκευή";
 "type.highway.cycleway" = "Ποδηλατόδρομος";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "Γέφυρα";
 "type.highway.cycleway.permissive" = "Ποδηλατόδρομος";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "Σήραγγα";
 "type.highway.elevator" = "Ανελκυστήρας";
 "type.highway.footway" = "Μονοπάτι πεζών";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "Διάβαση πεζών";
 "type.highway.footway.area" = "Περιοχή πεζόδρομου";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "Σήραγγα";
 "type.highway.ford" = "Πέρασμα";
 "type.highway.living_street" = "Οδός ήπιας κυκλοφορίας";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "Σήραγγα";
 "type.highway.motorway" = "Αυτοκινητόδρομος";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "Γέφυρα αυτοκινητόδρομου";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "Σήραγγα αυτοκινητόδρομου";
 "type.highway.motorway_junction" = "Έξοδος";
 "type.highway.motorway_link" = "Ράμπα αυτοκινητόδρομου";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "Σήραγγα";
 "type.highway.path" = "Μονοπάτι";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "Μονοπάτι ποδηλάτου & πεζών";
 "type.highway.footway.bicycle" = "Μονοπάτι ποδηλάτου & πεζών";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "Γέφυρα";
 "type.highway.path.horse" = "Μονοπάτι ιππασίας";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "Σήραγγα";
 "type.highway.pedestrian" = "Πεζόδρομος";
 "type.highway.pedestrian.area" = "Περιοχή πεζών";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "Πεζογέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Σήραγγα πεζών";
 "type.highway.platform" = "Πλατφόρμα";
 "type.highway.primary" = "Πρωτεύων δρόμος";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "Σήραγγα";
 "type.highway.primary_link" = "Ράμπα πρωτεύοντος δρόμου";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "Σήραγγα";
 "type.highway.raceway" = "Πίστα αγώνων";
 "type.highway.residential" = "Οικιστική οδός";
 "type.highway.residential.area" = "Οικιστική οδός";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "Σήραγγα";
 "type.highway.rest_area" = "Χώρος ανάπαυσης αυτοκινητιστών";
 "type.highway.road" = "Δρόμος";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "Γέφυρα";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "Σήραγγα";
 "type.highway.secondary" = "Δευτερεύων δρόμος";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "Σήραγγα";
 "type.highway.secondary_link" = "Ράμπα δευτερεύοντος δρόμου";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "Σήραγγα";
 "type.highway.service" = "Δρόμος εξυπηρέτησης";
 "type.highway.service.area" = "Δρόμος εξυπηρέτησης";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "Γέφυρα";
 "type.highway.service.driveway" = "Οδός";
 "type.highway.service.parking_aisle" = "Διάδρομος στάθμευσης";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "Σήραγγα";
 "type.highway.services" = "Περιοχή εξυπηρέτησης";
 "type.highway.speed_camera" = "Κάμερα ταχύτητας";
 "type.highway.steps" = "Σκαλιά";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "Σήραγγα";
 "type.highway.ladder" = "Σκάλα";
 "type.highway.tertiary" = "Τριτεύων δρόμος";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "Σήραγγα";
 "type.highway.tertiary_link" = "Ράμπα τριτεύοντος δρόμου";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "Σήραγγα";
 "type.highway.track" = "Αγροτικός δρόμος";
 "type.highway.track.area" = "Αγροτικός δρόμος";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "Γέφυρα";
 "type.highway.track.grade1" = "Αγροτικός δρόμος";
 "type.highway.track.no.access" = "Αγροτικός δρόμος";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "Σήραγγα";
 "type.highway.traffic_signals" = "Φανάρια";
 "type.highway.trunk" = "Κύρια οδική αρτηρία";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "Σήραγγα";
 "type.highway.trunk_link" = "Ράμπα εξόδου";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "Σήραγγα";
 "type.highway.unclassified" = "Τοπικός δρόμος";
 "type.highway.unclassified.area" = "Τοπικός δρόμος";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "Γέφυρα";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "Σήραγγα";
 "type.area_highway.cycleway" = "Ποδηλατόδρομος";
 "type.area_highway.footway" = "Μονοπάτι πεζών";
@@ -1519,22 +1520,25 @@
 "type.waterway" = "Υδάτινη οδός";
 "type.waterway.access_point" = "Σημείο πρόσβασης σε υδατοδρόμιο";
 "type.waterway.canal" = "Κανάλι";
+"type.waterway.canal.intermittent" = "Προσωρινό κανάλι";
 "type.waterway.canal.tunnel" = "Σήραγγα καναλιού";
 "type.waterway.fish_pass" = "Σκάλα ψαριών";
+"type.waterway.fish_pass.intermittent" = "Προσωρινή σκάλα ψαριών";
 "type.waterway.dam" = "Φράγμα";
 "type.barrier.ditch" = "Χαντάκι";
 "type.natural.water.ditch" = "Αποστραγγιστική Τάφρος";
 "type.waterway.ditch.tunnel" = "Υπόγειος οχετός";
 "type.waterway.dock" = "Ντόκος";
 "type.waterway.drain" = "Οχετός";
+"type.waterway.drain.intermittent" = "Προσωρινός οχετός";
 "type.natural.water.drain" = "Οχετός";
 "type.waterway.drain.tunnel" = "Υπόγειος οχετός";
 "type.waterway.lock_gate" = "Θυρόφραγμα";
 "type.waterway.river" = "Ποταμός";
+"type.waterway.river.intermittent" = "Προσωρινός ποταμός";
 "type.waterway.river.tunnel" = "Ποταμός";
 "type.waterway.stream" = "Ρέμα";
-"type.waterway.stream.ephemeral" = "Εφήμερος ποταμός";
-"type.waterway.stream.intermittent" = "Διακοπτόμενος ποταμός";
+"type.waterway.stream.intermittent" = "Προσωρινό ρέμα";
 "type.waterway.stream.tunnel" = "Ρέμα";
 "type.waterway.waterfall" = "Καταρράκτης";
 "type.waterway.weir" = "Υδατοφράκτης";

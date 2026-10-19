@@ -12,6 +12,7 @@
 #include "coding/files_container.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -224,8 +225,9 @@ private:
 
   static int SumPageSizes(std::vector<PageT> const & p)
   {
-    return std::accumulate(std::begin(p), std::end(p), 0,
-                           [](int acc, PageT const & p) { return acc + p.second.size(); });
+    auto const size = std::accumulate(std::begin(p), std::end(p), size_t{0},
+                                      [](size_t acc, PageT const & p) { return acc + p.second.size(); });
+    return base::checked_cast<int>(size);
   }
 
   static bool CheckLangs(DescriptionsCollectionBuilderStat::LangStatistics const & stat)

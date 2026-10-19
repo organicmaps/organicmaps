@@ -210,6 +210,7 @@
 "type.barrier.city_wall" = "ກຳແພງເມືອງ";
 "type.barrier.cycle_barrier" = "ສິ່ງກີດຂວາງລົດຖີບ";
 "type.waterway.ditch" = "ຮ່ອງລະບາຍນໍ້າ";
+"type.waterway.ditch.intermittent" = "ຮ່ອງລະບາຍນໍ້າຊົ່ວຄາວ";
 "type.natural.water.moat" = "ຄູນໍ້າ";
 "type.natural.water.wastewater" = "ນໍ້າເສຍ";
 "type.barrier.entrance" = "ທາງເຂົ້າ";
@@ -407,28 +408,28 @@
 "type.highway" = "ເສັ້ນທາງ";
 "type.highway.bridleway" = "ທາງມ້າ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "ຂົວ";
 "type.highway.bridleway.permissive" = "ທາງມ້າ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "ອຸມົງ";
 "type.highway.busway" = "ທາງສະເພາະລົດເມ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "ອຸມົງ";
 "type.highway.bus_stop" = "ບ່ອນຈອດລົດເມ";
 "type.highway.construction" = "ທາງກຳລັງກໍ່ສ້າງ";
 "type.highway.cycleway" = "ທາງລົດຖີບ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "ຂົວ";
 "type.highway.cycleway.permissive" = "ທາງລົດຖີບ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "ອຸມົງ";
 "type.highway.elevator" = "ລິບ";
 "type.highway.footway" = "ທາງຍ່າງ";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "ທາງມ້າລາຍ";
 "type.highway.footway.area" = "ເຂດທາງຍ່າງ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "ຂົວຄົນຍ່າງ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "ອຸມົງຄົນຍ່າງ";
 "type.highway.ford" = "ທາງນໍ້າໄຫຼຜ່ານ";
 "type.highway.living_street" = "ຖະໜົນຊຸມຊົນ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "ອຸມົງ";
 "type.highway.motorway" = "ທາງດ່ວນ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "ຂົວທາງດ່ວນ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "ອຸມົງທາງດ່ວນ";
 "type.highway.motorway_junction" = "ທາງອອກ";
 "type.highway.motorway_link" = "ທາງເຊື່ອມທາງດ່ວນ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "ອຸມົງ";
 "type.highway.path" = "ທາງຍ່າງຂະໜາດນ້ອຍ";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "ທາງລົດຖີບ ແລະ ທາງຍ່າງ";
 "type.highway.footway.bicycle" = "ທາງລົດຖີບ ແລະ ທາງຍ່າງ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "ຂົວ";
 "type.highway.path.horse" = "ທາງມ້າ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "ອຸມົງ";
 "type.highway.pedestrian" = "ຖະໜົນຄົນຍ່າງ";
 "type.highway.pedestrian.area" = "ເຂດທາງຍ່າງ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "ຂົວຄົນຍ່າງ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "ອຸມົງຄົນຍ່າງ";
 "type.highway.platform" = "ຊານຊາລາ";
 "type.highway.primary" = "ທາງຫຼັກ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "ອຸມົງ";
 "type.highway.primary_link" = "ທາງເຊື່ອມທາງຫຼັກ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "ອຸມົງ";
 "type.highway.raceway" = "ສະໜາມແຂ່ງລົດ";
 "type.highway.residential" = "ຖະໜົນໃນເຂດທີ່ພັກອາໄສ";
 "type.highway.residential.area" = "ຖະໜົນໃນເຂດທີ່ພັກອາໄສ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "ອຸມົງ";
 "type.highway.rest_area" = "ຈຸດພັກລົດ";
 "type.highway.road" = "ຖະໜົນ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "ຂົວ";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "ອຸມົງ";
 "type.highway.secondary" = "ທາງຮອງ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "ອຸມົງ";
 "type.highway.secondary_link" = "ທາງເຊື່ອມທາງຮອງ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "ອຸມົງ";
 "type.highway.service" = "ທາງບໍລິການ";
 "type.highway.service.area" = "ທາງບໍລິການ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "ຂົວ";
 "type.highway.service.driveway" = "ທາງເຂົ້າເຮືອນ";
 "type.highway.service.parking_aisle" = "ຊ່ອງທາງໃນບ່ອນຈອດລົດ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "ອຸມົງ";
 "type.highway.services" = "ເຂດບໍລິການ";
 "type.highway.speed_camera" = "ກ້ອງກວດຈັບຄວາມໄວ";
 "type.highway.steps" = "ຂັ້ນໄດ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "ອຸມົງ";
 "type.highway.ladder" = "ຂັ້ນໄດລີງ";
 "type.highway.tertiary" = "ທາງຍ່ອຍ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "ອຸມົງ";
 "type.highway.tertiary_link" = "ທາງເຊື່ອມທາງຍ່ອຍ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "ອຸມົງ";
 "type.highway.track" = "ທາງຊອຍ/ທາງດິນ";
 "type.highway.track.area" = "ທາງຊອຍ/ທາງດິນ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "ຂົວ";
 "type.highway.track.grade1" = "ທາງຊອຍ/ທາງດິນ";
 "type.highway.track.no.access" = "ທາງຊອຍ/ທາງດິນ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "ອຸມົງ";
 "type.highway.traffic_signals" = "ໄຟອຳນາດ";
 "type.highway.trunk" = "ທາງຫຼວງສາຍຫຼັກ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "ອຸມົງ";
 "type.highway.trunk_link" = "ທາງເຊື່ອມທາງຫຼວງສາຍຫຼັກ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "ອຸມົງ";
 "type.highway.unclassified" = "ທາງທົ່ວໄປ";
 "type.highway.unclassified.area" = "ທາງທົ່ວໄປ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "ຂົວ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "ອຸມົງ";
 "type.area_highway.cycleway" = "ທາງລົດຖີບ";
 "type.area_highway.footway" = "ທາງຍ່າງ";
@@ -1519,22 +1520,25 @@
 "type.waterway" = "ທາງນ້ຳ";
 "type.waterway.access_point" = "ຈຸດເຂົ້າເຖິງທາງນ້ຳ";
 "type.waterway.canal" = "ຄອງ";
+"type.waterway.canal.intermittent" = "ຄອງຊົ່ວຄາວ";
 "type.waterway.canal.tunnel" = "ອຸມົງຄອງນ້ຳ";
 "type.waterway.fish_pass" = "ທາງປາຜ່ານ";
+"type.waterway.fish_pass.intermittent" = "ທາງປາຜ່ານຊົ່ວຄາວ";
 "type.waterway.dam" = "ເຂື່ອນ";
 "type.barrier.ditch" = "ຮ່ອງນ້ຳ";
 "type.natural.water.ditch" = "ຮ່ອງລະບາຍນ້ຳ";
 "type.waterway.ditch.tunnel" = "ທໍ່ລະບາຍນ້ຳ";
 "type.waterway.dock" = "ທ່າທຽບເຮືອ";
 "type.waterway.drain" = "ຮ່ອງລະບາຍນ້ຳ";
+"type.waterway.drain.intermittent" = "ຮ່ອງລະບາຍນ້ຳຊົ່ວຄາວ";
 "type.natural.water.drain" = "ຮ່ອງລະບາຍນ້ຳ";
 "type.waterway.drain.tunnel" = "ທໍ່ລະບາຍນ້ຳ";
 "type.waterway.lock_gate" = "ປະຕູນ້ຳ";
 "type.waterway.river" = "ແມ່ນ້ຳ";
+"type.waterway.river.intermittent" = "ແມ່ນ້ຳຊົ່ວຄາວ";
 "type.waterway.river.tunnel" = "ແມ່ນ້ຳ";
 "type.waterway.stream" = "ຫ້ວຍນ້ຳ";
-"type.waterway.stream.ephemeral" = "ຫ້ວຍນ້ຳຊົ່ວຄາວ";
-"type.waterway.stream.intermittent" = "ຫ້ວຍນ້ຳຂາດສາຍ";
+"type.waterway.stream.intermittent" = "ຫ້ວຍນ້ຳຊົ່ວຄາວ";
 "type.waterway.stream.tunnel" = "ຫ້ວຍນ້ຳ";
 "type.waterway.waterfall" = "ຕາດ";
 "type.waterway.weir" = "ຝາຍ";

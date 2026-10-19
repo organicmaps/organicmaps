@@ -1,50 +1,33 @@
-## Karta i mjesta
+## Planiranje ruta
+• Poboljšane alternativne rute i njihova procijenjena vremena dolaska
+• Dodani su gumbi za dodavanje ili zamjenu usputne točke u isplaniranoj ruti
+• Dodana je postavka za optimizaciju redoslijeda usputnih točaka na ruti
+• Odabrana alternativna ruta sada se zadržava kada navigacija ponovno izračuna rutu
+• Redoslijed usputnih točaka na ruti sada je vraćen nakon ponovnog pokretanja aplikacije
 
-• Ažurirani podaci OpenStreetMapa od 26. kolovoza 2026
-• Ažurirani članci na Wikipediji na arapskom, bengalskom, kineskom, engleskom, francuskom, njemačkom, hindskom, talijanskom, japanskom, korejskom, maratskom, poljskom, portugalskom, ruskom, španjolskom, tamilskom, teluškom, turskom i urdu jeziku
-• Na kartu su dodane promatračnice za ptice, scene, brežuljci i stijenske luči te nova ikona za stijene
-• Promijenjene su veličine ikona vrhova, špilja i planinskih prijevoja
-• Zaštićena područja, nacionalni parkovi i močvare sada se prikazuju u svjetlijim nijansama
-• Popravljeni su brojni problemi zbog kojih se radno vrijeme prikazivalo neispravno
-• Postavke su reorganizirane u odjeljke „Općenito”, „Karta”, „Navigacija”, „Mreža” i „Privatnost”
-• Uklonjena je postavka kalibracije kompasa jer se kalibracija sada obavlja automatski
-• Popravljeni su problemi s kompasom zbog kojih je strelica trenutačnog položaja mogla pokazivati u krivom smjeru ili se zamrznuti
-• Odgovarajuća točka sada se prikazuje na karti dok prstom povlačite po profilu nadmorske visine u pregledu pješačke ili biciklističke rute
-• Popravljeno je zamrzavanje aplikacije i problem zbog kojeg su se dodiri i geste povremeno ignorirali
+## Karta
+• Podaci OpenStreetMapa od 28. rujna
+• Podaci iz Wikipedije od 21. rujna
+• Vodeni rezervoari sada su vidljivi pri većem odmaku
+• Vodeni tuneli više se ne prikazuju na karti
+• Popravljene ikone stanica i ulaza Suzhou Metroa
+• Popravljeni rijetki slučajevi pomicanja oznaka s položaja na sloju karte metroa
 
-## Dijeljenje, zabilješke i staze
+## CarPlay
+• Dodane su upute za manevriranje na podržanim automobilskim HUD-ovima i na nadzornoj ploči CarPlay.
+• Popravljeni su gumbi za CarPlay i pretraživanje
 
-• NOVO: na popise zabilješki i staza dodan je višestruki odabir s grupnim radnjama za brisanje, premještanje i promjenu boje odabranih stavki te opcijama „Odaberi sve” i „Poništi odabir”
-• Dodana je podrška za AirDrop za dijeljenje mjesta
-• Dijeljenje mjesta, zabilješke ili trenutačnog položaja sada šalje čitljivu poveznicu s korisnim informacijama
-• Izvezene zabilješke sada čuvaju izvorne nazive i opise
-• Dijeljeni popisi zabilješki sada koriste prikazani naziv umjesto internog naziva datoteke
-• Popravljen je problem s prikazom grafikona nadmorske visine koji se mogao pojaviti odmah nakon početka snimanja staze
-• Vraćen je odabir prilagođene boje u skočnom prozoru palete boja
-• Popravljeno je iscrtavanje HTML opisa kada je zabilješka odabrana na karti
+## Staze
+• Dodana je ikona oka za skrivanje pojedinačnih staza
+• Ispravljene su greške i poboljšano snimanje staze
+• Ispravljen je uvoz KMB datoteka
 
-## Planiranje rute i navigacija
+## Pretraživanje
+• Popravljeno pretraživanje kada vidljivo područje karte prelazi 180° meridijan (±180° geografske dužine)
+• Obnovljena je pretraga kategorija u Spotlightu
 
-• NOVO: dodana je CarPlay nadzorna ploča i ispravljeni su brojni problemi s CarPlayom
-• Popravljena je aktivacija stila karte za automobilsku navigaciju
-• Dodir na stajalište ili oznaku na ruti sada ju ispravno otvara umjesto prebacivanja između planiranih ruta
-• Rute javnog prijevoza sada se planiraju brže
-• Ispravljene su netočne upute za skretanje
-• Ispravljena je netočna početna točka nakon ponovnog izračuna rute
-• Lateritne ceste sada se pri planiranju rute smatraju cestama s neasfaltiranom površinom loše kvalitete
-• Ceste označene s access=unknown sada se tretiraju kao ceste s privatnim pristupom ili pristupom samo do odredišta
-
-## Uređivač OpenStreetMapa
-
-• Popravljen je pad aplikacije kada bi se slanje podataka na OpenStreetMap dovršilo u pozadini
-• Pražnjenje polja radnog vremena više ne onemogućuje gumbe „Spremi” i „Gotovo”
-• Djelomično neuspjela slanja sada se ponavljaju umjesto da se prijavljuju kao potpuno uspješna
-
-## Prijevodi
-
-• Dodane su glasovne upute na armenskom i laoskom jeziku
-• Ažurirana je Pomoć/Često postavljana pitanja (FAQ), dodan je japanski prijevod
-• Ispravljen je japanski prijevod izraza „Zatvoreno sada”
-• Poboljšani su kineski prijevodi izraza „staza” i „onemogući”
-
-Pogledajte detaljne bilješke o izdanju na https://omaps.org/news/
+## Korisničko sučelje
+• Radno vrijeme sada prikazuje „Podne” za 12:00 i „Ponoć” za 00:00 ili 24:00
+• Ispravljene su razne greške i poboljšano je korisničko sučelje
+• Ispravljeni prijevodi na engleski, francuski i asturijski jezik
+• Dodana je mogućnost odabira instaliranog navigacijskog glasa i preslušavanja primjera

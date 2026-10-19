@@ -161,6 +161,7 @@
     <string name="type.barrier.border_control">Biên Phòng</string>
     <string name="type.barrier.city_wall">Tường thành</string>
     <string name="type.waterway.ditch">Mương thoát nước</string>
+    <string name="type.waterway.ditch.intermittent">Mương thoát nước tạm thời</string>
     <string name="type.natural.water.moat">Hào nước</string>
     <string name="type.natural.water.wastewater">Nước thải</string>
     <string name="type.barrier.entrance">Lối vào</string>
@@ -327,45 +328,45 @@
     <string name="type.healthcare.speech_therapist">Ngôn ngữ trị liệu</string>
 
     <!-- SECTION: Types: Roads -->
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.bridleway.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.bridleway.tunnel">Đường hầm</string>
     <string name="type.highway.busway">Đường dành riêng cho xe buýt</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">Đường hầm</string>
     <string name="type.highway.bus_stop">Bến xe buýt</string>
     <string name="type.highway.construction">Đường đang thi công</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.cycleway.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.cycleway.tunnel">Đường hầm</string>
     <string name="type.highway.footway">Đường</string>
     <string name="type.highway.footway.sidewalk">Đường đi bộ</string>
     <string name="type.highway.footway.crossing">Vạch qua đường</string>
     <string name="type.highway.footway.area">Đường</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.footway.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.footway.tunnel">Đường hầm</string>
     <string name="type.highway.ford">Đập tràn</string>
     <string name="type.highway.living_street">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.living_street.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.living_street.tunnel">Đường hầm</string>
     <string name="type.highway.motorway">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway.tunnel">Đường hầm</string>
     <string name="type.highway.motorway_junction">Lối ra</string>
     <string name="type.highway.motorway_link">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.tunnel">Đường hầm</string>
     <string name="type.highway.path">Đường</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
@@ -374,100 +375,100 @@
     <string name="type.highway.path.expert">Đường đi rất khó khăn hoặc không thể phân biệt được</string>
     <string name="type.highway.path.bicycle">Đường</string>
     <string name="type.highway.footway.bicycle">Đường</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.path.bridge">Cầu</string>
     <string name="type.highway.path.horse">Đường</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.path.tunnel">Đường hầm</string>
     <string name="type.highway.pedestrian">Phố</string>
     <string name="type.highway.pedestrian.area">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Đường hầm</string>
     <string name="type.highway.primary">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary.tunnel">Đường hầm</string>
     <string name="type.highway.primary_link">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary_link.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary_link.tunnel">Đường hầm</string>
     <string name="type.highway.raceway">Đường đua</string>
     <string name="type.highway.residential">Phố</string>
     <string name="type.highway.residential.area">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.residential.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">Đường hầm</string>
     <string name="type.highway.rest_area">Khu Vực Thụt Vào Để Đỗ Xe</string>
     <string name="type.highway.road">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.road.bridge">Cầu</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.road.tunnel">Đường hầm</string>
     <string name="type.highway.secondary">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary.tunnel">Đường hầm</string>
     <string name="type.highway.secondary_link">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.tunnel">Đường hầm</string>
     <string name="type.highway.service">Phố</string>
     <string name="type.highway.service.area">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.service.bridge">Cầu</string>
     <string name="type.highway.service.driveway">Phố</string>
     <string name="type.highway.service.parking_aisle">Phố</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.service.tunnel">Đường hầm</string>
     <string name="type.highway.speed_camera">Camera bắn tốc độ</string>
     <string name="type.highway.steps">Đường</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.steps.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.steps.tunnel">Đường hầm</string>
     <string name="type.highway.tertiary">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary.tunnel">Đường hầm</string>
     <string name="type.highway.tertiary_link">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.tunnel">Đường hầm</string>
     <string name="type.highway.track">Phố</string>
     <string name="type.highway.track.area">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.track.bridge">Cầu</string>
     <string name="type.highway.track.grade1">Phố</string>
     <string name="type.highway.track.no.access">Phố</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.track.tunnel">Đường hầm</string>
     <string name="type.highway.traffic_signals">Đèn Giao Thông</string>
     <string name="type.highway.trunk">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk.tunnel">Đường hầm</string>
     <string name="type.highway.trunk_link">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.tunnel">Đường hầm</string>
     <string name="type.highway.unclassified">Phố</string>
     <string name="type.highway.unclassified.area">Phố</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.unclassified.bridge">Cầu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.unclassified.tunnel">Đường hầm</string>
     <string name="type.area_highway.footway">Đường</string>
     <string name="type.area_highway.living_street">Phố</string>
@@ -1189,18 +1190,23 @@
     <string name="type.tourism.zoo.petting">Vườn thú cưng</string>
     <string name="type.waterway.access_point">Điểm tiếp cận đường thủy</string>
     <string name="type.waterway.canal">Kênh</string>
+    <string name="type.waterway.canal.intermittent">Kênh tạm thời</string>
     <string name="type.waterway.canal.tunnel">Kênh</string>
     <string name="type.waterway.fish_pass">Thang cá</string>
+    <string name="type.waterway.fish_pass.intermittent">Thang cá tạm thời</string>
     <string name="type.natural.water.ditch">Mương thoát nước</string>
     <string name="type.waterway.ditch.tunnel">Cống</string>
+    <string name="type.waterway.drain">Rãnh thoát nước</string>
+    <string name="type.waterway.drain.intermittent">Rãnh thoát nước tạm thời</string>
+    <string name="type.natural.water.drain">Rãnh thoát nước</string>
     <string name="type.waterway.drain.tunnel">Cống</string>
     <string name="type.waterway.lock_gate">Cổng Khóa</string>
     <string name="type.waterway.river">Sông</string>
+    <string name="type.waterway.river.intermittent">Sông tạm thời</string>
     <string name="type.waterway.river.tunnel">Sông</string>
-    <string name="type.waterway.stream">Sông</string>
-    <string name="type.waterway.stream.ephemeral">Sông</string>
-    <string name="type.waterway.stream.intermittent">Sông</string>
-    <string name="type.waterway.stream.tunnel">Sông</string>
+    <string name="type.waterway.stream">Suối</string>
+    <string name="type.waterway.stream.intermittent">Suối tạm thời</string>
+    <string name="type.waterway.stream.tunnel">Suối</string>
     <string name="type.waterway.waterfall">Thác nước</string>
     <string name="type.wheelchair.limited">Được trang bị một phần cho người khuyết tật</string>
     <string name="type.wheelchair.no">Không trang bị cho người khuyết tật</string>

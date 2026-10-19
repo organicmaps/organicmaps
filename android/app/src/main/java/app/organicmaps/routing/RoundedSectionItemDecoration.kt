@@ -20,6 +20,8 @@ class RoundedSectionItemDecoration(context: Context, private val sectionAdapter:
     override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         var top = Int.MAX_VALUE
         var bottom = Int.MIN_VALUE
+        var firstPosition = Int.MAX_VALUE
+        var lastPosition = RecyclerView.NO_POSITION
         var found = false
         for (i in 0 until parent.childCount) {
             val child = parent.getChildAt(i)
@@ -28,12 +30,29 @@ class RoundedSectionItemDecoration(context: Context, private val sectionAdapter:
                 if (child.top < top) top = child.top
                 if (child.bottom > bottom) bottom = child.bottom
                 found = true
+                // A row that is animating out has no position.
+                val position = vh.bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    firstPosition = minOf(firstPosition, position)
+                    lastPosition = maxOf(lastPosition, position)
+                }
             }
         }
         if (!found) return
+        var rectTop = top.toFloat()
+        var rectBottom = bottom.toFloat()
+        // Off-screen rows are recycled; keep the corners of a section that goes on past the list edge off-screen.
+        if (lastPosition != RecyclerView.NO_POSITION) {
+            if (firstPosition > 0) {
+                rectTop = minOf(rectTop, -cornerRadius)
+            }
+            if (lastPosition < sectionAdapter.itemCount - 1) {
+                rectBottom = maxOf(rectBottom, parent.height + cornerRadius)
+            }
+        }
         val left = parent.paddingLeft.toFloat()
         val right = (parent.width - parent.paddingRight).toFloat()
-        rect.set(left, top.toFloat(), right, bottom.toFloat())
+        rect.set(left, rectTop, right, rectBottom)
         canvas.drawRoundRect(rect, cornerRadius, cornerRadius, paint)
     }
 }

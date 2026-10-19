@@ -309,6 +309,13 @@ public class Framework
 
   public static native void nativeMoveRoutePoint(int currentIndex, int targetIndex);
 
+  /**
+   * Reverses the complete route, including intermediate points.
+   *
+   * @return {@code false} without changing points if either endpoint is missing.
+   */
+  public static native boolean nativeReverseRoutePoints();
+
   @NonNull
   public static native TransitRouteInfo nativeGetTransitRouteInfo();
   /**

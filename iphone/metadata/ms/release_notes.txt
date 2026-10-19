@@ -1,50 +1,33 @@
-## Peta & tempat
+## Penyusunan laluan
+• Laluan alternatif yang dipertingkatkan dan anggaran masa ketibaan mereka
+• Butang untuk menambah atau menggantikan hentian dalam laluan yang dirancang telah ditambah
+• Telah ditambah satu tetapan untuk mengoptimumkan susunan hentian laluan pertengahan
+• Laluan alternatif yang dipilih kini dikekalkan apabila navigasi mengira semula laluan
+• Susunan hentian laluan kini dipulihkan selepas memulakan semula aplikasi
 
-• Data OpenStreetMap dikemas kini sehingga 26 Ogos 2026
-• Artikel Wikipedia yang dikemas kini dalam bahasa Arab, Bengali, Cina, Inggeris, Perancis, Jerman, Hindi, Itali, Jepun, Korea, Marathi, Poland, Portugis, Rusia, Sepanyol, Tamil, Telugu, Turki, dan Urdu
-• Pondok memerhati burung, pentas, bukit, dan gerbang batu telah ditambah pada peta, serta ikon baharu untuk batu
-• Saiz ikon puncak, gua, dan genting gunung telah diubah
-• Kawasan terpelihara, taman negara, dan tanah lembap kini dipaparkan dalam rona yang lebih muda
-• Banyak isu yang menyebabkan waktu operasi dipaparkan dengan tidak betul telah diperbaiki
-• Tetapan telah disusun semula kepada bahagian "Umum", "Peta", "Navigasi", "Rangkaian", dan "Privasi"
-• Tetapan penentukuran kompas telah dikeluarkan kerana penentukuran kini dilakukan secara automatik
-• Masalah kompas yang boleh menyebabkan anak panah kedudukan semasa menunjuk ke arah yang salah atau tersekat telah diperbaiki
-• Titik yang sepadan kini dipaparkan pada peta semasa anda menyeret jari merentasi profil ketinggian dalam pratonton laluan berjalan kaki atau berbasikal
-• Masalah aplikasi terhenti dan isu yang kadangkala menyebabkan ketukan dan isyarat diabaikan telah diperbaiki
+## Peta
+• Data OpenStreetMap setakat 28 September
+• Data Wikipedia setakat 21 September
+• Takungan air kini dapat dilihat apabila zum keluar lebih jauh
+• Terowong air tidak lagi dipaparkan pada peta
+• Ikon stesen dan pintu masuk Metro Suzhou telah diperbetulkan
+• Diperbaiki kes jarang di mana label teralih daripada kedudukan pada lapisan peta metro
 
-## Perkongsian, penanda buku & jejak
+## CarPlay
+• Tambah arahan manuver pada paparan HUD kereta yang disokong dan papan pemuka CarPlay
+• Butang CarPlay dan carian telah diperbaiki
 
-• BARU: pemilihan berbilang telah ditambah pada senarai Penanda Buku dan Jejak, dengan tindakan pukal untuk memadam, memindahkan, dan menukar warna item yang dipilih, serta "Pilih Semua" dan "Nyahpilih Semua"
-• Sokongan AirDrop untuk berkongsi tempat telah ditambah
-• Berkongsi tempat, penanda buku, atau kedudukan semasa kini menghantar pautan yang boleh dibaca dengan maklumat berguna
-• Penanda buku yang dieksport kini mengekalkan nama dan keterangan asalnya
-• Senarai penanda buku yang dikongsi kini menggunakan nama paparannya dan bukannya nama fail dalaman
-• Masalah paparan carta ketinggian yang boleh berlaku sejurus selepas memulakan rakaman jejak telah diperbaiki
-• Pemilih warna tersuai telah dipulihkan dalam popover palet warna
-• Paparan keterangan HTML apabila penanda buku dipilih pada peta telah diperbaiki
+## Jejak
+• Tambah ikon mata untuk menyembunyikan jejak individu
+• Diperbaiki pepijat dan dipertingkatkan rakaman jejak
+• Masalah pengimportan fail KMB telah diperbaiki
 
-## Penentuan laluan & navigasi
+## Cari
+• Diperbaiki carian apabila kawasan peta yang dipaparkan melintasi meridian 180° (bujur ±180°)
+• Carian mengikut kategori dalam Spotlight telah dipulihkan
 
-• BARU: papan pemuka CarPlay telah ditambah dan beberapa isu CarPlay telah diperbaiki
-• Pengaktifan gaya peta navigasi kereta telah dibetulkan
-• Mengetik pada hentian atau penanda laluan kini membukanya dengan betul, bukannya bertukar antara laluan yang dirancang
-• Laluan pengangkutan awam kini dikira dengan lebih pantas
-• Arahan pusingan yang salah telah dibetulkan
-• Titik permulaan yang salah selepas laluan dikira semula telah dibetulkan
-• Semasa penentuan laluan, jalan laterit kini dianggap mempunyai permukaan tidak berturap berkualiti rendah
-• Jalan yang ditandakan access=unknown kini dilayan seperti jalan dengan akses peribadi atau akses hanya ke destinasi
-
-## Penyunting OpenStreetMap
-
-• Ranap aplikasi apabila muat naik ke OpenStreetMap selesai di latar belakang telah diperbaiki
-• Mengosongkan medan waktu operasi tidak lagi menjadikan butang "Simpan" atau "Selesai" dinyahaktifkan
-• Muat naik yang gagal sebahagian kini dicuba semula, bukannya dilaporkan sebagai berjaya sepenuhnya
-
-## Terjemahan
-
-• Arahan suara dalam bahasa Armenia dan Laos telah ditambah
-• Bantuan/Soalan Lazim (FAQ) telah dikemas kini, terjemahan bahasa Jepun ditambah
-• Terjemahan bahasa Jepun bagi "Tutup sekarang" telah dibetulkan
-• Terjemahan bahasa Cina bagi "jejak" dan "nyahaktifkan" telah ditambah baik
-
-Lihat nota keluaran terperinci di https://omaps.org/news/
+## Antaramuka pengguna
+• Waktu buka kini memaparkan "Tengah hari" untuk 12:00 dan "Tengah malam" untuk 00:00 atau 24:00
+• Pelbagai pepijat telah diperbaiki dan antara muka pengguna telah dipertingkatkan
+• Terjemahan Bahasa Inggeris, Perancis dan Asturian telah diperbetulkan
+• Ditambah sokongan untuk memilih suara navigasi yang dipasang dan mendengar sampelnya

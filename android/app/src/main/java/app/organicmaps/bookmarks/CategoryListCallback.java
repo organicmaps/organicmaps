@@ -1,6 +1,6 @@
 package app.organicmaps.bookmarks;
 
-interface CategoryListCallback
+public interface CategoryListCallback
 {
   void onAddButtonClick();
   void onImportButtonClick();

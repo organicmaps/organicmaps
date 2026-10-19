@@ -59,6 +59,11 @@ public class PlacePageButtonFactory
         titleId = R.string.placepage_add_stop;
         yield R.drawable.ic_route_via;
       }
+      case ROUTE_APPEND ->
+      {
+        titleId = R.string.route_add_destination;
+        yield R.drawable.ic_route_to;
+      }
       case ROUTE_REPLACE ->
       {
         titleId = R.string.placepage_replace_stop;

@@ -1,9 +1,6 @@
 extension UILabel {
   var isAttributed: Bool {
-    guard let attributedText = attributedText else {
-      return false
-    }
-    guard !attributedText.string.isEmpty else {
+    guard let attributedText = attributedText, !attributedText.string.isEmpty else {
       return false
     }
     var range = NSRange()

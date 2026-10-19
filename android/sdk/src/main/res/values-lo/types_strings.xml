@@ -202,6 +202,7 @@
     <string name="type.barrier.city_wall">ກຳແພງເມືອງ</string>
     <string name="type.barrier.cycle_barrier">ສິ່ງກີດຂວາງລົດຖີບ</string>
     <string name="type.waterway.ditch">ຮ່ອງລະບາຍນໍ້າ</string>
+    <string name="type.waterway.ditch.intermittent">ຮ່ອງລະບາຍນໍ້າຊົ່ວຄາວ</string>
     <string name="type.natural.water.moat">ຄູນໍ້າ</string>
     <string name="type.natural.water.wastewater">ນໍ້າເສຍ</string>
     <string name="type.barrier.entrance">ທາງເຂົ້າ</string>
@@ -385,49 +386,49 @@
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">ເສັ້ນທາງ</string>
     <string name="type.highway.bridleway">ທາງມ້າ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.bridleway.bridge">ຂົວ</string>
     <string name="type.highway.bridleway.permissive">ທາງມ້າ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.bridleway.tunnel">ອຸມົງ</string>
     <string name="type.highway.busway">ທາງສະເພາະລົດເມ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">ອຸມົງ</string>
     <string name="type.highway.bus_stop">ບ່ອນຈອດລົດເມ</string>
     <string name="type.highway.construction">ທາງກຳລັງກໍ່ສ້າງ</string>
     <string name="type.highway.cycleway">ທາງລົດຖີບ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.cycleway.bridge">ຂົວ</string>
     <string name="type.highway.cycleway.permissive">ທາງລົດຖີບ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.cycleway.tunnel">ອຸມົງ</string>
     <string name="type.highway.elevator">ລິບ</string>
     <string name="type.highway.footway">ທາງຍ່າງ</string>
     <string name="type.highway.footway.sidewalk">ທາງຍ່າງແຄມທາງ</string>
     <string name="type.highway.footway.crossing">ທາງມ້າລາຍ</string>
     <string name="type.highway.footway.area">ເຂດທາງຍ່າງ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.footway.bridge">ຂົວຄົນຍ່າງ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.footway.tunnel">ອຸມົງຄົນຍ່າງ</string>
     <string name="type.highway.ford">ທາງນໍ້າໄຫຼຜ່ານ</string>
     <string name="type.highway.living_street">ຖະໜົນຊຸມຊົນ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.living_street.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.living_street.tunnel">ອຸມົງ</string>
     <string name="type.highway.motorway">ທາງດ່ວນ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway.bridge">ຂົວທາງດ່ວນ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway.tunnel">ອຸມົງທາງດ່ວນ</string>
     <string name="type.highway.motorway_junction">ທາງອອກ</string>
     <string name="type.highway.motorway_link">ທາງເຊື່ອມທາງດ່ວນ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.tunnel">ອຸມົງ</string>
     <string name="type.highway.path">ທາງຍ່າງຂະໜາດນ້ອຍ</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
@@ -436,103 +437,103 @@
     <string name="type.highway.path.expert">ທາງຍ່າງສຳລັບຜູ້ຊ່ຽວຊານ</string>
     <string name="type.highway.path.bicycle">ທາງລົດຖີບ ແລະ ທາງຍ່າງ</string>
     <string name="type.highway.footway.bicycle">ທາງລົດຖີບ ແລະ ທາງຍ່າງ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.path.bridge">ຂົວ</string>
     <string name="type.highway.path.horse">ທາງມ້າ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.path.tunnel">ອຸມົງ</string>
     <string name="type.highway.pedestrian">ຖະໜົນຄົນຍ່າງ</string>
     <string name="type.highway.pedestrian.area">ເຂດທາງຍ່າງ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.bridge">ຂົວຄົນຍ່າງ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">ອຸມົງຄົນຍ່າງ</string>
     <string name="type.highway.platform">ຊານຊາລາ</string>
     <string name="type.highway.primary">ທາງຫຼັກ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary.tunnel">ອຸມົງ</string>
     <string name="type.highway.primary_link">ທາງເຊື່ອມທາງຫຼັກ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary_link.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary_link.tunnel">ອຸມົງ</string>
     <string name="type.highway.raceway">ສະໜາມແຂ່ງລົດ</string>
     <string name="type.highway.residential">ຖະໜົນໃນເຂດທີ່ພັກອາໄສ</string>
     <string name="type.highway.residential.area">ຖະໜົນໃນເຂດທີ່ພັກອາໄສ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.residential.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">ອຸມົງ</string>
     <string name="type.highway.rest_area">ຈຸດພັກລົດ</string>
     <string name="type.highway.road">ຖະໜົນ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.road.bridge">ຂົວ</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.road.tunnel">ອຸມົງ</string>
     <string name="type.highway.secondary">ທາງຮອງ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary.tunnel">ອຸມົງ</string>
     <string name="type.highway.secondary_link">ທາງເຊື່ອມທາງຮອງ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.tunnel">ອຸມົງ</string>
     <string name="type.highway.service">ທາງບໍລິການ</string>
     <string name="type.highway.service.area">ທາງບໍລິການ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.service.bridge">ຂົວ</string>
     <string name="type.highway.service.driveway">ທາງເຂົ້າເຮືອນ</string>
     <string name="type.highway.service.parking_aisle">ຊ່ອງທາງໃນບ່ອນຈອດລົດ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.service.tunnel">ອຸມົງ</string>
     <string name="type.highway.services">ເຂດບໍລິການ</string>
     <string name="type.highway.speed_camera">ກ້ອງກວດຈັບຄວາມໄວ</string>
     <string name="type.highway.steps">ຂັ້ນໄດ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.steps.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.steps.tunnel">ອຸມົງ</string>
     <string name="type.highway.ladder">ຂັ້ນໄດລີງ</string>
     <string name="type.highway.tertiary">ທາງຍ່ອຍ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary.tunnel">ອຸມົງ</string>
     <string name="type.highway.tertiary_link">ທາງເຊື່ອມທາງຍ່ອຍ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.tunnel">ອຸມົງ</string>
     <string name="type.highway.track">ທາງຊອຍ/ທາງດິນ</string>
     <string name="type.highway.track.area">ທາງຊອຍ/ທາງດິນ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.track.bridge">ຂົວ</string>
     <string name="type.highway.track.grade1">ທາງຊອຍ/ທາງດິນ</string>
     <string name="type.highway.track.no.access">ທາງຊອຍ/ທາງດິນ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.track.tunnel">ອຸມົງ</string>
     <string name="type.highway.traffic_signals">ໄຟອຳນາດ</string>
     <string name="type.highway.trunk">ທາງຫຼວງສາຍຫຼັກ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk.tunnel">ອຸມົງ</string>
     <string name="type.highway.trunk_link">ທາງເຊື່ອມທາງຫຼວງສາຍຫຼັກ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.tunnel">ອຸມົງ</string>
     <string name="type.highway.unclassified">ທາງທົ່ວໄປ</string>
     <string name="type.highway.unclassified.area">ທາງທົ່ວໄປ</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.unclassified.bridge">ຂົວ</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.unclassified.tunnel">ອຸມົງ</string>
     <string name="type.area_highway.cycleway">ທາງລົດຖີບ</string>
     <string name="type.area_highway.footway">ທາງຍ່າງ</string>
@@ -1361,22 +1362,25 @@
     <string name="type.waterway">ທາງນ້ຳ</string>
     <string name="type.waterway.access_point">ຈຸດເຂົ້າເຖິງທາງນ້ຳ</string>
     <string name="type.waterway.canal">ຄອງ</string>
+    <string name="type.waterway.canal.intermittent">ຄອງຊົ່ວຄາວ</string>
     <string name="type.waterway.canal.tunnel">ອຸມົງຄອງນ້ຳ</string>
     <string name="type.waterway.fish_pass">ທາງປາຜ່ານ</string>
+    <string name="type.waterway.fish_pass.intermittent">ທາງປາຜ່ານຊົ່ວຄາວ</string>
     <string name="type.waterway.dam">ເຂື່ອນ</string>
     <string name="type.barrier.ditch">ຮ່ອງນ້ຳ</string>
     <string name="type.natural.water.ditch">ຮ່ອງລະບາຍນ້ຳ</string>
     <string name="type.waterway.ditch.tunnel">ທໍ່ລະບາຍນ້ຳ</string>
     <string name="type.waterway.dock">ທ່າທຽບເຮືອ</string>
     <string name="type.waterway.drain">ຮ່ອງລະບາຍນ້ຳ</string>
+    <string name="type.waterway.drain.intermittent">ຮ່ອງລະບາຍນ້ຳຊົ່ວຄາວ</string>
     <string name="type.natural.water.drain">ຮ່ອງລະບາຍນ້ຳ</string>
     <string name="type.waterway.drain.tunnel">ທໍ່ລະບາຍນ້ຳ</string>
     <string name="type.waterway.lock_gate">ປະຕູນ້ຳ</string>
     <string name="type.waterway.river">ແມ່ນ້ຳ</string>
+    <string name="type.waterway.river.intermittent">ແມ່ນ້ຳຊົ່ວຄາວ</string>
     <string name="type.waterway.river.tunnel">ແມ່ນ້ຳ</string>
     <string name="type.waterway.stream">ຫ້ວຍນ້ຳ</string>
-    <string name="type.waterway.stream.ephemeral">ຫ້ວຍນ້ຳຊົ່ວຄາວ</string>
-    <string name="type.waterway.stream.intermittent">ຫ້ວຍນ້ຳຂາດສາຍ</string>
+    <string name="type.waterway.stream.intermittent">ຫ້ວຍນ້ຳຊົ່ວຄາວ</string>
     <string name="type.waterway.stream.tunnel">ຫ້ວຍນ້ຳ</string>
     <string name="type.waterway.waterfall">ຕາດ</string>
     <string name="type.waterway.weir">ຝາຍ</string>

@@ -210,6 +210,7 @@
 "type.barrier.city_wall" = "Linnamüür";
 "type.barrier.cycle_barrier" = "Jalgrattabarjäär";
 "type.waterway.ditch" = "Drenaažikraav";
+"type.waterway.ditch.intermittent" = "Ajutine drenaažikraav";
 "type.natural.water.moat" = "Vallikraav";
 "type.natural.water.wastewater" = "Reovesi";
 "type.barrier.entrance" = "Sissepääs";
@@ -407,28 +408,28 @@
 "type.highway" = "Tee";
 "type.highway.bridleway" = "Ratsutamisrada";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "Sild";
 "type.highway.bridleway.permissive" = "Ratsutamisrada";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "Tunnel";
 "type.highway.busway" = "Roobastega bussirada";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "Tunnel";
 "type.highway.bus_stop" = "Bussipeatus";
 "type.highway.construction" = "Ehitusjärgus tee";
 "type.highway.cycleway" = "Jalgrattatee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "Jalgrattasild";
 "type.highway.cycleway.permissive" = "Piiratud jalgrattatee";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "Jalgrattatunnel";
 "type.highway.elevator" = "Lift";
 "type.highway.footway" = "Jalgrada";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "Jalakäijate ülekäigurada";
 "type.highway.footway.area" = "Jalakäijate ala";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "Jalakäijate sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "Jalakäijate tunnel";
 "type.highway.ford" = "Koolmekoht";
 "type.highway.living_street" = "Õueala tee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "Elamupiirkonna tänava tunnel";
 "type.highway.motorway" = "Kiirtee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "Kiirtee sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "Kiirtee tunnel";
 "type.highway.motorway_junction" = "Mahasõit kiirteelt";
 "type.highway.motorway_link" = "Kiirtee kaldtee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "Tunnel";
 "type.highway.path" = "Rada";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "Jalgratta- ja jalgtee";
 "type.highway.footway.bicycle" = "Jalgratta- ja jalgtee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "Sild";
 "type.highway.path.horse" = "Ratsutamisrada";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "Tunnel";
 "type.highway.pedestrian" = "Jalakäijate tänav";
 "type.highway.pedestrian.area" = "Jalakäijate ala";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "Jalakäijate sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Jalakäijate tunnel";
 "type.highway.platform" = "Ooteplatvorm";
 "type.highway.primary" = "Põhimaantee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "Põhimaantee sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "Põhimaantee tunnel";
 "type.highway.primary_link" = "Põhimaantee kaldtee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "Põhimaantee ühendustee sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "Põhimaantee ühendustee tunnel";
 "type.highway.raceway" = "Võistlusrada";
 "type.highway.residential" = "Elamupiirkonna tänav";
 "type.highway.residential.area" = "Elamupiirkonna tänav";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "Elamupirkonna tänava tunnel";
 "type.highway.rest_area" = "Teeäärne puhkekoht";
 "type.highway.road" = "Maantee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "Sild";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "Tunnel";
 "type.highway.secondary" = "Tugimaantee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "Tugimaantee sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "Tugimaantee tunnel";
 "type.highway.secondary_link" = "Tugimaantee ühendustee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "Tugimaantee ühendustee sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "Tugimaantee ühendustee tunnel";
 "type.highway.service" = "Juurdepääsutee";
 "type.highway.service.area" = "Juurdepääsutee ala";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "Juurdepääsutee sild";
 "type.highway.service.driveway" = "Sissesõidutee";
 "type.highway.service.parking_aisle" = "Parkla vahetee";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "Juurdepääsutee tunnel";
 "type.highway.services" = "Maantee teenindusala";
 "type.highway.speed_camera" = "Kiiruskaamera";
 "type.highway.steps" = "Trepp";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "Tunnel";
 "type.highway.ladder" = "Redel";
 "type.highway.tertiary" = "Kohalik maantee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "Kohaliku maantee sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "Kohaliku maantee tunnel";
 "type.highway.tertiary_link" = "Kohaliku maantee ühendustee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "Kohaliku maantee ühendustee sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "Kohaliku maantee ühendustee tunnel";
 "type.highway.track" = "Rada";
 "type.highway.track.area" = "Rada";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "Sild";
 "type.highway.track.grade1" = "Rada";
 "type.highway.track.no.access" = "Rada";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "Tunnel";
 "type.highway.traffic_signals" = "Valgusfoor";
 "type.highway.trunk" = "E-tähistusega põhimaantee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "E-tähistusega põhimaantee tunnel";
 "type.highway.trunk_link" = "E-tähistusega põhimaantee ühendustee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "Tunnel";
 "type.highway.unclassified" = "Vähetähtis tee";
 "type.highway.unclassified.area" = "Vähetähtis tee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "Sild";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "Tunnel";
 "type.area_highway.cycleway" = "Jalgrattatee";
 "type.area_highway.footway" = "Jalgrada";
@@ -1519,22 +1520,25 @@
 "type.waterway" = "Veetee";
 "type.waterway.access_point" = "Veetee juurdepääsupunkt";
 "type.waterway.canal" = "Kanal";
+"type.waterway.canal.intermittent" = "Ajutine kanal";
 "type.waterway.canal.tunnel" = "Kanal tunnelis";
 "type.waterway.fish_pass" = "Kalatrepp";
+"type.waterway.fish_pass.intermittent" = "Ajutine kalatrepp";
 "type.waterway.dam" = "Tamm";
 "type.barrier.ditch" = "Kraav";
 "type.natural.water.ditch" = "Drenaažikraav";
 "type.waterway.ditch.tunnel" = "Truup";
 "type.waterway.dock" = "Dokk";
 "type.waterway.drain" = "Kuivenduskraav";
+"type.waterway.drain.intermittent" = "Ajutine kuivenduskraav";
 "type.natural.water.drain" = "Kuivenduskraav";
 "type.waterway.drain.tunnel" = "Truup";
 "type.waterway.lock_gate" = "Lüüsivärav";
 "type.waterway.river" = "Jõgi";
+"type.waterway.river.intermittent" = "Ajutine jõgi";
 "type.waterway.river.tunnel" = "Jõgi tunnelis";
 "type.waterway.stream" = "Oja";
-"type.waterway.stream.ephemeral" = "Väga ajutine jõgi";
-"type.waterway.stream.intermittent" = "Ajutine jõgi";
+"type.waterway.stream.intermittent" = "Ajutine oja";
 "type.waterway.stream.tunnel" = "Oja tunnelis";
 "type.waterway.waterfall" = "Kosk";
 "type.waterway.weir" = "Ülevoolupais";

@@ -41,7 +41,6 @@ set(SRC
   share.hpp
   selection_processor.cpp
   selection_processor.hpp
-  position_provider.hpp
   relation_track.cpp
   relation_track.hpp
   power_management/power_manager.cpp

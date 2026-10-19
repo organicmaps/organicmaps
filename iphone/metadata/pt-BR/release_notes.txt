@@ -1,50 +1,33 @@
-## Mapa e locais
+## Roteamento
+• Rotas alternativas aprimoradas e seus tempos estimados de chegada
+• Foram adicionados botões para adicionar ou substituir uma parada em uma rota planejada
+• Adicionada uma configuração para otimizar a ordem das paradas intermediárias da rota
+• A rota alternativa selecionada agora é mantida quando a navegação recalcula a rota
+• A ordem das paradas da rota agora é restaurada após reiniciar o aplicativo
 
-• Dados do OpenStreetMap atualizados em 26 de agosto de 2026
-• Artigos da Wikipédia atualizados em árabe, bengali, chinês, inglês, francês, alemão, hindi, italiano, japonês, coreano, marata, polonês, português, russo, espanhol, tâmil, télugo, turco e urdu
-• Adicionados ao mapa observatórios de aves, palcos, colinas e arcos de pedra, além de um novo ícone para rochas
-• Os ícones de picos, cavernas e passos de montanha foram redimensionados
-• Áreas protegidas, parques nacionais e zonas úmidas agora são exibidos em tons mais claros
-• Corrigidos diversos problemas que faziam com que os horários de funcionamento fossem exibidos incorretamente
-• As configurações foram reorganizadas nas seções “Geral”, “Mapa”, “Navegação”, “Rede” e “Privacidade”
-• A configuração de calibração da bússola foi removida, pois a calibração agora é feita automaticamente
-• Corrigidos problemas com a bússola que podiam fazer a seta de posição atual apontar na direção errada ou congelar
-• O ponto correspondente agora é exibido no mapa enquanto você arrasta o dedo pelo perfil de elevação na visualização de uma rota a pé ou de bicicleta
-• Corrigidos um travamento do aplicativo e um problema que, ocasionalmente, fazia com que toques e gestos fossem ignorados
+## Mapa
+• Dados do OpenStreetMap atualizados em 28 de setembro
+• Dados da Wikipedia em 21 de setembro
+• Os reservatórios de água agora ficam visíveis ao afastar ainda mais o zoom
+• Os túneis hidráulicos não são mais exibidos no mapa
+• Corrigidos os ícones das estações e entradas do Metrô de Suzhou
+• Corrigimos casos raros em que os rótulos ficavam deslocados na camada do mapa do metrô
 
-## Compartilhamento, marcadores e trilhas
+## CarPlay
+• Adicionadas instruções de manobras nos visores head-up (HUDs) de carros compatíveis e no painel do CarPlay
+• Corrigidos os botões do CarPlay e a função de pesquisa
 
-• NOVIDADE: adicionada a seleção múltipla às listas de Marcadores e Trilhas, com ações em lote para excluir, mover e alterar a cor dos itens selecionados, além de “Selecionar tudo” e “Desmarcar tudo”
-• Adicionado suporte ao AirDrop para compartilhamento de locais
-• Ao compartilhar um local, um marcador ou a posição atual, agora é enviado um link legível com informações úteis
-• Os marcadores exportados agora mantêm seus nomes e descrições originais
-• As listas de marcadores compartilhadas agora usam o nome exibido em vez do nome interno do arquivo
-• Corrigido um problema na exibição do gráfico de elevação que podia ocorrer logo após o início da gravação de uma trilha
-• Restaurado o seletor de cor personalizada no pop-up da paleta de cores
-• Corrigida a exibição das descrições em HTML quando um marcador é selecionado no mapa
+## Trilhas
+• Adicionado um ícone de olho para ocultar trilhas individuais
+• Correção de bugs e melhorias na gravação de trilhas
+• Corrigida a importação de arquivos KMB
 
-## Rotas e navegação
+## Busca
+• Corrigimos as buscas quando a área visível do mapa cruza o meridiano de 180° (±180° de longitude)
+• Restaurada a pesquisa por categoria no Spotlight
 
-• NOVIDADE: adicionado um painel do CarPlay e corrigidos vários problemas relacionados ao CarPlay
-• Corrigida a ativação do estilo do mapa de navegação automotiva
-• Ao tocar em uma parada ou marca da rota, ela agora é aberta corretamente, em vez de alternar entre as rotas planejadas
-• As rotas de transporte público agora são calculadas com mais rapidez
-• Corrigidas instruções de curva incorretas
-• Corrigido um ponto de partida incorreto após o recálculo de uma rota
-• No planejamento de rotas, as estradas de laterita agora são consideradas superfícies não pavimentadas de baixa qualidade
-• Estradas marcadas com access=unknown agora são tratadas como estradas com acesso privado ou restrito apenas ao destino
-
-## Editor do OpenStreetMap
-
-• Corrigida uma falha que ocorria quando um envio ao OpenStreetMap era concluído em segundo plano
-• Ao limpar o campo de horário de funcionamento, os botões “Salvar” ou “Feito” não ficam mais desativados
-• Os envios que falham parcialmente agora são repetidos, em vez de serem relatados como totalmente bem-sucedidos
-
-## Traduções
-
-• Adicionada orientação por voz em armênio e laosiano
-• Atualizada a Ajuda/Perguntas Frequentes (FAQ) e adicionada a tradução para o japonês
-• Corrigida a tradução para o japonês de “Fechado agora”
-• Aprimoradas as traduções para o chinês de “trilha” e “desativar”
-
-Consulte as notas de lançamento detalhadas em https://omaps.org/pt-BR/news/
+## IU
+• O horário de funcionamento agora exibe “Meio-dia” para 12h e “Meia-noite” para 00h ou 24h
+• Corrigimos vários bugs e aprimoramos a interface do usuário
+• Traduções corrigidas para o inglês, francês e asturiano
+• Adicionado suporte para selecionar e ouvir uma prévia da voz de navegação instalada

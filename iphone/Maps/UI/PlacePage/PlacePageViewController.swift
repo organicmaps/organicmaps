@@ -455,6 +455,11 @@ extension PlacePageViewController: UIScrollViewDelegate {
     }
 
     let nextStep = findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
+    if case .closed = nextStep, !isiPad, !layout.headerViewController.isEditingTitle {
+      targetContentOffset.pointee = scrollView.contentOffset
+      interactor?.close()
+      return
+    }
     targetContentOffset.pointee = CGPoint(x: 0, y: nextStep.offset)
     userDefinedStep = nextStep
   }

@@ -1,50 +1,33 @@
-## Map & places
+## Routing
+• Improved alternative routes and their estimated arrival times
+• Added buttons for adding or replacing a stop in a planned route
+• Added a setting to optimize the order of intermediate route stops
+• The selected alternative route is now preserved when navigation recalculates the route
+• The order of route stops is now restored after restarting the app
 
-• Updated OpenStreetMap data as of August 26, 2026
-• Updated Wikipedia articles in Arabic, Bengali, Chinese, English, French, German, Hindi, Italian, Japanese, Korean, Marathi, Polish, Portuguese, Russian, Spanish, Tamil, Telugu, Turkish, and Urdu
-• Added bird hides, stages, hills, and rock arches to the map, plus a new icon for rocks
-• Resized peak, cave, and mountain pass icons
-• Protected areas, national parks, and wetlands are now displayed in lighter shades
-• Fixed many issues that caused opening hours to be displayed incorrectly
-• Reorganized settings into General, Map, Navigation, Network, and Privacy sections
-• Removed the compass calibration setting because calibration is now handled automatically
-• Fixed compass issues that could cause the current-position arrow to point in the wrong direction or freeze
-• The corresponding point is now shown on the map while you drag across the elevation profile in a walking or cycling route preview
-• Fixed an app freeze and an issue that occasionally caused taps and gestures to be ignored
+## Map
+• OpenStreetMap data as of September 28
+• Wikipedia data as of September 21
+• Water reservoirs are now visible when zoomed further out
+• Waterway tunnels are no longer shown on the map
+• Fixed Suzhou Metro station and entrance icons
+• Fixed rare cases where labels shifted out of position on the metro map layer
 
-## Sharing, bookmarks & tracks
+## CarPlay
+• Added manoeuvre instructions on supported car head-up displays (HUDs) and the CarPlay dashboard
+• Fixed CarPlay buttons and search
 
-• NEW: Added multi-selection to the Bookmarks and Tracks lists, with batch actions to delete, move, and change the colour of selected items, plus Select All and Deselect All
-• Added AirDrop support for sharing places
-• Sharing a place, bookmark, or current position now sends a readable link with useful information
-• Exported bookmarks now preserve their original names and descriptions
-• Shared bookmark lists now use their displayed names instead of internal file names
-• Fixed an elevation chart display issue that could occur immediately after starting a track recording
-• Restored the custom colour picker in the colour palette popover
-• Fixed the rendering of HTML descriptions when a bookmark is selected on the map
+## Tracks
+• Added an eye icon to hide individual tracks
+• Fixed bugs and improved track recording
+• Fixed importing KMB files
 
-## Routing & navigation
+## Search
+• Fixed searches when the visible map area crosses the 180° meridian (±180° longitude)
+• Restored category search in Spotlight
 
-• NEW: Added a CarPlay dashboard and fixed multiple CarPlay issues
-• Fixed the activation of the car navigation map style
-• Tapping a route stop or mark now opens it correctly instead of switching between planned routes
-• Public transport routes are now planned faster
-• Fixed incorrect turn instructions
-• Fixed an incorrect start point after a route was rebuilt
-• Laterite roads are now treated as having a poor-quality unpaved surface during route planning
-• Roads tagged access=unknown are now handled like roads with private or destination-only access
-
-## OpenStreetMap editor
-
-• Fixed a crash when an OpenStreetMap upload finished in the background
-• Clearing the opening hours field no longer leaves the Save or Done button disabled
-• Uploads that partially fail are now retried instead of being reported as fully successful
-
-## Translations
-
-• Added voice guidance in Armenian and Lao
-• Updated Help/Frequently Asked Questions (FAQ), added Japanese translation
-• Corrected the Japanese translation of “Closed now”
-• Improved the Chinese translations of “track” and “disable”
-
-See the detailed release notes at https://omaps.org/news/
+## UI
+• Opening hours now display “Noon” for 12:00 and “Midnight” for 00:00 or 24:00
+• Fixed various bugs and improved the user interface
+• Corrected English, French and Asturian translations
+• Added support for choosing and previewing an installed navigation voice

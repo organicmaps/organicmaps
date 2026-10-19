@@ -10,6 +10,7 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <cstring>  // strlen
 #include <limits>
 #include <map>
@@ -843,7 +844,7 @@ void GLFunctions::glVertexAttributePointer(int attrLocation, uint32_t count, glC
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   ASSERT(glVertexAttributePointerFn != nullptr, ());
   GLCHECK(glVertexAttributePointerFn(attrLocation, count, type, convert(needNormalize), stride,
-                                     reinterpret_cast<void *>(offset)));
+                                     reinterpret_cast<void *>(static_cast<uintptr_t>(offset))));
 }
 
 void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex, int32_t * uniformSize, glConst * type,
@@ -1040,7 +1041,7 @@ void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   GLCHECK(::glDrawElements(primitive, indexCount, sizeOfIndex == sizeof(uint32_t) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT,
-                           reinterpret_cast<GLvoid *>(startIndex * sizeOfIndex)));
+                           reinterpret_cast<GLvoid *>(static_cast<uintptr_t>(startIndex) * sizeOfIndex)));
 }
 
 void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count)

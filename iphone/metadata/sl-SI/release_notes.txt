@@ -1,50 +1,33 @@
-## Zemljevid in kraji
+## Načrtovanje poti
+• Izboljšane alternativne poti in njihovi predvideni časi prihoda
+• Dodani so gumbi za dodajanje ali zamenjavo postanka v načrtovani poti
+• Dodana je bila nastavitev za optimizacijo vrstnega reda vmesnih postankov na poti
+• Izbrana alternativna pot se zdaj ohrani, ko navigacija ponovno izračuna pot
+• Po ponovnem zagonu aplikacije se zdaj obnovi vrstni red postankov na poti
 
-• Posodobljeni podatki OpenStreetMap z dne 26. avgusta 2026
-• Posodobljeni članki na Wikipediji v arabščini, bengalščini, kitajščini, angleščini, francoščini, nemščini, hindijščini, italijanščini, japonščini, korejščini, marathščini, poljščini, portugalščini, ruščini, španščini, tamilščini, teluguščini, turščini in urduščini
-• Na zemljevid so bile dodane opazovalnice ptic, odri, hribi in skalni loki ter nova ikona za skale
-• Spremenjena je bila velikost ikon vrhov, jam in gorskih prelazov
-• Zaščitena območja, narodni parki in mokrišča so zdaj prikazani v svetlejših odtenkih
-• Popravljenih je bilo veliko težav, zaradi katerih so se odpiralni časi prikazovali nepravilno
-• Nastavitve so bile preurejene v razdelke »Splošno«, »Zemljevid«, »Navigacija«, »Omrežje« in »Zasebnost«
-• Odstranjena je bila nastavitev kalibracije kompasa, saj se kalibracija zdaj izvaja samodejno
-• Odpravljene so bile težave s kompasom, zaradi katerih je puščica trenutnega položaja kazala v napačno smer ali zamrznila
-• Ustrezna točka se zdaj prikaže na zemljevidu, ko s prstom povlečete po višinskem profilu v predogledu pešpoti ali kolesarske poti
-• Popravljeno je bilo zamrzovanje aplikacije in težava, zaradi katere so se občasno ignorirali dotiki in geste
+## Zemljevid
+• Podatki OpenStreetMap z dne 28. septembra
+• Podatki iz Wikipedije z dne 21. septembra
+• Vodni rezervoarji so zdaj vidni, ko se slika še bolj oddalji
+• Vodni tuneli se na zemljevidu ne prikazujejo več
+• Popravljene so bile ikone postaj in vhodov v podzemno železnico v Suzhouju
+• Popravljeni so redki primeri, ko so se oznake na sloju zemljevida podzemne železnice premaknile iz položaja
 
-## Deljenje, zaznamki in sledi
+## CarPlay
+• Dodana so navodila za manevriranje na podprtih avtomobilskih zaslonih HUD (head-up display) in na nadzorni plošči CarPlay
+• Popravljeni gumbi CarPlay in iskanje
 
-• NOVO: seznamoma »Zaznamki« in »Sledi« je bila dodana možnost večkratne izbire s skupinskimi dejanji za brisanje, premikanje in spreminjanje barve izbranih elementov ter možnostma »Izberi vse« in »Prekliči izbiro«
-• Dodana je podpora za AirDrop za deljenje krajev
-• Ob deljenju kraja, zaznamka ali trenutnega položaja se zdaj pošlje berljiva povezava s koristnimi informacijami
-• Izvoženi zaznamki zdaj ohranjajo svoja prvotna imena in opise
-• Deljeni seznami zaznamkov zdaj uporabljajo prikazano ime namesto notranjega imena datoteke
-• Popravljena je bila napaka pri prikazovanju višinskega grafa, ki se je lahko pojavila takoj po začetku snemanja sledi
-• Ponovno je na voljo izbirnik barve po meri v pojavnem oknu barvne palete
-• Popravljeno je bilo prikazovanje opisov v obliki HTML, ko je na zemljevidu izbran zaznamek
+## Sledi
+• Dodana je bila ikona očesa za skritje posameznih sledi
+• Popravljene napake in izboljšano snemanje sledi
+• Popravljeno uvažanje datotek KMB
 
-## Načrtovanje poti in navigacija
+## Iskanje
+• Popravljeno iskanje, ko vidno območje zemljevida prečka 180° poldnevnik (±180° zemljepisne dolžine)
+• V Spotlightu je bilo ponovno vzpostavljeno iskanje po kategorijah
 
-• NOVO: dodana je bila nadzorna plošča za CarPlay in odpravljenih je bilo več težav s CarPlay
-• Popravljena je bila aktivacija sloga zemljevida za avtomobilsko navigacijo
-• S pritiskom na postajo ali oznako na poti se ta zdaj pravilno odpre, namesto da bi se preklapljalo med načrtovanimi potmi
-• Poti javnega prevoza se zdaj načrtujejo hitreje
-• Popravljena so bila napačna navodila za zavijanje
-• Popravljena je bila napačna začetna točka po ponovnem izračunu poti
-• Ceste iz laterita se pri načrtovanju poti zdaj obravnavajo kot ceste z nekakovostno neasfaltirano površino
-• Ceste, označene z access=unknown, se zdaj obravnavajo kot ceste z zasebnim dostopom ali dostopom izključno do cilja
-
-## Urejevalnik OpenStreetMap
-
-• Popravljeno je bilo sesutje aplikacije ob zaključku pošiljanja podatkov v OpenStreetMap v ozadju
-• Če izbrišete polje z odpiralnim časom, gumba »Shrani« in »Končano« nista več onemogočena
-• Delno neuspešna pošiljanja se zdaj ponovijo, namesto da bi bila prijavljena kot povsem uspešna
-
-## Prevodi
-
-• Dodana so glasovna navodila v armenščini in laoščini
-• Posodobljena sta Pomoč in Pogosta vprašanja (FAQ), dodan je japonski prevod
-• Popravljen je bil japonski prevod besedila »Trenutno zaprto«
-• Izboljšana sta bila kitajska prevoda izrazov »sled« in »onemogoči«
-
-Podrobne opombe k izdaji si oglejte na https://omaps.org/news/
+## Uporabniški vmesnik
+• Delovni čas zdaj prikazuje »Poldne« za 12:00 in »Polnoč« za 00:00 ali 24:00
+• Popravljene so bile različne napake in izboljšan uporabniški vmesnik
+• Popravljeni prevodi v angleščino, francoščino in asturijščino
+• Dodana je možnost izbire nameščenega navigacijskega glasu in poslušanja njegovega vzorca

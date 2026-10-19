@@ -214,7 +214,7 @@ public class RoutingController
 
   private boolean isDrivingOptionsBuildError()
   {
-    return mLastResultCode != ResultCodes.NEED_MORE_MAPS && RoutingOptions.hasAnyOptions() && !isRulerRouterType();
+    return mLastResultCode != ResultCodes.NEED_MORE_MAPS && RoutingOptions.hasAnyOptions(mLastRouterType);
   }
 
   private void setState(State newState)
@@ -772,7 +772,7 @@ public class RoutingController
 
   public void waitForPoiPickToAppend()
   {
-    // Intermediate labels this as an Add Stop pick and prevents the existing finish from being treated
+    // Intermediate selects the "Add destination" labels and keeps the existing finish from being treated
     // as replaced when checking whether My Position can be picked. The core makes the picked point Finish.
     armPoiPick(RouteMarkType.Intermediate, PoiPickMode.APPEND, -1);
   }
@@ -1110,6 +1110,14 @@ public class RoutingController
     checkAndBuildRoute();
     if (mContainer != null)
       mContainer.updateMenu();
+  }
+
+  public void reverseRoute()
+  {
+    Logger.d(TAG, "reverseRoute");
+
+    if (Framework.nativeReverseRoutePoints())
+      build();
   }
 
   public void setRouterType(Router router)

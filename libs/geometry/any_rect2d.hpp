@@ -96,8 +96,8 @@ public:
 
   bool IsIntersect(AnyRect<T> const & r) const
   {
-    if (r.GetLocalRect() == Rect<T>())
-      return false;
+    ASSERT(!m_rect.IsEmptyInterior() && !r.m_rect.IsEmptyInterior(), ());
+
     Corners pts;
     r.GetGlobalPoints(pts);
     ConvertTo(pts);
@@ -107,7 +107,7 @@ public:
       for (auto const & p : pts)
         r1.Add(p);
 
-      if (!GetLocalRect().IsIntersect(r1))
+      if (!m_rect.IsIntersect(r1))
         return false;
     }
 
@@ -117,8 +117,15 @@ public:
     if (IsRectInside(r))
       return true;
 
-    return Intersect(GetLocalRect(), pts[0], pts[1]) || Intersect(GetLocalRect(), pts[1], pts[2]) ||
-           Intersect(GetLocalRect(), pts[2], pts[3]) || Intersect(GetLocalRect(), pts[3], pts[0]);
+    for (size_t i = 0; i < pts.size(); ++i)
+    {
+      // Intersect can modify endpoints even when the segment does not intersect the rect.
+      auto p1 = pts[i];
+      auto p2 = pts[(i + 1) % pts.size()];
+      if (Intersect(m_rect, p1, p2))
+        return true;
+    }
+    return false;
   }
 
   /// Convert into coordinate system of this AnyRect

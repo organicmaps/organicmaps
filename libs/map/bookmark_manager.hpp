@@ -261,6 +261,8 @@ public:
     SortingType m_sortingType = SortingType::ByType;
     bool m_hasMyPosition = false;
     m2::PointD m_myPosition = {0.0, 0.0};
+    // BCP 47 locale for name sorting; empty uses the current device locale.
+    std::string m_locale;
     OnResults m_onResults;
   };
 
@@ -277,7 +279,6 @@ public:
 
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
-  void UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data, bool autoSave);
 
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
@@ -285,7 +286,8 @@ public:
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
 
-  kml::MarkGroupId GetCategoryId(std::string const & name) const;
+  kml::MarkGroupId GetCategoryId(std::string const & name,
+                                 kml::MarkGroupId excludedGroupId = kml::kInvalidMarkGroupId) const;
 
   kml::GroupIdCollection const & GetUnsortedBmGroupsIdList() const { return m_unsortedBmGroupsIdList; }
   kml::GroupIdCollection GetSortedBmGroupIdList() const;
@@ -389,7 +391,7 @@ public:
   void RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
   void DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
 
-  // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
+  // Preserves nonempty modification timestamps while loading, importing, or reloading categories.
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
   static std::string GetTracksSortedBlockName();
@@ -585,6 +587,7 @@ private:
   void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
   void ClearGroup(kml::MarkGroupId groupId);
+  void UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data);
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);
   void SetTrackVisibility(kml::TrackId trackId, bool visible);
 
@@ -653,7 +656,7 @@ private:
   KMLDataCollectionPtr PrepareToSaveBookmarksForTrack(kml::TrackId trackId);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
-  void SetUniqueName(kml::CategoryData & data);
+  void SetUniqueName(kml::CategoryData & data, kml::MarkGroupId excludedGroupId);
   bool CheckVisibility(bool isVisible) const;
 
   struct SortBookmarkData
@@ -699,7 +702,8 @@ private:
   static void SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
                          std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
   static void SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
-                         std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
+                         std::vector<SortTrackData> const & tracksForSort, std::string const & locale,
+                         SortedBlocksCollection & sortedBlocks);
 
   using AddressesCollection = std::vector<std::pair<kml::MarkId, search::ReverseGeocoder::RegionAddress>>;
   void PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort, AddressesCollection & newAddresses);
@@ -708,7 +712,6 @@ private:
   static void AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
                                    SortedBlocksCollection & sortedBlocks);
   static void SortTracksByTime(std::vector<SortTrackData> & tracks);
-  static void SortTracksByName(std::vector<SortTrackData> & tracks);
 
   kml::MarkId GetTrackSelectionMarkId(kml::TrackId trackId) const;
   int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;

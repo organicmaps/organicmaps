@@ -1,11 +1,9 @@
-• OSM-Daten vom 26. August
-• NEU: Mehrfachauswahl für Lesezeichen und Tracks
-• NEU: Einzelne Tracks über das Augensymbol ausblenden
-• NEU: Wikipedia-Artikel auf Bengalisch, Hindi, Marathi, Polnisch, Tamil, Telugu, Urdu
-• Abstürze und Einfrieren behoben
-• Vogelbeobachtungsstände, Bühnen, Hügel und Felsenbögen zur Karte hinzugefügt
-• Besseres Teilen von Orten
-• Korrekturen für Android Auto
-• Auswahl von Routenstopps korrigiert
-• Öffnungszeiten korrigiert
-…mehr unter omaps.org/de/news
+• OSM: 28. September; Wikipedia: 21. September
+• Alternative Routen und voraussichtliche Ankunftszeiten verbessert
+• Neue Einstellung optimiert die Reihenfolge der Zwischenstopps
+• Neue Schaltflächen zum Hinzufügen/Ersetzen von Stopps in geplanten Routen
+• Gewählte Alternativroute bleibt bei der Navigation erhalten
+• Fehler bei der Trackaufzeichnung behoben; Aufzeichnung verbessert
+• KMB-Import korrigiert
+• Oberfläche verbessert und Fehler behoben
+…mehr auf omaps.org/de/news

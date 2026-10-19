@@ -7,6 +7,7 @@
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
 
@@ -183,20 +184,6 @@ std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
   return result;
 }
 
-VehicleType GetVehicleType(RouterType routerType)
-{
-  switch (routerType)
-  {
-  case RouterType::Pedestrian: return VehicleType::Pedestrian;
-  case RouterType::Bicycle: return VehicleType::Bicycle;
-  case RouterType::Vehicle: return VehicleType::Car;
-  case RouterType::Transit: return VehicleType::Transit;
-  case RouterType::Ruler: return VehicleType::Transit;
-  case RouterType::Count: CHECK(false, ("Invalid type", routerType)); return VehicleType::Count;
-  }
-  UNREACHABLE();
-}
-
 // Maps a barrier point-feature classificator type (stored in routing::Route::GetWarnings) to a UI
 // warning mark type. Mirrors ftypes::IsWayChecker; this is the single place to extend when adding
 // a new barrier warning kind.
@@ -347,6 +334,12 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   { OnBuildRouteReady(result, code); }, [this](RoutesResult const & result, RouterResultCode code)
   { OnRebuildRouteReady(result, code); }, [this](uint64_t routeId, storage::CountriesSet const & absentCountries)
   { OnNeedMoreMaps(routeId, absentCountries); }, [this](RouterResultCode code) { OnRemoveRoute(code); });
+
+  m_routingSession.SetChangeSessionStateCallback([this](SessionState, SessionState state)
+  {
+    if (state == SessionState::RouteBuilding || state == SessionState::RouteRebuilding)
+      ClearAlternativeRoutes();
+  });
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
   {
@@ -518,7 +511,8 @@ void RoutingManager::Init(std::shared_ptr<routing::NumMwmIds> ptr)
 
 void RoutingManager::SetRouterImpl(RouterType type)
 {
-  VehicleType const vehicleType = GetVehicleType(type);
+  // Ruler has no road profile and uses Transit session settings.
+  VehicleType const vehicleType = RoutingOptions::GetVehicleType(type).value_or(VehicleType::Transit);
 
   m_loadAltitudes = vehicleType != VehicleType::Car;
 
@@ -733,8 +727,15 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
                      i == result.m_activeIdx});
   }
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, infos = std::move(infos)]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, routesId = result.m_routesId, infos = std::move(infos)]()
   {
+    // A rebuild or navigation can hide choices before this queued task runs.
+    bool hasAlternatives = false;
+    m_routingSession.RouteCall([&](RoutesResult const & current)
+    { hasAlternatives = current.m_routesId == routesId && current.m_routes.size() > 1; });
+    if (!hasAlternatives || m_routingSession.IsFollowing())
+      return;
+
     // Place each balloon up or down based on the midpoint's latitude relative to the others:
     // the northern midpoint (larger mercator y) gets the up balloon, the southern one goes down.
     // +y in drape vertex-normal space is downward, so (0, -N) lifts the body above the pivot.
@@ -821,9 +822,9 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
     { transitRouteDisplay->CreateTransitMarks(); });
   }
 
-  // We render marks for every warning, but only an avoidable warning (toll/ferry/dirty) on a car
-  // route should surface the "driving options" affordance via RouterResultCode::HasWarnings.
-  // Steps/gate/lift_gate have no avoid option, and non-car routes have no driving options at all.
+  // HasWarnings signals avoidable car-road warnings. Walking and cycling still render their warning
+  // marks and expose ferry avoidance directly.
+  // Steps/gate/lift_gate have no avoidance control.
   bool const hasDrivingOptionsWarning =
       m_currentRouterType == RouterType::Vehicle &&
       base::AnyOf(roadWarnings, [](auto const & w) { return IsAvoidableRoadWarning(w.first); });
@@ -1219,6 +1220,18 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 
   RoutePointsLayout routePoints(*m_bmManager);
   size_t const sz = routePoints.GetRoutePointsCount();
+  if (sz == 1)
+  {
+    auto * point = routePoints.GetRoutePoints().front();
+    auto const currentType = point->GetRoutePointType();
+    ASSERT(currentType != RouteMarkType::Intermediate, ());
+    ASSERT_LESS(currentIndex, 2, ());
+    ASSERT_LESS(targetIndex, 2, ());
+    ASSERT_NOT_EQUAL(currentIndex, targetIndex, ());
+    // Either endpoint slot may be dragged, so flip the real point regardless of drag direction.
+    point->SetRoutePointFullType(currentType == RouteMarkType::Start ? RouteMarkType::Finish : RouteMarkType::Start, 0);
+    return;
+  }
   auto const convertIndex = [sz](RouteMarkType & type, size_t & index)
   {
     if (index == 0)
@@ -1244,6 +1257,32 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
   convertIndex(targetType, targetIndex);
 
   routePoints.MoveRoutePoint(currentType, currentIndex, targetType, targetIndex);
+}
+
+bool RoutingManager::ReverseRoutePoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  RoutePointsLayout routePoints(*m_bmManager);
+  auto const points = routePoints.GetRoutePoints();
+  if (points.size() < 2 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return false;
+
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    size_t const reversedIndex = points.size() - 1 - i;
+    auto * point = points[i];
+    if (reversedIndex == 0)
+      point->SetRoutePointFullType(RouteMarkType::Start, 0);
+    else if (reversedIndex + 1 == points.size())
+      point->SetRoutePointFullType(RouteMarkType::Finish, 0);
+    else
+      point->SetRoutePointFullType(RouteMarkType::Intermediate, reversedIndex - 1);
+
+    point->SetPassed(false);
+    point->SetIsVisible(!point->IsMyPosition());
+  }
+  return true;
 }
 
 void RoutingManager::SetPointsFollowingMode(bool enabled)

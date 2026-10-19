@@ -28,7 +28,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   private final ArrayList<RouteMarkData> mRoutePoints;
   private final ManageRouteListener mManageRouteListener;
   private static final int TYPE_POINT = 0;
-  private static final int TYPE_ADD_BUTTON = 1;
+  static final int TYPE_ADD_BUTTON = 1;
   public interface ManageRouteListener
   {
     void startDrag(RecyclerView.ViewHolder viewHolder);

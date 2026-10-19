@@ -1,10 +1,9 @@
-• Dados OSM de 26 de agosto
-• NOVIDADE: seleção múltipla de favoritos e trajetos
-• NOVIDADE: ocultar trajetos individuais com o ícone do olho
-• NOVIDADE: artigos da Wikipédia em bengali, hindi, marata, polaco, tâmil, télugo e urdu
-• Corrigidas falhas e bloqueios
-• Adicionados ao mapa abrigos de observação de aves, palcos, colinas e arcos de rocha
-• Melhor partilha de locais
-• Correções para o Android Auto
-• Corrigida a seleção de paragens do percurso
+• OSM: 28 de setembro; Wikipédia: 21 de setembro
+• Melhores percursos alternativos e estimativas de chegada
+• Nova configuração otimiza a ordem das paragens
+• Novos botões permitem adicionar ou substituir paragens nas rotas planeadas
+• A rota alternativa escolhida é mantida durante a navegação
+• Correções e melhorias na gravação de percursos
+• Importação de KMB corrigida
+• Correções e melhorias na interface do utilizador
 …mais em omaps.org/pt/news

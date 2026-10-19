@@ -177,8 +177,8 @@ protected:
 
   // Swap chain image acquiring.
   std::array<VkSemaphore, kMaxInflightFrames> m_acquireSemaphores = {};
-  // Command buffers submission and execution.
-  std::array<VkSemaphore, kMaxInflightFrames> m_renderSemaphores = {};
+  // One semaphore per image; its next acquisition wait makes presentation semaphore reuse safe.
+  std::vector<VkSemaphore> m_renderSemaphores;
   // All rendering tasks completion.
   std::array<VkFence, kMaxInflightFrames> m_fences = {};
 

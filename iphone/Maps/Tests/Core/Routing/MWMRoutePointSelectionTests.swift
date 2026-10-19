@@ -42,6 +42,39 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     waitUntilRouteReady()
   }
 
+  func test_GivenReversedRouteWithoutFollowMode_WhenReady_ThenCanReverseAgain() {
+    seedEndpoints()
+    MWMRouter.rebuild(withBestRouter: false)
+    waitUntilRouteReady()
+
+    MWMRouter.reverseRoute()
+    waitUntilRouteReady()
+
+    let followModeDisabled = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+      !MWMRouter.isRouteBuilt()
+    }, object: nil)
+    wait(for: [followModeDisabled], timeout: 5)
+    XCTAssertFalse(MWMRouter.isRouteBuilt())
+    XCTAssertTrue(MWMRouter.isRouteValid())
+
+    var viewModel = NavigationDashboard.ViewModel.initial
+    viewModel.dashboardState = .ready
+    viewModel.routePoints = NavigationDashboard.RoutePoints(points: MWMRouter.points())
+    viewModel.progress = 1
+    XCTAssertTrue(viewModel.canReverseRoutePoints)
+
+    viewModel.dashboardState = .prepare
+    XCTAssertTrue(viewModel.canReverseRoutePoints)
+
+    viewModel.dashboardState = .planning
+    viewModel.progress = 0
+    XCTAssertFalse(viewModel.canReverseRoutePoints)
+    viewModel.dashboardState = .error
+    XCTAssertFalse(viewModel.canReverseRoutePoints)
+    viewModel.dashboardState = .prepare
+    XCTAssertFalse(viewModel.canReverseRoutePoints)
+  }
+
   func test_GivenRoute_WhenPointIsAppended_ThenKeepsOldFinishAsLastStop() {
     seedRoute()
 
@@ -117,6 +150,32 @@ final class MWMRoutePointSelectionTests: XCTestCase {
       makePoint(type: .finish, title: "finish", coordinate: 13),
     ])
     XCTAssertEqual((0 ..< route.count).map(route.type(for:)), [.start, .intermediate, .intermediate, .finish])
+  }
+
+  func test_GivenRoutePointSelection_WhenChoosingPoint_ThenShowsMatchingTitle() {
+    let start = makePoint(type: .start, title: "start", coordinate: 10)
+    let finish = makePoint(type: .finish, title: "finish", coordinate: 13)
+    let stop = makePoint(type: .intermediate, title: "stop", coordinate: 11)
+    let cases: [(type: MWMRoutePointType, point: MWMRoutePoint?, shouldAppend: Bool, key: String)] = [
+      (.start, nil, false, "choose_start_location"),
+      (.start, start, false, "change_start_location"),
+      (.finish, nil, false, "choose_destination"),
+      (.finish, finish, false, "change_destination"),
+      (.intermediate, nil, false, "placepage_add_stop"),
+      (.intermediate, stop, false, "change_stop_along_route"),
+      (.intermediate, nil, true, "route_add_destination"),
+    ]
+
+    for selection in cases {
+      delegate.routePreviewDidSelect(MWMRoutePointSelection(point: selection.point,
+                                                            type: selection.type,
+                                                            shouldAppend: selection.shouldAppend))
+      XCTAssertEqual(manager.routePointSelectionTitle, L(selection.key))
+    }
+
+    XCTAssertEqual(titleForButton(.routeAddStop, false), L("placepage_add_stop"))
+    XCTAssertEqual(titleForButton(.routeReplaceStop, false), L("placepage_replace_stop"))
+    XCTAssertEqual(titleForButton(.routeAddDestination, false), L("route_add_destination"))
   }
 
   private func seedEndpoints() {

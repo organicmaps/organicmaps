@@ -3,6 +3,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/assert.hpp"
+
 namespace m2
 {
 namespace detail
@@ -52,36 +54,31 @@ bool Intersect(m2::Rect<T> const & r, m2::Point<T> & p1, m2::Point<T> & p2, int 
       pp = &p2;
     }
 
-    // added points compare to avoid NAN numbers
+    // Select one boundary from the current outcode; clipping can invalidate its other bits.
     if (code[i] & detail::LEFT)
     {
-      if (p1 == p2)
-        return false;
+      ASSERT_NOT_EQUAL(p1.x, p2.x, (r, p1, p2));
       pp->y += (p1.y - p2.y) * (r.minX() - pp->x) / (p1.x - p2.x);
       pp->x = r.minX();
       codeClip[i] = detail::LEFT;
     }
     else if (code[i] & detail::RIGHT)
     {
-      if (p1 == p2)
-        return false;
+      ASSERT_NOT_EQUAL(p1.x, p2.x, (r, p1, p2));
       pp->y += (p1.y - p2.y) * (r.maxX() - pp->x) / (p1.x - p2.x);
       pp->x = r.maxX();
       codeClip[i] = detail::RIGHT;
     }
-
-    if (code[i] & detail::BOT)
+    else if (code[i] & detail::BOT)
     {
-      if (p1 == p2)
-        return false;
+      ASSERT_NOT_EQUAL(p1.y, p2.y, (r, p1, p2));
       pp->x += (p1.x - p2.x) * (r.minY() - pp->y) / (p1.y - p2.y);
       pp->y = r.minY();
       codeClip[i] = detail::BOT;
     }
     else if (code[i] & detail::TOP)
     {
-      if (p1 == p2)
-        return false;
+      ASSERT_NOT_EQUAL(p1.y, p2.y, (r, p1, p2));
       pp->x += (p1.x - p2.x) * (r.maxY() - pp->y) / (p1.y - p2.y);
       pp->y = r.maxY();
       codeClip[i] = detail::TOP;

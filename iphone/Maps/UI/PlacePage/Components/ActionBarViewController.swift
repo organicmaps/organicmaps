@@ -11,6 +11,7 @@ final class ActionBarViewController: UIViewController {
   var canAddStop = false
   var canReplaceStop = false
   var canRouteToAndFrom = false
+  var shouldAppendNewPoints = false
 
   private var visibleButtons: [ActionBarButtonType] = []
   private var additionalButtons: [ActionBarButtonType] = []
@@ -28,13 +29,20 @@ final class ActionBarViewController: UIViewController {
     if placePageData.isRoutePoint {
       visibleButtons.append(.routeRemoveStop)
     } else if placePageData.roadType != .none {
+      let options = RoutingOptions(routerType: MWMRouter.type())
       switch placePageData.roadType {
       case .toll:
-        visibleButtons.append(.avoidToll)
+        if options.supportedOptions.contains(.toll) {
+          visibleButtons.append(.avoidToll)
+        }
       case .ferry:
-        visibleButtons.append(.avoidFerry)
+        if options.supportedOptions.contains(.ferry) {
+          visibleButtons.append(.avoidFerry)
+        }
       case .dirty:
-        visibleButtons.append(.avoidDirty)
+        if options.supportedOptions.contains(.dirty) {
+          visibleButtons.append(.avoidDirty)
+        }
       default:
         fatalError()
       }
@@ -58,13 +66,14 @@ final class ActionBarViewController: UIViewController {
     }
 
     var buttons: [ActionBarButtonType] = []
+    let addStopButton: ActionBarButtonType = shouldAppendNewPoints ? .routeAddDestination : .routeAddStop
     switch placePageData.objectType {
     case .POI, .bookmark:
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
       if canAddStop {
-        buttons.append(canReplaceStop ? .routeReplaceStop : .routeAddStop)
+        buttons.append(canReplaceStop ? .routeReplaceStop : addStopButton)
       }
       buttons.append(.bookmark)
       if canRouteToAndFrom {
@@ -75,7 +84,7 @@ final class ActionBarViewController: UIViewController {
         buttons.append(.routeFrom)
       }
       if canAddStop {
-        buttons.append(.routeAddStop)
+        buttons.append(addStopButton)
       }
       buttons.append(.bookmark)
       if canRouteToAndFrom {

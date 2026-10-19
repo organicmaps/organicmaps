@@ -1,12 +1,9 @@
-• OSM dati uz 26. augustu
-• JAUNS: vairāku grāmatzīmju un pēdojumu atlase
-• JAUNS: atsevišķu pēdojumu paslēpšana ar acs ikonu
-• JAUNS: Vikipēdijas raksti bengāļu, hindi, marathi, poļu, tamilu, telugu un urdu valodā
-• Izlabotas avārijas un sastingumi
-• Kartē pievienoti putnu vērošanas slēpņi, skatuves, pauguri un klinšu arkas
-• Labāka vietu kopīgošana
-• Android Auto labojumi
-• Izlabota maršruta pieturu izvēle
-• Izlabots darba laiks
-• Izlabotas OSM redaktora kļūdas
-…vairāk omaps.org/news
+• OSM: 28. septembris; Vikipēdija: 21. septembris
+• Labāki alternatīvie maršruti un paredzamie ierašanās laiki
+• Jauns iestatījums optimizē starppunktu secību
+• Jaunās pogas ļauj pievienot vai aizstāt starppunktus plānotajos maršrutos
+• Navigācijas laikā tiek saglabāts izvēlētais alternatīvais maršruts
+• Pēdojumu ierakstīšanas labojumi un uzlabojumi
+• KMB importēšanas problēma novērsta
+• Lietotāja saskarnes labojumi un uzlabojumi
+…vairāk šeit omaps.org/news

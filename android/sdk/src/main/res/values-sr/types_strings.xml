@@ -197,7 +197,8 @@
     <string name="type.barrier.chain">Ланац</string>
     <string name="type.barrier.city_wall">Градски зид</string>
     <string name="type.barrier.cycle_barrier">Бедем</string>
-    <string name="type.waterway.ditch">Канал</string>
+    <string name="type.waterway.ditch">Одводни јарак</string>
+    <string name="type.waterway.ditch.intermittent">Повремени одводни јарак</string>
     <string name="type.natural.water.moat">Шанац</string>
     <string name="type.natural.water.wastewater">Отпадна вода</string>
     <string name="type.barrier.entrance">Пролаз</string>
@@ -382,49 +383,49 @@
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Ауто-пут</string>
     <string name="type.highway.bridleway">Коњска стаза</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.bridleway.bridge">Мост</string>
     <string name="type.highway.bridleway.permissive">Коњска стаза</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.bridleway.tunnel">Тунел</string>
     <string name="type.highway.busway">Наменски аутобуски пут</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">Тунел</string>
     <string name="type.highway.bus_stop">Аутобуско стајалиште</string>
     <string name="type.highway.construction">Пут у изградњи</string>
     <string name="type.highway.cycleway">Бициклистичка стаза</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.cycleway.bridge">Мост</string>
     <string name="type.highway.cycleway.permissive">Бициклистичка стаза</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.cycleway.tunnel">Тунел</string>
     <string name="type.highway.elevator">Лифт</string>
     <string name="type.highway.footway">Пешачка стаза</string>
     <string name="type.highway.footway.sidewalk">Тротоар</string>
     <string name="type.highway.footway.crossing">Пешачки прелаз</string>
     <string name="type.highway.footway.area">Пешачка зона</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.footway.bridge">Пасарела</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.footway.tunnel">Пешачки тунел</string>
     <string name="type.highway.ford">Брод</string>
     <string name="type.highway.living_street">Улица у стамбеној зони</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.living_street.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.living_street.tunnel">Тунел</string>
     <string name="type.highway.motorway">Мото-пут</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway.bridge">Мост на мото-путу</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway.tunnel">Тунел на мото-путу</string>
     <string name="type.highway.motorway_junction">Излаз са ауто-пута</string>
     <string name="type.highway.motorway_link">Излаз са мото-пута</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.tunnel">Тунел</string>
     <string name="type.highway.path">Стаза</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
@@ -433,102 +434,102 @@
     <string name="type.highway.path.expert">Веома тешка или нејасна стаза</string>
     <string name="type.highway.path.bicycle">Пут за бициклисте и пешаке</string>
     <string name="type.highway.footway.bicycle">Пут за бициклисте и пешаке</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.path.bridge">Мост</string>
     <string name="type.highway.path.horse">Коњска стаза</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.path.tunnel">Тунел</string>
     <string name="type.highway.pedestrian">Пешачка улица</string>
     <string name="type.highway.pedestrian.area">Пешачка зона</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.bridge">Пешачки мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Пешачки тунел</string>
     <string name="type.highway.platform">Стајалиште јавног превоза</string>
     <string name="type.highway.primary">Пут прве класе</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary.tunnel">Тунел</string>
     <string name="type.highway.primary_link">Приступни пут</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary_link.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary_link.tunnel">Тунел</string>
     <string name="type.highway.raceway">Тркачка стаза</string>
     <string name="type.highway.residential">Стамбена улица</string>
     <string name="type.highway.residential.area">Стамбена улица</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.residential.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">Тунел</string>
     <string name="type.highway.rest_area">Одмориште</string>
     <string name="type.highway.road">Пут</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.road.bridge">Мост</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.road.tunnel">Тунел</string>
     <string name="type.highway.secondary">Пут друге класе</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary.tunnel">Тунел</string>
     <string name="type.highway.secondary_link">Излаз са пута</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.tunnel">Тунел</string>
     <string name="type.highway.service">Сервисни пут</string>
     <string name="type.highway.service.area">Сервисни пут</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.service.bridge">Мост</string>
     <string name="type.highway.service.driveway">Прилаз</string>
     <string name="type.highway.service.parking_aisle">Пут на паркингу</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.service.tunnel">Тунел</string>
     <string name="type.highway.services">Сервисна зона</string>
     <string name="type.highway.speed_camera">Прекршајна камера</string>
     <string name="type.highway.steps">Мердевине</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.steps.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.steps.tunnel">Тунел</string>
     <string name="type.highway.tertiary">Пут треће класе</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary.tunnel">Тунел</string>
     <string name="type.highway.tertiary_link">Пут треће класе</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.tunnel">Тунел</string>
     <string name="type.highway.track">Макадам</string>
     <string name="type.highway.track.area">Макадам</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.track.bridge">Мост</string>
     <string name="type.highway.track.grade1">Макадам</string>
     <string name="type.highway.track.no.access">Макадам</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.track.tunnel">Тунел</string>
     <string name="type.highway.traffic_signals">Семафор</string>
     <string name="type.highway.trunk">Улица</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk.tunnel">Тунел</string>
     <string name="type.highway.trunk_link">Улица</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.tunnel">Тунел</string>
     <string name="type.highway.unclassified">Некласификовани пут</string>
     <string name="type.highway.unclassified.area">Некласификовани пут</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.unclassified.bridge">Мост</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.unclassified.tunnel">Тунел</string>
     <string name="type.area_highway.cycleway">Бициклистичка стаза</string>
     <string name="type.area_highway.footway">Пешачка стаза</string>
@@ -1364,21 +1365,24 @@
     <string name="type.waterway">Водени ток</string>
     <string name="type.waterway.access_point">Приступна тачка на водотоку</string>
     <string name="type.waterway.canal">Канал</string>
+    <string name="type.waterway.canal.intermittent">Повремени канал</string>
     <string name="type.waterway.canal.tunnel">Тунел у каналу</string>
     <string name="type.waterway.fish_pass">Рибљи пут</string>
+    <string name="type.waterway.fish_pass.intermittent">Повремени рибљи пут</string>
     <string name="type.waterway.dam">Брана</string>
     <string name="type.barrier.ditch">Јарак</string>
-    <string name="type.natural.water.ditch">Канал</string>
+    <string name="type.natural.water.ditch">Одводни јарак</string>
     <string name="type.waterway.ditch.tunnel">Канал</string>
     <string name="type.waterway.dock">Преводница</string>
-    <string name="type.waterway.drain">Канал</string>
-    <string name="type.natural.water.drain">Канал</string>
+    <string name="type.waterway.drain">Одводни канал</string>
+    <string name="type.waterway.drain.intermittent">Повремени одводни канал</string>
+    <string name="type.natural.water.drain">Одводни канал</string>
     <string name="type.waterway.drain.tunnel">Канал</string>
     <string name="type.waterway.lock_gate">Бродска преводница</string>
     <string name="type.waterway.river">Река</string>
+    <string name="type.waterway.river.intermittent">Повремена река</string>
     <string name="type.waterway.river.tunnel">Река</string>
     <string name="type.waterway.stream">Поток</string>
-    <string name="type.waterway.stream.ephemeral">Повремени поток</string>
     <string name="type.waterway.stream.intermittent">Повремени поток</string>
     <string name="type.waterway.stream.tunnel">Поток</string>
     <string name="type.waterway.waterfall">Водопад</string>

@@ -1,10 +1,9 @@
-• OSM duomenys iki rugpjūčio 26 d.
-• NAUJA: kelių žymių ir trasų pasirinkimas
-• NAUJA: atskirų trasų slėpimas akies piktograma
-• NAUJA: Vikipedijos straipsniai bengalų, hindi, maratų, lenkų, tamilų, telugų ir urdu kalbomis
-• Pataisyti užlūžimai ir strigtys
-• Į žemėlapį įtrauktos paukščių stebyklos, scenos, kalvos ir uolų arkos
-• Geresnis vietų dalijimasis
-• „Android Auto“ pataisymai
-• Pataisytas maršruto stotelių pasirinkimas
+• OSM: rugsėjo 28 d.; „Wikipedia“: rugsėjo 21 d.
+• Geresni alternatyvūs maršrutai ir numatomas atvykimo laikas
+• Naujas nustatymas optimizuoja tarpinių taškų tvarką
+• Nauji mygtukai leidžia pridėti arba pakeisti taškus planuojamuose maršrutuose
+• Naviguojant išlaikomas pasirinktas alternatyvus maršrutas
+• Trasų įrašymo pataisymai ir patobulinimai
+• Ištaisyta KMB importo klaida
+• Naudotojo sąsajos pataisymai ir patobulinimai
 …daugiau informacijos rasite omaps.org/lt/news

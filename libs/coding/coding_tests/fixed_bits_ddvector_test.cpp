@@ -3,6 +3,8 @@
 #include "coding/fixed_bits_ddvector.hpp"
 #include "coding/writer.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include <cstdint>
 #include <initializer_list>
 #include <random>
@@ -37,7 +39,7 @@ void TestWithData(vector<uint32_t> const & lst)
       builder.PushBack(v);
     }
 
-    pair<uint32_t, uint32_t> expected(optCount, lst.size());
+    pair<uint32_t, uint32_t> expected(optCount, base::asserted_cast<uint32_t>(lst.size()));
     TEST_EQUAL(builder.GetCount(), expected, ());
   }
 

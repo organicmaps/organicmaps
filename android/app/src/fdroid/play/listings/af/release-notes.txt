@@ -1,12 +1,9 @@
-• OSM-data van 26 Augustus
-• NUUT: meervoudige keuse vir boekmerke en spore
-• NUUT: verberg individuele spore met die oogikoon
-• NUUT: Wikipedia-artikels in Bengaals, Hindi, Marathi, Pools, Tamil, Telugu, Urdu
-• Ineenstortings en vriesings reggestel
-• Voëlskuilings, verhoë, heuwels en rotsboë by die kaart gevoeg
-• Beter deel van plekke
-• Regstellings vir Android Auto
-• Keuse van roetestoppe reggestel
-• Openingstye reggestel
-• Foute in die OSM-redigeerder reggestel
-…meer by omaps.org/af/news
+• OSM-data: 28 September; Wikipedia-data: 21 September
+• Verbeterde alternatiewe roetes en aankomstydskattinge
+• Nuwe instelling optimaliseer die volgorde van tussenstoppe
+• Nuwe knoppies voeg 'n tussenstop by of vervang een op 'n beplande roete
+• Gekose alternatiewe roete bly gekies tydens navigasie
+• Spooropname is reggestel en verbeter
+• KMB-lêerinvoer reggestel
+• UI-verbeterings en -regstellings
+…meer besonderhede by omaps.org/af/news

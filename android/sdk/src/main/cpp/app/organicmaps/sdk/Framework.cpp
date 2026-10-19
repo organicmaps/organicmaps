@@ -1520,6 +1520,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * 
   frm()->GetRoutingManager().MoveRoutePoint(currentIndex, targetIndex);
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReverseRoutePoints(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().ReverseRoutePoints();
+}
+
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
 {
   return routing_jni::CreateTransitRouteInfo(env, frm()->GetRoutingManager().GetTransitRouteInfo());

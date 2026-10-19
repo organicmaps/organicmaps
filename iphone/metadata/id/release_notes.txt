@@ -1,50 +1,33 @@
-## Peta & tempat
+## Perencanaan rute
+• Rute alternatif yang ditingkatkan beserta perkiraan waktu kedatangan
+• Ditambahkan tombol untuk menambahkan atau mengganti titik perhentian dalam rute yang telah direncanakan
+• Ditambahkan pengaturan untuk mengoptimalkan urutan titik perhentian perantara rute
+• Rute alternatif yang dipilih kini tetap dipertahankan saat navigasi menghitung ulang rute
+• Urutan titik perhentian rute kini telah dipulihkan setelah aplikasi dimulai ulang
 
-• Data OpenStreetMap yang diperbarui per 26 Agustus 2026
-• Artikel Wikipedia yang diperbarui dalam bahasa Arab, Bengali, Mandarin, Inggris, Prancis, Jerman, Hindi, Italia, Jepang, Korea, Marathi, Polandia, Portugis, Rusia, Spanyol, Tamil, Telugu, Turki, dan Urdu
-• Ditambahkan tempat pengamatan burung, panggung, bukit, dan lengkungan batu ke peta, serta ikon baru untuk bebatuan
-• Ukuran ikon puncak, gua, dan celah gunung telah diubah
-• Kawasan lindung, taman nasional, dan lahan basah kini ditampilkan dalam warna yang lebih terang
-• Diperbaiki banyak masalah yang menyebabkan jam buka ditampilkan secara tidak benar
-• Pengaturan diatur ulang menjadi bagian "Umum", "Peta", "Navigasi", "Jaringan", dan "Privasi"
-• Pengaturan kalibrasi kompas dihapus karena kalibrasi kini dilakukan secara otomatis
-• Diperbaiki masalah kompas yang dapat menyebabkan panah posisi saat ini mengarah ke arah yang salah atau macet
-• Titik yang sesuai kini ditampilkan di peta saat Anda menggeser jari di sepanjang profil ketinggian dalam pratinjau rute jalan kaki atau bersepeda
-• Diperbaiki masalah aplikasi yang macet dan masalah yang kadang-kadang menyebabkan ketukan dan gerakan diabaikan
+## Peta
+• Data OpenStreetMap per 28 September
+• Data Wikipedia per 21 September
+• Waduk kini terlihat saat peta diperkecil lebih jauh
+• Terowongan air tidak lagi ditampilkan di peta
+• Ikon stasiun dan pintu masuk Suzhou Metro telah diperbaiki
+• Telah diperbaiki kasus-kasus langka di mana label bergeser dari posisinya pada lapisan peta metro
 
-## Berbagi, penanda & jalur
+## CarPlay
+• Ditambahkan petunjuk manuver pada head-up display (HUD) mobil yang didukung dan dasbor CarPlay
+• Tombol CarPlay dan fitur pencarian telah diperbaiki
 
-• BARU: ditambahkan pemilihan ganda pada daftar Penanda dan Jalur, dengan tindakan massal untuk menghapus, memindahkan, dan mengubah warna item yang dipilih, ditambah "Pilih semua" dan "Batalkan pilihan"
-• Ditambahkan dukungan AirDrop untuk berbagi tempat
-• Berbagi tempat, penanda, atau posisi saat ini kini mengirimkan tautan yang mudah dibaca beserta informasi berguna
-• Penanda yang diekspor kini mempertahankan nama dan deskripsi aslinya
-• Daftar penanda yang dibagikan kini menggunakan nama yang ditampilkan, bukan nama berkas internal
-• Diperbaiki masalah tampilan grafik ketinggian yang dapat terjadi segera setelah memulai perekaman jalur
-• Pemilih warna khusus di popover palet warna telah dipulihkan
-• Diperbaiki tampilan deskripsi HTML saat sebuah penanda dipilih di peta
+## Trek
+• Ditambahkan ikon mata untuk menyembunyikan trek tertentu
+• Memperbaiki bug dan meningkatkan perekaman trek
+• Masalah impor berkas KMB telah diperbaiki
 
-## Perutean & navigasi
+## Pencarian
+• Telah diperbaiki masalah pencarian saat area peta yang terlihat melintasi meridian 180° (±180° bujur)
+• Fitur pencarian berdasarkan kategori di Spotlight telah dipulihkan
 
-• BARU: ditambahkan dasbor CarPlay dan diperbaiki beberapa masalah CarPlay
-• Diperbaiki pengaktifan gaya peta navigasi mobil
-• Mengetuk perhentian atau penanda pada rute kini membukanya dengan benar, bukan beralih antar rute yang direncanakan
-• Rute transportasi umum kini dihitung dengan lebih cepat
-• Diperbaiki instruksi belok yang salah
-• Diperbaiki titik awal yang salah setelah rute dihitung ulang
-• Saat perencanaan rute, jalan laterit kini dianggap memiliki permukaan tidak beraspal berkualitas rendah
-• Jalan yang diberi tag access=unknown kini diperlakukan seperti jalan dengan akses pribadi atau akses hanya menuju tujuan
-
-## Editor OpenStreetMap
-
-• Diperbaiki mogok aplikasi saat pengunggahan ke OpenStreetMap selesai di latar belakang
-• Mengosongkan kolom jam buka tidak lagi membuat tombol "Simpan" atau "Selesai" menjadi tidak aktif
-• Unggahan yang gagal sebagian kini dicoba ulang alih-alih dilaporkan sebagai berhasil sepenuhnya
-
-## Terjemahan
-
-• Ditambahkan petunjuk suara dalam bahasa Armenia dan Laos
-• Bantuan/Pertanyaan yang Sering Diajukan (FAQ) diperbarui, ditambahkan terjemahan bahasa Jepang
-• Diperbaiki terjemahan bahasa Jepang dari "Sekarang Tutup"
-• Terjemahan bahasa Mandarin untuk "jalur" dan "nonaktifkan" telah ditingkatkan
-
-Lihat catatan rilis terperinci di https://omaps.org/id/news/
+## UI
+• Jam operasional kini menampilkan “Tengah hari” untuk pukul 12:00 dan “Tengah malam” untuk pukul 00:00 atau 24:00
+• Berbagai bug telah diperbaiki dan antarmuka pengguna telah ditingkatkan
+• Terjemahan bahasa Inggris, Prancis, dan Asturian telah diperbaiki
+• Ditambahkan dukungan untuk memilih suara navigasi yang terpasang dan mendengarkan contohnya

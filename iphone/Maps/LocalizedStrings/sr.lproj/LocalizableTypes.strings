@@ -209,7 +209,8 @@
 "type.barrier.chain" = "Ланац";
 "type.barrier.city_wall" = "Градски зид";
 "type.barrier.cycle_barrier" = "Бедем";
-"type.waterway.ditch" = "Канал";
+"type.waterway.ditch" = "Одводни јарак";
+"type.waterway.ditch.intermittent" = "Повремени одводни јарак";
 "type.natural.water.moat" = "Шанац";
 "type.natural.water.wastewater" = "Отпадна вода";
 "type.barrier.entrance" = "Пролаз";
@@ -407,28 +408,28 @@
 "type.highway" = "Ауто-пут";
 "type.highway.bridleway" = "Коњска стаза";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "Мост";
 "type.highway.bridleway.permissive" = "Коњска стаза";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "Тунел";
 "type.highway.busway" = "Наменски аутобуски пут";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "Тунел";
 "type.highway.bus_stop" = "Аутобуско стајалиште";
 "type.highway.construction" = "Пут у изградњи";
 "type.highway.cycleway" = "Бициклистичка стаза";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "Мост";
 "type.highway.cycleway.permissive" = "Бициклистичка стаза";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "Тунел";
 "type.highway.elevator" = "Лифт";
 "type.highway.footway" = "Пешачка стаза";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "Пешачки прелаз";
 "type.highway.footway.area" = "Пешачка зона";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "Пасарела";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "Пешачки тунел";
 "type.highway.ford" = "Брод";
 "type.highway.living_street" = "Улица у стамбеној зони";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "Тунел";
 "type.highway.motorway" = "Мото-пут";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "Мост на мото-путу";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "Тунел на мото-путу";
 "type.highway.motorway_junction" = "Излаз са ауто-пута";
 "type.highway.motorway_link" = "Излаз са мото-пута";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "Тунел";
 "type.highway.path" = "Стаза";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "Пут за бициклисте и пешаке";
 "type.highway.footway.bicycle" = "Пут за бициклисте и пешаке";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "Мост";
 "type.highway.path.horse" = "Коњска стаза";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "Тунел";
 "type.highway.pedestrian" = "Пешачка улица";
 "type.highway.pedestrian.area" = "Пешачка зона";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "Пешачки мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Пешачки тунел";
 "type.highway.platform" = "Стајалиште јавног превоза";
 "type.highway.primary" = "Пут прве класе";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "Тунел";
 "type.highway.primary_link" = "Приступни пут";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "Тунел";
 "type.highway.raceway" = "Тркачка стаза";
 "type.highway.residential" = "Стамбена улица";
 "type.highway.residential.area" = "Стамбена улица";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "Тунел";
 "type.highway.rest_area" = "Одмориште";
 "type.highway.road" = "Пут";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "Мост";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "Тунел";
 "type.highway.secondary" = "Пут друге класе";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "Тунел";
 "type.highway.secondary_link" = "Излаз са пута";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "Тунел";
 "type.highway.service" = "Сервисни пут";
 "type.highway.service.area" = "Сервисни пут";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "Мост";
 "type.highway.service.driveway" = "Прилаз";
 "type.highway.service.parking_aisle" = "Пут на паркингу";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "Тунел";
 "type.highway.services" = "Сервисна зона";
 "type.highway.speed_camera" = "Прекршајна камера";
 "type.highway.steps" = "Мердевине";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "Тунел";
 "type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Пут треће класе";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "Тунел";
 "type.highway.tertiary_link" = "Пут треће класе";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "Тунел";
 "type.highway.track" = "Макадам";
 "type.highway.track.area" = "Макадам";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "Мост";
 "type.highway.track.grade1" = "Макадам";
 "type.highway.track.no.access" = "Макадам";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "Тунел";
 "type.highway.traffic_signals" = "Семафор";
 "type.highway.trunk" = "Улица";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "Тунел";
 "type.highway.trunk_link" = "Улица";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "Тунел";
 "type.highway.unclassified" = "Некласификовани пут";
 "type.highway.unclassified.area" = "Некласификовани пут";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "Мост";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "Тунел";
 "type.area_highway.cycleway" = "Бициклистичка стаза";
 "type.area_highway.footway" = "Пешачка стаза";
@@ -1519,21 +1520,24 @@
 "type.waterway" = "Водени ток";
 "type.waterway.access_point" = "Приступна тачка на водотоку";
 "type.waterway.canal" = "Канал";
+"type.waterway.canal.intermittent" = "Повремени канал";
 "type.waterway.canal.tunnel" = "Тунел у каналу";
 "type.waterway.fish_pass" = "Рибљи пут";
+"type.waterway.fish_pass.intermittent" = "Повремени рибљи пут";
 "type.waterway.dam" = "Брана";
 "type.barrier.ditch" = "Јарак";
-"type.natural.water.ditch" = "Канал";
+"type.natural.water.ditch" = "Одводни јарак";
 "type.waterway.ditch.tunnel" = "Канал";
 "type.waterway.dock" = "Преводница";
-"type.waterway.drain" = "Канал";
-"type.natural.water.drain" = "Канал";
+"type.waterway.drain" = "Одводни канал";
+"type.waterway.drain.intermittent" = "Повремени одводни канал";
+"type.natural.water.drain" = "Одводни канал";
 "type.waterway.drain.tunnel" = "Канал";
 "type.waterway.lock_gate" = "Бродска преводница";
 "type.waterway.river" = "Река";
+"type.waterway.river.intermittent" = "Повремена река";
 "type.waterway.river.tunnel" = "Река";
 "type.waterway.stream" = "Поток";
-"type.waterway.stream.ephemeral" = "Повремени поток";
 "type.waterway.stream.intermittent" = "Повремени поток";
 "type.waterway.stream.tunnel" = "Поток";
 "type.waterway.waterfall" = "Водопад";

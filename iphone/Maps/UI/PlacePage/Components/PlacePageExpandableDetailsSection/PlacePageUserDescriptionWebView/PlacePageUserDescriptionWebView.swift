@@ -162,14 +162,12 @@ final class PlacePageUserDescriptionWebView: UIView {
       return .allow
     }
     defer { isLoadingHTMLString = false }
-    guard isLoadingHTMLString else { return .cancel }
-    guard navigationAction.navigationType == .other else { return .cancel }
+    guard isLoadingHTMLString, navigationAction.navigationType == .other else { return .cancel }
     return .allow
   }
 
   private func navigationNeedsNetworkPermission(_ navigationAction: WKNavigationAction) -> Bool {
-    guard navigationAction.navigationType != .linkActivated else { return false }
-    guard let url = navigationAction.request.url else { return false }
+    guard navigationAction.navigationType != .linkActivated, let url = navigationAction.request.url else { return false }
     if isLoadingHTMLString, navigationAction.targetFrame?.isMainFrame != false, navigationAction.navigationType == .other {
       return false
     }

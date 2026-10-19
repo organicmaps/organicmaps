@@ -1,11 +1,9 @@
-• OSM podaci od 26. kolovoza
-• NOVO: višestruki odabir zabilješki i staza
-• NOVO: skrivanje pojedinačnih staza ikonom oka
-• NOVO: članci Wikipedije na bengalskom, hindskom, marathskom, poljskom, tamilskom, teluškom i urdskom
-• Ispravljena rušenja i zamrzavanja
-• Na kartu dodane promatračnice ptica, pozornice, brda i stjenoviti lukovi
-• Bolje dijeljenje mjesta
-• Ispravci za Android Auto
-• Ispravljen odabir postaja na ruti
-• Ispravljeno radno vrijeme
-…više na omaps.org/news
+• OSM podaci od 28. rujna, Wikipedija od 21. rujna
+• Poboljšane alternativne rute i njihova procijenjena vremena dolaska
+• Dodana je postavka za optimizaciju redoslijeda međutočaka na ruti
+• Dodani su gumbi za dodavanje ili zamjenu usputne točke u planiranoj ruti
+• Odabrana alternativna ruta sada se čuva tijekom navigacije
+• Popravljeno i poboljšano snimanje staze
+• Popravljen je uvoz KMB datoteka
+• Poboljšanja i ispravci korisničkog sučelja
+…više detalja na omaps.org/news

@@ -1,11 +1,9 @@
-• 26 Ağustos itibarıyla OSM verileri
-• YENİ: yer imleri ve izler için çoklu seçim
-• YENİ: göz simgesiyle tek tek izleri gizleme
-• YENİ: Bengalce, Hintçe, Marathice, Lehçe, Tamilce, Telugu ve Urduca Wikipedia makaleleri
-• Çökmeler ve donmalar düzeltildi
-• Haritaya kuş gözlem kulübeleri, sahneler, tepeler ve kaya kemerleri eklendi
-• Daha iyi yer paylaşımı
-• Android Auto düzeltmeleri
-• Rota duraklarının seçimi düzeltildi
-• Çalışma saatleri düzeltildi
-…daha fazlası için omaps.org/tr/news
+• OSM verileri: 28 Eylül; Wikipedia verileri: 21 Eylül
+• Alternatif rotalar ve tahmini varış süreleri iyileştirildi
+• Yeni ayar, ara durak sırasını optimize eder
+• Yeni düğmeler, planlanan bir rotaya durak ekler veya mevcut durakları değiştirir
+• Seçilen alternatif rota, navigasyon sırasında seçili kalır
+• İz kaydı düzeltildi ve iyileştirildi
+• KMB dosyası içe aktarma sorunu düzeltildi
+• Kullanıcı arayüzü iyileştirmeleri ve düzeltmeler
+…daha fazla ayrıntı için omaps.org/tr/news

@@ -1,50 +1,33 @@
-## Mapa i miejsca
+## Planowanie trasy
+• Ulepszone trasy alternatywne i szacowany czas przybycia na miejsce
+• Dodano przyciski do dodawania lub zastępowania punktu pośredniego na zaplanowanej trasie
+• Dodano ustawienie pozwalające zoptymalizować kolejność pośrednich punktów trasy
+• Wybrana trasa alternatywna jest teraz zachowywana podczas ponownego obliczania trasy przez nawigację
+• Kolejność punktów pośrednich na trasie jest teraz przywracana po ponownym uruchomieniu aplikacji
 
-• Zaktualizowane dane OpenStreetMap na dzień 26 sierpnia 2026
-• Zaktualizowano artykuły Wikipedii w językach: arabskim, bengalskim, chińskim, angielskim, francuskim, niemieckim, hindi, włoskim, japońskim, koreańskim, marathi, polskim, portugalskim, rosyjskim, hiszpańskim, tamilskim, telugu, tureckim i urdu
-• Do mapy dodano kryjówki do obserwacji ptaków, sceny, wzgórza i skalne łuki, a także nową ikonę skały
-• Zmieniono rozmiar ikon szczytów, jaskiń i przełęczy górskich
-• Obszary chronione, parki narodowe i tereny podmokłe są teraz wyświetlane w jaśniejszych odcieniach
-• Naprawiono wiele problemów, które powodowały nieprawidłowe wyświetlanie godzin otwarcia
-• Ustawienia pogrupowano w sekcje „Ogólne”, „Mapa”, „Nawigacja”, „Sieć” i „Prywatność”
-• Usunięto ustawienie kalibracji kompasu, ponieważ kalibracja odbywa się teraz automatycznie
-• Naprawiono problemy z kompasem, przez które strzałka bieżącej pozycji mogła wskazywać niewłaściwy kierunek lub zawieszać się
-• Odpowiedni punkt jest teraz pokazywany na mapie podczas przeciągania palcem po profilu wysokościowym w podglądzie trasy pieszej lub rowerowej
-• Naprawiono zawieszanie się aplikacji oraz problem, który sporadycznie powodował ignorowanie dotknięć i gestów
+## Mapa
+• Dane OpenStreetMap na dzień 28 września
+• Dane z Wikipedii na dzień 21 września
+• Zbiorniki wodne są teraz widoczne przy większym oddaleniu widoku
+• Tunele wodne nie są już wyświetlane na mapie
+• Poprawiono ikony stacji i wejść do metra w Suzhou
+• Naprawiono rzadkie przypadki, w których etykiety przesuwały się poza właściwe położenie na warstwie mapy metra
 
-## Udostępnianie, zakładki i trasy
+## CarPlay
+• Dodano instrukcje manewrów na obsługiwanych wyświetlaczach head-up (HUD) w samochodach oraz na pulpicie nawigacyjnym CarPlay
+• Naprawiono działanie przycisków CarPlay i funkcji wyszukiwania
 
-• NOWOŚĆ: na listach zakładek i tras dodano zaznaczanie wielu pozycji wraz z działaniami zbiorczymi — usuwaniem, przenoszeniem i zmianą koloru zaznaczonych elementów — a także opcjami „Zaznacz wszystko” i „Odznacz wszystko”
-• Dodano obsługę AirDrop do udostępniania miejsc
-• Udostępnienie miejsca, zakładki lub bieżącej pozycji powoduje teraz wysłanie czytelnego odnośnika z przydatnymi informacjami
-• Wyeksportowane zakładki zachowują teraz oryginalne nazwy i opisy
-• Udostępnione listy zakładek używają teraz wyświetlanej nazwy zamiast wewnętrznej nazwy pliku
-• Naprawiono problem z wyświetlaniem wykresu wysokości, który mógł wystąpić bezpośrednio po rozpoczęciu rejestrowania trasy
-• Przywrócono wybór własnego koloru w wyskakującym okienku palety kolorów
-• Naprawiono wyświetlanie opisów HTML po zaznaczeniu zakładki na mapie
+## Ślady
+• Dodano ikonę oka, umożliwiającą ukrycie poszczególnych śladów
+• Naprawiono błędy i ulepszono rejestrowanie śladów
+• Naprawiono import plików KMB
 
-## Wyznaczanie tras i nawigacja
+## Wyszukiwanie
+• Naprawiono błąd wyszukiwania, gdy widoczny obszar mapy przekraczał południk 180° (±180° długości geograficznej)
+• Przywrócono wyszukiwanie według kategorii w Spotlight
 
-• NOWOŚĆ: dodano pulpit CarPlay oraz naprawiono szereg problemów związanych z CarPlay
-• Naprawiono włączanie stylu mapy nawigacji samochodowej
-• Dotknięcie przystanku lub znacznika na trasie powoduje teraz jego prawidłowe otwarcie, zamiast przełączania między zaplanowanymi trasami
-• Trasy transportu publicznego są teraz wyznaczane szybciej
-• Poprawiono nieprawidłowe wskazówki dotyczące skrętów
-• Naprawiono nieprawidłowy punkt początkowy po ponownym wyznaczeniu trasy
-• Podczas wyznaczania trasy drogi laterytowe są teraz traktowane jako drogi o nieutwardzonej nawierzchni niskiej jakości
-• Drogi oznaczone tagiem access=unknown są teraz traktowane tak samo jak drogi z dostępem prywatnym lub wyłącznie do miejsca docelowego
-
-## Edytor OpenStreetMap
-
-• Naprawiono awarię występującą po zakończeniu wysyłania danych do OpenStreetMap w tle
-• Wyczyszczenie pola godzin otwarcia nie powoduje już, że przyciski „Zapisz” i „Gotowe” pozostają nieaktywne
-• Częściowo nieudane wysyłki są teraz ponawiane, zamiast być zgłaszane jako w pełni udane
-
-## Tłumaczenia
-
-• Dodano komunikaty głosowe w języku ormiańskim i laotańskim
-• Zaktualizowano Pomoc/Często zadawane pytania (FAQ) oraz dodano tłumaczenie na język japoński
-• Poprawiono japońskie tłumaczenie wyrażenia „Nieczynne”
-• Poprawiono chińskie tłumaczenia słów „trasa” i „wyłącz”
-
-Szczegółowe informacje o wydaniu: https://omaps.org/pl/news/
+## Interfejs użytkownika
+• Godziny otwarcia są teraz wyświetlane jako „Południe” dla godziny 12:00 oraz „Północ” dla godziny 00:00 lub 24:00
+• Naprawiono różne błędy i ulepszono interfejs użytkownika
+• Poprawiono tłumaczenia na język angielski, francuski i asturyjski
+• Dodano możliwość wyboru i odsłuchania próbki zainstalowanego głosu nawigacyjnego

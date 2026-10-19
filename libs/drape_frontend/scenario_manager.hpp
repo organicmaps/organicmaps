@@ -10,13 +10,33 @@
 #include "base/thread.hpp"
 
 #include <chrono>
+#include <condition_variable>
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <vector>
 
 namespace df
 {
+
+#ifdef SCENARIO_ENABLE
+struct ScenarioViewportRequest
+{
+  ScenarioViewportRequest(m2::PointD const & center, int zoom) : m_center(center), m_zoom(zoom) {}
+
+  void Complete(bool ready);
+  std::optional<bool> WaitFor(std::chrono::milliseconds duration);
+
+  m2::PointD const m_center;
+  int const m_zoom;
+
+private:
+  std::mutex m_mutex;
+  std::condition_variable m_condition;
+  std::optional<bool> m_result;
+};
+#endif
 
 class ScenarioManager
 {
@@ -37,16 +57,25 @@ public:
   class CenterViewportAction : public Action
   {
   public:
-    CenterViewportAction(m2::PointD const & pt, int zoomLevel) : m_center(pt), m_zoomLevel(zoomLevel) {}
+    CenterViewportAction(m2::PointD const & pt, int zoomLevel, bool animated = true, bool waitForReady = false)
+      : m_center(pt)
+      , m_zoomLevel(zoomLevel)
+      , m_animated(animated)
+      , m_waitForReady(waitForReady)
+    {}
 
     ActionType GetType() override { return ActionType::CenterViewport; }
 
     m2::PointD const & GetCenter() const { return m_center; }
     int GetZoomLevel() const { return m_zoomLevel; }
+    bool IsAnimated() const { return m_animated; }
+    bool WaitForReady() const { return m_waitForReady; }
 
   private:
     m2::PointD const m_center;
     int const m_zoomLevel;
+    bool const m_animated;
+    bool const m_waitForReady;
   };
 
   class WaitForTimeAction : public Action
@@ -88,6 +117,7 @@ private:
   FrontendRenderer * m_frontendRenderer;
 
   std::mutex m_mutex;
+  std::condition_variable m_condition;
   ScenarioData m_scenarioData;
   bool m_needInterrupt;
   bool m_isFinished;
