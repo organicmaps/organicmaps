@@ -16,18 +16,26 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      # Pinned: Homebrew installs the newest release, and a release with new rules fails every PR at once.
       - name: Install swiftformat
+        env:
+          VERSION: 0.63.1
+          SHA256: 9e10090e0213378c68cedb42adc2c6461916a9c8e457cf452b5585b84096c333
         run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"  # Homebrew is not in PATH by default.
-          brew install swiftformat
-          swiftformat --version
+          cd "$RUNNER_TEMP"
+          curl -fsSL -o swiftformat.zip \
+            "https://github.com/nicklockwood/SwiftFormat/releases/download/$VERSION/swiftformat_linux.zip"
+          echo "$SHA256  swiftformat.zip" | sha256sum --check
+          unzip -q swiftformat.zip
+          install -D swiftformat_linux bin/swiftformat
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+          bin/swiftformat --version
 
       - name: Checkout sources
         uses: actions/checkout@v6
 
       - name: Run swiftformat
         run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"  # Homebrew is not in PATH by default.
           swiftformat iphone
           git diff --exit-code  # swiftformat reformats in place and always exits 0.
 
