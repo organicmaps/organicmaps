@@ -44963,13 +44963,13 @@ ru = Указать своё местоположение вручную
 uk = Вказати своє місцезнаходження вручну
 
 [nogps_manual_mode_on]
-tags = android-app,apple-maps
+tags = apple-maps
 en = GPS is ignored. Double-tap the map where you are.
 ru = GPS отключён. Дважды нажмите на карту там, где вы находитесь.
 uk = GPS вимкнено. Двічі торкніться мапи там, де ви знаходитеся.
 
 [nogps_manual_mode_off]
-tags = android-app,apple-maps
+tags = apple-maps
 en = GPS is on again
 ru = GPS снова включён
 uk = GPS знову увімкнено
