@@ -914,6 +914,8 @@
     <string name="nogps_manual_position">Вказати своє місцезнаходження вручну</string>
     <string name="nogps_manual_mode_on">GPS вимкнено. Двічі торкніться мапи там, де ви знаходитеся.</string>
     <string name="nogps_manual_mode_off">GPS знову увімкнено</string>
+    <!-- The user has pressed the button to show on the map where the car is -->
+    <string name="nogps_mark_by_tap">Торкніться дороги, де зараз машина</string>
     <string name="nogps_gps_spoofed">GPS підмінено! Використовуємо вежі та Wi-Fi. Також можна вказати позицію вручну.</string>
     <string name="nogps_gps_restored">GPS знову в нормі</string>
     <string name="nogps_status_network_spoofed">GPS підмінено · вежі ±%s</string>
@@ -981,7 +983,7 @@
     <!-- Status of the position: the mark of the car stands and waits for the user -->
     <string name="nogps_status_road_lost">Дорогу втрачено</string>
     <!-- Second line of the status "Road lost" -->
-    <string name="nogps_status_road_lost_hint">двічі торкніться мапи, де ви</string>
+    <string name="nogps_status_road_lost_hint">натисніть кнопку з пальцем і торкніться дороги, де ви</string>
     <!-- Line of the status of the position: the sensor box gives the car speed -->
     <string name="nogps_status_box_ok">блок підключено</string>
     <!-- Line of the status of the position: the sensor box is not heard -->
@@ -1038,7 +1040,7 @@
     <string name="nogps_turns_reversed">Гіроскоп повертає машину не в той бік, що GPS. Перевірте осі в драйвері датчика: без GPS машина повертатиме неправильно</string>
     <string name="nogps_road_lost">Дорогу втрачено, машину зупинено. Позначте себе на мапі</string>
     <!-- A route is asked for while there is no GPS and no mark of the user -->
-    <string name="nogps_no_position_for_route">Немає позиції: маршрут будувати нізвідки. Двічі торкніться мапи там, де ви знаходитеся</string>
+    <string name="nogps_no_position_for_route">Немає позиції: маршрут будувати нізвідки. Натисніть кнопку з пальцем і торкніться дороги, де ви знаходитеся</string>
     <string name="nogps_shift_buttons">Калібрування</string>
     <string name="nogps_shift_buttons_hint">Показує кнопки зсуву машини вздовж дороги на 10 м. Зсуваючи її туди, де машина насправді, ви уточнюєте швидкість машини.</string>
     <string name="nogps_obd_stopped">Немає швидкості від OBD-адаптера, машина на мапі стоїть. Перевірте адаптер або позначте себе</string>
