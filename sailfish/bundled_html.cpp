@@ -22,9 +22,12 @@ QString ChooseLanguage(QSet<QString> const & available)
   std::array<char const *, 6> constexpr kCanReadRussian = {"ab", "be", "kk", "ky", "tg", "uz"};
   QString const lang = QString::fromStdString(languages::GetCurrentTwine());
   QString const base = lang.section('-', 0, 0);
+  QString const regional = QString::fromStdString(languages::GetCurrentOrig()).section('.', 0, 0).replace('_', '-');
   for (auto const * code : kCanReadRussian)
     if (base == QLatin1String(code) && available.contains(QStringLiteral("ru")))
       return QStringLiteral("ru");
+  if (available.contains(regional))
+    return regional;
   if (available.contains(lang))
     return lang;
   if (available.contains(base))
