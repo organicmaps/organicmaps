@@ -12,46 +12,12 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
 
   func testDirections_GivenSourceAndDestination_WhenNoWaypoints_ThenBuildRoute() throws {
     let geoUrl = geoURLStub("geo-navigation:///directions?source=\(coordinate1)&destination=\(coordinate2)")
-    let omUrl = try XCTUnwrap(converter.convert(geoUrl))
-    let routingType = MWMRouter.type()
-    XCTAssertEqual(omUrl.absoluteString, "om://route?sll=\(coordinate1)&saddr=&dll=\(coordinate2)&daddr=&type=\(MWMRouter.string(from: routingType))")
-    let urlType = DeepLinkParser.parseAndSetApiURL(omUrl)
-    switch urlType {
-    case .route:
-      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter(omUrl))
-      CheckAlmostEqual(adapter.p1.latitude, 1.1)
-      CheckAlmostEqual(adapter.p1.longitude, 2.2)
-      XCTAssertEqual(adapter.p1.type, .start)
-      XCTAssertFalse(adapter.p1.isMyPosition)
-      CheckAlmostEqual(adapter.p2.latitude, 3.3)
-      CheckAlmostEqual(adapter.p2.longitude, 4.4)
-      XCTAssertFalse(adapter.p2.isMyPosition)
-      XCTAssertEqual(adapter.type, routingType)
-    default:
-      XCTFail("Unexpected url type")
-    }
+    try assertRoute(geoUrl)
   }
 
   func test_GivenDirections_WhenSourceDestinationAnd2Waypoints_ThenBuildRouteWithoutWaypoints() throws {
     let geoUrl = geoURLStub("geo-navigation:///directions?source=\(coordinate1)&destination=\(coordinate2)&waypoint=48.0,8.0&waypoint=47.0,8.0")
-    let omUrl = try XCTUnwrap(converter.convert(geoUrl))
-    let routingType = MWMRouter.type()
-    XCTAssertEqual(omUrl.absoluteString, "om://route?sll=\(coordinate1)&saddr=&dll=\(coordinate2)&daddr=&type=vehicle")
-    let urlType = DeepLinkParser.parseAndSetApiURL(omUrl)
-    switch urlType {
-    case .route:
-      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter(omUrl))
-      CheckAlmostEqual(adapter.p1.latitude, 1.1)
-      CheckAlmostEqual(adapter.p1.longitude, 2.2)
-      XCTAssertEqual(adapter.p1.type, .start)
-      XCTAssertFalse(adapter.p1.isMyPosition)
-      CheckAlmostEqual(adapter.p2.latitude, 3.3)
-      CheckAlmostEqual(adapter.p2.longitude, 4.4)
-      XCTAssertFalse(adapter.p2.isMyPosition)
-      XCTAssertEqual(adapter.type, routingType)
-    default:
-      XCTFail("Unexpected url type")
-    }
+    try assertRoute(geoUrl)
   }
 
   func test_GivenDirections_WhenSourceWithoutDestination_ThenFail() {
@@ -124,15 +90,44 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
     }
   }
 
+  private func assertRoute(_ geoURL: URL) throws {
+    let originalRoutingType = MWMRouter.type()
+    defer { MWMRouter.setType(originalRoutingType) }
+
+    let routingTypes: [(MWMRouterType, MWMRouterType)] = [
+      (.vehicle, .vehicle),
+      (.pedestrian, .pedestrian),
+      (.publicTransport, .publicTransport),
+      (.bicycle, .bicycle),
+      (.ruler, .vehicle),
+    ]
+    for (routingType, expectedRoutingType) in routingTypes {
+      let mode = MWMRouter.string(from: routingType)
+      MWMRouter.setType(routingType)
+      let omURL = try XCTUnwrap(converter.convert(geoURL), mode)
+      XCTAssertEqual(MWMRouter.type(), routingType, mode)
+      XCTAssertEqual(omURL.absoluteString, "om://route?sll=\(coordinate1)&saddr=&dll=\(coordinate2)&daddr=&type=\(MWMRouter.string(from: expectedRoutingType))", mode)
+      guard DeepLinkParser.parseAndSetApiURL(omURL) == .route else {
+        XCTFail("Unexpected url type for \(mode)")
+        continue
+      }
+      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter(omURL), mode)
+      XCTAssertEqual(adapter.p1.latitude, 1.1, accuracy: 1e-6, mode)
+      XCTAssertEqual(adapter.p1.longitude, 2.2, accuracy: 1e-6, mode)
+      XCTAssertEqual(adapter.p1.type, .start, mode)
+      XCTAssertFalse(adapter.p1.isMyPosition, mode)
+      XCTAssertEqual(adapter.p2.latitude, 3.3, accuracy: 1e-6, mode)
+      XCTAssertEqual(adapter.p2.longitude, 4.4, accuracy: 1e-6, mode)
+      XCTAssertFalse(adapter.p2.isMyPosition, mode)
+      XCTAssertEqual(adapter.type, expectedRoutingType, mode)
+    }
+  }
+
   private func geoURLStub(_ s: String) -> URL {
     guard let url = URL(string: s) else {
       XCTFail("Bad URL: \(s)")
       fatalError()
     }
     return url
-  }
-
-  private func CheckAlmostEqual(_ lhs: Double, _ rhs: Double, tolerance: Double = 1e-6) {
-    XCTAssertTrue(lhs - rhs < tolerance)
   }
 }
