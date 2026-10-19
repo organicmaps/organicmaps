@@ -337,7 +337,7 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Desesbillar too</string>
     <string name="button_layer_isolines">Curves de nivel</string>
-    <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
+    <string name="isolines_location_error_dialog">Anueva esta rexón pa ver les curves de nivel</string>
     <string name="elevation_profile_ascent">Ascensu</string>
     <string name="elevation_profile_descent">Descensu</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
