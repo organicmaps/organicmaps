@@ -57,6 +57,10 @@ Page {
         onNotice: Toast.showLong(message)
         onIsolinesNeedMaps: Toast.showLong(appInfo.localized("isolines_activation_error_dialog"))
     }
+    Connections {
+        target: appSettings
+        onChanged: map.layersChanged()
+    }
 
     MapButton {
         anchors {

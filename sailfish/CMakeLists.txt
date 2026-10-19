@@ -98,7 +98,7 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E remove_directory "${SVG_ICONS_DIR}"
   COMMAND ${Python3_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/tools/android_vector_to_svg.py" "${SVG_ICONS_DIR}"
   COMMAND ${CMAKE_COMMAND} -E touch "${SVG_ICONS_DIR}/.stamp"
-  DEPENDS tools/android_vector_to_svg.py ${ANDROID_DRAWABLES}
+  DEPENDS tools/android_vector_to_svg.py "${OMIM_ROOT}/tools/python/vector_drawable_to_svg.py" ${ANDROID_DRAWABLES}
   COMMENT "Converting Android vector drawables to SVG icons"
 )
 add_custom_target(${PROJECT_NAME}_icons DEPENDS "${SVG_ICONS_DIR}/.stamp")
