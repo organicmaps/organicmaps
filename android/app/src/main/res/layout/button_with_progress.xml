@@ -36,5 +36,6 @@
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:layout_marginBottom="@dimen/margin_base_plus"
     android:text="@string/download"
+    android:textColor="#000000"
     android:textAppearance="@style/MwmTextAppearance.Body1" />
 </LinearLayout>
