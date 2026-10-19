@@ -178,9 +178,8 @@ namespace search
 // Returns true if |viewport| was changed.
 bool AdjustViewportToSearchResults(Results const & results, m2::AnyRectD & viewport);
 
-// Orders the results nearest to |pivot| first. The suggestions, the results without a point and the results
-// |isOnTop| tells stay first, in their order. The core weighs the distance little: a street of the same name in a
-// bigger town far away is ranked above the near one.
-void OrderNearestFirst(m2::PointD const & pivot, std::function<bool(Result const &)> const & isOnTop,
-                       Results & results);
+// Orders the found places nearest to |pivot| first, towns too. The suggestions and the coordinates and postcodes
+// the user has typed stay first, in their order. The core weighs the distance little: a street of the same name in
+// a bigger town far away is ranked above the near one.
+void OrderNearestFirst(m2::PointD const & pivot, Results & results);
 }  // namespace search

@@ -29,24 +29,26 @@ std::vector<std::string> Names(Results const & results)
   return names;
 }
 
-UNIT_TEST(OrderNearestFirst_KeepsPlacesFirst)
+UNIT_TEST(OrderNearestFirst_KeepsTypedFirst)
 {
   Results results;
   results.AddResultNoChecks(Result("street", "street "));
   results.AddResultNoChecks(MakeResult("street far", 30));
   results.AddResultNoChecks(MakeResult("town", 50));
   results.AddResultNoChecks(MakeResult("street near", 1));
+  Result coordinates(mercator::FromLatLon(0, 1), "coordinates");
+  coordinates.SetType(Result::Type::LatLon);
+  results.AddResultNoChecks(std::move(coordinates));
   results.AddResultNoChecks(MakeResult("street middle", 5));
   results.AddResultNoChecks(MakeResult("shop near", 1));
   results.AddResultNoChecks(MakeResult("village", 20));
 
-  OrderNearestFirst(kPivot, [](Result const & r) { return r.GetString() == "town" || r.GetString() == "village"; },
-                    results);
-  // The suggestion and the places stay first in their order, the others are nearest first, the equally near ones
-  // in their order.
+  OrderNearestFirst(kPivot, results);
+  // The suggestion and the typed coordinates stay first in their order. The others, towns too, are nearest first,
+  // the equally near ones in their order.
   TEST_EQUAL(Names(results),
-             (std::vector<std::string>{"street", "town", "village", "street near", "shop near", "street middle",
-                                       "street far"}),
+             (std::vector<std::string>{"street", "coordinates", "street near", "shop near", "street middle", "village",
+                                       "street far", "town"}),
              ());
   for (size_t i = 0; i < results.GetCount(); ++i)
     TEST_EQUAL(results[i].GetPositionInResults(), static_cast<int32_t>(i), ());
