@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C01F84D927D2414E9A530001 /* BookmarksListSortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */; };
 		0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */; };
-		C50A71010000000000000001 /* MWMSearchSpotlightTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */; };
+		11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */; };
 		165953742CB1D85500CFED7C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 165953732CB1D83700CFED7C /* fonts */; };
 		165953942CB44B5600CFED7C /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = 165953932CB44B3B00CFED7C /* symbols */; };
 		16CDB3FB2F15B0C30040FC4F /* libtimezone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CDB3FA2F15B0C30040FC4F /* libtimezone.a */; };
+		2C6B64E5A79043179FD58BDC /* SearchOnMapViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D78F8A0D5C648C585DB2864 /* SearchOnMapViewTests.swift */; };
 		34F73F9C1E082FF800AC1FD6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */; };
 		34F73F9F1E082FF800AC1FD6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34F73F611E082FF800AC1FD6 /* Localizable.strings */; };
 		34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F73FA11E08300E00AC1FD6 /* Images.xcassets */; };
+		3AB2A51C1DF5ED4103358BAF /* MWMNoGps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */; };
 		408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */ = {isa = PBXBuildFile; fileRef = 408645FB21495EB1000A4A1D /* categories_cuisines.txt */; };
 		47AEF8402231249E00D20538 /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47AEF83F2231249E00D20538 /* categories_brands.txt */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
@@ -37,6 +38,7 @@
 		676507601C10559800830BB3 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
+		9B5728946390BF79AAED06E1 /* Esp32BleTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */; };
 		A10000000000000000000001 /* SettingsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000006 /* SettingsBuilder.swift */; };
 		A10000000000000000000002 /* RootSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000007 /* RootSettingsInteractor.swift */; };
 		A10000000000000000000003 /* RootSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000008 /* RootSettingsModels.swift */; };
@@ -73,15 +75,30 @@
 		A10000000000000000000056 /* TTSLanguageSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */; };
 		A13418010000000000000002 /* CarPlayManeuverMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13418010000000000000001 /* CarPlayManeuverMapper.swift */; };
 		A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */; };
+		A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */; };
+		A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13811000000000000000001 /* TransportTransitWrappingTests.swift */; };
+		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
+		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
+		A20000000000000000000003 /* TTSVoicePreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* TTSVoicePreviewPlayer.swift */; };
+		A20000000000000000000005 /* TTSSettingsPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* TTSSettingsPreviewCell.swift */; };
+		A20000000000000000000007 /* TTSVoiceSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* TTSVoiceSettingsModels.swift */; };
+		A20000000000000000000009 /* TTSVoiceSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* TTSVoiceSettingsInteractor.swift */; };
+		A2000000000000000000000B /* TTSVoiceSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* TTSVoiceSettingsPresenter.swift */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
+		AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */; };
 		AB0CA7A50000000000000002 /* CarPlaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */; };
 		AB0DB0010000000000000002 /* CarPlayDashboardMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */; };
 		AB0DB0020000000000000002 /* DashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0020000000000000001 /* DashboardBuilder.swift */; };
 		AB0DB0030000000000000002 /* CarPlaySpeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */; };
 		AB0DB0040000000000000002 /* CarPlayMapOwnershipState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */; };
+		AB1327712F90180300FA103D /* RoutePointSearchSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1327742F90180300FA103D /* RoutePointSearchSelection.swift */; };
 		B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt78l.dat */; };
+		C01F84D927D2414E9A530001 /* BookmarksListSortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */; };
+		C50A71010000000000000001 /* MWMSearchSpotlightTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */; };
+		CF816FBCBE80AAE1FFDC7E66 /* NoGpsControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */; };
+		D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */; };
 		DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BC1BF340DE002C974C /* drules_default.bin */; };
 		DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */; };
 		DB05F1CE1BF340DE002C974C /* drules_vehicle.bin in Resources */ = {isa = PBXBuildFile; fileRef = DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */; };
@@ -110,7 +127,6 @@
 		ED46DDD02D098A0B007CACD6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */; };
 		ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */; };
-		2C6B64E5A79043179FD58BDC /* SearchOnMapViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D78F8A0D5C648C585DB2864 /* SearchOnMapViewTests.swift */; };
 		ED82BCB22F900F8200FA103D /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82BCAF2F900F8200FA103D /* main.mm */; };
 		ED82C4F22F90180300FA103D /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C2982F90180300FA103D /* MWMAutoupdateController.mm */; };
 		ED82C4F32F90180300FA103D /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C29B2F90180300FA103D /* AvailableArea.swift */; };
@@ -372,7 +388,6 @@
 		ED82C5FF2F90180300FA103D /* SearchOnMapModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B62F90180300FA103D /* SearchOnMapModels.swift */; };
 		ED82C6002F90180300FA103D /* SearchOnMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B72F90180300FA103D /* SearchOnMapPresenter.swift */; };
 		ED82C6012F90180300FA103D /* SearchOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4B82F90180300FA103D /* SearchOnMapViewController.swift */; };
-		AB1327712F90180300FA103D /* RoutePointSearchSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1327742F90180300FA103D /* RoutePointSearchSelection.swift */; };
 		ED82C6022F90180300FA103D /* MWMSearchCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4BB2F90180300FA103D /* MWMSearchCell.mm */; };
 		ED82C6032F90180300FA103D /* MWMSearchCommonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4BD2F90180300FA103D /* MWMSearchCommonCell.mm */; };
 		ED82C6042F90180300FA103D /* MWMSearchSuggestionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4C02F90180300FA103D /* MWMSearchSuggestionCell.mm */; };
@@ -523,11 +538,6 @@
 		ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F02F90186300FA103D /* LocaleTranslator.mm */; };
 		ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */; };
 		ED82C77B2F90186300FA103D /* TTSTester.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F62F90186300FA103D /* TTSTester.mm */; };
-		A20000000000000000000003 /* TTSVoicePreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* TTSVoicePreviewPlayer.swift */; };
-		A20000000000000000000005 /* TTSSettingsPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* TTSSettingsPreviewCell.swift */; };
-		A20000000000000000000007 /* TTSVoiceSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* TTSVoiceSettingsModels.swift */; };
-		A20000000000000000000009 /* TTSVoiceSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* TTSVoiceSettingsInteractor.swift */; };
-		A2000000000000000000000B /* TTSVoiceSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* TTSVoiceSettingsPresenter.swift */; };
 		ED82C77D2F90186300FA103D /* IStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FA2F90186300FA103D /* IStyleSheet.swift */; };
 		ED82C77E2F90186300FA103D /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FB2F90186300FA103D /* Style.swift */; };
 		ED82C77F2F90186300FA103D /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FC2F90186300FA103D /* StyleManager.swift */; };
@@ -630,9 +640,6 @@
 		ED91433B3001A0000081DF0B /* DeepLinkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */; };
 		ED9BEED62FFEB5C8008DB423 /* ColorGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
-		AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */; };
-		A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */; };
-		D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */; };
 		EDAA00012F91000000FA103D /* SearchCategoryIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */; };
 		EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */; };
 		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
@@ -686,13 +693,6 @@
 		FA853BEF26BC5BA40026D455 /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BEE26BC5BA40026D455 /* libdescriptions.a */; };
 		FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BF226BC5DE50026D455 /* libshaders.a */; };
 		FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */; };
-		A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13811000000000000000001 /* TransportTransitWrappingTests.swift */; };
-		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
-		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
-		3AB2A51C1DF5ED4103358BAF /* MWMNoGps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */; };
-		9B5728946390BF79AAED06E1 /* Esp32BleTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */; };
-		CF816FBCBE80AAE1FFDC7E66 /* NoGpsControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */; };
-		11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -777,9 +777,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSortingTests.swift; sourceTree = "<group>"; };
+		0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Esp32BleTransport.swift; sourceTree = "<group>"; };
 		0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+SeparatorInset.swift"; sourceTree = "<group>"; };
-		C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchSpotlightTests.mm; sourceTree = "<group>"; };
 		165953732CB1D83700CFED7C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../data/fonts; sourceTree = "<group>"; };
 		165953932CB44B3B00CFED7C /* symbols */ = {isa = PBXFileReference; lastKnownFileType = folder; name = symbols; path = ../../data/symbols; sourceTree = "<group>"; };
 		16CDB3FA2F15B0C30040FC4F /* libtimezone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtimezone.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -857,9 +856,11 @@
 		4B7E9A102F9A000100000005 /* ExpandableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
 		4B7E9A102F9A000100000006 /* PlacePageUserDescriptionWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageUserDescriptionWebView.swift; sourceTree = "<group>"; };
 		4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTSTesterTest.m; sourceTree = "<group>"; };
+		4D78F8A0D5C648C585DB2864 /* SearchOnMapViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapViewTests.swift; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Organic Maps (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
+		7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoGps.mm; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* OMaps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OMaps.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
@@ -899,6 +900,15 @@
 		A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSLanguageSettingsPresenter.swift; sourceTree = "<group>"; };
 		A13418010000000000000001 /* CarPlayManeuverMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayManeuverMapper.swift; sourceTree = "<group>"; };
 		A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayManeuverMapperTests.swift; sourceTree = "<group>"; };
+		A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingOptionsSettingsTests.swift; sourceTree = "<group>"; };
+		A13811000000000000000001 /* TransportTransitWrappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitWrappingTests.swift; sourceTree = "<group>"; };
+		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
+		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* TTSVoicePreviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoicePreviewPlayer.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* TTSSettingsPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSSettingsPreviewCell.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* TTSVoiceSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsModels.swift; sourceTree = "<group>"; };
+		A20000000000000000000008 /* TTSVoiceSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsInteractor.swift; sourceTree = "<group>"; };
+		A2000000000000000000000A /* TTSVoiceSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsPresenter.swift; sourceTree = "<group>"; };
 		A630D1E9207CA95900976DEA /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EB207CA96700976DEA /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EC207CA96D00976DEA /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = da; path = da.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -928,11 +938,13 @@
 		A630D204207CAA3400976DEA /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D205207CAA3A00976DEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		A630D206207CAA5800976DEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointTests.swift; sourceTree = "<group>"; };
 		AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegate.swift; sourceTree = "<group>"; };
 		AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayDashboardMapViewController.swift; sourceTree = "<group>"; };
 		AB0DB0020000000000000001 /* DashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBuilder.swift; sourceTree = "<group>"; };
 		AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySpeedInfoView.swift; sourceTree = "<group>"; };
 		AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMapOwnershipState.swift; sourceTree = "<group>"; };
+		AB1327742F90180300FA103D /* RoutePointSearchSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointSearchSelection.swift; sourceTree = "<group>"; };
 		AC4209FF2D79BCEC00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC420A002D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC420A012D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = af; path = af.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -953,11 +965,16 @@
 		AC89C2362F2CF86000368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC89C2372F2CF86000368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lo; path = lo.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		AC89C2382F2CF86100368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
+		B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNoGps.h; sourceTree = "<group>"; };
+		B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointSelectionTests.swift; sourceTree = "<group>"; };
 		BB25B1A51FB32767007276FA /* transit_colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_colors.txt; path = ../../data/transit_colors.txt; sourceTree = "<group>"; };
 		BB7626B41E8559980031D71C /* icudt78l.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = icudt78l.dat; path = ../../data/icudt78l.dat; sourceTree = "<group>"; };
+		C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSortingTests.swift; sourceTree = "<group>"; };
+		C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchSpotlightTests.mm; sourceTree = "<group>"; };
 		DB05F1BC1BF340DE002C974C /* drules_default.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_default.bin; path = ../../data/drules_default.bin; sourceTree = "<group>"; };
 		DB05F1BD1BF340DE002C974C /* drules_outdoors.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_outdoors.bin; path = ../../data/drules_outdoors.bin; sourceTree = "<group>"; };
 		DB05F1BE1BF340DE002C974C /* drules_vehicle.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_vehicle.bin; path = ../../data/drules_vehicle.bin; sourceTree = "<group>"; };
+		EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsControls.swift; sourceTree = "<group>"; };
 		ED097E762BB80C320006ED01 /* OMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDescriptionHTMLDocumentBuilder.swift; sourceTree = "<group>"; };
@@ -983,7 +1000,6 @@
 		ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapTests.swift; sourceTree = "<group>"; };
-		4D78F8A0D5C648C585DB2864 /* SearchOnMapViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapViewTests.swift; sourceTree = "<group>"; };
 		ED82BCAE2F900F8200FA103D /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		ED82BCAF2F900F8200FA103D /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		ED82BCB02F900F8200FA103D /* Maps_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Maps_Prefix.pch; sourceTree = "<group>"; };
@@ -1417,7 +1433,6 @@
 		ED82C4B62F90180300FA103D /* SearchOnMapModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapModels.swift; sourceTree = "<group>"; };
 		ED82C4B72F90180300FA103D /* SearchOnMapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapPresenter.swift; sourceTree = "<group>"; };
 		ED82C4B82F90180300FA103D /* SearchOnMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapViewController.swift; sourceTree = "<group>"; };
-		AB1327742F90180300FA103D /* RoutePointSearchSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointSearchSelection.swift; sourceTree = "<group>"; };
 		ED82C4BA2F90180300FA103D /* MWMSearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchCell.h; sourceTree = "<group>"; };
 		ED82C4BB2F90180300FA103D /* MWMSearchCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchCell.mm; sourceTree = "<group>"; };
 		ED82C4BC2F90180300FA103D /* MWMSearchCommonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchCommonCell.h; sourceTree = "<group>"; };
@@ -1552,11 +1567,6 @@
 		ED82C6F42F90186300FA103D /* MWMTextToSpeechObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeechObserver.h; sourceTree = "<group>"; };
 		ED82C6F52F90186300FA103D /* TTSTester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSTester.h; sourceTree = "<group>"; };
 		ED82C6F62F90186300FA103D /* TTSTester.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TTSTester.mm; sourceTree = "<group>"; };
-		A20000000000000000000002 /* TTSVoicePreviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoicePreviewPlayer.swift; sourceTree = "<group>"; };
-		A20000000000000000000004 /* TTSSettingsPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSSettingsPreviewCell.swift; sourceTree = "<group>"; };
-		A20000000000000000000006 /* TTSVoiceSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsModels.swift; sourceTree = "<group>"; };
-		A20000000000000000000008 /* TTSVoiceSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsInteractor.swift; sourceTree = "<group>"; };
-		A2000000000000000000000A /* TTSVoiceSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVoiceSettingsPresenter.swift; sourceTree = "<group>"; };
 		ED82C6FA2F90186300FA103D /* IStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IStyleSheet.swift; sourceTree = "<group>"; };
 		ED82C6FB2F90186300FA103D /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		ED82C6FC2F90186300FA103D /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
@@ -1728,9 +1738,6 @@
 		ED91433A3001A0000081DF0B /* DeepLinkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerTests.swift; sourceTree = "<group>"; };
 		ED9BEED52FFEB5C8008DB423 /* ColorGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridViewController.swift; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
-		AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointTests.swift; sourceTree = "<group>"; };
-		A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingOptionsSettingsTests.swift; sourceTree = "<group>"; };
-		B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointSelectionTests.swift; sourceTree = "<group>"; };
 		EDAA00022F91000000FA103D /* SearchCategoryIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryIconRenderer.swift; sourceTree = "<group>"; };
 		EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNavigationToOMURLConverterTests.swift; sourceTree = "<group>"; };
 		EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRecentlyDeletedCategoriesManager.swift; sourceTree = "<group>"; };
@@ -1841,13 +1848,6 @@
 		FAF9A8A82CE0CEC000F6604D /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lv; path = lv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libharfbuzz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
-		A13811000000000000000001 /* TransportTransitWrappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitWrappingTests.swift; sourceTree = "<group>"; };
-		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
-		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
-		B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNoGps.h; sourceTree = "<group>"; };
-		7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoGps.mm; sourceTree = "<group>"; };
-		0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Esp32BleTransport.swift; sourceTree = "<group>"; };
-		EC2AC3F235F3BA4C5537EEDC /* NoGpsControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsControls.swift; sourceTree = "<group>"; };
 		FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsSensorsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2044,6 +2044,16 @@
 			path = CarPlay;
 			sourceTree = "<group>";
 		};
+		7B3C39D4B9E6F6AB446F32C8 /* NoGps */ = {
+			isa = PBXGroup;
+			children = (
+				B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */,
+				7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */,
+				0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */,
+			);
+			path = NoGps;
+			sourceTree = "<group>";
+		};
 		A1000000000000000000001C /* MapTiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -2129,6 +2139,19 @@
 				A2000000000000000000000A /* TTSVoiceSettingsPresenter.swift */,
 			);
 			path = TextToSpeech;
+			sourceTree = "<group>";
+		};
+		AA01B2C3D4E5F60718293A03 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				A13811000000000000000001 /* TransportTransitWrappingTests.swift */,
+				A13812000000000000000001 /* TransportTransitRTLTests.swift */,
+				A13813000000000000000001 /* TransportRulerAppearanceTests.swift */,
+				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
+				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
+				A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */,
+			);
+			path = Routing;
 			sourceTree = "<group>";
 		};
 		E79F77A472014212B40FDE97 /* PlacePageTests */ = {
@@ -4092,19 +4115,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		AA01B2C3D4E5F60718293A03 /* Routing */ = {
-			isa = PBXGroup;
-			children = (
-				A13811000000000000000001 /* TransportTransitWrappingTests.swift */,
-				A13812000000000000000001 /* TransportTransitRTLTests.swift */,
-				A13813000000000000000001 /* TransportRulerAppearanceTests.swift */,
-				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
-				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
-				A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */,
-			);
-			path = Routing;
-			sourceTree = "<group>";
-		};
 		ED91433C3001A0000081DF0B /* DeepLink */ = {
 			isa = PBXGroup;
 			children = (
@@ -4225,16 +4235,6 @@
 				FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7B3C39D4B9E6F6AB446F32C8 /* NoGps */ = {
-			isa = PBXGroup;
-			children = (
-				B84ABDFBD1D11A68AE7B5F1B /* MWMNoGps.h */,
-				7E8C3DE3FE048E6B44D39393 /* MWMNoGps.mm */,
-				0E4F1ADEAB4383C259A9DCEB /* Esp32BleTransport.swift */,
-			);
-			path = NoGps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5379,7 +5379,7 @@
 				CODE_SIGN_ENTITLEMENTS = "OMaps-Debug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = VTWF79TU37;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_KEY_CFBundleDisplayName = "${PRODUCT_NAME}";
@@ -5394,7 +5394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2022.11.17;
+				MARKETING_VERSION = 2026.10.15;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.debug;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5408,7 +5408,7 @@
 				CODE_SIGN_ENTITLEMENTS = "OMaps-Release.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 20;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VTWF79TU37;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -5424,7 +5424,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2022.11.17;
+				MARKETING_VERSION = 2026.10.15;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5465,7 +5465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 20;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VTWF79TU37;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5482,7 +5482,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2022.11.17;
+				MARKETING_VERSION = 2026.10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.debug.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5499,7 +5499,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 20;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OMapsWidgetExtension/Info.plist;
@@ -5511,7 +5511,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2022.11.17;
+				MARKETING_VERSION = 2026.10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
