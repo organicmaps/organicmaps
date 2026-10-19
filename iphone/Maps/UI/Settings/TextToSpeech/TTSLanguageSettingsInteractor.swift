@@ -73,7 +73,7 @@ final class TTSLanguageSettingsInteractor {
     if voice == previewPlayer.playingVoice {
       previewPlayer.stop()
     } else {
-      previewPlayer.play(voice)
+      previewPlayer.play(voice, language: language)
     }
     present(animatingDifferences: false)
   }
