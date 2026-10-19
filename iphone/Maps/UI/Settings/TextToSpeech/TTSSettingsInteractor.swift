@@ -54,11 +54,11 @@ final class TTSSettingsInteractor {
   }
 
   private func toggleVoicePreview() {
-    guard let voice = textToSpeech.currentVoice() else { return }
+    guard let voice = textToSpeech.currentVoice(), let language = textToSpeech.currentLanguage() else { return }
     if voice == previewPlayer.playingVoice {
       previewPlayer.stop()
     } else {
-      previewPlayer.play(voice)
+      previewPlayer.play(voice, language: language)
     }
     loadSettings(animatingDifferences: false)
   }

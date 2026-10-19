@@ -73,7 +73,7 @@ final class TTSVoiceSettingsInteractor {
     if item == previewedItem, previewPlayer.playingVoice != nil {
       previewPlayer.stop()
     } else if let voice = voice(for: item) {
-      previewPlayer.play(voice)
+      previewPlayer.play(voice, language: language)
       previewedItem = item
     }
     present(animatingDifferences: false)

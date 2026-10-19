@@ -37476,7 +37476,7 @@ zh-Hant = %1$@, %2$@
 
 [app_tip_00]
 comment = App Tip #00
-tags = android-app
+tags = android-app,apple-maps
 en = Thank you for using our community-built maps!
 af = Dankie dat u ons gemeenskapsgeboude kaarte gebruik!
 ar = شكرًا لك على استخدام الخرائط التي أنشأها مجتمعنا!
@@ -37534,7 +37534,7 @@ zh-Hant = 感謝您使用我們社區構建的地圖！
 
 [app_tip_01]
 comment = App tip #01
-tags = android-app
+tags = android-app,apple-maps
 en = With your donations and support, we can create the best maps in the world!
 af = Met jou skenkings en ondersteuning kan ons die beste kaarte in die wêreld skep!
 ar = بتبرعاتكم ودعمكم، يمكننا إنشاء أفضل الخرائط في العالم!
@@ -37592,7 +37592,7 @@ zh-Hant = 有了您的捐贈和支持，我們可以創造世界上最好的地�
 
 [app_tip_02]
 comment = App tip #02
-tags = android-app
+tags = android-app,apple-maps
 en = Do you like our app? Please donate to support the development! Don't like it yet? Please let us know why, and we will fix it!
 af = Hou jy van ons app? Doner asseblief om die ontwikkeling te ondersteun! Hou jy nog nie daarvan nie? Laat weet ons asseblief hoekom, en ons sal dit regstel!
 ar = هل تحب التطبيق لدينا؟ يرجى التبرع لدعم التنمية! لا أحب ذلك حتى الآن؟ واسمحوا لنا أن نعرف، وسوف نقوم بإصلاحه!
@@ -37650,7 +37650,7 @@ zh-Hant = 您喜歡我們的應用程式嗎？請捐款以支持發展！還不�
 
 [app_tip_03]
 comment = App tip #03
-tags = android-app
+tags = android-app,apple-maps
 en = If you know a software developer, you can ask him or her to implement a feature that you need.
 af = As jy 'n sagtewareontwikkelaar ken, kan jy hom of haar vra om 'n funksie te implementeer wat jy nodig het.
 ar = إذا كنت تعرف أحد مطوري البرامج، فيمكنك أن تطلب منه تنفيذ الميزة التي تحتاجها.
@@ -37708,7 +37708,7 @@ zh-Hant = 如果您認識軟體開發人員，您可以要求他實現您需要�
 
 [app_tip_04]
 comment = App tip #04
-tags = android-app
+tags = android-app,apple-maps
 en = Tap anywhere on the map to select anything. A long tap is used to hide and show the interface.
 af = Tik enige plek op die kaart om enigiets te kies. Tik lank om te versteek en om die koppelvlak terug te wys.
 ar = اضغط على أي مكان على الخريطة لتحديد أي شيء. اضغط لفترة طويلة لإخفاء الواجهة وإظهارها مرة أخرى.
@@ -37766,7 +37766,7 @@ zh-Hant = 點擊地圖上的任何位置即可選擇任何內容。長按可隱�
 
 [app_tip_05]
 comment = App tip #05
-tags = android-app
+tags = android-app,apple-maps
 en = Did you know that your current location on the map can be selected?
 af = Het jy geweet dat jou huidige ligging op die kaart gekies kan word?
 ar = هل تعلم أنه يمكنك تحديد موقعك الحالي على الخريطة؟
@@ -37824,7 +37824,7 @@ zh-Hant = 您知道您可以在地圖上選擇您目前的位置嗎？
 
 [app_tip_06]
 comment = App tip #06
-tags = android-app
+tags = android-app,apple-maps
 en = You can help to translate our app into your language.
 af = Jy kan help om ons app in jou taal te vertaal.
 ar = يمكنك المساعدة في ترجمة تطبيقنا إلى لغتك.
@@ -37883,7 +37883,7 @@ zh-Hant = 您可以幫助將我們的應用程序翻譯成您的語言。
 
 [app_tip_07]
 comment = App tip #07
-tags = android-app
+tags = android-app,apple-maps
 en = Our app is developed by a few enthusiasts and the community.
 af = Ons app is ontwikkel deur 'n paar entoesiaste en die gemeenskap.
 ar = تم تطوير تطبيقنا من قبل عدد قليل من المتحمسين والمجتمع.
@@ -37940,7 +37940,7 @@ zh-Hant = 我們的應用程序是由一些愛好者和社區開發的。
 
 [app_tip_08]
 comment = App tip #08
-tags = android-app
+tags = android-app,apple-maps
 en = You can easily fix and improve the map data.
 af = Jy kan maklik die kaartdata regstel en verbeter.
 ar = يمكنك بسهولة إصلاح وتحسين بيانات الخريطة.
@@ -37998,7 +37998,7 @@ zh-Hant = 您可以輕鬆修復和改進地圖數據。
 
 [app_tip_09]
 comment = App tip #09
-tags = android-app
+tags = android-app,apple-maps
 en = Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.
 af = Ons hoofdoel is om vinnige, privaatheidsgerigte, maklik-om-te-gebruik kaarte te bou wat jy sal liefhê.
 ar = هدفنا الرئيسي هو إنشاء خرائط سريعة وسهلة الاستخدام تركز على الخصوصية والتي ستعجبك.
