@@ -44974,6 +44974,13 @@ en = GPS is on again
 ru = GPS снова включён
 uk = GPS знову увімкнено
 
+[nogps_mark_by_tap]
+comment = The user has pressed the button to show on the map where the car is
+tags = android-app
+en = Tap the road where the car is
+ru = Коснитесь дороги, где сейчас машина
+uk = Торкніться дороги, де зараз машина
+
 [nogps_gps_spoofed]
 tags = android-app,apple-maps
 en = GPS is spoofed! Using cell towers and Wi-Fi. You can also set your position manually.
@@ -45367,9 +45374,9 @@ uk = Дорогу втрачено
 [nogps_status_road_lost_hint]
 comment = Second line of the status "Road lost"
 tags = android-app,apple-maps
-en = double-tap the map where you are
-ru = дважды нажмите на карту, где вы
-uk = двічі торкніться мапи, де ви
+en = press the finger button and tap the road where you are
+ru = нажмите кнопку с пальцем и коснитесь дороги, где вы
+uk = натисніть кнопку з пальцем і торкніться дороги, де ви
 
 [nogps_status_box_ok]
 comment = Line of the status of the position: the sensor box gives the car speed
@@ -45584,9 +45591,9 @@ uk = Дорогу втрачено, машину зупинено. Познач�
 [nogps_no_position_for_route]
 comment = A route is asked for while there is no GPS and no mark of the user
 tags = android-app,apple-maps
-en = No position: the route has nowhere to start from. Double-tap the map where you are
-ru = Нет позиции: маршрут строить неоткуда. Дважды нажмите на карту там, где вы находитесь
-uk = Немає позиції: маршрут будувати нізвідки. Двічі торкніться мапи там, де ви знаходитеся
+en = No position: the route has nowhere to start from. Press the finger button and tap the road where you are
+ru = Нет позиции: маршрут строить неоткуда. Нажмите кнопку с пальцем и коснитесь дороги, где вы находитесь
+uk = Немає позиції: маршрут будувати нізвідки. Натисніть кнопку з пальцем і торкніться дороги, де ви знаходитеся
 
 [nogps_shift_buttons]
 tags = android-app,apple-maps
