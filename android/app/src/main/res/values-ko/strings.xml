@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">다운로드에 실패하였습니다</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">다시 시도</string>
-    <string name="about_menu_title">Organic Maps 정보</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">사랑으로 만든 모든 사람에게 무료</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• 광고 없음, 추적 없음, 데이터 수집 없음</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• 배터리 소모 없음, 오프라인에서 작동</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• 빠르고 미니멀한, 커뮤니티가 개발한</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">애호가와 자원 봉사자가 만든 오픈 소스 응용 프로그램.</string>
     <!-- The button that opens system location settings -->
@@ -744,8 +735,6 @@
     <string name="enable_show_on_lock_screen_description">활성화하면 기기가 잠겨 있어도 앱은 잠금 화면에서 작동합니다.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">지도 언어</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">OpenStreetMap의 지도 데이터</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->

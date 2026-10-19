@@ -20,6 +20,10 @@
   <uses-feature
       android:name="android.hardware.location.gps"
       android:required="false"/>
+  <!-- The upright screens turn if the user allows it: devices with a landscape screen only, e.g. in cars, are kept. -->
+  <uses-feature
+      android:name="android.hardware.screen.portrait"
+      android:required="false"/>
   <uses-permission
       android:name="android.permission.READ_EXTERNAL_STORAGE"
       android:maxSdkVersion="22" />

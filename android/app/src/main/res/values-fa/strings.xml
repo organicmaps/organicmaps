@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">تلاش مجدد</string>
-    <string name="about_menu_title">درباره‌ی Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">رایگان برای همه ، ساخته شده با عشق</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• بدون تبلیغات، ردیابی، جمع‌آوری داده‌ها</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• بدون تخلیه باتری، آفلاین کار می کند</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• سریع، ساده‌گرایی، توسعه‌یافته توسط اجتماع</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">برنامه منبع باز ایجاد شده توسط علاقه مندان و داوطلبان.</string>
     <!-- The button that opens system location settings -->
@@ -746,12 +737,6 @@
     <string name="enable_show_on_lock_screen_description">وقتی فعال باشد، برنامه حتی زمانی که دستگاه قفل است روی صفحه قفل کار خواهد کرد.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">زبان نقشه</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">OpenStreetMap داده‌های نقشه از</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/fa-IR/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Η λήψη απέτυχε</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Δοκιμάστε ξανά</string>
-    <string name="about_menu_title">Σχετικά με το Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Δωρεάν για όλους, φτιαγμένα με αγάπη</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Χωρίς διαφημίσεις, χωρίς tracking, χωρίς συλλογή δεδομένων</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Δεν εξαντλεί τη μπαταρία, λειτουργεί εκτός σύνδεσης</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από θιασώτες και εθελοντές.</string>
     <!-- The button that opens system location settings -->
@@ -747,12 +738,6 @@
     <string name="enable_show_on_lock_screen_description">Αν ενεργοποιηθεί, η εφαρμογή θα λειτουργεί και στην Οθόνη Κλειδώματος ακόμα και αν η συσκευή είναι κλειδωμένη.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Γλώσσα χάρτη</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Δεδομένα χάρτη από το OpenStreetMap</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/el/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->

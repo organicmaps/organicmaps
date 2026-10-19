@@ -177,7 +177,9 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   @Override
   public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
-  {}
+  {
+    Utils.allowScreenRotation(Config.isScreenRotationEnabled(), activity);
+  }
 
   @Override
   public void onActivityStarted(@NonNull Activity activity)
@@ -188,6 +190,8 @@ public class MwmApplication extends Application implements Application.ActivityL
   {
     Logger.d(TAG, "activity = " + activity);
     Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), activity);
+    // The setting may have changed while the activity was behind another one.
+    Utils.allowScreenRotation(Config.isScreenRotationEnabled(), activity);
     getSensorHelper().setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
     mTopActivity = new WeakReference<>(activity);
   }

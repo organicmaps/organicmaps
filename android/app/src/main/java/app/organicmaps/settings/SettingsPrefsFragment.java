@@ -72,6 +72,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initPlayServicesPrefsCallbacks();
     initSearchPrivacyPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
+    initScreenRotationPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
     initNightNavigationPrefsCallbacks();
   }
@@ -520,6 +521,20 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         Config.setKeepScreenOnEnabled(newVal);
         // No need to call Utils.keepScreenOn() here, as relevant activities do it when starting / stopping.
       }
+      return true;
+    });
+  }
+
+  private void initScreenRotationPrefsCallbacks()
+  {
+    final Preference pref = getPreference(getString(R.string.pref_screen_rotation));
+
+    ((TwoStatePreference) pref).setChecked(Config.isScreenRotationEnabled());
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      final boolean newVal = (Boolean) newValue;
+      Config.setScreenRotationEnabled(newVal);
+      // The other activities apply it when they are resumed.
+      Utils.allowScreenRotation(newVal, requireActivity());
       return true;
     });
   }

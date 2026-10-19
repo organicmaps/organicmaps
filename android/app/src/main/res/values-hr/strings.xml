@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">Preuzimanje nije uspjelo</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Pokušaj ponovo</string>
-    <string name="about_menu_title">O Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Besplatno za sve, napravljeno sa ljubavi</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Nema reklama, nema praćenja, nema prikupljanja podataka</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Nema pražnjenja baterije, radi izvan mreže</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Brzo, minimalističko, razvijeno od zajednice</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Otvorenog koda aplikacija napravljena od entuzijasta i volontera.</string>
     <!-- The button that opens system location settings -->
@@ -744,12 +735,6 @@
     <string name="enable_show_on_lock_screen_description">Kada je omogućeno, aplikacija će raditi na zaslonu zaključavanja čak i kada je uređaj zaključan.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Jezik karte</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Podaci karte od OpenStreetMapa</string>
-    <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <!-- Instagram account url for the "?" About page -->
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->

@@ -35,15 +35,6 @@
     <string name="country_status_download_failed">डाउनलोड अयशस्वी</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">पुन्हा प्रयत्न करा</string>
-    <string name="about_menu_title">Organic Maps बद्दल</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">सर्वांसाठी विनामूल्य, आवडीने तयार केलेले</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• जाहिराती नाही, माहितीचा मागोवा नाही, डेटा संग्रहण नाही</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• बॅटरी संपत नाही, ऑफलाइन कार्य करते</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• जलद, मिनिमलिस्ट, समुदायाद्वारे विकसित</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">उत्साही आणि स्वयंसेवकांनी तयार केलेले मुक्त-स्रोत अनुप्रयोग.</string>
     <!-- The button that opens system location settings -->
@@ -746,8 +737,6 @@
     <string name="enable_show_on_lock_screen_description">चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">नकाशाची भाषा</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">OpenStreetMap कडून नकाशा डेटा</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/mr/</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->

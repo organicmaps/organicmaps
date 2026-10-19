@@ -25,13 +25,6 @@
     <string name="country_status_download_failed">O download falhou</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Tente novamente</string>
-    <string name="about_menu_title">Sobre Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Livre para todos, feito com amor</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Sem anúncios, sem rastreamento, sem coleta de dados</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Sem consumo de bateria, funciona off-line</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Configurações de Localização</string>
     <string name="unsupported_phone">É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.</string>
@@ -519,8 +512,6 @@
     <string name="enable_show_on_lock_screen_description">Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Idioma do Mapa</string>
-    <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Dados do mapa do OpenStreetMap</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/pt-BR/faq/voice/text-to-speech-android-tts/</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
