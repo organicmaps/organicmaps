@@ -419,6 +419,21 @@ UNIT_TEST(NoGps_Engine_TurnFittingTwoStreetsFollowsBoth)
   TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 0, ());
 }
 
+UNIT_TEST(NoGps_Engine_MarkOnRoadOfShownOneIsDropped)
+{
+  // The street 40 m to the east turns towards the street of the car 60 m north of the crossing and ends 10 m from
+  // it: the other mark comes onto the street of the car behind the shown one, as on October 19 at 17:36.
+  PieceRoads roads({{-300, 0, 400, 0}, {200, 0, 200, 600}, {240, -10, 240, 60}, {240, 60, 210, 124}}, {{200, 0}});
+  Env env(true /* inertial */, &roads);
+  TurnLeftBesideCrossing(env);
+  TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 1, (env.m_engine.GetTripLine()));
+  // The two marks are one road: there is no other road to show the car on.
+  env.Drive(20'000, 36, 0);
+  TestAlmostEqualAbs(East(env.Last().m_position), 200, 2);
+  TEST_EQUAL(env.m_engine.GetStatus().m_otherMarks, 0, (env.m_engine.GetTripLine()));
+  TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+}
+
 UNIT_TEST(NoGps_Engine_UserSwitchesMarkToAnotherStreet)
 {
   auto roads = TwoStreetsNorth(80, 400);

@@ -175,6 +175,12 @@ public:
   static double constexpr kOtherRoadAsideM = 20;
   // Marks this close to each other are one.
   static double constexpr kSameMarkM = 10;
+  // A mark on the road of the shown one is dropped: two marks of one road tell only how wrong the distance driven
+  // may be, and the button showing the car on another road stays for nothing. On October 19 a mark put on a
+  // driveway came onto the road of the shown one when the driveway ended, 3-16 m behind it, and lived 11 minutes.
+  // The road of the shown mark is walked to the other one, if it is this near, and passes it this close.
+  static double constexpr kSameRoadCheckM = 200;
+  static double constexpr kSameRoadAsideM = 4;
   // The way driven, see PathMatcher, tells which marks are where the car is this often: it takes tens of road
   // lookups for every mark.
   static int64_t constexpr kMarksWayCheckMs = 5000;
@@ -491,6 +497,8 @@ private:
   void MoveOtherMarks(double rotatedDeg, double distanceM, double stepM);
   // Snaps the other marks to their roads, drops the ones that are not where the car is.
   void FollowOtherMarks();
+  /// \returns true if the position is on the road of the shown mark, ahead of it or behind.
+  bool IsOnShownRoad(ms::LatLon const & position);
   // Moves the other marks through the turn the car has made, dropping the ones without a road going the new way
   // |atCrossing|. \returns the first one with a road going the new way.
   std::optional<size_t> TurnOtherMarks(double toBearingDeg, bool atCrossing);

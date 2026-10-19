@@ -1589,6 +1589,13 @@ void InertialNavigator::FollowOtherMarks()
     {
       dropped = "it is where the shown one is";
     }
+    else if (mark.m_onRoad && m_onRoad && !m_offRoadCar && !m_turning &&
+             std::fabs(AngleDiff(reckoning.GetHeading(), shownHeading)) <= DeadReckoning::kMaxSnapHeadingDiffDeg &&
+             IsOnShownRoad(reckoning.GetPosition()))
+    {
+      dropped = "it is on the road of the shown one " +
+                std::to_string(std::lround(Distance(reckoning.GetPosition(), shown))) + " m away";
+    }
     else
     {
       for (size_t j = 0; j < i && dropped.empty(); ++j)
@@ -1615,6 +1622,19 @@ void InertialNavigator::FollowOtherMarks()
       }
     }
   }
+}
+
+bool InertialNavigator::IsOnShownRoad(ms::LatLon const & position)
+{
+  auto const shown = m_deadReckoning.GetPosition();
+  double const distanceM = Distance(shown, position);
+  if (distanceM > kSameRoadCheckM)
+    return false;
+  double const heading = m_deadReckoning.GetHeading();
+  double const aheadM = distanceM * std::cos(math::DegToRad(AngleDiff(Bearing(shown, position), heading)));
+  // Through the crossings: the road going straight on is the same road.
+  auto const walked = RoadWalker::Walk(m_roads, shown, heading, aheadM, false /* stopAtCrossing */);
+  return walked && Distance(walked->m_position, position) <= kSameRoadAsideM;
 }
 
 void InertialNavigator::CheckMarksByWay()
