@@ -3,10 +3,7 @@ package app.organicmaps.widget.placepage;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import app.organicmaps.sdk.bookmarks.data.Bookmark;
-import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.bookmarks.data.Track;
 import java.util.List;
 
 public class PlacePageViewModel extends ViewModel
