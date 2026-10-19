@@ -314,6 +314,7 @@ void Info::SetMercator(m2::PointD const & mercator)
 {
   m_mercator = mercator;
   m_buildInfo.m_mercator = mercator;
+  m_terrainElevation.reset();
 }
 
 void Info::SetTrackCandidates(std::vector<Track::TrackSelectionInfo> candidates)
@@ -552,6 +553,11 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
 std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
 {
   return FormatCoordinateDisplay(format, GetLatLon(), GetCountryId());
+}
+
+std::string Info::GetFormattedTerrainElevation() const
+{
+  return m_terrainElevation ? platform::Distance::FormatAltitude(*m_terrainElevation) : std::string{};
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)

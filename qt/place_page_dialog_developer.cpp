@@ -27,6 +27,9 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, qt::DrawWid
     addEntry(grid, row, "lat, lon", strings::to_string_dac(ll.m_lat, 7) + ", " + strings::to_string_dac(ll.m_lon, 7));
   }
 
+  if (auto const elevation = info.GetFormattedTerrainElevation(); !elevation.empty())
+    addEntry(grid, row, "▲", elevation);
+
   addEntry(grid, row, "CountryId", info.GetCountryId());
 
   auto const & title = info.GetTitle();

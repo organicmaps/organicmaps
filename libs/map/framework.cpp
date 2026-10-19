@@ -2615,6 +2615,19 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
 
 place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
 {
+  auto info = BuildPlacePageInfoImpl(buildInfo);
+  if (!info.IsMyPosition() && !info.IsTrack() && info.GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY)
+    info.SetTerrainElevation(m_terrainProvider.GetElevation(info.GetMercator()));
+  if (!info.IsFeature() && info.GetSelectedObject() == df::SelectionShape::OBJECT_POI)
+  {
+    if (auto const elevation = info.GetFormattedTerrainElevation(); !elevation.empty())
+      info.SetCustomNames(info.GetTitle(), info.GetSubtitle() + "  ▲ " + elevation);
+  }
+  return info;
+}
+
+place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const & buildInfo)
+{
   place_page::Info outInfo;
   outInfo.SetBuildInfo(buildInfo);
 

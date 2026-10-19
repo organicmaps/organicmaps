@@ -1,9 +1,13 @@
 #include "testing/testing.hpp"
 
+#include "map/framework.hpp"
 #include "map/terrain_provider.hpp"
+
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 
 #include "storage/storage.hpp"
 
+#include "indexer/terrain/terrain_reader.hpp"
 #include "indexer/terrain/terrain_serdes.hpp"
 
 #include "platform/platform.hpp"
@@ -17,12 +21,15 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include "defines.hpp"
 
 #include <array>
+#include <cmath>
 #include <map>
 #include <set>
 #include <string>
@@ -245,6 +252,143 @@ UNIT_TEST(TerrainProvider_DeleteByIdKeepsAdjacentBlocks)
     TEST(Platform::IsFileExistsByFullPath(deletedPath), (deletedPath));
     TEST(Platform::IsFileExistsByFullPath(keptPath), (keptPath));
   }
+}
+
+namespace
+{
+struct ElevationSample
+{
+  double m_lat, m_lon, m_altitude;
+  bool m_raster;
+  double m_maxError = 5.01;
+};
+
+std::array<ElevationSample, 4> const kElevationSamples = {{
+    {44.0, 7.5, 756.0, false},
+    {43.0 + 275.0 / 360.0, 7.0 + 80.0 / 360.0, 318.0, true, 3.01},
+    {43.25, 7.5, -2342.0, true, 3.01},
+    {43.0 + 257.0 / 360.0, 7.0 + 125.0 / 360.0, 0.0, true, 1e-6},
+}};
+
+m2::PointD GetSamplePoint(ElevationSample const & sample)
+{
+  // Use the stored lattice node, avoiding projection rounding at the file boundary.
+  return PointUToPointD(PointDToPointU(mercator::FromLatLon(sample.m_lat, sample.m_lon), terrain::kTerrainCoordBits),
+                        terrain::kTerrainCoordBits);
+}
+
+terrain::TwmFile GetElevationTestFile()
+{
+  terrain::TwmFile file;
+  auto const path = base::JoinPath(GetPlatform().ResourcesDir(), "N43E007.twm");
+  TEST_EQUAL(terrain::TwmSet::ReadFile(path, 1, file), terrain::TwmSet::RegResult::Success, (path));
+  return file;
+}
+
+class ElevationTestFramework : public Framework
+{
+public:
+  ElevationTestFramework() : Framework({}, false /* loadMaps */)
+  {
+    // This test registers a shared resource, outside Storage ownership.
+    m_terrainProvider.SetOnTerrainDeregisteredCallback({});
+  }
+
+  void RegisterTerrain(terrain::TwmFile const & file) { TEST(m_terrainProvider.RegisterBlock(file), ()); }
+};
+}  // namespace
+
+UNIT_TEST(TerrainReader_RealHybridElevation)
+{
+  terrain::Reader reader(GetElevationTestFile().m_path);
+  auto const & header = reader.GetHeader();
+  TEST_GREATER(header.m_geometries.size(), 1, ());
+  auto const finest = header.m_geometries.size() - 1;
+  TEST(header.HasRaster(finest), ());
+
+  terrain::TerrainData coarse(header.m_coordBits), fine(header.m_coordBits);
+  reader.ReadTerrain(header.GetLimitRect(), 0, coarse);
+  TEST(!coarse.m_mesh.IsEmpty(), ());
+  TEST(coarse.m_rasterPatches.empty(), ());
+  reader.ReadTerrain(header.GetLimitRect(), finest, fine);
+  TEST(!fine.m_mesh.IsEmpty(), ("The finest LOD retains the TIN border"));
+  TEST(!fine.m_rasterPatches.empty(), ());
+  for (auto const & sample : kElevationSamples)
+  {
+    auto const point = GetSamplePoint(sample);
+    bool raster = false;
+    for (auto const & patch : fine.m_rasterPatches)
+      raster = raster || patch.GetRect().IsPointInside(point);
+    TEST_EQUAL(raster, sample.m_raster, (point));
+    auto const elevation = reader.GetElevation(point);
+    TEST(elevation, (point));
+    TEST_ALMOST_EQUAL_ABS(*elevation, sample.m_altitude, sample.m_maxError, (point));
+  }
+  auto const coarseElevation = coarse.GetElevation(GetSamplePoint(kElevationSamples[1]));
+  TEST(coarseElevation, ());
+  TEST_GREATER(std::abs(*coarseElevation - kElevationSamples[1].m_altitude), 5.01,
+               ("This sample distinguishes the finest surface from the coarsest TIN"));
+  // Source-grid corners: SW 243, SE 491, NE 259, NW 386 m. The rendered
+  // SW-NE triangles give 371 m here; bilinear interpolation gives 394.4375 m.
+  auto const sw = GetSamplePoint({43.0 + 319.0 / 360.0, 7.0 + 89.0 / 360.0, 0.0, true});
+  auto const ne = GetSamplePoint({43.0 + 320.0 / 360.0, 7.0 + 90.0 / 360.0, 0.0, true});
+  auto const interpolated = reader.GetElevation({sw.x + 0.75 * (ne.x - sw.x), sw.y + 0.25 * (ne.y - sw.y)});
+  TEST(interpolated, ());
+  TEST_ALMOST_EQUAL_ABS(*interpolated, 371.0, 3.01, ());
+  TEST(!reader.GetElevation({0, 0}), ());
+}
+
+UNIT_TEST(TerrainProvider_RealHybridElevation)
+{
+  terrain::TerrainProvider provider;
+  auto const file = GetElevationTestFile();
+  auto const point = GetSamplePoint(kElevationSamples[1]);
+  TEST(!provider.GetElevation(point), ());
+  TEST(provider.RegisterBlock(file), ());
+  for (auto const & sample : kElevationSamples)
+  {
+    auto const p = GetSamplePoint(sample);
+    for (double const wrap : {0.0, mercator::Bounds::kRangeX, -mercator::Bounds::kRangeX})
+    {
+      auto const elevation = provider.GetElevation({p.x + wrap, p.y});
+      TEST(elevation, (p, wrap));
+      TEST_ALMOST_EQUAL_ABS(*elevation, sample.m_altitude, sample.m_maxError, (p, wrap));
+    }
+  }
+  TEST(!provider.GetElevation({0, 0}), ());
+  m2::RectD invalidRect;
+  provider.DeleteBlocks({file.m_id}, invalidRect);
+  TEST(!provider.GetElevation(point), ());
+  TEST(provider.GetRegisteredFiles().empty(), ());
+}
+
+using df::test_support::VisualParamsFixture;
+
+UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
+{
+  ElevationTestFramework framework;
+  place_page::BuildInfo build;
+  build.m_match = place_page::BuildInfo::Match::Nothing;
+  build.m_mercator = GetSamplePoint(kElevationSamples[1]);
+  framework.BuildAndSetPlacePageInfo(build);
+  TEST(!framework.GetCurrentPlacePageInfo().GetTerrainElevation(), ());
+  TEST(framework.GetCurrentPlacePageInfo().GetFormattedTerrainElevation().empty(), ());
+
+  framework.RegisterTerrain(GetElevationTestFile());
+  framework.BuildAndSetPlacePageInfo(build);
+  auto const & info = framework.GetCurrentPlacePageInfo();
+  TEST(!info.IsFeature(), ());
+  TEST(info.GetTerrainElevation(), ());
+  TEST_ALMOST_EQUAL_ABS(*info.GetTerrainElevation(), kElevationSamples[1].m_altitude, kElevationSamples[1].m_maxError,
+                        ());
+  TEST(!info.GetFormattedTerrainElevation().empty(), ());
+  TEST(info.GetSubtitle().find("▲ " + info.GetFormattedTerrainElevation()) != std::string::npos, (info.GetSubtitle()));
+
+  build.m_mercator = {0, 0};
+  framework.BuildAndSetPlacePageInfo(build);
+  TEST(!framework.GetCurrentPlacePageInfo().GetTerrainElevation(), ());
+  TEST(framework.GetCurrentPlacePageInfo().GetFormattedTerrainElevation().empty(), ());
+  TEST(framework.GetCurrentPlacePageInfo().GetSubtitle().find("▲") == std::string::npos, ());
 }
 
 }  // namespace terrain_provider_tests

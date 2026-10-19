@@ -53,6 +53,9 @@ public:
                    base::SharedCancellable const & isCancellable = {}, ReadStats * stats = nullptr) const;
   m2::PointD GetRasterHalo() const { return m_rasterHalo; }
 
+  // Reads only indexed features near the point, using the finest stored geometry.
+  std::optional<double> GetElevation(m2::PointD const & point) const;
+
 private:
   void ReadTin(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh,
                base::SharedCancellable const & isCancellable = {}, ReadStats * stats = nullptr) const;

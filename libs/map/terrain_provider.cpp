@@ -80,6 +80,40 @@ void TerrainProvider::Clear()
   m_set.Clear();
 }
 
+std::optional<double> TerrainProvider::GetElevation(m2::PointD const & point) const
+{
+  auto const readAt = [&](m2::PointD const & p) -> std::optional<double>
+  {
+    TwmIds ids;
+    m_set.GetBlocksByRect({p, p}, ids);
+    for (auto const & id : ids)
+    {
+      try
+      {
+        auto const handle = m_set.GetHandleById(id);
+        if (!handle.IsAlive())
+          continue;
+        if (auto elevation = handle.GetValue()->GetReader().GetElevation(p))
+          return elevation;
+      }
+      catch (RootException const & ex)
+      {
+        LOG(LERROR, ("Error reading terrain block", id, ":", ex.Msg()));
+        m_set.Condemn({id});
+      }
+    }
+    return std::nullopt;
+  };
+
+  m2::PointD canonical(mercator::WrapX(point.x), point.y);
+  auto const elevation = readAt(canonical);
+  if (elevation || canonical.x != mercator::Bounds::kMinX)
+    return elevation;
+  // At the seam either bordering block can be the only downloaded one.
+  canonical.x = mercator::Bounds::kMaxX;
+  return readAt(canonical);
+}
+
 void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData & data,
                                   base::SharedCancellable const & isCancellable) const
 {

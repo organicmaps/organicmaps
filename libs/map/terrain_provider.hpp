@@ -9,6 +9,7 @@
 #include "base/cancellable.hpp"
 
 #include <functional>
+#include <optional>
 #include <vector>
 
 namespace terrain
@@ -37,6 +38,9 @@ public:
   // Returns true if any registered terrain block intersects the mercator rect.
   // Cheap registry lookup, safe for the UI thread.
   bool HasTerrain(m2::RectD const & rect) const { return m_set.HasBlocks(rect); }
+
+  // Elevation in meters from the finest downloaded terrain surface, if present.
+  std::optional<double> GetElevation(m2::PointD const & point) const;
 
   /// The rects of the downloaded (registered) blocks intersecting the mercator rect,
   /// e.g. for the downloaded regions highlight on the world zoom.
