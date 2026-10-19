@@ -18,32 +18,34 @@ final class CarPlayServiceTests: XCTestCase {
     super.tearDown()
   }
 
-  func testCreateEstimates() {
-    let routeInfo = RouteInfo(timeToTarget: 100,
-                              targetDistance: 25.2,
-                              targetUnitsIndex: 1, // km
-                              distanceToTurn: 0.5,
-                              turnUnitsIndex: 0, // m
-                              currentStreetName: "Bahdanoviča Street",
-                              streetName: "Niamiha",
-                              nextStreetName: "Internacyjanalnaja Street",
-                              turnDirection: .left,
-                              nextTurnDirection: .right,
-                              turnImageName: nil,
-                              nextTurnImageName: nil,
-                              speedMps: 40.5,
-                              speedLimitMps: 60,
-                              roundExitNumber: 0,
-                              isLeftHandTraffic: false)
-    let estimates = carPlayService.createEstimates(routeInfo: routeInfo)
+  func testTripEstimatesPreserveRawSeconds() {
+    let cases: [TimeInterval] = [
+      0, 0.9, 20, 29, 30, 59.99, 60, 60.5, 89.99, 90, 100,
+      269, 270, 1665, 2085, 3569, 3570, 3630, 86400, 94485, 2_147_483_647,
+    ]
+    for seconds in cases {
+      let routeInfo = RouteInfo(timeToTarget: seconds,
+                                targetDistance: 25.2,
+                                targetUnitsIndex: 1, // km
+                                distanceToTurn: 0.5,
+                                turnUnitsIndex: 0, // m
+                                currentStreetName: "Bahdanoviča Street",
+                                streetName: "Niamiha",
+                                nextStreetName: "Internacyjanalnaja Street",
+                                turnDirection: .left,
+                                nextTurnDirection: .right,
+                                turnImageName: nil,
+                                nextTurnImageName: nil,
+                                speedMps: 40.5,
+                                speedLimitMps: 60,
+                                roundExitNumber: 0,
+                                isLeftHandTraffic: false)
+      let estimates = routeInfo.tripTravelEstimates
 
-    guard let estimates else {
-      XCTFail("Estimates should not be nil.")
-      return
+      XCTAssertEqual(estimates.distanceRemaining, Measurement<UnitLength>(value: 25.2, unit: .kilometers))
+      XCTAssertEqual(estimates.timeRemaining, seconds, "\(seconds) seconds")
+      XCTAssertEqual(routeInfo.timeToTarget, seconds)
     }
-
-    XCTAssertEqual(estimates.distanceRemaining, Measurement<UnitLength>(value: 25.2, unit: .kilometers))
-    XCTAssertEqual(estimates.timeRemaining, 100)
   }
 
   func testStaleBookmarkSelectionCompletesOnce() throws {

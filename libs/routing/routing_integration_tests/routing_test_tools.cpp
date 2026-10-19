@@ -221,7 +221,7 @@ TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents,
     display.ProcessSubroute(segments, subroute);
   }
 
-  return display.GetRouteInfo();
+  return display.GetRouteInfo(route.GetTotalTimeSec());
 }
 
 double GetWalkDistanceMeters(Route const & route)

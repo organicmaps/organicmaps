@@ -49,6 +49,7 @@ public:
   turns::CarDirection m_nextTurn;
   uint32_t m_exitNum;
   //@}
+  // Remaining time in whole seconds, not rounded for display.
   int m_time;
   /// Contains lane information on the edge before the turn.
   turns::lanes::LanesInfo m_lanes;

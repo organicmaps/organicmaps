@@ -723,7 +723,7 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
     // to the geometric midpoint of the whole route.
     auto const & diffMid = r.GetDiffMidpoint();
     m2::PointD const pivot = diffMid ? *diffMid : r.GetMidpoint();
-    infos.push_back({pivot, platform::Duration(std::lround(r.GetTotalTimeSec())).GetHoursMinutesString(), i,
+    infos.push_back({pivot, platform::Duration(static_cast<unsigned long>(r.GetTotalTimeSec())).GetRoutingString(), i,
                      i == result.m_activeIdx});
   }
 
@@ -813,7 +813,8 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
 
   {
     std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
-    m_transitRouteInfo = isTransitRoute ? transitRouteDisplay->GetRouteInfo() : TransitRouteInfo();
+    m_transitRouteInfo =
+        isTransitRoute ? transitRouteDisplay->GetRouteInfo(result.GetActive().GetTotalTimeSec()) : TransitRouteInfo();
   }
 
   if (isTransitRoute)

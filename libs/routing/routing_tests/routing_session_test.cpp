@@ -8,6 +8,8 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
 
+#include "platform/duration.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
@@ -40,7 +42,8 @@ vector<turns::TurnItem> const kTestTurns = {turns::TurnItem(1, turns::CarDirecti
 vector<double> const kTestTimes = {5.0, 10.0, 15.0};
 auto const kRouteBuildingMaxDuration = seconds(30);
 
-void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns = kTestTurnsReachOnly);
+void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns = kTestTurnsReachOnly,
+                       vector<double> const & times = kTestTimes);
 
 // Simple router. It returns route given to him on creation.
 class DummyRouter : public IRouter
@@ -100,7 +103,12 @@ private:
 class AltRoutesRouter : public IRouter
 {
 public:
-  explicit AltRoutesRouter(size_t & swapCount) : m_swapCount(swapCount) {}
+  explicit AltRoutesRouter(size_t & swapCount, vector<double> const & times = kTestTimes,
+                           vector<double> const & altTimes = kTestTimes)
+    : m_swapCount(swapCount)
+    , m_times(times)
+    , m_altTimes(altTimes)
+  {}
 
   string GetName() const override { return "alt routes"; }
   void ClearState() override {}
@@ -113,12 +121,12 @@ public:
   {
     Route active;
     active.SetGeometry(kTestRoute.begin(), kTestRoute.end());
-    FillSubroutesInfo(active);
+    FillSubroutesInfo(active, kTestTurnsReachOnly, m_times);
     result.MakeFrom(GetName(), std::move(active));
 
     Route alt;
     alt.SetGeometry(kTestAltRoute.begin(), kTestAltRoute.end());
-    FillSubroutesInfo(alt);
+    FillSubroutesInfo(alt, kTestTurnsReachOnly, m_altTimes);
     result.m_routes.emplace_back(std::move(static_cast<RouteBase &>(alt)));
     return RouterResultCode::NoError;
   }
@@ -131,6 +139,8 @@ public:
 
 private:
   size_t & m_swapCount;
+  vector<double> m_times;
+  vector<double> m_altTimes;
 };
 
 // Router which every next call of CalculateRoute() method return different return codes.
@@ -251,12 +261,11 @@ private:
   RoutingSession & m_session;
 };
 
-void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* = kTestTurnsReachOnly */)
+void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* = kTestTurnsReachOnly */,
+                       vector<double> const & times /* = kTestTimes */)
 {
-  // Build segments from the route's actual polyline points (not the global kTestRoute) so segments
-  // are consistent with the followed polyline. This matters because RouteBase no longer stores
-  // the polyline: promoting a sliced RouteBase back to a Route reconstructs the FollowedPolyline
-  // from segments (subroute.front().GetStart() + each segment's junction).
+  // Promoting RouteBase to Route reconstructs the followed polyline from the subroute start and
+  // segment junctions, so the segments must use this route's geometry.
   auto const & polyPts = route.GetPoly().GetPoints();
 
   vector<geometry::PointWithAltitude> junctions;
@@ -265,7 +274,7 @@ void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* =
 
   vector<RouteSegment> segmentInfo;
   RouteSegmentsFrom(kTestSegments, polyPts, turns, {}, segmentInfo);
-  FillSegmentInfo(kTestTimes, segmentInfo);
+  FillSegmentInfo(times, segmentInfo);
   route.SetRouteSegments(std::move(segmentInfo));
   route.SetSubroutes(vector<Route::SubrouteAttrs>(
       {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));
@@ -734,5 +743,70 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSwapActiveAlternative)
     swappedSignal.Signal();
   });
   TEST(swappedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative was not swapped."));
+}
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowingInfoPreservesShortDurations)
+{
+  TimedSignal signal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, &signal]()
+  {
+    InitRoutingSession();
+    struct Case
+    {
+      double m_timeSec;
+      int m_expectedSeconds;
+    };
+    Case const cases[] = {{0.0, 0}, {0.9, 0}, {20.75, 20}, {59.99, 59}, {60.0, 60}};
+    for (auto const & test : cases)
+    {
+      Route route;
+      route.SetGeometry(kTestRoute.begin(), kTestRoute.end());
+      FillSubroutesInfo(route, kTestTurnsReachOnly, {test.m_timeSec / 3, test.m_timeSec * 2 / 3, test.m_timeSec});
+      m_session->AssignRouteForTesting(std::move(route), RouterResultCode::NoError);
+
+      FollowingInfo info;
+      m_session->GetRouteFollowingInfo(info);
+      TEST(info.IsValid(), (test.m_timeSec));
+      TEST_EQUAL(info.m_time, test.m_expectedSeconds, ());
+      TEST(!m_session->IsFinished(), (test.m_timeSec));
+    }
+    signal.Signal();
+  });
+  TEST(signal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Following info timeout."));
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativeEstimatesPreserveSeconds)
+{
+  TimedSignal builtSignal;
+  size_t swapCount = 0;
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, &builtSignal, &swapCount]()
+  {
+    InitRoutingSession();
+    m_session->SetRouter(
+        make_unique<AltRoutesRouter>(swapCount, vector<double>{500, 1000, 1665}, vector<double>{600, 1200, 2085}),
+        nullptr);
+    m_session->SetRoutingCallbacks([&builtSignal](RoutesResult const &, RouterResultCode) { builtSignal.Signal(); },
+                                   nullptr, nullptr, nullptr);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(builtSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route building timeout."));
+
+  TimedSignal checkedSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, &checkedSignal]()
+  {
+    for (size_t const idx : {0, 1, 0})
+    {
+      m_session->SwapActiveAlternative(idx);
+      FollowingInfo info;
+      m_session->GetRouteFollowingInfo(info);
+      TEST_EQUAL(info.m_time, idx == 0 ? 1665 : 2085, ());
+      auto const expected = platform::Duration(idx == 0 ? 1680 : 2100).GetPlatformLocalizedString();
+      TEST_EQUAL(platform::Duration(info.m_time).GetRoutingString(), expected, ());
+      TEST_EQUAL(
+          platform::Duration(static_cast<unsigned long>(m_session->GetRoute()->GetTotalTimeSec())).GetRoutingString(),
+          expected, ());
+    }
+    checkedSignal.Signal();
+  });
+  TEST(checkedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative checking timeout."));
 }
 }  // namespace routing_session_test

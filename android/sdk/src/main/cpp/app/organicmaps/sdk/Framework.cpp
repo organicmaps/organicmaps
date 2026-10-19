@@ -1313,7 +1313,8 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo
   if (!info.IsValid())
     return nullptr;
 
-  return routing_jni::CreateRoutingInfo(env, info, rm);
+  return routing_jni::CreateRoutingInfo(env, info, rm.IsSpeedCamLimitExceeded(),
+                                        rm.GetSpeedCamManager().ShouldPlayBeepSignal());
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass,

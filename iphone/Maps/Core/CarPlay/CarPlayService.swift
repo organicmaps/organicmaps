@@ -393,9 +393,7 @@ final class CarPlayService: NSObject {
     if let (trip, routeInfo) = router.restoredNavigationSession() {
       MapTemplateBuilder.configureNavigationUI(mapTemplate, positionMode: currentPositionMode)
       router.startNavigationSession(forTrip: trip, template: mapTemplate, isRestoring: true)
-      if let estimates = createEstimates(routeInfo: routeInfo) {
-        mapTemplate.updateEstimates(estimates, for: trip)
-      }
+      mapTemplate.updateEstimates(routeInfo.tripTravelEstimates, for: trip)
       updateSpeedState(routeInfo: routeInfo, isVisible: true)
       updateVisibleViewPortState(.navigation)
       return
@@ -711,10 +709,8 @@ final class CarPlayService: NSObject {
         LOG(.warning, "CarPlay failed to install the navigation root template")
       }
     }
-    if let estimates = createEstimates(routeInfo: routeInfo) {
-      mapTemplate.tripEstimateStyle = rootTemplateStyle
-      mapTemplate.updateEstimates(estimates, for: trip)
-    }
+    mapTemplate.tripEstimateStyle = rootTemplateStyle
+    mapTemplate.updateEstimates(routeInfo.tripTravelEstimates, for: trip)
 
     updateSpeedState(routeInfo: routeInfo, isVisible: true)
   }
@@ -1052,9 +1048,7 @@ extension CarPlayService: CPMapTemplateDelegate {
     }
     router.startNavigationSession(forTrip: trip, template: rootMapTemplate)
     router.startRoute()
-    if let estimates = createEstimates(routeInfo: info) {
-      rootMapTemplate.updateEstimates(estimates, for: trip)
-    }
+    rootMapTemplate.updateEstimates(info.tripTravelEstimates, for: trip)
 
     updateSpeedState(routeInfo: info, isVisible: true)
     updateVisibleViewPortState(.navigation)
@@ -1082,14 +1076,12 @@ extension CarPlayService: CPMapTemplateDelegate {
       router?.buildRoute(trip: trip)
       return
     }
-    guard let info = routeChoice.userInfo as? RouteInfo,
-          let estimates = createEstimates(routeInfo: info)
-    else {
+    guard let info = routeChoice.userInfo as? RouteInfo else {
       applyUndefinedEstimates(template: mapTemplate, trip: trip)
       router?.rebuildRoute()
       return
     }
-    mapTemplate.updateEstimates(estimates, for: trip)
+    mapTemplate.updateEstimates(info.tripTravelEstimates, for: trip)
     routeChoice.userInfo = nil
     router?.rebuildRoute()
   }
@@ -1150,9 +1142,7 @@ extension CarPlayService: CarPlayRouterListener {
     else {
       return
     }
-    if let estimates = createEstimates(routeInfo: routeInfo) {
-      currentTemplate.updateEstimates(estimates, for: trip)
-    }
+    currentTemplate.updateEstimates(routeInfo.tripTravelEstimates, for: trip)
   }
 
   func didUpdateRouteInfo(_ routeInfo: RouteInfo, forTrip trip: CPTrip) {
@@ -1163,9 +1153,7 @@ extension CarPlayService: CarPlayRouterListener {
       return
     }
     router.updateEstimates(routeInfo)
-    if let estimates = createEstimates(routeInfo: routeInfo) {
-      template.updateEstimates(estimates, for: trip)
-    }
+    template.updateEstimates(routeInfo.tripTravelEstimates, for: trip)
     trip.routeChoices.first?.userInfo = routeInfo
   }
 
@@ -1305,11 +1293,6 @@ extension CarPlayService {
     default:
       completionHandler()
     }
-  }
-
-  func createEstimates(routeInfo: RouteInfo) -> CPTravelEstimates? {
-    let measurement = Measurement(value: routeInfo.targetDistance, unit: routeInfo.targetUnits)
-    return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: routeInfo.timeToTarget)
   }
 
   func applyUndefinedEstimates(template: CPMapTemplate, trip: CPTrip) {
