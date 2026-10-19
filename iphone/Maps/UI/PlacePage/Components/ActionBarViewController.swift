@@ -7,14 +7,13 @@ final class ActionBarViewController: UIViewController {
   private(set) var downloadButton: ActionBarButton?
 
   var placePageData: PlacePageData!
-  var isRoutePlanning = false
   var canAddStop = false
   var canReplaceStop = false
-  var canRouteToAndFrom = false
   var shouldAppendNewPoints = false
 
   private var visibleButtons: [ActionBarButtonType] = []
   private var additionalButtons: [ActionBarButtonType] = []
+  private var canRouteToAndFrom: Bool { !canReplaceStop && !shouldAppendNewPoints }
 
   weak var delegate: ActionBarViewControllerDelegate?
 
@@ -66,25 +65,15 @@ final class ActionBarViewController: UIViewController {
     }
 
     var buttons: [ActionBarButtonType] = []
-    let addStopButton: ActionBarButtonType = shouldAppendNewPoints ? .routeAddDestination : .routeAddStop
+    let routePointButton: ActionBarButtonType = canReplaceStop ? .routeReplaceStop :
+      (shouldAppendNewPoints ? .routeAddDestination : .routeAddStop)
     switch placePageData.objectType {
-    case .POI, .bookmark:
+    case .POI, .bookmark, .track, .relationTrack:
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
-      if shouldAppendNewPoints || canAddStop {
-        buttons.append(canReplaceStop ? .routeReplaceStop : addStopButton)
-      }
-      buttons.append(.bookmark)
-      if canRouteToAndFrom {
-        buttons.append(.routeTo)
-      }
-    case .track, .relationTrack:
-      if canRouteToAndFrom {
-        buttons.append(.routeFrom)
-      }
-      if shouldAppendNewPoints || canAddStop {
-        buttons.append(addStopButton)
+      if canReplaceStop || shouldAppendNewPoints || canAddStop {
+        buttons.append(routePointButton)
       }
       buttons.append(.bookmark)
       if canRouteToAndFrom {
