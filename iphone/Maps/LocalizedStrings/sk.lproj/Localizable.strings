@@ -524,6 +524,8 @@
 "today" = "Dnes";
 "opens_in" = "Otvoria o %@";
 "closes_in" = "Zatvoria o %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Zatvorené";
 "no_osm_account" = "Nemáte účet v OpenStreetMap?";
 "register_at_openstreetmap" = "Zaregistrovať sa";

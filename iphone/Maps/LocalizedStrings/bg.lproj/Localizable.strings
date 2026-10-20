@@ -524,6 +524,8 @@
 "today" = "Днес";
 "opens_in" = "Отваря се в %@";
 "closes_in" = "Приключва в %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Затворено";
 "no_osm_account" = "Нямате акаунт в OpenStreetMap?";
 "register_at_openstreetmap" = "Регистриране в OpenStreetMap";

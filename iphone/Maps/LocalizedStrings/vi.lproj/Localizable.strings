@@ -524,6 +524,8 @@
 "today" = "Hôm nay";
 "opens_in" = "Mở trong %@";
 "closes_in" = "Đóng trong %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Đã đóng";
 "no_osm_account" = "Bạn chưa có tài khoản tại OpenStreetMap ư?";
 "register_at_openstreetmap" = "Đăng ký";

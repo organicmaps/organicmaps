@@ -325,7 +325,10 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         Date closeDate = new Date(ohInfo.nextTimeClosed * 1000L);
         DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(requireContext());
 
-        if (timeLeftMinutes < 3 * 60) // Less than 3 hours
+        if (timeLeftMinutes == 0 && ohInfo.nextTimeClosed > currentTime)
+          descriptionString = getString(R.string.closes_in_less_than_a_minute) + " • "
+                            + dateFormat.format(closeDate);
+        else if (timeLeftMinutes < 3 * 60) // Less than 3 hours
           descriptionString = getString(R.string.closes_in, getTimeIntervalString(timeLeftMinutes)) + " • "
                             + dateFormat.format(closeDate);
         else if (timeLeftMinutes < 24 * 60) // Less than 24 hours
@@ -360,7 +363,10 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         boolean willOpenToday = nowCal.get(Calendar.DAY_OF_YEAR) == openCal.get(Calendar.DAY_OF_YEAR)
                              && nowCal.get(Calendar.YEAR) == openCal.get(Calendar.YEAR);
 
-        if (timeLeftMinutes < 3 * 60) // Less than 3 hours
+        if (timeLeftMinutes == 0 && ohInfo.nextTimeOpen > currentTime)
+          descriptionString = getString(R.string.opens_in_less_than_a_minute) + " • "
+                            + dateFormat.format(openDate);
+        else if (timeLeftMinutes < 3 * 60) // Less than 3 hours
           descriptionString = getString(R.string.opens_in, getTimeIntervalString(timeLeftMinutes)) + " • "
                             + dateFormat.format(openDate);
         else if (willOpenToday) // Today

@@ -524,6 +524,8 @@
 "today" = "今天";
 "opens_in" = "将于 %@ 后营业";
 "closes_in" = "将于 %@ 后不营业";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "已停止营业";
 "no_osm_account" = "没有 OpenStreetMap 账号吗？";
 "register_at_openstreetmap" = "注册";
