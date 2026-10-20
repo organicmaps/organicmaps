@@ -293,6 +293,8 @@ public:
 
   /// A trusted GPS position. The inertial navigation continues from it.
   void OnGpsPosition(Fix const & gps);
+  /// \returns true if the bearing of the GPS position tells where the car goes.
+  static bool HasGoodBearing(Fix const & gps);
   /// The position is on a road: its direction is more reliable than the calculated one.
   /// \param bearingDeg direction of the road in the direction of the movement.
   void SetRoadPosition(ms::LatLon const & position, double bearingDeg);

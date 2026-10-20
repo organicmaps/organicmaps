@@ -152,6 +152,12 @@ public:
   static int64_t constexpr kGpsLostMs = 5000;
   // The first GPS position after the start takes longer: the satellites are searched.
   static int64_t constexpr kGpsFirstFixMs = 15'000;
+  // GPS gives a position every second, and the map moves the mark to a new one in 0.2 s: it would jump and stand.
+  // Between GPS positions the mark is moved as often as the inertial navigation gives its positions.
+  static int64_t constexpr kGpsFillIntervalMs = InertialNavigator::kOutputIntervalMs;
+  // Without the inertial navigation the last GPS position is moved along its bearing for one missed position at
+  // most: a straight line is 5 m aside of a curve of 100 m after 2 s at 60 km/h.
+  static int64_t constexpr kMaxGpsExtrapolationMs = 2000;
   // GPS farther than this from the inertial position following it is spoofed or broken: the inertial
   // position is calculated for a second only since the previous GPS position.
   static double constexpr kMaxGpsInertialDiffM = 30;
@@ -332,6 +338,14 @@ private:
   void ShowCarHeading();
   void ShowOffRoadCar();
   void NotifyLocationUpdated();
+  /// Shows the car between GPS positions, see kGpsFillIntervalMs: by the inertial navigation, which continues from
+  /// every good GPS position. GPS stays the position of the engine.
+  void ShowBetweenGpsPositions(Fix const & inertial);
+  /// The same without the inertial navigation: moves the last GPS position along its bearing.
+  void ExtrapolateGps();
+  /// \returns the time of a position shown after the GPS one by the clock of GPS: the clock of the phone differs from
+  /// it, and the core moves the mark by the times of the positions, see extrapolation::Extrapolator.
+  int64_t UnixTimeAfterGps(int64_t timeMs) const;
   void ApplyManualLocation();
   void BlockShift(bool forward, ms::LatLon const & at);
   std::optional<Fix> GetWorkingGps() const;
@@ -407,6 +421,10 @@ private:
   bool m_wasOnRouteRoad = true;
   // The car maneuvering off the roads as the map shows it now, see ShowOffRoadCar().
   std::optional<ms::LatLon> m_shownOffRoadCar;
+  // When the last position of the platform was shown: the positions between GPS ones go on from it since then.
+  int64_t m_fixShownMs = 0;
+  // Positions shown between GPS positions since the last line of the trip log.
+  int m_positionsBetweenGps = 0;
   // The motion source of the inertial navigation gave the car speed, the user is told when it stops.
   bool m_motionSourceWorked = false;
   std::optional<int64_t> m_motionSourceWarnedMs;
@@ -435,6 +453,7 @@ private:
 
   Timer m_manualRepeatTimer;
   Timer m_tripLogTimer;
+  Timer m_gpsExtrapolationTimer;
 
   ThreadChecker m_threadChecker;
 };
