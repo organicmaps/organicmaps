@@ -11,9 +11,10 @@ namespace qt
 {
 namespace common
 {
-QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
+QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface, bool exactSize)
   : m_surface(surface)
   , m_ctx(std::make_unique<QOpenGLContext>())
+  , m_exactSize(exactSize)
   , m_isContextAvailable(false)
 {
   m_ctx->setFormat(rootContext->format());
@@ -29,6 +30,14 @@ void QtRenderOGLContext::Present()
   std::lock_guard<std::mutex> lock(m_frameMutex);
   std::swap(m_frontFrame, m_backFrame);
   m_frameUpdated = true;
+  if (m_onPresent)
+    m_onPresent();
+}
+
+void QtRenderOGLContext::SetPresentListener(std::function<void()> fn)
+{
+  std::lock_guard<std::mutex> lock(m_frameMutex);
+  m_onPresent = std::move(fn);
 }
 
 void QtRenderOGLContext::MakeCurrent()
@@ -58,10 +67,11 @@ void QtRenderOGLContext::Resize(uint32_t w, uint32_t h)
   // This function can't be called inside BeginRendering - EndRendering.
   std::lock_guard lock(m_frameMutex);
 
-  auto const nw = static_cast<int>(std::bit_ceil(w));
-  auto const nh = static_cast<int>(std::bit_ceil(h));
+  auto const nw = static_cast<int>(m_exactSize ? w : std::bit_ceil(w));
+  auto const nh = static_cast<int>(m_exactSize ? h : std::bit_ceil(h));
 
-  if (nw <= m_width && nh <= m_height && m_backFrame != nullptr)
+  bool const fits = m_exactSize ? nw == m_width && nh == m_height : nw <= m_width && nh <= m_height;
+  if (fits && m_backFrame != nullptr)
   {
     m_frameRect = QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
     return;
