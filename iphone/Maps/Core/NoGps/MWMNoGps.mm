@@ -145,6 +145,7 @@ std::optional<double> NonNegative(double value)
     _calibrationProgress = status.m_calibrationProgress;
     _hasInertialPosition = status.m_hasInertialPosition;
     _roadLost = status.m_roadLost;
+    _otherMarks = status.m_otherMarks;
   }
   return self;
 }
@@ -212,6 +213,11 @@ std::optional<double> NonNegative(double value)
 + (void)reverseDirection
 {
   Engine().ReverseDirection();
+}
+
++ (void)switchMark
+{
+  Engine().SwitchMark();
 }
 
 + (void)setGpsDisabled:(BOOL)disabled

@@ -45323,7 +45323,7 @@ uk = Розвернути машину на дорозі
 
 [nogps_switch_mark]
 comment = The button shown after a turn that fits several roads: it moves the mark of the car to the next of them.
-tags = android-app
+tags = android-app,apple-maps
 en = Show the car on another road it may be on
 ru = Показать машину на другой возможной дороге
 uk = Показати машину на іншій можливій дорозі
