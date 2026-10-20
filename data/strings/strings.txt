@@ -45609,14 +45609,14 @@ uk = Немає даних від блока датчиків, машина на
 
 [nogps_box_moved_stopped]
 comment = Warning shown while driving without GPS: the sensor box tells it has been moved in the car since its calibration
-tags = android-app
+tags = android-app,apple-maps
 en = The sensor box has been moved, the car stands still on the map. Stop and calibrate the box
 ru = Блок датчиков сдвинули, машина на карте стоит. Остановитесь и откалибруйте блок
 uk = Блок датчиків зсунули, машина на мапі стоїть. Зупиніться й відкалібруйте блок
 
 [nogps_box_uncalibrated_stopped]
 comment = Warning shown while driving without GPS: the sensor box is not calibrated
-tags = android-app
+tags = android-app,apple-maps
 en = The sensor box is not calibrated, the car stands still on the map. Stop and calibrate the box
 ru = Блок датчиков не откалиброван, машина на карте стоит. Остановитесь и откалибруйте блок
 uk = Блок датчиків не відкалібровано, машина на мапі стоїть. Зупиніться й відкалібруйте блок

@@ -65,6 +65,11 @@ typedef NS_ENUM(NSInteger, MWMNoGpsEvent) {
   MWMNoGpsEventTurnsReversed,
   MWMNoGpsEventMotionSourceStopped,
   MWMNoGpsEventMarkNoRoad,
+  MWMNoGpsEventNotCalibrated,
+  MWMNoGpsEventFirmwareUpdateAvailable,
+  MWMNoGpsEventFirmwareUpdateDone,
+  MWMNoGpsEventFirmwareUpdateFailed,
+  MWMNoGpsEventBoxCalibrationAdvised,
 } NS_SWIFT_NAME(NoGpsEvent);
 
 /// Posted on the main queue, the MWMNoGpsEvent is in the userInfo by MWMNoGpsEventKey.

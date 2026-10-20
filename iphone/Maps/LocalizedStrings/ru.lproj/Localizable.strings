@@ -1295,6 +1295,12 @@
 "nogps_shift_buttons_hint" = "Показывает кнопки сдвига машины вдоль дороги на 10 м. Сдвигая её туда, где машина на самом деле, вы уточняете скорость машины.";
 "nogps_box_stopped" = "Нет данных от блока датчиков, машина на карте стоит. Проверьте блок или отметьте себя";
 
+/* Warning shown while driving without GPS: the sensor box tells it has been moved in the car since its calibration */
+"nogps_box_moved_stopped" = "Блок датчиков сдвинули, машина на карте стоит. Остановитесь и откалибруйте блок";
+
+/* Warning shown while driving without GPS: the sensor box is not calibrated */
+"nogps_box_uncalibrated_stopped" = "Блок датчиков не откалиброван, машина на карте стоит. Остановитесь и откалибруйте блок";
+
 /* State of the sensor box, shown after its name while it takes a new firmware */
 "nogps_box_updating" = "принимает новую прошивку";
 "nogps_clear_speed" = "Сбросить";
