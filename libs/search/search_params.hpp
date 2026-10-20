@@ -78,6 +78,10 @@ struct SearchParams
   // Amount of time after which the search is aborted.
   TimeDurationT m_timeout = kDefaultTimeout;
 
+  // Resolution callers must distinguish incomplete results from an exhaustive miss.
+  // Ordinary search keeps useful deadline-limited results as normal completions.
+  bool m_requireCompleteResults = false;
+
   std::shared_ptr<Tracer> m_tracer;
 
   Mode m_mode = Mode::Everywhere;

@@ -36,6 +36,9 @@ final class ContactLocationCache
   // Increment when address resolution changes so cached contact marks are recomputed with the
   // same mapped-address resolver used by contact-address resolution.
   private static final int FORMAT_VERSION = 9;
+  private static final String UNRESOLVED_PREFIX = "unresolved:";
+  // Bump when address resolution semantics change; old misses must not suppress improved matching.
+  private static final int UNRESOLVED_FORMAT_VERSION = 1;
 
   @NonNull
   private final SharedPreferences mPreferences;
@@ -87,14 +90,37 @@ final class ContactLocationCache
     if (version <= 0)
       return;
     final String value = String.format(Locale.ROOT, "%d|%d|%.5f|%.5f", FORMAT_VERSION, version, entry.lat, entry.lon);
-    mPreferences.edit().putString(hash(addressKey), value).apply();
+    mPreferences.edit().remove(UNRESOLVED_PREFIX + hash(addressKey)).putString(hash(addressKey), value).apply();
+  }
+
+  boolean isUnresolved(@NonNull String addressKey, @NonNull String context)
+  {
+    final String key = UNRESOLVED_PREFIX + hash(addressKey);
+    final String value = mPreferences.getString(key, null);
+    if (value == null)
+      return false;
+    if (!context.isEmpty() && value.equals(UNRESOLVED_FORMAT_VERSION + "|" + context))
+      return true;
+    mPreferences.edit().remove(key).apply();
+    return false;
+  }
+
+  void putUnresolved(@NonNull String addressKey, @NonNull String context)
+  {
+    if (!context.isEmpty())
+      mPreferences.edit()
+          .putString(UNRESOLVED_PREFIX + hash(addressKey), UNRESOLVED_FORMAT_VERSION + "|" + context)
+          .apply();
   }
 
   void retain(@NonNull Set<String> addressKeys)
   {
     final Set<String> retained = new HashSet<>();
     for (String key : addressKeys)
+    {
       retained.add(hash(key));
+      retained.add(UNRESOLVED_PREFIX + hash(key));
+    }
     final SharedPreferences.Editor editor = mPreferences.edit();
     for (String key : mPreferences.getAll().keySet())
     {
@@ -107,6 +133,15 @@ final class ContactLocationCache
   void clear()
   {
     mPreferences.edit().clear().apply();
+  }
+
+  void clearUnresolved()
+  {
+    final SharedPreferences.Editor editor = mPreferences.edit();
+    for (String key : mPreferences.getAll().keySet())
+      if (key.startsWith(UNRESOLVED_PREFIX))
+        editor.remove(key);
+    editor.apply();
   }
 
   @Nullable

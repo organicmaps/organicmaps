@@ -672,6 +672,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       showContactAddress(contactAddress, resolved.lat, resolved.lon);
       return;
     }
+    final String locale = Language.getKeyboardLocale(requireContext());
+    if (ContactMapManager.INSTANCE.hasRecentResolutionMiss(contactAddress, locale))
+    {
+      showContactAddressFallback(contactAddress);
+      return;
+    }
     final List<ContactAddress.SearchQuery> queries = contactAddress.getSearchQueries();
     if (queries.isEmpty())
     {
@@ -684,8 +690,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mToolbarController.showProgress(true);
     mPendingContactRequestId = SearchEngine.INSTANCE.resolveAddress(
         queries.stream().map(query -> query.query).toArray(String[] ::new),
-        queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new),
-        Language.getKeyboardLocale(requireContext()), false, (requestId, found, lat, lon) -> {
+        queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new), locale, false,
+        (requestId, found, complete, lat, lon) -> {
           if (requestId != mPendingContactRequestId || !isAdded())
             return;
           clearPendingContactAddress();
@@ -698,7 +704,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
             showContactAddress(contactAddress, lat, lon);
           }
           else
+          {
+            ContactMapManager.INSTANCE.recordUnresolved(contactAddress, complete, locale);
             showContactAddressFallback(contactAddress);
+          }
         });
   }
 

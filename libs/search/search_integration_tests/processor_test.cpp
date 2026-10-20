@@ -26,6 +26,7 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <future>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -136,6 +137,31 @@ private:
 };
 
 using ProcessorTest = SearchTest;
+
+UNIT_CLASS_TEST(ProcessorTest, CompleteResolutionDistinguishesDeadlinesFromOrdinarySearch)
+{
+  TestPOI cafe(m2::PointD(0, 0), "Cafe", "en");
+  cafe.SetTypes({{"amenity", "cafe"}});
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(cafe); });
+  for (bool requireComplete : {false, true})
+  {
+    SearchParams params;
+    params.m_query = "cafe ";
+    params.m_inputLocale = "en";
+    params.m_viewport = m2::RectD(-1, -1, 1, 1);
+    params.m_timeout = std::chrono::seconds(-1);
+    params.m_requireCompleteResults = requireComplete;
+    std::promise<search::Results> completed;
+    auto future = completed.get_future();
+    params.m_onResults = [&](search::Results const & results)
+    {
+      if (results.IsEndMarker())
+        completed.set_value(results);
+    };
+    m_engine.Search(params);
+    TEST_EQUAL(future.get().IsEndedCancelled(), requireComplete, ());
+  }
+}
 
 UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
 {

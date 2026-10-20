@@ -9,6 +9,8 @@ final class ContactResolutionPolicy
 {
   private static final long RETRY_DELAY_MS = 5 * 60 * 1000;
   private final Map<String, Long> mMisses = new HashMap<>();
+  // Full contact lookups are not limited to the viewport, unlike background marker searches.
+  private final Map<String, Long> mForegroundMisses = new HashMap<>();
   private double mLeft;
   private double mBottom;
   private double mRight;
@@ -18,6 +20,8 @@ final class ContactResolutionPolicy
 
   boolean updateArea(@NonNull String regions, long mapRevision, double left, double bottom, double right, double top)
   {
+    if (mapRevision != mMapRevision)
+      mForegroundMisses.clear();
     double width = mRight - mLeft;
     double height = mTop - mBottom;
     double centerX = (left + right) / 2;
@@ -44,19 +48,41 @@ final class ContactResolutionPolicy
 
   boolean shouldRetry(@NonNull String key, long now)
   {
-    Long missedAt = mMisses.get(key);
-    return missedAt == null || now - missedAt >= RETRY_DELAY_MS;
+    return shouldRetry(mForegroundMisses, key, now) && shouldRetry(mMisses, key, now);
+  }
+
+  void recordForegroundMiss(@NonNull String key, long now)
+  {
+    mForegroundMisses.put(key, now);
+  }
+
+  boolean shouldRetryForeground(@NonNull String key, long now)
+  {
+    return shouldRetry(mForegroundMisses, key, now);
+  }
+
+  private static boolean shouldRetry(@NonNull Map<String, Long> misses, @NonNull String key, long now)
+  {
+    final Long missedAt = misses.get(key);
+    if (missedAt == null)
+      return true;
+    if (now - missedAt < RETRY_DELAY_MS)
+      return false;
+    misses.remove(key);
+    return true;
   }
 
   void forget(@NonNull String key)
   {
     mMisses.remove(key);
+    mForegroundMisses.remove(key);
   }
 
   void clear()
   {
     mRegions = null;
     mMisses.clear();
+    mForegroundMisses.clear();
   }
 
   static int regionScore(@NonNull List<String> context, @NonNull List<String> region)
