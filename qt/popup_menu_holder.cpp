@@ -24,7 +24,7 @@ QToolButton * PopupMenuHolder::create()
     menu->addAction(p);
 
   m_toolButton = new QToolButton();
-  m_toolButton->setPopupMode(QToolButton::MenuButtonPopup);
+  m_toolButton->setPopupMode(QToolButton::InstantPopup);
   m_toolButton->setMenu(menu);
   return m_toolButton;
 }
