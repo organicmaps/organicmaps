@@ -2,6 +2,8 @@
 
 #include "platform/location.hpp"
 
+#include <memory>
+
 namespace location
 {
 

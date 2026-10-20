@@ -1,4 +1,5 @@
 #include "platform/location_service/location_service.hpp"
+#include "platform/location_service/position_filter.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -25,6 +26,7 @@ class AppleLocationService : public LocationService
 {
   LocationManagerWrapper * m_objCppWrapper;
   CLLocationManager * m_locationManager;
+  PositionFilter m_filter;
 
 public:
   AppleLocationService(LocationObserver & observer) : LocationService(observer)
@@ -35,7 +37,11 @@ public:
     m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
   }
 
-  void OnLocationUpdate(GpsInfo const & info) { m_observer.OnLocationUpdated(info); }
+  void OnLocationUpdate(GpsInfo const & info)
+  {
+    if (m_filter.Passes(info))
+      m_observer.OnLocationUpdated(info);
+  }
 
   void OnDeniedError() { m_observer.OnLocationError(location::EDenied); }
 
@@ -81,7 +87,7 @@ public:
 {
   UNUSED_VALUE(manager);
   GpsInfo newInfo;
-  [LocationManagerWrapper location:locations.firstObject toGpsInfo:newInfo];
+  [LocationManagerWrapper location:locations.lastObject toGpsInfo:newInfo];
   m_service->OnLocationUpdate(newInfo);
 }
 
