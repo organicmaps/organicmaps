@@ -13,6 +13,12 @@ public enum Mode
 {
   TRAFFIC {
     @Override
+    public boolean isAvailable()
+    {
+      return false;
+    }
+
+    @Override
     public boolean isEnabled(@NonNull Context context)
     {
       return !SubwayManager.isEnabled() && TrafficManager.INSTANCE.isEnabled();
@@ -103,6 +109,14 @@ public enum Mode
 
   SATELLITE {
     @Override
+    public boolean isAvailable()
+    {
+      // The Satellite toggle is a quick on/off for an already-configured source; configuration lives in
+      // Settings, so only offer the button once a server URL is set.
+      return !Framework.nativeGetBackgroundTilesUrl().isEmpty();
+    }
+
+    @Override
     public boolean isEnabled(@NonNull Context context)
     {
       return Framework.nativeIsBackgroundTilesEnabled();
@@ -117,6 +131,11 @@ public enum Mode
       Framework.nativeSetBackgroundTilesEnabled(isEnabled);
     }
   };
+
+  public boolean isAvailable()
+  {
+    return true;
+  }
 
   public abstract boolean isEnabled(@NonNull Context context);
 
