@@ -180,6 +180,10 @@ public:
   static int64_t constexpr kNetworkStatusMaxAgeMs = 60'000;
   // The trusted position is saved not more often than this.
   static int64_t constexpr kSaveTrustedIntervalMs = 30'000;
+  // The place of a driving car is saved not more often than this, of a standing one at once: the car is left where
+  // it stands. A car that has moved less than this in a second stands.
+  static int64_t constexpr kSaveCarIntervalMs = 10'000;
+  static double constexpr kCarStandsM = 1;
   // The stopped car speed is told repeatedly: a message is easily missed while driving.
   static int64_t constexpr kMotionSourceWarningIntervalMs = 30'000;
   // The gyroscope not calibrated is told about when the car drives this fast for this long: the sensor box needs
@@ -317,6 +321,11 @@ private:
   void LeaveRouteIfBesideIt(Fix const & inertial);
   void SaveTrustedPosition();
   void RestoreTrustedPosition();
+  /// \param now true to save a driving car too, e.g. when the location updates stop.
+  void SaveCarPosition(bool now);
+  /// Shows the car where it was left before the app was closed: it is not known otherwise until GPS or the user
+  /// tells it.
+  void RestoreCarPosition();
   void StartInertialNavigation();
   bool IsInertialActive() const;
   std::optional<double> GetCarBearing() const;
@@ -378,6 +387,12 @@ private:
   int64_t m_savedTrustedTimeMs = 0;
   // The manual mode is on because there was no position at all, the user hasn't placed the car yet.
   bool m_manualForNoPosition = false;
+  // The manual mode shows the car where it was left while GPS was trusted, until the first good GPS position.
+  bool m_manualUntilGps = false;
+  // The place of the car last saved, without the time, and when; where the car was a second ago.
+  std::string m_savedCar;
+  std::optional<int64_t> m_carSavedMs;
+  std::optional<ms::LatLon> m_carSecondAgo;
   // When the manual mode was left: GPS was ignored in it, so it is waited for anew.
   std::optional<int64_t> m_manualLeftMs;
   // GPS positions off the roads in a row.

@@ -114,6 +114,7 @@ void Engine::Start()
     m_spoofingDetector.DeserializePhantoms(m_storage.Get<std::string>(Storage::kWrongNetworkPoints, ""));
   RestoreTrustedPosition();
   StartInertialNavigation();
+  RestoreCarPosition();
   m_tripLogTimer.Start(0, [this] { LogTrip(); });
   if (m_manualLocation)
     m_manualRepeatTimer.Start(0, [this] { ApplyManualLocation(); });
@@ -125,6 +126,7 @@ void Engine::Stop()
   if (!m_active)
     return;
   LOG(LINFO, ("Stop"));
+  SaveCarPosition(true /* now */);
   if (m_inertial)
     m_inertial->Stop();
   m_manualRepeatTimer.Stop();
@@ -208,11 +210,14 @@ void Engine::OnFix(Fix const & location)
       m_lastGoodGpsGapMs = location.m_timeMs - m_lastGoodGps->m_timeMs;
     m_lastGoodGps = location;
   }
-  if (m_manualMode && goodGps && IsGpsBack(location))
+  if (m_manualMode && goodGps && (m_manualUntilGps || IsGpsBack(location)))
   {
     LOG(LINFO, ("GPS is trusted again, leaving the manual mode, location =", location.m_position));
+    // GPS was trusted before the restart of the app: it is found at the start as always, the user is not told.
+    bool const told = !m_manualUntilGps;
     SetManualMode(false);
-    Notify(Event::GpsBack);
+    if (told)
+      Notify(Event::GpsBack);
   }
   if (!m_manualMode && goodGps && IsOffRoadWhileDriving(location))
   {
@@ -651,6 +656,8 @@ void Engine::OnGpsSpoofingChanged(bool spoofed)
 {
   LOG(LWARNING, ("GPS spoofed =", spoofed));
   Notify(spoofed ? Event::GpsSpoofed : Event::GpsRestored);
+  if (spoofed)
+    m_manualUntilGps = false;
 
   if (spoofed && (m_map.IsNavigating() || (m_inertial && m_inertial->IsReady())))
   {
@@ -709,6 +716,76 @@ void Engine::RestoreTrustedPosition()
   int64_t const timeMs = m_clock.NowMs() - (m_clock.UnixNowMs() - unixTimeMs);
   m_spoofingDetector.RestoreTrusted({lat, lon}, timeMs);
   LOG(LINFO, ("Last trusted position =", saved));
+}
+
+void Engine::SaveCarPosition(bool now)
+{
+  // Cell tower positions are hundreds of meters off, the place known before them is kept.
+  if (!m_savedLocation || SourceOf(*m_savedLocation) == PositionSource::Network)
+    return;
+  // The car maneuvering off the roads is not where its mark waits.
+  auto position = m_savedLocation->m_position;
+  if (m_inertial && IsInertialNavigationEnabled())
+    if (auto const & car = m_inertial->GetOffRoadCar())
+      position = *car;
+  bool const stands = m_carSecondAgo && Distance(position, *m_carSecondAgo) < kCarStandsM;
+  m_carSecondAgo = position;
+
+  // GPS absent since the restart is not untrusted.
+  bool const gpsUntrusted = m_manualMode && !m_manualUntilGps;
+  char buf[96];
+  std::snprintf(buf, sizeof(buf), "%.7f,%.7f,%s,%d", position.m_lat, position.m_lon,
+                FormatOptional(GetCarBearing()).c_str(), gpsUntrusted ? 1 : 0);
+  if (buf == m_savedCar || (!now && !stands && MsSince(m_carSavedMs) < kSaveCarIntervalMs))
+    return;
+  m_savedCar = buf;
+  m_carSavedMs = m_clock.NowMs();
+  m_storage.Set(Storage::kCarPosition, m_savedCar + "," + std::to_string(m_clock.UnixNowMs()));
+}
+
+void Engine::RestoreCarPosition()
+{
+  // The engine that has worked keeps the car itself, e.g. after the app was in the background.
+  if (m_savedLocation || m_manualMode)
+    return;
+  auto const saved = m_storage.Get<std::string>(Storage::kCarPosition, "");
+  auto const parts = strings::Tokenize(saved, ",");
+  double lat, lon, bearing = 0;
+  int manual;
+  int64_t unixTimeMs;
+  if (parts.size() != 5 || !strings::to_double(parts[0], lat) || !strings::to_double(parts[1], lon) ||
+      (parts[2] != "-" && !strings::to_double(parts[2], bearing)) || !strings::to_int(parts[3], manual) ||
+      !strings::to_int(parts[4], unixTimeMs))
+  {
+    if (!saved.empty())
+      LOG(LERROR, ("Wrong car position =", saved));
+    return;
+  }
+  LOG(LINFO, ("The car is where it was left =", saved));
+
+  // GPS may be gone since: the car is shown where it was, as if the user has marked it there.
+  SetManualMode(true);
+  m_manualUntilGps = manual == 0;
+  Fix location;
+  location.m_provider = Provider::Manual;
+  location.m_position = {lat, lon};
+  location.m_accuracyM = kManualAccuracyM;
+  if (parts[2] != "-")
+    location.m_bearingDeg = bearing;
+  location.m_timeMs = m_clock.NowMs();
+  location.m_unixTimeMs = m_clock.UnixNowMs();
+  m_manualLocation = location;
+  // The mark is as old as the save. The clock of the phone may have been put back since.
+  m_manualSetTimeMs = m_clock.NowMs() - std::max<int64_t>(0, m_clock.UnixNowMs() - unixTimeMs);
+  m_lastPositionSource = PositionSource::Manual;
+  m_savedCar = saved.substr(0, saved.rfind(','));
+  if (m_inertial)
+  {
+    // The car is not put on a road again: it may stand in a yard. Without the heading it looks along its road.
+    if (location.m_bearingDeg)
+      m_inertial->SetHeading(*location.m_bearingDeg, InertialNavigator::HeadingSource::Road);
+    m_inertial->SetPosition(location.m_position);
+  }
 }
 
 bool Engine::IsInertialNavigationEnabled() const
@@ -1009,6 +1086,7 @@ void Engine::SetManualMode(bool enabled)
   LOG(LINFO, ("enabled =", enabled));
   m_manualMode = enabled;
   m_manualForNoPosition = false;
+  m_manualUntilGps = false;
   if (!enabled)
     m_manualLeftMs = m_clock.NowMs();
   m_manualLocation.reset();
@@ -1091,6 +1169,8 @@ void Engine::PutMark(ms::LatLon const & position, RoadPoint const & road)
 
   m_manualLocation = location;
   m_manualSetTimeMs = m_clock.NowMs();
+  // The user shows that GPS is wrong, even if it was trusted before the restart.
+  m_manualUntilGps = false;
   m_lastPositionSource = PositionSource::Manual;
   RebuildRouteIfOffRoute(location);
   // The mark looks along the road whatever the gyroscope has counted. A heading kept 18 degrees aside of the road
@@ -1333,6 +1413,7 @@ void Engine::LogTrip()
   CheckNotCalibrated();
   CheckFirmwareUpdate();
   CheckBoxCalibration();
+  SaveCarPosition(false /* now */);
   LOG(LINFO, (GetTripLine()));
 
   m_tripLogTimer.Start(kTripLogIntervalMs, [this] { LogTrip(); });
