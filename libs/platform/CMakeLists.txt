@@ -206,7 +206,7 @@ target_link_libraries(${PROJECT_NAME}
 
 omim_add_test_subdirectory(platform_tests_support)
 omim_add_test_subdirectory(platform_tests)
-if (NOT SKIP_QT_GUI)
+if (NOT SKIP_QT_GUI OR (BUILD_TESTING AND PLATFORM_DESKTOP))
   add_subdirectory(location_service)
 endif()
 

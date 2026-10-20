@@ -1,4 +1,5 @@
 #include "platform/location_service/location_service.hpp"
+#include "platform/location_service/position_filter.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -19,12 +20,11 @@ class AppleLocationService;
 
 using namespace location;
 
-#define ROUGH_ACCURACY kCLLocationAccuracyNearestTenMeters
-
 class AppleLocationService : public LocationService
 {
   LocationManagerWrapper * m_objCppWrapper;
   CLLocationManager * m_locationManager;
+  PositionFilter m_filter;
 
 public:
   AppleLocationService(LocationObserver & observer) : LocationService(observer)
@@ -35,7 +35,11 @@ public:
     m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
   }
 
-  void OnLocationUpdate(GpsInfo const & info) { m_observer.OnLocationUpdated(info); }
+  void OnLocationUpdate(GpsInfo const & info)
+  {
+    if (m_filter.Passes(info))
+      m_observer.OnLocationUpdated(info);
+  }
 
   void OnDeniedError() { m_observer.OnLocationError(location::EDenied); }
 
@@ -43,8 +47,7 @@ public:
   {
     if (![CLLocationManager locationServicesEnabled])
     {
-      // @TODO correctly handle situation in GUI when wifi is working and native is disabled
-      // m_observer.OnLocationStatusChanged(location::ENotSupported);
+      // TODO: Report disabled location services to the observer.
     }
     else
     {
@@ -71,10 +74,6 @@ public:
   info.m_longitude = location.coordinate.longitude;
   info.m_timestamp = [location.timestamp timeIntervalSince1970];
   info.m_source = location::EAppleNative;
-  // info.m_verticalAccuracy = location.verticalAccuracy;
-  // info.m_altitude = location.altitude;
-  // info.m_course = location.course;
-  // info.m_speed = location.speed;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
