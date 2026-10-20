@@ -1,0 +1,609 @@
+import QtQuick 2.6
+import Sailfish.Silica 1.0
+import Nemo.KeepAlive 1.2
+import Nemo.Notifications 1.0
+import app.organicmaps 1.0
+import "clipboard.js" as ClipboardHelper
+import "downloads.js" as Downloads
+import "notices.js" as Toast
+import "notifications.js" as Notifications
+
+Page {
+    id: page
+
+    // For children, where "map: map" would bind to their own property.
+    readonly property QtObject mapItem: map
+    readonly property bool choosingPosition: map.choosingPosition
+    readonly property bool mapIsDark: {
+        switch (appSettings.mapAppearance) {
+        case AppSettings.AppearanceDark: return true
+        case AppSettings.AppearanceAuto: return Theme.colorScheme === Theme.LightOnDark
+        }
+        return false
+    }
+    readonly property real bottomPanelsSize: Math.max(placePagePanel.visibleSize, recordingPanel.visibleSize)
+    // The lowest of the controls along the top right edge, or the padded camera notch in portrait; the compass
+    // goes below it.
+    readonly property real topControlsBottom: recordingButton.visible ? recordingButton.y + recordingButton.height
+                                                                      : topInset + buttonMargin
+    // Silica keeps landscape pages clear of the camera notch.
+    readonly property real topInset: page.orientation === Orientation.Portrait ? Screen.topCutout.height : 0
+    // For the downloader layout that keeps the Android sizes.
+    readonly property real androidDp: myPositionButton.androidDp
+    readonly property real buttonMargin: Theme.paddingMedium
+    // While the user types on a keepsUserInput page, the action waits for it to close rather than drop the input.
+    property var pendingAction
+    // A long tap on the empty map toggles the map buttons.
+    property bool fullscreen
+    // The position chooser picks a position for another app.
+    property string apiAppName
+    property string apiBackUrl
+    // Closing a search result's place page returns to the results; another selection or a map tap forgets it.
+    property bool placeFromSearch
+    property string searchResultTitle
+
+    function openSearchFromCover() {
+        runOnMap(openSearch)
+    }
+    function runOnMap(action) {
+        for (var p = pageStack.currentPage; p && p !== page; p = pageStack.previousPage(p)) {
+            if (p.keepsUserInput) {
+                pendingAction = action
+                return
+            }
+        }
+        pendingAction = null
+        pageStack.pop(page, PageStackAction.Immediate)
+        action()
+    }
+    function runPendingAction() {
+        if (pendingAction && !pageStack.busy)
+            runOnMap(pendingAction)
+    }
+    function openSearch() {
+        var searchPage = pageStack.push(Qt.resolvedUrl("SearchPage.qml"), { search: search, map: map })
+        searchPage.resultActivated.connect(function() {
+            page.searchResultTitle = ""
+            page.placeFromSearch = true
+        })
+    }
+    function openBookmarks() {
+        pageStack.push(Qt.resolvedUrl("BookmarksPage.qml"))
+    }
+    function showRecording() {
+        recordingPanel.open = true
+    }
+
+    objectName: "mapPage"
+    allowedOrientations: Orientation.All
+    backNavigation: false
+
+    onMapIsDarkChanged: appSettings.applyMapAppearance(mapIsDark)
+    onChoosingPositionChanged: if (choosingPosition) fullscreen = false
+    Component.onCompleted: {
+        appSettings.applyMapAppearance(mapIsDark)
+        // A recording goes on after a restart.
+        if (map.trackRecording)
+            recordingNotification.publish()
+    }
+    Component.onDestruction: recordingNotification.close()
+
+    // Recording keeps the device awake.
+    KeepAlive {
+        enabled: map.trackRecording
+    }
+    DisplayBlanking {
+        preventBlanking: appSettings.keepScreenOn && Qt.application.active
+    }
+
+
+    MapItem {
+        id: map
+        // Silica keeps landscape pages clear of the camera cutout, at the left in Landscape and the right in
+        // LandscapeInverted; the map alone is drawn under it.
+        anchors {
+            fill: parent
+            leftMargin: -leftInset
+            rightMargin: -rightInset
+        }
+        leftInset: page.orientation === Orientation.Landscape ? Screen.topCutout.height : 0
+        rightInset: page.orientation === Orientation.LandscapeInverted ? Screen.topCutout.height : 0
+        // Keeps the scale line and attribution above the bottom row with its padding.
+        bottomWidgetsOffset: bottomButtons.visible ? bottomButtons.height + 2 * page.buttonMargin : 0
+        topWidgetsOffset: page.topControlsBottom
+        // Searches are fitted into the map above the open sheets.
+        viewportBottomInset: page.bottomPanelsSize
+    }
+
+    Connections {
+        target: pageStack
+        onCurrentPageChanged: page.runPendingAction()
+        onBusyChanged: page.runPendingAction()
+    }
+    Connections {
+        target: map
+        onEngineCreated: urlHandler.processPending()
+        onNotice: Toast.showLong(message)
+        onIsolinesNeedMaps: pageStack.push(Qt.resolvedUrl("MessageDialog.qml"), {
+            title: appInfo.localized("downloader_update_maps"),
+            message: appInfo.localized("isolines_activation_error_dialog"),
+            acceptAction: function() { pageStack.push(Qt.resolvedUrl("MapsPage.qml")) }
+        })
+        onTrackRecordingChanged: {
+            if (map.trackRecording)
+                recordingNotification.publish()
+            else
+                recordingNotification.close()
+        }
+        onLocationLostChanged: if (map.trackRecording) recordingNotification.publish()
+    }
+    Connections {
+        target: map.placePage
+        onSwitchFullScreen: {
+            page.fullscreen = !page.fullscreen
+            if (page.fullscreen) {
+                map.placePage.close()
+                // Every time, so that the way back isn't forgotten.
+                Toast.showLong(appInfo.localized("long_tap_toast"))
+            }
+        }
+        onChanged: {
+            if (!page.placeFromSearch)
+                return
+            if (!map.placePage.open)
+                forgetSearchResult.restart()
+            else if (page.searchResultTitle === "")
+                page.searchResultTitle = map.placePage.title
+            else if (map.placePage.title !== page.searchResultTitle)
+                page.placeFromSearch = false
+        }
+    }
+    // The close button and swipe report closedByUser right after the place page closes; else it was a map tap.
+    Timer {
+        id: forgetSearchResult
+        interval: 100
+        onTriggered: page.placeFromSearch = false
+    }
+    Connections {
+        target: urlHandler
+        onSearchRequested: page.runOnMap(function() {
+            // The query already shows the results in the viewport.
+            search.searchFromLink(query, locale)
+            if (!onMap)
+                page.openSearch()
+        })
+        onCrosshairRequested: page.runOnMap(function() {
+            page.apiAppName = appName
+            page.apiBackUrl = backUrl
+            map.startChoosingPosition()
+        })
+        // The notification promises a save, so an empty recording is told.
+        onStopTrackRecordingRequested: {
+            if (map.trackRecording && !map.saveAndStopTrackRecording())
+                Toast.show(appInfo.localized("track_recording_toast_nothing_to_save"))
+        }
+    }
+
+    MapButton {
+        visible: !page.choosingPosition && !page.fullscreen
+        anchors {
+            top: parent.top
+            topMargin: page.topInset + page.buttonMargin
+            left: parent.left
+            leftMargin: page.buttonMargin
+        }
+        source: "image://theme/icon-m-levels"
+        description: appInfo.localized("layers_title")
+        highlighted: map.enabledLayers !== 0 || layersPanel.open
+        onClicked: layersPanel.open = true
+    }
+
+    // Positions follow Android's layout-h400dp/map_buttons_layout_regular.xml and layout-land, in Silica sizes.
+    Column {
+        id: rightButtons
+        visible: !page.choosingPosition && !page.fullscreen
+        anchors {
+            right: parent.right
+            rightMargin: page.buttonMargin
+            // Portrait: map_buttons_bottom_margin plus the padding from the bottom edge. Landscape: my position
+            // is in the bottom right corner.
+            bottom: parent.bottom
+            bottomMargin: page.isPortrait ? 3 * myPositionButton.size : page.buttonMargin
+        }
+        spacing: page.buttonMargin
+        transform: Translate {
+            id: rightButtonsShift
+            y: -Math.max(0, page.bottomPanelsSize - (page.height - rightButtons.y - rightButtons.height)
+                            + page.buttonMargin)
+        }
+
+        // Buttons pushed above the top controls are hidden. Only faded out, so that the
+        // column keeps its layout.
+        function fits(button) {
+            return y + button.y + rightButtonsShift.y >= page.topControlsBottom + page.buttonMargin
+        }
+
+        MapButton {
+            id: zoomInButton
+            visible: appSettings.zoomButtons
+            enabled: rightButtons.fits(zoomInButton)
+            opacity: enabled ? 1.0 : 0.0
+            source: "image://theme/icon-m-add"
+            description: appInfo.localized("zoom_in")
+            onClicked: map.zoomIn()
+        }
+        MapButton {
+            id: zoomOutButton
+            visible: appSettings.zoomButtons
+            enabled: rightButtons.fits(zoomOutButton)
+            opacity: enabled ? 1.0 : 0.0
+            source: "image://theme/icon-m-remove"
+            description: appInfo.localized("zoom_out")
+            onClicked: map.zoomOut()
+        }
+        // A wider gap between the zoom buttons and my position in portrait.
+        Item {
+            visible: zoomOutButton.visible && page.isPortrait
+            width: 1
+            height: Theme.paddingLarge
+        }
+        // Indexed by MapItem.MyPositionMode.
+        MapButton {
+            id: myPositionButton
+            readonly property var icons: ["", "ic_location_off", "ic_not_follow", "ic_follow", "ic_follow_and_rotate"]
+
+            enabled: rightButtons.fits(myPositionButton)
+            opacity: enabled ? 1.0 : 0.0
+            description: appInfo.localized("core_my_position")
+
+            source: map.myPositionMode === MapItem.PendingPosition
+                    ? "" : Qt.resolvedUrl("../../icons/myposition/" + icons[map.myPositionMode] + ".svg")
+            highlighted: map.myPositionMode === MapItem.Follow || map.myPositionMode === MapItem.FollowAndRotate
+            busy: map.myPositionMode === MapItem.PendingPosition
+            onClicked: map.switchMyPositionMode()
+        }
+    }
+
+    // Spread over at most about six buttons' width, inset by another margin in portrait, like map_buttons_bottom
+    // on Android.
+    Row {
+        id: bottomButtons
+        readonly property real inset: page.buttonMargin * (page.isPortrait ? 2 : 1)
+
+        visible: !page.choosingPosition && !page.fullscreen
+        // Positioned by x: switching between left and horizontalCenter anchors on rotation can leave both set.
+        x: page.isPortrait ? (parent.width - width) / 2 : inset
+        anchors {
+            bottom: parent.bottom
+            bottomMargin: page.buttonMargin
+        }
+        spacing: (Math.min(parent.width, 6 * menuButton.width) - 2 * inset - 4 * menuButton.width) / 3
+
+        MapButton {
+            square: true
+            // The promos of the help button.
+            source: Qt.resolvedUrl(appSettings.helpPromo === AppSettings.PromoCrowdfunding
+                                   ? "../../icons/help/ic_crowdfunding.png"
+                                   : appSettings.helpPromo === AppSettings.PromoNewYear
+                                     ? "../../icons/help/ic_christmas_tree.svg" : "../../icons/help/logo.svg")
+            description: appInfo.localized("help")
+            onClicked: pageStack.push(Qt.resolvedUrl("HelpPage.qml"))
+        }
+        MapButton {
+            square: true
+            source: "image://theme/icon-m-search"
+            description: appInfo.localized("search")
+            onClicked: page.openSearch()
+        }
+        MapButton {
+            square: true
+            source: "image://theme/icon-m-favorite"
+            description: appInfo.localized("bookmarks")
+            onClicked: page.openBookmarks()
+        }
+        MapButton {
+            id: menuButton
+            square: true
+            source: "image://theme/icon-m-menu"
+            description: appInfo.localized("menu")
+            onClicked: pageStack.push(Qt.resolvedUrl("MenuPage.qml"), { mapPage: page })
+
+            // Map updates are waiting; without them a dot tells of a recording.
+            // Placed like the Material badge with the offsets of MapButtonsController, relative to the button.
+            Rectangle {
+                // Not badgeLabel.visible: a child of a hidden item is never visible.
+                readonly property bool counted: downloads.updateCount > 0
+
+                visible: counted || map.trackRecording
+                x: parent.width * 35 / 48 - width / 2
+                y: parent.height * 9 / 48 - height / 2
+                width: counted ? Math.max(height, badgeLabel.implicitWidth + Theme.paddingMedium) : height
+                height: counted ? parent.height / 3 : parent.height / 8
+                radius: height / 2
+                color: Theme.highlightBackgroundColor
+
+                Label {
+                    id: badgeLabel
+                    visible: parent.counted
+                    anchors.centerIn: parent
+                    text: downloads.updateCount
+                    font.pixelSize: Theme.fontSizeTiny
+                    font.bold: true
+                }
+            }
+        }
+    }
+
+    MapButton {
+        id: recordingButton
+        anchors {
+            top: parent.top
+            topMargin: page.topInset + page.buttonMargin
+            right: parent.right
+            rightMargin: page.buttonMargin
+        }
+        visible: map.trackRecording && !page.fullscreen
+        highlighted: true
+        source: Qt.resolvedUrl("../../icons/menu/ic_track_recording_status.svg")
+        description: appInfo.localized("track_recording")
+        onClicked: recordingPanel.open = !recordingPanel.open
+
+        SequentialAnimation on opacity {
+            running: recordingButton.visible && Qt.application.active
+            loops: Animation.Infinite
+            NumberAnimation { to: 0.4; duration: 800 }
+            NumberAnimation { to: 1.0; duration: 800 }
+        }
+    }
+
+    Notification {
+        id: recordingNotification
+        appName: "Organic Maps"
+        appIcon: appInfo.name
+        // Without a position the recording stalls.
+        summary: map.locationLost ? appInfo.localized("current_location_unknown_error_title")
+                                  : appInfo.localized("track_recording")
+        body: map.locationLost ? appInfo.localized("dialog_routing_location_turn_wifi") : ""
+        remoteActions: [Notifications.openApp(),
+                        Notifications.action("stop", appInfo.localized("track_recording_stop_and_save"),
+                                             "stopTrackRecording")]
+    }
+
+    Rectangle {
+        id: onMapDownloader
+
+        readonly property var country: map.currentCountry
+        readonly property bool busy: Downloads.busy(country.status)
+
+        visible: !!country.countryId && !page.choosingPosition && page.bottomPanelsSize === 0
+        anchors.centerIn: parent
+        // As wide as the Android onmap_downloader with its 180dp button and margin_base padding, or wider for
+        // the Silica button.
+        width: Math.min(parent.width - 2 * Theme.horizontalPageMargin,
+                        Math.max(180 * page.androidDp, downloadButton.implicitWidth) + 2 * downloaderColumn.x)
+        height: downloaderColumn.height + 2 * downloaderColumn.x
+        radius: 14 * page.androidDp
+        color: Theme.rgba(Theme.overlayBackgroundColor, 0.9)
+
+        Column {
+            id: downloaderColumn
+            x: 16 * page.androidDp
+            anchors.verticalCenter: parent.verticalCenter
+            width: parent.width - 2 * x
+            spacing: Theme.paddingMedium
+
+            Label {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                text: onMapDownloader.country.name || ""
+                font.pixelSize: Theme.fontSizeLarge
+                color: Theme.highlightColor
+                wrapMode: Text.Wrap
+            }
+            Label {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                text: onMapDownloader.country.status === CountriesModel.Error
+                      ? appInfo.localized("country_status_download_failed")
+                      : onMapDownloader.country.size || ""
+                color: onMapDownloader.country.status === CountriesModel.Error ? Theme.errorColor
+                                                                               : Theme.secondaryHighlightColor
+            }
+            ProgressBar {
+                width: parent.width
+                visible: onMapDownloader.busy
+                indeterminate: onMapDownloader.country.status !== CountriesModel.Downloading
+                value: onMapDownloader.country.progress || 0
+            }
+            Button {
+                id: downloadButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: onMapDownloader.busy ? appInfo.localized("cancel")
+                    : onMapDownloader.country.status === CountriesModel.Error ? appInfo.localized("downloader_retry")
+                    : appInfo.localized("downloader_download_map")
+                onClicked: Downloads.toggle(pageStack, map, onMapDownloader.country)
+            }
+        }
+    }
+
+    // The core draws the cross in the middle of the map; this bar explains it.
+    Rectangle {
+        id: positionChooser
+
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        height: chooserColumn.height + 2 * Theme.paddingMedium + page.topInset
+        visible: page.choosingPosition
+        color: Theme.overlayBackgroundColor
+
+        PanelBackground {
+            anchors.fill: parent
+        }
+
+        IconButton {
+            id: chooserCancel
+            anchors {
+                left: parent.left
+                verticalCenter: chooserColumn.verticalCenter
+            }
+            icon.source: "image://theme/icon-m-cancel"
+            onClicked: map.stopChoosingPosition()
+        }
+
+        Column {
+            id: chooserColumn
+            anchors {
+                left: chooserCancel.right
+                right: chooserDone.left
+                bottom: parent.bottom
+                bottomMargin: Theme.paddingMedium
+            }
+            spacing: Theme.paddingSmall
+
+            Label {
+                width: parent.width
+                text: page.apiAppName !== "" ? page.apiAppName : appInfo.localized("choose_on_map")
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeLarge
+                truncationMode: TruncationMode.Fade
+            }
+            Label {
+                width: parent.width
+                text: appInfo.localized("choose_point_on_map_hint")
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                wrapMode: Text.Wrap
+            }
+        }
+
+        IconButton {
+            id: chooserDone
+            anchors {
+                right: parent.right
+                verticalCenter: chooserColumn.verticalCenter
+            }
+            icon.source: "image://theme/icon-m-acknowledge"
+            onClicked: {
+                // Sailfish has no app results: the position is copied, and passed to the app's back link if any.
+                var chosen = map.confirmChosenPosition()
+                var ll = chosen[0].toFixed(6) + "," + chosen[1].toFixed(6)
+                ClipboardHelper.copy(ll)
+                if (page.apiBackUrl !== "")
+                    Qt.openUrlExternally(page.apiBackUrl + (page.apiBackUrl.indexOf("?") >= 0 ? "&" : "?") + "ll=" + ll)
+            }
+        }
+    }
+
+    // Lives with the map so the last query and its results come back when search is reopened.
+    SearchModel {
+        id: search
+        highlightColor: Theme.highlightColor
+    }
+
+    PlacePagePanel {
+        id: placePagePanel
+        placePage: map.placePage
+        map: page.mapItem
+        onDirectionClicked: directionOverlay.shown = true
+        onClosedByUser: {
+            if (page.placeFromSearch) {
+                forgetSearchResult.stop()
+                page.placeFromSearch = false
+                page.openSearch()
+            }
+        }
+    }
+
+    TrackRecordingPanel {
+        id: recordingPanel
+        map: page.mapItem
+    }
+
+    MapPanel {
+        id: layersPanel
+        closesOnPressOutside: true
+
+        Item {
+            width: parent.width
+            height: closeButton.height
+
+            Label {
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: closeButton.left
+                    verticalCenter: parent.verticalCenter
+                }
+                text: appInfo.localized("layers_title")
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeLarge
+                truncationMode: TruncationMode.Fade
+            }
+
+            IconButton {
+                id: closeButton
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.paddingMedium
+                icon.source: "image://theme/icon-m-cancel"
+                onClicked: layersPanel.open = false
+            }
+        }
+
+        Row {
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2 * x
+
+            Repeater {
+                id: layersRepeater
+                // Order and labels of the Android layers sheet; Satellite once a tile server is set.
+                model: {
+                    var layers = [
+                        { layer: MapItem.Outdoors, icon: "ic_layers_outdoors",
+                          text: appInfo.localized("button_layer_outdoor") },
+                        { layer: MapItem.Isolines, icon: "ic_layers_isoline",
+                          text: appInfo.localized("button_layer_isolines") },
+                        { layer: MapItem.Hiking, icon: "ic_layers_hiking",
+                          text: appInfo.localized("button_layer_hiking") },
+                        { layer: MapItem.Cycling, icon: "ic_layers_cycling",
+                          text: appInfo.localized("button_layer_cycling") },
+                        { layer: MapItem.Subway, icon: "ic_layers_subway",
+                          text: appInfo.localized("button_layer_subway") }
+                    ]
+                    if (appSettings.bgTilesUrl !== "")
+                        layers.push({ layer: MapItem.Satellite, icon: "ic_layers_satellite",
+                                      text: appInfo.localized("button_layer_satellite") })
+                    return layers
+                }
+
+                LayerButton {
+                    width: parent.width / layersRepeater.count
+                    source: Qt.resolvedUrl("../../icons/layers/" + modelData.icon
+                                           + (page.mapIsDark ? "_night" : "") + ".svg")
+                    text: modelData.text
+                    checked: (map.enabledLayers & (1 << modelData.layer)) !== 0
+                    isNew: (map.newLayers & (1 << modelData.layer)) !== 0
+                    onClicked: {
+                        var enable = !checked
+                        map.setLayerEnabled(modelData.layer, enable)
+                        if (!enable)
+                            return
+                        if (modelData.layer === MapItem.Isolines && map.isolinesNeedZoom())
+                            Toast.show(appInfo.localized("isolines_toast_zooms_1_10"))
+                        else if ((modelData.layer === MapItem.Hiking || modelData.layer === MapItem.Cycling)
+                                 && map.needUpdateForRoutes())
+                            Toast.showLong(appInfo.localized("routes_update_maps_text"))
+                    }
+                }
+            }
+        }
+    }
+
+    // Last, to cover the map and all panels.
+    DirectionOverlay {
+        id: directionOverlay
+        placePage: map.placePage
+    }
+}
