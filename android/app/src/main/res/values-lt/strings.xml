@@ -35,7 +35,7 @@
     <string name="country_status_download_failed">Atsiuntimas nepavyko</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Bandyti dar kartą</string>
-    <string name="about_menu_title">Apie „Organic Maps“</string>
+    <string name="about_menu_title">Apie Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Nemokama visiems, sukurta su meile</string>
     <!-- Text in About screen -->
@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Šiai programėlei reikia aparatinio „OpenGL“ spartinimo. Deja, jūsų įrenginys nepalaikomas.</string>
     <string name="download">Atsiųsti</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Jeigu norite naudotis „Organic Maps“, atjunkite USB kabelį arba įdėkite atminties kortelę</string>
+    <string name="disconnect_usb_cable">Jeigu norite naudotis Organic Maps, atjunkite USB kabelį arba įdėkite atminties kortelę</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Jeigu norite naudotis programėle, atlaisvinkite vietos SD kortelėje ar USB atmintinėje</string>
     <string name="download_resources">Prieš pradėdami naudotis programėle, leiskite atsiųsti bendrąjį pasaulio žemėlapį į jūsų įrenginį. \nJis užims %s vietos saugykloje.</string>
@@ -151,8 +151,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Pastabos</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Su jumis bendrinamas „Organic Maps“ žymių sąrašas</string>
-    <string name="share_bookmarks_email_body">Labas! \n \nČia prisegtas mano žymių sąrašas iš „Organic Maps“ programėlės. Jei jos neturi, gali ją parsisiųsti iš https://omaps.app/get?kmz \n \nSmagių kelionių su „Organic Maps“!</string>
+    <string name="share_bookmarks_email_subject">Su jumis bendrinamas Organic Maps žymių sąrašas</string>
+    <string name="share_bookmarks_email_body">Labas! \n \nČia prisegtas mano žymių sąrašas iš Organic Maps programėlės. Jei jos neturi, gali ją parsisiųsti iš https://omaps.app/get?kmz \n \nSmagių kelionių su Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Žymių sąrašas įkeliamas</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +174,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Bendrinti</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s per „Organic Maps“</string>
+    <string name="share_place_subject">%1$s per Organic Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Vieta per „Organic Maps“</string>
+    <string name="share_place_subject_default">Vieta per Organic Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">El. paštas</string>
     <!-- Text for message when used successfully copied something -->
@@ -184,7 +184,7 @@
     <!-- Used for bookmark editing -->
     <string name="done">Baigta</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
-    <string name="data_version">„OpenStreetMap“ duomenys: %s</string>
+    <string name="data_version">OpenStreetMap duomenys: %s</string>
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">Ar tikrai norite atsijungti nuo „OpenStreetMap“ paskyros?</string>
     <!-- Title for tracks category in bookmarks manager -->
@@ -262,7 +262,7 @@
     <string name="donate">Paaukoti</string>
     <string name="already_donated">Jau paaukojau</string>
     <string name="remind_me_later">Priminti vėliau</string>
-    <string name="support_organic_maps">Paremti „Organic Maps“</string>
+    <string name="support_organic_maps">Paremti Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Paremti projektą</string>
     <!-- Button in the main Help dialog -->
@@ -441,7 +441,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Bendruomenės surinkti „OpenStreetMap“ duomenys %s dienai. Sužinokite, kaip redaguoti ir atnaujinti žemėlapį, apsilankydami OpenStreetMap.org svetainėje</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) – tai bendruomenės projektas, kuriuo siekiama sukurti laisvą ir atvirą žemėlapį. Tai – pagrindinis „Organic Maps“ žemėlapių duomenų šaltinis, veikiantis panašiu principu, kaip „Vikipedija“. Galite pridėti ar taisyti vietas, o jos tampa prieinamos milijonams naudotojų visame pasaulyje. \nPrisijunkite prie bendruomenės ir padėkite kurti geresnį žemėlapį visiems!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) – tai bendruomenės projektas, kuriuo siekiama sukurti laisvą ir atvirą žemėlapį. Tai – pagrindinis Organic Maps žemėlapių duomenų šaltinis, veikiantis panašiu principu, kaip „Vikipedija“. Galite pridėti ar taisyti vietas, o jos tampa prieinamos milijonams naudotojų visame pasaulyje. \nPrisijunkite prie bendruomenės ir padėkite kurti geresnį žemėlapį visiems!</string>
     <string name="login_to_make_edits_visible">Susikurkite „OpenStreetMap“ paskyrą arba prisijunkite, kad galėtumėte skelbti savo žemėlapio pakeitimus pasauliui.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d iš %2$d</string>
@@ -456,7 +456,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Pastaba „OpenStreetMap“ talkininkams (neprivaloma)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Aprašykite žemėlapyje esančias klaidas arba dalykus, kurių negalite redaguoti, naudodamiesi „Organic Maps“</string>
+    <string name="editor_note_hint">Aprašykite žemėlapyje esančias klaidas arba dalykus, kurių negalite redaguoti, naudodamiesi Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Jūsų pakeitimai įkeliami į viešą <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">„OpenStreetMap“</a> duomenų bazę. Prašome nedėti asmeninės ar autorių teisėmis apsaugotos informacijos.</string>
     <string name="editor_more_about_osm">Plačiau apie „OpenStreetMap“</string>
@@ -466,7 +466,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatorius: %s</string>
     <string name="editor_category_unsuitable_title">Nerandate tinkamos kategorijos?</string>
-    <string name="editor_category_unsuitable_text">„Organic Maps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.</string>
     <string name="downloader_no_downloaded_maps_title">Nesate atsiuntę jokių žemėlapių</string>
     <string name="downloader_no_downloaded_maps_message">Atsiųskite žemėlapius, kad galėtumėte ieškoti vietų ir keliauti neprisijungę prie tinklo.</string>
     <string name="current_location_unknown_error_title">Dabartinė vieta nežinoma.</string>
@@ -786,9 +786,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Mūsų pagrindinis tikslas – sukurti spartų, privatų ir paprastą naudotis žemėlapį, kuris patiktų visiems.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Dabar naudojatės „Organic Maps“ telefono ekrane</string>
+    <string name="car_used_on_the_phone_screen">Dabar naudojatės Organic Maps telefono ekrane</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Dabar naudojatės „Organic Maps“ automobilio ekrane</string>
+    <string name="car_used_on_the_car_screen">Dabar naudojatės Organic Maps automobilio ekrane</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Prisijungėte prie „Android Auto“</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -796,7 +796,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Į automobilio ekraną</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">„Organic Maps“ programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.</string>
+    <string name="aa_location_permissions_request">Organic Maps programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Šiai programėlei reikia jūsų leidimo</string>
     <!-- Grant Permissions button. -->
