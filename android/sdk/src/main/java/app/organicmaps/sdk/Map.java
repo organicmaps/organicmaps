@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.Surface;
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.display.DisplayType;
@@ -14,6 +15,8 @@ import app.organicmaps.sdk.util.ROMUtils;
 import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 public final class Map
 {
@@ -22,34 +25,58 @@ public final class Map
     void report();
   }
 
+  @NonNull
   private static final String TAG = Map.class.getSimpleName();
 
   // Should correspond to android::MultiTouchAction from Framework.cpp
-  public static final int NATIVE_ACTION_UP = 0x01;
-  public static final int NATIVE_ACTION_DOWN = 0x02;
-  public static final int NATIVE_ACTION_MOVE = 0x03;
-  public static final int NATIVE_ACTION_CANCEL = 0x04;
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({MultiTouchAction.UP, MultiTouchAction.DOWN, MultiTouchAction.MOVE, MultiTouchAction.CANCEL})
+  @interface MultiTouchAction
+  {
+    int UP = 1;
+    int DOWN = 2;
+    int MOVE = 3;
+    int CANCEL = 4;
+  }
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef(value = {PointerIndex.INVALID, PointerIndex.FIRST, PointerIndex.INVALID_MASKED_POINTER}, open = true)
+  @interface PointerIndex
+  {
+    int INVALID = -1;
+    int FIRST = 0;
+    // Should correspond to df::TouchEvent::INVALID_MASKED_POINTER from user_event_stream.cpp
+    int INVALID_MASKED_POINTER = 0xFF;
+  }
 
   // Should correspond to gui::EWidget from skin.hpp
-  public static final int WIDGET_RULER = 0x01;
-  public static final int WIDGET_COMPASS = 0x02;
-  public static final int WIDGET_COPYRIGHT = 0x04;
-  public static final int WIDGET_SCALE_FPS_LABEL = 0x08;
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({WidgetType.RULER, WidgetType.COMPASS, WidgetType.COPYRIGHT, WidgetType.SCALE_FPS_LABEL})
+  private @interface WidgetType
+  {
+    int RULER = 0x01;
+    int COMPASS = 0x02;
+    int COPYRIGHT = 0x04;
+    int SCALE_FPS_LABEL = 0x08;
+  }
 
   // Should correspond to dp::Anchor from drape_global.hpp
-  public static final int ANCHOR_CENTER = 0x00;
-  public static final int ANCHOR_LEFT = 0x01;
-  public static final int ANCHOR_RIGHT = (ANCHOR_LEFT << 1);
-  public static final int ANCHOR_TOP = (ANCHOR_RIGHT << 1);
-  public static final int ANCHOR_BOTTOM = (ANCHOR_TOP << 1);
-  public static final int ANCHOR_LEFT_TOP = (ANCHOR_LEFT | ANCHOR_TOP);
-  public static final int ANCHOR_RIGHT_TOP = (ANCHOR_RIGHT | ANCHOR_TOP);
-  public static final int ANCHOR_LEFT_BOTTOM = (ANCHOR_LEFT | ANCHOR_BOTTOM);
-  public static final int ANCHOR_RIGHT_BOTTOM = (ANCHOR_RIGHT | ANCHOR_BOTTOM);
-
-  // Should correspond to df::TouchEvent::INVALID_MASKED_POINTER from user_event_stream.cpp
-  public static final int INVALID_POINTER_MASK = 0xFF;
-  public static final int INVALID_TOUCH_ID = -1;
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef(value = {Anchor.CENTER, Anchor.LEFT, Anchor.RIGHT, Anchor.TOP, Anchor.BOTTOM, Anchor.LEFT_TOP,
+                   Anchor.RIGHT_TOP, Anchor.LEFT_BOTTOM, Anchor.RIGHT_BOTTOM},
+          flag = true)
+  private @interface Anchor
+  {
+    int CENTER = 0x00;
+    int LEFT = 0x01;
+    int RIGHT = (LEFT << 1);
+    int TOP = (RIGHT << 1);
+    int BOTTOM = (TOP << 1);
+    int LEFT_TOP = (LEFT | TOP);
+    int RIGHT_TOP = (RIGHT | TOP);
+    int LEFT_BOTTOM = (LEFT | BOTTOM);
+    int RIGHT_BOTTOM = (RIGHT | BOTTOM);
+  }
 
   @NonNull
   private final DisplayType mDisplayType;
@@ -94,14 +121,14 @@ public final class Map
    * @param offsetY     Pixel offset from the right.  -1 to keep the previous value.
    * @param forceRedraw True to force the compass to redraw
    */
-  public void updateCompassOffset(final Context context, int offsetX, int offsetY, boolean forceRedraw)
+  public void updateCompassOffset(@NonNull Context context, int offsetX, int offsetY, boolean forceRedraw)
   {
     final int x = offsetX < 0 ? mCurrentCompassOffsetX : offsetX;
     final int y = offsetY < 0 ? mCurrentCompassOffsetY : offsetY;
     final int navPadding = Utils.dimen(context, R.dimen.nav_frame_padding);
     final int marginX = Utils.dimen(context, R.dimen.margin_compass) + navPadding;
     final int marginY = Utils.dimen(context, R.dimen.margin_compass_top) + navPadding;
-    nativeSetupWidget(WIDGET_COMPASS, mWidth - x - marginX, y + marginY, ANCHOR_CENTER);
+    nativeSetupWidget(WidgetType.COMPASS, mWidth - x - marginX, y + marginY, Anchor.CENTER);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
     mCurrentCompassOffsetX = x;
@@ -120,7 +147,7 @@ public final class Map
    * @param offsetX Pixel offset from the left.  -1 to keep the previous value.
    * @param offsetY Pixel offset from the bottom. -1 to keep the previous value.
    */
-  public void updateBottomWidgetsOffset(final Context context, int offsetX, int offsetY)
+  public void updateBottomWidgetsOffset(@NonNull Context context, int offsetX, int offsetY)
   {
     final int x = offsetX < 0 ? mBottomWidgetOffsetX : offsetX;
     final int y = offsetY < 0 ? mBottomWidgetOffsetY : offsetY;
@@ -140,7 +167,8 @@ public final class Map
     nativeUpdateMyPositionRoutingOffset(offsetY);
   }
 
-  public void onSurfaceCreated(final Context context, final Surface surface, Rect surfaceFrame, int surfaceDpi)
+  public void onSurfaceCreated(@NonNull Context context, @NonNull Surface surface, @NonNull Rect surfaceFrame,
+                               int surfaceDpi)
   {
     Assert.debug(mLocationHelper != null, "LocationHelper must be initialized before calling onSurfaceCreated");
 
@@ -190,7 +218,7 @@ public final class Map
       mMapRenderingListener.onRenderingCreated();
   }
 
-  public void onSurfaceChanged(final Context context, final Surface surface, Rect surfaceFrame,
+  public void onSurfaceChanged(@NonNull Context context, @NonNull Surface surface, @NonNull Rect surfaceFrame,
                                boolean isSurfaceCreating)
   {
     Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated);
@@ -217,12 +245,12 @@ public final class Map
     mSurfaceAttached = false;
   }
 
-  public void setMapRenderingListener(MapRenderingListener mapRenderingListener)
+  public void setMapRenderingListener(@Nullable MapRenderingListener mapRenderingListener)
   {
     mMapRenderingListener = mapRenderingListener;
   }
 
-  public void setCallbackUnsupported(CallbackUnsupported callback)
+  public void setCallbackUnsupported(@Nullable CallbackUnsupported callback)
   {
     mCallbackUnsupported = callback;
   }
@@ -285,11 +313,13 @@ public final class Map
     nativeOnScale(factor, focusX, focusY, isAnim);
   }
 
-  public static void onTouch(int actionType, MotionEvent event, int pointerIndex)
+  public static void onTouch(@MultiTouchAction int actionType, @NonNull MotionEvent event,
+                             @PointerIndex int pointerIndex)
   {
     if (event.getPointerCount() == 1)
     {
-      nativeOnTouch(actionType, event.getPointerId(0), event.getX(), event.getY(), Map.INVALID_TOUCH_ID, 0, 0, 0);
+      nativeOnTouch(actionType, event.getPointerId(0), event.getX(), event.getY(), PointerIndex.INVALID, 0, 0,
+                    PointerIndex.FIRST);
     }
     else
     {
@@ -300,8 +330,8 @@ public final class Map
 
   public static void onClick(float x, float y)
   {
-    nativeOnTouch(NATIVE_ACTION_DOWN, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
-    nativeOnTouch(NATIVE_ACTION_UP, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
+    nativeOnTouch(MultiTouchAction.DOWN, PointerIndex.FIRST, x, y, PointerIndex.INVALID, 0, 0, PointerIndex.FIRST);
+    nativeOnTouch(MultiTouchAction.UP, PointerIndex.FIRST, x, y, PointerIndex.INVALID, 0, 0, PointerIndex.FIRST);
   }
 
   public static boolean isEngineCreated()
@@ -319,7 +349,7 @@ public final class Map
     return mDisplayType;
   }
 
-  private void setupWidgets(final Context context, int width, int height)
+  private void setupWidgets(@NonNull Context context, int width, int height)
   {
     mHeight = height;
     mWidth = width;
@@ -328,39 +358,39 @@ public final class Map
     updateBottomWidgetsOffset(context, mBottomWidgetOffsetX, mBottomWidgetOffsetY);
     if (mDisplayType == DisplayType.Device)
     {
-      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, Utils.dimen(context, R.dimen.margin_base),
-                        Utils.dimen(context, R.dimen.margin_base) * 2, ANCHOR_LEFT_TOP);
+      nativeSetupWidget(WidgetType.SCALE_FPS_LABEL, Utils.dimen(context, R.dimen.margin_base),
+                        Utils.dimen(context, R.dimen.margin_base) * 2, Anchor.LEFT_TOP);
       updateCompassOffset(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
     }
     else
     {
-      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, (float) mWidth / 2 + Utils.dimen(context, R.dimen.margin_base) * 2,
-                        Utils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
+      nativeSetupWidget(WidgetType.SCALE_FPS_LABEL, (float) mWidth / 2 + Utils.dimen(context, R.dimen.margin_base) * 2,
+                        Utils.dimen(context, R.dimen.margin_base), Anchor.LEFT_TOP);
       updateCompassOffset(context, mWidth, mCurrentCompassOffsetY, true);
     }
   }
 
-  private void updateRulerOffset(final Context context, int offsetX, int offsetY)
+  private void updateRulerOffset(@NonNull Context context, int offsetX, int offsetY)
   {
     // Raise the ruler a bit above the bottom edge so it stays visible over the search bar in compact mode.
     final int additionalOffset = Utils.dimen(context, R.dimen.ruler_additional_offset);
-    nativeSetupWidget(WIDGET_RULER, Utils.dimen(context, R.dimen.margin_ruler) + offsetX,
+    nativeSetupWidget(WidgetType.RULER, Utils.dimen(context, R.dimen.margin_ruler) + offsetX,
                       mHeight - Utils.dimen(context, R.dimen.margin_ruler) - offsetY - additionalOffset,
-                      ANCHOR_LEFT_BOTTOM);
+                      Anchor.LEFT_BOTTOM);
     if (mSurfaceCreated)
       nativeApplyWidgets();
   }
 
-  private void updateAttributionOffset(final Context context, int offsetX, int offsetY)
+  private void updateAttributionOffset(@NonNull Context context, int offsetX, int offsetY)
   {
-    nativeSetupWidget(WIDGET_COPYRIGHT, Utils.dimen(context, R.dimen.margin_ruler) + offsetX,
-                      mHeight - Utils.dimen(context, R.dimen.margin_ruler) - offsetY, ANCHOR_LEFT_BOTTOM);
+    nativeSetupWidget(WidgetType.COPYRIGHT, Utils.dimen(context, R.dimen.margin_ruler) + offsetX,
+                      mHeight - Utils.dimen(context, R.dimen.margin_ruler) - offsetY, Anchor.LEFT_BOTTOM);
     if (mSurfaceCreated)
       nativeApplyWidgets();
   }
 
   // Engine
-  private static native boolean nativeCreateEngine(Surface surface, int density, boolean firstLaunch,
+  private static native boolean nativeCreateEngine(@NonNull Surface surface, int density, boolean firstLaunch,
                                                    boolean isLaunchByDeepLink, int appVersionCode, boolean isCustomROM);
 
   private static native boolean nativeIsEngineCreated();
@@ -372,11 +402,11 @@ public final class Map
   private static native void nativeExecuteMapApiRequest();
 
   // Surface
-  private static native boolean nativeAttachSurface(Surface surface);
+  private static native boolean nativeAttachSurface(@NonNull Surface surface);
 
   private static native void nativeDetachSurface(boolean destroySurface);
 
-  private static native void nativeSurfaceChanged(Surface surface, int w, int h);
+  private static native void nativeSurfaceChanged(@NonNull Surface surface, int w, int h);
 
   private static native boolean nativeDestroySurfaceOnDetach();
 
@@ -391,7 +421,7 @@ public final class Map
 
   private static native void nativeUpdateMyPositionRoutingOffset(int offsetY);
 
-  private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
+  private static native void nativeSetupWidget(@WidgetType int widget, float x, float y, @Anchor int anchor);
 
   private static native void nativeCompassUpdated(double north, boolean forceRedraw);
 
@@ -404,6 +434,6 @@ public final class Map
 
   private static native void nativeOnScale(double factor, double focusX, double focusY, boolean isAnim);
 
-  private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2,
-                                           int maskedPointer);
+  private static native void nativeOnTouch(@MultiTouchAction int actionType, @PointerIndex int id1, float x1, float y1,
+                                           @PointerIndex int id2, float x2, float y2, @PointerIndex int maskedPointer);
 }
