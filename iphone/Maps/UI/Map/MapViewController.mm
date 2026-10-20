@@ -137,6 +137,9 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)showOrUpdatePlacePage:(PlacePageData *)data
 {
+  // Map API requests deselect and select in one call: remove the closing page before showing the new one.
+  [self.placePageVC finishClosingIfNeeded];
+
   if (self.searchManager.isSearching)
     [self.searchManager setPlaceOnMapSelected:YES];
 
@@ -266,8 +269,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 {
   [self stopObservingTrackRecordingUpdates];
   [self.placePageVC closeWithCompletion:^{
-    [self.placePageVC.view removeFromSuperview];
     [self.placePageVC willMoveToParentViewController:nil];
+    [self.placePageVC.view removeFromSuperview];
     [self.placePageVC removeFromParentViewController];
     self.placePageVC = nil;
     self.placePageContainer.hidden = YES;
