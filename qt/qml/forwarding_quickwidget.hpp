@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Andrey Butirsky
+
 #pragma once
 
 #include <QQuickWidget>

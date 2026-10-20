@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Andrey Butirsky
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Material

@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Andrey Butirsky
+
 #include "forwarding_quickwidget.hpp"
 
 namespace qt
