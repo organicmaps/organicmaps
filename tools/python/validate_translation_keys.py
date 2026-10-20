@@ -38,6 +38,8 @@ _CATEGORY_LIST_RE = re.compile(
     r"DisplayedCategories::DisplayedCategories\b.*?\bm_keys\s*=\s*\{([^}]*)\}",
     re.DOTALL,
 )
+# Tr() resolves IDs; QT_TRID_NOOP marks IDs stored for later lookup.
+_QT_RE = re.compile(r'\b(?:Tr|QT_TRID_NOOP|QT_TRID_N_NOOP)\s*\(\s*"([^"]+)"')
 # Exclude explicit references to Android framework resources.
 _ANDROID_R_RE = re.compile(r"(?<!android\.)\bR\.(?:string|plurals)\.(\w+)")
 _ANDROID_XML_RE = re.compile(r"@(?:string|plurals)/(\w+)")
@@ -132,6 +134,7 @@ def _raise_os_error(error):
 
 
 # Per source root: (filename extensions, text -> {key: zero-based line} matcher).
+_QT_SOURCE_SCANNERS = [((".cpp", ".hpp", ".h", ".mm"), _regex_matcher(_QT_RE))]
 _IOS_RESOURCE_SCANNERS = [
     ((".swift", ".m", ".mm", ".h"), _ios_source_matcher),
     ((".xib", ".storyboard"), _xml_matcher(_IOS_XML_RE)),
@@ -141,6 +144,7 @@ _IOS_INFOPLIST_SCANNERS = [
 ]
 _SCANNERS = {
     "core": [((".cpp", ".hpp", ".h", ".mm"), _core_source_matcher)],
+    "qt": _QT_SOURCE_SCANNERS,
     "android": [
         ((".java", ".kt"), _regex_matcher(_ANDROID_R_RE)),
         ((".xml",), _xml_matcher(_ANDROID_XML_RE)),
@@ -149,7 +153,8 @@ _SCANNERS = {
 }
 
 # Which source tree each scanner reads.
-_ROOTS = (("core", "libs"), ("core", "qt"), ("android", "android"), ("ios", "iphone"))
+# Qt references have their own consumer tag and do not require mobile tags.
+_ROOTS = (("core", "libs"), ("core", "qt"), ("qt", "qt"), ("android", "android"), ("ios", "iphone"))
 
 # Apple code and resources have unambiguous generated localization targets. Core
 # references belong to the Maps app. Chart has no localization lookups or resources,
@@ -172,6 +177,7 @@ _STRICT_SCANNERS = {
         ((".cpp", ".hpp", ".h", ".mm"), _regex_matcher(_CORE_RE)),
         ((".cpp",), _category_source_matcher),
     ],
+    "qt": _QT_SOURCE_SCANNERS,
     "ios": _IOS_RESOURCE_SCANNERS
     + [
         ((".plist",), _xml_matcher(_IOS_PLIST_TITLE_RE)),
@@ -329,7 +335,16 @@ def main():
         "referenced by an Apple target their tags leave out",
         find_undertagged_targets(tags_by_key, apple_referenced),
     )
-    strict = strict_referenced["ios"] | strict_referenced["core"]
+    qt_referenced = {"qt": strict_referenced["qt"] | strict_referenced["core"]}
+    failures += report(
+        "tagged for Qt without a Qt reference",
+        find_overtagged_targets(tags_by_key, qt_referenced),
+    )
+    failures += report(
+        "referenced by Qt but missing its consumer tag",
+        find_undertagged_targets(tags_by_key, qt_referenced),
+    )
+    strict = strict_referenced["ios"] | strict_referenced["core"] | strict_referenced["qt"]
     failures += report_references(
         "referenced in code but missing from strings.txt",
         sorted(strict.keys() - set(tags_by_key)),

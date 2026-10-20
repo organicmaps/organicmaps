@@ -1,4 +1,5 @@
 #include "qt/update_dialog.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "storage/downloader_search_params.hpp"
 #include "storage/storage_defines.hpp"
@@ -12,6 +13,7 @@
 #include <limits>
 
 #include <QtCore/QDateTime>
+#include <QtCore/QLocale>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -52,7 +54,7 @@ size_t const kIrrelevantPos = numeric_limits<int32_t>::max() - 1;
 bool DeleteNotUploadedEditsConfirmation()
 {
   QMessageBox msb;
-  msb.setText("Some map edits are not uploaded yet. Are you sure you want to delete map anyway?");
+  msb.setText(qt::Tr("downloader_unuploaded_edits_delete_map"));
   msb.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
   msb.setDefaultButton(QMessageBox::Cancel);
   return QMessageBox::Yes == msb.exec();
@@ -61,27 +63,30 @@ bool DeleteNotUploadedEditsConfirmation()
 
 namespace qt
 {
-UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
+UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework, QLocale const & dataSizeLocale)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
   , m_framework(framework)
+  , m_dataSizeLocale(dataSizeLocale)
   , m_observerSlotId(0)
 {
   setWindowModality(Qt::WindowModal);
 
-  QPushButton * closeButton = new QPushButton(QObject::tr("Close"), this);
+  QPushButton * closeButton = new QPushButton(Tr("close"), this);
   closeButton->setDefault(true);
   connect(closeButton, &QAbstractButton::clicked, this, &UpdateDialog::OnCloseClick);
 
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(KNumberOfColumns);
   QStringList columnLabels;
-  columnLabels << tr("Country") << tr("Status") << tr("Size") << tr("Matched by") << tr("Rank");
+  columnLabels << Tr("downloader_country_column") << Tr("downloader_status_column") << Tr("downloader_size_column")
+               << Tr("downloader_matched_by_column") << Tr("downloader_rank_column");
   m_tree->setHeaderLabels(columnLabels);
 
   m_tree->setColumnHidden(KColumnIndexPositionInRanking, true);
 
   m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
   m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
+  m_tree->header()->setSectionResizeMode(KColumnIndexSize, QHeaderView::ResizeToContents);
   m_tree->header()->setSectionResizeMode(KColumnIndexMatchedBy, QHeaderView::ResizeToContents);
   m_tree->header()->setSectionResizeMode(KColumnIndexPositionInRanking, QHeaderView::ResizeToContents);
 
@@ -91,12 +96,12 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
   horizontalLayout->addStretch();
   horizontalLayout->addWidget(closeButton);
 
-  QLabel * localeLabel = new QLabel(tr("locale:"));
+  QLabel * localeLabel = new QLabel(Tr("locale_label"));
   QLineEdit * localeEdit = new QLineEdit(this);
   localeEdit->setText(m_locale.c_str());
   connect(localeEdit, &QLineEdit::textChanged, this, &UpdateDialog::OnLocaleTextChanged);
 
-  QLabel * queryLabel = new QLabel(tr("search query:"));
+  QLabel * queryLabel = new QLabel(Tr("search_query_label"));
   QLineEdit * queryEdit = new QLineEdit(this);
   connect(queryEdit, &QLineEdit::textChanged, this, &UpdateDialog::OnQueryTextChanged);
 
@@ -113,7 +118,7 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
   verticalLayout->addLayout(horizontalLayout);
   setLayout(verticalLayout);
 
-  setWindowTitle(tr("Geographical Regions"));
+  setWindowTitle(Tr("download_maps"));
   resize(900, 600);
 
   // We want to receive all download progress and result events.
@@ -152,10 +157,10 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
     // Map is already downloaded, so ask user about deleting.
     QMessageBox ask(this);
     ask.setIcon(QMessageBox::Question);
-    ask.setText(tr("Do you want to update or delete %1?").arg(countryId.c_str()));
-    QPushButton * const btnUpdate = ask.addButton(tr("Update"), QMessageBox::ActionRole);
-    QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
-    QPushButton * const btnCancel = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
+    ask.setText(Tr("update_or_delete_region_confirmation").arg(countryId.c_str()));
+    QPushButton * const btnUpdate = ask.addButton(Tr("refresh"), QMessageBox::ActionRole);
+    QPushButton * const btnDelete = ask.addButton(Tr("delete"), QMessageBox::ActionRole);
+    QPushButton * const btnCancel = ask.addButton(Tr("cancel"), QMessageBox::NoRole);
     UNUSED_VALUE(btnCancel);
 
     ask.exec();
@@ -177,9 +182,9 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
     // Map is already downloaded, so ask user about deleting.
     QMessageBox ask(this);
     ask.setIcon(QMessageBox::Question);
-    ask.setText(tr("Do you want to delete %1?").arg(countryId.c_str()));
-    QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
-    QPushButton * const btnCancel = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
+    ask.setText(Tr("delete_region_confirmation").arg(countryId.c_str()));
+    QPushButton * const btnDelete = ask.addButton(Tr("delete"), QMessageBox::ActionRole);
+    QPushButton * const btnCancel = ask.addButton(Tr("cancel"), QMessageBox::NoRole);
     UNUSED_VALUE(btnCancel);
 
     ask.exec();
@@ -380,38 +385,38 @@ void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId co
   {
   case NodeStatus::NotDownloaded:
     ASSERT(size.second > 0, (countryId));
-    statusString = tr("Click to download");
+    statusString = Tr("click_to_download");
     rowColor = COLOR_NOTDOWNLOADED;
     break;
 
   case NodeStatus::OnDisk:
   case NodeStatus::Partly:
-    statusString = tr("Installed (click to delete)");
+    statusString = Tr("installed_click_to_delete");
     rowColor = COLOR_ONDISK;
     break;
 
   case NodeStatus::OnDiskOutOfDate:
-    statusString = tr("Out of date (click to update or delete)");
+    statusString = Tr("out_of_date_click_to_update_or_delete");
     rowColor = COLOR_OUTOFDATE;
     break;
 
   case NodeStatus::Error:
-    statusString = tr("Download has failed");
+    statusString = Tr("country_status_download_failed");
     rowColor = COLOR_DOWNLOADFAILED;
     break;
 
   case NodeStatus::Downloading:
-    statusString = tr("Downloading ...");
+    statusString = Tr("downloading");
     rowColor = COLOR_INPROGRESS;
     break;
 
   case NodeStatus::Applying:
-    statusString = tr("Applying ...");
+    statusString = Tr("downloader_applying").arg(QString::fromStdString(attrs.m_nodeLocalName));
     rowColor = COLOR_INPROGRESS;
     break;
 
   case NodeStatus::InQueue:
-    statusString = tr("Marked for download");
+    statusString = Tr("downloader_queued");
     rowColor = COLOR_INQUEUE;
     break;
 
@@ -423,19 +428,10 @@ void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId co
 
   if (size.second > 0)
   {
-    int const halfMb = 512 * 1024;
-    int const Mb = 1024 * 1024;
-
-    if (size.second > Mb)
-    {
-      item->setText(KColumnIndexSize,
-                    QString("%1/%2 MB").arg(uint((size.first + halfMb) / Mb)).arg(uint((size.second + halfMb) / Mb)));
-    }
-    else
-    {
-      item->setText(KColumnIndexSize,
-                    QString("%1/%2 kB").arg(uint((size.first + 1023) / 1024)).arg(uint((size.second + 1023) / 1024)));
-    }
+    item->setText(KColumnIndexSize,
+                  Tr("downloader_of")
+                      .arg(m_dataSizeLocale.formattedDataSize(size.first, 0, QLocale::DataSizeTraditionalFormat),
+                           m_dataSizeLocale.formattedDataSize(size.second, 0, QLocale::DataSizeTraditionalFormat)));
 
     item->setData(KColumnIndexSize, Qt::UserRole, QVariant(static_cast<qint64>(size.second)));
   }
@@ -447,10 +443,7 @@ void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId co
 
 QString UpdateDialog::GetNodeName(CountryId const & countryId)
 {
-  // QString const text = QString::fromUtf8(GetStorage().CountryName(countryId).c_str()); // ???
-  NodeAttrs attrs;
-  GetStorage().GetNodeAttrs(countryId, attrs);
-  return attrs.m_nodeLocalName.c_str();
+  return QString::fromStdString(GetStorage().GetNodeLocalName(countryId));
 }
 
 QTreeWidgetItem * UpdateDialog::CreateTreeItem(CountryId const & countryId, size_t posInRanking, string matchedBy,
@@ -502,8 +495,11 @@ void UpdateDialog::OnCountryChanged(CountryId const & countryId)
 void UpdateDialog::OnCountryDownloadProgress(CountryId const & countryId, downloader::Progress const & progress)
 {
   auto const items = GetTreeItemsByCountryId(countryId);
+  QLocale const locale;
   for (auto const item : items)
-    item->setText(KColumnIndexSize, QString("%1%").arg(progress.m_bytesDownloaded * 100 / progress.m_bytesTotal));
+    item->setText(KColumnIndexSize,
+                  locale.toString(static_cast<qulonglong>(progress.m_bytesDownloaded * 100 / progress.m_bytesTotal)) +
+                      locale.percent());
 }
 
 void UpdateDialog::ShowModal()

@@ -46,11 +46,7 @@ Locale GetLocale(std::string const & language)
   locale.m_language = language;
   return locale;
 }
-/*
- Localized string cannot be retrieved from the app target bundle during the tests execution
- and the platform::GetLocalizedString will return the same string as the input ("minute", "hour" etc).
- This is why the expectation strings are not explicit.
- */
+// Unit labels depend on the installed catalog; this process has no app catalog and receives the IDs.
 
 auto const m = Duration::GetUnitsString(Duration::Units::Minutes);
 auto const h = Duration::GetUnitsString(Duration::Units::Hours);

@@ -1,5 +1,7 @@
 #include "qt/routing_settings_dialog.hpp"
 
+#include "qt/qt_common/translations.hpp"
+
 #include "map/framework.hpp"
 
 #include "routing/router.hpp"
@@ -101,7 +103,7 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::T
   : QDialog(parent)
   , m_framework(framework)
 {
-  setWindowTitle("Routing settings");
+  setWindowTitle(Tr("routing_settings"));
   QVBoxLayout * layout = new QVBoxLayout(this);
 
   {
@@ -109,9 +111,10 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::T
     frame->setFrameShape(QFrame::Box);
     QFormLayout * form = new QFormLayout(frame);
 
-    auto const addCoordLine = [&](char const * title, bool isStart)
+    auto const addCoordLine = [&](QString const & title, bool isStart)
     {
       QLineEdit * lineEdit = new QLineEdit(frame);
+      lineEdit->setPlaceholderText(Tr("routing_coordinates_hint"));
       if (isStart)
         m_startInput = lineEdit;
       else
@@ -123,20 +126,20 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::T
       lineEdit->setText(defaultText.c_str());
       form->addRow(title, lineEdit);
     };
-    addCoordLine("Start coords (lat, lon)", true);
-    addCoordLine("Finish coords (lat, lon)", false);
+    addCoordLine(Tr("choose_start_location"), true);
+    addCoordLine(Tr("choose_destination"), false);
 
     using namespace routing;
     m_routerType = new QComboBox(frame);
-    m_routerType->insertItem(static_cast<int>(RouterType::Vehicle), "car");
-    m_routerType->insertItem(static_cast<int>(RouterType::Pedestrian), "pedestrian");
-    m_routerType->insertItem(static_cast<int>(RouterType::Bicycle), "bicycle");
-    m_routerType->insertItem(static_cast<int>(RouterType::Transit), "transit");
-    m_routerType->insertItem(static_cast<int>(RouterType::Ruler), "ruler");
-    form->addRow("Choose router:", m_routerType);
+    m_routerType->insertItem(static_cast<int>(RouterType::Vehicle), Tr("routing_options_driving"));
+    m_routerType->insertItem(static_cast<int>(RouterType::Pedestrian), Tr("routing_options_walking"));
+    m_routerType->insertItem(static_cast<int>(RouterType::Bicycle), Tr("routing_options_cycling"));
+    m_routerType->insertItem(static_cast<int>(RouterType::Transit), Tr("public_transport"));
+    m_routerType->insertItem(static_cast<int>(RouterType::Ruler), Tr("ruler"));
+    form->addRow(Tr("routing_mode"), m_routerType);
 
     m_showTurnsCheckbox = new QCheckBox({}, frame);
-    form->addRow("Show turns:", m_showTurnsCheckbox);
+    form->addRow(Tr("show_route_turns"), m_showTurnsCheckbox);
 
     m_useDebugGuideCheckbox = new QCheckBox({}, frame);
     form->addRow("Use debug guide track:", m_useDebugGuideCheckbox);
@@ -151,7 +154,7 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::T
   }
 
   {
-    m_saveSessionCheckbox = new QCheckBox("Save these settings for the next app session", this);
+    m_saveSessionCheckbox = new QCheckBox(Tr("remember_routing_settings"), this);
     layout->addWidget(m_saveSessionCheckbox);
   }
 
@@ -166,10 +169,10 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::T
   LoadSettings();
 }
 
-void RoutingSettings::ShowMessage(std::string const & message)
+void RoutingSettings::ShowMessage(QString const & message)
 {
   QMessageBox msgBox;
-  msgBox.setText(message.c_str());
+  msgBox.setText(message);
   msgBox.exec();
 }
 
@@ -234,7 +237,7 @@ void RoutingSettings::ShowModal()
 
   if (!SaveSettings())
   {
-    ShowMessage("Bad start or finish coords input.");
+    ShowMessage(Tr("invalid_route_coordinates"));
     ShowModal();
     return;
   }

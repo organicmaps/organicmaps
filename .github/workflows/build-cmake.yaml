@@ -126,7 +126,10 @@ jobs:
               libxrandr-dev \
               ninja-build \
               qt6-base-dev \
+              qt6-l10n-tools \
               qt6-positioning-dev \
+              qt6-tools-dev \
+              qt6-translations-l10n \
 
       - name: Install build tools and dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
@@ -254,7 +257,7 @@ jobs:
           apt-get update
           apt-get install -y --no-install-recommends \
             build-essential ca-certificates clang-19 cmake git libgl1-mesa-dev libglvnd-dev \
-            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-positioning-dev
+            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-l10n-tools qt6-positioning-dev qt6-tools-dev qt6-translations-l10n
 
       - uses: actions/checkout@v6
         with:

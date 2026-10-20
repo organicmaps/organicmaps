@@ -123,7 +123,7 @@ else() # neither iPhone nor Android
                   @ONLY)
 
   append(SRC
-    localization_dummy.cpp
+    localization_qt.cpp
     network_policy_dummy.cpp
     platform_qt.cpp
     "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"

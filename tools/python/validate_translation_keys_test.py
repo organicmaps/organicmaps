@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Unit tests for every supported localized-string reference form."""
 
+import io
 import os
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from pathlib import Path
 from unittest.mock import patch
 
 import validate_translation_keys as v
@@ -77,6 +80,125 @@ class CoreMatcherTest(unittest.TestCase):
 
     def test_dynamic_key_not_captured(self):
         self.assertEqual(v._core_source_matcher("GetLocalizedString(reasonKey)"), {})
+
+
+class QtMatcherTest(unittest.TestCase):
+    def test_literal_calls(self):
+        cases = [
+            ('Tr("app_exit")', {"app_exit": 0}),
+            ('qt::Tr("version").arg("not_a_key")', {"version": 0}),
+            ('::qt::Tr("version")', {"version": 0}),
+            ('qt::Tr("count", n)', {"count": 0}),
+            ('QT_TRID_NOOP("stored")', {"stored": 0}),
+            ('QT_TRID_N_NOOP("plural")', {"plural": 0}),
+            ('qt::Tr (\n  "count",\n  n)', {"count": 1}),
+            ('Tr("first");\nqt::Tr("second")', {"first": 0, "second": 1}),
+        ]
+        for scanners in (v._SCANNERS, v._STRICT_SCANNERS):
+            for source, expected in cases:
+                with self.subTest(source=source, strict=scanners is v._STRICT_SCANNERS):
+                    references = {}
+                    for _, matcher in scanners["qt"]:
+                        references.update(matcher(source))
+                    self.assertEqual(references, expected)
+
+    def test_nonliteral_and_unrelated_calls_are_ignored(self):
+        for source in ('Tr(key)', 'qt::Tr(key)', 'tr("Source text")', 'SomeTr("not_a_key")'):
+            for scanners in (v._SCANNERS, v._STRICT_SCANNERS):
+                with self.subTest(source=source, strict=scanners is v._STRICT_SCANNERS):
+                    for _, matcher in scanners["qt"]:
+                        self.assertEqual(matcher(source), {})
+
+    def test_qt_calls_are_not_core_references(self):
+        self.assertEqual(v._core_source_matcher('Tr("first"); qt::Tr("second")'), {})
+
+
+class QtValidationTest(unittest.TestCase):
+    @staticmethod
+    def _validate(definitions, sources):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in ("data/strings", "libs", "qt", "android", "iphone/Maps", "iphone/CoreApi"):
+                (root / name).mkdir(parents=True, exist_ok=True)
+            strings = "[[Strings]]\n\n" + "\n".join(
+                f"[{key}]\ntags = {tags}\nen = Message\n" for key, tags in definitions.items()
+            )
+            (root / "data/strings/strings.txt").write_text(strings, encoding="utf-8")
+            for name, source in sources.items():
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(source, encoding="utf-8")
+            output = io.StringIO()
+            with patch.object(v, "_REPO_ROOT", root), redirect_stdout(output):
+                result = v.main()
+        return result, output.getvalue()
+
+    def test_qt_only_reference_needs_no_mobile_tags(self):
+        result, output = self._validate({"qt_key": "qt"}, {"qt/widget.cpp": 'qt::Tr("qt_key")'})
+        self.assertEqual(result, 0, output)
+
+    def test_qt_reuses_mobile_translation_with_both_tags(self):
+        result, output = self._validate(
+            {"shared": "qt,android-app"},
+            {"qt/widget.cpp": 'Tr("shared")', "android/Main.java": 'getString(R.string.shared)'},
+        )
+        self.assertEqual(result, 0, output)
+
+    def test_qt_reference_requires_qt_tag(self):
+        result, output = self._validate({"shared": ""}, {"qt/widget.cpp": 'Tr("shared")'})
+        self.assertEqual(result, 1, output)
+        self.assertIn("referenced by Qt but missing its consumer tag", output)
+        self.assertIn("- shared (qt)", output)
+
+    def test_shared_core_reference_requires_qt_tag(self):
+        result, output = self._validate(
+            {"shared": "android-sdk,apple-maps"},
+            {"libs/core.cpp": 'platform::GetLocalizedString("shared")'},
+        )
+        self.assertEqual(result, 1, output)
+        self.assertIn("- shared (qt)", output)
+
+    def test_shared_core_reference_justifies_qt_tag(self):
+        result, output = self._validate(
+            {"shared": "qt,android-sdk,apple-maps"},
+            {"libs/core.cpp": 'platform::GetLocalizedString("shared")'},
+        )
+        self.assertEqual(result, 0, output)
+
+    def test_missing_qt_definition_reports_source_line(self):
+        result, output = self._validate(
+            {"live": "qt"},
+            {"qt/widget.hpp": 'Tr("live");\nqt::Tr(\n  "missing", n);'},
+        )
+        self.assertEqual(result, 1, output)
+        self.assertIn("referenced in code but missing from strings.txt", output)
+        self.assertIn("- missing at ", output)
+        self.assertIn("qt/widget.hpp:3", output)
+
+    def test_unused_qt_definition_is_rejected(self):
+        result, output = self._validate({"unused": "qt"}, {})
+        self.assertEqual(result, 1, output)
+        self.assertIn("no longer used in the codebase", output)
+        self.assertIn("- unused", output)
+
+    def test_qt_reference_does_not_justify_android_tag(self):
+        result, output = self._validate(
+            {"qt_key": "qt,android-app"}, {"qt/widget.cpp": 'Tr("qt_key")'},
+        )
+        self.assertEqual(result, 1, output)
+        self.assertIn("- qt_key (android)", output)
+
+    def test_qt_reference_does_not_justify_apple_tag(self):
+        result, output = self._validate(
+            {"qt_key": "qt,apple-maps"}, {"qt/widget.cpp": 'Tr("qt_key")'},
+        )
+        self.assertEqual(result, 1, output)
+        self.assertIn("- qt_key (apple-maps)", output)
+
+    def test_unrelated_tr_call_outside_qt_does_not_keep_key_alive(self):
+        result, output = self._validate({"unused": "qt"}, {"libs/other.cpp": 'Tr("unused")'})
+        self.assertEqual(result, 1, output)
+        self.assertIn("no longer used in the codebase", output)
 
 
 class IosMatcherTest(unittest.TestCase):
