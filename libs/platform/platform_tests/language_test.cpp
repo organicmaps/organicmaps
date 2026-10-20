@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "platform/get_text_by_id.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "base/logging.hpp"
@@ -38,6 +39,31 @@ UNIT_TEST(LangSelectMapLanguage)
   // The derived Twine locale keeps the script: this is the actual GetCurrentMapTwine fix.
   TEST_EQUAL(languages::GetTwine(SelectMapLanguage({"zh-Hant", "en"})), "zh-Hant", ());
   TEST_EQUAL(languages::GetTwine(SelectMapLanguage({"zh-Hans", "en"})), "zh-Hans", ());
+}
+
+UNIT_TEST(LangNorwegianBokmal)
+{
+  using languages::SelectMapLanguage;
+
+  for (std::string const locale : {"nb", "nb-NO", "nb_NO.UTF-8", "nb_NO_#u-fw-mon"})
+  {
+    TEST_EQUAL(languages::Normalize(locale), "nb", (locale));
+    TEST_EQUAL(SelectMapLanguage({locale, "en"}), locale, (locale));
+    TEST_EQUAL(SelectMapLanguage({locale}), locale, (locale));
+    TEST_EQUAL(SelectMapLanguage({"xyz", locale, "en"}), locale, (locale));
+    TEST_EQUAL(languages::GetTwine(SelectMapLanguage({locale, "en"})), "nb", (locale));
+  }
+  TEST_EQUAL(SelectMapLanguage({"en", "nb-NO"}), "en", ());
+  TEST_EQUAL(SelectMapLanguage({"no-NO", "en"}), "no-NO", ());
+  TEST_EQUAL(SelectMapLanguage({"nn-NO", "en"}), "en", ());
+
+  // Both the stored map code and the system locale use the existing Bokmål translations.
+  for (auto const locale : {"no", "no-NO", "nb", "nb-NO"})
+    TEST_EQUAL(languages::GetTwine(locale), "nb", (locale));
+  TEST_EQUAL(languages::GetTwine("nn-NO"), "nn", ());
+
+  auto const tts = platform::GetTextByIdFactory(platform::TextSource::TtsSound, languages::GetTwine("no"));
+  TEST_EQUAL(tts->GetLocale(), "nb", ());
 }
 
 UNIT_TEST(LangGetChineseScript)
