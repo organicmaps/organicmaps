@@ -299,11 +299,15 @@ bool CategoriesHolder::IsTypeExist(uint32_t type) const
 }
 
 // static
-int8_t CategoriesHolder::MapLocaleToInteger(std::string_view const locale)
+int8_t CategoriesHolder::MapLocaleToInteger(std::string_view locale)
 {
   ASSERT(!kLocaleMapping.empty(), ());
   ASSERT_EQUAL(kLocaleMapping[0].m_name, std::string_view("en"), ());
   ASSERT_EQUAL(kLocaleMapping[0].m_code, kEnglishCode, ());
+
+  // Map names use "no", while category translations use "nb".
+  if (languages::StartsWithSubtags(locale, "no"))
+    locale = "nb";
 
   // Reverse order so that a regional variant ("en-GB") wins over its base language ("en").
   for (auto it = kLocaleMapping.crbegin(); it != kLocaleMapping.crend(); ++it)

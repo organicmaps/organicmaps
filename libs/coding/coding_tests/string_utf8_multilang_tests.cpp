@@ -120,6 +120,9 @@ UNIT_TEST(MultilangString_Unique)
 
 UNIT_TEST(MultilangString_LangNames)
 {
+  TEST_EQUAL(StringUtf8Multilang::GetLangIndex(StringUtf8Multilang::kReservedLang),
+             StringUtf8Multilang::kUnsupportedLanguageCode, ());
+
   // It is important to compare the contents of the strings, and not just pointers
   TEST_EQUAL(string("Беларуская"), StringUtf8Multilang::GetLangNameByCode(StringUtf8Multilang::GetLangIndex("be")), ());
 
@@ -144,6 +147,34 @@ UNIT_TEST(MultilangString_HasString)
 
   TEST(!s.HasString(1), ());
   TEST(!s.HasString(32), ());
+}
+
+UNIT_TEST(MultilangString_NorwegianBokmal)
+{
+  TEST_EQUAL(StringUtf8Multilang::GetLangIndex("no"), 40, ());
+  TEST_EQUAL(StringUtf8Multilang::GetLangIndex("nb"), 40, ());
+  TEST_EQUAL(StringUtf8Multilang::GetLangByCode(40), "no", ());
+  TEST_EQUAL(StringUtf8Multilang::GetCodeByOSMTag("name:nb"), 40, ());
+  TEST_EQUAL(StringUtf8Multilang::GetOSMTagByCode(40), "name:no", ());
+  TEST_EQUAL(StringUtf8Multilang::GetLangIndex("nn"), StringUtf8Multilang::kUnsupportedLanguageCode, ());
+
+  StringUtf8Multilang norwegian;
+  norwegian.AddString("no", "København");
+  StringUtf8Multilang bokmal;
+  bokmal.AddString("nb", "København");
+  TEST_EQUAL(bokmal.GetBuffer(), norwegian.GetBuffer(), ());
+
+  auto restored = StringUtf8Multilang::FromBuffer(string(norwegian.GetBuffer()));
+  string_view name;
+  TEST(restored.GetString("nb", name), ());
+  TEST_EQUAL(name, "København", ());
+
+  restored.AddString("nb", "Bokmål");
+  TEST_EQUAL(restored.CountLangs(), 1, ());
+  TEST(restored.GetString("no", name), ());
+  TEST_EQUAL(name, "Bokmål", ());
+  restored.RemoveString("nb");
+  TEST(restored.IsEmpty(), ());
 }
 
 /*

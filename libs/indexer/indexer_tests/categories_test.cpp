@@ -105,6 +105,17 @@ UNIT_CLASS_TEST(TestWithClassificator, LoadCategories)
   TEST_EQUAL(count, 3, ());
 }
 
+UNIT_TEST(CategoriesHolder_NorwegianBokmal)
+{
+  auto const bokmal = CategoriesHolder::MapLocaleToInteger("nb");
+  TEST_NOT_EQUAL(bokmal, CategoriesHolder::kUnsupportedLocaleCode, ());
+  for (auto const locale : {"nb-NO", "nb_NO.UTF-8", "no", "no-NO", "no_NO"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), bokmal, (locale));
+  TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(bokmal), "nb", ());
+  for (auto const locale : {"nn", "nn-NO", "non", "nog"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), CategoriesHolder::kUnsupportedLocaleCode, (locale));
+}
+
 UNIT_TEST(CategoriesHolder_Smoke)
 {
   auto const & mappings = CategoriesHolder::kLocaleMapping;

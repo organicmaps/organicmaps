@@ -26,10 +26,8 @@ std::string GetTwine(std::string_view lang);
 std::string GetCurrentTwine();
 std::string GetCurrentMapTwine();
 
-/// @return Normalized language code for the current user in the form "en", "zh".
-/// Returned languages are normalized to our supported languages in the core, see
-/// string_utf8_multilang.cpp and should not be used with any sub-locales like zh-Hans/zh-Hant. Some
-/// langs like Danish (da) are not supported in the core too, but used as a locale.
+/// @return Primary language subtag, e.g. "en", "zh" or "nb".
+/// Drops script and region subtags. Map-language aliases are resolved by StringUtf8Multilang.
 std::string Normalize(std::string_view lang);
 std::string GetCurrentNorm();
 std::string GetCurrentMapLanguage();

@@ -702,7 +702,9 @@ std::string GetTwine(std::string_view lang)
   case ChineseScript::NotChinese: break;
   }
   // Use short (2 or 3 chars) versions for all other languages.
-  return Normalize(lang);
+  auto const normalized = Normalize(lang);
+  // Map names use "no", while translations use "nb".
+  return normalized == "no" ? "nb" : normalized;
 }
 
 std::string GetCurrentTwine()

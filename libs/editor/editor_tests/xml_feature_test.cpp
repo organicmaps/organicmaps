@@ -2,6 +2,9 @@
 
 #include "editor/xml_feature.hpp"
 
+#include "generator/osm2type.hpp"
+#include "generator/osm_element.hpp"
+
 #include "indexer/classificator_loader.hpp"
 #include "indexer/editable_map_object.hpp"
 
@@ -113,6 +116,87 @@ UNIT_TEST(XMLFeature_UintLang)
   TEST_EQUAL(f2.GetName("default"), "Gorki Park", ());
   TEST_EQUAL(f2.GetName("ru"), "Парк Горького", ());
   TEST_EQUAL(f2.GetName("int_name"), "Gorky Park", ());
+}
+
+UNIT_TEST(XMLFeature_NorwegianNameEdits)
+{
+  classificator::Load();
+
+  auto const importNames = [](XMLFeature const & feature)
+  {
+    OsmElement element;
+    element.AddTag("amenity", "cafe");
+    feature.ForEachName([&](std::string_view lang, std::string_view name)
+    { element.AddTag(lang == "default" ? "name" : std::string("name:").append(lang), name); });
+    FeatureBuilderParams params;
+    ftype::GetNameAndType(&element, params);
+    return params.name;
+  };
+
+  struct TestCase
+  {
+    std::vector<OsmElement::Tag> m_tags;
+    std::string_view m_updatedTag;
+  };
+  std::vector<TestCase> const testCases = {
+      {{}, "name:no"},
+      {{{"name:no", "Norsk"}}, "name:no"},
+      {{{"name:nb", "Bokmål"}}, "name:nb"},
+      {{{"name:no", "Norsk"}, {"name:nb", "Bokmål"}}, "name:nb"},
+      {{{"name:nb", "Bokmål"}, {"name:no", "Norsk"}}, "name:nb"},
+      {{{"name:nb", ""}, {"name:no", "Norsk"}}, "name:no"},
+      {{{"name:no", ""}, {"name:nb", "Bokmål"}}, "name:nb"},
+  };
+  auto const langCode = StringUtf8Multilang::GetLangIndex("nb");
+  for (auto const & testCase : testCases)
+  {
+    for (std::string_view const replacement : {"Rettet navn", ""})
+    {
+      XMLFeature feature(XMLFeature::Type::Node);
+      feature.SetName("Local name");
+      feature.SetName("en", "English name");
+      feature.SetName("nn", "Nynorsk");
+      for (auto const & tag : testCase.m_tags)
+        feature.SetTagValue(tag.m_key, tag.m_value);
+
+      auto const names = importNames(feature);
+      osm::EditableMapObject original;
+      names.ForEach([&](int8_t code, std::string_view name) { original.SetName(name, code); });
+      auto edited = original;
+      edited.SetName(replacement, langCode);
+      edited.LogDiffInJournal(original);
+      auto const & journal = edited.GetJournal().GetJournal();
+      TEST_EQUAL(journal.size(), names.HasString(langCode) || !replacement.empty() ? 1 : 0, (testCase.m_tags));
+      for (auto const & entry : journal)
+      {
+        auto const & tag = std::get<osm::TagModData>(entry.data);
+        TEST_EQUAL(tag.key, "name:no", (testCase.m_tags));
+        feature.UpdateOSMTag(tag.key, tag.new_value);
+      }
+
+      if (replacement.empty())
+      {
+        TEST(!feature.HasTag("name:no"), (testCase.m_tags));
+        TEST(!feature.HasTag("name:nb"), (testCase.m_tags));
+      }
+      else
+      {
+        TEST_EQUAL(feature.GetTagValue(testCase.m_updatedTag), replacement, (testCase.m_tags));
+        for (auto const & tag : testCase.m_tags)
+          if (tag.m_key != testCase.m_updatedTag)
+            TEST_EQUAL(feature.GetTagValue(tag.m_key), tag.m_value, (testCase.m_tags));
+      }
+
+      auto const imported = importNames(feature);
+      std::string_view name;
+      TEST_EQUAL(imported.GetString(langCode, name), !replacement.empty(), (testCase.m_tags));
+      TEST_EQUAL(name, replacement, (testCase.m_tags));
+      TEST_EQUAL(imported.GetDefaultString(), "Local name", (testCase.m_tags));
+      TEST(imported.GetString("en", name), (testCase.m_tags));
+      TEST_EQUAL(name, "English name", (testCase.m_tags));
+      TEST_EQUAL(feature.GetName("nn"), "Nynorsk", (testCase.m_tags));
+    }
+  }
 }
 
 UNIT_TEST(XMLFeature_ToOSMString)

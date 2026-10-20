@@ -601,6 +601,16 @@ void XMLFeature::RemoveTag(string_view key)
 
 void XMLFeature::UpdateOSMTag(std::string_view key, std::string_view value)
 {
+  // The shared Norwegian name slot prefers a non-empty Bokmål tag.
+  // Clearing the slot removes both aliases so the fallback cannot restore the name.
+  if (key == "name:no")
+  {
+    if (value.empty())
+      RemoveTag("name:nb");
+    else if (!GetTagValue("name:nb").empty())
+      key = "name:nb";
+  }
+
   if (value.empty())
     RemoveTag(key);
 

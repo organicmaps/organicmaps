@@ -97,6 +97,13 @@ public:
     if (lang == "ar1")
       lang = "ar";
 
+    if (lang == "nb")
+    {
+      // Prefer explicit Bokmål over generic Norwegian, regardless of tag order.
+      lang = "no";
+      return LangAction::Replace;
+    }
+
     if (lang == "ja-Hira")
     {
       // Save "ja-Hira" if there is no "ja_kana".
