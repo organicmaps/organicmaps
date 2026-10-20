@@ -1295,6 +1295,12 @@
 "nogps_shift_buttons_hint" = "Shows the buttons moving the car along the road by 10 m. Moving it where the car really is corrects the speed of the car.";
 "nogps_box_stopped" = "No data from the sensor box, the car stands still on the map. Check the box or mark yourself";
 
+/* Warning shown while driving without GPS: the sensor box tells it has been moved in the car since its calibration */
+"nogps_box_moved_stopped" = "The sensor box has been moved, the car stands still on the map. Stop and calibrate the box";
+
+/* Warning shown while driving without GPS: the sensor box is not calibrated */
+"nogps_box_uncalibrated_stopped" = "The sensor box is not calibrated, the car stands still on the map. Stop and calibrate the box";
+
 /* State of the sensor box, shown after its name while it takes a new firmware */
 "nogps_box_updating" = "takes a new firmware";
 "nogps_clear_speed" = "Reset";
