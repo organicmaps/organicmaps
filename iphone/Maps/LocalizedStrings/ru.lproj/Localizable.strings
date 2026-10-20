@@ -1332,6 +1332,57 @@
 
 /* State of the sensor box, shown after its name while it takes a new firmware */
 "nogps_box_updating" = "принимает новую прошивку";
+
+/* Row of the sensors screen: the version of the firmware of the sensor box or what its update does now */
+"nogps_sensors_firmware" = "Прошивка блока: %1$@";
+
+/* Button: sends the firmware that comes with the app to the sensor box, with its version */
+"nogps_firmware_install" = "Установить %1$@";
+
+/* Title of the question about the firmware of the sensor box */
+"nogps_firmware_title" = "Прошивка блока датчиков";
+
+/* Question shown when the sensor box works with another firmware than the app comes with: the version of the box and of the app */
+"nogps_firmware_offer" = "В блоке прошивка %1$@, а эта версия приложения проверена с %2$@. Установить её? Это займёт несколько минут: машина должна стоять, блок не вынимайте.";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_starting" = "подготовка…";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:", with the percent sent */
+"nogps_firmware_sending" = "передача, %d%%";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_verifying" = "блок проверяет…";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_restarting" = "блок перезагружается…";
+
+/* Message: the sensor box works with the new firmware, with its version */
+"nogps_firmware_done" = "В блок датчиков установлена прошивка %1$@";
+
+/* Message: the firmware of the sensor box is not updated, with the reason */
+"nogps_firmware_failed" = "Прошивка блока не установлена: %1$@";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_moving" = "машина едет";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_voltage" = "напряжение ниже 11,8 В";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_link" = "связь с блоком прервалась";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_canceled" = "отменено";
+
+/* Why the firmware of the sensor box is not installed: the new one didn't start */
+"nogps_firmware_error_rollback" = "блок вернулся к прежней прошивке";
+
+/* Why the firmware of the sensor box is not installed: the box has just been updated and still checks that */
+"nogps_firmware_error_pending" = "блок ещё проверяет прошлое обновление, попробуйте позже";
+
+/* Why the firmware of the sensor box is not installed: an error code of the box, e.g. SIGNATURE */
+"nogps_firmware_error_code" = "ошибка %1$@";
 "nogps_clear_speed" = "Сбросить";
 "nogps_clear_speed_title" = "Сбросить калибровку скорости?";
 "nogps_clear_speed_message" = "Поправки скорости, измеренные по GPS на разных скоростях и по вашим сдвигам, будут забыты. Делайте это после смены шин или машины. Пока работает GPS, они измеряются заново.";
