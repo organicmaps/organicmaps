@@ -13,7 +13,7 @@ class CreateFeatureDialog : public QDialog
   Q_OBJECT
 
 public:
-  CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories & cats);
+  CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories const & cats);
   /// Valid only if dialog has finished with Accepted code.
   uint32_t GetSelectedType() const { return m_selectedType; }
 
