@@ -680,6 +680,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
     mPendingContactAddress = contactAddress;
     mPendingContactSourceQuery = getQuery();
+    mSearchAdapter.setResolvingContact(contactAddress);
     mToolbarController.showProgress(true);
     mPendingContactRequestId = SearchEngine.INSTANCE.resolveAddress(
         queries.stream().map(query -> query.query).toArray(String[] ::new),
@@ -730,6 +731,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mPendingContactRequestId = 0;
     mPendingContactAddress = null;
     mPendingContactSourceQuery = null;
+    if (mSearchAdapter != null)
+      mSearchAdapter.setResolvingContact(null);
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
