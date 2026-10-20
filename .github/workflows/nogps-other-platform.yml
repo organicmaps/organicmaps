@@ -1,0 +1,50 @@
+name: NoGPS other platform
+
+# A PR says what it leaves to do: links to its issues, or "Nothing to do" and why.
+# See "Work you don't do now goes to an issue" in .claude/rules/nogps-workflow.md.
+# No path filter: a required check that is skipped blocks the merge.
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  other-platform:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: read
+      pull-requests: read
+    steps:
+      - name: Check the Other platform section
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BODY: ${{ github.event.pull_request.body }}
+        shell: python3 {0}
+        run: |
+          import json, os, re, subprocess, sys
+
+          HELP = ('Add "**Other platform**" to the PR description: the links of the issues for what this PR leaves '
+                  'to do, or "Nothing to do" and why. See .claude/rules/nogps-workflow.md.')
+          body = (os.environ.get("BODY") or "").replace("\r\n", "\n")
+          section = re.search(r"^[-* ]*\*\*Other platform:?\*\*:?(.*?)(?=^[-* ]*\*\*[^*\n]+\*\*|^Written with|\Z)", body, re.S | re.M)
+          if not section:
+              print(f"::error::No **Other platform** section. {HELP}")
+              sys.exit(1)
+          text = section.group(1).strip()
+          if re.match(r"[*_ ]*nothing to do\b", text, re.I):
+              print(text)
+              sys.exit(0)
+          # A PR is an issue too in the API: only real issues count.
+          issues = []
+          repo = re.escape(os.environ["REPO"])
+          numbers = re.findall(rf"(?:{repo}/issues/|(?<![\w/])#)(\d+)", text)
+          for number in sorted(set(numbers), key=int):
+              result = subprocess.run(["gh", "api", f"repos/{os.environ['REPO']}/issues/{number}"],
+                                      capture_output=True, text=True)
+              if result.returncode == 0 and "pull_request" not in json.loads(result.stdout):
+                  issues.append(f"#{number}")
+          if not issues:
+              print(f"::error::**Other platform** links no issue and doesn't say \"Nothing to do\". {HELP}")
+              sys.exit(1)
+          print("Issues:", ", ".join(issues))
