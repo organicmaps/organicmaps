@@ -21,10 +21,12 @@ set(SRC
   index_graph_test.cpp
   index_graph_tools.cpp
   index_graph_tools.hpp
+  index_router_tests.cpp
   maxspeeds_tests.cpp
   mwm_hierarchy_test.cpp
   nearest_edge_finder_tests.cpp
   opening_hours_serdes_tests.cpp
+  pass_through_state_tests.cpp
   position_accumulator_tests.cpp
   restriction_test.cpp
   road_access_test.cpp
