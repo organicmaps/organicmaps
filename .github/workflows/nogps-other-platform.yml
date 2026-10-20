@@ -26,20 +26,23 @@ jobs:
 
           HELP = ('Add "**Other platform**" to the PR description: the links of the issues for what this PR leaves '
                   'to do, or "Nothing to do" and why. See .claude/rules/nogps-workflow.md.')
-          body = os.environ.get("BODY") or ""
-          section = re.search(r"^\*\*Other platform:?\*\*:?(.*?)(?=^\*\*[^*\n]+\*\*|^Written with|\Z)", body, re.S | re.M)
+          body = (os.environ.get("BODY") or "").replace("\r\n", "\n")
+          section = re.search(r"^[-* ]*\*\*Other platform:?\*\*:?(.*?)(?=^[-* ]*\*\*[^*\n]+\*\*|^Written with|\Z)", body, re.S | re.M)
           if not section:
               print(f"::error::No **Other platform** section. {HELP}")
               sys.exit(1)
           text = section.group(1).strip()
-          if re.match(r"nothing to do\b", text, re.I):
+          if re.match(r"[*_ ]*nothing to do\b", text, re.I):
               print(text)
               sys.exit(0)
           # A PR is an issue too in the API: only real issues count.
           issues = []
-          for number in sorted(set(re.findall(r"#(\d+)", text)), key=int):
-              item = json.loads(subprocess.check_output(["gh", "api", f"repos/{os.environ['REPO']}/issues/{number}"]))
-              if "pull_request" not in item:
+          repo = re.escape(os.environ["REPO"])
+          numbers = re.findall(rf"(?:{repo}/issues/|(?<![\w/])#)(\d+)", text)
+          for number in sorted(set(numbers), key=int):
+              result = subprocess.run(["gh", "api", f"repos/{os.environ['REPO']}/issues/{number}"],
+                                      capture_output=True, text=True)
+              if result.returncode == 0 and "pull_request" not in json.loads(result.stdout):
                   issues.append(f"#{number}")
           if not issues:
               print(f"::error::**Other platform** links no issue and doesn't say \"Nothing to do\". {HELP}")
