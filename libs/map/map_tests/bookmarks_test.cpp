@@ -626,6 +626,30 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKmzInvalidEntryName)
   TEST_EQUAL(std::vector<std::string>({"bookmark_import_invalid_entry.kmz"}), result.m_failedFileNames, ());
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportKmzInvalidEntryNameValidContent)
+{
+  ScopedFile const validFile("bookmark_import_valid_invalid_entry.kml", kmlString);
+  ScopedFile const kmzFile("bookmark_import_valid_invalid_entry.kmz", ScopedFile::Mode::DoNotCreate);
+  string invalidEntryName = "invalid_";
+  invalidEntryName.push_back(static_cast<char>(0xFF));
+  invalidEntryName.append(".kml");
+  TEST(CreateZipWithEntryName(validFile.GetFullPath(), invalidEntryName, kmzFile.GetFullPath()), ());
+
+  auto const result = LoadBookmarkFileForImport(kmzFile.GetFullPath());
+  SCOPE_GUARD(deleteImportedFiles, [&result]()
+  {
+    for (auto const & entry : result.m_kmlData)
+      base::DeleteFileX(entry.first);
+  });
+
+  TEST(result.m_failedFileNames.empty(), (result.m_failedFileNames));
+  TEST_EQUAL(result.m_kmlData.size(), 1, ());
+  auto const & [path, data] = result.m_kmlData.front();
+  TEST(::utf8::is_valid(path.begin(), path.end()), (path));
+  TEST(Platform::IsFileExistsByFullPath(path), (path));
+  TEST_EQUAL(data->m_bookmarksData.size(), 4, ());
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_QueuedImportCallbackOrder)
 {
   ScopedFile const firstFile("bookmark_import_queue_first.kml", kmlString);
