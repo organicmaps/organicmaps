@@ -3,11 +3,10 @@
 #include "app/organicmaps/sdk/bookmarks/data/Metadata.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 
-jobject CreateBookmark(JNIEnv * env, place_page::Info const & info, jni::TScopedLocalObjectArrayRef const & jrawTypes,
-                       jni::TScopedLocalRef const & routingPointInfo)
+jobject CreateBookmark(JNIEnv * env, place_page::Info const & info)
 {
   // clang-format off
-  static jmethodID const ctorId = jni::GetConstructorID(env, g_bookmarkClazz,
+  static jmethodID ctorId = jni::GetConstructorID(env, g_bookmarkClazz,
     "("
     "J"                                               // categoryId
     "J"                                               // bookmarkId
@@ -15,11 +14,6 @@ jobject CreateBookmark(JNIEnv * env, place_page::Info const & info, jni::TScoped
     "Ljava/lang/String;"                              // secondaryTitle
     "Ljava/lang/String;"                              // subtitle
     "Ljava/lang/String;"                              // address
-    "Lapp/organicmaps/sdk/routing/RoutePointInfo;"    // routePointInfo
-    "I"                                               // openingMode
-    "Ljava/lang/String;"                              // wikiArticle
-    "Ljava/lang/String;"                              // osmDescription
-    "[Ljava/lang/String;"                             // rawTypes
     ")V"
   );
   // clang-format on
@@ -31,16 +25,9 @@ jobject CreateBookmark(JNIEnv * env, place_page::Info const & info, jni::TScoped
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetTitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondaryTitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSubtitle()),
-    jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondarySubtitle()),
-    routingPointInfo.get(),
-    info.GetOpeningMode(),
-    jni::ToJavaString(env, info.GetWikiDescription()),
-    jni::ToJavaString(env, info.GetOSMDescription()),
-    jrawTypes.get()
+    jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondarySubtitle())
   );
   // clang-format on
-  if (info.HasMetadata())
-    InjectMetadata(env, g_mapObjectClazz, mapObject, info);
   return mapObject;
 }
 

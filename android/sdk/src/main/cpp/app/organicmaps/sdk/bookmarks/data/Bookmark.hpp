@@ -6,7 +6,6 @@
 
 #include "map/bookmark.hpp"
 
-jobject CreateBookmark(JNIEnv * env, place_page::Info const & info, jni::TScopedLocalObjectArrayRef const & jrawTypes,
-                       jni::TScopedLocalRef const & routingPointInfo);
+jobject CreateBookmark(JNIEnv * env, place_page::Info const & info);
 
 Bookmark const * getBookmark(jlong bokmarkId);

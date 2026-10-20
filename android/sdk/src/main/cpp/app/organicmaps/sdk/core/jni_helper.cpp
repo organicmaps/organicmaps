@@ -12,7 +12,7 @@
 
 #include <vector>
 
-static JavaVM * g_jvm = 0;
+static JavaVM * g_jvm = nullptr;
 
 // Caching is necessary to create class from native threads.
 jclass g_mapObjectClazz;

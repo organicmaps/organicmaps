@@ -8,7 +8,6 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
-import app.organicmaps.sdk.routing.RoutePointInfo;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
 @SuppressLint("ParcelCreator")
@@ -24,12 +23,9 @@ public class Bookmark extends MapObject
   @Keep
   @SuppressWarnings("unused")
   private Bookmark(@IntRange(from = 0) long categoryId, @IntRange(from = 0) long bookmarkId, String title,
-                   @Nullable String secondaryTitle, @Nullable String subtitle, @Nullable String address,
-                   @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode, @NonNull String wikiArticle,
-                   @NonNull String osmDescription, @Nullable String[] rawTypes)
+                   @Nullable String secondaryTitle, @NonNull String subtitle, @NonNull String address)
   {
-    super(BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "", routePointInfo, openingMode, wikiArticle,
-          osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+    super(BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
@@ -44,7 +40,7 @@ public class Bookmark extends MapObject
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags)
+  public void writeToParcel(@NonNull Parcel dest, int flags)
   {
     super.writeToParcel(dest, flags); // Super class writes bookmark lat, lon and title
     dest.writeLong(mCategoryId);
@@ -130,5 +126,6 @@ public class Bookmark extends MapObject
 
   static native void nativeUpdateParams(long bookmarkId, @NonNull String name, @ColorInt int color,
                                         @NonNull String description);
+
   static native void nativeChangeCategory(long oldCatId, long newCatId, long bookmarkId);
 }

@@ -1,8 +1,14 @@
 #include "MapObject.hpp"
 
+#include "app/organicmaps/sdk/bookmarks/data/ApiData.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Bookmark.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Metadata.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/OpeningMode.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/OsmDescription.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/RawData.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/RoadWarningMarkType.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Track.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/WikiData.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/routing/RoutingJni.hpp"
 
@@ -23,10 +29,8 @@ static constexpr int kBookmark = 2;
 static constexpr int kMyPosition = 3;
 static constexpr int kSearch = 4;
 static constexpr int kTrack = 5;
-}  // namespace
 
-jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObjectType, double lat, double lon,
-                        bool parseMeta, bool parseApi, jobject const & routingPointInfo, jobjectArray jrawTypes)
+jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObjectType, double lat, double lon)
 {
   // clang-format off
   static jmethodID const ctorId = jni::GetConstructorID(env, g_mapObjectClazz,
@@ -37,13 +41,6 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
     "Ljava/lang/String;"                              // subtitle
     "Ljava/lang/String;"                              // address
     "DD"                                              // lat, lon
-    "Ljava/lang/String;"                              // apiId
-    "Lapp/organicmaps/sdk/routing/RoutePointInfo;"    // routePointInfo
-    "I"                                               // openingMode
-    "Ljava/lang/String;"                              // wikiArticle
-    "Ljava/lang/String;"                              // osmDescription
-    "I"                                               // roadWarnType
-    "[Ljava/lang/String;"                             // rawTypes
     ")V"
   );
   // clang-format on
@@ -56,55 +53,66 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSubtitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondarySubtitle()),
     lat,
-    lon,
-    jni::ToJavaString(env, parseApi ? info.GetApiId() : ""),
-    routingPointInfo,
-    static_cast<jint>(info.GetOpeningMode()),
-    jni::ToJavaString(env, info.GetWikiDescription()),
-    jni::ToJavaString(env, info.GetOSMDescription()),
-    static_cast<jint>(info.GetRoadType()),
-    jrawTypes
+    lon
   );
   // clang-format on
-
-  if (parseMeta)
-    InjectMetadata(env, g_mapObjectClazz, mapObject, info);
   return mapObject;
 }
 
+void MapObject_put(JNIEnv * env, jobject mapObject, jobject mapObjectData)
+{
+  static jmethodID putMethodId =
+      env->GetMethodID(g_mapObjectClazz, "put", "(Lapp/organicmaps/sdk/bookmarks/data/MapObjectData;)V");
+  ASSERT(putMethodId, ("MapObject.put method not found"));
+
+  env->CallVoidMethod(mapObject, putMethodId, mapObjectData);
+}
+}  // namespace
+
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
-  using namespace jni;
-
-  TScopedLocalObjectArrayRef jrawTypes(env, ToJavaStringArray(env, info.GetRawTypes()));
-
-  TScopedLocalRef routingPointInfo(env, nullptr);
-  if (info.IsRoutePoint())
-    routingPointInfo.reset(routing_jni::CreateRoutePointInfo(env, info));
+  ms::LatLon const ll = info.GetLatLon();
+  jobject mapObject = nullptr;
 
   if (info.IsBookmark())
-    return CreateBookmark(env, info, jrawTypes, routingPointInfo);
-
-  ms::LatLon const ll = info.GetLatLon();
+    mapObject = CreateBookmark(env, info);
   // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
-  if (info.IsMyPosition())
+  else if (info.IsMyPosition())
   {
-    return CreateMapObject(env, info, kMyPosition, ll.m_lat, ll.m_lon, false /* parseMeta */, false /* parseApi */,
-                           routingPointInfo.get(), jrawTypes.get());
+    mapObject = CreateMapObject(env, info, kMyPosition, ll.m_lat, ll.m_lon);
   }
-
   // Classify as an API point when the mark carries a return point id and/or a back URL.
   // (A bare API mark with neither has nothing to surface and falls through to POI below.)
-  if (info.HasApiUrl() || info.HasApiId())
+  else if (info.HasApiUrl() || info.HasApiId())
   {
-    return CreateMapObject(env, info, kApiPoint, ll.m_lat, ll.m_lon, true /* parseMeta */, true /* parseApi */,
-                           routingPointInfo.get(), jrawTypes.get());
+    mapObject = CreateMapObject(env, info, kApiPoint, ll.m_lat, ll.m_lon);
+    MapObject_put(env, mapObject, CreateApiData(env, info.GetApiId(), info.GetApiUrl()));
   }
+  else if (info.IsTrack())
+    mapObject = CreateTrack(env, info);
+  else
+    mapObject = CreateMapObject(env, info, kPoi, ll.m_lat, ll.m_lon);
 
-  if (info.IsTrack())
-    return CreateTrack(env, info, jrawTypes, routingPointInfo);
+  if (info.HasMetadata())
+    MapObject_put(env, mapObject, CreateMetadata(env, info));
 
-  return CreateMapObject(env, info, kPoi, ll.m_lat, ll.m_lon, true /* parseMeta */, false /* parseApi */,
-                         routingPointInfo.get(), jrawTypes.get());
+  if (std::string const & article = info.GetWikiDescription(); !article.empty())
+    MapObject_put(env, mapObject, CreateWikiData(env, article));
+
+  if (std::string const & description = info.GetOSMDescription(); !description.empty())
+    MapObject_put(env, mapObject, CreateOsmDescription(env, description));
+
+  if (info.IsRoutePoint())
+    MapObject_put(env, mapObject, routing_jni::CreateRoutePointInfo(env, info));
+
+  if (auto const rawTypes = info.GetRawTypes(); !rawTypes.empty())
+    MapObject_put(env, mapObject, CreateRawData(env, rawTypes));
+
+  if (info.IsRoadType())
+    MapObject_put(env, mapObject, CreateRoadWarningMarkType(env, info.GetRoadType()));
+
+  MapObject_put(env, mapObject, CreateOpeningMode(env, info.GetOpeningMode()));
+
+  return mapObject;
 }
