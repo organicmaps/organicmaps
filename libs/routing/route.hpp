@@ -157,6 +157,7 @@ public:
   void SetTurnExits(uint32_t exitNum) { m_turn.m_exitNum = exitNum; }
 
   turns::lanes::LanesInfo & GetTurnLanes() { return m_turn.m_lanes; }
+  std::vector<turns::ApproachLaneLayout> & GetApproachLanes() { return m_turn.m_approachLanes; }
 
   void SetDistancesAndTime(double distFromBeginningMeters, double distFromBeginningMerc, double timeFromBeginningS)
   {
@@ -172,7 +173,6 @@ public:
   geometry::PointWithAltitude const & GetJunction() const { return m_junction; }
   RoadNameInfo const & GetRoadNameInfo() const { return m_roadNameInfo; }
   turns::TurnItem const & GetTurn() const { return m_turn; }
-  void ClearTurnLanes() { m_turn.m_lanes.clear(); }
 
   double GetDistFromBeginningMeters() const { return m_distFromBeginningMeters; }
   double GetDistFromBeginningMerc() const { return m_distFromBeginningMerc; }
