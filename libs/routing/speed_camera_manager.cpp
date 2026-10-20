@@ -194,8 +194,12 @@ void SpeedCameraManager::FindCamerasOnRouteAndCache(double passedDistanceMeters)
     double const segmentLength = route->GetSegLenMeters(firstNotChecked);
 
     for (auto const & speedCam : lastSegment.GetSpeedCams())
-      m_cachedSpeedCameras.emplace(distToPrevSegment + segmentLength * speedCam.m_coef, speedCam.m_maxSpeedKmPH,
-                                   startPoint + direction * speedCam.m_coef);
+    {
+      // Stored coefficients follow road geometry; route geometry follows the travel direction.
+      double const coef = lastSegment.GetSegment().IsForward() ? speedCam.m_coef : 1.0 - speedCam.m_coef;
+      m_cachedSpeedCameras.emplace(distToPrevSegment + segmentLength * coef, speedCam.m_maxSpeedKmPH,
+                                   startPoint + direction * coef);
+    }
 
     distToPrevSegment = lastSegment.GetDistFromBeginningMeters();
     distFromCurPosToLatestCheckedSegmentM = distToPrevSegment - passedDistanceMeters;
