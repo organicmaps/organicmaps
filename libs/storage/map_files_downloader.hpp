@@ -58,13 +58,15 @@ public:
    */
   void DownloadAsString(std::string url, std::function<bool(std::string const &)> && callback, bool forceReset = false);
 
-  // Replaces the active server list (sorted best-to-worst). Cancels any in-flight DownloadAsString
+  // Replaces both map and terrain server lists (sorted best-to-worst). Cancels any in-flight DownloadAsString
   // and supersedes any in-flight meta-config fetch; a non-empty list resumes queued downloads
   // immediately, an empty list falls back to fetching the list from the meta server.
   void SetServersList(ServersList const & serversList);
   void ResetServersList();
   void SetDownloadingPolicy(DownloadingPolicy * policy);
   void SetDataVersion(int64_t version) { m_dataVersion = version; }
+  // The grid release version, whose mirrors retain every block version referenced by the grid.
+  void SetTerrainDataVersion(int64_t version) { m_terrainDataVersion = version; }
 
   /// @name Legacy functions for Android resourses downloading routine.
   /// @{
@@ -97,7 +99,9 @@ private:
   std::optional<platform::HttpClient::RequestHandle> m_downloadHandle;
 
   ServersList m_serversList;
+  ServersList m_terrainServersList;
   int64_t m_dataVersion = 0;
+  int64_t m_terrainDataVersion = 0;
 
   /// Used as guard for m_serversList assign.
   std::atomic_bool m_isMetaConfigRequested = false;

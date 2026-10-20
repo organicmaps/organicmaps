@@ -175,28 +175,19 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   }
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback() {
-    private void updateItem(String countryId)
+    private void rebindItem(String countryId)
     {
-      List<CountryItem> lst = mCountryIndex.get(countryId);
-      if (lst == null)
+      LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
+      int first = lm.findFirstVisibleItemPosition();
+      int last = lm.findLastVisibleItemPosition();
+      if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION)
         return;
 
-      for (CountryItem ci : lst)
+      for (int i = first; i <= last; i++)
       {
-        ci.update();
-
-        LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
-        int first = lm.findFirstVisibleItemPosition();
-        int last = lm.findLastVisibleItemPosition();
-        if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION)
-          return;
-
-        for (int i = first; i <= last; i++)
-        {
-          ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
-          if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
-            vh.mHolder.rebind();
-        }
+        ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
+        if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
+          vh.mHolder.rebind();
       }
     }
 
@@ -214,14 +205,24 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       for (MapManager.StorageCallbackData item : data)
       {
-        updateItem(item.countryId);
+        List<CountryItem> countries = mCountryIndex.get(item.countryId);
+        if (countries == null)
+          continue;
+        for (CountryItem country : countries)
+          country.update();
+        rebindItem(item.countryId);
       }
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, MapManager.Progress progress)
     {
-      updateItem(countryId);
+      List<CountryItem> countries = mCountryIndex.get(countryId);
+      if (countries == null)
+        return;
+      for (CountryItem country : countries)
+        country.updateProgress(progress);
+      rebindItem(countryId);
     }
   };
 
@@ -487,17 +488,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       UiUtils.showIf(mSearchResultsMode && !TextUtils.isEmpty(found), mFoundName);
 
-      long size;
-      if (mItem.status == CountryItem.STATUS_ENQUEUED || mItem.status == CountryItem.STATUS_PROGRESS
-          || mItem.status == CountryItem.STATUS_APPLYING)
-      {
-        size = mItem.enqueuedSize;
-      }
-      else
-      {
-        size = ((!mSearchResultsMode && mMyMapsMode) ? mItem.size : mItem.totalSize);
-      }
-
+      long size = mItem.getDisplaySize(!mSearchResultsMode && mMyMapsMode);
       mSize.setText(StringUtils.getFileSizeString(mFragment.requireContext(), size));
       mStatusIcon.update(mItem);
     }
@@ -651,10 +642,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   @Override
   public int getItemViewType(int position)
   {
-    if (mItemsAndHeader.get(position).mItem != null)
+    final GenericItem item = mItemsAndHeader.get(position);
+    if (item.mItem != null)
       return TYPE_COUNTRY;
-    else
-      return TYPE_HEADER;
+    return TYPE_HEADER;
   }
 
   @Override

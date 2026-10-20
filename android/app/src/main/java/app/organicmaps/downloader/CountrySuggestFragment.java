@@ -81,16 +81,20 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       }
 
       @Override
-      public void onProgress(String countryId, long localSize, long remoteSize)
+      public void onProgress(String countryId, MapManager.Progress progress)
       {
+        if (progress.getTotalBytes() == 0)
+          return;
+
         if (!isAdded())
           return;
 
         if (mDownloadingCountry == null)
           mDownloadingCountry = CountryItem.fill(countryId);
-        else
-          mDownloadingCountry.update();
+        else if (!mDownloadingCountry.id.equals(countryId))
+          return;
 
+        mDownloadingCountry.updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
         updateProgress();
       }
     });
@@ -132,7 +136,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
     mBtnDownloadMap.setText(
         StringUtils.formatUsingUsLocale("%1$s (%2$s)", getString(R.string.downloader_download_map),
-                                        StringUtils.getFileSizeString(requireContext(), mCurrentCountry.totalSize)));
+                                        StringUtils.getFileSizeString(requireContext(), mCurrentCountry.downloadSize)));
   }
 
   private void initViews(View view)

@@ -34,11 +34,14 @@ set(SRC
   search_string_utils_test.cpp
   sort_and_merge_intervals_test.cpp
   string_slice_tests.cpp
+  terrain_utils_tests.cpp
+  tile_mesh_tests.cpp
   test_mwm_set.hpp
   test_type.cpp
   tmp_mwm_copy.hpp
   tree_node_tests.cpp
   trie_test.cpp
+  twm_set_tests.cpp
   validate_and_format_contacts_test.cpp
   visibility_test.cpp
   wheelchair_tests.cpp

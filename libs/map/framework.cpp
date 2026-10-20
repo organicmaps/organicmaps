@@ -324,8 +324,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                      [this](FeatureCallback const & fn, std::vector<FeatureID> const & features)
 { return m_featuresFetcher.ReadFeatures(fn, features); },
                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
-  , m_isolinesManager(m_featuresFetcher.GetDataSource(),
-                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_routingManager(RoutingManager::Callbacks([this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
                                                [this]() -> storage::CountryInfoGetter const &
 { return GetCountryInfoGetter(); }, [this](std::string const & id) -> std::string
@@ -398,6 +396,29 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_storage.Init(std::bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  std::bind(&Framework::OnCountryFileDelete, this, _1, _2));
 
+  m_terrainProvider.SetOnTerrainDeregisteredCallback(std::bind(&Framework::OnTerrainDeregistered, this, _1));
+  m_storage.SetTerrainCallbacks(
+      [this](terrain::TwmFile const & file)
+  {
+    m2::RectD invalidRect;
+    bool const terrainScanned = m_storage.IsTerrainScanned();
+    bool const registered = m_terrainProvider.RegisterBlock(file, terrainScanned ? &invalidRect : nullptr);
+    if (terrainScanned)
+    {
+      if (invalidRect.IsValid())
+        InvalidateRect(invalidRect);
+      m_isolinesManager.Invalidate();
+    }
+    return registered;
+  }, [this](std::vector<terrain::TerrainId> const & ids)
+  {
+    m2::RectD invalidRect;
+    m_terrainProvider.DeleteBlocks(ids, invalidRect);
+    if (invalidRect.IsValid())
+      InvalidateRect(invalidRect);
+    m_isolinesManager.Invalidate();
+  });
+
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]()
   {
@@ -418,6 +439,18 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
+  // Before the initial scan the terrain registry is empty: claim the coverage present,
+  // the Invalidate after the scan re-evaluates the real state (no premature download hint).
+  // The viewport rect can poke beyond the +-180 antimeridian: probe the canonical pieces.
+  m_isolinesManager.SetHasTerrainFn([this](m2::RectD const & rect)
+  {
+    if (!m_storage.IsTerrainScanned())
+      return true;
+    bool has = false;
+    mercator::ForEachRectWrapped(rect,
+                                 [&](m2::RectD const & piece) { has = has || m_terrainProvider.HasTerrain(piece); });
+    return has;
+  });
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
   InitTransliteration();
@@ -452,6 +485,7 @@ Framework::~Framework()
   m_trafficManager.Teardown();
   DestroyDrapeEngine();
   m_featuresFetcher.SetOnMapDeregisteredCallback(nullptr);
+  m_terrainProvider.SetOnTerrainDeregisteredCallback(nullptr);
 }
 
 void Framework::ShowNode(storage::CountryId const & countryId)
@@ -517,7 +551,6 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   auto action = [this, localFile]
   {
     m_transitManager.OnMwmDeregistered(localFile);
-    m_isolinesManager.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
@@ -526,6 +559,20 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 
   // Call action on thread in which the framework was created
   // For more information look at comment for Observer class in mwm_set.hpp
+  if (m_storage.GetThreadChecker().CalledOnOriginalThread())
+    action();
+  else
+    GetPlatform().RunTask(Platform::Thread::Gui, action);
+}
+
+void Framework::OnTerrainDeregistered(terrain::TwmFile const & file)
+{
+  auto action = [this, file]
+  {
+    // The same file may have been registered again while this completion was queued.
+    if (!m_terrainProvider.IsFileInUse(file))
+      m_storage.OnTerrainFileDeregistered(file);
+  };
   if (m_storage.GetThreadChecker().CalledOnOriginalThread())
     action();
   else
@@ -562,7 +609,10 @@ void Framework::LoadMapsSync()
 
   InitRouting();
 
-  GetStorage().RestoreDownloadQueue();
+  // Posted, not called: RegisterAllMaps above posted the terrain scan to the Gui queue,
+  // and the restored downloads depend on it (see Storage::OnTerrainScanned) - queueing
+  // behind it keeps the scan-first order on the synchronous load path too.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]() { GetStorage().RestoreDownloadQueue(); });
 }
 
 // Small copy-paste with LoadMapsSync, but I don't have a better solution.
@@ -595,6 +645,7 @@ void Framework::LoadMapsAsync(std::function<void()> && callback)
 
 void Framework::RegisterAllMaps()
 {
+  auto const terrainScanGeneration = m_terrainScanGeneration.load();
   m_storage.RegisterAllLocalMaps(m_enabledDiffs);
 
   std::vector<std::shared_ptr<LocalCountryFile>> maps;
@@ -610,18 +661,32 @@ void Framework::RegisterAllMaps()
       // Otherwise we have blank map view instead of countries, without Download button.
     }
   }
+
+  auto files = m_storage.ScanTerrainFiles();
+  // RegisterAllMaps can run on the map-loading thread. Publish the terrain inventory
+  // and register its files on the GUI thread, before restoring the download queue.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, terrainScanGeneration, files = std::move(files)] mutable
+  {
+    // A directory switch or unload invalidates scans already queued for publication.
+    if (terrainScanGeneration != m_terrainScanGeneration.load())
+      return;
+    m_storage.OnTerrainScanned(std::move(files));
+    InvalidateRect(mercator::Bounds::FullRect());
+    m_isolinesManager.Invalidate();
+  });
 }
 
 void Framework::DeregisterAllMaps()
 {
+  ++m_terrainScanGeneration;
   m_transitManager.Clear();
-  m_isolinesManager.Clear();
   m_trafficManager.Clear();
   m_descriptionsLoader->Clear();
 
   GetSearchAPI().ClearCaches();
 
   m_featuresFetcher.Clear();
+  m_terrainProvider.Clear();
   m_storage.Clear();
 }
 
@@ -1179,6 +1244,12 @@ m2::RectD Framework::GetCurrentViewport() const
   return m_currentModelView.ClipRect();
 }
 
+void Framework::SetTerrainLight(double azimuthDeg, double altitudeDeg, double shadowGamma)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetTerrainLight(azimuthDeg, altitudeDeg, shadowGamma);
+}
+
 void Framework::SetVisibleViewport(m2::RectD const & rect)
 {
   if (m_drapeEngine == nullptr)
@@ -1727,6 +1798,50 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   return pt;
 }
 
+namespace
+{
+// The synthetic null-mwm FeatureID index space of the downloaded regions highlight:
+// the CountryInfoGetter region ids are small, the terrain block ids start from the
+// base and encode the block's bottom-left corner in integer degrees.
+uint32_t constexpr kTwmBorderIndexBase = 1 << 20;
+
+uint32_t EncodeTwmBorderIndex(m2::RectD const & blockRect)
+{
+  auto const lat = std::lround(mercator::YToLat(blockRect.minY()));
+  auto const lon = std::lround(blockRect.minX());
+  return kTwmBorderIndexBase + static_cast<uint32_t>(lat + 90) * 360u + static_cast<uint32_t>(lon + 180);
+}
+
+bool GetTwmBorderTriangles(terrain::TerrainProvider const & provider, uint32_t index,
+                           std::vector<m2::PointD> & triangles)
+{
+  index -= kTwmBorderIndexBase;
+  int const lat = static_cast<int>(index / 360u) - 90;
+  int const lon = static_cast<int>(index % 360u) - 180;
+
+  // Probe around the encoded corner and match the block by it (the corner is shared
+  // with the neighbor blocks, the probe can return them too).
+  m2::PointD const corner(lon, mercator::LatToY(lat));
+  m2::RectD probe(corner, corner);
+  probe.Inflate(0.1, 0.1);
+  // The corners at lon = +-180 inflate beyond the canonical range: clip back.
+  CHECK(probe.Intersect(mercator::Bounds::FullRect()), ());
+  std::vector<m2::RectD> rects;
+  provider.GetDownloadedRects(probe, rects);
+  for (auto const & r : rects)
+  {
+    if (std::lround(r.minX()) == lon && std::lround(mercator::YToLat(r.minY())) == lat)
+    {
+      // The two CW triangles of the block rect (cf. ApplyAreaFeature winding).
+      m2::PointD const a = r.LeftBottom(), b = r.RightBottom(), c = r.RightTop(), d = r.LeftTop();
+      triangles = {a, d, c, a, c, b};
+      return true;
+    }
+  }
+  return false;  // Deregistered between the id and the geometry reads: just skip.
+}
+}  // namespace
+
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
 {
   auto idReadFn = [this](auto const & fn, m2::RectD const & r, int scale)
@@ -1738,20 +1853,41 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       auto names = m_featuresFetcher.GetDataSource().GetLoadedCountryNames(r);
       ASSERT(base::IsSortedAndUnique(names), ());
       m_infoGetter->ForEachRegionId(names, [&fn](size_t id) { fn(FeatureID({}, id)); });
+
+      // The downloaded terrain blocks ride the same synthetic channel; the block
+      // (integer degrees, see terrain::GridBlock) is encoded into the feature index.
+      std::vector<m2::RectD> rects;
+      m_terrainProvider.GetDownloadedRects(r, rects);
+      for (auto const & rect : rects)
+        fn(FeatureID({}, EncodeTwmBorderIndex(rect)));
     }
   };
 
   uint32_t const borderType = classif().GetTypeByPath({"organicapp", "mwm_border"});
-  auto featureReadFn = [this, borderType](auto const & fn, std::vector<FeatureID> const & ids)
+  uint32_t const twmBorderType = classif().GetTypeByPath({"organicapp", "twm_border"});
+  auto featureReadFn = [this, borderType, twmBorderType](auto const & fn, std::vector<FeatureID> const & ids)
   {
     m_featuresFetcher.ReadFeatures(fn, ids);
 
     for (auto const & id : ids)
       if (id.m_mwmId.IsNull())
       {
-        FeatureType ft(id, borderType);
-        m_infoGetter->GetTriangles(id.m_index, ft);
-        fn(ft);
+        if (id.m_index >= kTwmBorderIndexBase)
+        {
+          FeatureType ft(id, twmBorderType);
+          std::vector<m2::PointD> triangles;
+          if (GetTwmBorderTriangles(m_terrainProvider, id.m_index, triangles))
+          {
+            ft.SetTriangles(triangles);
+            fn(ft);
+          }
+        }
+        else
+        {
+          FeatureType ft(id, borderType);
+          m_infoGetter->GetTriangles(id.m_index, ft);
+          fn(ft);
+        }
       }
       else
         break;
@@ -1809,6 +1945,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto isCountryLoadedByNameFn = std::bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = std::bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
+  auto hasTerrainFn = [this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); };
+  auto readTerrainFn = [this](m2::RectD const & rect, int zoom, terrain::TerrainData & data,
+                              base::SharedCancellable const & isCancellable)
+  { m_terrainProvider.ReadTerrain(rect, zoom, data, isCancellable); };
+
   bool allow3d;
   bool allow3dBuildings;
   Load3dMode(allow3d, allow3dBuildings);
@@ -1829,7 +1970,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(isCountryLoadedByNameFn),
                           std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn),
-                          std::move(cancelTileBackgroundReadingFn)),
+                          std::move(cancelTileBackgroundReadingFn), std::move(hasTerrainFn), std::move(readTerrainFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
@@ -2099,7 +2240,15 @@ void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
 
-  m_routingManager.SetTurnNotificationsUnits(measurement_utils::GetMeasurementUnits());
+  auto const units = measurement_utils::GetMeasurementUnits();
+  m_routingManager.SetTurnNotificationsUnits(units);
+  if (m_isolinesUnits == units)
+    return;
+  m_isolinesUnits = units;
+
+  // Include off-screen tiles so panning cannot reveal contours in the old units.
+  if (m_drapeEngine && m_isolinesManager.IsEnabled())
+    InvalidateRect(mercator::Bounds::FullRect());
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
@@ -2465,6 +2614,19 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
 }
 
 place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
+{
+  auto info = BuildPlacePageInfoImpl(buildInfo);
+  if (!info.IsMyPosition() && !info.IsTrack() && info.GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY)
+    info.SetTerrainElevation(m_terrainProvider.GetElevation(info.GetMercator()));
+  if (!info.IsFeature() && info.GetSelectedObject() == df::SelectionShape::OBJECT_POI)
+  {
+    if (auto const elevation = info.GetFormattedTerrainElevation(); !elevation.empty())
+      info.SetCustomNames(info.GetTitle(), info.GetSubtitle() + "  ▲ " + elevation);
+  }
+  return info;
+}
+
+place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const & buildInfo)
 {
   place_page::Info outInfo;
   outInfo.SetBuildInfo(buildInfo);

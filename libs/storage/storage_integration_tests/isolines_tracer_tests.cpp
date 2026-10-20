@@ -1,0 +1,143 @@
+#include "testing/testing.hpp"
+
+#include "indexer/terrain/isolines_tracer.hpp"
+#include "indexer/terrain/terrain_reader.hpp"
+#include "indexer/terrain/twm_set.hpp"
+
+#include "platform/http_client.hpp"
+#include "platform/platform.hpp"
+
+#include "geometry/mercator.hpp"
+
+#include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
+#include "base/scope_guard.hpp"
+
+#include <cmath>
+#include <map>
+
+namespace isolines_tracer_tests
+{
+// Downloads (once, cached in the tmp dir) the smallest real planet block for the tests:
+// S35W065 of the 260729 build, ~14 MB of the flat Argentinian pampa. Returns an empty
+// path when the download fails (offline) - the tests then log and pass, but with the
+// network they always run on the real data.
+std::string GetTestBlockPath()
+{
+  std::string const path = base::JoinPath(GetPlatform().TmpDir(), "om_test_S35W065.twm");
+  if (GetPlatform().IsFileExistsByFullPath(path))
+    return path;
+
+  platform::HttpClient client("https://cdn.organicmaps.app/terrain/260729/S35W065.twm");
+  client.SetReceivedFile(path);
+  if (!client.RunHttpRequest() || client.ErrorCode() != 200)
+  {
+    LOG(LWARNING, ("Can't download the test terrain block, error:", client.ErrorCode()));
+    base::DeleteFileX(path);
+    return {};
+  }
+  return path;
+}
+
+// The structural isoline invariants on a real flat-plain block: the near-level plains
+// exercise the exact-on-level vertices of the half-open classification.
+UNIT_TEST(TerrainIsolines_FlatPlainInvariants)
+{
+  std::string const path = GetTestBlockPath();
+  if (path.empty())
+    return;
+
+  terrain::Reader const reader(path);
+
+  m2::RectD const rect =
+      mercator::RectByCenterXYAndSizeInMeters(reader.GetHeader().GetLimitRect().Center(), 3000.0 /* meters */);
+
+  size_t const geomIndex = reader.GetHeader().GetGeometryIndex(17 /* the best LOD */);
+
+  // The mesh around the block center decodes and stays in a plausible altitude range.
+  terrain::TileMesh mesh(reader.GetHeader().m_coordBits);
+  reader.ReadMesh(rect, geomIndex, mesh);
+  TEST(!mesh.IsEmpty(), ());
+  int32_t minAlt = 20000, maxAlt = -20000;
+  for (auto const alt : mesh.GetAltitudes())
+  {
+    minAlt = std::min(minAlt, alt);
+    maxAlt = std::max(maxAlt, alt);
+  }
+  TEST_GREATER(minAlt, -11000, ());
+  TEST_LESS(maxAlt, 9000, ());
+  LOG(LINFO, ("Vertices:", mesh.GetPoints().size(), "triangles:", mesh.GetTrianglesCount(), "altitudes:", minAlt, "..",
+              maxAlt));
+
+  // The chains are maximal: they end on the COLLECTED mesh boundary, i.e. the union of
+  // the intersecting features, which can reach far beyond the query rect.
+  m2::RectD meshRect = rect;
+  for (auto const & p : mesh.GetPoints())
+    meshRect.Add(p);
+
+  // The traced isolines hold the structural invariants even on the degenerate level sets.
+  size_t lines = 0;
+  std::map<int32_t, size_t> perAltitude;
+  terrain::TraceIsolines(mesh, 10, measurement_utils::Units::Metric, [&](terrain::Isoline && isoline)
+  {
+    ++lines;
+    ++perAltitude[isoline.m_altitude];
+    TEST_EQUAL(isoline.m_altitude % 10, 0, ());
+    auto const & pts = isoline.m_points;
+    TEST_GREATER_OR_EQUAL(pts.size(), 2, (isoline.m_altitude));
+    if (isoline.m_closed)
+    {
+      TEST_GREATER_OR_EQUAL(pts.size(), 4, (isoline.m_altitude));
+      TEST_EQUAL(pts.front(), pts.back(), (isoline.m_altitude));
+    }
+    for (auto const & p : pts)
+    {
+      TEST(std::isfinite(p.x) && std::isfinite(p.y), (isoline.m_altitude));
+      // A crossing point must not stray outside the collected mesh area.
+      TEST(m2::RectD(meshRect.LeftBottom() - m2::PointD(1, 1), meshRect.RightTop() + m2::PointD(1, 1)).IsPointInside(p),
+           (isoline.m_altitude, p));
+    }
+  });
+  TEST_GREATER(lines, 0, ());
+  for (auto const & [altitude, count] : perAltitude)
+    LOG(LINFO, ("Altitude", altitude, ":", count, "isolines"));
+}
+
+// Registration keeps the scanned file identity and rejects overlapping active blocks.
+UNIT_TEST(TerrainTwmSet_Registration)
+{
+  std::string const source = GetTestBlockPath();
+  if (source.empty())
+    return;
+
+  // Two copies of the same block = the same header rect = a guaranteed overlap.
+  std::string const newerPath = base::JoinPath(GetPlatform().TmpDir(), "twm_v2.twm");
+  std::string const olderPath = base::JoinPath(GetPlatform().TmpDir(), "twm_v1.twm");
+  TEST(base::CopyFileX(source, newerPath), ());
+  TEST(base::CopyFileX(source, olderPath), ());
+  SCOPE_GUARD(cleanup, [&]()
+  {
+    base::DeleteFileX(newerPath);
+    base::DeleteFileX(olderPath);
+  });
+
+  terrain::TwmFile newer, older;
+  TEST_EQUAL(terrain::TwmSet::ReadFile(newerPath, 2 /* version */, newer), terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(terrain::TwmSet::ReadFile(olderPath, 1 /* version */, older), terrain::TwmSet::RegResult::Success, ());
+  TEST(newer.m_rect.IsValid(), ());
+
+  terrain::TwmSet set;
+  auto const [id, result] = set.Register(newer);
+  TEST_EQUAL(result, terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(set.GetId(newer.m_id), id, ());
+  TEST_EQUAL(id.GetInfo()->GetFilePath(), newerPath, ());
+  TEST_EQUAL(id.GetInfo()->GetVersion(), 2, ());
+  TEST_EQUAL(set.Register(older).second, terrain::TwmSet::RegResult::Overlapping, ());
+  TEST(set.HasBlocks(newer.m_rect), ());
+
+  set.Deregister(newer.m_id);
+  TEST(!set.GetId(newer.m_id).IsAlive(), ());
+  TEST_EQUAL(set.Register(older).second, terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(set.GetId(older.m_id).GetInfo()->GetVersion(), 1, ());
+}
+}  // namespace isolines_tracer_tests

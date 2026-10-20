@@ -21,7 +21,7 @@ public class MapManagerHelper
   public static void showError(final Context context, final MapManager.StorageCallbackData errorData,
                                @Nullable final Consumer<Boolean> dialogClickListener)
   {
-    if (!MapManager.nativeIsAutoretryFailed())
+    if (!MapManager.isAutoRetryFailed(errorData.countryId))
       return;
 
     showErrorDialog(context, errorData, dialogClickListener);
@@ -199,13 +199,15 @@ public class MapManagerHelper
    */
   public static void startDownload(Context context, String... countries)
   {
+    startDownload(context, countries, true);
+  }
+
+  public static void startDownload(Context context, @NonNull String[] countries, boolean withTerrain)
+  {
     if (MapManager.nativeIsDownloading())
-    {
-      for (var countryId : countries)
-        MapManager.startDownload(countryId);
-    }
+      MapManager.startDownload(countries, withTerrain);
     else
-      DownloaderService.startDownload(context, countries);
+      DownloaderService.startDownload(context, countries, withTerrain);
   }
 
   /**

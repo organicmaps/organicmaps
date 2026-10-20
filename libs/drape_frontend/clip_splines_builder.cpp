@@ -16,7 +16,6 @@ namespace
 //   cos(θ) > kThreshold  ⟺  dot(a, b) > 0  AND  dot(a, b)² > kThreshold² · |a|² · |b|²
 double constexpr kProlongingDotSqr = math::Pow2(0.995);
 
-double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY) per side
 }  // namespace
 
 void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
@@ -144,14 +143,12 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
     return out;
   }
 
-  out.reserve(2);
-
   if (isIsoline)
   {
     // Isoline pipeline: clip-before-smooth (with an inflated rect), smooth,
     // then re-clip with the actual tile rect.
     m2::GuidePointsForSmooth guidePoints;
-    std::vector<std::vector<m2::PointD>> clippedPaths;
+    m2::PathsForSmooth clippedPaths;
     auto extTileRect = m_params.m_tileRect;
     extTileRect.Scale(kIsolineSmoothScale);
     m2::ClipPathByRectBeforeSmooth(extTileRect, m_path, guidePoints, clippedPaths);
@@ -165,7 +162,10 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
     }
   }
   else
+  {
+    out.reserve(2);
     m2::ClipPathByRect(m_params.m_tileRect, m_path, out);
+  }
 
   return out;
 }

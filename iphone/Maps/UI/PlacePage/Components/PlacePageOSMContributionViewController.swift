@@ -1,7 +1,6 @@
 protocol PlacePageOSMContributionViewControllerDelegate: AnyObject {
   func didPressAddPlace()
   func didPressEditPlace()
-  func didPressUpdateMap()
   func didPressOSMInfo()
 }
 
@@ -17,7 +16,6 @@ final class PlacePageOSMContributionViewController: UIViewController {
   private let osmHeaderView = InfoItemView()
   private let addPlaceButton = UIButton(type: .system)
   private let editPlaceButton = UIButton(type: .system)
-  private let updateMapButton = UIButton(type: .system)
   private let buttonsStackView = UIStackView()
 
   var buttonsData: PlacePageOSMContributionData {
@@ -58,7 +56,6 @@ final class PlacePageOSMContributionViewController: UIViewController {
 
     configureButton(addPlaceButton, enabledTitle: L("contribute_to_osm_add_place"), action: #selector(onAddPlace))
     configureButton(editPlaceButton, enabledTitle: L("edit_place"), action: #selector(onEditPlace))
-    configureButton(updateMapButton, enabledTitle: L("contribute_to_osm_update_map"), disabledTitle: L("downloading"), action: #selector(onUpdateMap))
 
     buttonsStackView.axis = .horizontal
     buttonsStackView.spacing = Constants.buttonsSpacing
@@ -67,12 +64,8 @@ final class PlacePageOSMContributionViewController: UIViewController {
 
   private func configureButton(_ button: UIButton,
                                enabledTitle: String,
-                               disabledTitle: String? = nil,
                                action: Selector) {
     button.setTitle(enabledTitle, for: .normal)
-    if let disabledTitle {
-      button.setTitle(disabledTitle, for: .disabled)
-    }
     button.addTarget(self, action: action, for: .touchUpInside)
     button.setStyle(.flatNormalGrayButtonBig)
     button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
@@ -84,7 +77,6 @@ final class PlacePageOSMContributionViewController: UIViewController {
     view.addSubview(buttonsStackView)
     buttonsStackView.addArrangedSubview(addPlaceButton)
     buttonsStackView.addArrangedSubview(editPlaceButton)
-    buttonsStackView.addArrangedSubview(updateMapButton)
 
     osmHeaderView.translatesAutoresizingMaskIntoConstraints = false
     buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -103,26 +95,10 @@ final class PlacePageOSMContributionViewController: UIViewController {
   }
 
   private func updateButtonsVisibility() {
-    switch buttonsData.state {
-    case .canAddOrEditPlace:
-      addPlaceButton.isHidden = !buttonsData.showAddPlace
-      editPlaceButton.isHidden = !buttonsData.showEditPlace
-      addPlaceButton.isEnabled = buttonsData.canEditPlace
-      editPlaceButton.isEnabled = buttonsData.canEditPlace
-      updateMapButton.isHidden = true
-    case .shouldUpdateMap:
-      addPlaceButton.isHidden = true
-      editPlaceButton.isHidden = true
-      updateMapButton.isHidden = false
-      updateMapButton.isEnabled = true
-    case .mapIsDownloading:
-      addPlaceButton.isHidden = true
-      editPlaceButton.isHidden = true
-      updateMapButton.isHidden = false
-      updateMapButton.isEnabled = false
-    @unknown default:
-      fatalError("Unknown state: \(buttonsData.state)")
-    }
+    addPlaceButton.isHidden = !buttonsData.showAddPlace
+    editPlaceButton.isHidden = !buttonsData.showEditPlace
+    addPlaceButton.isEnabled = buttonsData.canEditPlace
+    editPlaceButton.isEnabled = buttonsData.canEditPlace
   }
 
   // MARK: - Actions
@@ -133,10 +109,6 @@ final class PlacePageOSMContributionViewController: UIViewController {
 
   @objc private func onEditPlace() {
     delegate?.didPressEditPlace()
-  }
-
-  @objc private func onUpdateMap() {
-    delegate?.didPressUpdateMap()
   }
 
   @objc private func onOSMInfo() {

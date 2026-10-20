@@ -1,31 +1,51 @@
 #include "drape_frontend/rule_drawer.hpp"
 
 #include "drape_frontend/apply_feature_functors.hpp"
+#include "drape_frontend/clip_splines_builder.hpp"
 #include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/line_shape.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/metaline_manager.hpp"
+#include "drape_frontend/path_text_shape.hpp"
+#include "drape_frontend/terrain_shade_shape.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
+
+#include "drape/drape_diagnostics.hpp"
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_style_reader.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/terrain/isolines_tracer.hpp"
+#include "indexer/terrain/terrain_normals.hpp"
+#include "indexer/terrain/terrain_utils.hpp"
+
+#include "platform/localization.hpp"
+#include "platform/measurement_utils.hpp"
+
+#include "shaders/program_params.hpp"
+
+#include "coding/point_coding.hpp"
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/robust_orientation.hpp"
 
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 
-#ifdef DRAW_TILE_NET
-#include "drape/drape_diagnostics.hpp"
-
-#include "drape_frontend/line_shape.hpp"
+#if defined(DRAW_TILE_NET) || defined(TERRAIN_DEBUG_MESH)
 #include "drape_frontend/text_shape.hpp"
 
 #include "base/string_utils.hpp"
+
+#include <set>
 #endif
 
 #include <array>
+#include <cmath>
 #include <functional>
 #include <vector>
 
@@ -155,11 +175,12 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 }  // namespace
 
 RuleDrawer::RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> engineContext,
-                       int8_t deviceLang)
+                       int8_t deviceLang, bool drawTerrain)
   : m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_deviceLang(deviceLang)
+  , m_drawTerrain(drawTerrain)
 {
   m_applyParams.Init(m_context->GetTileKey());
   m_zoomLevel = m_applyParams.m_tileKey.m_zoomLevel;
@@ -403,7 +424,11 @@ void RuleDrawer::operator()(FeatureType & f)
     return;
 
   feature::TypesHolder const types(f);
-  if ((!m_context->IsolinesEnabled() && m_isIsoline(types)) ||
+  // m_drawTerrain suppresses the baked isoline features for the WHOLE tile while the
+  // dynamic ones cover only the terrain blocks: a tile straddling the coverage border
+  // shows a one-tile-wide gap. Accepted: per-feature gating against the mesh rects
+  // costs more than the artifact is worth, and the coverage grows block by block.
+  if (((!m_context->IsolinesEnabled() || m_drawTerrain) && m_isIsoline(types)) ||
       (!m_context->Is3dBuildingsEnabled() && m_isBuildingPart(types) && !m_isBuilding(types)))
     return;
 
@@ -471,6 +496,411 @@ void RuleDrawer::operator()(FeatureType & f)
 
   if (!m_mapShapes[df::GeometryType].empty())
     m_context->Flush(std::move(m_mapShapes[df::GeometryType]));
+}
+
+void RuleDrawer::DrawTerrain(MapDataProvider const & model)
+{
+  ASSERT(m_drawTerrain, ());
+  if (CheckCancelled())
+    return;
+
+  // The isolines drawing policy (trace step, line and label rules per altitude) is
+  // resolved from the current style once per tile; the units are read once here, so
+  // the traced levels, the labels and the steps always agree.
+  auto const units = measurement_utils::GetMeasurementUnits();
+  terrain::IsolinesStyle const isolinesStyle(m_zoomLevel, units);
+  /// @todo Separate visibility settings for the isolines and the hillshading.
+  bool const drawIsolines = isolinesStyle.GetStep() != 0;
+
+  // One read serves the hillshading, the isolines and the debug mesh. The rect is
+  // inflated for the isolines smoothing overhang (see ClipSplinesBuilder::Release);
+  // it also completes the shade normals of the vertices near the tile border.
+  m2::RectD queryRect = m_applyParams.m_tileRect;
+  queryRect.Scale(kIsolineSmoothScale);
+
+  terrain::TerrainData data;
+  model.ReadTerrain(queryRect, m_zoomLevel, data, m_context->GetCancellable());
+  if (CheckCancelled() || data.IsEmpty())
+    return;
+
+#ifdef TERRAIN_DEBUG_MESH
+  DrawTerrainDebugMesh(data.m_mesh);
+  DrawTerrainDebugRaster(data);
+#else
+  DrawTerrainShade(data);
+#endif
+  if (drawIsolines && !CheckCancelled())
+    DrawDynamicIsolines(data, isolinesStyle, units);
+
+  if (CheckCancelled())
+    return;
+
+  for (auto const & shape : m_mapShapes[df::GeometryType])
+    shape->Prepare(m_context->GetTextureManager());
+
+  if (!m_mapShapes[df::GeometryType].empty())
+  {
+    TMapShapes geomShapes;
+    geomShapes.swap(m_mapShapes[df::GeometryType]);
+    m_context->Flush(std::move(geomShapes));
+  }
+}
+
+void RuleDrawer::DrawTerrainDebugMesh(terrain::TileMesh const & mesh)
+{
+#ifdef TERRAIN_DEBUG_MESH
+  // The half-open tile ownership draws every edge and label exactly once across the
+  // neighbor tiles; the mesh vertices and edges are already deduplicated.
+  m2::RectD const & tileRect = m_applyParams.m_tileRect;
+  auto const ownedByTile = [&tileRect](m2::PointD const & p)
+  { return p.x >= tileRect.minX() && p.x < tileRect.maxX() && p.y >= tileRect.minY() && p.y < tileRect.maxY(); };
+
+  auto const & points = mesh.GetPoints();
+  auto const & triangles = mesh.GetTriangles();
+
+  std::set<std::pair<uint32_t, uint32_t>> edges;
+  for (size_t t = 0; t + 2 < triangles.size(); t += 3)
+    for (int i = 0; i < 3; ++i)
+      edges.emplace(std::min(triangles[t + i], triangles[t + (i + 1) % 3]),
+                    std::max(triangles[t + i], triangles[t + (i + 1) % 3]));
+
+  for (auto const & [a, b] : edges)
+  {
+    m2::PointD const & pa = points[a];
+    m2::PointD const & pb = points[b];
+    if (!ownedByTile((pa + pb) * 0.5))
+      continue;
+    df::LineViewParams params;
+    params.m_tileCenter = tileRect.Center();
+    params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+    params.m_cap = dp::ButtCap;
+    params.m_join = dp::RoundJoin;
+    params.m_color = dp::Color(255, 0, 0, 160);
+    params.m_depth = dp::kMaxDepth;
+    params.m_depthLayer = DepthLayer::GeometryLayer;
+    params.m_width = 1;
+    params.m_zoomLevel = m_zoomLevel;
+    m_applyParams.m_insertShape(make_unique_dp<LineShape>(m2::SharedSpline(std::vector<m2::PointD>{pa, pb}), params));
+  }
+
+  // The running text index keeps the per-tile OverlayIDs unique (cf. the isoline
+  // labels starting at 128).
+  double const visScale = m_applyParams.m_vparams.GetVisualScale();
+  uint32_t textIndex = 1 << 16;
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    if (!ownedByTile(points[i]))
+      continue;
+    df::TextViewParams tp;
+    tp.m_markId = kml::kDebugMarkId;
+    tp.m_tileCenter = tileRect.Center();
+    tp.m_titleDecl.m_anchor = dp::Center;
+    tp.m_depth = dp::kMaxDepth;
+    tp.m_depthLayer = DepthLayer::OverlayLayer;
+    tp.m_titleDecl.m_primaryText = strings::to_string(mesh.GetAltitudes()[i]);
+    tp.m_titleDecl.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 10 * visScale);
+    tp.m_titleDecl.m_primaryOffset = {0.0f, 0.0f};
+    auto textShape = make_unique_dp<TextShape>(points[i], tp, m_context->GetTileKey(), m2::PointF(0.0f, 0.0f),
+                                               m2::PointF(0.0f, 0.0f), dp::Anchor::Center, textIndex++);
+    textShape->DisableDisplacing();
+    m_applyParams.m_insertShape(std::move(textShape));
+  }
+#else
+  UNUSED_VALUE(mesh);
+#endif
+}
+
+void RuleDrawer::DrawTerrainDebugRaster(terrain::TerrainData const & data)
+{
+#ifdef TERRAIN_DEBUG_MESH
+  auto const & tileRect = m_applyParams.m_tileRect;
+  for (auto const & patch : data.m_rasterPatches)
+  {
+    auto const rect = patch.GetRect();
+    if (!tileRect.IsIntersect(rect))
+      continue;
+    std::vector<m2::SharedSpline> splines;
+    m2::ClipPathByRect(
+        tileRect, {rect.LeftBottom(), rect.RightBottom(), rect.RightTop(), rect.LeftTop(), rect.LeftBottom()}, splines);
+    df::LineViewParams params;
+    params.m_tileCenter = tileRect.Center();
+    params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+    params.m_cap = dp::ButtCap;
+    params.m_join = dp::RoundJoin;
+    params.m_color = dp::Color(0, 80, 255, 160);
+    params.m_depth = dp::kMaxDepth;
+    params.m_depthLayer = DepthLayer::GeometryLayer;
+    params.m_width = 1;
+    params.m_zoomLevel = m_zoomLevel;
+    for (auto const & spline : splines)
+      m_applyParams.m_insertShape(make_unique_dp<LineShape>(spline, params));
+  }
+#else
+  UNUSED_VALUE(data);
+#endif
+}
+
+void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
+{
+  auto const & mesh = data.m_mesh;
+  m2::RectD const & tileRect = m_applyParams.m_tileRect;
+
+  // Near-flat culling uses the default light; the shader uses the live per-frame light.
+  static auto constexpr kLight = gpu::kDefaultTerrainLightDir;
+  double constexpr kFlatIntensity = kLight.z;
+  double constexpr kExaggeration = 1.0;
+  // A triangle whose vertices are all this close to the flat intensity is invisible
+  // (alpha under 1 of 255): skipped, the plains stay free.
+  float constexpr kFlatEps = 0.01f;
+
+  // Ground meters per mercator unit at the tile latitude (the projection is conformal:
+  // the x and y local scales are equal); the altitudes are meters.
+  m2::PointD const center = tileRect.Center();
+  double const zScale =
+      kExaggeration / mercator::DistanceOnEarth({center.x - 0.5, center.y}, {center.x + 0.5, center.y});
+
+  auto const & points = mesh.GetPoints();
+  auto const & triangles = mesh.GetTriangles();
+
+  // Pass 1: accumulate the area-weighted face normals per vertex. The mesh vertices are
+  // deduplicated across features and blocks, so the smoothed per-vertex normals agree
+  // along every seam. Triangles outside the tile still contribute to their vertices,
+  // only the intersecting ones are emitted.
+  auto const jointNormals = terrain::CalculateTerrainNormals(data, zScale, m_context->GetCancellable());
+  if (CheckCancelled())
+    return;
+  auto const & normals = jointNormals.m_tin;
+  std::vector<uint32_t> shadeTriangles;
+  for (size_t t = 0; t + 2 < triangles.size(); t += 3)
+  {
+    uint32_t const i0 = triangles[t];
+    uint32_t const i1 = triangles[t + 1];
+    uint32_t const i2 = triangles[t + 2];
+    m2::PointD const & p0 = points[i0];
+    m2::PointD const & p1 = points[i1];
+    m2::PointD const & p2 = points[i2];
+
+    m2::RectD triRect(p0, p1);
+    triRect.Add(p2);
+    if (tileRect.IsIntersect(triRect))
+      shadeTriangles.insert(shadeTriangles.end(), {i0, i1, i2});
+  }
+
+  if (CheckCancelled())
+    return;
+
+  // Pass 2: normalize the smoothed normals; lighting is computed in the shader.
+  std::vector<glsl::vec3> unitNormals(points.size(), glsl::vec3(0.0f, 0.0f, 1.0f));
+  for (size_t i = 0; i < normals.size(); ++i)
+  {
+    auto const & n = normals[i];
+    double const len = std::sqrt(n.m_x * n.m_x + n.m_y * n.m_y + n.m_z * n.m_z);
+    if (len < 1e-15)
+      continue;
+    unitNormals[i] =
+        glsl::vec3(static_cast<float>(n.m_x / len), static_cast<float>(n.m_y / len), static_cast<float>(n.m_z / len));
+  }
+
+  // Under the default shadow gamma (1/2), these bounds select |relative intensity| < kFlatEps.
+  double constexpr kFlatMin = kFlatIntensity * (1.0 - kFlatEps * kFlatEps);
+  double constexpr kFlatMax = kFlatIntensity + kFlatEps * (1.0 - kFlatIntensity);
+  auto const isFlat = [](glsl::vec3 const & normal)
+  {
+    double const intensity = double{normal.x} * kLight.x + double{normal.y} * kLight.y + double{normal.z} * kLight.z;
+    return kFlatMin < intensity && intensity < kFlatMax;
+  };
+
+  // Pass 3: clip to the tile (the alpha layer must not double-blend across the tiles)
+  // and emit; the clip points interpolate the vertex normals barycentrically (the
+  // shader renormalizes). The drape areas use the CW winding (cf. ApplyAreaFeature),
+  // TWM triangles are CCW.
+  std::vector<gpu::TerrainShadeVertex> vertices;
+  auto const makeVertex = [&](m2::PointD const & p, glsl::vec3 const & normal)
+  {
+    m2::PointD const local = MapShape::ConvertToLocal(p, center, kShapeCoordScalar);
+    return gpu::TerrainShadeVertex(glsl::vec3(local.x, local.y, drule::kMinLayeredDepthFg), normal);
+  };
+  for (size_t t = 0; t + 2 < shadeTriangles.size(); t += 3)
+  {
+    m2::PointD const & pa = points[shadeTriangles[t]];
+    m2::PointD const & pb = points[shadeTriangles[t + 1]];
+    m2::PointD const & pc = points[shadeTriangles[t + 2]];
+    glsl::vec3 const & na = unitNormals[shadeTriangles[t]];
+    glsl::vec3 const & nb = unitNormals[shadeTriangles[t + 1]];
+    glsl::vec3 const & nc = unitNormals[shadeTriangles[t + 2]];
+    if (isFlat(na) && isFlat(nb) && isFlat(nc))
+      continue;
+
+    double const orientation = m2::robust::OrientedS(pa, pb, pc);
+    double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
+    if (std::fabs(orientation) < kEmptyTriangleS)
+      continue;
+
+    if (tileRect.IsPointInside(pa) && tileRect.IsPointInside(pb) && tileRect.IsPointInside(pc))
+    {
+      vertices.push_back(makeVertex(pa, na));
+      vertices.push_back(orientation < 0 ? makeVertex(pb, nb) : makeVertex(pc, nc));
+      vertices.push_back(orientation < 0 ? makeVertex(pc, nc) : makeVertex(pb, nb));
+      continue;
+    }
+    auto const emit = [&](m2::PointD const & ca, m2::PointD const & cb, m2::PointD const & cc)
+    {
+      for (auto const & p : {ca, cb, cc})
+      {
+        auto const fa = static_cast<float>(m2::CrossProduct(p - pc, pb - pc) / orientation);
+        auto const fb = static_cast<float>(m2::CrossProduct(pa - pc, p - pc) / orientation);
+        vertices.push_back(makeVertex(p, fa * na + fb * nb + (1.0f - fa - fb) * nc));
+      }
+    };
+    if (orientation < 0)
+      m2::ClipTriangleByRect(tileRect, pa, pb, pc, emit);
+    else
+      m2::ClipTriangleByRect(tileRect, pa, pc, pb, emit);
+  }
+
+  std::vector<std::vector<gpu::TerrainShadeVertex>> gridRows;
+  for (size_t p = 0; p < data.m_rasterPatches.size(); ++p)
+  {
+    if (CheckCancelled())
+      return;
+    auto const & patch = data.m_rasterPatches[p];
+    if (!tileRect.IsIntersect(patch.GetRect()))
+      continue;
+    std::vector<glsl::vec3> gridNormals;
+    gridNormals.reserve(patch.m_heights.size());
+    for (auto const & n : jointNormals.m_raster[p])
+    {
+      double const length = std::sqrt(n.m_x * n.m_x + n.m_y * n.m_y + n.m_z * n.m_z);
+      gridNormals.emplace_back(length == 0 ? glsl::vec3(0, 0, 1)
+                                           : glsl::vec3(n.m_x / length, n.m_y / length, n.m_z / length));
+    }
+    uint32_t const stride = patch.CellsX() + 1;
+    for (uint32_t y = 0; y < patch.CellsY(); ++y)
+    {
+      if (CheckCancelled())
+        return;
+      std::vector<gpu::TerrainShadeVertex> row;
+      auto const flushRow = [&]
+      {
+        if (!row.empty())
+          gridRows.push_back(std::move(row));
+        row.clear();
+      };
+      for (uint32_t x = 0; x < patch.CellsX(); ++x)
+      {
+        uint32_t const sw = y * stride + x, ne = sw + stride + 1;
+        auto const a = patch.Point(sw), b = patch.Point(ne);
+        if (tileRect.IsPointInside(a) && tileRect.IsPointInside(b))
+        {
+          if (row.empty())
+          {
+            auto const nw = makeVertex(patch.Point(sw + stride), gridNormals[sw + stride]);
+            row.push_back(nw);  // Shift strip parity to CW.
+            row.push_back(nw);
+            row.push_back(makeVertex(a, gridNormals[sw]));
+          }
+          row.push_back(makeVertex(b, gridNormals[ne]));
+          row.push_back(makeVertex(patch.Point(sw + 1), gridNormals[sw + 1]));
+          continue;
+        }
+        flushRow();
+        if (!tileRect.IsIntersect(m2::RectD(a, b)))
+          continue;
+        // Only edge cells need temporary clipped triangles. Normals are
+        // interpolated on exactly the same fixed-diagonal surface as the TIN path.
+        for (uint32_t t : {2 * (y * patch.CellsX() + x), 2 * (y * patch.CellsX() + x) + 1})
+        {
+          auto const v = patch.Triangle(t);
+          auto const pa = patch.Point(v[0]), pb = patch.Point(v[1]), pc = patch.Point(v[2]);
+          double const orientation = m2::robust::OrientedS(pa, pb, pc);
+          m2::ClipTriangleByRect(tileRect, pa, pc, pb, [&](auto const & ca, auto const & cb, auto const & cc)
+          {
+            for (auto const & point : {ca, cb, cc})
+            {
+              float const wa = static_cast<float>(m2::CrossProduct(point - pc, pb - pc) / orientation);
+              float const wb = static_cast<float>(m2::CrossProduct(pa - pc, point - pc) / orientation);
+              vertices.push_back(makeVertex(
+                  point, wa * gridNormals[v[0]] + wb * gridNormals[v[1]] + (1.0f - wa - wb) * gridNormals[v[2]]));
+            }
+          });
+        }
+      }
+      flushRow();
+    }
+  }
+  if (!gridRows.empty())
+    m_applyParams.m_insertShape(make_unique_dp<TerrainGridShadeShape>(std::move(gridRows)));
+  if (!vertices.empty())
+    m_applyParams.m_insertShape(make_unique_dp<TerrainShadeShape>(std::move(vertices)));
+}
+
+void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain::IsolinesStyle const & isolinesStyle,
+                                     measurement_utils::Units units)
+{
+  double const visScale = m_applyParams.m_vparams.GetVisualScale();
+  ClipSplinesBuilder builder(m_applyParams);
+
+  // All the dynamic labels of a tile share an invalid FeatureID, so their OverlayID
+  // uniqueness rests entirely on the running text index (cf. kPathTextBaseTextIndex
+  // of the baked path texts); each shape reserves one index per repeated placement.
+  uint32_t textIndex = 128;
+
+  auto const unitSuffix = units == measurement_utils::Units::Imperial ? " " + platform::GetLocalizedString("ft") : "";
+  // The isolines come in the display units (see terrain::TraceIsolines).
+  terrain::TraceIsolines(data, isolinesStyle.GetStep(), units, [&](terrain::Isoline && isoline)
+  {
+    if (CheckCancelled())
+      return;
+    auto const * lineRule = isolinesStyle.GetLineRule(isoline.m_altitude);
+    if (lineRule == nullptr)
+      return;
+    auto const * textRule = isolinesStyle.GetPathTextRule(isoline.m_altitude);
+
+    builder.SetPath(std::move(isoline.m_points));
+    for (auto const & spline : builder.Release(true /* isIsoline */))
+    {
+      LineViewParams params;
+      params.m_tileCenter = m_applyParams.m_tileRect.Center();
+      ExtractLineParams(*lineRule, visScale, params);
+
+      /// @todo Add depth contours (negative altitudes) to the styles.
+      if (isoline.m_altitude < 0)
+        params.m_color = dp::Color(38, 118, 196, params.m_color.GetAlpha());
+
+      // Isoline drules are FG lines, their priorities map to the depth directly.
+      params.m_depth = lineRule->priority;
+      params.m_depthLayer = DepthLayer::GeometryLayer;
+      params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+      params.m_zoomLevel = m_zoomLevel;
+      m_applyParams.m_insertShape(make_unique_dp<LineShape>(spline, params));
+
+      if (textRule == nullptr)
+        continue;
+
+      auto const & caption = *textRule->primary;
+      PathTextViewParams textParams;
+      textParams.m_tileCenter = m_applyParams.m_tileRect.Center();
+      textParams.m_depthLayer = DepthLayer::OverlayLayer;
+      textParams.m_depthTestEnabled = false;
+      // Pathtext drule priorities map to the overlay depth directly.
+      textParams.m_depth = textRule->priority;
+      textParams.m_mainText = strings::to_string(isoline.m_altitude) + unitSuffix;
+      CaptionDefToFontDecl(&caption, visScale, textParams.m_textFont);
+
+      /// @todo Add depth contours (negative altitudes) to the styles.
+      if (isoline.m_altitude < 0)
+        textParams.m_textFont.m_color = dp::Color(25, 96, 168, 255);
+
+      textParams.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+
+      auto shape = make_unique_dp<PathTextShape>(spline, textParams, m_applyParams.m_tileKey, textIndex);
+      // The layout fails on splines too short for the text: no label then.
+      if (!shape->CalculateLayout(m_context->GetTextureManager()))
+        continue;
+      textIndex += static_cast<uint32_t>(shape->GetOffsets().size());
+      m_applyParams.m_insertShape(std::move(shape));
+    }
+  }, m_context->GetCancellable());
 }
 
 #ifdef DRAW_TILE_NET

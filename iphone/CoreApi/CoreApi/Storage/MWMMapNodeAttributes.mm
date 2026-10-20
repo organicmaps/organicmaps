@@ -67,10 +67,9 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     _countryId = [countryId copy];
     _totalMwmCount = attributes.m_mwmCounter;
     _downloadedMwmCount = attributes.m_localMwmCounter;
-    _downloadingMwmCount = attributes.m_downloadingMwmCounter - attributes.m_localMwmCounter;
     _totalSize = attributes.m_mwmSize;
     _downloadedSize = attributes.m_localMwmSize;
-    _downloadingSize = attributes.m_downloadingMwmSize - attributes.m_localMwmSize;
+    _downloadingSize = attributes.m_downloadSize;
     _nodeName = @(attributes.m_nodeLocalName.c_str());
     _nodeDescription = @(attributes.m_nodeLocalDescription.c_str());
     _nodeStatus = convertStatus(attributes.m_status);
@@ -78,12 +77,15 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     _hasParent = hasParent;
 
     storage::Storage::UpdateInfo updateInfo;
-    if (GetFramework().GetStorage().GetUpdateInfo([countryId UTF8String], updateInfo))
+    if (attributes.m_status == storage::NodeStatus::OnDiskOutOfDate)
+      _totalUpdateSizeBytes = attributes.m_downloadSize;
+    else if (GetFramework().GetStorage().GetUpdateInfo([countryId UTF8String], updateInfo))
       _totalUpdateSizeBytes = updateInfo.m_totalDownloadSizeInBytes;
     else
       _totalUpdateSizeBytes = 0;
 
     auto const total = attributes.m_downloadingProgress.m_bytesTotal;
+    _downloadingProgressTotalBytes = total;
     if (total > 0)
       _downloadingProgress = static_cast<float>(attributes.m_downloadingProgress.m_bytesDownloaded) / total;
 

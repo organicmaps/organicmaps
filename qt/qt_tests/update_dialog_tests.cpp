@@ -59,3 +59,28 @@ UNIT_TEST(UpdateDialog_EntireTreeIsSortedAlphabetically)
   constexpr int kCountryColumn = 0;  // KColumnIndexCountry
   TEST_EQUAL(tree.sortColumn(), kCountryColumn, ());
 }
+
+UNIT_TEST(UpdateDialog_MapAndTerrainUseTheSameProgressRow)
+{
+  EnsureApp();
+
+  Framework framework(FrameworkParams{}, false);
+  qt::UpdateDialog dialog(nullptr, framework);
+  dialog.FillTreeForTesting();
+
+  auto const & tree = dialog.GetTreeForTesting();
+  auto * row = tree.topLevelItem(0);
+  while (row->childCount() != 0)
+    row = row->child(0);
+  auto const id = row->data(0, Qt::UserRole).toString().toStdString();
+  auto const status = row->text(1);
+  auto const size = row->text(2);
+  TEST(!size.isEmpty(), (id));
+
+  // Terrain-only updates advance the same country row.
+  dialog.OnCountryDownloadProgress(id, {0, 0, 5, 10});
+  TEST_EQUAL(row->text(1).toStdString(), status.toStdString(), (id));
+  TEST_EQUAL(row->text(2).toStdString(), "50%", (id));
+  dialog.OnCountryDownloadProgress(id, {100, 100, 15, 30});
+  TEST_EQUAL(row->text(2).toStdString(), "88%", (id));
+}

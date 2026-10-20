@@ -1,0 +1,37 @@
+#pragma once
+
+#include "drape_frontend/map_shape.hpp"
+
+#include "drape/utils/vertex_decl.hpp"
+
+#include <vector>
+
+namespace df
+{
+// Tile-local terrain positions and surface normals. TerrainShade interpolates the
+// normals and computes lighting from the live light direction in the shader.
+class TerrainShadeShape : public MapShape
+{
+public:
+  explicit TerrainShadeShape(std::vector<gpu::TerrainShadeVertex> && vertices) : m_vertices(std::move(vertices)) {}
+
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
+
+private:
+  std::vector<gpu::TerrainShadeVertex> m_vertices;
+};
+
+// Regular grid rows use the batcher's indexed triangle strips. The initial
+// duplicate vertex selects CW winding while retaining the fixed SW-NE diagonal.
+class TerrainGridShadeShape : public MapShape
+{
+public:
+  explicit TerrainGridShadeShape(std::vector<std::vector<gpu::TerrainShadeVertex>> && rows) : m_rows(std::move(rows)) {}
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
+
+private:
+  std::vector<std::vector<gpu::TerrainShadeVertex>> m_rows;
+};
+}  // namespace df

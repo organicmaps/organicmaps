@@ -2,8 +2,6 @@
 
 #include "map/framework.hpp"
 
-#include "platform/downloader_defines.hpp"
-
 #include "base/thread_checker.hpp"
 
 #include <cstdint>
@@ -36,7 +34,7 @@ public:
   /// @name Called from downloader to notify GUI
   //@{
   void OnCountryChanged(storage::CountryId const & countryId);
-  void OnCountryDownloadProgress(storage::CountryId const & countryId, downloader::Progress const & progress);
+  void OnCountryDownloadProgress(storage::CountryId const & countryId, storage::Progress const & progress);
   //@}
 
   void ShowModal();

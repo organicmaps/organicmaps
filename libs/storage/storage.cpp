@@ -7,6 +7,8 @@
 #include "storage/map_files_downloader.hpp"
 #include "storage/storage_helpers.hpp"
 
+#include "indexer/terrain/twm_set.hpp"
+
 #include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
@@ -21,6 +23,7 @@
 #include "base/exception.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -30,7 +33,10 @@
 #include <glaze/json.hpp>
 
 #include <algorithm>
+#include <array>
 #include <sstream>
+#include <string_view>
+#include <utility>
 
 namespace storage
 {
@@ -40,6 +46,17 @@ using namespace platform;
 namespace
 {
 std::string const kDownloadQueueKey = "DownloadQueue";
+std::string const kTerrainDownloadQueueKey = "TerrainDownloadQueue";
+std::string const kTerrainRequestedRegionsKey = "TerrainRequestedRegions";
+
+bool IsRealObsolete(LocalFilePtr const & lf);
+
+void SaveQueueIfChanged(std::string const & key, std::string const & value)
+{
+  std::string previous;
+  if (!settings::Get(key, previous) || previous != value)
+    settings::Set(key, value);
+}
 
 // Editing maps older than approximately three months old is disabled, since the data
 // is most likely already fixed on OSM. Not limited to the latest one or two versions,
@@ -97,39 +114,43 @@ CountriesSet GetQueuedCountries(QueueInterface const & queue)
   return result;
 }
 
-Progress Storage::GetOverallProgress(CountriesVec const & countries) const
+downloader::Progress Storage::GetOverallProgress(CountriesVec const & countries, bool withTerrain) const
 {
-  Progress overallProgress;
-  for (auto const & country : countries)
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  downloader::Progress overallProgress;
+  auto const mwmsInQueue = GetQueuedCountries(m_downloader->GetQueue());
+  CountriesSet const regions(countries.begin(), countries.end());
+  for (auto const & country : regions)
   {
-    // Lightweight progress for leaf nodes (asserted by the original code).
-    // Avoids the full subtree traversal, status computation, and string
-    // allocations that GetNodeAttrs performs.
-    auto const downloadingIt = m_downloadingCountries.find(country);
-    if (downloadingIt != m_downloadingCountries.cend())
-    {
-      if (!downloadingIt->second.IsUnknown())
-        overallProgress.m_bytesDownloaded += downloadingIt->second.m_bytesDownloaded;
-      overallProgress.m_bytesTotal += GetRemoteSize(GetCountryFile(country));
-    }
-    else if (m_justDownloaded.count(country) != 0)
-    {
-      MwmSize const sz = GetRemoteSize(GetCountryFile(country));
-      overallProgress.m_bytesDownloaded += sz;
-      overallProgress.m_bytesTotal += sz;
-    }
-    else if (IsCountryInQueue(country))
-    {
-      overallProgress.m_bytesTotal += GetRemoteSize(GetCountryFile(country));
-    }
-    else if (CountryStatusEx(country) == Status::OnDisk)
-    {
-      MwmSize const sz = CountryLeafByCountryId(country).GetSubtreeMwmSizeBytes();
-      overallProgress.m_bytesDownloaded += sz;
-      overallProgress.m_bytesTotal += sz;
-    }
+    ASSERT(IsLeaf(country), (country));
+    auto const progress = GetMapProgress(country, mwmsInQueue, true /* includeInstalled */);
+    overallProgress.m_bytesDownloaded += progress.m_bytesDownloaded;
+    overallProgress.m_bytesTotal += progress.m_bytesTotal;
+  }
+  if (withTerrain)
+  {
+    auto const terrain = GetTerrainDownloadingProgress(regions, true /* includeCompleted */);
+    overallProgress.m_bytesDownloaded += terrain.m_bytesDownloaded;
+    overallProgress.m_bytesTotal += terrain.m_bytesTotal;
   }
   return overallProgress;
+}
+
+Progress Storage::GetDownloadingProgress(CountryId const & countryId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(m_countries.FindFirst(countryId), (countryId));
+  Progress progress;
+  auto maps = GetActiveMapProgress(countryId);
+  auto terrain = GetTerrainDownloadingProgress(countryId, maps.m_bytesTotal > 0 /* includeCompleted */);
+  if (terrain.m_bytesTotal > 0)
+    maps = GetActiveMapProgress(countryId, true /* includeCompleted */);
+  progress.m_mwmDownloaded = maps.m_bytesDownloaded;
+  progress.m_mwmTotal = maps.m_bytesTotal;
+  progress.m_twmDownloaded = terrain.m_bytesDownloaded;
+  progress.m_twmTotal = terrain.m_bytesTotal;
+  return progress;
 }
 
 Storage::Storage(int)
@@ -146,6 +167,22 @@ Storage::Storage(std::string const & pathToCountriesFile /* = COUNTRIES_FILE */,
 
   SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile);
+
+  // The terrain blocks grid ships next to the countries file; the terrain features
+  // simply stay off without it (e.g. minimal test bundles).
+  try
+  {
+    std::string content;
+    GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
+    int64_t version = 0;
+    m_twmGridIndices = ParseTwmGridJson(content, version, m_twmGrid, m_terrainCoverage);
+    m_downloader->SetTerrainDataVersion(version);
+    LOG(LINFO, ("Terrain grid:", m_twmGrid.size(), "blocks,", m_terrainCoverage.size(), "regions, version", version));
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("Terrain grid is not available:", ex.Msg()));
+  }
 
   m_downloader->SetDataVersion(m_currentVersion);
 
@@ -166,12 +203,1076 @@ Storage::Storage(std::string const & referenceCountriesTxtJsonForTesting,
   m_downloader->SetDataVersion(m_currentVersion);
 }
 
+namespace twm_grid_json
+{
+// The grid uses countries.json-style "s" size and truncated-BLAKE3 "h" hash per block,
+// the extents in whole degrees, the per-block
+// version "v" (the top-level index version when omitted) and the region coverage.
+struct Block
+{
+  std::string id;
+  int sx = 0;
+  int sy = 0;
+  uint64_t s = 0;
+  std::string h;
+  int64_t v = 0;
+};
+struct Grid
+{
+  int64_t v = -1;
+  std::vector<Block> blocks;
+  std::map<std::string, std::vector<std::string>> mwms;
+};
+}  // namespace twm_grid_json
+
+// static
+std::map<terrain::TerrainId, uint32_t> Storage::ParseTwmGridJson(std::string const & jsonBuffer, int64_t & version,
+                                                                 std::vector<TerrainBlock> & blocks,
+                                                                 std::map<CountryId, std::vector<uint32_t>> & coverage)
+{
+  twm_grid_json::Grid grid;
+  glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+  if (auto const error = glz::read<opts>(grid, jsonBuffer); error)
+    MYTHROW(RootException, ("Can't parse the terrain grid:", glz::format_error(error, jsonBuffer)));
+
+  if (grid.v <= 0)
+    MYTHROW(RootException, ("Invalid terrain grid version", grid.v));
+
+  // Into the locals first: a throw below must not leave the caller half-configured
+  // (a truncated coverage would silently download and render terrain with holes).
+  std::vector<TerrainBlock> parsedBlocks;
+  parsedBlocks.reserve(grid.blocks.size());
+  std::map<std::string, uint32_t> indices;
+  for (auto const & json : grid.blocks)
+  {
+    TerrainBlock block;
+    terrain::GridBlock gridBlock;
+    gridBlock.m_width = json.sx;
+    gridBlock.m_height = json.sy;
+    if (!terrain::ParseBlockName(json.id, gridBlock.m_bottom, gridBlock.m_left) || !terrain::IsValidBlock(gridBlock) ||
+        json.s == 0 || json.h.empty() || json.v < 0)
+    {
+      MYTHROW(RootException, ("Invalid terrain grid block", json.id));
+    }
+    block.m_id = json.id;
+    block.m_rect = gridBlock.GetRectMercator();
+    block.m_size = json.s;
+    block.m_hash = json.h;
+    block.m_version = json.v > 0 ? json.v : grid.v;
+    if (!indices.emplace(block.m_id, static_cast<uint32_t>(parsedBlocks.size())).second)
+      MYTHROW(RootException, ("Duplicate terrain grid block", json.id));
+    parsedBlocks.push_back(std::move(block));
+  }
+
+  // The coverage ships with the grid: a region missing here simply has no terrain
+  // (World/WorldCoasts by design), but a dangling block id means a broken bundle.
+  if (grid.mwms.empty())
+    MYTHROW(RootException, ("No region coverage in the terrain grid"));
+  std::map<CountryId, std::vector<uint32_t>> parsedCoverage;
+  for (auto const & [region, ids] : grid.mwms)
+  {
+    if (ids.empty())
+      MYTHROW(RootException, ("Empty coverage of", region));
+    auto & regionBlocks = parsedCoverage[region];
+    regionBlocks.reserve(ids.size());
+    for (auto const & id : ids)
+    {
+      auto const it = indices.find(id);
+      if (it == indices.end())
+        MYTHROW(RootException, ("Unknown block", id, "in the coverage of", region));
+      regionBlocks.push_back(it->second);
+    }
+    // Sorted like the group unions; a duplicate id must not double-count the sizes.
+    base::SortUnique(regionBlocks);
+  }
+
+  version = grid.v;
+  blocks = std::move(parsedBlocks);
+  coverage = std::move(parsedCoverage);
+  return indices;
+}
+
 void Storage::Init(UpdateCallback didDownload, DeleteCallback willDelete)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_didDownload = std::move(didDownload);
   m_willDelete = std::move(willDelete);
+}
+
+void Storage::SetTerrainCallbacks(TerrainRegisterFn registerFn, TerrainDeleteFn deleteFn)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_terrainRegisterFn = std::move(registerFn);
+  m_terrainDeleteFn = std::move(deleteFn);
+}
+
+void Storage::DeleteTerrain(CountryId const & countryId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CancelTerrain(countryId);
+  if (!m_terrainScanned)
+  {
+    m_terrainDeletesBeforeScan.insert(countryId);
+    return;
+  }
+
+  auto const covering = GetCoveringBlocks(countryId);
+  CountriesSet subtree;
+  ForEachInSubtree(countryId, [&subtree](CountryId const & id, bool /* groupNode */) { subtree.insert(id); });
+  for (auto const & id : subtree)
+    m_requestedTerrainRegions->erase(id);
+  SaveRequestedTerrainRegions();
+  auto const wanted = GetWantedTerrainBlocks(subtree);
+
+  std::vector<terrain::TerrainId> ids;
+  for (auto const & [id, file] : m_localTerrainFiles)
+  {
+    auto const * block = FindTerrainBlock(id);
+    if (block && block->m_version == file.m_version)
+    {
+      auto const index = static_cast<uint32_t>(block - m_twmGrid.data());
+      if (std::binary_search(covering.begin(), covering.end(), index) && wanted.count(index) == 0)
+        ids.push_back(id);
+      continue;
+    }
+    // Only older layouts need geometry: their IDs can cover several current cells.
+    auto const covers = [&](uint32_t index)
+    { return terrain::IsInteriorOverlap(file.m_rect, m_twmGrid[index].m_rect); };
+    if (base::AnyOf(covering, covers) && !base::AnyOf(wanted, covers))
+      ids.push_back(id);
+  }
+  CountriesSet affected{countryId};
+  for (auto const & id : ids)
+  {
+    auto const regions = GetTerrainRegions(id);
+    affected.insert(regions.begin(), regions.end());
+  }
+  DeleteTerrainFiles(ids);
+  for (auto const & id : affected)
+    NotifyStatusChangedForHierarchy(id);
+}
+
+void Storage::DeleteTerrainFiles(std::vector<terrain::TerrainId> const & ids)
+{
+  std::vector<terrain::TwmFile> files;
+  for (auto const & id : ids)
+  {
+    auto const it = m_localTerrainFiles.find(id);
+    ASSERT(it != m_localTerrainFiles.end(), (id));
+    files.push_back(it->second);
+    m_pendingTerrainFiles.insert(it->second.m_path);
+    m_localTerrainSizes.erase(id);
+    m_localTerrainFiles.erase(it);
+  }
+  if (ids.empty())
+    return;
+  if (m_terrainDeleteFn)
+    m_terrainDeleteFn(ids);
+  else
+    for (auto const & file : files)
+      OnTerrainFileDeregistered(file);
+}
+
+void Storage::OnTerrainFileDeregistered(terrain::TwmFile const & file)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  // A completion for an old version must leave its replacement registered.
+  if (auto it = m_localTerrainFiles.find(file.m_id);
+      it != m_localTerrainFiles.end() && it->second.m_path == file.m_path)
+  {
+    m_localTerrainSizes.erase(file.m_id);
+    m_localTerrainFiles.erase(it);
+  }
+  m_pendingTerrainFiles.erase(file.m_path);
+  // Keep directories prepared for queued downloads. Startup scanning removes empty ones.
+  if (!file.m_path.empty())
+    Platform::RemoveFileIfExists(file.m_path);
+}
+
+template <class Fn>
+void Storage::ForEachCoverageLeaf(CountryId const & countryId, Fn && fn) const
+{
+  if (m_terrainCoverage.empty())  // No terrain grid in the bundle: skip the tree walks.
+    return;
+
+  if (auto const it = m_terrainCoverage.find(countryId); it != m_terrainCoverage.end())
+  {
+    fn(it->first, it->second);
+    return;
+  }
+
+  // A group node: every coverage leaf of its subtree.
+  ForEachInSubtree(countryId, [&](CountryId const & id, bool groupNode)
+  {
+    if (groupNode)
+      return;
+    if (auto const it = m_terrainCoverage.find(id); it != m_terrainCoverage.end())
+      fn(it->first, it->second);
+  });
+}
+
+LocalFilePtr Storage::GetInstalledLocalFile(CountryId const & countryId) const
+{
+  auto const local = GetLatestLocalFile(countryId);
+  if (local && local->OnDisk(MapFileType::Map))
+    return local;
+  if (auto const it = m_countriesInfo.m_mwmToOld.find(countryId); it != m_countriesInfo.m_mwmToOld.end())
+  {
+    auto const old = GetLatestLocalFile(it->second);
+    if (old && old->OnDisk(MapFileType::Map) && IsRealObsolete(old))
+      return old;
+  }
+  return {};
+}
+
+template <class Fn>
+void Storage::ForEachTerrainLeafForNode(CountryId const & countryId, Fn && fn) const
+{
+  bool const leaf = IsLeaf(countryId);
+  ForEachCoverageLeaf(countryId, [&](CountryId const & id, std::vector<uint32_t> const & indices)
+  {
+    if (leaf || GetInstalledLocalFile(id))
+      fn(id, indices);
+  });
+}
+
+template <class Fn>
+void Storage::ForEachTerrainBlockToUpdate(CountryId const & countryId, Fn && fn) const
+{
+  if (!m_terrainScanned)
+    return;
+  ForEachCoverageLeaf(countryId, [&](CountryId const & id, std::vector<uint32_t> const & indices)
+  {
+    if (!GetInstalledLocalFile(id))
+      return;
+    for (auto const index : indices)
+    {
+      auto const & block = m_twmGrid[index];
+      if (!IsTerrainOnDisk(block) && !m_terrainQueue.contains(block.m_id))
+        fn(id, index);
+    }
+  });
+}
+
+std::vector<uint32_t> Storage::GetTerrainBlocksForNode(CountryId const & countryId) const
+{
+  std::vector<uint32_t> blocks;
+  ForEachTerrainLeafForNode(countryId, [&](CountryId const &, std::vector<uint32_t> const & indices)
+  { blocks.insert(blocks.end(), indices.begin(), indices.end()); });
+  base::SortUnique(blocks);
+  return blocks;
+}
+
+std::vector<uint32_t> Storage::GetCoveringBlocks(CountryId const & countryId) const
+{
+  // The sorted deduplicated union: the blocks shared by the group leafs must not be
+  // counted twice by the size aggregation.
+  std::vector<uint32_t> blocks;
+  ForEachCoverageLeaf(countryId, [&blocks](CountryId const &, std::vector<uint32_t> const & indices)
+  { blocks.insert(blocks.end(), indices.begin(), indices.end()); });
+  base::SortUnique(blocks);
+  return blocks;
+}
+
+std::string Storage::GetTerrainDir() const
+{
+  auto terrainDir = GetPlatform().WritableDir();
+  if (!m_dataDir.empty())
+    terrainDir = base::JoinPath(terrainDir, m_dataDir);
+  return base::JoinPath(terrainDir, TERRAIN_DIR);
+}
+
+std::vector<terrain::TwmFile> Storage::ScanTerrainFiles() const
+{
+  std::vector<terrain::TwmFile> scanned;
+  for (auto const & [dir, version] : terrain::ListVersionDirs(GetTerrainDir()))
+  {
+    Platform::FilesList files;
+    Platform::GetFilesByExt(dir, TERRAIN_FILE_EXT, files);
+    std::sort(files.begin(), files.end());
+    for (auto const & name : files)
+    {
+      auto const path = base::JoinPath(dir, name);
+      terrain::TwmFile file;
+      auto const result = terrain::TwmSet::ReadFile(path, version, file);
+      if (result == terrain::TwmSet::RegResult::Success)
+        scanned.push_back(std::move(file));
+      else if (result == terrain::TwmSet::RegResult::ObsoleteVersion)
+        Platform::RemoveFileIfExists(path);
+    }
+    Platform::RmDir(dir);  // Removes only empty directories, before downloads are restored.
+  }
+
+  return scanned;
+}
+
+void Storage::OnTerrainScanned(std::vector<terrain::TwmFile> && files)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  std::stable_sort(files.begin(), files.end(),
+                   [](auto const & a, auto const & b) { return a.m_version > b.m_version; });
+  for (auto const & file : files)
+  {
+    // Scan results can wait in the GUI queue while a deletion removes their files.
+    if (m_pendingTerrainFiles.count(file.m_path) != 0)
+      continue;
+    if (!file.m_path.empty() && !Platform::IsFileExistsByFullPath(file.m_path))
+      continue;
+    if (RegisterTerrainFile(file))
+      continue;
+    bool const replaced = base::AnyOf(m_localTerrainFiles, [&](auto const & entry)
+    {
+      auto const & local = entry.second;
+      return local.m_version > file.m_version &&
+             (local.m_id == file.m_id || terrain::IsInteriorOverlap(local.m_rect, file.m_rect));
+    });
+    if (replaced && m_pendingTerrainFiles.count(file.m_path) == 0)
+      OnTerrainFileDeregistered(file);
+  }
+  m_terrainScanned = true;
+  LoadRequestedTerrainRegions();
+
+  auto const deletedRegions = std::move(m_terrainDeletesBeforeScan);
+  m_terrainDeletesBeforeScan.clear();
+  for (auto const & countryId : deletedRegions)
+    DeleteTerrain(countryId);
+
+  CountriesSet changedRegions;
+  for (auto const & [countryId, indices] : m_terrainCoverage)
+    changedRegions.insert(countryId);
+  NotifyStatusChangedForHierarchy(changedRegions);
+  if (m_queueRestored)
+    RestoreDownloadQueue();
+}
+
+bool Storage::RegisterTerrainFile(terrain::TwmFile const & file)
+{
+  std::vector<terrain::TerrainId> replaced;
+  for (auto const & [id, local] : m_localTerrainFiles)
+  {
+    if (local.m_path == file.m_path && local.m_id == file.m_id && local.m_version == file.m_version)
+      return true;
+    if (local.m_id != file.m_id && !terrain::IsInteriorOverlap(local.m_rect, file.m_rect))
+      continue;
+    if (local.m_version >= file.m_version)
+      return false;
+    replaced.push_back(id);
+  }
+  DeleteTerrainFiles(replaced);
+  if (m_terrainRegisterFn && !m_terrainRegisterFn(file))
+    return false;
+  m_localTerrainFiles[file.m_id] = file;
+  uint64_t size = 0;
+  Platform::GetFileSizeByFullPath(file.m_path, size);
+  m_localTerrainSizes[file.m_id] = size;
+  m_pendingTerrainFiles.erase(file.m_path);
+  return true;
+}
+
+bool Storage::IsTerrainOnDisk(TerrainBlock const & block) const
+{
+  auto const it = m_localTerrainFiles.find(block.m_id);
+  return it != m_localTerrainFiles.end() && it->second.m_version == block.m_version;
+}
+
+bool Storage::HasOlderTerrain(TerrainBlock const & block) const
+{
+  if (auto const it = m_localTerrainFiles.find(block.m_id);
+      it != m_localTerrainFiles.end() && it->second.m_version < block.m_version && it->second.m_rect == block.m_rect)
+    return true;
+
+  return base::AnyOf(m_localTerrainFiles, [&](auto const & entry)
+  {
+    auto const & file = entry.second;
+    return file.m_version < block.m_version && terrain::IsInteriorOverlap(file.m_rect, block.m_rect);
+  });
+}
+
+MwmSize Storage::GetDownloadSize(CountriesVec const & countries, bool withTerrain) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  MwmSize size = 0;
+  CountriesSet uniqueCountries;
+  for (auto const & root : CountriesSet(countries.begin(), countries.end()))
+    ForEachInSubtree(root, [&uniqueCountries](CountryId const & id, bool groupNode)
+    {
+      if (!groupNode)
+        uniqueCountries.insert(id);
+    });
+
+  for (auto const & country : uniqueCountries)
+  {
+    CountryTree::Node const * const node = m_countries.FindFirst(country);
+    if (node == nullptr || node->ChildrenCount() != 0)
+      continue;
+    // An out-of-date map is re-downloaded in full (see DownloadNode), so no local-size
+    // discount; queued, validating and applying maps are already in the running batch.
+    if (GetNodeStatus(*node).status != NodeStatus::OnDisk && !IsCountryInQueue(country) &&
+        m_downloadingCountries.count(country) == 0 && !IsDiffApplyingInProgressToCountry(country))
+      size += GetCountryFile(country).GetRemoteSize();
+  }
+  if (withTerrain)
+    size += GetTerrainDownloadSize(CountriesVec(uniqueCountries.begin(), uniqueCountries.end()));
+  return size;
+}
+
+MwmSize Storage::GetTerrainDownloadSize(CountriesVec const & countries) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_terrainScanned)
+    return 0;
+  std::set<uint32_t> blocks;
+  for (auto const & country : countries)
+  {
+    auto const covering = GetTerrainBlocksForNode(country);
+    blocks.insert(covering.begin(), covering.end());
+  }
+  MwmSize size = 0;
+  for (auto const index : blocks)
+  {
+    auto const & block = m_twmGrid[index];
+    if (!IsTerrainOnDisk(block) && m_terrainQueue.count(block.m_id) == 0)
+      size += block.m_size;
+  }
+  return size;
+}
+
+Storage::TerrainBlock const * Storage::FindTerrainBlock(terrain::TerrainId const & id) const
+{
+  auto const it = m_twmGridIndices.find(id);
+  return it == m_twmGridIndices.end() ? nullptr : &m_twmGrid[it->second];
+}
+
+std::string Storage::GetTerrainReadyPath(TerrainBlock const & block) const
+{
+  return platform::GetFileDownloadPath(block.m_version, m_dataDir, block.m_id, MapFileType::Terrain);
+}
+
+void Storage::DeleteTerrainArtifacts(TerrainBlock const & block) const
+{
+  // The chunked downloader writes exactly these three names, cf. the maps'
+  // DeleteDownloaderFilesForCountry; RemoveFileIfExists no-ops on the missing ones.
+  std::string const ready = GetTerrainReadyPath(block);
+  auto const readers = m_terrainValidationReaders.find(ready);
+  if (readers == m_terrainValidationReaders.end() || readers->second->load() == 0)
+    Platform::RemoveFileIfExists(ready);
+  Platform::RemoveFileIfExists(ready + RESUME_FILE_EXTENSION);
+  Platform::RemoveFileIfExists(ready + DOWNLOADING_FILE_EXTENSION);
+}
+
+void Storage::DownloadTerrain(CountryId const & countryId, bool userRequest /* = true */)
+{
+  DownloadTerrain(CountriesSet{countryId}, userRequest);
+}
+
+void Storage::DownloadTerrain(CountriesSet const & countryIds, bool userRequest)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  CountriesSet changedRegions;
+  for (auto const & countryId : countryIds)
+    if (EnqueueTerrain(countryId, userRequest))
+      changedRegions.insert(countryId);
+  if (changedRegions.empty())
+    return;
+
+  SaveRequestedTerrainRegions();
+  SaveDownloadQueue();
+  if (userRequest)
+    ScheduleTerrainRetry();
+  NotifyStatusChangedForHierarchy(changedRegions);
+}
+
+bool Storage::EnqueueTerrain(CountryId const & countryId, bool userRequest)
+{
+  auto const covering = GetTerrainBlocksForNode(countryId);
+  if (covering.empty())
+    return false;
+  // The terrain scan always lands before anything terrain downloads: LoadMapsSync
+  // posts the queue restore behind the scan task, and every user entry point runs
+  // after the load (see OnTerrainScanned).
+  ASSERT(m_terrainScanned, (countryId));
+  CountriesSet owners;
+  ForEachTerrainLeafForNode(countryId, [&](CountryId const & id, auto const &) { owners.insert(id); });
+  m_requestedTerrainRegions->insert(owners.begin(), owners.end());
+  size_t scheduled = 0;
+  for (auto const index : covering)
+  {
+    auto const & terrainBlock = m_twmGrid[index];
+    if (IsTerrainOnDisk(terrainBlock))
+      continue;
+
+    // The notification interest, only for the blocks in flight: CancelTerrain erases
+    // the regions it finds here, and a region whose coverage is already complete has
+    // no entries left, so a later unrelated cancel does not touch it.
+    std::string const & name = terrainBlock.m_id;
+    auto & blockOwners = m_terrainBlockRegions[name];
+    for (auto const & owner : owners)
+    {
+      auto const & indices = m_terrainCoverage.at(owner);
+      if (std::binary_search(indices.begin(), indices.end(), index))
+        blockOwners.insert(owner);
+    }
+    if (m_terrainQueue.count(name) > 0)
+      continue;
+
+    // A folder per block version, like the versioned maps folders.
+    auto const dir = base::GetDirectory(GetTerrainReadyPath(terrainBlock));
+    if (!Platform::MkDirRecursively(dir))
+    {
+      // Still notify below: the rows the loop already touched must refresh.
+      LOG(LERROR, ("Can't create the terrain directory", dir));
+      break;
+    }
+
+    if (!userRequest)
+    {
+      // The auto-retry is transport-only: a block that 404-ed or failed the hash check
+      // waits for an explicit user download/update.
+      if (auto const it = m_terrainFailures.find(name); it != m_terrainFailures.end() && !it->second)
+        continue;
+    }
+    m_terrainFailures.erase(name);
+    m_terrainQueue.emplace(name, TerrainBlockState{.m_downloadId = ++m_nextTerrainDownloadId});
+
+    // The terrain block rides the shared downloader queue (FIFO with the maps, the
+    // cellular policy applies) as a synthetic country keyed by the block name; the
+    // size and the integrity hash come from the grid index like from countries.json.
+    // The terrain items carry the BLOCK version (not the maps one): it selects both
+    // the download URL and the versioned client folder, so a grid update touches
+    // only the re-generated blocks (see QueuedCountry::GetFileDownloadPath).
+    platform::CountryFile const terrainFile(name, terrainBlock.m_size, terrainBlock.m_hash);
+    QueuedCountry queuedBlock(terrainFile, name, MapFileType::Terrain, terrainBlock.m_version, m_dataDir,
+                              m_diffsDataSource);
+    queuedBlock.Subscribe(m_terrainSubscriber);
+    if (IsFileDownloaded(queuedBlock.GetFileDownloadPath(), MapFileType::Terrain))
+    {
+      m_terrainQueue.at(name).m_bytesDownloaded = terrainBlock.m_size;
+      queuedBlock.OnDownloadFinished(downloader::DownloadStatus::Completed);
+    }
+    else
+      m_downloader->DownloadMapFile(std::move(queuedBlock));
+    ++scheduled;
+  }
+  if (scheduled > 0)
+    LOG(LINFO, ("Terrain:", scheduled, "block downloads scheduled for", countryId));
+  return true;
+}
+
+void Storage::RestoreTerrain()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(m_terrainScanned && m_queueRestored, ());
+
+  // The vast majority never touched the terrain: no directory means nothing to resume
+  // and nothing to sweep, at the cost of one stat.
+  auto const terrainDir = GetTerrainDir();
+
+  if (m_terrainCoverage.empty() || !Platform::IsFileExistsByFullPath(terrainDir))
+    return;
+
+  // Recover downloader artifacts as well as the saved queue: a completed .ready file
+  // can survive a shutdown during validation, after the downloader removed its item.
+  std::vector<std::pair<std::string, std::string>> artifacts;  // (dir, file)
+  for (auto const & [dir, version] : terrain::ListVersionDirs(terrainDir))
+  {
+    Platform::FilesList files;
+    Platform::GetFilesByRegExp(dir, "\\" TERRAIN_FILE_EXT "\\" READY_FILE_EXTENSION, files);
+    for (auto & file : files)
+      artifacts.emplace_back(dir, std::move(file));
+  }
+  if (artifacts.empty())
+    return;
+
+  // Resume artifacts covered by explicit terrain requests, and remove the rest.
+  // Cancellation removes artifacts and saved intent so it survives a restart.
+  // DownloadTerrain skips blocks already on disk or in flight.
+  std::map<std::string, CountriesSet> wantedReady;  // The artifact path prefix -> the regions wanting the block.
+  for (auto const & region : *m_requestedTerrainRegions)
+  {
+    auto const it = m_terrainCoverage.find(region);
+    if (it == m_terrainCoverage.end())
+      continue;
+    auto const & indices = it->second;
+    for (auto const index : indices)
+    {
+      auto const & block = m_twmGrid[index];
+      if (!IsTerrainOnDisk(block))
+        wantedReady[GetTerrainReadyPath(block)].insert(region);
+    }
+  }
+
+  CountriesSet toResume;
+  for (auto const & [dir, file] : artifacts)
+  {
+    // An artifact of a block the downloader is serving right now is not a leftover:
+    // the restore re-fires on the Android rendering init (activity recreation).
+    if (m_terrainQueue.count(file.substr(0, file.find('.'))) > 0)
+      continue;
+    std::string const path = base::JoinPath(dir, file);
+    // Validation or its queued GUI cleanup still owns this artifact, even after cancellation.
+    if (m_terrainValidationReaders.contains(path))
+      continue;
+    auto const it = std::find_if(wantedReady.begin(), wantedReady.end(),
+                                 [&path](auto const & ready) { return path.starts_with(ready.first); });
+    if (it == wantedReady.end())
+      base::DeleteFileX(path);
+    else
+      toResume.insert(it->second.begin(), it->second.end());
+  }
+
+  if (toResume.empty())
+    return;
+  LOG(LINFO, ("Terrain: resuming", toResume.size(), "regions"));
+  DownloadTerrain(toResume, true /* userRequest */);
+}
+
+std::set<uint32_t> Storage::GetActiveTerrainBlocks(CountriesSet const & regions, bool includeCompleted) const
+{
+  if (m_terrainQueue.empty() && !includeCompleted)
+    return {};
+
+  CountriesSet activeRegions;
+  for (auto const & [name, state] : m_terrainQueue)
+  {
+    auto const & owners = m_terrainBlockRegions.at(name);
+    ASSERT(!owners.empty(), (name));
+    for (auto const & owner : owners)
+      if (!activeRegions.contains(owner) && regions.contains(owner))
+        activeRegions.insert(owner);
+  }
+  if (!activeRegions.empty() || includeCompleted)
+    for (auto const & owner : m_justDownloadedTerrain)
+      if (regions.contains(owner))
+        activeRegions.insert(owner);
+  std::set<uint32_t> activeBlocks;
+  for (auto const & owner : activeRegions)
+  {
+    auto const & indices = m_terrainCoverage.at(owner);
+    activeBlocks.insert(indices.begin(), indices.end());
+  }
+  return activeBlocks;
+}
+
+downloader::Progress Storage::GetTerrainDownloadingProgress(CountryId const & countryId, bool includeCompleted) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_terrainQueue.empty() && !includeCompleted)
+    return {};
+
+  CountriesSet regions = m_justDownloadedTerrain;
+  for (auto const & [name, state] : m_terrainQueue)
+  {
+    auto const & owners = m_terrainBlockRegions.at(name);
+    ASSERT(!owners.empty(), (name));
+    regions.insert(owners.begin(), owners.end());
+  }
+  if (countryId != GetRootId())
+    std::erase_if(regions, [&](CountryId const & id)
+    {
+      if (id == countryId)
+        return false;
+      bool inSubtree = false;
+      ForEachAncestorExceptForTheRoot(
+          id, [&](CountryId const & ancestor, CountryTree::Node const &) { inSubtree |= ancestor == countryId; });
+      return !inSubtree;
+    });
+  return GetTerrainDownloadingProgress(regions, includeCompleted);
+}
+
+downloader::Progress Storage::GetTerrainDownloadingProgress(CountriesSet const & regions, bool includeCompleted) const
+{
+  downloader::Progress progress;
+  for (auto const index : GetActiveTerrainBlocks(regions, includeCompleted))
+  {
+    auto const & block = m_twmGrid[index];
+    progress.m_bytesTotal += block.m_size;
+    if (IsTerrainOnDisk(block))
+      progress.m_bytesDownloaded += block.m_size;
+    else if (auto const it = m_terrainQueue.find(block.m_id); it != m_terrainQueue.end())
+      progress.m_bytesDownloaded += it->second.m_bytesDownloaded;
+  }
+  return progress;
+}
+
+Storage::TerrainAttrs Storage::GetTerrainAttrs(CountryId const & countryId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  std::vector<uint32_t> covering;
+  CountriesSet regions;
+  auto const addCoverage = [&](CountryId const & id, std::vector<uint32_t> const & indices)
+  {
+    regions.insert(id);
+    covering.insert(covering.end(), indices.begin(), indices.end());
+  };
+  ForEachTerrainLeafForNode(countryId, addCoverage);
+  base::SortUnique(covering);
+
+  TerrainAttrs attrs;
+  if (covering.empty() || !m_terrainScanned)
+    return attrs;
+
+  auto const activeBlocks = GetActiveTerrainBlocks(regions);
+
+  size_t onDisk = 0;
+  bool inFlight = false;
+  bool hasOlder = false;
+  bool hasFailure = false;
+  for (auto const index : covering)
+  {
+    auto const & block = m_twmGrid[index];
+    uint64_t downloaded = 0;
+    if (!IsTerrainOnDisk(block))
+      hasOlder |= HasOlderTerrain(block);
+    if (IsTerrainOnDisk(block))
+    {
+      ++onDisk;
+      downloaded = block.m_size;
+      attrs.m_localSize += m_localTerrainSizes.at(block.m_id);
+    }
+    else
+    {
+      auto const owners = m_terrainBlockRegions.find(block.m_id);
+      bool const requested = owners != m_terrainBlockRegions.end() &&
+                             base::AnyOf(owners->second, [&](CountryId const & id) { return regions.contains(id); });
+      if (auto const it = m_terrainQueue.find(block.m_id); requested && it != m_terrainQueue.end())
+      {
+        inFlight = true;
+        downloaded = it->second.m_bytesDownloaded;
+      }
+      else
+      {
+        attrs.m_remainingSize += block.m_size;
+        hasFailure |= requested && m_terrainFailures.contains(block.m_id);
+        if (auto const it = m_terrainFailures.find(block.m_id);
+            requested && it != m_terrainFailures.end() && attrs.m_error != NodeErrorCode::UnknownError)
+          attrs.m_error = it->second ? NodeErrorCode::NoInetConnection : NodeErrorCode::UnknownError;
+      }
+    }
+    attrs.m_downloadedSize += downloaded;
+    if (activeBlocks.contains(index))
+    {
+      attrs.m_downloadingProgress.m_bytesDownloaded += downloaded;
+      attrs.m_downloadingProgress.m_bytesTotal += block.m_size;
+    }
+  }
+  if (hasOlder)
+  {
+    for (auto const & [id, file] : m_localTerrainFiles)
+    {
+      auto const * block = FindTerrainBlock(id);
+      if (block && block->m_version == file.m_version)
+        continue;
+      if (base::AnyOf(covering,
+                      [&](uint32_t index) { return terrain::IsInteriorOverlap(file.m_rect, m_twmGrid[index].m_rect); }))
+        attrs.m_localSize += m_localTerrainSizes.at(id);
+    }
+  }
+  if (inFlight)
+    attrs.m_status = TerrainStatus::Downloading;
+  else if (onDisk == covering.size())
+  {
+    attrs.m_status = TerrainStatus::OnDisk;
+    auto const size = static_cast<int64_t>(attrs.m_downloadedSize);
+    attrs.m_downloadingProgress = {size, size};
+  }
+  else if (hasFailure)
+    attrs.m_status = TerrainStatus::Failed;
+  else if (hasOlder)
+    attrs.m_status = TerrainStatus::OnDiskOutOfDate;
+  else if (onDisk > 0)
+    attrs.m_status = TerrainStatus::Partly;
+  else
+    attrs.m_status = TerrainStatus::NotDownloaded;
+  return attrs;
+}
+
+StatusAndError Storage::GetEffectiveStatus(StatusAndError mapStatus, TerrainAttrs const & terrain) const
+{
+  if (mapStatus.status == NodeStatus::NotDownloaded || mapStatus.status <= NodeStatus::InQueue)
+    return mapStatus;
+  if (terrain.m_status == TerrainStatus::Downloading && mapStatus.status > NodeStatus::Downloading)
+    return {NodeStatus::Downloading, NodeErrorCode::NoError};
+  if (terrain.m_status == TerrainStatus::Failed && mapStatus.status > NodeStatus::Error)
+    return {NodeStatus::Error, terrain.m_error};
+  if (terrain.m_remainingSize > 0 && mapStatus.status > NodeStatus::OnDiskOutOfDate)
+    return {NodeStatus::OnDiskOutOfDate, NodeErrorCode::NoError};
+  return mapStatus;
+}
+
+std::string DebugPrint(Storage::TerrainStatus status)
+{
+  switch (status)
+  {
+  case Storage::TerrainStatus::NotAvailable: return "NotAvailable";
+  case Storage::TerrainStatus::NotDownloaded: return "NotDownloaded";
+  case Storage::TerrainStatus::Downloading: return "Downloading";
+  case Storage::TerrainStatus::Partly: return "Partly";
+  case Storage::TerrainStatus::OnDisk: return "OnDisk";
+  case Storage::TerrainStatus::Failed: return "Failed";
+  case Storage::TerrainStatus::OnDiskOutOfDate: return "OnDiskOutOfDate";
+  }
+  UNREACHABLE();
+}
+
+void Storage::TerrainQueueSubscriber::OnCountryInQueue(QueuedCountry const & queuedCountry)
+{
+  m_storage.NotifyTerrainRegions(queuedCountry.GetCountryId());
+}
+
+void Storage::TerrainQueueSubscriber::OnStartDownloading(QueuedCountry const & queuedCountry)
+{
+  auto const name = queuedCountry.GetCountryId();
+  auto const owners = m_storage.m_terrainBlockRegions.at(name);
+  if (m_storage.m_startDownloadingCallback)
+    m_storage.m_startDownloadingCallback();
+  m_storage.ReportProgressForHierarchy(owners);
+  m_storage.NotifyTerrainRegions(name);
+}
+
+void Storage::TerrainQueueSubscriber::OnDownloadProgress(QueuedCountry const & queuedCountry,
+                                                         downloader::Progress const & progress)
+{
+  m_storage.OnTerrainBlockProgress(queuedCountry, progress);
+}
+
+void Storage::TerrainQueueSubscriber::OnDownloadFinished(QueuedCountry const & queuedCountry,
+                                                         downloader::DownloadStatus status)
+{
+  m_storage.OnTerrainBlockDownloaded(queuedCountry, status);
+}
+
+void Storage::OnTerrainBlockProgress(QueuedCountry const & queuedCountry, downloader::Progress const & progress)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  auto const name = queuedCountry.GetCountryId();
+  auto const size = queuedCountry.GetDownloadSize();
+  auto const it = m_terrainQueue.find(name);
+  if (it == m_terrainQueue.end())
+    return;
+  it->second.m_bytesDownloaded = progress.m_bytesDownloaded;
+
+  // Terrain rows need only visible changes.
+  auto const notifyStep = std::max<uint64_t>(1024 * 1024, size / 64);
+  if (progress.m_bytesDownloaded - it->second.m_lastNotifiedBytes < notifyStep)
+    return;
+  it->second.m_lastNotifiedBytes = progress.m_bytesDownloaded;
+
+  // An observer can synchronously cancel and remove the queued item and its owners.
+  auto const owners = m_terrainBlockRegions.at(name);
+  ReportProgressForHierarchy(owners);
+}
+
+void Storage::OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, downloader::DownloadStatus status)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  std::string const name = queuedCountry.GetCountryId();
+  if (status != downloader::DownloadStatus::Completed)
+  {
+    LOG(LWARNING, ("Terrain block download failed:", name, status));
+    m_terrainQueue.erase(name);
+    // Retry transport failures automatically. Server errors and invalid content wait
+    // for an explicit retry to avoid repeatedly fetching the same large broken block.
+    bool const retryable = status == downloader::DownloadStatus::Failed;
+    m_terrainFailures[name] = retryable;
+    SaveDownloadQueue();
+    ScheduleTerrainRetry();
+    NotifyTerrainRegions(name);
+    if (m_terrainQueue.empty())
+      OnFinishDownloading();
+    return;
+  }
+
+  // Keep an open handle to this attempt's bytes: cancellation can remove the ready
+  // path and a restarted download can reuse it before the file-thread task runs.
+  std::string const readyPath = queuedCountry.GetFileDownloadPath();
+  std::string const finalPath = readyPath.substr(0, readyPath.size() - std::strlen(READY_FILE_EXTENSION));
+  std::string const expectedHash = queuedCountry.GetCountryFile().GetHash();
+  auto const downloadId = m_terrainQueue.at(name).m_downloadId;
+  std::shared_ptr<base::FileData> file;
+  std::shared_ptr<std::atomic<size_t>> validationReaders;
+  if (m_integrityValidationEnabled)
+  {
+    file = std::make_shared<base::FileData>(readyPath, base::FileData::Op::READ);
+    auto & readers = m_terrainValidationReaders[readyPath];
+    if (!readers)
+      readers = std::make_shared<std::atomic<size_t>>(0);
+    validationReaders = readers;
+    ++*validationReaders;
+  }
+  GetPlatform().RunTask(Platform::Thread::File,
+                        [this, name, readyPath, finalPath, expectedHash, downloadId, file = std::move(file),
+                         validationReaders = std::move(validationReaders)]() mutable
+  {
+    bool ok = true;
+    if (file)
+    {
+      SCOPE_GUARD(closeValidation, ([&]
+      {
+        file.reset();
+        --*validationReaders;
+      }));
+      coding::Blake3 hasher;
+      uint64_t const size = file->Size();
+      std::array<uint8_t, 64 * 1024> buffer;
+      for (uint64_t offset = 0; offset < size;)
+      {
+        auto const toRead = std::min<uint64_t>(buffer.size(), size - offset);
+        file->Read(offset, buffer.data(), toRead);
+        hasher.Update(buffer.data(), toRead);
+        offset += toRead;
+      }
+      ok = hasher.FinalizeToBase64(coding::Blake3::kMwmHashSizeInBytes) == expectedHash;
+    }
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, name, readyPath, finalPath, downloadId, ok]() mutable
+    {
+      auto const readers = m_terrainValidationReaders.find(readyPath);
+      if (readers != m_terrainValidationReaders.end() && readers->second->load() == 0)
+        m_terrainValidationReaders.erase(readers);
+      auto const it = m_terrainQueue.find(name);
+      if (it == m_terrainQueue.end() || it->second.m_downloadId != downloadId)
+      {
+        // Cancelled attempts may share this ready file with restarted validators.
+        // The last closed reader cleans it only when no new attempt owns the path.
+        bool const hasOwner = it != m_terrainQueue.end() && GetTerrainReadyPath(*FindTerrainBlock(name)) == readyPath;
+        if (!hasOwner && !m_terrainValidationReaders.contains(readyPath))
+          Platform::RemoveFileIfExists(readyPath);
+        return;
+      }
+      m_terrainQueue.erase(it);
+      // Publish only the active attempt. A cancelled validator must never touch a
+      // ready or final path now owned by a restarted download.
+      if (!ok)
+      {
+        LOG(LWARNING, ("Terrain block integrity check failed:", name));
+        base::DeleteFileX(readyPath);
+      }
+      else
+      {
+        ok = base::RenameFileX(readyPath, finalPath);
+        if (ok)
+          Platform::DisableBackupForFile(finalPath);
+      }
+      if (!ok)
+      {
+        // A hash mismatch re-downloads to the same end: never on the auto-retry budget.
+        m_terrainFailures[name] = false;
+      }
+      else
+      {
+        terrain::TwmFile file;
+        auto const * block = FindTerrainBlock(name);
+        ASSERT(block, (name));
+        ok = terrain::TwmSet::ReadFile(finalPath, block->m_version, file) == terrain::TwmSet::RegResult::Success &&
+             RegisterTerrainFile(file);
+        if (!ok)
+          m_terrainFailures[name] = false;
+      }
+      if (ok)
+        for (auto const & owner : m_terrainBlockRegions.at(name))
+        {
+          auto const & indices = m_terrainCoverage.at(owner);
+          if (std::all_of(indices.begin(), indices.end(),
+                          [this](uint32_t index) { return IsTerrainOnDisk(m_twmGrid[index]); }))
+            m_justDownloadedTerrain.insert(owner);
+        }
+      // Publish first, notify after: the observers re-read the attrs synchronously,
+      // the landed block must already count as on disk.
+      if (!ok || m_terrainQueue.empty())
+        ScheduleTerrainRetry();
+      NotifyTerrainRegions(name, ok /* allCoverage */);
+      if (ok)
+        m_terrainBlockRegions.erase(name);
+      SaveDownloadQueue();
+      // The drained queue re-arms the stragglers or resets the retry budget, and runs
+      // the maps' finish work: a failed map never triggers it itself while the terrain
+      // trails it in the shared queue (OnFinishDownloading needs the queue empty).
+      if (m_terrainQueue.empty())
+        OnFinishDownloading();
+    });
+  });
+}
+
+std::set<uint32_t> Storage::GetWantedTerrainBlocks(CountriesSet const & excluded) const
+{
+  std::set<uint32_t> wanted;
+  auto const queued = GetQueuedCountries(m_downloader->GetQueue());
+  for (auto const & [region, indices] : m_terrainCoverage)
+  {
+    if (excluded.contains(region))
+      continue;
+    // A map retains shared terrain even if another region downloaded it. Validation
+    // and diff application retain that coverage after the network queue has drained.
+    if ((m_requestedTerrainRegions && m_requestedTerrainRegions->contains(region)) || GetInstalledLocalFile(region) ||
+        queued.contains(region) || m_downloadingCountries.contains(region) || IsDiffApplyingInProgressToCountry(region))
+      wanted.insert(indices.begin(), indices.end());
+  }
+  return wanted;
+}
+
+CountriesSet Storage::GetFailedTerrainRegions(bool retryableOnly) const
+{
+  CountriesSet regions;
+  for (auto const & [name, retryable] : m_terrainFailures)
+    if (retryableOnly && !retryable)
+      continue;
+    else if (auto const it = m_terrainBlockRegions.find(name); it != m_terrainBlockRegions.end())
+      regions.insert(it->second.begin(), it->second.end());
+  return regions;
+}
+
+void Storage::ScheduleTerrainRetry()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!IsDownloadInProgress())
+    m_justDownloadedTerrain.clear();
+
+  // The same 20-seconds auto-retry the failed maps get, on the terrain's own deferred
+  // slot. Every arming still carries the interested regions of ALL the failed blocks so
+  // far - a per-block set would overwrite the earlier failures within the slot.
+  // DownloadTerrain skips the blocks on disk or in flight, so the retry only
+  // re-enqueues the failures; a cancel empties the block interest and mutes both the
+  // callback and the next arming.
+  // An empty set reaches the policy too: that is its retry-counter reset (the drained
+  // queue calls here like the maps' OnFinishDownloading does for their slot).
+  m_downloadingPolicy->ScheduleTerrainRetry(GetFailedTerrainRegions(true /* retryableOnly */),
+                                            [this](CountriesSet const &)
+  {
+    // Recompute after a pending retry: cancelling terrain removes its interest.
+    DownloadTerrain(GetFailedTerrainRegions(true /* retryableOnly */), false /* userRequest */);
+  }, base::AnyOf(m_terrainFailures, [](auto const & entry) { return !entry.second; }));
+}
+
+CountriesSet Storage::GetTerrainRegions(std::string const & name) const
+{
+  CountriesSet regions;
+  auto const addCoverage = [&](CountryId const & id, std::vector<uint32_t> const & indices)
+  {
+    if (base::AnyOf(indices, [&](uint32_t index) { return m_twmGrid[index].m_id == name; }))
+      regions.insert(id);
+  };
+
+  // Shared coverage changes every neighboring row without acquiring request ownership.
+  for (auto const & [id, indices] : m_terrainCoverage)
+    addCoverage(id, indices);
+  return regions;
+}
+
+void Storage::NotifyTerrainRegions(std::string const & name, bool allCoverage /* = false */)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  CountriesSet regions;
+  if (allCoverage)
+    regions = GetTerrainRegions(name);
+  else if (auto const it = m_terrainBlockRegions.find(name); it != m_terrainBlockRegions.end())
+    regions = it->second;
+  for (auto const & regionId : regions)
+    NotifyStatusChangedForHierarchy(regionId);
 }
 
 void Storage::SetDownloadingPolicy(DownloadingPolicy * policy)
@@ -243,10 +1344,23 @@ void Storage::Clear()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_downloader->Clear();
+  m_downloadingCountries.clear();
   m_justDownloaded.clear();
   m_failedCountries.clear();
   m_localFiles.clear();
   m_localFilesForFakeCountries.clear();
+  m_terrainQueue.clear();
+  m_pendingTerrainQueue.emplace();
+  m_requestedTerrainRegions.reset();
+  m_terrainFailures.clear();
+  m_terrainBlockRegions.clear();
+  m_justDownloadedTerrain.clear();
+  m_localTerrainFiles.clear();
+  m_localTerrainSizes.clear();
+  m_pendingTerrainFiles.clear();
+  m_terrainDeletesBeforeScan.clear();
+  m_terrainScanned = false;
+  m_downloadingPolicy->ScheduleTerrainRetry({}, {});
   SaveDownloadQueue();
 }
 
@@ -485,14 +1599,11 @@ Status Storage::CountryStatus(CountryId const & countryId) const
   if (m_failedCountries.count(countryId) > 0)
     return Status::DownloadFailed;
 
-  // Check if we are already downloading this country or have it in the queue.
+  // Downloading includes validation after the downloader has removed the file from its queue.
+  if (m_downloadingCountries.count(countryId) != 0)
+    return Status::Downloading;
   if (IsCountryInQueue(countryId))
-  {
-    if (m_downloadingCountries.find(countryId) != m_downloadingCountries.cend())
-      return Status::Downloading;
-
     return Status::InQueue;
-  }
 
   if (IsDiffApplyingInProgressToCountry(countryId))
     return Status::Applying;
@@ -556,23 +1667,88 @@ Status Storage::CountryStatusEx(CountryId const & countryId) const
   return Status::OnDisk;
 }
 
+void Storage::LoadRequestedTerrainRegions()
+{
+  if (m_requestedTerrainRegions)
+    return;
+  m_requestedTerrainRegions.emplace();
+  std::string saved;
+  if (settings::Get(kTerrainRequestedRegionsKey, saved))
+    strings::Tokenize(saved, ";", [this](std::string_view id) { m_requestedTerrainRegions->emplace(id); });
+  else
+  {
+    // Migrate installed and interrupted terrain once. New map downloads never opt in.
+    for (auto const & [id, files] : m_localFiles)
+    {
+      bool hasTerrain = GetTerrainAttrs(id).m_localSize > 0;
+      for (auto const index : GetCoveringBlocks(id))
+      {
+        auto const readyPath = GetTerrainReadyPath(m_twmGrid[index]);
+        hasTerrain |= Platform::IsFileExistsByFullPath(readyPath) ||
+                      Platform::IsFileExistsByFullPath(readyPath + DOWNLOADING_FILE_EXTENSION) ||
+                      Platform::IsFileExistsByFullPath(readyPath + RESUME_FILE_EXTENSION);
+      }
+      if (hasTerrain)
+        m_requestedTerrainRegions->insert(id);
+    }
+    SaveRequestedTerrainRegions();
+  }
+}
+
+void Storage::SaveRequestedTerrainRegions() const
+{
+  ASSERT(m_requestedTerrainRegions, ());
+  SaveQueueIfChanged(kTerrainRequestedRegionsKey, strings::JoinStrings(*m_requestedTerrainRegions, ";"));
+}
+
+CountriesSet & Storage::GetPendingTerrainQueue()
+{
+  if (!m_pendingTerrainQueue)
+  {
+    m_pendingTerrainQueue.emplace();
+    std::string saved;
+    settings::TryGet(kTerrainDownloadQueueKey, saved);
+    strings::Tokenize(saved, ";", [this](std::string_view id) { m_pendingTerrainQueue->emplace(id); });
+  }
+  return *m_pendingTerrainQueue;
+}
+
 void Storage::SaveDownloadQueue()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  std::ostringstream ss;
-  m_downloader->GetQueue().ForEachCountry([&ss](QueuedCountry const & country)
-  { ss << (ss.tellp() == 0 ? "" : ";") << country.GetCountryId(); });
+  std::ostringstream maps;
+  m_downloader->GetQueue().ForEachCountry([&maps](QueuedCountry const & country)
+  {
+    if (country.GetFileType() != MapFileType::Terrain)
+      maps << (maps.tellp() == 0 ? "" : ";") << country.GetCountryId();
+  });
+  SaveQueueIfChanged(kDownloadQueueKey, maps.str());
 
-  settings::Set(kDownloadQueueKey, ss.str());
+  // Terrain requests outlive their maps' queue entries while shared blocks download
+  // or validate. Store requesting regions so restore resolves the current grid coverage,
+  // including queued blocks that have not created any artifacts yet.
+  auto regions = GetPendingTerrainQueue();
+  for (auto const & [name, state] : m_terrainQueue)
+  {
+    auto const & owners = m_terrainBlockRegions.at(name);
+    regions.insert(owners.begin(), owners.end());
+  }
+  std::ostringstream terrain;
+  for (auto const & region : regions)
+    terrain << (terrain.tellp() == 0 ? "" : ";") << region;
+  SaveQueueIfChanged(kTerrainDownloadQueueKey, terrain.str());
 }
 
 void Storage::RestoreDownloadQueue()
 {
+  m_queueRestored = true;
+  if (!m_terrainScanned && !m_terrainCoverage.empty())
+    return;  // OnTerrainScanned resumes the saved queue with the on-disk terrain inventory.
+
   std::string download;
   settings::TryGet(kDownloadQueueKey, download);
-  if (download.empty())
-    return;
+  auto updatedTerrain = std::exchange(GetPendingTerrainQueue(), {});
 
   strings::Tokenize(download, ";", [this](std::string_view v)
   {
@@ -582,16 +1758,27 @@ void Storage::RestoreDownloadQueue()
       std::string const s(v);
       auto localFile = GetLatestLocalFile(s);
       auto isUpdate = localFile && localFile->OnDisk(MapFileType::Map);
-      DownloadNode(s, isUpdate);
+      DownloadNode(s, isUpdate, false /* withTerrain */);
     }
   });
+  CountriesSet terrainRegions;
+  for (auto const & s : updatedTerrain)
+    ForEachCoverageLeaf(s, [&](CountryId const & id, auto const &) { terrainRegions.insert(id); });
+  DownloadTerrain(terrainRegions, true /* userRequest */);
+
+  // After the maps and after the terrain scan, whichever lands last: the restored map
+  // queue keeps its FIFO priority over the terrain, and the terrain resume needs the
+  // on-disk truth (see OnTerrainScanned).
+  if (m_terrainScanned)
+    RestoreTerrain();
 }
 
 void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (IsCountryInQueue(countryId) || IsDiffApplyingInProgressToCountry(countryId))
+  if (IsCountryInQueue(countryId) || m_downloadingCountries.count(countryId) != 0 ||
+      IsDiffApplyingInProgressToCountry(countryId))
     return;
 
   m_failedCountries.erase(countryId);
@@ -601,17 +1788,17 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
   // country.
   if (!PreparePlaceForCountryFiles(m_currentVersion, m_dataDir, countryFile))
   {
-    OnMapDownloadFinished(countryId, DownloadStatus::Failed, type);
-    return;
-  }
-
-  if (IsFileDownloaded(GetFileDownloadPath(countryId, type), type))
-  {
-    OnMapDownloadFinished(countryId, DownloadStatus::Completed, type);
+    OnMapDownloadFinished(countryId, DownloadStatus::Failed, type, 0);
     return;
   }
 
   QueuedCountry queuedCountry(countryFile, countryId, type, m_currentVersion, m_dataDir, m_diffsDataSource);
+  if (IsFileDownloaded(GetFileDownloadPath(countryId, type), type))
+  {
+    OnMapDownloadFinished(countryId, DownloadStatus::Completed, type, queuedCountry.GetDownloadSize());
+    return;
+  }
+
   queuedCountry.Subscribe(*this);
 
   m_downloader->DownloadMapFile(std::move(queuedCountry));
@@ -629,8 +1816,6 @@ void Storage::DeleteCountry(CountryId const & countryId, MapFileType type)
   DeleteCountryFiles(countryId, type, deferredDelete);
   DeleteCountryFilesFromDownloader(countryId);
   m_diffsDataSource->RemoveDiffForCountry(countryId);
-
-  m_downloadingCountries.erase(countryId);
 
   NotifyStatusChangedForHierarchy(countryId);
 }
@@ -683,11 +1868,26 @@ void Storage::NotifyStatusChangedForHierarchy(CountryId const & countryId)
       countryId, [&](CountryId const & parentId, CountryTree::Node const &) { NotifyStatusChanged(parentId); });
 }
 
+void Storage::NotifyStatusChangedForHierarchy(CountriesSet const & countryIds)
+{
+  CountriesSet notified = countryIds;
+  for (auto const & id : countryIds)
+    NotifyStatusChanged(id);
+  for (auto const & id : countryIds)
+    ForEachAncestorExceptForTheRoot(id, [&](CountryId const & parentId, CountryTree::Node const &)
+    {
+      if (notified.insert(parentId).second)
+        NotifyStatusChanged(parentId);
+    });
+}
+
 bool Storage::IsDownloadInProgress() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  return !m_downloader->GetQueue().IsEmpty();
+  // A downloaded file is still in progress while it is validated and registered.
+  return !m_downloader->GetQueue().IsEmpty() || !m_downloadingCountries.empty() || !m_terrainQueue.empty() ||
+         !m_diffsBeingApplied.empty();
 }
 
 void Storage::LoadCountriesFile(std::string const & pathToCountriesFile)
@@ -719,25 +1919,99 @@ void Storage::Unsubscribe(int slotId)
     m_observers.erase(it);
 }
 
-void Storage::ReportProgress(CountryId const & countryId, Progress const & p)
+downloader::Progress Storage::GetActiveMapProgress(CountryId const & countryId, bool includeCompleted) const
 {
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  for (CountryObservers const & o : m_observers)
-    o.m_progressFn(countryId, p);
+  auto const * scope = m_countries.FindFirst(countryId);
+  ASSERT(scope, (countryId));
+  if (scope->IsLeaf())
+    if (auto const it = m_downloadingCountries.find(countryId); it != m_downloadingCountries.end())
+      return it->second;
+
+  auto const belongsToNode = [&](CountryId const & id)
+  {
+    if (scope->IsRoot() || id == countryId)
+      return true;
+    if (scope->IsLeaf())
+      return false;
+
+    // A disputed map can belong to several branches, but contributes only once.
+    CountryTree::NodesBufferT nodes;
+    m_countries.Find(id, nodes);
+    for (auto const * node : nodes)
+      while (node->HasParent())
+      {
+        node = &node->Parent();
+        if (node->Value().Name() == countryId)
+          return true;
+      }
+    return false;
+  };
+
+  downloader::Progress progress;
+  CountriesSet visited;
+  auto const shouldAdd = [&](CountryId const & id)
+  { return !visited.contains(id) && belongsToNode(id) && visited.insert(id).second; };
+  auto const add = [&](downloader::Progress const & bytes)
+  {
+    progress.m_bytesDownloaded += bytes.m_bytesDownloaded;
+    progress.m_bytesTotal += bytes.m_bytesTotal;
+  };
+  for (auto const & [id, bytes] : m_downloadingCountries)
+    if (shouldAdd(id))
+      add(bytes);
+  m_downloader->GetQueue().ForEachCountry([&](QueuedCountry const & country)
+  {
+    if (country.GetFileType() != MapFileType::Terrain && shouldAdd(country.GetCountryId()))
+      add({0, static_cast<int64_t>(country.GetDownloadSize())});
+  });
+  for (auto const & [id, cancellable] : m_diffsBeingApplied)
+    if (shouldAdd(id))
+      add(GetMapProgress(id, {}, false /* includeInstalled */));
+  if (visited.empty() && !includeCompleted)
+    return {};
+
+  // Completed maps remain while either part of the node's download batch is active.
+  for (auto const & [id, size] : m_justDownloaded)
+    if (shouldAdd(id))
+      add({size, size});
+  return progress;
 }
 
-void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress const & leafProgress)
+void Storage::ReportProgressForHierarchy(CountriesSet const & countryIds)
 {
-  // Reporting progress for a leaf in country tree.
-  ReportProgress(countryId, leafProgress);
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  // Precompute once instead of rebuilding per ancestor.
-  auto const mwmsInQueue = GetQueuedCountries(m_downloader->GetQueue());
+  if (!base::AnyOf(m_observers, [](auto const & observer) { return static_cast<bool>(observer.m_progressFn); }))
+    return;
 
-  auto calcProgress = [&](CountryId const & parentId, CountryTree::Node const & parentNode)
-  { ReportProgress(parentId, CalculateProgress(parentNode, mwmsInQueue)); };
+  CountriesSet visited;
+  CountriesVec reported;
+  auto const add = [&](CountryId const & id)
+  {
+    if (visited.insert(id).second)
+      reported.push_back(id);
+  };
+  for (auto const & id : countryIds)
+  {
+    add(id);
+    ForEachAncestorExceptForTheRoot(id, [&](CountryId const & ancestor, CountryTree::Node const &) { add(ancestor); });
+  }
+  add(GetRootId());
 
-  ForEachAncestorExceptForTheRoot(countryId, calcProgress);
+  for (auto const & id : reported)
+  {
+    // Callbacks can cancel downloads and unsubscribe, so snapshot each node when it is delivered.
+    std::vector<ProgressFunction> callbacks;
+    for (auto const & observer : m_observers)
+      if (observer.m_progressFn)
+        callbacks.push_back(observer.m_progressFn);
+    if (callbacks.empty())
+      return;
+
+    auto const progress = GetDownloadingProgress(id);
+    for (auto const & callback : callbacks)
+      callback(id, progress);
+  }
 }
 
 void Storage::OnCountryInQueue(QueuedCountry const & queuedCountry)
@@ -752,24 +2026,25 @@ void Storage::OnStartDownloading(QueuedCountry const & queuedCountry)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  auto const countryId = queuedCountry.GetCountryId();
+  auto const size = static_cast<int64_t>(queuedCountry.GetDownloadSize());
   if (m_startDownloadingCallback)
     m_startDownloadingCallback();
 
-  m_downloadingCountries[queuedCountry.GetCountryId()] = Progress::Unknown();
-
-  NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
+  m_downloadingCountries[countryId] = {0, size};
+  ReportProgressForHierarchy({countryId});
+  if (m_downloadingCountries.contains(countryId))
+    NotifyStatusChangedForHierarchy(countryId);
 }
 
-void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, Progress const & progress)
+void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, downloader::Progress const & progress)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (m_observers.empty())
-    return;
-
-  m_downloadingCountries[queuedCountry.GetCountryId()] = progress;
-
-  ReportProgressForHierarchy(queuedCountry.GetCountryId(), progress);
+  auto const countryId = queuedCountry.GetCountryId();
+  m_downloadingCountries[countryId] = {progress.m_bytesDownloaded,
+                                       static_cast<int64_t>(queuedCountry.GetDownloadSize())};
+  ReportProgressForHierarchy({countryId});
 }
 
 void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadStatus status)
@@ -778,10 +2053,10 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
 
   auto const & countryId = queuedCountry.GetCountryId();
   auto const fileType = queuedCountry.GetFileType();
-  auto const finishFn = [this, countryId, fileType](DownloadStatus status)
+  auto const finishFn = [this, countryId, fileType, size = queuedCountry.GetDownloadSize()](DownloadStatus status)
   {
     m_downloadingCountries.erase(countryId);
-    OnMapDownloadFinished(countryId, status, fileType);
+    OnMapDownloadFinished(countryId, status, fileType, size);
     OnFinishDownloading();
   };
 
@@ -907,7 +2182,8 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
   fn(true);
 }
 
-void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus status, MapFileType type)
+void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus status, MapFileType type,
+                                    uint64_t downloadSize)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_didDownload != nullptr, ("Storage::Init wasn't called"));
@@ -924,7 +2200,7 @@ void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus 
     return;
   }
 
-  m_justDownloaded.insert(countryId);
+  m_justDownloaded[countryId] = static_cast<int64_t>(downloadSize);
   RegisterDownloadedFiles(countryId, type);
 }
 
@@ -973,6 +2249,11 @@ void Storage::SetCurrentDataVersionForTesting(int64_t currentVersion)
 {
   m_currentVersion = currentVersion;
   m_downloader->SetDataVersion(m_currentVersion);
+}
+
+void Storage::SetDiffInfoForTesting(diffs::NameDiffInfoMap && diffs)
+{
+  OnDiffStatusReceived(std::move(diffs));
 }
 
 void Storage::SetDownloadingServersForTesting(std::vector<std::string> const & downloadingUrls)
@@ -1077,6 +2358,7 @@ bool Storage::DeleteCountryFilesFromDownloader(CountryId const & countryId)
     m_diffsBeingApplied[countryId]->Cancel();
 
   m_downloader->Remove(countryId);
+  m_downloadingCountries.erase(countryId);
   DeleteDownloaderFilesForCountry(m_currentVersion, m_dataDir, GetCountryFile(countryId));
   SaveDownloadQueue();
 
@@ -1186,7 +2468,7 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   /// @todo Or don't skip, but apply new data in OnFinishDownloading().
-  if (storage.m_currentVersion <= m_currentVersion || !m_downloadingCountries.empty() || !m_diffsBeingApplied.empty())
+  if (storage.m_currentVersion <= m_currentVersion || IsDownloadInProgress())
     return;
 
   {
@@ -1373,15 +2655,12 @@ int64_t Storage::GetVersion(CountryId const & countryId) const
   return localMap->GetVersion();
 }
 
-void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false */)
+void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false */, bool withTerrain /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   CountryTree::Node const * node = m_countries.FindFirst(countryId);
   if (!node)
-    return;
-
-  if (GetNodeStatus(*node).status == NodeStatus::OnDisk)
     return;
 
   LOG(LINFO, ("Downloading", countryId));
@@ -1390,7 +2669,7 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
   {
     if (descendantNode.IsLeaf() && GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
     {
-      auto const countryId = descendantNode.Value().Name();
+      auto const & countryId = descendantNode.Value().Name();
       auto const fileType = isUpdate && m_diffsDataSource->HasDiffFor(countryId) ? MapFileType::Diff : MapFileType::Map;
 
       DownloadCountry(countryId, fileType);
@@ -1398,6 +2677,12 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
   };
 
   node->ForEachInSubtree(downloadAction);
+  if (withTerrain && !isUpdate && m_terrainScanned)
+  {
+    CountriesSet regions;
+    ForEachCoverageLeaf(countryId, [&](CountryId const & id, auto const &) { regions.insert(id); });
+    DownloadTerrain(regions, true /* userRequest */);
+  }
 }
 
 void Storage::DeleteNode(CountryId const & countryId)
@@ -1427,6 +2712,7 @@ void Storage::DeleteNode(CountryId const & countryId)
     }
   };
   node->ForEachInSubtree(deleteAction);
+  DeleteTerrain(countryId);
 }
 
 StatusAndError Storage::GetNodeStatus(CountryTree::Node const & node) const
@@ -1607,20 +2893,17 @@ void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
 
 void Storage::OnFinishDownloading()
 {
-  if (!m_diffsBeingApplied.empty() || !m_downloader->GetQueue().IsEmpty())
+  if (IsDownloadInProgress())
     return;
 
   m_justDownloaded.clear();
+  m_justDownloadedTerrain.clear();
 
   m_downloadingPolicy->ScheduleRetry(m_failedCountries, [this](CountriesSet const & needReload)
   {
     for (auto const & country : needReload)
-    {
-      NodeStatuses status;
-      GetNodeStatuses(country, status);
-      if (status.m_error == NodeErrorCode::NoInetConnection)
-        RetryDownloadNode(country);
-    }
+      if (m_failedCountries.contains(country))
+        DownloadNode(country, m_diffsDataSource->HasDiffFor(country), false /* withTerrain */);
   });
 }
 
@@ -1655,7 +2938,7 @@ StatusAndError Storage::GetNodeStatusInfo(CountryTree::Node const & node,
   {
     auto const & countryId = node.Value().Name();
     StatusAndError const statusAndError = ParseStatus(CountryStatusEx(countryId));
-    if (IsDisputed(node))
+    if (isDisputedTerritoriesCounted && IsDisputed(node))
       disputedTerritories.push_back(std::make_pair(countryId, statusAndError.status));
     return statusAndError;
   }
@@ -1666,9 +2949,12 @@ StatusAndError Storage::GetNodeStatusInfo(CountryTree::Node const & node,
 
   auto groupStatusCalculator = [&](CountryTree::Node const & nodeInSubtree)
   {
+    if (!isDisputedTerritoriesCounted && (!nodeInSubtree.IsLeaf() || result == NodeStatus::Downloading))
+      return;
+
     StatusAndError const statusAndError = ParseStatus(CountryStatusEx(nodeInSubtree.Value().Name()));
 
-    if (IsDisputed(nodeInSubtree) && isDisputedTerritoriesCounted)
+    if (isDisputedTerritoriesCounted && IsDisputed(nodeInSubtree))
     {
       disputedTerritories.push_back(std::make_pair(nodeInSubtree.Value().Name(), statusAndError.status));
       return;
@@ -1717,25 +3003,66 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
   nodeAttrs.m_nodeLocalDescription = m_countryNameGetter.Get(countryId + LOCALIZATION_DESCRIPTION_SUFFIX);
 
-  // Progress.
-  if (nodeAttrs.m_status == NodeStatus::OnDisk)
-  {
-    // Group or leaf node is on disk and up to date.
-    MwmSize const subTreeSizeBytes = node->Value().GetSubtreeMwmSizeBytes();
-    nodeAttrs.m_downloadingProgress.m_bytesDownloaded = subTreeSizeBytes;
-    nodeAttrs.m_downloadingProgress.m_bytesTotal = subTreeSizeBytes;
-  }
+  bool const includeInstalled = node->IsLeaf() || nodeAttrs.m_status == NodeStatus::OnDisk;
+  nodeAttrs.m_downloadingProgress =
+      CalculateProgress(*node, GetQueuedCountries(m_downloader->GetQueue()), includeInstalled);
+
+  auto const terrain = GetTerrainAttrs(countryId);
+  auto const combinedStatus = GetEffectiveStatus(statusAndErr, terrain);
+  nodeAttrs.m_status = combinedStatus.status;
+  nodeAttrs.m_error = combinedStatus.error;
+  auto const progress = GetDownloadingProgress(countryId).GetCombined();
+  if (progress.m_bytesTotal > 0)
+    nodeAttrs.m_downloadingProgress = progress;
   else
   {
-    auto const mwmsInQueue = GetQueuedCountries(m_downloader->GetQueue());
-    nodeAttrs.m_downloadingProgress = CalculateProgress(*node, mwmsInQueue);
+    nodeAttrs.m_downloadingProgress.m_bytesDownloaded += terrain.m_downloadedSize;
+    nodeAttrs.m_downloadingProgress.m_bytesTotal += terrain.m_downloadedSize;
+  }
+  if (m_terrainScanned)
+    for (auto const index : GetCoveringBlocks(countryId))
+      nodeAttrs.m_mwmSize += m_twmGrid[index].m_size;
+
+  nodeAttrs.m_downloadSize = 0;
+  switch (nodeAttrs.m_status)
+  {
+  case NodeStatus::Downloading:
+  case NodeStatus::Applying:
+  case NodeStatus::InQueue: nodeAttrs.m_downloadSize = progress.m_bytesTotal; break;
+  case NodeStatus::OnDiskOutOfDate:
+  {
+    UpdateInfo info;
+    GetUpdateInfo(countryId, info);
+    nodeAttrs.m_downloadSize = info.m_totalDownloadSizeInBytes;
+    break;
+  }
+  case NodeStatus::NotDownloaded:
+  case NodeStatus::Partly: nodeAttrs.m_downloadSize = GetDownloadSize({countryId}); break;
+  case NodeStatus::Error:
+  {
+    auto const failedTerrain = GetFailedTerrainRegions(false /* retryableOnly */);
+    CountriesSet terrainRegions;
+    CountriesSet visited;
+    ForEachInSubtree(countryId, [&](CountryId const & id, bool groupNode)
+    {
+      if (groupNode || !visited.insert(id).second)
+        return;
+      if (m_failedCountries.contains(id))
+        nodeAttrs.m_downloadSize += GetRemoteSize(GetCountryFile(id));
+      if (failedTerrain.contains(id))
+        terrainRegions.insert(id);
+    });
+    nodeAttrs.m_downloadSize += GetTerrainDownloadSize(CountriesVec(terrainRegions.begin(), terrainRegions.end()));
+    break;
+  }
+  case NodeStatus::OnDisk:
+  case NodeStatus::Undefined: break;
   }
 
   // Local mwm information and information about downloading mwms.
   nodeAttrs.m_localMwmCounter = 0;
-  nodeAttrs.m_localMwmSize = 0;
+  nodeAttrs.m_localMwmSize = terrain.m_localSize;
   nodeAttrs.m_downloadingMwmCounter = 0;
-  nodeAttrs.m_downloadingMwmSize = 0;
   CountriesSet visitedLocalNodes;
   node->ForEachInSubtree([this, &nodeAttrs, &visitedLocalNodes](CountryTree::Node const & d)
   {
@@ -1743,13 +3070,13 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
     if (!visitedLocalNodes.insert(countryId).second)
       return;
 
-    // Downloading mwm information.
-    StatusAndError const statusAndErr = GetNodeStatus(d);
-    ASSERT_NOT_EQUAL(statusAndErr.status, NodeStatus::Undefined, ());
-    if (statusAndErr.status != NodeStatus::NotDownloaded && statusAndErr.status != NodeStatus::Partly && d.IsLeaf())
+    if (d.IsLeaf())
     {
-      nodeAttrs.m_downloadingMwmCounter += 1;
-      nodeAttrs.m_downloadingMwmSize += d.Value().GetSubtreeMwmSizeBytes();
+      // Downloading mwm information.
+      auto const status = ParseStatus(CountryStatusEx(countryId)).status;
+      ASSERT_NOT_EQUAL(status, NodeStatus::Undefined, ());
+      if (status != NodeStatus::NotDownloaded && status != NodeStatus::Partly)
+        nodeAttrs.m_downloadingMwmCounter += 1;
     }
 
     // Local mwm information.
@@ -1792,7 +3119,7 @@ void Storage::GetNodeStatuses(CountryId const & countryId, NodeStatuses & nodeSt
   CountryTree::Node const * const node = m_countries.FindFirst(countryId);
   CHECK(node, (countryId));
 
-  StatusAndError statusAndErr = GetNodeStatus(*node);
+  auto const statusAndErr = GetEffectiveStatus(GetNodeStatus(*node), GetTerrainAttrs(countryId));
   nodeStatuses.m_status = statusAndErr.status;
   nodeStatuses.m_error = statusAndErr.error;
   nodeStatuses.m_groupNode = (node->ChildrenCount() != 0);
@@ -1813,38 +3140,51 @@ void Storage::DoClickOnDownloadMap(CountryId const & countryId)
     m_downloadMapOnTheMap(countryId);
 }
 
-Progress Storage::CalculateProgress(CountryTree::Node const & subtreeRoot, CountriesSet const & mwmsInQueue) const
+downloader::Progress Storage::GetMapProgress(CountryId const & countryId, CountriesSet const & mwmsInQueue,
+                                             bool includeInstalled) const
 {
-  // Iterates the subtree directly, avoiding intermediate string-copy vectors.
-  // Only leaf country IDs will match download/queue/justDownloaded sets;
-  // group node IDs are silently skipped by the lookups.
+  if (auto const it = m_downloadingCountries.find(countryId); it != m_downloadingCountries.end())
+    return it->second;
+  if (mwmsInQueue.count(countryId) != 0)
+    return {0, static_cast<int64_t>(GetRemoteSize(GetCountryFile(countryId)))};
+  if (auto const it = m_justDownloaded.find(countryId); it != m_justDownloaded.end())
+  {
+    auto const size = it->second;
+    return {size, size};
+  }
+  if (includeInstalled && CountryStatusEx(countryId) == Status::OnDisk)
+  {
+    auto const size = static_cast<int64_t>(CountryLeafByCountryId(countryId).GetSubtreeMwmSizeBytes());
+    return {size, size};
+  }
+  return {};
+}
 
-  Progress result;
+downloader::Progress Storage::CalculateProgress(CountryTree::Node const & subtreeRoot, CountriesSet const & mwmsInQueue,
+                                                bool includeInstalled) const
+{
+  downloader::Progress result;
+  if (includeInstalled && (!subtreeRoot.IsLeaf() || CountryStatusEx(subtreeRoot.Value().Name()) == Status::OnDisk))
+  {
+    auto const size = subtreeRoot.Value().GetSubtreeMwmSizeBytes();
+    result.m_bytesDownloaded += size;
+    result.m_bytesTotal += size;
+    return result;
+  }
 
+  // A disputed territory can appear more than once in the subtree.
+  CountriesSet visited;
   subtreeRoot.ForEachInSubtree([&](CountryTree::Node const & node)
   {
-    auto const & d = node.Value().Name();
-
-    auto const downloadingIt = m_downloadingCountries.find(d);
-    if (downloadingIt != m_downloadingCountries.cend())
-    {
-      if (!downloadingIt->second.IsUnknown())
-        result.m_bytesDownloaded += downloadingIt->second.m_bytesDownloaded;
-
-      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
-    }
-    else if (mwmsInQueue.count(d) != 0)
-    {
-      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
-    }
-    else if (m_justDownloaded.count(d) != 0)
-    {
-      MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d));
-      result.m_bytesDownloaded += localCountryFileSz;
-      result.m_bytesTotal += localCountryFileSz;
-    }
+    if (!node.IsLeaf())
+      return;
+    auto const & id = node.Value().Name();
+    if (!visited.insert(id).second)
+      return;
+    auto const progress = GetMapProgress(id, mwmsInQueue, includeInstalled);
+    result.m_bytesDownloaded += progress.m_bytesDownloaded;
+    result.m_bytesTotal += progress.m_bytesTotal;
   });
-
   return result;
 }
 
@@ -1871,9 +3211,12 @@ void Storage::UpdateNode(CountryId const & countryId)
     if (isDownload)
       DownloadNode(descendantId, true /* isUpdate */);
   });
+  CountriesSet regions;
+  ForEachTerrainBlockToUpdate(countryId, [&](CountryId const & id, uint32_t) { regions.insert(id); });
+  DownloadTerrain(regions, true /* userRequest */);
 }
 
-void Storage::CancelDownloadNode(CountryId const & countryId)
+void Storage::CancelDownloadNode(CountryId const & countryId, bool withTerrain /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -1890,38 +3233,123 @@ void Storage::CancelDownloadNode(CountryId const & countryId)
     if (m_failedCountries.erase(descendantId) != 0)
       needNotify = true;
 
-    m_downloadingCountries.erase(descendantId);
+    if (m_downloadingCountries.erase(descendantId) != 0)
+      needNotify = true;
 
     if (needNotify)
       NotifyStatusChangedForHierarchy(descendantId);
   });
+  if (withTerrain)
+    CancelTerrain(countryId);
+  else
+    OnFinishDownloading();
+}
+
+void Storage::CancelTerrain(CountryId const & countryId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  CountriesSet subtree;
+  ForEachInSubtree(countryId, [&](CountryId const & id, bool /* groupNode */) { subtree.insert(id); });
+  std::erase_if(m_justDownloadedTerrain, [&](CountryId const & id) { return subtree.contains(id); });
+
+  auto & pending = GetPendingTerrainQueue();
+  if (!pending.empty())
+  {
+    // A deletion during startup must also cancel intent that has not been restored yet.
+    CountriesSet remaining;
+    for (auto const & owner : pending)
+    {
+      ForEachCoverageLeaf(owner, [&](CountryId const & leaf, auto const &)
+      {
+        if (subtree.count(leaf) == 0)
+          remaining.insert(leaf);
+      });
+    }
+    pending = std::move(remaining);
+  }
+  CountriesSet toNotify;
+  for (auto it = m_terrainBlockRegions.begin(); it != m_terrainBlockRegions.end();)
+  {
+    auto & regions = it->second;
+    if (!base::AnyOf(regions, [&](CountryId const & id) { return subtree.count(id) > 0; }))
+    {
+      ++it;
+      continue;
+    }
+    toNotify.insert(regions.begin(), regions.end());
+    for (auto rIt = regions.begin(); rIt != regions.end();)
+      if (subtree.count(*rIt) > 0)
+        rIt = regions.erase(rIt);
+      else
+        ++rIt;
+
+    if (regions.empty())
+    {
+      // Remove both queued and failed blocks' artifacts so cancellation survives a restart.
+      auto const & name = it->first;
+      if (m_terrainQueue.erase(name) > 0)
+        m_downloader->Remove(name);
+      if (auto const * terrainBlock = FindTerrainBlock(name))
+        DeleteTerrainArtifacts(*terrainBlock);
+      m_terrainFailures.erase(name);
+      it = m_terrainBlockRegions.erase(it);
+    }
+    else
+      ++it;
+  }
+
+  if (m_requestedTerrainRegions)
+  {
+    std::erase_if(*m_requestedTerrainRegions,
+                  [&](CountryId const & id) { return subtree.count(id) > 0 && GetTerrainAttrs(id).m_localSize == 0; });
+    SaveRequestedTerrainRegions();
+  }
+
+  SaveDownloadQueue();
+  ScheduleTerrainRetry();
+  NotifyStatusChangedForHierarchy(toNotify);
+  OnFinishDownloading();
 }
 
 void Storage::RetryDownloadNode(CountryId const & countryId)
 {
+  // Retry each file type separately to preserve map-only routing requests.
   ForEachInSubtree(countryId, [this](CountryId const & descendantId, bool groupNode)
   {
     if (!groupNode && m_failedCountries.count(descendantId) != 0)
     {
       bool const isUpdateRequest = m_diffsDataSource->HasDiffFor(descendantId);
-      DownloadNode(descendantId, isUpdateRequest);
+      DownloadNode(descendantId, isUpdateRequest, false /* withTerrain */);
     }
   });
+  auto const failed = GetFailedTerrainRegions(false /* retryableOnly */);
+  CountriesSet regions;
+  ForEachInSubtree(countryId, [&](CountryId const & id, bool groupNode)
+  {
+    if (!groupNode && failed.contains(id))
+      regions.insert(id);
+  });
+  DownloadTerrain(regions, true /* userRequest */);
 }
 
 bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  auto const updateInfoAccumulator = [&updateInfo, this](CountryTree::Node const & node)
+  CountriesSet mapOutdated;
+  auto const updateInfoAccumulator = [&updateInfo, &mapOutdated, this](CountryTree::Node const & node)
   {
-    if (!node.IsLeaf() || GetNodeStatus(node).status != NodeStatus::OnDiskOutOfDate)
+    if (!node.IsLeaf() || CountryStatusEx(node.Value().Name()) != Status::OnDiskOutOfDate)
       return;
 
     // Here the node is a leaf describing one mwm file (not a group node).
 
     CountryId const & countryId = node.Value().Name();
-    updateInfo.m_numberOfMwmFilesToUpdate += 1;
+    // The disputed leafs reach here once per parent: count each region once (the
+    // sizes below keep the historical double-count, changing them is a wider call).
+    if (mapOutdated.insert(countryId).second)
+      updateInfo.m_numberOfMwmFilesToUpdate += 1;
 
     LocalAndRemoteSize const sizes = CountrySizeInBytes(countryId);
     updateInfo.m_maxFileSizeInBytes = std::max(updateInfo.m_maxFileSizeInBytes, sizes.second);
@@ -1946,6 +3374,36 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
   }
   updateInfo = {};
   node->ForEachInSubtree(updateInfoAccumulator);
+
+  std::set<uint32_t> blocks;
+  CountriesSet regions;
+  ForEachTerrainBlockToUpdate(countryId, [&](CountryId const & id, uint32_t index)
+  {
+    blocks.insert(index);
+    regions.insert(id);
+  });
+  for (auto const & id : regions)
+    if (!mapOutdated.contains(id))
+      ++updateInfo.m_numberOfMwmFilesToUpdate;
+  for (auto const index : blocks)
+  {
+    auto const & block = m_twmGrid[index];
+    updateInfo.m_totalDownloadSizeInBytes += block.m_size;
+    updateInfo.m_maxFileSizeInBytes = std::max(updateInfo.m_maxFileSizeInBytes, block.m_size);
+    updateInfo.m_sizeDifference += static_cast<int64_t>(block.m_size);
+  }
+  // Match RegisterTerrainFile: publishing a new block removes older files with
+  // the same ID or overlapping bounds, including files from a previous grid layout.
+  // Count each old file once when several new blocks replace it.
+  for (auto const & [id, file] : m_localTerrainFiles)
+    if (base::AnyOf(blocks, [&](uint32_t index)
+    {
+      auto const & block = m_twmGrid[index];
+      return file.m_version < block.m_version &&
+             (id == block.m_id || terrain::IsInteriorOverlap(file.m_rect, block.m_rect));
+    }))
+      updateInfo.m_sizeDifference -= static_cast<int64_t>(m_localTerrainSizes.at(id));
+
   return true;
 }
 

@@ -87,6 +87,7 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
 endif()
 
 add_subdirectory(BLAKE3/c)
+include(sperr.cmake)
 add_subdirectory(bsdiff-courgette)
 add_subdirectory(glaze)
 add_subdirectory(minizip)

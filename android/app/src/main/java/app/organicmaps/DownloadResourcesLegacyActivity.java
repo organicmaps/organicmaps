@@ -145,7 +145,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     {
       for (MapManager.StorageCallbackData item : data)
       {
-        if (!item.isLeafNode)
+        if (!item.countryId.equals(mCurrentCountry))
           continue;
 
         switch (item.newStatus)
@@ -163,9 +163,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, MapManager.Progress progress)
     {
-      mProgress.setProgressCompat((int) localSize, true);
+      if (!countryId.equals(mCurrentCountry))
+        return;
+
+      if (progress.getTotalBytes() > 0)
+        mProgress.setProgressCompat((int) (progress.getDownloadedBytes() * 1000 / progress.getTotalBytes()), true);
     }
   };
 
@@ -381,7 +385,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         CountryItem item = CountryItem.fill(mCurrentCountry);
         UiUtils.hide(mChbDownloadCountry);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
-        mProgress.setMax((int) item.totalSize);
+        mProgress.setMax(1000);
         mProgress.setProgressCompat(0, true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);

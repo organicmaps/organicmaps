@@ -25,13 +25,14 @@ import java.util.Objects;
 public class DownloaderNotifier
 {
   private static final String TAG = DownloaderNotifier.class.getSimpleName();
-
   private static final String CHANNEL_ID = "downloader";
+  private static final String ERROR_TAG = "downloader_error";
+
   public static final int NOTIFICATION_ID = 1;
 
   private final Context mContext;
-  private NotificationCompat.Builder mProgressNotificationBuilder = null;
-  private String mNotificationCountryId = null;
+  private NotificationCompat.Builder mProgressNotificationBuilder;
+  private String mNotificationCountryId;
 
   public DownloaderNotifier(Context context)
   {
@@ -52,19 +53,25 @@ public class DownloaderNotifier
     notificationManager.createNotificationChannel(channel);
   }
 
-  public void notifyDownloadFailed(@Nullable String countryId)
+  private boolean checkNotificationPermission()
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
         && ContextCompat.checkSelfPermission(mContext, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
     {
       Logger.w(TAG, "Permission POST_NOTIFICATIONS is not granted, skipping notification");
-      return;
+      return false;
     }
+    return true;
+  }
+
+  public void notifyDownloadFailed(@Nullable String countryId)
+  {
+    if (!checkNotificationPermission())
+      return;
 
     final String title = mContext.getString(app.organicmaps.branding.R.string.app_name);
-    final String countryName = MapManager.nativeGetName(countryId);
+    final String countryName = countryId != null ? MapManager.nativeGetName(countryId) : "";
     final String content = mContext.getString(R.string.download_country_failed, countryName);
-
     final Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
                                           .setAutoCancel(true)
                                           .setCategory(NotificationCompat.CATEGORY_ERROR)
@@ -75,13 +82,10 @@ public class DownloaderNotifier
                                           .setContentText(content)
                                           .setShowWhen(true)
                                           .setTicker(getTicker(mContext, title, content))
-                                          .setContentIntent(getNotificationPendingIntent(countryId))
+                                          .setContentIntent(getNotificationPendingIntent(countryId, 1))
                                           .setOnlyAlertOnce(true)
                                           .build();
-
-    Logger.i(TAG, "Notifying about failed map download");
-    final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mContext);
-    notificationManager.notify(NOTIFICATION_ID, notification);
+    NotificationManagerCompat.from(mContext).notify(ERROR_TAG, NOTIFICATION_ID, notification);
   }
 
   public void notifyProgress()
@@ -91,12 +95,8 @@ public class DownloaderNotifier
 
   public void notifyProgress(@Nullable String countryId, int maxProgress, int progress)
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-        && ContextCompat.checkSelfPermission(mContext, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
-    {
-      Logger.w(TAG, "Permission POST_NOTIFICATIONS is not granted, skipping notification");
+    if (!checkNotificationPermission())
       return;
-    }
 
     NotificationManagerCompat.from(mContext).notify(NOTIFICATION_ID,
                                                     buildProgressNotification(countryId, maxProgress, progress));
@@ -105,6 +105,8 @@ public class DownloaderNotifier
   @NonNull
   public Notification buildProgressNotification()
   {
+    if (mProgressNotificationBuilder != null)
+      return mProgressNotificationBuilder.build();
     return buildProgressNotification(null, 0, 0);
   }
 
@@ -112,9 +114,7 @@ public class DownloaderNotifier
   public Notification buildProgressNotification(@Nullable String countryId, int maxProgress, int progress)
   {
     var builder = getNotificationBuilder(countryId);
-    ///  @todo Doesn't work properly .. Bad input sizes?
-    // builder.setProgress(maxProgress, progress, maxProgress == 0);
-    builder.setProgress(maxProgress, progress, true);
+    builder.setProgress(maxProgress, progress, maxProgress == 0);
     return builder.build();
   }
 
@@ -125,17 +125,16 @@ public class DownloaderNotifier
     {
       mNotificationCountryId = countryId;
       final String countryName = countryId != null ? MapManager.nativeGetName(countryId) : "";
-
       mProgressNotificationBuilder =
           new NotificationCompat.Builder(mContext, CHANNEL_ID)
               .addAction(0, mContext.getString(R.string.cancel), DownloaderService.buildCancelPendingIntent(mContext))
-              .setAutoCancel(true)
+              .setOngoing(true)
               .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
               .setSmallIcon(app.organicmaps.branding.R.drawable.ic_splash)
               .setColor(ContextCompat.getColor(mContext, R.color.notification))
               .setShowWhen(true)
               .setContentTitle(mContext.getString(app.organicmaps.branding.R.string.app_name))
-              .setContentIntent(getNotificationPendingIntent(countryId))
+              .setContentIntent(getNotificationPendingIntent(countryId, 0))
               .setContentText(mContext.getString(R.string.downloader_downloading) + " " + countryName)
               .setOnlyAlertOnce(true)
               .setSilent(true)
@@ -144,15 +143,26 @@ public class DownloaderNotifier
     return mProgressNotificationBuilder;
   }
 
-  @NonNull
-  private PendingIntent getNotificationPendingIntent(@Nullable String countryId)
+  public void cancelProgress()
   {
-    /// @todo Zooming to the countryId when tapping on the notification?
-    /// Shows very low zoom level, need z=9/10, I suppose ...
+    NotificationManagerCompat.from(mContext).cancel(NOTIFICATION_ID);
+    mProgressNotificationBuilder = null;
+    mNotificationCountryId = null;
+  }
+
+  public void cancelError()
+  {
+    NotificationManagerCompat.from(mContext).cancel(ERROR_TAG, NOTIFICATION_ID);
+  }
+
+  @NonNull
+  private PendingIntent getNotificationPendingIntent(@Nullable String countryId, int requestCode)
+  {
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = MwmActivity.createShowMapIntent(mContext, countryId);
     contentIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    return PendingIntent.getActivity(mContext, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    return PendingIntent.getActivity(mContext, requestCode, contentIntent,
+                                     PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
   }
 
   @NonNull

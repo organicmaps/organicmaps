@@ -7,6 +7,7 @@
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <limits>
 #include <vector>
 
 namespace varint_test
@@ -213,5 +214,76 @@ UNIT_TEST(VarInt_ShortSortedArray)
 
     TEST_EQUAL(s, actual, ());
   }
+}
+
+UNIT_TEST(VarInt_ArrayByteSource_InterleavedArrays)
+{
+  vector<int64_t> const signedValues = {0,
+                                        -1,
+                                        63,
+                                        -64,
+                                        64,
+                                        -65,
+                                        int64_t{1} << 28,
+                                        -(int64_t{1} << 55),
+                                        numeric_limits<int64_t>::max(),
+                                        numeric_limits<int64_t>::min()};
+  vector<uint64_t> const unsignedValues = {
+      0, 127, 128, 16383, 16384, uint64_t{1} << 28, uint64_t{1} << 56, numeric_limits<uint64_t>::max()};
+  vector<int64_t> const signedTail = {-129, 128, numeric_limits<int64_t>::min()};
+  uint32_t constexpr kPrimitive = 27182;
+  uint8_t constexpr kSentinel = 0xab;
+
+  vector<uint8_t> data;
+  PushBackByteSink sink(data);
+  for (auto const value : signedValues)
+    WriteVarInt(sink, value);
+  size_t const signedEnd = data.size();
+  for (auto const value : unsignedValues)
+    WriteVarUint(sink, value);
+  size_t const unsignedEnd = data.size();
+  for (auto const value : signedTail)
+    WriteVarInt(sink, value);
+  size_t const tailEnd = data.size();
+  WriteVarUint(sink, kPrimitive);
+  WriteToSink(sink, kSentinel);
+
+  ArrayByteSource src(data.data());
+  vector<int64_t> signedResult;
+  ReadVarInt64Array(src, signedValues.size(), base::MakeBackInsertFunctor(signedResult));
+  TEST_EQUAL(signedResult, signedValues, ());
+  TEST_EQUAL(src.PtrUint8(), data.data() + signedEnd, ());
+
+  vector<uint64_t> unsignedResult;
+  ReadVarUint64Array(src, unsignedValues.size(), base::MakeBackInsertFunctor(unsignedResult));
+  TEST_EQUAL(unsignedResult, unsignedValues, ());
+  TEST_EQUAL(src.PtrUint8(), data.data() + unsignedEnd, ());
+
+  signedResult.clear();
+  ReadVarInt64Array(src, signedTail.size(), base::MakeBackInsertFunctor(signedResult));
+  TEST_EQUAL(signedResult, signedTail, ());
+  TEST_EQUAL(src.PtrUint8(), data.data() + tailEnd, ());
+  TEST_EQUAL(ReadVarUint<uint32_t>(src), kPrimitive, ());
+  TEST_EQUAL(src.ReadByte(), kSentinel, ());
+  TEST_EQUAL(src.PtrUint8(), data.data() + data.size(), ());
+}
+
+UNIT_TEST(VarInt_ArrayByteSource_EmptyArrays)
+{
+  uint8_t const data[] = {0x12, 0x34};
+  ArrayByteSource src(data);
+  TEST_EQUAL(src.ReadByte(), data[0], ());
+  size_t calls = 0;
+  ReadVarInt64Array(src, 0, [&](int64_t) { ++calls; });
+  ReadVarUint64Array(src, 0, [&](uint64_t) { ++calls; });
+  TEST_EQUAL(calls, 0, ());
+  TEST_EQUAL(src.PtrUint8(), data + 1, ());
+  TEST_EQUAL(src.ReadByte(), data[1], ());
+
+  ArrayByteSource empty(nullptr);
+  ReadVarInt64Array(empty, 0, [&](int64_t) { ++calls; });
+  ReadVarUint64Array(empty, 0, [&](uint64_t) { ++calls; });
+  TEST_EQUAL(calls, 0, ());
+  TEST_EQUAL(empty.Ptr(), nullptr, ());
 }
 }  // namespace varint_test

@@ -27,15 +27,43 @@ public final class MapManager
     }
   }
 
+  // Used by JNI. Completed parts remain in the snapshot until the country/group batch finishes.
+  @Keep
+  public static final class Progress
+  {
+    public final long mwmDownloaded;
+    public final long mwmTotal;
+    public final long twmDownloaded;
+    public final long twmTotal;
+
+    public Progress(long mwmDownloaded, long mwmTotal, long twmDownloaded, long twmTotal)
+    {
+      this.mwmDownloaded = mwmDownloaded;
+      this.mwmTotal = mwmTotal;
+      this.twmDownloaded = twmDownloaded;
+      this.twmTotal = twmTotal;
+    }
+
+    public long getDownloadedBytes()
+    {
+      return mwmDownloaded + twmDownloaded;
+    }
+
+    public long getTotalBytes()
+    {
+      return mwmTotal + twmTotal;
+    }
+  }
+
   public interface StorageCallback
   {
     // Called from JNI.
     @Keep
     void onStatusChanged(List<StorageCallbackData> data);
 
-    // Called from JNI.
+    // Called from JNI with independent map and terrain bytes for the country or group.
     @Keep
-    void onProgress(String countryId, long localSize, long remoteSize);
+    void onProgress(String countryId, Progress progress);
   }
 
   public interface CurrentCountryChangedListener
@@ -69,9 +97,14 @@ public final class MapManager
    */
   public static void startDownload(String... countries)
   {
+    startDownload(countries, true);
+  }
+
+  public static void startDownload(@NonNull String[] countries, boolean withTerrain)
+  {
     for (var countryId : countries)
     {
-      nativeDownload(countryId);
+      nativeDownload(countryId, withTerrain);
     }
   }
 
@@ -80,7 +113,7 @@ public final class MapManager
    */
   public static void startDownload(@NonNull String countryId)
   {
-    nativeDownload(countryId);
+    nativeDownload(countryId, true);
   }
 
   /**
@@ -104,6 +137,14 @@ public final class MapManager
    * false} otherwise.
    */
   public static native boolean nativeHasSpaceToDownloadCountry(String root);
+
+  /** Returns the remaining map download size. */
+  public static long nativeGetDownloadSize(@NonNull String[] countries)
+  {
+    return nativeGetDownloadSize(countries, true);
+  }
+
+  public static native long nativeGetDownloadSize(@NonNull String[] countries, boolean withTerrain);
 
   /**
    * Returns {@code true} if there is enough storage space to update maps with specified {@code root}. Or {@code false}
@@ -139,7 +180,7 @@ public final class MapManager
    *   <li>topmostParentName;</li>
    *   <li>description;</li>
    *   <li>size;</li>
-   *   <li>enqueuedSize;</li>
+   *   <li>downloadSize;</li>
    *   <li>totalSize;</li>
    *   <li>childCount;</li>
    *   <li>totalChildCount;</li>
@@ -156,6 +197,9 @@ public final class MapManager
    * Returns status for given {@code root} node.
    */
   public static native int nativeGetStatus(String root);
+
+  /** Whether the MWM is current, regardless of terrain availability. */
+  public static native boolean nativeHasLatestVersion(@NonNull String countryId);
 
   /**
    * Returns downloading error for given {@code root} node.
@@ -180,7 +224,7 @@ public final class MapManager
   /**
    * Enqueues given {@code root} node and its children in downloader.
    */
-  private static native void nativeDownload(String root);
+  private static native void nativeDownload(String root, boolean withTerrain);
 
   /**
    * Enqueues failed items under given {@code root} node in downloader.
@@ -195,12 +239,25 @@ public final class MapManager
   /**
    * Removes given currently downloading {@code root} node and its children from downloader.
    */
-  public static native void nativeCancel(String root);
+  public static void nativeCancel(String root)
+  {
+    nativeCancel(root, true);
+  }
+
+  public static native void nativeCancel(String root, boolean withTerrain);
 
   /**
    * Deletes given installed {@code root} node with its children.
    */
   public static native void nativeDelete(String root);
+
+  /** Whether this country is a leaf of the map hierarchy. */
+  public static boolean isLeaf(@NonNull String countryId)
+  {
+    return nativeIsLeaf(countryId);
+  }
+
+  private static native boolean nativeIsLeaf(@NonNull String countryId);
 
   /**
    * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link
@@ -233,12 +290,40 @@ public final class MapManager
    * Calculates joint progress of downloading countries specified by {@code countries} array.
    * @return 0 to 100 percent.
    */
-  public static native int nativeGetOverallProgress(String[] countries);
+  public static int nativeGetOverallProgress(String[] countries)
+  {
+    return nativeGetOverallProgress(countries, true);
+  }
 
-  /**
-   * Returns {@code true} if the core will NOT do attempts to download failed maps anymore.
-   */
-  public static native boolean nativeIsAutoretryFailed();
+  public static int nativeGetOverallProgress(String[] countries, boolean withTerrain)
+  {
+    long[] progress = nativeGetOverallProgressBytes(countries, withTerrain);
+    return progress[1] == 0 ? 0 : (int) (100.0 * progress[0] / progress[1]);
+  }
+
+  /** Returns downloaded and total map and terrain bytes. */
+  @NonNull
+  public static long[] nativeGetOverallProgressBytes(String[] countries)
+  {
+    return nativeGetOverallProgressBytes(countries, true);
+  }
+
+  @NonNull
+  public static long[] nativeGetOverallProgressBytes(String[] countries, boolean withTerrain)
+  {
+    return nativeGetOverallProgressBytesImpl(countries, withTerrain);
+  }
+
+  @NonNull
+  private static native long[] nativeGetOverallProgressBytesImpl(String[] countries, boolean withTerrain);
+
+  /** Whether this leaf's current download failure will no longer be retried automatically. */
+  public static boolean isAutoRetryFailed(@NonNull String countryId)
+  {
+    return nativeIsAutoRetryFailedForCountry(countryId);
+  }
+
+  private static native boolean nativeIsAutoRetryFailedForCountry(@NonNull String countryId);
 
   /**
    * Returns {@code true} if the core is allowed to download maps while on 3g network. {@code false} otherwise.

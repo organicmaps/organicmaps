@@ -112,9 +112,8 @@ using namespace storage;
   self.spinner = nil;
 }
 
-- (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
+- (void)setProgress:(downloader::Progress const &)progress
 {
-  auto const progress = nodeAttrs.m_downloadingProgress;
   if (progress.m_bytesTotal > 0)
   {
     CGFloat const prog =
@@ -134,7 +133,11 @@ using namespace storage;
   {
     self.progressLabel.text = @"";
   }
+}
 
+- (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
+{
+  [self setProgress:nodeAttrs.m_downloadingProgress];
   BOOL const isApplying = nodeAttrs.m_status == storage::NodeStatus::Applying;
   NSString * format = L(isApplying ? @"downloader_applying" : @"downloader_process");
   self.legendLabel.text = [NSString stringWithFormat:format, nodeName];
@@ -288,15 +291,16 @@ using namespace storage;
   {
     switch (nodeStatuses.m_status)
     {
-    case NodeStatus::Error:
-    case NodeStatus::OnDisk: m_updatingCountries.erase(countryId.UTF8String); break;
-    default: m_updatingCountries.insert(countryId.UTF8String);
+    case NodeStatus::Downloading:
+    case NodeStatus::InQueue:
+    case NodeStatus::Applying: m_updatingCountries.insert(countryId.UTF8String); break;
+    default: m_updatingCountries.erase(countryId.UTF8String); break;
     }
   }
 
   if (self.progressFinished && m_updatingCountries.empty())
     [self dismiss];
-  else
+  else if (!nodeStatuses.m_groupNode)
     [self updateProcessStatus:countryId.UTF8String];
 }
 
@@ -307,10 +311,18 @@ using namespace storage;
   [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
 }
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if (m_updatingCountries.find(countryId.UTF8String) != m_updatingCountries.end())
-    [self updateProcessStatus:countryId.UTF8String];
+  auto const total = progress.mwmTotal + progress.twmTotal;
+  auto const downloaded = progress.mwmDownloaded + progress.twmDownloaded;
+  if (total > 0 && [countryId isEqualToString:RootId()])
+  {
+    auto view = static_cast<MWMAutoupdateView *>(self.view);
+    downloader::Progress const combined{static_cast<int64_t>(downloaded), static_cast<int64_t>(total)};
+    [view setProgress:combined];
+    if (downloaded == total)
+      self.progressFinished = YES;
+  }
 }
 
 @end

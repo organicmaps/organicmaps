@@ -273,16 +273,16 @@ protected:
     }
   }
 
-  virtual void OnCountryDownloadingProgress(CountryId const & countryId, downloader::Progress const & progress)
+  virtual void OnCountryDownloadingProgress(CountryId const & countryId, storage::Progress const & progress)
   {
     if (countryId != m_countryId)
       return;
 
     LOG(LINFO, (m_countryFile, "downloading progress:", progress));
 
-    TEST_GREATER(progress.m_bytesDownloaded, static_cast<decltype(progress.m_bytesDownloaded)>(m_bytesDownloaded),
-                 (m_countryFile));
-    m_bytesDownloaded = progress.m_bytesDownloaded;
+    TEST_GREATER_OR_EQUAL(progress.m_mwmDownloaded, static_cast<decltype(progress.m_mwmDownloaded)>(m_bytesDownloaded),
+                          (m_countryFile));
+    m_bytesDownloaded = progress.m_mwmDownloaded;
     TEST_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
 
     LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId);
@@ -314,12 +314,14 @@ public:
 
 protected:
   // CountryDownloaderChecker overrides:
-  void OnCountryDownloadingProgress(CountryId const & countryId, downloader::Progress const & progress) override
+  void OnCountryDownloadingProgress(CountryId const & countryId, storage::Progress const & progress) override
   {
+    if (countryId != m_countryId)
+      return;
     CountryDownloaderChecker::OnCountryDownloadingProgress(countryId, progress);
 
     // Cancel downloading when almost done.
-    if (progress.m_bytesDownloaded + 2 * FakeMapFilesDownloader::kBlockSize >= progress.m_bytesTotal)
+    if (progress.m_mwmDownloaded + 2 * FakeMapFilesDownloader::kBlockSize >= progress.m_mwmTotal)
       m_runner.PostTask([&]() { m_storage.CancelDownloadNode(m_countryId); });
   }
 
@@ -376,7 +378,7 @@ private:
     m_triggered = true;
   }
 
-  void OnCountryDownloadingProgress(CountryId const & /* countryId */, downloader::Progress const & /* progress */)
+  void OnCountryDownloadingProgress(CountryId const & countryId, storage::Progress const & /* progress */)
   {
     TEST(false, ("Unexpected country downloading progress."));
   }
@@ -426,7 +428,7 @@ public:
     testing::StopEventLoop();
   }
 
-  void OnProgress(CountryId const & /* countryId */, downloader::Progress const & /* progress */) {}
+  void OnProgress(CountryId const & /* countryId */, storage::Progress const & /* progress */) {}
 
 private:
   Storage & m_storage;
@@ -474,7 +476,7 @@ public:
   StorageTest() : writableDirChanger(kMapTestDir) { InitStorage(storage, runner); }
 
 protected:
-  Storage storage;
+  Storage storage{ReadCountriesJson(), GetDownloader()};
   TaskRunner runner;
   WritableDirChanger writableDirChanger;
 };
@@ -1395,7 +1397,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   TEST(is_sorted(failedRequests.begin(), failedRequests.end()), ());
 
   SometimesFailingDownloadingPolicy policy(failedRequests);
-  Storage storage;
+  Storage storage(ReadCountriesJson(), GetDownloader());
   storage.SetDownloadingPolicy(&policy);
 
   auto const nodeId = storage.FindCountryIdByFile("Russian Federation");
@@ -1416,7 +1418,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
     downloaded[distance(children.cbegin(), it)] = true;
   };
 
-  auto const onProgress = [&](CountryId const & /* countryId */, downloader::Progress const & /* progress */) {};
+  auto const onProgress = [&](CountryId const & /* countryId */, storage::Progress const & /* progress */) {};
 
   auto const slot = storage.Subscribe(onStatusChange, onProgress);
   SCOPE_GUARD(cleanup, [&]() { storage.Unsubscribe(slot); });

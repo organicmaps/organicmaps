@@ -64,10 +64,12 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   };
 
   CountriesSet downloadedChecker;
-  auto onProgressFn = [&](CountryId const & countryId, downloader::Progress const & progress)
+  auto onProgressFn = [&](CountryId const & countryId, storage::Progress const & progress)
   {
+    if (countryId == storage.GetRootId())
+      return;
     TEST(subTree.find(countryId) != subTree.end(), ());
-    if (progress.m_bytesDownloaded == progress.m_bytesTotal)
+    if (progress.m_mwmDownloaded == progress.m_mwmTotal)
     {
       auto const res = downloadedChecker.insert(countryId);
       TEST_EQUAL(res.second, true, ());  // Every child is downloaded only once.
@@ -230,7 +232,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
 
 void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 {
-  Storage storage;
+  Storage storage(ReadCountriesJson(), GetDownloader());
   string const version = std::to_string(storage.GetCurrentDataVersion());
 
   auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile)
