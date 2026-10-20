@@ -174,9 +174,9 @@ Storage::Storage(std::string const & pathToCountriesFile /* = COUNTRIES_FILE */,
   {
     std::string content;
     GetPlatform().GetReader(TERRAIN_GRID_FILE)->ReadAsString(content);
-    // The index version is the per-block version default, nothing else needs it here.
     int64_t version = 0;
     m_twmGridIndices = ParseTwmGridJson(content, version, m_twmGrid, m_terrainCoverage);
+    m_downloader->SetTerrainDataVersion(version);
     LOG(LINFO, ("Terrain grid:", m_twmGrid.size(), "blocks,", m_terrainCoverage.size(), "regions, version", version));
   }
   catch (RootException const & ex)
