@@ -114,12 +114,7 @@ void InertialNavigator::OnGpsPosition(Fix const & gps)
   SetRoadPoint(gps.m_position);
   m_turning = false;
   m_steadyRoad.reset();
-  // GPS bearing is noisy at low speeds, unless GPS tells it is accurate.
-  bool const goodBearing = gps.m_bearingDeg && gps.m_speedMps &&
-                           (*gps.m_speedMps >= kMinGpsHeadingSpeedMps ||
-                            (*gps.m_speedMps >= kMinAccurateGpsHeadingSpeedMps && gps.m_bearingAccuracyDeg &&
-                             *gps.m_bearingAccuracyDeg <= kMaxGpsHeadingErrorDeg));
-  if (goodBearing)
+  if (HasGoodBearing(gps))
   {
     CheckTurnSign(gps);
     SetHeading(*gps.m_bearingDeg, HeadingSource::Gps);
@@ -129,6 +124,15 @@ void InertialNavigator::OnGpsPosition(Fix const & gps)
     m_turnSignChecker.OnNoGpsBearing();
   }
   StartRoughStretch(0);
+}
+
+bool InertialNavigator::HasGoodBearing(Fix const & gps)
+{
+  // GPS bearing is noisy at low speeds, unless GPS tells it is accurate.
+  return gps.m_bearingDeg && gps.m_speedMps &&
+         (*gps.m_speedMps >= kMinGpsHeadingSpeedMps ||
+          (*gps.m_speedMps >= kMinAccurateGpsHeadingSpeedMps && gps.m_bearingAccuracyDeg &&
+           *gps.m_bearingAccuracyDeg <= kMaxGpsHeadingErrorDeg));
 }
 
 void InertialNavigator::CheckTurnSign(Fix const & gps)

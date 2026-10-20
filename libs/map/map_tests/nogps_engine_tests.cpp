@@ -1912,6 +1912,33 @@ UNIT_TEST(NoGps_Engine_CarDrivingFastDoesNotDriveBack)
   TestAlmostEqualAbs(East(env.Last().m_position), car.East(), 5);
 }
 
+UNIT_TEST(NoGps_Engine_InertialDrivingBackIsNotShownBetweenGpsPositions)
+{
+  PieceRoads roads({{-2000, 0, 3000, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, -450);
+  BoxCar car(env, -450, true /* accelerometer */);
+  car.SpeedUpAndBrake();
+  env.m_engine.SetManualMode(false);
+
+  // The street goes down from where the car stood: the car starts forward, the accelerometer feels a start backward.
+  // GPS tells the way the car goes.
+  car.m_slopeMps2 = -2.5;
+  car.Drive(3, 1, 0);
+  car.m_slopeMps2 = 0;
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+  auto gps = GpsAt(env.m_clock, car.East(), 0, 90.0, 3.0);
+  gps.m_bearingAccuracyDeg = 5;
+  env.m_engine.OnFix(gps);
+  TEST_EQUAL(env.Last().m_provider, Provider::Gps, ());
+
+  // The inertial navigation would move the mark back between GPS positions.
+  size_t const shown = env.m_delegate.m_positions.size();
+  car.Drive(0.6, 0, 0);
+  TEST(env.m_engine.GetTripLine().find(" back=1") != std::string::npos, (env.m_engine.GetTripLine()));
+  TEST_EQUAL(env.m_delegate.m_positions.size(), shown, ());
+}
+
 UNIT_TEST(NoGps_Engine_CarStartingWithJerkBackDrivesForward)
 {
   PieceRoads roads({{-2000, 0, 3000, 0}}, {});
@@ -2194,6 +2221,145 @@ UNIT_TEST(NoGps_Engine_InertialContinuesWhenGpsIsLost)
   TEST_GREATER(East(env.Last().m_position), 90, ());
   TestAlmostEqualAbs(North(env.Last().m_position), 0, 1);
 }
+
+// The time of GPS is ahead of the clock of the phone, and a GPS position comes a bit after it is taken.
+int64_t constexpr kGpsClockAheadMs = 3000;
+int64_t constexpr kGpsDelayMs = 100;
+
+// GPS positions once a second going east along the street at 10 m/s, from 0 m: the car drives by the box too if
+// |box|. \returns the last one.
+Fix DriveWithGps(Env & env, int seconds, bool box)
+{
+  Fix gps;
+  for (int i = 0; i < seconds; ++i)
+  {
+    if (box)
+      env.Drive(1000, 36, 0);
+    else
+      env.m_clock.Advance(1000);
+    gps = GpsAt(env.m_clock, 10 * i, 0, 90.0, 10.0);
+    gps.m_timeMs -= kGpsDelayMs;
+    gps.m_unixTimeMs += kGpsClockAheadMs - kGpsDelayMs;
+    env.m_engine.OnFix(gps);
+  }
+  TEST_EQUAL(env.Last().m_provider, gps.m_provider, ());
+  return gps;
+}
+
+UNIT_TEST(NoGps_Engine_InertialMovesMarkBetweenGpsPositions)
+{
+  Env env(true /* inertial */);
+  Fix const gps = DriveWithGps(env, 3, true /* box */);
+
+  // GPS gives a position once a second, the map would move the mark in jumps: the inertial navigation moves it on
+  // from the GPS position since it came every 200 ms, by the clock of GPS.
+  int64_t const cameMs = env.m_clock.NowMs();
+  size_t const shown = env.m_delegate.m_positions.size();
+  env.Drive(1000, 36, 0);
+  TEST_EQUAL(env.m_delegate.m_positions.size(), shown + 5, ());
+  for (size_t i = shown; i < env.m_delegate.m_positions.size(); ++i)
+  {
+    auto const & position = env.m_delegate.m_positions[i];
+    int64_t const sinceGpsMs = position.m_timeMs - cameMs;
+    TEST_EQUAL(position.m_provider, Provider::Inertial, ());
+    TEST_EQUAL(position.m_accuracyM, gps.m_accuracyM, ());
+    TEST_EQUAL(position.m_unixTimeMs, gps.m_unixTimeMs + sinceGpsMs, ());
+    TestAlmostEqualAbs(East(position.m_position), East(gps.m_position) + 10 * sinceGpsMs / 1000.0, 0.5);
+    TestAlmostEqualAbs(North(position.m_position), 0, 0.5);
+  }
+  // The trip log counts them.
+  for (size_t const before = env.m_delegate.m_positions.size(); env.m_delegate.m_positions.size() == before;)
+    env.Drive(20, 36, 0);
+  TEST_GREATER(std::stoi(TripField(env, "fill")), 0, ());
+  // GPS stays the position of the engine.
+  TEST_EQUAL(env.m_engine.GetStatus().m_source, PositionSource::Gps, ());
+  TEST(!env.m_engine.IsManualMode(), ());
+
+  // The next GPS position puts the mark where it is.
+  env.Drive(100, 36, 0);
+  env.m_engine.OnFix(GpsAt(env.m_clock, 32, 0, 90.0, 10.0));
+  TEST_EQUAL(env.Last().m_provider, Provider::Gps, ());
+  TestAlmostEqualAbs(East(env.Last().m_position), 32, 0.1);
+
+  // The bearing of a slow car is noise, the inertial navigation may go another way: GPS alone moves the mark.
+  env.Drive(1000, 7, 0);
+  env.m_engine.OnFix(GpsAt(env.m_clock, 34, 0, 90.0, 2.0));
+  size_t const slow = env.m_delegate.m_positions.size();
+  env.Drive(600, 7, 0);
+  TEST_EQUAL(env.m_delegate.m_positions.size(), slow, ());
+}
+
+UNIT_TEST(NoGps_Engine_InertialMovesMarkUntilGpsIsLost)
+{
+  Env env(true /* inertial */);
+  DriveWithGps(env, 3, true /* box */);
+  env.Drive(200, 36, 0);
+  // GPS is lost: the mark doesn't stand waiting for the manual mode, and doesn't jump when it comes.
+  double east = East(env.Last().m_position);
+  for (int i = 0; i < (Engine::kGpsLostMs + 2000) / 200; ++i)
+  {
+    env.Drive(200, 36, 0);
+    TestAlmostEqualAbs(East(env.Last().m_position) - east, 2, 1);
+    east = East(env.Last().m_position);
+  }
+  TEST(env.m_engine.IsManualMode(), ());
+  TEST_EQUAL(env.m_engine.GetStatus().m_source, PositionSource::Inertial, ());
+}
+
+UNIT_TEST(NoGps_Engine_GpsIsExtrapolatedWithoutInertial)
+{
+  Env env(false /* inertial */);
+  Fix const gps = DriveWithGps(env, 3, false /* box */);
+
+  // The last GPS position is moved along its bearing every 200 ms by the clock of GPS.
+  env.m_clock.Advance(600);
+  TEST_EQUAL(env.Last().m_provider, Provider::Gps, ());
+  TestAlmostEqualAbs(East(env.Last().m_position), 26, 0.1);
+  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.1);
+  TEST_EQUAL(env.Last().m_unixTimeMs, gps.m_unixTimeMs + 600, ());
+  TEST_EQUAL(env.m_engine.GetStatus().m_source, PositionSource::Gps, ());
+
+  // For one missed GPS position at most.
+  env.m_clock.Advance(Engine::kMaxGpsExtrapolationMs);
+  TestAlmostEqualAbs(East(env.Last().m_position), 40, 0.1);
+  size_t shown = env.m_delegate.m_positions.size();
+  env.m_clock.Advance(1000);
+  TEST_EQUAL(env.m_delegate.m_positions.size(), shown, ());
+
+  // The bearing of a slow car is noise: its position stands.
+  env.m_engine.OnFix(GpsAt(env.m_clock, 50, 0, 90.0, 2.0));
+  shown = env.m_delegate.m_positions.size();
+  env.m_clock.Advance(600);
+  TEST_EQUAL(env.m_delegate.m_positions.size(), shown, ());
+}
+
+UNIT_TEST(NoGps_Engine_SameGpsPositionIsShownOnce)
+{
+  Env env(true /* inertial */);
+  Fix const gps = DriveWithGps(env, 3, true /* box */);
+  int64_t const cameMs = env.m_clock.NowMs();
+  // Android gives the position again, mixed with the network: a bit more accurate, sometimes a few meters off.
+  size_t const shown = env.m_delegate.m_positions.size();
+  auto fused = gps;
+  fused.m_provider = Provider::Fused;
+  fused.m_accuracyM = 4;
+  fused.m_position = At(East(gps.m_position) + 5, 0);
+  env.m_engine.OnFix(fused);
+  TEST_EQUAL(env.m_delegate.m_positions.size(), shown, ());
+  // The inertial navigation goes on from the shown GPS position.
+  env.Drive(200, 36, 0);
+  TEST_EQUAL(env.Last().m_provider, Provider::Inertial, ());
+  TestAlmostEqualAbs(East(env.Last().m_position), East(gps.m_position) + 10 * (env.Last().m_timeMs - cameMs) / 1000.0,
+                     0.5);
+
+  env.Drive(800, 36, 0);
+  fused = GpsAt(env.m_clock, 30, 0, 90.0, 10.0, 4);
+  fused.m_provider = Provider::Fused;
+  env.m_engine.OnFix(fused);
+  TEST_EQUAL(env.Last().m_provider, Provider::Fused, ());
+  TestAlmostEqualAbs(East(env.Last().m_position), 30, 0.1);
+}
+
 // The car speeds up to 54 km/h in 10 s, drives 5 s, brakes in 10 s and stands 5 s, again and again, going east
 // along the street. The box reports the car speed 1.2 s late. Returns how far the calculated position was from the
 // car at most 1.5-3 s after the car started to speed up or to brake, when the box has been learned.
