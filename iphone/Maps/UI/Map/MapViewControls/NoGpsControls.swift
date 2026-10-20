@@ -40,6 +40,7 @@ final class NoGpsControls: NSObject {
   private var buttonsBottom = NSLayoutConstraint()
   private var timer: Timer?
   private weak var calibrationAlert: UIAlertController?
+  private weak var firmwareAlert: UIAlertController?
 
   @objc
   init(owner: MapViewController) {
@@ -292,6 +293,40 @@ final class NoGpsControls: NSObject {
     calibrationAlert = alert
   }
 
+  /// The box works with another firmware than the app is tested with: asks the user to install the one of the app.
+  private func offerFirmwareUpdate() {
+    // As the calibration, not asked in the background: the car may be driving when the user comes back. The sensors
+    // screen still offers the firmware.
+    let status = NoGps.status()
+    guard UIApplication.shared.applicationState == .active, firmwareAlert == nil, !status.bundledFirmware.isEmpty
+    else { return }
+    let alert = UIAlertController(title: L("nogps_firmware_title"),
+                                  message: String(format: L("nogps_firmware_offer"), status.boxFirmware,
+                                                  status.bundledFirmware),
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: L("later"), style: .cancel))
+    alert.addAction(UIAlertAction(title: String(format: L("nogps_firmware_install"), status.bundledFirmware),
+                                  style: .default) { [weak self] _ in
+        NoGps.startFirmwareUpdate()
+        // It shows how the update goes.
+        self?.showSensors()
+      })
+    UIViewController.topViewController().present(alert, animated: true)
+    firmwareAlert = alert
+  }
+
+  private func firmwareErrorText(_ code: String) -> String {
+    switch code {
+    case "MOVING": return L("nogps_firmware_error_moving")
+    case "LOW_VOLTAGE": return L("nogps_firmware_error_voltage")
+    case "LINK": return L("nogps_firmware_error_link")
+    case "CANCELED", "ABORTED": return L("nogps_firmware_error_canceled")
+    case "ROLLBACK": return L("nogps_firmware_error_rollback")
+    case "PENDING": return L("nogps_firmware_error_pending")
+    default: return String(format: L("nogps_firmware_error_code"), code)
+    }
+  }
+
   @objc
   private func toggleMarkByTap() {
     let armed = !NoGps.status().markByTap
@@ -376,8 +411,12 @@ final class NoGpsControls: NSObject {
     case .boxCalibrationAdvised:
       offerBoxCalibration()
       text = nil
-    // Handled in #21.
-    case .firmwareUpdateAvailable, .firmwareUpdateDone, .firmwareUpdateFailed: text = nil
+    case .firmwareUpdateAvailable:
+      offerFirmwareUpdate()
+      text = nil
+    case .firmwareUpdateDone: text = String(format: L("nogps_firmware_done"), NoGps.status().boxFirmware)
+    case .firmwareUpdateFailed:
+      text = String(format: L("nogps_firmware_failed"), firmwareErrorText(NoGps.status().firmwareUpdateError))
     @unknown default: text = nil
     }
     if let text {

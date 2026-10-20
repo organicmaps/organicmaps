@@ -634,6 +634,7 @@
 		ED86256C2FEECAB70057BF82 /* MWMSettings+MapTiles.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED86256E2FEECAB70057BF82 /* MWMSettings+MapTiles.mm */; };
 		ED8A91E02D759B50009E063B /* LocalizableTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED8A91DE2D759B50009E063B /* LocalizableTypes.strings */; };
 		ED8F0F852FE962BF00780C0F /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8F0F842FE962BF00780C0F /* SettingsModels.swift */; };
+		ED90F1A22FA6000100C0FFEE /* nogps-firmware in Resources */ = {isa = PBXBuildFile; fileRef = ED90F1A12FA6000100C0FFEE /* nogps-firmware */; };
 		ED91432C300168020081DF0B /* MainSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91432B300168020081DF0B /* MainSceneDelegate.swift */; };
 		ED914330300168200081DF0B /* MainSceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91432F300168200081DF0B /* MainSceneDelegateTests.swift */; };
 		ED914332300168CF0081DF0B /* CarPlaySceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914331300168CF0081DF0B /* CarPlaySceneDelegateTests.swift */; };
@@ -1732,6 +1733,7 @@
 		ED8A920C2D759BA9009E063B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920D2D759BAA009E063B /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8F0F842FE962BF00780C0F /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
+		ED90F1A12FA6000100C0FFEE /* nogps-firmware */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "nogps-firmware"; path = "../../data/nogps-firmware"; sourceTree = "<group>"; };
 		ED91432B300168020081DF0B /* MainSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDelegate.swift; sourceTree = "<group>"; };
 		ED91432F300168200081DF0B /* MainSceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDelegateTests.swift; sourceTree = "<group>"; };
 		ED914331300168CF0081DF0B /* CarPlaySceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegateTests.swift; sourceTree = "<group>"; };
@@ -4222,6 +4224,7 @@
 				FAFF42291347F101009BBB14 /* World.mwm */,
 				FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */,
 				4A300ED31C6DCFD400140018 /* countries-strings */,
+				ED90F1A12FA6000100C0FFEE /* nogps-firmware */,
 				5605022E1B6211E100169CAD /* sound-strings */,
 			);
 			name = ExternalResources;
@@ -4441,6 +4444,7 @@
 				676507611C10559B00830BB3 /* colors.txt in Resources */,
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
+				ED90F1A22FA6000100C0FFEE /* nogps-firmware in Resources */,
 				6741A9491BF340DE002C974C /* countries.json in Resources */,
 				DB05F1CC1BF340DE002C974C /* drules_default.bin in Resources */,
 				DB05F1CD1BF340DE002C974C /* drules_outdoors.bin in Resources */,
