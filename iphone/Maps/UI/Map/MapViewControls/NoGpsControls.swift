@@ -26,7 +26,6 @@ final class NoGpsControls: NSObject {
   private weak static var shared: NoGpsControls?
   private static var availableArea = CGRect.zero
 
-  private weak var owner: MapViewController?
   private let statusButton = UIButton(type: .custom)
   private let buttons = UIStackView()
   private let shiftForwardButton = NoGpsControls.makeButton("chevron.up")
@@ -40,10 +39,10 @@ final class NoGpsControls: NSObject {
   private var buttonsLeading = NSLayoutConstraint()
   private var buttonsBottom = NSLayoutConstraint()
   private var timer: Timer?
+  private weak var calibrationAlert: UIAlertController?
 
   @objc
   init(owner: MapViewController) {
-    self.owner = owner
     super.init()
     Self.shared = self
     setupViews(in: owner.controlsView)
@@ -263,7 +262,34 @@ final class NoGpsControls: NSObject {
 
   @objc
   private func showSensors() {
-    owner?.present(UINavigationController(rootViewController: NoGpsSensorsViewController()), animated: true)
+    // The calibration alert may come while the screen is open, under another alert too.
+    let top = UIViewController.topViewController()
+    var shown: UIViewController? = top
+    while let controller = shown {
+      if (controller as? UINavigationController)?.viewControllers.first is NoGpsSensorsViewController {
+        return
+      }
+      shown = controller.presentingViewController
+    }
+    top.present(UINavigationController(rootViewController: NoGpsSensorsViewController()), animated: true)
+  }
+
+  /// The sensor box has been plugged in: asks the user to calibrate it, the car should stand on a level place.
+  private func offerBoxCalibration() {
+    // As on Android, not asked in the background: the car may be driving when the user comes back. The sensors
+    // screen still tells to calibrate the box. The box may be powered on again before the user answers.
+    guard UIApplication.shared.applicationState == .active, calibrationAlert == nil else { return }
+    let alert = UIAlertController(title: L("nogps_box_calibration"),
+                                  message: L("nogps_box_calibration_offer"),
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: L("later"), style: .cancel))
+    alert.addAction(UIAlertAction(title: L("nogps_sensors_calibrate_box"), style: .default) { [weak self] _ in
+      NoGps.calibrate()
+      // It shows how the calibration goes.
+      self?.showSensors()
+    })
+    UIViewController.topViewController().present(alert, animated: true)
+    calibrationAlert = alert
   }
 
   @objc
@@ -347,8 +373,11 @@ final class NoGpsControls: NSObject {
       } else {
         text = L("nogps_box_uncalibrated_stopped")
       }
-    // Handled in #20 and #21.
-    case .firmwareUpdateAvailable, .firmwareUpdateDone, .firmwareUpdateFailed, .boxCalibrationAdvised: text = nil
+    case .boxCalibrationAdvised:
+      offerBoxCalibration()
+      text = nil
+    // Handled in #21.
+    case .firmwareUpdateAvailable, .firmwareUpdateDone, .firmwareUpdateFailed: text = nil
     @unknown default: text = nil
     }
     if let text {

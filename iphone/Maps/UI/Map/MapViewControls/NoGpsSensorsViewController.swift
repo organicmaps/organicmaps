@@ -10,7 +10,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
     case enabled
     case box
     case calibrate
-    case gyro
+    case boxSensors
     case speed
     case car
     case voltageMismatch
@@ -22,6 +22,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
   }
 
   private struct Section {
+    var header: String?
     let rows: [Row]
     let footer: String?
   }
@@ -64,7 +65,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
 
   private func refresh() {
     status = NoGps.status()
-    var stateRows: [Row] = [.box, .calibrate, .gyro, .speed]
+    var stateRows: [Row] = [.box, .speed]
     if status.inertialStarted, status.hasCarInfo {
       stateRows.append(.car)
       if status.voltageMismatch {
@@ -77,6 +78,9 @@ final class NoGpsSensorsViewController: MWMTableViewController {
     sections = [
       Section(rows: [.enabled], footer: L("nogps_sensors_hint_box")),
       Section(rows: stateRows, footer: nil),
+      // The user calibrates the box when it is put into the car.
+      Section(header: L("nogps_box_calibration"), rows: [.boxSensors, .calibrate],
+              footer: L("nogps_box_calibration_hint")),
       Section(rows: [.scale, .clearSpeed], footer: nil),
       Section(rows: [.shiftButtons], footer: L("nogps_shift_buttons_hint")),
       Section(rows: [.disableGps], footer: L("nogps_disable_gps_hint")),
@@ -92,6 +96,10 @@ final class NoGpsSensorsViewController: MWMTableViewController {
 
   override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     sections[section].rows.count
+  }
+
+  override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
+    sections[section].header
   }
 
   override func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -117,8 +125,8 @@ final class NoGpsSensorsViewController: MWMTableViewController {
       content.text = L("nogps_sensors_calibrate_box")
       content.textProperties.color = status.inertialStarted ? .linkBlue : .blackHintText
       cell.selectionStyle = .default
-    case .gyro:
-      content.text = String(format: L("nogps_sensors_gyro"), gyroText())
+    case .boxSensors:
+      content.text = String(format: L("nogps_sensors_box_sensors"), boxCalibrationText())
     case .speed:
       let speed = status.inertialStarted ? status.speedKmh : -1
       content.text = String(format: L("nogps_sensors_speed"),
@@ -211,12 +219,13 @@ final class NoGpsSensorsViewController: MWMTableViewController {
     }
   }
 
-  private func gyroText() -> String {
+  private func boxCalibrationText() -> String {
     switch status.inertialStarted ? status.calibration : .none {
-    case .none: return L("nogps_gyro_none")
-    case .calibrating: return String(format: L("nogps_gyro_calibrating"), status.calibrationProgress)
-    case .done: return L("nogps_gyro_done")
-    case .failedMoving: return L("nogps_gyro_failed")
+    case .none: return L("nogps_box_not_calibrated")
+    case .calibrating: return String(format: L("nogps_box_calibrating"), status.calibrationProgress)
+    // The box keeps its calibration, but it may stand in another way since it was plugged in.
+    case .done: return L(status.boxCalibrationAdvised ? "nogps_box_calibration_advised" : "nogps_box_calibrated")
+    case .failedMoving: return L("nogps_box_calibration_failed")
     case .mountMoved: return L("nogps_gyro_mount_moved")
     @unknown default: return L("nogps_unknown")
     }
@@ -246,7 +255,7 @@ final class NoGpsSensorsViewController: MWMTableViewController {
       missing.append(L("nogps_missing_speed"))
     }
     if status.calibration != .done {
-      missing.append(L("nogps_missing_gyro"))
+      missing.append(L("nogps_missing_box_calibration"))
     }
     if !status.hasInertialPosition {
       missing.append(L("nogps_missing_position"))
