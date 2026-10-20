@@ -13,6 +13,8 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include <unordered_set>
+
 #include <glaze/util/zmij.hpp>
 
 namespace kml
@@ -795,8 +797,8 @@ void KmlParser::ResolveAreaStyles()
   for (auto const & pending : m_pendingAreaStyles)
   {
     auto & style = m_data.m_areasData[pending.m_areaIndex].m_style;
-    auto reference = pending.m_reference;
-    std::set<std::string> visited;
+    std::string_view reference = pending.m_reference;
+    std::unordered_set<std::string_view> visited;
     while (reference.starts_with('#') && visited.insert(reference).second)
     {
       auto const id = reference.substr(1);
@@ -1501,7 +1503,7 @@ void KmlParser::CharData(std::string & value)
         if (strings::to_double(value, val))
         {
           m_trackWidth = val;
-          if (prevTag == "LineStyle" && math::is_finite(val) && val >= 0)
+          if (prevTag == "LineStyle" && val >= 0)
             m_areaStyle.m_outlineWidth = std::min(val, kMaxLineWidth);
         }
       }

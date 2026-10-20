@@ -1,6 +1,5 @@
 #include "kml/area_data.hpp"
 
-#include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 
 #include "base/math.hpp"
@@ -21,8 +20,7 @@ bool NormalizeRing(AreaRing & ring)
   for (auto const & point : ring)
   {
     auto const & p = point.m_latLon;
-    if (!math::is_finite(p.m_lon) || !math::is_finite(p.m_lat) || p.m_lon < ms::LatLon::kMinLon ||
-        p.m_lon > ms::LatLon::kMaxLon || p.m_lat < ms::LatLon::kMinLat || p.m_lat > ms::LatLon::kMaxLat ||
+    if (!mercator::ValidLon(p.m_lon) || !mercator::ValidLat(p.m_lat) ||
         (point.m_altitude && !math::is_finite(*point.m_altitude)))
       return false;
   }

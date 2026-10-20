@@ -69,14 +69,23 @@ UNIT_TEST(Area_RejectInvalidGeometry)
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
   polygons = {{shell, {Ring({{12, 12}, {14, 12}, {14, 14}, {12, 14}})}}};
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
-  polygons = {{shell, {}}};
-  polygons.front().m_outer[1].m_latLon.m_lon = math::Infinity();
-  TEST(!kml::NormalizeAreaGeometry(polygons), ());
+  for (auto const invalid : {math::Infinity(), -math::Infinity(), math::Nan()})
+  {
+    polygons = {{shell, {}}};
+    polygons.front().m_outer[1].m_latLon.m_lon = invalid;
+    TEST(!kml::NormalizeAreaGeometry(polygons), (invalid));
+    polygons = {{shell, {}}};
+    polygons.front().m_outer[1].m_latLon.m_lat = invalid;
+    TEST(!kml::NormalizeAreaGeometry(polygons), (invalid));
+    polygons = {{shell, {}}};
+    polygons.front().m_outer[1].m_altitude = invalid;
+    TEST(!kml::NormalizeAreaGeometry(polygons), (invalid));
+  }
   polygons = {{shell, {}}};
   polygons.front().m_outer[1].m_latLon.m_lat = 91;
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
   polygons = {{shell, {}}};
-  polygons.front().m_outer[1].m_altitude = math::Infinity();
+  polygons.front().m_outer[1].m_latLon.m_lon = 181;
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
 }
 
@@ -269,6 +278,35 @@ UNIT_TEST(Area_KmlClosingVertexAltitude)
     MemWriter writer(output);
     kml::KmlWriter(writer).Write(data);
     TEST_EQUAL(ReadKml(output).m_areasData, data.m_areasData, (output));
+  }
+}
+
+UNIT_TEST(Area_KmlRejectsNonFiniteCoordinates)
+{
+  for (std::string const tuple :
+       {"NaN,0", "0,NaN", "0,0,NaN", "INF,0", "0,-INF", "0,0,INF", "1e309,0", "0,1e309", "0,0,1e309"})
+  {
+    auto const data =
+        ReadKml("<kml><Document><Placemark><Polygon><outerBoundaryIs><LinearRing><coordinates>0,0 " + tuple +
+                " 4,0 0,4 0,0</coordinates></LinearRing></outerBoundaryIs>"
+                "</Polygon></Placemark></Document></kml>");
+    TEST(data.m_areasData.empty(), (tuple));
+  }
+}
+
+UNIT_TEST(Area_KmlInvalidOutlineWidthsKeepSharedStyle)
+{
+  for (std::string const width : {"NaN", "INF", "-INF", "1e309", "-1"})
+  {
+    auto const data = ReadKml(
+        "<kml><Document><Style id=\"shared\"><LineStyle><width>4</width></LineStyle></Style>"
+        "<Placemark><styleUrl>#shared</styleUrl><Style><LineStyle><width>" +
+        width +
+        "</width></LineStyle></Style><Polygon><outerBoundaryIs><LinearRing>"
+        "<coordinates>0,0 4,0 0,4 0,0</coordinates></LinearRing></outerBoundaryIs>"
+        "</Polygon></Placemark></Document></kml>");
+    TEST_EQUAL(data.m_areasData.size(), 1, (width));
+    TEST_EQUAL(data.m_areasData.front().m_style.m_outlineWidth, 4, (width));
   }
 }
 
