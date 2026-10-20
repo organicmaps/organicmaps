@@ -2,8 +2,6 @@
 
 #include <QtWidgets/QWidget>
 
-#include <string>
-
 class QGridLayout;
 class QLabel;
 class QToolBar;
@@ -48,8 +46,7 @@ QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, pl
 
 // Adds a key/value row to `grid` and increments `row`.
 // If `isLink`, wraps the value in <a href> markup.
-QLabel * addEntry(QGridLayout * grid, int & row, std::string const & key, std::string const & value,
-                  bool isLink = false);
+QLabel * addEntry(QGridLayout * grid, int & row, QString const & key, QString const & value, bool isLink = false);
 
 // If `info` has route refs, adds a "Routes" row to `grid` with a combo box that
 // shows the selected route's transit view via DrawWidget::GetFramework().ShowRouteTransit().

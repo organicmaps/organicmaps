@@ -1,5 +1,7 @@
 #include "qt/editor_dialog.hpp"
 
+#include "qt/qt_common/translations.hpp"
+
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature_utils.hpp"
 
@@ -17,10 +19,51 @@
 
 #include <QtCore/QSignalMapper>
 
+namespace
+{
 constexpr char const * kStreetObjectName = "addr:street";
 constexpr char const * kHouseNumberObjectName = "addr:housenumber";
 constexpr char const * kPostcodeObjectName = "addr:postcode";
 constexpr char const * kInternetObjectName = "internet_access";
+
+QString MetadataLabel(osm::MapObject::MetadataID prop)
+{
+  using PropID = osm::MapObject::MetadataID;
+  switch (prop)
+  {
+  case PropID::FMD_CUISINE: return qt::Tr("cuisine");
+  case PropID::FMD_OPEN_HOURS: return qt::Tr("editor_time_title");
+  case PropID::FMD_PHONE_NUMBER: return qt::Tr("phone");
+  case PropID::FMD_FAX_NUMBER: return qt::Tr("fax");
+  case PropID::FMD_STARS: return qt::Tr("hotel_stars");
+  case PropID::FMD_OPERATOR: return qt::Tr("editor_operator");
+  case PropID::FMD_WEBSITE: return qt::Tr("website");
+  case PropID::FMD_INTERNET: return qt::Tr("internet_access");
+  case PropID::FMD_ELE: return qt::Tr("elevation");
+  case PropID::FMD_EMAIL: return qt::Tr("email");
+  case PropID::FMD_POSTCODE: return qt::Tr("postal_code");
+  case PropID::FMD_WIKIPEDIA: return qt::Tr("read_in_wikipedia");
+  case PropID::FMD_FLATS: return qt::Tr("apartment_numbers");
+  case PropID::FMD_HEIGHT: return qt::Tr("height");
+  case PropID::FMD_DENOMINATION: return qt::Tr("religious_denomination");
+  case PropID::FMD_BUILDING_LEVELS:
+    return qt::Tr("editor_storey_number").arg(osm::EditableMapObject::kMaximumLevelsEditableByUsers);
+  case PropID::FMD_LEVEL: return qt::Tr("level");
+  case PropID::FMD_CONTACT_FACEBOOK: return "Facebook";
+  case PropID::FMD_CONTACT_INSTAGRAM: return "Instagram";
+  case PropID::FMD_CONTACT_TWITTER: return "X (Twitter)";
+  case PropID::FMD_CONTACT_VK: return "VK";
+  case PropID::FMD_CONTACT_LINE: return "LINE";
+  case PropID::FMD_WIKIMEDIA_COMMONS: return qt::Tr("wikimedia_commons");
+  case PropID::FMD_DRIVE_THROUGH: return qt::Tr("drive_through");
+  case PropID::FMD_WEBSITE_MENU: return qt::Tr("website_menu");
+  case PropID::FMD_SELF_SERVICE: return qt::Tr("self_service");
+  case PropID::FMD_OUTDOOR_SEATING: return qt::Tr("outdoor_seating");
+  case PropID::FMD_HERITAGE_WEBSITE: return qt::Tr("heritage_website");
+  default: return QString::fromStdString(DebugPrint(prop));
+  }
+}
+}  // namespace
 
 EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDialog(parent), m_feature(emo)
 {
@@ -30,7 +73,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
   // Coordinates.
   {
     ms::LatLon const ll = emo.GetLatLon();
-    grid->addWidget(new QLabel("Latitude/Longitude:"), row, 0);
+    grid->addWidget(new QLabel(qt::Tr("placepage_coordinates")), row, 0);
     QHBoxLayout * coords = new QHBoxLayout();
     coords->addWidget(new QLabel(
         QString::fromStdString(strings::to_string_dac(ll.m_lat, 7) + " " + strings::to_string_dac(ll.m_lon, 7))));
@@ -39,10 +82,9 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
 
   // Feature types.
   {
-    grid->addWidget(new QLabel("Type:"), row, 0);
+    grid->addWidget(new QLabel(qt::Tr("editor_edit_place_category_title")), row, 0);
 
-    std::string const raw = DebugPrint(m_feature.GetTypes());
-    QLabel * label = new QLabel(QString::fromStdString(raw));
+    QLabel * label = new QLabel(QString::fromStdString(m_feature.GetLocalizedAllTypes(true)));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
@@ -50,7 +92,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
   // Names.
   if (emo.IsNameEditable())
   {
-    grid->addWidget(new QLabel(QString("Name:")), row, 0);
+    grid->addWidget(new QLabel(qt::Tr("name")), row, 0);
 
     QGridLayout * namesGrid = new QGridLayout();
     int namesRow = 0;
@@ -73,7 +115,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
   if (emo.IsAddressEditable())
   {
     auto nearbyStreets = emo.GetNearbyStreets();
-    grid->addWidget(new QLabel(kStreetObjectName), row, 0);
+    grid->addWidget(new QLabel(qt::Tr("street")), row, 0);
     QComboBox * cmb = new QComboBox();
     cmb->setEditable(true);
 
@@ -92,12 +134,12 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
     cmb->setObjectName(kStreetObjectName);
     grid->addWidget(cmb, row++, 1);
 
-    grid->addWidget(new QLabel(kHouseNumberObjectName), row, 0);
+    grid->addWidget(new QLabel(qt::Tr("house_number")), row, 0);
     QLineEdit * houseLineEdit = new QLineEdit(emo.GetHouseNumber().c_str());
     houseLineEdit->setObjectName(kHouseNumberObjectName);
     grid->addWidget(houseLineEdit, row++, 1);
 
-    grid->addWidget(new QLabel(kPostcodeObjectName), row, 0);
+    grid->addWidget(new QLabel(qt::Tr("postal_code")), row, 0);
     QLineEdit * postcodeEdit = new QLineEdit(QString::fromStdString(std::string(emo.GetPostcode())));
     postcodeEdit->setObjectName(kPostcodeObjectName);
     grid->addWidget(postcodeEdit, row++, 1);
@@ -111,14 +153,16 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
     {
     case PropID::FMD_INTERNET:
     {
-      grid->addWidget(new QLabel(kInternetObjectName), row, 0);
+      grid->addWidget(new QLabel(MetadataLabel(prop)), row, 0);
       QComboBox * cmb = new QComboBox();
-      std::string const values[] = {DebugPrint(feature::Internet::Unknown), DebugPrint(feature::Internet::Wlan),
-                                    DebugPrint(feature::Internet::Wired),   DebugPrint(feature::Internet::Terminal),
-                                    DebugPrint(feature::Internet::Yes),     DebugPrint(feature::Internet::No)};
-      for (auto const & v : values)
-        cmb->addItem(v.c_str());
-      cmb->setCurrentText(DebugPrint(emo.GetInternet()).c_str());
+      using feature::Internet;
+      cmb->addItem(qt::Tr("not_specified"), static_cast<int>(Internet::Unknown));
+      cmb->addItem(qt::Tr("category_wifi"), static_cast<int>(Internet::Wlan));
+      cmb->addItem(qt::Tr("wired_internet"), static_cast<int>(Internet::Wired));
+      cmb->addItem(qt::Tr("internet_terminal"), static_cast<int>(Internet::Terminal));
+      cmb->addItem(qt::Tr("yes"), static_cast<int>(Internet::Yes));
+      cmb->addItem(qt::Tr("no"), static_cast<int>(Internet::No));
+      cmb->setCurrentIndex(cmb->findData(static_cast<int>(emo.GetInternet())));
       cmb->setObjectName(kInternetObjectName);
       grid->addWidget(cmb, row++, 1);
     }
@@ -130,7 +174,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
     }
 
     QString const fieldName = QString::fromStdString(DebugPrint(prop));
-    grid->addWidget(new QLabel(fieldName), row, 0);
+    grid->addWidget(new QLabel(MetadataLabel(prop)), row, 0);
     QLineEdit * lineEdit = new QLineEdit(QString::fromStdString(v));
     lineEdit->setObjectName(fieldName);
     grid->addWidget(lineEdit, row++, 1);
@@ -142,7 +186,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
     connect(buttonBox, &QDialogButtonBox::accepted, this, &EditorDialog::OnSave);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     // Delete button should send custom int return value from dialog.
-    QPushButton * deletePOIButton = new QPushButton("Delete POI");
+    QPushButton * deletePOIButton = new QPushButton(qt::Tr("editor_remove_place_button"));
     QSignalMapper * signalMapper = new QSignalMapper();
     connect(deletePOIButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
     signalMapper->setMapping(deletePOIButton, QDialogButtonBox::DestructiveRole);
@@ -152,7 +196,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
   }
 
   setLayout(grid);
-  setWindowTitle("OSM Editor");
+  setWindowTitle(emo.GetID().IsValid() ? qt::Tr("edit_place") : qt::Tr("contribute_to_osm_add_place"));
 }
 
 void EditorDialog::OnSave()
@@ -199,7 +243,7 @@ void EditorDialog::OnSave()
     if (prop == PropID::FMD_INTERNET)
     {
       QComboBox * cmb = findChild<QComboBox *>(kInternetObjectName);
-      m_feature.SetInternet(feature::InternetFromString(cmb->currentText().toStdString()));
+      m_feature.SetInternet(static_cast<feature::Internet>(cmb->currentData().toInt()));
       continue;
     }
     if (prop == PropID::FMD_POSTCODE)  // already set above

@@ -1,8 +1,11 @@
-#include <ctime>
 #include "platform/localization.hpp"
 
 #include <QtCore/QCollator>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QLocale>
+
+#include <algorithm>
+#include <ctime>
 
 namespace platform
 {
@@ -30,7 +33,12 @@ std::unique_ptr<StringCollator> CreateStringCollator(std::string const & locale)
 
 std::string GetLocalizedTypeName(std::string const & type)
 {
-  return type;
+  auto key = "type." + type;
+  std::replace(key.begin(), key.end(), '-', '.');
+  std::replace(key.begin(), key.end(), ':', '_');
+  auto const translated = QCoreApplication::translate(nullptr, key.c_str());
+  // Command-line clients do not install catalogs and retain the readable classificator name.
+  return translated == QString::fromStdString(key) ? type : translated.toStdString();
 }
 
 std::string GetLocalizedBrandName(std::string const & brand)
@@ -40,7 +48,7 @@ std::string GetLocalizedBrandName(std::string const & brand)
 
 std::string GetLocalizedString(std::string const & key)
 {
-  return key;
+  return QCoreApplication::translate(nullptr, key.c_str()).toStdString();
 }
 
 std::string GetCurrencySymbol(std::string const & currencyCode)

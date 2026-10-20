@@ -4,6 +4,7 @@
 #include "qt/screenshoter.hpp"
 
 #include "qt/qt_common/helpers.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "map/framework.hpp"
 
@@ -171,6 +172,9 @@ int main(int argc, char * argv[])
 #else
   QApplication::setApplicationName("Organic Maps");
 #endif
+  auto const & preferred = languages::GetSystemPreferred();
+  auto qtTranslator = qt::InstallTranslator(app, {preferred.data(), preferred.size()});
+  auto const dataSizeLocale = qt::GetDataSizeLocale(*qtTranslator);
 
 #ifdef DEBUG
   static bool constexpr developerMode = true;
@@ -192,7 +196,8 @@ int main(int argc, char * argv[])
       reader.ReadAsString(buffer);
     }
     RemovePTagsWithNonMatchedLanguages(languages::GetCurrentTwine(), buffer);
-    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
+    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(), buffer.c_str(), nullptr,
+                              {qt::Tr("accept"), qt::Tr("decline")});
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }
@@ -261,6 +266,12 @@ int main(int argc, char * argv[])
 #endif  // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
+    for (auto const * key :
+         {QT_TRID_NOOP("core_entrance"), QT_TRID_NOOP("core_exit"), QT_TRID_NOOP("core_placepage_unknown_place"),
+          QT_TRID_NOOP("core_my_places"), QT_TRID_NOOP("core_my_position"), QT_TRID_NOOP("open_in_app"),
+          QT_TRID_NOOP("postal_code"), QT_TRID_NOOP("share_my_position"), QT_TRID_NOOP("share_open_in_om_or_browser"),
+          QT_TRID_NOOP("share_get_om")})
+      framework.AddString(key, qt::Tr(key).toStdString());
     framework.SetupMeasurementSystem();
 
     auto const syncNightMode = [&framework]()
@@ -269,9 +280,9 @@ int main(int argc, char * argv[])
         qt::common::ApplySystemNightMode(framework);
     };
     syncNightMode();
-    qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
+    qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry(), dataSizeLocale
 #ifdef BUILD_DESIGNER
-                                                                 ,
+                     ,
                      mapcssFilePath
 #endif  // BUILD_DESIGNER
     );

@@ -2,6 +2,7 @@
 
 #include "qt/qt_common/map_widget.hpp"
 #include "qt/qt_common/proxy_style.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -43,13 +44,13 @@ ScaleSlider::ScaleSlider(Qt::Orientation orient, QWidget * parent) : QSlider(ori
 // static
 void ScaleSlider::Embed(Qt::Orientation orient, QToolBar & toolBar, MapWidget & mapWidget)
 {
-  toolBar.addAction(QIcon(":/common/plus.png"), tr("Scale +"), &mapWidget, SLOT(ScalePlus()));
+  toolBar.addAction(QIcon(":/common/plus.png"), qt::Tr("zoom_in"), &mapWidget, SLOT(ScalePlus()));
   {
     auto slider = std::make_unique<ScaleSlider>(orient, &toolBar);
     mapWidget.BindSlider(*slider);
     toolBar.addWidget(slider.release());
   }
-  toolBar.addAction(QIcon(":/common/minus.png"), tr("Scale -"), &mapWidget, SLOT(ScaleMinus()));
+  toolBar.addAction(QIcon(":/common/minus.png"), qt::Tr("zoom_out"), &mapWidget, SLOT(ScaleMinus()));
 }
 
 double ScaleSlider::GetScaleFactor() const

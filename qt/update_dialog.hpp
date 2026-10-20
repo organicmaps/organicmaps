@@ -13,6 +13,7 @@
 #include <utility>
 #include <vector>
 
+#include <QtCore/QLocale>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 
@@ -30,7 +31,7 @@ class UpdateDialog : public QDialog
   Q_OBJECT
 
 public:
-  explicit UpdateDialog(QWidget * parent, Framework & framework);
+  explicit UpdateDialog(QWidget * parent, Framework & framework, QLocale const & dataSizeLocale);
   virtual ~UpdateDialog();
 
   /// @name Called from downloader to notify GUI
@@ -76,6 +77,7 @@ private:
 
   QTreeWidget * m_tree;
   Framework & m_framework;
+  QLocale const m_dataSizeLocale;
   int m_observerSlotId;
 
   // Params of the queries to the search engine.

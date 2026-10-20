@@ -1,25 +1,28 @@
 #include "qt/create_feature_dialog.hpp"
 
+#include "qt/qt_common/translations.hpp"
+
 #include "editor/new_feature_categories.hpp"
 
 #include "indexer/classificator.hpp"
 
-#include "platform/preferred_languages.hpp"
+#include "platform/localization.hpp"
 
 #include <QtWidgets/QAbstractButton>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
 
-CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories & cats) : QDialog(parent)
+CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories const & cats) : QDialog(parent)
 {
-  cats.AddLanguage("en");
-  cats.AddLanguage(languages::GetCurrentNorm());
-
   QListWidget * allSortedList = new QListWidget();
 
   for (auto const & name : cats.GetAllCreatableTypeNames())
-    new QListWidgetItem(QString::fromStdString(name), allSortedList);
+  {
+    auto * item = new QListWidgetItem(QString::fromStdString(platform::GetLocalizedTypeName(name)), allSortedList);
+    item->setData(Qt::UserRole, classif().GetTypeByReadableObjectName(name));
+  }
+  allSortedList->sortItems();
 
   connect(allSortedList, &QAbstractItemView::clicked, this, &CreateFeatureDialog::OnListItemSelected);
 
@@ -32,13 +35,12 @@ CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCatego
   vBox->addWidget(dbb);
   setLayout(vBox);
 
-  setWindowTitle("OSM Editor");
+  setWindowTitle(qt::Tr("editor_add_select_category"));
 }
 
 void CreateFeatureDialog::OnListItemSelected(QModelIndex const & i)
 {
-  auto const clType = i.data(Qt::DisplayRole).toString().toStdString();
-  m_selectedType = classif().GetTypeByReadableObjectName(clType);
+  m_selectedType = i.data(Qt::UserRole).toUInt();
   ASSERT(m_selectedType != ftype::GetEmptyValue(), ());
 
   accept();

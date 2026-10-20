@@ -31,7 +31,7 @@ public:
 private:
   static std::optional<ms::LatLon> GetCoordsFromString(std::string const & input);
 
-  void ShowMessage(std::string const & message);
+  void ShowMessage(QString const & message);
   bool ValidateAndSaveCoordsFromInput();
   bool SaveSettings();
   void LoadSettings();
