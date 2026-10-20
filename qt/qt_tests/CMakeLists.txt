@@ -36,6 +36,10 @@ add_test(NAME strict_lrelease_tests
 )
 set_tests_properties(strict_lrelease_tests PROPERTIES LABELS "omim-test")
 
+omim_add_test(place_page_dialog_common_tests NO_PLATFORM_INIT place_page_dialog_common_tests.cpp)
+target_link_libraries(place_page_dialog_common_tests PRIVATE Qt6::Widgets)
+set_tests_properties(place_page_dialog_common_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+
 omim_add_test(editor_dialog_tests editor_dialog_tests.cpp ../editor_dialog.cpp)
 target_link_libraries(editor_dialog_tests PRIVATE qt_common)
 set_target_properties(editor_dialog_tests PROPERTIES AUTOMOC ON)

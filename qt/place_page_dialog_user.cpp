@@ -26,24 +26,6 @@
 
 namespace
 {
-static int constexpr kMaxLengthOfPlacePageDescription = 500;
-
-std::string getShortDescription(std::string const & description)
-{
-  std::string_view view(description);
-
-  auto const paragraphStart = view.find("<p>");
-  auto const paragraphEnd = view.find("</p>");
-
-  if (paragraphStart == 0 && paragraphEnd != std::string::npos)
-    view = view.substr(3, paragraphEnd - 3);
-
-  if (view.length() > kMaxLengthOfPlacePageDescription)
-    return std::string(view.substr(0, kMaxLengthOfPlacePageDescription - 3)) + "...";
-
-  return std::string(view);
-}
-
 std::string_view stripSchemeFromURI(std::string_view uri)
 {
   for (std::string_view prefix : {"https://", "http://"})
@@ -167,9 +149,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * draw
     // Description
     if (auto const & description = info.GetWikiDescription(); !description.empty())
     {
-      auto descriptionShort = getShortDescription(description);
-
-      QLabel * value = new QLabel(QString::fromStdString(descriptionShort));
+      QLabel * value = new QLabel(ShortDescription(description));
       value->setWordWrap(true);
 
       data->addWidget(value, row++, 0, 1, 2);
@@ -221,12 +201,14 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * draw
 
     // Links fragment
     if (auto website = info.GetMetadata(feature::Metadata::EType::FMD_WEBSITE); !website.empty())
-      addEntry(data, row, qt::Tr("website"), QString::fromStdString(std::string(stripSchemeFromURI(website))), true);
+      addEntry(data, row, qt::Tr("website"), QString::fromStdString(std::string(stripSchemeFromURI(website))),
+               QString::fromStdString(std::string(website)));
 
     if (auto heritageWebsite = info.GetMetadata(feature::Metadata::EType::FMD_HERITAGE_WEBSITE);
         !heritageWebsite.empty())
       addEntry(data, row, qt::Tr("heritage_website"),
-               QString::fromStdString(std::string(stripSchemeFromURI(heritageWebsite))), true);
+               QString::fromStdString(std::string(stripSchemeFromURI(heritageWebsite))),
+               QString::fromStdString(std::string(heritageWebsite)));
 
     if (auto email = info.GetMetadata(feature::Metadata::EType::FMD_EMAIL); !email.empty())
     {

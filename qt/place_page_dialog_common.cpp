@@ -165,17 +165,17 @@ QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, pl
   return toolBar;
 }
 
-QLabel * addEntry(QGridLayout * grid, int & row, QString const & key, QString const & value, bool isLink)
+QLabel * addEntry(QGridLayout * grid, int & row, QString const & key, QString const & value, QString const & url)
 {
   grid->addWidget(new QLabel(key), row, 0);
   QLabel * label = new QLabel(value);
   label->setTextInteractionFlags(Qt::TextSelectableByMouse);
   label->setWordWrap(true);
-  if (isLink)
+  if (!url.isEmpty())
   {
     label->setOpenExternalLinks(true);
     label->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    label->setText(QString("<a href=\"%1\">%1</a>").arg(value.toHtmlEscaped()));
+    label->setText(MakeHtmlLink(url, value));
   }
   grid->addWidget(label, row++, 1);
   return label;

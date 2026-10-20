@@ -5,6 +5,8 @@
 
 #include "map/place_page_info.hpp"
 
+#include "indexer/validate_and_format_contacts.hpp"
+
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
@@ -86,22 +88,23 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, qt::DrawWid
 
   info.ForEachMetadataReadable([grid, &row](PropID id, std::string const & value)
   {
-    bool isLink = false;
+    QString url;
     switch (id)
     {
-    case PropID::FMD_EMAIL:
+    case PropID::FMD_EMAIL: url = "mailto:" + QString::fromStdString(value); break;
     case PropID::FMD_WEBSITE:
+    case PropID::FMD_HERITAGE_WEBSITE:
+    case PropID::FMD_WIKIPEDIA:
+    case PropID::FMD_WIKIMEDIA_COMMONS: url = QString::fromStdString(value); break;
     case PropID::FMD_CONTACT_FACEBOOK:
     case PropID::FMD_CONTACT_INSTAGRAM:
     case PropID::FMD_CONTACT_TWITTER:
     case PropID::FMD_CONTACT_VK:
-    case PropID::FMD_CONTACT_LINE:
-    case PropID::FMD_WIKIPEDIA:
-    case PropID::FMD_WIKIMEDIA_COMMONS: isLink = true; break;
+    case PropID::FMD_CONTACT_LINE: url = QString::fromStdString(osm::socialContactToURL(id, value)); break;
     default: break;
     }
 
-    addEntry(grid, row, QString::fromStdString(DebugPrint(id)), QString::fromStdString(value), isLink);
+    addEntry(grid, row, QString::fromStdString(DebugPrint(id)), QString::fromStdString(value), url);
   });
 
   contentLayout->addStretch();
