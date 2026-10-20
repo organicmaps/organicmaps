@@ -17,8 +17,22 @@ merges stay clean. Fork rules go in `.claude/rules/nogps-*.md`, fork skills in `
 2. **Implement in a fresh session** (`/clear`, then "implement #N") on `feature/<name>` from current `origin/master`.
 3. **Finish with `/nogps-pr`**: tests, living docs, issue for the other platform, review in a fresh context, PR.
 4. **Merge only through a PR.** When the repo variable `CLAUDE_REVIEW` is `on`, CI posts a Claude review when a PR
-   opens. Comment `@claude <request>` on a PR to ask for a re-review or a fix. If the PR changes the shared interface or the other person's platform, the other
-   person approves it. Otherwise the author merges after CI passes.
+   opens. Comment `@claude <request>` on a PR to ask for a re-review or a fix. If the PR changes the shared
+   interface or the other person's platform, the other person approves it. Otherwise the author merges after CI
+   passes.
+
+## Work you don't do now goes to an issue
+
+IMPORTANT: anything you notice that this session won't finish goes into a GitHub issue before the session ends or
+its PR opens: what the other platform must repeat or should get, a bug or risk you noticed, a TODO, a check on a
+device, a step left for later. Not into docs, PR text, code comments or memory: nobody tracks those.
+
+- Look for an open issue first (`gh issue list --state open`) and comment there instead of opening a duplicate.
+- Label it `core`, `ios`, `android` or `firmware`, and assign the owner: `koloboid` for iOS, `Ramzess-II` for the
+  rest. Say what to do and where, and which PR caused it.
+- Link it from the PR's **Other platform** section. CI fails a PR whose **Other platform** section has neither an
+  issue link nor "Nothing to do" and why.
+- Give the user the links of the issues you opened.
 
 ## Shared interface
 
@@ -40,8 +54,7 @@ Update these in the same PR, in a separate `[docs]` commit:
 - `docs/nogps/esp32-firmware-spec.md`: the box protocol and firmware.
 
 Docs say what is true now. Why it got that way stays in commits and PRs: `git log -- <file>`, `gh pr view <n>`.
-Track work for the other platform in issues, not in markdown lists. Until Issues are on in the repo, open iOS work
-is listed in `docs/nogps/ios-notes.md`.
+Work left to do lives in issues, not in markdown lists.
 
 ## Verification
 

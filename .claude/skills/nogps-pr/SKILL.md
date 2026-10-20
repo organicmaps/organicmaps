@@ -13,18 +13,20 @@ argument-hint: "[issue number]"
    On Windows, say that CI runs the C++ tests. Don't claim tests passed if they didn't run.
 3. **Living docs.** If a rule or constant of the core changed, update `docs/nogps/navigation-rules.md`. If the box
    protocol changed, update `docs/nogps/esp32-firmware-spec.md`. Put these in a separate `[docs]` commit.
-4. **Other platform.** If `engine.hpp`, `delegate.hpp`, or enum order changed, write the issue for the other bridge
-   (label `ios` or `android`): what changed and exactly what to repeat. Generated strings go in their own
-   `[strings] Regenerated` commit, as `CLAUDE.md` says.
+4. **Other platform and follow-ups.** Open an issue now for everything this change leaves to do, as "Work you don't
+   do now goes to an issue" in the rule says. That covers an interface change the other bridge must repeat, a
+   feature the other platform should get, a bug noticed on the way, a check on a device. Generated strings go in
+   their own `[strings] Regenerated` commit, as `CLAUDE.md` says.
 5. **Review.** Run the `/code-review` skill on the branch. It works in a fresh context. Fix the correctness findings.
    Skip style preferences and defensive code for cases that can't happen.
-6. **PR.** The repo is public. Show the title, body, and the issue from step 4 to the user, and create them only
-   after they confirm. Push, then run `gh pr create --base master` with this body:
+6. **PR.** The repo is public. Show the title and body to the user, with the links of the issues from step 4, and
+   create the PR only after they confirm. Push, then run `gh pr create --base master` with this body:
    - `Fixes #<issue>` when there is one;
    - **Why**: the problem and its evidence;
    - **What**: behavior changes, with names of constants and functions;
    - **Tested**: commands and results, and replay numbers before and after;
-   - **Other platform**: the issue link, "nothing to do", or "Xcode project not verified";
+   - **Other platform**: the links of the issues from step 4, or "Nothing to do" and why. CI fails the PR without
+     one of them. Add "Xcode project not verified" when that applies;
    - "Written with Claude Code."
 7. **Reviewer.** If the PR touches the shared interface or the other person's platform, request the other person:
    `gh pr edit <n> --add-reviewer <Ramzess-II|koloboid>`.
