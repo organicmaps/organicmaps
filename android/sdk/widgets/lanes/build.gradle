@@ -8,13 +8,26 @@ apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 android {
   namespace 'app.organicmaps.sdk.widgets.lanes'
   // enableKotlin = true  // see app/build.gradle
+
+  defaultConfig {
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  compileOptions {
+    coreLibraryDesugaringEnabled = true
+  }
 }
 
 dependencies {
   api project(':sdk')
 
+  coreLibraryDesugaring libs.android.tools.desugaring
+
   implementation libs.androidx.annotation
   implementation libs.androidx.appcompat
+
+  androidTestImplementation libs.androidx.junit
+  androidTestImplementation libs.androidx.test.runner
 }
 
 Publish(project, [
