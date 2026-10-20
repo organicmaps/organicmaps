@@ -3,6 +3,7 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "routing/routing_helpers.hpp"
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -981,5 +982,250 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   while (!recovered)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
+}
+
+class NavigationPositionTest
+{
+  class Router final : public routing::IRouter
+  {
+  public:
+    Router(std::vector<m2::PointD> & starts, bool realSegments) : m_starts(starts), m_realSegments(realSegments) {}
+
+    std::string GetName() const override { return "navigation position test"; }
+    void ClearState() override {}
+    void SetGuides(routing::GuidesTracks &&) override {}
+    bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, routing::EdgeProj &) override
+    {
+      return false;
+    }
+    routing::RouterResultCode CalculateRoute(routing::Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
+                                             routing::RouterDelegate const &, routing::RoutesResult & result) override
+    {
+      m_starts.push_back(checkpoints.GetPointFrom());
+      auto const & points = checkpoints.GetPoints();
+      std::vector<routing::RouteSegment> segments;
+      std::vector<routing::Route::SubrouteAttrs> subroutes;
+      auto const toJunction = [](m2::PointD const & point) { return geometry::PointWithAltitude(point, 0); };
+      for (size_t i = 0; i < points.size(); ++i)
+      {
+        auto const turn = i + 1 == points.size() ? routing::turns::CarDirection::ReachedYourDestination
+                                                 : routing::turns::CarDirection::None;
+        segments.emplace_back(routing::Segment(m_realSegments ? 0 : routing::kFakeNumMwmId, 0, i, true),
+                              routing::turns::TurnItem(i + 1, turn), toJunction(points[i]),
+                              routing::RouteSegment::RoadNameInfo{});
+        if (i > 0)
+          subroutes.emplace_back(toJunction(points[i - 1]), toJunction(points[i]), i == 1 ? 0 : i, i + 1);
+      }
+      routing::FillSegmentInfo(std::vector<double>(segments.size(), 0.0), segments);
+      routing::Route route;
+      route.SetRouteSegments(std::move(segments));
+      route.SetSubroutes(std::move(subroutes), checkpoints.GetPassedIdx());
+      std::vector<m2::PointD> geometry = points;
+      // The departure edge has the initial zero distance assigned by FillSegmentInfo.
+      geometry.insert(geometry.begin(), points.front());
+      route.SetGeometry(geometry.begin(), geometry.end());
+      result.MakeFrom(GetName(), std::move(route));
+      return routing::RouterResultCode::NoError;
+    }
+
+  private:
+    std::vector<m2::PointD> & m_starts;
+    bool const m_realSegments;
+  };
+
+public:
+  NavigationPositionTest()
+  {
+    auto gui = std::make_unique<TestGuiThread>();
+    m_guiThread = gui.get();
+    GetPlatform().SetGuiThread(std::move(gui));
+  }
+
+  ~NavigationPositionTest()
+  {
+    // Stop Framework's runner and routing worker before captured state and queued callbacks expire.
+    m_framework.reset();
+    GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>());
+  }
+
+  void BuildRoute(bool following = true)
+  {
+    m_framework = std::make_unique<Framework>(FrameworkParams{}, false /* loadMaps */);
+    auto & manager = Manager();
+    auto & session = manager.RoutingSession();
+    session.SetRouter(std::make_unique<Router>(m_starts, m_realSegments), nullptr);
+    session.SetRoutingSettings(m_settings);
+    auto const ready = [this](routing::RoutesResult const &, routing::RouterResultCode code)
+    {
+      m_code = code;
+      m_ready = true;
+    };
+    session.SetRoutingCallbacks(ready, ready, nullptr, nullptr);
+    AddTestRoute(manager, m_stops);
+    manager.BuildRoute();
+    WaitForRoute();
+    manager.SetUserCurrentPosition({-1, 0});
+    if (following)
+      TEST(session.EnableFollowMode(), ());
+  }
+
+  RoutingManager & Manager() { return m_framework->GetRoutingManager(); }
+
+  static location::GpsInfo Gps(m2::PointD const & point, double horizontalAccuracy = 5.0)
+  {
+    auto const latLon = mercator::ToLatLon(point);
+    location::GpsInfo gps;
+    gps.m_latitude = latLon.m_lat;
+    gps.m_longitude = latLon.m_lon;
+    gps.m_horizontalAccuracy = horizontalAccuracy;
+    return gps;
+  }
+
+  m2::PointD RefreshTraffic()
+  {
+    Manager().RoutingSession().OnTrafficInfoClear();
+    return WaitForRoute();
+  }
+
+  m2::PointD WaitForRoute()
+  {
+    while (!m_ready)
+      m_guiThread->RunNext();
+    TEST_EQUAL(m_code, routing::RouterResultCode::NoError, ());
+    m_ready = false;
+    return m_starts.back();
+  }
+
+  static void TestPosition(m2::PointD const & actual, m2::PointD const & expected)
+  {
+    TEST_ALMOST_EQUAL_ABS(actual.x, expected.x, 1e-8, (actual, expected));
+    TEST_ALMOST_EQUAL_ABS(actual.y, expected.y, 1e-8, (actual, expected));
+  }
+
+  routing::RoutingSettings m_settings = routing::GetRoutingSettings(routing::VehicleType::Car);
+  bool m_realSegments = true;
+  std::vector<double> m_stops;
+  bool m_callbackInvoked = false;
+
+private:
+  TestGuiThread * m_guiThread = nullptr;
+  std::unique_ptr<Framework> m_framework;
+  std::vector<m2::PointD> m_starts;
+  bool m_ready = false;
+  routing::RouterResultCode m_code = routing::RouterResultCode::Cancelled;
+};
+
+UNIT_CLASS_TEST(NavigationPositionTest, GpsAdvancesBeforeRenderer)
+{
+  BuildRoute();
+  Manager().CheckLocationForRouting(Gps({2, 0}));
+  TEST(Manager().RoutingSession().IsOnRoute(), ());
+  TestPosition(Manager().RoutingSession().GetRoute()->GetCurrentIter().m_pt, {2, 0});
+  TestPosition(RefreshTraffic(), {2, 0});
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, RealSegmentSnapsNearbyGps)
+{
+  BuildRoute();
+  Manager().CheckLocationForRouting(Gps({2, 0.0001}));
+  TEST(Manager().RoutingSession().IsOnRoute(), ());
+  TestPosition(RefreshTraffic(), {2, 0});
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, GpsMatchesWhileTrafficBuildIsPending)
+{
+  BuildRoute();
+  Manager().CheckLocationForRouting(Gps({1, 0}));
+  Manager().RoutingSession().OnTrafficInfoClear();
+  TEST(Manager().RoutingSession().IsRebuildingOnly(), ());
+  Manager().CheckLocationForRouting(Gps({2, 0.0001}));
+  TEST(Manager().RoutingSession().IsOnRoute(), ());
+  TestPosition(RefreshTraffic(), {2, 0});
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, PedestrianPositionStillSnapsToRealSegment)
+{
+  m_settings = routing::GetRoutingSettings(routing::VehicleType::Pedestrian);
+  TEST(!m_settings.m_matchRoute, ());
+  BuildRoute();
+  Manager().CheckLocationForRouting(Gps({2, 0.0001}));
+  TEST(Manager().RoutingSession().IsOnRoute(), ());
+  TestPosition(RefreshTraffic(), {2, 0});
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, WideGpsAccuracyKeepsRawPosition)
+{
+  BuildRoute();
+  m2::PointD const raw(2, 0.005);
+  Manager().CheckLocationForRouting(Gps(raw, 1000.0));
+  TEST(Manager().RoutingSession().IsOnRoute(), ());
+  TestPosition(Manager().RoutingSession().GetRoute()->GetCurrentIter().m_pt, {2, 0});
+  TestPosition(RefreshTraffic(), raw);
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, FakeSegmentKeepsRawPosition)
+{
+  m_realSegments = false;
+  BuildRoute();
+  m2::PointD const raw(2, 0.0001);
+  Manager().CheckLocationForRouting(Gps(raw));
+  TEST(Manager().RoutingSession().IsOnRoute(), ());
+  TestPosition(Manager().RoutingSession().GetRoute()->GetCurrentIter().m_pt, {2, 0});
+  TestPosition(RefreshTraffic(), raw);
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, PreviewGpsPreservesDeparture)
+{
+  BuildRoute(false /* following */);
+  Manager().CheckLocationForRouting(Gps({2, 0}));
+  TEST(Manager().RoutingSession().IsOnRoute(), ());
+  TEST(!Manager().RoutingSession().IsFollowing(), ());
+  TestPosition(RefreshTraffic(), {-1, 0});
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, PositionAvailableBeforeCheckpointCallback)
+{
+  m_stops = {2};
+  BuildRoute();
+  Manager().CheckLocationForRouting(Gps({1, 0}));
+  Manager().RoutingSession().SetCheckpointCallback([this](size_t)
+  {
+    m_callbackInvoked = true;
+    Manager().RoutingSession().OnTrafficInfoClear();
+  });
+  Manager().CheckLocationForRouting(Gps({2, 0}));
+  TEST(m_callbackInvoked, ());
+  TestPosition(WaitForRoute(), {2, 0});
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, PositionAvailableBeforeStateCallback)
+{
+  BuildRoute();
+  Manager().CheckLocationForRouting(Gps({1, 0}));
+  auto & session = Manager().RoutingSession();
+  for (size_t i = 0; i < 12; ++i)
+    session.OnLocationPositionChanged(Gps({2, 0.01 + 0.001 * i}));
+  TEST(session.GetRoute(), ());
+  TEST(!session.IsOnRoute(), ());
+  session.SetChangeSessionStateCallback([this](routing::SessionState previous, routing::SessionState next)
+  {
+    if (previous != routing::SessionState::RouteNeedRebuild || next != routing::SessionState::OnRoute)
+      return;
+    m_callbackInvoked = true;
+    Manager().RoutingSession().OnTrafficInfoClear();
+  });
+  Manager().CheckLocationForRouting(Gps({2, 0}));
+  TEST(m_callbackInvoked, ());
+  TestPosition(WaitForRoute(), {2, 0});
+}
+
+UNIT_CLASS_TEST(NavigationPositionTest, FinishedGpsDoesNotRebuild)
+{
+  BuildRoute();
+  Manager().CheckLocationForRouting(Gps({10, 0}));
+  auto & session = Manager().RoutingSession();
+  TEST(session.IsFinished(), ());
+  session.OnTrafficInfoClear();
+  TEST(!session.IsBuilding(), ());
 }
 }  // namespace routing_manager_tests
