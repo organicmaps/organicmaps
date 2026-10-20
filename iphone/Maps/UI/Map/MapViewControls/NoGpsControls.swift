@@ -33,7 +33,7 @@ final class NoGpsControls: NSObject {
   private let shiftStepButton = UIButton(type: .system)
   private let shiftBackButton = NoGpsControls.makeButton("chevron.down")
   private let reverseButton = NoGpsControls.makeButton("arrow.uturn.left")
-  private let manualButton = NoGpsControls.makeButton("antenna.radiowaves.left.and.right")
+  private let manualButton = NoGpsControls.makeButton("hand.point.up.left")
   private var statusTop = NSLayoutConstraint()
   private var statusCenterX = NSLayoutConstraint()
   private var buttonsLeading = NSLayoutConstraint()
@@ -102,7 +102,7 @@ final class NoGpsControls: NSObject {
     shiftForwardButton.addTarget(self, action: #selector(shiftForward), for: .touchUpInside)
     shiftBackButton.addTarget(self, action: #selector(shiftBack), for: .touchUpInside)
     reverseButton.addTarget(self, action: #selector(reverseDirection), for: .touchUpInside)
-    manualButton.addTarget(self, action: #selector(toggleManualMode), for: .touchUpInside)
+    manualButton.addTarget(self, action: #selector(toggleMarkByTap), for: .touchUpInside)
     shiftForwardButton.accessibilityLabel = L("nogps_shift_forward")
     shiftBackButton.accessibilityLabel = L("nogps_shift_back")
     reverseButton.accessibilityLabel = L("nogps_reverse_direction")
@@ -180,9 +180,14 @@ final class NoGpsControls: NSObject {
     shiftForwardButton.alpha = status.shiftForwardBlocked ? Constants.disabledAlpha : 1
     shiftBackButton.alpha = status.shiftBackBlocked ? Constants.disabledAlpha : 1
     reverseButton.isHidden = !status.movedByHand
-    // The icon tells where the position comes from now: from satellites or from the user.
-    manualButton.setImage(UIImage(systemName: status.manualMode ? "hand.point.up.left.fill"
-        : "antenna.radiowaves.left.and.right"), for: .normal)
+    // The car is marked by hand only while the position is not from GPS. The button is red while the next tap on the
+    // map shows where the car is, the tap is taken back when GPS is used again.
+    let canMark = status.source != .gps
+    if !canMark, status.markByTap {
+      NoGps.setMarkByTap(false)
+    }
+    manualButton.isHidden = !canMark
+    manualButton.tintColor = canMark && status.markByTap ? Constants.noneColor : nil
     updateLayout()
   }
 
@@ -258,10 +263,12 @@ final class NoGpsControls: NSObject {
   }
 
   @objc
-  private func toggleManualMode() {
-    let enable = !NoGps.isManualMode()
-    NoGps.setManualMode(enable)
-    Toast.show(withText: L(enable ? "nogps_manual_mode_on" : "nogps_manual_mode_off"))
+  private func toggleMarkByTap() {
+    let armed = !NoGps.status().markByTap
+    NoGps.setMarkByTap(armed)
+    if armed {
+      Toast.show(withText: L("nogps_mark_by_tap"))
+    }
     refresh()
   }
 
