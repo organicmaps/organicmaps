@@ -1192,8 +1192,9 @@
 /********** NoGPS Maps **********/
 
 "nogps_manual_position" = "Вказати своє місцезнаходження вручну";
-"nogps_manual_mode_on" = "GPS вимкнено. Двічі торкніться мапи там, де ви знаходитеся.";
-"nogps_manual_mode_off" = "GPS знову увімкнено";
+
+/* The user has pressed the button to show on the map where the car is */
+"nogps_mark_by_tap" = "Торкніться дороги, де зараз машина";
 "nogps_gps_spoofed" = "GPS підмінено! Використовуємо вежі та Wi-Fi. Також можна вказати позицію вручну.";
 "nogps_gps_restored" = "GPS знову в нормі";
 "nogps_status_gps" = "GPS";

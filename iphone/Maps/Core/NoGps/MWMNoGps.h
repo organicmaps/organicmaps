@@ -79,6 +79,8 @@ NS_SWIFT_NAME(NoGpsStatus)
 // Of the shown position.
 @property(nonatomic, readonly) double accuracyM;
 @property(nonatomic, readonly) BOOL manualMode;
+// The next tap on the map shows where the car is: the button for it is pressed.
+@property(nonatomic, readonly) BOOL markByTap;
 // Since the user has set the position in the manual mode.
 @property(nonatomic, readonly) NSTimeInterval manualAge;
 @property(nonatomic, readonly) BOOL gpsSpoofed;
@@ -138,8 +140,8 @@ NS_SWIFT_NAME(NoGps)
 
 + (MWMNoGpsStatus *)status;
 
-+ (BOOL)isManualMode;
-+ (void)setManualMode:(BOOL)enabled;
+/// The next single tap on the map shows where the car is, the core handles it. Pass NO to take it back.
++ (void)setMarkByTap:(BOOL)armed;
 /// Moves the position along the route or the road.
 /// @return the distance it was moved by, 0 if it can not be moved.
 + (double)shiftPosition:(double)distanceM;

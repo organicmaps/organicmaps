@@ -44962,21 +44962,9 @@ en = Set my position manually
 ru = Указать своё местоположение вручную
 uk = Вказати своє місцезнаходження вручну
 
-[nogps_manual_mode_on]
-tags = apple-maps
-en = GPS is ignored. Double-tap the map where you are.
-ru = GPS отключён. Дважды нажмите на карту там, где вы находитесь.
-uk = GPS вимкнено. Двічі торкніться мапи там, де ви знаходитеся.
-
-[nogps_manual_mode_off]
-tags = apple-maps
-en = GPS is on again
-ru = GPS снова включён
-uk = GPS знову увімкнено
-
 [nogps_mark_by_tap]
 comment = The user has pressed the button to show on the map where the car is
-tags = android-app
+tags = android-app,apple-maps
 en = Tap the road where the car is
 ru = Коснитесь дороги, где сейчас машина
 uk = Торкніться дороги, де зараз машина

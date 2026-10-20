@@ -112,6 +112,7 @@ std::optional<double> NonNegative(double value)
     _source = static_cast<MWMNoGpsPositionSource>(status.m_source);
     _accuracyM = status.m_accuracyM;
     _manualMode = status.m_manualMode;
+    _markByTap = status.m_markByTap;
     _manualAge = status.m_manualAgeMs / 1000.0;
     _gpsSpoofed = status.m_gpsSpoofed;
     _gpsDisabled = status.m_gpsDisabled;
@@ -198,14 +199,9 @@ std::optional<double> NonNegative(double value)
   return [[MWMNoGpsStatus alloc] initWithStatus:status];
 }
 
-+ (BOOL)isManualMode
++ (void)setMarkByTap:(BOOL)armed
 {
-  return Engine().IsManualMode();
-}
-
-+ (void)setManualMode:(BOOL)enabled
-{
-  Engine().SetManualMode(enabled);
+  Engine().SetMarkByTap(armed);
 }
 
 + (double)shiftPosition:(double)distanceM
