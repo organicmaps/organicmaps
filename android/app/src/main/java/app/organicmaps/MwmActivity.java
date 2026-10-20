@@ -113,6 +113,7 @@ import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.search.SearchRequest;
 import app.organicmaps.settings.SettingsActivity;
+import app.organicmaps.util.BatteryOptimizationHelper;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -207,7 +208,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mRemoveDisplayListener = true;
   private static int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
-
+  private final ActivityResultLauncher<Intent> mBatterySettingsLauncher =
+      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> startTrackRecording());
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class).putExtra(EXTRA_COUNTRY_ID, countryId);
@@ -587,6 +589,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (Map.isEngineCreated())
       onRenderingInitializationFinished();
     updateDrivingOptionCount();
+
+    // Listen for choices made in the Battery Warning Dialog
+    getSupportFragmentManager().setFragmentResultListener(
+        BatteryOptimizationHelper.REQUEST_KEY, this, (requestKey, result) -> {
+          int action = result.getInt(BatteryOptimizationHelper.BUNDLE_KEY_ACTION);
+          if (action == BatteryOptimizationHelper.ACTION_GO_TO_SETTINGS)
+          {
+            Intent settingsIntent = BatteryOptimizationHelper.getSettingsIntent(this);
+            mBatterySettingsLauncher.launch(settingsIntent);
+          }
+          else if (action == BatteryOptimizationHelper.ACTION_CONTINUE)
+          {
+            startTrackRecording();
+          }
+        });
   }
 
   @NonNull
@@ -2093,6 +2110,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
       toggleTrackRecordingPP();
+    else if (BatteryOptimizationHelper.shouldShowWarning(this))
+      BatteryOptimizationHelper.showOptimizationDialog(this);
     else
       startTrackRecording();
   }
