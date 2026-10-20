@@ -16,6 +16,7 @@
 #include <cstdio>
 #include <deque>
 #include <functional>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -259,6 +260,127 @@ UNIT_TEST(NoGps_Engine_CyclesShiftSteps)
   TEST_EQUAL(env.m_engine.GetStatus().m_shiftStepM, 100, ());
   env.m_engine.CycleShiftStep();
   TEST_EQUAL(env.m_engine.GetStatus().m_shiftStepM, 10, ());
+}
+
+// The app starts again with what the app before has saved.
+std::function<void(TestStorage &)> SavedBy(Env const & before)
+{
+  return [&before](TestStorage & storage) { storage = before.m_storage; };
+}
+
+UNIT_TEST(NoGps_Engine_CarIsWhereItWasLeftAfterRestart)
+{
+  Env before(true /* inertial */);
+  MarkCar(before, 20);
+  before.Drive(5000, 36, 0);
+  before.Drive(3000, 0, 0);
+  Fix const left = before.Last();
+  TEST_EQUAL(left.m_provider, Provider::Inertial, ());
+  TEST_GREATER(East(left.m_position), 50, ());
+
+  // The app is killed, not stopped: the standing car is saved anyway.
+  Env after(true /* inertial */, nullptr, SavedBy(before));
+  after.Drive(500, 0, 0);
+  TEST(after.m_engine.IsManualMode(), ());
+  TestAlmostEqualAbs(Distance(after.Last().m_position, left.m_position), 0, 0.1);
+  TestAlmostEqualAbs(*after.Last().m_bearingDeg, *left.m_bearingDeg, 0.1);
+  TEST(after.m_engine.IsCarHeadingShown(), ());
+
+  // GPS was not trusted when the car was left: it comes back as after any mark, not by one position.
+  after.m_engine.OnFix(GpsAt(after.m_clock, East(left.m_position), 0, 90.0, 0.0));
+  TEST(after.m_engine.IsManualMode(), ());
+
+  // The car drives on from where it was left.
+  after.Drive(5000, 36, 0);
+  TEST_EQUAL(after.Last().m_provider, Provider::Inertial, ());
+  TEST_GREATER(East(after.Last().m_position), East(left.m_position) + 40, ());
+  TestAlmostEqualAbs(North(after.Last().m_position), 0, 1);
+}
+
+UNIT_TEST(NoGps_Engine_DrivingCarIsSavedSeldom)
+{
+  Env env(true /* inertial */);
+  MarkCar(env, 50);
+  // Every save writes the settings file anew.
+  std::set<std::string> saves;
+  for (int i = 0; i < 30; ++i)
+  {
+    env.Drive(1000, 36, 0);
+    saves.insert(env.m_storage.Get<std::string>(Storage::kCarPosition, ""));
+  }
+  TEST_LESS_OR_EQUAL(saves.size(), 5, (saves));
+
+  // The car is saved where it has stopped.
+  env.Drive(3000, 0, 0);
+  Env after(true /* inertial */, nullptr, SavedBy(env));
+  after.Drive(500, 0, 0);
+  TestAlmostEqualAbs(Distance(after.Last().m_position, env.Last().m_position), 0, 0.1);
+}
+
+UNIT_TEST(NoGps_Engine_CarLeftWithGpsWaitsForGps)
+{
+  Env before(false /* inertial */);
+  Fix network = GpsAt(before.m_clock, 0, 0, {}, {}, 100);
+  network.m_provider = Provider::Network;
+  before.m_engine.OnFix(network);
+  before.DriveGps(5, 0, 10);
+  before.DriveGps(2, 40, 0);
+  // GPS is gone, the cell towers tell a place a few hundred meters off: the place by GPS is kept.
+  before.m_clock.Advance(30'000);
+  network = GpsAt(before.m_clock, 300, 0, {}, {}, 100);
+  network.m_provider = Provider::Network;
+  before.m_engine.OnFix(network);
+  TEST_EQUAL(before.Last().m_provider, Provider::Network, ());
+  TEST(!before.m_engine.IsManualMode(), ());
+  before.m_clock.Advance(2000);
+
+  Env after(false /* inertial */, nullptr, SavedBy(before));
+  after.m_clock.Advance(1000);
+  TEST(after.m_engine.IsManualMode(), ());
+  TEST_EQUAL(after.Last().m_provider, Provider::Manual, ());
+  TestAlmostEqualAbs(East(after.Last().m_position), 40, 0.1);
+  TEST_EQUAL(after.Last().m_bearingDeg, 90.0, ());
+  // GPS absent since the start is not untrusted: the car is still left with GPS.
+  after.m_engine.Stop();
+  auto const saved = after.m_storage.Get<std::string>(Storage::kCarPosition, "");
+  TEST(saved.find(",90.0,0,") != std::string::npos, (saved));
+
+  // The first GPS position takes the car over, as at any start, and the user is not told about it.
+  after.m_engine.Start();
+  after.m_engine.OnFix(GpsAt(after.m_clock, 45, 0, 90.0, 0.0));
+  TEST(!after.m_engine.IsManualMode(), ());
+  TEST_EQUAL(after.Last().m_provider, Provider::Gps, ());
+  TEST(!after.m_delegate.HasEvent(Event::GpsBack), ());
+}
+
+UNIT_TEST(NoGps_Engine_CarLeftWithGpsAndMovedSinceChecksGps)
+{
+  Env before(true /* inertial */);
+  before.DriveGps(5, 0, 10);
+  before.DriveGps(2, 40, 0);
+  TEST(!before.m_engine.IsManualMode(), ());
+
+  // The car has driven away from where GPS was trusted: one position does not take it over.
+  Env driven(true /* inertial */, nullptr, SavedBy(before));
+  driven.Drive(500, 0, 0);
+  driven.Drive(5000, 36, 0);
+  TEST_EQUAL(driven.Last().m_provider, Provider::Inertial, ());
+  driven.m_engine.OnFix(GpsAt(driven.m_clock, East(driven.Last().m_position), 0, 90.0, 10.0));
+  TEST(driven.m_engine.IsManualMode(), ());
+
+  // The user shows that GPS is wrong.
+  Env marked(true /* inertial */, nullptr, SavedBy(before));
+  marked.Drive(500, 0, 0);
+  TEST(marked.m_engine.PlaceMarkByTap(At(60, 3)), ());
+  marked.m_engine.OnFix(GpsAt(marked.m_clock, 60, 0, 90.0, 0.0));
+  TEST(marked.m_engine.IsManualMode(), ());
+
+  // GPS is turned off for a test and on again.
+  Env disabled(true /* inertial */, nullptr, SavedBy(before));
+  disabled.m_engine.SetGpsDisabled(true);
+  disabled.m_engine.SetGpsDisabled(false);
+  disabled.m_engine.OnFix(GpsAt(disabled.m_clock, 40, 0, 90.0, 0.0));
+  TEST(disabled.m_engine.IsManualMode(), ());
 }
 
 // The value of a field of the trip line, e.g. "turn".

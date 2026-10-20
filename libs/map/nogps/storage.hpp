@@ -26,6 +26,9 @@ public:
   static std::string_view constexpr kBoxAccel = "NoGpsBoxAccel";
   static std::string_view constexpr kWrongNetworkPoints = "NoGpsWrongNetworkPoints";
   static std::string_view constexpr kLastTrusted = "NoGpsLastTrusted";
+  // Where the car was left and the way it looked, "lat,lon,bearing,manual,unixMs": "-" for an unknown bearing, 1 if
+  // GPS was not trusted then.
+  static std::string_view constexpr kCarPosition = "NoGpsCarPosition";
   // When the ESP32 sensor box was powered on the last time, milliseconds since the Unix epoch: for a box that
   // doesn't count its power-ons.
   static std::string_view constexpr kBoxPowerOnTime = "NoGpsBoxPowerOnTime";
