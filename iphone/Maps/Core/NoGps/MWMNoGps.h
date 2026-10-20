@@ -120,6 +120,7 @@ NS_SWIFT_NAME(NoGpsStatus)
 @property(nonatomic, readonly) BOOL voltageMismatch;
 @property(nonatomic, readonly) double speedScale;
 @property(nonatomic, readonly) NSInteger speedTableRanges;
+@property(nonatomic, readonly) NSInteger roughSpeedTableRanges;
 @property(nonatomic, readonly) double speedLagSec;
 @property(nonatomic, readonly) BOOL speedLagMeasured;
 @property(nonatomic, readonly) MWMNoGpsCalibrationState calibration;
