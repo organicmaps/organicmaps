@@ -462,7 +462,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TemporaryImportCleanup)
   TEST_EQUAL(Platform::MkDir(unownedDirectory), Platform::ERR_OK, ());
   auto const ownedFile = base::JoinPath(ownedDirectory, "corrupt.kml");
   auto const temporaryFile = base::JoinPath(unownedDirectory, "temporary.kml");
-  auto const userFile = base::JoinPath(unownedDirectory, "user.kml");
+  auto const userFile = base::JoinPath(root, "user.kml");
   FileWriter(ownedFile).Write("not valid KML", std::strlen("not valid KML"));
   FileWriter(temporaryFile).Write(kmlString, std::strlen(kmlString));
   FileWriter(userFile).Write(kmlString, std::strlen(kmlString));
@@ -479,6 +479,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TemporaryImportCleanup)
     TEST(!Platform::IsFileExistsByFullPath(ownedFile), ());
     TEST(!Platform::IsFileExistsByFullPath(temporaryFile), ());
     TEST(Platform::IsFileExistsByFullPath(userFile), ());
+    TEST(!Platform::IsFileExistsByFullPath(ownedDirectory), ());
+    TEST(Platform::IsFileExistsByFullPath(unownedDirectory), ());
   };
   bmManager.SetAsyncLoadingCallbacks(std::move(callbacks));
 
