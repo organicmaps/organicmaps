@@ -45136,31 +45136,31 @@ ru = —
 uk = —
 
 [nogps_sensors_gyro]
-tags = android-app,apple-maps
+tags = android-app
 en = Gyroscope: %@
 ru = Гироскоп: %@
 uk = Гіроскоп: %@
 
 [nogps_gyro_none]
-tags = android-app,apple-maps
+tags = android-app
 en = not zeroed
 ru = не обнулён
 uk = не обнулено
 
 [nogps_gyro_calibrating]
-tags = android-app,apple-maps
+tags = android-app
 en = zeroing… %d%%
 ru = обнуление… %d%%
 uk = обнулення… %d%%
 
 [nogps_gyro_done]
-tags = android-app,apple-maps
+tags = android-app
 en = zeroed
 ru = обнулён
 uk = обнулено
 
 [nogps_gyro_failed]
-tags = android-app,apple-maps
+tags = android-app
 en = failed, the phone or the car moved
 ru = не вышло, телефон или машина двигались
 uk = не вийшло, телефон або машина рухалися
@@ -45190,7 +45190,7 @@ ru = нет скорости
 uk = немає швидкості
 
 [nogps_missing_gyro]
-tags = android-app,apple-maps
+tags = android-app
 en = zero the gyroscope
 ru = обнулите гироскоп
 uk = обнуліть гіроскоп
@@ -45496,70 +45496,70 @@ uk = Закріпіть блок нерухомо. Гіроскоп він об�
 
 [nogps_box_calibration]
 comment = Heading of the block about the calibration of the sensor box and the title of the question about it
-tags = android-app
+tags = android-app,apple-maps
 en = Sensor box calibration
 ru = Калибровка блока датчиков
 uk = Калібрування блока датчиків
 
 [nogps_box_calibration_hint]
 comment = Under the heading "Sensor box calibration": when and how the box is calibrated
-tags = android-app
+tags = android-app,apple-maps
 en = Needed once the box is installed and every time it was taken out or moved. The car must stand on a level surface, not on a slope.
 ru = Нужна после установки блока и каждый раз, когда его вынимали или сдвигали. Машина должна стоять на ровной поверхности без уклонов.
 uk = Потрібне після встановлення блока та щоразу, коли його виймали або зсували. Машина має стояти на рівній поверхні без ухилів.
 
 [nogps_box_calibration_offer]
 comment = Question shown when the sensor box has been powered on: it is new in the car or was taken out. The buttons are "Calibrate" and "Later"
-tags = android-app
+tags = android-app,apple-maps
 en = The sensor box has been plugged in. Calibrate the sensors: the car must stand on a level surface, not on a slope.
 ru = Блок датчиков подключали заново. Откалибруйте датчики: машина должна стоять на ровной поверхности без уклонов.
 uk = Блок датчиків підключали заново. Відкалібруйте датчики: машина має стояти на рівній поверхні без ухилів.
 
 [nogps_sensors_box_sensors]
 comment = Row of the sensors screen: the state of the calibration of the sensor box
-tags = android-app
+tags = android-app,apple-maps
 en = Sensors: %@
 ru = Датчики: %@
 uk = Датчики: %@
 
 [nogps_box_not_calibrated]
 comment = State of the sensors of the box, shown after "Sensors:"
-tags = android-app
+tags = android-app,apple-maps
 en = not calibrated
 ru = не откалиброваны
 uk = не відкалібровано
 
 [nogps_box_calibrating]
 comment = State of the sensors of the box, shown after "Sensors:", with the percent done
-tags = android-app
+tags = android-app,apple-maps
 en = calibrating… %d%%
 ru = калибровка… %d%%
 uk = калібрування… %d%%
 
 [nogps_box_calibrated]
 comment = State of the sensors of the box, shown after "Sensors:"
-tags = android-app
+tags = android-app,apple-maps
 en = calibrated
 ru = откалиброваны
 uk = відкалібровано
 
 [nogps_box_calibration_failed]
 comment = State of the sensors of the box, shown after "Sensors:"
-tags = android-app
+tags = android-app,apple-maps
 en = failed, the car moved
 ru = не вышло, машина двигалась
 uk = не вийшло, машина рухалася
 
 [nogps_box_calibration_advised]
 comment = State of the sensors of the box, shown after "Sensors:": the box has been powered on since its calibration
-tags = android-app
+tags = android-app,apple-maps
 en = the box has been plugged in, calibrate it
 ru = блок подключали заново, откалибруйте
 uk = блок підключали заново, відкалібруйте
 
 [nogps_missing_box_calibration]
 comment = What is missing for the navigation without GPS, shown after "Not ready:"
-tags = android-app
+tags = android-app,apple-maps
 en = calibrate the box
 ru = откалибруйте блок
 uk = відкалібруйте блок

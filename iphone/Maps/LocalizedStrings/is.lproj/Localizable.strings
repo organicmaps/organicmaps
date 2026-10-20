@@ -1218,15 +1218,9 @@
 "nogps_sensors_speed" = "Speed: %@";
 "nogps_speed_kmh" = "%d km/h";
 "nogps_unknown" = "—";
-"nogps_sensors_gyro" = "Gyroscope: %@";
-"nogps_gyro_none" = "not zeroed";
-"nogps_gyro_calibrating" = "zeroing… %d%%";
-"nogps_gyro_done" = "zeroed";
-"nogps_gyro_failed" = "failed, the phone or the car moved";
 "nogps_sensors_ready" = "Ready";
 "nogps_sensors_not_ready" = "Not ready: %@";
 "nogps_missing_speed" = "no speed";
-"nogps_missing_gyro" = "zero the gyroscope";
 "nogps_missing_position" = "no start position";
 "nogps_shift_forward" = "Move the position forward along the road";
 "nogps_shift_back" = "Move the position back along the road";
@@ -1291,6 +1285,36 @@
 "nogps_sensors_calibrate_box" = "Calibrate";
 "nogps_gyro_mount_moved" = "the box has been moved, calibrate it";
 "nogps_sensors_hint_box" = "Fix the box firmly. It zeroes the gyroscope on every stop by itself.";
+
+/* Heading of the block about the calibration of the sensor box and the title of the question about it */
+"nogps_box_calibration" = "Sensor box calibration";
+
+/* Under the heading "Sensor box calibration": when and how the box is calibrated */
+"nogps_box_calibration_hint" = "Needed once the box is installed and every time it was taken out or moved. The car must stand on a level surface, not on a slope.";
+
+/* Question shown when the sensor box has been powered on: it is new in the car or was taken out. The buttons are "Calibrate" and "Later" */
+"nogps_box_calibration_offer" = "The sensor box has been plugged in. Calibrate the sensors: the car must stand on a level surface, not on a slope.";
+
+/* Row of the sensors screen: the state of the calibration of the sensor box */
+"nogps_sensors_box_sensors" = "Sensors: %@";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_not_calibrated" = "not calibrated";
+
+/* State of the sensors of the box, shown after "Sensors:", with the percent done */
+"nogps_box_calibrating" = "calibrating… %d%%";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_calibrated" = "calibrated";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_calibration_failed" = "failed, the car moved";
+
+/* State of the sensors of the box, shown after "Sensors:": the box has been powered on since its calibration */
+"nogps_box_calibration_advised" = "the box has been plugged in, calibrate it";
+
+/* What is missing for the navigation without GPS, shown after "Not ready:" */
+"nogps_missing_box_calibration" = "calibrate the box";
 "nogps_turns_reversed" = "The gyroscope turns the car the other way than GPS. Check the axes of the sensor driver: without GPS the car would turn wrong";
 "nogps_road_lost" = "The road is lost, the car is stopped. Mark yourself on the map";
 

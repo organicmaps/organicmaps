@@ -125,6 +125,8 @@ NS_SWIFT_NAME(NoGpsStatus)
 @property(nonatomic, readonly) BOOL speedLagMeasured;
 @property(nonatomic, readonly) MWMNoGpsCalibrationState calibration;
 @property(nonatomic, readonly) NSInteger calibrationProgress;
+/// The sensor box has been powered on since the user calibrated it: it may stand in another way now.
+@property(nonatomic, readonly) BOOL boxCalibrationAdvised;
 @property(nonatomic, readonly) BOOL hasInertialPosition;
 /// The mark waits for the user to put it on a road: the road is lost.
 @property(nonatomic, readonly) BOOL roadLost;

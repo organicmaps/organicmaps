@@ -1218,15 +1218,9 @@
 "nogps_sensors_speed" = "Швидкість: %@";
 "nogps_speed_kmh" = "%d км/год";
 "nogps_unknown" = "—";
-"nogps_sensors_gyro" = "Гіроскоп: %@";
-"nogps_gyro_none" = "не обнулено";
-"nogps_gyro_calibrating" = "обнулення… %d%%";
-"nogps_gyro_done" = "обнулено";
-"nogps_gyro_failed" = "не вийшло, телефон або машина рухалися";
 "nogps_sensors_ready" = "Готово до роботи";
 "nogps_sensors_not_ready" = "Не готово: %@";
 "nogps_missing_speed" = "немає швидкості";
-"nogps_missing_gyro" = "обнуліть гіроскоп";
 "nogps_missing_position" = "немає стартової точки";
 "nogps_shift_forward" = "Перенести позицію вперед по дорозі";
 "nogps_shift_back" = "Перенести позицію назад по дорозі";
@@ -1291,6 +1285,36 @@
 "nogps_sensors_calibrate_box" = "Калібрувати";
 "nogps_gyro_mount_moved" = "блок зсунули, відкалібруйте";
 "nogps_sensors_hint_box" = "Закріпіть блок нерухомо. Гіроскоп він обнуляє сам на кожній зупинці.";
+
+/* Heading of the block about the calibration of the sensor box and the title of the question about it */
+"nogps_box_calibration" = "Калібрування блока датчиків";
+
+/* Under the heading "Sensor box calibration": when and how the box is calibrated */
+"nogps_box_calibration_hint" = "Потрібне після встановлення блока та щоразу, коли його виймали або зсували. Машина має стояти на рівній поверхні без ухилів.";
+
+/* Question shown when the sensor box has been powered on: it is new in the car or was taken out. The buttons are "Calibrate" and "Later" */
+"nogps_box_calibration_offer" = "Блок датчиків підключали заново. Відкалібруйте датчики: машина має стояти на рівній поверхні без ухилів.";
+
+/* Row of the sensors screen: the state of the calibration of the sensor box */
+"nogps_sensors_box_sensors" = "Датчики: %@";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_not_calibrated" = "не відкалібровано";
+
+/* State of the sensors of the box, shown after "Sensors:", with the percent done */
+"nogps_box_calibrating" = "калібрування… %d%%";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_calibrated" = "відкалібровано";
+
+/* State of the sensors of the box, shown after "Sensors:" */
+"nogps_box_calibration_failed" = "не вийшло, машина рухалася";
+
+/* State of the sensors of the box, shown after "Sensors:": the box has been powered on since its calibration */
+"nogps_box_calibration_advised" = "блок підключали заново, відкалібруйте";
+
+/* What is missing for the navigation without GPS, shown after "Not ready:" */
+"nogps_missing_box_calibration" = "відкалібруйте блок";
 "nogps_turns_reversed" = "Гіроскоп повертає машину не в той бік, що GPS. Перевірте осі в драйвері датчика: без GPS машина повертатиме неправильно";
 "nogps_road_lost" = "Дорогу втрачено, машину зупинено. Позначте себе на мапі";
 
