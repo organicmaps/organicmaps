@@ -321,6 +321,12 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
       SetState(SessionState::RouteNeedRebuild);
     }
   }
+  else if (m_state == SessionState::RouteRebuilding)
+  {
+    // Rendering-position callbacks may be delayed or unavailable in the background.
+    m_lastDistance = mercator::DistanceOnEarth(m_route->GetCurrentIter().m_pt,
+                                               mercator::FromLatLon(info.m_latitude, info.m_longitude));
+  }
 
   return m_state;
 }
@@ -403,7 +409,13 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     return;
   }
 
-  if (!IsNavigable())
+  // GPS can leave the retained geometry before rendering reports the new position.
+  bool const retainedGuidance =
+      m_isFollowing && m_state == SessionState::RouteRebuilding &&
+      m_lastDistance < m_routingSettings.m_matchingThresholdM &&
+      (!m_userCurrentPositionValid || mercator::DistanceOnEarth(m_route->GetCurrentIter().m_pt, m_userCurrentPosition) <
+                                          m_routingSettings.m_matchingThresholdM);
+  if (!IsNavigable() && !retainedGuidance)
   {
     info = FollowingInfo();
     info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetTotalDistanceMeters());
