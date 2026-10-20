@@ -96,6 +96,8 @@ public:
   void ForEachGeometry(GeometryFnT && fn) const override;
   bool IsVisible() const override;
   void SetVisibility(bool visible);
+  kml::Timestamp GetModifiedTimestamp() const;
+  void SetModifiedTimestamp(kml::Timestamp);
 
   void Attach(kml::MarkGroupId groupId);
   void Detach();
@@ -104,6 +106,9 @@ public:
 
   kml::MultiGeometry::LineT GetGeometry() const;
   bool HasAltitudes() const;
+
+protected:
+  void SetDirty(bool updateModificationTime = true);
 
 private:
   std::vector<Lengths> GetLengthsImpl() const;
