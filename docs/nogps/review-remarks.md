@@ -140,4 +140,4 @@
   ```
   помечены только тегом `tags = android-app`.
 * **Рекомендация:**
-  Как отмечено в `docs/nogps/ios-notes.md`, для генерации строк в iOS (`Localizable.strings`) требуется тег `tags = android-app,apple-maps`. После добавления тега необходимо перегенерировать строки.
+  Для генерации строк в iOS (`Localizable.strings`) требуется тег `tags = android-app,apple-maps`. После добавления тега необходимо перегенерировать строки. Задача — #23.
