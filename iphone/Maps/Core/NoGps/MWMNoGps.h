@@ -127,6 +127,8 @@ NS_SWIFT_NAME(NoGpsStatus)
 @property(nonatomic, readonly) BOOL hasInertialPosition;
 /// The mark waits for the user to put it on a road: the road is lost.
 @property(nonatomic, readonly) BOOL roadLost;
+/// How many other roads the car may be on after a turn that fitted several, switchMark shows the car on them.
+@property(nonatomic, readonly) NSInteger otherMarks;
 
 @end
 
@@ -151,6 +153,8 @@ NS_SWIFT_NAME(NoGps)
 /// @return the distance it was moved by, 0 if it can not be moved.
 + (double)shiftPosition:(double)distanceM;
 + (void)reverseDirection;
+/// Shows the car on the next of the other roads it may be on.
++ (void)switchMark;
 + (void)setGpsDisabled:(BOOL)disabled;
 + (void)setInertialNavigationEnabled:(BOOL)enabled;
 + (void)calibrate;

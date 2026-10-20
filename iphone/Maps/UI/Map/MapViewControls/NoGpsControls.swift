@@ -33,6 +33,7 @@ final class NoGpsControls: NSObject {
   private let shiftStepButton = UIButton(type: .system)
   private let shiftBackButton = NoGpsControls.makeButton("chevron.down")
   private let reverseButton = NoGpsControls.makeButton("arrow.uturn.left")
+  private let switchMarkButton = NoGpsControls.makeButton("arrow.left.arrow.right")
   private let manualButton = NoGpsControls.makeButton("hand.point.up.left")
   private var statusTop = NSLayoutConstraint()
   private var statusCenterX = NSLayoutConstraint()
@@ -102,17 +103,19 @@ final class NoGpsControls: NSObject {
     shiftForwardButton.addTarget(self, action: #selector(shiftForward), for: .touchUpInside)
     shiftBackButton.addTarget(self, action: #selector(shiftBack), for: .touchUpInside)
     reverseButton.addTarget(self, action: #selector(reverseDirection), for: .touchUpInside)
+    switchMarkButton.addTarget(self, action: #selector(switchMark), for: .touchUpInside)
     manualButton.addTarget(self, action: #selector(toggleMarkByTap), for: .touchUpInside)
     shiftForwardButton.accessibilityLabel = L("nogps_shift_forward")
     shiftBackButton.accessibilityLabel = L("nogps_shift_back")
     reverseButton.accessibilityLabel = L("nogps_reverse_direction")
+    switchMarkButton.accessibilityLabel = L("nogps_switch_mark")
     manualButton.accessibilityLabel = L("nogps_manual_position")
 
     buttons.axis = .vertical
     buttons.alignment = .center
     buttons.spacing = Constants.spacing
     buttons.translatesAutoresizingMaskIntoConstraints = false
-    for item in [shiftForwardButton, shiftStepButton, shiftBackButton, reverseButton, manualButton] {
+    for item in [shiftForwardButton, shiftStepButton, shiftBackButton, reverseButton, switchMarkButton, manualButton] {
       buttons.addArrangedSubview(item)
     }
     superview.addSubview(buttons)
@@ -180,6 +183,7 @@ final class NoGpsControls: NSObject {
     shiftForwardButton.alpha = status.shiftForwardBlocked ? Constants.disabledAlpha : 1
     shiftBackButton.alpha = status.shiftBackBlocked ? Constants.disabledAlpha : 1
     reverseButton.isHidden = !status.movedByHand
+    switchMarkButton.isHidden = !(status.movedByHand && status.otherMarks > 0)
     // The car is marked by hand only while the position is not from GPS. The button is red while the next tap on the
     // map shows where the car is, the tap is taken back when GPS is used again.
     let canMark = status.source != .gps
@@ -275,6 +279,12 @@ final class NoGpsControls: NSObject {
   @objc
   private func reverseDirection() {
     NoGps.reverseDirection()
+  }
+
+  @objc
+  private func switchMark() {
+    NoGps.switchMark()
+    refresh()
   }
 
   @objc
