@@ -12,13 +12,28 @@
   android:orientation="horizontal"
   android:padding="@dimen/margin_base">
 
-  <androidx.appcompat.widget.AppCompatImageView
+  <FrameLayout
     android:layout_width="24dp"
     android:layout_height="24dp"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:contentDescription="@null"
-    app:srcCompat="@drawable/profile_generic"
-    app:tint="?iconTint" />
+    android:layout_marginEnd="@dimen/margin_base">
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/contact_icon"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:contentDescription="@null"
+      app:srcCompat="@drawable/profile_generic"
+      app:tint="?iconTint" />
+
+    <ProgressBar
+      android:id="@+id/contact_progress"
+      style="@style/Widget.AppCompat.ProgressBar"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:contentDescription="@string/please_wait"
+      android:indeterminate="true"
+      android:visibility="gone" />
+  </FrameLayout>
 
   <LinearLayout
     android:layout_width="0dp"

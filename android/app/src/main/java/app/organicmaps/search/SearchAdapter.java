@@ -29,6 +29,8 @@ class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private SearchResult[] mResults;
   @NonNull
   private List<ContactAddress> mContactAddresses = Collections.emptyList();
+  @Nullable
+  private ContactAddress mResolvingContact;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
   {
@@ -46,6 +48,10 @@ class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final TextView mName;
     @NonNull
     private final TextView mAddress;
+    @NonNull
+    private final View mIcon;
+    @NonNull
+    private final View mProgress;
     @Nullable
     private ContactAddress mContactAddress;
 
@@ -54,6 +60,8 @@ class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       super(view);
       mName = view.findViewById(R.id.title);
       mAddress = view.findViewById(R.id.address);
+      mIcon = view.findViewById(R.id.contact_icon);
+      mProgress = view.findViewById(R.id.contact_progress);
       view.setOnClickListener(v -> {
         if (mContactAddress != null)
           mSearchFragment.selectContactAddress(mContactAddress);
@@ -63,6 +71,10 @@ class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     void bind(@NonNull ContactAddress contactAddress)
     {
       mContactAddress = contactAddress;
+      final boolean resolving = isResolvingContact(contactAddress);
+      mIcon.setVisibility(resolving ? View.INVISIBLE : View.VISIBLE);
+      mProgress.setVisibility(resolving ? View.VISIBLE : View.GONE);
+      itemView.setEnabled(!resolving);
       mName.setText(contactAddress.name);
       if (contactAddress.label.isEmpty())
         mAddress.setText(contactAddress.address);
@@ -294,6 +306,7 @@ class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
   public void clear()
   {
+    mResolvingContact = null;
     mContactAddresses = Collections.emptyList();
     mResults = null;
     notifyDataSetChanged();
@@ -309,5 +322,28 @@ class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   {
     mContactAddresses = contactAddresses;
     notifyDataSetChanged();
+  }
+
+  void setResolvingContact(@Nullable ContactAddress contactAddress)
+  {
+    final ContactAddress previous = mResolvingContact;
+    mResolvingContact = contactAddress;
+    for (int i = 0; i < mContactAddresses.size(); ++i)
+    {
+      final ContactAddress row = mContactAddresses.get(i);
+      if (matchesContact(row, previous) || matchesContact(row, contactAddress))
+        notifyItemChanged(i);
+    }
+  }
+
+  private boolean isResolvingContact(@NonNull ContactAddress contactAddress)
+  {
+    return matchesContact(contactAddress, mResolvingContact);
+  }
+
+  private static boolean matchesContact(@NonNull ContactAddress row, @Nullable ContactAddress contactAddress)
+  {
+    return contactAddress != null && row.name.equals(contactAddress.name) && row.address.equals(contactAddress.address)
+        && row.label.equals(contactAddress.label);
   }
 }
