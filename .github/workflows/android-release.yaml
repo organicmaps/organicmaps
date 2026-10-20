@@ -168,6 +168,9 @@ jobs:
         shell: bash
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
       # Compile steps are separated from upload steps to save built artifacts and debug symbols inbetween.
       - name: Compile for Google Play
         if: ${{ matrix.flavor == 'google' }}

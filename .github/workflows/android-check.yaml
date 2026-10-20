@@ -53,6 +53,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
       - name: Lint
         shell: bash
         working-directory: android
@@ -120,6 +123,9 @@ jobs:
           # Restore-only on PRs: master populates the shared cache, PRs read it.
           # Avoids overflowing the 10GB repo limit, which evicts master's caches.
           save: ${{ github.ref == 'refs/heads/master' }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Compile ${{ matrix.flavor }}
         shell: bash
