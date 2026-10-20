@@ -1006,6 +1006,9 @@ void Engine::OnInertialLocation(Fix const & inertial)
 
   // The car is not followed by GPS any more, the user sees it by the manual mode and can mark the car.
   EnterManualModeByItself("GPS is lost, the inertial navigation continues");
+  // The car has driven away from where GPS was trusted: GPS is to agree with it now, as after any mark.
+  if (inertial.m_speedMps.value_or(0) > 0)
+    m_manualUntilGps = false;
   m_lastInertialUsedMs = m_clock.NowMs();
   // Without a route the mark follows the car maneuvering off the roads, see ShowOffRoadCar().
   Fix location = inertial;
@@ -1075,6 +1078,9 @@ void Engine::SetGpsDisabled(bool disabled)
   LOG(LINFO, ("disabled =", disabled));
   m_gpsDisabled = disabled;
   m_lastGoodGps.reset();
+  // GPS turned off for a test is not trusted anew by its first position.
+  if (disabled)
+    m_manualUntilGps = false;
 }
 
 void Engine::SetManualMode(bool enabled)

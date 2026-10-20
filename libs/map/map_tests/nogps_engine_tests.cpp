@@ -353,6 +353,36 @@ UNIT_TEST(NoGps_Engine_CarLeftWithGpsWaitsForGps)
   TEST(!after.m_delegate.HasEvent(Event::GpsBack), ());
 }
 
+UNIT_TEST(NoGps_Engine_CarLeftWithGpsAndMovedSinceChecksGps)
+{
+  Env before(true /* inertial */);
+  before.DriveGps(5, 0, 10);
+  before.DriveGps(2, 40, 0);
+  TEST(!before.m_engine.IsManualMode(), ());
+
+  // The car has driven away from where GPS was trusted: one position does not take it over.
+  Env driven(true /* inertial */, nullptr, SavedBy(before));
+  driven.Drive(500, 0, 0);
+  driven.Drive(5000, 36, 0);
+  TEST_EQUAL(driven.Last().m_provider, Provider::Inertial, ());
+  driven.m_engine.OnFix(GpsAt(driven.m_clock, East(driven.Last().m_position), 0, 90.0, 10.0));
+  TEST(driven.m_engine.IsManualMode(), ());
+
+  // The user shows that GPS is wrong.
+  Env marked(true /* inertial */, nullptr, SavedBy(before));
+  marked.Drive(500, 0, 0);
+  TEST(marked.m_engine.PlaceMarkByTap(At(60, 3)), ());
+  marked.m_engine.OnFix(GpsAt(marked.m_clock, 60, 0, 90.0, 0.0));
+  TEST(marked.m_engine.IsManualMode(), ());
+
+  // GPS is turned off for a test and on again.
+  Env disabled(true /* inertial */, nullptr, SavedBy(before));
+  disabled.m_engine.SetGpsDisabled(true);
+  disabled.m_engine.SetGpsDisabled(false);
+  disabled.m_engine.OnFix(GpsAt(disabled.m_clock, 40, 0, 90.0, 0.0));
+  TEST(disabled.m_engine.IsManualMode(), ());
+}
+
 // The value of a field of the trip line, e.g. "turn".
 std::string TripField(Env & env, std::string const & name)
 {
