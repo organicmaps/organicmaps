@@ -137,6 +137,12 @@ final class NoGpsSensorsViewController: MWMTableViewController {
       let scale = status.inertialStarted ? String(format: "×%.2f", status.speedScale) : L("nogps_unknown")
       var text = String(format: L("nogps_sensors_scale"), scale, status.inertialStarted ? status.speedTableRanges : 0)
       if status.inertialStarted {
+        // Until GPS measures the speed, e.g. on the first trip, it is corrected roughly by the roads.
+        if status.speedTableRanges == 0 {
+          text += "\n" + (status.roughSpeedTableRanges > 0
+            ? String(format: L("nogps_sensors_rough_speed"), status.roughSpeedTableRanges)
+            : L("nogps_sensors_rough_speed_learning"))
+        }
         let lag = L(status.speedLagMeasured ? "nogps_sensors_lag_measured" : "nogps_sensors_lag_usual")
         text += "\n" + String(format: lag, String(format: "%.1f", status.speedLagSec))
       }

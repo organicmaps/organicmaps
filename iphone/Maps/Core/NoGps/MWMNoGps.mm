@@ -139,6 +139,7 @@ std::optional<double> NonNegative(double value)
     _voltageMismatch = car.m_voltageMismatch;
     _speedScale = status.m_speedScale;
     _speedTableRanges = status.m_speedTableRanges;
+    _roughSpeedTableRanges = status.m_roughSpeedTableRanges;
     _speedLagSec = status.m_speedLagSec;
     _speedLagMeasured = status.m_speedLagMeasured;
     _calibration = static_cast<MWMNoGpsCalibrationState>(status.m_calibration);

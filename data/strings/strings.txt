@@ -45268,13 +45268,13 @@ ru = Опоздание скорости: %@ с (обычное, GPS ещё не
 uk = Запізнення швидкості: %@ с (звичайне, GPS ще не виміряв)
 
 [nogps_sensors_rough_speed]
-tags = android-app
+tags = android-app,apple-maps
 en = ≈ Rough correction from the roads · ranges: %d · GPS will refine it
 ru = ≈ Черновая поправка по дорогам · диапазонов: %d · GPS её уточнит
 uk = ≈ Чорнова поправка за дорогами · діапазонів: %d · GPS її уточнить
 
 [nogps_sensors_rough_speed_learning]
-tags = android-app
+tags = android-app,apple-maps
 en = ≈ The correction is learned from the roads until GPS measures the speed
 ru = ≈ Поправка учится по дорогам, пока скорость не измерит GPS
 uk = ≈ Поправка вчиться за дорогами, поки швидкість не виміряє GPS

@@ -1235,6 +1235,8 @@
 "nogps_sensors_scale" = "Поправка скорости: %1$@ · диапазонов измерено: %2$d";
 "nogps_sensors_lag_measured" = "Опоздание скорости: %@ с (измерено по GPS)";
 "nogps_sensors_lag_usual" = "Опоздание скорости: %@ с (обычное, GPS ещё не измерил)";
+"nogps_sensors_rough_speed" = "≈ Черновая поправка по дорогам · диапазонов: %d · GPS её уточнит";
+"nogps_sensors_rough_speed_learning" = "≈ Поправка учится по дорогам, пока скорость не измерит GPS";
 "nogps_shift_at_turn" = "Позиция у перекрёстка, дальше переносить нельзя";
 "nogps_status_gps_back" = "GPS снова есть ±%@";
 "nogps_status_gps_spoofed" = "GPS подменён";
