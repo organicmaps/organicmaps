@@ -255,7 +255,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
 
   g_updateBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsUpdate", "([JJ)V");
   g_endBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
-  g_addressResolvedId = jni::GetMethodID(env, g_javaListener, "onAddressResolved", "(JZDD)V");
+  g_addressResolvedId = jni::GetMethodID(env, g_javaListener, "onAddressResolved", "(JZZDD)V");
   g_contactViewportChangedId =
       jni::GetMethodID(env, g_javaListener, "onContactViewportChanged", "(ILjava/lang/String;JDDDD)V");
 }
@@ -360,15 +360,20 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeResolveAddress
     nativeQueries.push_back({jni::ToNativeString(env, static_cast<jstring>(query.get())),
                              jni::ToNativeString(env, static_cast<jstring>(street.get()))});
   }
-  g_framework->NativeFramework()->GetSearchAPI().ResolveAddress(requestId, std::move(nativeQueries),
-                                                                jni::ToNativeString(env, lang), background,
-                                                                [requestId](std::optional<search::Result> result)
+  g_framework->NativeFramework()->GetSearchAPI().ResolveAddress(
+      requestId, std::move(nativeQueries), jni::ToNativeString(env, lang), background,
+      [requestId](std::optional<search::Result> result, bool complete)
   {
     auto const latLon = result ? mercator::ToLatLon(result->GetFeatureCenter()) : ms::LatLon::Zero();
     auto * env = jni::GetEnv();
     env->CallVoidMethod(g_javaListener, g_addressResolvedId, requestId, static_cast<jboolean>(result.has_value()),
-                        latLon.m_lat, latLon.m_lon);
+                        static_cast<jboolean>(complete), latLon.m_lat, latLon.m_lon);
   });
+}
+
+JNIEXPORT jstring Java_app_organicmaps_sdk_search_SearchEngine_nativeGetAddressDataVersion(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_framework->NativeFramework()->GetSearchAPI().GetAddressDataVersion());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAddressResolution(JNIEnv * env, jclass clazz,

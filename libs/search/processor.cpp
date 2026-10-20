@@ -629,7 +629,8 @@ void Processor::Search(SearchParams params)
     }
 
     // Emit finish marker to client.
-    m_geocoder.Finish(cancellationStatus == Cancellable::Status::CancelCalled);
+    m_geocoder.Finish(cancellationStatus == Cancellable::Status::CancelCalled ||
+                      (params.m_requireCompleteResults && cancellationStatus == Cancellable::Status::DeadlineExceeded));
     break;
   }
   case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId); break;

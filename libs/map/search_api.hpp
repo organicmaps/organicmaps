@@ -75,11 +75,14 @@ public:
     // Normalized house-and-street portion, excluding geographical context.
     std::string m_expectedStreet;
   };
-  using AddressCallback = std::function<void(std::optional<search::Result>)>;
+  // Complete is false if any query timed out; an empty result is then only a temporary failure.
+  using AddressCallback = std::function<void(std::optional<search::Result>, bool complete)>;
   // UI-thread operation, independent of interactive results and search history.
   void ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
                       AddressCallback callback);
   void CancelAddressResolution(uint64_t id);
+  // Stable across restarts; empty while no country map is registered or maps are being removed.
+  std::string GetAddressDataVersion() const;
   // Revision changes also notify consumers when map data changes without viewport movement.
   using AddressViewportCallback = std::function<void(m2::RectD const &, int, uint64_t)>;
   void SetAddressViewportCallback(AddressViewportCallback callback);
@@ -160,6 +163,7 @@ private:
     bool m_background;
     AddressCallback m_callback;
     size_t m_queryIndex = 0;
+    bool m_incomplete = false;
     base::Timer m_timer;
   };
   void StartAddressResolution();

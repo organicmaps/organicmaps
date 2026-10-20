@@ -10,6 +10,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.search.SearchEngine.AddressResolutionListener;
@@ -36,6 +37,13 @@ public enum ContactMapManager implements AddressResolutionListener
     void update(double[] latitudes, double[] longitudes, String[] names, String[] addresses);
   }
   private MarkerUpdater mMarkerUpdater = Framework::nativeSetContactMarks;
+  interface DataVersionProvider
+  {
+    String get();
+  }
+  private DataVersionProvider mDataVersionProvider = SearchEngine::nativeGetAddressDataVersion;
+  private String mDataVersion = "";
+  private long mDataRevision = -1;
 
   static final class ResolvedAddress
   {
@@ -128,6 +136,8 @@ public enum ContactMapManager implements AddressResolutionListener
     mPostalAddresses.clear();
     mResolutionPolicy.clear();
     mCache.clear();
+    mDataVersion = "";
+    mDataRevision = -1;
 
     if (!isEnabled(mContext))
     {
@@ -233,7 +243,7 @@ public enum ContactMapManager implements AddressResolutionListener
 
   @Override
   @MainThread
-  public void onAddressResolved(long requestId, boolean found, double lat, double lon)
+  public void onAddressResolved(long requestId, boolean found, boolean complete, double lat, double lon)
   {
     if (mContext != null && !isEnabled(mContext))
     {
@@ -254,6 +264,7 @@ public enum ContactMapManager implements AddressResolutionListener
       final ResolvedAddress resolved = new ResolvedAddress(lat, lon);
       mCache.put(address.key, resolved);
       mPersistentCache.put(address.key, new ContactLocationCache.Entry(lat, lon));
+      mResolutionPolicy.forget(address.key);
       scheduleMarksUpdate();
     }
     else
@@ -310,6 +321,49 @@ public enum ContactMapManager implements AddressResolutionListener
     return resolved;
   }
 
+  @MainThread
+  void recordUnresolved(@NonNull ContactAddress contactAddress, boolean complete, @NonNull String locale)
+  {
+    if (mContext == null || !isEnabled(mContext))
+      return;
+    final String key = contactAddress.getAddressKey();
+    final String context = resolutionContext(contactAddress.getSearchQueries(), locale);
+    if (complete && !context.isEmpty() && mPersistentCache != null)
+    {
+      mPersistentCache.putUnresolved(key, context);
+      mResolutionPolicy.forget(key);
+    }
+    else
+      mResolutionPolicy.recordForegroundMiss(key, SystemClock.elapsedRealtime());
+    mQueue.removeIf(address -> address.key.equals(key));
+    if (mActiveRequest != null && mActiveRequest.address.key.equals(key))
+      cancelRequests();
+    resolveNext();
+  }
+
+  @MainThread
+  boolean hasRecentResolutionMiss(@NonNull ContactAddress contactAddress, @NonNull String locale)
+  {
+    if (mContext == null || !isEnabled(mContext))
+      return false;
+    final String key = contactAddress.getAddressKey();
+    if (mPersistentCache != null &&
+        mPersistentCache.isUnresolved(key, resolutionContext(contactAddress.getSearchQueries(), locale)))
+      return true;
+    return !mResolutionPolicy.shouldRetryForeground(key, SystemClock.elapsedRealtime());
+  }
+
+  private String resolutionContext(@NonNull List<ContactAddress.SearchQuery> queries, @NonNull String locale)
+  {
+    if (mDataVersion.isEmpty())
+      return "";
+    final StringBuilder context =
+        new StringBuilder(mDataVersion).append('\n').append(BuildConfig.VERSION_CODE).append('\n').append(locale);
+    for (ContactAddress.SearchQuery query : queries)
+      context.append('\n').append(query.query).append('\n').append(query.expectedStreet);
+    return ContactLocationCache.hash(context.toString());
+  }
+
   private void onViewportChanged(int scale, @NonNull String mapRegions, long mapRevision, double left, double bottom,
                                  double right, double top)
   {
@@ -317,6 +371,15 @@ public enum ContactMapManager implements AddressResolutionListener
     {
       refresh(mContext);
       return;
+    }
+    if (mapRevision != mDataRevision)
+    {
+      // Backgrounding and memory pressure also clear native caches without changing map data.
+      String dataVersion = mDataVersionProvider.get();
+      if (!mDataVersion.isEmpty() && !mDataVersion.equals(dataVersion) && mPersistentCache != null)
+        mPersistentCache.clearUnresolved();
+      mDataVersion = dataVersion;
+      mDataRevision = mapRevision;
     }
     boolean areaChanged = mResolutionPolicy.updateArea(mapRegions, mapRevision, left, bottom, right, top);
     if (areaChanged && mPersistentCache != null)
@@ -362,6 +425,8 @@ public enum ContactMapManager implements AddressResolutionListener
     for (PendingAddress address : candidates)
     {
       if (mCache.containsKey(address.key) || !mResolutionPolicy.shouldRetry(address.key, SystemClock.elapsedRealtime())
+          || (mPersistentCache != null
+              && mPersistentCache.isUnresolved(address.key, resolutionContext(address.queries, mLocale)))
           || (mActiveRequest != null && mActiveRequest.address == address) || mQueue.contains(address))
         continue;
       // Searches are bounded by the viewport; skip contacts in a different downloaded map region as well.

@@ -1,8 +1,10 @@
 package app.organicmaps.search;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -42,17 +44,81 @@ public class ContactLocationCacheTest
   }
 
   @Test
+  public void unresolvedAddressesSurviveCacheRecreationWithTheSameSearchContext()
+  {
+    final CacheMocks mocks = new CacheMocks();
+    final String key = "unresolved:" + ContactLocationCache.hash("address");
+    when(mocks.preferences.getString(key, null)).thenReturn("1|context-digest");
+    assertTrue(mocks.cache.isUnresolved("address", "context-digest"));
+    final ContactLocationCache restarted = new ContactLocationCache(mocks.context, (lat, lon) -> 42);
+    assertTrue(restarted.isUnresolved("address", "context-digest"));
+    verify(mocks.preferences, never()).edit();
+  }
+
+  @Test
+  public void changedOrUnavailableSearchContextInvalidatesUnresolvedAddresses()
+  {
+    for (String context : new String[] {"updated-maps", "new-language", "new-query", ""})
+    {
+      final CacheMocks mocks = new CacheMocks();
+      final String key = "unresolved:" + ContactLocationCache.hash("address");
+      when(mocks.preferences.getString(key, null)).thenReturn("1|old-context");
+      assertFalse(mocks.cache.isUnresolved("address", context));
+      verify(mocks.editor).remove(key);
+    }
+  }
+
+  @Test
+  public void unresolvedCacheVersionAndEditedAddressCannotReuseOldMisses()
+  {
+    final CacheMocks mocks = new CacheMocks();
+    final String key = "unresolved:" + ContactLocationCache.hash("address");
+    when(mocks.preferences.getString(key, null)).thenReturn("0|context");
+    assertFalse(mocks.cache.isUnresolved("address", "context"));
+    assertFalse(mocks.cache.isUnresolved("edited address", "context"));
+    verify(mocks.editor).remove(key);
+  }
+
+  @Test
+  public void storesOnlyUnresolvedIdentityAndDoesNotPersistAnUnavailableDataset()
+  {
+    final CacheMocks mocks = new CacheMocks();
+    mocks.cache.putUnresolved("address", "context-digest");
+    verify(mocks.editor).putString("unresolved:" + ContactLocationCache.hash("address"), "1|context-digest");
+    final CacheMocks unavailable = new CacheMocks();
+    unavailable.cache.putUnresolved("address", "");
+    verify(unavailable.preferences, never()).edit();
+  }
+
+  @Test
+  public void clearingUnresolvedAddressesPreservesSuccessfulLocations()
+  {
+    final CacheMocks mocks = new CacheMocks();
+    final String positive = ContactLocationCache.hash("address");
+    final String miss = "unresolved:" + positive;
+    doReturn(Map.of(positive, "location", miss, "miss")).when(mocks.preferences).getAll();
+    mocks.cache.clearUnresolved();
+    verify(mocks.editor).remove(miss);
+    verify(mocks.editor, never()).remove(positive);
+  }
+
+  @Test
   public void retainsOnlyCurrentAddressKeys()
   {
     final CacheMocks mocks = new CacheMocks();
     final String retained = ContactLocationCache.hash("retained");
     final String removed = ContactLocationCache.hash("removed");
-    doReturn(Map.of(retained, "value", removed, "value")).when(mocks.preferences).getAll();
+    doReturn(
+        Map.of(retained, "value", removed, "value", "unresolved:" + retained, "miss", "unresolved:" + removed, "miss"))
+        .when(mocks.preferences)
+        .getAll();
 
     mocks.cache.retain(Set.of("retained"));
 
     verify(mocks.editor, never()).remove(retained);
+    verify(mocks.editor, never()).remove("unresolved:" + retained);
     verify(mocks.editor).remove(removed);
+    verify(mocks.editor).remove("unresolved:" + removed);
     verify(mocks.editor).apply();
   }
 
@@ -92,6 +158,7 @@ public class ContactLocationCacheTest
     mocks.cache.put(address, new ContactLocationCache.Entry(49.1234567, -122.9876543));
 
     verify(mocks.editor).putString(ContactLocationCache.hash(address), "9|42|49.12346|-122.98765");
+    verify(mocks.editor).remove("unresolved:" + ContactLocationCache.hash(address));
   }
 
   @Test

@@ -21,7 +21,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   public interface AddressResolutionListener
   {
-    void onAddressResolved(long requestId, boolean found, double lat, double lon);
+    void onAddressResolved(long requestId, boolean found, boolean complete, double lat, double lon);
   }
 
   public interface ContactViewportListener
@@ -175,11 +175,11 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   @Keep
-  private void onAddressResolved(long requestId, boolean found, double lat, double lon)
+  private void onAddressResolved(long requestId, boolean found, boolean complete, double lat, double lon)
   {
     final AddressResolutionListener listener = mAddressResolutionListeners.remove(requestId);
     if (listener != null)
-      listener.onAddressResolved(requestId, found, lat, lon);
+      listener.onAddressResolved(requestId, found, complete, lat, lon);
   }
 
   /**
@@ -343,6 +343,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
 
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
+
+  @NonNull
+  public static native String nativeGetAddressDataVersion();
 
   private static native void nativeResolveAddress(String[] queries, String[] expectedStreets, String language,
                                                   long requestId, boolean background);

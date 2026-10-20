@@ -55,6 +55,46 @@ public class ContactResolutionPolicyTest
   }
 
   @Test
+  public void foregroundMissSurvivesPanningButExpiresAndDoesNotMatchOtherAddresses()
+  {
+    final ContactResolutionPolicy policy = new ContactResolutionPolicy();
+    policy.updateArea("Canada BC", 1, 0, 0, 4, 4);
+    policy.recordForegroundMiss("address", 100);
+    assertFalse(policy.shouldRetryForeground("address", 200));
+    assertFalse(policy.shouldRetry("address", 200));
+    assertTrue(policy.shouldRetryForeground("edited address", 200));
+    assertTrue(policy.updateArea("Canada MB", 1, 10, 10, 14, 14));
+    assertFalse(policy.shouldRetryForeground("address", 200));
+    assertFalse(policy.shouldRetryForeground("address", 300099));
+    assertTrue(policy.shouldRetryForeground("address", 300100));
+  }
+
+  @Test
+  public void backgroundMissDoesNotPreventForegroundResolution()
+  {
+    final ContactResolutionPolicy policy = new ContactResolutionPolicy();
+    policy.recordMiss("address", 100);
+    assertFalse(policy.shouldRetry("address", 200));
+    assertTrue(policy.shouldRetryForeground("address", 200));
+  }
+
+  @Test
+  public void mapUpdatesSuccessAndResetForgetForegroundMisses()
+  {
+    final ContactResolutionPolicy policy = new ContactResolutionPolicy();
+    policy.updateArea("Canada BC", 1, 0, 0, 4, 4);
+    policy.recordForegroundMiss("address", 0);
+    policy.updateArea("Canada BC", 2, 0, 0, 4, 4);
+    assertTrue(policy.shouldRetryForeground("address", 1));
+    policy.recordForegroundMiss("address", 1);
+    policy.forget("address");
+    assertTrue(policy.shouldRetryForeground("address", 2));
+    policy.recordForegroundMiss("address", 2);
+    policy.clear();
+    assertTrue(policy.shouldRetryForeground("address", 3));
+  }
+
+  @Test
   public void localityMatchIsAPriorityHint()
   {
     List<String> map = List.of("canada", "british", "columbia", "vancouver");

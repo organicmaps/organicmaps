@@ -126,10 +126,11 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionCancellationAndInteractivePriori
   bool cancelledDelivered = false;
   bool foregroundDelivered = false;
   bool backgroundDelivered = false;
-  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", true, [&](auto) { cancelledDelivered = true; });
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", true,
+                     [&](auto, bool) { cancelledDelivered = true; });
   api.CancelAddressResolution(1);
   api.ResolveAddress(2, {{"123 Main Street", "123 Main Street"}}, "en", true,
-                     [&](auto) { backgroundDelivered = true; });
+                     [&](auto, bool) { backgroundDelivered = true; });
 
   EverywhereSearchParams params;
   params.m_query = "cafe";
@@ -138,7 +139,7 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionCancellationAndInteractivePriori
   api.SearchEverywhere(std::move(params));
   // An unsupported address selected while ordinary search is in flight must finish safely,
   // not borrow that search's results or index an empty query list.
-  api.ResolveAddress(3, {}, "en", false, [&](auto result)
+  api.ResolveAddress(3, {}, "en", false, [&](auto result, bool)
   {
     TEST(!result, ());
     TEST(!backgroundDelivered, ());
@@ -157,8 +158,8 @@ UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionRequiresVisibleZoom)
   bool backgroundDelivered = false;
   bool foregroundDelivered = false;
   api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", true,
-                     [&](auto) { backgroundDelivered = true; });
-  api.ResolveAddress(2, {}, "en", false, [&](auto) { foregroundDelivered = true; });
+                     [&](auto, bool) { backgroundDelivered = true; });
+  api.ResolveAddress(2, {}, "en", false, [&](auto, bool) { foregroundDelivered = true; });
   TEST(foregroundDelivered, ());
   TEST(!backgroundDelivered, ());
   api.OnViewportChanged(m2::RectD(-1, -1, 1, 1), 16);
@@ -183,6 +184,25 @@ UNIT_CLASS_TEST(SearchAPITest, MapCacheChangesNotifyAddressConsumersWithoutPanni
   TEST_GREATER(revisions.back(), revisions.front(), ());
 }
 
+UNIT_CLASS_TEST(SearchAPITest, AddressDatasetIdentityTracksAvailableMaps)
+{
+  QueuedDelegate delegate;
+  SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
+  TEST(api.GetAddressDataVersion().empty(), ());
+  TestCafe cafe(m2::PointD(0, 0), "cafe", "en");
+  auto const id = BuildCountry("First Country", [&](TestMwmBuilder & builder) { builder.Add(cafe); });
+  auto const file = id.GetInfo()->GetLocalFile();
+  auto const first = api.GetAddressDataVersion();
+  TEST(!first.empty(), ());
+  BuildCountry("Second Country", [&](TestMwmBuilder & builder) { builder.Add(cafe); });
+  auto const both = api.GetAddressDataVersion();
+  TEST_NOT_EQUAL(first, both, ());
+  TEST(m_dataSource.Deregister(file.GetCountryFile()), ());
+  TEST_NOT_EQUAL(both, api.GetAddressDataVersion(), ());
+  TEST_EQUAL(m_dataSource.RegisterMap(file).second, MwmSet::RegResult::Success, ());
+  TEST_EQUAL(both, api.GetAddressDataVersion(), ());
+}
+
 UNIT_CLASS_TEST(SearchAPITest, AddressResolutionFindsMappedBuildingInBothModes)
 {
   TestStreet street({m2::PointD(-0.001, 0), m2::PointD(0.001, 0)}, "Main Street", "en");
@@ -200,7 +220,8 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionFindsMappedBuildingInBothModes)
   for (bool background : {false, true})
   {
     bool delivered = false;
-    api.ResolveAddress(background ? 2 : 1, {{"123 Main Street", "123 Main Street"}}, "en", background, [&](auto result)
+    api.ResolveAddress(background ? 2 : 1, {{"123 Main Street", "123 Main Street"}}, "en", background,
+                       [&](auto result, bool)
     {
       TEST(result, (background));
       if (result)
@@ -219,9 +240,11 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionFindsMappedBuildingInBothModes)
     });
     TEST(delegate.WaitUntil([&] { return delivered; }), (background));
     delivered = false;
-    api.ResolveAddress(background ? 4 : 3, {{"125 Main Street", "125 Main Street"}}, "en", background, [&](auto result)
+    api.ResolveAddress(background ? 4 : 3, {{"125 Main Street", "125 Main Street"}}, "en", background,
+                       [&](auto result, bool complete)
     {
       TEST(!result, (background));
+      TEST(complete, ());
       delivered = true;
     });
     TEST(delegate.WaitUntil([&] { return delivered; }), (background));
@@ -243,7 +266,7 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionRejectsMisleadingPoiName)
   SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
   api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
   bool delivered = false;
-  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result)
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result, bool)
   {
     TEST(!result, ());
     delivered = true;
@@ -289,7 +312,7 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionRejectsAmbiguousCitiesAcrossMaps
   api.SearchEverywhere(std::move(params));
   TEST(delegate.WaitUntil([&] { return searchFinished; }), ());
   bool delivered = false;
-  api.ResolveAddress(1, {{"123 Main Street Springfield", "123 Main Street"}}, "en", false, [&](auto result)
+  api.ResolveAddress(1, {{"123 Main Street Springfield", "123 Main Street"}}, "en", false, [&](auto result, bool)
   {
     TEST(!result, ());
     delivered = true;
@@ -310,7 +333,7 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionSharesGeocoderDachStreetSpelling
   SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
   api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
   bool delivered = false;
-  api.ResolveAddress(1, {{"12 Haupt Strasse", "12 Haupt Strasse"}}, "de", false, [&](auto result)
+  api.ResolveAddress(1, {{"12 Haupt Strasse", "12 Haupt Strasse"}}, "de", false, [&](auto result, bool)
   {
     TEST(result, ());
     if (result)
@@ -367,7 +390,7 @@ UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionPrefetchesOnlyNearbyMa
     auto const viewport = nearby ? m2::RectD(-0.002, 0.00002, 0.002, 0.0001) : m2::RectD(-0.002, 0.0002, 0.002, 0.0004);
     api.OnViewportChanged(viewport, 16);
     bool delivered = false;
-    api.ResolveAddress(nearby ? 1 : 2, {{"123 Main Street", "123 Main Street"}}, "en", true, [&](auto result)
+    api.ResolveAddress(nearby ? 1 : 2, {{"123 Main Street", "123 Main Street"}}, "en", true, [&](auto result, bool)
     {
       TEST_EQUAL(result.has_value(), nearby, ());
       if (result)
@@ -391,7 +414,7 @@ UNIT_CLASS_TEST(SearchAPITest, BackgroundAddressResolutionValidatesLocalityAfter
   SearchAPI api(m_dataSource, m_storage, *m_infoGetter, 1, delegate);
   api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
   bool delivered = false;
-  api.ResolveAddress(1, {{"123 Main Street Wrongtown", "123 Main Street"}}, "en", true, [&](auto result)
+  api.ResolveAddress(1, {{"123 Main Street Wrongtown", "123 Main Street"}}, "en", true, [&](auto result, bool)
   {
     TEST(!result, ());
     delivered = true;
@@ -443,7 +466,7 @@ UNIT_CLASS_TEST(SearchAPITest, TypedAddressRankingIsExplicitAndNeverInventsMissi
   {
     bool delivered = false;
     std::string const query = std::string(number) + " 131A Street Surrey";
-    api.ResolveAddress(10, {{query, std::string(number) + " 131A Street"}}, "en", false, [&](auto result)
+    api.ResolveAddress(10, {{query, std::string(number) + " 131A Street"}}, "en", false, [&](auto result, bool)
     {
       TEST(!result, (number));
       delivered = true;
@@ -560,7 +583,7 @@ UNIT_CLASS_TEST(SearchAPITest, AddressSearchPreservesAmbiguityAndStreamsExactRes
   TEST(delegate.WaitUntil([&] { return finished; }), ());
   TEST(streamed, ());
   bool resolved = false;
-  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result)
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result, bool)
   {
     TEST(!result, ());
     resolved = true;
@@ -582,14 +605,14 @@ UNIT_CLASS_TEST(SearchAPITest, AddressResolutionDoesNotDeliverAfterCompletionOrC
   api.OnViewportChanged(m2::RectD(-0.002, -0.002, 0.002, 0.002), 16);
   int delivered = 0;
   bool cancelledDelivered = false;
-  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result)
+  api.ResolveAddress(1, {{"123 Main Street", "123 Main Street"}}, "en", false, [&](auto result, bool)
   {
     TEST(result, ());
     ++delivered;
   });
   TEST(delegate.WaitUntil([&] { return delivered != 0; }), ());
   api.ResolveAddress(2, {{"123 Main Street", "123 Main Street"}}, "en", false,
-                     [&](auto) { cancelledDelivered = true; });
+                     [&](auto, bool) { cancelledDelivered = true; });
   api.CancelAddressResolution(2);
   bool searchFinished = false;
   EverywhereSearchParams params;

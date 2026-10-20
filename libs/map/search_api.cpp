@@ -9,6 +9,7 @@
 
 #include "storage/downloader_search_params.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/scales.hpp"
@@ -19,6 +20,7 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -453,10 +455,35 @@ void SearchAPI::ClearCaches()
 {
   SuspendAddressResolution();
   m_engine.ClearCaches();
+  for (auto const & request : m_addressRequests)
+  {
+    request->m_queryIndex = 0;
+    request->m_incomplete = false;
+  }
   ++m_mapDataRevision;
   if (m_addressViewportCallback && m_isViewportInitialized)
     m_addressViewportCallback(m_viewport, m_viewportScale, m_mapDataRevision);
   StartAddressResolution();
+}
+
+std::string SearchAPI::GetAddressDataVersion() const
+{
+  std::vector<std::shared_ptr<MwmInfo>> infos;
+  m_dataSource.GetMwmsInfo(infos);
+  std::vector<std::string> maps;
+  bool hasCountry = false;
+  for (auto const & info : infos)
+  {
+    if (!info->IsRegistered())
+      return {};
+    hasCountry |= info->GetType() == MwmInfo::COUNTRY;
+    maps.push_back(info->GetCountryName() + ":" + std::to_string(info->GetVersion()) + ":" +
+                   std::to_string(info->m_version.GetSecondsSinceEpoch()));
+  }
+  if (!hasCountry)
+    return {};
+  std::sort(maps.begin(), maps.end());
+  return strings::JoinStrings(maps, "\n");
 }
 
 void SearchAPI::ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
@@ -502,7 +529,7 @@ void SearchAPI::StartAddressResolution()
   if (request->m_queries.empty())
   {
     m_addressRequests.pop_front();
-    request->m_callback({});
+    request->m_callback({}, false);
     StartAddressResolution();
     return;
   }
@@ -524,6 +551,7 @@ void SearchAPI::StartAddressResolution()
   params.m_viewport = viewport;
   params.m_mode = request->m_background ? Mode::Viewport : Mode::Everywhere;
   params.m_needAddress = true;
+  params.m_requireCompleteResults = true;
   // Use the engine's normal bounded timeout. A shorter deadline can turn a cold-cache
   // address into a false miss now that resolution waits for complete results.
   params.m_onResults = [this, request, generation, query, viewport](Results const & results)
@@ -535,12 +563,14 @@ void SearchAPI::StartAddressResolution()
       if (auto const * result = search::FindUniqueAddressResult(query.m_query, results, query.m_expectedStreet))
         if (!request->m_background || viewport.IsPointInside(result->GetFeatureCenter()))
           match = *result;
-    RunUITask([this, request, generation, match = std::move(match)]() mutable
+    bool const complete = !results.IsEndedCancelled();
+    RunUITask([this, request, generation, complete, match = std::move(match)]() mutable
     {
       // Cancelled or suspended attempts must not consume a query or deliver a stale coordinate.
       if (generation != m_addressGeneration)
         return;
       m_addressRunning = false;
+      request->m_incomplete |= !complete;
       // A cancelled or timed-out search cannot establish uniqueness. Suspended attempts are excluded above.
       if (!match && ++request->m_queryIndex < request->m_queries.size())
       {
@@ -551,7 +581,7 @@ void SearchAPI::StartAddressResolution()
       m_addressRequests.pop_front();
       LOG(LDEBUG, ("Address resolution", request->m_id, "background", request->m_background, "found", match.has_value(),
                    "milliseconds", request->m_timer.ElapsedMilliseconds()));
-      request->m_callback(std::move(match));
+      request->m_callback(std::move(match), !request->m_incomplete);
       StartAddressResolution();
     });
   };
