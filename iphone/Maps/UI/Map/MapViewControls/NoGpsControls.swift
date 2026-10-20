@@ -331,6 +331,14 @@ final class NoGpsControls: NSObject {
     case .motionSourceStopped: text = L("nogps_box_stopped")
     // The car is always on a road.
     case .markNoRoad: text = L("nogps_mark_no_road")
+    case .notCalibrated:
+      if NoGps.status().calibration == .mountMoved {
+        text = L("nogps_box_moved_stopped")
+      } else {
+        text = L("nogps_box_uncalibrated_stopped")
+      }
+    // Handled in #20 and #21.
+    case .firmwareUpdateAvailable, .firmwareUpdateDone, .firmwareUpdateFailed, .boxCalibrationAdvised: text = nil
     @unknown default: text = nil
     }
     if let text {
