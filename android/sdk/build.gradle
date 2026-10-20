@@ -4,6 +4,16 @@ plugins {
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
+apply from: "${rootProject.rootDir}/groovy/vulkan-validation-layers.gradle"
+
+def onOffProperty = { String name ->
+  def value = project.findProperty(name) ?: 'OFF'
+  if (value != 'ON' && value != 'OFF')
+    throw new GradleException("Property $name must be ON or OFF, but is '$value'.")
+  return value
+}
+
+def enableVulkanDiagnostics = onOffProperty('app.organicmaps.enableVulkanDiagnostics')
 
 android {
   namespace = 'app.organicmaps.sdk'
@@ -15,23 +25,12 @@ android {
 
   defaultConfig {
     externalNativeBuild {
-      def pchFlag = 'OFF'
-      if (project.hasProperty('pch')) pchFlag = 'ON'
-
-      def njobs = ''
-      if (project.hasProperty('njobs')) njobs = project.getProperty('njobs')
-
-      def enableVulkanDiagnostics = 'OFF'
-      if (project.hasProperty('enableVulkanDiagnostics')) {
-        enableVulkanDiagnostics = project.getProperty('enableVulkanDiagnostics')
-      }
-
-      def enableTrace = 'OFF'
-      if (project.hasProperty('enableTrace')) {
-        enableTrace = project.getProperty('enableTrace')
-      }
-
-      def drapeBenchmark = project.findProperty('drapeBenchmark') ?: 'OFF'
+      def pchFlag = onOffProperty('pch')
+      def njobs = project.findProperty('njobs') ?: ''
+      def enableTrace = onOffProperty('app.organicmaps.enableTrace')
+      def drapeBenchmark = onOffProperty('app.organicmaps.drapeBenchmark')
+      def cmakeUnityBuild = project.findProperty('app.organicmaps.cmakeUnityBuild')
+      def cmakeUnityBatchSize = project.findProperty('app.organicmaps.cmakeUnityBatchSize')
 
       cmake {
         cppFlags '-fexceptions', '-frtti'
@@ -41,13 +40,10 @@ android {
             "-DNJOBS=$njobs", "-DENABLE_VULKAN_DIAGNOSTICS=$enableVulkanDiagnostics",
             "-DENABLE_TRACE=$enableTrace", "-DDRAPE_QUEUE_TRACE=$drapeBenchmark", "-DDRAPE_SCENARIO=$drapeBenchmark"
         // Passed through only when set, so CMake keeps owning the defaults.
-        // Use -Punity=OFF or -PunityBatchSize=3 to check that the code does not depend on the batching.
-        if (project.hasProperty('unity')) {
-          arguments "-DCMAKE_UNITY_BUILD=${project.getProperty('unity')}"
-        }
-        if (project.hasProperty('unityBatchSize')) {
-          arguments "-DCMAKE_UNITY_BUILD_BATCH_SIZE=${project.getProperty('unityBatchSize')}"
-        }
+        if (cmakeUnityBuild)
+          arguments "-DCMAKE_UNITY_BUILD=$cmakeUnityBuild"
+        if (cmakeUnityBatchSize)
+          arguments "-DCMAKE_UNITY_BUILD_BATCH_SIZE=$cmakeUnityBatchSize"
         targets 'organicmaps'
       }
     }
@@ -110,6 +106,10 @@ dependencies {
   testImplementation libs.mockito.inline
   androidTestImplementation libs.androidx.junit
   androidTestImplementation libs.androidx.test.runner
+}
+
+if (enableVulkanDiagnostics == 'ON') {
+  EnableVulkanDiagnostics(project)
 }
 
 // TODO: Running lint task triggers native build. Find a better solution.
