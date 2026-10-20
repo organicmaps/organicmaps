@@ -16,7 +16,6 @@ namespace
 {
 uint32_t constexpr kDefaultStagingBufferSizeInBytes = 3 * 1024 * 1024;
 uint64_t constexpr kFenceTimeoutNanoseconds = 2'000'000'000;
-uint64_t constexpr kImageAcquireTimeoutNanoseconds = 250'000'000;
 
 uint16_t PackAttachmentsOperations(VulkanBaseContext::AttachmentsOperations const & operations)
 {
@@ -35,14 +34,15 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
                                      VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
                                      uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
                                      drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
-                                     bool supportsImageAcquireTimeout)
+                                     uint64_t imageAcquireTimeoutNanoseconds, bool swapchainMaintenanceEnabled)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
   , m_gpuProperties(gpuProperties)
   , m_device(device)
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
   , m_hasPartialTextureUpdates(hasPartialTextureUpdates)
-  , m_supportsImageAcquireTimeout(supportsImageAcquireTimeout)
+  , m_imageAcquireTimeoutNanoseconds(imageAcquireTimeoutNanoseconds)
+  , m_swapchainMaintenanceEnabled(swapchainMaintenanceEnabled)
   , m_objectManager(std::move(objectManager))
   , m_pipeline(std::move(pipeline))
   , m_presentAvailable(true)
@@ -101,11 +101,11 @@ void VulkanBaseContext::SetPresentAvailable(bool available)
 }
 
 void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
-                                   VkSurfaceCapabilitiesKHR const & surfaceCapabilities)
+                                   m2::PointU const & framebufferSize)
 {
   m_surface = surface;
   m_surfaceFormat = surfaceFormat;
-  m_surfaceCapabilities = surfaceCapabilities;
+  m_framebufferSize = framebufferSize;
   CreateSyncPrimitives();
   RecreateSwapchainAndDependencies();
 }
@@ -122,14 +122,24 @@ void VulkanBaseContext::ResetSurface(bool allowPipelineDump)
     m_pipeline->Dump(m_device);
 }
 
-void VulkanBaseContext::RecreateSwapchainAndDependencies()
+FrameStatus VulkanBaseContext::RecreateSwapchainAndDependencies()
 {
-  vkDeviceWaitIdle(m_device);
-  ResetSwapchainAndDependencies();
+  if (m_swapchain != VK_NULL_HANDLE)
+    ResetSwapchainAndDependencies();
+
+  auto const res = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, *m_surface, &m_surfaceCapabilities);
+  if (res == VK_ERROR_SURFACE_LOST_KHR)
+    return FrameStatus::RetryLater;
+  CHECK_RESULT_VK_CALL(vkGetPhysicalDeviceSurfaceCapabilitiesKHR, res);
+  m_surfaceCapabilities.currentExtent =
+      ChooseSurfaceExtent(m_surfaceCapabilities, {m_framebufferSize.x, m_framebufferSize.y});
+  if (m_surfaceCapabilities.currentExtent.width == 0 || m_surfaceCapabilities.currentExtent.height == 0)
+    return FrameStatus::Suspended;
+
   CreateCommandBuffers();
   RecreateDepthTexture();
   RecreateSwapchain();
-  vkDeviceWaitIdle(m_device);
+  return FrameStatus::Retry;
 }
 
 void VulkanBaseContext::ResetSwapchainAndDependencies()
@@ -148,65 +158,58 @@ void VulkanBaseContext::SetRenderingQueue(VkQueue queue)
 
 void VulkanBaseContext::Resize(uint32_t w, uint32_t h)
 {
-  if (m_swapchain != VK_NULL_HANDLE && m_surfaceCapabilities.currentExtent.width == w &&
-      m_surfaceCapabilities.currentExtent.height == h)
-  {
+  if (m_swapchain != VK_NULL_HANDLE && m_framebufferSize == m2::PointU(w, h))
     return;
-  }
-  m_surfaceCapabilities.currentExtent.width = w;
-  m_surfaceCapabilities.currentExtent.height = h;
+  m_framebufferSize = {w, h};
   RecreateSwapchainAndDependencies();
 }
 
-bool VulkanBaseContext::BeginRendering()
+FrameStatus VulkanBaseContext::BeginRendering()
 {
-  if (!m_presentAvailable)
-    return false;
+  if (!m_presentAvailable || !m_surface)
+    return FrameStatus::Suspended;
+
+  if (m_swapchain == VK_NULL_HANDLE)
+  {
+    auto const status = RecreateSwapchainAndDependencies();
+    if (status != FrameStatus::Retry)
+      return status;
+  }
 
   // We wait for the fences no longer than kFenceTimeoutNanoseconds. If timer is expired skip
   // the frame. It helps to prevent freeze on vkWaitForFences in the case of resetting surface.
   auto res = vkWaitForFences(m_device, 1, &m_fences[m_inflightFrameIndex], VK_TRUE, kFenceTimeoutNanoseconds);
   if (res == VK_TIMEOUT)
-    return false;
+    return FrameStatus::RetryLater;
 
-  if (res != VK_SUCCESS && res != VK_ERROR_DEVICE_LOST)
-    CHECK_RESULT_VK_CALL(vkWaitForFences, res);
+  CHECK_RESULT_VK_CALL(vkWaitForFences, res);
 
   // The surface can become unavailable while vkWaitForFences is blocked.
   if (!m_presentAvailable)
-    return false;
+    return FrameStatus::Suspended;
 
-  auto const acquireTimeout =
-      m_supportsImageAcquireTimeout ? kImageAcquireTimeoutNanoseconds : std::numeric_limits<uint64_t>::max();
-  res = vkAcquireNextImageKHR(m_device, m_swapchain, acquireTimeout, m_acquireSemaphores[m_inflightFrameIndex],
-                              VK_NULL_HANDLE, &m_imageIndex);
+  res = vkAcquireNextImageKHR(m_device, m_swapchain, m_imageAcquireTimeoutNanoseconds,
+                              m_acquireSemaphores[m_inflightFrameIndex], VK_NULL_HANDLE, &m_imageIndex);
   if (res == VK_TIMEOUT)
-    return false;
+    return FrameStatus::RetryLater;
 
-  // VK_ERROR_SURFACE_LOST_KHR appears sometimes after getting foreground. We suppose rendering can be recovered
-  // next frame.
+  // Failed acquisition submits no GPU work and leaves this frame's synchronization reusable.
   if (res == VK_ERROR_SURFACE_LOST_KHR)
-  {
-    vkDeviceWaitIdle(m_device);
-    DestroySyncPrimitives();
-    CreateSyncPrimitives();
-    return false;
-  }
+    return FrameStatus::RetryLater;
 
 #if defined(OMIM_OS_MAC)
-  // MoltenVK returns VK_SUBOPTIMAL_KHR in our configuration, it means that window is not resized that's expected
-  // in the developer sandbox for macOS
-  // https://github.com/KhronosGroup/MoltenVK/issues/1753
+  // A suboptimal acquisition still provides a usable image. The sandbox's resize
+  // callbacks update drawable and swapchain dimensions, including content-scale changes.
   if (res == VK_SUBOPTIMAL_KHR)
     res = VK_SUCCESS;
 #endif
 
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
   {
-    RecreateSwapchainAndDependencies();
+    auto const status = RecreateSwapchainAndDependencies();
     DestroySyncPrimitives();
     CreateSyncPrimitives();
-    return false;
+    return status;
   }
   else
   {
@@ -244,7 +247,7 @@ bool VulkanBaseContext::BeginRendering()
   CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffers[m_inflightFrameIndex], &commandBufferBeginInfo));
   CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffers[m_inflightFrameIndex], &commandBufferBeginInfo));
 
-  return true;
+  return FrameStatus::Ready;
 }
 
 void VulkanBaseContext::EndRendering()
@@ -277,16 +280,7 @@ void VulkanBaseContext::EndRendering()
   submitInfo.commandBufferCount = 2;
   submitInfo.pCommandBuffers = commandBuffers;
 
-  auto const res = vkQueueSubmit(m_queue, 1, &submitInfo, m_fences[m_inflightFrameIndex]);
-  if (res != VK_ERROR_DEVICE_LOST)
-  {
-    m_needPresent = true;
-    CHECK_RESULT_VK_CALL(vkQueueSubmit, res);
-  }
-  else
-  {
-    m_needPresent = false;
-  }
+  CHECK_VK_CALL(vkQueueSubmit(m_queue, 1, &submitInfo, m_fences[m_inflightFrameIndex]));
 }
 
 void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
@@ -518,21 +512,30 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
 void VulkanBaseContext::Present()
 {
-  if (m_needPresent)
-  {
-    VkPresentInfoKHR presentInfo = {};
-    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-    presentInfo.pNext = nullptr;
-    presentInfo.swapchainCount = 1;
-    presentInfo.pSwapchains = &m_swapchain;
-    presentInfo.pImageIndices = &m_imageIndex;
-    presentInfo.pWaitSemaphores = &m_renderSemaphores[m_imageIndex];
-    presentInfo.waitSemaphoreCount = 1;
+  VkPresentInfoKHR presentInfo = {};
+  presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+  presentInfo.pNext = nullptr;
+  presentInfo.swapchainCount = 1;
+  presentInfo.pSwapchains = &m_swapchain;
+  presentInfo.pImageIndices = &m_imageIndex;
+  presentInfo.pWaitSemaphores = &m_renderSemaphores[m_imageIndex];
+  presentInfo.waitSemaphoreCount = 1;
 
-    auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
-    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR && res != VK_ERROR_DEVICE_LOST)
-      CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
+  VkFence presentFence = VK_NULL_HANDLE;
+  VkSwapchainPresentFenceInfoKHR fenceInfo = {};
+  if (m_swapchainMaintenanceEnabled)
+  {
+    presentFence = GetPresentFence();
+    fenceInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR;
+    fenceInfo.swapchainCount = 1;
+    fenceInfo.pFences = &presentFence;
+    presentInfo.pNext = &fenceInfo;
   }
+
+  auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
+  if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR &&
+      res != VK_ERROR_SURFACE_LOST_KHR)
+    CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
 
   m_inflightFrameIndex = (m_inflightFrameIndex + 1) % kMaxInflightFrames;
 
@@ -857,10 +860,7 @@ void VulkanBaseContext::RecreateSwapchain()
   swapchainCI.queueFamilyIndexCount = 0;
   swapchainCI.pQueueFamilyIndices = nullptr;
 
-#if !defined(OMIM_OS_WINDOWS)
-  CHECK(m_surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR, ());
-  swapchainCI.compositeAlpha = VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR;
-#endif
+  swapchainCI.compositeAlpha = ChooseCompositeAlpha(m_surfaceCapabilities.supportedCompositeAlpha);
 
   // This mode waits for the vertical blank ("v-sync").
   swapchainCI.presentMode = VK_PRESENT_MODE_FIFO_KHR;
@@ -903,6 +903,10 @@ void VulkanBaseContext::RecreateSwapchain()
 
 void VulkanBaseContext::DestroySwapchain()
 {
+  // Presentation fences guarantee that image and semaphore payloads can be retired.
+  // Unextended Vulkan provides no presentation-completion fence, so teardown uses
+  // the conventional device-idle fallback on devices without maintenance support.
+  DestroyPresentFences();
   if (m_swapchain == VK_NULL_HANDLE)
     return;
 
@@ -1035,6 +1039,37 @@ void VulkanBaseContext::DestroySyncPrimitives()
     vkDestroySemaphore(m_device, s, nullptr);
     s = VK_NULL_HANDLE;
   }
+}
+
+VkFence VulkanBaseContext::GetPresentFence()
+{
+  for (auto const fence : m_presentFences)
+  {
+    auto const status = vkGetFenceStatus(m_device, fence);
+    if (status == VK_NOT_READY)
+      continue;
+    CHECK_RESULT_VK_CALL(vkGetFenceStatus, status);
+    CHECK_VK_CALL(vkResetFences(m_device, 1, &fence));
+    return fence;
+  }
+
+  VkFenceCreateInfo info = {};
+  info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+  VkFence fence = VK_NULL_HANDLE;
+  CHECK_VK_CALL(vkCreateFence(m_device, &info, nullptr, &fence));
+  m_presentFences.push_back(fence);
+  return fence;
+}
+
+void VulkanBaseContext::DestroyPresentFences()
+{
+  if (m_presentFences.empty())
+    return;
+  CHECK_VK_CALL(vkWaitForFences(m_device, static_cast<uint32_t>(m_presentFences.size()), m_presentFences.data(),
+                                VK_TRUE, UINT64_MAX));
+  for (auto const fence : m_presentFences)
+    vkDestroyFence(m_device, fence, nullptr);
+  m_presentFences.clear();
 }
 
 void VulkanBaseContext::RecreateDepthTexture()
