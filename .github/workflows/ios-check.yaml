@@ -49,14 +49,10 @@ jobs:
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
       TEST_RESULTS_BUNDLE_NAME: OMaps-Test-Results
-    strategy:
-      fail-fast: false
-      matrix:
-        buildType: [Debug, Release]
     # Cancels previous jobs if the same branch or PR was updated again.
     # Only cancel PR runs: master runs must finish to populate the shared cache.
     concurrency:
-      group: ${{ github.workflow }}-${{ matrix.buildType }}-${{ github.event.pull_request.number || github.ref }}
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
       cancel-in-progress: ${{ github.event_name == 'pull_request' }}
     permissions:
       contents: read
@@ -88,8 +84,8 @@ jobs:
       - name: Configure XCode cache
         uses: irgaly/xcode-cache@v1
         with:
-          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}-${{ github.sha }}
-          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}
+          key: xcode-cache-deriveddata-${{ github.workflow }}-Debug-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-Debug
           # Restore-only on PRs: master populates the shared cache, PRs read it.
           # Avoids overflowing the 10GB repo limit, which evicts master's caches.
           cache-read-only: ${{ github.ref != 'refs/heads/master' }}
@@ -98,7 +94,6 @@ jobs:
           delete-used-deriveddata-cache: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Build and Run Tests (Debug)
-        if: matrix.buildType == 'Debug'
         shell: bash
         run: |
           # Change back "build" to "test" after fixing https://github.com/organicmaps/organicmaps/issues/9867 and revert 6dede38cccfbdbed6c35abf3fea1b76553018f05
@@ -107,19 +102,6 @@ jobs:
             -scheme OMaps \
             -configuration Debug \
             -sdk iphonesimulator \
-            -destination 'generic/platform=iOS' \
-            -quiet \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-
-      - name: Build (Release)
-        if: matrix.buildType == 'Release'
-        shell: bash
-        run: |
-          xcodebuild build \
-            -workspace xcode/omim.xcworkspace \
-            -scheme OMaps \
-            -configuration Release \
             -destination 'generic/platform=iOS' \
             -quiet \
             CODE_SIGNING_REQUIRED=NO \
