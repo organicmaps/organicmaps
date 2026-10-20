@@ -5,15 +5,54 @@
 
 #include "map/framework.hpp"
 
+#include "platform/gui_thread.hpp"
+#include "platform/platform.hpp"
+
 #include "base/scope_guard.hpp"
 
+#include <QtCore/QMetaObject>
 #include <QtWidgets/QAbstractItemDelegate>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QStyleOptionViewItem>
 #include <QtWidgets/QTreeWidget>
 
+#include <chrono>
+#include <condition_variable>
+#include <deque>
+#include <memory>
+#include <mutex>
+
 namespace
 {
+class QueuedGuiThread : public base::TaskLoop
+{
+public:
+  PushResult Push(Task && task) override
+  {
+    std::lock_guard lock(m_mutex);
+    m_tasks.push_back(std::move(task));
+    m_ready.notify_one();
+    return {true, kNoId};
+  }
+
+  PushResult Push(Task const & task) override { return Push(Task(task)); }
+
+  Task TakeTask()
+  {
+    std::unique_lock lock(m_mutex);
+    TEST(m_ready.wait_for(lock, std::chrono::seconds(10), [this] { return !m_tasks.empty(); }),
+         ("Downloader search did not queue a result"));
+    auto task = std::move(m_tasks.front());
+    m_tasks.pop_front();
+    return task;
+  }
+
+private:
+  std::mutex m_mutex;
+  std::condition_variable m_ready;
+  std::deque<Task> m_tasks;
+};
+
 // TODO: Would be nice to share this part between similar tests.
 void EnsureApp()
 {
@@ -63,6 +102,27 @@ UNIT_TEST(UpdateDialog_EntireTreeIsSortedAlphabetically)
   // #3877: the browse list must sort by the visible country column, not the hidden rank.
   constexpr int kCountryColumn = 0;  // KColumnIndexCountry
   TEST_EQUAL(tree.sortColumn(), kCountryColumn, ());
+}
+
+UNIT_TEST(UpdateDialog_QueuedSearchResultAfterDestruction)
+{
+  EnsureApp();
+  auto guiThread = std::make_unique<QueuedGuiThread>();
+  auto * queued = guiThread.get();
+  GetPlatform().SetGuiThread(std::move(guiThread));
+  SCOPE_GUARD(restoreGuiThread, [] { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); });
+
+  Framework framework(FrameworkParams{}, false);
+  framework.GetSearchAPI().OnViewportChanged(m2::RectD(-1, -1, 1, 1));
+  auto dialog = std::make_unique<qt::UpdateDialog>(nullptr, framework, QLocale());
+  TEST(QMetaObject::invokeMethod(dialog.get(), "OnQueryTextChanged", Qt::DirectConnection,
+                                 Q_ARG(QString, QString("France"))),
+       ());
+
+  // Hold a real search result until the dialog and its cancellation have finished.
+  auto task = queued->TakeTask();
+  dialog.reset();
+  task();
 }
 
 UNIT_TEST(UpdateDialog_LocalizedSizesFitColumn)
