@@ -62,14 +62,16 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
     }
   }
 
-  // Step 2. Check cached cameras. Do it only after pass through closest camera.
+  // Step 2. Drop expired cached cameras, then check the next camera after passing the closest one.
+  while (!m_cachedSpeedCameras.empty() &&
+         m_cachedSpeedCameras.front().m_distFromBeginMeters - passedDistanceMeters <= -kInfluenceZoneMeters)
+    m_cachedSpeedCameras.pop();
+
   if (!m_cachedSpeedCameras.empty() && distFromCurrentPosAndClosestCam < 0)
   {
-    // Do not use reference here, because ProcessCameraWarning() can
-    // invalidate |closestSpeedCam|.
     auto const closestSpeedCam = m_cachedSpeedCameras.front();
 
-    if (NeedToUpdateClosestCamera(passedDistanceMeters, info.m_speed, closestSpeedCam))
+    if (IsCameraCloseEnough(closestSpeedCam.m_distFromBeginMeters - passedDistanceMeters))
     {
       m_closestCamera = closestSpeedCam;
       ResetNotifications();
@@ -321,21 +323,6 @@ bool SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, doubl
   }
 
   UNREACHABLE();
-}
-
-bool SpeedCameraManager::NeedToUpdateClosestCamera(double passedDistanceMeters, double speedMpS,
-                                                   SpeedCameraOnRoute const & nextCamera)
-{
-  auto const distToNewCameraMeters = nextCamera.m_distFromBeginMeters - passedDistanceMeters;
-  if (m_closestCamera.IsValid())
-  {
-    auto const distToOldCameraMeters = m_closestCamera.m_distFromBeginMeters - passedDistanceMeters;
-
-    // If we passed the previous nextCamera and the next is close enough to work with it.
-    return distToOldCameraMeters < 0 && IsCameraCloseEnough(distToNewCameraMeters);
-  }
-
-  return IsCameraCloseEnough(distToNewCameraMeters);
 }
 
 bool SpeedCameraManager::IsHighlightedCameraExpired(double distToCameraMeters) const
