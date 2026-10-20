@@ -17,8 +17,6 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 
-#include <QtCore/QSignalMapper>
-
 namespace
 {
 constexpr char const * kStreetObjectName = "addr:street";
@@ -167,7 +165,8 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
       grid->addWidget(cmb, row++, 1);
     }
       continue;
-    case PropID::FMD_CUISINE: v = strings::JoinStrings(emo.GetLocalizedCuisines(), ", "); break;
+    // Editable values must retain the OSM codes expected by SetCuisines().
+    case PropID::FMD_CUISINE: v = strings::JoinStrings(emo.GetCuisines(), ";"); break;
     case PropID::FMD_POSTCODE:  // already set above
       continue;
     default: v = emo.GetMetadata(prop); break;
@@ -187,10 +186,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     // Delete button should send custom int return value from dialog.
     QPushButton * deletePOIButton = new QPushButton(qt::Tr("editor_remove_place_button"));
-    QSignalMapper * signalMapper = new QSignalMapper();
-    connect(deletePOIButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
-    signalMapper->setMapping(deletePOIButton, QDialogButtonBox::DestructiveRole);
-    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(done(int)));
+    connect(deletePOIButton, &QPushButton::clicked, this, [this] { done(QDialogButtonBox::DestructiveRole); });
     buttonBox->addButton(deletePOIButton, QDialogButtonBox::DestructiveRole);
     grid->addWidget(buttonBox, row++, 1);
   }
