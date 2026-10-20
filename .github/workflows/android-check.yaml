@@ -37,6 +37,7 @@ on:
       - platform/*qt*
       - platform/*_win*
       - qt*/**
+      - sailfish/**
       - skin_generator/**
       - tools/**
       - track_generator/**
