@@ -27,6 +27,7 @@ if (BUILD_OPENGL_TESTS)
     rainbow_line_gpu_test.cpp
     shape_test_fixture.cpp
     shape_test_fixture.hpp
+    terrain_shade_gpu_test.cpp
     track_direction_gpu_test.cpp
   )
 endif()

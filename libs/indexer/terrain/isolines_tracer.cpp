@@ -30,6 +30,15 @@ struct EdgeLevel
   bool operator==(EdgeLevel const &) const = default;
 };
 
+struct EdgeLevelHash
+{
+  size_t operator()(EdgeLevel const & key) const
+  {
+    impl::PointKeyHash hash;
+    return hash(key.m_a) ^ (hash(key.m_b) << 1) ^ hash(static_cast<uint32_t>(key.m_level));
+  }
+};
+
 struct Fragment
 {
   Isoline m_line;
@@ -76,6 +85,25 @@ struct TinView
   }
   m2::PointU PointU(uint32_t v) const { return m_mesh.GetPointU(v); }
   m2::PointD Point(uint32_t v) const { return m_mesh.GetPoints()[v]; }
+};
+
+// Interior topology is implicit: no node deduplication or hashed grid edges.
+struct GridView
+{
+  RasterPatch const & m_patch;
+  std::vector<int32_t> m_altitudes;
+
+  explicit GridView(RasterPatch const & patch, measurement_utils::Units units) : m_patch(patch)
+  {
+    m_altitudes.reserve(patch.m_heights.size());
+    for (int32_t altitude : patch.m_heights)
+      m_altitudes.push_back(DisplayAltitude(altitude, units));
+  }
+  uint32_t Count() const { return 2 * m_patch.CellsX() * m_patch.CellsY(); }
+  std::array<uint32_t, 3> Triangle(uint32_t t) const { return m_patch.Triangle(t); }
+  uint32_t Neighbor(uint32_t t, uint8_t edge) const { return m_patch.Neighbor(t, edge); }
+  m2::PointU PointU(uint32_t v) const { return m_patch.PointU(v); }
+  m2::PointD Point(uint32_t v) const { return m_patch.Point(v); }
 };
 
 struct CrossedEdges
@@ -227,6 +255,63 @@ void EmitLine(Isoline && line, IsolineFn const & fn)
   if (line.m_points.size() >= (line.m_closed ? 4u : 2u))
     fn(std::move(line));
 }
+
+void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn,
+                   base::SharedCancellable const & isCancellable)
+{
+  ska::flat_hash_map<EdgeLevel, size_t, EdgeLevelHash> entries, exits;
+  for (size_t i = 0; i < fragments.size(); ++i)
+  {
+    if (fragments[i].m_line.m_closed)
+      continue;
+    VERIFY(entries.emplace(fragments[i].m_entry, i).second, ());
+    VERIFY(exits.emplace(fragments[i].m_exit, i).second, ());
+  }
+  std::vector<bool> visited(fragments.size(), false);
+  auto const walk = [&](size_t start)
+  {
+    Isoline line;
+    line.m_altitude = fragments[start].m_line.m_altitude;
+    size_t current = start;
+    while (!visited[current])
+    {
+      visited[current] = true;
+      auto const & fragment = fragments[current];
+      for (auto const & point : fragment.m_line.m_points)
+        AppendPoint(line.m_points, point);
+      auto const next = entries.find(fragment.m_exit);
+      if (next == entries.end())
+        break;
+      current = next->second;
+      if (current == start)
+      {
+        line.m_closed = true;
+        AppendPoint(line.m_points, line.m_points.front());
+        break;
+      }
+    }
+    EmitLine(std::move(line), fn);
+  };
+  for (size_t i = 0; i < fragments.size(); ++i)
+  {
+    if (isCancellable.IsCancelled())
+      return;
+    if (fragments[i].m_line.m_closed)
+    {
+      EmitLine(std::move(fragments[i].m_line), fn);
+      visited[i] = true;
+    }
+    else if (exits.find(fragments[i].m_entry) == exits.end())
+      walk(i);
+  }
+  for (size_t i = 0; i < fragments.size(); ++i)
+  {
+    if (isCancellable.IsCancelled())
+      return;
+    if (!visited[i])
+      walk(i);
+  }
+}
 }  // namespace
 
 void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
@@ -240,6 +325,21 @@ void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units
 void TraceIsolines(TerrainData const & data, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
                    base::SharedCancellable const & isCancellable)
 {
-  TraceIsolines(data.m_mesh, step, units, fn, isCancellable);
+  ASSERT_GREATER(step, 0, ());
+  if (data.m_rasterPatches.empty())
+  {
+    TraceIsolines(data.m_mesh, step, units, fn, isCancellable);
+    return;
+  }
+  std::vector<Fragment> fragments;
+  auto const emit = [&](Fragment && fragment) { fragments.push_back(std::move(fragment)); };
+  TraceView(TinView(data.m_mesh, units), step, emit, isCancellable);
+  for (auto const & patch : data.m_rasterPatches)
+  {
+    if (isCancellable.IsCancelled())
+      return;
+    TraceView(GridView(patch, units), step, emit, isCancellable);
+  }
+  JoinFragments(fragments, fn, isCancellable);
 }
 }  // namespace terrain

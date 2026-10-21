@@ -112,6 +112,69 @@ TerrainShadeGeometry BuildTerrainShade(terrain::TerrainData const & data, m2::Re
       emitClipped(points[i0], points[i1], points[i2], unitNormal(i0), unitNormal(i1), unitNormal(i2));
   }
 
+  auto & gridRows = geometry.m_gridRows;
+  for (size_t p = 0; p < data.m_rasterPatches.size(); ++p)
+  {
+    if (cancellable.IsCancelled())
+      return {};
+    auto const & patch = data.m_rasterPatches[p];
+    if (!tileRect.IsIntersect(patch.GetRect()))
+      continue;
+    std::vector<glsl::vec3> gridNormals(patch.m_heights.size());
+    std::vector<bool> gridNormalized(patch.m_heights.size(), false);
+    auto const gridNormal = [&](uint32_t i) -> glsl::vec3 const &
+    {
+      if (!gridNormalized[i])
+      {
+        gridNormalized[i] = true;
+        gridNormals[i] = ToUnitNormal(jointNormals.m_raster[p][i]);
+      }
+      return gridNormals[i];
+    };
+    uint32_t const stride = patch.CellsX() + 1;
+    for (uint32_t y = 0; y < patch.CellsY(); ++y)
+    {
+      if (cancellable.IsCancelled())
+        return {};
+      std::vector<gpu::TerrainShadeVertex> row;
+      auto const flushRow = [&]
+      {
+        if (!row.empty())
+          gridRows.push_back(std::move(row));
+        row.clear();
+      };
+      for (uint32_t x = 0; x < patch.CellsX(); ++x)
+      {
+        uint32_t const sw = y * stride + x, ne = sw + stride + 1;
+        auto const a = patch.Point(sw), b = patch.Point(ne);
+        if (tileRect.IsPointInside(a) && tileRect.IsPointInside(b))
+        {
+          if (row.empty())
+          {
+            auto const nw = makeVertex(patch.Point(sw + stride), gridNormal(sw + stride));
+            row.push_back(nw);  // Shift strip parity to CW.
+            row.push_back(nw);
+            row.push_back(makeVertex(a, gridNormal(sw)));
+          }
+          row.push_back(makeVertex(b, gridNormal(ne)));
+          row.push_back(makeVertex(patch.Point(sw + 1), gridNormal(sw + 1)));
+          continue;
+        }
+        flushRow();
+        if (!tileRect.IsIntersect(m2::RectD(a, b)))
+          continue;
+        // Only edge cells need temporary clipped triangles. Normals are
+        // interpolated on exactly the same fixed-diagonal surface as the TIN path.
+        for (uint32_t t : {2 * (y * patch.CellsX() + x), 2 * (y * patch.CellsX() + x) + 1})
+        {
+          auto const v = patch.Triangle(t);
+          emitClipped(patch.Point(v[0]), patch.Point(v[1]), patch.Point(v[2]), gridNormal(v[0]), gridNormal(v[1]),
+                      gridNormal(v[2]));
+        }
+      }
+      flushRow();
+    }
+  }
   return geometry;
 }
 
@@ -132,5 +195,20 @@ void TerrainShadeShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::B
   provider.InitStream(0, gpu::TerrainShadeVertex::GetBindingInfo(),
                       make_ref(const_cast<gpu::TerrainShadeVertex *>(m_vertices.data())));
   batcher->InsertTriangleList(context, state, make_ref(&provider));
+}
+
+void TerrainGridShadeShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                                 ref_ptr<dp::TextureManager> /* textures */) const
+{
+  auto state = CreateRenderState(gpu::Program::TerrainShade, DepthLayer::GeometryLayer);
+  state.SetDepthTestEnabled(true);
+  state.SetDepthFunction(dp::TestFunction::Less);
+  for (auto const & row : m_rows)
+  {
+    dp::AttributeProvider provider(1, static_cast<uint32_t>(row.size()));
+    provider.InitStream(0, gpu::TerrainShadeVertex::GetBindingInfo(),
+                        make_ref(const_cast<gpu::TerrainShadeVertex *>(row.data())));
+    batcher->InsertTriangleStrip(context, state, make_ref(&provider), false /* canDivide */);
+  }
 }
 }  // namespace df
