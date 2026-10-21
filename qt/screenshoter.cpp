@@ -119,7 +119,7 @@ Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework 
   , m_widget(widget)
 {
   m_framework.GetStorage().Subscribe(std::bind(&Screenshoter::OnCountryChanged, this, std::placeholders::_1),
-                                     [](storage::CountryId const &, downloader::Progress const &) {});
+                                     [](storage::CountryId const &, storage::Progress const &) {});
 }
 
 void Screenshoter::Start()
@@ -267,15 +267,10 @@ void Screenshoter::PrepareCountries()
   {
     auto countryIds = m_framework.GetCountryInfoGetter().GetRegionsCountryIdByRect(m_framework.GetCurrentViewport(),
                                                                                    false /* rough */);
+    // Wait for the maps only: their terrain may be missing or fail.
     for (auto const & countryId : countryIds)
-    {
-      if (storage.CountryStatusEx(countryId) == storage::Status::NotDownloaded)
-      {
-        ChangeState(State::WaitCountries);
+      if (!storage.HasLatestVersion(countryId))
         m_countriesToDownload.insert(countryId);
-        storage.DownloadCountry(countryId, MapFileType::Map);
-      }
-    }
   }
 
   if (m_countriesToDownload.empty())
@@ -283,15 +278,21 @@ void Screenshoter::PrepareCountries()
     ChangeState(State::WaitGraphics);
     WaitGraphics();
   }
+  else
+  {
+    ChangeState(State::WaitCountries);
+    auto const countries = m_countriesToDownload;
+    for (auto const & countryId : countries)
+      storage.DownloadNode(countryId, false /* isUpdate */, false /* withTerrain */);
+  }
 }
 
 void Screenshoter::OnCountryChanged(storage::CountryId countryId)
 {
-  if (m_state != State::WaitCountries)
+  if (m_state != State::WaitCountries || m_countriesToDownload.count(countryId) == 0)
     return;
 
-  auto const status = m_framework.GetStorage().CountryStatusEx(countryId);
-  if (status == storage::Status::OnDisk)
+  if (m_framework.GetStorage().HasLatestVersion(countryId))
   {
     m_countriesToDownload.erase(countryId);
     if (m_countriesToDownload.empty())

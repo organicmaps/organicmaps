@@ -16,6 +16,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "defines.hpp"
+
 namespace storage
 {
 bool NormalizeDebugMapDownloadServer(std::string const & rawUrl, std::string & normalizedUrl)
@@ -88,11 +90,14 @@ void MapFilesDownloader::RunMetaConfigAsync()
     settings::Update(metaConfig.settings);
     products::ProductsSettings::Instance().Update(std::move(metaConfig.productsConfig));
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, alive, metaConfigGeneration, servers = metaConfig.servers]()
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [this, alive, metaConfigGeneration, servers = std::move(metaConfig.servers),
+                           terrainServers = std::move(metaConfig.terrainServers)]() mutable
     {
       if (!alive->load(std::memory_order_acquire) || metaConfigGeneration != m_metaConfigGeneration)
         return;
       m_serversList = std::move(servers);
+      m_terrainServersList = std::move(terrainServers);
 
       // Drain all queued waiters (from DownloadMapFile and DownloadAsString).
       auto waiters = std::move(m_metaConfigWaiters);
@@ -191,6 +196,7 @@ void MapFilesDownloader::SetServersList(ServersList const & serversList)
   ++m_metaConfigGeneration;
 
   m_serversList = serversList;
+  m_terrainServersList = serversList;
   m_isMetaConfigRequested = false;
 
   if (m_serversList.empty())
@@ -222,9 +228,10 @@ bool MapFilesDownloader::IsDownloadingAllowed() const
 
 std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & relativeUrl) const
 {
+  auto const & servers = relativeUrl.starts_with(TERRAIN_DIR "/") ? m_terrainServersList : m_serversList;
   std::vector<std::string> urls;
-  urls.reserve(m_serversList.size());
-  for (auto const & server : m_serversList)
+  urls.reserve(servers.size());
+  for (auto const & server : servers)
     urls.emplace_back(url::Join(server, relativeUrl));
 
   return urls;
@@ -246,6 +253,8 @@ downloader::MetaConfig MapFilesDownloader::LoadMetaConfig() const
   {
     platform::HttpClient request(metaServerUrl);
     request.SetRawHeader("X-OM-DataVersion", std::to_string(m_dataVersion));
+    if (m_terrainDataVersion > 0)
+      request.SetRawHeader("X-OM-TerrainDataVersion", std::to_string(m_terrainDataVersion));
 
     request.SetRawHeader("X-OM-AppVersion", pl.Version());
     request.SetRawHeader("Accept-Language", GetAcceptLanguage());

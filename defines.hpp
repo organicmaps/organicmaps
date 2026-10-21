@@ -80,6 +80,7 @@ auto constexpr TMP_OFFSETS_EXT = OFFSET_EXT EXTENSION_TMP;
 #define COUNTRIES_ROOT "Countries"
 
 #define TERRAIN_DIR "terrain"
+#define TERRAIN_GRID_FILE "twm_grid.json"
 
 #define COUNTRIES_META_FILE "countries_meta.txt"
 #define TIMEZONE_INFO_FILE "generator/timezone/timezone_info.json"

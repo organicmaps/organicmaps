@@ -15,6 +15,8 @@ struct MetaConfig
 {
   using ServersList = std::vector<std::string>;
   ServersList servers;
+  // Older meta servers do not advertise terrain mirrors: ParseMetaConfig takes the defaults.
+  ServersList terrainServers;
   using SettingsMap = std::map<std::string, std::string>;
   SettingsMap settings;
   std::optional<products::ProductsConfig> productsConfig;
