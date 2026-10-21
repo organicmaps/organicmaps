@@ -390,7 +390,9 @@ UNIT_CLASS_TEST(VisualParamsFixture, ClipSplinesBuilder_DynamicIsolinesTileSeams
       auto query = params.m_tileRect;
       query.Scale(df::kIsolineSmoothScale);
       size_t const geomIndex = header.GetGeometryIndex(zoom);
-      terrain::TerrainData data(header.m_coordBits);
+      if (header.HasRaster(geomIndex))
+        query.Inflate(reader.GetRasterHalo().x, reader.GetRasterHalo().y);
+      terrain::TerrainData data;
       reader.ReadTerrain(query, geomIndex, data);
 
       std::vector<std::pair<int32_t, double>> result;
