@@ -5,6 +5,7 @@
 
 #include <QtGui/QOpenGLContext>
 
+#include <functional>
 #include <latch>
 #include <memory>
 
@@ -19,6 +20,8 @@ public:
   ~QtOGLContextFactory() override;
 
   void PrepareToShutdown();
+  // Called on the render thread after each new frame, to schedule an update instead of polling AcquireFrame().
+  void SetPresentListener(std::function<void()> fn);
 
   bool AcquireFrame();
   GLuint GetTextureHandle() const;
@@ -35,6 +38,7 @@ private:
   std::unique_ptr<QOffscreenSurface> CreateSurface();
 
   QOpenGLContext * m_rootContext;
+  std::function<void()> m_onPresent;
   std::unique_ptr<QtRenderOGLContext> m_drawContext;
   std::unique_ptr<QOffscreenSurface> m_drawSurface;
   std::unique_ptr<QtUploadOGLContext> m_uploadContext;
